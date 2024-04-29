@@ -1,2 +1,2 @@
-import DeletePropertyOrThrow = require('../2015/DeletePropertyOrThrow');
+import DeletePropertyOrThrow = require("../2015/DeletePropertyOrThrow");
 export = DeletePropertyOrThrow;

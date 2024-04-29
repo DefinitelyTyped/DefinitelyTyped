@@ -1,5 +1,5 @@
 {
     "rules": {
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off"
     }
 }

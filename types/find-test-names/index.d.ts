@@ -1,9 +1,4 @@
-// Type definitions for find-test-names 1.24
-// Project: https://github.com/bahmutov/find-test-names
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { formatTestList } from './format-test-list';
+import { formatTestList } from "./format-test-list";
 export interface VisitCallback {
     (test: Test | Suite, parentSuite?: Suite): void;
 }
@@ -21,13 +16,13 @@ export interface ResultsWithStructure extends Results {
 export interface Test {
     name: string;
     requiredTags: string[] | undefined;
-    type: 'test';
+    type: "test";
     tags: Tags;
     pending: boolean;
 }
 export interface TestInfo {
     name: string;
-    type: 'test';
+    type: "test";
     pending: boolean;
     tags?: Tags | undefined;
 }
@@ -36,7 +31,7 @@ export interface Suite {
     requiredTags?: string[] | undefined;
     tags?: Tags | undefined;
     pending: boolean;
-    type: 'suite';
+    type: "suite";
     tests: Test[];
     suites: Suite[];
     testCount: number;
@@ -44,7 +39,7 @@ export interface Suite {
 }
 export interface SuiteInfo {
     name: string;
-    type: 'suite';
+    type: "suite";
     pending: boolean;
     tags?: Tags | undefined;
 }
@@ -110,7 +105,6 @@ export function countTags(structure: Structure): Record<string, number>;
  */
 export function visitEachNode(structure: Structure, fn: VisitCallback, parentSuite: Suite): void;
 /**
- *
  * @param structure
  */
 export function setParentSuite(structure: Structure): void;

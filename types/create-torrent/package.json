@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/create-torrent",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/webtorrent/create-torrent#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/create-torrent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jesse Chan",
+            "githubUsername": "jesec"
+        }
+    ]
+}

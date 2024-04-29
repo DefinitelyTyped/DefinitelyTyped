@@ -1,9 +1,9 @@
-import Siema from 'siema';
+import Siema from "siema";
 
 const siema = new Siema({
-    selector: '.siema',
+    selector: ".siema",
     duration: 200,
-    easing: 'ease-out',
+    easing: "ease-out",
     perPage: 1,
     startIndex: 0,
     draggable: true,

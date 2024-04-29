@@ -12,4 +12,4 @@
  * trendLine.lineColor = "#CC0000";
  * chart.addTrendLine(trendLine);
  */
-export default class TrendLine { }
+export default class TrendLine {}

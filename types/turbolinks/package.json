@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/turbolinks",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/turbolinks/turbolinks"
+    ],
+    "devDependencies": {
+        "@types/turbolinks": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "evankim390",
+            "githubUsername": "evankim390"
+        }
+    ]
+}

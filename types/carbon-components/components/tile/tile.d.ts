@@ -10,7 +10,7 @@ interface TileOptions {
 declare const Tile_base: any;
 declare class Tile extends Tile_base {
     constructor(element: HTMLElement, options?: TileOptions);
-    _getClass: (type: 'expandable' | 'clickable' | 'selectable') => string;
+    _getClass: (type: "expandable" | "clickable" | "selectable") => string;
     _hookActions: (tileClass: string) => void;
     _setTileHeight: () => void;
     release(): void;

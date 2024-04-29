@@ -8,12 +8,12 @@ const component: React.FC = () => {
                 image={{
                     src: "https://raw.githubusercontent.com/rpearce/react-medium-image-zoom/master/docs/bridge.jpg",
                     alt: "Golden Gate Bridge",
-                    className: "img"
+                    className: "img",
                 }}
                 zoomImage={{
                     src: "https://raw.githubusercontent.com/rpearce/react-medium-image-zoom/master/docs/bridge-big.jpg",
                     alt: "Golden Gate Bridge",
-                    className: "img--zoomed"
+                    className: "img--zoomed",
                 }}
             />
         </div>

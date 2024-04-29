@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/hapi__catbox",
+    "version": "10.2.9999",
+    "projects": [
+        "https://github.com/hapijs/catbox"
+    ],
+    "devDependencies": {
+        "@types/hapi__catbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Swearingen",
+            "githubUsername": "jasonswearingen"
+        },
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Rodrigo Saboya",
+            "githubUsername": "saboya"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        }
+    ]
+}

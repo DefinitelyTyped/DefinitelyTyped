@@ -1,9 +1,9 @@
-import * as http from 'http';
-import * as auth from 'http-auth';
+import * as http from "http";
+import * as auth from "http-auth";
 
 const basic = auth.basic({
-    realm: 'Simon Area.',
-    file: __dirname + '/../data/users.htpasswd', // gevorg:gpass, Sarah:testpass
+    realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
 });
 
 const server = http.createServer();
@@ -16,5 +16,5 @@ http.createServer(
     }),
 ).listen(1337, () => {
     // Log URL.
-    console.log('Server running at http://127.0.0.1:1337/');
+    console.log("Server running at http://127.0.0.1:1337/");
 });

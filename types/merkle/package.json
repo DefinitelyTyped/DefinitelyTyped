@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/merkle",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/c-geek/merkle"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/merkle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yu Hsin Lu",
+            "githubUsername": "kerol2r20"
+        }
+    ]
+}

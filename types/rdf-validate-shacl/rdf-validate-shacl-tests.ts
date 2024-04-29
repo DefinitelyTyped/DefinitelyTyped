@@ -1,12 +1,12 @@
-import { DataFactory, DatasetCore, DatasetCoreFactory, NamedNode, Literal } from '@rdfjs/types';
-import { GraphPointer } from 'clownface';
-import SHACLValidator = require('rdf-validate-shacl');
-import $rdf from 'rdf-ext';
-import { ValidationResult } from 'rdf-validate-shacl/src/validation-report';
-import ValidationReport = require('rdf-validate-shacl/src/validation-report');
-import BlankNodeExt from 'rdf-ext/lib/BlankNode';
-import LiteralExt from 'rdf-ext/lib/Literal';
-import NamedNodeExt from 'rdf-ext/lib/NamedNode';
+import { DataFactory, DatasetCore, DatasetCoreFactory, Literal, NamedNode } from "@rdfjs/types";
+import { GraphPointer } from "clownface";
+import SHACLValidator = require("rdf-validate-shacl");
+import $rdf from "rdf-ext";
+import { ValidationResult } from "rdf-validate-shacl/src/validation-report";
+import ValidationReport = require("rdf-validate-shacl/src/validation-report");
+import BlankNodeExt from "rdf-ext/lib/BlankNode";
+import LiteralExt from "rdf-ext/lib/Literal";
+import NamedNodeExt from "rdf-ext/lib/NamedNode";
 
 const shapes: DatasetCore = <any> {};
 const data: DatasetCore = <any> {};

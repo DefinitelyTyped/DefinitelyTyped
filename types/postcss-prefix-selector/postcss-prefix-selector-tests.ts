@@ -1,4 +1,4 @@
-import postcssPrefixSelector = require('postcss-prefix-selector');
+import postcssPrefixSelector = require("postcss-prefix-selector");
 
-// $ExpectType (root: any) => string | undefined
+// $ExpectType (root: Root_) => void
 postcssPrefixSelector({});

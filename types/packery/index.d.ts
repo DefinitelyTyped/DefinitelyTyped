@@ -1,90 +1,69 @@
-// Type definitions for Packery v1.4.1
-// Project: http://packery.metafizzy.co
-// Definitions by:  Piraveen Kamalathas from Kilix <https://github.com/piraveen>
-//                  Juliën Hanssens <https://github.com/hanssens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
-declare module 'packery' {
-
+declare module "packery" {
     export interface PackeryOptions {
         /**
          * [itemSelector Specifies which child elements to be used as item elements. Setting itemSelector is always recommended. itemSelector is useful to exclude sizing elements]
-         * @type {string}
          */
         itemSelector?: string | undefined;
 
         /**
          * [columnWidth The width of a column of a horizontal grid. When set, Packery will align item elements horizontally to this grid]
-         * @type {number}
          */
         columnWidth?: number | undefined;
 
         /**
          * [rowHeight Height of a row of a vertical grid. When set, Packery will align item elements vertically to this grid]
-         * @type {number}
          */
         rowHeight?: number | undefined;
 
         /**
          * [gutter The space between item elements, both vertically and horizontally]
-         * @type {number}
          */
         gutter?: number | undefined;
 
         /**
          * [percentPosition Will set item position in percent values, rather than pixel values. percentPosition works well with percent-width items, as items will not transition their position on resize]
-         * @type {boolean}
          */
         percentPosition?: boolean | undefined;
 
         /**
          * [stamp Specifies which elements are stamped within the layout. These are special layout elements which will not be laid out by Packery. Rather, Packery will layout item elements around stamped elements]
-         * @type {string}
          */
         stamp?: string | undefined;
 
         /**
          * [isHorizontal Arranges items horizontally instead of vertically]
-         * @type {boolean}
          */
         isHorizontal?: boolean | undefined;
 
         /**
          * [isOriginLeft Controls the horizontal flow of the layout. By default, item elements start positioning at the left. Set to false for right-to-left layouts]
-         * @type {boolean}
          */
         isOriginLeft?: boolean | undefined;
 
         /**
          * [isOriginTop Controls the vertical flow of the layout. By default, item elements start positioning at the top. Set to false for bottom-up layouts. It’s like Tetris!]
-         * @type {boolean}
          */
         isOriginTop?: boolean | undefined;
 
         /**
          * [transitionDuration The time duration of transitions for item elements]
-         * @type {string}
          */
         transitionDuration?: string | undefined;
 
         /**
          * [containerStyle CSS styles that are applied to the container element. To disable Packery from setting any CSS to the container element, set containerStyle: null]
-         * @type {Object}
          */
         containerStyle?: Object | undefined;
 
         /**
          * [isResizeBound Binds layout to window resizing]
-         * @type {boolean}
          */
         isResizeBound?: boolean | undefined;
 
         /**
          * [isInitLayout Enables layout on initialization. Set this to false to disable layout on initialization, so you can use methods or add events before the initial layout]
-         * @type {boolean}
          */
         isInitLayout?: boolean | undefined;
     }
@@ -108,7 +87,7 @@ declare module 'packery' {
          * [addItems Add item elements to the Packery instance]
          * @param {Array<Element>} elements [description]
          */
-        addItems(elements: Array<Element>): void;
+        addItems(elements: Element[]): void;
 
         /**
          * [appended Add and lay out newly appended item elements]
@@ -126,7 +105,7 @@ declare module 'packery' {
          * [appended Add and lay out newly appended item elements]
          * @param {Array<Element>} elements [description]
          */
-        appended(elements: Array<Element>): void;
+        appended(elements: Element[]): void;
 
         /**
          * [bindDraggabillyEvents Bind Draggabilly events, so that the Packery instance will layout around the dragged element]
@@ -169,7 +148,7 @@ declare module 'packery' {
          * [getItemElements Get an array of elements used as the Packery instance's items.]
          * @return {Array<Element>}      [description]
          */
-        getItemElements(): Array<Element>;
+        getItemElements(): Element[];
 
         /**
          * [getItem Get a Packery.Item from an element]
@@ -187,7 +166,7 @@ declare module 'packery' {
          * [layoutItems Lay out specified items]
          * @param {Array<Packery.items>} items [description]
          */
-        layoutItems(items: Array<any>): void;
+        layoutItems(items: any[]): void;
 
         /**
          * [off Remove an event listener]
@@ -228,7 +207,7 @@ declare module 'packery' {
          * [prepended Add and lay out newly prepended item elements at the beginning of layout]
          * @param {Array<Element>} elements [description]
          */
-        prepended(elements: Array<Element>): void;
+        prepended(elements: Element[]): void;
 
         /**
          * [reloadItems Recollect all item elements]
@@ -251,7 +230,7 @@ declare module 'packery' {
          * [remove Remove elements from the Packery instance, then from the DOM]
          * @param {Array<Element>} elements [description]
          */
-        remove(elements: Array<Element>): void;
+        remove(elements: Element[]): void;
 
         /**
          * [stamp Stamp the elements in the layout. Packery will lay out item elements around stamped element]
@@ -269,7 +248,7 @@ declare module 'packery' {
          * [stamp Stamp the elements in the layout. Packery will lay out item elements around stamped element]
          * @param {Array<Element>} elements [description]
          */
-        stamp(elements: Array<Element>): void;
+        stamp(elements: Element[]): void;
 
         /**
          * [unbindResize Un-bind layout to window resize event]
@@ -292,7 +271,6 @@ declare module 'packery' {
          * [unstamp Un-stamp the elements, so that Packery will no longer layout item elements around them]
          * @param {Array<Element>} element [description]
          */
-        unstamp(element: Array<Element>): void;
+        unstamp(element: Element[]): void;
     }
-
 }

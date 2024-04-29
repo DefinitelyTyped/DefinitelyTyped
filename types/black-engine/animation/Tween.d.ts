@@ -65,4 +65,4 @@ export class Tween extends Component {
     private __reverse;
     __collectStartingValues(): void;
 }
-import { Component } from '../core/Component';
+import { Component } from "../core/Component";

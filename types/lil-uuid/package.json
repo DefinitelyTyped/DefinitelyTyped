@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lil-uuid",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/lil-js/uuid"
+    ],
+    "devDependencies": {
+        "@types/lil-uuid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pr1st0n",
+            "githubUsername": "Pr1st0n"
+        }
+    ]
+}

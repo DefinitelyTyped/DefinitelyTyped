@@ -1,5 +1,5 @@
-import { Term } from '@rdfjs/types';
-import { ScoreFn } from '.';
+import { Term } from "@rdfjs/types";
+import { ScoreFn } from "./index.js";
 
 interface SubjectExists {
     subject: Term;

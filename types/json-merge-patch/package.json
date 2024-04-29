@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-merge-patch",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/pierreinglebert/json-merge-patch"
+    ],
+    "devDependencies": {
+        "@types/json-merge-patch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jimmy Leung",
+            "githubUsername": "jimmy-leung-coherent"
+        }
+    ]
+}

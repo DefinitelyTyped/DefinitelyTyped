@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { ReactLIAttr } from '../../../typings/shared';
+import * as React from "react";
+import { ReactLIAttr } from "../../../typings/shared";
 
 export interface HeadingClickData {
     event: React.MouseEvent<HTMLElement>;
     isOpen: boolean;
 }
 
-export interface AccordionItemProps extends Omit<ReactLIAttr, 'title'> {
+export interface AccordionItemProps extends Omit<ReactLIAttr, "title"> {
     disabled?: boolean | undefined;
     /**
      * @deprecated

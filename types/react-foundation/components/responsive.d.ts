@@ -1,9 +1,9 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { Component } from 'react';
-import * as PropTypes from 'prop-types';
-import { TopBarProps } from './top-bar';
-import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
+import * as PropTypes from "prop-types";
+import * as React from "react";
+import { Component } from "react";
+import { FlexboxPropTypes, GeneralPropTypes } from "../utils";
+import { TopBarProps } from "./top-bar";
 /**
  * Responsive navigation component.
  * http://foundation.zurb.com/sites/docs/responsive-navigation.html
@@ -23,7 +23,7 @@ export declare class ResponsiveNavigation extends Component<ResponsiveNavigation
      * Called when the menu icon is clicked.
      */
     toggle(): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
     static propTypes: {
         breakpoint: PropTypes.Validator<any>;
         alignX: PropTypes.Requireable<any>;

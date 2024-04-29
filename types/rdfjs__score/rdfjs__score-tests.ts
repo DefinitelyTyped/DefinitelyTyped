@@ -1,9 +1,5 @@
-import { Term, DatasetCore } from '@rdfjs/types';
-import { MultiPointer, GraphPointer } from 'clownface';
+import Environment from "@rdfjs/environment/Environment";
 import {
-    ScoreCb,
-    Score,
-    Pointers,
     combine,
     concat,
     count,
@@ -14,16 +10,20 @@ import {
     language,
     pageRank,
     pathDepth,
+    Pointers,
     prioritized,
     product,
     scale,
+    Score,
+    ScoreCb,
     sort,
     sortObjects,
     sum,
-    type
-} from '@rdfjs/score';
-import Factory from '@rdfjs/score/Factory';
-import Environment from '@rdfjs/environment/Environment';
+    type,
+} from "@rdfjs/score";
+import Factory from "@rdfjs/score/Factory";
+import { DatasetCore, Term } from "@rdfjs/types";
+import { GraphPointer, MultiPointer } from "clownface";
 
 const score: ScoreCb = <any> {};
 const clownfacePointer: MultiPointer = <any> {};
@@ -47,7 +47,7 @@ function test_count() {
     const countSubjects = count()(ptrs);
 
     // $ExpectType Score[]
-    const countAllBut = count({subject: false, graph: true, object: true, predicate: true})(ptrs);
+    const countAllBut = count({ subject: false, graph: true, object: true, predicate: true })(ptrs);
 }
 
 function test_distinct() {
@@ -67,19 +67,19 @@ function test_exists() {
     exists({})(ptrs);
 
     // $ExpectType Score[]
-    exists({subject})(ptrs);
+    exists({ subject })(ptrs);
 
     // $ExpectType Score[]
-    exists({predicate})(ptrs);
+    exists({ predicate })(ptrs);
 
     // $ExpectType Score[]
-    exists({object})(ptrs);
+    exists({ object })(ptrs);
 
     // $ExpectType Score[]
-    exists({graph})(ptrs);
+    exists({ graph })(ptrs);
 
     // $ExpectType Score[]
-    exists({subject, predicate, object, graph})(ptrs);
+    exists({ subject, predicate, object, graph })(ptrs);
 }
 
 function test_fallback() {
@@ -96,7 +96,7 @@ function test_fixed() {
 
 function test_language() {
     // $ExpectType Score[]
-    language(['en', 'de', '*'])(ptrs);
+    language(["en", "de", "*"])(ptrs);
 }
 
 function test_pageRank() {
@@ -141,7 +141,7 @@ function test_sort() {
 }
 
 interface SortedObj {
-  deep: { term: Term };
+    deep: { term: Term };
 }
 
 function test_sortObjects() {
@@ -161,7 +161,7 @@ function test_sortObjects() {
         dataset,
         objects: customObjects,
         score,
-        termCallback: obj => obj.deep.term
+        termCallback: obj => obj.deep.term,
     });
 }
 
@@ -199,6 +199,6 @@ function test_Factory() {
         sort,
         sortObjects,
         sum,
-        type
+        type,
     } = fromEnv.score;
 }

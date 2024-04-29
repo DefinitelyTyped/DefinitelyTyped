@@ -1,6 +1,33 @@
 {
-  "private": true,
-  "dependencies": {
-      "@rdfjs/types": "*"
-  }
+    "private": true,
+    "name": "@types/rdfjs__environment",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/environment"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@rdfjs/types": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rdfjs__environment": "workspace:.",
+        "@types/rdfjs__formats": "*",
+        "@types/rdfjs__data-model": "*",
+        "@types/rdfjs__dataset": "*",
+        "@types/rdfjs__namespace": "*",
+        "@types/rdfjs__sink-map": "*",
+        "@types/rdfjs__term-map": "*",
+        "@types/rdfjs__term-set": "*"
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "Jesse Wright",
+            "githubUsername": "jeswr"
+        }
+    ]
 }

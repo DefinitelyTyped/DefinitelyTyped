@@ -1,19 +1,19 @@
 /// <reference types="node"/>
 
-import singleLineLog = require('single-line-log');
+import singleLineLog = require("single-line-log");
 const log = singleLineLog.stderr;
 
 let i = 0;
 
 setInterval(() => {
-  i++;
+    i++;
 
-  const s = `line 1: ${Math.random()}`;
+    const s = `line 1: ${Math.random()}`;
 
-  log(s);
+    log(s);
 
-  if (i === 50) {
-    log.clear();
-    process.exit(0);
-  }
+    if (i === 50) {
+        log.clear();
+        process.exit(0);
+    }
 }, 200);

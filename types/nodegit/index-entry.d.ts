@@ -1,4 +1,4 @@
-import { Oid } from './oid';
+import { Oid } from "./oid";
 
 export interface IndexTime {
     seconds(): number;

@@ -1,8 +1,3 @@
-// Type definitions for diff3 0.0
-// Project: https://github.com/axosoft/diff3#readme
-// Definitions by: Alex Titarenko <https://github.com/alex-titarenko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace diff3Merge {
     interface Conflict {
         a: string[];

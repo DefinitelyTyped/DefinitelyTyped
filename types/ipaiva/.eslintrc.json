@@ -1,5 +1,11 @@
 {
     "rules": {
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

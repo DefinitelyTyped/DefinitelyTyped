@@ -1,10 +1,4 @@
-// Type definitions for redux-promise-listener 1.1
-// Project: https://github.com/erikras/redux-promise-listener
-// Definitions by: hikiko4ern <https://github.com/hikiko4ern>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-import { AnyAction, Middleware } from 'redux';
+import { AnyAction, Middleware } from "redux";
 
 export default ReduxPromiseListener.createListener;
 
@@ -15,7 +9,7 @@ declare namespace ReduxPromiseListener {
         StartAction extends AnyAction,
         ResolveAction extends AnyAction,
         RejectAction extends AnyAction,
-        TReturn
+        TReturn,
     > {
         start: string;
         resolve: string | ActionMatcher;
@@ -33,12 +27,14 @@ declare namespace ReduxPromiseListener {
     interface PromiseListener {
         middleware: Middleware<{}, AnyAction>;
         createAsyncFunction: <
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             StartAction extends AnyAction,
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             ResolveAction extends AnyAction,
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             RejectAction extends AnyAction,
-            TReturn = ResolveAction['payload']
+            TReturn = ResolveAction["payload"],
         >(
-            // eslint-disable-next-line no-unnecessary-generics
             config: Config<StartAction, ResolveAction, RejectAction, TReturn>,
         ) => AsyncFunction<TReturn>;
     }

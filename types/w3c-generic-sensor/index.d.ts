@@ -1,9 +1,3 @@
-// Type definitions for non-npm package W3C Generic Sensor API 1.0
-// Project: https://www.w3.org/TR/generic-sensor/
-// Definitions by: Kenneth Rohde Christiansen <https://github.com/kenchris>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Explainer: https://www.w3.org/TR/motion-sensors/
 
 declare class SensorErrorEvent extends Event {
@@ -26,11 +20,11 @@ declare class Sensor extends EventTarget {
     onerror: (this: this, ev: SensorErrorEvent) => any;
 
     addEventListener(
-        type: 'reading' | 'activate',
+        type: "reading" | "activate",
         listener: (this: this, ev: Event) => any,
         useCapture?: boolean,
     ): void;
-    addEventListener(type: 'error', listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
+    addEventListener(type: "error", listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
 }
 
 interface SensorOptions {
@@ -38,7 +32,7 @@ interface SensorOptions {
 }
 
 interface MotionSensorOptions extends SensorOptions {
-    referenceFrame?: 'device' | 'screen' | undefined;
+    referenceFrame?: "device" | "screen" | undefined;
 }
 
 // Accelerometer: https://www.w3.org/TR/accelerometer/

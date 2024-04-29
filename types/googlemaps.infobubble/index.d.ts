@@ -1,16 +1,10 @@
-// Type definitions for CSS3 InfoBubble with tabs for Google Maps API 3.0
-// Project: http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/
-// Definitions by: Johan Nilsson <https://github.com/Dashue>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 /// <reference types="google-maps" />
 
 /**
  * @name CSS3 InfoBubble with tabs for Google Maps API V3
  * @version 0.8
  * @author Luke Mahe
- * @fileoverview
+ * @file
  * This library is a CSS Infobubble with tabs. It uses css3 rounded corners and
  * drop shadows and animations. It also allows tabs
  */
@@ -40,43 +34,41 @@ THE SOFTWARE.
 */
 
 declare namespace google.maps.infobubble {
-
     export interface InfoBubble {
         /**
-          * Closes the infobubble
-          */
+         * Closes the infobubble
+         */
         close(): void;
 
         /**
-          * Checks if the infobubble is currently open
-          */
+         * Checks if the infobubble is currently open
+         */
         isOpen(): boolean;
 
         /**
-          * Opens the infobubble
-          * @map The google map object
-          * @marker The marker used for anchoring the infobubble to
-          */
-        open(map: google.maps.Map, marker: google.maps.Marker) : void;
+         * Opens the infobubble
+         * @param map The google map object
+         * @param marker The marker used for anchoring the infobubble to
+         */
+        open(map: google.maps.Map, marker: google.maps.Marker): void;
 
         /**
-          * Returns the position of the InfoBubble
-          */
+         * Returns the position of the InfoBubble
+         */
         getPosition(): google.maps.LatLng;
     }
 
     export interface InfoBubbleOptions {
-
         /**
-          * Percentage from the bottom left corner of the infobubble
-          */
+         * Percentage from the bottom left corner of the infobubble
+         */
         arrowPosition?: number | undefined;
 
         arrowSize?: number | undefined;
 
         /**
-          * 0: Middle, 1: Left, 2: Right
-          */
+         * 0: Middle, 1: Left, 2: Right
+         */
         arrowStyle?: number | undefined;
 
         backgroundColor?: string | undefined;
@@ -102,8 +94,8 @@ declare namespace google.maps.infobubble {
         padding?: number | undefined;
 
         /**
-          * 0: None, 1: Right, 2: Under
-          */
+         * 0: None, 1: Right, 2: Under
+         */
         shadowStyle?: number | undefined;
     }
 }

@@ -1,35 +1,39 @@
-import parseTorrent = require('parse-torrent');
-import * as fs from 'fs';
+import parseTorrent = require("parse-torrent");
+import * as fs from "fs";
 
 // info hash (as a hex string)
-parseTorrent('d2474e86c95b19b8bcfdb92bc12c9d44667cfa36');
+parseTorrent("d2474e86c95b19b8bcfdb92bc12c9d44667cfa36");
 // { infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36' }
 
 // info hash (as a Buffer)
-parseTorrent(new Buffer('d2474e86c95b19b8bcfdb92bc12c9d44667cfa36', 'hex'));
+parseTorrent(new Buffer("d2474e86c95b19b8bcfdb92bc12c9d44667cfa36", "hex"));
 // { infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36' }
 
 // magnet uri (as a utf8 string)
-parseTorrent('magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36');
+parseTorrent("magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36");
 // { xt: 'urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 //   infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36' }
 
 // magnet uri with torrent name
-parseTorrent('magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves%20of%20Grass%20by%20Walt%20Whitman.epub');
+parseTorrent(
+    "magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&dn=Leaves%20of%20Grass%20by%20Walt%20Whitman.epub",
+);
 // { xt: 'urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 //   dn: 'Leaves of Grass by Walt Whitman.epub',
 //   infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 //   name: 'Leaves of Grass by Walt Whitman.epub' }
 
 // magnet uri with trackers
-parseTorrent('magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&tr=http%3A%2F%2Ftracker.example.com%2Fannounce');
+parseTorrent(
+    "magnet:?xt=urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36&tr=http%3A%2F%2Ftracker.example.com%2Fannounce",
+);
 // { xt: 'urn:btih:d2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 //   tr: 'http://tracker.example.com/announce',
 //   infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
 //   announce: [ 'http://tracker.example.com/announce' ] }
 
 // .torrent file (as a Buffer)
-parseTorrent(fs.readFileSync(__dirname + '/torrents/leaves.torrent'));
+parseTorrent(fs.readFileSync(__dirname + "/torrents/leaves.torrent"));
 // { info:
 //    { length: 362017,
 //      name: <Buffer 4c 65 61 76 65 73 20 6f 66 20 47 72 61 73 73 20 62 79 20 57 61 6c 74 20 57 68 69 74 6d 61 6e 2e 65 70 75 62>,
@@ -78,14 +82,14 @@ parseTorrent(fs.readFileSync(__dirname + '/torrents/leaves.torrent'));
 //      'c698de9b0dad92980906c026d8c1408fa08fe4ec' ] }
 
 const uri = parseTorrent.toMagnetURI({
-    infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
+    infoHash: "d2474e86c95b19b8bcfdb92bc12c9d44667cfa36",
 });
 
 const buf = parseTorrent.toTorrentFile({
-    infoHash: 'd2474e86c95b19b8bcfdb92bc12c9d44667cfa36',
+    infoHash: "d2474e86c95b19b8bcfdb92bc12c9d44667cfa36",
 });
 
-parseTorrent.remote('d2474e86c95b19b8bcfdb92bc12c9d44667cfa36', (err, parsedTorrent) => {
+parseTorrent.remote("d2474e86c95b19b8bcfdb92bc12c9d44667cfa36", (err, parsedTorrent) => {
     // if (err) throw err
     // console.log(parsedTorrent)
 });

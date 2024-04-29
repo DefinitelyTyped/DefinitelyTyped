@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jsreport-handlebars",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jsreport/jsreport-handlebars"
+    ],
+    "dependencies": {
+        "@types/jsreport-core": "*"
+    },
+    "devDependencies": {
+        "@types/jsreport-handlebars": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "pofider",
+            "githubUsername": "pofider"
+        }
+    ]
+}

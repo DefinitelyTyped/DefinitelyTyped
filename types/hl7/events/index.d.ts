@@ -1,11 +1,11 @@
 // import { ADT } from './adt.event';
 
-export * from './base.event';
-export * from './adt.event';
-export * from './orm.event';
-export * from './siu.event';
-export * from './oru.event';
-export * from './omg.event';
+export * from "./adt.event";
+export * from "./base.event";
+export * from "./omg.event";
+export * from "./orm.event";
+export * from "./oru.event";
+export * from "./siu.event";
 
 /**
  * The standard is written from the assumption that an event in the real world of healthcare creates the need for data to flow among systems.

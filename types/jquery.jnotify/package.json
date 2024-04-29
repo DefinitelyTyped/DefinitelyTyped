@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.jnotify",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.jnotify",
+    "projects": [
+        "http://jnotify.codeplex.com"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.jnotify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Curran",
+            "githubUsername": "jamescurran"
+        }
+    ]
+}

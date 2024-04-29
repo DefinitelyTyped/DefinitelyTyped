@@ -9,7 +9,11 @@ permissions:
 jobs:
   lint-md:
     runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     steps:
-      - uses: actions/checkout@v3
-      - run: npm install
-      - run: npx remark --frail . .github
+      - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+      - run: pnpm remark --frail . .github

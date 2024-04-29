@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/auth0-js",
+    "version": "9.21.9999",
+    "projects": [
+        "https://github.com/auth0/auth0.js"
+    ],
+    "devDependencies": {
+        "@types/auth0-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adrian Chia",
+            "githubUsername": "adrianchia"
+        },
+        {
+            "name": "Matt Durrant",
+            "githubUsername": "mdurrant"
+        },
+        {
+            "name": "Peter Blazejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Bartosz Kotrys",
+            "githubUsername": "bkotrys"
+        },
+        {
+            "name": "Mark Nelissen",
+            "githubUsername": "marknelissen"
+        },
+        {
+            "name": "Tyler Lindell",
+            "githubUsername": "tylerlindell"
+        },
+        {
+            "name": "Henri Kinnunen",
+            "githubUsername": "hequ"
+        }
+    ]
+}

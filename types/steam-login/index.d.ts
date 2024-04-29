@@ -1,10 +1,4 @@
-// Type definitions for steam-login 0.1
-// Project: https://github.com/cpancake/steam-login
-// Definitions by: Nick Winans <https://github.com/Nicell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Request, RequestHandler } from 'express';
+import { Request, RequestHandler } from "express";
 
 export interface MiddlewareOptions {
     verify: string;

@@ -1,4 +1,4 @@
-import { BidiDirection } from './UnicodeBidiDirection';
+import { BidiDirection } from "./UnicodeBidiDirection";
 
 /**
  * Basic (stateless) API for text direction detection
@@ -51,5 +51,5 @@ declare namespace UnicodeBidi {
     function isDirectionRTL(str: string, strongFallback: BidiDirection | null): boolean;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = UnicodeBidi;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-domain-name",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/emilbayes/is-domain-name#readme"
+    ],
+    "devDependencies": {
+        "@types/is-domain-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

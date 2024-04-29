@@ -1,3 +1,3 @@
-import { toISODateString } from '../../index';
+import { toISODateString } from "../../index";
 
 export default toISODateString;

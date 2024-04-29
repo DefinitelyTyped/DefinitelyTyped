@@ -1,10 +1,10 @@
-import { trim, toCamelcase, reverseCamelcase, Operator } from 'object-keys-mapping';
+import { Operator, reverseCamelcase, toCamelcase, trim } from "object-keys-mapping";
 
-trim({ name: '' });
+trim({ name: "" });
 
-toCamelcase({ will_be_camelcase: '' });
+toCamelcase({ will_be_camelcase: "" });
 
-reverseCamelcase({ willBeUnderlined: '' });
+reverseCamelcase({ willBeUnderlined: "" });
 
 const operator = new Operator({ camelcase: true });
 

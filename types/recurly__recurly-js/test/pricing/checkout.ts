@@ -1,4 +1,4 @@
-export default function subscriptionPricing() {
+export default function subscriptionPricing () {
   const checkoutPricing = window.recurly.Pricing.Checkout();
 
   const el = document.querySelector('div');

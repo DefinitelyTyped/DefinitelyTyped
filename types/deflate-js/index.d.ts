@@ -1,8 +1,3 @@
-// Type definitions for deflate-js 0.2
-// Project: https://github.com/beatgammit/deflate-js
-// Definitions by: Seb Renauld <https://github.com/srenauld>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Takes a byte sequence and deflates it
  *

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/use-set-timeout",
+    "version": "1.0.9999",
+    "projects": [
+        "https://reacthooks.org/use-set-timeout"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/use-set-timeout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        }
+    ]
+}

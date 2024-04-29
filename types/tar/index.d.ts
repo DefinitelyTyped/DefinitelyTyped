@@ -1,14 +1,9 @@
-// Type definitions for tar 6.1
-// Project: https://github.com/npm/node-tar
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Connor Peet <https://github.com/connor4312>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TODO: When/if typings for [fstream](https://github.com/npm/fstream) are written, refactor this typing to use it for the various streams.
-
 /// <reference types="node" />
 
-import stream = require('stream');
-import zlib = require('zlib');
-import MiniPass = require('minipass');
+import stream = require("stream");
+import zlib = require("zlib");
+import MiniPass = require("minipass");
+import fs = require("fs");
 
 // #region Interfaces
 
@@ -25,13 +20,6 @@ export interface HeaderProperties {
     gname?: string | undefined;
     devmaj?: number | undefined;
     devmin?: number | undefined;
-}
-
-export interface ExtractOptions {
-    type?: string | undefined;
-    Directory?: boolean | undefined;
-    path?: string | undefined;
-    strip?: number | undefined;
 }
 
 export interface ParseStream extends NodeJS.ReadWriteStream {
@@ -101,8 +89,8 @@ export const fieldEnds: number[];
  */
 export const types: {
     0: string;
-    '\0': string;
-    '': string;
+    "\0": string;
+    "": string;
     1: string;
     2: string;
     3: string;
@@ -207,16 +195,16 @@ export interface ParseOptions {
  * A writable stream. Write tar data to it and it will emit entry events for each entry parsed from the tarball. This is used by tar.Extract.
  */
 export interface Parse extends ParseStream {
-    on(event: 'end' | 'close', listener: () => void): this;
-    on(event: 'entry', listener: (entry: ReadEntry) => void): this;
+    on(event: "end" | "close", listener: () => void): this;
+    on(event: "entry", listener: (entry: ReadEntry) => void): this;
 }
 
 export const Parse: {
-    new (opt?: ParseOptions): Parse;
+    new(opt?: ParseOptions): Parse;
 };
-//#endregion
+// #endregion
 
-//#region Global Methods
+// #region Global Methods
 
 export interface PackOptions {
     /**
@@ -235,7 +223,7 @@ export interface PackOptions {
      *
      * @default process.cwd()
      */
-    cwd?: string[];
+    cwd?: string;
     /**
      * A path portion to prefix onto the entries in the archive.
      */
@@ -246,10 +234,15 @@ export interface PackOptions {
      */
     gzip?: boolean | zlib.ZlibOptions;
     /**
+     * Set to any truthy value to create a brotli-compressed archive,
+     * or an object with settings for zlib.BrotliCompress()
+     */
+    brotli?: boolean | zlib.BrotliOptions;
+    /**
      * A function that gets called with (path, stat) for each entry being added.
      * Return true to add the entry to the archive, or false to omit it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
     /**
      * Omit metadata that is system-specific: ctime, atime, uid, gid, uname,
      * gname, dev, ino, and nlink. Note that mtime is still included, because
@@ -312,7 +305,7 @@ export interface PackOptions {
      * Set to a Date object to force a specific mtime for everything added to
      * the archive. Overridden by noMtime.
      */
-    mtime?: number;
+    mtime?: Date;
 }
 
 /**
@@ -321,9 +314,9 @@ export interface PackOptions {
  * The optional properties object are used to set properties in the tar 'Global Extended Header'.
  */
 export class Pack extends MiniPass {
-    linkCache: PackOptions['linkCache'];
-    readdirCache: PackOptions['readdirCache'];
-    statCache: PackOptions['statCache'];
+    linkCache: PackOptions["linkCache"];
+    readdirCache: PackOptions["readdirCache"];
+    statCache: PackOptions["statCache"];
 
     static Sync: typeof PackSync;
 
@@ -396,10 +389,10 @@ export interface ReadEntry extends MiniPass, HeaderProperties {
 
 export interface CreateOptions {
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.
@@ -428,10 +421,16 @@ export interface CreateOptions {
     z?: boolean | zlib.ZlibOptions | undefined;
 
     /**
+     * Set to any truthy value to create a brotli-compressed archive,
+     * or an object with settings for zlib.BrotliCompress()
+     */
+    brotli?: boolean | zlib.BrotliOptions | undefined;
+
+    /**
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to add the entry to the archive, or false to omit it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
 
     /**
      * Omit metadata that is system-specific: ctime, atime, uid, gid, uname,
@@ -484,6 +483,19 @@ export interface CreateOptions {
     noPax?: boolean | undefined;
 
     /**
+     * Set to true to omit writing mtime values for entries. Note that this prevents using other mtime-based features
+     * like `tar.update` or the `keepNewer` option with the resulting tar archive. [Alias: m, no-mtime]
+     */
+    noMtime?: boolean | undefined;
+    m?: boolean | undefined;
+    "no-mtime"?: boolean | undefined;
+
+    /**
+     * Set to a Date object to force a specific mtime for everything added to the archive. Overridden by noMtime.
+     */
+    mtime?: Date;
+
+    /**
      * A path portion to prefix onto the entries in the archive.
      */
     prefix?: string | undefined;
@@ -491,10 +503,10 @@ export interface CreateOptions {
 
 export interface ExtractOptions {
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.
@@ -527,12 +539,12 @@ export interface ExtractOptions {
     /**
      * Alias for newer.
      */
-    'keep-newer'?: boolean | undefined;
+    "keep-newer"?: boolean | undefined;
 
     /**
      * Alias for newer.
      */
-    'keep-newer-files'?: boolean | undefined;
+    "keep-newer-files"?: boolean | undefined;
 
     /**
      * Do not overwrite existing files. In particular, if a file appears more
@@ -548,7 +560,21 @@ export interface ExtractOptions {
     /**
      * Alias for keep.
      */
-    'keep-existing'?: boolean | undefined;
+    "keep-existing"?: boolean | undefined;
+
+    /**
+     * Allow absolute paths, paths containing .., and extracting
+     * through symbolic links. By default, / is stripped from
+     * absolute paths, .. paths are not extracted, and any file
+     * whose location would be modified by a symbolic link is not
+     * extracted.
+     */
+    preservePaths?: boolean | undefined;
+
+    /**
+     * Alias for presevePaths.
+     */
+    P?: boolean | undefined;
 
     /**
      * Unlink files before creating them. Without this option, tar overwrites
@@ -568,7 +594,7 @@ export interface ExtractOptions {
     /**
      * Alias for strip.
      */
-    'strip-components'?: number | undefined;
+    "strip-components"?: number | undefined;
 
     /**
      * Alias for strip.
@@ -613,7 +639,7 @@ export interface ExtractOptions {
      */
     noMtime?: boolean | undefined;
     m?: boolean | undefined;
-    'no-mtime'?: boolean | undefined;
+    "no-mtime"?: boolean | undefined;
 
     /**
      * Provide a function that takes an entry object, and returns a stream,
@@ -709,10 +735,10 @@ export interface ReplaceOptions {
     sync?: boolean | undefined;
 
     /**
-     * A function that will get called with (message, data)
-     * for any warnings encountered.
+     * A function that will get called with (code, message, data) for any
+     * warnings encountered. (See "Warnings and Errors")
      */
-    onwarn?(message: string, data: Buffer): void;
+    onwarn?(code: string, message: string, data: Buffer): void;
 
     /**
      * Treat warnings as crash-worthy errors. Default false.
@@ -736,16 +762,10 @@ export interface ReplaceOptions {
     prefix?: string | undefined;
 
     /**
-     * Set to any truthy value to create a gzipped archive,
-     * or an object with settings for zlib.Gzip()
-     */
-    gzip?: boolean | zlib.ZlibOptions | undefined;
-
-    /**
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to emit the entry from the archive, or false to skip it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
 
     /**
      * Allow absolute paths. By default, / is stripped from absolute paths.
@@ -798,17 +818,19 @@ export interface FileOptions {
     f?: string | undefined;
 }
 
-export type RequiredFileOptions = {
-    /**
-     * Uses the given file as the input or output of this function.
-     */
-    file: string;
-} | {
-    /**
-     * Alias for file.
-     */
-    f: string;
-};
+export type RequiredFileOptions =
+    | {
+        /**
+         * Uses the given file as the input or output of this function.
+         */
+        file: string;
+    }
+    | {
+        /**
+         * Alias for file.
+         */
+        f: string;
+    };
 
 /**
  * Create a tarball archive. The fileList is an array of paths to add to the
@@ -820,7 +842,7 @@ export type RequiredFileOptions = {
  */
 export function create(
     options: CreateOptions,
-    fileList: ReadonlyArray<string>,
+    fileList: readonly string[],
     callback?: (err?: Error) => void,
 ): stream.Readable;
 
@@ -830,11 +852,11 @@ export function create(
  * fileList that starts with an @ symbol is a tar archive whose entries will
  * be added. To add a file that starts with @, prepend it with `./`.
  */
-export function create(options: CreateOptions & FileOptions, fileList: ReadonlyArray<string>): Promise<void>;
-export function create(options: CreateOptions & FileOptions & { sync: true }, fileList: ReadonlyArray<string>): void;
+export function create(options: CreateOptions & FileOptions, fileList: readonly string[]): Promise<void>;
+export function create(options: CreateOptions & FileOptions & { sync: true }, fileList: readonly string[]): void;
 export function create(
     options: CreateOptions & FileOptions,
-    fileList: ReadonlyArray<string>,
+    fileList: readonly string[],
     callback: (err?: Error) => void,
 ): void;
 
@@ -857,7 +879,7 @@ export const c: typeof create;
  */
 export function extract(
     options: ExtractOptions,
-    fileList?: ReadonlyArray<string>,
+    fileList?: readonly string[],
     callback?: (err?: Error) => void,
 ): stream.Writable;
 
@@ -871,11 +893,11 @@ export function extract(
  * extraction errors will cause a warn event to be emitted. If the cwd is
  * missing, or not a directory, then the extraction will fail completely.
  */
-export function extract(options: ExtractOptions & FileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function extract(options: ExtractOptions & FileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
+export function extract(options: ExtractOptions & FileOptions, fileList?: readonly string[]): Promise<void>;
+export function extract(options: ExtractOptions & FileOptions & { sync: true }, fileList?: readonly string[]): void;
 export function extract(
     options: ExtractOptions & FileOptions,
-    fileList: ReadonlyArray<string> | undefined,
+    fileList: readonly string[] | undefined,
     callback: (err?: Error) => void,
 ): void;
 
@@ -890,11 +912,11 @@ export const x: typeof extract;
  * are listed. If the archive is gzipped, then tar will detect this and unzip
  * it.
  */
-export function list(options: ListOptions & RequiredFileOptions, fileList?: ReadonlyArray<string>): Promise<void>;
-export function list(options: ListOptions & RequiredFileOptions & { sync: true }, fileList?: ReadonlyArray<string>): void;
+export function list(options: ListOptions & RequiredFileOptions, fileList?: readonly string[]): Promise<void>;
+export function list(options: ListOptions & RequiredFileOptions & { sync: true }, fileList?: readonly string[]): void;
 export function list(callback?: (err?: Error) => void): Parse;
-export function list(optionsOrFileList: ListOptions | ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
-export function list(options: ListOptions, fileList: ReadonlyArray<string>, callback?: (err?: Error) => void): Parse;
+export function list(optionsOrFileList: ListOptions | readonly string[], callback?: (err?: Error) => void): Parse;
+export function list(options: ListOptions, fileList: readonly string[], callback?: (err?: Error) => void): Parse;
 
 /**
  * Alias for list
@@ -909,10 +931,10 @@ export const t: typeof list;
  * a tar archive whose entries will be added. To add a file that
  * starts with @, prepend it with ./.
  */
-export function replace(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
+export function replace(options: ReplaceOptions, fileList?: readonly string[]): Promise<void>;
 export function replace(
     options: ReplaceOptions,
-    fileList: ReadonlyArray<string> | undefined,
+    fileList: readonly string[] | undefined,
     callback: (err?: Error) => void,
 ): Promise<void>;
 
@@ -928,10 +950,10 @@ export const r: typeof replace;
  * that starts with an @ symbol is a tar archive whose entries will be added.
  * To add a file that starts with @, prepend it with ./.
  */
-export function update(options: ReplaceOptions, fileList?: ReadonlyArray<string>): Promise<void>;
+export function update(options: ReplaceOptions, fileList?: readonly string[]): Promise<void>;
 export function update(
     options: ReplaceOptions,
-    fileList: ReadonlyArray<string> | undefined,
+    fileList: readonly string[] | undefined,
     callback: (err?: Error) => void,
 ): Promise<void>;
 

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/debounce",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/component/debounce"
+    ],
+    "devDependencies": {
+        "@types/debounce": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Sokolov",
+            "githubUsername": "denis-sokolov"
+        },
+        {
+            "name": "Wayne Carson",
+            "githubUsername": "wcarson"
+        }
+    ]
+}

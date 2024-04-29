@@ -1,6 +1,6 @@
-import { Duplex } from 'stream';
-import { JSONObject } from './sharedb';
-import ShareDbBackend = require('..');
+import { Duplex } from "stream";
+import { JSONObject } from "./sharedb";
+import ShareDbBackend = require("..");
 
 export = Agent;
 
@@ -31,6 +31,10 @@ declare class Agent<TCustom = any> {
      * active, and it is passed to each middleware call.
      */
     custom: TCustom;
+
+    clientId: string;
+    src: string;
+    connectTime: number;
 
     /**
      * Sends a JSON-compatible message to the client for this agent.

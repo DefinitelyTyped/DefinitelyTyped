@@ -1,6 +1,7 @@
 {
     "rules": {
-        "trim-file": "off",
-        "prefer-declare-function": "off"
+        "@definitelytyped/prefer-declare-function": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

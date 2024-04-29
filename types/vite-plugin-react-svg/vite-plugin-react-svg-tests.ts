@@ -1,28 +1,28 @@
-import { PluginOption } from 'vite';
-import reactSvgPlugin = require('vite-plugin-react-svg');
+import { PluginOption } from "vite";
+import reactSvgPlugin = require("vite-plugin-react-svg");
 
 const testCases: Array<PluginOption | PluginOption[]> = [
     reactSvgPlugin({
-        defaultExport: 'component',
-        expandProps: 'start',
+        defaultExport: "component",
+        expandProps: "start",
         memo: false,
         ref: false,
         replaceAttrValues: {
             someKey: 42,
-            anotherKey: 'value',
+            anotherKey: "value",
         },
         svgProps: {
-            role: 'alert',
+            role: "alert",
         },
         svgo: true,
         svgoConfig: {
-            datauri: 'base64',
+            datauri: "base64",
         },
         titleProp: true,
     }),
     reactSvgPlugin({
-        defaultExport: 'url',
-        expandProps: 'end',
+        defaultExport: "url",
+        expandProps: "end",
     }),
     reactSvgPlugin({
         expandProps: false,
@@ -33,6 +33,6 @@ const testCases: Array<PluginOption | PluginOption[]> = [
     }),
     reactSvgPlugin({
         // @ts-expect-error
-        expandProps: 'en',
+        expandProps: "en",
     }),
 ];

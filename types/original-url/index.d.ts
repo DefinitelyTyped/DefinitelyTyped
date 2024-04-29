@@ -1,11 +1,6 @@
-// Type definitions for original-url 1.2
-// Project: https://github.com/watson/original-url#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
 
 export = originalUrl;
 

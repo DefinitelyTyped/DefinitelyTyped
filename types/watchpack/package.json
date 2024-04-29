@@ -1,3 +1,25 @@
 {
-  "private": true
+    "private": true,
+    "name": "@types/watchpack",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/webpack/watchpack"
+    ],
+    "dependencies": {
+        "@types/graceful-fs": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/watchpack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "e-cloud",
+            "githubUsername": "e-cloud"
+        },
+        {
+            "name": "Adam Jones",
+            "githubUsername": "domdomegg"
+        }
+    ]
 }

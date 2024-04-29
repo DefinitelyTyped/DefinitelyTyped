@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/has-bigints",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/has-bigints#readme"
+    ],
+    "devDependencies": {
+        "@types/has-bigints": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

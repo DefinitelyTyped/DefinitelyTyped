@@ -23,5 +23,5 @@ export class Stage extends GameObject {
     set localTransformation(arg: Matrix);
     get localTransformation(): Matrix;
 }
-import { Matrix } from '../geom/Matrix';
-import { GameObject } from '../core/GameObject';
+import { GameObject } from "../core/GameObject";
+import { Matrix } from "../geom/Matrix";

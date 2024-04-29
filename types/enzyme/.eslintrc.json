@@ -1,6 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

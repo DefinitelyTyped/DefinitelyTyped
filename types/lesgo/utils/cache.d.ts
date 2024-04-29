@@ -1,4 +1,4 @@
-import Memcached = require('memcached');
+import Memcached = require("memcached");
 
 export function ec(conn: string | null): Memcached;
 export function get(key: string): Promise<any>;

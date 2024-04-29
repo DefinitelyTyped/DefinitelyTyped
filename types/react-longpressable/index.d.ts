@@ -1,16 +1,10 @@
-// Type definitions for react-longpressable 1.1
-// Project: https://github.com/stardust66/react-longpressable#readme
-// Definitions by: VingeRay <https://github.com/vingeraycn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface LongPressProps {
     onLongPress: (e: React.SyntheticEvent) => void;
     onShortPress?: (e: React.SyntheticEvent) => void;
 
     /**
-     *
      * @default 500ms
      */
     longPressTime?: number;
@@ -21,7 +15,6 @@ export interface LongPressProps {
     primaryMouseButtonOnly?: boolean;
 
     /**
-     *
      * @default 100ms
      */
     dragThreshold?: number;

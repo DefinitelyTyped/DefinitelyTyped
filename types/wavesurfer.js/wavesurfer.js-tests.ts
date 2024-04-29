@@ -1,39 +1,39 @@
-import WaveSurfer = require('wavesurfer.js');
-import Init from 'wavesurfer.js/src/html-init';
-import PeakCache from 'wavesurfer.js/src/peakcache';
-import CursorPlugin from 'wavesurfer.js/src/plugin/cursor';
-import ElanPlugin from 'wavesurfer.js/src/plugin/elan';
-import MarkersPlugin from 'wavesurfer.js/src/plugin/markers';
-import MediaSessionPlugin from 'wavesurfer.js/src/plugin/mediasession';
-import MicrophonePlugin from 'wavesurfer.js/src/plugin/microphone';
-import MinimapPlugin from 'wavesurfer.js/src/plugin/minimap';
-import RegionsPlugin, { Region, RegionParams } from 'wavesurfer.js/src/plugin/regions';
-import SpectrogramPlugin from 'wavesurfer.js/src/plugin/spectrogram';
-import TimelinePlugin from 'wavesurfer.js/src/plugin/timeline';
-import { PluginDefinition, PluginParams } from 'wavesurfer.js/types/plugin';
+import WaveSurfer = require("wavesurfer.js");
+import Init from "wavesurfer.js/src/html-init";
+import PeakCache from "wavesurfer.js/src/peakcache";
+import CursorPlugin from "wavesurfer.js/src/plugin/cursor";
+import ElanPlugin from "wavesurfer.js/src/plugin/elan";
+import MarkersPlugin from "wavesurfer.js/src/plugin/markers";
+import MediaSessionPlugin from "wavesurfer.js/src/plugin/mediasession";
+import MicrophonePlugin from "wavesurfer.js/src/plugin/microphone";
+import MinimapPlugin from "wavesurfer.js/src/plugin/minimap";
+import RegionsPlugin, { Region, RegionParams, RegionUpdatedEventParams } from "wavesurfer.js/src/plugin/regions";
+import SpectrogramPlugin from "wavesurfer.js/src/plugin/spectrogram";
+import TimelinePlugin from "wavesurfer.js/src/plugin/timeline";
+import { PluginDefinition, PluginParams } from "wavesurfer.js/types/plugin";
 
 // https://www.npmjs.com/package/wavesurfer.js#api-in-examples
 // - create an instance
 const wavesurfer = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     ignoreSilenceMode: true, // 5.2
-    progressColor: 'purple',
+    progressColor: "purple",
     vertical: false,
-    waveColor: 'violet',
+    waveColor: "violet",
 });
 // -- subscribe to some events
-wavesurfer.on('ready', () => {
+wavesurfer.on("ready", () => {
     wavesurfer.play();
 });
 // -- load an audio file
-wavesurfer.load('audio/sample.wav');
+wavesurfer.load("audio/sample.wav");
 if (wavesurfer.isReady) {
-    throw new Error('Should not be ready');
+    throw new Error("Should not be ready");
 }
 
 // - create an instance with "new"
 const wsNewed = new WaveSurfer({
-    container: '#waveform',
+    container: "#waveform",
     xhr: {
         withCredentials: true,
     },
@@ -47,7 +47,7 @@ class SamplePlugin {
     constructor(params: PluginParams, ws: WaveSurfer) {}
     static create(params: PluginParams): PluginDefinition {
         return {
-            name: 'samplePlugin',
+            name: "samplePlugin",
             instance: SamplePlugin,
             params,
         };
@@ -55,15 +55,15 @@ class SamplePlugin {
     init(): void {}
     destroy(): void {}
     foo(): void {
-        console.log('foo');
+        console.log("foo");
     }
 }
 const wsWithPlugins = WaveSurfer.create({
-    container: '#waveform',
-    waveColor: 'violet',
+    container: "#waveform",
+    waveColor: "violet",
     plugins: [
         SamplePlugin.create({
-            container: '#waveform',
+            container: "#waveform",
         }),
     ],
 });
@@ -72,49 +72,49 @@ wsWithPlugins.samplePlugin.foo();
 
 // - plugin: cursor
 const waveSurferWithCursorPlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [CursorPlugin.create({})],
 });
 waveSurferWithCursorPlugin.cursor.destroy();
 
 // - plugin: elan
 const waveSurferWithElanPlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [ElanPlugin.create({})],
 });
 waveSurferWithElanPlugin.elan.destroy();
 
 // - plugin: markers
-const button = document.createElement('button');
-button.innerHTML = 'click';
+const button = document.createElement("button");
+button.innerHTML = "click";
 const waveSurferWithMarkersPlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [
         MarkersPlugin.create({
             markers: [
                 {
                     time: 0,
-                    label: 'BEGIN',
-                    color: '#ff990a',
+                    label: "BEGIN",
+                    color: "#ff990a",
                 },
                 {
                     time: 5.5,
-                    label: 'V1',
-                    color: '#ff990a',
+                    label: "V1",
+                    color: "#ff990a",
                     draggable: true,
                 },
                 {
                     time: 10,
-                    label: 'V2',
-                    color: '#00ffcc',
-                    position: 'top',
+                    label: "V2",
+                    color: "#00ffcc",
+                    position: "top",
                     markerElement: button,
                 },
                 {
                     time: 24,
-                    label: 'END',
-                    color: '#00ffcc',
-                    position: 'top',
+                    label: "END",
+                    color: "#00ffcc",
+                    position: "top",
                 },
             ],
         }),
@@ -124,14 +124,14 @@ waveSurferWithMarkersPlugin.markers.destroy();
 
 // - plugin: mediasession
 const waveSurferWithMediaSessionPlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [
         MediaSessionPlugin.create({
             metadata: {
-                album: 'Acme',
-                artist: 'Acme',
+                album: "Acme",
+                artist: "Acme",
                 artwork: [],
-                title: 'Foobar',
+                title: "Foobar",
             },
         }),
     ],
@@ -140,40 +140,50 @@ waveSurferWithMediaSessionPlugin.mediasession.destroy();
 
 // - plugin: microphone
 const waveSurferWithMicrophonePlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [MicrophonePlugin.create({})],
 });
 waveSurferWithMicrophonePlugin.minimap.destroy();
 
 // - plugin: minimap
 const waveSurferWithMinimapPlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [MinimapPlugin.create({})],
 });
 waveSurferWithMinimapPlugin.minimap.destroy();
 
 // - plugin: regions
 const waveSurferWithRegionsPlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [
         RegionsPlugin.create({
             maxRegions: 1,
+            formatTimeCallback: (start: number, end: number) => `${start.toFixed(2)}:${end.toFixed(2)}`,
         }),
     ],
 });
 // $ExpectType number
 waveSurferWithRegionsPlugin.regions.maxRegions;
-const regionOptions: RegionParams = { start: 7, end: 13, data: { label: 'Hello, World!', fontSize: 99 } };
+const regionOptions: RegionParams = { start: 7, end: 13, data: { label: "Hello, World!", fontSize: 99 } };
 const region: Region = waveSurferWithRegionsPlugin.addRegion(regionOptions);
-region.update({ start: 13, end: 23, data: { label: 'Bye, World!', fontSize: 24 } });
+waveSurferWithRegionsPlugin.util.getId();
+waveSurferWithRegionsPlugin.util.getId("foo_");
+waveSurferWithRegionsPlugin.on("region-updated", (region: Region, eventParams: RegionUpdatedEventParams) => {
+    eventParams.action;
+    eventParams.direction;
+    eventParams.oldText;
+    eventParams.text;
+});
+region.bindDragEvents();
+region.update({ start: 13, end: 23, data: { text: "Hello", label: "Bye, World!", fontSize: 24 } });
 waveSurferWithRegionsPlugin.regions.destroy();
 
 // - plugin: spectrogram
 const waveSurferWithSpectrogramPlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [
         SpectrogramPlugin.create({
-            container: '#spectrogram',
+            container: "#spectrogram",
         }),
     ],
 });
@@ -181,17 +191,17 @@ waveSurferWithSpectrogramPlugin.spectrogram.destroy();
 
 // - plugin: timeline
 const waveSurferWithTimelinePlugin = WaveSurfer.create({
-    container: '#waveform',
+    container: "#waveform",
     plugins: [
         TimelinePlugin.create({
-            container: '#timeline',
+            container: "#timeline",
         }),
     ],
 });
 waveSurferWithTimelinePlugin.timeline.destroy();
 
 // - Init
-const waveSurferForInit = new WaveSurfer({ container: '#waveform' });
+const waveSurferForInit = new WaveSurfer({ container: "#waveform" });
 const init = new Init(waveSurferForInit);
 init.initAllEls();
 

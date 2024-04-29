@@ -1,22 +1,3 @@
-// Type definitions for Jasmine 4.3
-// Project: http://jasmine.github.io
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Theodore Brown <https://github.com/theodorejb>
-//                 David Pärsson <https://github.com/davidparsson>
-//                 Lukas Zech <https://github.com/lukas-zech-software>
-//                 Boris Breuer <https://github.com/Engineer2B>
-//                 Chris Yungmann <https://github.com/cyungmann>
-//                 Giles Roadnight <https://github.com/Roaders>
-//                 Yaroslav Admin <https://github.com/devoto13>
-//                 Domas Trijonis <https://github.com/fdim>
-//                 Moshe Kolodny <https://github.com/kolodny>
-//                 Stephen Farrar <https://github.com/stephenfarrar>
-//                 Dominik Ehrenberg <https://github.com/djungowski>
-//                 Chives <https://github.com/chivesrs>
-//                 kirjs <https://github.com/kirjs>
-//                 Md. Enzam Hossain <https://github.com/ienzam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
 
 /**
@@ -182,7 +163,7 @@ declare function spyOn<T, K extends keyof T = keyof T>(
     object: T,
     method: T[K] extends Function ? K : never,
 ): jasmine.Spy<
-    T[K] extends jasmine.Func ? T[K] : T[K] extends { new (...args: infer A): infer V } ? (...args: A) => V : never
+    T[K] extends jasmine.Func ? T[K] : T[K] extends { new(...args: infer A): infer V } ? (...args: A) => V : never
 >;
 
 /**
@@ -192,9 +173,61 @@ declare function spyOn<T, K extends keyof T = keyof T>(
  * @param accessType The access type (get|set) of the property to `Spy` on.
  */
 declare function spyOnProperty<T, K extends keyof T = keyof T>(
-    object: T, property: K, accessType?: "get"): jasmine.Spy<(this: T) => T[K]>;
+    object: T,
+    property: K,
+    accessType?: "get",
+): jasmine.Spy<(this: T) => T[K]>;
 declare function spyOnProperty<T, K extends keyof T = keyof T>(
-    object: T, property: K, accessType: "set"): jasmine.Spy<(this: T, value: T[K]) => void>;
+    object: T,
+    property: K,
+    accessType: "set",
+): jasmine.Spy<(this: T, value: T[K]) => void>;
+
+interface ThrowUnlessFailure {
+    /**
+     * The name of the matcher that was executed for this expectation.
+     */
+    matcherName: string;
+    /**
+     * The failure message for the expectation.
+     */
+    message: string;
+    /**
+     * Whether the expectation passed or failed.
+     */
+    passed: boolean;
+    /**
+     * If the expectation failed, what was the expected value.
+     */
+    expected: any;
+    /**
+     * If the expectation failed, what actual value was produced.
+     */
+    actual: any;
+}
+/**
+ * Create an expectation for a spec and throw an error if it fails.
+ * @checkReturnValue see https://tsetse.info/check-return-value
+ * @param spy
+ */
+declare function throwUnless<T extends jasmine.Func>(spy: T | jasmine.Spy<T>): jasmine.FunctionMatchers<T>;
+/**
+ * Create an expectation for a spec and throw an error if it fails.
+ * @checkReturnValue see https://tsetse.info/check-return-value
+ * @param actual Actual computed value to test expectations against.
+ */
+declare function throwUnless<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
+/**
+ * Create an expectation for a spec and throw an error if it fails.
+ * @checkReturnValue see https://tsetse.info/check-return-value
+ * @param actual Actual computed value to test expectations against.
+ */
+declare function throwUnless<T>(actual: T): jasmine.Matchers<T>;
+/**
+ * Create an asynchronous expectation for a spec and throw an error if it fails.
+ * @param actual Actual computed value to test expectations against.
+ */
+declare function throwUnlessAsync<T, U>(actual: T | PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Installs spies on all writable and configurable properties of an object.
@@ -217,8 +250,8 @@ declare namespace jasmine {
         | ObjectContaining<T>
         | AsymmetricMatcher<any>
         | {
-              [K in keyof T]: ExpectedRecursive<T[K]> | Any;
-          };
+            [K in keyof T]: ExpectedRecursive<T[K]> | Any;
+        };
     type Expected<T> =
         | T
         | ObjectContaining<T>
@@ -226,14 +259,19 @@ declare namespace jasmine {
         | Any
         | Spy
         | {
-              [K in keyof T]: ExpectedRecursive<T[K]>;
-          };
-    type SpyObjMethodNames<T = undefined> = T extends undefined
-        ? ReadonlyArray<string> | { [methodName: string]: any }
-        : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] extends Func ? ReturnType<T[P]> : any };
+            [K in keyof T]: ExpectedRecursive<T[K]>;
+        };
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? readonly string[] | { [methodName: string]: any }
+        : (
+            | ReadonlyArray<keyof T>
+            | {
+                [P in keyof T]?:
+                    // Value should be the return type (unless this is a method on Object.prototype, since all object literals contain those methods)
+                    T[P] extends Func ? (ReturnType<T[P]> | (P extends keyof Object ? Object[P] : never)) : any;
+            }
+        );
 
-    type SpyObjPropertyNames<T = undefined> = T extends undefined
-        ? ReadonlyArray<string> | { [propertyName: string]: any }
+    type SpyObjPropertyNames<T = undefined> = T extends undefined ? readonly string[] | { [propertyName: string]: any }
         : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] };
 
     /**
@@ -346,6 +384,15 @@ declare namespace jasmine {
      */
     function notEmpty(): AsymmetricMatcher<any>;
 
+    /**
+     * Get an AsymmetricMatcher, usable in any matcher
+     * that passes if the actual value is the same as the sample as determined
+     * by the `===` operator.
+     * @param sample The value to compare the actual to.
+     * @since 4.2.0
+     */
+    function is(sample: any): AsymmetricMatcher<any>;
+
     function arrayContaining<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function arrayWithExactContents<T>(sample: ArrayLike<T>): ArrayContaining<T>;
     function objectContaining<T>(sample: { [K in keyof T]?: ExpectedRecursive<T[K]> }): ObjectContaining<T>;
@@ -383,14 +430,14 @@ declare namespace jasmine {
 
     function stringMatching(str: string | RegExp): AsymmetricMatcher<string>;
 
-    function stringContaining(str: string | RegExp): AsymmetricMatcher<string>;
+    function stringContaining(str: string): AsymmetricMatcher<string>;
     /**
      * @deprecated Private method that may be changed or removed in the future
      */
     function formatErrorMsg(domain: string, usage: string): (msg: string) => string;
 
     interface Any extends AsymmetricMatcher<any> {
-        new (expectedClass: any): any;
+        new(expectedClass: any): any;
         jasmineToString(prettyPrint: (value: any) => string): string;
     }
 
@@ -425,6 +472,7 @@ declare namespace jasmine {
         withMock(func: () => void): void;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     type CustomObjectFormatter = (value: unknown) => string | undefined;
@@ -474,7 +522,7 @@ declare namespace jasmine {
         equals(a: any, b: any): boolean;
         contains<T>(
             haystack: ArrayLike<T> | string,
-            needle: any
+            needle: any,
         ): boolean;
         /**
          * @deprecated Private method that may be changed or removed in the future
@@ -498,8 +546,6 @@ declare namespace jasmine {
         clearReporters(): void;
         configuration(): Configuration;
         configure(configuration: Configuration): void;
-        execute(runnablesToRun: Suite[] | null | undefined, onComplete: Func): void;
-        /** @async */
         execute(runnablesToRun?: Suite[]): PromiseLike<JasmineDoneInfo>;
         provideFallbackReporter(reporter: CustomReporter): void;
         /**
@@ -518,11 +564,11 @@ declare namespace jasmine {
     }
 
     interface HtmlReporter {
-        new (): any;
+        new(): any;
     }
 
     interface HtmlSpecFilter {
-        new (): any;
+        new(): any;
     }
 
     interface Result {
@@ -544,7 +590,7 @@ declare namespace jasmine {
     }
 
     interface Order {
-        new (options: { random: boolean; seed: number | string }): any;
+        new(options: { random: boolean; seed: number | string }): any;
         random: boolean;
         seed: number | string;
         sort<T>(items: T[]): T[];
@@ -676,7 +722,7 @@ declare namespace jasmine {
         toBeCloseTo(expected: number, precision: any, expectationFailOutput: any): void;
         toThrow(expected?: any): void;
         toThrowError(message?: string | RegExp): void;
-        toThrowError(expected?: new (...args: any[]) => Error, message?: string | RegExp): void;
+        toThrowError(expected?: new(...args: any[]) => Error, message?: string | RegExp): void;
         toThrowMatching(predicate: (thrown: any) => boolean): void;
         toBeNegativeInfinity(): void;
         /**
@@ -869,7 +915,7 @@ declare namespace jasmine {
          * @param expected Error constructor the object that was thrown needs to be an instance of. If not provided, Error will be used.
          * @param message The message that should be set on the thrown Error.
          */
-        toBeRejectedWithError(expected?: new (...args: any[]) => Error, message?: string | RegExp): PromiseLike<void>;
+        toBeRejectedWithError(expected?: new(...args: any[]) => Error, message?: string | RegExp): PromiseLike<void>;
 
         /**
          * Expect a promise to be rejected with a value matched to the expected.
@@ -1018,7 +1064,7 @@ declare namespace jasmine {
     type SpecFunction = (spec?: Spec) => void;
 
     interface Spec {
-        new (attrs: any): any;
+        new(attrs: any): any;
 
         readonly id: number;
         env: Env;
@@ -1039,8 +1085,9 @@ declare namespace jasmine {
         withArgs(...args: MatchableArgs<Fn>): Spy<Fn>;
     }
 
-    type SpyObj<T> = T &
-        {
+    type SpyObj<T> =
+        & T
+        & {
             [K in keyof T]: T[K] extends Func ? T[K] & Spy<T[K]> : T[K];
         };
 
@@ -1130,7 +1177,7 @@ declare namespace jasmine {
     }
 
     interface JsApiReporter extends CustomReporter {
-        new (): any;
+        new(): any;
 
         started: boolean;
         finished: boolean;

@@ -1,10 +1,10 @@
 // Tests that were present in the old 1.1 type declarations
 // These tests are copied more or less directly from http://dygraphs.com/tests/
 
-import Dygraph, { dygraphs } from 'dygraphs';
+import Dygraph, { dygraphs } from "dygraphs";
 
 function demo() {
-    const g14 = new Dygraph(document.getElementById('div_g14')!, 'data', {
+    const g14 = new Dygraph(document.getElementById("div_g14")!, "data", {
         rollPeriod: 14,
         errorBars: true,
         labelsSeparateLines: true,
@@ -14,14 +14,14 @@ function demo() {
 function twoAxes() {
     const data = [] as number[][];
 
-    const g = new Dygraph(document.getElementById('demodiv')!, data, {
-        labels: ['Date', 'Y1', 'Y2', 'Y3', 'Y4'],
+    const g = new Dygraph(document.getElementById("demodiv")!, data, {
+        labels: ["Date", "Y1", "Y2", "Y3", "Y4"],
         series: {
             Y3: {
-                axis: 'y2',
+                axis: "y2",
             },
             Y4: {
-                axis: 'y2',
+                axis: "y2",
             },
         },
         axes: {
@@ -33,20 +33,20 @@ function twoAxes() {
                 axisLabelWidth: 60,
             },
         },
-        ylabel: 'Primary y-axis',
-        y2label: 'Secondary y-axis',
+        ylabel: "Primary y-axis",
+        y2label: "Secondary y-axis",
     });
 
-    const g2 = new Dygraph(document.getElementById('demodiv_y2_primary')!, data, {
-        labels: ['Date', 'Y1', 'Y2', 'Y3', 'Y4'],
-        ylabel: 'Primary y-axis',
-        y2label: 'Secondary y-axis',
+    const g2 = new Dygraph(document.getElementById("demodiv_y2_primary")!, data, {
+        labels: ["Date", "Y1", "Y2", "Y3", "Y4"],
+        ylabel: "Primary y-axis",
+        y2label: "Secondary y-axis",
         series: {
             Y3: {
-                axis: 'y2',
+                axis: "y2",
             },
             Y4: {
-                axis: 'y2',
+                axis: "y2",
             },
         },
         axes: {
@@ -64,16 +64,16 @@ function twoAxes() {
         },
     });
 
-    const g3 = new Dygraph(document.getElementById('demodiv_two_grids')!, data, {
-        labels: ['Date', 'Y1', 'Y2', 'Y3', 'Y4'],
-        ylabel: 'Primary y-axis',
-        y2label: 'Secondary y-axis',
+    const g3 = new Dygraph(document.getElementById("demodiv_two_grids")!, data, {
+        labels: ["Date", "Y1", "Y2", "Y3", "Y4"],
+        ylabel: "Primary y-axis",
+        y2label: "Secondary y-axis",
         series: {
             Y3: {
-                axis: 'y2',
+                axis: "y2",
             },
             Y4: {
-                axis: 'y2',
+                axis: "y2",
             },
         },
         axes: {
@@ -87,29 +87,29 @@ function twoAxes() {
         },
     });
 
-    const g4 = new Dygraph(document.getElementById('demodiv_one')!, data, {
-        labels: ['Date', 'Y1', 'Y2', 'Y3', 'Y4'],
+    const g4 = new Dygraph(document.getElementById("demodiv_one")!, data, {
+        labels: ["Date", "Y1", "Y2", "Y3", "Y4"],
         labelsKMB: true,
-        ylabel: 'Primary y-axis',
-        y2label: 'Secondary y-axis',
+        ylabel: "Primary y-axis",
+        y2label: "Secondary y-axis",
     });
 
-    const g5 = new Dygraph(document.getElementById('demodiv_one_right')!, data, {
-        labels: ['Date', 'Y1', 'Y2', 'Y3', 'Y4'],
-        ylabel: 'Primary y-axis',
-        y2label: 'Secondary y-axis',
+    const g5 = new Dygraph(document.getElementById("demodiv_one_right")!, data, {
+        labels: ["Date", "Y1", "Y2", "Y3", "Y4"],
+        ylabel: "Primary y-axis",
+        y2label: "Secondary y-axis",
         series: {
             Y1: {
-                axis: 'y2',
+                axis: "y2",
             },
             Y2: {
-                axis: 'y2',
+                axis: "y2",
             },
             Y3: {
-                axis: 'y2',
+                axis: "y2",
             },
             Y4: {
-                axis: 'y2',
+                axis: "y2",
             },
         },
         axes: {
@@ -137,8 +137,8 @@ function twoAxes() {
 }
 
 function perSeries() {
-    const data = '1234';
-    const g = new Dygraph(document.getElementById('demodiv')!, data, {
+    const data = "1234";
+    const g = new Dygraph(document.getElementById("demodiv")!, data, {
         strokeWidth: 2,
         series: {
             parabola: {
@@ -152,11 +152,11 @@ function perSeries() {
                 drawPoints: true,
                 pointSize: 1.5,
             },
-            'sine wave': {
+            "sine wave": {
                 strokeWidth: 3,
                 highlightCircleSize: 10,
             },
-            'sine wave2': {
+            "sine wave2": {
                 strokePattern: [10, 2, 5, 2],
                 strokeWidth: 2,
                 highlightCircleSize: 3,
@@ -164,8 +164,8 @@ function perSeries() {
         },
     });
 
-    const g2 = new Dygraph(document.getElementById('demodiv2')!, data, {
-        legend: 'always',
+    const g2 = new Dygraph(document.getElementById("demodiv2")!, data, {
+        legend: "always",
         strokeWidth: 2,
         series: {
             parabola: {
@@ -180,15 +180,15 @@ function perSeries() {
                 drawPoints: true,
                 pointSize: 1.5,
             },
-            'another line': {
+            "another line": {
                 strokePattern: [25, 5],
             },
-            'sine wave': {
+            "sine wave": {
                 strokePattern: Dygraph.DOTTED_LINE,
                 strokeWidth: 3,
                 highlightCircleSize: 10,
             },
-            'sine wave2': {
+            "sine wave2": {
                 strokePattern: Dygraph.DOT_DASH_LINE,
                 strokeWidth: 2,
                 highlightCircleSize: 3,
@@ -196,7 +196,7 @@ function perSeries() {
         },
     });
 
-    const g3 = new Dygraph(document.getElementById('demodiv3')!, data, {
+    const g3 = new Dygraph(document.getElementById("demodiv3")!, data, {
         strokeWidth: 2,
         series: {
             parabola: {
@@ -210,11 +210,11 @@ function perSeries() {
                 drawPoints: true,
                 pointSize: 1.5,
             },
-            'sine wave': {
+            "sine wave": {
                 strokeWidth: 3,
                 highlightCircleSize: 10,
             },
-            'sine wave2': {
+            "sine wave2": {
                 strokePattern: [10, 2, 5, 2],
                 strokeWidth: 2,
                 highlightCircleSize: 3,
@@ -226,8 +226,8 @@ function perSeries() {
 function highlightedRegion() {
     const highlight_start = 0;
     const highlight_end = 0;
-    const g = new Dygraph(document.getElementById('div_g')!, [], {
-        labels: ['X', 'Est.', 'Actual'],
+    const g = new Dygraph(document.getElementById("div_g")!, [], {
+        labels: ["X", "Est.", "Actual"],
         animatedZooms: true,
         underlayCallback: (canvas, area, g) => {
             const bottom_left = g.toDomCoords(highlight_start, -20);
@@ -236,25 +236,25 @@ function highlightedRegion() {
             const left = bottom_left[0];
             const right = top_right[0];
 
-            canvas.fillStyle = 'rgba(255, 255, 102, 1.0)';
+            canvas.fillStyle = "rgba(255, 255, 102, 1.0)";
             canvas.fillRect(left, area.y, right - left, area.h);
         },
     });
 }
 
 function makeGraph(className: string, numSeries: number, numRows: number, isStacked: boolean) {
-    const div = document.createElement('div');
+    const div = document.createElement("div");
     div.className = className;
-    div.style.display = 'inline-block';
+    div.style.display = "inline-block";
     document.body.appendChild(div);
 
-    const labels = ['x'];
+    const labels = ["x"];
     for (let i = 0; i < numSeries; ++i) {
-        let label = '' + i;
-        label = `s${'000'.substr(label.length)}${label}`;
+        let label = "" + i;
+        label = `s${"000".substr(label.length)}${label}`;
         labels[i + 1] = label;
     }
-    const g = new Dygraph(div, 'data', {
+    const g = new Dygraph(div, "data", {
         width: 480,
         height: 320,
         labels: labels.slice(),
@@ -270,14 +270,14 @@ function makeGraph(className: string, numSeries: number, numRows: number, isStac
             highlightCircleSize: 5,
         },
     });
-    g.setSelection(false, 's005');
+    g.setSelection(false, "s005");
 }
 
 function linearRegressionAddSeries() {
     let orig_colors = [] as string[];
 
-    const g = new Dygraph(document.getElementById('demodiv')!, 'data', {
-        labels: ['X', 'Y1', 'Y2'],
+    const g = new Dygraph(document.getElementById("demodiv")!, "data", {
+        labels: ["X", "Y1", "Y2"],
         drawPoints: true,
         strokeWidth: 0.0,
         drawCallback: (g, is_initial) => {
@@ -289,13 +289,13 @@ function linearRegressionAddSeries() {
 }
 
 function callbacks() {
-    const s = document.getElementById('status')!;
-    let g = new Dygraph(document.getElementById('demodiv')!, 'data');
+    const s = document.getElementById("status")!;
+    let g = new Dygraph(document.getElementById("demodiv")!, "data");
     const pts_info = (e: MouseEvent, x: number, pts: readonly dygraphs.Point[], row?: number) => {
         let str = `(${x}) `;
         for (let i = 0; i < pts.length; i++) {
             const p = pts[i];
-            if (i) str += ', ';
+            if (i) str += ", ";
             str += `${p.name}: ${p.yval}`;
         }
 
@@ -308,7 +308,7 @@ function callbacks() {
         return str;
     };
 
-    g = new Dygraph(document.getElementById('div_g')!, 'NoisyData', {
+    g = new Dygraph(document.getElementById("div_g")!, "NoisyData", {
         rollPeriod: 7,
         showRoller: true,
         errorBars: true,
@@ -318,7 +318,7 @@ function callbacks() {
         },
 
         unhighlightCallback: e => {
-            s.innerHTML += '<b>Unhighlight</b><br/>';
+            s.innerHTML += "<b>Unhighlight</b><br/>";
         },
 
         clickCallback: (e, x, pts) => {
@@ -344,16 +344,16 @@ function valueAxisFormatters() {
         const yyyy = d.getFullYear();
         const mm = d.getMonth() + 1;
         const dd = d.getDate();
-        return `${yyyy}-${(mm < 10 ? '0' : '') + mm + (dd < 10 ? '0' : '') + dd}`;
+        return `${yyyy}-${(mm < 10 ? "0" : "") + mm + (dd < 10 ? "0" : "") + dd}`;
     }
 
-    const g = new Dygraph(document.getElementById('demodiv')!, 'data', {
-        labels: ['Date', 'Y1', 'Y2', 'Y3', 'Y4'],
+    const g = new Dygraph(document.getElementById("demodiv")!, "data", {
+        labels: ["Date", "Y1", "Y2", "Y3", "Y4"],
         width: 640,
         height: 350,
         series: {
-            Y3: { axis: 'y2' },
-            Y4: { axis: 'y2' },
+            Y3: { axis: "y2" },
+            Y4: { axis: "y2" },
         },
         axes: {
             x: {
@@ -388,7 +388,7 @@ function valueAxisFormatters() {
 }
 
 function annotation() {
-    const eventDiv = document.getElementById('events')!;
+    const eventDiv = document.getElementById("events")!;
     function nameAnnotation(ann: dygraphs.Annotation) {
         return `(${ann.series}, ${ann.x})`;
     }
@@ -397,20 +397,20 @@ function annotation() {
     let graph_initialized = false;
 
     const g = new Dygraph(
-        document.getElementById('g_div')!,
+        document.getElementById("g_div")!,
         () => {
             const zp = (x: number) => {
-                if (x < 10) return '0' + x;
-                else return '' + x;
+                if (x < 10) return "0" + x;
+                else return "" + x;
             };
-            let r = 'date,parabola,line,another line,sine wave\n';
+            let r = "date,parabola,line,another line,sine wave\n";
             for (let i = 1; i <= 31; i++) {
-                r += '200610' + zp(i);
-                r += ',' + 10 * (i * (31 - i));
-                r += ',' + 10 * (8 * i);
-                r += ',' + 10 * (250 - 8 * i);
-                r += ',' + 10 * (125 + 125 * Math.sin(0.3 * i));
-                r += '\n';
+                r += "200610" + zp(i);
+                r += "," + 10 * (i * (31 - i));
+                r += "," + 10 * (8 * i);
+                r += "," + 10 * (250 - 8 * i);
+                r += "," + 10 * (125 + 125 * Math.sin(0.3 * i));
+                r += "\n";
             }
             return r;
         },
@@ -428,14 +428,14 @@ function annotation() {
                 }
 
                 const anns = g.annotations();
-                let html = '';
+                let html = "";
                 anns.forEach(ann => {
                     const name = nameAnnotation(ann);
                     html += `<span id='${name}'>`;
-                    html += `${name}: ${ann.shortText || '(icon)'}`;
+                    html += `${name}: ${ann.shortText || "(icon)"}`;
                     html += ` -> ${ann.text}</span><br/>`;
                 });
-                document.getElementById('list')!.innerHTML = html;
+                document.getElementById("list")!.innerHTML = html;
             },
         },
     );
@@ -443,31 +443,31 @@ function annotation() {
     let last_ann = 0;
     for (let x = 10; x < 15; x += 2) {
         annotations.push({
-            series: 'sine wave',
-            x: '200610' + x,
-            shortText: '' + x,
-            text: 'Stock Market Crash ' + x,
+            series: "sine wave",
+            x: "200610" + x,
+            shortText: "" + x,
+            text: "Stock Market Crash " + x,
         });
         last_ann = x;
     }
     annotations.push({
-        series: 'another line',
-        x: '20061013',
-        icon: 'dollar.png',
+        series: "another line",
+        x: "20061013",
+        icon: "dollar.png",
         width: 18,
         height: 23,
         tickHeight: 4,
-        text: 'Another one',
-        cssClass: 'annotation',
+        text: "Another one",
+        cssClass: "annotation",
         clickHandler: () => {
-            document.getElementById('events')!.innerHTML += 'special handler<br/>';
+            document.getElementById("events")!.innerHTML += "special handler<br/>";
         },
     });
     annotations.push({
-        series: 'parabola',
-        x: '20061012',
-        shortText: 'P',
-        text: 'Parabola Annotation at same x-coord',
+        series: "parabola",
+        x: "20061012",
+        shortText: "P",
+        text: "Parabola Annotation at same x-coord",
     });
 
     if (graph_initialized) {
@@ -478,10 +478,10 @@ function annotation() {
         const x = last_ann + 2;
         const annnotations = g.annotations();
         annotations.push({
-            series: 'line',
-            x: '200610' + x,
-            shortText: '' + x,
-            text: 'Line ' + x,
+            series: "line",
+            x: "200610" + x,
+            shortText: "" + x,
+            text: "Line " + x,
             tickHeight: 10,
         });
         last_ann = x;
@@ -490,7 +490,7 @@ function annotation() {
 
     function bottom(el: HTMLInputElement) {
         let to_bottom = true;
-        if (el.value !== 'Shove to bottom') to_bottom = false;
+        if (el.value !== "Shove to bottom") to_bottom = false;
 
         const anns = g.annotations();
 
@@ -501,10 +501,10 @@ function annotation() {
         });
         g.setAnnotations(anns);
 
-        el.value = to_bottom ? 'Lift back up' : 'Shove to bottom';
+        el.value = to_bottom ? "Lift back up" : "Shove to bottom";
     }
 
-    let saveBg = '';
+    let saveBg = "";
     let num = 0;
     g.updateOptions({
         annotationClickHandler: (ann, point, dg, event) => {
@@ -514,12 +514,12 @@ function annotation() {
             eventDiv.innerHTML += `dblclick: ${nameAnnotation(ann)} <br/>`;
         },
         annotationMouseOverHandler: (ann, point, dg, event) => {
-            document.getElementById(nameAnnotation(ann))!.style.fontWeight = 'bold';
+            document.getElementById(nameAnnotation(ann))!.style.fontWeight = "bold";
             saveBg = ann.div!.style.backgroundColor;
-            ann.div!.style.backgroundColor = '#ddd';
+            ann.div!.style.backgroundColor = "#ddd";
         },
         annotationMouseOutHandler: (ann, point, dg, event) => {
-            document.getElementById(nameAnnotation(ann))!.style.fontWeight = 'normal';
+            document.getElementById(nameAnnotation(ann))!.style.fontWeight = "normal";
             ann.div!.style.backgroundColor = saveBg;
         },
 
@@ -531,8 +531,8 @@ function annotation() {
             const ann = {
                 series: p.name,
                 xval: p.xval,
-                shortText: '' + num,
-                text: 'Annotation #' + num,
+                shortText: "" + num,
+                text: "Annotation #" + num,
             };
             const anns = g.annotations();
             anns.push(ann);
@@ -544,7 +544,7 @@ function annotation() {
 }
 
 function valueRangeTest() {
-    new Dygraph(document.getElementById('valueRange-test')!, [], {
+    new Dygraph(document.getElementById("valueRange-test")!, [], {
         axes: {
             x: { valueRange: [0, 100] },
             y: { valueRange: [0, null] },
@@ -554,7 +554,7 @@ function valueRangeTest() {
 }
 
 function resize() {
-    const d = new Dygraph(document.getElementById('demo')!, 'dummy-data', {});
+    const d = new Dygraph(document.getElementById("demo")!, "dummy-data", {});
     d.resize();
     d.resize(300, 200);
 }

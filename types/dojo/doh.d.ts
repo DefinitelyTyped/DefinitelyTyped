@@ -1,9 +1,3 @@
-// Type definitions for Dojo v1.9
-// Project: http://dojotoolkit.org
-// Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare namespace doh {
     namespace plugins {
         namespace alwaysAudio {
@@ -396,7 +390,7 @@ declare namespace doh {
          */
         toggleRunAll(): void;
     }
-    module _browserRunner {
+    namespace _browserRunner {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/doh/_browserRunner._groups.html
          *

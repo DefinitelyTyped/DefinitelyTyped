@@ -1,6 +1,6 @@
-import { Oid } from './oid';
-import { Repository } from './repository';
-import { Buf } from './buf';
+import { Buf } from "./buf";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
 
 export class Object {
     static size(type: Object.TYPE): number;
@@ -12,7 +12,6 @@ export class Object {
 
     dup(): Promise<Object>;
 
-    free(): void;
     id(): Oid;
     lookupByPath(path: string, type: Object.TYPE): Promise<Object>;
     owner(): Repository;

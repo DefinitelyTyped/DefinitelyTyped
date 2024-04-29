@@ -1,5 +1,5 @@
-import * as Tagger from 'wink-pos-tagger';
-import * as Tokenizer from 'wink-tokenizer';
+import * as Tagger from "wink-pos-tagger";
+import * as Tokenizer from "wink-tokenizer";
 
 const myTagger = new Tagger();
 const myTokenizer = new Tokenizer();
@@ -9,12 +9,12 @@ const myTokenizer = new Tokenizer();
 myTagger.defineConfig({ lemma: false });
 // -> { lemma: true, normal: true }
 
-myTagger.tag(myTokenizer.tokenize('I ate the entire pizza as I was feeling hungry.'));
+myTagger.tag(myTokenizer.tokenize("I ate the entire pizza as I was feeling hungry."));
 
-const rawTokens = ['I', 'ate', 'the', 'entire', 'pizza', 'as', 'I', 'was', 'feeling', 'hungry', '.'];
+const rawTokens = ["I", "ate", "the", "entire", "pizza", "as", "I", "was", "feeling", "hungry", "."];
 // Tag the raw tokens.
 myTagger.tagRawTokens(rawTokens);
 
-myTagger.tagSentence('A bear just crossed the road.');
-myTagger.tagSentence('I will bear all the expenses.');
-myTagger.updateLexicon({ Obama: ['NNP'] });
+myTagger.tagSentence("A bear just crossed the road.");
+myTagger.tagSentence("I will bear all the expenses.");
+myTagger.updateLexicon({ Obama: ["NNP"] });

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/web-locks-api",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "web-locks-api-browser",
+    "projects": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API"
+    ],
+    "devDependencies": {
+        "@types/web-locks-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joël Charles",
+            "githubUsername": "magne4000"
+        }
+    ]
+}

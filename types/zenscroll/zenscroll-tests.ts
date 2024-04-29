@@ -1,4 +1,4 @@
-import * as zenscroll from 'zenscroll';
+import * as zenscroll from "zenscroll";
 
 // Scroll to the top of an element
 const about = document.getElementById("about");
@@ -9,7 +9,7 @@ zenscroll.toY(50);
 
 // Scroll an element into view
 const image1 = document.getElementById("imageSample");
-zenscroll.intoView(image1, 400, () => console.log('scrolled'));
+zenscroll.intoView(image1, 400, () => console.log("scrolled"));
 
 // Scrolls the element to the center of the screen
 zenscroll.center(image1);

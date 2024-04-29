@@ -1,6 +1,6 @@
-import First from '../First';
-import { UnaryFunction } from '../internal/types';
-import Either from './Either';
+import First from "../First";
+import { UnaryFunction } from "../internal/types";
+import Either from "./Either";
 
 /**
  * firstToEither :: c -> First a -> Either c a

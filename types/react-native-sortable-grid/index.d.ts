@@ -1,11 +1,5 @@
-// Type definitions for react-native-sortable-grid 2.0
-// Project: https://github.com/ollija/react-native-sortable-grid#readme
-// Definitions by: Jacob Froman <https://github.com/j-fro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { StyleProp, ViewStyle, Animated } from 'react-native';
+import * as React from "react";
+import { Animated, StyleProp, ViewStyle } from "react-native";
 
 interface SortableGridItemProps {
     key: string;
@@ -40,7 +34,7 @@ interface OrderedItem {
 }
 
 export interface ItemOrder {
-    itemOrder: ReadonlyArray<OrderedItem>;
+    itemOrder: readonly OrderedItem[];
 }
 
 interface SortableGridProps {
@@ -121,7 +115,7 @@ interface SortableGridProps {
     /**
      * Items to be rendered in the SortableGrid
      */
-    children?: ReadonlyArray<SortableGridItem> | undefined;
+    children?: readonly SortableGridItem[] | undefined;
 }
 
 interface SortableGridStatic extends React.ClassicComponentClass<SortableGridProps> {

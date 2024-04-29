@@ -1,8 +1,8 @@
-import Connection = require('@xmpp/connection');
-import registerResolve = require('@xmpp/resolve');
-import resolve = require('@xmpp/resolve/resolve');
-import { compare } from '@xmpp/resolve/lib/alt-connections';
-import { Element } from '@xmpp/xml';
+import Connection = require("@xmpp/connection");
+import registerResolve = require("@xmpp/resolve");
+import resolve = require("@xmpp/resolve/resolve");
+import { compare } from "@xmpp/resolve/lib/alt-connections";
+import { Element } from "@xmpp/xml";
 
 // test type exports
 type LookupOptions = resolve.LookupOptions;
@@ -15,34 +15,34 @@ type ResolvedRecord = resolve.ResolvedRecord;
 type ResolvedEndpoint = resolve.ResolvedEndpoint;
 
 // need to test via assignments because of TS4.1 ...
-let res: Promise<Array<ResolvedEndpoint | ResolvedRecord>> = resolve('foo');
-res = resolve('foo', { family: 1 });
-res = resolve('foo', { hints: 1 });
-res = resolve('foo', { owner: 'foo' });
-res = resolve('foo', { srv: [{ service: 'foo', protocol: 'bar' }] });
-res = resolve('foo', { verbatim: true });
+let res: Promise<Array<ResolvedEndpoint | ResolvedRecord>> = resolve("foo");
+res = resolve("foo", { family: 1 });
+res = resolve("foo", { hints: 1 });
+res = resolve("foo", { owner: "foo" });
+res = resolve("foo", { srv: [{ service: "foo", protocol: "bar" }] });
+res = resolve("foo", { verbatim: true });
 
-resolve.dns!.resolve('foo'); // $ExpectType Promise<ResolvedRecord[]>
-resolve.dns!.resolve('foo', { family: 2 }); // $ExpectType Promise<ResolvedRecord[]>
-resolve.dns!.resolve('foo', { hints: 2 }); // $ExpectType Promise<ResolvedRecord[]>
-resolve.dns!.resolve('foo', { owner: 'foo' }); // $ExpectType Promise<ResolvedRecord[]>
-resolve.dns!.resolve('foo', { srv: [{ service: 'foo', protocol: 'bar' }] }); // $ExpectType Promise<ResolvedRecord[]>
-resolve.dns!.resolve('foo', { verbatim: true }); // $ExpectType Promise<ResolvedRecord[]>
+resolve.dns!.resolve("foo"); // $ExpectType Promise<ResolvedRecord[]>
+resolve.dns!.resolve("foo", { family: 2 }); // $ExpectType Promise<ResolvedRecord[]>
+resolve.dns!.resolve("foo", { hints: 2 }); // $ExpectType Promise<ResolvedRecord[]>
+resolve.dns!.resolve("foo", { owner: "foo" }); // $ExpectType Promise<ResolvedRecord[]>
+resolve.dns!.resolve("foo", { srv: [{ service: "foo", protocol: "bar" }] }); // $ExpectType Promise<ResolvedRecord[]>
+resolve.dns!.resolve("foo", { verbatim: true }); // $ExpectType Promise<ResolvedRecord[]>
 
-resolve('foo').then(([record]) => {
-    if ('rel' in record) {
+resolve("foo").then(([record]) => {
+    if ("rel" in record) {
         record; // $ExpectType ResolvedEndpoint
         record.href; // $ExpectType string
         record.method; // $ExpectType string
         record.rel; // $ExpectType string
         record.uri; // $ExpectType string
-    } else if ('attribute' in record) {
+    } else if ("attribute" in record) {
         record; // $ExpectType ResolvedTxtRecord
         record.attribute; // $ExpectType string
         record.method; // $ExpectType string
         record.uri; // $ExpectType string
         record.value; // $ExpectType string
-    } else if ('service' in record) {
+    } else if ("service" in record) {
         record; // $ExpectType LookedUpSrvRecord
         record.address; // $ExpectType string
         record.family; // $ExpectType 4 | 6
@@ -61,11 +61,11 @@ resolve('foo').then(([record]) => {
     }
 });
 
-resolve.dns!.lookup('foo'); // $ExpectType Promise<ResolvedAddress[]>
-resolve.dns!.lookup('foo', { family: 1 }); // $ExpectType Promise<ResolvedAddress[]>
-resolve.dns!.lookup('foo', { hints: 1 }); // $ExpectType Promise<ResolvedAddress[]>
-resolve.dns!.lookup('foo', { verbatim: true }); // $ExpectType Promise<ResolvedAddress[]>
-resolve.dns!.lookup('foo').then(([addr]) => {
+resolve.dns!.lookup("foo"); // $ExpectType Promise<ResolvedAddress[]>
+resolve.dns!.lookup("foo", { family: 1 }); // $ExpectType Promise<ResolvedAddress[]>
+resolve.dns!.lookup("foo", { hints: 1 }); // $ExpectType Promise<ResolvedAddress[]>
+resolve.dns!.lookup("foo", { verbatim: true }); // $ExpectType Promise<ResolvedAddress[]>
+resolve.dns!.lookup("foo").then(([addr]) => {
     addr; // $ExpectType ResolvedAddress
     addr.address; // $ExpectType string
     addr.family; // $ExpectType 4 | 6
@@ -90,8 +90,8 @@ resolve.dns!.lookupSrvs(resolvedSrvRecords).then(([rec]) => {
     rec.weight; // $ExpectType number
 });
 
-resolve.dns!.resolveSrv('foo', { service: 'foo', protocol: 'tcp' }); // $ExpectType Promise<ResolvedSrvRecord[]>
-resolve.dns!.resolveSrv('foo', { service: 'foo', protocol: 'tcp' }).then(([rec]) => {
+resolve.dns!.resolveSrv("foo", { service: "foo", protocol: "tcp" }); // $ExpectType Promise<ResolvedSrvRecord[]>
+resolve.dns!.resolveSrv("foo", { service: "foo", protocol: "tcp" }).then(([rec]) => {
     rec; // $ExpectType ResolvedSrvRecord
     rec.name; // $ExpectType string
     rec.port; // $ExpectType number
@@ -103,8 +103,8 @@ resolve.dns!.resolveSrv('foo', { service: 'foo', protocol: 'tcp' }).then(([rec])
 
 resolve.dns!.sortSrv(resolvedSrvRecords); // $ExpectType ResolvedSrvRecord[]
 
-resolve.http.resolve('foo'); // $ExpectType Promise<ResolvedEndpoint[]>
-resolve.http.resolve('foo').then(([rec]) => {
+resolve.http.resolve("foo"); // $ExpectType Promise<ResolvedEndpoint[]>
+resolve.http.resolve("foo").then(([rec]) => {
     rec; // $ExpectType ResolvedEndpoint
     rec.href; // $ExpectType string
     rec.method; // $ExpectType string
@@ -117,7 +117,7 @@ class Foo extends Connection {
     hookOutgoing?: (stanza: Element) => Promise<void>;
 
     headerElement() {
-        return new Element('foo');
+        return new Element("foo");
     }
 
     socketParameters(service: string) {
@@ -125,12 +125,12 @@ class Foo extends Connection {
     }
 }
 
-registerResolve({ entity: new Foo({ domain: 'foo.bar', service: 'foo' }) }); // $ExpectType void
+registerResolve({ entity: new Foo({ domain: "foo.bar", service: "foo" }) }); // $ExpectType void
 
-resolve('foo').then(([record]) => {
-    if ('rel' in record) {
+resolve("foo").then(([record]) => {
+    if ("rel" in record) {
         compare(record, record); // $ExpectType 0 | 1 | -1
-    } else if ('attribute' in record) {
+    } else if ("attribute" in record) {
         compare(record, record); // $ExpectType 0 | 1 | -1
     }
 });

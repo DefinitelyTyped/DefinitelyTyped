@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/human-to-cron",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/rainder/human-to-cron"
+    ],
+    "devDependencies": {
+        "@types/human-to-cron": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Drew Lemmy",
+            "githubUsername": "Lemmmy"
+        }
+    ]
+}

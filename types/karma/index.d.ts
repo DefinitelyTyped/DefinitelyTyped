@@ -1,17 +1,9 @@
-// Type definitions for karma 6.3
-// Project: https://github.com/karma-runner/karma
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 James Garbutt <https://github.com/43081j>
-//                 Yaroslav Admin <https://github.com/devoto13>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // See Karma public API https://karma-runner.github.io/latest/dev/public-api.html
 import https = require("https");
-import { Appender } from "log4js";
 import { EventEmitter } from "events";
+import { Appender } from "log4js";
 import * as constants from "./lib/constants";
 
 export { constants };
@@ -162,7 +154,7 @@ export interface ProxyOptions {
     target: string;
     /**
      * Whether or not the proxy should override the Host header using the host from the target
-     * @defult false
+     * @default false
      */
     changeOrigin?: boolean | undefined;
 }
@@ -198,8 +190,8 @@ export interface UpstreamProxy {
 
 // description of inline plugins
 export type PluginName = string;
-// tslint:disable-next-line:ban-types support for constructor function and classes
-export type ConstructorFn = Function | (new (...params: any[]) => any);
+// eslint-disable-next-line @typescript-eslint/ban-types -- support for constructor function and classes
+export type ConstructorFn = Function | (new(...params: any[]) => any);
 export type FactoryFn = (...params: any[]) => any;
 export type ConstructorFnType = ["type", ConstructorFn];
 export type FactoryFnType = ["factory", FactoryFn];
@@ -495,7 +487,6 @@ export interface ConfigOptions {
      * your tests, you'll discover that your expected source code is completely changed from what you expected.  Because
      * of that, you'll want to engineer this so that your automated builds use the coverage entry in the "reporters" list,
      * but your interactive debugging does not.
-     *
      */
     preprocessors?: { [name: string]: string | string[] } | undefined;
     /**

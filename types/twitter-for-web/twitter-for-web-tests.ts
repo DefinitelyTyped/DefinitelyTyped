@@ -12,8 +12,8 @@ function getReady() {
                     document.getElementById("new-button"),
                     {
                         count: "none",
-                        text: "Sharing a URL using the Tweet Button"
-                    }
+                        text: "Sharing a URL using the Tweet Button",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Button created.");
@@ -26,8 +26,8 @@ function getReady() {
                     "endform",
                     document.getElementById("new-button"),
                     {
-                        size: "large"
-                    }
+                        size: "large",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Follow button created.");
@@ -40,8 +40,8 @@ function getReady() {
                     "511181794914627584",
                     document.getElementById("first-tweet"),
                     {
-                        align: "left"
-                    }
+                        align: "left",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("@ev's Tweet has been displayed.");
@@ -53,7 +53,7 @@ function getReady() {
                 .createTimeline("123456", document.getElementById("timeline"), {
                     width: 450,
                     height: 700,
-                    related: "twitterdev,twitterapi"
+                    related: "twitterdev,twitterapi",
                 })
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
@@ -65,14 +65,14 @@ function getReady() {
                 .createTimeline(
                     {
                         sourceType: "profile",
-                        screenName: "screen_name"
+                        screenName: "screen_name",
                     },
                     document.getElementById("timeline"),
                     {
                         width: 450,
                         height: 700,
-                        related: "twitterdev,twitterapi"
-                    }
+                        related: "twitterdev,twitterapi",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
@@ -82,14 +82,14 @@ function getReady() {
                 .createTimeline(
                     {
                         sourceType: "profile",
-                        userId: "123345"
+                        userId: "123345",
                     },
                     document.getElementById("timeline"),
                     {
                         width: 450,
                         height: 700,
-                        related: "twitterdev,twitterapi"
-                    }
+                        related: "twitterdev,twitterapi",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
@@ -101,14 +101,14 @@ function getReady() {
                 .createTimeline(
                     {
                         sourceType: "likes",
-                        screenName: "screen_name"
+                        screenName: "screen_name",
                     },
                     document.getElementById("timeline"),
                     {
                         width: 450,
                         height: 700,
-                        related: "twitterdev,twitterapi"
-                    }
+                        related: "twitterdev,twitterapi",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
@@ -118,14 +118,14 @@ function getReady() {
                 .createTimeline(
                     {
                         sourceType: "likes",
-                        userId: "123345"
+                        userId: "123345",
                     },
                     document.getElementById("timeline"),
                     {
                         width: 450,
                         height: 700,
-                        related: "twitterdev,twitterapi"
-                    }
+                        related: "twitterdev,twitterapi",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
@@ -137,14 +137,14 @@ function getReady() {
                 .createTimeline(
                     {
                         sourceType: "list",
-                        id: "123345"
+                        id: "123345",
                     },
                     document.getElementById("timeline"),
                     {
                         width: 450,
                         height: 700,
-                        related: "twitterdev,twitterapi"
-                    }
+                        related: "twitterdev,twitterapi",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
@@ -155,14 +155,14 @@ function getReady() {
                     {
                         sourceType: "list",
                         slug: "slug",
-                        ownerScreenName: "screen_name"
+                        ownerScreenName: "screen_name",
                     },
                     document.getElementById("timeline"),
                     {
                         width: 450,
                         height: 700,
-                        related: "twitterdev,twitterapi"
-                    }
+                        related: "twitterdev,twitterapi",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
@@ -174,14 +174,14 @@ function getReady() {
                 .createTimeline(
                     {
                         sourceType: "collection",
-                        id: "123345"
+                        id: "123345",
                     },
                     document.getElementById("timeline"),
                     {
                         width: 450,
                         height: 700,
-                        related: "twitterdev,twitterapi"
-                    }
+                        related: "twitterdev,twitterapi",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");
@@ -193,14 +193,14 @@ function getReady() {
                 .createTimeline(
                     {
                         sourceType: "url",
-                        url: "https://twitter.com/example_timeline"
+                        url: "https://twitter.com/example_timeline",
                     },
                     document.getElementById("timeline"),
                     {
                         width: 450,
                         height: 700,
-                        related: "twitterdev,twitterapi"
-                    }
+                        related: "twitterdev,twitterapi",
+                    },
                 )
                 .then((el: HTMLElement) => {
                     console.log("Embedded a timeline.");

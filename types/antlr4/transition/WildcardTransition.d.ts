@@ -1,4 +1,4 @@
-import Transition from './Transition';
+import Transition from "./Transition";
 
 export default class WildcardTransition extends Transition {
     readonly serializationType: number;

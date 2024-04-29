@@ -1,14 +1,3 @@
-// Type definitions for simple-oauth2 5.0
-// Project: https://github.com/lelylan/simple-oauth2
-// Definitions by: Michael Müller <https://github.com/mad-mike>,
-//                 Troy Lamerton <https://github.com/troy-lamerton>
-//                 Martín Rodriguez <https://github.com/netux>
-//                 Linus Unnebäck <https://github.com/LinusU>
-//                 Do Nam <https://github.com/namdien177>
-//                 Lyubin Pavel <https://github.com/pafik13>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
-
 export interface ModuleOptions<ClientIdName extends string = "client_id"> {
     client: {
         /** Service registered client id. When required by the spec this value will be automatically encoded. Required. */
@@ -55,28 +44,30 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
      * All options except baseUrl are allowed
      * Defaults to header.Accept = "application/json"
      */
-    http?: Omit<WreckHttpOptions, 'baseUrl' | 'headers' | 'redirects' | 'json'> & {
-        baseUrl?: undefined;
-        headers?: {
+    http?:
+        | Omit<WreckHttpOptions, "baseUrl" | "headers" | "redirects" | "json"> & {
+            baseUrl?: undefined;
+            headers?: {
+                /**
+                 * Acceptable http response content type. Defaults to application/json
+                 */
+                accept?: string;
+                /**
+                 * Always overriden by the library to properly send the required credentials on each scenario
+                 */
+                authorization?: string;
+                [key: string]: unknown;
+            } | undefined;
             /**
-             * Acceptable http response content type. Defaults to application/json
+             * Number or redirects to follow. Defaults to false (no redirects)
              */
-            accept?: string;
+            redirects?: false | number | undefined;
             /**
-             * Always overriden by the library to properly send the required credentials on each scenario
+             * JSON response parsing mode. Defaults to strict
              */
-            authorization?: string;
-            [key: string]: unknown
-        } | undefined;
-        /**
-         * Number or redirects to follow. Defaults to false (no redirects)
-         */
-        redirects?: false | number | undefined;
-        /**
-         * JSON response parsing mode. Defaults to strict
-         */
-        json?: true | "strict" | "force" | undefined;
-     } | undefined;
+            json?: boolean | "strict" | "force" | undefined;
+        }
+        | undefined;
     options?: {
         /** Scope separator character. Some providers may require a different separator. Defaults to empty space */
         scopeSeparator?: string | undefined;
@@ -85,15 +76,15 @@ export interface ModuleOptions<ClientIdName extends string = "client_id"> {
          * Use loose if your provider doesn't conform to the OAuth 2.0 specification.
          * Defaults to strict
          */
-        credentialsEncodingMode?: 'strict' | 'loose' | undefined;
+        credentialsEncodingMode?: "strict" | "loose" | undefined;
         /** Format of data sent in the request body. Defaults to form. */
-        bodyFormat?: 'form' | 'json' | undefined;
+        bodyFormat?: "form" | "json" | undefined;
         /**
          * Indicates the method used to send the client.id/client.secret authorization params at the token request.
          * If set to body, the bodyFormat option will be used to format the credentials.
          * Defaults to header
          */
-        authorizationMethod?: 'header' | 'body' | undefined;
+        authorizationMethod?: "header" | "body" | undefined;
     } | undefined;
 }
 
@@ -151,14 +142,16 @@ export interface WreckHttpOptions {
     headers?: { [key: string]: unknown } | undefined;
     redirects?: false | number | undefined;
     redirect303?: boolean | undefined;
-    beforeRedirect?: ((
-        redirectMethod: string,
-        statusCode: number,
-        location: string,
-        resHeaders: { [key: string]: unknown },
-        redirectOptions: unknown,
-        next: () => {},
-    ) => void) | undefined;
+    beforeRedirect?:
+        | ((
+            redirectMethod: string,
+            statusCode: number,
+            location: string,
+            resHeaders: { [key: string]: unknown },
+            redirectOptions: unknown,
+            next: () => {},
+        ) => void)
+        | undefined;
     redirected?: ((statusCode: number, location: string, req: unknown) => void) | undefined;
     timeout?: number | undefined;
     maxBytes?: number | undefined;
@@ -191,14 +184,16 @@ export class AuthorizationCode<ClientIdName extends string = "client_id"> {
      * @return the absolute authorization url
      */
     authorizeURL(
-        params?: {
-            /** A string that represents the Client-ID */
-            [key in ClientIdName]?: string;
-        } & {
-            redirect_uri?: string | undefined;
-            scope?: string | string[] | undefined;
-            state?: string | undefined;
-        },
+        params?:
+            & {
+                /** A string that represents the Client-ID */
+                [key in ClientIdName]?: string;
+            }
+            & {
+                redirect_uri?: string | undefined;
+                scope?: string | string[] | undefined;
+                state?: string | undefined;
+            },
     ): string;
 
     /**

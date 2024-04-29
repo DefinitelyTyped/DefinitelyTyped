@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/kakaomaps",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "kakaomaps-browser",
+    "projects": [
+        "https://apis.map.kakao.com/web/documentation/"
+    ],
+    "devDependencies": {
+        "@types/kakaomaps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MinByeongDon",
+            "githubUsername": "MinByeongDon"
+        },
+        {
+            "name": "PositiveKo",
+            "githubUsername": "positiveko"
+        },
+        {
+            "name": "Sanghyeon Lee",
+            "githubUsername": "yongdamsh"
+        }
+    ]
+}

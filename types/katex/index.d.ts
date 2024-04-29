@@ -1,17 +1,7 @@
-// Type definitions for KaTeX 0.16
-// Project: http://khan.github.io/KaTeX/
-// Definitions by: Michael Randolph <https://github.com/mrand01>
-//                 Kevin Nguyen <https://github.com/knguyen0125>
-//                 bLue <https://github.com/dreamerblue>
-//                 Sebastian Weigand <https://github.com/s-weigand>
-//                 sapphi-red <https://github.com/sapphi-red>
-//                 Stefaans <https://github.com/Stefaans>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TrustContext {
-    command: string
-    url: string
-    protocol: string
+    command: string;
+    url: string;
+    protocol: string;
 }
 
 /** Documentation: https://katex.org/docs/options.html */
@@ -33,7 +23,7 @@ export interface KatexOptions {
      *
      * @default 'htmlAndMathml'
      */
-    output?: 'html' | 'mathml' | 'htmlAndMathml' | undefined;
+    output?: "html" | "mathml" | "htmlAndMathml" | undefined;
     /**
      * If `true`, display math has \tags rendered on the left
      * instead of the right, like \usepackage[leqno]{amsmath} in LaTeX.
@@ -132,6 +122,9 @@ export interface KatexOptions {
     globalGroup?: boolean | undefined;
 }
 
+/**
+ * KaTeX error, usually during parsing.
+ */
 export class ParseError implements Error {
     constructor(message: string, lexer: any, position: number);
 
@@ -140,24 +133,19 @@ export class ParseError implements Error {
     position: number;
 }
 
-export default class katex {
-    /**
-     * Renders a TeX expression into the specified DOM element
-     * @param tex A TeX expression
-     * @param element The DOM element to render into
-     * @param options KaTeX options
-     */
-    static render(tex: string, element: HTMLElement, options?: KatexOptions): void;
+/**
+ * Renders a TeX expression into the specified DOM element
+ * @param tex A TeX expression
+ * @param element The DOM element to render into
+ * @param options KaTeX options
+ */
+export function render(tex: string, element: HTMLElement, options?: KatexOptions): void;
 
-    /**
-     * Renders a TeX expression into an HTML string
-     * @param tex A TeX expression
-     * @param options KaTeX options
-     */
-    static renderToString(tex: string, options?: KatexOptions): string;
+/**
+ * Renders a TeX expression into an HTML string
+ * @param tex A TeX expression
+ * @param options KaTeX options
+ */
+export function renderToString(tex: string, options?: KatexOptions): string;
 
-    /**
-     * KaTeX error, usually during parsing.
-     */
-    static ParseError: typeof ParseError;
-}
+export as namespace katex;

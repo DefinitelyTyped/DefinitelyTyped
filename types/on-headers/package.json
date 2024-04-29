@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/on-headers",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jshttp/on-headers"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/on-headers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Jeffery",
+            "githubUsername": "jjeffery"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

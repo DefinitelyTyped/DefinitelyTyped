@@ -1,9 +1,4 @@
-// Type definitions for cytoscape-fcose 2.2
-// Project: https://github.com/iVis-at-Bilkent/cytoscape.js-fcose
-// Definitions by: Paul Paulsen <https://github.com/Phpaulsen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import cytoscape = require('cytoscape');
+import cytoscape = require("cytoscape");
 
 declare const cytoscapeFcose: cytoscape.Ext;
 
@@ -17,20 +12,20 @@ declare namespace cytoscapeFcose {
     }
 
     interface FcoseAlignmentConstraint {
-        vertical: string[][];
-        horizontal: string[][];
+        vertical?: string[][];
+        horizontal?: string[][];
     }
 
     interface FcoseRelativeVerticalPlacementConstraint {
         top: string;
         bottom: string;
-        gap: number;
+        gap?: number;
     }
 
     interface FcoseRelativeHorizontalPlacementConstraint {
         left: string;
         right: string;
-        gap: number;
+        gap?: number;
     }
 
     type FcoseRelativePlacementConstraint =
@@ -38,7 +33,7 @@ declare namespace cytoscapeFcose {
         | FcoseRelativeHorizontalPlacementConstraint;
 
     interface FcoseLayoutOptions extends cytoscape.BaseLayoutOptions {
-        name: 'fcose';
+        name: "fcose";
 
         // 'draft', 'default' or 'proof'
         // - "draft" only applies spectral layout

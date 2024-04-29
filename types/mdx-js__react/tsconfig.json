@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "jsx": "preserve",
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -9,13 +9,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "paths": {
-            "@mdx-js/*": ["mdx-js__*"]
-        },
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

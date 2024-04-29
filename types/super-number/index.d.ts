@@ -1,8 +1,3 @@
-// Type definitions for super-number 1.0
-// Project: https://github.com/segandiaye/super-number#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Ints {
     interface Integer {
         findNearestInteger(n: number): number;

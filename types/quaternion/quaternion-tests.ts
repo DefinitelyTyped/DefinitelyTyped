@@ -1,4 +1,4 @@
-import Quaternion = require('quaternion');
+import Quaternion = require("quaternion");
 
 // Constructor
 new Quaternion(); // $ExpectType Quaternion
@@ -6,10 +6,10 @@ new Quaternion(1, 0, 0, 0); // $ExpectType Quaternion
 new Quaternion({ re: 0, im: 1 }); // $ExpectType Quaternion
 new Quaternion({ x: 0 }); // $ExpectType Quaternion
 new Quaternion({ w: 0, x: 0, y: 0, z: 0 }); // $ExpectType Quaternion
-new Quaternion('99'); // $ExpectType Quaternion
+new Quaternion("99"); // $ExpectType Quaternion
 
 // @ts-expect-error
-new Quaternion('99', 0);
+new Quaternion("99", 0);
 // @ts-expect-error
 new Quaternion({ x: 0, im: 1 });
 // @ts-expect-error
@@ -22,7 +22,7 @@ const quaternion = new Quaternion();
 
 // add
 quaternion.add(0); // $ExpectType Quaternion
-quaternion.add('0'); // $ExpectType Quaternion
+quaternion.add("0"); // $ExpectType Quaternion
 quaternion.add({ x: 0 }); // $ExpectType Quaternion
 quaternion.add({ re: 0, im: 0 }); // $ExpectType Quaternion
 quaternion.add([0, 0, 1]); // $ExpectType Quaternion
@@ -31,7 +31,7 @@ quaternion.add([0, 0, 1, 1]); // $ExpectType Quaternion
 // @ts-expect-error
 quaternion.add();
 // @ts-expect-error
-quaternion.add('0', 1);
+quaternion.add("0", 1);
 // @ts-expect-error
 quaternion.add({});
 // @ts-expect-error
@@ -41,7 +41,7 @@ quaternion.add([0, 1]);
 
 // sub
 quaternion.sub(0); // $ExpectType Quaternion
-quaternion.sub('0'); // $ExpectType Quaternion
+quaternion.sub("0"); // $ExpectType Quaternion
 quaternion.sub({ x: 0 }); // $ExpectType Quaternion
 quaternion.sub({ re: 0, im: 0 }); // $ExpectType Quaternion
 quaternion.sub([0, 0, 1]); // $ExpectType Quaternion
@@ -50,7 +50,7 @@ quaternion.sub([0, 0, 1, 1]); // $ExpectType Quaternion
 // @ts-expect-error
 quaternion.sub();
 // @ts-expect-error
-quaternion.sub('0', 1);
+quaternion.sub("0", 1);
 // @ts-expect-error
 quaternion.sub({});
 // @ts-expect-error
@@ -62,29 +62,29 @@ quaternion.sub([0, 1]);
 quaternion.neg(); // $ExpectType Quaternion
 
 // @ts-expect-error
-quaternion.neg('');
+quaternion.neg("");
 
 // norm
 quaternion.norm(); // $ExpectType number
 
 // @ts-expect-error
-quaternion.norm('');
+quaternion.norm("");
 
 // normSq
 quaternion.normSq(); // $ExpectType number
 
 // @ts-expect-error
-quaternion.normSq('');
+quaternion.normSq("");
 
 // normalize
 quaternion.normalize(); // $ExpectType Quaternion
 
 // @ts-expect-error
-quaternion.normalize('');
+quaternion.normalize("");
 
 // mul
 quaternion.mul(0); // $ExpectType Quaternion
-quaternion.mul('0'); // $ExpectType Quaternion
+quaternion.mul("0"); // $ExpectType Quaternion
 quaternion.mul({ x: 0 }); // $ExpectType Quaternion
 quaternion.mul({ re: 0, im: 0 }); // $ExpectType Quaternion
 quaternion.mul([0, 0, 1]); // $ExpectType Quaternion
@@ -93,7 +93,7 @@ quaternion.mul([0, 0, 1, 1]); // $ExpectType Quaternion
 // @ts-expect-error
 quaternion.mul();
 // @ts-expect-error
-quaternion.mul('0', 1);
+quaternion.mul("0", 1);
 // @ts-expect-error
 quaternion.mul({});
 // @ts-expect-error
@@ -109,7 +109,7 @@ quaternion.scale();
 
 // dot
 quaternion.dot(0); // $ExpectType number
-quaternion.dot('0'); // $ExpectType number
+quaternion.dot("0"); // $ExpectType number
 quaternion.dot({ x: 0 }); // $ExpectType number
 quaternion.dot({ re: 0, im: 0 }); // $ExpectType number
 quaternion.dot([0, 0, 1]); // $ExpectType number
@@ -118,7 +118,7 @@ quaternion.dot([0, 0, 1, 1]); // $ExpectType number
 // @ts-expect-error
 quaternion.dot();
 // @ts-expect-error
-quaternion.dot('0', 1);
+quaternion.dot("0", 1);
 // @ts-expect-error
 quaternion.dot({});
 // @ts-expect-error
@@ -130,11 +130,11 @@ quaternion.dot([0, 1]);
 quaternion.inverse(); // $ExpectType Quaternion
 
 // @ts-expect-error
-quaternion.inverse('');
+quaternion.inverse("");
 
 // div
 quaternion.div(0); // $ExpectType Quaternion
-quaternion.div('0'); // $ExpectType Quaternion
+quaternion.div("0"); // $ExpectType Quaternion
 quaternion.div({ x: 0 }); // $ExpectType Quaternion
 quaternion.div({ re: 0, im: 0 }); // $ExpectType Quaternion
 quaternion.div([0, 0, 1]); // $ExpectType Quaternion
@@ -143,7 +143,7 @@ quaternion.div([0, 0, 1, 1]); // $ExpectType Quaternion
 // @ts-expect-error
 quaternion.div();
 // @ts-expect-error
-quaternion.div('0', 1);
+quaternion.div("0", 1);
 // @ts-expect-error
 quaternion.div({});
 // @ts-expect-error
@@ -155,23 +155,23 @@ quaternion.div([0, 1]);
 quaternion.inverse(); // $ExpectType Quaternion
 
 // @ts-expect-error
-quaternion.inverse('');
+quaternion.inverse("");
 
 // inverse
 quaternion.inverse(); // $ExpectType Quaternion
 
 // @ts-expect-error
-quaternion.inverse('');
+quaternion.inverse("");
 
 // inverse
 quaternion.inverse(); // $ExpectType Quaternion
 
 // @ts-expect-error
-quaternion.inverse('');
+quaternion.inverse("");
 
 // pow
 quaternion.pow(0); // $ExpectType Quaternion
-quaternion.pow('0'); // $ExpectType Quaternion
+quaternion.pow("0"); // $ExpectType Quaternion
 quaternion.pow({ x: 0 }); // $ExpectType Quaternion
 quaternion.pow({ re: 0, im: 0 }); // $ExpectType Quaternion
 quaternion.pow([0, 0, 1]); // $ExpectType Quaternion
@@ -180,7 +180,7 @@ quaternion.pow([0, 0, 1, 1]); // $ExpectType Quaternion
 // @ts-expect-error
 quaternion.pow();
 // @ts-expect-error
-quaternion.pow('0', 1);
+quaternion.pow("0", 1);
 // @ts-expect-error
 quaternion.pow({});
 // @ts-expect-error
@@ -190,7 +190,7 @@ quaternion.pow([0, 1]);
 
 // equals
 quaternion.equals(0); // $ExpectType boolean
-quaternion.equals('0'); // $ExpectType boolean
+quaternion.equals("0"); // $ExpectType boolean
 quaternion.equals({ x: 0 }); // $ExpectType boolean
 quaternion.equals({ re: 0, im: 0 }); // $ExpectType boolean
 quaternion.equals([0, 0, 1]); // $ExpectType boolean
@@ -199,7 +199,7 @@ quaternion.equals([0, 0, 1, 1]); // $ExpectType boolean
 // @ts-expect-error
 quaternion.equals();
 // @ts-expect-error
-quaternion.equals('0', 1);
+quaternion.equals("0", 1);
 // @ts-expect-error
 quaternion.equals({});
 // @ts-expect-error
@@ -211,37 +211,37 @@ quaternion.equals([0, 1]);
 quaternion.isFinite(); // $ExpectType boolean
 
 // @ts-expect-error
-quaternion.isFinite('');
+quaternion.isFinite("");
 
 // isNaN
 quaternion.isNaN(); // $ExpectType boolean
 
 // @ts-expect-error
-quaternion.isNaN('');
+quaternion.isNaN("");
 
 // toString
 quaternion.toString(); // $ExpectType string
 
 // @ts-expect-error
-quaternion.toString('');
+quaternion.toString("");
 
 // real
 quaternion.real(); // $ExpectType number
 
 // @ts-expect-error
-quaternion.real('');
+quaternion.real("");
 
 // imag
 quaternion.imag(); // $ExpectType [number, number, number]
 
 // @ts-expect-error
-quaternion.imag('');
+quaternion.imag("");
 
 // toVector
 quaternion.toVector(); // $ExpectType [number, number, number, number]
 
 // @ts-expect-error
-quaternion.toVector('');
+quaternion.toVector("");
 
 // toMatrix
 quaternion.toMatrix(true); // $ExpectType Matrix3_2D
@@ -261,13 +261,13 @@ quaternion.toMatrix4();
 quaternion.toEuler(); // $ExpectType { roll: number; pitch: number; yaw: number; }
 
 // @ts-expect-error
-quaternion.toEuler('');
+quaternion.toEuler("");
 
 // clone
 quaternion.clone(); // $ExpectType Quaternion
 
 // @ts-expect-error
-quaternion.clone('');
+quaternion.clone("");
 
 // rotateVector
 quaternion.rotateVector([1, 2, 0]); // $ExpectType [number, number, number]
@@ -279,7 +279,7 @@ quaternion.rotateVector([1, 2]);
 
 // slerp
 quaternion.slerp(0); // $ExpectType (pct: number) => Quaternion
-quaternion.slerp('0'); // $ExpectType (pct: number) => Quaternion
+quaternion.slerp("0"); // $ExpectType (pct: number) => Quaternion
 quaternion.slerp({ x: 0 }); // $ExpectType (pct: number) => Quaternion
 quaternion.slerp({ re: 0, im: 0 }); // $ExpectType (pct: number) => Quaternion
 quaternion.slerp([0, 0, 1]); // $ExpectType (pct: number) => Quaternion
@@ -288,7 +288,7 @@ quaternion.slerp([0, 0, 1, 1]); // $ExpectType (pct: number) => Quaternion
 // @ts-expect-error
 quaternion.slerp();
 // @ts-expect-error
-quaternion.slerp('0', 1);
+quaternion.slerp("0", 1);
 // @ts-expect-error
 quaternion.slerp({});
 // @ts-expect-error
@@ -322,7 +322,7 @@ Quaternion.random(1);
 
 // fromEuler
 Quaternion.fromEuler(1, 2, 3); // $ExpectType Quaternion
-Quaternion.fromEuler(1, 2, 3, 'XYZ'); // $ExpectType Quaternion
+Quaternion.fromEuler(1, 2, 3, "XYZ"); // $ExpectType Quaternion
 
 // @ts-expect-error
 Quaternion.fromEuler(1, 2, 3, 3);

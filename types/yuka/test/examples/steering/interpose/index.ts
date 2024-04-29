@@ -15,19 +15,19 @@ function init() {
     // game setup
 
     entity1.maxSpeed = 2;
-    entity1.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
+    entity1.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
 
     const seekBehavior1 = new YUKA.SeekBehavior(target1);
     entity1.steering.add(seekBehavior1);
 
     entity2.maxSpeed = 2;
-    entity2.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
+    entity2.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
 
     const seekBehavior2 = new YUKA.SeekBehavior(target2);
     entity2.steering.add(seekBehavior2);
 
     pursuer.maxSpeed = 3;
-    pursuer.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
+    pursuer.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
 
     const interposeBehavior = new YUKA.InterposeBehavior(entity1, entity2, 1);
     pursuer.steering.add(interposeBehavior);
@@ -52,6 +52,6 @@ function animate() {
     entityManager.update(delta);
 }
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }

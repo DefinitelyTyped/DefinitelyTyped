@@ -7,31 +7,31 @@ browser.nonexistentNS.unknownMethod();
 const port = browser.runtime.connect();
 // @ts-expect-error
 port.postMessage();
-port.postMessage({ test: 'ok' });
+port.postMessage({ test: "ok" });
 port.onDisconnect.addListener(p => {
     if (p.error) {
         console.log(`Disconnected due to an error: ${p.error.message}`);
     }
 });
 port.onMessage.addListener(response => {
-    console.log('Received: ' + response);
+    console.log("Received: " + response);
 });
 
 // test for existence of namespaces
 // $ExpectType Promise<MailAccount[]>
 messenger.accounts.list();
 // $ExpectType Promise<AddressBookNode>
-browser.addressBooks.get('x');
+browser.addressBooks.get("x");
 // $ExpectType boolean
 messenger.addressBooks.provider.onSearchRequest.hasListener(() => undefined);
 // $ExpectType Promise<ColorArray>
-browser.browserAction.getBadgeBackgroundColor({tabId: 7});
+browser.browserAction.getBadgeBackgroundColor({ tabId: 7 });
 
 // test overloads - second string argument is optional
 // $ExpectType Promise<string>
-messenger.contacts.create('a', 'b', {c: null});
+messenger.contacts.create("a", "b", { c: null });
 // $ExpectType Promise<string>
-messenger.contacts.create('e', {f: 'g'});
+messenger.contacts.create("e", { f: "g" });
 
 // tests from the Firefox version
 browser.proxy.onError.addListener(error => {
@@ -43,9 +43,9 @@ browser.proxy.onRequest.addListener(
         console.log(d.requestId);
     },
     {
-        urls: ['test'],
+        urls: ["test"],
     },
-    ['requestHeaders'],
+    ["requestHeaders"],
 );
 
 browser.webNavigation.onBeforeNavigate.addListener(
@@ -53,12 +53,12 @@ browser.webNavigation.onBeforeNavigate.addListener(
         console.log(d.url, d.timeStamp);
     },
     {
-        url: [{ hostContains: 'something' }, { hostPrefix: 'somethineelse' }],
+        url: [{ hostContains: "something" }, { hostPrefix: "somethineelse" }],
     },
 );
 
 browser.runtime.connect().onDisconnect.addListener(() => {
-    console.log('ok');
+    console.log("ok");
 });
 
 browser.storage.onChanged.addListener((changes, area) => {

@@ -1,4 +1,4 @@
-import * as charcodes from 'charcodes';
+import * as charcodes from "charcodes";
 
 charcodes.backSpace; // $ExpectType 8
 charcodes.tab; // $ExpectType 9

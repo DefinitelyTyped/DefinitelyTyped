@@ -1,4 +1,4 @@
-import RecordRTC, { Options, RecordRTCPromisesHandler } from 'recordrtc';
+import RecordRTC, { Options, RecordRTCPromisesHandler } from "recordrtc";
 
 const opts: Options = {
     frameRate: 59.9,
@@ -6,7 +6,7 @@ const opts: Options = {
 
 navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     const instance = new RecordRTC(stream, {
-        type: 'video',
+        type: "video",
         disableLogs: true,
         bufferSize: 2048,
         ondataavailable: (blob: Blob) => {
@@ -35,8 +35,13 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream =>
     instance.setRecordingDuration(fiveMinutes, () => {});
 
     // $ExpectType void
+    instance.getDataURL(dataURL => {
+        console.log({ dataURL });
+    });
+
+    // $ExpectType void
     instance.setRecordingDuration(fiveMinutes).onRecordingStopped(() => {});
-    const StereoAudioRecorder = new RecordRTC.StereoAudioRecorder(stream, {desiredSampRate : 1000});
+    const StereoAudioRecorder = new RecordRTC.StereoAudioRecorder(stream, { desiredSampRate: 1000 });
     StereoAudioRecorder.record();
     StereoAudioRecorder.stop((blob: Blob) => {});
     StereoAudioRecorder.pause();
@@ -45,10 +50,10 @@ navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream =>
     StereoAudioRecorder.onAudioProcessStarted();
 });
 
-const canvas = document.querySelector('canvas')!;
+const canvas = document.querySelector("canvas")!;
 
 const instance2 = new RecordRTC(canvas, {
-    type: 'canvas',
+    type: "canvas",
 });
 instance2.stopRecording();
 
@@ -67,9 +72,9 @@ RecordRTC.getSeekableBlob(new Blob(), outputBlob => {
 
 RecordRTC.DiskStorage.Fetch((dataUrl, type) => {
     dataUrl; // $ExpectType string
-    const check1 = type === 'audioBlob';
+    const check1 = type === "audioBlob";
     // @ts-expect-error
-    const check2 = type === 'invalid';
+    const check2 = type === "invalid";
 });
 RecordRTC.DiskStorage.Store({
     audioBlob: new Blob(),

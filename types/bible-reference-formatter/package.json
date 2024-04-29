@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bible-reference-formatter",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/openbibleinfo/Bible-Reference-Formatter#readme"
+    ],
+    "devDependencies": {
+        "@types/bible-reference-formatter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mauricio Robayo",
+            "githubUsername": "MauricioRobayo"
+        }
+    ]
+}

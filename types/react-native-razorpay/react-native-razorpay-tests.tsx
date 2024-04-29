@@ -1,5 +1,5 @@
-import { Button } from 'react-native';
-import RazorpayCheckout, { ErrorResponse } from 'react-native-razorpay';
+import { Button } from "react-native";
+import RazorpayCheckout, { ErrorResponse } from "react-native-razorpay";
 
 /**
  * Steps to test
@@ -17,21 +17,21 @@ import RazorpayCheckout, { ErrorResponse } from 'react-native-razorpay';
  */
 
 const CheckoutOptions = {
-    key: '', // add razorpay key
+    key: "", // add razorpay key
     amount: 500,
-    currency: 'INR',
-    order_id: 'order_Koa8EA83rMMIOP', // replace it with correct order_id
-    name: 'Ankan',
-    description: 'Donation for gaming',
+    currency: "INR",
+    order_id: "order_Koa8EA83rMMIOP", // replace it with correct order_id
+    name: "Ankan",
+    description: "Donation for gaming",
     prefill: {
-        email: 'void@razorpay.com',
-        contact: '9191919191',
-        name: 'Razorpay Software',
+        email: "void@razorpay.com",
+        contact: "9191919191",
+        name: "Razorpay Software",
     },
-    theme: { color: '#F37254' },
+    theme: { color: "#F37254" },
     notes: {
         name: "Ankan",
-        3: "Points"
+        3: "Points",
     },
 };
 

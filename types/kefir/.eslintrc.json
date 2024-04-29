@@ -1,7 +1,10 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

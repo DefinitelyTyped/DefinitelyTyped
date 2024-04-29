@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -8,15 +8,6 @@
         "strictNullChecks": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@hapi/*": [
-                "hapi__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

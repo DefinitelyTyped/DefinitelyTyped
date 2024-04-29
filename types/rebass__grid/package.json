@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/rebass__grid",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/rebassjs/grid"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/styled-system": "*"
+    },
+    "devDependencies": {
+        "@types/rebass__grid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anton Vasin",
+            "githubUsername": "antonvasin"
+        },
+        {
+            "name": "Victor Orlov",
+            "githubUsername": "vittorio"
+        },
+        {
+            "name": "akameco",
+            "githubUsername": "akameco"
+        }
+    ]
+}

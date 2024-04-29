@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/co",
+    "version": "4.6.9999",
+    "projects": [
+        "https://github.com/tj/co#readme"
+    ],
+    "devDependencies": {
+        "@types/co": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Doniyor Aliyev",
+            "githubUsername": "doniyor2109"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-click-outside",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/kentor/react-click-outside"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-click-outside": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "Roman Nuritdinov",
+            "githubUsername": "Ky6uk"
+        }
+    ]
+}

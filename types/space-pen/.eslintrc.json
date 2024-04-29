@@ -1,7 +1,9 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "prefer-declare-function": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

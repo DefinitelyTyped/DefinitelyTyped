@@ -1,7 +1,7 @@
-import { BlockInstance } from '@wordpress/blocks';
-import { ComponentType, ReactNode } from 'react';
+import { BlockInstance } from "@wordpress/blocks";
+import { ComponentType, ReactNode } from "react";
 
-import { EditorSettings, EditorBlockListSettings } from '../';
+import { EditorBlockListSettings, EditorSettings } from "../";
 
 declare namespace BlockEditorProvider {
     interface Props {

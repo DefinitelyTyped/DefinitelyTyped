@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/iterate-object",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/node-iterate-object"
+    ],
+    "devDependencies": {
+        "@types/iterate-object": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jimmy Cuadra",
+            "githubUsername": "jimmycuadra"
+        }
+    ]
+}

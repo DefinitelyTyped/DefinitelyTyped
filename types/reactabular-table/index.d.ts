@@ -1,15 +1,9 @@
-// Type definitions for reactabular-table 8.14
-// Project: http://reactabular.js.org/
-// Definitions by: Marcos Junior <https://github.com/junalmeida>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import * as React from "react";
 
 export interface Column {
     property?: string | undefined;
     header?: {
-        label: string | JSX.Element;
+        label: string | React.JSX.Element;
         transforms?: ColumnTransform[] | undefined;
         formatters?: ColumnFormatter[] | undefined;
         draggable?: boolean | undefined;
@@ -24,45 +18,53 @@ export interface Column {
 }
 
 export interface Renderers {
-    table?: string | (() => JSX.Element) | undefined;
+    table?: string | (() => React.JSX.Element) | undefined;
     header?: {
-        wrapper?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
-        row?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
-        cell?: string | ((props: any, column: Column) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        wrapper?: string | ((props: any) => React.JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        row?: string | ((props: any) => React.JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        cell?:
+            | string
+            | ((props: any, column: Column) => React.JSX.Element)
+            | ((props: any) => React.ReactInstance)
+            | undefined;
     } | undefined;
     body?: {
-        wrapper?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
-        row?: string | ((props: any, rowData: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
-        cell?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        wrapper?: string | ((props: any) => React.JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        row?:
+            | string
+            | ((props: any, rowData: any) => React.JSX.Element)
+            | ((props: any) => React.ReactInstance)
+            | undefined;
+        cell?: string | ((props: any) => React.JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
     } | undefined;
 }
 
-export type ColumnTransform = (label: string | JSX.Element | React.ReactInstance, props: {
-    column: Column,
-    columnIndex: number,
-    property: string
+export type ColumnTransform = (label: string | React.JSX.Element | React.ReactInstance, props: {
+    column: Column;
+    columnIndex: number;
+    property: string;
 }) => any;
 
 export type CellTransform = (value: any, props: {
-    column: Column,
-    columnIndex: number,
-    rowData: any,
-    rowIndex: number,
-    property: string
+    column: Column;
+    columnIndex: number;
+    rowData: any;
+    rowIndex: number;
+    property: string;
 }) => any;
 
-export type ColumnFormatter = (label: string | JSX.Element, props: {
-    rowData: any,
-    column: Column,
-    columnIndex: number,
-}) => string | JSX.Element;
+export type ColumnFormatter = (label: string | React.JSX.Element, props: {
+    rowData: any;
+    column: Column;
+    columnIndex: number;
+}) => string | React.JSX.Element;
 
 export type CellFormatter = (value: any, props: {
-    column: Column,
-    columnIndex: number,
-    rowData: any,
-    rowIndex: number,
-}) => string | JSX.Element;
+    column: Column;
+    columnIndex: number;
+    rowData: any;
+    rowIndex: number;
+}) => string | React.JSX.Element;
 
 export interface ProviderProps {
     children?: React.ReactNode;

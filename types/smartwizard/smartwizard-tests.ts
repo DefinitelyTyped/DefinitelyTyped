@@ -1,9 +1,9 @@
-import 'jquery';
-import 'smartwizard';
+import "jquery";
+import "smartwizard";
 
 const options: JQuerySmartwizard.SmartWizardOptions = {
     selected: 0,
-    theme: 'default',
+    theme: "default",
     justified: true,
     darkMode: false,
     autoAdjustHeight: true,
@@ -11,27 +11,27 @@ const options: JQuerySmartwizard.SmartWizardOptions = {
     backButtonSupport: true,
     enableURLhash: true,
     transition: {
-        animation: 'slide-horizontal',
-        speed: '400',
-        easing: '',
+        animation: "slide-horizontal",
+        speed: "400",
+        easing: "",
     },
     toolbarSettings: {
-        toolbarPosition: 'bottom',
-        toolbarButtonPosition: 'right',
+        toolbarPosition: "bottom",
+        toolbarButtonPosition: "right",
         showNextButton: true,
         showPreviousButton: true,
         toolbarExtraButtons: [
-            $('<button></button>')
-                .text('Finish')
-                .addClass('btn btn-info')
-                .on('click', () => {
-                    alert('Finsih button click');
+            $("<button></button>")
+                .text("Finish")
+                .addClass("btn btn-info")
+                .on("click", () => {
+                    alert("Finsih button click");
                 }),
-            $('<button></button>')
-                .text('Cancel')
-                .addClass('btn btn-danger')
-                .on('click', () => {
-                    alert('Cancel button click');
+            $("<button></button>")
+                .text("Cancel")
+                .addClass("btn btn-danger")
+                .on("click", () => {
+                    alert("Cancel button click");
                 }),
         ],
     },
@@ -49,8 +49,8 @@ const options: JQuerySmartwizard.SmartWizardOptions = {
         keyRight: [39],
     },
     lang: {
-        next: 'Next',
-        previous: 'Previous',
+        next: "Next",
+        previous: "Previous",
     },
     disabledSteps: [1, 2],
     errorSteps: [3],
@@ -60,63 +60,63 @@ const options: JQuerySmartwizard.SmartWizardOptions = {
 /**
  * SmartWizard initialize
  */
-$('#smartwizard').smartWizard();
+$("#smartwizard").smartWizard();
 
 /**
  * Go to step
  */
-$('#smartwizard').smartWizard('goToStep', 3);
+$("#smartwizard").smartWizard("goToStep", 3);
 
 /**
  * Change theme
  */
-$('#smartwizard').smartWizard('setOptions', {
-    theme: 'dark',
+$("#smartwizard").smartWizard("setOptions", {
+    theme: "dark",
 });
 
 /**
  * Change animation
  */
-$('#smartwizard').smartWizard('setOptions', {
+$("#smartwizard").smartWizard("setOptions", {
     transition: {
-        animation: 'slide-horizontal',
+        animation: "slide-horizontal",
     },
 });
 
 /**
  * Change options
  */
-$('#smartwizard').smartWizard('setOptions', options);
+$("#smartwizard").smartWizard("setOptions", options);
 
 /**
  * Navigate next
  */
-$('#smartwizard').smartWizard('next');
+$("#smartwizard").smartWizard("next");
 
 /**
  * Navigate previous
  */
-$('#smartwizard').smartWizard('prev');
+$("#smartwizard").smartWizard("prev");
 
 /**
  * Reset wizard
  */
-$('#smartwizard').smartWizard('reset');
+$("#smartwizard").smartWizard("reset");
 
 /**
  * Disable step
  */
-$('#smartwizard').smartWizard('stepState', [1, 3], 'disable');
+$("#smartwizard").smartWizard("stepState", [1, 3], "disable");
 
 /**
  * Hide step
  */
-$('#smartwizard').smartWizard('stepState', [2], 'hide');
+$("#smartwizard").smartWizard("stepState", [2], "hide");
 
 /**
  * Get current step index
  */
-const stepIndex = $('#smartwizard').smartWizard('getStepIndex');
+const stepIndex = $("#smartwizard").smartWizard("getStepIndex");
 
 // @ExpectedType number
 stepIndex;
@@ -124,12 +124,12 @@ stepIndex;
 /**
  * Show the loader
  */
-$('#smartwizard').smartWizard('loader', 'show');
+$("#smartwizard").smartWizard("loader", "show");
 
 /**
  * Hide the loader
  */
-$('#smartwizard').smartWizard('loader', 'hide');
+$("#smartwizard").smartWizard("loader", "hide");
 
 /**
  * Events
@@ -138,7 +138,7 @@ $('#smartwizard').smartWizard('loader', 'hide');
 /**
  * leaveStep event
  */
-$('#smartwizard').on('leaveStep', (e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) => {
+$("#smartwizard").on("leaveStep", (e, anchorObject, currentStepIndex, nextStepIndex, stepDirection) => {
     // @ExpectedType JQuery<HTMLAnchorElement>
     anchorObject;
     // @ExpectedType number
@@ -152,7 +152,7 @@ $('#smartwizard').on('leaveStep', (e, anchorObject, currentStepIndex, nextStepIn
 /**
  * showStep event
  */
-$('#smartwizard').on('showStep', (e, anchorObject, stepIndex, stepDirection) => {
+$("#smartwizard").on("showStep", (e, anchorObject, stepIndex, stepDirection) => {
     // @ExpectedType Event
     e;
     // @ExpectedType JQuery<HTMLAnchorElement>
@@ -166,7 +166,7 @@ $('#smartwizard').on('showStep', (e, anchorObject, stepIndex, stepDirection) => 
 /**
  * stepContent event
  */
-$('#smartwizard').on('stepContent', (e, anchorObject, stepIndex, stepDirection) => {
+$("#smartwizard").on("stepContent", (e, anchorObject, stepIndex, stepDirection) => {
     // @ExpectedType Event
     e;
     // @ExpectedType JQuery<HTMLAnchorElement>

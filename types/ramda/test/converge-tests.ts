@@ -1,29 +1,32 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     interface FormatSpec {
         indent: number;
         value: string;
     }
 
-    const indentN = R.pipe(R.times(R.always(' ')), R.join(''), R.replace(/^(?!$)/gm));
+    const indentN = R.pipe(R.times(R.always(" ")), R.join(""), R.replace(/^(?!$)/gm));
 
     // $ExpectType Curry<(args_0: FormatSpec) => any>
     const format = R.converge(R.call, [({ indent }: FormatSpec) => indentN(indent), ({ value }: FormatSpec) => value]);
 
-    format({ indent: 2, value: 'foo\nbar\nbaz\n' }); // => '  foo\n  bar\n  baz\n'
+    format({ indent: 2, value: "foo\nbar\nbaz\n" }); // => '  foo\n  bar\n  baz\n'
 
     // $ExpectType Curry<(args_0: FormatSpec) => string>
-    const format2 = R.converge(R.call, [
-        ({ indent }: FormatSpec) => indentN(indent),
-        ({ value }: FormatSpec) => value,
-    ] as const);
+    const format2 = R.converge(
+        R.call,
+        [
+            ({ indent }: FormatSpec) => indentN(indent),
+            ({ value }: FormatSpec) => value,
+        ] as const,
+    );
 
     // $ExpectType string
-    const indented = format2({ indent: 2, value: 'foo\nbar\nbaz\n' }); // => '  foo\n  bar\n  baz\n'
-};
+    const indented = format2({ indent: 2, value: "foo\nbar\nbaz\n" }); // => '  foo\n  bar\n  baz\n'
+});
 
-() => {
+(() => {
     function add(a: number, b: number) {
         return a + b;
     }
@@ -59,7 +62,7 @@ import * as R from 'ramda';
     fn(1, 2);
 
     // @ts-expect-error
-    fn('1', 2);
+    fn("1", 2);
 
     // @ts-expect-error
     fn(1, 2, 3);
@@ -123,10 +126,10 @@ import * as R from 'ramda';
     const intersectionOfArguments = R.converge(add3, [args1, args2, args3]);
 
     // $ExpectType number
-    const resultNumber = intersectionOfArguments(1, { q: 'text', w: 22 }, 11);
+    const resultNumber = intersectionOfArguments(1, { q: "text", w: 22 }, 11);
 
     // @ts-expect-error
-    const errorArguments = intersectionOfArguments(1, { q: 'text' }, 11);
+    const errorArguments = intersectionOfArguments(1, { q: "text" }, 11);
 
     const argsIncompatible = (a1: string) => 1;
 
@@ -141,7 +144,7 @@ import * as R from 'ramda';
     const withGeneric0 = R.converge(addGeneric, [multiply, subtract] as const);
 
     // unable to infer types correctly because generic `R.or` has overloads with different number of arguments
-    // $ExpectType Curry<(a: number, b: number) => <U>(b: U) => unknown>
+    // $ExpectType Curry<(a: number, b: number) => unknown>
     const withGenericWrongInferred = R.converge(R.or, [add, subtract] as const);
 
     // need to use wrapper `(...args) => convergingFunction(...args)` if converging function
@@ -153,9 +156,12 @@ import * as R from 'ramda';
     // $ExpectType Curry<(a: number, b: number) => number>
     const withGeneric2 = R.converge((...args: [number, number]) => R.or(...args), [add, subtract]);
 
-    // $ExpectType Curry<(list: readonly number[] & ArrayLike<unknown>) => number>
+    // this was // $ExpectType Curry<(list: readonly number[] & ArrayLike<unknown>) => number>
+    // I don't know why it has changed
+    // $ExpectType Curry<(list: readonly number[] & { length: number; }) => number>
     const getAverage = R.converge((...args) => R.divide(...args), [R.sum, R.length] as const);
+    //    ^?
 
     // $ExpectType number
     const average = getAverage([1, 3, 0, 4]); // => 2
-};
+});

@@ -1,13 +1,7 @@
-// Type definitions for liftoff 4.0
-// Project: https://github.com/js-cli/js-liftoff#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>,
-//                 Corbin Crutchley <https://github.com/crutchcorn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { PathSpec } from 'fined';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import { PathSpec } from "fined";
 
 export = Liftoff;
 
@@ -19,7 +13,11 @@ declare class Liftoff extends EventEmitter {
 
     prepare(options: Liftoff.PrepareOptions, callback: (env: Liftoff.LiftoffEnv) => void): void;
     execute(env: Liftoff.LiftoffEnv, callback: (this: Liftoff, env: Liftoff.LiftoffEnv, argv: string[]) => void): void;
-    execute(env: Liftoff.LiftoffEnv, forcedFlags: string | string[], callback: (this: Liftoff, env: Liftoff.LiftoffEnv, argv: string[]) => void): void;
+    execute(
+        env: Liftoff.LiftoffEnv,
+        forcedFlags: string | string[],
+        callback: (this: Liftoff, env: Liftoff.LiftoffEnv, argv: string[]) => void,
+    ): void;
 
     addListener<TEvent extends keyof Liftoff.Events>(event: TEvent, listener: Liftoff.Events[TEvent]): this;
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
@@ -45,11 +43,11 @@ declare class Liftoff extends EventEmitter {
 
 declare namespace Liftoff {
     interface Events {
-        'loader:success': (name: string, module: unknown) => void;
-        'preload:success': (name: string, module: unknown) => void;
-        'loader:failure': (name: string, err: Error) => void;
-        'preload:failure': (name: string, err: Error) => void;
-        'preload:before': (name: string) => void;
+        "loader:success": (name: string, module: unknown) => void;
+        "preload:success": (name: string, module: unknown) => void;
+        "loader:failure": (name: string, err: Error) => void;
+        "preload:failure": (name: string, err: Error) => void;
+        "preload:before": (name: string) => void;
         respawn: (flags: string[], child: NodeJS.Process) => void;
     }
 
@@ -75,7 +73,7 @@ declare namespace Liftoff {
          * the module name should be specified as the value for the key.
          * @default {".js":null,".json":null}
          */
-        extensions?: PathSpec['extensions'] | undefined;
+        extensions?: PathSpec["extensions"] | undefined;
         /**
          * Any flag specified here will be applied to node, not your program.
          * Useful for supporting invocations like myapp --harmony command,

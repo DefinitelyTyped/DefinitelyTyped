@@ -1,3 +1,3 @@
-import { Mesh } from '../../../src/Three';
+import { Mesh } from "three";
 
 export function createText(message: string, height: number): Mesh;

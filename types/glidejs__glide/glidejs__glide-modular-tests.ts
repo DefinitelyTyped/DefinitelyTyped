@@ -6,10 +6,10 @@ import Glide, {
     Images,
     Keyboard,
     Swipe,
-} from '@glidejs/glide/dist/glide.modular.esm';
+} from "@glidejs/glide/dist/glide.modular.esm";
 
 // $ExpectType Glide
-const glide = new Glide('.glide');
+const glide = new Glide(".glide");
 
 // $ExpectType Glide
 glide.mount({ Autoplay });

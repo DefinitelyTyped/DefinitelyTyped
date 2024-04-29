@@ -1,7 +1,5 @@
-import { EditorSettings } from '@wordpress/block-editor';
-import { BlockInstance, TemplateArray } from '@wordpress/blocks';
-import { Autosave } from '@wordpress/core-data';
-import { dispatch } from '@wordpress/data';
+import { EditorSettings } from "@wordpress/block-editor";
+import { BlockInstance, TemplateArray } from "@wordpress/blocks";
 
 export {
     clearSelectedBlock,
@@ -12,9 +10,9 @@ export {
     insertBlocks,
     insertDefaultBlock,
     mergeBlocks,
-    moveBlockToPosition,
     moveBlocksDown,
     moveBlocksUp,
+    moveBlockToPosition,
     multiSelect,
     receiveBlocks,
     removeBlock,
@@ -35,7 +33,7 @@ export {
     updateBlock,
     updateBlockAttributes,
     updateBlockListSettings,
-} from '@wordpress/block-editor/store/actions';
+} from "@wordpress/block-editor/store/actions";
 
 /**
  * Action generator used in signalling that the post should autosave.
@@ -49,7 +47,7 @@ export function autosave(options?: Record<string, boolean>): IterableIterator<vo
  *
  * @deprecated since 12.2.0.
  */
-export function createUndoLevel(): {type: 'DO_NOTHING'};
+export function createUndoLevel(): { type: "DO_NOTHING" };
 
 /**
  * Signals that the user has disabled the publish sidebar.
@@ -85,7 +83,7 @@ export function redo(): void;
  *
  * @deprecated since 12.2.0.
  */
-export function refreshPost(): {type: 'DO_NOTHING'};
+export function refreshPost(): { type: "DO_NOTHING" };
 
 /**
  * Signals that the blocks have been updated.
@@ -117,7 +115,7 @@ export function savePost(options?: Record<string, any>): IterableIterator<void>;
 export function setupEditor(
     post: Record<string, any>,
     edits?: Record<string, any>,
-    template?: TemplateArray
+    template?: TemplateArray,
 ): IterableIterator<void>;
 
 /**
@@ -163,4 +161,4 @@ export function updatePost(edits: Record<string, any>): void;
  *
  * @param lock - Details about the post lock status, user, and nonce.
  */
-export function updatePostLock(lock: EditorSettings['postLock']): void;
+export function updatePostLock(lock: EditorSettings["postLock"]): void;

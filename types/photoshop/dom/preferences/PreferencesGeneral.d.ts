@@ -1,5 +1,5 @@
-import { PreferencesBase } from "./PreferencesBase";
 import * as Constants from "../Constants";
+import { PreferencesBase } from "./PreferencesBase";
 /**
  * General preferences
  *
@@ -24,8 +24,8 @@ export declare class PreferencesGeneral extends PreferencesBase {
      *
      * @minVersion 24.0
      */
-    set colorPicker(colorPickerArg: ColorPickerArg);
-    get colorPicker(): ColorPickerArg;
+    set colorPicker(colorPickerArg: ColorPickerOption);
+    get colorPicker(): ColorPickerOption;
     /**
      * Method used when scaling or resizing images.
      *
@@ -58,7 +58,19 @@ export declare class PreferencesGeneral extends PreferencesBase {
 }
 /** @ignore */
 export declare const preferencesGeneral: PreferencesGeneral;
-export interface ColorPickerArg {
+/**
+ * The options used when specifying a color picker in Preferences.
+ * @minVersion 24.0
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export interface ColorPickerOption {
+    /**
+     * @minVersion 24.0
+     */
     type: "photoshopPicker" | "systemPicker" | "pluginPicker";
+    /**
+     * @minVersion 24.0
+     */
     pluginID?: string;
 }

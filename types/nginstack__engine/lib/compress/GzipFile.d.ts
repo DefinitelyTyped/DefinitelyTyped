@@ -5,16 +5,17 @@ declare class GzipFile {
     write(content: string): void;
     writeln(content: string): void;
     read(size?: number): string;
-    readln(): void;
+    readln(): string;
     clear(): void;
     flush(): void;
     close(): void;
     position: number;
+    eof: boolean;
     size: number;
 }
 declare namespace GzipFile {
-    const NO_COMPRESSION: number;
-    const BEST_SPEED: number;
-    const BEST_COMPRESSION: number;
-    const DEFAULT_COMPRESSION: number;
+    let NO_COMPRESSION: number;
+    let BEST_SPEED: number;
+    let BEST_COMPRESSION: number;
+    let DEFAULT_COMPRESSION: number;
 }

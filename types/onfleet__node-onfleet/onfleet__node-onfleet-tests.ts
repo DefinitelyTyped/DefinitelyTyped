@@ -1,4 +1,4 @@
-import Onfleet = require('@onfleet/node-onfleet');
+import Onfleet = require("@onfleet/node-onfleet");
 
 const bottleneckOptions = {
     LIMITER_RESERVOIR: 20,
@@ -9,38 +9,41 @@ const bottleneckOptions = {
 
 // constructor
 // with api key
-const onfleet = new Onfleet('test-api-key');
+const onfleet = new Onfleet("test-api-key");
 
 // with api key, timeout
-new Onfleet('test-api-key', 20000);
+new Onfleet("test-api-key", 20000);
 // with api key, timeout, bottleneck options
-new Onfleet('test-api-key', 20000, bottleneckOptions);
+new Onfleet("test-api-key", 20000, bottleneckOptions);
 // with api key, timeout, bottleneck options, base URL
-new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com');
+new Onfleet("test-api-key", 20000, bottleneckOptions, "http://test.com");
 // with api key, timeout, bottleneck options, base URL, default path
-new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com', '/api');
+new Onfleet("test-api-key", 20000, bottleneckOptions, "http://test.com", "/api");
 // with api key, timeout, bottleneck options, base URL, default path, api version
-new Onfleet('test-api-key', 20000, bottleneckOptions, 'http://test.com', '/api', '/v5');
+new Onfleet("test-api-key", 20000, bottleneckOptions, "http://test.com", "/api", "/v5");
 
 onfleet.verifyKey().then().catch();
 
 const testAddress = {
-    city: 'Toronto',
-    country: 'Canada',
-    name: 'Test Destination',
-    number: '100',
-    street: 'Test Street Blvd.',
+    city: "Toronto",
+    country: "Canada",
+    name: "Test Destination",
+    number: "100",
+    street: "Test Street Blvd.",
 };
 
 async function testTasks(onfleet: Onfleet) {
     // test tasks.get
-    const task = await onfleet.tasks.get('fake_task_id');
+    const task = await onfleet.tasks.get("fake_task_id");
     // test tasks.get GetTaskResult props
     task.estimatedCompletionTime;
     task.eta;
     task.trackingViewed;
     task.completionDetails.notes;
     task.completionDetails.success;
+    task.completionDetails.photoUploadId;
+    task.completionDetails.photoUploadIds;
+    task.completionDetails.signatureUploadId;
     const result = await onfleet.tasks.get({ from: 1455072025000 });
     for (const resultTask of result.tasks) {
         resultTask.pickupTask;
@@ -49,27 +52,44 @@ async function testTasks(onfleet: Onfleet) {
     if (result.lastId) {
         await onfleet.tasks.get({ from: 1455072025000, lastId: result.lastId });
     }
-    await onfleet.tasks.get('fake_task_id', 'shortId');
+    await onfleet.tasks.get("fake_task_id", "shortId");
 
     // test tasks.create
     const dummyTask = await onfleet.tasks.create({
-        recipients: ['fake_recipient_id'],
-        destination: 'fake_destination_id',
+        recipients: ["fake_recipient_id"],
+        destination: "fake_destination_id",
     });
 
     // test tasks.batchCreate
     const dummyTasks = await onfleet.tasks.batchCreate({
         tasks: [
             {
-                recipients: ['fake_recipient_id'],
-                destination: 'fake_destination_id',
+                recipients: ["fake_recipient_id"],
+                destination: "fake_destination_id",
             },
             {
-                recipients: ['fake_recipient_id'],
-                destination: 'fake_destination_id',
+                recipients: ["fake_recipient_id"],
+                destination: "fake_destination_id",
             },
         ],
     });
+
+    // test batchCreate async
+    const dummyTasksAsync = await onfleet.tasks.batchCreateAsync({
+        tasks: [
+            {
+                recipients: ["fake_recipient_id"],
+                destination: "fake_destination_id",
+            },
+            {
+                recipients: ["fake_recipient_id"],
+                destination: "fake_destination_id",
+            },
+        ],
+    });
+
+    // test getBatch async
+    await onfleet.tasks.getBatch(dummyTasksAsync.jobId);
 
     // test tasks.autoAssign
     await onfleet.tasks.autoAssign({
@@ -77,40 +97,40 @@ async function testTasks(onfleet: Onfleet) {
     });
 
     const taskCreated = await onfleet.tasks.create({
-        recipients: ['<recipient-id-1>', '<recipient-id-2>'],
+        recipients: ["<recipient-id-1>", "<recipient-id-2>"],
         destination: {
             address: testAddress,
         },
         container: {
-            type: 'TEAM',
-            team: 'teamId',
+            type: "TEAM",
+            team: "teamId",
         },
     });
 
-    if (taskCreated.container.type === 'TEAM') {
-        taskCreated.container.team === 'teamId';
+    if (taskCreated.container.type === "TEAM") {
+        taskCreated.container.team === "teamId";
     }
 
     // test tasks.update
     const taskUpdated = await onfleet.tasks.update(dummyTask.id, {
-        notes: 'Some test task notes',
+        notes: "Some test task notes",
         container: {
-            type: 'WORKER',
-            worker: 'workerId',
+            type: "WORKER",
+            worker: "workerId",
         },
     });
 
-    if (taskUpdated.container.type === 'WORKER') {
-        taskUpdated.container.worker === 'workerId';
+    if (taskUpdated.container.type === "WORKER") {
+        taskUpdated.container.worker === "workerId";
     }
 
     // test tasks.update barcodes
     await onfleet.tasks.update(dummyTask.id, {
-        notes: 'Some test task notes',
+        notes: "Some test task notes",
         barcodes: [
-            { data: 'aGVsbG8gd29ybGQh' },
+            { data: "aGVsbG8gd29ybGQh" },
             { blockCompletion: true },
-            { data: 'aGVsbG8gd29ybGQh', blockCompletion: true },
+            { data: "aGVsbG8gd29ybGQh", blockCompletion: true },
         ],
     });
 
@@ -121,12 +141,12 @@ async function testTasks(onfleet: Onfleet) {
         const required = dummyTask.barcodes.required[0];
         const captured = dummyTask.barcodes.captured[0];
         if (
-            required.data === captured.data &&
-            captured.wasRequested === required.blockCompletion &&
-            captured.symbology === 'CODE39'
+            required.data === captured.data
+            && captured.wasRequested === required.blockCompletion
+            && captured.symbology === "CODE39"
         ) {
             captured.location = [-122.42855072021484, 37.78808138412046];
-            captured.id = 'ku0fpiCqJPC25h3W0cnfgqNn';
+            captured.id = "ku0fpiCqJPC25h3W0cnfgqNn";
             captured.time = Date.now();
         }
     }
@@ -137,14 +157,14 @@ async function testTasks(onfleet: Onfleet) {
     // test tasks.forceComplete
     await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true } });
     await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: false } });
-    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true, notes: 'test note' } });
+    await onfleet.tasks.forceComplete(dummyTask.id, { completionDetails: { success: true, notes: "test note" } });
 
     // test tasks.matchMetadata
     await onfleet.tasks.matchMetadata([
         {
-            name: 'test',
-            type: 'boolean',
-            value: 'test',
+            name: "test",
+            type: "boolean",
+            value: "test",
         },
     ]);
 }
@@ -161,36 +181,36 @@ async function testDestination() {
     // test destination.matchMetadata
     await onfleet.destinations.matchMetadata([
         {
-            name: 'test',
-            type: 'boolean',
-            value: 'test',
+            name: "test",
+            type: "boolean",
+            value: "test",
         },
     ]);
 }
 
 async function testRecipient() {
     const testRecipient = await onfleet.recipients.create({
-        name: 'Test User',
-        phone: '+1-416-555-5555',
-        notes: 'Test notes',
+        name: "Test User",
+        phone: "+1-416-555-5555",
+        notes: "Test notes",
         skipSMSNotifications: true,
         skipPhoneNumberValidation: false,
     });
 
     // test recipient.get
     await onfleet.recipients.get(testRecipient.id);
-    await onfleet.recipients.get('Test User', 'name');
-    await onfleet.recipients.get('+1-416-555-5555', 'phone');
+    await onfleet.recipients.get("Test User", "name");
+    await onfleet.recipients.get("+1-416-555-5555", "phone");
 
     // test recipient.update
-    await onfleet.recipients.update(testRecipient.id, { notes: 'Updated notes' });
+    await onfleet.recipients.update(testRecipient.id, { notes: "Updated notes" });
 
     // test recipient.matchMetadata
     await onfleet.recipients.matchMetadata([
         {
-            name: 'test',
-            type: 'boolean',
-            value: 'test',
+            name: "test",
+            type: "boolean",
+            value: "test",
         },
     ]);
 }
@@ -199,28 +219,28 @@ async function testHubs() {
     // test hubs.create
     await onfleet.hubs.create({
         address: testAddress,
-        name: 'test-hub',
+        name: "test-hub",
         team: [],
     });
 }
 
 async function testTeams() {
     // test teams.autoDispatch
-    await onfleet.teams.autoDispatch('team-id', {
+    await onfleet.teams.autoDispatch("team-id", {
         maxAllowedDelay: 10,
         maxTasksPerRoute: 5,
-        routeEnd: 'teams://DEFAULT',
+        routeEnd: "teams://DEFAULT",
         scheduleTimeWindow: [0, 6],
         serviceTime: 2,
         taskTimeWindow: [0, 4],
     });
 
     // test teams.getWorkerEta
-    await onfleet.teams.getWorkerEta('worked-id', {
-        dropoffLocation: '-122.2442512,37.8097414',
-        pickupLocation: '-122.2514556,37.7577242',
+    await onfleet.teams.getWorkerEta("worked-id", {
+        dropoffLocation: "-122.2442512,37.8097414",
+        pickupLocation: "-122.2514556,37.7577242",
         pickupTime: 1614895847,
-        restrictedVehicleTypes: 'CAR',
+        restrictedVehicleTypes: "CAR",
         serviceTime: 300,
     });
 }
@@ -229,9 +249,9 @@ async function testWorkers() {
     // test workers.matchMetadata
     await onfleet.workers.matchMetadata([
         {
-            name: 'test',
-            type: 'boolean',
-            value: 'test',
+            name: "test",
+            type: "boolean",
+            value: "test",
         },
     ]);
 }

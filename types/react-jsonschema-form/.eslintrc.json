@@ -1,7 +1,15 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "no-duplicate-imports": "off"
     }
 }

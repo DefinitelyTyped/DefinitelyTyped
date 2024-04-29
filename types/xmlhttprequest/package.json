@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/xmlhttprequest",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/driverdan/node-XMLHttpRequest"
+    ],
+    "devDependencies": {
+        "@types/xmlhttprequest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Harry Cruse",
+            "githubUsername": "CruseCtrl"
+        }
+    ]
+}

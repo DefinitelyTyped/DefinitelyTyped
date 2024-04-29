@@ -1,0 +1,45 @@
+{
+    "private": true,
+    "name": "@types/react-virtualized",
+    "version": "9.21.9999",
+    "projects": [
+        "https://github.com/bvaughn/react-virtualized"
+    ],
+    "dependencies": {
+        "@types/prop-types": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-virtualized": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kalle Ott",
+            "githubUsername": "kaoDev"
+        },
+        {
+            "name": "John Gunther",
+            "githubUsername": "guntherjh"
+        },
+        {
+            "name": "Konstantin Nesterov",
+            "githubUsername": "wasd171"
+        },
+        {
+            "name": "Steve Zhang",
+            "githubUsername": "Stevearzh"
+        },
+        {
+            "name": "Brandon Hall",
+            "githubUsername": "brandonhall"
+        },
+        {
+            "name": "Sebastian Busch",
+            "githubUsername": "sbusch"
+        },
+        {
+            "name": "Adam Zmenak",
+            "githubUsername": "azmenak"
+        }
+    ]
+}

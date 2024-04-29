@@ -1,4 +1,4 @@
-import human = require('humanparser');
+import human = require("humanparser");
 
 let parsedName = human.parseName("Mr. William R. Hearst, III");
 // $ExpectType string | undefined
@@ -14,7 +14,7 @@ parsedName.middleName;
 // $ExpectType string | undefined
 parsedName.salutation;
 
-let parsedNameWithSuffixIgnored = human.parseName("Mr. William R. Hearst, III", ['III']);
+let parsedNameWithSuffixIgnored = human.parseName("Mr. William R. Hearst, III", ["III"]);
 // $ExpectType string | undefined
 parsedNameWithSuffixIgnored.firstName;
 // $ExpectType string
@@ -27,6 +27,20 @@ parsedNameWithSuffixIgnored.suffix;
 parsedNameWithSuffixIgnored.middleName;
 // $ExpectType string | undefined
 parsedNameWithSuffixIgnored.salutation;
+
+let parsedNameWithParseOptions = human.parseName("Mr. William R. Hearst, III", { ignoreSuffix: ["III"] });
+// $ExpectType string | undefined
+parsedNameWithParseOptions.firstName;
+// $ExpectType string
+parsedNameWithParseOptions.lastName;
+// $ExpectType string
+parsedNameWithParseOptions.fullName;
+// $ExpectType string | undefined
+parsedNameWithParseOptions.suffix;
+// $ExpectType string | undefined
+parsedNameWithParseOptions.middleName;
+// $ExpectType string | undefined
+parsedNameWithParseOptions.salutation;
 
 let parsedNameWithNoFirstName = human.parseName("Master Yoda");
 // $ExpectType string | undefined

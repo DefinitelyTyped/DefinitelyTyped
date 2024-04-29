@@ -34,7 +34,7 @@ import {
     UnknownMethodError,
     UnsupportedOperationError,
     WebDriverError,
-} from 'selenium-webdriver/lib/error';
+} from "selenium-webdriver/lib/error";
 
 export function TestError() {
     const success: 0 = ErrorCode.SUCCESS;
@@ -74,100 +74,100 @@ export function TestError() {
     const methodNotAllowed: 405 = ErrorCode.METHOD_NOT_ALLOWED;
 
     const webDriverError: WebDriverError = new WebDriverError();
-    const webDriverErrorWithMessage: WebDriverError = new WebDriverError('message');
+    const webDriverErrorWithMessage: WebDriverError = new WebDriverError("message");
     const remoteStacktrace: string = webDriverErrorWithMessage.remoteStacktrace;
 
     const detachedShadowRootError: DetachedShadowRootError = new DetachedShadowRootError();
-    const detachedShadowRootErrorWithMessage: DetachedShadowRootError = new DetachedShadowRootError('message');
+    const detachedShadowRootErrorWithMessage: DetachedShadowRootError = new DetachedShadowRootError("message");
 
     const elementClickInterceptedError: ElementClickInterceptedError = new ElementClickInterceptedError();
     const elementClickInterceptedErrorWithMessage: ElementClickInterceptedError = new ElementClickInterceptedError(
-        'message',
+        "message",
     );
 
     const elementNotSelectableError: ElementNotSelectableError = new ElementNotSelectableError();
-    const elementNotSelectableErrorWithMessage: ElementNotSelectableError = new ElementNotSelectableError('message');
+    const elementNotSelectableErrorWithMessage: ElementNotSelectableError = new ElementNotSelectableError("message");
 
     const elementNotInteractableError: ElementNotInteractableError = new ElementNotInteractableError();
     const elementNotInteractableErrorWithMessage: ElementNotInteractableError = new ElementNotInteractableError(
-        'message',
+        "message",
     );
 
     const insecureCertificateError: InsecureCertificateError = new InsecureCertificateError();
-    const insecureCertificateErrorWithMessage: InsecureCertificateError = new InsecureCertificateError('message');
+    const insecureCertificateErrorWithMessage: InsecureCertificateError = new InsecureCertificateError("message");
 
     const invalidArgumentError: InvalidArgumentError = new InvalidArgumentError();
-    const invalidArgumentErrorWithMessage: InvalidArgumentError = new InvalidArgumentError('message');
+    const invalidArgumentErrorWithMessage: InvalidArgumentError = new InvalidArgumentError("message");
 
     const invalidCookieDomainError: InvalidCookieDomainError = new InvalidCookieDomainError();
-    const invalidCookieDomainErrorWithMessage: InvalidCookieDomainError = new InvalidCookieDomainError('message');
+    const invalidCookieDomainErrorWithMessage: InvalidCookieDomainError = new InvalidCookieDomainError("message");
 
     const invalidCoordinatesError: InvalidCoordinatesError = new InvalidCoordinatesError();
-    const invalidCoordinatesErrorWithMessage: InvalidCoordinatesError = new InvalidCoordinatesError('message');
+    const invalidCoordinatesErrorWithMessage: InvalidCoordinatesError = new InvalidCoordinatesError("message");
 
     const invalidElementStateError: InvalidElementStateError = new InvalidElementStateError();
-    const invalidElementStateErrorWithMessage: InvalidElementStateError = new InvalidElementStateError('message');
+    const invalidElementStateErrorWithMessage: InvalidElementStateError = new InvalidElementStateError("message");
 
     const invalidSelectorError: InvalidSelectorError = new InvalidSelectorError();
-    const invalidSelectorErrorWithMessage: InvalidSelectorError = new InvalidSelectorError('message');
+    const invalidSelectorErrorWithMessage: InvalidSelectorError = new InvalidSelectorError("message");
 
     const noSuchSessionError: NoSuchSessionError = new NoSuchSessionError();
-    const noSuchSessionErrorWithMessage: NoSuchSessionError = new NoSuchSessionError('message');
+    const noSuchSessionErrorWithMessage: NoSuchSessionError = new NoSuchSessionError("message");
 
     const javascriptError: JavascriptError = new JavascriptError();
-    const javascriptErrorWithMessage: JavascriptError = new JavascriptError('message');
+    const javascriptErrorWithMessage: JavascriptError = new JavascriptError("message");
 
     const moveTargetOutOfBoundsError: MoveTargetOutOfBoundsError = new MoveTargetOutOfBoundsError();
-    const moveTargetOutOfBoundsErrorWithMessage: MoveTargetOutOfBoundsError = new MoveTargetOutOfBoundsError('message');
+    const moveTargetOutOfBoundsErrorWithMessage: MoveTargetOutOfBoundsError = new MoveTargetOutOfBoundsError("message");
 
     const noSuchAlertError: NoSuchAlertError = new NoSuchAlertError();
-    const noSuchAlertErrorWithMessage: NoSuchAlertError = new NoSuchAlertError('message');
+    const noSuchAlertErrorWithMessage: NoSuchAlertError = new NoSuchAlertError("message");
 
     const noSuchCookieError: NoSuchCookieError = new NoSuchCookieError();
-    const noSuchCookieErrorWithMessage: NoSuchCookieError = new NoSuchCookieError('message');
+    const noSuchCookieErrorWithMessage: NoSuchCookieError = new NoSuchCookieError("message");
 
     const noSuchElementError: NoSuchElementError = new NoSuchElementError();
-    const noSuchElementErrorWithMessage: NoSuchElementError = new NoSuchElementError('message');
+    const noSuchElementErrorWithMessage: NoSuchElementError = new NoSuchElementError("message");
 
     const noSuchShadowRootError: NoSuchShadowRootError = new NoSuchShadowRootError();
-    const noSuchShadowRootErrorWithMessage: NoSuchShadowRootError = new NoSuchShadowRootError('message');
+    const noSuchShadowRootErrorWithMessage: NoSuchShadowRootError = new NoSuchShadowRootError("message");
 
     const noSuchFrameError: NoSuchFrameError = new NoSuchFrameError();
-    const noSuchFrameErrorWithMessage: NoSuchFrameError = new NoSuchFrameError('message');
+    const noSuchFrameErrorWithMessage: NoSuchFrameError = new NoSuchFrameError("message");
 
     const noSuchWindowError: NoSuchWindowError = new NoSuchWindowError();
-    const noSuchWindowErrorWithMessage: NoSuchWindowError = new NoSuchWindowError('message');
+    const noSuchWindowErrorWithMessage: NoSuchWindowError = new NoSuchWindowError("message");
 
     const scriptTimeoutError: ScriptTimeoutError = new ScriptTimeoutError();
-    const scriptTimeoutErrorWithMessage: ScriptTimeoutError = new ScriptTimeoutError('message');
+    const scriptTimeoutErrorWithMessage: ScriptTimeoutError = new ScriptTimeoutError("message");
 
     const sessionNotCreatedError: SessionNotCreatedError = new SessionNotCreatedError();
-    const sessionNotCreatedErrorWithMessage: SessionNotCreatedError = new SessionNotCreatedError('message');
+    const sessionNotCreatedErrorWithMessage: SessionNotCreatedError = new SessionNotCreatedError("message");
 
     const staleElementReferenceError: StaleElementReferenceError = new StaleElementReferenceError();
-    const staleElementReferenceErrorWithMessage: StaleElementReferenceError = new StaleElementReferenceError('message');
+    const staleElementReferenceErrorWithMessage: StaleElementReferenceError = new StaleElementReferenceError("message");
 
     const timeoutError: TimeoutError = new TimeoutError();
-    const timeoutErrorWithMessage: TimeoutError = new TimeoutError('message');
+    const timeoutErrorWithMessage: TimeoutError = new TimeoutError("message");
 
     const unableToSetCookieError: UnableToSetCookieError = new UnableToSetCookieError();
-    const unableToSetCookieErrorWithMessage: UnableToSetCookieError = new UnableToSetCookieError('message');
+    const unableToSetCookieErrorWithMessage: UnableToSetCookieError = new UnableToSetCookieError("message");
 
     const unableToCaptureScreenError: UnableToCaptureScreenError = new UnableToCaptureScreenError();
-    const unableToCaptureScreenErrorWithMessage: UnableToCaptureScreenError = new UnableToCaptureScreenError('message');
+    const unableToCaptureScreenErrorWithMessage: UnableToCaptureScreenError = new UnableToCaptureScreenError("message");
 
     const unexpectedAlertOpenError: UnexpectedAlertOpenError = new UnexpectedAlertOpenError();
-    const unexpectedAlertOpenErrorWithMessage: UnexpectedAlertOpenError = new UnexpectedAlertOpenError('message');
+    const unexpectedAlertOpenErrorWithMessage: UnexpectedAlertOpenError = new UnexpectedAlertOpenError("message");
     const alertText: string | undefined = unexpectedAlertOpenErrorWithMessage.getAlertText();
 
     const unknownCommandError: UnknownCommandError = new UnknownCommandError();
-    const unknownCommandErrorWithMessage: UnknownCommandError = new UnknownCommandError('message');
+    const unknownCommandErrorWithMessage: UnknownCommandError = new UnknownCommandError("message");
 
     const unknownMethodError: UnknownMethodError = new UnknownMethodError();
-    const unknownMethodErrorWithMessage: UnknownMethodError = new UnknownMethodError('message');
+    const unknownMethodErrorWithMessage: UnknownMethodError = new UnknownMethodError("message");
 
     const unsupportedOperationError: UnsupportedOperationError = new UnsupportedOperationError();
-    const unsupportedOperationErrorWithMessage: UnsupportedOperationError = new UnsupportedOperationError('message');
+    const unsupportedOperationErrorWithMessage: UnsupportedOperationError = new UnsupportedOperationError("message");
 
     const encodedError: { error: string; message: string } = encodeError(new Error());
     throwDecodedError(encodedError);

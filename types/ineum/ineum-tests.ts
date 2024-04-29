@@ -1,96 +1,96 @@
 // $ExpectType void
-ineum('key', 'key');
+ineum("key", "key");
 // $ExpectType void
-ineum('page', 'pageName');
+ineum("page", "pageName");
 // $ExpectType void
-ineum('reportingUrl', 'reportingUrl');
+ineum("reportingUrl", "reportingUrl");
 // $ExpectType void
-ineum('traceId', 'traceId');
+ineum("traceId", "traceId");
 
 // $ExpectType void
-ineum('user');
+ineum("user");
 // $ExpectType void
-ineum('user', 'userId');
+ineum("user", "userId");
 // $ExpectType void
-ineum('user', undefined, undefined, 'userEmail');
+ineum("user", undefined, undefined, "userEmail");
 // $ExpectType void
-ineum('user', 'userId', 'userName', 'userEmail');
+ineum("user", "userId", "userName", "userEmail");
 
 // $ExpectType void
-ineum('meta', 'key', 'value');
+ineum("meta", "key", "value");
 // $ExpectType void
-ineum('meta', 'key', 1);
+ineum("meta", "key", 1);
 // $ExpectType void
-ineum('meta', 'key', true);
+ineum("meta", "key", true);
 
 // $ExpectType void
-ineum('ignorePings', true);
+ineum("ignorePings", true);
 // $ExpectType void
-ineum('wrapEventHandlers', true);
+ineum("wrapEventHandlers", true);
 // $ExpectType void
-ineum('wrapTimers', true);
+ineum("wrapTimers", true);
 
 // $ExpectType void
-ineum('trackSessions');
+ineum("trackSessions");
 // $ExpectType void
-ineum('trackSessions', 1000, 1000);
+ineum("trackSessions", 1000, 1000);
 
 // $ExpectType void
-ineum('terminateSession');
+ineum("terminateSession");
 
 // $ExpectType string | undefined
-ineum('getPageLoadId');
+ineum("getPageLoadId");
 
 // $ExpectType void
-ineum('beaconBatchingTime', 123);
+ineum("beaconBatchingTime", 123);
 // $ExpectType void
-ineum('maxMaitForPageLoadMetricsMillis', 123);
+ineum("maxMaitForPageLoadMetricsMillis", 123);
 // $ExpectType void
-ineum('maxWaitForResourceTimingsMillis', 123);
+ineum("maxWaitForResourceTimingsMillis", 123);
 // $ExpectType void
-ineum('xhrTransmissionTimeout', 123);
+ineum("xhrTransmissionTimeout", 123);
 
 // $ExpectType void
-ineum('reportError', 'error');
+ineum("reportError", "error");
 // $ExpectType void
-ineum('reportError', new Error('error'));
+ineum("reportError", new Error("error"));
 // $ExpectType void
-ineum('reportError', 'error', {
-    componentStack: 'stack',
+ineum("reportError", "error", {
+    componentStack: "stack",
     meta: {
-        key: 'value',
+        key: "value",
     },
 });
 
 // $ExpectType void
-ineum('reportEvent', 'log');
+ineum("reportEvent", "log");
 // $ExpectType void
-ineum('reportEvent', 'log', {
+ineum("reportEvent", "log", {
     duration: 42,
     timestamp: 42,
-    backendTraceId: 'abc',
+    backendTraceId: "abc",
     error: new Error(),
-    componentStack: 'AppComponent\nButtonComponent',
+    componentStack: "AppComponent\nButtonComponent",
     meta: {
         itemsInCart: 5,
     },
 });
 
 // $ExpectType void
-ineum('allowedOrigins', [/regex/]);
+ineum("allowedOrigins", [/regex/]);
 // $ExpectType void
-ineum('ignoreErrorMessages', [/regex/]);
+ineum("ignoreErrorMessages", [/regex/]);
 // $ExpectType void
-ineum('ignoreUrls', [/regex/]);
+ineum("ignoreUrls", [/regex/]);
 // $ExpectType void
-ineum('ignoreUserTimings', [/regex/]);
+ineum("ignoreUserTimings", [/regex/]);
 // $ExpectType void
-ineum('captureHeaders', [/regex/]);
+ineum("captureHeaders", [/regex/]);
 // $ExpectType void
-ineum('secrets', [/regex/]);
+ineum("secrets", [/regex/]);
 
 // $ExpectType void
-ineum('apiKey', 'deprecated');
+ineum("apiKey", "deprecated");
 
 // $ExpectType void
-ineum('whitelistedOrigins', [/regex/]);
+ineum("whitelistedOrigins", [/regex/]);

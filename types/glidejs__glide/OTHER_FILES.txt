@@ -1,2 +1,0 @@
-dist/glide.modular.esm.d.ts
-glidejs__glide-modular-tests.ts

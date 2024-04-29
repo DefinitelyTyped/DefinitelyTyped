@@ -1,11 +1,4 @@
-// Type definitions for ftpd 0.2.11
-// Project: https://github.com/sstur/nodeftpd
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
-
 
 import events = require("events");
 import fs = require("fs");
@@ -17,7 +10,7 @@ export const enum LogLevel {
     WARN = 1,
     INFO = 2,
     DEBUG = 3,
-    TRACE = 4
+    TRACE = 4,
 }
 
 /**
@@ -28,11 +21,13 @@ export interface FtpServerOptions {
      * Gets the initial working directory for the user. Called after user is authenticated
      * Typical cases where you would want/need the callback involve retrieving configurations from external datasources and suchlike.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getInitialCwd: (connection: FtpConnection, callback?: (error: Error, path: string) => void) => void | string;
     /**
      * Gets the root directory for the user relative to the CWD. Called after getInitialCwd. The user is not able to escape this directory.
      * Typical cases where you would want/need the callback involve retrieving configurations from external datasources and suchlike.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getRoot: (connection: FtpConnection, callback?: (error: Error, path: string) => void) => void | string;
     /**
      * If set to true, then files which the client uploads are buffered in memory and then written to disk using writeFile.
@@ -97,7 +92,6 @@ export interface FtpServerOptions {
      * Integer from 0-4 representing the Log Level to show.
      */
     logLevel?: LogLevel | undefined;
-
 }
 
 /**
@@ -124,19 +118,30 @@ export declare class FtpConnection extends events.EventEmitter {
     pbszReceived: boolean;
 }
 
-
 /**
  * Optional mock fs implementation to set in the command:pass event of FtpConnection
  */
 export interface FtpFileSystem {
     unlink: (path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     readdir: (path: string, callback?: (err?: NodeJS.ErrnoException, files?: string[]) => void) => void;
-    mkdir: ((path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void)
-    | ((path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void) => void)
-    | ((path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void) => void);
-    open: ((path: string, flags: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
-    | ((path: string, flags: string, mode: number, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
-    | ((path: string, flags: string, mode: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void);
+    mkdir:
+        | ((path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void)
+        | ((path: string, mode: number, callback?: (err?: NodeJS.ErrnoException) => void) => void)
+        | ((path: string, mode: string, callback?: (err?: NodeJS.ErrnoException) => void) => void);
+    open:
+        | ((path: string, flags: string, callback?: (err?: NodeJS.ErrnoException, fd?: number) => any) => void)
+        | ((
+            path: string,
+            flags: string,
+            mode: number,
+            callback?: (err?: NodeJS.ErrnoException, fd?: number) => any,
+        ) => void)
+        | ((
+            path: string,
+            flags: string,
+            mode: string,
+            callback?: (err?: NodeJS.ErrnoException, fd?: number) => any,
+        ) => void);
     close: (fd: number, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     rmdir: (path: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
     rename: (oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void) => void;
@@ -147,38 +152,60 @@ export interface FtpFileSystem {
     /**
      * if useReadFile option is not set or is false
      */
-    createReadStream?: ((path: string, options?: {
-        flags?: string | undefined;
-        encoding?: string | undefined;
-        fd?: string | undefined;
-        mode?: string | undefined;
-        bufferSize?: number | undefined;
-    }) => fs.ReadStream) | undefined;
+    createReadStream?:
+        | ((path: string, options?: {
+            flags?: string | undefined;
+            encoding?: string | undefined;
+            fd?: string | undefined;
+            mode?: string | undefined;
+            bufferSize?: number | undefined;
+        }) => fs.ReadStream)
+        | undefined;
     /**
      * if useWriteFile option is not set or is false
      */
-    createWriteStream?: ((path: string, options?: {
-        flags?: string | undefined;
-        encoding?: string | undefined;
-        string?: string | undefined;
-    }) => fs.WriteStream) | undefined;
+    createWriteStream?:
+        | ((path: string, options?: {
+            flags?: string | undefined;
+            encoding?: string | undefined;
+            string?: string | undefined;
+        }) => fs.WriteStream)
+        | undefined;
     /**
      * if useReadFile option is set to 'true'
      */
     readFile?:
-    ((filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
-    | ((filename: string, options: { encoding: string; flag?: string | undefined; }, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
-    | ((filename: string, options: { flag?: string | undefined; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void)
-    | ((filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void) | undefined;
+        | ((filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void) => void)
+        | ((
+            filename: string,
+            options: { encoding: string; flag?: string | undefined },
+            callback: (err: NodeJS.ErrnoException, data: string) => void,
+        ) => void)
+        | ((
+            filename: string,
+            options: { flag?: string | undefined },
+            callback: (err: NodeJS.ErrnoException, data: Buffer) => void,
+        ) => void)
+        | ((filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) => void)
+        | undefined;
     /**
      * if useWriteFile option is set to 'true'
      */
     writeFile?:
-    ((filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void) => void)
-    | ((filename: string, data: any, options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void) => void)
-    | ((filename: string, data: any, options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void) => void)
-    | undefined;
-
+        | ((filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void) => void)
+        | ((
+            filename: string,
+            data: any,
+            options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined },
+            callback?: (err: NodeJS.ErrnoException) => void,
+        ) => void)
+        | ((
+            filename: string,
+            data: any,
+            options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined },
+            callback?: (err: NodeJS.ErrnoException) => void,
+        ) => void)
+        | undefined;
 }
 
 /**
@@ -190,7 +217,6 @@ export interface FtpFileSystem {
  * @event client:connected  (connection: FtpConnection)
  */
 export declare class FtpServer extends events.EventEmitter {
-
     /**
      * @param host host is a string representation of the IP address clients use to connect to the FTP server.
      *             It's imperative that this actually reflects the remote IP the clients use to access the server,

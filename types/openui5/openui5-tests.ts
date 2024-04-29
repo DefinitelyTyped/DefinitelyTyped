@@ -15,35 +15,32 @@ import Label from "sap/m/Label";
 import Column from "sap/m/Column";
 import Dialog from "sap/m/Dialog";
 import MessageBox from "sap/m/MessageBox";
-import FileUploader from "sap/ui/unified/FileUploader";
+import FileUploader, { FileUploader$UploadCompleteEvent } from "sap/ui/unified/FileUploader";
 import FileUploaderParameter from "sap/ui/unified/FileUploaderParameter";
-import ODataV4ListBinding from "sap/ui/model/odata/v4/ODataListBinding";
+import ODataV4ListBinding, { ODataListBinding$CreateCompletedEvent } from "sap/ui/model/odata/v4/ODataListBinding";
 import Target from "sap/ui/core/routing/Target";
-import MessagePage from "sap/m/MessagePage";
 import { TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
-import DateFormatTimezoneDisplay from "sap/ui/core/format/DateFormatTimezoneDisplay";
 import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
 import CalendarUtils from "sap/ui/core/date/CalendarUtils";
 import PlanningCalendar from "sap/m/PlanningCalendar";
 import WebSocket from "sap/ui/core/ws/WebSocket";
+import QUnit from "sap/ui/thirdparty/qunit-2";
+import IllustratedMessage from "sap/m/IllustratedMessage";
+import { SingleControlSelector } from "sap/ui/test/Opa5";
+import Mobile from "sap/ui/util/Mobile";
+import Input from "sap/m/Input";
+import { ContentConfigType, DynamicDateRangeGroups, ITableItem } from "sap/m/library";
+import ColumnListItem from "sap/m/ColumnListItem";
+import Filter from "sap/ui/model/Filter";
+import Model from "sap/ui/model/Model";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
  * so the importance of these tests here is very limited. Hence there is no focus on making them
  * as complete or meaningful as possible.
  */
-
-Core.attachInit(() => {
-    new Text({
-        text: "Hello World"
-    }).placeAt("content");
-
-    new XMLView({
-        viewName: "sap.ui.demo.wt.App"
-    }).placeAt("content");
-});
 
 class Ctrl extends Controller {
     onShowHello(): void {
@@ -68,10 +65,6 @@ class Ctrl extends Controller {
 
         const dp = new DatePicker({dateValue: "{myModel>/myPropertyName}"});
         dp.setShowCurrentDateButton(true);
-
-        const rm: RenderManager = Core.getRenderManager();
-        rm.openEnd();
-        view.addContent(dp);
     }
 }
 
@@ -125,7 +118,7 @@ type Headers = {
 
 const oUploadDialog = new Dialog(undefined);
 oUploadDialog.setTitle("Upload photo");
-const oDataV2Model = Core.getModel(undefined) as ODataModel;
+const oDataV2Model = oUploadDialog.getModel() as ODataModel;
 oDataV2Model.refreshSecurityToken();
 oDataV2Model.bindList("/", undefined, [], [], {createdEntitiesKey: "test"});
 // prepare the FileUploader control
@@ -133,11 +126,11 @@ const oFileUploader = new FileUploader({
     headerParameters: [
         new FileUploaderParameter({
             name: "x-csrf-token",
-            value: ((<ODataModel> Core.getModel()).getHeaders() as Headers)['x-csrf-token']
+            value: (oDataV2Model.getHeaders() as Headers)['x-csrf-token']
         }),
     ],
-    uploadComplete: (oEvent: UI5Event) => {
-        const sResponse = oEvent.getParameter("response");
+    uploadComplete: (oEvent: FileUploader$UploadCompleteEvent) => { // 1.115.1: types not only for event parameters, but also for events
+        const sResponse = oEvent.getParameter("response"); // 1.115: event objects are now specifically typed
         if (sResponse) {
             oUploadDialog.close();
             MessageBox.show("Return Code: " + sResponse);
@@ -161,11 +154,11 @@ oUploadDialog.addContent(oTriggerButton);
 oUploadDialog.addContent(dateTimePicker);
 oUploadDialog.open();
 
-const messagePage: MessagePage = new MessagePage();
-messagePage.setTitleLevel(TitleLevel.H1);
-const focusable = messagePage.isFocusable();
+const illustratedMessage: IllustratedMessage = new IllustratedMessage();
+illustratedMessage.setAriaTitleLevel(TitleLevel.H1);
+const focusable = illustratedMessage.isFocusable();
 
-const odataV4ListBinding = new ODataV4ListBinding();
+const odataV4ListBinding = illustratedMessage.getBinding("additionalContent") as ODataV4ListBinding;
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
 const context = odataV4ListBinding.getKeepAliveContext("x");
 const odataV4Model = odataV4ListBinding.getModel() as ODataV4Model;
@@ -173,8 +166,6 @@ odataV4Model.delete("something");
 let eTagMap: Record<string, string | null>;
 eTagMap = odataV4Model.getMetaModel().getETags();
 odataV4Model.getKeyPredicate("some/path", {});
-
-const showTimeZone = DateFormatTimezoneDisplay.Show;
 
 const integer = NumberFormat.getIntegerInstance({
     strictGroupingValidation: true
@@ -187,3 +178,41 @@ pc.getSecondaryCalendarType();
 
 const ws = new WebSocket("someUrl");
 ws.close("end");
+
+// 1.112: QUnit declared as importable module instead of just globally available
+QUnit.config.autostart = false;
+
+// 1.113: OPA improvements
+const scs: SingleControlSelector = {
+    id: "myControlId"
+};
+
+// 1.114: more details in the APIs
+Mobile.setIcons({precomposed: false});
+
+// 1.116: sap.ui.require (for use in plain JS) callback function parameters fixed
+sap.ui.require(["sap/m/Button", "sap/m/Input"], (B: typeof Button, I: typeof Input) => {
+    const b = new B({text: "Hello"});
+    const i = new I();
+});
+
+// 1.116.1: more event parameters defined
+odataV4ListBinding.attachCreateCompleted((evt: ODataListBinding$CreateCompletedEvent) => {
+    const contect = evt.getParameter("context");
+});
+
+// 1.117.0: it's just an update of the types!
+
+// 1.118
+const ddrg: DynamicDateRangeGroups = DynamicDateRangeGroups.SingleDates;
+
+// 1.119
+const iti: ITableItem = new ColumnListItem();
+
+// 1.120
+const noneFilter = Filter.NONE;
+
+// 1.121: this commit just updates the version in package.json
+
+// 1.122
+const cct = ContentConfigType.Link;

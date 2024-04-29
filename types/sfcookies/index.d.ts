@@ -1,8 +1,3 @@
-// Type definitions for sfcookies 1.0
-// Project: https://github.com/15Dkatz/sfcookies
-// Definitions by: Gabriel Arriagada <https://github.com/GNosii>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Create an cookie.
  * @param name Name of the cookie.

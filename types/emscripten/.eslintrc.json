@@ -1,5 +1,6 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@definitelytyped/dt-header": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

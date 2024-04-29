@@ -1,4 +1,4 @@
-import stopcock = require('stopcock');
+import stopcock = require("stopcock");
 
 // test type exports
 type Options = stopcock.Options;
@@ -16,10 +16,10 @@ fn1.size; // $ExpectType number
 fn1.size = 1;
 // $ExpectType LimiterFunction<(i: string, n: number) => undefined>
 const fn2 = stopcock((i: string, n: number) => void 0);
-fn2('foo', 2); // $ExpectType Promise<undefined>
+fn2("foo", 2); // $ExpectType Promise<undefined>
 // $ExpectType LimiterFunction<(i: string, n: number) => PromiseLike<number>>
 const fn3 = stopcock((i: string, n: number): PromiseLike<number> => Promise.resolve(1));
-fn3('foo', 2); // $ExpectType Promise<number>
+fn3("foo", 2); // $ExpectType Promise<number>
 
 stopcock(fn, { limit: 1 });
 stopcock(fn, { interval: 1000 });

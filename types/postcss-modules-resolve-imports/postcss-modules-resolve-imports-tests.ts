@@ -15,6 +15,6 @@ const ap2: Transformer = resolveImports({
         extensions: [".css"],
         modules: [path.resolve(__dirname, "lib")],
         mainFile: "index.css",
-        preserveSymlinks: false
-    }
+        preserveSymlinks: false,
+    },
 });

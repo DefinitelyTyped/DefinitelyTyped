@@ -1,7 +1,7 @@
-import { addSerializer, toMatchSpecificSnapshot } from 'jest-specific-snapshot';
-import toJson from 'enzyme-to-json';
+import toJson from "enzyme-to-json";
+import { addSerializer, toMatchSpecificSnapshot } from "jest-specific-snapshot";
 
-expect(100).toMatchSpecificSnapshot('mySnapshotFile.snap');
+expect(100).toMatchSpecificSnapshot("mySnapshotFile.snap");
 
 addSerializer(toJson);
 
@@ -12,5 +12,5 @@ expect.extend({
     toMatchDecoratedSpecificSnapshot(received, snapshotFile) {
         const data = doSomeThing(received);
         return toMatchSpecificSnapshot.call(this, data, snapshotFile);
-    }
+    },
 });

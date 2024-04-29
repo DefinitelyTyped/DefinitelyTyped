@@ -1,17 +1,11 @@
-import NodeMaterial from './NodeMaterial';
-import LineBasicNodeMaterial from './LineBasicNodeMaterial';
-import MeshBasicNodeMaterial from './MeshBasicNodeMaterial';
-import MeshStandardNodeMaterial from './MeshStandardNodeMaterial';
-import PointsNodeMaterial from './PointsNodeMaterial';
-import SpriteNodeMaterial from './SpriteNodeMaterial';
-import MeshPhysicalNodeMaterial from './MeshPhysicalNodeMaterial';
-
-export {
-    NodeMaterial,
-    LineBasicNodeMaterial,
-    MeshBasicNodeMaterial,
-    MeshPhysicalNodeMaterial,
-    MeshStandardNodeMaterial,
-    PointsNodeMaterial,
-    SpriteNodeMaterial,
-};
+export { default as LineBasicNodeMaterial } from "./LineBasicNodeMaterial.js";
+export { default as MeshBasicNodeMaterial } from "./MeshBasicNodeMaterial.js";
+export { default as MeshNormalNodeMaterial } from "./MeshNormalNodeMaterial.js";
+export { default as MeshPhongNodeMaterial } from "./MeshPhongNodeMaterial.js";
+export { default as MeshPhysicalNodeMaterial } from "./MeshPhysicalNodeMaterial.js";
+export { default as MeshSSSPhysicalNodeMaterial } from "./MeshSSSNodeMaterial.js";
+export { default as MeshStandardNodeMaterial } from "./MeshStandardNodeMaterial.js";
+export { default as NodeMaterial } from "./NodeMaterial.js";
+export { default as PointsNodeMaterial } from "./PointsNodeMaterial.js";
+export { default as ShadowNodeMaterial } from "./ShadowNodeMaterial.js";
+export { default as SpriteNodeMaterial } from "./SpriteNodeMaterial.js";

@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/fancybox",
+    "version": "3.5.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "fancyBox",
+    "projects": [
+        "https://github.com/fancyapps/fancyBox"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/fancybox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "SPWizard01",
+            "githubUsername": "SPWizard01"
+        }
+    ]
+}

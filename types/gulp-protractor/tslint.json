@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "array-type": false,
-        "interface-name": false,
-        "no-consecutive-blank-lines": false,
-        "semicolon": false
-    }
-}

@@ -1,15 +1,9 @@
-// Type definitions for angular-file-saver 1.1
-// Project: https://github.com/alferov/angular-file-saver
-// Definitions by: Donald Nairn <https://github.com/deenairn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as angular from "angular";
 
-import * as angular from 'angular';
-
-declare const moduleName: 'ngFileSaver';
+declare const moduleName: "ngFileSaver";
 export = moduleName;
 
-declare module 'angular' {
+declare module "angular" {
     /**
      * A core Angular factory proving FileSaver functionality.
      */

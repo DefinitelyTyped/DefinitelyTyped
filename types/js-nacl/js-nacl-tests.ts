@@ -80,5 +80,5 @@ function demo_random(inst: nacl.Nacl): void {
 }
 
 async function demo_async_instantiate() {
-  await nacl.instantiate(() => {}); // $ExpectType Nacl
+    await nacl.instantiate(() => {}); // $ExpectType Nacl
 }

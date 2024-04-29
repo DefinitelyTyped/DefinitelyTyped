@@ -1,14 +1,8 @@
-// Type definitions for memwatch-next 0.3.0
-// Project: https://github.com/marcominetti/node-memwatch
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "memwatch-next" {
     type EventCallback = (data: LeakInformation | StatsInformation | Object) => void;
 
     /**
      * Compare the state of your heap between two points in time, telling you what has been allocated, and what has been released.
-     * @class
      */
     export class HeapDiff {
         /**
@@ -39,25 +33,21 @@ declare module "memwatch-next" {
     export interface LeakInformation {
         /**
          * End date.
-         * @type {Date}
          */
-        end: Date,
+        end: Date;
 
         /**
          * Growth.
-         * @type {number}
          */
         growth: number;
 
         /**
          * Reason leak.
-         * @type {string}
          */
         reason: string;
 
         /**
          * Start date.
-         * @type {Date}
          */
         start: Date;
     }

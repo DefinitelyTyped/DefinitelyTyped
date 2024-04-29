@@ -1,16 +1,16 @@
-import ROSLIB = require('roslib');
+import ROSLIB = require("roslib");
 
 var ros = new ROSLIB.Ros({
-    url: 'ws://localhost:9090',
+    url: "ws://localhost:9090",
 })
-    .on('connection', function () {
-        console.log('Connected to websocket server.');
+    .on("connection", function() {
+        console.log("Connected to websocket server.");
     })
-    .on('error', function (error: Error) {
-        console.log('Error connecting to websocket server: ', error);
+    .on("error", function(error: Error) {
+        console.log("Error connecting to websocket server: ", error);
     })
-    .on('close', function () {
-        console.log('Connection to websocket server closed.');
+    .on("close", function() {
+        console.log("Connection to websocket server closed.");
     });
 
 console.log(`ros.isConnected: ${ros.isConnected}`);
@@ -22,8 +22,8 @@ console.log(`ros.transportLibrary: ${ros.transportLibrary.constructor.name ?? ro
 
 var cmdVel = new ROSLIB.Topic({
     ros: ros,
-    name: '/cmd_vel',
-    messageType: 'geometry_msgs/Twist',
+    name: "/cmd_vel",
+    messageType: "geometry_msgs/Twist",
 });
 
 var twist = new ROSLIB.Message({
@@ -45,12 +45,12 @@ cmdVel.publish(twist);
 
 var listener = new ROSLIB.Topic({
     ros: ros,
-    name: '/listener',
-    messageType: 'std_msgs/String',
+    name: "/listener",
+    messageType: "std_msgs/String",
 });
 
-let subscription_callback = function (message: ROSLIB.Message) {
-    console.log('Received message on ' + listener.name + ': ' + message);
+let subscription_callback = function(message: ROSLIB.Message) {
+    console.log("Received message on " + listener.name + ": " + message);
     listener.unsubscribe();
 };
 
@@ -70,8 +70,8 @@ listener.off("message", eventEmitterCallback);
 
 var addTwoIntsClient = new ROSLIB.Service({
     ros: ros,
-    name: '/add_two_ints',
-    serviceType: 'rospy_tutorials/AddTwoInts',
+    name: "/add_two_ints",
+    serviceType: "rospy_tutorials/AddTwoInts",
 });
 
 var request = new ROSLIB.ServiceRequest({
@@ -79,8 +79,8 @@ var request = new ROSLIB.ServiceRequest({
     b: 2,
 });
 
-addTwoIntsClient.callService(request, function (result) {
-    console.log('Result for service call on ' + addTwoIntsClient.name + ': ' + result.sum);
+addTwoIntsClient.callService(request, function(result) {
+    console.log("Result for service call on " + addTwoIntsClient.name + ": " + result.sum);
 });
 
 // Providing a service
@@ -88,8 +88,8 @@ addTwoIntsClient.callService(request, function (result) {
 
 var addTwoInts = new ROSLIB.Service({
     ros: ros,
-    name: '/add_two_ints',
-    serviceType: 'beginner_tutorials/AddTwoInts',
+    name: "/add_two_ints",
+    serviceType: "beginner_tutorials/AddTwoInts",
 });
 
 addTwoInts.advertise((req, resp) => {
@@ -100,34 +100,34 @@ addTwoInts.advertise((req, resp) => {
 // Getting and setting a param value
 // ---------------------------------
 
-ros.getParams(function (params: string[]) {
+ros.getParams(function(params: string[]) {
     console.log(params);
 });
 
 var maxVelX = new ROSLIB.Param({
     ros: ros,
-    name: 'max_vel_y',
+    name: "max_vel_y",
 });
 
-maxVelX.set(0.8, function (response) {});
-maxVelX.get(function (value) {
-    console.log('MAX VAL: ' + value);
+maxVelX.set(0.8, function(response) {});
+maxVelX.get(function(value) {
+    console.log("MAX VAL: " + value);
 });
 
 // Creating a TF Client
 // --------------------
 const tfClient = new ROSLIB.TFClient({
     ros: ros,
-    fixedFrame: '/world',
+    fixedFrame: "/world",
 });
-const stub_tfclient_callback = function (transform: ROSLIB.Transform) {};
-const tfclient_callback = function (transform: ROSLIB.Transform) {
-    console.log('Received transform: ' + transform);
-    tfClient.unsubscribe('/transform', stub_tfclient_callback);
+const stub_tfclient_callback = function(transform: ROSLIB.Transform) {};
+const tfclient_callback = function(transform: ROSLIB.Transform) {
+    console.log("Received transform: " + transform);
+    tfClient.unsubscribe("/transform", stub_tfclient_callback);
 };
 
-tfClient.subscribe('/transform', tfclient_callback);
-tfClient.unsubscribe('/transform', tfclient_callback);
+tfClient.subscribe("/transform", tfclient_callback);
+tfClient.unsubscribe("/transform", tfclient_callback);
 
 new ROSLIB.Pose();
 new ROSLIB.Pose(null);
@@ -151,14 +151,14 @@ pose.orientation;
 // URDF
 {
     const parser = new DOMParser();
-    const document = parser.parseFromString('<actual-xml />', 'text/xml');
+    const document = parser.parseFromString("<actual-xml />", "text/xml");
     // @ts-expect-error
     new ROSLIB.UrdfModel({});
     // @ts-expect-error
     new ROSLIB.UrdfModel();
     new ROSLIB.UrdfModel({ xml: document });
-    new ROSLIB.UrdfModel({ xml: document, string: '<actual-xml />' });
-    const model = new ROSLIB.UrdfModel({ string: '<actual-xml />' });
+    new ROSLIB.UrdfModel({ xml: document, string: "<actual-xml />" });
+    const model = new ROSLIB.UrdfModel({ string: "<actual-xml />" });
 
     const material: ROSLIB.UrdfMaterial = model.materials[0];
 

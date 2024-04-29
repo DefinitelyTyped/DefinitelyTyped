@@ -1,61 +1,56 @@
-// Type definitions for Pathjs v0.8.4
-// Project: https://github.com/mtrpcic/pathjs
-// Definitions by: Lokesh Peta <https://github.com/lokeshpeta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface IDictionary<T> {
     [id: string]: T;
 }
 
-interface IPathHistory{
+interface IPathHistory {
     initial: any;
-    pushState(state: any, title: string, path: string):void;
-    popState(event: any): void;    
+    pushState(state: any, title: string, path: string): void;
+    popState(event: any): void;
     listen(fallback: any): void;
 }
 
-interface IPathRoute{
+interface IPathRoute {
     to(fn: () => void): IPathRoute;
-    enter(fns: Function|Function[]): IPathRoute;
+    enter(fns: Function | Function[]): IPathRoute;
     exit(fn: () => void): IPathRoute;
     partition(): string[];
-    run():void;
+    run(): void;
 }
 
-interface IPathRoutes{
-    current?: string | undefined,
-    root?: string | undefined,
-    rescue?: Function | undefined,
-    previous?: string | undefined,
-    defined: IDictionary<IPathRoute>
+interface IPathRoutes {
+    current?: string | undefined;
+    root?: string | undefined;
+    rescue?: Function | undefined;
+    previous?: string | undefined;
+    defined: IDictionary<IPathRoute>;
 }
 
-interface IPathCore{
+interface IPathCore {
     route: IPathRouteConstructor;
 }
 
 interface IPathRouteConstructor {
-    new (path: string): IPathRoute;
+    new(path: string): IPathRoute;
 }
 
 interface IPath {
     map(path: string): IPathRoute;
-    
+
     root(path: string): void;
-    
+
     rescue(fn: Function): void;
-    
+
     history: IPathHistory;
-    
+
     match(path: string, parameterize: boolean): IPathRoute | null;
-    
+
     dispatch(passed_route: string): void;
-    
+
     listen(): void;
-    
+
     core: IPathCore;
-    
-    routes: IPathRoutes
+
+    routes: IPathRoutes;
 }
 
 declare var Path: IPath;

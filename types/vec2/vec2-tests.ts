@@ -1,10 +1,10 @@
-import Vec2 = require('vec2');
+import Vec2 = require("vec2");
 
 const vec = new Vec2(0, 1); // $ExpectType Vec2
 
 new Vec2([0, 1]); // $ExpectType Vec2
 
-new Vec2({ x: 0, y: 1}); // $ExpectType Vec2
+new Vec2({ x: 0, y: 1 }); // $ExpectType Vec2
 
 Vec2.fromArray([1, 2]); // $ExpectType Vec2
 

@@ -1,13 +1,13 @@
-import path = require('path');
+import path = require("path");
 
-import WebpackBar = require('webpackbar');
+import WebpackBar = require("webpackbar");
 
 module.exports = {
     context: path.resolve(__dirname),
-    devtool: 'source-map',
-    entry: './entry.js',
+    devtool: "source-map",
+    entry: "./entry.js",
     output: {
-        filename: './output.js',
+        filename: "./output.js",
         path: path.resolve(__dirname),
     },
     plugins: [new WebpackBar()],
@@ -16,28 +16,28 @@ module.exports = {
 let lastProgress: number;
 
 const config = (name: string, color: string) => ({
-    mode: 'production',
+    mode: "production",
     context: __dirname,
     devtool: false,
-    target: 'node',
-    entry: './index.js',
+    target: "node",
+    entry: "./index.js",
     stats: false,
     output: {
-        filename: './output.js',
-        path: path.join(__dirname, '/dist'),
+        filename: "./output.js",
+        path: path.join(__dirname, "/dist"),
     },
     module: {
-        rules: [{ test: /\.js$/, use: path.resolve(__dirname, 'test-loader.js') }],
+        rules: [{ test: /\.js$/, use: path.resolve(__dirname, "test-loader.js") }],
     },
     plugins: [
         new WebpackBar({
             color,
             name,
-            reporters: ['fancy'],
+            reporters: ["fancy"],
             reporter: {
                 progress({ state }) {
                     if (lastProgress !== state.progress && state.progress % 5 === 0) {
-                        process.stderr.write(state.progress + '%\n');
+                        process.stderr.write(state.progress + "%\n");
                         lastProgress = state.progress;
                     }
                 },
@@ -46,4 +46,4 @@ const config = (name: string, color: string) => ({
     ],
 });
 
-module.exports = [config('OrangeBar', 'orange'), config('GreenBar', 'green')];
+module.exports = [config("OrangeBar", "orange"), config("GreenBar", "green")];

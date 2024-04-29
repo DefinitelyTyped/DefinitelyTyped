@@ -1,9 +1,10 @@
-// tslint:disable:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 /** Creates an empty stream. */
-declare function Stream<T>(): Stream<T>; // eslint-disable-line no-unnecessary-generics
+declare function Stream<T>(): Stream<T>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 /** Creates a stream with an initial value. */
 declare function Stream<T>(value: T): Stream<T>; // tslint:disable-line unified-signatures
 
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare interface Stream<T> {
     /** Returns the value of the stream. */
     (): T;
@@ -25,21 +26,28 @@ declare interface Stream<T> {
 
 declare namespace Stream {
     /** Creates a computed stream that reactively updates if any of its upstreams are updated. */
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export function combine<T>(combiner: (...streams: any[]) => T, streams: Array<Stream<any>>): Stream<T>;
     /** Combines the values of one or more streams into a single stream that is updated whenever one or more of the sources are updated */
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export function lift<S extends any[], T>(
         fn: (...values: S) => T,
         ...streams: { [I in keyof S]: Stream<S[I]> }
     ): Stream<T>;
     /** Creates a stream whose value is the array of values from an array of streams. */
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export function merge<S extends any[]>(streams: { [I in keyof S]: Stream<S[I]> }): Stream<{ [I in keyof S]: S[I] }>;
     /** Creates a new stream with the results of calling the function on every incoming stream with and accumulator and the incoming value. */
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export function scan<T, U>(fn: (acc: U, value: T) => U, acc: U, stream: Stream<T>): Stream<U>;
     /** Takes an array of pairs of streams and scan functions and merges all those streams using the given functions into a single stream. */
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export function scanMerge<T, U>(pairs: Array<[Stream<T>, (acc: U, value: T) => U]>, acc: U): Stream<U>;
     /** Takes an array of pairs of streams and scan functions and merges all those streams using the given functions into a single stream. */
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export function scanMerge<U>(pairs: Array<[Stream<any>, (acc: U, value: any) => U]>, acc: U): Stream<U>;
     /** A special value that can be returned to stream callbacks to skip execution of downstreams. */
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export const SKIP: unique symbol;
 }
 

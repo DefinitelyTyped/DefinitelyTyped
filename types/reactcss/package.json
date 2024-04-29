@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/reactcss",
+    "version": "1.2.9999",
+    "projects": [
+        "http://reactcss.com/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/reactcss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Gervang",
+            "githubUsername": "chrisgervang"
+        },
+        {
+            "name": "Karol Janyst",
+            "githubUsername": "LKay"
+        }
+    ]
+}

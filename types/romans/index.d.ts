@@ -1,8 +1,3 @@
-// Type definitions for romans 2.0
-// Project: https://github.com/qbunt/romanize#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // internal for type mapping
 declare const roman_map: {
     M: 1000;

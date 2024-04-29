@@ -1,9 +1,4 @@
-// Type definitions for @delowar/react-circle-progressbar 1.0
-// Project: https://github.com/delowardev/react-circle-progressbar
-// Definitions by: Seungbin Oh <https://github.com/sboh1214>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 declare const Progress: React.FunctionComponent<ProgressProps>;
 
@@ -28,6 +23,7 @@ export interface ProgressProps {
     isBgShadow?: boolean;
     bgShadow?: Shadow;
     viewport?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onViewport?: (element: React.ReactElement) => void | null;
 }
 

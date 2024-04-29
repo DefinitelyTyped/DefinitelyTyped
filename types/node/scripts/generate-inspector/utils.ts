@@ -1,6 +1,6 @@
 // Utility functions
 
-import { Documentable, Field, ObjectReference } from './devtools-protocol-schema';
+import { Documentable, Field, ObjectReference } from "./devtools-protocol-schema";
 
 /**
  * Returns a function suitable for Array#reduce that flattens an array of
@@ -45,7 +45,7 @@ export const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.s
  * @param t An object whose type should be checked
  */
 export function isObjectReference(t: Field): t is ObjectReference {
-    return '$ref' in t;
+    return "$ref" in t;
 }
 
 /**
@@ -56,13 +56,15 @@ export function isObjectReference(t: Field): t is ObjectReference {
  */
 export const createDocs = ({ deprecated, description, experimental }: Documentable): string[] => {
     const hasDocs = !!description || deprecated || experimental;
-    return hasDocs ? filterNull([
-        '/**',
-        ...(description ? description.split(/\r?\n/).map(l => ` * ${l}`) : []),
-        deprecated ? ' * @deprecated' : null,
-        experimental ? ' * @experimental' : null,
-        ' */',
-    ]) : [];
+    return hasDocs
+        ? filterNull([
+            "/**",
+            ...(description ? description.split(/\r?\n/).map(l => ` * ${l}`) : []),
+            deprecated ? " * @deprecated" : null,
+            experimental ? " * @experimental" : null,
+            " */",
+        ])
+        : [];
 };
 
 /**
@@ -75,7 +77,7 @@ export const substitute = (
     str: string,
     args: NodeJS.Dict<string[]>,
 ): string => {
-    return str.split('\n')
+    return str.split("\n")
         .map(line => {
             const regex = /(\s*)\/\/ # (.*)/;
             const matches = line.match(regex);
@@ -90,14 +92,14 @@ export const substitute = (
             return [line];
         })
         .reduce(flattenArgs(), [])
-        .join('\n');
+        .join("\n");
 };
 
 export const trimRight = (s: string): string => {
     // TODO(kjin): This is terrible
-    const numTrailingSpaces: number = s.split('').reverse().findIndex(c => c !== ' ');
+    const numTrailingSpaces: number = s.split("").reverse().findIndex(c => c !== " ");
     if (numTrailingSpaces === -1) {
-        return '';
+        return "";
     }
     return s.slice(0, s.length - numTrailingSpaces);
 };

@@ -1,6 +1,6 @@
-import ParseTree from './ParseTree';
-import ParseTreeListener from './ParseTreeListener';
-import RuleNode from './RuleNode';
+import ParseTree from "./ParseTree";
+import ParseTreeListener from "./ParseTreeListener";
+import RuleNode from "./RuleNode";
 
 export default class ParseTreeWalker {
     static readonly DEFAULT: ParseTreeWalker;

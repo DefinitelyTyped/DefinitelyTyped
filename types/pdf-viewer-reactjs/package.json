@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pdf-viewer-reactjs",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/ansu5555/pdf-viewer-reactjs#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/pdf-viewer-reactjs": "workspace:.",
+        "@types/react-dom": "*"
+    },
+    "owners": [
+        {
+            "name": "Ansuman Ghosh",
+            "githubUsername": "ansu5555"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
-import ATN from '../atn/ATN';
-import HashSet from '../misc/HashSet';
-import DFAState from './DFAState';
+import ATN from "../atn/ATN";
+import HashSet from "../misc/HashSet";
+import DFAState from "./DFAState";
 
 export default class DFA {
     /**

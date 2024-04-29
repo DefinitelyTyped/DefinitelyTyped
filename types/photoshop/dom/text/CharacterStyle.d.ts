@@ -1,5 +1,5 @@
-import { SolidColor } from "../objects/SolidColor";
 import * as Constants from "../Constants";
+import { SolidColor } from "../objects/SolidColor";
 /**
  * The Class that stores properties related to the Character panel in the Photoshop UI.
  * @minVersion 24.1
@@ -100,35 +100,35 @@ export declare class CharacterStyle {
     set verticalDiacriticPosition(verticalDiacriticPosition: number);
     /**
      * The auto kerning option to use.
-     * @default AutoKernType.METRICS
+     * @default METRICS
      * @minVersion 24.1
      */
     get autoKerning(): Constants.AutoKernType;
     set autoKerning(autoKerning: Constants.AutoKernType);
     /**
      * The text case.
-     * @default TextCase.NORMAL
+     * @default NORMAL
      * @minVersion 24.1
      */
     get capitalization(): Constants.TextCase;
     set capitalization(capitalization: Constants.TextCase);
     /**
      * The text baseline.
-     * @default Baseline.NORMAL
+     * @default NORMAL
      * @minVersion 24.1
      */
     get baseline(): Constants.Baseline;
     set baseline(baseline: Constants.Baseline);
     /**
      * Whether the text is strikethrough or not.
-     * @default StrikeThrough.STRIKEOFF
+     * @default STRIKEOFF
      * @minVersion 24.1
      */
     get strikeThrough(): Constants.StrikeThrough;
     set strikeThrough(strikeThrough: Constants.StrikeThrough);
     /**
      * The underline style to use.
-     * @default Underline.NONE
+     * @default NONE
      * @minVersion 24.1
      */
     get underline(): Constants.Underline;
@@ -192,7 +192,7 @@ export declare class CharacterStyle {
      * Character alignment.
      * When a line of text contains different sizes of characters,
      * you can specify how to align text to the largest characters in the line.
-     * @default CharacterAlignment.ROMAN
+     * @default ROMAN
      * @minVersion 24.1
      */
     get characterAlignment(): Constants.CharacterAlignment;
@@ -219,14 +219,14 @@ export declare class CharacterStyle {
     set kashidas(kashidas: boolean);
     /**
      * The text direction (Middle Eastern features)
-     * @default MiddleEasternTextDirection.DEFAULT
+     * @default DEFAULT
      * @minVersion 24.1
      */
     get middleEasternTextDirection(): Constants.MiddleEasternTextDirection;
     set middleEasternTextDirection(middleEasternTextDirection: Constants.MiddleEasternTextDirection);
     /**
      * The text digits type to use (Middle Eastern features)
-     * @default MiddleEasternDigitsType.LTRARABIC
+     * @default LTRARABIC
      * @minVersion 24.1
      */
     get middleEasternDigitsType(): Constants.MiddleEasternDigitsType;
@@ -240,7 +240,7 @@ export declare class CharacterStyle {
     set fractionalWidths(value: boolean);
     /**
      * The text anti-aliasing
-     * @default AntiAlias.SHARP
+     * @default SHARP
      * @minVersion 24.1
      */
     get antiAliasMethod(): Constants.AntiAlias;

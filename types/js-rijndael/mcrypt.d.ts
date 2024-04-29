@@ -1,18 +1,18 @@
 export type Cipher = Record<CipherAlgorithm, CipherBody>;
 
-export type CipherAlgorithm = 'rijndael-128' | 'rijndael-192' | 'rijndael-256';
+export type CipherAlgorithm = "rijndael-128" | "rijndael-192" | "rijndael-256";
 
 export interface CipherBody {
     blockSize: number;
     keySize: number;
 }
 
-export type Mode = 'cbc' | 'cfb' | 'ctr' | 'ecb' | 'ncfb' | 'nofb';
+export type Mode = "cbc" | "cfb" | "ctr" | "ecb" | "ncfb" | "nofb";
 
 declare const ciphers: CipherBody & {
-    'rijndael-128': { blockSize: 16; keySize: 32 };
-    'rijndael-192': { blockSize: 24; keySize: 32 };
-    'rijndael-256': { blockSize: 32; keySize: 32 };
+    "rijndael-128": { blockSize: 16; keySize: 32 };
+    "rijndael-192": { blockSize: 24; keySize: 32 };
+    "rijndael-256": { blockSize: 32; keySize: 32 };
 };
 
 declare function crypt(

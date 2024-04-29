@@ -1,5 +1,5 @@
-import Node from './Node';
-import { NodeData } from './NodeBuilder';
+import Node from "./Node.js";
+import { NodeData } from "./NodeBuilder.js";
 
 export default class NodeCache {
     id: number;

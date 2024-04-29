@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/es-abstract",
+    "version": "1.17.9999",
+    "projects": [
+        "https://github.com/ljharb/es-abstract"
+    ],
+    "dependencies": {
+        "@types/es-to-primitive": "*"
+    },
+    "devDependencies": {
+        "@types/es-abstract": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

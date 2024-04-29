@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/rdfjs__dataset",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/dataset"
+    ],
+    "type": "module",
     "dependencies": {
         "@rdfjs/types": "*"
-    }
-  }
+    },
+    "devDependencies": {
+        "@types/rdfjs__dataset": "workspace:.",
+        "@types/rdfjs__environment": "*"
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "Jesse Wright",
+            "githubUsername": "jeswr"
+        }
+    ]
+}

@@ -1,2 +1,2 @@
-import { repeat } from '../index';
+import { repeat } from "../index.js";
 export default repeat;

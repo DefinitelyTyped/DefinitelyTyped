@@ -1,14 +1,3 @@
-// Type definitions for parse 1.11
-// Project: https://parseplatform.org/
-// Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
-//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
-//                  Cedric Kemp <https://github.com/jaeggerr>
-//                  Flavio Negrão <https://github.com/flavionegrao>
-//                  Wes Grimes <https://github.com/wesleygrimes>
-//                  Otherwise SAS <https://github.com/owsas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 /// <reference types="jquery" />
 /// <reference types="underscore" />
@@ -78,7 +67,6 @@ declare namespace Parse {
      * </pre></p>
      *
      * @see Parse.Promise.prototype.then
-     * @class
      */
 
     interface IPromise<T> {
@@ -95,8 +83,8 @@ declare namespace Parse {
         static as<U>(resolvedValue: U): Promise<U>;
         static error(error: any): Promise<any>;
         static is(possiblePromise: any): Boolean;
-        static when(promises: IPromise<any>[]): Promise<any>;
-        static when(...promises: IPromise<any>[]): Promise<any>;
+        static when(promises: Array<IPromise<any>>): Promise<any>;
+        static when(...promises: Array<IPromise<any>>): Promise<any>;
 
         always(callback: Function): Promise<T>;
         done(callback: Function): Promise<T>;
@@ -134,7 +122,6 @@ declare namespace Parse {
      * If the argument is any other JSON object, that object will be interpretted
      *   as a serialized ACL created with toJSON().
      * @see Parse.Object#setACL
-     * @class
      *
      * <p>An ACL, or Access Control List can be added to any
      * <code>Parse.Object</code> to restrict access to only a subset of users
@@ -176,7 +163,6 @@ declare namespace Parse {
     /**
      * A Parse.File is a local representation of a file that is saved to the Parse
      * cloud.
-     * @class
      * @param name {String} The file's name. This will be prefixed by a unique
      *     value once the file has finished saving. The file name must begin with
      *     an alphanumeric character, and consist of alphanumeric characters,
@@ -218,7 +204,6 @@ declare namespace Parse {
      *   new GeoPoint({latitude: 30, longitude: 30})
      *   new GeoPoint()  // defaults to (0, 0)
      *   </pre>
-     * @class
      *
      * <p>Represents a latitude / longitude point that may be associated
      * with a key in a ParseObject or used as a reference point for geo queries.
@@ -251,7 +236,6 @@ declare namespace Parse {
      * — you should use the reference to <code>Parse.history</code>
      * that will be created for you automatically if you make use of
      * Routers with routes.
-     * @class
      *
      * <p>A fork of Backbone.History, provided for your convenience.  If you
      * use this class, you must also include jQuery, or another library
@@ -286,14 +270,14 @@ declare namespace Parse {
 
         constructor(parent?: S, key?: string);
 
-        //Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: T | Array<T>): void;
+        // Adds a Parse.Object or an array of Parse.Objects to the relation.
+        add(object: T | T[]): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
         query(): Query<T>;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: T | Array<T>): void;
+        remove(object: T | T[]): void;
     }
 
     /**
@@ -318,8 +302,6 @@ declare namespace Parse {
      *     object.  The only option currently supported is "collection".
      * @see Parse.Object.extend
      *
-     * @class
-     *
      * <p>The fundamental unit of Parse data, which implements the Backbone Model
      * interface.</p>
      */
@@ -342,7 +324,7 @@ declare namespace Parse {
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
-        static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
+        static registerSubclass<T extends Object>(className: string, clazz: new(options?: any) => T): void;
         static createWithoutData<T extends Object>(id: string): T;
 
         initialize(): void;
@@ -435,8 +417,6 @@ declare namespace Parse {
      *
      * @see Parse.Collection.extend
      *
-     * @class
-     *
      * <p>Provides a standard collection class for our sets of models, ordered
      * or unordered.  For more information, see the
      * <a href="http://documentcloud.github.com/backbone/#Collection">Backbone
@@ -493,8 +473,6 @@ declare namespace Parse {
     }
 
     /**
-     * @class
-     *
      * <p>Parse.Events is a fork of Backbone's Events module, provided for your
      * convenience.</p>
      *
@@ -532,7 +510,6 @@ declare namespace Parse {
      * Creates a new parse Parse.Query for the given Parse.Object subclass.
      * @param objectClass -
      *   An instance of a subclass of Parse.Object, or a Parse className string.
-     * @class
      *
      * <p>Parse.Query defines a query that is used to fetch Parse.Objects. The
      * most common use case is finding all objects that match a query through the
@@ -589,9 +566,9 @@ declare namespace Parse {
         className: string;
 
         constructor(objectClass: string);
-        constructor(objectClass: new (...args: any[]) => T);
+        constructor(objectClass: new(...args: any[]) => T);
 
-        static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
+        static or<U extends Object>(...var_args: Array<Query<U>>): Query<U>;
 
         aggregate(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Query<T>;
         addAscending(key: string): Query<T>;
@@ -663,10 +640,10 @@ declare namespace Parse {
             // Unwind documentation: https://www.mongodb.com/docs/v3.2/reference/operator/aggregation/unwind/#pipe._S_unwind
             unwind?:
                 | {
-                      path: string;
-                      includeArrayIndex?: string;
-                      preserveNullAndEmptyArrays?: boolean;
-                  }
+                    path: string;
+                    includeArrayIndex?: string;
+                    preserveNullAndEmptyArrays?: boolean;
+                }
                 | string
                 | undefined;
         }
@@ -688,7 +665,7 @@ declare namespace Parse {
      *
      * <p>Roles must have a name (which cannot be changed after creation of the
      * role), and must specify an ACL.</p>
-     * @class
+     *
      * A Parse.Role is a local representation of a role persisted to the Parse
      * cloud.
      */
@@ -719,7 +696,6 @@ declare namespace Parse {
     /**
      * Routers map faux-URLs to actions, and fire events when routes are
      * matched. Creating a new one sets its `routes` hash, if not set statically.
-     * @class
      *
      * <p>A fork of Backbone.Router, provided for your convenience.
      * For more information, see the
@@ -754,8 +730,6 @@ declare namespace Parse {
     }
 
     /**
-     * @class
-     *
      * <p>A Parse.User object is a local representation of a user persisted to the
      * Parse cloud. This class is a subclass of a Parse.Object, and retains the
      * same functionality of a Parse.Object, but also extends it with various
@@ -790,7 +764,6 @@ declare namespace Parse {
     /**
      * Creating a Parse.View creates its initial element outside of the DOM,
      * if an existing element is not provided...
-     * @class
      *
      * <p>A fork of Backbone.View, provided for your convenience.  If you use this
      * class, you must also include jQuery, or another library that provides a
@@ -935,11 +908,11 @@ declare namespace Parse {
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {
-            Primary = 'PRIMARY',
-            PrimaryPreferred = 'PRIMARY_PREFERRED',
-            Secondary = 'SECONDARY',
-            SecondaryPreferred = 'SECONDARY_PREFERRED',
-            Nearest = 'NEAREST',
+            Primary = "PRIMARY",
+            PrimaryPreferred = "PRIMARY_PREFERRED",
+            Secondary = "SECONDARY",
+            SecondaryPreferred = "SECONDARY_PREFERRED",
+            Nearest = "NEAREST",
         }
 
         interface BeforeFindRequest extends TriggerRequest {
@@ -979,7 +952,7 @@ declare namespace Parse {
          *
          *     import Buffer = require("buffer").Buffer;
          */
-        let HTTPOptions: new () => HTTPOptions;
+        let HTTPOptions: new() => HTTPOptions;
         interface HTTPOptions {
             /**
              * The body of the request.
@@ -997,11 +970,11 @@ declare namespace Parse {
              */
             headers?:
                 | {
-                      [headerName: string]: string | number | boolean;
-                  }
+                    [headerName: string]: string | number | boolean;
+                }
                 | undefined;
             /**
-             *The method of the request (i.e GET, POST, etc).
+             * The method of the request (i.e GET, POST, etc).
              */
             method?: string | undefined;
             /**
@@ -1087,7 +1060,6 @@ declare namespace Parse {
     }
 
     /**
-     * @class
      * A Parse.Op is an atomic operation that can be applied to a field in a
      * Parse.Object. For example, calling <code>object.set("foo", "bar")</code>
      * is an example of a Parse.Op.Set. Calling <code>object.unset("foo")</code>
@@ -1166,16 +1138,21 @@ declare namespace Parse {
     function setAsyncStorage(AsyncStorage: any): void;
 }
 
-declare module 'parse/node' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "parse/node" {
     export = Parse;
 }
 
-declare module 'parse' {
-    import * as parse from 'parse/node';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "parse" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import * as parse from "parse/node";
     export = parse;
 }
 
-declare module 'parse/react-native' {
-    import * as parse from 'parse/node';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "parse/react-native" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import * as parse from "parse/node";
     export = parse;
 }

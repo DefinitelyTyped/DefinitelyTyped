@@ -1,6 +1,28 @@
 {
-  "private": true,
-  "dependencies": {
-    "csstype": "^3.0.2"
-  }
+    "private": true,
+    "name": "@types/styled-system__css",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/styled-system/styled-system"
+    ],
+    "dependencies": {
+        "csstype": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/styled-system__css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Sebald",
+            "githubUsername": "sebald"
+        },
+        {
+            "name": "Bartosz Szewczyk",
+            "githubUsername": "sztobar"
+        },
+        {
+            "name": "Ryan Dowling",
+            "githubUsername": "RyanTheAllmighty"
+        }
+    ]
 }

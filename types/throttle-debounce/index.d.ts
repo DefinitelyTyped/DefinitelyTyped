@@ -1,8 +1,3 @@
-// Type definitions for throttle-debounce 5.0
-// Project: https://github.com/niksy/throttle-debounce
-// Definitions by: Marek Buchar <https://github.com/czbuchi>, Frank Li <https://github.com/franklixuefei>, Thomas Oddsund <https://github.com/oddsund>, Seiya <https://github.com/seiyab>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
 interface CancelOptions {

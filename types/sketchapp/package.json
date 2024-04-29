@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/sketchapp",
+    "version": "56.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "the SketchApp",
+    "projects": [
+        "https://github.com/xlayers/xlayers"
+    ],
+    "devDependencies": {
+        "@types/sketchapp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wassim Chegham",
+            "githubUsername": "manekinekko"
+        },
+        {
+            "name": "Phetsinorath William",
+            "githubUsername": "shikanime"
+        }
+    ]
+}

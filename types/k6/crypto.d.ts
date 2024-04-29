@@ -1,4 +1,4 @@
-import { bytes } from '.';
+import { bytes } from ".";
 
 /**
  * Generate random bytes.
@@ -13,7 +13,7 @@ export function randomBytes(size: number): ArrayBuffer;
 
 /**
  * Produce HMAC.
- * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/hmac/
  * @param algorithm - Hash algorithm.
  * @param secret - Shared secret.
  * @param input - Input data.
@@ -26,138 +26,111 @@ export function hmac<OE extends OutputEncoding>(
     algorithm: Algorithm,
     secret: string | ArrayBuffer,
     input: string | ArrayBuffer,
-    outputEncoding: OE
+    outputEncoding: OE,
 ): Output<OE>;
 
 /**
  * Hash with MD4.
- * https://k6.io/docs/javascript-api/k6-crypto/md4-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/md4/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns MD4 digest.
  * @example
  * crypto.md4('hello world!', 'hex')
  */
-export function md4<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function md4<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with MD5.
- * https://k6.io/docs/javascript-api/k6-crypto/md5-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/md5/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns MD5 digest.
  * @example
  * crypto.md5("hello world!", "hex")
  */
-export function md5<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function md5<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-1.
- * https://k6.io/docs/javascript-api/k6-crypto/sha1-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha1/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-1 digest.
  * @example
  * crypto.sha1('hello world!', 'hex')
  */
-export function sha1<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha1<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-256.
- * https://k6.io/docs/javascript-api/k6-crypto/sha256-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha256/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-256 digest.
  * @example
  * crypto.sha256('hello world!', 'hex')
  */
-export function sha256<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha256<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-384.
- * https://k6.io/docs/javascript-api/k6-crypto/sha384-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha384/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-384 digest.
  * @example
  * crypto.sha384('hello world!', 'hex')
  */
-export function sha384<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha384<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512.
- * https://k6.io/docs/javascript-api/k6-crypto/sha512-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha512/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512 digest.
  * @example
  * crypto.sha512('hello world!', 'hex')
  */
-export function sha512<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512/224.
- * https://k6.io/docs/javascript-api/k6-crypto/sha512_224-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha512_224/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512/224 digest.
  * @example
  * crypto.sha512_224('hello world!', 'hex')
  */
-export function sha512_224<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512_224<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with SHA-512/256.
- * https://k6.io/docs/javascript-api/k6-crypto/sha512_256-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha512_256/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns SHA-512/256 digest.
  * @example
  * crypto.sha512_256('hello world!', 'hex')
  */
-export function sha512_256<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function sha512_256<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Hash with RIPEMD-160.
- * https://k6.io/docs/javascript-api/k6-crypto/ripemd160-input-outputencoding/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/ripemd160/
  * @param input - Data to hash.
  * @param outputEncoding - Output encoding.
  * @returns RIPEMD-160 digest.
  * @example
  * crypto.ripemd160('hello world!', 'hex')
  */
-export function ripemd160<OE extends OutputEncoding>(
-    input: string | ArrayBuffer,
-    outputEncoding: OE
-): Output<OE>;
+export function ripemd160<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
 /**
  * Create a hashing object.
- * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/createhash/
  * @param algorithm - Hash algorithm.
  * @returns Hashing object.
  * @example
@@ -166,7 +139,7 @@ export function createHash(algorithm: Algorithm): Hasher;
 
 /**
  * Create an HMAC hashing object.
- * https://k6.io/docs/javascript-api/k6-crypto/createhmac-algorithm-secret/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/createhmac/
  * @param algorithm - Hash algorithm.
  * @param secret - Shared secret.
  * @returns HMAC hashing object.
@@ -178,25 +151,25 @@ export function createHMAC(algorithm: Algorithm, secret: string | ArrayBuffer): 
  * Hash algorithm.
  */
 export type Algorithm =
-    | 'md4'
-    | 'md5'
-    | 'sha1'
-    | 'sha256'
-    | 'sha384'
-    | 'sha512'
-    | 'sha512_224'
-    | 'sha512_256'
-    | 'ripemd160';
+    | "md4"
+    | "md5"
+    | "sha1"
+    | "sha256"
+    | "sha384"
+    | "sha512"
+    | "sha512_224"
+    | "sha512_256"
+    | "ripemd160";
 
 /**
  * String output encoding.
  */
-export type StringEncoding = 'hex' | 'base64' | 'base64url' | 'base64rawurl';
+export type StringEncoding = "hex" | "base64" | "base64url" | "base64rawurl";
 
 /**
  * Binary output encoding.
  */
-export type BinaryEncoding = 'binary';
+export type BinaryEncoding = "binary";
 
 /**
  * Output encoding.
@@ -207,22 +180,20 @@ export type OutputEncoding = StringEncoding | BinaryEncoding;
  * Output type. Varies with output encoding.
  * @template OE - Output encoding.
  */
-export type Output<OE extends OutputEncoding> = OE extends StringEncoding
-    ? string
-    : OE extends BinaryEncoding
-    ? bytes
+export type Output<OE extends OutputEncoding> = OE extends StringEncoding ? string
+    : OE extends BinaryEncoding ? bytes
     : never;
 
 /**
  * Hashing object.
- * https://k6.io/docs/javascript-api/k6-crypto/hasher/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/hasher/
  */
 export abstract class Hasher {
     protected __brand: never;
 
     /**
      * Add more data to the string we want to create a hash of.
-     * https://k6.io/docs/javascript-api/k6-crypto/hasher/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/hasher/
      * @param input - Data to add.
      * @example
      * let hasher = crypto.createHMAC('sha256', 'a secret');
@@ -234,7 +205,7 @@ export abstract class Hasher {
 
     /**
      * Return a digest from the data added so far.
-     * https://k6.io/docs/javascript-api/k6-crypto/hasher/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/hasher/
      * @param outputEncoding - Output encoding.
      * @returns Digest of data added so far.
      * @example
@@ -248,7 +219,7 @@ export abstract class Hasher {
 
 /**
  * This module provides common hashing functionality available in the GoLang crypto package.
- * https://k6.io/docs/javascript-api/k6-crypto/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/
  */
 declare namespace crypto {
     /**
@@ -264,7 +235,7 @@ declare namespace crypto {
 
     /**
      * Produce HMAC.
-     * https://k6.io/docs/javascript-api/k6-crypto/hmac-algorithm-secret-data-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/hmac/
      * @param algorithm - Hash algorithm.
      * @param secret - Shared secret.
      * @param input - Input data.
@@ -277,138 +248,111 @@ declare namespace crypto {
         algorithm: Algorithm,
         secret: string | ArrayBuffer,
         input: string | ArrayBuffer,
-        outputEncoding: OE
+        outputEncoding: OE,
     ): Output<OE>;
 
     /**
      * Hash with MD4.
-     * https://k6.io/docs/javascript-api/k6-crypto/md4-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/md4/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns MD4 digest.
      * @example
      * crypto.md4('hello world!', 'hex')
      */
-    function md4<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function md4<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with MD5.
-     * https://k6.io/docs/javascript-api/k6-crypto/md5-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/md5/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns MD5 digest.
      * @example
      * crypto.md5("hello world!", "hex")
      */
-    function md5<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function md5<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-1.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha1-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha1/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-1 digest.
      * @example
      * crypto.sha1('hello world!', 'hex')
      */
-    function sha1<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha1<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-256.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha256-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha256/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-256 digest.
      * @example
      * crypto.sha256('hello world!', 'hex')
      */
-    function sha256<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha256<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-384.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha384-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha384/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-384 digest.
      * @example
      * crypto.sha384('hello world!', 'hex')
      */
-    function sha384<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha384<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-512.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha512-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha512/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512 digest.
      * @example
      * crypto.sha512('hello world!', 'hex')
      */
-    function sha512<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha512<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-512/224.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha512_224-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha512_224/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512/224 digest.
      * @example
      * crypto.sha512_224('hello world!', 'hex')
      */
-    function sha512_224<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha512_224<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with SHA-512/256.
-     * https://k6.io/docs/javascript-api/k6-crypto/sha512_256-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/sha512_256/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns SHA-512/256 digest.
      * @example
      * crypto.sha512_256('hello world!', 'hex')
      */
-    function sha512_256<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function sha512_256<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Hash with RIPEMD-160.
-     * https://k6.io/docs/javascript-api/k6-crypto/ripemd160-input-outputencoding/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/ripemd160/
      * @param input - Data to hash.
      * @param outputEncoding - Output encoding.
      * @returns RIPEMD-160 digest.
      * @example
      * crypto.ripemd160('hello world!', 'hex')
      */
-    function ripemd160<OE extends OutputEncoding>(
-        input: string | ArrayBuffer,
-        outputEncoding: OE
-    ): Output<OE>;
+    function ripemd160<OE extends OutputEncoding>(input: string | ArrayBuffer, outputEncoding: OE): Output<OE>;
 
     /**
      * Create a hashing object.
-     * https://k6.io/docs/javascript-api/k6-crypto/createhash-algorithm/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/createhash/
      * @param algorithm - Hash algorithm.
      * @returns Hashing object.
      * @example
@@ -421,7 +365,7 @@ declare namespace crypto {
 
     /**
      * Create an HMAC hashing object.
-     * https://k6.io/docs/javascript-api/k6-crypto/createhmac-algorithm-secret/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-crypto/createhmac/
      * @param algorithm - Hash algorithm.
      * @param secret - Shared secret.
      * @returns HMAC hashing object.

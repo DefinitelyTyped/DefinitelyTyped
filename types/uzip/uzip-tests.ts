@@ -1,4 +1,4 @@
-import uzip = require('uzip');
+import uzip = require("uzip");
 
 uzip.parse(new ArrayBuffer(200)); // $ExpectType UZIPFiles
 uzip.parse(new ArrayBuffer(200), false); // $ExpectType UZIPFiles

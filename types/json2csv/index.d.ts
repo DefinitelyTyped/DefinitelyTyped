@@ -1,10 +1,3 @@
-// Type definitions for json2csv 5.0
-// Project: https://github.com/zemirco/json2csv
-// Definitions by: Juanjo Diaz <https://github.com/juanjoDiaz>
-//                 Daniel Gooß <https://github.com/dangoo>
-//                 Denis Yilmaz <https://github.com/denisyilmaz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { Readable, TransformOptions } from "stream";
 
@@ -16,13 +9,13 @@ import unwind = require("./transforms/unwind");
 
 export as namespace json2csv;
 
-export { JSON2CSVParser as Parser, JSON2CSVAsyncParser as AsyncParser, JSON2CSVTransform as Transform };
+export { JSON2CSVAsyncParser as AsyncParser, JSON2CSVParser as Parser, JSON2CSVTransform as Transform };
 
 // Convenience method to keep the API similar to version 3.X
-export function parse<T>(data: Readonly<T> | ReadonlyArray<T>, opts?: json2csv.Options<T>): string;
+export function parse<T>(data: Readonly<T> | readonly T[], opts?: json2csv.Options<T>): string;
 
 export function parseAsync<T>(
-    data: Readonly<T> | ReadonlyArray<T> | Readable,
+    data: Readonly<T> | readonly T[] | Readable,
     opts?: json2csv.Options<T>,
     transformOpts?: TransformOptions,
 ): Promise<string>;

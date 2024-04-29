@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/on-finished",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/jshttp/on-finished"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/on-finished": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Honza Dvorsky",
+            "githubUsername": "czechboy0"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

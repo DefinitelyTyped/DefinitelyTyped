@@ -1,5 +1,10 @@
 {
     "rules": {
-        "no-any-union": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@definitelytyped/no-duplicate-imports": "off"
     }
 }

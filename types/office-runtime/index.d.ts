@@ -1,13 +1,3 @@
-// Type definitions for non-npm package office-runtime 1.0
-// Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>,
-//                 David Chesnut <https://github.com/davidchesnut>,
-//                 Alex Jerabek <https://github.com/AlexJerabek>,
-//                 Ricky Kirkham <https://github.com/rick-kirkham>,
-//                 Alison McKay <https://github.com/alison-mk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript Version: 2.4
-
 /*
 office-runtime
 Copyright (c) Microsoft Corporation
@@ -37,8 +27,15 @@ declare namespace OfficeRuntime {
    * @remarks
    * [Api set: SharedRuntime 1.1, Mailbox 1.10]
    *
-   * **Important**: In Outlook, support is only available with
-   * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+   * This interface is available in the
+   * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+   * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+   * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+   * for Outlook.
+   *
+   * **Important**: In Outlook, support is only available with the
+   * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+   * This interface isn't supported in Outlook on Mac or on the web.
    *
    * Storage limit is 10 MB per domain, which may be shared by multiple add-ins.
    */
@@ -50,8 +47,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param key Key of item to be retrieved. Must be a string.
      */
@@ -63,8 +67,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param key Key of item to be set. Must be a string.
      * @param value Must be a string.
@@ -77,8 +88,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param key Key of item to be removed. Must be a string.
      */
@@ -90,8 +108,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -103,8 +128,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param keyValues Key-value pairs to be set. Must be strings.
      */
@@ -116,8 +148,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      *
      * @param keys Keys of items to be removed. Must be an array of strings.
      */
@@ -129,8 +168,15 @@ declare namespace OfficeRuntime {
      * @remarks
      * [Api set: SharedRuntime 1.1, Mailbox 1.10]
      *
-     * **Important**: In Outlook, support is only available with
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation}.
+     * This method is available in the
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1 requirement set}
+     * for Excel, PowerPoint, and Word add-ins. It's also available starting in
+     * {@link https://learn.microsoft.com/javascript/api/requirement-sets/outlook/requirement-set-1.10/outlook-requirement-set-1.10 | Mailbox requirement set 1.10}
+     * for Outlook.
+     *
+     * **Important**: In Outlook, support is only available with the
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/autolaunch | event-based activation} feature implemented in Outlook on Windows.
+     * This method isn't supported in Outlook on Mac or on the web.
      */
     getKeys(): Promise<string[]>;
   }
@@ -293,11 +339,19 @@ declare namespace OfficeRuntime {
      * This API requires a single sign-on configuration that bridges the add-in to an Azure application. Office users sign-in with Organizational
      * Accounts and Microsoft Accounts. Microsoft Azure returns tokens intended for both user account types to access resources in the Microsoft Graph.
      *
-     * **Important**: In Outlook, this API isn't supported if the add-in is loaded in an Outlook.com or Gmail mailbox.
-     *
      * @remarks
      *
      * **Applications**: Excel, Outlook, PowerPoint, Word
+     *
+     * **Important**:
+     *
+     * - In Outlook, this API isn't supported if you load an add-in in an Outlook.com or Gmail mailbox.
+     *
+     * - In Outlook on the web, this API isn't supported if you use the Safari browser. This results in error 13001 ("The user is not signed into Office").
+     *
+     * - In Outlook on the web, if you use the
+     * {@link https://learn.microsoft.com/javascript/api/office/office.ui#office-office-ui-displaydialogasync-member(1) | displayDialogAsync}
+     * method to open a dialog, you must close the dialog before you can call `getAccessToken`.
      *
      * @param options - Optional. Accepts an `AuthOptions` object to define sign-on behaviors.
      * @returns Promise to the access token.

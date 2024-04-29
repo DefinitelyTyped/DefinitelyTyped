@@ -1,8 +1,3 @@
-// Type definitions for ps-node 0.1
-// Project: https://github.com/neekey/ps#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Program {
     arguments: string[];
     command: string;

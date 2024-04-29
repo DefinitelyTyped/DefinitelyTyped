@@ -10,7 +10,7 @@ export class CustomEntity extends GameEntity {
 
     constructor() {
         super();
-        this.name = 'target';
+        this.name = "target";
         this.currentTime = 0;
         this.endTime = 0;
     }

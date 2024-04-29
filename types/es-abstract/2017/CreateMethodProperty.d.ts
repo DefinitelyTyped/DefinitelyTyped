@@ -1,2 +1,2 @@
-import CreateMethodProperty = require('../2016/CreateMethodProperty');
+import CreateMethodProperty = require("../2016/CreateMethodProperty");
 export = CreateMethodProperty;

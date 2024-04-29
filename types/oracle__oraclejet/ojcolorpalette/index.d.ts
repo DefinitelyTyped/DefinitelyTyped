@@ -1,15 +1,15 @@
-import Color = require('../ojcolor');
-import { editableValue, editableValueEventMap, editableValueSettableProperties } from '../ojeditablevalue';
-import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import Color = require("../ojcolor");
+import { JetElement, JetElementCustomEvent, JetSetPropertyType, JetSettableProperties } from "..";
+import { editableValue, editableValueEventMap, editableValueSettableProperties } from "../ojeditablevalue";
 export interface ojColorPalette extends editableValue<Color, ojColorPaletteSettableProperties> {
-    labelDisplay: 'auto' | 'off';
+    labelDisplay: "auto" | "off";
     labelledBy: string | null;
-    layout: 'grid' | 'list';
+    layout: "grid" | "list";
     palette: Array<{
         color: Color;
         label?: string | undefined;
     }>;
-    swatchSize: 'xs' | 'sm' | 'lg';
+    swatchSize: "xs" | "sm" | "lg";
     value: Color;
     translations: {
         labelNone?: string | undefined;
@@ -22,48 +22,59 @@ export interface ojColorPalette extends editableValue<Color, ojColorPaletteSetta
     onValueChanged: ((event: JetElementCustomEvent<ojColorPalette["value"]>) => any) | null;
     onOjAnimateEnd: ((event: ojColorPalette.ojAnimateEnd) => any) | null;
     onOjAnimateStart: ((event: ojColorPalette.ojAnimateStart) => any) | null;
-    addEventListener<T extends keyof ojColorPaletteEventMap>(type: T, listener: (this: HTMLElement, ev: ojColorPaletteEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojColorPaletteEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojColorPaletteEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojColorPaletteSettableProperties>(property: T): ojColorPalette[T];
     getProperty(property: string): any;
-    setProperty<T extends keyof ojColorPaletteSettableProperties>(property: T, value: ojColorPaletteSettableProperties[T]): void;
+    setProperty<T extends keyof ojColorPaletteSettableProperties>(
+        property: T,
+        value: ojColorPaletteSettableProperties[T],
+    ): void;
     setProperty<T extends string>(property: T, value: JetSetPropertyType<T, ojColorPaletteSettableProperties>): void;
     setProperties(properties: ojColorPaletteSettablePropertiesLenient): void;
 }
 export namespace ojColorPalette {
-    interface ojAnimateEnd extends CustomEvent<{
-        action: string;
-        element: Element;
-        [propName: string]: any;
-    }> {
+    interface ojAnimateEnd extends
+        CustomEvent<{
+            action: string;
+            element: Element;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojAnimateStart extends CustomEvent<{
-        action: string;
-        element: Element;
-        endCallback: (() => void);
-        [propName: string]: any;
-    }> {
+    interface ojAnimateStart extends
+        CustomEvent<{
+            action: string;
+            element: Element;
+            endCallback: () => void;
+            [propName: string]: any;
+        }>
+    {
     }
 }
 export interface ojColorPaletteEventMap extends editableValueEventMap<Color, ojColorPaletteSettableProperties> {
-    'ojAnimateEnd': ojColorPalette.ojAnimateEnd;
-    'ojAnimateStart': ojColorPalette.ojAnimateStart;
-    'labelDisplayChanged': JetElementCustomEvent<ojColorPalette["labelDisplay"]>;
-    'labelledByChanged': JetElementCustomEvent<ojColorPalette["labelledBy"]>;
-    'layoutChanged': JetElementCustomEvent<ojColorPalette["layout"]>;
-    'paletteChanged': JetElementCustomEvent<ojColorPalette["palette"]>;
-    'swatchSizeChanged': JetElementCustomEvent<ojColorPalette["swatchSize"]>;
-    'valueChanged': JetElementCustomEvent<ojColorPalette["value"]>;
+    "ojAnimateEnd": ojColorPalette.ojAnimateEnd;
+    "ojAnimateStart": ojColorPalette.ojAnimateStart;
+    "labelDisplayChanged": JetElementCustomEvent<ojColorPalette["labelDisplay"]>;
+    "labelledByChanged": JetElementCustomEvent<ojColorPalette["labelledBy"]>;
+    "layoutChanged": JetElementCustomEvent<ojColorPalette["layout"]>;
+    "paletteChanged": JetElementCustomEvent<ojColorPalette["palette"]>;
+    "swatchSizeChanged": JetElementCustomEvent<ojColorPalette["swatchSize"]>;
+    "valueChanged": JetElementCustomEvent<ojColorPalette["value"]>;
 }
 export interface ojColorPaletteSettableProperties extends editableValueSettableProperties<Color> {
-    labelDisplay: 'auto' | 'off';
+    labelDisplay: "auto" | "off";
     labelledBy: string | null;
-    layout: 'grid' | 'list';
+    layout: "grid" | "list";
     palette: Array<{
         color: Color;
         label?: string | undefined;
     }>;
-    swatchSize: 'xs' | 'sm' | 'lg';
+    swatchSize: "xs" | "sm" | "lg";
     value: Color;
     translations: {
         labelNone?: string | undefined;

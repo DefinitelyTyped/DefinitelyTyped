@@ -124,268 +124,294 @@ declare global {
     function gridOutput(display?: p5.GRID_DISPLAY): void;
 
     /**
-     *   Extracts the alpha value from a color or pixel
-     *   array.
-     *   @param color p5.Color object, color components, or
-     *   CSS color
-     *   @return the alpha value
+     *   Extracts the alpha (transparency) value from a
+     *   p5.Color object, array of color components, or CSS
+     *   color string.
+     *   @param color p5.Color object, array of color
+     *   components, or CSS color string.
+     *   @return the alpha value.
      */
     function alpha(color: p5.Color | number[] | string): number;
 
     /**
-     *   Extracts the blue value from a color or pixel
-     *   array.
-     *   @param color p5.Color object, color components, or
-     *   CSS color
-     *   @return the blue value
+     *   Extracts the blue value from a p5.Color object,
+     *   array of color components, or CSS color string.
+     *   @param color p5.Color object, array of color
+     *   components, or CSS color string.
+     *   @return the blue value.
      */
     function blue(color: p5.Color | number[] | string): number;
 
     /**
-     *   Extracts the HSB brightness value from a color or
-     *   pixel array.
-     *   @param color p5.Color object, color components, or
-     *   CSS color
-     *   @return the brightness value
+     *   Extracts the HSB brightness value from a p5.Color
+     *   object, array of color components, or CSS color
+     *   string.
+     *   @param color p5.Color object, array of color
+     *   components, or CSS color string.
+     *   @return the brightness value.
      */
     function brightness(color: p5.Color | number[] | string): number;
 
     /**
-     *   Creates colors for storing in variables of the
-     *   color datatype. The parameters are interpreted as
-     *   RGB or HSB values depending on the current
-     *   colorMode(). The default mode is RGB values from 0
-     *   to 255 and, therefore, the function call
+     *   Creates a p5.Color object. By default, the
+     *   parameters are interpreted as RGB values. Calling
      *   color(255, 204, 0) will return a bright yellow
-     *   color. Note that if only one value is provided to
-     *   color(), it will be interpreted as a grayscale
-     *   value. Add a second value, and it will be used for
-     *   alpha transparency. When three values are
-     *   specified, they are interpreted as either RGB or
-     *   HSB values. Adding a fourth value applies alpha
-     *   transparency.
+     *   color. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of color() with one parameter interprets
+     *   the value one of two ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string.
      *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
+     *   The version of color() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of color() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of color() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
      *   @param gray number specifying value between white
      *   and black.
      *   @param [alpha] alpha value relative to current
-     *   color range (default is 0-255)
-     *   @return resulting color
+     *   color range (default is 0-255).
+     *   @return resulting color.
      */
     function color(gray: number, alpha?: number): p5.Color;
 
     /**
-     *   Creates colors for storing in variables of the
-     *   color datatype. The parameters are interpreted as
-     *   RGB or HSB values depending on the current
-     *   colorMode(). The default mode is RGB values from 0
-     *   to 255 and, therefore, the function call
+     *   Creates a p5.Color object. By default, the
+     *   parameters are interpreted as RGB values. Calling
      *   color(255, 204, 0) will return a bright yellow
-     *   color. Note that if only one value is provided to
-     *   color(), it will be interpreted as a grayscale
-     *   value. Add a second value, and it will be used for
-     *   alpha transparency. When three values are
-     *   specified, they are interpreted as either RGB or
-     *   HSB values. Adding a fourth value applies alpha
-     *   transparency.
+     *   color. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of color() with one parameter interprets
+     *   the value one of two ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string.
      *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
+     *   The version of color() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of color() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of color() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
      *   @param v1 red or hue value relative to the current
-     *   color range
+     *   color range.
      *   @param v2 green or saturation value relative to
-     *   the current color range
+     *   the current color range.
      *   @param v3 blue or brightness value relative to the
-     *   current color range
+     *   current color range.
      *   @param [alpha] alpha value relative to current
-     *   color range (default is 0-255)
+     *   color range (default is 0-255).
      */
     function color(v1: number, v2: number, v3: number, alpha?: number): p5.Color;
 
     /**
-     *   Creates colors for storing in variables of the
-     *   color datatype. The parameters are interpreted as
-     *   RGB or HSB values depending on the current
-     *   colorMode(). The default mode is RGB values from 0
-     *   to 255 and, therefore, the function call
+     *   Creates a p5.Color object. By default, the
+     *   parameters are interpreted as RGB values. Calling
      *   color(255, 204, 0) will return a bright yellow
-     *   color. Note that if only one value is provided to
-     *   color(), it will be interpreted as a grayscale
-     *   value. Add a second value, and it will be used for
-     *   alpha transparency. When three values are
-     *   specified, they are interpreted as either RGB or
-     *   HSB values. Adding a fourth value applies alpha
-     *   transparency.
+     *   color. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of color() with one parameter interprets
+     *   the value one of two ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string.
      *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
-     *   @param value a color string
+     *   The version of color() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of color() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of color() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
+     *   @param value a color string.
      */
     function color(value: string): p5.Color;
 
     /**
-     *   Creates colors for storing in variables of the
-     *   color datatype. The parameters are interpreted as
-     *   RGB or HSB values depending on the current
-     *   colorMode(). The default mode is RGB values from 0
-     *   to 255 and, therefore, the function call
+     *   Creates a p5.Color object. By default, the
+     *   parameters are interpreted as RGB values. Calling
      *   color(255, 204, 0) will return a bright yellow
-     *   color. Note that if only one value is provided to
-     *   color(), it will be interpreted as a grayscale
-     *   value. Add a second value, and it will be used for
-     *   alpha transparency. When three values are
-     *   specified, they are interpreted as either RGB or
-     *   HSB values. Adding a fourth value applies alpha
-     *   transparency.
+     *   color. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of color() with one parameter interprets
+     *   the value one of two ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string.
      *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
-     *   @param values an array containing the
-     *   red,green,blue & and alpha components of the color
+     *   The version of color() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of color() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of color() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
+     *   @param values an array containing the red, green,
+     *   blue, and alpha components of the color.
      */
     function color(values: number[]): p5.Color;
 
     /**
-     *   Creates colors for storing in variables of the
-     *   color datatype. The parameters are interpreted as
-     *   RGB or HSB values depending on the current
-     *   colorMode(). The default mode is RGB values from 0
-     *   to 255 and, therefore, the function call
+     *   Creates a p5.Color object. By default, the
+     *   parameters are interpreted as RGB values. Calling
      *   color(255, 204, 0) will return a bright yellow
-     *   color. Note that if only one value is provided to
-     *   color(), it will be interpreted as a grayscale
-     *   value. Add a second value, and it will be used for
-     *   alpha transparency. When three values are
-     *   specified, they are interpreted as either RGB or
-     *   HSB values. Adding a fourth value applies alpha
-     *   transparency.
+     *   color. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of color() with one parameter interprets
+     *   the value one of two ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string.
      *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
+     *   The version of color() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of color() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of color() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
      */
     function color(color: p5.Color): p5.Color;
 
     /**
-     *   Extracts the green value from a color or pixel
-     *   array.
-     *   @param color p5.Color object, color components, or
-     *   CSS color
-     *   @return the green value
+     *   Extracts the green value from a p5.Color object,
+     *   array of color components, or CSS color string.
+     *   @param color p5.Color object, array of color
+     *   components, or CSS color string.
+     *   @return the green value.
      */
     function green(color: p5.Color | number[] | string): number;
 
     /**
-     *   Extracts the hue value from a color or pixel
-     *   array. Hue exists in both HSB and HSL. This
-     *   function will return the HSB-normalized hue when
-     *   supplied with an HSB color object (or when
-     *   supplied with a pixel array while the color mode
-     *   is HSB), but will default to the HSL-normalized
-     *   hue otherwise. (The values will only be different
-     *   if the maximum hue setting for each system is
-     *   different.)
-     *   @param color p5.Color object, color components, or
-     *   CSS color
+     *   Extracts the hue value from a p5.Color object,
+     *   array of color components, or CSS color string.
+     *   Hue exists in both HSB and HSL. It describes a
+     *   color's position on the color wheel. By default,
+     *   this function returns the HSL-normalized hue. If
+     *   the colorMode() is set to HSB, it returns the
+     *   HSB-normalized hue.
+     *   @param color p5.Color object, array of color
+     *   components, or CSS color string.
      *   @return the hue
      */
     function hue(color: p5.Color | number[] | string): number;
 
     /**
-     *   Blends two colors to find a third color somewhere
-     *   between them. The amt parameter is the amount to
-     *   interpolate between the two values where 0.0 is
-     *   equal to the first color, 0.1 is very near the
-     *   first color, 0.5 is halfway in between, etc. An
-     *   amount below 0 will be treated as 0. Likewise,
-     *   amounts above 1 will be capped at 1. This is
-     *   different from the behavior of lerp(), but
-     *   necessary because otherwise numbers outside the
-     *   range will produce strange and unexpected colors.
-     *   The way that colors are interpolated depends on
-     *   the current color mode.
-     *   @param c1 interpolate from this color
-     *   @param c2 interpolate to this color
-     *   @param amt number between 0 and 1
-     *   @return interpolated color
+     *   Blends two colors to find a third color between
+     *   them. The amt parameter specifies the amount to
+     *   interpolate between the two values. 0 is equal to
+     *   the first color, 0.1 is very near the first color,
+     *   0.5 is halfway between the two colors, and so on.
+     *   Negative numbers are set to 0. Numbers greater
+     *   than 1 are set to 1. This differs from the
+     *   behavior of lerp. It's necessary because numbers
+     *   outside of the interval [0, 1] will produce
+     *   strange and unexpected colors. The way that colors
+     *   are interpolated depends on the current
+     *   colorMode().
+     *   @param c1 interpolate from this color.
+     *   @param c2 interpolate to this color.
+     *   @param amt number between 0 and 1.
+     *   @return interpolated color.
      */
     function lerpColor(c1: p5.Color, c2: p5.Color, amt: number): p5.Color;
 
     /**
-     *   Extracts the HSL lightness value from a color or
-     *   pixel array.
-     *   @param color p5.Color object, color components, or
-     *   CSS color
+     *   Extracts the HSL lightness value from a p5.Color
+     *   object, array of color components, or CSS color
+     *   string.
+     *   @param color p5.Color object, array of color
+     *   components, or CSS color string.
      *   @return the lightness
      */
     function lightness(color: p5.Color | number[] | string): number;
 
     /**
-     *   Extracts the red value from a color or pixel
-     *   array.
-     *   @param color p5.Color object, color components, or
-     *   CSS color
-     *   @return the red value
+     *   Extracts the red value from a p5.Color object,
+     *   array of color components, or CSS color string.
+     *   @param color p5.Color object, array of color
+     *   components, or CSS color string.
+     *   @return the red value.
      */
     function red(color: p5.Color | number[] | string): number;
 
     /**
-     *   Extracts the saturation value from a color or
-     *   pixel array. Saturation is scaled differently in
-     *   HSB and HSL. This function will return the HSB
-     *   saturation when supplied with an HSB color object
-     *   (or when supplied with a pixel array while the
-     *   color mode is HSB), but will default to the HSL
-     *   saturation otherwise.
-     *   @param color p5.Color object, color components, or
-     *   CSS color
+     *   Extracts the saturation value from a p5.Color
+     *   object, array of color components, or CSS color
+     *   string. Saturation is scaled differently in HSB
+     *   and HSL. By default, this function returns the HSL
+     *   saturation. If the colorMode() is set to HSB, it
+     *   returns the HSB saturation.
+     *   @param color p5.Color object, array of color
+     *   components, or CSS color string.
      *   @return the saturation value
      */
     function saturation(color: p5.Color | number[] | string): number;
 
     /**
-     *   The background() function sets the color used for
-     *   the background of the p5.js canvas. The default
-     *   background is transparent. This function is
-     *   typically used within draw() to clear the display
-     *   window at the beginning of each frame, but it can
-     *   be used inside setup() to set the background on
-     *   the first frame of animation or if the background
-     *   need only be set once. The color is either
-     *   specified in terms of the RGB, HSB, or HSL color
-     *   depending on the current colorMode. (The default
-     *   color space is RGB, with each value in the range
-     *   from 0 to 255). The alpha range by default is also
-     *   0 to 255.
+     *   Sets the color used for the background of the
+     *   canvas. By default, the background is transparent.
+     *   This function is typically used within draw() to
+     *   clear the display window at the beginning of each
+     *   frame. It can also be used inside setup() to set
+     *   the background on the first frame of animation.
+     *   The version of background() with one parameter
+     *   interprets the value one of four ways. If the
+     *   parameter is a number, it's interpreted as a
+     *   grayscale value. If the parameter is a string,
+     *   it's interpreted as a CSS color string. RGB, RGBA,
+     *   HSL, HSLA, hex, and named color strings are
+     *   supported. If the parameter is a p5.Color object,
+     *   it will be used as the background color. If the
+     *   parameter is a p5.Image object, it will be used as
+     *   the background image.
      *
+     *   The version of background() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
      *
-     *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
-     *
-     *   A p5.Color object can also be provided to set the
-     *   background color.
-     *
-     *   A p5.Image can also be provided to set the
-     *   background image.
+     *   The version of background() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). By default,
+     *   colors are specified in RGB values. Calling
+     *   background(255, 204, 0) sets the background a
+     *   bright yellow color.
      *   @param color any value created by the color()
      *   function
      *   @chainable
@@ -393,381 +419,412 @@ declare global {
     function background(color: p5.Color): p5;
 
     /**
-     *   The background() function sets the color used for
-     *   the background of the p5.js canvas. The default
-     *   background is transparent. This function is
-     *   typically used within draw() to clear the display
-     *   window at the beginning of each frame, but it can
-     *   be used inside setup() to set the background on
-     *   the first frame of animation or if the background
-     *   need only be set once. The color is either
-     *   specified in terms of the RGB, HSB, or HSL color
-     *   depending on the current colorMode. (The default
-     *   color space is RGB, with each value in the range
-     *   from 0 to 255). The alpha range by default is also
-     *   0 to 255.
+     *   Sets the color used for the background of the
+     *   canvas. By default, the background is transparent.
+     *   This function is typically used within draw() to
+     *   clear the display window at the beginning of each
+     *   frame. It can also be used inside setup() to set
+     *   the background on the first frame of animation.
+     *   The version of background() with one parameter
+     *   interprets the value one of four ways. If the
+     *   parameter is a number, it's interpreted as a
+     *   grayscale value. If the parameter is a string,
+     *   it's interpreted as a CSS color string. RGB, RGBA,
+     *   HSL, HSLA, hex, and named color strings are
+     *   supported. If the parameter is a p5.Color object,
+     *   it will be used as the background color. If the
+     *   parameter is a p5.Image object, it will be used as
+     *   the background image.
      *
+     *   The version of background() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
      *
-     *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
-     *
-     *   A p5.Color object can also be provided to set the
-     *   background color.
-     *
-     *   A p5.Image can also be provided to set the
-     *   background image.
+     *   The version of background() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). By default,
+     *   colors are specified in RGB values. Calling
+     *   background(255, 204, 0) sets the background a
+     *   bright yellow color.
      *   @param colorstring color string, possible formats
      *   include: integer rgb() or rgba(), percentage rgb()
-     *   or rgba(), 3-digit hex, 6-digit hex
+     *   or rgba(), 3-digit hex, 6-digit hex.
      *   @param [a] opacity of the background relative to
-     *   current color range (default is 0-255)
+     *   current color range (default is 0-255).
      *   @chainable
      */
     function background(colorstring: string, a?: number): p5;
 
     /**
-     *   The background() function sets the color used for
-     *   the background of the p5.js canvas. The default
-     *   background is transparent. This function is
-     *   typically used within draw() to clear the display
-     *   window at the beginning of each frame, but it can
-     *   be used inside setup() to set the background on
-     *   the first frame of animation or if the background
-     *   need only be set once. The color is either
-     *   specified in terms of the RGB, HSB, or HSL color
-     *   depending on the current colorMode. (The default
-     *   color space is RGB, with each value in the range
-     *   from 0 to 255). The alpha range by default is also
-     *   0 to 255.
+     *   Sets the color used for the background of the
+     *   canvas. By default, the background is transparent.
+     *   This function is typically used within draw() to
+     *   clear the display window at the beginning of each
+     *   frame. It can also be used inside setup() to set
+     *   the background on the first frame of animation.
+     *   The version of background() with one parameter
+     *   interprets the value one of four ways. If the
+     *   parameter is a number, it's interpreted as a
+     *   grayscale value. If the parameter is a string,
+     *   it's interpreted as a CSS color string. RGB, RGBA,
+     *   HSL, HSLA, hex, and named color strings are
+     *   supported. If the parameter is a p5.Color object,
+     *   it will be used as the background color. If the
+     *   parameter is a p5.Image object, it will be used as
+     *   the background image.
      *
+     *   The version of background() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
      *
-     *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
-     *
-     *   A p5.Color object can also be provided to set the
-     *   background color.
-     *
-     *   A p5.Image can also be provided to set the
-     *   background image.
+     *   The version of background() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). By default,
+     *   colors are specified in RGB values. Calling
+     *   background(255, 204, 0) sets the background a
+     *   bright yellow color.
      *   @param gray specifies a value between white and
-     *   black
+     *   black.
      *   @param [a] opacity of the background relative to
-     *   current color range (default is 0-255)
+     *   current color range (default is 0-255).
      *   @chainable
      */
     function background(gray: number, a?: number): p5;
 
     /**
-     *   The background() function sets the color used for
-     *   the background of the p5.js canvas. The default
-     *   background is transparent. This function is
-     *   typically used within draw() to clear the display
-     *   window at the beginning of each frame, but it can
-     *   be used inside setup() to set the background on
-     *   the first frame of animation or if the background
-     *   need only be set once. The color is either
-     *   specified in terms of the RGB, HSB, or HSL color
-     *   depending on the current colorMode. (The default
-     *   color space is RGB, with each value in the range
-     *   from 0 to 255). The alpha range by default is also
-     *   0 to 255.
+     *   Sets the color used for the background of the
+     *   canvas. By default, the background is transparent.
+     *   This function is typically used within draw() to
+     *   clear the display window at the beginning of each
+     *   frame. It can also be used inside setup() to set
+     *   the background on the first frame of animation.
+     *   The version of background() with one parameter
+     *   interprets the value one of four ways. If the
+     *   parameter is a number, it's interpreted as a
+     *   grayscale value. If the parameter is a string,
+     *   it's interpreted as a CSS color string. RGB, RGBA,
+     *   HSL, HSLA, hex, and named color strings are
+     *   supported. If the parameter is a p5.Color object,
+     *   it will be used as the background color. If the
+     *   parameter is a p5.Image object, it will be used as
+     *   the background image.
      *
+     *   The version of background() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
      *
-     *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
-     *
-     *   A p5.Color object can also be provided to set the
-     *   background color.
-     *
-     *   A p5.Image can also be provided to set the
-     *   background image.
-     *   @param v1 red or hue value (depending on the
-     *   current color mode)
-     *   @param v2 green or saturation value (depending on
-     *   the current color mode)
-     *   @param v3 blue or brightness value (depending on
-     *   the current color mode)
+     *   The version of background() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). By default,
+     *   colors are specified in RGB values. Calling
+     *   background(255, 204, 0) sets the background a
+     *   bright yellow color.
+     *   @param v1 red value if color mode is RGB, or hue
+     *   value if color mode is HSB.
+     *   @param v2 green value if color mode is RGB, or
+     *   saturation value if color mode is HSB.
+     *   @param v3 blue value if color mode is RGB, or
+     *   brightness value if color mode is HSB.
      *   @param [a] opacity of the background relative to
-     *   current color range (default is 0-255)
+     *   current color range (default is 0-255).
      *   @chainable
      */
     function background(v1: number, v2: number, v3: number, a?: number): p5;
 
     /**
-     *   The background() function sets the color used for
-     *   the background of the p5.js canvas. The default
-     *   background is transparent. This function is
-     *   typically used within draw() to clear the display
-     *   window at the beginning of each frame, but it can
-     *   be used inside setup() to set the background on
-     *   the first frame of animation or if the background
-     *   need only be set once. The color is either
-     *   specified in terms of the RGB, HSB, or HSL color
-     *   depending on the current colorMode. (The default
-     *   color space is RGB, with each value in the range
-     *   from 0 to 255). The alpha range by default is also
-     *   0 to 255.
+     *   Sets the color used for the background of the
+     *   canvas. By default, the background is transparent.
+     *   This function is typically used within draw() to
+     *   clear the display window at the beginning of each
+     *   frame. It can also be used inside setup() to set
+     *   the background on the first frame of animation.
+     *   The version of background() with one parameter
+     *   interprets the value one of four ways. If the
+     *   parameter is a number, it's interpreted as a
+     *   grayscale value. If the parameter is a string,
+     *   it's interpreted as a CSS color string. RGB, RGBA,
+     *   HSL, HSLA, hex, and named color strings are
+     *   supported. If the parameter is a p5.Color object,
+     *   it will be used as the background color. If the
+     *   parameter is a p5.Image object, it will be used as
+     *   the background image.
      *
+     *   The version of background() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
      *
-     *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
-     *
-     *   A p5.Color object can also be provided to set the
-     *   background color.
-     *
-     *   A p5.Image can also be provided to set the
-     *   background image.
+     *   The version of background() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). By default,
+     *   colors are specified in RGB values. Calling
+     *   background(255, 204, 0) sets the background a
+     *   bright yellow color.
      *   @param values an array containing the red, green,
-     *   blue and alpha components of the color
+     *   blue and alpha components of the color.
      *   @chainable
      */
     function background(values: number[]): p5;
 
     /**
-     *   The background() function sets the color used for
-     *   the background of the p5.js canvas. The default
-     *   background is transparent. This function is
-     *   typically used within draw() to clear the display
-     *   window at the beginning of each frame, but it can
-     *   be used inside setup() to set the background on
-     *   the first frame of animation or if the background
-     *   need only be set once. The color is either
-     *   specified in terms of the RGB, HSB, or HSL color
-     *   depending on the current colorMode. (The default
-     *   color space is RGB, with each value in the range
-     *   from 0 to 255). The alpha range by default is also
-     *   0 to 255.
+     *   Sets the color used for the background of the
+     *   canvas. By default, the background is transparent.
+     *   This function is typically used within draw() to
+     *   clear the display window at the beginning of each
+     *   frame. It can also be used inside setup() to set
+     *   the background on the first frame of animation.
+     *   The version of background() with one parameter
+     *   interprets the value one of four ways. If the
+     *   parameter is a number, it's interpreted as a
+     *   grayscale value. If the parameter is a string,
+     *   it's interpreted as a CSS color string. RGB, RGBA,
+     *   HSL, HSLA, hex, and named color strings are
+     *   supported. If the parameter is a p5.Color object,
+     *   it will be used as the background color. If the
+     *   parameter is a p5.Image object, it will be used as
+     *   the background image.
      *
+     *   The version of background() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
      *
-     *
-     *   If a single string argument is provided, RGB, RGBA
-     *   and Hex CSS color strings and all named color
-     *   strings are supported. In this case, an alpha
-     *   number value as a second argument is not
-     *   supported, the RGBA form should be used.
-     *
-     *   A p5.Color object can also be provided to set the
-     *   background color.
-     *
-     *   A p5.Image can also be provided to set the
-     *   background image.
+     *   The version of background() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). By default,
+     *   colors are specified in RGB values. Calling
+     *   background(255, 204, 0) sets the background a
+     *   bright yellow color.
      *   @param image image created with loadImage() or
-     *   createImage(), to set as background (must be same
-     *   size as the sketch window)
+     *   createImage(), to set as background. (must be same
+     *   size as the sketch window).
      *   @param [a] opacity of the background relative to
-     *   current color range (default is 0-255)
+     *   current color range (default is 0-255).
      *   @chainable
      */
     function background(image: p5.Image, a?: number): p5;
 
     /**
-     *   Clears the pixels within a buffer. This function
-     *   only clears the canvas. It will not clear objects
-     *   created by createX() methods such as createVideo()
-     *   or createDiv(). Unlike the main graphics context,
-     *   pixels in additional graphics areas created with
-     *   createGraphics() can be entirely or partially
-     *   transparent. This function clears everything to
-     *   make all of the pixels 100% transparent. Note: In
-     *   WebGL mode, this function can be passed normalized
-     *   RGBA color values in order to clear the screen to
-     *   a specific color. In addition to color, it will
-     *   also clear the depth buffer. If you are not using
-     *   the webGL renderer these color values will have no
-     *   effect.
-     *   @param r normalized red val.
-     *   @param g normalized green val.
-     *   @param b normalized blue val.
-     *   @param a normalized alpha val.
+     *   Clears the pixels on the canvas. This function
+     *   makes every pixel 100% transparent. Calling
+     *   clear() doesn't clear objects created by createX()
+     *   functions such as createGraphics(), createVideo(),
+     *   and createImg(). These objects will remain
+     *   unchanged after calling clear() and can be
+     *   redrawn. In WebGL mode, this function can clear
+     *   the screen to a specific color. It interprets four
+     *   numeric parameters as normalized RGBA color
+     *   values. It also clears the depth buffer. If you
+     *   are not using the WebGL renderer, these parameters
+     *   will have no effect.
+     *   @param r normalized red value.
+     *   @param g normalized green value.
+     *   @param b normalized blue value.
+     *   @param a normalized alpha value.
      *   @chainable
      */
     function clear(r: number, g: number, b: number, a: number): p5;
 
     /**
-     *   colorMode() changes the way p5.js interprets color
-     *   data. By default, the parameters for fill(),
+     *   Clears the pixels on the canvas. This function
+     *   makes every pixel 100% transparent. Calling
+     *   clear() doesn't clear objects created by createX()
+     *   functions such as createGraphics(), createVideo(),
+     *   and createImg(). These objects will remain
+     *   unchanged after calling clear() and can be
+     *   redrawn. In WebGL mode, this function can clear
+     *   the screen to a specific color. It interprets four
+     *   numeric parameters as normalized RGBA color
+     *   values. It also clears the depth buffer. If you
+     *   are not using the WebGL renderer, these parameters
+     *   will have no effect.
+     *   @chainable
+     */
+    function clear(): p5;
+
+    /**
+     *   Changes the way p5.js interprets color data. By
+     *   default, the numeric parameters for fill(),
      *   stroke(), background(), and color() are defined by
      *   values between 0 and 255 using the RGB color
-     *   model. This is equivalent to setting
-     *   colorMode(RGB, 255). Setting colorMode(HSB) lets
-     *   you use the HSB system instead. By default, this
-     *   is colorMode(HSB, 360, 100, 100, 1). You can also
-     *   use HSL. Note: existing color objects remember the
-     *   mode that they were created in, so you can change
-     *   modes as you like without affecting their
+     *   model. This is equivalent to calling
+     *   colorMode(RGB, 255). Pure red is color(255, 0, 0)
+     *   in this model. Calling colorMode(RGB, 100) sets
+     *   colors to be interpreted as RGB color values
+     *   between 0 and 100. Pure red is color(100, 0, 0) in
+     *   this model.
+     *
+     *   Calling colorMode(HSB) or colorMode(HSL) changes
+     *   to HSB or HSL system instead of RGB.
+     *
+     *   p5.Color objects remember the mode that they were
+     *   created in. Changing modes doesn't affect their
      *   appearance.
      *   @param mode either RGB, HSB or HSL, corresponding
      *   to Red/Green/Blue and Hue/Saturation/Brightness
-     *   (or Lightness)
-     *   @param [max] range for all values
+     *   (or Lightness).
+     *   @param [max] range for all values.
      *   @chainable
      */
     function colorMode(mode: p5.COLOR_MODE, max?: number): p5;
 
     /**
-     *   colorMode() changes the way p5.js interprets color
-     *   data. By default, the parameters for fill(),
+     *   Changes the way p5.js interprets color data. By
+     *   default, the numeric parameters for fill(),
      *   stroke(), background(), and color() are defined by
      *   values between 0 and 255 using the RGB color
-     *   model. This is equivalent to setting
-     *   colorMode(RGB, 255). Setting colorMode(HSB) lets
-     *   you use the HSB system instead. By default, this
-     *   is colorMode(HSB, 360, 100, 100, 1). You can also
-     *   use HSL. Note: existing color objects remember the
-     *   mode that they were created in, so you can change
-     *   modes as you like without affecting their
+     *   model. This is equivalent to calling
+     *   colorMode(RGB, 255). Pure red is color(255, 0, 0)
+     *   in this model. Calling colorMode(RGB, 100) sets
+     *   colors to be interpreted as RGB color values
+     *   between 0 and 100. Pure red is color(100, 0, 0) in
+     *   this model.
+     *
+     *   Calling colorMode(HSB) or colorMode(HSL) changes
+     *   to HSB or HSL system instead of RGB.
+     *
+     *   p5.Color objects remember the mode that they were
+     *   created in. Changing modes doesn't affect their
      *   appearance.
      *   @param mode either RGB, HSB or HSL, corresponding
      *   to Red/Green/Blue and Hue/Saturation/Brightness
-     *   (or Lightness)
+     *   (or Lightness).
      *   @param max1 range for the red or hue depending on
-     *   the current color mode
+     *   the current color mode.
      *   @param max2 range for the green or saturation
-     *   depending on the current color mode
+     *   depending on the current color mode.
      *   @param max3 range for the blue or
      *   brightness/lightness depending on the current
-     *   color mode
-     *   @param [maxA] range for the alpha
+     *   color mode.
+     *   @param [maxA] range for the alpha.
      *   @chainable
      */
     function colorMode(mode: p5.UNKNOWN_P5_CONSTANT, max1: number, max2: number, max3: number, maxA?: number): p5;
 
     /**
-     *   Sets the color used to fill shapes. For example,
-     *   if you run fill(204, 102, 0), all shapes drawn
-     *   after the fill command will be filled with the
-     *   color orange. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode(). (The default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   Sets the color used to fill shapes. Calling
+     *   fill(255, 165, 0) or fill('orange') means all
+     *   shapes drawn after the fill command will be filled
+     *   with the color orange. The version of fill() with
+     *   one parameter interprets the value one of three
+     *   ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. A p5.Color object can also be provided to
+     *   set the fill color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   fill color.
-     *   @param v1 red or hue value relative to the current
-     *   color range
-     *   @param v2 green or saturation value relative to
-     *   the current color range
-     *   @param v3 blue or brightness value relative to the
-     *   current color range
+     *   The version of fill() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). The default
+     *   color space is RGB, with each value in the range
+     *   from 0 to 255.
+     *   @param v1 red value if color mode is RGB or hue
+     *   value if color mode is HSB.
+     *   @param v2 green value if color mode is RGB or
+     *   saturation value if color mode is HSB.
+     *   @param v3 blue value if color mode is RGB or
+     *   brightness value if color mode is HSB.
      *   @chainable
      */
     function fill(v1: number, v2: number, v3: number, alpha?: number): p5;
 
     /**
-     *   Sets the color used to fill shapes. For example,
-     *   if you run fill(204, 102, 0), all shapes drawn
-     *   after the fill command will be filled with the
-     *   color orange. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode(). (The default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   Sets the color used to fill shapes. Calling
+     *   fill(255, 165, 0) or fill('orange') means all
+     *   shapes drawn after the fill command will be filled
+     *   with the color orange. The version of fill() with
+     *   one parameter interprets the value one of three
+     *   ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. A p5.Color object can also be provided to
+     *   set the fill color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   fill color.
-     *   @param value a color string
+     *   The version of fill() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). The default
+     *   color space is RGB, with each value in the range
+     *   from 0 to 255.
+     *   @param value a color string.
      *   @chainable
      */
     function fill(value: string): p5;
 
     /**
-     *   Sets the color used to fill shapes. For example,
-     *   if you run fill(204, 102, 0), all shapes drawn
-     *   after the fill command will be filled with the
-     *   color orange. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode(). (The default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   Sets the color used to fill shapes. Calling
+     *   fill(255, 165, 0) or fill('orange') means all
+     *   shapes drawn after the fill command will be filled
+     *   with the color orange. The version of fill() with
+     *   one parameter interprets the value one of three
+     *   ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. A p5.Color object can also be provided to
+     *   set the fill color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   fill color.
-     *   @param gray a gray value
+     *   The version of fill() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). The default
+     *   color space is RGB, with each value in the range
+     *   from 0 to 255.
+     *   @param gray a grayscale value.
      *   @chainable
      */
     function fill(gray: number, alpha?: number): p5;
 
     /**
-     *   Sets the color used to fill shapes. For example,
-     *   if you run fill(204, 102, 0), all shapes drawn
-     *   after the fill command will be filled with the
-     *   color orange. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode(). (The default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   Sets the color used to fill shapes. Calling
+     *   fill(255, 165, 0) or fill('orange') means all
+     *   shapes drawn after the fill command will be filled
+     *   with the color orange. The version of fill() with
+     *   one parameter interprets the value one of three
+     *   ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. A p5.Color object can also be provided to
+     *   set the fill color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   fill color.
-     *   @param values an array containing the
-     *   red,green,blue & and alpha components of the color
+     *   The version of fill() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). The default
+     *   color space is RGB, with each value in the range
+     *   from 0 to 255.
+     *   @param values an array containing the red, green,
+     *   blue & and alpha components of the color.
      *   @chainable
      */
     function fill(values: number[]): p5;
 
     /**
-     *   Sets the color used to fill shapes. For example,
-     *   if you run fill(204, 102, 0), all shapes drawn
-     *   after the fill command will be filled with the
-     *   color orange. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode(). (The default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   Sets the color used to fill shapes. Calling
+     *   fill(255, 165, 0) or fill('orange') means all
+     *   shapes drawn after the fill command will be filled
+     *   with the color orange. The version of fill() with
+     *   one parameter interprets the value one of three
+     *   ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. A p5.Color object can also be provided to
+     *   set the fill color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   fill color.
-     *   @param color the fill color
+     *   The version of fill() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode(). The default
+     *   color space is RGB, with each value in the range
+     *   from 0 to 255.
+     *   @param color the fill color.
      *   @chainable
      */
     function fill(color: p5.Color): p5;
 
     /**
-     *   Disables filling geometry. If both noStroke() and
-     *   noFill() are called, nothing will be drawn to the
-     *   screen.
+     *   Disables setting the interior color of shapes.
+     *   This is the same as making the fill completely
+     *   transparent. If both noStroke() and noFill() are
+     *   called, nothing will be drawn to the screen.
      *   @chainable
      */
     function noFill(): p5;
@@ -782,125 +839,203 @@ declare global {
 
     /**
      *   Sets the color used to draw lines and borders
-     *   around shapes. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode() (the default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   around shapes. Calling stroke(255, 165, 0) or
+     *   stroke('orange') means all shapes drawn after the
+     *   stroke() command will be filled with the color
+     *   orange. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of stroke() with one parameter interprets
+     *   the value one of three ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string. A p5.Color object can also be
+     *   provided to set the stroke color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   stroke color.
-     *   @param v1 red or hue value relative to the current
-     *   color range
-     *   @param v2 green or saturation value relative to
-     *   the current color range
-     *   @param v3 blue or brightness value relative to the
-     *   current color range
+     *   The version of stroke() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of stroke() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of stroke() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
+     *   @param v1 red value if color mode is RGB or hue
+     *   value if color mode is HSB.
+     *   @param v2 green value if color mode is RGB or
+     *   saturation value if color mode is HSB.
+     *   @param v3 blue value if color mode is RGB or
+     *   brightness value if color mode is HSB.
      *   @chainable
      */
     function stroke(v1: number, v2: number, v3: number, alpha?: number): p5;
 
     /**
      *   Sets the color used to draw lines and borders
-     *   around shapes. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode() (the default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   around shapes. Calling stroke(255, 165, 0) or
+     *   stroke('orange') means all shapes drawn after the
+     *   stroke() command will be filled with the color
+     *   orange. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of stroke() with one parameter interprets
+     *   the value one of three ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string. A p5.Color object can also be
+     *   provided to set the stroke color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   stroke color.
-     *   @param value a color string
+     *   The version of stroke() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of stroke() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of stroke() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
+     *   @param value a color string.
      *   @chainable
      */
     function stroke(value: string): p5;
 
     /**
      *   Sets the color used to draw lines and borders
-     *   around shapes. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode() (the default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   around shapes. Calling stroke(255, 165, 0) or
+     *   stroke('orange') means all shapes drawn after the
+     *   stroke() command will be filled with the color
+     *   orange. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of stroke() with one parameter interprets
+     *   the value one of three ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string. A p5.Color object can also be
+     *   provided to set the stroke color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   stroke color.
-     *   @param gray a gray value
+     *   The version of stroke() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of stroke() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of stroke() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
+     *   @param gray a grayscale value.
      *   @chainable
      */
     function stroke(gray: number, alpha?: number): p5;
 
     /**
      *   Sets the color used to draw lines and borders
-     *   around shapes. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode() (the default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   around shapes. Calling stroke(255, 165, 0) or
+     *   stroke('orange') means all shapes drawn after the
+     *   stroke() command will be filled with the color
+     *   orange. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of stroke() with one parameter interprets
+     *   the value one of three ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string. A p5.Color object can also be
+     *   provided to set the stroke color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   stroke color.
-     *   @param values an array containing the
-     *   red,green,blue & and alpha components of the color
+     *   The version of stroke() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of stroke() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of stroke() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
+     *   @param values an array containing the red, green,
+     *   blue, and alpha components of the color.
      *   @chainable
      */
     function stroke(values: number[]): p5;
 
     /**
      *   Sets the color used to draw lines and borders
-     *   around shapes. This color is either specified in
-     *   terms of the RGB or HSB color depending on the
-     *   current colorMode() (the default color space is
-     *   RGB, with each value in the range from 0 to 255).
-     *   The alpha range by default is also 0 to 255. If a
-     *   single string argument is provided, RGB, RGBA and
-     *   Hex CSS color strings and all named color strings
-     *   are supported. In this case, an alpha number value
-     *   as a second argument is not supported, the RGBA
-     *   form should be used.
+     *   around shapes. Calling stroke(255, 165, 0) or
+     *   stroke('orange') means all shapes drawn after the
+     *   stroke() command will be filled with the color
+     *   orange. The way these parameters are interpreted
+     *   may be changed with the colorMode() function. The
+     *   version of stroke() with one parameter interprets
+     *   the value one of three ways. If the parameter is a
+     *   number, it's interpreted as a grayscale value. If
+     *   the parameter is a string, it's interpreted as a
+     *   CSS color string. A p5.Color object can also be
+     *   provided to set the stroke color.
      *
-     *   A p5.Color object can also be provided to set the
-     *   stroke color.
-     *   @param color the stroke color
+     *   The version of stroke() with two parameters
+     *   interprets the first one as a grayscale value. The
+     *   second parameter sets the alpha (transparency)
+     *   value.
+     *
+     *   The version of stroke() with three parameters
+     *   interprets them as RGB, HSB, or HSL colors,
+     *   depending on the current colorMode().
+     *
+     *   The version of stroke() with four parameters
+     *   interprets them as RGBA, HSBA, or HSLA colors,
+     *   depending on the current colorMode(). The last
+     *   parameter sets the alpha (transparency) value.
+     *   @param color the stroke color.
      *   @chainable
      */
     function stroke(color: p5.Color): p5;
 
     /**
      *   All drawing that follows erase() will subtract
-     *   from the canvas.Erased areas will reveal the web
-     *   page underneath the canvas.Erasing can be canceled
-     *   with noErase(). Drawing done with image() and
-     *   background() in between erase() and noErase() will
-     *   not erase the canvas but works as usual.
-     *   @param [strengthFill] A number (0-255) for the
-     *   strength of erasing for a shape's fill. This will
-     *   default to 255 when no argument is given, which is
-     *   full strength.
-     *   @param [strengthStroke] A number (0-255) for the
-     *   strength of erasing for a shape's stroke. This
-     *   will default to 255 when no argument is given,
-     *   which is full strength.
+     *   from the canvas, revealing the web page
+     *   underneath. The erased areas will become
+     *   transparent, allowing the content behind the
+     *   canvas to show through. The fill(), stroke(), and
+     *   blendMode() have no effect once erase() is called.
+     *   The erase() function has two optional parameters.
+     *   The first parameter sets the strength of erasing
+     *   by the shape's interior. A value of 0 means that
+     *   no erasing will occur. A value of 255 means that
+     *   the shape's interior will fully erase the content
+     *   underneath. The default value is 255 (full
+     *   strength).
+     *
+     *   The second parameter sets the strength of erasing
+     *   by the shape's edge. A value of 0 means that no
+     *   erasing will occur. A value of 255 means that the
+     *   shape's edge will fully erase the content
+     *   underneath. The default value is 255 (full
+     *   strength).
+     *
+     *   To cancel the erasing effect, use the noErase()
+     *   function.
+     *
+     *   erase() has no effect on drawing done with the
+     *   image() and background() functions.
+     *   @param [strengthFill] a number (0-255) for the
+     *   strength of erasing under a shape's interior.
+     *   Defaults to 255, which is full strength.
+     *   @param [strengthStroke] a number (0-255) for the
+     *   strength of erasing under a shape's edge. Defaults
+     *   to 255, which is full strength.
      *   @chainable
      */
     function erase(strengthFill?: number, strengthStroke?: number): p5;
@@ -914,32 +1049,29 @@ declare global {
     function noErase(): p5;
 
     /**
-     *   Draw an arc to the screen. If called with only x,
-     *   y, w, h, start and stop, the arc will be drawn and
-     *   filled as an open pie segment. If a mode parameter
-     *   is provided, the arc will be filled like an open
-     *   semi-circle (OPEN), a closed semi-circle (CHORD),
-     *   or as a closed pie segment (PIE). The origin may
-     *   be changed with the ellipseMode() function. The
-     *   arc is always drawn clockwise from wherever start
-     *   falls to wherever stop falls on the ellipse.
-     *   Adding or subtracting TWO_PI to either angle does
-     *   not change where they fall. If both start and stop
-     *   fall at the same place, a full ellipse will be
-     *   drawn. Be aware that the y-axis increases in the
-     *   downward direction, therefore angles are measured
-     *   clockwise from the positive x-direction ("3
-     *   o'clock").
-     *   @param x x-coordinate of the arc's ellipse
-     *   @param y y-coordinate of the arc's ellipse
-     *   @param w width of the arc's ellipse by default
-     *   @param h height of the arc's ellipse by default
+     *   Draws an arc to the canvas. Arcs are drawn along
+     *   the outer edge of an ellipse (oval) defined by the
+     *   x, y, w, and h parameters. Use the start and stop
+     *   parameters to specify the angles (in radians) at
+     *   which to draw the arc. Arcs are always drawn
+     *   clockwise from start to stop. The origin of the
+     *   arc's ellipse may be changed with the
+     *   ellipseMode() function. The optional mode
+     *   parameter determines the arc's fill style. The
+     *   fill modes are a semi-circle (OPEN), a closed
+     *   semi-circle (CHORD), or a closed pie segment
+     *   (PIE).
+     *   @param x x-coordinate of the arc's ellipse.
+     *   @param y y-coordinate of the arc's ellipse.
+     *   @param w width of the arc's ellipse by default.
+     *   @param h height of the arc's ellipse by default.
      *   @param start angle to start the arc, specified in
-     *   radians
+     *   radians.
      *   @param stop angle to stop the arc, specified in
-     *   radians
+     *   radians.
      *   @param [mode] optional parameter to determine the
-     *   way of drawing the arc. either CHORD, PIE or OPEN
+     *   way of drawing the arc. either CHORD, PIE, or
+     *   OPEN.
      *   @param [detail] optional parameter for WebGL mode
      *   only. This is to specify the number of vertices
      *   that makes up the perimeter of the arc. Default
@@ -959,16 +1091,16 @@ declare global {
     ): p5;
 
     /**
-     *   Draws an ellipse (oval) to the screen. By default,
-     *   the first two parameters set the location of the
-     *   center of the ellipse, and the third and fourth
-     *   parameters set the shape's width and height. If no
-     *   height is specified, the value of width is used
-     *   for both the width and height. If a negative
-     *   height or width is specified, the absolute value
-     *   is taken. An ellipse with equal width and height
-     *   is a circle. The origin may be changed with the
-     *   ellipseMode() function.
+     *   Draws an ellipse (oval) to the canvas. An ellipse
+     *   with equal width and height is a circle. By
+     *   default, the first two parameters set the location
+     *   of the center of the ellipse. The third and fourth
+     *   parameters set the shape's width and height,
+     *   respectively. The origin may be changed with the
+     *   ellipseMode() function. If no height is specified,
+     *   the value of width is used for both the width and
+     *   height. If a negative height or width is
+     *   specified, the absolute value is taken.
      *   @param x x-coordinate of the center of the
      *   ellipse.
      *   @param y y-coordinate of the center of the
@@ -980,23 +1112,23 @@ declare global {
     function ellipse(x: number, y: number, w: number, h?: number): p5;
 
     /**
-     *   Draws an ellipse (oval) to the screen. By default,
-     *   the first two parameters set the location of the
-     *   center of the ellipse, and the third and fourth
-     *   parameters set the shape's width and height. If no
-     *   height is specified, the value of width is used
-     *   for both the width and height. If a negative
-     *   height or width is specified, the absolute value
-     *   is taken. An ellipse with equal width and height
-     *   is a circle. The origin may be changed with the
-     *   ellipseMode() function.
+     *   Draws an ellipse (oval) to the canvas. An ellipse
+     *   with equal width and height is a circle. By
+     *   default, the first two parameters set the location
+     *   of the center of the ellipse. The third and fourth
+     *   parameters set the shape's width and height,
+     *   respectively. The origin may be changed with the
+     *   ellipseMode() function. If no height is specified,
+     *   the value of width is used for both the width and
+     *   height. If a negative height or width is
+     *   specified, the absolute value is taken.
      *   @param x x-coordinate of the center of the
      *   ellipse.
      *   @param y y-coordinate of the center of the
      *   ellipse.
      *   @param w width of the ellipse.
      *   @param h height of the ellipse.
-     *   @param [detail] optional parameter for WEBGL mode
+     *   @param [detail] optional parameter for WebGL mode
      *   only. This is to specify the number of vertices
      *   that makes up the perimeter of the ellipse.
      *   Default value is 25. Won't draw a stroke for a
@@ -1005,16 +1137,13 @@ declare global {
     function ellipse(x: number, y: number, w: number, h: number, detail?: number): void;
 
     /**
-     *   Draws a circle to the screen. A circle is a simple
-     *   closed shape. It is the set of all points in a
-     *   plane that are at a given distance from a given
-     *   point, the center. This function is a special case
-     *   of the ellipse() function, where the width and
-     *   height of the ellipse are the same. Height and
-     *   width of the ellipse correspond to the diameter of
-     *   the circle. By default, the first two parameters
-     *   set the location of the center of the circle, the
-     *   third sets the diameter of the circle.
+     *   Draws a circle to the canvas. A circle is a round
+     *   shape. Every point on the edge of a circle is the
+     *   same distance from its center. By default, the
+     *   first two parameters set the location of the
+     *   center of the circle. The third parameter sets the
+     *   shape's width and height (diameter). The origin
+     *   may be changed with the ellipseMode() function.
      *   @param x x-coordinate of the center of the circle.
      *   @param y y-coordinate of the center of the circle.
      *   @param d diameter of the circle.
@@ -1023,91 +1152,110 @@ declare global {
     function circle(x: number, y: number, d: number): p5;
 
     /**
-     *   Draws a line (a direct path between two points) to
-     *   the screen. If called with only 4 parameters, it
-     *   will draw a line in 2D with a default width of 1
-     *   pixel. This width can be modified by using the
-     *   strokeWeight() function. A line cannot be filled,
-     *   therefore the fill() function will not affect the
-     *   color of a line. So to color a line, use the
-     *   stroke() function.
-     *   @param x1 the x-coordinate of the first point
-     *   @param y1 the y-coordinate of the first point
-     *   @param x2 the x-coordinate of the second point
-     *   @param y2 the y-coordinate of the second point
+     *   Draws a line, a straight path between two points.
+     *   Its default width is one pixel. The version of
+     *   line() with four parameters draws the line in 2D.
+     *   To color a line, use the stroke() function. To
+     *   change its width, use the strokeWeight() function.
+     *   A line can't be filled, so the fill() function
+     *   won't affect the color of a line. The version of
+     *   line() with six parameters allows the line to be
+     *   drawn in 3D space. Doing so requires adding the
+     *   WEBGL argument to createCanvas().
+     *   @param x1 the x-coordinate of the first point.
+     *   @param y1 the y-coordinate of the first point.
+     *   @param x2 the x-coordinate of the second point.
+     *   @param y2 the y-coordinate of the second point.
      *   @chainable
      */
     function line(x1: number, y1: number, x2: number, y2: number): p5;
 
     /**
-     *   Draws a line (a direct path between two points) to
-     *   the screen. If called with only 4 parameters, it
-     *   will draw a line in 2D with a default width of 1
-     *   pixel. This width can be modified by using the
-     *   strokeWeight() function. A line cannot be filled,
-     *   therefore the fill() function will not affect the
-     *   color of a line. So to color a line, use the
-     *   stroke() function.
-     *   @param x1 the x-coordinate of the first point
-     *   @param y1 the y-coordinate of the first point
-     *   @param z1 the z-coordinate of the first point
-     *   @param x2 the x-coordinate of the second point
-     *   @param y2 the y-coordinate of the second point
-     *   @param z2 the z-coordinate of the second point
+     *   Draws a line, a straight path between two points.
+     *   Its default width is one pixel. The version of
+     *   line() with four parameters draws the line in 2D.
+     *   To color a line, use the stroke() function. To
+     *   change its width, use the strokeWeight() function.
+     *   A line can't be filled, so the fill() function
+     *   won't affect the color of a line. The version of
+     *   line() with six parameters allows the line to be
+     *   drawn in 3D space. Doing so requires adding the
+     *   WEBGL argument to createCanvas().
+     *   @param x1 the x-coordinate of the first point.
+     *   @param y1 the y-coordinate of the first point.
+     *   @param z1 the z-coordinate of the first point.
+     *   @param x2 the x-coordinate of the second point.
+     *   @param y2 the y-coordinate of the second point.
+     *   @param z2 the z-coordinate of the second point.
      *   @chainable
      */
     function line(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): p5;
 
     /**
-     *   Draws a point, a coordinate in space at the
-     *   dimension of one pixel. The first parameter is the
-     *   horizontal value for the point, the second param
-     *   is the vertical value for the point. The color of
-     *   the point is changed with the stroke() function.
-     *   The size of the point can be changed with the
-     *   strokeWeight() function.
-     *   @param x the x-coordinate
-     *   @param y the y-coordinate
-     *   @param [z] the z-coordinate (for WebGL mode)
+     *   Draws a point, a single coordinate in space. Its
+     *   default size is one pixel. The first two
+     *   parameters are the point's x- and y-coordinates,
+     *   respectively. To color a point, use the stroke()
+     *   function. To change its size, use the
+     *   strokeWeight() function. The version of point()
+     *   with three parameters allows the point to be drawn
+     *   in 3D space. Doing so requires adding the WEBGL
+     *   argument to createCanvas().
+     *
+     *   The version of point() with one parameter allows
+     *   the point's location to be set with a p5.Vector
+     *   object.
+     *   @param x the x-coordinate.
+     *   @param y the y-coordinate.
+     *   @param [z] the z-coordinate (for WebGL mode).
      *   @chainable
      */
     function point(x: number, y: number, z?: number): p5;
 
     /**
-     *   Draws a point, a coordinate in space at the
-     *   dimension of one pixel. The first parameter is the
-     *   horizontal value for the point, the second param
-     *   is the vertical value for the point. The color of
-     *   the point is changed with the stroke() function.
-     *   The size of the point can be changed with the
-     *   strokeWeight() function.
-     *   @param coordinate_vector the coordinate vector
+     *   Draws a point, a single coordinate in space. Its
+     *   default size is one pixel. The first two
+     *   parameters are the point's x- and y-coordinates,
+     *   respectively. To color a point, use the stroke()
+     *   function. To change its size, use the
+     *   strokeWeight() function. The version of point()
+     *   with three parameters allows the point to be drawn
+     *   in 3D space. Doing so requires adding the WEBGL
+     *   argument to createCanvas().
+     *
+     *   The version of point() with one parameter allows
+     *   the point's location to be set with a p5.Vector
+     *   object.
+     *   @param coordinateVector the coordinate vector.
      *   @chainable
      */
-    function point(coordinate_vector: p5.Vector): p5;
+    function point(coordinateVector: p5.Vector): p5;
 
     /**
-     *   Draws a quad on the canvas. A quad is a
-     *   quadrilateral, a four-sided polygon. It is similar
-     *   to a rectangle, but the angles between its edges
-     *   are not constrained to ninety degrees. The first
-     *   pair of parameters (x1,y1) sets the first vertex
-     *   and the subsequent pairs should proceed clockwise
-     *   or counter-clockwise around the defined shape.
-     *   z-arguments only work when quad() is used in WEBGL
-     *   mode.
-     *   @param x1 the x-coordinate of the first point
-     *   @param y1 the y-coordinate of the first point
-     *   @param x2 the x-coordinate of the second point
-     *   @param y2 the y-coordinate of the second point
-     *   @param x3 the x-coordinate of the third point
-     *   @param y3 the y-coordinate of the third point
-     *   @param x4 the x-coordinate of the fourth point
-     *   @param y4 the y-coordinate of the fourth point
+     *   Draws a quad to the canvas. A quad is a
+     *   quadrilateral, a four-sided polygon. Some examples
+     *   of quads include rectangles, squares, rhombuses,
+     *   and trapezoids. The first pair of parameters
+     *   (x1,y1) sets the quad's first point. The following
+     *   pairs of parameters set the coordinates for its
+     *   next three points. Parameters should proceed
+     *   clockwise or counter-clockwise around the shape.
+     *   The version of quad() with twelve parameters
+     *   allows the quad to be drawn in 3D space. Doing so
+     *   requires adding the WEBGL argument to
+     *   createCanvas().
+     *   @param x1 the x-coordinate of the first point.
+     *   @param y1 the y-coordinate of the first point.
+     *   @param x2 the x-coordinate of the second point.
+     *   @param y2 the y-coordinate of the second point.
+     *   @param x3 the x-coordinate of the third point.
+     *   @param y3 the y-coordinate of the third point.
+     *   @param x4 the x-coordinate of the fourth point.
+     *   @param y4 the y-coordinate of the fourth point.
      *   @param [detailX] number of segments in the
-     *   x-direction
+     *   x-direction.
      *   @param [detailY] number of segments in the
-     *   y-direction
+     *   y-direction.
      *   @chainable
      */
     function quad(
@@ -1124,31 +1272,34 @@ declare global {
     ): p5;
 
     /**
-     *   Draws a quad on the canvas. A quad is a
-     *   quadrilateral, a four-sided polygon. It is similar
-     *   to a rectangle, but the angles between its edges
-     *   are not constrained to ninety degrees. The first
-     *   pair of parameters (x1,y1) sets the first vertex
-     *   and the subsequent pairs should proceed clockwise
-     *   or counter-clockwise around the defined shape.
-     *   z-arguments only work when quad() is used in WEBGL
-     *   mode.
-     *   @param x1 the x-coordinate of the first point
-     *   @param y1 the y-coordinate of the first point
-     *   @param z1 the z-coordinate of the first point
-     *   @param x2 the x-coordinate of the second point
-     *   @param y2 the y-coordinate of the second point
-     *   @param z2 the z-coordinate of the second point
-     *   @param x3 the x-coordinate of the third point
-     *   @param y3 the y-coordinate of the third point
-     *   @param z3 the z-coordinate of the third point
-     *   @param x4 the x-coordinate of the fourth point
-     *   @param y4 the y-coordinate of the fourth point
-     *   @param z4 the z-coordinate of the fourth point
+     *   Draws a quad to the canvas. A quad is a
+     *   quadrilateral, a four-sided polygon. Some examples
+     *   of quads include rectangles, squares, rhombuses,
+     *   and trapezoids. The first pair of parameters
+     *   (x1,y1) sets the quad's first point. The following
+     *   pairs of parameters set the coordinates for its
+     *   next three points. Parameters should proceed
+     *   clockwise or counter-clockwise around the shape.
+     *   The version of quad() with twelve parameters
+     *   allows the quad to be drawn in 3D space. Doing so
+     *   requires adding the WEBGL argument to
+     *   createCanvas().
+     *   @param x1 the x-coordinate of the first point.
+     *   @param y1 the y-coordinate of the first point.
+     *   @param z1 the z-coordinate of the first point.
+     *   @param x2 the x-coordinate of the second point.
+     *   @param y2 the y-coordinate of the second point.
+     *   @param z2 the z-coordinate of the second point.
+     *   @param x3 the x-coordinate of the third point.
+     *   @param y3 the y-coordinate of the third point.
+     *   @param z3 the z-coordinate of the third point.
+     *   @param x4 the x-coordinate of the fourth point.
+     *   @param y4 the y-coordinate of the fourth point.
+     *   @param z4 the z-coordinate of the fourth point.
      *   @param [detailX] number of segments in the
-     *   x-direction
+     *   x-direction.
      *   @param [detailY] number of segments in the
-     *   y-direction
+     *   y-direction.
      *   @chainable
      */
     function quad(
@@ -1169,19 +1320,26 @@ declare global {
     ): p5;
 
     /**
-     *   Draws a rectangle on the canvas. A rectangle is a
-     *   four-sided closed shape with every angle at ninety
+     *   Draws a rectangle to the canvas. A rectangle is a
+     *   four-sided polygon with every angle at ninety
      *   degrees. By default, the first two parameters set
-     *   the location of the upper-left corner, the third
-     *   sets the width, and the fourth sets the height.
-     *   The way these parameters are interpreted may be
-     *   changed with the rectMode() function. The fifth,
-     *   sixth, seventh and eighth parameters, if
-     *   specified, determine corner radius for the
-     *   top-left, top-right, lower-right and lower-left
-     *   corners, respectively. An omitted corner radius
-     *   parameter is set to the value of the previously
-     *   specified radius value in the parameter list.
+     *   the location of the rectangle's upper-left corner.
+     *   The third and fourth set the shape's the width and
+     *   height, respectively. The way these parameters are
+     *   interpreted may be changed with the rectMode()
+     *   function. The version of rect() with five
+     *   parameters creates a rounded rectangle. The fifth
+     *   parameter is used as the radius value for all four
+     *   corners.
+     *
+     *   The version of rect() with eight parameters also
+     *   creates a rounded rectangle. When using eight
+     *   parameters, the latter four set the radius of the
+     *   arc at each corner separately. The radii start
+     *   with the top-left corner and move clockwise around
+     *   the rectangle. If any of these parameters are
+     *   omitted, they are set to the value of the last
+     *   specified corner radius.
      *   @param x x-coordinate of the rectangle.
      *   @param y y-coordinate of the rectangle.
      *   @param w width of the rectangle.
@@ -1196,48 +1354,59 @@ declare global {
     function rect(x: number, y: number, w: number, h?: number, tl?: number, tr?: number, br?: number, bl?: number): p5;
 
     /**
-     *   Draws a rectangle on the canvas. A rectangle is a
-     *   four-sided closed shape with every angle at ninety
+     *   Draws a rectangle to the canvas. A rectangle is a
+     *   four-sided polygon with every angle at ninety
      *   degrees. By default, the first two parameters set
-     *   the location of the upper-left corner, the third
-     *   sets the width, and the fourth sets the height.
-     *   The way these parameters are interpreted may be
-     *   changed with the rectMode() function. The fifth,
-     *   sixth, seventh and eighth parameters, if
-     *   specified, determine corner radius for the
-     *   top-left, top-right, lower-right and lower-left
-     *   corners, respectively. An omitted corner radius
-     *   parameter is set to the value of the previously
-     *   specified radius value in the parameter list.
+     *   the location of the rectangle's upper-left corner.
+     *   The third and fourth set the shape's the width and
+     *   height, respectively. The way these parameters are
+     *   interpreted may be changed with the rectMode()
+     *   function. The version of rect() with five
+     *   parameters creates a rounded rectangle. The fifth
+     *   parameter is used as the radius value for all four
+     *   corners.
+     *
+     *   The version of rect() with eight parameters also
+     *   creates a rounded rectangle. When using eight
+     *   parameters, the latter four set the radius of the
+     *   arc at each corner separately. The radii start
+     *   with the top-left corner and move clockwise around
+     *   the rectangle. If any of these parameters are
+     *   omitted, they are set to the value of the last
+     *   specified corner radius.
      *   @param x x-coordinate of the rectangle.
      *   @param y y-coordinate of the rectangle.
      *   @param w width of the rectangle.
      *   @param h height of the rectangle.
      *   @param [detailX] number of segments in the
-     *   x-direction (for WebGL mode)
+     *   x-direction (for WebGL mode).
      *   @param [detailY] number of segments in the
-     *   y-direction (for WebGL mode)
+     *   y-direction (for WebGL mode).
      *   @chainable
      */
     function rect(x: number, y: number, w: number, h: number, detailX?: number, detailY?: number): p5;
 
     /**
-     *   Draws a square to the screen. A square is a
-     *   four-sided shape with every angle at ninety
-     *   degrees, and equal side size. This function is a
-     *   special case of the rect() function, where the
-     *   width and height are the same, and the parameter
-     *   is called "s" for side size. By default, the first
-     *   two parameters set the location of the upper-left
-     *   corner, the third sets the side size of the
-     *   square. The way these parameters are interpreted,
-     *   may be changed with the rectMode() function. The
-     *   fourth, fifth, sixth and seventh parameters, if
-     *   specified, determine corner radius for the
-     *   top-left, top-right, lower-right and lower-left
-     *   corners, respectively. An omitted corner radius
-     *   parameter is set to the value of the previously
-     *   specified radius value in the parameter list.
+     *   Draws a square to the canvas. A square is a
+     *   four-sided polygon with every angle at ninety
+     *   degrees and equal side lengths. By default, the
+     *   first two parameters set the location of the
+     *   square's upper-left corner. The third parameter
+     *   sets its side size. The way these parameters are
+     *   interpreted may be changed with the rectMode()
+     *   function. The version of square() with four
+     *   parameters creates a rounded square. The fourth
+     *   parameter is used as the radius value for all four
+     *   corners.
+     *
+     *   The version of square() with seven parameters also
+     *   creates a rounded square. When using seven
+     *   parameters, the latter four set the radius of the
+     *   arc at each corner separately. The radii start
+     *   with the top-left corner and move clockwise around
+     *   the square. If any of these parameters are
+     *   omitted, they are set to the value of the last
+     *   specified corner radius.
      *   @param x x-coordinate of the square.
      *   @param y y-coordinate of the square.
      *   @param s side size of the square.
@@ -1252,50 +1421,47 @@ declare global {
 
     /**
      *   Draws a triangle to the canvas. A triangle is a
-     *   plane created by connecting three points. The
-     *   first two arguments specify the first point, the
-     *   middle two arguments specify the second point, and
-     *   the last two arguments specify the third point.
-     *   @param x1 x-coordinate of the first point
-     *   @param y1 y-coordinate of the first point
-     *   @param x2 x-coordinate of the second point
-     *   @param y2 y-coordinate of the second point
-     *   @param x3 x-coordinate of the third point
-     *   @param y3 y-coordinate of the third point
+     *   three-sided polygon. The first two parameters
+     *   specify the triangle's first point (x1,y1). The
+     *   middle two parameters specify its second point
+     *   (x2,y2). And the last two parameters specify its
+     *   third point (x3, y3).
+     *   @param x1 x-coordinate of the first point.
+     *   @param y1 y-coordinate of the first point.
+     *   @param x2 x-coordinate of the second point.
+     *   @param y2 y-coordinate of the second point.
+     *   @param x3 x-coordinate of the third point.
+     *   @param y3 y-coordinate of the third point.
      *   @chainable
      */
     function triangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): p5;
 
     /**
-     *   Modifies the location from which ellipses are
-     *   drawn by changing the way in which parameters
-     *   given to ellipse(), circle() and arc() are
-     *   interpreted. The default mode is CENTER, in which
-     *   the first two parameters are interpreted as the
-     *   shape's center point's x and y coordinates
-     *   respectively, while the third and fourth
+     *   Modifies the location from which ellipses,
+     *   circles, and arcs are drawn. By default, the first
+     *   two parameters are the x- and y-coordinates of the
+     *   shape's center. The next parameters are its width
+     *   and height. This is equivalent to calling
+     *   ellipseMode(CENTER). ellipseMode(RADIUS) also uses
+     *   the first two parameters to set the x- and
+     *   y-coordinates of the shape's center. The next
+     *   parameters are half of the shapes's width and
+     *   height. Calling ellipse(0, 0, 10, 15) draws a
+     *   shape with a width of 20 and height of 30.
+     *
+     *   ellipseMode(CORNER) uses the first two parameters
+     *   as the upper-left corner of the shape. The next
      *   parameters are its width and height.
      *
-     *   ellipseMode(RADIUS) also uses the first two
-     *   parameters as the shape's center point's x and y
-     *   coordinates, but uses the third and fourth
-     *   parameters to specify half of the shapes's width
-     *   and height.
+     *   ellipseMode(CORNERS) uses the first two parameters
+     *   as the location of one corner of the ellipse's
+     *   bounding box. The third and fourth parameters are
+     *   the location of the opposite corner.
      *
-     *   ellipseMode(CORNER) interprets the first two
-     *   parameters as the upper-left corner of the shape,
-     *   while the third and fourth parameters are its
-     *   width and height.
-     *
-     *   ellipseMode(CORNERS) interprets the first two
-     *   parameters as the location of one corner of the
-     *   ellipse's bounding box, and the third and fourth
-     *   parameters as the location of the opposite corner.
-     *
-     *   The parameter to this method must be written in
-     *   ALL CAPS because they are predefined as constants
-     *   in ALL CAPS and Javascript is a case-sensitive
-     *   language.
+     *   The argument passed to ellipseMode() must be
+     *   written in ALL CAPS because the constants CENTER,
+     *   RADIUS, CORNER, and CORNERS are defined this way.
+     *   JavaScript is a case-sensitive language.
      *   @param mode either CENTER, RADIUS, CORNER, or
      *   CORNERS
      *   @chainable
@@ -1304,47 +1470,42 @@ declare global {
 
     /**
      *   Draws all geometry with jagged (aliased) edges.
-     *   Note that smooth() is active by default in 2D
-     *   mode, so it is necessary to call noSmooth() to
-     *   disable smoothing of geometry, images, and fonts.
-     *   In 3D mode, noSmooth() is enabled by default, so
-     *   it is necessary to call smooth() if you would like
-     *   smooth (antialiased) edges on your geometry.
+     *   smooth() is active by default in 2D mode. It's
+     *   necessary to call noSmooth() to disable smoothing
+     *   of geometry, images, and fonts.
+     *
+     *   In WebGL mode, noSmooth() is active by default.
+     *   It's necessary to call smooth() to draw smooth
+     *   (antialiased) edges.
      *   @chainable
      */
     function noSmooth(): p5;
 
     /**
-     *   Modifies the location from which rectangles are
-     *   drawn by changing the way in which parameters
-     *   given to rect() are interpreted. The default mode
-     *   is CORNER, which interprets the first two
-     *   parameters as the upper-left corner of the shape,
-     *   while the third and fourth parameters are its
-     *   width and height.
+     *   Modifies the location from which rectangles and
+     *   squares are drawn. By default, the first two
+     *   parameters are the x- and y-coordinates of the
+     *   shape's upper-left corner. The next parameters are
+     *   its width and height. This is equivalent to
+     *   calling rectMode(CORNER). rectMode(CORNERS) also
+     *   uses the first two parameters as the location of
+     *   one of the corners. The third and fourth
+     *   parameters are the location of the opposite
+     *   corner.
      *
-     *   rectMode(CORNERS) interprets the first two
-     *   parameters as the location of one of the corners,
-     *   and the third and fourth parameters as the
-     *   location of the diagonally opposite corner. Note,
-     *   the rectangle is drawn between the coordinates, so
-     *   it is not necessary that the first corner be the
-     *   upper left corner.
-     *
-     *   rectMode(CENTER) interprets the first two
-     *   parameters as the shape's center point, while the
-     *   third and fourth parameters are its width and
-     *   height.
+     *   rectMode(CENTER) uses the first two parameters as
+     *   the x- and y-coordinates of the shape's center.
+     *   The next parameters are its width and height.
      *
      *   rectMode(RADIUS) also uses the first two
-     *   parameters as the shape's center point, but uses
-     *   the third and fourth parameters to specify half of
-     *   the shape's width and height respectively.
+     *   parameters as the x- and y-coordinates of the
+     *   shape's center. The next parameters are half of
+     *   the shape's width and height.
      *
-     *   The parameter to this method must be written in
-     *   ALL CAPS because they are predefined as constants
-     *   in ALL CAPS and Javascript is a case-sensitive
-     *   language.
+     *   The argument passed to rectMode() must be written
+     *   in ALL CAPS because the constants CENTER, RADIUS,
+     *   CORNER, and CORNERS are defined this way.
+     *   JavaScript is a case-sensitive language.
      *   @param mode either CORNER, CORNERS, CENTER, or
      *   RADIUS
      *   @chainable
@@ -1354,51 +1515,52 @@ declare global {
     /**
      *   Draws all geometry with smooth (anti-aliased)
      *   edges. smooth() will also improve image quality of
-     *   resized images. Note that smooth() is active by
-     *   default in 2D mode; noSmooth() can be used to
+     *   resized images. smooth() is active by default in
+     *   2D mode. It's necessary to call noSmooth() to
      *   disable smoothing of geometry, images, and fonts.
-     *   In 3D mode, noSmooth() is enabled by default, so
-     *   it is necessary to call smooth() if you would like
-     *   smooth (antialiased) edges on your geometry.
+     *
+     *   In WebGL mode, noSmooth() is active by default.
+     *   It's necessary to call smooth() to draw smooth
+     *   (antialiased) edges.
      *   @chainable
      */
     function smooth(): p5;
 
     /**
      *   Sets the style for rendering line endings. These
-     *   ends are either rounded, squared or extended, each
-     *   of which specified with the corresponding
-     *   parameters: ROUND, SQUARE and PROJECT. The default
-     *   cap is ROUND. The parameter to this method must be
-     *   written in ALL CAPS because they are predefined as
-     *   constants in ALL CAPS and Javascript is a
+     *   ends are either rounded (ROUND), squared (SQUARE),
+     *   or extended (PROJECT). The default cap is ROUND.
+     *   The argument passed to strokeCap() must be written
+     *   in ALL CAPS because the constants ROUND, SQUARE,
+     *   and PROJECT are defined this way. JavaScript is a
      *   case-sensitive language.
-     *   @param cap either ROUND, SQUARE or PROJECT
+     *   @param cap either ROUND, SQUARE, or PROJECT
      *   @chainable
      */
     function strokeCap(cap: p5.STROKE_CAP): p5;
 
     /**
      *   Sets the style of the joints which connect line
-     *   segments. These joints are either mitered, beveled
-     *   or rounded and specified with the corresponding
-     *   parameters MITER, BEVEL and ROUND. The default
-     *   joint is MITER. The parameter to this method must
-     *   be written in ALL CAPS because they are predefined
-     *   as constants in ALL CAPS and Javascript is a
-     *   case-sensitive language.
-     *   @param join either MITER, BEVEL, ROUND
+     *   segments. These joints are either mitered (MITER),
+     *   beveled (BEVEL), or rounded (ROUND). The default
+     *   joint is MITER in 2D mode and ROUND in WebGL mode.
+     *   The argument passed to strokeJoin() must be
+     *   written in ALL CAPS because the constants MITER,
+     *   BEVEL, and ROUND are defined this way. JavaScript
+     *   is a case-sensitive language.
+     *   @param join either MITER, BEVEL, or ROUND
      *   @chainable
      */
     function strokeJoin(join: p5.STROKE_JOIN): p5;
 
     /**
      *   Sets the width of the stroke used for lines,
-     *   points and the border around shapes. All widths
-     *   are set in units of pixels. Note that it is
-     *   affected by any transformation or scaling that has
-     *   been applied previously.
-     *   @param weight the weight of the stroke (in pixels)
+     *   points, and the border around shapes. All widths
+     *   are set in units of pixels. Note that
+     *   strokeWeight() is affected by any transformation
+     *   or scaling that has been applied previously.
+     *   @param weight the weight of the stroke (in
+     *   pixels).
      *   @chainable
      */
     function strokeWeight(weight: number): p5;
@@ -1984,7 +2146,7 @@ declare global {
      *   normal.
      *   @chainable
      */
-    function normal(vector: Vector): p5;
+    function normal(vector: p5.Vector): p5;
 
     /**
      *   Sets the 3d vertex normal to use for subsequent
@@ -2010,11 +2172,65 @@ declare global {
     const P2D: p5.P2D;
 
     /**
-     *   One of the two render modes in p5.js: P2D (default
-     *   renderer) and WEBGL Enables 3D render by
-     *   introducing the third dimension: Z
+     *   One of the two render modes in p5.js, used for
+     *   computationally intensive tasks like 3D rendering
+     *   and shaders. WEBGL differs from the default P2D
+     *   renderer in the following ways:
+     *
+     *   - Coordinate System - When drawing in WEBGL mode,
+     *   the origin point (0,0,0) is located at the center
+     *   of the screen, not the top-left corner. See the
+     *   learn page about coordinates and transformations.
+     *   - 3D Shapes - WEBGL mode can be used to draw
+     *   3-dimensional shapes like box(), sphere(), cone(),
+     *   and more. See the learn page about custom geometry
+     *   to make more complex objects.
+     *   - Shape Detail - When drawing in WEBGL mode, you
+     *   can specify how smooth curves should be drawn by
+     *   using a detail parameter. See the wiki section
+     *   about shapes for a more information and an
+     *   example.
+     *   - Textures - A texture is like a skin that wraps
+     *   onto a shape. See the wiki section about textures
+     *   for examples of mapping images onto surfaces with
+     *   textures.
+     *   - Materials and Lighting - WEBGL offers different
+     *   types of lights like ambientLight() to place
+     *   around a scene. Materials like specularMaterial()
+     *   reflect the lighting to convey shape and depth.
+     *   See the learn page for styling and appearance to
+     *   experiment with different combinations.
+     *   - Camera - The viewport of a WEBGL sketch can be
+     *   adjusted by changing camera attributes. See the
+     *   learn page section about cameras for an
+     *   explanation of camera controls.
+     *   - Text - WEBGL requires opentype/truetype font
+     *   files to be preloaded using loadFont(). See the
+     *   wiki section about text for details, along with a
+     *   workaround.
+     *   - Shaders - Shaders are hardware accelerated
+     *   programs that can be used for a variety of effects
+     *   and graphics. See the introduction to shaders to
+     *   get started with shaders in p5.js.
+     *   - Graphics Acceleration - WEBGL mode uses the
+     *   graphics card instead of the CPU, so it may help
+     *   boost the performance of your sketch (example:
+     *   drawing more shapes on the screen at once).
+     *
+     *   To learn more about WEBGL mode, check out all the
+     *   interactive WEBGL tutorials in the "Learn" section
+     *   of this website, or read the wiki article "Getting
+     *   started with WebGL in p5".
      */
     const WEBGL: p5.WEBGL;
+
+    /**
+     *   One of the two possible values of a WebGL canvas
+     *   (either WEBGL or WEBGL2), which can be used to
+     *   determine what capabilities the rendering
+     *   environment has.
+     */
+    const WEBGL2: p5.WEBGL2;
     const ARROW: p5.ARROW;
     const CROSS: p5.CROSS;
     const HAND: p5.HAND;
@@ -2191,6 +2407,11 @@ declare global {
     const FALLBACK: p5.FALLBACK;
     const CONTAIN: p5.CONTAIN;
     const COVER: p5.COVER;
+    const UNSIGNED_BYTE: p5.UNSIGNED_BYTE;
+    const UNSIGNED_INT: p5.UNSIGNED_INT;
+    const FLOAT: p5.FLOAT;
+    const HALF_FLOAT: p5.HALF_FLOAT;
+    const RGBA: p5.RGBA;
 
     /**
      *   The print() function writes to the console area of
@@ -2283,6 +2504,16 @@ declare global {
      *   @return current frameRate
      */
     function frameRate(): number;
+
+    /**
+     *   Returns _targetFrameRate variable. The default
+     *   _targetFrameRate is set to 60. This could be
+     *   changed by calling frameRate() and setting it to
+     *   the desired value. When getTargetFrameRate() is
+     *   called, it should return the value that was set.
+     *   @return _targetFrameRate
+     */
+    function getTargetFrameRate(): number;
 
     /**
      *   Hides the cursor from view.
@@ -2399,6 +2630,18 @@ declare global {
     let focused: boolean;
 
     /**
+     *   If the sketch was created in WebGL mode, then
+     *   weglVersion will indicate which version of WebGL
+     *   it is using. It will try to create a WebGL2 canvas
+     *   unless you have requested WebGL1 via
+     *   setAttributes({ version: 1 }), and will fall back
+     *   to WebGL1 if WebGL2 is not available. webglVersion
+     *   will always be either WEBGL2, WEBGL, or P2D if not
+     *   in WebGL mode.
+     */
+    let webglVersion: string;
+
+    /**
      *   System variable that stores the width of the
      *   screen display according to The default
      *   pixelDensity. This is used to run a full-screen
@@ -2465,19 +2708,73 @@ declare global {
      *   origin is positioned at the center of the canvas.
      *   See this issue for more information.
      *
+     *   A WebGL canvas will use a WebGL2 context if it is
+     *   supported by the browser. Check the webglVersion
+     *   property to check what version is being used, or
+     *   call setAttributes({ version: 1 }) to create a
+     *   WebGL1 context.
+     *
      *   The system variables width and height are set by
      *   the parameters passed to this function. If
      *   createCanvas() is not used, the window will be
      *   given a default size of 100×100 pixels.
+     *
+     *   Optionally, an existing canvas can be passed using
+     *   a selector, ie. document.getElementById(''). If
+     *   specified, avoid using setAttributes() afterwards,
+     *   as this will remove and recreate the existing
+     *   canvas.
      *
      *   For more ways to position the canvas, see the
      *   positioning the canvas wiki page.
      *   @param w width of the canvas
      *   @param h height of the canvas
      *   @param [renderer] either P2D or WEBGL
+     *   @param [canvas] existing html canvas element
      *   @return pointer to p5.Renderer holding canvas
      */
-    function createCanvas(w: number, h: number, renderer?: p5.RENDERER): p5.Renderer;
+    function createCanvas(w: number, h: number, renderer?: p5.RENDERER, canvas?: object): p5.Renderer;
+
+    /**
+     *   Creates a canvas element in the document and sets
+     *   its dimensions in pixels. This method should be
+     *   called only once at the start of setup(). Calling
+     *   createCanvas more than once in a sketch will
+     *   result in very unpredictable behavior. If you want
+     *   more than one drawing canvas you could use
+     *   createGraphics() (hidden by default but it can be
+     *   shown). Important note: in 2D mode (i.e. when
+     *   p5.Renderer is not set) the origin (0,0) is
+     *   positioned at the top left of the screen. In 3D
+     *   mode (i.e. when p5.Renderer is set to WEBGL), the
+     *   origin is positioned at the center of the canvas.
+     *   See this issue for more information.
+     *
+     *   A WebGL canvas will use a WebGL2 context if it is
+     *   supported by the browser. Check the webglVersion
+     *   property to check what version is being used, or
+     *   call setAttributes({ version: 1 }) to create a
+     *   WebGL1 context.
+     *
+     *   The system variables width and height are set by
+     *   the parameters passed to this function. If
+     *   createCanvas() is not used, the window will be
+     *   given a default size of 100×100 pixels.
+     *
+     *   Optionally, an existing canvas can be passed using
+     *   a selector, ie. document.getElementById(''). If
+     *   specified, avoid using setAttributes() afterwards,
+     *   as this will remove and recreate the existing
+     *   canvas.
+     *
+     *   For more ways to position the canvas, see the
+     *   positioning the canvas wiki page.
+     *   @param w width of the canvas
+     *   @param h height of the canvas
+     *   @param [canvas] existing html canvas element
+     *   @return pointer to p5.Renderer holding canvas
+     */
+    function createCanvas(w: number, h: number, canvas?: object): p5.Renderer;
 
     /**
      *   Resizes the canvas to given width and height. The
@@ -2498,17 +2795,99 @@ declare global {
     function noCanvas(): void;
 
     /**
-     *   Creates and returns a new p5.Renderer object. Use
+     *   Creates and returns a new p5.Graphics object. Use
      *   this class if you need to draw into an off-screen
      *   graphics buffer. The two parameters define the
-     *   width and height in pixels.
+     *   width and height in pixels. A WebGL p5.Graphics
+     *   will use a WebGL2 context if it is supported by
+     *   the browser. Check the pg.webglVersion property of
+     *   the renderer to check what version is being used,
+     *   or call pg.setAttributes({ version: 1 }) to create
+     *   a WebGL1 context.
+     *
+     *   Optionally, an existing canvas can be passed using
+     *   a selector, ie. document.getElementById(''). By
+     *   default this canvas will be hidden (offscreen
+     *   buffer), to make visible, set element's style to
+     *   display:block;
      *   @param w width of the offscreen graphics buffer
      *   @param h height of the offscreen graphics buffer
      *   @param [renderer] either P2D or WEBGL undefined
      *   defaults to p2d
+     *   @param [canvas] existing html canvas element
      *   @return offscreen graphics buffer
      */
-    function createGraphics(w: number, h: number, renderer?: p5.RENDERER): p5.Graphics;
+    function createGraphics(w: number, h: number, renderer?: p5.RENDERER, canvas?: object): p5.Graphics;
+
+    /**
+     *   Creates and returns a new p5.Graphics object. Use
+     *   this class if you need to draw into an off-screen
+     *   graphics buffer. The two parameters define the
+     *   width and height in pixels. A WebGL p5.Graphics
+     *   will use a WebGL2 context if it is supported by
+     *   the browser. Check the pg.webglVersion property of
+     *   the renderer to check what version is being used,
+     *   or call pg.setAttributes({ version: 1 }) to create
+     *   a WebGL1 context.
+     *
+     *   Optionally, an existing canvas can be passed using
+     *   a selector, ie. document.getElementById(''). By
+     *   default this canvas will be hidden (offscreen
+     *   buffer), to make visible, set element's style to
+     *   display:block;
+     *   @param w width of the offscreen graphics buffer
+     *   @param h height of the offscreen graphics buffer
+     *   @param [canvas] existing html canvas element
+     *   @return offscreen graphics buffer
+     */
+    function createGraphics(w: number, h: number, canvas?: object): p5.Graphics;
+
+    /**
+     *   Creates and returns a new p5.Framebuffer, a
+     *   high-performance WebGL object that you can draw to
+     *   and then use as a texture. Options can include:
+     *
+     *   - format: The data format of the texture, either
+     *   UNSIGNED_BYTE, FLOAT, or HALF_FLOAT. The default
+     *   is UNSIGNED_BYTE.
+     *   - channels: What color channels to store, either
+     *   RGB or RGBA. The default is to match the channels
+     *   in the main canvas (with alpha unless disabled
+     *   with setAttributes.)
+     *   - depth: A boolean, whether or not to include a
+     *   depth buffer. Defaults to true.
+     *   - depthFormat: The data format for depth
+     *   information, either UNSIGNED_INT or FLOAT. The
+     *   default is FLOAT if available, or UNSIGNED_INT
+     *   otherwise.
+     *   - antialias: Boolean or Number, whether or not to
+     *   render with antialiased edges, and if so,
+     *   optionally the number of samples to use. Defaults
+     *   to whether or not the main canvas is antialiased,
+     *   using a default of 2 samples if so. Antialiasing
+     *   is only supported when WebGL 2 is available.
+     *   - width: The width of the texture. Defaults to
+     *   matching the main canvas.
+     *   - height: The height of the texture. Defaults to
+     *   matching the main canvas.
+     *   - density: The pixel density of the texture.
+     *   Defaults to the pixel density of the main canvas.
+     *   - textureFiltering: Either LINEAR (nearby pixels
+     *   will be interpolated when reading values from the
+     *   color texture) or NEAREST (no interpolation.)
+     *   Generally, use LINEAR when using the texture as an
+     *   image, and use NEAREST if reading the texture as
+     *   data. Defaults to LINEAR.
+     *
+     *   If width, height, or density are specified, then
+     *   the framebuffer will keep that size until manually
+     *   changed. Otherwise, it will be autosized, and it
+     *   will update to match the main canvas's size and
+     *   density when the main canvas changes.
+     *   @param [options] An optional object with
+     *   configuration
+     */
+    function createFramebuffer(options?: object): void;
 
     /**
      *   Blends the pixels in the display window according
@@ -2751,7 +3130,7 @@ declare global {
      *   and corresponds to a transformation matrix of the
      *   form:
      *   @param arr an array of numbers - should be 6 or 16
-     *   length (23 or 44 matrix values)
+     *   length (2×3 or 4×4 matrix values)
      *   @chainable
      */
     function applyMatrix(arr: any[]): p5;
@@ -2766,17 +3145,17 @@ declare global {
      *   follows the naming of the  WHATWG specification
      *   and corresponds to a transformation matrix of the
      *   form:
-     *   @param a numbers which define the 2×3 or 4x4
+     *   @param a numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param b numbers which define the 2×3 or 4x4
+     *   @param b numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param c numbers which define the 2×3 or 4x4
+     *   @param c numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param d numbers which define the 2×3 or 4x4
+     *   @param d numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param e numbers which define the 2×3 or 4x4
+     *   @param e numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param f numbers which define the 2×3 or 4x4
+     *   @param f numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
      *   @chainable
      */
@@ -2792,37 +3171,37 @@ declare global {
      *   follows the naming of the  WHATWG specification
      *   and corresponds to a transformation matrix of the
      *   form:
-     *   @param a numbers which define the 2×3 or 4x4
+     *   @param a numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param b numbers which define the 2×3 or 4x4
+     *   @param b numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param c numbers which define the 2×3 or 4x4
+     *   @param c numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param d numbers which define the 2×3 or 4x4
+     *   @param d numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param e numbers which define the 2×3 or 4x4
+     *   @param e numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param f numbers which define the 2×3 or 4x4
+     *   @param f numbers which define the 2×3 or 4×4
      *   matrix to be multiplied
-     *   @param g numbers which define the 4x4 matrix to be
+     *   @param g numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param h numbers which define the 4x4 matrix to be
+     *   @param h numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param i numbers which define the 4x4 matrix to be
+     *   @param i numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param j numbers which define the 4x4 matrix to be
+     *   @param j numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param k numbers which define the 4x4 matrix to be
+     *   @param k numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param l numbers which define the 4x4 matrix to be
+     *   @param l numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param m numbers which define the 4x4 matrix to be
+     *   @param m numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param n numbers which define the 4x4 matrix to be
+     *   @param n numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param o numbers which define the 4x4 matrix to be
+     *   @param o numbers which define the 4×4 matrix to be
      *   multiplied
-     *   @param p numbers which define the 4x4 matrix to be
+     *   @param p numbers which define the 4×4 matrix to be
      *   multiplied
      *   @chainable
      */
@@ -3317,6 +3696,11 @@ declare global {
      *   disabled.
      *   - .disable(value) marks a given option as
      *   disabled.
+     *   - .enable() marks the whole dropdown element as
+     *   enabled if whole dropdown element is disabled
+     *   intially.
+     *   - .enable(value) marks a given option as enable if
+     *   the initial option is disabled.
      *   @param [multiple] true if dropdown should support
      *   multiple selections
      *   @return pointer to p5.Element holding created node
@@ -3344,6 +3728,11 @@ declare global {
      *   disabled.
      *   - .disable(value) marks a given option as
      *   disabled.
+     *   - .enable() marks the whole dropdown element as
+     *   enabled if whole dropdown element is disabled
+     *   intially.
+     *   - .enable(value) marks a given option as enable if
+     *   the initial option is disabled.
      *   @param existing DOM select element
      */
     function createSelect(existing: object): p5.Element;
@@ -4297,19 +4686,25 @@ declare global {
      *   number of frames you want your animation to be, if
      *   you are very sure of this number.
      *
-     *   It is not recommended to write this function
-     *   inside setup, since it won't work properly. The
-     *   recommended use can be seen in the example, where
-     *   we use it inside an event function, like
+     *   This may be called in setup, or, like in the
+     *   example below, inside an event function, like
      *   keyPressed or mousePressed.
      *   @param filename File name of your gif
      *   @param duration Duration in seconds that you wish
      *   to capture from your sketch
      *   @param options An optional object that can contain
-     *   two more arguments: delay, specifying how much
-     *   time we should wait before recording, and units, a
+     *   five more arguments: delay, specifying how much
+     *   time we should wait before recording; units, a
      *   string that can be either 'seconds' or 'frames'.
-     *   By default it's 'seconds'.
+     *   By default it's 'seconds’; silent, a boolean that
+     *   defines presence of progress notifications. By
+     *   default it’s false; notificationDuration, a number
+     *   that defines how long in seconds the final
+     *   notification will live. 0, the default value,
+     *   means that the notification will never be removed;
+     *   notificationID, a string that specifies the
+     *   notification DOM element id. By default it’s
+     *   'progressBar’.
      */
     function saveGif(filename: string, duration: number, options: object): void;
 
@@ -4347,7 +4742,13 @@ declare global {
      *   @param [width] the width to draw the image
      *   @param [height] the height to draw the image
      */
-    function image(img: p5.Image | p5.Element, x: number, y: number, width?: number, height?: number): void;
+    function image(
+        img: p5.Image | p5.Element | p5.Framebuffer,
+        x: number,
+        y: number,
+        width?: number,
+        height?: number
+    ): void;
 
     /**
      *   Draw an image to the p5.js canvas. This function
@@ -4403,7 +4804,7 @@ declare global {
      *   default is CENTER
      */
     function image(
-        img: p5.Image | p5.Element,
+        img: p5.Image | p5.Element | p5.Framebuffer,
         dx: number,
         dy: number,
         dWidth: number,
@@ -4748,8 +5149,8 @@ declare global {
      *   p5.Image.get()
      *   @param x x-coordinate of the pixel
      *   @param y y-coordinate of the pixel
-     *   @param w width
-     *   @param h height
+     *   @param w width of the section to be returned
+     *   @param h height of the section to be returned
      *   @return the rectangle p5.Image
      */
     function get(x: number, y: number, w: number, h: number): p5.Image;
@@ -5024,7 +5425,7 @@ declare global {
      *   array of its individual lines. If the name of the
      *   file is used as the parameter, as in the above
      *   example, the file must be located in the sketch
-     *   directory/folder. Alternatively, the file maybe be
+     *   directory/folder. Alternatively, the file may be
      *   loaded from anywhere on the local computer using
      *   an absolute path (something that starts with / on
      *   Unix and Linux, or a drive letter on Windows), or
@@ -7065,17 +7466,18 @@ declare global {
 
     /**
      *   Allows movement around a 3D sketch using a mouse
-     *   or trackpad. Left-clicking and dragging will
-     *   rotate the camera position about the center of the
-     *   sketch, right-clicking and dragging will pan the
-     *   camera position without rotation, and using the
-     *   mouse wheel (scrolling) will move the camera
-     *   closer or further from the center of the sketch.
-     *   This function can be called with parameters
-     *   dictating sensitivity to mouse movement along the
-     *   X and Y axes. Calling this function without
-     *   parameters is equivalent to calling
-     *   orbitControl(1,1). To reverse direction of
+     *   or trackpad or touch. Left-clicking and dragging
+     *   or swipe motion will rotate the camera position
+     *   about the center of the sketch, right-clicking and
+     *   dragging or multi-swipe will pan the camera
+     *   position without rotation, and using the mouse
+     *   wheel (scrolling) or pinch in/out will move the
+     *   camera further or closer from the center of the
+     *   sketch. This function can be called with
+     *   parameters dictating sensitivity to mouse/touch
+     *   movement along the X and Y axes. Calling this
+     *   function without parameters is equivalent to
+     *   calling orbitControl(1,1). To reverse direction of
      *   movement in either axis, enter a negative number
      *   for sensitivity.
      *   @param [sensitivityX] sensitivity to mouse
@@ -7084,9 +7486,25 @@ declare global {
      *   movement along Y axis
      *   @param [sensitivityZ] sensitivity to scroll
      *   movement along Z axis
+     *   @param [options] An optional object that can
+     *   contain additional settings, disableTouchActions -
+     *   Boolean, default value is true. Setting this to
+     *   true makes mobile interactions smoother by
+     *   preventing accidental interactions with the page
+     *   while orbiting. But if you're already doing it via
+     *   css or want the default touch actions, consider
+     *   setting it to false. freeRotation - Boolean,
+     *   default value is false. By default, horizontal
+     *   movement of the mouse or touch pointer rotates the
+     *   camera around the y-axis, and vertical movement
+     *   rotates the camera around the x-axis. But if
+     *   setting this option to true, the camera always
+     *   rotates in the direction the pointer is moving.
+     *   For zoom and move, the behavior is the same
+     *   regardless of true/false.
      *   @chainable
      */
-    function orbitControl(sensitivityX?: number, sensitivityY?: number, sensitivityZ?: number): p5;
+    function orbitControl(sensitivityX?: number, sensitivityY?: number, sensitivityZ?: number, options?: object): p5;
 
     /**
      *   debugMode() helps visualize 3D space by adding a
@@ -8335,7 +8753,7 @@ declare global {
      *   @param tex image to use as texture
      *   @chainable
      */
-    function texture(tex: p5.Image | p5.MediaElement | p5.Graphics): p5;
+    function texture(tex: p5.Image | p5.MediaElement | p5.Graphics | p5.Framebuffer): p5;
 
     /**
      *   Sets the coordinate space for texture mapping. The
@@ -8394,19 +8812,21 @@ declare global {
 
     /**
      *   Sets the ambient color of the material. The
-     *   ambientMaterial() color is the color the object
-     *   will reflect under any lighting.
+     *   ambientMaterial() color represents the components
+     *   of the ambientLight() color that the object
+     *   reflects.
      *
      *   Consider an ambientMaterial() with the color
-     *   yellow (255, 255, 0). If the light emits the color
-     *   white (255, 255, 255), then the object will appear
-     *   yellow as it will reflect the red and green
-     *   components of the light. If the light emits the
-     *   color red (255, 0, 0), then the object will appear
-     *   red as it will reflect the red component of the
-     *   light. If the light emits the color blue (0, 0,
-     *   255), then the object will appear black, as there
-     *   is no component of the light that it can reflect.
+     *   yellow (255, 255, 0). If the ambientLight() emits
+     *   the color white (255, 255, 255), then the object
+     *   will appear yellow as it will reflect the red and
+     *   green components of the light. If the
+     *   ambientLight() emits the color red (255, 0, 0),
+     *   then the object will appear red as it will reflect
+     *   the red component of the light. If the
+     *   ambientLight() emits the color blue (0, 0, 255),
+     *   then the object will appear black, as there is no
+     *   component of the light that it can reflect.
      *
      *   You can view more materials in this example.
      *   @param v1 red or hue value relative to the current
@@ -8421,19 +8841,21 @@ declare global {
 
     /**
      *   Sets the ambient color of the material. The
-     *   ambientMaterial() color is the color the object
-     *   will reflect under any lighting.
+     *   ambientMaterial() color represents the components
+     *   of the ambientLight() color that the object
+     *   reflects.
      *
      *   Consider an ambientMaterial() with the color
-     *   yellow (255, 255, 0). If the light emits the color
-     *   white (255, 255, 255), then the object will appear
-     *   yellow as it will reflect the red and green
-     *   components of the light. If the light emits the
-     *   color red (255, 0, 0), then the object will appear
-     *   red as it will reflect the red component of the
-     *   light. If the light emits the color blue (0, 0,
-     *   255), then the object will appear black, as there
-     *   is no component of the light that it can reflect.
+     *   yellow (255, 255, 0). If the ambientLight() emits
+     *   the color white (255, 255, 255), then the object
+     *   will appear yellow as it will reflect the red and
+     *   green components of the light. If the
+     *   ambientLight() emits the color red (255, 0, 0),
+     *   then the object will appear red as it will reflect
+     *   the red component of the light. If the
+     *   ambientLight() emits the color blue (0, 0, 255),
+     *   then the object will appear black, as there is no
+     *   component of the light that it can reflect.
      *
      *   You can view more materials in this example.
      *   @param gray number specifying value between white
@@ -8444,19 +8866,21 @@ declare global {
 
     /**
      *   Sets the ambient color of the material. The
-     *   ambientMaterial() color is the color the object
-     *   will reflect under any lighting.
+     *   ambientMaterial() color represents the components
+     *   of the ambientLight() color that the object
+     *   reflects.
      *
      *   Consider an ambientMaterial() with the color
-     *   yellow (255, 255, 0). If the light emits the color
-     *   white (255, 255, 255), then the object will appear
-     *   yellow as it will reflect the red and green
-     *   components of the light. If the light emits the
-     *   color red (255, 0, 0), then the object will appear
-     *   red as it will reflect the red component of the
-     *   light. If the light emits the color blue (0, 0,
-     *   255), then the object will appear black, as there
-     *   is no component of the light that it can reflect.
+     *   yellow (255, 255, 0). If the ambientLight() emits
+     *   the color white (255, 255, 255), then the object
+     *   will appear yellow as it will reflect the red and
+     *   green components of the light. If the
+     *   ambientLight() emits the color red (255, 0, 0),
+     *   then the object will appear red as it will reflect
+     *   the red component of the light. If the
+     *   ambientLight() emits the color blue (0, 0, 255),
+     *   then the object will appear black, as there is no
+     *   component of the light that it can reflect.
      *
      *   You can view more materials in this example.
      *   @param color color as a p5.Color, as an array, or
@@ -8718,8 +9142,9 @@ declare global {
      *   simply in many cases by using perspective().
      *
      *   If no parameters are given, the following default
-     *   is used: frustum(-width/2, width/2, -height/2,
-     *   height/2, 0, max(width, height)).
+     *   is used: frustum(-width/20, width/20, height/20,
+     *   -height/20, eyeZ/10, eyeZ*10), where eyeZ is equal
+     *   to ((height/2) / tan(PI/6)).
      *   @param [left] camera frustum left plane
      *   @param [right] camera frustum right plane
      *   @param [bottom] camera frustum bottom plane
@@ -8755,6 +9180,12 @@ declare global {
     function setCamera(cam: p5.Camera): void;
 
     /**
+     *   Sets the normal to use for subsequent vertices.
+     *   @chainable
+     */
+    function vertexNormal(x: number, y: number, z: number, v: p5.Vector): p5;
+
+    /**
      *   Set attributes for the WebGL Drawing context. This
      *   is a way of adjusting how the WebGL renderer works
      *   to fine-tune the display and performance. Note
@@ -8768,7 +9199,7 @@ declare global {
      *   The available attributes are:
      *
      *   alpha - indicates if the canvas contains an alpha
-     *   buffer default is false
+     *   buffer default is true
      *
      *   depth - indicates whether the drawing buffer has a
      *   depth buffer of at least 16 bits - default is true
@@ -8781,7 +9212,7 @@ declare global {
      *
      *   premultipliedAlpha - indicates that the page
      *   compositor will assume the drawing buffer contains
-     *   colors with pre-multiplied alpha default is false
+     *   colors with pre-multiplied alpha default is true
      *
      *   preserveDrawingBuffer - if true the buffers will
      *   not be cleared and and will preserve their values
@@ -8792,6 +9223,13 @@ declare global {
      *   perPixelLighting - if true, per-pixel lighting
      *   will be used in the lighting shader otherwise
      *   per-vertex lighting is used. default is true.
+     *
+     *   version - either 1 or 2, to specify which WebGL
+     *   version to ask for. By default, WebGL 2 will be
+     *   requested. If WebGL2 is not available, it will
+     *   fall back to WebGL 1. You can check what version
+     *   is used with by looking at the global webglVersion
+     *   property.
      *   @param key Name of attribute
      *   @param value New value of named attribute
      */
@@ -8811,7 +9249,7 @@ declare global {
      *   The available attributes are:
      *
      *   alpha - indicates if the canvas contains an alpha
-     *   buffer default is false
+     *   buffer default is true
      *
      *   depth - indicates whether the drawing buffer has a
      *   depth buffer of at least 16 bits - default is true
@@ -8824,7 +9262,7 @@ declare global {
      *
      *   premultipliedAlpha - indicates that the page
      *   compositor will assume the drawing buffer contains
-     *   colors with pre-multiplied alpha default is false
+     *   colors with pre-multiplied alpha default is true
      *
      *   preserveDrawingBuffer - if true the buffers will
      *   not be cleared and and will preserve their values
@@ -8835,6 +9273,13 @@ declare global {
      *   perPixelLighting - if true, per-pixel lighting
      *   will be used in the lighting shader otherwise
      *   per-vertex lighting is used. default is true.
+     *
+     *   version - either 1 or 2, to specify which WebGL
+     *   version to ask for. By default, WebGL 2 will be
+     *   requested. If WebGL2 is not available, it will
+     *   fall back to WebGL 1. You can check what version
+     *   is used with by looking at the global webglVersion
+     *   property.
      *   @param obj object with key-value pairs
      */
     function setAttributes(obj: object): void;
@@ -8995,7 +9440,7 @@ declare global {
         successCallback?: (...args: any[]) => any,
         errorCallback?: (...args: any[]) => any,
         whileLoading?: (...args: any[]) => any
-    ): SoundFile;
+    ): p5.SoundFile;
 
     /**
      *   Create a p5.Convolver. Accepts a path to a

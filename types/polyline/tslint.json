@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-consecutive-blank-lines": false,
-        "no-declare-current-package": false,
-        "no-single-declare-module": false,
-        "object-literal-key-quotes": false
-    }
-}

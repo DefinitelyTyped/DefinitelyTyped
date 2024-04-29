@@ -1,2 +1,2 @@
-import crc16 from '../crc16';
+import crc16 from "../crc16";
 export = crc16;

@@ -1,25 +1,80 @@
-// Type definitions for max-api 1.1
-// Project: https://docs.cycling74.com/nodeformax/api/index.html
-// Definitions by: Geof Holbrook <https://github.com/geofholbrook>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/*
+ * JSON Helper Types - Not exported
+ */
+type JSONPrimitive = string | number | boolean | null;
+interface JSONArray extends Array<JSONValue> {}
+interface JSONObject {
+    [key: string]: JSONValue | undefined;
+}
+type JSONValue = JSONPrimitive | JSONArray | JSONObject;
 
-export const MESSAGE_TYPES: Record<string, string>;
-export const POST_LEVELS: Record<string, string>;
+declare namespace MaxAPIStatic {
+    /** Enum options for the value Node For Max will set on process.env.MAX_ENV */
+    enum MAX_ENV {
+        /** node.script running from within Max */
+        MAX = "max",
+        /** node.script running from within Max For Live */
+        MAX_FOR_LIVE = "maxforlive",
+        /** node.script running from within a standalone application */
+        STANDALONE = "max:standalone",
+    }
 
-export function addHandler(msg: MessageIdentifier, handler: MessageHandler): void;
-export function addHandlers(handlers: Record<string, MessageHandler>): void;
-export function getDict(id: string): Promise<Dict>;
-export function outlet(...args: any[]): Promise<void>;
-export function outletBang(): Promise<void>;
-export function post(str: any): Promise<void>;
-export function removeHandler(msg: string, handler: MessageHandler): void;
-export function removeHandlers(msg?: string): void;
-export function setDict(id: string, content: Record<string, unknown>): Promise<Dict>;
-export function updateDict(id: string, path: string, value: unknown): Promise<Dict>;
+    /** Predefined generic MaxFunctionSelector types */
+    enum MESSAGE_TYPES {
+        /** Generic Type for *all* kinds of messages */
+        ALL = "all",
+        /** Bang message type */
+        BANG = "bang",
+        /** Dictionary message type */
+        DICT = "dict",
+        /** Number message type */
+        NUMBER = "number",
+        /** List message type */
+        LIST = "list",
+    }
 
-export type Anything = any;
-export type Dict = Record<string, unknown>;
-export type DictIdentifier = string;
-export type DictPath = string;
-export type MessageHandler = (...args: any[]) => void;
-export type MessageIdentifier = string;
+    /** Log Levels used in maxAPI.post */
+    enum POST_LEVELS {
+        /** error level messages */
+        ERROR = "error",
+        /** info level messages */
+        INFO = "info",
+        /** warn level messages */
+        WARN = "warn",
+    }
+
+    type MaxFunctionSelector = MESSAGE_TYPES | string;
+    type MaxFunctionHandler = (...args: any[]) => any;
+    type Anything = string | number | Array<string | number> | JSONObject | JSONArray;
+
+    // Handlers
+    /** Register a single handler */
+    function addHandler(selector: MaxFunctionSelector, handler: MaxFunctionHandler): void;
+    /** Register handlers */
+    function addHandlers(handlers: Record<MaxFunctionSelector, MaxFunctionHandler>): void;
+    /** Remove a single handler */
+    function removeHandler(selector: MaxFunctionSelector, handler: MaxFunctionHandler): void;
+    /** Remove handlers */
+    function removeHandlers(selector: MaxFunctionSelector): void;
+
+    // Outlet
+    /** Outlet any values */
+    function outlet(...args: JSONValue[]): Promise<void>;
+    /** Outlet a Bang */
+    function outletBang(): Promise<void>;
+
+    /**
+     * Post to the Max console. Setting the last argument to a value of maxAPI.POST_LEVELS allows control of the log level
+     */
+    function post(...args: Array<Anything | POST_LEVELS>): Promise<void>;
+
+    // Dictionaries
+    /** Get the value of a dict object */
+    function getDict(id: string): Promise<JSONObject>;
+    /** Set the value of a dict object */
+    function setDict(id: string, dict: JSONObject): Promise<JSONObject>;
+    /** Partially update the value of a dict object at a given path */
+    function updateDict(id: string, updatePath: string, updateValue: JSONValue): Promise<JSONObject>;
+}
+
+export default MaxAPIStatic;

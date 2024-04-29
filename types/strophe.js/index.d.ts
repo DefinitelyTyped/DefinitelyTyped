@@ -1,13 +1,6 @@
-// Type definitions for Strophe.js 1.4
-// Project: http://strophe.im/strophejs/
-// Definitions by: Jakub Mikos <https://github.com/CodeBast4rd>
-//                 David Deutsch <https://github.com/DavidKDeutsch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 export {};
 
 declare global {
-
     /** Function: $build
      *  Create a Strophe.Builder.
      *  This is an alias for 'new Strophe.Builder(name, attrs)'.
@@ -81,24 +74,24 @@ declare global {
          *  NS.XHTML - XHTML body namespace from XEP 71.
          */
         enum NS {
-            HTTPBIND = 'http://jabber.org/protocol/httpbind',
-            BOSH = 'urn:xmpp:xbosh',
-            CLIENT = 'jabber:client',
-            AUTH = 'jabber:iq:auth',
-            ROSTER = 'jabber:iq:roster',
-            PROFILE = 'jabber:iq:profile',
-            DISCO_INFO = 'http://jabber.org/protocol/disco#info',
-            DISCO_ITEMS = 'http://jabber.org/protocol/disco#items',
-            MUC = 'http://jabber.org/protocol/muc',
-            SASL = 'urn:ietf:params:xml:ns:xmpp-sasl',
-            STREAM = 'http://etherx.jabber.org/streams',
-            FRAMING = 'urn:ietf:params:xml:ns:xmpp-framing',
-            BIND = 'urn:ietf:params:xml:ns:xmpp-bind',
-            SESSION = 'urn:ietf:params:xml:ns:xmpp-session',
-            VERSION = 'jabber:iq:version',
-            STANZAS = 'urn:ietf:params:xml:ns:xmpp-stanzas',
-            XHTML_IM = 'http://jabber.org/protocol/xhtml-im',
-            XHTML = 'http://www.w3.org/1999/xhtml'
+            HTTPBIND = "http://jabber.org/protocol/httpbind",
+            BOSH = "urn:xmpp:xbosh",
+            CLIENT = "jabber:client",
+            AUTH = "jabber:iq:auth",
+            ROSTER = "jabber:iq:roster",
+            PROFILE = "jabber:iq:profile",
+            DISCO_INFO = "http://jabber.org/protocol/disco#info",
+            DISCO_ITEMS = "http://jabber.org/protocol/disco#items",
+            MUC = "http://jabber.org/protocol/muc",
+            SASL = "urn:ietf:params:xml:ns:xmpp-sasl",
+            STREAM = "http://etherx.jabber.org/streams",
+            FRAMING = "urn:ietf:params:xml:ns:xmpp-framing",
+            BIND = "urn:ietf:params:xml:ns:xmpp-bind",
+            SESSION = "urn:ietf:params:xml:ns:xmpp-session",
+            VERSION = "jabber:iq:version",
+            STANZAS = "urn:ietf:params:xml:ns:xmpp-stanzas",
+            XHTML_IM = "http://jabber.org/protocol/xhtml-im",
+            XHTML = "http://www.w3.org/1999/xhtml",
         }
 
         /** Constants: XHTML_IM Namespace
@@ -108,24 +101,42 @@ declare global {
          *  allowed tags and their attributes.
          */
         const XHTML: {
-            tags: ['a', 'blockquote', 'br', 'cite', 'em', 'img', 'li', 'ol', 'p', 'span', 'strong', 'ul', 'body'],
+            tags: ["a", "blockquote", "br", "cite", "em", "img", "li", "ol", "p", "span", "strong", "ul", "body"];
             attributes: {
-                'a': ['href'],
-                'blockquote': ['style'],
-                'br': [],
-                'cite': ['style'],
-                'em': [],
-                'img': ['src', 'alt', 'style', 'height', 'width'],
-                'li': ['style'],
-                'ol': ['style'],
-                'p': ['style'],
-                'span': ['style'],
-                'strong': [],
-                'ul': ['style'],
-                'body': []
-            },
-            css: ['background-color', 'color', 'font-family', 'font-size', 'font-style', 'font-weight', 'margin-left', 'margin-right', 'text-align', 'text-decoration']
-
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                "a": ["href"];
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                "blockquote": ["style"];
+                "br": [];
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                "cite": ["style"];
+                "em": [];
+                "img": ["src", "alt", "style", "height", "width"];
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                "li": ["style"];
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                "ol": ["style"];
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                "p": ["style"];
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                "span": ["style"];
+                "strong": [];
+                // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                "ul": ["style"];
+                "body": [];
+            };
+            css: [
+                "background-color",
+                "color",
+                "font-family",
+                "font-size",
+                "font-style",
+                "font-weight",
+                "margin-left",
+                "margin-right",
+                "text-align",
+                "text-decoration",
+            ];
 
             /**
              * Function: XHTML.validTag
@@ -182,7 +193,7 @@ declare global {
             REDIRECT = 9,
             CONNTIMEOUT = 10,
             BINDREQUIRED = 11,
-            ATTACHFAIL = 12
+            ATTACHFAIL = 12,
         }
 
         /** Constants: Error Condition Constants
@@ -195,11 +206,11 @@ declare global {
          * ErrorCondition.UNKNOWN_REASON - Unknown error cause
          */
         enum ErrorCondition {
-            BAD_FORMAT = 'bad-format',
-            CONFLICT = 'conflict',
-            MISSING_JID_NODE = 'x-strophe-bad-non-anon-jid',
-            NO_AUTH_MECH = 'no-auth-mech',
-            UNKNOWN_REASON = 'unknown',
+            BAD_FORMAT = "bad-format",
+            CONFLICT = "conflict",
+            MISSING_JID_NODE = "x-strophe-bad-non-anon-jid",
+            NO_AUTH_MECH = "no-auth-mech",
+            UNKNOWN_REASON = "unknown",
         }
 
         /** Constants: Log Level Constants
@@ -216,7 +227,7 @@ declare global {
             INFO = 1,
             WARN = 2,
             ERROR = 3,
-            FATAL = 4
+            FATAL = 4,
         }
 
         /** PrivateConstants: DOM Element Type Constants
@@ -230,7 +241,7 @@ declare global {
             NORMAL = 1,
             TEXT = 3,
             CDATA = 4,
-            FRAGMENT = 11
+            FRAGMENT = 11,
         }
 
         /** PrivateConstants: Timeout Values
@@ -249,7 +260,6 @@ declare global {
          */
         const TIMEOUT = 1.1;
         const SECONDARY_TIMEOUT = 0.1;
-
 
         /** Function: addNamespace
          *  This function is used to extend the current namespaces in
@@ -322,8 +332,16 @@ declare global {
          *  Returns:
          *    @returns A new XML DOM element.
          */
-        function xmlElement(name: string, attrs?: Record<string, string> | Array<[string, string]>, text?: string): Element;
-        function xmlElement(name: string, text?: string, attrs?: Record<string, string> | Array<[string, string]>): Element;
+        function xmlElement(
+            name: string,
+            attrs?: Record<string, string> | Array<[string, string]>,
+            text?: string,
+        ): Element;
+        function xmlElement(
+            name: string,
+            text?: string,
+            attrs?: Record<string, string> | Array<[string, string]>,
+        ): Element;
 
         /**  Function: xmlescape
          *  Escapes invalid xml characters.
@@ -594,7 +612,6 @@ declare global {
          *  The next operation on the Builder will be relative to the second child.
          */
         class Builder {
-
             /** Constructor: Strophe.Builder
              *  Create a Strophe.Builder object.
              *
@@ -750,13 +767,15 @@ declare global {
              * @param from from jid to match the incoming stanza against to find the right handler
              * @param options matchBareFromJid match only the local and domain of the jid, ignoreNamespaceFragment ignores '#' in namespace
              */
-            private constructor(handler: (stanza: Element) => boolean,
-                                ns: string,
-                                name: string,
-                                type: string,
-                                id: string,
-                                from: string,
-                                options?: { matchBareFromJid?: boolean, ignoreNamespaceFragment: boolean });
+            private constructor(
+                handler: (stanza: Element) => boolean,
+                ns: string,
+                name: string,
+                type: string,
+                id: string,
+                from: string,
+                options?: { matchBareFromJid?: boolean; ignoreNamespaceFragment: boolean },
+            );
 
             /** PrivateFunction: getNamespace
              *  Returns the XML namespace attribute on an element.
@@ -827,7 +846,6 @@ declare global {
          *  Strophe.Connection.deleteTimedHandler().
          */
         class TimedHandler {
-
             /** PrivateConstructor: Strophe.TimedHandler
              *  Create and initialize a new Strophe.TimedHandler object.
              *
@@ -840,7 +858,7 @@ declare global {
              *  Returns:
              *    @returns A new Strophe.TimedHandler object.
              */
-            private constructor(period: number, handler: () => boolean)
+            private constructor(period: number, handler: () => boolean);
 
             /** PrivateFunction: run
              *  Run the callback for the Strophe.TimedHandler.
@@ -863,7 +881,6 @@ declare global {
              *    The string representation.
              */
             private toString();
-
         }
 
         /**
@@ -1069,8 +1086,10 @@ declare global {
             removeHandlers: Handler[];
             addTimeds: TimedHandler[];
             addHandlers: Handler[];
-            protocolErrorHandlers: { HTTP: Record<number, (status: number) => unknown>, websocket: Record<number, (status: number) => unknown> };
-
+            protocolErrorHandlers: {
+                HTTP: Record<number, (status: number) => unknown>;
+                websocket: Record<number, (status: number) => unknown>;
+            };
 
             authenticated: boolean;
             connected: boolean;
@@ -1372,7 +1391,7 @@ declare global {
                 hold?: number,
                 route?: string,
                 authcid?: string,
-                disconnection_timeout?: number
+                disconnection_timeout?: number,
             ): void;
 
             /** Function: attach
@@ -1406,7 +1425,7 @@ declare global {
                 callback?: (status: Status, condition: string, elem: Element) => unknown,
                 wait?: number,
                 hold?: number,
-                wind?: number
+                wind?: number,
             ): void;
 
             /**
@@ -1433,7 +1452,13 @@ declare global {
              *    @param [wind=5] wind - The optional HTTBIND window value.
              *      This is the allowed range of request ids that are valid.
              */
-            restore(jid?: string, callback?: (status: Status, condition: string, elem: Element) => unknown, wait?: number, hold?: number, wind?: number): void;
+            restore(
+                jid?: string,
+                callback?: (status: Status, condition: string, elem: Element) => unknown,
+                wait?: number,
+                hold?: number,
+                wind?: number,
+            ): void;
 
             /** Function: xmlInput
              *  User overrideable function that receives XML data coming into the
@@ -1554,7 +1579,12 @@ declare global {
              *  Returns:
              *    @returns The id used to send the presence.
              */
-            sendPresence(elem: Element | Builder, callback?: (elem: Element) => unknown, errback?: (elem: Element) => unknown, timeout?: number): string;
+            sendPresence(
+                elem: Element | Builder,
+                callback?: (elem: Element) => unknown,
+                errback?: (elem: Element) => unknown,
+                timeout?: number,
+            ): string;
 
             /** Function: sendIQ
              *  Helper function to send IQ stanzas.
@@ -1570,7 +1600,12 @@ declare global {
              *  Returns:
              *    @returns The id used to send the IQ.
              */
-            sendIQ(elem: Element | Builder, callback?: (stanza: Element) => unknown, errback?: (stanza: Element) => unknown, timeout?: number): string;
+            sendIQ(
+                elem: Element | Builder,
+                callback?: (stanza: Element) => unknown,
+                errback?: (stanza: Element) => unknown,
+                timeout?: number,
+            ): string;
 
             /** Function: addTimedHandler
              *  Add a timed handler to the connection.
@@ -1607,7 +1642,6 @@ declare global {
              *    @param handRef - The handler reference.
              */
             deleteTimedHandler(handRef: TimedHandler): void;
-
 
             /** Function: addHandler
              *  Add a stanza handler for the connection.
@@ -1680,7 +1714,7 @@ declare global {
                 type?: string | string[],
                 id?: string,
                 from?: string,
-                options?: { matchBareFromJid: boolean, ignoreNamespaceFragment: boolean }
+                options?: { matchBareFromJid: boolean; ignoreNamespaceFragment: boolean },
             ): Handler;
 
             /** Function: deleteHandler
@@ -1702,7 +1736,6 @@ declare global {
              *
              *  Parameters:
              *    @param mechanisms - Array of objects with Strophe.SASLMechanism prototypes
-             *
              */
             registerSASLMechanisms(mechanisms: SASLMechanism[]): void;
 
@@ -1712,7 +1745,6 @@ declare global {
              *
              *  Parameters:
              *    @param Mechanism - Constructor for an object with a Strophe.SASLMechanism prototype
-             *
              */
             registerSASLMechanism(Mechanism: new() => SASLMechanism): void;
 
@@ -1741,7 +1773,6 @@ declare global {
              *
              *  Parameters:
              *    @param mechanisms - Array of SASL mechanisms.
-             *
              */
             sortMechanismsByPriority(mechanisms: SASLMechanism[]): SASLMechanism[];
 
@@ -1756,7 +1787,6 @@ declare global {
              *
              *  Parameters:
              *    @param matched - Array of SASL mechanisms supported.
-             *
              */
             authenticate(matched: SASLMechanism[]): void;
 
@@ -1893,7 +1923,6 @@ declare global {
              *  > Strophe.SASLMD5.priority = Strophe.SASLSHA1.priority;
              *
              *  See <SASL mechanisms> for a list of available mechanisms.
-             *
              */
             priority: number;
         }
@@ -1915,22 +1944,22 @@ declare global {
     const BOSH_WAIT = 59;
 }
 
-declare module 'Strophe' {
+declare module "Strophe" {
     export = Strophe;
 }
 
-declare module '$build' {
+declare module "$build" {
     export = $build;
 }
 
-declare module '$msg' {
+declare module "$msg" {
     export = $msg;
 }
 
-declare module '$iq' {
+declare module "$iq" {
     export = $iq;
 }
 
-declare module '$pres' {
+declare module "$pres" {
     export = $pres;
 }

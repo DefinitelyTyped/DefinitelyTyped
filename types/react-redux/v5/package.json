@@ -1,6 +1,46 @@
 {
     "private": true,
+    "name": "@types/react-redux",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/rackt/react-redux"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "redux": "^3.6.0"
-    }
+    },
+    "devDependencies": {
+        "@types/object-assign": "*",
+        "@types/react-redux": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        },
+        {
+            "name": "Thomas Hasner",
+            "githubUsername": "thasner"
+        },
+        {
+            "name": "Curits Layne",
+            "githubUsername": "clayne11"
+        },
+        {
+            "name": "Frank Tan",
+            "githubUsername": "tansongyang"
+        },
+        {
+            "name": "Nicholas Boll",
+            "githubUsername": "nicholasboll"
+        },
+        {
+            "name": "Dibyo Majumdar",
+            "githubUsername": "mdibyo"
+        },
+        {
+            "name": "Prashant Deva",
+            "githubUsername": "pdeva"
+        }
+    ]
 }

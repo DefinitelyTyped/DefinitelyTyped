@@ -1,225 +1,220 @@
-import J = require('jenkins');
-
-const jenkins = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true });
-
-jenkins.info((err, data) => {
-  if (err) throw err;
-
-  console.log('info', data);
-});
-
-jenkins.build.get('example', 1, (err, data) => {
-  if (err) throw err;
-
-  console.log('build', data);
-});
-
-jenkins.build.log('example', 1, (err, data) => {
-  if (err) throw err;
-
-  console.log('log', data);
-});
-
-const log = jenkins.build.logStream('example', 1);
-
-log.on('data', (text: string) => {
-  process.stdout.write(text);
-});
-
-log.on('error', (err: Error) => {
-  console.log('error', err);
-});
-
-log.on('end', () => {
-  console.log('end');
-});
-
-const log2 = jenkins.build.logStream('example', 1, { type: 'html', delay: 2 * 1000 });
-
-log2.on('data', (text: string) => {
-    process.stdout.write(text);
-});
-
-log2.on('error', (err: Error) => {
-    console.log('error', err);
-});
-
-log2.on('end', () => {
-    console.log('end');
-});
-
-jenkins.build.stop('example', 1, (err) => {
-  if (err) throw err;
-});
-
-jenkins.build.term('example', 1, (err) => {
-  if (err) throw err;
-});
-
-jenkins.job.build('example', (err, data) => {
-  if (err) throw err;
-
-  console.log('queue item number', data);
-});
-
-jenkins.job.build({ name: 'example', parameters: { name: 'value' } }, (err) => {
-  if (err) throw err;
-});
-
-jenkins.job.config('example', (err, data) => {
-  if (err) throw err;
-
-  console.log('xml', data);
-});
-
-jenkins.job.config('example', '<xml></xml>', (err) => {
-  if (err) throw err;
-});
-
-jenkins.job.copy('fromJob', 'example', (err) => {
-  if (err) throw err;
-});
-
-jenkins.job.create('example', '<xml></xml>', (err) => {
-  if (err) throw err;
-});
-
-jenkins.job.destroy('example', (err) => {
-  if (err) throw err;
-});
-
-jenkins.job.disable('example', (err) => {
-  if (err) throw err;
-});
-
-jenkins.job.enable('example', (err) => {
-  if (err) throw err;
-});
-
-jenkins.job.exists('example', (err, exists) => {
-  if (err) throw err;
-
-  console.log('exists', exists);
-});
-
-jenkins.job.get('example', (err, data) => {
-  if (err) throw err;
-
-  console.log('job', data);
-});
-
-jenkins.job.list((err, data) => {
-  if (err) throw err;
-
-  console.log('jobs', data);
-});
-
-jenkins.node.config('example', (err, data) => {
-  if (err) throw err;
-
-  console.log('xml', data);
-});
-
-jenkins.node.create('slave', (err) => {
-  if (err) throw err;
-});
-
-jenkins.node.destroy('slave', (err) => {
-  if (err) throw err;
-});
-
-jenkins.node.disconnect('slave', 'no longer used', (err) => {
-  if (err) throw err;
-});
-
-jenkins.node.disable('slave', 'network failure', (err) => {
-  if (err) throw err;
-});
-
-jenkins.node.enable('slave', (err) => {
-  if (err) throw err;
-});
-
-jenkins.node.exists('slave', (err, exists) => {
-  if (err) throw err;
-
-  console.log('exists', exists);
-});
-
-jenkins.node.get('slave', (err, data) => {
-  if (err) throw err;
-
-  console.log('node', data);
-});
-
-jenkins.node.list((err, data) => {
-  if (err) throw err;
-
-  console.log('nodes', data);
-});
-
-jenkins.queue.list((err, data) => {
-  if (err) throw err;
-
-  console.log('queues', data);
-});
-
-jenkins.queue.item(130, (err, data) => {
-  if (err) throw err;
-
-  console.log('item', data);
-});
-
-jenkins.queue.cancel(23, (err) => {
-  if (err) throw err;
-});
-
-jenkins.view.config('example', (err, data) => {
-  if (err) throw err;
-
-  console.log('xml', data);
-});
-
-jenkins.view.config('example', '<xml></xml>', (err) => {
-  if (err) throw err;
-});
-
-jenkins.view.create('example', 'list', (err) => {
-  if (err) throw err;
-});
-
-jenkins.view.destroy('example', (err) => {
-  if (err) throw err;
-});
-
-jenkins.view.exists('example', (err, exists) => {
-  if (err) throw err;
-
-  console.log('exists', exists);
-});
-
-jenkins.view.get('example', (err, data) => {
-  if (err) throw err;
-
-  console.log('view', data);
-});
-
-jenkins.view.list((err, data) => {
-  if (err) throw err;
-
-  console.log('views', data);
-});
-
-jenkins.view.add('example', 'jobExample', (err) => {
-  if (err) throw err;
-});
-
-jenkins.view.remove('example', 'jobExample', (err) => {
-  if (err) throw err;
-});
-
-const jenkins2 = J({ baseUrl: 'http://user:pass@localhost:8080', crumbIssuer: true, promisify: true });
-jenkins2.info().then(info => console.log(info));
-jenkins2.job.exists('example').then(exists => { const b: boolean = exists; });
-jenkins2.job.list().then(jobs => console.log(jobs));
-jenkins2.job.list('parent').then(jobs => console.log(jobs));
+import Jenkins = require("jenkins");
+
+const jenkins = new Jenkins({ baseUrl: "http://user:pass@localhost:8080", crumbIssuer: true });
+
+(async () => {
+    await jenkins
+        .info()
+        .then(info => {
+            console.log(info);
+        })
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.build
+        .get("example", 1)
+        .then(data => console.log(data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.build
+        .log("example", 1)
+        .then(log => console.log(log))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.build
+        .logStream("example", 1)
+        .then(logStream => console.log(logStream))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.build.stop("example", 1).catch(err => {
+        throw err;
+    });
+
+    await jenkins.build.term("example", 1).catch(err => {
+        throw err;
+    });
+
+    await jenkins.job.build("example").catch(err => {
+        if (err) throw err;
+    });
+
+    await jenkins.job.build({ name: "example", parameters: { name: "value" } }).catch(err => {
+        if (err) throw err;
+    });
+
+    await jenkins.job
+        .config("example")
+        .then(data => console.log("job xml config", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.job
+        .config("example", "<xml></xml>")
+        .then(after => console.log(after))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.job.copy("oldJob", "newJob").catch(err => {
+        throw err;
+    });
+
+    await jenkins.job.create("example", "<xml></xml>").catch(err => {
+        throw err;
+    });
+
+    await jenkins.job.destroy("example").catch(err => {
+        throw err;
+    });
+
+    await jenkins.job.disable("example").catch(err => {
+        throw err;
+    });
+
+    await jenkins.job.enable("example").catch(err => {
+        throw err;
+    });
+
+    await jenkins.job
+        .exists("example")
+        .then(exists => console.log("true or false", exists))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.job
+        .get("example")
+        .then(data => console.log("job", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.job
+        .list()
+        .then(data => console.log("jobs", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.node
+        .config("example")
+        .then(data => console.log("xml", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.node.create("slave").catch(err => {
+        throw err;
+    });
+
+    await jenkins.node.destroy("slave").catch(err => {
+        throw err;
+    });
+
+    await jenkins.node.disconnect("slave", "no longer used").catch(err => {
+        throw err;
+    });
+
+    await jenkins.node.disable("slave", "network failure").catch(err => {
+        throw err;
+    });
+
+    await jenkins.node.enable("slave").catch(err => {
+        throw err;
+    });
+
+    await jenkins.node
+        .exists("slave")
+        .then(exists => console.log("true or false", exists))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.node
+        .get("node-name")
+        .then(info => console.log("node", info))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.node
+        .list()
+        .then(data => console.log("nodes", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.queue
+        .list()
+        .then(data => console.log("queues", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.queue
+        .item(130)
+        .then(data => console.log("item", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.queue.cancel(23).catch(err => {
+        throw err;
+    });
+
+    await jenkins.view
+        .config("example")
+        .then(data => console.log("xml", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.view.config("example", "<xml></xml>").catch(err => {
+        throw err;
+    });
+
+    await jenkins.view.create("example", "list").catch(err => {
+        throw err;
+    });
+
+    await jenkins.view.destroy("example").catch(err => {
+        throw err;
+    });
+
+    await jenkins.view
+        .exists("example")
+        .then(exists => console.log("true or false", exists))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.view
+        .get("example")
+        .then(data => console.log("view", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.view
+        .list()
+        .then(data => console.log("views", data))
+        .catch(err => {
+            throw err;
+        });
+
+    await jenkins.view.add("example", "jobExample").catch(err => {
+        throw err;
+    });
+
+    await jenkins.view.remove("example", "jobExample").catch(err => {
+        throw err;
+    });
+})();

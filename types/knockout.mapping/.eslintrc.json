@@ -1,5 +1,7 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/conventional-changelog-core",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-core#readme"
+    ],
+    "dependencies": {
+        "@types/conventional-changelog-writer": "*",
+        "@types/conventional-commits-parser": "*",
+        "@types/conventional-recommended-bump": "*",
+        "@types/git-raw-commits": "*",
+        "@types/node": "*",
+        "@types/normalize-package-data": "*"
+    },
+    "devDependencies": {
+        "@types/conventional-changelog-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        }
+    ]
+}

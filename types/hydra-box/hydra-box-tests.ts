@@ -1,27 +1,27 @@
-import express = require('express');
-import hydraBox = require('hydra-box');
-import ApiImpl = require('hydra-box/Api');
-import { Api } from 'hydra-box/Api';
-import StoreResourceLoader = require('hydra-box/StoreResourceLoader');
-import { Dataset, DatasetCore, NamedNode, Store, Stream } from '@rdfjs/types';
-import { GraphPointer } from 'clownface';
-import DatasetExt from 'rdf-ext/lib/Dataset';
-import { Readable } from 'stream';
-import { Loader } from 'rdf-loaders-registry';
+import express = require("express");
+import hydraBox = require("hydra-box");
+import ApiImpl = require("hydra-box/Api");
+import { Api } from "hydra-box/Api";
+import StoreResourceLoader = require("hydra-box/StoreResourceLoader");
+import { Dataset, DatasetCore, NamedNode, Store, Stream } from "@rdfjs/types";
+import { GraphPointer } from "clownface";
+import DatasetExt from "rdf-ext/lib/Dataset";
+import { Loader } from "rdf-loaders-registry";
+import { Readable } from "stream";
 
-const codePath = '';
-const path = '';
+const codePath = "";
+const path = "";
 const dataset: Dataset = <any> {};
 const graph: NamedNode = <any> {};
 const term: NamedNode = <any> {};
 
 function createApi(): Api<Dataset> {
     // no options
-    let api: Api = ApiImpl.fromFile('foo').fromFile('bar');
-    api = new ApiImpl().fromFile('foo');
+    let api: Api = ApiImpl.fromFile("foo").fromFile("bar");
+    api = new ApiImpl().fromFile("foo");
 
     // with options
-    let withOptions: Api<Dataset> = ApiImpl.fromFile('foo', {
+    let withOptions: Api<Dataset> = ApiImpl.fromFile("foo", {
         codePath,
         dataset,
         graph,
@@ -54,27 +54,33 @@ function appCustomConfig() {
     const store: Store = <any> {};
     const handler: express.RequestHandler = <any> {};
 
-    app.use('empty-options', hydraBox.middleware(api, {}));
+    app.use("empty-options", hydraBox.middleware(api, {}));
 
-    app.use('single-middleware', hydraBox.middleware(api, {
-        baseIriFromRequest: true,
-        loader,
-        store,
-        middleware: {
-            resource: handler,
-            operations: handler
-        }
-    }));
+    app.use(
+        "single-middleware",
+        hydraBox.middleware(api, {
+            baseIriFromRequest: true,
+            loader,
+            store,
+            middleware: {
+                resource: handler,
+                operations: handler,
+            },
+        }),
+    );
 
-    app.use('multi-middleware', hydraBox.middleware(api, {
-        baseIriFromRequest: true,
-        loader,
-        store,
-        middleware: {
-            resource: [handler, handler],
-            operations: [handler, handler]
-        }
-    }));
+    app.use(
+        "multi-middleware",
+        hydraBox.middleware(api, {
+            baseIriFromRequest: true,
+            loader,
+            store,
+            middleware: {
+                resource: [handler, handler],
+                operations: [handler, handler],
+            },
+        }),
+    );
 }
 
 async function testStoreResourceLoader() {

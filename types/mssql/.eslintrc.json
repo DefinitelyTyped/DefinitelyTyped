@@ -1,6 +1,12 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

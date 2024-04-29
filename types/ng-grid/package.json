@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/ng-grid",
+    "version": "0.0.9999",
+    "projects": [
+        "http://angular-ui.github.io/ng-grid/"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/ng-grid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ken Smith",
+            "githubUsername": "smithkl42"
+        },
+        {
+            "name": "Roland Zwaga",
+            "githubUsername": "rolandzwaga"
+        },
+        {
+            "name": "Kent Cooper",
+            "githubUsername": "kentcooper"
+        }
+    ]
+}

@@ -35,5 +35,5 @@ export class TextStyle {
         strokeColor?: number,
     ): TextStyle;
 }
-import { FontStyle } from './styles/FontStyle';
-import { FontWeight } from './styles/FontWeight';
+import { FontStyle } from "./styles/FontStyle";
+import { FontWeight } from "./styles/FontWeight";

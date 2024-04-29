@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "prefer-declare-function": "off",
-        "no-unnecessary-generics": "off"
-    }
-}

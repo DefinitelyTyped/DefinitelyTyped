@@ -4,7 +4,7 @@ DZ.init({
     player: {
         container: "my-widget-div",
         onload: onLoad,
-    }
+    },
 });
 
 function onLoad(state: DeezerSdk.PlayerState) {
@@ -22,22 +22,22 @@ dzAsyncInit = () => print("Deezer SDK has loaded.");
 
 DZ.Event.subscribe(
     "track_end",
-    trackPosition => print("Track end. Position = " + trackPosition)
+    trackPosition => print("Track end. Position = " + trackPosition),
 );
 DZ.Event.subscribe(
     "player_position",
-    ([positionSecondsFloat, _]) => print("Position = " + positionSecondsFloat)
+    ([positionSecondsFloat, _]) => print("Position = " + positionSecondsFloat),
 );
 
 DZ.api(
     "/user/123",
-    response => print("User name = " + response.name)
-    );
+    response => print("User name = " + response.name),
+);
 DZ.api(
     "user/me/playlists",
     "POST",
-    { title : "my title" },
-    response => print("My new playlist ID = " + response.id)
+    { title: "my title" },
+    response => print("My new playlist ID = " + response.id),
 );
 
 function print(a: any) {

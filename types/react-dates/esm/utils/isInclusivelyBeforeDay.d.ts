@@ -1,3 +1,3 @@
-import { isInclusivelyBeforeDay } from '../../index';
+import { isInclusivelyBeforeDay } from "../../index";
 
 export default isInclusivelyBeforeDay;

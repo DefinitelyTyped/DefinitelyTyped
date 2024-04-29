@@ -1,5 +1,6 @@
 {
     "rules": {
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off"
     }
 }

@@ -1,8 +1,3 @@
-// Type definitions for perfy 1.1
-// Project: https://github.com/onury/perfy#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Perfy {
     /**
      * Initializes a new performance instance with the given name;

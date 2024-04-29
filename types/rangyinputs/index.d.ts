@@ -1,15 +1,7 @@
-// Type definitions for Rangy Inputs 1.2.0
-// Project: https://github.com/timdown/rangyinputs
-// Definitions by: Eric Simonton <https://github.com/ersimont>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
 /// <reference types="jquery" />
 
 declare namespace RangyInputs {
     interface Selection {
-
         /** The character index of the start position of the selection */
         start: number;
 
@@ -25,7 +17,6 @@ declare namespace RangyInputs {
 }
 
 interface JQuery {
-
     /** Note that in IE the textarea or text input must have the focus before calling this method. You can ensure this by calling the focus() method of the element (or its jQuery object). */
     getSelection(): RangyInputs.Selection;
 
@@ -56,7 +47,7 @@ interface JQuery {
     insertText(
         text: string,
         pos: number,
-        selectionBehaviour?: 'select' | 'collapseToStart' | 'collapseToEnd'
+        selectionBehaviour?: "select" | "collapseToStart" | "collapseToEnd",
     ): JQuery;
 
     /**
@@ -70,7 +61,7 @@ interface JQuery {
      */
     replaceSelectedText(
         text: string,
-        selectionBehaviour?: 'select' | 'collapseToStart' | 'collapseToEnd'
+        selectionBehaviour?: "select" | "collapseToStart" | "collapseToEnd",
     ): JQuery;
 
     /**
@@ -85,6 +76,6 @@ interface JQuery {
     surroundSelectedText(
         textBefore: string,
         textAfter: string,
-        selectionBehaviour?: 'select' | 'collapseToStart' | 'collapseToEnd'
+        selectionBehaviour?: "select" | "collapseToStart" | "collapseToEnd",
     ): JQuery;
 }

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package nova-editor-node 4.1
-// Project: https://docs.nova.app/api-reference/
-// Definitions by: Cameron Little <https://github.com/apexskier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 /// https://docs.nova.app/extensions/#javascript-runtime
 
 // This runs in an extension of Apple's JavaScriptCore, manually set libs
@@ -14,12 +8,12 @@
 
 /// https://docs.nova.app/api-reference/assistants-registry/
 
-type AssistantsRegistrySelector = string | string[] | { syntax: string } | { syntax: string }[];
+type AssistantsRegistrySelector = string | string[] | { syntax: string } | Array<{ syntax: string }>;
 
 interface AssistantsRegistry {
     registerColorAssistant(
-      selector: AssistantsRegistrySelector,
-      object: ColorAssistant,
+        selector: AssistantsRegistrySelector,
+        object: ColorAssistant,
     ): Disposable;
     registerCompletionAssistant(
         selector: AssistantsRegistrySelector,
@@ -29,16 +23,20 @@ interface AssistantsRegistry {
     registerIssueAssistant(
         selector: AssistantsRegistrySelector,
         object: IssueAssistant,
-        options?: { event: 'onChange' | 'onSave' },
+        options?: { event: "onChange" | "onSave" },
     ): Disposable;
-    registerTaskAssistant(object: TaskAssistant, options?: { identifer: string; name: string }): Disposable;
+    registerTaskAssistant(object: TaskAssistant, options?: { identifier: string; name: string }): Disposable;
 }
 
-type AssistantArray<T> = ReadonlyArray<T> | Promise<ReadonlyArray<T>>;
+type AssistantArray<T> = readonly T[] | Promise<readonly T[]>;
 
 interface ColorAssistant {
     provideColors(editor: TextEditor, context: ColorInformationContext): AssistantArray<ColorInformation>;
-    provideColorPresentations(color: Color, editor: TextEditor, context: ColorPresentationContext): AssistantArray<ColorPresentation>;
+    provideColorPresentations(
+        color: Color,
+        editor: TextEditor,
+        context: ColorPresentationContext,
+    ): AssistantArray<ColorPresentation>;
 }
 
 interface CompletionAssistant {
@@ -73,8 +71,8 @@ declare class Charset {
     static whitespace: Charset;
     static whitespaceAndNewlines: Charset;
 
-    concat(...charsets: Array<Charset>): Charset;
-    intersect(...charsets: Array<Charset>): Charset;
+    concat(...charsets: Charset[]): Charset;
+    intersect(...charsets: Charset[]): Charset;
 }
 
 /// https://docs.nova.app/api-reference/clipboard/
@@ -87,10 +85,10 @@ declare interface Clipboard {
 /// https://docs.nova.app/api-reference/color/
 
 declare enum ColorFormat {
-    rgb = 'rgb',
-    hsl = 'hsl',
-    hsb = 'hsb',
-    displayP3 = 'p3',
+    rgb = "rgb",
+    hsl = "hsl",
+    hsb = "hsb",
+    displayP3 = "p3",
 }
 
 declare class Color {
@@ -111,7 +109,7 @@ declare class Color {
 
 type Transferrable =
     | Transferrable[]
-    | ReadonlyArray<Transferrable>
+    | readonly Transferrable[]
     | Date
     | null
     | number
@@ -131,45 +129,45 @@ interface CommandsRegistry {
 /// https://docs.nova.app/api-reference/color-information-context/
 
 interface ColorInformationContext {
-  readonly candidates: ColorCandidate[];
+    readonly candidates: ColorCandidate[];
 }
 
 /// https://docs.nova.app/api-reference/color-candidate/
 
 interface ColorCandidate {
-  range: Range;
-  text: string;
+    range: Range;
+    text: string;
 }
 
 /// https://docs.nova.app/api-reference/color-information/
 
 declare class ColorInformation {
-  constructor(range: Range, color: Color, kind?: string);
+    constructor(range: Range, color: Color, kind?: string);
 
-  color: Color;
-  kind?: string;
-  range: Range;
-  usesFloats?: boolean;
-  format?: ColorFormat;
+    color: Color;
+    kind?: string;
+    range: Range;
+    usesFloats?: boolean;
+    format?: ColorFormat;
 }
 
 /// https://docs.nova.app/api-reference/color-presentation-context/
 
 interface ColorPresentationContext {
-  readonly range: Range;
+    readonly range: Range;
 }
 
 /// https://docs.nova.app/api-reference/color-presentation/
 
 declare class ColorPresentation {
-  constructor(label: string, kind?: string)
+    constructor(label: string, kind?: string);
 
-  additionalTextEdits: TextEdit[];
-  format?: ColorFormat;
-  insertText?: string;
-  kind: string;
-  label: string;
-  usesFloats?: boolean;
+    additionalTextEdits: TextEdit[];
+    format?: ColorFormat;
+    insertText?: string;
+    kind: string;
+    label: string;
+    usesFloats?: boolean;
 }
 
 /// https://docs.nova.app/api-reference/completion-context/
@@ -296,10 +294,10 @@ interface Configuration {
     onDidChange<T>(key: string, callback: (newValue: T, oldValue: T) => void): Disposable;
     observe<T, K>(key: string, callback: (this: K, newValue: T, oldValue: T) => void, thisValue?: K): Disposable;
     get(key: string): ConfigurationValue | null;
-    get(key: string, coerce: 'string'): string | null;
-    get(key: string, coerce: 'number'): number | null;
-    get(key: string, coerce: 'array'): string[] | null;
-    get(key: string, coerce: 'boolean'): boolean | null;
+    get(key: string, coerce: "string"): string | null;
+    get(key: string, coerce: "number"): number | null;
+    get(key: string, coerce: "array"): string[] | null;
+    get(key: string, coerce: "boolean"): boolean | null;
     set(key: string, value?: ConfigurationValue | null): void;
     remove(key: string): void;
 }
@@ -435,19 +433,19 @@ interface FileStats {
 
 /// https://docs.nova.app/api-reference/file-system/
 
-type FileSystemBitField = number & { __t: 'FileSystemBitField' };
+type FileSystemBitField = number & { __t: "FileSystemBitField" };
 
 type Encoding =
-    | 'utf8'
-    | 'utf-8'
-    | 'ascii'
-    | 'utf16le'
-    | 'utf-16le'
-    | 'utf16be'
-    | 'utf-16be'
-    | 'latin1'
-    | 'hex'
-    | 'base64';
+    | "utf8"
+    | "utf-8"
+    | "ascii"
+    | "utf16le"
+    | "utf-16le"
+    | "utf16be"
+    | "utf-16be"
+    | "latin1"
+    | "hex"
+    | "base64";
 
 declare class FileSystem {
     private constructor();
@@ -527,7 +525,7 @@ declare class IssueCollection {
     dispose(): void;
     clear(): void;
     has(uri: string): boolean;
-    get(uri: string): ReadonlyArray<Issue>;
+    get(uri: string): readonly Issue[];
     set(uri: string, issues: Issue[]): void;
     remove(uri: string): void;
 }
@@ -535,9 +533,9 @@ declare class IssueCollection {
 /// https://docs.nova.app/api-reference/issue-parser/
 
 declare class IssueParser {
-    constructor(matcherNames?: string | Array<string>);
+    constructor(matcherNames?: string | string[]);
 
-    readonly issues: ReadonlyArray<Issue>;
+    readonly issues: readonly Issue[];
 
     pushLine(line: string): void;
     clear(): void;
@@ -567,10 +565,10 @@ declare class LanguageClient {
 }
 
 interface ServerOptions {
-  type?: 'stdio' | 'socket' | 'pipe';
-  path: string;
-  args?: string[];
-  env?: { [key: string]: string };
+    type?: "stdio" | "socket" | "pipe";
+    path: string;
+    args?: string[];
+    env?: { [key: string]: string };
 }
 
 /// https://docs.nova.app/api-reference/notification-center/
@@ -588,7 +586,7 @@ declare class NotificationRequest {
     readonly identifier: string;
     title?: string;
     body?: string;
-    type?: 'input' | 'secure-input';
+    type?: "input" | "secure-input";
     textInputValue?: string;
     textInputPlaceholder?: string;
     actions?: string[];
@@ -630,7 +628,7 @@ declare class Process {
             args?: string[];
             env?: { [key: string]: string };
             cwd?: string;
-            stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
+            stdio?: ["pipe" | "ignore", "pipe" | "ignore", "pipe" | "ignore"] | "pipe" | "ignore" | "jsonrpc" | number;
             shell?: true | string;
         },
     );
@@ -644,7 +642,7 @@ declare class Process {
         ReadableStream | null,
         ReadableStream | null,
     ];
-    readonly stdin:  WritableStream | null;
+    readonly stdin: WritableStream | null;
     readonly stdout: ReadableStream | null;
     readonly stderr: ReadableStream | null;
 
@@ -717,74 +715,69 @@ declare class Scanner {
 
 type NovaSymbolType =
     // Types
-    | 'type'
-    | 'class'
-    | 'category'
-    | 'interface'
-    | 'enum'
-    | 'union'
-    | 'struct'
-
+    | "type"
+    | "class"
+    | "category"
+    | "interface"
+    | "enum"
+    | "union"
+    | "struct"
     // Callables
-    | 'function'
-    | 'method'
-    | 'closure'
-    | 'constructor'
-    | 'getter'
-    | 'setter'
-    | 'destructor'
-
+    | "function"
+    | "method"
+    | "closure"
+    | "constructor"
+    | "getter"
+    | "setter"
+    | "destructor"
     // Values
-    | 'constant'
-    | 'variable'
-    | 'property'
-    | 'argument'
-    | 'color'
-    | 'enum-member'
-
+    | "constant"
+    | "variable"
+    | "property"
+    | "argument"
+    | "color"
+    | "enum-member"
     // Expressions
-    | 'expression'
-    | 'statement'
-    | 'block'
-    | 'heading'
-    | 'comment'
-    | 'package'
-    | 'file'
-    | 'reference'
-    | 'keyword'
-    | 'bookmark'
-    | 'separator'
-    | 'todo'
-
+    | "expression"
+    | "statement"
+    | "block"
+    | "heading"
+    | "comment"
+    | "package"
+    | "file"
+    | "reference"
+    | "keyword"
+    | "bookmark"
+    | "separator"
+    | "todo"
     // Stylesets
-    | 'style-ruleset'
-    | 'style-directive'
-    | 'style-id'
-    | 'style-class'
-    | 'style-pseudoclass'
-    | 'style-pseudoelement'
-
+    | "style-ruleset"
+    | "style-directive"
+    | "style-id"
+    | "style-class"
+    | "style-pseudoclass"
+    | "style-pseudoelement"
     // Tags
-    | 'tag'
-    | 'tag-head'
-    | 'tag-title'
-    | 'tag-meta'
-    | 'tag-link'
-    | 'tag-body'
-    | 'tag-script'
-    | 'tag-style'
-    | 'tag-heading'
-    | 'tag-section'
-    | 'tag-container'
-    | 'tag-ul'
-    | 'tag-ol'
-    | 'tag-li'
-    | 'tag-anchor'
-    | 'tag-image'
-    | 'tag-media'
-    | 'tag-form'
-    | 'tag-form-field'
-    | 'tag-framework';
+    | "tag"
+    | "tag-head"
+    | "tag-title"
+    | "tag-meta"
+    | "tag-link"
+    | "tag-body"
+    | "tag-script"
+    | "tag-style"
+    | "tag-heading"
+    | "tag-section"
+    | "tag-container"
+    | "tag-ul"
+    | "tag-ol"
+    | "tag-li"
+    | "tag-anchor"
+    | "tag-image"
+    | "tag-media"
+    | "tag-form"
+    | "tag-form-field"
+    | "tag-framework";
 
 // name change to avoid conflict with base ecmascript Symbol
 
@@ -800,7 +793,7 @@ interface NovaSymbol {
 
 /// https://docs.nova.app/api-reference/task/
 
-declare type TaskName = string & { __type: 'TaskName' };
+declare type TaskName = string & { __type: "TaskName" };
 
 declare class Task {
     static readonly Build: TaskName;
@@ -822,6 +815,7 @@ declare class Task {
 
 interface TaskActionResolveContext<T extends Transferrable> {
     action: TaskName;
+    config: Configuration;
     readonly data?: T;
 }
 
@@ -843,8 +837,9 @@ declare class TaskProcessAction {
             args?: string[];
             env?: { [key: string]: string };
             cwd?: string;
-            stdio?: ['pipe' | 'ignore', 'pipe' | 'ignore', 'pipe' | 'ignore'] | 'pipe' | 'ignore' | 'jsonrpc' | number;
-            matchers?: ReadonlyArray<string>;
+            stdio?: ["pipe" | "ignore", "pipe" | "ignore", "pipe" | "ignore"] | "pipe" | "ignore" | "jsonrpc" | number;
+            matchers?: readonly string[];
+            shell?: boolean | string;
         },
     );
 }
@@ -997,19 +992,19 @@ declare class TreeView<E> extends Disposable {
 // The line is optional, unless a column is specified
 declare type FileLocation =
     | {
-          line?: number;
-          column?: never;
-      }
+        line?: number;
+        column?: never;
+    }
     | {
-          line: number;
-          column?: number;
-      };
+        line: number;
+        column?: number;
+    };
 
 interface Workspace {
     readonly path: string | null;
     readonly config: Configuration;
-    readonly textDocuments: ReadonlyArray<TextDocument>;
-    readonly textEditors: ReadonlyArray<TextEditor>;
+    readonly textDocuments: readonly TextDocument[];
+    readonly textEditors: readonly TextEditor[];
     readonly activeTextEditor: TextEditor | null | undefined;
 
     onDidAddTextEditor(callback: (editor: TextEditor) => void): Disposable;

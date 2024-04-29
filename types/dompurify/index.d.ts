@@ -1,12 +1,3 @@
-// Type definitions for DOM Purify 3.0
-// Project: https://github.com/cure53/DOMPurify
-// Definitions by: Dave Taylor https://github.com/davetayls
-//                 Samira Bazuzi <https://github.com/bazuzi>
-//                 FlowCrypt <https://github.com/FlowCrypt>
-//                 Exigerr <https://github.com/Exigerr>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Nicholas Ellul <https://github.com/NicholasEllul>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="trusted-types"/>
 
 export as namespace DOMPurify;
@@ -14,8 +5,20 @@ export = DOMPurify;
 
 declare const DOMPurify: createDOMPurifyI;
 
+type WindowLike = Pick<
+    typeof globalThis,
+    | "NodeFilter"
+    | "Node"
+    | "Element"
+    | "HTMLTemplateElement"
+    | "DocumentFragment"
+    | "HTMLFormElement"
+    | "DOMParser"
+    | "NamedNodeMap"
+>;
+
 interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
-    (window?: Window): DOMPurify.DOMPurifyI;
+    (window?: Window | WindowLike): DOMPurify.DOMPurifyI;
 }
 
 declare namespace DOMPurify {
@@ -31,11 +34,11 @@ declare namespace DOMPurify {
         sanitize(source: string | Node, config: Config): string | HTMLElement | DocumentFragment;
 
         addHook(
-            hook: 'uponSanitizeElement',
+            hook: "uponSanitizeElement",
             cb: (currentNode: Element, data: SanitizeElementHookEvent, config: Config) => void,
         ): void;
         addHook(
-            hook: 'uponSanitizeAttribute',
+            hook: "uponSanitizeAttribute",
             cb: (currentNode: Element, data: SanitizeAttributeHookEvent, config: Config) => void,
         ): void;
         addHook(hook: HookName, cb: (currentNode: Element, data: HookEvent, config: Config) => void): void;
@@ -93,11 +96,11 @@ declare namespace DOMPurify {
         USE_PROFILES?:
             | false
             | {
-                  mathMl?: boolean | undefined;
-                  svg?: boolean | undefined;
-                  svgFilters?: boolean | undefined;
-                  html?: boolean | undefined;
-              }
+                mathMl?: boolean | undefined;
+                svg?: boolean | undefined;
+                svgFilters?: boolean | undefined;
+                html?: boolean | undefined;
+            }
             | undefined;
         WHOLE_DOCUMENT?: boolean | undefined;
         CUSTOM_ELEMENT_HANDLING?: {
@@ -108,15 +111,15 @@ declare namespace DOMPurify {
     }
 
     type HookName =
-        | 'beforeSanitizeElements'
-        | 'uponSanitizeElement'
-        | 'afterSanitizeElements'
-        | 'beforeSanitizeAttributes'
-        | 'uponSanitizeAttribute'
-        | 'afterSanitizeAttributes'
-        | 'beforeSanitizeShadowDOM'
-        | 'uponSanitizeShadowNode'
-        | 'afterSanitizeShadowDOM';
+        | "beforeSanitizeElements"
+        | "uponSanitizeElement"
+        | "afterSanitizeElements"
+        | "beforeSanitizeAttributes"
+        | "uponSanitizeAttribute"
+        | "afterSanitizeAttributes"
+        | "beforeSanitizeShadowDOM"
+        | "uponSanitizeShadowNode"
+        | "afterSanitizeShadowDOM";
 
     type HookEvent = SanitizeElementHookEvent | SanitizeAttributeHookEvent | null;
 

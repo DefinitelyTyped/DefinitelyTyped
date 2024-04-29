@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hex-rgba",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/developersoul/hex-rgba#readme"
+    ],
+    "devDependencies": {
+        "@types/hex-rgba": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Makarov",
+            "githubUsername": "r3nya"
+        }
+    ]
+}

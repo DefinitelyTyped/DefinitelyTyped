@@ -1,27 +1,21 @@
-// Type definitions for parcel-bundler 1.12
-// Project: https://github.com/parcel-bundler/parcel#readme
-// Definitions by: pinage404 <https://github.com/pinage404>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as http from 'http';
-import * as https from 'https';
 import * as express from "express-serve-static-core";
+import * as http from "http";
+import * as https from "https";
 
 declare namespace ParcelBundler {
     interface HttpsOptions {
-      /**
-       * Path to custom certificate
-       *
-       * @default "./ssl/c.crt"
-       */
-      cert?: string | undefined;
-      /**
-       * Path to custom key
-       *
-       * @default "./ssl/k.key"
-       */
-      key?: string | undefined;
+        /**
+         * Path to custom certificate
+         *
+         * @default "./ssl/c.crt"
+         */
+        cert?: string | undefined;
+        /**
+         * Path to custom key
+         *
+         * @default "./ssl/k.key"
+         */
+        key?: string | undefined;
     }
 
     interface ParcelOptions {
@@ -91,7 +85,8 @@ declare namespace ParcelBundler {
         https?:
             | true
             | false
-            | HttpsOptions | undefined;
+            | HttpsOptions
+            | undefined;
         /**
          * 3 = log everything, 2 = log warnings & errors, 1 = log errors
          *
@@ -204,7 +199,7 @@ declare namespace ParcelBundler {
 declare class ParcelBundler {
     constructor(
         entryFiles?: string | string[],
-        options?: ParcelBundler.ParcelOptions
+        options?: ParcelBundler.ParcelOptions,
     );
 
     addAssetType(extension: string, path: string): void;
@@ -215,14 +210,18 @@ declare class ParcelBundler {
 
     middleware(): (req: express.Request, res: express.Response, next: express.NextFunction) => any;
 
-    serve(port?: number, https?: true | false | ParcelBundler.HttpsOptions, host?: string): Promise<http.Server | https.Server>;
+    serve(
+        port?: number,
+        https?: true | false | ParcelBundler.HttpsOptions,
+        host?: string,
+    ): Promise<http.Server | https.Server>;
 
-    on(name: 'buildEnd', cb: () => void): void;
-    on(name: 'bundled', cb: (bundle: ParcelBundler.ParcelBundle) => void): void;
-    on(name: 'buildStart', cb: (entryPoints: string[]) => void): void;
-    on(name: 'buildError', cb: (error: Error) => void): void;
+    on(name: "buildEnd", cb: () => void): void;
+    on(name: "bundled", cb: (bundle: ParcelBundler.ParcelBundle) => void): void;
+    on(name: "buildStart", cb: (entryPoints: string[]) => void): void;
+    on(name: "buildError", cb: (error: Error) => void): void;
 
-    off(name: 'buildEnd'| 'bundled'| 'buildStart'| 'buildError', cb: (...any: any[]) => void): void;
+    off(name: "buildEnd" | "bundled" | "buildStart" | "buildError", cb: (...any: any[]) => void): void;
 }
 
 export = ParcelBundler;

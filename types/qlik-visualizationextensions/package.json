@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/qlik-visualizationextensions",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "qlik-visualizationextensions",
+    "projects": [
+        "http://help.qlik.com/en-US/sense-developer/June2017/Subsystems/Extensions/Content/extensions-introduction.htm"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/qlik-visualizationextensions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konrad Mattheis",
+            "githubUsername": "konne"
+        }
+    ]
+}

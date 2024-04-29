@@ -21,6 +21,7 @@ import {
     ObjectElement,
     OptionElement,
     OutputElement,
+    parseHTML,
     ProgressElement,
     ScriptElement,
     SelectElement,
@@ -33,12 +34,11 @@ import {
     TableSectionElement,
     TextAreaElement,
     TitleElement,
-    parseHTML,
-} from 'k6/html';
+} from "k6/html";
 
 const handler = (index: number, element: Element) => {};
 const tester = (index: number, element: Element) => true;
-const mapper = (index: number, element: Element) => null;
+const mapper = (index: number, selection: Selection) => null;
 
 let selection: Selection;
 let derived: Selection;
@@ -61,43 +61,43 @@ let cells: TableCellElement[];
 parseHTML();
 // @ts-expect-error
 parseHTML(5);
-selection = parseHTML('<html></html>');
+selection = parseHTML("<html></html>");
 // @ts-expect-error
-parseHTML('<html></html>', 5);
+parseHTML("<html></html>", 5);
 
 // Selection
-selection = parseHTML('<html></html>');
-selection.attr('name'); // $ExpectType string | undefined
-derived = selection.children('.item');
-derived = selection.closest('li');
+selection = parseHTML("<html></html>");
+selection.attr("name"); // $ExpectType string | undefined
+derived = selection.children(".item");
+derived = selection.closest("li");
 derived = selection.contents();
-selection.data('email'); // $ExpectType string | undefined
+selection.data("email"); // $ExpectType string | undefined
 selection.each(handler); // $ExpectType void
 derived = selection.eq(7);
-derived = selection.filter('.item');
+derived = selection.filter(".item");
 derived = selection.filter(tester);
 derived = selection.filter(selection);
-derived = selection.find('.item');
+derived = selection.find(".item");
 derived = selection.first();
 element = selection.get(7);
-derived = selection.has('.item');
+derived = selection.has(".item");
 selection.html(); // $ExpectType string | undefined
-selection.is('.item'); // $ExpectType boolean
+selection.is(".item"); // $ExpectType boolean
 selection.is(tester); // $ExpectType boolean
 selection.is(selection); // $ExpectType boolean
 derived = selection.last();
 selection.map(mapper); // $ExpectType unknown[]
-derived = selection.next('span');
-derived = selection.nextAll('span');
-derived = selection.nextUntil('span');
-derived = selection.not('.item');
+derived = selection.next("span");
+derived = selection.nextAll("span");
+derived = selection.nextUntil("span");
+derived = selection.not(".item");
 derived = selection.not(tester);
-derived = selection.parent('.item');
-derived = selection.parents('.item');
-derived = selection.parentsUntil('.item');
-derived = selection.prev('.item');
-derived = selection.prevAll('.item');
-derived = selection.prevUntil('.item');
+derived = selection.parent(".item");
+derived = selection.parents(".item");
+derived = selection.parentsUntil(".item");
+derived = selection.prev(".item");
+derived = selection.prevAll(".item");
+derived = selection.prevUntil(".item");
 selection.serialize(); // $ExpectType string
 formValues = selection.serializeArray();
 selection.serializeObject(); // $ExpectType { [name: string]: string; }
@@ -130,11 +130,11 @@ element.className(); // $ExpectType string | undefined
 element.contains(element); // $ExpectType boolean
 possibleElement = element.firstChild();
 possibleElement = element.firstElementChild();
-element.getAttribute('name'); // $ExpectType string | undefined
-possibleAttribute = element.getAttributeNode('name');
-elements = element.getElementsByClassName('item');
-elements = element.getElementsByTagName('li');
-element.hasAttribute('name'); // $ExpectType boolean
+element.getAttribute("name"); // $ExpectType string | undefined
+possibleAttribute = element.getAttributeNode("name");
+elements = element.getElementsByClassName("item");
+elements = element.getElementsByTagName("li");
+element.hasAttribute("name"); // $ExpectType boolean
 element.hasAttributes(); // $ExpectType boolean
 element.hasChildNodes(); // $ExpectType boolean
 element.id(); // $ExpectType string
@@ -144,7 +144,7 @@ element.isEqualNode(element); // $ExpectType boolean
 element.isSameNode(element); // $ExpectType boolean
 element.lang(); // $ExpectType string | undefined
 possibleElement = element.lastChild();
-element.matches('.item'); // $ExepctType boolean
+element.matches(".item"); // $ExepctType boolean
 element.namespaceURI(); // $ExpectType string
 possibleElement = element.nextElementSibling();
 possibleElement = element.nextSibling();
@@ -156,8 +156,8 @@ possibleElement = element.parentElement();
 possibleElement = element.parentNode();
 possibleElement = element.previousElementSibling();
 possibleElement = element.previousSibling();
-possibleElement = element.querySelector('.item');
-elements = element.querySelectorAll('.item');
+possibleElement = element.querySelector(".item");
+elements = element.querySelectorAll(".item");
 element.textContent(); // $ExpectType string
 element.toString(); // $ExpectType string
 

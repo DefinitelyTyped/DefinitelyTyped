@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-json-transform",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bozzltron/node-json-transform"
+    ],
+    "devDependencies": {
+        "@types/node-json-transform": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yash Maheshwari",
+            "githubUsername": "ymaheshwari1"
+        }
+    ]
+}

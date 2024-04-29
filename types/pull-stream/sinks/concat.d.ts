@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 /**
  * Concat stream of strings into single string, then call `cb`.

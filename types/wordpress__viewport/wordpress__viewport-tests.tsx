@@ -1,5 +1,5 @@
-import { dispatch, select } from '@wordpress/data';
-import * as viewport from '@wordpress/viewport';
+import { dispatch, select } from "@wordpress/data";
+import * as viewport from "@wordpress/viewport";
 
 //
 // if-viewport-matches
@@ -9,7 +9,7 @@ import * as viewport from '@wordpress/viewport';
         foo: string;
     }
     const Original = ({ foo }: Props) => <div>{foo}</div>;
-    const Enhanced = viewport.ifViewportMatches('< small')(Original);
+    const Enhanced = viewport.ifViewportMatches("< small")(Original);
 
     <Enhanced foo="bar" />;
 })();
@@ -28,7 +28,7 @@ import * as viewport from '@wordpress/viewport';
             {isMobile && <span>On mobile</span>}
         </div>
     );
-    const Enhanced = viewport.withViewportMatch({ isMobile: '< small' })(Original);
+    const Enhanced = viewport.withViewportMatch({ isMobile: "< small" })(Original);
 
     <Enhanced foo="bar" />;
 })();
@@ -38,7 +38,13 @@ import * as viewport from '@wordpress/viewport';
 //
 
 // $ExpectType void
-dispatch('core/viewport').setIsMatching({ '< small': false });
+dispatch("core/viewport").setIsMatching({ "< small": false });
 
 // $ExpectType boolean
-select('core/viewport').isViewportMatch('< small');
+select("core/viewport").isViewportMatch("< small");
+
+// $ExpectType ViewportStoreDescriptor
+viewport.store;
+
+// $ExpectType "core/viewport"
+viewport.store.name;

@@ -5,8 +5,7 @@ const encodeText = "jõgeva";
 const encoded = libqp.encode(encodeText);
 console.log(libqp.encode(encodeText));
 
-const decodeText =
-`This string contains quoted printables for the various ranges of utf-8.
+const decodeText = `This string contains quoted printables for the various ranges of utf-8.
 =31=32=33=34
 two byte /=[CDcd][0-9A-Fa-f]/=c2=a9
 three byte /=[Ee][0-9A-Fa-f]/=e1=99=ad
@@ -31,7 +30,7 @@ const writable = new Writable({
     write(chunk, _encoding, callback) {
         console.log(chunk.toString());
         callback();
-    }
+    },
 });
 
 readable.pipe(encoder);

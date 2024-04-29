@@ -1,7 +1,7 @@
-import createAutocomplete = require('synchronous-autocomplete');
-import buildIndex = require('synchronous-autocomplete/build');
-import encode = require('synchronous-autocomplete/encode');
-import decode = require('synchronous-autocomplete/decode');
+import createAutocomplete = require("synchronous-autocomplete");
+import buildIndex = require("synchronous-autocomplete/build");
+import encode = require("synchronous-autocomplete/encode");
+import decode = require("synchronous-autocomplete/decode");
 
 // test type exports
 type Tokens = createAutocomplete.Tokens;
@@ -17,16 +17,16 @@ type Item = buildIndex.Item<string>;
 
 const items = [
     {
-        id: 'apple',
-        name: 'Juicy sour Apple.',
+        id: "apple",
+        name: "Juicy sour Apple.",
         weight: 3,
-        foo: 'bar',
+        foo: "bar",
     },
     {
-        id: 'banana',
-        name: 'Sweet juicy Banana!',
+        id: "banana",
+        name: "Sweet juicy Banana!",
         weight: 2,
-        baz: 'quux',
+        baz: "quux",
     },
 ] as const;
 
@@ -68,7 +68,7 @@ const scores = {
     banana: 1 / 3,
     pomegranate: 1 / 3,
 };
-const originalIds = ['apple', 'banana', 'pome'] as const;
+const originalIds = ["apple", "banana", "pome"] as const;
 
 // $ExpectType AutocompleteFn<"apple" | "banana" | "pome">
 const autocomplete2 = createAutocomplete(tokens, scores, weights, nrOfTokens, originalIds, str => {
@@ -76,18 +76,18 @@ const autocomplete2 = createAutocomplete(tokens, scores, weights, nrOfTokens, or
     return str.split(/\s+/g);
 });
 
-const results = autocomplete('ban'); // $ExpectType AutocompleteResult<"apple" | "banana">[]
-autocomplete('ban', 10); // $ExpectType AutocompleteResult<"apple" | "banana">[]
-autocomplete('ban', 10, true); // $ExpectType AutocompleteResult<"apple" | "banana">[]
-autocomplete('ban', 10, true, false); // $ExpectType AutocompleteResult<"apple" | "banana">[]
-const results2 = autocomplete2('ban'); // $ExpectType AutocompleteResult<"apple" | "banana" | "pome">[]
-autocomplete2('ban', 10); // $ExpectType AutocompleteResult<"apple" | "banana" | "pome">[]
-autocomplete2('ban', 10, true); // $ExpectType AutocompleteResult<"apple" | "banana" | "pome">[]
-autocomplete2('ban', 10, true, false); // $ExpectType AutocompleteResult<"apple" | "banana" | "pome">[]
+const results = autocomplete("ban"); // $ExpectType AutocompleteResult<"apple" | "banana">[]
+autocomplete("ban", 10); // $ExpectType AutocompleteResult<"apple" | "banana">[]
+autocomplete("ban", 10, true); // $ExpectType AutocompleteResult<"apple" | "banana">[]
+autocomplete("ban", 10, true, false); // $ExpectType AutocompleteResult<"apple" | "banana">[]
+const results2 = autocomplete2("ban"); // $ExpectType AutocompleteResult<"apple" | "banana" | "pome">[]
+autocomplete2("ban", 10); // $ExpectType AutocompleteResult<"apple" | "banana" | "pome">[]
+autocomplete2("ban", 10, true); // $ExpectType AutocompleteResult<"apple" | "banana" | "pome">[]
+autocomplete2("ban", 10, true, false); // $ExpectType AutocompleteResult<"apple" | "banana" | "pome">[]
 
-autocomplete.byFragment('ban'); // $ExpectType number[]
-autocomplete.byFragment('ban', true); // $ExpectType number[]
-autocomplete.byFragment('ban', true, true); // $ExpectType number[]
+autocomplete.byFragment("ban"); // $ExpectType number[]
+autocomplete.byFragment("ban", true); // $ExpectType number[]
+autocomplete.byFragment("ban", true, true); // $ExpectType number[]
 
 autocomplete.internalId; // $ExpectType typeof internalId
 

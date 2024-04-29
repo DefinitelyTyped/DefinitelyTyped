@@ -1,8 +1,3 @@
-// Type definitions for ewma 2.0
-// Project: https://github.com/ReactiveSocket/ewma#readme
-// Definitions by: LeoDog896 <https://github.com/LeoDog896>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ClockLike {
     now: () => number;
 }
@@ -14,7 +9,7 @@ interface EwmaClass {
 }
 
 interface EwmaInstance {
-    new (halfLifeMs: number, initialValue: number, clock?: ClockLike): EwmaClass;
+    new(halfLifeMs: number, initialValue: number, clock?: ClockLike): EwmaClass;
     (halfLifeMs: number, initialValue: number, clock?: ClockLike): EwmaClass;
 }
 

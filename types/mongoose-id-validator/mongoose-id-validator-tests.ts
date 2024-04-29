@@ -1,5 +1,5 @@
-import * as mongoose from 'mongoose';
-import mongooseIdValidator = require('mongoose-id-validator');
+import * as mongoose from "mongoose";
+import mongooseIdValidator = require("mongoose-id-validator");
 
 const TestSchema = new mongoose.Schema({
     title: String,

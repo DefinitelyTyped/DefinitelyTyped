@@ -1,13 +1,5 @@
-// Type definitions for @babel/template 7.4
-// Project: https://github.com/babel/babel/tree/master/packages/babel-template, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ParserOptions } from '@babel/parser';
-import { Expression, Program, Statement } from '@babel/types';
+import { ParserOptions } from "@babel/parser";
+import { Expression, Program, Statement } from "@babel/types";
 
 export interface TemplateBuilderOptions extends ParserOptions {
     /**

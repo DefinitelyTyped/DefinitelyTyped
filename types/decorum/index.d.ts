@@ -1,8 +1,3 @@
-// Type definitions for Decorum JS v0.2.0
-// Project: https://github.com/dflor003/decorum
-// Definitions by: Danil Flores <https://github.com/dflor003>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = decorum;
 export as namespace decorum;
 
@@ -15,7 +10,10 @@ declare namespace decorum {
      *     value, the field will be considered invalid and will return the passed error message upon validation.
      * @returns {function(Object, string): void} A field validation decorator.
      */
-    export function Validation<TModel>(message: string | MessageHandler<CustomValidator<TModel>>, predicate: (value: any, model: TModel) => boolean): PropertyDecorator;
+    export function Validation<TModel>(
+        message: string | MessageHandler<CustomValidator<TModel>>,
+        predicate: (value: any, model: TModel) => boolean,
+    ): PropertyDecorator;
 
     /**
      * Validate's that the field is a valid email address. The format used is the same as the webkit browser's internal
@@ -46,7 +44,10 @@ declare namespace decorum {
      * @param message [Optional] Overrides the default validation error message.
      * @returns {function(Object, string): void} A field validation decorator.
      */
-    export function MaxLength(maxLength: number, message?: string | MessageHandler<MaxLengthValidator>): PropertyDecorator;
+    export function MaxLength(
+        maxLength: number,
+        message?: string | MessageHandler<MaxLengthValidator>,
+    ): PropertyDecorator;
 
     /**
      * Validates the field's minimum length.
@@ -54,7 +55,10 @@ declare namespace decorum {
      * @param message [Optional] Overrides the default validation error message.
      * @returns {function(Object, string): void} A field validation decorator.
      */
-    export function MinLength(minLength: number, message?: string | MessageHandler<MinLengthValidator>): PropertyDecorator;
+    export function MinLength(
+        minLength: number,
+        message?: string | MessageHandler<MinLengthValidator>,
+    ): PropertyDecorator;
 
     /**
      * Validates the field against a regular expression pattern.
@@ -241,7 +245,6 @@ declare namespace decorum {
 
     /**
      * Mechanism for overriding validation errors to provide for custom or localized error messages.
-     * @type {{IMessageHandlerMap}}
      */
     export let MessageHandlers: IMessageHandlerMap;
 
@@ -249,7 +252,10 @@ declare namespace decorum {
      * Custom validation class.
      */
     export class CustomValidator<TModel> extends BaseValidator {
-        constructor(predicate: (value: any, model: TModel) => boolean, message: string | MessageHandler<CustomValidator<TModel>>);
+        constructor(
+            predicate: (value: any, model: TModel) => boolean,
+            message: string | MessageHandler<CustomValidator<TModel>>,
+        );
 
         getMessage(opts: IMessageOpts): string;
 

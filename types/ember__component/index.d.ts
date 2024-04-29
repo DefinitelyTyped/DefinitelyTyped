@@ -1,20 +1,14 @@
-// Type definitions for non-npm package @ember/component 4.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fcomponent
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
-import CoreView from '@ember/component/-private/core-view';
-import ClassNamesSupport from '@ember/component/-private/class-names-support';
-import ViewMixin from '@ember/component/-private/view-mixin';
-import { ComponentManager, Capabilities } from './-private/glimmer-interfaces';
-import { Opaque } from 'ember/-private/type-utils';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import CoreView from "@ember/component/-private/core-view";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import ClassNamesSupport from "@ember/component/-private/class-names-support";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import ViewMixin from "@ember/component/-private/view-mixin";
+import { Opaque } from "ember/-private/type-utils";
+import { Capabilities, ComponentManager } from "./-private/glimmer-interfaces";
 
 // Re-export these types so people can use them!
-export { ComponentManager, Capabilities };
+export { Capabilities, ComponentManager };
 
 interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
@@ -25,7 +19,7 @@ interface TemplateFactory {
 // information supplied via this generic. While it may appear useless on this
 // class definition and extension, it is used by external tools and should not
 // be removed.
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export default interface Component<S = unknown> extends ViewMixin, ClassNamesSupport, Opaque<S> {}
 export default class Component<S = unknown> extends CoreView {
     // methods
@@ -119,14 +113,16 @@ export function setComponentManager<T>(managerFactory: (owner: unknown) => Compo
  * @param object the component object
  * @return the template factory of the given component
  */
- export function getComponentTemplate(obj: object): TemplateFactory | undefined;
+export function getComponentTemplate(obj: object): TemplateFactory | undefined;
+
+export function setComponentTemplate<T>(factory: TemplateFactory, obj: T): T;
 
 // In normal TypeScript, these built-in components are essentially opaque tokens
 // that just need to be importable. Declaring them with unique interfaces
 // like this, however, gives tools like Glint (that DO have a richer
 // notion of what they are) a place to install more detailed type information.
-export interface Input extends Opaque<'component:input'> {}
-export interface Textarea extends Opaque<'component:textarea'> {}
+export interface Input extends Opaque<"component:input"> {}
+export interface Textarea extends Opaque<"component:textarea"> {}
 
 /**
  * The `Input` component lets you create an HTML `<input>` element.

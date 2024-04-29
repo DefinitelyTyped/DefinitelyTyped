@@ -4,7 +4,7 @@
 accounting.formatMoney(12345678); // $12,345,678.00
 
 // Stringified usage:
-accounting.formatMoney('$4394958309392.9401'); // $4,394,958,309,392.94
+accounting.formatMoney("$4394958309392.9401"); // $4,394,958,309,392.94
 
 // European formatting (custom symbol and separators), could also use options object as second param:
 accounting.formatMoney(4999.99, "€", 2, ".", ","); // €4.999,99
@@ -23,8 +23,8 @@ accounting.formatMoney(5318008, {
     format: {
         pos: "%s %v",
         neg: "%s (%v)",
-        zero: "%s  --"
-    }
+        zero: "%s  --",
+    },
 });
 
 // Will recursively format an array of values:
@@ -51,7 +51,7 @@ accounting.formatNumber(4999.99, 2, ".", ","); // 4.999,99
 // Example usage with options object:
 accounting.formatNumber(5318008, {
     precision: 3,
-    thousand: " "
+    thousand: " ",
 });
 
 // Will recursively format an array of values:
@@ -75,17 +75,17 @@ accounting.unformat("€ 1.000.000,00", ","); // 1000000
 // Settings object that controls default parameters for library methods:
 accounting.settings = {
     currency: {
-        symbol: "$",    // default currency symbol is '$'
+        symbol: "$", // default currency symbol is '$'
         format: "%s%v", // controls output: %s = symbol, %v = value/number (can be object: see below)
-        decimal: ".",   // decimal point separator
-        thousand: ",",  // thousands separator
-        precision: 2    // decimal places
+        decimal: ".", // decimal point separator
+        thousand: ",", // thousands separator
+        precision: 2, // decimal places
     },
     number: {
-        precision: 0,   // default precision on numbers is 0
+        precision: 0, // default precision on numbers is 0
         thousand: ",",
-        decimal: "."
-    }
+        decimal: ".",
+    },
 };
 
 // These can be changed externally to edit the library's defaults:
@@ -93,7 +93,7 @@ accounting.settings.currency.format = "%s %v";
 
 // Format can be an object, with `pos`, `neg` and `zero`:
 accounting.settings.currency.format = {
-    pos: "%s %v",   // for positive values, eg. "$ 1.00" (required)
+    pos: "%s %v", // for positive values, eg. "$ 1.00" (required)
     neg: "%s (%v)", // for negative values, eg. "$ (1.00)" [optional]
-    zero: "%s  -- "  // for zero values, eg. "$  --" [optional]
+    zero: "%s  -- ", // for zero values, eg. "$  --" [optional]
 };

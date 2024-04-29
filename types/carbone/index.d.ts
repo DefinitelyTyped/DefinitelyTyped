@@ -1,8 +1,3 @@
-// Type definitions for carbone 3.2
-// Project: https://carbone.io
-// Definitions by: Artur Nerkowski <https://github.com/apatryda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface ConversionFormat {
@@ -14,7 +9,7 @@ export interface ConversionFormat {
 export interface CurrencyRates {
     [currency: string]: number;
 }
-export type DocumentType = 'document' | 'web' | 'graphics' | 'spreadsheet' | 'presentation';
+export type DocumentType = "document" | "web" | "graphics" | "spreadsheet" | "presentation";
 export interface Enums {
     [type: string]: string[] | { [key: string]: string };
 }
@@ -95,5 +90,13 @@ export function render(templatePath: string, data: object, options: RenderOption
 export function render(templatePath: string, data: object, callback: RenderCallback): void;
 
 export type ConvertCallback = (err: NodeJS.ErrnoException | null, result: Buffer) => void;
-export function convert(data: Buffer, convertTo: string, options: object, callback: ConvertCallback): void;
-export function convert(data: Buffer, convertTo: string, callback: ConvertCallback): void;
+export function convert(data: Buffer, options: RenderOptions & { extension: string }, callback: ConvertCallback): void;
+
+export interface DecodedFilenameResult {
+    reportName: string;
+    extension: string;
+}
+export function decodeRenderedFilename(pathOrFilename: string, prefixLength?: number): DecodedFilenameResult;
+
+export type GetFileExtensionCallback = (err: NodeJS.ErrnoException | null, extension: string) => void;
+export function getFileExtension(filePath: string, callback: GetFileExtensionCallback): void;

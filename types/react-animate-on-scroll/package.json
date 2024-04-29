@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-animate-on-scroll",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/dbramwell/react-animate-on-scroll",
+        "http://dbramwell.github.io/react-animate-on-scroll"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-animate-on-scroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ricardo Albuquerque",
+            "githubUsername": "ralbuque"
+        }
+    ]
+}

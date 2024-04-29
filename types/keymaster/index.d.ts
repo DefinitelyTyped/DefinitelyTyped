@@ -1,9 +1,3 @@
-// Type definitions for keymaster 1.6
-// Project: https://github.com/madrobby/keymaster
-// Definitions by: Martin W. Kirst <https://github.com/nitram509>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace key;
 export = Keymaster;
 
@@ -189,6 +183,7 @@ declare namespace Keymaster {
         shortcut: string;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type KeyHandler = (keyboardEvent: KeyboardEvent, handler: Handler) => boolean | void;
 
     type FilterEvent = EventTarget & {

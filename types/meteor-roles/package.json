@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/meteor-roles",
+    "version": "1.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "meteor-roles",
+    "projects": [
+        "https://github.com/alanning/meteor-roles/"
+    ],
+    "dependencies": {
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-roles": "workspace:.",
+        "@types/underscore": "*"
+    },
+    "owners": [
+        {
+            "name": "Robbie Van Gorkom",
+            "githubUsername": "vangorra"
+        },
+        {
+            "name": "Matthew Zartman",
+            "githubUsername": "mattmm3d"
+        }
+    ]
+}

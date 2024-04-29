@@ -1,9 +1,3 @@
-// Type definitions for json2md 1.5
-// Project: https://github.com/IonicaBizau/json2md#readme
-// Definitions by: MartynasZilinskas <https://github.com/MartynasZilinskas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = json2md;
 
 /**
@@ -54,12 +48,12 @@ declare namespace json2md {
     }
 
     type DataObject = {
-        [TConverter in keyof DefaultConverters.Converters]?: DefaultConverters.Converters[TConverter]
+        [TConverter in keyof DefaultConverters.Converters]?: DefaultConverters.Converters[TConverter];
     };
 
     type ConverterCallback<TInput> = (input: TInput, json2md: json2md) => string;
 
     type ConvertersMethods = {
-        [TConverter in keyof DefaultConverters.Converters]: ConverterCallback<DefaultConverters.Converters[TConverter]>
+        [TConverter in keyof DefaultConverters.Converters]: ConverterCallback<DefaultConverters.Converters[TConverter]>;
     };
 }

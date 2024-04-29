@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/conventional-recommended-bump",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-recommended-bump#readme"
+    ],
+    "dependencies": {
+        "@types/conventional-changelog-core": "*",
+        "@types/conventional-changelog-writer": "*",
+        "@types/conventional-commits-parser": "*"
+    },
+    "devDependencies": {
+        "@types/conventional-recommended-bump": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        },
+        {
+            "name": "Jeroen \"Favna\" Claassens",
+            "githubUsername": "favna"
+        }
+    ]
+}

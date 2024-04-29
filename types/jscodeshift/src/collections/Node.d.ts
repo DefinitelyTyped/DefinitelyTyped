@@ -1,16 +1,15 @@
-import astTypes = require('ast-types');
-import nodePath = require('ast-types/lib/node-path');
-import types = require('ast-types/lib/types');
-import Collection = require('../Collection');
+import astTypes = require("ast-types");
+import nodePath = require("ast-types/lib/node-path");
+import types = require("ast-types/lib/types");
+import Collection = require("../Collection");
 
 type ASTPath<N> = nodePath.NodePath<N, N>;
 
 type RecursiveMatchNode<T> =
-    | (T extends {}
-          ? {
-                [K in keyof T]?: RecursiveMatchNode<T[K]>;
-            }
-          : T)
+    | (T extends {} ? {
+            [K in keyof T]?: RecursiveMatchNode<T[K]>;
+        }
+        : T)
     | ((value: T) => boolean);
 
 type ASTNode = types.ASTNode;

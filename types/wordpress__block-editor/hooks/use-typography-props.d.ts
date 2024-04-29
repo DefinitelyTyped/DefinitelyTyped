@@ -1,4 +1,4 @@
-import { BlockAttributes } from '@wordpress/blocks';
+import { BlockAttributes } from "@wordpress/blocks";
 
 /**
  * Provides the CSS class names and inline styles for a block's typography support
@@ -10,4 +10,7 @@ import { BlockAttributes } from '@wordpress/blocks';
  *
  * @return Typography block support derived CSS classes & styles.
  */
-export function getTypographyClassesAndStyles(attributes: BlockAttributes, fluidTypographySettings: {minFontSize?: string} | boolean): {className: string, style: Record<string, string>};
+export function getTypographyClassesAndStyles(
+    attributes: BlockAttributes,
+    fluidTypographySettings: { minFontSize?: string } | boolean,
+): { className: string; style: Record<string, string> };

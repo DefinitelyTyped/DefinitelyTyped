@@ -3,9 +3,9 @@ import { Obstacle } from "../common/Obstacle";
 
 const entityManager = new YUKA.EntityManager();
 const time = new YUKA.Time();
-const obstacleMesh = {matrix: new YUKA.Matrix4()};
-const targetMesh = {matrix: new YUKA.Matrix4()};
-const entityMesh = {matrix: new YUKA.Matrix4()};
+const obstacleMesh = { matrix: new YUKA.Matrix4() };
+const targetMesh = { matrix: new YUKA.Matrix4() };
+const entityMesh = { matrix: new YUKA.Matrix4() };
 
 // game setup
 const vertices = new Float32Array(9);
@@ -37,11 +37,11 @@ const elapsed = time.getElapsed();
 // change color of target if visible
 target.position.set(Math.sin(elapsed * 0.5) * 4, 0, 4);
 if (vision.visible(target.position)) {
-    alert('visible');
+    alert("visible");
 }
 
 entityManager.update(delta);
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }

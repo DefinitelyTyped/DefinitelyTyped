@@ -1,4 +1,4 @@
-import { ColorNumbers as Colors } from '../Common';
+import { ColorNumbers as Colors } from "../Common";
 
 declare const colors: Colors;
 

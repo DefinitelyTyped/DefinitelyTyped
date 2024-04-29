@@ -1,22 +1,22 @@
-import Papa = require('papaparse');
-import { Duplex, Readable } from 'stream';
+import Papa = require("papaparse");
+import { Duplex, Readable } from "stream";
 
 /**
  * Change global config
  */
-Papa.DefaultDelimiter = ',';
+Papa.DefaultDelimiter = ",";
 
 /**
  * Parsing
  */
 // $ExpectType ParseResult<unknown>
-const res = Papa.parse('3,3,3');
+const res = Papa.parse("3,3,3");
 
 res.errors[0].code;
 
 // $ExpectType ParseResult<unknown>
-Papa.parse('3,3,3', {
-    delimiter: ';',
+Papa.parse("3,3,3", {
+    delimiter: ";",
     comments: false,
     step(results, p) {
         p.abort();
@@ -27,38 +27,38 @@ Papa.parse('3,3,3', {
 });
 
 // $ExpectType ParseResult<unknown>
-Papa.parse('3,3,3', {
+Papa.parse("3,3,3", {
     dynamicTyping: (field: string | number): boolean => /headerName/i.test(field.toString()),
 });
 
 // $ExpectType ParseResult<unknown>
-Papa.parse('3,3,3', {
+Papa.parse("3,3,3", {
     dynamicTyping: { headerName: true },
 });
 
 // $ExpectType ParseResult<unknown>
-Papa.parse('3,3,3', {
+Papa.parse("3,3,3", {
     dynamicTyping: { 5: true },
 });
 
 // $ExpectType ParseResult<unknown>
-Papa.parse('4,4,4', {
-    delimitersToGuess: [';', ','],
+Papa.parse("4,4,4", {
+    delimitersToGuess: [";", ","],
 });
 
 // $ExpectType ParseResult<unknown>
-Papa.parse('4,4,4', {
-    delimitersToGuess: [Papa.RECORD_SEP, '|', ',', ';'],
+Papa.parse("4,4,4", {
+    delimitersToGuess: [Papa.RECORD_SEP, "|", ",", ";"],
 });
 
 // $ExpectType ParseResult<[string, string, string]>
-Papa.parse<[string, string, string]>('4;4;4', {
-    delimitersToGuess: ['\t', Papa.UNIT_SEP],
+Papa.parse<[string, string, string]>("4;4;4", {
+    delimitersToGuess: ["\t", Papa.UNIT_SEP],
 });
 
 // $ExpectType void
-Papa.parse<[string, string, string]>('4;4;4', {
-    delimitersToGuess: ['\t', Papa.UNIT_SEP],
+Papa.parse<[string, string, string]>("4;4;4", {
+    delimitersToGuess: ["\t", Papa.UNIT_SEP],
     worker: true,
     complete(results) {
         // $ExpectType ParseResult<[string, string, string]>
@@ -66,8 +66,14 @@ Papa.parse<[string, string, string]>('4;4;4', {
     },
 });
 
-const file = new File(['foo'], 'foo.txt', {
-    type: 'text/plain',
+const { errors } = Papa.parse("");
+// $ExpectType number | undefined
+errors[0].row;
+// $ExpectType number | undefined
+errors[0].index;
+
+const file = new File(["foo"], "foo.txt", {
+    type: "text/plain",
 });
 
 // $ExpectType void
@@ -158,7 +164,7 @@ Papa.parse<string[]>(file, {
 });
 
 // $ExpectType void
-Papa.parse('/resources/files/normal.csv', {
+Papa.parse("/resources/files/normal.csv", {
     download: true,
 
     complete(a, b) {
@@ -171,11 +177,11 @@ Papa.parse('/resources/files/normal.csv', {
 
 // Callback must provided for async parser
 // @ts-expect-error
-Papa.parse('/resources/files/normal.csv', {
+Papa.parse("/resources/files/normal.csv", {
     download: true,
 });
 // @ts-expect-error
-Papa.parse('1,2,3', {
+Papa.parse("1,2,3", {
     worker: true,
 });
 // @ts-expect-error
@@ -190,7 +196,7 @@ Papa.parse(Papa.NODE_STREAM_INPUT, {});
 Papa.parse(Papa.NODE_STREAM_INPUT);
 
 const readable = new Readable();
-const rows = ['1,2,3', '4,5,6'];
+const rows = ["1,2,3", "4,5,6"];
 
 rows.forEach(r => {
     readable.push(r);
@@ -201,7 +207,7 @@ const papaStream: Duplex = Papa.parse(Papa.NODE_STREAM_INPUT);
 readable.pipe(papaStream);
 
 // generic
-Papa.parse<string[]>('a,b,c', {
+Papa.parse<string[]>("a,b,c", {
     step(a) {
         a.data[0].toLowerCase();
     },
@@ -209,14 +215,14 @@ Papa.parse<string[]>('a,b,c', {
 
 // `chunk` Works only with local and remote files
 // @ts-expect-error
-Papa.parse<string[]>('a,b,c', {
+Papa.parse<string[]>("a,b,c", {
     chunk(a) {
         console.log(a);
     },
 });
 
 // $ExpectType void
-Papa.parse<[string, string]>('/resources/files/normal.csv', {
+Papa.parse<[string, string]>("/resources/files/normal.csv", {
     download: true,
     chunk(r) {
         // $ExpectType ParseResult<[string, string]>
@@ -249,7 +255,7 @@ Papa.parse<string[]>(urlOrFile, {
     },
 });
 
-Papa.parse<[string, string, string]>('a,b,c', {
+Papa.parse<[string, string, string]>("a,b,c", {
     complete(a) {
         // $ExpectType ParseResult<[string, string, string]>
         a;
@@ -268,7 +274,7 @@ Papa.unparse([
     [4, 5, 6],
 ]);
 Papa.unparse({
-    fields: ['3'],
+    fields: ["3"],
     data: [],
 });
 
@@ -282,22 +288,22 @@ Papa.unparse(
         [1, 2, 3],
         [4, 5, 6],
     ],
-    { delimiter: ',' },
+    { delimiter: "," },
 );
 Papa.unparse(
     {
-        fields: ['3'],
+        fields: ["3"],
         data: [],
     },
-    { newline: '\n' },
+    { newline: "\n" },
 );
 Papa.unparse(
     {
-        fields: ['3'],
+        fields: ["3"],
         data: [],
     },
     {
-        quotes: value => typeof value === 'string',
+        quotes: value => typeof value === "string",
     },
 );
 
@@ -314,4 +320,4 @@ Papa.BAD_DELIMITERS;
 const parser = new Papa.Parser({});
 parser.getCharIndex();
 parser.abort();
-parser.parse('', 0, false);
+parser.parse("", 0, false);

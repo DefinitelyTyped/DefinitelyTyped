@@ -1,8 +1,8 @@
-import { Currency } from './currency';
-import { Discount } from './discount';
-import { OrderTax } from './order-tax';
-import { Price } from './price';
-import { ShippingMethod } from './shipping-method';
+import { Currency } from "./currency";
+import { Discount } from "./discount";
+import { OrderTax } from "./order-tax";
+import { Price } from "./price";
+import { ShippingMethod } from "./shipping-method";
 
 export interface Live {
     merchant_id: number;

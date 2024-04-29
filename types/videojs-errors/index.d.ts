@@ -1,9 +1,5 @@
-// Type definitions for videojs-errors 4.5
-// Project: https://github.com/brightcove/videojs-errors#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import videojs from 'video.js';
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
+import videojs from "video.js";
 
 interface CustomError {
     type?: string | undefined;
@@ -29,12 +25,12 @@ interface Options {
 type CustomMediaError = {
     readonly code: string | number;
     readonly dismiss?: boolean | undefined;
-} & Partial<Omit<videojs.MediaError, 'code'>>;
+} & Partial<Omit<videojs.MediaError, "code">>;
 
 declare const errors: VideoJSErrorsPlugin;
 export = errors;
 
-declare module 'video.js' {
+declare module "video.js" {
     interface VideoJsPlayer extends videojs.Component {
         errors: VideoJSErrorsPlugin;
         error(err: CustomMediaError | string | number | null): void;

@@ -1,8 +1,3 @@
-// Type definitions for ethereum-blockies 0.1
-// Project: https://github.com/ethereum/blockies
-// Definitions by: Jack Works <https://github.com/Jack-Works>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface BlockieOptions {
     /** seed used to generate icon data, default: random */
     seed?: string;

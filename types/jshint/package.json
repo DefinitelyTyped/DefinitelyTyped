@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jshint",
+    "version": "2.12.9999",
+    "projects": [
+        "https://github.com/jshint/jshint"
+    ],
+    "devDependencies": {
+        "@types/jshint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amin Yahyaabadi",
+            "githubUsername": "aminya"
+        }
+    ]
+}

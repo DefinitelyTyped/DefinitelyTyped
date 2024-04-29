@@ -1,2 +1,2 @@
-import { invertObj } from '../index';
+import { invertObj } from "../index";
 export default invertObj;

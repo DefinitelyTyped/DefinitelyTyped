@@ -66,7 +66,7 @@ declare namespace Page {
          * - backbutton 顶部导航栏左边的返回按钮或 Android 实体返回键
          * - navigateBack 返回 API，即 uni.navigateBack()
          */
-        from: 'backbutton' | 'navigateBack';
+        from: "backbutton" | "navigateBack";
     }
 
     interface NavigationBarSearchInputEvent {

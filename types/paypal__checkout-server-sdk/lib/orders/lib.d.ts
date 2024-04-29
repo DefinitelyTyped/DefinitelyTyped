@@ -22,10 +22,10 @@ import {
     Status,
     TaxInfo,
     Token,
-} from '../payments/lib';
+} from "../payments/lib";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-account_tier
-export type AccountTier = 'BUSINESS' | 'PERSONAL' | 'PREMIER';
+export type AccountTier = "BUSINESS" | "PERSONAL" | "PREMIER";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-ach_debit_response
 export interface AchDebitResponse {
@@ -68,11 +68,11 @@ export interface ThreeDSecureAuthenticationResponse {
     enrollment_status: EnrollmentStatus;
 }
 
-export type AuthenticationStatus = 'Y' | 'N' | 'U' | 'A' | 'C' | 'R' | 'D' | 'I';
+export type AuthenticationStatus = "Y" | "N" | "U" | "A" | "C" | "R" | "D" | "I";
 
-export type EnrollmentStatus = 'Y' | 'N' | 'U' | 'B';
+export type EnrollmentStatus = "Y" | "N" | "U" | "B";
 
-export type LiabilityShift = 'NO' | 'POSSIBLE' | 'UNKNOWN' | 'YES';
+export type LiabilityShift = "NO" | "POSSIBLE" | "UNKNOWN" | "YES";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-business_name
 export interface BusinessName {
@@ -81,69 +81,69 @@ export interface BusinessName {
 }
 
 export type Orthography =
-    | 'Arab'
-    | 'Armn'
-    | 'Beng'
-    | 'Cans'
-    | 'Cyrl'
-    | 'Deva'
-    | 'Ethi'
-    | 'Geor'
-    | 'Grek'
-    | 'Gujr'
-    | 'Guru'
-    | 'Hani'
-    | 'Hebr'
-    | 'Java'
-    | 'Jpan'
-    | 'Kana'
-    | 'Khmr'
-    | 'Knda'
-    | 'Kore'
-    | 'Laoo'
-    | 'Latn'
-    | 'Mlym'
-    | 'Mong'
-    | 'Mymr'
-    | 'Orya'
-    | 'Sinh'
-    | 'Sund'
-    | 'Syrc'
-    | 'Taml'
-    | 'Telu'
-    | 'Thaa'
-    | 'Thai'
-    | 'Tibt'
-    | 'Yiii'
-    | 'Zyyy'
-    | 'Zzzz';
+    | "Arab"
+    | "Armn"
+    | "Beng"
+    | "Cans"
+    | "Cyrl"
+    | "Deva"
+    | "Ethi"
+    | "Geor"
+    | "Grek"
+    | "Gujr"
+    | "Guru"
+    | "Hani"
+    | "Hebr"
+    | "Java"
+    | "Jpan"
+    | "Kana"
+    | "Khmr"
+    | "Knda"
+    | "Kore"
+    | "Laoo"
+    | "Latn"
+    | "Mlym"
+    | "Mong"
+    | "Mymr"
+    | "Orya"
+    | "Sinh"
+    | "Sund"
+    | "Syrc"
+    | "Taml"
+    | "Telu"
+    | "Thaa"
+    | "Thai"
+    | "Tibt"
+    | "Yiii"
+    | "Zyyy"
+    | "Zzzz";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-business_type
 export type business_type =
-    | 'ANY_OTHER_BUSINESS_ENTITY'
-    | 'ASSOCIATION'
-    | 'CORPORATION'
-    | 'GENERAL_PARTNERSHIP'
-    | 'GOVERNMENT'
-    | 'INDIVIDUAL'
-    | 'LIMITED_LIABILITY_PARTNERSHIP'
-    | 'LIMITED_LIABILITY_PRIVATE_CORPORATION'
-    | 'LIMITED_LIABILITY_PROPRIETORS'
-    | 'LIMITED_PARTNERSHIP'
-    | 'LIMITED_PARTNERSHIP_PRIVATE_CORPORATION'
-    | 'NONPROFIT'
-    | 'ONLY_BUY_OR_SEND_MONEY'
-    | 'OTHER_CORPORATE_BODY'
-    | 'PARTNERSHIP'
-    | 'PRIVATE_CORPORATION'
-    | 'PRIVATE_PARTNERSHIP'
-    | 'PROPRIETORSHIP'
-    | 'PROPRIETORSHIP_CRAFTSMAN'
-    | 'PROPRIETORY_COMPANY'
-    | 'PUBLIC_COMPANY'
-    | 'PUBLIC_CORPORATION'
-    | 'PUBLIC_PARTNERSHIP'
-    | 'REGISTERED_COOPERATIVE';
+    | "ANY_OTHER_BUSINESS_ENTITY"
+    | "ASSOCIATION"
+    | "CORPORATION"
+    | "GENERAL_PARTNERSHIP"
+    | "GOVERNMENT"
+    | "INDIVIDUAL"
+    | "LIMITED_LIABILITY_PARTNERSHIP"
+    | "LIMITED_LIABILITY_PRIVATE_CORPORATION"
+    | "LIMITED_LIABILITY_PROPRIETORS"
+    | "LIMITED_PARTNERSHIP"
+    | "LIMITED_PARTNERSHIP_PRIVATE_CORPORATION"
+    | "NONPROFIT"
+    | "ONLY_BUY_OR_SEND_MONEY"
+    | "OTHER_CORPORATE_BODY"
+    | "PARTNERSHIP"
+    | "PRIVATE_CORPORATION"
+    | "PRIVATE_PARTNERSHIP"
+    | "PROPRIETORSHIP"
+    | "PROPRIETORSHIP_CRAFTSMAN"
+    | "PROPRIETORY_COMPANY"
+    | "PUBLIC_COMPANY"
+    | "PUBLIC_CORPORATION"
+    | "PUBLIC_PARTNERSHIP"
+    | "REGISTERED_COOPERATIVE";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-card_response
 export interface CardResponse {
@@ -163,7 +163,7 @@ export interface CardResponse {
 }
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-checkout_payment_intent
-export type CheckoutPaymentIntent = 'CAPTURE' | 'AUTHORIZE';
+export type CheckoutPaymentIntent = "CAPTURE" | "AUTHORIZE";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-confirm_order_request
 export interface ConfirmOrderRequest {
@@ -185,7 +185,7 @@ export interface PaymentSource {
 }
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-contingency
-export type Contingency = '3D_SECURE';
+export type Contingency = "3D_SECURE";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-document_issuer
 export interface DocumentIssuer {
@@ -195,7 +195,7 @@ export interface DocumentIssuer {
 }
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-enrolled
-export type Enrolled = 'B' | 'N' | 'U' | 'Y';
+export type Enrolled = "B" | "N" | "U" | "Y";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-identity_document
 export interface IdentityDocument {
@@ -207,15 +207,15 @@ export interface IdentityDocument {
 }
 
 export type IdentityDocumentType =
-    | 'INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER'
-    | 'NATIONAL_IDENTIFICATION_NUMBER'
-    | 'PASSPORT_NUMBER'
-    | 'SOCIAL_SECURITY_NUMBER'
-    | 'SSN4'
-    | 'TAX_IDENTIFICATION_NUMBER';
+    | "INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER"
+    | "NATIONAL_IDENTIFICATION_NUMBER"
+    | "PASSPORT_NUMBER"
+    | "SOCIAL_SECURITY_NUMBER"
+    | "SSN4"
+    | "TAX_IDENTIFICATION_NUMBER";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-issuer
-export type Issuer = 'CARD_ISSUER_INSTALLMENTS' | 'PAYPAL';
+export type Issuer = "CARD_ISSUER_INSTALLMENTS" | "PAYPAL";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-account
 export interface ModelAccount {
@@ -231,7 +231,7 @@ export interface ModelAccount {
     time_created: string;
 }
 
-export type Tier = 'BUSINESS' | 'PERSONAL' | 'PREMIER';
+export type Tier = "BUSINESS" | "PERSONAL" | "PREMIER";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-address_with_confirmation
 export interface ModelAddressWithConfirmation {
@@ -269,7 +269,7 @@ export interface ModelBusiness extends ActivityTimestamps {
     phones: ModelPhoneInfo[];
     primary_email: string;
     primary: boolean;
-    type: 'INDIVIDUAL' | 'PROPRIETORSHIP' | 'PARTNERSHIP';
+    type: "INDIVIDUAL" | "PROPRIETORSHIP" | "PARTNERSHIP";
     url: string;
 }
 
@@ -285,7 +285,7 @@ export interface ModelBusinessIdentification {
     identifier: string;
     issued_time: string;
     issuer: DocumentIssuer;
-    type: 'TAX_IDENTIFICATION_NUMBER' | 'BUSINESS_REGISTRATION_NUMBER';
+    type: "TAX_IDENTIFICATION_NUMBER" | "BUSINESS_REGISTRATION_NUMBER";
 }
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-customer_service_contact
@@ -295,22 +295,22 @@ export interface ModelCustomerServiceContact {
 }
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-enums-currency_receiving_type
-export type ModelEnumsCurrencyReceivingType = 'ACCEPT' | 'ACCEPT_OPEN' | 'DENY' | 'HOLD';
+export type ModelEnumsCurrencyReceivingType = "ACCEPT" | "ACCEPT_OPEN" | "DENY" | "HOLD";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-enums-disbursement_type
-export type ModelEnumsDisbursementType = 'INSTANT' | 'DELAYED';
+export type ModelEnumsDisbursementType = "INSTANT" | "DELAYED";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-enums-facilitator_type
-export type ModelEnumsFacilitatorType = 'API_CALLER' | 'INTERNAL' | 'PARTNER';
+export type ModelEnumsFacilitatorType = "API_CALLER" | "INTERNAL" | "PARTNER";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-enums-liability_type
-export type ModelEnumsLiabilityType = 'FULL' | 'PARTIAL';
+export type ModelEnumsLiabilityType = "FULL" | "PARTIAL";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-enums-participant_type
-export type ModelEnumsParticipantType = 'FACILITATOR' | 'RECEIVER' | 'SENDER';
+export type ModelEnumsParticipantType = "FACILITATOR" | "RECEIVER" | "SENDER";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-enums-pricing_type
-export type ModelEnumsPricingType = 'BLENDED' | 'IC_PLUS';
+export type ModelEnumsPricingType = "BLENDED" | "IC_PLUS";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-model-business
 export interface ModelPerson extends ActivityTimestamps {
@@ -344,7 +344,7 @@ export interface ModelPhoneInfo {
     phone_type: PhoneType;
 }
 
-export type PhoneType = 'FAX' | 'HOME' | 'MOBILE' | 'OTHER' | 'PAGER' | 'WORK';
+export type PhoneType = "FAX" | "HOME" | "MOBILE" | "OTHER" | "PAGER" | "WORK";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-payer_base
 export interface PayerBase {
@@ -410,7 +410,7 @@ export interface Item {
     category: Category;
 }
 
-export type Category = 'DIGITAL_GOODS' | 'PHYSICAL_GOODS' | 'DONATION';
+export type Category = "DIGITAL_GOODS" | "PHYSICAL_GOODS" | "DONATION";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-shipping_detail
 export interface ShippingDetail {
@@ -458,11 +458,11 @@ export interface OrderApplicationContext {
     stored_payment_source?: StoredPaymentSource;
 }
 
-export type LandingPage = 'LOGIN' | 'BILLING' | 'NO_PREFERENCE';
+export type LandingPage = "LOGIN" | "BILLING" | "NO_PREFERENCE";
 
-export type ShippingPreference = 'GET_FROM_FILE' | 'NO_SHIPPING' | 'SET_PROVIDED_ADDRESS';
+export type ShippingPreference = "GET_FROM_FILE" | "NO_SHIPPING" | "SET_PROVIDED_ADDRESS";
 
-export type UserAction = 'CONTINUE' | 'PAY_NOW';
+export type UserAction = "CONTINUE" | "PAY_NOW";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-payment_method
 export interface PaymentMethod {
@@ -471,9 +471,9 @@ export interface PaymentMethod {
     standard_entry_class_code: StandardEntryClassCode;
 }
 
-export type PayeePreferred = 'IMMEDIATE_PAYMENT_REQUIRED' | 'UNRESTRICTED';
+export type PayeePreferred = "IMMEDIATE_PAYMENT_REQUIRED" | "UNRESTRICTED";
 
-export type StandardEntryClassCode = 'CCD' | 'PPD' | 'TEL' | 'WEB';
+export type StandardEntryClassCode = "CCD" | "PPD" | "TEL" | "WEB";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-stored_payment_source
 export interface StoredPaymentSource {
@@ -484,11 +484,11 @@ export interface StoredPaymentSource {
 }
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-payment_initiator
-export type PaymentInitiator = 'CUSTOMER' | 'MERCHANT';
+export type PaymentInitiator = "CUSTOMER" | "MERCHANT";
 
-export type PaymentType = 'ONE_TIME' | 'RECURRING' | 'UNSCHEDULED';
+export type PaymentType = "ONE_TIME" | "RECURRING" | "UNSCHEDULED";
 
-export type Usage = 'DERIVED' | 'FIRST' | 'SUBSEQUENT';
+export type Usage = "DERIVED" | "FIRST" | "SUBSEQUENT";
 
 // https://developer.paypal.com/docs/api/orders/v2/#definition-patch
 export interface Patch {
@@ -498,16 +498,16 @@ export interface Patch {
     value: any;
 }
 
-export type Operation = 'add' | 'copy' | 'move' | 'remove' | 'replace' | 'test';
+export type Operation = "add" | "copy" | "move" | "remove" | "replace" | "test";
 
 export interface BaseOrderHeaders {
     Authorization: string;
-    'Content-Type': 'application/json';
+    "Content-Type": "application/json";
 }
 
 export class BaseOrderRequest<H extends BaseOrderHeaders, B = null> {
     readonly path: string;
-    readonly verb: 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT';
+    readonly verb: "CONNECT" | "DELETE" | "GET" | "HEAD" | "OPTIONS" | "PATCH" | "POST" | "PUT";
     readonly body: B;
     readonly headers: H;
 
@@ -520,8 +520,8 @@ export class BaseOrderRequest<H extends BaseOrderHeaders, B = null> {
  */
 export namespace OrdersAuthorize {
     interface RequestHeaders extends BaseOrderHeaders {
-        'PayPal-Client-Metadata-Id'?: string;
-        'PayPal-Request-Id'?: string;
+        "PayPal-Client-Metadata-Id"?: string;
+        "PayPal-Request-Id"?: string;
         Prefer?: string;
     }
 
@@ -546,8 +546,8 @@ export class OrdersAuthorizeRequest extends BaseOrderRequest<OrdersAuthorize.Req
  */
 export namespace OrdersCapture {
     interface RequestHeaders extends BaseOrderHeaders {
-        'PayPal-Client-Metadata-Id'?: string;
-        'PayPal-Request-Id'?: string;
+        "PayPal-Client-Metadata-Id"?: string;
+        "PayPal-Request-Id"?: string;
         Prefer?: string;
     }
 
@@ -572,7 +572,7 @@ export class OrdersCaptureRequest extends BaseOrderRequest<OrdersCapture.Request
  */
 export namespace OrdersCreate {
     interface RequestHeaders extends BaseOrderHeaders {
-        'PayPal-Partner-Attribution-Id'?: string;
+        "PayPal-Partner-Attribution-Id"?: string;
         Prefer?: string;
     }
 
@@ -623,7 +623,7 @@ export class OrdersPatchRequest extends BaseOrderRequest<OrdersPatch.RequestHead
  */
 export namespace OrdersValidate {
     interface RequestHeaders extends BaseOrderHeaders {
-        'PayPal-Client-Metadata-Id'?: string;
+        "PayPal-Client-Metadata-Id"?: string;
     }
 }
 

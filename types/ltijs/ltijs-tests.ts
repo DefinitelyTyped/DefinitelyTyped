@@ -1,71 +1,71 @@
-import { Request, Response } from 'express';
-import { Provider, IdToken, DeploymentOptions } from 'ltijs';
+import { Request, Response } from "express";
+import { DeploymentOptions, IdToken, Provider } from "ltijs";
 
-const ltiMinimal = Provider.setup('EXAMPLEKEY', {
-    url: 'mongodb://localhost/database',
+const ltiMinimal = Provider.setup("EXAMPLEKEY", {
+    url: "mongodb://localhost/database",
 });
 
-const ltiPlugin = Provider.setup('EXAMPLEKEY', {
+const ltiPlugin = Provider.setup("EXAMPLEKEY", {
     plugin: {},
 });
 
 // @ts-expect-error
-const ltiInvalid = Provider.setup('EXAMPLEKEY', {
+const ltiInvalid = Provider.setup("EXAMPLEKEY", {
     // Can't specify both DB and plugin.
-    url: 'mongodb://localhost/database',
+    url: "mongodb://localhost/database",
     plugin: {},
 });
 
 const idToken: IdToken = {
-    iss: '',
-    issuerCode: '',
-    user: '',
+    iss: "",
+    issuerCode: "",
+    user: "",
     roles: [],
     userInfo: {
-        given_name: 'Test',
-        family_name: 'Test',
-        name: 'Test Test',
-        email: 'test@test',
+        given_name: "Test",
+        family_name: "Test",
+        name: "Test Test",
+        email: "test@test",
     },
     platformInfo: {
-        family_code: '',
-        version: '1.0',
-        name: 'Test',
-        description: 'Test',
+        family_code: "",
+        version: "1.0",
+        name: "Test",
+        description: "Test",
     },
     endpoint: {
         scope: [],
-        lineItems: '',
-        lineItem: '',
+        lineItems: "",
+        lineItem: "",
     },
 };
 
 const ltiAdvanced = Provider.setup(
-    'EXAMPLEKEY',
+    "EXAMPLEKEY",
     {
-        url: 'mongodb://localhost/database',
+        url: "mongodb://localhost/database",
         connection: {
-            user: 'user',
-            pass: 'pass',
+            user: "user",
+            pass: "pass",
         },
     },
     {
-        appUrl: '/',
-        loginUrl: '/login',
-        sessionTimeoutUrl: '/sessionTimeout',
-        invalidTokenUrl: '/invalidToken',
-        keysetUrl: '/keys',
-        staticPath: '/views',
+        appUrl: "/",
+        loginUrl: "/login",
+        sessionTimeoutUrl: "/sessionTimeout",
+        invalidTokenUrl: "/invalidToken",
+        keysetUrl: "/keys",
+        staticPath: "/views",
         https: true,
         ssl: {
-            key: 'privateKey',
-            cert: 'certificate',
+            key: "privateKey",
+            cert: "certificate",
         },
         cookies: {
             secure: true,
-            sameSite: 'None',
+            sameSite: "None",
         },
-        serverAddon: app => { },
+        serverAddon: app => {},
     },
 );
 
@@ -73,28 +73,28 @@ const ltiAdvanced = Provider.setup(
 ltiMinimal.onConnect(
     (connection, request, response) => {
         console.log(connection.endpoint);
-        ltiMinimal.redirect(response, '/main');
+        ltiMinimal.redirect(response, "/main");
     },
     {
         sessionTimeout: (req, res) => {
-            return res.send('Session timed out');
+            return res.send("Session timed out");
         },
         invalidToken: (req, res) => {
-            return res.send('Invalid token');
+            return res.send("Invalid token");
         },
     },
 );
 
-ltiAdvanced.app.get('/main', (req: Request, res: Response) => {
+ltiAdvanced.app.get("/main", (req: Request, res: Response) => {
     res.send("It's alive!");
 });
 
 // $ExpectType true
-ltiAdvanced.whitelist('/main', '/home', { route: '/route', method: 'POST' });
+ltiAdvanced.whitelist("/main", "/home", { route: "/route", method: "POST" });
 
 // $ExpectType true
 ltiAdvanced.onDeepLinking((connection, request, response) => {
-    ltiAdvanced.redirect(response, '/deeplink');
+    ltiAdvanced.redirect(response, "/deeplink");
 });
 
 const deploymentOptions: DeploymentOptions = { serverless: true };
@@ -106,45 +106,45 @@ ltiAdvanced.deploy({ port: 4040, silent: true });
 
 // $ExpectType Promise<false | Platform>
 ltiAdvanced.registerPlatform({
-    url: 'https://platform.url',
-    name: 'Platform Name',
-    clientId: 'TOOLCLIENTID',
-    authenticationEndpoint: 'https://platform.url/auth',
-    accesstokenEndpoint: 'https://platform.url/token',
-    authConfig: { method: 'JWK_SET', key: 'https://platform.url/keyset' },
+    url: "https://platform.url",
+    name: "Platform Name",
+    clientId: "TOOLCLIENTID",
+    authenticationEndpoint: "https://platform.url/auth",
+    accesstokenEndpoint: "https://platform.url/token",
+    authConfig: { method: "JWK_SET", key: "https://platform.url/keyset" },
 });
 
 const items = [
     {
-        type: 'ltiResourceLink',
-        title: 'Title',
+        type: "ltiResourceLink",
+        title: "Title",
         custom: {
-            resourceurl: '/path',
-            resourcename: 'Name',
+            resourceurl: "/path",
+            resourcename: "Name",
         },
     },
 ];
 
 // $ExpectType Promise<string | false>
 ltiAdvanced.DeepLinking.createDeepLinkingForm(idToken, items, {
-    message: 'Done!',
-    errmessage: 'Not done!',
-    log: 'test',
-    errlog: 'test',
+    message: "Done!",
+    errmessage: "Not done!",
+    log: "test",
+    errlog: "test",
 });
 
 // $ExpectType Promise<string | false>
 ltiAdvanced.DeepLinking.createDeepLinkingMessage(idToken, items, {
-    message: 'Done!',
-    errmessage: 'Not done!',
-    log: 'test',
-    errlog: 'test',
+    message: "Done!",
+    errmessage: "Not done!",
+    log: "test",
+    errlog: "test",
 });
 
 const grade = {
     scoreGiven: 50,
-    activityProgress: 'Completed',
-    gradingProgress: 'FullyGraded',
+    activityProgress: "Completed",
+    gradingProgress: "FullyGraded",
 };
 
 // $ExpectType Promise<boolean>
@@ -156,7 +156,7 @@ ltiAdvanced.Grade.result(idToken, { userId: true });
 // $ExpectType Promise<false | MembersResult>
 ltiAdvanced.NamesAndRoles.getMembers(idToken);
 
-ltiAdvanced.app.get('/any', (request: Request, response: Response) => {
+ltiAdvanced.app.get("/any", (request: Request, response: Response) => {
     // $ExpectType PlatformContext | undefined
     response.locals.context;
 

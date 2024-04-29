@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/karma-jsdom-launcher",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/badeball/karma-jsdom-launcher#readme"
+    ],
+    "dependencies": {
+        "@types/jsdom": "*",
+        "@types/karma": "*"
+    },
+    "devDependencies": {
+        "@types/karma-jsdom-launcher": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz (Peter Blazejewicz)",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,13 +1,46 @@
-// Type definitions for drawflow 0.0
-// Project: https://github.com/jerosoler/Drawflow
-// Definitions by: Benjamin Maisonneuve <https://github.com/BobBDE>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Declare the workflow module to be able to used it in typescript
 // this file must be defined in the include in tsconfig.json
 
 export default class Drawflow {
     constructor(element: HTMLElement, render?: object, parent?: object);
+
+    /**
+     * @default {}
+     */
+    events: Record<string, { listeners: Array<(args: any) => void> }>;
+
+    /**
+     * @required
+     */
+    container: HTMLElement;
+
+    /**
+     * @default 1
+     */
+    nodeId: number;
+
+    /**
+     * @default null
+     */
+    ele_selected: HTMLElement | null;
+
+    /**
+     * @default null
+     */
+    node_selected: HTMLElement | null;
+
+    /**
+     * Drag nodes on click inputs
+     * @default false
+     */
+    drag: boolean;
+
+    /**
+     * @param eventName
+     * @param detail
+     */
+    dispatch: (eventName: string, detail: any) => void;
+
     /**
      * Active reroute
      * @default false
@@ -45,10 +78,40 @@ export default class Drawflow {
     reroute_width: number;
 
     /**
+     * flag for drawflow drag point
+     */
+    drag_point: boolean;
+
+    /**
+     * flag for drawflow editor canvas selected
+     */
+    editor_selected: boolean;
+
+    /**
+     * flag for drawflow connnection line
+     */
+    connection: boolean;
+
+    /**
+     * connection element
+     */
+    connection_ele: HTMLElement | null;
+
+    /**
+     *  selected connection
+     */
+    connection_selected: HTMLElement | null;
+
+    /**
      * Width of line
      * @default 5
      */
     line_path: number;
+
+    /**
+     * first clicked element
+     */
+    first_click: HTMLElement | null;
 
     /**
      * Force the first input to drop the connection on top of the node
@@ -109,9 +172,79 @@ export default class Drawflow {
     canvas_y: number;
 
     /**
+     * focused x coordinate
+     */
+    pos_x: number;
+
+    /**
+     * original x coordinate
+     */
+    pos_x_start: number;
+
+    /**
+     * focused x coordinate
+     */
+    pos_y: number;
+
+    /**
+     * original x coordinate
+     */
+    pos_y_start: number;
+
+    /**
+     * mouse x coordinate
+     */
+    mouse_x: number;
+    /**
+     * mouse y coordinate
+     */
+    mouse_y: number;
+
+    /**
+     * mobile event cache list
+     */
+    evCache: any[];
+
+    /**
+     * the diff between previous handlers and current
+     */
+    prevDiff: number;
+
+    /**
      * Graph data object
      */
     drawflow: DrawflowExport;
+
+    /**
+     * Nodes should use uuid instead of id
+     * @default false
+     */
+    useuuid: boolean;
+
+    /**
+     * The drawflow "canvas" element
+     */
+    precanvas: HTMLElement;
+
+    /**
+     * The drawflow parent element
+     */
+    parent: object;
+
+    /**
+     * registered nodes for reuse.
+     */
+    noderegister: object;
+
+    /**
+     * user defined renderer, for example vue
+     */
+    render: object;
+
+    /**
+     * module name
+     */
+    module: string;
 
     start(): void;
 
@@ -124,7 +257,6 @@ export default class Drawflow {
     getUuid(): string;
 
     /**
-     *
      * @param name Name of module
      * @param inputs Number of inputs
      * @param outputs Number of outputs
@@ -145,7 +277,7 @@ export default class Drawflow {
         data: any,
         html: string,
         typenode: boolean | string,
-    ): number;
+    ): number | string;
 
     /**
      *  Increment zoom +0.1
@@ -281,7 +413,6 @@ export default class Drawflow {
     changeModule(moduleName: string): void;
 
     /**
-     *
      * @param name Name of module registered.
      * @param component HTML to drawn or vue component.
      * @param props Only for vue. Props of component. Not Required
@@ -290,156 +421,142 @@ export default class Drawflow {
     registerNode(name: string, component: any, props: any, options: any): void;
 
     /**
-     *
      * @param eventName
      * @param callback (event: id of Node)
      */
     /* tslint:disable:unified-signatures */
-    on(eventName: 'nodeCreated', callback: (event: number) => void): void;
+    on(eventName: "nodeCreated", callback: (event: number) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: id of Node)
      */
-    on(eventName: 'nodeRemoved', callback: (event: number) => void): void;
+    on(eventName: "nodeRemoved", callback: (event: number) => void): void;
     /**
-     *
+     * @param eventName
+     * @param callback (event: id of Node df-* attributes changed.)
+     */
+    on(eventName: "nodeDataChanged", callback: (event: number) => void): void;
+    /**
      * @param eventName
      * @param callback (event: id of Node)
      */
-    on(eventName: 'nodeSelected', callback: (event: number) => void): void;
+    on(eventName: "nodeSelected", callback: (event: number) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: true)
      */
-    on(eventName: 'nodeUnselected', callback: (event: boolean) => void): void;
+    on(eventName: "nodeUnselected", callback: (event: boolean) => void): void;
     /**
-     *
      * @param eventName
      * @param callback
      */
-    on(eventName: 'nodeMoved', callback: (event: any) => void): void;
+    on(eventName: "nodeMoved", callback: (event: any) => void): void;
     /**
      * Called when starting to create a connection
      * @param eventName
      * @param callback
      */
-    on(eventName: 'connectionStart', callback: (event: ConnectionStartEvent) => void): void;
+    on(eventName: "connectionStart", callback: (event: ConnectionStartEvent) => void): void;
     /**
      * Called when the connection creation was canceled
      * @param eventName
      * @param callback (event: true)
      */
-    on(eventName: 'connectionCancel', callback: (event: boolean) => void): void;
+    on(eventName: "connectionCancel", callback: (event: boolean) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: id's of nodes and output/input selected)
      */
-    on(eventName: 'connectionCreated', callback: (event: ConnectionEvent) => void): void;
+    on(eventName: "connectionCreated", callback: (event: ConnectionEvent) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: id's of nodes and output/input selected)
      */
-    on(eventName: 'connectionRemoved', callback: (event: ConnectionEvent) => void): void;
+    on(eventName: "connectionRemoved", callback: (event: ConnectionEvent) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: id's of nodes and output/input selected)
      */
-    on(eventName: 'connectionSelected', callback: (event: ConnectionEvent) => void): void;
+    on(eventName: "connectionSelected", callback: (event: ConnectionEvent) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: true)
      */
-    on(eventName: 'connectionUnselected', callback: (event: boolean) => void): void;
+    on(eventName: "connectionUnselected", callback: (event: boolean) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: id of Node output)
      */
-    on(eventName: 'addReroute', callback: (event: number) => void): void;
+    on(eventName: "addReroute", callback: (event: number) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: id of Node output)
      */
-    on(eventName: 'removeReroute', callback: (event: number) => void): void;
+    on(eventName: "removeReroute", callback: (event: number) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: name of Module)
      */
-    on(eventName: 'moduleCreated', callback: (event: string) => void): void;
+    on(eventName: "moduleCreated", callback: (event: string) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: name of Module)
      */
-    on(eventName: 'moduleChanged', callback: (event: string) => void): void;
+    on(eventName: "moduleChanged", callback: (event: string) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: name of Module)
      */
-    on(eventName: 'moduleRemoved', callback: (event: string) => void): void;
+    on(eventName: "moduleRemoved", callback: (event: string) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: mouse event)
      */
-    on(eventName: 'click', callback: (event: MouseEvent) => void): void;
+    on(eventName: "click", callback: (event: MouseEvent) => void): void;
     /**
      * Once the click changes have been made
      * @param eventName
      * @param callback
      */
-    on(eventName: 'clickEnd', callback: (event: any) => void): void;
+    on(eventName: "clickEnd", callback: (event: any) => void): void;
     /**
      * Click second button mouse event
      * @param eventName
      * @param callback
      */
-    on(eventName: 'contextmenu', callback: (event: any) => void): void;
+    on(eventName: "contextmenu", callback: (event: any) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: position)
      */
-    on(eventName: 'mouseMove', callback: (event: MousePositionEvent) => void): void;
+    on(eventName: "mouseMove", callback: (event: MousePositionEvent) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: keyboard event)
      */
-    on(eventName: 'keydown', callback: (event: KeyboardEvent) => void): void;
+    on(eventName: "keydown", callback: (event: KeyboardEvent) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: Level of zoom)
      */
-    on(eventName: 'zoom', callback: (event: any) => void): void;
+    on(eventName: "zoom", callback: (event: any) => void): void;
     /**
-     *
      * @param eventName
      * @param callback (event: position)
      */
-    on(eventName: 'translate', callback: (event: MousePositionEvent) => void): void;
+    on(eventName: "translate", callback: (event: MousePositionEvent) => void): void;
     /**
      * Finish import
      * @param eventName
      * @param callback
      */
-    on(eventName: 'import', callback: (event: any) => void): void;
+    on(eventName: "import", callback: (event: any) => void): void;
     /**
      * Data export
      * @param eventName
      * @param callback
      */
-    on(eventName: 'export', callback: (event: any) => void): void;
+    on(eventName: "export", callback: (event: any) => void): void;
     /* tslint:enable:unified-signatures */
 }
 
@@ -517,4 +634,4 @@ export interface DrawflowConnectionDetail {
     node: string;
 }
 
-export type DrawFlowEditorMode = 'edit' | 'fixed' | 'view';
+export type DrawFlowEditorMode = "edit" | "fixed" | "view";

@@ -3,13 +3,13 @@ name: Remove contributors with deleted accounts
 on:
   schedule:
     # https://crontab.guru/#0_0_*_*_1
-    - cron: "0 0 * * 1"
+    - cron: '0 0 * * 1'
   workflow_dispatch:
     inputs:
       skipPR:
         description: Push results straight to master instead of opening a PR
         required: false
-        default: "false"
+        default: 'false'
 
 permissions:
   contents: read
@@ -17,22 +17,26 @@ permissions:
 jobs:
   ghostbust:
     permissions:
-      contents: write  # for Git to git push
-      pull-requests: write  # for peter-evans/create-pull-request to create a PR
+      contents: write # for Git to git push
+      pull-requests: write # for peter-evans/create-pull-request to create a PR
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v4.1.3
+
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          fetch-depth: 0
+          node-version: '20'
 
-      - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
 
-      - run: npm install --no-package-lock
-      - run: node ./scripts/ghostbuster.js
+      - run: node ./scripts/ghostbuster.js > ${{ runner.temp }}/comment.md
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - if: ${{ inputs.skipPR == 'true' }}
         run: |
@@ -47,15 +51,14 @@ jobs:
           fi
 
       - if: ${{ inputs.skipPR != 'true' }}
-        uses: peter-evans/create-pull-request@v4.2.3
+        uses: peter-evans/create-pull-request@9153d834b60caba6d51c9b9510b087acf9f33f83 # v6.0.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Remove contributors with deleted accounts #no-publishing-comment"
-          committer: "TypeScript Bot <typescriptbot@microsoft.com>"
-          author: "TypeScript Bot <typescriptbot@microsoft.com>"
-          branch: "bust-ghosts"
+          commit-message: 'Remove contributors with deleted accounts #no-publishing-comment'
+          committer: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          branch: 'bust-ghosts'
           branch-suffix: short-commit-hash
           delete-branch: true
           title: Remove contributors with deleted accounts
-          body: "Generated from [.github/workflows/ghostbuster.yml](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/workflows/ghostbuster.yml)"
-
+          body-path: ${{ runner.temp }}/comment.md

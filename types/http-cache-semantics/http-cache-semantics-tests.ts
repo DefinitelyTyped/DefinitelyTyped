@@ -1,7 +1,7 @@
-const req = { url: 'https://foo.bar', method: 'GET', headers: { foo: 'bar' } };
-const res = { status: 200, headers: { foo: 'bar' } };
+const req = { url: "https://foo.bar", method: "GET", headers: { foo: "bar" } };
+const res = { status: 200, headers: { foo: "bar" } };
 
-import CachePolicy = require('http-cache-semantics');
+import CachePolicy = require("http-cache-semantics");
 
 const policy = new CachePolicy(req, res);
 new CachePolicy(req, res, { shared: true });

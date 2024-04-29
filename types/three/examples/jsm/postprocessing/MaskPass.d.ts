@@ -1,6 +1,6 @@
-import { Scene, Camera } from '../../../src/Three';
+import { Camera, Scene } from "three";
 
-import { Pass, FullScreenQuad } from './Pass';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class MaskPass extends Pass {
     constructor(scene: Scene, camera: Camera);

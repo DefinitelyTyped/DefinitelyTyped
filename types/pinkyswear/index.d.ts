@@ -1,20 +1,13 @@
-// Type definitions for PinkySwear v2.2.2
-// Project: https://github.com/timjansen/PinkySwear.js
-// Definitions by: Chance Snow <https://github.com/chances>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*
  * PinkySwear.js 2.2.2 - Minimalistic implementation of the Promises/A+ spec
  *
  * Public Domain. Use, modify and distribute it any way you like. No attribution required.
  *
  * NO WARRANTY EXPRESSED OR IMPLIED. USE AT YOUR OWN RISK.
-*/
+ */
 
 declare namespace PinkySwear {
-
     interface Promise {
-
         /**
          * Get the promise's current state; true if fulfilled, false if rejected, and undefined, otherwise.
          */
@@ -37,11 +30,14 @@ declare namespace PinkySwear {
          * @param onRejected Called when or if the promise is rejected.
          * @returns PinkySwear.Promise
          */
-        then(onFulfilled?: (...values: any[]) => Promise | void | any, onRejected?: (...values: any[]) => void): Promise;
+        then(
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            onFulfilled?: (...values: any[]) => Promise | void | any,
+            onRejected?: (...values: any[]) => void,
+        ): Promise;
     }
 
     interface GenericPromise<T> extends Promise {
-
         /**
          * Fulfill or reject the promise.
          *
@@ -98,7 +94,10 @@ declare namespace PinkySwear {
          * @param onRejected Called when or if the promise is rejected.
          * @returns PinkySwear.GenericPromise
          */
-        then<G>(onFulfilled?: (value: T) => GenericPromise<G>, onRejected?: (error: TypeError) => void): GenericPromise<G>;
+        then<G>(
+            onFulfilled?: (value: T) => GenericPromise<G>,
+            onRejected?: (error: TypeError) => void,
+        ): GenericPromise<G>;
 
         /**
          * onFulfilled is called when or if the promise is resolved.

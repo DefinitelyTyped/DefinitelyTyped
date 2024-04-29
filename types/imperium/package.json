@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/imperium",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/terrajs/imperium"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/imperium": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gaetan SENN",
+            "githubUsername": "gaetansenn"
+        }
+    ]
+}

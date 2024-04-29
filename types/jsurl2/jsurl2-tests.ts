@@ -1,12 +1,12 @@
-import * as jsurl from 'jsurl2';
+import * as jsurl from "jsurl2";
 
-jsurl.parse('test', {
+jsurl.parse("test", {
     deURI: true,
 });
 
 jsurl.stringify(
     {
-        foo: 'bar',
+        foo: "bar",
     },
     {
         rich: true,
@@ -15,8 +15,8 @@ jsurl.stringify(
 );
 
 jsurl.tryParse(
-    'test',
-    { defaultObjectKey: 'defaultValue' },
+    "test",
+    { defaultObjectKey: "defaultValue" },
     {
         deURI: true,
     },

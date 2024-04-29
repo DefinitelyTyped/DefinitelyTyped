@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.runtime
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.runtime</code> API to retrieve the background page, return details about the manifest,
  * and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the
@@ -11,9 +14,9 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
-import { Tabs } from "./tabs";
-import { Manifest } from "./manifest";
 import { Events } from "./events";
+import { Manifest } from "./manifest";
+import { Tabs } from "./tabs";
 
 export namespace Runtime {
     /**
@@ -277,7 +280,7 @@ export namespace Runtime {
 
         /**
          * Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics,
-         * and implement surveys. Maximum 255 characters.
+         * and implement surveys. Maximum 1023 characters.
          *
          * @param url Optional. URL to be opened after the extension is uninstalled. This URL must have an http: or https: scheme.
          * Set an empty string to not open a new tab upon uninstallation.
@@ -445,6 +448,7 @@ export namespace Runtime {
          * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
         onMessage: Events.Event<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
         >;
 
@@ -460,6 +464,7 @@ export namespace Runtime {
          * will keep the message channel open to the other end until <code>sendResponse</code> is called).
          */
         onMessageExternal: Events.Event<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (message: any, sender: MessageSender, sendResponse: () => void) => Promise<any> | true | void
         >;
 

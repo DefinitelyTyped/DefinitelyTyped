@@ -1,19 +1,17 @@
-// Type definitions for jsonld 1.5
-// Project: https://github.com/digitalbazaar/jsonld.js
-// Definitions by: Nathan Shively-Sanders <https://github.com/sandersn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
-import { Frame, Url, JsonLdProcessor, RemoteDocument, JsonLdObj, JsonLdArray } from './jsonld-spec';
+import { ContextDefinition, JsonLdDocument } from "./jsonld";
 import {
-    JsonLdDocument,
-    ContextDefinition,
-} from './jsonld';
-export * from './jsonld';
+    Frame,
+    JsonLdArray,
+    JsonLdObj,
+    JsonLdProcessor as JsonLdProcessorInterface,
+    RemoteDocument,
+    Url,
+} from "./jsonld-spec";
+export * from "./jsonld";
 
 // Some typealiases for better readability and some placeholders
-type MimeNQuad = 'application/n-quads';
-type RdfDataSet = object;  // Placeholder
+type MimeNQuad = "application/n-quads";
+type RdfDataSet = object; // Placeholder
 type Callback<T> = (err: Error, res: T) => void;
 
 /*
@@ -23,9 +21,9 @@ type Callback<T> = (err: Error, res: T) => void;
 
 export namespace Options {
     interface DocLoader {
-        documentLoader?: ((url: Url,
-            callback: (err: Error, remoteDoc: RemoteDocument) => void)
-                => Promise<RemoteDocument>) | undefined;
+        documentLoader?:
+            | ((url: Url, callback: (err: Error, remoteDoc: RemoteDocument) => void) => Promise<RemoteDocument>)
+            | undefined;
     }
 
     interface Common extends DocLoader {
@@ -57,7 +55,7 @@ export namespace Options {
     type Flatten = Common;
 
     interface Frame {
-        embed?: '@last' | '@always' | '@never' | '@link' | undefined;
+        embed?: "@last" | "@always" | "@never" | "@link" | undefined;
         explicit?: boolean | undefined;
         requireAll?: boolean | undefined;
         omitDefault?: boolean | undefined;
@@ -65,7 +63,7 @@ export namespace Options {
     }
 
     interface Normalize extends Common {
-        algorithm?: 'URDNA2015' | `URGNA2012` | undefined;
+        algorithm?: "URDNA2015" | `URGNA2012` | undefined;
         skipExpansion?: boolean | undefined;
         expansion?: boolean | undefined;
         inputFormat?: MimeNQuad | undefined;
@@ -113,7 +111,12 @@ export namespace Options {
     */
 }
 
-export function compact(input: JsonLdDocument, ctx: ContextDefinition, options: Options.Compact, callback: Callback<JsonLdObj>): void;
+export function compact(
+    input: JsonLdDocument,
+    ctx: ContextDefinition,
+    options: Options.Compact,
+    callback: Callback<JsonLdObj>,
+): void;
 export function compact(input: JsonLdDocument, ctx: ContextDefinition, callback: Callback<JsonLdObj>): void;
 export function compact(input: JsonLdDocument, ctx?: ContextDefinition, options?: Options.Compact): Promise<JsonLdObj>;
 
@@ -121,8 +124,13 @@ export function expand(input: JsonLdDocument, options: Options.Expand, callback:
 export function expand(input: JsonLdDocument, callback: Callback<JsonLdArray>): void;
 export function expand(input: JsonLdDocument, options?: Options.Expand): Promise<JsonLdArray>;
 
-export function flatten(input: JsonLdDocument, ctx: ContextDefinition|null, options: Options.Flatten, callback: Callback<JsonLdObj>): void;
-export function flatten(input: JsonLdDocument, ctx: ContextDefinition|null, callback: Callback<JsonLdObj>): void;
+export function flatten(
+    input: JsonLdDocument,
+    ctx: ContextDefinition | null,
+    options: Options.Flatten,
+    callback: Callback<JsonLdObj>,
+): void;
+export function flatten(input: JsonLdDocument, ctx: ContextDefinition | null, callback: Callback<JsonLdObj>): void;
 export function flatten(input: JsonLdDocument, ctx?: ContextDefinition, options?: Options.Flatten): Promise<JsonLdObj>;
 
 export function frame(input: JsonLdDocument, frame: Frame, options: Options.Frame, callback: Callback<JsonLdObj>): void;
@@ -143,7 +151,7 @@ export function toRDF(input: JsonLdDocument, callback: Callback<RdfDataSet>): vo
 export function toRDF(input: JsonLdDocument, options: Options.ToRdf, callback: Callback<RdfDataSet>): void;
 export function toRDF(input: JsonLdDocument, options?: Options.ToRdf): Promise<RdfDataSet>;
 
-export let JsonLdProcessor: JsonLdProcessor;
+export let JsonLdProcessor: JsonLdProcessorInterface;
 
 // disable autoexport
 export {};

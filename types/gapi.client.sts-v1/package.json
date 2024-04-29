@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.sts-v1": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.sts-v1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Security Token Service API v1",
+    "projects": [
+        "http://cloud.google.com/iam/docs/workload-identity-federation"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.sts-v1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.sts-v1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

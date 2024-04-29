@@ -1,11 +1,6 @@
-// Type definitions for libmime 5.0
-// Project: https://github.com/nodemailer/libmime
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-export type MimeWordEncoding = 'Q' | 'B';
+export type MimeWordEncoding = "Q" | "B";
 
 /**
  * Encodes a string into mime [encoded word](http://en.wikipedia.org/wiki/MIME#Encoded-Word) format.

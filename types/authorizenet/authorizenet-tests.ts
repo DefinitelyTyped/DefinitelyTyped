@@ -1,24 +1,24 @@
-import { APIContracts, APIControllers, Constants } from 'authorizenet';
+import { APIContracts, APIControllers, Constants } from "authorizenet";
 
 const params = {
-    expiryMonth: '',
-    expiryYear: '',
-    cardNumber: '',
-    securityCode: '',
-    username: '',
-    firstName: '',
-    lastName: '',
-    address: '',
-    city: '',
-    phoneNumber: '',
-    zipCode: '',
-    federalTaxId: '',
-    companyName: '',
+    expiryMonth: "",
+    expiryYear: "",
+    cardNumber: "",
+    securityCode: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    phoneNumber: "",
+    zipCode: "",
+    federalTaxId: "",
+    companyName: "",
 };
 
 const merchantAuthenticationType = new APIContracts.MerchantAuthenticationType();
-merchantAuthenticationType.setName('process.env.ANET_LOGIN_KEY');
-merchantAuthenticationType.setTransactionKey('process.env.ANET_TRANSACTION_KEY');
+merchantAuthenticationType.setName("process.env.ANET_LOGIN_KEY");
+merchantAuthenticationType.setTransactionKey("process.env.ANET_TRANSACTION_KEY");
 
 const interval = new APIContracts.PaymentScheduleType.Interval();
 interval.setLength(1);
@@ -26,9 +26,9 @@ interval.setUnit(APIContracts.ARBSubscriptionUnitEnum.MONTHS);
 
 const paymentScheduleType = new APIContracts.PaymentScheduleType();
 paymentScheduleType.setInterval(interval);
-paymentScheduleType.setStartDate('today');
-paymentScheduleType.setTotalOccurrences('9999'); // ongoing occurrence
-paymentScheduleType.setTrialOccurrences('2');
+paymentScheduleType.setStartDate("today");
+paymentScheduleType.setTotalOccurrences("9999"); // ongoing occurrence
+paymentScheduleType.setTrialOccurrences("2");
 
 const creditCard = new APIContracts.CreditCardType();
 const formattedExpireDate = params.expiryMonth + params.expiryYear;
@@ -52,13 +52,13 @@ billTo.setLastName(params.lastName);
 billTo.setCompany(params.companyName);
 billTo.setAddress(params.address);
 billTo.setZip(params.zipCode);
-billTo.setCountry('USA');
+billTo.setCountry("USA");
 
 const arbSubscription = new APIContracts.ARBSubscriptionType();
-arbSubscription.setName('subscription');
+arbSubscription.setName("subscription");
 arbSubscription.setPaymentSchedule(paymentScheduleType);
-arbSubscription.setAmount('10.00');
-arbSubscription.setTrialAmount('0.00');
+arbSubscription.setAmount("10.00");
+arbSubscription.setTrialAmount("0.00");
 arbSubscription.setPayment(payment);
 arbSubscription.setOrder(orderType);
 arbSubscription.setCustomer(customer);
@@ -85,7 +85,7 @@ new Promise((resolve, reject) => {
                 reject(new Error(response.getMessages().getMessage()[0].getText()));
             }
         } else {
-            reject(new Error('Null response'));
+            reject(new Error("Null response"));
         }
     });
 });

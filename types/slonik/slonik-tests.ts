@@ -1,6 +1,4 @@
 import {
-    createSqlTag,
-    IdentifierNormalizerType,
     CheckIntegrityConstraintViolationError,
     createBenchmarkingInterceptor,
     createBigintTypeParser,
@@ -8,37 +6,39 @@ import {
     createInterceptorPreset,
     createPool,
     createQueryNormalizationInterceptor,
+    createSqlTag,
     createTimestampTypeParser,
     createTimestampWithTimeZoneTypeParser,
     createTypeParserPreset,
     DataIntegrityError,
     ForeignKeyIntegrityConstraintViolationError,
+    IdentifierNormalizerType,
     IntegrityConstraintViolationError,
+    InterceptorType,
+    InvalidConfigurationError,
     NotFoundError,
     NotNullIntegrityConstraintViolationError,
+    QueryContextType,
     SlonikError,
     sql,
+    SqlTaggedTemplateType,
+    StatementCancelledError,
+    StatementTimeoutError,
     TypeParserType,
     UniqueIntegrityConstraintViolationError,
-    SqlTaggedTemplateType,
-    QueryContextType,
-    InterceptorType,
-    StatementCancelledError,
-    InvalidConfigurationError,
-    StatementTimeoutError,
-} from 'slonik';
-import { ArrayTokenSymbol, BinaryTokenSymbol } from 'slonik/symbols';
+} from "slonik";
+import { ArrayTokenSymbol, BinaryTokenSymbol } from "slonik/symbols";
 
 // make sure symbols are unique
 // @ts-expect-error
 const badSymbolAssignment: typeof ArrayTokenSymbol = BinaryTokenSymbol;
 
-const VALUE = 'foo';
+const VALUE = "foo";
 
 //
 // POOL
 // ----------------------------------------------------------------------
-const pool = createPool('postgres://localhost');
+const pool = createPool("postgres://localhost");
 
 // $ExpectType Promise<{ connectResult: string; }>
 pool.connect(async connection => {
@@ -51,7 +51,7 @@ pool.connect(async connection => {
     connection.query(sql`
         SELECT 1
         FROM foo
-        WHERE bar = ${'baz'}
+        WHERE bar = ${"baz"}
     `);
 
     // Query methods
@@ -73,7 +73,7 @@ pool.connect(async connection => {
     await connection.transaction(async transactionConnection => {
         await transactionConnection.query(sql`INSERT INTO foo (bar) VALUES ('baz')`);
         await transactionConnection.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
-        return { transactionResult: 'foo' };
+        return { transactionResult: "foo" };
     });
 
     // $ExpectType QueryResultType<QueryResultRowType<string>>
@@ -93,13 +93,13 @@ pool.connect(async connection => {
             await t1.transaction(async t2 => {
                 await t2.query(sql`INSERT INTO qux (quux) VALUES ('corge')`);
 
-                return Promise.reject(new Error('foo'));
+                return Promise.reject(new Error("foo"));
             });
         } catch (error) {
             /* empty */
         }
     });
-    return { connectResult: 'foo' };
+    return { connectResult: "foo" };
 });
 pool.query(sql`SELECT * FROM table WHERE name = '${VALUE}'`);
 
@@ -136,7 +136,7 @@ const typedQuery = async () => {
     await pool.any(getFooBarQuery(10));
 };
 
-createPool('postgres://localhost', {
+createPool("postgres://localhost", {
     interceptors: [
         {
             afterPoolConnection: async (ctx, connection) => {
@@ -163,11 +163,11 @@ createPool('postgres://localhost', {
 //
 // INTERCEPTOR
 // ----------------------------------------------------------------------
-createPool('postgres://', {
+createPool("postgres://", {
     interceptors: [],
 });
 
-createPool('postgres://', {
+createPool("postgres://", {
     interceptors: [...createInterceptorPreset()],
 });
 
@@ -175,7 +175,7 @@ const interceptors: InterceptorType[] = [
     createBenchmarkingInterceptor(),
     createQueryNormalizationInterceptor(),
     createFieldNameTransformationInterceptor({
-        format: 'CAMEL_CASE',
+        format: "CAMEL_CASE",
     }),
     {
         afterQueryExecution: queryContext => {
@@ -193,7 +193,7 @@ const interceptors: InterceptorType[] = [
     },
 ];
 
-const connection = createPool('postgres://', {
+const connection = createPool("postgres://", {
     interceptors,
 });
 
@@ -208,7 +208,7 @@ connection.any(sql`
 // TYPE PARSER
 // ----------------------------------------------------------------------
 const typeParser: TypeParserType<number> = {
-    name: 'int8',
+    name: "int8",
     parse: value => {
         // $ExpectType string
         value;
@@ -216,11 +216,11 @@ const typeParser: TypeParserType<number> = {
     },
 };
 
-createPool('postgres://', {
+createPool("postgres://", {
     typeParsers: [typeParser],
 });
 
-createPool('postgres://', {
+createPool("postgres://", {
     typeParsers: [...createTypeParserPreset()],
 });
 
@@ -235,20 +235,22 @@ createTimestampWithTimeZoneTypeParser();
     await connection.query(sql`
         INSERT INTO (foo, bar, baz)
         SELECT *
-        FROM ${sql.unnest(
+        FROM ${
+        sql.unnest(
             [
                 [1, 2, 3],
                 [4, 5, 6],
             ],
-            ['int4', 'int4', 'int4'],
-        )}
+            ["int4", "int4", "int4"],
+        )
+    }
     `);
 })();
 
 (async () => {
     const uniquePairs = [
-        ['a', 1],
-        ['b', 2],
+        ["a", 1],
+        ["b", 2],
     ];
 
     let placeholderIndex = 1;
@@ -259,9 +261,9 @@ createTimestampWithTimeZoneTypeParser();
                 .map(column => {
                     return `${column} = $${placeholderIndex++}`;
                 })
-                .join(' AND ');
+                .join(" AND ");
         })
-        .join(' OR ');
+        .join(" OR ");
 
     const values = [];
 
@@ -275,27 +277,27 @@ createTimestampWithTimeZoneTypeParser();
 // ----------------------------------------------------------------------
 (async () => {
     // ExpectType SqlSqlTokenType
-    const query0 = sql`SELECT ${'foo'} FROM bar`;
+    const query0 = sql`SELECT ${"foo"} FROM bar`;
     // ExpectType SqlSqlTokenType
-    const query1 = sql`SELECT ${'baz'} FROM (${query0})`;
+    const query1 = sql`SELECT ${"baz"} FROM (${query0})`;
 
     await connection.query(sql`
-    SELECT ${sql.identifier(['foo', 'a'])}
+    SELECT ${sql.identifier(["foo", "a"])}
     FROM (
       VALUES
       (
-        ${sql.join([sql.join(['a1', 'b1', 'c1'], sql`, `), sql.join(['a2', 'b2', 'c2'], sql`, `)], sql`), (`)}
+        ${sql.join([sql.join(["a1", "b1", "c1"], sql`, `), sql.join(["a2", "b2", "c2"], sql`, `)], sql`), (`)}
       )
     ) foo(a, b, c)
-    WHERE foo.b IN (${sql.join(['c1', 'a2'], sql`, `)})
+    WHERE foo.b IN (${sql.join(["c1", "a2"], sql`, `)})
   `);
 
     await connection.query(sql`
-      SELECT (${sql.json([1, 2, { test: 12, other: 'test' }])})
+      SELECT (${sql.json([1, 2, { test: 12, other: "test" }])})
   `);
 
     await connection.query(sql`
-      SELECT (${sql.json('test')})
+      SELECT (${sql.json("test")})
   `);
 
     await connection.query(sql`
@@ -307,11 +309,13 @@ createTimestampWithTimeZoneTypeParser();
   `);
 
     await connection.query(sql`
-      SELECT (${sql.json({
-          nested: {
-              object: { is: { this: 'test', other: 12, and: new Date('123') } },
-          },
-      })})
+      SELECT (${
+        sql.json({
+            nested: {
+                object: { is: { this: "test", other: 12, and: new Date("123") } },
+            },
+        })
+    })
   `);
 
     // @ts-expect-error
@@ -319,25 +323,27 @@ createTimestampWithTimeZoneTypeParser();
 
     await connection.query(sql`
       SELECT bar, baz
-      FROM ${sql.unnest(
-          [
-              [1, 'foo'],
-              [2, 'bar'],
-          ],
-          ['int4', 'text'],
-      )} AS foo(bar, baz)
+      FROM ${
+        sql.unnest(
+            [
+                [1, "foo"],
+                [2, "bar"],
+            ],
+            ["int4", "text"],
+        )
+    } AS foo(bar, baz)
   `);
 
     sql`
       SELECT 1
-      FROM ${sql.identifier(['bar', 'baz'])}
+      FROM ${sql.identifier(["bar", "baz"])}
   `;
 })();
 
 //
 // createSQLTag
 // ----------------------------------------------------------------------
-() => {
+(() => {
     let sql: SqlTaggedTemplateType;
 
     sql = createSqlTag();
@@ -348,14 +354,14 @@ createTimestampWithTimeZoneTypeParser();
 
     let normalizeIdentifier: IdentifierNormalizerType;
 
-    normalizeIdentifier = (input: string) => input.split('').reverse().join('');
+    normalizeIdentifier = (input: string) => input.split("").reverse().join("");
 
     sql = createSqlTag({
         normalizeIdentifier,
     });
 
     sql = createSqlTag({});
-};
+});
 
 //
 // ERRORS
@@ -364,13 +370,13 @@ new SlonikError();
 new NotFoundError();
 new DataIntegrityError();
 new InvalidConfigurationError();
-new StatementCancelledError(new Error('Foo'));
-new StatementTimeoutError(new Error('Foo'));
-new IntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
-new NotNullIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
-new ForeignKeyIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
-new UniqueIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
-new CheckIntegrityConstraintViolationError(new Error('Foo'), 'some-constraint');
+new StatementCancelledError(new Error("Foo"));
+new StatementTimeoutError(new Error("Foo"));
+new IntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
+new NotNullIntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
+new ForeignKeyIntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
+new UniqueIntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
+new CheckIntegrityConstraintViolationError(new Error("Foo"), "some-constraint");
 
 const samplesFromDocs = async () => {
     // some samples generated by parsing the readme from slonik's github page
@@ -379,19 +385,21 @@ const samplesFromDocs = async () => {
         await connection.query(sql`
       INSERT INTO (foo, bar, baz)
       SELECT *
-      FROM ${sql.unnest(
-          [
-              [1, 2, 3],
-              [4, 5, 6],
-          ],
-          ['int4', 'int4', 'int4'],
-      )}
+      FROM ${
+            sql.unnest(
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                ],
+                ["int4", "int4", "int4"],
+            )
+        }
     `);
     };
 
     const sample2 = async () => {
         await connection.query(sql`
-      SELECT (${sql.array([1, 2, 3], 'int4')})
+      SELECT (${sql.array([1, 2, 3], "int4")})
     `);
 
         await connection.query(sql`
@@ -400,27 +408,29 @@ const samplesFromDocs = async () => {
     };
 
     const sample3 = async () => {
-        sql`SELECT id FROM foo WHERE id = ANY(${sql.array([1, 2, 3], 'int4')})`;
-        sql`SELECT id FROM foo WHERE id != ALL(${sql.array([1, 2, 3], 'int4')})`;
+        sql`SELECT id FROM foo WHERE id = ANY(${sql.array([1, 2, 3], "int4")})`;
+        sql`SELECT id FROM foo WHERE id != ALL(${sql.array([1, 2, 3], "int4")})`;
     };
 
     const sample4 = async () => {
         await connection.query(sql`
       SELECT bar, baz
-      FROM ${sql.unnest(
-          [
-              [1, 'foo'],
-              [2, 'bar'],
-          ],
-          ['int4', 'text'],
-      )} AS foo(bar, baz)
+      FROM ${
+            sql.unnest(
+                [
+                    [1, "foo"],
+                    [2, "bar"],
+                ],
+                ["int4", "text"],
+            )
+        } AS foo(bar, baz)
     `);
     };
 
     const sample5 = async () => {
         sql`
       SELECT 1
-      FROM ${sql.identifier(['bar', 'baz'])}
+      FROM ${sql.identifier(["bar", "baz"])}
     `;
     };
     // end samples from readme

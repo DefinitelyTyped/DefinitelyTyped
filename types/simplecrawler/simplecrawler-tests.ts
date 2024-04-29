@@ -1,6 +1,6 @@
-import Crawler = require('simplecrawler');
+import Crawler = require("simplecrawler");
 
-const crawler = new Crawler('https://github.com/');
+const crawler = new Crawler("https://github.com/");
 crawler.initialURL; // $ExpectType string
 crawler.host; // $ExpectType string
 crawler.interval; // $ExpectType number
@@ -45,7 +45,7 @@ crawler.ignoreInvalidSSL; // $ExpectType boolean
 crawler.httpAgent; // $ExpectType Agent
 crawler.httpsAgent; // $ExpectType Agent
 crawler.start();
-crawler.on('fetchcomplete', (queueItem, responseBody, response) => {
+crawler.on("fetchcomplete", (queueItem, responseBody, response) => {
     queueItem; // $ExpectType QueueItem
     responseBody; // $ExpectType string | Buffer
     response; // $ExpectType IncomingMessage

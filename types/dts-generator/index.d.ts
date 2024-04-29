@@ -1,11 +1,5 @@
-// Type definitions for dts-generator 2.1
-// Project: https://github.com/SitePen/dts-generator#readme
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
-import ts = require('typescript');
-import Bluebird = require('bluebird');
+import ts = require("typescript");
+import Bluebird = require("bluebird");
 
 export = dtsGenerator;
 

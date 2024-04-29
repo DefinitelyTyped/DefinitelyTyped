@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "npm-naming": false,
-        "no-single-declare-module": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
-    }
-}

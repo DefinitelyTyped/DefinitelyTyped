@@ -1,8 +1,3 @@
-// Type definitions for match-it 1.0
-// Project: https://github.com/IonicaBizau/match-it#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = matchIt;
 
 /**

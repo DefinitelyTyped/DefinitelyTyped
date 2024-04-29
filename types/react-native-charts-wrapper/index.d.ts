@@ -1,48 +1,43 @@
-// Type definitions for react-native-charts-wrapper 0.5
-// Project: https://github.com/wuxudong/react-native-charts-wrapper
-// Definitions by: Connor Love <https://github.com/dotconnor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Component } from 'react';
-import { ViewProps, NativeSyntheticEvent, processColor } from 'react-native';
+import { Component } from "react";
+import { ImageResolvedAssetSource, NativeSyntheticEvent, processColor, ViewProps } from "react-native";
 
 export type EasingType =
-    | 'Linear'
-    | 'EaseInQuad'
-    | 'EaseOutQuad'
-    | 'EaseInOutQuad'
-    | 'EaseInCubic'
-    | 'EaseOutCubic'
-    | 'EaseInOutCubic'
-    | 'EaseInQuart'
-    | 'EaseOutQuart'
-    | 'EaseInOutQuart'
-    | 'EaseInSine'
-    | 'EaseOutSine'
-    | 'EaseInOutSine'
-    | 'EaseInExpo'
-    | 'EaseOutExpo'
-    | 'EaseInOutExpo'
-    | 'EaseInCirc'
-    | 'EaseOutCirc'
-    | 'EaseInOutCirc'
-    | 'EaseInElastic'
-    | 'EaseOutElastic'
-    | 'EaseInOutElastic'
-    | 'EaseInBack'
-    | 'EaseOutBack'
-    | 'EaseInOutBack'
-    | 'EaseInBounce'
-    | 'EaseOutBounce'
-    | 'EaseInOutBounce';
+    | "Linear"
+    | "EaseInQuad"
+    | "EaseOutQuad"
+    | "EaseInOutQuad"
+    | "EaseInCubic"
+    | "EaseOutCubic"
+    | "EaseInOutCubic"
+    | "EaseInQuart"
+    | "EaseOutQuart"
+    | "EaseInOutQuart"
+    | "EaseInSine"
+    | "EaseOutSine"
+    | "EaseInOutSine"
+    | "EaseInExpo"
+    | "EaseOutExpo"
+    | "EaseInOutExpo"
+    | "EaseInCirc"
+    | "EaseOutCirc"
+    | "EaseInOutCirc"
+    | "EaseInElastic"
+    | "EaseOutElastic"
+    | "EaseInOutElastic"
+    | "EaseInBack"
+    | "EaseOutBack"
+    | "EaseInOutBack"
+    | "EaseInBounce"
+    | "EaseOutBounce"
+    | "EaseInOutBounce";
 /**
  * use `processColor` from `react-native` to generate the corresponding color value from a color (named, hex, rgba, etc.).
  */
 export type Color = ReturnType<typeof processColor>;
 
-export type ValueFormatter = ('largeValue' | 'percent' | 'date') | string | string[];
+export type ValueFormatter = ("largeValue" | "percent" | "date") | string | string[];
 
-export type AxisDependency = 'LEFT' | 'RIGHT';
+export type AxisDependency = "LEFT" | "RIGHT";
 
 export interface ChartDescription {
     text?: string | undefined;
@@ -64,22 +59,24 @@ export interface ChartLegend {
     wordWrapEnabled?: boolean | undefined;
     maxSizePercent?: number | undefined;
 
-    horizontalAlignment?: 'LEFT' | 'CENTER' | 'RIGHT' | undefined;
-    verticalAlignment?: 'TOP' | 'CENTER' | 'BOTTOM' | undefined;
-    orientation?: 'HORIZONTAL' | 'VERTICAL' | undefined;
+    horizontalAlignment?: "LEFT" | "CENTER" | "RIGHT" | undefined;
+    verticalAlignment?: "TOP" | "CENTER" | "BOTTOM" | undefined;
+    orientation?: "HORIZONTAL" | "VERTICAL" | undefined;
     drawInside?: boolean | undefined;
-    direction?: 'LEFT_TO_RIGHT' | 'RIGHT_TO_LEFT' | undefined;
+    direction?: "LEFT_TO_RIGHT" | "RIGHT_TO_LEFT" | undefined;
 
-    form?: 'NONE' | 'EMPTY' | 'DEFAULT' | 'SQUARE' | 'CIRCLE' | 'LINE' | undefined;
+    form?: "NONE" | "EMPTY" | "DEFAULT" | "SQUARE" | "CIRCLE" | "LINE" | undefined;
     formSize?: number | undefined;
     xEntrySpace?: number | undefined;
     yEntrySpace?: number | undefined;
     formToTextSpace?: number | undefined;
 
-    custom?: {
-        colors?: Color[] | undefined;
-        labels?: string[] | undefined;
-    } | undefined;
+    custom?:
+        | {
+            colors?: Color[] | undefined;
+            labels?: string[] | undefined;
+        }
+        | undefined;
 }
 
 export interface AxisLimitLine {
@@ -89,7 +86,7 @@ export interface AxisLimitLine {
     lineWidth?: number | undefined;
     valueTextColor?: Color | undefined;
     valueFont?: string | undefined;
-    labelPosition?: 'LEFT_TOP' | 'LEFT_BOTTOM' | 'RIGHT_TOP' | 'RIGHT_BOTTOM' | undefined;
+    labelPosition?: "LEFT_TOP" | "LEFT_BOTTOM" | "RIGHT_TOP" | "RIGHT_BOTTOM" | undefined;
     lineDashPhase?: number | undefined;
     lineDashLengths?: number[] | undefined;
 }
@@ -97,23 +94,25 @@ export interface AxisLimitLine {
 export interface Axis {
     enabled?: boolean | undefined;
     drawLabels?: boolean | undefined;
-    drawAxisLines?: boolean | undefined;
+    drawAxisLine?: boolean | undefined;
     drawGridLines?: boolean | undefined;
 
     textColor?: Color | undefined;
     textSize?: number | undefined;
     fontFamily?: string | undefined;
     fontStyle?: string | undefined;
-    fontWeight?: number | undefined;
+    fontWeight?: string | undefined;
     gridColor?: Color | undefined;
     gridLineWidth?: number | undefined;
     axisLineColor?: Color | undefined;
     axisLineWidth?: number | undefined;
-    gridDashedLine?: {
-        lineLength?: number | undefined;
-        spaceLength?: number | undefined;
-        phase?: number | undefined;
-    } | undefined;
+    gridDashedLine?:
+        | {
+            lineLength?: number | undefined;
+            spaceLength?: number | undefined;
+            phase?: number | undefined;
+        }
+        | undefined;
 
     limitLines?: AxisLimitLine[] | undefined;
     drawLimitLinesBehindData?: boolean | undefined;
@@ -132,13 +131,13 @@ export interface Axis {
 
     valueFormatterPattern?: string | undefined;
     since?: number | undefined;
-    timeUnit?: 'MILLISECONDS' | 'SECONDS' | 'MINUTES' | 'HOURS' | 'DAYS' | undefined;
+    timeUnit?: "MILLISECONDS" | "SECONDS" | "MINUTES" | "HOURS" | "DAYS" | undefined;
 }
 
 export interface xAxis extends Axis {
     labelRotationAngle?: number | undefined;
     avoidFirstLastClipping?: boolean | undefined;
-    position?: 'TOP' | 'BOTTOM' | 'BOTH_SIDED' | 'TOP_INSIDE' | 'BOTTOM_INSIDE' | undefined;
+    position?: "TOP" | "BOTTOM" | "BOTH_SIDED" | "TOP_INSIDE" | "BOTTOM_INSIDE" | undefined;
     yOffset?: number | undefined;
 }
 
@@ -147,16 +146,18 @@ export interface yAxis extends Axis {
     spaceTop?: number | undefined;
     spaceBottom?: number | undefined;
 
-    position?: 'OUTSIDE_CHART' | 'INSIDE_CHART' | undefined;
+    position?: "OUTSIDE_CHART" | "INSIDE_CHART" | undefined;
 
     maxWidth?: number | undefined;
     minWidth?: number | undefined;
 
-    zeroLine?: {
-        enabled?: boolean | undefined;
-        lineWidth?: number | undefined;
-        lineColor?: Color | undefined;
-    } | undefined;
+    zeroLine?:
+        | {
+            enabled?: boolean | undefined;
+            lineWidth?: number | undefined;
+            lineColor?: Color | undefined;
+        }
+        | undefined;
 }
 
 export interface Offsets {
@@ -167,12 +168,14 @@ export interface Offsets {
 }
 
 export interface ChartBase extends ViewProps {
-    animation?: {
-        durationX?: number | undefined;
-        durationY?: number | undefined;
-        easingX?: EasingType | undefined;
-        easingY?: EasingType | undefined;
-    } | undefined;
+    animation?:
+        | {
+            durationX?: number | undefined;
+            durationY?: number | undefined;
+            easingX?: EasingType | undefined;
+            easingY?: EasingType | undefined;
+        }
+        | undefined;
 
     chartBackgroundColor?: Color | undefined;
     logEnabled?: boolean | undefined;
@@ -189,21 +192,25 @@ export interface ChartBase extends ViewProps {
 
     xAxis?: xAxis | undefined;
 
-    marker?: {
-        enabled?: boolean | undefined;
-        digits?: number | undefined;
-        markerColor?: Color | undefined;
-        textColor?: Color | undefined;
-        textSize?: number | undefined;
-    } | undefined;
+    marker?:
+        | {
+            enabled?: boolean | undefined;
+            digits?: number | undefined;
+            markerColor?: Color | undefined;
+            textColor?: Color | undefined;
+            textSize?: number | undefined;
+        }
+        | undefined;
 
-    highlights?: Array<{
-        x: number;
-        dataSetIndex?: number | undefined;
-        dataIndex?: number | undefined;
-        y?: number | undefined;
-        stackIndex?: number | undefined;
-    }> | undefined;
+    highlights?:
+        | Array<{
+            x: number;
+            dataSetIndex?: number | undefined;
+            dataIndex?: number | undefined;
+            y?: number | undefined;
+            stackIndex?: number | undefined;
+        }>
+        | undefined;
 
     onSelect?: ((event: ChartSelectEvent) => void) | undefined;
     onChange?: ((event: ChartChangeEvent) => void) | undefined;
@@ -219,22 +226,32 @@ export interface BarLineChartBase extends ChartBase {
 
     minOffset?: number | undefined;
     maxVisibleValueCount?: number | undefined;
-    visibleRange?: {
-        x?: {
-            min?: number | undefined;
-            max?: number | undefined;
-        } | undefined;
-        y?: {
-            left?: {
-                min?: number | undefined;
-                max?: number | undefined;
-            } | undefined;
-            right?: {
-                min?: number | undefined;
-                max?: number | undefined;
-            } | undefined;
-        } | undefined;
-    } | undefined;
+    visibleRange?:
+        | {
+            x?:
+                | {
+                    min?: number | undefined;
+                    max?: number | undefined;
+                }
+                | undefined;
+            y?:
+                | {
+                    left?:
+                        | {
+                            min?: number | undefined;
+                            max?: number | undefined;
+                        }
+                        | undefined;
+                    right?:
+                        | {
+                            min?: number | undefined;
+                            max?: number | undefined;
+                        }
+                        | undefined;
+                }
+                | undefined;
+        }
+        | undefined;
     autoScaleMinMaxEnabled?: boolean | undefined;
     keepPositionOnRotation?: boolean | undefined;
 
@@ -247,17 +264,21 @@ export interface BarLineChartBase extends ChartBase {
     pinchZoom?: boolean | undefined;
     doubleTapToZoomEnabled?: boolean | undefined;
 
-    yAxis?: {
-        left?: yAxis | undefined;
-        right?: yAxis | undefined;
-    } | undefined;
-    zoom?: {
-        scaleX: number;
-        scaleY: number;
-        xValue: number;
-        yValue: number;
-        axisDependency?: AxisDependency | undefined;
-    } | undefined;
+    yAxis?:
+        | {
+            left?: yAxis | undefined;
+            right?: yAxis | undefined;
+        }
+        | undefined;
+    zoom?:
+        | {
+            scaleX: number;
+            scaleY: number;
+            xValue: number;
+            yValue: number;
+            axisDependency?: AxisDependency | undefined;
+        }
+        | undefined;
 
     viewPortOffsets?: Offsets | undefined;
     extraOffsets?: Offsets | undefined;
@@ -278,6 +299,13 @@ export interface LineValue {
     x?: number | undefined;
     y: number;
     marker?: string | undefined;
+    icon?: LineIcon | undefined;
+}
+
+export interface LineIcon {
+    height: number;
+    width: number;
+    bundle: ImageResolvedAssetSource;
 }
 
 export interface CommonDatasetConfig {
@@ -304,12 +332,23 @@ export interface LineScatterCandleRadarConfig {
 }
 
 export interface LineRadarConfig {
-    fillGradient?: {
-        colors?: Color[] | undefined;
-        positions?: number[] | undefined;
-        angle?: number | undefined;
-        orientation?: 'TOP_BOTTOM' | 'TR_BL' | 'RIGHT_LEFT' | 'BR_TL' | 'BOTTOM_TOP' | 'BL_TR' | 'LEFT_RIGHT' | 'TL_BR' | undefined;
-    } | undefined;
+    fillGradient?:
+        | {
+            colors?: Color[] | undefined;
+            positions?: number[] | undefined;
+            angle?: number | undefined;
+            orientation?:
+                | "TOP_BOTTOM"
+                | "TR_BL"
+                | "RIGHT_LEFT"
+                | "BR_TL"
+                | "BOTTOM_TOP"
+                | "BL_TR"
+                | "LEFT_RIGHT"
+                | "TL_BR"
+                | undefined;
+        }
+        | undefined;
     fillColor?: Color | undefined;
     fillAlpha?: number | undefined;
     drawFilled?: boolean | undefined;
@@ -317,23 +356,23 @@ export interface LineRadarConfig {
 }
 
 export interface LineDatasetConfig
-    extends CommonDatasetConfig,
-        BarLineScatterCandleBubbleConfig,
-        LineScatterCandleRadarConfig,
-        LineRadarConfig {
+    extends CommonDatasetConfig, BarLineScatterCandleBubbleConfig, LineScatterCandleRadarConfig, LineRadarConfig
+{
     circleRadius?: number | undefined;
     drawCircles?: boolean | undefined;
-    mode?: 'LINEAR' | 'STEPPED' | 'CUBIC_BEZIER' | 'HORIZONTAL_BEZIER' | undefined;
+    mode?: "LINEAR" | "STEPPED" | "CUBIC_BEZIER" | "HORIZONTAL_BEZIER" | undefined;
     drawCubicIntensity?: number | undefined;
     circleColor?: Color | undefined;
     circleColors?: Color[] | undefined;
     circleHoleColor?: Color | undefined;
     drawCircleHole?: boolean | undefined;
-    dashedLine?: {
-        lineLength: number;
-        spaceLength: number;
-        phase?: number | undefined;
-    } | undefined;
+    dashedLine?:
+        | {
+            lineLength: number;
+            spaceLength: number;
+            phase?: number | undefined;
+        }
+        | undefined;
 }
 
 export interface Dataset {
@@ -386,14 +425,18 @@ export interface BarDataset extends Dataset {
 export interface BarData {
     dataSets?: BarDataset[] | undefined;
 
-    config?: {
-        barWidth?: number | undefined;
-        group?: {
-            fromX: number;
-            groupSpace: number;
-            barSpace: number;
-        } | undefined;
-    } | undefined;
+    config?:
+        | {
+            barWidth?: number | undefined;
+            group?:
+                | {
+                    fromX: number;
+                    groupSpace: number;
+                    barSpace: number;
+                }
+                | undefined;
+        }
+        | undefined;
 }
 
 export interface BarChartProps extends BarLineChartBase {
@@ -441,12 +484,11 @@ export interface CandleStickValue {
     marker?: string | undefined;
 }
 
-export type CandleStickPaintStyle = 'FILL' | 'STROKE' | 'FILL_AND_STROKE';
+export type CandleStickPaintStyle = "FILL" | "STROKE" | "FILL_AND_STROKE";
 
 export interface CandleStickDatasetConfig
-    extends CommonDatasetConfig,
-        BarLineScatterCandleBubbleConfig,
-        LineScatterCandleRadarConfig {
+    extends CommonDatasetConfig, BarLineScatterCandleBubbleConfig, LineScatterCandleRadarConfig
+{
     barSpace?: number | undefined;
     shadowWidth?: number | undefined;
     shadowColor?: Color | undefined;
@@ -474,7 +516,7 @@ export interface CandleStickChartProps extends BarLineChartBase {
 
 export class CandleStickChart extends Component<CandleStickChartProps> {}
 
-export type PieValuePosition = 'INSIDE_SLICE' | 'OUTSIDE_SLICE';
+export type PieValuePosition = "INSIDE_SLICE" | "OUTSIDE_SLICE";
 
 export interface PieDatasetConfig extends CommonDatasetConfig {
     sliceSpace?: number | undefined;
@@ -504,17 +546,26 @@ export interface PieData {
     dataSets?: PieDataset[] | undefined;
 }
 
-export interface PieChartProps extends PieRadarChartBase {
+export type PieChartSelectEvent = NativeSyntheticEvent<
+    {
+        label: string;
+        value: number;
+    } | null
+>;
+
+export interface PieChartProps extends Omit<PieRadarChartBase, "onSelect"> {
     drawEntryLabels?: boolean | undefined;
     usePercentValues?: boolean | undefined;
 
     centerText?: string | undefined;
-    styledCenterText?: {
-        text?: string | undefined;
-        color?: Color | undefined;
-        size?: number | undefined;
-        fontFamily?: string | undefined;
-    } | undefined;
+    styledCenterText?:
+        | {
+            text?: string | undefined;
+            color?: Color | undefined;
+            size?: number | undefined;
+            fontFamily?: string | undefined;
+        }
+        | undefined;
     centerTextRadiusPercent?: number | undefined;
     holeRadius?: number | undefined;
     holeColor?: Color | undefined;
@@ -523,6 +574,10 @@ export interface PieChartProps extends PieRadarChartBase {
 
     entryLabelColor?: Color | undefined;
     entryLabelTextSize?: number | undefined;
+    entryLabelFontFamily?: string | undefined;
+
+    onSelect?: ((event: PieChartSelectEvent) => void) | undefined;
+
     maxAngle?: number | undefined;
 
     data?: PieData | undefined;
@@ -561,11 +616,10 @@ export interface RadarChartProps extends PieRadarChartBase {
 export class RadarChart extends Component<RadarChartProps> {}
 
 export interface ScatterDatasetConfig
-    extends CommonDatasetConfig,
-        BarLineScatterCandleBubbleConfig,
-        LineScatterCandleRadarConfig {
+    extends CommonDatasetConfig, BarLineScatterCandleBubbleConfig, LineScatterCandleRadarConfig
+{
     scatterShapeSize?: number | undefined;
-    scatterShape?: 'SQUARE' | 'CIRCLE' | 'TRIANGLE' | 'CROSS' | 'X' | undefined;
+    scatterShape?: "SQUARE" | "CIRCLE" | "TRIANGLE" | "CROSS" | "X" | undefined;
     scatterShapeHoleColor?: Color | undefined;
     scatterShapeHoleRadius?: number | undefined;
 }
@@ -595,7 +649,7 @@ export interface CombinedData {
 }
 
 export interface CombinedChartProps extends BarLineChartBase {
-    drawOrder?: Array<'BAR' | 'BUBBLE' | 'LINE' | 'CANDLE' | 'SCATTER'> | undefined;
+    drawOrder?: Array<"BAR" | "BUBBLE" | "LINE" | "CANDLE" | "SCATTER"> | undefined;
     drawValueAboveBar?: boolean | undefined;
     highlightFullBarEnabled?: boolean | undefined;
     drawBarShadow?: boolean | undefined;

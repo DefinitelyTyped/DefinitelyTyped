@@ -1,8 +1,3 @@
-// Type definitions for classificator 0.3
-// Project: https://github.com/Wozacosta/classificator
-// Definitions by: Nixinova <https://github.com/Nixinova>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Classificator;
 
 declare function Classificator(options?: Classificator.Options): Classificator.NaiveBayes;
@@ -10,10 +5,10 @@ declare function Classificator(options?: Classificator.Options): Classificator.N
 declare namespace Classificator {
     interface ClassificationResults {
         likelihoods: Array<{
-            category: string,
-            logLikelihood: number,
-            logProba: number,
-            proba: number,
+            category: string;
+            logLikelihood: number;
+            logProba: number;
+            proba: number;
         }>;
         predictedCategory: string;
     }
@@ -100,17 +95,17 @@ declare namespace Classificator {
      */
     function fromJson(jsonStrOrObject: string | { [key: string]: any }): NaiveBayes;
 
-	/**
-	 * Used to serialize a classifier's state.
-	 */
-	const STATE_KEYS: readonly [
-		'categories',
-		'docCount',
-		'totalDocuments',
-		'vocabulary',
-		'vocabularySize',
-		'wordCount',
-		'wordFrequencyCount',
-		'options',
-	];
+    /**
+     * Used to serialize a classifier's state.
+     */
+    const STATE_KEYS: readonly [
+        "categories",
+        "docCount",
+        "totalDocuments",
+        "vocabulary",
+        "vocabularySize",
+        "wordCount",
+        "wordFrequencyCount",
+        "options",
+    ];
 }

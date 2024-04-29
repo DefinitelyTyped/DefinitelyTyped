@@ -1,5 +1,5 @@
-import { MediaControl } from './MediaControl';
-import { Attachment, Cropper } from './external';
+import { Attachment, Cropper } from "./external";
+import { MediaControl } from "./MediaControl";
 
 export interface ImageSelectOptions {
     handles: boolean;

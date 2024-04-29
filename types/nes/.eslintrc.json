@@ -1,5 +1,10 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-self-import": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/prefer-namespace": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

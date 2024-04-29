@@ -1,8 +1,11 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off"
     }
 }

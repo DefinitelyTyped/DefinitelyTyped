@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.webRequest
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.webRequest</code> API to observe and analyze traffic and to intercept, block,
  * or modify requests in-flight.
@@ -258,6 +261,30 @@ export namespace WebRequest {
          * Optional.
          */
         weaknessReasons?: TransportWeaknessReasons[];
+
+        /**
+         * True if the TLS connection used Encrypted Client Hello.
+         * Optional.
+         */
+        usedEch?: boolean;
+
+        /**
+         * True if the TLS connection used Delegated Credentials.
+         * Optional.
+         */
+        usedDelegatedCredentials?: boolean;
+
+        /**
+         * True if the TLS connection made OCSP requests.
+         * Optional.
+         */
+        usedOcsp?: boolean;
+
+        /**
+         * True if the TLS connection used a privacy-preserving DNS transport like DNS-over-HTTPS.
+         * Optional.
+         */
+        usedPrivateDns?: boolean;
     }
 
     /**
@@ -1491,7 +1518,9 @@ export namespace WebRequest {
      * Fired when a request is about to occur.
      */
     interface onBeforeRequestEvent
-        extends Events.Event<(details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void> {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        extends Events.Event<(details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1500,9 +1529,10 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeRequestOptions[]
+            extraInfoSpec?: OnBeforeRequestOptions[],
         ): void;
     }
 
@@ -1511,7 +1541,9 @@ export namespace WebRequest {
      * made to the server, but before any HTTP data is sent.
      */
     interface onBeforeSendHeadersEvent
-        extends Events.Event<(details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void> {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        extends Events.Event<(details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1520,9 +1552,10 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeSendHeadersOptions[]
+            extraInfoSpec?: OnBeforeSendHeadersOptions[],
         ): void;
     }
 
@@ -1541,7 +1574,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnSendHeadersDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnSendHeadersOptions[]
+            extraInfoSpec?: OnSendHeadersOptions[],
         ): void;
     }
 
@@ -1549,7 +1582,9 @@ export namespace WebRequest {
      * Fired when HTTP response headers of a request have been received.
      */
     interface onHeadersReceivedEvent
-        extends Events.Event<(details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void> {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        extends Events.Event<(details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1558,9 +1593,10 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
-            extraInfoSpec?: OnHeadersReceivedOptions[]
+            extraInfoSpec?: OnHeadersReceivedOptions[],
         ): void;
     }
 
@@ -1570,7 +1606,9 @@ export namespace WebRequest {
      * If bad user credentials are provided, this may be called multiple times for the same request.
      */
     interface onAuthRequiredEvent
-        extends Events.Event<(details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void> {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        extends Events.Event<(details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1579,9 +1617,10 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
-            extraInfoSpec?: OnAuthRequiredOptions[]
+            extraInfoSpec?: OnAuthRequiredOptions[],
         ): void;
     }
 
@@ -1600,7 +1639,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnResponseStartedDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnResponseStartedOptions[]
+            extraInfoSpec?: OnResponseStartedOptions[],
         ): void;
     }
 
@@ -1618,7 +1657,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnBeforeRedirectDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnBeforeRedirectOptions[]
+            extraInfoSpec?: OnBeforeRedirectOptions[],
         ): void;
     }
 
@@ -1636,7 +1675,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnCompletedDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnCompletedOptions[]
+            extraInfoSpec?: OnCompletedOptions[],
         ): void;
     }
 
@@ -1654,7 +1693,7 @@ export namespace WebRequest {
         addListener(
             callback: (details: OnErrorOccurredDetailsType) => void,
             filter: RequestFilter,
-            extraInfoSpec?: OnErrorOccurredOptions[]
+            extraInfoSpec?: OnErrorOccurredOptions[],
         ): void;
     }
 

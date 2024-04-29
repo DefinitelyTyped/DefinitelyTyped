@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/uuid",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/uuidjs/uuid"
+    ],
     "exports": {
         "./package.json": "./package.json",
         ".": {
@@ -8,5 +13,31 @@
                 "default": "./index.d.ts"
             }
         }
-    }
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/uuid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oliver Hoffmann",
+            "githubUsername": "iamolivinius"
+        },
+        {
+            "name": "Felipe Ochoa",
+            "githubUsername": "felipeochoa"
+        },
+        {
+            "name": "Chris Barth",
+            "githubUsername": "cjbarth"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        },
+        {
+            "name": "Christoph Tavan",
+            "githubUsername": "ctavan"
+        }
+    ]
 }

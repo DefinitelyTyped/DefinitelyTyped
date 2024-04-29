@@ -58,19 +58,25 @@ declare module '../../index' {
          *   number of frames you want your animation to be, if
          *   you are very sure of this number.
          *
-         *   It is not recommended to write this function
-         *   inside setup, since it won't work properly. The
-         *   recommended use can be seen in the example, where
-         *   we use it inside an event function, like
+         *   This may be called in setup, or, like in the
+         *   example below, inside an event function, like
          *   keyPressed or mousePressed.
          *   @param filename File name of your gif
          *   @param duration Duration in seconds that you wish
          *   to capture from your sketch
          *   @param options An optional object that can contain
-         *   two more arguments: delay, specifying how much
-         *   time we should wait before recording, and units, a
+         *   five more arguments: delay, specifying how much
+         *   time we should wait before recording; units, a
          *   string that can be either 'seconds' or 'frames'.
-         *   By default it's 'seconds'.
+         *   By default it's 'seconds’; silent, a boolean that
+         *   defines presence of progress notifications. By
+         *   default it’s false; notificationDuration, a number
+         *   that defines how long in seconds the final
+         *   notification will live. 0, the default value,
+         *   means that the notification will never be removed;
+         *   notificationID, a string that specifies the
+         *   notification DOM element id. By default it’s
+         *   'progressBar’.
          */
         saveGif(filename: string, duration: number, options: object): void;
 
@@ -108,7 +114,7 @@ declare module '../../index' {
          *   @param [width] the width to draw the image
          *   @param [height] the height to draw the image
          */
-        image(img: Image | Element, x: number, y: number, width?: number, height?: number): void;
+        image(img: Image | Element | Framebuffer, x: number, y: number, width?: number, height?: number): void;
 
         /**
          *   Draw an image to the p5.js canvas. This function
@@ -164,7 +170,7 @@ declare module '../../index' {
          *   default is CENTER
          */
         image(
-            img: Image | Element,
+            img: Image | Element | Framebuffer,
             dx: number,
             dy: number,
             dWidth: number,

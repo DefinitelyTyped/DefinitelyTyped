@@ -1,15 +1,3 @@
-// Type definitions for johnny-five 2.1.0
-// Project: https://github.com/rwaldron/johnny-five
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-//                 Simon Colmer <https://github.com/workshop2>
-//                 XtrimSystems <https://github.com/xtrimsystems>
-//                 Marcin Obiedziński <https://github.com/marcinobiedz>
-//                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Scott González <https://github.com/scottgonzalez>
-//                 Andréas "ScreamZ" HANSS <https://github.com/ScreamZ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node"/>
 
 export interface AccelerometerOption {
@@ -58,8 +46,8 @@ export class Accelerometer {
     readonly inclination: number;
     readonly orientation: number;
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (freq: any) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (freq: any) => void): this;
     hasAxis(name: string): void;
     enable(): void;
     disable(): void;
@@ -80,12 +68,185 @@ export class Altimeter {
     readonly feet: number;
     readonly meters: number;
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: any) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+}
+
+export type EasingFnVariant =
+    | "linear"
+    | "inQuad"
+    | "outQuad"
+    | "inOutQuad"
+    | "inCube"
+    | "outCube"
+    | "inOutCube"
+    | "inQuart"
+    | "outQuart"
+    | "inOutQuart"
+    | "inQuint"
+    | "outQuint"
+    | "inOutQuint"
+    | "inSine"
+    | "outSine"
+    | "inOutSine"
+    | "inExpo"
+    | "outExpo"
+    | "inOutExpo"
+    | "inCirc"
+    | "outCirc"
+    | "inOutCirc"
+    | "inBack"
+    | "outBack"
+    | "inOutBack"
+    | "inBounce"
+    | "outBounce"
+    | "inOutBounce";
+export type WithEasing<T> = T & {
+    /**
+     * An easing function from ease-component to apply to the tweened value of the previous and next keyFrames.
+     * See the {@link https://www.npmjs.com/package/ease-component ease-component documentation} for a list of available easing functions (default: "linear")
+     */
+    easing?: EasingFnVariant;
+};
+
+/**
+ * If a single device is being animated, keyFrames may be a single dimensional array.
+ *
+ * If more than one device is being animated it must be 2-dimensional (an array of arrays).
+ * We call this a "keyFrame set". The index of each device in the target maps to the same index in a keyFrame set so the length of the two should be identical.
+ * Each keyFrame array should have an element that maps to each cue point in the cuePoints array.
+ * keyFrames[0][0] for example represents the position of the first device in your animation target at the first cuePoint.
+ *
+ * These may or may not be the same length. If there are fewer elements in a keyFrame array than in the cuePoints array, then the keyFrame array will be right padded with null values.
+ *
+ * Elements in a keyFrame array represent a device's position at the corresponding cuePoint. Positions can be described in a number of ways:
+ */
+export type KeyframeValue =
+    | number
+    | {
+        /**
+         * A number between 0 and 255
+         */
+        brightness: number;
+    }
+    | {
+        /** A number between 0% and 100% */
+        intensity: number;
+    }
+    | null
+    | false
+    | WithEasing<{
+        /** A step in degrees from the previous cuePoint position. */ step: number;
+    }>
+    | WithEasing<{
+        /** The servo position in degrees. (Not relative to the previous cuePoint position) */ degrees: number;
+    }>
+    | WithEasing<{
+        /** An index from this keyFrames array from which we copy the calculated or explicitly set degrees value. */ copyDegrees:
+            number;
+    }>
+    | WithEasing<{
+        /** An index from this keyFrames array from which we copy all of the properties. */ copyFrame: number;
+    }>
+    | WithEasing<{
+        /**  A two or three tuple defining a coordinate in 2d or 3d space. */ position:
+            | [number, number]
+            | [number, number, number];
+    }>;
+
+export interface AnimationSegment {
+    /**
+     * @see {@link KeyframeValue}
+     */
+    keyFrames: KeyframeValue[] | KeyframeValue[][];
+
+    /**
+     * Overrides the target passed when the Animation was created
+     */
+    target?: unknown;
+
+    /**
+     * Duration of the segment in milliseconds.
+     * @default 1000
+     */
+    duration?: number;
+
+    /**
+     * Array of values from 0.0 to 1.0 representing the beginning and end of the animation respectively.
+     * @default [0, 1]
+     */
+    cuePoints?: number[];
+
+    /**
+     * An easing function from ease-component to apply to the playback head on the timeline. See the ease-component docs for a list of available easing functions.
+     * @default "linear"
+     */
+    easing?: EasingFnVariant;
+
+    /**
+     * When true, segment will loop until animation.next() or animation.stop() is called.
+     * @default false
+     */
+    loop?: boolean;
+
+    /**
+     * The cuePoint that the animation will loop back to. If the animation is playing in reverse, this is the point at which the animation will "loop back" to 1.0
+     * @default 0.0
+     */
+    loopback?: number;
+
+    /**
+     * Will play to cuePoint[1] then play in reverse to cuePoint[0]. If the segment is set to loop then the animation will play back and forth until `next()`, `pause()` or `stop()` are called.
+     * @default false
+     */
+    metronomic?: boolean;
+
+    /**
+     * The starting point for the playback head.
+     * @default 0.0
+     */
+    progress?: number;
+
+    /**
+     * Controls the speed of the playback head and scales the calculated duration of this and all subsequent segments until it is changed by another segment or a call to the speed() method.
+     * @default 1.0
+     */
+    currentSpeed?: number;
+
+    /**
+     * The maximum frames per second for the segment.
+     * @default 60
+     */
+    fps?: number;
+
+    /**
+     *  function to execute when segment is started.
+     */
+    onstart?: () => void;
+
+    /**
+     *  function to execute when segment is paused.
+     */
+    onpause?: () => void;
+
+    /**
+     * function to execute when animation is stopped.
+     */
+    onstop?: () => void;
+
+    /**
+     * function to execute when segment is completed.
+     */
+    oncomplete?: () => void;
+
+    /**
+     * function to execute when segment loops.
+     */
+    onloop?: () => void;
 }
 
 export class Animation {
-    constructor(option: Servo | Servo[]);
+    constructor(option: Servo | Servos);
 
     target: number;
     duration: number;
@@ -99,7 +260,7 @@ export class Animation {
     currentSpeed: number;
     fps: number;
 
-    enqueue(segment: any): void;
+    enqueue(segment: AnimationSegment): void;
     play(): void;
     pause(): void;
     stop(): void;
@@ -117,13 +278,13 @@ export interface BoardOption {
 }
 
 export interface BoardLogEvent {
-    type: 'info' | 'warn' | 'fail';
+    type: "info" | "warn" | "fail";
     timestamp: number;
     class: string;
     message: string;
 }
 
-export type SupportedBarometers = 'BMP180' | 'BMP280' | 'BME280' | 'MPL115A2' | 'MPL3115A2' | 'MS5611';
+export type SupportedBarometers = "BMP180" | "BMP280" | "BME280" | "MPL115A2" | "MPL3115A2" | "MS5611";
 
 export interface BarometerGenericArgs {
     controller: SupportedBarometers;
@@ -132,7 +293,7 @@ export interface BarometerGenericArgs {
 }
 
 export interface BarometerBMP180Args {
-    controller: 'BMP180';
+    controller: "BMP180";
     mode: 1 | 2 | 3;
 }
 
@@ -141,7 +302,7 @@ export class Barometer {
     /** Pressure is a string because somehow it's been fixed using {@link Number.toFixed} which returns a string. */
     pressure: string;
     on(
-        event: 'change' | 'data',
+        event: "change" | "data",
         cb: (data: {
             /** Pressure is a string because somehow it's been fixed using {@link Number.toFixed} which returns a string. */
             pressure: string;
@@ -158,10 +319,10 @@ export class Board {
     pins: Record<number, Pin>;
     port: string;
 
-    on(event: 'close' | 'connect' | 'exit' | 'ready', cb: () => void): this;
-    on(event: 'error', cb: (error: Error) => void): this;
-    on(event: 'info' | 'message' | 'warn' | 'fail', cb: (event: BoardLogEvent) => void): this;
-    pinMode(pin: number | string, mode: number): void;
+    on(event: "close" | "connect" | "exit" | "ready", cb: () => void): this;
+    on(event: "error", cb: (error: Error) => void): this;
+    on(event: "info" | "message" | "warn" | "fail", cb: (event: BoardLogEvent) => void): this;
+    pinMode(pin: number | string, mode: PinMode): void;
     analogWrite(pin: number | string, value: number): void;
     analogRead(pin: number | string, cb: (item: number) => void): void;
     digitalWrite(pin: number | string, value: number): void;
@@ -210,8 +371,8 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
      * @param cb - The callback is filled with a map of boards with their names.
      */
     on(
-        event: 'ready',
-        cb: (boards: IDBoardMap<BoardsIDs[number]> | IDBoardMap<BoardsConfig[number]['id']>) => void,
+        event: "ready",
+        cb: (boards: IDBoardMap<BoardsIDs[number]> | IDBoardMap<BoardsConfig[number]["id"]>) => void,
     ): this;
 
     /** This function allows to iterate on all boards */
@@ -225,7 +386,7 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
     /**
      * Search for a board using its ID, given the typing you can't be wrong so it always returns a {@Link Board}
      */
-    byId(id: BoardsConfig[number]['id']): Board;
+    byId(id: BoardsConfig[number]["id"]): Board;
 }
 
 export type BoardIdsListType = readonly string[];
@@ -259,8 +420,8 @@ export class Button {
     upValue: number;
     holdtime: number;
 
-    on(event: 'hold', cb: (holdTime: number) => void): this;
-    on(event: 'down' | 'press' | 'up' | 'release', cb: () => void): this;
+    on(event: "hold", cb: (holdTime: number) => void): this;
+    on(event: "down" | "press" | "up" | "release", cb: () => void): this;
 }
 
 export interface CollectionPinOptions {
@@ -310,8 +471,8 @@ export class Compass {
         heading: number;
     };
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface ESCOption {
@@ -319,8 +480,8 @@ export interface ESCOption {
     pin: number | string;
     pwmRange?: number[] | undefined;
     address?: string | undefined;
-    controller?: 'PCA9685' | 'DEFAULT' | undefined;
-    device?: 'FORWARD' | 'FORWARD_REVERSE' | 'FORWARD_REVERSE_BRAKE' | undefined;
+    controller?: "PCA9685" | "DEFAULT" | undefined;
+    device?: "FORWARD" | "FORWARD_REVERSE" | "FORWARD_REVERSE_BRAKE" | undefined;
     neutral?: number | undefined;
 }
 
@@ -394,8 +555,8 @@ export class Gyro {
     readonly y: number;
     readonly z: number;
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
     recalibrate(): void;
 }
 
@@ -412,17 +573,17 @@ export class Hygrometer {
     readonly relativeHumidity: number;
     readonly RH: number;
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMUGeneralOption {
     controller?: string | undefined;
     freq?: number | undefined;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMUMPU6050Option extends IMUGeneralOption {
     address: number;
 }
@@ -436,8 +597,8 @@ export class IMU {
     readonly orientation: Orientation;
     readonly thermometer: Thermometer;
 
-    on(event: 'change' | 'calibrated', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change" | "calibrated", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface ReflectanceArrayOption {
@@ -470,7 +631,7 @@ export class ReflectanceArray {
     calibrate(): void;
     calibrateUntil(predicate: () => void): void;
     loadCalibration(option: LoadCalibrationOption): void;
-    on(event: 'data' | 'calibratedData' | 'line', cb: (data: unknown) => void): this;
+    on(event: "data" | "calibratedData" | "line", cb: (data: unknown) => void): this;
 }
 
 export interface JoystickOption {
@@ -490,9 +651,9 @@ export class Joystick {
     axis: number[];
     raw: number[];
 
-    on(event: 'data', cb: (data: unknown) => void): this;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'axismove', cb: (error: Error, date: Date) => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "axismove", cb: (error: Error, date: Date) => void): this;
 }
 
 export interface LCDGeneralOption {
@@ -546,25 +707,34 @@ export interface LedOption {
 }
 
 export class Led {
-    constructor(option: LedOption['pin'] | LedOption);
+    constructor(option: LedOption["pin"] | LedOption);
 
-    animation: Animation;
-    id: string;
-    isOn: boolean;
-    isRunning: boolean;
-    mode: Pin['mode'];
-    pin: number;
-    value: number;
+    readonly animation: Animation;
+    readonly id: string;
+    readonly isOn: boolean;
+    readonly isRunning: boolean;
+    readonly mode: Pin["mode"];
+    readonly pin: number;
+    readonly value: number;
 
     blink(ms?: number, callback?: () => void): this;
     blink(callback?: () => void): this;
+    /**
+     * A value between 0 and 255 representing the brightness of the led.
+     */
     brightness(val: number): this;
+    /**
+     * @param percentage A value between 0 and 100 representing the brightness of the led in percentage.
+     */
+    intensity(percentage: number): this;
     fade(brightness: number, ms?: number, callback?: () => void): this;
+    fade(animation: AnimationSegment): this;
     fadeIn(ms?: number, callback?: () => void): this;
     fadeOut(ms?: number, callback?: () => void): this;
     off(): this;
     on(): this;
     pulse(ms?: number, callback?: () => void): this;
+    pulse(animation: AnimationSegment): this;
     stop(): this;
     strobe(ms?: number, callback?: () => void): this;
     strobe(callback?: () => void): this;
@@ -674,8 +844,8 @@ export interface MotionOption {
 
 export class Motion {
     constructor(option: number | MotionOption);
-    on(event: 'data', cb: (data: unknown) => void): this;
-    on(event: 'calibrated' | 'motionstart' | 'motionend', cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
+    on(event: "calibrated" | "motionstart" | "motionend", cb: () => void): this;
 }
 
 export interface MotorPins {
@@ -738,8 +908,8 @@ export class Orientation {
     readonly euler: any;
     readonly quarternion: any;
 
-    on(event: 'change' | 'calibrated', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change" | "calibrated", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface PiezoOption {
@@ -761,17 +931,20 @@ export class Piezo {
     readonly mode: number;
     readonly isPlaying: boolean;
 
-    frequency(frequency: number, duration: number): void;
-    play(tune: PiezoTune, cb?: () => void): void;
-    tone(tone: number, duration: number): void;
-    noTone(): void;
-    off(): void;
+    frequency(frequency: number, duration: number): this;
+    note(note: string, duration: number): this;
+    play(tune: PiezoTune, cb?: () => void): this;
+    tone(tone: number, duration: number): this;
+    noTone(): this;
+    off(): this;
+    stop(): this;
 }
 
 export interface PinOption {
     id?: number | string | undefined;
     pin: number | string;
     type?: string | undefined;
+    board?: Board | undefined;
 }
 
 export interface PinState {
@@ -780,6 +953,24 @@ export interface PinState {
     value: number;
     report: number;
     analogChannel: number;
+}
+
+/**
+ * You can use this enum to set the pin mode or you can use static properties from {@link Pin}.
+ *
+ * @example
+ * ```ts
+ * const pin = new Pin(13);
+ * pin.mode = PinMode.OUTPUT;
+ * pin.mode = Pin.OUTPUT;
+ * ```
+ */
+export enum PinMode {
+    INPUT = 0,
+    OUTPUT = 1,
+    ANALOG = 2,
+    PWM = 3,
+    SERVO = 4,
 }
 
 export class Pin {
@@ -793,9 +984,9 @@ export class Pin {
 
     id: number | string;
     pin: number | string;
-    type: 'digital' | 'analog';
+    type: "digital" | "analog";
     value: number;
-    mode: number;
+    mode: PinMode;
 
     static write(pin: number, value: number): void;
     static read(pin: number, cb: (error: Error, data: number) => void): void;
@@ -804,8 +995,8 @@ export class Pin {
     low(): void;
     write(value: number): void;
     read(cb: (error: Error, value: number) => void): void;
-    on(event: 'high' | 'low', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "high" | "low", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface PingOption {
@@ -824,7 +1015,7 @@ export class Ping {
     /** Calculated distance to object in centimeters */
     readonly cm: number;
 
-    on(event: 'change', cb: () => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface ProximityOption {
@@ -841,26 +1032,75 @@ export interface ProximityData {
 
 export class Proximity {
     constructor(option: number | ProximityOption);
-    on(event: 'data', cb: (data: ProximityData) => void): this;
-    on(event: 'change', cb: () => void): this;
+    on(event: "data", cb: (data: ProximityData) => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface RelayOption {
-    board?: Board | undefined;
     pin: number | string;
-    type?: string | undefined;
+    board?: Board | undefined;
+    /**
+     * @default 'NO'
+     */
+    type?: "NO" | "NC";
 }
 
+/**
+ * http://johnny-five.io/api/relay/
+ */
 export class Relay {
-    constructor(option: number | RelayOption);
+    constructor(option: Relay["pin"] | RelayOption);
 
     id: string;
     pin: number | string;
     readonly isOn: boolean;
     readonly type: string;
 
+    /**
+     * Open the circuit.
+     */
     open(): void;
+    /**
+     * Close the circuit.
+     */
     close(): void;
+    /**
+     * Toggle the circuit open/close.
+     */
+    toggle(): void;
+}
+
+export class Relays {
+    /**
+     * An array of pins
+     */
+    constructor(options: Array<Relay["pin"]>);
+
+    /**
+     * Using relays with different types. Some NC, some NO, etc…
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: RelayOption[]);
+
+    /**
+     * Using an array of existing relays to join them into a single interface.
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: Relay[]);
+
+    [index: number]: Relay;
+
+    /**
+     * Open the circuits.
+     */
+    open(): void;
+    /**
+     * Close the circuits.
+     */
+    close(): void;
+    /**
+     * Toggle the circuits open/close.
+     */
     toggle(): void;
 }
 
@@ -874,6 +1114,7 @@ export interface SensorOption {
     freq?: number | undefined;
     threshold?: number | undefined;
     enabled?: boolean | undefined;
+    type?: "digital" | "analog";
 }
 
 export class Sensor {
@@ -881,6 +1122,7 @@ export class Sensor {
 
     id: string;
     pin: number | string;
+    freq: number;
     threshold: number;
     readonly boolean: boolean;
     readonly raw: number;
@@ -894,13 +1136,13 @@ export class Sensor {
     fscaleTo(range: number[]): number;
     booleanAt(barrier: number): boolean;
     within(range: number[], cb: () => void): void;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface ServoGeneralOption {
     pin: number | string;
-    board?: Board;
+    board?: Board | undefined;
     range?: number[];
     type?: string;
     startAt?: number;
@@ -914,12 +1156,71 @@ export interface ServoPCA9685Option extends ServoGeneralOption {
 }
 
 export interface ServoSweepOpts {
-    range: number[];
+    range?: [low: number, high: number] | undefined;
     interval?: number | undefined;
     step?: number | undefined;
 }
 
-export class Servo {
+export class ServoMethods {
+    /**
+     * Move a servo horn to specified position in degrees, 0-180 (or whatever the current valid range is).
+     *
+     * If ms is specified, the servo will take that amount of time to move to the position.
+     * If rate is specified, the angle change will be split into distance/rate steps for the ms option.
+     * If the specified angle is the same as the current angle, no commands are sent.
+     */
+    to(degrees: number, ms?: number, rate?: number): void;
+    /**
+     * Set Servo to minimum degrees. Defaults to 0deg, respects explicit range in constructor.
+     */
+    min(): void;
+    /**
+     * Set Servo to maximum degrees. Defaults to 180deg, respects explicit range in constructor.
+     */
+    max(): void;
+    /**
+     * Set Servo to center point.
+     * Defaults to 90deg, respects explicit range.
+     * If ms is specified, the servo will take that amount of time to move to the position. If rate is specified, the angle change will be split into distance/rate steps for the ms option. If the specified angle is the same as the current angle, no commands are sent.
+     */
+    center(ms?: number, rate?: number): void;
+    /**
+     * Set Servo to it's `startAt` position defined in constructor.
+     */
+    home(): void;
+    /**
+     * Sweep the servo between default min and max, repeatedly.
+     */
+    sweep(): void;
+    /**
+     * Sweep the servo between an explicit range, repeatedly.
+     */
+    // tslint:disable-next-line:unified-signatures
+    sweep(range: [low: number, high: number]): void;
+    /**
+     * Sweep the servo between an (optional) explicit range, within an (optional) explicit interval, and (optional) explicit steps (in degrees), repeatedly.
+     */
+    // tslint:disable-next-line:unified-signatures
+    sweep(sweepOpts: ServoSweepOpts): void;
+    /**
+     * Stop a moving servo.
+     */
+    stop(): void;
+    /**
+     * (Continuous only) Move a continuous servo clockwise at speed, 0-1
+     */
+    cw(speed: number): void;
+    /**
+     * (Continuous only) Move a continuous servo counter clockwise at speed, 0-1
+     */
+    ccw(speed: number): void;
+    /**
+     * This is emitted when a timed move is completed. The event won't fire unless a time argument has been passed to the `servo.to` method.
+     */
+    on(event: "move:complete", cb: () => void): this;
+}
+export class Servo extends ServoMethods {
+    static Collection: typeof Servos;
     constructor(option: number | string | ServoGeneralOption);
 
     id: string;
@@ -933,17 +1234,41 @@ export class Servo {
     readonly position: number;
     value: number;
     startAt: number;
+}
 
-    to(degrees: number, ms?: number, rage?: number): void;
-    min(): void;
-    max(): void;
-    center(): void;
-    home(): void;
-    sweep(arg?: number[] | ServoSweepOpts): void;
-    stop(): void;
-    cw(speed: number): void;
-    ccw(speed: number): void;
-    on(event: 'move:complete', cb: () => void): this;
+export class Servos extends ServoMethods {
+    /**
+     * An array of pins
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: Array<Servo["pin"]>);
+
+    /**
+     * Using servo constructor options
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: ServoGeneralOption[]);
+
+    /**
+     * Using an array of existing servos to join them into a single interface.
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: Servo[]);
+
+    [index: number]: Servo;
+
+    /**
+     * Open the circuits.
+     */
+    open(): void;
+    /**
+     * Close the circuits.
+     */
+    close(): void;
+    /**
+     * Toggle the circuits open/close.
+     */
+    toggle(): void;
 }
 
 export interface ShiftRegisterOption {
@@ -979,8 +1304,8 @@ export class Sonar {
 
     within(range: number[], cb: () => void): void;
     within(range: number[], unit: string, cb: () => void): void;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface StepperOption {
@@ -1010,14 +1335,14 @@ export class Stepper {
     ccw(): Stepper;
     within(range: number[], cb: () => void): void;
     within(range: number[], unit: string, cb: () => void): void;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface SwitchOption {
     board?: Board | undefined;
     pin: number | string;
-    type?: 'NO' | 'NC' | undefined;
+    type?: "NO" | "NC" | undefined;
 }
 
 export class Switch {
@@ -1028,7 +1353,7 @@ export class Switch {
     readonly isClosed: boolean;
     readonly isOpen: boolean;
 
-    on(event: 'open' | 'close', cb: () => void): this;
+    on(event: "open" | "close", cb: () => void): this;
 }
 
 export interface ThermometerOption {
@@ -1051,6 +1376,6 @@ export class Thermometer {
     readonly F: number;
     readonly K: number;
 
-    on(event: 'data', cb: (data: unknown) => void): this;
-    on(event: 'change', cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
 }

@@ -1,5 +1,5 @@
 import { ComponentClass } from "react";
-import { ReactWidgetsCommonProps, AutoFocus } from "./CommonProps";
+import { AutoFocus, ReactWidgetsCommonProps } from "./CommonProps";
 
 declare namespace Calendar {
     type CalendarView = "month" | "year" | "decade" | "century";
@@ -129,12 +129,12 @@ declare namespace Calendar {
     interface CalendarMessages {
         /**
          * Title and screen reader text for the left arrow button.
-         * @default: "navigate back"
+         * @default "navigate back"
          */
         moveBack?: string | undefined;
         /**
          * Title and screen reader text for the right arrow button.
-         * @default: "navigate forward"
+         * @default "navigate forward"
          */
         moveForward?: string | undefined;
     }

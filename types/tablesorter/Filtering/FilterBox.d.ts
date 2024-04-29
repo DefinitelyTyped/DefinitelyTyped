@@ -5,19 +5,16 @@ export type FilterBox =
     /**
      * Indicates an ordinary text-box.
      */
-    "search" |
-
+    | "search"
     /**
      * Indicates a dropdown.
      */
-    "select" |
-
+    | "select"
     /**
      * Indicates the textbox for the start of a date-range.
      */
-    "from" |
-
+    | "from"
     /**
      * Indicates the textbox for the end of a date-range.
      */
-    "to";
+    | "to";

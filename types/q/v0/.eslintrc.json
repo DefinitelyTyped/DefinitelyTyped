@@ -1,7 +1,12 @@
 {
     "rules": {
-        "dt-header": "off",
-        "prefer-declare-function": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

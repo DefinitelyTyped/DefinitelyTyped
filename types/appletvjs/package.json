@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/appletvjs",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "appletvjs",
+    "projects": [
+        "https://developer.apple.com/library/prerelease/tvos/documentation/TVMLJS/Reference/TVJSFrameworkReference/index.html"
+    ],
+    "devDependencies": {
+        "@types/appletvjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Valverde",
+            "githubUsername": "brainded"
+        }
+    ]
+}

@@ -1,29 +1,15 @@
-// Type definitions for @node-red/registry 1.2
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/registry, https://nodered.org/
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
-import { EventEmitter } from 'events';
-import { Request, Response, NextFunction, Express } from 'express';
-import { Server as HttpsServer } from 'https';
-import { LocalSettings } from '@node-red/runtime';
-import * as util from '@node-red/util';
-
-/**
- * Omit Helper
- * Typescript 3.5 includes this.
- * TODO: Remove after March 2021, after
- *   the end of support for TS 3.4
- */
-type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+import { LocalSettings } from "@node-red/runtime";
+import * as util from "@node-red/util";
+import { EventEmitter } from "events";
+import { Express, NextFunction, Request, Response } from "express";
+import { Server as HttpsServer } from "https";
 
 declare const registry: registry.RegistryModule;
 
 export = registry;
 
 declare namespace registry {
-    interface RegistryModule {} // tslint:disable-line:no-empty-interface
+    interface RegistryModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;
@@ -37,7 +23,7 @@ declare namespace registry {
     };
 
     interface NodeCredential {
-        type: 'text' | 'password';
+        type: "text" | "password";
     }
 
     type NodeCredentials<TCreds> = {
@@ -51,12 +37,13 @@ declare namespace registry {
          * @param constructor - the constructor function for this node type
          * @param opts - optional additional options for the node
          */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
-            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line no-unnecessary-generics
+            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             opts?: {
-                credentials?: NodeCredentials<TCreds> | undefined;
-                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line no-unnecessary-generics
+                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
             },
         ): void;
 
@@ -99,7 +86,7 @@ declare namespace registry {
         register(type: string): void;
     }
 
-    type NodeApiLog = Omit<util.Log, 'init'>;
+    type NodeApiLog = Omit<util.Log, "init">;
 
     interface NodeAPISettings {
         get(prop: string): any;
@@ -123,6 +110,47 @@ declare namespace registry {
         needsPermission(permission: string): (req: Request, res: Response, next: NextFunction) => void;
     }
 
+    interface NodeAPIPlugins {
+        /**
+         * Registers a plugin constructor
+         * @param id - the string id of the plugin
+         * @param definition - the definition object of the plugin
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        registerPlugin<TPluginDef extends PluginDef = PluginDef>(
+            id: string,
+            definition: PluginDefinition<TPluginDef>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        ): void;
+
+        /**
+         * Returns the plugin definition for the given id
+         * @param id - the string id of the plugin
+         * @returns the plugin definition
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        get<TPluginDef extends PluginDef = PluginDef>(id: string): PluginDefinition<TPluginDef>;
+
+        /**
+         * Returns the plugin definitions for the given type
+         * @param type - the string type of the plugin
+         * @returns the plugin definitions
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        getByType<TPluginDef extends PluginDef = PluginDef>(type: string): Array<PluginDefinition<TPluginDef>>;
+    }
+    interface PluginDefinition<TPluginDef> {
+        id?: string;
+        type: string;
+        module?: string;
+        onadd?(): void;
+        _?: any;
+        settings?: NodeSettings<TPluginDef> | undefined;
+        onadd?: () => void;
+    }
+    interface PluginDef {
+        "*": unknown;
+    }
+
     /**
      * Runtime API provided to nodes by Node Registry
      */
@@ -138,6 +166,7 @@ declare namespace registry {
         comms: NodeAPIComms;
         library: NodeAPILibrary;
         auth: NodeAPIAuth;
+        plugins: NodeAPIPlugins;
         readonly httpNode: Express;
         readonly httpAdmin: Express;
         readonly server: HttpsServer;
@@ -181,6 +210,8 @@ declare namespace registry {
         z: string;
         name?: string | undefined;
         credentials: TCreds;
+        _flow?: FlowInfo;
+        _alias?: string;
         /**
          * Update the wiring configuration for this node.
          * @param wires -the new wiring configuration
@@ -188,7 +219,7 @@ declare namespace registry {
         updateWires(wires: Array<[]>): void;
         /**
          * Get the context object for this node.
-         * @returnsthe context object
+         * @returns the context object
          */
         context(): NodeContext;
         /**
@@ -249,7 +280,7 @@ declare namespace registry {
          * More info: https://nodered.org/docs/creating-nodes/node-js#receiving-messages
          */
         on(
-            event: 'input',
+            event: "input",
             listener: (
                 msg: NodeMessageInFlow,
                 send: (msg: NodeMessage | Array<NodeMessage | NodeMessage[] | null>) => void,
@@ -263,25 +294,25 @@ declare namespace registry {
          * system, they should register a listener on the close event.
          * More info: https://nodered.org/docs/creating-nodes/node-js#closing-the-node
          */
-        on(event: 'close', listener: () => void): this;
+        on(event: "close", listener: () => void): this;
         /**
          * If the node needs to do any asynchronous work to complete the tidy up, the
          * registered listener should accept an argument which is a function to be called
          * when all the work is complete.
          * More info: https://nodered.org/docs/creating-nodes/node-js#closing-the-node
          */
-        on(event: 'close', listener: (done: () => void) => void): this; // tslint:disable-line:unified-signatures
+        on(event: "close", listener: (done: () => void) => void): this; // tslint:disable-line:unified-signatures
         /**
          * If the registered listener accepts two arguments, the first will be a boolean
          * flag that indicates whether the node is being closed because it has been removed
          * entirely, or that it is just being restarted.
          * More info: https://nodered.org/docs/creating-nodes/node-js#closing-the-node
          */
-        on(event: 'close', listener: (removed: boolean, done: () => void) => void): this; // tslint:disable-line:unified-signatures
+        on(event: "close", listener: (removed: boolean, done: () => void) => void): this; // tslint:disable-line:unified-signatures
     }
 
-    type NodeStatusFill = 'red' | 'green' | 'yellow' | 'blue' | 'grey';
-    type NodeStatusShape = 'ring' | 'dot';
+    type NodeStatusFill = "red" | "green" | "yellow" | "blue" | "grey";
+    type NodeStatusShape = "ring" | "dot";
 
     interface NodeStatus {
         fill?: NodeStatusFill | undefined;
@@ -376,8 +407,46 @@ declare namespace registry {
          */
         keys(storeName: string | undefined, cb: (err: Error, value: unknown[]) => void): void;
     }
+
     interface NodeContext extends NodeContextData {
         global: NodeContextData;
         flow: NodeContextData;
+    }
+
+    type FlowType = "subflow" | "flow";
+
+    interface FlowInfo {
+        TYPE: FlowType;
+        path: string;
+        flow: Node;
+        subflowDef?: SubflowDef;
+    }
+
+    type SubflowDefEnvType = "cred" | string;
+
+    interface SubflowDefEnv {
+        name: string;
+        type: SubflowDefEnvType;
+        value?: any;
+    }
+
+    interface SubflowDefInOutWire {
+        id: string;
+    }
+
+    interface SubflowDefInOut {
+        wires: SubflowDefInOutWire[];
+    }
+
+    interface SubflowDef {
+        id: string;
+        name: string;
+        configs?: Node[];
+        nodes?: Node[];
+        subflows?: Node[];
+        in?: SubflowDefInOut[];
+        out?: SubflowDefInOut[];
+        env?: SubflowDefEnv[];
+        status?: any;
     }
 }

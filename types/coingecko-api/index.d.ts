@@ -1,115 +1,109 @@
-// Type definitions for coingecko-api 1.0
-// Project: https://github.com/miscavage/CoinGecko-API#readme
-// Definitions by: Jan Klimo <https://github.com/janklimo>
-//                 Artem Ilinykh <https://github.com/singlesly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Locale =
-    | 'ar'
-    | 'de'
-    | 'en'
-    | 'es'
-    | 'fr'
-    | 'hu'
-    | 'id'
-    | 'it'
-    | 'ja'
-    | 'ko'
-    | 'nl'
-    | 'pl'
-    | 'pt'
-    | 'ro'
-    | 'ru'
-    | 'sv'
-    | 'th'
-    | 'tr'
-    | 'vi'
-    | 'zh'
-    | 'zh-tw';
+    | "ar"
+    | "de"
+    | "en"
+    | "es"
+    | "fr"
+    | "hu"
+    | "id"
+    | "it"
+    | "ja"
+    | "ko"
+    | "nl"
+    | "pl"
+    | "pt"
+    | "ro"
+    | "ru"
+    | "sv"
+    | "th"
+    | "tr"
+    | "vi"
+    | "zh"
+    | "zh-tw";
 
 type Localization = Record<Locale, string>;
 
 type Currency =
-    | 'aed'
-    | 'ars'
-    | 'aud'
-    | 'bch'
-    | 'bdt'
-    | 'bhd'
-    | 'bmd'
-    | 'bnb'
-    | 'brl'
-    | 'btc'
-    | 'cad'
-    | 'chf'
-    | 'clp'
-    | 'cny'
-    | 'czk'
-    | 'dkk'
-    | 'eos'
-    | 'eth'
-    | 'eur'
-    | 'gbp'
-    | 'hkd'
-    | 'huf'
-    | 'idr'
-    | 'ils'
-    | 'inr'
-    | 'jpy'
-    | 'krw'
-    | 'kwd'
-    | 'lkr'
-    | 'ltc'
-    | 'mmk'
-    | 'mxn'
-    | 'myr'
-    | 'ngn'
-    | 'nok'
-    | 'nzd'
-    | 'php'
-    | 'pkr'
-    | 'pln'
-    | 'rub'
-    | 'sar'
-    | 'sek'
-    | 'sgd'
-    | 'thb'
-    | 'try'
-    | 'twd'
-    | 'uah'
-    | 'usd'
-    | 'vef'
-    | 'vnd'
-    | 'xag'
-    | 'xau'
-    | 'xdr'
-    | 'xlm'
-    | 'xrp'
-    | 'zar'
-    | 'bits'
-    | 'link'
-    | 'sats';
+    | "aed"
+    | "ars"
+    | "aud"
+    | "bch"
+    | "bdt"
+    | "bhd"
+    | "bmd"
+    | "bnb"
+    | "brl"
+    | "btc"
+    | "cad"
+    | "chf"
+    | "clp"
+    | "cny"
+    | "czk"
+    | "dkk"
+    | "eos"
+    | "eth"
+    | "eur"
+    | "gbp"
+    | "hkd"
+    | "huf"
+    | "idr"
+    | "ils"
+    | "inr"
+    | "jpy"
+    | "krw"
+    | "kwd"
+    | "lkr"
+    | "ltc"
+    | "mmk"
+    | "mxn"
+    | "myr"
+    | "ngn"
+    | "nok"
+    | "nzd"
+    | "php"
+    | "pkr"
+    | "pln"
+    | "rub"
+    | "sar"
+    | "sek"
+    | "sgd"
+    | "thb"
+    | "try"
+    | "twd"
+    | "uah"
+    | "usd"
+    | "vef"
+    | "vnd"
+    | "xag"
+    | "xau"
+    | "xdr"
+    | "xlm"
+    | "xrp"
+    | "zar"
+    | "bits"
+    | "link"
+    | "sats";
 
 type Order =
-    | 'gecko_asc'
-    | 'gecko_desc'
-    | 'market_cap_asc'
-    | 'market_cap_desc'
-    | 'volume_asc'
-    | 'volume_desc'
-    | 'coin_name_asc'
-    | 'coin_name_desc'
-    | 'price_asc'
-    | 'price_desc'
-    | 'h24_change_asc'
-    | 'h24_change_desc'
-    | 'trust_score_desc'
-    | 'name_asc'
-    | 'name_desc'
-    | 'open_interest_btc_asc'
-    | 'open_interest_btc_desc'
-    | 'trade_volume_24h_btc_asc'
-    | 'trade_volume_24h_btc_desc';
+    | "gecko_asc"
+    | "gecko_desc"
+    | "market_cap_asc"
+    | "market_cap_desc"
+    | "volume_asc"
+    | "volume_desc"
+    | "coin_name_asc"
+    | "coin_name_desc"
+    | "price_asc"
+    | "price_desc"
+    | "h24_change_asc"
+    | "h24_change_desc"
+    | "trust_score_desc"
+    | "name_asc"
+    | "name_desc"
+    | "open_interest_btc_asc"
+    | "open_interest_btc_desc"
+    | "trade_volume_24h_btc_asc"
+    | "trade_volume_24h_btc_desc";
 
 interface Response<T = any> {
     /**
@@ -315,14 +309,14 @@ interface CoinsFetchData {
         total_volume: Record<Currency & string, number>;
         fully_diluted_valuation: Record<Currency & string, number>;
         total_value_locked: {
-            btc: number
-            usd: number
-        }
-        fdv_to_tvl_ratio: number
-        mcap_to_tvl_ratio: number
-        circulating_supply: number
-        total_supply: number
-        max_supply: number
+            btc: number;
+            usd: number;
+        };
+        fdv_to_tvl_ratio: number;
+        mcap_to_tvl_ratio: number;
+        circulating_supply: number;
+        total_supply: number;
+        max_supply: number;
     };
     community_data: {
         facebook_likes: null | number;
@@ -348,7 +342,7 @@ interface CoinsFetchData {
     tickers: CoinsFetchDataTicker[];
 }
 
-type TrustScore = 'green' | 'yellow' | 'red';
+type TrustScore = "green" | "yellow" | "red";
 
 interface CoinsFetchDataTicker {
     base: string;
@@ -356,7 +350,7 @@ interface CoinsFetchDataTicker {
     market: {
         name: string;
         identifier: string;
-        has_trading_incentive: boolean
+        has_trading_incentive: boolean;
     };
     last: number;
     volume: number;

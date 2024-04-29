@@ -1,4 +1,4 @@
-import Delaunator from 'delaunator';
+import Delaunator from "delaunator";
 
 // Zipped points [x0, y0, x1, y1, ...]
 const zippedPoints = [168, 180, 168, 178, 168, 179, 168, 181, 168, 183, 167, 183, 167, 184];

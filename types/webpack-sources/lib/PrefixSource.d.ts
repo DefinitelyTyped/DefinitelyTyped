@@ -1,5 +1,5 @@
-import { SourceAndMapMixin } from '.';
-import Source = require('./Source');
+import { SourceAndMapMixin } from ".";
+import Source = require("./Source");
 
 /**
  * Prefix every line of the decorated Source with a provided string.

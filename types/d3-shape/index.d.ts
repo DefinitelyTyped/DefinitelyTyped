@@ -1,19 +1,9 @@
-// Type definitions for D3JS d3-shape module 3.1
-// Project: https://github.com/d3/d3-shape/, https://d3js.org/d3-shape
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-//                 Fil <https://github.com/Fil>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.1.0
 
-import { Path } from 'd3-path';
+import { Path } from "d3-path";
 
 declare global {
-    interface CanvasRenderingContext2D {} // tslint:disable-line no-empty-interface
+    interface CanvasRenderingContext2D {} // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 // -----------------------------------------------------------------------------------
@@ -30,7 +20,16 @@ export interface CanvasPath_D3Shape {
     arcTo(x1: number, y1: number, x2: number, y2: number, radius: number): void;
     bezierCurveTo(cp1x: number, cp1y: number, cp2x: number, cp2y: number, x: number, y: number): void;
     closePath(): void;
-    ellipse(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, anticlockwise?: boolean): void;
+    ellipse(
+        x: number,
+        y: number,
+        radiusX: number,
+        radiusY: number,
+        rotation: number,
+        startAngle: number,
+        endAngle: number,
+        anticlockwise?: boolean,
+    ): void;
     lineTo(x: number, y: number): void;
     moveTo(x: number, y: number): void;
     quadraticCurveTo(cpx: number, cpy: number, x: number, y: number): void;
@@ -335,7 +334,7 @@ export function arc(): Arc<any, DefaultArcObject>;
  *
  * The generic corresponds to the datum type representing a arc.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function arc<Datum>(): Arc<any, Datum>;
 /**
  * Constructs a new arc generator with the default settings.
@@ -347,7 +346,7 @@ export function arc<Datum>(): Arc<any, Datum>;
  *
  * The second generic corresponds to the datum type representing a arc.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function arc<This, Datum>(): Arc<This, Datum>;
 
 // -----------------------------------------------------------------------------------
@@ -590,7 +589,7 @@ export function pie(): Pie<any, number | { valueOf(): number }>;
  *
  * The generic refers to the data type of an element in the input array passed into the Pie generator.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function pie<Datum>(): Pie<any, Datum>;
 /**
  * Constructs a new pie generator with the default settings.
@@ -602,7 +601,7 @@ export function pie<Datum>(): Pie<any, Datum>;
  *
  * The second generic refers to the data type of an element in the input array passed into the Pie generator.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function pie<This, Datum>(): Pie<This, Datum>;
 
 // -----------------------------------------------------------------------------------
@@ -734,7 +733,7 @@ export interface Line<Datum> {
      *
      * The generic allows to cast the curve factory to a specific type, if known.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
      * Sets the curve factory and returns this line generator.
@@ -765,7 +764,7 @@ export interface Line<Datum> {
  */
 export function line<Datum = [number, number]>(
     x?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y?: number | ((d: Datum, index: number, data: Datum[]) => number)
+    y?: number | ((d: Datum, index: number, data: Datum[]) => number),
 ): Line<Datum>;
 
 /**
@@ -896,7 +895,7 @@ export interface LineRadial<Datum> {
      *
      * The generic allows to cast the curve factory to a specific type, if known.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     curve<C extends CurveFactory | CurveFactoryLineOnly>(): C;
     /**
      * Sets the curve factory and returns this radial line generator.
@@ -933,7 +932,7 @@ export function lineRadial(): LineRadial<[number, number]>;
  *
  * The generic refers to the data type of an element in the input array passed into the radial line generator.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function lineRadial<Datum>(): LineRadial<Datum>;
 
 /**
@@ -948,7 +947,7 @@ export function radialLine(): RadialLine<[number, number]>;
 /**
  * @deprecated Use lineRadial<Datum>()
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function radialLine<Datum>(): RadialLine<Datum>;
 
 // -----------------------------------------------------------------------------------
@@ -1166,7 +1165,7 @@ export interface Area<Datum> {
      *
      * The generic allows to cast the curve factory to a specific type, if known.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     curve<C extends CurveFactory>(): C;
     /**
      * Sets the curve factory and returns this area generator.
@@ -1221,7 +1220,7 @@ export interface Area<Datum> {
 export function area<Datum = [number, number]>(
     x?: number | ((d: Datum, index: number, data: Datum[]) => number),
     y0?: number | ((d: Datum, index: number, data: Datum[]) => number),
-    y1?: number | ((d: Datum, index: number, data: Datum[]) => number)
+    y1?: number | ((d: Datum, index: number, data: Datum[]) => number),
 ): Area<Datum>;
 
 /**
@@ -1439,7 +1438,7 @@ export interface AreaRadial<Datum> {
      *
      * The generic allows to cast the curve factory to a specific type, if known.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     curve<C extends CurveFactory>(): C;
     /**
      * Sets the curve factory and returns this radial area generator.
@@ -1499,7 +1498,7 @@ export function areaRadial(): AreaRadial<[number, number]>;
  *
  * The generic refers to the data type of an element in the input array passed into the radial area generator.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function areaRadial<Datum>(): AreaRadial<Datum>;
 
 /**
@@ -1514,7 +1513,7 @@ export function radialArea(): RadialArea<[number, number]>;
 /**
  * @deprecated Use areaRadial<Datum>()
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function radialArea<Datum>(): RadialArea<Datum>;
 
 // -----------------------------------------------------------------------------------
@@ -1950,7 +1949,7 @@ export function link(curve: CurveFactory): Link<any, DefaultLinkObject, [number,
  *
  * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function link<LinkDatum, NodeDatum>(curve: CurveFactory): Link<any, LinkDatum, NodeDatum>;
 /**
  * Returns a new link generator using the specified curve. For example, to visualize links in a tree diagram rooted on the top edge of the display
@@ -1964,7 +1963,7 @@ export function link<LinkDatum, NodeDatum>(curve: CurveFactory): Link<any, LinkD
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function link<This, LinkDatum, NodeDatum>(curve: CurveFactory): Link<This, LinkDatum, NodeDatum>;
 
 /**
@@ -1983,7 +1982,7 @@ export function linkHorizontal(): Link<any, DefaultLinkObject, [number, number]>
  *
  * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function linkHorizontal<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeDatum>;
 /**
  * Shorthand for d3.link with d3.curveBumpX; suitable for visualizing links in a tree diagram rooted on the left edge of the display.
@@ -1997,7 +1996,7 @@ export function linkHorizontal<LinkDatum, NodeDatum>(): Link<any, LinkDatum, Nod
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function linkHorizontal<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum, NodeDatum>;
 
 /**
@@ -2016,7 +2015,7 @@ export function linkVertical(): Link<any, DefaultLinkObject, [number, number]>;
  *
  * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function linkVertical<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeDatum>;
 /**
  * Shorthand for d3.link with d3.curveBumpY; suitable for visualizing links in a tree diagram rooted on the top edge of the display.
@@ -2030,7 +2029,7 @@ export function linkVertical<LinkDatum, NodeDatum>(): Link<any, LinkDatum, NodeD
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function linkVertical<This, LinkDatum, NodeDatum>(): Link<This, LinkDatum, NodeDatum>;
 
 /**
@@ -2155,7 +2154,7 @@ export function linkRadial(): LinkRadial<any, DefaultLinkObject, [number, number
  *
  * The second generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function linkRadial<LinkDatum, NodeDatum>(): LinkRadial<any, LinkDatum, NodeDatum>;
 /**
  * Constructs a new link generator with radial tangents, for example, to visualize links in a tree diagram
@@ -2170,7 +2169,7 @@ export function linkRadial<LinkDatum, NodeDatum>(): LinkRadial<any, LinkDatum, N
  *
  * The third generic corresponds to the datum type of the source/target node contained in the link object.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function linkRadial<This, LinkDatum, NodeDatum>(): LinkRadial<This, LinkDatum, NodeDatum>;
 
 // -----------------------------------------------------------------------------------
@@ -2295,7 +2294,7 @@ export interface Symbol<This, Datum> {
  */
 export function symbol<Datum = any>(
     type?: SymbolType | ((this: any, d: Datum, ...args: any[]) => SymbolType),
-    size?: number | ((this: any, d: Datum, ...args: any[]) => number)
+    size?: number | ((this: any, d: Datum, ...args: any[]) => number),
 ): Symbol<any, Datum>;
 
 /**
@@ -2310,7 +2309,7 @@ export function symbol<Datum = any>(
  */
 export function symbol<This, Datum>(
     type?: SymbolType | ((this: This, d: Datum, ...args: any[]) => SymbolType),
-    size?: number | ((this: This, d: Datum, ...args: any[]) => number)
+    size?: number | ((this: This, d: Datum, ...args: any[]) => number),
 ): Symbol<This, Datum>;
 
 /**
@@ -2333,67 +2332,67 @@ export const symbols: SymbolType[];
 /**
  * The asterisk symbol type; intended for stroking.
  */
- export const symbolAsterisk: SymbolType;
+export const symbolAsterisk: SymbolType;
 
- /**
-  * The circle symbol type; intended for either filling or stroking.
-  */
- export const symbolCircle: SymbolType;
+/**
+ * The circle symbol type; intended for either filling or stroking.
+ */
+export const symbolCircle: SymbolType;
 
- /**
-  * The Greek cross symbol type, with arms of equal length; intended for filling.
-  */
- export const symbolCross: SymbolType;
+/**
+ * The Greek cross symbol type, with arms of equal length; intended for filling.
+ */
+export const symbolCross: SymbolType;
 
- /**
-  * The rhombus symbol type; intended for filling.
-  */
- export const symbolDiamond: SymbolType;
+/**
+ * The rhombus symbol type; intended for filling.
+ */
+export const symbolDiamond: SymbolType;
 
- /**
-  * The rotated square symbol type; intended for stroking.
-  */
- export const symbolDiamond2: SymbolType;
+/**
+ * The rotated square symbol type; intended for stroking.
+ */
+export const symbolDiamond2: SymbolType;
 
- /**
-  * The plus symbol type; intended for stroking.
-  */
- export const symbolPlus: SymbolType;
+/**
+ * The plus symbol type; intended for stroking.
+ */
+export const symbolPlus: SymbolType;
 
- /**
-  * The square symbol type; intended for filling.
-  */
- export const symbolSquare: SymbolType;
+/**
+ * The square symbol type; intended for filling.
+ */
+export const symbolSquare: SymbolType;
 
- /**
-  * The square2 symbol type; intended for stroking.
-  */
- export const symbolSquare2: SymbolType;
+/**
+ * The square2 symbol type; intended for stroking.
+ */
+export const symbolSquare2: SymbolType;
 
- /**
-  * The pentagonal star (pentagram) symbol type; intended for filling.
-  */
- export const symbolStar: SymbolType;
+/**
+ * The pentagonal star (pentagram) symbol type; intended for filling.
+ */
+export const symbolStar: SymbolType;
 
- /**
-  * The up-pointing triangle symbol type; intended for filling.
-  */
- export const symbolTriangle: SymbolType;
+/**
+ * The up-pointing triangle symbol type; intended for filling.
+ */
+export const symbolTriangle: SymbolType;
 
- /**
-  * The up-pointing triangle symbol type; intended for stroking.
-  */
- export const symbolTriangle2: SymbolType;
+/**
+ * The up-pointing triangle symbol type; intended for stroking.
+ */
+export const symbolTriangle2: SymbolType;
 
- /**
-  * The Y-shape symbol type; intended for filling.
-  */
- export const symbolWye: SymbolType;
+/**
+ * The Y-shape symbol type; intended for filling.
+ */
+export const symbolWye: SymbolType;
 
- /**
-  * The X-shape symbol type; intended for stroking.
-  */
- export const symbolX: SymbolType;
+/**
+ * The X-shape symbol type; intended for stroking.
+ */
+export const symbolX: SymbolType;
 
 // -----------------------------------------------------------------------------------
 // pointRadial
@@ -2564,7 +2563,7 @@ export function stack(): Stack<any, { [key: string]: number }, string>;
  *
  * The generic corresponds to the data type of an element in the data array passed into the stack generator.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function stack<Datum>(): Stack<any, Datum, string>;
 /**
  * Constructs a new stack generator with the default settings.
@@ -2575,7 +2574,7 @@ export function stack<Datum>(): Stack<any, Datum, string>;
  *
  * The second generic corresponds to the data type of key used to identify a series.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function stack<Datum, Key>(): Stack<any, Datum, Key>;
 /**
  * Constructs a new stack generator with the default settings.
@@ -2588,7 +2587,7 @@ export function stack<Datum, Key>(): Stack<any, Datum, Key>;
  *
  * The third generic corresponds to the data type of key used to identify a series.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function stack<This, Datum, Key>(): Stack<This, Datum, Key>;
 
 /**

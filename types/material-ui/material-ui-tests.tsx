@@ -1,9 +1,12 @@
 import * as React from 'react';
 import {
-  Component, ComponentClass, CSSProperties,
-  FunctionComponent, ReactElement, ReactInstance, ValidationMap
+  Component,
+  ComponentClass,
+  CSSProperties,
+  FunctionComponent,
+  ReactElement,
+  ReactInstance,
 } from 'react';
-import * as ReactDOM from 'react-dom';
 import * as PropTypes from 'prop-types';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { muiThemeable } from 'material-ui/styles/muiThemeable';
@@ -2271,7 +2274,7 @@ const lightBaseTheme = {
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
 class DeepDownTheTree extends Component<{} & {muiTheme: MuiTheme}> {
-  static propTypes: ValidationMap<any> = {
+  static propTypes: PropTypes.ValidationMap<any> = {
     muiTheme: PropTypes.object.isRequired,
   };
 
@@ -6965,6 +6968,7 @@ class BottomNavigationExample extends Component<{}, {
   }
 }
 
+// "http://www.material-ui.com/#/get-started/usage"
 class MaterialUiTests extends Component {
     render() {
     return (
@@ -6975,9 +6979,3 @@ class MaterialUiTests extends Component {
     );
   }
 }
-
-// "http://www.material-ui.com/#/get-started/usage"
-ReactDOM.render(
-  <MaterialUiTests />,
-  document.getElementById('app')
-);

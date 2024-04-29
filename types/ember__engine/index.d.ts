@@ -1,18 +1,12 @@
-// Type definitions for non-npm package @ember/engine 4.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fengine
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // import Ember from 'ember';
-import EmberObject from '@ember/object';
-import RegistryProxyMixin from '@ember/engine/-private/registry-proxy-mixin';
-import Initializer from '@ember/engine/-private/types/initializer';
-import EngineInstance from '@ember/engine/instance';
-import { Resolver } from '@ember/owner';
+import EmberObject from "@ember/object";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Initializer from "@ember/engine/-private/types/initializer";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import EngineInstance from "@ember/engine/instance";
+import { Resolver } from "@ember/owner";
 
 /**
  * The `Engine` class contains core functionality for both applications and
@@ -46,7 +40,7 @@ export default class Engine extends EmberObject {
     buildInstance(options?: object): EngineInstance;
 }
 
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface Engine extends RegistryProxyMixin {}
 
 /**

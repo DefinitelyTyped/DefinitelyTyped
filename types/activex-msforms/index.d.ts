@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Microsoft Forms 2.0 Object Library - MSForms 2.0
-// Project: https://msdn.microsoft.com/VBA/Language-Reference-VBA/articles/reference-microsoft-forms
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-stdole" />
 
 declare namespace MSForms {
@@ -325,7 +319,7 @@ declare namespace MSForms {
     }
 
     class CheckBox {
-        private 'MSForms.CheckBox_typekey': CheckBox;
+        private "MSForms.CheckBox_typekey": CheckBox;
         private constructor();
         readonly _Font_Reserved: NewFont;
         Accelerator: string;
@@ -362,7 +356,7 @@ declare namespace MSForms {
     }
 
     class ComboBox {
-        private 'MSForms.ComboBox_typekey': ComboBox;
+        private "MSForms.ComboBox_typekey": ComboBox;
         private constructor();
         readonly _Font_Reserved: NewFont;
         AddItem(pvargItem?: number, pvargIndex?: number): void;
@@ -439,7 +433,7 @@ declare namespace MSForms {
     }
 
     class CommandButton {
-        private 'MSForms.CommandButton_typekey': CommandButton;
+        private "MSForms.CommandButton_typekey": CommandButton;
         private constructor();
         readonly _Font_Reserved: NewFont;
         Accelerator: string;
@@ -468,7 +462,7 @@ declare namespace MSForms {
     }
 
     class Control {
-        private 'MSForms.Control_typekey': Control;
+        private "MSForms.Control_typekey": Control;
         private constructor();
         _GetHeight(Height: number): void;
         _GethWnd(): number;
@@ -542,7 +536,7 @@ declare namespace MSForms {
     }
 
     class DataObject {
-        private 'MSForms.DataObject_typekey': DataObject;
+        private "MSForms.DataObject_typekey": DataObject;
         private constructor();
         Clear(): void;
         GetFormat(Format: any): boolean;
@@ -554,7 +548,7 @@ declare namespace MSForms {
     }
 
     class Frame {
-        private 'MSForms.Frame_typekey': Frame;
+        private "MSForms.Frame_typekey": Frame;
         private constructor();
         readonly _Font_Reserved: NewFont;
         _GetGridX(GridX: number): void;
@@ -619,7 +613,7 @@ declare namespace MSForms {
     }
 
     class HTMLCheckbox {
-        private 'MSForms.HTMLCheckbox_typekey': HTMLCheckbox;
+        private "MSForms.HTMLCheckbox_typekey": HTMLCheckbox;
         private constructor();
         Checked: boolean;
         HTMLName: string;
@@ -628,7 +622,7 @@ declare namespace MSForms {
     }
 
     class HTMLHidden {
-        private 'MSForms.HTMLHidden_typekey': HTMLHidden;
+        private "MSForms.HTMLHidden_typekey": HTMLHidden;
         private constructor();
         HTMLName: string;
         HTMLType: string;
@@ -636,7 +630,7 @@ declare namespace MSForms {
     }
 
     class HTMLImage {
-        private 'MSForms.HTMLImage_typekey': HTMLImage;
+        private "MSForms.HTMLImage_typekey": HTMLImage;
         private constructor();
         Action: string;
         Encoding: string;
@@ -647,7 +641,7 @@ declare namespace MSForms {
     }
 
     class HTMLOption {
-        private 'MSForms.HTMLOption_typekey': HTMLOption;
+        private "MSForms.HTMLOption_typekey": HTMLOption;
         private constructor();
         Checked: boolean;
         readonly DisplayStyle: fmDisplayStyle;
@@ -657,7 +651,7 @@ declare namespace MSForms {
     }
 
     class HTMLPassword {
-        private 'MSForms.HTMLPassword_typekey': HTMLPassword;
+        private "MSForms.HTMLPassword_typekey": HTMLPassword;
         private constructor();
         HTMLName: string;
         HTMLType: string;
@@ -667,7 +661,7 @@ declare namespace MSForms {
     }
 
     class HTMLReset {
-        private 'MSForms.HTMLReset_typekey': HTMLReset;
+        private "MSForms.HTMLReset_typekey": HTMLReset;
         private constructor();
         Caption: string;
         HTMLName: string;
@@ -675,7 +669,7 @@ declare namespace MSForms {
     }
 
     class HTMLSelect {
-        private 'MSForms.HTMLSelect_typekey': HTMLSelect;
+        private "MSForms.HTMLSelect_typekey": HTMLSelect;
         private constructor();
         DisplayValues: any;
         HTMLName: string;
@@ -686,7 +680,7 @@ declare namespace MSForms {
     }
 
     class HTMLSubmit {
-        private 'MSForms.HTMLSubmit_typekey': HTMLSubmit;
+        private "MSForms.HTMLSubmit_typekey": HTMLSubmit;
         private constructor();
         Action: string;
         Caption: string;
@@ -697,7 +691,7 @@ declare namespace MSForms {
     }
 
     class HTMLText {
-        private 'MSForms.HTMLText_typekey': HTMLText;
+        private "MSForms.HTMLText_typekey": HTMLText;
         private constructor();
         HTMLName: string;
         HTMLType: string;
@@ -707,7 +701,7 @@ declare namespace MSForms {
     }
 
     class HTMLTextArea {
-        private 'MSForms.HTMLTextArea_typekey': HTMLTextArea;
+        private "MSForms.HTMLTextArea_typekey": HTMLTextArea;
         private constructor();
         Columns: number;
         HTMLName: string;
@@ -717,7 +711,7 @@ declare namespace MSForms {
     }
 
     class Image {
-        private 'MSForms.Image_typekey': Image;
+        private "MSForms.Image_typekey": Image;
         private constructor();
         AutoSize: boolean;
         BackColor: number;
@@ -735,7 +729,7 @@ declare namespace MSForms {
     }
 
     class Label {
-        private 'MSForms.Label_typekey': Label;
+        private "MSForms.Label_typekey": Label;
         private constructor();
         readonly _Font_Reserved: NewFont;
         _Value: string;
@@ -766,7 +760,7 @@ declare namespace MSForms {
     }
 
     class ListBox {
-        private 'MSForms.ListBox_typekey': ListBox;
+        private "MSForms.ListBox_typekey": ListBox;
         private constructor();
         readonly _Font_Reserved: NewFont;
         AddItem(pvargItem?: any, pvargIndex?: any): void;
@@ -818,7 +812,7 @@ declare namespace MSForms {
     }
 
     class MultiPage {
-        private 'MSForms.MultiPage_typekey': MultiPage;
+        private "MSForms.MultiPage_typekey": MultiPage;
         private constructor();
         readonly _Font_Reserved: NewFont;
         _GetTabFixedHeight(Height: number): void;
@@ -847,7 +841,7 @@ declare namespace MSForms {
     }
 
     class NewFont {
-        private 'MSForms.NewFont_typekey': NewFont;
+        private "MSForms.NewFont_typekey": NewFont;
         private constructor();
         readonly Bold: boolean;
         readonly Charset: number;
@@ -860,7 +854,7 @@ declare namespace MSForms {
     }
 
     class OptionButton {
-        private 'MSForms.OptionButton_typekey': OptionButton;
+        private "MSForms.OptionButton_typekey": OptionButton;
         private constructor();
         readonly _Font_Reserved: NewFont;
         Accelerator: string;
@@ -897,7 +891,7 @@ declare namespace MSForms {
     }
 
     class Page {
-        private 'MSForms.Page_typekey': Page;
+        private "MSForms.Page_typekey": Page;
         private constructor();
         _GetGridX(GridX: number): void;
         _GetGridY(GridY: number): void;
@@ -976,37 +970,37 @@ declare namespace MSForms {
     }
 
     class ReturnBoolean {
-        private 'MSForms.ReturnBoolean_typekey': ReturnBoolean;
+        private "MSForms.ReturnBoolean_typekey": ReturnBoolean;
         private constructor();
         Value: boolean;
     }
 
     class ReturnEffect {
-        private 'MSForms.ReturnEffect_typekey': ReturnEffect;
+        private "MSForms.ReturnEffect_typekey": ReturnEffect;
         private constructor();
         Value: fmDropEffect;
     }
 
     class ReturnInteger {
-        private 'MSForms.ReturnInteger_typekey': ReturnInteger;
+        private "MSForms.ReturnInteger_typekey": ReturnInteger;
         private constructor();
         Value: number;
     }
 
     class ReturnSingle {
-        private 'MSForms.ReturnSingle_typekey': ReturnSingle;
+        private "MSForms.ReturnSingle_typekey": ReturnSingle;
         private constructor();
         Value: number;
     }
 
     class ReturnString {
-        private 'MSForms.ReturnString_typekey': ReturnString;
+        private "MSForms.ReturnString_typekey": ReturnString;
         private constructor();
         Value: string;
     }
 
     class ScrollBar {
-        private 'MSForms.ScrollBar_typekey': ScrollBar;
+        private "MSForms.ScrollBar_typekey": ScrollBar;
         private constructor();
         BackColor: number;
         Delay: number;
@@ -1024,7 +1018,7 @@ declare namespace MSForms {
     }
 
     class SpinButton {
-        private 'MSForms.SpinButton_typekey': SpinButton;
+        private "MSForms.SpinButton_typekey": SpinButton;
         private constructor();
         BackColor: number;
         Delay: number;
@@ -1040,7 +1034,7 @@ declare namespace MSForms {
     }
 
     class Tab {
-        private 'MSForms.Tab_typekey': Tab;
+        private "MSForms.Tab_typekey": Tab;
         private constructor();
         Accelerator: string;
         Caption: string;
@@ -1067,7 +1061,7 @@ declare namespace MSForms {
     }
 
     class TabStrip {
-        private 'MSForms.TabStrip_typekey': TabStrip;
+        private "MSForms.TabStrip_typekey": TabStrip;
         private constructor();
         readonly _Font_Reserved: NewFont;
         _GetClientHeight(ClientHeight: number): void;
@@ -1106,7 +1100,7 @@ declare namespace MSForms {
     }
 
     class TextBox {
-        private 'MSForms.TextBox_typekey': TextBox;
+        private "MSForms.TextBox_typekey": TextBox;
         private constructor();
         readonly _Font_Reserved: NewFont;
         AutoSize: boolean;
@@ -1168,7 +1162,7 @@ declare namespace MSForms {
     }
 
     class ToggleButton {
-        private 'MSForms.ToggleButton_typekey': ToggleButton;
+        private "MSForms.ToggleButton_typekey": ToggleButton;
         private constructor();
         readonly _Font_Reserved: NewFont;
         Accelerator: string;
@@ -1205,7 +1199,7 @@ declare namespace MSForms {
     }
 
     class UserForm {
-        private 'MSForms.UserForm_typekey': UserForm;
+        private "MSForms.UserForm_typekey": UserForm;
         private constructor();
         readonly _Font_Reserved: NewFont;
         _GetGridX(GridX: number): void;
@@ -1271,29 +1265,75 @@ declare namespace MSForms {
     }
 
     namespace EventHelperTypes {
-        type Container_BeforeDragOver_ArgNames = ['Cancel', 'Control', 'Data', 'X', 'Y', 'State', 'Effect', 'Shift'];
+        type Container_BeforeDragOver_ArgNames = ["Cancel", "Control", "Data", "X", "Y", "State", "Effect", "Shift"];
 
-        type Container_BeforeDropOrPaste_ArgNames = ['Cancel', 'Control', 'Action', 'Data', 'X', 'Y', 'Effect', 'Shift'];
+        type Container_BeforeDropOrPaste_ArgNames = [
+            "Cancel",
+            "Control",
+            "Action",
+            "Data",
+            "X",
+            "Y",
+            "Effect",
+            "Shift",
+        ];
 
-        type Container_Scroll_ArgNames = ['ActionX', 'ActionY', 'RequestDx', 'RequestDy', 'ActualDx', 'ActualDy'];
+        type Container_Scroll_ArgNames = ["ActionX", "ActionY", "RequestDx", "RequestDy", "ActualDx", "ActualDy"];
 
-        type Control_BeforeDragOver_ArgNames = ['Cancel', 'Data', 'X', 'Y', 'DragState', 'Effect', 'Shift'];
+        type Control_BeforeDragOver_ArgNames = ["Cancel", "Data", "X", "Y", "DragState", "Effect", "Shift"];
 
-        type Control_BeforeDropOrPaste_ArgNames = ['Cancel', 'Action', 'Data', 'X', 'Y', 'Effect', 'Shift'];
+        type Control_BeforeDropOrPaste_ArgNames = ["Cancel", "Action", "Data", "X", "Y", "Effect", "Shift"];
 
-        type Error_ArgNames = ['Number', 'Description', 'SCode', 'Source', 'HelpFile', 'HelpContext', 'CancelDisplay'];
+        type Error_ArgNames = ["Number", "Description", "SCode", "Source", "HelpFile", "HelpContext", "CancelDisplay"];
 
-        type MultiPage_BeforeDragOver_ArgNames = ['Index', 'Cancel', 'Control', 'Data', 'X', 'Y', 'State', 'Effect', 'Shift'];
+        type MultiPage_BeforeDragOver_ArgNames = [
+            "Index",
+            "Cancel",
+            "Control",
+            "Data",
+            "X",
+            "Y",
+            "State",
+            "Effect",
+            "Shift",
+        ];
 
-        type MultiPage_BeforeDropOrPaste_ArgNames = ['Index', 'Cancel', 'Control', 'Action', 'Data', 'X', 'Y', 'Effect', 'Shift'];
+        type MultiPage_BeforeDropOrPaste_ArgNames = [
+            "Index",
+            "Cancel",
+            "Control",
+            "Action",
+            "Data",
+            "X",
+            "Y",
+            "Effect",
+            "Shift",
+        ];
 
-        type MultiPage_Error_ArgNames = ['Index', 'Number', 'Description', 'SCode', 'Source', 'HelpFile', 'HelpContext', 'CancelDisplay'];
+        type MultiPage_Error_ArgNames = [
+            "Index",
+            "Number",
+            "Description",
+            "SCode",
+            "Source",
+            "HelpFile",
+            "HelpContext",
+            "CancelDisplay",
+        ];
 
-        type MultiPage_Scroll_ArgNames = ['Index', 'ActionX', 'ActionY', 'RequestDx', 'RequestDy', 'ActualDx', 'ActualDy'];
+        type MultiPage_Scroll_ArgNames = [
+            "Index",
+            "ActionX",
+            "ActionY",
+            "RequestDx",
+            "RequestDy",
+            "ActualDx",
+            "ActualDy",
+        ];
 
-        type TabStrip_BeforeDragOver_ArgNames = ['Index', 'Cancel', 'Data', 'X', 'Y', 'DragState', 'Effect', 'Shift'];
+        type TabStrip_BeforeDragOver_ArgNames = ["Index", "Cancel", "Data", "X", "Y", "DragState", "Effect", "Shift"];
 
-        type TabStrip_BeforeDropOrPaste_ArgNames = ['Index', 'Cancel', 'Action', 'Data', 'X', 'Y', 'Effect', 'Shift'];
+        type TabStrip_BeforeDropOrPaste_ArgNames = ["Index", "Cancel", "Action", "Data", "X", "Y", "Effect", "Shift"];
 
         interface Container_BeforeDragOver_Parameter {
             readonly Cancel: ReturnBoolean;
@@ -1426,146 +1466,899 @@ declare namespace MSForms {
 }
 
 interface ActiveXObject {
-    on(obj: MSForms.CheckBox, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.CheckBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.CheckBox, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.CheckBox, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.CheckBox, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.CheckBox, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.CheckBox, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.CheckBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.CheckBox, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.CheckBox, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.CheckBox, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.CheckBox, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.CheckBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.CheckBox, parameter: {readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number}) => void): void;
-    on(obj: MSForms.ComboBox, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.ComboBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.ComboBox, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.ComboBox, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.ComboBox, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.ComboBox, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.ComboBox, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.ComboBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.ComboBox, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.ComboBox, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.ComboBox, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.ComboBox, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.ComboBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.ComboBox, parameter: { readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.CommandButton, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.CommandButton, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.CommandButton, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.CommandButton, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.CommandButton, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.CommandButton, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.CommandButton, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.CommandButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.CommandButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.CommandButton, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.CommandButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.CommandButton, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.CommandButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.CommandButton, parameter: { readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.Control, event: 'BeforeUpdate' | 'Exit', argNames: ['Cancel'], handler: (this: MSForms.Control, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void): void;
-    on(obj: MSForms.Frame, event: 'AddControl' | 'RemoveControl', argNames: ['Control'], handler: (this: MSForms.Frame, parameter: {readonly Control: MSForms.Control}) => void): void;
-    on(obj: MSForms.Frame, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Container_BeforeDragOver_ArgNames, handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.Frame, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Container_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.Frame, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.Frame, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.Frame, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.Frame, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.Frame, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.Frame, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.Frame, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.Frame, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.Frame, parameter: {readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number}) => void): void;
-    on(obj: MSForms.Frame, event: 'Scroll', argNames: MSForms.EventHelperTypes.Container_Scroll_ArgNames, handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_Scroll_Parameter) => void): void;
-    on(obj: MSForms.Frame, event: 'Zoom', argNames: ['Percent'], handler: (this: MSForms.Frame, parameter: { Percent: number }) => void): void;
-    on(obj: MSForms.Image, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.Image, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.Image, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.Image, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.Image, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.Image, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.Image, parameter: { readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.Label, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.Label, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.Label, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.Label, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.Label, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.Label, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.Label, parameter: { readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.ListBox, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.ListBox, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.ListBox, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.ListBox, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.ListBox, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.ListBox, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.ListBox, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.ListBox, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.ListBox, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.ListBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.ListBox, parameter: { readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.MultiPage, event: 'AddControl' | 'RemoveControl', argNames: ['Index', 'Control'], handler: (this: MSForms.MultiPage, parameter: {readonly Index: number, readonly Control: MSForms.Control}) => void): void;
-    on(obj: MSForms.MultiPage, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.MultiPage_BeforeDragOver_ArgNames, handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.MultiPage, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.MultiPage_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.MultiPage, event: 'Click' | 'Layout', argNames: ['Index'], handler: (this: MSForms.MultiPage, parameter: {readonly Index: number}) => void): void;
-    on(obj: MSForms.MultiPage, event: 'DblClick', argNames: ['Index', 'Cancel'], handler: (this: MSForms.MultiPage, parameter: {readonly Index: number, readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.MultiPage, event: 'Error', argNames: MSForms.EventHelperTypes.MultiPage_Error_ArgNames, handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_Error_Parameter) => void): void;
-    on(obj: MSForms.MultiPage, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.MultiPage, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.MultiPage, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.MultiPage, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.MultiPage, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Index', 'Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.MultiPage, parameter: {readonly Index: number, readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number}) => void): void;
-    on(obj: MSForms.MultiPage, event: 'Scroll', argNames: MSForms.EventHelperTypes.MultiPage_Scroll_ArgNames, handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_Scroll_Parameter) => void): void;
-    on(obj: MSForms.MultiPage, event: 'Zoom', argNames: ['Index', 'Percent'], handler: (this: MSForms.MultiPage, parameter: { readonly Index: number, Percent: number }) => void): void;
-    on(obj: MSForms.OptionButton, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.OptionButton, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.OptionButton, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.OptionButton, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.OptionButton, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.OptionButton, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.OptionButton, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.OptionButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.OptionButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.OptionButton, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.OptionButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.OptionButton, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.OptionButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.OptionButton, parameter: { readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.ScrollBar, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.ScrollBar, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.ScrollBar, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.ScrollBar, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.ScrollBar, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.ScrollBar, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.ScrollBar, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.ScrollBar, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.ScrollBar, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.ScrollBar, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void): void;
-    on(obj: MSForms.SpinButton, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.SpinButton, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.SpinButton, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.SpinButton, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.SpinButton, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.SpinButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.SpinButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.SpinButton, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.SpinButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.SpinButton, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.TabStrip, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.TabStrip_BeforeDragOver_ArgNames, handler: (this: MSForms.TabStrip, parameter: MSForms.EventHelperTypes.TabStrip_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.TabStrip, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.TabStrip_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.TabStrip, parameter: MSForms.EventHelperTypes.TabStrip_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.TabStrip, event: 'Click', argNames: ['Index'], handler: (this: MSForms.TabStrip, parameter: {readonly Index: number}) => void): void;
-    on(obj: MSForms.TabStrip, event: 'DblClick', argNames: ['Index', 'Cancel'], handler: (this: MSForms.TabStrip, parameter: {readonly Index: number, readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.TabStrip, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.TabStrip, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.TabStrip, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.TabStrip, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.TabStrip, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.TabStrip, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.TabStrip, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Index', 'Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.TabStrip, parameter: { readonly Index: number, readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.TextBox, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.TextBox, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.TextBox, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.TextBox, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.TextBox, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.TextBox, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.TextBox, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.TextBox, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.TextBox, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.TextBox, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.TextBox, parameter: { readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.ToggleButton, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames, handler: (this: MSForms.ToggleButton, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.ToggleButton, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.ToggleButton, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.ToggleButton, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.ToggleButton, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.ToggleButton, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.ToggleButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.ToggleButton, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.ToggleButton, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.ToggleButton, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.ToggleButton, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.ToggleButton, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.ToggleButton, parameter: { readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number }) => void): void;
-    on(obj: MSForms.UserForm, event: 'AddControl' | 'RemoveControl', argNames: ['Control'], handler: (this: MSForms.UserForm, parameter: {readonly Control: MSForms.Control}) => void): void;
-    on(obj: MSForms.UserForm, event: 'BeforeDragOver', argNames: MSForms.EventHelperTypes.Container_BeforeDragOver_ArgNames, handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Container_BeforeDragOver_Parameter) => void): void;
-    on(obj: MSForms.UserForm, event: 'BeforeDropOrPaste', argNames: MSForms.EventHelperTypes.Container_BeforeDropOrPaste_ArgNames, handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Container_BeforeDropOrPaste_Parameter) => void): void;
-    on(obj: MSForms.UserForm, event: 'DblClick', argNames: ['Cancel'], handler: (this: MSForms.UserForm, parameter: {readonly Cancel: MSForms.ReturnBoolean}) => void): void;
-    on(obj: MSForms.UserForm, event: 'Error', argNames: MSForms.EventHelperTypes.Error_ArgNames, handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Error_Parameter) => void): void;
-    on(obj: MSForms.UserForm, event: 'KeyDown' | 'KeyUp', argNames: ['KeyCode', 'Shift'], handler: (this: MSForms.UserForm, parameter: {readonly KeyCode: MSForms.ReturnInteger, readonly Shift: number}) => void): void;
-    on(obj: MSForms.UserForm, event: 'KeyPress', argNames: ['KeyAscii'], handler: (this: MSForms.UserForm, parameter: {readonly KeyAscii: MSForms.ReturnInteger}) => void): void;
-    on(obj: MSForms.UserForm, event: 'MouseDown' | 'MouseMove' | 'MouseUp', argNames: ['Button', 'Shift', 'X', 'Y'], handler: (this: MSForms.UserForm, parameter: {readonly Button: number, readonly Shift: number, readonly X: number, readonly Y: number}) => void): void;
-    on(obj: MSForms.UserForm, event: 'Scroll', argNames: MSForms.EventHelperTypes.Container_Scroll_ArgNames, handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Container_Scroll_Parameter) => void): void;
-    on(obj: MSForms.UserForm, event: 'Zoom', argNames: ['Percent'], handler: (this: MSForms.UserForm, parameter: { Percent: number }) => void): void;
-    on(obj: MSForms.CheckBox, event: 'Change' | 'Click', handler: (this: MSForms.CheckBox, parameter: {}) => void): void;
-    on(obj: MSForms.ComboBox, event: 'Change' | 'Click' | 'DropButtonClick', handler: (this: MSForms.ComboBox, parameter: {}) => void): void;
-    on(obj: MSForms.CommandButton, event: 'Click', handler: (this: MSForms.CommandButton, parameter: {}) => void): void;
-    on(obj: MSForms.Control, event: 'AfterUpdate' | 'Enter', handler: (this: MSForms.Control, parameter: {}) => void): void;
-    on(obj: MSForms.Frame, event: 'Click' | 'Layout', handler: (this: MSForms.Frame, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLCheckbox, event: 'Click', handler: (this: MSForms.HTMLCheckbox, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLHidden, event: 'Click', handler: (this: MSForms.HTMLHidden, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLImage, event: 'Click', handler: (this: MSForms.HTMLImage, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLOption, event: 'Click', handler: (this: MSForms.HTMLOption, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLPassword, event: 'Click', handler: (this: MSForms.HTMLPassword, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLReset, event: 'Click', handler: (this: MSForms.HTMLReset, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLSelect, event: 'Click', handler: (this: MSForms.HTMLSelect, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLSubmit, event: 'Click', handler: (this: MSForms.HTMLSubmit, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLText, event: 'Click', handler: (this: MSForms.HTMLText, parameter: {}) => void): void;
-    on(obj: MSForms.HTMLTextArea, event: 'Click', handler: (this: MSForms.HTMLTextArea, parameter: {}) => void): void;
-    on(obj: MSForms.Image, event: 'Click', handler: (this: MSForms.Image, parameter: {}) => void): void;
-    on(obj: MSForms.Label, event: 'Click', handler: (this: MSForms.Label, parameter: {}) => void): void;
-    on(obj: MSForms.ListBox, event: 'Change' | 'Click', handler: (this: MSForms.ListBox, parameter: {}) => void): void;
-    on(obj: MSForms.MultiPage, event: 'Change', handler: (this: MSForms.MultiPage, parameter: {}) => void): void;
-    on(obj: MSForms.OptionButton, event: 'Change' | 'Click', handler: (this: MSForms.OptionButton, parameter: {}) => void): void;
-    on(obj: MSForms.ScrollBar, event: 'Change' | 'Scroll', handler: (this: MSForms.ScrollBar, parameter: {}) => void): void;
-    on(obj: MSForms.SpinButton, event: 'Change' | 'SpinDown' | 'SpinUp', handler: (this: MSForms.SpinButton, parameter: {}) => void): void;
-    on(obj: MSForms.TabStrip, event: 'Change', handler: (this: MSForms.TabStrip, parameter: {}) => void): void;
-    on(obj: MSForms.TextBox, event: 'Change' | 'DropButtonClick', handler: (this: MSForms.TextBox, parameter: {}) => void): void;
-    on(obj: MSForms.ToggleButton, event: 'Change' | 'Click', handler: (this: MSForms.ToggleButton, parameter: {}) => void): void;
-    on(obj: MSForms.UserForm, event: 'Click' | 'Layout', handler: (this: MSForms.UserForm, parameter: {}) => void): void;
-    set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: [number, number] | [number], newValue: any): void;
-    set(obj: MSForms.ComboBox | MSForms.ListBox, propertyName: 'Column' | 'List', parameterTypes: number[], newValue: SafeArray): void;
-    set(obj: MSForms.ListBox, propertyName: 'Selected', parameterTypes: [any], newValue: boolean): void;
+    on(
+        obj: MSForms.CheckBox,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (this: MSForms.CheckBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.CheckBox,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.CheckBox,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.CheckBox,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.CheckBox, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.CheckBox,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.CheckBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.CheckBox,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.CheckBox,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.CheckBox,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.CheckBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.CheckBox,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.CheckBox,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ComboBox,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (this: MSForms.ComboBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.ComboBox,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.ComboBox,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ComboBox,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.ComboBox, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.ComboBox,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.ComboBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.ComboBox,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.ComboBox,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ComboBox,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.ComboBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.ComboBox,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.ComboBox,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.CommandButton,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (
+            this: MSForms.CommandButton,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.CommandButton,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.CommandButton,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.CommandButton,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.CommandButton, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.CommandButton,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.CommandButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.CommandButton,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.CommandButton,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.CommandButton,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.CommandButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.CommandButton,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.CommandButton,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.Control,
+        event: "BeforeUpdate" | "Exit",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.Control, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "AddControl" | "RemoveControl",
+        argNames: ["Control"],
+        handler: (this: MSForms.Frame, parameter: { readonly Control: MSForms.Control }) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Container_BeforeDragOver_ArgNames,
+        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_BeforeDragOver_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Container_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.Frame,
+            parameter: MSForms.EventHelperTypes.Container_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.Frame, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.Frame,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.Frame, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.Frame,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "Scroll",
+        argNames: MSForms.EventHelperTypes.Container_Scroll_ArgNames,
+        handler: (this: MSForms.Frame, parameter: MSForms.EventHelperTypes.Container_Scroll_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Frame,
+        event: "Zoom",
+        argNames: ["Percent"],
+        handler: (this: MSForms.Frame, parameter: { Percent: number }) => void,
+    ): void;
+    on(
+        obj: MSForms.Image,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Image,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Image,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.Image, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.Image,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.Image, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Image,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.Image,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.Label,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Label,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Label,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.Label, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.Label,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.Label, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.Label,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.Label,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ListBox,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.ListBox,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.ListBox,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ListBox,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.ListBox, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.ListBox,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.ListBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.ListBox,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.ListBox,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ListBox,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.ListBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.ListBox,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.ListBox,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "AddControl" | "RemoveControl",
+        argNames: ["Index", "Control"],
+        handler: (
+            this: MSForms.MultiPage,
+            parameter: { readonly Index: number; readonly Control: MSForms.Control },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.MultiPage_BeforeDragOver_ArgNames,
+        handler: (
+            this: MSForms.MultiPage,
+            parameter: MSForms.EventHelperTypes.MultiPage_BeforeDragOver_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.MultiPage_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.MultiPage,
+            parameter: MSForms.EventHelperTypes.MultiPage_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "Click" | "Layout",
+        argNames: ["Index"],
+        handler: (this: MSForms.MultiPage, parameter: { readonly Index: number }) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "DblClick",
+        argNames: ["Index", "Cancel"],
+        handler: (
+            this: MSForms.MultiPage,
+            parameter: { readonly Index: number; readonly Cancel: MSForms.ReturnBoolean },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.MultiPage_Error_ArgNames,
+        handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.MultiPage,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.MultiPage, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Index", "Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.MultiPage,
+            parameter: {
+                readonly Index: number;
+                readonly Button: number;
+                readonly Shift: number;
+                readonly X: number;
+                readonly Y: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "Scroll",
+        argNames: MSForms.EventHelperTypes.MultiPage_Scroll_ArgNames,
+        handler: (this: MSForms.MultiPage, parameter: MSForms.EventHelperTypes.MultiPage_Scroll_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.MultiPage,
+        event: "Zoom",
+        argNames: ["Index", "Percent"],
+        handler: (this: MSForms.MultiPage, parameter: { readonly Index: number; Percent: number }) => void,
+    ): void;
+    on(
+        obj: MSForms.OptionButton,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (
+            this: MSForms.OptionButton,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.OptionButton,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.OptionButton,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.OptionButton,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.OptionButton, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.OptionButton,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.OptionButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.OptionButton,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.OptionButton,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.OptionButton,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.OptionButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.OptionButton,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.OptionButton,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ScrollBar,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (
+            this: MSForms.ScrollBar,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ScrollBar,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.ScrollBar,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ScrollBar,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.ScrollBar, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.ScrollBar,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.ScrollBar,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ScrollBar,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.ScrollBar, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.SpinButton,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (
+            this: MSForms.SpinButton,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.SpinButton,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.SpinButton,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.SpinButton,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.SpinButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.SpinButton,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.SpinButton,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.SpinButton,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.SpinButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.TabStrip,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.TabStrip_BeforeDragOver_ArgNames,
+        handler: (
+            this: MSForms.TabStrip,
+            parameter: MSForms.EventHelperTypes.TabStrip_BeforeDragOver_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.TabStrip,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.TabStrip_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.TabStrip,
+            parameter: MSForms.EventHelperTypes.TabStrip_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.TabStrip,
+        event: "Click",
+        argNames: ["Index"],
+        handler: (this: MSForms.TabStrip, parameter: { readonly Index: number }) => void,
+    ): void;
+    on(
+        obj: MSForms.TabStrip,
+        event: "DblClick",
+        argNames: ["Index", "Cancel"],
+        handler: (
+            this: MSForms.TabStrip,
+            parameter: { readonly Index: number; readonly Cancel: MSForms.ReturnBoolean },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.TabStrip,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.TabStrip, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.TabStrip,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.TabStrip,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.TabStrip,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.TabStrip, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.TabStrip,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Index", "Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.TabStrip,
+            parameter: {
+                readonly Index: number;
+                readonly Button: number;
+                readonly Shift: number;
+                readonly X: number;
+                readonly Y: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.TextBox,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.TextBox,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.TextBox,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.TextBox,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.TextBox, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.TextBox,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.TextBox, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.TextBox,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.TextBox,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.TextBox,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.TextBox, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.TextBox,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.TextBox,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ToggleButton,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDragOver_ArgNames,
+        handler: (
+            this: MSForms.ToggleButton,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDragOver_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ToggleButton,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.ToggleButton,
+            parameter: MSForms.EventHelperTypes.Control_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ToggleButton,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.ToggleButton, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.ToggleButton,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.ToggleButton, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.ToggleButton,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.ToggleButton,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.ToggleButton,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.ToggleButton, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.ToggleButton,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.ToggleButton,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "AddControl" | "RemoveControl",
+        argNames: ["Control"],
+        handler: (this: MSForms.UserForm, parameter: { readonly Control: MSForms.Control }) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "BeforeDragOver",
+        argNames: MSForms.EventHelperTypes.Container_BeforeDragOver_ArgNames,
+        handler: (
+            this: MSForms.UserForm,
+            parameter: MSForms.EventHelperTypes.Container_BeforeDragOver_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "BeforeDropOrPaste",
+        argNames: MSForms.EventHelperTypes.Container_BeforeDropOrPaste_ArgNames,
+        handler: (
+            this: MSForms.UserForm,
+            parameter: MSForms.EventHelperTypes.Container_BeforeDropOrPaste_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "DblClick",
+        argNames: ["Cancel"],
+        handler: (this: MSForms.UserForm, parameter: { readonly Cancel: MSForms.ReturnBoolean }) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "Error",
+        argNames: MSForms.EventHelperTypes.Error_ArgNames,
+        handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Error_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "KeyDown" | "KeyUp",
+        argNames: ["KeyCode", "Shift"],
+        handler: (
+            this: MSForms.UserForm,
+            parameter: { readonly KeyCode: MSForms.ReturnInteger; readonly Shift: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "KeyPress",
+        argNames: ["KeyAscii"],
+        handler: (this: MSForms.UserForm, parameter: { readonly KeyAscii: MSForms.ReturnInteger }) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "MouseDown" | "MouseMove" | "MouseUp",
+        argNames: ["Button", "Shift", "X", "Y"],
+        handler: (
+            this: MSForms.UserForm,
+            parameter: { readonly Button: number; readonly Shift: number; readonly X: number; readonly Y: number },
+        ) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "Scroll",
+        argNames: MSForms.EventHelperTypes.Container_Scroll_ArgNames,
+        handler: (this: MSForms.UserForm, parameter: MSForms.EventHelperTypes.Container_Scroll_Parameter) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "Zoom",
+        argNames: ["Percent"],
+        handler: (this: MSForms.UserForm, parameter: { Percent: number }) => void,
+    ): void;
+    on(
+        obj: MSForms.CheckBox,
+        event: "Change" | "Click",
+        handler: (this: MSForms.CheckBox, parameter: {}) => void,
+    ): void;
+    on(
+        obj: MSForms.ComboBox,
+        event: "Change" | "Click" | "DropButtonClick",
+        handler: (this: MSForms.ComboBox, parameter: {}) => void,
+    ): void;
+    on(obj: MSForms.CommandButton, event: "Click", handler: (this: MSForms.CommandButton, parameter: {}) => void): void;
+    on(
+        obj: MSForms.Control,
+        event: "AfterUpdate" | "Enter",
+        handler: (this: MSForms.Control, parameter: {}) => void,
+    ): void;
+    on(obj: MSForms.Frame, event: "Click" | "Layout", handler: (this: MSForms.Frame, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLCheckbox, event: "Click", handler: (this: MSForms.HTMLCheckbox, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLHidden, event: "Click", handler: (this: MSForms.HTMLHidden, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLImage, event: "Click", handler: (this: MSForms.HTMLImage, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLOption, event: "Click", handler: (this: MSForms.HTMLOption, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLPassword, event: "Click", handler: (this: MSForms.HTMLPassword, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLReset, event: "Click", handler: (this: MSForms.HTMLReset, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLSelect, event: "Click", handler: (this: MSForms.HTMLSelect, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLSubmit, event: "Click", handler: (this: MSForms.HTMLSubmit, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLText, event: "Click", handler: (this: MSForms.HTMLText, parameter: {}) => void): void;
+    on(obj: MSForms.HTMLTextArea, event: "Click", handler: (this: MSForms.HTMLTextArea, parameter: {}) => void): void;
+    on(obj: MSForms.Image, event: "Click", handler: (this: MSForms.Image, parameter: {}) => void): void;
+    on(obj: MSForms.Label, event: "Click", handler: (this: MSForms.Label, parameter: {}) => void): void;
+    on(obj: MSForms.ListBox, event: "Change" | "Click", handler: (this: MSForms.ListBox, parameter: {}) => void): void;
+    on(obj: MSForms.MultiPage, event: "Change", handler: (this: MSForms.MultiPage, parameter: {}) => void): void;
+    on(
+        obj: MSForms.OptionButton,
+        event: "Change" | "Click",
+        handler: (this: MSForms.OptionButton, parameter: {}) => void,
+    ): void;
+    on(
+        obj: MSForms.ScrollBar,
+        event: "Change" | "Scroll",
+        handler: (this: MSForms.ScrollBar, parameter: {}) => void,
+    ): void;
+    on(
+        obj: MSForms.SpinButton,
+        event: "Change" | "SpinDown" | "SpinUp",
+        handler: (this: MSForms.SpinButton, parameter: {}) => void,
+    ): void;
+    on(obj: MSForms.TabStrip, event: "Change", handler: (this: MSForms.TabStrip, parameter: {}) => void): void;
+    on(
+        obj: MSForms.TextBox,
+        event: "Change" | "DropButtonClick",
+        handler: (this: MSForms.TextBox, parameter: {}) => void,
+    ): void;
+    on(
+        obj: MSForms.ToggleButton,
+        event: "Change" | "Click",
+        handler: (this: MSForms.ToggleButton, parameter: {}) => void,
+    ): void;
+    on(
+        obj: MSForms.UserForm,
+        event: "Click" | "Layout",
+        handler: (this: MSForms.UserForm, parameter: {}) => void,
+    ): void;
+    set(
+        obj: MSForms.ComboBox | MSForms.ListBox,
+        propertyName: "Column" | "List",
+        parameterTypes: [number, number] | [number],
+        newValue: any,
+    ): void;
+    set(
+        obj: MSForms.ComboBox | MSForms.ListBox,
+        propertyName: "Column" | "List",
+        parameterTypes: number[],
+        newValue: SafeArray,
+    ): void;
+    set(obj: MSForms.ListBox, propertyName: "Selected", parameterTypes: [any], newValue: boolean): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Forms.Image': MSForms.Image;
+    "Forms.Image": MSForms.Image;
 }

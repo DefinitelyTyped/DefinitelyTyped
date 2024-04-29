@@ -1,8 +1,3 @@
-// Type definitions for BaiduMap v3.0
-// Project: http://lbsyun.baidu.com/index.php?title=jspopular3.0
-// Definitions by: Codemonk <http://www.youxianxueche.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
 Copyright [Codemonk] [Codemonk@live.cn]
 
@@ -257,8 +252,8 @@ declare namespace BMap {
         getResults(): AutocompleteResult;
         setInputValue(keyword: string): void;
         dispose(): void;
-        onconfirm: (event: { type: string, target: any, item: any }) => void;
-        onhighlight: (event: { type: string, target: any, fromitem: any, toitem: any }) => void;
+        onconfirm: (event: { type: string; target: any; item: any }) => void;
+        onhighlight: (event: { type: string; target: any; fromitem: any; toitem: any }) => void;
     }
     class TransitRoute {
         constructor(location: Map | Point | string, opts?: TransitRouteOptions);
@@ -324,7 +319,7 @@ declare namespace BMap {
     }
     interface AutocompleteResultPoi {
         province: string;
-        City: string;            // wtf
+        City: string; // wtf
         district: string;
         street: string;
         streetNumber: string;
@@ -367,10 +362,15 @@ declare namespace BMap {
         get(name: string, callback: (result: string[]) => void): void;
     }
     class Convertor {
-        translate(points: Point[], from: number, to: number, callback: (result: {
-            points: Point[];
-            status: number;
-        }) => void): void;
+        translate(
+            points: Point[],
+            from: number,
+            to: number,
+            callback: (result: {
+                points: Point[];
+                status: number;
+            }) => void,
+        ): void;
     }
     interface TransitRoutePlan {
         getNumLines(): number;

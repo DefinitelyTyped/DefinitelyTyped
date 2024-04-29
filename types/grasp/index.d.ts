@@ -1,13 +1,7 @@
-// Type definitions for grasp 0.6
-// Project: http://graspjs.com
-// Definitions by: Isaac Wolkerstorfer <https://github.com/agnoster>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import * as fs from "fs";
 import * as cliColor from "cli-color";
+import * as fs from "fs";
 // Though Grasp does not use esprima, the parser it uses (flow-parser) has a compatible Node type and existing typedefs
 import { Node } from "estree";
 
@@ -54,19 +48,22 @@ declare namespace grasp {
     type Replacement =
         | string
         | ((
-              getRaw: (node: Node) => string,
-              node: Node,
-              query: (q: string) => Node[],
-              named: { [key: string]: string | Node }
-          ) => string);
+            getRaw: (node: Node) => string,
+            node: Node,
+            query: (q: string) => Node[],
+            named: { [key: string]: string | Node },
+        ) => string);
 
-    type GraspSearchWithQueryEngine = ((selector: string, input: string) => Node[]) &
-        ((selector: string) => (input: string) => Node[]);
+    type GraspSearchWithQueryEngine =
+        & ((selector: string, input: string) => Node[])
+        & ((selector: string) => (input: string) => Node[]);
 
-    type GraspReplaceWithQueryEngine = ((selector: string) => GraspReplaceWithSelector) &
-        ((selector: string, replacement: Replacement) => (input: string) => string) &
-        ((selector: string, replacement: Replacement, input: string) => string);
+    type GraspReplaceWithQueryEngine =
+        & ((selector: string) => GraspReplaceWithSelector)
+        & ((selector: string, replacement: Replacement) => (input: string) => string)
+        & ((selector: string, replacement: Replacement, input: string) => string);
 
-    type GraspReplaceWithSelector = ((replacement: Replacement) => (input: string) => string) &
-        ((replacement: Replacement, input: string) => string);
+    type GraspReplaceWithSelector =
+        & ((replacement: Replacement) => (input: string) => string)
+        & ((replacement: Replacement, input: string) => string);
 }

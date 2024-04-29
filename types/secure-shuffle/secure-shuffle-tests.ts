@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import secureShuffle = require('secure-shuffle');
+import secureShuffle = require("secure-shuffle");
 
 secureShuffle([1, 2, 3]); // $ExpectType number[]
 secureShuffle(Buffer.from([1, 2, 3])); // $ExpectType Buffer

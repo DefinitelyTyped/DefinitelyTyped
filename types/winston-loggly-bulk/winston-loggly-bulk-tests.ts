@@ -1,9 +1,9 @@
-import { Loggly, flushLogsAndExit } from 'winston-loggly-bulk';
+import { flushLogsAndExit, Loggly } from "winston-loggly-bulk";
 
 const loggly = new Loggly({
     auth: {
-        username: 'user',
-        password: 'guest',
+        username: "user",
+        password: "guest",
     },
     bufferOptions: {
         size: 500,
@@ -12,12 +12,12 @@ const loggly = new Loggly({
     isBulk: false,
     json: true,
     networkErrorsOnConsole: false,
-    proxy: 'www.example.com',
+    proxy: "www.example.com",
     stripColors: true,
-    subdomain: 'my_subdomain',
-    tags: ['NodeJS'],
+    subdomain: "my_subdomain",
+    tags: ["NodeJS"],
     timestamp: true,
-    token: 'mysupersecrettoken',
+    token: "mysupersecrettoken",
 });
 
 loggly; // $ExpectType Loggly

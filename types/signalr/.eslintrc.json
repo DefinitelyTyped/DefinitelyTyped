@@ -1,7 +1,8 @@
 {
     "rules": {
-        "no-const-enum": "off",
-        "dt-header": "off",
-        "trim-file": "off"
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/dt-header": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

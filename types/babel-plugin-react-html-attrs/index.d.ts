@@ -1,9 +1,3 @@
-// Type definitions for React 16.9 when using babel-plugin-react-html-attrs 3.0
-// Project: https://github.com/insin/babel-plugin-react-html-attrs
-// Definitions by: Jonny Buchanan <https://github.com/insin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'babel-plugin-react-html-attrs/experimental' in their project. See
 // experimental.d.ts's top comment for reference and documentation on how
@@ -11,8 +5,8 @@
 
 /// <reference path="global.d.ts" />
 
-import * as CSS from 'csstype';
-import * as PropTypes from 'prop-types';
+import * as CSS from "csstype";
+import * as PropTypes from "prop-types";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -26,7 +20,7 @@ type NativePointerEvent = PointerEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
-type Booleanish = boolean | 'true' | 'false';
+type Booleanish = boolean | "true" | "false";
 
 /**
  * defined in scheduler/tracing
@@ -37,7 +31,7 @@ interface SchedulerInteraction {
     timestamp: number;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = React;
 export as namespace React;
 
@@ -48,8 +42,8 @@ declare namespace React {
 
     type ElementType<P = any> =
         | {
-              [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never;
-          }[keyof JSX.IntrinsicElements]
+            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never;
+        }[keyof JSX.IntrinsicElements]
         | ComponentType<P>;
     /**
      * @deprecated Please use `ElementType`
@@ -57,12 +51,12 @@ declare namespace React {
     type ReactType<P = any> = ElementType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
-    type JSXElementConstructor<P> = ((props: P) => ReactElement | null) | (new (props: P) => Component<P, any>);
+    type JSXElementConstructor<P> = ((props: P) => ReactElement | null) | (new(props: P) => Component<P, any>);
 
     interface RefObject<T> {
         readonly current: T | null;
     }
-    type RefCallback<T> = { bivarianceHack(instance: T | null): void }['bivarianceHack'];
+    type RefCallback<T> = { bivarianceHack(instance: T | null): void }["bivarianceHack"];
     type Ref<T> = RefCallback<T> | RefObject<T> | null;
     type LegacyRef<T> = string | Ref<T>;
     /**
@@ -85,20 +79,14 @@ declare namespace React {
     type ElementRef<
         C extends
             | ForwardRefExoticComponent<any>
-            | { new (props: any): Component<any> }
+            | { new(props: any): Component<any> }
             | ((props: any, context?: any) => ReactElement | null)
-            | keyof JSX.IntrinsicElements
-    > = C extends ForwardRefExoticComponent<infer FP>
-        ? FP extends RefAttributes<infer FC>
-            ? FC
-            : never
-        : C extends { new (props: any): Component<any> }
-        ? InstanceType<C>
-        : C extends (props: any, context?: any) => ReactElement | null
-        ? undefined
-        : C extends keyof JSX.IntrinsicElements
-        ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E>
-            ? E
+            | keyof JSX.IntrinsicElements,
+    > = C extends ForwardRefExoticComponent<infer FP> ? FP extends RefAttributes<infer FC> ? FC
+        : never
+        : C extends { new(props: any): Component<any> } ? InstanceType<C>
+        : C extends (props: any, context?: any) => ReactElement | null ? undefined
+        : C extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[C] extends DOMAttributes<infer E> ? E
             : never
         : never;
 
@@ -122,7 +110,7 @@ declare namespace React {
 
     interface ReactElement<
         P = any,
-        T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>
+        T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>,
     > {
         type: T;
         props: P;
@@ -131,7 +119,7 @@ declare namespace React {
 
     interface ReactComponentElement<
         T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
-        P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, 'key' | 'ref'>>
+        P = Pick<ComponentProps<T>, Exclude<keyof ComponentProps<T>, "key" | "ref">>,
     > extends ReactElement<P, Exclude<T, number>> {}
 
     /**
@@ -140,7 +128,7 @@ declare namespace React {
     type SFCElement<P> = FunctionComponentElement<P>;
 
     interface FunctionComponentElement<P> extends ReactElement<P, FunctionComponent<P>> {
-        ref?: 'ref' extends keyof P ? (P extends { ref?: infer R | undefined } ? R : never) : never | undefined;
+        ref?: "ref" extends keyof P ? (P extends { ref?: infer R | undefined } ? R : never) : never | undefined;
     }
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
@@ -152,7 +140,8 @@ declare namespace React {
 
     // string fallback for custom web-components
     interface DOMElement<P extends HTMLAttributes<T> | SVGAttributes<T>, T extends Element>
-        extends ReactElement<P, string> {
+        extends ReactElement<P, string>
+    {
         ref: LegacyRef<T>;
     }
 
@@ -249,7 +238,7 @@ declare namespace React {
     // DOM Elements
     // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
     function createElement(
-        type: 'input',
+        type: "input",
         props?: (InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>) | null,
         ...children: ReactNode[]
     ): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -420,7 +409,7 @@ declare namespace React {
      */
     type ProfilerOnRenderCallback = (
         id: string,
-        phase: 'mount' | 'update',
+        phase: "mount" | "update",
         actualDuration: number,
         baseDuration: number,
         startTime: number,
@@ -586,7 +575,7 @@ declare namespace React {
     interface RefForwardingComponent<T, P = {}> extends ForwardRefRenderFunction<T, P> {}
 
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
-        new (props: P, context?: any): Component<P, S>;
+        new(props: P, context?: any): Component<P, S>;
         propTypes?: WeakValidationMap<P> | undefined;
         contextType?: Context<any> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
@@ -596,7 +585,7 @@ declare namespace React {
     }
 
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new (props: P, context?: any): ClassicComponent<P, ComponentState>;
+        new(props: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -605,8 +594,9 @@ declare namespace React {
      * a single argument, which is useful for many top-level API defs.
      * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
      */
-    type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> = C &
-        (new (props: P, context?: any) => T);
+    type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
+        & C
+        & (new(props: P, context?: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -812,16 +802,15 @@ declare namespace React {
     type PropsWithoutRef<P> =
         // Just Pick would be sufficient for this, but I'm trying to avoid unnecessary mapping over union types
         // https://github.com/Microsoft/TypeScript/issues/28339
-        'ref' extends keyof P ? Pick<P, Exclude<keyof P, 'ref'>> : P;
+        "ref" extends keyof P ? Pick<P, Exclude<keyof P, "ref">> : P;
     /** Ensures that the props do not include string ref, which cannot be forwarded */
     type PropsWithRef<P> =
         // Just "P extends { ref?: infer R }" looks sufficient, but R will infer as {} if P is {}.
-        'ref' extends keyof P
+        "ref" extends keyof P
             ? P extends { ref?: infer R | undefined }
-                ? string extends R
-                    ? PropsWithoutRef<P> & { ref?: Exclude<R, string> | undefined }
-                    : P
+                ? string extends R ? PropsWithoutRef<P> & { ref?: Exclude<R, string> | undefined }
                 : P
+            : P
             : P;
 
     type PropsWithChildren<P> = P & { children?: ReactNode | undefined };
@@ -831,11 +820,9 @@ declare namespace React {
      * or ComponentPropsWithoutRef when refs are not supported.
      */
     type ComponentProps<
-        T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>
-    > = T extends JSXElementConstructor<infer P>
-        ? P
-        : T extends keyof JSX.IntrinsicElements
-        ? JSX.IntrinsicElements[T]
+        T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
+    > = T extends JSXElementConstructor<infer P> ? P
+        : T extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[T]
         : {};
     type ComponentPropsWithRef<T extends ElementType> = T extends ComponentClass<infer P>
         ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
@@ -888,14 +875,15 @@ declare namespace React {
     type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
     type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
-    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S>
-        ? S
+    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S> ? S
         : never;
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-    type DependencyList = ReadonlyArray<any>;
+    type DependencyList = readonly any[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     // The destructor is itself only allowed to return void.
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type EffectCallback = () => void | (() => void | undefined);
 
     interface MutableRefObject<T> {
@@ -1190,7 +1178,7 @@ declare namespace React {
         twist: number;
         width: number;
         height: number;
-        pointerType: 'mouse' | 'pen' | 'touch';
+        pointerType: "mouse" | "pen" | "touch";
         isPrimary: boolean;
     }
 
@@ -1294,7 +1282,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }['bivarianceHack'];
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
 
     type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
 
@@ -1318,7 +1306,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     /**
-     * @deprecated. This was used to allow clients to pass `ref` and `key`
+     * @deprecated This was used to allow clients to pass `ref` and `key`
      * to `createElement`, which is no longer necessary due to intersection
      * types. If you need to declare a props object before passing it to
      * `createElement` or a factory, use `ClassAttributes<T>`:
@@ -1554,189 +1542,189 @@ declare namespace React {
     // All the WAI-ARIA 1.1 attributes from https://www.w3.org/TR/wai-aria-1.1/
     interface AriaAttributes {
         /** Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application. */
-        'aria-activedescendant'?: string | undefined;
+        "aria-activedescendant"?: string | undefined;
         /** Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute. */
-        'aria-atomic'?: boolean | 'false' | 'true' | undefined;
+        "aria-atomic"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
          * presented if they are made.
          */
-        'aria-autocomplete'?: 'none' | 'inline' | 'list' | 'both' | undefined;
+        "aria-autocomplete"?: "none" | "inline" | "list" | "both" | undefined;
         /** Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user. */
-        'aria-busy'?: boolean | 'false' | 'true' | undefined;
+        "aria-busy"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
          * @see aria-pressed @see aria-selected.
          */
-        'aria-checked'?: boolean | 'false' | 'mixed' | 'true' | undefined;
+        "aria-checked"?: boolean | "false" | "mixed" | "true" | undefined;
         /**
          * Defines the total number of columns in a table, grid, or treegrid.
          * @see aria-colindex.
          */
-        'aria-colcount'?: number | string | undefined;
+        "aria-colcount"?: number | string | undefined;
         /**
          * Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.
          * @see aria-colcount @see aria-colspan.
          */
-        'aria-colindex'?: number | string | undefined;
+        "aria-colindex"?: number | string | undefined;
         /**
          * Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-colindex @see aria-rowspan.
          */
-        'aria-colspan'?: number | string | undefined;
+        "aria-colspan"?: number | string | undefined;
         /**
          * Identifies the element (or elements) whose contents or presence are controlled by the current element.
          * @see aria-owns.
          */
-        'aria-controls'?: string | undefined;
+        "aria-controls"?: string | undefined;
         /** Indicates the element that represents the current item within a container or set of related elements. */
-        'aria-current'?: boolean | 'false' | 'true' | 'page' | 'step' | 'location' | 'date' | 'time' | undefined;
+        "aria-current"?: boolean | "false" | "true" | "page" | "step" | "location" | "date" | "time" | undefined;
         /**
          * Identifies the element (or elements) that describes the object.
          * @see aria-labelledby
          */
-        'aria-describedby'?: string | undefined;
+        "aria-describedby"?: string | undefined;
         /**
          * Identifies the element that provides a detailed, extended description for the object.
          * @see aria-describedby.
          */
-        'aria-details'?: string | undefined;
+        "aria-details"?: string | undefined;
         /**
          * Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
          * @see aria-hidden @see aria-readonly.
          */
-        'aria-disabled'?: boolean | 'false' | 'true' | undefined;
+        "aria-disabled"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates what functions can be performed when a dragged object is released on the drop target.
          * @deprecated in ARIA 1.1
          */
-        'aria-dropeffect'?: 'none' | 'copy' | 'execute' | 'link' | 'move' | 'popup' | undefined;
+        "aria-dropeffect"?: "none" | "copy" | "execute" | "link" | "move" | "popup" | undefined;
         /**
          * Identifies the element that provides an error message for the object.
          * @see aria-invalid @see aria-describedby.
          */
-        'aria-errormessage'?: string | undefined;
+        "aria-errormessage"?: string | undefined;
         /** Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. */
-        'aria-expanded'?: boolean | 'false' | 'true' | undefined;
+        "aria-expanded"?: boolean | "false" | "true" | undefined;
         /**
          * Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
          * allows assistive technology to override the general default of reading in document source order.
          */
-        'aria-flowto'?: string | undefined;
+        "aria-flowto"?: string | undefined;
         /**
          * Indicates an element's "grabbed" state in a drag-and-drop operation.
          * @deprecated in ARIA 1.1
          */
-        'aria-grabbed'?: boolean | 'false' | 'true' | undefined;
+        "aria-grabbed"?: boolean | "false" | "true" | undefined;
         /** Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element. */
-        'aria-haspopup'?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog' | undefined;
+        "aria-haspopup"?: boolean | "false" | "true" | "menu" | "listbox" | "tree" | "grid" | "dialog" | undefined;
         /**
          * Indicates whether the element is exposed to an accessibility API.
          * @see aria-disabled.
          */
-        'aria-hidden'?: boolean | 'false' | 'true' | undefined;
+        "aria-hidden"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates the entered value does not conform to the format expected by the application.
          * @see aria-errormessage.
          */
-        'aria-invalid'?: boolean | 'false' | 'true' | 'grammar' | 'spelling' | undefined;
+        "aria-invalid"?: boolean | "false" | "true" | "grammar" | "spelling" | undefined;
         /** Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element. */
-        'aria-keyshortcuts'?: string | undefined;
+        "aria-keyshortcuts"?: string | undefined;
         /**
          * Defines a string value that labels the current element.
          * @see aria-labelledby.
          */
-        'aria-label'?: string | undefined;
+        "aria-label"?: string | undefined;
         /**
          * Identifies the element (or elements) that labels the current element.
          * @see aria-describedby.
          */
-        'aria-labelledby'?: string | undefined;
+        "aria-labelledby"?: string | undefined;
         /** Defines the hierarchical level of an element within a structure. */
-        'aria-level'?: number | string | undefined;
+        "aria-level"?: number | string | undefined;
         /** Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. */
-        'aria-live'?: 'off' | 'assertive' | 'polite' | undefined;
+        "aria-live"?: "off" | "assertive" | "polite" | undefined;
         /** Indicates whether an element is modal when displayed. */
-        'aria-modal'?: boolean | 'false' | 'true' | undefined;
+        "aria-modal"?: boolean | "false" | "true" | undefined;
         /** Indicates whether a text box accepts multiple lines of input or only a single line. */
-        'aria-multiline'?: boolean | 'false' | 'true' | undefined;
+        "aria-multiline"?: boolean | "false" | "true" | undefined;
         /** Indicates that the user may select more than one item from the current selectable descendants. */
-        'aria-multiselectable'?: boolean | 'false' | 'true' | undefined;
+        "aria-multiselectable"?: boolean | "false" | "true" | undefined;
         /** Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous. */
-        'aria-orientation'?: 'horizontal' | 'vertical' | undefined;
+        "aria-orientation"?: "horizontal" | "vertical" | undefined;
         /**
          * Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
          * between DOM elements where the DOM hierarchy cannot be used to represent the relationship.
          * @see aria-controls.
          */
-        'aria-owns'?: string | undefined;
+        "aria-owns"?: string | undefined;
         /**
          * Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
          * A hint could be a sample value or a brief description of the expected format.
          */
-        'aria-placeholder'?: string | undefined;
+        "aria-placeholder"?: string | undefined;
         /**
          * Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-setsize.
          */
-        'aria-posinset'?: number | string | undefined;
+        "aria-posinset"?: number | string | undefined;
         /**
          * Indicates the current "pressed" state of toggle buttons.
          * @see aria-checked @see aria-selected.
          */
-        'aria-pressed'?: boolean | 'false' | 'mixed' | 'true' | undefined;
+        "aria-pressed"?: boolean | "false" | "mixed" | "true" | undefined;
         /**
          * Indicates that the element is not editable, but is otherwise operable.
          * @see aria-disabled.
          */
-        'aria-readonly'?: boolean | 'false' | 'true' | undefined;
+        "aria-readonly"?: boolean | "false" | "true" | undefined;
         /**
          * Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.
          * @see aria-atomic.
          */
-        'aria-relevant'?: 'additions' | 'additions text' | 'all' | 'removals' | 'text' | undefined;
+        "aria-relevant"?: "additions" | "additions text" | "all" | "removals" | "text" | undefined;
         /** Indicates that user input is required on the element before a form may be submitted. */
-        'aria-required'?: boolean | 'false' | 'true' | undefined;
+        "aria-required"?: boolean | "false" | "true" | undefined;
         /** Defines a human-readable, author-localized description for the role of an element. */
-        'aria-roledescription'?: string | undefined;
+        "aria-roledescription"?: string | undefined;
         /**
          * Defines the total number of rows in a table, grid, or treegrid.
          * @see aria-rowindex.
          */
-        'aria-rowcount'?: number | string | undefined;
+        "aria-rowcount"?: number | string | undefined;
         /**
          * Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.
          * @see aria-rowcount @see aria-rowspan.
          */
-        'aria-rowindex'?: number | string | undefined;
+        "aria-rowindex"?: number | string | undefined;
         /**
          * Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
          * @see aria-rowindex @see aria-colspan.
          */
-        'aria-rowspan'?: number | string | undefined;
+        "aria-rowspan"?: number | string | undefined;
         /**
          * Indicates the current "selected" state of various widgets.
          * @see aria-checked @see aria-pressed.
          */
-        'aria-selected'?: boolean | 'false' | 'true' | undefined;
+        "aria-selected"?: boolean | "false" | "true" | undefined;
         /**
          * Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.
          * @see aria-posinset.
          */
-        'aria-setsize'?: number | string | undefined;
+        "aria-setsize"?: number | string | undefined;
         /** Indicates if items in a table or grid are sorted in ascending or descending order. */
-        'aria-sort'?: 'none' | 'ascending' | 'descending' | 'other' | undefined;
+        "aria-sort"?: "none" | "ascending" | "descending" | "other" | undefined;
         /** Defines the maximum allowed value for a range widget. */
-        'aria-valuemax'?: number | string | undefined;
+        "aria-valuemax"?: number | string | undefined;
         /** Defines the minimum allowed value for a range widget. */
-        'aria-valuemin'?: number | string | undefined;
+        "aria-valuemin"?: number | string | undefined;
         /**
          * Defines the current value for a range widget.
          * @see aria-valuetext.
          */
-        'aria-valuenow'?: number | string | undefined;
+        "aria-valuenow"?: number | string | undefined;
         /** Defines the human readable text alternative of aria-valuenow for a range widget. */
-        'aria-valuetext'?: string | undefined;
+        "aria-valuetext"?: string | undefined;
     }
 
     interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
@@ -1751,8 +1739,8 @@ declare namespace React {
         accesskey?: string | undefined;
         className?: string | undefined;
         class?: string | undefined;
-        contentEditable?: Booleanish | 'inherit' | undefined;
-        contenteditable?: Booleanish | 'inherit' | undefined;
+        contentEditable?: Booleanish | "inherit" | undefined;
+        contenteditable?: Booleanish | "inherit" | undefined;
         contextMenu?: string | undefined;
         contextmenu?: string | undefined;
         dir?: string | undefined;
@@ -1768,7 +1756,7 @@ declare namespace React {
         tabIndex?: number | undefined;
         tabindex?: number | string | undefined;
         title?: string | undefined;
-        translate?: 'yes' | 'no' | undefined;
+        translate?: "yes" | "no" | undefined;
 
         // Unknown
         radioGroup?: string | undefined; // <command>, <menuitem>
@@ -1807,15 +1795,15 @@ declare namespace React {
         itemref?: string | undefined;
         results?: number | string | undefined;
         security?: string | undefined;
-        unselectable?: 'on' | 'off' | undefined;
+        unselectable?: "on" | "off" | undefined;
 
         // Living Standard
         /**
          * Hints at the type of data that might be entered by the user while editing the element or its contents
          * @see https://html.spec.whatwg.org/multipage/interaction.html#input-modalities:-the-inputmode-attribute
          */
-        inputMode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined;
-        inputmode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search' | undefined;
+        inputMode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
+        inputmode?: "none" | "text" | "tel" | "url" | "email" | "numeric" | "decimal" | "search" | undefined;
         /**
          * Specify that a standard HTML element should behave like a defined custom built-in element
          * @see https://html.spec.whatwg.org/multipage/custom-elements.html#attr-is
@@ -1827,7 +1815,7 @@ declare namespace React {
         // Standard HTML Attributes
         accept?: string | undefined;
         acceptCharset?: string | undefined;
-        'accept-charset'?: string | undefined;
+        "accept-charset"?: string | undefined;
         action?: string | undefined;
         allowFullScreen?: boolean | undefined;
         allowfullscreen?: boolean | string | undefined;
@@ -1894,7 +1882,7 @@ declare namespace React {
         hreflang?: string | undefined;
         htmlFor?: string | undefined;
         httpEquiv?: string | undefined;
-        'http-equiv'?: string | undefined;
+        "http-equiv"?: string | undefined;
         integrity?: string | undefined;
         keyParams?: string | undefined;
         keyparams?: string | undefined;
@@ -2007,7 +1995,7 @@ declare namespace React {
     }
 
     interface BdoHTMLAttributes<T> extends HTMLAttributes<T> {
-        dir?: 'ltr' | 'rtl';
+        dir?: "ltr" | "rtl";
     }
 
     interface BlockquoteHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2030,7 +2018,7 @@ declare namespace React {
         formTarget?: string | undefined;
         formtarget?: string | undefined;
         name?: string | undefined;
-        type?: 'submit' | 'reset' | 'button' | undefined;
+        type?: "submit" | "reset" | "button" | undefined;
         value?: string | string[] | number | undefined;
     }
 
@@ -2054,6 +2042,7 @@ declare namespace React {
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | string | undefined;
+        name?: string | undefined;
     }
 
     interface DelHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2081,7 +2070,7 @@ declare namespace React {
 
     interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
         acceptCharset?: string | undefined;
-        'accept-charset'?: string | undefined;
+        "accept-charset"?: string | undefined;
         action?: string | undefined;
         autoComplete?: string | undefined;
         autocomplete?: string | undefined;
@@ -2125,13 +2114,13 @@ declare namespace React {
 
     interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
         alt?: string | undefined;
-        crossOrigin?: 'anonymous' | 'use-credentials' | '' | undefined;
-        crossorigin?: 'anonymous' | 'use-credentials' | '' | undefined;
-        decoding?: 'async' | 'auto' | 'sync' | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossorigin?: "anonymous" | "use-credentials" | "" | undefined;
+        decoding?: "async" | "auto" | "sync" | undefined;
         height?: number | string | undefined;
-        loading?: 'eager' | 'lazy' | undefined;
-        referrerPolicy?: 'no-referrer' | 'origin' | 'unsafe-url' | undefined;
-        referrerpolicy?: 'no-referrer' | 'origin' | 'unsafe-url' | undefined;
+        loading?: "eager" | "lazy" | undefined;
+        referrerPolicy?: "no-referrer" | "origin" | "unsafe-url" | undefined;
+        referrerpolicy?: "no-referrer" | "origin" | "unsafe-url" | undefined;
         sizes?: string | undefined;
         src?: string | undefined;
         srcSet?: string | undefined;
@@ -2265,7 +2254,7 @@ declare namespace React {
         charset?: string | undefined;
         content?: string | undefined;
         httpEquiv?: string | undefined;
-        'http-equiv'?: string | undefined;
+        "http-equiv"?: string | undefined;
         name?: string | undefined;
     }
 
@@ -2300,7 +2289,7 @@ declare namespace React {
     interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
         reversed?: boolean | string | undefined;
         start?: number | string | undefined;
-        type?: '1' | 'a' | 'A' | 'i' | 'I' | undefined;
+        type?: "1" | "a" | "A" | "i" | "I" | undefined;
     }
 
     interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -2419,7 +2408,7 @@ declare namespace React {
     }
 
     interface TdHTMLAttributes<T> extends HTMLAttributes<T> {
-        align?: 'left' | 'center' | 'right' | 'justify' | 'char' | undefined;
+        align?: "left" | "center" | "right" | "justify" | "char" | undefined;
         colSpan?: number | undefined;
         colspan?: number | string | undefined;
         headers?: string | undefined;
@@ -2427,11 +2416,11 @@ declare namespace React {
         rowspan?: number | string | undefined;
         scope?: string | undefined;
         abbr?: string | undefined;
-        valign?: 'top' | 'middle' | 'bottom' | 'baseline' | undefined;
+        valign?: "top" | "middle" | "bottom" | "baseline" | undefined;
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {
-        align?: 'left' | 'center' | 'right' | 'justify' | 'char' | undefined;
+        align?: "left" | "center" | "right" | "justify" | "char" | undefined;
         colSpan?: number | undefined;
         colspan?: number | string | undefined;
         headers?: string | undefined;
@@ -2496,47 +2485,49 @@ declare namespace React {
         role?: string | undefined;
         tabIndex?: number | undefined;
         tabindex?: number | string | undefined;
-        crossOrigin?: 'anonymous' | 'use-credentials' | '' | undefined;
-        crossorigin?: 'anonymous' | 'use-credentials' | '' | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        crossorigin?: "anonymous" | "use-credentials" | "" | undefined;
 
         // SVG Specific attributes
         accentHeight?: number | string | undefined;
-        'accent-height'?: number | string | undefined;
-        accumulate?: 'none' | 'sum' | undefined;
-        additive?: 'replace' | 'sum' | undefined;
+        "accent-height"?: number | string | undefined;
+        accumulate?: "none" | "sum" | undefined;
+        additive?: "replace" | "sum" | undefined;
         alignmentBaseline?:
-            | 'auto'
-            | 'baseline'
-            | 'before-edge'
-            | 'text-before-edge'
-            | 'middle'
-            | 'central'
-            | 'after-edge'
-            | 'text-after-edge'
-            | 'ideographic'
-            | 'alphabetic'
-            | 'hanging'
-            | 'mathematical'
-            | 'inherit' | undefined;
-        'alignment-baseline'?:
-            | 'auto'
-            | 'baseline'
-            | 'before-edge'
-            | 'text-before-edge'
-            | 'middle'
-            | 'central'
-            | 'after-edge'
-            | 'text-after-edge'
-            | 'ideographic'
-            | 'alphabetic'
-            | 'hanging'
-            | 'mathematical'
-            | 'inherit' | undefined;
-        allowReorder?: 'no' | 'yes' | undefined;
+            | "auto"
+            | "baseline"
+            | "before-edge"
+            | "text-before-edge"
+            | "middle"
+            | "central"
+            | "after-edge"
+            | "text-after-edge"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "inherit"
+            | undefined;
+        "alignment-baseline"?:
+            | "auto"
+            | "baseline"
+            | "before-edge"
+            | "text-before-edge"
+            | "middle"
+            | "central"
+            | "after-edge"
+            | "text-after-edge"
+            | "ideographic"
+            | "alphabetic"
+            | "hanging"
+            | "mathematical"
+            | "inherit"
+            | undefined;
+        allowReorder?: "no" | "yes" | undefined;
         alphabetic?: number | string | undefined;
         amplitude?: number | string | undefined;
-        arabicForm?: 'initial' | 'medial' | 'terminal' | 'isolated' | undefined;
-        'arabic-form'?: 'initial' | 'medial' | 'terminal' | 'isolated' | undefined;
+        arabicForm?: "initial" | "medial" | "terminal" | "isolated" | undefined;
+        "arabic-form"?: "initial" | "medial" | "terminal" | "isolated" | undefined;
         ascent?: number | string | undefined;
         attributeName?: string | undefined;
         attributeType?: string | undefined;
@@ -2544,7 +2535,7 @@ declare namespace React {
         azimuth?: number | string | undefined;
         baseFrequency?: number | string | undefined;
         baselineShift?: number | string | undefined;
-        'baseline-shift'?: number | string | undefined;
+        "baseline-shift"?: number | string | undefined;
         baseProfile?: number | string | undefined;
         bbox?: number | string | undefined;
         begin?: number | string | undefined;
@@ -2552,21 +2543,21 @@ declare namespace React {
         by?: number | string | undefined;
         calcMode?: number | string | undefined;
         capHeight?: number | string | undefined;
-        'cap-height'?: number | string | undefined;
+        "cap-height"?: number | string | undefined;
         clip?: number | string | undefined;
         clipPath?: string | undefined;
-        'clip-path'?: string | undefined;
+        "clip-path"?: string | undefined;
         clipPathUnits?: number | string | undefined;
         clipRule?: number | string | undefined;
-        'clip-rule'?: number | string | undefined;
+        "clip-rule"?: number | string | undefined;
         colorInterpolation?: number | string | undefined;
-        'color-interpolation'?: number | string | undefined;
-        colorInterpolationFilters?: 'auto' | 'sRGB' | 'linearRGB' | 'inherit' | undefined;
-        'color-interpolation-filters'?: 'auto' | 'sRGB' | 'linearRGB' | 'inherit' | undefined;
+        "color-interpolation"?: number | string | undefined;
+        colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit" | undefined;
+        "color-interpolation-filters"?: "auto" | "sRGB" | "linearRGB" | "inherit" | undefined;
         colorProfile?: number | string | undefined;
-        'color-profile'?: number | string | undefined;
+        "color-profile"?: number | string | undefined;
         colorRendering?: number | string | undefined;
-        'color-rendering'?: number | string | undefined;
+        "color-rendering"?: number | string | undefined;
         contentScriptType?: number | string | undefined;
         contentStyleType?: number | string | undefined;
         cursor?: number | string | undefined;
@@ -2580,44 +2571,44 @@ declare namespace React {
         display?: number | string | undefined;
         divisor?: number | string | undefined;
         dominantBaseline?: number | string | undefined;
-        'dominant-baseline'?: number | string | undefined;
+        "dominant-baseline"?: number | string | undefined;
         dur?: number | string | undefined;
         dx?: number | string | undefined;
         dy?: number | string | undefined;
         edgeMode?: number | string | undefined;
         elevation?: number | string | undefined;
         enableBackground?: number | string | undefined;
-        'enable-background'?: number | string | undefined;
+        "enable-background"?: number | string | undefined;
         end?: number | string | undefined;
         exponent?: number | string | undefined;
         externalResourcesRequired?: Booleanish | undefined;
         fill?: string | undefined;
         fillOpacity?: number | string | undefined;
-        'fill-opacity'?: number | string | undefined;
-        fillRule?: 'nonzero' | 'evenodd' | 'inherit' | undefined;
-        'fill-rule'?: 'nonzero' | 'evenodd' | 'inherit' | undefined;
+        "fill-opacity"?: number | string | undefined;
+        fillRule?: "nonzero" | "evenodd" | "inherit" | undefined;
+        "fill-rule"?: "nonzero" | "evenodd" | "inherit" | undefined;
         filter?: string | undefined;
         filterRes?: number | string | undefined;
         filterUnits?: number | string | undefined;
         floodColor?: number | string | undefined;
-        'flood-color'?: number | string | undefined;
+        "flood-color"?: number | string | undefined;
         floodOpacity?: number | string | undefined;
-        'flood-opacity'?: number | string | undefined;
-        focusable?: Booleanish | 'auto' | undefined;
+        "flood-opacity"?: number | string | undefined;
+        focusable?: Booleanish | "auto" | undefined;
         fontFamily?: string | undefined;
-        'font-family'?: string | undefined;
+        "font-family"?: string | undefined;
         fontSize?: number | string | undefined;
-        'font-size'?: number | string | undefined;
+        "font-size"?: number | string | undefined;
         fontSizeAdjust?: number | string | undefined;
-        'font-size-adjust'?: number | string | undefined;
+        "font-size-adjust"?: number | string | undefined;
         fontStretch?: number | string | undefined;
-        'font-stretch'?: number | string | undefined;
+        "font-stretch"?: number | string | undefined;
         fontStyle?: number | string | undefined;
-        'font-style'?: number | string | undefined;
+        "font-style"?: number | string | undefined;
         fontVariant?: number | string | undefined;
-        'font-variant'?: number | string | undefined;
+        "font-variant"?: number | string | undefined;
         fontWeight?: number | string | undefined;
-        'font-weight'?: number | string | undefined;
+        "font-weight"?: number | string | undefined;
         format?: number | string | undefined;
         from?: number | string | undefined;
         fx?: number | string | undefined;
@@ -2625,23 +2616,23 @@ declare namespace React {
         g1?: number | string | undefined;
         g2?: number | string | undefined;
         glyphName?: number | string | undefined;
-        'glyph-name'?: number | string | undefined;
+        "glyph-name"?: number | string | undefined;
         glyphOrientationHorizontal?: number | string | undefined;
-        'glyph-orientation-horizontal'?: number | string | undefined;
+        "glyph-orientation-horizontal"?: number | string | undefined;
         glyphOrientationVertical?: number | string | undefined;
-        'glyph-orientation-vertical'?: number | string | undefined;
+        "glyph-orientation-vertical"?: number | string | undefined;
         glyphRef?: number | string | undefined;
         gradientTransform?: string | undefined;
         gradientUnits?: string | undefined;
         hanging?: number | string | undefined;
         horizAdvX?: number | string | undefined;
-        'horiz-adv-x'?: number | string | undefined;
+        "horiz-adv-x"?: number | string | undefined;
         horizOriginX?: number | string | undefined;
-        'horiz-origin-x'?: number | string | undefined;
+        "horiz-origin-x"?: number | string | undefined;
         href?: string | undefined;
         ideographic?: number | string | undefined;
         imageRendering?: number | string | undefined;
-        'image-rendering'?: number | string | undefined;
+        "image-rendering"?: number | string | undefined;
         in2?: number | string | undefined;
         in?: string | undefined;
         intercept?: number | string | undefined;
@@ -2658,18 +2649,18 @@ declare namespace React {
         keyTimes?: number | string | undefined;
         lengthAdjust?: number | string | undefined;
         letterSpacing?: number | string | undefined;
-        'letter-spacing'?: number | string | undefined;
+        "letter-spacing"?: number | string | undefined;
         lightingColor?: number | string | undefined;
-        'lighting-color'?: number | string | undefined;
+        "lighting-color"?: number | string | undefined;
         limitingConeAngle?: number | string | undefined;
         local?: number | string | undefined;
         markerEnd?: string | undefined;
-        'marker-end'?: string | undefined;
+        "marker-end"?: string | undefined;
         markerHeight?: number | string | undefined;
         markerMid?: string | undefined;
-        'marker-mid'?: string | undefined;
+        "marker-mid"?: string | undefined;
         markerStart?: string | undefined;
-        'marker-start'?: string | undefined;
+        "marker-start"?: string | undefined;
         markerUnits?: number | string | undefined;
         markerWidth?: number | string | undefined;
         mask?: string | undefined;
@@ -2687,20 +2678,20 @@ declare namespace React {
         origin?: number | string | undefined;
         overflow?: number | string | undefined;
         overlinePosition?: number | string | undefined;
-        'overline-position'?: number | string | undefined;
+        "overline-position"?: number | string | undefined;
         overlineThickness?: number | string | undefined;
-        'overline-thickness'?: number | string | undefined;
+        "overline-thickness"?: number | string | undefined;
         paintOrder?: number | string | undefined;
-        'paint-order'?: number | string | undefined;
+        "paint-order"?: number | string | undefined;
         panose1?: number | string | undefined;
-        'panose-1'?: number | string | undefined;
+        "panose-1"?: number | string | undefined;
         path?: string | undefined;
         pathLength?: number | string | undefined;
         patternContentUnits?: string | undefined;
         patternTransform?: number | string | undefined;
         patternUnits?: string | undefined;
         pointerEvents?: number | string | undefined;
-        'pointer-events'?: number | string | undefined;
+        "pointer-events"?: number | string | undefined;
         points?: string | undefined;
         pointsAtX?: number | string | undefined;
         pointsAtY?: number | string | undefined;
@@ -2713,7 +2704,7 @@ declare namespace React {
         refX?: number | string | undefined;
         refY?: number | string | undefined;
         renderingIntent?: number | string | undefined;
-        'rendering-intent'?: number | string | undefined;
+        "rendering-intent"?: number | string | undefined;
         repeatCount?: number | string | undefined;
         repeatDur?: number | string | undefined;
         requiredExtensions?: number | string | undefined;
@@ -2726,7 +2717,7 @@ declare namespace React {
         scale?: number | string | undefined;
         seed?: number | string | undefined;
         shapeRendering?: number | string | undefined;
-        'shape-rendering'?: number | string | undefined;
+        "shape-rendering"?: number | string | undefined;
         slope?: number | string | undefined;
         spacing?: number | string | undefined;
         specularConstant?: number | string | undefined;
@@ -2739,111 +2730,111 @@ declare namespace React {
         stemv?: number | string | undefined;
         stitchTiles?: number | string | undefined;
         stopColor?: string | undefined;
-        'stop-color'?: string | undefined;
+        "stop-color"?: string | undefined;
         stopOpacity?: number | string | undefined;
-        'stop-opacity'?: number | string | undefined;
+        "stop-opacity"?: number | string | undefined;
         strikethroughPosition?: number | string | undefined;
-        'strikethrough-position'?: number | string | undefined;
+        "strikethrough-position"?: number | string | undefined;
         strikethroughThickness?: number | string | undefined;
-        'strikethrough-thickness'?: number | string | undefined;
+        "strikethrough-thickness"?: number | string | undefined;
         string?: number | string | undefined;
         stroke?: string | undefined;
         strokeDasharray?: string | number | undefined;
-        'stroke-dasharray'?: string | number | undefined;
+        "stroke-dasharray"?: string | number | undefined;
         strokeDashoffset?: string | number | undefined;
-        'stroke-dashoffset'?: string | number | undefined;
-        strokeLinecap?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
-        'stroke-linecap'?: 'butt' | 'round' | 'square' | 'inherit' | undefined;
-        strokeLinejoin?: 'miter' | 'round' | 'bevel' | 'inherit' | undefined;
-        'stroke-linejoin'?: 'miter' | 'round' | 'bevel' | 'inherit' | undefined;
+        "stroke-dashoffset"?: string | number | undefined;
+        strokeLinecap?: "butt" | "round" | "square" | "inherit" | undefined;
+        "stroke-linecap"?: "butt" | "round" | "square" | "inherit" | undefined;
+        strokeLinejoin?: "miter" | "round" | "bevel" | "inherit" | undefined;
+        "stroke-linejoin"?: "miter" | "round" | "bevel" | "inherit" | undefined;
         strokeMiterlimit?: number | string | undefined;
-        'stroke-miterlimit'?: number | string | undefined;
+        "stroke-miterlimit"?: number | string | undefined;
         strokeOpacity?: number | string | undefined;
-        'stroke-opacity'?: number | string | undefined;
+        "stroke-opacity"?: number | string | undefined;
         strokeWidth?: number | string | undefined;
-        'stroke-width'?: number | string | undefined;
+        "stroke-width"?: number | string | undefined;
         surfaceScale?: number | string | undefined;
         systemLanguage?: number | string | undefined;
         tableValues?: number | string | undefined;
         targetX?: number | string | undefined;
         targetY?: number | string | undefined;
         textAnchor?: string | undefined;
-        'text-anchor'?: string | undefined;
+        "text-anchor"?: string | undefined;
         textDecoration?: number | string | undefined;
-        'text-decoration'?: number | string | undefined;
+        "text-decoration"?: number | string | undefined;
         textLength?: number | string | undefined;
         textRendering?: number | string | undefined;
-        'text-rendering'?: number | string | undefined;
+        "text-rendering"?: number | string | undefined;
         to?: number | string | undefined;
         transform?: string | undefined;
         u1?: number | string | undefined;
         u2?: number | string | undefined;
         underlinePosition?: number | string | undefined;
-        'underline-position'?: number | string | undefined;
+        "underline-position"?: number | string | undefined;
         underlineThickness?: number | string | undefined;
-        'underline-thickness'?: number | string | undefined;
+        "underline-thickness"?: number | string | undefined;
         unicode?: number | string | undefined;
         unicodeBidi?: number | string | undefined;
-        'unicode-bidi'?: number | string | undefined;
+        "unicode-bidi"?: number | string | undefined;
         unicodeRange?: number | string | undefined;
-        'unicode-range'?: number | string | undefined;
+        "unicode-range"?: number | string | undefined;
         unitsPerEm?: number | string | undefined;
-        'units-per-em'?: number | string | undefined;
+        "units-per-em"?: number | string | undefined;
         vAlphabetic?: number | string | undefined;
-        'v-alphabetic'?: number | string | undefined;
+        "v-alphabetic"?: number | string | undefined;
         values?: string | undefined;
         vectorEffect?: number | string | undefined;
-        'vector-effect'?: number | string | undefined;
+        "vector-effect"?: number | string | undefined;
         version?: string | undefined;
         vertAdvY?: number | string | undefined;
-        'vert-adv-y'?: number | string | undefined;
+        "vert-adv-y"?: number | string | undefined;
         vertOriginX?: number | string | undefined;
-        'vert-origin-x'?: number | string | undefined;
+        "vert-origin-x"?: number | string | undefined;
         vertOriginY?: number | string | undefined;
-        'vert-origin-y'?: number | string | undefined;
+        "vert-origin-y"?: number | string | undefined;
         vHanging?: number | string | undefined;
-        'v-hanging'?: number | string | undefined;
+        "v-hanging"?: number | string | undefined;
         vIdeographic?: number | string | undefined;
-        'v-ideographic'?: number | string | undefined;
+        "v-ideographic"?: number | string | undefined;
         viewBox?: string | undefined;
         viewTarget?: number | string | undefined;
         visibility?: number | string | undefined;
         vMathematical?: number | string | undefined;
-        'v-mathematical'?: number | string | undefined;
+        "v-mathematical"?: number | string | undefined;
         widths?: number | string | undefined;
         wordSpacing?: number | string | undefined;
-        'word-spacing'?: number | string | undefined;
+        "word-spacing"?: number | string | undefined;
         writingMode?: number | string | undefined;
-        'writing-mode'?: number | string | undefined;
+        "writing-mode"?: number | string | undefined;
         x1?: number | string | undefined;
         x2?: number | string | undefined;
         x?: number | string | undefined;
         xChannelSelector?: string | undefined;
         xHeight?: number | string | undefined;
-        'x-height'?: number | string | undefined;
+        "x-height"?: number | string | undefined;
         xlinkActuate?: string | undefined;
-        'xlink:actuate'?: string | undefined;
+        "xlink:actuate"?: string | undefined;
         xlinkArcrole?: string | undefined;
-        'xlink:arcrole'?: string | undefined;
+        "xlink:arcrole"?: string | undefined;
         xlinkHref?: string | undefined;
-        'xlink:href'?: string | undefined;
+        "xlink:href"?: string | undefined;
         xlinkRole?: string | undefined;
-        'xlink:role'?: string | undefined;
+        "xlink:role"?: string | undefined;
         xlinkShow?: string | undefined;
-        'xlink:show'?: string | undefined;
+        "xlink:show"?: string | undefined;
         xlinkTitle?: string | undefined;
-        'xlink:title'?: string | undefined;
+        "xlink:title"?: string | undefined;
         xlinkType?: string | undefined;
-        'xlink:type'?: string | undefined;
+        "xlink:type"?: string | undefined;
         xmlBase?: string | undefined;
-        'xml:base'?: string | undefined;
+        "xml:base"?: string | undefined;
         xmlLang?: string | undefined;
-        'xml:lang'?: string | undefined;
+        "xml:lang"?: string | undefined;
         xmlns?: string | undefined;
         xmlnsXlink?: string | undefined;
-        'xmlns:xlink'?: string | undefined;
+        "xmlns:xlink"?: string | undefined;
         xmlSpace?: string | undefined;
-        'xml:space'?: string | undefined;
+        "xml:space"?: string | undefined;
         y1?: number | string | undefined;
         y2?: number | string | undefined;
         y?: number | string | undefined;
@@ -3068,10 +3059,8 @@ declare namespace React {
     type ValidationMap<T> = PropTypes.ValidationMap<T>;
 
     type WeakValidationMap<T> = {
-        [K in keyof T]?: null extends T[K]
-            ? Validator<T[K] | null | undefined>
-            : undefined extends T[K]
-            ? Validator<T[K] | null | undefined>
+        [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
+            : undefined extends T[K] ? Validator<T[K] | null | undefined>
             : Validator<T[K]>;
     };
 
@@ -3159,35 +3148,31 @@ type NotExactlyAnyPropertyKeys<T> = Exclude<keyof T, ExactlyAnyPropertyKeys<T>>;
 type MergePropTypes<P, T> =
     // Distribute over P in case it is a union type
     P extends any // If props is type any, use propTypes definitions
-        ? IsExactlyAny<P> extends true
-            ? T // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-            : string extends keyof P
-            ? P // Prefer declared types which are not exactly any
-            : Pick<P, NotExactlyAnyPropertyKeys<P>> &
-                  // For props which are exactly any, use the type inferred from propTypes if present
-                  Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>> &
-                  // Keep leftover props not specified in propTypes
-                  Pick<P, Exclude<keyof P, keyof T>>
+        ? IsExactlyAny<P> extends true ? T // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
+        : string extends keyof P ? P // Prefer declared types which are not exactly any
+        :
+            & Pick<P, NotExactlyAnyPropertyKeys<P>>
+            & // For props which are exactly any, use the type inferred from propTypes if present
+            Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
+            & // Keep leftover props not specified in propTypes
+            Pick<P, Exclude<keyof P, keyof T>>
         : never;
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
 // Undeclared default props are augmented into the resulting allowable attributes
 // If declared props have indexed properties, ignore default props entirely as keyof gets widened
 // Wrap in an outer-level conditional type to allow distribution over props that are unions
-type Defaultize<P, D> = P extends any
-    ? string extends keyof P
-        ? P
-        : Pick<P, Exclude<keyof P, keyof D>> &
-              Partial<Pick<P, Extract<keyof P, keyof D>>> &
-              Partial<Pick<D, Exclude<keyof D, keyof P>>>
+type Defaultize<P, D> = P extends any ? string extends keyof P ? P
+    :
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & Partial<Pick<P, Extract<keyof P, keyof D>>>
+        & Partial<Pick<D, Exclude<keyof D, keyof P>>>
     : never;
 
 type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D }
     ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
-    : C extends { propTypes: infer T }
-    ? MergePropTypes<P, PropTypes.InferProps<T>>
-    : C extends { defaultProps: infer D }
-    ? Defaultize<P, D>
+    : C extends { propTypes: infer T } ? MergePropTypes<P, PropTypes.InferProps<T>>
+    : C extends { defaultProps: infer D } ? Defaultize<P, D>
     : P;
 
 declare global {
@@ -3210,7 +3195,7 @@ declare global {
             | React.LazyExoticComponent<infer T>
             ? T extends React.MemoExoticComponent<infer U> | React.LazyExoticComponent<infer U>
                 ? ReactManagedAttributes<U, P>
-                : ReactManagedAttributes<T, P>
+            : ReactManagedAttributes<T, P>
             : ReactManagedAttributes<C, P>;
 
         interface IntrinsicAttributes extends React.Attributes {}

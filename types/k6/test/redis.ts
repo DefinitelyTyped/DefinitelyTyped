@@ -1,10 +1,67 @@
-import redis, { Client } from 'k6/experimental/redis';
+import redis, { Client } from "k6/experimental/redis";
 
 //
-// Client constructor
+// Client constructor with RedisClientOptions - Error Cases
 //
+
 // @ts-expect-error
 const redisClient = new redis.Client();
+
+// Missing required 'socket' property
+// @ts-expect-error
+const clientWithoutSocket = new redis.Client({ username: "user", password: "password" });
+
+// Invalid socket options
+// @ts-expect-error
+const clientWithInvalidSocket = new redis.Client({ socket: { invalidProp: "value" } });
+// @ts-expect-error
+const clientWithInvalidSocketTLS = new redis.Client({ socket: { tls: { ca: 123 } } });
+
+// Invalid types for optional properties
+// @ts-expect-error
+const clientWithInvalidUsername = new redis.Client({ socket: { host: "localhost" }, username: 123 });
+// @ts-expect-error
+const clientWithInvalidPassword = new redis.Client({ socket: { host: "localhost" }, password: 123 });
+// @ts-expect-error
+const clientWithInvalidClientName = new redis.Client({ socket: { host: "localhost" }, clientName: true });
+// @ts-expect-error
+const clientWithInvalidDatabase = new redis.Client({ socket: { host: "localhost" }, database: "not-a-number" });
+// @ts-expect-error
+const clientWithInvalidMasterName = new redis.Client({ socket: { host: "localhost" }, masterName: 123 });
+// @ts-expect-error
+const clientWithInvalidSentinelUsername = new redis.Client({ socket: { host: "localhost" }, sentinelUsername: true });
+// @ts-expect-error
+const clientWithInvalidSentinelPassword = new redis.Client({ socket: { host: "localhost" }, sentinelPassword: false });
+// @ts-expect-error
+const clientWithInvalidCluster = new redis.Client({ socket: { host: "localhost" }, cluster: { invalidProp: "value" } });
+
+//
+// Client constructor with RedisConnectionURL - Error Cases
+//
+
+// Incorrect format for RedisConnectionURL
+// @ts-expect-error
+const clientWithMalformedURL = new redis.Client("just-a-string");
+
+//
+// Additional tests for RedisConnectionURL type components - Error Cases
+//
+
+// RedisProtocol with invalid value
+// @ts-expect-error
+const invalidProtocol: redis.RedisProtocol = "not-a-protocol";
+
+// RedisUserInfo with invalid format
+// @ts-expect-error
+const invalidUserInfo: redis.RedisUserInfo = "user-password";
+
+// RedisPort with non-numeric value
+// @ts-expect-error
+const invalidPort: redis.RedisPort = ":not-a-number";
+
+// RedisDbNumber with non-numeric value
+// @ts-expect-error
+const invalidDbNumber: redis.RedisDbNumber = "/not-a-number";
 
 //
 // Client.set
@@ -15,11 +72,11 @@ redisClient.set();
 // @ts-expect-error
 redisClient.set(5);
 // @ts-expect-error
-redisClient.set('key');
+redisClient.set("key");
 // @ts-expect-error
-redisClient.set('key', 'value');
+redisClient.set("key", "value");
 // @ts-expect-error
-redisClient.set('key', 'value', 'invalid-type');
+redisClient.set("key", "value", "invalid-type");
 
 //
 // Client.get
@@ -39,7 +96,7 @@ redisClient.getSet();
 // @ts-expect-error
 redisClient.getSet(5);
 // @ts-expect-error
-redisClient.getSet('key');
+redisClient.getSet("key");
 
 //
 // Client.del
@@ -86,9 +143,9 @@ redisClient.incrBy();
 // @ts-expect-error
 redisClient.incrBy(5);
 // @ts-expect-error
-redisClient.incrBy('key');
+redisClient.incrBy("key");
 // @ts-expect-error
-redisClient.incrBy('key', 'value');
+redisClient.incrBy("key", "value");
 
 //
 // Client.decr
@@ -108,9 +165,9 @@ redisClient.decrBy();
 // @ts-expect-error
 redisClient.decrBy(5);
 // @ts-expect-error
-redisClient.decrBy('key');
+redisClient.decrBy("key");
 // @ts-expect-error
-redisClient.decrBy('key', 'value');
+redisClient.decrBy("key", "value");
 
 //
 // Client.randomKey
@@ -137,9 +194,9 @@ redisClient.expire();
 // @ts-expect-error
 redisClient.expire(5);
 // @ts-expect-error
-redisClient.expire('key');
+redisClient.expire("key");
 // @ts-expect-error
-redisClient.expire('key', 'value');
+redisClient.expire("key", "value");
 
 //
 // Client.ttl
@@ -160,17 +217,15 @@ redisClient.persist();
 redisClient.persist(5);
 
 //
-// Client.lpsuh
+// Client.lpush
 //
 
 // @ts-expect-error
-redisClient.lpsuh();
+redisClient.lpush();
 // @ts-expect-error
-redisClient.lpsuh(5);
+redisClient.lpush(5);
 // @ts-expect-error
-redisClient.lpsuh('key');
-// @ts-expect-error
-redisClient.lpsuh('key', 'value');
+redisClient.lpush("key", { name: "value" });
 
 //
 // Client.rpush
@@ -181,9 +236,7 @@ redisClient.rpush();
 // @ts-expect-error
 redisClient.rpush(5);
 // @ts-expect-error
-redisClient.rpush('key');
-// @ts-expect-error
-redisClient.rpush('key', 'value');
+redisClient.rpush("key", { name: "value" });
 
 //
 // Client.lpop
@@ -212,13 +265,13 @@ redisClient.lrange();
 // @ts-expect-error
 redisClient.lrange(5);
 // @ts-expect-error
-redisClient.lrange('key');
+redisClient.lrange("key");
 // @ts-expect-error
-redisClient.lrange('key', 0);
+redisClient.lrange("key", 0);
 // @ts-expect-error
-redisClient.lrange('key', 0, 'stop');
+redisClient.lrange("key", 0, "stop");
 // @ts-expect-error
-redisClient.lrange('key', 'start', 'stop');
+redisClient.lrange("key", "start", "stop");
 
 //
 // Client.lindex
@@ -229,9 +282,9 @@ redisClient.lindex();
 // @ts-expect-error
 redisClient.lindex(5);
 // @ts-expect-error
-redisClient.lindex('key');
+redisClient.lindex("key");
 // @ts-expect-error
-redisClient.lindex('key', 'index');
+redisClient.lindex("key", "index");
 
 //
 // Client.lset
@@ -242,13 +295,13 @@ redisClient.lset();
 // @ts-expect-error
 redisClient.lset(5);
 // @ts-expect-error
-redisClient.lset('key');
+redisClient.lset("key");
 // @ts-expect-error
-redisClient.lset('key', 'index');
+redisClient.lset("key", "index");
 // @ts-expect-error
-redisClient.lset('key', 'index', 'element');
+redisClient.lset("key", "index", "element");
 // @ts-expect-error
-redisClient.lset('key', 'index', 0);
+redisClient.lset("key", "index", 0);
 
 //
 // Client.lrem
@@ -259,13 +312,13 @@ redisClient.lrem();
 // @ts-expect-error
 redisClient.lrem(5);
 // @ts-expect-error
-redisClient.lrem('key');
+redisClient.lrem("key");
 // @ts-expect-error
-redisClient.lrem('key', 'count');
+redisClient.lrem("key", "count");
 // @ts-expect-error
-redisClient.lrem('key', 0, 0);
+redisClient.lrem("key", 0, 0);
 // @ts-expect-error
-redisClient.lrem('key', 'count', 'value');
+redisClient.lrem("key", "count", "value");
 
 //
 // Client.llen
@@ -285,13 +338,13 @@ redisClient.hset();
 // @ts-expect-error
 redisClient.hset(5);
 // @ts-expect-error
-redisClient.hset('key');
+redisClient.hset("key");
 // @ts-expect-error
-redisClient.hset('key', 0);
+redisClient.hset("key", 0);
 // @ts-expect-error
-redisClient.hset('key', 'value');
+redisClient.hset("key", "value");
 // @ts-expect-error
-redisClient.hset('key', 'value', 0);
+redisClient.hset("key", "value", { name: "value" });
 
 //
 // Client.hsetnx
@@ -302,13 +355,13 @@ redisClient.hsetnx();
 // @ts-expect-error
 redisClient.hsetnx(5);
 // @ts-expect-error
-redisClient.hsetnx('key');
+redisClient.hsetnx("key");
 // @ts-expect-error
-redisClient.hsetnx('key', 0);
+redisClient.hsetnx("key", 0);
 // @ts-expect-error
-redisClient.hsetnx('key', 'value');
+redisClient.hsetnx("key", "value");
 // @ts-expect-error
-redisClient.hsetnx('key', 'value', 0);
+redisClient.hsetnx("key", "value", 0);
 
 //
 // Client.hget
@@ -319,9 +372,9 @@ redisClient.hget();
 // @ts-expect-error
 redisClient.hget(5);
 // @ts-expect-error
-redisClient.hget('key');
+redisClient.hget("key");
 // @ts-expect-error
-redisClient.hget('key', 0);
+redisClient.hget("key", 0);
 
 //
 // Client.hdel
@@ -332,9 +385,9 @@ redisClient.hdel();
 // @ts-expect-error
 redisClient.hdel(5);
 // @ts-expect-error
-redisClient.hdel('key');
+redisClient.hdel("key");
 // @ts-expect-error
-redisClient.hdel('key', 0);
+redisClient.hdel("key", 0);
 
 //
 // Client.hgetall
@@ -381,13 +434,13 @@ redisClient.hincrby();
 // @ts-expect-error
 redisClient.hincrby(5);
 // @ts-expect-error
-redisClient.hincrby('key');
+redisClient.hincrby("key");
 // @ts-expect-error
-redisClient.hincrby('key', 0);
+redisClient.hincrby("key", 0);
 // @ts-expect-error
-redisClient.hincrby('key', 'value');
+redisClient.hincrby("key", "value");
 // @ts-expect-error
-redisClient.hincrby('key', 'value', 'zero');
+redisClient.hincrby("key", "value", "zero");
 
 //
 // Client.sadd
@@ -398,9 +451,7 @@ redisClient.sadd();
 // @ts-expect-error
 redisClient.sadd(5);
 // @ts-expect-error
-redisClient.sadd('key');
-// @ts-expect-error
-redisClient.sadd('key', 0);
+redisClient.sadd("key", { name: "value" });
 
 //
 // Client.srem
@@ -411,9 +462,7 @@ redisClient.srem();
 // @ts-expect-error
 redisClient.srem(5);
 // @ts-expect-error
-redisClient.srem('key');
-// @ts-expect-error
-redisClient.srem('key', 0);
+redisClient.srem("key", { name: "value" });
 
 //
 // Client.sismember
@@ -424,7 +473,7 @@ redisClient.sismember();
 // @ts-expect-error
 redisClient.sismember(5);
 // @ts-expect-error
-redisClient.sismember('key');
+redisClient.sismember("key");
 
 //
 // Client.smembers

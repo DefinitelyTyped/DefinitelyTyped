@@ -1,13 +1,13 @@
-import FTP = require('ftps');
+import FTP = require("ftps");
 
 const options: FTP.FTPOptions = {
-    host: '',
-    port: 21
+    host: "",
+    port: 21,
 };
 
 const ftp = new FTP(options);
 
-ftp.ls().getFile('.', '.').exec((err, data) => {
+ftp.ls().getFile(".", ".").exec((err, data) => {
     if (err) {
         throw err;
     }

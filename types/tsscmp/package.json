@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tsscmp",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/suryagh/tsscmp#readme"
+    ],
+    "devDependencies": {
+        "@types/tsscmp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gareth Jones",
+            "githubUsername": "g-rath"
+        }
+    ]
+}

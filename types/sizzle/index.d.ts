@@ -1,9 +1,3 @@
-// Type definitions for sizzle 2.3
-// Project: https://sizzlejs.com
-// Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export as namespace Sizzle;
 
 declare const Sizzle: SizzleStatic;
@@ -11,9 +5,13 @@ export = Sizzle;
 
 interface SizzleStatic {
     selectors: Sizzle.Selectors;
-    <TArrayLike extends ArrayLike<Element>>(selector: string, context: Element | Document | DocumentFragment, results: TArrayLike): TArrayLike;
+    <TArrayLike extends ArrayLike<Element>>(
+        selector: string,
+        context: Element | Document | DocumentFragment,
+        results: TArrayLike,
+    ): TArrayLike;
     (selector: string, context?: Element | Document | DocumentFragment): Element[];
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     compile(selector: string): Function;
     matchesSelector(element: Element, selector: string): boolean;
     matches(selector: string, elements: Element[]): Element[];
@@ -38,6 +36,7 @@ declare namespace Sizzle {
         }
 
         interface FindFunction {
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (match: RegExpMatchArray, context: Element | Document, isXML: boolean): Element[] | void;
         }
 

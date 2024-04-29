@@ -17,23 +17,23 @@ declare namespace jsrsasign {
 
     type GeneralName =
         | {
-              rfc822: string;
-          }
+            rfc822: string;
+        }
         | {
-              dns: string;
-          }
+            dns: string;
+        }
         | {
-              uri: string;
-          }
+            uri: string;
+        }
         | {
-              ip: string;
-          }
+            ip: string;
+        }
         | {
-              dn: X500Name;
-          }
+            dn: X500Name;
+        }
         | {
-              other: ASN1HEXParseResult;
-          }
+            other: ASN1HEXParseResult;
+        }
         | undefined;
 
     interface DistributionPointName {
@@ -107,11 +107,11 @@ declare namespace jsrsasign {
 
     type PolicyQualifierInfo =
         | {
-              cps: string;
-          }
+            cps: string;
+        }
         | {
-              unotice: UserNotice;
-          }
+            unotice: UserNotice;
+        }
         | {};
 
     interface PolicyInformation {
@@ -122,88 +122,90 @@ declare namespace jsrsasign {
     type GeneralSubtree = (GeneralName & { min: number }) | (GeneralName & { max: number });
 
     interface ExtSubjectKeyIdentifier {
-        extname: 'subjectKeyIdentifier';
+        extname: "subjectKeyIdentifier";
         kid: Hex;
         critical?: boolean;
     }
     interface ExtKeyUsage {
-        extname: 'keyUsage';
+        extname: "keyUsage";
         critical?: boolean;
         names: string[];
     }
     interface ExtSubjectAltName {
-        extname: 'subjectAltName';
+        extname: "subjectAltName";
         array: GeneralName[];
         critical?: boolean;
     }
     interface ExtIssuerAltName {
-        extname: 'issuerAltName';
+        extname: "issuerAltName";
         array: GeneralName[];
     }
     interface ExtBasicConstraints {
-        extname: 'basicConstraints';
+        extname: "basicConstraints";
         critical?: boolean;
         cA?: boolean;
         pathLen?: number;
     }
     type ExtNameConstraints =
-        | { extname: 'nameConstraints'; critical?: boolean; permit: GeneralSubtree[] }
-        | { extname: 'nameConstraints'; critical?: boolean; exclude: GeneralSubtree[] };
+        | { extname: "nameConstraints"; critical?: boolean; permit: GeneralSubtree[] }
+        | { extname: "nameConstraints"; critical?: boolean; exclude: GeneralSubtree[] };
     interface ExtCRLDistributionPoints {
-        extname: 'cRLDistributionPoints';
+        extname: "cRLDistributionPoints";
         array: DistributionPoint[];
         critical?: boolean;
     }
     interface ExtCertificatePolicies {
-        extname: 'certificatePolicies';
+        extname: "certificatePolicies";
         array: PolicyInformation[];
         critical?: boolean;
     }
     interface ExtAuthorityKeyIdentifier {
-        extname: 'authorityKeyIdentifier';
+        extname: "authorityKeyIdentifier";
         kid: Hex;
         issuer?: Hex;
         sn?: Hex;
         critical?: boolean;
     }
     interface ExtExtKeyUsage {
-        extname: 'extKeyUsage';
+        extname: "extKeyUsage";
         array: string[];
         critical?: boolean;
     }
     interface ExtAuthorityInfoAccess {
-        extname: 'authorityInfoAccess';
+        extname: "authorityInfoAccess";
         critical?: boolean;
-        array: Array<(
-            | {
-                  ocsp: string;
-              }
-            | {
-                  caissuer: string;
-              }
-        )>;
+        array: Array<
+            (
+                | {
+                    ocsp: string;
+                }
+                | {
+                    caissuer: string;
+                }
+            )
+        >;
     }
     interface ExtCRLNumber {
-        extname: 'cRLNumber';
+        extname: "cRLNumber";
         critical?: boolean;
         num?: { hex: string };
     }
     interface ExtCRLReason {
-        extname: 'cRLReason';
+        extname: "cRLReason";
         critical?: boolean;
         code?: number;
     }
     interface ExtOcspNonce {
-        extname: 'ocspNonce';
+        extname: "ocspNonce";
         critical?: boolean;
         hex: string;
     }
     interface ExtOcspNoCheck {
-        extname: 'ocspNoCheck';
+        extname: "ocspNoCheck";
         critical?: boolean;
     }
     interface ExtAdobeTimeStamp {
-        extname: 'adobeTimeStamp';
+        extname: "adobeTimeStamp";
         critical?: boolean;
         uri?: string;
         reqauth?: boolean;
@@ -211,12 +213,12 @@ declare namespace jsrsasign {
 
     type ExtParam =
         | {
-              [key: string]: any;
-              extname: string;
-              extn: string;
-              critical?: boolean;
-              code?: number;
-          }
+            [key: string]: any;
+            extname: string;
+            extn: string;
+            critical?: boolean;
+            code?: number;
+        }
         | ExtSubjectKeyIdentifier
         | ExtKeyUsage
         | ExtSubjectAltName
@@ -995,7 +997,6 @@ declare namespace jsrsasign {
          * - Arrayissuer - JSON object of {@link KJUR.asn1.x509.X500Name} parameters
          * - Arraysn - JSON object of {@link KJUR.asn1.DERInteger} parameters
          * - {Boolean}critical - critical flag
-         *
          *
          * NOTE: The 'authorityCertIssuer' and 'authorityCertSerialNumber'
          * supported since jsrsasign 9.0.0 x509 2.0.0.
@@ -1785,7 +1786,9 @@ declare namespace jsrsasign {
          */
         getExtAdobeTimeStamp(hExtV: string, critical: boolean): ExtAdobeTimeStamp;
 
-        getX500NameRule(aDN: Array<Array<{ type: string; value: string; ds: string }>>): 'mixed' | 'prn' | null | undefined;
+        getX500NameRule(
+            aDN: Array<Array<{ type: string; value: string; ds: string }>>,
+        ): "mixed" | "prn" | null | undefined;
 
         /**
          * get AttributeTypeAndValue ASN.1 structure parameter as JSON object<br/>

@@ -1,6 +1,73 @@
 {
     "private": true,
+    "name": "@types/slate",
+    "version": "0.47.9999",
+    "projects": [
+        "https://github.com/ianstormtaylor/slate"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "immutable": "^3.8.2"
-    }
+    },
+    "devDependencies": {
+        "@types/slate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andy Kent",
+            "githubUsername": "andykent"
+        },
+        {
+            "name": "Jamie Talbot",
+            "githubUsername": "majelbstoat"
+        },
+        {
+            "name": "Jan Löbel",
+            "githubUsername": "JanLoebel"
+        },
+        {
+            "name": "Brandon Shelton",
+            "githubUsername": "YangusKhan"
+        },
+        {
+            "name": "Kalley Powell",
+            "githubUsername": "kalley"
+        },
+        {
+            "name": "Francesco Agnoletto",
+            "githubUsername": "Kornil"
+        },
+        {
+            "name": "Irwan Fario Subastian",
+            "githubUsername": "isubasti"
+        },
+        {
+            "name": "Jack Allen",
+            "githubUsername": "jackall3n"
+        },
+        {
+            "name": "Benjamin Evenson",
+            "githubUsername": "benjiro"
+        },
+        {
+            "name": "Han Jeon",
+            "githubUsername": "hanstar17"
+        },
+        {
+            "name": "Kay Delaney",
+            "githubUsername": "kaydelaney"
+        },
+        {
+            "name": "Kamil Kamiński",
+            "githubUsername": "0ctothorp"
+        },
+        {
+            "name": "Jay Chen",
+            "githubUsername": "Jay0328"
+        },
+        {
+            "name": "Brian Ingles",
+            "githubUsername": "bmingles"
+        }
+    ]
 }

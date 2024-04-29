@@ -1,3 +1,3 @@
-import tag from '../src/tag';
+import tag from "../src/tag";
 
 export = tag;

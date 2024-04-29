@@ -1,12 +1,12 @@
-import Ember from 'ember';
-import DS from 'ember-data';
-import { assertType } from './lib/assert';
+import Ember from "ember";
+import DS from "ember-data";
+import { assertType } from "./lib/assert";
 
 const { AdapterError } = DS;
 
 // https://emberjs.com/api/ember-data/2.16/classes/DS.AdapterError
 const MaintenanceError = DS.AdapterError.extend({
-    message: 'Down for maintenance.',
+    message: "Down for maintenance.",
 });
 const maintenanceError = new MaintenanceError();
 assertType<DS.AdapterError>(maintenanceError);
@@ -14,12 +14,12 @@ assertType<DS.AdapterError>(maintenanceError);
 // https://emberjs.com/api/ember-data/2.16/classes/DS.InvalidError
 const anInvalidError = new DS.InvalidError([
     {
-        detail: 'Must be unique',
-        source: { pointer: '/data/attributes/title' },
+        detail: "Must be unique",
+        source: { pointer: "/data/attributes/title" },
     },
     {
-        detail: 'Must not be blank',
-        source: { pointer: '/data/attributes/content' },
+        detail: "Must not be blank",
+        source: { pointer: "/data/attributes/content" },
     },
 ]);
 
@@ -30,7 +30,7 @@ const timedOut = Ember.Route.extend({
         error(error: any, transition: any) {
             if (error instanceof TimeoutError) {
                 // alert the user
-                alert('Are you still connected to the internet?');
+                alert("Are you still connected to the internet?");
                 return;
             }
 
@@ -54,7 +54,7 @@ const unauthorized = Ember.Route.extend({
         error(error: any, transition: any) {
             if (error instanceof UnauthorizedError) {
                 // go to the sign in route
-                this.transitionTo('login');
+                this.transitionTo("login");
                 return;
             }
 
@@ -75,14 +75,14 @@ const { NotFoundError } = DS;
 assertType<typeof AdapterError>(NotFoundError);
 const notFound = Ember.Route.extend({
     model(params: { post_id: string }): any {
-        return this.get('store').findRecord('post', params.post_id);
+        return this.get("store").findRecord("post", params.post_id);
     },
 
     actions: {
         error(error: any, transition: any): any {
             if (error instanceof NotFoundError) {
                 // redirect to a list of all posts instead
-                this.transitionTo('posts');
+                this.transitionTo("posts");
             } else {
                 // otherwise let the error bubble
                 return true;

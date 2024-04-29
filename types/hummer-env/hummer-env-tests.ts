@@ -15,7 +15,7 @@ Hummer.pageInfo.closeSelf; // $ExpectType boolean
 Hummer.pageInfo.sourcePath; // $ExpectType string
 Hummer.pageInfo.url; // $ExpectType string
 
-const msg = 'message to print';
+const msg = "message to print";
 console.log(msg); // $ExpectType void
 console.debug(msg); // $ExpectType void
 console.info(msg); // $ExpectType void
@@ -27,59 +27,59 @@ clearTimeout(timer1); // $ExpectType void
 const timer2 = setInterval(() => {}, 1000); // $ExpectType number
 clearInterval(timer2); // $ExpectType void
 
-const positionAnimation = new BasicAnimation('position');
+const positionAnimation = new BasicAnimation("position");
 positionAnimation.value = {
     x: 100,
-    y: '100hm',
+    y: "100hm",
 };
 positionAnimation.duration = 1000;
-positionAnimation.on('start', () => {
-    console.log('the animation is on');
+positionAnimation.on("start", () => {
+    console.log("the animation is on");
 });
-positionAnimation.on('end', () => {
-    console.log('the animation is off');
+positionAnimation.on("end", () => {
+    console.log("the animation is off");
 });
 
 const dialog = new Dialog();
 dialog.cancelable = false;
 dialog.lowLayer = true;
-dialog.alert('this is a alert dialog', 'OK Button Text', () => {
-    console.log('You clicked the OK button');
+dialog.alert("this is a alert dialog", "OK Button Text", () => {
+    console.log("You clicked the OK button");
 });
 dialog.confirm(
-    'Dialog Title',
-    'confirm content',
-    'Ok Button text',
-    'Cancel button text',
+    "Dialog Title",
+    "confirm content",
+    "Ok Button text",
+    "Cancel button text",
     () => {
-        console.log('you clicked OK button');
+        console.log("you clicked OK button");
     },
     () => {
-        console.log('you clicked cancel button');
+        console.log("you clicked cancel button");
     },
 );
-dialog.loading('this is a loding msg');
+dialog.loading("this is a loding msg");
 dialog.dismiss();
 dialog.custom(new View());
 
 const request = new Request();
-request.url = 'https://github.com';
-request.method = 'GET';
+request.url = "https://github.com";
+request.method = "GET";
 request.timeout = 10000;
 request.header = {
-    customHeader: 'i am a header',
+    customHeader: "i am a header",
 };
 request.param = {
-    param1: 'a',
-    param2: 'b',
+    param1: "a",
+    param2: "b",
 };
 request.send(response => {
     console.log(response.data);
 });
 
-const ws = new WebSocket('https://websoket.net');
+const ws = new WebSocket("https://websoket.net");
 ws.onopen(() => {
-    console.log('the websokect has connected');
+    console.log("the websokect has connected");
 });
 ws.onmessage(ev => {
     console.log(ev.data);
@@ -89,14 +89,14 @@ ws.onclose(ev => {
     console.log(ev.reason);
 });
 ws.onerror(() => {
-    console.log('websocket connection error');
+    console.log("websocket connection error");
 });
 
-Storage.set('key1', 'value1');
-Storage.get('key1'); // $ExpectType string
-Storage.remove('key1');
+Storage.set("key1", "value1");
+Storage.get("key1"); // $ExpectType string
+Storage.remove("key1");
 Storage.removeAll();
-Storage.exist('key1'); // $ExpectType boolean
+Storage.exist("key1"); // $ExpectType boolean
 
 const location = new Location();
 location.getLastLocation(locationInfo => {

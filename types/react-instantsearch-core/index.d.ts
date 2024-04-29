@@ -1,14 +1,5 @@
-// Type definitions for react-instantsearch-core 6.26
-// Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
-// Definitions by: Gordon Burgett <https://github.com/gburgett>
-//                 Justin Powell <https://github.com/jpowell>
-//                 David Furlong <https://github.com/davidfurlong>
-//                 Haroen Viaene <https://github.com/haroenv>
-//                 Samuel Vaillant <https://github.com/samouss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
-import { SearchParameters } from 'algoliasearch-helper';
+import { SearchParameters } from "algoliasearch-helper";
+import * as React from "react";
 
 // Core
 export interface InstantSearchProps {
@@ -167,11 +158,12 @@ interface AdditionalWidgetProperties {
  */
 export function createConnector<TProvided = {}, TExposed = {}>(
     connectorDesc: ConnectorDescription<TProvided, TExposed>,
-): ((
-    stateless: React.FunctionComponent<ConnectorProvided<TProvided>>,
-    additionalWidgetProperties?: AdditionalWidgetProperties,
-) => React.ComponentClass<TExposed>) &
-    (<TProps extends Partial<ConnectorProvided<TProvided>>>(
+):
+    & ((
+        stateless: React.FunctionComponent<ConnectorProvided<TProvided>>,
+        additionalWidgetProperties?: AdditionalWidgetProperties,
+    ) => React.ComponentClass<TExposed>)
+    & (<TProps extends Partial<ConnectorProvided<TProvided>>>(
         Composed: React.ComponentType<TProps>,
         additionalWidgetProperties?: AdditionalWidgetProperties,
     ) => ConnectedComponentClass<TProps, ConnectorProvided<TProvided>, TExposed>);
@@ -224,8 +216,8 @@ export interface AutocompleteExposed {
     defaultRefinement?: string | undefined;
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function connectAutoComplete<TDoc = BasicDoc>(
-    // eslint-disable-next-line no-unnecessary-generics
     stateless: React.FunctionComponent<AutocompleteProvided<TDoc>>,
 ): React.ComponentClass<AutocompleteExposed>;
 export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TDoc = BasicDoc>(
@@ -235,22 +227,24 @@ export function connectAutoComplete<Props extends AutocompleteProvided<TDoc>, TD
 export function connectBreadcrumb(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 export function connectConfigure(Composed: React.ComponentType<any>): React.ComponentClass<any>;
 
-export type Refinement = {
-    label: string;
-    attribute: string;
-    index: string;
-    id: string;
-    value: RefinementValue;
-} & (
-    | {
-          items: undefined;
-          currentRefinement: string;
-      }
-    | {
-          items: Array<{ label: string; value: RefinementValue }>;
-          currentRefinement: string[];
-      }
-);
+export type Refinement =
+    & {
+        label: string;
+        attribute: string;
+        index: string;
+        id: string;
+        value: RefinementValue;
+    }
+    & (
+        | {
+            items: undefined;
+            currentRefinement: string;
+        }
+        | {
+            items: Array<{ label: string; value: RefinementValue }>;
+            currentRefinement: string[];
+        }
+    );
 
 export type RefinementValue = (searchState: SearchState) => SearchState;
 
@@ -379,8 +373,8 @@ export interface HitsProvided<THit> {
  *
  * https://community.algolia.com/react-instantsearch/connectors/connectHits.html
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function connectHits<THit = BasicDoc>(
-    // eslint-disable-next-line no-unnecessary-generics
     stateless: React.FunctionComponent<HitsProvided<THit>>,
 ): React.ComponentClass;
 export function connectHits<TProps extends HitsProvided<THit>, THit>(
@@ -457,7 +451,7 @@ export interface NumericMenuExposed {
     attribute: string;
     /** List of options. With a text label, and upper and lower bounds. */
     items: Array<{
-        label: string | JSX.Element;
+        label: string | React.JSX.Element;
         start?: number | undefined;
         end?: number | undefined;
     }>;
@@ -508,7 +502,7 @@ export interface RefinementListExposed {
     /** allow search inside values */
     searchable?: boolean | undefined;
     /** How to apply the refinements. Possible values: ‘or’ or ‘and’. */
-    operator?: 'or' | 'and' | undefined;
+    operator?: "or" | "and" | undefined;
     /** true if the component should display a button that will expand the number of items */
     showMore?: boolean | undefined;
     /** the minimum number of displayed items */
@@ -638,43 +632,43 @@ export interface SearchState {
 
     range?:
         | {
-              [key: string]: {
-                  min: number;
-                  max: number;
-              };
-          }
+            [key: string]: {
+                min: number;
+                max: number;
+            };
+        }
         | undefined;
     configure?:
         | {
-              aroundLatLng: boolean;
-              [key: string]: any;
-          }
+            aroundLatLng: boolean;
+            [key: string]: any;
+        }
         | undefined;
     relevancyStrictness?: number | undefined;
     refinementList?:
         | {
-              [key: string]: string[];
-          }
+            [key: string]: string[];
+        }
         | undefined;
     hierarchicalMenu?:
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     menu?:
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     multiRange?:
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     toggle?:
         | {
-              [key: string]: boolean;
-          }
+            [key: string]: boolean;
+        }
         | undefined;
     hitsPerPage?: number | undefined;
     sortBy?: string | undefined;
@@ -683,12 +677,12 @@ export interface SearchState {
 
     indices?:
         | {
-              [index: string]: {
-                  configure: {
-                      hitsPerPage: number;
-                  };
-              };
-          }
+            [index: string]: {
+                configure: {
+                    hitsPerPage: number;
+                };
+            };
+        }
         | undefined;
 }
 
@@ -754,10 +748,8 @@ export type HighlightResult<TDoc> = TDoc extends { [k: string]: any }
     ? { [K in keyof TDoc]?: HighlightResultField<TDoc[K]> }
     : never;
 
-type HighlightResultField<TField> = TField extends Array<infer TItem>
-    ? HighlightResultArray<TItem>
-    : TField extends string
-    ? HighlightResultPrimitive
+type HighlightResultField<TField> = TField extends Array<infer TItem> ? HighlightResultArray<TItem>
+    : TField extends string ? HighlightResultPrimitive
     : HighlightResult<TField>;
 
 type HighlightResultArray<TItem> = TItem extends string ? HighlightResultPrimitive[] : Array<HighlightResult<TItem>>;
@@ -766,14 +758,14 @@ interface HighlightResultPrimitive {
     /** the value of the facet highlighted (html) */
     value: string;
     /** full, partial or none depending on how the query terms match */
-    matchLevel: 'none' | 'partial' | 'full';
+    matchLevel: "none" | "partial" | "full";
     matchedWords: string[];
     fullyHighlighted?: boolean | undefined;
 }
 
 export type InsightsClient = (method: InsightsClientMethod, payload: InsightsClientPayload) => void;
 
-export type InsightsClientMethod = 'clickedObjectIDsAfterSearch' | 'convertedObjectIDsAfterSearch';
+export type InsightsClientMethod = "clickedObjectIDsAfterSearch" | "convertedObjectIDsAfterSearch";
 
 export interface InsightsClientPayload {
     index: string;
@@ -806,7 +798,7 @@ export interface DynamicWidgetsExposed {
      * on the result of facetOrdering. This means that any child needs
      * to have either the “attribute” or “attributes” prop.
      */
-    children?: React.ReactChild;
+    children?: React.ReactElement | number | string;
     /**
      * A function to transform the attributes to render,
      * or using a different source to determine the attributes to render.
@@ -823,7 +815,7 @@ export interface DynamicWidgetsExposed {
      * and avoid an additional network request once the widgets are added.
      * @default ['*']
      */
-    facets?: never[] | ['*'];
+    facets?: never[] | ["*"];
     /**
      * The default number of facet values to request.
      * It’s recommended to have this value at least as high as the highest limit
@@ -836,7 +828,7 @@ export interface DynamicWidgetsExposed {
     maxValuesPerFacet?: number;
 }
 
-export type DynamicWidgetsProvided = Pick<DynamicWidgetsExposed, 'children' | 'fallbackComponent'> & {
+export type DynamicWidgetsProvided = Pick<DynamicWidgetsExposed, "children" | "fallbackComponent"> & {
     /** The list of refinement values to display returned from the Algolia API. */
     attributesToRender: string[];
 };

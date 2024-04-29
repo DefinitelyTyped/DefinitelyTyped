@@ -1,11 +1,3 @@
-// Type definitions for non-npm package offscreencanvas-browser 2019.7
-// Project: https://html.spec.whatwg.org/multipage/canvas.html#the-offscreencanvas-interface
-// Definitions by: Klaus Reimer <https://github.com/kayahr>
-//                 Oleg Varaksin <https://github.com/ova2>
-//                 Sean T.McBeth <https://github.com/capnmidnight>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
-
 // https://html.spec.whatwg.org/multipage/canvas.html#dom-canvas-transfercontroltooffscreen
 interface HTMLCanvasElement {
     transferControlToOffscreen(): OffscreenCanvas;
@@ -13,7 +5,8 @@ interface HTMLCanvasElement {
 
 // https://html.spec.whatwg.org/multipage/canvas.html#offscreencanvasrenderingcontext2d
 interface OffscreenCanvasRenderingContext2D
-    extends CanvasState,
+    extends
+        CanvasState,
         CanvasTransform,
         CanvasCompositing,
         CanvasImageSmoothing,
@@ -27,7 +20,8 @@ interface OffscreenCanvasRenderingContext2D
         CanvasImageData,
         CanvasPathDrawingStyles,
         CanvasTextDrawingStyles,
-        CanvasPath {
+        CanvasPath
+{
     readonly canvas: OffscreenCanvas;
 }
 
@@ -44,18 +38,18 @@ interface OffscreenCanvas extends EventTarget {
     height: number;
 
     getContext(
-        contextId: '2d',
+        contextId: "2d",
         contextAttributes?: CanvasRenderingContext2DSettings,
     ): OffscreenCanvasRenderingContext2D | null;
 
     getContext(
-        contextId: 'bitmaprenderer',
+        contextId: "bitmaprenderer",
         contextAttributes?: WebGLContextAttributes,
     ): ImageBitmapRenderingContext | null;
 
-    getContext(contextId: 'webgl', contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null;
+    getContext(contextId: "webgl", contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | null;
 
-    getContext(contextId: 'webgl2', contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;
+    getContext(contextId: "webgl2", contextAttributes?: WebGLContextAttributes): WebGL2RenderingContext | null;
 
     convertToBlob(options?: { type?: string | undefined; quality?: number | undefined }): Promise<Blob>;
 
@@ -120,7 +114,7 @@ declare function postMessage(
 
 declare var OffscreenCanvas: {
     prototype: OffscreenCanvas;
-    new (width: number, height: number): OffscreenCanvas;
+    new(width: number, height: number): OffscreenCanvas;
 };
 
 interface WebGL2RenderingContextBase {

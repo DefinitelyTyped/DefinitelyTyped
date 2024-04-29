@@ -1,10 +1,6 @@
-// Type definitions for algolia places 1.16
-// Project: https://github.com/algolia/places
-// Definitions by: Ghizlane LOTFI <https://github.com/ghizlanelotfi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare namespace places {
     function version(): string;
@@ -38,7 +34,7 @@ declare namespace places {
 }
 
 declare function places(
-    options: places.PlacesOptions
+    options: places.PlacesOptions,
 ): EventEmitter;
 
 export = places;

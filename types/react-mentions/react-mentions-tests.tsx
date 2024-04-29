@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { MentionsInput, Mention, SuggestionDataItem, OnChangeHandlerFunc } from 'react-mentions';
+import * as React from "react";
+import { Mention, MentionsInput, OnChangeHandlerFunc, SuggestionDataItem } from "react-mentions";
 import {
     applyChangeToValue,
     combineRegExps,
@@ -22,7 +22,7 @@ import {
     omit,
     PLACEHOLDERS,
     spliceString,
-} from 'react-mentions/lib/utils';
+} from "react-mentions/lib/utils";
 
 interface TestProps {
     data: SuggestionDataItem[];
@@ -70,7 +70,7 @@ export const TestMultipleTrigger: React.FC<TestProps> = props => {
                     highlightedDisplay: React.ReactNode,
                     index: number,
                     focused: boolean,
-                ) => <div className={`user ${focused ? 'focused' : ''}`}>{highlightedDisplay}</div>}
+                ) => <div className={`user ${focused ? "focused" : ""}`}>{highlightedDisplay}</div>}
                 onAdd={props.onAdd}
             />
 
@@ -136,12 +136,12 @@ const config: Config = {
 };
 
 // $ExpectType number
-mapPlainTextIndex('foo', markup, 1, 'NULL');
+mapPlainTextIndex("foo", markup, 1, "NULL");
 
 // $ExpectType string
 applyChangeToValue(
-    'foo',
-    'bar',
+    "foo",
+    "bar",
     {
         selectionStartBefore: 0,
         selectionEndBefore: 0,
@@ -154,28 +154,28 @@ applyChangeToValue(
 combineRegExps([/a/, /b/]);
 
 // $ExpectType 0 | 1
-findPositionOfCapturingGroup(markup, 'display');
+findPositionOfCapturingGroup(markup, "display");
 
 // $ExpectType number
-findStartOfMentionInPlainText('foo', [config], 0);
+findStartOfMentionInPlainText("foo", [config], 0);
 
 // $ExpectType number
-getEndOfLastMention('foo', config);
+getEndOfLastMention("foo", config);
 
 // $ExpectType Mention[]
-getMentions('foo', config);
+getMentions("foo", config);
 
 // $ExpectType string
-getPlainText('foo', config);
+getPlainText("foo", config);
 
 // $ExpectType number
-getSubstringIndex('foo', 'bar', false);
+getSubstringIndex("foo", "bar", false);
 
 // $ExpectType string
-getSuggestionHtmlId('prefix', 'id');
+getSuggestionHtmlId("prefix", "id");
 
 // $ExpectType false
-isNumber('string');
+isNumber("string");
 
 // $ExpectType false
 isNumber({});
@@ -193,7 +193,7 @@ isNumber([]);
 isNumber(10);
 
 // $ExpectType false
-isPlainObject('string');
+isPlainObject("string");
 
 // $ExpectType true
 isPlainObject({});
@@ -211,7 +211,7 @@ isPlainObject([]);
 isPlainObject(10);
 
 // $ExpectType void
-iterateMentionsMarkup('foo', [config], (match, index, plainTextIndex, id, display, childIndex, start) => {
+iterateMentionsMarkup("foo", [config], (match, index, plainTextIndex, id, display, childIndex, start) => {
     // $ExpectType string
     match;
 
@@ -236,7 +236,7 @@ iterateMentionsMarkup('foo', [config], (match, index, plainTextIndex, id, displa
 
 // $ExpectType void
 iterateMentionsMarkup(
-    'foo',
+    "foo",
     [config],
     (match, index, plainTextIndex, id, display, childIndex, start) => {
         // $ExpectType string
@@ -272,20 +272,20 @@ iterateMentionsMarkup(
     },
 );
 
-// $ExpectType ("foo" | "bar")[]
-keys({ foo: 'value', bar: 'value' });
+// $ExpectType ("foo" | "bar")[] || ("bar" | "foo")[]
+keys({ foo: "value", bar: "value" });
 
 // $ExpectType RegExp
 markupToRegex(markup);
 
 // $ExpectType object
-merge({ foo1: 'value', bar1: 'value' }, { foo: 'value' }, { bar: 'value' });
+merge({ foo1: "value", bar1: "value" }, { foo: "value" }, { bar: "value" });
 
 // $ExpectType { foo1: string; bar1: string; } & { foo: string; }
-mergeDeep({ foo1: 'value', bar1: 'value' }, { foo: 'value' });
+mergeDeep({ foo1: "value", bar1: "value" }, { foo: "value" });
 
 // $ExpectType object
-omit({ foo: 'value', bar: 'value' }, 'bar');
+omit({ foo: "value", bar: "value" }, "bar");
 
 // $ExpectType string
-spliceString('foo', 0, 1, 'bar');
+spliceString("foo", 0, 1, "bar");

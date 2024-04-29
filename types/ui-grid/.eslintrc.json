@@ -1,7 +1,13 @@
 {
     "rules": {
-        "dt-header": "off",
-        "export-just-namespace": "off",
-        "no-any-union": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/export-just-namespace": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-type-only-packages": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/prefer-namespace": "off",
+        "@typescript-eslint/triple-slash-reference": "off"
     }
 }

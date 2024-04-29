@@ -9,4 +9,4 @@ export class BoxCollider extends Collider {
     set(x: number, y: number, width: number, height: number): BoxCollider;
     refresh(transform: any, position: any): void;
 }
-import { Collider } from './Collider';
+import { Collider } from "./Collider";

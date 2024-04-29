@@ -1,2 +1,2 @@
-import { mathMod } from '../index';
+import { mathMod } from "../index.js";
 export default mathMod;

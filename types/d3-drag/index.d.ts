@@ -1,14 +1,6 @@
-// Type definitions for D3JS d3-drag module 3.0
-// Project: https://github.com/d3/d3-drag/, https://d3js.org/d3-drag
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.0
 
-import { Selection, ValueFn } from 'd3-selection';
+import { Selection, ValueFn } from "d3-selection";
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
@@ -256,8 +248,12 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
  * The first generic refers to the type of element to be dragged.
  * The second generic refers to the type of the datum of the dragged element.
  */
-// eslint-disable-next-line no-unnecessary-generics
-export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBehavior<GElement, Datum, Datum | SubjectPosition>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBehavior<
+    GElement,
+    Datum,
+    Datum | SubjectPosition
+>;
 /**
  * Creates a new drag behavior. The returned behavior, drag, is both an object and a function, and is
  * typically applied to selected elements via selection.call.
@@ -268,7 +264,7 @@ export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBeha
  * The second generic refers to the type of the datum of the dragged element.
  * The third generic refers to the type of the drag behavior subject.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function drag<GElement extends DraggedElementBaseType, Datum, Subject>(): DragBehavior<GElement, Datum, Subject>;
 
 /**
@@ -286,7 +282,7 @@ export interface D3DragEvent<GElement extends DraggedElementBaseType, Datum, Sub
     /**
      * The event type for the DragEvent
      */
-    type: 'start' | 'drag' | 'end' | string;  // Leave failsafe string type for cases like 'drag.foo'
+    type: "start" | "drag" | "end" | string; // Leave failsafe string type for cases like 'drag.foo'
     /**
      * The drag subject, defined by drag.subject.
      */
@@ -310,7 +306,7 @@ export interface D3DragEvent<GElement extends DraggedElementBaseType, Datum, Sub
     /**
      * The string “mouse”, or a numeric touch identifier.
      */
-    identifier: 'mouse' | number;
+    identifier: "mouse" | number;
     /**
      * The number of currently active drag gestures (on start and end, not including this one).
      *

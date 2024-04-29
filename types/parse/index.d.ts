@@ -1,33 +1,8 @@
-// Type definitions for parse 3.0
-// Project: https://parseplatform.org/
-// Definitions by:  Ullisen Media Group <https://github.com/ullisenmedia>
-//                 David Poetzsch-Heffter <https://github.com/dpoetzsch>
-//                 Cedric Kemp <https://github.com/jaeggerr>
-//                 Flavio Negrão <https://github.com/flavionegrao>
-//                 Wes Grimes <https://github.com/wesleygrimes>
-//                 Otherwise SAS <https://github.com/owsas>
-//                 Andrew Goldis <https://github.com/agoldis>
-//                 Alexandre Hétu Rivard <https://github.com/AlexandreHetu>
-//                 Diamond Lewis <https://github.com/dplewis>
-//                 Jong Eun Lee <https://github.com/yomybaby>
-//                 Colin Ulin <https://github.com/pocketcolin>
-//                 Robert Helms <https://github.com/rdhelms>
-//                 Julien Quere <https://github.com/jlnquere>
-//                 Thibault MOCELLIN <https://github.com/tybi>
-//                 Jeff Gu Kang <https://github.com/jeffgukang>
-//                 Bui Tan Loc <https://github.com/buitanloc>
-//                 Jerome De Leon <https://github.com/JeromeDeLeon>
-//                 Kent Robin Haugen <https://github.com/kentrh>
-//                 Switt Kongdachalert <https://github.com/swittk>
-//                 Dan Syrstad <https://github.com/dsyrstad>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /// <reference types="node" />
 /// <reference path="node.d.ts" />
 /// <reference path="react-native.d.ts" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare enum ErrorCode {
     /** Error code indicating some error other than those enumerated here */
@@ -547,7 +522,6 @@ declare global {
          * @param options The options for this object instance.
          * @see Parse.Object.extend
          *
-         *
          * Creates a new model with defined attributes.
          */
         interface Object<T extends Attributes = Attributes> {
@@ -565,8 +539,8 @@ declare global {
                 attr: K,
                 items: NonNullable<T[K]>,
             ): this | false;
-            addAllUnique: this['addAll'];
-            addUnique: this['add'];
+            addAllUnique: this["addAll"];
+            addUnique: this["add"];
             clear(options: any): any;
             clone(): this;
             destroy(options?: Object.DestroyOptions): Promise<this>;
@@ -601,8 +575,8 @@ declare global {
             relation<R extends Object, K extends Extract<keyof T, string> = Extract<keyof T, string>>(
                 attr: T[K] extends Relation ? K : never,
             ): Relation<this, R>;
-            remove: this['add'];
-            removeAll: this['addAll'];
+            remove: this["add"];
+            removeAll: this["addAll"];
             revert(...keys: Array<Extract<keyof (T & CommonAttributes), string>>): void;
             // "Pick<T, K> | T" is a trick to keep IntelliSense working, see:
             // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/3bdadbf9583c2335197c7e999b9a30880e055f62/types/react/index.d.ts#L482
@@ -639,18 +613,18 @@ declare global {
             fetchAllIfNeeded<T extends Object>(list: T[], options?: Object.FetchAllOptions): Promise<T[]>;
             fetchAllIfNeededWithInclude<T extends Object>(
                 list: T[],
-                keys: keyof T['attributes'] | Array<keyof T['attributes']>,
+                keys: keyof T["attributes"] | Array<keyof T["attributes"]>,
                 options?: RequestOptions,
             ): Promise<T[]>;
             fetchAllWithInclude<T extends Object>(
                 list: T[],
-                keys: keyof T['attributes'] | Array<keyof T['attributes']>,
+                keys: keyof T["attributes"] | Array<keyof T["attributes"]>,
                 options?: RequestOptions,
             ): Promise<T[]>;
             fromJSON(json: any, override?: boolean): T;
             pinAll(objects: Object[]): Promise<void>;
             pinAllWithName(name: string, objects: Object[]): Promise<void>;
-            registerSubclass(className: string, clazz: new (options?: any) => T): void;
+            registerSubclass(className: string, clazz: new(options?: any) => T): void;
             saveAll<T extends readonly Object[]>(list: T, options?: Object.SaveAllOptions): Promise<T>;
             unPinAll(objects: Object[]): Promise<void>;
             unPinAllObjects(): Promise<void>;
@@ -658,8 +632,8 @@ declare global {
             unPinAllWithName(name: string, objects: Object[]): Promise<void>;
         }
         interface ObjectConstructor extends ObjectStatic {
-            new <T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
-            new (className?: string, attributes?: Attributes, options?: any): Object;
+            new<T extends Attributes>(className: string, attributes: T, options?: any): Object<T>;
+            new(className?: string, attributes?: Attributes, options?: any): Object;
         }
         const Object: ObjectConstructor;
 
@@ -673,12 +647,8 @@ declare global {
             interface FetchOptions extends SuccessFailureOptions, ScopeOptions {}
 
             interface SaveOptions
-                extends CascadeSaveOption,
-                    SuccessFailureOptions,
-                    SilentOption,
-                    ScopeOptions,
-                    ContextOption,
-                    WaitOption {}
+                extends CascadeSaveOption, SuccessFailureOptions, SilentOption, ScopeOptions, ContextOption, WaitOption
+            {}
 
             interface SaveAllOptions extends BatchSizeOption, ScopeOptions {}
 
@@ -687,19 +657,14 @@ declare global {
             }
 
             // From https://github.com/parse-community/Parse-SDK-JS/blob/master/src/encode.js
-            type Encode<T> = T extends Object
-                ? ReturnType<T['toJSON']> | Pointer
-                : T extends ACL | GeoPoint | Polygon | Relation | File
-                ? ReturnType<T['toJSON']>
-                : T extends Date
-                ? { __type: 'Date'; iso: string }
-                : T extends RegExp
-                ? string
+            type Encode<T> = T extends Object ? ReturnType<T["toJSON"]> | Pointer
+                : T extends ACL | GeoPoint | Polygon | Relation | File ? ReturnType<T["toJSON"]>
+                : T extends Date ? { __type: "Date"; iso: string }
+                : T extends RegExp ? string
                 : T extends Array<infer R>
-                ? // This recursion is unsupported in <=3.6
-                  Array<Encode<R>>
-                : T extends object
-                ? ToJSON<T>
+                // This recursion is unsupported in <=3.6
+                    ? Array<Encode<R>>
+                : T extends object ? ToJSON<T>
                 : T;
 
             type ToJSON<T> = {
@@ -733,8 +698,8 @@ declare global {
             appIdentifier: string;
         }
         interface InstallationConstructor extends ObjectStatic<Installation> {
-            new <T extends Attributes>(attributes: T): Installation<T>;
-            new (): Installation;
+            new<T extends Attributes>(attributes: T): Installation<T>;
+            new(): Installation;
         }
         const Installation: InstallationConstructor;
 
@@ -797,41 +762,41 @@ declare global {
             objectClass: any;
             className: string;
 
-            constructor(objectClass: string | (new (...args: any[]) => T | Object));
+            constructor(objectClass: string | (new(...args: any[]) => T | Object));
 
             static and<U extends Object>(...args: Array<Query<U>>): Query<U>;
-            static fromJSON<U extends Object>(className: string | (new () => U), json: any): Query<U>;
+            static fromJSON<U extends Object>(className: string | (new() => U), json: any): Query<U>;
             static nor<U extends Object>(...args: Array<Query<U>>): Query<U>;
             static or<U extends Object>(...var_args: Array<Query<U>>): Query<U>;
 
-            addAscending<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K | K[]): this;
-            addDescending<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K | K[]): this;
-            ascending<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K | K[]): this;
+            addAscending<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K | K[]): this;
+            addDescending<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K | K[]): this;
+            ascending<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K | K[]): this;
             aggregate<V = any>(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Promise<V>;
-            containedBy<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            containedBy<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
-                values: Array<T['attributes'][K] | (T['attributes'][K] extends Object ? string : never)>,
+                values: Array<T["attributes"][K] | (T["attributes"][K] extends Object ? string : never)>,
             ): this;
-            containedIn<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            containedIn<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
-                values: Array<T['attributes'][K] | (T['attributes'][K] extends Object ? string : never)>,
+                values: Array<T["attributes"][K] | (T["attributes"][K] extends Object ? string : never)>,
             ): this;
-            contains<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, substring: string): this;
-            containsAll<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, values: any[]): this;
-            containsAllStartingWith<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            contains<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, substring: string): this;
+            containsAll<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, values: any[]): this;
+            containsAllStartingWith<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 values: any[],
             ): this;
             count(options?: Query.CountOptions): Promise<number>;
-            descending<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K | K[]): this;
-            doesNotExist<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K): this;
+            descending<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K | K[]): this;
+            doesNotExist<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K): this;
             doesNotMatchKeyInQuery<
                 U extends Object,
-                K extends keyof T['attributes'] | keyof BaseAttributes,
-                X extends Extract<keyof U['attributes'], string>,
+                K extends keyof T["attributes"] | keyof BaseAttributes,
+                X extends Extract<keyof U["attributes"], string>,
             >(key: K, queryKey: X, query: Query<U>): this;
-            doesNotMatchQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
-            distinct<K extends keyof T['attributes'], V = T['attributes'][K]>(key: K): Promise<V[]>;
+            doesNotMatchQuery<U extends Object, K extends keyof T["attributes"]>(key: K, query: Query<U>): this;
+            distinct<K extends keyof T["attributes"], V = T["attributes"][K]>(key: K): Promise<V[]>;
             eachBatch(callback: (objs: T[]) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
             each(callback: (obj: T) => PromiseLike<void> | void, options?: Query.BatchOptions): Promise<void>;
             hint(value: string | object): this;
@@ -854,19 +819,17 @@ declare global {
                 callback: (currentObject: T, index: number, query: Query) => PromiseLike<boolean> | boolean,
                 options?: Query.BatchOptions,
             ): Promise<T[]>;
-            endsWith<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, suffix: string): this;
-            equalTo<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            endsWith<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, suffix: string): this;
+            equalTo<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 value:
-                    | T['attributes'][K]
-                    | (T['attributes'][K] extends Object
-                          ? Pointer
-                          : T['attributes'][K] extends Array<infer E>
-                          ? E
-                          : never),
+                    | T["attributes"][K]
+                    | (T["attributes"][K] extends Object ? Pointer
+                        : T["attributes"][K] extends Array<infer E> ? E
+                        : never),
             ): this;
-            exclude<K extends keyof T['attributes'] | keyof BaseAttributes>(...keys: K[]): this;
-            exists<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K): this;
+            exclude<K extends keyof T["attributes"] | keyof BaseAttributes>(...keys: K[]): this;
+            exists<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K): this;
             find(options?: Query.FindOptions): Promise<T[]>;
             findAll(options?: Query.BatchOptions): Promise<T[]>;
             first(options?: Query.FirstOptions): Promise<T | undefined>;
@@ -875,84 +838,82 @@ declare global {
             fromPin(): this;
             fromPinWithName(name: string): this;
             cancel(): this;
-            fullText<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            fullText<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 value: string,
                 options?: Query.FullTextOptions,
             ): this;
             get(objectId: string, options?: Query.GetOptions): Promise<T>;
-            greaterThan<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            greaterThan<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
-                value: T['attributes'][K],
+                value: T["attributes"][K],
             ): this;
-            greaterThanOrEqualTo<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            greaterThanOrEqualTo<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
-                value: T['attributes'][K],
+                value: T["attributes"][K],
             ): this;
-            include<K extends keyof T['attributes'] | keyof BaseAttributes>(...key: K[]): this;
-            include<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K[]): this;
+            include<K extends keyof T["attributes"] | keyof BaseAttributes>(...key: K[]): this;
+            include<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K[]): this;
             includeAll(): Query<T>;
-            lessThan<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, value: T['attributes'][K]): this;
-            lessThanOrEqualTo<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            lessThan<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, value: T["attributes"][K]): this;
+            lessThanOrEqualTo<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
-                value: T['attributes'][K],
+                value: T["attributes"][K],
             ): this;
             limit(n: number): Query<T>;
-            matches<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            matches<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 regex: RegExp,
                 modifiers?: string,
             ): this;
             matchesKeyInQuery<
                 U extends Object,
-                K extends keyof T['attributes'],
-                X extends Extract<keyof U['attributes'], string>,
+                K extends keyof T["attributes"],
+                X extends Extract<keyof U["attributes"], string>,
             >(key: K, queryKey: X, query: Query<U>): this;
-            matchesQuery<U extends Object, K extends keyof T['attributes']>(key: K, query: Query<U>): this;
-            near<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, point: GeoPoint): this;
-            notContainedIn<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            matchesQuery<U extends Object, K extends keyof T["attributes"]>(key: K, query: Query<U>): this;
+            near<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, point: GeoPoint): this;
+            notContainedIn<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
-                values: Array<T['attributes'][K]>,
+                values: Array<T["attributes"][K]>,
             ): this;
-            notEqualTo<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            notEqualTo<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 value:
-                    | T['attributes'][K]
-                    | (T['attributes'][K] extends Object
-                          ? Pointer
-                          : T['attributes'][K] extends Array<infer E>
-                          ? E
-                          : never),
+                    | T["attributes"][K]
+                    | (T["attributes"][K] extends Object ? Pointer
+                        : T["attributes"][K] extends Array<infer E> ? E
+                        : never),
             ): this;
-            polygonContains<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, point: GeoPoint): this;
-            select<K extends keyof T['attributes'] | keyof BaseAttributes>(...keys: K[]): this;
-            select<K extends keyof T['attributes'] | keyof BaseAttributes>(keys: K[]): this;
+            polygonContains<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, point: GeoPoint): this;
+            select<K extends keyof T["attributes"] | keyof BaseAttributes>(...keys: K[]): this;
+            select<K extends keyof T["attributes"] | keyof BaseAttributes>(keys: K[]): this;
             skip(n: number): Query<T>;
             sortByTextScore(): this;
-            startsWith<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, prefix: string): this;
+            startsWith<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, prefix: string): this;
             subscribe(sessionToken?: string): Promise<LiveQuerySubscription>;
             toJSON(): any;
             withJSON(json: any): this;
             withCount(includeCount?: boolean): this;
-            withinGeoBox<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            withinGeoBox<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 southwest: GeoPoint,
                 northeast: GeoPoint,
             ): this;
-            withinKilometers<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            withinKilometers<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 point: GeoPoint,
                 maxDistance: number,
                 sorted?: boolean,
             ): this;
-            withinMiles<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            withinMiles<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 point: GeoPoint,
                 maxDistance: number,
                 sorted?: boolean,
             ): this;
-            withinPolygon<K extends keyof T['attributes'] | keyof BaseAttributes>(key: K, points: number[][]): this;
-            withinRadians<K extends keyof T['attributes'] | keyof BaseAttributes>(
+            withinPolygon<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, points: number[][]): this;
+            withinRadians<K extends keyof T["attributes"] | keyof BaseAttributes>(
                 key: K,
                 point: GeoPoint,
                 maxDistance: number,
@@ -982,40 +943,40 @@ declare global {
                 // Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/
                 lookup?:
                     | {
-                          from: string;
-                          localField: string;
-                          foreignField: string;
-                          as: string;
-                      }
+                        from: string;
+                        localField: string;
+                        foreignField: string;
+                        as: string;
+                    }
                     | {
-                          from: string;
-                          let?: Record<string, any>;
-                          pipeline: Record<string, any>;
-                          as: string;
-                      }
+                        from: string;
+                        let?: Record<string, any>;
+                        pipeline: Record<string, any>;
+                        as: string;
+                    }
                     | undefined;
                 // Graph Lookup documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/
                 graphLookup?:
                     | {
-                          from: string;
-                          startWith?: string;
-                          connectFromField: string;
-                          connectToField: string;
-                          as: string;
-                          maxDepth?: number;
-                          depthField?: string;
-                          restrictSearchWithMatch?: Record<string, any>;
-                      }
+                        from: string;
+                        startWith?: string;
+                        connectFromField: string;
+                        connectToField: string;
+                        as: string;
+                        maxDepth?: number;
+                        depthField?: string;
+                        restrictSearchWithMatch?: Record<string, any>;
+                    }
                     | undefined;
                 // Facet documentation: https://docs.mongodb.com/manual/reference/operator/aggregation/facet/
                 facet?: Record<string, Array<Record<string, any>>> | undefined;
                 // Unwind documentation: https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/
                 unwind?:
                     | {
-                          path: string;
-                          includeArrayIndex?: string;
-                          preserveNullAndEmptyArrays?: boolean;
-                      }
+                        path: string;
+                        includeArrayIndex?: string;
+                        preserveNullAndEmptyArrays?: boolean;
+                    }
                     | string
                     | undefined;
             }
@@ -1108,13 +1069,12 @@ declare global {
             constructor(id: string, query: string, sessionToken?: string);
 
             on(
-                event: 'open' | 'create' | 'update' | 'enter' | 'leave' | 'delete' | 'close',
+                event: "open" | "create" | "update" | "enter" | "leave" | "delete" | "close",
                 listener: (object: Object) => void,
             ): this;
 
             /**
              * Closes the subscription.
-             *
              */
             unsubscribe(): void;
         }
@@ -1124,14 +1084,14 @@ declare global {
          * (source : https://github.com/parse-community/Parse-SDK-JS/blob/8115e959533d1676fe5e5551bc81888b21fc12ef/src/ParseLiveQuery.js)
          * https://docs.parseplatform.org/js/guide/#websocket-status
          */
-         namespace LiveQuery {
+        namespace LiveQuery {
             function on(
-                event: 'open' | 'close',
+                event: "open" | "close",
                 /** When we establish ('open') or lose the WebSocket connection to the LiveQuery server, you’ll get this event */
                 listener: () => void,
             ): void;
             function on(
-                event: 'error',
+                event: "error",
                 /** When some network error or LiveQuery server error happens, you’ll get this event. */
                 listener: (error: any) => void,
             ): void;
@@ -1156,8 +1116,8 @@ declare global {
             setName(name: string, options?: SuccessFailureOptions): any;
         }
         interface RoleConstructor extends ObjectStatic<Role> {
-            new <T extends Attributes>(name: string, acl: ACL): Role<Partial<T>>;
-            new (name: string, acl: ACL): Role;
+            new<T extends Attributes>(name: string, acl: ACL): Role<Partial<T>>;
+            new(name: string, acl: ACL): Role;
         }
         const Role: RoleConstructor;
 
@@ -1175,15 +1135,14 @@ declare global {
             isCurrentSessionRevocable(): boolean;
         }
         interface SessionConstructor extends ObjectStatic<Session> {
-            new <T extends Attributes>(attributes: T): Session<T>;
-            new (): Session;
+            new<T extends Attributes>(attributes: T): Session<T>;
+            new(): Session;
 
             current(): Promise<Session>;
         }
         const Session: SessionConstructor;
 
         /**
-         *
          * <p>A Parse.User object is a local representation of a user persisted to the
          * Parse cloud. This class is a subclass of a Parse.Object, and retains the
          * same functionality of a Parse.Object, but also extends it with various
@@ -1216,8 +1175,8 @@ declare global {
             _unlinkFrom: (provider: string | AuthProvider, options?: FullOptions) => Promise<this>;
         }
         interface UserConstructor extends ObjectStatic<User> {
-            new <T extends Attributes>(attributes: T): User<T>;
-            new (attributes?: Attributes): User;
+            new<T extends Attributes>(attributes: T): User<T>;
+            new(attributes?: Attributes): User;
 
             allowCustomUserClass(isAllowed: boolean): void;
             become<T extends User>(sessionToken: string, options?: UseMasterKeyOption): Promise<T>;
@@ -1394,17 +1353,17 @@ declare global {
 
         namespace Schema {
             type TYPE =
-                | 'String'
-                | 'Number'
-                | 'Boolean'
-                | 'Date'
-                | 'File'
-                | 'GeoPoint'
-                | 'Polygon'
-                | 'Array'
-                | 'Object'
-                | 'Pointer'
-                | 'Relation';
+                | "String"
+                | "Number"
+                | "Boolean"
+                | "Date"
+                | "File"
+                | "GeoPoint"
+                | "Polygon"
+                | "Array"
+                | "Object"
+                | "Pointer"
+                | "Relation";
             type FieldType =
                 | string
                 | number
@@ -1418,7 +1377,7 @@ declare global {
                 | Pointer
                 | Relation;
             type AttrType<T extends Object, V> = Extract<
-                { [K in keyof T['attributes']]: T['attributes'][K] extends V ? K : never }[keyof T['attributes']],
+                { [K in keyof T["attributes"]]: T["attributes"][K] extends V ? K : never }[keyof T["attributes"]],
                 string
             >;
 
@@ -1453,7 +1412,7 @@ declare global {
              *  'idOfASpecificUser': true
              */
             interface CLPField {
-                '*'?: boolean | undefined;
+                "*"?: boolean | undefined;
                 requiresAuthentication?: boolean | undefined;
                 /** `role:Admin` */
                 [userIdOrRoleName: string]: boolean | undefined;
@@ -1588,8 +1547,8 @@ declare global {
             interface AfterSaveRequest<T = Object> extends TriggerRequest<T> {
                 context: Record<string, unknown>;
             }
-            interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
-            interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // tslint:disable-line no-empty-interface
+            interface AfterDeleteRequest<T = Object> extends TriggerRequest<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
+            interface BeforeDeleteRequest<T = Object> extends TriggerRequest<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
             interface BeforeSaveRequest<T = Object> extends TriggerRequest<T> {
                 context: Record<string, unknown>;
             }
@@ -1602,11 +1561,11 @@ declare global {
 
             // Read preference describes how MongoDB driver route read operations to the members of a replica set.
             enum ReadPreferenceOption {
-                Primary = 'PRIMARY',
-                PrimaryPreferred = 'PRIMARY_PREFERRED',
-                Secondary = 'SECONDARY',
-                SecondaryPreferred = 'SECONDARY_PREFERRED',
-                Nearest = 'NEAREST',
+                Primary = "PRIMARY",
+                PrimaryPreferred = "PRIMARY_PREFERRED",
+                Secondary = "SECONDARY",
+                SecondaryPreferred = "SECONDARY_PREFERRED",
+                Nearest = "NEAREST",
             }
 
             interface BeforeFindRequest<T extends Object = Object> extends TriggerRequest<T> {
@@ -1621,32 +1580,33 @@ declare global {
             }
 
             function afterDelete<T extends Object = Object>(
-                arg1: { new (): T } | string,
+                arg1: { new(): T } | string,
                 func?: (request: AfterDeleteRequest<T>) => Promise<void> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function afterSave<T extends Object = Object>(
-                arg1: { new (): T } | string,
+                arg1: { new(): T } | string,
                 func?: (request: AfterSaveRequest<T>) => Promise<void> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeDelete<T extends Object = Object>(
-                arg1: { new (): T } | string,
+                arg1: { new(): T } | string,
                 func?: (request: BeforeDeleteRequest<T>) => Promise<void> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeSave<T extends Object = Object>(
-                arg1: { new (): T } | string,
+                arg1: { new(): T } | string,
                 func?: (request: BeforeSaveRequest<T>) => Promise<void> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function beforeFind<T extends Object = Object>(
-                arg1: { new (): T } | string,
+                arg1: { new(): T } | string,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
             function afterFind<T extends Object = Object>(
-                arg1: { new (): T } | string,
+                arg1: { new(): T } | string,
                 func?: (request: AfterFindRequest<T>) => any,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
@@ -1662,6 +1622,7 @@ declare global {
             ): void;
 
             function beforeSaveFile(
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 func?: (request: FileTriggerRequest) => PromiseLike<File> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
@@ -1729,7 +1690,7 @@ declare global {
              *
              *     import Buffer = require("buffer").Buffer;
              */
-            let HTTPOptions: new () => HTTPOptions;
+            let HTTPOptions: new() => HTTPOptions;
             interface HTTPOptions {
                 /**
                  * The body of the request.
@@ -1747,8 +1708,8 @@ declare global {
                  */
                 headers?:
                     | {
-                          [headerName: string]: string | number | boolean;
-                      }
+                        [headerName: string]: string | number | boolean;
+                    }
                     | undefined;
                 /**
                  * The method of the request (i.e GET, POST, etc).

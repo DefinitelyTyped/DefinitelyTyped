@@ -1,23 +1,23 @@
-import inquirer, { DistinctQuestion } from 'inquirer';
-import { from } from 'rxjs';
+import inquirer, { DistinctQuestion } from "inquirer";
+import { from } from "rxjs";
 
 const questions: DistinctQuestion[] = [
     {
-        type: 'input',
-        name: 'first_name',
+        type: "input",
+        name: "first_name",
         message: "What's your first name",
     },
     {
-        type: 'input',
-        name: 'last_name',
+        type: "input",
+        name: "last_name",
         message: "What's your last name",
         default() {
-            return 'Doe';
+            return "Doe";
         },
     },
     {
-        type: 'input',
-        name: 'phone',
+        type: "input",
+        name: "phone",
         message: "What's your phone number",
         validate(value) {
             const pass = value.match(
@@ -27,7 +27,7 @@ const questions: DistinctQuestion[] = [
                 return true;
             }
 
-            return 'Please enter a valid phone number';
+            return "Please enter a valid phone number";
         },
     },
 ];
@@ -36,12 +36,12 @@ const observable = from(questions);
 
 inquirer.prompt(observable).ui.process.subscribe(
     ans => {
-        console.log('Answer is: ', ans);
+        console.log("Answer is: ", ans);
     },
     err => {
-        console.log('Error: ', err);
+        console.log("Error: ", err);
     },
     () => {
-        console.log('Completed');
+        console.log("Completed");
     },
 );

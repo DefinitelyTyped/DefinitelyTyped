@@ -1,3 +1,3 @@
-import solverjs = require('solverjs');
+import solverjs = require("solverjs");
 
 solverjs.info();

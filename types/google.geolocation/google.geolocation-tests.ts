@@ -1,12 +1,11 @@
 // Test files for Geolocation Definition file
 
-
-//determine if the handset has client side geo location capabilities
+// determine if the handset has client side geo location capabilities
 var isInit: boolean = geo_position_js.init();
-if(isInit){
-   geo_position_js.getCurrentPosition(success_callback, error_callback);
+if (isInit) {
+    geo_position_js.getCurrentPosition(success_callback, error_callback);
 } else {
-   alert("Functionality not available");
+    alert("Functionality not available");
 }
 
 function success_callback(position: GeolocationPosition): void {

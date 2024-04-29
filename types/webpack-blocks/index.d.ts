@@ -1,77 +1,71 @@
-// Type definitions for webpack-blocks 2.0
-// Project: https://github.com/andywer/webpack-blocks
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { css, url, file } from '@webpack-blocks/assets';
-import babel = require('@webpack-blocks/babel');
-import devServer = require('@webpack-blocks/dev-server');
-import extractText = require('@webpack-blocks/extract-text');
-import postcss = require('@webpack-blocks/postcss');
-import sass = require('@webpack-blocks/sass');
-import typescript = require('@webpack-blocks/typescript');
-import uglify = require('@webpack-blocks/uglify');
+import { css, file, url } from "@webpack-blocks/assets";
+import babel = require("@webpack-blocks/babel");
+import devServer = require("@webpack-blocks/dev-server");
+import extractText = require("@webpack-blocks/extract-text");
+import postcss = require("@webpack-blocks/postcss");
+import sass = require("@webpack-blocks/sass");
+import typescript = require("@webpack-blocks/typescript");
+import uglify = require("@webpack-blocks/uglify");
 import {
-    Block,
-    group,
-    createConfig,
-    setMode,
     addPlugins,
+    Block,
+    ConfigSetter,
+    Context,
+    createConfig,
     customConfig,
     defineConstants,
-    setEnv,
     entryPoint,
-    performance,
+    env,
+    group,
+    InitialContext,
+    match,
+    MatchOptions,
     optimization,
+    performance,
     resolve,
     setContext,
     setDevTool,
+    setEnv,
+    setMode,
     setOutput,
     sourceMaps,
-    InitialContext,
-    Context,
     Util,
-    MatchOptions,
-    ConfigSetter,
-    env,
-    match,
     when,
-} from '@webpack-blocks/webpack';
+} from "@webpack-blocks/webpack";
 
 export {
-    Block,
-    group,
-    createConfig,
-    setMode,
     addPlugins,
+    babel,
+    Block,
+    ConfigSetter,
+    Context,
+    createConfig,
+    css,
     customConfig,
     defineConstants,
-    setEnv,
+    devServer,
     entryPoint,
-    performance,
+    env,
+    extractText,
+    file,
+    group,
+    InitialContext,
+    match,
+    MatchOptions,
     optimization,
+    performance,
+    postcss,
     resolve,
+    sass,
     setContext,
     setDevTool,
+    setEnv,
+    setMode,
     setOutput,
     sourceMaps,
-    InitialContext,
-    Context,
-    Util,
-    MatchOptions,
-    ConfigSetter,
-    env,
-    match,
-    when,
-    css,
-    url,
-    file,
-    babel,
-    devServer,
-    extractText,
-    postcss,
-    sass,
     typescript,
     uglify,
+    url,
+    Util,
+    when,
 };

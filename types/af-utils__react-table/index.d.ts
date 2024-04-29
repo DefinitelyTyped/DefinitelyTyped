@@ -1,10 +1,5 @@
-// Type definitions for @af-utils/react-table 0.0
-// Project: https://github.com/nowaalex/af-utils
-// Definitions by: Hunter Ross <https://github.com/huner2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
-import * as Headless from '@af-utils/react-virtual-headless';
+import * as Headless from "@af-utils/react-virtual-headless";
+import * as React from "react";
 
 export type RowProps = Record<string, unknown> & {
     ref: React.Ref<HTMLElement>;
@@ -16,28 +11,56 @@ export interface ComponentMap {
     // When using a function, you must render children with no changes, as the library renders the children specifically.
 
     // Outer table element
-    Table?: string | ((props: React.HTMLAttributes<HTMLTableElement>) => React.ReactElement<React.HTMLAttributes<HTMLTableElement>>);
+    Table?:
+        | string
+        | ((
+            props: React.HTMLAttributes<HTMLTableElement>,
+        ) => React.ReactElement<React.HTMLAttributes<HTMLTableElement>>);
 
     // Table body section
-    Tbody?: string | ((props: React.HTMLAttributes<HTMLTableSectionElement>) => React.ReactElement<React.HTMLAttributes<HTMLTableSectionElement>>);
+    Tbody?:
+        | string
+        | ((
+            props: React.HTMLAttributes<HTMLTableSectionElement>,
+        ) => React.ReactElement<React.HTMLAttributes<HTMLTableSectionElement>>);
 
     // Table header section
-    Thead?: string | ((props: React.HTMLAttributes<HTMLTableSectionElement>) => React.ReactElement<React.HTMLAttributes<HTMLTableSectionElement>>);
+    Thead?:
+        | string
+        | ((
+            props: React.HTMLAttributes<HTMLTableSectionElement>,
+        ) => React.ReactElement<React.HTMLAttributes<HTMLTableSectionElement>>);
 
     // Table footer section
-    Tfoot?: string | ((props: React.HTMLAttributes<HTMLTableSectionElement>) => React.ReactElement<React.HTMLAttributes<HTMLTableSectionElement>>);
+    Tfoot?:
+        | string
+        | ((
+            props: React.HTMLAttributes<HTMLTableSectionElement>,
+        ) => React.ReactElement<React.HTMLAttributes<HTMLTableSectionElement>>);
 
     // Table row element
-    Tr?: string | ((props: React.HTMLAttributes<HTMLTableRowElement>) => React.ReactElement<React.HTMLAttributes<HTMLTableRowElement>>);
+    Tr?:
+        | string
+        | ((
+            props: React.HTMLAttributes<HTMLTableRowElement>,
+        ) => React.ReactElement<React.HTMLAttributes<HTMLTableRowElement>>);
 
     // Table header element
-    Th?: string | ((props: React.HTMLAttributes<HTMLTableCellElement>) => React.ReactElement<React.HTMLAttributes<HTMLTableCellElement>>);
+    Th?:
+        | string
+        | ((
+            props: React.HTMLAttributes<HTMLTableCellElement>,
+        ) => React.ReactElement<React.HTMLAttributes<HTMLTableCellElement>>);
 
     // Table data element
-    Td?: string | ((props: React.HTMLAttributes<HTMLTableCellElement>) => React.ReactElement<React.HTMLAttributes<HTMLTableCellElement>>);
+    Td?:
+        | string
+        | ((
+            props: React.HTMLAttributes<HTMLTableCellElement>,
+        ) => React.ReactElement<React.HTMLAttributes<HTMLTableCellElement>>);
 
     // Row rendering function
-    Row?: ({i, i2, model, data}: {
+    Row?: ({ i, i2, model, data }: {
         i: number;
         i2: number;
         model: Headless.Model;
@@ -50,21 +73,21 @@ export interface ComponentMap {
     // Same as above.
     CellForEmptyRow?: (props: Record<string, unknown>) => React.ReactNode;
 
-    HeaderCells?: ({columns, components}: {
+    HeaderCells?: ({ columns, components }: {
         columns: ColumnModel[];
         components: ComponentMap;
     }) => React.ReactNode;
     // Same as above.
     HeaderCell?: (props: Record<string, unknown>) => React.ReactNode;
 
-    FooterCells?: ({columns, components}: {
+    FooterCells?: ({ columns, components }: {
         columns: ColumnModel[];
         components: ComponentMap;
     }) => React.ReactNode;
     FooterCell?: (props: Record<string, unknown>) => React.ReactNode;
 
     // "/* To prevent double memoization in case of HOC usage */"
-    OriginalRow?: ({i, i2, model, data}: {
+    OriginalRow?: ({ i, i2, model, data }: {
         i: number;
         i2: number;
         model: Headless.Model;
@@ -77,7 +100,7 @@ export const DefaultTableComponents: ComponentMap;
 export interface TableColumnProps {
     key: string;
     // Note, align is not explicitly checked in the code.
-    align?: React.CSSProperties['textAlign'];
+    align?: React.CSSProperties["textAlign"];
     label?: string;
     Cell?: React.ReactNode;
     render?: (cellData: any, row: any) => React.ReactNode;
@@ -94,7 +117,7 @@ export interface TableColumnProps {
  * Keys is declared as a static property of the class, which is used internally to map column props to instance variables.
  * TableColumnProps validates the types of these keys, but I thought the static property declaration should be included since it is exported.
  */
-export class ColumnModel  {
+export class ColumnModel {
     static readonly KEYS: [
         "key",
         "align",
@@ -105,12 +128,12 @@ export class ColumnModel  {
         "background",
         "border",
         "width",
-        "minWidth"
+        "minWidth",
     ];
 
     // Don't think it's possible to not redefine these.
     key: string;
-    align?: React.CSSProperties['textAlign'];
+    align?: React.CSSProperties["textAlign"];
     label?: string;
     Cell?: React.ReactNode;
     render?: (cellData: any, row: any) => React.ReactNode;
@@ -150,6 +173,6 @@ export interface TableProps extends React.HTMLAttributes<HTMLElement> {
 
 export const Table: React.FC<TableProps>;
 
-export * from '@af-utils/react-virtual-headless';
+export * from "@af-utils/react-virtual-headless";
 
 export {};

@@ -1,23 +1,22 @@
-
-import cfgManager = require('node-config-manager');
+import cfgManager = require("node-config-manager");
 var options = {
-    configDir: './config',
-    env: 'test',
-    camelCase: true
+    configDir: "./config",
+    env: "test",
+    camelCase: true,
 };
 
 cfgManager.init(options);
-cfgManager.addConfig('db')
-    .addConfig('logger');
+cfgManager.addConfig("db")
+    .addConfig("logger");
 
-var appCfgByGetConfig = cfgManager.getConfig('app');
+var appCfgByGetConfig = cfgManager.getConfig("app");
 
-cfgManager.set('configDir', './config')
-    .set('camelCase', true);
+cfgManager.set("configDir", "./config")
+    .set("camelCase", true);
 
-console.log(cfgManager.get('env'));
-cfgManager.removeConfig('app')
-    .removeConfig('logger');
+console.log(cfgManager.get("env"));
+cfgManager.removeConfig("app")
+    .removeConfig("logger");
 
 console.log(cfgManager.count());
 

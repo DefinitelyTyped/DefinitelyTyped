@@ -1,8 +1,4 @@
-// Type definitions for react-lines-ellipsis 0.15
-// Project: https://github.com/xiaody/react-lines-ellipsis#readme
-// Definitions by: Angelo <https://github.com/angeloaltamiranom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyType
-import { Component, HTMLAttributes } from 'react';
+import { Component, HTMLAttributes } from "react";
 
 declare class LinesEllipsis extends Component<LinesEllipsis.ReactLinesEllipsisProps> {
     static defaultProps?: LinesEllipsis.ReactLinesEllipsisProps;
@@ -13,7 +9,7 @@ declare namespace LinesEllipsis {
         maxLine?: number | string;
         ellipsis?: string;
         trimRight?: boolean;
-        basedOn?: 'letters' | 'words';
+        basedOn?: "letters" | "words";
         winWidth?: number;
         onReflow?: ({ clamped, text }: { clamped: boolean; text: string }) => void;
         component?: string;

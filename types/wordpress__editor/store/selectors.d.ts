@@ -1,6 +1,6 @@
-import { EditorSettings } from '@wordpress/block-editor';
-import { BlockInstance } from '@wordpress/blocks';
-import { Autosave, Schema } from '@wordpress/core-data';
+import { EditorSettings } from "@wordpress/block-editor";
+import { BlockInstance } from "@wordpress/blocks";
+import { EntityRecord, Page, Post, User } from "@wordpress/core-data";
 
 export {
     canInsertBlockType,
@@ -16,10 +16,10 @@ export {
     getBlockName,
     getBlockOrder,
     getBlockRootClientId,
-    getBlockSelectionEnd,
-    getBlockSelectionStart,
     getBlocks,
     getBlocksByClientId,
+    getBlockSelectionEnd,
+    getBlockSelectionStart,
     getClientIdsOfDescendants,
     getClientIdsWithDescendants,
     getFirstMultiSelectedBlockClientId,
@@ -54,7 +54,7 @@ export {
     isSelectionEnabled,
     isTyping,
     isValidTemplate,
-} from '@wordpress/block-editor/store/selectors';
+} from "@wordpress/block-editor/store/selectors";
 
 /**
  * Returns whether or not the user has the unfiltered_html capability.
@@ -92,23 +92,23 @@ export function getActivePostLock(): string | undefined;
  *
  * @param attributeName - Autosave attribute name.
  */
-export function getAutosaveAttribute<T extends keyof Autosave>(attributeName: T): Autosave[T] | {};
+export function getAutosaveAttribute(attributeName: string): EntityRecord<any>[keyof EntityRecord<any>] | {};
 
 /**
  * Returns the post currently being edited in its last known saved state, not including unsaved
  * edits. Returns an object containing relevant default post values if the post has not yet been
  * saved.
  */
-export function getCurrentPost(): Schema.Decontextualize<Schema.PostOrPage<'edit'>>;
+export function getCurrentPost(): Page | Post;
 
 /**
  * Returns an attribute value of the saved post.
  *
  * @param attributeName - Post attribute name.
  */
-export function getCurrentPostAttribute<T extends keyof Schema.PostOrPage<'edit'>>(
-    attributeName: T
-): Schema.Decontextualize<Schema.PostOrPage<'edit'>>[T] | undefined;
+export function getCurrentPostAttribute<T extends keyof (Page | Post)>(
+    attributeName: T,
+): (Page | Post)[T] | undefined;
 
 /**
  * Returns the ID of the post currently being edited.
@@ -137,9 +137,9 @@ export function getCurrentPostType(): string;
  *
  * @param attributeName - Post attribute name.
  */
-export function getEditedPostAttribute<T extends keyof Schema.PostOrPage<'edit'>>(
-    attributeName: T
-): Schema.Decontextualize<Schema.PostOrPage<'edit'>>[T] | undefined;
+export function getEditedPostAttribute<T extends keyof (Page | Post)>(
+    attributeName: T,
+): (Page | Post)[T] | undefined;
 
 /**
  * Returns the content of the post being edited, preferring raw string edit before falling back to
@@ -156,7 +156,7 @@ export function getEditedPostPreviewLink(): string | null;
  * Returns the current visibility of the post being edited, preferring the unsaved value if
  * different than the saved post. The return value is one of `"private"`, `"password"`, or `"public"`.
  */
-export function getEditedPostVisibility(): 'password' | 'private' | 'public';
+export function getEditedPostVisibility(): "password" | "private" | "public";
 
 /**
  * Return the current block list.
@@ -189,12 +189,12 @@ export function getPermalinkParts(): { postName: string; prefix: string; suffix?
  *
  * @returns Object of key value pairs comprising unsaved edits.
  */
-export function getPostEdits(): Partial<Schema.Decontextualize<Schema.PostOrPage<'edit'>>>;
+export function getPostEdits(): any;
 
 /**
  * Returns details about the post lock user.
  */
-export function getPostLockUser(): Schema.User | undefined | null;
+export function getPostLockUser(): User | undefined | null;
 
 /**
  * Returns state object prior to a specified optimist transaction ID, or `null` if the transaction

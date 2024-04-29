@@ -1,5 +1,11 @@
 {
     "rules": {
-        "no-any-union": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/triple-slash-reference": "off"
     }
 }

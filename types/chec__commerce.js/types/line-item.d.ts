@@ -1,7 +1,7 @@
-import { Price } from './price';
-import { SelectedVariant } from './selected-variant';
-import { Variant } from './variant';
-import { Asset } from './asset';
+import { Asset } from "./asset";
+import { Price } from "./price";
+import { SelectedVariant } from "./selected-variant";
+import { Variant } from "./variant";
 
 export interface LineItem {
     id: string;

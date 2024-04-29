@@ -5,9 +5,11 @@ interface PersonProps {
     age: number;
 }
 export function Person(props: PersonProps) {
-    return <div>
-        hello! I'm {props.name} and I'm {props.age} years old!
-    </div>;
+    return (
+        <div>
+            hello! I'm {props.name} and I'm {props.age} years old!
+        </div>
+    );
 }
 
 export interface FancyButtonProps {
@@ -27,12 +29,19 @@ export const FancyButton = React.forwardRef((props: FancyButtonProps, ref: React
         },
         getClickCount() {
             return count;
-        }
+        },
     }));
 
-    return <button onClick={() => { setCount(count + 1); props.onClick(); }}>
-        {props.children}
-    </button>;
+    return (
+        <button
+            onClick={() => {
+                setCount(count + 1);
+                props.onClick();
+            }}
+        >
+            {props.children}
+        </button>
+    );
 });
 
 interface AppState {
@@ -55,7 +64,7 @@ function reducer(s: AppState, action: AppActions): AppState {
 
 const initialState = {
     name: "Daniel",
-    age: 26
+    age: 26,
 };
 
 export function App() {
@@ -72,15 +81,17 @@ export function App() {
         }
     });
 
-    return <>
-        <Person {...state} />
-        <FancyButton onClick={() => dispatch({ type: "getOlder" })}>
-            Birthday time!
-        </FancyButton>
-        <FancyButton onClick={() => dispatch({ type: "resetAge" })}>
-            Let's start over.
-        </FancyButton>
-    </>;
+    return (
+        <>
+            <Person {...state} />
+            <FancyButton onClick={() => dispatch({ type: "getOlder" })}>
+                Birthday time!
+            </FancyButton>
+            <FancyButton onClick={() => dispatch({ type: "resetAge" })}>
+                Let's start over.
+            </FancyButton>
+        </>
+    );
 }
 
 interface Context {
@@ -88,19 +99,23 @@ interface Context {
 }
 const context = React.createContext<Context>({ test: true });
 
-function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
+function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean {
     const value: Context = React.useContext(context);
     const [, setState] = React.useState(() => 0);
     // Bonus typescript@next version
     // const [reducerState, dispatch] = React.useReducer(reducer, true as const, arg => arg && initialState);
     // Compile error in typescript@3.0 but not in typescript@3.1.
     // const [reducerState, dispatch] = React.useReducer(reducer, true as true, arg => arg && initialState);
-    const [reducerState, dispatch] = React.useReducer(reducer, true as true, (arg: true): AppState => arg && initialState);
+    const [reducerState, dispatch] = React.useReducer(
+        reducer,
+        true as true,
+        (arg: true): AppState => arg && initialState,
+    );
 
     const [, simpleDispatch] = React.useReducer(v => v + 1, 0);
 
     // inline object, to (manually) check if autocomplete works
-    React.useReducer(reducer, { age: 42, name: 'The Answer' });
+    React.useReducer(reducer, { age: 42, name: "The Answer" });
 
     // TODO (TypeScript 3.0): Decide whether implicit `any` should trigger `noImplicitAny` or if it should default to `unknown` or `never`
     // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/52873
@@ -178,7 +193,7 @@ function useEveryHook(ref: React.Ref<{ id: number }>|undefined): () => boolean {
         didLayout.current = true;
     }, []);
     React.useEffect(() => {
-        dispatch({ type: 'getOlder' });
+        dispatch({ type: "getOlder" });
         // @ts-expect-error
         dispatch();
 
@@ -244,12 +259,14 @@ const UsesEveryHook = React.forwardRef(
         useEveryHook(ref)();
 
         return null;
-    }
+    },
 );
 const everyHookRef = React.createRef<{ id: number }>();
-<UsesEveryHook ref={everyHookRef}/>;
+<UsesEveryHook ref={everyHookRef} />;
 
-<UsesEveryHook ref={ref => {
-    // $ExpectType { id: number; } | null
-    ref;
- }}/>;
+<UsesEveryHook
+    ref={ref => {
+        // $ExpectType { id: number; } | null
+        ref;
+    }}
+/>;

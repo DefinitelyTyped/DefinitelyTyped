@@ -1,9 +1,3 @@
-// Type definitions for scrollbooster 2.2
-// Project: https://github.com/ilyashubin/scrollbooster
-// Definitions by: Chris <https://github.com/chrisneven>
-//                 Chris Frewin <https://github.com/princefishthrower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Position {
     x?: number | undefined;
     y?: number | undefined;
@@ -12,11 +6,10 @@ export interface Position {
 export interface ScrollingState {
     isMoving: boolean;
     isDragging: boolean;
+    isScrolling: boolean;
     position: Required<Position>;
-    dragOffset: {
-        x: number;
-        y: number;
-    };
+    dragOffset: Required<Position>;
+    dragAngle: number;
     borderCollision: {
         left: boolean;
         right: boolean;
@@ -26,34 +19,35 @@ export interface ScrollingState {
 }
 
 export interface ScrollBoosterOptions {
-    content?: HTMLElement | null | undefined;
-    viewport: HTMLElement | null;
-    scrollMode?: 'transform' | 'native' | undefined;
-    direction?: 'horizontal' | 'vertical' | 'all' | undefined;
-    bounce?: boolean | undefined;
-    textSelection?: boolean | undefined;
-    inputsFocus?: boolean | undefined;
-    pointerMode?: 'touch' | 'mouse' | 'all' | undefined;
-    friction?: number | undefined;
-    bounceForce?: number | undefined;
-    emulateScroll?: boolean | undefined;
-    onUpdate?: ((state: ScrollingState) => void) | undefined;
-    onClick?: ((state: ScrollingState, event: Event) => void) | undefined;
-    shouldScroll?: ((state: ScrollingState, event: Event) => boolean) | undefined;
+    viewport: Element;
+    content: Element;
+    direction?: "all" | "vertical" | "horizontal";
+    pointerMode?: "all" | "touch" | "mouse";
+    scrollMode?: "transform" | "native" | undefined;
+    bounce?: boolean;
+    bounceForce?: number;
+    friction?: number;
+    textSelection?: boolean;
+    inputsFocus?: boolean;
+    emulateScroll?: boolean;
+    preventDefaultOnEmulateScroll?: "vertical" | "horizontal";
+    lockScrollOnDragDirection?: "all" | "vertical" | "horizontal";
+    dragDirectionTolerance?: number;
+    onClick?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
+    onUpdate?: (state: ScrollingState) => void;
+    onWheel?: (state: ScrollingState, event: Event) => void;
+    shouldScroll?: (state: ScrollingState, event: Event) => boolean;
+    onPointerDown?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
+    onPointerUp?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
+    onPointerMove?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
 }
 
 export default class ScrollBooster {
     constructor(options: ScrollBoosterOptions);
-
-    setPosition(position: Position): void;
-
-    scrollTo(position: Position): void;
-
-    updateMetrics(): void;
-
-    updateOptions(options: Partial<ScrollBoosterOptions>): void;
-
-    getState(): ScrollingState;
-
     destroy(): void;
+    setPosition(position: Position): void;
+    getState(): ScrollingState;
+    scrollTo(position: Position): void;
+    updateMetrics(): void;
+    updateOptions(options: Partial<ScrollBoosterOptions>): void;
 }

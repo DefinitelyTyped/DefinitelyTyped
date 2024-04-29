@@ -1,8 +1,3 @@
-// Type definitions for @mapbox/mapbox-gl-traffic 1.0
-// Project: https://github.com/mapbox/mapbox-gl-traffic
-// Definitions by: Niek van Bennekom <https://github.com/niekvb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="mapbox-gl" />
 /// <reference types="node" />
 

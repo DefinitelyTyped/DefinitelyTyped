@@ -1,8 +1,8 @@
 declare namespace AMap {
     namespace Ellipse {
         interface EventMap<I = Ellipse> extends ShapeOverlay.EventMap<I> {
-            setPath: Event<'setPath'>;
-            setCenter: Event<'setCenter'>;
+            setPath: Event<"setPath">;
+            setCenter: Event<"setCenter">;
         }
 
         interface Options<ExtraData = any> extends Polygon.Options<ExtraData> {

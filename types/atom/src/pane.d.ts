@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /** A container for presenting content in the center of the workspace. */
 export interface Pane {

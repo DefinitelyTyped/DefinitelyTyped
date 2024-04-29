@@ -1,4 +1,5 @@
-import AttributeNode from '../core/AttributeNode';
+import AttributeNode from "../core/AttributeNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class UVNode extends AttributeNode {
     isUVNode: true;
@@ -6,3 +7,5 @@ export default class UVNode extends AttributeNode {
 
     constructor(index?: number);
 }
+
+export const uv: (index?: number) => ShaderNodeObject<UVNode>;

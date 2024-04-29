@@ -1,6 +1,6 @@
-import LexerAction from 'antlr4/action/LexerAction';
-import LexerActionType from 'antlr4/atn/LexerActionType';
-import HashCode from 'antlr4/misc/HashCode';
+import LexerAction from "antlr4/action/LexerAction";
+import LexerActionType from "antlr4/atn/LexerActionType";
+import HashCode from "antlr4/misc/HashCode";
 
 // LexerAction
 class NewLexerAction extends LexerAction {}

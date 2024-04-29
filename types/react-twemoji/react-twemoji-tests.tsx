@@ -7,7 +7,7 @@ const ReactTwemojiTests: React.FC = _ => (
             <p>No params</p>
         </Twemoji>
 
-        <Twemoji options={{a: "b"}} tag={"tag"} noWrapper={false}>
+        <Twemoji options={{ a: "b" }} tag={"tag"} noWrapper={false}>
             <p>Some params</p>
         </Twemoji>
     </div>

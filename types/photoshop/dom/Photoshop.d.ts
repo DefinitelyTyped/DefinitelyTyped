@@ -1,18 +1,19 @@
-import * as Constants from "./Constants";
-import { Document } from "./Document";
-import { Layer } from "./Layer";
-import { ActionSet, Action } from "./Actions";
-import { ColorSampler } from "./ColorSampler";
+import { Action, ActionSet } from "./Actions";
 import { Documents } from "./collections/Documents";
 import { TextFonts } from "./collections/TextFonts";
-import { Preferences } from "./preferences/Preferences";
+import { ColorSampler } from "./ColorSampler";
+import * as Constants from "./Constants";
+import { Document } from "./Document";
 import { Guide } from "./Guide";
+import { Layer } from "./Layer";
 import { LayerComp } from "./LayerComp";
-import { DocumentCreateOptions } from "./types/DocumentTypes";
-import { SolidColor } from "./objects/SolidColor";
-import { Tool } from "./objects/Tool";
 import { PathPointInfo } from "./objects/PathPointInfo";
+import { SolidColor } from "./objects/SolidColor";
 import { SubPathInfo } from "./objects/SubPathInfo";
+import { Tool } from "./objects/Tool";
+import { Preferences } from "./preferences/Preferences";
+import { Selection } from "./Selection";
+import { DocumentCreateOptions } from "./types/DocumentTypes";
 /**
  * The top level application object, root of the Photoshop DOM
  *
@@ -65,6 +66,11 @@ export declare class Photoshop {
     LayerComp: typeof LayerComp;
     /**
      * @ignore
+     * Allows for polyfills into the Selection class
+     */
+    Selection: typeof Selection;
+    /**
+     * @ignore
      */
     PathPointInfo: typeof PathPointInfo;
     /**
@@ -87,6 +93,7 @@ export declare class Photoshop {
      */
     set validation(enable: boolean);
     /**
+     * @ignore
      * Exposes SolidColor class for constructing objects
      */
     SolidColor: typeof SolidColor;
@@ -135,10 +142,7 @@ export declare class Photoshop {
      */
     get documents(): Documents;
     /**
-     * The foreground color (used to paint, fill, and stroke selections).
-     *
-     * **Fixes in Photoshop 24.2:**
-     * - *Color was broken when it was not picked as RGB color*
+     * The foreground color (used to paint, fill, and stroke selections). [(24.2)](/ps_reference/changelog#other-fixes)
      *
      * @minVersion 23.0
      */
@@ -167,11 +171,7 @@ export declare class Photoshop {
      */
     convertUnits(fromValue: number, fromUnits: Constants.Units, toUnits: Constants.Units, resolution?: number): number;
     /**
-     * The background color and color style for documents.
-     *
-     * **Fixes in Photoshop 24.2:**
-     * - *Now it is possible to set background color*
-     * - *Color was broken when it was not picked as RGB color*
+     * The background color and color style for documents. [(24.2)](/ps_reference/changelog#other-fixes)
      *
      * @minVersion 23.0
      */
@@ -193,7 +193,7 @@ export declare class Photoshop {
      * without updating the UI. This API is subject to change and may be accessible in other ways in the future.
      * @minVersion 23.0
      */
-    batchPlay(commands: any, options: any): Promise<import("./CoreModules").ActionDescriptor[]>;
+    batchPlay(commands: any, options: any): Promise<Array<import("./CoreModules").ActionDescriptor>>;
     /**
      * Brings application to focus, useful when your script ends, or requires an input.
      * @minVersion 23.0
@@ -203,7 +203,7 @@ export declare class Photoshop {
      * Opens the specified document and returns the model
      *
      * > *Note that this API requires a
-     * [UXPFileEntry](../../../uxp/reference-js/Modules/uxp/Persistent%20File%20Storage/File/)
+     * [UXPFileEntry](../../../uxp-api/reference-js/Modules/uxp/Persistent%20File%20Storage/File/)
      * object as its argument.
      *
      * ```javascript

@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.jobs-v4": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.jobs-v4",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Cloud Talent Solution API v4",
+    "projects": [
+        "https://cloud.google.com/talent-solution/job-search/docs/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.jobs-v4": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.jobs-v4": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

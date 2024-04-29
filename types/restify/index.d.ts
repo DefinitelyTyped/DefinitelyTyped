@@ -1,23 +1,12 @@
-// Type definitions for restify 8.5
-// Project: https://github.com/restify/node-restify, http://restify.com
-// Definitions by: Bret Little <https://github.com/blittle>
-//                 Leandro Almeida <https://github.com/leanazulyoro>
-//                 Mitchell Bundy <https://github.com/mgebundy>
-//                 Alexandre Moraes <https://github.com/alcmoraes>
-//                 Quinn Langille <https://github.com/quinnlangille>
-//                 Gaikwad Pratik <https://github.com/GaikwadPratik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
-import http = require('http');
-import https = require('https');
-import Logger = require('bunyan');
-import url = require('url');
-import spdy = require('spdy');
-import stream = require('stream');
-import zlib = require('zlib');
-import { File } from 'formidable';
+import http = require("http");
+import https = require("https");
+import Logger = require("bunyan");
+import url = require("url");
+import spdy = require("spdy");
+import stream = require("stream");
+import zlib = require("zlib");
+import { File } from "formidable";
 
 export interface ServerOptions {
     ca?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
@@ -280,13 +269,13 @@ export interface Server extends http.Server {
 
     http2?: boolean | undefined;
 
-    ca: ServerOptions['ca'];
+    ca: ServerOptions["ca"];
 
-    certificate: ServerOptions['certificate'];
+    certificate: ServerOptions["certificate"];
 
-    key: ServerOptions['key'];
+    key: ServerOptions["key"];
 
-    passphrase: ServerOptions['passphrase'] | null;
+    passphrase: ServerOptions["passphrase"] | null;
 
     secure?: boolean | undefined;
 }
@@ -646,7 +635,7 @@ export interface Request extends http.IncomingMessage {
     params?: any;
 
     /** available when multipartBodyParser plugin is used. */
-    files?: { [name: string]: File | undefined; } | undefined;
+    files?: { [name: string]: File | undefined } | undefined;
 
     /** available when authorizationParser plugin is used */
     username?: string | undefined;
@@ -813,7 +802,7 @@ export interface Response extends http.ServerResponse {
      * @param    code the status code
      * @param    url to redirect to
      * @param    next - mandatory, to complete the response and trigger audit logger
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(code: number, url: string, next: Next): void;
 
@@ -823,7 +812,7 @@ export interface Response extends http.ServerResponse {
      * `next` is mandatory, to complete the response and trigger audit logger.
      * @param    url to redirect to or options object to configure a redirect or
      * @param    next - mandatory, to complete the response and trigger audit logger
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(opts: string | RedirectOptions, next: Next): void;
 
@@ -864,7 +853,7 @@ export interface RedirectOptions {
     /**
      * redirect location's query string parameters
      */
-    query?: string|object | undefined;
+    query?: string | object | undefined;
 
     /**
      * if true, `options.query`
@@ -987,7 +976,7 @@ export namespace bunyan {
         stream?: Logger.Stream | undefined;
 
         /** The streams to which to write when dumping captured records. */
-        streams?: ReadonlyArray<Logger.Stream> | undefined;
+        streams?: readonly Logger.Stream[] | undefined;
 
         /**
          * The level at which to trigger dumping captured records. Defaults to
@@ -1025,11 +1014,11 @@ export namespace bunyan {
     }
 
     const serializers: Logger.Serializers & {
-        err: Logger.Serializer,
-        req: Logger.Serializer,
-        res: Logger.Serializer,
-        client_req: Logger.Serializer,
-        client_res: Logger.Serializer
+        err: Logger.Serializer;
+        req: Logger.Serializer;
+        res: Logger.Serializer;
+        client_req: Logger.Serializer;
+        client_res: Logger.Serializer;
     };
 
     /** create a bunyan logger */
@@ -1047,557 +1036,553 @@ export interface Formatters {
 export const formatters: Formatters;
 
 export namespace plugins {
-  namespace pre {
+    namespace pre {
+        /**
+         * Provide req.set(key, val) and req.get(key) methods for setting and retrieving context to a specific request.
+         */
+        function context(): RequestHandler;
+
+        function dedupeSlashes(): RequestHandler;
+
+        /**
+         * This pre handler fixes issues with node hanging when an asyncHandler is used prior to bodyParser.
+         */
+        function pause(): RequestHandler;
+
+        /**
+         * Cleans up duplicate or trailing / on the URL
+         */
+        function sanitizePath(): RequestHandler;
+
+        /**
+         * Automatically reuse incoming request header as the request id.
+         */
+        function reqIdHeaders(options: { headers: string[] }): RequestHandler;
+
+        /**
+         * Checks req.urls query params with strict key/val format and rejects non-strict requests with status code 400.
+         */
+        function strictQueryParams(options?: { message: string }): RequestHandler;
+
+        /**
+         * Regexp to capture curl user-agents
+         */
+        function userAgentConnection(options?: {
+            userAgentRegExp: any;
+        }): RequestHandler;
+    }
+
+    // *************** This module includes the following header parser plugins:
+
     /**
-     * Provide req.set(key, val) and req.get(key) methods for setting and retrieving context to a specific request.
+     * Check the client's Accept header can be handled by this server.
      */
-    function context(): RequestHandler;
+    function acceptParser(accepts: string[]): RequestHandler;
 
-    function dedupeSlashes(): RequestHandler;
+    type AuditLoggerContext = (
+        req: Request,
+        res: Response,
+        route: any,
+        error: any,
+    ) => any;
+
+    interface AuditLoggerOptions {
+        /**
+         * Bunyan logger
+         */
+        log: Logger;
+
+        /**
+         * The event from the server which initiates the
+         * log, one of 'pre', 'routed', or 'after'
+         */
+        event: "pre" | "routed" | "after";
+
+        /**
+         * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
+         */
+        server?: Server | undefined;
+
+        /**
+         * The optional context function of signature
+         * f(req, res, route, err).  Invoked each time an audit log is generated. This
+         * function can return an object that customizes the format of anything off the
+         * req, res, route, and err objects. The output of this function will be
+         * available on the `context` key in the audit object.
+         */
+        context?: AuditLoggerContext | undefined;
+
+        /**
+         * Ringbuffer which is written to if passed in
+         */
+        logBuffer?: any;
+
+        /**
+         * When true, prints audit logs. default true.
+         */
+        printLog?: boolean | undefined;
+
+        body?: boolean | undefined;
+    }
 
     /**
-     * This pre handler fixes issues with node hanging when an asyncHandler is used prior to bodyParser.
+     * An audit logger for recording all handled requests
      */
-    function pause(): RequestHandler;
+    function auditLogger(options: AuditLoggerOptions): (...args: any[]) => void;
 
     /**
-     * Cleans up duplicate or trailing / on the URL
+     * Authorization header
      */
-    function sanitizePath(): RequestHandler;
+    function authorizationParser(options?: any): RequestHandler;
+
+    interface HandlerCandidate {
+        handler: RequestHandler | RequestHandler[];
+        version?: string | string[] | undefined;
+        contentType?: string | string[] | undefined;
+    }
 
     /**
-     * Automatically reuse incoming request header as the request id.
+     * Runs first handler that matches to the condition
      */
-    function reqIdHeaders(options: { headers: string[] }): RequestHandler;
+    function conditionalHandler(
+        candidates: HandlerCandidate | HandlerCandidate[],
+    ): RequestHandler;
 
     /**
-     * Checks req.urls query params with strict key/val format and rejects non-strict requests with status code 400.
+     * Conditional headers (If-*)
      */
-    function strictQueryParams(options?: { message: string }): RequestHandler;
+    function conditionalRequest(): RequestHandler[];
+
+    interface CpuUsageThrottleOptions {
+        limit?: number | undefined;
+        max?: number | undefined;
+        interval?: number | undefined;
+        halfLife?: number | undefined;
+    }
 
     /**
-     * Regexp to capture curl user-agents
+     * Cpu Throttle middleware
      */
-    function userAgentConnection(options?: {
-      userAgentRegExp: any;
-    }): RequestHandler;
-  }
+    function cpuUsageThrottle(opts?: CpuUsageThrottleOptions): RequestHandler;
 
-  // *************** This module includes the following header parser plugins:
-
-  /**
-   * Check the client's Accept header can be handled by this server.
-   */
-  function acceptParser(accepts: string[]): RequestHandler;
-
-  type AuditLoggerContext = (
-    req: Request,
-    res: Response,
-    route: any,
-    error: any,
-  ) => any;
-
-  interface AuditLoggerOptions {
     /**
-     * Bunyan logger
+     * Handles disappeared CORS headers
      */
-    log: Logger;
+    function fullResponse(): RequestHandler;
+
+    // ************ This module includes the following data parsing plugins:
+
+    interface BodyParserOptions {
+        /**
+         * The maximum size in bytes allowed in the HTTP body. Useful for limiting clients from hogging server memory.
+         */
+        maxBodySize?: number | undefined;
+
+        /**
+         * If req.params should be filled with parsed parameters from HTTP body.
+         */
+        mapParams?: boolean | undefined;
+
+        /**
+         * If req.params should be filled with the contents of files sent through a multipart request.
+         * Formidable is used internally for parsing, and a file is denoted as a multipart part with the filename option set in its Content-Disposition.
+         * This will only be performed if mapParams is true.
+         */
+        mapFiles?: boolean | undefined;
+
+        /**
+         * If an entry in req.params should be overwritten by the value in the body if the names are the same.
+         * For instance, if you have the route /:someval, and someone posts an x-www-form-urlencoded Content-Type with the body someval=happy to /sad,
+         * the value will be happy if overrideParams is true, sad otherwise.
+         */
+        overrideParams?: boolean | undefined;
+
+        /**
+         * A callback to handle any multipart part which is not a file.
+         * If this is omitted, the default handler is invoked which may or may not map the parts into req.params, depending on the mapParams-option.
+         */
+        multipartHandler?(): void;
+
+        /**
+         * A callback to handle any multipart file.
+         * It will be a file if the part have a Content-Disposition with the filename parameter set.
+         * This typically happens when a browser sends a form and there is a parameter similar to <input type="file" />.
+         * If this is not provided, the default behaviour is to map the contents into req.params.
+         */
+        multipartFileHandler?(): void;
+
+        /**
+         * If you want the uploaded files to include the extensions of the original files (multipart uploads only). Does nothing if multipartFileHandler is defined.
+         */
+        keepExtensions?: boolean | undefined;
+
+        /**
+         * Where uploaded files are intermediately stored during transfer before the contents is mapped into req.params. Does nothing if multipartFileHandler is defined.
+         */
+        uploadDir?: string | undefined;
+
+        /**
+         * If you want to support html5 multiple attribute in upload fields.
+         */
+        multiples?: boolean | undefined;
+
+        /**
+         * If you want checksums calculated for incoming files, set this to either sha1 or md5.
+         */
+        hash?: string | undefined;
+
+        /**
+         * Set to true if you want to end the request with a UnsupportedMediaTypeError when none of the supported content types was given.
+         */
+        rejectUnknown?: boolean | undefined;
+
+        requestBodyOnGet?: boolean | undefined;
+
+        reviver?: any;
+
+        maxFieldsSize?: number | undefined;
+
+        maxFileSize?: number | undefined;
+    }
 
     /**
-     * The event from the server which initiates the
-     * log, one of 'pre', 'routed', or 'after'
+     * Parses POST bodies to req.body. automatically uses one of the following parsers based on content type.
      */
-    event: 'pre' | 'routed' | 'after';
+    function bodyParser(options?: BodyParserOptions): RequestHandler[];
 
     /**
-     * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
+     * Reads the body of the request.
      */
-    server?: Server | undefined;
+    function bodyReader(options?: { maxBodySize?: number | undefined }): RequestHandler;
+
+    interface UrlEncodedBodyParserOptions {
+        mapParams?: boolean | undefined;
+        overrideParams?: boolean | undefined;
+        bodyReader?: boolean | undefined;
+    }
 
     /**
-     * The optional context function of signature
-     * f(req, res, route, err).  Invoked each time an audit log is generated. This
-     * function can return an object that customizes the format of anything off the
-     * req, res, route, and err objects. The output of this function will be
-     * available on the `context` key in the audit object.
-     */
-    context?: AuditLoggerContext | undefined;
-
-    /**
-     * Ringbuffer which is written to if passed in
-     */
-    logBuffer?: any;
-
-    /**
-     * When true, prints audit logs. default true.
-     */
-    printLog?: boolean | undefined;
-
-    body?: boolean | undefined;
-  }
-
-  /**
-   * An audit logger for recording all handled requests
-   */
-  function auditLogger(options: AuditLoggerOptions): (...args: any[]) => void;
-
-  /**
-   * Authorization header
-   */
-  function authorizationParser(options?: any): RequestHandler;
-
-  interface HandlerCandidate {
-    handler: RequestHandler | RequestHandler[];
-    version?: string | string[] | undefined;
-    contentType?: string | string[] | undefined;
-  }
-
-  /**
-   * Runs first handler that matches to the condition
-   */
-  function conditionalHandler(
-    candidates: HandlerCandidate | HandlerCandidate[],
-  ): RequestHandler;
-
-  /**
-   * Conditional headers (If-*)
-   */
-  function conditionalRequest(): RequestHandler[];
-
-  interface CpuUsageThrottleOptions {
-    limit?: number | undefined;
-    max?: number | undefined;
-    interval?: number | undefined;
-    halfLife?: number | undefined;
-  }
-
-  /**
-   * Cpu Throttle middleware
-   */
-  function cpuUsageThrottle(opts?: CpuUsageThrottleOptions): RequestHandler;
-
-  /**
-   * Handles disappeared CORS headers
-   */
-  function fullResponse(): RequestHandler;
-
-  // ************ This module includes the following data parsing plugins:
-
-  interface BodyParserOptions {
-    /**
-     * The maximum size in bytes allowed in the HTTP body. Useful for limiting clients from hogging server memory.
-     */
-    maxBodySize?: number | undefined;
-
-    /**
-     * If req.params should be filled with parsed parameters from HTTP body.
-     */
-    mapParams?: boolean | undefined;
-
-    /**
-     * If req.params should be filled with the contents of files sent through a multipart request.
-     * Formidable is used internally for parsing, and a file is denoted as a multipart part with the filename option set in its Content-Disposition.
-     * This will only be performed if mapParams is true.
-     */
-    mapFiles?: boolean | undefined;
-
-    /**
-     * If an entry in req.params should be overwritten by the value in the body if the names are the same.
-     * For instance, if you have the route /:someval, and someone posts an x-www-form-urlencoded Content-Type with the body someval=happy to /sad,
-     * the value will be happy if overrideParams is true, sad otherwise.
-     */
-    overrideParams?: boolean | undefined;
-
-    /**
-     * A callback to handle any multipart part which is not a file.
-     * If this is omitted, the default handler is invoked which may or may not map the parts into req.params, depending on the mapParams-option.
-     */
-    multipartHandler?(): void;
-
-    /**
-     * A callback to handle any multipart file.
-     * It will be a file if the part have a Content-Disposition with the filename parameter set.
-     * This typically happens when a browser sends a form and there is a parameter similar to <input type="file" />.
-     * If this is not provided, the default behaviour is to map the contents into req.params.
-     */
-    multipartFileHandler?(): void;
-
-    /**
-     * If you want the uploaded files to include the extensions of the original files (multipart uploads only). Does nothing if multipartFileHandler is defined.
-     */
-    keepExtensions?: boolean | undefined;
-
-    /**
-     * Where uploaded files are intermediately stored during transfer before the contents is mapped into req.params. Does nothing if multipartFileHandler is defined.
-     */
-    uploadDir?: string | undefined;
-
-    /**
-     * If you want to support html5 multiple attribute in upload fields.
-     */
-    multiples?: boolean | undefined;
-
-    /**
-     * If you want checksums calculated for incoming files, set this to either sha1 or md5.
-     */
-    hash?: string | undefined;
-
-    /**
-     * Set to true if you want to end the request with a UnsupportedMediaTypeError when none of the supported content types was given.
-     */
-    rejectUnknown?: boolean | undefined;
-
-    requestBodyOnGet?: boolean | undefined;
-
-    reviver?: any;
-
-    maxFieldsSize?: number | undefined;
-
-    maxFileSize?: number | undefined;
-  }
-
-  /**
-   * Parses POST bodies to req.body. automatically uses one of the following parsers based on content type.
-   */
-  function bodyParser(options?: BodyParserOptions): RequestHandler[];
-
-  /**
-   * Reads the body of the request.
-   */
-  function bodyReader(options?: { maxBodySize?: number | undefined }): RequestHandler;
-
-  interface UrlEncodedBodyParserOptions {
-    mapParams?: boolean | undefined;
-    overrideParams?: boolean | undefined;
-    bodyReader?: boolean | undefined;
-  }
-
-  /**
-   * Parse the HTTP request body IFF the contentType is application/x-www-form-urlencoded.
-   *
-   * If req.params already contains a given key, that key is skipped and an
-   * error is logged.
-   */
-  function urlEncodedBodyParser(
-    options?: UrlEncodedBodyParserOptions,
-  ): RequestHandler[];
-
-  interface JsonBodyParserOptions {
-    mapParams?: boolean | undefined;
-    overrideParams?: boolean | undefined;
-    reviver?(key: any, value: any): any;
-    bodyReader?: boolean | undefined;
-  }
-
-  /**
-   * Parses JSON POST bodies
-   */
-  function jsonBodyParser(options?: JsonBodyParserOptions): RequestHandler[];
-
-  /**
-   * Parses JSONP callback
-   */
-  function jsonp(): RequestHandler;
-
-  interface MultipartBodyParser {
-    overrideParams?: boolean | undefined;
-    multiples?: boolean | undefined;
-    keepExtensions?: boolean | undefined;
-    uploadDir?: string | undefined;
-    maxFieldsSize?: number | undefined;
-    hash?: string | undefined;
-    multipartFileHandler?: any;
-    multipartHandler?: any;
-    mapParams?: boolean | undefined;
-    mapFiles?: boolean | undefined;
-    maxFileSize?: number | undefined;
-  }
-
-  /**
-   * Parses JSONP callback
-   */
-  function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
-
-  interface QueryParserOptions {
-    /**
-     * Default `false`. Copies parsed query parameters into `req.params`.
-     */
-    mapParams?: boolean | undefined;
-
-    /**
-     * Default `false`. Only applies when if mapParams true. When true, will stomp on req.params field when existing value is found.
-     */
-    overrideParams?: boolean | undefined;
-
-    /**
-     *  Default false. Transform `?foo.bar=baz` to a nested object: `{foo: {bar: 'baz'}}`.
-     */
-    allowDots?: boolean | undefined;
-
-    /**
-     * Default 20. Only transform `?a[$index]=b` to an array if `$index` is less than `arrayLimit`.
-     */
-    arrayLimit?: number | undefined;
-
-    /**
-     * Default 5. The depth limit for parsing nested objects, e.g. `?a[b][c][d][e][f][g][h][i]=j`.
-     */
-    depth?: number | undefined;
-
-    /**
-     * Default 1000. Maximum number of query params parsed. Additional params are silently dropped.
-     */
-    parameterLimit?: number | undefined;
-
-    /**
-     * Default true. Whether to parse `?a[]=b&a[1]=c` to an array, e.g. `{a: ['b', 'c']}`.
-     */
-    parseArrays?: boolean | undefined;
-
-    /**
-     * Default false. Whether `req.query` is a "plain" object -- does not inherit from `Object`.
-     * This can be used to allow query params whose names collide with Object methods, e.g. `?hasOwnProperty=blah`.
-     */
-    plainObjects?: boolean | undefined;
-
-    /**
-     * Default false. If true, `?a&b=` results in `{a: null, b: ''}`. Otherwise, `{a: '', b: ''}`.
-     */
-    strictNullHandling?: boolean | undefined;
-  }
-
-  /**
-   * Parses URL query parameters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
-   */
-  function queryParser(options?: QueryParserOptions): RequestHandler;
-
-  interface RequestLogger {
-    properties?: any;
-    serializers?: any;
-    headers?: any;
-    log?: any;
-  }
-
-  /**
-   * Adds timers for each handler in your request chain
-   *
-   * `options.properties` properties to pass to bunyan's `log.child()` method
-   */
-  function requestLogger(options?: RequestLogger): RequestHandler;
-
-  // ******************** The module includes the following response plugins:
-
-  /**
-   * expires requests based on current time + delta
-   * @param delta - age in seconds
-   */
-  function dateParser(delta?: number): RequestHandler;
-
-  /**
-   * gzips the response if client send `accept-encoding: gzip`
-   * @param options options to pass to gzlib
-   */
-  function gzipResponse(options?: zlib.ZlibOptions): RequestHandler;
-
-  interface InflightRequestThrottleOptions {
-    limit: number;
-    server: Server;
-    err: any;
-  }
-
-  function inflightRequestThrottle(
-    opts: InflightRequestThrottleOptions,
-  ): RequestHandler;
-
-  interface ServeStatic {
-    appendRequestPath?: boolean | undefined;
-    directory?: string | undefined;
-    maxAge?: number | undefined;
-    match?: any;
-    charSet?: string | undefined;
-    file?: string | undefined;
-    etag?: string | undefined;
-    default?: any;
-    gzip?: boolean | undefined;
-  }
-
-  /**
-   * Used to serve static files
-   */
-  function serveStatic(options?: ServeStatic): RequestHandler;
-
-  interface ServeStaticFiles {
-    maxAge?: number | undefined;
-    etag?: string | undefined;
-    setHeaders?: ((res: Response, path: string, stat: any) => any) | undefined;
-  }
-
-  /**
-   * Used to serve static files from a given directory
-   */
-  function serveStaticFiles(
-    dir: string,
-    options?: ServeStaticFiles,
-  ): RequestHandler;
-
-  interface ThrottleOptions {
-    burst?: number | undefined;
-    rate?: number | undefined;
-    setHeaders?: boolean | undefined;
-    ip?: boolean | undefined;
-    username?: boolean | undefined;
-    xff?: boolean | undefined;
-    tokensTable?: any;
-    maxKeys?: number | undefined;
-    overrides?: any; // any
-  }
-
-  /**
-   *  throttles responses
-   */
-  function throttle(options?: ThrottleOptions): RequestHandler;
-
-  type MetricsCallback = (
-    /**
-     *  An error if the request had an error
-     */
-    err: Error,
-
-    /**
-     *  Object that contains the various metrics that are returned
-     */
-    metrics: MetricsCallbackOptions,
-
-    /**
-     * The request obj
-     */
-    req: Request,
-
-    /**
-     * The response obj
-     */
-    res: Response,
-
-    /**
-     * The route obj that serviced the request
-     */
-    route: Route,
-  ) => void;
-
-  type TMetricsCallback = 'close' | 'aborted' | undefined;
-
-  interface MetricsCallbackOptions {
-    /**
-     * Status code of the response. Can be undefined in the case of an `uncaughtException`.
-     * Otherwise, in most normal scenarios, even calling `res.send()` or `res.end()` should result in a 200 by default.
-     */
-    statusCode: number;
-
-    /**
-     * HTTP request verb
-     */
-    method: string;
-
-    /**
-     * latency includes both request is flushed and all handlers finished
-     */
-    totalLatency: number;
-
-    /**
-     * Request latency
-     */
-    latency: number;
-
-    /**
-     * pre handlers latency
-     */
-    preLatency: number | null;
-
-    /**
-     * use handlers latency
-     */
-    useLatency: number | null;
-
-    /**
-     * req.path() value
-     */
-    path: string;
-
-    /**
-     * Number of inflight requests pending in restify
-     */
-    inflightRequests: number;
-
-    /**
-     * Same as `inflightRequests`
-     */
-    unfinishedRequests: number;
-
-    /**
-     * If this value is set, err will be a corresponding `RequestCloseError` or `RequestAbortedError`.
+     * Parse the HTTP request body IFF the contentType is application/x-www-form-urlencoded.
      *
-     * If connectionState is either 'close' or 'aborted', then the statusCode is not applicable since the connection was severed before a response was written.
+     * If req.params already contains a given key, that key is skipped and an
+     * error is logged.
      */
-    connectionState: TMetricsCallback;
-  }
+    function urlEncodedBodyParser(
+        options?: UrlEncodedBodyParserOptions,
+    ): RequestHandler[];
 
-  /**
-   * Listens to the server's after event and emits information about that request (5.x compatible only).
-   *
-   * ```
-   * server.on('after', plugins.metrics({ server }, (err, metrics, req, res, route) =>
-   * {
-   *    // metrics is an object containing information about the request
-   * }));
-   * ```
-   */
-  function metrics(
-    opts: { server: Server },
-    callback: MetricsCallback,
-  ): (...args: any[]) => void;
-
-  /**
-   * Parse the client's request for an OAUTH2 access tokensTable
-   *
-   * Subsequent handlers will see `req.oauth2`, which looks like:
-   * ```
-   * {
-   *    oauth2: {accessToken: 'mF_9.B5f-4.1JqM&p=q'}
-   * }
-   * ```
-   */
-  function oauth2TokenParser(): RequestHandler;
-
-  interface RequestExpiryOptions {
-    /**
-     * Header name of the absolute time for request expiration
-     */
-    absoluteHeader?: string | undefined;
+    interface JsonBodyParserOptions {
+        mapParams?: boolean | undefined;
+        overrideParams?: boolean | undefined;
+        reviver?(key: any, value: any): any;
+        bodyReader?: boolean | undefined;
+    }
 
     /**
-     * Header name for the start time of the request
+     * Parses JSON POST bodies
      */
-    startHeader?: string | undefined;
+    function jsonBodyParser(options?: JsonBodyParserOptions): RequestHandler[];
 
     /**
-     * The header name for the time in milliseconds that should ellapse before the request is considered expired.
+     * Parses JSONP callback
      */
-    timeoutHeader?: string | undefined;
-  }
+    function jsonp(): RequestHandler;
 
-  /**
-   * A request expiry will use headers to tell if the incoming request has expired or not.
-   *
-   * There are two options for this plugin:
-   *   1. Absolute Time
-   *     * Time in Milliseconds since the Epoch when this request should be considered expired
-   *   2. Timeout
-   *     * The request start time is supplied
-   *     * A timeout, in milliseconds, is given
-   *     * The timeout is added to the request start time to arrive at the absolute time
-   *       in which the request is considered expires
-   */
-  function requestExpiry(options?: RequestExpiryOptions): RequestHandler;
+    interface MultipartBodyParser {
+        overrideParams?: boolean | undefined;
+        multiples?: boolean | undefined;
+        keepExtensions?: boolean | undefined;
+        uploadDir?: string | undefined;
+        maxFieldsSize?: number | undefined;
+        hash?: string | undefined;
+        multipartFileHandler?: any;
+        multipartHandler?: any;
+        mapParams?: boolean | undefined;
+        mapFiles?: boolean | undefined;
+        maxFileSize?: number | undefined;
+    }
+
+    /**
+     * Parses JSONP callback
+     */
+    function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
+
+    interface QueryParserOptions {
+        /**
+         * Default `false`. Copies parsed query parameters into `req.params`.
+         */
+        mapParams?: boolean | undefined;
+
+        /**
+         * Default `false`. Only applies when if mapParams true. When true, will stomp on req.params field when existing value is found.
+         */
+        overrideParams?: boolean | undefined;
+
+        /**
+         *  Default false. Transform `?foo.bar=baz` to a nested object: `{foo: {bar: 'baz'}}`.
+         */
+        allowDots?: boolean | undefined;
+
+        /**
+         * Default 20. Only transform `?a[$index]=b` to an array if `$index` is less than `arrayLimit`.
+         */
+        arrayLimit?: number | undefined;
+
+        /**
+         * Default 5. The depth limit for parsing nested objects, e.g. `?a[b][c][d][e][f][g][h][i]=j`.
+         */
+        depth?: number | undefined;
+
+        /**
+         * Default 1000. Maximum number of query params parsed. Additional params are silently dropped.
+         */
+        parameterLimit?: number | undefined;
+
+        /**
+         * Default true. Whether to parse `?a[]=b&a[1]=c` to an array, e.g. `{a: ['b', 'c']}`.
+         */
+        parseArrays?: boolean | undefined;
+
+        /**
+         * Default false. Whether `req.query` is a "plain" object -- does not inherit from `Object`.
+         * This can be used to allow query params whose names collide with Object methods, e.g. `?hasOwnProperty=blah`.
+         */
+        plainObjects?: boolean | undefined;
+
+        /**
+         * Default false. If true, `?a&b=` results in `{a: null, b: ''}`. Otherwise, `{a: '', b: ''}`.
+         */
+        strictNullHandling?: boolean | undefined;
+    }
+
+    /**
+     * Parses URL query parameters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
+     */
+    function queryParser(options?: QueryParserOptions): RequestHandler;
+
+    interface RequestLogger {
+        properties?: any;
+        serializers?: any;
+        headers?: any;
+        log?: any;
+    }
+
+    /**
+     * Adds timers for each handler in your request chain
+     *
+     * `options.properties` properties to pass to bunyan's `log.child()` method
+     */
+    function requestLogger(options?: RequestLogger): RequestHandler;
+
+    // ******************** The module includes the following response plugins:
+
+    /**
+     * expires requests based on current time + delta
+     * @param delta - age in seconds
+     */
+    function dateParser(delta?: number): RequestHandler;
+
+    /**
+     * gzips the response if client send `accept-encoding: gzip`
+     * @param options options to pass to gzlib
+     */
+    function gzipResponse(options?: zlib.ZlibOptions): RequestHandler;
+
+    interface InflightRequestThrottleOptions {
+        limit: number;
+        server: Server;
+        err: any;
+    }
+
+    function inflightRequestThrottle(
+        opts: InflightRequestThrottleOptions,
+    ): RequestHandler;
+
+    interface ServeStatic {
+        appendRequestPath?: boolean | undefined;
+        directory?: string | undefined;
+        maxAge?: number | undefined;
+        match?: any;
+        charSet?: string | undefined;
+        file?: string | undefined;
+        etag?: string | undefined;
+        default?: any;
+        gzip?: boolean | undefined;
+    }
+
+    /**
+     * Used to serve static files
+     */
+    function serveStatic(options?: ServeStatic): RequestHandler;
+
+    interface ServeStaticFiles {
+        maxAge?: number | undefined;
+        etag?: string | undefined;
+        setHeaders?: ((res: Response, path: string, stat: any) => any) | undefined;
+    }
+
+    /**
+     * Used to serve static files from a given directory
+     */
+    function serveStaticFiles(
+        dir: string,
+        options?: ServeStaticFiles,
+    ): RequestHandler;
+
+    interface ThrottleOptions {
+        burst?: number | undefined;
+        rate?: number | undefined;
+        setHeaders?: boolean | undefined;
+        ip?: boolean | undefined;
+        username?: boolean | undefined;
+        xff?: boolean | undefined;
+        tokensTable?: any;
+        maxKeys?: number | undefined;
+        overrides?: any; // any
+    }
+
+    /**
+     *  throttles responses
+     */
+    function throttle(options?: ThrottleOptions): RequestHandler;
+
+    type MetricsCallback = (
+        /**
+         *  An error if the request had an error
+         */
+        err: Error,
+        /**
+         *  Object that contains the various metrics that are returned
+         */
+        metrics: MetricsCallbackOptions,
+        /**
+         * The request obj
+         */
+        req: Request,
+        /**
+         * The response obj
+         */
+        res: Response,
+        /**
+         * The route obj that serviced the request
+         */
+        route: Route,
+    ) => void;
+
+    type TMetricsCallback = "close" | "aborted" | undefined;
+
+    interface MetricsCallbackOptions {
+        /**
+         * Status code of the response. Can be undefined in the case of an `uncaughtException`.
+         * Otherwise, in most normal scenarios, even calling `res.send()` or `res.end()` should result in a 200 by default.
+         */
+        statusCode: number;
+
+        /**
+         * HTTP request verb
+         */
+        method: string;
+
+        /**
+         * latency includes both request is flushed and all handlers finished
+         */
+        totalLatency: number;
+
+        /**
+         * Request latency
+         */
+        latency: number;
+
+        /**
+         * pre handlers latency
+         */
+        preLatency: number | null;
+
+        /**
+         * use handlers latency
+         */
+        useLatency: number | null;
+
+        /**
+         * req.path() value
+         */
+        path: string;
+
+        /**
+         * Number of inflight requests pending in restify
+         */
+        inflightRequests: number;
+
+        /**
+         * Same as `inflightRequests`
+         */
+        unfinishedRequests: number;
+
+        /**
+         * If this value is set, err will be a corresponding `RequestCloseError` or `RequestAbortedError`.
+         *
+         * If connectionState is either 'close' or 'aborted', then the statusCode is not applicable since the connection was severed before a response was written.
+         */
+        connectionState: TMetricsCallback;
+    }
+
+    /**
+     * Listens to the server's after event and emits information about that request (5.x compatible only).
+     *
+     * ```
+     * server.on('after', plugins.metrics({ server }, (err, metrics, req, res, route) =>
+     * {
+     *    // metrics is an object containing information about the request
+     * }));
+     * ```
+     */
+    function metrics(
+        opts: { server: Server },
+        callback: MetricsCallback,
+    ): (...args: any[]) => void;
+
+    /**
+     * Parse the client's request for an OAUTH2 access tokensTable
+     *
+     * Subsequent handlers will see `req.oauth2`, which looks like:
+     * ```
+     * {
+     *    oauth2: {accessToken: 'mF_9.B5f-4.1JqM&p=q'}
+     * }
+     * ```
+     */
+    function oauth2TokenParser(): RequestHandler;
+
+    interface RequestExpiryOptions {
+        /**
+         * Header name of the absolute time for request expiration
+         */
+        absoluteHeader?: string | undefined;
+
+        /**
+         * Header name for the start time of the request
+         */
+        startHeader?: string | undefined;
+
+        /**
+         * The header name for the time in milliseconds that should ellapse before the request is considered expired.
+         */
+        timeoutHeader?: string | undefined;
+    }
+
+    /**
+     * A request expiry will use headers to tell if the incoming request has expired or not.
+     *
+     * There are two options for this plugin:
+     *   1. Absolute Time
+     *     * Time in Milliseconds since the Epoch when this request should be considered expired
+     *   2. Timeout
+     *     * The request start time is supplied
+     *     * A timeout, in milliseconds, is given
+     *     * The timeout is added to the request start time to arrive at the absolute time
+     *       in which the request is considered expires
+     */
+    function requestExpiry(options?: RequestExpiryOptions): RequestHandler;
 }
 
 export namespace pre {

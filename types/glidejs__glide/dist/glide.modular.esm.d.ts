@@ -1,26 +1,26 @@
 /* this module is ESModule only. */
 
-import Glide = require('../index');
-import ComponentFunction from '../components';
-import TransformerFunction from '../mutator/transformers';
-import { Anchors } from '../components/anchors';
-import { Autoplay } from '../components/autoplay';
-import { Breakpoints } from '../components/breakpoints';
-import { Controls } from '../components/controls';
-import { Images } from '../components/images';
-import { Keyboard } from '../components/keyboard';
-import { Swipe } from '../components/swipe';
-import { Clones } from '../components/clones';
-import { Direction } from '../components/direction';
-import { Gaps } from '../components/gaps';
-import { Html } from '../components/html';
-import { Move } from '../components/move';
-import { Peek } from '../components/peek';
-import { Resize } from '../components/resize';
-import { Run } from '../components/run';
-import { Sizes } from '../components/sizes';
-import { Transition } from '../components/transition';
-import { Translate } from '../components/translate';
+import Glide = require("../index");
+import ComponentFunction from "../components";
+import { Anchors } from "../components/anchors";
+import { Autoplay } from "../components/autoplay";
+import { Breakpoints } from "../components/breakpoints";
+import { Clones } from "../components/clones";
+import { Controls } from "../components/controls";
+import { Direction } from "../components/direction";
+import { Gaps } from "../components/gaps";
+import { Html } from "../components/html";
+import { Images } from "../components/images";
+import { Keyboard } from "../components/keyboard";
+import { Move } from "../components/move";
+import { Peek } from "../components/peek";
+import { Resize } from "../components/resize";
+import { Run } from "../components/run";
+import { Sizes } from "../components/sizes";
+import { Swipe } from "../components/swipe";
+import { Transition } from "../components/transition";
+import { Translate } from "../components/translate";
+import TransformerFunction from "../mutator/transformers";
 
 export { ComponentFunction, TransformerFunction };
 

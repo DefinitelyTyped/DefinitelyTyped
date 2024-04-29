@@ -1,4 +1,4 @@
-import { DestinationAddress, Location, OnfleetDestination } from './Destinations';
+import { DestinationAddress, Location, OnfleetDestination } from "./Destinations";
 
 declare class Hub {
     create(obj: Hub.CreateHubProps): Promise<Hub.OnfleetHub>;
@@ -8,7 +8,7 @@ declare class Hub {
 
 declare namespace Hub {
     interface OnfleetHub {
-        address: OnfleetDestination['address'];
+        address: OnfleetDestination["address"];
         id: string;
         location: Location;
         name: string;

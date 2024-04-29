@@ -1,8 +1,3 @@
-// Type definitions for hepburn 1.2
-// Project: https://github.com/lovell/hepburn#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Converts a string containing Kana, either Hiragana or Katakana, to Romaji.
  */

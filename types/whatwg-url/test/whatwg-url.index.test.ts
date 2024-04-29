@@ -1,4 +1,4 @@
-import * as whatwgUrl from 'whatwg-url';
+import * as whatwgUrl from "whatwg-url";
 
 // test type exports
 type URLRecord = whatwgUrl.URLRecord;
@@ -11,14 +11,13 @@ type TypedArray = whatwgUrl.TypedArray;
 declare const searchParams: whatwgUrl.URLSearchParams;
 
 // $ExpectType URL
-new whatwgUrl.URL('http://example.com');
+new whatwgUrl.URL("http://example.com");
 
 // $ExpectType URL
-new whatwgUrl.URL('foo', 'http://example.com');
+new whatwgUrl.URL("foo", "http://example.com");
 
 // $ExpectType URLRecord | null
-const urlRecord = whatwgUrl.parseURL('http://example.com');
-whatwgUrl.parseURL('http://example.com', { baseURL: 'foo' });
+const urlRecord = whatwgUrl.parseURL("http://example.com");
 
 if (urlRecord !== null) {
     urlRecord.scheme; // $ExpectType string
@@ -29,46 +28,46 @@ if (urlRecord !== null) {
     urlRecord.path; // $ExpectType string | string[]
     urlRecord.query; // $ExpectType string | null
     urlRecord.fragment; // $ExpectType string | null
-    whatwgUrl.basicURLParse('http://example.com', { url: urlRecord }); // $ExpectType URLRecord | null
-    whatwgUrl.basicURLParse('http://example.com', { baseURL: 'foo' }); // $ExpectType URLRecord | null
+    whatwgUrl.basicURLParse("http://example.com", { url: urlRecord }); // $ExpectType URLRecord | null
+    whatwgUrl.basicURLParse("/relative/path", { baseURL: urlRecord }); // $ExpectType URLRecord | null
     (
         [
-            'scheme start',
-            'scheme',
-            'no scheme',
-            'special relative or authority',
-            'path or authority',
-            'relative',
-            'relative slash',
-            'special authority slashes',
-            'special authority ignore slashes',
-            'authority',
-            'host',
-            'hostname',
-            'port',
-            'file',
-            'file slash',
-            'file host',
-            'path start',
-            'path',
-            'opaque path',
-            'query',
-            'fragment',
+            "scheme start",
+            "scheme",
+            "no scheme",
+            "special relative or authority",
+            "path or authority",
+            "relative",
+            "relative slash",
+            "special authority slashes",
+            "special authority ignore slashes",
+            "authority",
+            "host",
+            "hostname",
+            "port",
+            "file",
+            "file slash",
+            "file host",
+            "path start",
+            "path",
+            "opaque path",
+            "query",
+            "fragment",
         ] as const
     ).forEach(override => {
-        whatwgUrl.basicURLParse('http://example.com', { stateOverride: override }); // $ExpectType URLRecord | null
+        whatwgUrl.basicURLParse("http://example.com", { stateOverride: override }); // $ExpectType URLRecord | null
     });
     whatwgUrl.serializeURL(urlRecord); // $ExpectType string
     whatwgUrl.serializeURLOrigin(urlRecord); // $ExpectType string
-    whatwgUrl.setTheUsername(urlRecord, 'user'); // $ExpectType void
-    whatwgUrl.setThePassword(urlRecord, 'secret'); // $ExpectType void
+    whatwgUrl.setTheUsername(urlRecord, "user"); // $ExpectType void
+    whatwgUrl.setThePassword(urlRecord, "secret"); // $ExpectType void
     whatwgUrl.cannotHaveAUsernamePasswordPort(urlRecord); // $ExpectType boolean
     whatwgUrl.serializePath(urlRecord); // $ExpectType string
     whatwgUrl.hasAnOpaquePath(urlRecord); // $ExpectType boolean
 }
 
 // $ExpectType string
-whatwgUrl.serializeHost('http://example.com');
+whatwgUrl.serializeHost("http://example.com");
 
 // $ExpectType string
 whatwgUrl.serializeHost(42);
@@ -83,7 +82,7 @@ whatwgUrl.serializeInteger(42);
 whatwgUrl.percentDecodeBytes(new Uint8Array([]));
 
 // $ExpectType Uint8Array
-whatwgUrl.percentDecodeString('foo');
+whatwgUrl.percentDecodeString("foo");
 
 [
     Int8Array,
@@ -113,8 +112,7 @@ searchParams.forEach((value, name, self) => {
     self; // $ExpectType URLSearchParams
 });
 
-// tslint:disable-next-line: space-before-function-paren
-searchParams.forEach(function (value, name, self) {
+searchParams.forEach(function(value, name, self) {
     this; // $ExpectType null
     value; // $ExpectType string
     name; // $ExpectType string

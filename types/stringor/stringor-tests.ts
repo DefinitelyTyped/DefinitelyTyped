@@ -1,3 +1,3 @@
-import stringd = require('stringor');
+import stringd = require("stringor");
 
 stringd.randomstring(8);

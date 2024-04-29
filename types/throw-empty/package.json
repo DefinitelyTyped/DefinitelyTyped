@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/throw-empty",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/throw-empty"
+    ],
+    "devDependencies": {
+        "@types/throw-empty": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajas Paranjpe",
+            "githubUsername": "ChocolateLoverRaj"
+        }
+    ]
+}

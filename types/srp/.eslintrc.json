@@ -1,7 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "export-just-namespace": "off",
-        "trim-file": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/export-just-namespace": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/triple-slash-reference": "off"
     }
 }

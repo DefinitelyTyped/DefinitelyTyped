@@ -7,9 +7,10 @@
  * * [High Resolution Time](https://www.w3.org/TR/hr-time-2)
  * * [Performance Timeline](https://w3c.github.io/performance-timeline/)
  * * [User Timing](https://www.w3.org/TR/user-timing/)
+ * * [Resource Timing](https://www.w3.org/TR/resource-timing-2/)
  *
  * ```js
- * const { PerformanceObserver, performance } = require('perf_hooks');
+ * const { PerformanceObserver, performance } = require('node:perf_hooks');
  *
  * const obs = new PerformanceObserver((items) => {
  *   console.log(items.getEntries()[0].duration);
@@ -26,11 +27,11 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/perf_hooks.js)
  */
-declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
-    type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
+declare module "perf_hooks" {
+    import { AsyncResource } from "node:async_hooks";
+    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http" | "dns" | "net";
     interface NodeGCPerformanceDetail {
         /**
          * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
@@ -46,6 +47,7 @@ declare module 'perf_hooks' {
         readonly flags?: number | undefined;
     }
     /**
+     * The constructor of this class is not exposed to users directly.
      * @since v8.5.0
      */
     class PerformanceEntry {
@@ -87,12 +89,22 @@ declare module 'perf_hooks' {
         readonly detail?: NodeGCPerformanceDetail | unknown | undefined; // TODO: Narrow this based on entry type.
         toJSON(): any;
     }
+    /**
+     * Exposes marks created via the `Performance.mark()` method.
+     * @since v18.2.0, v16.17.0
+     */
     class PerformanceMark extends PerformanceEntry {
         readonly duration: 0;
-        readonly entryType: 'mark';
+        readonly entryType: "mark";
     }
+    /**
+     * Exposes measures created via the `Performance.measure()` method.
+     *
+     * The constructor of this class is not exposed to users directly.
+     * @since v18.2.0, v16.17.0
+     */
     class PerformanceMeasure extends PerformanceEntry {
-        readonly entryType: 'measure';
+        readonly entryType: "measure";
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
@@ -154,7 +166,10 @@ declare module 'perf_hooks' {
      * @param util1 The result of a previous call to eventLoopUtilization()
      * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
      */
-    type EventLoopUtilityFunction = (util1?: EventLoopUtilization, util2?: EventLoopUtilization) => EventLoopUtilization;
+    type EventLoopUtilityFunction = (
+        util1?: EventLoopUtilization,
+        util2?: EventLoopUtilization,
+    ) => EventLoopUtilization;
     interface MarkOptions {
         /**
          * Additional optional detail to include with the mark.
@@ -288,8 +303,8 @@ declare module 'perf_hooks' {
          * ```js
          * const {
          *   performance,
-         *   PerformanceObserver
-         * } = require('perf_hooks');
+         *   PerformanceObserver,
+         * } = require('node:perf_hooks');
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntries());
@@ -299,16 +314,17 @@ declare module 'perf_hooks' {
          *    *     name: 'test',
          *    *     entryType: 'mark',
          *    *     startTime: 81.465639,
-         *    *     duration: 0
+         *    *     duration: 0,
+         *    *     detail: null
          *    *   },
          *    *   PerformanceEntry {
          *    *     name: 'meow',
          *    *     entryType: 'mark',
          *    *     startTime: 81.860064,
-         *    *     duration: 0
+         *    *     duration: 0,
+         *    *     detail: null
          *    *   }
          *    * ]
-         *
          *
          *   performance.clearMarks();
          *   performance.clearMeasures();
@@ -330,8 +346,8 @@ declare module 'perf_hooks' {
          * ```js
          * const {
          *   performance,
-         *   PerformanceObserver
-         * } = require('perf_hooks');
+         *   PerformanceObserver,
+         * } = require('node:perf_hooks');
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntriesByName('meow'));
@@ -341,7 +357,8 @@ declare module 'perf_hooks' {
          *    *     name: 'meow',
          *    *     entryType: 'mark',
          *    *     startTime: 98.545991,
-         *    *     duration: 0
+         *    *     duration: 0,
+         *    *     detail: null
          *    *   }
          *    * ]
          *
@@ -354,7 +371,8 @@ declare module 'perf_hooks' {
          *    *     name: 'test',
          *    *     entryType: 'mark',
          *    *     startTime: 63.518931,
-         *    *     duration: 0
+         *    *     duration: 0,
+         *    *     detail: null
          *    *   }
          *    * ]
          *
@@ -379,8 +397,8 @@ declare module 'perf_hooks' {
          * ```js
          * const {
          *   performance,
-         *   PerformanceObserver
-         * } = require('perf_hooks');
+         *   PerformanceObserver,
+         * } = require('node:perf_hooks');
          *
          * const obs = new PerformanceObserver((perfObserverList, observer) => {
          *   console.log(perfObserverList.getEntriesByType('mark'));
@@ -390,13 +408,15 @@ declare module 'perf_hooks' {
          *    *     name: 'test',
          *    *     entryType: 'mark',
          *    *     startTime: 55.897834,
-         *    *     duration: 0
+         *    *     duration: 0,
+         *    *     detail: null
          *    *   },
          *    *   PerformanceEntry {
          *    *     name: 'meow',
          *    *     entryType: 'mark',
          *    *     startTime: 56.350146,
-         *    *     duration: 0
+         *    *     duration: 0,
+         *    *     detail: null
          *    *   }
          *    * ]
          *
@@ -414,6 +434,9 @@ declare module 'perf_hooks' {
         getEntriesByType(type: EntryType): PerformanceEntry[];
     }
     type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
+    /**
+     * @since v8.5.0
+     */
     class PerformanceObserver extends AsyncResource {
         constructor(callback: PerformanceObserverCallback);
         /**
@@ -427,8 +450,8 @@ declare module 'perf_hooks' {
          * ```js
          * const {
          *   performance,
-         *   PerformanceObserver
-         * } = require('perf_hooks');
+         *   PerformanceObserver,
+         * } = require('node:perf_hooks');
          *
          * const obs = new PerformanceObserver((list, observer) => {
          *   // Called once asynchronously. `list` contains three items.
@@ -443,13 +466,13 @@ declare module 'perf_hooks' {
         observe(
             options:
                 | {
-                      entryTypes: ReadonlyArray<EntryType>;
-                      buffered?: boolean | undefined;
-                  }
+                    entryTypes: readonly EntryType[];
+                    buffered?: boolean | undefined;
+                }
                 | {
-                      type: EntryType;
-                      buffered?: boolean | undefined;
-                  }
+                    type: EntryType;
+                    buffered?: boolean | undefined;
+                },
         ): void;
     }
     namespace constants {
@@ -547,11 +570,10 @@ declare module 'perf_hooks' {
          */
         recordDelta(): void;
         /**
-         * Adds the values from other to this histogram.
+         * Adds the values from `other` to this histogram.
          * @since v17.4.0, v16.14.0
-         * @param other Recordable Histogram to combine with
          */
-         add(other: RecordableHistogram): void;
+        add(other: RecordableHistogram): void;
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
@@ -566,7 +588,7 @@ declare module 'perf_hooks' {
      * detect.
      *
      * ```js
-     * const { monitorEventLoopDelay } = require('perf_hooks');
+     * const { monitorEventLoopDelay } = require('node:perf_hooks');
      * const h = monitorEventLoopDelay({ resolution: 20 });
      * h.enable();
      * // Do something.
@@ -604,8 +626,7 @@ declare module 'perf_hooks' {
      * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
-
-    import { performance as _performance } from 'perf_hooks';
+    import { performance as _performance } from "perf_hooks";
     global {
         /**
          * `performance` is a global reference for `require('perf_hooks').performance`
@@ -615,11 +636,10 @@ declare module 'perf_hooks' {
         var performance: typeof globalThis extends {
             onmessage: any;
             performance: infer T;
-        }
-            ? T
+        } ? T
             : typeof _performance;
     }
 }
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
+declare module "node:perf_hooks" {
+    export * from "perf_hooks";
 }

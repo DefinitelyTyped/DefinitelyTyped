@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.types
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Contains types used by other schemas.
  *

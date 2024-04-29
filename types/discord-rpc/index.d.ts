@@ -1,60 +1,50 @@
-// Type definitions for discord-rpc 4.0
-// Project: https://github.com/discordjs/RPC#readme
-// Definitions by: Jason Bothell <https://github.com/jasonhaxstuff>
-//                 Jack Baron <https://github.com/lolPants>
-//                 Dylan Hackworth <https://github.com/dylhack>
-//                 Sankarsan Kampa <https://github.com/k3rn31p4nic>
-//                 Brian Dashore <https://github.com/bdashore3>
-//                 HanchaiN <https://github.com/HanchaiN>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export type Listener = (...args: any[]) => void;
 
 export function register(id: string): boolean;
 
-export type eventNames = 'ready' | 'connected' | 'disconnected' | string;
+export type eventNames = "ready" | "connected" | "disconnected" | string;
 
 export type RPCEvents =
-    | 'CURRENT_USER_UPDATE'
-    | 'GUILD_STATUS'
-    | 'GUILD_CREATE'
-    | 'CHANNEL_CREATE'
-    | 'RELATIONSHIP_UPDATE'
-    | 'VOICE_CHANNEL_SELECT'
-    | 'VOICE_STATE_CREATE'
-    | 'VOICE_STATE_DELETE'
-    | 'VOICE_STATE_UPDATE'
-    | 'VOICE_SETTINGS_UPDATE'
-    | 'VOICE_SETTINGS_UPDATE_2'
-    | 'VOICE_CONNECTION_STATUS'
-    | 'SPEAKING_START'
-    | 'SPEAKING_STOP'
-    | 'GAME_JOIN'
-    | 'GAME_SPECTATE'
-    | 'ACTIVITY_JOIN'
-    | 'ACTIVITY_JOIN_REQUEST'
-    | 'ACTIVITY_SPECTATE'
-    | 'ACTIVITY_INVITE'
-    | 'NOTIFICATION_CREATE'
-    | 'MESSAGE_CREATE'
-    | 'MESSAGE_UPDATE'
-    | 'MESSAGE_DELETE'
-    | 'LOBBY_DELETE'
-    | 'LOBBY_UPDATE'
-    | 'LOBBY_MEMBER_CONNECT'
-    | 'LOBBY_MEMBER_DISCONNECT'
-    | 'LOBBY_MEMBER_UPDATE'
-    | 'LOBBY_MESSAGE'
-    | 'CAPTURE_SHORTCUT_CHANGE'
-    | 'OVERLAY'
-    | 'OVERLAY_UPDATE'
-    | 'ENTITLEMENT_CREATE'
-    | 'ENTITLEMENT_DELETE'
-    | 'USER_ACHIEVEMENT_UPDATE'
-    | 'READY'
-    | 'ERROR';
+    | "CURRENT_USER_UPDATE"
+    | "GUILD_STATUS"
+    | "GUILD_CREATE"
+    | "CHANNEL_CREATE"
+    | "RELATIONSHIP_UPDATE"
+    | "VOICE_CHANNEL_SELECT"
+    | "VOICE_STATE_CREATE"
+    | "VOICE_STATE_DELETE"
+    | "VOICE_STATE_UPDATE"
+    | "VOICE_SETTINGS_UPDATE"
+    | "VOICE_SETTINGS_UPDATE_2"
+    | "VOICE_CONNECTION_STATUS"
+    | "SPEAKING_START"
+    | "SPEAKING_STOP"
+    | "GAME_JOIN"
+    | "GAME_SPECTATE"
+    | "ACTIVITY_JOIN"
+    | "ACTIVITY_JOIN_REQUEST"
+    | "ACTIVITY_SPECTATE"
+    | "ACTIVITY_INVITE"
+    | "NOTIFICATION_CREATE"
+    | "MESSAGE_CREATE"
+    | "MESSAGE_UPDATE"
+    | "MESSAGE_DELETE"
+    | "LOBBY_DELETE"
+    | "LOBBY_UPDATE"
+    | "LOBBY_MEMBER_CONNECT"
+    | "LOBBY_MEMBER_DISCONNECT"
+    | "LOBBY_MEMBER_UPDATE"
+    | "LOBBY_MESSAGE"
+    | "CAPTURE_SHORTCUT_CHANGE"
+    | "OVERLAY"
+    | "OVERLAY_UPDATE"
+    | "ENTITLEMENT_CREATE"
+    | "ENTITLEMENT_DELETE"
+    | "USER_ACHIEVEMENT_UPDATE"
+    | "READY"
+    | "ERROR";
 
 export class BaseClient extends EventEmitter {}
 
@@ -201,18 +191,18 @@ export class Client extends BaseClient {
      * Invite a user to join the game the RPC user is currently playing
      * @param user The user to invite
      */
-    sendJoinInvite(user: User | User['id']): Promise<any>;
+    sendJoinInvite(user: User | User["id"]): Promise<any>;
 
     /**
      * Request to join the game the user is playing
      * @param user The user whose game you want to request to join
      */
-    sendJoinRequest(user: User | User['id']): Promise<any>;
+    sendJoinRequest(user: User | User["id"]): Promise<any>;
     /**
      * Reject a join request from a user
      * @param user The user whose request you wish to reject
      */
-    closeJoinRequest(user: User | User['id']): Promise<any>;
+    closeJoinRequest(user: User | User["id"]): Promise<any>;
 
     createLobby(type: string, capacity: number, metadata: any): Promise<any>;
     updateLobby(
@@ -267,7 +257,7 @@ export interface RPCClientOptions extends ClientOptions {
     /**
      * RPC transport. one of `ipc` or `websocket`
      */
-    transport: 'ipc' | 'websocket';
+    transport: "ipc" | "websocket";
 }
 
 export interface RPCLoginOptions {
@@ -295,7 +285,7 @@ export interface RPCLoginOptions {
      * Scopes to authorize with
      */
     scopes?: string[] | undefined;
-    prompt?: 'none' | 'consent' | undefined;
+    prompt?: "none" | "consent" | undefined;
 }
 
 export interface Guild {
@@ -355,7 +345,7 @@ export interface CertifiedDevice {
     /**
      * One of `AUDIO_INPUT`, `AUDIO_OUTPUT`, `VIDEO_INPUT`
      */
-    type: 'AUDIO_INPUT' | 'AUDIO_OUTPUT' | 'VIDEO_INPUT';
+    type: "AUDIO_INPUT" | "AUDIO_OUTPUT" | "VIDEO_INPUT";
     /**
      * This device's Windows UUID
      */
@@ -438,23 +428,23 @@ export interface VoiceSettings {
     mute: boolean;
     input?:
         | {
-              device: string;
-              volume: number;
-          }
+            device: string;
+            volume: number;
+        }
         | undefined;
     output?:
         | {
-              device: string;
-              volume: number;
-          }
+            device: string;
+            volume: number;
+        }
         | undefined;
     mode?:
         | {
-              autoThreshold: boolean;
-              threshold: number;
-              shortcut: Array<{ type: number; code: number; name: string }>;
-              delay: number;
-          }
+            autoThreshold: boolean;
+            threshold: number;
+            shortcut: Array<{ type: number; code: number; name: string }>;
+            delay: number;
+        }
         | undefined;
 }
 

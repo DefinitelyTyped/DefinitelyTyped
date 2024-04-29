@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rails__actioncable",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable"
+    ],
+    "devDependencies": {
+        "@types/rails__actioncable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

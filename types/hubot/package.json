@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/hubot",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/hubotio/hubot"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/scoped-http-client": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/hubot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dirk Gadsden",
+            "githubUsername": "dirk"
+        },
+        {
+            "name": "Kees C. Bakker",
+            "githubUsername": "KeesCBakker"
+        },
+        {
+            "name": "Emil Marklund",
+            "githubUsername": "eeemil"
+        },
+        {
+            "name": "Jon Phenow",
+            "githubUsername": "jphenow"
+        }
+    ]
+}

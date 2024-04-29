@@ -1,5 +1,5 @@
 import { loglinecolor } from "loglinecolor";
-const lc = new loglinecolor();
+const llc = new loglinecolor();
 
-// $ExpectType string
-lc.blue("Hello, World!");
+// $ExpectType void
+llc.highlight("Highlight font");

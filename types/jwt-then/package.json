@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jwt-then",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/fl0w/jwt-then#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/jwt-then": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Definitions by: Max Uetrecht",
+            "githubUsername": "phenomax"
+        }
+    ]
+}

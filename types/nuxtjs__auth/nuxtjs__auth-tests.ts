@@ -1,13 +1,13 @@
-import Vue from 'vue';
+import Vue from "vue";
 
 new Vue({
-  el: '#app',
-  methods: {
-    logout(): void {
-      this.$auth.logout();
+    el: "#app",
+    methods: {
+        logout(): void {
+            this.$auth.logout();
+        },
     },
-  },
-  template: `
+    template: `
     Logout
     <a @click="logout">
         Logout

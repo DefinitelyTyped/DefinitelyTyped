@@ -1,7 +1,18 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/prefer-namespace": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-misused-new": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

@@ -1,40 +1,26 @@
-// Type definitions for inquirer 9.0
-// Project: https://github.com/SBoudrias/Inquirer.js
-// Definitions by: Qubo <https://github.com/tkQubo>
-//                 Parvez <https://github.com/ppathan>
-//                 Jouderian <https://github.com/jouderianjr>
-//                 Qibang <https://github.com/bang88>
-//                 Jason Dreyzehner <https://github.com/bitjson>
-//                 Synarque <https://github.com/synarque>
-//                 Justin Rockwood <https://github.com/jrockwood>
-//                 Keith Kelly <https://github.com/kwkelly>
-//                 Richard Lea <https://github.com/chigix>
-//                 Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-import { Interface as ReadlineInterface } from 'readline';
-import { Observable } from 'rxjs';
-import { ThroughStream } from 'through';
-import Choice from './lib/objects/choice.js';
-import Choices from './lib/objects/choices.js';
-import Separator from './lib/objects/separator.js';
-import './lib/prompts/base.js';
-import CheckboxPrompt from './lib/prompts/checkbox.js';
-import ConfirmPrompt from './lib/prompts/confirm.js';
-import EditorPrompt from './lib/prompts/editor.js';
-import ExpandPrompt from './lib/prompts/expand.js';
-import InputPrompt from './lib/prompts/input.js';
-import ListPrompt from './lib/prompts/list.js';
-import NumberPrompt from './lib/prompts/number.js';
-import PasswordPrompt from './lib/prompts/password.js';
-import RawListPrompt from './lib/prompts/rawlist.js';
-import UI from './lib/ui/baseUI.js';
-import './lib/ui/bottom-bar.js';
-import './lib/ui/prompt.js';
-import './lib/utils/events.js';
-import './lib/utils/paginator.js';
-import './lib/utils/readline.js';
-import './lib/utils/screen-manager.js';
+import { Interface as ReadlineInterface } from "readline";
+import { Observable } from "rxjs";
+import { ThroughStream } from "through";
+import Choice from "./lib/objects/choice.js";
+import Choices from "./lib/objects/choices.js";
+import Separator from "./lib/objects/separator.js";
+import "./lib/prompts/base.js";
+import CheckboxPrompt from "./lib/prompts/checkbox.js";
+import ConfirmPrompt from "./lib/prompts/confirm.js";
+import EditorPrompt from "./lib/prompts/editor.js";
+import ExpandPrompt from "./lib/prompts/expand.js";
+import InputPrompt from "./lib/prompts/input.js";
+import ListPrompt from "./lib/prompts/list.js";
+import NumberPrompt from "./lib/prompts/number.js";
+import PasswordPrompt from "./lib/prompts/password.js";
+import RawListPrompt from "./lib/prompts/rawlist.js";
+import UI from "./lib/ui/baseUI.js";
+import "./lib/ui/bottom-bar.js";
+import "./lib/ui/prompt.js";
+import "./lib/utils/events.js";
+import "./lib/utils/paginator.js";
+import "./lib/utils/readline.js";
+import "./lib/utils/screen-manager.js";
 
 /**
  * Represents a union which preserves autocompletion.
@@ -81,12 +67,12 @@ export interface PromptModuleBase extends PromptFunction {
 /**
  * Represents a function for registering a prompt.
  */
-type RegisterFunction = PromptModuleBase['registerPrompt'];
+type RegisterFunction = PromptModuleBase["registerPrompt"];
 
 /**
  * Represents a function for restoring a prompt.
  */
-type RestoreFunction = PromptModuleBase['restoreDefaultPrompts'];
+type RestoreFunction = PromptModuleBase["restoreDefaultPrompts"];
 
 /**
  * Represents a list-based question.
@@ -144,7 +130,7 @@ export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) ex
 /**
  * A set of answers.
  */
-export interface Answers extends Record<string, any> { }
+export interface Answers extends Record<string, any> {}
 
 /**
  * Provides the functionality to validate answers.
@@ -152,7 +138,7 @@ export interface Answers extends Record<string, any> { }
  * @template T
  * The type of the answers.
  */
-export type Validator<T extends Answers = Answers> = Question<T>['validate'];
+export type Validator<T extends Answers = Answers> = Question<T>["validate"];
 
 /**
  * Provides the functionality to transform an answer.
@@ -160,7 +146,7 @@ export type Validator<T extends Answers = Answers> = Question<T>['validate'];
  * @template T
  * The type of the answers.
  */
-export type Transformer<T extends Answers = Answers> = InputQuestionOptions<T>['transformer'];
+export type Transformer<T extends Answers = Answers> = InputQuestionOptions<T>["transformer"];
 
 /**
  * Represents a dynamic property for a question.
@@ -240,7 +226,7 @@ export interface SeparatorOptions extends ChoiceBase {
     /**
      * Gets the type of the choice.
      */
-    type: 'separator';
+    type: "separator";
 
     /**
      * Gets or sets the text of the separator.
@@ -255,7 +241,7 @@ export interface ChoiceOptions extends ChoiceBase {
     /**
      * @inheritdoc
      */
-    type?: 'choice' | undefined;
+    type?: "choice" | undefined;
 
     /**
      * The name of the choice to show to the user.
@@ -434,8 +420,8 @@ export interface Question<T extends Answers = Answers> {
 export type QuestionAnswer<T extends Answers = Answers> = {
     [K in keyof T]: {
         name: K;
-        answer: T[K]
-    }
+        answer: T[K];
+    };
 }[keyof T];
 
 /**
@@ -473,7 +459,7 @@ export interface InputQuestion<T extends Answers = Answers> extends InputQuestio
     /**
      * @inheritdoc
      */
-    type?: 'input' | undefined;
+    type?: "input" | undefined;
 }
 
 /**
@@ -482,7 +468,7 @@ export interface InputQuestion<T extends Answers = Answers> extends InputQuestio
  * @template T
  * The type of the answers.
  */
-export interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> { }
+export interface NumberQuestionOptions<T extends Answers = Answers> extends InputQuestionOptions<T> {}
 
 /**
  * Provides options for a question for the {@link NumberPrompt `NumberPrompt<TQuestion>`}.
@@ -494,7 +480,7 @@ export interface NumberQuestion<T extends Answers = Answers> extends NumberQuest
     /**
      * @inheritdoc
      */
-    type: 'number';
+    type: "number";
 }
 
 /**
@@ -520,7 +506,7 @@ export interface PasswordQuestion<T extends Answers = Answers> extends PasswordQ
     /**
      * @inheritdoc
      */
-    type: 'password';
+    type: "password";
 }
 
 /**
@@ -532,7 +518,9 @@ export interface PasswordQuestion<T extends Answers = Answers> extends PasswordQ
  * @template TChoiceMap
  * The valid choices for the question.
  */
-interface LoopableListQuestionOptionsBase<T extends Answers, TChoiceMap> extends ListQuestionOptionsBase<T, TChoiceMap> {
+interface LoopableListQuestionOptionsBase<T extends Answers, TChoiceMap>
+    extends ListQuestionOptionsBase<T, TChoiceMap>
+{
     /**
      * A value indicating whether choices in a list should be looped.
      */
@@ -546,7 +534,8 @@ interface LoopableListQuestionOptionsBase<T extends Answers, TChoiceMap> extends
  * The type of the answers.
  */
 export interface ListQuestionOptions<T extends Answers = Answers>
-    extends LoopableListQuestionOptionsBase<T, ListChoiceMap<T>> { }
+    extends LoopableListQuestionOptionsBase<T, ListChoiceMap<T>>
+{}
 
 /**
  * Provides options for a question for the {@link ListPrompt `ListPrompt<TQuestion>`}.
@@ -558,7 +547,7 @@ export interface ListQuestion<T extends Answers = Answers> extends ListQuestionO
     /**
      * @inheritdoc
      */
-    type: 'list';
+    type: "list";
 }
 
 /**
@@ -567,7 +556,7 @@ export interface ListQuestion<T extends Answers = Answers> extends ListQuestionO
  * @template T
  * The type of the answers.
  */
-export interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> { }
+export interface RawListQuestionOptions<T extends Answers = Answers> extends ListQuestionOptions<T> {}
 
 /**
  * Provides options for a question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.
@@ -579,7 +568,7 @@ export interface RawListQuestion<T extends Answers = Answers> extends RawListQue
     /**
      * @inheritdoc
      */
-    type: 'rawlist';
+    type: "rawlist";
 }
 
 /**
@@ -589,7 +578,8 @@ export interface RawListQuestion<T extends Answers = Answers> extends RawListQue
  * The type of the answers.
  */
 export interface ExpandQuestionOptions<T extends Answers = Answers>
-    extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>> { }
+    extends ListQuestionOptionsBase<T, ExpandChoiceMap<T>>
+{}
 
 /**
  * Provides options for a question for the {@link ExpandPrompt `ExpandPrompt<TQuestion>`}.
@@ -601,7 +591,7 @@ export interface ExpandQuestion<T extends Answers = Answers> extends ExpandQuest
     /**
      * @inheritdoc
      */
-    type: 'expand';
+    type: "expand";
 }
 
 /**
@@ -611,7 +601,8 @@ export interface ExpandQuestion<T extends Answers = Answers> extends ExpandQuest
  * The type of the answers.
  */
 export interface CheckboxQuestionOptions<T extends Answers = Answers>
-    extends LoopableListQuestionOptionsBase<T, CheckboxChoiceMap<T>> { }
+    extends LoopableListQuestionOptionsBase<T, CheckboxChoiceMap<T>>
+{}
 
 /**
  * Provides options for a question for the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`}.
@@ -623,7 +614,7 @@ export interface CheckboxQuestion<T extends Answers = Answers> extends CheckboxQ
     /**
      * @inheritdoc
      */
-    type: 'checkbox';
+    type: "checkbox";
 }
 
 /**
@@ -632,7 +623,7 @@ export interface CheckboxQuestion<T extends Answers = Answers> extends CheckboxQ
  * @template T
  * The type of the answers.
  */
-export interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> { }
+export interface ConfirmQuestionOptions<T extends Answers = Answers> extends Question<T> {}
 
 /**
  * Provides options for a question for the {@link ConfirmPrompt `ConfirmPrompt<TQuestion>`}.
@@ -644,7 +635,7 @@ export interface ConfirmQuestion<T extends Answers = Answers> extends ConfirmQue
     /**
      * @inheritdoc
      */
-    type: 'confirm';
+    type: "confirm";
 }
 
 /**
@@ -672,7 +663,7 @@ export interface EditorQuestion<T extends Answers = Answers> extends EditorQuest
     /**
      * @inheritdoc
      */
-    type: 'editor';
+    type: "editor";
 }
 
 /**
@@ -739,7 +730,7 @@ export type DistinctQuestion<T extends Answers = Answers> = QuestionMap<T>[keyof
 /**
  * Indicates the type of a question
  */
-export type QuestionTypeName = DistinctQuestion['type'];
+export type QuestionTypeName = DistinctQuestion["type"];
 
 /**
  * Represents a collection of questions.
@@ -785,7 +776,10 @@ export interface PromptModule extends PromptModuleBase {
     /**
      * Prompts the questions to the user.
      */
-    <T extends Answers = Answers>(questions: QuestionCollection<T>, initialAnswers?: Partial<T>): Promise<T> & { ui: inquirer.ui.Prompt<T> };
+    <T extends Answers = Answers>(
+        questions: QuestionCollection<T>,
+        initialAnswers?: Partial<T>,
+    ): Promise<T> & { ui: inquirer.ui.Prompt<T> };
 
     /**
      * Registers a new prompt-type.
@@ -823,7 +817,7 @@ declare namespace inquirer {
         /**
          * Represents the state of a prompt.
          */
-        type PromptState = LiteralUnion<'pending' | 'idle' | 'loading' | 'answered' | 'done'>;
+        type PromptState = LiteralUnion<"pending" | "idle" | "loading" | "answered" | "done">;
 
         /**
          * Represents a prompt.
@@ -1148,7 +1142,7 @@ declare namespace inquirer {
         /**
          * @inheritdoc
          */
-        readonly type: 'separator';
+        readonly type: "separator";
 
         /**
          * @inheritdoc

@@ -1,9 +1,11 @@
-import React = require('react');
+import React = require("react");
 
-import { EmojiData, EmojiSkin, CustomEmoji } from './emoji-index/nimble-emoji-index';
+import { CustomEmoji, EmojiData, EmojiSkin } from "./emoji-index/nimble-emoji-index";
+
+import { JSX } from "react";
 
 export type BackgroundImageFn = (set: EmojiSet, sheetSize: EmojiSheetSize) => string;
-export type EmojiSet = 'apple' | 'google' | 'twitter' | 'emojione' | 'messenger' | 'facebook';
+export type EmojiSet = "apple" | "google" | "twitter" | "emojione" | "messenger" | "facebook";
 export type EmojiSheetSize = 16 | 20 | 32 | 64;
 
 export interface EmojiProps {
@@ -33,19 +35,19 @@ export interface EmojiProps {
 }
 
 export type CategoryName =
-    | 'search'
-    | 'recent'
-    | 'people'
-    | 'nature'
-    | 'foods'
-    | 'activity'
-    | 'places'
-    | 'objects'
-    | 'symbols'
-    | 'flags'
-    | 'custom';
+    | "search"
+    | "recent"
+    | "people"
+    | "nature"
+    | "foods"
+    | "activity"
+    | "places"
+    | "objects"
+    | "symbols"
+    | "flags"
+    | "custom";
 
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface I18n {
     search: string;
     categories: Record<CategoryName, string>;
@@ -53,7 +55,7 @@ export interface I18n {
     skintext: string;
 }
 
-export type PartialI18n = Partial<Pick<I18n, 'search' | 'notfound'> & { categories: Partial<I18n['categories']> }>;
+export type PartialI18n = Partial<Pick<I18n, "search" | "notfound"> & { categories: Partial<I18n["categories"]> }>;
 
 export interface CustomIcons {
     categories: Record<CategoryName, () => React.ReactNode>;
@@ -69,7 +71,7 @@ export interface PickerProps {
     i18n?: PartialI18n | undefined;
     style?: React.CSSProperties | undefined;
     title?: string | undefined;
-    theme?: 'auto' | 'light' | 'dark' | undefined;
+    theme?: "auto" | "light" | "dark" | undefined;
     emoji?: string | undefined;
     color?: string | undefined;
     set?: EmojiSet | undefined;

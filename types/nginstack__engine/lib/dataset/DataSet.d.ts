@@ -100,7 +100,7 @@ declare class DataSet {
         options?: GetFieldOptions | number
     ): string | number | Date | boolean | null;
     setField(fieldId: number | string, value: any, opt_ignoreInvalidFieldId?: boolean): void;
-    applyUpdates(opt_waitDBCacheSync?: boolean, opt_logChanges?: boolean): number;
+    applyUpdates(waitDBCacheSync?: boolean, logChanges?: boolean): number;
     cancelUpdates(opt_key?: number): void;
     copyStructure(sourceDataSet: DataSet, fieldNames?: string): void;
     rollBack(): void;
@@ -195,20 +195,20 @@ declare class DataSetFieldDefs {
     assign(fieldDefs: DataSetFieldDefs): void;
     toArray(): DataSetFieldDef[];
 }
-type File = import('../io/File');
-type MemoryStream = import('../io/MemoryStream');
-type GetFieldOptions = import('./GetFieldOptions');
-interface ApplyUndoLogOptions {
-    startVersion: number | null;
-    endVersion: number | null;
-}
-type DeltaInspector = import('./DeltaInspector');
 import DBKey = require('../dbkey/DBKey.js');
 declare function getIntegerDataType(): DataSetFieldType;
 declare function setIntegerDataType(type: DataSetFieldType): void;
 declare function setStringOverflowMode(mode: string): void;
 declare function getStringOverflowMode(): string;
+type File = import('../io/File');
+type MemoryStream = import('../io/MemoryStream');
+type GetFieldOptions = import('./GetFieldOptions');
+type DeltaInspector = import('./DeltaInspector');
 type DataSetFieldType = import('./DataSetDataType').DataSetFieldType;
+interface ApplyUndoLogOptions {
+    startVersion: number | null;
+    endVersion: number | null;
+}
 interface DataSetFieldDef {
     name: string;
     type: DataSetFieldType;

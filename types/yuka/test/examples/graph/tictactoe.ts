@@ -41,43 +41,43 @@ function evaluate() {
 function updateUI() {
     const node = graph.getNode(graph.currentNode);
     const board = node.board;
-    const cells = document.querySelectorAll<HTMLButtonElement>('.cell');
+    const cells = document.querySelectorAll<HTMLButtonElement>(".cell");
     cells.forEach(cell => {
-        const cellid: number = parseInt(cell.dataset.cellid || '', 10);
+        const cellid: number = parseInt(cell.dataset.cellid || "", 10);
         const status = board[cellid];
         switch (status) {
             case 1:
-                cell.textContent = 'X';
+                cell.textContent = "X";
                 break;
             case 2:
-                cell.textContent = 'O';
+                cell.textContent = "O";
                 break;
             default:
-                cell.textContent = '';
+                cell.textContent = "";
                 break;
         }
     });
 
     if (fin) {
-        const intro = document.getElementById('intro');
+        const intro = document.getElementById("intro");
         if (intro) {
-            intro.classList.remove('hidden');
+            intro.classList.remove("hidden");
         }
-        const startSection = document.getElementById('startSection');
+        const startSection = document.getElementById("startSection");
         if (startSection) {
-            startSection.style.display = 'none';
+            startSection.style.display = "none";
         }
-        const endSection = document.getElementById('endSection');
+        const endSection = document.getElementById("endSection");
         if (endSection) {
-            endSection.style.display = 'flex';
+            endSection.style.display = "flex";
         }
-        const result = document.getElementById('result');
+        const result = document.getElementById("result");
         if (!result) {
             return;
         }
 
         result.textContent = (node.win)
-            ? ((node.winPlayer === player) ? 'You win the game!' : 'The AI wins the game!')
-            : 'Draw!';
+            ? ((node.winPlayer === player) ? "You win the game!" : "The AI wins the game!")
+            : "Draw!";
     }
 }

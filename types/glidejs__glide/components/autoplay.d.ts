@@ -1,4 +1,4 @@
-export type AutoplayEvents = 'autoplay';
+export type AutoplayEvents = "autoplay";
 
 export interface AutoplayEventsBus {
     on(event: AutoplayEvents, handler: () => void): { remove(): void };

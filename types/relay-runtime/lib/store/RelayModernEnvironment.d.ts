@@ -1,27 +1,27 @@
-import { HandlerProvider } from '../handlers/RelayDefaultHandlerProvider';
+import { HandlerProvider } from "../handlers/RelayDefaultHandlerProvider";
+import { GraphQLResponse, Network, PayloadData, UploadableMap } from "../network/RelayNetworkTypes";
+import { RelayObservable } from "../network/RelayObservable";
+import { Disposable, RenderPolicy } from "../util/RelayRuntimeTypes";
+import { TaskScheduler } from "./RelayModernQueryExecutor";
+import { RelayOperationTracker } from "./RelayOperationTracker";
+import type { GetDataID } from "./RelayResponseNormalizer";
 import {
-    OperationLoader,
-    Store,
-    MissingFieldHandler,
-    OperationTracker,
+    Environment,
     LogFunction,
-    OptimisticUpdateFunction,
+    MissingFieldHandler,
     OperationAvailability,
     OperationDescriptor,
+    OperationLoader,
+    OperationTracker,
+    OptimisticResponseConfig,
+    OptimisticUpdateFunction,
+    RequiredFieldLogger,
     SelectorStoreUpdater,
-    StoreUpdater,
     SingularReaderSelector,
     Snapshot,
-    OptimisticResponseConfig,
-    Environment,
-    RequiredFieldLogger,
-} from './RelayStoreTypes';
-import { Network, PayloadData, GraphQLResponse, UploadableMap } from '../network/RelayNetworkTypes';
-import { TaskScheduler } from './RelayModernQueryExecutor';
-import { RelayOperationTracker } from './RelayOperationTracker';
-import { Disposable, RenderPolicy } from '../util/RelayRuntimeTypes';
-import { RelayObservable } from '../network/RelayObservable';
-import type { GetDataID } from './RelayResponseNormalizer';
+    Store,
+    StoreUpdater,
+} from "./RelayStoreTypes";
 
 export interface EnvironmentConfig {
     readonly configName?: string | undefined;
@@ -32,7 +32,7 @@ export interface EnvironmentConfig {
     readonly network: Network;
     readonly scheduler?: TaskScheduler | null | undefined;
     readonly store: Store;
-    readonly missingFieldHandlers?: ReadonlyArray<MissingFieldHandler> | null | undefined;
+    readonly missingFieldHandlers?: readonly MissingFieldHandler[] | null | undefined;
     readonly operationTracker?: OperationTracker | null | undefined;
     readonly getDataID?: GetDataID | null | undefined;
     readonly UNSTABLE_defaultRenderPolicy?: RenderPolicy | null | undefined;

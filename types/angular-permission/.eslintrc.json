@@ -1,7 +1,10 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "no-any-union": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/enquire.js",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/WickyNilliams/enquire.js/",
+        "http://wicky.nillia.ms/enquire.js"
+    ],
+    "devDependencies": {
+        "@types/enquire.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        }
+    ]
+}

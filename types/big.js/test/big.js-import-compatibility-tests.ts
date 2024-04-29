@@ -2,7 +2,7 @@
   Make sure the default import and named import are compatible.
 */
 
-import BigDefault, { Big as BigNamed } from 'big.js';
+import BigDefault, { Big as BigNamed } from "big.js";
 
 function test1(b: BigDefault): BigNamed {
     return b;

@@ -5,6 +5,7 @@ export type Handler<TEvent, TResult> = (
     event: TEvent,
     context: Context,
     callback: Callback<TResult>,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => void | Promise<TResult>;
 
 export interface Context {

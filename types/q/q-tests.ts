@@ -8,6 +8,7 @@ Q(8).then((x) => console.log(x.toExponential()));
 Q().then(() => console.log("nothing"));
 
 function delay(delay: number): Q.Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const d = Q.defer<void>();
     setTimeout(d.resolve, delay);
     return d.promise;
@@ -44,14 +45,14 @@ Q.when(x, (x) => {
 
 Q.all([
     eventually(10),
-    eventually(20)
+    eventually(20),
 ]).spread((x: number, y: number) => {
     console.log(x, y);
 });
 
 Q.all([
     eventually(10),
-    eventually(20)
+    eventually(20),
 ]).then((results) => {
     const [x, y] = results;
     console.log(x, y);
@@ -99,18 +100,18 @@ declare function returnsNumPromise(text: string): Q.Promise<number>;
 declare function returnsNumPromise(text: string): JQueryPromise<number>;
 
 Q(arrayPromise)
-    .then((arr) => arr.join(','))
+    .then((arr) => arr.join(","))
     .then(returnsNumPromise) // requires specification
     .then((num) => num.toFixed());
 
 declare let jPromise: JQueryPromise<string>;
 
 // if jQuery promises definition supported generics, this could be more interesting example
-Q<string>(jPromise).then((str) => str.split(','));
+Q<string>(jPromise).then((str) => str.split(","));
 jPromise.then(returnsNumPromise);
 
 // watch the typing flow through from jQueryPromise to Q.Promise
-Q(jPromise).then((str) => str.split(','));
+Q(jPromise).then((str) => str.split(","));
 
 declare let promiseArray: Array<Q.IPromise<number>>;
 const qPromiseArray = promiseArray.map((p) => {
@@ -118,14 +119,14 @@ const qPromiseArray = promiseArray.map((p) => {
 });
 const myNums: any[] = [2, 3, Q(4), 5, Q(6), Q(7)];
 
-Q.all(promiseArray).then((nums) => nums.map((num) => num.toPrecision(2)).join(','));
+Q.all(promiseArray).then((nums) => nums.map((num) => num.toPrecision(2)).join(","));
 
 Q.all<number>(myNums).then((nums) => nums.map(Math.round));
 
 Q.fbind((dateString?: string) => new Date(<string> dateString), "11/11/1991")().then((d) => d.toLocaleDateString());
 
 Q.when(8, (num) => num + "!");
-Q.when(Q(8), (num) => num + "!").then((str) => str.split(','));
+Q.when(Q(8), (num) => num + "!").then((str) => str.split(","));
 const voidPromise: Q.Promise<void> = Q.when();
 
 declare function saveToDisk(): Q.Promise<any>;
@@ -163,11 +164,11 @@ interface Kitty {
 
 class Repo {
     private readonly items: Kitty[] = [
-        {name: "Max", cute: false},
-        {name: "Annie", cute: true}
+        { name: "Max", cute: false },
+        { name: "Annie", cute: true },
     ];
 
-    find(options: {[K in keyof Kitty]: Kitty[K] }): Q.Promise<Kitty[]> {
+    find(options: { [K in keyof Kitty]: Kitty[K] }): Q.Promise<Kitty[]> {
         let result = this.items;
 
         for (const key in options) {
@@ -246,6 +247,7 @@ Q.try(() => {
     .catch((error) => console.error("Couldn't sync to the cloud", error));
 
 // ensure Q.Promise is compatible with PromiseLike
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 const p7: PromiseLike<void> = Q.Promise<void>((resolve) => resolve());
 
 // thenReject, returning a Promise of the same type as the Promise it is called on

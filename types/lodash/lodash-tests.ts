@@ -1,4 +1,4 @@
-// tslint:disable-next-line:no-relative-import-in-test
+// eslint-disable-next-line @definitelytyped/no-relative-import-in-test
 import fp = require("./fp");
 import _ = require("lodash");
 
@@ -1810,8 +1810,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.filter("", dictionary); // $ExpectType AbcObject[]
     fp.filter({ a: 42 }, dictionary); // $ExpectType AbcObject[]
     fp.filter(["a", 42], dictionary); // $ExpectType AbcObject[]
-    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType string[]
-    fp.filter((s: string) => s === "a")("ab"); // $ExpectType string[]
+    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType "a"[] || string[]
+    fp.filter((s: string) => s === "a")("ab"); // $ExpectType "a"[] || string[]
 
     // Test filtering with type guard
     const a2: Array<string | number> | null | undefined = anything;
@@ -2996,12 +2996,15 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     const list: _.List<string> | null | undefined = anything;
     const dictionary: _.Dictionary<string> | null | undefined = anything;
     const numericDictionary: _.NumericDictionary<string>  | null | undefined = anything;
+    const tuple: [string, string, string] = anything;
 
     _.sample("abc"); // $ExpectType string | undefined
     _.sample(list); // $ExpectType string | undefined
     _.sample(dictionary); // $ExpectType string | undefined
     _.sample(numericDictionary); // $ExpectType string | undefined
     _.sample({ a: "foo" }); // $ExpectType string | undefined
+    _.sample(tuple); // $ExpectType string
+    _.sample(["foo", "bar"] as const); // $ExpectType "foo" | "bar"
 
     _("abc").sample(); // $ExpectType string | undefined
     _(list).sample(); // $ExpectType string | undefined
@@ -3018,6 +3021,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.sample("abc"); // $ExpectType string | undefined
     fp.sample(list); // $ExpectType string | undefined
     fp.sample({ a: "foo" }); // $ExpectType string | undefined
+    fp.sample(tuple); // $ExpectType string
+    fp.sample(["foo", "bar"] as const); // $ExpectType "foo" | "bar"
 
     _.sampleSize("abc"); // $ExpectType string[]
     _.sampleSize("abc", 3); // $ExpectType string[]
@@ -5809,7 +5814,7 @@ fp.now(); // $ExpectType number
 {
     const obj1: AbcObject | null | undefined = anything;
     const obj2: AbcObject = anything;
-    const readonlyArray: ReadonlyArray<string> = ["a", "b"];
+    const readonlyArray: readonly string[] = ["a", "b"];
     const literalsArray: Array<"a" | "b"> = ["a", "b"];
     const roLiteralsArray: ReadonlyArray<"a" | "b"> = literalsArray;
 
@@ -6019,7 +6024,7 @@ fp.now(); // $ExpectType number
 // _.transform
 {
     const array: number[] = [];
-    const readonlyArray: ReadonlyArray<number> = [];
+    const readonlyArray: readonly number[] = [];
     const dictionary: _.Dictionary<number> = {};
 
     {
@@ -6329,7 +6334,7 @@ fp.now(); // $ExpectType number
 
 // _.prototype.concat
 {
-    const numberROA: ReadonlyArray<number> = [0];
+    const numberROA: readonly number[] = [0];
 
     _.concat(1); // $ExpectType number[]
     _.concat([1]); // $ExpectType number[]
@@ -6354,7 +6359,7 @@ fp.now(); // $ExpectType number
     _.chain(numberROA).concat(numberROA); // $ExpectType CollectionChain<number>
     _.chain(numberROA).concat(numberROA, numberROA); // $ExpectType CollectionChain<number>
 
-    const objectROA: ReadonlyArray<AbcObject> = [{ a: 1, b: 'foo', c: true }];
+    const objectROA: readonly AbcObject[] = [{ a: 1, b: 'foo', c: true }];
 
     _.concat(abcObject, abcObject); // $ExpectType AbcObject[]
     _.concat(abcObject, [abcObject], objectROA); // $ExpectType AbcObject[]

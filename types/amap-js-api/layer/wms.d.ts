@@ -6,7 +6,7 @@ declare namespace AMap {
                 LAYERS?: string | undefined;
                 STYLES?: string | undefined;
                 FORMAT?: string | undefined;
-                TRANSPARENT?: 'TRUE' | 'FALSE' | undefined;
+                TRANSPARENT?: "TRUE" | "FALSE" | undefined;
                 BGCOLOR?: string | undefined;
                 EXCEPTIONS?: string | undefined;
                 TIME?: string | undefined;

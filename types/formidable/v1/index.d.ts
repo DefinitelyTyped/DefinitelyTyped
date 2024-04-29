@@ -1,9 +1,3 @@
-// Type definitions for formidable 1.2
-// Project: https://github.com/node-formidable/formidable
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stream } from "stream";

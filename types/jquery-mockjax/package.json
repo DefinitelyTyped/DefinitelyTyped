@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/jquery-mockjax",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/jakerella/jquery-mockjax"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-mockjax": "workspace:.",
+        "@types/qunit": "*"
+    },
+    "owners": [
+        {
+            "name": "Laszlo Jakab",
+            "githubUsername": "laszlojakab"
+        },
+        {
+            "name": "James Johnson",
+            "githubUsername": "hasaki"
+        }
+    ]
+}

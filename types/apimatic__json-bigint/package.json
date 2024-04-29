@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/apimatic__json-bigint",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/apimatic/json-bigint#readme"
+    ],
+    "devDependencies": {
+        "@types/apimatic__json-bigint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wajahat",
+            "githubUsername": "wajahatiqbal"
+        }
+    ]
+}

@@ -1,23 +1,23 @@
-import { IncomingMessage } from 'http';
-import { SignOptions } from 'jsonwebtoken';
-import { SocketProtocolIgnoreStatuses, SocketProtocolErrorStatuses } from 'sc-errors';
-import WebSocket = require('ws');
-import AsyncStreamEmitter = require('async-stream-emitter');
-import WritableConsumableStream = require('writable-consumable-stream');
-import DemuxedConsumableStream = require('stream-demux/demuxed-consumable-stream');
-import Consumer = require('writable-consumable-stream/consumer');
-import ConsumableStream = require('consumable-stream');
-import AGSimpleBroker = require('ag-simple-broker');
+import { IncomingMessage } from "http";
+import { SignOptions } from "jsonwebtoken";
+import { SocketProtocolErrorStatuses, SocketProtocolIgnoreStatuses } from "sc-errors";
+import WebSocket = require("ws");
+import AsyncStreamEmitter = require("async-stream-emitter");
+import WritableConsumableStream = require("writable-consumable-stream");
+import DemuxedConsumableStream = require("stream-demux/demuxed-consumable-stream");
+import Consumer = require("writable-consumable-stream/consumer");
+import ConsumableStream = require("consumable-stream");
+import AGSimpleBroker = require("ag-simple-broker");
 
-import AGServer = require('./server');
+import AGServer = require("./server");
 
 declare class AGServerSocket extends AsyncStreamEmitter<any> {
-    readonly CONNECTING: 'connecting';
-    readonly OPEN: 'open';
-    readonly CLOSED: 'closed';
+    readonly CONNECTING: "connecting";
+    readonly OPEN: "open";
+    readonly CLOSED: "closed";
 
-    readonly AUTHENTICATED: 'authenticated';
-    readonly UNAUTHENTICATED: 'unauthenticated';
+    readonly AUTHENTICATED: "authenticated";
+    readonly UNAUTHENTICATED: "unauthenticated";
 
     readonly ignoreStatuses: SocketProtocolIgnoreStatuses;
     readonly errorStatuses: SocketProtocolErrorStatuses;
@@ -61,40 +61,40 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
 
     exchange: AGSimpleBroker.SimpleExchange;
 
-    state: 'connecting' | 'open' | 'closed';
-    authState: 'authenticated' | 'unauthenticated';
+    state: "connecting" | "open" | "closed";
+    authState: "authenticated" | "unauthenticated";
     authToken?: AGServerSocket.AuthToken;
     signedAuthToken?: string;
 
     constructor(id: string, server: AGServer, socket: WebSocket, protocolVersion: number);
 
-    emit(eventName: 'message' | 'raw', data: { message: { data: any; type: string; target: WebSocket } }): void;
-    emit(eventName: 'error', data: { error: Error }): void;
-    emit(eventName: 'authStateChange', data: AGServerSocket.StateChangeData): void;
-    emit(eventName: 'authenticate', data: AGServerSocket.AuthenticateData): void;
-    emit(eventName: 'authTokenSigned', data: { signedAuthToken: string }): void;
-    emit(eventName: 'deauthenticate', data: AGServerSocket.DeauthenticateData): void;
-    emit(eventName: 'badAuthToken', data: AGServerSocket.BadAuthTokenData): void;
-    emit(eventName: 'connect', data: AGServerSocket.ConnectData): void;
-    emit(eventName: 'subscribe', data: AGServerSocket.SubscribeData): void;
-    emit(eventName: 'unsubscribe', data: AGServerSocket.UnsubscribeData): void;
-    emit(eventName: 'connectAbort', data: AGServerSocket.ConnectAbortData): void;
-    emit(eventName: 'disconnect', data: AGServerSocket.DisconnectData): void;
-    emit(eventName: 'close', data: AGServerSocket.CloseData): void;
+    emit(eventName: "message" | "raw", data: { message: { data: any; type: string; target: WebSocket } }): void;
+    emit(eventName: "error", data: { error: Error }): void;
+    emit(eventName: "authStateChange", data: AGServerSocket.StateChangeData): void;
+    emit(eventName: "authenticate", data: AGServerSocket.AuthenticateData): void;
+    emit(eventName: "authTokenSigned", data: { signedAuthToken: string }): void;
+    emit(eventName: "deauthenticate", data: AGServerSocket.DeauthenticateData): void;
+    emit(eventName: "badAuthToken", data: AGServerSocket.BadAuthTokenData): void;
+    emit(eventName: "connect", data: AGServerSocket.ConnectData): void;
+    emit(eventName: "subscribe", data: AGServerSocket.SubscribeData): void;
+    emit(eventName: "unsubscribe", data: AGServerSocket.UnsubscribeData): void;
+    emit(eventName: "connectAbort", data: AGServerSocket.ConnectAbortData): void;
+    emit(eventName: "disconnect", data: AGServerSocket.DisconnectData): void;
+    emit(eventName: "close", data: AGServerSocket.CloseData): void;
 
-    emit(eventName: 'message' | 'raw'): ConsumableStream<{ message: { data: any; type: string; target: WebSocket } }>;
-    emit(eventName: 'error'): ConsumableStream<{ error: Error }>;
-    emit(eventName: 'authStateChange'): ConsumableStream<AGServerSocket.StateChangeData>;
-    emit(eventName: 'authenticate'): ConsumableStream<AGServerSocket.AuthenticateData>;
-    emit(eventName: 'authTokenSigned'): ConsumableStream<{ signedAuthToken: string }>;
-    emit(eventName: 'deauthenticate'): ConsumableStream<AGServerSocket.DeauthenticateData>;
-    emit(eventName: 'badAuthToken'): ConsumableStream<AGServerSocket.BadAuthTokenData>;
-    emit(eventName: 'connect'): ConsumableStream<AGServerSocket.ConnectData>;
-    emit(eventName: 'subscribe'): ConsumableStream<AGServerSocket.SubscribeData>;
-    emit(eventName: 'unsubscribe'): ConsumableStream<AGServerSocket.UnsubscribeData>;
-    emit(eventName: 'connectAbort'): ConsumableStream<AGServerSocket.ConnectAbortData>;
-    emit(eventName: 'disconnect'): ConsumableStream<AGServerSocket.DisconnectData>;
-    emit(eventName: 'close'): ConsumableStream<AGServerSocket.CloseData>;
+    emit(eventName: "message" | "raw"): ConsumableStream<{ message: { data: any; type: string; target: WebSocket } }>;
+    emit(eventName: "error"): ConsumableStream<{ error: Error }>;
+    emit(eventName: "authStateChange"): ConsumableStream<AGServerSocket.StateChangeData>;
+    emit(eventName: "authenticate"): ConsumableStream<AGServerSocket.AuthenticateData>;
+    emit(eventName: "authTokenSigned"): ConsumableStream<{ signedAuthToken: string }>;
+    emit(eventName: "deauthenticate"): ConsumableStream<AGServerSocket.DeauthenticateData>;
+    emit(eventName: "badAuthToken"): ConsumableStream<AGServerSocket.BadAuthTokenData>;
+    emit(eventName: "connect"): ConsumableStream<AGServerSocket.ConnectData>;
+    emit(eventName: "subscribe"): ConsumableStream<AGServerSocket.SubscribeData>;
+    emit(eventName: "unsubscribe"): ConsumableStream<AGServerSocket.UnsubscribeData>;
+    emit(eventName: "connectAbort"): ConsumableStream<AGServerSocket.ConnectAbortData>;
+    emit(eventName: "disconnect"): ConsumableStream<AGServerSocket.DisconnectData>;
+    emit(eventName: "close"): ConsumableStream<AGServerSocket.CloseData>;
 
     emitError(error: Error): void;
 
@@ -142,7 +142,7 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
     hasProcedureConsumer(procedureName: string, consumerId: number): boolean;
     hasAnyProcedureConsumer(consumerId: number): boolean;
 
-    getState(): 'connecting' | 'open' | 'closed';
+    getState(): "connecting" | "open" | "closed";
     getBytesReceived(): number;
 
     closeAllMiddlewares(): void;
@@ -180,7 +180,7 @@ declare class AGServerSocket extends AsyncStreamEmitter<any> {
 
     invoke(event: string, data: any, options: any): Promise<any>;
 
-    triggerAuthenticationEvents(oldAuthState: 'authenticated' | 'unauthenticated'): void;
+    triggerAuthenticationEvents(oldAuthState: "authenticated" | "unauthenticated"): void;
 
     getAuthToken(): AGServerSocket.AuthToken;
     setAuthToken(data: AGServerSocket.AuthToken, options?: AGServerSocket.AuthTokenOptions): Promise<void>;
@@ -207,8 +207,8 @@ declare namespace AGServerSocket {
     }
 
     interface StateChangeData {
-        oldState: 'authenticated' | 'unauthenticated';
-        newState: 'authenticated' | 'unauthenticated';
+        oldState: "authenticated" | "unauthenticated";
+        newState: "authenticated" | "unauthenticated";
         authToken?: AuthToken;
     }
 

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/jquery.transit",
+    "version": "0.9.9999",
+    "projects": [
+        "http://ricostacruz.com/jquery.transit/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.transit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MrBigDog2U",
+            "githubUsername": "MrBigDog2U"
+        },
+        {
+            "name": "Jhsosa",
+            "githubUsername": "Jhsosa"
+        }
+    ]
+}

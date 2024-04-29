@@ -431,13 +431,14 @@ const {
     ...expressionConfig
 } = script;
 
-type ExpressionInputSet<T extends string> = {
-    [K in T]: boolean;
-} &
-    {
+type ExpressionInputSet<T extends string> =
+    & {
+        [K in T]: boolean;
+    }
+    & {
         [K in T as `${K}Scale`]: number;
-    } &
-    {
+    }
+    & {
         [K in T as `${K}Rename`]: string;
     };
 
@@ -452,17 +453,15 @@ if (faceMesh) {
     }
     if (faceMesh.mesh == null) {
         print(
-            `ExpressionController, ERROR: Please set Face Mesh asset for '${
-                faceMesh.getSceneObject().name
-            }' Scene Object`,
+            `ExpressionController, ERROR: Please set Face Mesh asset for '${faceMesh.getSceneObject().name}' Scene Object`,
         );
     }
 } else {
-    print('ExpressionController, ERROR: Please define Face Mesh Scene Object in Advanced section');
+    print("ExpressionController, ERROR: Please define Face Mesh Scene Object in Advanced section");
 }
 
 if (!blendShapesComponent) {
-    print('ExpressionController, ERROR: Please define Blendshapes component');
+    print("ExpressionController, ERROR: Please define Blendshapes component");
 }
 
 function checkBlendShapes() {
@@ -471,7 +470,7 @@ function checkBlendShapes() {
         blendShapeNames.push(blendShapeName);
 
         if (expressionConfig[name] && !blendShapesComponent.hasBlendShape(blendShapeName)) {
-            print('ExpressionController, ERROR: No blendshape with name ' + blendShapeName);
+            print("ExpressionController, ERROR: No blendshape with name " + blendShapeName);
         }
     }
 }
@@ -484,7 +483,7 @@ function setBlendShapes() {
     for (let i = 0; i < expressionNames.length; i++) {
         const name = expressionNames[i];
 
-        if (expressionConfig[name] == null || typeof expressionConfig[name] === 'undefined') {
+        if (expressionConfig[name] == null || typeof expressionConfig[name] === "undefined") {
             continue;
         }
 
@@ -512,7 +511,7 @@ function setExpressionWeight(
     blendComponent.setBlendShape(shapeName, w);
 }
 
-script.createEvent('UpdateEvent').bind(function onUpdate() {
+script.createEvent("UpdateEvent").bind(function onUpdate() {
     if (faceMesh && faceMesh.mesh) {
         const faceControl = faceMesh.mesh.control as FaceRenderObjectProvider;
         expressionNames = faceControl.getExpressionNames();

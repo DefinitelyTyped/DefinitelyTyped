@@ -1,13 +1,13 @@
 /**
- * The `os` module provides operating system-related utility methods and
+ * The `node:os` module provides operating system-related utility methods and
  * properties. It can be accessed using:
  *
  * ```js
- * const os = require('os');
+ * const os = require('node:os');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/os.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/os.js)
  */
-declare module 'os' {
+declare module "os" {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -27,18 +27,18 @@ declare module 'os' {
         cidr: string | null;
     }
     interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
-        family: 'IPv4';
+        family: "IPv4";
         scopeid?: undefined;
     }
     interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
-        family: 'IPv6';
+        family: "IPv6";
         scopeid: number;
     }
     interface UserInfo<T> {
         username: T;
         uid: number;
         gid: number;
-        shell: T;
+        shell: T | null;
         homedir: T;
     }
     type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;
@@ -75,6 +75,7 @@ declare module 'os' {
     function totalmem(): number;
     /**
      * Returns an array of objects containing information about each logical CPU core.
+     * The array will be empty if no CPU information is available, such as if the`/proc` file system is unavailable.
      *
      * The properties included on each object include:
      *
@@ -88,8 +89,8 @@ declare module 'os' {
      *       nice: 0,
      *       sys: 30340,
      *       idle: 1070356870,
-     *       irq: 0
-     *     }
+     *       irq: 0,
+     *     },
      *   },
      *   {
      *     model: 'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz',
@@ -99,8 +100,8 @@ declare module 'os' {
      *       nice: 0,
      *       sys: 26980,
      *       idle: 1071569080,
-     *       irq: 0
-     *     }
+     *       irq: 0,
+     *     },
      *   },
      *   {
      *     model: 'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz',
@@ -110,8 +111,8 @@ declare module 'os' {
      *       nice: 0,
      *       sys: 21750,
      *       idle: 1070919370,
-     *       irq: 0
-     *     }
+     *       irq: 0,
+     *     },
      *   },
      *   {
      *     model: 'Intel(R) Core(TM) i7 CPU         860  @ 2.80GHz',
@@ -121,22 +122,26 @@ declare module 'os' {
      *       nice: 0,
      *       sys: 19430,
      *       idle: 1070905480,
-     *       irq: 20
-     *     }
+     *       irq: 20,
+     *     },
      *   },
      * ]
      * ```
      *
      * `nice` values are POSIX-only. On Windows, the `nice` values of all processors
      * are always 0.
+     *
+     * `os.cpus().length` should not be used to calculate the amount of parallelism
+     * available to an application. Use {@link availableParallelism} for this purpose.
      * @since v0.3.3
      */
     function cpus(): CpuInfo[];
     /**
-     * Returns an estimate of the default amount of parallelism a program should use. Always returns a value greater than zero.
+     * Returns an estimate of the default amount of parallelism a program should use.
+     * Always returns a value greater than zero.
      *
      * This function is a small wrapper about libuv's [`uv_available_parallelism()`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_available_parallelism).
-     * @since 18.4.0
+     * @since v19.4.0, v18.14.0
      */
     function availableParallelism(): number;
     /**
@@ -234,7 +239,7 @@ declare module 'os' {
      * Throws a `SystemError` if a user has no `username` or `homedir`.
      * @since v6.0.0
      */
-    function userInfo(options: { encoding: 'buffer' }): UserInfo<Buffer>;
+    function userInfo(options: { encoding: "buffer" }): UserInfo<Buffer>;
     function userInfo(options?: { encoding: BufferEncoding }): UserInfo<string>;
     type SignalConstants = {
         [key in NodeJS.Signals]: number;
@@ -395,7 +400,8 @@ declare module 'os' {
     const EOL: string;
     /**
      * Returns the operating system CPU architecture for which the Node.js binary was
-     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`, `'ppc64'`, `'s390'`, `'s390x'`, and `'x64'`.
+     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`,`'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`,
+     * and `'x64'`.
      *
      * The return value is equivalent to `process.arch`.
      * @since v0.5.0
@@ -422,12 +428,11 @@ declare module 'os' {
      */
     function platform(): NodeJS.Platform;
     /**
-     * Returns the machine type as a string, such as arm, aarch64, mips, mips64, ppc64, ppc64le, s390, s390x, i386, i686, x86_64.
+     * Returns the machine type as a string, such as `arm`, `arm64`, `aarch64`,`mips`, `mips64`, `ppc64`, `ppc64le`, `s390`, `s390x`, `i386`, `i686`, `x86_64`.
      *
-     * On POSIX systems, the machine type is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname).
-     * On Windows, `RtlGetVersion()` is used, and if it is not available, `GetVersionExW()` will be used.
-     * See [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
-     * @since v18.9.0
+     * On POSIX systems, the machine type is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `RtlGetVersion()` is used, and if it is not
+     * available, `GetVersionExW()` will be used. See [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
+     * @since v18.9.0, v16.18.0
      */
     function machine(): string;
     /**
@@ -443,7 +448,7 @@ declare module 'os' {
      * Possible values are `'BE'` for big endian and `'LE'` for little endian.
      * @since v0.9.4
      */
-    function endianness(): 'BE' | 'LE';
+    function endianness(): "BE" | "LE";
     /**
      * Returns the scheduling priority for the process specified by `pid`. If `pid` is
      * not provided or is `0`, the priority of the current process is returned.
@@ -468,6 +473,6 @@ declare module 'os' {
     function setPriority(priority: number): void;
     function setPriority(pid: number, priority: number): void;
 }
-declare module 'node:os' {
-    export * from 'os';
+declare module "node:os" {
+    export * from "os";
 }

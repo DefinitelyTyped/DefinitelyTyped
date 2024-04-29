@@ -1,9 +1,3 @@
-// Type definitions for plantuml-encoder 1.4
-// Project: https://github.com/markushedvall/plantuml-encoder
-// Definitions by: Krisztián Balla <https://github.com/krisztianb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 declare namespace PlantUmlEncoder {

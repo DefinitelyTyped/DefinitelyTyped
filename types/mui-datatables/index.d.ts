@@ -1,30 +1,19 @@
-// Type definitions for mui-datatables 4.3
-// Project: https://github.com/gregnb/mui-datatables
-// Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
-//                 Ankith Konda <https://github.com/ankithkonda>
-//                 Herman "Von" Waters IV <https://github.com/hwatersiv>
-//                 souppower <https://github.com/souppower>
-//                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
-//                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
-//                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-import { ComponentsProps, ComponentsOverrides, ComponentsVariants } from '@mui/material';
+import { ComponentsOverrides, ComponentsProps, ComponentsVariants } from "@mui/material";
 
-import * as React from 'react';
+import * as React from "react";
 
-export type Display = boolean | 'true' | 'false' | 'excluded';
-export type FilterType = 'dropdown' | 'checkbox' | 'multiselect' | 'textField' | 'custom';
-export type Responsive = 'vertical' | 'standard' | 'simple';
-export type SelectableRows = 'multiple' | 'single' | 'none';
-export type ChipVariant = 'outlined' | 'default';
-export type ChipColor = 'primary' | 'secondary' | 'default';
-export type ToolbarButton = boolean | 'true' | 'false' | 'disabled';
+export type Display = boolean | "true" | "false" | "excluded";
+export type FilterType = "dropdown" | "checkbox" | "multiselect" | "textField" | "custom";
+export type Responsive = "vertical" | "standard" | "simple";
+export type SelectableRows = "multiple" | "single" | "none";
+export type ChipVariant = "outlined" | "default";
+export type ChipColor = "primary" | "secondary" | "default";
+export type ToolbarButton = boolean | "true" | "false" | "disabled";
 export type DisplayData = Array<{ data: any[]; dataIndex: number }>;
 
 export interface MUISortOptions {
     name: string;
-    direction: 'asc' | 'desc';
+    direction: "asc" | "desc";
 }
 
 export interface MUIDataTableData {
@@ -74,19 +63,21 @@ export interface MUIDataTableMeta<T = any> {
     tableState: MUIDataTableState;
 }
 
-export type MUIDataTableCustomHeadRenderer = Pick<MUIDataTableColumn, 'name' | 'label'> &
-    Pick<
+export type MUIDataTableCustomHeadRenderer =
+    & Pick<MUIDataTableColumn, "name" | "label">
+    & Pick<
         MUIDataTableColumnOptions,
-        | 'customHeadRender'
-        | 'display'
-        | 'filter'
-        | 'sort'
-        | 'download'
-        | 'empty'
-        | 'print'
-        | 'searchable'
-        | 'viewColumns'
-    > & {
+        | "customHeadRender"
+        | "display"
+        | "filter"
+        | "sort"
+        | "download"
+        | "empty"
+        | "print"
+        | "searchable"
+        | "viewColumns"
+    >
+    & {
         index: number;
     };
 
@@ -159,12 +150,12 @@ export interface MUIDataTableFilterOptions {
      */
     display?:
         | ((
-              filterList: MUIDataTableState['filterList'],
-              onChange: (val: string | string[], index: number, column: MUIDataTableColumn) => void,
-              index: number,
-              column: MUIDataTableColumn,
-              filterData: MUIDataTableState['filterData'],
-          ) => void)
+            filterList: MUIDataTableState["filterList"],
+            onChange: (val: string | string[], index: number, column: MUIDataTableColumn) => void,
+            index: number,
+            column: MUIDataTableColumn,
+            filterData: MUIDataTableState["filterData"],
+        ) => void)
         | undefined;
     /**
      * custom filter logic.
@@ -198,10 +189,10 @@ export interface MUIDataTableCustomFilterListOptions {
      */
     update?:
         | ((
-              filterList: MUIDataTableState['filterList'],
-              filterPos: number,
-              index: number,
-          ) => MUIDataTableState['filterList'])
+            filterList: MUIDataTableState["filterList"],
+            filterPos: number,
+            index: number,
+        ) => MUIDataTableState["filterList"])
         | undefined;
 }
 
@@ -251,10 +242,10 @@ export interface MUIDataTableColumnOptions {
     /** Function that returns a string or React component. Used as display for column header. */
     customHeadRender?:
         | ((
-              columnMeta: MUIDataTableCustomHeadRenderer,
-              handleToggleColumn: (columnIndex: number) => void,
-              sortOrder: MUISortOptions,
-          ) => string | React.ReactNode)
+            columnMeta: MUIDataTableCustomHeadRenderer,
+            handleToggleColumn: (columnIndex: number) => void,
+            sortOrder: MUISortOptions,
+        ) => string | React.ReactNode)
         | undefined;
     /**
      * Determines if the column can be dragged.
@@ -341,7 +332,7 @@ export interface MUIDataTableColumnOptions {
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/column-sort/index.js)
      */
     sortCompare?:
-        | ((order: MUISortOptions['direction']) => (obj1: { data: any }, obj2: { data: any }) => number)
+        | ((order: MUISortOptions["direction"]) => (obj1: { data: any }, obj2: { data: any }) => number)
         | undefined;
     /**
      * Causes the first click on a column to sort by desc rather than asc.
@@ -360,7 +351,7 @@ export interface MUIDataTableColumnOptions {
      */
     sortThirdClickReset?: boolean | undefined;
     /** @deprecated use `sortOrder` instead */
-    sortDirection?: 'asc' | 'desc' | 'none' | undefined;
+    sortDirection?: "asc" | "desc" | "none" | undefined;
     /**
      * Allow user to toggle column visibility through 'View Column' list.
      * @default true
@@ -401,7 +392,7 @@ export type MUIDataTableOptions = Partial<{
     count: number;
     /** Add a custom footer to the filter dialog. */
     customFilterDialogFooter: (
-        filterList: MUIDataTableState['filterList'],
+        filterList: MUIDataTableState["filterList"],
         applyNewFilters?: (...args: any[]) => any,
     ) => React.ReactNode;
     /**
@@ -439,7 +430,7 @@ export type MUIDataTableOptions = Partial<{
         handleSearch: (text: string) => void,
         hideSearch: () => void,
         options: any,
-    ) => React.Component | JSX.Element;
+    ) => React.Component | React.JSX.Element;
     /**
      * Override default sorting with custom function.
      * If you just need to override the sorting for a particular column, see the sortCompare method in the Column options.
@@ -596,7 +587,7 @@ export type MUIDataTableOptions = Partial<{
     /** Callback function that triggers when a column has been dragged to a new location. */
     onColumnOrderChange: (newColumnOrder: number[], columnIndex: number, newPosition: number) => void;
     /** Callback function that triggers when a column has been sorted. */
-    onColumnSortChange: (changedColumn: string, direction: 'asc' | 'desc') => void;
+    onColumnSortChange: (changedColumn: string, direction: "asc" | "desc") => void;
     /** @deprecated use `onViewColumnsChange` instead */
     onColumnViewChange?: ((changedColumn: string, action: string) => void) | undefined;
     /**
@@ -615,8 +606,8 @@ export type MUIDataTableOptions = Partial<{
     /** Callback function that triggers when filters have changed. */
     onFilterChange: (
         changedColumn: string | MUIDataTableColumn | null,
-        filterList: MUIDataTableState['filterList'],
-        type: FilterType | 'chip' | 'reset',
+        filterList: MUIDataTableState["filterList"],
+        type: FilterType | "chip" | "reset",
         changedColumnIndex: number,
         displayData: DisplayData,
     ) => void;
@@ -625,14 +616,14 @@ export type MUIDataTableOptions = Partial<{
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js)
      */
-    onFilterChipClose: (index: number, removedFilter: string, filterList: MUIDataTableState['filterList']) => void;
+    onFilterChipClose: (index: number, removedFilter: string, filterList: MUIDataTableState["filterList"]) => void;
     /**
      * Callback function that is triggered when a user presses the "confirm" button on the filter popover.
      * This occurs only if you've set `confirmFilters` option to `true`.
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/serverside-filters/index.js)
      */
-    onFilterConfirm: (filterList: MUIDataTableState['filterList']) => void;
+    onFilterConfirm: (filterList: MUIDataTableState["filterList"]) => void;
     /** Callback function that triggers when the filter dialog closes. */
     onFilterDialogClose: () => void;
     /** Callback function that triggers when the filter dialog opens. */
@@ -651,6 +642,7 @@ export type MUIDataTableOptions = Partial<{
             data: Array<{ index: number; dataIndex: number }>;
         },
         newTableData: any[],
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | false;
     /** Callback function that triggers when row(s) are selected/deselected. */
     onRowSelectionChange: (currentRowsSelected: any[], allRowsSelected: any[], rowsSelected?: any[]) => void;
@@ -776,7 +768,7 @@ export type MUIDataTableOptions = Partial<{
      *
      * @default replace
      */
-    selectToolbarPlacement: 'replace' | 'above' | 'none';
+    selectToolbarPlacement: "replace" | "above" | "none";
     /**
      * Enable remote data source
      * @default fale
@@ -787,7 +779,7 @@ export type MUIDataTableOptions = Partial<{
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js)
      */
-    setFilterChipProps: (colIndex: number, colName: string, data: ReadonlyArray<any[]>) => MUIDataTableChip;
+    setFilterChipProps: (colIndex: number, colName: string, data: readonly any[][]) => MUIDataTableChip;
     /**
      * Is called for each row and allows you to return custom props for this row based on its data.
      *
@@ -816,7 +808,6 @@ export type MUIDataTableOptions = Partial<{
      * The object options are the column name and the direction.
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-columns/index.js)
-     * @shape { name: string, direction: 'asc' | 'desc' }
      */
     sortOrder: MUISortOptions;
     /**
@@ -867,9 +858,9 @@ export interface MUIDataTableCheckboxProps {
         disabled: string;
         root: string;
     };
-    color: 'primary' | 'secondary';
-    'data-description': 'row-select' | 'row-select-header' | 'table-filter' | 'table-view-col';
-    'data-index': number | null;
+    color: "primary" | "secondary";
+    "data-description": "row-select" | "row-select-header" | "table-filter" | "table-view-col";
+    "data-index": number | null;
     disabled: boolean;
     indeterminante: boolean;
     onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
@@ -879,25 +870,25 @@ export interface MUIDataTableProps {
     columns: MUIDataTableColumnDef[];
     components?:
         | Partial<{
-              Checkbox: RenderCustomComponent<MUIDataTableCheckboxProps> | React.ReactNode;
-              ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
-              TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
-              TableViewCol: RenderCustomComponent<MUIDataTableViewCol> | React.ReactNode;
-              TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
-              TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
-              TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
-              TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
-              TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
-              TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
-              Tooltip: React.ReactNode;
-              icons: Partial<{
-                  SearchIcon: React.ReactNode;
-                  DownloadIcon: React.ReactNode;
-                  PrintIcon: React.ReactNode;
-                  ViewColumnIcon: React.ReactNode;
-                  FilterIcon: React.ReactNode;
-              }>;
-          }>
+            Checkbox: RenderCustomComponent<MUIDataTableCheckboxProps> | React.ReactNode;
+            ExpandButton: RenderCustomComponent<MUIDataTableExpandButton> | React.ReactNode;
+            TableBody: RenderCustomComponent<MUIDataTableBody> | React.ReactNode;
+            TableViewCol: RenderCustomComponent<MUIDataTableViewCol> | React.ReactNode;
+            TableFilterList: RenderCustomComponent<MUIDataTableFilterList> | React.ReactNode;
+            TableFooter: RenderCustomComponent<MUIDataTableFooter> | React.ReactNode;
+            TableHead: RenderCustomComponent<MUIDataTableHead> | React.ReactNode;
+            TableResize: RenderCustomComponent<MUIDataTableResize> | React.ReactNode;
+            TableToolbar: RenderCustomComponent<MUIDataTableToolbar> | React.ReactNode;
+            TableToolbarSelect: RenderCustomComponent<MUIDataTableToolbarSelect> | React.ReactNode;
+            Tooltip: React.ReactNode;
+            icons: Partial<{
+                SearchIcon: React.ReactNode;
+                DownloadIcon: React.ReactNode;
+                PrintIcon: React.ReactNode;
+                ViewColumnIcon: React.ReactNode;
+                FilterIcon: React.ReactNode;
+            }>;
+        }>
         | undefined;
     data: Array<object | number[] | string[]>;
     options?: MUIDataTableOptions | undefined;
@@ -939,7 +930,7 @@ export interface MUIDataTableBody {
     columns: MUIDataTableColumnDef[];
     count: number;
     data: Array<object | number[] | string[]>;
-    filterList?: MUIDataTableState['filterList'] | undefined;
+    filterList?: MUIDataTableState["filterList"] | undefined;
     onRowClick?: ((rowData: string[], rowMeta: { dataIndex: number; rowIndex: number }) => void) | undefined;
     options: MUIDataTableOptions;
     searchText?: string | undefined;
@@ -982,7 +973,7 @@ export interface MUIDataTableBodyRow {
 export interface MUIDataTableFilter {
     classes?: object | undefined;
     filterData: any[];
-    filterList?: MUIDataTableState['filterList'] | undefined;
+    filterList?: MUIDataTableState["filterList"] | undefined;
     onFilterReset?: ((...args: any) => any) | undefined;
     onFilterUpdate?: ((...args: any) => any) | undefined;
     options: MUIDataTableOptions;
@@ -992,7 +983,7 @@ export interface MUIDataTableFilterList {
     columnNames?: Array<{ name: string; filterType: FilterType }> | undefined;
     customFilterListUpdate?: any[] | undefined;
     classes?: object | undefined;
-    filterList: MUIDataTableState['filterList'];
+    filterList: MUIDataTableState["filterList"];
     filterListRenderers?: ((e: any) => any[]) | undefined;
     filterUpdate?: ((...args: any) => any) | undefined;
     options: MUIDataTableOptions;
@@ -1107,7 +1098,7 @@ export interface MUIDataTableToolbar {
     data?: MUIDataTableData[] | undefined;
     displayData?: DisplayData | undefined;
     filterData?: any[][] | undefined;
-    filterList?: MUIDataTableState['filterList'] | undefined;
+    filterList?: MUIDataTableState["filterList"] | undefined;
     filterUpdate?: ((...args: any) => any) | undefined;
     updateFilterByType?: ((...args: any) => any) | undefined;
     options?: MUIDataTableOptions | undefined;
@@ -1166,106 +1157,106 @@ export const DebounceTableSearch: React.ComponentType<DebouncedMUIDataTableSearc
  * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/large-data-set/index.js)
  * @param debounceWait The amount of time to wait for each action - defaults to 200
  */
-export function debounceSearchRender(debounceWait?: number): MUIDataTableOptions['customSearchRender'];
+export function debounceSearchRender(debounceWait?: number): MUIDataTableOptions["customSearchRender"];
 
 export default MUIDataTable;
 
-declare module '@mui/material/styles/components' {
+declare module "@mui/material/styles/components" {
     interface Components {
         MUIDataTable?: {
-            defaultProps?: ComponentsProps['MUIDataTable'];
-            styleOverrides?: ComponentsOverrides['MUIDataTable'];
-            variants?: ComponentsVariants['MUIDataTable'];
+            defaultProps?: ComponentsProps["MUIDataTable"];
+            styleOverrides?: ComponentsOverrides["MUIDataTable"];
+            variants?: ComponentsVariants["MUIDataTable"];
         };
         MUIDataTableBody?: {
-            defaultProps?: ComponentsProps['MUIDataTableBody'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableBody'];
-            variants?: ComponentsVariants['MUIDataTableBody'];
+            defaultProps?: ComponentsProps["MUIDataTableBody"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableBody"];
+            variants?: ComponentsVariants["MUIDataTableBody"];
         };
         MUIDataTableBodyCell?: {
-            defaultProps?: ComponentsProps['MUIDataTableBodyCell'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableBodyCell'];
-            variants?: ComponentsVariants['MUIDataTableBodyCell'];
+            defaultProps?: ComponentsProps["MUIDataTableBodyCell"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableBodyCell"];
+            variants?: ComponentsVariants["MUIDataTableBodyCell"];
         };
         MUIDataTableBodyRow?: {
-            defaultProps?: ComponentsProps['MUIDataTableBodyRow'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableBodyRow'];
-            variants?: ComponentsVariants['MUIDataTableBodyRow'];
+            defaultProps?: ComponentsProps["MUIDataTableBodyRow"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableBodyRow"];
+            variants?: ComponentsVariants["MUIDataTableBodyRow"];
         };
         MUIDataTableFilter?: {
-            defaultProps?: ComponentsProps['MUIDataTableFilter'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableFilter'];
-            variants?: ComponentsVariants['MUIDataTableFilter'];
+            defaultProps?: ComponentsProps["MUIDataTableFilter"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableFilter"];
+            variants?: ComponentsVariants["MUIDataTableFilter"];
         };
         MUIDataTableFilterList?: {
-            defaultProps?: ComponentsProps['MUIDataTableFilterList'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableFilterList'];
-            variants?: ComponentsVariants['MUIDataTableFilterList'];
+            defaultProps?: ComponentsProps["MUIDataTableFilterList"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableFilterList"];
+            variants?: ComponentsVariants["MUIDataTableFilterList"];
         };
         MUIDataTableFooter?: {
-            defaultProps?: ComponentsProps['MUIDataTableFooter'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableFooter'];
-            variants?: ComponentsVariants['MUIDataTableFooter'];
+            defaultProps?: ComponentsProps["MUIDataTableFooter"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableFooter"];
+            variants?: ComponentsVariants["MUIDataTableFooter"];
         };
         MUIDataTableHead?: {
-            defaultProps?: ComponentsProps['MUIDataTableHead'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableHead'];
-            variants?: ComponentsVariants['MUIDataTableHead'];
+            defaultProps?: ComponentsProps["MUIDataTableHead"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableHead"];
+            variants?: ComponentsVariants["MUIDataTableHead"];
         };
         MUIDataTableHeadCell?: {
-            defaultProps?: ComponentsProps['MUIDataTableHeadCell'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableHeadCell'];
-            variants?: ComponentsVariants['MUIDataTableHeadCell'];
+            defaultProps?: ComponentsProps["MUIDataTableHeadCell"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableHeadCell"];
+            variants?: ComponentsVariants["MUIDataTableHeadCell"];
         };
         MUIDataTableHeadRow?: {
-            defaultProps?: ComponentsProps['MUIDataTableHeadRow'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableHeadRow'];
-            variants?: ComponentsVariants['MUIDataTableHeadRow'];
+            defaultProps?: ComponentsProps["MUIDataTableHeadRow"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableHeadRow"];
+            variants?: ComponentsVariants["MUIDataTableHeadRow"];
         };
         MUIDataTableJumpToPage?: {
-            defaultProps?: ComponentsProps['MUIDataTableJumpToPage'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableJumpToPage'];
-            variants?: ComponentsVariants['MUIDataTableJumpToPage'];
+            defaultProps?: ComponentsProps["MUIDataTableJumpToPage"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableJumpToPage"];
+            variants?: ComponentsVariants["MUIDataTableJumpToPage"];
         };
         MUIDataTablePagination?: {
-            defaultProps?: ComponentsProps['MUIDataTablePagination'];
-            styleOverrides?: ComponentsOverrides['MUIDataTablePagination'];
-            variants?: ComponentsVariants['MUIDataTablePagination'];
+            defaultProps?: ComponentsProps["MUIDataTablePagination"];
+            styleOverrides?: ComponentsOverrides["MUIDataTablePagination"];
+            variants?: ComponentsVariants["MUIDataTablePagination"];
         };
         MUIDataTableResize?: {
-            defaultProps?: ComponentsProps['MUIDataTableResize'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableResize'];
-            variants?: ComponentsVariants['MUIDataTableResize'];
+            defaultProps?: ComponentsProps["MUIDataTableResize"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableResize"];
+            variants?: ComponentsVariants["MUIDataTableResize"];
         };
         MUIDataTableSearch?: {
-            defaultProps?: ComponentsProps['MUIDataTableSearch'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableSearch'];
-            variants?: ComponentsVariants['MUIDataTableSearch'];
+            defaultProps?: ComponentsProps["MUIDataTableSearch"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableSearch"];
+            variants?: ComponentsVariants["MUIDataTableSearch"];
         };
         MUIDataTableSelectCell?: {
-            defaultProps?: ComponentsProps['MUIDataTableSelectCell'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableSelectCell'];
-            variants?: ComponentsVariants['MUIDataTableSelectCell'];
+            defaultProps?: ComponentsProps["MUIDataTableSelectCell"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableSelectCell"];
+            variants?: ComponentsVariants["MUIDataTableSelectCell"];
         };
         MUIDataTableToolbar?: {
-            defaultProps?: ComponentsProps['MUIDataTableToolbar'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableToolbar'];
-            variants?: ComponentsVariants['MUIDataTableToolbar'];
+            defaultProps?: ComponentsProps["MUIDataTableToolbar"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableToolbar"];
+            variants?: ComponentsVariants["MUIDataTableToolbar"];
         };
         MUIDataTableToolbarSelect?: {
-            defaultProps?: ComponentsProps['MUIDataTableToolbarSelect'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableToolbarSelect'];
-            variants?: ComponentsVariants['MUIDataTableToolbarSelect'];
+            defaultProps?: ComponentsProps["MUIDataTableToolbarSelect"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableToolbarSelect"];
+            variants?: ComponentsVariants["MUIDataTableToolbarSelect"];
         };
         MUIDataTableViewCol?: {
-            defaultProps?: ComponentsProps['MUIDataTableViewCol'];
-            styleOverrides?: ComponentsOverrides['MUIDataTableViewCol'];
-            variants?: ComponentsVariants['MUIDataTableViewCol'];
+            defaultProps?: ComponentsProps["MUIDataTableViewCol"];
+            styleOverrides?: ComponentsOverrides["MUIDataTableViewCol"];
+            variants?: ComponentsVariants["MUIDataTableViewCol"];
         };
     }
 }
 
-declare module '@mui/material/styles/props' {
+declare module "@mui/material/styles/props" {
     interface ComponentsPropsList {
         MUIDataTable: MUIDataTableProps;
         MUIDataTableBody: MUIDataTableBody;
@@ -1288,124 +1279,124 @@ declare module '@mui/material/styles/props' {
     }
 }
 
-declare module '@mui/material/styles/overrides' {
+declare module "@mui/material/styles/overrides" {
     interface ComponentNameToClassKey {
-        MUIDataTable: 'root' | 'caption' | 'liveAnnounce' | 'paper' | 'responsiveScroll' | 'tableRoot';
+        MUIDataTable: "root" | "caption" | "liveAnnounce" | "paper" | "responsiveScroll" | "tableRoot";
 
-        MUIDataTableBody: 'root' | 'emptyTitle' | 'lastSimpleCell' | 'lastStackedCell';
+        MUIDataTableBody: "root" | "emptyTitle" | "lastSimpleCell" | "lastStackedCell";
 
         MUIDataTableBodyCell:
-            | 'root'
-            | 'cellHide'
-            | 'cellStackedSmall'
-            | 'responsiveStackedSmall'
-            | 'responsiveStackedSmallParent'
-            | 'simpleCell'
-            | 'simpleHeader'
-            | 'stackedCommon'
-            | 'stackedCommonAlways'
-            | 'stackedHeader'
-            | 'stackedParent'
-            | 'stackedParentAlways';
+            | "root"
+            | "cellHide"
+            | "cellStackedSmall"
+            | "responsiveStackedSmall"
+            | "responsiveStackedSmallParent"
+            | "simpleCell"
+            | "simpleHeader"
+            | "stackedCommon"
+            | "stackedCommonAlways"
+            | "stackedHeader"
+            | "stackedParent"
+            | "stackedParentAlways";
 
-        MUIDataTableBodyRow: 'root' | 'hoverCursor' | 'responsiveSimple' | 'responsiveStacked';
+        MUIDataTableBodyRow: "root" | "hoverCursor" | "responsiveSimple" | "responsiveStacked";
 
         MUIDataTableFilter:
-            | 'root'
-            | 'checkbox'
-            | 'checkboxFormControl'
-            | 'checkboxFormControlLabel'
-            | 'checkboxFormGroup'
-            | 'checkboxIcon'
-            | 'checkboxListTitle'
-            | 'checked'
-            | 'filtersSelected'
-            | 'gridListTile'
-            | 'header'
-            | 'noMargin'
-            | 'reset'
-            | 'resetLink'
-            | 'title';
+            | "root"
+            | "checkbox"
+            | "checkboxFormControl"
+            | "checkboxFormControlLabel"
+            | "checkboxFormGroup"
+            | "checkboxIcon"
+            | "checkboxListTitle"
+            | "checked"
+            | "filtersSelected"
+            | "gridListTile"
+            | "header"
+            | "noMargin"
+            | "reset"
+            | "resetLink"
+            | "title";
 
-        MUIDataTableFilterList: 'root' | 'chip';
+        MUIDataTableFilterList: "root" | "chip";
 
-        MUIDataTableFooter: 'root';
+        MUIDataTableFooter: "root";
 
-        MUIDataTableHead: 'main' | 'responsiveSimple' | 'responsiveStacked' | 'responsiveStackedAlways';
+        MUIDataTableHead: "main" | "responsiveSimple" | "responsiveStacked" | "responsiveStackedAlways";
 
         MUIDataTableHeadCell:
-            | 'root'
-            | 'contentWrapper'
-            | 'data'
-            | 'dragCursor'
-            | 'fixedHeader'
-            | 'hintIconAlone'
-            | 'hintIconWithSortIcon'
-            | 'mypopper'
-            | 'sortAction'
-            | 'sortActive'
-            | 'sortLabelRoot'
-            | 'toolButton'
-            | 'tooltip';
+            | "root"
+            | "contentWrapper"
+            | "data"
+            | "dragCursor"
+            | "fixedHeader"
+            | "hintIconAlone"
+            | "hintIconWithSortIcon"
+            | "mypopper"
+            | "sortAction"
+            | "sortActive"
+            | "sortLabelRoot"
+            | "toolButton"
+            | "tooltip";
 
-        MUIDataTableHeadRow: 'root';
+        MUIDataTableHeadRow: "root";
 
-        MUIDataTableJumpToPage: 'root' | 'caption' | 'input' | 'select' | 'selectIcon' | 'selectRoot';
+        MUIDataTableJumpToPage: "root" | "caption" | "input" | "select" | "selectIcon" | "selectRoot";
 
         MUIDataTablePagination:
-            | 'root'
-            | '@media screen and (max-width: 400px)'
-            | 'navContainer'
-            | 'selectRoot'
-            | 'tableCellContainer'
-            | 'toolbar';
+            | "root"
+            | "@media screen and (max-width: 400px)"
+            | "navContainer"
+            | "selectRoot"
+            | "tableCellContainer"
+            | "toolbar";
 
-        MUIDataTableResize: 'root' | 'resizer';
+        MUIDataTableResize: "root" | "resizer";
 
-        MUIDataTableSearch: 'clearIcon' | 'main' | 'searchIcon' | 'searchText';
+        MUIDataTableSearch: "clearIcon" | "main" | "searchIcon" | "searchText";
 
         MUIDataTableSelectCell:
-            | 'root'
-            | 'checkboxRoot'
-            | 'checked'
-            | 'disabled'
-            | 'expandDisabled'
-            | 'expanded'
-            | 'fixedHeader'
-            | 'fixedLeft'
-            | 'headerCell'
-            | 'hide'
-            | 'icon';
+            | "root"
+            | "checkboxRoot"
+            | "checked"
+            | "disabled"
+            | "expandDisabled"
+            | "expanded"
+            | "fixedHeader"
+            | "fixedLeft"
+            | "headerCell"
+            | "hide"
+            | "icon";
 
         MUIDataTableToolbar:
-            | 'root'
-            | '@media screen and (max-width: 480px)'
+            | "root"
+            | "@media screen and (max-width: 480px)"
             | "[theme.breakpoints.down('sm')]"
             | "[theme.breakpoints.down('xs')]"
-            | 'actions'
-            | 'filterCloseIcon'
-            | 'filterPaper'
-            | 'fullWidthActions'
-            | 'fullWidthLeft'
-            | 'fullWidthRoot'
-            | 'fullWidthTitleText'
-            | 'icon'
-            | 'iconActive'
-            | 'left'
-            | 'searchIcon'
-            | 'titleRoot'
-            | 'titleText';
+            | "actions"
+            | "filterCloseIcon"
+            | "filterPaper"
+            | "fullWidthActions"
+            | "fullWidthLeft"
+            | "fullWidthRoot"
+            | "fullWidthTitleText"
+            | "icon"
+            | "iconActive"
+            | "left"
+            | "searchIcon"
+            | "titleRoot"
+            | "titleText";
 
-        MUIDataTableToolbarSelect: 'root' | 'deleteIcon' | 'iconButton' | 'title';
+        MUIDataTableToolbarSelect: "root" | "deleteIcon" | "iconButton" | "title";
 
         MUIDataTableViewCol:
-            | 'root'
-            | 'checkbox'
-            | 'checkboxRoot'
-            | 'checked'
-            | 'formControl'
-            | 'formGroup'
-            | 'label'
-            | 'title';
+            | "root"
+            | "checkbox"
+            | "checkboxRoot"
+            | "checked"
+            | "formControl"
+            | "formGroup"
+            | "label"
+            | "title";
     }
 }

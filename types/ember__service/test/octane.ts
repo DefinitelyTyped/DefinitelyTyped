@@ -1,20 +1,20 @@
-import Service, { inject, service } from '@ember/service';
-import EmberObject from '@ember/object';
+import EmberObject from "@ember/object";
+import Service, { inject, service } from "@ember/service";
 
 class FirstSvc extends Service {
-    foo = 'bar';
+    foo = "bar";
     first() {
-        return '';
+        return "";
     }
 }
 const SecondSvc = Service.extend({
-    foo: 'bar',
+    foo: "bar",
     second() {
-        return '';
+        return "";
     },
 });
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
         first: FirstSvc;
         second: InstanceType<typeof SecondSvc>;
@@ -22,13 +22,19 @@ declare module '@ember/service' {
 }
 
 class Foo extends EmberObject {
-    @inject declare foo: FirstSvc;
-    @inject('first') declare baz: FirstSvc;
-    @inject() declare bar: FirstSvc;
+    @inject
+    declare foo: FirstSvc;
+    @inject("first")
+    declare baz: FirstSvc;
+    @inject()
+    declare bar: FirstSvc;
 }
 
 class FooService extends EmberObject {
-    @service declare foo: FirstSvc;
-    @service('first') declare baz: FirstSvc;
-    @service() declare bar: FirstSvc;
+    @service
+    declare foo: FirstSvc;
+    @service("first")
+    declare baz: FirstSvc;
+    @service()
+    declare bar: FirstSvc;
 }

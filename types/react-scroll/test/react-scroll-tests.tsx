@@ -1,32 +1,32 @@
-import * as React from 'react';
+import * as React from "react";
 import {
-    Link,
-    Button,
     animateScroll,
-    Helpers,
-    Events,
+    Button,
     Element,
+    Events,
+    Helpers,
+    Link,
     ScrollElement,
+    scroller,
     ScrollLink,
     scrollSpy,
-    scroller,
-} from 'react-scroll';
+} from "react-scroll";
 
-Events.scrollEvent.register('begin', (to, element) => {
-    console.log('begin');
+Events.scrollEvent.register("begin", (to, element) => {
+    console.log("begin");
 });
 
-Events.scrollEvent.register('end', (to, element) => {
-    console.log('end');
+Events.scrollEvent.register("end", (to, element) => {
+    console.log("end");
 });
 
 scrollSpy.update();
 
-Events.scrollEvent.remove('begin');
-Events.scrollEvent.remove('end');
+Events.scrollEvent.remove("begin");
+Events.scrollEvent.remove("end");
 
 const smothOptions = {
-    a: '',
+    a: "",
     smooth: false,
 };
 animateScroll.getAnimationType(smothOptions);
@@ -128,7 +128,7 @@ const linkTest6 = (
 
 const linkTest7 = (
     <Link
-        activeStyle={{ color: '#000000' }}
+        activeStyle={{ color: "#000000" }}
         to="test7"
         spy={true}
         smooth={true}
@@ -143,14 +143,22 @@ const linkTest7 = (
 );
 
 const linkTest8 = (
-    <Link activeStyle={{ color: '#000000' }} to="test7" spy={true} smooth={true} offset={50} duration={500} delay={1000}>
+    <Link
+        activeStyle={{ color: "#000000" }}
+        to="test7"
+        spy={true}
+        smooth={true}
+        offset={50}
+        duration={500}
+        delay={1000}
+    >
         Test 8 (delay)
     </Link>
 );
 
 const buttonTest2 = (
     <Button
-        activeStyle={{ color: '#000000' }}
+        activeStyle={{ color: "#000000" }}
         className="btn"
         type="submit"
         value="Test 2"
@@ -166,7 +174,7 @@ const buttonTest2 = (
 
 const linkTest9 = (
     <Link
-        activeStyle={{ color: '#000000' }}
+        activeStyle={{ color: "#000000" }}
         to="target"
         spy={true}
         smooth={true}
@@ -194,25 +202,25 @@ animateScroll.scrollToTop(options);
 animateScroll.scrollToBottom(options);
 animateScroll.scrollTo(100, options);
 
-scroller.scrollTo('myScrollToElement', {
+scroller.scrollTo("myScrollToElement", {
     duration: 1500,
     delay: 100,
     smooth: true,
-    containerId: 'ContainerElementID',
+    containerId: "ContainerElementID",
 });
 
 animateScroll.scrollMore(10, options);
 
-Events.scrollEvent.register('begin', (to, element) => {
-    console.log('begin', to, element);
+Events.scrollEvent.register("begin", (to, element) => {
+    console.log("begin", to, element);
 });
 
-Events.scrollEvent.register('end', (to, element) => {
-    console.log('end', to, element);
+Events.scrollEvent.register("end", (to, element) => {
+    console.log("end", to, element);
 });
 
-Events.scrollEvent.remove('begin');
-Events.scrollEvent.remove('end');
+Events.scrollEvent.remove("begin");
+Events.scrollEvent.remove("end");
 
 class CustomComponent extends React.Component<{ children?: React.ReactNode }> {
     render() {
@@ -223,11 +231,11 @@ class CustomComponent extends React.Component<{ children?: React.ReactNode }> {
 const CustomElement = Helpers.Element(CustomComponent);
 const CustomLink = Helpers.Scroll(CustomComponent);
 
-scroller.scrollTo('myScrollToElement', {
+scroller.scrollTo("myScrollToElement", {
     duration: 1500,
     delay: 100,
-    smooth: 'easeInOutQuint',
-    containerId: 'ContainerElementID',
+    smooth: "easeInOutQuint",
+    containerId: "ContainerElementID",
 });
 
 const CustomScrollLink = ScrollLink(CustomComponent);
@@ -238,7 +246,7 @@ const CustomScrollLinkWithScroller = ScrollLink(CustomComponent, {
     unregister: (name: string) => {},
     get: (name: string) => {},
     setActiveLink: (link: string) => {},
-    getActiveLink: () => '',
+    getActiveLink: () => "",
     scrollTo: (to: string, props: any) => {},
 });
 <CustomScrollLinkWithScroller to="testTo" />;

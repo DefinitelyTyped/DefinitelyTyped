@@ -1,23 +1,16 @@
-// Type definitions for vinyl-fs 3.0
-// Project: https://github.com/gulpjs/vinyl-fs
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 remisery <https://github.com/remisery>
-//                 TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare global {
     namespace NodeJS {
         interface WritableStream {
-            write(buffer: any/* Vinyl.File */, cb?: (err?: Error | null) => void): boolean;
+            write(buffer: any, /* Vinyl.File */ cb?: (err?: Error | null) => void): boolean;
         }
     }
 }
 
-import * as _events from 'events';
-import * as File from 'vinyl';
-import * as globStream from 'glob-stream';
+import * as _events from "events";
+import * as globStream from "glob-stream";
+import * as File from "vinyl";
 
 export interface SrcOptions extends globStream.Options {
     /**
@@ -109,7 +102,7 @@ export interface DestOptions {
  * fs.src(['!b*.js', '*.js']) would not exclude any files, but this would: fs.src(['*.js', '!b*.js'])
  * @param opt Options Vinyl source options, changes the way the files are read, found, or stored in the vinyl stream
  */
-export function src(globs: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
+export function src(globs: string | string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
 
 /**
  * On write the stream will save the vinyl File to disk at the folder/cwd specified.

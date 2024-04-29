@@ -1,5 +1,3 @@
-import { Quad, Term } from 'rdf-js';
+import { Quad, Term } from "@rdfjs/types";
 
-declare function quad(quad: Quad, toNT: (term: Term) => string): string;
-
-export = quad;
+export default function quad(quad: Quad, toNT: (term: Term) => string): string;

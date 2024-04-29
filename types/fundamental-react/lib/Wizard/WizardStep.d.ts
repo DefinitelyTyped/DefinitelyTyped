@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface WizardStepProps {
     title: string;
@@ -9,7 +9,7 @@ export interface WizardStepProps {
     /** CSS class(es) to add to the element. */
     className?: string;
     /** (standalone only) Appearance of the connector to the next element. */
-    connector?: 'none' | 'default' | 'active' | 'branching';
+    connector?: "none" | "default" | "active" | "branching";
     /** Icon glyph to display in the indicator component. */
     glyph?: React.ReactNode;
     /** Text to display in the indicator component if no glyph given. */
@@ -17,7 +17,7 @@ export interface WizardStepProps {
     /** Menu to show instead of triggering a click even. Used mostly for stacking steps. */
     menu?: React.ReactNode;
     /** (standalone only) Step appearance modifiers. */
-    modifiers?: Array<'completed' | 'current' | 'upcoming' | 'no-label' | 'stacked' | 'stacked-top' | 'active'>;
+    modifiers?: Array<"completed" | "current" | "upcoming" | "no-label" | "stacked" | "stacked-top" | "active">;
     /** (integrated only) Label to use on the next step button. */
     nextLabel?: string;
     /** Label to use as the optional text in step header. */

@@ -37,36 +37,36 @@ TPDirect.card.onUpdate((update) => {
 TPDirect.card.setup({
     number: {
         element: "#body",
-        placeholder: "**** **** **** ****"
+        placeholder: "**** **** **** ****",
     },
     ccv: {
         element: "#body",
-        placeholder: "***"
+        placeholder: "***",
     },
     expirationDate: {
         element: "#body",
-        placeholder: "MM / YYYY"
-    }
+        placeholder: "MM / YYYY",
+    },
 });
 
 // $ExpectType void
 TPDirect.card.setup({
     number: {
         element: "#body",
-        placeholder: "**** **** **** ****"
+        placeholder: "**** **** **** ****",
     },
     ccv: {
         element: "#body",
-        placeholder: "***"
+        placeholder: "***",
     },
     expirationDate: {
         element: "#body",
-        placeholder: "MM / YYYY"
+        placeholder: "MM / YYYY",
     },
 }, {
     input: {
-        color: "red"
-    }
+        color: "red",
+    },
 });
 
 /**
@@ -78,22 +78,22 @@ TPDirect.paymentRequestApi.checkAvailability();
 
 // $ExpectType void
 TPDirect.paymentRequestApi.setupPaymentRequest({
-    supportedNetworks: ['AMEX', "JCB", "MASTERCARD", "VISA"],
+    supportedNetworks: ["AMEX", "JCB", "MASTERCARD", "VISA"],
     supportedMethods: ["apple_pay"],
     displayItems: [{
         amount: {
             currency: "TWD",
-            value: "1.00"
+            value: "1.00",
         },
-        label: "hi"
+        label: "hi",
     }],
     total: {
         amount: {
             currency: "TWD",
-            value: '1.00'
+            value: "1.00",
         },
-        label: "total"
-    }
+        label: "total",
+    },
 }, (result) => {
     result.browserSupportPaymentRequest; // $ExpectType boolean
     result.canMakePaymentWithActiveCard; // $ExpectType boolean
@@ -102,7 +102,7 @@ TPDirect.paymentRequestApi.setupPaymentRequest({
 // $ExpectType void
 TPDirect.paymentRequestApi.setupApplePay({
     countryCode: "TW",
-    merchantIdentifier: "merchantid"
+    merchantIdentifier: "merchantid",
 });
 
 TPDirect.paymentRequestApi.getPrime((result) => {
@@ -139,13 +139,13 @@ TPDirect.googlePay.setupGooglePay({
     allowedCountryCodes: ["TW"],
     billingAddressFormat: "FULL",
     googleMerchantId: "test",
-    merchantName: "merchant name"
+    merchantName: "merchant name",
 });
 
 // $ExpectType void
 TPDirect.googlePay.setupTransactionPrice({
     currency: "TWD",
-    price: "1.00"
+    price: "1.00",
 });
 
 // $ExpectType void
@@ -162,14 +162,14 @@ TPDirect.googlePay.setupGooglePayButton({
         result.client_ip; // $ExpectType string
         result.card_info.countrycode; // $ExpectType string
         result.card_info.lastfour; // $ExpectType string
-    }
+    },
 });
 
 // $ExpectType void
 TPDirect.googlePay.setupPaymentRequest({
     allowedNetworks: ["AMEX"],
     currency: "TWD",
-    price: "1.00"
+    price: "1.00",
 });
 
 // $ExpectType void
@@ -205,7 +205,7 @@ TPDirect.samsungPay.getPrime((result) => {
 
 // $ExpectType void
 TPDirect.samsungPay.setup({
-    country_code: "tw"
+    country_code: "tw",
 });
 
 // $ExpectType void
@@ -215,18 +215,19 @@ TPDirect.samsungPay.setupPaymentRequest({
         label: "test",
         amount: {
             currency: "TWD",
-            value: "1.00"
-        }
-    }
+            value: "1.00",
+        },
+    },
 });
 
 // $ExpectType void
 TPDirect.samsungPay.setupSamsungPayButton(
-    "#button", {
+    "#button",
+    {
         color: "black",
         shape: "rectangular",
-        type: "buy"
-    }
+        type: "buy",
+    },
 );
 
 /**

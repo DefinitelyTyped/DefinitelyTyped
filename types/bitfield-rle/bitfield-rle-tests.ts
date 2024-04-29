@@ -1,4 +1,4 @@
-import * as rle from 'bitfield-rle';
+import * as rle from "bitfield-rle";
 
 rle.encode(Buffer.of(1)); // $ExpectType Buffer
 rle.encode(Buffer.of(1), Buffer.alloc(10)); // $ExpectType Buffer

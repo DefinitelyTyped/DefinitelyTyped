@@ -1,17 +1,11 @@
-// Type definitions for vue-select 3.16
-// Project: https://github.com/sagalbot/vue-select#readme
-// Definitions by: Ilia Beliaev <https://github.com/silh>, Flo Edelmann <https://github.com/FloEdelmann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
-import { VueConstructor, ComponentOptions } from 'vue';
-import { ExtendedVue } from 'vue/types/vue';
+import { ComponentOptions, VueConstructor } from "vue";
+import { ExtendedVue } from "vue/types/vue";
 
 export default VueSelect;
 export const VueSelect: VueSelectConstructor;
 export type OptionConsumer<T = void> = (option: VueSelectOption) => T;
 
-type ChildComponentName = 'Deselect' | 'OpenIndicator';
+type ChildComponentName = "Deselect" | "OpenIndicator";
 type VueSelectOption = string | object;
 type KeyEventMap = Record<number, (event: KeyboardEvent) => any>;
 type UnbindPositionCallback = () => void;
@@ -29,7 +23,9 @@ interface CalculatedPosition {
 
 export interface VueSelectProps {
     value: VueSelectOption;
-    components: Record<ChildComponentName, VueConstructor | ComponentOptions<Vue>>;
+    components: {
+        [key in ChildComponentName]?: VueConstructor | ComponentOptions<Vue>;
+    };
     options: VueSelectOption[];
     disabled: boolean;
     clearable: boolean;
@@ -54,18 +50,29 @@ export interface VueSelectProps {
     filterBy: (option: VueSelectOption, label: string, search: string) => boolean;
     filter: (options: readonly VueSelectOption[], search: string) => VueSelectOption[];
     createOption: (option: string) => VueSelectOption;
-    resetOnOptionsChange: boolean | ((newOptions: readonly VueSelectOption[], oldOptions: readonly VueSelectOption[], selectedValue: readonly VueSelectOption[]) => boolean);
+    resetOnOptionsChange:
+        | boolean
+        | ((
+            newOptions: readonly VueSelectOption[],
+            oldOptions: readonly VueSelectOption[],
+            selectedValue: readonly VueSelectOption[],
+        ) => boolean);
     clearSearchOnBlur: (parameters: ClearSearchOnBlurParameters) => boolean;
     noDrop: boolean;
     inputId: string | null;
-    dir: 'auto' | 'ltr' | 'rtl';
+    dir: "auto" | "ltr" | "rtl";
     /** @deprecated since v3.3 - use selectOnKeyCodes instead */
     selectOnTab: boolean;
     selectOnKeyCodes: number[];
     searchInputQuerySelector: string;
     mapKeydown: (map: KeyEventMap, vm: VueSelectInstance) => KeyEventMap;
     appendToBody: boolean;
-    calculatePosition: (dropdownList: HTMLUListElement, component: VueSelectInstance, position: CalculatedPosition) => void | UnbindPositionCallback;
+    calculatePosition: (
+        dropdownList: HTMLUListElement,
+        component: VueSelectInstance,
+        position: CalculatedPosition,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    ) => void | UnbindPositionCallback;
 
     // in pointerScroll mixin:
     autoscroll: boolean;
@@ -163,67 +170,67 @@ export interface VueSelectComputed {
 }
 
 interface ListSlotScope {
-    search: VueSelectData['search'];
-    loading: VueSelectProps['loading'];
-    searching: ReturnType<VueSelectComputed['searching']>;
-    filteredOptions: ReturnType<VueSelectComputed['filteredOptions']>;
+    search: VueSelectData["search"];
+    loading: VueSelectProps["loading"];
+    searching: ReturnType<VueSelectComputed["searching"]>;
+    filteredOptions: ReturnType<VueSelectComputed["filteredOptions"]>;
 }
 
 export interface VueSelectSlotScope {
     search: {
         attributes: {
-            disabled: VueSelectProps['disabled'];
-            placeholder: VueSelectProps['placeholder'];
-            tabindex: VueSelectProps['tabindex'];
-            'readonly': boolean;
-            id: VueSelectProps['inputId'];
-            'aria-autocomplete': 'list';
-            'aria-labelledby': string;
-            'aria-controls': string;
-            ref: 'search';
-            type: 'search';
-            autocomplete: VueSelectProps['autocomplete'];
-            value: VueSelectData['search'];
-            'aria-activedescendant'?: string | undefined;
+            disabled: VueSelectProps["disabled"];
+            placeholder: VueSelectProps["placeholder"];
+            tabindex: VueSelectProps["tabindex"];
+            "readonly": boolean;
+            id: VueSelectProps["inputId"];
+            "aria-autocomplete": "list";
+            "aria-labelledby": string;
+            "aria-controls": string;
+            ref: "search";
+            type: "search";
+            autocomplete: VueSelectProps["autocomplete"];
+            value: VueSelectData["search"];
+            "aria-activedescendant"?: string | undefined;
         };
         events: {
-            'compositionstart': () => any;
-            'compositionend': () => any;
-            'keydown': VueSelectMethods['onSearchKeyDown'];
-            'blur': VueSelectMethods['onSearchBlur'];
-            'focus': VueSelectMethods['onSearchFocus'];
-            'input': (event: KeyboardEvent) => any;
+            "compositionstart": () => any;
+            "compositionend": () => any;
+            "keydown": VueSelectMethods["onSearchKeyDown"];
+            "blur": VueSelectMethods["onSearchBlur"];
+            "focus": VueSelectMethods["onSearchFocus"];
+            "input": (event: KeyboardEvent) => any;
         };
     };
     spinner: {
-        loading: VueSelectData['mutableLoading'];
+        loading: VueSelectData["mutableLoading"];
     };
     noOptions: {
-        search: VueSelectData['search'];
-        loading: VueSelectProps['loading'];
-        searching: ReturnType<VueSelectComputed['searching']>;
+        search: VueSelectData["search"];
+        loading: VueSelectProps["loading"];
+        searching: ReturnType<VueSelectComputed["searching"]>;
     };
     openIndicator: {
         attributes: {
-            'ref': 'openIndicator';
-            'role': 'presentation';
-            'class': 'vs__open-indicator';
+            "ref": "openIndicator";
+            "role": "presentation";
+            "class": "vs__open-indicator";
         };
     };
     listHeader: ListSlotScope;
     listFooter: ListSlotScope;
-    header: ListSlotScope & { deselect: VueSelectMethods['deselect'] };
-    footer: ListSlotScope & { deselect: VueSelectMethods['deselect'] };
+    header: ListSlotScope & { deselect: VueSelectMethods["deselect"] };
+    footer: ListSlotScope & { deselect: VueSelectMethods["deselect"] };
 }
 
 export interface StateClasses {
-    'vs--open': boolean;
-    'vs--single': boolean;
-    'vs--searching': boolean;
-    'vs--searchable': boolean;
-    'vs--unsearchable': boolean;
-    'vs--loading': boolean;
-    'vs--disabled': boolean;
+    "vs--open": boolean;
+    "vs--single": boolean;
+    "vs--searching": boolean;
+    "vs--searchable": boolean;
+    "vs--unsearchable": boolean;
+    "vs--loading": boolean;
+    "vs--disabled": boolean;
 }
 
 export interface VueSelectConstructor extends VueConstructor {
@@ -238,13 +245,15 @@ type ComputedValues = {
     [K in keyof VueSelectComputed]: ReturnType<VueSelectComputed[K]>;
 };
 
-export type VueSelectInstance = InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>> & {
-    $refs: {
-        search: HTMLInputElement;
-        toggle: HTMLDivElement;
-        selectedOptions: HTMLDivElement;
-        actions: HTMLDivElement;
-        clearButton: HTMLButtonElement;
-        dropdownMenu: HTMLUListElement | undefined;
+export type VueSelectInstance =
+    & InstanceType<ExtendedVue<Vue, VueSelectData, VueSelectMethods, ComputedValues, VueSelectProps>>
+    & {
+        $refs: {
+            search: HTMLInputElement;
+            toggle: HTMLDivElement;
+            selectedOptions: HTMLDivElement;
+            actions: HTMLDivElement;
+            clearButton: HTMLButtonElement;
+            dropdownMenu: HTMLUListElement | undefined;
+        };
     };
-};

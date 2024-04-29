@@ -1,12 +1,3 @@
-// Type definitions for non-npm package custom-functions-runtime 1.6
-// Project: https://github.com/OfficeDev/office-js
-// Definitions by: OfficeDev <https://github.com/OfficeDev>,
-//                 Adam Krantz <https://github.com/akrantz>,
-//                 David Chesnut <https://github.com/davidchesnut>,
-//                 Alison McKay <https://github.com/alison-mk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /*
 custom-functions-runtime
 Copyright (c) Microsoft Corporation
@@ -104,7 +95,7 @@ declare namespace CustomFunctions {
          *
          * @eventproperty
          */
-        onCanceled: () => void;
+        onCanceled?: () => void;
     }
 
     /**

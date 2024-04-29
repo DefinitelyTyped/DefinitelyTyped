@@ -1,18 +1,18 @@
-import fined = require('fined');
+import fined = require("fined");
 
 // $ExpectType Result | null
-fined({ path: 'path/to/file', extensions: ['.js', '.json'] });
+fined({ path: "path/to/file", extensions: [".js", ".json"] });
 
 const opts = {
-    name: '.app',
-    cwd: '.',
+    name: ".app",
+    cwd: ".",
     extensions: {
-        rc: 'default-rc-loader',
-        '.yml': 'default-yml-loader',
+        rc: "default-rc-loader",
+        ".yml": "default-yml-loader",
     },
 };
 
-fined({ path: '.' }, opts);
-fined({ path: '~', extensions: { rc: 'some-special-rc-loader' } }, opts);
-fined({ path: '~' }, {});
-fined({ path: '~' }, { extensions: '.ext' });
+fined({ path: "." }, opts);
+fined({ path: "~", extensions: { rc: "some-special-rc-loader" } }, opts);
+fined({ path: "~" }, {});
+fined({ path: "~" }, { extensions: ".ext" });

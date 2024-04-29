@@ -12,12 +12,12 @@ const sessionData: AmazonCognitoIdentity.CognitoSessionData = {};
 new AmazonCognitoIdentity.CognitoAuthSession(sessionData);
 
 const authOptions: AmazonCognitoIdentity.CognitoAuthOptions = {
-    ClientId: '1a2b3c4d5e6f7g',
-    AppWebDomain: 'myapp.auth.us-east-1.amazoncognito.com',
-    RedirectUriSignIn: 'https://myapp.com/login',
-    RedirectUriSignOut: 'https://myapp.com/logout'
+    ClientId: "1a2b3c4d5e6f7g",
+    AppWebDomain: "myapp.auth.us-east-1.amazoncognito.com",
+    RedirectUriSignIn: "https://myapp.com/login",
+    RedirectUriSignOut: "https://myapp.com/logout",
 };
 const auth = new AmazonCognitoIdentity.CognitoAuth(authOptions);
 auth.userhandler; // $ExpectType CognitoAuthUserHandler
 auth.getCognitoConstants(); // $ExpectType CognitoConstants
-auth.createCORSRequest('', '');  // $ExpectType XMLHttpRequest | XDomainRequest || XDomainRequest | XMLHttpRequest
+auth.createCORSRequest("", ""); // $ExpectType XMLHttpRequest | XDomainRequest || XDomainRequest | XMLHttpRequest

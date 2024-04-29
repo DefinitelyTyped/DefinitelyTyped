@@ -25,14 +25,14 @@ const profileInput: hasura.HasuraInsertInput<Profile> = {
         name: "foo",
         addresses: {
             data: [{
-              street: "N/A"
-            }]
-        }
+                street: "N/A",
+            }],
+        },
     }],
     on_conflict: {
         constraint: "profile_pkey",
-        update_columns: ["id"]
-    }
+        update_columns: ["id"],
+    },
 };
 
 const profileWhere: hasura.WhereBoolExp<Profile> = {
@@ -41,11 +41,11 @@ const profileWhere: hasura.WhereBoolExp<Profile> = {
     },
     _and: [{
         quantity: { _eq: 10 },
-        jsonColumn: {_eq: "{}"},
+        jsonColumn: { _eq: "{}" },
         addresses: {
-            city: {_eq: ""}
-        }
-    }]
+            city: { _eq: "" },
+        },
+    }],
 };
 
 type ProfileOrderBy = hasura.OrderBy<Profile>;
@@ -54,28 +54,28 @@ type ProfileOrderByAggregate = hasura.OrderByAggregate<Profile>;
 const profileOrderBy: ProfileOrderBy = {
     id: "desc",
     phone: {
-        code: "asc"
+        code: "asc",
     },
     addresses: {
-        street: "desc"
+        street: "desc",
     },
     addresses_agregate: {
         max: {
-            street: "asc"
-        }
+            street: "asc",
+        },
     },
     jsonColumn: "desc",
-    jsonbColumn: "asc"
+    jsonbColumn: "asc",
 };
 
 const profileOrderByAgg: ProfileOrderByAggregate = {
     ...profileOrderBy,
     max: {
-        quantity: "asc"
+        quantity: "asc",
     },
     avg: {
-        quantity: "desc"
-    }
+        quantity: "desc",
+    },
 };
 
 type ProfileQueryResponse = hasura.HasuraQueryResponse<"profiles", Partial<Profile>>;
@@ -86,10 +86,10 @@ const profileQueryResp: ProfileQueryResponse = {
             quantity: 10,
             addresses: [{
                 street: "N/A",
-                city: "New York"
-            }]
-        }]
-    }
+                city: "New York",
+            }],
+        }],
+    },
 };
 
 const profileInsertInput: hasura.HasuraInsertInput<Profile> = {
@@ -97,28 +97,28 @@ const profileInsertInput: hasura.HasuraInsertInput<Profile> = {
         quantity: 0,
         addresses: {
             data: [{
-                street: ""
+                street: "",
             }],
             on_conflict: {
                 constraint: "",
-                update_columns: ["street"]
-            }
-        }
-    }]
+                update_columns: ["street"],
+            },
+        },
+    }],
 };
 
 const profileUpdateInput: hasura.HasuraUpdateInput<Profile> = {
     _set: {
-        name: "foo"
+        name: "foo",
     },
     _inc: {
-        quantity: 10
+        quantity: 10,
     },
     where: {
         quantity: {
-            _gt: 10
-        }
-    }
+            _gt: 10,
+        },
+    },
 };
 
 type ProfileAggregateResponse = hasura.HasuraAggregateQueryResponse<"profiles_aggregate", Partial<Profile>>;
@@ -127,26 +127,26 @@ const profileAggregateResp: ProfileAggregateResponse = {
         profiles_aggregate: {
             aggregate: {
                 min: {
-                    quantity: 10
+                    quantity: 10,
                 },
                 max: {
-                    name: ""
+                    name: "",
                 },
                 sum: {
-                    quantity: 10
+                    quantity: 10,
                 },
                 avg: {
-                    quantity: 0.1
-                }
+                    quantity: 0.1,
+                },
             },
             nodes: [{
                 name: "test",
                 quantity: 10,
                 addresses: [{
                     street: "N/A",
-                    city: "New York"
-                }]
-            }]
-        }
-    }
+                    city: "New York",
+                }],
+            }],
+        },
+    },
 };

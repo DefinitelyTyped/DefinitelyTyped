@@ -1,17 +1,17 @@
-import { IncomingMessage } from 'http';
-import { AuthTokenExpiredError } from 'sc-errors';
+import { IncomingMessage } from "http";
+import { AuthTokenExpiredError } from "sc-errors";
 
-import AGServerSocket = require('./serversocket');
+import AGServerSocket = require("./serversocket");
 
-declare const HANDSHAKE_WS = 'handshakeWS';
-declare const HANDSHAKE_SC = 'handshakeSC';
-declare const MESSAGE = 'message';
-declare const TRANSMIT = 'transmit';
-declare const INVOKE = 'invoke';
-declare const SUBSCRIBE = 'subscribe';
-declare const PUBLISH_IN = 'publishIn';
-declare const PUBLISH_OUT = 'publishOut';
-declare const AUTHENTICATE = 'authenticate';
+declare const HANDSHAKE_WS = "handshakeWS";
+declare const HANDSHAKE_SC = "handshakeSC";
+declare const MESSAGE = "message";
+declare const TRANSMIT = "transmit";
+declare const INVOKE = "invoke";
+declare const SUBSCRIBE = "subscribe";
+declare const PUBLISH_IN = "publishIn";
+declare const PUBLISH_OUT = "publishOut";
+declare const AUTHENTICATE = "authenticate";
 
 interface AGActionBase {
     readonly HANDSHAKE_WS: typeof HANDSHAKE_WS;
@@ -24,7 +24,7 @@ interface AGActionBase {
     readonly PUBLISH_OUT: typeof PUBLISH_OUT;
     readonly AUTHENTICATE: typeof AUTHENTICATE;
 
-    outcome: null | 'allowed' | 'blocked';
+    outcome: null | "allowed" | "blocked";
     promise: Promise<any>;
 
     allow(packet?: any): void;
@@ -62,7 +62,7 @@ declare class AGAction {
     readonly PUBLISH_OUT: typeof PUBLISH_OUT;
     readonly AUTHENTICATE: typeof AUTHENTICATE;
 
-    outcome: null | 'allowed' | 'blocked';
+    outcome: null | "allowed" | "blocked";
     promise: Promise<any>;
 
     allow(packet: any): void;

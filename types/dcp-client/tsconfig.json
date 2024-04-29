@@ -8,16 +8,13 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "dcp-client-tests.ts"
+        "test/dcp-client-module.tests.ts",
+        "test/dcp-client-global.tests.ts"
     ]
 }

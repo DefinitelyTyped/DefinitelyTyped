@@ -8,24 +8,24 @@ type SVC = SafariViewController;
 SafariViewController.isAvailable(isAvailable => {
     isAvailable; // $ExpectType boolean
 });
-SafariViewController.show({ url: 'foo' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', hidden: true }); // $ExpectType void
-SafariViewController.show({ url: 'foo', animated: false }); // $ExpectType void
-SafariViewController.show({ url: 'foo', transition: 'curl' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', transition: 'flip' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', transition: 'fade' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', transition: 'slide' }); // $ExpectType void
+SafariViewController.show({ url: "foo" }); // $ExpectType void
+SafariViewController.show({ url: "foo", hidden: true }); // $ExpectType void
+SafariViewController.show({ url: "foo", animated: false }); // $ExpectType void
+SafariViewController.show({ url: "foo", transition: "curl" }); // $ExpectType void
+SafariViewController.show({ url: "foo", transition: "flip" }); // $ExpectType void
+SafariViewController.show({ url: "foo", transition: "fade" }); // $ExpectType void
+SafariViewController.show({ url: "foo", transition: "slide" }); // $ExpectType void
 // @ts-expect-error
-SafariViewController.show({ url: 'foo', transition: 'foo' });
-SafariViewController.show({ url: 'foo', enterReaderModeIfAvailable: true }); // $ExpectType void
-SafariViewController.show({ url: 'foo', tintColor: '#ffffff' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', barColor: '#0000ff' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', controlTintColor: '#ffffff' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', toolbarColor: '#ffffff' }); // $ExpectType void
-SafariViewController.show({ url: 'foo', showDefaultShareMenuItem: true }); // $ExpectType void
+SafariViewController.show({ url: "foo", transition: "foo" });
+SafariViewController.show({ url: "foo", enterReaderModeIfAvailable: true }); // $ExpectType void
+SafariViewController.show({ url: "foo", tintColor: "#ffffff" }); // $ExpectType void
+SafariViewController.show({ url: "foo", barColor: "#0000ff" }); // $ExpectType void
+SafariViewController.show({ url: "foo", controlTintColor: "#ffffff" }); // $ExpectType void
+SafariViewController.show({ url: "foo", toolbarColor: "#ffffff" }); // $ExpectType void
+SafariViewController.show({ url: "foo", showDefaultShareMenuItem: true }); // $ExpectType void
 // $ExpectType void
 SafariViewController.show(
-    { url: 'foo' },
+    { url: "foo" },
     res => {
         res; // $ExpectType SafariViewControllerShowResult
         res.event; // $ExpectType "opened" | "loaded" | "closed" || "loaded" | "closed" | "opened"
@@ -61,10 +61,10 @@ SafariViewController.getViewHandlerPackages(
     },
 );
 // $ExpectType void
-SafariViewController.useCustomTabsImplementation('foo');
+SafariViewController.useCustomTabsImplementation("foo");
 // $ExpectType void
 SafariViewController.useCustomTabsImplementation(
-    'foo',
+    "foo",
     res => {
         res; // $ExpectType true
     },
@@ -95,10 +95,10 @@ SafariViewController.warmUp(
     },
 );
 // $ExpectType void
-SafariViewController.mayLaunchUrl('foo');
+SafariViewController.mayLaunchUrl("foo");
 // $ExpectType void
 SafariViewController.mayLaunchUrl(
-    'foo',
+    "foo",
     res => {
         res; // $ExpectType true
     },

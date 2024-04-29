@@ -1,8 +1,3 @@
-// Type definitions for split2 3.2
-// Project: https://github.com/mcollina/split2
-// Definitions by: TANAKA Koichi <https://github.com/mugeso>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Transform, TransformOptions } from "stream";
@@ -21,7 +16,7 @@ declare namespace split {
     interface Options extends TransformOptions {
         maxLength?: number | undefined;
     }
-    type Matcher = string | RegExp;
+    type Matcher = string | RegExp | { [Symbol.split](string: string, limit?: number): string[] };
 }
 
 export = split;

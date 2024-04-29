@@ -220,12 +220,14 @@ declare namespace GoogleAdsScripts {
          *      }
          */
         interface AdGroupSelector
-            extends Base.Selector<AdGroupIterator>,
+            extends
+                Base.Selector<AdGroupIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
 
         /** Provides access to ad group-level targeting criteria: audiences. */
         interface AdGroupTargeting {

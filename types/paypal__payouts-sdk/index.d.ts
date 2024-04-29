@@ -1,11 +1,5 @@
-// Type definitions for @paypal/payouts-sdk 1.0
-// Project: https://github.com/paypal/Payouts-NodeJS-SDK#readme
-// Definitions by: Rumon <https://github.com/msrumon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
-export type RecipientType = 'EMAIL' | 'PHONE' | 'PAYPAL_ID';
-export type RecipientWallet = 'PAYPAL' | 'VENMO';
+export type RecipientType = "EMAIL" | "PHONE" | "PAYPAL_ID";
+export type RecipientWallet = "PAYPAL" | "VENMO";
 
 export interface Currency {
     currency: string;
@@ -14,12 +8,12 @@ export interface Currency {
 export interface LinkDescription {
     href: string;
     rel: string;
-    method?: 'CONNECT' | 'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'PATCH' | 'POST' | 'PUT' | undefined;
+    method?: "CONNECT" | "DELETE" | "GET" | "HEAD" | "OPTIONS" | "PATCH" | "POST" | "PUT" | undefined;
 }
 export interface PayoutBatchHeader extends PayoutHeader {
     time_completed?: string | undefined;
     time_closed?: string | undefined;
-    funding_source?: 'BALANCE' | undefined;
+    funding_source?: "BALANCE" | undefined;
     amount?: Currency | undefined;
     fees?: Currency | undefined;
 }
@@ -28,15 +22,16 @@ export interface PayoutBatchItems {
     transaction_id?: string | undefined;
     activity_id?: string | undefined;
     transaction_status?:
-        | 'BLOCKED'
-        | 'FAILED'
-        | 'ONHOLD'
-        | 'PENDING'
-        | 'REFUNDED'
-        | 'RETURNED'
-        | 'REVERSED'
-        | 'SUCCESS'
-        | 'UNCLAIMED' | undefined;
+        | "BLOCKED"
+        | "FAILED"
+        | "ONHOLD"
+        | "PENDING"
+        | "REFUNDED"
+        | "RETURNED"
+        | "REVERSED"
+        | "SUCCESS"
+        | "UNCLAIMED"
+        | undefined;
     payout_item_fee?: Currency | undefined;
     payout_batch_id: string;
     payout_item: PayoutItemDetail;
@@ -52,7 +47,7 @@ export interface PayoutCurrencyConversion {
 }
 export interface PayoutHeader {
     payout_batch_id: string;
-    batch_status: 'CANCELED' | 'DENIED' | 'PENDING' | 'PROCESSING' | 'SUCCESS';
+    batch_status: "CANCELED" | "DENIED" | "PENDING" | "PROCESSING" | "SUCCESS";
     time_created?: string | undefined;
     sender_batch_header: PayoutSenderBatchHeader;
     errors?: any;

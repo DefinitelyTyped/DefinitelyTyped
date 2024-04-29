@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/derhuerst__cli-on-key",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/derhuerst/cli-on-key"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/derhuerst__cli-on-key": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rong Shen",
+            "githubUsername": "jacobbubu"
+        }
+    ]
+}

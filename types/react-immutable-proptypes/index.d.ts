@@ -1,15 +1,12 @@
-// Type definitions for react-immutable-proptypes 2.1
-// Project: https://github.com/HurricaneJames/react-immutable-proptypes
-// Definitions by: Joris van der Wel <https://github.com/Joris-van-der-Wel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Validator, Requireable, ValidationMap } from 'prop-types';
-import * as Immutable from 'immutable';
+import * as Immutable from "immutable";
+import { Requireable, ValidationMap, Validator } from "prop-types";
 
 export function listOf<V>(type: Validator<V>): Requireable<Immutable.List<V>>;
 export function mapOf<V, K = any>(valueType: Validator<V>, keyType?: Validator<K>): Requireable<Immutable.Map<K, V>>;
-export function orderedMapOf<V, K = any>(valueType: Validator<V>, keyType?: Validator<K>): Requireable<Immutable.OrderedMap<K, V>>;
+export function orderedMapOf<V, K = any>(
+    valueType: Validator<V>,
+    keyType?: Validator<K>,
+): Requireable<Immutable.OrderedMap<K, V>>;
 export function setOf<V>(type: Validator<V>): Requireable<Immutable.Set<V>>;
 export function orderedSetOf<V>(type: Validator<V>): Requireable<Immutable.OrderedSet<V>>;
 export function stackOf<V>(type: Validator<V>): Requireable<Immutable.Stack<V>>;

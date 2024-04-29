@@ -3,153 +3,167 @@
 function test_validate() {
     $("#commentForm").validate();
     $(".selector").validate({
-        debug: true
+        debug: true,
     });
     $(".selector").validate({
         submitHandler: (form) => {
             $(form).ajaxSubmit();
-        }
+        },
     });
     $(".selector").validate({
         invalidHandler: (form, validator) => {
             const errors = validator.numberOfInvalids();
             if (errors) {
                 const message = errors === 1
-                    ? 'You missed 1 field. It has been highlighted'
+                    ? "You missed 1 field. It has been highlighted"
                     : `You missed ${errors} fields. They have been highlighted`;
                 $("div.error span").html(message);
                 $("div.error").show();
             } else {
                 $("div.error").hide();
             }
-        }
+        },
     });
     $("#myform").validate({
-        ignore: ".ignore"
+        ignore: ".ignore",
     });
     $(".selector").validate({
         rules: {
             name: "required",
             email: {
                 required: true,
-                email: true
-            }
-        }
+                email: true,
+            },
+        },
     });
     $(".selector").validate({
         rules: {
             name: {
                 required: true,
-                minlength: 2
-            }
+                minlength: 2,
+            },
         },
         messages: {
             name: {
                 required: "We need your email address to contact you",
-                minlength: jQuery.format("At least {0} characters required!")
-            }
-        }
+                minlength: jQuery.format("At least {0} characters required!"),
+            },
+        },
     });
     $("#myform").validate({
         groups: {
-            username: "fname lname"
+            username: "fname lname",
         },
         errorPlacement: (error, element) => {
-            if (element.attr("name") === "fname"
-                || element.attr("name") === "lname")
+            if (
+                element.attr("name") === "fname"
+                || element.attr("name") === "lname"
+            ) {
                 error.insertAfter("#lastname");
-            else
+            } else {
                 error.insertAfter(element);
+            }
         },
-        debug: true
+        debug: true,
     });
     $(".selector").validate({
-        onsubmit: false
+        onsubmit: false,
     });
     $(".selector").validate({
-        onfocusin: (elt, event) => { },
+        onfocusin: (elt, event) => {},
     });
     $(".selector").validate({
-        onfocusout: false
+        onfocusout: false,
     });
     $(".selector").validate({
-        onkeyup: false
+        onkeyup: false,
     });
     $(".selector").validate({
-        onclick: false
+        onclick: false,
     });
     $(".selector").validate({
-        onfocusout: (elt) => { },
-        onkeyup: (elt) => { },
-        onclick: (elt) => { }
+        onfocusout: (elt) => {},
+        onkeyup: (elt) => {},
+        onclick: (elt) => {},
     });
     $(".selector").validate({
-        onfocusout: (elt, event) => { },
-        onkeyup: (elt, event) => { },
-        onclick: (elt, event) => { }
+        onfocusout: (elt, event) => {},
+        onkeyup: (elt, event) => {},
+        onclick: (elt, event) => {},
     });
 
     $(".selector").validate({
-        focusInvalid: false
+        focusInvalid: false,
     });
     $(".selector").validate({
-        focusCleanup: true
+        focusCleanup: true,
     });
     $("#myform").validate({
         meta: "validate",
-        submitHandler: () => { alert("Submitted!"); }
+        submitHandler: () => {
+            alert("Submitted!");
+        },
     });
     $(".selector").validate({
-        errorClass: "invalid"
+        errorClass: "invalid",
     });
     $(".selector").validate({
-        validClass: "success"
+        validClass: "success",
     });
     $(".selector").validate({
-        errorElement: "em"
+        errorElement: "em",
     });
     $(".selector").validate({
-        wrapper: "li"
+        wrapper: "li",
     });
     $("#myform").validate({
         errorLabelContainer: "#messageBox",
         wrapper: "li",
-        submitHandler: () => { alert("Submitted!"); }
+        submitHandler: () => {
+            alert("Submitted!");
+        },
     });
     $("#myform").validate({
         errorContainer: "#messageBox1, #messageBox2",
         errorLabelContainer: "#messageBox1 ul",
-        wrapper: "li", debug: true,
-        submitHandler: () => { alert("Submitted!"); }
+        wrapper: "li",
+        debug: true,
+        submitHandler: () => {
+            alert("Submitted!");
+        },
     });
     $(".selector").validate({
         showErrors: (errorMap: JQueryValidation.ErrorDictionary, errorList: JQueryValidation.ErrorListItem[]) => {
             $("#summary").html(`Your form contains ${this.numberOfInvalids()} errors, see details below.`);
             this.defaultShowErrors();
-        }
+        },
     });
     $("#myform").validate({
         errorPlacement: (error, element) => {
             error.appendTo(element.parent("td").next("td"));
         },
-        debug: true
+        debug: true,
     });
     $("#myform").validate({
         success: "valid",
-        submitHandler: () => { alert("Submitted!"); }
+        submitHandler: () => {
+            alert("Submitted!");
+        },
     });
     $("#myform").validate({
         success: (label) => {
             label.addClass("valid").text("Ok!");
         },
-        submitHandler: () => { alert("Submitted!"); }
+        submitHandler: () => {
+            alert("Submitted!");
+        },
     });
     $(".selector").validate({
         highlight: (element, errorClass) => {
             $(element).fadeOut(() => {
                 $(element).fadeIn();
             });
-        }
+        },
     });
     $(".selector").validate({
         highlight: (element: HTMLInputElement, errorClass, validClass) => {
@@ -161,21 +175,21 @@ function test_validate() {
             $(element).removeClass(errorClass).addClass(validClass);
             $(element.form).find(`label[for=${element.id}]`)
                 .removeClass(errorClass);
-        }
+        },
     });
     $(".selector").validate({
-        ignoreTitle: true
+        ignoreTitle: true,
     });
     // onSubmit, onfocusout, onkeyup, onclick
-    $('.selector').validate({
+    $(".selector").validate({
         onsubmit: false,
         onfocusout: false,
         onkeyup: false,
         onclick: false,
     });
-    $('.selector').validate({
-        onfocusout: () => { },
-        onkeyup: () => { },
+    $(".selector").validate({
+        onfocusout: () => {},
+        onkeyup: () => {},
         onclick: elt => 2,
     });
 }
@@ -191,8 +205,8 @@ function test_methods() {
         minlength: 2,
         messages: {
             required: "Required input",
-            minlength: jQuery.format("Please, at least {0} characters are necessary")
-        }
+            minlength: jQuery.format("Please, at least {0} characters are necessary"),
+        },
     });
     $("#myinput").rules("remove");
     $("#myinput").rules("remove", "min max");
@@ -201,8 +215,8 @@ function test_methods() {
         minlength: 2,
         messages: {
             required: "Required input",
-            minlength: jQuery.format("Please, at least {0} characters are necessary")
-        }
+            minlength: jQuery.format("Please, at least {0} characters are necessary"),
+        },
     });
     $("#skip").click(() => {
         const rules = $("#myinput").removeAttrs("min max");
@@ -229,7 +243,7 @@ function test_methods() {
 
 function test_static_methods() {
     jQuery.validator.setDefaults({
-        debug: true
+        debug: true,
     });
     jQuery.validator.addMethod("domain", function(value, element) {
         return this.optional(element) || /^http:\/\/mycorporatedomain.com/.test(value);
@@ -237,31 +251,31 @@ function test_static_methods() {
     jQuery.validator.addClassRules({
         name: {
             required: true,
-            minlength: 2
+            minlength: 2,
         },
         zip: {
             required: true,
             digits: true,
             minlength: 5,
-            maxlength: 5
-        }
+            maxlength: 5,
+        },
     });
     jQuery.validator.addClassRules({
         name: {
             required: true,
-            minlength: 2
+            minlength: 2,
         },
         zip: {
             required: true,
             digits: true,
             minlength: 5,
-            maxlength: 5
-        }
+            maxlength: 5,
+        },
     });
 
     // jQuery.validator.format
-    jQuery.validator.format('{0}');
-    jQuery.validator.format('{0} {1}')('a', 2);
-    jQuery.validator.format('{0} {1}', 'a', 2);
-    jQuery.validator.format('{0} {1}', ['a', 2]);
+    jQuery.validator.format("{0}");
+    jQuery.validator.format("{0} {1}")("a", 2);
+    jQuery.validator.format("{0} {1}", "a", 2);
+    jQuery.validator.format("{0} {1}", ["a", 2]);
 }

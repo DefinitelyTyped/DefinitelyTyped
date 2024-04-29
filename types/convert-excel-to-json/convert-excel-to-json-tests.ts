@@ -7,13 +7,13 @@ const sourceBuffer = readFileSync(sourceFile);
 // @ts-expect-error
 excelToJson({
     header: {
-        rows: 1
-    }
+        rows: 1,
+    },
 });
 
 // $ExpectType any
 excelToJson({
-    sourceFile
+    sourceFile,
 }).sheet1[2];
 
 // $ExpectType any[]
@@ -21,7 +21,7 @@ excelToJson(`{"sourceFile": "${sourceFile}"}`).sheet1;
 
 // $ExpectType any
 excelToJson({
-    source: sourceBuffer
+    source: sourceBuffer,
 }).sheet1[0];
 
 // $ExpectType any[]
@@ -31,14 +31,14 @@ excelToJson({
     sheets: ["sheet1", {
         name: "sheet2",
         header: {
-            rows: 1
+            rows: 1,
         },
         columnToKey: {
             A: "id",
             B: "firstName",
-            D: "email"
-        }
-    }]
+            D: "email",
+        },
+    }],
 }).sheet2;
 
 // $ExpectType { [key: string]: any[]; }
@@ -48,13 +48,13 @@ excelToJson({
         name: "sheet2",
     }],
     header: {
-        rows: 1
+        rows: 1,
     },
     columnToKey: {
         A: "{{A1}}",
         B: "{{B1}}",
-        D: "{{D1}}"
-    }
+        D: "{{D1}}",
+    },
 });
 
 // $ExpectType any[]
@@ -64,8 +64,8 @@ excelToJson({
         name: "sheet3",
     }],
     header: {
-        rows: 0
+        rows: 0,
     },
     includeEmptyLines: false,
-    sheetStubs: true
+    sheetStubs: true,
 }).sheet3;

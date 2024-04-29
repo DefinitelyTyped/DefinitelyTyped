@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/migrate-mongo",
+    "version": "10.0.9999",
+    "projects": [
+        "https://github.com/seppevs/migrate-mongo#readme"
+    ],
     "dependencies": {
-        "mongodb": "^4.0.1"
-    }
+        "@types/node": "*",
+        "mongodb": "^6.1.0"
+    },
+    "devDependencies": {
+        "@types/migrate-mongo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amit Beckenstein",
+            "githubUsername": "amitbeck"
+        }
+    ]
 }

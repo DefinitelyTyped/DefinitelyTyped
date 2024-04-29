@@ -1,4 +1,4 @@
-import ErrorListener from './ErrorListener';
+import ErrorListener from "./ErrorListener";
 
 /**
  * This implementation prints messages to stderr containing the
@@ -6,7 +6,6 @@ import ErrorListener from './ErrorListener';
  * the following format.
  *
  * line _line_:_charPositionInLine_ _msg_
- *
  */
 export default class ConsoleErrorListener extends ErrorListener {
     static readonly INSTANCE: ConsoleErrorListener;

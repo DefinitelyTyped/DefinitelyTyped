@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet-responsive-popup",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/yafred/leaflet-responsive-popup"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-responsive-popup": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stan Kurek",
+            "githubUsername": "stankurek"
+        }
+    ]
+}

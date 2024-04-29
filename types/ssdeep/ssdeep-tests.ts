@@ -1,6 +1,6 @@
-import { compare, hash, hash_from_file } from 'ssdeep';
+import { compare, hash, hash_from_file } from "ssdeep";
 
-let str = 'string';
+let str = "string";
 let num = 123;
 
 num = compare(str, str);

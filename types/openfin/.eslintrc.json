@@ -1,6 +1,11 @@
 {
     "rules": {
-        "no-const-enum": "off",
-        "prefer-declare-function": "off"
+        "jsdoc/check-tag-names": "off",
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

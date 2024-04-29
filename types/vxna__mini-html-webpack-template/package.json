@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/vxna__mini-html-webpack-template",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/vxna/mini-html-webpack-template#readme"
+    ],
+    "dependencies": {
+        "@types/mini-html-webpack-plugin": "*"
+    },
+    "devDependencies": {
+        "@types/vxna__mini-html-webpack-template": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

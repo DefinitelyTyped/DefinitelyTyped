@@ -1,17 +1,11 @@
-// Type definitions for restify 5.0
-// Project: https://github.com/restify/node-restify
-// Definitions by: Bret Little <https://github.com/blittle>, Leandro Almeida <https://github.com/leanazulyoro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
-import http = require('http');
-import https = require('https');
-import Logger = require('bunyan');
-import url = require('url');
-import spdy = require('spdy');
-import stream = require('stream');
+import http = require("http");
+import https = require("https");
+import Logger = require("bunyan");
+import url = require("url");
+import spdy = require("spdy");
+import stream = require("stream");
 
 export interface ServerOptions {
     ca?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
@@ -708,7 +702,7 @@ export interface Response extends http.ServerResponse {
      * @param      code the status code
      * @param      url to redirect to
      * @param    next fn
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(code: number, url: string, next: Next): void;
 
@@ -718,7 +712,7 @@ export interface Response extends http.ServerResponse {
      * `next` is mandatory, to complete the response and trigger audit logger.
      * @param      options the options or url to redirect to
      * @param    next fn
-     * @emits    redirect
+     * @fires    redirect
      */
     redirect(options: object | string, next: Next): void;
 
@@ -806,7 +800,7 @@ export namespace bunyan {
         stream?: Logger.Stream | undefined;
 
         /** The streams to which to write when dumping captured records. */
-        streams?: ReadonlyArray<Logger.Stream> | undefined;
+        streams?: readonly Logger.Stream[] | undefined;
 
         /**
          * The level at which to trigger dumping captured records. Defaults to
@@ -844,11 +838,11 @@ export namespace bunyan {
     }
 
     const serializers: Logger.Serializers & {
-        err: Logger.Serializer,
-        req: Logger.Serializer,
-        res: Logger.Serializer,
-        client_req: Logger.Serializer,
-        client_res: Logger.Serializer
+        err: Logger.Serializer;
+        req: Logger.Serializer;
+        res: Logger.Serializer;
+        client_req: Logger.Serializer;
+        client_res: Logger.Serializer;
     };
 
     /** create a bunyan logger */
@@ -917,7 +911,7 @@ export namespace plugins {
          * The event from the server which initiates the
          * log, one of 'pre', 'routed', or 'after'
          */
-        event: 'pre' | 'routed' | 'after';
+        event: "pre" | "routed" | "after";
         /**
          * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
          */
@@ -1064,7 +1058,9 @@ export namespace plugins {
     /**
      * Parses JSON POST bodies
      */
-    function jsonBodyParser(options?: { mapParams?: boolean | undefined, reviver?: any, overrideParams?: boolean | undefined }): RequestHandler[];
+    function jsonBodyParser(
+        options?: { mapParams?: boolean | undefined; reviver?: any; overrideParams?: boolean | undefined },
+    ): RequestHandler[];
 
     /**
      * Parses JSONP callback
@@ -1215,7 +1211,7 @@ export namespace plugins {
         route: Route;
     }
 
-    type TMetricsCallback = 'close' | 'aborted' | undefined;
+    type TMetricsCallback = "close" | "aborted" | undefined;
 
     interface MetricsCallbackOptions {
         /**

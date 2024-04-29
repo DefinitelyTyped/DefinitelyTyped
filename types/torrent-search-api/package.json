@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/torrent-search-api",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/JimmyLaurent/torrent-search-api"
+    ],
+    "devDependencies": {
+        "@types/torrent-search-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicolas Girardin",
+            "githubUsername": "ngirardin"
+        }
+    ]
+}

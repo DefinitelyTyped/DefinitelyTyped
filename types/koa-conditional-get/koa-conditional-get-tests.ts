@@ -1,4 +1,4 @@
-import Koa = require('koa');
-import conditional = require('koa-conditional-get');
+import Koa = require("koa");
+import conditional = require("koa-conditional-get");
 
 new Koa().use(conditional());

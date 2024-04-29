@@ -1,4 +1,4 @@
-import { DOMWindow } from 'jsdom';
+import { DOMWindow } from "jsdom";
 /**
  * Utilities for querying and mutating style properties.
  */
@@ -16,5 +16,5 @@ declare namespace Style {
     function getScrollParent(node: Node): HTMLElement | DOMWindow;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = Style;

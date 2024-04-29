@@ -1,9 +1,3 @@
-// Type definitions for Ember.js 1.11.3
-// Project: http://emberjs.com/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 /// <reference types="handlebars"/>
 
@@ -51,9 +45,9 @@ declare namespace EmberStates {
           use in situations where you want to pass around a thennable,
           but not the Transition itself.
 
-          @arg {Function} onFulfilled
-          @arg {Function} onRejected
-          @arg {String} label optional string for labeling the promise. Useful for tooling.
+          @param {Function} onFulfilled
+          @param {Function} onRejected
+          @param {String} label optional string for labeling the promise. Useful for tooling.
           @return {Promise}
          */
         then(onFulfilled: Function, onRejected?: Function, label?: string): Ember.RSVP.Promise;
@@ -64,8 +58,8 @@ declare namespace EmberStates {
           but not the Transition itself.
 
           @method catch
-          @arg {Function} onRejection
-          @arg {String} label optional string for labeling the promise.
+          @param {Function} onRejection
+          @param {String} label optional string for labeling the promise.
           Useful for tooling.
           @return {Promise}
          */
@@ -77,8 +71,8 @@ declare namespace EmberStates {
           but not the Transition itself.
 
           @method finally
-          @arg {Function} callback
-          @arg {String} label optional string for labeling the promise.
+          @param {Function} callback
+          @param {String} label optional string for labeling the promise.
           Useful for tooling.
           @return {Promise}
          */
@@ -108,7 +102,7 @@ declare namespace EmberStates {
           handleURL, since the URL has already changed before the
           transition took place).
 
-          @arg {String} method the type of URL-changing method to use
+          @param {String} method the type of URL-changing method to use
             at the end of a transition. Accepted values are 'replace',
             falsy values, or any other non-falsy value (which is
             interpreted as an updateURL transition).
@@ -124,8 +118,8 @@ declare namespace EmberStates {
 
           Note: This method is also aliased as `send`
 
-          @arg {Boolean} [ignoreFailure=false] a boolean specifying whether unhandled events throw an error
-          @arg {String} name the name of the event to fire
+          @param {Boolean} [ignoreFailure=false] a boolean specifying whether unhandled events throw an error
+          @param {String} name the name of the event to fire
          */
         trigger(ignoreFailure: boolean, eventName: string): void;
         /**
@@ -135,7 +129,7 @@ declare namespace EmberStates {
 
           Note: This method is also aliased as `send`
 
-          @arg {String} name the name of the event to fire
+          @param {String} name the name of the event to fire
          */
         trigger(eventName: string): void;
 
@@ -233,10 +227,10 @@ interface Array<T> {
     object that will be set as `this` on the context. This is a good way
     to give your iterator function access to the current object.
     @function find
-    @arg callback The callback to execute
-    @arg {Object} [target] The target object to use
+    @param callback The callback to execute
+    @param {Object} [target] The target object to use
     @return {Object} Found item or `undefined`.
-*/
+    */
     find(callback: Function, target?: any): any;
     findBy(key: string, value?: string): any;
     forEach(callback: Function, target?: any): any;
@@ -271,8 +265,8 @@ interface Array<T> {
     unshiftObject(object: any): any;
     unshiftObjects(objects: any[]): any[];
     without(value: any): any[];
-    '[]': any[];
-    '@each': Ember.EachProxy;
+    "[]": any[];
+    "@each": Ember.EachProxy;
     Boolean: boolean;
     firstObject: any;
     hasEnumerableObservers: boolean;
@@ -577,9 +571,9 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '@each': EachProxy;
+        "@each": EachProxy;
         Boolean: boolean;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -711,8 +705,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': any[];
-        '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -935,8 +929,6 @@ declare namespace Ember {
 
         /**
         Defines the properties that will be concatenated from the superclass (instead of overridden).
-        @property concatenatedProperties
-        @type Array
         @default null
         **/
         concatenatedProperties: any[];
@@ -944,14 +936,12 @@ declare namespace Ember {
         /**
         Destroyed object property flag. If this property is true the observers and bindings were
         already removed by the effect of calling the destroy() method.
-        @property isDestroyed
         @default false
         **/
         isDestroyed: boolean;
         /**
         Destruction scheduled flag. The destroy() method has been called. The object stays intact
         until the end of the run loop at which point the isDestroyed flag is set.
-        @property isDestroying
         @default false
         **/
         isDestroying: boolean;
@@ -1203,7 +1193,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1479,8 +1469,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': any[];
-        '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1536,7 +1526,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1622,8 +1612,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-        '[]': any[];
-        '@each': EachProxy;
+        "[]": any[];
+        "@each": EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1792,11 +1782,9 @@ declare namespace Ember {
               primary way of interacting with a promise is through its `then` method, which
               registers callbacks to receive either a promise's eventual value or the reason
               why the promise cannot be fulfilled.
-              @class RSVP.Promise
               @param {function} resolver
               @param {String} label optional string for labeling the promise.
               Useful for tooling.
-              @constructor
             */
             constructor(resolver: PromiseResolverFunction, label?: string);
 
@@ -1927,8 +1915,6 @@ declare namespace Ember {
         /**
         The controller associated with this route.
 
-        @property controller
-        @type Ember.Controller
         @since 1.6.0
         */
         controller: Controller;
@@ -1954,8 +1940,6 @@ declare namespace Ember {
         * passed to the `setupController` method.
         * used as the controller for the view being rendered by the route.
         * returned from a call to `controllerFor` for the route.
-        @property controllerName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -2062,11 +2046,9 @@ declare namespace Ember {
 
         /**
         Configuration hash for this route's queryParams.
-        @property queryParams
         @for Ember.Route
-        @type Hash
         */
-        queryParams: {};
+        queryParams: Record<string, any>;
 
         /**
         Refresh the model on this route and any child routes, firing the
@@ -2236,8 +2218,6 @@ declare namespace Ember {
         This is similar with `viewName`, but is useful when you just want a custom
         template without a view.
 
-        @property templateName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -2265,8 +2245,6 @@ declare namespace Ember {
         define a specific view, set this property.
         This is useful when multiple routes would benefit from using the same view
         because it doesn't require a custom `renderTemplate` method.
-        @property viewName
-        @type String
         @default null
         @since 1.4.0
         */
@@ -2308,8 +2286,6 @@ declare namespace Ember {
         on the `actions` hash handles it. To continue bubbling the action,
         you must return `true` from the handler
 
-        @property actions
-        @type Hash
         @default null
         */
         actions: ActionsHash;
@@ -2491,7 +2467,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Set;
         without(value: any): Set;
-        '[]': any[];
+        "[]": any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -2556,7 +2532,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-        '[]': any[];
+        "[]": any[];
         arrangedContent: any;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -3239,7 +3215,7 @@ declare namespace Em {
  * External ambient module - to allow "import Ember = require('Ember');" to work correctly
  */
 
-declare module 'Ember' {
+declare module "Ember" {
     var $: typeof Ember.$;
     var A: typeof Ember.A;
     class ActionHandlerMixin extends Ember.ActionHandlerMixin {}

@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/react-tag-autocomplete",
+    "version": "6.3.9999",
+    "projects": [
+        "https://github.com/i-like-robots/react-tags#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-tag-autocomplete": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Lismore",
+            "githubUsername": "jlismore"
+        },
+        {
+            "name": "Rahul Sagore",
+            "githubUsername": "Rahul-Sagore"
+        },
+        {
+            "name": "Max Cilauro",
+            "githubUsername": "MaxCilauro"
+        },
+        {
+            "name": "Aleksandr Kondratsky",
+            "githubUsername": "akondratsky"
+        }
+    ]
+}

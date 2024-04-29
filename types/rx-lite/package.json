@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/rx-lite",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/Reactive-Extensions/RxJS"
+    ],
+    "dependencies": {
+        "@types/rx-core": "*",
+        "@types/rx-core-binding": "*"
+    },
+    "devDependencies": {
+        "@types/rx-lite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gsino",
+            "url": "http://www.codeplex.com/site/users/view/gsino"
+        },
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for non-npm package W3C Web USB API 1.0
-// Project: https://wicg.github.io/webusb/
-// Definitions by: Lars Knudsen <https://github.com/larsgk>
-//                 Rob Moran <https://github.com/thegecko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 type USBDirection = "in" | "out";
 type USBEndpointType = "bulk" | "interrupt" | "isochronous";
 type USBRequestType = "standard" | "class" | "vendor";
@@ -37,6 +30,7 @@ interface USBDeviceFilter {
 
 interface USBDeviceRequestOptions {
     filters: USBDeviceFilter[];
+    exclusionFilters?: USBDeviceFilter[] | undefined;
 }
 
 interface USBConnectionEventInit extends EventInit {
@@ -112,10 +106,26 @@ declare class USB extends EventTarget {
     ondisconnect: ((this: this, ev: USBConnectionEvent) => any) | null;
     getDevices(): Promise<USBDevice[]>;
     requestDevice(options?: USBDeviceRequestOptions): Promise<USBDevice>;
-    addEventListener(type: "connect" | "disconnect", listener: (this: this, ev: USBConnectionEvent) => any, useCapture?: boolean): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener(type: "connect" | "disconnect", callback: (this: this, ev: USBConnectionEvent) => any, useCapture?: boolean): void;
-    removeEventListener(type: string, callback: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void;
+    addEventListener(
+        type: "connect" | "disconnect",
+        listener: (this: this, ev: USBConnectionEvent) => any,
+        useCapture?: boolean,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject | null,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: "connect" | "disconnect",
+        callback: (this: this, ev: USBConnectionEvent) => any,
+        useCapture?: boolean,
+    ): void;
+    removeEventListener(
+        type: string,
+        callback: EventListenerOrEventListenerObject | null,
+        options?: EventListenerOptions | boolean,
+    ): void;
 }
 
 declare class USBDevice {
@@ -149,7 +159,11 @@ declare class USBDevice {
     transferIn(endpointNumber: number, length: number): Promise<USBInTransferResult>;
     transferOut(endpointNumber: number, data: BufferSource): Promise<USBOutTransferResult>;
     isochronousTransferIn(endpointNumber: number, packetLengths: number[]): Promise<USBIsochronousInTransferResult>;
-    isochronousTransferOut(endpointNumber: number, data: BufferSource, packetLengths: number[]): Promise<USBIsochronousOutTransferResult>;
+    isochronousTransferOut(
+        endpointNumber: number,
+        data: BufferSource,
+        packetLengths: number[],
+    ): Promise<USBIsochronousOutTransferResult>;
     reset(): Promise<void>;
 }
 

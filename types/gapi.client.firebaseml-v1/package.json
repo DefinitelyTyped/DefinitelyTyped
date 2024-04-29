@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.firebaseml-v1": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.firebaseml-v1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Firebase ML API v1",
+    "projects": [
+        "https://firebase.google.com"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.firebaseml-v1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.firebaseml-v1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

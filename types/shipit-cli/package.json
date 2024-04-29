@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/shipit-cli",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/shipitjs/shipit"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/shipit-cli": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        },
+        {
+            "name": "fsubal",
+            "githubUsername": "fsubal"
+        }
+    ]
+}

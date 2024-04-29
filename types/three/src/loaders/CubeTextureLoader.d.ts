@@ -1,16 +1,14 @@
-import { Loader } from './Loader';
-import { LoadingManager } from './LoadingManager';
-import { CubeTexture } from './../textures/CubeTexture';
+import { CubeTexture } from "../textures/CubeTexture.js";
+import { Loader } from "./Loader.js";
+import { LoadingManager } from "./LoadingManager.js";
 
-export class CubeTextureLoader extends Loader {
+export class CubeTextureLoader extends Loader<CubeTexture, readonly string[]> {
     constructor(manager?: LoadingManager);
 
     load(
-        urls: string[],
-        onLoad?: (texture: CubeTexture) => void,
+        url: readonly string[],
+        onLoad?: (data: CubeTexture) => void,
         onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
+        onError?: (err: unknown) => void,
     ): CubeTexture;
-
-    loadAsync(urls: string[], onProgress?: (event: ProgressEvent) => void): Promise<CubeTexture>;
 }

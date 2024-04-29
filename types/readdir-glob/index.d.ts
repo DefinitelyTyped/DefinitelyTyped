@@ -1,12 +1,7 @@
-// Type definitions for readdir-glob 1.1
-// Project: https://github.com/Yqnn/node-readdir-glob
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as fs from 'fs';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import * as fs from "fs";
 
 declare function readdirGlob(root: string, options: readdirGlob.Options): readdirGlob.ReaddirGlob;
 
@@ -15,7 +10,7 @@ declare namespace readdirGlob {
         /**
          * Glob pattern or Array of Glob patterns to match the found files with. A file has to match at least one of the provided patterns to be returned.
          */
-        pattern?: string;
+        pattern?: string | string[];
         /**
          * Allow pattern to match filenames starting with a period, even if the pattern does not explicitly have a period in that spot.
          */
@@ -36,13 +31,13 @@ declare namespace readdirGlob {
          * Glob pattern or Array of Glob patterns to exclude matches. If a file or a folder matches at least one of the provided patterns, it's not returned.
          * It doesn't prevent files from folder content to be returned. Note: ignore patterns are always in dot:true mode.
          */
-        ignore?: boolean;
+        ignore?: string | string[];
         /**
          * Glob pattern or Array of Glob patterns to exclude folders.
          * If a folder matches one of the provided patterns, it's not returned, and it's not explored: this prevents any of its children to be returned.
          * Note: skip patterns are always in dot:true mode.
          */
-        skip?: boolean;
+        skip?: string | string[];
         /**
          * Follow symlinked directories. Note that requires to stat _all_ results, and so reduces performance.
          */
@@ -85,20 +80,20 @@ declare namespace readdirGlob {
     }
 
     class ReaddirGlob extends EventEmitter {
-        constructor(cwd: string, cb: (error: Error | null, matches?: ReadonlyArray<Match>) => void);
-        constructor(cwd: string, options: Options, cb: (error: Error | null, matches?: ReadonlyArray<Match>) => void);
+        constructor(cwd: string, cb: (error: Error | null, matches?: readonly Match[]) => void);
+        constructor(cwd: string, options: Options, cb: (error: Error | null, matches?: readonly Match[]) => void);
         /**
          * Every time a match is found, this is emitted with the specific thing that matched.
          */
-        on(event: 'match', callback: (match: Match) => void): this;
+        on(event: "match", callback: (match: Match) => void): this;
         /**
          * When the matching is finished, this is emitted with all the matches found.
          */
-        on(event: 'error', callback: (error: Error) => void): this;
+        on(event: "error", callback: (error: Error) => void): this;
         /**
          * Emitted when an unexpected error is encountered.
          */
-        on(event: 'end', callback: (matches: ReadonlyArray<Match>) => void): this;
+        on(event: "end", callback: (matches: readonly Match[]) => void): this;
         /**
          * Temporarily stop the search
          */

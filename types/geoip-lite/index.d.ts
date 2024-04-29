@@ -1,10 +1,3 @@
-// Type definitions for geoip-lite 1.4
-// Project: https://github.com/bluesmoon/node-geoip
-// Definitions by: Yuce Tekol <https://github.com/yuce>
-//                 Artem <https://github.com/witem>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * https://github.com/bluesmoon/node-geoip#looking-up-an-ip-address
  */
@@ -21,7 +14,7 @@ export interface Lookup {
      */
     region: string;
     /** 1 if the country is a member state of the European Union, 0 otherwise. */
-    eu: '1' | '0';
+    eu: "1" | "0";
     /** "Country/Zone" Timezone from IANA Time Zone Database */
     timezone: string;
     /** This is the full city name */

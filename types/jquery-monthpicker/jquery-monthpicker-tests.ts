@@ -1,7 +1,7 @@
 // without options
-$('#monthpicker').MonthPicker({});
+$("#monthpicker").MonthPicker({});
 
 // with options
-$('#monthpicker').MonthPicker({
+$("#monthpicker").MonthPicker({
     OnAfterMenuClose: () => {},
 });

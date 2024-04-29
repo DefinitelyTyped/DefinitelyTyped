@@ -1,7 +1,8 @@
 // https://threejs.org/docs/#api/en/math/Matrix3
 
-import { Matrix4 } from './Matrix4';
-import { Vector3 } from './Vector3';
+import { Matrix4 } from "./Matrix4.js";
+import { Vector2 } from "./Vector2.js";
+import { Vector3 } from "./Vector3.js";
 
 export type Matrix3Tuple = [number, number, number, number, number, number, number, number, number];
 
@@ -55,6 +56,20 @@ export class Matrix3 implements Matrix {
      * Creates an identity matrix.
      */
     constructor();
+    /**
+     * Creates a 3x3 matrix with the given arguments in row-major order.
+     */
+    constructor(
+        n11: number,
+        n12: number,
+        n13: number,
+        n21: number,
+        n22: number,
+        n23: number,
+        n31: number,
+        n32: number,
+        n33: number,
+    );
 
     /**
      * Array with matrix values.
@@ -113,8 +128,8 @@ export class Matrix3 implements Matrix {
      * @param x the amount to translate in the X axis.
      * @param y the amount to translate in the Y axis.
      */
+    makeTranslation(v: Vector2): this;
     makeTranslation(x: number, y: number): this;
-    makeTranslation(x: number, y: number): Matrix3;
 
     /**
      * Sets this matrix as a 2D rotational transformation by theta radians. The resulting matrix will be:

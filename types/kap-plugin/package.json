@@ -1,7 +1,25 @@
 {
     "private": true,
+    "name": "@types/kap-plugin",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "kap-plugin",
+    "projects": [
+        "https://github.com/wulkano/kap/blob/master/docs/plugins.md"
+    ],
     "dependencies": {
-        "electron-store": ">=8.0.2",
-        "@types/got": "^9"
-    }
+        "@types/got": "^9",
+        "@types/json-schema": "*",
+        "@types/node": "*",
+        "electron-store": ">=8.0.2"
+    },
+    "devDependencies": {
+        "@types/kap-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Connor Peet",
+            "githubUsername": "connor4312"
+        }
+    ]
 }

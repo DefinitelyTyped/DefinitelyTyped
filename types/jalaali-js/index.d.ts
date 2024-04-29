@@ -1,8 +1,3 @@
-// Type definitions for jalaali-js 1.1
-// Project: https://github.com/jalaali/jalaali-js
-// Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Jalaali date parts
  */
@@ -92,8 +87,8 @@ export function jalaaliMonthLength(jy: number, jm: number): number;
  *   leap: number of years since the last leap year (0 to 4)
  *   gy: Gregorian year of the beginning of Jalaali year
  *   march: the March day of Farvardin the 1st (1st day of jy)
- * @see: http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm
- * @see: http://www.fourmilab.ch/documents/calendar/
+ * @see http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm
+ * @see http://www.fourmilab.ch/documents/calendar/
  */
 export function jalCal(jy: number): JalCalResult;
 

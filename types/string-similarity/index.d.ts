@@ -1,10 +1,3 @@
-// Type definitions for string-similarity 4.0
-// Project: https://github.com/aceakash/string-similarity#readme
-// Definitions by: ragtime <https://github.com/ragtime>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace stringSimilarity;
 
 /**

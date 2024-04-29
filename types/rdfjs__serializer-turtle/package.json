@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/rdfjs__serializer-turtle",
+    "version": "1.1.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/rdfjs-base/serializer-turtle"
+    ],
+    "dependencies": {
+        "@types/rdfjs__prefix-map": "*",
+        "@types/node": "*",
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdfjs__serializer-turtle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Pluskiewicz",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

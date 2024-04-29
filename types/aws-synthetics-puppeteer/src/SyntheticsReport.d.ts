@@ -1,5 +1,6 @@
-// tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'SyntheticsReport' {
+// js installs to root of node_modules
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
+declare module "SyntheticsReport" {
     /**
      * Synthetics report Library for creating canary execution report.
      * This report is generated and uploaded to S3 bucket by Synthetics.

@@ -1,9 +1,3 @@
-// Type definitions for set-interval-async 1.0
-// Project: https://github.com/ealmansi/set-interval-async
-// Definitions by: Emilio Almansi <https://github.com/ealmansi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference path="./dynamic/index.d.ts" />
 /// <reference path="./fixed/index.d.ts" />
 /// <reference path="./legacy/index.d.ts" />
@@ -81,10 +75,14 @@ export function clearIntervalAsync(timer: SetIntervalAsyncTimer): Promise<void>;
 /**
  * Error thrown by setIntervalAsync when invalid arguments are provided.
  */
-export class SetIntervalAsyncError extends Error { constructor(); }
+export class SetIntervalAsyncError extends Error {
+    constructor();
+}
 
 /**
  * Timer object returned by setIntervalAsync.
  * Can be used together with clearIntervalAsync to stop execution.
  */
-export interface SetIntervalAsyncTimer { id: number; }
+export interface SetIntervalAsyncTimer {
+    id: number;
+}

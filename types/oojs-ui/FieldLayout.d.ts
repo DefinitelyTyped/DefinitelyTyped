@@ -38,11 +38,10 @@ declare namespace OO.ui {
         type EventMap = mixin.LabelElement.EventMap;
 
         interface ConfigOptions
-            extends Layout.ConfigOptions,
-                mixin.LabelElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {
+            extends Layout.ConfigOptions, mixin.LabelElement.ConfigOptions, mixin.TitledElement.ConfigOptions
+        {
             /** Alignment of the label: 'left', 'right', 'top' or 'inline' */
-            align?: 'left' | 'right' | 'top' | 'inline';
+            align?: "left" | "right" | "top" | "inline";
 
             /** Error messages about the widget, which will be displayed below the widget. */
             errors?: Array<string | HtmlSnippet>;
@@ -96,9 +95,8 @@ declare namespace OO.ui {
         }
 
         interface Prototype<T extends Widget = Widget>
-            extends Layout.Prototype,
-                mixin.LabelElement.Prototype,
-                mixin.TitledElement.Prototype {
+            extends Layout.Prototype, mixin.LabelElement.Prototype, mixin.TitledElement.Prototype
+        {
             /**
              * Handle click events on the field label, or inline help
              *
@@ -196,14 +194,14 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
@@ -214,7 +212,7 @@ declare namespace OO.ui {
              * @param config Configuration options
              * @throws {Error} An error is thrown if no widget is specified
              */
-            new <T extends Widget>(fieldWidget: T, config?: ConfigOptions): FieldLayout<T>;
+            new<T extends Widget>(fieldWidget: T, config?: ConfigOptions): FieldLayout<T>;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

@@ -1,7 +1,3 @@
-// Type definitions for v8-callsites 1.2
-// Project: https://github.com/stringparser/v8-callsites
-// Definitions by: Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { CallSite } from "callsite";
 
 /**

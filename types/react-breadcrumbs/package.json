@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/react-breadcrumbs",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/svenanders/react-breadcrumbs"
+    ],
     "dependencies": {
-        "@types/history": "^4.7.11"
-    }
+        "@types/history": "^4.7.11",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-breadcrumbs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guo Yunhe",
+            "githubUsername": "guoyunhe"
+        },
+        {
+            "name": "Kohei Matsubara",
+            "githubUsername": "matsuby"
+        }
+    ]
 }

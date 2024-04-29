@@ -1,4 +1,4 @@
-import getBounds = require('array-bounds');
+import getBounds = require("array-bounds");
 
 getBounds([0, 25, 50, 75, 100]); // $ExpectType number[]
 getBounds([0, 25, 50, 75, 100], 2); // $ExpectType number[]

@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { init, fbs, fbt, GenderConst, IntlVariations, FbtOptions } from 'fbt';
+import { fbs, fbt, FbtOptions, GenderConst, init, IntlVariations } from "fbt";
+import * as React from "react";
 
 /** BEGIN: init */
 
 init({
     hooks: {
         getViewerContext: () => ({
-            locale: 'ru',
+            locale: "ru",
             GENDER: IntlVariations.GENDER_FEMALE,
         }),
     },
     translations: {
         en: {
-            '8cQlV': 'Hello, {userName}',
+            "8cQlV": "Hello, {userName}",
         },
         ru: {
-            '8cQlV': 'Привет, {userName}',
+            "8cQlV": "Привет, {userName}",
         },
     },
 });
@@ -35,23 +35,23 @@ init({
         // @ts-expect-error 'GENDER' have to be on of (IntlVariations.GENDER_MALE|GENDER_FEMALE|GENDER_UNKNOWN)
         getViewerContext: () => ({
             GENDER: IntlVariations.NUMBER_FEW,
-            locale: 'en',
+            locale: "en",
         }),
     },
-    translations: { en: { key: 'value' } },
+    translations: { en: { key: "value" } },
 });
 
 /** END: init */
 
 const person = {
-    getName: () => 'retyui',
+    getName: () => "retyui",
     getGender: (): IntlVariations => IntlVariations.GENDER_UNKNOWN,
     getPronounGender: () => GenderConst.FEMALE_PLURAL,
     getLikeCount: () => Math.random(),
     getPhotoCount: () => Math.random(),
     isAdmin: () => false,
 };
-const enumVal = 'CAR';
+const enumVal = "CAR";
 
 /** BEGIN: `fbt()` / `fbs()` */
 /**
@@ -65,165 +65,181 @@ const enumVal = 'CAR';
  * JSON.stringify(result)       // "\"Hello, retyui\""
  * React.isValidElement(result) // true
  */
-const shouldBeStringByDefault: string = fbt('Hello', 'simpleExample');
-const castToString: string = fbt('Hello', 'simpleExample').toString();
-const shouldBeStringByDefaultFbs = fbs('Hello', 'simpleExample');
-const castToStringFbs = fbs('Hello', 'simpleExample').toString();
+const shouldBeStringByDefault: string = fbt("Hello", "simpleExample");
+const castToString: string = fbt("Hello", "simpleExample").toString();
+const shouldBeStringByDefaultFbs = fbs("Hello", "simpleExample");
+const castToStringFbs = fbs("Hello", "simpleExample").toString();
 
-const simpleExample = fbt('Hello', 'simpleExample');
-const simpleExampleFbs = fbs('Hello', 'simpleExample');
-const simpleExampleWithParams = fbt('simpleExampleWithParams', 'Welcome message', {
-    project: 'fbt types',
-    author: 'retyui',
+const simpleExample = fbt("Hello", "simpleExample");
+const simpleExampleFbs = fbs("Hello", "simpleExample");
+const simpleExampleWithParams = fbt("simpleExampleWithParams", "Welcome message", {
+    project: "fbt types",
+    author: "retyui",
     preserveWhitespace: true,
     doNotExtract: true,
     subject: IntlVariations.GENDER_FEMALE,
 });
-const simpleExampleWithParamsFbs = fbs('simpleExampleWithParams', 'Welcome message', {
-    project: 'fbt types',
-    author: 'retyui',
+const simpleExampleWithParamsFbs = fbs("simpleExampleWithParams", "Welcome message", {
+    project: "fbt types",
+    author: "retyui",
     preserveWhitespace: true,
     doNotExtract: true,
     subject: IntlVariations.GENDER_FEMALE,
 });
-const paramStrExample = fbt('Hello, ' + fbt.param('userName', person.getName()), 'paramStrExample');
-const paramStrExampleFbs = fbs('Hello, ' + fbs.param('userName', person.getName()), 'paramStrExample');
-const arrayOfStringInput = fbt(["Hello, ", fbt.param('userName', person.getName())], "arrayInputExample");
-const arrayOfStringInputFbs = fbs(["Hello, ", fbt.param('userName', person.getName())], "arrayInputExample");
-const paramNumExample = fbt('Likes: ' + fbt.param('likeCount', person.getLikeCount()), 'paramNumExample');
-const paramNumExampleFbs = fbs('Likes: ' + fbs.param('likeCount', person.getLikeCount()), 'paramNumExample');
-const paramBoolExample = fbt('Has acccess :' + fbt.param('isAdmin', person.isAdmin()), 'paramBoolExample');
-const paramBoolExampleFbs = fbs('Has acccess :' + fbs.param('isAdmin', person.isAdmin()), 'paramBoolExample');
+const paramStrExample = fbt("Hello, " + fbt.param("userName", person.getName()), "paramStrExample");
+const paramStrExampleFbs = fbs("Hello, " + fbs.param("userName", person.getName()), "paramStrExample");
+const arrayOfStringInput = fbt(["Hello, ", fbt.param("userName", person.getName())], "arrayInputExample");
+const arrayOfStringInputFbs = fbs(["Hello, ", fbt.param("userName", person.getName())], "arrayInputExample");
+const paramNumExample = fbt("Likes: " + fbt.param("likeCount", person.getLikeCount()), "paramNumExample");
+const paramNumExampleFbs = fbs("Likes: " + fbs.param("likeCount", person.getLikeCount()), "paramNumExample");
+const paramBoolExample = fbt("Has acccess :" + fbt.param("isAdmin", person.isAdmin()), "paramBoolExample");
+const paramBoolExampleFbs = fbs("Has acccess :" + fbs.param("isAdmin", person.isAdmin()), "paramBoolExample");
 const paramExampleWithParams = fbt(
-    'Hello, ' +
-        fbt.param('userName', 'retyui', {
+    "Hello, "
+        + fbt.param("userName", "retyui", {
             gender: IntlVariations.GENDER_FEMALE,
             number: true,
         }),
-    'paramExampleWithParams',
+    "paramExampleWithParams",
 );
 const paramExampleWithParamsFbs = fbs(
-    'Hello, ' +
-        fbs.param('userName', 'retyui', {
+    "Hello, "
+        + fbs.param("userName", "retyui", {
             gender: IntlVariations.GENDER_FEMALE,
             number: true,
         }),
-    'paramExampleWithParams',
+    "paramExampleWithParams",
 );
 const sameParamAndFbtNameExample = fbt(
-    `${fbt.name(
-        'name',
-        <a href="#">{person.getName()}</a>,
-        IntlVariations.GENDER_UNKNOWN,
-    )} shared a link.  Tell ${fbt.sameParam('name')} you liked it.`,
-    'sameParamAndFbtNameExample',
+    `${
+        fbt.name(
+            "name",
+            <a href="#">{person.getName()}</a>,
+            IntlVariations.GENDER_UNKNOWN,
+        )
+    } shared a link.  Tell ${fbt.sameParam("name")} you liked it.`,
+    "sameParamAndFbtNameExample",
 );
 const sameParamAndFbtNameExampleFbs = fbs(
-    `${fbs.name(
-        'name',
-        <a href="#">{person.getName()}</a>,
-        IntlVariations.GENDER_UNKNOWN,
-    )} shared a link.  Tell ${fbs.sameParam('name')} you liked it.`,
-    'sameParamAndFbtNameExample',
+    `${
+        fbs.name(
+            "name",
+            <a href="#">{person.getName()}</a>,
+            IntlVariations.GENDER_UNKNOWN,
+        )
+    } shared a link.  Tell ${fbs.sameParam("name")} you liked it.`,
+    "sameParamAndFbtNameExample",
 );
 const pluralExample = fbt(
-    `You have ${fbt.plural('a like', person.getLikeCount(), {
-        name: 'number of likes',
-        showCount: 'ifMany',
-        many: 'likes',
-    })} on your ${fbt.plural('photo', person.getPhotoCount())}`,
-    'pluralExample',
+    `You have ${
+        fbt.plural("a like", person.getLikeCount(), {
+            name: "number of likes",
+            showCount: "ifMany",
+            many: "likes",
+        })
+    } on your ${fbt.plural("photo", person.getPhotoCount())}`,
+    "pluralExample",
 );
 const pluralExampleFbs = fbs(
-    `You have ${fbs.plural('a like', person.getLikeCount(), {
-        name: 'number of likes',
-        showCount: 'ifMany',
-        many: 'likes',
-    })} on your ${fbs.plural('photo', person.getPhotoCount())}`,
-    'pluralExample',
+    `You have ${
+        fbs.plural("a like", person.getLikeCount(), {
+            name: "number of likes",
+            showCount: "ifMany",
+            many: "likes",
+        })
+    } on your ${fbs.plural("photo", person.getPhotoCount())}`,
+    "pluralExample",
 );
 const pluralExampleWithParams = fbt(
-    'You have ' +
-        fbt.plural('a like', person.getLikeCount(), {
-            name: 'number of likes',
-            showCount: 'ifMany',
-            many: 'likes',
+    "You have "
+        + fbt.plural("a like", person.getLikeCount(), {
+            name: "number of likes",
+            showCount: "ifMany",
+            many: "likes",
         }),
-    'pluralExampleWithParams',
+    "pluralExampleWithParams",
 );
 const pluralExampleWithParamsFbs = fbs(
-    'You have ' +
-        fbs.plural('a like', person.getLikeCount(), {
-            name: 'number of likes',
-            showCount: 'ifMany',
-            many: 'likes',
+    "You have "
+        + fbs.plural("a like", person.getLikeCount(), {
+            name: "number of likes",
+            showCount: "ifMany",
+            many: "likes",
         }),
-    'pluralExampleWithParams',
+    "pluralExampleWithParams",
 );
 const pronounExample = fbt(
-    `${fbt.param('name', person.getName())}  shared ${fbt.pronoun(
-        'subject',
-        person.getPronounGender(),
-    )} photo with you.`,
-    'pronounExample',
+    `${fbt.param("name", person.getName())}  shared ${
+        fbt.pronoun(
+            "subject",
+            person.getPronounGender(),
+        )
+    } photo with you.`,
+    "pronounExample",
 );
 const pronounExampleFbs = fbs(
-    `${fbs.param('name', person.getName())}  shared ${fbs.pronoun(
-        'subject',
-        person.getPronounGender(),
-    )} photo with you.`,
-    'pronounExample',
+    `${fbs.param("name", person.getName())}  shared ${
+        fbs.pronoun(
+            "subject",
+            person.getPronounGender(),
+        )
+    } photo with you.`,
+    "pronounExample",
 );
 const pronounExampleWithParams = fbt(
-    `${fbt.param('name', person.getName())}  shared ${fbt.pronoun('reflexive', person.getPronounGender(), {
-        human: true,
-        capitalize: false,
-    })}  photo with you.`,
-    'pronounExampleWithParams',
+    `${fbt.param("name", person.getName())}  shared ${
+        fbt.pronoun("reflexive", person.getPronounGender(), {
+            human: true,
+            capitalize: false,
+        })
+    }  photo with you.`,
+    "pronounExampleWithParams",
 );
 const pronounExampleWithParamsFbs = fbs(
-    `${fbs.param('name', person.getName())}  shared ${fbs.pronoun('reflexive', person.getPronounGender(), {
-        human: true,
-        capitalize: false,
-    })}  photo with you.`,
-    'pronounExampleWithParams',
+    `${fbs.param("name", person.getName())}  shared ${
+        fbs.pronoun("reflexive", person.getPronounGender(), {
+            human: true,
+            capitalize: false,
+        })
+    }  photo with you.`,
+    "pronounExampleWithParams",
 );
 const enumArrayExample = fbt(
-    'Buy a new' + fbt.enum(enumVal, ['car', 'house', 'boat', 'houseboat']),
-    'enumArrayExample',
+    "Buy a new" + fbt.enum(enumVal, ["car", "house", "boat", "houseboat"]),
+    "enumArrayExample",
 );
 const enumArrayExampleFbs = fbs(
-    'Buy a new' + fbs.enum(enumVal, ['car', 'house', 'boat', 'houseboat']),
-    'enumArrayExample',
+    "Buy a new" + fbs.enum(enumVal, ["car", "house", "boat", "houseboat"]),
+    "enumArrayExample",
 );
 const enumMapExample = fbt(
-    'Buy a new ' +
-        fbt.enum(enumVal, {
-            CAR: 'car',
-            HOUSE: 'house',
-            BOAT: 'boat',
-            HOUSEBOAT: 'houseboat',
+    "Buy a new "
+        + fbt.enum(enumVal, {
+            CAR: "car",
+            HOUSE: "house",
+            BOAT: "boat",
+            HOUSEBOAT: "houseboat",
         }),
-    'enumMapExample',
+    "enumMapExample",
 );
 const enumMapExampleFbs = fbs(
-    'Buy a new ' +
-        fbs.enum(enumVal, {
-            CAR: 'car',
-            HOUSE: 'house',
-            BOAT: 'boat',
-            HOUSEBOAT: 'houseboat',
+    "Buy a new "
+        + fbs.enum(enumVal, {
+            CAR: "car",
+            HOUSE: "house",
+            BOAT: "boat",
+            HOUSEBOAT: "houseboat",
         }),
-    'enumMapExample',
+    "enumMapExample",
 );
 
 // @ts-expect-error second argument 'description' is required
-const invalidDesc = fbt('Hello');
+const invalidDesc = fbt("Hello");
 
 // @ts-expect-error second argument 'description' is required
-const invalidDescFbs = fbt('Hello');
+const invalidDescFbs = fbt("Hello");
 
-const invalidFbtOptions = fbt('Hello', 'Welcome message', {
+const invalidFbtOptions = fbt("Hello", "Welcome message", {
     // @ts-expect-error 'project' is string
     project: true,
     // @ts-expect-error 'author' is string
@@ -231,11 +247,11 @@ const invalidFbtOptions = fbt('Hello', 'Welcome message', {
     // @ts-expect-error 'preserveWhitespace' is boolean
     preserveWhitespace: null,
     // @ts-expect-error 'doNotExtract' is boolean
-    doNotExtract: 'ok',
+    doNotExtract: "ok",
     // @ts-expect-error 'subject' is not enum value
-    subject: 'not enum value',
+    subject: "not enum value",
 });
-const invalidFbtOptionsFbs = fbs('Hello', 'Welcome message', {
+const invalidFbtOptionsFbs = fbs("Hello", "Welcome message", {
     // @ts-expect-error 'project' is string
     project: true,
     // @ts-expect-error 'author' is string
@@ -243,75 +259,75 @@ const invalidFbtOptionsFbs = fbs('Hello', 'Welcome message', {
     // @ts-expect-error 'preserveWhitespace' is boolean
     preserveWhitespace: null,
     // @ts-expect-error 'doNotExtract' is boolean
-    doNotExtract: 'ok',
+    doNotExtract: "ok",
     // @ts-expect-error 'subject' is not enum value
-    subject: 'not enum value',
+    subject: "not enum value",
 });
 
 // @ts-expect-error second argument 'value' is required
-const invalidParam = fbt.param('userName');
+const invalidParam = fbt.param("userName");
 // @ts-expect-error second argument 'value' is required
-const invalidParamFbs = fbs.param('userName');
+const invalidParamFbs = fbs.param("userName");
 // @ts-expect-error only one argument is expected
-const invalidSameParam = fbt.sameParam('userName', 'desc');
+const invalidSameParam = fbt.sameParam("userName", "desc");
 // @ts-expect-error only one argument is expected
-const invalidSameParamFbs = fbs.sameParam('userName', 'desc');
-const invalidParamOption = fbt.param('userName', 'retyui', {
+const invalidSameParamFbs = fbs.sameParam("userName", "desc");
+const invalidParamOption = fbt.param("userName", "retyui", {
     // @ts-expect-error 'gender' have to be enum value
-    gender: 'not enum value',
+    gender: "not enum value",
 });
-const invalidParamOptionFbs = fbs.param('userName', 'retyui', {
+const invalidParamOptionFbs = fbs.param("userName", "retyui", {
     // @ts-expect-error 'gender' have to be enum value
-    gender: 'not enum value',
+    gender: "not enum value",
 });
 
 const invalidPlural = fbt.plural(
-    'photo',
+    "photo",
     // @ts-expect-error 'name' is number
-    'not number',
+    "not number",
 );
 const invalidPluralFbs = fbs.plural(
-    'photo',
+    "photo",
     // @ts-expect-error 'name' is number
-    'not number',
+    "not number",
 );
 
-const invalidPluralOption = fbt.plural('a like', 1, {
+const invalidPluralOption = fbt.plural("a like", 1, {
     // @ts-expect-error 'showCount' have to be one of values: 'yes' | 'no' | 'ifMany
-    showCount: 'ifMany_____',
+    showCount: "ifMany_____",
 });
-const invalidPluralOptionFbs = fbs.plural('a like', 1, {
+const invalidPluralOptionFbs = fbs.plural("a like", 1, {
     // @ts-expect-error 'showCount' have to be one of values: 'yes' | 'no' | 'ifMany
-    showCount: 'ifMany_____',
+    showCount: "ifMany_____",
 });
 
 const invalidPronoun = fbt.pronoun(
     // @ts-expect-error first argument 'pronounType' have to be one of 'object' | 'possessive' | 'reflexive' | 'subject'
-    'subject__',
+    "subject__",
     person.getPronounGender(),
 );
 const invalidPronounFbs = fbs.pronoun(
     // @ts-expect-error first argument 'pronounType' have to be one of 'object' | 'possessive' | 'reflexive' | 'subject'
-    'subject__',
+    "subject__",
     person.getPronounGender(),
 );
 const invalidPronounGender = fbt.pronoun(
-    'possessive',
+    "possessive",
     // @ts-expect-error 'gender' have to be enum value
-    'not enum value',
+    "not enum value",
 );
 const invalidPronounGenderFbs = fbs.pronoun(
-    'possessive',
+    "possessive",
     // @ts-expect-error 'gender' have to be enum value
-    'not enum value',
+    "not enum value",
 );
-const invalidPronounOption = fbt.pronoun('reflexive', person.getPronounGender(), {
+const invalidPronounOption = fbt.pronoun("reflexive", person.getPronounGender(), {
     // @ts-expect-error 'human' is boolean
-    human: 'ok',
+    human: "ok",
 });
-const invalidPronounOptionFbs = fbs.pronoun('reflexive', person.getPronounGender(), {
+const invalidPronounOptionFbs = fbs.pronoun("reflexive", person.getPronounGender(), {
     // @ts-expect-error 'human' is boolean
-    human: 'ok',
+    human: "ok",
 });
 /** END: `fbt()` / `fbs()` */
 
@@ -342,7 +358,7 @@ const JSXParamWithHtmlExample = (
 const JSXSameParamAndFbtNameExample = (
     <fbt desc="JSXSameParamAndFbtNameExample">
         <fbt:name name="name" gender={IntlVariations.GENDER_MALE}>
-            {<a href="#">{'retyui'}</a>}
+            {<a href="#">{"retyui"}</a>}
         </fbt:name>
         shared a link. Tell
         <fbt:same-param name="name" />
@@ -366,10 +382,10 @@ const JSXEnumMapExample = (
         Buy a new
         <fbt:enum
             enum-range={{
-                CAR: 'car',
-                HOUSE: 'house',
-                BOAT: 'boat',
-                HOUSEBOAT: 'houseboat',
+                CAR: "car",
+                HOUSE: "house",
+                BOAT: "boat",
+                HOUSEBOAT: "houseboat",
             }}
             value={enumVal}
         />
@@ -378,7 +394,7 @@ const JSXEnumMapExample = (
 const JSXEnumArrayExample = (
     <fbt desc="JSXEnumArrayExample">
         Buy a new
-        <fbt:enum enum-range={['car', 'house', 'boat', 'houseboat']} value="car" />
+        <fbt:enum enum-range={["car", "house", "boat", "houseboat"]} value="car" />
     </fbt>
 );
 const JSXPronounExample = (
@@ -425,7 +441,7 @@ const invalidPronounGenderAttr = (
         <fbt:pronoun
             type="object"
             // @ts-expect-error 'gender' have to be enum value
-            gender={'not enum value'}
+            gender={"not enum value"}
             human={true}
         />
     </fbt>
@@ -462,8 +478,8 @@ const JSXParamWithHtmlExampleFbs = (
 const JSXSameParamAndFbtNameExampleFbs = (
     <fbs desc="JSXSameParamAndFbtNameExample">
         <fbs:name name="name" gender={IntlVariations.GENDER_MALE}>
-        {/* @ts-expect-error only strings accepted within `fbs:param` */}
-            {<a href="#">{'retyui'}</a>}
+            {/* @ts-expect-error only strings accepted within `fbs:param` */}
+            {<a href="#">{"retyui"}</a>}
         </fbs:name>
         shared a link. Tell
         <fbs:same-param name="name" />
@@ -487,10 +503,10 @@ const JSXEnumMapExampleFbs = (
         Buy a new
         <fbs:enum
             enum-range={{
-                CAR: 'car',
-                HOUSE: 'house',
-                BOAT: 'boat',
-                HOUSEBOAT: 'houseboat',
+                CAR: "car",
+                HOUSE: "house",
+                BOAT: "boat",
+                HOUSEBOAT: "houseboat",
             }}
             value={enumVal}
         />
@@ -499,7 +515,7 @@ const JSXEnumMapExampleFbs = (
 const JSXEnumArrayExampleFbs = (
     <fbs desc="JSXEnumArrayExample">
         Buy a new
-        <fbs:enum enum-range={['car', 'house', 'boat', 'houseboat']} value="car" />
+        <fbs:enum enum-range={["car", "house", "boat", "houseboat"]} value="car" />
     </fbs>
 );
 const JSXPronounExampleFbs = (
@@ -546,7 +562,7 @@ const invalidPronounGenderAttrFbs = (
         <fbs:pronoun
             type="object"
             // @ts-expect-error 'gender' have to be enum value
-            gender={'not enum value'}
+            gender={"not enum value"}
             human={true}
         />
     </fbs>

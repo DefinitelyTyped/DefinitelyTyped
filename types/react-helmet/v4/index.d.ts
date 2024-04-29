@@ -1,9 +1,3 @@
-// Type definitions for react-helmet 4.0
-// Project: https://github.com/nfl/react-helmet
-// Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 import * as React from "react";
@@ -18,10 +12,10 @@ declare namespace ReactHelmet {
         base?: any;
         defaultTitle?: string | undefined;
         htmlAttributes?: any;
-        link?: Array<any> | undefined;
-        meta?: Array<any> | undefined;
-        script?: Array<any> | undefined;
-        style?: Array<any> | undefined;
+        link?: any[] | undefined;
+        meta?: any[] | undefined;
+        script?: any[] | undefined;
+        style?: any[] | undefined;
         title?: string | undefined;
         titleTemplate?: string | undefined;
         onChangeClientState?: ((newState: any) => void) | undefined;

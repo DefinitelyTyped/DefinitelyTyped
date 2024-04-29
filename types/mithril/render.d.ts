@@ -1,4 +1,4 @@
-import { render } from '.';
+import { render } from ".";
 
 declare namespace RenderService {
     interface Static {

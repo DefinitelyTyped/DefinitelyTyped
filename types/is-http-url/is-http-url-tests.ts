@@ -1,3 +1,3 @@
-import isHttpUrl = require('is-http-url');
+import isHttpUrl = require("is-http-url");
 
-isHttpUrl('http://foo'); // $ExpectType boolean
+isHttpUrl("http://foo"); // $ExpectType boolean

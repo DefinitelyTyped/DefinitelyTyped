@@ -1,29 +1,31 @@
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { Socket } from 'net';
-import { Readable } from 'stream';
-import { Url } from 'url';
+import { EventEmitter } from "events";
+import { Socket } from "net";
+import { Readable } from "stream";
+import { Url } from "url";
 
-import { Transport, TransportOptions } from '../..';
-import * as shared from '../shared';
+import { Transport, TransportOptions } from "../..";
+import * as shared from "../shared";
 
-import DKIM = require('../dkim');
-import MailMessage = require('./mail-message');
-import MimeNode = require('../mime-node');
-import SMTPConnection = require('../smtp-connection');
-import XOAuth2 = require('../xoauth2');
+import DKIM = require("../dkim");
+import MailMessage = require("./mail-message");
+import MimeNode = require("../mime-node");
+import SMTPConnection = require("../smtp-connection");
+import XOAuth2 = require("../xoauth2");
 
 declare namespace Mail {
-    type Headers = { [key: string]: string | string[] | { prepared: boolean, value: string } } | Array<{ key: string, value: string }>;
+    type Headers =
+        | { [key: string]: string | string[] | { prepared: boolean; value: string } }
+        | Array<{ key: string; value: string }>;
 
-    type ListHeader = string | { url: string, comment: string };
+    type ListHeader = string | { url: string; comment: string };
 
     interface ListHeaders {
         [key: string]: ListHeader | ListHeader[] | ListHeader[][];
     }
 
-    type TextEncoding = 'quoted-printable' | 'base64';
+    type TextEncoding = "quoted-printable" | "base64";
 
     interface Address {
         name: string;
@@ -47,9 +49,9 @@ declare namespace Mail {
         /** optional content type for the attachment, if not set will be derived from the filename property */
         contentType?: string | undefined;
         /** optional transfer encoding for the attachment, if not set it will be derived from the contentType property. Example values: quoted-printable, base64. If it is unset then base64 encoding is used for the attachment. If it is set to false then previous default applies (base64 for most, 7bit for text). */
-        contentTransferEncoding?: '7bit' | 'base64' | 'quoted-printable' | false | undefined;
+        contentTransferEncoding?: "7bit" | "base64" | "quoted-printable" | false | undefined;
         /** optional content disposition type for the attachment, defaults to ‘attachment’ */
-        contentDisposition?: 'attachment' | 'inline' | undefined;
+        contentDisposition?: "attachment" | "inline" | undefined;
         /** is an object of additional headers */
         headers?: Headers | undefined;
         /** an optional value that overrides entire node content in the mime message. If used then all other options set for this node are ignored. */
@@ -150,7 +152,7 @@ declare namespace Mail {
         dkim?: DKIM.Options | undefined;
         /** method to normalize header keys for custom caseing */
         normalizeHeaderKey?(key: string): string;
-        priority?: "high"|"normal"|"low" | undefined;
+        priority?: "high" | "normal" | "low" | undefined;
         /** if set to true then converts data:images in the HTML content of message to embedded attachments */
         attachDataUrls?: boolean | undefined;
     }
@@ -192,41 +194,79 @@ declare class Mail<T = any> extends EventEmitter {
     /** Sets up proxy handler for a Nodemailer object */
     setupProxy(proxyUrl: string): void;
 
-    set(key: 'oauth2_provision_cb', value: (user: string, renew: boolean, callback: (err: Error | null, accessToken?: string, expires?: number) => void) => void): Map<string, any>;
-    set(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a', value: (proxy: Url, options: TransportOptions, callback: (err: Error | null, socketOptions?: { connection: Socket }) => void) => void): Map<string, any>;
+    set(
+        key: "oauth2_provision_cb",
+        value: (
+            user: string,
+            renew: boolean,
+            callback: (err: Error | null, accessToken?: string, expires?: number) => void,
+        ) => void,
+    ): Map<string, any>;
+    set(
+        key:
+            | "proxy_handler_http"
+            | "proxy_handler_https"
+            | "proxy_handler_socks"
+            | "proxy_handler_socks5"
+            | "proxy_handler_socks4"
+            | "proxy_handler_socks4a",
+        value: (
+            proxy: Url,
+            options: TransportOptions,
+            callback: (err: Error | null, socketOptions?: { connection: Socket }) => void,
+        ) => void,
+    ): Map<string, any>;
     set(key: string, value: any): Map<string, any>;
 
-    get(key: 'oauth2_provision_cb'): (user: string, renew: boolean, callback: (err: Error | null, accessToken: string, expires: number) => void) => void;
-    get(key: 'proxy_handler_http' | 'proxy_handler_https' | 'proxy_handler_socks' | 'proxy_handler_socks5' | 'proxy_handler_socks4' | 'proxy_handler_socks4a'): (proxy: Url, options: TransportOptions, callback: (err: Error | null, socketOptions: { connection: Socket }) => void) => void;
+    get(
+        key: "oauth2_provision_cb",
+    ): (
+        user: string,
+        renew: boolean,
+        callback: (err: Error | null, accessToken: string, expires: number) => void,
+    ) => void;
+    get(
+        key:
+            | "proxy_handler_http"
+            | "proxy_handler_https"
+            | "proxy_handler_socks"
+            | "proxy_handler_socks5"
+            | "proxy_handler_socks4"
+            | "proxy_handler_socks4a",
+    ): (
+        proxy: Url,
+        options: TransportOptions,
+        callback: (err: Error | null, socketOptions: { connection: Socket }) => void,
+    ) => void;
     get(key: string): any;
 
-    addListener(event: 'error', listener: (err: Error) => void): this;
-    addListener(event: 'idle', listener: () => void): this;
-    addListener(event: 'token', listener: (token: XOAuth2.Token) => void): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
+    addListener(event: "idle", listener: () => void): this;
+    addListener(event: "token", listener: (token: XOAuth2.Token) => void): this;
 
-    emit(event: 'error', error: Error): boolean;
-    emit(event: 'idle'): boolean;
-    emit(event: 'token', token: XOAuth2.Token): boolean;
+    emit(event: "error", error: Error): boolean;
+    emit(event: "idle"): boolean;
+    emit(event: "token", token: XOAuth2.Token): boolean;
 
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'idle', listener: () => void): this;
-    on(event: 'token', listener: (token: XOAuth2.Token) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "idle", listener: () => void): this;
+    on(event: "token", listener: (token: XOAuth2.Token) => void): this;
 
-    once(event: 'error', listener: (err: Error) => void): this;
-    once(event: 'idle', listener: () => void): this;
-    once(event: 'token', listener: (token: XOAuth2.Token) => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
+    once(event: "idle", listener: () => void): this;
+    once(event: "token", listener: (token: XOAuth2.Token) => void): this;
 
-    prependListener(event: 'error', listener: (err: Error) => void): this;
-    prependListener(event: 'idle', listener: () => void): this;
-    prependListener(event: 'end', listener: (token: XOAuth2.Token) => void): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
+    prependListener(event: "idle", listener: () => void): this;
+    prependListener(event: "end", listener: (token: XOAuth2.Token) => void): this;
 
-    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-    prependOnceListener(event: 'idle', listener: () => void): this;
-    prependOnceListener(event: 'end', listener: (token: XOAuth2.Token) => void): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
+    prependOnceListener(event: "idle", listener: () => void): this;
+    prependOnceListener(event: "end", listener: (token: XOAuth2.Token) => void): this;
 
-    listeners(event: 'error'): Array<(err: Error) => void>;
-    listeners(event: 'idle'): Array<() => void>;
-    listeners(event: 'end'): Array<(token: XOAuth2.Token) => void>;
+    listeners(event: "error"): Array<(err: Error) => void>;
+    listeners(event: "idle"): Array<() => void>;
+    listeners(event: "end"): Array<(token: XOAuth2.Token) => void>;
 }
 
 export = Mail;

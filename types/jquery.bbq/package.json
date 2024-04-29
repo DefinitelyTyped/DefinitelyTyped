@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/jquery.bbq",
+    "version": "1.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.bbq",
+    "projects": [
+        "http://benalman.com/projects/jquery-bbq-plugin/"
+    ],
+    "dependencies": {
+        "@types/jquery": "^2"
+    },
+    "devDependencies": {
+        "@types/jquery.bbq": "workspace:.",
+        "@types/qunit": "*"
+    },
+    "owners": [
+        {
+            "name": "Ryan Cavanaugh",
+            "githubUsername": "RyanCavanaugh"
+        }
+    ]
+}

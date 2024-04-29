@@ -1,1 +1,0 @@
-src/lib/BitcoinTxParser.d.ts

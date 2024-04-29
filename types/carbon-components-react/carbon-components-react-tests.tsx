@@ -1,8 +1,8 @@
-import * as React from 'react';
 import {
     AccordionItem,
     AspectRatio,
     Button,
+    ButtonRenderIconRenderProps,
     Checkbox,
     CodeSnippet,
     CodeSnippetType,
@@ -12,13 +12,19 @@ import {
     DataTableCustomRenderProps,
     DataTableHeader,
     DataTableRow,
+    DataTableSkeleton,
     DatePickerInput,
     Dropdown,
+    FileUploader,
+    FileUploaderDropContainer,
+    FileUploaderItem,
     HeaderContainer,
     HeaderMenu,
     HeaderMenuItem,
-    FileUploader,
+    InlineLoading,
     Link,
+    Modal,
+    MultiSelect,
     NumberInput,
     NumberInputOnChangeDataVariant,
     NumberInputOnChangeDefaultVariant,
@@ -26,48 +32,42 @@ import {
     NumberInputOnClickDefaultVariant,
     NumberInputOnClickInputVariant,
     Row,
-    SecondaryButton,
-    Slider,
-    Tab,
-    Table,
-    TableBatchActions,
-    TableHeader,
-    TableRow,
-    Tag,
-    TileGroup,
-    Tooltip,
-    TooltipDefinition,
-    TextArea,
-    TextInput,
-    FileUploaderDropContainer,
-    FileUploaderItem,
-    MultiSelect,
-    Tabs,
     Search,
+    SecondaryButton,
     SideNav,
     SideNavItem,
     SideNavItems,
-    StructuredListWrapper,
-    StructuredListHead,
+    Slider,
     StructuredListBody,
-    StructuredListRow,
-    StructuredListInput,
     StructuredListCell,
+    StructuredListHead,
+    StructuredListInput,
+    StructuredListRow,
     StructuredListSkeleton,
-    ButtonRenderIconRenderProps,
-    Modal,
-    InlineLoading,
-    DataTableSkeleton,
+    StructuredListWrapper,
+    Tab,
+    Table,
+    TableBatchActions,
     TableCell,
+    TableHeader,
+    TableRow,
+    Tabs,
+    Tag,
+    TextArea,
+    TextInput,
+    TileGroup,
+    Tooltip,
+    TooltipDefinition,
     unstable_Heading as UnstableHeading,
     unstable_Section as UnstableSection,
-} from 'carbon-components-react';
-import { Dialog } from 'carbon-components-react/lib/components/Dialog';
-import UIShellLink from 'carbon-components-react/lib/components/UIShell/Link';
-import { Popover, PopoverContent } from 'carbon-components-react/lib/components/Popover';
-import { LayoutDirection } from 'carbon-components-react/lib/components/Layout';
-import { Text } from 'carbon-components-react/lib/components/Text';
-import ComboBox from 'carbon-components-react/lib/components/ComboBox';
+} from "carbon-components-react";
+import ComboBox from "carbon-components-react/lib/components/ComboBox";
+import { Dialog } from "carbon-components-react/lib/components/Dialog";
+import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
+import { Popover, PopoverContent } from "carbon-components-react/lib/components/Popover";
+import { Text } from "carbon-components-react/lib/components/Text";
+import UIShellLink from "carbon-components-react/lib/components/UIShell/Link";
+import * as React from "react";
 
 // test components for "as" props
 interface TestCompProps {
@@ -98,7 +98,7 @@ const accordionItemOne = (
         Lorem ipsum.
     </AccordionItem>
 );
-const accordionTitle = 'Hello World!';
+const accordionTitle = "Hello World!";
 const accordionItemTwo = (
     <AccordionItem title={accordionTitle} className="extra-class">
         Lorem ipsum.
@@ -238,7 +238,7 @@ const secondaryButtonT3 = (
 
 // CodeSnippet
 
-let codeSnippetType: CodeSnippetType = 'inline';
+let codeSnippetType: CodeSnippetType = "inline";
 const inlineCodeSnippet = (
     <CodeSnippet type="inline" onClick={e => e.preventDefault()} copyText="copy text">
         code
@@ -275,7 +275,7 @@ interface Row1 extends DataTableRow {
     rowProp: string;
 }
 
-type Header1Key = 'h1' | 'h2' | 'h3';
+type Header1Key = "h1" | "h2" | "h3";
 interface Header1 extends DataTableHeader<Header1Key> {
     headerProp: number;
 }
@@ -287,55 +287,55 @@ interface ExtraStuff {
 
 const t1 = (
     <DataTable<Row1, Header1>
-        headers={[{ key: 'h1', header: <div />, headerProp: 2 }]}
-        rows={[{ id: 'r1', rowProp: 'row1' }]}
+        headers={[{ key: "h1", header: <div />, headerProp: 2 }]}
+        rows={[{ id: "r1", rowProp: "row1" }]}
     />
 );
 
 const t2 = (
     <DataTable<Row1, Header1>
         filterRows={data => {
-            const headers: ReadonlyArray<Header1> = data.headers;
-            const rowIds: ReadonlyArray<string> = data.rowIds;
+            const headers: readonly Header1[] = data.headers;
+            const rowIds: readonly string[] = data.rowIds;
             return [headers[0].key];
         }}
-        headers={[{ key: 'h1', header: <div />, headerProp: 2 }]}
-        rows={[{ id: 'r1', rowProp: 'row1' }]}
+        headers={[{ key: "h1", header: <div />, headerProp: 2 }]}
+        rows={[{ id: "r1", rowProp: "row1" }]}
         render={props => {
-            props.expandRow('asdf');
+            props.expandRow("asdf");
 
             let bap = props.getBatchActionProps();
             bap.onCancel();
             let x = bap.totalSelected;
 
-            let bap2 = props.getBatchActionProps<ExtraStuff>({ extra1: 'extra' });
+            let bap2 = props.getBatchActionProps<ExtraStuff>({ extra1: "extra" });
             let s = bap2.extra1;
 
-            let hp = props.getHeaderProps({ header: { key: 'h1', header: 'testh1', headerProp: 3 } });
+            let hp = props.getHeaderProps({ header: { key: "h1", header: "testh1", headerProp: 3 } });
             let k: Header1Key = hp.key;
 
             let hp2 = props.getHeaderProps<ExtraStuff>({
-                header: { key: 'h2', header: 'Test', headerProp: 3 },
-                extra1: 'asdf',
+                header: { key: "h2", header: "Test", headerProp: 3 },
+                extra1: "asdf",
             });
             k = hp.key;
             let e = hp2.extra1;
 
-            let hp3 = props.getHeaderProps({ header: { key: 'h3', header: 'testh1', headerProp: 5 }, someExtra: 2 });
+            let hp3 = props.getHeaderProps({ header: { key: "h3", header: "testh1", headerProp: 5 }, someExtra: 2 });
             let k3: Header1Key = hp.key;
             let someExtra = hp3.someExtra;
 
-            let rp = props.getRowProps({ row: { id: 'r1', rowProp: 'asdf' }, extra1: 'asdf' });
+            let rp = props.getRowProps({ row: { id: "r1", rowProp: "asdf" }, extra1: "asdf" });
             let rk: string = rp.key;
 
-            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: 'r1' }, extra1: 'asdf' });
+            let rp2 = props.getRowProps<ExtraStuff>({ row: { id: "r1" }, extra1: "asdf" });
             rk = rp2.key;
             e = rp2.extra1;
 
             let sp = props.getSelectionProps();
             let c = sp.checked;
 
-            let sp2 = props.getSelectionProps({ extra1: 't2', extra3: 'asdf' });
+            let sp2 = props.getSelectionProps({ extra1: "t2", extra3: "asdf" });
             c = sp2.checked;
             e = sp2.extra1;
             e = sp2.extra3;
@@ -344,8 +344,8 @@ const t2 = (
             let size = tp.size;
 
             props.selectAll();
-            props.selectRow('qwerty');
-            props.sortBy('h3');
+            props.selectRow("qwerty");
+            props.sortBy("h3");
 
             props.headers.map(header => props.getHeaderProps({ header }));
             props.rows.map(row => props.getRowProps({ row }));
@@ -363,13 +363,13 @@ const t2 = (
 );
 
 // No types explicitly set on DataTable props
-const rowData1 = { id: '2', someRandomRowProp: 'test' };
+const rowData1 = { id: "2", someRandomRowProp: "test" };
 const t3 = (
     <DataTable
-        headers={[{ key: '1', header: 'Test', someRandomHeaderProp: 'test' }]}
+        headers={[{ key: "1", header: "Test", someRandomHeaderProp: "test" }]}
         rows={[rowData1]}
         render={data => {
-            let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
+            let rowProps = data.getRowProps({ row: rowData1, extra1: "qwerty", ...rowData1 });
             let a = rowProps.extra1;
             let b = rowProps.someRandomRowProp;
             return <div />;
@@ -377,7 +377,7 @@ const t3 = (
     />
 );
 
-const headerData1 = { key: '1', header: 'Test', someRandomHeaderProp: 'test' };
+const headerData1 = { key: "1", header: "Test", someRandomHeaderProp: "test" };
 const t4 = (
     <DataTable
         headers={[headerData1]}
@@ -385,11 +385,11 @@ const t4 = (
         render={data => {
             let table = <Table {...data.getTableProps()}>Content</Table>;
             data.headers.map(header => (
-                <TableHeader {...data.getHeaderProps({ header, randomAttr: 'asdf' })}>{header.header}</TableHeader>
+                <TableHeader {...data.getHeaderProps({ header, randomAttr: "asdf" })}>{header.header}</TableHeader>
             ));
             data.headers.map(header => (
                 <TableHeader
-                    {...data.getHeaderProps<ExtraStuff>({ header, extra1: 'test' })}
+                    {...data.getHeaderProps<ExtraStuff>({ header, extra1: "test" })}
                     translateWithId={(mId, args) => {
                         if (args) {
                             console.log(args.header);
@@ -397,7 +397,7 @@ const t4 = (
                             console.log(args.sortDirection);
                             console.log(args.sortStates);
                         }
-                        return 'string';
+                        return "string";
                     }}
                 >
                     {header.header}
@@ -405,15 +405,13 @@ const t4 = (
             ));
             data.rows.map(row => (
                 <TableRow {...data.getRowProps({ row })}>
-                    {row.cells.map(cell => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                    ))}
+                    {row.cells.map(cell => <TableCell key={cell.id}>{cell.value}</TableCell>)}
                 </TableRow>
             ));
-            let rowProps = data.getRowProps({ row: rowData1, extra1: 'qwerty', ...rowData1 });
+            let rowProps = data.getRowProps({ row: rowData1, extra1: "qwerty", ...rowData1 });
             let batchActions = (
                 <TableBatchActions
-                    {...data.getBatchActionProps({ spellCheck: true, randomAttr: 'Asdf' })}
+                    {...data.getBatchActionProps({ spellCheck: true, randomAttr: "Asdf" })}
                     translateWithId={(mId, args) => `${args ? args.totalSelected : 0}`}
                 >
                     Content
@@ -431,12 +429,12 @@ interface T5RowType extends DataTableRow {
     col2: number;
 }
 const t5RowItems: T5RowType[] = [
-    { id: 'row0', col1: 0, col2: 0 },
-    { id: 'row1', col1: 1, col2: 1 },
+    { id: "row0", col1: 0, col2: 0 },
+    { id: "row1", col1: 1, col2: 1 },
 ];
 const t5Headers: DataTableHeader[] = [
-    { key: 'col1', header: 'First column' },
-    { key: 'col2', header: 'Second column' },
+    { key: "col1", header: "First column" },
+    { key: "col2", header: "Second column" },
 ];
 const renderIconProp = <div />;
 const t5 = (
@@ -478,13 +476,17 @@ const t5 = (
                         <DataTable.TableToolbarMenu
                             tabIndex={renderProps.getBatchActionProps().shouldShowBatchActions ? -1 : 0}
                         >
-                            <DataTable.TableToolbarAction primaryFocus onClick={() => alert('Alert 1')}>
+                            <DataTable.TableToolbarAction
+                                primaryFocus
+                                onClick={() =>
+                                    alert("Alert 1")}
+                            >
                                 Action 1
                             </DataTable.TableToolbarAction>
-                            <DataTable.TableToolbarAction onClick={() => alert('Alert 2')}>
+                            <DataTable.TableToolbarAction onClick={() => alert("Alert 2")}>
                                 Action 2
                             </DataTable.TableToolbarAction>
-                            <DataTable.TableToolbarAction onClick={() => alert('Alert 3')}>
+                            <DataTable.TableToolbarAction onClick={() => alert("Alert 3")}>
                                 Action 3
                             </DataTable.TableToolbarAction>
                         </DataTable.TableToolbarMenu>
@@ -556,7 +558,10 @@ const t5 = (
         <UnstableSection onClick={(e: React.MouseEvent<HTMLElement>) => e.preventDefault()}>Text</UnstableSection>
     );
     const sectionIntrinsicT1 = (
-        <UnstableSection as="div" onClick={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}>
+        <UnstableSection
+            as="div"
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
+        >
             Text
         </UnstableSection>
     );
@@ -614,7 +619,7 @@ const t5 = (
     );
 
     interface TestCompPropsOverwrite {
-        element?: 'overwriteTest' | undefined; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
+        element?: "overwriteTest" | undefined; // making this required will produce an error. The underlying component will never receive prop element so it's not allowed to be required.
         someProp: string;
     }
 
@@ -692,12 +697,12 @@ const datePickerInputWithHideLabel = (
 // Dropdown
 const dropdownItems = [
     {
-        id: '1',
-        name: 'ASDF',
+        id: "1",
+        name: "ASDF",
     },
     {
-        id: '2',
-        name: 'QWERTY',
+        id: "2",
+        name: "QWERTY",
     },
 ];
 const dropdownItemCanBeElement = (
@@ -713,7 +718,7 @@ const dropdownItemCanBeElement = (
                 ID: {item.id}; Name: ${item.name}
             </div>
         )}
-        itemToString={item => 'Selected: ' + item}
+        itemToString={item => "Selected: " + item}
     />
 );
 
@@ -751,7 +756,7 @@ const dropdownItemCanBeElement = (
 // TileGroup
 // Value nor name can be undefined
 let value: string | number = 5;
-let name = 'old name';
+let name = "old name";
 const tileGroupA = (
     <TileGroup
         name="my-tile-group-name"
@@ -789,7 +794,7 @@ const tooltipDefHasTriggerClassName = <TooltipDefinition tooltipText="my text" t
                 renderAnchor={props => <div />}
                 renderButton={props => <div />}
                 renderContent={props => {
-                    const { 'aria-hidden': ariaHidden, className, hidden, id, selected } = props;
+                    const { "aria-hidden": ariaHidden, className, hidden, id, selected } = props;
                     return hidden ? null : (
                         <div id={id} className={className} aria-hidden={ariaHidden}>
                             Selected: {selected}
@@ -920,7 +925,7 @@ const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my
         <NumberInput
             id="id"
             onChange={(evt, direction, value) => {
-                if (direction === 'down') {
+                if (direction === "down") {
                     evt.preventDefault();
                 }
             }}
@@ -953,7 +958,11 @@ const controlledPasswordInputWithRef = <TextInput.ControlledPasswordInput id="my
     );
 
     const numberInputOnClickT3 = (
-        <NumberInput id="id" onClick={(evt => evt.currentTarget.checked) as NumberInputOnClickInputVariant} value="" />
+        <NumberInput
+            id="id"
+            onClick={(evt => evt.currentTarget.checked) as NumberInputOnClickInputVariant}
+            value=""
+        />
     );
 }
 
@@ -962,7 +971,7 @@ const fileUploaderHasOnChange = <FileUploader onChange={e => {}} />;
 
 const fileUploaderDropContainer = (
     <FileUploaderDropContainer
-        accept={['image/jpeg', 'image/png']}
+        accept={["image/jpeg", "image/png"]}
         labelText="Drag and drop files here or click to upload"
         multiple
         name=""
@@ -989,11 +998,11 @@ const fileUploaderItem = (
 const multiSelect = (
     <MultiSelect
         id="clusters"
-        initialSelectedItems={['one']}
-        items={['one', 'two']}
+        initialSelectedItems={["one"]}
+        items={["one", "two"]}
         light
         titleText="Choose an item"
-        itemToString={item => item || ''}
+        itemToString={item => item || ""}
         onChange={({ selectedItems }) => {}}
     />
 );
@@ -1010,10 +1019,10 @@ const multiSelectObjs = (
     <MultiSelect<MultiSelectObjType1>
         id="disks"
         items={[
-            { id: 1, name: 'one' },
-            { id: 2, name: 'two', someBoolProp: true },
+            { id: 1, name: "one" },
+            { id: 2, name: "two", someBoolProp: true },
         ]}
-        itemToString={item => item.name || ''}
+        itemToString={item => item.name || ""}
         itemToElement={MultiSelectItemComp}
         onChange={({ selectedItems }) => {}}
     />
@@ -1023,8 +1032,8 @@ const multiSelectObjsBadCustomComp = (
     <MultiSelect<MultiSelectObjType1>
         id="disks"
         items={[
-            { id: 1, name: 'one' },
-            { id: 2, name: 'two', someBoolProp: true },
+            { id: 1, name: "one" },
+            { id: 2, name: "two", someBoolProp: true },
         ]}
         // @ts-expect-error
         itemToElement={TestComp2}
@@ -1034,12 +1043,12 @@ const multiSelectObjsBadCustomComp = (
 const multiSelectFilterable = (
     <MultiSelect.Filterable
         id="clusters"
-        initialSelectedItems={['one']}
-        items={['one', 'two']}
+        initialSelectedItems={["one"]}
+        items={["one", "two"]}
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => item || ''}
+        itemToString={item => item || ""}
         onChange={({ selectedItems }) => {}}
     />
 );
@@ -1047,11 +1056,11 @@ const multiSelectFilterable = (
 const multiSelectFilterableObjs: MultiSelectObjType1[] = [
     {
         id: 1,
-        name: 'One',
+        name: "One",
     },
     {
         id: 2,
-        name: 'Two',
+        name: "Two",
         someBoolProp: true,
     },
 ];
@@ -1063,7 +1072,7 @@ const multiSelectFilterableObj = (
         light
         placeholder="Filter"
         titleText="Choose an item"
-        itemToString={item => (item && item.name ? item.name : '')}
+        itemToString={item => (item && item.name ? item.name : "")}
         onChange={({ selectedItems }) => {}}
     />
 );
@@ -1256,17 +1265,17 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
 // ComboBox
 //
 {
-    const comboBoxWithMandatoryProps = <ComboBox id="cbId" items={['item 1', 'item 2', 'item 3']} />;
+    const comboBoxWithMandatoryProps = <ComboBox id="cbId" items={["item 1", "item 2", "item 3"]} />;
     const comboBoxWithOptionalProps = (
         <ComboBox
             id="someId"
             light={false}
-            items={['item 1', 'item 2', 'item 3']}
-            selectedItem={'item 1'}
-            placeholder={'filter...'}
-            titleText={'some title'}
+            items={["item 1", "item 2", "item 3"]}
+            selectedItem={"item 1"}
+            placeholder={"filter..."}
+            titleText={"some title"}
             invalid={false}
-            invalidText={'Please select one of the available items.'}
+            invalidText={"Please select one of the available items."}
         />
     );
 }

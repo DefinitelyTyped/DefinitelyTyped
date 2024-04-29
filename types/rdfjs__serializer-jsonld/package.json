@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/rdfjs__serializer-jsonld",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/serializer-jsonld"
+    ],
+    "type": "module",
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdfjs__serializer-jsonld": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wilkinson",
+            "githubUsername": "thewilkybarkid"
+        },
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/node-ipc",
+    "version": "9.2.9999",
+    "projects": [
+        "http://riaevangelist.github.io/node-ipc/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-ipc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arvitaly",
+            "githubUsername": "arvitaly"
+        },
+        {
+            "name": "gjurgens",
+            "githubUsername": "gjurgens"
+        }
+    ]
+}

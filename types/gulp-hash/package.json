@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-hash",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/Dragory/gulp-hash"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-hash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

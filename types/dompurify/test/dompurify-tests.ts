@@ -1,32 +1,35 @@
-import DOMPurify = require('dompurify');
+import DOMPurify = require("dompurify");
+import jsdom = require("jsdom");
 
-DOMPurify.addHook('beforeSanitizeElements', (el, data, config) => undefined);
+const { JSDOM } = jsdom;
+
+DOMPurify.addHook("beforeSanitizeElements", (el, data, config) => undefined);
 
 // examples from the DOMPurify README
-const dirty = '<script>alert("hi")</script><p>Totally safe<p><p onerror="blowUp()">Totally not safe</p>';
+const dirty = "<script>alert(\"hi\")</script><p>Totally safe<p><p onerror=\"blowUp()\">Totally not safe</p>";
 let frag: DocumentFragment;
 let trustedHtml: TrustedHTML;
 
-DOMPurify.sanitize('<div><b>preserve me</b></div><p><b>no not preserve me</b></p>', {
-    FORBID_CONTENTS: ['p'],
-    FORBID_TAGS: ['div', 'p'],
+DOMPurify.sanitize("<div><b>preserve me</b></div><p><b>no not preserve me</b></p>", {
+    FORBID_CONTENTS: ["p"],
+    FORBID_TAGS: ["div", "p"],
 });
 
-DOMPurify.sanitize('<script>alert("hi")</script>'); // $ExpectType string
-DOMPurify.sanitize(dirty, { ADD_ATTR: ['my-attr'] }); // $ExpectType string
-DOMPurify.sanitize(dirty, { ADD_DATA_URI_TAGS: ['a', 'area'] }); // $ExpectType string
-DOMPurify.sanitize(dirty, { ADD_TAGS: ['my-tag'] }); // $ExpectType string
-DOMPurify.sanitize(dirty, { ADD_URI_SAFE_ATTR: ['my-attr'] }); // $ExpectType string
+DOMPurify.sanitize("<script>alert(\"hi\")</script>"); // $ExpectType string
+DOMPurify.sanitize(dirty, { ADD_ATTR: ["my-attr"] }); // $ExpectType string
+DOMPurify.sanitize(dirty, { ADD_DATA_URI_TAGS: ["a", "area"] }); // $ExpectType string
+DOMPurify.sanitize(dirty, { ADD_TAGS: ["my-tag"] }); // $ExpectType string
+DOMPurify.sanitize(dirty, { ADD_URI_SAFE_ATTR: ["my-attr"] }); // $ExpectType string
 DOMPurify.sanitize(dirty, { ALLOW_ARIA_ATTR: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { ALLOW_DATA_ATTR: false }); // $ExpectType string
-DOMPurify.sanitize(dirty, { ALLOWED_TAGS: ['b', 'q'], ALLOWED_ATTR: ['style'] }); // $ExpectType string
-DOMPurify.sanitize(dirty, { ALLOWED_TAGS: ['b'] }); // $ExpectType string
-DOMPurify.sanitize(dirty, { FORBID_ATTR: ['style'] }); // $ExpectType string
-DOMPurify.sanitize(dirty, { FORBID_TAGS: ['style'] }); // $ExpectType string
+DOMPurify.sanitize(dirty, { ALLOWED_TAGS: ["b", "q"], ALLOWED_ATTR: ["style"] }); // $ExpectType string
+DOMPurify.sanitize(dirty, { ALLOWED_TAGS: ["b"] }); // $ExpectType string
+DOMPurify.sanitize(dirty, { FORBID_ATTR: ["style"] }); // $ExpectType string
+DOMPurify.sanitize(dirty, { FORBID_TAGS: ["style"] }); // $ExpectType string
 DOMPurify.sanitize(dirty, { KEEP_CONTENT: false }); // $ExpectType string
-DOMPurify.sanitize(dirty, { NAMESPACE: 'http://www.w3.org/2000/svg' }); // $ExpectType string
-DOMPurify.sanitize(dirty, { ALLOWED_NAMESPACES: ['http://www.w3.org/2000/svg'] }); // $ExpectType string
-DOMPurify.sanitize(dirty, { PARSER_MEDIA_TYPE: 'text/html' }); // $ExpectType string
+DOMPurify.sanitize(dirty, { NAMESPACE: "http://www.w3.org/2000/svg" }); // $ExpectType string
+DOMPurify.sanitize(dirty, { ALLOWED_NAMESPACES: ["http://www.w3.org/2000/svg"] }); // $ExpectType string
+DOMPurify.sanitize(dirty, { PARSER_MEDIA_TYPE: "text/html" }); // $ExpectType string
 DOMPurify.sanitize(dirty, { RETURN_DOM: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { SANITIZE_DOM: false }); // $ExpectType string
 DOMPurify.sanitize(dirty, { SANITIZE_NAMED_PROPS: true }); // $ExpectType string
@@ -35,7 +38,7 @@ DOMPurify.sanitize(dirty, { WHOLE_DOCUMENT: true }); // $ExpectType string
 DOMPurify.sanitize(dirty, {
     CUSTOM_ELEMENT_HANDLING: {
         tagNameCheck: /foo/,
-        attributeNameCheck: attr => attr === 'baz',
+        attributeNameCheck: attr => attr === "baz",
         allowCustomizedBuiltInElements: true,
     },
 });
@@ -67,6 +70,10 @@ const customWindow: Window = window;
 const customDOMPurifyWithCustomWindow = createDOMPurify(customWindow);
 customDOMPurifyWithCustomWindow.sanitize(dirty);
 
+const jsdomWindow = new JSDOM("<!DOCTYPE html>").window;
+const customDOMPurifyWithJsdomWindow = createDOMPurify(jsdomWindow);
+customDOMPurifyWithJsdomWindow.sanitize(dirty);
+
 // test the 'DOMPurifyI' type is publicly accessible.
 function registerDomPurifyInstance(domPurify: DOMPurify.DOMPurifyI) {}
 
@@ -74,26 +81,26 @@ function registerDomPurifyInstance(domPurify: DOMPurify.DOMPurifyI) {}
 const config: DOMPurify.Config = {};
 
 // test the 'HookName' type is publicly accessible.
-const hookName: DOMPurify.HookName = 'beforeSanitizeElements';
+const hookName: DOMPurify.HookName = "beforeSanitizeElements";
 
 // test the 'HookEvent' type is publicly accessible.
 DOMPurify.addHook(hookName, (currentNode: Element, event: DOMPurify.HookEvent) => {});
 
 // test the 'SanitizeElementHookEvent' type is publicly accessible.
-DOMPurify.addHook('uponSanitizeElement', (currentNode: Element, event: DOMPurify.SanitizeElementHookEvent) => {
+DOMPurify.addHook("uponSanitizeElement", (currentNode: Element, event: DOMPurify.SanitizeElementHookEvent) => {
     if (currentNode.nodeName && currentNode.nodeName.match(/^\w+-\w+$/) && !event.allowedTags[event.tagName]) {
         event.allowedTags[event.tagName] = true;
     }
 });
 
 // test the 'SanitizeAttributeHookEvent' type is publicly accessible.
-DOMPurify.addHook('uponSanitizeAttribute', (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
+DOMPurify.addHook("uponSanitizeAttribute", (currentNode: Element, event: DOMPurify.SanitizeAttributeHookEvent) => {
     if (event.attrName && event.attrName.match(/^\w+-\w+$/) && !event.allowedAttributes[event.attrName]) {
         event.allowedAttributes[event.attrName] = true;
         event.forceKeepAttr = true;
     }
 });
 
-DOMPurify.sanitize('<a href="#" class="foo <br/>">abc</a>', {
+DOMPurify.sanitize("<a href=\"#\" class=\"foo <br/>\">abc</a>", {
     ALLOW_SELF_CLOSE_IN_ATTR: false,
 });

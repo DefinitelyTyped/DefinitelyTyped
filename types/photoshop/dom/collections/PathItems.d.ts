@@ -1,13 +1,12 @@
-import { PathItem } from "../PathItem";
 import { SubPathInfo } from "../objects/SubPathInfo";
+import { PathItem } from "../PathItem";
 /**
  * The collection of [[PathItem]] objects in a document.
  *
  * Access through the [[Document.pathItems]] collection property. To create new paths,
  * see [[PathPointInfo]] and [[SubPathInfo]] classes and pass them to [[PathItems.add]]() method.
- *
  */
-export declare class PathItems {
+export declare class PathItems extends Array<PathItem> {
     /**
      * @ignore
      */

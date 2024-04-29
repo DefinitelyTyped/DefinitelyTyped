@@ -1,5 +1,6 @@
 {
     "rules": {
-        "trim-file": "off"
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

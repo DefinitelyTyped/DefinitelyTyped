@@ -1,2 +1,2 @@
-import IsArray = require('../2015/IsArray');
+import IsArray = require("../2015/IsArray");
 export = IsArray;

@@ -1,6 +1,6 @@
-import { ACTIONS, BlackjackEnvironment } from '../monteCarloSimulation/BlackjackEnvironment';
-import { Simulator } from '../monteCarloSimulation/Simulator';
-import { Player } from './Player';
+import { ACTIONS, BlackjackEnvironment } from "../monteCarloSimulation/BlackjackEnvironment";
+import { Simulator } from "../monteCarloSimulation/Simulator";
+import { Player } from "./Player";
 
 /**
  * Representing the AI player.
@@ -9,7 +9,7 @@ import { Player } from './Player';
  */
 export class AI extends Player {
     dealer: Player;
-    policy: {[k: string]: number};
+    policy: { [k: string]: number };
 
     constructor(dealer: Player) {
         super();

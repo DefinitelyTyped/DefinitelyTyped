@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Image {
     export interface ImageProps extends React.HTMLProps<Image> {
@@ -8,5 +8,5 @@ declare namespace Image {
         thumbnail?: boolean | undefined;
     }
 }
-declare class Image extends React.Component<Image.ImageProps> { }
+declare class Image extends React.Component<Image.ImageProps> {}
 export = Image;

@@ -1,14 +1,9 @@
-// Type definitions for russian-nouns-js 1.2
-// Project: https://github.com/georgy7/RussianNounsJS
-// Definitions by: RusAnonym <https://github.com/RusAnonym>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* tslint:disable:no-redundant-jsdoc-2 */
 
-import { Gender as GenderEnum } from './src/Gender';
-import { Case as CaseEnum } from './src/Case';
-import { LemmaOptions, Lemma } from './src/Lemma';
-import Engine from './src/Engine';
+import { Case as CaseEnum } from "./src/Case";
+import Engine from "./src/Engine";
+import { Gender as GenderEnum } from "./src/Gender";
+import { Lemma, LemmaOptions } from "./src/Lemma";
 
 export as namespace RussianNounsJS;
 

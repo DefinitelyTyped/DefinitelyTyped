@@ -1,10 +1,3 @@
-// Type definitions for i2c-bus v5.1.0
-// Project: https://github.com/fivdi/i2c-bus
-// Definitions by: Jason Heard <https://github.com/101100>
-//                 Kohei Watanabe <https://github.com/kou029w>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 type I2CDeviceId = { manufacturer: number; product: number; name: string };

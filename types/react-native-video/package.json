@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/react-native-video",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/react-native-community/react-native-video",
+        "https://github.com/brentvatne/react-native-video"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-video": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "HuHuanming",
+            "githubUsername": "huhuanming"
+        },
+        {
+            "name": "Nekith",
+            "githubUsername": "Nekith"
+        },
+        {
+            "name": "Philip Frank",
+            "githubUsername": "bananer"
+        }
+    ]
+}

@@ -1,33 +1,25 @@
-// Type definitions for UglifyCSS v0.0.20
-// Project: https://github.com/fmarcia/UglifyCSS
-// Definitions by: gevik Babakhani <https://github.com/blendsdk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "uglifycss" {
-
     namespace UglifyCSS {
-
         interface UglifyCSSOptions {
-
             /**
              * Adds a newline (approx.) every n characters; 0 means no newline and is the default value
              */
-            maxLineLen?: number | undefined
+            maxLineLen?: number | undefined;
 
             /**
              * eEpands variables; by default, @variables blocks are preserved and var(x)s are not expanded
              */
-            expandVars?: boolean | undefined
+            expandVars?: boolean | undefined;
 
             /**
              * Removes newlines within preserved comments; by default, newlines are preserved
              */
-            uglyComments?: boolean | undefined
+            uglyComments?: boolean | undefined;
 
             /**
              * Preserves newlines within and around preserved comments
              */
-            cuteComments?: boolean | undefined
+            cuteComments?: boolean | undefined;
         }
 
         /**
@@ -38,10 +30,8 @@ declare module "uglifycss" {
         /**
          * Uglify one or more files
          */
-        function processFiles(filenames: Array<string>, options?: UglifyCSSOptions): string;
-
+        function processFiles(filenames: string[], options?: UglifyCSSOptions): string;
     }
 
     export = UglifyCSS;
-
 }

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/feathersjs__socket-commons",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/feathersjs/socket-commons"
+    ],
+    "dependencies": {
+        "@types/feathersjs__feathers": "*"
+    },
+    "devDependencies": {
+        "@types/feathersjs__socket-commons": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Lohage",
+            "githubUsername": "j2L4e"
+        },
+        {
+            "name": "deskoh",
+            "githubUsername": "deskoh"
+        }
+    ]
+}

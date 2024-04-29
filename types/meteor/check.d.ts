@@ -15,6 +15,7 @@ declare module 'meteor/check' {
             typeof Function |
             (new (...args: any[]) => any) |
             undefined | null | string | number | boolean |
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             [Pattern] |
             {[key: string]: Pattern} |
             Matcher<any>;
@@ -28,7 +29,8 @@ declare module 'meteor/check' {
             T extends typeof Function ? Function :
             T extends undefined | null | string | number | boolean ? T :
             T extends new (...args: any[]) => infer U ? U :
-            T extends [Pattern] ? PatternMatch<T[0]>[] :
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+            T extends [Pattern] ? Array<PatternMatch<T[0]>> :
             T extends {[key: string]: Pattern} ? {[K in keyof T]: PatternMatch<T[K]>} :
             unknown;
 

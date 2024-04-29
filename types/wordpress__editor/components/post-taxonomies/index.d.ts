@@ -1,10 +1,10 @@
-import { Schema } from '@wordpress/core-data';
-import { ComponentType, ReactNode } from 'react';
+import { Taxonomy } from "@wordpress/core-data";
+import { ComponentType, JSX, ReactNode } from "react";
 
 declare namespace PostTaxonomies {
     interface Props {
         children?: never | undefined;
-        taxonomyWrapper?(content: ReactNode, taxonomy: Schema.Taxonomy<'edit'>): JSX.Element;
+        taxonomyWrapper?(content: ReactNode, taxonomy: Taxonomy): JSX.Element;
     }
 }
 declare const PostTaxonomies: ComponentType<PostTaxonomies.Props>;

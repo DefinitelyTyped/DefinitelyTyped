@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/makeerror",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/daaku/nodejs-makeerror#readme"
+    ],
+    "devDependencies": {
+        "@types/makeerror": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "yutak23",
+            "githubUsername": "yutak23"
+        }
+    ]
+}

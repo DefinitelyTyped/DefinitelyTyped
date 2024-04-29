@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/shpjs",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/calvinmetcalf/shapefile-js#readme"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/shpjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hsiao-Ting Yu",
+            "githubUsername": "littlebtc"
+        }
+    ]
+}

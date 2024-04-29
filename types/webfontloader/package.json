@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webfontloader",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/typekit/webfontloader"
+    ],
+    "devDependencies": {
+        "@types/webfontloader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "SECT",
+            "githubUsername": "sectsect"
+        }
+    ]
+}

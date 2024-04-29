@@ -1,6 +1,6 @@
-import { Environment, ButtonStyle } from './configuration';
+import { ButtonStyle, Environment } from "./configuration";
 
-import { AuthorizationData, AuthorizationResponse, CancellationData } from './callback-data';
+import { AuthorizationData, AuthorizationResponse, CancellationData } from "./callback-data";
 
 export enum FundingOption {
     CREDIT,
@@ -28,9 +28,9 @@ export interface ButtonRenderer {
 
             funding?:
                 | {
-                      allowed?: FundingOption[] | undefined;
-                      disallowed?: FundingOption[] | undefined;
-                  }
+                    allowed?: FundingOption[] | undefined;
+                    disallowed?: FundingOption[] | undefined;
+                }
                 | undefined;
 
             sessionID?: string | undefined;

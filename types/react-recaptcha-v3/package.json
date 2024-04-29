@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-recaptcha-v3",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/codeep/react-recaptcha-v3"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-recaptcha-v3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alessandro Rabitti",
+            "githubUsername": "silversonicaxel"
+        },
+        {
+            "name": "Ivan Siacho",
+            "githubUsername": "ivansiach0"
+        }
+    ]
+}

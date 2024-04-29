@@ -1,12 +1,4 @@
-// Type definitions for UglifyJS 3.17
-// Project: https://github.com/mishoo/UglifyJS
-// Definitions by: Alan Agius <https://github.com/alan-agius4>
-//                 Tanguy Krotoff <https://github.com/tkrotoff>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { RawSourceMap } from 'source-map';
+import { RawSourceMap } from "source-map";
 export interface ParseOptions {
     /**
      * Support top level `return` statements
@@ -148,7 +140,7 @@ export interface CompressOptions {
      * You need this for code which relies on `Function.length`
      * @default 'strict'
      */
-    keep_fargs?: 'strict' | boolean | undefined;
+    keep_fargs?: "strict" | boolean | undefined;
     /**
      * Pass true to prevent the compressor from discarding function names.
      * Useful for code relying on `Function.prototype.name`.
@@ -217,7 +209,7 @@ export interface CompressOptions {
      * i.e. not null or undefine
      * @default 'strict'
      */
-    pure_getters?: boolean | 'strict' | undefined;
+    pure_getters?: boolean | "strict" | undefined;
     /**
      * Allows single-use functions to be inlined as function expressions when permissible allowing further optimization.
      * Enabled by default. Option depends on reduce_vars being enabled. Some code runs faster in the Chrome V8 engine if
@@ -372,7 +364,7 @@ export interface OutputOptions {
     ascii_only?: boolean | undefined;
     beautify?: boolean | undefined;
     braces?: boolean | undefined;
-    comments?: boolean | 'all' | 'some' | RegExp | undefined;
+    comments?: boolean | "all" | "some" | RegExp | undefined;
     indent_level?: number | undefined;
     indent_start?: boolean | undefined;
     inline_script?: boolean | undefined;
@@ -402,7 +394,7 @@ export interface MinifyOptions {
      * Use the value `verbose` for more detailed warnings.
      * @default false
      */
-    warnings?: boolean | 'verbose' | undefined;
+    warnings?: boolean | "verbose" | undefined;
     /**
      * Pass an object if you wish to specify some additional parse options.
      */
@@ -487,9 +479,9 @@ export interface SourceMapOptions {
      * @default true
      */
     names?: boolean | undefined;
-    url?: string | 'inline' | undefined;
+    url?: string | "inline" | undefined;
     root?: string | undefined;
-    content?: RawSourceMap | 'inline' | undefined;
+    content?: RawSourceMap | "inline" | undefined;
 }
 
 export function minify(files: string | string[] | { [file: string]: string }, options?: MinifyOptions): MinifyOutput;

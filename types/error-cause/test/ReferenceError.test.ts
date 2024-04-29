@@ -1,14 +1,14 @@
-import ReferenceError from 'error-cause/ReferenceError';
+import ReferenceError from "error-cause/ReferenceError";
 
 // $ExpectType ReferenceError
 new ReferenceError();
 // $ExpectType ReferenceError
-new ReferenceError('reason');
+new ReferenceError("reason");
 // $ExpectType ReferenceError
-new ReferenceError('reason', {});
+new ReferenceError("reason", {});
 // $ExpectType ReferenceError
-new ReferenceError('reason', { cause: null });
+new ReferenceError("reason", { cause: null });
 // $ExpectType ReferenceError
-new ReferenceError('reason', { cause: 'stupidity' });
+new ReferenceError("reason", { cause: "stupidity" });
 // $ExpectType ReferenceError
-new ReferenceError('reason', { cause: new ReferenceError() });
+new ReferenceError("reason", { cause: new ReferenceError() });

@@ -1,14 +1,8 @@
-// Type definitions for stremio-addon-sdk 1.6
-// Project: https://github.com/Stremio/stremio-addon-sdk#readme
-// Definitions by: Sleeyax <https://github.com/sleeyax>, Victor <https://github.com/victorgveloso>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export {};
 
-export type ShortManifestResource = 'catalog' | 'meta' | 'stream' | 'subtitles' | 'addon_catalog';
-export type Extra = 'search' | 'genre' | 'skip';
-export type ContentType = 'movie' | 'series' | 'channel' | 'tv';
+export type ShortManifestResource = "catalog" | "meta" | "stream" | "subtitles" | "addon_catalog";
+export type Extra = "search" | "genre" | "skip";
+export type ContentType = "movie" | "series" | "channel" | "tv";
 
 export interface Args {
     type: ContentType;
@@ -159,7 +153,7 @@ export interface MetaPreview {
      *
      * Defaults to 'regular'.
      */
-    posterShape?: 'square' | 'regular' | 'landscape' | undefined;
+    posterShape?: "square" | "regular" | "landscape" | undefined;
     /**
      * The background shown on the stremio detail page.
      *
@@ -470,7 +464,7 @@ export interface Manifest {
      *
      * Example #2: ["catalog", "meta", "stream", "subtitles", "addon_catalog"]
      */
-    resources: ShortManifestResource[] | FullManifestResource[];
+    resources: Array<ShortManifestResource | FullManifestResource>;
     /**
      * Supported types.
      */
@@ -493,12 +487,24 @@ export interface Manifest {
      * This can be used for an addon to act just as a catalog of other addons.
      */
     addonCatalogs?: ManifestCatalog[] | undefined;
+
+    /**
+     * A list of settings that users can set for your addon.
+     */
+    config?: ManifestConfig[];
+
     /**
      * Background image for the addon.
      *
      * URL to png/jpg, at least 1024x786 resolution.
      */
     background?: string | undefined;
+
+    /**
+     * @deprecated use `logo` instead.
+     */
+    icon?: string;
+
     /**
      * Logo icon, URL to png, monochrome, 256x256.
      */
@@ -522,7 +528,54 @@ export interface Manifest {
          * Used to provide an adequate warning to the user.
          */
         p2p?: boolean | undefined;
+
+        /**
+         * Default is `false`. If the addon supports settings, it will add a button next to "Install" in Stremio that will point to the `/configure` path on the addon's domain. For more information, read [User Data](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#user-data) (or if you are not using the Addon SDK, read: [Advanced User Data](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/advanced.md#using-user-data-in-addons) and [Creating Addon Configuration Pages](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/advanced.md#creating-addon-configuration-pages))
+         */
+        configurable?: boolean;
+
+        /**
+         * Default is `false`. If set to `true`, the "Install" button will not show for your addon in Stremio. Instead a "Configure" button will show pointing to the `/configure` path on the addon's domain. For more information, read [User Data](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#user-data) (or if you are not using the Addon SDK, read: [Advanced User Data](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/advanced.md#using-user-data-in-addons) and [Creating Addon Configuration Pages](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/advanced.md#creating-addon-configuration-pages))
+         */
+        configurationRequired?: boolean;
     } | undefined;
+}
+
+export type ManifestConfigType = "text" | "number" | "password" | "checkbox" | "select";
+
+/**
+ * Addon setting.
+ */
+export interface ManifestConfig {
+    /**
+     * A key that will identify the user chosen value.
+     */
+    key: string;
+
+    /**
+     * The type of data that the setting stores.
+     */
+    type: ManifestConfigType;
+
+    /**
+     * The default value. For `type: "boolean"` this can be set to "checked" to default to enabled.
+     */
+    default?: string;
+
+    /**
+     * The title of the setting.
+     */
+    title?: string;
+
+    /**
+     * List of (string) choices for `type: "select"`
+     */
+    options?: string;
+
+    /**
+     * If the value is required or not. Only applies to the following types: "string", "number". (default is `false`)
+     */
+    required?: string;
 }
 
 /**
@@ -602,7 +655,6 @@ export interface ManifestExtra {
      * This is useful for things like genres, where you need the user to select from a pre-set list of options.
      *
      * e.g. { name: "genre", options: ["Action", "Comedy", "Drama"] }
-     *
      *
      * It's also useful if we want to specify a limited number of pages (for the skip parameter).
      *

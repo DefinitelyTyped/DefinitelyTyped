@@ -20,7 +20,7 @@ declare namespace OO.ui {
     type ToolGroupFactory = Factory;
 
     const ToolGroupFactory: {
-        new (): ToolGroupFactory;
+        new(): ToolGroupFactory;
         prototype: ToolGroupFactory;
         static: {
             /**
@@ -28,7 +28,7 @@ declare namespace OO.ui {
              *
              * @return Default classes
              */
-            getDefaultClasses(): Array<new (...args: any[]) => any>;
+            getDefaultClasses(): Array<new(...args: any[]) => any>;
         };
         super: FactoryConstructor;
         /** @deprecated Use `super` instead */

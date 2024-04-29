@@ -11,15 +11,15 @@ const add = (a: any, b: any): number => {
 };
 
 const methodObject: ServerMethodConfigurationObject = {
-    name: 'sum',
+    name: "sum",
     method: add,
     options: {
         cache: {
             expiresIn: 2000,
-            generateTimeout: 100
+            generateTimeout: 100,
         },
-        generateKey: (a: string | undefined) => a === undefined ? null : a
-    }
+        generateKey: (a: string | undefined) => a === undefined ? null : a,
+    },
 };
 
 server.method(methodObject);

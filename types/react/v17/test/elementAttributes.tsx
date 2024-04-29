@@ -1,8 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
 const testCases = [
     <span />,
     <span accessKey="s" />,
+    <span autoFocus />,
     <span className="klass" />,
     <span contentEditable />,
     <span contextMenu="menuId" />,
@@ -29,10 +30,10 @@ const testCases = [
     <svg>
         <image crossOrigin="anonymous" />
     </svg>,
-    <details open={true} onToggle={() => {}} />,
-    <input value={['one', 'two'] as ReadonlyArray<string>} />,
-    <input value={['one', 'two'] as string[]} />,
-    <input value={['one', 'two']} />,
+    <details open={true} onToggle={() => {}} name="foo" />,
+    <input value={["one", "two"] as readonly string[]} />,
+    <input value={["one", "two"] as string[]} />,
+    <input value={["one", "two"]} />,
     <input enterKeyHint="done" />,
     <input accept="image/*" capture="user" />,
     <input accept="image/*" capture="environment" />,
@@ -67,7 +68,8 @@ const testCases = [
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
         }}
-    ></dialog>,
+    >
+    </dialog>,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
 ];
 

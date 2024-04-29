@@ -5,19 +5,27 @@ const proxy: ProxyVerifier.Proxy = {
     port: 8080,
     auth: "test",
     protocol: "socks5",
-    protocols: [ "socks5", "https" ]
+    protocols: ["socks5", "https"],
 };
 
 const requestOptions = {
-    method: "GET"
+    method: "GET",
 };
 
 const testOptions = {
     testUrl: "www.example.com",
-    testFn: (data: string, status: number, headers: ProxyVerifier.Headers) => {}
+    testFn: (data: string, status: number, headers: ProxyVerifier.Headers) => {},
 };
 
-function cb(error: any, result: string | ProxyVerifier.Result | ProxyVerifier.ProtocolResult | ProxyVerifier.CustomTestResult | ProxyVerifier.AllResults) {
+function cb(
+    error: any,
+    result:
+        | string
+        | ProxyVerifier.Result
+        | ProxyVerifier.ProtocolResult
+        | ProxyVerifier.CustomTestResult
+        | ProxyVerifier.AllResults,
+) {
     if (error) console.error(error);
 
     console.log(result);

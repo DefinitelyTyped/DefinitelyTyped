@@ -1,12 +1,12 @@
-import { combineReducers, applyMiddleware, createStore } from 'redux';
-import { createBrowserHistory, routerReducer, routerMiddleware, startListener, push } from 'redux-first-routing';
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import { createBrowserHistory, push, routerMiddleware, routerReducer, startListener } from "redux-first-routing";
 
 // Create the history object
 const history = createBrowserHistory();
 
 // Add the reducer, which adds location state to the store
 const rootReducer = combineReducers({
-    router: routerReducer // Convention is to use the "router" property
+    router: routerReducer, // Convention is to use the "router" property
 });
 
 // Build the middleware, which intercepts navigation actions and calls the corresponding history method
@@ -33,7 +33,7 @@ const unsubscribe = store.subscribe(() => {
 });
 
 // And you can dispatch navigation actions from anywhere!
-store.dispatch(push('/about'));
+store.dispatch(push("/about"));
 
 // Unsubscribe
 unsubscribe();

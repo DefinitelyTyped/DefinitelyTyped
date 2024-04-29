@@ -1,4 +1,4 @@
-import { BinaryFunction, UnaryFunction } from '../internal/types';
+import { BinaryFunction, UnaryFunction } from "../internal/types";
 
 /**
  * mapReduce :: Foldable f => (a -> b) -> (c -> b -> c) -> c -> f a -> c

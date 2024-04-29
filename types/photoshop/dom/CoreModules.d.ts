@@ -1,64 +1,215 @@
-import { CMYKColorDescriptor, ColorConversionModel, ColorDescriptor, GrayscaleColorDescriptor, HSBColorDescriptor, LabColorDescriptor, RGB32ColorDescriptor, RGBColorDescriptor } from "../util/colorTypes";
+import {
+    CMYKColorDescriptor,
+    ColorConversionModel,
+    ColorDescriptor,
+    GrayscaleColorDescriptor,
+    HSBColorDescriptor,
+    LabColorDescriptor,
+    RGB32ColorDescriptor,
+    RGBColorDescriptor,
+} from "../util/colorTypes";
 /** @ignore */
 declare type NotificationListener = (name: string, descriptor: ActionDescriptor) => void;
 /** @ignore */
 export interface ActionReference {
     [index: string]: number | string;
 }
+/** @ignore */
 export interface ActionDescriptor {
     _obj: string;
     [prop: string]: any;
 }
+/**
+ * @targetfolder objects/returnobjects
+ * @minVersion 22.5
+ */
 interface Scheduling {
     playLevel?: number;
     eventLevel?: number;
     timeOut?: number;
 }
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ * @minVersion 23.0
+ */
 export interface BatchPlayCommandOptions {
+    /**
+     * @minVersion 23.0
+     */
     commandEnablement?: "normal" | "never" | "always";
+    /**
+     * @minVersion 23.0
+     */
     dialogOptions?: "silent" | "dontDisplay" | "display";
+    /**
+     * @minVersion 23.0
+     */
     propagateErrorToDefaultHandler?: boolean;
-    historyStateInfo?: {
-        name: string;
-        target: object;
-    };
+    /**
+     * @minVersion 23.0
+     */
     synchronousExecution?: boolean;
+    /**
+     * @minVersion 23.0
+     */
     modalBehavior?: "wait" | "execute" | "fail";
+    /**
+     * @minVersion 23.0
+     */
     useMultiGet?: boolean;
+    /**
+     * @minVersion 23.0
+     */
     suppressPlayLevelIncrease?: boolean;
+    /**
+     * Do not stop a batchPlay when a descriptor fails and continue with remaining descriptors in batch.
+     * @minVersion 24.5
+     */
+    continueOnError?: boolean;
 }
 export declare type CPUVendorKind = "Intel" | "AMD" | "ARM" | "Unknown";
+/**
+ * @targetfolder objects/returnobjects
+ * @minVersion 23.0
+ */
 export interface CPUInfo {
+    /**
+     * @minVersion 23.0
+     */
     vendor: CPUVendorKind;
+    /**
+     * @minVersion 23.0
+     */
     physicalCores: number;
+    /**
+     * @minVersion 23.0
+     */
     logicalCores: number;
+    /**
+     * @minVersion 23.0
+     */
     frequencyMhz: number;
+    /**
+     * @minVersion 23.0
+     */
     emulationMode?: "rosetta2";
 }
+/**
+ * @targetfolder objects/returnobjects
+ * @minVersion 23.0
+ */
 export interface OpenGLDeviceInfo {
+    /**
+     * @minVersion 23.0
+     */
     version: string;
+    /**
+     * @minVersion 23.0
+     */
     memoryMB: number;
+    /**
+     * @minVersion 23.0
+     */
     name: string;
+    /**
+     * @minVersion 23.0
+     */
     driverVersion: string;
+    /**
+     * @minVersion 23.0
+     */
     vendor: string;
+    /**
+     * @minVersion 23.0
+     */
     isIntegrated: string;
+    /**
+     * @minVersion 23.0
+     */
     glDriver: string;
 }
+/**
+ * @targetfolder objects/returnobjects
+ * @minVersion 23.0
+ */
 export interface OpenCLDeviceInfo {
+    /**
+     * @minVersion 23.0
+     */
     version: string;
+    /**
+     * @minVersion 23.0
+     */
     memoryMB: number;
+    /**
+     * @minVersion 23.0
+     */
     name: string;
+    /**
+     * @minVersion 23.0
+     */
     driverVersion: string;
+    /**
+     * @minVersion 23.0
+     */
     vendor: string;
+    /**
+     * @minVersion 23.0
+     */
     isIntegrated: string;
+    /**
+     * @minVersion 23.0
+     */
     oclBandwidth: number;
+    /**
+     * @minVersion 23.0
+     */
     oclCompute: number;
+    /**
+     * @minVersion 23.0
+     */
     clDeviceVersion: string;
+    /**
+     * @minVersion 23.0
+     */
     clPlatformVersion: string;
 }
+/**
+ * @targetfolder objects/returnobjects
+ * @minVersion 23.0
+ */
 export interface GPUInfo {
+    /**
+     * @minVersion 23.0
+     */
     gpuInfoList?: OpenGLDeviceInfo[];
+    /**
+     * @minVersion 23.0
+     */
     clgpuInfoList?: OpenCLDeviceInfo[];
+}
+/**
+ * @targetfolder objects/returnobjects
+ * @minVersion 23.0
+ */
+interface LayerTreeInfo {
+    /**
+     * @minVersion 23.0
+     */
+    name: string;
+    /**
+     * @minVersion 23.0
+     */
+    layerID: number;
+    /**
+     * @minVersion 23.0
+     */
+    kind: string;
+    /**
+     * @minVersion 23.0
+     */
+    layers?: LayerTreeInfo[];
 }
 /**
  * The module that facilitates Actions being performed in the
@@ -82,7 +233,10 @@ export declare namespace photoshopAction {
      * ```
      * @minVersion 23.0
      */
-    function batchPlay(commands: ActionDescriptor[], options?: BatchPlayCommandOptions): Promise<Array<ActionDescriptor>>;
+    function batchPlay(
+        commands: ActionDescriptor[],
+        options?: BatchPlayCommandOptions,
+    ): Promise<ActionDescriptor[]>;
     /**
      * Attach a listener to a Photoshop event. A callback in the form
      * of `(eventName: string, descriptor: Descriptor) => void` will be performed.
@@ -173,10 +327,7 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function performMenuCommand(options: {
-        commandID: number;
-        scheduling?: Scheduling;
-    }): Promise<boolean>;
+    function performMenuCommand(options: MenuCommandOptions): Promise<PerformMenuCommandResult>;
     /**
      * Returns whether a command menu item is available for invoking.
      * ```javascript
@@ -186,10 +337,7 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function getMenuCommandState(options: {
-        commandID: number;
-        scheduling?: Scheduling;
-    }): Promise<boolean>;
+    function getMenuCommandState(options: MenuCommandOptions): Promise<[boolean]>;
     /**
      * Returns the localized menu title of the menu command item.
      * ```javascript
@@ -198,11 +346,8 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function getMenuCommandTitle(options: {
-        commandID?: number;
-        menuID?: number;
-        scheduling?: Scheduling;
-    }): Promise<string>;
+    function getMenuCommandTitle(options: MenuCommandMenuIDOptions): any;
+    function getMenuCommandTitle(options: MenuCommandOptions): any;
     /**
      * Returns information about the active Photoshop tool.
      * ```javascript
@@ -211,12 +356,7 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function getActiveTool(): Promise<{
-        title: string;
-        isModal: boolean;
-        key: string;
-        classID: string;
-    }>;
+    function getActiveTool(): Promise<GetActiveToolResult>;
     /**
      * Returns information about the host CPU.
      * ```javascript
@@ -266,12 +406,13 @@ export declare namespace photoshopCore {
      * ```javascript
      * await PhotoshopCore.redrawDocument({ documentID: 123})
      * ```
+     *
+     * Note: This is not available if DOM API version is set to `1`.
+     *
      * @minVersion 24.1
      * @async
      */
-    function redrawDocument(options: {
-        documentID: number;
-    }): Promise<number>;
+    function redrawDocument(options: RedrawDocumentOptions): Promise<number>;
     /**
      * Show a generic alert box to the user. 'OK' to dismiss.
      * ```javascript
@@ -281,9 +422,11 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function showAlert(options: {
-        message: string;
-    }): Promise<void>;
+    function showAlert(
+        options: string | {
+            message: string;
+        },
+    ): Promise<void>;
     /**
      * Returns the effective size of a dialog.
      * ```javascript
@@ -293,12 +436,16 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function calculateDialogSize(preferredSize: {
-        width: number;
-        height: number;
-    }, identifier?: string, minimumSize?: {
-        width: number;
-        height: number;
+    function calculateDialogSize(options: {
+        preferredSize: {
+            width: number;
+            height: number;
+        };
+        identifier?: string;
+        minimumSize?: {
+            width: number;
+            height: number;
+        };
     }): Promise<{
         width: number;
         height: number;
@@ -311,14 +458,56 @@ export declare namespace photoshopCore {
      * ExecuteAsModal is only available to plugin that is using apiVersion 2 or higher.
      *
      * See [Modal Execution](../executeasmodal) for details
+     *
+     * ***Fixes in Photoshop 24.0:***
+     * - *Returned values can now be instances of classes and contain functions*
+     *
      * @minVersion 22.5
      * @async
      */
-    function executeAsModal(targetFunction: (executionContext: ExecutionContext) => Promise<any>, options: ExecuteAsModalOptions): Promise<void>;
-    function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.RGB): RGBColorDescriptor | RGB32ColorDescriptor;
+    function executeAsModal<T>(
+        targetFunction: (executionContext: ExecutionContext, descriptor?: object) => Promise<T>,
+        options: ExecuteAsModalOptions,
+    ): Promise<T>;
+    /**
+     * Converts the given color (in descriptor form) to RGB,
+     * returning the color descriptor.
+     *
+     * This is an internal API that is used for [[SolidColor]]
+     * and all the other color classes.
+     *
+     * Currently, this API uses the application color settings
+     * for conversion (Edit > Color Settings...). '
+     * In the future, we will provide color conversion
+     * based on embedded color profiles.
+     * @minVersion 23.0
+     */
+    function convertColor(
+        sourceColor: ColorDescriptor,
+        targetModel: ColorConversionModel.RGB,
+    ): RGBColorDescriptor | RGB32ColorDescriptor;
+    /**
+     * Convert to Lab
+     * @minVersion 23.0
+     */
     function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.Lab): LabColorDescriptor;
+    /**
+     * Convert to HSB
+     * @minVersion 23.0
+     */
     function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.HSB): HSBColorDescriptor;
-    function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.Gray): GrayscaleColorDescriptor;
+    /**
+     * Convert to Grayscale
+     * @minVersion 23.0
+     */
+    function convertColor(
+        sourceColor: ColorDescriptor,
+        targetModel: ColorConversionModel.Gray,
+    ): GrayscaleColorDescriptor;
+    /**
+     * Convert to CMYK
+     * @minVersion 23.0
+     */
     function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.CMYK): CMYKColorDescriptor;
     /**
      * The execution mode can be used while debugging a plugin. It is only available
@@ -338,10 +527,7 @@ export declare namespace photoshopCore {
      * @minVersion 23.2
      * @async
      */
-    function setExecutionMode(options: {
-        enableErrorStacktraces?: boolean;
-        logRejections?: boolean;
-    }): Promise<void>;
+    function setExecutionMode(options: SetExecutionModeOptions): Promise<void>;
     /**
      * Return information about the execution of the plugin.
      * This method is intended for developing plugins.
@@ -366,7 +552,7 @@ export declare namespace photoshopCore {
      * @minVersion 23.2
      * @async
      */
-    function getPluginInfo(): Promise<ActionDescriptor>;
+    function getPluginInfo(): Promise<GetPluginInfoResult>;
     /**
      * Attach a listener to a Photoshop core event. A callback in the form
      * of `(eventName: string, descriptor: Descriptor) => void` will be performed.
@@ -395,16 +581,210 @@ export declare namespace photoshopCore {
      * @minVersion 23.3
      */
     function setUserIdleTime(idleTime: number): Promise<void>;
+    /**
+     * Changes visibility of resize gripper in bottom right corner of panel. This can be useful when resize gripper
+     * is obstructing the view o panel content.
+     */
+    function suppressResizeGripper(options: SuppressResizeGripperOptions): Promise<void>;
+    /**
+     * Returns display configuration with information about each display
+     */
+    function getDisplayConfiguration(options: DisplayConfigurationOptions): Promise<DisplayConfiguration[]>;
+    /**
+     * Gets the number of seconds a user must be idle on Photoshop before invoking the
+     * userIdle event handler defined with [[addNotificationListener]]. An idleTime of 0
+     * means turned off idle notifications.
+     */
+    function getUserIdleTime(): Promise<number>;
 }
+/**
+ * @targetfolder objects/returnobjects
+ */
+export interface GetPluginInfoResult {
+    _obj: "pluginInfo";
+    batchPlayCount: number;
+    isFirstParty: boolean;
+    launchTimeImpact: number;
+    mainThreadTimeOutCount: number;
+    mainThreadUnhandledExceptionCount: number;
+    name?: string;
+    numberOfPendingMainThreadTasks: number;
+    path?: string;
+    pendingDeferralCount: number;
+    pluginLoadTime: number;
+    usedMainThreadTime: number;
+    v8HeapSize: number;
+    version?: string;
+}
+/**
+ * @targetfolder objects/returnobjects
+ */
+export interface LayerTreeList {
+    list: LayerTreeInfo[];
+}
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export declare type GetLayerGroupContentsOptions = GetLayerParentOptions;
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export declare type HistorySuspendedOptions = DocumentCoreOptions;
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export declare type GetLayerTreeOptions = DocumentCoreOptions;
+interface DocumentCoreOptions {
+    documentID: number;
+}
+interface GetLayerParentOptions {
+    documentID: number;
+    layerID: number;
+}
+/**
+ * @targetfolder objects/returnobjects
+ */
+export declare type GetLayerParentResult = {} | {
+    index: number;
+    layerID: number;
+    layerKind: number;
+    name: string;
+};
+export interface DisplayConfigurationOptions {
+    physicalResolution?: boolean;
+}
+/**
+ * @targetfolder objects/returnobjects
+ */
+export interface PerformMenuCommandResult {
+    /** If true then the menu command was available and was executed. If false, then Photoshop was in a state where the requested command was not available. */
+    available: boolean;
+    /** If the menu command was executed (if available is true), then this value is true if the user cancelled the request. */
+    userCancelled: boolean;
+}
+/**
+ * @targetfolder objects/returnobjects
+ */
+export interface DisplayConfiguration {
+    isPrimary: boolean;
+    scaleFactor: number;
+    globalBounds: DisplayConfigurationBounds;
+    globalWorkingBounds: DisplayConfigurationBounds;
+    physicalResolution: DisplayConfigurationPhysical;
+}
+/**
+ * @targetfolder objects/returnobjects
+ */
+export interface DisplayConfigurationBounds {
+    bottom: number;
+    left: number;
+    right: number;
+    top: number;
+}
+/**
+ * @targetfolder objects/returnobjects
+ */
+export interface GetActiveToolResult {
+    title: string;
+    isModal: boolean;
+    key: string;
+    classId: string;
+}
+/**
+ * @targetfolder objects/returnobjects
+ */
+export interface DisplayConfigurationPhysical {
+    horizontal: number;
+    vertical: number;
+}
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export interface SetExecutionModeOptions {
+    enableErrorStacktraces?: boolean;
+    logRejections?: boolean;
+}
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export declare type RedrawDocumentOptions = DocumentCoreOptions;
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export declare type DeleteTemporaryDocumentOptions = DocumentCoreOptions;
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export declare type CreateTemporaryDocumentOptions = DocumentCoreOptions;
+/**
+ * @targetfolder objects/returnobjects
+ */
+export declare type CreateTemporaryDocumentResult = DocumentCoreOptions;
+/**
+ * Object to be passed as argument into `suppressResizeGripper()`. `type` and `target` arguments should match
+ * witch some entrypoint specified in manifest file.
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export interface SuppressResizeGripperOptions {
+    /** Type of entrypoint e.g. `panel`*/
+    type: string;
+    /** Id of entrypoint in manifest file */
+    target: string;
+    /** Set true to hide resize gripper */
+    value: boolean;
+}
+/**
+ * Object to be passed as argument into `getMenuCommandTitle()`, `performMenuCommand()` and `getMenuCommandState()`
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export interface MenuCommandOptions {
+    commandID: number;
+    scheduling?: Scheduling;
+}
+/**
+ * Object to be passed as argument into `getMenuCommandTitle()`
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export interface MenuCommandMenuIDOptions {
+    menuID: number;
+    scheduling?: Scheduling;
+}
+/**
+ * @targetfolder objects/returnobjects
+ */
 export interface ExecuteAsModalOptions {
     /**
      * Name of the command. It will be shown in the progress bar if the operation takes a noticeable amount of time.
      * @minVersion 22.5
      */
     commandName: string;
+    /**
+     * An object literal that is passed as the second parameter of `targetFunction` following an [executeAsModal](../executeasmodal) call.
+     * Cannot include functions.
+     * @minVersion 22.5
+     */
+    descriptor?: object;
+    /**
+     * Optional mode where UI interactions are permissible within the executeAsModal state. Useful for allowing users to input
+     * data into invoked dialogs or workspaces. See [Modal Execution](../executeasmodal).
+     * @minVersion 23.3
+     */
+    interactive?: boolean;
 }
 /**
- * Options for the history state that [[Document.suspendHistory]] will create
+ * Options for the history state that [[Document.suspendHistory]] will create.
+ * @optionobject
+ * @targetfolder objects/options
  */
 export interface HistoryStateInfo {
     /**
@@ -413,16 +793,39 @@ export interface HistoryStateInfo {
      */
     name: string;
     /**
-     * A single document reference in an array with `_id` of the document whose history will be suspended.
+     * The target document's ID that will have its history suspended with suspendHistory.
      * @minVersion 23.0
      */
-    target: [{
-        _ref: "document";
-        _id: number;
-    }];
+    documentID: number;
+}
+/**
+ * This object is provided by the `suspendHistory` API when a document's history state is suspended, and is
+ * needed to `resumeHistory`.
+ * @targetfolder objects/returnobjects
+ * @minVersion 23.0
+ */
+export interface HistorySuspension {
+    /**
+     * An identifier generated by Photoshop to identify the history suspension.
+     * @minVersion 23.0
+     */
+    historySuspensionID: number;
+}
+/**
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export interface ResumeHistorySuspensionOptions extends HistorySuspension {
+    /**
+     * The desired name of the resulting history state when successfully resumed and committed.
+     * @minVersion 23.0
+     */
+    finalName?: string;
 }
 /**
  * This object is passed to the callback of `core.executeAsModal` for modality related APIs.
+ * @optionobject
+ * @targetfolder objects/options
  * @minVersion 23.0
  */
 export interface ExecutionContext {
@@ -430,30 +833,65 @@ export interface ExecutionContext {
      * True if user has cancelled the modal interaction.
      *
      * User can cancel by hitting the Escape key, or by pressing the "Cancel" button in the progress bar.
+     * @minVersion 23.0
      */
     isCancelled: boolean;
     /**
      * If assigned a method, it will be called when user cancels the modal interaction.
+     * @minVersion 23.0
      */
-    onCancel: void;
+    onCancel: undefined | ((e?: OnCancelCbArgument) => void);
     /**
      * Call this to customize the progress bar.
+     * @minVersion 23.0
      */
-    reportProgress: void;
+    reportProgress: (params: ReportProgressOptions) => void;
     /**
      * Use the methods in here to control Photoshop state.
+     * @minVersion 23.0
      */
     hostControl: {
         /**
          * Call to suspend history on a target document, returns the suspension ID which can be used for resumeHistory.
+         * @minVersion 23.0
          */
-        suspendHistory: (info: {
-            historyStateInfo: HistoryStateInfo;
-        }) => Promise<number>;
+        suspendHistory: (params: HistoryStateInfo) => Promise<HistorySuspension>;
         /**
          * Call to resume history on a target document.
+         * commit (optional): if false, the current modified document state is dropped, and the document returns to
+         * the state when `suspendHistory` was invoked.
+         * @minVersion 23.0
          */
-        resumeHistory: (suspensionID: number) => void;
+        resumeHistory: (params: ResumeHistorySuspensionOptions, commit?: boolean) => Promise<void>;
+        /**
+         * Register a document to be closed when the modal scope exits.
+         * @param documentID
+         */
+        registerAutoCloseDocument: (documentID: number) => Promise<void>;
+        /**
+         * Unregister a document from being closed when the modal scope exits.
+         * @param documentID
+         */
+        unregisterAutoCloseDocument: (documentID: number) => Promise<void>;
     };
+}
+export interface OnCancelCbArgument {
+    reason: string;
+}
+/**
+ * Object to be passed as an argument into `reportProgress()`
+ *
+ * @optionobject
+ * @targetfolder objects/options
+ */
+export interface ReportProgressOptions {
+    /**
+     * Value in range [0,1] where 0 is 0% and 1 is 100%
+     */
+    value?: number;
+    /**
+     * Text shown in progress bar dialog. Usually explaining the current progress
+     */
+    commandName?: string;
 }
 export {};

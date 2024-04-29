@@ -14,7 +14,7 @@ w2v.train(trainFile, modelFile, {
     threads: 20,
     iter: 15,
     minCount: 1, // This will discard words that appear less than *minCount* times // default 5
-    logOn: false // sets whether any output should be printed to the console // default false
+    logOn: false, // sets whether any output should be printed to the console // default false
 });
 
 w2v.load(modelFile);

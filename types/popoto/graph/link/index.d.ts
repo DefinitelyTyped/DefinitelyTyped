@@ -5,9 +5,9 @@ export interface Link {
      * VALUE is a link between a generic node and a value.
      */
     LinkTypes: Readonly<{
-        RELATION: 0
-        VALUE: 1
-        SEGMENT: 2
+        RELATION: 0;
+        VALUE: 1;
+        SEGMENT: 2;
     }>;
 
     /**

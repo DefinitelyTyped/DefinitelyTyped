@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    interface PadProps extends Common, Bounds, Background, KeyboardFocus {
+    interface PadProps extends Common, Bounds, Background, KeyboardFocus, Clickable, Skinnable, Font {
         midiNote: number;
         velocity: number;
         padState: boolean;
@@ -10,6 +10,7 @@ declare namespace GorillaEngine.UI {
         }>;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface Pad extends PadProps {}
     class Pad extends Component {
         constructor(options: Partial<PadProps>);

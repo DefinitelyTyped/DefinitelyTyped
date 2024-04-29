@@ -1,6 +1,6 @@
-import State = require('accumulator-hash');
+import State = require("accumulator-hash");
 
-const buf = Buffer.from('hello, world!');
+const buf = Buffer.from("hello, world!");
 
 const state = new State(); // $ExpectType RollingHash
 new State(buf); // $ExpectType RollingHash

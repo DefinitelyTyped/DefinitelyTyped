@@ -1,13 +1,6 @@
-// Type definitions for shapefile 0.6
-// Project: https://github.com/mbostock/shapefile
-// Definitions by:  Denis Carriere <https://github.com/DenisCarriere>
-//                  James Bromwell <https://github.com/Thw0rted>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import { Feature, FeatureCollection, GeometryObject, GeoJsonProperties } from "geojson";
+import { Feature, FeatureCollection, GeoJsonProperties, GeometryObject } from "geojson";
 import { Readable } from "stream";
 
 export interface Options {
@@ -16,7 +9,7 @@ export interface Options {
 }
 export interface Source<RecordType> {
     bbox: number[];
-    read(): Promise<{done: boolean, value: RecordType}>;
+    read(): Promise<{ done: boolean; value: RecordType }>;
     cancel(): Promise<void>;
 }
 

@@ -1,40 +1,61 @@
-import maxApi = require('max-api');
+import { default as maxAPI } from "max-api";
 
-const { MESSAGE_TYPES, POST_LEVELS } = maxApi;
-maxApi.outlet('output', 'to', 'outlet');
-maxApi.outletBang();
-maxApi.post('output to max window');
+const { MAX_ENV, MESSAGE_TYPES, POST_LEVELS } = maxAPI;
 
-maxApi.post({ MESSAGE_TYPES, POST_LEVELS });
+(async () => {
+    await maxAPI.outlet("output", "to", "outlet");
+    await maxAPI.outlet("num_out", 5);
+    await maxAPI.outlet("list_out", [1, "two", 3, "four", 5]);
 
-maxApi.addHandler('myHandler', () => {
-    maxApi.post('received myHandler message');
-});
+    await maxAPI.outletBang();
 
-maxApi.getDict('abc').then(dict => {
-    maxApi.post(dict);
-});
+    await maxAPI.post("output to max window");
+    await maxAPI.post("output", "to", "max", "window");
+    await maxAPI.post("output info to max window", POST_LEVELS.INFO);
+    await maxAPI.post("output warning to max window", POST_LEVELS.WARN);
+    await maxAPI.post("output error to max window", POST_LEVELS.ERROR);
 
-const handlers = {
-    [MESSAGE_TYPES.BANG]: () => {
-        maxApi.post('got a bang');
-    },
-    [MESSAGE_TYPES.NUMBER]: (n: number) => {
-        maxApi.post(`received a number: ${n}`);
-    },
-    [MESSAGE_TYPES.LIST]: (...elements: [number, ...unknown[]]) => {
-        maxApi.post(`received a list: ${elements}`);
-    },
-    myHandler2: () => {
-        maxApi.post('received myHandler2 message');
-    },
-    myHandlerWithArgs: (arg1: unknown, arg2: unknown) => {
-        maxApi.post(`received myHandlerWithArgs message with: ${arg1}, ${arg2}`);
-    },
-    [MESSAGE_TYPES.ALL]: (handled: string, ...args: unknown[]) => {
-        if (handled) return;
-        maxApi.post(`unhandled event: ${args}`);
-    },
-};
+    await maxAPI.post({ MAX_ENV, MESSAGE_TYPES, POST_LEVELS });
 
-maxApi.addHandlers(handlers);
+    const dictId = "dictId";
+
+    const dict = await maxAPI.getDict(dictId);
+    await maxAPI.post(dict);
+
+    await maxAPI.setDict(dictId, { test: "me", nested: { counter: 1 } });
+    await maxAPI.updateDict(dictId, "nested.counter", 2);
+
+    const myHandler = async () => {
+        await maxAPI.post("received myHandler message");
+    };
+
+    maxAPI.addHandler("myHandler", myHandler);
+    maxAPI.removeHandler("myHandler", myHandler);
+
+    const handlers = {
+        [MESSAGE_TYPES.BANG]: async () => {
+            await maxAPI.post("recieved a bang");
+        },
+        [MESSAGE_TYPES.NUMBER]: async (n: number) => {
+            await maxAPI.post(`received a number: ${n}`);
+        },
+        [MESSAGE_TYPES.LIST]: async (...elements: [number, ...unknown[]]) => {
+            await maxAPI.post(`received a list: ${elements}`);
+        },
+        myHandler2: async () => {
+            await maxAPI.post("received myHandler2 message");
+        },
+        myHandlerWithArgs: async (arg1: any, arg2: any) => {
+            await maxAPI.post(`received myHandlerWithArgs message with: ${arg1}, ${arg2}`);
+        },
+        myHandlerWithTypedArgs: async (arg1: string, arg2: number) => {
+            await maxAPI.post(`received myHandlerWithTypedArgs message with: ${arg1}, ${arg2}`);
+        },
+        [MESSAGE_TYPES.ALL]: async (handled: boolean, ...args: any[]) => {
+            if (handled) return;
+            await maxAPI.post(`unhandled event: ${args}`);
+        },
+    };
+
+    maxAPI.addHandlers(handlers);
+})();

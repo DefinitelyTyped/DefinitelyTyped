@@ -1,9 +1,3 @@
-// Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.1
-// Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.1.0/zwjsbridge.js
-// Definitions by: Yuxiang Ren <https://github.com/shlyren>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 /**
  * “浙里办”政务中台 JSBridge API
  * This API just for [浙里办](https://apps.apple.com/us/app/zhe-jiang-zheng-wu-fu-wu/id910260096)
@@ -18,6 +12,54 @@
  *      })
  *  ```
  */
+
+/**
+ * 文件上传参数
+ */
+interface UploadFileOptions {
+    /** 对应 input 文件选择 accept 属性说明 在微信端会转化为 image/video/file/all */
+    type?: string;
+    /** 服务端接受文件流上传地址 */
+    url: string;
+    /** 上传文件数量 默认为1 */
+    count?: number;
+}
+
+/**
+ * 文件上传返回结果
+ */
+interface UploadFileResult {
+    /** 上传状态 */
+    status: "success" | "fail";
+    /** 上传文件地址 */
+    filePath: string[];
+    /** 选择文件名称 */
+    fileName: string[];
+    /** 成功/错误信息 */
+    msg: string;
+}
+
+/**
+ * 文件下载参数
+ */
+interface DownloadFileOptions {
+    /** 文件下载地址 */
+    url: string;
+    /**
+     * 文件下载类型
+     * - 示例: .pdf
+     * - 仅浙里办APPv7.9.0 及以后版本，该参数生效
+     */
+    fileType?: string;
+}
+
+/**
+ * 文件下载返回结果
+ */
+interface DownloadFileResult {
+    /** 下载成功标识 */
+    success: boolean;
+}
 
 interface ZWJSBridge {
     /**
@@ -87,7 +129,7 @@ interface ZWJSBridge {
      */
     openLink(options: {
         /** 重新发起单点 适用于微信小程序环境 */
-        type?: 'reload';
+        type?: "reload";
         /** 重定向地址 */
         url?: string;
     }): Promise<{
@@ -112,12 +154,8 @@ interface ZWJSBridge {
     }>;
 
     /**
-     * 支付宝扫脸认证
-     * 该接口涉及业务签约，一旦服务到期后，将改变相应接口的调用方式，请及时按照本文档进行进行适配。
-     *
-     * 错误码
-     * 1001 支付宝认证失败
-     * 1003 姓名或身份证号错误
+     * 支付宝扫脸认证 (于 2023-09-07 废弃)
+     * @deprecated 1.3.5 服务内涉及用户 二次身份认证需申请使用身份核验组件，不再支持通过 ZWJSBridge.zmAuthentication 调用支付宝扫脸认证能力。
      */
     zmAuthentication(parasm: {
         /** 身份证号，默认值为当前登录账号所属身份证号码 */
@@ -285,7 +323,7 @@ interface ZWJSBridge {
         /**
          * type: "qrCode"
          */
-        type: 'qrCode';
+        type: "qrCode";
     }): Promise<{
         text: string;
     }>;
@@ -314,10 +352,52 @@ interface ZWJSBridge {
         credential: string;
         /**
          * 是否为测试环境，缺省为False。支付宝只支持Android端
-         *
          */
         inSandBox?: boolean;
     }): Promise<any>;
+
+    /**
+     * 文件上传
+     *
+     * @param options - 文件上传参数 {@link UploadFileOptions}
+     *
+     * @returns 异步返回 {@link UploadFileResult} 对象
+     *
+     * @example
+     * ZWJSBridge.uploadFile({
+     *   type: 'image/*',
+     *   url: 'https://xxx.com.cn/uploadFile',
+     *   count: 1
+     * }).then(res => {
+     *   console.log(res)
+     *  })
+     */
+    uploadFile(options: UploadFileOptions): Promise<UploadFileResult>;
+
+    /**
+     * 文件下载
+     *
+     * @param options - 文件下载参数 {@link DownloadFileOptions}
+     *
+     * @returns 异步返回 {@link DownloadFileResult} 对象
+     *
+     * @example
+     * ZWJSBridge.downloadFile({
+     *   url: 'https://xxx.com.cn/079898a47d1249f4bf509928b2afbf83.xls'
+     * }).then(res => {
+     *   console.log(res)
+     * })
+     */
+    downloadFile(options: DownloadFileOptions): Promise<DownloadFileResult>;
+
+    /**
+     * 语音转文本
+     * - 仅支持“浙里办”APP（v7.9.0 及以后版本）中调用此功能，小程序暂不支持。
+     */
+    voicedictation(): Promise<{
+        /** 识别到的内容 */
+        result: string;
+    }>;
 
     /***********    UI界面类     ***********/
     /**
@@ -358,7 +438,7 @@ interface ZWJSBridge {
          * fail
          * exception，值为exception时，必须上传文字信息。
          */
-        type?: 'none' | 'success' | 'fail' | 'exception';
+        type?: "none" | "success" | "fail" | "exception";
         /** 消息内容 */
         message?: string;
         /** 消息显示持续时间，单位毫秒，默认值为2000s */
@@ -375,7 +455,7 @@ interface ZWJSBridge {
          * number
          * password
          */
-        inputType?: 'text' | 'number' | 'password';
+        inputType?: "text" | "number" | "password";
         /** 文本框中的实际消息内容 */
         message?: string;
         /** 文本框的标题 */
@@ -472,7 +552,7 @@ interface ZWJSBridge {
          * weibo，微博。
          * dingtlk，钉钉。
          */
-        channel?: 'wechat' | 'wechat_moments' | 'weibo' | 'dingtlk';
+        channel?: "wechat" | "wechat_moments" | "weibo" | "dingtlk";
         /** 分享标题 */
         title?: string;
         /** 分享内容 */
@@ -482,14 +562,41 @@ interface ZWJSBridge {
     }): Promise<any>;
 
     /**
-     * 获取ui样式
+     * 获取用户当前 UI 风格
      */
     getUiStyle(): Promise<{
         /**
+         * UI风格
          * normal: 常规版
          * elder: 长辈版
          */
-        uiStyle: string;
+        uiStyle: "normal" | "elder";
+    }>;
+
+    /**
+     * 统一身份认证
+     * - 需要在 IRS 系统申请“浙里办”身份认证中心-身份核验组件，调用 authentication 接口启用“浙里办”统一身份认证功能。
+     * @param options 请求参数
+     * @returns 异步返回认证结果
+     */
+    authentication(options: {
+        /**
+         * ak,对应统一身份认证组件申请使用后返回的
+         * @example szzj
+         */
+        accessKey: string;
+        /**
+         * 参照统一身份认证组件中身份核验认证使用规范调用信息接收接口（第三方需在后端进行调用）获得
+         * @example req_9ca87969175445ec902cf4496a7f18ed
+         */
+        requestId: string;
+    }): Promise<{
+        /** 认证结果 */
+        pass: "true" | "false";
+        /** 查询标识号 */
+        bizNo: string;
+        /** 认证结果描述 */
+        msg: string;
     }>;
 
     /***********    请求类     ***********/

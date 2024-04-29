@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/debug 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fdebug
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /**
  * Define an assertion that will throw an exception if the condition is not met.
  */
@@ -106,6 +97,6 @@ export function deprecate(
         /**
          * Describes when the deprecation became available and enabled.
          */
-        since: Partial<Record<'available' | 'enabled', string>>;
+        since: Partial<Record<"available" | "enabled", string>>;
     },
 ): void;

@@ -1,6 +1,37 @@
 {
     "private": true,
+    "name": "@types/rdf-ext",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/rdf-ext/rdf-ext"
+    ],
+    "type": "module",
     "dependencies": {
-        "@rdfjs/types": "*"
-    }
+        "@rdfjs/types": "*",
+        "@types/rdfjs__data-model": "*",
+        "@types/rdfjs__dataset": "*",
+        "@types/rdfjs__environment": "*",
+        "@types/rdfjs__formats": "*",
+        "@types/rdfjs__fetch-lite": "*",
+        "@types/rdfjs__namespace": "*",
+        "@types/rdfjs__prefix-map": "*",
+        "@types/rdfjs__score": "*",
+        "@types/rdfjs__term-map": "*",
+        "@types/rdfjs__term-set": "*",
+        "@types/rdfjs__traverser": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/rdf-ext": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "Jesse Wright",
+            "githubUsername": "jeswr"
+        }
+    ]
 }

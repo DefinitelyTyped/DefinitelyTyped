@@ -1,13 +1,3 @@
-// Type definitions for Q 1.5
-// Project: https://github.com/kriskowal/q
-// Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>
-//                 Andrew Gaspar <https://github.com/AndrewGaspar>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Michel Boudreau <https://github.com/mboudreau>
-//                 TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = Q;
 export as namespace Q;
 
@@ -60,8 +50,16 @@ declare namespace Q {
         /**
          * The then method from the Promises/A+ specification, with an additional progress handler.
          */
-        then<U>(onFulfill?: ((value: T) => IWhenable<U>) | null, onReject?: ((error: any) => IWhenable<U>) | null, onProgress?: ((progress: any) => any) | null): Promise<U>;
-        then<U = T, V = never>(onFulfill?: ((value: T) => IWhenable<U>) | null, onReject?: ((error: any) => IWhenable<V>) | null, onProgress?: ((progress: any) => any) | null): Promise<U | V>;
+        then<U>(
+            onFulfill?: ((value: T) => IWhenable<U>) | null,
+            onReject?: ((error: any) => IWhenable<U>) | null,
+            onProgress?: ((progress: any) => any) | null,
+        ): Promise<U>;
+        then<U = T, V = never>(
+            onFulfill?: ((value: T) => IWhenable<U>) | null,
+            onReject?: ((error: any) => IWhenable<V>) | null,
+            onProgress?: ((progress: any) => any) | null,
+        ): Promise<U | V>;
         /**
          * Like a finally clause, allows you to observe either the fulfillment or rejection of a promise, but to do so
          * without modifying the final value. This is useful for collecting resources regardless of whether a job succeeded,
@@ -116,7 +114,11 @@ declare namespace Q {
          * with you, call done to terminate it. Terminating with catch is not sufficient because the catch handler may
          * itself throw an error.
          */
-        done(onFulfilled?: ((value: T) => any) | null, onRejected?: ((reason: any) => any) | null, onProgress?: ((progress: any) => any) | null): void;
+        done(
+            onFulfilled?: ((value: T) => any) | null,
+            onRejected?: ((reason: any) => any) | null,
+            onProgress?: ((progress: any) => any) | null,
+        ): void;
 
         /**
          * If callback is a function, assumes it's a Node.js-style callback, and calls it as either callback(rejectionReason)
@@ -289,7 +291,7 @@ declare namespace Q {
         value: IWhenable<T>,
         onFulfilled: (val: T) => IWhenable<U>,
         onRejected?: ((reason: any) => IWhenable<U>) | null,
-        onProgress?: ((progress: any) => any) | null
+        onProgress?: ((progress: any) => any) | null,
     ): Promise<U>;
 
     /**
@@ -391,7 +393,11 @@ declare namespace Q {
      *     //...
      * });
      */
-    export function nbind<T>(nodeFunction: (...args: any[]) => any, thisArg: any, ...args: any[]): (...args: any[]) => Promise<T>;
+    export function nbind<T>(
+        nodeFunction: (...args: any[]) => any,
+        thisArg: any,
+        ...args: any[]
+    ): (...args: any[]) => Promise<T>;
 
     /**
      * Calls a Node.js-style function with the given array of arguments, returning a promise that is fulfilled if the
@@ -456,15 +462,21 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D, E, F>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]>): Promise<[A, B, C, D, E, F]>;
+    export function all<A, B, C, D, E, F>(
+        promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]>,
+    ): Promise<[A, B, C, D, E, F]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D, E>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]>): Promise<[A, B, C, D, E]>;
+    export function all<A, B, C, D, E>(
+        promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]>,
+    ): Promise<[A, B, C, D, E]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D>(promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>]>): Promise<[A, B, C, D]>;
+    export function all<A, B, C, D>(
+        promises: IWhenable<[IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>]>,
+    ): Promise<[A, B, C, D]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
@@ -502,7 +514,11 @@ declare namespace Q {
      * rejected, instead calls onRejected with the first rejected promise's rejection reason. This is especially useful
      * in conjunction with all.
      */
-    export function spread<T, U>(promises: Array<IWhenable<T>>, onFulfilled: (...args: T[]) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>): Promise<U>;
+    export function spread<T, U>(
+        promises: Array<IWhenable<T>>,
+        onFulfilled: (...args: T[]) => IWhenable<U>,
+        onRejected?: (reason: any) => IWhenable<U>,
+    ): Promise<U>;
 
     /**
      * Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected
@@ -543,7 +559,13 @@ declare namespace Q {
      * note: In the latest github, this method is called Q.Promise, but if you are using the npm package version 0.9.7
      * or below, the method is called Q.promise (lowercase vs uppercase p).
      */
-    export function Promise<T>(resolver: (resolve: (val?: IWhenable<T>) => void, reject: (reason?: any) => void, notify: (progress: any) => void) => void): Promise<T>;
+    export function Promise<T>(
+        resolver: (
+            resolve: (val?: IWhenable<T>) => void,
+            reject: (reason?: any) => void,
+            notify: (progress: any) => void,
+        ) => void,
+    ): Promise<T>;
 
     /**
      * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to their

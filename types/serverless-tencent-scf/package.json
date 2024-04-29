@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/serverless-tencent-scf",
+    "version": "0.1.9999",
+    "projects": [
+        "https://intl.cloud.tencent.com/product/scf"
+    ],
+    "devDependencies": {
+        "@types/serverless-tencent-scf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yaozu Lv",
+            "githubUsername": "yaozulv"
+        }
+    ]
+}

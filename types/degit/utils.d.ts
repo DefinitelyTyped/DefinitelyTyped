@@ -1,4 +1,4 @@
-import { DegitErrorCode } from './index';
+import { DegitErrorCode } from "./index";
 
 export const degitConfigName: string;
 

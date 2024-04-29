@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/extenso",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/theuves/extenso.js#readme"
+    ],
+    "devDependencies": {
+        "@types/extenso": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "fer22f",
+            "githubUsername": "fer22f"
+        }
+    ]
+}

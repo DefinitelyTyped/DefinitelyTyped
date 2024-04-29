@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { HorizontalAlignments } from '../enums';
-import { FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { HorizontalAlignments } from "../enums";
+import { FlexboxPropTypes } from "../utils";
 /**
  * Media object component.
  *

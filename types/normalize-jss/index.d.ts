@@ -1,91 +1,87 @@
-// Type definitions for normalize-jss 4.0
-// Project: https://github.com/cssinjs/normalize-jss
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export = normalize_jss;
 
 declare const normalize_jss: {
-    '@global': {
-        '::-webkit-file-upload-button': {
+    "@global": {
+        "::-webkit-file-upload-button": {
             appearance: string;
             font: string;
         };
-        '[hidden]': {
+        "[hidden]": {
             display: string;
         };
-        '[type=checkbox], [type=radio]': {
+        "[type=checkbox], [type=radio]": {
             boxSizing: string;
             padding: number;
         };
-        '[type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button': {
+        "[type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button": {
             height: string;
         };
-        '[type=search]': {
+        "[type=search]": {
             appearance: string;
             outlineOffset: string;
         };
-        '[type=search]::-webkit-search-cancel-button, [type=search]::-webkit-search-decoration': {
+        "[type=search]::-webkit-search-cancel-button, [type=search]::-webkit-search-decoration": {
             appearance: string;
         };
         a: {
             background: string;
             textDecorationSkip: string;
         };
-        'a:active, a:hover': {
+        "a:active, a:hover": {
             outlineWidth: number;
         };
-        'abbr[title]': {
+        "abbr[title]": {
             borderBottom: string;
             textDecoration: string;
         };
-        'article, aside, footer, header, nav, section, figcaption, figure, main': {
+        "article, aside, footer, header, nav, section, figcaption, figure, main": {
             display: string;
         };
-        'audio, video': {
+        "audio, video": {
             display: string;
         };
-        'audio:not([controls])': {
+        "audio:not([controls])": {
             display: string;
             height: number;
         };
-        'b, strong': {
+        "b, strong": {
             fontWeight: string;
         };
         body: {
             margin: number;
         };
-        'button, [type=reset], [type=submit]': {
-            '-webkit-appearance': string;
+        "button, [type=reset], [type=submit]": {
+            "-webkit-appearance": string;
         };
-        'button, input': {
+        "button, input": {
             overflow: string;
         };
-        'button, input, optgroup, select, textarea': {
+        "button, input, optgroup, select, textarea": {
             fontFamily: string;
             fontSize: string;
             lineHeight: string;
             margin: number;
         };
-        'button, select': {
+        "button, select": {
             textTransform: string;
         };
-        'button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring': {
-            outline: string;
-        };
-        'button::-moz-focus-inner, [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner': {
-            borderStyle: string;
-            padding: number;
-        };
+        "button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring":
+            {
+                outline: string;
+            };
+        "button::-moz-focus-inner, [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner":
+            {
+                borderStyle: string;
+                padding: number;
+            };
         canvas: {
             display: string;
         };
-        'code, kbp, samp': {
+        "code, kbp, samp": {
             fontFamily: string;
             fontSize: string;
         };
-        'details, menu': {
+        "details, menu": {
             display: string;
         };
         dfn: {
@@ -140,7 +136,7 @@ declare const normalize_jss: {
         sub: {
             bottom: string;
         };
-        'sub, sup': {
+        "sub, sup": {
             fontSize: string;
             lineHeight: number;
             position: string;
@@ -152,7 +148,7 @@ declare const normalize_jss: {
         sup: {
             top: string;
         };
-        'svg:not(:root)': {
+        "svg:not(:root)": {
             overflow: string;
         };
         template: {

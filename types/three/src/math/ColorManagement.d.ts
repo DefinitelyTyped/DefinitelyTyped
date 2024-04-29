@@ -1,28 +1,46 @@
-import { ColorSpace, LinearSRGBColorSpace, SRGBColorSpace } from '../constants';
-import { Color } from './Color';
+import {
+    ColorSpace,
+    ColorSpacePrimaries,
+    ColorSpaceTransfer,
+    DisplayP3ColorSpace,
+    LinearDisplayP3ColorSpace,
+    LinearSRGBColorSpace,
+    SRGBColorSpace,
+} from "../constants.js";
+import { Color } from "./Color.js";
 
-export function SRGBToLinear(c: number): number;
+export type WorkingColorSpace = typeof LinearSRGBColorSpace | typeof LinearDisplayP3ColorSpace;
+export type DefinedColorSpace =
+    | typeof LinearSRGBColorSpace
+    | typeof SRGBColorSpace
+    | typeof LinearDisplayP3ColorSpace
+    | typeof DisplayP3ColorSpace;
 
-export function LinearToSRGB(c: number): number;
-
-export namespace ColorManagement {
+export interface ColorManagement {
     /**
-     * @default true
+     * @default false
      */
-    let legacyMode: boolean;
+    enabled: boolean;
 
     /**
      * @default LinearSRGBColorSpace
      */
-    let workingColorSpace: ColorSpace;
+    get workingColorSpace(): WorkingColorSpace;
+    set workingColorSpace(colorSpace: WorkingColorSpace);
 
-    function convert(
-        color: Color,
-        sourceColorSpace: SRGBColorSpace | LinearSRGBColorSpace,
-        targetColorSpace: SRGBColorSpace | LinearSRGBColorSpace,
-    ): Color;
+    convert: (color: Color, sourceColorSpace: DefinedColorSpace, targetColorSpace: DefinedColorSpace) => Color;
 
-    function fromWorkingColorSpace(color: Color, targetColorSpace: SRGBColorSpace | LinearSRGBColorSpace): Color;
+    fromWorkingColorSpace: (color: Color, targetColorSpace: DefinedColorSpace) => Color;
 
-    function toWorkingColorSpace(color: Color, sourceColorSpace: SRGBColorSpace | LinearSRGBColorSpace): Color;
+    toWorkingColorSpace: (color: Color, sourceColorSpace: DefinedColorSpace) => Color;
+
+    getPrimaries: (colorSpace: DefinedColorSpace) => ColorSpacePrimaries;
+
+    getTransfer: (colorSpace: ColorSpace) => ColorSpaceTransfer;
 }
+
+export const ColorManagement: ColorManagement;
+
+export function SRGBToLinear(c: number): number;
+
+export function LinearToSRGB(c: number): number;

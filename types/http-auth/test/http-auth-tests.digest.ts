@@ -1,23 +1,23 @@
-import * as http from 'http';
-import * as auth from 'http-auth';
-import * as crypto from 'crypto';
+import * as crypto from "crypto";
+import * as http from "http";
+import * as auth from "http-auth";
 
 const md5 = (input: string) => {
-    const hash = crypto.createHash('MD5');
+    const hash = crypto.createHash("MD5");
     hash.update(input);
-    return hash.digest('hex');
+    return hash.digest("hex");
 };
 
 const digest = auth.digest(
     {
-        realm: 'Simon Area.',
+        realm: "Simon Area.",
     },
     (username, callback) => {
         // Expecting md5(username:realm:password) in callback.
-        if (username === 'simon') {
-            callback(md5('simon:Simon Area.:smart'));
-        } else if (username === 'tigran') {
-            callback(md5('tigran:Simon Area.:great'));
+        if (username === "simon") {
+            callback(md5("simon:Simon Area.:smart"));
+        } else if (username === "tigran") {
+            callback(md5("tigran:Simon Area.:great"));
         } else {
             callback();
         }
@@ -31,5 +31,5 @@ http.createServer(
     }),
 ).listen(1337, () => {
     // Log URL.
-    console.log('Server running at http://127.0.0.1:1337/');
+    console.log("Server running at http://127.0.0.1:1337/");
 });

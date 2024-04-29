@@ -1,8 +1,3 @@
-// Type definitions for parse-node-version 1.0
-// Project: https://github.com/gulpjs/parse-node-version#readme
-// Definitions by: Ivan Nikolić <https://github.com/niksy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ParsedNodeVersion {
     /**
      * Major version

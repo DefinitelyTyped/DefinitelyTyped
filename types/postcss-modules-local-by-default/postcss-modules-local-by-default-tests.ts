@@ -17,5 +17,5 @@ postcss([localByDefault({
         }
 
         return url;
-    }
+    },
 })]);

@@ -1,6 +1,6 @@
-type ViewProps = import('react-native').ViewProps;
+type ViewProps = import("react-native").ViewProps;
 
-export type InterstialEventType = 'adLoaded' | 'adFailedToLoad' | 'adOpened' | 'adClosed' | 'adLeftApplication';
+export type InterstialEventType = "adLoaded" | "adFailedToLoad" | "adOpened" | "adClosed" | "adLeftApplication";
 
 export interface BannerProps extends ViewProps {
     /**
@@ -17,13 +17,14 @@ export interface BannerProps extends ViewProps {
      * banner is default
      */
     adSize?:
-        | 'banner'
-        | 'largeBanner'
-        | 'mediumRectangle'
-        | 'fullBanner'
-        | 'leaderboard'
-        | 'smartBannerPortrait'
-        | 'smartBannerLandscape' | undefined;
+        | "banner"
+        | "largeBanner"
+        | "mediumRectangle"
+        | "fullBanner"
+        | "leaderboard"
+        | "smartBannerPortrait"
+        | "smartBannerLandscape"
+        | undefined;
 
     /**
      * Optional array specifying all valid sizes that are appropriate for this slot.

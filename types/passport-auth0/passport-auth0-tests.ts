@@ -1,14 +1,14 @@
 /**
  * Created by jcabresos on 4/19/2014.
  */
-import passport = require('passport');
-import auth0 = require('passport-auth0');
-import express = require('express');
+import passport = require("passport");
+import auth0 = require("passport-auth0");
+import express = require("express");
 
 // just some test model
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, { username: 'james' });
+        callback(null, { username: "james" });
     },
 };
 
@@ -75,7 +75,7 @@ passport.use(
             profile: auth0.Profile,
             done: (error: any, user?: any, info?: any) => void,
         ) => {
-            done(null, false, { message: 'Some error.' });
+            done(null, false, { message: "Some error." });
         },
     ),
 );

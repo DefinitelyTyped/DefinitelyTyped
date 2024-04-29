@@ -1,4 +1,4 @@
-import { Price } from './price';
+import { Price } from "./price";
 
 export interface SelectedVariant {
     group_id: string;

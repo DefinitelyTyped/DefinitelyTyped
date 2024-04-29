@@ -1,22 +1,9 @@
-// Type definitions for h2o2 8.1
-// Project: https://github.com/hapijs/h2o2
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>, Garth Kidd <https://github.com/garthk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
-import http = require('http');
-import Boom = require('boom');
+import http = require("http");
+import Boom = require("boom");
 
-import {
-    Plugin,
-    Request,
-    ResponseObject,
-    ResponseToolkit,
-    Lifecycle,
-    RouteOptions,
-} from 'hapi';
+import { Lifecycle, Plugin, Request, ResponseObject, ResponseToolkit, RouteOptions } from "hapi";
 
 declare namespace h2o2 {
     /** `mapURI` return value */
@@ -35,7 +22,7 @@ declare namespace h2o2 {
         /** port - upstream service port. */
         port?: number | string | undefined;
         /** protocol - protocol to use when making the request to the proxied host: */
-        protocol?: 'http' | 'https' | undefined;
+        protocol?: "http" | "https" | undefined;
         /** uri - absolute URI used instead of host, port, protocol, path, and query. Cannot be used with host, port, protocol, or mapUri. */
         uri?: string | undefined;
         /** passThrough - if set to true, it forwards the headers from the client to the upstream service, headers sent from the upstream service will also be forwarded to the client. Defaults to false. */
@@ -54,7 +41,7 @@ declare namespace h2o2 {
         timeout?: number | undefined;
         /** mapUri - a function used to map the request URI to the target `uri` and optional `headers` with which to make that request. Cannot be used together with `host`, `port`, `protocol`, or `uri`.
          * @param request - is the incoming request object.
-        */
+         */
         mapUri?: ((this: ProxyHandlerOptions, request: Request) => Promise<ProxyTarget>) | undefined;
         /**
          * onResponse - a custom function for processing the response from the upstream service before sending to the client. Useful for custom error handling of responses from the proxied endpoint or other payload manipulation.
@@ -65,15 +52,19 @@ declare namespace h2o2 {
          * @param settings - the proxy handler configuration.
          * @param ttl - the upstream TTL in milliseconds if proxy.ttl it set to 'upstream' and the upstream response included a valid 'Cache-Control' header with 'max-age'.
          */
-        onResponse?: ((this: RouteOptions,
-            err: null | Boom,
-            res: http.IncomingMessage,
-            req: Request,
-            h: ResponseToolkit,
-            settings: ProxyHandlerOptions,
-            ttl: number) => Lifecycle.ReturnValue) | undefined;
+        onResponse?:
+            | ((
+                this: RouteOptions,
+                err: null | Boom,
+                res: http.IncomingMessage,
+                req: Request,
+                h: ResponseToolkit,
+                settings: ProxyHandlerOptions,
+                ttl: number,
+            ) => Lifecycle.ReturnValue)
+            | undefined;
         /** ttl - if set to 'upstream', applies the upstream response caching policy to the response using the response.ttl() method (or passed as an argument to the onResponse method if provided). */
-        ttl?: 'upstream' | undefined;
+        ttl?: "upstream" | undefined;
         /** agent - a node http(s) agent to be used for connections to upstream server. @see {@link https://nodejs.org/api/http.html#http_class_http_agent} */
         agent?: http.Agent | undefined;
         /** maxSockets - sets the maximum number of sockets available per outgoing proxy host connection. false means use the wreck module default value (Infinity). Does not affect non-proxy outgoing client connections. Defaults to Infinity. */
@@ -81,7 +72,7 @@ declare namespace h2o2 {
     }
 }
 
-declare module 'hapi' {
+declare module "hapi" {
     interface HandlerDecorations {
         /**
          * Proxies the request to an upstream endpoint.

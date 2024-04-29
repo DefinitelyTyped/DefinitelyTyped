@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mercadopago-sdk-js",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "mercadopago's sdk-js-browser",
+    "projects": [
+        "https://github.com/mercadopago/sdk-js"
+    ],
+    "minimumTypeScriptVersion": "5.0",
+    "devDependencies": {
+        "@types/mercadopago-sdk-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mercadopago",
+            "githubUsername": "mercadopago"
+        }
+    ]
+}

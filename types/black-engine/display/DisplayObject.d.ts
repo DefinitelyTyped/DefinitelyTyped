@@ -35,7 +35,7 @@ export class DisplayObject extends GameObject {
     set snapToPixels(arg: boolean);
     get snapToPixels(): boolean;
 }
-import { Renderer } from '../drivers/Renderer';
-import { GameObject } from '../core/GameObject';
-import { BlendMode } from '../drivers/BlendMode';
-import { Rectangle } from '../geom/Rectangle';
+import { GameObject } from "../core/GameObject";
+import { BlendMode } from "../drivers/BlendMode";
+import { Renderer } from "../drivers/Renderer";
+import { Rectangle } from "../geom/Rectangle";

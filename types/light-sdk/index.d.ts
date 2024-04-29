@@ -1,8 +1,3 @@
-// Type definitions for light-sdk 1.0
-// Project: https://www.npmjs.com/package/light-sdk
-// Definitions by: cklwblove <https://github.com/cklwblove>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Info {
     error_code: string;
     error_message: string;

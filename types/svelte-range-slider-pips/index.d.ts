@@ -1,9 +1,4 @@
-// Type definitions for svelte-range-slider-pips 2.0
-// Project: https://github.com/simeydotme/svelte-range-slider-pips
-// Definitions by: Nick K <https://github.com/i7N3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import type { SvelteComponentTyped } from 'svelte';
+import type { SvelteComponentTyped } from "svelte";
 
 declare namespace RangeSlider {
     interface OnStart {
@@ -83,6 +78,10 @@ declare namespace RangeSlider {
          * (only disables interactions, and events)
          */
         disabled?: boolean;
+        /**
+         * An array of strings to use for the aria-label attribute on the handles
+         */
+        ariaLabels?: string[];
 
         // range pips / values props
         /**

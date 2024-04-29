@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-export type AvatarSize = 'xs' | 's' | 'm' | 'l' | 'xl';
+export type AvatarSize = "xs" | "s" | "m" | "l" | "xl";
 
 type HTMLAttributesColorOmited = Omit<React.HTMLAttributes<HTMLSpanElement>, "color">;
 

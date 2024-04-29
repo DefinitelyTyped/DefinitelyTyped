@@ -1,9 +1,3 @@
-// Type definitions for webostvjs 1.2
-// Project: https://webostv.developer.lge.com/api/webostvjs/intro-webostvjs/
-// Definitions by: Denis Seleznev <https://github.com/hcodes>
-//                 Ilya Istomin <https://github.com/procot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     interface Window {
         webOS: WebOS;
@@ -92,7 +86,7 @@ export interface WebOS {
                  * The callback function called when the method fails.
                  */
                 onFailure?: (error: TError) => void;
-            }
+            },
         ): {
             /**
              * The full-service request URI, including method name.
@@ -158,7 +152,7 @@ export interface WebOS {
      */
     fetchAppInfo(
         callback?: (appInfo?: AppInfo) => void,
-        path?: string
+        path?: string,
     ): void;
     /**
      * Returns the full URI path of the caller app
@@ -226,7 +220,7 @@ export interface AppInfo {
     /**
      * The app type. Only "web" is allowed.
      */
-    type: 'web';
+    type: "web";
     /**
      * The app owner that is used in the launcher and deviceinfo dialogs.
      */
@@ -710,11 +704,11 @@ export interface DRMError {
 }
 
 export interface DRMType {
-    PLAYREADY: 'PLAYREADY';
-    WIDEVINE: 'WIDEVINE';
+    PLAYREADY: "PLAYREADY";
+    WIDEVINE: "WIDEVINE";
 }
 
-export type DrmType = 'PLAYREADY' | 'WIDEVINE';
+export type DrmType = "PLAYREADY" | "WIDEVINE";
 
 export interface GetConnectionStatusParameters {
     /**
@@ -798,7 +792,7 @@ export interface WiredStatus {
      * If the IP address was assigned using the manual mode, method will contain 'Manual'.
      * If the IP Address was assigned through DHCP, method will contain 'dhcp'.
      */
-    method?: 'Manual' | 'dhcp' | undefined;
+    method?: "Manual" | "dhcp" | undefined;
     /**
      * The captive portal technique forces an HTTP client on a network to see a special web page
      * (usually for authentication purposes) before using the Internet normally.
@@ -807,7 +801,7 @@ export interface WiredStatus {
      * - 'yes' - indicating the WiFi connection is connected to the Internet.
      * - 'no' - indicating the WiFi connection is not connected to the Internet.
      */
-    onInternet?: 'yes' | 'no' | undefined;
+    onInternet?: "yes" | "no" | undefined;
 }
 
 /**
@@ -854,7 +848,7 @@ export interface WifiStatus {
      * If the IP address was assigned using the manual mode, method will contain 'Manual'.
      * If the IP Address was assigned through DHCP, method will contain 'dhcp'.
      */
-    method?: 'Manual' | 'dhcp' | undefined;
+    method?: "Manual" | "dhcp" | undefined;
     /**
      * The SSID of the connected service (if known).
      */
@@ -872,7 +866,7 @@ export interface WifiStatus {
      * - yes - indicating the Wi-Fi connection is connected to the Internet.
      * - no - indicating the Wi-Fi connection is not connected to the Internet.
      */
-    onInternet?: 'yes' | 'no' | undefined;
+    onInternet?: "yes" | "no" | undefined;
 }
 
 /**
@@ -899,7 +893,7 @@ export interface WifiDirectStatus {
     connectedPeers?: WifiPeerInfo[] | undefined;
 }
 
-export type ConnectionState = 'connected' | 'disconnected';
+export type ConnectionState = "connected" | "disconnected";
 
 /**
  * This object contains information on a peer-to-peer client.
@@ -941,7 +935,7 @@ export interface WifiPeerInfo {
      * If the connection is available, this property will be set to 'true'.
      * if the connection is not available, this property will be set to 'false'.
      */
-    invited?: 'true' | 'false' | undefined;
+    invited?: "true" | "false" | undefined;
     /**
      * Service discovery response. Only sent on the first inquiry and never again.
      */
@@ -980,7 +974,7 @@ export interface WifiWfdInfo {
     wfdSessionAvail: boolean;
 }
 
-export type WfdDeviceType = 'source' | 'primary-sink' | 'secondary-sink';
+export type WfdDeviceType = "source" | "primary-sink" | "secondary-sink";
 
 export interface LaunchParameters {
     /**
@@ -1024,12 +1018,12 @@ export interface LGUDIDResponse {
  * @see http://webostv.developer.lge.com/api/web-api/mediaoption-parameter/
  */
 export interface MediaOptions {
-    mediaTransportType?: 'URI' | 'WIDEVINE' | 'HLS';
+    mediaTransportType?: "URI" | "WIDEVINE" | "HLS";
     option: {
         /**
          * The object that holds information of media format.
          */
-         mediaFormat?: MediaOptionsMediaFormat | undefined;
+        mediaFormat?: MediaOptionsMediaFormat | undefined;
         /**
          * Object that holds DRM information.
          */
@@ -1047,43 +1041,43 @@ export interface MediaOptions {
         /**
          * 3D Mode Type
          */
-        '3dMode'?:
+        "3dMode"?:
             // This format displays content with the 2 Dimensional mode.
-            '2D' |
-            // This format divides the screen lengthwise and puts two different frames for the left and right eyes top and down to create a single 3D frame image.
-            'top_bottom' |
-            // This format works in the same way as top_bottom, but the positions of the top and bottom frames are switched.
-            'bottom_top' |
-             // This format divides the screen widthwise and puts two different frames for the left and right eyes side by side to create a single 3D frame image.
-            'side_by_side_LR' |
-            // This format works in the same way as side_by_side_LR, but positions of the left and right frames are switched.
-            'side_by_side_RL' |
-            // In this format, a 3D frame image is created by arranging the left and right eye frames in a mosaic pattern like a checkerboard.
-            'check_board' |
-            // Left and right frames are sent alternately to the display and by diverse systems like shuttered glasses or polarized glasses are then shown to each eye.
-            'frame-sequential' |
-            // This format interleaves the left and right eye views on every other vertical column in the display window
-            'column_interleave' |
-            // Frame Packing refers to the combination of two frames,
+            | "2D"
+            | // This format divides the screen lengthwise and puts two different frames for the left and right eyes top and down to create a single 3D frame image.
+            "top_bottom"
+            | // This format works in the same way as top_bottom, but the positions of the top and bottom frames are switched.
+            "bottom_top"
+            | // This format divides the screen widthwise and puts two different frames for the left and right eyes side by side to create a single 3D frame image.
+            "side_by_side_LR"
+            | // This format works in the same way as side_by_side_LR, but positions of the left and right frames are switched.
+            "side_by_side_RL"
+            | // In this format, a 3D frame image is created by arranging the left and right eye frames in a mosaic pattern like a checkerboard.
+            "check_board"
+            | // Left and right frames are sent alternately to the display and by diverse systems like shuttered glasses or polarized glasses are then shown to each eye.
+            "frame-sequential"
+            | // This format interleaves the left and right eye views on every other vertical column in the display window
+            "column_interleave"
+            | // Frame Packing refers to the combination of two frames,
             // one for the left eye and the other for the right eye,
             // into a single “packed” frame that consists of these two individual sub-frames.
             // The key difference of a Frame Packing signal is that each sub-frame for each eye is still at full resolution, i.e., 1920×1080 for a 1080p Frame Packing signal,
             // and 1280×720 for 720p Frame Packing 3D content.
-            'frame_packing' |
-            // Field Alternative is similar to Frame packing type. However, this type refers to the combination of more than 4 frames. This type breaks down each eye's frame to several field frames.
-            'field_alternative' |
-            // Line Alternative breaks down each eye's frame to the line by line.
-            'line_alternative' |
-            // This format encodes the screen framewise(L to R) and puts two different frames into each frame. for the left and right eyes side by side to create each frame.
-            'side_by_side_full_LR' |
-            // This format encodes the screen framewise(R to L) and puts two different frames into each frame. for the left and right eyes side by side to create each frame.
-            'side_by_side_full_RL';
+            "frame_packing"
+            | // Field Alternative is similar to Frame packing type. However, this type refers to the combination of more than 4 frames. This type breaks down each eye's frame to several field frames.
+            "field_alternative"
+            | // Line Alternative breaks down each eye's frame to the line by line.
+            "line_alternative"
+            | // This format encodes the screen framewise(L to R) and puts two different frames into each frame. for the left and right eyes side by side to create each frame.
+            "side_by_side_full_LR"
+            | // This format encodes the screen framewise(R to L) and puts two different frames into each frame. for the left and right eyes side by side to create each frame.
+            "side_by_side_full_RL";
     };
 }
 
 export interface MediaOptionsDrm {
     clientId: string;
-    type: 'widevine' | 'playready';
+    type: "widevine" | "playready";
     widevine?: {
         seperatedStream: boolean;
     } | undefined;
@@ -1109,7 +1103,7 @@ export interface MediaOptionsAdaptiveStreaming {
      * - true: changeable
      * - false: unchangeable
      */
-    apativeResolution?: boolean | undefined;
+    adaptiveResolution?: boolean | undefined;
     /**
      * Flag whether content supports seamless play. The default value is false.
      * - true: support seamless play
@@ -1147,5 +1141,5 @@ export interface MediaOptionsMediaFormat {
     /**
      * The string that sets media type. The default value is video.
      */
-    type: 'audio' | 'video' | 'video_only' | 'audio_test';
+    type: "audio" | "video" | "video_only" | "audio_test";
 }

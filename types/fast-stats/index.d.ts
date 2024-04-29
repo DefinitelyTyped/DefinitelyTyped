@@ -1,10 +1,3 @@
-// Type definitions for fast-stats 0.0.2
-// Project: https://github.com/bluesmoon/node-faststats
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
 export interface StatsOpts {
     /**
      * Tells fast-stats to maintain a histogram of your dataset using this parameter as the least count, or precision.
@@ -141,7 +134,6 @@ export declare class Stats {
      */
     copy(): Stats;
 
-
     /**
      * Arithmetic Mean
      * The arithmetic mean is calculated as the sum of all data points divided by the number of data points. This is useful for data sets that are fairly uniform, following a linear or binomial distribution. Use the amean() method or the ???()? method to get at it:
@@ -209,7 +201,7 @@ export declare class Stats {
      * The third argument specifies whether the range is open or closed. An open range does not include the upper and lower bounds while a closed range includes them. If not specified (or set to false), the range is closed. If set to true the range is open.
      * Band pass filtering should be used if the range for your data is rigid and never changes.
      */
-    band_pass(low: number, high: number, open?: boolean): Stats
+    band_pass(low: number, high: number, open?: boolean): Stats;
 
     /**
      * IQR Filtering

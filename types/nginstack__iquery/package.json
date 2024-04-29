@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/nginstack__iquery",
+    "version": "71.0.9999",
+    "projects": [
+        "https://dev.azure.com/nginstack/nginstack"
+    ],
+    "dependencies": {
+        "@types/nginstack__engine": "*"
+    },
+    "devDependencies": {
+        "@types/nginstack__iquery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Renato Ribeiro",
+            "githubUsername": "Henato"
+        },
+        {
+            "name": "Paulo Moreno",
+            "githubUsername": "paulocmoreno"
+        },
+        {
+            "name": "Ricardo Cavalcante",
+            "githubUsername": "oficial"
+        }
+    ]
+}

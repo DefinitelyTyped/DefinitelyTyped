@@ -1,5 +1,5 @@
-import tape = require('blue-tape');
-import P = require('bluebird');
+import tape = require("blue-tape");
+import P = require("bluebird");
 
 var name: string;
 var cb: tape.TestCase;
@@ -18,16 +18,13 @@ tape(name, (test: tape.Test) => {
 tape.skip(name, cb);
 tape.only(name, cb);
 
-
 var sopts: tape.StreamOptions;
 var rs: NodeJS.ReadableStream;
 rs = tape.createStream();
 rs = tape.createStream(sopts);
 
-
 var htest: typeof tape;
 htest = tape.createHarness();
-
 
 tape(name, (test: tape.Test) => {
     var num: number;
@@ -158,9 +155,9 @@ tape(name, (test: tape.Test) => {
     test.comment(msg);
 });
 
-tape('simple delay', (test) => P.delay(1));
+tape("simple delay", (test) => P.delay(1));
 
-tape('nested tests with promises', function(test) {
-    test.test('delay1', () => P.delay(1) );
-    test.test('delay2', () => P.delay(1) );
+tape("nested tests with promises", function(test) {
+    test.test("delay1", () => P.delay(1));
+    test.test("delay2", () => P.delay(1));
 });

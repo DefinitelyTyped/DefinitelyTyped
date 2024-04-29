@@ -1,21 +1,23 @@
 // test that it works as a require
-import BN_require = require('bn.js');
+import BN_require = require("bn.js");
 // test that it works as module import
-import * as BN_esm from 'bn.js';
-// tslint:disable-next-line:no-duplicate-imports
-import { Endianness, IPrimeName } from 'bn.js';
+import * as BN_esm from "bn.js";
+// eslint-disable-next-line no-duplicate-imports
+import { Endianness, IPrimeName } from "bn.js";
 
 function runTests(BN: typeof BN_esm) {
     let bn = new BN(42);
     bn = bn.add(bn);
     bn.isZero();
     bn.byteLength;
+    bn.setn(0, 1);
+    bn.setn(0, false);
 
-    const endian: Endianness = 'le';
+    const endian: Endianness = "le";
     bn.toArrayLike(Buffer, endian, 2);
     const test = new BN(1, endian);
 
-    const primeName: IPrimeName = 'p224';
+    const primeName: IPrimeName = "p224";
     const ctx = BN.red(primeName);
     ctx.prime.name;
 
@@ -28,10 +30,10 @@ function runTests(BN: typeof BN_esm) {
 
     const expected = new BN(0x4020);
     const actualArray = new BN([0x40, 0x20]);
-    const actualUint8Array =  new BN(new Uint8Array([0x40, 0x20]));
-    const actualString = new BN('0x4020');
+    const actualUint8Array = new BN(new Uint8Array([0x40, 0x20]));
+    const actualString = new BN("0x4020");
 
-    new BN('10', 16).modrn(256); // $ExpectType number
+    new BN("10", 16).modrn(256); // $ExpectType number
     BN.BN; // $ExpectType typeof BN
     BN.wordSize; // $ExpectType 26
 }

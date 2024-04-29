@@ -9,8 +9,8 @@ const crowd = new CrowdClient({
     baseUrl: "https://crowd.example.com/",
     application: {
         name: "demo",
-        password: "example"
-    }
+        password: "example",
+    },
 });
 
 // Create a new user:
@@ -36,7 +36,7 @@ const group = new Group("testgroup1", "Test group");
 const attributes = new Attributes({
     foo: "Foo",
     bar: ["Bar", "Baz"],
-    obj: { a: "A" }
+    obj: { a: "A" },
 });
 
 crowd.group.attributes.set(group.groupname, attributes).then(() => {

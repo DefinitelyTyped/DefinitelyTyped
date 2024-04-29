@@ -1,2 +1,2 @@
-import modulo = require('../2018/modulo');
+import modulo = require("../2018/modulo");
 export = modulo;

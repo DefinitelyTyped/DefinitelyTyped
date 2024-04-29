@@ -1,13 +1,13 @@
 import {
+    ChangeEvent,
     Component,
     ComponentType,
-    ReactElement,
-    ChangeEvent,
     DragEvent,
     FocusEvent,
     InputHTMLAttributes,
+    ReactElement,
     SelectHTMLAttributes,
-    TextareaHTMLAttributes
+    TextareaHTMLAttributes,
 } from "react";
 import { Dispatch } from "redux";
 
@@ -57,11 +57,13 @@ export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {
 }
 
 export type GenericFieldHTMLAttributes =
-    InputHTMLAttributes<HTMLInputElement> |
-    SelectHTMLAttributes<HTMLSelectElement> |
-    TextareaHTMLAttributes<HTMLTextAreaElement>;
+    | InputHTMLAttributes<HTMLInputElement>
+    | SelectHTMLAttributes<HTMLSelectElement>
+    | TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export class Field<P extends GenericFieldHTMLAttributes | BaseFieldProps = GenericFieldHTMLAttributes | BaseFieldProps> extends Component<P> {
+export class Field<P extends GenericFieldHTMLAttributes | BaseFieldProps = GenericFieldHTMLAttributes | BaseFieldProps>
+    extends Component<P>
+{
     dirty: boolean;
     name: string;
     pristine: boolean;

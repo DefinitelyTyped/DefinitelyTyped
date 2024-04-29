@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/angular-bootstrap-calendar",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/mattlewis92/angular-bootstrap-calendar"
+    ],
     "dependencies": {
+        "@types/angular": "*",
         "moment": ">=2.14.0"
-    }
+    },
+    "devDependencies": {
+        "@types/angular-bootstrap-calendar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Egor Komarov",
+            "githubUsername": "Odrin"
+        }
+    ]
 }

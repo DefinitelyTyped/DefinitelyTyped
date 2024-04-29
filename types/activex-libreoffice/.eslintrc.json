@@ -1,5 +1,7 @@
 {
-  "rules": {
-      "no-const-enum": "off"
-  }
+    "rules": {
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@typescript-eslint/ban-types": "off"
+    }
 }

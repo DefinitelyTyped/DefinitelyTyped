@@ -4,4 +4,4 @@ export class FontAsset extends Asset {
     private mIsLocal;
     onLoaderRequested(factory: any): void;
 }
-import { Asset } from './Asset';
+import { Asset } from "./Asset";

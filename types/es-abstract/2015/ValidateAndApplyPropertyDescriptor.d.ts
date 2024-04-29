@@ -1,4 +1,4 @@
-import type { PropertyDescriptor, PropertyKey } from '../index';
+import type { PropertyDescriptor, PropertyKey } from "../index";
 
 declare function ValidateAndApplyPropertyDescriptor(
     O: undefined,

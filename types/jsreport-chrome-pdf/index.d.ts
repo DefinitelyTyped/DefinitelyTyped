@@ -1,9 +1,4 @@
-// Type definitions for jsreport-chrome-pdf 1.6
-// Project: https://github.com/jsreport/jsreport-chrome-pdf
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ExtensionDefinition, Template } from 'jsreport-core';
+import { ExtensionDefinition, Template } from "jsreport-core";
 
 declare namespace JsReportChromePdf {
     // https://jsreport.net/learn/chrome-pdf
@@ -16,7 +11,7 @@ declare namespace JsReportChromePdf {
         footerTemplate: string;
         printBackground: boolean;
         landscape: boolean;
-        pageRanges: string;    // 1-5, 8, 11-13
+        pageRanges: string; // 1-5, 8, 11-13
         format: string;
         width: string | number;
         height: string | number;
@@ -41,15 +36,15 @@ declare namespace JsReportChromePdf {
         url: string;
         pageNumber: number;
         totalPages: number;
-        mediaType: 'screen' | 'print';
+        mediaType: "screen" | "print";
     }
 
     // https://jsreport.net/learn/chrome-image
     // https://github.com/puppeteer/puppeteer/blob/v1.11.0/docs/api.md#pagescreenshotoptions
     interface ChromeImage {
         path: string;
-        type: 'jpeg' | 'png';
-        quality: number;    // 0-100
+        type: "jpeg" | "png";
+        quality: number; // 0-100
         fullPage: boolean;
         clip: {
             x: number;
@@ -58,12 +53,12 @@ declare namespace JsReportChromePdf {
             height: number;
         };
         omitBackground: boolean;
-        encoding: 'base64' | 'binary';
+        encoding: "base64" | "binary";
     }
 
     // https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions
     interface LaunchOptions {
-        product: 'chrome' | 'firefox';
+        product: "chrome" | "firefox";
         ignoreHTTPSErrors: boolean;
         headless: boolean;
         executablePath: string;
@@ -84,16 +79,16 @@ declare namespace JsReportChromePdf {
         timeout: number;
         dumpio: boolean;
         userDataDir: string;
-        env: { [key: string]: string; };
+        env: { [key: string]: string };
         devtools: boolean;
         pipe: boolean;
-        extraPrefsFirefox: { [key: string]: any; };
+        extraPrefsFirefox: { [key: string]: any };
     }
 
     // https://jsreport.net/learn/configuration
     interface Options {
         allowLocalFilesAccess: boolean;
-        strategy: 'dedicated-process' | 'http-server' | 'in-process';
+        strategy: "dedicated-process" | "http-server" | "in-process";
         timeout: number;
         numberOfWorkers: number;
         host: string;
@@ -105,12 +100,12 @@ declare namespace JsReportChromePdf {
     interface ChromeTemplate extends Template {
         chrome?: Partial<Chrome> | undefined;
         chromeImage?: Partial<ChromeImage> | undefined;
-        recipe: 'chrome-pdf' | 'chrome-image' | string;
+        recipe: "chrome-pdf" | "chrome-image" | string;
         content: string;
     }
 }
 
-declare module 'jsreport-core' {
+declare module "jsreport-core" {
     interface TemplateRegistry {
         ChromeTemplate: JsReportChromePdf.ChromeTemplate;
     }

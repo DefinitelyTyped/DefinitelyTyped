@@ -15,5 +15,5 @@ declare class FormDialog {
 declare namespace FormDialog {
     export { Process };
 }
-type Process = import('../process/Process');
-import FormDialogField = require('./FormDialogField.js');
+type Process = import("../process/Process");
+import FormDialogField = require("./FormDialogField.js");

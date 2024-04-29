@@ -4,12 +4,12 @@
 
 import { EventEmitter } from "events";
 import { Token } from "parse5";
-import { Context } from "vm";
 import * as tough from "tough-cookie";
+import { Context } from "vm";
 
 // Needed to allow adding properties to `DOMWindow` that are only supported
 // in newer TypeScript versions:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "jsdom" {
     const toughCookie: typeof tough;
     class CookieJar extends tough.CookieJar {}
@@ -156,7 +156,12 @@ declare module "jsdom" {
         storageQuota?: number | undefined;
     }
 
-    type SupportedContentTypes = 'text/html' | 'application/xhtml+xml' | 'application/xml' | 'text/xml' | 'image/svg+xml';
+    type SupportedContentTypes =
+        | "text/html"
+        | "application/xhtml+xml"
+        | "application/xml"
+        | "text/xml"
+        | "image/svg+xml";
 
     interface VirtualConsoleSendToOptions {
         omitJSDOMErrors: boolean;

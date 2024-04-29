@@ -1,4 +1,4 @@
-import { Reader, Config, createConnection } from "hiredis";
+import { Config, createConnection, Reader } from "hiredis";
 
 const socket = createConnection(6379, "localhost");
 

@@ -1,8 +1,3 @@
-// Type definitions for array-rearrange 2.2
-// Project: https://github.com/dfcreative/array-rearrange#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = reorder;
 
 /**

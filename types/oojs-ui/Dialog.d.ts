@@ -156,7 +156,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): Dialog;
+            new(config?: ConfigOptions): Dialog;
             prototype: Prototype;
             static: Static;
             super: Window.Constructor;

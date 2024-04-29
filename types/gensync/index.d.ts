@@ -1,10 +1,3 @@
-// Type definitions for gensync 1.0
-// Project: https://github.com/loganfsmyth/gensync
-// Definitions by: Jake Bailey <https://github.com/jakebailey>
-//                 Nicolò Ribaudo <https://github.com/nicolo-ribaudo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 /**
  * Returns a function that can be "awaited" (with `yield*`) in another `gensync` generator
  * function, or executed via
@@ -34,7 +27,7 @@ declare namespace gensync {
     /**
      * A callback function such that if the result is void, there is no result parameter.
      */
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type Callback<R, E = unknown> = [R] extends [void] ? (err: E) => void : (err: E, result: R) => void;
 
     /**
@@ -82,7 +75,7 @@ declare namespace gensync {
         errback?: undefined;
     }
 
-    interface AsyncOptions<A extends unknown[], R> extends Omit<SyncOptions<A, R>, 'async'> {
+    interface AsyncOptions<A extends unknown[], R> extends Omit<SyncOptions<A, R>, "async"> {
         /**
          * A function that will be called when `.async()` or `.errback()` is called on
          * the `gensync()` result, or when the result is passed to `yield*` in another
@@ -93,7 +86,7 @@ declare namespace gensync {
         async: (...args: A) => Promise<R>;
     }
 
-    interface ErrbackOptions<A extends unknown[], R, E = unknown> extends Omit<SyncOptions<A, R>, 'errback'> {
+    interface ErrbackOptions<A extends unknown[], R, E = unknown> extends Omit<SyncOptions<A, R>, "errback"> {
         /**
          * A function that will be called when `.async()` or `.errback()` is called on
          * the `gensync()` result, or when the result is passed to `yield*` in another

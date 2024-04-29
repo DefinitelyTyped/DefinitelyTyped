@@ -1,11 +1,4 @@
-// Type definitions for lusca 1.7
-// Project: https://github.com/krakenjs/lusca#readme
-// Definitions by: Corbin Crutchley <https://github.com/crutchcorn>
-//                 Naoto Yokoyama <https://github.com/builtinnya>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import express = require('express');
+import express = require("express");
 
 declare function lusca(options?: lusca.LuscaOptions): express.RequestHandler;
 
@@ -40,6 +33,8 @@ declare namespace lusca {
 
     type csrfOptions = csrfOptionsBase & csrfOptionsAngularOrNonAngular & csrfOptionsBlocklistOrAllowlist;
 
+    type csrfValidateFunction = (req: express.Request, token: unknown) => boolean;
+
     interface csrfOptionsBase {
         /**
          * The name of the CSRF token in the model.
@@ -53,7 +48,13 @@ declare namespace lusca {
         /**
          *  An object with create/validate methods for custom tokens
          */
-        impl?: (() => any) | undefined;
+        impl?: {
+            create?: (
+                req: express.Request,
+                secretKey: string,
+            ) => { secret: string; token: string; validate: csrfValidateFunction };
+            validate?: csrfValidateFunction;
+        } | undefined;
         /**
          * The name of the response header containing the CSRF token
          * @default 'x-csrf-token'

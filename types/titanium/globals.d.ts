@@ -106,64 +106,64 @@ declare function setTimeout(func: (...args: any[]) => void, delay?: number): num
 // String constructor augmentation ---------------------------------------------
 
 interface StringConstructor {
-  /**
-   * Formats a string using `printf`-style substitution.
-   *
-   * @param formatString An IEEE `printf`-style string, containing zero or more conversion specifications.
-   * @param value Values to substitute into the `formatString`.
-   */
-  format(formatString: string, ...value: Array<string | number>): string;
+    /**
+     * Formats a string using `printf`-style substitution.
+     *
+     * @param formatString An IEEE `printf`-style string, containing zero or more conversion specifications.
+     * @param value Values to substitute into the `formatString`.
+     */
+    format(formatString: string, ...value: Array<string | number>): string;
 
-  /**
-   * Formats a number into the currency format, including currency symbol, of the locale
-   * configured for the system.
-   *
-   * @param value Currency value,
-   */
-  formatCurrency(value: number): string;
+    /**
+     * Formats a number into the currency format, including currency symbol, of the locale
+     * configured for the system.
+     *
+     * @param value Currency value,
+     */
+    formatCurrency(value: number): string;
 
-  /**
-   * Formats a date into the date format of the locale configured for the system.
-   *
-   * @param date Date to format.
-   * @param format Date format to use. One of 'short', 'medium', 'long' or 'full'. Defaults to 'short'.
-   */
-  formatDate(date: Date, format?: string): string;
+    /**
+     * Formats a date into the date format of the locale configured for the system.
+     *
+     * @param date Date to format.
+     * @param format Date format to use. One of 'short', 'medium', 'long' or 'full'. Defaults to 'short'.
+     */
+    formatDate(date: Date, format?: string): string;
 
-  /**
-   * Formats a number into the decimal format, including decimal symbol, of the locale
-   * configured for the system.
-   *
-   * @param value Value to format.
-   * @param pattern Format pattern.
-   */
-  formatDecimal(value: number, pattern: string): string;
-  /**
-   * @param value Value to format.
-   * @param locale Locale string. For example, `en-US` for US English.
-   * @param pattern Format pattern.
-   */
-  formatDecimal(value: number, locale: string, pattern: string): string;
+    /**
+     * Formats a number into the decimal format, including decimal symbol, of the locale
+     * configured for the system.
+     *
+     * @param value Value to format.
+     * @param pattern Format pattern.
+     */
+    formatDecimal(value: number, pattern: string): string;
+    /**
+     * @param value Value to format.
+     * @param locale Locale string. For example, `en-US` for US English.
+     * @param pattern Format pattern.
+     */
+    formatDecimal(value: number, locale: string, pattern: string): string;
 
-  /**
-   * Formats a date into the time format of the locale configured for the system.
-   *
-   * @param date Date to format.
-   * @param format Date format to use. One of 'short', 'medium', or 'long' (iOS only). Defaults to 'short'.
-   */
-  formatTime(date: Date, format?: string): string;
+    /**
+     * Formats a date into the time format of the locale configured for the system.
+     *
+     * @param date Date to format.
+     * @param format Date format to use. One of 'short', 'medium', or 'long' (iOS only). Defaults to 'short'.
+     */
+    formatTime(date: Date, format?: string): string;
 }
 
 declare namespace Titanium {
-  interface Global {
-    L(key: string, hint?: string): string;
-    alert(message: string): void;
-    clearInterval(timerId?: number): void;
-    clearTimeout(timerId?: number): void;
-    decodeURIComponent(encodedURI: string): string;
-    encodeURIComponent(string: string): string;
-    require(moduleId: string): any;
-    setInterval(func: (...args: any[]) => void, delay?: number): number;
-    setTimeout(func: (...args: any[]) => void, delay?: number): number;
-  }
+    interface Global {
+        L(key: string, hint?: string): string;
+        alert(message: string): void;
+        clearInterval(timerId?: number): void;
+        clearTimeout(timerId?: number): void;
+        decodeURIComponent(encodedURI: string): string;
+        encodeURIComponent(string: string): string;
+        require(moduleId: string): any;
+        setInterval(func: (...args: any[]) => void, delay?: number): number;
+        setTimeout(func: (...args: any[]) => void, delay?: number): number;
+    }
 }

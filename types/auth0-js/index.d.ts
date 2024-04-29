@@ -1,14 +1,5 @@
-// Type definitions for Auth0.js 9.14
-// Project: https://github.com/auth0/auth0.js
-// Definitions by: Adrian Chia <https://github.com/adrianchia>
-//                 Matt Durrant <https://github.com/mdurrant>
-//                 Peter Blazejewicz <https://github.com/peterblazejewicz>
-//                 Bartosz Kotrys <https://github.com/bkotrys>
-//                 Mark Nelissen <https://github.com/marknelissen>
-//                 Tyler Lindell <https://github.com/tylerlindell>
-//                 Henri Kinnunen <https://github.com/hequ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference lib="dom" />
+
 export as namespace auth0;
 
 export class Authentication {
@@ -58,19 +49,16 @@ export class Authentication {
 
     /**
      * Makes a call to the `/ssodata` endpoint
-     *
      */
     getSSOData(callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/ssodata` endpoint
-     *
      */
     getSSOData(withActiveDirectories: boolean, callback?: Auth0Callback<SsoDataResult | undefined>): void;
 
     /**
      * Makes a call to the `/userinfo` endpoint and returns the user profile
-     *
      */
     userInfo(accessToken: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
@@ -83,7 +71,6 @@ export class Authentication {
 
     /**
      * Fetches the user country based on the ip.
-     *
      */
     getUserCountry(callback: Auth0Callback<{ countryCode: string }>): void;
 }
@@ -93,7 +80,6 @@ export class PasswordlessAuthentication {
 
     /**
      * Builds and returns the passwordless TOTP verify url in order to initialize a new authN/authZ transaction
-     *
      */
     buildVerifyUrl(options: PasswordlessVerifyOptions): string;
 
@@ -106,7 +92,6 @@ export class PasswordlessAuthentication {
 
     /**
      * Verifies the passwordless TOTP and returns an error if any.
-     *
      */
     verify(options: PasswordlessVerifyOptions, callback: Auth0Callback<any>): void;
 }
@@ -136,14 +121,12 @@ export class Management {
 
     /**
      * Returns the user profile. https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
-     *
      */
     getUser(userId: string, callback: Auth0Callback<Auth0UserProfile>): void;
 
     /**
      * Updates the user metadata. It will patch the user metadata with the attributes sent.
      * https://auth0.com/docs/api/management/v2#!/Users/patch_users_by_id
-     *
      */
     patchUserMetadata(userId: string, userMetadata: any, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
@@ -154,7 +137,6 @@ export class Management {
     patchUserAttributes(userId: string, user: Auth0UserProfile, callback: Auth0Callback<Auth0UserProfile>): void;
     /**
      * Link two users. https://auth0.com/docs/api/management/v2#!/Users/post_identities
-     *
      */
     linkUser(userId: string, secondaryUserToken: string, callback: Auth0Callback<any>): void;
 }
@@ -516,7 +498,6 @@ export class CrossOriginAuthentication {
 
     /**
      * Runs the callback code for the cross origin authentication call. This method is meant to be called by the cross origin authentication callback url.
-     *
      */
     callback(): void;
 }
@@ -547,6 +528,13 @@ export interface AuthOptions {
     redirectUri?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    /**
+     * The domain the cookie is accessible from.
+     * If not set, the cookie is scoped to the current domain, including the subdomain.
+     * To keep a user logged in across multiple subdomains set this to your top-level domain
+     * and prefixed with a `.` (eg: `.example.com`)
+     */
+    cookieDomain?: string | undefined;
     /**
      * maximum elapsed time in seconds since the last time the user
      * was actively authenticated by the authorization server.
@@ -892,6 +880,7 @@ export interface CrossOriginLoginOptions {
     nonce?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onRedirecting?: (done: () => void) => void | undefined;
 }
 
@@ -1031,6 +1020,8 @@ export interface AuthorizeOptions {
     approvalPrompt?: string | undefined;
     appState?: any;
     connection_scope?: string | string[] | undefined;
+    organization?: string | undefined;
+    invitation?: string | undefined;
 }
 
 export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;

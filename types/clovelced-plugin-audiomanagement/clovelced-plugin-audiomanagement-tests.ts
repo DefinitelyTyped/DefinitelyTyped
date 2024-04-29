@@ -1,4 +1,4 @@
-import * as AudioManagement from 'clovelced-plugin-audiomanagement';
+import * as AudioManagement from "clovelced-plugin-audiomanagement";
 
 AudioManagement.setAudioMode(AudioManagement.AudioMode.NORMAL, () => {
 }, (error: any) => {

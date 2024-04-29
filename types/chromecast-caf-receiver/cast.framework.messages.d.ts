@@ -1,4 +1,4 @@
-import { DetailedErrorCode, Event } from './cast.framework.events';
+import { DetailedErrorCode, Event } from "./cast.framework.events";
 
 export as namespace messages;
 
@@ -7,10 +7,10 @@ export as namespace messages;
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.CaptionMimeType}
  */
 export enum CaptionMimeType {
-    CEA608 = 'text/cea608',
-    TTML = 'application/ttml+xml',
-    TTML_MP4 = 'application/mp4',
-    VTT = 'text/vtt',
+    CEA608 = "text/cea608",
+    TTML = "application/ttml+xml",
+    TTML_MP4 = "application/mp4",
+    VTT = "text/vtt",
 }
 
 /**
@@ -53,7 +53,7 @@ export enum ContainerType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ContentFilteringMode}
  */
 export enum ContentFilteringMode {
-    FILTER_EXPLICIT = 'FILTER_EXPLICIT',
+    FILTER_EXPLICIT = "FILTER_EXPLICIT",
 }
 
 /**
@@ -61,25 +61,25 @@ export enum ContentFilteringMode {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ErrorReason}
  */
 export enum ErrorReason {
-    APP_ERROR = 'APP_ERROR',
-    AUTHENTICATION_EXPIRED = 'AUTHENTICATION_EXPIRED',
-    CONCURRENT_STREAM_LIMIT = 'CONCURRENT_STREAM_LIMIT',
-    CONTENT_ALREADY_PLAYING = 'CONTENT_ALREADY_PLAYING',
-    CONTENT_FILTERED = 'CONTENT_FILTERED',
-    DUPLICATE_REQUEST_ID = 'DUPLICATE_REQUEST_ID',
-    END_OF_QUEUE = 'END_OF_QUEUE',
-    GENERIC_LOAD_ERROR = 'GENERIC_LOAD_ERROR',
-    INVALID_COMMAND = 'INVALID_COMMAND',
-    INVALID_MEDIA_SESSION_ID = 'INVALID_MEDIA_SESSION_ID',
-    INVALID_PARAMS = 'INVALID_PARAMS',
-    INVALID_REQUEST = 'INVALID_REQUEST',
-    LANGUAGE_NOT_SUPPORTED = 'LANGUAGE_NOT_SUPPORTED',
-    NOT_AVAILABLE_IN_REGION = 'NOT_AVAILABLE_IN_REGION',
-    NOT_SUPPORTED = 'NOT_SUPPORTED',
-    PARENTAL_CONTROL_RESTRICTED = 'PARENTAL_CONTROL_RESTRICTED',
-    PREMIUM_ACCOUNT_REQUIRED = 'PREMIUM_ACCOUNT_REQUIRED',
-    SKIP_LIMIT_REACHED = 'SKIP_LIMIT_REACHED',
-    VIDEO_DEVICE_REQUIRED = 'VIDEO_DEVICE_REQUIRED',
+    APP_ERROR = "APP_ERROR",
+    AUTHENTICATION_EXPIRED = "AUTHENTICATION_EXPIRED",
+    CONCURRENT_STREAM_LIMIT = "CONCURRENT_STREAM_LIMIT",
+    CONTENT_ALREADY_PLAYING = "CONTENT_ALREADY_PLAYING",
+    CONTENT_FILTERED = "CONTENT_FILTERED",
+    DUPLICATE_REQUEST_ID = "DUPLICATE_REQUEST_ID",
+    END_OF_QUEUE = "END_OF_QUEUE",
+    GENERIC_LOAD_ERROR = "GENERIC_LOAD_ERROR",
+    INVALID_COMMAND = "INVALID_COMMAND",
+    INVALID_MEDIA_SESSION_ID = "INVALID_MEDIA_SESSION_ID",
+    INVALID_PARAMS = "INVALID_PARAMS",
+    INVALID_REQUEST = "INVALID_REQUEST",
+    LANGUAGE_NOT_SUPPORTED = "LANGUAGE_NOT_SUPPORTED",
+    NOT_AVAILABLE_IN_REGION = "NOT_AVAILABLE_IN_REGION",
+    NOT_SUPPORTED = "NOT_SUPPORTED",
+    PARENTAL_CONTROL_RESTRICTED = "PARENTAL_CONTROL_RESTRICTED",
+    PREMIUM_ACCOUNT_REQUIRED = "PREMIUM_ACCOUNT_REQUIRED",
+    SKIP_LIMIT_REACHED = "SKIP_LIMIT_REACHED",
+    VIDEO_DEVICE_REQUIRED = "VIDEO_DEVICE_REQUIRED",
 }
 
 /**
@@ -87,11 +87,11 @@ export enum ErrorReason {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ErrorType}
  */
 export enum ErrorType {
-    ERROR = 'ERROR',
-    INVALID_PLAYER_STATE = 'INVALID_PLAYER_STATE',
-    INVALID_REQUEST = 'INVALID_REQUEST',
-    LOAD_CANCELLED = 'LOAD_CANCELLED',
-    LOAD_FAILED = 'LOAD_FAILED',
+    ERROR = "ERROR",
+    INVALID_PLAYER_STATE = "INVALID_PLAYER_STATE",
+    INVALID_REQUEST = "INVALID_REQUEST",
+    LOAD_CANCELLED = "LOAD_CANCELLED",
+    LOAD_FAILED = "LOAD_FAILED",
 }
 
 /**
@@ -99,7 +99,7 @@ export enum ErrorType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.ExtendedPlayerState}
  */
 export enum ExtendedPlayerState {
-    LOADING = 'LOADING',
+    LOADING = "LOADING",
 }
 
 /**
@@ -107,8 +107,8 @@ export enum ExtendedPlayerState {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.FocusState}
  */
 export enum FocusState {
-    IN_FOCUS = 'IN_FOCUS',
-    NOT_IN_FOCUS = 'NOT_IN_FOCUS',
+    IN_FOCUS = "IN_FOCUS",
+    NOT_IN_FOCUS = "NOT_IN_FOCUS",
 }
 
 /**
@@ -125,9 +125,9 @@ export enum GetStatusOptions {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.HdrType}
  */
 export enum HdrType {
-    DV = 'dv',
-    HDR = 'hdr',
-    SDR = 'sdr',
+    DV = "dv",
+    HDR = "hdr",
+    SDR = "sdr",
 }
 
 /**
@@ -135,14 +135,14 @@ export enum HdrType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages#.HlsSegmentFormat}
  */
 export enum HlsSegmentFormat {
-    AAC = 'aac',
-    AC3 = 'ac3',
-    E_AC3 = 'e_ac3',
-    FMP4 = 'fmp4',
-    MP3 = 'mp3',
-    TS = 'ts',
-    TS_AAC = 'ts_aac',
-    TS_HE_AAC = 'ts_he_aac',
+    AAC = "aac",
+    AC3 = "ac3",
+    E_AC3 = "e_ac3",
+    FMP4 = "fmp4",
+    MP3 = "mp3",
+    TS = "ts",
+    TS_AAC = "ts_aac",
+    TS_HE_AAC = "ts_he_aac",
 }
 
 /**
@@ -150,8 +150,8 @@ export enum HlsSegmentFormat {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.HlsSegmentFormat}
  */
 export enum HlsVideoSegmentFormat {
-    FMP4 = 'fmp4',
-    MPEG2_TS = 'mpeg2_ts',
+    FMP4 = "fmp4",
+    MPEG2_TS = "mpeg2_ts",
 }
 
 /**
@@ -159,10 +159,10 @@ export enum HlsVideoSegmentFormat {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.IdleReason}
  */
 export enum IdleReason {
-    CANCELLED = 'CANCELLED',
-    ERROR = 'ERROR',
-    FINISHED = 'FINISHED',
-    INTERRUPTED = 'INTERRUPTED',
+    CANCELLED = "CANCELLED",
+    ERROR = "ERROR",
+    FINISHED = "FINISHED",
+    INTERRUPTED = "INTERRUPTED",
 }
 
 /**
@@ -170,9 +170,9 @@ export enum IdleReason {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.MediaCategory}
  */
 export enum MediaCategory {
-    AUDIO = 'AUDIO',
-    IMAGE = 'IMAGE',
-    VIDEO = 'VIDEO',
+    AUDIO = "AUDIO",
+    IMAGE = "IMAGE",
+    VIDEO = "VIDEO",
 }
 
 /**
@@ -180,50 +180,50 @@ export enum MediaCategory {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.MessageType}
  */
 export enum MessageType {
-    CLOUD_STATUS = 'CLOUD_STATUS',
-    CUSTOM_COMMAND = 'CUSTOM_COMMAND',
-    CUSTOM_STATE = 'CUSTOM_STATE',
-    DISPLAY_STATUS = 'DISPLAY_STATUS',
-    EDIT_AUDIO_TRACKS = 'EDIT_AUDIO_TRACKS',
-    EDIT_TRACKS_INFO = 'EDIT_TRACKS_INFO',
-    EXECUTE_ACTION_SCRIPT = 'EXECUTE_ACTION_SCRIPT',
-    FOCUS_STATE = 'FOCUS_STATE',
-    GET_STATUS = 'GET_STATUS',
-    LOAD = 'LOAD',
-    LOAD_BY_ENTITY = 'LOAD_BY_ENTITY',
-    MEDIA_STATUS = 'MEDIA_STATUS',
-    PAUSE = 'PAUSE',
-    PLAY = 'PLAY',
-    PLAY_AGAIN = 'PLAY_AGAIN',
-    PLAY_STRING = 'PLAY_STRING',
-    PRECACHE = 'PRECACHE',
-    PRELOAD = 'PRELOAD',
-    QUEUE_CHANGE = 'QUEUE_CHANGE',
-    QUEUE_GET_ITEMS = 'QUEUE_GET_ITEMS',
-    QUEUE_GET_ITEM_IDS = 'QUEUE_GET_ITEM_IDS',
-    QUEUE_GET_ITEM_RANGE = 'QUEUE_GET_ITEM_RANGE',
-    QUEUE_INSERT = 'QUEUE_INSERT',
-    QUEUE_ITEMS = 'QUEUE_ITEMS',
-    QUEUE_ITEM_IDS = 'QUEUE_ITEM_IDS',
-    QUEUE_LOAD = 'QUEUE_LOAD',
-    QUEUE_NEXT = 'QUEUE_NEXT',
-    QUEUE_PREV = 'QUEUE_PREV',
-    QUEUE_REMOVE = 'QUEUE_REMOVE',
-    QUEUE_REORDER = 'QUEUE_REORDER',
-    QUEUE_SHUFFLE = 'QUEUE_SHUFFLE',
-    QUEUE_UPDATE = 'QUEUE_UPDATE',
-    REFRESH_CREDENTIALS = 'REFRESH_CREDENTIALS',
-    RESUME_SESSION = 'RESUME_SESSION',
-    SEEK = 'SEEK',
-    SESSION_STATE = 'SESSION_STATE',
-    SET_CREDENTIALS = 'SET_CREDENTIALS',
-    SET_PLAYBACK_RATE = 'SET_PLAYBACK_RATE',
-    SET_VOLUME = 'SET_VOLUME',
-    SHOW_REMOTE_CONTROL_OVERLAY = 'SHOW_REMOTE_CONTROL_OVERLAY',
-    SKIP_AD = 'SKIP_AD',
-    STOP = 'STOP',
-    STORE_SESSION = 'STORE_SESSION',
-    USER_ACTION = 'USER_ACTION',
+    CLOUD_STATUS = "CLOUD_STATUS",
+    CUSTOM_COMMAND = "CUSTOM_COMMAND",
+    CUSTOM_STATE = "CUSTOM_STATE",
+    DISPLAY_STATUS = "DISPLAY_STATUS",
+    EDIT_AUDIO_TRACKS = "EDIT_AUDIO_TRACKS",
+    EDIT_TRACKS_INFO = "EDIT_TRACKS_INFO",
+    EXECUTE_ACTION_SCRIPT = "EXECUTE_ACTION_SCRIPT",
+    FOCUS_STATE = "FOCUS_STATE",
+    GET_STATUS = "GET_STATUS",
+    LOAD = "LOAD",
+    LOAD_BY_ENTITY = "LOAD_BY_ENTITY",
+    MEDIA_STATUS = "MEDIA_STATUS",
+    PAUSE = "PAUSE",
+    PLAY = "PLAY",
+    PLAY_AGAIN = "PLAY_AGAIN",
+    PLAY_STRING = "PLAY_STRING",
+    PRECACHE = "PRECACHE",
+    PRELOAD = "PRELOAD",
+    QUEUE_CHANGE = "QUEUE_CHANGE",
+    QUEUE_GET_ITEMS = "QUEUE_GET_ITEMS",
+    QUEUE_GET_ITEM_IDS = "QUEUE_GET_ITEM_IDS",
+    QUEUE_GET_ITEM_RANGE = "QUEUE_GET_ITEM_RANGE",
+    QUEUE_INSERT = "QUEUE_INSERT",
+    QUEUE_ITEMS = "QUEUE_ITEMS",
+    QUEUE_ITEM_IDS = "QUEUE_ITEM_IDS",
+    QUEUE_LOAD = "QUEUE_LOAD",
+    QUEUE_NEXT = "QUEUE_NEXT",
+    QUEUE_PREV = "QUEUE_PREV",
+    QUEUE_REMOVE = "QUEUE_REMOVE",
+    QUEUE_REORDER = "QUEUE_REORDER",
+    QUEUE_SHUFFLE = "QUEUE_SHUFFLE",
+    QUEUE_UPDATE = "QUEUE_UPDATE",
+    REFRESH_CREDENTIALS = "REFRESH_CREDENTIALS",
+    RESUME_SESSION = "RESUME_SESSION",
+    SEEK = "SEEK",
+    SESSION_STATE = "SESSION_STATE",
+    SET_CREDENTIALS = "SET_CREDENTIALS",
+    SET_PLAYBACK_RATE = "SET_PLAYBACK_RATE",
+    SET_VOLUME = "SET_VOLUME",
+    SHOW_REMOTE_CONTROL_OVERLAY = "SHOW_REMOTE_CONTROL_OVERLAY",
+    SKIP_AD = "SKIP_AD",
+    STOP = "STOP",
+    STORE_SESSION = "STORE_SESSION",
+    USER_ACTION = "USER_ACTION",
 }
 
 /**
@@ -244,10 +244,10 @@ export enum MetadataType {
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages#.PlayStringId
  */
 export enum PlayStringId {
-    FREE_TRIAL_ABOUT_TO_EXPIRE = 'FREE_TRIAL_ABOUT_TO_EXPIRE',
-    PLAYING_ALTERNATE_MIX = 'PLAYING_ALTERNATE_MIX',
-    STREAM_HIJACKED = 'STREAM_HIJACKED',
-    SUBSCRIPTION_ABOUT_TO_EXPIRE = 'SUBSCRIPTION_ABOUT_TO_EXPIRE',
+    FREE_TRIAL_ABOUT_TO_EXPIRE = "FREE_TRIAL_ABOUT_TO_EXPIRE",
+    PLAYING_ALTERNATE_MIX = "PLAYING_ALTERNATE_MIX",
+    STREAM_HIJACKED = "STREAM_HIJACKED",
+    SUBSCRIPTION_ABOUT_TO_EXPIRE = "SUBSCRIPTION_ABOUT_TO_EXPIRE",
 }
 
 /**
@@ -255,10 +255,10 @@ export enum PlayStringId {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.PlayerState}
  */
 export enum PlayerState {
-    BUFFERING = 'BUFFERING',
-    IDLE = 'IDLE',
-    PAUSED = 'PAUSED',
-    PLAYING = 'PLAYING',
+    BUFFERING = "BUFFERING",
+    IDLE = "IDLE",
+    PAUSED = "PAUSED",
+    PLAYING = "PLAYING",
 }
 
 /**
@@ -266,11 +266,11 @@ export enum PlayerState {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.QueueChangeType}
  */
 export enum QueueChangeType {
-    INSERT = 'INSERT',
-    ITEMS_CHANGE = 'ITEMS_CHANGE',
-    NO_CHANGE = 'NO_CHANGE',
-    REMOVE = 'REMOVE',
-    UPDATE = 'UPDATE',
+    INSERT = "INSERT",
+    ITEMS_CHANGE = "ITEMS_CHANGE",
+    NO_CHANGE = "NO_CHANGE",
+    REMOVE = "REMOVE",
+    UPDATE = "UPDATE",
 }
 
 /**
@@ -278,15 +278,15 @@ export enum QueueChangeType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.QueueType}
  */
 export enum QueueType {
-    ALBUM = 'ALBUM',
-    AUDIOBOOK = 'AUDIOBOOK',
-    LIVE_TV = 'LIVE_TV',
-    MOVIE = 'MOVIE',
-    PLAYLIST = 'PLAYLIST',
-    PODCAST_SERIES = 'PODCAST_SERIES',
-    RADIO_STATION = 'RADIO_STATION',
-    TV_SERIES = 'TV_SERIES',
-    VIDEO_PLAYLIST = 'VIDEO_PLAYLIST',
+    ALBUM = "ALBUM",
+    AUDIOBOOK = "AUDIOBOOK",
+    LIVE_TV = "LIVE_TV",
+    MOVIE = "MOVIE",
+    PLAYLIST = "PLAYLIST",
+    PODCAST_SERIES = "PODCAST_SERIES",
+    RADIO_STATION = "RADIO_STATION",
+    TV_SERIES = "TV_SERIES",
+    VIDEO_PLAYLIST = "VIDEO_PLAYLIST",
 }
 
 /**
@@ -294,10 +294,10 @@ export enum QueueType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.RepeatMode}
  */
 export enum RepeatMode {
-    REPEAT_ALL = 'REPEAT_ALL',
-    REPEAT_ALL_AND_SHUFFLE = 'REPEAT_ALL_AND_SHUFFLE',
-    REPEAT_OFF = 'REPEAT_OFF',
-    REPEAT_SINGLE = 'REPEAT_SINGLE',
+    REPEAT_ALL = "REPEAT_ALL",
+    REPEAT_ALL_AND_SHUFFLE = "REPEAT_ALL_AND_SHUFFLE",
+    REPEAT_OFF = "REPEAT_OFF",
+    REPEAT_SINGLE = "REPEAT_SINGLE",
 }
 
 /**
@@ -305,8 +305,8 @@ export enum RepeatMode {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.SeekResumeState}
  */
 export enum SeekResumeState {
-    PLAYBACK_PAUSE = 'PLAYBACK_PAUSE',
-    PLAYBACK_START = 'PLAYBACK_START',
+    PLAYBACK_PAUSE = "PLAYBACK_PAUSE",
+    PLAYBACK_START = "PLAYBACK_START",
 }
 
 /**
@@ -325,9 +325,9 @@ export enum StreamingProtocolType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.StreamType}
  */
 export enum StreamType {
-    BUFFERED = 'BUFFERED',
-    LIVE = 'LIVE',
-    NONE = 'NONE',
+    BUFFERED = "BUFFERED",
+    LIVE = "LIVE",
+    NONE = "NONE",
 }
 
 /**
@@ -335,11 +335,11 @@ export enum StreamType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackEdgeType}
  */
 export enum TextTrackEdgeType {
-    DEPRESSED = 'DEPRESSED',
-    DROP_SHADOW = 'DROP_SHADOW',
-    NONE = 'NONE',
-    OUTLINE = 'OUTLINE',
-    RAISED = 'RAISED',
+    DEPRESSED = "DEPRESSED",
+    DROP_SHADOW = "DROP_SHADOW",
+    NONE = "NONE",
+    OUTLINE = "OUTLINE",
+    RAISED = "RAISED",
 }
 
 /**
@@ -347,13 +347,13 @@ export enum TextTrackEdgeType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackFontGenericFamily}
  */
 export enum TextTrackFontGenericFamily {
-    CASUAL = 'CASUAL',
-    CURSIVE = 'CURSIVE',
-    MONOSPACED_SANS_SERIF = 'MONOSPACED_SANS_SERIF',
-    MONOSPACED_SERIF = 'MONOSPACED_SERIF',
-    SANS_SERIF = 'SANS_SERIF',
-    SERIF = 'SERIF',
-    SMALL_CAPITALS = 'SMALL_CAPITALS',
+    CASUAL = "CASUAL",
+    CURSIVE = "CURSIVE",
+    MONOSPACED_SANS_SERIF = "MONOSPACED_SANS_SERIF",
+    MONOSPACED_SERIF = "MONOSPACED_SERIF",
+    SANS_SERIF = "SANS_SERIF",
+    SERIF = "SERIF",
+    SMALL_CAPITALS = "SMALL_CAPITALS",
 }
 
 /**
@@ -361,10 +361,10 @@ export enum TextTrackFontGenericFamily {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackFontStyle}
  */
 export enum TextTrackFontStyle {
-    BOLD = 'BOLD',
-    BOLD_ITALIC = 'BOLD_ITALIC',
-    ITALIC = 'ITALIC',
-    NORMAL = 'NORMAL',
+    BOLD = "BOLD",
+    BOLD_ITALIC = "BOLD_ITALIC",
+    ITALIC = "ITALIC",
+    NORMAL = "NORMAL",
 }
 
 /**
@@ -372,11 +372,11 @@ export enum TextTrackFontStyle {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackType}
  */
 export enum TextTrackType {
-    CAPTIONS = 'CAPTIONS',
-    CHAPTERS = 'CHAPTERS',
-    DESCRIPTIONS = 'DESCRIPTIONS',
-    METADATA = 'METADATA',
-    SUBTITLES = 'SUBTITLES',
+    CAPTIONS = "CAPTIONS",
+    CHAPTERS = "CHAPTERS",
+    DESCRIPTIONS = "DESCRIPTIONS",
+    METADATA = "METADATA",
+    SUBTITLES = "SUBTITLES",
 }
 
 /**
@@ -384,9 +384,9 @@ export enum TextTrackType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TextTrackWindowType}
  */
 export enum TextTrackWindowType {
-    NONE = 'NONE',
-    NORMAL = 'NORMAL',
-    ROUNDED_CORNERS = 'ROUNDED_CORNERS',
+    NONE = "NONE",
+    NORMAL = "NORMAL",
+    ROUNDED_CORNERS = "ROUNDED_CORNERS",
 }
 
 /**
@@ -394,9 +394,9 @@ export enum TextTrackWindowType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.TrackType}
  */
 export enum TrackType {
-    AUDIO = 'AUDIO',
-    TEXT = 'TEXT',
-    VIDEO = 'VIDEO',
+    AUDIO = "AUDIO",
+    TEXT = "TEXT",
+    VIDEO = "VIDEO",
 }
 
 /**
@@ -404,12 +404,12 @@ export enum TrackType {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.UserAction}
  */
 export enum UserAction {
-    DISLIKE = 'DISLIKE',
-    FLAG = 'FLAG',
-    FOLLOW = 'FOLLOW',
-    LIKE = 'LIKE',
-    SKIP_AD = 'SKIP_AD',
-    UNFOLLOW = 'UNFOLLOW',
+    DISLIKE = "DISLIKE",
+    FLAG = "FLAG",
+    FOLLOW = "FOLLOW",
+    LIKE = "LIKE",
+    SKIP_AD = "SKIP_AD",
+    UNFOLLOW = "UNFOLLOW",
 }
 
 /**
@@ -417,18 +417,18 @@ export enum UserAction {
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages#.UserActionContext}
  */
 export enum UserActionContext {
-    ALBUM = 'ALBUM',
-    ARTIST = 'ARTIST',
-    CHANNEL = 'CHANNEL',
-    COACH = 'COACH',
-    EPISODE = 'EPISODE',
-    MOVIE = 'MOVIE',
-    PLAYER = 'PLAYER',
-    PLAYLIST = 'PLAYLIST',
-    SERIES = 'SERIES',
-    TEAM = 'TEAM',
-    TRACK = 'TRACK',
-    UNKNOWN_CONTEXT = 'UNKNOWN_CONTEXT',
+    ALBUM = "ALBUM",
+    ARTIST = "ARTIST",
+    CHANNEL = "CHANNEL",
+    COACH = "COACH",
+    EPISODE = "EPISODE",
+    MOVIE = "MOVIE",
+    PLAYER = "PLAYER",
+    PLAYLIST = "PLAYLIST",
+    SERIES = "SERIES",
+    TEAM = "TEAM",
+    TRACK = "TRACK",
+    UNKNOWN_CONTEXT = "UNKNOWN_CONTEXT",
 }
 
 /**
@@ -591,11 +591,36 @@ export class TvShowMediaMetadata {
     title?: string | undefined;
 }
 /**
+ * Describes audio track information for an audio track.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.AudioTrackInfo
+ */
+export class AudioTrackInfo {
+    /**
+     * This represents the codec of the audio track.
+     */
+    audioCodec?: string | undefined;
+
+    /**
+     * The number of audio track channels.
+     */
+    numAudioChannels?: number | undefined;
+
+    /**
+     * True indicates this track content has spatial audio. Determined by signals from the manifest.
+     */
+    spatialAudio?: boolean | undefined;
+}
+/**
  * Describes track metadata information.
  * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.Track
  */
 export class Track {
     constructor(trackId: number, trackType: TrackType);
+
+    /**
+     * Audio-specific information about the track. Defined only for Track#type === 'AUDIO' tracks.
+     */
+    audioTrackInfo?: AudioTrackInfo | undefined;
 
     /**
      * Custom data set by the receiver application.

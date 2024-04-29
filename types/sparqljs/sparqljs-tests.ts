@@ -1,5 +1,5 @@
-import * as RdfJs from 'rdf-js';
-import * as SparqlJs from 'sparqljs';
+import * as RdfJs from "@rdfjs/types";
+import * as SparqlJs from "sparqljs";
 
 // Declare RDF/JS factory implementation to create terms (IRIs, literals, variables, etc)
 declare const DataFactory: RdfJs.DataFactory;
@@ -12,15 +12,15 @@ function officialExamples() {
     const SparqlParser = SparqlJs.Parser;
     const parser = new SparqlParser();
     const parsedQuery = parser.parse(
-        'PREFIX foaf: <http://xmlns.com/foaf/0.1/> ' +
-        'SELECT * { ?mickey foaf:name "Mickey Mouse"@en; foaf:knows ?other. }',
+        "PREFIX foaf: <http://xmlns.com/foaf/0.1/> "
+            + "SELECT * { ?mickey foaf:name \"Mickey Mouse\"@en; foaf:knows ?other. }",
     );
 
     // Regenerate a SPARQL query from a JSON object
     const SparqlGenerator = SparqlJs.Generator;
     const generator = new SparqlGenerator();
-    if (parsedQuery.type === 'query' && parsedQuery.queryType === 'SELECT') {
-        parsedQuery.variables = [DataFactory.variable!('mickey')];
+    if (parsedQuery.type === "query" && parsedQuery.queryType === "SELECT") {
+        parsedQuery.variables = [DataFactory.variable!("mickey")];
     }
 
     // $ExpectType string
@@ -29,61 +29,61 @@ function officialExamples() {
 
 function advancedOptions() {
     const parser = new SparqlJs.Parser({
-        prefixes: {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'},
-        baseIRI: 'http://example.com'
+        prefixes: { rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#" },
+        baseIRI: "http://example.com",
     });
-    const generator = new SparqlJs.Generator({allPrefixes: false});
+    const generator = new SparqlJs.Generator({ allPrefixes: false });
 }
 
 /**
  * Basic query structure
  */
 function basicQueries() {
-    const foo = DataFactory.namedNode('example:foo');
-    const bar = DataFactory.namedNode('example:bar');
-    const qux = DataFactory.namedNode('example:qux');
-    const var1 = DataFactory.variable!('var1');
-    const var2 = DataFactory.variable!('var2');
+    const foo = DataFactory.namedNode("example:foo");
+    const bar = DataFactory.namedNode("example:bar");
+    const qux = DataFactory.namedNode("example:qux");
+    const var1 = DataFactory.variable!("var1");
+    const var2 = DataFactory.variable!("var2");
 
-    const prefixes = {rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'};
+    const prefixes = { rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#" };
 
     const bgpPattern: SparqlJs.BgpPattern = {
-        type: 'bgp',
+        type: "bgp",
         triples: [
-            {subject: foo, predicate: qux, object: bar},
+            { subject: foo, predicate: qux, object: bar },
             {
                 subject: foo,
                 predicate: {
-                    type: 'path',
-                    pathType: '|',
+                    type: "path",
+                    pathType: "|",
                     items: [qux, bar],
                 },
                 object: bar,
-            }
+            },
         ],
     };
 
     const select: SparqlJs.SelectQuery = {
-        type: 'query',
-        queryType: 'SELECT',
+        type: "query",
+        queryType: "SELECT",
         prefixes,
         variables: [new SparqlJs.Wildcard()],
         distinct: true,
         from: {
-            default: [DataFactory.namedNode('http://example.com/')],
+            default: [DataFactory.namedNode("http://example.com/")],
             named: [
-                DataFactory.namedNode('http://example.com/foo'),
-                DataFactory.namedNode('http://example.com/bar'),
+                DataFactory.namedNode("http://example.com/foo"),
+                DataFactory.namedNode("http://example.com/bar"),
             ],
         },
         reduced: false,
         group: [
-            {expression: var1},
-            {expression: var2},
+            { expression: var1 },
+            { expression: var2 },
         ],
         having: [{
-            type: 'functionCall',
-            function: 'isIRI',
+            type: "functionCall",
+            function: "isIRI",
             args: [foo],
         }],
         order: [{
@@ -94,39 +94,34 @@ function basicQueries() {
         offset: 10,
         where: [bgpPattern],
         values: [
-            {x: foo, y: bar},
-            {x: foo},
-        ]
+            { x: foo, y: bar },
+            { x: foo },
+        ],
     };
 
     const construct: SparqlJs.ConstructQuery = {
-        type: 'query',
-        queryType: 'CONSTRUCT',
-        base: 'http://example.com',
+        type: "query",
+        queryType: "CONSTRUCT",
+        base: "http://example.com",
         prefixes,
         template: bgpPattern.triples,
     };
 
     const ask: SparqlJs.AskQuery = {
-        type: 'query',
-        queryType: 'ASK',
+        type: "query",
+        queryType: "ASK",
         prefixes,
     };
 
     const describe: SparqlJs.DescribeQuery = {
-        type: 'query',
-        queryType: 'DESCRIBE',
+        type: "query",
+        queryType: "DESCRIBE",
         prefixes,
         variables: [
             var1,
-            {
-                variable: var2,
-                expression: {
-                    type: 'operation',
-                    operator: '+',
-                    args: [foo, bar],
-                }
-            }
+            var2,
+            foo,
+            bar,
         ],
     };
 }
@@ -136,40 +131,44 @@ function basicQueries() {
  */
 function updateQueries() {
     const bgp: SparqlJs.BgpPattern = {
-        type: 'bgp',
+        type: "bgp",
         triples: [],
     };
 
     const update: SparqlJs.Update = {
-        type: 'update',
+        type: "update",
+        base: "http://example.com/",
         prefixes: {
-            rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+            rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         },
         updates: [
             {
-                updateType: 'insertdelete',
-                graph: DataFactory.namedNode('http://example.com/foo'),
+                updateType: "insertdelete",
+                graph: {
+                    type: "graph",
+                    name: DataFactory.namedNode("http://example.com/foo"),
+                },
                 insert: [bgp],
                 delete: [bgp],
                 where: [],
             },
             {
-                type: 'copy',
+                type: "copy",
                 silent: true,
                 source: {
-                    type: 'graph',
-                    name: DataFactory.namedNode('http://example.com/foo'),
+                    type: "graph",
+                    name: DataFactory.namedNode("http://example.com/foo"),
                 },
                 destination: {
-                    type: 'graph',
+                    type: "graph",
                     default: true,
                 },
             },
             {
-                type: 'clear',
+                type: "clear",
                 silent: false,
                 graph: {
-                    type: 'graph',
+                    type: "graph",
                     all: true,
                 },
             },
@@ -182,21 +181,21 @@ function updateQueries() {
  */
 function sparqlStarAst() {
     const bgp: SparqlJs.BgpPattern = {
-        type: 'bgp',
+        type: "bgp",
         triples: [
             {
                 subject: DataFactory.quad(
-                    DataFactory.namedNode('http://example.com/s1'),
-                    DataFactory.namedNode('http://example.com/p1'),
-                    DataFactory.literal('str1')
+                    DataFactory.namedNode("http://example.com/s1"),
+                    DataFactory.namedNode("http://example.com/p1"),
+                    DataFactory.literal("str1"),
                 ),
-                predicate: DataFactory.namedNode('http://example.com/p2'),
+                predicate: DataFactory.namedNode("http://example.com/p2"),
                 object: DataFactory.quad(
-                    DataFactory.namedNode('http://example.com/s2'),
-                    DataFactory.namedNode('http://example.com/p3'),
-                    DataFactory.literal('str2')
+                    DataFactory.namedNode("http://example.com/s2"),
+                    DataFactory.namedNode("http://example.com/p3"),
+                    DataFactory.literal("str2"),
                 ),
-            }
+            },
         ],
     };
 }

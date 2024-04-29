@@ -13,4 +13,4 @@
 //   import.meta.hot.accept();
 // }
 
-'file cannot be empty, but DefinitelyTyped test runner does not support import.meta';
+"file cannot be empty, but DefinitelyTyped test runner does not support import.meta";

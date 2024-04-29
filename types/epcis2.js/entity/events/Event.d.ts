@@ -25,7 +25,7 @@ export default class Event extends Entity {
      * @return the event instance
      */
     setContext(context: any): Event;
-    '@context': any;
+    "@context": any;
     /**
      * Getter for the context property
      */
@@ -505,13 +505,13 @@ export default class Event extends Entity {
     isValid(): boolean;
 }
 import Entity from "../Entity";
-import ErrorDeclaration from "../model/ErrorDeclaration";
-import QuantityElement from "../model/QuantityElement";
-import PersistentDisposition from "../model/PersistentDisposition";
-import ReadPoint from "../model/ReadPoint";
 import BizLocation from "../model/BizLocation";
 import BizTransactionElement from "../model/BizTransactionElement";
-import SourceElement from "../model/SourceElement";
 import DestinationElement from "../model/DestinationElement";
-import SensorElement from "../model/sensor/SensorElement";
+import ErrorDeclaration from "../model/ErrorDeclaration";
 import Ilmd from "../model/Ilmd";
+import PersistentDisposition from "../model/PersistentDisposition";
+import QuantityElement from "../model/QuantityElement";
+import ReadPoint from "../model/ReadPoint";
+import SensorElement from "../model/sensor/SensorElement";
+import SourceElement from "../model/SourceElement";

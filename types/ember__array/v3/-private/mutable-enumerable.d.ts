@@ -1,5 +1,5 @@
-import Mixin from '@ember/object/mixin';
-import Enumerable from '@ember/array/-private/enumerable';
+import Enumerable from "@ember/array/-private/enumerable";
+import Mixin from "@ember/object/mixin";
 
 /**
  * This mixin defines the API for modifying generic enumerables. These methods

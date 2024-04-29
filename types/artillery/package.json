@@ -1,6 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "got": "^11.8.5"
-  }
+    "private": true,
+    "name": "@types/artillery",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/artilleryio/artillery"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/tough-cookie": "*",
+        "got": "^11.8.5"
+    },
+    "devDependencies": {
+        "@types/artillery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
 }

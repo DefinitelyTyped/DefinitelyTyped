@@ -1,8 +1,3 @@
-// Type definitions for @jayrbolton/suffix-tree 0.0
-// Project: https://www.npmjs.com/package/@jayrbolton/suffix-tree
-// Definitions by: Unlocked <https://github.com/TheUnlocked>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface STree {
     activeNode: SNode;
     root: SNode;

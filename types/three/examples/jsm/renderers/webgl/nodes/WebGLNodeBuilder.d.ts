@@ -1,8 +1,8 @@
-import NodeBuilder from '../../../nodes/core/NodeBuilder';
-import { Renderer, Object3D } from '../../../../../src/Three';
-import Node from '../../../nodes/core/Node';
-import SlotNode from './SlotNode';
-import { NodeShaderStageOption } from '../../../nodes/core/constants';
+import { Object3D, Renderer } from "three";
+import { NodeShaderStage } from "../../../nodes/core/constants.js";
+import Node from "../../../nodes/core/Node.js";
+import NodeBuilder from "../../../nodes/core/NodeBuilder.js";
+import SlotNode from "./SlotNode.js";
 
 export class WebGLNodeBuilder extends NodeBuilder {
     constructor(
@@ -11,28 +11,8 @@ export class WebGLNodeBuilder extends NodeBuilder {
         shader: { uniforms: any; vertexShader: any; fragmentShader: any },
     );
 
-    addSlot(shaderStage: NodeShaderStageOption, slotNode: SlotNode): Node;
-    addFlowCode(code: string): string;
+    addSlot(shaderStage: NodeShaderStage, slotNode: SlotNode): Node;
 
-    getTexture(textureProperty: string, uvSnippet: string): string;
-    getTextureBias(textureProperty: string, uvSnippet: string, biasSnippet: string): string;
-
-    getTextureLevel(
-        textureProperty: string,
-        uvSnippet: string,
-        biasSnippet: string,
-        shaderStage?: NodeShaderStageOption,
-    ): string;
-    getCubeTexture(texturePropert: string, uvSnippet: string, shaderStage?: NodeShaderStageOption): string;
-
-    getCubeTextureLevel(
-        textureProperty: string,
-        uvSnippet: string,
-        biasSnippet: string,
-        shaderStage?: NodeShaderStageOption,
-    ): string;
-
-    getCubeTextureBias(textureProperty: string, uvSnippet: string, biasSnippet: string): string;
     getUniforms(shaderStage: string): string;
 
     getAttributes(shaderStage: string): string;
@@ -47,7 +27,7 @@ export class WebGLNodeBuilder extends NodeBuilder {
 
     getInstanceIndex(): string;
     getFrontFacing(): string;
-    getFragCoord(): 'gl_FragCoord';
+    getFragCoord(): "gl_FragCoord";
     isFlipY(): true;
 
     buildCode(): void;

@@ -10,7 +10,7 @@ declare class ServerId {
 declare namespace ServerId {
     export { COOKIE_ID, instance_, getInstance, Response };
 }
-type Response = import('./Response');
-declare var COOKIE_ID: string;
-declare var instance_: ServerId;
+declare let COOKIE_ID: string;
+declare let instance_: ServerId;
 declare function getInstance(): import('./ServerId.js');
+type Response = import('./Response');

@@ -1,4 +1,4 @@
-import { JSPM } from 'jsprintmanager';
+import { JSPM } from "jsprintmanager";
 
 JSPM.JSPrintManager.start()
     .then(_ => {

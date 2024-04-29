@@ -1,13 +1,6 @@
-// Type definitions for fslightbox-react 1.7
-// Project: https://fslightbox.com/
-// Definitions by: Kirill Nikitin <https://github.com/locke23rus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as React from "react";
 
-import * as React from 'react';
-
-export type SourceType = 'image' | 'video' | 'youtube' | null;
-
-export type VideoPoster = string | null;
+export type SourceType = "image" | "video" | "youtube" | null;
 
 export interface VideoDimensions {
     width: number;
@@ -28,16 +21,13 @@ export interface CustomToolbarButtonProps extends Required<ToolbarButtonProps> {
 
 export interface FsLightboxProps {
     toggler: boolean;
-    sources?: string[] | undefined;
+    sources?: Array<string | React.JSX.Element> | undefined;
 
     // captions
-    captions?: Array<JSX.Element | string> | undefined; // pro feature
-
-    // custom sources
-    customSources?: JSX.Element[] | undefined;
+    captions?: Array<string | React.JSX.Element> | undefined; // pro feature
 
     // custom attributes
-    customAttributes?: Array<{ [key: string]: string }> | undefined;
+    customAttributes?: Array<{ [key: string]: string } | null> | undefined;
 
     // slide number controlling
     slide?: number | undefined;
@@ -45,11 +35,11 @@ export interface FsLightboxProps {
     sourceIndex?: number | undefined;
 
     // events
-    onOpen?: ((instance: any) => void) | undefined;
-    onClose?: ((instance: any) => void) | undefined;
-    onInit?: ((instance: any) => void) | undefined;
-    onShow?: ((instance: any) => void) | undefined;
-    onSlideChange?: ((instance: any) => void) | undefined; // pro feature
+    onOpen?: ((instance: FsLightbox) => void) | undefined;
+    onClose?: ((instance: FsLightbox) => void) | undefined;
+    onInit?: ((instance: FsLightbox) => void) | undefined;
+    onShow?: ((instance: FsLightbox) => void) | undefined;
+    onSlideChange?: ((instance: FsLightbox) => void) | undefined; // pro feature
 
     // types
     disableLocalStorage?: boolean | undefined;
@@ -57,12 +47,11 @@ export interface FsLightboxProps {
     type?: SourceType | undefined;
 
     // sources
-    videosPosters?: VideoPoster[] | undefined;
     maxYoutubeVideoDimensions?: VideoDimensions | undefined;
 
     // thumbs
     thumbs?: Array<string | null> | undefined; // pro feature
-    thumbsIcons?: JSX.Element[] | undefined; // pro feature
+    thumbsIcons?: Array<React.JSX.Element | null> | undefined; // pro feature
 
     // animations
     initialAnimation?: string | undefined; // pro feature
@@ -72,12 +61,14 @@ export interface FsLightboxProps {
     customToolbarButtons?: CustomToolbarButtonProps[] | undefined; // pro feature
 
     // preferences
+    disableBackgroundClose?: boolean | undefined;
+    disableSlideSwiping?: boolean | undefined;
     loadOnlyCurrentSource?: boolean | undefined;
     showThumbsOnMount?: boolean | undefined; // pro feature
     disableThumbs?: boolean | undefined; // pro feature
     slideDistance?: number | undefined;
     slideshowTime?: number | undefined; // pro feature
-    UIFadeOutTime?: number | undefined; // pro feature
+    UIFadeOutTime?: number | false | undefined; // pro feature
     zoomIncrement?: number | undefined; // pro feature
     openOnMount?: boolean | undefined;
     exitFullscreenOnClose?: boolean | undefined;

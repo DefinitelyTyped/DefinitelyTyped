@@ -1,4 +1,4 @@
-import { Company } from './Company';
+import { Company } from "./Company";
 
 export interface UserEmailIdentifier {
     email: string;
@@ -7,12 +7,12 @@ export type UserIdIdentifier = { id: string } | { user_id: string };
 export type UserIdentifier = UserIdIdentifier | UserEmailIdentifier;
 
 export interface Avatar {
-    type: 'avatar';
+    type: "avatar";
     image_url: string | null;
 }
 
 export interface SocialProfile {
-    name: 'Twitter';
+    name: "Twitter";
     readonly id: string | null;
     username: string | null;
     url: string | null;
@@ -27,7 +27,7 @@ export interface Tag {
 }
 
 export interface LocationData {
-    type: 'location_data';
+    type: "location_data";
     city_name: string | null;
     continent_code: string | null;
     country_code: string | null;
@@ -40,7 +40,7 @@ export interface LocationData {
 }
 
 interface BaseUser {
-    type: 'user' | 'contact';
+    type: "user" | "contact";
     readonly id: string;
     user_id: string | null;
     email: string | null;
@@ -66,29 +66,29 @@ interface BaseUser {
 export interface User extends BaseUser {
     location_data: LocationData | {};
     social_profiles: {
-        type: 'social_profile.list';
+        type: "social_profile.list";
         social_profiles: SocialProfile[];
     };
     companies: {
-        type: 'company.list';
+        type: "company.list";
         companies: Company[];
     };
     segments: {
-        type: 'segment.list';
+        type: "segment.list";
         segments: Segment[];
     };
     tags: {
-        type: 'tag.list';
+        type: "tag.list";
         tags: Tag[];
     };
 }
 
 export interface CreateUpdateUser extends BaseUser {
-    companies: (Partial<Company> & { remove?: boolean | undefined })[];
+    companies: Array<Partial<Company> & { remove?: boolean | undefined }>;
 }
 
 export interface List {
-    type: 'user.list';
+    type: "user.list";
     total_count: number;
     users: User[];
     pages: { next?: string | undefined; page: number; per_page: number; total_pages: number };

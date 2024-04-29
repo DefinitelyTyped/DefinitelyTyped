@@ -1,9 +1,3 @@
-// Type definitions for node-media-server 2.3
-// Project: https://github.com/illuspas/Node-Media-Server
-// Definitions by: Thomas Seberechts <https://github.com/Tseberechts>
-//                 Chris Frewin <https://github.com/princefishthrower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Config {
     logType?: number;
     rtmp?: RtmpConfig;
@@ -79,6 +73,7 @@ interface RelayTaskConfig {
     mode: string;
     edge: string;
     rtsp_transport?: string;
+    appendName?: boolean;
 }
 
 interface FissionTaskConfig {

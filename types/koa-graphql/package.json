@@ -1,7 +1,19 @@
 {
-  "private": true,
-  "dependencies": {
-    "graphql": "^15.1.0",
-    "express-graphql": "^0.10.0"
-  }
+    "private": true,
+    "name": "@types/koa-graphql",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/chentsulin/koa-graphql"
+    ],
+    "dependencies": {
+        "@types/koa": "*",
+        "@types/node": "*",
+        "express-graphql": "^0.10.0",
+        "graphql": "^15.1.0"
+    },
+    "devDependencies": {
+        "@types/koa-graphql": "workspace:.",
+        "@types/koa-mount": "*"
+    },
+    "owners": []
 }

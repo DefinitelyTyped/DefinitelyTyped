@@ -1,13 +1,6 @@
-// Type definitions for jQuery Sortable v0.9.12
-// Project: http://johnny.github.io/jquery-sortable/
-// Definitions by: Nathan Pitman <https://github.com/Seltzer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace JQuerySortable {
-
     interface Position {
         top: number;
         left: number;
@@ -17,7 +10,7 @@ declare namespace JQuerySortable {
 
     interface ContainerGroup {
         $document: JQuery;
-        containerDimensions: Dimensions[]
+        containerDimensions: Dimensions[];
         containers: Container[];
         delayMet: boolean;
         dragInitDone: boolean;
@@ -34,7 +27,7 @@ declare namespace JQuerySortable {
         placeholder: JQuery;
         pointer: Position;
         relativePointer: Position;
-        sameResultBox: { bottom: number; left: number; right: number; top: number; };
+        sameResultBox: { bottom: number; left: number; right: number; top: number };
         scrollProxy: any;
     }
 
@@ -49,8 +42,12 @@ declare namespace JQuerySortable {
         items: HTMLElement[];
     }
 
-
-    type GenericEventHandler = ($item?: JQuery, container?: Container, _super?: GenericEventHandler, event?: Event) => void;
+    type GenericEventHandler = (
+        $item?: JQuery,
+        container?: Container,
+        _super?: GenericEventHandler,
+        event?: Event,
+    ) => void;
     type OnDragEventHandler = ($item?: JQuery, position?: Position, _super?: OnDragEventHandler, event?: Event) => void;
     type OnMousedownHandler = ($item?: JQuery, _super?: OnMousedownHandler, event?: Event) => void;
     type OnCancelHandler = ($item?: JQuery, container?: Container, _super?: OnCancelHandler, event?: Event) => void;
@@ -79,7 +76,6 @@ declare namespace JQuerySortable {
         tolerance?: number | undefined;
     }
 
-
     interface ContainerOptions {
         drag?: boolean | undefined;
         drop?: boolean | undefined;
@@ -94,11 +90,11 @@ declare namespace JQuerySortable {
 }
 
 interface JQuery {
-    sortable(methodName: 'enable'): JQuery;
-    sortable(methodName: 'disable'): JQuery;
-    sortable(methodName: 'refresh'): JQuery;
-    sortable(methodName: 'destroy'): JQuery;
-    sortable(methodName: 'serialize'): JQuery;
+    sortable(methodName: "enable"): JQuery;
+    sortable(methodName: "disable"): JQuery;
+    sortable(methodName: "refresh"): JQuery;
+    sortable(methodName: "destroy"): JQuery;
+    sortable(methodName: "serialize"): JQuery;
     sortable(methodName: string): JQuery;
     sortable(options?: JQuerySortable.Options): JQuery;
 }

@@ -1,6 +1,17 @@
 {
     "private": true,
+    "name": "@types/filestack-react",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/filestack/filestack-react"
+    ],
     "dependencies": {
+        "@types/node": "*",
+        "@types/react": "*",
         "filestack-js": "^3.20.0"
-    }
+    },
+    "devDependencies": {
+        "@types/filestack-react": "workspace:."
+    },
+    "owners": []
 }

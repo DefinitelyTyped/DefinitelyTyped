@@ -1,4 +1,4 @@
-import serialize = require('w3c-xmlserializer');
+import serialize = require("w3c-xmlserializer");
 
 serialize(document); // $ExpectType string
 serialize(document.documentElement); // $ExpectType string

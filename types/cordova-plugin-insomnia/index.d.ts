@@ -1,8 +1,3 @@
-// Type definitions for Insomnia-PhoneGap-Plugin v4.0.1
-// Project: https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin/
-// Definitions by: Markus Wagner <https://github.com/Ritzlgrmft>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Window {
     plugins: Plugins;
 }
@@ -13,7 +8,6 @@ interface Plugins {
 
 declare namespace InsomniaPlugin {
     export interface Insomnia {
-
         /**
          * Prevent the screen of the mobile device from falling asleep.
          */

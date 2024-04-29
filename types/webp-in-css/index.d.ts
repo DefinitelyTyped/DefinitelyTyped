@@ -1,18 +1,13 @@
-// Type definitions for webp-in-css 0.7
-// Project: https://www.npmjs.com/package/webp-in-css
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-// tslint:disable-next-line  no-declare-current-package keeping it simple
-declare module 'webp-in-css/polyfill' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "webp-in-css/polyfill" {
     // nothing here, global script
 }
 
-// tslint:disable-next-line  no-declare-current-package keeping it simple
-declare module 'webp-in-css/plugin' {
-    import { Declaration, PluginCreator } from 'postcss';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "webp-in-css/plugin" {
+    import { Declaration, PluginCreator } from "postcss";
 
     namespace webpInCss {
         interface Options {

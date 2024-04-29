@@ -1,12 +1,12 @@
-import { Client } from 'exaroton';
+import { Client } from "exaroton";
 
-const client = new Client('my token');
+const client = new Client("my token");
 
 const startServer = async (name: string) => {
     const servers = await client.getServers();
     const myServer = servers.find(s => s.name === name);
     if (!myServer) throw Error("Server not found");
-    myServer.setMOTD('Hello World');
+    myServer.setMOTD("Hello World");
     console.log(myServer?.status);
     if (myServer?.hasStatus([myServer.STATUS.ONLINE, myServer.STATUS.STARTING])) return;
     await myServer?.start();
@@ -18,4 +18,4 @@ const startServer = async (name: string) => {
     console.log(myServerProperties.getContent());
 };
 
-startServer('my server');
+startServer("my server");

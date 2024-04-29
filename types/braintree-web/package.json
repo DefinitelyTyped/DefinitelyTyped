@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/braintree-web",
+    "version": "3.96.9999",
+    "projects": [
+        "https://github.com/braintree/braintree-web"
+    ],
+    "dependencies": {
+        "@types/googlepay": "*",
+        "@types/paypal-checkout-components": "*"
+    },
+    "devDependencies": {
+        "@types/braintree-web": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Buckner",
+            "githubUsername": "jbuckner"
+        },
+        {
+            "name": "Daniel Macak",
+            "githubUsername": "daelmaak"
+        }
+    ]
+}

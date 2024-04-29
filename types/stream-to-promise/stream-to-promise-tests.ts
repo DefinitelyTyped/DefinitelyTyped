@@ -1,5 +1,5 @@
-import stp = require('stream-to-promise');
-import * as fs from 'fs';
+import stp = require("stream-to-promise");
+import * as fs from "fs";
 
 const read = fs.createReadStream(__filename);
 const write = fs.createWriteStream(__filename);

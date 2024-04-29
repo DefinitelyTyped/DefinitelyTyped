@@ -1,5 +1,5 @@
-import * as React from 'react';
-import TypeWriter from 'react-native-typewriter';
+import * as React from "react";
+import TypeWriter from "react-native-typewriter";
 
 export function Component() {
     return (

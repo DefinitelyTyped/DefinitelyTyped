@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/child-process-promise",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/patrick-steele-idem/child-process-promise"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/child-process-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luis Paulo",
+            "githubUsername": "TheDSCPL"
+        }
+    ]
+}

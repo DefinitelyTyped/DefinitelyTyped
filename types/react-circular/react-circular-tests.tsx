@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { CirclePosition } from 'react-circular';
+import * as React from "react";
+import { CirclePosition } from "react-circular";
 
 function ReactCircularTests() {
     const angles = [0, 45, 90, 135, 180, 225, 270, 315];

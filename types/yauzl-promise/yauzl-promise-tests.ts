@@ -1,20 +1,25 @@
-import * as yauzl from 'yauzl-promise';
+import * as yauzl from "yauzl-promise";
 
 class FakeRaR extends yauzl.RandomAccessReader {}
 
 const options: yauzl.Options = {
-    autoClose: true
+    decodeStrings: true,
+    validateEntrySizes: true,
+    validateFilenames: true,
+    strictFilenames: false,
+    supportMacArchive: true,
 };
 
 const zipOptions: yauzl.ZipFileOptions = {
     decrypt: true,
     decompress: true,
+    validateCrc32: true,
     start: 0,
-    end: 1
+    end: 1,
 };
 
 const date = yauzl.dosDateTimeToDate(1, 1);
-const fn = yauzl.validateFileName("fake");
+const fn = yauzl.validateFilename("fake");
 
 async function test() {
     const zip = await yauzl.open("");
@@ -39,6 +44,9 @@ async function test() {
     await entry.openReadStream();
     await entry.openReadStream(zipOptions);
 
+    const filename = entry.filename;
+    const filenameLength = entry.filenameLength;
+
     await zip.walkEntries(async (entry: yauzl.Entry) => {
         console.log("foo");
     });
@@ -46,4 +54,9 @@ async function test() {
     await zip.walkEntries(async (entry: yauzl.Entry) => {
         console.log("foo");
     }, 1);
+
+    {
+        let entry: yauzl.Entry;
+        for await (entry of zip) {}
+    }
 }

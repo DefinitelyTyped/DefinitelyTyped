@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/meteor-prime8consulting-oauth2",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "meteor-prime8consulting-oauth2",
+    "projects": [
+        "https://github.com/prime-8-consulting/meteor-oauth2/"
+    ],
+    "dependencies": {
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-prime8consulting-oauth2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robbie Van Gorkom",
+            "githubUsername": "vangorra"
+        }
+    ]
+}

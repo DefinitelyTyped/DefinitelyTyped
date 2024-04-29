@@ -1,5 +1,5 @@
-import { Point, RectPoints } from '../BasicTypes';
-import { FlipCorner, FlipDirection } from './Flip';
+import { Point, RectPoints } from "../BasicTypes";
+import { FlipCorner, FlipDirection } from "./Flip";
 /**
  * Class representing mathematical methods for calculating page position (rotation angle, clip area ...)
  */

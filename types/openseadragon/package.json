@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/openseadragon",
+    "version": "3.0.9999",
+    "projects": [
+        "https://openseadragon.github.io/"
+    ],
+    "devDependencies": {
+        "@types/openseadragon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Álvaro Martínez",
+            "githubUsername": "alvaromartmart"
+        },
+        {
+            "name": "Jasper Staab",
+            "githubUsername": "jstaab"
+        },
+        {
+            "name": "Kristin Ruben",
+            "githubUsername": "kristinruben"
+        },
+        {
+            "name": "Geoff Harper",
+            "githubUsername": "geoff-harper"
+        },
+        {
+            "name": "Justin",
+            "githubUsername": "justincy"
+        },
+        {
+            "name": "Peter Blazejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

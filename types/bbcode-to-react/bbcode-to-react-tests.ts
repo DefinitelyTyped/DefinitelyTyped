@@ -1,13 +1,13 @@
-import parser, { Tag, Parser } from 'bbcode-to-react';
+import parser, { Parser, Tag } from "bbcode-to-react";
 
 // $ExpectType void
-parser.registerTag('br', Tag);
+parser.registerTag("br", Tag);
 
 // $ExpectType string
-parser.toHTML('[B]strong[/B]');
+parser.toHTML("[B]strong[/B]");
 
 // $ExpectType ReactNode
-parser.toReact('[B]strong[/B]');
+parser.toReact("[B]strong[/B]");
 
 new (class extends Parser {
     testParser() {
@@ -18,7 +18,7 @@ new (class extends Parser {
         this.renderer;
 
         // $ExpectType Tag<{ linkify: boolean; }>
-        this.parse('');
+        this.parse("");
     }
 
     testRenderer() {
@@ -29,19 +29,19 @@ new (class extends Parser {
         this.renderer.contexts;
 
         // $ExpectType () => string[]
-        this.renderer.context({ linkify: false }, () => ['']);
+        this.renderer.context({ linkify: false }, () => [""]);
 
         // $ExpectType string
-        this.renderer.escape('');
+        this.renderer.escape("");
 
         // $ExpectType string
-        this.renderer.linkify('');
+        this.renderer.linkify("");
 
         // $ExpectType string
-        this.renderer.strip('');
+        this.renderer.strip("");
 
         // $ExpectType string
-        this.renderer.cosmeticReplace('');
+        this.renderer.cosmeticReplace("");
     }
 
     testTag() {

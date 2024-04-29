@@ -1,6 +1,10 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

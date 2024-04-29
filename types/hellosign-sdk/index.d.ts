@@ -1,11 +1,5 @@
-// Type definitions for hellosign-sdk 1.6
-// Project: https://github.com/HelloFax/hellosign-nodejs-sdk
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="node" />
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
 
 declare class HelloSign {
     constructor(options: HelloSign.HelloSignOptions);
@@ -49,22 +43,22 @@ declare namespace HelloSign {
 
     type HelloSignOptions =
         | {
-              key: string;
-          }
+            key: string;
+        }
         | {
-              username: string;
-              password: string;
-          }
+            username: string;
+            password: string;
+        }
         | {
-              key: string;
-              client_id: string;
-              client_secret: string;
-          };
+            key: string;
+            client_id: string;
+            client_secret: string;
+        };
 
     interface BaseResponse {
-        resHeaders: IncomingMessage['headers'];
-        statusCode?: IncomingMessage['statusCode'];
-        statusMessage?: IncomingMessage['statusMessage'];
+        resHeaders: IncomingMessage["headers"];
+        statusCode?: IncomingMessage["statusCode"];
+        statusMessage?: IncomingMessage["statusMessage"];
     }
 
     interface ListInfo {
@@ -109,7 +103,7 @@ declare namespace HelloSign {
         signer_name: string;
         signer_role: string;
         order: number;
-        status_code: string | 'awaiting_signature' | 'signed' | 'declined';
+        status_code: string | "awaiting_signature" | "signed" | "declined";
         decline_reason: string;
         signed_at: number | null;
         last_viewed_at: number | null;
@@ -121,15 +115,15 @@ declare namespace HelloSign {
     }
     type Field =
         | string
-        | 'text'
-        | 'checkbox'
-        | 'date_signed'
-        | 'dropdown'
-        | 'initials'
-        | 'radio'
-        | 'signature'
-        | 'text-merge'
-        | 'checkbox-merge';
+        | "text"
+        | "checkbox"
+        | "date_signed"
+        | "dropdown"
+        | "initials"
+        | "radio"
+        | "signature"
+        | "text-merge"
+        | "checkbox-merge";
     interface SignatureRequest<Metadata = GenericObject> {
         test_mode: number;
         signature_request_id: string;
@@ -152,22 +146,25 @@ declare namespace HelloSign {
         details_url: string;
         cc_email_addresses: string | string[];
         signing_redirect_url: string;
+        template_ids: null | string[];
         custom_fields?:
-            | Array<{
-                  name: string;
-                  type: 'text';
-                  value: string;
-                  required: boolean;
-                  api_id: string;
-                  editor: string;
-              } | {
-                  name: string;
-                  type: 'checkbox';
-                  value: boolean;
-                  required: boolean;
-                  api_id: string;
-                  editor: string;
-              }>
+            | Array<
+                {
+                    name: string;
+                    type: "text";
+                    value: string;
+                    required: boolean;
+                    api_id: string;
+                    editor: string;
+                } | {
+                    name: string;
+                    type: "checkbox";
+                    value: boolean;
+                    required: boolean;
+                    api_id: string;
+                    editor: string;
+                }
+            >
             | undefined;
         response_data: Array<{
             api_id: string;
@@ -191,16 +188,16 @@ declare namespace HelloSign {
         signer: number;
         name?: string | undefined;
         validation_type?:
-            | 'numbers_only'
-            | 'letters_only'
-            | 'phone_number'
-            | 'bank_routing_number'
-            | 'bank_account_number'
-            | 'email_address'
-            | 'zip_code'
-            | 'social_security_number'
-            | 'employer_identification_number'
-            | 'custom_regex'
+            | "numbers_only"
+            | "letters_only"
+            | "phone_number"
+            | "bank_routing_number"
+            | "bank_account_number"
+            | "email_address"
+            | "zip_code"
+            | "social_security_number"
+            | "employer_identification_number"
+            | "custom_regex"
             | undefined;
     }
     interface SignatureRequestRequestOptions<Metadata = GenericObject> {
@@ -223,19 +220,19 @@ declare namespace HelloSign {
         }>;
         attachments?:
             | Array<{
-                  name?: string | undefined;
-                  instructions?: string | undefined;
-                  signer_index?: string | undefined;
-                  required?: boolean | undefined;
-              }>
+                name?: string | undefined;
+                instructions?: string | undefined;
+                signer_index?: string | undefined;
+                required?: boolean | undefined;
+            }>
             | undefined;
         custom_fields?:
             | Array<{
-                  name: string;
-                  value: string | boolean;
-                  editor?: string | undefined;
-                  required?: boolean | undefined;
-              }>
+                name: string;
+                value: string | boolean;
+                editor?: string | undefined;
+                required?: boolean | undefined;
+            }>
             | undefined;
         cc_email_addresses?: string[] | undefined;
         ccs?: Record<string, { email_address: string }> | undefined;
@@ -247,23 +244,23 @@ declare namespace HelloSign {
         form_fields_per_document?: FormField[][] | undefined;
         signing_options?:
             | {
-                  draw?: boolean | undefined;
-                  type?: boolean | undefined;
-                  upload?: boolean | undefined;
-                  phone?: boolean | undefined;
-                  default: string;
-              }
+                draw?: boolean | undefined;
+                type?: boolean | undefined;
+                upload?: boolean | undefined;
+                phone?: boolean | undefined;
+                default: string;
+            }
             | undefined;
         field_options?:
             | {
-                  date_format:
-                      | 'MM / DD / YYYY'
-                      | 'MM - DD - YYYY'
-                      | 'DD / MM / YYYY'
-                      | 'DD - MM - YYYY'
-                      | 'YYYY / MM / DD'
-                      | 'YYYY - MM - DD';
-              }
+                date_format:
+                    | "MM / DD / YYYY"
+                    | "MM - DD - YYYY"
+                    | "DD / MM / YYYY"
+                    | "DD - MM - YYYY"
+                    | "YYYY / MM / DD"
+                    | "YYYY - MM - DD";
+            }
             | undefined;
         signing_redirect_url?: string | undefined;
     }
@@ -277,7 +274,7 @@ declare namespace HelloSign {
         file_url?: string | undefined;
         expires_at?: number | undefined;
     }
-    type FilesOptions = { file_type: 'pdf'; get_url?: boolean; get_data_uri?: boolean } | { file_type: 'zip' };
+    type FilesOptions = { file_type: "pdf"; get_url?: boolean; get_data_uri?: boolean } | { file_type: "zip" };
     interface SignatureRequestModule {
         get(signatureRequestId: string): Promise<SignatureRequestResponse>;
         list(params?: {
@@ -292,19 +289,18 @@ declare namespace HelloSign {
             requestId: string,
             options?: Options,
         ): Promise<
-            Options extends { file_type: 'pdf'; get_url: true }
-                ? { file_url: string; expires_at: Date } & BaseResponse
-                : Options extends { file_type: 'pdf'; get_data_uri: true }
-                ? { data_uri: string; expires_at: Date } & BaseResponse
+            Options extends { file_type: "pdf"; get_url: true } ? { file_url: string; expires_at: Date } & BaseResponse
+                : Options extends { file_type: "pdf"; get_data_uri: true }
+                    ? { data_uri: string; expires_at: Date } & BaseResponse
                 : IncomingMessage
         >;
         cancel(requestId: string): Promise<BaseResponse>;
         removeAccess(requestId: string): Promise<BaseResponse>;
         createEmbedded(
-            options: Omit<SignatureRequestRequestOptions, 'signing_redirect_url'>,
+            options: Omit<SignatureRequestRequestOptions, "signing_redirect_url">,
         ): Promise<SignatureRequestResponse>;
         createEmbeddedWithTemplate(
-            options: Omit<SignatureRequestRequestOptions, 'signing_redirect_url'>,
+            options: Omit<SignatureRequestRequestOptions, "signing_redirect_url">,
         ): Promise<SignatureRequestResponse>;
         releaseHold(requestId: string): Promise<BaseResponse>;
     }
@@ -333,9 +329,9 @@ declare namespace HelloSign {
         force_subject_message?: any;
         editor_options?:
             | {
-                  allow_edit_signers?: boolean | undefined;
-                  allow_edit_documents?: boolean | undefined;
-              }
+                allow_edit_signers?: boolean | undefined;
+                allow_edit_documents?: boolean | undefined;
+            }
             | undefined;
     }
     interface EmbeddedModule {
@@ -350,7 +346,7 @@ declare namespace HelloSign {
         end_date: string;
         report_type: string[];
     }
-    interface Report extends Omit<ReportsRequestOptions, 'test_mode'> {
+    interface Report extends Omit<ReportsRequestOptions, "test_mode"> {
         success?: string | undefined;
     }
     interface ReportResponse extends BaseResponse {
@@ -399,8 +395,8 @@ declare namespace HelloSign {
     }
     interface TeamModule {
         get(): Promise<TeamResponse>;
-        create(options: Pick<Team, 'name'>): Promise<TeamResponse>;
-        update(options: Pick<Team, 'name'>): Promise<TeamResponse>;
+        create(options: Pick<Team, "name">): Promise<TeamResponse>;
+        update(options: Pick<Team, "name">): Promise<TeamResponse>;
         destroy(): Promise<BaseResponse>;
         addMember(options: AccountIdOrEmailRequestOptions): Promise<TeamResponse>;
         removeMember(
@@ -433,8 +429,8 @@ declare namespace HelloSign {
         reusable_form_id: string;
     }
 
-    interface Template<Metadata = GenericObject>
-        extends Partial<{
+    interface Template<Metadata = GenericObject> extends
+        Partial<{
             template_id: string;
             title: string;
             message: string;
@@ -472,7 +468,8 @@ declare namespace HelloSign {
             is_embedded: boolean;
             can_edit: boolean;
             is_locked: boolean;
-        }> {}
+        }>
+    {}
     interface TemplateResponse extends BaseResponse {
         template: Template;
     }
@@ -494,10 +491,9 @@ declare namespace HelloSign {
             templateId: string,
             options?: Options,
         ) => Promise<
-            Options extends { file_type: 'pdf'; get_url: true }
-                ? { file_url: string; expires_at: Date } & BaseResponse
-                : Options extends { file_type: 'pdf'; get_data_uri: true }
-                ? { data_uri: string; expires_at: Date } & BaseResponse
+            Options extends { file_type: "pdf"; get_url: true } ? { file_url: string; expires_at: Date } & BaseResponse
+                : Options extends { file_type: "pdf"; get_data_uri: true }
+                    ? { data_uri: string; expires_at: Date } & BaseResponse
                 : IncomingMessage
         >;
     }
@@ -522,26 +518,26 @@ declare namespace HelloSign {
         message?: string | undefined;
         signers?:
             | Array<{
-                  email_address?: string | undefined;
-                  name?: string | undefined;
-                  order?: number | undefined;
-              }>
+                email_address?: string | undefined;
+                name?: string | undefined;
+                order?: number | undefined;
+            }>
             | undefined;
         attachments?:
             | Array<{
-                  name?: string | undefined;
-                  instructions?: string | undefined;
-                  signer_index?: string | undefined;
-                  required?: boolean | undefined;
-              }>
+                name?: string | undefined;
+                instructions?: string | undefined;
+                signer_index?: string | undefined;
+                required?: boolean | undefined;
+            }>
             | undefined;
         custom_fields?:
             | Array<{
-                  name: string;
-                  value: string | boolean;
-                  editor?: string | undefined;
-                  required?: boolean | undefined;
-              }>
+                name: string;
+                value: string | boolean;
+                editor?: string | undefined;
+                required?: boolean | undefined;
+            }>
             | undefined;
         cc_email_addresses?: string[] | undefined;
         signing_redirect_url?: string | undefined;
@@ -554,23 +550,23 @@ declare namespace HelloSign {
         form_fields_per_document?: FormField[][] | undefined;
         signing_options?:
             | {
-                  draw?: boolean | undefined;
-                  type?: boolean | undefined;
-                  upload?: boolean | undefined;
-                  phone?: boolean | undefined;
-                  default: string;
-              }
+                draw?: boolean | undefined;
+                type?: boolean | undefined;
+                upload?: boolean | undefined;
+                phone?: boolean | undefined;
+                default: string;
+            }
             | undefined;
         field_options?:
             | {
-                  date_format:
-                      | 'MM / DD / YYYY'
-                      | 'MM - DD - YYYY'
-                      | 'DD / MM / YYYY'
-                      | 'DD - MM - YYYY'
-                      | 'YYYY / MM / DD'
-                      | 'YYYY - MM - DD';
-              }
+                date_format:
+                    | "MM / DD / YYYY"
+                    | "MM - DD - YYYY"
+                    | "DD / MM / YYYY"
+                    | "DD - MM - YYYY"
+                    | "YYYY / MM / DD"
+                    | "YYYY - MM - DD";
+            }
             | undefined;
         is_for_embedded_signing?: number | undefined;
     }
@@ -585,25 +581,25 @@ declare namespace HelloSign {
     }
 
     type HellosignEvents =
-        | 'signature_request_viewed'
-        | 'signature_request_signed'
-        | 'signature_request_downloadable'
-        | 'signature_request_sent'
-        | 'signature_request_declined'
-        | 'signature_request_reassigned'
-        | 'signature_request_remind'
-        | 'signature_request_all_signed'
-        | 'signature_request_email_bounce'
-        | 'signature_request_invalid'
-        | 'signature_request_canceled'
-        | 'signature_request_prepared'
-        | 'file_error'
-        | 'unknown_error'
-        | 'sign_url_invalid'
-        | 'account_confirmed'
-        | 'template_created'
-        | 'template_error'
-        | 'callback_test';
+        | "signature_request_viewed"
+        | "signature_request_signed"
+        | "signature_request_downloadable"
+        | "signature_request_sent"
+        | "signature_request_declined"
+        | "signature_request_reassigned"
+        | "signature_request_remind"
+        | "signature_request_all_signed"
+        | "signature_request_email_bounce"
+        | "signature_request_invalid"
+        | "signature_request_canceled"
+        | "signature_request_prepared"
+        | "file_error"
+        | "unknown_error"
+        | "sign_url_invalid"
+        | "account_confirmed"
+        | "template_created"
+        | "template_error"
+        | "callback_test";
 
     interface Event<Metadata = GenericObject> {
         /**
@@ -627,11 +623,12 @@ declare namespace HelloSign {
             >;
         };
     }
-    type EventResponse<Response = SignatureRequestResponse> = Partial<AccountResponse> &
-        Partial<SignatureRequestResponse> &
-        Partial<TemplateResponse> &
-        Event &
-        Response;
+    type EventResponse<Response = SignatureRequestResponse> =
+        & Partial<AccountResponse>
+        & Partial<SignatureRequestResponse>
+        & Partial<TemplateResponse>
+        & Event
+        & Response;
 
     interface ApiApp {
         client_id: string;
@@ -668,15 +665,15 @@ declare namespace HelloSign {
         custom_logo_file?: any;
         oauth?:
             | {
-                  callback_url: string;
-                  scopes: string;
-              }
+                callback_url: string;
+                scopes: string;
+            }
             | undefined;
         white_labeling_options?: any[] | undefined;
         options?:
             | {
-                  can_insert_everywhere?: boolean | undefined;
-              }
+                can_insert_everywhere?: boolean | undefined;
+            }
             | undefined;
     }
     interface ApiAppModule {

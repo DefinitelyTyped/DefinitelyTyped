@@ -1,8 +1,3 @@
-// Type definitions for range-exclusive 1.0
-// Project: https://github.com/emilbayes/range-exclusive
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = rangeExclusive;
 
 /**

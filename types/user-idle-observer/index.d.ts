@@ -1,8 +1,3 @@
-// Type definitions for user-idle-observer 1.0
-// Project: https://github.com/vladagurets/user-idle-observer#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace userIDLEObserver;
 
 /**

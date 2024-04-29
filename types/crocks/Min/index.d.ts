@@ -1,2 +1,2 @@
-import Min from './Min';
+import Min from "./Min";
 export default Min;

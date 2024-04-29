@@ -1,20 +1,20 @@
-import * as L from 'leaflet';
-import * as geojson from 'geojson';
+import * as geojson from "geojson";
+import * as L from "leaflet";
 
-const map = new L.Map('#id');
+const map = new L.Map("#id");
 const layer = new L.Layer();
 
 const polygonOptions: L.PolylineOptions = {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     weight: 2,
     opacity: 0.75,
-    fillColor: '#000000'
+    fillColor: "#000000",
 };
 
 const polylineOptions: L.PolylineOptions = {
     smoothFactor: 1,
     noClip: true,
-    weight: 3
+    weight: 3,
 };
 
 const freehandOptions: L.FreeHandShapesOptions = {
@@ -22,7 +22,7 @@ const freehandOptions: L.FreeHandShapesOptions = {
     polyline: polylineOptions,
     simplify_tolerance: 0.01,
     merge_polygons: false,
-    concave_polygons: undefined
+    concave_polygons: undefined,
 };
 
 const leafletMouseEvent: L.LeafletMouseEvent = {} as unknown as L.LeafletMouseEvent;
@@ -45,8 +45,8 @@ freehand.getEvents();
 freehand.addLayer(layer);
 freehand.addLayer(layer, true);
 freehand.drawStartedEvents();
-freehand.drawStartedEvents('on');
-freehand.drawStartedEvents('off');
+freehand.drawStartedEvents("on");
+freehand.drawStartedEvents("off");
 freehand.zoomMoveStart();
 freehand.startDraw();
 freehand.stopDraw();
@@ -67,14 +67,14 @@ freehand.getLatLngsFromJSON(geo);
 freehand.getCoordsFromLatLngs(latlngs);
 freehand.resetTracer();
 freehand.setMapPermissions();
-freehand.setMapPermissions('enable');
-freehand.setMapPermissions('disable');
+freehand.setMapPermissions("enable");
+freehand.setMapPermissions("disable");
 freehand.setMode();
-freehand.setMode('add');
-freehand.setMode('subtract');
-freehand.setMode('view');
-freehand.setMode('delete');
+freehand.setMode("add");
+freehand.setMode("subtract");
+freehand.setMode("view");
+freehand.setMode("delete");
 freehand.setMapClass();
-freehand.on('layeradd', () => {});
+freehand.on("layeradd", () => {});
 
 map.addLayer(freehand);

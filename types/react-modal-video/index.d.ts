@@ -1,10 +1,4 @@
-// Type definitions for react-modal-video 1.2
-// Project: https://github.com/appleple/react-modal-video
-// Definitions by: Julián Bovone <https://github.com/jbovone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
-import * as React from 'react';
+import * as React from "react";
 
 interface VimeoApi {
     api?: boolean;
@@ -27,7 +21,7 @@ interface VimeoApi {
 interface YoutubeApi {
     autoplay?: 0 | 1;
     cc_load_policy?: 0 | 1;
-    color?: 'red | white';
+    color?: "red | white";
     controls?: 0 | 1;
     disablekb?: 0 | 1;
     enablejsapi?: 0 | 1;
@@ -36,7 +30,7 @@ interface YoutubeApi {
     h1?: string;
     iv_load_policy?: 0 | 1;
     list?: string;
-    listType?: 'playlist' | 'user_uploads';
+    listType?: "playlist" | "user_uploads";
     loop?: 0 | 1;
     modestbranding?: 0 | 1;
     origin?: string;
@@ -64,25 +58,25 @@ interface Vendor {
     videoId: string;
 }
 interface Youku extends Vendor {
-    channel: 'youku';
+    channel: "youku";
     youku?: YoukuApi;
 }
 interface Youtube extends Vendor {
-    channel: 'youtube';
+    channel: "youtube";
     /**
      * @link https://developers.google.com/youtube/player_parameters
      */
     youtube?: YoutubeApi;
 }
 interface Vimeo extends Vendor {
-    channel: 'vimeo';
+    channel: "vimeo";
     /**
      * @link https://developer.vimeo.com/api/oembed/videos
      */
     vimeo?: VimeoApi;
 }
 interface Custom {
-    channel: 'custom';
+    channel: "custom";
     url: string;
 }
 
@@ -143,24 +137,24 @@ export type ModalVideoProps = ModalVideoBaseProps & (Youtube | Vimeo | Youku | C
 
 declare class ModalVideo extends React.Component<ModalVideoProps> {
     static defaultProps: {
-        channel: 'youtube';
+        channel: "youtube";
         isOpen: false;
         classNames: {
-            modalVideoEffect: 'modal-video-effect';
-            modalVideo: 'modal-video';
-            modalVideoClose: 'modal-video-close';
-            modalVideoBody: 'modal-video-body';
-            modalVideoInner: 'modal-video-inner';
-            modalVideoIframeWrap: 'modal-video-movie-wrap';
-            modalVideoCloseBtn: 'modal-video-close-btn';
+            modalVideoEffect: "modal-video-effect";
+            modalVideo: "modal-video";
+            modalVideoClose: "modal-video-close";
+            modalVideoBody: "modal-video-body";
+            modalVideoInner: "modal-video-inner";
+            modalVideoIframeWrap: "modal-video-movie-wrap";
+            modalVideoCloseBtn: "modal-video-close-btn";
         };
         animationSpeed: 300;
         allowFullScreen: true;
         aria: {
-            openMessage: 'You just opened the modal video';
-            dismissBtnMessage: 'Close the modal by clicking here';
+            openMessage: "You just opened the modal video";
+            dismissBtnMessage: "Close the modal by clicking here";
         };
-        ratio: '16:9';
+        ratio: "16:9";
     };
 }
 

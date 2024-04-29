@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-type-only-packages": "off",
+        "@typescript-eslint/naming-convention": "off"
+    }
+}

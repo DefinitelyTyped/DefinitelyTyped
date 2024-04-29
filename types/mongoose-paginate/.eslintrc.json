@@ -1,7 +1,12 @@
 {
     "rules": {
-        "dt-header": "off",
-        "prefer-declare-function": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.browserSettings
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.browserSettings</code> API to control global settings of the browser.
  * Permissions: "browserSettings"

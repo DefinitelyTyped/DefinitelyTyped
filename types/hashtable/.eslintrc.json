@@ -1,6 +1,8 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

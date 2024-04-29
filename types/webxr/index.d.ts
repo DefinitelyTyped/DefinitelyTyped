@@ -1,11 +1,3 @@
-// Type definitions for non-npm package webxr 0.5
-// Project: https://www.w3.org/TR/webxr/
-// Definitions by: Rob Rohan <https://github.com/robrohan>
-//                 Raanan Weber <https://github.com/RaananW>
-//                 Sean T. McBeth <https://github.com/capnmidnight>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // Most of this was hand written and... more or less copied from the following
 // sites:
 //  https://www.w3.org/TR/webxr/
@@ -44,39 +36,39 @@ interface WebGLRenderingContextBase {
  *
  * ref: https://immersive-web.github.io/webxr/#xrsessionmode-enum
  */
-type XRSessionMode = 'inline' | 'immersive-vr' | 'immersive-ar';
+type XRSessionMode = "inline" | "immersive-vr" | "immersive-ar";
 
 /**
  * Reference space types
  */
-type XRReferenceSpaceType = 'viewer' | 'local' | 'local-floor' | 'bounded-floor' | 'unbounded';
+type XRReferenceSpaceType = "viewer" | "local" | "local-floor" | "bounded-floor" | "unbounded";
 
-type XREnvironmentBlendMode = 'opaque' | 'additive' | 'alpha-blend';
+type XREnvironmentBlendMode = "opaque" | "additive" | "alpha-blend";
 
 /**
  * ref: https://immersive-web.github.io/webxr/#xrsession-interface
  */
-type XRVisibilityState = 'visible' | 'visible-blurred' | 'hidden';
+type XRVisibilityState = "visible" | "visible-blurred" | "hidden";
 
 /**
  * Handedness types
  */
-type XRHandedness = 'none' | 'left' | 'right';
+type XRHandedness = "none" | "left" | "right";
 
 /**
  * InputSource target ray modes
  */
-type XRTargetRayMode = 'gaze' | 'tracked-pointer' | 'screen';
+type XRTargetRayMode = "gaze" | "tracked-pointer" | "screen" | "transient-pointer";
 
 /**
  * Eye types
  */
-type XREye = 'none' | 'left' | 'right';
+type XREye = "none" | "left" | "right";
 
 type XRFrameRequestCallback = (time: DOMHighResTimeStamp, frame: XRFrame) => void;
 
 interface XRSystemDeviceChangeEvent extends Event {
-    type: 'devicechange';
+    type: "devicechange";
 }
 
 interface XRSystemDeviceChangeEventHandler {
@@ -157,7 +149,7 @@ declare abstract class XRViewport implements XRViewport {}
  *
  * ref: https://immersive-web.github.io/webxr/#xrspace-interface
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface XRSpace extends EventTarget {}
 
 declare abstract class XRSpace implements XRSpace {}
@@ -189,14 +181,14 @@ interface XRReferenceSpaceEventInit extends EventInit {
  * ref: https://immersive-web.github.io/webxr/#xrreferencespaceevent-interface
  */
 interface XRReferenceSpaceEvent extends Event {
-    readonly type: 'reset';
+    readonly type: "reset";
     readonly referenceSpace: XRReferenceSpace;
     readonly transform?: XRRigidTransform | undefined;
 }
 
 // tslint:disable-next-line no-unnecessary-class
 declare class XRReferenceSpaceEvent implements XRReferenceSpaceEvent {
-    constructor(type: 'reset', eventInitDict?: XRReferenceSpaceEventInit);
+    constructor(type: "reset", eventInitDict?: XRReferenceSpaceEventInit);
 }
 
 interface XRReferenceSpaceEventHandler {
@@ -301,6 +293,8 @@ declare abstract class XRInputSourceArray implements XRInputSourceArray {}
  */
 interface XRPose {
     readonly transform: XRRigidTransform;
+    readonly linearVelocity?: DOMPointReadOnly | undefined;
+    readonly angularVelocity?: DOMPointReadOnly | undefined;
     readonly emulatedPosition: boolean;
 }
 
@@ -342,7 +336,7 @@ declare abstract class XRFrame implements XRFrame {}
 /**
  * Type of XR events available
  */
-type XRInputSourceEventType = 'select' | 'selectend' | 'selectstart' | 'squeeze' | 'squeezeend' | 'squeezestart';
+type XRInputSourceEventType = "select" | "selectend" | "selectstart" | "squeeze" | "squeezeend" | "squeezestart";
 
 interface XRInputSourceEventInit extends EventInit {
     frame?: XRFrame | undefined;
@@ -365,7 +359,7 @@ interface XRInputSourceEventHandler {
     (evt: XRInputSourceEvent): any;
 }
 
-type XRSessionEventType = 'end' | 'visibilitychange' | 'frameratechange';
+type XRSessionEventType = "end" | "visibilitychange" | "frameratechange";
 
 interface XRSessionEventInit extends EventInit {
     session: XRSession;
@@ -428,6 +422,8 @@ interface XRSession extends EventTarget {
     readonly visibilityState: XRVisibilityState;
     readonly frameRate?: number | undefined;
     readonly supportedFrameRates?: Float32Array | undefined;
+    readonly enabledFeatures?: string[] | undefined;
+    readonly isSystemKeyboardSupported: boolean;
 
     /**
      * Removes a callback from the animation frame painting callback from
@@ -510,7 +506,7 @@ declare abstract class XRSession implements XRSession {}
  * ref: https://immersive-web.github.io/webxr/#xrviewerpose-interface
  */
 interface XRViewerPose extends XRPose {
-    readonly views: ReadonlyArray<XRView>;
+    readonly views: readonly XRView[];
 }
 
 declare abstract class XRViewerPose implements XRViewerPose {}
@@ -551,8 +547,8 @@ declare abstract class XRView implements XRView {}
  * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
  */
 interface XRInputSourceChangeEvent extends XRSessionEvent {
-    readonly removed: ReadonlyArray<XRInputSource>;
-    readonly added: ReadonlyArray<XRInputSource>;
+    readonly removed: readonly XRInputSource[];
+    readonly added: readonly XRInputSource[];
 }
 
 interface XRInputSourceChangeEventHandler {
@@ -585,11 +581,11 @@ declare class XRRay {
     constructor(transformOrOrigin?: XRRigidTransform | DOMPointInit, direction?: DOMPointInit);
 }
 
-type XRHitTestTrackableType = 'point' | 'plane' | 'mesh';
+type XRHitTestTrackableType = "point" | "plane" | "mesh";
 
 interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
-    readonly results: ReadonlyArray<XRHitTestResult>;
+    readonly results: readonly XRHitTestResult[];
 }
 
 declare class XRTransientInputHitTestResult {
@@ -651,60 +647,111 @@ interface XRHitResult {
 // Plane detection
 type XRPlaneSet = Set<XRPlane>;
 
-type XRPlaneOrientation = 'horizontal' | 'vertical';
+type XRPlaneOrientation = "horizontal" | "vertical";
 
 interface XRPlane {
     orientation: XRPlaneOrientation;
     planeSpace: XRSpace;
     polygon: DOMPointReadOnly[];
-    lastChangedTime: number;
+    lastChangedTime: DOMHighResTimeStamp;
+}
+
+interface XRFrame {
+    /**
+     * XRFrame is extended to contain detectedPlanes attribute which contains
+     * all planes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update planes
+     * algorithm. If this attribute is accessed when the frame is not active,
+     * the user agent MUST throw InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
+     */
+    readonly detectedPlanes?: XRPlaneSet;
 }
 
 declare abstract class XRPlane implements XRPlane {}
 
-interface XRSession {
-    // Legacy
-    updateWorldTrackingState?: (options: {
-        planeDetectionState?: { enabled: boolean } | undefined;
-    }) => void | undefined;
+// Mesh detection
+type XRMeshSet = Set<XRMesh>;
+
+interface XRMesh {
+    meshSpace: XRSpace;
+    vertices: Float32Array;
+    indices: Uint32Array;
+    lastChangedTime: DOMHighResTimeStamp;
+    semanticLabel?: string;
 }
 
 interface XRFrame {
-    worldInformation?:
-        | {
-              detectedPlanes?: XRPlaneSet | undefined;
-          }
-        | undefined;
+    /**
+     * XRFrame is extended to contain detectedMeshes attribute
+     * which contains all meshes that are still tracked in the frame.
+     *
+     * The set is initially empty and will be populated by the update meshes algorithm.
+     * If this attribute is accessed when the frame is not active, the user agent
+     * MUST throw InvalidStateError.
+     *
+     * @see https://immersive-web.github.io/real-world-meshing/#mesh-set
+     */
+    readonly detectedMeshes?: XRMeshSet;
 }
 
-// Hand Tracking
-type XRHandJoint =
-    | 'wrist'
-    | 'thumb-metacarpal'
-    | 'thumb-phalanx-proximal'
-    | 'thumb-phalanx-distal'
-    | 'thumb-tip'
-    | 'index-finger-metacarpal'
-    | 'index-finger-phalanx-proximal'
-    | 'index-finger-phalanx-intermediate'
-    | 'index-finger-phalanx-distal'
-    | 'index-finger-tip'
-    | 'middle-finger-metacarpal'
-    | 'middle-finger-phalanx-proximal'
-    | 'middle-finger-phalanx-intermediate'
-    | 'middle-finger-phalanx-distal'
-    | 'middle-finger-tip'
-    | 'ring-finger-metacarpal'
-    | 'ring-finger-phalanx-proximal'
-    | 'ring-finger-phalanx-intermediate'
-    | 'ring-finger-phalanx-distal'
-    | 'ring-finger-tip'
-    | 'pinky-finger-metacarpal'
-    | 'pinky-finger-phalanx-proximal'
-    | 'pinky-finger-phalanx-intermediate'
-    | 'pinky-finger-phalanx-distal'
-    | 'pinky-finger-tip';
+declare abstract class XRMesh implements XRMesh {}
 
+interface XRSession {
+    /**
+     * XRSession is extended to contain the initiateRoomCapture method which,
+     * if supported, will ask the XR Compositor to capture the current room layout.
+     * It is up to the XRCompositor if this will replace or augment the set of tracked planes.
+     * The user agent MAY also ignore this call, for instance if it doesn’t support a manual room
+     * capture more or if it determines that the room is already set up.
+     * The initiateRoomCapture method MUST only be able to be called once per XRSession.
+     *
+     * @see https://immersive-web.github.io/real-world-geometry/plane-detection.html#plane-set
+     */
+    initiateRoomCapture?(): Promise<undefined>;
+}
+
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
+type XRHandJoint =
+    | "wrist"
+    | "thumb-metacarpal"
+    | "thumb-phalanx-proximal"
+    | "thumb-phalanx-distal"
+    | "thumb-tip"
+    | "index-finger-metacarpal"
+    | "index-finger-phalanx-proximal"
+    | "index-finger-phalanx-intermediate"
+    | "index-finger-phalanx-distal"
+    | "index-finger-tip"
+    | "middle-finger-metacarpal"
+    | "middle-finger-phalanx-proximal"
+    | "middle-finger-phalanx-intermediate"
+    | "middle-finger-phalanx-distal"
+    | "middle-finger-tip"
+    | "ring-finger-metacarpal"
+    | "ring-finger-phalanx-proximal"
+    | "ring-finger-phalanx-intermediate"
+    | "ring-finger-phalanx-distal"
+    | "ring-finger-tip"
+    | "pinky-finger-metacarpal"
+    | "pinky-finger-phalanx-proximal"
+    | "pinky-finger-phalanx-intermediate"
+    | "pinky-finger-phalanx-distal"
+    | "pinky-finger-tip";
+
+/**
+ * The XRJointSpace interface is an {@link XRSpace} and represents the position and
+ * orientation of an {@link XRHand} joint.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrjointspace-interface
+ */
 interface XRJointSpace extends XRSpace {
     readonly jointName: XRHandJoint;
 }
@@ -717,7 +764,13 @@ interface XRJointPose extends XRPose {
 
 declare abstract class XRJointPose implements XRJointPose {}
 
-interface XRHand extends Map<number, XRJointSpace> {
+/**
+ * The XRHand interface is pair iterator (an ordered map) with the key being the hand
+ * joints ({@link XRHandJoint}) and the value being an {@link XRJointSpace}.
+ *
+ * @see https://immersive-web.github.io/webxr-hand-input/#xrhand-interface
+ */
+interface XRHand extends Map<XRHandJoint, XRJointSpace> {
     readonly WRIST: number;
 
     readonly THUMB_METACARPAL: number;
@@ -762,7 +815,7 @@ interface XRFrame {
  * The base class for XRWebGLLayer and other layer types introduced by future extensions.
  * ref: https://immersive-web.github.io/webxr/#xrlayer-interface
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface XRLayer extends EventTarget {}
 
 declare abstract class XRLayer implements XRLayer {}
@@ -809,7 +862,7 @@ interface XRRenderState {
     readonly layers?: XRLayer[] | undefined;
 }
 
-type XRLayerEventType = 'redraw';
+type XRLayerEventType = "redraw";
 
 interface XRLayerEvent extends Event {
     readonly type: XRLayerEventType;
@@ -831,7 +884,7 @@ interface XRCompositionLayer extends XRLayer {
     space: XRSpace;
 
     // Events
-    onredraw: (evt: XRCompositionLayerEventMap['redraw']) => any;
+    onredraw: (evt: XRCompositionLayerEventMap["redraw"]) => any;
 
     addEventListener<K extends keyof XRCompositionLayerEventMap>(
         this: XRCompositionLayer,
@@ -859,9 +912,9 @@ interface XRCompositionLayer extends XRLayer {
 
 declare abstract class XRCompositionLayer implements XRCompositionLayer {}
 
-type XRTextureType = 'texture' | 'texture-array';
+type XRTextureType = "texture" | "texture-array";
 
-type XRLayerLayout = 'default' | 'mono' | 'stereo' | 'stereo-left-right' | 'stereo-top-bottom';
+type XRLayerLayout = "default" | "mono" | "stereo" | "stereo-left-right" | "stereo-top-bottom";
 
 interface XRProjectionLayerInit {
     scaleFactor?: number | undefined;
@@ -1020,7 +1073,7 @@ declare class XRMediaBinding {
 
 // WebGL extensions
 interface WebGLRenderingContextBase {
-    getExtension(extensionName: 'OCULUS_multiview'): OCULUS_multiview | null;
+    getExtension(extensionName: "OCULUS_multiview"): OCULUS_multiview | null;
 }
 
 declare enum XOVR_multiview2 {
@@ -1038,7 +1091,7 @@ interface XRSessionGrant {
 }
 
 interface XRSystemSessionGrantedEvent extends Event {
-    type: 'sessiongranted';
+    type: "sessiongranted";
     session: XRSessionGrant;
 }
 
@@ -1096,7 +1149,7 @@ interface XRSessionInit {
     domOverlay?: XRDOMOverlayInit | undefined;
 }
 
-type XRDOMOverlayType = 'screen' | 'floating' | 'head-locked';
+type XRDOMOverlayType = "screen" | "floating" | "head-locked";
 
 interface XRDOMOverlayState {
     type: XRDOMOverlayType;
