@@ -21,6 +21,7 @@ const retry: fetch.FetchRetryOptions = {
 
 const opts: fetch.Options = {
     alwaysAuth: false,
+    authType: "web",
     fetchRetries: 42,
     fetchRetryFactor: 10,
     fetchRetryMaxtimeout: 10000,
@@ -29,7 +30,7 @@ const opts: fetch.Options = {
     ignoreBody: true,
     isFromCI: false,
     localAddress: "address.local",
-    mapJSON: obj => obj.toString(),
+    mapJSON: (obj) => obj.toString(),
     maxSockets: 42,
     npmSession: "session",
     preferOffline: false,

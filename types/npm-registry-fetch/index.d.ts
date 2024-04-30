@@ -42,6 +42,11 @@ declare namespace fetch {
     interface AuthOptions {
         "always-auth"?: boolean | undefined;
         alwaysAuth?: boolean | undefined;
+        /**
+         * This value wii be set to the `npm-auth-type` http header field.
+         * See: https://docs.npmjs.com/cli/commands/npm-login
+         */
+        authType?: "web" | "legacy" | undefined;
         email?: string | undefined;
         /**
          * Password used for basic authentication. For the more modern
