@@ -18,7 +18,7 @@ declare class OAuth2Strategy extends Strategy {
 
     authenticate(req: Request, options?: any): void;
 
-    userProfile(accessToken: string, done: (err?: Error | null, profile?: any) => void): void;
+    userProfile(accessToken: string, done: (err?: Error | null | unknown, profile?: any) => void): void;
     authorizationParams(options: any): object;
     tokenParams(options: any): object;
     parseErrorResponse(body: any, status: number): Error | null;

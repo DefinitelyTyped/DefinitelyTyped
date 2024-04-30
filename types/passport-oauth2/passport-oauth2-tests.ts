@@ -146,3 +146,13 @@ const providerSpecificVerifyFunctionWithRequest: OAuth2Strategy.VerifyFunctionWi
     results.someProviderResultField;
     profile.someProviderProfileField;
 };
+
+class ExtendedStrategy extends OAuth2Strategy {
+    constructor(options: StrategyOptions, verify: OAuth2Strategy.VerifyFunction) {
+        super(options, verify);
+    }
+
+    userProfile(accessToken: string, done: (errx?: unknown, profile?: any) => void): void {
+
+    }
+}
