@@ -1,4 +1,4 @@
-import { crypto, CryptoKey, JWKValue } from "k6/experimental/webcrypto";
+import { crypto, CryptoKey, CryptoKeyPair } from "k6/experimental/webcrypto";
 
 const aesCryptoKeyPromise = crypto.subtle.generateKey(
     {
@@ -188,3 +188,34 @@ crypto.subtle.verify("HMAC", null);
 crypto.subtle.verify({ name: "HMAC" }, null);
 // @ts-expect-error
 crypto.subtle.verify({ name: "HMAC" }, aesCryptoKey, null);
+
+//
+// crypto.subtle.deriveBits
+//
+
+// $ExpectType Promise<CryptoKeyPair>
+const ecdhCryptoKeyPair = crypto.subtle.generateKey(
+    {
+        name: "ECDH",
+        namedCurve: "P-256",
+    },
+    true,
+    ["deriveKey", "deriveBits"]
+);
+
+// $ExpectType Promise<ArrayBuffer>
+crypto.subtle.deriveBits(
+    {
+      name: "ECDH",
+      public: ecdhCryptoKeyPair.publicKey,
+    },
+    ecdhCryptoKeyPair.privateKey,
+    256
+);
+
+// @ts-expect-error
+crypto.subtle.deriveBits();
+// @ts-expect-error
+crypto.subtle.deriveBits(8);
+// @ts-expect-error
+crypto.subtle.deriveBits("ECDH", null);
