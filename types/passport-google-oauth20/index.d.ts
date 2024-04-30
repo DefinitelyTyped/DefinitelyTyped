@@ -215,7 +215,7 @@ export interface Profile extends passport.Profile {
     };
 }
 
-export type VerifyCallback = (err?: string | Error | null, user?: Express.User, info?: any) => void;
+export type VerifyCallback = oauth2.VerifyCallback;
 
 export class Strategy extends oauth2.Strategy {
     constructor(
