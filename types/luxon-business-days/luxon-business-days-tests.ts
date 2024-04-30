@@ -22,7 +22,7 @@ now.setupBusiness({ holidayMatchers: [(d: DateTime) => false] }); // $ExpectType
 now.setupBusiness({ businessDays: [1, 2, 3], holidayMatchers: [(d: DateTime) => false] }); // $ExpectType void
 now.clearBusinessSetup(); // $ExpectType void
 
-now.holidayHelpers; // $ExpectType HolidayHelper[] | undefined
+now.businessDays; // $ExpectType BusinessDays | undefined
 now.holidayMatchers; // $ExpectType HolidayMatcher[] | undefined
 now.availableHolidayHelpers; // $ExpectType HolidayHelpersDict
 now.availableHolidayMatchers; // $ExpectType HolidayMatchersDict

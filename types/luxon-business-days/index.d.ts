@@ -15,8 +15,8 @@ export interface HolidayHelpersDict {
 
 declare module "luxon" {
     interface DateTime<IsValid extends boolean> {
-        holidayHelpers: HolidayHelper[] | undefined;
-        holidayMatchers: HolidayMatcher[] | undefined;
+        businessDays?: BusinessDays;
+        holidayMatchers?: HolidayMatcher[];
         availableHolidayHelpers: HolidayHelpersDict;
         availableHolidayMatchers: HolidayMatchersDict;
 
