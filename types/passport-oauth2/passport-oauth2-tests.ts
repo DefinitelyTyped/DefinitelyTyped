@@ -153,6 +153,5 @@ class ExtendedStrategy extends OAuth2Strategy {
     }
 
     userProfile(accessToken: string, done: (errx?: unknown, profile?: any) => void): void {
-
     }
 }
