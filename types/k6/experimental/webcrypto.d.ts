@@ -101,20 +101,34 @@ export interface SubtleCrypto {
     exportKey(format: "raw" | "jwk" | "spki" | "pkcs8", key: CryptoKey): Promise<ArrayBuffer | JWK>;
 
     /**
-     * Use the `generateKey()` method to generate a new key (for symmetric
-     * algorithms) or key pair (for public-key algorithms).
+     * Use the `generateKey()` method to generate a new key.
      *
      * @param algorithm defines the type of key to generate and providing extra algorithm-specific parameters.
      * @param extractable indicates whether it will be possible to export the key using `SubtleCrypto.exportKey()` or `SubtleCrypto.wrapKey`.
      * @param keyUsages indicates what can be done with the newly generated key.
      * @throws {SyntaxError} - if the result is a `CryptoKey` of type `secret` or `private` but `keyUsages is empty.
-     * @returns A promise that resolves with the newly generated `CryptoKey` or `CryptoKeyPair`.
+     * @returns A promise that resolves with the newly generated `CryptoKey`.
      */
     generateKey(
-        algorithm: AesKeyGenParams | HmacKeyGenParams | EcKeyGenParams,
+        algorithm: AesKeyGenParams | HmacKeyGenParams,
         extractable: boolean,
-        keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits">,
-    ): Promise<CryptoKey> | Promise<CryptoKeyPair>;
+        keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify">,
+    ): Promise<CryptoKey>;
+
+    /**
+     * Use the `generateKey()` method to generate a new key pair for asymmetric algorithms.
+     *
+     * @param algorithm defines the type of key to generate and providing extra algorithm-specific parameters.
+     * @param extractable indicates whether it will be possible to export the key using `SubtleCrypto.exportKey()` or `SubtleCrypto.wrapKey`.
+     * @param keyUsages indicates what can be done with the newly generated key.
+     * @throws {SyntaxError} - if the result is a `CryptoKey` of type `secret` or `private` but `keyUsages is empty.
+     * @returns A promise that resolves with the newly generated CryptoKeyPair`.
+     */
+    generateKey(
+        algorithm: EcKeyGenParams,
+        extractable: boolean,
+        keyUsages: Array<"sign" | "verify" | "deriveKey" | "deriveBits">,
+    ): Promise<CryptoKeyPair>;
 
     /**
      * The `importKey()` method imports a key into a `CryptoKey` object.

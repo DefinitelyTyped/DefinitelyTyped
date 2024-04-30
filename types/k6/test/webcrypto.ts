@@ -193,25 +193,25 @@ crypto.subtle.verify({ name: "HMAC" }, aesCryptoKey, null);
 // crypto.subtle.deriveBits
 //
 
-// $ExpectType Promise<CryptoKeyPair>
-const ecdhCryptoKeyPair = crypto.subtle.generateKey(
+crypto.subtle.generateKey(
     {
         name: "ECDH",
         namedCurve: "P-256",
     },
     true,
     ["deriveKey", "deriveBits"]
-);
+).then((cryptoKeyPair: CryptoKeyPair) => {
+    // $ExpectType Promise<ArrayBuffer>
+    crypto.subtle.deriveBits(
+        {
+        name: "ECDH",
+        public: cryptoKeyPair.publicKey,
+        },
+        cryptoKeyPair.privateKey,
+        256
+    );
+});
 
-// $ExpectType Promise<ArrayBuffer>
-crypto.subtle.deriveBits(
-    {
-      name: "ECDH",
-      public: ecdhCryptoKeyPair.publicKey,
-    },
-    ecdhCryptoKeyPair.privateKey,
-    256
-);
 
 // @ts-expect-error
 crypto.subtle.deriveBits();
