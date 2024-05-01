@@ -344,10 +344,10 @@ function TestWebDriverOptions() {
 
     promise = options.deleteAllCookies();
     promise = options.deleteCookie("name");
-    options.getCookie("name").then((cookie: webdriver.IWebDriverCookie) => {
-        let expiry: number | undefined = cookie.expiry;
+    options.getCookie("name").then((cookie: webdriver.IWebDriverOptionsCookie) => {
+        let expiry: number | Date | undefined = cookie.expiry;
     });
-    options.getCookies().then((cookies: webdriver.IWebDriverCookie[]) => {});
+    options.getCookies().then((cookies: webdriver.IWebDriverOptionsCookie[]) => {});
 
     let logs: webdriver.Logs = options.logs();
     let window: webdriver.Window = options.window();
@@ -405,7 +405,6 @@ async function TestWebDriver() {
     voidPromise = driver.close();
 
     // executeCommand
-    cmdExecutor.defineCommand("SEND_COMMAND", "POST", `/session/${session.getId()}/chromium/send_command`);
     const cmd = new Command("SEND_COMMAND")
         .setParameter("cmd", "Page.setDownloadBehavior")
         .setParameter("params", { behavior: "allow", downloadPath: "./" });
