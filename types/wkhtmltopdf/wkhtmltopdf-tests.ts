@@ -10,7 +10,7 @@ wkhtmltopdf("<h1>Test</h1><p>Hello world</p>"); // $ExpectType ReadWriteStream
 wkhtmltopdf("http://apple.com/", { output: "out.pdf" }); // $ExpectType ReadWriteStream
 
 // Optional callback
-wkhtmltopdf("http://google.com/", { pageSize: "Letter" }, (err: Error, stream: NodeJS.ReadWriteStream) => {}); // $ExpectType void
+wkhtmltopdf("http://google.com/", { pageSize: "Letter" }, (err: Error | null, stream?: NodeJS.ReadWriteStream) => {}); // $ExpectType void
 
 // Repeatable options
 wkhtmltopdf("http://google.com/", { // $ExpectType NodeJS.ReadWriteStream

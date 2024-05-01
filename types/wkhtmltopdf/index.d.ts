@@ -13,8 +13,8 @@
 declare function wkhtmltopdf(
     html: string,
     options?: Options,
-    callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void,
-): NodeJS.ReadWriteStream;
+    callback?: (err: Error | null, stream?: NodeJS.ReadWriteStream) => void,
+): NodeJS.ReadWriteStream
 /**
  * Call wkhtmltopdf and write PDF
  * If options.output is defined the file will be returned in the stream
@@ -26,7 +26,7 @@ declare function wkhtmltopdf(
 declare function wkhtmltopdf(
     url: string,
     options?: Options,
-    callback?: (err: Error, stream: NodeJS.ReadWriteStream) => void,
+    callback?: (err: Error | null, stream?: NodeJS.ReadWriteStream) => void,
 ): NodeJS.ReadWriteStream;
 /**
  * Call wkhtmltopdf and write PDF
