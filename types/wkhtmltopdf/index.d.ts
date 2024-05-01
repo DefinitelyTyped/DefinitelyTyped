@@ -16,7 +16,7 @@ declare function wkhtmltopdf(
     html: string,
     options?: Options,
     callback?: (err: Error | null, stream?: NodeJS.ReadWriteStream) => void,
-): Readable
+): Readable;
 /**
  * Call wkhtmltopdf and write PDF
  * If options.output is defined the file will be returned in the stream
