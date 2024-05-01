@@ -15,17 +15,6 @@ declare namespace Emscripten {
     type CPointerType = "i8*" | "i16*" | "i32*" | "i64*" | "float*" | "double*" | "*";
     type CType = CIntType | CFloatType | CPointerType;
 
-    type WebAssemblyImports = Array<{
-        name: string;
-        kind: string;
-    }>;
-
-    type WebAssemblyExports = Array<{
-        module: string;
-        name: string;
-        kind: string;
-    }>;
-
     interface CCallOpts {
         async?: boolean | undefined;
     }
@@ -51,9 +40,9 @@ interface EmscriptenModule {
     destroy(object: object): void;
     getPreloadedPackage(remotePackageName: string, remotePackageSize: number): ArrayBuffer;
     instantiateWasm(
-        imports: Emscripten.WebAssemblyImports,
-        successCallback: (module: WebAssembly.Module) => void,
-    ): Emscripten.WebAssemblyExports;
+        imports: WebAssembly.Imports,
+        successCallback: (module: WebAssembly.Instance) => void,
+    ): WebAssembly.Exports | undefined;
     locateFile(url: string, scriptDirectory: string): string;
     onCustomMessage(event: MessageEvent): void;
 
@@ -114,9 +103,27 @@ declare namespace FS {
         node: FSNode;
     }
 
+    interface Analyze {
+        isRoot: boolean;
+        exists: boolean;
+        error: Error;
+        name: string;
+        path: Lookup["path"];
+        object: Lookup["node"];
+        parentExists: boolean;
+        parentPath: Lookup["path"];
+        parentObject: Lookup["node"];
+    }
+
     interface FSStream {}
-    interface FSNode {}
-    interface ErrnoError {}
+    interface FSNode {
+        mode: number;
+    }
+
+    class ErrnoError extends Error {
+        name: "ErronoError";
+        errno: number;
+    }
 
     let ignorePermissions: boolean;
     let trackingDelegate: any;
@@ -128,6 +135,7 @@ declare namespace FS {
     //
     function lookupPath(path: string, opts: any): Lookup;
     function getPath(node: FSNode): string;
+    function analyzePath(path: string, dontResolveLastLink?: boolean): Analyze;
 
     //
     // nodes
@@ -263,8 +271,7 @@ type ArgsToType<T extends Array<Emscripten.JSType | null>> = Extract<
     any[]
 >;
 
-type ReturnToType<R extends Emscripten.JSType | null> = R extends null ? null
-    : StringToType<Exclude<R, null>>;
+type ReturnToType<R extends Emscripten.JSType | null> = R extends null ? null : StringToType<Exclude<R, null>>;
 
 // Below runtime function/variable declarations are exportable by
 // -s EXTRA_EXPORTED_RUNTIME_METHODS. You can extend or merge
@@ -280,20 +287,14 @@ type ReturnToType<R extends Emscripten.JSType | null> = R extends null ? null
 //
 // See: https://emscripten.org/docs/getting_started/FAQ.html#why-do-i-get-typeerror-module-something-is-not-a-function
 
-declare function cwrap<
-    I extends Array<Emscripten.JSType | null> | [],
-    R extends Emscripten.JSType | null,
->(
+declare function cwrap<I extends Array<Emscripten.JSType | null> | [], R extends Emscripten.JSType | null>(
     ident: string,
     returnType: R,
     argTypes: I,
     opts?: Emscripten.CCallOpts,
 ): (...arg: ArgsToType<I>) => ReturnToType<R>;
 
-declare function ccall<
-    I extends Array<Emscripten.JSType | null> | [],
-    R extends Emscripten.JSType | null,
->(
+declare function ccall<I extends Array<Emscripten.JSType | null> | [], R extends Emscripten.JSType | null>(
     ident: string,
     returnType: R,
     argTypes: I,
