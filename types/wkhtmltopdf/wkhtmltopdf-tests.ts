@@ -1,19 +1,24 @@
 import wkhtmltopdf = require("wkhtmltopdf");
 
 // URL
-wkhtmltopdf("http://google.com/", { pageSize: "Letter" }); // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://google.com/", { pageSize: "Letter" });
 
 // HTML
-wkhtmltopdf("<h1>Test</h1><p>Hello world</p>"); // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("<h1>Test</h1><p>Hello world</p>");
 
 // output to a file directly
-wkhtmltopdf("http://apple.com/", { output: "out.pdf" }); // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://apple.com/", { output: "out.pdf" });
 
 // Optional callback
-wkhtmltopdf("http://google.com/", { pageSize: "Letter" }, (err: Error | null, stream?: NodeJS.ReadWriteStream) => {}); // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://google.com/", { pageSize: "Letter" }, (err: Error | null, stream?: NodeJS.ReadWriteStream) => {});
 
 // Repeatable options
-wkhtmltopdf("http://google.com/", { // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://google.com/", {
     allow: ["path1", "path2"],
     customHeader: [
         ["name1", "value1"],
@@ -22,23 +27,27 @@ wkhtmltopdf("http://google.com/", { // $ExpectType Readable
 });
 
 // Ignore warning strings
-wkhtmltopdf("http://apple.com/", { // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://apple.com/", {
     output: "out.pdf",
     ignore: ["QFont::setPixelSize: Pixel size <= 0 (0)"],
 });
 
 // RegExp also acceptable
-wkhtmltopdf("http://apple.com/", { // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://apple.com/", {
     output: "out.pdf",
     ignore: [/QFont::setPixelSize/],
 });
 
 // Test debug types
-wkhtmltopdf("http://apple.com/", { // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://apple.com/", {
     debug: true,
 });
 
-wkhtmltopdf("http://apple.com/", { // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://apple.com/", {
     output: "test.pdf",
     debug: (data: Buffer) => {
         const dataString = data.toString();
@@ -56,7 +65,8 @@ wkhtmltopdf.shell; // $ExpectType string
 wkhtmltopdf.command; // $ExpectType string
 
 // Footer and header spacing type
-wkhtmltopdf("http://apple.com/", { // $ExpectType Readable
+// $ExpectType Readable
+wkhtmltopdf("http://apple.com/", {
     headerSpacing: 0,
     footerSpacing: 0,
 });
