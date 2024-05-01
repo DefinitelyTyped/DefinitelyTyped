@@ -17,3 +17,16 @@ const url: Url = mdurl.parse("HTTP://www.example.com/");
 
 const urlStr: string = mdurl.format(url);
 // 'HTTP://www.example.com/'
+
+import encode = require("mdurl/encode");
+import decode = require("mdurl/decode");
+import parse = require("mdurl/parse");
+import format = require("mdurl/format");
+
+const encoded2: string = encode("%%%");
+
+const decoded2: string = decode(encoded);
+
+const url2: Url = parse("HTTP://www.example.com/");
+
+const urlStr2: string = format(url);

@@ -1,5 +1,6 @@
+import entities from "markdown-it/lib/common/entities.mjs";
 import htmlBlocks from "markdown-it/lib/common/html_blocks.mjs";
-import * as htmlRE from "markdown-it/lib/common/html_re.mjs";
+import htmlRE from "markdown-it/lib/common/html_re.mjs";
 import * as utils from "markdown-it/lib/common/utils.mjs";
 import StateBlock from "markdown-it/lib/rules_block/state_block.mjs";
 import StateInline from "markdown-it/lib/rules_inline/state_inline.mjs";
@@ -21,6 +22,8 @@ utils.isMdAsciiPunct("foobar".charCodeAt(0));
 utils.isPunctChar(String.fromCharCode(0x20));
 utils.escapeRE("foobar");
 utils.normalizeReference("foobar");
+
+const encoded = "<div>foo&bar</div>".replace(entities.amp, `&amp;`);
 
 const blocks: string[] = htmlBlocks;
 

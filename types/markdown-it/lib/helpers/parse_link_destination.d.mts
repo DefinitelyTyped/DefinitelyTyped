@@ -1,7 +1,12 @@
-export interface ParseLinkDestinationResult {
-    ok: boolean;
-    pos: number;
-    str: string;
+declare namespace parseLinkDestination {
+    interface ParseResult {
+        ok: boolean;
+        pos: number;
+        lines: number;
+        str: string;
+    }
 }
 
-export default function parseLinkDestination(str: string, start: number, max: number): ParseLinkDestinationResult;
+declare function parseLinkDestination(str: string, pos: number, max: number): parseLinkDestination.ParseResult;
+
+export default parseLinkDestination;

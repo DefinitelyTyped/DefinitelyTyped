@@ -115,7 +115,7 @@ let md: MarkdownIt;
 }
 
 {
-    const linkify: LinkifyIt = md.linkify;
+    const linkify: LinkifyIt.LinkifyIt = md.linkify;
     md.linkify.tlds(".py", false);
 }
 
@@ -382,6 +382,8 @@ let md: MarkdownIt;
         state.parentType = "root";
 
         state.level = 0;
+
+        state.result = "";
 
         state.bMarks.push(16);
         state.eMarks.push(16);

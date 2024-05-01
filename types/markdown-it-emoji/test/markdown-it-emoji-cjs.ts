@@ -1,16 +1,19 @@
-import MarkdownIt from "markdown-it";
-import { bare, full, light, Options } from "markdown-it-emoji";
+import MarkdownIt = require("markdown-it");
+import { Options, Shortcut } from "markdown-it-emoji";
+import emoji = require("markdown-it-emoji");
+import bare = require("markdown-it-emoji/bare");
+import light = require("markdown-it-emoji/light");
 
 {
     const md = MarkdownIt();
 
-    md.use(full);
+    md.use(emoji);
 }
 
 {
     const md = MarkdownIt();
 
-    md.use(full, {
+    md.use(emoji, {
         defs: {
             one: "!!!one!!!",
             fifty: "!!50!!",
@@ -25,7 +28,7 @@ import { bare, full, light, Options } from "markdown-it-emoji";
 {
     const md = MarkdownIt();
 
-    md.use(full, {
+    md.use(emoji, {
         enabled: ["smile", "grin"],
     });
     md.use(bare, {
@@ -37,9 +40,11 @@ import { bare, full, light, Options } from "markdown-it-emoji";
 }
 
 {
-    const options: Partial<Options> = {
+    const options: Options = {
         shortcuts: {
             angry: "!!angry!!",
         },
     };
+
+    const annoyed: Shortcut = "annoyed";
 }

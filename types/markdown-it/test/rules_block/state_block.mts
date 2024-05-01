@@ -33,6 +33,8 @@ const state = new StateBlock("# Foobar", md, {}, tokens);
 
     state.level = 0;
 
+    state.result = "";
+
     state.bMarks.push(16);
     state.eMarks.push(16);
     state.tShift.push(0);

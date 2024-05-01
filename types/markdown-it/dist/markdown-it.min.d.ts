@@ -1,5 +1,5 @@
-import MarkdownIt = require("./index.cjs.js");
+import MarkdownIt = require("./markdown-it");
 
-export as namespace markdownit;
+export as namespace MarkdownIt;
 
 export = MarkdownIt;

@@ -1,2 +1,8 @@
-export const HTML_TAG_RE: RegExp;
-export const HTML_OPEN_CLOSE_TAG_RE: RegExp;
+interface HtmlRE {
+    HTML_TAG_RE: RegExp;
+    HTML_OPEN_CLOSE_TAG_RE: RegExp;
+}
+
+declare const htmlRE: HtmlRE;
+
+export default htmlRE;

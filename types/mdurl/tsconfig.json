@@ -13,14 +13,7 @@
         "strictFunctionTypes": true
     },
     "files": [
-        "build/index.cjs.d.ts",
-        "lib/decode.d.mts",
-        "lib/encode.d.mts",
-        "lib/format.d.mts",
-        "lib/parse.d.mts",
-        "index.d.mts",
         "index.d.ts",
-        "mdurl-tests.ts",
-        "mdurl-tests.mts"
+        "mdurl-tests.ts"
     ]
 }

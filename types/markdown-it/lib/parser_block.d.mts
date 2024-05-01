@@ -5,9 +5,9 @@ import Token from "./token.mjs";
 
 export type RuleBlock = (state: StateBlock, startLine: number, endLine: number, silent: boolean) => boolean;
 
-export default class ParserBlock {
+declare class ParserBlock {
     /**
-     * {@link Ruler} instance. Keep configuration of block rules.
+     * [[Ruler]] instance. Keep configuration of block rules.
      */
     ruler: Ruler<RuleBlock>;
 
@@ -23,3 +23,5 @@ export default class ParserBlock {
 
     State: typeof StateBlock;
 }
+
+export default ParserBlock;

@@ -1,28 +1,30 @@
-export interface RuleOptions {
-    /**
-     * array with names of "alternate" chains.
-     */
-    alt: string[];
+declare namespace Ruler {
+    interface RuleOptions {
+        /**
+         * array with names of "alternate" chains.
+         */
+        alt: string[];
+    }
 }
 
 /**
- * Helper class, used by {@link MarkdownIt#core}, {@link MarkdownIt#block} and
- * {@link MarkdownIt#inline} to manage sequences of functions (rules):
+ * class Ruler
+ *
+ * Helper class, used by [[MarkdownIt#core]], [[MarkdownIt#block]] and
+ * [[MarkdownIt#inline]] to manage sequences of functions (rules):
  *
  * - keep rules in defined order
  * - assign the name to each rule
  * - enable/disable rules
  * - add/replace rules
  * - allow assign rules to additional named chains (in the same)
- * - caching lists of active rules
+ * - cacheing lists of active rules
  *
  * You will not need use this class directly until write plugins. For simple
- * rules control use {@link MarkdownIt.disable}, {@link MarkdownIt.enable} and
- * {@link MarkdownIt.use}.
+ * rules control use [[MarkdownIt.disable]], [[MarkdownIt.enable]] and
+ * [[MarkdownIt.use]].
  */
-export default class Ruler<T> {
-    constructor();
-
+declare class Ruler<T> {
     /**
      * Replace rule by name with new function & options. Throws error if name not
      * found.
@@ -43,10 +45,11 @@ export default class Ruler<T> {
      * @param fn new rule function.
      * @param options new rule options (not mandatory).
      */
-    at(name: string, fn: T, options?: RuleOptions): void;
+    at(name: string, fn: T, options?: Ruler.RuleOptions): void;
 
     /**
-     * Add new rule to chain before one with given name.
+     * Add new rule to chain before one with given name. See also
+     * [[Ruler.after]], [[Ruler.push]].
      *
      * ##### Example
      *
@@ -58,17 +61,20 @@ export default class Ruler<T> {
      * });
      * ```
      *
-     * @see {@link Ruler.after}, {@link Ruler.push}
-     *
      * @param beforeName new rule will be added before this one.
      * @param ruleName name of added rule.
      * @param fn rule function.
      * @param options rule options (not mandatory).
      */
-    before(beforeName: string, ruleName: string, fn: T, options?: RuleOptions): void;
+    before(beforeName: string, ruleName: string, fn: T, options?: Ruler.RuleOptions): void;
 
     /**
-     * Add new rule to chain after one with given name.
+     * Add new rule to chain after one with given name. See also
+     * [[Ruler.before]], [[Ruler.push]].
+     *
+     * ##### Options:
+     *
+     * - __alt__ - array with names of "alternate" chains.
      *
      * ##### Example
      *
@@ -80,17 +86,20 @@ export default class Ruler<T> {
      * });
      * ```
      *
-     * @see {@link Ruler.before}, {@link Ruler.push}
-     *
      * @param afterName new rule will be added after this one.
      * @param ruleName name of added rule.
      * @param fn rule function.
      * @param options rule options (not mandatory).
      */
-    after(afterName: string, ruleName: string, fn: T, options?: RuleOptions): void;
+    after(afterName: string, ruleName: string, fn: T, options?: Ruler.RuleOptions): void;
 
     /**
-     * Push new rule to the end of chain.
+     * Push new rule to the end of chain. See also
+     * [[Ruler.before]], [[Ruler.after]].
+     *
+     * ##### Options:
+     *
+     * - __alt__ - array with names of "alternate" chains.
      *
      * ##### Example
      *
@@ -102,13 +111,11 @@ export default class Ruler<T> {
      * });
      * ```
      *
-     * @see {@link Ruler.before}, {@link Ruler.after}
-     *
      * @param ruleName name of added rule.
      * @param fn rule function.
      * @param options rule options (not mandatory).
      */
-    push(ruleName: string, fn: T, options?: RuleOptions): void;
+    push(ruleName: string, fn: T, options?: Ruler.RuleOptions): void;
 
     /**
      * Enable rules with given names. If any rule name not found - throw Error.
@@ -116,7 +123,7 @@ export default class Ruler<T> {
      *
      * Returns list of found rule names (if no exception happened).
      *
-     * @see {@link Ruler.disable}, {@link Ruler.enableOnly}
+     * See also [[Ruler.disable]], [[Ruler.enableOnly]].
      *
      * @param list list of rule names to enable.
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -127,12 +134,12 @@ export default class Ruler<T> {
      * Enable rules with given names, and disable everything else. If any rule name
      * not found - throw Error. Errors can be disabled by second param.
      *
-     * @see {@link Ruler.disable}, {@link Ruler.enable}
+     * See also [[Ruler.disable]], [[Ruler.enable]].
      *
      * @param list list of rule names to enable (whitelist).
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
      */
-    enableOnly(list: string | string[], ignoreInvalid?: boolean): void;
+    enableOnly(list: string | string[], ignoreInvalid?: boolean): string[];
 
     /**
      * Disable rules with given names. If any rule name not found - throw Error.
@@ -140,7 +147,7 @@ export default class Ruler<T> {
      *
      * Returns list of found rule names (if no exception happened).
      *
-     * @see {@link Ruler.enable}, {@link Ruler.enableOnly}
+     * See also [[Ruler.enable]], [[Ruler.enableOnly]].
      *
      * @param list list of rule names to disable.
      * @param ignoreInvalid set `true` to ignore errors when rule not found.
@@ -156,3 +163,5 @@ export default class Ruler<T> {
      */
     getRules(chainName: string): T[];
 }
+
+export default Ruler;

@@ -8,12 +8,12 @@ export type RuleInline2 = (state: StateInline) => boolean;
 
 export default class ParserInline {
     /**
-     * {@link Ruler} instance. Keep configuration of inline rules.
+     * [[Ruler]] instance. Keep configuration of inline rules.
      */
     ruler: Ruler<RuleInline>;
 
     /**
-     * {@link Ruler} instance. Second ruler used for post-processing
+     * [[Ruler]] instance. Second ruler used for post-processing
      * (e.g. in emphasis-like rules).
      */
     ruler2: Ruler<RuleInline2>;

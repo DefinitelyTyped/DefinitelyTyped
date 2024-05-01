@@ -80,11 +80,17 @@ export default class StateBlock {
     listIndent: number;
 
     /**
+     * can be 'blockquote', 'list', 'root', 'paragraph' or 'reference'
      * used in lists to determine if they interrupt a paragraph
      */
     parentType: ParentType;
 
     level: number;
+
+    /**
+     * renderer
+     */
+    result: string;
 
     /**
      * Push new token to "stream".

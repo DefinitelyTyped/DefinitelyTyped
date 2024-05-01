@@ -1,14 +1,14 @@
-/// <reference types="markdown-it/dist/markdown-it.js" />
-/// <reference types="markdown-it-emoji/dist/markdown-it-emoji.js" />
+/// <reference lib="dom" />
+/// <reference types="markdown-it-emoji" />
 
 {
-    const md = markdownit();
+    const md = Markdownit();
 
     md.use(markdownitEmoji);
 }
 
 {
-    const md = markdownit();
+    const md = Markdownit();
 
     md.use(markdownitEmoji, {
         defs: {
