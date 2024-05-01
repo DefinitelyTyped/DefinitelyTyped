@@ -352,7 +352,7 @@ export interface CookieOptions {
      * Value of the “SameSite” Set-Cookie attribute.
      * @link https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00#section-4.1.1.
      */
-    sameSite?: boolean | "lax" | "strict" | "none" | undefined;
+    SameSite?: boolean | "lax" | "strict" | "none" | undefined;
     /**
      * Value of the “Priority” Set-Cookie attribute.
      * @link https://datatracker.ietf.org/doc/html/draft-west-cookie-priority-00#section-4.3
