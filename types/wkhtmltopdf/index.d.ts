@@ -36,7 +36,11 @@ declare function wkhtmltopdf(
  * @param [options] Options
  * @param [callback] Callback
  */
-declare function wkhtmltopdf(inputStream: NodeJS.ReadStream, options?: Options): NodeJS.ReadWriteStream;
+declare function wkhtmltopdf(
+    inputStream: NodeJS.ReadStream,
+    options?: Options,
+    callback?: (err: Error | null, stream?: NodeJS.ReadWriteStream) => void,
+): NodeJS.ReadWriteStream;
 
 declare namespace wkhtmltopdf {
     /**
