@@ -17,7 +17,7 @@
         }
     },
     "dependencies": {
-        "@types/markdown-it": "*"
+        "@types/markdown-it": "^14"
     },
     "devDependencies": {
         "@types/markdown-it-emoji": "workspace:."
