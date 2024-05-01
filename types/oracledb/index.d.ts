@@ -1789,7 +1789,7 @@ declare namespace OracleDB {
          */
         newPassword?: string | undefined;
         /**
-         * Specifies which previously created pool in the connection pool cache to obtain the connection from. See Pool Alias.
+         * The password of the database user. A password is also necessary if a proxy user is specified.
          */
         password?: string | undefined;
         /**
