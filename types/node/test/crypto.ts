@@ -988,6 +988,11 @@ import { promisify } from "node:util";
 }
 
 {
+    crypto.hash("sha1", "Node.js");
+    crypto.hash("sha1", Buffer.from("Tm9kZS5qcw==", "base64"), "buffer");
+}
+
+{
     // crypto_constants_test
     let num: number;
     let str: string;

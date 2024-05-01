@@ -4,7 +4,7 @@
  * ```js
  * const v8 = require('node:v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.11.0/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/v8.js)
  */
 declare module "v8" {
     import { Readable } from "node:stream";
@@ -70,7 +70,7 @@ declare module "v8" {
     /**
      * Returns an object with the following properties:
      *
-     * `does_zap_garbage` is a 0/1 boolean, which signifies whether the`--zap_code_space` option is enabled or not. This makes V8 overwrite heap
+     * `does_zap_garbage` is a 0/1 boolean, which signifies whether the `--zap_code_space` option is enabled or not. This makes V8 overwrite heap
      * garbage with a bit pattern. The RSS footprint (resident set size) gets bigger
      * because it continuously touches all heap pages and that makes them less likely
      * to get swapped out by the operating system.
@@ -170,7 +170,7 @@ declare module "v8" {
      * after the VM has started may result in unpredictable behavior, including
      * crashes and data loss; or it may simply do nothing.
      *
-     * The V8 options available for a version of Node.js may be determined by running`node --v8-options`.
+     * The V8 options available for a version of Node.js may be determined by running `node --v8-options`.
      *
      * Usage:
      *
@@ -356,7 +356,7 @@ declare module "v8" {
         transferArrayBuffer(id: number, arrayBuffer: ArrayBuffer): void;
         /**
          * Reads the underlying wire format version. Likely mostly to be useful to
-         * legacy code reading old wire format versions. May not be called before`.readHeader()`.
+         * legacy code reading old wire format versions. May not be called before `.readHeader()`.
          */
         getWireFormatVersion(): number;
         /**
@@ -365,7 +365,7 @@ declare module "v8" {
          */
         readUint32(): number;
         /**
-         * Read a raw 64-bit unsigned integer and return it as an array `[hi, lo]`with two 32-bit unsigned integer entries.
+         * Read a raw 64-bit unsigned integer and return it as an array `[hi, lo]` with two 32-bit unsigned integer entries.
          * For use inside of a custom `deserializer._readHostObject()`.
          */
         readUint64(): [number, number];
@@ -438,7 +438,7 @@ declare module "v8" {
          */
         start(): void;
         /**
-         * Stop collecting GC data and return an object.The content of object
+         * Stop collecting GC data and return an object. The content of object
          * is as follows.
          *
          * ```json

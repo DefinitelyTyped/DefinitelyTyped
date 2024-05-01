@@ -1,4 +1,6 @@
 declare module "process" {
+    import * as net from "node:net";
+    import * as os from "node:os";
     import * as tty from "node:tty";
     import { Worker } from "node:worker_threads";
     global {
@@ -21,10 +23,25 @@ declare module "process" {
                 rss(): number;
             }
             interface MemoryUsage {
+                /**
+                 * Resident Set Size, is the amount of space occupied in the main memory device (that is a subset of the total allocated memory) for the
+                 * process, including all C++ and JavaScript objects and code.
+                 */
                 rss: number;
+                /**
+                 * Refers to V8's memory usage.
+                 */
                 heapTotal: number;
+                /**
+                 * Refers to V8's memory usage.
+                 */
                 heapUsed: number;
                 external: number;
+                /**
+                 * Refers to memory allocated for `ArrayBuffer`s and `SharedArrayBuffer`s, including all Node.js Buffers. This is also included
+                 * in the external value. When Node.js is used as an embedded library, this value may be `0` because allocations for `ArrayBuffer`s
+                 * may not be tracked in that case.
+                 */
                 arrayBuffers: number;
             }
             interface CpuUsage {
@@ -64,6 +81,7 @@ declare module "process" {
                 | "arm"
                 | "arm64"
                 | "ia32"
+                | "loong64"
                 | "mips"
                 | "mipsel"
                 | "ppc"
@@ -143,7 +161,52 @@ declare module "process" {
             }
             interface HRTime {
                 (time?: [number, number]): [number, number];
+                /**
+                 * The `bigint` version of the `{@link hrtime()}` method returning the current high-resolution real time in nanoseconds as a `bigint`.
+                 *
+                 * Unlike `{@link hrtime()}`, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
+                 * ```js
+                 * import { hrtime } from 'node:process';
+                 *
+                 * const start = hrtime.bigint();
+                 * // 191051479007711n
+                 *
+                 * setTimeout(() => {
+                 *   const end = hrtime.bigint();
+                 *   // 191052633396993n
+                 *
+                 *   console.log(`Benchmark took ${end - start} nanoseconds`);
+                 *   // Benchmark took 1154389282 nanoseconds
+                 * }, 1000);
+                 * ```
+                 */
                 bigint(): bigint;
+            }
+            interface ProcessPermission {
+                /**
+                 * Verifies that the process is able to access the given scope and reference.
+                 * If no reference is provided, a global scope is assumed, for instance, `process.permission.has('fs.read')`
+                 * will check if the process has ALL file system read permissions.
+                 *
+                 * The reference has a meaning based on the provided scope. For example, the reference when the scope is File System means files and folders.
+                 *
+                 * The available scopes are:
+                 *
+                 * * `fs` - All File System
+                 * * `fs.read` - File System read operations
+                 * * `fs.write` - File System write operations
+                 * * `child` - Child process spawning operations
+                 * * `worker` - Worker thread spawning operation
+                 *
+                 * ```js
+                 * // Check if the process has permission to read the README file
+                 * process.permission.has('fs.read', './README.md');
+                 * // Check if the process has read permission operations
+                 * process.permission.has('fs.read');
+                 * ```
+                 * @since v20.0.0
+                 */
+                has(scope: string, reference?: string): boolean;
             }
             interface ProcessReport {
                 /**
@@ -306,12 +369,11 @@ declare module "process" {
                  * For more information see `Stream compatibility`.
                  *
                  * In "old" streams mode the `stdin` stream is paused by default, so one
-                 * must call `process.stdin.resume()` to read from it. Note also that calling`process.stdin.resume()` itself would switch stream to "old" mode.
+                 * must call `process.stdin.resume()` to read from it. Note also that calling `process.stdin.resume()` itself would switch stream to "old" mode.
                  */
                 stdin: ReadStream & {
                     fd: 0;
                 };
-                openStdin(): Socket;
                 /**
                  * The `process.argv` property returns an array containing the command-line
                  * arguments passed when the Node.js process was launched. The first element will
@@ -454,23 +516,59 @@ declare module "process" {
                  */
                 debugPort: number;
                 /**
+                 * The `process.dlopen()` method allows dynamically loading shared objects. It is primarily used by `require()` to load C++ Addons, and
+                 * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
+                 * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
+                 *
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v20.x/api/os.html#dlopen-constants)`
+                 * documentation for details.
+                 *
+                 * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
+                 * are then accessible via `module.exports`.
+                 *
+                 * The example below shows how to load a C++ Addon, named `local.node`, that exports a `foo` function. All the symbols are loaded before the call returns, by passing the `RTLD_NOW` constant.
+                 * In this example the constant is assumed to be available.
+                 *
+                 * ```js
+                 * import { dlopen } from 'node:process';
+                 * import { constants } from 'node:os';
+                 * import { fileURLToPath } from 'node:url';
+                 *
+                 * const module = { exports: {} };
+                 * dlopen(module, fileURLToPath(new URL('local.node', import.meta.url)),
+                 *        constants.dlopen.RTLD_NOW);
+                 * module.exports.foo();
+                 * ```
+                 */
+                dlopen(module: object, filename: string, flags?: number): void;
+                /**
                  * The `process.emitWarning()` method can be used to emit custom or application
                  * specific process warnings. These can be listened for by adding a handler to the `'warning'` event.
                  *
                  * ```js
                  * import { emitWarning } from 'node:process';
                  *
-                 * // Emit a warning with a code and additional detail.
-                 * emitWarning('Something happened!', {
-                 *   code: 'MY_WARNING',
-                 *   detail: 'This is some additional information',
-                 * });
-                 * // Emits:
-                 * // (node:56338) [MY_WARNING] Warning: Something happened!
-                 * // This is some additional information
+                 * // Emit a warning using a string.
+                 * emitWarning('Something happened!');
+                 * // Emits: (node: 56338) Warning: Something happened!
                  * ```
                  *
-                 * In this example, an `Error` object is generated internally by`process.emitWarning()` and passed through to the `'warning'` handler.
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * // Emit a warning using a string and a type.
+                 * emitWarning('Something Happened!', 'CustomWarning');
+                 * // Emits: (node:56338) CustomWarning: Something Happened!
+                 * ```
+                 *
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * emitWarning('Something happened!', 'CustomWarning', 'WARN001');
+                 * // Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+                 * ```js
+                 *
+                 * In each of the previous examples, an `Error` object is generated internally by `process.emitWarning()` and passed through to the `'warning'` handler.
                  *
                  * ```js
                  * import process from 'node:process';
@@ -484,7 +582,30 @@ declare module "process" {
                  * });
                  * ```
                  *
-                 * If `warning` is passed as an `Error` object, the `options` argument is ignored.
+                 * If `warning` is passed as an `Error` object, it will be passed through to the `'warning'` event handler
+                 * unmodified (and the optional `type`, `code` and `ctor` arguments will be ignored):
+                 *
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * // Emit a warning using an Error object.
+                 * const myWarning = new Error('Something happened!');
+                 * // Use the Error name property to specify the type name
+                 * myWarning.name = 'CustomWarning';
+                 * myWarning.code = 'WARN001';
+                 *
+                 * emitWarning(myWarning);
+                 * // Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+                 * ```
+                 *
+                 * A `TypeError` is thrown if `warning` is anything other than a string or `Error` object.
+                 *
+                 * While process warnings use `Error` objects, the process warning mechanism is not a replacement for normal error handling mechanisms.
+                 *
+                 * The following additional handling is implemented if the warning `type` is `'DeprecationWarning'`:
+                 * * If the `--throw-deprecation` command-line flag is used, the deprecation warning is thrown as an exception rather than being emitted as an event.
+                 * * If the `--no-deprecation` command-line flag is used, the deprecation warning is suppressed.
+                 * * If the `--trace-deprecation` command-line flag is used, the deprecation warning is printed to `stderr` along with the full stack trace.
                  * @since v8.0.0
                  * @param warning The warning to emit.
                  */
@@ -572,7 +693,7 @@ declare module "process" {
                  * parent thread's `process.env`, or whatever was specified as the `env` option
                  * to the `Worker` constructor. Changes to `process.env` will not be visible
                  * across `Worker` threads, and only the main thread can make changes that
-                 * are visible to the operating system or to native add-ons. On Windows, a copy of`process.env` on a `Worker` instance operates in a case-sensitive manner
+                 * are visible to the operating system or to native add-ons. On Windows, a copy of `process.env` on a `Worker` instance operates in a case-sensitive manner
                  * unlike the main thread.
                  * @since v0.1.27
                  */
@@ -596,13 +717,13 @@ declare module "process" {
                  *
                  * Calling `process.exit()` will force the process to exit as quickly as possible
                  * even if there are still asynchronous operations pending that have not yet
-                 * completed fully, including I/O operations to `process.stdout` and`process.stderr`.
+                 * completed fully, including I/O operations to `process.stdout` and `process.stderr`.
                  *
-                 * In most situations, it is not actually necessary to call `process.exit()`explicitly. The Node.js process will exit on its own _if there is no additional_
+                 * In most situations, it is not actually necessary to call `process.exit()` explicitly. The Node.js process will exit on its own _if there is no additional_
                  * _work pending_ in the event loop. The `process.exitCode` property can be set to
                  * tell the process which exit code to use when the process exits gracefully.
                  *
-                 * For instance, the following example illustrates a _misuse_ of the`process.exit()` method that could lead to data printed to stdout being
+                 * For instance, the following example illustrates a _misuse_ of the `process.exit()` method that could lead to data printed to stdout being
                  * truncated and lost:
                  *
                  * ```js
@@ -619,7 +740,7 @@ declare module "process" {
                  * are sometimes _asynchronous_ and may occur over multiple ticks of the Node.js
                  * event loop. Calling `process.exit()`, however, forces the process to exit _before_ those additional writes to `stdout` can be performed.
                  *
-                 * Rather than calling `process.exit()` directly, the code _should_ set the`process.exitCode` and allow the process to exit naturally by avoiding
+                 * Rather than calling `process.exit()` directly, the code _should_ set the `process.exitCode` and allow the process to exit naturally by avoiding
                  * scheduling any additional work for the event loop:
                  *
                  * ```js
@@ -642,7 +763,7 @@ declare module "process" {
                  * @since v0.1.13
                  * @param [code=0] The exit code. For string type, only integer strings (e.g.,'1') are allowed.
                  */
-                exit(code?: number): never;
+                exit(code?: number | string | null | undefined): never;
                 /**
                  * A number which will be the process exit code, when the process either
                  * exits gracefully, or is exited via {@link exit} without specifying
@@ -650,15 +771,34 @@ declare module "process" {
                  *
                  * Specifying a code to {@link exit} will override any
                  * previous setting of `process.exitCode`.
+                 * @default undefined
                  * @since v0.11.8
                  */
-                exitCode?: number | undefined;
+                exitCode?: number | string | number | undefined;
+                /**
+                 * The `process.getActiveResourcesInfo()` method returns an array of strings containing
+                 * the types of the active resources that are currently keeping the event loop alive.
+                 *
+                 * ```js
+                 * import { getActiveResourcesInfo } from 'node:process';
+                 * import { setTimeout } from 'node:timers';
+
+                 * console.log('Before:', getActiveResourcesInfo());
+                 * setTimeout(() => {}, 1000);
+                 * console.log('After:', getActiveResourcesInfo());
+                 * // Prints:
+                 * //   Before: [ 'TTYWrap', 'TTYWrap', 'TTYWrap' ]
+                 * //   After: [ 'TTYWrap', 'TTYWrap', 'TTYWrap', 'Timeout' ]
+                 * ```
+                 * @since v17.3.0, v16.14.0
+                 */
+                getActiveResourcesInfo(): string[];
                 /**
                  * The `process.getgid()` method returns the numerical group identity of the
                  * process. (See [`getgid(2)`](http://man7.org/linux/man-pages/man2/getgid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgid) {
                  *   console.log(`Current gid: ${process.getgid()}`);
@@ -677,7 +817,7 @@ declare module "process" {
                  * associated numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgid &#x26;&#x26; process.setgid) {
                  *   console.log(`Current gid: ${process.getgid()}`);
@@ -702,7 +842,7 @@ declare module "process" {
                  * (See [`getuid(2)`](http://man7.org/linux/man-pages/man2/getuid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getuid) {
                  *   console.log(`Current uid: ${process.getuid()}`);
@@ -721,7 +861,7 @@ declare module "process" {
                  * numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getuid &#x26;&#x26; process.setuid) {
                  *   console.log(`Current uid: ${process.getuid()}`);
@@ -745,7 +885,7 @@ declare module "process" {
                  * the process. (See [`geteuid(2)`](http://man7.org/linux/man-pages/man2/geteuid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.geteuid) {
                  *   console.log(`Current uid: ${process.geteuid()}`);
@@ -764,7 +904,7 @@ declare module "process" {
                  * associated numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.geteuid &#x26;&#x26; process.seteuid) {
                  *   console.log(`Current uid: ${process.geteuid()}`);
@@ -789,7 +929,7 @@ declare module "process" {
                  * of the Node.js process. (See [`getegid(2)`](http://man7.org/linux/man-pages/man2/getegid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getegid) {
                  *   console.log(`Current gid: ${process.getegid()}`);
@@ -808,7 +948,7 @@ declare module "process" {
                  * the associated a numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getegid &#x26;&#x26; process.setegid) {
                  *   console.log(`Current gid: ${process.getegid()}`);
@@ -834,7 +974,7 @@ declare module "process" {
                  * Node.js ensures it always is.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgroups) {
                  *   console.log(process.getgroups()); // [ 16, 21, 297 ]
@@ -854,7 +994,7 @@ declare module "process" {
                  * The `groups` array can contain numeric group IDs, group names, or both.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgroups &#x26;&#x26; process.setgroups) {
                  *   try {
@@ -883,7 +1023,7 @@ declare module "process" {
                  * not abort. Actions configured to take place on exceptions such as report
                  * generations will be affected too
                  *
-                 * To unset the capture function,`process.setUncaughtExceptionCaptureCallback(null)` may be used. Calling this
+                 * To unset the capture function, `process.setUncaughtExceptionCaptureCallback(null)` may be used. Calling this
                  * method with a non-`null` argument while another capture function is set will
                  * throw an error.
                  *
@@ -906,7 +1046,7 @@ declare module "process" {
                  * This function enables or disables the [Source Map v3](https://sourcemaps.info/spec.html) support for
                  * stack traces.
                  *
-                 * It provides same features as launching Node.js process with commandline options`--enable-source-maps`.
+                 * It provides same features as launching Node.js process with commandline options `--enable-source-maps`.
                  *
                  * Only source maps in JavaScript files that are loaded after source maps has been
                  * enabled will be parsed and loaded.
@@ -1090,8 +1230,8 @@ declare module "process" {
                  * When a new value is assigned, different platforms will impose different maximum
                  * length restrictions on the title. Usually such restrictions are quite limited.
                  * For instance, on Linux and macOS, `process.title` is limited to the size of the
-                 * binary name plus the length of the command-line arguments because setting the`process.title` overwrites the `argv` memory of the process. Node.js v0.8
-                 * allowed for longer process title strings by also overwriting the `environ`memory but that was potentially insecure and confusing in some (rather obscure)
+                 * binary name plus the length of the command-line arguments because setting the `process.title` overwrites the `argv` memory of the process. Node.js v0.8
+                 * allowed for longer process title strings by also overwriting the `environ` memory but that was potentially insecure and confusing in some (rather obscure)
                  * cases.
                  *
                  * Assigning a value to `process.title` might not result in an accurate label
@@ -1278,6 +1418,14 @@ declare module "process" {
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
+                 * This API is available through the [--experimental-permission](https://nodejs.org/api/cli.html#--experimental-permission) flag.
+                 *
+                 * `process.permission` is an object whose methods are used to manage permissions for the current process.
+                 * Additional documentation is available in the [Permission Model](https://nodejs.org/api/permissions.html#permission-model).
+                 * @since v20.0.0
+                 */
+                permission: ProcessPermission;
+                /**
                  * The `process.release` property returns an `Object` containing metadata related
                  * to the current release, including URLs for the source tarball and headers-only
                  * tarball.
@@ -1294,7 +1442,7 @@ declare module "process" {
                  * }
                  * ```
                  *
-                 * In custom builds from non-release versions of the source tree, only the`name` property may be present. The additional properties should not be
+                 * In custom builds from non-release versions of the source tree, only the `name` property may be present. The additional properties should not be
                  * relied upon to exist.
                  * @since v3.0.0
                  */
@@ -1313,7 +1461,7 @@ declare module "process" {
                  * `process.umask()` returns the Node.js process's file mode creation mask. Child
                  * processes inherit the mask from the parent process.
                  * @since v0.1.19
-                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential   *
+                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential
                  * security vulnerability. There is no safe, cross-platform alternative API.
                  */
                 umask(): number;
@@ -1357,13 +1505,13 @@ declare module "process" {
                  * The message goes through serialization and parsing. The resulting message might
                  * not be the same as what is originally sent.
                  * @since v0.5.9
-                 * @param options used to parameterize the sending of certain types of handles.`options` supports the following properties:
+                 * @param options used to parameterize the sending of certain types of handles. `options` supports the following properties:
                  */
                 send?(
                     message: any,
                     sendHandle?: any,
                     options?: {
-                        swallowErrors?: boolean | undefined;
+                        keepOpen?: boolean | undefined;
                     },
                     callback?: (error: Error | null) => void,
                 ): boolean;
@@ -1374,13 +1522,13 @@ declare module "process" {
                  *
                  * The effect of calling `process.disconnect()` is the same as calling `ChildProcess.disconnect()` from the parent process.
                  *
-                 * If the Node.js process was not spawned with an IPC channel,`process.disconnect()` will be `undefined`.
+                 * If the Node.js process was not spawned with an IPC channel, `process.disconnect()` will be `undefined`.
                  * @since v0.7.2
                  */
                 disconnect(): void;
                 /**
-                 * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.connected` property will return`true` so long as the IPC
-                 * channel is connected and will return `false` after`process.disconnect()` is called.
+                 * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.connected` property will return `true` so long as the IPC
+                 * channel is connected and will return `false` after `process.disconnect()` is called.
                  *
                  * Once `process.connected` is `false`, it is no longer possible to send messages
                  * over the IPC channel using `process.send()`.
@@ -1391,11 +1539,11 @@ declare module "process" {
                  * The `process.allowedNodeEnvironmentFlags` property is a special,
                  * read-only `Set` of flags allowable within the `NODE_OPTIONS` environment variable.
                  *
-                 * `process.allowedNodeEnvironmentFlags` extends `Set`, but overrides`Set.prototype.has` to recognize several different possible flag
+                 * `process.allowedNodeEnvironmentFlags` extends `Set`, but overrides `Set.prototype.has` to recognize several different possible flag
                  * representations. `process.allowedNodeEnvironmentFlags.has()` will
                  * return `true` in the following cases:
                  *
-                 * * Flags may omit leading single (`-`) or double (`--`) dashes; e.g.,`inspect-brk` for `--inspect-brk`, or `r` for `-r`.
+                 * * Flags may omit leading single (`-`) or double (`--`) dashes; e.g., `inspect-brk` for `--inspect-brk`, or `r` for `-r`.
                  * * Flags passed through to V8 (as listed in `--v8-options`) may replace
                  * one or more _non-leading_ dashes for an underscore, or vice-versa;
                  * e.g., `--perf_basic_prof`, `--perf-basic-prof`, `--perf_basic-prof`,
@@ -1467,7 +1615,30 @@ declare module "process" {
                  */
                 resourceUsage(): ResourceUsage;
                 /**
-                 * The `process.traceDeprecation` property indicates whether the`--trace-deprecation` flag is set on the current Node.js process. See the
+                 * The initial value of `process.throwDeprecation` indicates whether the `--throw-deprecation` flag is set on the current Node.js process. `process.throwDeprecation`
+                 * is mutable, so whether or not deprecation warnings result in errors may be altered at runtime. See the documentation for the 'warning' event and the emitWarning()
+                 * method for more information.
+                 *
+                 * ```bash
+                 * $ node --throw-deprecation -p "process.throwDeprecation"
+                 * true
+                 * $ node -p "process.throwDeprecation"
+                 * undefined
+                 * $ node
+                 * > process.emitWarning('test', 'DeprecationWarning');
+                 * undefined
+                 * > (node:26598) DeprecationWarning: test
+                 * > process.throwDeprecation = true;
+                 * true
+                 * > process.emitWarning('test', 'DeprecationWarning');
+                 * Thrown:
+                 * [DeprecationWarning: test] { name: 'DeprecationWarning' }
+                 * ```
+                 * @since v0.9.12
+                 */
+                throwDeprecation: boolean;
+                /**
+                 * The `process.traceDeprecation` property indicates whether the `--trace-deprecation` flag is set on the current Node.js process. See the
                  * documentation for the `'warning' event` and the `emitWarning() method` for more information about this
                  * flag's behavior.
                  * @since v0.8.0

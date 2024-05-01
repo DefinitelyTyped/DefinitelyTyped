@@ -41,7 +41,7 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/buffer.js)
  */
 declare module "buffer" {
     import { BinaryLike } from "node:crypto";
@@ -311,12 +311,12 @@ declare module "buffer" {
              *
              * If `array` is an `Array`\-like object (that is, one with a `length` property of
              * type `number`), it is treated as if it is an array, unless it is a `Buffer` or
-             * a `Uint8Array`. This means all other `TypedArray` variants get treated as an`Array`. To create a `Buffer` from the bytes backing a `TypedArray`, use `Buffer.copyBytesFrom()`.
+             * a `Uint8Array`. This means all other `TypedArray` variants get treated as an `Array`. To create a `Buffer` from the bytes backing a `TypedArray`, use `Buffer.copyBytesFrom()`.
              *
              * A `TypeError` will be thrown if `array` is not an `Array` or another type
              * appropriate for `Buffer.from()` variants.
              *
-             * `Buffer.from(array)` and `Buffer.from(string)` may also use the internal`Buffer` pool like `Buffer.allocUnsafe()` does.
+             * `Buffer.from(array)` and `Buffer.from(string)` may also use the internal `Buffer` pool like `Buffer.allocUnsafe()` does.
              * @since v5.10.0
              */
             from(
@@ -420,9 +420,9 @@ declare module "buffer" {
                 encoding?: BufferEncoding,
             ): number;
             /**
-             * Returns a new `Buffer` which is the result of concatenating all the `Buffer`instances in the `list` together.
+             * Returns a new `Buffer` which is the result of concatenating all the `Buffer` instances in the `list` together.
              *
-             * If the list has no items, or if the `totalLength` is 0, then a new zero-length`Buffer` is returned.
+             * If the list has no items, or if the `totalLength` is 0, then a new zero-length `Buffer` is returned.
              *
              * If `totalLength` is not provided, it is calculated from the `Buffer` instances
              * in `list` by adding their lengths.
@@ -476,7 +476,7 @@ declare module "buffer" {
              */
             copyBytesFrom(view: NodeJS.TypedArray, offset?: number, length?: number): Buffer;
             /**
-             * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of`Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
+             * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of `Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
              *
              * ```js
              * import { Buffer } from 'node:buffer';
@@ -2098,7 +2098,7 @@ declare module "buffer" {
              * // Prints: 6
              * ```
              *
-             * If `value` is not a string, number, or `Buffer`, this method will throw a`TypeError`. If `value` is a number, it will be coerced to a valid byte value,
+             * If `value` is not a string, number, or `Buffer`, this method will throw a `TypeError`. If `value` is a number, it will be coerced to a valid byte value,
              * an integer between 0 and 255.
              *
              * If `byteOffset` is not a number, it will be coerced to a number. If the result
