@@ -848,7 +848,7 @@ declare module "assert" {
          * });
          * ```
          *
-         * `error` cannot be a string. If a string is provided as the second argument, then `error` is assumed to 
+         * `error` cannot be a string. If a string is provided as the second argument, then `error` is assumed to
          * be omitted and the string will be used for `message` instead. This can lead to easy-to-miss mistakes. Please read the
          * example in {@link throws} carefully if using a string as the second argument gets considered.
          * @since v10.0.0

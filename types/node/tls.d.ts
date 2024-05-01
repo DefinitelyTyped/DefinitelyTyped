@@ -1154,7 +1154,7 @@ declare module "tls" {
      * lower-case for historical reasons, but must be uppercased to be used in
      * the `ciphers` option of `{@link createSecureContext}`.
      *
-     * Not all supported ciphers are enabled by default. See 
+     * Not all supported ciphers are enabled by default. See
      * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v20.x/api/tls.html#modifying-the-default-tls-cipher-suite).
      *
      * Cipher names that start with `'tls_'` are for TLSv1.3, all the others are for
@@ -1178,7 +1178,7 @@ declare module "tls" {
      * It can be assigned any of the supported TLS protocol versions,
      * `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. **Default:** `'TLSv1.3'`, unless
      * changed using CLI options. Using `--tls-max-v1.2` sets the default to `'TLSv1.2'`. Using
-     * `--tls-max-v1.3` sets the default to `'TLSv1.3'`. If multiple of the options 
+     * `--tls-max-v1.3` sets the default to `'TLSv1.3'`. If multiple of the options
      * are provided, the highest maximum is used.
      * @since v11.4.0
      */
@@ -1206,7 +1206,7 @@ declare module "tls" {
      * An immutable array of strings representing the root certificates (in PEM format)
      * from the bundled Mozilla CA store as supplied by the current Node.js version.
      *
-     * The bundled CA store, as supplied by Node.js, is a snapshot of Mozilla CA store 
+     * The bundled CA store, as supplied by Node.js, is a snapshot of Mozilla CA store
      * that is fixed at release time. It is identical on all supported platforms.
      * @since v12.3.0
      */

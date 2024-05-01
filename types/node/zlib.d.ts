@@ -116,7 +116,7 @@ declare module "zlib" {
          */
         info?: boolean | undefined;
         /**
-         * Limits output size when using convenience methods. 
+         * Limits output size when using convenience methods.
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
@@ -445,7 +445,7 @@ declare module "zlib" {
         const Z_FIXED: number;
         const Z_DEFAULT_STRATEGY: number;
         const Z_DEFAULT_WINDOWBITS: number;
-        
+
         const Z_MIN_WINDOWBITS: number;
         const Z_MAX_WINDOWBITS: number;
         const Z_MIN_CHUNK: number;

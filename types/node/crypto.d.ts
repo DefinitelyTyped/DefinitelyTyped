@@ -3408,7 +3408,11 @@ declare module "crypto" {
      */
     function hash(algorithm: string, data: BinaryLike, outputEncoding?: BinaryToTextEncoding): string;
     function hash(algorithm: string, data: BinaryLike, outputEncoding: "buffer"): Buffer;
-    function hash(algorithm: string, data: BinaryLike, outputEncoding?: BinaryToTextEncoding | "buffer"): string | Buffer;
+    function hash(
+        algorithm: string,
+        data: BinaryLike,
+        outputEncoding?: BinaryToTextEncoding | "buffer",
+    ): string | Buffer;
     type CipherMode = "cbc" | "ccm" | "cfb" | "ctr" | "ecb" | "gcm" | "ocb" | "ofb" | "stream" | "wrap" | "xts";
     interface CipherInfoOptions {
         /**

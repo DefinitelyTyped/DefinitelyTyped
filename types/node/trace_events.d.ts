@@ -116,7 +116,7 @@ declare module "trace_events" {
          * Only trace event categories _not_ covered by other enabled `Tracing`
          * objects and _not_ specified by the `--trace-event-categories` flag
          * will be disabled.
-         * 
+         *
          * ```js
          * const trace_events = require('node:trace_events');
          * const t1 = trace_events.createTracing({ categories: ['node', 'v8'] });
