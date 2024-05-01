@@ -394,7 +394,7 @@ export class Driver extends webdriver.WebDriver {
      * @return {!Promise<void>} A promise that will be resolved when network
      *     emulation settings are set.
      */
-    setNetworkConditions(spec: object): Promise<void>;
+    setNetworkConditions(spec: {offline: boolean, latency: number, download_throughput: number, upload_throughput: number}): Promise<void>;
 
     /**
      * Sends an arbitrary devtools command to the browser.

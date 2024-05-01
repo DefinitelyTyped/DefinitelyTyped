@@ -9,7 +9,12 @@ async function TestChromoiumDriver() {
     await driver.sendDevToolsCommand("command", {});
     let response = await driver.sendAndGetDevToolsCommand("command", []);
     let networkConditions = await driver.getNetworkConditions();
-    await driver.setNetworkConditions(networkConditions);
+    await driver.setNetworkConditions({
+        offline: true,
+        latency: 0,
+        download_throughput: 0,
+        upload_throughput: 0,
+    });
     await driver.deleteNetworkConditions();
     await driver.launchApp("appId");
     await driver.setPermission("javaScriptEnabled", "granted");
