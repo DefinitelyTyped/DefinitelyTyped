@@ -20,7 +20,7 @@ async function TestFirefoxDriver() {
 }
 
 function TestFirefoxOptions() {
-    let options: firefox.Options = new firefox.Options(webdriver.Capabilities.firefox());
+    let options: firefox.Options = new firefox.Options();
 
     options = options.setBinary("binary");
     options = options.setProfile("profile");

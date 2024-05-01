@@ -452,7 +452,6 @@ async function TestWebDriver() {
     stringPromise = driver.takeScreenshot();
 
     booleanPromise = driver.wait(booleanPromise);
-    booleanPromise = driver.wait(booleanCondition);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => true);
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => Promise.resolve(true));
     booleanPromise = driver.wait((driver: webdriver.WebDriver) => Promise.resolve(true));
