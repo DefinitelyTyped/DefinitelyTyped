@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lambda-lambda-lambda__cli",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/lambda-lambda-lambda/cli"
+    ],
+    "devDependencies": {
+        "@types/lambda-lambda-lambda__cli": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marc S. Brooks",
+            "githubUsername": "nuxy"
+        }
+    ]
+}
