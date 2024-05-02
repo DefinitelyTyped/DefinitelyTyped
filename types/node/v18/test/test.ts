@@ -1,5 +1,5 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
-import { after, afterEach, before, beforeEach, describe, it, run, test } from "node:test";
+import { SuiteContext, TestContext, after, afterEach, before, beforeEach, describe, it, run, test } from "node:test";
 import { dot, junit, spec, tap, TestEvent } from "node:test/reporters";
 
 // run without options
@@ -622,3 +622,31 @@ class TestReporter extends Transform {
         }
     }
 }
+
+// Allows for typing of TestContext outside of a test
+const contextTest = (t: TestContext) => {
+    // $ExpectType TestContext
+    t;
+}
+
+const suiteTest = (t: SuiteContext) => {
+    // $ExpectType SuiteContext
+    t;
+}
+
+describe('test context in describe/it', (suite) => {
+    suiteTest(suite);
+    it('test context exportation', (t) => {
+        contextTest(t);
+    })
+})
+
+test('test on the default export', (t) => {
+    contextTest(t);
+})
+
+// @ts-expect-error Should not be able to instantiate a TestContext
+const invalidTestContext = new TestContext();
+
+// @ts-expect-error Should not be able to instantiate a SuiteContext
+const invalidSuiteContext = new SuiteContext();
