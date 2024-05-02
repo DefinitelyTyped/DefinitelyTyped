@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/ramda",
-    "version": "0.30.999",
+    "version": "0.30.9999",
     "projects": [
         "https://ramdajs.com"
     ],
