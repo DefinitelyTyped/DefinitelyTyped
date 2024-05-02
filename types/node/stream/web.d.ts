@@ -313,11 +313,35 @@ declare module "stream/web" {
      * built-in back pressure and queuing.
      */
     interface WritableStream<W = any> {
+        /**
+         * The `writableStream.locked` property is `false` by default, and is switched
+         * to `true` while there is an active writer attached to this `WritableStream`.
+         * @since v16.5.0
+         */
         readonly locked: boolean;
-        abort(reason?: any): Promise<void>;
-        close(): Promise<void>;
+        /**
+         * Abruptly terminates the `WritableStream`. All queued writes will be canceled
+         * with their associated promises rejected.
+         * @since v16.5.0
+         * @returns A promise fulfilled with `undefined`.
+         */
+        abort(reason?: any): Promise<undefined>;
+        /**
+         * Closes the `WritableStream` when no additional writes are expected.
+         * @since v16.5.0
+         * @returns A promise fulfilled with `undefined`.
+         */
+        close(): Promise<undefined>;
+        /**
+         * Creates and returns a new writer instance that can be used to write data into
+         * the `WritableStream`.
+         * @since v16.5.0
+         */
         getWriter(): WritableStreamDefaultWriter<W>;
     }
+    /**
+     * @since v16.5.0
+     */
     const WritableStream: {
         prototype: WritableStream;
         new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
@@ -339,17 +363,27 @@ declare module "stream/web" {
     }
     const WritableStreamDefaultWriter: {
         prototype: WritableStreamDefaultWriter;
+        /**
+         * Creates a new WritableStreamDefaultWriter that is locked to the given WritableStream.
+         */
         new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
     };
-    /**
-     * This Streams API interface represents a controller allowing control of a
-     * WritableStream's state. When constructing a WritableStream, the
-     * underlying sink is given a corresponding WritableStreamDefaultController
-     * instance to manipulate.
-     */
     interface WritableStreamDefaultController {
-        error(e?: any): void;
+        /**
+         * Called by user-code to signal that an error has occurred while processing the `WritableStream` data.
+         * When called, the {@link WritableStream} will be aborted, with currently pending writes canceled.
+         * @since v16.5.0
+         */
+        error(error?: any): void;
+        /**
+         * An `AbortSignal` that can be used to cancel pending write or close operations when a {@link WritableStream} is aborted.
+         */
+        readonly signal: AbortSignal;
     }
+    /**
+     * The `WritableStreamDefaultController` manages the {@link WritableStream}'s internal state.
+     * @since v16.5.0
+     */
     const WritableStreamDefaultController: {
         prototype: WritableStreamDefaultController;
         new(): WritableStreamDefaultController;
@@ -362,15 +396,6 @@ declare module "stream/web" {
         (chunk?: T): number;
     }
     interface QueuingStrategyInit {
-        /**
-         * Creates a new ByteLengthQueuingStrategy with the provided high water
-         * mark.
-         *
-         * Note that the provided high water mark will not be validated ahead of
-         * time. Instead, if it is negative, NaN, or not a number, the resulting
-         * ByteLengthQueuingStrategy will cause the corresponding stream
-         * constructor to throw.
-         */
         highWaterMark: number;
     }
     interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
@@ -383,6 +408,9 @@ declare module "stream/web" {
          */
         readonly size: QueuingStrategySize<ArrayBufferView>;
     }
+    /**
+     * @since v16.5.0
+     */
     const ByteLengthQueuingStrategy: {
         prototype: ByteLengthQueuingStrategy;
         new(init: QueuingStrategyInit): ByteLengthQueuingStrategy;
@@ -419,6 +447,9 @@ declare module "stream/web" {
          */
         readonly writable: WritableStream;
     }
+    /**
+     * @since v16.6.0
+     */
     const TextEncoderStream: {
         prototype: TextEncoderStream;
         new(): TextEncoderStream;
@@ -430,15 +461,13 @@ declare module "stream/web" {
         fatal?: boolean;
         /**
          * When `true`, the `TextDecoderStream` will include the byte order mark in the decoded result.
-         * When `false`, the byte order mark will be removed from the output. This option is only used when encoding is `'utf-8'`, `'utf-16be'`, or `'utf-16le'`.
+         * When `false`, the byte order mark will be removed from the output. This option is only used 
+         * when encoding is `'utf-8'`, `'utf-16be'`, or `'utf-16le'`.
          * @default false
          */
         ignoreBOM?: boolean;
     }
     type BufferSource = ArrayBufferView | ArrayBuffer;
-    /**
-     * @since v16.6.0
-     */
     interface TextDecoderStream {
         /**
          * The encoding supported by the `TextDecoderStream` instance.
@@ -458,12 +487,15 @@ declare module "stream/web" {
         /**
          * @since v16.6.0
          */
-        readonly readable: ReadableStream<string>;
+        readonly readable: ReadableStream;
         /**
          * @since v16.6.0
          */
-        readonly writable: WritableStream<BufferSource>;
+        readonly writable: WritableStream;
     }
+    /**
+     * @since v16.6.0
+     */
     const TextDecoderStream: {
         prototype: TextDecoderStream;
         new(encoding?: string, options?: TextDecoderOptions): TextDecoderStream;
@@ -479,13 +511,13 @@ declare module "stream/web" {
          */
         readonly writable: WritableStream<W>;
     }
+    /**
+     * @since v17.0.0
+     */      
     const CompressionStream: {
         prototype: CompressionStream;
         new<R = any, W = any>(format: Format): CompressionStream<R, W>;
     };
-    /**
-     * @since v17.0.0
-     */      
     interface DecompressionStream<R = any, W = any> {
         /**
          * @since v17.0.0
@@ -496,6 +528,9 @@ declare module "stream/web" {
          */
         readonly writable: WritableStream<W>;
     }
+    /**
+     * @since v17.0.0
+     */      
     const DecompressionStream: {
         prototype: DecompressionStream;
         new<R = any, W = any>(format: Format): DecompressionStream<R, W>;
