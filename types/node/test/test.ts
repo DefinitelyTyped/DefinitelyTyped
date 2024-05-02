@@ -1,5 +1,20 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
-import { after, afterEach, before, beforeEach, describe, it, Mock, mock, only, run, skip, test, TestContext, todo } from "node:test";
+import {
+    after,
+    afterEach,
+    before,
+    beforeEach,
+    describe,
+    it,
+    Mock,
+    mock,
+    only,
+    run,
+    skip,
+    test,
+    TestContext,
+    todo,
+} from "node:test";
 import { dot, junit, lcov, spec, tap, TestEvent } from "node:test/reporters";
 
 // run without options
