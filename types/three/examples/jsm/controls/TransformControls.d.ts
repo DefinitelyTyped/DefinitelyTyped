@@ -2,8 +2,8 @@ import { Camera, Mesh, MOUSE, Object3D, Object3DEventMap, Quaternion, Raycaster,
 
 export interface TransformControlsEventMap extends Object3DEventMap {
     change: {};
-    mouseDown: {};
-    mouseUp: {};
+    mouseDown: { mode: string };
+    mouseUp: { mode: string };
     objectChange: {};
     "camera-changed": { value: unknown };
     "object-changed": { value: unknown };
