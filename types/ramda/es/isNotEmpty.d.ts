@@ -1,2 +1,2 @@
-import { flow } from "../index.js";
-export default flow;
+import { isNotEmpty } from "../index.js";
+export default isNotEmpty;
