@@ -1,64 +1,30 @@
 declare module "stream/web" {
-    // stub module, pending copy&paste from .d.ts or manual impl
-    // copy from lib.dom.d.ts
     interface ReadableWritablePair<R = any, W = any> {
+        /**
+         * The ReadableStream to which transform.writable will push the potentially modified data it receives from this ReadableStream.
+         */
         readable: ReadableStream<R>;
         /**
-         * Provides a convenient, chainable way of piping this readable stream
-         * through a transform stream (or any other { writable, readable }
-         * pair). It simply pipes the stream into the writable side of the
-         * supplied pair, and returns the readable side for further use.
-         *
-         * Piping a stream will lock it for the duration of the pipe, preventing
-         * any other consumer from acquiring a reader.
+         * The WritableStream to which this ReadableStream's data will be written.
          */
         writable: WritableStream<W>;
     }
     interface StreamPipeOptions {
+        /**
+         * When `true`, errors in this `ReadableStream` will not cause `transform.writable` to be aborted.
+         */
         preventAbort?: boolean;
+        /**
+         * When `true`, errors in the destination `transform.writable` do not cause this `ReadableStream` to be canceled.
+         */
         preventCancel?: boolean;
         /**
-         * Pipes this readable stream to a given writable stream destination.
-         * The way in which the piping process behaves under various error
-         * conditions can be customized with a number of passed options. It
-         * returns a promise that fulfills when the piping process completes
-         * successfully, or rejects if any errors were encountered.
-         *
-         * Piping a stream will lock it for the duration of the pipe, preventing
-         * any other consumer from acquiring a reader.
-         *
-         * Errors and closures of the source and destination streams propagate
-         * as follows:
-         *
-         * An error in this source readable stream will abort destination,
-         * unless preventAbort is truthy. The returned promise will be rejected
-         * with the source's error, or with any error that occurs during
-         * aborting the destination.
-         *
-         * An error in destination will cancel this source readable stream,
-         * unless preventCancel is truthy. The returned promise will be rejected
-         * with the destination's error, or with any error that occurs during
-         * canceling the source.
-         *
-         * When this source readable stream closes, destination will be closed,
-         * unless preventClose is truthy. The returned promise will be fulfilled
-         * once this process completes, unless an error is encountered while
-         * closing the destination, in which case it will be rejected with that
-         * error.
-         *
-         * If destination starts out closed or closing, this source readable
-         * stream will be canceled, unless preventCancel is true. The returned
-         * promise will be rejected with an error indicating piping to a closed
-         * stream failed, or with any error that occurs during canceling the
-         * source.
-         *
-         * The signal option can be set to an AbortSignal to allow aborting an
-         * ongoing pipe operation via the corresponding AbortController. In this
-         * case, this source readable stream will be canceled, and destination
-         * aborted, unless the respective options preventCancel or preventAbort
-         * are set.
+         * When `true`, closing this `ReadableStream` does not cause `transform.writable` to be closed.
          */
         preventClose?: boolean;
+        /**
+         * Allows the transfer of data to be canceled using an {@link AbortController}.
+         */
         signal?: AbortSignal;
     }
     interface ReadableStreamGenericReader {
@@ -145,11 +111,45 @@ declare module "stream/web" {
     /** This Streams API interface represents a readable stream of byte data. */
     interface ReadableStream<R = any> {
         readonly locked: boolean;
+        /**
+         * @since v16.5.0
+         * @returns A promise fulfilled with `undefined` once cancelation has been completed.
+         */
         cancel(reason?: any): Promise<void>;
+        /**
+         * ```js
+         * import { ReadableStream } from 'node:stream/web';
+         *
+         * const stream = new ReadableStream();
+         *
+         * const reader = stream.getReader();
+         *
+         * console.log(await reader.read());
+         * ```
+         *
+         * Causes the `readableStream.locked` to be `true`.
+         * @since v16.5.0
+         */
         getReader(): ReadableStreamDefaultReader<R>;
         getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
+        /**
+         * Connects this <ReadableStream> to the pair of <ReadableStream> and <WritableStream> provided in the transform argument such that the data from this <ReadableStream> is written in to transform.writable, possibly transformed, then pushed to transform.readable. Once the pipeline is configured, transform.readable is returned.
+         *
+         * Causes the readableStream.locked to be true while the pipe operation is active.
+         */
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
+        /**
+         * Causes the `readableStream.locked` to be `true` while the pipe operation is active.
+         * @since v16.5.0
+         * @param A {@link WritableStream} to which this `ReadableStream`'s data will be written.
+         * @returns A promise fulfilled with `undefined`
+         */
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
+        /**
+         * Returns a pair of new <ReadableStream> instances to which this ReadableStream's data will be forwarded. Each will receive the same data.
+         *
+         * Causes the readableStream.locked to be true.
+         */
         tee(): [ReadableStream<R>, ReadableStream<R>];
         values(options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
         [Symbol.asyncIterator](): AsyncIterableIterator<R>;
@@ -326,41 +326,88 @@ declare module "stream/web" {
         new(): TextEncoderStream;
     };
     interface TextDecoderOptions {
+        /**
+         * `true` if decoding failures are fatal.
+         */
         fatal?: boolean;
+        /**
+         * When true, the TextDecoderStream will include the byte order mark in the decoded result. When false, the byte order mark will be removed from the output. This option is only used when encoding is 'utf-8', 'utf-16be', or 'utf-16le'. Default: false.
+         */
         ignoreBOM?: boolean;
     }
     type BufferSource = ArrayBufferView | ArrayBuffer;
+    /**
+     * @since v16.6.0
+     */
     interface TextDecoderStream {
-        /** Returns encoding's name, lower cased. */
+        /**
+         * The encoding supported by the `TextDecoderStream` instance.
+         * @since v16.6.0
+         */
         readonly encoding: string;
-        /** Returns `true` if error mode is "fatal", and `false` otherwise. */
+        /**
+         * The value will be `true` if decoding errors result in a `TypeError` being thrown.
+         * @since v16.6.0
+         */
         readonly fatal: boolean;
-        /** Returns `true` if ignore BOM flag is set, and `false` otherwise. */
+        /**
+         * The value will be `true` if the decoding result will include the byte order mark.
+         * @since v16.6.0
+         */
         readonly ignoreBOM: boolean;
+        /**
+         * @since v16.6.0
+         */
         readonly readable: ReadableStream<string>;
+        /**
+         * @since v16.6.0
+         */
         readonly writable: WritableStream<BufferSource>;
-        readonly [Symbol.toStringTag]: string;
     }
     const TextDecoderStream: {
         prototype: TextDecoderStream;
         new(encoding?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
+    type Format = "deflate" | "deflate-raw" | "gzip";
     interface CompressionStream<R = any, W = any> {
+        /**
+         * @since v17.0.0
+         */
         readonly readable: ReadableStream<R>;
+        /**
+         * @since v17.0.0
+         */
         readonly writable: WritableStream<W>;
     }
     const CompressionStream: {
         prototype: CompressionStream;
-        new<R = any, W = any>(format: "deflate" | "deflate-raw" | "gzip"): CompressionStream<R, W>;
+        new<R = any, W = any>(format: Format): CompressionStream<R, W>;
     };
+    /**
+     * @since v17.0.0
+     */      
     interface DecompressionStream<R = any, W = any> {
+        /**
+         * @since v17.0.0
+         */
         readonly readable: ReadableStream<R>;
+        /**
+         * @since v17.0.0
+         */
         readonly writable: WritableStream<W>;
     }
     const DecompressionStream: {
         prototype: DecompressionStream;
-        new<R = any, W = any>(format: "deflate" | "deflate-raw" | "gzip"): DecompressionStream<R, W>;
+        new<R = any, W = any>(format: Format): DecompressionStream<R, W>;
     };
+    global {  
+        import { DecompressionStream as NodeDecompressionStream } from "node:stream/web";
+        var DecompressionStream: typeof globalThis extends {
+            onmessage: any;
+            : infer DecompressionStream;
+        } ? T
+            : typeof NodeDecompressionStream;
+     }
 }
 declare module "node:stream/web" {
     export * from "stream/web";
