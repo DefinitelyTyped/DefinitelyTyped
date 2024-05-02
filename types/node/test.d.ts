@@ -388,7 +388,7 @@ declare module "node:test" {
      * exposed as part of the API.
      * @since v18.0.0, v16.17.0
      */
-    export interface TestContext {
+    class TestContext {
         /**
          * This function is used to create a hook running before subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
@@ -524,7 +524,7 @@ declare module "node:test" {
      * exposed as part of the API.
      * @since v18.7.0, v16.17.0
      */
-    export interface SuiteContext {
+    class SuiteContext {
         /**
          * The name of the suite.
          * @since v18.8.0, v16.18.0
@@ -1250,6 +1250,8 @@ declare module "node:test" {
         test,
         test as default,
         todo,
+        TestContext,
+        SuiteContext
     };
 }
 
