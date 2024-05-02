@@ -1248,6 +1248,7 @@ declare module "node:test" {
         skip,
         test,
         test as default,
+        TestContext,
         todo,
     };
 }
