@@ -257,22 +257,48 @@ declare module "stream/web" {
         new(): ReadableStreamDefaultController;
     };
     interface Transformer<I = any, O = any> {
-        flush?: TransformerFlushCallback<O>;
-        readableType?: undefined;
+        /**
+         * A user-defined function that is invoked immediately when the `TransformStream` is created.
+         */
         start?: TransformerStartCallback<O>;
+        /**
+         * A user-defined function that receives, and potentially modifies, a chunk of data written to 
+         * `transformStream.writable`, before forwarding that on to `transformStream.readable`.
+         */
         transform?: TransformerTransformCallback<I, O>;
+        /**
+         * A user-defined function that is called immediately before the writable side of the `TransformStream` 
+         * is closed, signaling the end of the transformation process.
+         */
+        flush?: TransformerFlushCallback<O>;
+        /**
+         * the `readableType` option is reserved for future use and _must_ be `undefined`.
+         */
+        readableType?: undefined;
+        /**
+         * the `writableType` option is reserved for future use and _must_ be `undefined`.
+         */
         writableType?: undefined;
     }
-    interface TransformStream<I = any, O = any> {
-        readonly readable: ReadableStream<O>;
-        readonly writable: WritableStream<I>;
+    interface TransformStream<R = any, W = any> {
+        /**
+         * @since v16.5.0
+         */
+        readonly readable: ReadableStream<R>;
+        /**
+         * @since v16.5.0
+         */
+        readonly writable: WritableStream<W>;
     }
+    /**
+     * A TransformStream consists of a <ReadableStream> and a <WritableStream> that are connected such that the data written to the WritableStream is received, and potentially transformed, before being pushed into the ReadableStream's queue.
+     */
     const TransformStream: {
         prototype: TransformStream;
-        new<I = any, O = any>(
-            transformer?: Transformer<I, O>,
-            writableStrategy?: QueuingStrategy<I>,
-            readableStrategy?: QueuingStrategy<O>,
+        new<W = any, R = any>(
+            transformer?: Transformer<W, R>,
+            writableStrategy?: QueuingStrategy<W>,
+            readableStrategy?: QueuingStrategy<R>,
         ): TransformStream<I, O>;
     };
     interface TransformStreamDefaultController<O = any> {
@@ -389,7 +415,13 @@ declare module "stream/web" {
         new(): WritableStreamDefaultController;
     };
     interface QueuingStrategy<T = any> {
+        /**
+         * The maximum internal queue size before backpressure is applied.
+         */
         highWaterMark?: number;
+        /**
+         *  A user-defined function used to identify the size of each chunk of data.
+         */
         size?: QueuingStrategySize<T>;
     }
     interface QueuingStrategySize<T = any> {
@@ -452,6 +484,9 @@ declare module "stream/web" {
      */
     const TextEncoderStream: {
         prototype: TextEncoderStream;
+        /**
+         * Creates a new `TextEncoderStream` instance.
+         */
         new(): TextEncoderStream;
     };
     interface TextDecoderOptions {
@@ -498,6 +533,10 @@ declare module "stream/web" {
      */
     const TextDecoderStream: {
         prototype: TextDecoderStream;
+        /**
+         * @param [encoding='utf8'] Identifies the `encoding` that this `TextDecoder` instance supports.
+         * Creates a new `TextDecoderStream` instance.
+         */
         new(encoding?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
     type Format = "deflate" | "deflate-raw" | "gzip";
