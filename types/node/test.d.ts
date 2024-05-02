@@ -1247,11 +1247,11 @@ declare module "node:test" {
         only,
         run,
         skip,
+        SuiteContext,
         test,
         test as default,
-        todo,
         TestContext,
-        SuiteContext
+        todo,
     };
 }
 

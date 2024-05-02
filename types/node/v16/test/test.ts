@@ -1,4 +1,4 @@
-import { TestContext, describe, it, test } from "node:test";
+import { describe, it, test, TestContext } from "node:test";
 
 test("foo", t => {
     // $ExpectType TestContext
@@ -126,22 +126,21 @@ it(1, () => {});
 const contextTest = (t: TestContext) => {
     // $ExpectType TestContext
     t;
-}
+};
 
-
-describe('test context in describe/it', () => {
+describe("test context in describe/it", () => {
     // @ts-expect-error Cannot use TestContext in it
-    it('cannot use TestContext in it', (t: TestContext) => {})
+    it("cannot use TestContext in it", (t: TestContext) => {});
 
-    it('test context is function', (t) => {
+    it("test context is function", (t) => {
         // $ExpectType (result?: any) => void
         t;
-    })
-})
+    });
+});
 
-test('test on the default export', (t) => {
+test("test on the default export", (t) => {
     contextTest(t);
-})
+});
 
 // @ts-expect-error Should not be able to instantiate a TestContext
 const invalidTestContext = new TestContext();
