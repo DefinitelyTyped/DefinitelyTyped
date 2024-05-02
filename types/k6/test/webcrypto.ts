@@ -199,19 +199,18 @@ crypto.subtle.generateKey(
         namedCurve: "P-256",
     },
     true,
-    ["deriveKey", "deriveBits"]
+    ["deriveKey", "deriveBits"],
 ).then((cryptoKeyPair: CryptoKeyPair) => {
     // $ExpectType Promise<ArrayBuffer>
     crypto.subtle.deriveBits(
         {
-        name: "ECDH",
-        public: cryptoKeyPair.publicKey,
+            name: "ECDH",
+            public: cryptoKeyPair.publicKey,
         },
         cryptoKeyPair.privateKey,
-        256
+        256,
     );
 });
-
 
 // @ts-expect-error
 crypto.subtle.deriveBits();

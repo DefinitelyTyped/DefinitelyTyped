@@ -147,7 +147,13 @@ export interface SubtleCrypto {
     importKey(
         format: "raw" | "jwk" | "spki" | "pkcs8",
         keyData: ArrayBuffer | ArrayBufferView | DataView | JWK,
-        algorithm: "AES-CBC" | "AES-CTR" | "AES-GCM" | Algorithm<"AES-CBC" | "AES-CTR" | "AES-GCM"> | HmacImportParams | EcKeyImportParams,
+        algorithm:
+            | "AES-CBC"
+            | "AES-CTR"
+            | "AES-GCM"
+            | Algorithm<"AES-CBC" | "AES-CTR" | "AES-GCM">
+            | HmacImportParams
+            | EcKeyImportParams,
         extractable: boolean,
         keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits">,
     ): Promise<CryptoKey>;
