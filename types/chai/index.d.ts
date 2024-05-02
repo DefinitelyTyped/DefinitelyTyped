@@ -9,6 +9,10 @@ declare namespace Chai {
         exists: boolean;
     }
 
+    interface Constructor<T> {
+        new(...args: any[]): T;
+    }
+
     interface ErrorConstructor {
         new(...args: any[]): Error;
     }
@@ -417,20 +421,18 @@ declare namespace Chai {
         /**
          * Asserts that object is truthy.
          *
-         * T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        isOk<T>(value: T, message?: string): void;
+        isOk(value: unknown, message?: string): asserts value;
 
         /**
          * Asserts that object is truthy.
          *
-         * T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
          */
-        ok<T>(value: T, message?: string): void;
+        ok(value: unknown, message?: string): asserts value;
 
         /**
          * Asserts that object is falsy.
@@ -559,20 +561,18 @@ declare namespace Chai {
         /**
          * Asserts that value is true.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isTrue<T>(value: T, message?: string): void;
+        isTrue(value: unknown, message?: string): asserts value is true;
 
         /**
          * Asserts that value is false.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isFalse<T>(value: T, message?: string): void;
+        isFalse(value: unknown, message?: string): asserts value is false;
 
         /**
          * Asserts that value is not true.
@@ -581,25 +581,23 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotTrue<T>(value: T, message?: string): void;
+        isNotTrue<T>(value: T, message?: string): asserts value is Exclude<T, true>;
 
         /**
          * Asserts that value is not false.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotFalse<T>(value: T, message?: string): void;
+        isNotFalse<T>(value: T, message?: string): asserts value is Exclude<T, false>;
 
         /**
          * Asserts that value is null.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNull<T>(value: T, message?: string): void;
+        isNull(value: unknown, message?: string): asserts value is null;
 
         /**
          * Asserts that value is not null.
@@ -608,7 +606,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isNotNull<T>(value: T, message?: string): void;
+        isNotNull<T>(value: T, message?: string): asserts value is Exclude<T, null>;
 
         /**
          * Asserts that value is NaN.
@@ -635,25 +633,25 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message    Message to display on error.
          */
-        exists<T>(value: T, message?: string): void;
+        exists<T>(value: T, message?: string): asserts value is NonNullable<T>;
 
         /**
          * Asserts that the target is either null or undefined.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message    Message to display on error.
          */
-        notExists<T>(value: T, message?: string): void;
+        notExists(value: unknown, message?: string): asserts value is
+            | null
+            | undefined;
 
         /**
          * Asserts that value is undefined.
          *
-         * T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isUndefined<T>(value: T, message?: string): void;
+        isUndefined(value: unknown, message?: string): asserts value is undefined;
 
         /**
          * Asserts that value is not undefined.
@@ -662,7 +660,7 @@ declare namespace Chai {
          * @param value   Actual value.
          * @param message   Message to display on error.
          */
-        isDefined<T>(value: T, message?: string): void;
+        isDefined<T>(value: T, message?: string): asserts value is Exclude<T, undefined>;
 
         /**
          * Asserts that value is a function.
@@ -808,22 +806,27 @@ declare namespace Chai {
         /**
          * Asserts that value is an instance of constructor.
          *
-         * T   Type of value.
+         * T   Expected type of value.
          * @param value   Actual value.
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        instanceOf<T>(value: T, constructor: Function, message?: string): void;
+        instanceOf<T>(
+            value: unknown,
+            constructor: Constructor<T>,
+            message?: string,
+        ): asserts value is T;
 
         /**
          * Asserts that value is not an instance of constructor.
          *
          * T   Type of value.
+         * U   Type that value shouldn't be an instance of.
          * @param value   Actual value.
          * @param constructor   Potential expected contructor of value.
          * @param message   Message to display on error.
          */
-        notInstanceOf<T>(value: T, type: Function, message?: string): void;
+        notInstanceOf<T, U>(value: T, type: Constructor<U>, message?: string): asserts value is Exclude<T, U>;
 
         /**
          * Asserts that haystack includes needle.
