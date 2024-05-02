@@ -91,7 +91,7 @@ declare module "node:test" {
      * test runner. However, the `TestContext` constructor is not exposed as part of the API.
      * @since v16.17.0
      */
-    interface TestContext {
+    export interface TestContext {
         /**
          * This function is used to write TAP diagnostics to the output. Any diagnostic information is
          * included at the end of the test's results. This function does not return a value.
