@@ -1,5 +1,6 @@
 import express = require("express");
 import passport = require("passport");
+import * as oauth2 from "passport-oauth2";
 import google = require("passport-google-oauth20");
 
 // Just some test model.
@@ -93,7 +94,7 @@ passport.use(
             clientSecret,
             passReqToCallback: true,
         },
-        (_request, _accessToken, _refreshToken, profile, done) => {
+        (_request, _accessToken, _refreshToken, profile, done: oauth2.VerifyCallback) => {
             User.findOrCreate(profile.id, profile.provider, (err, user) => {
                 if (err) {
                     done(err);
