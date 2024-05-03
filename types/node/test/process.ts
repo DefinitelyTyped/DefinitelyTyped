@@ -201,6 +201,9 @@ process.env.TZ = "test";
         // $ExpectType number
         process.getuid();
     }
+
+    process.constrainedMemory(); // $ExpectType number
+    process.availableMemory(); // $ExpectType number
 }
 
 {

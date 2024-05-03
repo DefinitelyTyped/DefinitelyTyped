@@ -6,7 +6,7 @@
  * ```js
  * const repl = require('node:repl');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/repl.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/repl.js)
  */
 declare module "repl" {
     import { AsyncCompleter, Completer, Interface } from "node:readline";

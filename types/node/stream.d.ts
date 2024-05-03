@@ -14,7 +14,7 @@
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/stream.js)
  */
 declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
@@ -134,9 +134,10 @@ declare module "stream" {
          * specified using the `readable.setEncoding()` method or the stream is operating
          * in object mode.
          *
-         * The optional `size` argument specifies a specific number of bytes to read. If `size` bytes are not available to be read, `null` will be returned _unless_ the stream has ended, in which
-         * case all of the data remaining in the internal
-         * buffer will be returned.
+         * The optional `size` argument specifies a specific number of bytes to read. If
+         * `size` bytes are not available to be read, `null` will be returned _unless_ the
+         * stream has ended, in which case all of the data remaining in the internal buffer
+         * will be returned.
          *
          * If the `size` argument is not specified, all of the data contained in the
          * internal buffer will be returned.
@@ -193,7 +194,7 @@ declare module "stream" {
          * ```
          *
          * A `Readable` stream in object mode will always return a single item from
-         * a call to `readable.read(size)`, regardless of the value of the`size` argument.
+         * a call to `readable.read(size)`, regardless of the value of the `size` argument.
          *
          * If the `readable.read()` method returns a chunk of data, a `'data'` event will
          * also be emitted.
@@ -208,9 +209,9 @@ declare module "stream" {
          * The `readable.setEncoding()` method sets the character encoding for
          * data read from the `Readable` stream.
          *
-         * By default, no encoding is assigned and stream data will be returned as`Buffer` objects. Setting an encoding causes the stream data
+         * By default, no encoding is assigned and stream data will be returned as `Buffer` objects. Setting an encoding causes the stream data
          * to be returned as strings of the specified encoding rather than as `Buffer` objects. For instance, calling `readable.setEncoding('utf8')` will cause the
-         * output data to be interpreted as UTF-8 data, and passed as strings. Calling`readable.setEncoding('hex')` will cause the data to be encoded in hexadecimal
+         * output data to be interpreted as UTF-8 data, and passed as strings. Calling `readable.setEncoding('hex')` will cause the data to be encoded in hexadecimal
          * string format.
          *
          * The `Readable` stream will properly handle multi-byte characters delivered
@@ -247,7 +248,7 @@ declare module "stream" {
          * });
          * ```
          *
-         * The `readable.pause()` method has no effect if there is a `'readable'`event listener.
+         * The `readable.pause()` method has no effect if there is a `'readable'` event listener.
          * @since v0.9.4
          */
         pause(): this;
@@ -266,14 +267,14 @@ declare module "stream" {
          *   });
          * ```
          *
-         * The `readable.resume()` method has no effect if there is a `'readable'`event listener.
+         * The `readable.resume()` method has no effect if there is a `'readable'` event listener.
          * @since v0.9.4
          */
         resume(): this;
         /**
-         * The `readable.isPaused()` method returns the current operating state of the`Readable`. This is used primarily by the mechanism that underlies the`readable.pipe()` method. In most
-         * typical cases, there will be no reason to
-         * use this method directly.
+         * The `readable.isPaused()` method returns the current operating state of the `Readable`.
+         * This is used primarily by the mechanism that underlies the `readable.pipe()` method.
+         * In most typical cases, there will be no reason to use this method directly.
          *
          * ```js
          * const readable = new stream.Readable();
@@ -375,8 +376,8 @@ declare module "stream" {
          * however it is best to simply avoid calling `readable.unshift()` while in the
          * process of performing a read.
          * @since v0.9.11
-         * @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must be a string, `Buffer`, `Uint8Array`, or `null`. For object mode
-         * streams, `chunk` may be any JavaScript value.
+         * @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must
+         * be a {string}, {Buffer}, {TypedArray}, {DataView} or `null`. For object mode streams, `chunk` may be any JavaScript value.
          * @param encoding Encoding of string chunks. Must be a valid `Buffer` encoding, such as `'utf8'` or `'ascii'`.
          */
         unshift(chunk: any, encoding?: BufferEncoding): void;
@@ -384,7 +385,7 @@ declare module "stream" {
          * Prior to Node.js 0.10, streams did not implement the entire `node:stream` module API as it is currently defined. (See `Compatibility` for more
          * information.)
          *
-         * When using an older Node.js library that emits `'data'` events and has a {@link pause} method that is advisory only, the`readable.wrap()` method can be used to create a `Readable`
+         * When using an older Node.js library that emits `'data'` events and has a {@link pause} method that is advisory only, the `readable.wrap()` method can be used to create a `Readable`
          * stream that uses
          * the old stream as its data source.
          *
@@ -567,8 +568,8 @@ declare module "stream" {
         ): Promise<T>;
         _destroy(error: Error | null, callback: (error?: Error | null) => void): void;
         /**
-         * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'`event (unless `emitClose` is set to `false`). After this call, the readable
-         * stream will release any internal resources and subsequent calls to `push()`will be ignored.
+         * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'` event (unless `emitClose` is set to `false`). After this call, the readable
+         * stream will release any internal resources and subsequent calls to `push()` will be ignored.
          *
          * Once `destroy()` has been called any further calls will be a no-op and no
          * further errors except from `_destroy()` may be emitted as `'error'`.
@@ -733,7 +734,7 @@ declare module "stream" {
          * first argument. The `callback` is called asynchronously and before `'error'` is
          * emitted.
          *
-         * The return value is `true` if the internal buffer is less than the`highWaterMark` configured when the stream was created after admitting `chunk`.
+         * The return value is `true` if the internal buffer is less than the `highWaterMark` configured when the stream was created after admitting `chunk`.
          * If `false` is returned, further attempts to write data to the stream should
          * stop until the `'drain'` event is emitted.
          *
@@ -776,8 +777,8 @@ declare module "stream" {
          *
          * A `Writable` stream in object mode will always ignore the `encoding` argument.
          * @since v0.9.4
-         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a string, `Buffer` or `Uint8Array`. For object mode streams, `chunk` may be any
-         * JavaScript value other than `null`.
+         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a {string}, {Buffer},
+         * {TypedArray} or {DataView}. For object mode streams, `chunk` may be any JavaScript value other than `null`.
          * @param [encoding='utf8'] The encoding, if `chunk` is a string.
          * @param callback Callback for when this chunk of data is flushed.
          * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
@@ -807,8 +808,8 @@ declare module "stream" {
          * // Writing more now is not allowed!
          * ```
          * @since v0.9.4
-         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a string, `Buffer` or `Uint8Array`. For object mode streams, `chunk` may be any
-         * JavaScript value other than `null`.
+         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a {string}, {Buffer},
+         * {TypedArray} or {DataView}. For object mode streams, `chunk` may be any JavaScript value other than `null`.
          * @param encoding The encoding if `chunk` is a string
          * @param callback Callback for when the stream is finished.
          */
@@ -821,10 +822,10 @@ declare module "stream" {
          *
          * The primary intent of `writable.cork()` is to accommodate a situation in which
          * several small chunks are written to the stream in rapid succession. Instead of
-         * immediately forwarding them to the underlying destination, `writable.cork()`buffers all the chunks until `writable.uncork()` is called, which will pass them
+         * immediately forwarding them to the underlying destination, `writable.cork()` buffers all the chunks until `writable.uncork()` is called, which will pass them
          * all to `writable._writev()`, if present. This prevents a head-of-line blocking
          * situation where data is being buffered while waiting for the first small chunk
-         * to be processed. However, use of `writable.cork()` without implementing`writable._writev()` may have an adverse effect on throughput.
+         * to be processed. However, use of `writable.cork()` without implementing `writable._writev()` may have an adverse effect on throughput.
          *
          * See also: `writable.uncork()`, `writable._writev()`.
          * @since v0.11.2
@@ -834,7 +835,7 @@ declare module "stream" {
          * The `writable.uncork()` method flushes all data buffered since {@link cork} was called.
          *
          * When using `writable.cork()` and `writable.uncork()` to manage the buffering
-         * of writes to a stream, defer calls to `writable.uncork()` using`process.nextTick()`. Doing so allows batching of all`writable.write()` calls that occur within a given Node.js event
+         * of writes to a stream, defer calls to `writable.uncork()` using `process.nextTick()`. Doing so allows batching of all `writable.write()` calls that occur within a given Node.js event
          * loop phase.
          *
          * ```js
@@ -865,10 +866,10 @@ declare module "stream" {
          */
         uncork(): void;
         /**
-         * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'`event (unless `emitClose` is set to `false`). After this call, the writable
+         * Destroy the stream. Optionally emit an `'error'` event, and emit a `'close'` event (unless `emitClose` is set to `false`). After this call, the writable
          * stream has ended and subsequent calls to `write()` or `end()` will result in
          * an `ERR_STREAM_DESTROYED` error.
-         * This is a destructive and immediate way to destroy a stream. Previous calls to`write()` may not have drained, and may trigger an `ERR_STREAM_DESTROYED` error.
+         * This is a destructive and immediate way to destroy a stream. Previous calls to `write()` may not have drained, and may trigger an `ERR_STREAM_DESTROYED` error.
          * Use `end()` instead of destroy if data should flush before close, or wait for
          * the `'drain'` event before destroying the stream.
          *
@@ -1063,8 +1064,8 @@ declare module "stream" {
              * readable side ends. Set initially by the `allowHalfOpen` constructor option,
              * which defaults to `true`.
              *
-             * This can be changed manually to change the half-open behavior of an existing`Duplex` stream instance, but must be changed before the `'end'` event is
-             * emitted.
+             * This can be changed manually to change the half-open behavior of an existing
+             * `Duplex` stream instance, but must be changed before the `'end'` event is emitted.
              * @since v0.9.4
              */
             allowHalfOpen: boolean;
@@ -1285,7 +1286,7 @@ declare module "stream" {
         }
         /**
          * The `stream.PassThrough` class is a trivial implementation of a `Transform` stream that simply passes the input bytes across to the output. Its purpose is
-         * primarily for examples and testing, but there are some use cases where`stream.PassThrough` is useful as a building block for novel sorts of streams.
+         * primarily for examples and testing, but there are some use cases where `stream.PassThrough` is useful as a building block for novel sorts of streams.
          */
         class PassThrough extends Transform {}
         /**
@@ -1294,8 +1295,8 @@ declare module "stream" {
          * Attaches an AbortSignal to a readable or writeable stream. This lets code
          * control stream destruction using an `AbortController`.
          *
-         * Calling `abort` on the `AbortController` corresponding to the passed`AbortSignal` will behave the same way as calling `.destroy(new AbortError())`on the stream, and `controller.error(new
-         * AbortError())` for webstreams.
+         * Calling `abort` on the `AbortController` corresponding to the passed `AbortSignal` will behave the same way as calling `.destroy(new AbortError())` on the
+         * stream, and `controller.error(new AbortError())` for webstreams.
          *
          * ```js
          * const fs = require('node:fs');
@@ -1411,11 +1412,11 @@ declare module "stream" {
          * ```
          *
          * Especially useful in error handling scenarios where a stream is destroyed
-         * prematurely (like an aborted HTTP request), and will not emit `'end'`or `'finish'`.
+         * prematurely (like an aborted HTTP request), and will not emit `'end'` or `'finish'`.
          *
-         * The `finished` API provides `promise version`.
+         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v20.x/api/stream.html#streamfinishedstream-options).
          *
-         * `stream.finished()` leaves dangling event listeners (in particular`'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
+         * `stream.finished()` leaves dangling event listeners (in particular `'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
          * invoked. The reason for this is so that unexpected `'error'` events (due to
          * incorrect stream implementations) do not cause unexpected crashes.
          * If this is unwanted behavior then the returned cleanup function needs to be
@@ -1501,7 +1502,7 @@ declare module "stream" {
          * );
          * ```
          *
-         * The `pipeline` API provides a `promise version`.
+         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v20.x/api/stream.html#streampipelinesource-transforms-destination-options).
          *
          * `stream.pipeline()` will call `stream.destroy(err)` on all streams except:
          *

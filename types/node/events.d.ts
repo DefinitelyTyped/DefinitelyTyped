@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/events.js)
  */
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
@@ -86,7 +86,27 @@ declare module "events" {
         ): any;
     }
     interface StaticEventEmitterOptions {
+        /**
+         * Can be used to cancel awaiting events.
+         */
         signal?: AbortSignal | undefined;
+        /**
+         * Names of events that will end the iteration.
+         */
+        close?: string[] | undefined;
+        /**
+         * The high watermark. The emitter is paused every time the size
+         * of events being buffered is higher than it. Supported only
+         * on emitters implementing `pause()` and `resume()` methods.
+         * @default `Number.MAX_SAFE_INTEGER`
+         */
+        highWaterMark?: number | undefined;
+        /**
+         * The low watermark. The emitter is resumed every time the size of events being buffered
+         * is lower than it. Supported only on emitters implementing `pause()` and `resume()` methods.
+         * @default 1
+         */
+        lowWaterMark?: number | undefined;
     }
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
     type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
@@ -206,7 +226,7 @@ declare module "events" {
         static once(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
-            options?: StaticEventEmitterOptions,
+            options?: Pick<StaticEventEmitterOptions, "signal">,
         ): Promise<any[]>;
         static once(emitter: _DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**

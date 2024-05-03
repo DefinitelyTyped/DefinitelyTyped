@@ -14,7 +14,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/crypto.js)
  */
 declare module "crypto" {
     import * as stream from "node:stream";
@@ -470,6 +470,7 @@ declare module "crypto" {
      * //   7fd04df92f636fd450bc841c9418e5825c17f33ad9c87c518115a45971f7f77e
      * ```
      * @since v0.1.94
+     * @deprecated Since v20.13.0 Calling `Hmac` class directly with `Hmac()` or `new Hmac()` is deprecated due to being internals, not intended for public use. Please use the {@link createHmac} method to create Hmac instances.
      */
     class Hmac extends stream.Transform {
         private constructor();
