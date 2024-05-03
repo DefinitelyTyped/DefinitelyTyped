@@ -3660,21 +3660,27 @@ fp.now(); // $ExpectType number
         leading: true,
         trailing: false,
     };
+    const optionsNoLeading: _.ThrottleSettingsNoLeading = {
+        leading: false,
+    };
 
     const func = (a: number, b: string): boolean => true;
 
-    _.throttle(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42, options); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _(func).throttle(); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42, options); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42, options); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.throttle(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, options); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, optionsNoLeading); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _(func).throttle(); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, options); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, optionsNoLeading); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, options); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, optionsNoLeading); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
 
-    fp.throttle(42, func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    fp.throttle(42)(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    fp.throttle(42, func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    fp.throttle(42)(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
 }
 
 // _.unary

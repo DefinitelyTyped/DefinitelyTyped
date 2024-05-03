@@ -1355,6 +1355,9 @@ declare module "../index" {
          */
         trailing?: boolean | undefined;
     }
+    interface ThrottleSettingsNoLeading extends ThrottleSettings {
+        leading: false;
+    }
     interface LoDashStatic {
         /**
          * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
@@ -1372,25 +1375,34 @@ declare module "../index" {
          * @param options.trailing Specify invoking on the trailing edge of the timeout.
          * @return Returns the new throttled function.
          */
-        throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): DebouncedFunc<T>;
+        throttle<T extends (...args: any) => any>(func: T, wait: number | undefined, options: ThrottleSettingsNoLeading): DebouncedFunc<T>;
+        throttle<T extends (...args: any) => any>(func: T, wait?: number, options?: ThrottleSettings): DebouncedFuncLeading<T>;
     }
     interface Function<T extends (...args: any) => any> {
         /**
          * @see _.throttle
          */
         throttle(
+            wait: number | undefined,
+            options: ThrottleSettingsNoLeading
+        ): T extends (...args: any[]) => any ? Function<DebouncedFunc<T>> : never;
+        throttle(
             wait?: number,
             options?: ThrottleSettings
-        ): T extends (...args: any[]) => any ? Function<DebouncedFunc<T>> : never;
+        ): T extends (...args: any[]) => any ? Function<DebouncedFuncLeading<T>> : never;
     }
     interface FunctionChain<T extends (...args: any) => any> {
         /**
          * @see _.throttle
          */
         throttle(
+            wait: number | undefined,
+            options: ThrottleSettingsNoLeading
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFunc<T>> : never;
+        throttle(
             wait?: number,
             options?: ThrottleSettings
-        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFunc<T>> : never;
+        ): T extends (...args: any[]) => any ? FunctionChain<DebouncedFuncLeading<T>> : never;
     }
     interface LoDashStatic {
         /**
