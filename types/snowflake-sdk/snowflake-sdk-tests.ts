@@ -66,7 +66,7 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
                 fetchAsString: ["Boolean", "JSON", "Buffer"],
             };
             const stream = stmt.streamRows(option);
-            stream.on("data", data => {
+            stream.on("data", (data) => {
                 //
             });
         },
@@ -92,7 +92,7 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
     const option: snowflake.StreamOptions = { start: 0, end: 100, fetchAsString: ["Number", "Date", "JSON", "Buffer"] };
     // $ExpectType Readable
     const stream = statement.streamRows(option);
-    stream.on("data", data => {
+    stream.on("data", (data) => {
         //
     });
 
@@ -149,6 +149,17 @@ snowflake.createConnection({
     password: "",
     username: "",
     application: "",
+});
+
+// Additional Connection Options
+
+snowflake.createConnection({
+    account: "",
+    proxyHost: "",
+    proxyPort: 0,
+    proxyProtocol: "",
+    proxyUser: "",
+    proxyPassword: "",
 });
 
 // Pool
