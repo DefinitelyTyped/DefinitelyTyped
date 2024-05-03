@@ -26,7 +26,7 @@ createEncoderModule().then((encoderModule: EncoderModule) => {
     metaBuilder.AddDoubleEntry(metadata, "doubleEntryName", 3.14);
     // $ExpectType boolean
     metaBuilder.AddIntEntryArray(metadata, "intEntryArrayName", new Int32Array(10), 10);
-    
+
     // $ExpectType boolean
     builder.SetMetadataForAttribute(mesh, attributeId, metadata);
     // $ExpectType boolean
