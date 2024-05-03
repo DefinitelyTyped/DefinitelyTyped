@@ -1,6 +1,6 @@
 import { check } from "meteor/check";
 
-interface ValidationContext extends SimpleSchemaValidationContextStatic {
+export interface ValidationContext extends SimpleSchemaValidationContextStatic {
     addValidationErrors(errors: any): void;
     clean(...args: any[]): any;
     getErrorForKey(key: any, ...args: any[]): any;
@@ -68,7 +68,7 @@ interface FieldInfo {
     operator: string | null;
 }
 
-interface AutoValueContext {
+export interface AutoValueContext {
     closestSubschemaFieldName: string | null;
     field: (fieldName: string) => FieldInfo;
     isModifier: boolean;
@@ -84,7 +84,7 @@ interface AutoValueContext {
 
 type Validator = (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
 
-interface SchemaDefinition {
+export interface SchemaDefinition {
     type: any;
     label?: string | (() => string) | undefined;
     optional?: boolean | (() => boolean) | undefined;
@@ -140,7 +140,7 @@ interface SimpleSchemaValidationError {
 
 type IntegerSchema = "SimpleSchema.Integer";
 
-type SimpleSchemaDefinition = {
+export type SimpleSchemaDefinition = {
     [key: string]:
         | SchemaDefinition
         | BooleanConstructor
@@ -166,8 +166,7 @@ interface SimpleSchemaMessageType {
 
 type SimpleSchemaMessagesDict = Record<string, SimpleSchemaMessageType>;
 
-declare class SimpleSchema {
-    static default: typeof SimpleSchema;
+export class SimpleSchema {
     constructor(schema: SimpleSchemaDefinition | SimpleSchema, options?: SimpleSchemaOptions);
     namedContext(name?: string): SimpleSchemaValidationContextStatic;
     static isSimpleSchema(obj: any): boolean;
@@ -288,8 +287,11 @@ interface MongoObjectStatic {
     affectsGenericKeyImplicit(key: string): any;
 }
 
-declare namespace SimpleSchema {
-    export { AutoValueContext, MongoObjectStatic, SchemaDefinition, SimpleSchemaDefinition, ValidationContext };
+export const SimpleSchemaValidationContext: SimpleSchemaValidationContextStatic;
+export const MongoObject: MongoObjectStatic;
+
+export interface MongoObject {
+    expandKey(val: any, key: string, obj: any): void;
 }
 
-export = SimpleSchema;
+export default SimpleSchema;
