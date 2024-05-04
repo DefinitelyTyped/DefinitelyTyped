@@ -3457,6 +3457,12 @@ declare namespace google.maps {
      */
     getHeading(): number | undefined;
     /**
+     * Returns whether heading interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    getHeadingInteractionEnabled(): boolean | null;
+    /**
      * Informs the caller of the current capabilities available to the map based
      * on the Map ID that was provided.
      */
@@ -3489,6 +3495,12 @@ declare namespace google.maps {
      * <code>setTilt</code>. See <code>setTilt</code> for details.
      */
     getTilt(): number | undefined;
+    /**
+     * Returns whether tilt interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    getTiltInteractionEnabled(): boolean | null;
     /**
      * Returns the zoom of the map. If the zoom has not been set then the result
      * is <code>undefined</code>.
@@ -3556,8 +3568,18 @@ declare namespace google.maps {
      * imagery.
      */
     setHeading(heading: number): void;
+    /**
+     * Sets whether heading interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    setHeadingInteractionEnabled(headingInteractionEnabled: boolean): void;
     setMapTypeId(mapTypeId: string): void;
     setOptions(options: google.maps.MapOptions | null): void;
+    /**
+     * Sets the current RenderingType of the map.
+     */
+    setRenderingType(renderingType: google.maps.RenderingType): void;
     /**
      * Binds a <code>StreetViewPanorama</code> to the map. This panorama
      * overrides the default <code>StreetViewPanorama</code>, allowing the map
@@ -3568,9 +3590,9 @@ declare namespace google.maps {
     setStreetView(panorama: google.maps.StreetViewPanorama | null): void;
     /**
      * For vector maps, sets the angle of incidence of the map. The allowed
-     * values are restricted depending on the zoom level of the map. For raster
-     * maps, controls the automatic switching behavior for the angle of
-     * incidence of the map. The only allowed values are <code>0</code> and
+     * values are restricted depending on the zoom level of the map. <br><br>
+     * For raster maps, controls the automatic switching behavior for the angle
+     * of incidence of the map. The only allowed values are <code>0</code> and
      * <code>45</code>. <code>setTilt(0)</code> causes the map to always use a
      * 0&deg; overhead view regardless of the zoom level and viewport.
      * <code>setTilt(45)</code> causes the tilt angle to automatically switch to
@@ -3586,6 +3608,12 @@ declare namespace google.maps {
      * unpredictable effects.
      */
     setTilt(tilt: number): void;
+    /**
+     * Sets whether tilt interactions are enabled. This option is only in effect
+     * when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    setTiltInteractionEnabled(tiltInteractionEnabled: boolean): void;
     /**
      * Sets the zoom of the map.
      * @param zoom Larger zoom values correspond to a higher resolution.
@@ -3717,18 +3745,48 @@ declare namespace google.maps {
      */
     center: google.maps.LatLng | google.maps.LatLngLiteral | null;
     /**
+     * Whether the map should allow user control of the camera heading
+     * (rotation). This option is only in effect when the map is a vector map.
+     * If not set in code, then the cloud configuration for the map ID will be
+     * used (if available).
+     * @defaultValue <code>false</code>
+     */
+    headingInteractionDisabled: boolean | null;
+    /**
      * A reference to the {@link google.maps.Map} that the MapElement uses
      * internally.
      */
     innerMap: google.maps.Map;
     /**
-     * The Map ID of the map. See the <a
-     * href="https://developers.google.com/maps/documentation/get-map-id">Map ID
-     * documentation</a> for more information.
+     * The <a
+     * href="https://developers.google.com/maps/documentation/get-map-id">Map
+     * ID</a> of the map. This parameter cannot be set or changed after a map is
+     * instantiated. {@link google.maps.Map.DEMO_MAP_ID} can be used to try out
+     * features that require a map ID but which do not require cloud enablement.
      */
     mapId: string | null;
     /**
-     * The zoom level of the map.
+     * Whether the map should be a raster or vector map. This parameter cannot
+     * be set or changed after a map is instantiated. If not set, then the cloud
+     * configuration for the map ID will determine the rendering type (if
+     * available). Please note that vector maps may not be available for all
+     * devices and browsers and the map will fall back to a raster map as
+     * needed.
+     * @defaultValue {@link google.maps.RenderingType.VECTOR}
+     */
+    renderingType: google.maps.RenderingType | null;
+    /**
+     * Whether the map should allow user control of the camera tilt. This option
+     * is only in effect when the map is a vector map. If not set in code, then
+     * the cloud configuration for the map ID will be used (if available).
+     * @defaultValue <code>false</code>
+     */
+    tiltInteractionDisabled: boolean | null;
+    /**
+     * The zoom level of the map. Valid zoom values are numbers from zero up to
+     * the supported <a
+     * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
+     * zoom level</a>. Larger zoom values correspond to a higher resolution.
      */
     zoom: number | null;
   }
@@ -3740,21 +3798,27 @@ declare namespace google.maps {
    */
   export interface MapElementOptions {
     /**
-     * The initial Map center.
+     * See {@link google.maps.MapElement.center}.
      */
     center?: google.maps.LatLng | google.maps.LatLngLiteral | null;
     /**
-     * The <a
-     * href="https://developers.google.com/maps/documentation/get-map-id">Map
-     * ID</a> of the map. This parameter cannot be set or changed after a map is
-     * instantiated.
+     * See {@link google.maps.MapElement.headingInteractionDisabled}.
+     */
+    headingInteractionDisabled?: boolean | null;
+    /**
+     * See {@link google.maps.MapElement.mapId}.
      */
     mapId?: string | null;
     /**
-     * The initial Map zoom level. Valid zoom values are numbers from zero up to
-     * the supported <a
-     * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
-     * zoom level</a>. Larger zoom values correspond to a higher resolution.
+     * See {@link google.maps.MapElement.renderingType}.
+     */
+    renderingType?: google.maps.RenderingType | null;
+    /**
+     * See {@link google.maps.MapElement.tiltInteractionDisabled}.
+     */
+    tiltInteractionDisabled?: boolean | null;
+    /**
+     * See {@link google.maps.MapElement.zoom}.
      */
     zoom?: number | null;
   }
@@ -3883,6 +3947,14 @@ declare namespace google.maps {
      */
     heading?: number | null;
     /**
+     * Whether the map should allow user control of the camera heading
+     * (rotation). This option is only in effect when the map is a vector map.
+     * If not set in code, then the cloud configuration for the map ID will be
+     * used (if available).
+     * @defaultValue <code>false</code>
+     */
+    headingInteractionEnabled?: boolean | null;
+    /**
      * Whether the map should allow fractional zoom levels. Listen to
      * <code>isfractionalzoomenabled_changed</code> to know when the default has
      * been set.
@@ -3899,7 +3971,8 @@ declare namespace google.maps {
      * The <a
      * href="https://developers.google.com/maps/documentation/get-map-id">Map
      * ID</a> of the map. This parameter cannot be set or changed after a map is
-     * instantiated.
+     * instantiated. {@link google.maps.Map.DEMO_MAP_ID} can be used to try out
+     * features that require a map ID but which do not require cloud enablement.
      */
     mapId?: string | null;
     /**
@@ -3946,6 +4019,16 @@ declare namespace google.maps {
      * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControlOptions?: google.maps.PanControlOptions | null;
+    /**
+     * Whether the map should be a raster or vector map. This parameter cannot
+     * be set or changed after a map is instantiated. If not set, then the cloud
+     * configuration for the map ID will determine the rendering type (if
+     * available). Please note that vector maps may not be available for all
+     * devices and browsers and the map will fall back to a raster map as
+     * needed.
+     * @defaultValue {@link google.maps.RenderingType.RASTER}
+     */
+    renderingType?: google.maps.RenderingType | null;
     /**
      * Defines a boundary that restricts the area of the map accessible to
      * users. When set, a user can only pan and zoom while the camera view stays
@@ -3997,7 +4080,10 @@ declare namespace google.maps {
     /**
      * Styles to apply to each of the default map types. Note that for
      * <code>satellite</code>/<code>hybrid</code> and <code>terrain</code>
-     * modes, these styles will only apply to labels and geometry.
+     * modes, these styles will only apply to labels and geometry. This feature
+     * is not available when using a map ID, or when using vector maps (use <a
+     * href="https://developers.google.com/maps/documentation/cloud-customization">cloud-based
+     * maps styling</a> instead).
      */
     styles?: google.maps.MapTypeStyle[] | null;
     /**
@@ -4019,6 +4105,13 @@ declare namespace google.maps {
      * yield unpredictable effects.
      */
     tilt?: number | null;
+    /**
+     * Whether the map should allow user control of the camera tilt. This option
+     * is only in effect when the map is a vector map. If not set in code, then
+     * the cloud configuration for the map ID will be used (if available).
+     * @defaultValue <code>false</code>
+     */
+    tiltInteractionEnabled?: boolean | null;
     /**
      * The initial Map zoom level. Valid zoom values are numbers from zero up to
      * the supported <a
@@ -7162,7 +7255,10 @@ declare namespace google.maps {
    * after removing. The <code>onDraw()</code> method will then be called
    * whenever a map property changes that could change the position of the
    * element, such as zoom, center, or map type. WebGLOverlayView may only be
-   * added to a vector map having a {@link google.maps.MapOptions.mapId}.
+   * added to a vector map having a {@link google.maps.MapOptions.mapId}
+   * (including maps set to the {@link google.maps.RenderingType.VECTOR} {@link
+   * google.maps.MapOptions.renderingType} and using {@link
+   * google.maps.Map.DEMO_MAP_ID} as the {@link google.maps.MapOptions.mapId}).
    *
    * Access by calling `const {WebGLOverlayView} = await
    * google.maps.importLibrary("maps")`. See

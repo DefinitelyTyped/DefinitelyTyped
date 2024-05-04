@@ -42,7 +42,7 @@
  * ```
  *
  * See the [Implementation considerations section](https://nodejs.org/docs/latest-v20.x/api/dns.html#implementation-considerations) for more information.
- * @see [source](https://github.com/nodejs/node/blob/v20.11.1/lib/dns.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/dns.js)
  */
 declare module "dns" {
     import * as dnsPromises from "node:dns/promises";

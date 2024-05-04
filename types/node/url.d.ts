@@ -5,7 +5,7 @@
  * ```js
  * import url from 'node:url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.11.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/url.js)
  */
 declare module "url" {
     import { Blob as NodeBlob } from "node:buffer";
@@ -503,9 +503,9 @@ declare module "url" {
          * Getting the value of the `href` property is equivalent to calling {@link toString}.
          *
          * Setting the value of this property to a new value is equivalent to creating a
-         * new `URL` object using `new URL(value)`. Each of the `URL`object's properties will be modified.
+         * new `URL` object using `new URL(value)`. Each of the `URL` object's properties will be modified.
          *
-         * If the value assigned to the `href` property is not a valid URL, a `TypeError`will be thrown.
+         * If the value assigned to the `href` property is not a valid URL, a `TypeError` will be thrown.
          */
         href: string;
         /**
@@ -664,7 +664,7 @@ declare module "url" {
          * // Prints https://example.org/abc?abc=xyz
          * ```
          *
-         * Any invalid URL characters appearing in the value assigned the `search`property will be `percent-encoded`. The selection of which
+         * Any invalid URL characters appearing in the value assigned the `search` property will be `percent-encoded`. The selection of which
          * characters to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.
          */
         search: string;
@@ -858,7 +858,7 @@ declare module "url" {
          */
         keys(): IterableIterator<string>;
         /**
-         * Sets the value in the `URLSearchParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
+         * Sets the value in the `URLSearchParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value` and remove all others. If not,
          * append the name-value pair to the query string.
          *

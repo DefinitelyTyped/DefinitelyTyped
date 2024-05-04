@@ -5424,6 +5424,26 @@ fp.now(); // $ExpectType number
     _.has(abcObject, ""); // $ExpectType boolean
     _.has(abcObject, 42); // $ExpectType boolean
     _.has(abcObject, ["", 42]); // $ExpectType boolean
+    if (_.has(abcObject, 'd')) {
+        abcObject.d // $ExpectType unknown
+    } else {
+        abcObject; // $ExpectType AbcObject
+    }
+    const partialObject: Partial<AbcObject> = {};
+    if (_.has(partialObject, 'a')) {
+        partialObject.a; // $ExpectType number | undefined
+    } else {
+        partialObject; // $ExpectType Partial<AbcObject>
+    }
+    const record: Record<string, number | string> = {};
+    if (_.has(record, 'a')) {
+        record.a; // $ExpectType number | string
+        const result: { a: number | string } = record;
+    } else {
+        // @ts-expect-error
+        const result: { a: number | string } = record;
+        record; // $ExpectType Record<string, number | string>
+    }
     _(abcObject).has(""); // $ExpectType boolean
     _(abcObject).has(42); // $ExpectType boolean
     _(abcObject).has(["", 42]); // $ExpectType boolean

@@ -94,7 +94,7 @@ export class Form extends React.Component<
     getChildContext(): FormContext;
     componentWillMount(): void;
     componentWillReceiveProps(nextProps: Readonly<Partial<FormProps>>, nextContext: any): void;
-    componentWillUmount(): void;
+    componentWillUnmount(): void;
 
     render(): RenderReturn;
 }

@@ -99,6 +99,8 @@ declare module "react-syntax-highlighter/dist/esm/prism-light" {
     import { SyntaxHighlighterProps } from "react-syntax-highlighter";
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
+        static alias(name: string, alias: string | string[]): void;
+        static alias(aliases: Record<string, string | string[]>): void;
     }
 }
 
@@ -708,6 +710,7 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism" {
     export { default as cb } from "react-syntax-highlighter/dist/esm/styles/prism/cb";
     export { default as coldarkCold } from "react-syntax-highlighter/dist/esm/styles/prism/coldark-cold";
     export { default as coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism/coldark-dark";
+    export { default as coyWithoutShadows } from "react-syntax-highlighter/dist/esm/styles/prism/coy-without-shadows";
     export { default as coy } from "react-syntax-highlighter/dist/esm/styles/prism/coy";
     export { default as darcula } from "react-syntax-highlighter/dist/esm/styles/prism/darcula";
     export { default as dark } from "react-syntax-highlighter/dist/esm/styles/prism/dark";
@@ -722,10 +725,13 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism" {
     export { default as ghcolors } from "react-syntax-highlighter/dist/esm/styles/prism/ghcolors";
     export { default as gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism/gruvbox-dark";
     export { default as gruvboxLight } from "react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light";
+    export { default as holiTheme } from "react-syntax-highlighter/dist/esm/styles/prism/holi-theme";
     export { default as hopscotch } from "react-syntax-highlighter/dist/esm/styles/prism/hopscotch";
+    export { default as lucario } from "react-syntax-highlighter/dist/esm/styles/prism/lucario";
     export { default as materialDark } from "react-syntax-highlighter/dist/esm/styles/prism/material-dark";
     export { default as materialLight } from "react-syntax-highlighter/dist/esm/styles/prism/material-light";
     export { default as materialOceanic } from "react-syntax-highlighter/dist/esm/styles/prism/material-oceanic";
+    export { default as nightOwl } from "react-syntax-highlighter/dist/esm/styles/prism/night-owl";
     export { default as nord } from "react-syntax-highlighter/dist/esm/styles/prism/nord";
     export { default as okaidia } from "react-syntax-highlighter/dist/esm/styles/prism/okaidia";
     export { default as oneDark } from "react-syntax-highlighter/dist/esm/styles/prism/one-dark";
@@ -733,6 +739,7 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism" {
     export { default as pojoaque } from "react-syntax-highlighter/dist/esm/styles/prism/pojoaque";
     export { default as prism } from "react-syntax-highlighter/dist/esm/styles/prism/prism";
     export { default as shadesOfPurple } from "react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple";
+    export { default as solarizedDarkAtom } from "react-syntax-highlighter/dist/esm/styles/prism/solarized-dark-atom";
     export { default as solarizedlight } from "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight";
     export { default as synthwave84 } from "react-syntax-highlighter/dist/esm/styles/prism/synthwave84";
     export { default as tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism/tomorrow";
@@ -740,6 +747,7 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism" {
     export { default as vs } from "react-syntax-highlighter/dist/esm/styles/prism/vs";
     export { default as vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus";
     export { default as xonokai } from "react-syntax-highlighter/dist/esm/styles/prism/xonokai";
+    export { default as zTouch } from "react-syntax-highlighter/dist/esm/styles/prism/z-touch";
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/a11y-dark" {
@@ -768,6 +776,11 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/coldark-cold" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/coldark-dark" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/coy-without-shadows" {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }
@@ -842,7 +855,17 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/gruvbox-light" {
     export default style;
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/prism/holi-theme" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/prism/hopscotch" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/lucario" {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }
@@ -858,6 +881,11 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/material-light" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/material-oceanic" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/night-owl" {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }
@@ -897,6 +925,11 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/shades-of-purple"
     export default style;
 }
 
+declare module "react-syntax-highlighter/dist/esm/styles/prism/solarized-dark-atom" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
 declare module "react-syntax-highlighter/dist/esm/styles/prism/solarizedlight" {
     const style: { [key: string]: React.CSSProperties };
     export default style;
@@ -928,6 +961,11 @@ declare module "react-syntax-highlighter/dist/esm/styles/prism/vsc-dark-plus" {
 }
 
 declare module "react-syntax-highlighter/dist/esm/styles/prism/xonokai" {
+    const style: { [key: string]: React.CSSProperties };
+    export default style;
+}
+
+declare module "react-syntax-highlighter/dist/esm/styles/prism/z-touch" {
     const style: { [key: string]: React.CSSProperties };
     export default style;
 }
@@ -3067,6 +3105,8 @@ declare module "react-syntax-highlighter/dist/cjs/prism-light" {
     import { SyntaxHighlighterProps } from "react-syntax-highlighter";
     export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
         static registerLanguage(name: string, func: any): void;
+        static alias(name: string, alias: string | string[]): void;
+        static alias(aliases: Record<string, string | string[]>): void;
     }
 }
 

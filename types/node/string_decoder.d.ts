@@ -36,7 +36,7 @@
  * decoder.write(Buffer.from([0x82]));
  * console.log(decoder.end(Buffer.from([0xAC]))); // Prints: €
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/string_decoder.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/string_decoder.js)
  */
 declare module "string_decoder" {
     class StringDecoder {
@@ -44,7 +44,7 @@ declare module "string_decoder" {
         /**
          * Returns a decoded string, ensuring that any incomplete multibyte characters at
          * the end of the `Buffer`, or `TypedArray`, or `DataView` are omitted from the
-         * returned string and stored in an internal buffer for the next call to`stringDecoder.write()` or `stringDecoder.end()`.
+         * returned string and stored in an internal buffer for the next call to `stringDecoder.write()` or `stringDecoder.end()`.
          * @since v0.1.99
          * @param buffer The bytes to decode.
          */
@@ -54,7 +54,7 @@ declare module "string_decoder" {
          * representing incomplete UTF-8 and UTF-16 characters will be replaced with
          * substitution characters appropriate for the character encoding.
          *
-         * If the `buffer` argument is provided, one final call to `stringDecoder.write()`is performed before returning the remaining input.
+         * If the `buffer` argument is provided, one final call to `stringDecoder.write()` is performed before returning the remaining input.
          * After `end()` is called, the `stringDecoder` object can be reused for new input.
          * @since v0.9.3
          * @param buffer The bytes to decode.

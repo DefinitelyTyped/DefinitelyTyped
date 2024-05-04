@@ -277,11 +277,18 @@ declare namespace _Readable {
     type _IDuplex = _IReadable & _IWritable;
 
     class Duplex extends _Writable implements _IDuplex, /*extends*/ _Readable, Duplex {
-        /**
-         * This is a dummy function required to retain type compatibility to node.
-         * @deprecated DO NOT USE
-         */
-        static from(source: any): any;
+        static from(
+            src:
+                | Stream
+                | Blob
+                | ArrayBuffer
+                | string
+                | Iterable<any>
+                | AsyncIterable<any>
+                | AsyncGeneratorFunction
+                | Promise<any>
+                | { writable?: Writable; readable?: _Readable },
+        ): Duplex;
         allowHalfOpen: boolean;
         destroyed: boolean;
         // Readable
@@ -294,11 +301,11 @@ declare namespace _Readable {
         readonly readableObjectMode: boolean;
         readonly writableObjectMode: boolean;
 
-        readonly readableAborted: never;
-        readonly readableDidRead: never;
-        readonly writableEnded: never;
-        readonly writableFinished: never;
-        readonly writableCorked: never;
+        readonly readableAborted: boolean;
+        readonly readableDidRead: boolean;
+        readonly writableEnded: boolean;
+        readonly writableFinished: boolean;
+        readonly writableCorked: number;
 
         _readableState: ReadableState;
 
@@ -410,11 +417,11 @@ declare namespace _Readable {
     };
 
     class Readable extends _Readable {
-        readonly readableAborted: never;
-        readonly readableDidRead: never;
-        readonly readableEncoding: never;
-        readonly readableEnded: never;
-        readonly readableObjectMode: never;
+        readonly readableAborted: boolean;
+        readonly readableDidRead: boolean;
+        readonly readableEncoding: BufferEncoding | null;
+        readonly readableEnded: boolean;
+        readonly readableObjectMode: boolean;
 
         constructor(options?: ReadableOptions);
         pipe<T extends _IWritable>(destination: T, options?: { end?: boolean | undefined }): T;
@@ -645,10 +652,10 @@ declare namespace _Readable {
     }
 
     class Writable extends _Writable {
-        readonly writableEnded: never;
-        readonly writableFinished: never;
-        readonly writableObjectMode: never;
-        readonly writableCorked: never;
+        readonly writableEnded: boolean;
+        readonly writableFinished: boolean;
+        readonly writableObjectMode: boolean;
+        readonly writableCorked: number;
 
         constructor(opts?: WritableOptions);
     }

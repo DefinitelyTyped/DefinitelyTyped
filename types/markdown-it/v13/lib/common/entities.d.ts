@@ -4,4 +4,4 @@ interface MapType {
 
 declare const entities: MapType;
 
-export default entities;
+export = entities;
