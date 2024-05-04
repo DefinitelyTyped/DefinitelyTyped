@@ -115,7 +115,7 @@ import Alpine, {
         }) as DirectiveCallback,
         (el, { expression, modifiers }, { evaluate }) => {
             // do something
-        }
+        },
     );
     Alpine.directive("trap", directiveHandler);
 }
@@ -168,18 +168,17 @@ import Alpine, {
     // inspired by
     // https://github.com/alpinejs/alpine/blob/8d4f1266b25a550d9bd777b8aeb632a6857e89d1/packages/alpinejs/src/directives/x-bind.js
 
-    const startingWith =
-        (s: string, r: string) =>
-        <T>(attribute: {
-            name: string;
-            value: T;
-        }): {
-            name: string;
-            value: T;
-        } => ({
-            name: attribute.name.replace(s, r),
-            value: attribute.value,
-        });
+    const startingWith = (s: string, r: string) =>
+    <T>(attribute: {
+        name: string;
+        value: T;
+    }): {
+        name: string;
+        value: T;
+    } => ({
+        name: attribute.name.replace(s, r),
+        value: attribute.value,
+    });
     const into = (i: string) => i;
 
     // $ExpectType void
@@ -205,13 +204,12 @@ import Alpine, {
     // Alpine.setEvaluator
     // inspired by
     // https://github.com/alpinejs/alpine/blob/b46c41fa240cd8af2dcaa29fb60fb1db0389c95a/packages/alpinejs/src/index.js
-    const justExpressionEvaluator =
-        <T>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
-            el: ElementWithXAttributes,
-            expression?: string | (() => T)
-        ) =>
-        (resultCallback: (result: T) => void) =>
-            resultCallback(typeof expression === "function" ? expression() : Alpine.evaluate<T>(el, expression ?? ""));
+    const justExpressionEvaluator = <T>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        el: ElementWithXAttributes,
+        expression?: string | (() => T),
+    ) =>
+    (resultCallback: (result: T) => void) =>
+        resultCallback(typeof expression === "function" ? expression() : Alpine.evaluate<T>(el, expression ?? ""));
 
     Alpine.setEvaluator(justExpressionEvaluator);
 }
@@ -292,7 +290,7 @@ import Alpine, {
                 storage = target;
                 return func;
             };
-        }
+        },
     );
 }
 
@@ -315,7 +313,7 @@ import Alpine, {
             end: { height: "200px" },
         },
         () => (transitioning = true),
-        () => (transitioning = false)
+        () => (transitioning = false),
     );
 }
 
@@ -368,7 +366,7 @@ import Alpine, {
         cleanup;
     });
 
-    (el: Node, { value, modifiers, expression }: DirectiveData, { Alpine, effect, cleanup }: DirectiveUtilities) => {
+    ((el: Node, { value, modifiers, expression }: DirectiveData, { Alpine, effect, cleanup }: DirectiveUtilities) => {
         // $ExpectType Node
         el;
         // $ExpectType string
@@ -383,7 +381,7 @@ import Alpine, {
         effect;
         // $ExpectType (callback: () => void) => void
         cleanup;
-    };
+    });
 }
 
 {
@@ -442,7 +440,7 @@ import Alpine, {
 
     const shallowWalker = (
         el: ElementWithXAttributes,
-        callback: (el: ElementWithXAttributes, skip: () => void) => void
+        callback: (el: ElementWithXAttributes, skip: () => void) => void,
     ) => {
         // do walking
     };
@@ -727,8 +725,8 @@ import Alpine, {
                 "user",
                 (
                     // $ExpectType { id: number; name: string; }
-                    newValue
-                ) => {}
+                    newValue,
+                ) => {},
             );
         },
     }));
@@ -752,8 +750,8 @@ import Alpine, {
                         // $ExpectType { id: number; name: string; }
                         newValue,
                         // $ExpectType { id: number; name: string; }
-                        oldValue
-                    ) => {}
+                        oldValue,
+                    ) => {},
                 );
 
                 // $ExpectType void
@@ -761,11 +759,11 @@ import Alpine, {
                     "user.id",
                     (
                         // $ExpectType any
-                        newValue
-                    ) => {}
+                        newValue,
+                    ) => {},
                 );
             },
-        })
+        }),
     );
 }
 
