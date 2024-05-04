@@ -30,12 +30,14 @@ async function TestChromoiumDriver() {
 
 function TestChromiumOptions() {
     let options: chromium.Options = new chromium.Options(webdriver.Capabilities.chrome());
-   
+
     options = options.addArguments("path");
     options = options.debuggerAddress("localhost:9222");
     options = options.windowSize({width:500,height:800});
     options = options.excludeSwitches();
     options = options.addExtensions("/path-to-dir");
+    options = options.addExtensions("/path-to-dir", "/path-to-dir");
+    options = options.addExtensions("/path-to-dir", Buffer.from('abc'));
     options = options.setBinaryPath("/path-to-dir");
     options = options.detachDriver(true);
     options = options.setUserPreferences({prefs:"preferences"});
@@ -61,7 +63,7 @@ function TestChromiumOptions() {
 
 function TestServiceBuilder() {
     let builder: chromium.ServiceBuilder = new chromium.ServiceBuilder("/path/to/dir");
-    
+
     builder = builder.setAdbPort(5553);
     builder = builder.loggingTo("/path-to-dir");
     builder = builder.enableChromeLogging();

@@ -35,13 +35,13 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * Enables Chrome logging.
      * @returns {!ServiceBuilder} A self reference.
      */
-    enableChromeLogging() : ServiceBuilder;
+    enableChromeLogging(): ServiceBuilder;
 
     /**
      * Enables verbose logging.
      * @return {!ServiceBuilder} A self reference.
      */
-    enableVerboseLogging() : ServiceBuilder
+    enableVerboseLogging(): ServiceBuilder;
 
     /**
      * Sets the number of threads the driver should use to manage HTTP requests.
@@ -49,12 +49,12 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @param {number} n The number of threads to use.
      * @return {!ServiceBuilder} A self reference.
      */
-    setNumHttpThreads(n:number) : ServiceBuilder;
+    setNumHttpThreads(n:number): ServiceBuilder;
 
     /**
      * @override
      */
-    setPath(path:string):any;
+    setPath(path:string): any;
 }
 
 /**
@@ -115,7 +115,7 @@ export class Options extends webdriver.Capabilities {
      *     extensions to add.
      * @return {!Options} A self reference.
      */
-    addExtensions(...args: string[] | Buffer[]): Options;
+    addExtensions(...args: (string | Buffer)[]): Options;
 
     /**
      * Sets the path to the browser binary to use. On Mac OS X, this path should
@@ -146,7 +146,7 @@ export class Options extends webdriver.Capabilities {
      * @param {!Object} prefs Dictionary of user preferences to use.
      * @return {!Options} A self reference.
      */
-    setUserPreferences(prefs: object): Options; 
+    setUserPreferences(prefs: object): Options;
 
     /**
      * Sets the performance logging preferences. Options include:
@@ -178,7 +178,7 @@ export class Options extends webdriver.Capabilities {
             enableTimeline: boolean;
             traceCategories: string;
             bufferUsageReportingInterval: number;
-        }): Options;    
+        }): Options;
 
     /**
      * Sets preferences for the "Local State" file in Chrome's user data
@@ -327,7 +327,7 @@ export class Extensions {
      * @param {...(string|!Buffer|!Array<(string|!Buffer)>)} args The
      *     extensions to add.
      */
-    add(...args: string[] | Buffer[]): any;
+    add(...args: (string | Buffer)[]): void;
 }
 
 /**
@@ -439,7 +439,7 @@ export class Driver extends webdriver.WebDriver {
      * @see #sendDevToolsCommand
      */
     setDownloadPath(path: string): Promise<void>;
-    
+
     /**
      * Returns the list of cast sinks (Cast devices) available to the Chrome media router.
      *
