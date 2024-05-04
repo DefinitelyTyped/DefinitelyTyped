@@ -72,6 +72,6 @@ function TestServiceBuilder() {
 
 function TestExtension(){
     let extension: chromium.Extensions = new chromium.Extensions();
-    extension.length();
+    let length: number = extension.length;
     extension.add("/path-to-extension","/path-to-extension");
 }
