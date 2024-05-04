@@ -3,6 +3,7 @@ import * as events from "node:events";
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
 declare const event: string | symbol;
+declare const abortSignal: AbortSignal;
 declare const any: any;
 
 {
@@ -39,8 +40,19 @@ declare const any: any;
     let result: Promise<number[]>;
 
     result = events.once(emitter, event);
+    result = events.once(emitter, event, { signal: new AbortController().signal });
 
     emitter.emit(event, 42);
+}
+
+{
+    let result: AsyncIterableIterator<any>;
+
+    result = events.on(emitter, event);
+    result = events.on(emitter, event, { signal: abortSignal });
+    result = events.on(emitter, event, { close: ["close"] });
+    result = events.on(emitter, event, { highWatermark: 42 });
+    result = events.on(emitter, event, { lowWatermark: 42 });
 }
 
 {

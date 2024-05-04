@@ -85,8 +85,36 @@ declare module "events" {
             },
         ): any;
     }
-    interface StaticEventEmitterOptions {
+    interface EventEmitterStaticOnceOptions {
+        /**
+         * Can be used to cancel awaiting events.
+         */
         signal?: AbortSignal | undefined;
+    }
+    interface EventEmitterStaticOnOptions {
+        /**
+         * Can be used to cancel awaiting events.
+         */
+        signal?: AbortSignal | undefined;
+        /**
+         * Names of events that will end the iteration.
+         * @since v20.0.0
+         */
+        close?: ReadonlyArray<string> | undefined;
+        /**
+         * The high watermark. The emitter is paused every time the size of events being buffered is higher than it.
+         * Supported only on emitters implementing `pause()` and `resume()` methods.
+         * @default Number.MAX_SAFE_INTEGER
+         * @since v20.0.0
+         */
+        highWatermark?: number | undefined;
+        /**
+         * The low watermark. The emitter is resumed every time the size of events being buffered is lower than it.
+         * Supported only on emitters implementing `pause()` and `resume()` methods.
+         * @default 1
+         * @since v20.0.0
+         */
+        lowWatermark?: number | undefined;
     }
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
     type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
@@ -206,9 +234,13 @@ declare module "events" {
         static once(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
-            options?: StaticEventEmitterOptions,
+            options?: EventEmitterStaticOnceOptions,
         ): Promise<any[]>;
-        static once(emitter: _DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(
+            emitter: _DOMEventTarget,
+            eventName: string,
+            options?: EventEmitterStaticOnceOptions,
+        ): Promise<any[]>;
         /**
          * ```js
          * import { on, EventEmitter } from 'node:events';
@@ -270,8 +302,8 @@ declare module "events" {
          */
         static on(
             emitter: NodeJS.EventEmitter,
-            eventName: string,
-            options?: StaticEventEmitterOptions,
+            eventName: string | symbol,
+            options?: EventEmitterStaticOnOptions,
         ): AsyncIterableIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
