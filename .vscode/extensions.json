@@ -1,5 +1,7 @@
 {
     "recommendations": [
-        "dprint.dprint"
+        "dbaeumer.vscode-eslint",
+        "dprint.dprint",
+        "unifiedjs.vscode-remark"
     ]
 }

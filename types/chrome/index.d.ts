@@ -3214,6 +3214,45 @@ declare namespace chrome.enterprise.platformKeys {
         softwareBackedSubtleCrypto: SubtleCrypto;
     }
 
+    /** @since Chrome 110 */
+    export interface ChallengeKeyOptions {
+        /**
+         * A challenge as emitted by the Verified Access Web API.
+         */
+        challenge: ArrayBuffer;
+        /**
+         * Which Enterprise Key to challenge.
+         * @since Chrome 110
+         */
+        scope: Scope;
+        /**
+         * If present, registers the challenged key with the specified scope's token.
+         * The key can then be associated with a certificate and used like any other signing key.
+         * Subsequent calls to this function will then generate a new Enterprise Key in the specified scope.
+         */
+        registerKey?: RegisterKeyOptions | undefined;
+    }
+
+    /** @since Chrome 110 */
+    export interface RegisterKeyOptions {
+        /**
+         * Which algorithm the registered key should use.
+         */
+        algorithm: Algorithm;
+    }
+
+    /**
+     * @since Chrome 110
+     * Type of key to generate.
+     */
+    type Algorithm = "RSA" | "ECDSA";
+
+    /**
+     * @since Chrome 110
+     * Whether to use the Enterprise User Key or the Enterprise Machine Key.
+     */
+    type Scope = "USER" | "MACHINE";
+
     /**
      * Returns the available Tokens. In a regular user's session the list will always contain the user's token with id "user". If a system-wide TPM token is available, the returned list will also contain the system-wide token with id "system". The system-wide token will be the same for all sessions on this device (device in the sense of e.g. a Chromebook).
      * @param callback Invoked by getTokens with the list of available Tokens.
@@ -3251,6 +3290,23 @@ declare namespace chrome.enterprise.platformKeys {
      * * Any device identity emitted by the verification is tightly bound to the hardware of the current device.
      *
      * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
+     * @param options Object containing the fields defined in ChallengeKeyOptions.
+     * @param callback Called back with the challenge response.
+     * @since Chrome 110
+     */
+    export function challengeKey(options: ChallengeKeyOptions, callback: (response: ArrayBuffer) => void): void;
+    /**
+     * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
+     *
+     * Challenges a hardware-backed Enterprise Machine Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
+     *
+     * * The current device is a legitimate Chrome OS device.
+     * * The current device is managed by the domain specified during verification.
+     * * The current signed-in user is managed by the domain specified during verification.
+     * * The current device state complies with enterprise device policy. For example, a policy may specify that the device must not be in developer mode.
+     * * Any device identity emitted by the verification is tightly bound to the hardware of the current device.
+     *
+     * This function is highly restricted and will fail if the current device is not managed, the current user is not managed, or if this operation has not explicitly been enabled for the caller by enterprise device policy. The Enterprise Machine Key does not reside in the "system" token and is not accessible by any other API.
      * @param challenge A challenge as emitted by the Verified Access Web API.
      * @param registerKey If set, the current Enterprise Machine Key is registered with the "system" token and relinquishes the Enterprise Machine Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise Machine Key. Since Chrome 59.
      * @param callback Called back with the challenge response.
@@ -3263,6 +3319,8 @@ declare namespace chrome.enterprise.platformKeys {
     ): void;
     export function challengeMachineKey(challenge: ArrayBuffer, callback: (response: ArrayBuffer) => void): void;
     /**
+     * @deprecated Deprecated since Chrome 110, use enterprise.platformKeys.challengeKey instead.
+     *
      * Challenges a hardware-backed Enterprise User Key and emits the response as part of a remote attestation protocol. Only useful on Chrome OS and in conjunction with the Verified Access Web API which both issues challenges and verifies responses. A successful verification by the Verified Access Web API is a strong signal of all of the following:
      *
      * * The current device is a legitimate Chrome OS device.
@@ -3721,6 +3779,11 @@ declare namespace chrome.fileSystemProvider {
         id: string;
     }
 
+    export interface CloudFileInfo {
+        /** A tag that represents the version of the file. */
+        versionTag?: string | undefined;
+    }
+
     export interface EntryMetadata {
         /** True if it is a directory. Must be provided if requested in `options`. */
         isDirectory?: boolean;
@@ -3736,6 +3799,8 @@ declare namespace chrome.fileSystemProvider {
         thumbnail?: string | undefined;
         /** Optional. Cloud storage representation of this entry. Must be provided if requested in `options` and the file is backed by cloud storage. For local files not backed by cloud storage, it should be undefined when requested. */
         cloudIdentifier?: CloudIdentifier | undefined;
+        /** Optional. Information that identifies a specific file in the underlying cloud file system. Must be provided if requested in `options` and the file is backed by cloud storage. */
+        cloudFileInfo?: CloudFileInfo | undefined;
     }
 
     export interface FileSystemInfo {
@@ -3873,6 +3938,8 @@ declare namespace chrome.fileSystemProvider {
         thumbnail: boolean;
         /** Set to true if `cloudIdentifier` is requested. */
         cloudIdentifier: boolean;
+        /** Set to true if `cloudFileInfo` is requested. */
+        cloudFileInfo: boolean;
     }
 
     export interface DirectoryPathRequestedEventOptions extends RequestedEventOptions {
@@ -3981,7 +4048,7 @@ declare namespace chrome.fileSystemProvider {
         chrome.events.Event<
             (
                 options: OpenFileRequestedEventOptions,
-                successCallback: Function,
+                successCallback: (metadata?: EntryMetadata) => void,
                 errorCallback: (error: string) => void,
             ) => void
         >
@@ -4893,19 +4960,28 @@ declare namespace chrome.idle {
     /**
      * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
      * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
+     * @since Chrome 116
+     */
+    export function queryState(detectionIntervalInSeconds: number): Promise<IdleState>;
+    /**
+     * Returns "locked" if the system is locked, "idle" if the user has not generated any input for a specified number of seconds, or "active" otherwise.
+     * @param detectionIntervalInSeconds The system is considered idle if detectionIntervalInSeconds seconds have elapsed since the last user input detected.
      * @since Chrome 25
      */
     export function queryState(detectionIntervalInSeconds: number, callback: (newState: IdleState) => void): void;
+
     /**
      * Sets the interval, in seconds, used to determine when the system is in an idle state for onStateChanged events. The default interval is 60 seconds.
      * @since Chrome 25
      * @param intervalInSeconds Threshold, in seconds, used to determine when the system is in an idle state.
      */
     export function setDetectionInterval(intervalInSeconds: number): void;
+
     /**
      * Gets the time, in seconds, it takes until the screen is locked automatically while idle. Returns a zero duration if the screen is never locked automatically. Currently supported on Chrome OS only.
      * Parameter delay: Time, in seconds, until the screen is locked automatically while idle. This is zero if the screen never locks automatically.
      */
+    export function getAutoLockDelay(): Promise<number>;
     export function getAutoLockDelay(callback: (delay: number) => void): void;
 
     /** Fired when the system changes to an active, idle or locked state. The event fires with "locked" if the screen is locked or the screensaver activates, "idle" if the system is unlocked and the user has not generated any input for a specified number of seconds, and "active" when the user generates input on an idle system. */

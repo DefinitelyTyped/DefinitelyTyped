@@ -28,6 +28,7 @@ declare namespace ValidationReport {
         readonly sourceConstraintComponent: BlankNodeOf<F> | NamedNodeOf<F> | null;
         readonly sourceShape: BlankNodeOf<F> | NamedNodeOf<F> | null;
         readonly detail: Array<ValidationResult<F>>;
+        readonly value: BlankNodeOf<F> | NamedNodeOf<F> | LiteralOf<F> | null;
     }
 
     interface ValidationReport<F extends Factory = Factory> {

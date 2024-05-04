@@ -18,14 +18,14 @@
  *
  * 1. A synchronous function that is considered failing if it throws an exception,
  * and is considered passing otherwise.
- * 2. A function that returns a `Promise` that is considered failing if the`Promise` rejects, and is considered passing if the `Promise` fulfills.
+ * 2. A function that returns a `Promise` that is considered failing if the `Promise` rejects, and is considered passing if the `Promise` fulfills.
  * 3. A function that receives a callback function. If the callback receives any
  * truthy value as its first argument, the test is considered failing. If a
  * falsy value is passed as the first argument to the callback, the test is
  * considered passing. If the test function receives a callback function and
  * also returns a `Promise`, the test will fail.
  *
- * The following example illustrates how tests are written using the`test` module.
+ * The following example illustrates how tests are written using the `test` module.
  *
  * ```js
  * test('synchronous passing test', (t) => {
@@ -76,13 +76,13 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.4.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/test.js)
  */
 declare module "node:test" {
     import { Readable } from "node:stream";
     import { AsyncResource } from "node:async_hooks";
     /**
-     * **Note:**`shard` is used to horizontally parallelize test running across
+     * **Note:** `shard` is used to horizontally parallelize test running across
      * machines or processes, ideal for large-scale executions across varied
      * environments. It's incompatible with `watch` mode, tailored for rapid
      * code iteration by automatically rerunning tests on file changes.
@@ -129,14 +129,14 @@ declare module "node:test" {
      * });
      * ```
      *
-     * The `timeout` option can be used to fail the test if it takes longer than`timeout` milliseconds to complete. However, it is not a reliable mechanism for
+     * The `timeout` option can be used to fail the test if it takes longer than `timeout` milliseconds to complete. However, it is not a reliable mechanism for
      * canceling tests because a running test might block the application thread and
      * thus prevent the scheduled cancellation.
      * @since v18.0.0, v16.17.0
      * @param [name='The name'] The name of the test, which is displayed when reporting test results.
      * @param options Configuration options for the test. The following properties are supported:
-     * @param [fn='A no-op function'] The function under test. The first argument to this function is a {@link TestContext} object. If the test uses callbacks, the callback function is passed as the
-     * second argument.
+     * @param [fn='A no-op function'] The function under test. The first argument to this function is a {@link TestContext} object. If the test uses callbacks, the
+     * callback function is passed as the second argument.
      * @return Fulfilled with `undefined` once the test completes, or immediately if the test runs within {@link describe}.
      */
     function test(name?: string, fn?: TestFn): Promise<void>;
@@ -328,7 +328,7 @@ declare module "node:test" {
         timeout: number | null;
     }
     /**
-     * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.`TestsStream` will emit events, in the
+     * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests. `TestsStream` will emit events, in the
      * order of the tests definition
      * @since v18.9.0, v16.19.0
      */
@@ -392,7 +392,7 @@ declare module "node:test" {
         /**
          * This function is used to create a hook running before subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         *    the second argument. **Default:** A no-op function.
          * @param options Configuration options for the hook.
          * @since v20.1.0
          */
@@ -400,14 +400,14 @@ declare module "node:test" {
         /**
          * This function is used to create a hook running before each subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         *    the second argument. **Default:** A no-op function.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
         beforeEach: typeof beforeEach;
         /**
          * This function is used to create a hook that runs after the current test finishes.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+         * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as
          *    the second argument. Default: A no-op function.
          * @param options Configuration options for the hook.
          * @since v18.13.0
@@ -416,7 +416,7 @@ declare module "node:test" {
         /**
          * This function is used to create a hook running after each subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         *    the second argument. **Default:** A no-op function.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
@@ -470,7 +470,7 @@ declare module "node:test" {
          */
         readonly signal: AbortSignal;
         /**
-         * This function causes the test's output to indicate the test as skipped. If`message` is provided, it is included in the output. Calling `skip()` does
+         * This function causes the test's output to indicate the test as skipped. If `message` is provided, it is included in the output. Calling `skip()` does
          * not terminate execution of the test function. This function does not return a
          * value.
          *
@@ -508,7 +508,7 @@ declare module "node:test" {
          * @param options Configuration options for the test
          * @param fn The function under test. This first argument to this function is a
          *    {@link TestContext} object. If the test uses callbacks, the callback function is
-         *    passed as the second argument. Default: A no-op function.
+         *    passed as the second argument. **Default:** A no-op function.
          * @returns A {@link Promise} resolved with `undefined` once the test completes.
          */
         test: typeof test;
@@ -695,7 +695,7 @@ declare module "node:test" {
     /**
      * The `MockTracker` class is used to manage mocking functionality. The test runner
      * module provides a top level `mock` export which is a `MockTracker` instance.
-     * Each test also provides its own `MockTracker` instance via the test context's`mock` property.
+     * Each test also provides its own `MockTracker` instance via the test context's `mock` property.
      * @since v19.1.0, v18.13.0
      */
     class MockTracker {
@@ -811,7 +811,7 @@ declare module "node:test" {
         ): Mock<Function>;
 
         /**
-         * This function is syntax sugar for `MockTracker.method` with `options.getter`set to `true`.
+         * This function is syntax sugar for `MockTracker.method` with `options.getter` set to `true`.
          * @since v19.3.0, v18.13.0
          */
         getter<
@@ -833,7 +833,7 @@ declare module "node:test" {
             options?: MockFunctionOptions,
         ): Mock<(() => MockedObject[MethodName]) | Implementation>;
         /**
-         * This function is syntax sugar for `MockTracker.method` with `options.setter`set to `true`.
+         * This function is syntax sugar for `MockTracker.method` with `options.setter` set to `true`.
          * @since v19.3.0, v18.13.0
          */
         setter<
@@ -856,11 +856,11 @@ declare module "node:test" {
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
         /**
          * This function restores the default behavior of all mocks that were previously
-         * created by this `MockTracker` and disassociates the mocks from the`MockTracker` instance. Once disassociated, the mocks can still be used, but the`MockTracker` instance can no longer be
+         * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be
          * used to reset their behavior or
          * otherwise interact with them.
          *
-         * After each test completes, this function is called on the test context's`MockTracker`. If the global `MockTracker` is used extensively, calling this
+         * After each test completes, this function is called on the test context's `MockTracker`. If the global `MockTracker` is used extensively, calling this
          * function manually is recommended.
          * @since v19.1.0, v18.13.0
          */
@@ -926,7 +926,7 @@ declare module "node:test" {
         readonly calls: Array<MockFunctionCall<F>>;
         /**
          * This function returns the number of times that this mock has been invoked. This
-         * function is more efficient than checking `ctx.calls.length` because `ctx.calls`is a getter that creates a copy of the internal call tracking array.
+         * function is more efficient than checking `ctx.calls.length` because `ctx.calls` is a getter that creates a copy of the internal call tracking array.
          * @since v19.1.0, v18.13.0
          * @return The number of times that this mock has been invoked.
          */
@@ -1050,7 +1050,7 @@ declare module "node:test" {
          *
          * The above example enables mocking for the `Date` constructor, `setInterval` timer and
          * implicitly mocks the `clearInterval` function. Only the `Date` constructor from `globalThis`,
-         * `setInterval` and `clearInterval` functions from `node:timers`,`node:timers/promises`, and `globalThis` will be mocked.
+         * `setInterval` and `clearInterval` functions from `node:timers`, `node:timers/promises`, and `globalThis` will be mocked.
          *
          * Example usage with initial time set
          *
@@ -1075,7 +1075,9 @@ declare module "node:test" {
          * and `globalThis` will be mocked.
          * The `Date` constructor from `globalThis` will be mocked.
          *
-         * If there is no initial epoch set, the initial date will be based on 0 in the Unix epoch. This is `January 1st, 1970, 00:00:00 UTC`. You can set an initial date by passing a now property to the `.enable()` method. This value will be used as the initial date for the mocked Date object. It can either be a positive integer, or another Date object.
+         * If there is no initial epoch set, the initial date will be based on 0 in the Unix epoch. This is `January 1st, 1970, 00:00:00 UTC`. You can
+         * set an initial date by passing a now property to the `.enable()` method. This value will be used as the initial date for the mocked Date
+         * object. It can either be a positive integer, or another Date object.
          * @since v20.4.0
          */
         enable(options?: MockTimersOptions): void;
@@ -1420,7 +1422,7 @@ interface TestDequeue extends TestLocationInfo {
  * import test from 'test/reporters';
  * ```
  * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test/reporters.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/test/reporters.js)
  */
 declare module "node:test/reporters" {
     import { Transform, TransformOptions } from "node:stream";

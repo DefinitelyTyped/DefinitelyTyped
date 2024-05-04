@@ -222,7 +222,7 @@ declare namespace React {
         C extends
             | ForwardRefExoticComponent<any>
             | { new(props: any): Component<any> }
-            | ((props: any, context?: any) => ReactElement | null)
+            | ((props: any, deprecatedLegacyContext?: any) => ReactElement | null)
             | keyof JSX.IntrinsicElements,
     > =
         // need to check first if `ref` is a valid prop for ts@3.0
@@ -494,21 +494,27 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     // DOM Elements
+    /** @deprecated */
     function createFactory<T extends HTMLElement>(
         type: keyof ReactHTML,
     ): HTMLFactory<T>;
+    /** @deprecated */
     function createFactory(
         type: keyof ReactSVG,
     ): SVGFactory;
+    /** @deprecated */
     function createFactory<P extends DOMAttributes<T>, T extends Element>(
         type: string,
     ): DOMFactory<P, T>;
 
     // Custom components
+    /** @deprecated */
     function createFactory<P>(type: FunctionComponent<P>): FunctionComponentFactory<P>;
+    /** @deprecated */
     function createFactory<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>>(
         type: ClassType<P, T, C>,
     ): CFactory<P, T>;
+    /** @deprecated */
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
@@ -1106,7 +1112,15 @@ declare namespace React {
      * ```
      */
     interface FunctionComponent<P = {}> {
-        (props: P, context?: any): ReactElement<any, any> | null;
+        (
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): ReactElement<any, any> | null;
         /**
          * Used to declare the types of the props accepted by the
          * component. These types will be checked during rendering
@@ -1146,6 +1160,8 @@ declare namespace React {
          *   name: 'John Doe'
          * }
          * ```
+         *
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
          */
         defaultProps?: Partial<P> | undefined;
         /**
@@ -1183,9 +1199,20 @@ declare namespace React {
      * @see {@link React.FunctionComponent}
      */
     interface VoidFunctionComponent<P = {}> {
-        (props: P, context?: any): ReactElement<any, any> | null;
+        (
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): ReactElement<any, any> | null;
         propTypes?: WeakValidationMap<P> | undefined;
         contextTypes?: ValidationMap<any> | undefined;
+        /**
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         */
         defaultProps?: Partial<P> | undefined;
         displayName?: string | undefined;
     }
@@ -1246,7 +1273,15 @@ declare namespace React {
      * @template S The internal state of the component.
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
-        new(props: P, context?: any): Component<P, S>;
+        new(
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): Component<P, S>;
         /**
          * Used to declare the types of the props accepted by the
          * component. These types will be checked during rendering
@@ -1298,7 +1333,7 @@ declare namespace React {
      * @see {@link https://www.npmjs.com/package/create-react-class `create-react-class` on npm}
      */
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new(props: P, context?: any): ClassicComponent<P, ComponentState>;
+        new(props: P, deprecatedLegacyContext?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -1313,7 +1348,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         & C
-        & (new(props: P, context?: any) => T);
+        & (new(props: P, deprecatedLegacyContext?: any) => T);
 
     //
     // Component Specs and Lifecycle
@@ -1528,6 +1563,9 @@ declare namespace React {
      * @see {@link ExoticComponent}
      */
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
+        /**
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         */
         defaultProps?: Partial<P> | undefined;
         propTypes?: WeakValidationMap<P> | undefined;
     }
@@ -2088,6 +2126,21 @@ declare namespace React {
      * @param callback A _synchronous_ function which causes state updates that can be deferred.
      */
     export function startTransition(scope: TransitionFunction): void;
+
+    /**
+     * Wrap any code rendering and triggering updates to your components into `act()` calls.
+     *
+     * Ensures that the behavior in your tests matches what happens in the browser
+     * more closely by executing pending `useEffect`s before returning. This also
+     * reduces the amount of re-renders done.
+     *
+     * @param callback A synchronous, void callback that will execute as a single, complete React commit.
+     *
+     * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+     */
+    // While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
+    export function act(callback: () => VoidOrUndefinedOnly): void;
+    export function act<T>(callback: () => T | Promise<T>): Promise<T>;
 
     export function useId(): string;
 

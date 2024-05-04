@@ -795,6 +795,82 @@ linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-console": "off" } }], "test.
 
 // #endregion
 
+// # region Linter with eslintrc config
+
+const linterWithEslintrcConfig = new Linter({ configType: "eslintrc" });
+
+linterWithEslintrcConfig.version;
+
+linterWithEslintrcConfig.verify(SOURCE, {});
+linterWithEslintrcConfig.verify(new SourceCode(SOURCE, AST), {});
+
+linterWithEslintrcConfig.verify(SOURCE, {}, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, {}, {});
+linterWithEslintrcConfig.verify(SOURCE, {}, { filename: "test.js" });
+linterWithEslintrcConfig.verify(SOURCE, {}, { allowInlineConfig: false });
+linterWithEslintrcConfig.verify(SOURCE, {}, { reportUnusedDisableDirectives: true });
+linterWithEslintrcConfig.verify(SOURCE, {}, { preprocess: input => input.split(" ") });
+linterWithEslintrcConfig.verify(SOURCE, {}, { postprocess: problemList => problemList[0] });
+
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2022 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2023 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2024 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: "latest" } }, "test.js");
+linterWithEslintrcConfig.verify(
+    SOURCE,
+    { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } },
+    "test.js",
+);
+linterWithEslintrcConfig.verify(
+    SOURCE,
+    { parserOptions: { ecmaVersion: 6, ecmaFeatures: { experimentalObjectRestSpread: true } } },
+    "test.js",
+);
+linterWithEslintrcConfig.verify(SOURCE, { env: { node: true } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: true } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "off" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "readonly" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "readable" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "writable" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { globals: { foo: "writeable" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { parser: "custom-parser" }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { settings: { info: "foo" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { processor: "a-plugin/a-processor" }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { plugins: ["a-plugin"] }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { root: true }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { extends: "eslint-config-bad-guy" }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { extends: ["eslint-config-bad-guy", "eslint-config-roblox"] }, "test.js");
+
+linterWithEslintrcConfig.verify(SOURCE, { rules: {} }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { quotes: 2 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { quotes: [2, "double"] } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-unused-vars": [2, { vars: "all" }] } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": 1 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": 0 } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "error" } }, "test.js");
+linterWithEslintrcConfig.verify(
+    SOURCE,
+    {
+        rules: { "no-console": "error" },
+        overrides: [
+            {
+                extends: ["eslint-config-bad-guy"],
+                excludedFiles: ["*-test.js", "*.spec.js"],
+                files: ["*-test.js", "*.spec.js"],
+                rules: {
+                    "no-unused-expressions": "off",
+                },
+            },
+        ],
+    },
+    "test.js",
+);
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "warn" } }, "test.js");
+linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "off" } }, "test.js");
+
+linterWithEslintrcConfig.getRules();
+
 // #endregion
 
 // #region ESLint
@@ -1076,24 +1152,18 @@ ruleTester.run("simple-valid-test", rule, {
 }));
 
 ((): Linter.FlatConfig => ({ files: ["abc"] }));
-((): Linter.FlatConfig => ({ files: [(path) => false] }));
 ((): Linter.FlatConfig => ({ files: [["abc"]] }));
-((): Linter.FlatConfig => ({ files: [[(path) => false]] }));
-((): Linter.FlatConfig => ({ files: [["abc", (path) => false]] }));
-((): Linter.FlatConfig => ({ files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]] }));
 
 ((): Linter.FlatConfig => ({
     // @ts-expect-error // Second level of nesting is not allowed
-    files: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false], [["abc"], [(path) => false]]],
+    files: ["abc", ["abc"], [["abc"]]],
 }));
 
 ((): Linter.FlatConfig => ({ ignores: ["abc"] }));
-((): Linter.FlatConfig => ({ ignores: [(path) => false] }));
-((): Linter.FlatConfig => ({ ignores: ["abc", (path) => false] }));
 
 ((): Linter.FlatConfig => ({
     // @ts-expect-error // No nesting
-    ignores: ["abc", (path) => false, ["abc"], [(path) => false], ["abc", (path) => false]],
+    ignores: ["abc", ["abc"]],
 }));
 
 // @ts-expect-error // Must be an array
@@ -1119,6 +1189,45 @@ ruleTester.run("simple-valid-test", rule, {
 
 // @ts-expect-error
 ((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: null } }));
+
+((): Linter.FlatConfig => ({ name: "eslint:js" }));
+
+// @ts-expect-error // Generic passed in does not match the RuleEntry schema
+((): Linter.FlatConfig<{ foo?: "bar" }> => ({
+    rules: {},
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
+    rules: {
+        foo: "error",
+    },
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
+    rules: {
+        // @ts-expect-error // Invalid value
+        foo: ["error", 3],
+    },
+}));
+
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry }> => ({
+    rules: {
+        // @ts-expect-error // Unspecified value
+        bar: "error",
+    },
+}));
+
+((): Linter.FlatConfig<{ foo: Linter.RuleEntry<[1 | 2]>; [x: string]: Linter.RuleEntry }> => ({
+    rules: {
+        // @ts-expect-error // Invalid value
+        foo: ["error", 3],
+        // Wildcard values are supported
+        bar: 2,
+        baz: "off",
+        // @ts-expect-error // Invalid value
+        "foo/bar": "bar",
+    },
+}));
 
 // The following _should_ be an error, but we can't enforce on consumers
 // as it requires exactOptionalPropertyTypes: true

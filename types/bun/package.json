@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/bun",
-    "version": "1.0.9999",
+    "version": "1.1.9999",
     "projects": [
         "https://bun.sh"
     ],
     "dependencies": {
-        "bun-types": "1.0.36"
+        "bun-types": "1.1.6"
     },
     "devDependencies": {
         "@types/bun": "workspace:."

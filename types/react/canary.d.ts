@@ -102,6 +102,13 @@ declare module "." {
         (callback: () => Promise<VoidOrUndefinedOnly>): void;
     }
 
+    /**
+     * Similar to `useTransition` but allows uses where hooks are not available.
+     *
+     * @param callback An _asynchronous_ function which causes state updates that can be deferred.
+     */
+    export function startTransition(scope: () => Promise<VoidOrUndefinedOnly>): void;
+
     export function useOptimistic<State>(
         passthrough: State,
     ): [State, (action: State | ((pendingState: State) => State)) => void];
@@ -124,4 +131,33 @@ declare module "." {
         initialState: Awaited<State>,
         permalink?: string,
     ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
+
+    interface DOMAttributes<T> {
+        // Transition Events
+        onTransitionCancel?: TransitionEventHandler<T> | undefined;
+        onTransitionCancelCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionRun?: TransitionEventHandler<T> | undefined;
+        onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionStart?: TransitionEventHandler<T> | undefined;
+        onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
+    }
+
+    /**
+     * @internal Use `Awaited<ReactNode>` instead
+     */
+    // Helper type to enable `Awaited<ReactNode>`.
+    // Must be a copy of the non-thenables of `ReactNode`.
+    type AwaitedReactNode =
+        | ReactElement
+        | string
+        | number
+        | Iterable<AwaitedReactNode>
+        | ReactPortal
+        | boolean
+        | null
+        | undefined;
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
+        promises: Promise<AwaitedReactNode>;
+        bigints: bigint;
+    }
 }

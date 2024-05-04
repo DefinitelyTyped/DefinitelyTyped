@@ -889,6 +889,11 @@ export class PlaybackConfig {
     enableSmoothLiveRefresh?: boolean | undefined;
 
     /**
+     * A flag to enable Shaka Player's DOM-based text renderer, shaka.text.UITextDisplayer.
+     */
+    enableUITextDisplayer?: boolean | undefined;
+
+    /**
      * A flag whether to ignore TTML positioning information.
      */
     ignoreTtmlPositionInfo?: boolean | undefined;

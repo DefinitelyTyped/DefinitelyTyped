@@ -383,7 +383,7 @@ declare namespace jsts {
         /**
          * Densifies a Geometry by inserting extra vertices along the line segments
          * contained in the geometry. All segments in the created densified geometry
-         * will be no longer than than the given distance tolerance.
+         * will be no longer than the given distance tolerance.
          * Densified polygonal geometries are guaranteed to be topologically correct.
          * The coordinates created during densification respect the input geometry's PrecisionModel.
          */

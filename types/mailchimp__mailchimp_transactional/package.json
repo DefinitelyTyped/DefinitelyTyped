@@ -6,7 +6,7 @@
         "https://github.com/mailchimp/mailchimp-transactional-node"
     ],
     "dependencies": {
-        "axios": "^0.21.1"
+        "axios": "^1.6.7"
     },
     "devDependencies": {
         "@types/mailchimp__mailchimp_transactional": "workspace:."

@@ -16,6 +16,7 @@
 /// <reference path = "components/AmpEnv.d.ts" />
 /// <reference path = "components/BarStepEditor.d.ts" />
 /// <reference path = "components/ComboBox.d.ts" />
+/// <reference path = "components/Curve.d.ts" />
 /// <reference path = "components/DragContainer.d.ts" />
 /// <reference path = "components/DragTarget.d.ts" />
 /// <reference path = "components/DropZone.d.ts" />
@@ -500,6 +501,13 @@ declare namespace GorillaEngine {
      * @returns the empty instrument.
      */
     function createEmptyInstrument(): Instrument;
+    /**
+     * Load .inst file (and referenced sample files) at the specified path
+     * @param instFilePath the .inst file to load
+     * @throws if the instrument could not be loaded e.g. it is not there
+     * @returns the instrument
+     */
+    function LoadInstrumentFromFile(instFilePath: string): Instrument;
     function setSessionSaveCallback(callback: (state: string) => string, instance: any): void;
     function setSessionLoadCallback(callback: (state: string) => string, instance: any): void;
     function setParametersDirty(dirty: boolean): void;

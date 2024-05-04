@@ -524,8 +524,10 @@ export interface Legend extends Label {
     valign: "top" | "middle" | "bottom";
     x: number;
     xanchor: "auto" | "left" | "center" | "right";
+    xref: "container" | "paper";
     y: number;
     yanchor: "auto" | "top" | "middle" | "bottom";
+    yref: "container" | "paper";
 }
 
 export type AxisType = "-" | "linear" | "log" | "date" | "category" | "multicategory";

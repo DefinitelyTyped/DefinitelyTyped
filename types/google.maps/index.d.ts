@@ -3457,6 +3457,12 @@ declare namespace google.maps {
      */
     getHeading(): number | undefined;
     /**
+     * Returns whether heading interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    getHeadingInteractionEnabled(): boolean | null;
+    /**
      * Informs the caller of the current capabilities available to the map based
      * on the Map ID that was provided.
      */
@@ -3489,6 +3495,12 @@ declare namespace google.maps {
      * <code>setTilt</code>. See <code>setTilt</code> for details.
      */
     getTilt(): number | undefined;
+    /**
+     * Returns whether tilt interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    getTiltInteractionEnabled(): boolean | null;
     /**
      * Returns the zoom of the map. If the zoom has not been set then the result
      * is <code>undefined</code>.
@@ -3556,8 +3568,18 @@ declare namespace google.maps {
      * imagery.
      */
     setHeading(heading: number): void;
+    /**
+     * Sets whether heading interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    setHeadingInteractionEnabled(headingInteractionEnabled: boolean): void;
     setMapTypeId(mapTypeId: string): void;
     setOptions(options: google.maps.MapOptions | null): void;
+    /**
+     * Sets the current RenderingType of the map.
+     */
+    setRenderingType(renderingType: google.maps.RenderingType): void;
     /**
      * Binds a <code>StreetViewPanorama</code> to the map. This panorama
      * overrides the default <code>StreetViewPanorama</code>, allowing the map
@@ -3568,9 +3590,9 @@ declare namespace google.maps {
     setStreetView(panorama: google.maps.StreetViewPanorama | null): void;
     /**
      * For vector maps, sets the angle of incidence of the map. The allowed
-     * values are restricted depending on the zoom level of the map. For raster
-     * maps, controls the automatic switching behavior for the angle of
-     * incidence of the map. The only allowed values are <code>0</code> and
+     * values are restricted depending on the zoom level of the map. <br><br>
+     * For raster maps, controls the automatic switching behavior for the angle
+     * of incidence of the map. The only allowed values are <code>0</code> and
      * <code>45</code>. <code>setTilt(0)</code> causes the map to always use a
      * 0&deg; overhead view regardless of the zoom level and viewport.
      * <code>setTilt(45)</code> causes the tilt angle to automatically switch to
@@ -3586,6 +3608,12 @@ declare namespace google.maps {
      * unpredictable effects.
      */
     setTilt(tilt: number): void;
+    /**
+     * Sets whether tilt interactions are enabled. This option is only in effect
+     * when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    setTiltInteractionEnabled(tiltInteractionEnabled: boolean): void;
     /**
      * Sets the zoom of the map.
      * @param zoom Larger zoom values correspond to a higher resolution.
@@ -3717,18 +3745,48 @@ declare namespace google.maps {
      */
     center: google.maps.LatLng | google.maps.LatLngLiteral | null;
     /**
+     * Whether the map should allow user control of the camera heading
+     * (rotation). This option is only in effect when the map is a vector map.
+     * If not set in code, then the cloud configuration for the map ID will be
+     * used (if available).
+     * @defaultValue <code>false</code>
+     */
+    headingInteractionDisabled: boolean | null;
+    /**
      * A reference to the {@link google.maps.Map} that the MapElement uses
      * internally.
      */
     innerMap: google.maps.Map;
     /**
-     * The Map ID of the map. See the <a
-     * href="https://developers.google.com/maps/documentation/get-map-id">Map ID
-     * documentation</a> for more information.
+     * The <a
+     * href="https://developers.google.com/maps/documentation/get-map-id">Map
+     * ID</a> of the map. This parameter cannot be set or changed after a map is
+     * instantiated. {@link google.maps.Map.DEMO_MAP_ID} can be used to try out
+     * features that require a map ID but which do not require cloud enablement.
      */
     mapId: string | null;
     /**
-     * The zoom level of the map.
+     * Whether the map should be a raster or vector map. This parameter cannot
+     * be set or changed after a map is instantiated. If not set, then the cloud
+     * configuration for the map ID will determine the rendering type (if
+     * available). Please note that vector maps may not be available for all
+     * devices and browsers and the map will fall back to a raster map as
+     * needed.
+     * @defaultValue {@link google.maps.RenderingType.VECTOR}
+     */
+    renderingType: google.maps.RenderingType | null;
+    /**
+     * Whether the map should allow user control of the camera tilt. This option
+     * is only in effect when the map is a vector map. If not set in code, then
+     * the cloud configuration for the map ID will be used (if available).
+     * @defaultValue <code>false</code>
+     */
+    tiltInteractionDisabled: boolean | null;
+    /**
+     * The zoom level of the map. Valid zoom values are numbers from zero up to
+     * the supported <a
+     * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
+     * zoom level</a>. Larger zoom values correspond to a higher resolution.
      */
     zoom: number | null;
   }
@@ -3740,21 +3798,27 @@ declare namespace google.maps {
    */
   export interface MapElementOptions {
     /**
-     * The initial Map center.
+     * See {@link google.maps.MapElement.center}.
      */
     center?: google.maps.LatLng | google.maps.LatLngLiteral | null;
     /**
-     * The <a
-     * href="https://developers.google.com/maps/documentation/get-map-id">Map
-     * ID</a> of the map. This parameter cannot be set or changed after a map is
-     * instantiated.
+     * See {@link google.maps.MapElement.headingInteractionDisabled}.
+     */
+    headingInteractionDisabled?: boolean | null;
+    /**
+     * See {@link google.maps.MapElement.mapId}.
      */
     mapId?: string | null;
     /**
-     * The initial Map zoom level. Valid zoom values are numbers from zero up to
-     * the supported <a
-     * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
-     * zoom level</a>. Larger zoom values correspond to a higher resolution.
+     * See {@link google.maps.MapElement.renderingType}.
+     */
+    renderingType?: google.maps.RenderingType | null;
+    /**
+     * See {@link google.maps.MapElement.tiltInteractionDisabled}.
+     */
+    tiltInteractionDisabled?: boolean | null;
+    /**
+     * See {@link google.maps.MapElement.zoom}.
      */
     zoom?: number | null;
   }
@@ -3883,6 +3947,14 @@ declare namespace google.maps {
      */
     heading?: number | null;
     /**
+     * Whether the map should allow user control of the camera heading
+     * (rotation). This option is only in effect when the map is a vector map.
+     * If not set in code, then the cloud configuration for the map ID will be
+     * used (if available).
+     * @defaultValue <code>false</code>
+     */
+    headingInteractionEnabled?: boolean | null;
+    /**
      * Whether the map should allow fractional zoom levels. Listen to
      * <code>isfractionalzoomenabled_changed</code> to know when the default has
      * been set.
@@ -3899,7 +3971,8 @@ declare namespace google.maps {
      * The <a
      * href="https://developers.google.com/maps/documentation/get-map-id">Map
      * ID</a> of the map. This parameter cannot be set or changed after a map is
-     * instantiated.
+     * instantiated. {@link google.maps.Map.DEMO_MAP_ID} can be used to try out
+     * features that require a map ID but which do not require cloud enablement.
      */
     mapId?: string | null;
     /**
@@ -3946,6 +4019,16 @@ declare namespace google.maps {
      * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControlOptions?: google.maps.PanControlOptions | null;
+    /**
+     * Whether the map should be a raster or vector map. This parameter cannot
+     * be set or changed after a map is instantiated. If not set, then the cloud
+     * configuration for the map ID will determine the rendering type (if
+     * available). Please note that vector maps may not be available for all
+     * devices and browsers and the map will fall back to a raster map as
+     * needed.
+     * @defaultValue {@link google.maps.RenderingType.RASTER}
+     */
+    renderingType?: google.maps.RenderingType | null;
     /**
      * Defines a boundary that restricts the area of the map accessible to
      * users. When set, a user can only pan and zoom while the camera view stays
@@ -3997,7 +4080,10 @@ declare namespace google.maps {
     /**
      * Styles to apply to each of the default map types. Note that for
      * <code>satellite</code>/<code>hybrid</code> and <code>terrain</code>
-     * modes, these styles will only apply to labels and geometry.
+     * modes, these styles will only apply to labels and geometry. This feature
+     * is not available when using a map ID, or when using vector maps (use <a
+     * href="https://developers.google.com/maps/documentation/cloud-customization">cloud-based
+     * maps styling</a> instead).
      */
     styles?: google.maps.MapTypeStyle[] | null;
     /**
@@ -4019,6 +4105,13 @@ declare namespace google.maps {
      * yield unpredictable effects.
      */
     tilt?: number | null;
+    /**
+     * Whether the map should allow user control of the camera tilt. This option
+     * is only in effect when the map is a vector map. If not set in code, then
+     * the cloud configuration for the map ID will be used (if available).
+     * @defaultValue <code>false</code>
+     */
+    tiltInteractionEnabled?: boolean | null;
     /**
      * The initial Map zoom level. Valid zoom values are numbers from zero up to
      * the supported <a
@@ -5165,6 +5258,7 @@ declare namespace google.maps {
     Review: typeof google.maps.places.Review;
     SearchBox: typeof google.maps.places.SearchBox;
     SearchByTextRankPreference: typeof google.maps.places.SearchByTextRankPreference;
+    SearchNearbyRankPreference: typeof google.maps.places.SearchNearbyRankPreference;
   }
   /**
    * Access by calling `const {Point} = await
@@ -7161,7 +7255,10 @@ declare namespace google.maps {
    * after removing. The <code>onDraw()</code> method will then be called
    * whenever a map property changes that could change the position of the
    * element, such as zoom, center, or map type. WebGLOverlayView may only be
-   * added to a vector map having a {@link google.maps.MapOptions.mapId}.
+   * added to a vector map having a {@link google.maps.MapOptions.mapId}
+   * (including maps set to the {@link google.maps.RenderingType.VECTOR} {@link
+   * google.maps.MapOptions.renderingType} and using {@link
+   * google.maps.Map.DEMO_MAP_ID} as the {@link google.maps.MapOptions.mapId}).
    *
    * Access by calling `const {WebGLOverlayView} = await
    * google.maps.importLibrary("maps")`. See
@@ -13242,6 +13339,13 @@ declare namespace google.maps.places {
       this: any,
       request: google.maps.places.SearchByTextRequest,
     ): Promise<{places: google.maps.places.Place[]}>;
+    /**
+     * Search for nearby places.
+     */
+    static searchNearby(
+      this: any,
+      request: google.maps.places.SearchNearbyRequest,
+    ): Promise<{places: google.maps.places.Place[]}>;
   }
   /**
    * Defines information about an aspect of the place that users have reviewed.
@@ -13263,13 +13367,8 @@ declare namespace google.maps.places {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    *
-   * <ul>
-   * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
-   * provides a UI component for the Places Autocomplete API. After loading the
-   * <code>places</code> library, an input with autocomplete functionality can
-   * be created in HTML. For example: <pre><code>&lt;gmp-placeautocomplete
-   * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
-   * </ul>
+   * PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
+   * provides a UI component for the Places Autocomplete API.
    *
    * Access by calling `const {PlaceAutocompleteElement} = await
    * google.maps.importLibrary("places")`. See
@@ -13282,14 +13381,8 @@ declare namespace google.maps.places {
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      *
-     * <ul>
-     * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass
-     * which provides a UI component for the Places Autocomplete API. After
-     * loading the <code>places</code> library, an input with autocomplete
-     * functionality can be created in HTML. For example:
-     * <pre><code>&lt;gmp-placeautocomplete
-     * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
-     * </ul>
+     * PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
+     * provides a UI component for the Places Autocomplete API.
      *
      * Access by calling `const {PlaceAutocompleteElement} = await
      * google.maps.importLibrary("places")`. See
@@ -14518,6 +14611,99 @@ declare namespace google.maps.places {
      * @defaultValue <code>false</code>
      */
     useStrictTypeFiltering?: boolean;
+  }
+  /**
+   * RankPreference enum for SearchNearbyRequest.
+   *
+   * Access by calling `const {SearchNearbyRankPreference} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum SearchNearbyRankPreference {
+    /**
+     * Ranks results by distance.
+     */
+    DISTANCE = 'DISTANCE',
+    /**
+     * Ranks results by popularity.
+     */
+    POPULARITY = 'POPULARITY',
+  }
+  /**
+   * Request interface for {@link google.maps.places.Place.searchNearby}. For
+   * more information on the request, see <a
+   * href="https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places/searchNearby">Places
+   * API reference</a>.
+   */
+  export interface SearchNearbyRequest {
+    /**
+     * Excluded primary place type. See the <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">full
+     * list of types supported</a>. A place can only have a single primary type.
+     * Up to 50 types may be specified. If you specify the same type in both
+     * <code>included</code> and <code>excluded</code> lists, an
+     * INVALID_ARGUMENT error is returned.
+     */
+    excludedPrimaryTypes?: string[];
+    /**
+     * Fields to be included in the response, <a
+     * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which
+     * will be billed for</a>. If <code>[&#39;*&#39;]</code> is passed in, all
+     * available fields will be returned and billed for (this is not recommended
+     * for production deployments). For a list of fields see {@link
+     * google.maps.places.PlaceResult}. Nested fields can be specified with
+     * dot-paths (for example, <code>"geometry.location"</code>).
+     */
+    fields: string[];
+    /**
+     * Included primary place type. See the <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">full
+     * list of types supported</a>. A place can only have a single primary type.
+     * Up to 50 types may be specified. If you specify the same type in both
+     * <code>included</code> and <code>excluded</code> lists, an
+     * INVALID_ARGUMENT error is returned.
+     */
+    includedPrimaryTypes?: string[];
+    /**
+     * Included place type. See the <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">full
+     * list of types supported</a>. A place can have many different place types.
+     * Up to 50 types may be specified. If you specify the same type in both
+     * <code>included</code> and <code>excluded</code> lists, an
+     * INVALID_ARGUMENT error is returned.
+     */
+    includedTypes?: string[];
+    /**
+     * Place details will be displayed with the preferred language if available.
+     * Will default to the browser&#39;s language preference. Current list of
+     * supported languages: <a
+     * href="https://developers.google.com/maps/faq#languagesupport">https://developers.google.com/maps/faq#languagesupport</a>.
+     */
+    language?: string;
+    /**
+     * The region to search, specified as a circle with center and radius.
+     * Results outside given location are not returned.
+     */
+    locationRestriction: google.maps.Circle | google.maps.CircleLiteral;
+    /**
+     * Maximum number of results to return. It must be between 1 and 20,
+     * inclusively.
+     */
+    maxResultCount?: number;
+    /**
+     * How results will be ranked in the response.
+     * @defaultValue <code>SearchNearbyRankPreference.DISTANCE</code>
+     */
+    rankPreference?: google.maps.places.SearchNearbyRankPreference;
+    /**
+     * The Unicode country/region code (CLDR) of the location where the request
+     * is coming from. This parameter is used to display the place details, like
+     * region-specific place name, if available. The parameter can affect
+     * results based on applicable law. For more information, see <a
+     * href="https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html">https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html</a>.
+     * Note that 3-digit region codes are not currently supported.
+     */
+    region?: string;
   }
   /**
    * Contains structured information about the place&#39;s description, divided

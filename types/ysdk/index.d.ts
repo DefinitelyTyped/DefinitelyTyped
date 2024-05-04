@@ -147,6 +147,7 @@ export interface Player {
     getUniqueID(): string;
     getName(): string;
     getPhoto(size: "small" | "medium" | "large"): string;
+    getPayingStatus(): "paying" | "partially_paying" | "not_paying" | "unknown";
     getIDsPerGame(): Promise<Array<{ appID: number; userID: string }>>;
     getMode(): "lite" | "";
     getData<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, Serializable>>>;

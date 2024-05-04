@@ -16,15 +16,17 @@ export interface RenderTargetOptions {
     wrapT?: Wrapping | undefined;
     magFilter?: MagnificationTextureFilter | undefined;
     minFilter?: MinificationTextureFilter | undefined;
-    generateMipmaps?: boolean | undefined; // true;
-    format?: number | undefined; // RGBAFormat;
-    type?: TextureDataType | undefined; // UnsignedByteType;
-    anisotropy?: number | undefined; // 1;
+    generateMipmaps?: boolean | undefined; // true
+    format?: number | undefined; // RGBAFormat
+    type?: TextureDataType | undefined; // UnsignedByteType
+    anisotropy?: number | undefined; // 1
     colorSpace?: ColorSpace | undefined;
-    internalFormat?: PixelFormatGPU | null | undefined;
-    depthBuffer?: boolean | undefined; // true;
-    stencilBuffer?: boolean | undefined; // false;
-    depthTexture?: DepthTexture | undefined;
+    internalFormat?: PixelFormatGPU | null | undefined; // null
+    depthBuffer?: boolean | undefined; // true
+    stencilBuffer?: boolean | undefined; // false
+    resolveDepthBuffer?: boolean | undefined; // true
+    resolveStencilBuffer?: boolean | undefined; // true
+    depthTexture?: DepthTexture | null | undefined; // null
     /**
      * Defines the count of MSAA samples. Can only be used with WebGL 2. Default is **0**.
      * @default 0
@@ -54,14 +56,27 @@ export class RenderTarget<TTexture extends Texture | Texture[] = Texture> extend
     depthBuffer: boolean;
 
     /**
-     * @default true
+     * @default false
      */
     stencilBuffer: boolean;
 
     /**
+     * Defines whether the depth buffer should be resolved when rendering into a multisampled render target.
+     * @default true
+     */
+    resolveDepthBuffer: boolean;
+
+    /**
+     * Defines whether the stencil buffer should be resolved when rendering into a multisampled render target.
+     * This property has no effect when {@link .resolveDepthBuffer} is set to `false`.
+     * @default true
+     */
+    resolveStencilBuffer: boolean;
+
+    /**
      * @default null
      */
-    depthTexture: DepthTexture;
+    depthTexture: DepthTexture | null;
 
     /**
      * Defines the count of MSAA samples. Can only be used with WebGL 2. Default is **0**.

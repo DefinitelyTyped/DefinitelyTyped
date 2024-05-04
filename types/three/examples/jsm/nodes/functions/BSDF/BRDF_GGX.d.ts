@@ -7,7 +7,9 @@ declare const BRDF_GGX: (args: {
     f0: Node;
     f90: Node;
     roughness: Node;
-    iridescenceFresnel?: Node;
+    f?: Node;
+    USE_IRIDESCENCE?: Node;
+    USE_ANISOTROPY?: Node;
 }) => ShaderNodeObject<OperatorNode>;
 
 export default BRDF_GGX;

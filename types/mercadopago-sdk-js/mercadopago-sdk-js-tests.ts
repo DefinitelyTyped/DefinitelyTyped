@@ -152,7 +152,8 @@ brickBuilder.create("wallet", "containerWallet", {
     customization: {
         texts: {
             action: "pay",
-            valueProp: "smart_option",
+            actionComplement: "brand",
+            valueProp: "payment_methods_logos",
         },
     },
     callbacks: {

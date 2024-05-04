@@ -62,6 +62,13 @@ util.format();
 
 util.formatWithOptions({ colors: true }, "See object %O", { foo: 42 });
 
+util.parseEnv("HELLO=world\nHELLO=oh my\n");
+
+console.log(util.styleText("red", "Error! Error!"));
+console.log(
+    util.styleText("underline", util.styleText("italic", "My italic underlined message")),
+);
+
 // util.callbackify
 class callbackifyTest {
     static fn(): Promise<void> {

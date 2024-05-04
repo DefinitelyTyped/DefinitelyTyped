@@ -459,6 +459,7 @@ describe("ApplePayPaymentRequest", () => {
                 type: "final",
                 amount: "9.99",
             },
+            applePayLaterAvailability: "available",
         };
 
         paymentRequest.billingContact = {
@@ -531,6 +532,36 @@ describe("ApplePayPaymentRequest", () => {
 
         paymentRequest.shippingType = "storePickup";
         paymentRequest.shippingType = "delivery";
+    });
+    it("can create a new instance with Apple Pay Later disabled due to recurring", () => {
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+            applicationData: "ApplicationData",
+            countryCode: "GB",
+            currencyCode: "GBP",
+            merchantCapabilities: ["supports3DS", "supportsCredit", "supportsDebit"],
+            supportedNetworks: ["amex", "discover", "jcb", "masterCard", "privateLabel", "visa"],
+            total: {
+                label: "Apple",
+                type: "final",
+                amount: "9.99",
+            },
+            applePayLaterAvailability: "unavailableRecurringTransaction",
+        };
+    });
+    it("can create a new instance with Apple Pay Later disabled due to ineligible items", () => {
+        const paymentRequest: ApplePayJS.ApplePayPaymentRequest = {
+            applicationData: "ApplicationData",
+            countryCode: "GB",
+            currencyCode: "GBP",
+            merchantCapabilities: ["supports3DS", "supportsCredit", "supportsDebit"],
+            supportedNetworks: ["amex", "discover", "jcb", "masterCard", "privateLabel", "visa"],
+            total: {
+                label: "Apple",
+                type: "final",
+                amount: "9.99",
+            },
+            applePayLaterAvailability: "unavailableItemIneligible",
+        };
     });
 });
 

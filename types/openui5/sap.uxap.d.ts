@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.122.0
 
 declare module "sap/uxap/library" {
   /**
@@ -6866,11 +6866,11 @@ declare module "sap/uxap/ObjectPageSection" {
 
   import ObjectPageSubSection from "sap/uxap/ObjectPageSubSection";
 
+  import { IconColor, ID } from "sap/ui/core/library";
+
   import Control from "sap/ui/core/Control";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { ID } from "sap/ui/core/library";
 
   import {
     PropertyBindingInfo,
@@ -6976,6 +6976,20 @@ declare module "sap/uxap/ObjectPageSection" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySubSections(): this;
+    /**
+     * Gets current value of property {@link #getAnchorBarButtonColor anchorBarButtonColor}.
+     *
+     * Specifies the text color of each button inside the AnchorBar.
+     *
+     * The color can be chosen from the icon colors (https://ui5.sap.com/#/api/sap.ui.core.IconColor%23overview).
+     * Possible semantic colors are: Neutral, Positive, Critical, Negative.
+     *
+     * Default value is `Default`.
+     *
+     *
+     * @returns Value of property `anchorBarButtonColor`
+     */
+    getAnchorBarButtonColor(): IconColor | keyof typeof IconColor;
     /**
      * Gets content of aggregation {@link #getHeading heading}.
      *
@@ -7083,6 +7097,27 @@ declare module "sap/uxap/ObjectPageSection" {
       vSubSection: int | string | ObjectPageSubSection
     ): ObjectPageSubSection | null;
     /**
+     * Sets a new value for property {@link #getAnchorBarButtonColor anchorBarButtonColor}.
+     *
+     * Specifies the text color of each button inside the AnchorBar.
+     *
+     * The color can be chosen from the icon colors (https://ui5.sap.com/#/api/sap.ui.core.IconColor%23overview).
+     * Possible semantic colors are: Neutral, Positive, Critical, Negative.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Default`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAnchorBarButtonColor(
+      /**
+       * New value for property `anchorBarButtonColor`
+       */
+      sAnchorBarButtonColor?: IconColor | keyof typeof IconColor
+    ): this;
+    /**
      * Sets the aggregated {@link #getHeading heading}.
      *
      * @since 1.106
@@ -7180,6 +7215,17 @@ declare module "sap/uxap/ObjectPageSection" {
      * Determines whether the Section title wraps on multiple lines, when the available space is not enough.
      */
     wrapTitle?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Specifies the text color of each button inside the AnchorBar.
+     *
+     * The color can be chosen from the icon colors (https://ui5.sap.com/#/api/sap.ui.core.IconColor%23overview).
+     * Possible semantic colors are: Neutral, Positive, Critical, Negative.
+     */
+    anchorBarButtonColor?:
+      | (IconColor | keyof typeof IconColor)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * The list of Subsections.
@@ -7595,6 +7641,9 @@ declare module "sap/uxap/ObjectPageSubSection" {
    * by adding the `sapUxAPObjectPageSubSectionFitContainer` class to the subsection. This is useful in situations
    * where the sub-section contains a control that has “100%” height, for example, `sap.ui.table.Table` with
    * `visibleRowCountMode` set to `Auto`.
+   *
+   * As of version 1.122, applications can set transparent background to subsections by adding the `sapUxAPObjectPageSubSectionTransparentBackground`
+   * class to the subsection.
    *
    * **Note:** This control is intended to be used only as part of the `ObjectPageLayout`.
    *
