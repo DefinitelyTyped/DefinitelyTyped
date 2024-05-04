@@ -100,7 +100,7 @@ declare module "events" {
          * Names of events that will end the iteration.
          * @since v20.0.0
          */
-        close?: ReadonlyArray<string> | undefined;
+        close?: readonly string[] | undefined;
         /**
          * The high watermark. The emitter is paused every time the size of events being buffered is higher than it.
          * Supported only on emitters implementing `pause()` and `resume()` methods.
