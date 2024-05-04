@@ -317,7 +317,7 @@ export class Extensions {
     /**
      * @return {number} The length of the extensions list.
      */
-    length(): number;
+    length: number;
 
     /**
      * Add additional extensions to install when launching the browser. Each
