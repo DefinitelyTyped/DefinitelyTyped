@@ -416,7 +416,7 @@ export class Driver extends webdriver.WebDriver {
      *     has finished.
      * @see <https://chromedevtools.github.io/devtools-protocol/>
      */
-    sendAndGetDevToolsCommand(cmd: string, params: Object): Promise<string>;
+    sendAndGetDevToolsCommand(cmd: string, params: object): Promise<string>;
 
     /**
      * Set a permission state to the given value.
@@ -428,7 +428,7 @@ export class Driver extends webdriver.WebDriver {
      * @see <https://w3c.github.io/permissions/#permission-registry> for valid
      *     names
      */
-    setPermission(name: string, state: "granted" | "denied" | "prompt"): Promise<Object>;
+    setPermission(name: string, state: "granted" | "denied" | "prompt"): Promise<object>;
 
     /**
      * Sends a DevTools command to change the browser's download directory.
