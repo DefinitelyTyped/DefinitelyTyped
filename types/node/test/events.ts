@@ -40,7 +40,7 @@ declare const any: any;
     let result: Promise<number[]>;
 
     result = events.once(emitter, event);
-    result = events.once(emitter, event, { signal: new AbortController().signal });
+    result = events.once(emitter, event, { signal: abortSignal });
 
     emitter.emit(event, 42);
 }
