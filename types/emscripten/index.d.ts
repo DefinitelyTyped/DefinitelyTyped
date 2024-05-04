@@ -105,7 +105,7 @@ declare namespace FS {
         path: string;
         node: FSNode;
     }
-  
+
     interface Analyze {
         isRoot: boolean;
         exists: boolean;
@@ -117,7 +117,7 @@ declare namespace FS {
         parentPath: Lookup["path"];
         parentObject: Lookup["node"];
     }
-  
+
     interface Mount {
         type: Emscripten.FileSystemType;
         opts: object;
