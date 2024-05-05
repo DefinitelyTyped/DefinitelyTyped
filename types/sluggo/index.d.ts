@@ -17,7 +17,7 @@ declare namespace sluggo {
  * @param options Customize the slug generator's behavior.
  * @returns The generated slug.
  */
-declare function sluggo(string: string, opts?: sluggo.Options): string;
+declare function sluggo(input: string, options?: sluggo.Options): string;
 
 export = sluggo;
 export as namespace sluggo;
