@@ -54,6 +54,11 @@ export interface HighlighterProps {
     unhighlightClassName?: string | undefined;
     /** Inline styles applied to unhighlighted text */
     unhighlightStyle?: React.CSSProperties | undefined;
+    /**
+     * Type of tag to wrap around unhighlighted matches; defaults to span but can also be a React element
+     * (class or functional)
+     */
+    unhighlightTag?: string | React.ComponentType<any> | undefined;
     /** Allows to pass through any parameter to wrapped component */
     [index: string]: any;
 }
