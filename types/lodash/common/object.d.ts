@@ -1580,6 +1580,10 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
+        mapValues<T, TResult>(array: T[], callback: ArrayIterator<T, TResult>): NumericDictionary<TResult>;
+        /**
+         * @see _.mapValues
+         */
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
         /**
          * @see _.mapValues
@@ -1632,7 +1636,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Object<Dictionary<TResult>>;
+        mapValues<TResult>(callback: ArrayIterator<T, TResult>): NumericDictionary<TResult>;
         /**
          * @see _.mapValues
          */
@@ -1700,7 +1704,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ObjectChain<Dictionary<TResult>>;
+        mapValues<TResult>(callback: ArrayIterator<T, TResult>): ObjectChain<NumericDictionary<TResult>>;
         /**
          * @see _.mapValues
          */
