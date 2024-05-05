@@ -1,5 +1,5 @@
-declare namespace Sluggo {
-    export interface SluggoOptions {
+declare namespace sluggo {
+    interface Options {
         /**
          * The separator character to use. Defaults to "-".
          */
@@ -17,6 +17,7 @@ declare namespace Sluggo {
  * @param options Customize the slug generator's behavior.
  * @returns The generated slug.
  */
-declare function sluggo(input: string, options?: Sluggo.SluggoOptions): string;
+declare function sluggo(string: string, opts?: sluggo.Options): string;
 
 export = sluggo;
+export as namespace sluggo;
