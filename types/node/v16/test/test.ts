@@ -1,4 +1,4 @@
-import { describe, it, test, TestContext } from "node:test";
+import { describe, it, test, type TestContext } from "node:test";
 
 test("foo", t => {
     // $ExpectType TestContext
