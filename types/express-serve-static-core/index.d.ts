@@ -302,7 +302,7 @@ export interface ILayer {
     keys: string[];
     path?: string;
     regexp: RegExp;
-    handle: (req: Request, res: Response, next: NextFunction) => any
+    handle: (req: Request, res: Response, next: NextFunction) => any;
 }
 
 export interface IRoute<Route extends string = string> {
