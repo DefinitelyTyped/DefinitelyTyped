@@ -1,5 +1,16 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
-import { after, afterEach, before, beforeEach, describe, it, run, type SuiteContext, test, type TestContext } from "node:test";
+import {
+    after,
+    afterEach,
+    before,
+    beforeEach,
+    describe,
+    it,
+    run,
+    type SuiteContext,
+    test,
+    type TestContext,
+} from "node:test";
 import { dot, junit, spec, tap, TestEvent } from "node:test/reporters";
 
 // run without options
