@@ -301,6 +301,7 @@ export interface ILayer {
     params?: Record<string, any>;
     keys: string[];
     path?: string;
+    method: string;
     regexp: RegExp;
     handle: (req: Request, res: Response, next: NextFunction) => any;
 }
