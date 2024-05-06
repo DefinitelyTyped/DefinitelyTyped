@@ -25,5 +25,12 @@
             "name": "Piotr Błażejewicz",
             "githubUsername": "peterblazejewicz"
         }
-    ]
+    ],
+    "exports": {
+        ".": {
+            "import": "./index.d.mts",
+            "require": "./index.d.ts"
+        },
+        "./package.json": "./package.json"
+    }
 }
