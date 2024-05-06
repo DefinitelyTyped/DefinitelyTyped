@@ -3,7 +3,7 @@ export as namespace WAValidator;
 export function validate(address: string, currencyNameOrSymbol?: string, opts?: ValidateOpts | string): boolean;
 export function getCurrencies(): Currency[];
 export function findCurrency(symbol: string): Currency | null;
-export type NetworkType = "prod" | "testnet" | "both"
+export type NetworkType = "prod" | "testnet" | "both";
 export interface Validator {
     isValidAddress: (address: string, currency: Currency, opts: ValidateOpts) => boolean;
 }
