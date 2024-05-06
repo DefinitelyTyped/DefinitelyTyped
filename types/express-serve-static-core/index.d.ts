@@ -297,7 +297,7 @@ export interface IRouter extends RequestHandler {
 
 export interface ILayer {
     route?: IRoute;
-    name: string || '<anonymous>';
+    name: string | '<anonymous>';
     params?: Record<string, any>;
     keys: string[];
     path?: string;
