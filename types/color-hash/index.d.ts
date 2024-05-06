@@ -1,21 +1,21 @@
-type ColorValueArray = [number, number, number];
+export type ColorValueArray = [number, number, number];
 
-interface HueObject {
+export interface HueObject {
     min: number;
     max: number;
 }
 
-type Hue = number | HueObject | readonly HueObject[];
-type Lightness = number | number[];
-type Saturation = number | number[];
+export type Hue = number | HueObject | readonly HueObject[];
+export type Lightness = number | number[];
+export type Saturation = number | number[];
 
-type HashFunction = (input: string) => number;
+export type HashFunction = (input: string) => number;
 
-interface ColorHashOptions {
-    lightness?: Lightness | undefined;
-    saturation?: Saturation | undefined;
-    hue?: Hue | undefined;
-    hash?: HashFunction | undefined;
+export interface ColorHashOptions {
+    lightness?: Lightness;
+    saturation?: Saturation;
+    hue?: Hue;
+    hash?: HashFunction | "bkdr";
 }
 
 declare class ColorHash {
@@ -48,5 +48,4 @@ declare class ColorHash {
     hex(input: string): string;
 }
 
-export as namespace ColorHash;
-export = ColorHash;
+export default ColorHash;
