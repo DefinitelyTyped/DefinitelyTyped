@@ -100,3 +100,9 @@ export const credentials: {
 };
 
 export function connect(url: string | Options.Connect, socketOptions?: any): Promise<Connection>;
+
+export class IllegalOperationError extends Error {
+    message: string;
+    stack: string;
+    stackAtStateChange: string;
+}
