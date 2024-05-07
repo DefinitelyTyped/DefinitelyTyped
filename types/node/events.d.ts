@@ -140,7 +140,11 @@ declare module "events" {
     class EventEmitter<T extends EventMap<T> = DefaultEventMap> {
         constructor(options?: EventEmitterOptions);
 
-        [EventEmitter.captureRejectionSymbol]?<K>(error: Error, event: Key<K, T>, ...args: Args<K, T>): void;
+        [EventEmitter.captureRejectionSymbol]?<K>(
+            error: Error,
+            event: Key<K, T>,
+            ...args: Args<K, T>
+        ): void;
 
         /**
          * Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
@@ -227,14 +231,10 @@ declare module "events" {
             options?: EventEmitterStaticOnceOptions,
         ): Promise<any[]>;
         static once(
-            emitter: _DOMEventTarget,
+            emitter: EventTarget,
             eventName: string,
             options?: EventEmitterStaticOnceOptions,
         ): Promise<any[]>;
-<<<<<<< HEAD
-=======
-        static once(emitter: EventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
->>>>>>> master
         /**
          * ```js
          * import { on, EventEmitter } from 'node:events';
@@ -316,7 +316,10 @@ declare module "events" {
          * @param emitter The emitter to query
          * @param eventName The event name
          */
-        static listenerCount(emitter: NodeJS.EventEmitter, eventName: string | symbol): number;
+        static listenerCount(
+            emitter: NodeJS.EventEmitter,
+            eventName: string | symbol,
+        ): number;
         /**
          * Returns a copy of the array of listeners for the event named `eventName`.
          *
@@ -344,7 +347,10 @@ declare module "events" {
          * ```
          * @since v15.2.0, v14.17.0
          */
-        static getEventListeners(emitter: EventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
+        static getEventListeners(
+            emitter: EventTarget | NodeJS.EventEmitter,
+            name: string | symbol,
+        ): Function[];
         /**
          * Returns the currently set max amount of listeners.
          *
@@ -388,7 +394,10 @@ declare module "events" {
          * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
          * objects.
          */
-        static setMaxListeners(n?: number, ...eventTargets: Array<EventTarget | NodeJS.EventEmitter>): void;
+        static setMaxListeners(
+            n?: number,
+            ...eventTargets: Array<EventTarget | NodeJS.EventEmitter>
+        ): void;
         /**
          * Listens once to the `abort` event on the provided `signal`.
          *
@@ -423,7 +432,10 @@ declare module "events" {
          * @experimental
          * @return Disposable that removes the `abort` listener.
          */
-        static addAbortListener(signal: AbortSignal, resource: (event: Event) => void): Disposable;
+        static addAbortListener(
+            signal: AbortSignal,
+            resource: (event: Event) => void,
+        ): Disposable;
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'` events. Listeners installed using this symbol are called before the regular `'error'` listeners are called.
          *
@@ -578,7 +590,11 @@ declare module "events" {
     global {
         namespace NodeJS {
             interface EventEmitter<T extends EventMap<T> = DefaultEventMap> {
-                [EventEmitter.captureRejectionSymbol]?<K>(error: Error, event: Key<K, T>, ...args: Args<K, T>): void;
+                [EventEmitter.captureRejectionSymbol]?<K>(
+                    error: Error,
+                    event: Key<K, T>,
+                    ...args: Args<K, T>
+                ): void;
                 /**
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
@@ -728,7 +744,10 @@ declare module "events" {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                removeListener<K>(
+                    eventName: Key<K, T>,
+                    listener: Listener1<K, T>,
+                ): this;
                 /**
                  * Alias for `emitter.removeListener()`.
                  * @since v10.0.0
@@ -854,7 +873,10 @@ declare module "events" {
                  * @param eventName The name of the event being listened for
                  * @param listener The event handler function
                  */
-                listenerCount<K>(eventName: Key<K, T>, listener?: Listener2<K, T>): number;
+                listenerCount<K>(
+                    eventName: Key<K, T>,
+                    listener?: Listener2<K, T>,
+                ): number;
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
@@ -872,7 +894,10 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                prependListener<K>(
+                    eventName: Key<K, T>,
+                    listener: Listener1<K, T>,
+                ): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName` to the _beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
@@ -888,7 +913,10 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependOnceListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                prependOnceListener<K>(
+                    eventName: Key<K, T>,
+                    listener: Listener1<K, T>,
+                ): this;
                 /**
                  * Returns an array listing the events for which the emitter has registered
                  * listeners. The values in the array are strings or `Symbol`s.
