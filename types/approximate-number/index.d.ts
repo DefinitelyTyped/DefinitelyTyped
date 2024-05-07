@@ -16,4 +16,4 @@ declare function approximateNumber(
     options?: approximateNumber.Options,
 ): string;
 
-export = approximateNumber
+export = approximateNumber;
