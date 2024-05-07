@@ -1,4 +1,4 @@
-// For Library Version: 1.122.0
+// For Library Version: 1.123.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -380,7 +380,13 @@ declare module "sap/ui/suite/TaskCircle" {
       iValue?: int
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the TaskCircle constructor.
+   *
+   * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
+   * known
+   * @experimental (since 1.2) - The API may change. Use with care.
+   */
   export interface $TaskCircleSettings extends $ControlSettings {
     /**
      * Current value of the task circle to be displayed. In dependency of the parameters maxValue and minValue
@@ -422,8 +428,14 @@ declare module "sap/ui/suite/TaskCircle" {
     press?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the TaskCircle#press event.
+   */
   export interface TaskCircle$PressEventParameters {}
 
+  /**
+   * Event object of the TaskCircle#press event.
+   */
   export type TaskCircle$PressEvent = Event<
     TaskCircle$PressEventParameters,
     TaskCircle
@@ -686,7 +698,13 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
      */
     setPercentage(iPercentage: int): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the VerticalProgressIndicator constructor.
+   *
+   * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
+   * known
+   * @experimental (since 1.2) - The API may change. Use with care.
+   */
   export interface $VerticalProgressIndicatorSettings extends $ControlSettings {
     /**
      * The numerical value between 0 and 100 which determines the height of the vertical bar. Values higher
@@ -710,8 +728,14 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
     press?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the VerticalProgressIndicator#press event.
+   */
   export interface VerticalProgressIndicator$PressEventParameters {}
 
+  /**
+   * Event object of the VerticalProgressIndicator#press event.
+   */
   export type VerticalProgressIndicator$PressEvent = Event<
     VerticalProgressIndicator$PressEventParameters,
     VerticalProgressIndicator

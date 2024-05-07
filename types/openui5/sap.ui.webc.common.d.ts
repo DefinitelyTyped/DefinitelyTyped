@@ -1,4 +1,4 @@
-// For Library Version: 1.122.0
+// For Library Version: 1.123.0
 
 declare module "sap/ui/webc/common/library" {}
 
@@ -117,6 +117,12 @@ declare module "sap/ui/webc/common/WebComponent" {
    */
   export type MetadataOptions = MetadataOptions1;
 
+  /**
+   * Describes the settings that can be provided to the WebComponent constructor.
+   *
+   * @deprecated (since 1.118.0) - Use sap.ui.core.webc.WebComponent instead!
+   * @experimental (since 1.92.0) - The API might change. It is not intended for productive usage yet!
+   */
   export interface $WebComponentSettings extends $WebComponentSettings1 {}
 }
 

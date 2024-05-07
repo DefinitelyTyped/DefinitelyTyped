@@ -216,3 +216,5 @@ const noneFilter = Filter.NONE;
 
 // 1.122
 const cct = ContentConfigType.Link;
+
+// 1.123 mainly comes with comment changes, deprecations etc.

@@ -1,4 +1,4 @@
-// For Library Version: 1.122.0
+// For Library Version: 1.123.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -868,7 +868,8 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
      * user input changes while typing what would lead to confusion.
      *
      *
-     * @returns Output text
+     * @returns Output text or boolean true, if the autocomplete value should be accepted without modifying
+     * the visible input
      */
     getAutocompleteOutput(
       /**
@@ -895,7 +896,7 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
        * If `true` the description matches to the user input
        */
       bDescriptionMatch: boolean
-    ): string;
+    ): string | boolean;
     /**
      * Determines the description for a given key.
      * By default, this method calls the {@link sap.ui.mdc.ValueHelp#getItemForValue getItemForValue} function
@@ -1251,7 +1252,7 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
      * Implements the model-specific logic to update items after conditions have been updated.
      *
      * Items can be removed, updated, or added. Use the binding information of the `MultiValueField` control
-     * to update the data in the model.
+     * to update the data in the related model.
      */
     updateItems(
       /**
@@ -1263,7 +1264,7 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
        */
       aConditions: ConditionObject[],
       /**
-       * Current `MultiValueField` control to determine binding information to update the values of the corresponding
+       * Current `MultiValueField` control to determine binding information to update the values of the related
        * model
        */
       oMultiValueField: MultiValueField
@@ -1689,6 +1690,28 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
    */
   interface TableDelegate extends TableDelegate1 {
     /**
+     * Collapses all rows.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    collapseAllRows(
+      /**
+       * Instance of the table
+       */
+      oTable: Table
+    ): void;
+    /**
+     * Expands all rows.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    expandAllRows(
+      /**
+       * Instance of the table
+       */
+      oTable: Table
+    ): void;
+    /**
      * Retrieves information about the relevant properties.
      *
      * By default, this method returns a `Promise` that resolves with an empty array.
@@ -1846,7 +1869,7 @@ declare module "sap/ui/mdc/TableDelegate" {
    *
    * The following methods need to be added or overridden in your delegate. Please also see the documentation
    * of the methods to learn about their default implementation and what you need to implement.
-   * 	 - `Basic prerequisites`
+   * 	 - **Basic prerequisites**
    * 	 - {@link module:sap/ui/mdc/TableDelegate.fetchProperties fetchProperties}
    * 	 - {@link module:sap/ui/mdc/TableDelegate.updateBindingInfo updateBindingInfo}
    * 	 - Column personalization (related to `p13nMode` `Column`)
@@ -2525,7 +2548,20 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
     /**
      * Returns the content that is used for the autocomplete feature and for user input, if the entered text
      * leads to more than one filter result.
-     * By default, this method returns the first entry of a set of relevant contexts of the given {@link sap.ui.mdc.valuehelp.base.ListContent ListContent}.
+     *
+     * By default, this method searches and returns an entry from a set of relevant contexts of the given {@link sap.ui.mdc.valuehelp.base.ListContent ListContent}.
+     *
+     * To determine which columns are relevant for the search, the currently active displayMode {@link sap.ui.mdc.enums.FieldDisplay Display }
+     * of the connected control will be used. While a 'Value' configuration will lead to a 'key'-only search,
+     * 'DescriptionValue' leads to searching 'description' first and 'key' afterwards. Other modes work accordingly.
+     *
+     * For each relevant column all items are searched for an exact match first and again with a startsWith
+     * filter afterwards, if necessary.
+     *
+     * If the caseSensitive property is disabled, the letter case of the user's input and the corresponding
+     * column value are completely ignored. Whichever entry comes first, wins.
+     *
+     * {@link sap.ui.mdc.valuehelp.base.ListContent ListContent}
      *
      * @since 1.120.0
      *
@@ -3495,7 +3531,9 @@ declare module "sap/ui/mdc/ActionToolbar" {
       bUseAsHeader?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ActionToolbar constructor.
+   */
   export interface $ActionToolbarSettings extends $OverflowToolbarSettings {
     /**
      * Determines whether the toolbar is used as header (e.g. for a table).
@@ -3677,7 +3715,9 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
       oLayoutInformation?: object
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ActionToolbarAction constructor.
+   */
   export interface $ActionToolbarActionSettings extends $ControlSettings {
     /**
      * Contains the information where the action is displayed on the `ActionToolbar`.
@@ -4197,6 +4237,15 @@ declare module "sap/ui/mdc/Chart" {
       oItem: Item
     ): int;
     /**
+     * Executes a rebind considering the provided external and inbuilt filtering.
+     *
+     * @since 1.98
+     *
+     * @returns A `Promise` that resolves after rebind is executed, and rejects if rebind cannot be executed,
+     * for example because there are invalid filters.
+     */
+    rebind(): Promise<any>;
+    /**
      * Sets a new value for property {@link #getAutoBindOnInit autoBindOnInit}.
      *
      * If set to `true`, the chart is automatically bound after initialization.
@@ -4593,6 +4642,11 @@ declare module "sap/ui/mdc/Chart" {
     unitPath?: object;
   };
 
+  /**
+   * Describes the settings that can be provided to the Chart constructor.
+   *
+   * @experimental (since 1.88)
+   */
   export interface $ChartSettings extends $ControlSettings {
     /**
      * Defines the width of the chart.
@@ -4815,6 +4869,9 @@ declare module "sap/ui/mdc/Chart" {
     ) => void;
   }
 
+  /**
+   * Parameters of the Chart#selectionDetailsActionPressed event.
+   */
   export interface Chart$SelectionDetailsActionPressedEventParameters {
     /**
      * The action that has to be processed once the action has been pressed
@@ -4837,6 +4894,9 @@ declare module "sap/ui/mdc/Chart" {
       | keyof typeof SelectionDetailsActionLevel;
   }
 
+  /**
+   * Event object of the Chart#selectionDetailsActionPressed event.
+   */
   export type Chart$SelectionDetailsActionPressedEvent = Event<
     Chart$SelectionDetailsActionPressedEventParameters,
     Chart
@@ -4966,7 +5026,9 @@ declare module "sap/ui/mdc/chart/ChartImplementationContainer" {
      */
     getShowNoDataStruct(): boolean;
   }
-
+  /**
+   * Describes the settings that can be provided to the ChartImplementationContainer constructor.
+   */
   export interface $ChartImplementationContainerSettings
     extends $ControlSettings {
     /**
@@ -5078,7 +5140,9 @@ declare module "sap/ui/mdc/chart/ChartSelectionDetails" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ChartSelectionDetails constructor.
+   */
   export interface $ChartSelectionDetailsSettings
     extends $SelectionDetailsSettings {}
 }
@@ -5305,7 +5369,9 @@ declare module "sap/ui/mdc/chart/Item" {
       sType?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Item constructor.
+   */
   export interface $ItemSettings extends $ElementSettings {
     /**
      * The unique identifier of the chart item that reflects the name of the data property in the resulting
@@ -5653,7 +5719,9 @@ declare module "sap/ui/mdc/chart/SelectionDetailsActions" {
       vDetailsItemAction: int | string | Item
     ): Item | null;
   }
-
+  /**
+   * Describes the settings that can be provided to the SelectionDetailsActions constructor.
+   */
   export interface $SelectionDetailsActionsSettings extends $ElementSettings {
     /**
      * Action `item` shown in the Items area of the details popover.
@@ -6185,6 +6253,36 @@ declare module "sap/ui/mdc/condition/Operator" {
          * used (undefined) the Include or Exclude information of the operator is used.
          */
         additionalInfo?: string;
+        /**
+         * Additional group settings for the operator. Will be used by the `DynamicDateRange`. If not used (undefined),
+         * the operators will be added to the include and exclude groups.
+         */
+        group?: {
+          /**
+           * Group ID for the operator. The following groups are available for the `DynamicDateRange` control:
+           *
+           * 	 - 1 - Single Dates
+           * 	 - 2 - Date Ranges
+           * 	 - 3 - Weeks
+           * 	 - 4 - Months
+           * 	 - 5 - Quarters
+           * 	 - 6 - Years  See {@link sap.m.DynamicDateRangeGroups DynamicDateRangeGroups}.
+           *  This only works for `FilterFields` with custom operators if `maxConditions=1` and no `valueHelp` is
+           * assigned to the `FilterField`. Example:
+           *  group: undefined - if group is not specified; default behavior include/exclude group with id 1 and 2
+           * will be created
+           *  group: {id : 1} - adds the operator to existing group 1 'Single Dates'
+           *  group: {id : 2, text: "new group"} - inserts a new group with id 2. Existing group 2 will be shifted
+           * to 3, 4....
+           *  group: {id : 10, text: "new group at the end"} - adds a new group with id 10 and text "new group as
+           * the end" to the end of all groups
+           */
+          id: string;
+          /**
+           * Group title for the operator. When used a new group with this title will be added.
+           */
+          text?: string;
+        };
       }
     );
 
@@ -6529,7 +6627,11 @@ declare module "sap/ui/mdc/Control" {
      */
     isPropertyHelperFinal(): boolean;
   }
-
+  /**
+   * Describes the settings that can be provided to the Control constructor.
+   *
+   * @experimental (since 1.61)
+   */
   export interface $ControlSettings extends $ControlSettings1 {
     /**
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
@@ -6752,7 +6854,11 @@ declare module "sap/ui/mdc/Element" {
      */
     isPropertyHelperFinal(): boolean;
   }
-
+  /**
+   * Describes the settings that can be provided to the Element constructor.
+   *
+   * @experimental (since 1.74)
+   */
   export interface $ElementSettings extends $ElementSettings1 {
     /**
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
@@ -7780,7 +7886,7 @@ declare module "sap/ui/mdc/enums/TableSelectionMode" {
      * Only one row can be selected at a time. The selection column is not shown. Instead, the user can press
      * the row to select it.
      *
-     * **Note:** If this selection mode is used, the table does not fire the `rowPress` event
+     * **Note:** If this selection mode is used, the table does not fire the `rowPress` event.
      */
     SingleMaster = "SingleMaster",
   }
@@ -8283,7 +8389,11 @@ declare module "sap/ui/mdc/Field" {
      */
     unbindValue(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Field constructor.
+   *
+   * @experimental (since 1.54.0)
+   */
   export interface $FieldSettings extends $FieldBaseSettings {
     /**
      * The value of the field.
@@ -8308,6 +8418,9 @@ declare module "sap/ui/mdc/Field" {
     change?: (oEvent: Field$ChangeEvent) => void;
   }
 
+  /**
+   * Parameters of the Field#change event.
+   */
   export interface Field$ChangeEventParameters {
     /**
      * The new value of the `Field`.
@@ -8332,6 +8445,9 @@ declare module "sap/ui/mdc/Field" {
     promise?: Promise<any>;
   }
 
+  /**
+   * Event object of the Field#change event.
+   */
   export type Field$ChangeEvent = Event<Field$ChangeEventParameters, Field>;
 }
 
@@ -10530,7 +10646,9 @@ declare module "sap/ui/mdc/field/FieldBase" {
      */
     updateInternalContent(): void;
   }
-
+  /**
+   * Describes the settings that can be provided to the FieldBase constructor.
+   */
   export interface $FieldBaseSettings extends $ControlSettings {
     /**
      * The type of data handled by the field. This type is used to parse, format, and validate the value.
@@ -10837,6 +10955,9 @@ declare module "sap/ui/mdc/field/FieldBase" {
     submit?: (oEvent: FieldBase$SubmitEvent) => void;
   }
 
+  /**
+   * Parameters of the FieldBase#liveChange event.
+   */
   export interface FieldBase$LiveChangeEventParameters {
     /**
      * The new value of the input
@@ -10854,18 +10975,30 @@ declare module "sap/ui/mdc/field/FieldBase" {
     previousValue?: string;
   }
 
+  /**
+   * Event object of the FieldBase#liveChange event.
+   */
   export type FieldBase$LiveChangeEvent = Event<
     FieldBase$LiveChangeEventParameters,
     FieldBase
   >;
 
+  /**
+   * Parameters of the FieldBase#press event.
+   */
   export interface FieldBase$PressEventParameters {}
 
+  /**
+   * Event object of the FieldBase#press event.
+   */
   export type FieldBase$PressEvent = Event<
     FieldBase$PressEventParameters,
     FieldBase
   >;
 
+  /**
+   * Parameters of the FieldBase#submit event.
+   */
   export interface FieldBase$SubmitEventParameters {
     /**
      * Returns a `Promise` for the change. The `Promise` returns the value if it is resolved. If the last `change`
@@ -10875,6 +11008,9 @@ declare module "sap/ui/mdc/field/FieldBase" {
     promise?: Promise<any>;
   }
 
+  /**
+   * Event object of the FieldBase#submit event.
+   */
   export type FieldBase$SubmitEvent = Event<
     FieldBase$SubmitEventParameters,
     FieldBase
@@ -11192,7 +11328,9 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
       oEvent: Event
     ): Promise<any>;
   }
-
+  /**
+   * Describes the settings that can be provided to the FieldInfoBase constructor.
+   */
   export interface $FieldInfoBaseSettings extends $ElementSettings {
     /**
      * This event is fired if the data was updated.
@@ -11205,15 +11343,27 @@ declare module "sap/ui/mdc/field/FieldInfoBase" {
     popoverAfterOpen?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the FieldInfoBase#dataUpdate event.
+   */
   export interface FieldInfoBase$DataUpdateEventParameters {}
 
+  /**
+   * Event object of the FieldInfoBase#dataUpdate event.
+   */
   export type FieldInfoBase$DataUpdateEvent = Event<
     FieldInfoBase$DataUpdateEventParameters,
     FieldInfoBase
   >;
 
+  /**
+   * Parameters of the FieldInfoBase#popoverAfterOpen event.
+   */
   export interface FieldInfoBase$PopoverAfterOpenEventParameters {}
 
+  /**
+   * Event object of the FieldInfoBase#popoverAfterOpen event.
+   */
   export type FieldInfoBase$PopoverAfterOpenEvent = Event<
     FieldInfoBase$PopoverAfterOpenEventParameters,
     FieldInfoBase
@@ -11347,7 +11497,9 @@ declare module "sap/ui/mdc/field/MultiValueFieldItem" {
       oKey: any
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the MultiValueFieldItem constructor.
+   */
   export interface $MultiValueFieldItemSettings extends $ElementSettings {
     /**
      * Key of the item.
@@ -11573,6 +11725,11 @@ declare module "sap/ui/mdc/FilterBar" {
     required?: boolean;
   };
 
+  /**
+   * Describes the settings that can be provided to the FilterBar constructor.
+   *
+   * @experimental (since 1.61.0)
+   */
   export interface $FilterBarSettings extends $FilterBarBaseSettings {
     /**
      * Determines whether the Adapt Filters button is visible in the `FilterBar`.
@@ -12206,7 +12363,9 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
       bSuppressSearch: boolean
     ): Promise<any>;
   }
-
+  /**
+   * Describes the settings that can be provided to the FilterBarBase constructor.
+   */
   export interface $FilterBarBaseSettings extends $ControlSettings {
     /**
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
@@ -12318,6 +12477,9 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
     filtersChanged?: (oEvent: FilterBarBase$FiltersChangedEvent) => void;
   }
 
+  /**
+   * Parameters of the FilterBarBase#filtersChanged event.
+   */
   export interface FilterBarBase$FiltersChangedEventParameters {
     /**
      * Indicates if the event is based on condition changes
@@ -12335,11 +12497,17 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
     filtersTextExpanded?: string;
   }
 
+  /**
+   * Event object of the FilterBarBase#filtersChanged event.
+   */
   export type FilterBarBase$FiltersChangedEvent = Event<
     FilterBarBase$FiltersChangedEventParameters,
     FilterBarBase
   >;
 
+  /**
+   * Parameters of the FilterBarBase#search event.
+   */
   export interface FilterBarBase$SearchEventParameters {
     /**
      * Indicates the initial reason for the search. This can either be:
@@ -12353,6 +12521,9 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
     reason?: /* was: sap.ui.mdc.enums.ReasonMode */ any;
   }
 
+  /**
+   * Event object of the FilterBarBase#search event.
+   */
   export type FilterBarBase$SearchEvent = Event<
     FilterBarBase$SearchEventParameters,
     FilterBarBase
@@ -12624,7 +12795,9 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
       iFilterFieldThreshold?: int
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FilterBar constructor.
+   */
   export interface $FilterBarSettings extends $FilterBarBaseSettings {
     /**
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
@@ -13059,7 +13232,11 @@ declare module "sap/ui/mdc/FilterField" {
       sPropertyKey?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FilterField constructor.
+   *
+   * @experimental (since 1.48.0)
+   */
   export interface $FilterFieldSettings extends $FieldBaseSettings {
     /**
      * Supported operator names for conditions.
@@ -13113,6 +13290,9 @@ declare module "sap/ui/mdc/FilterField" {
     change?: (oEvent: FilterField$ChangeEvent) => void;
   }
 
+  /**
+   * Parameters of the FilterField#change event.
+   */
   export interface FilterField$ChangeEventParameters {
     /**
      * The new value of the `control`
@@ -13142,6 +13322,9 @@ declare module "sap/ui/mdc/FilterField" {
     promise?: boolean;
   }
 
+  /**
+   * Event object of the FilterField#change event.
+   */
   export type FilterField$ChangeEvent = Event<
     FilterField$ChangeEventParameters,
     FilterField
@@ -13448,6 +13631,11 @@ declare module "sap/ui/mdc/Link" {
     runtimeType: Promise<LinkType>;
   };
 
+  /**
+   * Describes the settings that can be provided to the Link constructor.
+   *
+   * @experimental (since 1.74.0)
+   */
   export interface $LinkSettings extends $FieldInfoBaseSettings {
     /**
      * Enables/disables the personalization settings for users and key users.
@@ -13810,7 +13998,9 @@ declare module "sap/ui/mdc/link/LinkItem" {
       sText?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the LinkItem constructor.
+   */
   export interface $LinkItemSettings extends $ElementSettings {
     /**
      * Unique key of the `LinkItem` that is used for personalization.
@@ -14159,12 +14349,13 @@ declare module "sap/ui/mdc/MultiValueField" {
      *
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
      *  The object has the following properties:
-     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `name` defines the path to the `Delegate` module. The used delegate module must inherit from {@link module:sap/ui/mdc/field/MultiValueFieldDelegate MultiValueFieldDelegate}.
+     *
      * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
      *      Sample delegate object:
      * ```javascript
      * {
-     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	name: "sap/ui/mdc/field/MultiValueFieldDelegate",
      * 	payload: {}
      * }```
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
@@ -14182,6 +14373,10 @@ declare module "sap/ui/mdc/MultiValueField" {
      * Gets content of aggregation {@link #getItems items}.
      *
      * Items of the `MultiValueField` control.
+     *
+     * The items are not updated by user input or value help selection automatically. That's because an aggregation
+     * binding can only be updated by the model, not by the bound aggregation. Therefore, the {@link module:sap/ui/mdc/field/MultiValueFieldDelegate.updateItems MultiValueFieldDelegate.updateItems }
+     * function needs to be implemented to update the items after a user interaction.
      */
     getItems(): MultiValueFieldItem[];
     /**
@@ -14317,12 +14512,13 @@ declare module "sap/ui/mdc/MultiValueField" {
      *
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
      *  The object has the following properties:
-     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `name` defines the path to the `Delegate` module. The used delegate module must inherit from {@link module:sap/ui/mdc/field/MultiValueFieldDelegate MultiValueFieldDelegate}.
+     *
      * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
      *      Sample delegate object:
      * ```javascript
      * {
-     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	name: "sap/ui/mdc/field/MultiValueFieldDelegate",
      * 	payload: {}
      * }```
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
@@ -14387,17 +14583,22 @@ declare module "sap/ui/mdc/MultiValueField" {
      */
     unbindItems(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the MultiValueField constructor.
+   *
+   * @experimental (since 1.93.0)
+   */
   export interface $MultiValueFieldSettings extends $FieldBaseSettings {
     /**
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
      *  The object has the following properties:
-     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `name` defines the path to the `Delegate` module. The used delegate module must inherit from {@link module:sap/ui/mdc/field/MultiValueFieldDelegate MultiValueFieldDelegate}.
+     *
      * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
      *      Sample delegate object:
      * ```javascript
      * {
-     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	name: "sap/ui/mdc/field/MultiValueFieldDelegate",
      * 	payload: {}
      * }```
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
@@ -14410,6 +14611,10 @@ declare module "sap/ui/mdc/MultiValueField" {
 
     /**
      * Items of the `MultiValueField` control.
+     *
+     * The items are not updated by user input or value help selection automatically. That's because an aggregation
+     * binding can only be updated by the model, not by the bound aggregation. Therefore, the {@link module:sap/ui/mdc/field/MultiValueFieldDelegate.updateItems MultiValueFieldDelegate.updateItems }
+     * function needs to be implemented to update the items after a user interaction.
      */
     items?:
       | MultiValueFieldItem[]
@@ -14425,6 +14630,9 @@ declare module "sap/ui/mdc/MultiValueField" {
     change?: (oEvent: MultiValueField$ChangeEvent) => void;
   }
 
+  /**
+   * Parameters of the MultiValueField#change event.
+   */
   export interface MultiValueField$ChangeEventParameters {
     /**
      * The new items of the `MultiValueField` control.
@@ -14450,6 +14658,9 @@ declare module "sap/ui/mdc/MultiValueField" {
     promise?: Promise<any>;
   }
 
+  /**
+   * Event object of the MultiValueField#change event.
+   */
   export type MultiValueField$ChangeEvent = Event<
     MultiValueField$ChangeEventParameters,
     MultiValueField
@@ -15395,7 +15606,7 @@ declare module "sap/ui/mdc/Table" {
      *
      * This property has no effect and will be removed soon.
      *
-     * @deprecated (since 1.115)
+     * @deprecated (since 1.115) - the concept has been discarded.
      *
      * @returns Value of property `height`
      */
@@ -15638,6 +15849,15 @@ declare module "sap/ui/mdc/Table" {
      * @returns Whether the table is bound
      */
     isTableBound(): boolean;
+    /**
+     * Executes a rebind considering the provided external and inbuilt filtering.
+     *
+     * @since 1.98
+     *
+     * @returns A `Promise` that resolves after rebind is executed, and rejects if rebind cannot be executed,
+     * for example because there are invalid filters.
+     */
+    rebind(): Promise<any>;
     /**
      * Scrolls the table to the row with the given index. Depending on the table type, this might cause additional
      * requests. If the given index is -1, it will scroll to the end of the table based on the length of the
@@ -15976,7 +16196,7 @@ declare module "sap/ui/mdc/Table" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @deprecated (since 1.115)
+     * @deprecated (since 1.115) - the concept has been discarded.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16376,6 +16596,11 @@ declare module "sap/ui/mdc/Table" {
     propertyInfos?: string[];
   };
 
+  /**
+   * Describes the settings that can be provided to the Table constructor.
+   *
+   * @experimental (since 1.58.0)
+   */
   export interface $TableSettings extends $ControlSettings {
     /**
      * Width of the table.
@@ -16385,7 +16610,7 @@ declare module "sap/ui/mdc/Table" {
     /**
      * This property has no effect and will be removed soon.
      *
-     * @deprecated (since 1.115)
+     * @deprecated (since 1.115) - the concept has been discarded.
      */
     height?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
@@ -16823,6 +17048,9 @@ declare module "sap/ui/mdc/Table" {
     beforeOpenContextMenu?: (oEvent: Table$BeforeOpenContextMenuEvent) => void;
   }
 
+  /**
+   * Parameters of the Table#beforeExport event.
+   */
   export interface Table$BeforeExportEventParameters {
     /**
      * Contains `workbook.columns, dataSource`, and other export-related information.
@@ -16843,11 +17071,17 @@ declare module "sap/ui/mdc/Table" {
     filterSettings?: object[];
   }
 
+  /**
+   * Event object of the Table#beforeExport event.
+   */
   export type Table$BeforeExportEvent = Event<
     Table$BeforeExportEventParameters,
     Table
   >;
 
+  /**
+   * Parameters of the Table#beforeOpenContextMenu event.
+   */
   export interface Table$BeforeOpenContextMenuEventParameters {
     /**
      * The binding context
@@ -16863,11 +17097,17 @@ declare module "sap/ui/mdc/Table" {
     column?: Column;
   }
 
+  /**
+   * Event object of the Table#beforeOpenContextMenu event.
+   */
   export type Table$BeforeOpenContextMenuEvent = Event<
     Table$BeforeOpenContextMenuEventParameters,
     Table
   >;
 
+  /**
+   * Parameters of the Table#paste event.
+   */
   export interface Table$PasteEventParameters {
     /**
      * 2D array of strings with data from the clipboard. The first dimension represents the rows, and the second
@@ -16876,8 +17116,14 @@ declare module "sap/ui/mdc/Table" {
     data?: string[][];
   }
 
+  /**
+   * Event object of the Table#paste event.
+   */
   export type Table$PasteEvent = Event<Table$PasteEventParameters, Table>;
 
+  /**
+   * Parameters of the Table#rowPress event.
+   */
   export interface Table$RowPressEventParameters {
     /**
      * The binding context
@@ -16885,8 +17131,14 @@ declare module "sap/ui/mdc/Table" {
     bindingContext?: Context;
   }
 
+  /**
+   * Event object of the Table#rowPress event.
+   */
   export type Table$RowPressEvent = Event<Table$RowPressEventParameters, Table>;
 
+  /**
+   * Parameters of the Table#selectionChange event.
+   */
   export interface Table$SelectionChangeEventParameters {
     /**
      * Identifies whether the Select All checkbox was pressed
@@ -16894,6 +17146,9 @@ declare module "sap/ui/mdc/Table" {
     selectAll?: boolean;
   }
 
+  /**
+   * Event object of the Table#selectionChange event.
+   */
   export type Table$SelectionChangeEvent = Event<
     Table$SelectionChangeEventParameters,
     Table
@@ -17489,7 +17744,9 @@ declare module "sap/ui/mdc/table/Column" {
       sWidth?: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Column constructor.
+   */
   export interface $ColumnSettings extends $ControlSettings {
     /**
      * Defines the width of the column.
@@ -17682,7 +17939,9 @@ declare module "sap/ui/mdc/table/ColumnSettings" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ColumnSettings constructor.
+   */
   export interface $ColumnSettingsSettings extends $ElementSettings {}
 }
 
@@ -18304,6 +18563,9 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
 
   export type DragSource = Context | UI5Element;
 
+  /**
+   * Describes the settings that can be provided to the DragDropConfig constructor.
+   */
   export interface $DragDropConfigSettings extends $DragDropBaseSettings {
     /**
      * Determines whether the rows of the table are draggable.
@@ -18365,6 +18627,9 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
     drop?: (oEvent: DragDropConfig$DropEvent) => void;
   }
 
+  /**
+   * Parameters of the DragDropConfig#dragEnd event.
+   */
   export interface DragDropConfig$DragEndEventParameters {
     /**
      * The binding context of the dragged row
@@ -18372,11 +18637,17 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
     bindingContext?: Context;
   }
 
+  /**
+   * Event object of the DragDropConfig#dragEnd event.
+   */
   export type DragDropConfig$DragEndEvent = Event<
     DragDropConfig$DragEndEventParameters,
     DragDropConfig
   >;
 
+  /**
+   * Parameters of the DragDropConfig#dragEnter event.
+   */
   export interface DragDropConfig$DragEnterEventParameters {
     /**
      * The binding context of the row on which the dragged element will be dropped
@@ -18389,11 +18660,17 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
     dragSource?: DragSource;
   }
 
+  /**
+   * Event object of the DragDropConfig#dragEnter event.
+   */
   export type DragDropConfig$DragEnterEvent = Event<
     DragDropConfig$DragEnterEventParameters,
     DragDropConfig
   >;
 
+  /**
+   * Parameters of the DragDropConfig#dragOver event.
+   */
   export interface DragDropConfig$DragOverEventParameters {
     /**
      * The binding context of the row on which the dragged element will be dropped
@@ -18413,11 +18690,17 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
       | keyof typeof dnd.RelativeDropPosition;
   }
 
+  /**
+   * Event object of the DragDropConfig#dragOver event.
+   */
   export type DragDropConfig$DragOverEvent = Event<
     DragDropConfig$DragOverEventParameters,
     DragDropConfig
   >;
 
+  /**
+   * Parameters of the DragDropConfig#dragStart event.
+   */
   export interface DragDropConfig$DragStartEventParameters {
     /**
      * The binding context of the dragged row
@@ -18425,11 +18708,17 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
     bindingContext?: Context;
   }
 
+  /**
+   * Event object of the DragDropConfig#dragStart event.
+   */
   export type DragDropConfig$DragStartEvent = Event<
     DragDropConfig$DragStartEventParameters,
     DragDropConfig
   >;
 
+  /**
+   * Parameters of the DragDropConfig#drop event.
+   */
   export interface DragDropConfig$DropEventParameters {
     /**
      * The binding context of the row on which the dragged element is dropped
@@ -18449,6 +18738,9 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
       | keyof typeof dnd.RelativeDropPosition;
   }
 
+  /**
+   * Event object of the DragDropConfig#drop event.
+   */
   export type DragDropConfig$DropEvent = Event<
     DragDropConfig$DropEventParameters,
     DragDropConfig
@@ -18705,7 +18997,9 @@ declare module "sap/ui/mdc/table/GridTableType" {
       bShowHeaderSelector?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the GridTableType constructor.
+   */
   export interface $GridTableTypeSettings extends $TableTypeBaseSettings {
     /**
      * Defines how the table handles the row count.
@@ -18882,7 +19176,9 @@ declare module "sap/ui/mdc/table/ResponsiveColumnSettings" {
       sMergeFunction: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ResponsiveColumnSettings constructor.
+   */
   export interface $ResponsiveColumnSettingsSettings
     extends $ColumnSettingsSettings {
     /**
@@ -19140,7 +19436,9 @@ declare module "sap/ui/mdc/table/ResponsiveTableType" {
       bShowDetailsButton?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ResponsiveTableType constructor.
+   */
   export interface $ResponsiveTableTypeSettings extends $TableTypeBaseSettings {
     /**
      * Specifies the growing mode.
@@ -19482,7 +19780,9 @@ declare module "sap/ui/mdc/table/RowActionItem" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the RowActionItem constructor.
+   */
   export interface $RowActionItemSettings extends $ElementSettings {
     /**
      * Type of the row action item.
@@ -19526,6 +19826,9 @@ declare module "sap/ui/mdc/table/RowActionItem" {
     press?: (oEvent: RowActionItem$PressEvent) => void;
   }
 
+  /**
+   * Parameters of the RowActionItem#press event.
+   */
   export interface RowActionItem$PressEventParameters {
     /**
      * The binding context of the pressed row action
@@ -19533,6 +19836,9 @@ declare module "sap/ui/mdc/table/RowActionItem" {
     bindingContext?: Context;
   }
 
+  /**
+   * Event object of the RowActionItem#press event.
+   */
   export type RowActionItem$PressEvent = Event<
     RowActionItem$PressEventParameters,
     RowActionItem
@@ -19813,7 +20119,9 @@ declare module "sap/ui/mdc/table/RowSettings" {
       bNavigated?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the RowSettings constructor.
+   */
   export interface $RowSettingsSettings extends $ElementSettings {
     /**
      * The highlight state of the rows.
@@ -19935,7 +20243,9 @@ declare module "sap/ui/mdc/table/TableTypeBase" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the TableTypeBase constructor.
+   */
   export interface $TableTypeBaseSettings extends $ElementSettings {}
 }
 
@@ -20022,7 +20332,9 @@ declare module "sap/ui/mdc/table/TreeTableType" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the TreeTableType constructor.
+   */
   export interface $TreeTableTypeSettings extends $GridTableTypeSettings {}
 }
 
@@ -21114,6 +21426,11 @@ declare module "sap/ui/mdc/ValueHelp" {
     control: Control;
   };
 
+  /**
+   * Describes the settings that can be provided to the ValueHelp constructor.
+   *
+   * @experimental (since 1.95.0)
+   */
   export interface $ValueHelpSettings extends $ElementSettings {
     /**
      * The conditions of the selected items.
@@ -21225,20 +21542,35 @@ declare module "sap/ui/mdc/ValueHelp" {
     typeaheadSuggested?: (oEvent: ValueHelp$TypeaheadSuggestedEvent) => void;
   }
 
+  /**
+   * Parameters of the ValueHelp#closed event.
+   */
   export interface ValueHelp$ClosedEventParameters {}
 
+  /**
+   * Event object of the ValueHelp#closed event.
+   */
   export type ValueHelp$ClosedEvent = Event<
     ValueHelp$ClosedEventParameters,
     ValueHelp
   >;
 
+  /**
+   * Parameters of the ValueHelp#disconnect event.
+   */
   export interface ValueHelp$DisconnectEventParameters {}
 
+  /**
+   * Event object of the ValueHelp#disconnect event.
+   */
   export type ValueHelp$DisconnectEvent = Event<
     ValueHelp$DisconnectEventParameters,
     ValueHelp
   >;
 
+  /**
+   * Parameters of the ValueHelp#navigated event.
+   */
   export interface ValueHelp$NavigatedEventParameters {
     /**
      * True if the focus should be set back to the field.
@@ -21258,11 +21590,17 @@ declare module "sap/ui/mdc/ValueHelp" {
     itemId?: string;
   }
 
+  /**
+   * Event object of the ValueHelp#navigated event.
+   */
   export type ValueHelp$NavigatedEvent = Event<
     ValueHelp$NavigatedEventParameters,
     ValueHelp
   >;
 
+  /**
+   * Parameters of the ValueHelp#open event.
+   */
   export interface ValueHelp$OpenEventParameters {
     /**
      * The container which will be opened
@@ -21270,11 +21608,17 @@ declare module "sap/ui/mdc/ValueHelp" {
     container?: Container;
   }
 
+  /**
+   * Event object of the ValueHelp#open event.
+   */
   export type ValueHelp$OpenEvent = Event<
     ValueHelp$OpenEventParameters,
     ValueHelp
   >;
 
+  /**
+   * Parameters of the ValueHelp#opened event.
+   */
   export interface ValueHelp$OpenedEventParameters {
     /**
      * The container which was opened
@@ -21287,11 +21631,17 @@ declare module "sap/ui/mdc/ValueHelp" {
     itemId?: string;
   }
 
+  /**
+   * Event object of the ValueHelp#opened event.
+   */
   export type ValueHelp$OpenedEvent = Event<
     ValueHelp$OpenedEventParameters,
     ValueHelp
   >;
 
+  /**
+   * Parameters of the ValueHelp#select event.
+   */
   export interface ValueHelp$SelectEventParameters {
     /**
      * The selected `conditions`
@@ -21312,18 +21662,30 @@ declare module "sap/ui/mdc/ValueHelp" {
     close?: boolean;
   }
 
+  /**
+   * Event object of the ValueHelp#select event.
+   */
   export type ValueHelp$SelectEvent = Event<
     ValueHelp$SelectEventParameters,
     ValueHelp
   >;
 
+  /**
+   * Parameters of the ValueHelp#switchToValueHelp event.
+   */
   export interface ValueHelp$SwitchToValueHelpEventParameters {}
 
+  /**
+   * Event object of the ValueHelp#switchToValueHelp event.
+   */
   export type ValueHelp$SwitchToValueHelpEvent = Event<
     ValueHelp$SwitchToValueHelpEventParameters,
     ValueHelp
   >;
 
+  /**
+   * Parameters of the ValueHelp#typeaheadSuggested event.
+   */
   export interface ValueHelp$TypeaheadSuggestedEventParameters {
     /**
      * Suggested condition
@@ -21348,6 +21710,9 @@ declare module "sap/ui/mdc/ValueHelp" {
     caseSensitive?: boolean;
   }
 
+  /**
+   * Event object of the ValueHelp#typeaheadSuggested event.
+   */
   export type ValueHelp$TypeaheadSuggestedEvent = Event<
     ValueHelp$TypeaheadSuggestedEventParameters,
     ValueHelp
@@ -22551,7 +22916,9 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oContent: Content
     ): void;
   }
-
+  /**
+   * Describes the settings that can be provided to the Container constructor.
+   */
   export interface $ContainerSettings extends $ElementSettings {
     /**
      * Title text that appears in the dialog or tab header.
@@ -22620,20 +22987,35 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     typeaheadSuggested?: (oEvent: Container$TypeaheadSuggestedEvent) => void;
   }
 
+  /**
+   * Parameters of the Container#cancel event.
+   */
   export interface Container$CancelEventParameters {}
 
+  /**
+   * Event object of the Container#cancel event.
+   */
   export type Container$CancelEvent = Event<
     Container$CancelEventParameters,
     Container
   >;
 
+  /**
+   * Parameters of the Container#closed event.
+   */
   export interface Container$ClosedEventParameters {}
 
+  /**
+   * Event object of the Container#closed event.
+   */
   export type Container$ClosedEvent = Event<
     Container$ClosedEventParameters,
     Container
   >;
 
+  /**
+   * Parameters of the Container#confirm event.
+   */
   export interface Container$ConfirmEventParameters {
     /**
      * `true` if the value help needs to be closed
@@ -22641,11 +23023,17 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     close?: boolean;
   }
 
+  /**
+   * Event object of the Container#confirm event.
+   */
   export type Container$ConfirmEvent = Event<
     Container$ConfirmEventParameters,
     Container
   >;
 
+  /**
+   * Parameters of the Container#navigated event.
+   */
   export interface Container$NavigatedEventParameters {
     /**
      * `true` if the focus should be set back to the field.
@@ -22665,11 +23053,17 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     itemId?: string;
   }
 
+  /**
+   * Event object of the Container#navigated event.
+   */
   export type Container$NavigatedEvent = Event<
     Container$NavigatedEventParameters,
     Container
   >;
 
+  /**
+   * Parameters of the Container#opened event.
+   */
   export interface Container$OpenedEventParameters {
     /**
      * ID of the initially selected item
@@ -22677,11 +23071,17 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     itemId?: string;
   }
 
+  /**
+   * Event object of the Container#opened event.
+   */
   export type Container$OpenedEvent = Event<
     Container$OpenedEventParameters,
     Container
   >;
 
+  /**
+   * Parameters of the Container#requestDelegateContent event.
+   */
   export interface Container$RequestDelegateContentEventParameters {
     /**
      * Content wrapper ID for which contents are requested
@@ -22689,18 +23089,30 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     contentId?: string;
   }
 
+  /**
+   * Event object of the Container#requestDelegateContent event.
+   */
   export type Container$RequestDelegateContentEvent = Event<
     Container$RequestDelegateContentEventParameters,
     Container
   >;
 
+  /**
+   * Parameters of the Container#requestSwitchToDialog event.
+   */
   export interface Container$RequestSwitchToDialogEventParameters {}
 
+  /**
+   * Event object of the Container#requestSwitchToDialog event.
+   */
   export type Container$RequestSwitchToDialogEvent = Event<
     Container$RequestSwitchToDialogEventParameters,
     Container
   >;
 
+  /**
+   * Parameters of the Container#select event.
+   */
   export interface Container$SelectEventParameters {
     /**
      * Type of the selection change (add, remove)
@@ -22715,11 +23127,17 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     conditions?: object[];
   }
 
+  /**
+   * Event object of the Container#select event.
+   */
   export type Container$SelectEvent = Event<
     Container$SelectEventParameters,
     Container
   >;
 
+  /**
+   * Parameters of the Container#typeaheadSuggested event.
+   */
   export interface Container$TypeaheadSuggestedEventParameters {
     /**
      * Suggested condition
@@ -22744,6 +23162,9 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     caseSensitive?: boolean;
   }
 
+  /**
+   * Event object of the Container#typeaheadSuggested event.
+   */
   export type Container$TypeaheadSuggestedEvent = Event<
     Container$TypeaheadSuggestedEventParameters,
     Container
@@ -23725,7 +24146,9 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Content constructor.
+   */
   export interface $ContentSettings extends $ElementSettings {
     /**
      * Title text that appears in the tab header.
@@ -23808,13 +24231,22 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     typeaheadSuggested?: (oEvent: Content$TypeaheadSuggestedEvent) => void;
   }
 
+  /**
+   * Parameters of the Content#cancel event.
+   */
   export interface Content$CancelEventParameters {}
 
+  /**
+   * Event object of the Content#cancel event.
+   */
   export type Content$CancelEvent = Event<
     Content$CancelEventParameters,
     Content
   >;
 
+  /**
+   * Parameters of the Content#confirm event.
+   */
   export interface Content$ConfirmEventParameters {
     /**
      * `true` if the value help needs to be closed
@@ -23822,11 +24254,17 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     close?: boolean;
   }
 
+  /**
+   * Event object of the Content#confirm event.
+   */
   export type Content$ConfirmEvent = Event<
     Content$ConfirmEventParameters,
     Content
   >;
 
+  /**
+   * Parameters of the Content#navigated event.
+   */
   export interface Content$NavigatedEventParameters {
     /**
      * `true` if the focus should be set back to the field.
@@ -23846,18 +24284,30 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     itemId?: string;
   }
 
+  /**
+   * Event object of the Content#navigated event.
+   */
   export type Content$NavigatedEvent = Event<
     Content$NavigatedEventParameters,
     Content
   >;
 
+  /**
+   * Parameters of the Content#requestSwitchToDialog event.
+   */
   export interface Content$RequestSwitchToDialogEventParameters {}
 
+  /**
+   * Event object of the Content#requestSwitchToDialog event.
+   */
   export type Content$RequestSwitchToDialogEvent = Event<
     Content$RequestSwitchToDialogEventParameters,
     Content
   >;
 
+  /**
+   * Parameters of the Content#select event.
+   */
   export interface Content$SelectEventParameters {
     /**
      * Type of the selection change (add, remove)
@@ -23872,11 +24322,17 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     conditions?: object[];
   }
 
+  /**
+   * Event object of the Content#select event.
+   */
   export type Content$SelectEvent = Event<
     Content$SelectEventParameters,
     Content
   >;
 
+  /**
+   * Parameters of the Content#typeaheadSuggested event.
+   */
   export interface Content$TypeaheadSuggestedEventParameters {
     /**
      * Suggested condition
@@ -23901,6 +24357,9 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     caseSensitive?: boolean;
   }
 
+  /**
+   * Event object of the Content#typeaheadSuggested event.
+   */
   export type Content$TypeaheadSuggestedEvent = Event<
     Content$TypeaheadSuggestedEventParameters,
     Content
@@ -24246,7 +24705,9 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
       sKeyPath?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FilterableListContent constructor.
+   */
   export interface $FilterableListContentSettings extends $ListContentSettings {
     /**
      * The fields based on which the table data is filtered. For filtering, the value of the `filterValue` property
@@ -24300,10 +24761,6 @@ declare module "sap/ui/mdc/valuehelp/base/ListContent" {
   import ListBinding from "sap/ui/model/ListBinding";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import { ItemForValueConfiguration } from "sap/ui/mdc/ValueHelp";
-
-  import Context from "sap/ui/model/Context";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -24395,26 +24852,26 @@ declare module "sap/ui/mdc/valuehelp/base/ListContent" {
      */
     getCaseSensitive(): boolean;
     /**
-     * Gets the `ListBinding` of the content.
+     * Gets current descriptionPath of the content. **Note:** Every listcontent must implement this method.
      *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Content description path
+     */
+    getDescriptionPath(): string;
+    /**
+     * Gets current keyPath of the content. **Note:** Every listcontent must implement this method.
+     *
+     *
+     * @returns Content key path
+     */
+    getKeyPath(): string;
+    /**
+     * Gets the `ListBinding` of the content. **Note:** Every listcontent must implement this method.
+     *
      *
      * @returns `ListBinding`
      */
     getListBinding(): ListBinding;
-    /**
-     * Gets the relevant `BindingContexts` of the content.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns `BindingContexts`
-     */
-    getRelevantContexts(
-      /**
-       * Configuration
-       */
-      oConfig: ItemForValueConfiguration
-    ): Context[];
     /**
      * Gets current value of property {@link #getUseAsValueHelp useAsValueHelp}.
      *
@@ -24508,7 +24965,9 @@ declare module "sap/ui/mdc/valuehelp/base/ListContent" {
       bUseFirstMatch?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ListContent constructor.
+   */
   export interface $ListContentSettings extends $ContentSettings {
     /**
      * If this property is set to `true`, the filtering for user input is always case-sensitive. Otherwise user
@@ -24684,7 +25143,9 @@ declare module "sap/ui/mdc/valuehelp/content/Conditions" {
       oValueHelp: ID | ValueHelp
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Conditions constructor.
+   */
   export interface $ConditionsSettings extends $ContentSettings {
     /**
      * Label shown on condition panel.
@@ -24959,7 +25420,9 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
       bGroupable?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FixedList constructor.
+   */
   export interface $FixedListSettings extends $ListContentSettings {
     /**
      * If set, the items of the list can be grouped
@@ -25120,7 +25583,9 @@ declare module "sap/ui/mdc/valuehelp/content/FixedListItem" {
       sGroupText?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FixedListItem constructor.
+   */
   export interface $FixedListItemSettings extends $ListItemSettings {
     /**
      * Key of the group for what the items are grouped
@@ -25287,7 +25752,9 @@ declare module "sap/ui/mdc/valuehelp/Dialog" {
       oGroupConfig?: object
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Dialog constructor.
+   */
   export interface $DialogSettings extends $ContainerSettings {
     /**
      * Configuration for groups (collective search).
@@ -25454,7 +25921,9 @@ declare module "sap/ui/mdc/valuehelp/content/MDCTable" {
       oTable: Table
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the MDCTable constructor.
+   */
   export interface $MDCTableSettings extends $FilterableListContentSettings {
     /**
      * This property will lead to a rebind on newly inserted tables after initial filters are set, immediately
@@ -25676,7 +26145,9 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
       oTable: Table
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the MTable constructor.
+   */
   export interface $MTableSettings extends $FilterableListContentSettings {
     /**
      * Table that is used in the value help.
@@ -25699,8 +26170,18 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
     contentUpdated?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the MTable#contentUpdated event.
+   *
+   * @deprecated (since 1.118.0) - This event is not fired or consumed anymore
+   */
   export interface MTable$ContentUpdatedEventParameters {}
 
+  /**
+   * Event object of the MTable#contentUpdated event.
+   *
+   * @deprecated (since 1.118.0) - This event is not fired or consumed anymore
+   */
   export type MTable$ContentUpdatedEvent = Event<
     MTable$ContentUpdatedEventParameters,
     MTable
@@ -25873,7 +26354,9 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
       bOpensOnFocus?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Popover constructor.
+   */
   export interface $PopoverSettings extends $ContainerSettings {
     /**
      * Controls the possibility to open this popover container by clicking on a connected control, even if no
