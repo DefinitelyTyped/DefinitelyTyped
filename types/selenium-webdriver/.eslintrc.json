@@ -4,7 +4,6 @@
         "@definitelytyped/no-unnecessary-generics": "off",
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/no-empty-interface": "off",
-        "@typescript-eslint/naming-convention": "off",
-        "@typescript-eslint/array-type": "off"
+        "@typescript-eslint/naming-convention": "off"
     }
 }

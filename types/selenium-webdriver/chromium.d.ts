@@ -115,7 +115,7 @@ export class Options extends webdriver.Capabilities {
      *     extensions to add.
      * @return {!Options} A self reference.
      */
-    addExtensions(...args: (string | Buffer)[]): Options;
+    addExtensions(...args: Array< string | Buffer>): Options;
 
     /**
      * Sets the path to the browser binary to use. On Mac OS X, this path should
@@ -327,7 +327,7 @@ export class Extensions {
      * @param {...(string|!Buffer|!Array<(string|!Buffer)>)} args The
      *     extensions to add.
      */
-    add(...args: (string | Buffer)[]): void;
+    add(...args: Array<string | Buffer>): void;
 }
 
 /**
