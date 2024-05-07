@@ -134,7 +134,7 @@ declare namespace Tagify {
         /**
          * When a suggestions list is shown, highlight the first item,
          * and also suggest it in the input (The suggestion can be accepted with → key).
-         * @default false
+         * @default true
          */
         highlightFirst: boolean;
 
@@ -178,7 +178,7 @@ declare namespace Tagify {
          * rendered). When `null`, appends to `document.body`.
          * @default null
          */
-        appendTarget: HTMLElement | null;
+        appendTarget: HTMLElement | (() => HTMLElement) | null;
 
         /**
          * If defined, will force the placement of the dropdown:
@@ -752,6 +752,13 @@ declare namespace Tagify {
         userInput: boolean;
 
         /**
+         * Allow the component as a whole to receive focus. Set to `false` if implementations of Tagify
+         * without external border cause unwanted behaviour.
+         * @default true
+         */
+        focusable: boolean;
+
+        /**
          * An array of allowed tags.
          *
          * Also used for auto-completion when `autocomplete.enabled` is `true`.
@@ -1293,6 +1300,30 @@ declare namespace Tagify {
     interface RemoveEventData<T extends BaseTagData = TagData> extends TagEventData<T> {}
 
     /**
+     * Text pasted (not while editing a tag). The pasted text might or might not have been converted into tags,
+     * depending on if {@link TagifySettings.pasteAsTags} is set to `false`.
+     * @template T Type of the tag data. See the Tagify class for more details.
+     */
+    interface PasteEventData<T extends BaseTagData = TagData> extends EventData<T> {
+        /**
+         * Clipboard event
+         */
+        event: ClipboardEvent;
+        /**
+         * Text content that have been pasted into Tagify.
+         */
+        pastedText: string;
+        /**
+         * The raw clipboard data transfer object as provided by the paste event.
+         */
+        clipboardData: DataTransfer;
+        /**
+         * List of HTML elements representing the tags that were added.
+         */
+        tagsElems: HTMLElement[];
+    }
+
+    /**
      * Map between the events that are triggered by tagify and the data provided
      * for each event.
      * @template T Type of the tag data. See the Tagify class for more details.
@@ -1410,6 +1441,12 @@ declare namespace Tagify {
          * A tag has been removed (use `removeTag` instead with jQuery).
          */
         remove: RemoveEventData<T>;
+
+        /**
+         * Text pasted (not while editing a tag). The pasted text might or might not have been converted into tags,
+         * depending on if {@link TagifySettings.pasteAsTags} is set to `false`.
+         */
+        paste: PasteEventData<T>;
     }
 
     // types for the tagify instance

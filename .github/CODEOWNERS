@@ -2135,6 +2135,7 @@
 /types/file-saver-es/                                     @cyrilschumacher @DaIgeb @HitkoDev @JounQin @bendingbender
 /types/file-size/                                         @Richienb
 /types/filemaker-webviewer/                               @eluce2
+/types/filename-reserved-regex/                           @mrozio13pl
 /types/filesize-parser/                                   @garyking
 /types/filing-cabinet/                                    @peterblazejewicz
 /types/fill-pdf/                                          @westy92
@@ -2238,7 +2239,7 @@
 /types/forever-agent/                                     @yavanosta
 /types/forever-monitor/                                   @shuntksh @wrboyce
 /types/forge-apis/                                        @dukedhx @liskaj @cyrillef @princefishthrower
-/types/forge-viewer/                                      @Autodesk-Forge @alansmithnbs @liskaj @petrbroz @cyrillef
+/types/forge-viewer/                                      @Autodesk-Forge @autodesk-platform-services @alansmithnbs @liskaj @petrbroz @yiskang @cyrillef
 /types/form-serialize/                                    @tyler-johnson
 /types/form-serializer/                                   @flqw
 /types/format-duration/                                   @Roaders
@@ -4689,6 +4690,7 @@
 /types/lunr/v0/                                           @sebastian-lenz
 /types/lusca/                                             @crutchcorn @builtinnya @peterblazejewicz
 /types/luxon/                                             @carsonf @peterblazejewicz
+/types/luxon-business-days/                               @bcbailey
 /types/lwip/                                              @AyaMorisawa
 /types/lynx/                                              @leftshift
 /types/lyric-parser/                                      @wkl007
@@ -4767,6 +4769,7 @@
 /types/markdown-draft-js/                                 @yurist38
 /types/markdown-escape/                                   @LinqLover
 /types/markdown-it/                                       @plantain-00 @rapropos @duduluu @peterblazejewicz
+/types/markdown-it/v13/                                   @plantain-00 @rapropos @duduluu @peterblazejewicz
 /types/markdown-it-attrs/                                 @grawl
 /types/markdown-it-container/                             @hronex
 /types/markdown-it-emoji/                                 @Shinigami92 @peterblazejewicz
@@ -7225,7 +7228,7 @@
 /types/scratch-env/                                       @Richienb
 /types/screenshot-desktop/                                @usama8800
 /types/screeps/                                           @NhanHo @bryanbecker @resir014 @Arcath @dmarcuse @pyrodogg @kotarou @DiamondMofeng
-/types/screeps-arena/                                     @thmsndk @pyrodogg
+/types/screeps-arena/                                     @thmsndk @pyrodogg @AutumnSaury
 /types/screeps-profiler/                                  @ramblurr
 /types/script-ext-html-webpack-plugin/                    @davecardwell
 /types/scriptable-ios/                                    @schl3ck @FuJuntao @FifiTheBulldog
