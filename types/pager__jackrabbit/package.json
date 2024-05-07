@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pager__jackrabbit",
+    "version": "4.8.9999",
+    "projects": [
+        "https://github.com/pagerinc/jackrabbit"
+    ],
+    "dependencies": {
+        "@types/amqplib": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/pager__jackrabbit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Benjamin Schuster-Boeckler",
+            "githubUsername": "dagams"
+        }
+    ]
+}

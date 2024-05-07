@@ -1,5 +1,5 @@
-import { ConvenientHunk } from './convenient-hunk';
-import { DiffFile } from './diff-file';
+import { ConvenientHunk } from "./convenient-hunk";
+import { DiffFile } from "./diff-file";
 
 export class ConvenientPatch {
     /**

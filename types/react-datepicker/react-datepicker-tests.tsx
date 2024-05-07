@@ -1,23 +1,28 @@
-import * as React from 'react';
+import { MiddlewareReturn, MiddlewareState } from "@floating-ui/react";
+import { enGB } from "date-fns/locale/en-GB";
+import { enUS } from "date-fns/locale/en-US";
+import * as React from "react";
 import DatePicker, {
     CalendarContainer,
-    registerLocale,
-    ReactDatePickerProps,
+    // @ts-expect-error The library is not exporting the component as a named export
+    ReactDatePicker as _MissingNamedExport,
     ReactDatePickerCustomHeaderProps,
-} from 'react-datepicker';
-import enUS from 'date-fns/locale/en-US';
-import { Modifier } from 'react-popper';
+    ReactDatePickerProps,
+    registerLocale,
+} from "react-datepicker";
 
-registerLocale('en-GB', { options: { weekStartsOn: 1 } });
+registerLocale("en-GB", { ...enGB, options: { weekStartsOn: 1 } });
 
-const topLogger: Modifier<'topLogger'> = {
-    name: 'topLogger',
-    enabled: true,
-    phase: 'main',
-    fn({ state }) {
-        if (state.placement === 'top') {
-            console.log('Popper is on the top');
+const topLogger = {
+    name: "topLogger",
+    options: {
+        enabled: true,
+    },
+    fn(state: MiddlewareState): MiddlewareReturn {
+        if (state.placement === "top") {
+            console.log("Popper is on the top");
         }
+        return state;
     },
 };
 
@@ -32,23 +37,24 @@ const topLogger: Modifier<'topLogger'> = {
     autoComplete=""
     autoFocus
     calendarClassName=""
-    calendarContainer={props => <div />}
+    calendarContainer={(props) => <div />}
+    calendarIconClassname=""
     calendarStartDay={0}
     className=""
     clearButtonClassName=""
     clearButtonTitle=""
     // closeOnScroll={false} // Or as function:
-    closeOnScroll={e => e.target === document}
+    closeOnScroll={(e) => e.target === document}
     customInput={<input />}
     customInputRef=""
     chooseDayAriaLabelPrefix=""
     customTimeInput={<input />}
     dateFormat=""
     dateFormatCalendar=""
-    dayClassName={date => ''}
-    weekDayClassName={date => ''}
-    monthClassName={date => ''}
-    timeClassName={date => ''}
+    dayClassName={(date) => ""}
+    weekDayClassName={(date) => ""}
+    monthClassName={(date) => ""}
+    timeClassName={(date) => ""}
     disabledDayAriaLabelPrefix=""
     disabled
     disabledKeyboardNavigation
@@ -57,13 +63,15 @@ const topLogger: Modifier<'topLogger'> = {
     excludeDates={[new Date()]}
     excludeDateIntervals={[{ start: new Date(), end: new Date() }]}
     excludeTimes={[new Date()]}
-    filterDate={date => true}
-    filterTime={date => true}
+    filterDate={(date) => true}
+    filterTime={(date) => true}
     fixedHeight
     forceShowMonthNavigation
     formatWeekDay={(day) => day[0]}
-    formatWeekNumber={date => 0}
+    formatWeekNumber={(date) => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
+    holidays={[{ date: "", holidayName: "" }]}
+    icon=""
     id=""
     includeDates={[new Date()]}
     includeDateIntervals={[{ start: new Date(), end: new Date() }]}
@@ -83,18 +91,18 @@ const topLogger: Modifier<'topLogger'> = {
     nextMonthButtonLabel=""
     nextYearAriaLabel=""
     nextYearButtonLabel=""
-    onBlur={event => null}
+    onBlur={(event) => null}
     onCalendarClose={() => null}
     onCalendarOpen={() => null}
     onChange={(date: Date | [Date | null, Date | null] | null) => {}}
-    onChangeRaw={event => null}
-    onClickOutside={event => null}
+    onChangeRaw={(event) => null}
+    onClickOutside={(event) => null}
     onDayMouseEnter={(date: Date) => {}}
-    onFocus={event => null}
+    onFocus={(event) => null}
     onInputClick={() => null}
-    onInputError={err => err.code + err.msg}
-    onKeyDown={event => null}
-    onMonthChange={date => null}
+    onInputError={(err) => err.code + err.msg}
+    onKeyDown={(event) => null}
+    onMonthChange={(date) => null}
     onMonthMouseLeave={() => {}}
     onSelect={(date, event) => null}
     onWeekSelect={(firstDayOfWeek, weekNumber, event) => null}
@@ -104,20 +112,26 @@ const topLogger: Modifier<'topLogger'> = {
     peekNextMonth
     placeholderText=""
     popperClassName=""
-    popperContainer={props => <div />}
+    popperContainer={(props) => <div />}
     popperModifiers={[
         {
-            name: 'offset',
+            name: "offset",
             options: {
                 offset: [5, 10],
             },
+            fn() {
+                return { x: 5, y: 10 };
+            },
         },
         {
-            name: 'preventOverflow',
+            name: "preventOverflow",
             options: {
-                rootBoundary: 'viewport',
+                rootBoundary: "viewport",
                 tether: false,
                 altAxis: true,
+            },
+            fn() {
+                return { reset: { placement: "bottom-start" } };
             },
         },
     ]}
@@ -129,9 +143,9 @@ const topLogger: Modifier<'topLogger'> = {
     previousYearAriaLabel=""
     previousYearButtonLabel=""
     readOnly
-    ref={instance => {
+    ref={(instance) => {
         if (instance !== null) {
-            // $ExpectType ReactDatePicker<"offset" | "preventOverflow", true>
+            // $ExpectType ReactDatePicker<true, undefined>
             instance;
         }
     }}
@@ -151,7 +165,9 @@ const topLogger: Modifier<'topLogger'> = {
         nextYearButtonDisabled,
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
+    renderQuarterContent={(quarter, shortQuarter) => <div />}
     renderMonthContent={(monthIndex, shortMonth, longMonth) => <div />}
+    renderYearContent={(year) => <div />}
     required
     scrollableMonthYearDropdown
     scrollableYearDropdown
@@ -173,6 +189,7 @@ const topLogger: Modifier<'topLogger'> = {
     showTwoColumnMonthYearPicker
     showFourColumnMonthYearPicker
     showWeekNumbers
+    showWeekPicker
     showYearDropdown
     showYearPicker
     startDate={new Date()}
@@ -184,6 +201,7 @@ const topLogger: Modifier<'topLogger'> = {
     timeIntervals={1}
     title=""
     showIcon
+    toggleCalendarOnIconClick
     todayButton={<div />}
     useShortMonthInDropdown
     useWeekdaysShort
@@ -217,7 +235,7 @@ function handleRef(ref: DatePicker | null) {
     }
 }
 
-<CalendarContainer arrowProps={{ someProp: 'someValue' }} className="" showPopperArrow>
+<CalendarContainer className="">
     <div />
     <span />
 </CalendarContainer>;
@@ -228,10 +246,19 @@ const props: ReactDatePickerProps = {
     onChange: () => {},
 };
 
-<DatePicker<'topLogger'>
+<DatePicker
     onChange={() => {}}
-    popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
-    ref={(instance: DatePicker<'topLogger'> | null) => {}}
+    popperModifiers={[
+        {
+            name: "arrow",
+            options: { padding: 5 },
+            fn(s) {
+                return s;
+            },
+        },
+        topLogger,
+    ]}
+    ref={(instance: DatePicker | null) => {}}
 />;
 
 const DatePickerCustomHeader = ({
@@ -250,8 +277,25 @@ const DatePickerCustomHeader = ({
     nextYearButtonDisabled,
 }: ReactDatePickerCustomHeaderProps) => <div></div>;
 
-<DatePicker onChange={() => {}} renderCustomHeader={props => <DatePickerCustomHeader {...props} />} />;
+<DatePicker onChange={() => {}} renderCustomHeader={(props) => <DatePickerCustomHeader {...props} />} />;
 
-<DatePicker selectsRange onChange={([start]) => start?.getHours()} />;
+<DatePicker
+    excludeDates={[{ date: new Date(), message: "Exclude today" }]}
+    selectsRange
+    onChange={([start]) => start?.getHours()}
+/>;
 
-<DatePicker onChange={date => date?.toISOString()} />;
+<DatePicker onChange={(date) => date?.toISOString()} />;
+
+<DatePicker {...props} ref={handleRef} />;
+
+<DatePicker
+    selectsMultiple
+    onChange={(dates) => dates?.[0].getHours()}
+    ref={(instance) => {
+        if (instance !== null) {
+            // $ExpectType ReactDatePicker<undefined, true>
+            instance;
+        }
+    }}
+/>;

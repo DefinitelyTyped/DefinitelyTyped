@@ -1,8 +1,3 @@
-// Type definitions for common-ancestor-path 1.0
-// Project: https://github.com/isaacs/common-ancestor-path
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = commonAncestorPath;
 
 /**

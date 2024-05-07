@@ -34,12 +34,12 @@ declare function decodeStream(
     output: File | MemoryStream,
     variant?: Base32Variant
 ): void;
-declare var BASE32: string;
-declare var BASE32_NOPAD: string;
-declare var BASE32HEX: string;
-declare var BASE32HEX_NOPAD: string;
-declare var BASE32_DNSSEC: string;
-declare var BASE32_DNSCURVE: string;
+declare let BASE32: string;
+declare let BASE32_NOPAD: string;
+declare let BASE32HEX: string;
+declare let BASE32HEX_NOPAD: string;
+declare let BASE32_DNSSEC: string;
+declare let BASE32_DNSCURVE: string;
 type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');
 type Base32Variant =

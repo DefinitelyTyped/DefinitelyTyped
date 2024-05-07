@@ -1,9 +1,4 @@
-// Type definitions for metascraper-media-provider 5.14
-// Project: https://nicedoc.io/microlinkhq/metascraper/packages/metascraper-media-provider
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import metascraper = require('metascraper');
+import metascraper = require("metascraper");
 
 declare namespace getData {
     type OnErrorFunction = (url: string, error: Error) => void;
@@ -37,6 +32,6 @@ declare namespace getData {
     }
 }
 
-declare function getData(options?: getData.Options): metascraper.Rule;
+declare function getData(options?: getData.Options): metascraper.Rules;
 
 export = getData;

@@ -1,2 +1,0 @@
-mount.d.ts
-route.d.ts

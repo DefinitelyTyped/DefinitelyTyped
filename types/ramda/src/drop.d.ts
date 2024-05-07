@@ -1,2 +1,2 @@
-import { drop } from '../index';
+import { drop } from "../index";
 export default drop;

@@ -1,9 +1,3 @@
-// Type definitions for asn1 0.2
-// Project: https://github.com/joyent/node-asn1
-// Definitions by: Jim Geurts <https://github.com/jgeurts>
-//                 Graham <https://github.com/shortstuffsushi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
 /// <reference types="node" />
 
 export class BerReader {
@@ -49,7 +43,7 @@ export class BerWriter {
     writeNull(): void;
     writeOID(s: string, tag: number): void;
     writeString(s: string, tag?: number): void;
-    writeStringArray(strings: ReadonlyArray<string>): void;
+    writeStringArray(strings: readonly string[]): void;
     _ensure(length: number): void;
 }
 

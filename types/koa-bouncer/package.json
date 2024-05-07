@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/koa-bouncer",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/danneu/koa-bouncer"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-bouncer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "maruware",
+            "githubUsername": "maruware"
+        }
+    ]
+}

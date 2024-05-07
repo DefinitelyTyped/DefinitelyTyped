@@ -1,11 +1,6 @@
-// Type definitions for express-brute 1.0.1
-// Project: https://github.com/AdamPflug/express-brute
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="express" />
 
-import express = require('express');
+import express = require("express");
 
 /**
  * @summary Middleware.
@@ -170,7 +165,7 @@ declare namespace ExpressBrute {
     export const FailMark: FailCallback;
 }
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     export interface Request {
         brute?: {
             reset?: ((callback?: () => void) => void) | undefined;

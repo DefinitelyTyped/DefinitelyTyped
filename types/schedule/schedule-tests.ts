@@ -1,4 +1,4 @@
-import { unstable_scheduleWork, unstable_cancelScheduledWork, unstable_now } from 'schedule';
+import { unstable_cancelScheduledWork, unstable_now, unstable_scheduleWork } from "schedule";
 
 // $ExpectType CallbackNode
 const callbackNode = unstable_scheduleWork(() => 0, { timeout: 100 });

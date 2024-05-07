@@ -1,12 +1,16 @@
-import { Triangle, Box3, Ray, Sphere, Object3D } from '../../../src/Three.js';
+import { Box3, Layers, Object3D, Ray, Sphere, Triangle } from "three";
 
-import { Capsule } from './Capsule.js';
+import { Capsule } from "./Capsule.js";
 
 export class Octree {
-    constructor(box?: Box3);
-    triangles: Triangle[];
-    box: Box3;
+    box: Box3 | null | undefined;
+    bounds: Box3;
+
     subTrees: Octree[];
+    triangles: Triangle[];
+    layers: Layers;
+
+    constructor(box?: Box3 | null);
 
     addTriangle(triangle: Triangle): this;
     calcBox(): this;
@@ -21,4 +25,5 @@ export class Octree {
     capsuleIntersect(capsule: Capsule): any;
     rayIntersect(ray: Ray): any;
     fromGraphNode(group: Object3D): this;
+    clear(): this;
 }

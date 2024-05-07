@@ -1,7 +1,7 @@
 // borrowed from the Backbone.Associations tutorials
 // separated out into modules to avoid namespace clashes
 
-import * as Backbone from 'backbone';
+import * as Backbone from "backbone";
 
 // one-to-one tests
 class EmployeeWithManager extends Backbone.AssociatedModel {
@@ -9,10 +9,10 @@ class EmployeeWithManager extends Backbone.AssociatedModel {
         super(options);
         this.relations = [
             {
-                type: Backbone.One, //nature of the relationship
-                key: 'manager', // attribute of Employee
-                relatedModel: 'Employee' //AssociatedModel for attribute key
-            }
+                type: Backbone.One, // nature of the relationship
+                key: "manager", // attribute of Employee
+                relatedModel: "Employee", // AssociatedModel for attribute key
+            },
         ];
     }
 
@@ -21,7 +21,7 @@ class EmployeeWithManager extends Backbone.AssociatedModel {
             age: 0,
             fname: "",
             lname: "",
-            manager: null
+            manager: null,
         };
     }
 }
@@ -33,7 +33,7 @@ class Location extends Backbone.AssociatedModel {
             add1: "",
             add2: null,
             zip: "",
-            state: ""
+            state: "",
         };
     }
 }
@@ -41,7 +41,7 @@ class Location extends Backbone.AssociatedModel {
 class Locations extends Backbone.Collection<Location> {
     comparator = (c: Backbone.Model) => {
         return c.get("Number");
-    }
+    };
 }
 
 class Project extends Backbone.AssociatedModel {
@@ -49,11 +49,11 @@ class Project extends Backbone.AssociatedModel {
         super(options);
         this.relations = [
             {
-                type: Backbone.Many, //nature of the relation
-                key: 'locations', //attribute of Project
-                collectionType: Locations, //Collection to be used.
-                relatedModel: Location //Optional
-            }
+                type: Backbone.Many, // nature of the relation
+                key: "locations", // attribute of Project
+                collectionType: Locations, // Collection to be used.
+                relatedModel: Location, // Optional
+            },
         ];
     }
 
@@ -61,8 +61,8 @@ class Project extends Backbone.AssociatedModel {
         return {
             name: "",
             number: 0,
-            locations: []
-        }
+            locations: [],
+        };
     }
 }
 

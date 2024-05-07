@@ -1,5 +1,5 @@
-import { css, file, url } from '@webpack-blocks/assets';
-import { createConfig, match } from 'webpack-blocks';
+import { css, file, url } from "@webpack-blocks/assets";
+import { createConfig, match } from "webpack-blocks";
 
 // test data
 const emptyCssOptions: css.CssOptions = {};
@@ -14,18 +14,18 @@ createConfig([
     css(), // or use `match()` to apply it to other files than *.css
 
     // will copy font files to build directory and link to them
-    match(['*.eot', '*.ttf', '*.woff', '*.woff2'], [file()]),
+    match(["*.eot", "*.ttf", "*.woff", "*.woff2"], [file()]),
 
     // will load images up to 10KB as data URL
-    match(['*.gif', '*.jpg', '*.jpeg', '*.png', '*.svg', '*.webp'], [url({ limit: 10000 })]),
+    match(["*.gif", "*.jpg", "*.jpeg", "*.png", "*.svg", "*.webp"], [url({ limit: 10000 })]),
 ]);
 
 createConfig([
     match(
-        ['*.css', '!*node_modules*'],
+        ["*.css", "!*node_modules*"],
         [
             css.modules({
-                localIdentName: '[name]--[local]--[hash:base64:5]',
+                localIdentName: "[name]--[local]--[hash:base64:5]",
             }),
         ],
     ),

@@ -1,8 +1,4 @@
-// Type definitions for react-size-reporter 2.0
-// Project: https://github.com/berrtech/react-size-reporter
-// Definitions by: Mattias Martens <https://github.com/MattiasMartens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { FC, ReactNode, Ref } from 'react';
+import { FC, ReactNode, Ref } from "react";
 
 export interface ReactSizeReporterRef {
     // Use this if for any reason onSizeChange doesn't trigger anymore.

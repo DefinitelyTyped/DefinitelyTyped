@@ -1,11 +1,3 @@
-// Type definitions for The Spotify Web API (including changes March 29th 2016)
-// Project: https://developer.spotify.com/web-api/
-// Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
-//                 Magnar Ovedal Myrtveit <https://github.com/Stadly>
-//                 Nils Måsén <https://github.com/piksel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 // Release comments:
 // -----------------
 
@@ -157,9 +149,9 @@ declare namespace SpotifyApi {
         uris?: string[] | undefined;
         offset?:
             | {
-                  position?: number | undefined;
-                  uri?: string | undefined;
-              }
+                position?: number | undefined;
+                uri?: string | undefined;
+            }
             | undefined;
         position_ms?: number | undefined;
     }
@@ -696,12 +688,14 @@ declare namespace SpotifyApi {
      * https://developer.spotify.com/web-api/search-item/
      */
     interface SearchResponse
-        extends Partial<ArtistSearchResponse>,
+        extends
+            Partial<ArtistSearchResponse>,
             Partial<AlbumSearchResponse>,
             Partial<TrackSearchResponse>,
             Partial<PlaylistSearchResponse>,
             Partial<ShowSearchResponse>,
-            Partial<EpisodeSearchResponse> {}
+            Partial<EpisodeSearchResponse>
+    {}
 
     /**
      * Get an Show
@@ -949,11 +943,11 @@ declare namespace SpotifyApi {
          * Possible values are “album”, “single”, “compilation”, “appears_on”.
          * Compare to album_type this field represents relationship between the artist and the album.
          */
-        album_group?: 'album' | 'single' | 'compilation' | 'appears_on' | undefined;
+        album_group?: "album" | "single" | "compilation" | "appears_on" | undefined;
         /**
          * The type of the album: one of “album”, “single”, or “compilation”.
          */
-        album_type: 'album' | 'single' | 'compilation';
+        album_type: "album" | "single" | "compilation";
         /**
          * The artists of the album.
          * Each artist object includes a link in href to more detailed information about the artist.
@@ -984,7 +978,7 @@ declare namespace SpotifyApi {
         /**
          * The precision with which release_date value is known: `year`, `month`, or `day`.
          */
-        release_date_precision: 'year' | 'month' | 'day';
+        release_date_precision: "year" | "month" | "day";
         /**
          * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/) is applied,
          * the original track is not available in the given market, and Spotify did not have any tracks to relink it with.
@@ -992,7 +986,7 @@ declare namespace SpotifyApi {
          * and a restrictions object containing the reason why the track is not available: `"restrictions" : {"reason" : "market"}`
          */
         restrictions?: RestrictionsObject | undefined;
-        type: 'album';
+        type: "album";
         /**
          * The number of tracks in the album.
          */
@@ -1038,7 +1032,7 @@ declare namespace SpotifyApi {
          * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the artist.
          */
         id: string;
-        type: 'artist';
+        type: "artist";
     }
 
     /**
@@ -1061,7 +1055,7 @@ declare namespace SpotifyApi {
         tempo: number;
         time_signature: number;
         track_href: string;
-        type: 'audio_features';
+        type: "audio_features";
         uri: string;
         valence: number;
     }
@@ -1169,7 +1163,7 @@ declare namespace SpotifyApi {
      */
     interface CopyrightObject {
         text: string;
-        type: 'C' | 'P';
+        type: "C" | "P";
     }
 
     /**
@@ -1326,7 +1320,7 @@ declare namespace SpotifyApi {
          * see [Remove tracks from a playlist](https://developer.spotify.com/documentation/web-api/reference/playlists/remove-tracks-playlist/).
          */
         snapshot_id: string;
-        type: 'playlist';
+        type: "playlist";
     }
 
     /**
@@ -1374,7 +1368,7 @@ declare namespace SpotifyApi {
         seeds: RecommendationsSeedObject[];
         tracks: RecommendationTrackObject[];
     }
-    
+
     /**
      * Recommendation Track Object
      * Uses the same object structure as Full Track Object, but with `album.album_type` in caps.
@@ -1392,7 +1386,7 @@ declare namespace SpotifyApi {
          * The type of the album: one of “ALBUM”, “SINGLE”, or “COMPILATION”.
          * Note that this differs from the types returned by all other spotify APIs by being in all caps.
          */
-        album_type: 'ALBUM' | 'SINGLE' | 'COMPILATION';
+        album_type: "ALBUM" | "SINGLE" | "COMPILATION";
     }
 
     /**
@@ -1405,7 +1399,7 @@ declare namespace SpotifyApi {
         href: string;
         id: string;
         initialPoolSize: number;
-        type: 'artist' | 'track' | 'genre';
+        type: "artist" | "track" | "genre";
     }
 
     /**
@@ -1553,7 +1547,7 @@ declare namespace SpotifyApi {
         /**
          * The object type: “track”.
          */
-        type: 'track';
+        type: "track";
         /**
          * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
          */
@@ -1568,7 +1562,7 @@ declare namespace SpotifyApi {
         external_urls: ExternalUrlObject;
         href: string;
         id: string;
-        type: 'track';
+        type: "track";
         uri: string;
     }
 
@@ -1656,7 +1650,7 @@ declare namespace SpotifyApi {
          * The user’s most recent position in the episode. Set if the supplied access token is a user token and has the scope user-read-playback-position.
          */
         resume_point?: ResumePointObject | undefined;
-        type: 'episode';
+        type: "episode";
     }
 
     /**
@@ -1741,7 +1735,7 @@ declare namespace SpotifyApi {
         /**
          * The object type: “show”.
          */
-        type: 'show';
+        type: "show";
         // This is found in https://developer.spotify.com/documentation/web-api/reference/shows/get-a-show/ but not in
         // https://developer.spotify.com/documentation/web-api/reference/object-model/#show-object-full.
         // Also it is not always sent, so it is marked optional here.
@@ -1773,7 +1767,7 @@ declare namespace SpotifyApi {
         href: string;
         id: string;
         images?: ImageObject[] | undefined;
-        type: 'user';
+        type: "user";
         uri: string;
     }
 
@@ -1785,7 +1779,7 @@ declare namespace SpotifyApi {
         /**
          * The object type.
          */
-        type: 'artist' | 'playlist' | 'album' | 'show' | 'episode';
+        type: "artist" | "playlist" | "album" | "show" | "episode";
         /**
          * A link to the Web API endpoint providing full details.
          */
@@ -1812,7 +1806,7 @@ declare namespace SpotifyApi {
 
     interface PlaybackObject {
         shuffle_state: boolean;
-        repeat_state: 'off' | 'track' | 'context';
+        repeat_state: "off" | "track" | "context";
     }
 
     interface CurrentlyPlayingObject {
@@ -1823,7 +1817,7 @@ declare namespace SpotifyApi {
         is_playing: boolean;
         item: TrackObjectFull | EpisodeObject | null;
         context: ContextObject | null;
-        currently_playing_type: 'track' | 'episode' | 'ad' | 'unknown';
+        currently_playing_type: "track" | "episode" | "ad" | "unknown";
     }
 
     interface UserDevice {

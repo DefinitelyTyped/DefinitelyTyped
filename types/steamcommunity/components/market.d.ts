@@ -1,4 +1,4 @@
-import { appid, assetid, Callback, CallbackError } from '../index';
+import { appid, assetid, Callback, CallbackError } from "../index";
 
 export interface Market {
     /**
@@ -6,11 +6,13 @@ export interface Market {
      *
      * @param callback Called when the requested data is available.
      */
-    getMarketApps(callback: (
-        err: CallbackError,
-        // ** An object whose keys are AppIDs and whose values are the names of the apps.
-        apps: object,
-    ) => any): void;
+    getMarketApps(
+        callback: (
+            err: CallbackError,
+            // ** An object whose keys are AppIDs and whose values are the names of the apps.
+            apps: object,
+        ) => any,
+    ): void;
 
     /**
      * Check if an item is eligible to be turned into gems and if so, get its gem value.
@@ -20,15 +22,19 @@ export interface Market {
      * @param assetid
      * @param callback
      */
-    getGemValue(appid: appid, assetid: assetid, callback: (
-        err: CallbackError,
-        res: {
-            // ** A string containing the title which goes in the prompt shown in the Steam UI, e.g. "Turn into gems?".
-            promptTitle: string
-            // ** How many gems you'd get if you gemified this item.
-            gemValue: number
-        },
-    ) => any): void;
+    getGemValue(
+        appid: appid,
+        assetid: assetid,
+        callback: (
+            err: CallbackError,
+            res: {
+                // ** A string containing the title which goes in the prompt shown in the Steam UI, e.g. "Turn into gems?".
+                promptTitle: string;
+                // ** How many gems you'd get if you gemified this item.
+                gemValue: number;
+            },
+        ) => any,
+    ): void;
 
     /**
      * Turn an eligible item into gems.
@@ -37,15 +43,20 @@ export interface Market {
      * @param expectedGemsValue
      * @param callback
      */
-    turnItemIntoGems(appid: appid, assetid: assetid, expectedGemsValue: number, callback: (
-        err: CallbackError,
-        res: {
-            // ** How many gems you got for this item.
-            gemsReceived: number,
-            // ** How many gems you have now.
-            totalGems: number,
-        },
-    ) => any): void;
+    turnItemIntoGems(
+        appid: appid,
+        assetid: assetid,
+        expectedGemsValue: number,
+        callback: (
+            err: CallbackError,
+            res: {
+                // ** How many gems you got for this item.
+                gemsReceived: number;
+                // ** How many gems you have now.
+                totalGems: number;
+            },
+        ) => any,
+    ): void;
 
     /**
      * Unpacks a booster pack in your inventory.
@@ -54,15 +65,19 @@ export interface Market {
      * @param assetid The AssetID of the booster pack in question.
      * @param callback A function to be called when the request completes.
      */
-    openBoosterPack(appid: appid, assetid: assetid, callback: (
-        err: CallbackError,
-        items: Array<{
-            image: string,
-            name: string,
-            series: any,
-            foil: boolean
-        }>,
-    ) => any): void;
+    openBoosterPack(
+        appid: appid,
+        assetid: assetid,
+        callback: (
+            err: CallbackError,
+            items: Array<{
+                image: string;
+                name: string;
+                series: any;
+                foil: boolean;
+            }>,
+        ) => any,
+    ): void;
 
     /**
      * Get details about a gift in your Steam Gifts inventory.
@@ -70,17 +85,20 @@ export interface Market {
      * @param giftID A string containing the assetid of the gift in your inventory.
      * @param callback A function to be called when the requested data is available
      */
-    getGiftDetails(giftID: string, callback: (
-        err: CallbackError,
-        res: {
-            // ** The name of this gift.
-            giftName: string,
-            // ** The ID of the Steam package that you'll be granted if you redeem this gift.
-            packageID: any,
-            // ** A bool indicating whether your account already owns this package (if true, you can't redeem it because you own it already).
-            owned: boolean
-        },
-    ) => any): void;
+    getGiftDetails(
+        giftID: string,
+        callback: (
+            err: CallbackError,
+            res: {
+                // ** The name of this gift.
+                giftName: string;
+                // ** The ID of the Steam package that you'll be granted if you redeem this gift.
+                packageID: any;
+                // ** A bool indicating whether your account already owns this package (if true, you can't redeem it because you own it already).
+                owned: boolean;
+            },
+        ) => any,
+    ): void;
 
     /**
      * Redeem a gift in your Steam Gifts inventory and add it to your library.

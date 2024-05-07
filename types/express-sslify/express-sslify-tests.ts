@@ -1,5 +1,5 @@
-import { Application } from 'express';
-import { HTTPS } from 'express-sslify';
+import { Application } from "express";
+import { HTTPS } from "express-sslify";
 
 declare const express: Application;
 declare const booleanFlag: boolean;
@@ -14,5 +14,5 @@ express.use(
         trustXForwardedHostHeader: booleanFlag,
         trustAzureHeader: booleanFlag,
         trustProtoHeader: booleanFlag,
-    })
+    }),
 );

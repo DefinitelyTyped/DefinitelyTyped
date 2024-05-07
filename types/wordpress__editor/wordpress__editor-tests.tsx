@@ -1,7 +1,7 @@
-import { dispatch, select } from '@wordpress/data';
-import * as e from '@wordpress/editor';
+import { dispatch, select } from "@wordpress/data";
+import * as e from "@wordpress/editor";
 
-declare const BLOCK_INSTANCE: import('@wordpress/blocks').BlockInstance;
+declare const BLOCK_INSTANCE: import("@wordpress/blocks").BlockInstance;
 declare const FILELIST: FileList;
 declare const FILE_ARRAY: File[];
 
@@ -23,8 +23,8 @@ e.store.name;
 //
 // DocumentOutline
 //
-<e.DocumentOutline onSelect={() => console.log('selected')} />;
-<e.DocumentOutline onSelect={() => console.log('selected')} hasOutlineItemsDisabled />;
+<e.DocumentOutline onSelect={() => console.log("selected")} />;
+<e.DocumentOutline onSelect={() => console.log("selected")} hasOutlineItemsDisabled />;
 
 //
 // DocumentOutlineCheck
@@ -54,7 +54,7 @@ e.store.name;
 //
 // ErrorBoundary
 //
-<e.ErrorBoundary onError={() => console.log('error!')}>Hello world</e.ErrorBoundary>;
+<e.ErrorBoundary onError={() => console.log("error!")}>Hello world</e.ErrorBoundary>;
 
 //
 // PageAttributesCheck
@@ -101,7 +101,7 @@ e.store.name;
 //
 <e.PostExcerptCheck>Hello world</e.PostExcerptCheck>;
 <e.PostExcerptCheck supportKeys="author">Hello world</e.PostExcerptCheck>;
-<e.PostExcerptCheck supportKeys={['author', 'thumbnail']}>Hello world</e.PostExcerptCheck>;
+<e.PostExcerptCheck supportKeys={["author", "thumbnail"]}>Hello world</e.PostExcerptCheck>;
 
 //
 // PostFeaturedImage
@@ -113,7 +113,7 @@ e.store.name;
 //
 <e.PostFeaturedImageCheck>Hello world</e.PostFeaturedImageCheck>;
 <e.PostFeaturedImageCheck supportKeys="author">Hello world</e.PostFeaturedImageCheck>;
-<e.PostFeaturedImageCheck supportKeys={['author', 'thumbnail']}>Hello world</e.PostFeaturedImageCheck>;
+<e.PostFeaturedImageCheck supportKeys={["author", "thumbnail"]}>Hello world</e.PostFeaturedImageCheck>;
 
 //
 // PostFormat
@@ -125,7 +125,7 @@ e.store.name;
 //
 <e.PostFormatCheck>Hello world</e.PostFormatCheck>;
 <e.PostFormatCheck supportKeys="author">Hello world</e.PostFormatCheck>;
-<e.PostFormatCheck supportKeys={['author', 'thumbnail']}>Hello world</e.PostFormatCheck>;
+<e.PostFormatCheck supportKeys={["author", "thumbnail"]}>Hello world</e.PostFormatCheck>;
 
 //
 // PostLastRevision
@@ -168,8 +168,8 @@ e.store.name;
 //
 // PostPublishButton
 //
-<e.PostPublishButton focusOnMount={true} onSubmit={() => console.log('submitted')} forceIsDirty forceIsSaving />;
-<e.PostPublishButton forceIsDirty forceIsSaving={false} isOpen isToggle onToggle={() => console.log('toggled')} />;
+<e.PostPublishButton focusOnMount={true} onSubmit={() => console.log("submitted")} forceIsDirty forceIsSaving />;
+<e.PostPublishButton forceIsDirty forceIsSaving={false} isOpen isToggle onToggle={() => console.log("toggled")} />;
 
 //
 // PostPublishButtonLabel
@@ -185,11 +185,11 @@ e.store.name;
     forceIsSaving
     className="foo"
     aria-hidden={false}
-    onClose={() => console.log('closed')}
+    onClose={() => console.log("closed")}
     PrePublishExtension={() => <h1>hello world</h1>}
     PostPublishExtension={() => <h1>hello world</h1>}
 />;
-<e.PostPublishPanel onClose={() => console.log('closed')} />;
+<e.PostPublishPanel onClose={() => console.log("closed")} />;
 
 //
 // PostSavedState
@@ -280,7 +280,7 @@ e.store.name;
 // PostTypeSupportCheck
 //
 <e.PostTypeSupportCheck supportKeys="author">Hello world</e.PostTypeSupportCheck>;
-<e.PostTypeSupportCheck supportKeys={['author', 'thumbnail']}>Hello world</e.PostTypeSupportCheck>;
+<e.PostTypeSupportCheck supportKeys={["author", "thumbnail"]}>Hello world</e.PostTypeSupportCheck>;
 
 //
 // PostVisibility
@@ -293,7 +293,7 @@ e.store.name;
 <e.PostVisibilityCheck
     render={({ canEdit }) => (
         <div>
-            <h1>{`You ${canEdit ? 'can' : "can't"} edit`}</h1>
+            <h1>{`You ${canEdit ? "can" : "can't"} edit`}</h1>
         </div>
     )}
 />;
@@ -343,69 +343,69 @@ e.store.name;
 // ============================================================================
 
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').autosave();
+dispatch("core/editor").autosave();
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').autosave({ foo: true, bar: false });
+dispatch("core/editor").autosave({ foo: true, bar: false });
 
 // $ExpectType void
-dispatch('core/editor').editPost({ content: 'foo' });
+dispatch("core/editor").editPost({ content: "foo" });
 
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').resetEditorBlocks([BLOCK_INSTANCE]);
+dispatch("core/editor").resetEditorBlocks([BLOCK_INSTANCE]);
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').resetEditorBlocks([BLOCK_INSTANCE], { foo: 'bar' });
+dispatch("core/editor").resetEditorBlocks([BLOCK_INSTANCE], { foo: "bar" });
 
 // $ExpectType void
-dispatch('core/editor').resetPost({ content: 'foo' });
+dispatch("core/editor").resetPost({ content: "foo" });
 
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').savePost();
+dispatch("core/editor").savePost();
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').savePost({ content: 'foo' });
+dispatch("core/editor").savePost({ content: "foo" });
 
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').setupEditor({ content: 'foo' });
+dispatch("core/editor").setupEditor({ content: "foo" });
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').setupEditor({ content: 'foo' }, { content: 'bar' });
+dispatch("core/editor").setupEditor({ content: "foo" }, { content: "bar" });
 // $ExpectType IterableIterator<void>
-dispatch('core/editor').setupEditor({ content: 'foo' }, { content: 'bar' }, [
-    ['core/paragraph', {}, [['core/paragraph']]],
+dispatch("core/editor").setupEditor({ content: "foo" }, { content: "bar" }, [
+    ["core/paragraph", {}, [["core/paragraph"]]],
 ]);
 
 // $ExpectType void
-dispatch('core/editor').updateEditorSettings({ codeEditingEnabled: false });
+dispatch("core/editor").updateEditorSettings({ codeEditingEnabled: false });
 
 // $ExpectType void
-dispatch('core/editor').updatePostLock({ isLocked: false, user: null });
+dispatch("core/editor").updatePostLock({ isLocked: false, user: null });
 
 // $ExpectType string | undefined
-select('core/editor').getActivePostLock();
+select("core/editor").getActivePostLock();
 
 // $ExpectType {}
-select('core/editor').getAutosaveAttribute('author');
+select("core/editor").getAutosaveAttribute("author");
 
 // $ExpectType Page | Post
-select('core/editor').getCurrentPost();
+select("core/editor").getCurrentPost();
 
 // $ExpectType (RenderedText<"edit"> & { is_protected: boolean; block_version: string; }) | (RenderedText<"edit"> & { is_protected: boolean; block_version: string; }) | undefined
-select('core/editor').getCurrentPostAttribute('content');
+select("core/editor").getCurrentPostAttribute("content");
 // $ExpectType number | undefined
-select('core/editor').getCurrentPostAttribute('author');
+select("core/editor").getCurrentPostAttribute("author");
 // $ExpectType OmitNevers<Record<string, string>, { [x: string]: string; }> | undefined
-select('core/editor').getCurrentPostAttribute('meta');
+select("core/editor").getCurrentPostAttribute("meta");
 
 // $ExpectType EditorSettings
-select('core/editor').getEditorSettings();
+select("core/editor").getEditorSettings();
 
 // $ExpectType any
-select('core/editor').getPostEdits().content;
+select("core/editor").getPostEdits().content;
 // $ExpectType any
-select('core/editor').getPostEdits().author;
+select("core/editor").getPostEdits().author;
 // $ExpectType any
-select('core/editor').getPostEdits().foo;
+select("core/editor").getPostEdits().foo;
 
 // $ExpectType boolean
-select('core/editor').inSomeHistory(state => state.foo === true);
+select("core/editor").inSomeHistory(state => state.foo === true);
 
 //
 // Utils
@@ -422,10 +422,10 @@ e.mediaUpload({
 // $ExpectType void
 e.mediaUpload({
     additionalData: {
-        foo: 'foo',
-        bar: ['bar', 'baz'],
+        foo: "foo",
+        bar: ["bar", "baz"],
     },
-    allowedTypes: ['image/jpeg'],
+    allowedTypes: ["image/jpeg"],
     filesList: FILE_ARRAY,
     maxUploadFileSize: 5000,
     onError(message) {

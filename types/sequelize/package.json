@@ -1,0 +1,101 @@
+{
+    "private": true,
+    "name": "@types/sequelize",
+    "version": "4.28.9999",
+    "projects": [
+        "http://sequelizejs.com",
+        "https://github.com/sequelize/sequelize"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/continuation-local-storage": "*",
+        "@types/lodash": "*",
+        "@types/validator": "*"
+    },
+    "devDependencies": {
+        "@types/q": "*",
+        "@types/sequelize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "samuelneff",
+            "githubUsername": "samuelneff"
+        },
+        {
+            "name": "Peter Harris",
+            "githubUsername": "codeanimal"
+        },
+        {
+            "name": "Ivan Drinchev",
+            "githubUsername": "drinchev"
+        },
+        {
+            "name": "Brendan Abolivier",
+            "githubUsername": "babolivier"
+        },
+        {
+            "name": "Patsakol Tangjitcharoenchai",
+            "githubUsername": "kukoo1"
+        },
+        {
+            "name": "Sebastien Bramille",
+            "githubUsername": "oktapodia"
+        },
+        {
+            "name": "Nick Mueller",
+            "githubUsername": "morpheusxaut"
+        },
+        {
+            "name": "Philippe D'Alva",
+            "githubUsername": "TitaneBoy"
+        },
+        {
+            "name": "Carven Zhang",
+            "githubUsername": "zjy01"
+        },
+        {
+            "name": "Florian Oellerich",
+            "githubUsername": "Raigen"
+        },
+        {
+            "name": "Todd Bealmear",
+            "githubUsername": "todd"
+        },
+        {
+            "name": "Nick Schultz",
+            "githubUsername": "nrschultz"
+        },
+        {
+            "name": "Thomas Breleur",
+            "githubUsername": "thomas-b"
+        },
+        {
+            "name": "Antoine Boisadam",
+            "githubUsername": "Antoine38660"
+        },
+        {
+            "name": "Dima Smirnov",
+            "githubUsername": "smff"
+        },
+        {
+            "name": "Duy Truong",
+            "githubUsername": "truongkhanhduy95"
+        },
+        {
+            "name": "Emmanuel Gautier",
+            "githubUsername": "emmanuelgautier"
+        },
+        {
+            "name": "Dan Rumney",
+            "githubUsername": "dancrumb"
+        },
+        {
+            "name": "Kan Yueh Chen",
+            "githubUsername": "lalayueh"
+        },
+        {
+            "name": "Rohit Sud",
+            "githubUsername": "rohitsud"
+        }
+    ]
+}

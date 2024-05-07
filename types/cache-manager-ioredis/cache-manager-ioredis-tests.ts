@@ -3,9 +3,9 @@ import redisStore = require("cache-manager-ioredis");
 
 const redisCache = cacheManager.caching({
     store: redisStore,
-    host: 'localhost', // default value
+    host: "localhost", // default value
     port: 6379, // default value
-    password: 'XXXXX',
+    password: "XXXXX",
     db: 0,
     ttl: 600,
 });
@@ -16,11 +16,11 @@ const clusterCache = cacheManager.caching({
         nodes: [
             {
                 port: 6380,
-                host: '127.0.0.1'
+                host: "127.0.0.1",
             },
             {
-              port: 6381,
-              host: '127.0.0.1'
+                port: 6381,
+                host: "127.0.0.1",
             },
         ],
         options: {
@@ -33,6 +33,6 @@ const clusterCache = cacheManager.caching({
 redisCache.store.getClient();
 clusterCache.store.getClient();
 
-const memoryCache = cacheManager.caching({ store: 'memory', max: 100, ttl: 60 });
+const memoryCache = cacheManager.caching({ store: "memory", max: 100, ttl: 60 });
 
 cacheManager.multiCaching([redisCache, memoryCache]);

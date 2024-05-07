@@ -1,4 +1,4 @@
-import { BaseQuad, DatasetCore } from "rdf-js";
+import { BaseQuad, DatasetCore } from "@rdfjs/types";
 
 /**
  * Tests if the datasets a and b contain the same quads without doing a normalization step beforehand.

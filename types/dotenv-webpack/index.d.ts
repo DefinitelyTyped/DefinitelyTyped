@@ -1,13 +1,5 @@
-// Type definitions for dotenv-webpack 7.0
-// Project: https://github.com/mrsteele/dotenv-webpack
-// Definitions by: Karol Majewski <https://github.com/karol-majewski>
-//                 Dave Cardwell <https://github.com/davecardwell>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
-import { Compiler } from 'webpack';
+import { Compiler } from "webpack";
 
 /**
  * A secure webpack plugin that supports dotenv and other environment variables

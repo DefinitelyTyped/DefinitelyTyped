@@ -1,4 +1,4 @@
-import EventDispatcher from './EventDispatcher';
+import EventDispatcher from "./EventDispatcher";
 
 export default EventDispatcher;
-export * from './constants';
+export * from "./constants";

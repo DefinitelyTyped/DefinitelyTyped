@@ -1,8 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "export-just-namespace": "off",
-        "trim-file": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/export-just-namespace": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

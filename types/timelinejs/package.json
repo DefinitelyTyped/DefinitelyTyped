@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/timelinejs",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/NUKnightLab/TimelineJS"
+    ],
+    "devDependencies": {
+        "@types/timelinejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roland Zwaga",
+            "githubUsername": "rolandzwaga"
+        }
+    ]
+}

@@ -34,20 +34,14 @@
 //
 // Suspense-related handling can be found in ReactFiberThrow.js.
 
-import React = require('./canary');
+import React = require("./canary");
 
 export {};
 
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-declare module '.' {
-    // Need an interface to not cause ReactNode to be a self-referential type.
-    interface PromiseLikeOfReactNode extends PromiseLike<ReactNode> {}
-    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
-        promises: PromiseLikeOfReactNode;
-    }
-
+declare module "." {
     export interface SuspenseProps {
         /**
          * The presence of this prop indicates that the content is computationally expensive to render.
@@ -57,8 +51,8 @@ declare module '.' {
         unstable_expectedLoadTime?: number | undefined;
     }
 
-    export type SuspenseListRevealOrder = 'forwards' | 'backwards' | 'together';
-    export type SuspenseListTailMode = 'collapsed' | 'hidden';
+    export type SuspenseListRevealOrder = "forwards" | "backwards" | "together";
+    export type SuspenseListTailMode = "collapsed" | "hidden";
 
     export interface SuspenseListCommonProps {
         /**
@@ -75,7 +69,7 @@ declare module '.' {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder: 'forwards' | 'backwards';
+        revealOrder: "forwards" | "backwards";
         /**
          * Dictates how unloaded items in a SuspenseList is shown.
          *
@@ -90,7 +84,7 @@ declare module '.' {
         /**
          * Defines the order in which the `SuspenseList` children should be revealed.
          */
-        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps['revealOrder']> | undefined;
+        revealOrder?: Exclude<SuspenseListRevealOrder, DirectionalSuspenseListProps["revealOrder"]> | undefined;
         /**
          * The tail property is invalid when not using the `forwards` or `backwards` reveal orders.
          */
@@ -110,31 +104,24 @@ declare module '.' {
      * @see https://reactjs.org/docs/concurrent-mode-reference.html#suspenselist
      * @see https://reactjs.org/docs/concurrent-mode-patterns.html#suspenselist
      */
-    export const SuspenseList: ExoticComponent<SuspenseListProps>;
+    export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
 
-    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
-        functions: (formData: FormData) => void;
-    }
+    type Reference = object;
+    type TaintableUniqueValue = string | bigint | ArrayBufferView;
+    function experimental_taintUniqueValue(
+        message: string | undefined,
+        lifetime: Reference,
+        value: TaintableUniqueValue,
+    ): void;
+    function experimental_taintObjectReference(message: string | undefined, object: Reference): void;
 
-    export interface TransitionStartFunction {
+    export interface HTMLAttributes<T> {
         /**
-         * Marks all state updates inside the async function as transitions
-         *
-         * @see {https://react.dev/reference/react/ts5.0/useTransition#starttransition}
-         *
-         * @param callback
+         * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
          */
-        (callback: () => Promise<VoidOrUndefinedOnly>): void;
+        inert?: boolean | undefined;
     }
-
-    function experimental_useOptimistic<State>(
-        passthrough: State,
-    ): [State, (action: State | ((pendingState: State) => State)) => void];
-    function experimental_useOptimistic<State, Action>(
-        passthrough: State,
-        reducer: (state: State, action: Action) => State,
-    ): [State, (action: Action) => void];
 }

@@ -1,5 +1,5 @@
-import JsReport = require('jsreport-core');
-import JsReportPdfUtils = require('jsreport-pdf-utils');
+import JsReport = require("jsreport-core");
+import JsReportPdfUtils = require("jsreport-pdf-utils");
 
 (async () => {
     const jsreport = JsReport();
@@ -8,13 +8,13 @@ import JsReportPdfUtils = require('jsreport-pdf-utils');
     try {
         await jsreport.render({
             template: {
-                content: '',
-                recipe: 'docx',
-                engine: 'handlebars',
+                content: "",
+                recipe: "docx",
+                engine: "handlebars",
                 pdfOperations: [{
-                    type: 'merge'
-                }]
-            }
+                    type: "merge",
+                }],
+            },
         });
     } catch (e) {
         // intentional

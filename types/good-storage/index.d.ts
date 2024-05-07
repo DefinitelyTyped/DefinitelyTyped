@@ -1,8 +1,3 @@
-// Type definitions for good-storage 1.1
-// Project: https://github.com/ustbhuangyi/storage
-// Definitions by: Wang KaiLing <https://github.com/wkl007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Storage {
     session: Storage;
 

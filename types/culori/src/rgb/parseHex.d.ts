@@ -1,4 +1,4 @@
-import { Color } from '../common';
+import { Color } from "../common";
 
 declare function parseHex(color: string): Color;
 

@@ -5,10 +5,10 @@
  * function calls with tracing information. It also exposes a `Client` class that can be used to
  * instrument HTTP calls in a more fine-grained way.
  *
- * https://k6.io/docs/javascript-api/k6-experimental/tracing/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/tracing/
  */
 
-import { RefinedParams, RefinedResponse, RequestBody, ResponseType } from '../http';
+import { RefinedParams, RefinedResponse, RequestBody, ResponseType } from "../http";
 
 /**
  * The instrumentHTTP function instruments the k6 http module
@@ -30,7 +30,7 @@ export function instrumentHTTP(options: Options): void;
  * so that tracing backends (such as Grafana Tempo) can incorporate
  * their results.
  *
- * https://k6.io/docs/javascript-api/k6-experimental/tracing/client/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/tracing/client/
  */
 export class Client {
     protected __brand: never;
@@ -176,7 +176,7 @@ export class Client {
 /**
  * The Options object allows configuring the tracing instrumentation behavior.
  *
- * https://k6.io/docs/javascript-api/k6-experimental/tracing/options/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/tracing/options/
  */
 export interface Options {
     /**
@@ -186,7 +186,7 @@ export interface Options {
      *
      * Defaults to `w3c`.
      */
-    propagator: 'w3c' | 'jaeger';
+    propagator: "w3c" | "jaeger";
 
     /**
      * The probability of each request having
@@ -202,5 +202,5 @@ export interface Options {
  * Returned value from http.url method.
  */
 export interface HttpURL {
-    __brand: 'http-url';
+    __brand: "http-url";
 }

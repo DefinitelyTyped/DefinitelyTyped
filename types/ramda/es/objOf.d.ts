@@ -1,2 +1,2 @@
-import { objOf } from '../index';
+import { objOf } from "../index.js";
 export default objOf;

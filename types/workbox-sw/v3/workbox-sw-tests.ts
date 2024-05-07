@@ -8,4 +8,4 @@ WorkboxSW.routing.registerRoute("/", WorkboxSW.strategies.networkFirst()); // $E
 // @ts-expect-error
 WorkboxSW.precaching.precacheAndRoute(/foo/);
 
-WorkboxSW.precaching.precacheAndRoute(["some-resource.js"], {directoryIndex: "/"}); // $ExpectType void
+WorkboxSW.precaching.precacheAndRoute(["some-resource.js"], { directoryIndex: "/" }); // $ExpectType void

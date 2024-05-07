@@ -1,10 +1,3 @@
-// Type definitions for CKEDITOR 4.20
-// Project: https://ckeditor.com/ckeditor-4/, http://ckeditor.com
-// Definitions by: Thomas Wittwer <https://github.com/wittwert>
-//                 Stuart Long <https://github.com/stuartlong>
-//                 Enquier <https://github.com/enquier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // WORK-IN-PROGRESS: Any contribution support welcomed.
 // See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more information.
 

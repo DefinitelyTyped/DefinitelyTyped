@@ -1,30 +1,43 @@
-import { Object3D, SkinnedMesh, Vector3 } from '../../../src/Three.js';
+import { LineBasicMaterial, MeshBasicMaterial, Object3D, SkinnedMesh, SphereGeometry, Vector3 } from "three";
 
-// tslint:disable-next-line:interface-name
-export interface IKS {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export interface IK {
     effector: number;
-    iteration: number;
+    iteration?: number | undefined;
     links: Array<{
-        enabled: boolean;
+        enabled?: boolean | undefined;
         index: number;
-        limitation?: Vector3;
-        rotationMin?: Vector3;
-        rotationMax?: Vector3;
+        limitation?: Vector3 | undefined;
+        rotationMin?: Vector3 | undefined;
+        rotationMax?: Vector3 | undefined;
     }>;
-    minAngle: number;
-    maxAngle: number;
+    minAngle?: number | undefined;
+    maxAngle?: number | undefined;
     target: number;
 }
 
 export class CCDIKSolver {
-    constructor(mesh: SkinnedMesh, iks: IKS[]);
+    mesh: SkinnedMesh;
+    iks: IK[];
+
+    constructor(mesh: SkinnedMesh, iks?: IK[]);
 
     update(): this;
-    updateOne(iks: IKS): this;
-    createHelper(): CCDIKHelper;
+    updateOne(ik: IK): this;
+    createHelper(sphereSize?: number): CCDIKHelper;
 }
 
 export class CCDIKHelper extends Object3D {
-    constructor(mesh: SkinnedMesh, iks?: IKS[], sphereSize?: number);
+    root: SkinnedMesh;
+    iks: IK[];
+
+    sphereGeometry: SphereGeometry;
+    targetSphereMaterial: MeshBasicMaterial;
+    effectorSphereMaterial: MeshBasicMaterial;
+    linkSphereMaterial: MeshBasicMaterial;
+    lineMaterial: LineBasicMaterial;
+
+    constructor(mesh: SkinnedMesh, iks?: IK[], sphereSize?: number);
+
     dispose(): void;
 }

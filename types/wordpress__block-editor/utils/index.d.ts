@@ -1,4 +1,4 @@
-import { EditorStyle } from '../';
+import { EditorStyle } from "../";
 
 /**
  * Applies a series of CSS rule transforms to wrap selectors inside a given class and/or rewrite

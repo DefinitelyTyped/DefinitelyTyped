@@ -1,9 +1,3 @@
-// Type definitions for Bootstrap 3 Typeahead 4.0
-// Project: https://github.com/bassjobsen/Bootstrap-3-Typeahead
-// Definitions by: Anderson Friaça <https://github.com/AndersonFriaca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace Bootstrap3Typeahead {
@@ -11,12 +5,16 @@ declare namespace Bootstrap3Typeahead {
         /**
          * The data source to query against
          */
-        source?: string[] | object[] | ((query?: string, process?: ((callback: any) => string|string[]|object[])) => void) | undefined;
+        source?:
+            | string[]
+            | object[]
+            | ((query?: string, process?: (callback: any) => string | string[] | object[]) => void)
+            | undefined;
 
         /**
          * The max number of items to display in the dropdown
          */
-        items?: number | 'all' | undefined;
+        items?: number | "all" | undefined;
 
         /**
          * The minimum character length needed before triggering autocomplete suggestions
@@ -26,7 +24,7 @@ declare namespace Bootstrap3Typeahead {
         /**
          * If hints should be shown as soon as the input gets focus
          */
-        showHintOnFocus?: boolean | 'all' | undefined;
+        showHintOnFocus?: boolean | "all" | undefined;
 
         /**
          * Number of pixels the scrollable parent container scrolled down
@@ -56,7 +54,7 @@ declare namespace Bootstrap3Typeahead {
         /**
          * Method used to get textual representation of an item of the sources
          */
-        displayText?: ((item: string|{name: string}) => string) | undefined;
+        displayText?: ((item: string | { name: string }) => string) | undefined;
 
         /**
          * Allows you to dictate whether or not the first suggestion is selected automatically
@@ -66,7 +64,7 @@ declare namespace Bootstrap3Typeahead {
         /**
          * Call back function to execute after selected an item
          */
-        afterSelect?: ((this: Typeahead, item: string|object) => void) | undefined;
+        afterSelect?: ((this: Typeahead, item: string | object) => void) | undefined;
 
         /**
          * Adds a delay between lookups
@@ -99,15 +97,15 @@ interface JQuery {
     /**
      * Initialize or destroy Typeahead
      */
-    typeahead(methodOrOptions?: 'destroy' | Bootstrap3Typeahead.Options): JQuery;
+    typeahead(methodOrOptions?: "destroy" | Bootstrap3Typeahead.Options): JQuery;
 
     /**
      * To get the currently active item
      */
-    typeahead(method: 'getActive'): undefined|string|object;
+    typeahead(method: "getActive"): undefined | string | object;
 
     /**
      * To trigger the lookup function externally
      */
-    typeahead(method: 'lookup', defaultValue?: string): JQuery;
+    typeahead(method: "lookup", defaultValue?: string): JQuery;
 }

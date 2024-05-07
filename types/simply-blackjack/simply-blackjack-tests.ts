@@ -1,4 +1,4 @@
-import Blackjack = require('simply-blackjack');
+import Blackjack = require("simply-blackjack");
 
 const game = new Blackjack({
     decks: 1,
@@ -8,7 +8,7 @@ const game = new Blackjack({
     },
 });
 
-game.on('end', table => {
+game.on("end", table => {
     console.log(table);
 });
 

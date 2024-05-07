@@ -1,2 +1,2 @@
-import { constructN } from '../index';
+import { constructN } from "../index";
 export default constructN;

@@ -1,8 +1,8 @@
-import { Object3D } from './../core/Object3D.js';
-import { DirectionalLightShadow } from './DirectionalLightShadow.js';
-import { Light } from './Light.js';
-import { Vector3 } from '../math/Vector3.js';
-import { ColorRepresentation } from '../math/Color.js';
+import { Object3D } from "../core/Object3D.js";
+import { ColorRepresentation } from "../math/Color.js";
+import { Vector3 } from "../math/Vector3.js";
+import { DirectionalLightShadow } from "./DirectionalLightShadow.js";
+import { Light } from "./Light.js";
 
 /**
  * A light that gets emitted in a specific direction
@@ -49,7 +49,7 @@ export class DirectionalLight extends Light<DirectionalLightShadow> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `DirectionalLight`
      */
-    override readonly type: string | 'DirectionalLight';
+    override readonly type: string | "DirectionalLight";
 
     /**
      * Whether the object gets rendered into shadow map.

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/backbone.paginator",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/backbone-paginator/backbone.paginator"
+    ],
+    "dependencies": {
+        "@types/backbone": "*"
+    },
+    "devDependencies": {
+        "@types/backbone.paginator": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Nyamazing",
+            "githubUsername": "Nyamazing"
+        }
+    ]
+}

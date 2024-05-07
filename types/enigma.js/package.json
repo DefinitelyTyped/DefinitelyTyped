@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/enigma.js",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/qlik-oss/enigma.js/"
+    ],
+    "devDependencies": {
+        "@types/enigma.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konrad Mattheis",
+            "githubUsername": "konne"
+        }
+    ]
+}

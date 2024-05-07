@@ -1,9 +1,3 @@
-// Type definitions for @wordpress/shortcode 2.3
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/shortcode/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export interface ShortcodeAttrs {
     named: Record<string, string | undefined>;
     numeric: string[];
@@ -18,11 +12,11 @@ export interface ShortcodeMatch {
 export type Shortcode = {
     attrs: ShortcodeAttrs;
     tag: string;
-} & ({ type: 'closed'; content: string } | { type: 'self-closing' | 'single' });
+} & ({ type: "closed"; content: string } | { type: "self-closing" | "single" });
 
 export interface ShortcodeOptions {
     tag: string;
-    type?: 'closed' | 'self-closing' | 'single' | undefined;
+    type?: "closed" | "self-closing" | "single" | undefined;
     attrs?: Partial<ShortcodeAttrs> | string | undefined;
     content?: string | undefined;
 }
@@ -131,7 +125,7 @@ export default class shortcode {
     attrs: ShortcodeAttrs;
     content?: string | undefined;
     tag?: string | undefined;
-    type?: 'closed' | 'self-closing' | 'single' | undefined;
+    type?: "closed" | "self-closing" | "single" | undefined;
 
     constructor(options?: Partial<ShortcodeOptions>);
 

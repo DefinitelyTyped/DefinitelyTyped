@@ -1,9 +1,3 @@
-// Type definitions for foreach 2.0
-// Project: https://github.com/manuelstofer/foreach
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Performs the specified action for each element in an array.
  *

@@ -1,12 +1,6 @@
-// Type definitions for @emartech/cls-adapter 1.3
-// Project: https://github.com/emartech/cls-adapter
-// Definitions by: Lex Webb <https://github.com/lexwebb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-import * as Koa from "koa";
-import * as Express from 'express';
 import * as CLS from "cls-hooked";
+import * as Express from "express";
+import * as Koa from "koa";
 
 declare class ContextFactory {
     private _namespace: CLS.Namespace;
@@ -33,7 +27,7 @@ declare class ContextFactory {
     /**
      * Returns the all the values set on the storage.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     static getContextStorage: <T = Record<string, unknown>>() => T & {
         requestId: string;
     };
@@ -52,7 +46,7 @@ declare class ContextFactory {
      * Returns a function that extends the given object with the request identifier set on the current storage.
      */
     static addRequestIdToInput: () => <T extends {}>(
-        input: T
+        input: T,
     ) => T & { requestId: string };
 
     /**

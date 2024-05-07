@@ -4,7 +4,7 @@ export class PSD {
     resources?: PSD.Resources;
     layerMask?: PSD.LayerMask;
     image?: PSD.Image;
-    get layers(): PSD.LayerMask['layers'];
+    get layers(): PSD.LayerMask["layers"];
 
     /**
      * Creates a new PSD object. Typically you will use a helper method to
@@ -84,13 +84,13 @@ export namespace PSD {
     }
 
     interface HeaderExport {
-        sig: Header['sig'];
-        version: Header['version'];
-        channels: Header['channels'];
-        rows: Header['rows'];
-        cols: Header['cols'];
-        depth: Header['depth'];
-        mode: Header['mode'];
+        sig: Header["sig"];
+        version: Header["version"];
+        channels: Header["channels"];
+        rows: Header["rows"];
+        cols: Header["cols"];
+        depth: Header["depth"];
+        mode: Header["mode"];
     }
 
     // lib/psd/resources.coffee
@@ -110,7 +110,7 @@ export namespace PSD {
         // lib/psd/resources/layer_comps.coffee
         interface LayerComps {
             id: 1065;
-            name: 'layerComps';
+            name: "layerComps";
             data: DescriptorData;
 
             names(): string[];
@@ -120,14 +120,14 @@ export namespace PSD {
         // lib/psd/resources/layer_links.coffee
         interface LayerLinks {
             id: 1026;
-            name: 'LinkLayers';
+            name: "LinkLayers";
             linkArray: number[];
         }
 
         // lib/psd/resources/resolution_info.coffee
         interface ResolutionInfo {
             id: 1005;
-            name: 'resolutionInfo';
+            name: "resolutionInfo";
             /** 32-bit fixed-point number (16.16) */
             h_res: number;
             h_res_unit: number;
@@ -149,8 +149,8 @@ export namespace PSD {
 
         interface Guides {
             id: 1032;
-            name: 'guides';
-            data: Array<{ location: string; direction: 'horizontal' | 'vertical' }>;
+            name: "guides";
+            data: Array<{ location: string; direction: "horizontal" | "vertical" }>;
         }
     }
 
@@ -208,13 +208,13 @@ export namespace PSD {
     }
 
     type DescriptorReferenceItem =
-        | { type: 'prop'; value: DescriptorProperty }
-        | { type: 'Clss'; value: DescriptorClass }
-        | { type: 'Enmr'; value: DescriptorEnumReference }
-        | { type: 'Idnt'; value: number } // identifier
-        | { type: 'indx'; value: number } // index
-        | { type: 'name'; value: string }
-        | { type: 'rele'; value: number }; // offset
+        | { type: "prop"; value: DescriptorProperty }
+        | { type: "Clss"; value: DescriptorClass }
+        | { type: "Enmr"; value: DescriptorEnumReference }
+        | { type: "Idnt"; value: number } // identifier
+        | { type: "indx"; value: number } // index
+        | { type: "name"; value: string }
+        | { type: "rele"; value: number }; // offset
 
     /** A Property, which consists of a class and a unique ID. */
     interface DescriptorProperty {
@@ -237,14 +237,14 @@ export namespace PSD {
      * An object with an ID, a unit, and a value.
      */
     type DescriptorUnit =
-        | { unitId: '#Ang'; unit: 'Angle'; value: number }
-        | { unitId: '#Rsl'; unit: 'Density'; value: number }
-        | { unitId: '#Rlt'; unit: 'Distance'; value: number }
-        | { unitId: '#Nne'; unit: 'None'; value: number }
-        | { unitId: '#Prc'; unit: 'Percent'; value: number }
-        | { unitId: '#Pxl'; unit: 'Pixels'; value: number }
-        | { unitId: '#Mlm'; unit: 'Millimeters'; value: number }
-        | { unitId: '#Pnt'; unit: 'Points'; value: number };
+        | { unitId: "#Ang"; unit: "Angle"; value: number }
+        | { unitId: "#Rsl"; unit: "Density"; value: number }
+        | { unitId: "#Rlt"; unit: "Distance"; value: number }
+        | { unitId: "#Nne"; unit: "None"; value: number }
+        | { unitId: "#Prc"; unit: "Percent"; value: number }
+        | { unitId: "#Pxl"; unit: "Pixels"; value: number }
+        | { unitId: "#Mlm"; unit: "Millimeters"; value: number }
+        | { unitId: "#Pnt"; unit: "Points"; value: number };
 
     // lib/psd/channel_image.coffee
     /**
@@ -328,14 +328,14 @@ export namespace PSD {
         // Mixin from lib/psd/layer/blend_modes.coffee
         blendMode: BlendMode;
 
-        opacity: BlendMode['opacity'];
-        visible: BlendMode['visible'];
-        clipped: BlendMode['clipped'];
+        opacity: BlendMode["opacity"];
+        visible: BlendMode["visible"];
+        clipped: BlendMode["clipped"];
 
         /** Opposite of {@link Layer.visible} */
         hidden(): boolean;
 
-        blendingMode(): BlendMode['mode'];
+        blendingMode(): BlendMode["mode"];
 
         // Mixin from lib/psd/layer/mask.coffee
         mask: Mask;
@@ -437,7 +437,7 @@ export namespace PSD {
 
     type NodeChildren = Node.Group | Node.Layer;
     type NodeParent = Node.Group | Node.Root;
-    type NodeType = 'node' | 'layer' | 'group' | 'root';
+    type NodeType = "node" | "layer" | "group" | "root";
 
     // lib/psd/node.coffee
     /**
@@ -477,8 +477,8 @@ export namespace PSD {
         ): NodeChildren[];
 
         // Mixin from lib/psd/nodes/build_preview.coffee
-        toPng(): ReturnType<Image['toPng']>;
-        saveAsPng(): ReturnType<Image['saveAsPng']>;
+        toPng(): ReturnType<Image["toPng"]>;
+        saveAsPng(): ReturnType<Image["saveAsPng"]>;
 
         type: NodeType;
 
@@ -575,10 +575,10 @@ export namespace PSD {
     }
 
     interface NodeExport {
-        type: Node['type'];
+        type: Node["type"];
         visible: boolean;
         opacity: number;
-        blendingMode: ReturnType<Layer['blendingMode']>;
+        blendingMode: ReturnType<Layer["blendingMode"]>;
         name: string;
         left: number;
         right: number;
@@ -593,14 +593,14 @@ export namespace PSD {
         interface Group extends Node {
             parent: NodeParent;
 
-            type: 'group';
+            type: "group";
             passthruBlending(): boolean;
             isEmpty(): boolean;
             export(): GroupExport;
         }
 
         interface GroupExport extends NodeExport {
-            type: 'group';
+            type: "group";
             children: ChildrenExport[];
         }
 
@@ -609,13 +609,13 @@ export namespace PSD {
         interface Layer extends Node {
             parent: NodeParent;
 
-            type: 'layer';
+            type: "layer";
             isEmpty(): boolean;
             export(): LayerExport;
         }
 
         interface LayerExport extends NodeExport {
-            type: 'layer';
+            type: "layer";
             mask: MaskExport;
             text: any;
             image: EmptyObject;
@@ -625,7 +625,7 @@ export namespace PSD {
         interface Root extends Node {
             parent: null;
 
-            type: 'root';
+            type: "root";
 
             psd: PSD;
 
@@ -655,65 +655,65 @@ export namespace PSD {
 
     // lib/psd/blend_mode.coffee
     type BlendModeKey =
-        | 'norm'
-        | 'dark'
-        | 'lite'
-        | 'hue'
-        | 'sat'
-        | 'colr'
-        | 'lum'
-        | 'mul'
-        | 'scrn'
-        | 'diss'
-        | 'over'
-        | 'hLit'
-        | 'sLit'
-        | 'diff'
-        | 'smud'
-        | 'div'
-        | 'idiv'
-        | 'lbrn'
-        | 'lddg'
-        | 'vLit'
-        | 'lLit'
-        | 'pLit'
-        | 'hMix'
-        | 'pass'
-        | 'dkCl'
-        | 'lgCl'
-        | 'fsub'
-        | 'fdiv';
+        | "norm"
+        | "dark"
+        | "lite"
+        | "hue"
+        | "sat"
+        | "colr"
+        | "lum"
+        | "mul"
+        | "scrn"
+        | "diss"
+        | "over"
+        | "hLit"
+        | "sLit"
+        | "diff"
+        | "smud"
+        | "div"
+        | "idiv"
+        | "lbrn"
+        | "lddg"
+        | "vLit"
+        | "lLit"
+        | "pLit"
+        | "hMix"
+        | "pass"
+        | "dkCl"
+        | "lgCl"
+        | "fsub"
+        | "fdiv";
 
     // lib/psd/blend_mode.coffee
     type BlendModeName =
-        | 'normal'
-        | 'darken'
-        | 'lighten'
-        | 'hue'
-        | 'saturation'
-        | 'color'
-        | 'luminosity'
-        | 'multiply'
-        | 'screen'
-        | 'dissolve'
-        | 'overlay'
-        | 'hard_light'
-        | 'soft_light'
-        | 'difference'
-        | 'exclusion'
-        | 'color_dodge'
-        | 'color_burn'
-        | 'linear_burn'
-        | 'linear_dodge'
-        | 'vivid_light'
-        | 'linear_light'
-        | 'pin_light'
-        | 'hard_mix'
-        | 'passthru'
-        | 'darker_color'
-        | 'lighter_color'
-        | 'subtract'
-        | 'divide';
+        | "normal"
+        | "darken"
+        | "lighten"
+        | "hue"
+        | "saturation"
+        | "color"
+        | "luminosity"
+        | "multiply"
+        | "screen"
+        | "dissolve"
+        | "overlay"
+        | "hard_light"
+        | "soft_light"
+        | "difference"
+        | "exclusion"
+        | "color_dodge"
+        | "color_burn"
+        | "linear_burn"
+        | "linear_dodge"
+        | "vivid_light"
+        | "linear_light"
+        | "pin_light"
+        | "hard_mix"
+        | "passthru"
+        | "darker_color"
+        | "lighter_color"
+        | "subtract"
+        | "divide";
 
     // lib/psd/blend_mode.coffee
     interface BlendMode {
@@ -761,16 +761,16 @@ export namespace PSD {
     }
 
     interface MaskExport {
-        top: Mask['top'];
-        left: Mask['left'];
-        bottom: Mask['bottom'];
-        right: Mask['right'];
-        width: Mask['width'];
-        height: Mask['height'];
-        defaultColor: Mask['defaultColor'];
-        relative: Mask['relative'];
-        disabled: Mask['disabled'];
-        invert: Mask['invert'];
+        top: Mask["top"];
+        left: Mask["left"];
+        bottom: Mask["bottom"];
+        right: Mask["right"];
+        width: Mask["width"];
+        height: Mask["height"];
+        defaultColor: Mask["defaultColor"];
+        relative: Mask["relative"];
+        disabled: Mask["disabled"];
+        invert: Mask["invert"];
     }
 
     type EmptyObject = Record<string, never>;

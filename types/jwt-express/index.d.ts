@@ -1,9 +1,3 @@
-// Type definitions for jwt-express 1.1
-// Project: https://github.com/AustP/jwt-express#readme
-// Definitions by: Nick Paddock <https://github.com/nickp10>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import express = require("express");
@@ -191,7 +185,10 @@ export function create(secret: string | ((payload: any) => string), payload: any
  * @param options The options of jwt-express.
  * @return Express middleware
  */
-export function init(secret: string | ((req: express.Request) => string), options?: JWTExpressOptions): express.RequestHandler;
+export function init(
+    secret: string | ((req: express.Request) => string),
+    options?: JWTExpressOptions,
+): express.RequestHandler;
 
 /**
  * Returns a middleware function that requires the payload to contain / match certain data.

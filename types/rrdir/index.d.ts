@@ -1,26 +1,17 @@
-// Type definitions for rrdir 8.2
-// Project: https://github.com/silverwind/rrdir#readme
-// Definitions by: Zhang Nan <https://github.com/anyone-developer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as fs from "fs";
-import { PicomatchOptions } from "picomatch";
 
-interface rrdir {
-    async(dir: string, options?: Options): Promise<Array<Entry<string>>>;
-    async(dir: Buffer, options?: Options): Promise<Array<Entry<Buffer>>>;
+declare function rrdirAsync(dir: string, options?: Options): Promise<Array<Entry<string>>>;
+declare function rrdirAsync(dir: Uint8Array, options?: Options): Promise<Array<Entry<Uint8Array>>>;
 
-    sync(dir: string, options?: Options): Array<Entry<string>>;
-    sync(dir: Buffer, options?: Options): Array<Entry<Buffer>>;
+declare function rrdirSync(dir: string, options?: Options): Array<Entry<string>>;
+declare function rrdirSync(dir: Uint8Array, options?: Options): Array<Entry<Uint8Array>>;
 
-    (dir: string, options?: Options): AsyncIterable<Entry<string>>;
-    (dir: Buffer, options?: Options): AsyncIterable<Entry<Buffer>>;
-}
+declare function rrdir(dir: string, options?: Options): AsyncIterable<Entry<string>>;
+declare function rrdir(dir: Uint8Array, options?: Options): AsyncIterable<Entry<Uint8Array>>;
 
-declare const c: rrdir;
-export = c;
+export { rrdir, rrdirAsync, rrdirSync };
 
 interface Options {
     stats?: boolean | undefined;
@@ -28,10 +19,10 @@ interface Options {
     exclude?: string[] | undefined;
     include?: string[] | undefined;
     strict?: boolean | undefined;
-    match?: PicomatchOptions | undefined;
+    insensitive?: boolean | undefined;
 }
 
-interface Entry<T extends string | Buffer> {
+interface Entry<T extends string | Uint8Array> {
     path: T;
     directory?: boolean | undefined;
     symlink?: boolean | undefined;

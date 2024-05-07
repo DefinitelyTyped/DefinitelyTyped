@@ -3,15 +3,15 @@ import Source, { SourceOptions } from "./Source";
 export interface TMSSourceOptions extends SourceOptions {
     url: string;
     tileMatrixSetLimits?: any;
-    tileMatrixCallback?: (zoomLevel: number) => string;
+    tileMatrixCallback?: (level: number) => string;
     isInverted?: boolean;
-    zoom?: { min: number, max: number };
+    zoom?: { min: number; max: number };
 }
 
 declare class TMSSource extends Source {
     constructor(source: TMSSourceOptions);
 
-    readonly isTMSSource: boolean;
+    readonly isTMSSource: true;
 
     // TODO: tileMatrixSet: string
 

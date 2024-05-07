@@ -13,8 +13,8 @@ export class CanvasDriver extends VideoNullDriver {
     getTextureFromCanvas(canvas: any): Texture;
     get context(): CanvasRenderingContext2D;
 }
-import { VideoNullDriver } from '../VideoNullDriver';
-import { GameObject } from '../../core/GameObject';
-import { RenderSession } from '../RenderSession';
-import { Renderer } from '../Renderer';
-import { Texture } from '../../textures/Texture';
+import { GameObject } from "../../core/GameObject";
+import { Texture } from "../../textures/Texture";
+import { Renderer } from "../Renderer";
+import { RenderSession } from "../RenderSession";
+import { VideoNullDriver } from "../VideoNullDriver";

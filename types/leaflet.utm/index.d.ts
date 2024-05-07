@@ -1,12 +1,6 @@
-// Type definitions for Leaflet.UTM 0.0
-// Project: https://github.com/jjimenezshaw/Leaflet.UTM
-// Definitions by: Andrew Lineyschikov <https://github.com/Elcaten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     function utm(params: { x: number; y: number; zone: number; band: string; southHemi: boolean }): Utm;
 
     namespace Utm {
@@ -37,7 +31,7 @@ declare module 'leaflet' {
             params:
                 | ToStringOptions
                 | ((opts: ToStringOptions, defaultOpts: ToStringOptions) => ToStringOptions)
-                | null
+                | null,
         ): void;
     }
 

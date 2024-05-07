@@ -1,4 +1,4 @@
-import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import { JetElement, JetElementCustomEvent, JetSetPropertyType, JetSettableProperties } from "..";
 export interface ModuleElementAnimation {
     animate(context: {
         node: Node;
@@ -27,7 +27,7 @@ export interface ModuleElementAnimation {
 export interface ojModule extends JetElement<ojModuleSettableProperties> {
     animation: object;
     config: {
-        cleanupMode?: 'onDisconnect' | 'none' | undefined;
+        cleanupMode?: "onDisconnect" | "none" | undefined;
         view: Node[];
         viewModel: object | null;
     };
@@ -37,7 +37,11 @@ export interface ojModule extends JetElement<ojModuleSettableProperties> {
     onOjTransitionStart: ((event: ojModule.ojTransitionStart) => any) | null;
     onOjViewConnected: ((event: ojModule.ojViewConnected) => any) | null;
     onOjViewDisconnected: ((event: ojModule.ojViewDisconnected) => any) | null;
-    addEventListener<T extends keyof ojModuleEventMap>(type: T, listener: (this: HTMLElement, ev: ojModuleEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojModuleEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojModuleEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojModuleSettableProperties>(property: T): ojModule[T];
     getProperty(property: string): any;
@@ -46,40 +50,48 @@ export interface ojModule extends JetElement<ojModuleSettableProperties> {
     setProperties(properties: ojModuleSettablePropertiesLenient): void;
 }
 export namespace ojModule {
-    interface ojTransitionEnd extends CustomEvent<{
-        viewModel: object;
-        [propName: string]: any;
-    }> {
+    interface ojTransitionEnd extends
+        CustomEvent<{
+            viewModel: object;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojTransitionStart extends CustomEvent<{
-        viewModel: object;
-        [propName: string]: any;
-    }> {
+    interface ojTransitionStart extends
+        CustomEvent<{
+            viewModel: object;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojViewConnected extends CustomEvent<{
-        viewModel: object;
-        [propName: string]: any;
-    }> {
+    interface ojViewConnected extends
+        CustomEvent<{
+            viewModel: object;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojViewDisconnected extends CustomEvent<{
-        viewModel: object;
-        view: Node[];
-        [propName: string]: any;
-    }> {
+    interface ojViewDisconnected extends
+        CustomEvent<{
+            viewModel: object;
+            view: Node[];
+            [propName: string]: any;
+        }>
+    {
     }
 }
 export interface ojModuleEventMap extends HTMLElementEventMap {
-    'ojTransitionEnd': ojModule.ojTransitionEnd;
-    'ojTransitionStart': ojModule.ojTransitionStart;
-    'ojViewConnected': ojModule.ojViewConnected;
-    'ojViewDisconnected': ojModule.ojViewDisconnected;
-    'animationChanged': JetElementCustomEvent<ojModule["animation"]>;
-    'configChanged': JetElementCustomEvent<ojModule["config"]>;
+    "ojTransitionEnd": ojModule.ojTransitionEnd;
+    "ojTransitionStart": ojModule.ojTransitionStart;
+    "ojViewConnected": ojModule.ojViewConnected;
+    "ojViewDisconnected": ojModule.ojViewDisconnected;
+    "animationChanged": JetElementCustomEvent<ojModule["animation"]>;
+    "configChanged": JetElementCustomEvent<ojModule["config"]>;
 }
 export interface ojModuleSettableProperties extends JetSettableProperties {
     animation: object;
     config: {
-        cleanupMode?: 'onDisconnect' | 'none' | undefined;
+        cleanupMode?: "onDisconnect" | "none" | undefined;
         view: Node[];
         viewModel: object | null;
     };

@@ -1,26 +1,20 @@
-// Type definitions for accounting.js 0.4
-// Project: http://openexchangerates.github.io/accounting.js/
-// Definitions by: Sergey Gerasimov <https://github.com/gerich-home>
-//                 Christopher Eck <https://github.com/chrisleck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace accounting {
     interface CurrencyFormat {
-        pos: string;         // for positive values, eg. "$ 1.00"
-        neg?: string | undefined;        // for negative values, eg. "$ (1.00)"
-        zero?: string | undefined;       // for zero values, eg. "$  --"
+        pos: string; // for positive values, eg. "$ 1.00"
+        neg?: string | undefined; // for negative values, eg. "$ (1.00)"
+        zero?: string | undefined; // for zero values, eg. "$  --"
     }
 
     interface CurrencySettings<TFormat> {
-        symbol?: string | undefined;     // default currency symbol is '$'
-        format?: TFormat | undefined;    // controls output: %s = symbol, %v = value/number
-        decimal?: string | undefined;    // decimal point separator
-        thousand?: string | undefined;   // thousands separator
-        precision?: number | undefined;   // decimal places
+        symbol?: string | undefined; // default currency symbol is '$'
+        format?: TFormat | undefined; // controls output: %s = symbol, %v = value/number
+        decimal?: string | undefined; // decimal point separator
+        thousand?: string | undefined; // thousands separator
+        precision?: number | undefined; // decimal places
     }
 
     interface NumberSettings {
-        precision?: number | undefined;  // default precision on numbers is 0
+        precision?: number | undefined; // default precision on numbers is 0
         thousand?: string | undefined;
         decimal?: string | undefined;
     }
@@ -32,22 +26,63 @@ declare namespace accounting {
 
     interface Static {
         // format any number or stringified number into currency
-        formatMoney(number: number | string, symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string;
-        formatMoney(number: number | string, options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string;
+        formatMoney(
+            number: number | string,
+            symbol?: string,
+            precision?: number,
+            thousand?: string,
+            decimal?: string,
+            format?: string,
+        ): string;
+        formatMoney(
+            number: number | string,
+            options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>,
+        ): string;
 
-        formatMoney(numbers: number[], symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string[];
+        formatMoney(
+            numbers: number[],
+            symbol?: string,
+            precision?: number,
+            thousand?: string,
+            decimal?: string,
+            format?: string,
+        ): string[];
         formatMoney(numbers: number[], options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string[];
 
         // generic case (any array of numbers)
-        formatMoney(numbers: any[], symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): any[];
+        formatMoney(
+            numbers: any[],
+            symbol?: string,
+            precision?: number,
+            thousand?: string,
+            decimal?: string,
+            format?: string,
+        ): any[];
         formatMoney(numbers: any[], options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): any[];
 
         // format a list of values for column-display
-        formatColumn(numbers: number[], symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string[];
+        formatColumn(
+            numbers: number[],
+            symbol?: string,
+            precision?: number,
+            thousand?: string,
+            decimal?: string,
+            format?: string,
+        ): string[];
         formatColumn(numbers: number[], options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string[];
 
-        formatColumn(numbers: number[][], symbol?: string, precision?: number, thousand?: string, decimal?: string, format?: string): string[][];
-        formatColumn(numbers: number[][], options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>): string[][];
+        formatColumn(
+            numbers: number[][],
+            symbol?: string,
+            precision?: number,
+            thousand?: string,
+            decimal?: string,
+            format?: string,
+        ): string[][];
+        formatColumn(
+            numbers: number[][],
+            options: CurrencySettings<string> | CurrencySettings<CurrencyFormat>,
+        ): string[][];
 
         // format a number with custom precision and localisation
         formatNumber(number: number, precision?: number, thousand?: string, decimal?: string): string;

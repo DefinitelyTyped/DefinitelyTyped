@@ -1,2 +1,2 @@
-import { match } from '../index';
+import { match } from "../index.js";
 export default match;

@@ -11,19 +11,19 @@ const SnackbarComponentTest = () => (
             visible={true}
         />
     </View>
-    );
+);
 
 const WithRendererTextMessage = () => (
     <View>
         <SnackbarComponent
             autoHidingTime={2000}
             actionText={"OPEN"}
-            textMessage={<Text>{'Hello'}</Text>}
+            textMessage={<Text>{"Hello"}</Text>}
             visible={true}
             bottom={8}
         />
     </View>
-    );
+);
 
 const WithAnimatedValues = () => {
     const bottom = React.useRef(new Animated.Value(8)).current;
@@ -33,19 +33,20 @@ const WithAnimatedValues = () => {
         <SnackbarComponent
             autoHidingTime={2000}
             actionText={"OPEN"}
-            textMessage={'Hello'}
+            textMessage={"Hello"}
             bottom={bottom}
             left={left}
             right={right}
             visible={true}
-        />);
+        />
+    );
 };
 
 const WithStyles = () => {
     return (
         <SnackbarComponent
             actionText={"OPEN"}
-            textMessage={'Hello'}
+            textMessage={"Hello"}
             position="top"
             containerStyle={styles.container}
             messageStyle={styles.message}
@@ -55,11 +56,11 @@ const WithStyles = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'red',
-        flexDirection: 'row'
+        backgroundColor: "red",
+        flexDirection: "row",
     },
     message: {
-        color: 'blue',
-        fontSize: 40
-    }
+        color: "blue",
+        fontSize: 40,
+    },
 });

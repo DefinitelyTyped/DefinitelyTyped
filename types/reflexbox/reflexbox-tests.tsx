@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { Flex, Box } from 'reflexbox';
-import * as Styled from 'reflexbox/styled-components';
+import * as React from "react";
+import { Box, Flex } from "reflexbox";
+import * as Styled from "reflexbox/styled-components";
 
 const test = () => (
     <div>
@@ -79,28 +79,28 @@ const test = () => (
         <Box color="#f00" />
         // alignItems (responsive)
         <Flex alignItems="center" />
-        <Flex alignItems={['center']} />
-        <Flex alignItems={{ sm: 'center' }} />
+        <Flex alignItems={["center"]} />
+        <Flex alignItems={{ sm: "center" }} />
         // justifyContent (responsive)
         <Flex justifyContent="center" />
-        <Flex justifyContent={['center']} />
-        <Flex justifyContent={{ sm: 'center' }} />
+        <Flex justifyContent={["center"]} />
+        <Flex justifyContent={{ sm: "center" }} />
         // flexWrap (responsive)
         <Flex flexWrap="wrap" />
-        <Flex flexWrap={['wrap']} />
-        <Flex flexWrap={{ sm: 'wrap' }} />
+        <Flex flexWrap={["wrap"]} />
+        <Flex flexWrap={{ sm: "wrap" }} />
         // flexDirection (responsive)
         <Flex flexDirection="column" />
-        <Flex flexDirection={['column']} />
-        <Flex flexDirection={{ sm: 'column' }} />
+        <Flex flexDirection={["column"]} />
+        <Flex flexDirection={{ sm: "column" }} />
         // flex (responsive)
         <Box flex="1 1 auto" />
-        <Box flex={['1 1 auto']} />
-        <Box flex={{ sm: '1 1 auto' }} />
+        <Box flex={["1 1 auto"]} />
+        <Box flex={{ sm: "1 1 auto" }} />
         // alignSelf (responsive)
         <Box alignSelf="center" />
-        <Box alignSelf={['center']} />
-        <Box alignSelf={{ sm: 'center' }} />
+        <Box alignSelf={["center"]} />
+        <Box alignSelf={{ sm: "center" }} />
         // as
         <Box as="span" />
         <Box as={Layout} />

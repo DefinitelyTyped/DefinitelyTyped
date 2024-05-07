@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Microsoft Office 16.0 Object Library - Office 16.0
-// Project: https://msdn.microsoft.com/VBA/Office-Shared-VBA/articles/office-vba-object-library-reference
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-stdole" />
 /// <reference types="activex-outlook" />
 
@@ -3473,7 +3467,7 @@ declare namespace Office {
     }
 
     class AnswerWizard {
-        private 'Office.AnswerWizard_typekey': AnswerWizard;
+        private "Office.AnswerWizard_typekey": AnswerWizard;
         private constructor();
         readonly Application: any;
         ClearFileList(): void;
@@ -3495,7 +3489,7 @@ declare namespace Office {
     }
 
     class Assistant {
-        private 'Office.Assistant_typekey': Assistant;
+        private "Office.Assistant_typekey": Assistant;
         private constructor();
         ActivateWizard(WizardID: number, act: MsoWizardActType, Animation?: MsoAnimationType): void;
         Animation: MsoAnimationType;
@@ -3505,7 +3499,15 @@ declare namespace Office {
         AssistWithWizards: boolean;
         readonly BalloonError: MsoBalloonErrorType;
         readonly Creator: number;
-        DoAlert(bstrAlertTitle: string, bstrAlertText: string, alb: MsoAlertButtonType, alc: MsoAlertIconType, ald: MsoAlertDefaultType, alq: MsoAlertCancelType, varfSysAlert: boolean): number;
+        DoAlert(
+            bstrAlertTitle: string,
+            bstrAlertText: string,
+            alb: MsoAlertButtonType,
+            alc: MsoAlertIconType,
+            ald: MsoAlertDefaultType,
+            alq: MsoAlertCancelType,
+            varfSysAlert: boolean,
+        ): number;
         EndWizard(WizardID: number, varfSuccess: boolean, Animation?: MsoAnimationType): void;
         FeatureTips: boolean;
         FileName: string;
@@ -3526,14 +3528,24 @@ declare namespace Office {
         ResetTips(): void;
         SearchWhenProgramming: boolean;
         Sounds: boolean;
-        StartWizard(On: boolean, Callback: string, PrivateX: number, Animation?: MsoAnimationType, CustomTeaser?: any, Top?: number, Left?: number, Bottom?: number, Right?: number): number;
+        StartWizard(
+            On: boolean,
+            Callback: string,
+            PrivateX: number,
+            Animation?: MsoAnimationType,
+            CustomTeaser?: any,
+            Top?: number,
+            Left?: number,
+            Bottom?: number,
+            Right?: number,
+        ): number;
         TipOfDay: boolean;
         Top: number;
         Visible: boolean;
     }
 
     class Balloon {
-        private 'Office.Balloon_typekey': Balloon;
+        private "Office.Balloon_typekey": Balloon;
         private constructor();
         Animation: MsoAnimationType;
         readonly Application: any;
@@ -3556,7 +3568,7 @@ declare namespace Office {
     }
 
     class BalloonCheckbox {
-        private 'Office.BalloonCheckbox_typekey': BalloonCheckbox;
+        private "Office.BalloonCheckbox_typekey": BalloonCheckbox;
         private constructor();
         readonly Application: any;
         Checked: boolean;
@@ -3579,7 +3591,7 @@ declare namespace Office {
 
     class BalloonLabel {
         private constructor();
-        private 'Office.BalloonLabel_typekey': BalloonLabel;
+        private "Office.BalloonLabel_typekey": BalloonLabel;
         readonly Application: any;
         readonly Creator: number;
         readonly Item: string;
@@ -3599,7 +3611,7 @@ declare namespace Office {
     }
 
     class BulletFormat2 {
-        private 'Office.BulletFormat2_typekey': BulletFormat2;
+        private "Office.BulletFormat2_typekey": BulletFormat2;
         private constructor();
         readonly Application: any;
         Character: number;
@@ -3618,7 +3630,7 @@ declare namespace Office {
     }
 
     class CalloutFormat {
-        private 'Office.CalloutFormat_typekey': CalloutFormat;
+        private "Office.CalloutFormat_typekey": CalloutFormat;
         private constructor();
         Accent: MsoTriState;
         Angle: MsoCalloutAngleType;
@@ -3650,11 +3662,28 @@ declare namespace Office {
          * @param Width [Width=-1]
          * @param Height [Height=-1]
          */
-        AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPicture(
+            FileName: string,
+            LinkToFile: MsoTriState,
+            SaveWithDocument: MsoTriState,
+            Left: number,
+            Top: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
         AddPolyline(SafeArrayOfPoints: SafeArray<number>): Shape;
         AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
         AddTextbox(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        AddTextEffect(PresetTextEffect: MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: MsoTriState, FontItalic: MsoTriState, Left: number, Top: number): Shape;
+        AddTextEffect(
+            PresetTextEffect: MsoPresetTextEffect,
+            Text: string,
+            FontName: string,
+            FontSize: number,
+            FontBold: MsoTriState,
+            FontItalic: MsoTriState,
+            Left: number,
+            Top: number,
+        ): Shape;
         readonly Application: any;
         readonly Background: Shape;
         BuildFreeform(EditingType: MsoEditingType, X1: number, Y1: number): FreeformBuilder;
@@ -3668,7 +3697,7 @@ declare namespace Office {
     }
 
     class ChartColorFormat {
-        private 'Office.ChartColorFormat_typekey': ChartColorFormat;
+        private "Office.ChartColorFormat_typekey": ChartColorFormat;
         private constructor();
         readonly _Default: number;
         readonly Application: any;
@@ -3680,7 +3709,7 @@ declare namespace Office {
     }
 
     class ChartFillFormat {
-        private 'Office.ChartFillFormat_typekey': ChartFillFormat;
+        private "Office.ChartFillFormat_typekey": ChartFillFormat;
         private constructor();
         readonly Application: any;
         readonly BackColor: ChartColorFormat;
@@ -3709,7 +3738,7 @@ declare namespace Office {
     }
 
     class ChartFont {
-        private 'Office.ChartFont_typekey': ChartFont;
+        private "Office.ChartFont_typekey": ChartFont;
         private constructor();
         readonly Application: any;
         Background: any;
@@ -3731,7 +3760,7 @@ declare namespace Office {
     }
 
     class ColorFormat {
-        private 'Office.ColorFormat_typekey': ColorFormat;
+        private "Office.ColorFormat_typekey": ColorFormat;
         private constructor();
         readonly Application: any;
         Brightness: number;
@@ -3745,7 +3774,7 @@ declare namespace Office {
     }
 
     class COMAddIn {
-        private 'Office.COMAddIn_typekey': COMAddIn;
+        private "Office.COMAddIn_typekey": COMAddIn;
         private constructor();
         readonly Application: any;
         Connect: boolean;
@@ -3769,7 +3798,7 @@ declare namespace Office {
     }
 
     class CommandBar {
-        private 'Office.CommandBar_typekey': CommandBar;
+        private "Office.CommandBar_typekey": CommandBar;
         private constructor();
         accChild(varChild: any): any;
         readonly accChildCount: number;
@@ -3820,7 +3849,7 @@ declare namespace Office {
     }
 
     class CommandBarButton {
-        private 'Office.CommandBarButton_typekey': CommandBarButton;
+        private "Office.CommandBarButton_typekey": CommandBarButton;
         private constructor();
         accChild(varChild: any): any;
         readonly accChildCount: number;
@@ -3895,7 +3924,7 @@ declare namespace Office {
     }
 
     class CommandBarComboBox {
-        private 'Office.CommandBarComboBox_typekey': CommandBarComboBox;
+        private "Office.CommandBarComboBox_typekey": CommandBarComboBox;
         private constructor();
         accChild(varChild: any): any;
         readonly accChildCount: number;
@@ -3971,7 +4000,7 @@ declare namespace Office {
     }
 
     class CommandBarControl {
-        private 'Office.CommandBarControl_typekey': CommandBarControl;
+        private "Office.CommandBarControl_typekey": CommandBarControl;
         private constructor();
         accChild(varChild: any): any;
         readonly accChildCount: number;
@@ -4035,7 +4064,18 @@ declare namespace Office {
     }
 
     interface CommandBarControls {
-        Add(Type?: MsoControlType.msoControlButton | MsoControlType.msoControlEdit | MsoControlType.msoControlDropdown | MsoControlType.msoControlComboBox | MsoControlType.msoControlPopup, Id?: number, Parameter?: any, Before?: number, Temporary?: boolean): CommandBarControl;
+        Add(
+            Type?:
+                | MsoControlType.msoControlButton
+                | MsoControlType.msoControlEdit
+                | MsoControlType.msoControlDropdown
+                | MsoControlType.msoControlComboBox
+                | MsoControlType.msoControlPopup,
+            Id?: number,
+            Parameter?: any,
+            Before?: number,
+            Temporary?: boolean,
+        ): CommandBarControl;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -4080,7 +4120,7 @@ declare namespace Office {
     }
 
     class ConnectorFormat {
-        private 'Office.ConnectorFormat_typekey': ConnectorFormat;
+        private "Office.ConnectorFormat_typekey": ConnectorFormat;
         private constructor();
         readonly Application: any;
         BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
@@ -4099,18 +4139,26 @@ declare namespace Office {
     }
 
     class ContactCard {
-        private 'Office.ContactCard_typekey': ContactCard;
+        private "Office.ContactCard_typekey": ContactCard;
         private constructor();
         readonly Application: any;
         Close(): void;
         readonly Creator: number;
 
         /** @param boolean [ShowWithDelay=false] */
-        Show(CardStyle: MsoContactCardStyle, RectangleLeft: number, RectangleRight: number, RectangleTop: number, RectangleBottom: number, HorizontalPosition: number, ShowWithDelay?: boolean): void;
+        Show(
+            CardStyle: MsoContactCardStyle,
+            RectangleLeft: number,
+            RectangleRight: number,
+            RectangleTop: number,
+            RectangleBottom: number,
+            HorizontalPosition: number,
+            ShowWithDelay?: boolean,
+        ): void;
     }
 
     class Crop {
-        private 'Office.Crop_typekey': Crop;
+        private "Office.Crop_typekey": Crop;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4125,7 +4173,7 @@ declare namespace Office {
     }
 
     class CustomTaskPane {
-        private 'Office.CustomTaskPane_typekey': CustomTaskPane;
+        private "Office.CustomTaskPane_typekey": CustomTaskPane;
         private constructor();
         readonly Application: any;
         readonly ContentControl: any;
@@ -4140,7 +4188,7 @@ declare namespace Office {
     }
 
     class CustomXMLNode {
-        private 'Office.CustomXMLNode_typekey': CustomXMLNode;
+        private "Office.CustomXMLNode_typekey": CustomXMLNode;
         private constructor();
 
         /**
@@ -4149,7 +4197,12 @@ declare namespace Office {
          * @param NodeType [NodeType=1]
          * @param NodeValue [NodeValue='']
          */
-        AppendChildNode(Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        AppendChildNode(
+            Name?: string,
+            NamespaceURI?: string,
+            NodeType?: MsoCustomXMLNodeType,
+            NodeValue?: string,
+        ): void;
         AppendChildSubtree(XML: string): void;
         readonly Application: any;
         readonly Attributes: CustomXMLNodes;
@@ -4167,7 +4220,13 @@ declare namespace Office {
          * @param NodeValue [NodeValue='']
          * @param NextSibling [NextSibling=0]
          */
-        InsertNodeBefore(Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string, NextSibling?: CustomXMLNode): void;
+        InsertNodeBefore(
+            Name?: string,
+            NamespaceURI?: string,
+            NodeType?: MsoCustomXMLNodeType,
+            NodeValue?: string,
+            NextSibling?: CustomXMLNode,
+        ): void;
 
         /** @param NextSibling [NextSibling=0] */
         InsertSubtreeBefore(XML: string, NextSibling?: CustomXMLNode): void;
@@ -4189,7 +4248,13 @@ declare namespace Office {
          * @param NodeType [NodeType=1]
          * @param NodeValue [NodeValue='']
          */
-        ReplaceChildNode(OldNode: CustomXMLNode, Name?: string, NamespaceURI?: string, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        ReplaceChildNode(
+            OldNode: CustomXMLNode,
+            Name?: string,
+            NamespaceURI?: string,
+            NodeType?: MsoCustomXMLNodeType,
+            NodeValue?: string,
+        ): void;
         ReplaceChildSubtree(XML: string, OldNode: CustomXMLNode): void;
         SelectNodes(XPath: string): CustomXMLNodes;
         SelectSingleNode(XPath: string): CustomXMLNode;
@@ -4208,7 +4273,7 @@ declare namespace Office {
     }
 
     class CustomXMLPart {
-        private 'Office.CustomXMLPart_typekey': CustomXMLPart;
+        private "Office.CustomXMLPart_typekey": CustomXMLPart;
         private constructor();
 
         /**
@@ -4218,7 +4283,14 @@ declare namespace Office {
          * @param NodeType [NodeType=1]
          * @param NodeValue [NodeValue='']
          */
-        AddNode(Parent: CustomXMLNode, Name?: string, NamespaceURI?: string, NextSibling?: CustomXMLNode, NodeType?: MsoCustomXMLNodeType, NodeValue?: string): void;
+        AddNode(
+            Parent: CustomXMLNode,
+            Name?: string,
+            NamespaceURI?: string,
+            NextSibling?: CustomXMLNode,
+            NodeType?: MsoCustomXMLNodeType,
+            NodeValue?: string,
+        ): void;
         readonly Application: any;
         readonly BuiltIn: boolean;
         readonly Creator: number;
@@ -4251,7 +4323,7 @@ declare namespace Office {
     }
 
     class CustomXMLPrefixMapping {
-        private 'Office.CustomXMLPrefixMapping_typekey': CustomXMLPrefixMapping;
+        private "Office.CustomXMLPrefixMapping_typekey": CustomXMLPrefixMapping;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4273,7 +4345,7 @@ declare namespace Office {
     }
 
     class CustomXMLSchema {
-        private 'Office.CustomXMLSchema_typekey': CustomXMLSchema;
+        private "Office.CustomXMLSchema_typekey": CustomXMLSchema;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4304,7 +4376,7 @@ declare namespace Office {
     }
 
     class CustomXMLValidationError {
-        private 'Office.CustomXMLValidationError_typekey': CustomXMLValidationError;
+        private "Office.CustomXMLValidationError_typekey": CustomXMLValidationError;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4332,7 +4404,7 @@ declare namespace Office {
     }
 
     class DiagramNode {
-        private 'Office.DiagramNode_typekey': DiagramNode;
+        private "Office.DiagramNode_typekey": DiagramNode;
         private constructor();
 
         /**
@@ -4391,7 +4463,7 @@ declare namespace Office {
     }
 
     class DocumentInspector {
-        private 'Office.DocumentInspector_typekey': DocumentInspector;
+        private "Office.DocumentInspector_typekey": DocumentInspector;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4412,7 +4484,13 @@ declare namespace Office {
     }
 
     interface DocumentProperties<TApplication = any> {
-        Add(Name: string, LinkToContent: boolean, Type?: MsoDocProperties, Value?: any, LinkSource?: string): DocumentProperty;
+        Add(
+            Name: string,
+            LinkToContent: boolean,
+            Type?: MsoDocProperties,
+            Value?: any,
+            LinkSource?: string,
+        ): DocumentProperty;
         Application: TApplication;
         Count: number;
         Creator: number;
@@ -4422,7 +4500,7 @@ declare namespace Office {
     }
 
     class DocumentProperty<TApplication = any> {
-        private 'Office.DocumentProperty_typekey': DocumentProperty<TApplication>;
+        private "Office.DocumentProperty_typekey": DocumentProperty<TApplication>;
         private constructor();
         Application: TApplication;
         Creator: number;
@@ -4436,7 +4514,7 @@ declare namespace Office {
     }
 
     class DocumentLibraryVersion {
-        private 'Office.DocumentLibraryVersion_typekey': DocumentLibraryVersion;
+        private "Office.DocumentLibraryVersion_typekey": DocumentLibraryVersion;
         private constructor();
         readonly Application: any;
         readonly Comments: string;
@@ -4461,7 +4539,7 @@ declare namespace Office {
     }
 
     class EffectParameter {
-        private 'Office.EffectParameter_typekey': EffectParameter;
+        private "Office.EffectParameter_typekey": EffectParameter;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4478,7 +4556,7 @@ declare namespace Office {
     }
 
     class FileDialog {
-        private 'Office.FileDialog_typekey': FileDialog;
+        private "Office.FileDialog_typekey": FileDialog;
         private constructor();
         AllowMultiSelect: boolean;
         readonly Application: any;
@@ -4498,7 +4576,7 @@ declare namespace Office {
     }
 
     class FileDialogFilter {
-        private 'Office.FileDialogFilter_typekey': FileDialogFilter;
+        private "Office.FileDialogFilter_typekey": FileDialogFilter;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4529,7 +4607,7 @@ declare namespace Office {
     }
 
     class FileSearch {
-        private 'Office.FileSearch_typekey': FileSearch;
+        private "Office.FileSearch_typekey": FileSearch;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4568,7 +4646,7 @@ declare namespace Office {
     }
 
     class FillFormat {
-        private 'Office.FillFormat_typekey': FillFormat;
+        private "Office.FillFormat_typekey": FillFormat;
         private constructor();
         readonly Application: any;
         BackColor: ColorFormat;
@@ -4609,7 +4687,7 @@ declare namespace Office {
     }
 
     class Font2 {
-        private 'Office.Font2_typekey': Font2;
+        private "Office.Font2_typekey": Font2;
         private constructor();
         Allcaps: MsoTriState;
         readonly Application: any;
@@ -4658,7 +4736,7 @@ declare namespace Office {
     }
 
     class FreeformBuilder {
-        private 'Office.FreeformBuilder_typekey': FreeformBuilder;
+        private "Office.FreeformBuilder_typekey": FreeformBuilder;
         private constructor();
 
         /**
@@ -4667,7 +4745,16 @@ declare namespace Office {
          * @param X3 [X3=0]
          * @param Y3 [Y3=0]
          */
-        AddNodes(SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        AddNodes(
+            SegmentType: MsoSegmentType,
+            EditingType: MsoEditingType,
+            X1: number,
+            Y1: number,
+            X2?: number,
+            Y2?: number,
+            X3?: number,
+            Y3?: number,
+        ): void;
         readonly Application: any;
         ConvertToShape(): Shape;
         readonly Creator: number;
@@ -4675,7 +4762,7 @@ declare namespace Office {
     }
 
     class GlowFormat {
-        private 'Office.GlowFormat_typekey': GlowFormat;
+        private "Office.GlowFormat_typekey": GlowFormat;
         private constructor();
         readonly Application: any;
         readonly Color: ColorFormat;
@@ -4685,7 +4772,7 @@ declare namespace Office {
     }
 
     class GradientStop {
-        private 'Office.GradientStop_typekey': GradientStop;
+        private "Office.GradientStop_typekey": GradientStop;
         private constructor();
         readonly Application: any;
         readonly Color: ColorFormat;
@@ -4729,7 +4816,7 @@ declare namespace Office {
     }
 
     class HTMLProject {
-        private 'Office.HTMLProject_typekey': HTMLProject;
+        private "Office.HTMLProject_typekey": HTMLProject;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4748,7 +4835,7 @@ declare namespace Office {
     }
 
     class HTMLProjectItem {
-        private 'Office.HTMLProjectItem_typekey': HTMLProjectItem;
+        private "Office.HTMLProjectItem_typekey": HTMLProjectItem;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4773,7 +4860,7 @@ declare namespace Office {
     }
 
     class IAssistance {
-        private 'Office.IAssistance_typekey': IAssistance;
+        private "Office.IAssistance_typekey": IAssistance;
         private constructor();
 
         /** ClearDefaultContext Method */
@@ -4798,7 +4885,7 @@ declare namespace Office {
 
     /** For Macintosh only */
     class IFind {
-        private 'Office.IFind_typekey': IFind;
+        private "Office.IFind_typekey": IFind;
         private constructor();
         Author: string;
         DateCreatedFrom: any;
@@ -4830,7 +4917,7 @@ declare namespace Office {
     }
 
     /** For Macintosh only */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFoundFiles {
         readonly Count: number;
         Item(Index: number): string;
@@ -4838,7 +4925,7 @@ declare namespace Office {
     }
 
     class IMsoBorder {
-        private 'Office.IMsoBorder_typekey': IMsoBorder;
+        private "Office.IMsoBorder_typekey": IMsoBorder;
         private constructor();
         readonly Application: any;
         Color: any;
@@ -4850,7 +4937,7 @@ declare namespace Office {
     }
 
     class IMsoCharacters {
-        private 'Office.IMsoCharacters_typekey': IMsoCharacters;
+        private "Office.IMsoCharacters_typekey": IMsoCharacters;
         private constructor();
         readonly Application: any;
         Caption: string;
@@ -4865,7 +4952,7 @@ declare namespace Office {
     }
 
     class IMsoChart {
-        private 'Office.IMsoChart_typekey': IMsoChart;
+        private "Office.IMsoChart_typekey": IMsoChart;
         private constructor();
 
         /** @param Type [Type=2] */
@@ -4875,7 +4962,18 @@ declare namespace Office {
         ApplyCustomType(ChartType: XlChartType, TypeName?: any): void;
 
         /** @param Type [Type=2] */
-        ApplyDataLabels(Type?: XlDataLabelsType, IMsoLegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any, ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
+        ApplyDataLabels(
+            Type?: XlDataLabelsType,
+            IMsoLegendKey?: any,
+            AutoText?: any,
+            HasLeaderLines?: any,
+            ShowSeriesName?: any,
+            ShowCategoryName?: any,
+            ShowValue?: any,
+            ShowPercentage?: any,
+            ShowBubbleSize?: any,
+            Separator?: any,
+        ): void;
         ApplyLayout(Layout: number, varChartType?: any): void;
         readonly Area3DGroup: IMsoChartGroup;
         AreaGroups(Index?: any): any;
@@ -4896,7 +4994,19 @@ declare namespace Office {
         ChartStyle: any;
         readonly ChartTitle: IMsoChartTitle;
         ChartType: XlChartType;
-        ChartWizard(varSource?: any, varGallery?: any, varFormat?: any, varPlotBy?: any, varCategoryLabels?: any, varSeriesLabels?: any, varHasLegend?: any, varTitle?: any, varCategoryTitle?: any, varValueTitle?: any, varExtraTitle?: any): void;
+        ChartWizard(
+            varSource?: any,
+            varGallery?: any,
+            varFormat?: any,
+            varPlotBy?: any,
+            varCategoryLabels?: any,
+            varSeriesLabels?: any,
+            varHasLegend?: any,
+            varTitle?: any,
+            varCategoryTitle?: any,
+            varValueTitle?: any,
+            varExtraTitle?: any,
+        ): void;
         ClearToMatchColorStyle(): void;
         ClearToMatchStyle(): void;
         readonly Column3DGroup: IMsoChartGroup;
@@ -4973,7 +5083,7 @@ declare namespace Office {
     }
 
     class IMsoChartArea {
-        private 'Office.IMsoChartArea_typekey': IMsoChartArea;
+        private "Office.IMsoChartArea_typekey": IMsoChartArea;
         private constructor();
         readonly Application: any;
         AutoScaleFont: any;
@@ -4999,7 +5109,7 @@ declare namespace Office {
     }
 
     class IMsoChartData {
-        private 'Office.IMsoChartData_typekey': IMsoChartData;
+        private "Office.IMsoChartData_typekey": IMsoChartData;
         private constructor();
         Activate(): void;
         ActivateChartDataWindow(): void;
@@ -5009,7 +5119,7 @@ declare namespace Office {
     }
 
     class IMsoChartFormat {
-        private 'Office.IMsoChartFormat_typekey': IMsoChartFormat;
+        private "Office.IMsoChartFormat_typekey": IMsoChartFormat;
         private constructor();
         readonly Adjustments: Adjustments;
         readonly Application: any;
@@ -5027,7 +5137,7 @@ declare namespace Office {
     }
 
     class IMsoChartGroup {
-        private 'Office.IMsoChartGroup_typekey': IMsoChartGroup;
+        private "Office.IMsoChartGroup_typekey": IMsoChartGroup;
         private constructor();
         readonly Application: any;
         AxisGroup: number;
@@ -5072,7 +5182,7 @@ declare namespace Office {
     }
 
     class IMsoChartTitle {
-        private 'Office.IMsoChartTitle_typekey': IMsoChartTitle;
+        private "Office.IMsoChartTitle_typekey": IMsoChartTitle;
         private constructor();
         readonly Application: any;
         AutoScaleFont: any;
@@ -5107,7 +5217,7 @@ declare namespace Office {
     }
 
     class IMsoCorners {
-        private 'Office.IMsoCorners_typekey': IMsoCorners;
+        private "Office.IMsoCorners_typekey": IMsoCorners;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5117,7 +5227,7 @@ declare namespace Office {
     }
 
     class IMsoDataTable {
-        private 'Office.IMsoDataTable_typekey': IMsoDataTable;
+        private "Office.IMsoDataTable_typekey": IMsoDataTable;
         private constructor();
         readonly Application: any;
         AutoScaleFont: any;
@@ -5135,7 +5245,7 @@ declare namespace Office {
     }
 
     class IMsoDiagram {
-        private 'Office.IMsoDiagram_typekey': IMsoDiagram;
+        private "Office.IMsoDiagram_typekey": IMsoDiagram;
         private constructor();
         readonly Application: any;
         AutoFormat: MsoTriState;
@@ -5150,7 +5260,7 @@ declare namespace Office {
     }
 
     class IMsoDownBars {
-        private 'Office.IMsoDownBars_typekey': IMsoDownBars;
+        private "Office.IMsoDownBars_typekey": IMsoDownBars;
         private constructor();
         readonly Application: any;
         readonly Border: IMsoBorder;
@@ -5165,7 +5275,7 @@ declare namespace Office {
     }
 
     class IMsoDropLines {
-        private 'Office.IMsoDropLines_typekey': IMsoDropLines;
+        private "Office.IMsoDropLines_typekey": IMsoDropLines;
         private constructor();
         readonly Application: any;
         readonly Border: IMsoBorder;
@@ -5178,7 +5288,7 @@ declare namespace Office {
     }
 
     class IMsoFloor {
-        private 'Office.IMsoFloor_typekey': IMsoFloor;
+        private "Office.IMsoFloor_typekey": IMsoFloor;
         private constructor();
         readonly Application: any;
         readonly Border: IMsoBorder;
@@ -5196,7 +5306,7 @@ declare namespace Office {
     }
 
     class IMsoHiLoLines {
-        private 'Office.IMsoHiLoLines_typekey': IMsoHiLoLines;
+        private "Office.IMsoHiLoLines_typekey": IMsoHiLoLines;
         private constructor();
         readonly Application: any;
         readonly Border: IMsoBorder;
@@ -5209,7 +5319,7 @@ declare namespace Office {
     }
 
     class IMsoInterior {
-        private 'Office.IMsoInterior_typekey': IMsoInterior;
+        private "Office.IMsoInterior_typekey": IMsoInterior;
         private constructor();
         readonly Application: any;
         Color: any;
@@ -5223,7 +5333,7 @@ declare namespace Office {
     }
 
     class IMsoLegend {
-        private 'Office.IMsoLegend_typekey': IMsoLegend;
+        private "Office.IMsoLegend_typekey": IMsoLegend;
         private constructor();
         readonly Application: any;
         AutoScaleFont: any;
@@ -5249,7 +5359,7 @@ declare namespace Office {
     }
 
     class IMsoPlotArea {
-        private 'Office.IMsoPlotArea_typekey': IMsoPlotArea;
+        private "Office.IMsoPlotArea_typekey": IMsoPlotArea;
         private constructor();
         readonly Application: any;
         readonly Border: IMsoBorder;
@@ -5273,7 +5383,7 @@ declare namespace Office {
     }
 
     class IMsoSeriesLines {
-        private 'Office.IMsoSeriesLines_typekey': IMsoSeriesLines;
+        private "Office.IMsoSeriesLines_typekey": IMsoSeriesLines;
         private constructor();
         readonly Application: any;
         readonly Border: IMsoBorder;
@@ -5286,7 +5396,7 @@ declare namespace Office {
     }
 
     class IMsoUpBars {
-        private 'Office.IMsoUpBars_typekey': IMsoUpBars;
+        private "Office.IMsoUpBars_typekey": IMsoUpBars;
         private constructor();
         readonly Application: any;
         readonly Border: IMsoBorder;
@@ -5301,7 +5411,7 @@ declare namespace Office {
     }
 
     class IMsoWalls {
-        private 'Office.IMsoWalls_typekey': IMsoWalls;
+        private "Office.IMsoWalls_typekey": IMsoWalls;
         private constructor();
         readonly Application: any;
         readonly Border: IMsoBorder;
@@ -5320,7 +5430,7 @@ declare namespace Office {
     }
 
     class LanguageSettings {
-        private 'Office.LanguageSettings_typekey': LanguageSettings;
+        private "Office.LanguageSettings_typekey": LanguageSettings;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5330,7 +5440,7 @@ declare namespace Office {
     }
 
     class LineFormat {
-        private 'Office.LineFormat_typekey': LineFormat;
+        private "Office.LineFormat_typekey": LineFormat;
         private constructor();
         readonly Application: any;
         BackColor: ColorFormat;
@@ -5366,7 +5476,7 @@ declare namespace Office {
     }
 
     class MetaProperty {
-        private 'Office.MetaProperty_typekey': MetaProperty;
+        private "Office.MetaProperty_typekey": MetaProperty;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5382,7 +5492,7 @@ declare namespace Office {
     }
 
     class MsoDebugOptions {
-        private 'Office.MsoDebugOptions_typekey': MsoDebugOptions;
+        private "Office.MsoDebugOptions_typekey": MsoDebugOptions;
         private constructor();
         AddIgnoredAssertTag(bstrTagToIgnore: string): void;
         readonly Application: any;
@@ -5396,7 +5506,7 @@ declare namespace Office {
     }
 
     class MsoEnvelope {
-        private 'Office.MsoEnvelope_typekey': MsoEnvelope;
+        private "Office.MsoEnvelope_typekey": MsoEnvelope;
         private constructor();
         readonly CommandBars: CommandBars;
         Introduction: string;
@@ -5405,7 +5515,7 @@ declare namespace Office {
     }
 
     class NewFile {
-        private 'Office.NewFile_typekey': NewFile;
+        private "Office.NewFile_typekey": NewFile;
         private constructor();
         Add(FileName: string, Section?: MsoFileNewSection, DisplayName?: string, Action?: MsoFileNewAction): boolean;
         readonly Application: any;
@@ -5414,7 +5524,7 @@ declare namespace Office {
     }
 
     class OfficeTheme {
-        private 'Office.OfficeTheme_typekey': OfficeTheme;
+        private "Office.OfficeTheme_typekey": OfficeTheme;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5425,7 +5535,7 @@ declare namespace Office {
     }
 
     class ParagraphFormat2 {
-        private 'Office.ParagraphFormat2_typekey': ParagraphFormat2;
+        private "Office.ParagraphFormat2_typekey": ParagraphFormat2;
         private constructor();
         Alignment: MsoParagraphAlignment;
         readonly Application: any;
@@ -5471,7 +5581,7 @@ declare namespace Office {
     }
 
     class PickerDialog {
-        private 'Office.PickerDialog_typekey': PickerDialog;
+        private "Office.PickerDialog_typekey": PickerDialog;
         private constructor();
         readonly Application: any;
         CreatePickerResults(): PickerResults;
@@ -5489,7 +5599,7 @@ declare namespace Office {
     }
 
     class PickerField {
-        private 'Office.PickerField_typekey': PickerField;
+        private "Office.PickerField_typekey": PickerField;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5517,7 +5627,7 @@ declare namespace Office {
     }
 
     class PickerProperty {
-        private 'Office.PickerProperty_typekey': PickerProperty;
+        private "Office.PickerProperty_typekey": PickerProperty;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5527,7 +5637,7 @@ declare namespace Office {
     }
 
     class PickerResult {
-        private 'Office.PickerResult_typekey': PickerResult;
+        private "Office.PickerResult_typekey": PickerResult;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5543,7 +5653,14 @@ declare namespace Office {
 
     interface PickerResults {
         /** @param SIPId [SIPId=''] */
-        Add(Id: string, DisplayName: string, Type: string, SIPId?: string, ItemData?: any, SubItems?: any): PickerResult;
+        Add(
+            Id: string,
+            DisplayName: string,
+            Type: string,
+            SIPId?: string,
+            ItemData?: any,
+            SubItems?: any,
+        ): PickerResult;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -5552,7 +5669,7 @@ declare namespace Office {
     }
 
     class PictureEffect {
-        private 'Office.PictureEffect_typekey': PictureEffect;
+        private "Office.PictureEffect_typekey": PictureEffect;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5578,7 +5695,7 @@ declare namespace Office {
     }
 
     class PictureFormat {
-        private 'Office.PictureFormat_typekey': PictureFormat;
+        private "Office.PictureFormat_typekey": PictureFormat;
         private constructor();
         readonly Application: any;
         Brightness: number;
@@ -5598,7 +5715,7 @@ declare namespace Office {
     }
 
     class PolicyItem {
-        private 'Office.PolicyItem_typekey': PolicyItem;
+        private "Office.PolicyItem_typekey": PolicyItem;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5610,7 +5727,7 @@ declare namespace Office {
     }
 
     class PropertyTest {
-        private 'Office.PropertyTest_typekey': PropertyTest;
+        private "Office.PropertyTest_typekey": PropertyTest;
         private constructor();
         readonly Application: any;
         readonly Condition: MsoCondition;
@@ -5633,7 +5750,7 @@ declare namespace Office {
     }
 
     class ReflectionFormat {
-        private 'Office.ReflectionFormat_typekey': ReflectionFormat;
+        private "Office.ReflectionFormat_typekey": ReflectionFormat;
         private constructor();
         readonly Application: any;
         Blur: number;
@@ -5645,7 +5762,7 @@ declare namespace Office {
     }
 
     class Ruler2 {
-        private 'Office.Ruler2_typekey': Ruler2;
+        private "Office.Ruler2_typekey": Ruler2;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5655,7 +5772,7 @@ declare namespace Office {
     }
 
     class RulerLevel2 {
-        private 'Office.RulerLevel2_typekey': RulerLevel2;
+        private "Office.RulerLevel2_typekey": RulerLevel2;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5674,7 +5791,7 @@ declare namespace Office {
     }
 
     class ScopeFolder {
-        private 'Office.ScopeFolder_typekey': ScopeFolder;
+        private "Office.ScopeFolder_typekey": ScopeFolder;
         private constructor();
         AddToSearchFolders(): void;
         readonly Application: any;
@@ -5693,7 +5810,7 @@ declare namespace Office {
     }
 
     class Script {
-        private 'Office.Script_typekey': Script;
+        private "Office.Script_typekey": Script;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5715,7 +5832,14 @@ declare namespace Office {
          * @param Extended [Extended='']
          * @param ScriptText [ScriptText='']
          */
-        Add(Anchor?: any, Location?: MsoScriptLocation, Language?: MsoScriptLanguage, Id?: string, Extended?: string, ScriptText?: string): Script;
+        Add(
+            Anchor?: any,
+            Location?: MsoScriptLocation,
+            Language?: MsoScriptLanguage,
+            Id?: string,
+            Extended?: string,
+            ScriptText?: string,
+        ): Script;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -5736,7 +5860,7 @@ declare namespace Office {
     }
 
     class SearchScope {
-        private 'Office.SearchScope_typekey': SearchScope;
+        private "Office.SearchScope_typekey": SearchScope;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5767,7 +5891,7 @@ declare namespace Office {
     }
 
     class ShadowFormat {
-        private 'Office.ShadowFormat_typekey': ShadowFormat;
+        private "Office.ShadowFormat_typekey": ShadowFormat;
         private constructor();
         readonly Application: any;
         Blur: number;
@@ -5788,7 +5912,7 @@ declare namespace Office {
     }
 
     class Shape {
-        private 'Office.Shape_typekey': Shape;
+        private "Office.Shape_typekey": Shape;
         private constructor();
         readonly Adjustments: Adjustments;
         AlternativeText: string;
@@ -5873,7 +5997,7 @@ declare namespace Office {
     }
 
     class ShapeNode {
-        private 'Office.ShapeNode_typekey': ShapeNode;
+        private "Office.ShapeNode_typekey": ShapeNode;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5895,7 +6019,17 @@ declare namespace Office {
          * @param X3 [X3=0]
          * @param Y3 [Y3=0]
          */
-        Insert(Index: number, SegmentType: MsoSegmentType, EditingType: MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        Insert(
+            Index: number,
+            SegmentType: MsoSegmentType,
+            EditingType: MsoEditingType,
+            X1: number,
+            Y1: number,
+            X2?: number,
+            Y2?: number,
+            X3?: number,
+            Y3?: number,
+        ): void;
         Item(Index: any): ShapeNode;
         readonly Parent: any;
         SetEditingType(Index: number, EditingType: MsoEditingType): void;
@@ -6016,7 +6150,15 @@ declare namespace Office {
          * @param Height [Height=-1]
          * @param NewLayout [NewLayout=true]
          */
-        AddChart2(Style?: number, Type?: XlChartType, Left?: number, Top?: number, Width?: number, Height?: number, NewLayout?: boolean): Shape;
+        AddChart2(
+            Style?: number,
+            Type?: XlChartType,
+            Left?: number,
+            Top?: number,
+            Width?: number,
+            Height?: number,
+            NewLayout?: boolean,
+        ): Shape;
         AddConnector(Type: MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
         AddCurve(SafeArrayOfPoints: any): Shape;
         AddDiagram(Type: MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
@@ -6027,7 +6169,15 @@ declare namespace Office {
          * @param Width [Width=-1]
          * @param Height [Height=-1]
          */
-        AddPicture(FileName: string, LinkToFile: MsoTriState, SaveWithDocument: MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPicture(
+            FileName: string,
+            LinkToFile: MsoTriState,
+            SaveWithDocument: MsoTriState,
+            Left: number,
+            Top: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
         AddPolyline(SafeArrayOfPoints: any): Shape;
         AddShape(Type: MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
 
@@ -6040,7 +6190,16 @@ declare namespace Office {
         AddSmartArt(Layout: SmartArtLayout, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
         AddTable(NumRows: number, NumColumns: number, Left: number, Top: number, Width: number, Height: number): Shape;
         AddTextbox(Orientation: MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
-        AddTextEffect(PresetTextEffect: MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: MsoTriState, FontItalic: MsoTriState, Left: number, Top: number): Shape;
+        AddTextEffect(
+            PresetTextEffect: MsoPresetTextEffect,
+            Text: string,
+            FontName: string,
+            FontSize: number,
+            FontBold: MsoTriState,
+            FontItalic: MsoTriState,
+            Left: number,
+            Top: number,
+        ): Shape;
         readonly Application: any;
         readonly Background: Shape;
         BuildFreeform(EditingType: MsoEditingType, X1: number, Y1: number): FreeformBuilder;
@@ -6055,7 +6214,7 @@ declare namespace Office {
     }
 
     class SharedWorkspace {
-        private 'Office.SharedWorkspace_typekey': SharedWorkspace;
+        private "Office.SharedWorkspace_typekey": SharedWorkspace;
         private constructor();
         readonly Application: any;
         readonly Connected: boolean;
@@ -6078,7 +6237,7 @@ declare namespace Office {
     }
 
     class SharedWorkspaceFile {
-        private 'Office.SharedWorkspaceFile_typekey': SharedWorkspaceFile;
+        private "Office.SharedWorkspaceFile_typekey": SharedWorkspaceFile;
         private constructor();
         readonly Application: any;
         readonly CreatedBy: string;
@@ -6092,7 +6251,12 @@ declare namespace Office {
     }
 
     interface SharedWorkspaceFiles {
-        Add(FileName: string, ParentFolder?: SharedWorkspaceFolder, OverwriteIfFileAlreadyExists?: boolean, KeepInSync?: boolean): SharedWorkspaceFile;
+        Add(
+            FileName: string,
+            ParentFolder?: SharedWorkspaceFolder,
+            OverwriteIfFileAlreadyExists?: boolean,
+            KeepInSync?: boolean,
+        ): SharedWorkspaceFile;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -6103,7 +6267,7 @@ declare namespace Office {
     }
 
     class SharedWorkspaceFolder {
-        private 'Office.SharedWorkspaceFolder_typekey': SharedWorkspaceFolder;
+        private "Office.SharedWorkspaceFolder_typekey": SharedWorkspaceFolder;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6124,7 +6288,7 @@ declare namespace Office {
     }
 
     class SharedWorkspaceLink {
-        private 'Office.SharedWorkspaceLink_typekey': SharedWorkspaceLink;
+        private "Office.SharedWorkspaceLink_typekey": SharedWorkspaceLink;
         private constructor();
         readonly Application: any;
         readonly CreatedBy: string;
@@ -6152,7 +6316,7 @@ declare namespace Office {
     }
 
     class SharedWorkspaceMember {
-        private 'Office.SharedWorkspaceMember_typekey': SharedWorkspaceMember;
+        private "Office.SharedWorkspaceMember_typekey": SharedWorkspaceMember;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6176,7 +6340,7 @@ declare namespace Office {
     }
 
     class SharedWorkspaceTask {
-        private 'Office.SharedWorkspaceTask_typekey': SharedWorkspaceTask;
+        private "Office.SharedWorkspaceTask_typekey": SharedWorkspaceTask;
         private constructor();
         readonly Application: any;
         AssignedTo: string;
@@ -6196,7 +6360,14 @@ declare namespace Office {
     }
 
     interface SharedWorkspaceTasks {
-        Add(Title: string, Status?: MsoSharedWorkspaceTaskStatus, Priority?: MsoSharedWorkspaceTaskPriority, Assignee?: SharedWorkspaceMember, Description?: string, DueDate?: VarDate): SharedWorkspaceTask;
+        Add(
+            Title: string,
+            Status?: MsoSharedWorkspaceTaskStatus,
+            Priority?: MsoSharedWorkspaceTaskPriority,
+            Assignee?: SharedWorkspaceMember,
+            Description?: string,
+            DueDate?: VarDate,
+        ): SharedWorkspaceTask;
         readonly Application: any;
         readonly Count: number;
         readonly Creator: number;
@@ -6207,7 +6378,7 @@ declare namespace Office {
     }
 
     class Signature {
-        private 'Office.Signature_typekey': Signature;
+        private "Office.Signature_typekey": Signature;
         private constructor();
         readonly Application: any;
         AttachCertificate: boolean;
@@ -6233,7 +6404,7 @@ declare namespace Office {
     }
 
     class SignatureInfo {
-        private 'Office.SignatureInfo_typekey': SignatureInfo;
+        private "Office.SignatureInfo_typekey": SignatureInfo;
         private constructor();
         readonly Application: any;
         readonly CertificateVerificationResults: CertificateVerificationResults;
@@ -6272,7 +6443,7 @@ declare namespace Office {
     }
 
     class SignatureSetup {
-        private 'Office.SignatureSetup_typekey': SignatureSetup;
+        private "Office.SignatureSetup_typekey": SignatureSetup;
         private constructor();
         AdditionalXml: string;
         AllowComments: boolean;
@@ -6289,7 +6460,7 @@ declare namespace Office {
     }
 
     class SmartArt {
-        private 'Office.SmartArt_typekey': SmartArt;
+        private "Office.SmartArt_typekey": SmartArt;
         private constructor();
         readonly AllNodes: SmartArtNodes;
         readonly Application: any;
@@ -6304,7 +6475,7 @@ declare namespace Office {
     }
 
     class SmartArtColor {
-        private 'Office.SmartArtColor_typekey': SmartArtColor;
+        private "Office.SmartArtColor_typekey": SmartArtColor;
         private constructor();
         readonly Application: any;
         readonly Category: string;
@@ -6325,7 +6496,7 @@ declare namespace Office {
     }
 
     class SmartArtLayout {
-        private 'Office.SmartArtLayout_typekey': SmartArtLayout;
+        private "Office.SmartArtLayout_typekey": SmartArtLayout;
         private constructor();
         readonly Application: any;
         readonly Category: string;
@@ -6346,7 +6517,7 @@ declare namespace Office {
     }
 
     class SmartArtNode {
-        private 'Office.SmartArtNode_typekey': SmartArtNode;
+        private "Office.SmartArtNode_typekey": SmartArtNode;
         private constructor();
 
         /**
@@ -6385,7 +6556,7 @@ declare namespace Office {
     }
 
     class SmartArtQuickStyle {
-        private 'Office.SmartArtQuickStyle_typekey': SmartArtQuickStyle;
+        private "Office.SmartArtQuickStyle_typekey": SmartArtQuickStyle;
         private constructor();
         readonly Application: any;
         readonly Category: string;
@@ -6406,7 +6577,7 @@ declare namespace Office {
     }
 
     class SmartDocument {
-        private 'Office.SmartDocument_typekey': SmartDocument;
+        private "Office.SmartDocument_typekey": SmartDocument;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6419,7 +6590,7 @@ declare namespace Office {
     }
 
     class SoftEdgeFormat {
-        private 'Office.SoftEdgeFormat_typekey': SoftEdgeFormat;
+        private "Office.SoftEdgeFormat_typekey": SoftEdgeFormat;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6428,7 +6599,7 @@ declare namespace Office {
     }
 
     class Sync {
-        private 'Office.Sync_typekey': Sync;
+        private "Office.Sync_typekey": Sync;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6445,7 +6616,7 @@ declare namespace Office {
     }
 
     class TabStop2 {
-        private 'Office.TabStop2_typekey': TabStop2;
+        private "Office.TabStop2_typekey": TabStop2;
         private constructor();
         readonly Application: any;
         Clear(): void;
@@ -6467,7 +6638,7 @@ declare namespace Office {
     }
 
     class TextColumn2 {
-        private 'Office.TextColumn2_typekey': TextColumn2;
+        private "Office.TextColumn2_typekey": TextColumn2;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6477,7 +6648,7 @@ declare namespace Office {
     }
 
     class TextEffectFormat {
-        private 'Office.TextEffectFormat_typekey': TextEffectFormat;
+        private "Office.TextEffectFormat_typekey": TextEffectFormat;
         private constructor();
         Alignment: MsoTextEffectAlignment;
         readonly Application: any;
@@ -6498,7 +6669,7 @@ declare namespace Office {
     }
 
     class TextFrame {
-        private 'Office.TextFrame_typekey': TextFrame;
+        private "Office.TextFrame_typekey": TextFrame;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6511,7 +6682,7 @@ declare namespace Office {
     }
 
     class TextFrame2 {
-        private 'Office.TextFrame2_typekey': TextFrame2;
+        private "Office.TextFrame2_typekey": TextFrame2;
         private constructor();
         readonly Application: any;
         AutoSize: MsoAutoSize;
@@ -6538,7 +6709,7 @@ declare namespace Office {
     }
 
     class TextRange2 {
-        private 'Office.TextRange2_typekey': TextRange2;
+        private "Office.TextRange2_typekey": TextRange2;
         private constructor();
         AddPeriods(): void;
         readonly Application: any;
@@ -6614,8 +6785,23 @@ declare namespace Office {
          * @param MatchCase [MatchCase=0]
          * @param WholeWords [WholeWords=0]
          */
-        Replace(FindWhat: string, ReplaceWhat: string, After?: number, MatchCase?: MsoTriState, WholeWords?: MsoTriState): TextRange2;
-        RotatedBounds(X1: number, Y1: number, X2: number, Y2: number, X3: number, Y3: number, x4: number, y4: number): void;
+        Replace(
+            FindWhat: string,
+            ReplaceWhat: string,
+            After?: number,
+            MatchCase?: MsoTriState,
+            WholeWords?: MsoTriState,
+        ): TextRange2;
+        RotatedBounds(
+            X1: number,
+            Y1: number,
+            X2: number,
+            Y2: number,
+            X3: number,
+            Y3: number,
+            x4: number,
+            y4: number,
+        ): void;
         RtlRun(): void;
 
         /**
@@ -6642,7 +6828,7 @@ declare namespace Office {
     }
 
     class ThemeColor {
-        private 'Office.ThemeColor_typekey': ThemeColor;
+        private "Office.ThemeColor_typekey": ThemeColor;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6664,7 +6850,7 @@ declare namespace Office {
     }
 
     class ThemeEffectScheme {
-        private 'Office.ThemeEffectScheme_typekey': ThemeEffectScheme;
+        private "Office.ThemeEffectScheme_typekey": ThemeEffectScheme;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6673,7 +6859,7 @@ declare namespace Office {
     }
 
     class ThemeFont {
-        private 'Office.ThemeFont_typekey': ThemeFont;
+        private "Office.ThemeFont_typekey": ThemeFont;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6691,7 +6877,7 @@ declare namespace Office {
     }
 
     class ThemeFontScheme {
-        private 'Office.ThemeFontScheme_typekey': ThemeFontScheme;
+        private "Office.ThemeFontScheme_typekey": ThemeFontScheme;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6703,7 +6889,7 @@ declare namespace Office {
     }
 
     class ThreeDFormat {
-        private 'Office.ThreeDFormat_typekey': ThreeDFormat;
+        private "Office.ThreeDFormat_typekey": ThreeDFormat;
         private constructor();
         readonly Application: any;
         BevelBottomDepth: number;
@@ -6747,7 +6933,7 @@ declare namespace Office {
     }
 
     class UserPermission {
-        private 'Office.UserPermission_typekey': UserPermission;
+        private "Office.UserPermission_typekey": UserPermission;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6759,7 +6945,7 @@ declare namespace Office {
     }
 
     class WebPageFont {
-        private 'Office.WebPageFont_typekey': WebPageFont;
+        private "Office.WebPageFont_typekey": WebPageFont;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6778,7 +6964,7 @@ declare namespace Office {
     }
 
     class WorkflowTask {
-        private 'Office.WorkflowTask_typekey': WorkflowTask;
+        private "Office.WorkflowTask_typekey": WorkflowTask;
         private constructor();
         readonly Application: any;
         readonly AssignedTo: string;
@@ -6803,7 +6989,7 @@ declare namespace Office {
     }
 
     class WorkflowTemplate {
-        private 'Office.WorkflowTemplate_typekey': WorkflowTemplate;
+        private "Office.WorkflowTemplate_typekey": WorkflowTemplate;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6824,17 +7010,71 @@ declare namespace Office {
     }
 
     namespace EventHelperTypes {
-        type CommandBarButton_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CommandBarButton_Invoke_ArgNames = [
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
+        ];
 
-        type CommandBarComboBox_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CommandBarComboBox_Invoke_ArgNames = [
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
+        ];
 
-        type CommandBars_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CommandBars_Invoke_ArgNames = [
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
+        ];
 
-        type CustomTaskPane_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CustomTaskPane_Invoke_ArgNames = [
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
+        ];
 
-        type CustomXMLPart_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CustomXMLPart_Invoke_ArgNames = [
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
+        ];
 
-        type CustomXMLParts_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type CustomXMLParts_Invoke_ArgNames = [
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
+        ];
 
         interface CommandBarButton_Invoke_Parameter {
             readonly dispidMember: number;
@@ -6905,52 +7145,394 @@ declare namespace Office {
 }
 
 interface ActiveXObject {
-    on(obj: Office.CommandBarButton, event: 'Click', argNames: ['Ctrl', 'CancelDefault'], handler: (this: Office.CommandBarButton, parameter: {readonly Ctrl: Office.CommandBarButton, CancelDefault: boolean}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CommandBarButton, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CommandBarButton, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CommandBarButton, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'Invoke', argNames: Office.EventHelperTypes.CommandBarButton_Invoke_ArgNames, handler: (this: Office.CommandBarButton, parameter: Office.EventHelperTypes.CommandBarButton_Invoke_Parameter) => void): void;
-    on(obj: Office.CommandBarButton, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CommandBarButton, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'Change', argNames: ['Ctrl'], handler: (this: Office.CommandBarComboBox, parameter: {readonly Ctrl: Office.CommandBarComboBox}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CommandBarComboBox, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CommandBarComboBox, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CommandBarComboBox, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'Invoke', argNames: Office.EventHelperTypes.CommandBarComboBox_Invoke_ArgNames, handler: (this: Office.CommandBarComboBox, parameter: Office.EventHelperTypes.CommandBarComboBox_Invoke_Parameter) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CommandBarComboBox, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CommandBars, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CommandBars, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CommandBars, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CommandBars, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CommandBars, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CommandBars, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CommandBars, event: 'Invoke', argNames: Office.EventHelperTypes.CommandBars_Invoke_ArgNames, handler: (this: Office.CommandBars, parameter: Office.EventHelperTypes.CommandBars_Invoke_Parameter) => void): void;
-    on(obj: Office.CommandBars, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CommandBars, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'DockPositionStateChange' | 'VisibleStateChange', argNames: ['CustomTaskPaneInst'], handler: (this: Office.CustomTaskPane, parameter: {readonly CustomTaskPaneInst: Office.CustomTaskPane}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CustomTaskPane, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CustomTaskPane, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CustomTaskPane, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'Invoke', argNames: Office.EventHelperTypes.CustomTaskPane_Invoke_ArgNames, handler: (this: Office.CustomTaskPane, parameter: Office.EventHelperTypes.CustomTaskPane_Invoke_Parameter) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CustomTaskPane, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CustomXMLPart, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CustomXMLPart, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CustomXMLPart, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'Invoke', argNames: Office.EventHelperTypes.CustomXMLPart_Invoke_ArgNames, handler: (this: Office.CustomXMLPart, parameter: Office.EventHelperTypes.CustomXMLPart_Invoke_Parameter) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'NodeAfterDelete', argNames: ['OldNode', 'OldParentNode', 'OldNextSibling', 'InUndoRedo'], handler: (this: Office.CustomXMLPart, parameter: {readonly OldNode: Office.CustomXMLNode, readonly OldParentNode: Office.CustomXMLNode, readonly OldNextSibling: Office.CustomXMLNode, readonly InUndoRedo: boolean}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'NodeAfterInsert', argNames: ['NewNode', 'InUndoRedo'], handler: (this: Office.CustomXMLPart, parameter: {readonly NewNode: Office.CustomXMLNode, readonly InUndoRedo: boolean}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'NodeAfterReplace', argNames: ['OldNode', 'NewNode', 'InUndoRedo'], handler: (this: Office.CustomXMLPart, parameter: {readonly OldNode: Office.CustomXMLNode, readonly NewNode: Office.CustomXMLNode, readonly InUndoRedo: boolean}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CustomXMLPart, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (this: Office.CustomXMLParts, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (this: Office.CustomXMLParts, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Office.CustomXMLParts, parameter: {pctinfo: number}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'Invoke', argNames: Office.EventHelperTypes.CustomXMLParts_Invoke_ArgNames, handler: (this: Office.CustomXMLParts, parameter: Office.EventHelperTypes.CustomXMLParts_Invoke_Parameter) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'PartAfterAdd', argNames: ['NewPart'], handler: (this: Office.CustomXMLParts, parameter: {readonly NewPart: Office.CustomXMLPart}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'PartAfterLoad', argNames: ['Part'], handler: (this: Office.CustomXMLParts, parameter: {readonly Part: Office.CustomXMLPart}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'PartBeforeDelete', argNames: ['OldPart'], handler: (this: Office.CustomXMLParts, parameter: {readonly OldPart: Office.CustomXMLPart}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Office.CustomXMLParts, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
-    on(obj: Office.CommandBarButton, event: 'AddRef' | 'Release', handler: (this: Office.CommandBarButton, parameter: {}) => void): void;
-    on(obj: Office.CommandBarComboBox, event: 'AddRef' | 'Release', handler: (this: Office.CommandBarComboBox, parameter: {}) => void): void;
-    on(obj: Office.CommandBars, event: 'AddRef' | 'OnUpdate' | 'Release', handler: (this: Office.CommandBars, parameter: {}) => void): void;
-    on(obj: Office.CustomTaskPane, event: 'AddRef' | 'Release', handler: (this: Office.CustomTaskPane, parameter: {}) => void): void;
-    on(obj: Office.CustomXMLPart, event: 'AddRef' | 'Release', handler: (this: Office.CustomXMLPart, parameter: {}) => void): void;
-    on(obj: Office.CustomXMLParts, event: 'AddRef' | 'Release', handler: (this: Office.CustomXMLParts, parameter: {}) => void): void;
-    on(obj: Office.MsoEnvelope, event: 'EnvelopeHide' | 'EnvelopeShow', handler: (this: Office.MsoEnvelope, parameter: {}) => void): void;
-    set(obj: Office.CommandBarButton | Office.CommandBarComboBox, propertyName: 'accName' | 'accValue', parameterTypes: [any], newValue: string): void;
-    set(obj: Office.CommandBarComboBox, propertyName: 'List', parameterTypes: [number], newValue: string): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: "Click",
+        argNames: ["Ctrl", "CancelDefault"],
+        handler: (
+            this: Office.CommandBarButton,
+            parameter: { readonly Ctrl: Office.CommandBarButton; CancelDefault: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
+        handler: (
+            this: Office.CommandBarButton,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
+        handler: (
+            this: Office.CommandBarButton,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
+        handler: (this: Office.CommandBarButton, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: "Invoke",
+        argNames: Office.EventHelperTypes.CommandBarButton_Invoke_ArgNames,
+        handler: (
+            this: Office.CommandBarButton,
+            parameter: Office.EventHelperTypes.CommandBarButton_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
+        handler: (this: Office.CommandBarButton, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: "Change",
+        argNames: ["Ctrl"],
+        handler: (this: Office.CommandBarComboBox, parameter: { readonly Ctrl: Office.CommandBarComboBox }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
+        handler: (
+            this: Office.CommandBarComboBox,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
+        handler: (
+            this: Office.CommandBarComboBox,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
+        handler: (this: Office.CommandBarComboBox, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: "Invoke",
+        argNames: Office.EventHelperTypes.CommandBarComboBox_Invoke_ArgNames,
+        handler: (
+            this: Office.CommandBarComboBox,
+            parameter: Office.EventHelperTypes.CommandBarComboBox_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
+        handler: (
+            this: Office.CommandBarComboBox,
+            parameter: { readonly riid: stdole.GUID; ppvObj: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
+        handler: (
+            this: Office.CommandBars,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
+        handler: (
+            this: Office.CommandBars,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
+        handler: (this: Office.CommandBars, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: "Invoke",
+        argNames: Office.EventHelperTypes.CommandBars_Invoke_ArgNames,
+        handler: (this: Office.CommandBars, parameter: Office.EventHelperTypes.CommandBars_Invoke_Parameter) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
+        handler: (this: Office.CommandBars, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: "DockPositionStateChange" | "VisibleStateChange",
+        argNames: ["CustomTaskPaneInst"],
+        handler: (
+            this: Office.CustomTaskPane,
+            parameter: { readonly CustomTaskPaneInst: Office.CustomTaskPane },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
+        handler: (
+            this: Office.CustomTaskPane,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
+        handler: (
+            this: Office.CustomTaskPane,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
+        handler: (this: Office.CustomTaskPane, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: "Invoke",
+        argNames: Office.EventHelperTypes.CustomTaskPane_Invoke_ArgNames,
+        handler: (
+            this: Office.CustomTaskPane,
+            parameter: Office.EventHelperTypes.CustomTaskPane_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
+        handler: (this: Office.CustomTaskPane, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
+        handler: (this: Office.CustomXMLPart, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "Invoke",
+        argNames: Office.EventHelperTypes.CustomXMLPart_Invoke_ArgNames,
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: Office.EventHelperTypes.CustomXMLPart_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "NodeAfterDelete",
+        argNames: ["OldNode", "OldParentNode", "OldNextSibling", "InUndoRedo"],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: {
+                readonly OldNode: Office.CustomXMLNode;
+                readonly OldParentNode: Office.CustomXMLNode;
+                readonly OldNextSibling: Office.CustomXMLNode;
+                readonly InUndoRedo: boolean;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "NodeAfterInsert",
+        argNames: ["NewNode", "InUndoRedo"],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: { readonly NewNode: Office.CustomXMLNode; readonly InUndoRedo: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "NodeAfterReplace",
+        argNames: ["OldNode", "NewNode", "InUndoRedo"],
+        handler: (
+            this: Office.CustomXMLPart,
+            parameter: {
+                readonly OldNode: Office.CustomXMLNode;
+                readonly NewNode: Office.CustomXMLNode;
+                readonly InUndoRedo: boolean;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
+        handler: (this: Office.CustomXMLPart, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
+        handler: (
+            this: Office.CustomXMLParts,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
+        handler: (
+            this: Office.CustomXMLParts,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
+        handler: (this: Office.CustomXMLParts, parameter: { pctinfo: number }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "Invoke",
+        argNames: Office.EventHelperTypes.CustomXMLParts_Invoke_ArgNames,
+        handler: (
+            this: Office.CustomXMLParts,
+            parameter: Office.EventHelperTypes.CustomXMLParts_Invoke_Parameter,
+        ) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "PartAfterAdd",
+        argNames: ["NewPart"],
+        handler: (this: Office.CustomXMLParts, parameter: { readonly NewPart: Office.CustomXMLPart }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "PartAfterLoad",
+        argNames: ["Part"],
+        handler: (this: Office.CustomXMLParts, parameter: { readonly Part: Office.CustomXMLPart }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "PartBeforeDelete",
+        argNames: ["OldPart"],
+        handler: (this: Office.CustomXMLParts, parameter: { readonly OldPart: Office.CustomXMLPart }) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
+        handler: (this: Office.CustomXMLParts, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarButton,
+        event: "AddRef" | "Release",
+        handler: (this: Office.CommandBarButton, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CommandBarComboBox,
+        event: "AddRef" | "Release",
+        handler: (this: Office.CommandBarComboBox, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CommandBars,
+        event: "AddRef" | "OnUpdate" | "Release",
+        handler: (this: Office.CommandBars, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CustomTaskPane,
+        event: "AddRef" | "Release",
+        handler: (this: Office.CustomTaskPane, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLPart,
+        event: "AddRef" | "Release",
+        handler: (this: Office.CustomXMLPart, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.CustomXMLParts,
+        event: "AddRef" | "Release",
+        handler: (this: Office.CustomXMLParts, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Office.MsoEnvelope,
+        event: "EnvelopeHide" | "EnvelopeShow",
+        handler: (this: Office.MsoEnvelope, parameter: {}) => void,
+    ): void;
+    set(
+        obj: Office.CommandBarButton | Office.CommandBarComboBox,
+        propertyName: "accName" | "accValue",
+        parameterTypes: [any],
+        newValue: string,
+    ): void;
+    set(obj: Office.CommandBarComboBox, propertyName: "List", parameterTypes: [number], newValue: string): void;
 }

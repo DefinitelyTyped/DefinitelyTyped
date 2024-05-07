@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/openlayers",
+    "version": "3.20.9999",
+    "projects": [
+        "http://openlayers.org/"
+    ],
+    "devDependencies": {
+        "@types/openlayers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Olivier Sechet",
+            "githubUsername": "osechet"
+        }
+    ]
+}

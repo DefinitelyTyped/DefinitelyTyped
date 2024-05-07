@@ -1,14 +1,14 @@
-import * as ProgressBar from 'progress';
+import * as ProgressBar from "progress";
 
 /**
  * Usage example from https://github.com/visionmedia/node-progress
  * (in Typescript)
  */
-const usageBar = new ProgressBar(':bar', { total: 10 });
-const timer = setInterval(function () {
+const usageBar = new ProgressBar(":bar", { total: 10 });
+const timer = setInterval(function() {
     usageBar.tick();
     if (usageBar.complete) {
-        console.log('\ncomplete\n');
+        console.log("\ncomplete\n");
         clearInterval(timer);
     }
 }, 100);
@@ -18,21 +18,21 @@ const timer = setInterval(function () {
  * (in Typescript)
  */
 const list = [
-    'image01.jpg',
-    'image02.jpg',
-    'image03.jpg',
-    'image04.jpg',
-    'image05.jpg',
-    'image06.jpg',
-    'image07.jpg',
-    'image08.jpg',
-    'image09.jpg',
-    'image10.jpg',
+    "image01.jpg",
+    "image02.jpg",
+    "image03.jpg",
+    "image04.jpg",
+    "image05.jpg",
+    "image06.jpg",
+    "image07.jpg",
+    "image08.jpg",
+    "image09.jpg",
+    "image10.jpg",
 ];
-const customTokenBar = new ProgressBar(':percent eta: :eta downloading :current/:total :file', {
+const customTokenBar = new ProgressBar(":percent eta: :eta downloading :current/:total :file", {
     total: list.length,
 });
-const customInterval = setInterval(function () {
+const customInterval = setInterval(function() {
     customTokenBar.tick({
         file: list[customTokenBar.curr],
     });
@@ -45,23 +45,23 @@ const customInterval = setInterval(function () {
  * Interrupt example from https://github.com/visionmedia/node-progress
  * (in Typescript)
  */
-const interruptBar = new ProgressBar(':bar :current/:total', { total: 10 });
-const interruptTimer = setInterval(function () {
+const interruptBar = new ProgressBar(":bar :current/:total", { total: 10 });
+const interruptTimer = setInterval(function() {
     interruptBar.tick();
     if (interruptBar.complete) {
         clearInterval(interruptTimer);
     } else if (interruptBar.curr === 5 || interruptBar.curr === 8) {
-        interruptBar.interrupt('interrupt: current progress is ' + interruptBar.curr + '/' + interruptBar.total);
+        interruptBar.interrupt("interrupt: current progress is " + interruptBar.curr + "/" + interruptBar.total);
     }
 }, 1000);
 
 /** Test render overloads. */
-const renderBar = new ProgressBar(':bar :current/:total', { total: 10 });
+const renderBar = new ProgressBar(":bar :current/:total", { total: 10 });
 renderBar.render();
-renderBar.render({ someToken: 'Some Value' });
-renderBar.render({ someToken: 'Some Value' }, undefined);
-renderBar.render({ someToken: 'Some Value' }, false);
-renderBar.render({ someToken: 'Some Value' }, true);
+renderBar.render({ someToken: "Some Value" });
+renderBar.render({ someToken: "Some Value" }, undefined);
+renderBar.render({ someToken: "Some Value" }, false);
+renderBar.render({ someToken: "Some Value" }, true);
 renderBar.render(undefined);
 renderBar.render(undefined, false);
 renderBar.render(undefined, true);

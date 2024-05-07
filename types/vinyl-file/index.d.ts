@@ -1,11 +1,5 @@
-// Type definitions for vinyl-file 3.0
-// Project: https://github.com/sindresorhus/vinyl-file
-// Definitions by: cleanchedFist <https://github.com/cleanchedFist>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="node" />
-import File = require('vinyl');
+import File = require("vinyl");
 
 export interface VinylFileOptions {
     /** Specifies the working directory the folder is relative to */
@@ -21,23 +15,8 @@ export interface VinylFileOptions {
     read?: boolean | undefined;
 }
 export interface VinylFile extends File {
-    /** Returns true if the file contents are a Buffer, otherwise false */
-    isStream: () => boolean;
-
-    /** Returns true if the file contents are a Stream, otherwise false */
-    isBuffer: () => boolean;
-
-    /** Returns true if the file contents are null, otherwise false */
-    isNull: () => boolean;
-
-    /** Returns true if the file represents a directory, otherwise false */
-    isDirectory: () => boolean;
-
-    /** Returns true if the file represents a symbolic link, otherwise false */
-    isSymbolic: () => boolean;
-
     /** Returns a new Vinyl object with all attributes cloned. */
-    clone(opts?: { contents?: boolean | undefined, deep?: boolean | undefined } | boolean): this;
+    clone(opts?: { contents?: boolean | undefined; deep?: boolean | undefined } | boolean): this;
 
     /** Returns a formatted-string interpretation of the Vinyl object */
     inspect: () => string;
@@ -55,7 +34,7 @@ export interface VinylFile extends File {
     path: string;
 
     /** Array of file.path values the Vinyl object has had */
-    readonly history: ReadonlyArray<string>;
+    readonly history: readonly string[];
 
     /** Gets the result of path.relative(file.base, file.path) */
     relative: string;

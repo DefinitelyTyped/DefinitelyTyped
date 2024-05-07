@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 export type AppSyncResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
     AppSyncResolverEvent<TArguments, TSource>,
@@ -73,6 +73,7 @@ export interface AppSyncAuthorizerEvent {
         accountId: string;
         requestId: string;
         queryString: string;
+        operationName?: string;
         variables: { [key: string]: any };
     };
 }

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/vscode-notebook-renderer",
+    "version": "1.72.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "vscode-notebook-renderer",
+    "projects": [
+        "https://github.com/microsoft/vscode-docs/blob/notebook/api/extension-guides/notebook.md"
+    ],
+    "devDependencies": {
+        "@types/vscode-notebook-renderer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Connor Peet",
+            "githubUsername": "connor4312"
+        },
+        {
+            "name": "Matt Bierner",
+            "githubUsername": "mjbvz"
+        }
+    ]
+}

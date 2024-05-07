@@ -1,16 +1,16 @@
 import * as THREE from "three";
-import CameraUtils from "../Utils/CameraUtils";
 import Coordinates from "../Core/Geographic/Coordinates";
 import Extent from "../Core/Geographic/Extent";
 import GlobeView from "../Core/Prefab/GlobeView";
+import CameraUtils from "../Utils/CameraUtils";
 
-// TODO: hidden properties
+// TODO: Define public API
 
 export enum CONTROL_EVENTS {
-    PAN_CHANGED = 'pan-changed',
-    ORIENTATION_CHANGED = 'orientation-changed',
-    RANGE_CHANGED = 'range-changed',
-    CAMERA_TARGET_CHANGED = 'camera-target-changed',
+    PAN_CHANGED = "pan-changed",
+    ORIENTATION_CHANGED = "orientation-changed",
+    RANGE_CHANGED = "range-changed",
+    CAMERA_TARGET_CHANGED = "camera-target-changed",
 }
 
 interface GlobeControls {
@@ -23,14 +23,14 @@ interface GlobeControls {
     keyPanSpeed: number;
     minPolarAngle: number;
     maxPolarAngle: number;
-    // minAzimuthAngle: number;
-    // maxAzimuthAngle: number;
-    // handleCollision: boolean;
+    minAzimuthAngle: number;
+    maxAzimuthAngle: number;
+    handleCollision: boolean;
     enableDamping: boolean;
     dampingMoveFactor: number;
 }
 
-type GlobeControlsOptions = Partial<GlobeControls>;
+export type GlobeControlsOptions = Partial<GlobeControls>;
 
 declare class GlobeControls extends THREE.EventDispatcher<THREE.Event> {
     constructor(
@@ -148,7 +148,8 @@ declare class GlobeControls extends THREE.EventDispatcher<THREE.Event> {
 
     lookAtCoordinate(
         params?: CameraUtils.CameraTransformOptions | Extent,
-        isAnimated?: boolean): Promise<any>;
+        isAnimated?: boolean,
+    ): Promise<any>;
 
     pickGeoPosition(windowCoords: THREE.Vector3): Coordinates;
 }

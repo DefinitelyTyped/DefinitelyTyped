@@ -67,7 +67,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MessageDialog;
+            new(config?: ConfigOptions): MessageDialog;
             prototype: Prototype;
             static: Static;
             super: Dialog.Constructor;

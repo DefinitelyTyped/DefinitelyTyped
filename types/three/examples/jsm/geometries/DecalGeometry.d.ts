@@ -1,4 +1,4 @@
-import { BufferGeometry, Euler, Mesh, Vector3 } from '../../../src/Three.js';
+import { BufferGeometry, Euler, Mesh, Vector3 } from "three";
 
 export class DecalGeometry extends BufferGeometry {
     constructor(mesh: Mesh, position: Vector3, orientation: Euler, size: Vector3);

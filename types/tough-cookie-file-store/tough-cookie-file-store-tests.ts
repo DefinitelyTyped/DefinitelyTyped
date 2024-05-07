@@ -1,6 +1,6 @@
-import { FileCookieStore } from 'tough-cookie-file-store';
-import { CookieJar } from 'tough-cookie';
-new CookieJar(new FileCookieStore('./cookie.json'));
+import { CookieJar } from "tough-cookie";
+import { FileCookieStore } from "tough-cookie-file-store";
+new CookieJar(new FileCookieStore("./cookie.json"));
 
 // Disabled as isExpired and isEmpty have been removed.
 // /* check if cookie is empty or expired */

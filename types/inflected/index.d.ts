@@ -1,9 +1,3 @@
-// Type definitions for inflected 2.1
-// Project: https://github.com/martinandert/inflected
-// Definitions by: Daniel Schmidt <https://github.com/dsci>
-//                 Jon Clerck <https://github.com/Jclerck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Humanize {
     capitalize?: boolean;
 }
@@ -54,6 +48,5 @@ export function transliterations(transliterate?: (transliterate: Transliteration
 export function parameterize(sentence: string, options?: Parameterize): string;
 export function constantify(words: string): string;
 export function capitalize(word?: string | null): string;
-
 
 export as namespace Inflector;

@@ -1,10 +1,5 @@
-// Type definitions for @xmpp/debug 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/debug
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import Connection = require('@xmpp/connection');
-import { Element } from '@xmpp/xml';
+import Connection = require("@xmpp/connection");
+import { Element } from "@xmpp/xml";
 
 export = debug;
 

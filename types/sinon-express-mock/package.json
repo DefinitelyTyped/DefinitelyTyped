@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/sinon-express-mock",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/danawoodman/sinon-express-mock#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/sinon": "*"
+    },
+    "devDependencies": {
+        "@types/sinon-express-mock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jared Chapiewsky",
+            "githubUsername": "jpchip"
+        },
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        }
+    ]
+}

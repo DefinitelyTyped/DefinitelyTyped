@@ -1,19 +1,4 @@
-// Type definitions for react-native-auth0 2.17
-// Project: https://github.com/auth0/react-native-auth0
-// Definitions by: Andrea Ascari <https://github.com/ascariandrea>
-//                 Mark Nelissen <https://github.com/marknelissen>
-//                 Leo Farias <https://github.com/leoafarias>
-//                 Will Dady <https://github.com/willdady>
-//                 Bogdan Vitoc <https://github.com/bogidon>
-//                 Yam Mesicka <https://github.com/yammesicka>
-//                 Mathias Djärv <https://github.com/mdjarv>
-//                 Greg Friedman <https://github.com/gfriedm4>
-//                 Poovamraj T T <https://github.com/poovamraj>
-//                 TAKAGI Kensuke <https://github.com/januswel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * Auth
@@ -97,13 +82,13 @@ export interface AuthParams {
 
 export interface PasswordlessWithEmailParams {
     email: string;
-    send?: 'link' | 'code';
+    send?: "link" | "code";
     authParams?: AuthParams;
 }
 
 export interface PasswordlessWithSMSParams {
     phoneNumber: string;
-    send?: 'link' | 'code';
+    send?: "link" | "code";
     authParams?: AuthParams;
 }
 
@@ -139,12 +124,12 @@ export interface LoginWithRecoveryCodeParams {
 
 export interface MultiFactorChallengeParams {
     mfaToken: string;
-    challengeType?: 'oob' | 'otp' | 'oob otp' | 'otp oob';
+    challengeType?: "oob" | "otp" | "oob otp" | "otp oob";
     authenticatorId?: string;
 }
 
 export interface MultiFactorChallengeResponse {
-    challengeType?: 'oob' | 'otp' | 'oob otp' | 'otp oob';
+    challengeType?: "oob" | "otp" | "oob otp" | "otp oob";
     oobCode?: string;
     bindingMethod?: string;
 }
@@ -163,7 +148,7 @@ export type UserInfo<CustomClaims = {}> = {
 
 export class Auth {
     authorizeUrl(params: AuthorizeUrlParams): string;
-    /* eslint-disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     createUser<T>(user: CreateUserParams<T>): Promise<CreateUserResponse>;
     exchange(params: ExchangeParams): Promise<Credentials>;
     exchangeNativeSocial(params: ExchangeNativeSocialParams): Promise<Credentials>;
@@ -172,7 +157,7 @@ export class Auth {
     refreshToken(params: RefreshTokenParams): Promise<Credentials>;
     resetPassword(params: ResetPasswordParams): Promise<any>;
     revoke(params: RevokeParams): Promise<any>;
-    /* eslint-disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     userInfo<CustomClaims = {}>(params: UserInfoParams): Promise<UserInfo<CustomClaims>>;
     passwordlessWithEmail(params: PasswordlessWithEmailParams): Promise<any>;
     passwordlessWithSMS(params: PasswordlessWithSMSParams): Promise<any>;
@@ -214,7 +199,7 @@ export interface PatchUserParams<T> {
 
 export class Users {
     constructor(options: UsersOptions);
-    /* eslint-disable-next-line no-unnecessary-generics */
+    /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
     getUser<T>(parameters: GetUserParams): Promise<Auth0User<T>>;
     patchUser<T>(parameters: PatchUserParams<T>): Promise<Auth0User<T>>;
 }
@@ -269,7 +254,7 @@ export class WebAuth {
 }
 
 export interface UsersOptions {
-    baseUrl: Options['domain'];
+    baseUrl: Options["domain"];
     token: string;
 }
 
@@ -356,11 +341,13 @@ export interface PhoneClaims {
     phone_number: string;
     phone_number_verified: boolean;
 }
-export type User = {
-    // for custom claim
-    [key: string]: unknown;
-} & OpenIdClaims &
-    Partial<ProfileClaims & EmailClaims & AddressClaims & PhoneClaims>;
+export type User =
+    & {
+        // for custom claim
+        [key: string]: unknown;
+    }
+    & OpenIdClaims
+    & Partial<ProfileClaims & EmailClaims & AddressClaims & PhoneClaims>;
 
 export class Auth0ContextInterface {
     user: User | null;
@@ -399,6 +386,6 @@ export interface BaseError extends Error {
 }
 
 export interface TimeoutError extends BaseError {
-    name: 'TimeoutError';
+    name: "TimeoutError";
     message: string;
 }

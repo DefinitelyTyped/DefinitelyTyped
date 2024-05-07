@@ -1,10 +1,5 @@
-// Type definitions for Angularized HTML Reporter with Screenshots for Protractor 1.3
-// Project: https://github.com/Evilweed/protractor-beautiful-reporter
-// Definitions by: Adam Kwiatek <https://github.com/akwiatek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import jasmine = require('jasmine');
-import { Capabilities } from 'selenium-webdriver';
+import jasmine = require("jasmine");
+import { Capabilities } from "selenium-webdriver";
 
 export = HtmlReporter;
 
@@ -28,7 +23,7 @@ declare namespace HtmlReporter {
             result: jasmine.SpecResult,
             capabilities: Capabilities,
         ) => string;
-        jasmine2MetaDataBuilder?: HtmlReporter['jasmine2MetaDataBuilder'];
+        jasmine2MetaDataBuilder?: HtmlReporter["jasmine2MetaDataBuilder"];
         screenshotsSubfolder?: string;
         jsonsSubfolder?: string;
         excludeSkippedSpecs?: boolean;
@@ -48,8 +43,8 @@ declare namespace HtmlReporter {
     interface ClientDefaults {
         searchSettings?: SearchSettings;
         columnSettings?: ColumnSettings;
-        showTotalDurationIn?: 'header' | 'belowHeader' | 'footer';
-        totalDurationFormat?: 'h' | 'm' | 's' | 'hm' | 'h:m' | 'hms' | 'h:m:s' | 'ms';
+        showTotalDurationIn?: "header" | "belowHeader" | "footer";
+        totalDurationFormat?: "h" | "m" | "s" | "hm" | "h:m" | "hms" | "h:m:s" | "ms";
         useAjax?: boolean;
     }
 

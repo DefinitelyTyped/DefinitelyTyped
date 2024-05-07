@@ -1,18 +1,12 @@
-// Type definitions for spectrogram 0.0
-// Project: https://github.com/miguelmota/spectrogram/
-// Definitions by: AppLover69 <https://github.com/AppLover69>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 interface SpectrogramOptions {
     canvas?: {
-        width?: HTMLCanvasElement['width'] | (() => HTMLCanvasElement['width']) | undefined;
-        height?: HTMLCanvasElement['height'] | (() => HTMLCanvasElement['height']) | undefined;
+        width?: HTMLCanvasElement["width"] | (() => HTMLCanvasElement["width"]) | undefined;
+        height?: HTMLCanvasElement["height"] | (() => HTMLCanvasElement["height"]) | undefined;
     } | undefined;
     audio?: {
         enable?: boolean | undefined;
     } | undefined;
-    colors?: ((steps: number) => Array<CanvasRenderingContext2D['fillStyle']>) | undefined;
+    colors?: ((steps: number) => Array<CanvasRenderingContext2D["fillStyle"]>) | undefined;
 }
 
 interface Spectrogram {

@@ -1,12 +1,12 @@
-import SLOT = require('internal-slot');
+import SLOT = require("internal-slot");
 
-const PRIMITIVES: [null, undefined, true, false, string, '', number, 0] = [
+const PRIMITIVES: [null, undefined, true, false, string, "", number, 0] = [
     null,
     undefined,
     true,
     false,
-    'foo',
-    '',
+    "foo",
+    "",
     42,
     0,
 ];
@@ -23,11 +23,11 @@ const NON_STRINGS: [null, undefined, true, false, number, 0, object, any[], () =
     /a/g,
 ];
 
-//#region assert
+// #region assert
 {
     PRIMITIVES.forEach(primitive => {
         // @ts-expect-error
-        SLOT.assert(primitive, '');
+        SLOT.assert(primitive, "");
     });
 
     NON_STRINGS.forEach(nonString => {
@@ -35,15 +35,15 @@ const NON_STRINGS: [null, undefined, true, false, number, 0, object, any[], () =
         SLOT.assert({}, nonString);
     });
 
-    SLOT.assert({}, ''); // $ExpectType void
+    SLOT.assert({}, ""); // $ExpectType void
 }
-//#endregion
+// #endregion
 
-//#region has
+// #region has
 {
     PRIMITIVES.forEach(primitive => {
         // @ts-expect-error
-        SLOT.has(primitive, '');
+        SLOT.has(primitive, "");
     });
 
     NON_STRINGS.forEach(nonString => {
@@ -51,15 +51,15 @@ const NON_STRINGS: [null, undefined, true, false, number, 0, object, any[], () =
         SLOT.has({}, nonString);
     });
 
-    SLOT.has({}, 'any'); // $ExpectType boolean
+    SLOT.has({}, "any"); // $ExpectType boolean
 }
-//#endregion
+// #endregion
 
-//#region get
+// #region get
 {
     PRIMITIVES.forEach(primitive => {
         // @ts-expect-error
-        SLOT.get(primitive, '');
+        SLOT.get(primitive, "");
     });
 
     NON_STRINGS.forEach(nonString => {
@@ -67,15 +67,15 @@ const NON_STRINGS: [null, undefined, true, false, number, 0, object, any[], () =
         SLOT.get({}, nonString);
     });
 
-    SLOT.get({}, 'any'); // $ExpectType any
+    SLOT.get({}, "any"); // $ExpectType any
 }
-//#endregion
+// #endregion
 
-//#region set
+// #region set
 {
     PRIMITIVES.forEach(primitive => {
         // @ts-expect-error
-        SLOT.set(primitive, '', null);
+        SLOT.set(primitive, "", null);
     });
 
     NON_STRINGS.forEach(nonString => {
@@ -83,7 +83,7 @@ const NON_STRINGS: [null, undefined, true, false, number, 0, object, any[], () =
         SLOT.set({}, nonString, null);
     });
 
-    SLOT.set({}, 'any', 42); // $ExpectType void
-    SLOT.set({}, 'any', Infinity); // $ExpectType void
+    SLOT.set({}, "any", 42); // $ExpectType void
+    SLOT.set({}, "any", Infinity); // $ExpectType void
 }
-//#endregion
+// #endregion

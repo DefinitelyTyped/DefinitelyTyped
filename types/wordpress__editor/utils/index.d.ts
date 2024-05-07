@@ -1,7 +1,9 @@
-import type { UploadMediaOptions } from '@wordpress/media-utils';
+import type { UploadMediaOptions } from "@wordpress/media-utils";
 
-export type MediaUploadOptions = Omit<UploadMediaOptions, 'maxUploadFileSize' | 'onError' | 'wpAllowedMimeTypes'> &
-    Partial<Pick<UploadMediaOptions, 'maxUploadFileSize'>> & {
+export type MediaUploadOptions =
+    & Omit<UploadMediaOptions, "maxUploadFileSize" | "onError" | "wpAllowedMimeTypes">
+    & Partial<Pick<UploadMediaOptions, "maxUploadFileSize">>
+    & {
         onError?(message: string): void;
     };
 

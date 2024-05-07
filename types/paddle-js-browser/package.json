@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/paddle-js-browser",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Paddle.js",
+    "projects": [
+        "https://developer.paddle.com"
+    ],
+    "devDependencies": {
+        "@types/paddle-js-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Atlan",
+            "githubUsername": "catlan"
+        }
+    ]
+}

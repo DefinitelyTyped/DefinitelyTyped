@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/intercom-web",
+    "version": "2.8.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Intercom Web API",
+    "projects": [
+        "https://docs.intercom.io/",
+        "configure-intercom-for-your-product-or-site/",
+        "customize-the-intercom-messenger/the-intercom-javascript-api"
+    ],
+    "devDependencies": {
+        "@types/intercom-web": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Fong",
+            "githubUsername": "fongandrew"
+        },
+        {
+            "name": "Samer Albahra",
+            "githubUsername": "salbahra"
+        },
+        {
+            "name": "Onat Yigit Mercan",
+            "githubUsername": "onatm"
+        }
+    ]
+}

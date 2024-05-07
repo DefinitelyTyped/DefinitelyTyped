@@ -1,9 +1,3 @@
-// Type definitions for gulp-jasmine 2.4
-// Project: https://github.com/sindresorhus/gulp-jasmine#readme
-// Definitions by: Andrey Lalev <https://github.com/andypyrope>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 /// <reference types="jasmine" />
 
@@ -22,7 +16,7 @@ interface JasmineOptions {
     /**
      * Reporter(s) to use.
      */
-    reporter?: jasmine.CustomReporter | ReadonlyArray<jasmine.CustomReporter> | undefined;
+    reporter?: jasmine.CustomReporter | readonly jasmine.CustomReporter[] | undefined;
 
     /**
      * Time to wait in milliseconds before a test automatically fails.

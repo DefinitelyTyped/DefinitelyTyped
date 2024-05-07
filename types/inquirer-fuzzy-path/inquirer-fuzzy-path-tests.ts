@@ -21,5 +21,5 @@ inquirer.prompt([
         default: "inquirer-fuzzy-path/",
         suggestOnly: false,
         depthLimit: 5,
-    }
+    },
 ]);

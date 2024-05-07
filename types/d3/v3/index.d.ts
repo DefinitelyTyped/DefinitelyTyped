@@ -1,13 +1,3 @@
-// Type definitions for d3JS 3.5
-// Project: http://d3js.org/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Matthias Jobst <https://github.com/MatthiasJobst>
-//                 Nithyanandam Venu <https://github.com/vbinithyanandamv>
-//                 Mihai Cherej <https://github.com/cronco>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Latest patch version of module validated against: 3.5.18
 
 export = d3;
@@ -93,7 +83,9 @@ declare namespace d3 {
              *
              * @param obj A key-value mapping corresponding to attributes and values. If the value is a simple string or number, it is taken as a constant. Otherwise, it is a function that derives the attribute value.
              */
-            attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }): Update<Datum>;
+            attr(
+                obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) },
+            ): Update<Datum>;
 
             /**
              * Returns true if the first node in this selection has the given class list. If multiple classes are specified (i.e., "foo bar"), then returns true only if all classes match.
@@ -123,7 +115,9 @@ declare namespace d3 {
              *
              * @param obj An Object mapping class lists to values that are either plain booleans or functions that return booleans.
              */
-            classed(obj: { [key: string]: boolean | ((datum: Datum, index: number, outerIndex: number) => boolean) }): Update<Datum>;
+            classed(
+                obj: { [key: string]: boolean | ((datum: Datum, index: number, outerIndex: number) => boolean) },
+            ): Update<Datum>;
 
             /**
              * Retrieve the computed style value for the first node in the selection.
@@ -145,7 +139,11 @@ declare namespace d3 {
              * @param value the function to derive the value
              * @param priority if specified, either null or the string "important" (no exclamation mark)
              */
-            style(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive, priority?: string): Update<Datum>;
+            style(
+                name: string,
+                value: (datum: Datum, index: number, outerIndex: number) => Primitive,
+                priority?: string,
+            ): Update<Datum>;
 
             /**
              * Set a large number of CSS properties from an object.
@@ -153,7 +151,10 @@ declare namespace d3 {
              * @param obj an Object whose keys correspond to CSS property names and values are either constants or functions that derive property values
              * @param priority if specified, either null or the string "important" (no exclamation mark)
              */
-            style(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }, priority?: string): Update<Datum>;
+            style(
+                obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) },
+                priority?: string,
+            ): Update<Datum>;
 
             /**
              * Retrieve an arbitrary node property such as the 'checked' property of checkboxes, or the 'value' of text boxes.
@@ -183,7 +184,9 @@ declare namespace d3 {
              *
              * @param obj an Object whose keys correspond to node properties and values are either constants or functions that will compute a value.
              */
-            property(obj: { [key: string]: any | ((datum: Datum, index: number, outerIndex: number) => any) }): Update<Datum>;
+            property(
+                obj: { [key: string]: any | ((datum: Datum, index: number, outerIndex: number) => any) },
+            ): Update<Datum>;
 
             /**
              * Retrieve the textContent of the first node in the selection.
@@ -247,21 +250,30 @@ declare namespace d3 {
              * @param before a function to determine the node to use as the next sibling
              */
             // https://github.com/d3/d3-3.x-api-reference/blob/master/Selections.md#insert
-            insert(name: string, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+            insert(
+                name: string,
+                before?: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+            ): Update<Datum>;
 
             /**
              * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
              * @param name the function to compute a new child
              * @param before the selector to determine position (e.g., ":first-child")
              */
-            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: string): Update<Datum>;
+            insert(
+                name: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+                before?: string,
+            ): Update<Datum>;
 
             /**
              * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
              * @param name the function to compute a new child
              * @param before a function to determine the node to use as the next sibling
              */
-            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Update<Datum>;
+            insert(
+                name: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+                before?: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+            ): Update<Datum>;
 
             /**
              * Removes the elements from the DOM. They are in a detached state and may be re-added (though there is currently no dedicated API for doing so).
@@ -278,14 +290,20 @@ declare namespace d3 {
              * @param data the array of data to bind to this selection
              * @param key the optional function to determine the unique key for each piece of data. When unspecified, uses the index of the element.
              */
-            data<NewDatum>(data: NewDatum[], key?: (datum: NewDatum, index: number, outerIndex: number) => string): Update<NewDatum>;
+            data<NewDatum>(
+                data: NewDatum[],
+                key?: (datum: NewDatum, index: number, outerIndex: number) => string,
+            ): Update<NewDatum>;
 
             /**
              * Derives data to bind to this selection.
              * @param data the function to derive data. Must return an array.
              * @param key the optional function to determine the unique key for each data item. When unspecified, uses the index of the element.
              */
-            data<NewDatum>(data: (datum: Datum, index: number, outerIndex: number) => NewDatum[], key?: (datum: NewDatum, index: number, outerIndex: number) => string): Update<NewDatum>;
+            data<NewDatum>(
+                data: (datum: Datum, index: number, outerIndex: number) => NewDatum[],
+                key?: (datum: NewDatum, index: number, outerIndex: number) => string,
+            ): Update<NewDatum>;
 
             /**
              * Filters the selection, returning only those nodes that match the given CSS selector.
@@ -339,7 +357,11 @@ declare namespace d3 {
              * @param listener an event listener function, or null to unregister
              * @param capture sets the DOM useCapture flag
              */
-            on(type: string, listener: (datum: Datum, index: number, outerIndex: number) => any, capture?: boolean): Update<Datum>;
+            on(
+                type: string,
+                listener: (datum: Datum, index: number, outerIndex: number) => any,
+                capture?: boolean,
+            ): Update<Datum>;
 
             /**
              * Begins a new transition. Interrupts any active transitions of the same name.
@@ -375,7 +397,9 @@ declare namespace d3 {
              * Creates a subselection by using a function to find descendent elements. Bound data is not inherited.
              * @param selector the function to find matching descendents
              */
-            selectAll(selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList): Update<any>;
+            selectAll(
+                selector: (datum: Datum, index: number, outerIndex: number) => EventTarget[] | NodeList,
+            ): Update<any>;
 
             /**
              * Invoke the given function for each element in the selection. The return value of the function is ignored.
@@ -421,9 +445,18 @@ declare namespace d3 {
             append(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
 
             insert(name: string, before?: string): Selection<Datum>;
-            insert(name: string, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
-            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: string): Selection<Datum>;
-            insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+            insert(
+                name: string,
+                before: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+            ): Selection<Datum>;
+            insert(
+                name: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+                before?: string,
+            ): Selection<Datum>;
+            insert(
+                name: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+                before: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+            ): Selection<Datum>;
 
             select(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
             call(func: (selection: Enter<Datum>, ...args: any[]) => any, ...args: any[]): Enter<Datum>;
@@ -436,7 +469,7 @@ declare namespace d3 {
     /**
      * Administrivia: JavaScript primitive types, or "things that toString() predictably".
      */
-    export type Primitive = number | string | boolean ;
+    export type Primitive = number | string | boolean;
 
     /**
      * Administrivia: anything with a valueOf(): number method is comparable, so we allow it in numeric operations
@@ -488,7 +521,9 @@ declare namespace d3 {
          *
          * @param obj A key-value mapping corresponding to attributes and values. If the value is a simple string or number, it is taken as a constant. Otherwise, it is a function that derives the attribute value.
          */
-        attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }): Selection<Datum>;
+        attr(
+            obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) },
+        ): Selection<Datum>;
 
         /**
          * Returns true if the first node in this selection has the given class list. If multiple classes are specified (i.e., "foo bar"), then returns true only if all classes match.
@@ -518,7 +553,9 @@ declare namespace d3 {
          *
          * @param obj An Object mapping class lists to values that are either plain booleans or functions that return booleans.
          */
-        classed(obj: { [key: string]: boolean | ((datum: Datum, index: number, outerIndex: number) => boolean) }): Selection<Datum>;
+        classed(
+            obj: { [key: string]: boolean | ((datum: Datum, index: number, outerIndex: number) => boolean) },
+        ): Selection<Datum>;
 
         /**
          * Retrieve the computed style value for the first node in the selection.
@@ -540,7 +577,11 @@ declare namespace d3 {
          * @param value the function to derive the value
          * @param priority if specified, either null or the string "important" (no exclamation mark)
          */
-        style(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive, priority?: string): Selection<Datum>;
+        style(
+            name: string,
+            value: (datum: Datum, index: number, outerIndex: number) => Primitive,
+            priority?: string,
+        ): Selection<Datum>;
 
         /**
          * Set a large number of CSS properties from an object.
@@ -548,7 +589,10 @@ declare namespace d3 {
          * @param obj an Object whose keys correspond to CSS property names and values are either constants or functions that derive property values
          * @param priority if specified, either null or the string "important" (no exclamation mark)
          */
-        style(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }, priority?: string): Selection<Datum>;
+        style(
+            obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) },
+            priority?: string,
+        ): Selection<Datum>;
 
         /**
          * Retrieve an arbitrary node property such as the 'checked' property of checkboxes, or the 'value' of text boxes.
@@ -578,7 +622,9 @@ declare namespace d3 {
          *
          * @param obj an Object whose keys correspond to node properties and values are either constants or functions that will compute a value.
          */
-        property(obj: { [key: string]: any | ((datum: Datum, index: number, innerInder: number) => any) }): Selection<Datum>;
+        property(
+            obj: { [key: string]: any | ((datum: Datum, index: number, innerInder: number) => any) },
+        ): Selection<Datum>;
 
         /**
          * Retrieve the textContent of the first node in the selection.
@@ -640,21 +686,30 @@ declare namespace d3 {
          * @param name the element name to append. May be prefixed (see d3.ns.prefix).
          * @param before a function to determine the node to use as the next sibling
          */
-        insert(name: string, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+        insert(
+            name: string,
+            before?: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+        ): Selection<Datum>;
 
         /**
          * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
          * @param name the function to compute a new child
          * @param before the selector to determine position (e.g., ":first-child")
          */
-        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: string): Selection<Datum>;
+        insert(
+            name: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+            before?: string,
+        ): Selection<Datum>;
 
         /**
          * Inserts a new child to the end of each node in the selection by computing a new node. This child will inherit its parent's data (if available). Returns a fresh selection consisting of the newly-inserted children.
          * @param name the function to compute a new child
          * @param before a function to determine the node to use as the next sibling
          */
-        insert(name: (datum: Datum, index: number, outerIndex: number) => EventTarget, before?: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
+        insert(
+            name: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+            before?: (datum: Datum, index: number, outerIndex: number) => EventTarget,
+        ): Selection<Datum>;
 
         /**
          * Removes the elements from the DOM. They are in a detached state and may be re-added (though there is currently no dedicated API for doing so).
@@ -671,14 +726,20 @@ declare namespace d3 {
          * @param data the array of data to bind to this selection
          * @param key the optional function to determine the unique key for each piece of data. When unspecified, uses the index of the element.
          */
-        data<NewDatum>(data: NewDatum[], key?: (datum: NewDatum, index: number, outerIndex: number) => string): selection.Update<NewDatum>;
+        data<NewDatum>(
+            data: NewDatum[],
+            key?: (datum: NewDatum, index: number, outerIndex: number) => string,
+        ): selection.Update<NewDatum>;
 
         /**
          * Derives data to bind to this selection.
          * @param data the function to derive data. Must return an array.
          * @param key the optional function to determine the unique key for each data item. When unspecified, uses the index of the element.
          */
-        data<NewDatum>(data: (datum: Datum, index: number, outerIndex: number) => NewDatum[], key?: (datum: NewDatum, index: number, outerIndex: number) => string): selection.Update<NewDatum>;
+        data<NewDatum>(
+            data: (datum: Datum, index: number, outerIndex: number) => NewDatum[],
+            key?: (datum: NewDatum, index: number, outerIndex: number) => string,
+        ): selection.Update<NewDatum>;
 
         /**
          * Filters the selection, returning only those nodes that match the given CSS selector.
@@ -732,7 +793,11 @@ declare namespace d3 {
          * @param listener an event listener function, or null to unregister
          * @param capture sets the DOM useCapture flag
          */
-        on(type: string, listener: (datum: Datum, index: number, outerIndex: number) => any, capture?: boolean): Selection<Datum>;
+        on(
+            type: string,
+            listener: (datum: Datum, index: number, outerIndex: number) => any,
+            capture?: boolean,
+        ): Selection<Datum>;
 
         /**
          * Begins a new transition. Interrupts any active transitions of the same name.
@@ -775,7 +840,9 @@ declare namespace d3 {
          * Creates a subselection by using a function to find descendent elements. Bound data is not inherited.
          * @param selector the function to find matching descendents
          */
-        selectAll(selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList): Selection<any>;
+        selectAll(
+            selector: (datum: Datum, index: number, outerIndex: number) => EventTarget[] | NodeList,
+        ): Selection<any>;
 
         /**
          * Creates a subselection by using a function to find descendent elements. Bound data is not inherited.
@@ -783,7 +850,9 @@ declare namespace d3 {
          * Use this overload when data-binding a subselection (that is, sel.selectAll('.foo').data(d => ...)). The type will carry over.
          * @param selector the function to find matching descendents
          */
-        selectAll<T>(selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList): Selection<T>;
+        selectAll<T>(
+            selector: (datum: Datum, index: number, outerIndex: number) => EventTarget[] | NodeList,
+        ): Selection<T>;
 
         /**
          * Invoke the given function for each element in the selection. The return value of the function is ignored.
@@ -820,7 +889,6 @@ declare namespace d3 {
     }
 
     interface Transition<Datum> {
-
         transition(): Transition<Datum>;
 
         delay(): number;
@@ -837,15 +905,31 @@ declare namespace d3 {
 
         attr(name: string, value: Primitive): Transition<Datum>;
         attr(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive): Transition<Datum>;
-        attr(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }): Transition<Datum>;
+        attr(
+            obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) },
+        ): Transition<Datum>;
 
-        attrTween(name: string, tween: (datum: Datum, index: number, attr: string) => (t: number) => Primitive): Transition<Datum>;
+        attrTween(
+            name: string,
+            tween: (datum: Datum, index: number, attr: string) => (t: number) => Primitive,
+        ): Transition<Datum>;
 
         style(name: string, value: Primitive, priority?: string): Transition<Datum>;
-        style(name: string, value: (datum: Datum, index: number, outerIndex: number) => Primitive, priority?: string): Transition<Datum>;
-        style(obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) }, priority?: string): Transition<Datum>;
+        style(
+            name: string,
+            value: (datum: Datum, index: number, outerIndex: number) => Primitive,
+            priority?: string,
+        ): Transition<Datum>;
+        style(
+            obj: { [key: string]: Primitive | ((datum: Datum, index: number, outerIndex: number) => Primitive) },
+            priority?: string,
+        ): Transition<Datum>;
 
-        styleTween(name: string, tween: (datum: Datum, index: number, attr: string) => (t: number) => Primitive, priority?: string): Transition<Datum>;
+        styleTween(
+            name: string,
+            tween: (datum: Datum, index: number, attr: string) => (t: number) => Primitive,
+            priority?: string,
+        ): Transition<Datum>;
 
         text(value: Primitive): Transition<Datum>;
         text(value: (datum: Datum, index: number, outerIndex: number) => Primitive): Transition<Datum>;
@@ -873,59 +957,59 @@ declare namespace d3 {
         size(): number;
     }
 
-    export function ease(type: 'linear'): (t: number) => number;
-    export function ease(type: 'linear-in'): (t: number) => number;
-    export function ease(type: 'linear-out'): (t: number) => number;
-    export function ease(type: 'linear-in-out'): (t: number) => number;
-    export function ease(type: 'linear-out-in'): (t: number) => number;
+    export function ease(type: "linear"): (t: number) => number;
+    export function ease(type: "linear-in"): (t: number) => number;
+    export function ease(type: "linear-out"): (t: number) => number;
+    export function ease(type: "linear-in-out"): (t: number) => number;
+    export function ease(type: "linear-out-in"): (t: number) => number;
 
-    export function ease(type: 'poly', k: number): (t: number) => number;
-    export function ease(type: 'poly-in', k: number): (t: number) => number;
-    export function ease(type: 'poly-out', k: number): (t: number) => number;
-    export function ease(type: 'poly-in-out', k: number): (t: number) => number;
-    export function ease(type: 'poly-out-in', k: number): (t: number) => number;
+    export function ease(type: "poly", k: number): (t: number) => number;
+    export function ease(type: "poly-in", k: number): (t: number) => number;
+    export function ease(type: "poly-out", k: number): (t: number) => number;
+    export function ease(type: "poly-in-out", k: number): (t: number) => number;
+    export function ease(type: "poly-out-in", k: number): (t: number) => number;
 
-    export function ease(type: 'quad'): (t: number) => number;
-    export function ease(type: 'quad-in'): (t: number) => number;
-    export function ease(type: 'quad-out'): (t: number) => number;
-    export function ease(type: 'quad-in-out'): (t: number) => number;
-    export function ease(type: 'quad-out-in'): (t: number) => number;
+    export function ease(type: "quad"): (t: number) => number;
+    export function ease(type: "quad-in"): (t: number) => number;
+    export function ease(type: "quad-out"): (t: number) => number;
+    export function ease(type: "quad-in-out"): (t: number) => number;
+    export function ease(type: "quad-out-in"): (t: number) => number;
 
-    export function ease(type: 'cubic'): (t: number) => number;
-    export function ease(type: 'cubic-in'): (t: number) => number;
-    export function ease(type: 'cubic-out'): (t: number) => number;
-    export function ease(type: 'cubic-in-out'): (t: number) => number;
-    export function ease(type: 'cubic-out-in'): (t: number) => number;
+    export function ease(type: "cubic"): (t: number) => number;
+    export function ease(type: "cubic-in"): (t: number) => number;
+    export function ease(type: "cubic-out"): (t: number) => number;
+    export function ease(type: "cubic-in-out"): (t: number) => number;
+    export function ease(type: "cubic-out-in"): (t: number) => number;
 
-    export function ease(type: 'sin'): (t: number) => number;
-    export function ease(type: 'sin-in'): (t: number) => number;
-    export function ease(type: 'sin-out'): (t: number) => number;
-    export function ease(type: 'sin-in-out'): (t: number) => number;
-    export function ease(type: 'sin-out-in'): (t: number) => number;
+    export function ease(type: "sin"): (t: number) => number;
+    export function ease(type: "sin-in"): (t: number) => number;
+    export function ease(type: "sin-out"): (t: number) => number;
+    export function ease(type: "sin-in-out"): (t: number) => number;
+    export function ease(type: "sin-out-in"): (t: number) => number;
 
-    export function ease(type: 'circle'): (t: number) => number;
-    export function ease(type: 'circle-in'): (t: number) => number;
-    export function ease(type: 'circle-out'): (t: number) => number;
-    export function ease(type: 'circle-in-out'): (t: number) => number;
-    export function ease(type: 'circle-out-in'): (t: number) => number;
+    export function ease(type: "circle"): (t: number) => number;
+    export function ease(type: "circle-in"): (t: number) => number;
+    export function ease(type: "circle-out"): (t: number) => number;
+    export function ease(type: "circle-in-out"): (t: number) => number;
+    export function ease(type: "circle-out-in"): (t: number) => number;
 
-    export function ease(type: 'elastic', a?: number, b?: number): (t: number) => number;
-    export function ease(type: 'elastic-in', a?: number, b?: number): (t: number) => number;
-    export function ease(type: 'elastic-out', a?: number, b?: number): (t: number) => number;
-    export function ease(type: 'elastic-in-out', a?: number, b?: number): (t: number) => number;
-    export function ease(type: 'elastic-out-in', a?: number, b?: number): (t: number) => number;
+    export function ease(type: "elastic", a?: number, b?: number): (t: number) => number;
+    export function ease(type: "elastic-in", a?: number, b?: number): (t: number) => number;
+    export function ease(type: "elastic-out", a?: number, b?: number): (t: number) => number;
+    export function ease(type: "elastic-in-out", a?: number, b?: number): (t: number) => number;
+    export function ease(type: "elastic-out-in", a?: number, b?: number): (t: number) => number;
 
-    export function ease(type: 'back', s: number): (t: number) => number;
-    export function ease(type: 'back-in', s: number): (t: number) => number;
-    export function ease(type: 'back-out', s: number): (t: number) => number;
-    export function ease(type: 'back-in-out', s: number): (t: number) => number;
-    export function ease(type: 'back-out-in', s: number): (t: number) => number;
+    export function ease(type: "back", s: number): (t: number) => number;
+    export function ease(type: "back-in", s: number): (t: number) => number;
+    export function ease(type: "back-out", s: number): (t: number) => number;
+    export function ease(type: "back-in-out", s: number): (t: number) => number;
+    export function ease(type: "back-out-in", s: number): (t: number) => number;
 
-    export function ease(type: 'bounce'): (t: number) => number;
-    export function ease(type: 'bounce-in'): (t: number) => number;
-    export function ease(type: 'bounce-out'): (t: number) => number;
-    export function ease(type: 'bounce-in-out'): (t: number) => number;
-    export function ease(type: 'bounce-out-in'): (t: number) => number;
+    export function ease(type: "bounce"): (t: number) => number;
+    export function ease(type: "bounce-in"): (t: number) => number;
+    export function ease(type: "bounce-out"): (t: number) => number;
+    export function ease(type: "bounce-in-out"): (t: number) => number;
+    export function ease(type: "bounce-out-in"): (t: number) => number;
 
     export function ease(type: string, ...args: any[]): (t: number) => number;
 
@@ -1099,7 +1183,10 @@ declare namespace d3 {
     /**
      * Return the min and max simultaneously.
      */
-    export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number) => U): [U | Primitive, U | Primitive];
+    export function extent<T, U extends Numeric>(
+        array: T[],
+        accessor: (datum: T, index: number) => U,
+    ): [U | Primitive, U | Primitive];
 
     /**
      * Compute the sum of an array of numbers.
@@ -1137,12 +1224,12 @@ declare namespace d3 {
     export function bisector<T, U>(accessor: (x: T) => U): {
         left: (array: T[], x: U, lo?: number, hi?: number) => number;
         right: (array: T[], x: U, lo?: number, hi?: number) => number;
-    }
+    };
 
     export function bisector<T, U>(comparator: (a: T, b: U) => number): {
         left: (array: T[], x: U, lo?: number, hi?: number) => number;
         right: (array: T[], x: U, lo?: number, hi?: number) => number;
-    }
+    };
 
     export function shuffle<T>(array: T[], lo?: number, hi?: number): T[];
 
@@ -1168,17 +1255,17 @@ declare namespace d3 {
     /**
      * Returns an array of key-value pairs containing the property values of the specified object.
      */
-    export function entries<T>(object: { [key: string]: T }): { key: string; value: T }[];
+    export function entries<T>(object: { [key: string]: T }): Array<{ key: string; value: T }>;
 
     /**
      * Returns an array of key-value pairs containing the property values of the specified object.
      */
-    export function entries<T>(object: { [key: number]: T }): { key: string; value: T }[];
+    export function entries<T>(object: { [key: number]: T }): Array<{ key: string; value: T }>;
 
     /**
      * Returns an array of key-value pairs containing the property values of the specified object.
      */
-    export function entries(object: Object): { key: string; value: any }[];
+    export function entries(object: Object): Array<{ key: string; value: any }>;
 
     /**
      * A shim for ES6 maps. The implementation uses a JavaScript object internally, and thus keys are limited to strings.
@@ -1217,7 +1304,7 @@ declare namespace d3 {
         /**
          * Returns an array of key-value objects in arbitrary order.
          */
-        entries(): { key: string; value: T }[];
+        entries(): Array<{ key: string; value: T }>;
 
         /**
          * Calls the function for each key and value pair in the map. The 'this' context is the map itself.
@@ -1358,12 +1445,12 @@ declare namespace d3 {
         rollup<U>(func: (values: T[]) => U): Nest<T>;
         map(array: T[]): { [key: string]: any };
         map(array: T[], mapType: typeof d3.map): Map<any>;
-        entries(array: T[]): { key: string; values: any }[];
+        entries(array: T[]): Array<{ key: string; values: any }>;
     }
 
     export function nest<T>(): Nest<T>;
 
-    export module random {
+    export namespace random {
         export function normal(mean?: number, deviation?: number): () => number;
         export function logNormal(mean?: number, deviation?: number): () => number;
         export function bates(count: number): () => number;
@@ -1458,7 +1545,7 @@ declare namespace d3 {
 
         (l: number, a: number, b: number): Lab;
         (color: string): Lab;
-    }
+    };
 
     interface Lab extends Color {
         l: number;
@@ -1481,7 +1568,7 @@ declare namespace d3 {
         rgb(): Rgb;
     }
 
-    export module ns {
+    export namespace ns {
         interface Qualified {
             space: string;
             local: string;
@@ -1504,7 +1591,7 @@ declare namespace d3 {
         [event: string]: (...args: any[]) => void;
     }
 
-    export module scale {
+    export namespace scale {
         export function identity(): Identity;
 
         interface Identity {
@@ -1704,7 +1791,11 @@ declare namespace d3 {
             rangeRoundPoints(interval: [number, number], padding?: number): Ordinal<Domain, number>;
 
             rangeBands(interval: [number, number], padding?: number, outerPadding?: number): Ordinal<Domain, number>;
-            rangeRoundBands(interval: [number, number], padding?: number, outerPadding?: number): Ordinal<Domain, number>;
+            rangeRoundBands(
+                interval: [number, number],
+                padding?: number,
+                outerPadding?: number,
+            ): Ordinal<Domain, number>;
 
             rangeBand(): number;
             rangeExtent(): [number, number];
@@ -1719,9 +1810,18 @@ declare namespace d3 {
     export function interpolate(a: Array<string | Color>, b: Color[]): (t: number) => string;
     export function interpolate<Range, Output>(a: Range[], b: Output[]): (t: number) => Output[];
     export function interpolate<Range, Output>(a: Range[], b: Range[]): (t: number) => Output[];
-    export function interpolate(a: { [key: string]: string | Color }, b: { [key: string]: Color }): (t: number) => { [key: string]: string };
-    export function interpolate<Range, Output>(a: { [key: string]: Range }, b: { [key: string]: Output }): (t: number) => { [key: string]: Output };
-    export function interpolate<Range, Output>(a: { [key: string]: Range }, b: { [key: string]: Range }): (t: number) => { [key: string]: Output };
+    export function interpolate(
+        a: { [key: string]: string | Color },
+        b: { [key: string]: Color },
+    ): (t: number) => { [key: string]: string };
+    export function interpolate<Range, Output>(
+        a: { [key: string]: Range },
+        b: { [key: string]: Output },
+    ): (t: number) => { [key: string]: Output };
+    export function interpolate<Range, Output>(
+        a: { [key: string]: Range },
+        b: { [key: string]: Range },
+    ): (t: number) => { [key: string]: Output };
 
     export function interpolateNumber(a: number, b: number): (t: number) => number;
 
@@ -1741,9 +1841,18 @@ declare namespace d3 {
     export function interpolateArray<Range, Output>(a: Range[], b: Range[]): (t: number) => Output[];
     export function interpolateArray<Range, Output>(a: Range[], b: Output[]): (t: number) => Output[];
 
-    export function interpolateObject(a: { [key: string]: string | Color }, b: { [key: string]: Color }): (t: number) => { [key: string]: string };
-    export function interpolateObject<Range, Output>(a: { [key: string]: Range }, b: { [key: string]: Output }): (t: number) => { [key: string]: Output };
-    export function interpolateObject<Range, Output>(a: { [key: string]: Range }, b: { [key: string]: Range }): (t: number) => { [key: string]: Output };
+    export function interpolateObject(
+        a: { [key: string]: string | Color },
+        b: { [key: string]: Color },
+    ): (t: number) => { [key: string]: string };
+    export function interpolateObject<Range, Output>(
+        a: { [key: string]: Range },
+        b: { [key: string]: Output },
+    ): (t: number) => { [key: string]: Output };
+    export function interpolateObject<Range, Output>(
+        a: { [key: string]: Range },
+        b: { [key: string]: Range },
+    ): (t: number) => { [key: string]: Output };
 
     export function interpolateTransform(a: string | Transform, b: string | Transform): (t: number) => string;
 
@@ -1754,7 +1863,7 @@ declare namespace d3 {
 
     export var interpolators: Array<(a: any, b: any) => (t: number) => any>;
 
-    export module time {
+    export namespace time {
         export var second: Interval;
         export var minute: Interval;
         export var hour: Interval;
@@ -1795,7 +1904,7 @@ declare namespace d3 {
                 range(start: Date, stop: Date, step?: number): Date[];
 
                 offset(date: Date, step: number): Date;
-            }
+            };
         }
 
         export function seconds(start: Date, stop: Date, step?: number): Date[];
@@ -1824,7 +1933,7 @@ declare namespace d3 {
 
         export function format(specifier: string): Format;
 
-        export module format {
+        export namespace format {
             export function multi(formats: Array<[string, (d: Date) => boolean | number]>): Format;
             export function utc(specifier: string): Format;
             namespace utc {
@@ -1843,12 +1952,11 @@ declare namespace d3 {
         export function scale<Output>(): Scale<Output, Output>;
         export function scale<Range, Output>(): Scale<Range, Output>;
 
-        export module scale {
+        export namespace scale {
             export function utc(): Scale<number, number>;
             export function utc<Output>(): Scale<Output, Output>;
             export function utc<Range, Output>(): Scale<Range, Output>;
         }
-
 
         interface Scale<Range, Output> {
             (x: Date): Output;
@@ -1883,7 +1991,7 @@ declare namespace d3 {
         }
     }
 
-    export module behavior {
+    export namespace behavior {
         export function drag<Datum>(): Drag<Datum>;
 
         interface Drag<Datum> {
@@ -1942,7 +2050,7 @@ declare namespace d3 {
         }
     }
 
-    export module geo {
+    export namespace geo {
         export function path(): Path;
 
         interface Path {
@@ -2063,7 +2171,9 @@ declare namespace d3 {
         export function projection(raw: RawInvertibleProjection): InvertibleProjection;
         export function projection(raw: RawProjection): Projection;
 
-        export function projectionMutator(factory: (...args: any[]) => RawInvertibleProjection): (...args: any[]) => InvertibleProjection;
+        export function projectionMutator(
+            factory: (...args: any[]) => RawInvertibleProjection,
+        ): (...args: any[]) => InvertibleProjection;
         export function projectionMutator(factory: (...args: any[]) => RawProjection): (...args: any[]) => Projection;
 
         export function albers(): ConicProjection;
@@ -2399,7 +2509,7 @@ declare namespace d3 {
                 outerRadius: number;
                 startAngle: number;
                 endAngle: number;
-                padAngle: number
+                padAngle: number;
             }
         }
 
@@ -2468,7 +2578,7 @@ declare namespace d3 {
             interface Node {
                 radius: number;
                 startAngle: number;
-                endAngle: number
+                endAngle: number;
             }
         }
 
@@ -2517,11 +2627,11 @@ declare namespace d3 {
 
             source(): (d: Link, i: number) => Node;
             source(source: Node): Diagonal<Link, Node>;
-            source(source: (d: Link, i: number) => { x: number; y: number; }): Diagonal<Link, Node>;
+            source(source: (d: Link, i: number) => { x: number; y: number }): Diagonal<Link, Node>;
 
             target(): (d: Link, i: number) => Node;
             target(target: Node): Diagonal<Link, Node>;
-            target(target: (d: Link, i: number) => { x: number; y: number; }): Diagonal<Link, Node>;
+            target(target: (d: Link, i: number) => { x: number; y: number }): Diagonal<Link, Node>;
 
             projection(): (d: Node, i: number) => [number, number];
             projection(projection: (d: Node, i: number) => [number, number]): Diagonal<Link, Node>;
@@ -2579,8 +2689,8 @@ declare namespace d3 {
             tickPadding(): number;
             tickPadding(padding: number): Axis;
 
-            tickFormat(): (t: any , index : number) => string;
-            tickFormat(format: (t: any , index : number) => string): Axis;
+            tickFormat(): (t: any, index: number) => string;
+            tickFormat(format: (t: any, index: number) => string): Axis;
             tickFormat(format: string): Axis;
 
             tickSubdivide(...args: any[]): Axis;
@@ -2588,7 +2698,7 @@ declare namespace d3 {
 
         export function brush(): Brush<any, number, number>;
         export function brush<T>(): Brush<T, number, number>;
-        export function brush<T,X>(): Brush<T, X, X>;
+        export function brush<T, X>(): Brush<T, X, X>;
         export function brush<T, X, Y>(): Brush<T, X, Y>;
 
         namespace brush {
@@ -2612,11 +2722,15 @@ declare namespace d3 {
 
             x(): brush.Scale<X>;
             x(x: brush.Scale<X>): Brush<T, X, Y>;
-            x<A extends { toString(): string; }, B extends X>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
+            x<A extends { toString(): string }, B extends X>(
+                x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>,
+            ): Brush<T, X, Y>;
 
             y(): brush.Scale<Y>;
             y(y: brush.Scale<Y>): Brush<T, X, Y>;
-            y<A extends { toString(): string; }, B extends Y>(x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>): Brush<T, X, Y>;
+            y<A extends { toString(): string }, B extends Y>(
+                x: d3.scale.Ordinal<A, B> | d3.time.Scale<A, B>,
+            ): Brush<T, X, Y>;
 
             // https://github.com/d3/d3-3.x-api-reference/blob/master/SVG-Controls.md#brush_extent
             extent(): [X, X] | [Y, Y] | [[X, Y], [X, Y]] | null;
@@ -2629,14 +2743,14 @@ declare namespace d3 {
 
             empty(): boolean;
 
-            on(type: 'brushstart'): (datum: T, index: number) => void;
-            on(type: 'brush'): (datum: T, index: number) => void;
-            on(type: 'brushend'): (datum: T, index: number) => void;
+            on(type: "brushstart"): (datum: T, index: number) => void;
+            on(type: "brush"): (datum: T, index: number) => void;
+            on(type: "brushend"): (datum: T, index: number) => void;
             on(type: string): (datum: T, index: number) => void;
 
-            on(type: 'brushstart', listener: (datum: T, index: number) => void): Brush<T, X, Y>;
-            on(type: 'brush', listener: (datum: T, index: number) => void): Brush<T, X ,Y>;
-            on(type: 'brushend', listener: (datum: T, index: number) => void): Brush<T, X, Y>;
+            on(type: "brushstart", listener: (datum: T, index: number) => void): Brush<T, X, Y>;
+            on(type: "brush", listener: (datum: T, index: number) => void): Brush<T, X, Y>;
+            on(type: "brushend", listener: (datum: T, index: number) => void): Brush<T, X, Y>;
             on(type: string, listener: (datum: T, index: number) => void): Brush<T, X, Y>;
         }
     }
@@ -2695,14 +2809,21 @@ declare namespace d3 {
     export function dsv(delimiter: string, mimeType: string): Dsv;
 
     interface Dsv {
-        (url: string, callback: (rows: { [key: string]: string }[]) => void): DsvXhr<{ [key: string]: string }>;
-        (url: string, callback: (error: any, rows: { [key: string]: string }[]) => void): DsvXhr<{ [key: string]: string }>;
+        (url: string, callback: (rows: Array<{ [key: string]: string }>) => void): DsvXhr<{ [key: string]: string }>;
+        (
+            url: string,
+            callback: (error: any, rows: Array<{ [key: string]: string }>) => void,
+        ): DsvXhr<{ [key: string]: string }>;
         (url: string): DsvXhr<{ [key: string]: string }>;
         <T>(url: string, accessor: (row: { [key: string]: string }) => T, callback: (rows: T[]) => void): DsvXhr<T>;
-        <T>(url: string, accessor: (row: { [key: string]: string }) => T, callback: (error: any, rows: T[]) => void): DsvXhr<T>;
+        <T>(
+            url: string,
+            accessor: (row: { [key: string]: string }) => T,
+            callback: (error: any, rows: T[]) => void,
+        ): DsvXhr<T>;
         <T>(url: string, accessor: (row: { [key: string]: string }) => T): DsvXhr<T>;
 
-        parse(string: string): { [key: string]: string }[];
+        parse(string: string): Array<{ [key: string]: string }>;
         parse<T>(string: string, accessor: (row: { [key: string]: string }, index: number) => T): T[];
 
         parseRows(string: string): string[][];
@@ -2774,12 +2895,12 @@ declare namespace d3 {
             (specifier: string): time.Format;
             utc(specifier: string): time.Format;
             multi(formats: Array<[string, (d: Date) => boolean | number]>): time.Format;
-        }
+        };
     }
 
     namespace layout {
         export function bundle(): Bundle<bundle.Node>;
-        export function bundle<T extends bundle.Node>(): Bundle<T>
+        export function bundle<T extends bundle.Node>(): Bundle<T>;
 
         namespace bundle {
             interface Node {
@@ -2793,7 +2914,7 @@ declare namespace d3 {
         }
 
         interface Bundle<T extends bundle.Node> {
-            (links: bundle.Link<T>[]): T[][];
+            (links: Array<bundle.Link<T>>): T[][];
         }
 
         export function chord(): Chord;
@@ -2863,7 +2984,7 @@ declare namespace d3 {
 
             nodes(root: T): T[];
 
-            links(nodes: T[]): cluster.Link<T>[];
+            links(nodes: T[]): Array<cluster.Link<T>>;
 
             children(): (node: T) => T[];
             children(accessor: (node: T) => T[]): Cluster<T>;
@@ -2944,7 +3065,7 @@ declare namespace d3 {
             nodes(nodes: Node[]): Force<Link, Node>;
 
             links(): Link[];
-            links(links: { source: number; target: number }[]): Force<Link, Node>;
+            links(links: Array<{ source: number; target: number }>): Force<Link, Node>;
             links(links: Link[]): Force<Link, Node>;
 
             start(): Force<Link, Node>;
@@ -3004,7 +3125,7 @@ declare namespace d3 {
         }
 
         interface Histogram<T> {
-            (values: T[], index?: number): histogram.Bin<T>[];
+            (values: T[], index?: number): Array<histogram.Bin<T>>;
 
             value(): (datum: T, index: number) => number;
             value(value: (datum: T, index: number) => number): Histogram<T>;
@@ -3047,7 +3168,7 @@ declare namespace d3 {
 
             nodes(root: T): T[];
 
-            links(nodes: T[]): pack.Link<T>[];
+            links(nodes: T[]): Array<pack.Link<T>>;
 
             children(): (node: T, depth: number) => T[];
             children(children: (node: T, depth: number) => T[]): Pack<T>;
@@ -3088,7 +3209,6 @@ declare namespace d3 {
                 dx?: number | undefined;
                 dy?: number | undefined;
             }
-
         }
 
         export interface Partition<T extends partition.Node> {
@@ -3096,7 +3216,7 @@ declare namespace d3 {
 
             nodes(root: T): T[];
 
-            links(nodes: T[]): partition.Link<T>[];
+            links(nodes: T[]): Array<partition.Link<T>>;
 
             children(): (node: T, depth: number) => T[];
             children(children: (node: T, depth: number) => T[]): Partition<T>;
@@ -3125,7 +3245,7 @@ declare namespace d3 {
         }
 
         interface Pie<T> {
-            (data: T[], index?: number): pie.Arc<T>[];
+            (data: T[], index?: number): Array<pie.Arc<T>>;
 
             value(): (datum: T, index: number) => number;
             value(accessor: (datum: T, index: number) => number): Pie<T>;
@@ -3212,7 +3332,7 @@ declare namespace d3 {
 
             nodes(root: T, index?: number): T[];
 
-            links(nodes: T[]): tree.Link<T>[];
+            links(nodes: T[]): Array<tree.Link<T>>;
 
             children(): (datum: T, index: number) => T[];
             children(children: (datum: T, index: number) => T[]): Tree<T>;
@@ -3261,7 +3381,7 @@ declare namespace d3 {
 
             nodes(root: T, index?: number): T[];
 
-            links(nodes: T[]): treemap.Link<T>[];
+            links(nodes: T[]): Array<treemap.Link<T>>;
 
             children(): (node: T, depth: number) => T[];
             children(children: (node: T, depth: number) => T[]): Treemap<T>;
@@ -3320,7 +3440,7 @@ declare namespace d3 {
             clipExtent(): [[number, number], [number, number]];
             clipExtent(extent: [[number, number], [number, number]]): Voronoi<T>;
 
-            links(data: T[]): voronoi.Link<T>[];
+            links(data: T[]): Array<voronoi.Link<T>>;
 
             triangles(data: T[]): Array<[T, T, T]>;
         }
@@ -3328,10 +3448,18 @@ declare namespace d3 {
         /**
          * @deprecated use d3.geom.voronoi().triangles() instead
          */
-        export function delaunay(vertices: Array<[number, number]>): Array<[[number, number], [number, number], [number, number]]>;
+        export function delaunay(
+            vertices: Array<[number, number]>,
+        ): Array<[[number, number], [number, number], [number, number]]>;
 
         export function quadtree(): Quadtree<[number, number]>;
-        export function quadtree<T>(nodes: T[], x1?: number, y1?: number, x2?: number, y2?: number): quadtree.Quadtree<T>;
+        export function quadtree<T>(
+            nodes: T[],
+            x1?: number,
+            y1?: number,
+            x2?: number,
+            y2?: number,
+        ): quadtree.Quadtree<T>;
 
         namespace quadtree {
             interface Node<T> {
@@ -3344,7 +3472,10 @@ declare namespace d3 {
 
             interface Quadtree<T> extends Node<T> {
                 add(point: T): void;
-                visit(callback: (node: Node<T>, x1: number, y1: number, x2: number, y2: number) => boolean | void): void;
+                visit(
+                    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                    callback: (node: Node<T>, x1: number, y1: number, x2: number, y2: number) => boolean | void,
+                ): void;
                 find(point: [number, number]): T;
             }
         }
@@ -3391,4 +3522,4 @@ declare namespace d3 {
 }
 
 // we need this to exist
-interface TouchList { }
+interface TouchList {}

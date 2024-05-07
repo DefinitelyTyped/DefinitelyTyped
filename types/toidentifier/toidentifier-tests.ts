@@ -1,3 +1,3 @@
-import toIdentifier = require('toidentifier');
+import toIdentifier = require("toidentifier");
 
-toIdentifier('Bad Request'); // $ExpectType string
+toIdentifier("Bad Request"); // $ExpectType string

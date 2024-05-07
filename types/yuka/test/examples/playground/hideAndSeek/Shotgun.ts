@@ -4,7 +4,7 @@
 
 import { GameEntity, Ray, Vector3 } from "yuka";
 import { Player } from "./Player";
-import world from './World.js';
+import world from "./World.js";
 
 const intersectionPoint = new Vector3();
 const target = new Vector3();
@@ -170,8 +170,8 @@ export class Shotgun extends GameEntity {
 }
 
 const STATUS = Object.freeze({
-    READY: 'ready', // the blaster is ready for the next action
-    SHOT: 'shot', // the blaster is firing
-    RELOAD: 'reload', // the blaster is reloading
-    EMPTY: 'empty' // the blaster is empty
+    READY: "ready", // the blaster is ready for the next action
+    SHOT: "shot", // the blaster is firing
+    RELOAD: "reload", // the blaster is reloading
+    EMPTY: "empty", // the blaster is empty
 });

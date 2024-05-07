@@ -1,4 +1,4 @@
-import * as jsprim from 'jsprim';
+import * as jsprim from "jsprim";
 
 jsprim.deepCopy(2); // $ExpectType 2
 jsprim.deepCopy(["test"]); // $ExpectType string[]
@@ -6,11 +6,11 @@ jsprim.deepCopy({ test: { deep: { value: ["test", 1] } } }); // $ExpectType { te
 
 jsprim.deepEqual(2, 2); // $ExpectType boolean
 jsprim.deepEqual("test", 2); // $ExpectType boolean
-jsprim.deepEqual({ test: 'test', deep: { value: 2 } }, { test: 'test', deep: { value: 2 } }); // $ExpectType boolean
+jsprim.deepEqual({ test: "test", deep: { value: 2 } }, { test: "test", deep: { value: 2 } }); // $ExpectType boolean
 
 jsprim.endsWith("test", "est"); // $ExpectType boolean
 
-jsprim.extraProperties({ test: 1, other: 2}, ['other']); // $ExpectType string[]
+jsprim.extraProperties({ test: 1, other: 2 }, ["other"]); // $ExpectType string[]
 
 jsprim.flattenIter([1, [2, 3, [4]]], 2, (value) => {}); // $ExpectType void
 
@@ -20,7 +20,7 @@ jsprim.flattenObject({ deep: { deep: { deep: { deep: { value: 2 } } } } }, 2); /
 
 jsprim.forEachKey([1, 2, 3, 4], (key, val) => {}); // $ExpectType void
 
-jsprim.hasKey({ key: "test", second: "second"}, 'second'); // $ExpectType boolean
+jsprim.hasKey({ key: "test", second: "second" }, "second"); // $ExpectType boolean
 
 jsprim.hrtimeAccum([10, 20], [20, 30]); // $ExpectType [number, number]
 
@@ -49,17 +49,17 @@ jsprim.mergeObjects({}); // $ExpectType { [key: string]: unknown; }
 jsprim.mergeObjects({}, {}); // $ExpectType { [key: string]: unknown; }
 jsprim.mergeObjects({}, {}, {}); // $ExpectType { [key: string]: unknown; }
 
-jsprim.parseDateTime('str'); // $ExpectType Date
+jsprim.parseDateTime("str"); // $ExpectType Date
 jsprim.parseDateTime(123); // $ExpectType Date
 
-jsprim.parseInteger('123'); // $ExpectType number
-jsprim.parseInteger('123', { trimWhitespace: true }); // $ExpectType number
+jsprim.parseInteger("123"); // $ExpectType number
+jsprim.parseInteger("123", { trimWhitespace: true }); // $ExpectType number
 
-jsprim.pluck({ test: 1}, 'test'); // $ExpectType unknown
+jsprim.pluck({ test: 1 }, "test"); // $ExpectType unknown
 
 jsprim.randElt([1, 2, 3]); // $ExpectType number
 jsprim.randElt([{}, {}]); // $ExpectType {}
-jsprim.randElt(['str', 'str']); // $ExpectType string
+jsprim.randElt(["str", "str"]); // $ExpectType string
 
 jsprim.rfc1123(new Date()); // $ExpectType string
 

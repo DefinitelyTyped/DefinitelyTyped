@@ -18,6 +18,6 @@ interface TPDirect {
     setupSDK: (
         appId: number,
         appKey: string,
-        environment: "sandbox" | "production"
+        environment: "sandbox" | "production",
     ) => void;
 }

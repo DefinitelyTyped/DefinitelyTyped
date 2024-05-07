@@ -6,4 +6,4 @@ export class EmitterRendererCanvas extends Renderer {
     render(driver: any, session: any): void;
     private __renderParticle;
 }
-import { Renderer } from '../Renderer';
+import { Renderer } from "../Renderer";

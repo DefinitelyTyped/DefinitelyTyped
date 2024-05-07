@@ -1,4 +1,5 @@
-import { Fn, Node, Swizzable } from '../../Nodes.js';
+import Node from "../../core/Node.js";
+import { NodeRepresentation, ShaderNodeObject } from "../../shadernode/ShaderNode.js";
 
-export function mx_hsvtorgb(...params: Fn<[Node]>): Swizzable;
-export function mx_rgbtohsv(...params: Fn<[Node]>): Swizzable;
+export const mx_hsvtorgb: (hsv_immutable: NodeRepresentation) => ShaderNodeObject<Node>;
+export const mx_rgbtohsv: (c_immutable: NodeRepresentation) => ShaderNodeObject<Node>;

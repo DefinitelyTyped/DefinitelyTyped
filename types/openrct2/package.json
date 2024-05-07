@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/openrct2",
+    "version": "0.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "OpenRCT2",
+    "projects": [
+        "https://openrct2.io/"
+    ],
+    "devDependencies": {
+        "@types/openrct2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OpenRCT2",
+            "githubUsername": "OpenRCT2"
+        },
+        {
+            "name": "Ted John",
+            "githubUsername": "IntelOrca"
+        }
+    ]
+}

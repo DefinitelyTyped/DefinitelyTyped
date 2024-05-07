@@ -1,15 +1,15 @@
-import AltDict from 'antlr4/misc/AltDict';
-import BitSet from 'antlr4/misc/BitSet';
-import HashCode from 'antlr4/misc/HashCode';
-import HashMap from 'antlr4/misc/HashMap';
-import HashSet from 'antlr4/misc/HashSet';
-import Interval from 'antlr4/misc/Interval';
-import IntervalSet from 'antlr4/misc/IntervalSet';
+import AltDict from "antlr4/misc/AltDict";
+import BitSet from "antlr4/misc/BitSet";
+import HashCode from "antlr4/misc/HashCode";
+import HashMap from "antlr4/misc/HashMap";
+import HashSet from "antlr4/misc/HashSet";
+import Interval from "antlr4/misc/Interval";
+import IntervalSet from "antlr4/misc/IntervalSet";
 
 // AltDict
 const altDictInstance = new AltDict();
-altDictInstance.get(''); // $ExpectType any
-altDictInstance.set('', ''); // $ExpectType void
+altDictInstance.get(""); // $ExpectType any
+altDictInstance.set("", ""); // $ExpectType void
 altDictInstance.values(); // $ExpectType any[]
 
 // BitSet
@@ -43,9 +43,9 @@ new HashMap(
 hashMapInstance.data; // $ExpectType Record<string, any>
 hashMapInstance.hashFunction; // $ExpectType (a: any) => number
 hashMapInstance.equalsFunction; // $ExpectType (a: any, b: any) => boolean
-hashMapInstance.set('', 0); // $ExpectType any
-hashMapInstance.containsKey(''); // $ExpectType boolean
-hashMapInstance.get(''); // $ExpectType any
+hashMapInstance.set("", 0); // $ExpectType any
+hashMapInstance.containsKey(""); // $ExpectType boolean
+hashMapInstance.get(""); // $ExpectType any
 hashMapInstance.entries(); // $ExpectType any[]
 hashMapInstance.getKeys(); // $ExpectType any[]
 hashMapInstance.getValues(); // $ExpectType any[]
@@ -61,9 +61,9 @@ new HashSet(
     (_b: any) => false,
 );
 hashSetInstance.data; // $ExpectType Record<string, any[]>
-hashSetInstance.add(''); // $ExpectType any
-hashSetInstance.has(''); // $ExpectType boolean
-hashSetInstance.get(''); // $ExpectType any
+hashSetInstance.add(""); // $ExpectType any
+hashSetInstance.has(""); // $ExpectType boolean
+hashSetInstance.get(""); // $ExpectType any
 hashSetInstance.values(); // $ExpectType any[]
 hashSetInstance.toString(); // $ExpectType string
 hashSetInstance.length; // $ExpectType number
@@ -93,12 +93,12 @@ intervalSetInstance.contains(0); // $ExpectType boolean
 intervalSetInstance.removeRange(intervalInstance); // $ExpectType void
 intervalSetInstance.removeOne(0); // $ExpectType void
 intervalSetInstance.toString(); // $ExpectType string
-intervalSetInstance.toString(['']); // $ExpectType string
-intervalSetInstance.toString(undefined, ['']); // $ExpectType string
+intervalSetInstance.toString([""]); // $ExpectType string
+intervalSetInstance.toString(undefined, [""]); // $ExpectType string
 intervalSetInstance.toString(undefined, undefined, true); // $ExpectType string
-intervalSetInstance.toString([''], [''], true); // $ExpectType string
+intervalSetInstance.toString([""], [""], true); // $ExpectType string
 intervalSetInstance.toCharString(); // $ExpectType string
 intervalSetInstance.toIndexString(); // $ExpectType string
-intervalSetInstance.toTokenString([''], ['']); // $ExpectType string
-intervalSetInstance.elementName([''], [''], 0); // $ExpectType string
+intervalSetInstance.toTokenString([""], [""]); // $ExpectType string
+intervalSetInstance.elementName([""], [""], 0); // $ExpectType string
 intervalSetInstance.length; // $ExpectType number

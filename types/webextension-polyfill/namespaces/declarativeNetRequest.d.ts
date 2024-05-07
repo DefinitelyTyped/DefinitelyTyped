@@ -568,7 +568,7 @@ export namespace DeclarativeNetRequest {
          */
         testMatchOutcome(
             request: TestMatchOutcomeRequestType,
-            options?: TestMatchOutcomeOptionsType
+            options?: TestMatchOutcomeOptionsType,
         ): Promise<TestMatchOutcomeCallbackResultType>;
 
         /**

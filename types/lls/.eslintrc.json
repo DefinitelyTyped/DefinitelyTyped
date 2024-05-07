@@ -1,6 +1,6 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off"
+        "@definitelytyped/dt-header": "off",
+        "@typescript-eslint/no-misused-new": "off"
     }
 }

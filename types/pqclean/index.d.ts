@@ -1,8 +1,3 @@
-// Type definitions for pqclean 0.3
-// Project: https://github.com/tniessen/node-pqclean#readme
-// Definitions by: Tobias Nießen <https://github.com/tniessen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export {};

@@ -49,7 +49,7 @@ declare namespace dojox {
              */
             Code(props: Object, node: HTMLElement): void;
         }
-        module _base {
+        namespace _base {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/highlight/_base.constants.html
              *
@@ -104,23 +104,23 @@ declare namespace dojox {
         }
 
         namespace languages {
-            module _all {
+            namespace _all {
             }
 
-            module _dynamic {
+            namespace _dynamic {
             }
 
-            module _static {
+            namespace _static {
             }
 
-            module _www {
+            namespace _www {
             }
 
             namespace pygments {
-                module _html {
+                namespace _html {
                 }
 
-                module _www {
+                namespace _www {
                 }
 
                 /**

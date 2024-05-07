@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/hellosign-embedded",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/hellosign/hellosign-embedded"
+    ],
+    "devDependencies": {
+        "@types/hellosign-embedded": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Surowiec",
+            "githubUsername": "xt0rted"
+        },
+        {
+            "name": "Ali Zhdanov",
+            "githubUsername": "alizhdanov"
+        }
+    ]
+}

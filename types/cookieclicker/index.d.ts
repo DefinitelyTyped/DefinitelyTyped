@@ -1,10 +1,3 @@
-// Type definitions for non-npm package cookieclicker 2.052
-// Project: https://orteil.dashnet.org/cookieclicker/
-// Definitions by: Lubomir <https://github.com/TheGLander>
-//                 Static Variable James <https://github.com/staticvariablejames>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 declare function AddEvent(htmlElement: HTMLElement, eventName: string, eventFunction: (e: Event) => void): void;
 declare function l(name: string): HTMLElement | null;
 declare function escapeRegExp(str: string): string;
@@ -91,7 +84,7 @@ interface LanguageOptions {
     /**
      * A string to evaluate when figuring out what form of plurality to use
      */
-    'plural-forms': string;
+    "plural-forms": string;
     /**
      * Unused
      */
@@ -99,12 +92,12 @@ interface LanguageOptions {
 }
 
 type LanguageData = {
-    'REPLACE ALL'?: Record<string, string>;
-    '': {
+    "REPLACE ALL"?: Record<string, string>;
+    "": {
         /**
          * A string to evaluate when figuring out what form of plurality to use
          */
-        'plural-forms': string;
+        "plural-forms": string;
         /**
          * Unused
          */
@@ -379,6 +372,7 @@ declare function b64_to_utf8(str: string): string;
 declare function getAchievementName(name: string): string;
 
 declare function localStorageGet(key: string): Game.PseudoNull | null | string;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function localStorageSet(key: string, str: string): Game.PseudoNull | void;
 
 declare function writeIcon(icon: Game.Icon): string;
@@ -418,7 +412,7 @@ declare class Loader {
     /**
      * An empty 8x8 canvas element, used in the `Pic` constructor
      */
-    blank: HTMLCanvasElement & { width: 8; height: 8; alt: 'blank' };
+    blank: HTMLCanvasElement & { width: 8; height: 8; alt: "blank" };
     /**
      * Loads assets
      * @param assets The iterable of strings to get asset names from
@@ -721,7 +715,7 @@ declare namespace Game {
      * Updates the bakery name prompt input space to be a random name
      */
     export function bakeryNamePromptRandom(): string;
-    export type TooltipOrigins = 'store' | 'left' | 'bottom-right' | 'bottom' | 'top' | 'left' | 'this' | undefined;
+    export type TooltipOrigins = "store" | "left" | "bottom-right" | "bottom" | "top" | "left" | "this" | undefined;
     export interface Tooltip {
         /**
          * The html text the tooltip should have
@@ -844,13 +838,13 @@ declare namespace Game {
 
     export function crate(
         me: Upgrade | Achievement,
-        context?: 'store' | 'ascend' | 'stats',
+        context?: "store" | "ascend" | "stats",
         forceClickStr?: string,
         id?: string,
         style?: string,
     ): string;
 
-    export function crateTooltip(me: Upgrade | Achievement, context: 'store' | 'ascend' | 'stats' | undefined): string;
+    export function crateTooltip(me: Upgrade | Achievement, context: "store" | "ascend" | "stats" | undefined): string;
 
     export function costDetails(cost: number): void;
     export let HCfactor: number;
@@ -912,7 +906,7 @@ declare namespace Game {
     export let AscendZoomT: number;
     export let AscendDragging: number;
     export let AscendGridSnap: number;
-    export let heavenlyBounds: Record<'top' | 'right' | 'bottom' | 'left', number>;
+    export let heavenlyBounds: Record<"top" | "right" | "bottom" | "left", number>;
 
     export function UpdateAscend(): void;
 
@@ -951,6 +945,7 @@ declare namespace Game {
 
     export function refillLump(n: number, func: () => void): void;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     export function spendLump(n: number, str: string, func: () => void, free?: boolean): () => void | false;
 
     export function doLumps(): void;
@@ -1138,7 +1133,7 @@ declare namespace Game {
         constructor(title: string, desc?: string, pic?: Icon, quick?: number);
         title: string;
         desc: string;
-        pic: Icon | '';
+        pic: Icon | "";
         id: number;
         date: number;
         quick: number;
@@ -1274,11 +1269,11 @@ declare namespace Game {
      * The only in-game ticker modification
      */
     export interface FortuneTickerEffect extends TickerEffectClass {
-        type: 'fortune';
+        type: "fortune";
         /**
          * The fortune subtype itself
          */
-        sub: GenericTieredUpgrade<'fortune'> | 'fortuneGC' | 'fortuneCPS';
+        sub: GenericTieredUpgrade<"fortune"> | "fortuneGC" | "fortuneCPS";
     }
     export let TickerEffect: PseudoNull | TickerEffectClass;
     export let TickerN: number;
@@ -1478,7 +1473,7 @@ declare namespace Game {
     }
 
     export interface GardenMinigame extends Minigame {
-        name: 'Garden';
+        name: "Garden";
         plants: Record<string, GardenPlant>;
         plantsById: GardenPlant[];
         plantsN: number;
@@ -1729,7 +1724,7 @@ declare namespace Game {
     }
 
     export interface PantheonMinigame extends Minigame {
-        name: 'Pantheon';
+        name: "Pantheon";
 
         gods: Record<string, PantheonSpirit>;
         godsById: PantheonSpirit[];
@@ -1793,7 +1788,7 @@ declare namespace Game {
         draw(): void;
     }
 
-    export let useSwap: PantheonMinigame['useSwap'] | undefined;
+    export let useSwap: PantheonMinigame["useSwap"] | undefined;
     /**
      * Determines if the pantheon has a god currently equipped
      * @param what The internal name of the god
@@ -1823,6 +1818,7 @@ declare namespace Game {
         /**
          * Called when the spell succeeds, always called if no fail function
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         win: () => -1 | void;
         /**
          * The description of the negative effect of the spell, in HTML text
@@ -1831,6 +1827,7 @@ declare namespace Game {
         /**
          * Called when the spell fails
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         fail?: (() => -1 | void) | undefined;
         id: number;
         icon: Icon;
@@ -1849,7 +1846,7 @@ declare namespace Game {
     }
 
     export interface GrimoireMinigame extends Minigame {
-        name: 'Grimoire';
+        name: "Grimoire";
         spells: Record<string, GrimoireSpell>;
         spellsById: GrimoireSpell[];
         /**
@@ -2183,7 +2180,7 @@ declare namespace Game {
     export let Objects: Record<string, GameObject> & {
         Farm: MinigameObject<GardenMinigame>;
         Temple: MinigameObject<PantheonMinigame>;
-        'Wizard tower': MinigameObject<GrimoireMinigame>;
+        "Wizard tower": MinigameObject<GrimoireMinigame>;
         Bank: MinigameObject<StocksMinigame>;
     };
     export let ObjectsById: Record<number | string, GameObject>;
@@ -2312,6 +2309,7 @@ declare namespace Game {
          * Buys a building
          * @param amount Amount of buildings to buy, defaults to `Game.buyBulk`
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         buy(amount?: number): void | 0;
         /**
          * Buys a building for free, while increasing the price
@@ -2362,6 +2360,7 @@ declare namespace Game {
         /**
          * Redraws the art
          */
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         draw(): void | false;
         /**
          * Resets `this.pics`, see `draw` for actual redrawing
@@ -2390,7 +2389,7 @@ declare namespace Game {
         /**
          * The fortune upgrade tied with the building
          */
-        fortune: TieredUpgradeClass<'fortune'> | PseudoNull;
+        fortune: TieredUpgradeClass<"fortune"> | PseudoNull;
         /**
          * The amount of buildings gotten for free
          */
@@ -2579,8 +2578,8 @@ declare namespace Game {
          */
         n: number;
     }
-    export type YouCustomizerAddonGeneId = 'face' | 'head' | 'hair' | 'acc1' | 'acc2';
-    export type YouCustomizerColorGeneId = 'skinCol' | 'hairCol';
+    export type YouCustomizerAddonGeneId = "face" | "head" | "hair" | "acc1" | "acc2";
+    export type YouCustomizerColorGeneId = "skinCol" | "hairCol";
 
     export let YouCustomizer: YouCustomizerT;
     export interface YouCustomizerT {
@@ -2601,9 +2600,9 @@ declare namespace Game {
          * The last line is there to support modded genes.
          */
         genesById:
-            Record<YouCustomizerAddonGeneId, YouCustomizerGene<[number, number]>> &
-            Record<YouCustomizerColorGeneId, YouCustomizerGene<number>> &
-            Record<string, YouCustomizerGene<number> | YouCustomizerGene<[number, number]>>;
+            & Record<YouCustomizerAddonGeneId, YouCustomizerGene<[number, number]>>
+            & Record<YouCustomizerColorGeneId, YouCustomizerGene<number>>
+            & Record<string, YouCustomizerGene<number> | YouCustomizerGene<[number, number]>>;
 
         /**
          * currentGenes[i] is an index to genes[i].choices
@@ -2659,7 +2658,7 @@ declare namespace Game {
     export let UpgradesInStore: Upgrade[];
     export let UpgradesOwned: number;
 
-    export type UpgradePool = '' | 'prestige' | 'tech' | 'cookie' | 'debug' | 'toggle' | 'prestigeDecor' | 'unused';
+    export type UpgradePool = "" | "prestige" | "tech" | "cookie" | "debug" | "toggle" | "prestigeDecor" | "unused";
     export class Upgrade {
         /**
          * Creates a new generic upgrade
@@ -2722,7 +2721,7 @@ declare namespace Game {
          * The power of a cookie upgrade, present as `0` on Non-cookie upgrades
          */
         // The ESLint disable is for the generic, which is a hack required for a multitude of real use-cases
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         power: number | (<T extends this = this>(me: T) => number);
         /**
          * The price of the upgrade, this is visual only, so the lump spending must be manually implemented
@@ -2734,7 +2733,7 @@ declare namespace Game {
 
         tier: string | number;
 
-        type: 'upgrade';
+        type: "upgrade";
 
         unlockAt: UnlockRequirement | PseudoNull;
 
@@ -2804,9 +2803,10 @@ declare namespace Game {
          */
         toggle(): void;
         unlock(): void;
-        getType(): 'Upgrade';
+        getType(): "Upgrade";
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     export function storeBuyAll(): void | false;
 
     export let vault: number[];
@@ -2856,7 +2856,7 @@ declare namespace Game {
     }
     export let UnlockAt: UnlockRequirement[];
     export interface CookieUpgrade {
-        pool: 'cookie';
+        pool: "cookie";
     }
     export interface CookieUpgradeParameter {
         name: string;
@@ -2921,7 +2921,7 @@ declare namespace Game {
      * (Different from `TieredUpgradeClass`, since that interface only applies to building tiered upgrades, names based from the original Cookie Clicker code)
      */
     export interface GenericTieredUpgrade<Tier extends string | number = string | number> extends Upgrade {
-        pool: '';
+        pool: "";
         tier: Tier;
     }
     export interface KittenUpgrade<Tier extends string | number = string | number> extends GenericTieredUpgrade<Tier> {
@@ -2933,7 +2933,8 @@ declare namespace Game {
      * (Different from `GenericTieredUpgrade`, since that interface applies to all upgrades which are tiered, names based from the original Cookie Clicker code)
      */
     export interface TieredUpgradeClass<Tier extends string | number = string | number>
-        extends GenericTieredUpgrade<Tier> {
+        extends GenericTieredUpgrade<Tier>
+    {
         buildingTie1: GameObject;
         buildingTie: GameObject;
     }
@@ -2953,7 +2954,7 @@ declare namespace Game {
     ): TieredUpgradeClass<Tier>;
 
     export interface SynergyUpgradeClass<Tier extends string | number> extends Upgrade {
-        pool: '';
+        pool: "";
         buildingTie1: GameObject;
         buildingTie2: GameObject;
         tier: Tier;
@@ -2986,7 +2987,7 @@ declare namespace Game {
      */
     export let GrandmaSynergies: string[];
     export interface GrandmaSynergyClass extends Upgrade {
-        pool: '';
+        pool: "";
         buildingTie: GameObject;
     }
     /**
@@ -3009,7 +3010,7 @@ declare namespace Game {
         div?: boolean | undefined;
     }
     export interface SelectorSwitch extends Upgrade {
-        pool: 'toggle';
+        pool: "toggle";
         choicesFunction: () => SelectorSwitchChoice[];
         choicesPick: (id: number) => void;
     }
@@ -3017,12 +3018,12 @@ declare namespace Game {
      * A layered switch is a switch which unlocks another upgrade when bought
      */
     export interface LayeredSwitch extends Upgrade {
-        pool: 'toggle';
+        pool: "toggle";
         toggleInto: keyof typeof Upgrades | PseudoNull;
     }
 
     export interface TimerSwitch extends Upgrade {
-        pool: 'toggle';
+        pool: "toggle";
         /**
          * Required to stay in the store after it's bought
          */
@@ -3109,6 +3110,7 @@ declare namespace Game {
 
     export let BGsByChoice: Record<number, Background>;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     export function loseShimmeringVeil(context: string): void | false;
 
     export interface Season {
@@ -3153,9 +3155,9 @@ declare namespace Game {
 
     export function getSeasonDuration(): number;
 
-    export let UpgradesByPool: Record<UpgradePool | 'kitten', Upgrade[]>;
+    export let UpgradesByPool: Record<UpgradePool | "kitten", Upgrade[]>;
     export interface HeavenlyUpgrade extends Upgrade {
-        pool: 'prestige';
+        pool: "prestige";
         posX: number;
         posY: number;
         /**
@@ -3181,7 +3183,7 @@ declare namespace Game {
     export let AchievementsN: number;
     export let AchievementsOwned: number;
 
-    export type AchievementPool = 'normal' | 'shadow' | 'dungeon';
+    export type AchievementPool = "normal" | "shadow" | "dungeon";
 
     export class Achievement {
         /**
@@ -3214,7 +3216,7 @@ declare namespace Game {
         order: number;
         pool: AchievementPool;
         vanilla: PseudoBoolean;
-        type: 'achievement';
+        type: "achievement";
         /**
          * Called when the achievement crate is clicked, calls `clickFunction`
          */
@@ -3227,7 +3229,7 @@ declare namespace Game {
          * Toggles the achievement state
          */
         toggle(): void;
-        getType(): 'Achievement';
+        getType(): "Achievement";
     }
 
     /**
@@ -3604,25 +3606,25 @@ declare namespace Game {
     export function registerMod(id: string, obj: Mod): void;
 
     export type GameHooks =
-        | 'logic'
-        | 'draw'
-        | 'reincarnate'
-        | 'click'
-        | 'create'
-        | 'check'
-        | 'cps'
-        | 'cookiesPerClick'
-        | 'reset'
-        | 'ticker';
+        | "logic"
+        | "draw"
+        | "reincarnate"
+        | "click"
+        | "create"
+        | "check"
+        | "cps"
+        | "cookiesPerClick"
+        | "reset"
+        | "ticker";
 
     export function registerHook(
-        hook: 'cps' | 'cookiesPerClick',
+        hook: "cps" | "cookiesPerClick",
         func: ((num: number) => number) | Array<(num: number) => number>,
     ): void;
-    export function registerHook(hook: 'reset', func: ((hard: boolean) => void) | Array<(hard: boolean) => void>): void;
-    export function registerHook(hook: 'ticker', func: (() => string[]) | Array<() => string[]>): void;
+    export function registerHook(hook: "reset", func: ((hard: boolean) => void) | Array<(hard: boolean) => void>): void;
+    export function registerHook(hook: "ticker", func: (() => string[]) | Array<() => string[]>): void;
     export function registerHook(
-        hook: Exclude<GameHooks, 'cps' | 'cookiesPerClick' | 'reset' | 'ticker'>,
+        hook: Exclude<GameHooks, "cps" | "cookiesPerClick" | "reset" | "ticker">,
         func: (() => void) | Array<() => void>,
     ): void;
     export let brokenMods: string[];
@@ -3651,7 +3653,6 @@ declare namespace Game {
      */
     export let promptNoClose: boolean;
     /**
-     *
      * @param dir The direction to go in
      * @param tryN If false, tries to attempt selection again if the first attempt couldn't find a button
      */

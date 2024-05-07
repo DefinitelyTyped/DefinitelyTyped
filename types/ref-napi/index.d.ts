@@ -1,8 +1,3 @@
-// Type definitions for ref-napi 3.0
-// Project: https://github.com/node-ffi-napi/ref-napi
-// Definitions by: Keerthi Niranjan <https://github.com/keerthi16>, Kiran Niranjan <https://github.com/KiranNiranjan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export {};
@@ -10,7 +5,11 @@ export {};
 /**
  * A set of commonly understood string names for types to help with completions.
  */
-export type NamedType = "string" | "pointer" | keyof TypesDefaultRegistry | `${keyof TypesDefaultRegistry}${"*" | " *" | "**" | " **"}`;
+export type NamedType =
+    | "string"
+    | "pointer"
+    | keyof TypesDefaultRegistry
+    | `${keyof TypesDefaultRegistry}${"*" | " *" | "**" | " **"}`;
 
 /**
  * Base constraint for a type understood by the package.
@@ -37,7 +36,7 @@ export type NamedTypeLike = Type | NamedType;
  * }
  * ```
  */
-export interface UnderlyingTypeOverrideRegistry { // tslint:disable-line no-empty-interface
+export interface UnderlyingTypeOverrideRegistry { // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 /**
@@ -55,7 +54,7 @@ export interface UnderlyingTypeOverrideRegistry { // tslint:disable-line no-empt
  * ```
  */
 export interface UnderlyingTypeDefaultRegistry {
-    "void": void; // tslint:disable-line void-return
+    "void": void; // eslint-disable-line @typescript-eslint/no-invalid-void-type
     "bool": boolean;
     "int8": number;
     "uint8": number;
@@ -105,41 +104,44 @@ export interface UnderlyingTypeDefaultRegistry {
  * }
  * ```
  */
-export interface UnderlyingTypeRegistry extends Omit<UnderlyingTypeDefaultRegistry, keyof UnderlyingTypeOverrideRegistry>, UnderlyingTypeOverrideRegistry {
+export interface UnderlyingTypeRegistry
+    extends Omit<UnderlyingTypeDefaultRegistry, keyof UnderlyingTypeOverrideRegistry>, UnderlyingTypeOverrideRegistry
+{
 }
 
 // Helper type that trims leading and trailing spaces from a string
 type Trim<S extends string> =
     // NOTE: look for double and single space characters to reduce recursion
-    S extends `  ${infer U}` ? Trim<U> :
-    S extends ` ${infer U}` ? Trim<U> :
-    S extends `${infer U}  ` ? Trim<U> :
-    S extends `${infer U} ` ? Trim<U> :
-    S;
+    S extends `  ${infer U}` ? Trim<U>
+        : S extends ` ${infer U}` ? Trim<U>
+        : S extends `${infer U}  ` ? Trim<U>
+        : S extends `${infer U} ` ? Trim<U>
+        : S;
 
 /**
  * Gets the underlying type for a {@link Type} or {@link BaseNamedType}.
  */
-export type UnderlyingType<T extends TypeLike> =
-    T extends Type<infer U> ? U :
+export type UnderlyingType<T extends TypeLike> = T extends Type<infer U> ? U
     // Allow for user-defined type overrides
-    T extends keyof UnderlyingTypeOverrideRegistry ? UnderlyingTypeOverrideRegistry[T] :
+    : T extends keyof UnderlyingTypeOverrideRegistry ? UnderlyingTypeOverrideRegistry[T]
     // Use default type map
-    T extends keyof UnderlyingTypeRegistry ? UnderlyingTypeRegistry[T] :
+    : T extends keyof UnderlyingTypeRegistry ? UnderlyingTypeRegistry[T]
     // Coerce pointer types into relevant references.
-    T extends `${infer U}*` ?
-        Trim<U> extends "char" ? string | null : // `char*` is a string type
-        Trim<U> extends "byte" ? Buffer | Pointer<number> : // `byte*` is either a `Buffer` or a `Pointer` to a single byte
-        Trim<U> extends "void" ? Pointer<unknown> : // `void*` is a `Pointer` to some unknown value.
-        Pointer<UnderlyingType<U>> : // Treat this as a `Pointer` to the underlying type.
-    unknown;
+    : T extends `${infer U}*` ? Trim<U> extends "char" ? string | null // `char*` is a string type
+        : Trim<U> extends "byte" ? Buffer | Pointer<number> // `byte*` is either a `Buffer` or a `Pointer` to a single byte
+        : Trim<U> extends "void" ? Pointer<unknown> // `void*` is a `Pointer` to some unknown value.
+        : Pointer<UnderlyingType<U>> // Treat this as a `Pointer` to the underlying type.
+    : unknown;
 
 /**
  * Helper type to get a tuple of the underlying types of a tuple of {@link TypeLike} types.
  */
-export type UnderlyingTypes<T extends readonly TypeLike[]> = Extract<{
-    [P in keyof T]: P extends `${number}` ? UnderlyingType<Extract<T[P], TypeLike>> : T[P];
-}, any[]>;
+export type UnderlyingTypes<T extends readonly TypeLike[]> = Extract<
+    {
+        [P in keyof T]: P extends `${number}` ? UnderlyingType<Extract<T[P], TypeLike>> : T[P];
+    },
+    any[]
+>;
 
 /**
  * Coerces a {@link TypeLike} to a {@link Type}.
@@ -149,23 +151,28 @@ export type CoerceType<T extends TypeLike> = Type<UnderlyingType<T>>;
 /**
  * Helper type to coerce a tuple of {@link TypeLike} types to a tuple of {@link Type} types.
  */
-export type CoerceTypes<T extends readonly TypeLike[]> = Extract<{
-    [P in keyof T]: P extends `${number}` ? CoerceType<Extract<T[P], TypeLike>> : T[P];
-}, any[]>;
+export type CoerceTypes<T extends readonly TypeLike[]> = Extract<
+    {
+        [P in keyof T]: P extends `${number}` ? CoerceType<Extract<T[P], TypeLike>> : T[P];
+    },
+    any[]
+>;
 
 /**
  * Dereferences a type
  */
-export type DerefType<T extends TypeLike> =
-    UnderlyingType<T> extends Pointer<infer U> ? Type<U> :
-    never;
+export type DerefType<T extends TypeLike> = UnderlyingType<T> extends Pointer<infer U> ? Type<U>
+    : never;
 
 /**
  * Helper type to deref a tuple of {@link TypeLike} types to a tuple of {@link Type} types.
  */
-export type DerefTypes<T extends readonly TypeLike[]> = Extract<{
-    [P in keyof T]: P extends `${number}` ? DerefType<Extract<T[P], TypeLike>> : T[P];
-}, any[]>;
+export type DerefTypes<T extends readonly TypeLike[]> = Extract<
+    {
+        [P in keyof T]: P extends `${number}` ? DerefType<Extract<T[P], TypeLike>> : T[P];
+    },
+    any[]
+>;
 
 /**
  * A typed pointer.
@@ -204,15 +211,19 @@ export declare function address(buffer: Buffer): number;
 export declare function hexAddress(buffer: Buffer): string;
 
 /** Allocate the memory with the given value written to it. */
-export declare function alloc<TType extends NamedType>(type: TType, value?: UnderlyingType<TType>):
-    [UnderlyingType<TType>] extends [never] | [0] ? Pointer<any> :
-    UnderlyingType<TType> extends Buffer ? UnderlyingType<TType> :
-    Pointer<UnderlyingType<TType>>;
+export declare function alloc<TType extends NamedType>(
+    type: TType,
+    value?: UnderlyingType<TType>,
+): [UnderlyingType<TType>] extends [never] | [0] ? Pointer<any>
+    : UnderlyingType<TType> extends Buffer ? UnderlyingType<TType>
+    : Pointer<UnderlyingType<TType>>;
 /** Allocate the memory with the given value written to it. */
-export declare function alloc<TType extends TypeLike>(type: TType, value?: UnderlyingType<TType>):
-    [UnderlyingType<TType>] extends [never] | [0] ? Pointer<any> :
-    UnderlyingType<TType> extends Buffer ? UnderlyingType<TType> :
-    Pointer<UnderlyingType<TType>>;
+export declare function alloc<TType extends TypeLike>(
+    type: TType,
+    value?: UnderlyingType<TType>,
+): [UnderlyingType<TType>] extends [never] | [0] ? Pointer<any>
+    : UnderlyingType<TType> extends Buffer ? UnderlyingType<TType>
+    : Pointer<UnderlyingType<TType>>;
 
 /**
  * Allocate the memory with the given string written to it with the given
@@ -245,7 +256,11 @@ export declare var endianness: "LE" | "BE";
 
 /** Check the indirection level and return a dereferenced when necessary. */
 export declare function get<T>(buffer: Pointer<T> | Pointer<T>, offset?: 0): T;
-export declare function get<T extends NamedType>(buffer: Buffer, offset: number | undefined, type: T): UnderlyingType<T>;
+export declare function get<T extends NamedType>(
+    buffer: Buffer,
+    offset: number | undefined,
+    type: T,
+): UnderlyingType<T>;
 export declare function get<T extends TypeLike>(buffer: Buffer, offset: number | undefined, type: T): UnderlyingType<T>;
 export declare function get(buffer: Buffer, offset?: number, type?: TypeLike): any;
 
@@ -319,8 +334,18 @@ export declare function reinterpretUntilZeros(buffer: Buffer, size: number, offs
 
 /** Write pointer if the indirection is 1, otherwise write value. */
 export declare function set<T>(buffer: Pointer<T> | Pointer<T>, offset: 0, value: T): void;
-export declare function set<T extends NamedType>(buffer: Buffer, offset: number, value: UnderlyingType<T>, type: T): void;
-export declare function set<T extends TypeLike>(buffer: Buffer, offset: number, value: UnderlyingType<T>, type: T): void;
+export declare function set<T extends NamedType>(
+    buffer: Buffer,
+    offset: number,
+    value: UnderlyingType<T>,
+    type: T,
+): void;
+export declare function set<T extends TypeLike>(
+    buffer: Buffer,
+    offset: number,
+    value: UnderlyingType<T>,
+    type: T,
+): void;
 export declare function set(buffer: Buffer, offset: number, value: any, type?: TypeLike): void;
 
 /** Write the string as a NULL terminated. Default encoding is utf8. */
@@ -384,7 +409,7 @@ export declare function _writeObject(buffer: Buffer, offset: number, object: Obj
  * }
  * ```
  */
-export interface TypesOverrideRegistry { // tslint:disable-line no-empty-interface
+export interface TypesOverrideRegistry { // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 /**
@@ -401,7 +426,7 @@ export interface TypesOverrideRegistry { // tslint:disable-line no-empty-interfa
  * }
  * ```
  */
- export interface TypesDefaultRegistry {
+export interface TypesDefaultRegistry {
     void: Type<void>;
     int64: Type<string | number>;
     ushort: Type<number>;
@@ -525,28 +550,28 @@ export interface SizeofRegistry {
 export declare var sizeof: SizeofRegistry;
 
 declare global {
-  interface Buffer {
-    address(): number;
-    hexAddress(): string;
-    isNull(): boolean;
-    ref(): Buffer;
-    deref(): any;
-    readObject(offset?: number): Object;
-    writeObject(object: Object, offset?: number): void;
-    readPointer(offset?: number, length?: number): Buffer;
-    writePointer(pointer: Buffer, offset?: number): void;
-    readCString(offset?: number): string;
-    writeCString(string: string, offset?: number, encoding?: string): void;
-    readInt64BE(offset?: number): string | number;
-    writeInt64BE(input: string | number, offset?: number): void;
-    readUInt64BE(offset?: number): string | number;
-    writeUInt64BE(input: string | number, offset?: number): void;
-    readInt64LE(offset?: number): string | number;
-    writeInt64LE(input: string | number, offset?: number): void;
-    readUInt64LE(offset?: number): string | number;
-    writeUInt64LE(input: string | number, offset?: number): void;
-    reinterpret(size: number, offset?: number): Buffer;
-    reinterpretUntilZeros(size: number, offset?: number): Buffer;
-    type?: Type | undefined;
-  }
+    interface Buffer {
+        address(): number;
+        hexAddress(): string;
+        isNull(): boolean;
+        ref(): Buffer;
+        deref(): any;
+        readObject(offset?: number): Object;
+        writeObject(object: Object, offset?: number): void;
+        readPointer(offset?: number, length?: number): Buffer;
+        writePointer(pointer: Buffer, offset?: number): void;
+        readCString(offset?: number): string;
+        writeCString(string: string, offset?: number, encoding?: string): void;
+        readInt64BE(offset?: number): string | number;
+        writeInt64BE(input: string | number, offset?: number): void;
+        readUInt64BE(offset?: number): string | number;
+        writeUInt64BE(input: string | number, offset?: number): void;
+        readInt64LE(offset?: number): string | number;
+        writeInt64LE(input: string | number, offset?: number): void;
+        readUInt64LE(offset?: number): string | number;
+        writeUInt64LE(input: string | number, offset?: number): void;
+        reinterpret(size: number, offset?: number): Buffer;
+        reinterpretUntilZeros(size: number, offset?: number): Buffer;
+        type?: Type | undefined;
+    }
 }

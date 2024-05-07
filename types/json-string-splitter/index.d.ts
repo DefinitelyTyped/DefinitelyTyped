@@ -1,8 +1,3 @@
-// Type definitions for json-string-splitter 1.0
-// Project: https://github.com/Densaugeo/JSON-String-Splitter
-// Definitions by: Jesse Wright <https://github.com/jeswr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = splitter;
 
 /**
@@ -23,4 +18,4 @@ export = splitter;
  * pieces.jsons[1]; // '{"more":"json"}'
  * pieces.remainder; // '{"partial":"json"'
  */
-declare function splitter(string: string): { jsons: string[], remainder: string };
+declare function splitter(string: string): { jsons: string[]; remainder: string };

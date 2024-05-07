@@ -1,2 +1,2 @@
-import { FragmentShader } from '../../Desktop/shaders/fragmentShader';
+import { FragmentShader } from "../../Desktop/shaders/fragmentShader";
 export const fragmentShader: FragmentShader;

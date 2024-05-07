@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/chromecast-caf-receiver",
+    "version": "6.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "chromecast-caf-receiver",
+    "projects": [
+        "https://github.com/googlecast"
+    ],
+    "devDependencies": {
+        "@types/chromecast-caf-receiver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sergio Arbeo",
+            "githubUsername": "Serabe"
+        },
+        {
+            "name": "Brandon Risell",
+            "githubUsername": "brandonrisell"
+        },
+        {
+            "name": "Marco Reni",
+            "githubUsername": "marcoreni"
+        }
+    ]
+}

@@ -1,27 +1,27 @@
-import * as matchPattern from 'lodash-match-pattern';
+import * as matchPattern from "lodash-match-pattern";
 
 const lodash = matchPattern.getLodashModule(); // Use our lodash extensions (recommended)
 const isString = lodash.isString;
 // ^^^ setting isString explicitly to overcome a REPL issue with using '_'
 
 // Trivial example
-const testValue = { a: 1, b: 'abc' };
+const testValue = { a: 1, b: "abc" };
 
 const successResult = matchPattern(testValue, { a: 1, b: isString });
 // returns null for a successful match.
 
-const failResult = matchPattern(testValue, { a: isString, b: 'abc' });
+const failResult = matchPattern(testValue, { a: isString, b: "abc" });
 // returns "{a: 1} didn't match target {a: \'function isString(value) {...}\'}"
 
 // Fancy test value
 const fancyValue = {
-    name: 'Gale',
-    email: 'gale.force@winds.com',
+    name: "Gale",
+    email: "gale.force@winds.com",
     age: 23,
     friends: [
-        { name: 'Breeze', age: 14 },
-        { name: 'Cyclone', age: 29 },
-        { name: 'Gust', age: 22 },
+        { name: "Breeze", age: 14 },
+        { name: "Cyclone", age: 29 },
+        { name: "Gust", age: 22 },
     ],
 };
 

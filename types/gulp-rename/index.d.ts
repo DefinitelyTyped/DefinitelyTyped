@@ -1,10 +1,5 @@
-// Type definitions for gulp-rename 2.0
-// Project: https://github.com/hparra/gulp-rename
-// Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
-import * as File from 'vinyl';
+import * as File from "vinyl";
 
 declare namespace rename {
     interface ParsedPath {
@@ -26,5 +21,9 @@ declare namespace rename {
     }
 }
 
-declare function rename(obj: string|rename.Options|((path: rename.ParsedPath, file: File) => rename.ParsedPath|void), options?: rename.PluginOptions): NodeJS.ReadWriteStream;
+declare function rename(
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    obj: string | rename.Options | ((path: rename.ParsedPath, file: File) => rename.ParsedPath | void),
+    options?: rename.PluginOptions,
+): NodeJS.ReadWriteStream;
 export = rename;

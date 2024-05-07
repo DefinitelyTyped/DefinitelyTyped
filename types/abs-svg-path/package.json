@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/abs-svg-path",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jkroso/abs-svg-path"
+    ],
+    "devDependencies": {
+        "@types/abs-svg-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Liam Martens",
+            "githubUsername": "LiamMartens"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 export type exports = number;
-declare const IGNORE: number;
-declare const ACCEPT: number;
-declare const REMOVE: number;
+declare let IGNORE: number;
+declare let ACCEPT: number;
+declare let REMOVE: number;
 export {};

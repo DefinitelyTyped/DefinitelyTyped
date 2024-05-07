@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/creativebulma__bulma-tagsinput",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/CreativeBulma/bulma-tagsinput"
+    ],
+    "devDependencies": {
+        "@types/creativebulma__bulma-tagsinput": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

@@ -1,9 +1,9 @@
-import { SpritesmithResult } from 'spritesmith';
-import Spritesmith = require('spritesmith');
-import { Transform } from 'stream';
+import { SpritesmithResult } from "spritesmith";
+import Spritesmith = require("spritesmith");
+import { Transform } from "stream";
 
 // Generate our spritesheet
-const sprites = ['fork.png', 'github.png', 'twitter.png'];
+const sprites = ["fork.png", "github.png", "twitter.png"];
 // $ExpectType void
 Spritesmith.run({ src: sprites }, function handleResult(err, result) {
     // $ExpectType Buffer

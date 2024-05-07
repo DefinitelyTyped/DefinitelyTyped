@@ -1,6 +1,6 @@
-import { activateRoom, ActivateRoomResponse, initBot, AuthInfo } from 'symphony-api-client-node';
+import { activateRoom, ActivateRoomResponse, AuthInfo, initBot } from "symphony-api-client-node";
 
-initBot('/config.json')
+initBot("/config.json")
     .then((authTokens: AuthInfo) => {
         console.log(authTokens);
     })
@@ -8,6 +8,6 @@ initBot('/config.json')
         console.error(err);
     });
 
-activateRoom('streamId').then((resp: ActivateRoomResponse) => {
+activateRoom("streamId").then((resp: ActivateRoomResponse) => {
     console.log(resp.roomAttributes);
 });

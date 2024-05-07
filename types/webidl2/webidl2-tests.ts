@@ -1,48 +1,48 @@
-import * as webidl2 from 'webidl2';
+import * as webidl2 from "webidl2";
 
 // $ExpectType IDLRootType[]
-const parsed = webidl2.parse('');
+const parsed = webidl2.parse("");
 
 for (const rootType of parsed) {
     rootType.parent; // $ExpectType null
 
-    if (rootType.type !== 'includes') {
+    if (rootType.type !== "includes") {
         console.log(rootType.name);
     }
 
     switch (rootType.type) {
-        case 'interface mixin':
+        case "interface mixin":
             rootType; // $ExpectType InterfaceMixinType
             console.log(rootType.partial);
             logInterfaceMixinMembers(rootType.members);
             break;
 
-        case 'interface':
+        case "interface":
             rootType; // $ExpectType InterfaceType
             console.log(rootType.inheritance);
             console.log(rootType.partial);
             logInterfaceMembers(rootType.members);
             break;
 
-        case 'namespace':
+        case "namespace":
             rootType; // $ExpectType NamespaceType
             console.log(rootType.partial);
             logNamespaceMembers(rootType.members);
             break;
 
-        case 'callback interface':
+        case "callback interface":
             rootType; // $ExpectType CallbackInterfaceType
             console.log(rootType.inheritance);
             console.log(rootType.partial);
             logCallbackInterfaceMembers(rootType.members);
             break;
 
-        case 'callback':
+        case "callback":
             rootType; // $ExpectType CallbackType
             logArguments(rootType.arguments);
             break;
 
-        case 'dictionary':
+        case "dictionary":
             rootType; // $ExpectType DictionaryType
             console.log(rootType.inheritance);
             for (const member of rootType.members) {
@@ -55,7 +55,7 @@ for (const rootType of parsed) {
             }
             break;
 
-        case 'enum':
+        case "enum":
             rootType; // $ExpectType EnumType
             for (const v of rootType.values) {
                 console.log(v.type);
@@ -63,12 +63,12 @@ for (const rootType of parsed) {
             }
             break;
 
-        case 'typedef':
+        case "typedef":
             rootType; // $ExpectType TypedefType
             logIdlType(rootType.idlType);
             break;
 
-        case 'includes':
+        case "includes":
             rootType; // $ExpectType IncludesType
             console.log(rootType.target);
             console.log(rootType.includes);
@@ -92,31 +92,31 @@ function logInterfaceMembers(members: webidl2.IDLInterfaceMemberType[]) {
 
 function logInterfaceMember(member: webidl2.IDLInterfaceMemberType) {
     switch (member.type) {
-        case 'constructor':
+        case "constructor":
             member; // $ExpectType ConstructorMemberType
             member.parent; // $ExpectType InterfaceType
             logArguments(member.arguments);
             break;
 
-        case 'operation':
+        case "operation":
             member; // $ExpectType OperationMemberType
             member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType | NamespaceType
             logInterfaceMixinMember(member);
             break;
 
-        case 'attribute':
+        case "attribute":
             member; // $ExpectType AttributeMemberType
             member.parent; // $ExpectType InterfaceMixinType | InterfaceType | NamespaceType
             logInterfaceMixinMember(member);
             break;
 
-        case 'const':
+        case "const":
             member; // $ExpectType ConstantMemberType
             member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType
             logInterfaceMixinMember(member);
             break;
 
-        case 'iterable':
+        case "iterable":
             member; // $ExpectType IterableDeclarationMemberType
             member.parent; // $ExpectType InterfaceMixinType | InterfaceType
             member.async; // $ExpectType boolean
@@ -127,7 +127,7 @@ function logInterfaceMember(member: webidl2.IDLInterfaceMemberType) {
             logArguments(member.arguments);
             break;
 
-        case 'maplike':
+        case "maplike":
             member; // $ExpectType MaplikeDeclarationMemberType
             member.parent; // $ExpectType InterfaceMixinType | InterfaceType
             member.async; // $ExpectType false
@@ -138,7 +138,7 @@ function logInterfaceMember(member: webidl2.IDLInterfaceMemberType) {
             logArguments(member.arguments);
             break;
 
-        case 'setlike':
+        case "setlike":
             member; // $ExpectType SetlikeDeclarationMemberType
             member.parent; // $ExpectType InterfaceMixinType | InterfaceType
             member.async; // $ExpectType false
@@ -164,19 +164,19 @@ function logInterfaceMixinMembers(members: webidl2.IDLInterfaceMixinMemberType[]
 
 function logInterfaceMixinMember(member: webidl2.IDLInterfaceMixinMemberType) {
     switch (member.type) {
-        case 'operation':
+        case "operation":
             member; // $ExpectType OperationMemberType
             member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType | NamespaceType
             logCallbackInterfaceMember(member);
             break;
 
-        case 'attribute':
+        case "attribute":
             member; // $ExpectType AttributeMemberType
             member.parent; // $ExpectType InterfaceMixinType | InterfaceType | NamespaceType
             logNamespaceMember(member);
             break;
 
-        case 'const':
+        case "const":
             member; // $ExpectType ConstantMemberType
             member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType
             logCallbackInterfaceMember(member);
@@ -197,13 +197,13 @@ function logCallbackInterfaceMembers(members: webidl2.IDLCallbackInterfaceMember
 
 function logCallbackInterfaceMember(member: webidl2.IDLCallbackInterfaceMemberType) {
     switch (member.type) {
-        case 'operation':
+        case "operation":
             member; // $ExpectType OperationMemberType
             member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType | NamespaceType
             logNamespaceMember(member);
             break;
 
-        case 'const':
+        case "const":
             member; // $ExpectType ConstantMemberType
             member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType
             console.log(member.name);
@@ -227,7 +227,7 @@ function logNamespaceMembers(members: webidl2.IDLNamespaceMemberType[]) {
 
 function logNamespaceMember(member: webidl2.IDLNamespaceMemberType) {
     switch (member.type) {
-        case 'operation':
+        case "operation":
             member; // $ExpectType OperationMemberType
             member.parent; // $ExpectType CallbackInterfaceType | InterfaceMixinType | InterfaceType | NamespaceType
             logArguments(member.arguments);
@@ -235,7 +235,7 @@ function logNamespaceMember(member: webidl2.IDLNamespaceMemberType) {
             console.log(member.special);
             break;
 
-        case 'attribute':
+        case "attribute":
             member; // $ExpectType AttributeMemberType
             member.parent; // $ExpectType InterfaceMixinType | InterfaceType | NamespaceType
             console.log(member.name);
@@ -255,23 +255,23 @@ function logExtAttrs(extAttrs: webidl2.ExtendedAttribute[]) {
 }
 
 function logExtAttr(extAttr: webidl2.ExtendedAttribute) {
-    console.log(extAttr.name, 'on', extAttr.parent.type);
+    console.log(extAttr.name, "on", extAttr.parent.type);
     logArguments(extAttr.arguments);
     const { rhs } = extAttr;
     if (rhs !== null) {
         switch (rhs.type) {
-            case 'identifier':
-            case 'string':
-            case 'decimal':
-            case 'integer':
+            case "identifier":
+            case "string":
+            case "decimal":
+            case "integer":
                 rhs.value; // $ExpectType string
                 logExtAttrRHS(rhs);
                 break;
 
-            case 'identifier-list':
-            case 'string-list':
-            case 'decimal-list':
-            case 'integer-list':
+            case "identifier-list":
+            case "string-list":
+            case "decimal-list":
+            case "integer-list":
                 logExtAttrRHSList(rhs);
                 break;
 
@@ -319,15 +319,15 @@ function logIdlType(idlType: webidl2.IDLTypeDescription) {
         idlType.generic; // $ExpectType "FrozenArray" | "ObservableArray" | "Promise" | "record" | "sequence" || "record" | "sequence" | "FrozenArray" | "ObservableArray" | "Promise"
         console.log(idlType);
         switch (idlType.generic) {
-            case 'FrozenArray':
-            case 'ObservableArray':
-            case 'Promise':
-            case 'sequence':
+            case "FrozenArray":
+            case "ObservableArray":
+            case "Promise":
+            case "sequence":
                 idlType.idlType; // $ExpectType [IDLTypeDescription]
                 idlType.idlType.length; // $ExpectType 1
                 break;
 
-            case 'record':
+            case "record":
                 idlType.idlType.length; // $ExpectType 2
                 break;
 
@@ -346,46 +346,46 @@ function logValueDescription(valueDesc: webidl2.ValueDescription) {
     valueDesc.parent; // $ExpectType FieldType | ConstantMemberType | Argument || ConstantMemberType | Argument | FieldType
     console.log(valueDesc.type);
     switch (valueDesc.type) {
-        case 'string':
+        case "string":
             valueDesc; // $ExpectType ValueDescriptionString
             valueDesc.value; // $ExpectType string
             console.log(valueDesc.value);
             break;
 
-        case 'number':
+        case "number":
             valueDesc; // $ExpectType ValueDescriptionNumber
             valueDesc.value; // $ExpectType string
             console.log(valueDesc.value);
             break;
 
-        case 'boolean':
+        case "boolean":
             valueDesc; // $ExpectType ValueDescriptionBoolean
             valueDesc.value; // $ExpectType boolean
             console.log(valueDesc.value);
             break;
 
-        case 'null':
+        case "null":
             valueDesc; // $ExpectType ValueDescriptionNull
             break;
 
-        case 'Infinity':
+        case "Infinity":
             valueDesc; // $ExpectType ValueDescriptionInfinity
             valueDesc.negative; // $ExpectType boolean
             console.log(valueDesc.negative);
             break;
 
-        case 'NaN':
+        case "NaN":
             valueDesc; // $ExpectType ValueDescriptionNaN
             break;
 
-        case 'sequence':
+        case "sequence":
             valueDesc; // $ExpectType ValueDescriptionSequence
             valueDesc.value; // $ExpectType []
             valueDesc.value.length; // $ExpectType 0
             console.log(valueDesc.value);
             break;
 
-        case 'dictionary':
+        case "dictionary":
             valueDesc; // $ExpectType ValueDescriptionDictionary
             break;
 

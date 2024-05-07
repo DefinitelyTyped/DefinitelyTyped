@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rn-host-detect",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/jhen0409/rn-host-detect"
+    ],
+    "devDependencies": {
+        "@types/rn-host-detect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

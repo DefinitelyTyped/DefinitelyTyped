@@ -1,10 +1,3 @@
-// Type definitions for get-intrinsic 1.2
-// Project: https://github.com/ljharb/get-intrinsic#readme
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 import { Intrinsics } from './internal/intrinsics';
 
 /**

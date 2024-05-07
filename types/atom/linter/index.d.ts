@@ -3,7 +3,7 @@
 
 /// <reference path="./config.d.ts" />
 
-import { Disposable, Point, Range, TextEditor } from '../index';
+import { Disposable, Point, Range, TextEditor } from "../index";
 
 export interface Config {
     name: string;
@@ -53,7 +53,7 @@ export interface Message {
     excerpt: string;
 
     /** The severity level for the message. */
-    severity: 'error' | 'warning' | 'info';
+    severity: "error" | "warning" | "info";
 
     /** Possible solutions (which the user can invoke at will). */
     solutions?: Array<ReplacementSolution | CallbackSolution>;
@@ -83,7 +83,7 @@ export type LintResult = Message[] | null;
 
 export interface LinterProvider {
     name: string;
-    scope: 'file' | 'project';
+    scope: "file" | "project";
     lintsOnChange: boolean;
     grammarScopes: string[];
     lint(editor: TextEditor): LintResult | Promise<LintResult>;

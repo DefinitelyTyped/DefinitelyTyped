@@ -1,8 +1,3 @@
-// Type definitions for athenajs 0.1
-// Project: https://github.com/AthenaJS/athenajs
-// Definitions by: Nicolas Ramz <https://github.com/warpdesign>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace AthenaJS;
 
 export function Dom(sel?: string | HTMLElement): _Dom<HTMLElement>;
@@ -28,7 +23,7 @@ export class Scene {
     loadMap(src: string, id?: string): void;
     notify(name: string, data?: JSObject): void;
     removeObject(obj: Drawable): void;
-    setBackgroundImage(image: string|HTMLImageElement): void;
+    setBackgroundImage(image: string | HTMLImageElement): void;
     setLayerPriority(layer: number, background: boolean): void;
     setMap(map: Map | JSObject, x?: number, y?: number): void;
     setOpacity(opacity: number): void;
@@ -57,7 +52,7 @@ export class Drawable {
     notify(id: string, data?: JSObject): void;
     onCollision(object: Drawable): void;
     onEvent(eventType: string, data?: JSObject): void;
-    playSound(id: string, options?: { pan?: boolean | undefined, loop?: false | undefined }): void;
+    playSound(id: string, options?: { pan?: boolean | undefined; loop?: false | undefined }): void;
     setBehavior(behavior: string | { new(sprite: Drawable, options?: JSObject): Behavior }, options?: JSObject): void;
     setScale(scale: number): void;
     getCurrentWidth(): number;
@@ -122,7 +117,15 @@ export class SimpleText extends Drawable {
 }
 export class Paint extends Drawable {
     constructor(type: string, paintOptions: PaintOptions);
-    arc(cx: number, cy: number, r: number, starteAngle: number, endAngle: number, fillStyle: string, borderSize: number): void;
+    arc(
+        cx: number,
+        cy: number,
+        r: number,
+        starteAngle: number,
+        endAngle: number,
+        fillStyle: string,
+        borderSize: number,
+    ): void;
     fill(color?: string): void;
     circle(cx: number, cy: number, r: number, fillStyle?: string, borderWidth?: number, borderStyle?: string): void;
     rect(x: number, y: number, width: number, height: number, color: string): void;
@@ -224,19 +227,16 @@ export class _FX {
 
     /**
      * Retrieve an effect Class by its name
-     *
      */
     getEffect(fxName: string): Effect;
 
     /**
      * Add a new easing function for other objects to use
-     *
      */
     addEasing(easingName: string, easingFn: (x?: number, t?: number, b?: number, c?: number, d?: number) => void): void;
 
     /**
      * Retrieves an easing function
-     *
      */
     getEasing(easingName: string): (x?: number, t?: number, b?: number, c?: number, d?: number) => void;
 }
@@ -258,13 +258,11 @@ export class Effect {
     ended: boolean;
     /**
      * This the class constructor. Default options are:
-     *
      */
     constructor(options: EffectOptions, display: Display);
 
     /**
      * Changes the easing function used for the ffect
-     *
      */
     setEasing(easing: (x?: number, t?: number, b?: number, c?: number, d?: number) => void): void;
 
@@ -302,13 +300,11 @@ export interface DisplayOptions {
 export class Display {
     /**
      * Creates a new Display instance
-     *
      */
     constructor(options: DisplayOptions, target: string | HTMLElement);
 
     /**
      * Creates a new (offscreen) drawing buffer
-     *
      */
     getBuffer(width: number, height: number): RenderingContext;
 
@@ -319,13 +315,11 @@ export class Display {
 
     /**
      * Changes the zIndex property of the specified layer canvas
-     *
      */
     setLayerZIndex(layer: number, zIndex: number): void;
 
     /**
      * Clears a canvas display buffer
-     *
      */
     clearScreen(ctx: RenderingContext): void;
 
@@ -336,13 +330,11 @@ export class Display {
 
     /**
      * Changes the (CSS) opacity of a canvas
-     *
      */
     setCanvasOpacity(canvas: HTMLElement, opacity: number): void;
 
     /**
      * Renders the specified scene
-     *
      */
     renderScene(scene: Scene): void;
 
@@ -364,7 +356,6 @@ export class Display {
 
     /**
      * Starts an animation on the display
-     *
      */
     animate(fxName: string, options: EffectOptions, context: RenderingContext): Promise;
 
@@ -377,7 +368,6 @@ export class Display {
 
     /**
      * Executes an effect on a frame at a given time
-     *
      */
     executeFx(ctx: RenderingContext, fxCtx: RenderingContext, obj: Drawable, time: number, when: string): void;
 
@@ -392,7 +382,6 @@ export const InputManager: _InputManager;
 export class MapEvent {
     /**
      * Creates a new MapEvent
-     *
      */
     constructor(map: Map);
 
@@ -403,13 +392,11 @@ export class MapEvent {
 
     /**
      * Adds a new [`Drawable`]{#item} onto the map
-     *
      */
     addItem(id: string, item: Drawable): void;
 
     /**
      * Returns an item
-     *
      */
     getItem(id: string): Drawable | undefined;
 
@@ -420,13 +407,11 @@ export class MapEvent {
 
     /**
      * Retrieves a switch from the map using its id
-     *
      */
     getSwitch(id: string): any;
 
     /**
      * checks of conditions of specified trigger are valid
-     *
      */
     checkConditions(trigger: JSObject): boolean;
 
@@ -466,7 +451,6 @@ export class Behavior {
 
     /**
      * Returns current mapEvent
-     *
      */
     getMapEvent(): MapEvent;
     reset(): void;
@@ -479,23 +463,19 @@ export interface _AudioManager {
      * Adds a new sound element to the audio cache.
      * *Note* if a sound with the same id has already been added, it will be replaced
      * by the new one.
-     *
      */
     addSound(id: string, element: HTMLAudioElement): void;
-/**
- * Toggles global sound playback
- *
- */
+    /**
+     * Toggles global sound playback
+     */
     toggleSound(bool: boolean): void;
-/**
- * Plays the specified sound with `id`.
- *
- */
+    /**
+     * Plays the specified sound with `id`.
+     */
     play(id: string, loop?: boolean, volume?: number, panning?: number): any;
-/**
- * Stops playing the sound id
- *
- */
+    /**
+     * Stops playing the sound id
+     */
     stop(id: string, instanceId: any): void;
 }
 
@@ -529,101 +509,98 @@ export interface _ResourceManager {
 export const ResourceManager: _ResourceManager;
 
 export interface _InputManager {
-/**
- * A list of common keyCodes
- */
-KEYS: {
-    'UP': 38,
-    'DOWN': 40,
-    'LEFT': 37,
-    'RIGHT': 39,
-    'SPACE': 32,
-    'ENTER': 13,
-    'ESCAPE': 27,
-    'CTRL': 17
-};
-/**
- * List of common pad buttons
- */
-PAD_BUTTONS: {
-    32: 1, // Face (main) buttons
-    FACE_0: 1,
-    FACE_3: 2,
-    FACE_4: 3,
-    LEFT_SHOULDER: 4, // Top shoulder buttons
-    RIGHT_SHOULDER: 5,
-    LEFT_SHOULDER_BOTTOM: 6, // Bottom shoulder buttons
-    RIGHT_SHOULDER_BOTTOM: 7,
-    SELECT: 8,
-    START: 9,
-    LEFT_ANALOGUE_STICK: 10, // Analogue sticks (if depressible)
-    RIGHT_ANALOGUE_STICK: 11,
-    38: 12, // Directional (discrete) pad
-    40: 13,
-    37: 14,
-    39: 15
-};
-axes: JSObject;
-newGamepadPollDelay: number;
-gamepadSupport: boolean;
-recording: boolean;
-playingEvents: boolean;
-playingPos: number;
-/*recordedEvents: Array,*/
-pad: null;
-latches: JSObject;
-keyPressed: JSObject;
-padPressed: JSObject;
-keyCb: JSObject;
-enabled: boolean;
-inputMode: string;
-// virtual joystick instance
-dPadJoystick: null;
-jPollInterval: number;
-/**
- * Initializes the InputManager with a reference to the game.
- *
- * This method prepares the InputManager by reseting keyboard states/handlers and
- * set current inputMode
- *
- */
+    /**
+     * A list of common keyCodes
+     */
+    KEYS: {
+        "UP": 38;
+        "DOWN": 40;
+        "LEFT": 37;
+        "RIGHT": 39;
+        "SPACE": 32;
+        "ENTER": 13;
+        "ESCAPE": 27;
+        "CTRL": 17;
+    };
+    /**
+     * List of common pad buttons
+     */
+    PAD_BUTTONS: {
+        32: 1; // Face (main) buttons
+        FACE_0: 1;
+        FACE_3: 2;
+        FACE_4: 3;
+        LEFT_SHOULDER: 4; // Top shoulder buttons
+        RIGHT_SHOULDER: 5;
+        LEFT_SHOULDER_BOTTOM: 6; // Bottom shoulder buttons
+        RIGHT_SHOULDER_BOTTOM: 7;
+        SELECT: 8;
+        START: 9;
+        LEFT_ANALOGUE_STICK: 10; // Analogue sticks (if depressible)
+        RIGHT_ANALOGUE_STICK: 11;
+        38: 12; // Directional (discrete) pad
+        40: 13;
+        37: 14;
+        39: 15;
+    };
+    axes: JSObject;
+    newGamepadPollDelay: number;
+    gamepadSupport: boolean;
+    recording: boolean;
+    playingEvents: boolean;
+    playingPos: number;
+    /*recordedEvents: Array,*/
+    pad: null;
+    latches: JSObject;
+    keyPressed: JSObject;
+    padPressed: JSObject;
+    keyCb: JSObject;
+    enabled: boolean;
+    inputMode: string;
+    // virtual joystick instance
+    dPadJoystick: null;
+    jPollInterval: number;
+    /**
+     * Initializes the InputManager with a reference to the game.
+     *
+     * This method prepares the InputManager by reseting keyboard states/handlers and
+     * set current inputMode
+     */
     init(): void;
-/**
- * Starts recording input events. They are stored into `InputManager.recordedEvents`
- */
-startRecordingEvents(): void;
-/**
- * Stops recording events.
- */
-stopRecordingEvents(): void;
-/**
- * After events have been reccorded they can be played back using this method.
- */
-playRecordedEvents(): void;
-/**
- * Sets next key states using recorded events
- *
- * TODO: add an optional callback to be called at the end of the playback
- * so that demo can be looped.
- */
-nextRecordedEvents(): void;
-/**
- * Saves current event state onto the recordedEvents stack
- */
-/**
- * Changes input mode
- *
- */
-setInputMode(mode: string): void;
+    /**
+     * Starts recording input events. They are stored into `InputManager.recordedEvents`
+     */
+    startRecordingEvents(): void;
+    /**
+     * Stops recording events.
+     */
+    stopRecordingEvents(): void;
+    /**
+     * After events have been reccorded they can be played back using this method.
+     */
+    playRecordedEvents(): void;
+    /**
+     * Sets next key states using recorded events
+     *
+     * TODO: add an optional callback to be called at the end of the playback
+     * so that demo can be looped.
+     */
+    nextRecordedEvents(): void;
+    /**
+     * Saves current event state onto the recordedEvents stack
+     */
+    /**
+     * Changes input mode
+     */
+    setInputMode(mode: string): void;
     /**
      * Returns an object with the state of all keys
      */
     getAllKeysStatus(): JSObject;
     getKeyStatus(key: string, latch: boolean): boolean;
-    isKeyDown(key: string|number, latch?: boolean): boolean;
+    isKeyDown(key: string | number, latch?: boolean): boolean;
     /**
      * Install callback that gets called when a key is pressed/released
-     *
      */
     installKeyCallback(key: string, event: string, callback: (key: string, event: string) => void): void;
     removeKeyCallback(key: string, event: string, callback: () => void): void;
@@ -640,7 +617,6 @@ export class Deferred {
     constructor();
     /**
      * Creates and immediately resolves a new deferred.
-     *
      */
     static resolve(val?: any): Promise;
     promise: Promise;
@@ -654,7 +630,7 @@ export interface _Dom<TElement> extends Iterable<TElement> {
     length: number;
     css(prop: string, val: string): _Dom<TElement>;
     css(prop: JSObject): _Dom<TElement>;
-    css(prop: string): string|null;
+    css(prop: string): string | null;
     find(selector: string): _Dom<TElement>;
     appendTo(selector: string | _Dom<TElement> | HTMLElement): _Dom<TElement>;
     attr(att: string, val: string): _Dom<TElement>;
@@ -763,7 +739,7 @@ export interface AnimationObject {
             y: number;
             x2: number;
             y2: number;
-        } | undefined,
+        } | undefined;
         plane?: number | undefined;
     }>;
     loop?: number | undefined;

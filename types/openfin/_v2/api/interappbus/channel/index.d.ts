@@ -1,10 +1,10 @@
-import { ChannelClient } from './client';
-import { Identity } from '../../../identity';
-import { ChannelProvider } from './provider';
-import { EmitterBase } from '../../base';
-import Transport, { Message, Payload } from '../../../transport/transport';
-import { ChannelEvents } from '../../events/channel';
-import { ProviderIdentity } from '../../../shapes/Identity';
+import { Identity } from "../../../identity";
+import { ProviderIdentity } from "../../../shapes/Identity";
+import Transport, { Message, Payload } from "../../../transport/transport";
+import { EmitterBase } from "../../base";
+import { ChannelEvents } from "../../events/channel";
+import { ChannelClient } from "./client";
+import { ChannelProvider } from "./provider";
 export interface ConnectOptions {
     wait?: boolean | undefined;
     payload?: any;

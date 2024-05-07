@@ -1,12 +1,13 @@
-import * as THREE from 'three';
-import { FeatureCollection } from '../Core/Feature';
+import * as THREE from "three";
+import { FeatureCollection } from "../Core/Feature";
+import Style from "../Core/Style";
 
 export interface Feature2MeshOptions {
     batchId?: (props: unknown, featureId: number) => number;
     // pointsMaterial?: THREE.Material;
     // lineMaterial?: THREE.Material;
     // polygonMaterial?: THREE.Material;
-    // layer?: Layer;
+    style?: Style;
 }
 
 type Feature2Mesh = (collection: FeatureCollection) => THREE.Object3D;

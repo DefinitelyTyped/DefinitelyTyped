@@ -7,7 +7,7 @@ declare class Client {
     connect(options: Client.ClientConnectOptions): Promise<any>;
     connect(): Promise<any>;
     disconnect(): Promise<any>;
-    id: any;  // can be `null | number` but also the "socket" value from websocket message data.
+    id: any; // can be `null | number` but also the "socket" value from websocket message data.
     request(options: string | Client.ClientRequestOptions): Promise<any>;
     message(message: any): Promise<any>;
     subscribe(path: string, handler: Client.Handler): Promise<any>;

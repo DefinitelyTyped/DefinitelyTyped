@@ -1,12 +1,6 @@
-// Type definitions for bunyan 1.8
-// Project: https://github.com/trentm/node-bunyan
-// Definitions by: Alex Mikhalev <https://github.com/amikhalev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare class Logger extends EventEmitter {
     constructor(options: Logger.LoggerOptions);
@@ -207,7 +201,7 @@ declare namespace Logger {
     const ERROR: number;
     const FATAL: number;
 
-    type LogLevelString = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
+    type LogLevelString = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
     type LogLevel = LogLevelString | number;
 
     const levelFromName: { [name in LogLevelString]: number };

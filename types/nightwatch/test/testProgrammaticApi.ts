@@ -1,19 +1,19 @@
 // New Programmatic APi
-import Nightwatch, { NightwatchAPI, NightwatchClient } from 'nightwatch';
-import { isType } from './utils';
+import * as Nightwatch from "nightwatch";
+import { isType } from "./utils";
 
 const client = Nightwatch.createClient({
-  browserName: 'firefox',
-  headless: true
+    browserName: "firefox",
+    headless: true,
 });
 Nightwatch.createClient();
 Nightwatch.createClient({});
 
 // test methods/properties exported on Nightwatch
-new Nightwatch.by('css selector', 'hello');
+new Nightwatch.by("css selector", "hello");
 new Nightwatch.Capabilities();
-isType<NightwatchAPI>(Nightwatch.browser);
-isType<NightwatchAPI>(Nightwatch.app);
+isType<Nightwatch.NightwatchAPI>(Nightwatch.browser);
+isType<Nightwatch.NightwatchAPI>(Nightwatch.app);
 Nightwatch.Key.NULL;
 // @ts-expect-error
 Nightwatch.launchBrowser();
@@ -25,13 +25,15 @@ const runner = Nightwatch.CliRunner();
 
 // test Nightwatch Programmatic API
 client.updateCapabilities({
-  testCapability: 'one, two, three'
+    testCapability: "one, two, three",
 });
-client.updateCapabilities(function() { return {}; });
+client.updateCapabilities(function() {
+    return {};
+});
 
-async () => {
-  const browser = await client.launchBrowser();
-  isType<NightwatchAPI>(browser);
+(async () => {
+    const browser = await client.launchBrowser();
+    isType<Nightwatch.NightwatchAPI>(browser);
 
-  isType<NightwatchClient>(client.nightwatch_client);
-};
+    isType<Nightwatch.NightwatchClient>(client.nightwatch_client);
+});

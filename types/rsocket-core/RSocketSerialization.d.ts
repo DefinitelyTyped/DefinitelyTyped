@@ -1,4 +1,4 @@
-import { Encodable } from 'rsocket-types';
+import { Encodable } from "rsocket-types";
 /**
  * A Serializer transforms data between the application encoding used in
  * Payloads and the Encodable type accepted by the transport client.

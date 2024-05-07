@@ -1,5 +1,5 @@
-import * as React from 'react';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+import * as React from "react";
 
 const Test: React.FC = () => {
     const captchaRef = React.createRef<HCaptcha>();

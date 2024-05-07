@@ -1,8 +1,11 @@
-import { IUniform, UniformsLib } from '../../../src/Three.js';
+import { IUniform, UniformsLib } from "three";
 
 export const VelocityShader: {
-    uniforms: (typeof UniformsLib)['common'] &
-        (typeof UniformsLib)['displacementmap'] & {
+    name: string;
+    uniforms:
+        & (typeof UniformsLib)["common"]
+        & (typeof UniformsLib)["displacementmap"]
+        & {
             modelMatrixPrev: IUniform;
             currentProjectionViewMatrix: IUniform;
             previousProjectionViewMatrix: IUniform;

@@ -1,7 +1,7 @@
-import ReactReconciler = require('react-reconciler');
-import ReactReconcilerConstants = require('react-reconciler/constants');
-import * as ReactTestHostConfig from './ReactTestHostConfig';
-import * as Constants from './ReactReconcilerPriorityConstant';
+import ReactReconciler = require("react-reconciler");
+import ReactReconcilerConstants = require("react-reconciler/constants");
+import * as Constants from "./ReactReconcilerPriorityConstant";
+import * as ReactTestHostConfig from "./ReactTestHostConfig";
 
 // $ExpectType Reconciler<Container, Instance, TextInstance, any, PublicInstance>
 ReactReconciler<

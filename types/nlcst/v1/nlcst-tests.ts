@@ -1,23 +1,11 @@
-import { Data, Node, Point, Position } from 'unist';
-import {
-    Parent,
-    Literal,
-    Root,
-    Paragraph,
-    Sentence,
-    Word,
-    Symbol,
-    WhiteSpace,
-    Punctuation,
-    Source,
-    Text,
-} from 'nlcst';
+import { Literal, Paragraph, Parent, Punctuation, Root, Sentence, Source, Symbol, Text, WhiteSpace, Word } from "nlcst";
+import { Data, Node, Point, Position } from "unist";
 
 const data: Data = {
-    string: 'string',
+    string: "string",
     number: 1,
     object: {
-        key: 'value',
+        key: "value",
     },
     array: [],
     boolean: true,
@@ -36,45 +24,45 @@ const position: Position = {
 };
 
 const literal: Literal = {
-    type: 'TextNode',
+    type: "TextNode",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const symbol: Symbol = {
-    type: 'SymbolNode',
+    type: "SymbolNode",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const punctuation: Punctuation = {
-    type: 'PunctuationNode',
+    type: "PunctuationNode",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const text: Text = {
-    type: 'TextNode',
+    type: "TextNode",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const source: Source = {
-    type: 'SourceNode',
+    type: "SourceNode",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const whiteSpace: WhiteSpace = {
-    type: 'WhiteSpaceNode',
+    type: "WhiteSpaceNode",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 let paragraph: Paragraph = getParagraph();
@@ -84,14 +72,14 @@ const sentence: Sentence = getSentence();
 const word: Word = getWord();
 
 const parent: Parent = {
-    type: 'parent',
+    type: "parent",
     data,
     position,
     children: [getParagraph(), getSentence(), getWord(), punctuation, source, symbol, text, whiteSpace],
 };
 
 const root: Root = {
-    type: 'RootNode',
+    type: "RootNode",
     data,
     position,
     children: [getParagraph(), getSentence(), getWord(), punctuation, source, symbol, text, whiteSpace],
@@ -99,47 +87,47 @@ const root: Root = {
 
 function getParagraph(): Paragraph {
     return {
-        type: 'ParagraphNode',
+        type: "ParagraphNode",
         children: [getSentence(), source, whiteSpace],
     };
 }
 
 function getSentence(): Sentence {
     return {
-        type: 'SentenceNode',
+        type: "SentenceNode",
         children: [punctuation, source, symbol, whiteSpace, getWord()],
     };
 }
 
 function getWord(): Word {
     return {
-        type: 'WordNode',
+        type: "WordNode",
         children: [punctuation, source, symbol, text],
     };
 }
 
 // Test custom nlcst node registration
 interface Custom extends Node {
-    type: 'CustomNode';
+    type: "CustomNode";
 }
 
-declare module 'nlcst' {
+declare module "nlcst" {
     interface ParagraphContentMap {
         custom: Custom;
     }
 }
 
 paragraph = {
-    type: 'ParagraphNode',
+    type: "ParagraphNode",
     data,
     position,
-    children: [{ type: 'CustomNode' }],
+    children: [{ type: "CustomNode" }],
 };
 
 paragraph = {
-    type: 'ParagraphNode',
+    type: "ParagraphNode",
     data,
     position,
     // @ts-expect-error
-    children: [{ type: 'invalid' }],
+    children: [{ type: "invalid" }],
 };

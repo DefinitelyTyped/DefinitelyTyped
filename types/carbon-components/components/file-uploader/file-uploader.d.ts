@@ -35,7 +35,7 @@ declare class FileUploader extends FileUploader_base {
     _handleStateChange(elements: HTMLElement[], selectIndex?: number, html?: string): void;
     _handleDeleteButton: (evt: Event) => void;
     _handleDragDrop: (evt: MouseEvent) => void;
-    setState(state: 'edit' | 'update' | 'complete', selectIndex: number): void;
+    setState(state: "edit" | "update" | "complete", selectIndex: number): void;
     static components: WeakMap<object, any>;
     static get options(): FileUploaderOptions;
 }

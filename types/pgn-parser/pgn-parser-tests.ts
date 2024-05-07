@@ -1,4 +1,4 @@
-import pgnParser = require('pgn-parser');
+import pgnParser = require("pgn-parser");
 
 // @ts-expect-error
 pgnParser.parse(999);

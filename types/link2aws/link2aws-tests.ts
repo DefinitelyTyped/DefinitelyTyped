@@ -1,6 +1,6 @@
-import { ARN } from 'link2aws';
+import { ARN } from "link2aws";
 
-const arn = 'arn:aws:s3:::examplebucket';
+const arn = "arn:aws:s3:::examplebucket";
 
 const arnObj = new ARN(arn); // $ExpectType ARN
 arnObj.string; // $ExpectType string

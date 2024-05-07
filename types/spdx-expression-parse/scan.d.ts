@@ -1,4 +1,4 @@
-import { Token } from './';
+import { Token } from "./";
 
 declare function scan(source: string): Token[];
 

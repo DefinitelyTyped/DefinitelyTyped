@@ -1,6 +1,6 @@
-import ATN from '../atn/ATN';
-import IntervalSet from '../misc/IntervalSet';
-import Transition from '../transition/Transition';
+import ATN from "../atn/ATN";
+import IntervalSet from "../misc/IntervalSet";
+import Transition from "../transition/Transition";
 
 export default class ATNState {
     static readonly INVALID_TYPE: 0;
@@ -19,19 +19,19 @@ export default class ATNState {
     static readonly INVALID_STATE_NUMBER: -1;
 
     static readonly serializationNames: [
-        'INVALID',
-        'BASIC',
-        'RULE_START',
-        'BLOCK_START',
-        'PLUS_BLOCK_START',
-        'STAR_BLOCK_START',
-        'TOKEN_START',
-        'RULE_STOP',
-        'BLOCK_END',
-        'STAR_LOOP_BACK',
-        'STAR_LOOP_ENTRY',
-        'PLUS_LOOP_BACK',
-        'LOOP_END',
+        "INVALID",
+        "BASIC",
+        "RULE_START",
+        "BLOCK_START",
+        "PLUS_BLOCK_START",
+        "STAR_BLOCK_START",
+        "TOKEN_START",
+        "RULE_STOP",
+        "BLOCK_END",
+        "STAR_LOOP_BACK",
+        "STAR_LOOP_ENTRY",
+        "PLUS_LOOP_BACK",
+        "LOOP_END",
     ];
 
     atn: ATN | null;

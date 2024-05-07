@@ -1,4 +1,4 @@
-import C3DTilesTypes from "./C3DTilesTypes";
+import { C3DTilesTypes } from "./C3DTilesEnums";
 
 declare class C3DTBatchTable {
     constructor(
@@ -6,7 +6,8 @@ declare class C3DTBatchTable {
         jsonLength: number,
         binaryLength: number,
         batchLength: number,
-        registeredExtensions: any); // TODO
+        registeredExtensions: any,
+    ); // TODO
 
     type: C3DTilesTypes;
     batchLength: number;

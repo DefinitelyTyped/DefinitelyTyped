@@ -1,11 +1,3 @@
-// Type definitions for non-npm package chromecast-caf-receiver 6.0
-// Project: https://github.com/googlecast
-// Definitions by: Sergio Arbeo <https://github.com/Serabe>
-//                 Brandon Risell <https://github.com/brandonrisell>
-//                 Marco Reni <https://github.com/marcoreni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference path="./cast.debug.d.ts" />
 /// <reference path="./cast.framework.d.ts" />
 /// <reference path="./cast.framework.breaks.d.ts" />
@@ -14,33 +6,33 @@
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
 
-import * as debugNs from './cast.debug';
-import * as frameworkNs from './cast.framework';
-import { PlayerDataChangedEvent } from './cast.framework.ui';
-import { Event as SystemEvent } from './cast.framework.system';
+import * as debugNs from "./cast.debug";
+import * as frameworkNs from "./cast.framework";
 import {
-    Event,
-    Id3Event,
-    ErrorEvent,
-    MediaElementEvent,
-    MediaPauseEvent,
     BitrateChangedEvent,
     BreaksEvent,
     BufferingEvent,
     CacheItemEvent,
     CacheLoadedEvent,
     ClipEndedEvent,
-    EmsgEvent,
-    MediaStatusEvent,
     CustomStateEvent,
-    MediaInformationChangedEvent,
-    MediaFinishedEvent,
-    LoadEvent,
-    SegmentDownloadedEvent,
-    RequestEvent,
+    EmsgEvent,
+    ErrorEvent,
+    Event,
+    Id3Event,
     LiveStatusEvent,
+    LoadEvent,
+    MediaElementEvent,
+    MediaFinishedEvent,
+    MediaInformationChangedEvent,
+    MediaPauseEvent,
+    MediaStatusEvent,
+    RequestEvent,
+    SegmentDownloadedEvent,
     TimedMetadataEvent,
-} from './cast.framework.events';
+} from "./cast.framework.events";
+import { Event as SystemEvent } from "./cast.framework.system";
+import { PlayerDataChangedEvent } from "./cast.framework.ui";
 
 export namespace cast {
     const debug: typeof debugNs;

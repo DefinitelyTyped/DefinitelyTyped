@@ -1,23 +1,17 @@
-// Type definitions for react-vis 1.11
-// Project: https://github.com/uber/react-vis#readme
-// Definitions by: Domino987 <https://github.com/Domino987>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 import {
     Component,
-    PureComponent,
-    ReactChild,
-    ReactNode,
+    CSSProperties,
     FC,
+    MouseEvent,
     MouseEventHandler,
+    PureComponent,
+    ReactElement,
+    ReactNode,
     TouchEventHandler,
     WheelEventHandler,
-    MouseEvent,
-    CSSProperties,
-} from 'react';
+} from "react";
 
-export type Scale = 'linear' | 'ordinal' | 'category' | 'literal' | 'log' | 'time' | 'time-utc';
+export type Scale = "linear" | "ordinal" | "category" | "literal" | "log" | "time" | "time-utc";
 
 export interface AbstractSeriesPoint {
     [key: string]: any;
@@ -33,15 +27,15 @@ export type RVValueEventHandler<T extends AbstractSeriesPoint> = (datapoint: T, 
 
 export interface RVNearestXData<T extends AbstractSeriesPoint> {
     event: MouseEvent<HTMLElement>;
-    innerX: T['x'];
+    innerX: T["x"];
     index: number;
 }
 export type RVNearestXEventHandler<T extends AbstractSeriesPoint> = (datapoint: T, data: RVNearestXData<T>) => void;
 
 export interface RVNearestXYData<T extends AbstractSeriesPoint> {
     event: MouseEvent<HTMLElement>;
-    innerX: T['x'];
-    innerY: T['y'];
+    innerX: T["x"];
+    innerY: T["y"];
     index: number;
 }
 export type RVNearestXYEventHandler<T extends AbstractSeriesPoint> = (datapoint: T, data: RVNearestXYData<T>) => void;
@@ -216,31 +210,31 @@ export type DecorativeAxisPoint = AbstractSeriesPoint;
 export type RadarChartPoint = AbstractSeriesPoint;
 
 export interface AbstractSeriesProps<T extends AbstractSeriesPoint> {
-    _colorValue?: T['_color'] | undefined;
-    _opacityValue?: T['_opacity'] | undefined;
-    _sizeValue?: T['_size'] | undefined;
-    _xValue?: T['_x'] | undefined;
-    _yValue?: T['_y'] | undefined;
+    _colorValue?: T["_color"] | undefined;
+    _opacityValue?: T["_opacity"] | undefined;
+    _sizeValue?: T["_size"] | undefined;
+    _xValue?: T["_x"] | undefined;
+    _yValue?: T["_y"] | undefined;
     animation?: string | AnimationParam | boolean | undefined;
     color?: string | number | undefined;
-    colorBaseValue?: T['color'] | undefined;
+    colorBaseValue?: T["color"] | undefined;
     colorDistance?: number | undefined;
-    colorDomain?: Array<T['color']> | undefined;
-    colorRange?: Array<T['color']> | undefined;
+    colorDomain?: Array<T["color"]> | undefined;
+    colorRange?: Array<T["color"]> | undefined;
     colorType?: Scale | undefined;
     className?: string | undefined;
     data?: Array<T | any[]> | undefined;
     fill?: string | number | undefined;
-    getColor0?: RVGet<T, 'color0'> | undefined;
-    getColor?: RVGet<T, 'color'> | undefined;
-    getOpacity0?: RVGet<T, 'opacity0'> | undefined;
-    getOpacity?: RVGet<T, 'opacity'> | undefined;
-    getSize0?: RVGet<T, 'size0'> | undefined;
-    getSize?: RVGet<T, 'size'> | undefined;
-    getX0?: RVGet<T, 'x0'> | undefined;
-    getX?: RVGet<T, 'x'> | undefined;
-    getY0?: RVGet<T, 'y0'> | undefined;
-    getY?: RVGet<T, 'y'> | undefined;
+    getColor0?: RVGet<T, "color0"> | undefined;
+    getColor?: RVGet<T, "color"> | undefined;
+    getOpacity0?: RVGet<T, "opacity0"> | undefined;
+    getOpacity?: RVGet<T, "opacity"> | undefined;
+    getSize0?: RVGet<T, "size0"> | undefined;
+    getSize?: RVGet<T, "size"> | undefined;
+    getX0?: RVGet<T, "x0"> | undefined;
+    getX?: RVGet<T, "x"> | undefined;
+    getY0?: RVGet<T, "y0"> | undefined;
+    getY?: RVGet<T, "y"> | undefined;
     height?: number | undefined;
     onNearestX?: RVNearestXEventHandler<T> | undefined;
     onNearestXY?: RVNearestXYEventHandler<T> | undefined;
@@ -253,35 +247,35 @@ export interface AbstractSeriesProps<T extends AbstractSeriesPoint> {
     onValueMouseOver?: RVValueEventHandler<T> | undefined;
     onValueRightClick?: RVValueEventHandler<T> | undefined;
     opacity?: number | undefined;
-    opacityBaseValue?: T['opacity'] | undefined;
+    opacityBaseValue?: T["opacity"] | undefined;
     opacityDistance?: number | undefined;
-    opacityDomain?: Array<T['opacity']> | undefined;
-    opacityRange?: Array<T['opacity']> | undefined;
+    opacityDomain?: Array<T["opacity"]> | undefined;
+    opacityRange?: Array<T["opacity"]> | undefined;
     opacityType?: Scale | undefined;
-    sizeBaseValue?: T['size'] | undefined;
+    sizeBaseValue?: T["size"] | undefined;
     sizeDistance?: number | undefined;
-    sizeDomain?: Array<T['size']> | undefined;
-    sizeRange?: Array<T['size']> | undefined;
+    sizeDomain?: Array<T["size"]> | undefined;
+    sizeRange?: Array<T["size"]> | undefined;
     sizeType?: Scale | undefined;
     stack?: boolean | undefined; // default: false
     stroke?: string | number | undefined;
     style?: CSSProperties | undefined; // default: {}
     width?: number | undefined;
-    xBaseValue?: T['x'] | undefined;
+    xBaseValue?: T["x"] | undefined;
     xDistance?: number | undefined;
-    xDomain?: Array<T['x']> | undefined;
-    xRange?: Array<T['x']> | undefined;
+    xDomain?: Array<T["x"]> | undefined;
+    xRange?: Array<T["x"]> | undefined;
     xType?: Scale | undefined;
-    yBaseValue?: T['y'] | undefined;
+    yBaseValue?: T["y"] | undefined;
     yDistance?: number | undefined;
-    yDomain?: Array<T['y']> | undefined;
-    yRange?: Array<T['y']> | undefined;
+    yDomain?: Array<T["y"]> | undefined;
+    yRange?: Array<T["y"]> | undefined;
     yType?: Scale | undefined;
 }
 export class AbstractSeries<T> extends PureComponent<T> {}
 
 export interface LineSeriesProps extends AbstractSeriesProps<LineSeriesPoint> {
-    strokeStyle?: 'dashed' | 'solid' | undefined; // default: 'solid'
+    strokeStyle?: "dashed" | "solid" | undefined; // default: 'solid'
     curve?: string | ((x: any) => any) | undefined; // default: null
     getNull?: RVGetNull<LineSeriesPoint> | undefined;
 }
@@ -394,23 +388,23 @@ export interface AreaSeriesProps extends AbstractSeriesProps<AreaSeriesPoint> {
 export class AreaSeries extends AbstractSeries<AreaSeriesProps> {}
 
 export interface ArcSeriesProps extends AbstractSeriesProps<ArcSeriesPoint> {
-    _angleValue?: ArcSeriesPoint['_angle'] | undefined;
-    _radiusValue?: ArcSeriesPoint['_radius'] | undefined;
-    angleBaseValue?: ArcSeriesPoint['angle'] | undefined;
+    _angleValue?: ArcSeriesPoint["_angle"] | undefined;
+    _radiusValue?: ArcSeriesPoint["_radius"] | undefined;
+    angleBaseValue?: ArcSeriesPoint["angle"] | undefined;
     angleDistance?: number | undefined;
-    angleDomain?: Array<ArcSeriesPoint['angle']> | undefined;
-    angleRange?: Array<ArcSeriesPoint['angle']> | undefined;
+    angleDomain?: Array<ArcSeriesPoint["angle"]> | undefined;
+    angleRange?: Array<ArcSeriesPoint["angle"]> | undefined;
     angleType?: Scale | undefined;
     arcClassName?: string | undefined; // default: ''
     center?: { x?: number | undefined; y?: number | undefined } | undefined; // default: {'x':0,'y':0}
-    getAngle0?: RVGet<ArcSeriesPoint, 'angle0'> | undefined;
-    getAngle?: RVGet<ArcSeriesPoint, 'angle'> | undefined;
-    getRadius0?: RVGet<ArcSeriesPoint, 'radius0'> | undefined;
-    getRadius?: RVGet<ArcSeriesPoint, 'radius'> | undefined;
-    radiusBaseValue?: ArcSeriesPoint['radius'] | undefined;
+    getAngle0?: RVGet<ArcSeriesPoint, "angle0"> | undefined;
+    getAngle?: RVGet<ArcSeriesPoint, "angle"> | undefined;
+    getRadius0?: RVGet<ArcSeriesPoint, "radius0"> | undefined;
+    getRadius?: RVGet<ArcSeriesPoint, "radius"> | undefined;
+    radiusBaseValue?: ArcSeriesPoint["radius"] | undefined;
     radiusDistance?: number | undefined;
-    radiusDomain?: Array<ArcSeriesPoint['radius']> | undefined;
-    radiusRange?: Array<ArcSeriesPoint['radius']> | undefined;
+    radiusDomain?: Array<ArcSeriesPoint["radius"]> | undefined;
+    radiusRange?: Array<ArcSeriesPoint["radius"]> | undefined;
     radiusType?: Scale | undefined;
 }
 export class ArcSeries extends AbstractSeries<ArcSeriesProps> {}
@@ -421,7 +415,7 @@ export interface LineMarkSeriesProps extends AbstractSeriesProps<LineMarkSeriesP
     getNull?: RVGetNull<LineMarkSeriesPoint> | undefined;
     lineStyle?: CSSProperties | undefined; // default: {}
     markStyle?: CSSProperties | undefined; // default: {}
-    strokeStyle?: 'dashed' | 'solid' | undefined; // default: 'solid'
+    strokeStyle?: "dashed" | "solid" | undefined; // default: 'solid'
     strokeWidth?: number;
 }
 export class LineMarkSeries extends AbstractSeries<LineMarkSeriesProps> {}
@@ -463,12 +457,12 @@ export interface HintProps {
     style?: CSSProperties | undefined; // default: {}
     align?:
         | {
-              horizontal?: 'auto' | 'left' | 'right' | 'leftEdge' | 'rightEdge' | undefined;
-              vertical?: 'auto' | 'bottom' | 'top' | 'bottomEdge' | 'topEdge' | undefined;
-          }
+            horizontal?: "auto" | "left" | "right" | "leftEdge" | "rightEdge" | undefined;
+            vertical?: "auto" | "bottom" | "top" | "bottomEdge" | "topEdge" | undefined;
+        }
         | undefined; // default: {'horizontal':'auto','vertical':'auto'}
     getAlignStyle?: RVGetAlignStyle | undefined;
-    orientation?: 'bottomleft' | 'bottomright' | 'topleft' | 'topright' | undefined;
+    orientation?: "bottomleft" | "bottomright" | "topleft" | "topright" | undefined;
 }
 export class Hint<T = any> extends PureComponent<HintProps & T> {}
 
@@ -485,11 +479,11 @@ export class ChartLabel<T = any> extends PureComponent<ChartLabelProps & T> {}
 export interface BordersProps {
     style?:
         | {
-              bottom?: CSSProperties | undefined;
-              left?: CSSProperties | undefined;
-              right?: CSSProperties | undefined;
-              top?: CSSProperties | undefined;
-          }
+            bottom?: CSSProperties | undefined;
+            left?: CSSProperties | undefined;
+            right?: CSSProperties | undefined;
+            top?: CSSProperties | undefined;
+        }
         | undefined; // default: {'all':{},'bottom':{},'left':{},'right':{},'top':{}}
     marginTop?: number | undefined;
     marginBottom?: number | undefined;
@@ -508,15 +502,15 @@ export interface CrosshairProps {
     innerHeight?: number | undefined;
     marginLeft?: number | undefined;
     marginTop?: number | undefined;
-    orientation?: 'left' | 'right' | undefined;
+    orientation?: "left" | "right" | undefined;
     itemsFormat?: ((x: any) => Array<{ title: any; value: any }>) | undefined;
     titleFormat?: ((x: any) => { title: any; value: any }) | undefined;
     style?:
         | {
-              line?: CSSProperties | undefined;
-              title?: CSSProperties | undefined;
-              box?: CSSProperties | undefined;
-          }
+            line?: CSSProperties | undefined;
+            title?: CSSProperties | undefined;
+            box?: CSSProperties | undefined;
+        }
         | undefined; // default: {'line':{},'title':{},'box':{}}
 }
 export class Crosshair<T = any> extends PureComponent<CrosshairProps & T> {}
@@ -562,7 +556,7 @@ export interface DecorativeAxisProps extends AbstractSeriesProps<DecorativeAxisP
 export class DecorativeAxis extends AbstractSeries<DecorativeAxisProps> {}
 
 export interface XAxisProps {
-    orientation?: 'top' | 'bottom' | undefined; // default: 'bottom'
+    orientation?: "top" | "bottom" | undefined; // default: 'bottom'
     attr?: string | undefined; // default: 'x'
     attrAxis?: string | undefined; // default: 'y'
     width?: number | undefined;
@@ -572,11 +566,11 @@ export interface XAxisProps {
     title?: string | undefined;
     style?:
         | (CSSProperties & {
-              line?: CSSProperties | undefined;
-              ticks?: CSSProperties | undefined;
-              text?: CSSProperties | undefined;
-              title?: CSSProperties | undefined;
-          })
+            line?: CSSProperties | undefined;
+            ticks?: CSSProperties | undefined;
+            text?: CSSProperties | undefined;
+            title?: CSSProperties | undefined;
+        })
         | undefined;
     className?: string | undefined;
     hideTicks?: boolean | undefined;
@@ -600,7 +594,7 @@ export interface XAxisProps {
 export const XAxis: FC<XAxisProps>;
 
 export interface YAxisProps {
-    orientation?: 'left' | 'right' | undefined; // default: 'left'
+    orientation?: "left" | "right" | undefined; // default: 'left'
     attr?: string | undefined; // default: 'y'
     attrAxis?: string | undefined; // default: 'x'
     width?: number | undefined;
@@ -610,11 +604,11 @@ export interface YAxisProps {
     title?: string | undefined;
     style?:
         | (CSSProperties & {
-              line?: CSSProperties | undefined;
-              ticks?: CSSProperties | undefined;
-              text?: CSSProperties | undefined;
-              title?: CSSProperties | undefined;
-          })
+            line?: CSSProperties | undefined;
+            ticks?: CSSProperties | undefined;
+            text?: CSSProperties | undefined;
+            title?: CSSProperties | undefined;
+        })
         | undefined;
     className?: string | undefined;
     hideTicks?: boolean | undefined;
@@ -659,7 +653,7 @@ export interface CircularGridLinesProps {
 export class CircularGridLines<T = any> extends PureComponent<CircularGridLinesProps & T> {}
 
 export interface GridLinesProps {
-    direction?: 'vertical' | 'horizontal' | undefined; // default: 'vertical'
+    direction?: "vertical" | "horizontal" | undefined; // default: 'vertical'
     attr: string;
     width?: number | undefined;
     height?: number | undefined;
@@ -684,7 +678,7 @@ export interface GradientDefsProps {
 export class GradientDefs<T = any> extends PureComponent<GradientDefsProps & T> {}
 
 export interface VerticalGridLinesProps {
-    direction?: 'vertical' | undefined; // default: 'vertical'
+    direction?: "vertical" | undefined; // default: 'vertical'
     attr?: string | undefined; // default: 'x'
     width?: number | undefined;
     height?: number | undefined;
@@ -704,7 +698,7 @@ export interface VerticalGridLinesProps {
 export const VerticalGridLines: FC<VerticalGridLinesProps>;
 
 export interface HorizontalGridLinesProps {
-    direction?: 'horizontal' | undefined; // default: 'horizontal'
+    direction?: "horizontal" | undefined; // default: 'horizontal'
     attr?: string | undefined; // default: 'y'
     width?: number | undefined;
     height?: number | undefined;
@@ -741,22 +735,24 @@ export interface DiscreteColorLegendProps {
     className?: string | undefined; // default: ''
     items: Array<
         | {
-              title: string;
-              color?: string | undefined;
-              disabled?: boolean | undefined;
-              strokeDasharray?: string;
-              strokeStyle?: string;
-              strokeWidth?: number;
-          }
+            title: string;
+            color?: string | undefined;
+            disabled?: boolean | undefined;
+            strokeDasharray?: string;
+            strokeStyle?: string;
+            strokeWidth?: number;
+        }
         | string
-        | ReactChild
+        | ReactElement
+        | number
+        | string
     >;
     onItemClick?: RVMouseEventHandler | undefined;
     onItemMouseEnter?: RVItemEventHandler | undefined;
     onItemMouseLeave?: RVItemEventHandler | undefined;
     height?: number | undefined;
     width?: number | undefined;
-    orientation?: 'vertical' | 'horizontal' | undefined; // default: 'vertical'
+    orientation?: "vertical" | "horizontal" | undefined; // default: 'vertical'
 }
 export const DiscreteColorLegend: FC<DiscreteColorLegendProps>;
 
@@ -764,19 +760,21 @@ export interface SearchableDiscreteColorLegendProps {
     className?: string | undefined; // default: ''
     items: Array<
         | {
-              title: string;
-              color?: string | undefined;
-              disabled?: boolean | undefined;
-          }
+            title: string;
+            color?: string | undefined;
+            disabled?: boolean | undefined;
+        }
         | string
-        | ReactChild
+        | ReactElement
+        | number
+        | string
     >;
     onItemClick?: RVMouseEventHandler | undefined;
     onItemMouseEnter?: RVItemEventHandler | undefined;
     onItemMouseLeave?: RVItemEventHandler | undefined;
     height?: number | undefined;
     width?: number | undefined;
-    orientation?: 'vertical' | 'horizontal' | undefined;
+    orientation?: "vertical" | "horizontal" | undefined;
     searchText?: string | undefined; // default: ''
     onSearchChange?: ((x: any) => any) | undefined;
     searchPlaceholder?: string | undefined;
@@ -827,25 +825,25 @@ export interface TreemapProps {
     hideRootNode?: boolean | undefined; // default: false
     margin?: Margin | number | undefined; // default: {'left':40,'right':10,'top':10,'bottom':40}
     mode?:
-        | 'squarify'
-        | 'resquarify'
-        | 'slice'
-        | 'dice'
-        | 'slicedice'
-        | 'binary'
-        | 'circlePack'
-        | 'partition'
-        | 'partition-pivot'
+        | "squarify"
+        | "resquarify"
+        | "slice"
+        | "dice"
+        | "slicedice"
+        | "binary"
+        | "circlePack"
+        | "partition"
+        | "partition-pivot"
         | undefined; // default: 'squarify'
     onLeafClick?: RVValueEventHandler<TreemapPoint> | undefined;
     onLeafMouseOver?: RVValueEventHandler<TreemapPoint> | undefined;
     onLeafMouseOut?: RVValueEventHandler<TreemapPoint> | undefined;
     useCirclePacking?: boolean | undefined;
     padding?: number | undefined; // default: 1
-    sortFunction?: ((a: any, b: any, getSize: RVGet<TreemapPoint, 'size'>) => number) | undefined;
+    sortFunction?: ((a: any, b: any, getSize: RVGet<TreemapPoint, "size">) => number) | undefined;
     width: number;
-    getSize?: RVGet<TreemapPoint, 'size'> | undefined;
-    getColor?: RVGet<TreemapPoint, 'color'> | undefined;
+    getSize?: RVGet<TreemapPoint, "size"> | undefined;
+    getColor?: RVGet<TreemapPoint, "color"> | undefined;
     color?: string | undefined;
 }
 export class Treemap<T = any> extends Component<TreemapProps & T> {}
@@ -861,11 +859,11 @@ export interface RadialChartProps {
         radius?: number | undefined;
         style?: CSSProperties | undefined;
     }>;
-    getAngle?: RVGet<RadialChartPoint, 'angle'> | undefined;
-    getAngle0?: RVGet<RadialChartPoint, 'angle0'> | undefined;
-    getRadius?: RVGet<RadialChartPoint, 'radius'> | undefined;
-    getRadius0?: RVGet<RadialChartPoint, 'radius0'> | undefined;
-    getLabel?: RVGet<RadialChartPoint, 'label'> | undefined;
+    getAngle?: RVGet<RadialChartPoint, "angle"> | undefined;
+    getAngle0?: RVGet<RadialChartPoint, "angle0"> | undefined;
+    getRadius?: RVGet<RadialChartPoint, "radius"> | undefined;
+    getRadius0?: RVGet<RadialChartPoint, "radius0"> | undefined;
+    getLabel?: RVGet<RadialChartPoint, "label"> | undefined;
     height: number;
     labelsAboveChildren?: boolean | undefined;
     labelsStyle?: CSSProperties | undefined;
@@ -897,10 +895,10 @@ export interface RadarChartProps {
     startingAngle?: number | undefined; // default: 1.5707963267948966
     style?:
         | {
-              axes?: CSSProperties | undefined;
-              labels?: CSSProperties | undefined;
-              polygons?: CSSProperties | undefined;
-          }
+            axes?: CSSProperties | undefined;
+            labels?: CSSProperties | undefined;
+            polygons?: CSSProperties | undefined;
+        }
         | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'polygons':{'strokeWidth':0.5,'strokeOpacity':1,'fillOpacity':0.1}}
     tickFormat?: RVTickFormat | undefined;
     width: number;
@@ -922,10 +920,10 @@ export interface ParallelCoordinatesProps {
     margin?: Margin | number | undefined;
     style?:
         | {
-              axes?: CSSProperties | undefined;
-              labels?: CSSProperties | undefined;
-              lines?: CSSProperties | undefined;
-          }
+            axes?: CSSProperties | undefined;
+            labels?: CSSProperties | undefined;
+            lines?: CSSProperties | undefined;
+        }
         | undefined; // default: {'axes':{'line':{},'ticks':{},'text':{}},'labels':{'fontSize':10,'textAnchor':'middle'},'lines':{'strokeWidth':1,'strokeOpacity':1}}
     showMarks?: boolean | undefined;
     tickFormat?: RVTickFormat | undefined;
@@ -934,7 +932,7 @@ export interface ParallelCoordinatesProps {
 export class ParallelCoordinates<T = any> extends Component<ParallelCoordinatesProps & T> {}
 
 export interface SankeyProps {
-    align?: 'justify' | 'left' | 'right' | 'center' | undefined; // default: 'justify'
+    align?: "justify" | "left" | "right" | "center" | undefined; // default: 'justify'
     className?: string | undefined; // default: ''
     hasVoronoi?: boolean | undefined; // default: false
     height: number;
@@ -956,10 +954,10 @@ export interface SankeyProps {
     onLinkMouseOut?: RVValueEventHandler<SankeyPoint> | undefined;
     style?:
         | {
-              links?: CSSProperties | undefined;
-              rects?: CSSProperties | undefined;
-              labels?: CSSProperties | undefined;
-          }
+            links?: CSSProperties | undefined;
+            rects?: CSSProperties | undefined;
+            labels?: CSSProperties | undefined;
+        }
         | undefined; // default: {'links':{},'rects':{},'labels':{}}
     width: number;
 }
@@ -967,23 +965,23 @@ export class Sankey<T = any> extends Component<SankeyProps & T> {}
 
 export interface SunburstProps {
     animation?: string | AnimationParam | boolean | undefined;
-    getAngle?: RVGet<SunburstPoint, 'angle'> | undefined;
-    getAngle0?: RVGet<SunburstPoint, 'angle0'> | undefined;
+    getAngle?: RVGet<SunburstPoint, "angle"> | undefined;
+    getAngle0?: RVGet<SunburstPoint, "angle0"> | undefined;
     className?: string | undefined; // default: ''
     colorType?: string | undefined; // default: 'literal'
     data: SunburstPoint;
     height: number;
     hideRootNode?: boolean | undefined; // default: false
-    getLabel?: RVGet<SunburstPoint, 'label'> | undefined;
+    getLabel?: RVGet<SunburstPoint, "label"> | undefined;
     onValueClick?: RVValueEventHandler<SunburstPoint> | undefined;
     onValueMouseOver?: RVValueEventHandler<SunburstPoint> | undefined;
     onValueMouseOut?: RVValueEventHandler<SunburstPoint> | undefined;
-    getSize?: RVGet<SunburstPoint, 'size'> | undefined;
+    getSize?: RVGet<SunburstPoint, "size"> | undefined;
     width: number;
 }
 export class Sunburst<T = any> extends Component<SunburstProps & T> {}
 
-export type StackDirections = 'x' | 'y' | 'radius' | 'angle' | 'color' | 'fill' | 'stroke' | 'opacity' | 'size';
+export type StackDirections = "x" | "y" | "radius" | "angle" | "color" | "fill" | "stroke" | "opacity" | "size";
 export interface FlexibleXYPlotProps {
     animation?: string | AnimationParam | boolean | undefined;
     className?: string | undefined;
@@ -1058,16 +1056,16 @@ export function makeWidthFlexible(component?: any): any;
 
 export const AxisUtils: {
     DIRECTION: {
-        VERTICAL: 'vertical';
-        HORIZONTAL: 'horizontal';
+        VERTICAL: "vertical";
+        HORIZONTAL: "horizontal";
     };
     ORIENTATION: {
-        TOP: 'top';
-        LEFT: 'left';
-        RIGHT: 'right';
-        BOTTOM: 'bottom';
-        VERTICAL: 'vertical';
-        HORIZONTAL: 'horizontal';
+        TOP: "top";
+        LEFT: "left";
+        RIGHT: "right";
+        BOTTOM: "bottom";
+        VERTICAL: "vertical";
+        HORIZONTAL: "horizontal";
     };
     getTicksTotalFromSize: (size?: any) => any;
     getTickValues: (scale?: any, tickTotal?: any, tickValues?: any) => any;

@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/discord-rpc",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/discordjs/RPC#readme"
+    ],
+    "dependencies": {
+        "@types/events": "*"
+    },
+    "devDependencies": {
+        "@types/discord-rpc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dylan Hackworth",
+            "githubUsername": "dylhack"
+        },
+        {
+            "name": "Sankarsan Kampa",
+            "githubUsername": "k3rn31p4nic"
+        },
+        {
+            "name": "Brian Dashore",
+            "githubUsername": "bdashore3"
+        },
+        {
+            "name": "HanchaiN",
+            "githubUsername": "HanchaiN"
+        }
+    ]
+}

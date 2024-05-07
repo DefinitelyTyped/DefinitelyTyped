@@ -1,5 +1,5 @@
-import ADB, { VerboseDevice } from 'appium-adb';
-import Logcat, { Log } from 'appium-adb/lib/logcat';
+import ADB, { VerboseDevice } from "appium-adb";
+import Logcat, { Log } from "appium-adb/lib/logcat";
 
 const adb = new ADB({ adbExecTimeout: 60000 });
 const logcat = new Logcat({
@@ -12,7 +12,7 @@ function identity<T>(arg: T): T {
     return arg;
 }
 
-const apiLevelStr: Promise<string> = adb.getDeviceProperty('ro.build.version.sdk');
+const apiLevelStr: Promise<string> = adb.getDeviceProperty("ro.build.version.sdk");
 const apiLevel: Promise<number> = adb.getApiLevel();
 const platVersion: Promise<string> = adb.getPlatformVersion();
 const sysLang: Promise<string> = adb.getDeviceSysLanguage();
@@ -24,17 +24,17 @@ const locale: Promise<string> = adb.getDeviceSysLocale();
 const imeAvail: Promise<string[]> = adb.availableIMEs();
 const imeEnable: Promise<string[]> = adb.enabledIMEs();
 const imeDefault: Promise<string | null> = adb.defaultIME();
-adb.disableIME('com.android.inputmethod.latin/.LatinIME');
-adb.enableIME('com.android.inputmethod.latin/.LatinIME');
+adb.disableIME("com.android.inputmethod.latin/.LatinIME");
+adb.enableIME("com.android.inputmethod.latin/.LatinIME");
 
 const providers: Promise<string[]> = adb.getLocationProviders();
 adb.toggleGPSLocationProvider(true);
 
-adb.setDeviceProperty('persist.sys.locale', 'en-US');
+adb.setDeviceProperty("persist.sys.locale", "en-US");
 
-adb.keyevent('29');
+adb.keyevent("29");
 adb.keyevent(28);
-adb.inputText('some text with spaces');
+adb.inputText("some text with spaces");
 adb.clearTextField(4);
 
 adb.back();
@@ -56,14 +56,14 @@ adb.setDataState(false);
 adb.setDataState(true, true);
 adb.setWifiAndData({ wifi: false, data: true }, true);
 
-adb.setDeviceSysLocaleViaSettingApp('en', 'US');
-adb.setDeviceSysLocaleViaSettingApp('zh', 'CN', 'Hans');
+adb.setDeviceSysLocaleViaSettingApp("en", "US");
+adb.setDeviceSysLocaleViaSettingApp("zh", "CN", "Hans");
 
 adb.setGeoLocation({
-    longitude: '50.5',
-    latitude: '50.1',
+    longitude: "50.5",
+    latitude: "50.1",
 });
-const exists: Promise<boolean> = adb.processExists('com.example.android.contactmanager');
+const exists: Promise<boolean> = adb.processExists("com.example.android.contactmanager");
 
 const sysPort = 12345;
 const devicePort = 54321;
@@ -77,34 +77,34 @@ const pinged: Promise<boolean> = adb.ping();
 adb.restart();
 adb.stopLogcat();
 const logs: Log[] = adb.getLogcatLogs();
-let name: Promise<string> = adb.getNameByPid('1627');
+let name: Promise<string> = adb.getNameByPid("1627");
 name = adb.getNameByPid(115);
 
-const pids: Promise<number[]> = adb.getPIDsByName('com.example.android.contactmanager');
-adb.killProcessesByName('com.example.android.contactmanager');
+const pids: Promise<number[]> = adb.getPIDsByName("com.example.android.contactmanager");
+adb.killProcessesByName("com.example.android.contactmanager");
 adb.killProcessByPID(5078);
-adb.broadcastProcessEnd('intent', 'processName');
-adb.broadcast('intent');
+adb.broadcastProcessEnd("intent", "processName");
+adb.broadcast("intent");
 
-adb.androidCoverage('instrumentClass', 'waitPkg', 'waitActivity');
+adb.androidCoverage("instrumentClass", "waitPkg", "waitActivity");
 
 let model: Promise<string> = adb.getModel();
 model = adb.getManufacturer();
 const screen: Promise<string | null> = adb.getScreenSize();
 const density: Promise<number | null> = adb.getScreenDensity();
 
-adb.grantPermission('io.appium.android.apis', 'android.permission.READ_EXTERNAL_STORAGE');
-adb.revokePermission('io.appium.android.apis', 'android.permission.READ_EXTERNAL_STORAGE');
-adb.getReqPermissions('io.appium.android').then(identity);
-adb.getGrantedPermissions('io.appium.android').then(identity);
-adb.getDeniedPermissions('io.appium.android').then(identity);
-const match: RegExpExecArray | null = adb.isValidClass('some.package/some.package.Activity');
+adb.grantPermission("io.appium.android.apis", "android.permission.READ_EXTERNAL_STORAGE");
+adb.revokePermission("io.appium.android.apis", "android.permission.READ_EXTERNAL_STORAGE");
+adb.getReqPermissions("io.appium.android").then(identity);
+adb.getGrantedPermissions("io.appium.android").then(identity);
+adb.getDeniedPermissions("io.appium.android").then(identity);
+const match: RegExpExecArray | null = adb.isValidClass("some.package/some.package.Activity");
 const path: string = adb.getAdbPath();
 
-adb.setHttpProxy('http://localhost', 4723);
+adb.setHttpProxy("http://localhost", 4723);
 adb.deleteHttpProxy();
-let setting: Promise<string> = adb.setSetting('namespace', 'setting', 'value');
-setting = adb.getSetting('namespace', 'setting');
+let setting: Promise<string> = adb.setSetting("namespace", "setting", "value");
+setting = adb.getSetting("namespace", "setting");
 const tz: Promise<string> = adb.getTimeZone();
 
 adb.setHiddenApiPolicy(1);

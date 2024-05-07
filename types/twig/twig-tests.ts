@@ -1,7 +1,7 @@
-import twig = require('twig');
+import twig = require("twig");
 
-const value: any = '';
-const str = '';
+const value: any = "";
+const str = "";
 const bool = false;
 
 const params: twig.Parameters = {
@@ -34,12 +34,12 @@ const compOpts: twig.CompileOptions = {
     filename: str,
     settings: {
         views: value,
-        'twig options': value,
+        "twig options": value,
     },
 };
 
-twig.extendFilter('backwords', value => {
-    return value.split(' ').reverse().join(' ');
+twig.extendFilter("backwords", value => {
+    return value.split(" ").reverse().join(" ");
 });
 
 twig.extendFilter(str, (left: any, params: any[] | false) => {
@@ -71,7 +71,7 @@ twig.cache(bool);
 twig.extend(Twig => {
     Twig.exports.extendTag({
         // unique name for tag type
-        type: 'flag',
+        type: "flag",
         // regex match for tag (flag white-space anything)
         regex: /^flag\s+(.+)$/u,
         // this is a standalone tag and doesn't require a following tag
@@ -84,7 +84,7 @@ twig.extend(Twig => {
 
             // compile returns the raw token, mutating it before returning
             // by adding "stack" and deleting the "value" property
-            const compiled = Twig.expression.compile({ value: expression, type: 'my-type' });
+            const compiled = Twig.expression.compile({ value: expression, type: "my-type" });
 
             compiled.type; // $ExpectType string
 
@@ -101,7 +101,7 @@ twig.extend(Twig => {
         parse(token, context, chain) {
             // parse the tokens into a value with the render context
             const name = Twig.expression.parse.apply(this, [token.stack, context]);
-            const output = '';
+            const output = "";
 
             return {
                 chain,

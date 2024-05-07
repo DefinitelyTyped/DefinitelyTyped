@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/ember__routing",
+    "version": "3.16.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@ember/routing",
+    "projects": [
+        "https://emberjs.com/api/ember/3.16/modules/@ember%2Frouting"
+    ],
+    "dependencies": {
+        "@types/ember__component": "^3",
+        "@types/ember__controller": "^3",
+        "@types/ember__object": "^3",
+        "@types/ember__service": "^3"
+    },
+    "devDependencies": {
+        "@types/ember__array": "*",
+        "@types/ember__routing": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

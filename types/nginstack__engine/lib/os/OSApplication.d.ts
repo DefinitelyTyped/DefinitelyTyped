@@ -16,10 +16,10 @@ declare class OSApplication {
     waitFor(opt_timeout?: number): boolean;
 }
 declare namespace OSApplication {
-    const SHOW: string;
-    const HIDE: string;
-    const MAXIMIZE: string;
-    const MINIMIZE: string;
-    const INFINITE_TIMEOUT: any;
+    let SHOW: string;
+    let HIDE: string;
+    let MAXIMIZE: string;
+    let MINIMIZE: string;
+    let INFINITE_TIMEOUT: number;
     function startDetached(command: string, parameters: string, workingDirectory: string): number;
 }

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/koa-ejs",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/koajs/ejs"
+    ],
+    "dependencies": {
+        "@types/ejs": "*",
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-ejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt B",
+            "githubUsername": "mattb-prg"
+        }
+    ]
+}

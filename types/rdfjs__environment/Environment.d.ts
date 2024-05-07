@@ -1,5 +1,5 @@
 export interface FactoryConstructor<F = {}> {
-    new (...args: any[]): F;
+    new(...args: any[]): F;
 }
 
 type Narrow<T> =
@@ -10,15 +10,17 @@ type Narrow<T> =
 type ReturnFactory<C> = C extends FactoryConstructor<infer X> ? X : C;
 type Distribute<U> = U extends any ? ReturnFactory<U> : never;
 
-type UnionToIntersection<U> =
-    (U extends {} ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+type UnionToIntersection<U> = (U extends {} ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
 export type Environment<T> = {
-    clone(): Environment<T>
-} & Omit<UnionToIntersection<T>, 'init' | 'clone'>;
+    clone(): Environment<T>;
+} & Omit<UnionToIntersection<T>, "init" | "clone">;
 
 interface EnvironmentCtor {
-    new<F extends ReadonlyArray<FactoryConstructor<any>>>(factories: Narrow<F>, options?: { bind: boolean }): Environment<Distribute<F[number]>>;
+    new<F extends ReadonlyArray<FactoryConstructor<any>>>(
+        factories: Narrow<F>,
+        options?: { bind: boolean },
+    ): Environment<Distribute<F[number]>>;
 }
 
 declare const environment: EnvironmentCtor;

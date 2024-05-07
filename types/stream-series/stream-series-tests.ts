@@ -1,4 +1,3 @@
-
 import stream = require("stream");
 import Stream = stream.Duplex;
 import series = require("stream-series");

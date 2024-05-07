@@ -1,8 +1,3 @@
-// Type definitions for deinterleave 1.0
-// Project: https://github.com/dfcreative/deinterleave#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = deinterleave;
 
 /**

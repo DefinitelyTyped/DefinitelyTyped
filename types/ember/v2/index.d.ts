@@ -1,26 +1,15 @@
-// Type definitions for Ember.js 2.8
-// Project: http://emberjs.com/
-// Definitions by: bttf <https://github.com/bttf>
-//                 Derek Wickern <https://github.com/dwickern>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Theron Cross <https://github.com/theroncross>
-//                 Martin Feckie <https://github.com/mfeckie>
-//                 Alex LaFroscia <https://github.com/alexlafroscia>
-//                 Mike North <https://github.com/mike-north>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="jquery" />
 
-declare module 'ember' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "ember" {
     // Capitalization is intentional: this makes it much easier to re-export RSVP on
     // the Ember namespace.
-    import Rsvp from 'rsvp';
-    import { TemplateFactory } from 'htmlbars-inline-precompile';
+    import Rsvp from "rsvp";
+    import { TemplateFactory } from "htmlbars-inline-precompile";
 
-    import { Registry as ServiceRegistry } from '@ember/service';
-    import { Registry as ControllerRegistry } from '@ember/controller';
-    import ModuleComputed from '@ember/object/computed';
+    import { Registry as ServiceRegistry } from "@ember/service";
+    import { Registry as ControllerRegistry } from "@ember/controller";
+    import ModuleComputed from "@ember/object/computed";
 
     // Get an alias to the global Array type to use in inner scope below.
     type GlobalArray<T> = T[];
@@ -80,7 +69,7 @@ declare module 'ember' {
      * Implementation is carefully chosen for the reasons described in
      * https://github.com/typed-ember/ember-typings/pull/29
      */
-    type EmberClassConstructor<T> = (new (properties?: object) => T) & (new (...args: any[]) => T);
+    type EmberClassConstructor<T> = (new(properties?: object) => T) & (new(...args: any[]) => T);
 
     type ComputedPropertyGetterFunction<T> = (this: any, key: string) => T;
 
@@ -107,9 +96,9 @@ declare module 'ember' {
     }
 
     type RunMethod<Target, Ret = any> = ((this: Target, ...args: any[]) => Ret) | keyof Target;
-    type EmberRunQueues = 'sync' | 'actions' | 'routerTransitions' | 'render' | 'afterRender' | 'destroy';
-    type QueryParamTypes = 'boolean' | 'number' | 'array' | 'string';
-    type QueryParamScopeTypes = 'controller' | 'model';
+    type EmberRunQueues = "sync" | "actions" | "routerTransitions" | "render" | "afterRender" | "destroy";
+    type QueryParamTypes = "boolean" | "number" | "array" | "string";
+    type QueryParamScopeTypes = "controller" | "model";
 
     type ObserverMethod<Target, Sender> =
         | keyof Target
@@ -334,7 +323,11 @@ declare module 'ember' {
              * `inject`) or for service lookup. Each factory is registered with
              * a full name including two parts: `type:name`.
              */
-            register(fullName: string, factory: any, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): any;
+            register(
+                fullName: string,
+                factory: any,
+                options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined },
+            ): any;
             /**
              * Unregister a factory.
              */
@@ -567,7 +560,7 @@ declare module 'ember' {
              * return an enumerable that maps automatically to the named key on the
              * member objects.
              */
-            '@each': ComputedProperty<T>;
+            "@each": ComputedProperty<T>;
         }
         // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
         const Array: Mixin<Ember.Array<any>>;
@@ -597,7 +590,7 @@ declare module 'ember' {
          * the other property will be changed also.
          *
          * @deprecated https://emberjs.com/deprecations/v2.x#toc_ember-binding
-         **/
+         */
         class Binding {
             constructor(toPath: string, fromPath: string);
             connect(obj: any): Binding;
@@ -759,12 +752,12 @@ declare module 'ember' {
                 | string
                 | string[]
                 | Array<{
-                      [key: string]: {
-                          type?: QueryParamTypes | undefined;
-                          scope?: QueryParamScopeTypes | undefined;
-                          as?: string | undefined;
-                      };
-                  }>;
+                    [key: string]: {
+                        type?: QueryParamTypes | undefined;
+                        scope?: QueryParamScopeTypes | undefined;
+                        as?: string | undefined;
+                    };
+                }>;
             target: Object;
         }
         const ControllerMixin: Ember.Mixin<ControllerMixin>;
@@ -790,7 +783,7 @@ declare module 'ember' {
             /**
              * As of Ember 3.1, CoreObject constructor takes initial object properties as an argument.
              * See: https://github.com/emberjs/ember.js/commit/4709935854d4c29b0d2c054614d53fa2c55309b1
-             **/
+             */
             constructor(properties?: object);
 
             _super(...args: any[]): any;
@@ -854,7 +847,7 @@ declare module 'ember' {
                 Instance,
                 Args,
                 T1 extends EmberInstanceArguments<Args>,
-                T2 extends EmberInstanceArguments<Args>
+                T2 extends EmberInstanceArguments<Args>,
             >(
                 this: EmberClassConstructor<Instance & ComputedPropertyGetters<Args>>,
                 arg1: T1 & ThisType<Fix<Instance & T1>>,
@@ -866,7 +859,7 @@ declare module 'ember' {
                 Args,
                 T1 extends EmberInstanceArguments<Args>,
                 T2 extends EmberInstanceArguments<Args>,
-                T3 extends EmberInstanceArguments<Args>
+                T3 extends EmberInstanceArguments<Args>,
             >(
                 this: EmberClassConstructor<Instance & ComputedPropertyGetters<Args>>,
                 arg1: T1 & ThisType<Fix<Instance & T1>>,
@@ -889,7 +882,7 @@ declare module 'ember' {
                 T1 extends EmberClassArguments,
                 B1,
                 T2 extends EmberClassArguments,
-                B2
+                B2,
             >(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
@@ -904,7 +897,7 @@ declare module 'ember' {
                 T2 extends EmberClassArguments,
                 B2,
                 T3 extends EmberClassArguments,
-                B3
+                B3,
             >(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
@@ -922,7 +915,7 @@ declare module 'ember' {
                 T3 extends EmberClassArguments,
                 B3,
                 T4 extends EmberClassArguments,
-                B4
+                B4,
             >(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
@@ -946,7 +939,7 @@ declare module 'ember' {
                 T1 extends EmberClassArguments,
                 B1,
                 T2 extends EmberClassArguments,
-                B2
+                B2,
             >(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
@@ -961,7 +954,7 @@ declare module 'ember' {
                 T2 extends EmberClassArguments,
                 B2,
                 T3 extends EmberClassArguments,
-                B3
+                B3,
             >(
                 this: Statics & EmberClassConstructor<Instance>,
                 arg1: MixinOrLiteral<T1, B1> & ThisType<Fix<Instance & T1>>,
@@ -983,7 +976,7 @@ declare module 'ember' {
                 Statics,
                 T1 extends EmberClassArguments,
                 T2 extends EmberClassArguments,
-                T3 extends EmberClassArguments
+                T3 extends EmberClassArguments,
             >(this: Statics, arg1: T1, arg2: T2, arg3: T3): Statics & T1 & T2 & T3;
 
             static detect<Statics, Instance>(
@@ -1152,7 +1145,7 @@ declare module 'ember' {
              * item. This method corresponds to the `forEach()` method defined in
              * JavaScript 1.6.
              */
-            forEach: GlobalArray<T>['forEach'];
+            forEach: GlobalArray<T>["forEach"];
             /**
              * Alias for `mapBy`
              */
@@ -1168,7 +1161,7 @@ declare module 'ember' {
              * Maps all of the items in the enumeration to another value, returning
              * a new array. This method corresponds to `map()` defined in JavaScript 1.6.
              */
-            map: GlobalArray<T>['map'];
+            map: GlobalArray<T>["map"];
             /**
              * Similar to map, this specialized function returns the value of the named
              * property on all items in the enumeration.
@@ -1179,7 +1172,7 @@ declare module 'ember' {
              * function returns true for. This method corresponds to `filter()` defined in
              * JavaScript 1.6.
              */
-            filter: GlobalArray<T>['filter'];
+            filter: GlobalArray<T>["filter"];
             /**
              * Returns an array with all of the items in the enumeration where the passed
              * function returns false. This method is the inverse of filter().
@@ -1202,7 +1195,7 @@ declare module 'ember' {
              * This method works similar to the `filter()` method defined in JavaScript 1.6
              * except that it will stop working on the array once a match is found.
              */
-            find: GlobalArray<T>['find'];
+            find: GlobalArray<T>["find"];
             /**
              * Returns the first item with a property matching the passed value. You
              * can pass an optional second argument with the target value. Otherwise
@@ -1213,7 +1206,7 @@ declare module 'ember' {
              * Returns `true` if the passed function returns true for every item in the
              * enumeration. This corresponds with the `every()` method in JavaScript 1.6.
              */
-            every: GlobalArray<T>['every'];
+            every: GlobalArray<T>["every"];
             /**
              * Returns `true` if the passed property resolves to the value of the second
              * argument for all items in the enumerable. This method is often simpler/faster
@@ -1236,7 +1229,7 @@ declare module 'ember' {
              * is a useful way to collect a summary value from an enumeration. This
              * corresponds to the `reduce()` method defined in JavaScript 1.8.
              */
-            reduce: GlobalArray<T>['reduce'];
+            reduce: GlobalArray<T>["reduce"];
             /**
              * Invokes the named method on every object in the receiver that
              * implements it. This method corresponds to the implementation in
@@ -1282,7 +1275,7 @@ declare module 'ember' {
              * this property, it will return this. If you set this property to a new
              * array, it will replace the current content.
              */
-            '[]': ComputedProperty<this>;
+            "[]": ComputedProperty<this>;
         }
         const Enumerable: Mixin<Enumerable<any>>;
         /**
@@ -1779,7 +1772,11 @@ declare module 'ember' {
          * by type.
          */
         class Registry {
-            register(fullName: string, factory: EmberClassConstructor<any>, options?: { singleton?: boolean | undefined }): void;
+            register(
+                fullName: string,
+                factory: EmberClassConstructor<any>,
+                options?: { singleton?: boolean | undefined },
+            ): void;
         }
         class Resolver extends Ember.Object {}
         /**
@@ -3403,7 +3400,7 @@ declare module 'ember' {
         ): string;
     }
 
-    module '@ember/service' {
+    module "@ember/service" {
         interface Registry {
             router: RouterService;
         }
@@ -3412,8 +3409,9 @@ declare module 'ember' {
     export default Ember;
 }
 
-declare module '@ember/application' {
-    import Ember from 'ember';
+declare module "@ember/application" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Application extends Ember.Application {}
     export const getOwner: typeof Ember.getOwner;
     export const onLoad: typeof Ember.onLoad;
@@ -3421,29 +3419,34 @@ declare module '@ember/application' {
     export const setOwner: typeof Ember.setOwner;
 }
 
-declare module '@ember/application/deprecations' {
-    import Ember from 'ember';
+declare module "@ember/application/deprecations" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const deprecate: typeof Ember.deprecate;
     export const deprecateFunc: typeof Ember.deprecateFunc;
 }
 
-declare module '@ember/application/globals-resolver' {
-    import Ember from 'ember';
+declare module "@ember/application/globals-resolver" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class GlobalsResolver extends Ember.DefaultResolver {}
 }
 
-declare module '@ember/application/instance' {
-    import Ember from 'ember';
+declare module "@ember/application/instance" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class ApplicationInstance extends Ember.ApplicationInstance {}
 }
 
-declare module '@ember/application/resolver' {
-    import Ember from 'ember';
+declare module "@ember/application/resolver" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Resolver extends Ember.Resolver {}
 }
 
-declare module '@ember/array' {
-    import Ember from 'ember';
+declare module "@ember/array" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     type EmberArray<T> = Ember.Array<T>;
     const EmberArray: typeof Ember.Array;
     export default EmberArray;
@@ -3452,30 +3455,35 @@ declare module '@ember/array' {
     export const makeArray: typeof Ember.makeArray;
 }
 
-declare module '@ember/array/mutable' {
-    import Ember from 'ember';
+declare module "@ember/array/mutable" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     type MutableArray<T> = Ember.MutableArray<T>;
     const MutableArray: typeof Ember.MutableArray;
     export default MutableArray;
 }
 
-declare module '@ember/array/proxy' {
-    import Ember from 'ember';
+declare module "@ember/array/proxy" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class ArrayProxy<T> extends Ember.ArrayProxy<T> {}
 }
 
-declare module '@ember/component' {
-    import Ember from 'ember';
+declare module "@ember/component" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Component extends Ember.Component {}
 }
 
-declare module '@ember/component/checkbox' {
-    import Ember from 'ember';
+declare module "@ember/component/checkbox" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Checkbox extends Ember.Checkbox {}
 }
 
-declare module '@ember/component/helper' {
-    import Ember from 'ember';
+declare module "@ember/component/helper" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Helper extends Ember.Helper {}
     /**
      * In many cases, the ceremony of a full `Helper` class is not required.
@@ -3493,18 +3501,21 @@ declare module '@ember/component/helper' {
     export function helper(helperFn: (params: any[], hash?: any) => any): any;
 }
 
-declare module '@ember/component/text-area' {
-    import Ember from 'ember';
+declare module "@ember/component/text-area" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class TextArea extends Ember.TextArea {}
 }
 
-declare module '@ember/component/text-field' {
-    import Ember from 'ember';
+declare module "@ember/component/text-field" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class TextField extends Ember.TextField {}
 }
 
-declare module '@ember/controller' {
-    import Ember from 'ember';
+declare module "@ember/controller" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Controller extends Ember.Controller {}
     export const inject: typeof Ember.inject.controller;
 
@@ -3513,8 +3524,9 @@ declare module '@ember/controller' {
     export interface Registry {}
 }
 
-declare module '@ember/debug' {
-    import Ember from 'ember';
+declare module "@ember/debug" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const assert: typeof Ember.assert;
     export const debug: typeof Ember.debug;
     export const inspect: typeof Ember.inspect;
@@ -3524,60 +3536,70 @@ declare module '@ember/debug' {
     export const warn: typeof Ember.warn;
 }
 
-declare module '@ember/debug/container-debug-adapter' {
-    import Ember from 'ember';
+declare module "@ember/debug/container-debug-adapter" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class ContainerDebugAdapter extends Ember.ContainerDebugAdapter {}
 }
 
-declare module '@ember/debug/data-adapter' {
-    import Ember from 'ember';
+declare module "@ember/debug/data-adapter" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class DataAdapter extends Ember.DataAdapter {}
 }
 
-declare module '@ember/engine' {
-    import Ember from 'ember';
+declare module "@ember/engine" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Engine extends Ember.Engine {}
     export const getEngineParent: typeof Ember.getEngineParent;
 }
 
-declare module '@ember/engine/instance' {
-    import Ember from 'ember';
+declare module "@ember/engine/instance" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class EngineInstance extends Ember.EngineInstance {}
 }
 
-declare module '@ember/enumerable' {
-    import Ember from 'ember';
+declare module "@ember/enumerable" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     type Enumerable<T> = Ember.Enumerable<T>;
     const Enumerable: typeof Ember.Enumerable;
     export default Enumerable;
 }
 
-declare module '@ember/error' {
-    import Ember from 'ember';
+declare module "@ember/error" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     const Error: typeof Ember.Error;
     export default Error;
 }
 
-declare module '@ember/instrumentation' {
-    import Ember from 'ember';
+declare module "@ember/instrumentation" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const instrument: typeof Ember.instrument;
     export const reset: typeof Ember.reset;
     export const subscribe: typeof Ember.subscribe;
     export const unsubscribe: typeof Ember.unsubscribe;
 }
 
-declare module '@ember/map' {
-    import Ember from 'ember';
+declare module "@ember/map" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class EmberMap extends Ember.Map {}
 }
 
-declare module '@ember/map/with-default' {
-    import Ember from 'ember';
+declare module "@ember/map/with-default" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class MapWithDefault extends Ember.MapWithDefault {}
 }
 
-declare module '@ember/object' {
-    import Ember from 'ember';
+declare module "@ember/object" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class EmberObject extends Ember.Object {}
     export const aliasMethod: typeof Ember.aliasMethod;
     export const computed: typeof Ember.computed;
@@ -3591,8 +3613,9 @@ declare module '@ember/object' {
     export const trySet: typeof Ember.trySet;
 }
 
-declare module '@ember/object/computed' {
-    import Ember from 'ember';
+declare module "@ember/object/computed" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class ComputedProperty<Get, Set = Get> extends Ember.ComputedProperty<Get, Set> {}
     export const alias: typeof Ember.computed.alias;
     export const and: typeof Ember.computed.and;
@@ -3629,65 +3652,75 @@ declare module '@ember/object/computed' {
     export const uniqBy: typeof Ember.computed.uniqBy;
 }
 
-declare module '@ember/object/core' {
-    import Ember from 'ember';
+declare module "@ember/object/core" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class CoreObject extends Ember.CoreObject {}
 }
 
-declare module '@ember/object/evented' {
-    import Ember from 'ember';
+declare module "@ember/object/evented" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     type Evented = Ember.Evented;
     const Evented: typeof Ember.Evented;
     export default Evented;
     export const on: typeof Ember.on;
 }
 
-declare module '@ember/object/events' {
-    import Ember from 'ember';
+declare module "@ember/object/events" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const addListener: typeof Ember.addListener;
     export const removeListener: typeof Ember.removeListener;
     export const sendEvent: typeof Ember.sendEvent;
 }
 
-declare module '@ember/object/internals' {
-    import Ember from 'ember';
+declare module "@ember/object/internals" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const cacheFor: typeof Ember.cacheFor;
     export const copy: typeof Ember.copy;
     export const guidFor: typeof Ember.guidFor;
 }
 
-declare module '@ember/object/mixin' {
-    import Ember from 'ember';
+declare module "@ember/object/mixin" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Mixin<T, Base = Ember.Object> extends Ember.Mixin<T, Base> {}
 }
 
-declare module '@ember/object/observable' {
-    import Ember from 'ember';
+declare module "@ember/object/observable" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     type Observable = Ember.Observable;
     const Observable: typeof Ember.Observable;
     export default Observable;
 }
 
-declare module '@ember/object/observers' {
-    import Ember from 'ember';
+declare module "@ember/object/observers" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const addObserver: typeof Ember.addObserver;
     export const removeObserver: typeof Ember.removeObserver;
 }
 
-declare module '@ember/object/promise-proxy-mixin' {
-    import Ember from 'ember';
+declare module "@ember/object/promise-proxy-mixin" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     type PromiseProxyMixin<T> = Ember.PromiseProxyMixin<T>;
     const PromiseProxyMixin: typeof Ember.PromiseProxyMixin;
     export default PromiseProxyMixin;
 }
 
-declare module '@ember/object/proxy' {
-    import Ember from 'ember';
+declare module "@ember/object/proxy" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class ObjectProxy extends Ember.ObjectProxy {}
 }
 
-declare module '@ember/polyfills' {
-    import Ember from 'ember';
+declare module "@ember/polyfills" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const assign: typeof Ember.assign;
     export const create: typeof Ember.create;
     export const hasPropertyAccessors: typeof Ember.platform.hasPropertyAccessors;
@@ -3695,54 +3728,64 @@ declare module '@ember/polyfills' {
     export const merge: typeof Ember.merge;
 }
 
-declare module '@ember/routing/auto-location' {
-    import Ember from 'ember';
+declare module "@ember/routing/auto-location" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class AutoLocation extends Ember.AutoLocation {}
 }
 
-declare module '@ember/routing/hash-location' {
-    import Ember from 'ember';
+declare module "@ember/routing/hash-location" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class HashLocation extends Ember.HashLocation {}
 }
 
-declare module '@ember/routing/history-location' {
-    import Ember from 'ember';
+declare module "@ember/routing/history-location" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class HistoryLocation extends Ember.HistoryLocation {}
 }
 
-declare module '@ember/routing/link-component' {
-    import Ember from 'ember';
+declare module "@ember/routing/link-component" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class LinkComponent extends Ember.LinkComponent {}
 }
 
-declare module '@ember/routing/location' {
-    import Ember from 'ember';
+declare module "@ember/routing/location" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     const Location: typeof Ember.Location;
     export default Location;
 }
 
-declare module '@ember/routing/none-location' {
-    import Ember from 'ember';
+declare module "@ember/routing/none-location" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class NoneLocation extends Ember.NoneLocation {}
 }
 
-declare module '@ember/routing/route' {
-    import Ember from 'ember';
+declare module "@ember/routing/route" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Route extends Ember.Route {}
 }
 
-declare module '@ember/routing/router' {
-    import Ember from 'ember';
+declare module "@ember/routing/router" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class EmberRouter extends Ember.Router {}
 }
 
-declare module '@ember/routing/router-service' {
-    import { RouterService } from 'ember';
+declare module "@ember/routing/router-service" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { RouterService } from "ember";
     export default class extends RouterService {}
 }
 
-declare module '@ember/runloop' {
-    import Ember from 'ember';
+declare module "@ember/runloop" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const begin: typeof Ember.run.begin;
     export const bind: typeof Ember.run.bind;
     export const cancel: typeof Ember.run.cancel;
@@ -3758,8 +3801,9 @@ declare module '@ember/runloop' {
     export const throttle: typeof Ember.run.throttle;
 }
 
-declare module '@ember/service' {
-    import Ember from 'ember';
+declare module "@ember/service" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class Service extends Ember.Service {}
     export const inject: typeof Ember.inject.service;
 
@@ -3768,8 +3812,9 @@ declare module '@ember/service' {
     interface Registry {}
 }
 
-declare module '@ember/string' {
-    import Ember from 'ember';
+declare module "@ember/string" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const camelize: typeof Ember.String.camelize;
     export const capitalize: typeof Ember.String.capitalize;
     export const classify: typeof Ember.String.classify;
@@ -3783,8 +3828,9 @@ declare module '@ember/string' {
     export const w: typeof Ember.String.w;
 }
 
-declare module '@ember/test' {
-    import Ember from 'ember';
+declare module "@ember/test" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const registerAsyncHelper: typeof Ember.Test.registerAsyncHelper;
     export const registerHelper: typeof Ember.Test.registerHelper;
     export const registerWaiter: typeof Ember.Test.registerWaiter;
@@ -3792,13 +3838,15 @@ declare module '@ember/test' {
     export const unregisterWaiter: typeof Ember.Test.unregisterWaiter;
 }
 
-declare module '@ember/test/adapter' {
-    import Ember from 'ember';
+declare module "@ember/test/adapter" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export default class TestAdapter extends Ember.Test.Adapter {}
 }
 
-declare module '@ember/utils' {
-    import Ember from 'ember';
+declare module "@ember/utils" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import Ember from "ember";
     export const compare: typeof Ember.compare;
     export const isBlank: typeof Ember.isBlank;
     export const isEmpty: typeof Ember.isEmpty;
@@ -3809,7 +3857,7 @@ declare module '@ember/utils' {
     export const typeOf: typeof Ember.typeOf;
 }
 
-declare module 'htmlbars-inline-precompile' {
+declare module "htmlbars-inline-precompile" {
     interface TemplateFactory {
         __htmlbars_inline_precompile_template_factory: any;
     }

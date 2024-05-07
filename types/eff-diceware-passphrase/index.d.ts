@@ -1,8 +1,3 @@
-// Type definitions for eff-diceware-passphrase 3.0
-// Project: https://github.com/emilbayes/eff-diceware-passphrase
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = generatePassphrase;
 
 /**

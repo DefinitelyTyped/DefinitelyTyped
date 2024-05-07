@@ -1,10 +1,5 @@
-// Type definitions for parse-path 7.0
-// Project: https://github.com/IonicaBizau/parse-path
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace parsePath {
-    type Protocol = 'http' | 'https' | 'ssh' | 'file' | 'git';
+    type Protocol = "http" | "https" | "ssh" | "file" | "git";
 
     interface ParsedPath {
         /** The url hash. */

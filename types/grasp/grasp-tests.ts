@@ -14,7 +14,7 @@ grasp({
     console,
     stdin: process.stdin,
     fs,
-    input: "foo bar"
+    input: "foo bar",
 });
 
 // @ts-expect-error

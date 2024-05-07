@@ -1,4 +1,4 @@
-import SecurePassword = require('secure-password');
+import SecurePassword = require("secure-password");
 
 // test type exports
 type SP = SecurePassword;
@@ -30,23 +30,23 @@ sp.opslimit; // $ExpectType number
 // @ts-expect-error
 sp.opslimit = 1;
 
-sp.hash(Buffer.from('passw0rd')); // $ExpectType Promise<Buffer>
+sp.hash(Buffer.from("passw0rd")); // $ExpectType Promise<Buffer>
 // $ExpectType void
-sp.hash(Buffer.from('passw0rd'), (err, buffer) => {
+sp.hash(Buffer.from("passw0rd"), (err, buffer) => {
     err; // $ExpectType Error | null
     buffer; // $ExpectType Buffer
 });
 
-sp.hashSync(Buffer.from('passw0rd')); // $ExpectType Buffer
+sp.hashSync(Buffer.from("passw0rd")); // $ExpectType Buffer
 
-sp.verify(Buffer.from('passw0rd'), Buffer.from('hash')); // $ExpectType Promise<VerificationResult>
+sp.verify(Buffer.from("passw0rd"), Buffer.from("hash")); // $ExpectType Promise<VerificationResult>
 // $ExpectType void
-sp.verify(Buffer.from('passw0rd'), Buffer.from('hash'), (err, res) => {
+sp.verify(Buffer.from("passw0rd"), Buffer.from("hash"), (err, res) => {
     err; // $ExpectType Error | null
     res; // $ExpectType VerificationResult
 });
 
-const res = sp.verifySync(Buffer.from('passw0rd'), Buffer.from('hash')); // $ExpectType VerificationResult
+const res = sp.verifySync(Buffer.from("passw0rd"), Buffer.from("hash")); // $ExpectType VerificationResult
 
 switch (res) {
     case SecurePassword.INVALID:

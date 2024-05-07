@@ -1,21 +1,21 @@
 /// <reference lib="dom" />
-import Email = require('email-templates');
-import { createTransport } from 'nodemailer';
-import path = require('path');
+import Email = require("email-templates");
+import { createTransport } from "nodemailer";
+import path = require("path");
 
 const locals = {
-    locale: 'en',
-    name: 'Edward',
+    locale: "en",
+    name: "Edward",
 };
 
 let email = new Email();
 
 email = new Email({
     message: {
-      from: 'Test@testing.com'
+        from: "Test@testing.com",
     },
     transport: {
-        jsonTransport: true
+        jsonTransport: true,
     },
     getPath: (type, template, locales) => {
         const locale = locales.locale;
@@ -25,23 +25,23 @@ email = new Email({
 
 const emailNoTransporter = new Email({
     message: {
-      from: 'test@testing.com'
+        from: "test@testing.com",
     },
 });
 
-email.juiceResources('<p>bob</p><style>div{color:red;}</style><div/>');
-email.render('mars/html.pug');
-email.render('mars/html.pug', locals);
-const sendPromise: Promise<any> = email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals});
-email.send({template: 'mars', message: {to: 'elon@spacex.com'}, locals})
-.then(res => {
-    res; // $ExpectType any
-})
-.catch(err => {
-    err; // $ExpectType any
-});
+email.juiceResources("<p>bob</p><style>div{color:red;}</style><div/>");
+email.render("mars/html.pug");
+email.render("mars/html.pug", locals);
+const sendPromise: Promise<any> = email.send({ template: "mars", message: { to: "elon@spacex.com" }, locals });
+email.send({ template: "mars", message: { to: "elon@spacex.com" }, locals })
+    .then(res => {
+        res; // $ExpectType any
+    })
+    .catch(err => {
+        err; // $ExpectType any
+    });
 
-emailNoTransporter.render('mars/html.pug', locals);
+emailNoTransporter.render("mars/html.pug", locals);
 
 interface Locals {
     firstName: string;
@@ -49,33 +49,33 @@ interface Locals {
 
 const withTransportInstance = new Email<Locals>({
     message: {
-        from: 'definitelytyped@example.org'
+        from: "definitelytyped@example.org",
     },
     transport: createTransport({
-        jsonTransport: true
-    })
+        jsonTransport: true,
+    }),
 });
 
-withTransportInstance.render('template', { firstName: 'TypeScript' });
+withTransportInstance.render("template", { firstName: "TypeScript" });
 
 const emailOptions: Email.EmailOptions<Locals> = {
-    template: 'template',
+    template: "template",
     locals: {
-        firstName: 'TypeScript'
+        firstName: "TypeScript",
     },
     message: {
-        to: 'recipient@example.org',
+        to: "recipient@example.org",
         attachments: [{
-            filename: 'hello.txt',
-            content: 'an attachment'
-        }]
-    }
+            filename: "hello.txt",
+            content: "an attachment",
+        }],
+    },
 };
 
 withTransportInstance.send(emailOptions);
 
-email.renderAll('mars');
-const promise = email.renderAll('mars', locals);
+email.renderAll("mars");
+const promise = email.renderAll("mars", locals);
 promise.then(value => {
     const subject: string | undefined = value.subject;
     const html: string | undefined = value.html;
@@ -84,16 +84,16 @@ promise.then(value => {
 
 email = new Email({
     message: {
-        from: 'definitelytyped@example.org',
+        from: "definitelytyped@example.org",
     },
     juice: true,
     juiceSettings: {
-        tableElements: ['TABLE'],
+        tableElements: ["TABLE"],
     },
     juiceResources: {
         preserveImportant: true,
         webResources: {
-            relativeTo: path.resolve('build'),
+            relativeTo: path.resolve("build"),
         },
     },
 });
@@ -103,33 +103,33 @@ email = new Email({
         locals: {
             cache: true,
             pretty: true,
-            foo: 'bar'
-        }
+            foo: "bar",
+        },
     },
     message: {
-        from: 'definitelytyped@example.org'
-    }
+        from: "definitelytyped@example.org",
+    },
 });
 
 let emailNoMessage = new Email();
 emailNoMessage = new Email({});
 
 emailNoMessage.send({
-    template: 'some-template',
+    template: "some-template",
     message: {
-        from: 'definitelytyped@example.org',
-        to: 'recipient@example.com',
-        subject: 'Test message'
-    }
+        from: "definitelytyped@example.org",
+        to: "recipient@example.com",
+        subject: "Test message",
+    },
 });
 
 const emailNoTemplate = new Email({
     message: {
-        from: 'definitelytyped@example.org',
-        to: 'recipient@example.com',
-        subject: 'Test message',
-        text: 'This is a test message.'
-    }
+        from: "definitelytyped@example.org",
+        to: "recipient@example.com",
+        subject: "Test message",
+        text: "This is a test message.",
+    },
 });
 
 emailNoTemplate.send();
@@ -140,15 +140,15 @@ const emailPreviewOptions = new Email({
         openSimulator: false,
         urlTransform(path: string) {
             return `file://${path}`;
-        }
-    }
+        },
+    },
 });
 
 emailPreviewOptions.send({
-    template: 'some-template',
+    template: "some-template",
     message: {
-        from: 'definitelytyped@example.org',
-        to: 'recipient@example.com',
-        subject: 'Test message'
-    }
+        from: "definitelytyped@example.org",
+        to: "recipient@example.com",
+        subject: "Test message",
+    },
 });

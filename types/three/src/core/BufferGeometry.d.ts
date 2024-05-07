@@ -1,13 +1,13 @@
-import { BufferAttribute } from './BufferAttribute.js';
-import { InterleavedBufferAttribute } from './InterleavedBufferAttribute.js';
-import { Box3 } from '../math/Box3.js';
-import { Sphere } from '../math/Sphere.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Quaternion } from '../math/Quaternion.js';
-import { Vector2 } from '../math/Vector2.js';
-import { Vector3 } from '../math/Vector3.js';
-import { EventDispatcher } from './EventDispatcher.js';
-import { GLBufferAttribute } from './GLBufferAttribute.js';
+import { Box3 } from "../math/Box3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Quaternion } from "../math/Quaternion.js";
+import { Sphere } from "../math/Sphere.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector3 } from "../math/Vector3.js";
+import { BufferAttribute } from "./BufferAttribute.js";
+import { EventDispatcher } from "./EventDispatcher.js";
+import { GLBufferAttribute } from "./GLBufferAttribute.js";
+import { InterleavedBufferAttribute } from "./InterleavedBufferAttribute.js";
 
 export type NormalBufferAttributes = Record<string, BufferAttribute | InterleavedBufferAttribute>;
 export type NormalOrGLBufferAttributes = Record<
@@ -75,7 +75,7 @@ export type NormalOrGLBufferAttributes = Record<
  */
 export class BufferGeometry<
     Attributes extends NormalOrGLBufferAttributes = NormalBufferAttributes,
-> extends EventDispatcher {
+> extends EventDispatcher<{ dispose: {} }> {
     /**
      * This creates a new {@link THREE.BufferGeometry | BufferGeometry} object.
      */
@@ -104,7 +104,7 @@ export class BufferGeometry<
      * @remarks Sub-classes will update this value.
      * @defaultValue `BufferGeometry`
      */
-    readonly type: string | 'BufferGeometry';
+    readonly type: string | "BufferGeometry";
 
     /**
      * Allows for vertices to be re-used across multiple triangles; this is called using "indexed triangles".
@@ -188,7 +188,7 @@ export class BufferGeometry<
      * An object that can be used to store custom data about the BufferGeometry. It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
      */
-    userData: { [key: string]: any };
+    userData: Record<string, any>;
 
     /**
      * Read-only flag to check if a given object is of type {@link BufferGeometry}.
@@ -333,14 +333,16 @@ export class BufferGeometry<
     setFromPoints(points: Vector3[] | Vector2[]): this;
 
     /**
-     * Computes bounding box of the geometry, updating {@link boundingBox | .boundingBox} attribute.
-     * @remarks Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Computes the bounding box of the geometry, and updates the {@link .boundingBox} attribute. The bounding box is
+     * not computed by the engine; it must be computed by your app. You may need to recompute the bounding box if the
+     * geometry vertices are modified.
      */
     computeBoundingBox(): void;
 
     /**
-     * Computes bounding sphere of the geometry, updating {@link boundingSphere | .boundingSphere} attribute.
-     * @remarks bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Computes the bounding sphere of the geometry, and updates the {@link .boundingSphere} attribute. The engine
+     * automatically computes the bounding sphere when it is needed, e.g., for ray casting or view frustum culling. You
+     * may need to recompute the bounding sphere if the geometry vertices are modified.
      */
     computeBoundingSphere(): void;
 

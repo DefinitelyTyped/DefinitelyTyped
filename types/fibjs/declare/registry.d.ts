@@ -202,7 +202,7 @@
 declare module "registry" {
     
 
-    module registry {
+    namespace registry {
         
         /**
          * 

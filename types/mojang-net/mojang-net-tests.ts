@@ -1,9 +1,9 @@
-import * as mc from 'mojang-minecraft';
+import * as mc from "mojang-minecraft";
 
-const overworld = mc.world.getDimension('overworld');
+const overworld = mc.world.getDimension("overworld");
 
 export async function updateScore(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
-    const req = new mcnet.HttpRequest('http://localhost:3000/updateScore');
+    const req = new mcnet.HttpRequest("http://localhost:3000/updateScore");
 
     req.body = JSON.stringify({
         score: 22,
@@ -11,8 +11,8 @@ export async function updateScore(log: (message: string, status?: number) => voi
 
     req.method = mcnet.HttpRequestMethod.POST;
     req.headers = [
-        new mcnet.HttpHeader('Content-Type', 'application/json'),
-        new mcnet.HttpHeader('auth', 'my-auth-token'),
+        new mcnet.HttpHeader("Content-Type", "application/json"),
+        new mcnet.HttpHeader("auth", "my-auth-token"),
     ];
 
     const response: any = await mcnet.http.request(req);
@@ -33,24 +33,24 @@ export default class SampleManager {
 
     gameplayLogger(message: string, status?: number) {
         if (status !== undefined && status > 0) {
-            message = 'SUCCESS: ' + message;
+            message = "SUCCESS: " + message;
         } else if (status !== undefined && status < 0) {
-            message = 'FAIL: ' + message;
+            message = "FAIL: " + message;
         }
 
         this.say(message);
     }
     say(message: string) {
-        mc.world.getDimension('overworld').runCommand('say ' + message);
+        mc.world.getDimension("overworld").runCommand("say " + message);
     }
 
     newChatMessage(chatEvent: mc.ChatEvent) {
         const message = chatEvent.message.toLowerCase();
 
-        if (message.startsWith('howto') && chatEvent.sender) {
+        if (message.startsWith("howto") && chatEvent.sender) {
             const nearbyBlock = chatEvent.sender.getBlockFromViewVector();
             if (!nearbyBlock) {
-                this.gameplayLogger('Please look at the block where you want me to run this.');
+                this.gameplayLogger("Please look at the block where you want me to run this.");
                 return;
             }
 
@@ -60,10 +60,10 @@ export default class SampleManager {
             const sampleId = message.substring(5).trim();
 
             if (sampleId.length < 2) {
-                let availableFuncStr = 'Here is my list of available samples:';
+                let availableFuncStr = "Here is my list of available samples:";
 
                 for (const sampleFuncKey in this._availableFuncs) {
-                    availableFuncStr += ' ' + sampleFuncKey;
+                    availableFuncStr += " " + sampleFuncKey;
                 }
 
                 this.say(availableFuncStr);
@@ -127,7 +127,7 @@ export default class SampleManager {
     }
 }
 
-import * as mcnet from 'mojang-net';
+import * as mcnet from "mojang-net";
 
 const mojangNetAdminTestFuncs: {
     [name: string]: Array<(log: (message: string, status?: number) => void, location: mc.Location) => void>;

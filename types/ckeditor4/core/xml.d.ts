@@ -1,6 +1,6 @@
 declare namespace CKEDITOR {
     interface CKEditorStatic {
-        xml: { new (xmlObjectOrData: unknown): xml };
+        xml: { new(xmlObjectOrData: unknown): xml };
     }
     interface xml {
         baseXml: unknown;

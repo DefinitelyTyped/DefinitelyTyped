@@ -1,8 +1,8 @@
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
-import { CreatePDFFromExcelOptions } from './option/createpdf/create-pdf-from-excel-options';
-import { CreatePDFFromHtmlOptions } from './option/createpdf/create-pdf-from-html-options';
-import { CreatePDFFromPPTOptions } from './option/createpdf/create-pdf-from-ppt-options';
-import { CreatePDFFromWordOptions } from './option/createpdf/create-pdf-from-word-options';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
+import { CreatePDFFromExcelOptions } from "./option/createpdf/create-pdf-from-excel-options";
+import { CreatePDFFromHtmlOptions } from "./option/createpdf/create-pdf-from-html-options";
+import { CreatePDFFromPPTOptions } from "./option/createpdf/create-pdf-from-ppt-options";
+import { CreatePDFFromWordOptions } from "./option/createpdf/create-pdf-from-word-options";
 
 /**
  * An operation that converts a non-PDF file to a PDF file. Some source formats may have associated conversion parameters
@@ -70,12 +70,10 @@ import { CreatePDFFromWordOptions } from './option/createpdf/create-pdf-from-wor
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class CreatePDFOperation {
     /**
      * Constructs a CreatePDFOperation instance.
-     *
      */
     static createNew(): CreatePDFOperation;
     static get SupportedMediaTypes(): {
@@ -243,7 +241,6 @@ export class CreatePDFOperation {
      * The resulting file may be stored in the system temporary directory (per the os.tempdir(), symlinks are resolved
      * to the actual path).
      * See {@link FileRef} for how temporary resources are cleaned up.
-     *
      */
     execute(context: ExecutionContext): Promise<FileRef>;
     validate(context: any): void;

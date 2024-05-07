@@ -6,7 +6,7 @@ declare class GeoidGrid {
     constructor(
         extent: Extent,
         step: THREE.Vector2,
-        getData: (x: number, y: number) => number
+        getData: (x: number, y: number) => number,
     );
 
     extent: Extent;

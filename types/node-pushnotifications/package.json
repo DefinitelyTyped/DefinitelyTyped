@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/node-pushnotifications",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/appfeel/node-pushnotifications"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/web-push": "*"
+    },
+    "devDependencies": {
+        "@types/node-pushnotifications": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Menushka Weeratunga",
+            "githubUsername": "menushka"
+        },
+        {
+            "name": "Julian Hundeloh",
+            "githubUsername": "jaulz"
+        }
+    ]
+}

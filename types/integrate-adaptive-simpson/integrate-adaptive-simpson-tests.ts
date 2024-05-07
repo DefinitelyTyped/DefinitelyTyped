@@ -1,5 +1,5 @@
-import integrate = require('integrate-adaptive-simpson');
-import integrateVector = require('integrate-adaptive-simpson/vector');
+import integrate = require("integrate-adaptive-simpson");
+import integrateVector = require("integrate-adaptive-simpson/vector");
 
 const functionTotest = (x: number) => x * 4;
 

@@ -1,15 +1,8 @@
-import { Points, Loader, LoadingManager } from '../../../src/Three.js';
+import { BufferGeometry, Loader, LoadingManager, Points, PointsMaterial } from "three";
 
-export class PCDLoader extends Loader {
+export class PCDLoader extends Loader<Points<BufferGeometry, PointsMaterial>> {
     constructor(manager?: LoadingManager);
     littleEndian: boolean;
 
-    load(
-        url: string,
-        onLoad: (points: Points) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Points>;
-    parse(data: ArrayBuffer | string): Points;
+    parse(data: ArrayBuffer | string): Points<BufferGeometry, PointsMaterial>;
 }

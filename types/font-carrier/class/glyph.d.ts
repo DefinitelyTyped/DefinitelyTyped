@@ -1,5 +1,5 @@
-import Base = require('./base');
-import Font = require('./font');
+import Base = require("./base");
+import Font = require("./font");
 
 declare namespace Glyph {
     interface GlyphOptions {

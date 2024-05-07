@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/accept-language-parser",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/opentable/accept-language-parser"
+    ],
+    "devDependencies": {
+        "@types/accept-language-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Niklas Wulf",
+            "githubUsername": "kampfgnom"
+        },
+        {
+            "name": "Wooram Jun",
+            "githubUsername": "chatoo2412"
+        }
+    ]
+}

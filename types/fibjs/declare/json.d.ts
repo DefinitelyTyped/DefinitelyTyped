@@ -202,7 +202,7 @@
 declare module "json" {
     
 
-    module json {
+    namespace json {
         
         
         

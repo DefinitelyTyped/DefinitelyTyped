@@ -8,6 +8,7 @@ export const ShaderChunk: {
     alphatest_pars_fragment: string;
     aomap_fragment: string;
     aomap_pars_fragment: string;
+    batching_pars_vertex: string;
     begin_vertex: string;
     beginnormal_vertex: string;
     bsdfs: string;
@@ -41,7 +42,6 @@ export const ShaderChunk: {
     fog_fragment: string;
     fog_pars_fragment: string;
     gradientmap_pars_fragment: string;
-    lightmap_fragment: string;
     lightmap_pars_fragment: string;
     lights_lambert_fragment: string;
     lights_lambert_pars_fragment: string;

@@ -1,11 +1,7 @@
-import { Loader, LoadingManager, ShapePath, BufferGeometry, Vector3, Shape, Vector2 } from '../../../src/Three.js';
+import { BufferGeometry, Loader, LoadingManager, Shape, ShapePath, Vector2, Vector3 } from "three";
 
 export interface SVGResultPaths extends ShapePath {
-    userData?:
-        | {
-              [key: string]: any;
-          }
-        | undefined;
+    userData?: Record<string, any> | undefined;
 }
 
 export interface SVGResult {
@@ -21,19 +17,12 @@ export interface StrokeStyle {
     strokeMiterLimit: number;
 }
 
-export class SVGLoader extends Loader {
+export class SVGLoader extends Loader<SVGResult> {
     constructor(manager?: LoadingManager);
 
     defaultDPI: number;
     defaultUnit: string;
 
-    load(
-        url: string,
-        onLoad: (data: SVGResult) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<SVGResult>;
     parse(text: string): SVGResult;
 
     static getStrokeStyle(

@@ -1,6 +1,6 @@
-import React = require('react');
+import React = require("react");
 
-import { Data, PickerProps } from '../..';
+import { Data, PickerProps } from "../..";
 
 export interface NimblePickerProps extends PickerProps {
     data: Data;

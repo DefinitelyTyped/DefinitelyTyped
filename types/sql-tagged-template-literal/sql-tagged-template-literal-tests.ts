@@ -19,10 +19,10 @@ sql`SELECT ${13} AS totally_lucky`;
 sql`SELECT ${true} = ${false}`;
 
 // $ExpectType string
-sql`INSERT INTO document_store (json_column) VALUES (${{ fancy: 'yes\'m' }})`;
+sql`INSERT INTO document_store (json_column) VALUES (${{ fancy: "yes'm" }})`;
 
 // $ExpectType string
-sql`WHERE name IN(${[ `Alice`, userInput ]})`;
+sql`WHERE name IN(${[`Alice`, userInput]})`;
 
 // $ExpectType string
 sql`INSERT INTO tablez (letter, number) VALUES ${twoDimensionalArray}`;

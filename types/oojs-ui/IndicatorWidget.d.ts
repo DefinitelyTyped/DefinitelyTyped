@@ -27,28 +27,28 @@ declare namespace OO.ui {
         interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.IndicatorElement.ConfigOptions,
                 mixin.TitledElement.ConfigOptions,
-                mixin.LabelElement.ConfigOptions {}
+                mixin.LabelElement.ConfigOptions
+        {}
 
         interface Static
-            extends Widget.Static,
-                mixin.IndicatorElement.Static,
-                mixin.TitledElement.Static,
-                mixin.LabelElement.Static {}
+            extends Widget.Static, mixin.IndicatorElement.Static, mixin.TitledElement.Static, mixin.LabelElement.Static
+        {}
 
         interface Props
-            extends Widget.Props,
-                mixin.IndicatorElement.Props,
-                mixin.TitledElement.Props,
-                mixin.LabelElement.Props {}
+            extends Widget.Props, mixin.IndicatorElement.Props, mixin.TitledElement.Props, mixin.LabelElement.Props
+        {}
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.IndicatorElement.Prototype,
                 mixin.TitledElement.Prototype,
-                mixin.LabelElement.Prototype {
+                mixin.LabelElement.Prototype
+        {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -86,21 +86,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): IndicatorWidget;
+            new(config?: ConfigOptions): IndicatorWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

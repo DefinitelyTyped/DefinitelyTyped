@@ -1,49 +1,49 @@
 export type POWER_AC_STATES = typeof POWER_AC_STATES[keyof typeof POWER_AC_STATES];
 export const POWER_AC_STATES: {
-    POWER_AC_ON: 'on';
-    POWER_AC_OFF: 'off';
+    POWER_AC_ON: "on";
+    POWER_AC_OFF: "off";
 };
 
 export type GSM_CALL_ACTIONS = typeof GSM_CALL_ACTIONS[keyof typeof GSM_CALL_ACTIONS];
 export const GSM_CALL_ACTIONS: {
-    GSM_CALL: 'call';
-    GSM_ACCEPT: 'accept';
-    GSM_CANCEL: 'cancel';
-    GSM_HOLD: 'hold';
+    GSM_CALL: "call";
+    GSM_ACCEPT: "accept";
+    GSM_CANCEL: "cancel";
+    GSM_HOLD: "hold";
 };
 
 export type GSM_VOICE_STATES = typeof GSM_CALL_ACTIONS[keyof typeof GSM_CALL_ACTIONS];
 export const GSM_VOICE_STATES: {
-    GSM_VOICE_UNREGISTERED: 'unregistered';
-    GSM_VOICE_HOME: 'home';
-    GSM_VOICE_ROAMING: 'roaming';
-    GSM_VOICE_SEARCHING: 'searching';
-    GSM_VOICE_DENIED: 'denied';
-    GSM_VOICE_OFF: 'off';
-    GSM_VOICE_ON: 'on';
+    GSM_VOICE_UNREGISTERED: "unregistered";
+    GSM_VOICE_HOME: "home";
+    GSM_VOICE_ROAMING: "roaming";
+    GSM_VOICE_SEARCHING: "searching";
+    GSM_VOICE_DENIED: "denied";
+    GSM_VOICE_OFF: "off";
+    GSM_VOICE_ON: "on";
 };
 
 export type NETWORK_SPEED = typeof NETWORK_SPEED[keyof typeof NETWORK_SPEED];
 export const NETWORK_SPEED: {
-    GSM: 'gsm'; // GSM/CSD (up: 14.4, down: 14.4).
-    SCSD: 'scsd'; // HSCSD (up: 14.4, down: 57.6).
-    GPRS: 'gprs'; // GPRS (up: 28.8, down: 57.6).
-    EDGE: 'edge'; // EDGE/EGPRS (up: 473.6, down: 473.6).
-    UMTS: 'umts'; // UMTS/3G (up: 384.0, down: 384.0).
-    HSDPA: 'hsdpa'; // HSDPA (up: 5760.0, down: 13,980.0).
-    LTE: 'lte'; // LTE (up: 58,000, down: 173,000).
-    EVDO: 'evdo'; // EVDO (up: 75,000, down: 280,000).
-    FULL: 'full'; // No limit, the default (up: 0.0, down: 0.0).
+    GSM: "gsm"; // GSM/CSD (up: 14.4, down: 14.4).
+    SCSD: "scsd"; // HSCSD (up: 14.4, down: 57.6).
+    GPRS: "gprs"; // GPRS (up: 28.8, down: 57.6).
+    EDGE: "edge"; // EDGE/EGPRS (up: 473.6, down: 473.6).
+    UMTS: "umts"; // UMTS/3G (up: 384.0, down: 384.0).
+    HSDPA: "hsdpa"; // HSDPA (up: 5760.0, down: 13,980.0).
+    LTE: "lte"; // LTE (up: 58,000, down: 173,000).
+    EVDO: "evdo"; // EVDO (up: 75,000, down: 280,000).
+    FULL: "full"; // No limit, the default (up: 0.0, down: 0.0).
 };
 
 export type SENSORS = typeof SENSORS[keyof typeof SENSORS];
 export const SENSORS: {
-    ACCELERATION: 'acceleration';
-    LIGHT: 'light';
-    PROXIMITY: 'proximity';
-    TEMPERATURE: 'temperature';
-    PRESSURE: 'pressure';
-    HUMIDITY: 'humidity';
+    ACCELERATION: "acceleration";
+    LIGHT: "light";
+    PROXIMITY: "proximity";
+    TEMPERATURE: "temperature";
+    PRESSURE: "pressure";
+    HUMIDITY: "humidity";
 };
 
 export interface EmuInfo {
@@ -216,7 +216,7 @@ interface AdbEmuCommands {
      * @throws If there was an error while connecting to the Telnet console
      * or if the given command returned non-OK response
      */
-    execEmuConsoleCommand(cmd: string | ReadonlyArray<string>, opts?: ExecTelnetOptions): Promise<string>;
+    execEmuConsoleCommand(cmd: string | readonly string[], opts?: ExecTelnetOptions): Promise<string>;
 
     /**
      * Retrieves emulator version from the file system

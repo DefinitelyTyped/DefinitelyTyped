@@ -1,11 +1,3 @@
-// Type definitions for raygun4js 2.13
-// Project: https://github.com/MindscapeHQ/raygun4js
-// Definitions by: Krishna Kapadia <https://github.com/krishnakapadia>,
-//                 Benjamin Harding <https://github.com/BenjaminHarding>,
-//                 Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 interface TracekitStackTrace {
     message: string;
     mode: string;
@@ -199,7 +191,7 @@ interface RaygunStatic {
     init(
         apiKey: string,
         options?: RaygunOptions,
-        customdata?: any
+        customdata?: any,
     ): RaygunStatic;
 
     /**
@@ -236,7 +228,7 @@ interface RaygunStatic {
         email?: string,
         fullName?: string,
         firstName?: string,
-        uuid?: string
+        uuid?: string,
     ): RaygunStatic;
 
     /**
@@ -258,7 +250,7 @@ interface RaygunStatic {
      * Blacklist keys to prevent their values from being sent to Raygun.
      */
     filterSensitiveData(
-        filteredKeys: ReadonlyArray<string | RegExp>
+        filteredKeys: ReadonlyArray<string | RegExp>,
     ): RaygunStatic;
 
     /**
@@ -275,7 +267,7 @@ interface RaygunStatic {
      * Executed before the payload is sent. If a truthy object is returned, Raygun will attempt to use that as the payload. Raygun will abort the send if `false` is returned.
      */
     onBeforeSend(
-        callback: (payload: RaygunPayload) => RaygunPayload | boolean
+        callback: (payload: RaygunPayload) => RaygunPayload | boolean,
     ): RaygunStatic;
 
     /**
@@ -285,8 +277,9 @@ interface RaygunStatic {
         callback: (
             payload: RaygunPayload,
             stackTrace: TracekitStackTrace,
-            options: any
-        ) => string | void
+            options: any,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ) => string | void,
     ): RaygunStatic;
     onBeforeXHR(callback: (xhr: XMLHttpRequest) => void): RaygunStatic;
     onAfterSend(callback: (response: XMLHttpRequest) => void): RaygunStatic;
@@ -296,7 +289,7 @@ interface RaygunStatic {
      * Track Single Page Application route events.
      */
     trackEvent(type: "pageView", options: { path: string }): void;
-    trackEvent(type: "customTiming", options: { name: string; duration: number; }): void;
+    trackEvent(type: "customTiming", options: { name: string; duration: number }): void;
 
     /**
      * Records a manual breadcrumb with the given message and metadata passed.
@@ -307,14 +300,14 @@ interface RaygunStatic {
      * Enables all breadcrumbs level or a type can be passed which will enable only that passed one.
      */
     enableAutoBreadcrumbs(
-        type?: "XHR" | "Clicks" | "Console" | "Navigation"
+        type?: "XHR" | "Clicks" | "Console" | "Navigation",
     ): void;
 
     /**
      * Disables all breadcrumbs or a type can be passed to disable only that one.
      */
     disableAutoBreadcrumbs(
-        type?: "XHR" | "Clicks" | "Console" | "Navigation"
+        type?: "XHR" | "Clicks" | "Console" | "Navigation",
     ): void;
 
     /**
@@ -322,7 +315,7 @@ interface RaygunStatic {
      */
     setBreadcrumbOption(
         option?: string | "breadcrumbsLevel",
-        value?: string | "debug" | "info" | "warning" | "error"
+        value?: string | "debug" | "info" | "warning" | "error",
     ): void;
 }
 
@@ -364,42 +357,44 @@ interface RaygunV2 {
     (key: "setUser", value: RaygunV2UserDetails): void;
     (
         key: "onBeforeSend",
-        callback: (payload: RaygunPayload) => RaygunPayload | boolean
+        callback: (payload: RaygunPayload) => RaygunPayload | boolean,
     ): void;
     (
         key: "onBeforeXHR" | "onAfterSend",
-        callback: (xhr: XMLHttpRequest) => void
+        callback: (xhr: XMLHttpRequest) => void,
     ): void;
     (
         key: "groupingKey",
         value: (
             payload: RaygunPayload,
             stackTrace: TracekitStackTrace,
-            options: any
-        ) => string | void
+            options: any,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ) => string | void,
     ): void;
-    (key: "trackEvent", value: { type: string; path: string } | { type: string, name: string, duration: number }): void;
+    (key: "trackEvent", value: { type: string; path: string } | { type: string; name: string; duration: number }): void;
     (key: "apiKey" | "setVersion" | "setFilterScope", value: string): void;
     (
         key:
             | "attach"
             | "enableCrashReporting"
             | "enablePulse"
+            | "enableRum"
             | "logContentsOfXhrCalls"
             | "noConflict"
             | "saveIfOffline",
-        value: boolean
+        value: boolean,
     ): void;
     (key: "filterSensitiveData", values: Array<string | RegExp>): void;
     (
         key: "whitelistCrossOriginDomains" | "withTags",
-        values: string[]
+        values: string[],
     ): void;
     (key: "send" | "withCustomData", value: any): void;
     (key: "getRaygunInstance"): RaygunStatic;
     (
         key:
-            "boot"
+            | "boot"
             | "endSession"
             | "detach"
             | "disableAutoBreadcrumbs"
@@ -412,7 +407,7 @@ interface RaygunV2 {
             | "enableAutoBreadcrumbsClicks"
             | "disableAutoBreadcrumbsXHR"
             | "enableAutoBreadcrumbsXHR"
-            | "setAutoBreadcrumbsXHRIgnoredHosts"
+            | "setAutoBreadcrumbsXHRIgnoredHosts",
     ): void;
     (key: "setBreadcrumbLevel", level: BreadcrumbLevel): void;
     (
@@ -425,7 +420,7 @@ interface RaygunV2 {
                 level: BreadcrumbLevel;
                 location: string;
             },
-        metadata: object
+        metadata: object,
     ): void;
 }
 
@@ -435,14 +430,6 @@ interface Window {
     Raygun: RaygunStatic;
 }
 
-export {
-    RaygunStatic,
-    RaygunV2,
-    RaygunV2UserDetails,
-    RaygunOptions,
-    RaygunPayload,
-    RaygunStackTrace,
-    BreadcrumbLevel,
-};
+export { BreadcrumbLevel, RaygunOptions, RaygunPayload, RaygunStackTrace, RaygunStatic, RaygunV2, RaygunV2UserDetails };
 
 export default rg4js;

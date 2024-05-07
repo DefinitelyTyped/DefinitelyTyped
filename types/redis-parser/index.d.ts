@@ -1,11 +1,6 @@
-// Type definitions for redis-parser 3.0
-// Project: https://github.com/NodeRedis/node-redis-parser
-// Definitions by: OpportunityLiu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { ReplyError, RedisError, ParserError } from 'redis-errors';
+import { ParserError, RedisError, ReplyError } from "redis-errors";
 
 /**
  * RedisParserOptions

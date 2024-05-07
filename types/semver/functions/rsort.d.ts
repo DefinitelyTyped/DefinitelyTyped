@@ -1,5 +1,5 @@
-import SemVer = require('../classes/semver');
-import semver = require('../index');
+import SemVer = require("../classes/semver");
+import semver = require("../index");
 
 /**
  * Sorts an array of semver entries in descending order using `compareBuild()`.

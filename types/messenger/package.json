@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/messenger",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/HubSpot/messenger"
+    ],
+    "devDependencies": {
+        "@types/messenger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Cicerone",
+            "githubUsername": "derekcicerone"
+        }
+    ]
+}

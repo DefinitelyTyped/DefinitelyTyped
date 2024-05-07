@@ -1,7 +1,9 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-type-only-packages": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

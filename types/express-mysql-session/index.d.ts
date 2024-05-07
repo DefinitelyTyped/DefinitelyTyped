@@ -1,12 +1,5 @@
-// Type definitions for express-mysql-session 3.0
-// Project: https://github.com/chill117/express-mysql-session#readme
-// Definitions by: Akim95 <https://github.com/Akim95>
-//                 Sebastian Krüger <https://github.com/mathe42>
-//                 Ionaru <https://github.com/Ionaru>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as expressSession from 'express-session';
-import { Connection, Pool, PoolOptions } from 'mysql2';
+import * as expressSession from "express-session";
+import { Connection, Pool, PoolOptions } from "mysql2";
 
 export = MySQLStore;
 
@@ -14,7 +7,8 @@ declare function MySQLStore(session: typeof expressSession): typeof MySQLStoreCl
 
 declare namespace MySQLStore {
     interface Options
-        extends Pick<PoolOptions, 'waitForConnections' | 'connectionLimit' | 'maxIdle' | 'idleTimeout' | 'queueLimit'> {
+        extends Pick<PoolOptions, "waitForConnections" | "connectionLimit" | "maxIdle" | "idleTimeout" | "queueLimit">
+    {
         /**
          * Host name for database connection
          */
@@ -92,7 +86,7 @@ declare namespace MySQLStore {
 declare class MySQLStoreClass extends expressSession.Store {
     constructor(options?: MySQLStore.Options, connection?: Connection | Pool);
 
-    state: 'UNINITIALIZED' | 'INITIALIZING' | 'INITIALIZED' | 'CLOSING' | 'CLOSED';
+    state: "UNINITIALIZED" | "INITIALIZING" | "INITIALIZED" | "CLOSING" | "CLOSED";
 
     defaultOptions: MySQLStore.Options;
 
@@ -117,16 +111,16 @@ declare class MySQLStoreClass extends expressSession.Store {
         options: MySQLStore.Options,
     ): Pick<
         MySQLStore.Options,
-        | 'host'
-        | 'port'
-        | 'user'
-        | 'password'
-        | 'database'
-        | 'waitForConnections'
-        | 'connectionLimit'
-        | 'maxIdle'
-        | 'idleTimeout'
-        | 'queueLimit'
+        | "host"
+        | "port"
+        | "user"
+        | "password"
+        | "database"
+        | "waitForConnections"
+        | "connectionLimit"
+        | "maxIdle"
+        | "idleTimeout"
+        | "queueLimit"
     >;
 
     createPool(options: MySQLStore.Options): Pool;

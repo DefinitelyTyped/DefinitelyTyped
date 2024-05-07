@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet.pancontrol",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kartena/Leaflet.Pancontrol"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet.pancontrol": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brictarus",
+            "githubUsername": "Brictarus"
+        }
+    ]
+}

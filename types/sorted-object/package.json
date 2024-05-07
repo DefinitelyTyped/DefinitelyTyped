@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sorted-object",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/domenic/sorted-object#readme"
+    ],
+    "devDependencies": {
+        "@types/sorted-object": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

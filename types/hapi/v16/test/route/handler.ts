@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-import * as Hapi from 'hapi';
+import * as Hapi from "hapi";
 
 var handler: Hapi.RouteHandler = function(request, reply) {
-    reply('success');
-}
+    reply("success");
+};
 var strictHandler: Hapi.RouteHandler = function(request, reply) {
     reply(123);
-}
+};

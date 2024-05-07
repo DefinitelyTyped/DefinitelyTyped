@@ -1,23 +1,17 @@
-// Type definitions for react-scrollable-anchor 0.6
-// Project: https://github.com/gabergg/react-scrollable-anchor
-// Definitions by: Antoine DOUBOVETZKY <https://github.com/AntoineDoubovetzky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export interface ScrollableAnchorProps {
-  id: string;
-  children?: React.ReactNode | undefined;
+    id: string;
+    children?: React.ReactNode | undefined;
 }
 
 export interface ConfigureAnchorsOptions {
-  offset?: number | undefined;
-  scrollDuration?: number | undefined;
-  keepLastAnchorHash?: boolean | undefined;
+    offset?: number | undefined;
+    scrollDuration?: number | undefined;
+    keepLastAnchorHash?: boolean | undefined;
 }
 
-export default class ScrollableAnchor extends React.Component<ScrollableAnchorProps> { }
+export default class ScrollableAnchor extends React.Component<ScrollableAnchorProps> {}
 export function goToTop(): void;
 export function configureAnchors(options: ConfigureAnchorsOptions): void;
 export function goToAnchor(anchorId: string, saveHashUpdate?: boolean): void;

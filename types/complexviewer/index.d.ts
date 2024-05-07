@@ -1,9 +1,4 @@
-// Type definitions for complexviewer 2.1
-// Project: https://github.com/MICommunity/ComplexViewer
-// Definitions by: EliotRagueneau <https://github.com/EliotRagueneau>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ScaleOrdinal } from 'd3-scale';
+import { ScaleOrdinal } from "d3-scale";
 
 export as namespace complexviewer;
 
@@ -101,7 +96,7 @@ export interface App {
 }
 
 export interface AppConstructor {
-    new (networkDiv: HTMLElement, maxCountInitiallyExpanded?: number): App;
+    new(networkDiv: HTMLElement, maxCountInitiallyExpanded?: number): App;
 
     readonly prototype: App;
 }
@@ -211,7 +206,7 @@ export interface ParticipantData {
 }
 
 export interface Participant {
-    object: 'interactor' | 'interaction';
+    object: "interactor" | "interaction";
     interactorRef: string;
     id: string;
     sequence: string;
@@ -228,7 +223,7 @@ export interface Participant {
 }
 
 export interface Interactor extends Participant {
-    object: 'interactor';
+    object: "interactor";
 }
 
 export interface MIJson {

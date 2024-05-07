@@ -1,21 +1,21 @@
-import { ApplicationOption } from '../api/application/applicationOption';
-import { ViewCreationOptions } from '../api/view/view';
-import { Identity } from './Identity';
-import { Layout } from './Layout';
-import { EntityType } from './EntityType';
-import { WindowOptions } from './WindowOptions';
-import { MonitorInfo } from '../api/system/monitor';
-import { WindowOption } from '../api/window/windowOption';
+import { ApplicationOption } from "../api/application/applicationOption";
+import { MonitorInfo } from "../api/system/monitor";
+import { ViewCreationOptions } from "../api/view/view";
+import { WindowOption } from "../api/window/windowOption";
+import { EntityType } from "./EntityType";
+import { Identity } from "./Identity";
+import { Layout } from "./Layout";
+import { WindowOptions } from "./WindowOptions";
 export declare enum HostContextChangedReasons {
     updated = "updated",
-    reparented = "reparented"
+    reparented = "reparented",
 }
 export declare enum WindowCreationReason {
     Tearout = "tearout",
     CreateViewWithoutTarget = "create-view-without-target",
     APICall = "api-call",
     AppCreation = "app-creation",
-    Restore = "restore"
+    Restore = "restore",
 }
 export interface PlatformWindowCreationOptions extends WindowOption {
     reason?: WindowCreationReason | undefined;

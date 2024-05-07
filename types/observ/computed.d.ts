@@ -1,9 +1,9 @@
-import { ObservableValue } from './';
+import { ObservableValue } from "./";
 
 type ValueOfObservable<T> = T extends ObservableValue<infer U> ? U : never;
 
 declare function computed<O1 extends ObservableValue<any>, R>(
-    // eslint-disable-next-line no-single-element-tuple-type
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     observables: [O1],
     compute: (observable1: ValueOfObservable<O1>) => R,
 ): ObservableValue<R>;

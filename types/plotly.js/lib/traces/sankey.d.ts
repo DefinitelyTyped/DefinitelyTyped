@@ -1,4 +1,4 @@
-import { Datum, HoverLabel } from '../../index';
+import { Datum, HoverLabel } from "../../index";
 
 export type SankeyColor = string | number;
 export type SankeyColors = Array<SankeyColor | null | undefined>;
@@ -14,13 +14,13 @@ export interface SankeyDataTitle {
     title: string;
 }
 
-export type SankeyOrientation = 'v' | 'h';
+export type SankeyOrientation = "v" | "h";
 
 export interface SankeyHoverLabel {
     bgcolor: SankeyColor | SankeyColors;
     bordercolor: SankeyColor | SankeyColors;
     font: SankeyFont;
-    align: HoverLabel['align'] | Array<HoverLabel['align']>;
+    align: HoverLabel["align"] | Array<HoverLabel["align"]>;
     namelength: number | number[];
 }
 
@@ -35,9 +35,9 @@ export interface SankeyNode {
     color: SankeyColor[];
     customdata: Datum[];
     groups: SankeyNode[];
-    hoverinfo: 'all' | 'none' | 'skip';
+    hoverinfo: "all" | "none" | "skip";
     hoverlabel: Partial<SankeyHoverLabel>;
-    hovertemplate: string[];
+    hovertemplate: string | string[];
     label: Datum[];
     line: Partial<{
         color: SankeyColor;
@@ -63,9 +63,10 @@ export interface SankeyLink {
     color: SankeyColor | SankeyColor[];
     colorscale: Partial<SankeyColorscale>;
     customdata: Datum[];
-    hoverinfo: 'all' | 'none' | 'skip';
+    hoverinfo: "all" | "none" | "skip";
     hoverlabel: Partial<SankeyHoverLabel>;
     hovertemplate: string | string[];
+    hovercolor: SankeyColor | SankeyColor[];
     label: Datum[];
     line: Partial<{
         color: SankeyColor;
@@ -77,10 +78,10 @@ export interface SankeyLink {
 }
 
 export interface SankeyData {
-    type: 'sankey';
+    type: "sankey";
     name: string;
     orientation: SankeyOrientation;
-    visible: boolean | 'legendonly';
+    visible: boolean | "legendonly";
     legend: string;
     legendrank: number;
     legendgrouptitle: Partial<SankeyDataTitle>;
@@ -94,7 +95,7 @@ export interface SankeyData {
     link: Partial<SankeyLink>;
     textfont: Partial<SankeyFont>;
     selectpoints: string | number;
-    arrangement: 'snap' | 'perpendicular' | 'freeform' | 'fixed';
+    arrangement: "snap" | "perpendicular" | "freeform" | "fixed";
     hoverlabel: Partial<SankeyHoverLabel>;
     valueformat: string;
     valuesuffix: string;

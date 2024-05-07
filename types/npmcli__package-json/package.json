@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/npmcli__package-json",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/npm/package-json"
+    ],
+    "devDependencies": {
+        "@types/npmcli__package-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michaël De Boey",
+            "githubUsername": "MichaelDeBoey"
+        },
+        {
+            "name": "Stephen Wade",
+            "githubUsername": "stephenwade"
+        }
+    ]
+}

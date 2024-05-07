@@ -1,12 +1,7 @@
-// Type definitions for gulp-pug-i18n 1.0
-// Project: https://github.com/dogancelik/gulp-pug-i18n
-// Definitions by: Romain Faust <https://github.com/romain-faust>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Options as PugOptions } from 'pug';
-import { Transform } from 'stream';
+import { Options as PugOptions } from "pug";
+import { Transform } from "stream";
 
 declare function gulpPugI18n(options: gulpPugI18n.Options): Transform;
 
@@ -16,7 +11,7 @@ declare namespace gulpPugI18n {
         i18n: {
             default?: string | undefined;
             filename?: string | undefined;
-            locales: string | ReadonlyArray<string>;
+            locales: string | readonly string[];
             namespace?: string | null | undefined;
         };
     }

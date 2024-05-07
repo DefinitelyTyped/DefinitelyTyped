@@ -3,7 +3,7 @@
         "index.d.ts"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "target": "es5",
         "lib": [
             "es6",
@@ -13,10 +13,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -1,4 +1,4 @@
-import { Lch } from './types';
+import { Lch } from "./types";
 
 declare function parseLch(color: string): Lch;
 

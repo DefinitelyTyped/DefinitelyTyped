@@ -1,5 +1,5 @@
 import VError = require("verror");
-import { VError as VError2, MultiError, SError, WError } from "verror";
+import { MultiError, SError, VError as VError2, WError } from "verror";
 
 const error = new Error("foo");
 const verror1 = new VError(error, "bar");
@@ -12,8 +12,8 @@ const verror3 = new VError({
     name: "fooError",
     cause: error,
     info: {
-        info0: "baz"
-    }
+        info0: "baz",
+    },
 }, "bar");
 
 const verror4 = new VError({ cause: null }, "bar");
@@ -30,7 +30,7 @@ const cause3: Error | null = VError.cause(verror3);
 const hasCause: boolean = VError.hasCauseWithName(error, "name");
 
 // Added in v1.10
-const toList1: null|VError|MultiError = VError.errorFromList([verror1]);
-const toList2: null|Error|MultiError = VError.errorFromList([error, verror1]);
+const toList1: null | VError | MultiError = VError.errorFromList([verror1]);
+const toList2: null | Error | MultiError = VError.errorFromList([error, verror1]);
 
 VError.errorForEach(multiError, (error: Error) => {});

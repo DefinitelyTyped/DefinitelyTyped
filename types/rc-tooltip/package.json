@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/rc-tooltip",
+    "version": "3.7.9999",
+    "projects": [
+        "https://github.com/react-component/tooltip"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/rc-tooltip": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rhysd",
+            "githubUsername": "rhysd"
+        },
+        {
+            "name": "ahstro",
+            "githubUsername": "ahstro"
+        },
+        {
+            "name": "vsaarinen",
+            "githubUsername": "vsaarinen"
+        },
+        {
+            "name": "aigoncharov",
+            "githubUsername": "aigoncharov"
+        }
+    ]
+}

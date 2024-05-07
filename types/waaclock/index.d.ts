@@ -1,8 +1,3 @@
-// Type definitions for waaclock 0.5
-// Project: https://github.com/sebpiq/WAAClock
-// Definitions by: Mel Bourgeois <https://github.com/Smona>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace WAAClock {
     /**
      * Every scheduling method returns an event object.

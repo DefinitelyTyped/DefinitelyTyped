@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/xrm",
+    "version": "8.2.9999",
+    "projects": [
+        "http://www.microsoft.com/en-us/download/details.aspx?id=44567"
+    ],
+    "devDependencies": {
+        "@types/xrm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Berry",
+            "githubUsername": "6ix4our"
+        },
+        {
+            "name": "Matt Ngan",
+            "githubUsername": "mattngan"
+        },
+        {
+            "name": "Markus Mauch",
+            "githubUsername": "markusmauch"
+        },
+        {
+            "name": "Daryl LaBar",
+            "githubUsername": "daryllabar"
+        },
+        {
+            "name": "Tully H",
+            "githubUsername": "clownwilleatme"
+        },
+        {
+            "name": "Marius Agur",
+            "githubUsername": "mariusagur"
+        }
+    ]
+}

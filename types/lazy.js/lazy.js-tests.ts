@@ -1,5 +1,3 @@
-
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 interface Foo {
@@ -89,8 +87,8 @@ function fnGeneratorCallback(index: number): Foo {
 // Lazy
 
 fooArraySeq = Lazy(fooArr);
-fooObjectSeq = Lazy<Foo>({a: foo, b: foo});
-anyObjectSeq = Lazy<any>({a: num, b: str});
+fooObjectSeq = Lazy<Foo>({ a: foo, b: foo });
+anyObjectSeq = Lazy<any>({ a: num, b: str });
 stringSeq = Lazy(str);
 
 // Strict

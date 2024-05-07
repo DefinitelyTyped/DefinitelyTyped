@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ttest",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/AndreasMadsen/ttest"
+    ],
+    "devDependencies": {
+        "@types/ttest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        }
+    ]
+}

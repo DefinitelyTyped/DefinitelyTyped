@@ -1,6 +1,6 @@
-import rtlcss = require('rtlcss');
+import rtlcss = require("rtlcss");
 
-const css = 'body { direction:ltr; }';
+const css = "body { direction:ltr; }";
 
 // $ExpectType string
 rtlcss.process(css);
@@ -24,18 +24,18 @@ const options = {
     processUrls: false,
     stringMap: [
         {
-            name: 'left-right',
+            name: "left-right",
             priority: 100,
-            search: ['left', 'Left', 'LEFT'],
-            replace: ['right', 'Right', 'RIGHT'],
+            search: ["left", "Left", "LEFT"],
+            replace: ["right", "Right", "RIGHT"],
             options: {
-                scope: '*',
+                scope: "*",
                 ignoreCase: false,
             },
         },
     ],
     useCalc: false,
-    processEnv: true
+    processEnv: true,
 };
 
 const config = {

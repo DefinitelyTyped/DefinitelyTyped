@@ -1,8 +1,3 @@
-// Type definitions for carbone 3.2
-// Project: https://carbone.io
-// Definitions by: Artur Nerkowski <https://github.com/apatryda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface ConversionFormat {
@@ -14,7 +9,7 @@ export interface ConversionFormat {
 export interface CurrencyRates {
     [currency: string]: number;
 }
-export type DocumentType = 'document' | 'web' | 'graphics' | 'spreadsheet' | 'presentation';
+export type DocumentType = "document" | "web" | "graphics" | "spreadsheet" | "presentation";
 export interface Enums {
     [type: string]: string[] | { [key: string]: string };
 }

@@ -1,12 +1,12 @@
-import { Readable, EventEmitter } from 'stream';
-import { BaseQuad, DatasetCore, Quad, Stream, Term } from 'rdf-js';
-import grouped = require('rdf-dataset-ext');
-import addAll = require('rdf-dataset-ext/addAll');
-import deleteMatch = require('rdf-dataset-ext/deleteMatch');
-import equals = require('rdf-dataset-ext/equals');
-import fromStream = require('rdf-dataset-ext/fromStream');
-import toCanonical = require('rdf-dataset-ext/toCanonical');
-import toStream = require('rdf-dataset-ext/toStream');
+import { BaseQuad, DatasetCore, Quad, Stream, Term } from "@rdfjs/types";
+import { EventEmitter, Readable } from "stream";
+import grouped = require("rdf-dataset-ext");
+import addAll = require("rdf-dataset-ext/addAll");
+import deleteMatch = require("rdf-dataset-ext/deleteMatch");
+import equals = require("rdf-dataset-ext/equals");
+import fromStream = require("rdf-dataset-ext/fromStream");
+import toCanonical = require("rdf-dataset-ext/toCanonical");
+import toStream = require("rdf-dataset-ext/toStream");
 
 const dataset1: DatasetCore = {} as any;
 const dataset2: DatasetCore<BaseQuad> = {} as any;

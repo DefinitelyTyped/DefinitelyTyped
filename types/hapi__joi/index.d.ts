@@ -1,53 +1,25 @@
-// Type definitions for @hapi/joi 17.1
-// Project: https://github.com/hapijs/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Laurence Dougal Myers <https://github.com/laurence-myers>
-//                 Christopher Glantschnig <https://github.com/cglantschnig>
-//                 David Broder-Rodgers <https://github.com/DavidBR-SW>
-//                 Gael Magnan de Bornier <https://github.com/GaelMagnan>
-//                 Rytis Alekna <https://github.com/ralekna>
-//                 Pavel Ivanov <https://github.com/schfkt>
-//                 Youngrok Kim <https://github.com/rokoroku>
-//                 Dan Kraus <https://github.com/dankraus>
-//                 Anjun Wang <https://github.com/wanganjun>
-//                 Rafael Kallis <https://github.com/rafaelkallis>
-//                 Conan Lai <https://github.com/aconanlai>
-//                 Peter Thorson <https://github.com/zaphoyd>
-//                 Will Garcia <https://github.com/thewillg>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Alejandro Fernandez Haro <https://github.com/afharo>
-//                 Silas Rech <https://github.com/lenovouser>
-//                 Anand Chowdhary <https://github.com/AnandChowdhary>
-//                 Miro Yovchev <https://github.com/myovchev>
-//                 David Recuenco <https://github.com/RecuencoJones>
-//                 Frederic Reisenhauer <https://github.com/freisenhauer>
-//                 Stefan-Gabriel Muscalu <https://github.com/legraphista>
-//                 Steven Barnett <https://github.com/stevendesu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
 
 declare namespace Joi {
     type Types =
-        | 'any'
-        | 'alternatives'
-        | 'array'
-        | 'boolean'
-        | 'binary'
-        | 'date'
-        | 'function'
-        | 'link'
-        | 'number'
-        | 'object'
-        | 'string'
-        | 'symbol';
+        | "any"
+        | "alternatives"
+        | "array"
+        | "boolean"
+        | "binary"
+        | "date"
+        | "function"
+        | "link"
+        | "number"
+        | "object"
+        | "string"
+        | "symbol";
 
-    type BasicType = boolean|number|string|any[]|object|null;
+    type BasicType = boolean | number | string | any[] | object | null;
 
     type LanguageMessages = Record<string, string>;
 
-    type PresenceMode = 'optional' | 'required' | 'forbidden';
+    type PresenceMode = "optional" | "required" | "forbidden";
 
     interface ErrorFormattingOptions {
         /**
@@ -59,7 +31,7 @@ declare namespace Joi {
         /**
          * defines the value used to set the label context variable.
          */
-        label?: 'path' | 'key' | false | undefined;
+        label?: "path" | "key" | false | undefined;
         /**
          * The preferred language code for error messages.
          * The value is matched against keys at the root of the messages object, and then the error code as a child key of that.
@@ -93,14 +65,14 @@ declare namespace Joi {
              *
              * @default '"'
              */
-            label?: string|false | undefined,
+            label?: string | false | undefined;
 
             /**
              * the characters used around array avlues. Defaults to `'[]'`
              *
              * @default '[]'
              */
-            array?: string|false | undefined
+            array?: string | false | undefined;
         } | undefined;
     }
 
@@ -138,7 +110,7 @@ declare namespace Joi {
          *
          * @default 'iso'
          */
-        dateFormat?: 'date' | 'iso' | 'string' | 'time' | 'utc' | undefined;
+        dateFormat?: "date" | "iso" | "string" | "time" | "utc" | undefined;
         /**
          * when true, valid results and throw errors are decorated with a debug property which includes an array of the validation steps used to generate the returned result.
          *
@@ -348,7 +320,7 @@ declare namespace Joi {
         cidr?: PresenceMode | undefined;
     }
 
-    type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5';
+    type GuidVersions = "uuidv1" | "uuidv2" | "uuidv3" | "uuidv4" | "uuidv5";
 
     interface GuidOptions {
         version: GuidVersions[] | GuidVersions;
@@ -394,7 +366,7 @@ declare namespace Joi {
         paddingRequired?: boolean | undefined;
     }
 
-    interface Base64Options extends Pick<DataUriOptions, 'paddingRequired'> {
+    interface Base64Options extends Pick<DataUriOptions, "paddingRequired"> {
         /**
          * if true, uses the URI-safe base64 format which replaces `+` with `-` and `\` with `_`.
          *
@@ -624,7 +596,7 @@ declare namespace Joi {
     }
 
     interface ValidationError extends Error {
-        name: 'ValidationError';
+        name: "ValidationError";
 
         isJoi: boolean;
 
@@ -863,7 +835,7 @@ declare namespace Joi {
         /**
          * Casts the validated value to the specified type.
          */
-        cast(to: 'map' | 'number' | 'set' | 'string'): this;
+        cast(to: "map" | "number" | "set" | "string"): this;
 
         /**
          * Returns a new type that is the result of adding the rules of one type to another.
@@ -891,7 +863,7 @@ declare namespace Joi {
          * Note that if value is an object, any changes to the object after `default()` is called will change the
          *  reference and any future assignment.
          */
-        default(value?: BasicType|Reference|((parent: any, helpers: CustomHelpers) => BasicType|Reference)): this;
+        default(value?: BasicType | Reference | ((parent: any, helpers: CustomHelpers) => BasicType | Reference)): this;
 
         /**
          * Returns a plain object representing the schema's rules and properties
@@ -1287,7 +1259,7 @@ declare namespace Joi {
         /**
          * Requires the number to be negative or positive.
          */
-        sign(sign: 'positive' | 'negative'): this;
+        sign(sign: "positive" | "negative"): this;
 
         /**
          * Allows the number to be outside of JavaScript's safety range (Number.MIN_SAFE_INTEGER & Number.MAX_SAFE_INTEGER).
@@ -1309,7 +1281,7 @@ declare namespace Joi {
         /**
          * Sets the required string case.
          */
-        case(direction: 'upper' | 'lower'): this;
+        case(direction: "upper" | "lower"): this;
 
         /**
          * Requires the number to be a credit card number (Using Lunh Algorithm).
@@ -1396,7 +1368,7 @@ declare namespace Joi {
          * Requires the string value to be in a unicode normalized form. If the validation convert option is on (enabled by default), the string will be normalized.
          * @param [form='NFC'] - The unicode normalization form to use. Valid values: NFC [default], NFD, NFKC, NFKD
          */
-        normalize(form?: 'NFC' | 'NFD' | 'NFKC' | 'NFKD'): this;
+        normalize(form?: "NFC" | "NFD" | "NFKC" | "NFKD"): this;
 
         /**
          * Defines a regular expression rule.
@@ -1469,7 +1441,7 @@ declare namespace Joi {
         /**
          * @default 'ascending'
          */
-        order?: 'ascending' | 'descending' | undefined;
+        order?: "ascending" | "descending" | undefined;
         by?: string | Reference | undefined;
     }
 
@@ -1584,7 +1556,7 @@ declare namespace Joi {
          * @param constructor - the constructor function that the object must be an instance of.
          * @param name - an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
          */
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         instance(constructor: Function, name?: string): this;
 
         /**
@@ -1708,7 +1680,7 @@ declare namespace Joi {
          * allowing to explicitly ensure a date is either in the past or in the future.
          * It can also be a reference to another field.
          */
-        greater(date: 'now' | Date | number | string | Reference): this;
+        greater(date: "now" | Date | number | string | Reference): this;
 
         /**
          * Requires the string value to be in valid ISO 8601 date format.
@@ -1721,7 +1693,7 @@ declare namespace Joi {
          * allowing to explicitly ensure a date is either in the past or in the future.
          * It can also be a reference to another field.
          */
-        less(date: 'now' | Date | number | string | Reference): this;
+        less(date: "now" | Date | number | string | Reference): this;
 
         /**
          * Specifies the oldest date allowed.
@@ -1729,7 +1701,7 @@ declare namespace Joi {
          * allowing to explicitly ensure a date is either in the past or in the future.
          * It can also be a reference to another field.
          */
-        min(date: 'now' | Date | number | string | Reference): this;
+        min(date: "now" | Date | number | string | Reference): this;
 
         /**
          * Specifies the latest date allowed.
@@ -1737,13 +1709,13 @@ declare namespace Joi {
          * allowing to explicitly ensure a date is either in the past or in the future.
          * It can also be a reference to another field.
          */
-        max(date: 'now' | Date | number | string | Reference): this;
+        max(date: "now" | Date | number | string | Reference): this;
 
         /**
          * Requires the value to be a timestamp interval from Unix Time.
          * @param type - the type of timestamp (allowed values are unix or javascript [default])
          */
-        timestamp(type?: 'javascript' | 'unix'): this;
+        timestamp(type?: "javascript" | "unix"): this;
     }
 
     interface FunctionSchema extends ObjectSchema {
@@ -1782,7 +1754,7 @@ declare namespace Joi {
          * Requires the validated value to match a specific set of the provided alternative.try() schemas.
          * Cannot be combined with `alternatives.conditional()`.
          */
-        match(mode: 'any' | 'all' | 'one'): this;
+        match(mode: "any" | "all" | "one"): this;
 
         /**
          * Adds an alternative schema type for attempting to match against the validated value.
@@ -1804,7 +1776,7 @@ declare namespace Joi {
         ref(ref: string): this;
     }
 
-    interface Reference extends Exclude<ReferenceOptions, 'prefix'> {
+    interface Reference extends Exclude<ReferenceOptions, "prefix"> {
         depth: number;
         type: string;
         key: string;
@@ -1890,7 +1862,7 @@ declare namespace Joi {
     interface ExtensionTerm {
         init: any[] | null;
         register?: any;
-        manifest?: Record<string, 'schema' | 'single' | ExtensionTermManifest> | undefined;
+        manifest?: Record<string, "schema" | "single" | ExtensionTermManifest> | undefined;
     }
 
     interface Extension {
@@ -1932,7 +1904,7 @@ declare namespace Joi {
          */
         version: string;
 
-        ValidationError: new (message: string, details: any, original: any) => ValidationError;
+        ValidationError: new(message: string, details: any, original: any) => ValidationError;
 
         /**
          * Generates a schema object that matches any data type.
@@ -1982,7 +1954,7 @@ declare namespace Joi {
         /**
          * Generates a schema object that matches an object data type (as well as JSON strings that have been parsed into objects).
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         object<TSchema = any, T = TSchema>(schema?: SchemaMap<T>): ObjectSchema<TSchema>;
 
         /**

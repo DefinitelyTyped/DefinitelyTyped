@@ -1,17 +1,6 @@
-// Type definitions for @vimeo/player 2.18
-// Project: https://github.com/vimeo/player.js
-// Definitions by: Denis Yılmaz <https://github.com/denisyilmaz>
-//                 Felix Albert <f.albert.work@icloud.com>
-//                 Tim Chen <https://github.com/timc13>
-//                 Terry Mun <https://github.com/terrymun>
-//                 Coskun Deniz <deniz@tassomai.com>
-//                 Kohei Watanabe <https://github.com/kou029w>
-//                 Michael Markey <https://github.com/mikeamarkey>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Vimeo {
     namespace Player {
-        export type TrackKind = 'captions' | 'subtitles';
+        export type TrackKind = "captions" | "subtitles";
 
         export interface Error {
             name: string;
@@ -247,7 +236,7 @@ declare namespace Vimeo {
         export type EventCallback<Data = any> = (data: Data) => any;
 
         export type VimeoTimeRange = [number, number];
-        export type VimeoVideoQuality = 'auto' | '4K' | '2K' | '1080p' | '720p' | '540p' | '360p' | '240p';
+        export type VimeoVideoQuality = "auto" | "4K" | "2K" | "1080p" | "720p" | "540p" | "360p" | "240p";
 
         export interface VimeoCuePoint {
             time: number;

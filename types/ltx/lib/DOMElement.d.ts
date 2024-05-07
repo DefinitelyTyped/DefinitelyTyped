@@ -1,3 +1,3 @@
-import DOMElement from '../src/DOMElement';
+import DOMElement from "../src/DOMElement";
 
 export = DOMElement;

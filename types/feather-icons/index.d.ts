@@ -1,16 +1,11 @@
-// Type definitions for feather-icons 4.29
-// Project: https://github.com/feathericons/feather#readme
-// Definitions by: Jinesh Shah <https://github.com/jineshshah36>
-//                 Matt Sutton <https://github.com/freethewhat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { icons as genIcons } from './generated/feather-icons';
+import { icons as genIcons } from "./generated/feather-icons";
 
 export {};
 export as namespace feather;
 
 export type FeatherIconNames = keyof typeof genIcons;
-export type FeatherStrokeLineCap = 'butt' | 'round' | 'square';
-export type FeatherStrokeLineJoin = 'arcs' | 'bevel' | 'miter' | 'miter-clip' | 'round';
+export type FeatherStrokeLineCap = "butt" | "round" | "square";
+export type FeatherStrokeLineJoin = "arcs" | "bevel" | "miter" | "miter-clip" | "round";
 
 type FeatherToSvg = (options?: Partial<FeatherAttributes>) => string;
 
@@ -23,9 +18,9 @@ export interface FeatherAttributes {
     viewBox: string;
     fill: string;
     stroke: string;
-    'stroke-width': string | number;
-    'stroke-linecap': FeatherStrokeLineCap;
-    'stroke-linejoin': FeatherStrokeLineJoin;
+    "stroke-width": string | number;
+    "stroke-linecap": FeatherStrokeLineCap;
+    "stroke-linejoin": FeatherStrokeLineJoin;
 }
 
 export interface FeatherIcon {

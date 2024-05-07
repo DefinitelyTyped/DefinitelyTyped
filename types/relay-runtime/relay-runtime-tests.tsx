@@ -1,35 +1,37 @@
 import {
+    __internal,
     CacheConfig,
+    commitLocalUpdate,
+    commitMutation,
     ConcreteRequest,
     ConnectionHandler,
+    ConnectionInterface,
+    createOperationDescriptor,
     DataID,
     Environment,
+    fetchQuery,
+    FragmentRefs,
     getDefaultMissingFieldHandlers,
+    getRequest,
+    graphql,
+    isPromise,
     Network,
+    PreloadableConcreteRequest,
     QueryResponseCache,
-    ROOT_ID,
-    ROOT_TYPE,
+    ReaderFragment,
+    ReaderInlineDataFragment,
+    readInlineData,
     RecordProxy,
     RecordSource,
     RecordSourceSelectorProxy,
+    requestSubscription,
+    ROOT_ID,
+    ROOT_TYPE,
     Store,
     Variables,
-    commitLocalUpdate,
-    ReaderFragment,
-    isPromise,
-    __internal,
-    graphql,
-    getRequest,
-    createOperationDescriptor,
-    FragmentRefs,
-    readInlineData,
-    requestSubscription,
-    fetchQuery,
-    ConnectionInterface,
-    ReaderInlineDataFragment,
-} from 'relay-runtime';
+} from "relay-runtime";
 
-import * as multiActorEnvironment from 'relay-runtime/multi-actor-environment';
+import * as multiActorEnvironment from "relay-runtime/multi-actor-environment";
 
 const source = new RecordSource();
 const store = new Store(source);
@@ -55,8 +57,8 @@ const storeWithOptions = new Store(source, {
 // Define a function that fetches the results of an operation (query/mutation/etc)
 // and returns its results as a Promise:
 function fetchFunction(operation: any, variables: { [key: string]: string }, cacheConfig: {}) {
-    return fetch('/graphql', {
-        method: 'POST',
+    return fetch("/graphql", {
+        method: "POST",
         body: JSON.stringify({
             query: operation.text, // GraphQL text from input
             variables,
@@ -97,19 +99,19 @@ const environment = new Environment({
         {
             handle(field, record, argValues) {
                 if (
-                    record != null &&
-                    record.getType() === ROOT_TYPE &&
-                    field.name === 'user' &&
-                    argValues.hasOwnProperty('id')
+                    record != null
+                    && record.getType() === ROOT_TYPE
+                    && field.name === "user"
+                    && argValues.hasOwnProperty("id")
                 ) {
                     // If field is user(id: $id), look up the record by the value of $id
                     return argValues.id;
                 }
                 if (
-                    record != null &&
-                    record.getType() === ROOT_TYPE &&
-                    field.name === 'story' &&
-                    argValues.hasOwnProperty('story_id')
+                    record != null
+                    && record.getType() === ROOT_TYPE
+                    && field.name === "story"
+                    && argValues.hasOwnProperty("story_id")
                 ) {
                     // If field is story(story_id: $story_id), look up the record by the
                     // value of $story_id.
@@ -118,26 +120,27 @@ const environment = new Environment({
 
                 return null;
             },
-            kind: 'linked',
+            kind: "linked",
         },
     ],
     log: logEvent => {
         switch (logEvent.name) {
-            case 'network.start':
-            case 'network.complete':
-            case 'network.error':
-            case 'network.info':
-            case 'network.unsubscribe':
-            case 'execute.start':
-            case 'queryresource.fetch':
+            case "network.start":
+            case "network.complete":
+            case "network.error":
+            case "network.info":
+            case "network.unsubscribe":
+            case "execute.start":
+            case "queryresource.fetch":
+            case "read.missing_required_field":
             default:
                 break;
         }
     },
     requiredFieldLogger: arg => {
-        if (arg.kind === 'missing_field.log') {
+        if (arg.kind === "missing_field.log") {
             console.log(arg.fieldPath, arg.owner);
-        } else if (arg.kind === 'missing_field.throw') {
+        } else if (arg.kind === "missing_field.throw") {
             console.log(arg.fieldPath, arg.owner);
         } else {
             arg.kind; // $ExpectType "relay_resolver.error"
@@ -153,11 +156,11 @@ const environment = new Environment({
 function handlerProvider(handle: any) {
     switch (handle) {
         // Augment (or remove from) this list:
-        case 'connection':
+        case "connection":
             return ConnectionHandler;
-        // case 'viewer':
-        //     // ViewerHandler is special-cased and does not have an `update` method
-        //     return ViewerHandler;
+            // case 'viewer':
+            //     // ViewerHandler is special-cased and does not have an `update` method
+            //     return ViewerHandler;
     }
     throw new Error(`handlerProvider: No handler provided for ${handle}`);
 }
@@ -166,11 +169,11 @@ function handlerProvider(handle: any) {
 interface UserFragment_updatable$data {
     name: string | null;
     readonly id: string;
-    readonly ' $fragmentType': 'UserFragment_updatable';
+    readonly " $fragmentType": "UserFragment_updatable";
 }
 interface UserFragment_updatable$key {
-    readonly ' $data'?: UserFragment_updatable$data;
-    readonly $updatableFragmentSpreads: FragmentRefs<'UserFragment_updatable'>;
+    readonly " $data"?: UserFragment_updatable$data;
+    readonly $updatableFragmentSpreads: FragmentRefs<"UserFragment_updatable">;
 }
 
 // Updatable query.
@@ -182,13 +185,31 @@ interface UserQuery {
     variables: {};
 }
 
+commitMutation<{
+    response: { setUsername?: { name?: string | null } | null };
+    variables: { name: string };
+}>(environment, {
+    mutation: graphql`
+        mutation setUserName($name: String!) {
+            setUsername(name: $name) {
+                name
+            }
+        }
+    `,
+    variables: { name: "" },
+    updater(store, data) {
+        const newName = data?.setUsername?.name;
+        newName && store.get("userid")?.setValue(newName, "name");
+    },
+});
+
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
     store.invalidateStore();
-    const mutationPayload = store.getRootField('sendConversationMessage');
-    const newMessageEdge = mutationPayload!.getLinkedRecord('messageEdge');
-    const conversationStore = store.get('a-conversation-id');
+    const mutationPayload = store.getRootField("sendConversationMessage");
+    const newMessageEdge = mutationPayload!.getLinkedRecord("messageEdge");
+    const conversationStore = store.get("a-conversation-id");
     conversationStore!.invalidateRecord();
-    const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
+    const connection = ConnectionHandler.getConnection(conversationStore!, "Messages_messages");
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge!);
     }
@@ -200,7 +221,7 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
         `,
         dataRef,
     );
-    updatableFragment.name = 'NewName';
+    updatableFragment.name = "NewName";
 
     const { updatableData: updatableQuery } = store.readUpdatableQuery<UserQuery>(
         graphql`
@@ -212,7 +233,7 @@ function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_up
         `,
         {},
     );
-    updatableQuery.userName = 'NewName';
+    updatableQuery.userName = "NewName";
 }
 
 interface MessageEdge {
@@ -232,17 +253,17 @@ interface TConversation {
 }
 
 function passToHelper(edge: RecordProxy<MessageEdge>) {
-    edge.getValue('id');
+    edge.getValue("id");
 }
 
 function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversationMessageMutationResponse>) {
     store.invalidateStore();
-    const mutationPayload = store.getRootField('sendConversationMessage');
-    const newMessageEdge = mutationPayload.getLinkedRecord('messageEdge');
-    const id = newMessageEdge.getValue('id');
+    const mutationPayload = store.getRootField("sendConversationMessage");
+    const newMessageEdge = mutationPayload.getLinkedRecord("messageEdge");
+    const id = newMessageEdge.getValue("id");
     const conversationStore = store.get<TConversation>(id);
     conversationStore!.invalidateRecord();
-    const connection = ConnectionHandler.getConnection(conversationStore!, 'Messages_messages');
+    const connection = ConnectionHandler.getConnection(conversationStore!, "Messages_messages");
     if (connection) {
         ConnectionHandler.insertEdgeBefore(connection, newMessageEdge);
     }
@@ -252,12 +273,12 @@ function storeUpdaterWithTypes(store: RecordSourceSelectorProxy<SendConversation
 function connectionHandlerWithoutStore() {
     let connectionId: DataID;
 
-    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends');
+    connectionId = ConnectionHandler.getConnectionID("4", "ConnectionQuery_friends");
 
-    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends', null);
+    connectionId = ConnectionHandler.getConnectionID("4", "ConnectionQuery_friends", null);
 
-    connectionId = ConnectionHandler.getConnectionID('4', 'ConnectionQuery_friends', {
-        orderby: ['first name'],
+    connectionId = ConnectionHandler.getConnectionID("4", "ConnectionQuery_friends", {
+        orderby: ["first name"],
     });
 }
 
@@ -266,9 +287,9 @@ function connectionHandlerWithoutStore() {
 // ~~~~~~~~~~~~~~~~~~~~~
 
 store.publish(source);
-const get_store_recorditem = store.getSource().get('someDataId');
+const get_store_recorditem = store.getSource().get("someDataId");
 // $ExpectType Record<TConversation> | null | undefined
-const get_store_recorditem_typed = store.getSource().get<TConversation>('someDataId');
+const get_store_recorditem_typed = store.getSource().get<TConversation>("someDataId");
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // commitLocalUpdate
@@ -276,8 +297,35 @@ const get_store_recorditem_typed = store.getSource().get<TConversation>('someDat
 
 commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID);
-    root!.setValue('foo', 'localKey');
+    root!.setValue("foo", "localKey");
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+// PreloadableConcreteRequest
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+type FooQuery$variables = Record<PropertyKey, never>;
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type FooQuery$data = {
+    readonly foo: string | null | undefined;
+};
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type FooQuery = {
+    response: FooQuery$data;
+    variables: FooQuery$variables;
+};
+
+const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
+    kind: "PreloadableConcreteRequest",
+    params: {
+        operationKind: "query",
+        name: "FooQuery",
+        id: null,
+        cacheID: "2e5967148a8303de3c58059c0eaa87c6",
+        text: "query FooQuery {\n  foo\n}\n",
+        metadata: {},
+    },
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
@@ -307,22 +355,22 @@ query FooQuery {
 */
 
 /* tslint:disable:only-arrow-functions no-var-keyword prefer-const */
-const node: ConcreteRequest = (function () {
+const node: ConcreteRequest = (function() {
     var v0 = [
         {
-            kind: 'ScalarField',
+            kind: "ScalarField",
             alias: null,
-            name: '__typename',
+            name: "__typename",
             args: null,
             storageKey: null,
         },
         {
-            kind: 'ClientExtension',
+            kind: "ClientExtension",
             selections: [
                 {
-                    kind: 'ScalarField',
+                    kind: "ScalarField",
                     alias: null,
-                    name: 'foo',
+                    name: "foo",
                     args: null,
                     storageKey: null,
                 },
@@ -330,27 +378,27 @@ const node: ConcreteRequest = (function () {
         },
     ];
     return {
-        kind: 'Request',
+        kind: "Request",
         fragment: {
-            kind: 'Fragment',
-            name: 'FooQuery',
-            type: 'Query',
+            kind: "Fragment",
+            name: "FooQuery",
+            type: "Query",
             metadata: null,
             argumentDefinitions: [],
-            selections: v0 /*: any*/,
+            selections: v0, /*: any*/
         },
         operation: {
-            kind: 'Operation',
-            name: 'FooQuery',
+            kind: "Operation",
+            name: "FooQuery",
             argumentDefinitions: [],
-            selections: v0 /*: any*/,
+            selections: v0, /*: any*/
         },
         params: {
-            operationKind: 'query',
-            name: 'FooQuery',
+            operationKind: "query",
+            name: "FooQuery",
             id: null,
-            cacheID: '2e5967148a8303de3c58059c0eaa87c6',
-            text: 'query FooQuery {\n  __typename\n}\n',
+            cacheID: "2e5967148a8303de3c58059c0eaa87c6",
+            text: "query FooQuery {\n  __typename\n}\n",
             metadata: {},
         },
     };
@@ -380,18 +428,18 @@ const nodeFragment: ReaderFragment = {
     argumentDefinitions: [
         {
             defaultValue: null,
-            kind: 'LocalArgument',
-            name: 'latArg',
+            kind: "LocalArgument",
+            name: "latArg",
         },
         {
             defaultValue: null,
-            kind: 'LocalArgument',
-            name: 'lonArg',
+            kind: "LocalArgument",
+            name: "lonArg",
         },
     ],
-    kind: 'Fragment',
+    kind: "Fragment",
     metadata: null,
-    name: 'TestQueryWithLiteral',
+    name: "TestQueryWithLiteral",
     selections: [
         {
             alias: null,
@@ -401,73 +449,73 @@ const nodeFragment: ReaderFragment = {
                         {
                             fields: [
                                 {
-                                    kind: 'Variable',
-                                    name: 'lat',
-                                    variableName: 'latArg',
+                                    kind: "Variable",
+                                    name: "lat",
+                                    variableName: "latArg",
                                 },
                                 {
-                                    kind: 'Variable',
-                                    name: 'lon',
-                                    variableName: 'lonArg',
+                                    kind: "Variable",
+                                    name: "lon",
+                                    variableName: "lonArg",
                                 },
                             ],
-                            kind: 'ObjectValue',
-                            name: 'waypoints.0',
+                            kind: "ObjectValue",
+                            name: "waypoints.0",
                         },
                         {
                             fields: [
                                 {
-                                    kind: 'Literal',
-                                    name: 'lat',
+                                    kind: "Literal",
+                                    name: "lat",
                                     value: null,
                                 },
                                 {
-                                    kind: 'Variable',
-                                    name: 'lon',
-                                    variableName: 'latArg',
+                                    kind: "Variable",
+                                    name: "lon",
+                                    variableName: "latArg",
                                 },
                             ],
-                            kind: 'ObjectValue',
-                            name: 'waypoints.1',
+                            kind: "ObjectValue",
+                            name: "waypoints.1",
                         },
                         {
                             fields: [
                                 {
-                                    kind: 'Variable',
-                                    name: 'lat',
-                                    variableName: 'lonArg',
+                                    kind: "Variable",
+                                    name: "lat",
+                                    variableName: "lonArg",
                                 },
                                 {
-                                    kind: 'Literal',
-                                    name: 'lon',
-                                    value: '1234',
+                                    kind: "Literal",
+                                    name: "lon",
+                                    value: "1234",
                                 },
                             ],
-                            kind: 'ObjectValue',
-                            name: 'waypoints.2',
+                            kind: "ObjectValue",
+                            name: "waypoints.2",
                         },
                     ],
-                    kind: 'ListValue',
-                    name: 'waypoints',
+                    kind: "ListValue",
+                    name: "waypoints",
                 },
             ],
-            concreteType: 'Route',
-            kind: 'LinkedField',
-            name: 'route',
+            concreteType: "Route",
+            kind: "LinkedField",
+            name: "route",
             plural: false,
             selections: [
                 {
                     alias: null,
                     args: null,
-                    kind: 'ScalarField',
-                    name: '__typename',
+                    kind: "ScalarField",
+                    name: "__typename",
                     storageKey: null,
                 },
             ],
             storageKey: null,
         },
     ],
-    type: 'Query',
+    type: "Query",
     abstractKey: null,
 };
 
@@ -477,12 +525,12 @@ const nodeFragment: ReaderFragment = {
 
 interface Module_data {
     readonly id: string;
-    readonly ' $fragmentType': 'Module_data';
+    readonly " $fragmentType": "Module_data";
 }
 type Module_data$data = Module_data;
 interface Module_data$key {
-    readonly ' $data'?: Module_data$data;
-    readonly ' $fragmentSpreads': FragmentRefs<'Module_data'>;
+    readonly " $data"?: Module_data$data;
+    readonly " $fragmentSpreads": FragmentRefs<"Module_data">;
 }
 
 function readData(dataRef: Module_data$key) {
@@ -498,7 +546,7 @@ function readData(dataRef: Module_data$key) {
 }
 
 interface Module_InlineDataFragment {
-    readonly kind: 'InlineDataFragment';
+    readonly kind: "InlineDataFragment";
     readonly name: string;
 }
 function readNullableData(dataRef: Module_data$key) {
@@ -514,8 +562,8 @@ function readNullableData(dataRef: Module_data$key) {
 }
 
 const readerInlineDataFragment: ReaderInlineDataFragment = {
-    kind: 'InlineDataFragment',
-    name: 'myFragment_data',
+    kind: "InlineDataFragment",
+    name: "myFragment_data",
 };
 function readInlineDataFragment(dataRef: Module_data$key) {
     // $ExpectType Module_data
@@ -528,7 +576,7 @@ function readInlineDataFragment(dataRef: Module_data$key) {
 
 const p = Promise.resolve() as unknown;
 if (isPromise(p)) {
-    p.then(() => console.log('Indeed a promise'));
+    p.then(() => console.log("Indeed a promise"));
 }
 
 const gqlQuery = graphql`
@@ -539,11 +587,11 @@ const gqlQuery = graphql`
     }
 `;
 
-const pageID = '110798995619330';
+const pageID = "110798995619330";
 const cacheConfig: CacheConfig = { force: true };
 const request = getRequest(gqlQuery);
 const variables: Variables = { pageID };
-const dataID: DataID = 'dataID';
+const dataID: DataID = "dataID";
 const operation = createOperationDescriptor(request, variables);
 const operationWithCacheConfig = createOperationDescriptor(request, variables, cacheConfig);
 const operationWithDataID = createOperationDescriptor(request, variables, undefined, dataID);
@@ -568,7 +616,7 @@ function multiActors() {
     });
 
     // $ExpectType ActorEnvironment
-    const actor = environment.forActor('test');
+    const actor = environment.forActor("test");
 
     environment
         .execute(actor, {
@@ -590,14 +638,14 @@ interface UserComponent_user {
     readonly profile_picture: {
         readonly uri: string;
     };
-    readonly ' $fragmentType': 'UserComponent_user';
+    readonly " $fragmentType": "UserComponent_user";
 }
 
 type UserComponent_user$data = UserComponent_user;
 
 interface UserComponent_user$key {
-    readonly ' $data'?: UserComponent_user$data | undefined;
-    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_user'>;
+    readonly " $data"?: UserComponent_user$data | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"UserComponent_user">;
 }
 
 function NonNullableFragmentResolver(userKey: UserComponent_user$key) {
@@ -639,12 +687,12 @@ type UserComponent_users = ReadonlyArray<{
     readonly profile_picture: {
         readonly uri: string;
     };
-    readonly ' $fragmentType': 'UserComponent_users';
+    readonly " $fragmentType": "UserComponent_users";
 }>;
 type UserComponent_users$data = UserComponent_users;
 type UserComponent_users$key = ReadonlyArray<{
-    readonly ' $data'?: UserComponent_users$data | undefined;
-    readonly ' $fragmentSpreads': FragmentRefs<'UserComponent_users'>;
+    readonly " $data"?: UserComponent_users$data | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"UserComponent_users">;
 }>;
 
 function NonNullableArrayFragmentResolver(usersKey: UserComponent_users$key) {
@@ -705,7 +753,7 @@ fetchQuery(
     { variable: true },
     {
         networkCacheConfig: { force: true, poll: 1234 },
-        fetchPolicy: 'network-only',
+        fetchPolicy: "network-only",
     },
 );
 
@@ -739,13 +787,29 @@ const { CURSOR, EDGES, END_CURSOR, HAS_NEXT_PAGE, HAS_PREV_PAGE, NODE, PAGE_INFO
     ConnectionInterface.get();
 
 ConnectionInterface.inject({
-    CURSOR: 'cursor',
-    EDGES: 'edges',
-    END_CURSOR: 'endCursor',
-    HAS_NEXT_PAGE: 'hasNextPage',
-    HAS_PREV_PAGE: 'hasPrevPage',
-    NODE: 'node',
-    PAGE_INFO: 'pageInfo',
-    PAGE_INFO_TYPE: 'PageInfo',
-    START_CURSOR: 'startCursor',
+    CURSOR: "cursor",
+    EDGES: "edges",
+    END_CURSOR: "endCursor",
+    HAS_NEXT_PAGE: "hasNextPage",
+    HAS_PREV_PAGE: "hasPrevPage",
+    NODE: "node",
+    PAGE_INFO: "pageInfo",
+    PAGE_INFO_TYPE: "PageInfo",
+    START_CURSOR: "startCursor",
 });
+
+// ~~~~~~~~~~~~~~~~~~
+// Provided variables
+// ~~~~~~~~~~~~~~~~~~
+
+__internal.withProvidedVariables({
+    one: "value",
+}, {
+    two: {
+        get() {
+            return "value";
+        },
+    },
+});
+
+__internal.withProvidedVariables.tests_only_resetDebugCache?.();

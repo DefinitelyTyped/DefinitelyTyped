@@ -1,15 +1,16 @@
 /**
- * The `console` module provides a simple debugging console that is similar to the
- * JavaScript console mechanism provided by web browsers.
+ * The `node:console` module provides a simple debugging console that is similar to
+ * the JavaScript console mechanism provided by web browsers.
  *
  * The module exports two specific components:
  *
- * * A `Console` class with methods such as `console.log()`, `console.error()` and`console.warn()` that can be used to write to any Node.js stream.
- * * A global `console` instance configured to write to `process.stdout` and `process.stderr`. The global `console` can be used without calling`require('console')`.
+ * * A `Console` class with methods such as `console.log()`, `console.error()`, and `console.warn()` that can be used to write to any Node.js stream.
+ * * A global `console` instance configured to write to [`process.stdout`](https://nodejs.org/docs/latest-v18.x/api/process.html#processstdout) and
+ * [`process.stderr`](https://nodejs.org/docs/latest-v18.x/api/process.html#processstderr). The global `console` can be used without calling `require('node:console')`.
  *
  * _**Warning**_: The global console object's methods are neither consistently
  * synchronous like the browser APIs they resemble, nor are they consistently
- * asynchronous like all other Node.js streams. See the `note on process I/O` for
+ * asynchronous like all other Node.js streams. See the [`note on process I/O`](https://nodejs.org/docs/latest-v18.x/api/process.html#a-note-on-process-io) for
  * more information.
  *
  * Example using the global `console`:
@@ -53,14 +54,14 @@
  * myConsole.warn(`Danger ${name}! Danger!`);
  * // Prints: Danger Will Robinson! Danger!, to err
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/console.js)
+ * @see [source](https://github.com/nodejs/node/blob/v18.20.1/lib/console.js)
  */
-declare module 'console' {
-    import console = require('node:console');
+declare module "console" {
+    import console = require("node:console");
     export = console;
 }
-declare module 'node:console' {
-    import { InspectOptions } from 'node:util';
+declare module "node:console" {
+    import { InspectOptions } from "node:util";
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
         interface Console {
@@ -68,7 +69,8 @@ declare module 'node:console' {
             /**
              * `console.assert()` writes a message if `value` is [falsy](https://developer.mozilla.org/en-US/docs/Glossary/Falsy) or omitted. It only
              * writes a message and does not otherwise affect execution. The output always
-             * starts with `"Assertion failed"`. If provided, `message` is formatted using `util.format()`.
+             * starts with `"Assertion failed"`. If provided, `message` is formatted using
+             * [`util.format()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilformatformat-args).
              *
              * If `value` is [truthy](https://developer.mozilla.org/en-US/docs/Glossary/Truthy), nothing happens.
              *
@@ -91,7 +93,7 @@ declare module 'node:console' {
              * TTY. When `stdout` is not a TTY, this method does nothing.
              *
              * The specific operation of `console.clear()` can vary across operating systems
-             * and terminal types. For most Linux operating systems, `console.clear()`operates similarly to the `clear` shell command. On Windows, `console.clear()`will clear only the output in the
+             * and terminal types. For most Linux operating systems, `console.clear()` operates similarly to the `clear` shell command. On Windows, `console.clear()` will clear only the output in the
              * current terminal viewport for the Node.js
              * binary.
              * @since v8.3.0
@@ -123,7 +125,7 @@ declare module 'node:console' {
              * >
              * ```
              * @since v8.3.0
-             * @param label The display label for the counter.
+             * @param [label='default'] The display label for the counter.
              */
             count(label?: string): void;
             /**
@@ -141,7 +143,7 @@ declare module 'node:console' {
              * >
              * ```
              * @since v8.3.0
-             * @param label The display label for the counter.
+             * @param [label='default'] The display label for the counter.
              */
             countReset(label?: string): void;
             /**
@@ -150,7 +152,7 @@ declare module 'node:console' {
              */
             debug(message?: any, ...optionalParams: any[]): void;
             /**
-             * Uses `util.inspect()` on `obj` and prints the resulting string to `stdout`.
+             * Uses [`util.inspect()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilinspectobject-options) on `obj` and prints the resulting string to `stdout`.
              * This function bypasses any custom `inspect()` function defined on `obj`.
              * @since v0.1.101
              */
@@ -164,7 +166,8 @@ declare module 'node:console' {
             /**
              * Prints to `stderr` with newline. Multiple arguments can be passed, with the
              * first used as the primary message and all additional used as substitution
-             * values similar to [`printf(3)`](http://man7.org/linux/man-pages/man3/printf.3.html) (the arguments are all passed to `util.format()`).
+             * values similar to [`printf(3)`](http://man7.org/linux/man-pages/man3/printf.3.html)
+             * (the arguments are all passed to [`util.format()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilformatformat-args)).
              *
              * ```js
              * const code = 5;
@@ -174,13 +177,15 @@ declare module 'node:console' {
              * // Prints: error 5, to stderr
              * ```
              *
-             * If formatting elements (e.g. `%d`) are not found in the first string then `util.inspect()` is called on each argument and the resulting string
-             * values are concatenated. See `util.format()` for more information.
+             * If formatting elements (e.g. `%d`) are not found in the first string then
+             * [`util.inspect()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilinspectobject-options) is called on each argument and the
+             * resulting string values are concatenated. See [`util.format()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilformatformat-args)
+             * for more information.
              * @since v0.1.100
              */
             error(message?: any, ...optionalParams: any[]): void;
             /**
-             * Increases indentation of subsequent lines by spaces for `groupIndentation`length.
+             * Increases indentation of subsequent lines by spaces for `groupIndentation` length.
              *
              * If one or more `label`s are provided, those are printed first without the
              * additional indentation.
@@ -193,7 +198,7 @@ declare module 'node:console' {
              */
             groupCollapsed(...label: any[]): void;
             /**
-             * Decreases indentation of subsequent lines by spaces for `groupIndentation`length.
+             * Decreases indentation of subsequent lines by spaces for `groupIndentation` length.
              * @since v8.5.0
              */
             groupEnd(): void;
@@ -205,7 +210,8 @@ declare module 'node:console' {
             /**
              * Prints to `stdout` with newline. Multiple arguments can be passed, with the
              * first used as the primary message and all additional used as substitution
-             * values similar to [`printf(3)`](http://man7.org/linux/man-pages/man3/printf.3.html) (the arguments are all passed to `util.format()`).
+             * values similar to [`printf(3)`](http://man7.org/linux/man-pages/man3/printf.3.html)
+             * (the arguments are all passed to [`util.format()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilformatformat-args)).
              *
              * ```js
              * const count = 5;
@@ -215,13 +221,13 @@ declare module 'node:console' {
              * // Prints: count: 5, to stdout
              * ```
              *
-             * See `util.format()` for more information.
+             * See [`util.format()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilformatformat-args) for more information.
              * @since v0.1.100
              */
             log(message?: any, ...optionalParams: any[]): void;
             /**
-             * Try to construct a table with the columns of the properties of `tabularData`(or use `properties`) and rows of `tabularData` and log it. Falls back to just
-             * logging the argument if it can’t be parsed as tabular.
+             * Try to construct a table with the columns of the properties of `tabularData` (or use `properties`) and rows of `tabularData` and log it. Falls back to just
+             * logging the argument if it can't be parsed as tabular.
              *
              * ```js
              * // These can't be parsed as tabular data
@@ -250,13 +256,14 @@ declare module 'node:console' {
              * @since v10.0.0
              * @param properties Alternate properties for constructing the table.
              */
-            table(tabularData: any, properties?: ReadonlyArray<string>): void;
+            table(tabularData: any, properties?: readonly string[]): void;
             /**
              * Starts a timer that can be used to compute the duration of an operation. Timers
              * are identified by a unique `label`. Use the same `label` when calling {@link timeEnd} to stop the timer and output the elapsed time in
              * suitable time units to `stdout`. For example, if the elapsed
              * time is 3869ms, `console.timeEnd()` displays "3.869s".
              * @since v0.1.104
+             * @param [label='default']
              */
             time(label?: string): void;
             /**
@@ -264,12 +271,13 @@ declare module 'node:console' {
              * prints the result to `stdout`:
              *
              * ```js
-             * console.time('100-elements');
-             * for (let i = 0; i < 100; i++) {}
-             * console.timeEnd('100-elements');
-             * // prints 100-elements: 225.438ms
+             * console.time('bunch-of-stuff');
+             * // Do a bunch of stuff.
+             * console.timeEnd('bunch-of-stuff');
+             * // Prints: bunch-of-stuff: 225.438ms
              * ```
              * @since v0.1.104
+             * @param [label='default']
              */
             timeEnd(label?: string): void;
             /**
@@ -285,10 +293,12 @@ declare module 'node:console' {
              * console.timeEnd('process');
              * ```
              * @since v10.7.0
+             * @param [label='default']
              */
             timeLog(label?: string, ...data: any[]): void;
             /**
-             * Prints to `stderr` the string `'Trace: '`, followed by the `util.format()` formatted message and stack trace to the current position in the code.
+             * Prints to `stderr` the string `'Trace: '`, followed by the [`util.format()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilformatformat-args)
+             * formatted message and stack trace to the current position in the code.
              *
              * ```js
              * console.trace('Show me');
@@ -315,18 +325,32 @@ declare module 'node:console' {
             warn(message?: any, ...optionalParams: any[]): void;
             // --- Inspector mode only ---
             /**
-             * This method does not display anything unless used in the inspector.
-             *  Starts a JavaScript CPU profile with an optional label.
+             * This method does not display anything unless used in the inspector. The `console.profile()`
+             * method starts a JavaScript CPU profile with an optional label until {@link profileEnd}
+             * is called. The profile is then added to the Profile panel of the inspector.
+             *
+             * ```js
+             * console.profile('MyLabel');
+             * // Some code
+             * console.profileEnd('MyLabel');
+             * // Adds the profile 'MyLabel' to the Profiles panel of the inspector.
+             * ```
+             * @since v8.0.0
              */
             profile(label?: string): void;
             /**
-             * This method does not display anything unless used in the inspector.
-             *  Stops the current JavaScript CPU profiling session if one has been started and prints the report to the Profiles panel of the inspector.
+             * This method does not display anything unless used in the inspector. Stops the current
+             * JavaScript CPU profiling session if one has been started and prints the report to the
+             * Profiles panel of the inspector. See {@link profile} for an example.
+             *
+             * If this method is called without a label, the most recently started profile is stopped.
+             * @since v8.0.0
              */
             profileEnd(label?: string): void;
             /**
-             * This method does not display anything unless used in the inspector.
-             *  Adds an event with the label `label` to the Timeline panel of the inspector.
+             * This method does not display anything unless used in the inspector. The `console.timeStamp()`
+             * method adds an event with the label `'label'` to the Timeline panel of the inspector.
+             * @since v8.0.0
              */
             timeStamp(label?: string): void;
         }
@@ -336,12 +360,13 @@ declare module 'node:console' {
          *
          * The module exports two specific components:
          *
-         * * A `Console` class with methods such as `console.log()`, `console.error()` and`console.warn()` that can be used to write to any Node.js stream.
-         * * A global `console` instance configured to write to `process.stdout` and `process.stderr`. The global `console` can be used without calling`require('console')`.
+         * * A `Console` class with methods such as `console.log()`, `console.error()` and `console.warn()` that can be used to write to any Node.js stream.
+         * * A global `console` instance configured to write to [`process.stdout`](https://nodejs.org/docs/latest-v18.x/api/process.html#processstdout) and
+         * [`process.stderr`](https://nodejs.org/docs/latest-v18.x/api/process.html#processstderr). The global `console` can be used without calling `require('console')`.
          *
          * _**Warning**_: The global console object's methods are neither consistently
          * synchronous like the browser APIs they resemble, nor are they consistently
-         * asynchronous like all other Node.js streams. See the `note on process I/O` for
+         * asynchronous like all other Node.js streams. See the [`note on process I/O`](https://nodejs.org/docs/latest-v18.x/api/process.html#a-note-on-process-io) for
          * more information.
          *
          * Example using the global `console`:
@@ -385,25 +410,40 @@ declare module 'node:console' {
          * myConsole.warn(`Danger ${name}! Danger!`);
          * // Prints: Danger Will Robinson! Danger!, to err
          * ```
-         * @see [source](https://github.com/nodejs/node/blob/v16.4.2/lib/console.js)
+         * @see [source](https://github.com/nodejs/node/blob/v18.19.1/lib/console.js)
          */
         namespace console {
             interface ConsoleConstructorOptions {
                 stdout: NodeJS.WritableStream;
                 stderr?: NodeJS.WritableStream | undefined;
+                /**
+                 * Ignore errors when writing to the underlying streams.
+                 * @default true
+                 */
                 ignoreErrors?: boolean | undefined;
-                colorMode?: boolean | 'auto' | undefined;
+                /**
+                 * Set color support for this `Console` instance. Setting to true enables coloring while inspecting
+                 * values. Setting to `false` disables coloring while inspecting values. Setting to `'auto'` makes color
+                 * support depend on the value of the `isTTY` property and the value returned by `getColorDepth()` on the
+                 * respective stream. This option can not be used, if `inspectOptions.colors` is set as well.
+                 * @default auto
+                 */
+                colorMode?: boolean | "auto" | undefined;
+                /**
+                 * Specifies options that are passed along to
+                 * [`util.inspect()`](https://nodejs.org/docs/latest-v18.x/api/util.html#utilinspectobject-options).
+                 */
                 inspectOptions?: InspectOptions | undefined;
                 /**
-                 * Set group indentation
+                 * Set group indentation.
                  * @default 2
                  */
                 groupIndentation?: number | undefined;
             }
             interface ConsoleConstructor {
                 prototype: Console;
-                new (stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream, ignoreErrors?: boolean): Console;
-                new (options: ConsoleConstructorOptions): Console;
+                new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream, ignoreErrors?: boolean): Console;
+                new(options: ConsoleConstructorOptions): Console;
             }
         }
         var console: Console;

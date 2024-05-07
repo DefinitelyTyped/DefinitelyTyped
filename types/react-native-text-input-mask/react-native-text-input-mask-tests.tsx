@@ -1,5 +1,5 @@
-import * as React from 'react';
-import TextInputMask from 'react-native-text-input-mask';
+import * as React from "react";
+import TextInputMask from "react-native-text-input-mask";
 
 class Example extends React.Component {
     render() {

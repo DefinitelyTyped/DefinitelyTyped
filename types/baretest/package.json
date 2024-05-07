@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/baretest",
+    "version": "2.0.9999",
+    "projects": [
+        "https://volument.com/baretest"
+    ],
+    "devDependencies": {
+        "@types/baretest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rory O’Kane",
+            "githubUsername": "roryokane"
+        }
+    ]
+}

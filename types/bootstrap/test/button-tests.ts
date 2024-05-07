@@ -1,5 +1,5 @@
-import { Button } from 'bootstrap';
-import * as $ from 'jquery';
+import { Button } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
@@ -12,7 +12,7 @@ Button.getInstance(element);
 Button.getOrCreateInstance(element);
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').button();
+$(".alert").button();
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').button('toggle');
+$(".alert").button("toggle");

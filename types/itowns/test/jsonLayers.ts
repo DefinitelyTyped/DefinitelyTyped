@@ -52,7 +52,7 @@ export interface Ortho {
         url: string;
         crs: string;
         networkOptions: {
-            crossOrigin: 'anonymous';
+            crossOrigin: "anonymous";
         };
         format: string;
         attribution: {

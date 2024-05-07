@@ -1,0 +1,57 @@
+{
+    "private": true,
+    "name": "@types/pubnub",
+    "version": "7.4.9999",
+    "projects": [
+        "https://github.com/pubnub/javascript"
+    ],
+    "devDependencies": {
+        "@types/pubnub": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " bitbankinc",
+            "githubUsername": "bitbankinc"
+        },
+        {
+            "name": "rollymaduk",
+            "githubUsername": "rollymaduk"
+        },
+        {
+            "name": "vitosamson",
+            "githubUsername": "vitosamson"
+        },
+        {
+            "name": "FlorianDr",
+            "githubUsername": "FlorianDr"
+        },
+        {
+            "name": "danduh",
+            "githubUsername": "danduh"
+        },
+        {
+            "name": "ChristianBoehlke",
+            "githubUsername": "ChristianBoehlke"
+        },
+        {
+            "name": "divyun",
+            "githubUsername": "divyun"
+        },
+        {
+            "name": "elviswolcott",
+            "githubUsername": "elviswolcott"
+        },
+        {
+            "name": "mohitpubnub",
+            "githubUsername": "mohitpubnub"
+        },
+        {
+            "name": "Salet",
+            "githubUsername": "Salet"
+        },
+        {
+            "name": "elvis-pn",
+            "githubUsername": "elvis-pn"
+        }
+    ]
+}

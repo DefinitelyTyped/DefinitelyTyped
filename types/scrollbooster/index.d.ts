@@ -1,9 +1,3 @@
-// Type definitions for scrollbooster 3.0
-// Project: https://github.com/ilyashubin/scrollbooster
-// Definitions by: Chris <https://github.com/chrisneven>
-//                 Chris Frewin <https://github.com/princefishthrower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Position {
     x?: number | undefined;
     y?: number | undefined;
@@ -27,17 +21,17 @@ export interface ScrollingState {
 export interface ScrollBoosterOptions {
     viewport: Element;
     content: Element;
-    direction?: 'all' | 'vertical' | 'horizontal';
-    pointerMode?: 'all' | 'touch' | 'mouse';
-    scrollMode?: 'transform' | 'native' | undefined;
+    direction?: "all" | "vertical" | "horizontal";
+    pointerMode?: "all" | "touch" | "mouse";
+    scrollMode?: "transform" | "native" | undefined;
     bounce?: boolean;
     bounceForce?: number;
     friction?: number;
     textSelection?: boolean;
     inputsFocus?: boolean;
     emulateScroll?: boolean;
-    preventDefaultOnEmulateScroll?: 'vertical' | 'horizontal';
-    lockScrollOnDragDirection?: 'all' |'vertical' | 'horizontal';
+    preventDefaultOnEmulateScroll?: "vertical" | "horizontal";
+    lockScrollOnDragDirection?: "all" | "vertical" | "horizontal";
     dragDirectionTolerance?: number;
     onClick?: (state: ScrollingState, event: MouseEvent, isTouch: boolean) => void;
     onUpdate?: (state: ScrollingState) => void;

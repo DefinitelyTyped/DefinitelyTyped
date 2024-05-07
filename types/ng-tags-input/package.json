@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ng-tags-input",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/mbenford/ngTagsInput"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/ng-tags-input": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "George Pap",
+            "githubUsername": "GiorgosPap"
+        }
+    ]
+}

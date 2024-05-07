@@ -1,13 +1,13 @@
 import * as materialize from "materialize-css";
 
-const elem = document.querySelector('.whatever')!;
+const elem = document.querySelector(".whatever")!;
 
 // $ExpectType Tabs
 const _tabs = new M.Tabs(elem);
 // $ExpectType Tabs
 const el = M.Tabs.init(elem);
 // $ExpectType Tabs[]
-const els = M.Tabs.init(document.querySelectorAll('.whatever'));
+const els = M.Tabs.init(document.querySelectorAll(".whatever"));
 
 // $ExpectType Tabs
 new materialize.Tabs(elem);
@@ -19,7 +19,7 @@ const tabs = new materialize.Tabs(elem, {
         this;
         // $ExpectType Element
         content;
-    }
+    },
 });
 // $ExpectType void
 tabs.destroy();

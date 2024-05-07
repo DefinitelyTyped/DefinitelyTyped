@@ -1,5 +1,5 @@
-import { ExecuteFilter } from './ExecuteFilter';
-import { Page } from './Model';
+import { ExecuteFilter } from "./ExecuteFilter";
+import { Page } from "./Model";
 
 export interface QueryBase<T> {
     startKey(hashKey: string, rangeKey?: string): this;
@@ -12,8 +12,8 @@ export interface QueryBase<T> {
 
     filterExpression(expression: string): this;
     addFilterCondition(condition: {
-      attributeNames: Record<string, any>;
-      attributeValues: Record<string, any>;
+        attributeNames: Record<string, any>;
+        attributeValues: Record<string, any>;
     }): this;
 
     projectionExpression(expression: string): this;
@@ -30,8 +30,8 @@ export interface Query<T> extends QueryBase<T> {
     consistentRead(read: boolean): this;
 
     addKeyCondition(condition: {
-      attributeNames: Record<string, any>;
-      attributeValues: Record<string, any>;
+        attributeNames: Record<string, any>;
+        attributeValues: Record<string, any>;
     }): this;
 
     ascending(): this;
@@ -44,8 +44,8 @@ export interface Query<T> extends QueryBase<T> {
 
 export type IsStrictlyAny<T> = (T extends never ? true : false) extends false ? false : true;
 
-export type PredicateFor<T, K extends keyof T, O extends QueryBase<T>>
-    = IsStrictlyAny<T[K]> extends true ? AnyPredicate<T, T[K], O>
+export type PredicateFor<T, K extends keyof T, O extends QueryBase<T>> = IsStrictlyAny<T[K]> extends true
+    ? AnyPredicate<T, T[K], O>
     : T[K] extends any[] ? ArrayPredicate<T, T[K][number], O>
     : T[K] extends string ? StringPredicate<T, O>
     : T[K] extends (string | number) ? RangePredicate<T, T[K], O>

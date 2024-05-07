@@ -5,12 +5,12 @@
  * ```js
  * import url from 'node:url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/url.js)
  */
-declare module 'url' {
-    import { Blob as NodeBlob } from 'node:buffer';
-    import { ClientRequestArgs } from 'node:http';
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
+declare module "url" {
+    import { Blob as NodeBlob } from "node:buffer";
+    import { ClientRequestArgs } from "node:http";
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
     interface UrlObject {
         auth?: string | null | undefined;
@@ -66,11 +66,15 @@ declare module 'url' {
      * result would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
      */
     function parse(urlString: string): UrlWithStringQuery;
-    function parse(urlString: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlString: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
-     * The `url.format()` method returns a formatted URL string derived from`urlObject`.
+     * The `url.format()` method returns a formatted URL string derived from `urlObject`.
      *
      * ```js
      * const url = require('node:url');
@@ -96,33 +100,33 @@ declare module 'url' {
      * * Otherwise, if `urlObject.protocol` is not `undefined` and is not a string, an `Error` is thrown.
      * * For all string values of `urlObject.protocol` that _do not end_ with an ASCII
      * colon (`:`) character, the literal string `:` will be appended to `result`.
-     * * If either of the following conditions is true, then the literal string `//`will be appended to `result`:
+     * * If either of the following conditions is true, then the literal string `//` will be appended to `result`:
      *    * `urlObject.slashes` property is true;
-     *    * `urlObject.protocol` begins with `http`, `https`, `ftp`, `gopher`, or`file`;
-     * * If the value of the `urlObject.auth` property is truthy, and either`urlObject.host` or `urlObject.hostname` are not `undefined`, the value of`urlObject.auth` will be coerced into a string
-     * and appended to `result`followed by the literal string `@`.
+     *    * `urlObject.protocol` begins with `http`, `https`, `ftp`, `gopher`, or `file`;
+     * * If the value of the `urlObject.auth` property is truthy, and either `urlObject.host` or `urlObject.hostname` are not `undefined`, the value of `urlObject.auth` will be coerced into a string
+     * and appended to `result` followed by the literal string `@`.
      * * If the `urlObject.host` property is `undefined` then:
      *    * If the `urlObject.hostname` is a string, it is appended to `result`.
      *    * Otherwise, if `urlObject.hostname` is not `undefined` and is not a string,
      *    an `Error` is thrown.
-     *    * If the `urlObject.port` property value is truthy, and `urlObject.hostname`is not `undefined`:
+     *    * If the `urlObject.port` property value is truthy, and `urlObject.hostname` is not `undefined`:
      *          * The literal string `:` is appended to `result`, and
-     *          * The value of `urlObject.port` is coerced to a string and appended to`result`.
-     * * Otherwise, if the `urlObject.host` property value is truthy, the value of`urlObject.host` is coerced to a string and appended to `result`.
+     *          * The value of `urlObject.port` is coerced to a string and appended to `result`.
+     * * Otherwise, if the `urlObject.host` property value is truthy, the value of `urlObject.host` is coerced to a string and appended to `result`.
      * * If the `urlObject.pathname` property is a string that is not an empty string:
-     *    * If the `urlObject.pathname`_does not start_ with an ASCII forward slash
+     *    * If the `urlObject.pathname` _does not start_ with an ASCII forward slash
      *    (`/`), then the literal string `'/'` is appended to `result`.
      *    * The value of `urlObject.pathname` is appended to `result`.
      * * Otherwise, if `urlObject.pathname` is not `undefined` and is not a string, an `Error` is thrown.
-     * * If the `urlObject.search` property is `undefined` and if the `urlObject.query`property is an `Object`, the literal string `?` is appended to `result`followed by the output of calling the
-     * `querystring` module's `stringify()`method passing the value of `urlObject.query`.
+     * * If the `urlObject.search` property is `undefined` and if the `urlObject.query`property is an `Object`, the literal string `?` is appended to `result` followed by the output of calling the
+     * `querystring` module's `stringify()` method passing the value of `urlObject.query`.
      * * Otherwise, if `urlObject.search` is a string:
-     *    * If the value of `urlObject.search`_does not start_ with the ASCII question
+     *    * If the value of `urlObject.search` _does not start_ with the ASCII question
      *    mark (`?`) character, the literal string `?` is appended to `result`.
      *    * The value of `urlObject.search` is appended to `result`.
      * * Otherwise, if `urlObject.search` is not `undefined` and is not a string, an `Error` is thrown.
      * * If the `urlObject.hash` property is a string:
-     *    * If the value of `urlObject.hash`_does not start_ with the ASCII hash (`#`)
+     *    * If the value of `urlObject.hash` _does not start_ with the ASCII hash (`#`)
      *    character, the literal string `#` is appended to `result`.
      *    * The value of `urlObject.hash` is appended to `result`.
      * * Otherwise, if the `urlObject.hash` property is not `undefined` and is not a
@@ -134,18 +138,18 @@ declare module 'url' {
      */
     function format(urlObject: URL, options?: URLFormatOptions): string;
     /**
-     * The `url.format()` method returns a formatted URL string derived from`urlObject`.
+     * The `url.format()` method returns a formatted URL string derived from `urlObject`.
      *
      * ```js
-     * const url = require('url');
+     * const url = require('node:url');
      * url.format({
      *   protocol: 'https',
      *   hostname: 'example.com',
      *   pathname: '/some/path',
      *   query: {
      *     page: 1,
-     *     format: 'json'
-     *   }
+     *     format: 'json',
+     *   },
      * });
      *
      * // => 'https://example.com/some/path?page=1&#x26;format=json'
@@ -160,33 +164,33 @@ declare module 'url' {
      * * Otherwise, if `urlObject.protocol` is not `undefined` and is not a string, an `Error` is thrown.
      * * For all string values of `urlObject.protocol` that _do not end_ with an ASCII
      * colon (`:`) character, the literal string `:` will be appended to `result`.
-     * * If either of the following conditions is true, then the literal string `//`will be appended to `result`:
+     * * If either of the following conditions is true, then the literal string `//` will be appended to `result`:
      *    * `urlObject.slashes` property is true;
-     *    * `urlObject.protocol` begins with `http`, `https`, `ftp`, `gopher`, or`file`;
-     * * If the value of the `urlObject.auth` property is truthy, and either`urlObject.host` or `urlObject.hostname` are not `undefined`, the value of`urlObject.auth` will be coerced into a string
-     * and appended to `result`followed by the literal string `@`.
+     *    * `urlObject.protocol` begins with `http`, `https`, `ftp`, `gopher`, or `file`;
+     * * If the value of the `urlObject.auth` property is truthy, and either `urlObject.host` or `urlObject.hostname` are not `undefined`, the value of `urlObject.auth` will be coerced into a string
+     * and appended to `result` followed by the literal string `@`.
      * * If the `urlObject.host` property is `undefined` then:
      *    * If the `urlObject.hostname` is a string, it is appended to `result`.
      *    * Otherwise, if `urlObject.hostname` is not `undefined` and is not a string,
      *    an `Error` is thrown.
-     *    * If the `urlObject.port` property value is truthy, and `urlObject.hostname`is not `undefined`:
+     *    * If the `urlObject.port` property value is truthy, and `urlObject.hostname` is not `undefined`:
      *          * The literal string `:` is appended to `result`, and
-     *          * The value of `urlObject.port` is coerced to a string and appended to`result`.
-     * * Otherwise, if the `urlObject.host` property value is truthy, the value of`urlObject.host` is coerced to a string and appended to `result`.
+     *          * The value of `urlObject.port` is coerced to a string and appended to `result`.
+     * * Otherwise, if the `urlObject.host` property value is truthy, the value of `urlObject.host` is coerced to a string and appended to `result`.
      * * If the `urlObject.pathname` property is a string that is not an empty string:
-     *    * If the `urlObject.pathname`_does not start_ with an ASCII forward slash
+     *    * If the `urlObject.pathname` _does not start_ with an ASCII forward slash
      *    (`/`), then the literal string `'/'` is appended to `result`.
      *    * The value of `urlObject.pathname` is appended to `result`.
      * * Otherwise, if `urlObject.pathname` is not `undefined` and is not a string, an `Error` is thrown.
-     * * If the `urlObject.search` property is `undefined` and if the `urlObject.query`property is an `Object`, the literal string `?` is appended to `result`followed by the output of calling the
-     * `querystring` module's `stringify()`method passing the value of `urlObject.query`.
+     * * If the `urlObject.search` property is `undefined` and if the `urlObject.query`property is an `Object`, the literal string `?` is appended to `result` followed by the output of calling the
+     * `querystring` module's `stringify()` method passing the value of `urlObject.query`.
      * * Otherwise, if `urlObject.search` is a string:
-     *    * If the value of `urlObject.search`_does not start_ with the ASCII question
+     *    * If the value of `urlObject.search` _does not start_ with the ASCII question
      *    mark (`?`) character, the literal string `?` is appended to `result`.
      *    * The value of `urlObject.search` is appended to `result`.
      * * Otherwise, if `urlObject.search` is not `undefined` and is not a string, an `Error` is thrown.
      * * If the `urlObject.hash` property is a string:
-     *    * If the value of `urlObject.hash`_does not start_ with the ASCII hash (`#`)
+     *    * If the value of `urlObject.hash` _does not start_ with the ASCII hash (`#`)
      *    character, the literal string `#` is appended to `result`.
      *    * The value of `urlObject.hash` is appended to `result`.
      * * Otherwise, if the `urlObject.hash` property is not `undefined` and is not a
@@ -341,9 +345,26 @@ declare module 'url' {
      */
     function urlToHttpOptions(url: URL): ClientRequestArgs;
     interface URLFormatOptions {
+        /**
+         * `true` if the serialized URL string should include the username and password, `false` otherwise.
+         * @default true
+         */
         auth?: boolean | undefined;
+        /**
+         * `true` if the serialized URL string should include the fragment, `false` otherwise.
+         * @default true
+         */
         fragment?: boolean | undefined;
+        /**
+         * `true` if the serialized URL string should include the search query, `false` otherwise.
+         * @default true
+         */
         search?: boolean | undefined;
+        /**
+         * `true` if Unicode characters appearing in the host component of the URL string should be encoded directly as opposed to
+         * being Punycode encoded.
+         * @default false
+         */
         unicode?: boolean | undefined;
     }
     /**
@@ -353,7 +374,7 @@ declare module 'url' {
      *
      * In accordance with browser conventions, all properties of `URL` objects
      * are implemented as getters and setters on the class prototype, rather than as
-     * data properties on the object itself. Thus, unlike `legacy urlObject` s,
+     * data properties on the object itself. Thus, unlike `legacy urlObject`s,
      * using the `delete` keyword on any properties of `URL` objects (e.g. `delete myURL.protocol`, `delete myURL.pathname`, etc) has no effect but will still
      * return `true`.
      * @since v7.0.0, v6.13.0
@@ -377,7 +398,7 @@ declare module 'url' {
          * console.log(otherBlob.size);
          * ```
          *
-         * The data stored by the registered `Blob` will be retained in memory until`URL.revokeObjectURL()` is called to remove it.
+         * The data stored by the registered `Blob` will be retained in memory until `URL.revokeObjectURL()` is called to remove it.
          *
          * `Blob` objects are registered within the current thread. If using Worker
          * Threads, `Blob` objects registered within one Worker will not be available
@@ -393,7 +414,7 @@ declare module 'url' {
          * @experimental
          * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
          */
-        static revokeObjectURL(objectUrl: string): void;
+        static revokeObjectURL(id: string): void;
         /**
          * Checks if an `input` relative to the `base` can be parsed to a `URL`.
          *
@@ -408,7 +429,7 @@ declare module 'url' {
          * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
          */
         static canParse(input: string, base?: string): boolean;
-        constructor(input: string, base?: string | URL);
+        constructor(input: string | { toString: () => string }, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
          *
@@ -482,9 +503,9 @@ declare module 'url' {
          * Getting the value of the `href` property is equivalent to calling {@link toString}.
          *
          * Setting the value of this property to a new value is equivalent to creating a
-         * new `URL` object using `new URL(value)`. Each of the `URL`object's properties will be modified.
+         * new `URL` object using `new URL(value)`. Each of the `URL` object's properties will be modified.
          *
-         * If the value assigned to the `href` property is not a valid URL, a `TypeError`will be thrown.
+         * If the value assigned to the `href` property is not a valid URL, a `TypeError` will be thrown.
          */
         href: string;
         /**
@@ -537,14 +558,14 @@ declare module 'url' {
          * // Prints https://example.org/abcdef?123
          * ```
          *
-         * Invalid URL characters included in the value assigned to the `pathname`property are `percent-encoded`. The selection of which characters
+         * Invalid URL characters included in the value assigned to the `pathname` property are `percent-encoded`. The selection of which characters
          * to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.
          */
         pathname: string;
         /**
          * Gets and sets the port portion of the URL.
          *
-         * The port value may be a number or a string containing a number in the range`0` to `65535` (inclusive). Setting the value to the default port of the`URL` objects given `protocol` will
+         * The port value may be a number or a string containing a number in the range `0` to `65535` (inclusive). Setting the value to the default port of the `URL` objects given `protocol` will
          * result in the `port` value becoming
          * the empty string (`''`).
          *
@@ -643,7 +664,7 @@ declare module 'url' {
          * // Prints https://example.org/abc?abc=xyz
          * ```
          *
-         * Any invalid URL characters appearing in the value assigned the `search`property will be `percent-encoded`. The selection of which
+         * Any invalid URL characters appearing in the value assigned the `search` property will be `percent-encoded`. The selection of which
          * characters to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.
          */
         search: string;
@@ -684,7 +705,7 @@ declare module 'url' {
          * // Prints https://123:xyz@example.com/
          * ```
          *
-         * Any invalid URL characters appearing in the value assigned the `username`property will be `percent-encoded`. The selection of which
+         * Any invalid URL characters appearing in the value assigned the `username` property will be `percent-encoded`. The selection of which
          * characters to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.
          */
         username: string;
@@ -712,7 +733,7 @@ declare module 'url' {
         toJSON(): string;
     }
     /**
-     * The `URLSearchParams` API provides read and write access to the query of a`URL`. The `URLSearchParams` class can also be used standalone with one of the
+     * The `URLSearchParams` API provides read and write access to the query of a `URL`. The `URLSearchParams` class can also be used standalone with one of the
      * four following constructors.
      * The `URLSearchParams` class is also available on the global object.
      *
@@ -756,21 +777,28 @@ declare module 'url' {
      * @since v7.5.0, v6.13.0
      */
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | Record<string, string | readonly string[]>
+                | Iterable<[string, string]>
+                | ReadonlyArray<[string, string]>,
+        );
         /**
          * Append a new name-value pair to the query string.
          */
         append(name: string, value: string): void;
         /**
          * If `value` is provided, removes all name-value pairs
-         * where name is `name` and value is `value`..
+         * where name is `name` and value is `value`.
          *
          * If `value` is not provided, removes all name-value pairs whose name is `name`.
          */
         delete(name: string, value?: string): void;
         /**
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
-         * Each item of the iterator is a JavaScript `Array`. The first item of the `Array`is the `name`, the second item of the `Array` is the `value`.
+         * Each item of the iterator is a JavaScript `Array`. The first item of the `Array` is the `name`, the second item of the `Array` is the `value`.
          *
          * Alias for `urlSearchParams[@@iterator]()`.
          */
@@ -790,7 +818,10 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void, thisArg?: TThis): void;
+        forEach<TThis = this>(
+            fn: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void,
+            thisArg?: TThis,
+        ): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -803,7 +834,7 @@ declare module 'url' {
          */
         getAll(name: string): string[];
         /**
-         * Checks if the `URLSearchParams` object contains key-value pair(s) based on`name` and an optional `value` argument.
+         * Checks if the `URLSearchParams` object contains key-value pair(s) based on `name` and an optional `value` argument.
          *
          * If `value` is provided, returns `true` when name-value pair with
          * same `name` and `value` exists.
@@ -827,7 +858,7 @@ declare module 'url' {
          */
         keys(): IterableIterator<string>;
         /**
-         * Sets the value in the `URLSearchParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
+         * Sets the value in the `URLSearchParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value` and remove all others. If not,
          * append the name-value pair to the query string.
          *
@@ -878,7 +909,7 @@ declare module 'url' {
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
-    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
     global {
         interface URLSearchParams extends _URLSearchParams {}
         interface URL extends _URL {}
@@ -894,8 +925,7 @@ declare module 'url' {
         var URL: typeof globalThis extends {
             onmessage: any;
             URL: infer T;
-        }
-            ? T
+        } ? T
             : typeof _URL;
         /**
          * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
@@ -905,11 +935,10 @@ declare module 'url' {
         var URLSearchParams: typeof globalThis extends {
             onmessage: any;
             URLSearchParams: infer T;
-        }
-            ? T
+        } ? T
             : typeof _URLSearchParams;
     }
 }
-declare module 'node:url' {
-    export * from 'url';
+declare module "node:url" {
+    export * from "url";
 }

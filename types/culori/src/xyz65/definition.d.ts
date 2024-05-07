@@ -1,14 +1,14 @@
-import convertXyz65ToRgb from './convertXyz65ToRgb';
-import convertRgbToXyz65 from './convertRgbToXyz65';
+import convertRgbToXyz65 from "./convertRgbToXyz65";
+import convertXyz65ToRgb from "./convertXyz65ToRgb";
 
-import convertXyz65ToXyz50 from './convertXyz65ToXyz50';
-import convertXyz50ToXyz65 from './convertXyz50ToXyz65';
+import convertXyz50ToXyz65 from "./convertXyz50ToXyz65";
+import convertXyz65ToXyz50 from "./convertXyz65ToXyz50";
 
-import { interpolatorLinear } from '../interpolate/linear';
-import { fixupAlpha } from '../fixup/alpha';
+import { fixupAlpha } from "../fixup/alpha";
+import { interpolatorLinear } from "../interpolate/linear";
 
 declare const definition: {
-    mode: 'xyz65';
+    mode: "xyz65";
 
     toMode: {
         rgb: typeof convertXyz65ToRgb;
@@ -26,10 +26,10 @@ declare const definition: {
         z: [0, 1.088];
     };
 
-    channels: ['x', 'y', 'z', 'alpha'];
+    channels: ["x", "y", "z", "alpha"];
 
-    parse: ['xyz', 'xyz-d65', '--xyz-d65'];
-    serialize: 'xyz-d65';
+    parse: ["xyz", "xyz-d65", "--xyz-d65"];
+    serialize: "xyz-d65";
 
     interpolate: {
         x: typeof interpolatorLinear;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/loopback-boot",
+    "version": "2.23.9999",
+    "projects": [
+        "https://github.com/strongloop/loopback-boot"
+    ],
+    "dependencies": {
+        "@types/loopback": "*"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "*",
+        "@types/loopback-boot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andres D Jimenez",
+            "githubUsername": "kattsushi"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/inert",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/hapijs/inert/"
+    ],
+    "dependencies": {
+        "@types/hapi": "^16"
+    },
+    "devDependencies": {
+        "@types/inert": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Steve Ognibene",
+            "githubUsername": "nycdotnet"
+        },
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        }
+    ]
+}

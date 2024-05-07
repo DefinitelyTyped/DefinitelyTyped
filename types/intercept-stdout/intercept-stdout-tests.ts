@@ -1,4 +1,4 @@
-import intercept = require('intercept-stdout');
+import intercept = require("intercept-stdout");
 
 const stdoutHook = (data: string) => {
     return data;

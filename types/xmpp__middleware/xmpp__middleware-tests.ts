@@ -1,10 +1,10 @@
-import Connection = require('@xmpp/connection');
-import middleware = require('@xmpp/middleware');
-import Context = require('@xmpp/middleware/lib/Context');
-import IncomingContext = require('@xmpp/middleware/lib/IncomingContext');
-import OutgoingContext = require('@xmpp/middleware/lib/OutgoingContext');
-import StanzaError = require('@xmpp/middleware/lib/StanzaError');
-import { Element } from '@xmpp/xml';
+import Connection = require("@xmpp/connection");
+import middleware = require("@xmpp/middleware");
+import Context = require("@xmpp/middleware/lib/Context");
+import IncomingContext = require("@xmpp/middleware/lib/IncomingContext");
+import OutgoingContext = require("@xmpp/middleware/lib/OutgoingContext");
+import StanzaError = require("@xmpp/middleware/lib/StanzaError");
+import { Element } from "@xmpp/xml";
 
 // test type exports
 type E = middleware.Entity;
@@ -18,7 +18,7 @@ class Foo extends Connection implements middleware.Entity {
     hookOutgoing?: (stanza: Element) => Promise<void>;
 
     headerElement() {
-        return new Element('foo');
+        return new Element("foo");
     }
 
     socketParameters(service: string) {
@@ -26,7 +26,7 @@ class Foo extends Connection implements middleware.Entity {
     }
 }
 
-const entity = new Foo({ service: 'foo', domain: 'foo.bar' });
+const entity = new Foo({ service: "foo", domain: "foo.bar" });
 
 const res = middleware({ entity }); // $ExpectType Middleware<Foo>
 // $ExpectType (ctx: IncomingContext<Foo>, next: Next) => Promise<void>
@@ -64,15 +64,15 @@ res.filter(async (ctx, next) => {
     ctx.resource; // $ExpectType string
 });
 
-const err = new StanzaError('foo');
-new StanzaError('foo', 'bar');
-new StanzaError('foo', 'bar', new Element('el'));
-new StanzaError('foo', 'bar', new Element('el'), 'baz');
+const err = new StanzaError("foo");
+new StanzaError("foo", "bar");
+new StanzaError("foo", "bar", new Element("el"));
+new StanzaError("foo", "bar", new Element("el"), "baz");
 
 err.name; // $ExpectType "StanzaError"
 err.type; // $ExpectType string | undefined
 
-let ctx = new Context<Foo>(entity, new Element('foo'));
+let ctx = new Context<Foo>(entity, new Element("foo"));
 ctx.stanza; // $ExpectType Element
 ctx.entity; // $ExpectType Foo
 ctx.name; // $ExpectType string
@@ -84,7 +84,7 @@ ctx.local; // $ExpectType string
 ctx.domain; // $ExpectType string
 ctx.resource; // $ExpectType string
 
-const oCtx = new OutgoingContext<Foo>(entity, new Element('foo'));
+const oCtx = new OutgoingContext<Foo>(entity, new Element("foo"));
 ctx = oCtx;
-const iCtx = new IncomingContext<Foo>(entity, new Element('foo'));
+const iCtx = new IncomingContext<Foo>(entity, new Element("foo"));
 ctx = iCtx;

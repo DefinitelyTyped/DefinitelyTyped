@@ -1,25 +1,5 @@
-// Type definitions for apollo-upload-client 17.0
-// Project: https://github.com/jaydenseric/apollo-upload-client#readme
-// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>,
-//                 tyankatsu <https://github.com/tyankatsu0105>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+// Despite not having any definitions, this file must exist on DefinitelyTyped.
+// Currently, the tooling assumes that this file exists and performs extra lints,
+// as well as using it to figure out where things are.
 
-// ==============================================================================
-// exports
-// ==============================================================================
-
-export { default as createUploadLink } from './public/createUploadLink';
-export { default as formDataAppendFile } from './public/formDataAppendFile';
-export { default as isExtractableFile } from './public/isExtractableFile';
-export { default as ReactNativeFile } from './public/ReactNativeFile';
-
-// ==============================================================================
-// declare
-// ==============================================================================
-
-declare global {
-    interface GlobalFetch {
-        fetch: WindowOrWorkerGlobalScope['fetch'];
-    }
-}
+export {};

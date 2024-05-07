@@ -1,7 +1,26 @@
 {
     "private": true,
+    "name": "@types/hapi__cookie",
+    "version": "12.0.9999",
+    "projects": [
+        "https://github.com/hapijs/cookie"
+    ],
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
+        "@types/node": "*",
         "joi": "^17.7.0"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi__cookie": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        },
+        {
+            "name": "Simon Schick",
+            "githubUsername": "SimonSchick"
+        }
+    ]
 }

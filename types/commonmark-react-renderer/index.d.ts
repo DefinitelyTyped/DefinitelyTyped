@@ -1,10 +1,5 @@
-// Type definitions for commonmark-react-renderer 4.3
-// Project: https://github.com/rexxars/commonmark-react-renderer#readme
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from "react";
 import { Node } from "commonmark";
+import * as React from "react";
 
 declare namespace ReactRenderer {
     interface CommonProps {
@@ -83,7 +78,9 @@ declare namespace ReactRenderer {
         allowedTypes?: string[] | undefined;
         disallowedTypes?: string[] | undefined;
         unwrapDisallowed?: boolean | undefined;
-        allowNode?: ((node: { type: string; renderer: string; props: unknown; children: unknown[] }) => unknown) | undefined;
+        allowNode?:
+            | ((node: { type: string; renderer: string; props: unknown; children: unknown[] }) => unknown)
+            | undefined;
         renderers?: Partial<Renderers> | undefined;
         transformLinkUri?: ((uri: string) => string) | null | undefined;
         transformImageUri?: ((uri: string) => string) | null | undefined;
@@ -109,7 +106,7 @@ declare namespace ReactRenderer {
 }
 
 interface ReactRenderer {
-    new (options?: ReactRenderer.Options): ReactRenderer.Renderer;
+    new(options?: ReactRenderer.Options): ReactRenderer.Renderer;
     uriTransformer: (uri: string) => string;
     types: string[];
     renderers: ReactRenderer.Renderers;

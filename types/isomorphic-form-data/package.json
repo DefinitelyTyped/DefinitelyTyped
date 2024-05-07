@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/isomorphic-form-data",
+    "version": "2.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/isomorphic-form-data"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "form-data": "^2.5.1"
-    }
+    },
+    "devDependencies": {
+        "@types/isomorphic-form-data": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
 }

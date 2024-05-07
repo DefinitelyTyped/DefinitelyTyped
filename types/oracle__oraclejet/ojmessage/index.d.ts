@@ -1,4 +1,4 @@
-import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import { JetElement, JetElementCustomEvent, JetSetPropertyType, JetSettableProperties } from "..";
 export interface ojMessage extends JetElement<ojMessageSettableProperties> {
     displayOptions: ojMessage.DisplayOptions;
     message: ojMessage.Message;
@@ -17,7 +17,11 @@ export interface ojMessage extends JetElement<ojMessageSettableProperties> {
     onOjAnimateEnd: ((event: ojMessage.ojAnimateEnd) => any) | null;
     onOjAnimateStart: ((event: ojMessage.ojAnimateStart) => any) | null;
     onOjClose: ((event: ojMessage.ojClose) => any) | null;
-    addEventListener<T extends keyof ojMessageEventMap>(type: T, listener: (this: HTMLElement, ev: ojMessageEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojMessageEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojMessageEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojMessageSettableProperties>(property: T): ojMessage[T];
     getProperty(property: string): any;
@@ -27,48 +31,54 @@ export interface ojMessage extends JetElement<ojMessageSettableProperties> {
     close(): void;
 }
 export namespace ojMessage {
-    interface ojAnimateEnd extends CustomEvent<{
-        element: Element;
-        action: 'open' | 'close';
-        [propName: string]: any;
-    }> {
+    interface ojAnimateEnd extends
+        CustomEvent<{
+            element: Element;
+            action: "open" | "close";
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojAnimateStart extends CustomEvent<{
-        element: Element;
-        action: 'open' | 'close';
-        endCallback: (() => void);
-        [propName: string]: any;
-    }> {
+    interface ojAnimateStart extends
+        CustomEvent<{
+            element: Element;
+            action: "open" | "close";
+            endCallback: () => void;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojClose extends CustomEvent<{
-        message: Message;
-        [propName: string]: any;
-    }> {
+    interface ojClose extends
+        CustomEvent<{
+            message: Message;
+            [propName: string]: any;
+        }>
+    {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DisplayOptions = {
-        category?: 'header' | 'none' | 'auto' | undefined;
+        category?: "header" | "none" | "auto" | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Message = {
         icon?: string | undefined;
         category?: string | undefined;
-        severity?: 'error' | 'warning' | 'confirmation' | 'info' | 'none' | undefined;
+        severity?: "error" | "warning" | "confirmation" | "info" | "none" | undefined;
         timestamp?: string | undefined;
         summary?: string | undefined;
         detail?: string | undefined;
         autoTimeout?: number | undefined;
-        closeAffordance?: 'none' | 'defaults' | undefined;
+        closeAffordance?: "none" | "defaults" | undefined;
         sound?: string | undefined;
     };
 }
 export interface ojMessageEventMap extends HTMLElementEventMap {
-    'ojAnimateEnd': ojMessage.ojAnimateEnd;
-    'ojAnimateStart': ojMessage.ojAnimateStart;
-    'ojClose': ojMessage.ojClose;
-    'displayOptionsChanged': JetElementCustomEvent<ojMessage["displayOptions"]>;
-    'messageChanged': JetElementCustomEvent<ojMessage["message"]>;
-    'translationsChanged': JetElementCustomEvent<ojMessage["translations"]>;
+    "ojAnimateEnd": ojMessage.ojAnimateEnd;
+    "ojAnimateStart": ojMessage.ojAnimateStart;
+    "ojClose": ojMessage.ojClose;
+    "displayOptionsChanged": JetElementCustomEvent<ojMessage["displayOptions"]>;
+    "messageChanged": JetElementCustomEvent<ojMessage["message"]>;
+    "translationsChanged": JetElementCustomEvent<ojMessage["translations"]>;
 }
 export interface ojMessageSettableProperties extends JetSettableProperties {
     displayOptions: ojMessage.DisplayOptions;

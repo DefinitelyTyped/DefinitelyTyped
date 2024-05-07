@@ -1,0 +1,67 @@
+{
+    "private": true,
+    "name": "@types/d3",
+    "version": "5.16.9999",
+    "projects": [
+        "https://github.com/d3/d3",
+        "https://d3js.org"
+    ],
+    "dependencies": {
+        "@types/d3-array": "^1",
+        "@types/d3-axis": "^1",
+        "@types/d3-brush": "^1",
+        "@types/d3-chord": "^1",
+        "@types/d3-collection": "*",
+        "@types/d3-color": "^1",
+        "@types/d3-contour": "^1",
+        "@types/d3-dispatch": "^1",
+        "@types/d3-drag": "^1",
+        "@types/d3-dsv": "^1",
+        "@types/d3-ease": "^1",
+        "@types/d3-fetch": "^1",
+        "@types/d3-force": "^1",
+        "@types/d3-format": "^1",
+        "@types/d3-geo": "^1",
+        "@types/d3-hierarchy": "^1",
+        "@types/d3-interpolate": "^1",
+        "@types/d3-path": "^1",
+        "@types/d3-polygon": "^1",
+        "@types/d3-quadtree": "^1",
+        "@types/d3-random": "^1",
+        "@types/d3-scale": "^2",
+        "@types/d3-scale-chromatic": "^1",
+        "@types/d3-selection": "^1",
+        "@types/d3-shape": "^1",
+        "@types/d3-time": "^1",
+        "@types/d3-time-format": "^2",
+        "@types/d3-timer": "^1",
+        "@types/d3-transition": "^1",
+        "@types/d3-voronoi": "*",
+        "@types/d3-zoom": "^1"
+    },
+    "devDependencies": {
+        "@types/d3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

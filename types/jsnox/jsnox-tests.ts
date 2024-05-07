@@ -9,10 +9,10 @@ interface PersonProps {
 }
 
 class Person extends React.Component<PersonProps> {
-    render(): React.ReactElement { return null; }
+    render(): React.ReactElement {
+        return null;
+    }
 }
-
-const PersonTag = React.createFactory(Person);
 
 declare const clickHandler: React.MouseEventHandler<{}>;
 
@@ -43,14 +43,14 @@ function react_component(): void {
     result = $(Person);
 
     // no properties, just children
-    result = $(Person, "hello");                         // one string child
-    result = $(Person, $("span", "world"));              // one element child
-    result = $(Person, ["hello", $("span", "world")]);   // mixed array of children
+    result = $(Person, "hello"); // one string child
+    result = $(Person, $("span", "world")); // one element child
+    result = $(Person, ["hello", $("span", "world")]); // mixed array of children
 
     // with component props
     const props: PersonProps = { firstName: "Bob", lastName: "Garfield", age: 72 };
-    result = $(Person, props);                           // no children
-    result = $(Person, props, "hello");                  // one string child
-    result = $(Person, props, $("span", "world"));       // one element child
-    result = $(Person, props, ["hello", PersonTag()]);   // mixed array of children
+    result = $(Person, props); // no children
+    result = $(Person, props, "hello"); // one string child
+    result = $(Person, props, $("span", "world")); // one element child
+    result = $(Person, props, ["hello", React.createElement(Person)]); // mixed array of children
 }

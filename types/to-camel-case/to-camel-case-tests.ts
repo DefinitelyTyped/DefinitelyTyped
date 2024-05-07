@@ -1,4 +1,4 @@
-import toCamelCase = require('to-camel-case');
+import toCamelCase = require("to-camel-case");
 
 // $ExpectType string
-toCamelCase('to-camel-case'); // => 'toCamelCase'
+toCamelCase("to-camel-case"); // => 'toCamelCase'

@@ -1,11 +1,3 @@
-// Type definitions for minimist 1.2
-// Project: https://github.com/substack/minimist
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Necroskillz <https://github.com/Necroskillz>
-//                 kamranayub <https://github.com/kamranayub>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Return an argument object populated with the array arguments from args
  *
@@ -74,7 +66,7 @@ declare namespace minimist {
          * When true, populate argv._ with everything before the -- and argv['--'] with everything after the --.
          * Note that with -- set, parsing for arguments still stops after the `--`.
          */
-        '--'?: boolean | undefined;
+        "--"?: boolean | undefined;
     }
 
     interface ParsedArgs {
@@ -83,7 +75,7 @@ declare namespace minimist {
         /**
          * If opts['--'] is true, populated with everything after the --
          */
-        '--'?: string[] | undefined;
+        "--"?: string[] | undefined;
 
         /**
          * Contains all the arguments that didn't have an option associated with them

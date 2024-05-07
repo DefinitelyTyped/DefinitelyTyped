@@ -1,8 +1,3 @@
-// Type definitions for system-locale 0.1
-// Project: https://github.com/derhuerst/system-locale
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = systemLocale;
 
 /**

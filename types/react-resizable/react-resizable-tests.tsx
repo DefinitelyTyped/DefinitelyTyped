@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Resizable, ResizableBox, ResizeCallbackData } from 'react-resizable';
+import * as React from "react";
+import { Resizable, ResizableBox, ResizeCallbackData } from "react-resizable";
 
 const resizeCallback = (event: React.SyntheticEvent, data: ResizeCallbackData) => {
     console.log(data.size.height);
@@ -13,7 +13,7 @@ class TestResizableComponent extends React.Component<{ children?: React.ReactNod
                 width={10}
                 height={20}
                 axis="y"
-                className={'foobar'}
+                className={"foobar"}
                 minConstraints={[20, 20]}
                 maxConstraints={[42, 42]}
                 handleSize={[5, 5]}
@@ -24,7 +24,7 @@ class TestResizableComponent extends React.Component<{ children?: React.ReactNod
                 onResize={resizeCallback}
                 transformScale={1}
             >
-                <div>{this.props.children} </div>
+                <div>{this.props.children}</div>
             </Resizable>
         );
     }
@@ -51,7 +51,7 @@ class TestResizableBoxComponent extends React.Component<{ children?: React.React
 class TestStyledResizableBoxComponent extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return (
-            <ResizableBox width={10} height={20} style={{ color: 'pink' }}>
+            <ResizableBox width={10} height={20} style={{ color: "pink" }}>
                 <div>{this.props.children}</div>
             </ResizableBox>
         );
@@ -64,7 +64,7 @@ class TestXResizableComponent extends React.Component<{ children?: React.ReactNo
             <Resizable
                 width={10}
                 axis="x"
-                className={'foobar'}
+                className={"foobar"}
                 minConstraints={[20, 20]}
                 maxConstraints={[42, 42]}
                 handleSize={[5, 5]}
@@ -75,7 +75,7 @@ class TestXResizableComponent extends React.Component<{ children?: React.ReactNo
                 onResize={resizeCallback}
                 transformScale={1}
             >
-                <div>{this.props.children} </div>
+                <div>{this.props.children}</div>
             </Resizable>
         );
     }
@@ -87,7 +87,7 @@ class TestYResizableComponent extends React.Component<{ children?: React.ReactNo
             <Resizable
                 height={20}
                 axis="y"
-                className={'foobar'}
+                className={"foobar"}
                 minConstraints={[20, 20]}
                 maxConstraints={[42, 42]}
                 handleSize={[5, 5]}
@@ -98,7 +98,7 @@ class TestYResizableComponent extends React.Component<{ children?: React.ReactNo
                 onResize={resizeCallback}
                 transformScale={1}
             >
-                <div>{this.props.children} </div>
+                <div>{this.props.children}</div>
             </Resizable>
         );
     }
@@ -111,7 +111,7 @@ class TestXYResizableComponent extends React.Component<{ children?: React.ReactN
                 width={10}
                 height={20}
                 axis="both"
-                className={'foobar'}
+                className={"foobar"}
                 minConstraints={[20, 20]}
                 maxConstraints={[42, 42]}
                 handleSize={[5, 5]}
@@ -122,7 +122,7 @@ class TestXYResizableComponent extends React.Component<{ children?: React.ReactN
                 onResize={resizeCallback}
                 transformScale={1}
             >
-                <div>{this.props.children} </div>
+                <div>{this.props.children}</div>
             </Resizable>
         );
     }

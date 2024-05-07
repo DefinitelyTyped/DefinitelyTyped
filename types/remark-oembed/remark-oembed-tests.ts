@@ -1,5 +1,5 @@
-import remark = require('remark');
-import remarkOEmbed = require('remark-oembed');
+import remark = require("remark");
+import remarkOEmbed = require("remark-oembed");
 
 remark.remark().use(remarkOEmbed);
 remark.remark().use(remarkOEmbed, {

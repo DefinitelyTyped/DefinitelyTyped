@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import PlanarView from "../Core/Prefab/PlanarView";
 
-// TODO: hidden property
+// TODO: Define public API
 
 // export enum keys {
 //     CTRL = 17,
@@ -20,7 +20,7 @@ export enum STATE {
 }
 
 export enum PLANAR_CONTROL_EVENT {
-    MOVED = 'moved',
+    MOVED = "moved",
 }
 
 interface PlanarControls {

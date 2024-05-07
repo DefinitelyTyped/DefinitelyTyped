@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/use-sync-external-store",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/facebook/react#readme"
+    ],
+    "devDependencies": {
+        "@types/use-sync-external-store": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "eps1lon",
+            "githubUsername": "eps1lon"
+        },
+        {
+            "name": "Mark Erikson",
+            "githubUsername": "markerikson"
+        }
+    ]
+}

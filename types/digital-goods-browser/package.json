@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/digital-goods-browser",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Digital Goods API",
+    "projects": [
+        "https://wicg.github.io/digital-goods/"
+    ],
+    "devDependencies": {
+        "@types/digital-goods-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vantezzen",
+            "githubUsername": "vantezzen"
+        }
+    ]
+}

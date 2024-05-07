@@ -4,10 +4,10 @@ interface FileInputContext {
 }
 
 interface FileInput {
-    init(root: HTMLElement | Document): void;
-    teardown(root: HTMLElement | Document): void;
-    on(el: HTMLElement): void;
-    off(el: HTMLElement): void;
+    init(root?: HTMLElement | Document): void;
+    teardown(root?: HTMLElement | Document): void;
+    on(el?: HTMLElement): void;
+    off(el?: HTMLElement): void;
     /**
      * Get an object of the properties and elements belonging directly to the given
      * file input component.

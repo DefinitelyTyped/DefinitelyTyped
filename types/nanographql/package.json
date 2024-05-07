@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nanographql",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/yoshuawuyts/nanographql"
+    ],
+    "devDependencies": {
+        "@types/nanographql": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Dieringer",
+            "githubUsername": "cdaringe"
+        }
+    ]
+}

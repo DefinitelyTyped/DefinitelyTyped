@@ -1,3 +1,0 @@
-lib/ThemedStyleSheet.d.ts
-lib/WithStylesContext.d.ts
-lib/hooks/useStyles.d.ts

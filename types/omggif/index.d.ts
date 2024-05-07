@@ -1,9 +1,3 @@
-// Type definitions for omggif 1.0
-// Project: https://github.com/deanm/omggif
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Can be any type that supports the bracket accessor: Array, Uint8Array, Node Buffer, etc.
  */

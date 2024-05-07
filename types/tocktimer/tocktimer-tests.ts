@@ -1,4 +1,4 @@
-import tock = require('tocktimer');
+import tock = require("tocktimer");
 
 let timer: tock.Tock;
 
@@ -13,7 +13,7 @@ opts = {
     },
     complete: () => {
         // Ding ding...time's up
-    }
+    },
 };
 
 // Create a tock instance
@@ -25,4 +25,4 @@ timer.msToTimecode(Date.now());
 timer.pause();
 timer.reset();
 timer.stop();
-timer.timeToMS('12:51');
+timer.timeToMS("12:51");

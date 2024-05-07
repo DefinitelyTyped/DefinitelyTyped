@@ -1,4 +1,4 @@
-import stringify = require('json-stringify-safe');
+import stringify = require("json-stringify-safe");
 
 interface CircularObj {
     circularRef?: CircularObj | undefined;
@@ -13,13 +13,18 @@ stringify(circularObj);
 stringify(circularObj, null);
 stringify(circularObj, null, 2);
 stringify(circularObj, null, null, () => {});
-stringify(circularObj, (key, val) => {
-    key; // $ExpectType string
-    val; // $ExpectType any
-}, null, (key, val) => {
-    key; // $ExpectType string
-    val; // $ExpectType any
-});
+stringify(
+    circularObj,
+    (key, val) => {
+        key; // $ExpectType string
+        val; // $ExpectType any
+    },
+    null,
+    (key, val) => {
+        key; // $ExpectType string
+        val; // $ExpectType any
+    },
+);
 
 // $ExpectType EntryProcessor
 stringify.getSerialize(null, (key, val) => {

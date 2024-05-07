@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { StyleSheet, View, Animated, Easing, ViewStyle, Insets } from 'react-native';
-import Ripple from 'react-native-material-ripple';
+import * as React from "react";
+import { Animated, Easing, Insets, StyleSheet, View, ViewStyle } from "react-native";
+import Ripple from "react-native-material-ripple";
 
 const RippleTestOptionalProps: React.FC = () => {
     return <Ripple />;
@@ -8,7 +8,7 @@ const RippleTestOptionalProps: React.FC = () => {
 
 const RippleTest: React.FC = () => {
     const aNumber = 10;
-    const aString = 'string';
+    const aString = "string";
     const callback = () => {};
     const predicate = () => true;
 
@@ -38,7 +38,7 @@ const RippleTest: React.FC = () => {
             rippleFades={false}
             disabled={false}
             onRippleAnimation={callback}
-            accessibilityActions={[{ name: 'activate' }]}
+            accessibilityActions={[{ name: "activate" }]}
             accessibilityElementsHidden
             accessibilityHint="string"
             accessibilityIgnoresInvertColors

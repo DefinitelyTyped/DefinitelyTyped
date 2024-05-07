@@ -1,5 +1,5 @@
-import asyncBusboy = require('async-busboy');
-import { IncomingMessage } from 'http';
+import asyncBusboy = require("async-busboy");
+import { IncomingMessage } from "http";
 
 // test type exports
 type Options = asyncBusboy.Options;
@@ -12,7 +12,7 @@ declare const req: IncomingMessage;
 
 const resultPromise = asyncBusboy(req); // $ExpectType Promise<Result>
 asyncBusboy(req, {}); // $ExpectType Promise<Result>
-asyncBusboy(req, { headers: { 'content-type': 'foo' } }); // $ExpectType Promise<Result>
+asyncBusboy(req, { headers: { "content-type": "foo" } }); // $ExpectType Promise<Result>
 asyncBusboy(req, { highWaterMark: 10 }); // $ExpectType Promise<Result>
 
 const onFileResultPromise = asyncBusboy(req, {

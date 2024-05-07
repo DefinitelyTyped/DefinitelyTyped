@@ -1,8 +1,4 @@
-// Type definitions for intercept-stdout 0.1
-// Project: https://github.com/sfarthin/intercept-stdout
-// Definitions by: Paulo Castro <https://github.com/pdcastro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type hookFunction = (txt: string) => string | void;
 type unhookFunction = () => void;
 

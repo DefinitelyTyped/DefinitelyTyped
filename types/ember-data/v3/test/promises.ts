@@ -1,8 +1,8 @@
-import ArrayProxy from '@ember/array/proxy';
-import DS from 'ember-data';
-import RSVP from 'rsvp';
+import ArrayProxy from "@ember/array/proxy";
+import DS from "ember-data";
+import RSVP from "rsvp";
 
-import { assertType } from './lib/assert';
+import { assertType } from "./lib/assert";
 
 declare const store: DS.Store;
 
@@ -10,17 +10,17 @@ class Person extends DS.Model {
     firstName = DS.attr();
 }
 
-declare module 'ember-data/types/registries/model' {
+declare module "ember-data/types/registries/model" {
     export default interface ModelRegistry {
         person: Person;
     }
 }
 
-const promiseFind = store.findRecord('person', 1);
+const promiseFind = store.findRecord("person", 1);
 
 promiseFind.content; // $ExpectType Person | undefined
 
-promiseFind.get('firstName');
+promiseFind.get("firstName");
 
 let promiseArray = DS.PromiseArray.create({ promise: RSVP.Promise.resolve([1]) });
 
@@ -31,5 +31,5 @@ let promiseObjectNull = DS.PromiseObject.create({ promise: RSVP.Promise.resolve(
 declare const objectOrNull: { value: number } | null;
 let promiseObjectValueOrNull = DS.PromiseObject.create({ promise: RSVP.Promise.resolve(objectOrNull) });
 
-let promiseManyArray = DS.PromiseManyArray.create({ promise: store.findAll('person') });
+let promiseManyArray = DS.PromiseManyArray.create({ promise: store.findAll("person") });
 assertType<RSVP.Promise<ArrayProxy<DS.Model>>>(promiseManyArray.promise);

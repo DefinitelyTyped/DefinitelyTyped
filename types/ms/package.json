@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ms",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/zeit/ms"
+    ],
+    "devDependencies": {
+        "@types/ms": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zhiyuan Wang",
+            "githubUsername": "danny8002"
+        }
+    ]
+}

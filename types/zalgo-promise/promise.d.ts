@@ -18,7 +18,10 @@ export class ZalgoPromise<R> {
     then<X>(onSuccess?: (result: R) => ZalgoPromise<X>, onError?: (error: any) => ZalgoPromise<X>): ZalgoPromise<X>;
     then<Y>(onSuccess?: (result: R) => Y, onError?: (error: any) => Y): ZalgoPromise<Y>;
     // to support mixed promise/non-promise return types
-    then<X, Y>(onSuccess: (result: R) => ZalgoPromise<X> | Y, onError: (error: any) => ZalgoPromise<X> | Y): ZalgoPromise<X | Y>;
+    then<X, Y>(
+        onSuccess: (result: R) => ZalgoPromise<X> | Y,
+        onError: (error: any) => ZalgoPromise<X> | Y,
+    ): ZalgoPromise<X | Y>;
 
     catch<X>(onError: (error: any) => ZalgoPromise<X>): ZalgoPromise<X>;
     catch<Y>(onError: (error: any) => Y): ZalgoPromise<Y>;
@@ -43,14 +46,26 @@ export class ZalgoPromise<R> {
 
     static hash<O extends {}>(promises: O): ZalgoPromise<FlattenPromises<O>>;
 
-    static map<T, X>(items: readonly T[], method: (item: T) => (ZalgoPromise<X> | X)): ZalgoPromise<readonly X[]>;
+    static map<T, X>(items: readonly T[], method: (item: T) => ZalgoPromise<X> | X): ZalgoPromise<readonly X[]>;
 
-    static onPossiblyUnhandledException(handler: (err: any) => void): {cancel: () => void};
+    static onPossiblyUnhandledException(handler: (err: any) => void): { cancel: () => void };
 
     // to support conditional promising returning method
-    static try<X, A extends readonly any[]>(method: (...args: A) => ZalgoPromise<X> | undefined, context?: any, args?: Partial<A>): ZalgoPromise<X | undefined>;
-    static try<X, A extends readonly any[]>(method: (...args: A) => ZalgoPromise<X>, context?: any, args?: Partial<A>): ZalgoPromise<X>;
-    static try<Y, A extends readonly any[]>(method: (...args: A) => Y, context?: any, args?: Partial<A>): ZalgoPromise<Y>;
+    static try<X, A extends readonly any[]>(
+        method: (...args: A) => ZalgoPromise<X> | undefined,
+        context?: any,
+        args?: Partial<A>,
+    ): ZalgoPromise<X | undefined>;
+    static try<X, A extends readonly any[]>(
+        method: (...args: A) => ZalgoPromise<X>,
+        context?: any,
+        args?: Partial<A>,
+    ): ZalgoPromise<X>;
+    static try<Y, A extends readonly any[]>(
+        method: (...args: A) => Y,
+        context?: any,
+        args?: Partial<A>,
+    ): ZalgoPromise<Y>;
 
     static delay(delay: number): ZalgoPromise<void>;
 

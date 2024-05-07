@@ -1,12 +1,6 @@
-// Type definitions for @rdfjs/parser-jsonld 2.1
-// Project: https://github.com/rdfjs-base/parser-jsonld
-// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
-//                 tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Context } from 'jsonld/jsonld-spec.js';
-import { DataFactory, Sink, Stream, BaseQuad, Quad } from 'rdf-js';
-import { EventEmitter } from 'events';
+import { BaseQuad, DataFactory, Quad, Sink, Stream } from "@rdfjs/types";
+import { EventEmitter } from "events";
+import { Context } from "jsonld/jsonld-spec.js";
 
 export interface ParserOptions {
     baseIRI?: string | undefined;

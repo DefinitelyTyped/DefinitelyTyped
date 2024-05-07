@@ -1,9 +1,9 @@
-import * as Headers from './handlers/header';
-import * as Blocks from './handlers/blocks';
-import * as Entities from './handlers/entities';
-import * as Tables from './handlers/tables';
-import * as Common from './Common';
-import * as Utils from './Utils';
+import * as Common from "./Common";
+import * as Blocks from "./handlers/blocks";
+import * as Entities from "./handlers/entities";
+import * as Headers from "./handlers/header";
+import * as Tables from "./handlers/tables";
+import * as Utils from "./Utils";
 
 export interface FileInfo {
     header: Headers.Header;

@@ -1,6 +1,36 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/express-serve-static-core": "^4.17.33"
-  }
+    "private": true,
+    "name": "@types/express",
+    "version": "4.17.9999",
+    "projects": [
+        "http://expressjs.com"
+    ],
+    "dependencies": {
+        "@types/body-parser": "*",
+        "@types/express-serve-static-core": "^4.17.33",
+        "@types/qs": "*",
+        "@types/serve-static": "*"
+    },
+    "devDependencies": {
+        "@types/express": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "China Medical University Hospital",
+            "githubUsername": "CMUH"
+        },
+        {
+            "name": "Puneet Arora",
+            "githubUsername": "puneetar"
+        },
+        {
+            "name": "Dylan Frankland",
+            "githubUsername": "dfrankland"
+        }
+    ]
 }

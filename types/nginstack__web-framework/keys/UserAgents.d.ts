@@ -1,3 +1,3 @@
-export const ALL: number;
-export const WEBKIT_MOBILE: number;
-export const WEBKIT_IPAD: number;
+export let ALL: number;
+export let WEBKIT_MOBILE: number;
+export let WEBKIT_IPAD: number;

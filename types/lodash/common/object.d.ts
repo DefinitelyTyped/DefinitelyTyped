@@ -1327,6 +1327,7 @@ declare module "../index" {
          * _.has(other, 'a');
          * // => false
          */
+        has<T, K extends PropertyName>(object: T, path: K): object is T & { [P in K]: P extends keyof T ? T[P] : Record<string, unknown> extends T ? T[keyof T] : unknown};
         has<T>(object: T, path: PropertyPath): boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
@@ -2324,7 +2325,7 @@ declare module "../index" {
          * @param accumulator The custom accumulator value.
          * @return Returns the accumulated value.
          */
-        transform<T, TResult>(object: ReadonlyArray<T>, iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
+        transform<T, TResult>(object: readonly T[], iteratee: MemoVoidArrayIterator<T, TResult>, accumulator?: TResult): TResult;
         /**
          * @see _.transform
          */

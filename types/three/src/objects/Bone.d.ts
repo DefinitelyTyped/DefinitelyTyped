@@ -1,4 +1,4 @@
-import { Object3D } from './../core/Object3D.js';
+import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 
 /**
  * A {@link Bone} which is part of a {@link THREE.Skeleton | Skeleton}
@@ -15,7 +15,7 @@ import { Object3D } from './../core/Object3D.js';
  * @see {@link https://threejs.org/docs/index.html#api/en/objects/Bone | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/objects/Bone.js | Source}
  */
-export class Bone extends Object3D {
+export class Bone<TEventMap extends Object3DEventMap = Object3DEventMap> extends Object3D<TEventMap> {
     /**
      * Creates a new {@link Bone}.
      */
@@ -32,5 +32,5 @@ export class Bone extends Object3D {
      * @override
      * @defaultValue `Bone`
      */
-    override readonly type: string | 'Bone';
+    override readonly type: string | "Bone";
 }

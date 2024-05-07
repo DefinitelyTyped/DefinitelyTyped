@@ -179,12 +179,18 @@ declare namespace GoogleAppsScript {
             hostApp: HostApplication;
             formInputs: {
                 [ID: string]: {
+                    // For Rhino, always one key only <"">
                     "": {
                         stringInputs?: StringInputObject | undefined;
                         dateInput?: DateInputObject | undefined;
                         timeInput?: TimeInputObject | undefined;
                         dateTimeInput?: DateTimeInputObject | undefined;
-                    }; // always one key only <"">
+                    };
+                    // For V8 (recommended)
+                    stringInputs?: StringInputObject | undefined;
+                    dateInput?: DateInputObject | undefined;
+                    timeInput?: TimeInputObject | undefined;
+                    dateTimeInput?: DateTimeInputObject | undefined;
                 };
             };
         }

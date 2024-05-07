@@ -7,7 +7,7 @@ declare namespace CKEDITOR {
     namespace plugins {
         namespace cloudservices {
             interface cloudServicesLoaderConstructor extends fileTools.fileLoaderConstructor {
-                new (editor: editor, fileOrData: Blob | string, fileName?: string, token?: string): cloudServicesLoader;
+                new(editor: editor, fileOrData: Blob | string, fileName?: string, token?: string): cloudServicesLoader;
             }
             interface cloudServicesLoader extends fileTools.fileLoader {
                 customToken: string;

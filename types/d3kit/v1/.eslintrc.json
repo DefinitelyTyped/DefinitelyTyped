@@ -1,8 +1,9 @@
 {
     "rules": {
-        "dt-header": "off",
-        "export-just-namespace": "off",
-        "trim-file": "off",
-        "no-any-union": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/export-just-namespace": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

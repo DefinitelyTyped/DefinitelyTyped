@@ -1,19 +1,13 @@
-// Type definitions for redux-logger 3.0
-// Project: https://github.com/theaqua/redux-logger
-// Definitions by: Alexander Rusakov <https://github.com/arusakov>
-//                 Kevin Groat <https://github.com/kgroat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace ReduxLogger;
 
-import * as Redux from 'redux';
+import * as Redux from "redux";
 
 export const logger: Redux.Middleware;
 
 export type LoggerPredicate = (
     getState: () => any,
     action: any,
-    logEntry?: LogEntryObject
+    logEntry?: LogEntryObject,
 ) => boolean;
 
 export type StateToString = (state: any) => string;

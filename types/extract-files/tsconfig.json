@@ -9,16 +9,14 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
+        "extractFiles.d.mts",
+        "isExtractableFile.d.mts",
         "extract-files-tests.ts"
     ]
 }

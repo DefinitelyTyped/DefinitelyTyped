@@ -1,9 +1,3 @@
-// Type definitions for whatwg-mimetype 3.0
-// Project: https://github.com/jsdom/whatwg-mimetype#readme
-// Definitions by: Pete Johanson <https://github.com/petejohanson>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = MIMEType;
 
 /**

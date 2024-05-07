@@ -1,5 +1,5 @@
-import curlirize from 'axios-curlirize';
-import axios from 'axios';
+import axios from "axios";
+import curlirize from "axios-curlirize";
 
 const Axios = axios.create({});
 curlirize(Axios);

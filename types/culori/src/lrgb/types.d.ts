@@ -1,5 +1,5 @@
 export interface Lrgb {
-    mode: 'lrgb';
+    mode: "lrgb";
     r: number;
     g: number;
     b: number;

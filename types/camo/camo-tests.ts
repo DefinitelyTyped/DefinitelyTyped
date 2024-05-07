@@ -1,9 +1,4 @@
-import {
-    connect,
-    Document as CamoDocument,
-    DocumentSchema,
-    SchemaTypeExtended
-} from "camo";
+import { connect, Document as CamoDocument, DocumentSchema, SchemaTypeExtended } from "camo";
 
 connect("mongodb://user:password@localhost:27017/database?authSource=admin").then(() => {
     let document = new CamoDocument();
@@ -21,7 +16,7 @@ connect("mongodb://user:password@localhost:27017/database?authSource=admin").the
         private readonly friends: SchemaTypeExtended = [String];
         private readonly dateCreated: SchemaTypeExtended = {
             type: Date,
-            default: Date.now
+            default: Date.now,
         };
         static collectionName() {
             return "users";
@@ -31,11 +26,10 @@ connect("mongodb://user:password@localhost:27017/database?authSource=admin").the
     var newUser = User.create<UserSchema>({
         name: "user-1",
         password: "secret",
-        friends: ["user-2", "user-3"]
+        friends: ["user-2", "user-3"],
     });
 
     newUser.save().then(done => {
         console.log(done._id);
     });
-
 });

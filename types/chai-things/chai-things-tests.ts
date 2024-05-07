@@ -1,7 +1,5 @@
-
-
-import * as chai from 'chai';
-import * as chaiThings from 'chai-things';
+import * as chai from "chai";
+import * as chaiThings from "chai-things";
 chai.use(chaiThings);
 
 function test_somethingSyntax() {
@@ -14,18 +12,18 @@ function test_somethingSyntax() {
     array.should.include.something.that.not.deep.equals({ b: 2 });
     array.should.not.include.something.that.deep.equals({ c: 3 });
     array.should.include.something.that.not.deep.equals({ c: 3 });
-    array.should.include.something.with.property('b', 2);
-    array.should.not.include.something.with.property('b', 3);
+    array.should.include.something.with.property("b", 2);
+    array.should.not.include.something.with.property("b", 3);
 
     chai.expect(array).to.include.something();
     chai.expect(array).to.include.something.that.deep.equals({ b: 2 });
     chai.expect(array).to.include.something.that.not.deep.equals({ b: 2 });
     chai.expect(array).not.to.include.something.that.deep.equals({ c: 3 });
     chai.expect(array).to.include.something.that.not.deep.equals({ c: 3 });
-    chai.expect(array).to.include.something.with.property('b', 2);
-    chai.expect(array).not.to.include.something.with.property('b', 3);
+    chai.expect(array).to.include.something.with.property("b", 2);
+    chai.expect(array).not.to.include.something.with.property("b", 3);
 
-    var array2 = [{ a: 'b' }, { a: 'b' }];
+    var array2 = [{ a: "b" }, { a: "b" }];
     array2.should.include.something.that.have.property("a");
     array2.should.include.something.that.have.property("a").not.equal("d");
     chai.expect(array2).to.include.something.that.have.property("a");
@@ -53,7 +51,7 @@ function test_somethingVariantsSyntax() {
     chai.expect(array).to.include.some();
     chai.expect(array).to.include.some.that.deep.equal({ b: 2 });
     chai.expect(array).to.contain.a.thing();
-    chai.expect(array).to.contain.a.thing.with.property('a', 1);
+    chai.expect(array).to.contain.a.thing.with.property("a", 1);
 }
 
 function test_allSyntax() {
@@ -72,7 +70,7 @@ function test_allSyntax() {
     array2.should.not.all.not.equal(1);
     array2.should.not.all.not.equal(2);
 
-    var array3 = [{ a: 'b' }, { a: 'c' }];
+    var array3 = [{ a: "b" }, { a: "c" }];
     array3.should.all.have.property("a");
     array3.should.all.have.property("a").not.equal("d");
 }

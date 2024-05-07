@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/jquery.fancytree",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/mar10/fancytree"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/jqueryui": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.fancytree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Palotas",
+            "githubUsername": "alphaleonis"
+        },
+        {
+            "name": "Mahdi Abedi",
+            "githubUsername": "abedi-ir"
+        },
+        {
+            "name": "Nikolai Ommundsen",
+            "githubUsername": "niikoo"
+        },
+        {
+            "name": "Nitecube",
+            "githubUsername": "Nitecube"
+        },
+        {
+            "name": "Hossein Hosni",
+            "githubUsername": "hosni"
+        }
+    ]
+}

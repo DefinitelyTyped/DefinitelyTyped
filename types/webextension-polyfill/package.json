@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webextension-polyfill",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/mozilla/webextension-polyfill"
+    ],
+    "devDependencies": {
+        "@types/webextension-polyfill": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Santo Pfingsten",
+            "githubUsername": "Lusito"
+        }
+    ]
+}

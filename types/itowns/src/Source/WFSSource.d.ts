@@ -6,7 +6,7 @@ export interface WFSSourceOptions extends SourceOptions {
     typeName: string;
     crs: string;
     version?: string;
-    zoom?: { min: number, max: number };
+    zoom?: { min: number; max: number };
     vendorSpecific?: Record<string, string>;
 }
 
@@ -16,7 +16,7 @@ declare class WFSSource extends Source {
     readonly isWFSSource: boolean;
     typeName: string;
     version: string;
-    zoom: { min: number, max: number };
+    zoom: { min: number; max: number };
     vendorSpecific?: Record<string, string>;
 
     urlFromExtent(extent: any): string;

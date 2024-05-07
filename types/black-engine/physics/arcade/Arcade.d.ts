@@ -13,8 +13,20 @@ export class Arcade extends System {
     private mIterations;
     private mSleepEnabled;
     delta: number;
-    collisionInfo(colliderA: Collider, colliderB: Collider, cb: (...params: any[]) => void, ctx: any, ...args: any[]): void;
-    isColliding(bodyA: RigidBody, bodyB?: RigidBody, cb?: (...params: any[]) => void, ctx?: any, ...args: any[]): boolean;
+    collisionInfo(
+        colliderA: Collider,
+        colliderB: Collider,
+        cb: (...params: any[]) => void,
+        ctx: any,
+        ...args: any[]
+    ): void;
+    isColliding(
+        bodyA: RigidBody,
+        bodyB?: RigidBody,
+        cb?: (...params: any[]) => void,
+        ctx?: any,
+        ...args: any[]
+    ): boolean;
     onChildrenAdded(gameObject: any): void;
     onChildrenRemoved(gameObject: any): void;
     onComponentAdded(child: any, component: any): void;
@@ -38,6 +50,6 @@ export class Arcade extends System {
     set sleepEnabled(arg: boolean);
     get sleepEnabled(): boolean;
 }
-import { System } from '../../core/System';
-import { Collider } from '../../colliders/Collider';
-import { RigidBody } from '../RigidBody';
+import { Collider } from "../../colliders/Collider";
+import { System } from "../../core/System";
+import { RigidBody } from "../RigidBody";

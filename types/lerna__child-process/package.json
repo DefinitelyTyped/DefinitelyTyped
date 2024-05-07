@@ -1,6 +1,22 @@
 {
-    "private":true,
+    "private": true,
+    "name": "@types/lerna__child-process",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/lerna/lerna/blob/main/core/child-process"
+    ],
     "dependencies": {
-        "execa":"^5.0.0"
-    }
+        "@types/lerna__package": "*",
+        "@types/node": "*",
+        "execa": "^5.0.0"
+    },
+    "devDependencies": {
+        "@types/lerna__child-process": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "donmahallem",
+            "githubUsername": "donmahallem"
+        }
+    ]
 }

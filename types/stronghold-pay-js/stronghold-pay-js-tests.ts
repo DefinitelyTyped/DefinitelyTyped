@@ -1,9 +1,9 @@
 import Stronghold = require("stronghold-pay-js");
 
 function test_add_payment_source() {
-    const client = Stronghold.Pay({ publishableKey: 'publishableKey', environment: Stronghold.ENVIRONMENT.sandbox });
+    const client = Stronghold.Pay({ publishableKey: "publishableKey", environment: Stronghold.ENVIRONMENT.sandbox });
 
-    client.addPaymentSource('customer_token', {
+    client.addPaymentSource("customer_token", {
         onSuccess: (paymentSource) => {
             console.log(paymentSource.id);
             console.log(paymentSource.label);
@@ -13,10 +13,10 @@ function test_add_payment_source() {
 }
 
 function test_update_payment_source() {
-    const client = Stronghold.Pay({ publishableKey: 'publishableKey', environment: Stronghold.ENVIRONMENT.sandbox });
+    const client = Stronghold.Pay({ publishableKey: "publishableKey", environment: Stronghold.ENVIRONMENT.sandbox });
 
-    client.updatePaymentSource('customer_token', {
-        paymentSourceId: 'payment_source_id',
+    client.updatePaymentSource("customer_token", {
+        paymentSourceId: "payment_source_id",
         onSuccess: (paymentSource) => {
             console.log(paymentSource.id);
             console.log(paymentSource.label);
@@ -26,19 +26,19 @@ function test_update_payment_source() {
 }
 
 function test_charge() {
-    const client = Stronghold.Pay({ publishableKey: 'publishableKey', environment: Stronghold.ENVIRONMENT.sandbox });
+    const client = Stronghold.Pay({ publishableKey: "publishableKey", environment: Stronghold.ENVIRONMENT.sandbox });
 
-    client.charge('customer_token', {
+    client.charge("customer_token", {
         charge: {
             amount: 4950,
-            paymentSourceId: 'payment_source_id',
-            externalId: 'qwerty123456789',
+            paymentSourceId: "payment_source_id",
+            externalId: "qwerty123456789",
         },
         authorizeOnly: true,
         tip: {
             amount: 300,
-            beneficiaryName: 'Joe',
-            details: {drawerId: 'drawer', terminalId: 'terminal'}
+            beneficiaryName: "Joe",
+            details: { drawerId: "drawer", terminalId: "terminal" },
         },
         onSuccess: (charge) => {
             console.log(charge.id);
@@ -51,16 +51,16 @@ function test_charge() {
 }
 
 function test_tip() {
-    const client = Stronghold.Pay({ publishableKey: 'publishableKey', environment: Stronghold.ENVIRONMENT.sandbox });
+    const client = Stronghold.Pay({ publishableKey: "publishableKey", environment: Stronghold.ENVIRONMENT.sandbox });
 
-    client.tip('customer_token', {
+    client.tip("customer_token", {
         authorizeOnly: true,
         tip: {
             amount: 300,
-            beneficiaryName: 'Joe',
-            chargeId: 'charge_id',
-            paymentSourceId: 'payment_source_id',
-            details: {drawerId: 'drawer', terminalId: 'terminal'}
+            beneficiaryName: "Joe",
+            chargeId: "charge_id",
+            paymentSourceId: "payment_source_id",
+            details: { drawerId: "drawer", terminalId: "terminal" },
         },
         onSuccess: (tip) => {
             console.log(tip.id);

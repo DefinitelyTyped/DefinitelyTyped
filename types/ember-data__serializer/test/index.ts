@@ -1,11 +1,11 @@
-import Serializer from '@ember-data/serializer';
-import ModelRegistry from 'ember-data/types/registries/model';
-import Store from '@ember-data/store';
-import Model from '@ember-data/model';
-import DS, { AttributeSchema, ModelSchema, RelationshipSchema } from 'ember-data';
+import Model from "@ember-data/model";
+import Serializer from "@ember-data/serializer";
+import Store from "@ember-data/store";
+import DS, { AttributeSchema, ModelSchema, RelationshipSchema } from "ember-data";
+import ModelRegistry from "ember-data/types/registries/model";
 
 class FakeModelSchema implements ModelSchema {
-    modelName = 'fake-model' as const;
+    modelName = "fake-model" as const;
     fields = new Map();
     attributes = new Map();
     relationshipsByName = new Map();
@@ -24,9 +24,9 @@ class FakeModel extends DS.Model.extend({
     works: DS.attr(),
 }) {}
 
-declare module 'ember-data/types/registries/model' {
+declare module "ember-data/types/registries/model" {
     export default interface ModelRegistry {
-        'fake-model': FakeModel;
+        "fake-model": FakeModel;
     }
 }
 
@@ -34,6 +34,6 @@ class MySerializer extends Serializer {
     someMethod() {
         // has types from Serializer
         this.store; // $ExpectType Store
-        this.normalize(new FakeModelSchema(), { works: 'yep' }); // $ExpectType {}
+        this.normalize(new FakeModelSchema(), { works: "yep" }); // $ExpectType {}
     }
 }

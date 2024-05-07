@@ -28,7 +28,7 @@ interface ScopedQueryCondition {
     addCondition(
         name: string,
         oper: QueryOperator,
-        value: object | string | number
+        value: object | string | number,
     ): ScopedQueryCondition;
 
     /**

@@ -1,5 +1,6 @@
-import type { Vector3D } from '../math';
-import type Zone from './Zone';
+import * as THREE from "three";
+import type { Vector3D } from "../math";
+import type Zone from "./Zone";
 
 export default class MeshZone extends Zone {
     /**
@@ -8,7 +9,6 @@ export default class MeshZone extends Zone {
     constructor(bounds: THREE.BufferGeometry | THREE.Mesh, ThreeGeometry: THREE.BufferGeometry, scale?: number);
     /**
      * Returns true to indicate this is a MeshZone.
-     *
      */
     isMeshZone(): boolean;
     getPosition(): Vector3D | null;

@@ -1,4 +1,4 @@
-import { Strarray } from './str-array';
+import { Strarray } from "./str-array";
 
 export interface DiffOptions {
     version?: number | undefined;

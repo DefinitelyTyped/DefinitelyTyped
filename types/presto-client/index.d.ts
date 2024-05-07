@@ -1,8 +1,3 @@
-// Type definitions for presto-client 0.13
-// Project: https://github.com/tagomoris/presto-client-node
-// Definitions by: Matthew Peveler <https://github.com/MasterOdin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ClientOptions {
     /**
      * Presto coordinator hostname or address
@@ -120,55 +115,83 @@ export interface ClientOptions {
      * @default "presto"
      */
     engine?: string;
+    /**
+     * The seconds that a query is allowed to run before it starts returning
+     * results, defaults to 60 seconds. Set to null or 0 to disable.
+     * @default 60
+     */
+    timeout?: null | number;
 }
 
+// Query is a REST call to v1/statements, the `columns` returned is set as the `columns` callback
+// https://github.com/tagomoris/presto-client-node/blob/84f76d981482c5dd710a147ebfe89efa1731d85f/lib/presto-client/index.js#L228
+// Column
+// https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-client/src/main/java/com/facebook/presto/client/Column.java#L43
 export interface Column {
     name: string;
-    type:
+    typeSignature: ClientTypeSignature;
+    type: string;
+}
+
+// ClientTypeSignatureParameter
+// https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-client/src/main/java/com/facebook/presto/client/ClientTypeSignatureParameter.java#L41
+export interface ClientTypeSignatureParameter {
+    kind: any;
+    value: any;
+}
+
+// ClientTypeSignature
+// https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-client/src/main/java/com/facebook/presto/client/ClientTypeSignature.java#L63
+export interface ClientTypeSignature {
+    arguments: ClientTypeSignatureParameter[];
+    literalArguments: any[];
+    // https://github.com/prestodb/presto/blob/494d5c8f17f1ee19d328535cbfa78914923fc177/presto-common/src/main/java/com/facebook/presto/common/type/StandardTypes.java#L22
+    rawType:
         // boolean
-        | 'boolean'
+        | "boolean"
         // integer
-        | 'tinyint'
-        | 'smallint'
-        | 'integer'
-        | 'bigint'
+        | "tinyint"
+        | "smallint"
+        | "integer"
+        | "bigint"
         // floating point
-        | 'real'
-        | 'double'
+        | "real"
+        | "double"
         // fixed precision
-        | 'decimal'
+        | "decimal"
         // string
-        | 'varchar'
-        | 'char'
-        | 'varbinary'
-        | 'json'
+        | "varchar"
+        | "char"
+        | "varbinary"
+        | "json"
         // date and time
-        | 'date'
-        | 'time'
-        | 'time with time zone'
-        | 'timestamp'
-        | 'timestamp with time zone'
-        | 'interval year to month'
-        | 'interval day to second'
+        | "date"
+        | "time"
+        | "time with time zone"
+        | "timestamp"
+        | "timestamp with time zone"
+        | "interval year to month"
+        | "interval day to second"
         // structural
-        | 'array'
-        | 'map'
-        | 'row'
+        | "array"
+        | "map"
+        | "row"
         // network address
-        | 'ipaddress'
+        | "ipaddress"
         // uuid
-        | 'uuid'
-        | 'ipprefix'
+        | "uuid"
+        | "ipprefix"
         // hyperloglog
-        | 'hyperloglog'
-        | 'p4hyperloglog'
+        | "hyperloglog"
+        | "p4hyperloglog"
         // KHyperLogLog
-        | 'khyperloglog'
+        | "khyperloglog"
         // Quantile Digest
-        | 'qdigest'
+        | "qdigest"
         // T-Digest
-        | 'tdigest'
+        | "tdigest"
         | string;
+    typeArguments: ClientTypeSignature[];
 }
 
 export interface RuntimeStats {
@@ -177,7 +200,19 @@ export interface RuntimeStats {
     wallTimeMillis: number;
     cpuTimeMillis: number;
     userTimeMillis: number;
-    state: 'QUEUED' | 'PLANNING' | 'STARTING' | 'RUNNING' | 'FINISHED' | 'CANCELED' | 'FAILED';
+    // https://github.com/prestodb/presto/blob/496e98ca25fb243ab25731d188c2fd56eba3b3e9/presto-main/src/main/java/com/facebook/presto/execution/QueryState.java
+    state:
+        | "WAITING_FOR_PREREQUISITES"
+        | "QUEUED"
+        | "WAITING_FOR_RESOURCES"
+        | "DISPATCHING"
+        | "PLANNING"
+        | "STARTING"
+        | "RUNNING"
+        | "FINISHING"
+        | "FINISHED"
+        | "CANCELED" // legacy value, see https://github.com/prestodb/presto/commit/4bf8df1484935a000619377dab6ed35778fff2ad#diff-0e3098a2bd5426fc1a01f56708912cedcdf7ce5d2e0f7adcdb70b93080c8733a
+        | "FAILED";
     scheduled: boolean;
     nodes: number;
     totalSplits: number;
@@ -246,6 +281,7 @@ export interface QueryOptions {
      * Aditional headers to be included in the request
      */
     headers?: Record<string, string>;
+    timeout?: null | number;
     /**
      * Client stops fetch of query results if this callback returns `true`
      */
@@ -263,6 +299,11 @@ export interface QueryOptions {
      */
     data?: (error: null, data: any[][], columns: Column[], stats: RuntimeStats) => void;
     /**
+     * Called if a request was retried due to server returning `502`, `503`, or
+     * `504`
+     */
+    retry?: () => void;
+    /**
      * Called once when all results are fetched
      */
     success?: (error: null, stats: RuntimeStats, info: any) => void;
@@ -271,8 +312,9 @@ export interface QueryOptions {
      */
     error?: (error: PrestoError) => void;
     /**
-     * Callback for query completion (both of success and fail). One of
-     * `callback` or `success` must be specified.
+     * Callback for query completion (both of success and fail).
+     * One of `callback` or `success` must be specified.
+     * One of `callback` or `error` must be specified.
      */
     callback?: (error: PrestoError | null, stats: RuntimeStats) => void;
 }

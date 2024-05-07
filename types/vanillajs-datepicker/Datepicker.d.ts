@@ -1,15 +1,36 @@
-import DateRangePicker from './DateRangePicker';
+import DateRangePicker from "./DateRangePicker";
 
 export interface DatepickerOptionsFormat {
-    toValue: (date: Date, format: object, locale: object) => string;
+    toValue: (date: Date, format: object, locale: object) => Date | number;
     toDisplay: (date: Date, format: object, locale: object) => string;
 }
 
-export type DatepickerOptionsOrientationVertical = 'top' | 'middle' | 'bottom' | 'auto';
-export type DatepickerOptionsOrientationHorizontal = 'left' | 'center' | 'right' | 'auto';
+export interface DatepickerOptionsShortcutKeysDefinition {
+    key?: string;
+    ctrlOrMetaKey?: boolean;
+    ctrlKey?: boolean;
+    metaKey?: boolean;
+    altKey?: boolean;
+    shiftKey?: boolean;
+}
+
+export interface DatepickerOptionsShortcutKeys {
+    show?: DatepickerOptionsShortcutKeysDefinition;
+    hide?: null;
+    toggle?: DatepickerOptionsShortcutKeysDefinition;
+    prevButton?: DatepickerOptionsShortcutKeysDefinition;
+    nextButton?: DatepickerOptionsShortcutKeysDefinition;
+    viewSwitch?: DatepickerOptionsShortcutKeysDefinition;
+    clearButton?: DatepickerOptionsShortcutKeysDefinition;
+    todayButton?: DatepickerOptionsShortcutKeysDefinition;
+    exitEditMode?: DatepickerOptionsShortcutKeysDefinition;
+}
+
+export type DatepickerOptionsOrientationVertical = "top" | "middle" | "bottom" | "auto";
+export type DatepickerOptionsOrientationHorizontal = "left" | "center" | "right" | "auto";
 export type DatepickerOptionsOrientation =
     | `${DatepickerOptionsOrientationVertical} ${DatepickerOptionsOrientationHorizontal}`
-    | 'auto';
+    | "auto";
 
 export interface DatepickerOptions {
     autohide?: boolean;
@@ -19,52 +40,51 @@ export interface DatepickerOptions {
     beforeShowYear?: (date: Date) => object | string | boolean;
     buttonClass?: string;
     calendarWeeks?: boolean;
-    clearBtn?: boolean;
+    clearButton?: boolean;
     container?: string | HTMLElement;
     dateDelimiter?: string;
     datesDisabled?: string[];
     daysOfWeekDisabled?: number[];
     daysOfWeekHighlighted?: number[];
-    defaultViewDate?: string | Date | number ;
-    format?: string | DatepickerOptionsFormat ;
+    defaultViewDate?: string | Date | number;
+    enableOnReadonly?: boolean;
+    format?: string | DatepickerOptionsFormat;
     language?: string;
     maxDate?: string | Date | number;
     maxNumberOfDates?: number;
     maxView?: number;
     minDate?: string | Date | number;
     nextArrow?: string;
-    prevArrow?: string;
     orientation?: DatepickerOptionsOrientation;
     pickLevel?: number;
-    prevArray?: string;
+    prevArrow?: string;
+    shortcutKeys?: DatepickerOptionsShortcutKeys;
     showDaysOfWeek?: boolean;
     showOnClick?: boolean;
     showOnFocus?: boolean;
     startView?: number;
     title?: string;
-    todayBtn?: boolean;
-    todayBtnMode?: number;
+    todayButton?: boolean;
+    todayButtonMode?: number;
     todayHighlight?: boolean;
     updateOnBlur?: boolean;
+    weekNumbers?: number | ((date: Date, weekStart: number) => number);
     weekStart?: number;
 }
 
 export default class Datepicker {
-    static formatDate(date: Date | number, format: string, lang?: string): string;
-    static parseDate(dateStr: string | Date | number, format: string, lang?: string): number;
-    static get locales(): object;
-
     constructor(element: HTMLElement, options?: DatepickerOptions, rangepicker?: DateRangePicker);
-    config: DatepickerOptions;
-    dates: any;
-    editMode: boolean;
     element: HTMLElement;
-    inline: boolean;
+    dates: any;
+    config: DatepickerOptions;
     inputField: any;
+    editMode: boolean;
     picker: any;
 
-    _options: object;
-    _showing: boolean;
+    static formatDate(date: Date | number, format: string, lang?: string): string;
+    static parseDate(dateStr: string | Date | number, format: string, lang?: string): number;
+
+    static get locales(): object;
 
     get active(): boolean;
     get pickerElement(): HTMLElement | undefined;
@@ -83,8 +103,11 @@ export default class Datepicker {
 
     update(options?: { clear: boolean; render: boolean }): void;
 
-    refresh(forceRender?: boolean): void;
-    refresh(target?: 'picker' | 'input', forceRender?: boolean): void;
+    getFocusedDate(format?: string): Date | string;
+
+    setFocusedDate(viewDate?: Date | number | string, resetView?: boolean): void;
+
+    refresh(target?: "picker" | "input", forceRender?: boolean): void;
 
     enterEditMode(): void;
 

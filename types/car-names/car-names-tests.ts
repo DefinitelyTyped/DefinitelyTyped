@@ -1,4 +1,4 @@
-import carNames = require('car-names');
+import carNames = require("car-names");
 
 // $ExpectType string[]
 const allNames = carNames.all;

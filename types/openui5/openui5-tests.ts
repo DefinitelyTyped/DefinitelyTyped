@@ -31,22 +31,16 @@ import IllustratedMessage from "sap/m/IllustratedMessage";
 import { SingleControlSelector } from "sap/ui/test/Opa5";
 import Mobile from "sap/ui/util/Mobile";
 import Input from "sap/m/Input";
+import { ContentConfigType, DynamicDateRangeGroups, ITableItem } from "sap/m/library";
+import ColumnListItem from "sap/m/ColumnListItem";
+import Filter from "sap/ui/model/Filter";
+import Model from "sap/ui/model/Model";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
  * so the importance of these tests here is very limited. Hence there is no focus on making them
  * as complete or meaningful as possible.
  */
-
-Core.attachInit(() => {
-    new Text({
-        text: "Hello World"
-    }).placeAt("content");
-
-    new XMLView({
-        viewName: "sap.ui.demo.wt.App"
-    }).placeAt("content");
-});
 
 class Ctrl extends Controller {
     onShowHello(): void {
@@ -71,10 +65,6 @@ class Ctrl extends Controller {
 
         const dp = new DatePicker({dateValue: "{myModel>/myPropertyName}"});
         dp.setShowCurrentDateButton(true);
-
-        const rm: RenderManager = Core.getRenderManager();
-        rm.openEnd();
-        view.addContent(dp);
     }
 }
 
@@ -128,7 +118,7 @@ type Headers = {
 
 const oUploadDialog = new Dialog(undefined);
 oUploadDialog.setTitle("Upload photo");
-const oDataV2Model = Core.getModel(undefined) as ODataModel;
+const oDataV2Model = oUploadDialog.getModel() as ODataModel;
 oDataV2Model.refreshSecurityToken();
 oDataV2Model.bindList("/", undefined, [], [], {createdEntitiesKey: "test"});
 // prepare the FileUploader control
@@ -136,7 +126,7 @@ const oFileUploader = new FileUploader({
     headerParameters: [
         new FileUploaderParameter({
             name: "x-csrf-token",
-            value: ((<ODataModel> Core.getModel()).getHeaders() as Headers)['x-csrf-token']
+            value: (oDataV2Model.getHeaders() as Headers)['x-csrf-token']
         }),
     ],
     uploadComplete: (oEvent: FileUploader$UploadCompleteEvent) => { // 1.115.1: types not only for event parameters, but also for events
@@ -164,11 +154,11 @@ oUploadDialog.addContent(oTriggerButton);
 oUploadDialog.addContent(dateTimePicker);
 oUploadDialog.open();
 
-const messagePage: IllustratedMessage = new IllustratedMessage();
-messagePage.setAriaTitleLevel(TitleLevel.H1);
-const focusable = messagePage.isFocusable();
+const illustratedMessage: IllustratedMessage = new IllustratedMessage();
+illustratedMessage.setAriaTitleLevel(TitleLevel.H1);
+const focusable = illustratedMessage.isFocusable();
 
-const odataV4ListBinding = new ODataV4ListBinding();
+const odataV4ListBinding = illustratedMessage.getBinding("additionalContent") as ODataV4ListBinding;
 const odataV4ListBindingCount = odataV4ListBinding.getCount();
 const context = odataV4ListBinding.getKeepAliveContext("x");
 const odataV4Model = odataV4ListBinding.getModel() as ODataV4Model;
@@ -210,3 +200,19 @@ sap.ui.require(["sap/m/Button", "sap/m/Input"], (B: typeof Button, I: typeof Inp
 odataV4ListBinding.attachCreateCompleted((evt: ODataListBinding$CreateCompletedEvent) => {
     const contect = evt.getParameter("context");
 });
+
+// 1.117.0: it's just an update of the types!
+
+// 1.118
+const ddrg: DynamicDateRangeGroups = DynamicDateRangeGroups.SingleDates;
+
+// 1.119
+const iti: ITableItem = new ColumnListItem();
+
+// 1.120
+const noneFilter = Filter.NONE;
+
+// 1.121: this commit just updates the version in package.json
+
+// 1.122
+const cct = ContentConfigType.Link;

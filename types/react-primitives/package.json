@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-primitives",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/lelandrichardson/react-primitives"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-primitives": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ahmed Ghoneim",
+            "githubUsername": "aghoneim92"
+        },
+        {
+            "name": "David Pett",
+            "githubUsername": "davidpett"
+        }
+    ]
+}

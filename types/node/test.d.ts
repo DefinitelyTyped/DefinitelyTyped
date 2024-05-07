@@ -18,14 +18,14 @@
  *
  * 1. A synchronous function that is considered failing if it throws an exception,
  * and is considered passing otherwise.
- * 2. A function that returns a `Promise` that is considered failing if the`Promise` rejects, and is considered passing if the `Promise` resolves.
+ * 2. A function that returns a `Promise` that is considered failing if the `Promise` rejects, and is considered passing if the `Promise` fulfills.
  * 3. A function that receives a callback function. If the callback receives any
  * truthy value as its first argument, the test is considered failing. If a
  * falsy value is passed as the first argument to the callback, the test is
  * considered passing. If the test function receives a callback function and
  * also returns a `Promise`, the test will fail.
  *
- * The following example illustrates how tests are written using the`test` module.
+ * The following example illustrates how tests are written using the `test` module.
  *
  * ```js
  * test('synchronous passing test', (t) => {
@@ -40,7 +40,7 @@
  *
  * test('asynchronous passing test', async (t) => {
  *   // This test passes because the Promise returned by the async
- *   // function is not rejected.
+ *   // function is settled and not rejected.
  *   assert.strictEqual(1, 1);
  * });
  *
@@ -76,14 +76,22 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/test.js)
  */
-declare module 'node:test' {
-    import { Readable } from 'node:stream';
+declare module "node:test" {
+    import { Readable } from "node:stream";
+    import { AsyncResource } from "node:async_hooks";
     /**
+     * **Note:** `shard` is used to horizontally parallelize test running across
+     * machines or processes, ideal for large-scale executions across varied
+     * environments. It's incompatible with `watch` mode, tailored for rapid
+     * code iteration by automatically rerunning tests on file changes.
+     *
      * ```js
      * import { tap } from 'node:test/reporters';
+     * import { run } from 'node:test';
      * import process from 'node:process';
+     * import path from 'node:path';
      *
      * run({ files: [path.resolve('./tests/test.js')] })
      *   .compose(tap)
@@ -101,8 +109,8 @@ declare module 'node:test' {
      * actions related to the current test. Examples include skipping the test, adding
      * additional diagnostic information, or creating subtests.
      *
-     * `test()` returns a `Promise` that resolves once the test completes.
-     * if `test()` is called within a `describe()` block, it resolve immediately.
+     * `test()` returns a `Promise` that fulfills once the test completes.
+     * if `test()` is called within a `describe()` block, it fulfills immediately.
      * The return value can usually be discarded for top level tests.
      * However, the return value from subtests should be used to prevent the parent
      * test from finishing first and cancelling the subtest
@@ -121,35 +129,22 @@ declare module 'node:test' {
      * });
      * ```
      *
-     * The `timeout` option can be used to fail the test if it takes longer than`timeout` milliseconds to complete. However, it is not a reliable mechanism for
+     * The `timeout` option can be used to fail the test if it takes longer than `timeout` milliseconds to complete. However, it is not a reliable mechanism for
      * canceling tests because a running test might block the application thread and
      * thus prevent the scheduled cancellation.
      * @since v18.0.0, v16.17.0
      * @param [name='The name'] The name of the test, which is displayed when reporting test results.
      * @param options Configuration options for the test. The following properties are supported:
-     * @param [fn='A no-op function'] The function under test. The first argument to this function is a {@link TestContext} object. If the test uses callbacks, the callback function is passed as the
-     * second argument.
-     * @return Resolved with `undefined` once the test completes, or immediately if the test runs within {@link describe}.
+     * @param [fn='A no-op function'] The function under test. The first argument to this function is a {@link TestContext} object. If the test uses callbacks, the
+     * callback function is passed as the second argument.
+     * @return Fulfilled with `undefined` once the test completes, or immediately if the test runs within {@link describe}.
      */
     function test(name?: string, fn?: TestFn): Promise<void>;
     function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
     namespace test {
-        export {
-            after,
-            afterEach,
-            before,
-            beforeEach,
-            describe,
-            it,
-            run,
-            mock,
-            test,
-            skip,
-            todo,
-            only
-        };
+        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, test, todo };
     }
     /**
      * The `describe()` function imported from the `node:test` module. Each
@@ -255,9 +250,18 @@ declare module 'node:test' {
     type TestFn = (t: TestContext, done: (result?: any) => void) => void | Promise<void>;
     /**
      * The type of a function under Suite.
-     * If the test uses callbacks, the callback function is passed as an argument
      */
     type SuiteFn = (s: SuiteContext) => void | Promise<void>;
+    interface TestShard {
+        /**
+         * A positive integer between 1 and `<total>` that specifies the index of the shard to run.
+         */
+        index: number;
+        /**
+         * A positive integer that specifies the total number of shards to split the test files to.
+         */
+        total: number;
+    }
     interface RunOptions {
         /**
          * If a number is provided, then that many files would run in parallel.
@@ -295,60 +299,87 @@ declare module 'node:test' {
          * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
          */
         testNamePatterns?: string | RegExp | string[] | RegExp[];
+        /**
+         * If truthy, the test context will only run tests that have the `only` option set
+         */
+        only?: boolean;
+        /**
+         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         */
+        setup?: (root: Test) => void | Promise<void>;
+        /**
+         * Whether to run in watch mode or not.
+         * @default false
+         */
+        watch?: boolean | undefined;
+        /**
+         * Running tests in a specific shard.
+         * @default undefined
+         */
+        shard?: TestShard | undefined;
+    }
+    class Test extends AsyncResource {
+        concurrency: number;
+        nesting: number;
+        only: boolean;
+        reporter: TestsStream;
+        runOnlySubtests: boolean;
+        testNumber: number;
+        timeout: number | null;
     }
     /**
-     * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.`TestsStream` will emit events, in the
+     * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests. `TestsStream` will emit events, in the
      * order of the tests definition
      * @since v18.9.0, v16.19.0
      */
     class TestsStream extends Readable implements NodeJS.ReadableStream {
-        addListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        addListener(event: 'test:fail', listener: (data: TestFail) => void): this;
-        addListener(event: 'test:pass', listener: (data: TestPass) => void): this;
-        addListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
-        addListener(event: 'test:start', listener: (data: TestStart) => void): this;
-        addListener(event: 'test:stderr', listener: (data: TestStderr) => void): this;
-        addListener(event: 'test:stdout', listener: (data: TestStdout) => void): this;
+        addListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        addListener(event: "test:fail", listener: (data: TestFail) => void): this;
+        addListener(event: "test:pass", listener: (data: TestPass) => void): this;
+        addListener(event: "test:plan", listener: (data: TestPlan) => void): this;
+        addListener(event: "test:start", listener: (data: TestStart) => void): this;
+        addListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
+        addListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
-        emit(event: 'test:diagnostic', data: DiagnosticData): boolean;
-        emit(event: 'test:fail', data: TestFail): boolean;
-        emit(event: 'test:pass', data: TestPass): boolean;
-        emit(event: 'test:plan', data: TestPlan): boolean;
-        emit(event: 'test:start', data: TestStart): boolean;
-        emit(event: 'test:stderr', data: TestStderr): boolean;
-        emit(event: 'test:stdout', data: TestStdout): boolean;
+        emit(event: "test:diagnostic", data: DiagnosticData): boolean;
+        emit(event: "test:fail", data: TestFail): boolean;
+        emit(event: "test:pass", data: TestPass): boolean;
+        emit(event: "test:plan", data: TestPlan): boolean;
+        emit(event: "test:start", data: TestStart): boolean;
+        emit(event: "test:stderr", data: TestStderr): boolean;
+        emit(event: "test:stdout", data: TestStdout): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        on(event: 'test:fail', listener: (data: TestFail) => void): this;
-        on(event: 'test:pass', listener: (data: TestPass) => void): this;
-        on(event: 'test:plan', listener: (data: TestPlan) => void): this;
-        on(event: 'test:start', listener: (data: TestStart) => void): this;
-        on(event: 'test:stderr', listener: (data: TestStderr) => void): this;
-        on(event: 'test:stdout', listener: (data: TestStdout) => void): this;
+        on(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        on(event: "test:fail", listener: (data: TestFail) => void): this;
+        on(event: "test:pass", listener: (data: TestPass) => void): this;
+        on(event: "test:plan", listener: (data: TestPlan) => void): this;
+        on(event: "test:start", listener: (data: TestStart) => void): this;
+        on(event: "test:stderr", listener: (data: TestStderr) => void): this;
+        on(event: "test:stdout", listener: (data: TestStdout) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        once(event: 'test:fail', listener: (data: TestFail) => void): this;
-        once(event: 'test:pass', listener: (data: TestPass) => void): this;
-        once(event: 'test:plan', listener: (data: TestPlan) => void): this;
-        once(event: 'test:start', listener: (data: TestStart) => void): this;
-        once(event: 'test:stderr', listener: (data: TestStderr) => void): this;
-        once(event: 'test:stdout', listener: (data: TestStdout) => void): this;
+        once(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        once(event: "test:fail", listener: (data: TestFail) => void): this;
+        once(event: "test:pass", listener: (data: TestPass) => void): this;
+        once(event: "test:plan", listener: (data: TestPlan) => void): this;
+        once(event: "test:start", listener: (data: TestStart) => void): this;
+        once(event: "test:stderr", listener: (data: TestStderr) => void): this;
+        once(event: "test:stdout", listener: (data: TestStdout) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        prependListener(event: 'test:fail', listener: (data: TestFail) => void): this;
-        prependListener(event: 'test:pass', listener: (data: TestPass) => void): this;
-        prependListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
-        prependListener(event: 'test:start', listener: (data: TestStart) => void): this;
-        prependListener(event: 'test:stderr', listener: (data: TestStderr) => void): this;
-        prependListener(event: 'test:stdout', listener: (data: TestStdout) => void): this;
+        prependListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        prependListener(event: "test:fail", listener: (data: TestFail) => void): this;
+        prependListener(event: "test:pass", listener: (data: TestPass) => void): this;
+        prependListener(event: "test:plan", listener: (data: TestPlan) => void): this;
+        prependListener(event: "test:start", listener: (data: TestStart) => void): this;
+        prependListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
+        prependListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'test:diagnostic', listener: (data: DiagnosticData) => void): this;
-        prependOnceListener(event: 'test:fail', listener: (data: TestFail) => void): this;
-        prependOnceListener(event: 'test:pass', listener: (data: TestPass) => void): this;
-        prependOnceListener(event: 'test:plan', listener: (data: TestPlan) => void): this;
-        prependOnceListener(event: 'test:start', listener: (data: TestStart) => void): this;
-        prependOnceListener(event: 'test:stderr', listener: (data: TestStderr) => void): this;
-        prependOnceListener(event: 'test:stdout', listener: (data: TestStdout) => void): this;
+        prependOnceListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        prependOnceListener(event: "test:fail", listener: (data: TestFail) => void): this;
+        prependOnceListener(event: "test:pass", listener: (data: TestPass) => void): this;
+        prependOnceListener(event: "test:plan", listener: (data: TestPlan) => void): this;
+        prependOnceListener(event: "test:start", listener: (data: TestStart) => void): this;
+        prependOnceListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
+        prependOnceListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     }
     /**
@@ -361,7 +392,7 @@ declare module 'node:test' {
         /**
          * This function is used to create a hook running before subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         *    the second argument. **Default:** A no-op function.
          * @param options Configuration options for the hook.
          * @since v20.1.0
          */
@@ -369,14 +400,14 @@ declare module 'node:test' {
         /**
          * This function is used to create a hook running before each subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         *    the second argument. **Default:** A no-op function.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
         beforeEach: typeof beforeEach;
         /**
          * This function is used to create a hook that runs after the current test finishes.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
+         * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as
          *    the second argument. Default: A no-op function.
          * @param options Configuration options for the hook.
          * @since v18.13.0
@@ -385,7 +416,7 @@ declare module 'node:test' {
         /**
          * This function is used to create a hook running after each subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         *    the second argument. **Default:** A no-op function.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
@@ -439,7 +470,7 @@ declare module 'node:test' {
          */
         readonly signal: AbortSignal;
         /**
-         * This function causes the test's output to indicate the test as skipped. If`message` is provided, it is included in the output. Calling `skip()` does
+         * This function causes the test's output to indicate the test as skipped. If `message` is provided, it is included in the output. Calling `skip()` does
          * not terminate execution of the test function. This function does not return a
          * value.
          *
@@ -477,7 +508,7 @@ declare module 'node:test' {
          * @param options Configuration options for the test
          * @param fn The function under test. This first argument to this function is a
          *    {@link TestContext} object. If the test uses callbacks, the callback function is
-         *    passed as the second argument. Default: A no-op function.
+         *    passed as the second argument. **Default:** A no-op function.
          * @returns A {@link Promise} resolved with `undefined` once the test completes.
          */
         test: typeof test;
@@ -486,6 +517,7 @@ declare module 'node:test' {
          */
         readonly mock: MockTracker;
     }
+
     /**
      * An instance of `SuiteContext` is passed to each suite function in order to
      * interact with the test runner. However, the `SuiteContext` constructor is not
@@ -615,7 +647,7 @@ declare module 'node:test' {
      * The hook function. If the hook uses callbacks, the callback function is passed as the
      * second argument.
      */
-    type HookFn = (done: (result?: any) => void) => any;
+    type HookFn = (s: SuiteContext, done: (result?: any) => void) => any;
     /**
      * Configuration options for hooks.
      * @since v18.8.0
@@ -664,7 +696,7 @@ declare module 'node:test' {
     /**
      * The `MockTracker` class is used to manage mocking functionality. The test runner
      * module provides a top level `mock` export which is a `MockTracker` instance.
-     * Each test also provides its own `MockTracker` instance via the test context's`mock` property.
+     * Each test also provides its own `MockTracker` instance via the test context's `mock` property.
      * @since v19.1.0, v18.13.0
      */
     class MockTracker {
@@ -706,7 +738,11 @@ declare module 'node:test' {
          * behavior of the mocked function.
          */
         fn<F extends Function = NoOpFunction>(original?: F, options?: MockFunctionOptions): Mock<F>;
-        fn<F extends Function = NoOpFunction, Implementation extends Function = F>(original?: F, implementation?: Implementation, options?: MockFunctionOptions): Mock<F | Implementation>;
+        fn<F extends Function = NoOpFunction, Implementation extends Function = F>(
+            original?: F,
+            implementation?: Implementation,
+            options?: MockFunctionOptions,
+        ): Mock<F | Implementation>;
         /**
          * This function is used to create a mock on an existing object method. The
          * following example demonstrates how a mock is created on an existing object
@@ -750,8 +786,7 @@ declare module 'node:test' {
             object: MockedObject,
             methodName: MethodName,
             options?: MockFunctionOptions,
-        ): MockedObject[MethodName] extends Function
-            ? Mock<MockedObject[MethodName]>
+        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName]>
             : never;
         method<
             MockedObject extends object,
@@ -762,8 +797,7 @@ declare module 'node:test' {
             methodName: MethodName,
             implementation: Implementation,
             options?: MockFunctionOptions,
-        ): MockedObject[MethodName] extends Function
-            ? Mock<MockedObject[MethodName] | Implementation>
+        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName] | Implementation>
             : never;
         method<MockedObject extends object>(
             object: MockedObject,
@@ -778,7 +812,7 @@ declare module 'node:test' {
         ): Mock<Function>;
 
         /**
-         * This function is syntax sugar for `MockTracker.method` with `options.getter`set to `true`.
+         * This function is syntax sugar for `MockTracker.method` with `options.getter` set to `true`.
          * @since v19.3.0, v18.13.0
          */
         getter<
@@ -800,7 +834,7 @@ declare module 'node:test' {
             options?: MockFunctionOptions,
         ): Mock<(() => MockedObject[MethodName]) | Implementation>;
         /**
-         * This function is syntax sugar for `MockTracker.method` with `options.setter`set to `true`.
+         * This function is syntax sugar for `MockTracker.method` with `options.setter` set to `true`.
          * @since v19.3.0, v18.13.0
          */
         setter<
@@ -823,11 +857,11 @@ declare module 'node:test' {
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
         /**
          * This function restores the default behavior of all mocks that were previously
-         * created by this `MockTracker` and disassociates the mocks from the`MockTracker` instance. Once disassociated, the mocks can still be used, but the`MockTracker` instance can no longer be
+         * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be
          * used to reset their behavior or
          * otherwise interact with them.
          *
-         * After each test completes, this function is called on the test context's`MockTracker`. If the global `MockTracker` is used extensively, calling this
+         * After each test completes, this function is called on the test context's `MockTracker`. If the global `MockTracker` is used extensively, calling this
          * function manually is recommended.
          * @since v19.1.0, v18.13.0
          */
@@ -844,16 +878,12 @@ declare module 'node:test' {
     const mock: MockTracker;
     interface MockFunctionCall<
         F extends Function,
-        ReturnType = F extends (...args: any) => infer T
-            ? T
-            : F extends abstract new (...args: any) => infer T
-                ? T
-                : unknown,
-        Args = F extends (...args: infer Y) => any
-            ? Y
-            : F extends abstract new (...args: infer Y) => any
-                ? Y
-                : unknown[],
+        ReturnType = F extends (...args: any) => infer T ? T
+            : F extends abstract new(...args: any) => infer T ? T
+            : unknown,
+        Args = F extends (...args: infer Y) => any ? Y
+            : F extends abstract new(...args: infer Y) => any ? Y
+            : unknown[],
     > {
         /**
          * An array of the arguments passed to the mock function.
@@ -877,7 +907,7 @@ declare module 'node:test' {
          * If the mocked function is a constructor, this field contains the class being constructed.
          * Otherwise this will be `undefined`.
          */
-        target: F extends abstract new (...args: any) => any ? F : undefined;
+        target: F extends abstract new(...args: any) => any ? F : undefined;
         /**
          * The mocked function's `this` value.
          */
@@ -897,7 +927,7 @@ declare module 'node:test' {
         readonly calls: Array<MockFunctionCall<F>>;
         /**
          * This function returns the number of times that this mock has been invoked. This
-         * function is more efficient than checking `ctx.calls.length` because `ctx.calls`is a getter that creates a copy of the internal call tracking array.
+         * function is more efficient than checking `ctx.calls.length` because `ctx.calls` is a getter that creates a copy of the internal call tracking array.
          * @since v19.1.0, v18.13.0
          * @return The number of times that this mock has been invoked.
          */
@@ -983,11 +1013,19 @@ declare module 'node:test' {
          */
         restore(): void;
     }
-    type Timer = 'setInterval' | 'clearInterval' | 'setTimeout' | 'clearTimeout';
+    type Timer = "setInterval" | "setTimeout" | "setImmediate" | "Date";
+
+    interface MockTimersOptions {
+        apis: Timer[];
+        now?: number | Date;
+    }
     /**
      * Mocking timers is a technique commonly used in software testing to simulate and
      * control the behavior of timers, such as `setInterval` and `setTimeout`,
      * without actually waiting for the specified time intervals.
+     *
+     * The MockTimers API also allows for mocking of the `Date` constructor and
+     * `setImmediate`/`clearImmediate` functions.
      *
      * The `MockTracker` provides a top-level `timers` export
      * which is a `MockTimers` instance.
@@ -1001,29 +1039,68 @@ declare module 'node:test' {
          * **Note:** When you enable mocking for a specific timer, its associated
          * clear function will also be implicitly mocked.
          *
-         * Example usage:
+         * **Note:** Mocking `Date` will affect the behavior of the mocked timers
+         * as they use the same internal clock.
+         *
+         * Example usage without setting initial time:
          *
          * ```js
          * import { mock } from 'node:test';
-         * mock.timers.enable(['setInterval']);
+         * mock.timers.enable({ apis: ['setInterval', 'Date'], now: 1234 });
          * ```
+         *
+         * The above example enables mocking for the `Date` constructor, `setInterval` timer and
+         * implicitly mocks the `clearInterval` function. Only the `Date` constructor from `globalThis`,
+         * `setInterval` and `clearInterval` functions from `node:timers`, `node:timers/promises`, and `globalThis` will be mocked.
+         *
+         * Example usage with initial time set
          *
          * ```js
-         * const { mock } = require('node:test');
-         * mock.timers.enable(['setInterval']);
+         * import { mock } from 'node:test';
+         * mock.timers.enable({ apis: ['Date'], now: 1000 });
          * ```
          *
-         * The above example enables mocking for the `setInterval` timer and
-         * implicitly mocks the `clearInterval` function. Only the `setInterval`and `clearInterval` functions from `node:timers`,`node:timers/promises`, and`globalThis` will be mocked.
+         * Example usage with initial Date object as time set
+         *
+         * ```js
+         * import { mock } from 'node:test';
+         * mock.timers.enable({ apis: ['Date'], now: new Date() });
+         * ```
          *
          * Alternatively, if you call `mock.timers.enable()` without any parameters:
          *
-         * All timers (`'setInterval'`, `'clearInterval'`, `'setTimeout'`, and `'clearTimeout'`)
-         * will be mocked. The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout`functions from `node:timers`, `node:timers/promises`,
+         * All timers (`'setInterval'`, `'clearInterval'`, `'Date'`, `'setImmediate'`, `'clearImmediate'`, `'setTimeout'`, and `'clearTimeout'`)
+         * will be mocked.
+         *
+         * The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout` functions from `node:timers`, `node:timers/promises`,
          * and `globalThis` will be mocked.
+         * The `Date` constructor from `globalThis` will be mocked.
+         *
+         * If there is no initial epoch set, the initial date will be based on 0 in the Unix epoch. This is `January 1st, 1970, 00:00:00 UTC`. You can
+         * set an initial date by passing a now property to the `.enable()` method. This value will be used as the initial date for the mocked Date
+         * object. It can either be a positive integer, or another Date object.
          * @since v20.4.0
          */
-        enable(timers?: Timer[]): void;
+        enable(options?: MockTimersOptions): void;
+        /**
+         * You can use the `.setTime()` method to manually move the mocked date to another time. This method only accepts a positive integer.
+         * Note: This method will execute any mocked timers that are in the past from the new time.
+         * In the below example we are setting a new time for the mocked date.
+         * ```js
+         * import assert from 'node:assert';
+         * import { test } from 'node:test';
+         * test('sets the time of a date object', (context) => {
+         *   // Optionally choose what to mock
+         *   context.mock.timers.enable({ apis: ['Date'], now: 100 });
+         *   assert.strictEqual(Date.now(), 100);
+         *   // Advance in time will also advance the date
+         *   context.mock.timers.setTime(1000);
+         *   context.mock.timers.tick(200);
+         *   assert.strictEqual(Date.now(), 1200);
+         * });
+         * ```
+         */
+        setTime(time: number): void;
         /**
          * This function restores the default behavior of all mocks that were previously
          * created by this `MockTimers` instance and disassociates the mocks
@@ -1034,11 +1111,6 @@ declare module 'node:test' {
          *
          * ```js
          * import { mock } from 'node:test';
-         * mock.timers.reset();
-         * ```
-         *
-         * ```js
-         * const { mock } = require('node:test');
          * mock.timers.reset();
          * ```
          * @since v20.4.0
@@ -1062,28 +1134,10 @@ declare module 'node:test' {
          * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
          *   const fn = context.mock.fn();
          *
-         *   context.mock.timers.enable(['setTimeout']);
+         *   context.mock.timers.enable({ apis: ['setTimeout'] });
          *
          *   setTimeout(fn, 9999);
          *
-         *   assert.strictEqual(fn.mock.callCount(), 0);
-         *
-         *   // Advance in time
-         *   context.mock.timers.tick(9999);
-         *
-         *   assert.strictEqual(fn.mock.callCount(), 1);
-         * });
-         * ```
-         *
-         * ```js
-         * const assert = require('node:assert');
-         * const { test } = require('node:test');
-         *
-         * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
-         *   const fn = context.mock.fn();
-         *   context.mock.timers.enable(['setTimeout']);
-         *
-         *   setTimeout(fn, 9999);
          *   assert.strictEqual(fn.mock.callCount(), 0);
          *
          *   // Advance in time
@@ -1101,7 +1155,7 @@ declare module 'node:test' {
          *
          * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
          *   const fn = context.mock.fn();
-         *   context.mock.timers.enable(['setTimeout']);
+         *   context.mock.timers.enable({ apis: ['setTimeout'] });
          *   const nineSecs = 9000;
          *   setTimeout(fn, nineSecs);
          *
@@ -1114,29 +1168,34 @@ declare module 'node:test' {
          * });
          * ```
          *
+         * Advancing time using `.tick` will also advance the time for any `Date` object
+         * created after the mock was enabled (if `Date` was also set to be mocked).
+         *
          * ```js
-         * const assert = require('node:assert');
-         * const { test } = require('node:test');
+         * import assert from 'node:assert';
+         * import { test } from 'node:test';
          *
          * test('mocks setTimeout to be executed synchronously without having to actually wait for it', (context) => {
          *   const fn = context.mock.fn();
-         *   context.mock.timers.enable(['setTimeout']);
-         *   const nineSecs = 9000;
-         *   setTimeout(fn, nineSecs);
          *
-         *   const twoSeconds = 3000;
-         *   context.mock.timers.tick(twoSeconds);
-         *   context.mock.timers.tick(twoSeconds);
-         *   context.mock.timers.tick(twoSeconds);
+         *   context.mock.timers.enable({ apis: ['setTimeout', 'Date'] });
+         *   setTimeout(fn, 9999);
          *
+         *   assert.strictEqual(fn.mock.callCount(), 0);
+         *   assert.strictEqual(Date.now(), 0);
+         *
+         *   // Advance in time
+         *   context.mock.timers.tick(9999);
          *   assert.strictEqual(fn.mock.callCount(), 1);
+         *   assert.strictEqual(Date.now(), 9999);
          * });
          * ```
          * @since v20.4.0
          */
         tick(milliseconds: number): void;
         /**
-         * Triggers all pending mocked timers immediately.
+         * Triggers all pending mocked timers immediately. If the `Date` object is also
+         * mocked, it will also advance the `Date` object to the furthest timer's time.
          *
          * The example below triggers all pending timers immediately,
          * causing them to execute without any delay.
@@ -1146,7 +1205,7 @@ declare module 'node:test' {
          * import { test } from 'node:test';
          *
          * test('runAll functions following the given order', (context) => {
-         *   context.mock.timers.enable(['setTimeout']);
+         *   context.mock.timers.enable({ apis: ['setTimeout', 'Date'] });
          *   const results = [];
          *   setTimeout(() => results.push(1), 9999);
          *
@@ -1158,30 +1217,9 @@ declare module 'node:test' {
          *   assert.deepStrictEqual(results, []);
          *
          *   context.mock.timers.runAll();
-         *
          *   assert.deepStrictEqual(results, [3, 2, 1]);
-         * });
-         * ```
-         *
-         * ```js
-         * const assert = require('node:assert');
-         * const { test } = require('node:test');
-         *
-         * test('runAll functions following the given order', (context) => {
-         *   context.mock.timers.enable(['setTimeout']);
-         *   const results = [];
-         *   setTimeout(() => results.push(1), 9999);
-         *
-         *   // Notice that if both timers have the same timeout,
-         *   // the order of execution is guaranteed
-         *   setTimeout(() => results.push(3), 8888);
-         *   setTimeout(() => results.push(2), 8888);
-         *
-         *   assert.deepStrictEqual(results, []);
-         *
-         *   context.mock.timers.runAll();
-         *
-         *   assert.deepStrictEqual(results, [3, 2, 1]);
+         *   // The Date object is also advanced to the furthest timer's time
+         *   assert.strictEqual(Date.now(), 9999);
          * });
          * ```
          *
@@ -1192,11 +1230,48 @@ declare module 'node:test' {
          * @since v20.4.0
          */
         runAll(): void;
+        /**
+         * Calls {@link MockTimers.reset()}.
+         */
+        [Symbol.dispose](): void;
     }
-    export { test as default, run, test, describe, it, before, after, beforeEach, afterEach, mock, skip, only, todo };
+    export {
+        after,
+        afterEach,
+        before,
+        beforeEach,
+        describe,
+        it,
+        Mock,
+        mock,
+        only,
+        run,
+        skip,
+        SuiteContext,
+        test,
+        test as default,
+        TestContext,
+        todo,
+    };
 }
 
-interface DiagnosticData {
+interface TestLocationInfo {
+    /**
+     * The column number where the test is defined, or
+     * `undefined` if the test was run through the REPL.
+     */
+    column?: number;
+    /**
+     * The path of the test file, `undefined` if test is not ran through a file.
+     */
+    file?: string;
+    /**
+     * The line number where the test is defined, or
+     * `undefined` if the test was run through the REPL.
+     */
+    line?: number;
+}
+interface DiagnosticData extends TestLocationInfo {
     /**
      * The diagnostic message.
      */
@@ -1205,12 +1280,8 @@ interface DiagnosticData {
      * The nesting level of the test.
      */
     nesting: number;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestFail {
+interface TestFail extends TestLocationInfo {
     /**
      * Additional execution metadata.
      */
@@ -1218,11 +1289,16 @@ interface TestFail {
         /**
          * The duration of the test in milliseconds.
          */
-        duration: number;
+        duration_ms: number;
         /**
          * The error thrown by the test.
          */
         error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 20.0.0, 19.9.0, 18.17.0
+         */
+        type?: "suite";
     };
     /**
      * The test name.
@@ -1244,12 +1320,8 @@ interface TestFail {
      * Present if `context.skip` is called.
      */
     skip?: string | boolean;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestPass {
+interface TestPass extends TestLocationInfo {
     /**
      * Additional execution metadata.
      */
@@ -1257,7 +1329,12 @@ interface TestPass {
         /**
          * The duration of the test in milliseconds.
          */
-        duration: number;
+        duration_ms: number;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         * @since 20.0.0, 19.9.0, 18.17.0
+         */
+        type?: "suite";
     };
     /**
      * The test name.
@@ -1279,12 +1356,8 @@ interface TestPass {
      * Present if `context.skip` is called.
      */
     skip?: string | boolean;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestPlan {
+interface TestPlan extends TestLocationInfo {
     /**
      * The nesting level of the test.
      */
@@ -1293,12 +1366,8 @@ interface TestPlan {
      * The number of subtests that have ran.
      */
     count: number;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestStart {
+interface TestStart extends TestLocationInfo {
     /**
      * The test name.
      */
@@ -1307,30 +1376,38 @@ interface TestStart {
      * The nesting level of the test.
      */
     nesting: number;
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
 }
-interface TestStderr {
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
+interface TestStderr extends TestLocationInfo {
     /**
      * The message written to `stderr`
      */
     message: string;
 }
-interface TestStdout {
-    /**
-     * The path of the test file, undefined if test is not ran through a file.
-     */
-    file?: string;
+interface TestStdout extends TestLocationInfo {
     /**
      * The message written to `stdout`
      */
     message: string;
+}
+interface TestEnqueue extends TestLocationInfo {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestDequeue extends TestLocationInfo {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
 }
 
 /**
@@ -1348,19 +1425,22 @@ interface TestStdout {
  * import test from 'test/reporters';
  * ```
  * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/test/reporters.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/test/reporters.js)
  */
-declare module 'node:test/reporters' {
-    import { Transform } from 'node:stream';
+declare module "node:test/reporters" {
+    import { Transform, TransformOptions } from "node:stream";
 
     type TestEvent =
-        | { type: 'test:diagnostic', data: DiagnosticData }
-        | { type: 'test:fail', data: TestFail }
-        | { type: 'test:pass', data: TestPass }
-        | { type: 'test:plan', data: TestPlan }
-        | { type: 'test:start', data: TestStart }
-        | { type: 'test:stderr', data: TestStderr }
-        | { type: 'test:stdout', data: TestStdout };
+        | { type: "test:diagnostic"; data: DiagnosticData }
+        | { type: "test:fail"; data: TestFail }
+        | { type: "test:pass"; data: TestPass }
+        | { type: "test:plan"; data: TestPlan }
+        | { type: "test:start"; data: TestStart }
+        | { type: "test:stderr"; data: TestStderr }
+        | { type: "test:stdout"; data: TestStdout }
+        | { type: "test:enqueue"; data: TestEnqueue }
+        | { type: "test:dequeue"; data: TestDequeue }
+        | { type: "test:watch:drained" };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     /**
@@ -1368,7 +1448,7 @@ declare module 'node:test/reporters' {
      * where each passing test is represented by a `.`,
      * and each failing test is represented by a `X`.
      */
-    function dot(source: TestEventGenerator): AsyncGenerator<'\n' | '.' | 'X', void>;
+    function dot(source: TestEventGenerator): AsyncGenerator<"\n" | "." | "X", void>;
     /**
      * The `tap` reporter outputs the test results in the [TAP](https://testanything.org/) format.
      */
@@ -1379,5 +1459,12 @@ declare module 'node:test/reporters' {
     class Spec extends Transform {
         constructor();
     }
-    export { dot, tap, Spec as spec };
+    /**
+     * The `junit` reporter outputs test results in a jUnit XML format
+     */
+    function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
+    class Lcov extends Transform {
+        constructor(opts?: TransformOptions);
+    }
+    export { dot, junit, Lcov as lcov, Spec as spec, tap, TestEvent };
 }

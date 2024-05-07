@@ -1,8 +1,3 @@
-// Type definitions for crypto-ld 7.0
-// Project: https://github.com/digitalbazaar/crypto-ld
-// Definitions by: behruzrahimov <https://github.com/behruzrahimov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class CryptoLD {
     constructor(params?: { suites: Map<string, unknown> });
 
@@ -60,7 +55,7 @@ export class LDKeyPair {
         verified: boolean;
     };
 
-    signer(): { sign: ({data}: {data: Uint8Array}) => Promise<string | Uint8Array> };
+    signer(): { sign: ({ data }: { data: Uint8Array }) => Promise<string | Uint8Array> };
 
-    verifier(): { verify: ({data, signature}: {data: Uint8Array, signature: Uint8Array}) => Promise<boolean> };
+    verifier(): { verify: ({ data, signature }: { data: Uint8Array; signature: Uint8Array }) => Promise<boolean> };
 }

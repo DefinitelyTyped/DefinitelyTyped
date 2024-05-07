@@ -1,12 +1,3 @@
-// Type definitions for uuid 9.0
-// Project: https://github.com/uuidjs/uuid
-// Definitions by: Oliver Hoffmann <https://github.com/iamolivinius>
-//                 Felipe Ochoa <https://github.com/felipeochoa>
-//                 Chris Barth <https://github.com/cjbarth>
-//                 Linus Unnebäck <https://github.com/LinusU>
-//                 Christoph Tavan <https://github.com/ctavan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // disable automatic export
 export {};
 
@@ -48,21 +39,31 @@ type v4Buffer = <T extends OutputBuffer>(options: V4Options | null | undefined, 
 type v4 = v4Buffer & v4String;
 
 type v3String = (name: string | InputBuffer, namespace: string | InputBuffer) => string;
-type v3Buffer = <T extends OutputBuffer>(name: string | InputBuffer, namespace: string | InputBuffer, buffer: T, offset?: number) => T;
+type v3Buffer = <T extends OutputBuffer>(
+    name: string | InputBuffer,
+    namespace: string | InputBuffer,
+    buffer: T,
+    offset?: number,
+) => T;
 interface v3Static {
-    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L22
+    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L16
     DNS: string;
-    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L23
+    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L17
     URL: string;
 }
 type v3 = v3Buffer & v3String & v3Static;
 
 type v5String = (name: string | InputBuffer, namespace: string | InputBuffer) => string;
-type v5Buffer = <T extends OutputBuffer>(name: string | InputBuffer, namespace: string | InputBuffer, buffer: T, offset?: number) => T;
+type v5Buffer = <T extends OutputBuffer>(
+    name: string | InputBuffer,
+    namespace: string | InputBuffer,
+    buffer: T,
+    offset?: number,
+) => T;
 interface v5Static {
-    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L22
+    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L16
     DNS: string;
-    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L23
+    // https://github.com/uuidjs/uuid/blob/master/src/v35.js#L17
     URL: string;
 }
 type v5 = v5Buffer & v5String & v5Static;

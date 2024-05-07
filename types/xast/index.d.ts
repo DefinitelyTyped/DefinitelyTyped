@@ -1,13 +1,4 @@
-// Type definitions for non-npm package xast 2.0
-// Project: https://github.com/syntax-tree/xast
-// Definitions by: stefanprobst <https://github.com/stefanprobst>
-//                 Titus Wormer <https://github.com/wooorm>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-//                 Junyoung Choi <https://github.com/rokt33r>
-//                 Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from 'unist';
+import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 // ## Interfaces
 
@@ -174,7 +165,7 @@ export interface Cdata extends Literal {
     /**
      * Node type of XML CDATA sections in xast.
      */
-    type: 'cdata';
+    type: "cdata";
     /**
      * Data associated with the cdata.
      */
@@ -193,7 +184,7 @@ export interface Comment extends Literal {
     /**
      * Node type of XML comments in xast.
      */
-    type: 'comment';
+    type: "comment";
     /**
      * Data associated with the comment.
      */
@@ -212,7 +203,7 @@ export interface Doctype extends Node {
     /**
      * Node type of XML document types in xast.
      */
-    type: 'doctype';
+    type: "doctype";
     /**
      * Name of the root element.
      *
@@ -245,7 +236,7 @@ export interface Instruction extends Literal {
     /**
      * Node type of XML processing instructions in xast.
      */
-    type: 'instruction';
+    type: "instruction";
     /**
      * Name of the instruction.
      *
@@ -270,7 +261,7 @@ export interface Element extends Parent {
     /**
      * Node type of elements.
      */
-    type: 'element';
+    type: "element";
     /**
      * Qualified name (such as `'artist'` or `'svg:rect'`) of the element.
      */
@@ -307,7 +298,7 @@ export interface Root extends Parent {
     /**
      * Node type of xast root.
      */
-    type: 'root';
+    type: "root";
     /**
      * Data associated with the xast root.
      */
@@ -326,7 +317,7 @@ export interface Text extends Literal {
     /**
      * Node type of XML character data (plain text) in xast.
      */
-    type: 'text';
+    type: "text";
     /**
      * Data associated with the text.
      */

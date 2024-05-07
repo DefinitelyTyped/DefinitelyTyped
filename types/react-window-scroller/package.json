@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-window-scroller",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/FedericoDiRosa/react-window-scroller"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-window": "*"
+    },
+    "devDependencies": {
+        "@types/react-window-scroller": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artem Netuk",
+            "githubUsername": "ANetuk"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
-import simpleDDP from '../index';
-import { ddpEventListener } from './ddpEventListener';
+import simpleDDP from "../index";
+import { ddpEventListener } from "./ddpEventListener";
 
 export class ddpSubscription {
     constructor(pubname: string, args: unknown[], ddplink: simpleDDP);

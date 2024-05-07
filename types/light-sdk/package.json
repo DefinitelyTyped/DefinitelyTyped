@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/light-sdk",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/light-sdk"
+    ],
+    "devDependencies": {
+        "@types/light-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "cklwblove",
+            "githubUsername": "cklwblove"
+        }
+    ]
+}

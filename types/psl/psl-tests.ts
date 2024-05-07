@@ -1,6 +1,6 @@
-import * as psl from 'psl';
+import * as psl from "psl";
 
-const parsed = psl.parse('google.com');
+const parsed = psl.parse("google.com");
 
 if (parsed.error != null) {
     const parseError = parsed as psl.ParseError; // tslint:disable-line:no-unnecessary-type-assertion
@@ -21,6 +21,6 @@ if (parsed.error != null) {
 
 psl.get(null); // $ExpectType null
 psl.get(undefined); // $ExpectType null
-psl.get('example.COM'); // $ExpectType string | null
+psl.get("example.COM"); // $ExpectType string | null
 
-psl.isValid('COM'); // $ExpectType boolean
+psl.isValid("COM"); // $ExpectType boolean

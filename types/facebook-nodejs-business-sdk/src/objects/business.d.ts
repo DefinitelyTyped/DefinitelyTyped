@@ -10,363 +10,549 @@ import CustomConversion from './custom-conversion';
 import ProductCatalog from './product-catalog';
 import CPASCollaborationRequest from './cpas-collaboration-request';
 import CPASBusinessSetupConfig from './cpas-business-setup-config';
+import BusinessCreativeFolder from './business-creative-folder';
 import EventSourceGroup from './event-source-group';
+import BusinessImage from './business-image';
 import OfflineConversionDataSet from './offline-conversion-data-set';
+import OpenBridgeConfiguration from './open-bridge-configuration';
 import SystemUser from './system-user';
+import AdVideo from './ad-video';
+/**
+ * Business
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class Business extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    static get TwoFactorType(): Record<string, any>;
-    static get Vertical(): Record<string, any>;
-    static get PermittedTasks(): Record<string, any>;
-    static get SurveyBusinessType(): Record<string, any>;
-    static get PagePermittedTasks(): Record<string, any>;
-    createAccessToken(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
-    deleteAdAccounts(params?: Record<string, any>): Promise<any>;
-    getAdStudies(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAdStudies(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAdStudy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdStudy>;
-    createAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
-    createAdNetworkApplication(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Application>;
-    getAdNetworkAnalytics(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAdNetworkAnalytics(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdNetworkAnalytics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAdNetworkAnalytic(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    getAdNetworkAnalyticsResults(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAdNetworkAnalyticsResults(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdNetworkAnalyticsResults(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getAdsReportingMmmReports(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAdsReportingMmmReports(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdsReportingMmmReports(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getAdsPixels(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAdsPixels(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdsPixels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAdsPixel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
-    deleteAgencies(params?: Record<string, any>): Promise<any>;
-    getAgencies(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAgencies(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getAnPlacements(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAnPlacements(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAnPlacements(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createBlockListDraft(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    getBusinessAssetGroups(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getBusinessAssetGroups(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getBusinessAssetGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getBusinessInvoices(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getBusinessInvoices(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getBusinessInvoices(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getBusinessUsers(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getBusinessUsers(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getBusinessUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createBusinessUser(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<BusinessUser>;
-    createClaimCustomConversion(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<CustomConversion>;
-    getClientAdAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getClientAdAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getClientAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getClientApps(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getClientApps(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getClientApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createClientApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
-    getClientOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params?: Record<string, any>,
-    ): Promise<Cursor>;
-    getClientOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params: Record<string, any> | undefined,
-        fetchFirstPage: false,
-    ): Cursor;
-    getClientOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor | Promise<Cursor>;
-    getClientPages(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getClientPages(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getClientPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createClientPage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
-    getClientPixels(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getClientPixels(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getClientPixels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getClientProductCatalogs(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getClientProductCatalogs(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getClientProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getClientWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getClientWhatsAppBusinessAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getClientWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    deleteClients(params?: Record<string, any>): Promise<any>;
-    getClients(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getClients(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getClients(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCollaborativeAdsCollaborationRequests(
-        fields: string[],
-        params?: Record<string, any>,
-    ): Promise<Cursor>;
-    getCollaborativeAdsCollaborationRequests(
-        fields: string[],
-        params: Record<string, any> | undefined,
-        fetchFirstPage: false,
-    ): Cursor;
-    getCollaborativeAdsCollaborationRequests(
-        fields: string[],
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor | Promise<Cursor>;
-    createCollaborativeAdsCollaborationRequest(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<CPASCollaborationRequest>;
-    getCollaborativeAdsSuggestedPartners(
-        fields: string[],
-        params?: Record<string, any>,
-    ): Promise<Cursor>;
-    getCollaborativeAdsSuggestedPartners(
-        fields: string[],
-        params: Record<string, any> | undefined,
-        fetchFirstPage: false,
-    ): Cursor;
-    getCollaborativeAdsSuggestedPartners(
-        fields: string[],
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor | Promise<Cursor>;
-    getCommerceMerchantSettings(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCommerceMerchantSettings(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCommerceMerchantSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCpasBusinessSetupConfig(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCpasBusinessSetupConfig(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCpasBusinessSetupConfig(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCpasBusinessSetupConfig(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<CPASBusinessSetupConfig>;
-    getCpasMerchantConfig(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCpasMerchantConfig(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCpasMerchantConfig(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCreditCards(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCreditCards(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCreditCards(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCustomConversion(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<CustomConversion>;
-    createDraftNegativeKeywordList(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getEventSourceGroups(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getEventSourceGroups(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getEventSourceGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createEventSourceGroup(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<EventSourceGroup>;
-    getExtendedCreditApplications(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getExtendedCreditApplications(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getExtendedCreditApplications(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getExtendedCredits(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getExtendedCredits(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getExtendedCredits(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInitiatedAudienceSharingRequests(
-        fields: string[],
-        params?: Record<string, any>,
-    ): Promise<Cursor>;
-    getInitiatedAudienceSharingRequests(
-        fields: string[],
-        params: Record<string, any> | undefined,
-        fetchFirstPage: false,
-    ): Cursor;
-    getInitiatedAudienceSharingRequests(
-        fields: string[],
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor | Promise<Cursor>;
-    deleteInstagramAccounts(params?: Record<string, any>): Promise<any>;
-    getInstagramAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getInstagramAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInstagramBusinessAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getInstagramBusinessAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getInstagramBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    deleteManagedBusinesses(params?: Record<string, any>): Promise<any>;
-    createManagedBusiness(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    createManagedPartnerBusinessSetup(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    deleteManagedPartnerBusinesses(params?: Record<string, any>): Promise<any>;
-    createManagedPartnerBusiness(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    createManagedPartnerChildBusinessAsset(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    getNegativeKeywordLists(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getNegativeKeywordLists(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getNegativeKeywordLists(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getOfflineConversionDataSets(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOfflineConversionDataSets(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOfflineConversionDataSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createOfflineConversionDataSet(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<OfflineConversionDataSet>;
-    getOwnedAdAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOwnedAdAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOwnedAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createOwnedAdAccount(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    getOwnedApps(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOwnedApps(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOwnedApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createOwnedApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
-    deleteOwnedBusinesses(params?: Record<string, any>): Promise<any>;
-    getOwnedBusinesses(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOwnedBusinesses(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOwnedBusinesses(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createOwnedBusiness(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Business>;
-    getOwnedInstagramAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOwnedInstagramAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOwnedInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getOwnedOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params?: Record<string, any>,
-    ): Promise<Cursor>;
-    getOwnedOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params: Record<string, any> | undefined,
-        fetchFirstPage: false,
-    ): Cursor;
-    getOwnedOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor | Promise<Cursor>;
-    getOwnedPages(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOwnedPages(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOwnedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createOwnedPage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Business>;
-    getOwnedPixels(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOwnedPixels(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOwnedPixels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getOwnedProductCatalogs(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOwnedProductCatalogs(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOwnedProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createOwnedProductCatalog(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<ProductCatalog>;
-    getOwnedWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOwnedWhatsAppBusinessAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOwnedWhatsAppBusinessAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    deletePages(params?: Record<string, any>): Promise<any>;
-    createPartnerPremiumOption(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getPendingClientAdAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPendingClientAdAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPendingClientAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPendingClientApps(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPendingClientApps(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPendingClientApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPendingClientPages(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPendingClientPages(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPendingClientPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPendingOwnedAdAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPendingOwnedAdAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPendingOwnedAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPendingOwnedPages(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPendingOwnedPages(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPendingOwnedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPendingSharedOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params?: Record<string, any>,
-    ): Promise<Cursor>;
-    getPendingSharedOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params: Record<string, any> | undefined,
-        fetchFirstPage: false,
-    ): Cursor;
-    getPendingSharedOffsiteSignalContainerBusinessObjects(
-        fields: string[],
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor | Promise<Cursor>;
-    getPendingUsers(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPendingUsers(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPendingUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPicture(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPicture(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPixelTo(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getReceivedAudienceSharingRequests(
-        fields: string[],
-        params?: Record<string, any>,
-    ): Promise<Cursor>;
-    getReceivedAudienceSharingRequests(
-        fields: string[],
-        params: Record<string, any> | undefined,
-        fetchFirstPage: false,
-    ): Cursor;
-    getReceivedAudienceSharingRequests(
-        fields: string[],
-        params?: Record<string, any>,
-        fetchFirstPage?: boolean,
-    ): Cursor | Promise<Cursor>;
-    getSystemUsers(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getSystemUsers(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getSystemUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createSystemUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<SystemUser>;
-    get(fields: string[], params?: Record<string, any>): Promise<Business>;
-    update(fields: string[], params?: Record<string, any>): Promise<Business>;
+    static get Fields(): Readonly<{
+        block_offline_analytics: "block_offline_analytics";
+        collaborative_ads_managed_partner_business_info: "collaborative_ads_managed_partner_business_info";
+        collaborative_ads_managed_partner_eligibility: "collaborative_ads_managed_partner_eligibility";
+        collaborative_ads_partner_premium_options: "collaborative_ads_partner_premium_options";
+        created_by: "created_by";
+        created_time: "created_time";
+        extended_updated_time: "extended_updated_time";
+        id: "id";
+        is_hidden: "is_hidden";
+        link: "link";
+        name: "name";
+        payment_account_id: "payment_account_id";
+        primary_page: "primary_page";
+        profile_picture_uri: "profile_picture_uri";
+        timezone_id: "timezone_id";
+        two_factor_type: "two_factor_type";
+        updated_by: "updated_by";
+        updated_time: "updated_time";
+        user_access_expire_time: "user_access_expire_time";
+        verification_status: "verification_status";
+        vertical: "vertical";
+        vertical_id: "vertical_id";
+    }>;
+    static get TwoFactorType(): Readonly<{
+        admin_required: "admin_required";
+        all_required: "all_required";
+        none: "none";
+    }>;
+    static get Vertical(): Readonly<{
+        advertising: "ADVERTISING";
+        automotive: "AUTOMOTIVE";
+        consumer_packaged_goods: "CONSUMER_PACKAGED_GOODS";
+        ecommerce: "ECOMMERCE";
+        education: "EDUCATION";
+        energy_and_utilities: "ENERGY_AND_UTILITIES";
+        entertainment_and_media: "ENTERTAINMENT_AND_MEDIA";
+        financial_services: "FINANCIAL_SERVICES";
+        gaming: "GAMING";
+        government_and_politics: "GOVERNMENT_AND_POLITICS";
+        health: "HEALTH";
+        luxury: "LUXURY";
+        marketing: "MARKETING";
+        non_profit: "NON_PROFIT";
+        organizations_and_associations: "ORGANIZATIONS_AND_ASSOCIATIONS";
+        other: "OTHER";
+        professional_services: "PROFESSIONAL_SERVICES";
+        restaurant: "RESTAURANT";
+        retail: "RETAIL";
+        technology: "TECHNOLOGY";
+        telecom: "TELECOM";
+        travel: "TRAVEL";
+    }>;
+    static get PermittedTasks(): Readonly<{
+        advertise: "ADVERTISE";
+        analyze: "ANALYZE";
+        cashier_role: "CASHIER_ROLE";
+        create_content: "CREATE_CONTENT";
+        manage: "MANAGE";
+        manage_jobs: "MANAGE_JOBS";
+        manage_leads: "MANAGE_LEADS";
+        messaging: "MESSAGING";
+        moderate: "MODERATE";
+        moderate_community: "MODERATE_COMMUNITY";
+        pages_messaging: "PAGES_MESSAGING";
+        pages_messaging_subscriptions: "PAGES_MESSAGING_SUBSCRIPTIONS";
+        profile_plus_advertise: "PROFILE_PLUS_ADVERTISE";
+        profile_plus_analyze: "PROFILE_PLUS_ANALYZE";
+        profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
+        profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
+        profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_manage: "PROFILE_PLUS_MANAGE";
+        profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
+        profile_plus_messaging: "PROFILE_PLUS_MESSAGING";
+        profile_plus_moderate: "PROFILE_PLUS_MODERATE";
+        profile_plus_moderate_delegate_community: "PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY";
+        profile_plus_revenue: "PROFILE_PLUS_REVENUE";
+        read_page_mailboxes: "READ_PAGE_MAILBOXES";
+        view_monetization_insights: "VIEW_MONETIZATION_INSIGHTS";
+    }>;
+    static get SurveyBusinessType(): Readonly<{
+        advertiser: "ADVERTISER";
+        agency: "AGENCY";
+        app_developer: "APP_DEVELOPER";
+        publisher: "PUBLISHER";
+    }>;
+    static get PagePermittedTasks(): Readonly<{
+        advertise: "ADVERTISE";
+        analyze: "ANALYZE";
+        cashier_role: "CASHIER_ROLE";
+        create_content: "CREATE_CONTENT";
+        manage: "MANAGE";
+        manage_jobs: "MANAGE_JOBS";
+        manage_leads: "MANAGE_LEADS";
+        messaging: "MESSAGING";
+        moderate: "MODERATE";
+        moderate_community: "MODERATE_COMMUNITY";
+        pages_messaging: "PAGES_MESSAGING";
+        pages_messaging_subscriptions: "PAGES_MESSAGING_SUBSCRIPTIONS";
+        profile_plus_advertise: "PROFILE_PLUS_ADVERTISE";
+        profile_plus_analyze: "PROFILE_PLUS_ANALYZE";
+        profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
+        profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
+        profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_manage: "PROFILE_PLUS_MANAGE";
+        profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
+        profile_plus_messaging: "PROFILE_PLUS_MESSAGING";
+        profile_plus_moderate: "PROFILE_PLUS_MODERATE";
+        profile_plus_moderate_delegate_community: "PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY";
+        profile_plus_revenue: "PROFILE_PLUS_REVENUE";
+        read_page_mailboxes: "READ_PAGE_MAILBOXES";
+        view_monetization_insights: "VIEW_MONETIZATION_INSIGHTS";
+    }>;
+    static get SubverticalV2(): Readonly<{
+        accounting_and_tax: "ACCOUNTING_AND_TAX";
+        activities_and_leisure: "ACTIVITIES_AND_LEISURE";
+        air: "AIR";
+        apparel_and_accessories: "APPAREL_AND_ACCESSORIES";
+        arts_and_heritage_and_education: "ARTS_AND_HERITAGE_AND_EDUCATION";
+        ar_or_vr_gaming: "AR_OR_VR_GAMING";
+        audio_streaming: "AUDIO_STREAMING";
+        auto: "AUTO";
+        auto_insurance: "AUTO_INSURANCE";
+        auto_rental: "AUTO_RENTAL";
+        baby: "BABY";
+        ballot_initiative_or_referendum: "BALLOT_INITIATIVE_OR_REFERENDUM";
+        beauty: "BEAUTY";
+        beauty_and_fashion: "BEAUTY_AND_FASHION";
+        beer_and_wine_and_liquor_and_malt_beverages: "BEER_AND_WINE_AND_LIQUOR_AND_MALT_BEVERAGES";
+        bookstores: "BOOKSTORES";
+        broadcast_television: "BROADCAST_TELEVISION";
+        business_consultants: "BUSINESS_CONSULTANTS";
+        buying_agency: "BUYING_AGENCY";
+        cable_and_satellite: "CABLE_AND_SATELLITE";
+        cable_television: "CABLE_TELEVISION";
+        call_center_and_messaging_services: "CALL_CENTER_AND_MESSAGING_SERVICES";
+        candidate_or_politician: "CANDIDATE_OR_POLITICIAN";
+        career: "CAREER";
+        career_and_tech: "CAREER_AND_TECH";
+        casual_dining: "CASUAL_DINING";
+        chronic_conditions_and_medical_causes: "CHRONIC_CONDITIONS_AND_MEDICAL_CAUSES";
+        civic_influencers: "CIVIC_INFLUENCERS";
+        clinical_trials: "CLINICAL_TRIALS";
+        coffee: "COFFEE";
+        computer_and_software_and_hardware: "COMPUTER_AND_SOFTWARE_AND_HARDWARE";
+        console_and_cross_platform_gaming: "CONSOLE_AND_CROSS_PLATFORM_GAMING";
+        consulting: "CONSULTING";
+        consumer_electronics: "CONSUMER_ELECTRONICS";
+        counseling_and_psychotherapy: "COUNSELING_AND_PSYCHOTHERAPY";
+        creative_agency: "CREATIVE_AGENCY";
+        credit_and_financing_and_mortages: "CREDIT_AND_FINANCING_AND_MORTAGES";
+        cruises_and_marine: "CRUISES_AND_MARINE";
+        culture_and_lifestyle: "CULTURE_AND_LIFESTYLE";
+        data_analytics_and_data_management: "DATA_ANALYTICS_AND_DATA_MANAGEMENT";
+        dating_and_technology_apps: "DATING_AND_TECHNOLOGY_APPS";
+        department_store: "DEPARTMENT_STORE";
+        desktop_software: "DESKTOP_SOFTWARE";
+        dieting_and_fitness_programs: "DIETING_AND_FITNESS_PROGRAMS";
+        digital_native_education_or_training: "DIGITAL_NATIVE_EDUCATION_OR_TRAINING";
+        drinking_places: "DRINKING_PLACES";
+        education_resources: "EDUCATION_RESOURCES";
+        ed_tech: "ED_TECH";
+        elearning_and_massive_online_open_courses: "ELEARNING_AND_MASSIVE_ONLINE_OPEN_COURSES";
+        election_commission: "ELECTION_COMMISSION";
+        electronics_and_appliances: "ELECTRONICS_AND_APPLIANCES";
+        engineering_and_design: "ENGINEERING_AND_DESIGN";
+        environment_and_animal_welfare: "ENVIRONMENT_AND_ANIMAL_WELFARE";
+        esports: "ESPORTS";
+        events: "EVENTS";
+        farming_and_ranching: "FARMING_AND_RANCHING";
+        file_storage_and_cloud_and_data_services: "FILE_STORAGE_AND_CLOUD_AND_DATA_SERVICES";
+        finance: "FINANCE";
+        fin_tech: "FIN_TECH";
+        fishing_and_hunting_and_forestry_and_logging: "FISHING_AND_HUNTING_AND_FORESTRY_AND_LOGGING";
+        fitness: "FITNESS";
+        food: "FOOD";
+        footwear: "FOOTWEAR";
+        for_profit_colleges_and_universities: "FOR_PROFIT_COLLEGES_AND_UNIVERSITIES";
+        full_service_agency: "FULL_SERVICE_AGENCY";
+        government_controlled_entity: "GOVERNMENT_CONTROLLED_ENTITY";
+        government_department_or_agency: "GOVERNMENT_DEPARTMENT_OR_AGENCY";
+        government_official: "GOVERNMENT_OFFICIAL";
+        government_owned_media: "GOVERNMENT_OWNED_MEDIA";
+        grocery_and_drug_and_convenience: "GROCERY_AND_DRUG_AND_CONVENIENCE";
+        head_of_state: "HEAD_OF_STATE";
+        health_insurance: "HEALTH_INSURANCE";
+        health_systems_and_practitioners: "HEALTH_SYSTEMS_AND_PRACTITIONERS";
+        health_tech: "HEALTH_TECH";
+        home_and_furniture_and_office: "HOME_AND_FURNITURE_AND_OFFICE";
+        home_improvement: "HOME_IMPROVEMENT";
+        home_insurance: "HOME_INSURANCE";
+        home_tech: "HOME_TECH";
+        hotel_and_accomodation: "HOTEL_AND_ACCOMODATION";
+        household_goods_durable: "HOUSEHOLD_GOODS_DURABLE";
+        household_goods_non_durable: "HOUSEHOLD_GOODS_NON_DURABLE";
+        hr_and_financial_management: "HR_AND_FINANCIAL_MANAGEMENT";
+        humanitarian_or_disaster_relief: "HUMANITARIAN_OR_DISASTER_RELIEF";
+        independent_expenditure_group: "INDEPENDENT_EXPENDITURE_GROUP";
+        insurance_tech: "INSURANCE_TECH";
+        international_organizaton: "INTERNATIONAL_ORGANIZATON";
+        investment_bank_and_brokerage: "INVESTMENT_BANK_AND_BROKERAGE";
+        issue_advocacy: "ISSUE_ADVOCACY";
+        legal: "LEGAL";
+        life_insurance: "LIFE_INSURANCE";
+        logistics_and_transportation_and_fleet_management: "LOGISTICS_AND_TRANSPORTATION_AND_FLEET_MANAGEMENT";
+        manufacturing: "MANUFACTURING";
+        medical_devices_and_supplies_and_equipment: "MEDICAL_DEVICES_AND_SUPPLIES_AND_EQUIPMENT";
+        medspa_and_elective_surgeries_and_alternative_medicine: "MEDSPA_AND_ELECTIVE_SURGERIES_AND_ALTERNATIVE_MEDICINE";
+        mining_and_quarrying: "MINING_AND_QUARRYING";
+        mobile_gaming: "MOBILE_GAMING";
+        movies: "MOVIES";
+        museums_and_parks_and_libraries: "MUSEUMS_AND_PARKS_AND_LIBRARIES";
+        music: "MUSIC";
+        network_security_products: "NETWORK_SECURITY_PRODUCTS";
+        news_and_current_events: "NEWS_AND_CURRENT_EVENTS";
+        non_prescription: "NON_PRESCRIPTION";
+        not_for_profit_colleges_and_universities: "NOT_FOR_PROFIT_COLLEGES_AND_UNIVERSITIES";
+        office: "OFFICE";
+        office_or_business_supplies: "OFFICE_OR_BUSINESS_SUPPLIES";
+        oil_and_gas_and_consumable_fuel: "OIL_AND_GAS_AND_CONSUMABLE_FUEL";
+        online_only_publications: "ONLINE_ONLY_PUBLICATIONS";
+        package_or_freight_delivery: "PACKAGE_OR_FREIGHT_DELIVERY";
+        party_independent_expenditure_group_us: "PARTY_INDEPENDENT_EXPENDITURE_GROUP_US";
+        payment_processing_and_gateway_solutions: "PAYMENT_PROCESSING_AND_GATEWAY_SOLUTIONS";
+        pc_gaming: "PC_GAMING";
+        people: "PEOPLE";
+        personal_care: "PERSONAL_CARE";
+        pet: "PET";
+        photography_and_filming_services: "PHOTOGRAPHY_AND_FILMING_SERVICES";
+        pizza: "PIZZA";
+        planning_agency: "PLANNING_AGENCY";
+        political_party_or_committee: "POLITICAL_PARTY_OR_COMMITTEE";
+        prescription: "PRESCRIPTION";
+        professional_associations: "PROFESSIONAL_ASSOCIATIONS";
+        property_and_casualty: "PROPERTY_AND_CASUALTY";
+        quick_service: "QUICK_SERVICE";
+        radio: "RADIO";
+        railroads: "RAILROADS";
+        real_estate: "REAL_ESTATE";
+        real_money_gaming: "REAL_MONEY_GAMING";
+        recreational: "RECREATIONAL";
+        religious: "RELIGIOUS";
+        reseller: "RESELLER";
+        residential_and_long_term_care_facilities_and_outpatient_care_centers: "RESIDENTIAL_AND_LONG_TERM_CARE_FACILITIES_AND_OUTPATIENT_CARE_CENTERS";
+        retail_and_credit_union_and_commercial_bank: "RETAIL_AND_CREDIT_UNION_AND_COMMERCIAL_BANK";
+        ride_sharing_or_taxi_services: "RIDE_SHARING_OR_TAXI_SERVICES";
+        safety_services: "SAFETY_SERVICES";
+        scholarly: "SCHOLARLY";
+        school_and_early_children_edcation: "SCHOOL_AND_EARLY_CHILDREN_EDCATION";
+        social_media: "SOCIAL_MEDIA";
+        software_as_a_service: "SOFTWARE_AS_A_SERVICE";
+        sporting: "SPORTING";
+        sporting_and_outdoor: "SPORTING_AND_OUTDOOR";
+        sports: "SPORTS";
+        superstores: "SUPERSTORES";
+        t1_automotive_manufacturer: "T1_AUTOMOTIVE_MANUFACTURER";
+        t1_motorcycle: "T1_MOTORCYCLE";
+        t2_dealer_associations: "T2_DEALER_ASSOCIATIONS";
+        t3_auto_agency: "T3_AUTO_AGENCY";
+        t3_auto_resellers: "T3_AUTO_RESELLERS";
+        t3_dealer_groups: "T3_DEALER_GROUPS";
+        t3_franchise_dealer: "T3_FRANCHISE_DEALER";
+        t3_independent_dealer: "T3_INDEPENDENT_DEALER";
+        t3_parts_and_services: "T3_PARTS_AND_SERVICES";
+        t3_portals: "T3_PORTALS";
+        telecommunications_equipment_and_accessories: "TELECOMMUNICATIONS_EQUIPMENT_AND_ACCESSORIES";
+        telephone_service_providers_and_carriers: "TELEPHONE_SERVICE_PROVIDERS_AND_CARRIERS";
+        ticketing: "TICKETING";
+        tobacco: "TOBACCO";
+        tourism_and_travel_services: "TOURISM_AND_TRAVEL_SERVICES";
+        tourism_board: "TOURISM_BOARD";
+        toy_and_hobby: "TOY_AND_HOBBY";
+        trade_school: "TRADE_SCHOOL";
+        travel_agencies_and_guides_and_otas: "TRAVEL_AGENCIES_AND_GUIDES_AND_OTAS";
+        utilities_and_energy_equipment_and_services: "UTILITIES_AND_ENERGY_EQUIPMENT_AND_SERVICES";
+        veterinary_clinics_and_services: "VETERINARY_CLINICS_AND_SERVICES";
+        video_streaming: "VIDEO_STREAMING";
+        virtual_services: "VIRTUAL_SERVICES";
+        vitamins_or_wellness: "VITAMINS_OR_WELLNESS";
+        warehousing_and_storage: "WAREHOUSING_AND_STORAGE";
+        water_and_soft_drink_and_baverage: "WATER_AND_SOFT_DRINK_AND_BAVERAGE";
+        website_designers_or_graphic_designers: "WEBSITE_DESIGNERS_OR_GRAPHIC_DESIGNERS";
+        wholesale: "WHOLESALE";
+        wireless_services: "WIRELESS_SERVICES";
+    }>;
+    static get VerticalV2(): Readonly<{
+        advertising_and_marketing: "ADVERTISING_AND_MARKETING";
+        agriculture: "AGRICULTURE";
+        automotive: "AUTOMOTIVE";
+        banking_and_credit_cards: "BANKING_AND_CREDIT_CARDS";
+        business_to_business: "BUSINESS_TO_BUSINESS";
+        consumer_packaged_goods: "CONSUMER_PACKAGED_GOODS";
+        ecommerce: "ECOMMERCE";
+        education: "EDUCATION";
+        energy_and_natural_resources_and_utilities: "ENERGY_AND_NATURAL_RESOURCES_AND_UTILITIES";
+        entertainment_and_media: "ENTERTAINMENT_AND_MEDIA";
+        gaming: "GAMING";
+        government: "GOVERNMENT";
+        healthcare_and_pharmaceuticals_and_biotech: "HEALTHCARE_AND_PHARMACEUTICALS_AND_BIOTECH";
+        insurance: "INSURANCE";
+        non_profit: "NON_PROFIT";
+        organizations_and_associations: "ORGANIZATIONS_AND_ASSOCIATIONS";
+        politics: "POLITICS";
+        professional_services: "PROFESSIONAL_SERVICES";
+        publishing: "PUBLISHING";
+        restaurants: "RESTAURANTS";
+        retail: "RETAIL";
+        technology: "TECHNOLOGY";
+        telecom: "TELECOM";
+        travel: "TRAVEL";
+    }>;
+    static get ActionSource(): Readonly<{
+        physical_store: "PHYSICAL_STORE";
+        website: "WEBSITE";
+    }>;
+    createAccessToken(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    deleteAdAccounts(params?: Record<any, any>): Promise<any>;
+    getAdStudies(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdStudies(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdStudies(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAdStudy(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdStudy>;
+    createAdAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdAccount>;
+    createAddPhoneNumber(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    createAdNetworkApplication(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Application>;
+    getAdNetworkAnalytics(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdNetworkAnalytics(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdNetworkAnalytics(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAdNetworkAnalytic(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    getAdNetworkAnalyticsResults(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdNetworkAnalyticsResults(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdNetworkAnalyticsResults(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAdsReportingMmmReports(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdsReportingMmmReports(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdsReportingMmmReports(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAdsReportingMmmSchedulers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdsReportingMmmSchedulers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdsReportingMmmSchedulers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAdsPixels(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdsPixels(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdsPixels(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAdsPixel(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdsPixel>;
+    deleteAgencies(params?: Record<any, any>): Promise<any>;
+    getAgencies(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAgencies(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAgencies(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAnPlacements(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAnPlacements(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAnPlacements(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createBlockListDraft(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    getBusinessAssetGroups(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getBusinessAssetGroups(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getBusinessAssetGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getBusinessInvoices(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getBusinessInvoices(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getBusinessInvoices(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getBusinessUsers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getBusinessUsers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getBusinessUsers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createBusinessUser(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<BusinessUser>;
+    getBusinessProjects(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getBusinessProjects(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getBusinessProjects(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createClaimCustomConversion(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CustomConversion>;
+    getClientAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getClientAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getClientAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getClientApps(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getClientApps(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getClientApps(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createClientApp(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    getClientOffsiteSignalContainerBusinessObjects(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getClientOffsiteSignalContainerBusinessObjects(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getClientOffsiteSignalContainerBusinessObjects(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getClientPages(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getClientPages(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getClientPages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createClientPage(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    getClientPixels(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getClientPixels(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getClientPixels(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getClientProductCatalogs(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getClientProductCatalogs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getClientProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getClientWhatsAppBusinessAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getClientWhatsAppBusinessAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getClientWhatsAppBusinessAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteClients(params?: Record<any, any>): Promise<any>;
+    getClients(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getClients(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getClients(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCollaborativeAdsCollaborationRequests(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCollaborativeAdsCollaborationRequests(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCollaborativeAdsCollaborationRequests(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCollaborativeAdsCollaborationRequest(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CPASCollaborationRequest>;
+    getCollaborativeAdsSuggestedPartners(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCollaborativeAdsSuggestedPartners(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCollaborativeAdsSuggestedPartners(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCommerceMerchantSettings(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCommerceMerchantSettings(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCommerceMerchantSettings(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCpasBusinessSetupConfig(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCpasBusinessSetupConfig(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCpasBusinessSetupConfig(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCpasBusinessSetupConfig(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CPASBusinessSetupConfig>;
+    getCpasMerchantConfig(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCpasMerchantConfig(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCpasMerchantConfig(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCreativeFolder(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<BusinessCreativeFolder>;
+    getCreditCards(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCreditCards(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCreditCards(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCustomConversion(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CustomConversion>;
+    createDraftNegativeKeywordList(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getEventSourceGroups(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getEventSourceGroups(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getEventSourceGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createEventSourceGroup(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<EventSourceGroup>;
+    getExtendedCreditApplications(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getExtendedCreditApplications(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getExtendedCreditApplications(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getExtendedCredits(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getExtendedCredits(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getExtendedCredits(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createImage(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<BusinessImage>;
+    getInitiatedAudienceSharingRequests(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getInitiatedAudienceSharingRequests(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getInitiatedAudienceSharingRequests(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteInstagramAccounts(params?: Record<any, any>): Promise<any>;
+    getInstagramAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getInstagramAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getInstagramAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getInstagramBusinessAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getInstagramBusinessAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getInstagramBusinessAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteManagedBusinesses(params?: Record<any, any>): Promise<any>;
+    createManagedBusiness(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    createManagedPartnerBusinessSetup(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    deleteManagedPartnerBusinesses(params?: Record<any, any>): Promise<any>;
+    createManagedPartnerBusiness(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getNegativeKeywordLists(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getNegativeKeywordLists(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getNegativeKeywordLists(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOfflineConversionDataSets(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOfflineConversionDataSets(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOfflineConversionDataSets(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createOfflineConversionDataSet(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<OfflineConversionDataSet>;
+    getOpenBridgeConfigurations(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOpenBridgeConfigurations(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOpenBridgeConfigurations(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createOpenBridgeConfiguration(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<OpenBridgeConfiguration>;
+    getOwnedAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createOwnedAdAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    getOwnedApps(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedApps(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedApps(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createOwnedApp(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    deleteOwnedBusinesses(params?: Record<any, any>): Promise<any>;
+    getOwnedBusinesses(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedBusinesses(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedBusinesses(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createOwnedBusiness(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    getOwnedInstagramAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedInstagramAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedInstagramAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOwnedOffsiteSignalContainerBusinessObjects(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedOffsiteSignalContainerBusinessObjects(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedOffsiteSignalContainerBusinessObjects(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOwnedPages(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedPages(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedPages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createOwnedPage(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    getOwnedPixels(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedPixels(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedPixels(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOwnedProductCatalogs(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedProductCatalogs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createOwnedProductCatalog(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ProductCatalog>;
+    getOwnedWhatsAppBusinessAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwnedWhatsAppBusinessAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwnedWhatsAppBusinessAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deletePages(params?: Record<any, any>): Promise<any>;
+    getPartnerAccountLinking(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPartnerAccountLinking(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPartnerAccountLinking(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createPartnerPremiumOption(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getPendingClientAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPendingClientAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPendingClientAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPendingClientApps(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPendingClientApps(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPendingClientApps(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPendingClientPages(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPendingClientPages(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPendingClientPages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPendingOwnedAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPendingOwnedAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPendingOwnedAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPendingOwnedPages(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPendingOwnedPages(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPendingOwnedPages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPendingSharedOffsiteSignalContainerBusinessObjects(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPendingSharedOffsiteSignalContainerBusinessObjects(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPendingSharedOffsiteSignalContainerBusinessObjects(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPendingUsers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPendingUsers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPendingUsers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPicture(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPicture(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createPixelTo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getPreVerifiedNumbers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPreVerifiedNumbers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPreVerifiedNumbers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getReceivedAudienceSharingRequests(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getReceivedAudienceSharingRequests(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getReceivedAudienceSharingRequests(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createSetupManagedPartnerAdAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    deleteSharePreVerifiedNumbers(params?: Record<any, any>): Promise<any>;
+    createSharePreVerifiedNumber(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    createSystemUserAccessToken(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Business>;
+    getSystemUsers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getSystemUsers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getSystemUsers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createSystemUser(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<SystemUser>;
+    getThirdPartyMeasurementReportDataset(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getThirdPartyMeasurementReportDataset(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getThirdPartyMeasurementReportDataset(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdVideo>;
+    get(fields: string[], params?: Record<any, any>): Promise<Business>;
+    update(fields: string[], params?: Record<any, any>): Promise<Business>;
 }

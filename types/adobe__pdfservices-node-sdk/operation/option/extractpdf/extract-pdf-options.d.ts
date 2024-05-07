@@ -21,11 +21,11 @@ export interface ExtractElementType {
     /**
      * Represents Text elements to extract in the JSON
      */
-    TEXT: 'text';
+    TEXT: "text";
     /**
      * Represents Table elements to extract in the JSON.
      */
-    TABLES: 'tables';
+    TABLES: "tables";
 }
 
 /**
@@ -35,21 +35,21 @@ export interface TableStructureType {
     /**
      * Represents CSV format for exporting extracted Table Data
      */
-    CSV: 'csv';
+    CSV: "csv";
     /**
      * Represents XLSX format for exporting extracted Table Data
      */
-    XLSX: 'xlsx';
+    XLSX: "xlsx";
 }
 export interface ExtractRenditionsElementType {
     /**
      * Represents png renditions of Tables to generate from the PDF
      */
-    TABLES: 'tables';
+    TABLES: "tables";
     /**
      * Represents png renditions of Figures to generate from the PDF
      */
-    FIGURES: 'figures';
+    FIGURES: "figures";
 }
 export class ExtractPDFOptionsBuilder {
     /**

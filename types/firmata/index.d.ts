@@ -1,13 +1,8 @@
-// Type definitions for firmata.js 0.19
-// Project: http://www.github.com/firmata/firmata.js
-// Definitions by: Troy W. <https://github.com/troywweber7>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as SerialPort from 'serialport';
+import * as SerialPort from "serialport";
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export = Board;
 
@@ -18,7 +13,11 @@ export = Board;
  * guarantee that it cannot be improved.
  */
 declare class Board extends EventEmitter {
-    constructor(serialPort: any, optionsOrCallback?: Board.Options|((error: any) => void), callback?: (error: any) => void)
+    constructor(
+        serialPort: any,
+        optionsOrCallback?: Board.Options | ((error: any) => void),
+        callback?: (error: any) => void,
+    );
     MODES: Board.PinModes;
     STEPPER: Board.StepperConstants;
     I2C_MODES: Board.I2cModes;
@@ -52,7 +51,7 @@ declare class Board extends EventEmitter {
     // TODO untested --- TWW
     sendI2CConfig(delay: number): void;
     // TODO untested --- TWW
-    i2cConfig(options: number|{ delay: number }): void;
+    i2cConfig(options: number | { delay: number }): void;
     // TODO untested --- TWW
     sendI2CWriteRequest(slaveAddress: number, bytes: number[]): void;
     // TODO untested --- TWW
@@ -66,7 +65,7 @@ declare class Board extends EventEmitter {
     i2cRead(address: number, register: number, bytesToRead: number, callback: (data: number[]) => void): void;
     i2cRead(address: number, bytesToRead: number, callback: (data: number[]) => void): void;
     // TODO untested --- TWW
-    i2cStop(options: number|{ bus: number, address: number }): void;
+    i2cStop(options: number | { bus: number; address: number }): void;
     // TODO untested --- TWW
     i2cReadOnce(address: number, register: number, bytesToRead: number, callback: (data: number[]) => void): void;
     i2cReadOnce(address: number, bytesToRead: number, callback: (data: number[]) => void): void;
@@ -81,16 +80,17 @@ declare class Board extends EventEmitter {
     // TODO untested --- TWW
     sendOneWireReset(pin: number): void;
     // TODO untested --- TWW
-    sendOneWireWrite(pin: number, device: number, data: number|number[]): void;
+    sendOneWireWrite(pin: number, device: number, data: number | number[]): void;
     // TODO untested --- TWW
     sendOneWireDelay(pin: number, delay: number): void;
     // TODO untested --- TWW
     sendOneWireWriteAndRead(
         pin: number,
         device: number,
-        data: number|number[],
+        data: number | number[],
         numBytesToRead: number,
-        callback: (error?: Error, data?: number) => void): void;
+        callback: (error?: Error, data?: number) => void,
+    ): void;
     setSamplingInterval(interval: number): void;
     getSamplingInterval(): number;
     reportAnalogPin(pin: number, value: Board.REPORTING): void;
@@ -104,17 +104,21 @@ declare class Board extends EventEmitter {
         dirOrMotor1Pin: number,
         stepOrMotor2Pin: number,
         motor3Pin?: number,
-        motor4Pin?: number): void;
+        motor4Pin?: number,
+    ): void;
     stepperStep(
         deviceNum: number,
         direction: Board.STEPPER_DIRECTION,
         steps: number,
         speed: number,
-        accel: number|((bool?: boolean) => void),
+        accel: number | ((bool?: boolean) => void),
         decel?: number,
-        callback?: (bool?: boolean) => void): void;
+        callback?: (bool?: boolean) => void,
+    ): void;
     // TODO untested --- TWW
-    serialConfig(options: { portId: Board.SERIAL_PORT_ID, baud: number, rxPin?: number | undefined, txPin?: number | undefined }): void;
+    serialConfig(
+        options: { portId: Board.SERIAL_PORT_ID; baud: number; rxPin?: number | undefined; txPin?: number | undefined },
+    ): void;
     // TODO untested --- TWW
     serialWrite(portId: Board.SERIAL_PORT_ID, inBytes: number[]): void;
     // TODO untested --- TWW
@@ -149,7 +153,9 @@ declare class Board extends EventEmitter {
         correlationId: any,
         delay: number,
         dataToWrite: any,
-        event: any, callback: () => void): void;
+        event: any,
+        callback: () => void,
+    ): void;
 }
 
 declare namespace Board {
@@ -182,20 +188,20 @@ declare namespace Board {
 
     interface StepperConstants {
         TYPE: {
-            DRIVER: STEPPER_TYPE,
-            TWO_WIRE: STEPPER_TYPE,
-            FOUR_WIRE: STEPPER_TYPE,
+            DRIVER: STEPPER_TYPE;
+            TWO_WIRE: STEPPER_TYPE;
+            FOUR_WIRE: STEPPER_TYPE;
         };
         RUNSTATE: {
-            STOP: STEPPER_RUN_STATE,
-            ACCEL: STEPPER_RUN_STATE,
-            DECEL: STEPPER_RUN_STATE,
-            RUN: STEPPER_RUN_STATE,
+            STOP: STEPPER_RUN_STATE;
+            ACCEL: STEPPER_RUN_STATE;
+            DECEL: STEPPER_RUN_STATE;
+            RUN: STEPPER_RUN_STATE;
         };
-        DIRECTION: { CCW: STEPPER_DIRECTION, CW: STEPPER_DIRECTION };
+        DIRECTION: { CCW: STEPPER_DIRECTION; CW: STEPPER_DIRECTION };
     }
 
-    // tslint:disable-next-line interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I2cModes {
         WRITE: I2C_MODE;
         READ: I2C_MODE;
@@ -249,8 +255,8 @@ declare namespace Board {
         reportVersionTimeout: number;
         samplingInterval: number;
         serialport: {
-            baudRate: number,
-            bufferSize: number,
+            baudRate: number;
+            bufferSize: number;
         };
     }
 
@@ -283,7 +289,7 @@ declare namespace Board {
 
     const enum PIN_STATE {
         LOW = 0,
-        HIGH = 1
+        HIGH = 1,
     }
 
     const enum REPORTING {
@@ -322,7 +328,7 @@ declare namespace Board {
         WRITE = 0,
         READ = 1,
         CONTINUOUS_READ = 2,
-        STOP_READING = 3
+        STOP_READING = 3,
     }
 
     // https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L491-L494

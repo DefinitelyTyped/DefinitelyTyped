@@ -13,8 +13,8 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
             host: "/",
             login: "username",
             passcode: "password",
-            "heart-beat": "5000,5000"
-        }
+            "heart-beat": "5000,5000",
+        },
     };
 
     stompit.connect(
@@ -27,7 +27,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const sendHeaders = {
                 destination: "/queue/test",
-                "content-type": "text/plain"
+                "content-type": "text/plain",
             };
 
             const frame = client.send(sendHeaders);
@@ -36,7 +36,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const subscribeHeaders = {
                 destination: "/queue/test",
-                ack: "client-individual"
+                ack: "client-individual",
             };
 
             client.subscribe(subscribeHeaders, (error, message) => {
@@ -58,7 +58,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                     client.disconnect();
                 });
             });
-        }
+        },
     );
 }
 
@@ -74,7 +74,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const sendHeaders = {
                 destination: "/queue/test",
-                "content-type": "text/plain"
+                "content-type": "text/plain",
             };
 
             const frame = client.send(sendHeaders);
@@ -83,7 +83,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const subscribeHeaders = {
                 destination: "/queue/test",
-                ack: "client-individual"
+                ack: "client-individual",
             };
 
             client.subscribe(subscribeHeaders, (error, message) => {
@@ -105,14 +105,14 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                     client.disconnect();
                 });
             });
-        }
+        },
     );
 }
 
 // Test connect(host: string, connectionListener: ConnectionListener) variant
 {
     stompit.connect(
-        'localhost',
+        "localhost",
         (error, client) => {
             if (error) {
                 console.log("connect error " + error.message);
@@ -121,7 +121,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const sendHeaders = {
                 destination: "/queue/test",
-                "content-type": "text/plain"
+                "content-type": "text/plain",
             };
 
             const frame = client.send(sendHeaders);
@@ -130,7 +130,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const subscribeHeaders = {
                 destination: "/queue/test",
-                ack: "client-individual"
+                ack: "client-individual",
             };
 
             client.subscribe(subscribeHeaders, (error, message) => {
@@ -152,7 +152,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                     client.disconnect();
                 });
             });
-        }
+        },
     );
 }
 
@@ -160,7 +160,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 {
     stompit.connect(
         123456,
-        'localhost',
+        "localhost",
         (error, client) => {
             if (error) {
                 console.log("connect error " + error.message);
@@ -169,7 +169,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const sendHeaders = {
                 destination: "/queue/test",
-                "content-type": "text/plain"
+                "content-type": "text/plain",
             };
 
             const frame = client.send(sendHeaders);
@@ -178,7 +178,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const subscribeHeaders = {
                 destination: "/queue/test",
-                ack: "client-individual"
+                ack: "client-individual",
             };
 
             client.subscribe(subscribeHeaders, (error, message) => {
@@ -200,7 +200,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                     client.disconnect();
                 });
             });
-        }
+        },
     );
 }
 
@@ -218,13 +218,13 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                 host: "localhost",
                 login: "admin",
                 passcode: "password",
-                "heart-beat": "100,100"
-            }
-        }
+                "heart-beat": "100,100",
+            },
+        },
     ];
 
     const reconnectOptions = {
-        maxReconnects: 1
+        maxReconnects: 1,
     };
 
     const connections = new stompit.ConnectFailover(servers, reconnectOptions);
@@ -260,7 +260,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
         const headers = {
             destination: "/queue/test",
-            ack: "client-individual"
+            ack: "client-individual",
         };
 
         channel.subscribe(headers, (error, message, subscription) => {
@@ -297,13 +297,13 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
             connectHeaders: {
                 host: "localhost",
                 login: "admin",
-                passcode: "password"
-            }
-        }
+                passcode: "password",
+            },
+        },
     ];
 
     const reconnectOptions = {
-        maxReconnects: 1
+        maxReconnects: 1,
     };
 
     const connections = new stompit.ConnectFailover(servers, reconnectOptions);
@@ -336,7 +336,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
         const headers = {
             destination: "/queue/test",
             "content-type": "text/plain",
-            "content-length": 5
+            "content-length": 5,
         };
 
         const body = "hello";
@@ -360,8 +360,8 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
         connectHeaders: {
             host: "localhost",
             login: "admin",
-            passcode: "password"
-        }
+            passcode: "password",
+        },
     };
 
     stompit.connect(
@@ -374,7 +374,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const subscribeParams = {
                 destination: "/queue/test",
-                ack: "client-individual"
+                ack: "client-individual",
             };
 
             let consuming = false;
@@ -402,7 +402,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                     client.disconnect();
                 });
             });
-        }
+        },
     );
 }
 
@@ -414,8 +414,8 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
         connectHeaders: {
             host: "localhost",
             login: "admin",
-            passcode: "password"
-        }
+            passcode: "password",
+        },
     };
 
     stompit.connect(
@@ -434,7 +434,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
             const sendParams = {
                 destination: "/queue/test",
                 "content-type": "image/jpeg",
-                "content-length": contentLength
+                "content-length": contentLength,
             };
 
             const frame = client.send(sendParams);
@@ -449,7 +449,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                 }
                 console.log("Sent file");
             });
-        }
+        },
     );
 }
 
@@ -461,8 +461,8 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
         connectHeaders: {
             host: "localhost",
             login: "admin",
-            passcode: "password"
-        }
+            passcode: "password",
+        },
     };
 
     stompit.connect(
@@ -475,7 +475,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
 
             const sendParams = {
                 destination: "/queue/test",
-                "content-type": "application/json"
+                "content-type": "application/json",
             };
 
             const frame = client.send(sendParams);
@@ -483,8 +483,8 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
             frame.end(
                 JSON.stringify({
                     anything: "anything",
-                    example: true
-                })
+                    example: true,
+                }),
             );
 
             client.disconnect(error => {
@@ -494,7 +494,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                 }
                 console.log("Sent message");
             });
-        }
+        },
     );
 }
 
@@ -506,8 +506,8 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
         connectHeaders: {
             host: "localhost",
             login: "admin",
-            passcode: "password"
-        }
+            passcode: "password",
+        },
     };
 
     stompit.connect(
@@ -532,7 +532,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                 }
                 console.log("Sent messages");
             });
-        }
+        },
     );
 }
 
@@ -548,9 +548,9 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
                 host: "localhost",
                 login: "admin",
                 passcode: "password",
-                "heart-beat": "1000,1000"
-            }
-        }
+                "heart-beat": "1000,1000",
+            },
+        },
     ]);
 
     connectionManager.on("error", error => {
@@ -572,7 +572,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
         }
 
         const sendHeaders = {
-            destination: "/queue/a"
+            destination: "/queue/a",
         };
 
         channel.send(sendHeaders, "hello", error => {
@@ -592,7 +592,7 @@ import { NetTcpConnectOptions } from "stompit/lib/connect";
         }
 
         const subscribeHeaders = {
-            destination: "/queue/a"
+            destination: "/queue/a",
         };
 
         channel.subscribe(subscribeHeaders, (error, message, subscription) => {

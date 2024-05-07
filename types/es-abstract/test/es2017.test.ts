@@ -1,20 +1,20 @@
-import ES2017 = require('es-abstract/es2017');
+import ES2017 = require("es-abstract/es2017");
 
 declare const any: unknown;
 declare const object: object;
 
-const OWN_PROPERTY_TYPES = String() as 'key' | 'value' | 'key+value';
+const OWN_PROPERTY_TYPES = String() as "key" | "value" | "key+value";
 
 // $ExpectType number
 ES2017.ToIndex(any);
 
-ES2017.EnumerableOwnProperties({ Object, String }, 'key'); // $ExpectType string[]
-ES2017.EnumerableOwnProperties({ Object, String }, 'value'); // $ExpectType (ObjectConstructor | StringConstructor)[]
-ES2017.EnumerableOwnProperties({ Object, String }, 'key+value'); // $ExpectType [string, ObjectConstructor | StringConstructor][]
+ES2017.EnumerableOwnProperties({ Object, String }, "key"); // $ExpectType string[]
+ES2017.EnumerableOwnProperties({ Object, String }, "value"); // $ExpectType (ObjectConstructor | StringConstructor)[]
+ES2017.EnumerableOwnProperties({ Object, String }, "key+value"); // $ExpectType [string, ObjectConstructor | StringConstructor][]
 
-ES2017.EnumerableOwnProperties(object, 'key'); // $ExpectType string[]
-ES2017.EnumerableOwnProperties(object, 'value'); // $ExpectType any[]
-ES2017.EnumerableOwnProperties(object, 'key+value'); // $ExpectType [string, any][]
+ES2017.EnumerableOwnProperties(object, "key"); // $ExpectType string[]
+ES2017.EnumerableOwnProperties(object, "value"); // $ExpectType any[]
+ES2017.EnumerableOwnProperties(object, "key+value"); // $ExpectType [string, any][]
 ES2017.EnumerableOwnProperties(object, OWN_PROPERTY_TYPES); // $ExpectType any[]
 
 // $ExpectType number[]

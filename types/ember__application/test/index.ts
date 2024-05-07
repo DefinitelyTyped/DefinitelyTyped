@@ -1,8 +1,8 @@
-import { getOwner, setOwner } from '@ember/application';
-import EngineInstance from '@ember/engine/instance';
-import Owner from '@ember/owner';
-import ApplicationInstance from '@ember/application/instance';
-import Service from '@ember/service';
+import { getOwner, setOwner } from "@ember/application";
+import ApplicationInstance from "@ember/application/instance";
+import EngineInstance from "@ember/engine/instance";
+import Owner from "@ember/owner";
+import Service from "@ember/service";
 
 // $ExpectType Owner | undefined
 getOwner({});

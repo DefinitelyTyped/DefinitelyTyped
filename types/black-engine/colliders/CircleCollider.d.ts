@@ -8,4 +8,4 @@ export class CircleCollider extends Collider {
     set(x: number, y: number, radius: number): CircleCollider;
     refresh(transform: any, position: any): void;
 }
-import { Collider } from './Collider';
+import { Collider } from "./Collider";

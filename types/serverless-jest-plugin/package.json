@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/serverless-jest-plugin",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/nordcloud/serverless-jest-plugin#readme"
+    ],
+    "dependencies": {
+        "@types/lambda-wrapper": "*",
+        "@types/serverless": "*"
+    },
+    "devDependencies": {
+        "@types/serverless-jest-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gaelan Steele",
+            "githubUsername": "Gaelan"
+        }
+    ]
+}

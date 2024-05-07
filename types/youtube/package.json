@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/youtube",
+    "version": "0.0.9999",
+    "projects": [
+        "https://developers.google.com/youtube/"
+    ],
+    "devDependencies": {
+        "@types/youtube": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ian Obermiller",
+            "url": "http://ianobermiller.com"
+        },
+        {
+            "name": "Eliot Fallon",
+            "githubUsername": "eliotfallon213"
+        },
+        {
+            "name": "Terry Mun",
+            "githubUsername": "terrymun"
+        },
+        {
+            "name": "Paul Hobbel",
+            "githubUsername": "paulhobbel"
+        }
+    ]
+}

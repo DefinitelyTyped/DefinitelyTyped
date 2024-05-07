@@ -1,12 +1,6 @@
-// Type definitions for regenerator-runtime 0.13
-// Project: https://github.com/facebook/regenerator
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 export as namespace regeneratorRuntime;
 declare global {
-    var regeneratorRuntime: typeof import('.');
+    var regeneratorRuntime: typeof import(".");
 }
 
 /**
@@ -17,8 +11,8 @@ export type InnerFunction<T = undefined, TYield = unknown, TReturn = unknown, TN
     context: Context<TYield, TReturn, TNext>,
 ) => unknown;
 
-export type ContextLocation = number | 'end';
-export type CompletionType = 'normal' | 'return' | 'throw' | 'break' | 'continue';
+export type ContextLocation = number | "end";
+export type CompletionType = "normal" | "return" | "throw" | "break" | "continue";
 
 // prettier-ignore
 export type TryLocationsList = ReadonlyArray<
@@ -45,8 +39,8 @@ export interface DelegatedIterator {
 
 export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
     readonly tryEntries: readonly [
-        { readonly tryLoc: 'root' } & Omit<TryEntry, 'tryLoc'>,
-        ...TryEntry[]
+        { readonly tryLoc: "root" } & Omit<TryEntry, "tryLoc">,
+        ...TryEntry[],
     ];
 
     /**
@@ -62,7 +56,7 @@ export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
     /**
      * The label of the next location, is set to `'end'` when the generator needs to close abruptly.
      */
-    next: number | 'end';
+    next: number | "end";
 
     /**
      * Whether the generator has finished.
@@ -82,7 +76,7 @@ export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
     /**
      * The generator method.
      */
-    method: 'next' | 'return' | 'throw';
+    method: "next" | "return" | "throw";
 
     /**
      * The argument passed to the generator method.
@@ -107,19 +101,19 @@ export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
      * @param type The completion type.
      * @param rval The return value.
      */
-    abrupt(type: 'return', rval?: TReturn): unknown;
+    abrupt(type: "return", rval?: TReturn): unknown;
 
     /**
      * @param type The completion type.
      * @param exception The exception to throw.
      */
-    abrupt(type: 'throw', exception?: unknown): never;
+    abrupt(type: "throw", exception?: unknown): never;
 
     /**
      * @param type The completion type.
      * @param nextLoc The location label to resume iteration at.
      */
-    abrupt(type: 'break' | 'continue', nextLoc: number): unknown;
+    abrupt(type: "break" | "continue", nextLoc: number): unknown;
 
     /**
      * @param type The completion type.
@@ -168,7 +162,7 @@ export interface Context<TYield = unknown, TReturn = unknown, TNext = unknown> {
 
 export function wrap<T = undefined, TYield = unknown, TReturn = unknown, TNext = unknown>(
     innerFn: InnerFunction<T, TYield, TReturn, TNext>,
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     outerFn?: Function | null,
     self?: T,
     tryLocsList?: TryLocationsList,
@@ -179,7 +173,8 @@ export interface ResolvablePromiseConstructorLike extends PromiseConstructorLike
 }
 
 export class AsyncIterator<TYield = unknown, TReturn = unknown, TNext = unknown>
-    implements AsyncGenerator<TYield, TReturn, TNext> {
+    implements AsyncGenerator<TYield, TReturn, TNext>
+{
     constructor(
         generator: Generator<
             TYield | PromiseLike<TYield> | awrap<unknown>,
@@ -208,7 +203,7 @@ export function async<T = undefined, TYield = unknown, TReturn = unknown>(
 >;
 export function async<T = undefined, TReturn = unknown>(
     innerFn: InnerFunction<T, unknown, TReturn>,
-    // tslint:disable-next-line: ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     outerFn?: Function | null,
     self?: T,
     tryLocsList?: TryLocationsList,
@@ -220,7 +215,7 @@ export class awrap<V> {
     constructor(arg: V);
 
     // Used to tell TypeScript that this class is to be treated as a nominal type:
-    private readonly '#private';
+    private readonly "#private";
 
     readonly __await: V;
 }
@@ -229,7 +224,7 @@ export function isGeneratorFunction(func: unknown): func is GeneratorFunction;
 
 export function keys(object: {}): () => IteratorResult<string, undefined>;
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function mark<F extends Function>(genFun: F): F & GeneratorFunction;
 
 export function values<I extends Iterator<unknown, unknown, unknown>>(iterable: { [Symbol.iterator](): I }): I;

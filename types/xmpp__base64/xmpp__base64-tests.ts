@@ -1,4 +1,4 @@
-import { encode, decode } from '@xmpp/base64';
+import { decode, encode } from "@xmpp/base64";
 
-encode('foo'); // $ExpectType string
-decode('foo'); // $ExpectType string
+encode("foo"); // $ExpectType string
+decode("foo"); // $ExpectType string

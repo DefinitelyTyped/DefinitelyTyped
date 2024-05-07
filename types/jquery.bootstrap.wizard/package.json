@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.bootstrap.wizard",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.bootstrap.wizard",
+    "projects": [
+        "https://github.com/VinceG/twitter-bootstrap-wizard"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.bootstrap.wizard": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Blake Niemyjski",
+            "githubUsername": "niemyjski"
+        }
+    ]
+}

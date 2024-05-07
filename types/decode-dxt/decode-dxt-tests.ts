@@ -1,4 +1,4 @@
-import decodeDXT = require('decode-dxt');
+import decodeDXT = require("decode-dxt");
 
 // $ExpectType Uint8Array
 decodeDXT(new DataView(new ArrayBuffer(0)), 0, 0);

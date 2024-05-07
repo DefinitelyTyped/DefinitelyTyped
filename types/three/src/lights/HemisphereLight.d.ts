@@ -1,6 +1,6 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
-import { Vector3 } from '../math/Vector3.js';
-import { Light } from './Light.js';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Light } from "./Light.js";
 
 /**
  * A light source positioned directly above the scene, with color fading from the sky color to the ground color.
@@ -39,7 +39,7 @@ export class HemisphereLight extends Light<undefined> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `HemisphereLight`
      */
-    override readonly type: string | 'HemisphereLight';
+    override readonly type: string | "HemisphereLight";
 
     /**
      * This is set equal to {@link THREE.Object3D.DEFAULT_UP}, so that the light shines from the top down.

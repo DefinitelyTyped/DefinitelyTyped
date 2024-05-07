@@ -1,78 +1,146 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
 import Cursor from './../cursor';
 import Album from './album';
 import Post from './post';
 import LiveVideo from './live-video';
 import Photo from './photo';
 import AdVideo from './ad-video';
+/**
+ * Group
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class Group extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    static get JoinSetting(): Record<string, any>;
-    static get PostPermissions(): Record<string, any>;
-    static get Purpose(): Record<string, any>;
-    static get GroupType(): Record<string, any>;
-    deleteAdmins(params?: Record<string, any>): Promise<any>;
-    createAdmin(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Group>;
-    getAlbums(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAlbums(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAlbums(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAlbum(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Album>;
-    getAttachmentSurfaces(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAttachmentSurfaces(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAttachmentSurfaces(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAttachmentSurface(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getDocs(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getDocs(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getDocs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getEvents(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getEvents(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getFeaturedCards(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getFeaturedCards(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getFeaturedCards(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createFeaturedCard(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getFeed(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getFeed(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getFeed(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createFeed(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Post>;
-    getFiles(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getFiles(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getFiles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getGroups(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getGroups(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createGroup(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Group>;
-    getLiveVideos(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getLiveVideos(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getLiveVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createLiveVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<LiveVideo>;
-    deleteMembers(params?: Record<string, any>): Promise<any>;
-    createMember(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Group>;
-    getOptedInMembers(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getOptedInMembers(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getOptedInMembers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPhoto(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Photo>;
-    getPicture(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPicture(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createShiftSetting(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getVideos(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getVideos(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
-    get(fields: string[], params?: Record<string, any>): Promise<Group>;
-    update(fields: string[], params?: Record<string, any>): Promise<Group>;
+    static get Fields(): Readonly<{
+        archived: "archived";
+        cover: "cover";
+        created_time: "created_time";
+        description: "description";
+        email: "email";
+        icon: "icon";
+        id: "id";
+        install: "install";
+        link: "link";
+        member_count: "member_count";
+        member_request_count: "member_request_count";
+        name: "name";
+        parent: "parent";
+        permissions: "permissions";
+        privacy: "privacy";
+        purpose: "purpose";
+        subdomain: "subdomain";
+        updated_time: "updated_time";
+        venue: "venue";
+    }>;
+    static get JoinSetting(): Readonly<{
+        admin_only: "ADMIN_ONLY";
+        anyone: "ANYONE";
+        none: "NONE";
+    }>;
+    static get PostPermissions(): Readonly<{
+        value_0: "0";
+        value_1: "1";
+        value_2: "2";
+    }>;
+    static get Purpose(): Readonly<{
+        casual: "CASUAL";
+        coworkers: "COWORKERS";
+        custom: "CUSTOM";
+        for_sale: "FOR_SALE";
+        for_work: "FOR_WORK";
+        game: "GAME";
+        health_support: "HEALTH_SUPPORT";
+        jobs: "JOBS";
+        learning: "LEARNING";
+        none: "NONE";
+        parenting: "PARENTING";
+        streamer: "STREAMER";
+        work_announcement: "WORK_ANNOUNCEMENT";
+        work_demo_group: "WORK_DEMO_GROUP";
+        work_discussion: "WORK_DISCUSSION";
+        work_ephemeral: "WORK_EPHEMERAL";
+        work_feedback: "WORK_FEEDBACK";
+        work_for_sale: "WORK_FOR_SALE";
+        work_garden: "WORK_GARDEN";
+        work_integrity: "WORK_INTEGRITY";
+        work_learning: "WORK_LEARNING";
+        work_mentorship: "WORK_MENTORSHIP";
+        work_multi_company: "WORK_MULTI_COMPANY";
+        work_recruiting: "WORK_RECRUITING";
+        work_social: "WORK_SOCIAL";
+        work_stages: "WORK_STAGES";
+        work_team: "WORK_TEAM";
+        work_teamwork: "WORK_TEAMWORK";
+    }>;
+    static get GroupType(): Readonly<{
+        casual: "CASUAL";
+        coworkers: "COWORKERS";
+        custom: "CUSTOM";
+        for_sale: "FOR_SALE";
+        for_work: "FOR_WORK";
+        game: "GAME";
+        health_support: "HEALTH_SUPPORT";
+        jobs: "JOBS";
+        learning: "LEARNING";
+        none: "NONE";
+        parenting: "PARENTING";
+        streamer: "STREAMER";
+        work_announcement: "WORK_ANNOUNCEMENT";
+        work_demo_group: "WORK_DEMO_GROUP";
+        work_discussion: "WORK_DISCUSSION";
+        work_ephemeral: "WORK_EPHEMERAL";
+        work_feedback: "WORK_FEEDBACK";
+        work_for_sale: "WORK_FOR_SALE";
+        work_garden: "WORK_GARDEN";
+        work_integrity: "WORK_INTEGRITY";
+        work_learning: "WORK_LEARNING";
+        work_mentorship: "WORK_MENTORSHIP";
+        work_multi_company: "WORK_MULTI_COMPANY";
+        work_recruiting: "WORK_RECRUITING";
+        work_social: "WORK_SOCIAL";
+        work_stages: "WORK_STAGES";
+        work_team: "WORK_TEAM";
+        work_teamwork: "WORK_TEAMWORK";
+    }>;
+    deleteAdmins(params?: Record<any, any>): Promise<any>;
+    createAdmin(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Group>;
+    getAlbums(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAlbums(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAlbums(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAlbum(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Album>;
+    getDocs(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getDocs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getDocs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getEvents(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getEvents(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getEvents(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getFeed(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getFeed(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getFeed(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createFeed(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Post>;
+    getFiles(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getFiles(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getFiles(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getGroups(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getGroups(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createGroup(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Group>;
+    getLiveVideos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getLiveVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getLiveVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createLiveVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<LiveVideo>;
+    deleteMembers(params?: Record<any, any>): Promise<any>;
+    createMember(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Group>;
+    getOptedInMembers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOptedInMembers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOptedInMembers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createPhoto(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Photo>;
+    getPicture(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPicture(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getVideos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdVideo>;
+    get(fields: string[], params?: Record<any, any>): Promise<Group>;
+    update(fields: string[], params?: Record<any, any>): Promise<Group>;
 }

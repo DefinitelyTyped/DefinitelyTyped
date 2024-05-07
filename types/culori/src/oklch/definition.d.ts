@@ -1,23 +1,23 @@
-import lch from '../lch/definition';
-import { Oklch } from './types';
-import { Oklab } from '../oklab/types';
-import { Rgb } from '../rgb/types';
+import lch from "../lch/definition";
+import { Oklab } from "../oklab/types";
+import { Rgb } from "../rgb/types";
+import { Oklch } from "./types";
 
 interface OklchDefinitionMixin {
-    mode: 'oklch';
+    mode: "oklch";
 
     toMode: {
-        oklab: (c: Omit<Oklch, 'mode'>) => Oklab;
-        rgb: (c: Omit<Oklch, 'mode'>) => Rgb;
+        oklab: (c: Omit<Oklch, "mode">) => Oklab;
+        rgb: (c: Omit<Oklch, "mode">) => Rgb;
     };
 
     fromMode: {
-        rgb: (c: Omit<Rgb, 'mode'>) => Oklch;
-        oklab: (c: Omit<Oklab, 'mode'>) => Oklch;
+        rgb: (c: Omit<Rgb, "mode">) => Oklch;
+        oklab: (c: Omit<Oklab, "mode">) => Oklch;
     };
 
-    parse: ['--oklch'];
-    serialize: '--oklch';
+    parse: ["--oklch"];
+    serialize: "--oklch";
 
     ranges: {
         l: [0, 0.999];

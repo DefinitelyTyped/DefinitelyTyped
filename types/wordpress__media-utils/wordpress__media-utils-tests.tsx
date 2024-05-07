@@ -1,4 +1,4 @@
-import * as mu from '@wordpress/media-utils';
+import * as mu from "@wordpress/media-utils";
 
 declare const FILELIST: FileList;
 declare const FILE_ARRAY: File[];
@@ -18,14 +18,14 @@ mu.uploadMedia({
 // $ExpectType Promise<void>
 mu.uploadMedia({
     additionalData: {
-        foo: 'foo',
-        bar: ['bar', 'baz'],
+        foo: "foo",
+        bar: ["bar", "baz"],
     },
-    allowedTypes: ['image/jpeg'],
+    allowedTypes: ["image/jpeg"],
     filesList: FILE_ARRAY,
     maxUploadFileSize: 5000,
     wpAllowedMimeTypes: {
-        'jpg|jpeg': 'image/jpeg',
+        "jpg|jpeg": "image/jpeg",
     },
     onError(error) {
         console.log(error.code, error.message, error.file.size);

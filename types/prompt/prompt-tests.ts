@@ -1,34 +1,34 @@
-import prompt = require('prompt');
+import prompt = require("prompt");
 
 prompt.start();
 
-prompt.get(['username', 'email'], (err, result) => {
-    console.log('Command-line input received:');
-    console.log('  username: ' + result.username);
-    console.log('  email: ' + result.email);
+prompt.get(["username", "email"], (err, result) => {
+    console.log("Command-line input received:");
+    console.log("  username: " + result.username);
+    console.log("  email: " + result.email);
 });
 
 const obj = {
-    password: 'lamepassword',
-    mindset: 'NY',
+    password: "lamepassword",
+    mindset: "NY",
 };
 
-prompt.addProperties(obj, ['username', 'email'], err => {
+prompt.addProperties(obj, ["username", "email"], err => {
     err;
-    console.log('Updated object received:');
+    console.log("Updated object received:");
     console.dir(obj);
 });
 
 const schema: prompt.Schema = {
     properties: {
         proxy: {
-            description: 'Proxy url',
+            description: "Proxy url",
         },
         proxyCredentials: {
-            description: 'Proxy credentials',
+            description: "Proxy credentials",
             ask: () => {
                 // only ask for proxy credentials if a proxy was set
-                return !!prompt.history('proxy')!.value;
+                return !!prompt.history("proxy")!.value;
             },
         },
     },
@@ -38,28 +38,28 @@ prompt.get(
     [
         schema,
         {
-            name: 'name',
-            description: 'Your name',
-            type: 'string',
+            name: "name",
+            description: "Your name",
+            type: "string",
             required: true,
         },
         {
-            name: 'surname',
-            description: 'Your surname',
-            type: 'string',
+            name: "surname",
+            description: "Your surname",
+            type: "string",
             required: true,
-            message: 'Please dont use the demo credentials',
+            message: "Please dont use the demo credentials",
             before: line => line.trim(),
             conform: surname => {
-                const name = prompt.history('name')!.value;
-                return name !== 'John' || surname !== 'Smith';
+                const name = prompt.history("name")!.value;
+                return name !== "John" || surname !== "Smith";
             },
         },
         {
             properties: {
                 name: {
                     pattern: /^[a-zA-Z\s\-]+$/,
-                    message: 'Name must be only letters, spaces, or dashes',
+                    message: "Name must be only letters, spaces, or dashes",
                     required: true,
                 },
                 password: {

@@ -1,10 +1,3 @@
-// Type definitions for w3c-hr-time 1.0
-// Project: https://github.com/jsdom/w3c-hr-time
-// Definitions by: Timothy Gu <https://github.com/TimothyGu>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 export interface PerformanceJSON {
     timeOrigin: number;
 }

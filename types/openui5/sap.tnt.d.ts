@@ -1,10 +1,10 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.122.0
 
 declare module "sap/tnt/library" {
   /**
-   * @since 1.68
-   *
    * Interface for controls suitable for the `header` aggregation of {@link sap.tnt.ToolPage}.
+   *
+   * @since 1.68
    */
   export interface IToolHeader {
     __implements__sap_tnt_IToolHeader: boolean;
@@ -12,6 +12,8 @@ declare module "sap/tnt/library" {
 
   /**
    * Predefined types of `InfoLabel`
+   *
+   * This enum is part of the 'sap/tnt/library' module export and must be accessed by the property 'RenderMode'.
    */
   export enum RenderMode {
     /**
@@ -23,6 +25,197 @@ declare module "sap/tnt/library" {
      */
     Narrow = "Narrow",
   }
+}
+
+declare module "sap/tnt/IllustratedMessageType" {
+  /**
+   * Available TNT `Illustration` types for the {@link sap.m.IllustratedMessage} control.
+   *
+   * @since 1.121
+   */
+  enum IllustratedMessageType {
+    /**
+     * "Avatar" illustration type.
+     */
+    Avatar = "tnt-Avatar",
+    /**
+     * "Calculator" illustration type.
+     */
+    Calculator = "tnt-Calculator",
+    /**
+     * "ChartArea" illustration type.
+     */
+    ChartArea = "tnt-ChartArea",
+    /**
+     * "ChartArea2" illustration type.
+     */
+    ChartArea2 = "tnt-ChartArea2",
+    /**
+     * "ChartBar" illustration type.
+     */
+    ChartBar = "tnt-ChartBar",
+    /**
+     * "ChartBPMNFlow" illustration type.
+     */
+    ChartBPMNFlow = "tnt-ChartBPMNFlow",
+    /**
+     * "ChartBullet" illustration type.
+     */
+    ChartBullet = "tnt-ChartBullet",
+    /**
+     * "ChartDoughnut" illustration type.
+     */
+    ChartDoughnut = "tnt-ChartDoughnut",
+    /**
+     * "ChartFlow" illustration type.
+     */
+    ChartFlow = "tnt-ChartFlow",
+    /**
+     * "ChartGantt" illustration type.
+     */
+    ChartGantt = "tnt-ChartGantt",
+    /**
+     * "ChartOrg" illustration type.
+     */
+    ChartOrg = "tnt-ChartOrg",
+    /**
+     * "ChartPie" illustration type.
+     */
+    ChartPie = "tnt-ChartPie",
+    /**
+     * "CodePlaceholder" illustration type.
+     */
+    CodePlaceholder = "tnt-CodePlaceholder",
+    /**
+     * "Company" illustration type.
+     */
+    Company = "tnt-Company",
+    /**
+     * "Compass" illustration type.
+     */
+    Compass = "tnt-Compass",
+    /**
+     * "Components" illustration type.
+     */
+    Components = "tnt-Components",
+    /**
+     * "Dialog" illustration type.
+     */
+    Dialog = "tnt-Dialog",
+    /**
+     * "ExternalLink" illustration type.
+     */
+    ExternalLink = "tnt-ExternalLink",
+    /**
+     * "FaceID" illustration type.
+     */
+    FaceID = "tnt-FaceID",
+    /**
+     * "Fingerprint" illustration type.
+     */
+    Fingerprint = "tnt-Fingerprint",
+    /**
+     * "Handshake" illustration type.
+     */
+    Handshake = "tnt-Handshake",
+    /**
+     * "Help" illustration type.
+     */
+    Help = "tnt-Help",
+    /**
+     * "Lock" illustration type.
+     */
+    Lock = "tnt-Lock",
+    /**
+     * "Mission" illustration type.
+     */
+    Mission = "tnt-Mission",
+    /**
+     * "MissionFailed" illustration type.
+     */
+    MissionFailed = "tnt-MissionFailed",
+    /**
+     * "NoApplications" illustration type.
+     */
+    NoApplications = "tnt-NoApplications",
+    /**
+     * "NoFlows" illustration type.
+     */
+    NoFlows = "tnt-NoFlows",
+    /**
+     * "NoUsers" illustration type.
+     */
+    NoUsers = "tnt-NoUsers",
+    /**
+     * "Radar" illustration type.
+     */
+    Radar = "tnt-Radar",
+    /**
+     * "RoadMap" illustration type.
+     */
+    RoadMap = "tnt-RoadMap",
+    /**
+     * "Secrets" illustration type.
+     */
+    Secrets = "tnt-Secrets",
+    /**
+     * "Services" illustration type.
+     */
+    Services = "tnt-Services",
+    /**
+     * "SessionExpired" illustration type.
+     */
+    SessionExpired = "tnt-SessionExpired",
+    /**
+     * "SessionExpiring" illustration type.
+     */
+    SessionExpiring = "tnt-SessionExpiring",
+    /**
+     * "Settings" illustration type.
+     */
+    Settings = "tnt-Settings",
+    /**
+     * "Success" illustration type.
+     */
+    Success = "tnt-Success",
+    /**
+     * "SuccessfulAuth" illustration type.
+     */
+    SuccessfulAuth = "tnt-SuccessfulAuth",
+    /**
+     * "Systems" illustration type.
+     */
+    Systems = "tnt-Systems",
+    /**
+     * "Teams" illustration type.
+     */
+    Teams = "tnt-Teams",
+    /**
+     * "Tools" illustration type.
+     */
+    Tools = "tnt-Tools",
+    /**
+     * "Tutorials" illustration type.
+     */
+    Tutorials = "tnt-Tutorials",
+    /**
+     * "UnableToLoad" illustration type.
+     */
+    UnableToLoad = "tnt-UnableToLoad",
+    /**
+     * "Unlock" illustration type.
+     */
+    Unlock = "tnt-Unlock",
+    /**
+     * "UnsuccessfulAuth" illustration type.
+     */
+    UnsuccessfulAuth = "tnt-UnsuccessfulAuth",
+    /**
+     * "User2" illustration type.
+     */
+    User2 = "tnt-User2",
+  }
+  export default IllustratedMessageType;
 }
 
 declare module "sap/tnt/InfoLabel" {
@@ -42,29 +235,28 @@ declare module "sap/tnt/InfoLabel" {
   import { RenderMode } from "sap/tnt/library";
 
   /**
-   * @since 1.54
-   *
    * The `InfoLabel` is a small non-interactive control which contains text information and non-semantic color
    * chosen from a list of predefined color schemes. It serves the purpose to attract the user attention to
    * some piece of information (state, quantity, condition, etc.).
    *
    * Overview:
    *
-   * The control visualizes text information without user interaction. The text inside the control is always
-   * in upper case. It can have smaller or larger side paddings which can be specified by the `renderMode`
-   * property. The text-background color pair can be changed by setting a number between 1 and 10 that corresponds
-   * to the 10 predefined color combinations of the `colorScheme` property. The control is designed to be
-   * vertically aligned with UI5 Input and Button control families. When using `InfoLabel` in non-editable
-   * `Forms`, `Tables`, etc., set `displayOnly=true` for best visual results.
+   * The control visualizes text information without user interaction. The text-background color pair can
+   * be changed by setting a number between 1 and 10 that corresponds to the 10 predefined color combinations
+   * of the `colorScheme` property. The control is designed to be vertically aligned with UI5 Input and Button
+   * control families. When using `InfoLabel` in non-editable `Forms`, `Tables`, etc., set `displayOnly=true`
+   * for best visual results.
    *
    * Usage Guidelines:
    * 	 - If the text is longer than the width of the control, it doesn’t wrap. Instead, it’s represented as
    *     ellipsis.
    * 	 - When truncated, the full text in the control is not visible. Therefore, it’s recommended to make
    *     more space for longer items to be fully displayed.
-   * 	 - Colors are not semantic and have no visual representation in sap_belize_hcb and sap_belize_hcw themes.
-   *
+   * 	 - Colors are not semantic and have no visual representation in sap_belize_hcb, sap_belize_hcw, sap_fiori_3_hcb
+   *     and sap_fiori_3_hcw themes.
    * 	 - The control shows plain text only, formatting is not visualized.
+   *
+   * @since 1.54
    */
   export default class InfoLabel extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
@@ -105,6 +297,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -125,6 +318,7 @@ declare module "sap/tnt/InfoLabel" {
     /**
      * Returns a metadata object for class sap.tnt.InfoLabel.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -133,6 +327,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * See {@link sap.ui.base.ManagedObject#bindProperty ManagedObject.bindProperty} for a detailed description
      * of the possible properties of `oBindingInfo`
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -148,9 +343,10 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      *
      * Default value is `7`.
+     *
      *
      * @returns Value of property `colorScheme`
      */
@@ -163,18 +359,19 @@ declare module "sap/tnt/InfoLabel" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Value of property `displayOnly`
      */
     getDisplayOnly(): boolean;
     /**
-     * @since 1.74
-     *
      * Gets current value of property {@link #getIcon icon}.
      *
      * Defines the icon to be displayed as graphical element within the `InfoLabel`. It can be an icon from
      * the icon font.
      *
      * Default value is `empty string`.
+     *
+     * @since 1.74
      *
      * @returns Value of property `icon`
      */
@@ -183,9 +380,11 @@ declare module "sap/tnt/InfoLabel" {
      * Gets current value of property {@link #getRenderMode renderMode}.
      *
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      *
      * Default value is `Loose`.
+     *
      *
      * @returns Value of property `renderMode`
      */
@@ -196,6 +395,7 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the text inside the `InfoLabel` control.
      *
      * Default value is `empty string`.
+     *
      *
      * @returns Value of property `text`
      */
@@ -208,6 +408,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * Default value is `Inherit`.
      *
+     *
      * @returns Value of property `textDirection`
      */
     getTextDirection(): TextDirection | keyof typeof TextDirection;
@@ -216,6 +417,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * Specifies the width of the `InfoLabel` control. By default, the `InfoLabel` control has the width of
      * the content. Set this property to restrict the width to a custom value.
+     *
      *
      * @returns Value of property `width`
      */
@@ -226,11 +428,12 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `7`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -250,6 +453,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * Default value is `false`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setDisplayOnly(
@@ -259,8 +463,6 @@ declare module "sap/tnt/InfoLabel" {
       bDisplayOnly?: boolean
     ): this;
     /**
-     * @since 1.74
-     *
      * Sets a new value for property {@link #getIcon icon}.
      *
      * Defines the icon to be displayed as graphical element within the `InfoLabel`. It can be an icon from
@@ -269,6 +471,8 @@ declare module "sap/tnt/InfoLabel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
+     * @since 1.74
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -282,11 +486,13 @@ declare module "sap/tnt/InfoLabel" {
      * Sets a new value for property {@link #getRenderMode renderMode}.
      *
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Loose`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -304,6 +510,7 @@ declare module "sap/tnt/InfoLabel" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `empty string`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -323,6 +530,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * Default value is `Inherit`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTextDirection(
@@ -339,6 +547,7 @@ declare module "sap/tnt/InfoLabel" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setWidth(
@@ -349,6 +558,7 @@ declare module "sap/tnt/InfoLabel" {
     ): this;
     /**
      * Unbinds property {@link #getText text} from model data.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -363,7 +573,8 @@ declare module "sap/tnt/InfoLabel" {
 
     /**
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      */
     renderMode?:
       | (RenderMode | keyof typeof RenderMode)
@@ -374,7 +585,7 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      */
     colorScheme?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -400,10 +611,10 @@ declare module "sap/tnt/InfoLabel" {
       | `{${string}}`;
 
     /**
-     * @since 1.74
-     *
      * Defines the icon to be displayed as graphical element within the `InfoLabel`. It can be an icon from
      * the icon font.
+     *
+     * @since 1.74
      */
     icon?: URI | PropertyBindingInfo | `{${string}}`;
   }
@@ -414,9 +625,11 @@ declare module "sap/tnt/NavigationList" {
 
   import { ID, CSSSize } from "sap/ui/core/library";
 
-  import NavigationListItem from "sap/tnt/NavigationListItem";
+  import NavigationListItemBase from "sap/tnt/NavigationListItemBase";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import NavigationListItem from "sap/tnt/NavigationListItem";
 
   import {
     PropertyBindingInfo,
@@ -428,14 +641,14 @@ declare module "sap/tnt/NavigationList" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * @since 1.34
-   *
    * The NavigationList control is an interactive control, which provides a choice of different items, ordered
    * as a list.
+   *
+   * @since 1.34
    */
   export default class NavigationList extends Control {
     /**
-     * Constructor for a new NavigationList.
+     * Constructor for a new `NavigationList`.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -448,7 +661,7 @@ declare module "sap/tnt/NavigationList" {
       mSettings?: $NavigationListSettings
     );
     /**
-     * Constructor for a new NavigationList.
+     * Constructor for a new `NavigationList`.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -471,6 +684,7 @@ declare module "sap/tnt/NavigationList" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -491,11 +705,13 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Returns a metadata object for class sap.tnt.NavigationList.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -508,6 +724,7 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addAriaLabelledBy(
@@ -519,13 +736,14 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Adds some item to the aggregation {@link #getItems items}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     addItem(
       /**
        * The item to add; if empty, nothing is inserted
        */
-      oItem: NavigationListItem
+      oItem: NavigationListItemBase
     ): this;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
@@ -534,6 +752,7 @@ declare module "sap/tnt/NavigationList" {
      * otherwise it will be bound to this `sap.tnt.NavigationList` itself.
      *
      * Fired when an item is selected.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -560,6 +779,7 @@ declare module "sap/tnt/NavigationList" {
      *
      * Fired when an item is selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachItemSelect(
@@ -575,6 +795,7 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
@@ -582,6 +803,7 @@ declare module "sap/tnt/NavigationList" {
      * Detaches event handler `fnFunction` from the {@link #event:itemSelect itemSelect} event of this `sap.tnt.NavigationList`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -596,9 +818,9 @@ declare module "sap/tnt/NavigationList" {
       oListener?: object
     ): this;
     /**
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -623,6 +845,7 @@ declare module "sap/tnt/NavigationList" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `expanded`
      */
     getExpanded(): boolean;
@@ -631,19 +854,20 @@ declare module "sap/tnt/NavigationList" {
      *
      * The items displayed in the list.
      */
-    getItems(): NavigationListItem[];
+    getItems(): NavigationListItemBase[];
     /**
      * Gets the currently selected `NavigationListItem`.
+     *
      *
      * @returns The selected item or `null` if nothing is selected
      */
     getSelectedItem(): NavigationListItem | null;
     /**
-     * @since 1.62.0
-     *
      * Gets current value of property {@link #getSelectedKey selectedKey}.
      *
      * Specifies the currently selected key.
+     *
+     * @since 1.62.0
      *
      * @returns Value of property `selectedKey`
      */
@@ -653,12 +877,14 @@ declare module "sap/tnt/NavigationList" {
      *
      * Specifies the width of the control.
      *
+     *
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
     /**
-     * Checks for the provided `sap.tnt.NavigationListItem` in the aggregation {@link #getItems items}. and
-     * returns its index if found or -1 otherwise.
+     * Checks for the provided `sap.tnt.NavigationListItemBase` in the aggregation {@link #getItems items}.
+     * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -666,10 +892,11 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The item whose index is looked for
        */
-      oItem: NavigationListItem
+      oItem: NavigationListItemBase
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -677,7 +904,7 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The item to insert; if empty, nothing is inserted
        */
-      oItem: NavigationListItem,
+      oItem: NavigationListItemBase,
       /**
        * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
        * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
@@ -688,11 +915,13 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllAriaDescribedBy(): ID[];
     /**
      * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -702,11 +931,13 @@ declare module "sap/tnt/NavigationList" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
-    removeAllItems(): NavigationListItem[];
+    removeAllItems(): NavigationListItemBase[];
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
      *
      * @returns The removed ariaDescribedBy or `null`
      */
@@ -719,6 +950,7 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
+     *
      * @returns The removed ariaLabelledBy or `null`
      */
     removeAriaLabelledBy(
@@ -730,14 +962,15 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Removes a item from the aggregation {@link #getItems items}.
      *
+     *
      * @returns The removed item or `null`
      */
     removeItem(
       /**
        * The item to remove or its index or id
        */
-      vItem: int | string | NavigationListItem
-    ): NavigationListItem | null;
+      vItem: int | string | NavigationListItemBase
+    ): NavigationListItemBase | null;
     /**
      * Sets a new value for property {@link #getExpanded expanded}.
      *
@@ -746,6 +979,7 @@ declare module "sap/tnt/NavigationList" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -758,16 +992,18 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Sets the association for selectedItem. Set `null` to deselect.
      *
+     *
      * @returns The `selectedItem` association
      */
     setSelectedItem(
       /**
        * The control to be set as selected
        */
-      selectedItem: string | NavigationListItem
+      oItem: ID | NavigationListItem
     ): NavigationList | null;
     /**
      * Sets the selected item based on a key.
+     *
      *
      * @returns this pointer for chaining
      */
@@ -775,7 +1011,7 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The key of the item to be selected
        */
-      selectedKey: string
+      sSelectedKey: string
     ): this;
     /**
      * Sets a new value for property {@link #getWidth width}.
@@ -783,6 +1019,7 @@ declare module "sap/tnt/NavigationList" {
      * Specifies the width of the control.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -806,9 +1043,9 @@ declare module "sap/tnt/NavigationList" {
     expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.62.0
-     *
      * Specifies the currently selected key.
+     *
+     * @since 1.62.0
      */
     selectedKey?: string | PropertyBindingInfo;
 
@@ -816,8 +1053,8 @@ declare module "sap/tnt/NavigationList" {
      * The items displayed in the list.
      */
     items?:
-      | NavigationListItem[]
-      | NavigationListItem
+      | NavigationListItemBase[]
+      | NavigationListItemBase
       | AggregationBindingInfo
       | `{${string}}`;
 
@@ -832,9 +1069,9 @@ declare module "sap/tnt/NavigationList" {
     ariaLabelledBy?: Array<Control | string>;
 
     /**
-     * @since 1.52.0
-     *
      * The currently selected `NavigationListItem`.
+     *
+     * @since 1.52.0
      */
     selectedItem?: NavigationListItem | string;
 
@@ -851,11 +1088,199 @@ declare module "sap/tnt/NavigationList" {
     item?: Item;
   }
 
-  export type NavigationList$ItemSelectEvent = Event<NavigationList$ItemSelectEventParameters>;
+  export type NavigationList$ItemSelectEvent = Event<
+    NavigationList$ItemSelectEventParameters,
+    NavigationList
+  >;
+}
+
+declare module "sap/tnt/NavigationListGroup" {
+  import {
+    default as NavigationListItemBase,
+    $NavigationListItemBaseSettings,
+  } from "sap/tnt/NavigationListItemBase";
+
+  import NavigationListItem from "sap/tnt/NavigationListItem";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * The NavigationListGroup represents a group of navigation actions, which can be selected by the user.
+   *
+   * @since 1.121
+   */
+  export default class NavigationListGroup extends NavigationListItemBase {
+    /**
+     * Constructor for a new NavigationListGroup.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $NavigationListGroupSettings
+    );
+    /**
+     * Constructor for a new NavigationListGroup.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $NavigationListGroupSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.tnt.NavigationListGroup with name `sClassName` and enriches it with
+     * the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.tnt.NavigationListItemBase.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NavigationListGroup>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.NavigationListGroup.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some item to the aggregation {@link #getItems items}.
+     *
+     * @since 1.121.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addItem(
+      /**
+       * The item to add; if empty, nothing is inserted
+       */
+      oItem: NavigationListItem
+    ): this;
+    /**
+     * Destroys all the items in the aggregation {@link #getItems items}.
+     *
+     * @since 1.121.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyItems(): this;
+    /**
+     * Gets content of aggregation {@link #getItems items}.
+     *
+     * The sub items.
+     *
+     * @since 1.121.0
+     */
+    getItems(): NavigationListItem[];
+    /**
+     * Checks for the provided `sap.tnt.NavigationListItem` in the aggregation {@link #getItems items}. and
+     * returns its index if found or -1 otherwise.
+     *
+     * @since 1.121.0
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfItem(
+      /**
+       * The item whose index is looked for
+       */
+      oItem: NavigationListItem
+    ): int;
+    /**
+     * Inserts a item into the aggregation {@link #getItems items}.
+     *
+     * @since 1.121.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertItem(
+      /**
+       * The item to insert; if empty, nothing is inserted
+       */
+      oItem: NavigationListItem,
+      /**
+       * The `0`-based index the item should be inserted at; for a negative value of `iIndex`, the item is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the item is inserted at
+       * the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all the controls from the aggregation {@link #getItems items}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @since 1.121.0
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllItems(): NavigationListItem[];
+    /**
+     * Removes a item from the aggregation {@link #getItems items}.
+     *
+     * @since 1.121.0
+     *
+     * @returns The removed item or `null`
+     */
+    removeItem(
+      /**
+       * The item to remove or its index or id
+       */
+      vItem: int | string | NavigationListItem
+    ): NavigationListItem | null;
+  }
+
+  export interface $NavigationListGroupSettings
+    extends $NavigationListItemBaseSettings {
+    /**
+     * The sub items.
+     *
+     * @since 1.121.0
+     */
+    items?:
+      | NavigationListItem[]
+      | NavigationListItem
+      | AggregationBindingInfo
+      | `{${string}}`;
+  }
 }
 
 declare module "sap/tnt/NavigationListItem" {
-  import { default as Item, $ItemSettings } from "sap/ui/core/Item";
+  import {
+    default as NavigationListItemBase,
+    $NavigationListItemBaseSettings,
+  } from "sap/tnt/NavigationListItemBase";
 
   import { URI } from "sap/ui/core/library";
 
@@ -866,15 +1291,17 @@ declare module "sap/tnt/NavigationListItem" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Item from "sap/ui/core/Item";
+
   import Event from "sap/ui/base/Event";
 
   /**
-   * @since 1.34
-   *
-   * The NavigationListItem control represents an action, which can be selected by the user. It can provide
+   * The NavigationListItem represents a navigation action, which can be selected by the user. It can provide
    * sub items.
+   *
+   * @since 1.34
    */
-  export default class NavigationListItem extends Item {
+  export default class NavigationListItem extends NavigationListItemBase {
     /**
      * Constructor for a new NavigationListItem.
      *
@@ -910,7 +1337,8 @@ declare module "sap/tnt/NavigationListItem" {
      * Creates a new subclass of class sap.tnt.NavigationListItem with name `sClassName` and enriches it with
      * the information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.tnt.NavigationListItemBase.extend}.
+     *
      *
      * @returns Created class / constructor function
      */
@@ -932,11 +1360,13 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Returns a metadata object for class sap.tnt.NavigationListItem.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some item to the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -953,6 +1383,7 @@ declare module "sap/tnt/NavigationListItem" {
      * otherwise it will be bound to this `sap.tnt.NavigationListItem` itself.
      *
      * Fired when this item is selected.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -979,6 +1410,7 @@ declare module "sap/tnt/NavigationListItem" {
      *
      * Fired when this item is selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachSelect(
@@ -994,6 +1426,7 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Destroys all the items in the aggregation {@link #getItems items}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyItems(): this;
@@ -1001,6 +1434,7 @@ declare module "sap/tnt/NavigationListItem" {
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.tnt.NavigationListItem`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1015,9 +1449,9 @@ declare module "sap/tnt/NavigationListItem" {
       oListener?: object
     ): this;
     /**
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1028,38 +1462,11 @@ declare module "sap/tnt/NavigationListItem" {
       mParameters?: NavigationListItem$SelectEventParameters
     ): this;
     /**
-     * Gets current value of property {@link #getExpanded expanded}.
-     *
-     * Specifies if the item is expanded.
-     *
-     * Default value is `true`.
-     *
-     * @returns Value of property `expanded`
-     */
-    getExpanded(): boolean;
-    /**
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * Returns the DOM Element that should get the focus.
-     *
-     * @returns Returns the DOM Element that should get the focus
-     */
-    getFocusDomRef(): Element;
-    /**
-     * Gets current value of property {@link #getHasExpander hasExpander}.
-     *
-     * Specifies if the item has an expander.
-     *
-     * Default value is `true`.
-     *
-     * @returns Value of property `hasExpander`
-     */
-    getHasExpander(): boolean;
-    /**
      * Gets current value of property {@link #getHref href}.
      *
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
      * this should not be set, but instead an event handler for the `select` event should be registered.
+     *
      *
      * @returns Value of property `href`
      */
@@ -1071,6 +1478,7 @@ declare module "sap/tnt/NavigationListItem" {
      *
      * Default value is `empty string`.
      *
+     *
      * @returns Value of property `icon`
      */
     getIcon(): URI;
@@ -1081,15 +1489,16 @@ declare module "sap/tnt/NavigationListItem" {
      */
     getItems(): NavigationListItem[];
     /**
+     * Gets current value of property {@link #getSelectable selectable}.
+     *
+     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
+     * `href` is also used.
+     *
+     * Default value is `true`.
+     *
      * @since 1.116
      * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release.
-     *
-     * Gets current value of property {@link #getSelectable selectable}.
-     *
-     * Specifies if the item can be selected.
-     *
-     * Default value is `true`.
      *
      * @returns Value of property `selectable`
      */
@@ -1103,17 +1512,18 @@ declare module "sap/tnt/NavigationListItem" {
      * `_search`. Alternatively, a frame name can be entered. This property is only used when the `href` property
      * is set.
      *
+     *
      * @returns Value of property `target`
      */
     getTarget(): string;
     /**
-     * @since 1.52
-     *
      * Gets current value of property {@link #getVisible visible}.
      *
      * Specifies if the item should be shown.
      *
      * Default value is `true`.
+     *
+     * @since 1.52
      *
      * @returns Value of property `visible`
      */
@@ -1121,6 +1531,7 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Checks for the provided `sap.tnt.NavigationListItem` in the aggregation {@link #getItems items}. and
      * returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -1132,6 +1543,7 @@ declare module "sap/tnt/NavigationListItem" {
     ): int;
     /**
      * Inserts a item into the aggregation {@link #getItems items}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1152,11 +1564,13 @@ declare module "sap/tnt/NavigationListItem" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllItems(): NavigationListItem[];
     /**
      * Removes a item from the aggregation {@link #getItems items}.
+     *
      *
      * @returns The removed item or `null`
      */
@@ -1167,46 +1581,13 @@ declare module "sap/tnt/NavigationListItem" {
       vItem: int | string | NavigationListItem
     ): NavigationListItem | null;
     /**
-     * Sets a new value for property {@link #getExpanded expanded}.
-     *
-     * Specifies if the item is expanded.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setExpanded(
-      /**
-       * New value for property `expanded`
-       */
-      bExpanded?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getHasExpander hasExpander}.
-     *
-     * Specifies if the item has an expander.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setHasExpander(
-      /**
-       * New value for property `hasExpander`
-       */
-      bHasExpander?: boolean
-    ): this;
-    /**
      * Sets a new value for property {@link #getHref href}.
      *
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
      * this should not be set, but instead an event handler for the `select` event should be registered.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1225,6 +1606,7 @@ declare module "sap/tnt/NavigationListItem" {
      *
      * Default value is `empty string`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setIcon(
@@ -1234,17 +1616,18 @@ declare module "sap/tnt/NavigationListItem" {
       sIcon?: URI
     ): this;
     /**
-     * @since 1.116
-     * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release.
-     *
      * Sets a new value for property {@link #getSelectable selectable}.
      *
-     * Specifies if the item can be selected.
+     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
+     * `href` is also used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.116
+     * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1265,6 +1648,7 @@ declare module "sap/tnt/NavigationListItem" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setTarget(
@@ -1274,8 +1658,6 @@ declare module "sap/tnt/NavigationListItem" {
       sTarget?: string
     ): this;
     /**
-     * @since 1.52
-     *
      * Sets a new value for property {@link #getVisible visible}.
      *
      * Specifies if the item should be shown.
@@ -1283,6 +1665,8 @@ declare module "sap/tnt/NavigationListItem" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
+     *
+     * @since 1.52
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1294,35 +1678,27 @@ declare module "sap/tnt/NavigationListItem" {
     ): this;
   }
 
-  export interface $NavigationListItemSettings extends $ItemSettings {
+  export interface $NavigationListItemSettings
+    extends $NavigationListItemBaseSettings {
     /**
      * Specifies the icon for the item.
      */
     icon?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Specifies if the item is expanded.
-     */
-    expanded?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Specifies if the item has an expander.
-     */
-    hasExpander?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * @since 1.52
-     *
      * Specifies if the item should be shown.
+     *
+     * @since 1.52
      */
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * Specifies if the item can be selected. It is recommended to set this property to `false` when the property
+     * `href` is also used.
+     *
      * @since 1.116
      * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
      * may be done before its official public release.
-     *
-     * Specifies if the item can be selected.
      */
     selectable?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -1363,7 +1739,209 @@ declare module "sap/tnt/NavigationListItem" {
     item?: Item;
   }
 
-  export type NavigationListItem$SelectEvent = Event<NavigationListItem$SelectEventParameters>;
+  export type NavigationListItem$SelectEvent = Event<
+    NavigationListItem$SelectEventParameters,
+    NavigationListItem
+  >;
+}
+
+declare module "sap/tnt/NavigationListItemBase" {
+  import { default as Item, $ItemSettings } from "sap/ui/core/Item";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * The `NavigationListItemBase` class represents a base class for the items that are accepted by the `NavigationList`
+   * control.
+   *
+   * @since 1.121
+   */
+  export default abstract class NavigationListItemBase extends Item {
+    /**
+     * Constructor for a new `NavigationListItemBase`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $NavigationListItemBaseSettings
+    );
+    /**
+     * Constructor for a new `NavigationListItemBase`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $NavigationListItemBaseSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.tnt.NavigationListItemBase with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Item.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NavigationListItemBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.NavigationListItemBase.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getExpanded expanded}.
+     *
+     * Specifies if the item is expanded.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.121
+     *
+     * @returns Value of property `expanded`
+     */
+    getExpanded(): boolean;
+    /**
+     * Returns the DOM Element that should get the focus.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Returns the DOM Element that should get the focus
+     */
+    getFocusDomRef(): Element;
+    /**
+     * Gets current value of property {@link #getHasExpander hasExpander}.
+     *
+     * Specifies if the item is allowed to be expanded or collapsed by the user.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `hasExpander`
+     */
+    getHasExpander(): boolean;
+    /**
+     * Gets current value of property {@link #getVisible visible}.
+     *
+     * Specifies if the item should be shown.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.121
+     *
+     * @returns Value of property `visible`
+     */
+    getVisible(): boolean;
+    /**
+     * Sets a new value for property {@link #getExpanded expanded}.
+     *
+     * Specifies if the item is expanded.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.121
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setExpanded(
+      /**
+       * New value for property `expanded`
+       */
+      bExpanded?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHasExpander hasExpander}.
+     *
+     * Specifies if the item is allowed to be expanded or collapsed by the user.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHasExpander(
+      /**
+       * New value for property `hasExpander`
+       */
+      bHasExpander?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getVisible visible}.
+     *
+     * Specifies if the item should be shown.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.121
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setVisible(
+      /**
+       * New value for property `visible`
+       */
+      bVisible?: boolean
+    ): this;
+  }
+
+  export interface $NavigationListItemBaseSettings extends $ItemSettings {
+    /**
+     * Specifies if the item is expanded.
+     *
+     * @since 1.121
+     */
+    expanded?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Specifies if the item is allowed to be expanded or collapsed by the user.
+     */
+    hasExpander?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Specifies if the item should be shown.
+     *
+     * @since 1.121
+     */
+    visible?: boolean | PropertyBindingInfo | `{${string}}`;
+  }
 }
 
 declare module "sap/tnt/SideNavigation" {
@@ -1378,7 +1956,7 @@ declare module "sap/tnt/SideNavigation" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import { ID } from "sap/ui/core/library";
+  import { ID, CSSSize } from "sap/ui/core/library";
 
   import NavigationListItem from "sap/tnt/NavigationListItem";
 
@@ -1387,17 +1965,17 @@ declare module "sap/tnt/SideNavigation" {
   import Event from "sap/ui/base/Event";
 
   /**
-   * @since 1.34
-   *
-   * The SideNavigation control is a container, which consists of flexible and fixed parts on top of each
+   * The `SideNavigation` control is a container, which consists of flexible and fixed parts on top of each
    * other. Responsive Behavior:
    * 	 - The flexible part adapts its size to the fixed one.
    * 	 - The flexible part has a scrollbar when the content is larger than the available space.  **Note:**
-   *     In order for the SideNavigation to stretch properly, its parent layout control should only be the sap.tnt.ToolPage.
+   *     In order for the `SideNavigation` to stretch properly, its parent layout control should only be the `sap.tnt.ToolPage`.
+   *
+   * @since 1.34
    */
   export default class SideNavigation extends Control {
     /**
-     * Constructor for a new SideNavigation.
+     * Constructor for a new `SideNavigation`.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -1410,7 +1988,7 @@ declare module "sap/tnt/SideNavigation" {
       mSettings?: $SideNavigationSettings
     );
     /**
-     * Constructor for a new SideNavigation.
+     * Constructor for a new `SideNavigation`.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
@@ -1433,6 +2011,7 @@ declare module "sap/tnt/SideNavigation" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -1453,6 +2032,7 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Returns a metadata object for class sap.tnt.SideNavigation.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -1463,6 +2043,7 @@ declare module "sap/tnt/SideNavigation" {
      * otherwise it will be bound to this `sap.tnt.SideNavigation` itself.
      *
      * Fired when an item is selected.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1489,6 +2070,7 @@ declare module "sap/tnt/SideNavigation" {
      *
      * Fired when an item is selected.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     attachItemSelect(
@@ -1507,6 +2089,7 @@ declare module "sap/tnt/SideNavigation" {
      * See {@link sap.ui.base.ManagedObject#bindAggregation ManagedObject.bindAggregation} for a detailed description
      * of the possible properties of `oBindingInfo`.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     bindItem(
@@ -1518,17 +2101,21 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Destroys the fixedItem in the aggregation {@link #getFixedItem fixedItem}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyFixedItem(): this;
     /**
      * Destroys the footer in the aggregation {@link #getFooter footer}.
      *
+     * @deprecated (since 1.120) - Use the aggregation `fixedItem` instead.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyFooter(): this;
     /**
      * Destroys the item in the aggregation {@link #getItem item}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1537,6 +2124,7 @@ declare module "sap/tnt/SideNavigation" {
      * Detaches event handler `fnFunction` from the {@link #event:itemSelect itemSelect} event of this `sap.tnt.SideNavigation`.
      *
      * The passed function and listener object must match the ones used for event registration.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1551,9 +2139,9 @@ declare module "sap/tnt/SideNavigation" {
       oListener?: object
     ): this;
     /**
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1564,11 +2152,11 @@ declare module "sap/tnt/SideNavigation" {
       mParameters?: SideNavigation$ItemSelectEventParameters
     ): this;
     /**
-     * @since 1.98
-     *
      * Gets current value of property {@link #getAriaLabel ariaLabel}.
      *
-     * Specifies an optional aria-label that can be used by the screen readers.
+     * Specifies an optional `aria-label` that can be used by the screen readers.
+     *
+     * @since 1.98
      *
      * @returns Value of property `ariaLabel`
      */
@@ -1579,6 +2167,7 @@ declare module "sap/tnt/SideNavigation" {
      * Specifies if the control is expanded.
      *
      * Default value is `true`.
+     *
      *
      * @returns Value of property `expanded`
      */
@@ -1593,6 +2182,8 @@ declare module "sap/tnt/SideNavigation" {
      * Gets content of aggregation {@link #getFooter footer}.
      *
      * Defines the content inside the footer.
+     *
+     * @deprecated (since 1.120) - Use the aggregation `fixedItem` instead.
      */
     getFooter(): NavigationList;
     /**
@@ -1602,30 +2193,43 @@ declare module "sap/tnt/SideNavigation" {
      */
     getItem(): NavigationList;
     /**
-     * @since 1.52.0
-     *
      * ID of the element which is the current target of the association {@link #getSelectedItem selectedItem},
      * or `null`.
-     */
-    getSelectedItem(): ID;
-    /**
-     * @since 1.62.0
      *
+     * @since 1.52.0
+     */
+    getSelectedItem(): ID | null;
+    /**
      * Gets current value of property {@link #getSelectedKey selectedKey}.
      *
      * Specifies the currently selected key.
+     *
+     * @since 1.62.0
      *
      * @returns Value of property `selectedKey`
      */
     getSelectedKey(): string;
     /**
-     * @since 1.98
+     * Gets current value of property {@link #getWidth width}.
      *
+     * Specifies the width of the control.
+     *
+     *  Depending on the theme, there is a minimum width set (16rem for Horizon theme). This property
+     * can be used to set a bigger width.
+     *
+     * @since 1.120
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
      * Sets a new value for property {@link #getAriaLabel ariaLabel}.
      *
-     * Specifies an optional aria-label that can be used by the screen readers.
+     * Specifies an optional `aria-label` that can be used by the screen readers.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.98
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1638,16 +2242,18 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Sets if the control is in expanded or collapsed mode.
      *
+     *
      * @returns this SideNavigation reference for chaining.
      */
     setExpanded(
       /**
        * Indication if the SideNavigation is expanded.
        */
-      isExpanded: boolean
+      bExpanded: boolean
     ): this;
     /**
      * Sets the aggregated {@link #getFixedItem fixedItem}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1660,6 +2266,8 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Sets the aggregated {@link #getFooter footer}.
      *
+     * @deprecated (since 1.120) - Use the aggregation `fixedItem` instead.
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setFooter(
@@ -1671,6 +2279,7 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Sets the aggregated {@link #getItem item}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setItem(
@@ -1680,7 +2289,8 @@ declare module "sap/tnt/SideNavigation" {
       oItem: NavigationList
     ): this;
     /**
-     * Sets the association for selectedItem
+     * Sets the association for `selectedItem`.
+     *
      *
      * @returns The `selectedItem` association
      */
@@ -1688,10 +2298,11 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The control to be set as selected
        */
-      selectedItem: string | NavigationListItem
+      vSelectedItem: ID | NavigationListItem
     ): SideNavigation | null;
     /**
      * Sets the selected item based on a key.
+     *
      *
      * @returns this pointer for chaining
      */
@@ -1699,10 +2310,31 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The key of the item to be selected
        */
-      selectedKey: string
+      sSelectedKey: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Specifies the width of the control.
+     *
+     *  Depending on the theme, there is a minimum width set (16rem for Horizon theme). This property
+     * can be used to set a bigger width.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.120
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth: CSSSize
     ): this;
     /**
      * Unbinds aggregation {@link #getItem item} from model data.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -1711,21 +2343,31 @@ declare module "sap/tnt/SideNavigation" {
 
   export interface $SideNavigationSettings extends $ControlSettings {
     /**
+     * Specifies the width of the control.
+     *
+     *  Depending on the theme, there is a minimum width set (16rem for Horizon theme). This property
+     * can be used to set a bigger width.
+     *
+     * @since 1.120
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Specifies if the control is expanded.
      */
     expanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.62.0
-     *
      * Specifies the currently selected key.
+     *
+     * @since 1.62.0
      */
     selectedKey?: string | PropertyBindingInfo;
 
     /**
-     * @since 1.98
+     * Specifies an optional `aria-label` that can be used by the screen readers.
      *
-     * Specifies an optional aria-label that can be used by the screen readers.
+     * @since 1.98
      */
     ariaLabel?: string | PropertyBindingInfo;
 
@@ -1741,13 +2383,15 @@ declare module "sap/tnt/SideNavigation" {
 
     /**
      * Defines the content inside the footer.
+     *
+     * @deprecated (since 1.120) - Use the aggregation `fixedItem` instead.
      */
     footer?: NavigationList;
 
     /**
-     * @since 1.52.0
-     *
      * The selected `NavigationListItem`.
+     *
+     * @since 1.52.0
      */
     selectedItem?: NavigationListItem | string;
 
@@ -1764,7 +2408,10 @@ declare module "sap/tnt/SideNavigation" {
     item?: Item;
   }
 
-  export type SideNavigation$ItemSelectEvent = Event<SideNavigation$ItemSelectEventParameters>;
+  export type SideNavigation$ItemSelectEvent = Event<
+    SideNavigation$ItemSelectEventParameters,
+    SideNavigation
+  >;
 }
 
 declare module "sap/tnt/ToolHeader" {
@@ -1778,8 +2425,6 @@ declare module "sap/tnt/ToolHeader" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @since 1.34
-   *
    * The ToolHeader control is a horizontal container that is most commonly used to display buttons, texts,
    * and other various input controls. Overview: The ToolHeader control is based on {@link sap.m.OverflowToolbar}.
    * It contains clearly structured menus of commands that are available across the various apps within the
@@ -1814,6 +2459,8 @@ declare module "sap/tnt/ToolHeader" {
    * in Inline mode only. Semantic colors, icons and separators.   sap.f.Avatar/sap.m.Avatar
    * Support for default (Accent 6) color. Image avatar. -   sap.m.Image
    * Primarily used for displaying the company logo. Interaction states
+   *
+   * @since 1.34
    */
   export default class ToolHeader
     extends OverflowToolbar
@@ -1862,6 +2509,7 @@ declare module "sap/tnt/ToolHeader" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.m.OverflowToolbar.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -1882,6 +2530,7 @@ declare module "sap/tnt/ToolHeader" {
     /**
      * Returns a metadata object for class sap.tnt.ToolHeader.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
@@ -1896,10 +2545,10 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   /**
-   * @since 1.16
-   *
    * The ToolHeaderUtilitySeparator control is used in the sap.tnt.ToolHeader control to specify where the
    * overflow button is placed.
+   *
+   * @since 1.16
    */
   export default class ToolHeaderUtilitySeparator extends Control {
     /**
@@ -1945,6 +2594,7 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -1964,6 +2614,7 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
     ): Function;
     /**
      * Returns a metadata object for class sap.tnt.ToolHeaderUtilitySeparator.
+     *
      *
      * @returns Metadata object describing this class
      */
@@ -1991,13 +2642,13 @@ declare module "sap/tnt/ToolPage" {
   } from "sap/ui/base/ManagedObject";
 
   /**
-   * @since 1.34
-   *
    * The ToolPage is a layout control, used to create a basic tools app that has a header, side navigation
    * and contents area. Overview: The control has three main areas - a header on top, navigation to the side
    * and a content area that can hold any control. The header and side navigation use custom controls - {@link sap.tnt.ToolHeader }
    * and {@link sap.tnt.SideNavigation}. Usage: The main usage of the sap.tnt controls is for scenarios in
    * the tooling or administration space.
+   *
+   * @since 1.34
    */
   export default class ToolPage extends Control {
     /**
@@ -2037,6 +2688,7 @@ declare module "sap/tnt/ToolPage" {
      *
      * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
      *
+     *
      * @returns Created class / constructor function
      */
     static extend<T extends Record<string, unknown>>(
@@ -2057,11 +2709,13 @@ declare module "sap/tnt/ToolPage" {
     /**
      * Returns a metadata object for class sap.tnt.ToolPage.
      *
+     *
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
     /**
      * Adds some mainContent to the aggregation {@link #getMainContents mainContents}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2074,11 +2728,13 @@ declare module "sap/tnt/ToolPage" {
     /**
      * Destroys the header in the aggregation {@link #getHeader header}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyHeader(): this;
     /**
      * Destroys all the mainContents in the aggregation {@link #getMainContents mainContents}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2086,25 +2742,26 @@ declare module "sap/tnt/ToolPage" {
     /**
      * Destroys the sideContent in the aggregation {@link #getSideContent sideContent}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySideContent(): this;
     /**
-     * @since 1.93
-     *
      * Destroys the subHeader in the aggregation {@link #getSubHeader subHeader}.
+     *
+     * @since 1.93
      *
      * @returns Reference to `this` in order to allow method chaining
      */
     destroySubHeader(): this;
     /**
-     * @since 1.115
-     *
      * Gets current value of property {@link #getContentBackgroundDesign contentBackgroundDesign}.
      *
      * Specifies the content background design.
      *
      * Default value is `Standard`.
+     *
+     * @since 1.115
      *
      * @returns Value of property `contentBackgroundDesign`
      */
@@ -2136,20 +2793,22 @@ declare module "sap/tnt/ToolPage" {
      *
      * Default value is `true`.
      *
+     *
      * @returns Value of property `sideExpanded`
      */
     getSideExpanded(): boolean;
     /**
-     * @since 1.93
-     *
      * Gets content of aggregation {@link #getSubHeader subHeader}.
      *
      * The control to appear in the subheader area.
+     *
+     * @since 1.93
      */
     getSubHeader(): IToolHeader;
     /**
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getMainContents mainContents}.
      * and returns its index if found or -1 otherwise.
+     *
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -2161,6 +2820,7 @@ declare module "sap/tnt/ToolPage" {
     ): int;
     /**
      * Inserts a mainContent into the aggregation {@link #getMainContents mainContents}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2181,11 +2841,13 @@ declare module "sap/tnt/ToolPage" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
+     *
      * @returns An array of the removed elements (might be empty)
      */
     removeAllMainContents(): Control[];
     /**
      * Removes a mainContent from the aggregation {@link #getMainContents mainContents}.
+     *
      *
      * @returns The removed mainContent or `null`
      */
@@ -2196,8 +2858,6 @@ declare module "sap/tnt/ToolPage" {
       vMainContent: int | string | Control
     ): Control | null;
     /**
-     * @since 1.115
-     *
      * Sets a new value for property {@link #getContentBackgroundDesign contentBackgroundDesign}.
      *
      * Specifies the content background design.
@@ -2205,6 +2865,8 @@ declare module "sap/tnt/ToolPage" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `Standard`.
+     *
+     * @since 1.115
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2219,6 +2881,7 @@ declare module "sap/tnt/ToolPage" {
     /**
      * Sets the aggregated {@link #getHeader header}.
      *
+     *
      * @returns Reference to `this` in order to allow method chaining
      */
     setHeader(
@@ -2229,6 +2892,7 @@ declare module "sap/tnt/ToolPage" {
     ): this;
     /**
      * Sets the aggregated {@link #getSideContent sideContent}.
+     *
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2241,6 +2905,7 @@ declare module "sap/tnt/ToolPage" {
     /**
      * Sets the expand/collapse state of the SideContent.
      *
+     *
      * @returns Pointer to the control instance for chaining
      */
     setSideExpanded(
@@ -2250,9 +2915,9 @@ declare module "sap/tnt/ToolPage" {
       bSideExpanded: boolean
     ): this;
     /**
-     * @since 1.93
-     *
      * Sets the aggregated {@link #getSubHeader subHeader}.
+     *
+     * @since 1.93
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2264,6 +2929,7 @@ declare module "sap/tnt/ToolPage" {
     ): this;
     /**
      * Toggles the expand/collapse state of the SideContent.
+     *
      *
      * @returns Pointer to the control instance for chaining.
      */
@@ -2277,9 +2943,9 @@ declare module "sap/tnt/ToolPage" {
     sideExpanded?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * @since 1.115
-     *
      * Specifies the content background design.
+     *
+     * @since 1.115
      */
     contentBackgroundDesign?:
       | (PageBackgroundDesign | keyof typeof PageBackgroundDesign)
@@ -2292,9 +2958,9 @@ declare module "sap/tnt/ToolPage" {
     header?: IToolHeader;
 
     /**
-     * @since 1.93
-     *
      * The control to appear in the subheader area.
+     *
+     * @since 1.93
      */
     subHeader?: IToolHeader;
 
@@ -2312,13 +2978,19 @@ declare module "sap/tnt/ToolPage" {
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
+    "sap/tnt/IllustratedMessageType": undefined;
+
     "sap/tnt/InfoLabel": undefined;
 
     "sap/tnt/library": undefined;
 
     "sap/tnt/NavigationList": undefined;
 
+    "sap/tnt/NavigationListGroup": undefined;
+
     "sap/tnt/NavigationListItem": undefined;
+
+    "sap/tnt/NavigationListItemBase": undefined;
 
     "sap/tnt/SideNavigation": undefined;
 

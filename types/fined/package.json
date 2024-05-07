@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fined",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/gulpjs/fined"
+    ],
+    "devDependencies": {
+        "@types/fined": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

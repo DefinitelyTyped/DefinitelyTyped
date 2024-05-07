@@ -1,16 +1,9 @@
-// Type definitions for Angular Growl 2 0.7
-// Project: http://janstevens.github.io/angular-growl-2
-// Definitions by: Tadeusz Hucal <https://github.com/mkp05>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace growl {
-
         /**
          * Global Time-To-Leave configuration.
          */
@@ -35,7 +28,7 @@ declare module 'angular' {
             position?: string | undefined;
             referenceId?: number | undefined;
             translateMessage?: boolean | undefined;
-            variables?: { [variable: string]: any; } | undefined;
+            variables?: { [variable: string]: any } | undefined;
         }
 
         /**
@@ -62,7 +55,7 @@ declare module 'angular' {
             /**
              * Pre-defined server error interceptor.
              */
-            serverMessagesInterceptor: (string | IHttpInterceptorFactory)[];
+            serverMessagesInterceptor: Array<string | IHttpInterceptorFactory>;
 
             /**
              * Set default TTL settings.
@@ -258,7 +251,6 @@ declare module 'angular' {
              * Delete a message
              */
             deleteMessage(message: IGrowlMessage): void;
-
         }
     }
 }

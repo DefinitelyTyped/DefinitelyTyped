@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/shimmer",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/othiym23/shimmer"
+    ],
+    "devDependencies": {
+        "@types/shimmer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kelvin Jin",
+            "githubUsername": "kjin"
+        }
+    ]
+}

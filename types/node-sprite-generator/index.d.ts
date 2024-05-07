@@ -1,9 +1,3 @@
-// Type definitions for node-sprite-generator 0.10
-// Project: https://github.com/selaux/node-sprite-generator#readme
-// Definitions by: Gyusun Yeom <https://github.com/Perlmint>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as e from "express";
 
 export as namespace NodeSpriteGenerator;
@@ -46,14 +40,26 @@ declare namespace NodeSpriteGenerator {
     interface Layout {
         width: number;
         height: number;
-        images: Array<{
-            x: number;
-            y: number;
-        } & Image>;
+        images: Array<
+            {
+                x: number;
+                y: number;
+            } & Image
+        >;
     }
-    type LayoutFunc = (images: Image[], options: LayoutOption, callback: (error: Error, layout: Layout) => void) => void;
+    type LayoutFunc = (
+        images: Image[],
+        options: LayoutOption,
+        callback: (error: Error, layout: Layout) => void,
+    ) => void;
 
-    type StylesheetFunc = (layout: Layout, stylesheetPath: string, spritePath: string, options: StylesheetOption, callback: (error: Error) => void) => void;
+    type StylesheetFunc = (
+        layout: Layout,
+        stylesheetPath: string,
+        spritePath: string,
+        options: StylesheetOption,
+        callback: (error: Error) => void,
+    ) => void;
 
     interface Option {
         src?: string[] | undefined;

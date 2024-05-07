@@ -1,17 +1,5 @@
-// Type definitions for Quill 2.0
-// Project: https://github.com/quilljs/quill/, http://quilljs.com
-// Definitions by: Sumit <https://github.com/sumitkm>
-//                 Guillaume <https://github.com/guillaume-ro-fr>
-//                 James Garbutt <https://github.com/43081j>
-//                 Aniello Falcone <https://github.com/AnielloFalcone>
-//                 Mohammad Hossein Amri <https://github.com/mhamri>
-//                 Marco Mantovani <https://github.com/TheLand>
-//                 Ameer Hamoodi <https://github.com/AmeerHamoodi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import { Blot } from "parchment/dist/src/blot/abstract/blot";
-import Delta = require("quill-delta");
+import Delta from "quill-delta";
 
 /**
  * A stricter type definition would be:
@@ -20,7 +8,9 @@ import Delta = require("quill-delta");
  *
  *  But this would break a lot of existing code as it would require manual discrimination of the union types.
  */
-export type DeltaOperation = { insert?: any; delete?: number | undefined; retain?: number | undefined } & OptionalAttributes;
+export type DeltaOperation =
+    & { insert?: any; delete?: number | undefined; retain?: number | undefined }
+    & OptionalAttributes;
 interface SourceMap {
     API: "api";
     SILENT: "silent";

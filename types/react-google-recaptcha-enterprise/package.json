@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-google-recaptcha-enterprise",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ashwin-achar-tm/react-google-recaptcha"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-google-recaptcha-enterprise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lucas Akira Uehara",
+            "githubUsername": "KsAkira10"
+        }
+    ]
+}

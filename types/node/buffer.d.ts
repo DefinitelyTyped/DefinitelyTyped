@@ -41,11 +41,11 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/buffer.js)
  */
-declare module 'buffer' {
-    import { BinaryLike } from 'node:crypto';
-    import { ReadableStream as WebReadableStream } from 'node:stream/web';
+declare module "buffer" {
+    import { BinaryLike } from "node:crypto";
+    import { ReadableStream as WebReadableStream } from "node:stream/web";
     /**
      * This function returns `true` if `input` contains only valid UTF-8-encoded data,
      * including the case in which `input` is empty.
@@ -71,7 +71,16 @@ declare module 'buffer' {
         MAX_LENGTH: number;
         MAX_STRING_LENGTH: number;
     };
-    export type TranscodeEncoding = 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'latin1' | 'binary';
+    export type TranscodeEncoding =
+        | "ascii"
+        | "utf8"
+        | "utf-8"
+        | "utf16le"
+        | "utf-16le"
+        | "ucs2"
+        | "ucs-2"
+        | "latin1"
+        | "binary";
     /**
      * Re-encodes the given `Buffer` or `Uint8Array` instance from one character
      * encoding to another. Returns a new `Buffer` instance.
@@ -102,7 +111,7 @@ declare module 'buffer' {
     export function transcode(source: Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
     export const SlowBuffer: {
         /** @deprecated since v6.0.0, use `Buffer.allocUnsafeSlow()` */
-        new (size: number): Buffer;
+        new(size: number): Buffer;
         prototype: Buffer;
     };
     /**
@@ -119,9 +128,10 @@ declare module 'buffer' {
      */
     export interface BlobOptions {
         /**
-         * @default 'utf8'
+         * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts
+         * will be converted to the platform native line-ending as specified by `require('node:os').EOL`.
          */
-        encoding?: BufferEncoding | undefined;
+        endings?: "transparent" | "native";
         /**
          * The Blob content-type. The intent is for `type` to convey
          * the MIME media type of the data, however no validation of the type format
@@ -153,7 +163,7 @@ declare module 'buffer' {
          *
          * String sources are also copied into the `Blob`.
          */
-        constructor(sources: Array<BinaryLike | Blob>, options?: BlobOptions);
+        constructor(sources: Array<ArrayBuffer | BinaryLike | Blob>, options?: BlobOptions);
         /**
          * Returns a promise that fulfills with an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) containing a copy of
          * the `Blob` data.
@@ -186,7 +196,7 @@ declare module 'buffer' {
          * One of either `'transparent'` or `'native'`. When set to `'native'`, line endings in string source parts will be
          * converted to the platform native line-ending as specified by `require('node:os').EOL`.
          */
-        endings?: 'native' | 'transparent';
+        endings?: "native" | "transparent";
         /** The File content-type. */
         type?: string;
         /** The last modified date of the file. `Default`: Date.now(). */
@@ -211,32 +221,33 @@ declare module 'buffer' {
     }
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
-    import { Blob as NodeBlob } from 'buffer';
+    import { Blob as NodeBlob } from "buffer";
     // This conditional type will be the existing global Blob in a browser, or
     // the copy below in a Node environment.
-    type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
+    type __Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : NodeBlob;
     global {
         namespace NodeJS {
             export { BufferEncoding };
         }
         // Buffer class
         type BufferEncoding =
-            | 'ascii'
-            | 'utf8'
-            | 'utf-8'
-            | 'utf16le'
-            | 'ucs2'
-            | 'ucs-2'
-            | 'base64'
-            | 'base64url'
-            | 'latin1'
-            | 'binary'
-            | 'hex';
+            | "ascii"
+            | "utf8"
+            | "utf-8"
+            | "utf16le"
+            | "utf-16le"
+            | "ucs2"
+            | "ucs-2"
+            | "base64"
+            | "base64url"
+            | "latin1"
+            | "binary"
+            | "hex";
         type WithImplicitCoercion<T> =
             | T
             | {
-                  valueOf(): T;
-              };
+                valueOf(): T;
+            };
         /**
          * Raw data is stored in instances of the Buffer class.
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
@@ -250,44 +261,43 @@ declare module 'buffer' {
              * @param encoding encoding to use, optional.  Default is 'utf8'
              * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
              */
-            new (str: string, encoding?: BufferEncoding): Buffer;
+            new(str: string, encoding?: BufferEncoding): Buffer;
             /**
              * Allocates a new buffer of {size} octets.
              *
              * @param size count of octets to allocate.
              * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
              */
-            new (size: number): Buffer;
+            new(size: number): Buffer;
             /**
              * Allocates a new buffer containing the given {array} of octets.
              *
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            new (array: Uint8Array): Buffer;
+            new(array: Uint8Array): Buffer;
             /**
              * Produces a Buffer backed by the same allocated memory as
              * the given {ArrayBuffer}/{SharedArrayBuffer}.
              *
-             *
              * @param arrayBuffer The ArrayBuffer with which to share memory.
              * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
              */
-            new (arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
+            new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
             /**
              * Allocates a new buffer containing the given {array} of octets.
              *
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            new (array: ReadonlyArray<any>): Buffer;
+            new(array: readonly any[]): Buffer;
             /**
              * Copies the passed {buffer} data onto a new {Buffer} instance.
              *
              * @param buffer The buffer to copy.
              * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
              */
-            new (buffer: Buffer): Buffer;
+            new(buffer: Buffer): Buffer;
             /**
              * Allocates a new `Buffer` using an `array` of bytes in the range `0` – `255`.
              * Array entries outside that range will be truncated to fit into it.
@@ -301,12 +311,12 @@ declare module 'buffer' {
              *
              * If `array` is an `Array`\-like object (that is, one with a `length` property of
              * type `number`), it is treated as if it is an array, unless it is a `Buffer` or
-             * a `Uint8Array`. This means all other `TypedArray` variants get treated as an`Array`. To create a `Buffer` from the bytes backing a `TypedArray`, use `Buffer.copyBytesFrom()`.
+             * a `Uint8Array`. This means all other `TypedArray` variants get treated as an `Array`. To create a `Buffer` from the bytes backing a `TypedArray`, use `Buffer.copyBytesFrom()`.
              *
              * A `TypeError` will be thrown if `array` is not an `Array` or another type
              * appropriate for `Buffer.from()` variants.
              *
-             * `Buffer.from(array)` and `Buffer.from(string)` may also use the internal`Buffer` pool like `Buffer.allocUnsafe()` does.
+             * `Buffer.from(array)` and `Buffer.from(string)` may also use the internal `Buffer` pool like `Buffer.allocUnsafe()` does.
              * @since v5.10.0
              */
             from(
@@ -318,8 +328,8 @@ declare module 'buffer' {
              * Creates a new Buffer using the passed {data}
              * @param data data to create a new Buffer
              */
-            from(data: Uint8Array | ReadonlyArray<number>): Buffer;
-            from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<number> | string>): Buffer;
+            from(data: Uint8Array | readonly number[]): Buffer;
+            from(data: WithImplicitCoercion<Uint8Array | readonly number[] | string>): Buffer;
             /**
              * Creates a new Buffer containing the given JavaScript string {str}.
              * If provided, the {encoding} parameter identifies the character encoding.
@@ -329,8 +339,8 @@ declare module 'buffer' {
                 str:
                     | WithImplicitCoercion<string>
                     | {
-                          [Symbol.toPrimitive](hint: 'string'): string;
-                      },
+                        [Symbol.toPrimitive](hint: "string"): string;
+                    },
                 encoding?: BufferEncoding,
             ): Buffer;
             /**
@@ -406,13 +416,13 @@ declare module 'buffer' {
              * @return The number of bytes contained within `string`.
              */
             byteLength(
-                string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+                string: string | Buffer | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
                 encoding?: BufferEncoding,
             ): number;
             /**
-             * Returns a new `Buffer` which is the result of concatenating all the `Buffer`instances in the `list` together.
+             * Returns a new `Buffer` which is the result of concatenating all the `Buffer` instances in the `list` together.
              *
-             * If the list has no items, or if the `totalLength` is 0, then a new zero-length`Buffer` is returned.
+             * If the list has no items, or if the `totalLength` is 0, then a new zero-length `Buffer` is returned.
              *
              * If `totalLength` is not provided, it is calculated from the `Buffer` instances
              * in `list` by adding their lengths.
@@ -447,7 +457,7 @@ declare module 'buffer' {
              * @param list List of `Buffer` or {@link Uint8Array} instances to concatenate.
              * @param totalLength Total length of the `Buffer` instances in `list` when concatenated.
              */
-            concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
+            concat(list: readonly Uint8Array[], totalLength?: number): Buffer;
             /**
              * Copies the underlying memory of `view` into a new `Buffer`.
              *
@@ -461,12 +471,12 @@ declare module 'buffer' {
              * ```
              * @since v19.8.0
              * @param view The {TypedArray} to copy.
-             * @param [offset=': 0'] The starting offset within `view`.
+             * @param [offset=0] The starting offset within `view`.
              * @param [length=view.length - offset] The number of elements from `view` to copy.
              */
             copyBytesFrom(view: NodeJS.TypedArray, offset?: number, length?: number): Buffer;
             /**
-             * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of`Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
+             * Compares `buf1` to `buf2`, typically for the purpose of sorting arrays of `Buffer` instances. This is equivalent to calling `buf1.compare(buf2)`.
              *
              * ```js
              * import { Buffer } from 'node:buffer';
@@ -554,8 +564,8 @@ declare module 'buffer' {
              * A `TypeError` will be thrown if `size` is not a number.
              *
              * The `Buffer` module pre-allocates an internal `Buffer` instance of
-             * size `Buffer.poolSize` that is used as a pool for the fast allocation of new`Buffer` instances created using `Buffer.allocUnsafe()`, `Buffer.from(array)`,
-             * and `Buffer.concat()` only when `size` is less than or equal to`Buffer.poolSize >> 1` (floor of `Buffer.poolSize` divided by two).
+             * size `Buffer.poolSize` that is used as a pool for the fast allocation of new `Buffer` instances created using `Buffer.allocUnsafe()`, `Buffer.from(array)`,
+             * and `Buffer.concat()` only when `size` is less than `Buffer.poolSize >>> 1` (floor of `Buffer.poolSize` divided by two).
              *
              * Use of this pre-allocated internal memory pool is a key difference between
              * calling `Buffer.alloc(size, fill)` vs. `Buffer.allocUnsafe(size).fill(fill)`.
@@ -719,7 +729,7 @@ declare module 'buffer' {
              * @since v0.9.2
              */
             toJSON(): {
-                type: 'Buffer';
+                type: "Buffer";
                 data: number[];
             };
             /**
@@ -2088,7 +2098,7 @@ declare module 'buffer' {
              * // Prints: 6
              * ```
              *
-             * If `value` is not a string, number, or `Buffer`, this method will throw a`TypeError`. If `value` is a number, it will be coerced to a valid byte value,
+             * If `value` is not a string, number, or `Buffer`, this method will throw a `TypeError`. If `value` is a number, it will be coerced to a valid byte value,
              * an integer between 0 and 255.
              *
              * If `byteOffset` is not a number, it will be coerced to a number. If the result
@@ -2344,11 +2354,10 @@ declare module 'buffer' {
         var Blob: typeof globalThis extends {
             onmessage: any;
             Blob: infer T;
-        }
-            ? T
+        } ? T
             : typeof NodeBlob;
     }
 }
-declare module 'node:buffer' {
-    export * from 'buffer';
+declare module "node:buffer" {
+    export * from "buffer";
 }

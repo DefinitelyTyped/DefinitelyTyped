@@ -1,18 +1,8 @@
-// Type definitions for Consul v0.40.0
-// Project: https://github.com/silas/node-consul
-// Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-//                 Vadym Vakhovskiy <https://github.com/vadim-v>
-//                 Radoslav Kirilov <https://github.com/smoke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
-
 
 import { IncomingMessage as HttpIncomingMessage } from "http";
 
 declare namespace Consul {
-
     interface CommonOptions {
         consistent?: boolean | undefined;
         dc?: string | undefined;
@@ -34,7 +24,6 @@ declare namespace Consul {
     }
 
     namespace Acl {
-
         interface CreateOptions extends CommonOptions {
             name?: string | undefined;
             type?: string | undefined;
@@ -56,13 +45,13 @@ declare namespace Consul {
             id: string;
         }
 
-        interface GetOptions extends InfoOptions { }
+        interface GetOptions extends InfoOptions {}
 
         interface CloneOptions extends CommonOptions {
             id: string;
         }
 
-        interface ListOptions extends CommonOptions { }
+        interface ListOptions extends CommonOptions {}
     }
 
     interface Acl {
@@ -83,7 +72,7 @@ declare namespace Consul {
         update: {
             <TData>(opts: Acl.UpdateOptions, callback: Callback<TData>): void;
             <TData>(opts: Acl.UpdateOptions): Promise<TData>;
-        }
+        };
 
         /**
          * Destroys a given token
@@ -132,14 +121,12 @@ declare namespace Consul {
     }
 
     interface AclStatic {
-        new (consul: Consul): Acl;
+        new(consul: Consul): Acl;
     }
 
     namespace Agent {
-
         namespace Check {
-
-            interface ListOptions extends CommonOptions { }
+            interface ListOptions extends CommonOptions {}
 
             interface RegisterOptions extends CommonOptions {
                 name: string;
@@ -235,11 +222,10 @@ declare namespace Consul {
         }
 
         interface CheckStatic {
-            new (consul: Consul): Check;
+            new(consul: Consul): Check;
         }
 
         namespace Service {
-
             interface RegisterCheck {
                 http?: string | undefined;
                 script?: string | undefined;
@@ -249,7 +235,7 @@ declare namespace Consul {
                 status?: string | undefined;
             }
 
-            interface ListOptions extends CommonOptions { }
+            interface ListOptions extends CommonOptions {}
 
             interface RegisterOptions extends CommonOptions {
                 name: string;
@@ -315,18 +301,18 @@ declare namespace Consul {
         }
 
         interface ServiceStatic {
-            new (consul: Consul): Service;
+            new(consul: Consul): Service;
         }
 
-        interface ChecksOptions extends Check.ListOptions { }
+        interface ChecksOptions extends Check.ListOptions {}
 
-        interface ServicesOptions extends Service.ListOptions { }
+        interface ServicesOptions extends Service.ListOptions {}
 
         interface MembersOptions extends CommonOptions {
             wan?: boolean | undefined;
         }
 
-        interface SelfOptions extends CommonOptions { }
+        interface SelfOptions extends CommonOptions {}
 
         interface MaintenanceOptions extends CommonOptions {
             enable: boolean;
@@ -416,16 +402,14 @@ declare namespace Consul {
     }
 
     interface AgentStatic {
-        new (consul: Consul): Agent;
+        new(consul: Consul): Agent;
 
         Check: Agent.CheckStatic;
         Service: Agent.ServiceStatic;
     }
 
     namespace Catalog {
-
         namespace Node {
-
             interface ListOptions extends CommonOptions {
                 dc?: string | undefined;
             }
@@ -461,11 +445,10 @@ declare namespace Consul {
         }
 
         interface NodeStatic {
-            new (consul: Consul): Node;
+            new(consul: Consul): Node;
         }
 
         namespace Service {
-
             interface ListOptions extends CommonOptions {
                 dc?: string | undefined;
             }
@@ -476,8 +459,6 @@ declare namespace Consul {
                 tag?: string | undefined;
             }
         }
-
-
 
         interface Service {
             consul: Consul;
@@ -505,14 +486,14 @@ declare namespace Consul {
         }
 
         interface ServiceStatic {
-            new (consul: Consul): Service;
+            new(consul: Consul): Service;
         }
 
-        interface DatacentersOptions extends CommonOptions { }
+        interface DatacentersOptions extends CommonOptions {}
 
-        interface NodesOptions extends Node.ListOptions { }
+        interface NodesOptions extends Node.ListOptions {}
 
-        interface ServicesOptions extends Service.ListOptions { }
+        interface ServicesOptions extends Service.ListOptions {}
     }
 
     interface Catalog {
@@ -553,14 +534,13 @@ declare namespace Consul {
     }
 
     interface CatalogStatic {
-        new (consul: Consul): Catalog;
+        new(consul: Consul): Catalog;
 
         Node: Catalog.NodeStatic;
         Service: Catalog.ServiceStatic;
     }
 
     namespace Event {
-
         interface FireOptions extends CommonOptions {
             name: string;
             payload: string | Buffer;
@@ -602,11 +582,10 @@ declare namespace Consul {
     }
 
     interface EventStatic {
-        new (consul: Consul): Event;
+        new(consul: Consul): Event;
     }
 
     namespace Health {
-
         interface NodeOptions extends CommonOptions {
             node: string;
             dc?: string | undefined;
@@ -676,11 +655,10 @@ declare namespace Consul {
     }
 
     interface HealthStatic {
-        new (consul: Consul): Health;
+        new(consul: Consul): Health;
     }
 
     namespace Kv {
-
         interface GetOptions extends CommonOptions {
             key: string;
             dc?: string | undefined;
@@ -714,7 +692,7 @@ declare namespace Consul {
             cas?: string | undefined;
         }
 
-        interface DeleteOptions extends DelOptions { }
+        interface DeleteOptions extends DelOptions {}
     }
 
     interface Kv {
@@ -771,11 +749,10 @@ declare namespace Consul {
     }
 
     interface KvStatic {
-        new (consul: Consul): Kv;
+        new(consul: Consul): Kv;
     }
 
     namespace Lock {
-
         interface Options {
             key: string;
             session?: Object | string | undefined;
@@ -800,11 +777,10 @@ declare namespace Consul {
     }
 
     interface LockStatic {
-        new (consul: Consul, opts: Lock.Options): Lock;
+        new(consul: Consul, opts: Lock.Options): Lock;
     }
 
     namespace Session {
-
         interface CreateOptions extends CommonOptions {
             dc?: string | undefined;
             lockdelay?: string | undefined;
@@ -825,7 +801,7 @@ declare namespace Consul {
             dc?: string | undefined;
         }
 
-        interface GetOptions extends InfoOptions { }
+        interface GetOptions extends InfoOptions {}
 
         interface NodeOptions extends CommonOptions {
             node: string;
@@ -841,7 +817,6 @@ declare namespace Consul {
             dc?: string | undefined;
         }
     }
-
 
     interface Session {
         consul: Consul;
@@ -912,14 +887,13 @@ declare namespace Consul {
     }
 
     interface SessionStatic {
-        new (consul: Consul): Session;
+        new(consul: Consul): Session;
     }
 
     namespace Status {
+        interface LeaderOptions extends CommonOptions {}
 
-        interface LeaderOptions extends CommonOptions { }
-
-        interface PeersOptions extends CommonOptions { }
+        interface PeersOptions extends CommonOptions {}
     }
 
     interface Status {
@@ -945,11 +919,10 @@ declare namespace Consul {
     }
 
     interface StatusStatic {
-        new (consul: Consul): Status;
+        new(consul: Consul): Status;
     }
 
     namespace Watch {
-        
         interface WatchOptions {
             key?: string | undefined;
         }
@@ -983,7 +956,7 @@ declare namespace Consul {
     }
 
     interface WatchStatic {
-        new (consul: Consul, opts: Watch.Options): Watch;
+        new(consul: Consul, opts: Watch.Options): Watch;
     }
 
     interface ConsulOptions {
@@ -1018,7 +991,7 @@ declare namespace Consul {
 
     interface ConsulStatic {
         (opts?: ConsulOptions): Consul;
-        new (opts?: ConsulOptions): Consul;
+        new(opts?: ConsulOptions): Consul;
 
         Acl: AclStatic;
         Agent: AgentStatic;

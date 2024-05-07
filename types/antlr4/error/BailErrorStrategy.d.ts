@@ -1,6 +1,6 @@
-import Parser from '../Parser';
-import Token from '../Token';
-import DefaultErrorStrategy from './DefaultErrorStrategy';
+import Parser from "../Parser";
+import Token from "../Token";
+import DefaultErrorStrategy from "./DefaultErrorStrategy";
 
 /**
  * This implementation of {@link ErrorStrategy} responds to syntax errors

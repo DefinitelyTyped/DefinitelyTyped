@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Result from '../Result';
-import Async from './Async';
+import { UnaryFunction } from "../internal/types";
+import Result from "../Result";
+import Async from "./Async";
 
 /**
  * resultToAsync :: Result b a -> Async b a

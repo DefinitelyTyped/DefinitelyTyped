@@ -1,10 +1,5 @@
-// Type definitions for lnfs 3.0
-// Project: https://github.com/kevva/lnfs
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import * as fs from 'fs';
+import * as fs from "fs";
 
 export = lnfs;
 

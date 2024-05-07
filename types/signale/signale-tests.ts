@@ -19,7 +19,7 @@ signale.clearSecrets();
 signale.complete({
     prefix: "[task]",
     message: "Fix issue #59",
-    suffix: "(@klauscfhq)"
+    suffix: "(@klauscfhq)",
 });
 
 // --- Test 2: Custom Loggers --- //
@@ -33,14 +33,14 @@ const optionsCustom: SignaleOptions<CustomLogger> = {
         remind: {
             badge: "**",
             color: "yellow",
-            label: "reminder"
+            label: "reminder",
         },
         santa: {
             badge: "🎅",
             color: "red",
-            label: "santa"
-        }
-    }
+            label: "santa",
+        },
+    },
 };
 
 const custom = new Signale(optionsCustom);
@@ -55,14 +55,14 @@ const optionsOverride: SignaleOptions = {
         error: {
             badge: "!!",
             color: "red",
-            label: "fatal error"
+            label: "fatal error",
         },
         success: {
             badge: "++",
             color: "green",
-            label: "huge success"
-        }
-    }
+            label: "huge success",
+        },
+    },
 };
 
 signale.error("Default Error Log");
@@ -75,7 +75,7 @@ customOverride.success("Custom Success Log");
 // --- Test 4: Scoped Loggers --- //
 
 const optionsScope: SignaleOptions = {
-    scope: "global scope"
+    scope: "global scope",
 };
 
 const global = new Signale(optionsScope);
@@ -114,7 +114,7 @@ setTimeout(() => {
 signale.config({
     displayFilename: true,
     displayTimestamp: true,
-    displayDate: false
+    displayDate: false,
 });
 
 signale.success("Hello from the Global scope");
@@ -127,7 +127,7 @@ function scopedConfigTest() {
     fooLogger.config({
         displayFilename: true,
         displayTimestamp: false,
-        displayDate: true
+        displayDate: true,
     });
 
     fooLogger.success("Hello from the Local scope");

@@ -1,4 +1,4 @@
-import { Handler } from '../handler';
+import { Handler } from "../handler";
 
 export type CloudWatchLogsHandler = Handler<CloudWatchLogsEvent, void>;
 

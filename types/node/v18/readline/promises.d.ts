@@ -4,9 +4,9 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/readline/promises.js)
  * @since v17.0.0
  */
-declare module 'readline/promises' {
-    import { Interface as _Interface, ReadLineOptions, Completer, AsyncCompleter, Direction } from 'node:readline';
-    import { Abortable } from 'node:events';
+declare module "readline/promises" {
+    import { AsyncCompleter, Completer, Direction, Interface as _Interface, ReadLineOptions } from "node:readline";
+    import { Abortable } from "node:events";
 
     class Interface extends _Interface {
         /**
@@ -138,6 +138,6 @@ declare module 'readline/promises' {
     ): Interface;
     function createInterface(options: ReadLineOptions): Interface;
 }
-declare module 'node:readline/promises' {
-    export * from 'readline/promises';
+declare module "node:readline/promises" {
+    export * from "readline/promises";
 }

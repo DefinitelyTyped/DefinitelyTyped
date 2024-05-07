@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/libsodium-wrappers-sumo",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/jedisct1/libsodium.js"
+    ],
+    "dependencies": {
+        "@types/libsodium-wrappers": "*"
+    },
+    "devDependencies": {
+        "@types/libsodium-wrappers-sumo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

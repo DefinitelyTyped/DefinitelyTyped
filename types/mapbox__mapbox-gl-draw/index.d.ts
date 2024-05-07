@@ -1,11 +1,4 @@
-// Type definitions for @mapbox/mapbox-gl-draw 1.4
-// Project: https://github.com/mapbox/mapbox-gl-draw
-// Definitions by: Tudor Gergely <https://github.com/tudorgergely>
-//                 Shayan Toqraee <https://github.com/Shayan-To>
-//                 Joel Daros <https://github.com/joel-daros>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { BBox, Feature, FeatureCollection, GeoJSON, GeoJsonTypes, Geometry, Point, Position } from 'geojson';
+import { BBox, Feature, FeatureCollection, GeoJSON, GeoJsonTypes, Geometry, Point, Position } from "geojson";
 import {
     CircleLayer,
     FillLayer,
@@ -15,7 +8,7 @@ import {
     MapboxEvent,
     MapMouseEvent as MapboxMapMouseEvent,
     MapTouchEvent as MapboxMapTouchEvent,
-} from 'mapbox-gl';
+} from "mapbox-gl";
 
 export = MapboxDraw;
 export as namespace MapboxDraw;
@@ -24,23 +17,23 @@ declare namespace MapboxDraw {
     type DrawMode = DrawModes[keyof DrawModes];
 
     type DrawEventType =
-        | 'draw.create'
-        | 'draw.delete'
-        | 'draw.update'
-        | 'draw.render'
-        | 'draw.combine'
-        | 'draw.uncombine'
-        | 'draw.modechange'
-        | 'draw.actionable'
-        | 'draw.selectionchange';
+        | "draw.create"
+        | "draw.delete"
+        | "draw.update"
+        | "draw.render"
+        | "draw.combine"
+        | "draw.uncombine"
+        | "draw.modechange"
+        | "draw.actionable"
+        | "draw.selectionchange";
 
     interface DrawModes {
-        DRAW_LINE_STRING: 'draw_line_string';
-        DRAW_POLYGON: 'draw_polygon';
-        DRAW_POINT: 'draw_point';
-        SIMPLE_SELECT: 'simple_select';
-        DIRECT_SELECT: 'direct_select';
-        STATIC: 'static';
+        DRAW_LINE_STRING: "draw_line_string";
+        DRAW_POLYGON: "draw_polygon";
+        DRAW_POINT: "draw_point";
+        SIMPLE_SELECT: "simple_select";
+        DIRECT_SELECT: "direct_select";
+        STATIC: "static";
     }
 
     interface MapboxDrawControls {
@@ -59,14 +52,14 @@ declare namespace MapboxDraw {
     }
 
     interface DrawFeatureBase<Coordinates> {
-        readonly properties: Readonly<Feature['properties']>;
+        readonly properties: Readonly<Feature["properties"]>;
         readonly coordinates: Coordinates;
-        readonly id: NonNullable<Feature['id']>;
+        readonly id: NonNullable<Feature["id"]>;
         readonly type: GeoJsonTypes;
 
         changed(): void;
         isValid(): boolean;
-        incomingCoords: this['setCoordinates'];
+        incomingCoords: this["setCoordinates"];
         setCoordinates(coords: Coordinates): void;
         getCoordinates(): Coordinates;
         getCoordinate(path: string): Position;
@@ -75,39 +68,40 @@ declare namespace MapboxDraw {
         toGeoJSON(): GeoJSON;
     }
 
-    interface DrawMultiFeature<Type extends 'MultiPoint' | 'MultiLineString' | 'MultiPolygon'>
-        extends Omit<
+    interface DrawMultiFeature<Type extends "MultiPoint" | "MultiLineString" | "MultiPolygon"> extends
+        Omit<
             DrawFeatureBase<
-                | (Type extends 'MultiPoint' ? Array<DrawPoint['coordinates']> : never)
-                | (Type extends 'MultiLineString' ? Array<DrawLineString['coordinates']> : never)
-                | (Type extends 'MultiPolygon' ? Array<DrawPolygon['coordinates']> : never)
+                | (Type extends "MultiPoint" ? Array<DrawPoint["coordinates"]> : never)
+                | (Type extends "MultiLineString" ? Array<DrawLineString["coordinates"]> : never)
+                | (Type extends "MultiPolygon" ? Array<DrawPolygon["coordinates"]> : never)
             >,
-            'coordinates'
-        > {
+            "coordinates"
+        >
+    {
         readonly type: Type;
         readonly features: Array<
-            | (Type extends 'MultiPoint' ? DrawPoint : never)
-            | (Type extends 'MultiLineString' ? DrawLineString : never)
-            | (Type extends 'MultiPolygon' ? DrawPolygon : never)
+            | (Type extends "MultiPoint" ? DrawPoint : never)
+            | (Type extends "MultiLineString" ? DrawLineString : never)
+            | (Type extends "MultiPolygon" ? DrawPolygon : never)
         >;
-        getFeatures(): this['features'];
+        getFeatures(): this["features"];
     }
 
     interface DrawPoint extends DrawFeatureBase<Position> {
-        readonly type: 'Point';
+        readonly type: "Point";
         getCoordinate(): Position;
         updateCoordinate(lng: number, lat: number): void;
         updateCoordinate(path: string, lng: number, lat: number): void;
     }
 
     interface DrawLineString extends DrawFeatureBase<Position[]> {
-        readonly type: 'LineString';
+        readonly type: "LineString";
         addCoordinate(path: string | number, lng: number, lat: number): void;
         removeCoordinate(path: string | number): void;
     }
 
     interface DrawPolygon extends DrawFeatureBase<Position[][]> {
-        readonly type: 'Polygon';
+        readonly type: "Polygon";
         addCoordinate(path: string, lng: number, lat: number): void;
         removeCoordinate(path: string): void;
     }
@@ -116,9 +110,9 @@ declare namespace MapboxDraw {
         | DrawPoint
         | DrawLineString
         | DrawPolygon
-        | DrawMultiFeature<'MultiPoint'>
-        | DrawMultiFeature<'MultiLineString'>
-        | DrawMultiFeature<'MultiPolygon'>;
+        | DrawMultiFeature<"MultiPoint">
+        | DrawMultiFeature<"MultiLineString">
+        | DrawMultiFeature<"MultiPolygon">;
 
     interface MapMouseEvent extends MapboxMapMouseEvent {
         featureTarget: DrawFeature;
@@ -136,51 +130,51 @@ declare namespace MapboxDraw {
     interface DrawCreateEvent extends DrawEvent {
         // Array of GeoJSON objects representing the features that were created
         features: Feature[];
-        type: 'draw.create';
+        type: "draw.create";
     }
 
     interface DrawDeleteEvent extends DrawEvent {
         // Array of GeoJSON objects representing the features that were deleted
         features: Feature[];
-        type: 'draw.delete';
+        type: "draw.delete";
     }
 
     interface DrawCombineEvent extends DrawEvent {
         deletedFeatures: Feature[]; // Array of deleted features (those incorporated into new multifeatures)
         createdFeatures: Feature[]; // Array of created multifeatures
-        type: 'draw.combine';
+        type: "draw.combine";
     }
 
     interface DrawUncombineEvent extends DrawEvent {
         deletedFeatures: Feature[]; // Array of deleted multifeatures (split into features)
         createdFeatures: Feature[]; // Array of created features
-        type: 'draw.uncombine';
+        type: "draw.uncombine";
     }
 
     interface DrawUpdateEvent extends DrawEvent {
         features: Feature[]; // Array of features that were updated
         action: string; // Name of the action that triggered the update
-        type: 'draw.update';
+        type: "draw.update";
     }
 
     interface DrawSelectionChangeEvent extends DrawEvent {
         features: Feature[]; // Array of features that are selected after the change
         points: Array<Feature<Point>>;
-        type: 'draw.selectionchange';
+        type: "draw.selectionchange";
     }
 
     interface DrawModeChangeEvent extends DrawEvent {
         mode: DrawMode; // The next mode, i.e. the mode that Draw is changing to
-        type: 'draw.modechange';
+        type: "draw.modechange";
     }
 
     interface DrawRenderEvent extends DrawEvent {
-        type: 'draw.render';
+        type: "draw.render";
     }
 
     interface DrawActionableEvent extends DrawEvent {
         actions: DrawActionableState;
-        type: 'draw.actionable';
+        type: "draw.actionable";
     }
 
     interface DrawCustomModeThis {
@@ -220,7 +214,7 @@ declare namespace MapboxDraw {
 
         activateUIButton(name?: string): void;
 
-        featuresAt(event: Event, bbox: BBox, bufferType: 'click' | 'tap'): DrawFeature[];
+        featuresAt(event: Event, bbox: BBox, bufferType: "click" | "tap"): DrawFeature[];
 
         newFeature(geojson: GeoJSON): DrawFeature;
 
@@ -282,97 +276,97 @@ declare namespace MapboxDraw {
 
     interface Constants {
         readonly classes: {
-            CONTROL_BASE: 'mapboxgl-ctrl';
-            CONTROL_PREFIX: 'mapboxgl-ctrl-';
-            CONTROL_BUTTON: 'mapbox-gl-draw_ctrl-draw-btn';
-            CONTROL_BUTTON_LINE: 'mapbox-gl-draw_line';
-            CONTROL_BUTTON_POLYGON: 'mapbox-gl-draw_polygon';
-            CONTROL_BUTTON_POINT: 'mapbox-gl-draw_point';
-            CONTROL_BUTTON_TRASH: 'mapbox-gl-draw_trash';
-            CONTROL_BUTTON_COMBINE_FEATURES: 'mapbox-gl-draw_combine';
-            CONTROL_BUTTON_UNCOMBINE_FEATURES: 'mapbox-gl-draw_uncombine';
-            CONTROL_GROUP: 'mapboxgl-ctrl-group';
-            ATTRIBUTION: 'mapboxgl-ctrl-attrib';
-            ACTIVE_BUTTON: 'active';
-            BOX_SELECT: 'mapbox-gl-draw_boxselect';
+            CONTROL_BASE: "mapboxgl-ctrl";
+            CONTROL_PREFIX: "mapboxgl-ctrl-";
+            CONTROL_BUTTON: "mapbox-gl-draw_ctrl-draw-btn";
+            CONTROL_BUTTON_LINE: "mapbox-gl-draw_line";
+            CONTROL_BUTTON_POLYGON: "mapbox-gl-draw_polygon";
+            CONTROL_BUTTON_POINT: "mapbox-gl-draw_point";
+            CONTROL_BUTTON_TRASH: "mapbox-gl-draw_trash";
+            CONTROL_BUTTON_COMBINE_FEATURES: "mapbox-gl-draw_combine";
+            CONTROL_BUTTON_UNCOMBINE_FEATURES: "mapbox-gl-draw_uncombine";
+            CONTROL_GROUP: "mapboxgl-ctrl-group";
+            ATTRIBUTION: "mapboxgl-ctrl-attrib";
+            ACTIVE_BUTTON: "active";
+            BOX_SELECT: "mapbox-gl-draw_boxselect";
         };
 
         readonly sources: {
-            HOT: 'mapbox-gl-draw-hot';
-            COLD: 'mapbox-gl-draw-cold';
+            HOT: "mapbox-gl-draw-hot";
+            COLD: "mapbox-gl-draw-cold";
         };
 
         readonly cursors: {
-            ADD: 'add';
-            MOVE: 'move';
-            DRAG: 'drag';
-            POINTER: 'pointer';
-            NONE: 'none';
+            ADD: "add";
+            MOVE: "move";
+            DRAG: "drag";
+            POINTER: "pointer";
+            NONE: "none";
         };
 
         readonly types: {
-            POLYGON: 'polygon';
-            LINE: 'line_string';
-            POINT: 'point';
+            POLYGON: "polygon";
+            LINE: "line_string";
+            POINT: "point";
         };
 
         readonly geojsonTypes: {
-            FEATURE: 'Feature';
-            POLYGON: 'Polygon';
-            LINE_STRING: 'LineString';
-            POINT: 'Point';
-            FEATURE_COLLECTION: 'FeatureCollection';
-            MULTI_PREFIX: 'Multi';
-            MULTI_POINT: 'MultiPoint';
-            MULTI_LINE_STRING: 'MultiLineString';
-            MULTI_POLYGON: 'MultiPolygon';
+            FEATURE: "Feature";
+            POLYGON: "Polygon";
+            LINE_STRING: "LineString";
+            POINT: "Point";
+            FEATURE_COLLECTION: "FeatureCollection";
+            MULTI_PREFIX: "Multi";
+            MULTI_POINT: "MultiPoint";
+            MULTI_LINE_STRING: "MultiLineString";
+            MULTI_POLYGON: "MultiPolygon";
         };
 
         readonly modes: {
-            DRAW_LINE_STRING: 'draw_line_string';
-            DRAW_POLYGON: 'draw_polygon';
-            DRAW_POINT: 'draw_point';
-            SIMPLE_SELECT: 'simple_select';
-            DIRECT_SELECT: 'direct_select';
-            STATIC: 'static';
+            DRAW_LINE_STRING: "draw_line_string";
+            DRAW_POLYGON: "draw_polygon";
+            DRAW_POINT: "draw_point";
+            SIMPLE_SELECT: "simple_select";
+            DIRECT_SELECT: "direct_select";
+            STATIC: "static";
         };
 
         readonly events: {
-            CREATE: 'draw.create';
-            DELETE: 'draw.delete';
-            UPDATE: 'draw.update';
-            SELECTION_CHANGE: 'draw.selectionchange';
-            MODE_CHANGE: 'draw.modechange';
-            ACTIONABLE: 'draw.actionable';
-            RENDER: 'draw.render';
-            COMBINE_FEATURES: 'draw.combine';
-            UNCOMBINE_FEATURES: 'draw.uncombine';
+            CREATE: "draw.create";
+            DELETE: "draw.delete";
+            UPDATE: "draw.update";
+            SELECTION_CHANGE: "draw.selectionchange";
+            MODE_CHANGE: "draw.modechange";
+            ACTIONABLE: "draw.actionable";
+            RENDER: "draw.render";
+            COMBINE_FEATURES: "draw.combine";
+            UNCOMBINE_FEATURES: "draw.uncombine";
         };
 
         readonly updateActions: {
-            MOVE: 'move';
-            CHANGE_COORDINATES: 'change_coordinates';
+            MOVE: "move";
+            CHANGE_COORDINATES: "change_coordinates";
         };
 
         readonly meta: {
-            FEATURE: 'feature';
-            MIDPOINT: 'midpoint';
-            VERTEX: 'vertex';
+            FEATURE: "feature";
+            MIDPOINT: "midpoint";
+            VERTEX: "vertex";
         };
 
         readonly activeStates: {
-            ACTIVE: 'true';
-            INACTIVE: 'false';
+            ACTIVE: "true";
+            INACTIVE: "false";
         };
 
         readonly interactions: [
-            'scrollZoom',
-            'boxZoom',
-            'dragRotate',
-            'dragPan',
-            'keyboard',
-            'doubleClickZoom',
-            'touchZoomRotate',
+            "scrollZoom",
+            "boxZoom",
+            "dragRotate",
+            "dragPan",
+            "keyboard",
+            "doubleClickZoom",
+            "touchZoomRotate",
         ];
 
         readonly LAT_MIN: -90;
@@ -390,10 +384,11 @@ declare namespace MapboxDraw {
         values(): string | number[];
         clear(): StringSet;
     }
-
     interface Lib {
         CommonSelectors: {
-            isOfMetaType: (e: MapMouseEvent | MapTouchEvent) => boolean;
+            isOfMetaType: (
+                type: Constants["meta"][keyof Constants["meta"]],
+            ) => (e: MapMouseEvent | MapTouchEvent) => boolean;
             isShiftMousedown: (e: MapboxEvent) => boolean;
             isActiveFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
             isInactiveFeature: (e: MapMouseEvent | MapTouchEvent) => boolean;
@@ -406,15 +401,18 @@ declare namespace MapboxDraw {
             isTrue: () => boolean;
         };
 
-        constrainFeatureMovement(geojsonFeatures: DrawFeature[], delta: { lng: number; lat: number }): number;
+        constrainFeatureMovement(
+            geojsonFeatures: DrawFeature[],
+            delta: { lng: number; lat: number },
+        ): { lng: number; lat: number };
 
-        createMidPoint(parent: string, startVertex: DrawFeature, endVertex: DrawFeature): GeoJSON;
+        createMidPoint(parent: string, startVertex: Feature, endVertex: Feature): Feature<Point> | null;
 
         createSupplementaryPoints(
-            geojson: DrawFeature,
+            geojson: Feature,
             options?: { midpoints?: boolean; selectedPaths?: string[] },
             basePath?: string,
-        ): GeoJSON[];
+        ): Array<Feature<Point>>;
 
         /**
          * Returns GeoJSON for a Point representing the
@@ -427,7 +425,7 @@ declare namespace MapboxDraw {
          * @param selected
          * @return GeoJSON Point
          */
-        createVertex(parentId: string, coordinates: Position, path: string, selected: boolean): GeoJSON;
+        createVertex(parentId: string, coordinates: Position, path: string, selected: boolean): Feature<Point>;
 
         // TODO: define a proper type for ctx since is not exposed correctly
         // https://github.com/mapbox/mapbox-gl-draw/issues/1156
@@ -501,7 +499,7 @@ declare namespace MapboxDraw {
          */
         sortFeatures(features: DrawFeature[]): DrawFeature[];
 
-        stringSetsAreEqual(a: Array<Pick<Feature, 'id'>>, b: Array<Pick<Feature, 'id'>>): boolean;
+        stringSetsAreEqual(a: Array<Pick<Feature, "id">>, b: Array<Pick<Feature, "id">>): boolean;
 
         StringSet(items?: Array<string | number>): StringSet;
 
@@ -514,23 +512,23 @@ declare namespace MapboxDraw {
     }
 
     type ThemeLayerId =
-        | 'gl-draw-polygon-fill-static'
-        | 'gl-draw-polygon-fill-active'
-        | 'gl-draw-polygon-fill-inactive'
-        | 'gl-draw-polygon-stroke-static'
-        | 'gl-draw-polygon-stroke-active'
-        | 'gl-draw-polygon-stroke-inactive'
-        | 'gl-draw-polygon-midpoint'
-        | 'gl-draw-polygon-and-line-vertex-inactive'
-        | 'gl-draw-polygon-and-line-vertex-stroke-inactive'
-        | 'gl-draw-line-static'
-        | 'gl-draw-line-active'
-        | 'gl-draw-line-inactive'
-        | 'gl-draw-point-static'
-        | 'gl-draw-point-active'
-        | 'gl-draw-point-inactive'
-        | 'gl-draw-point-stroke-active'
-        | 'gl-draw-point-point-stroke-inactive';
+        | "gl-draw-polygon-fill-static"
+        | "gl-draw-polygon-fill-active"
+        | "gl-draw-polygon-fill-inactive"
+        | "gl-draw-polygon-stroke-static"
+        | "gl-draw-polygon-stroke-active"
+        | "gl-draw-polygon-stroke-inactive"
+        | "gl-draw-polygon-midpoint"
+        | "gl-draw-polygon-and-line-vertex-inactive"
+        | "gl-draw-polygon-and-line-vertex-stroke-inactive"
+        | "gl-draw-line-static"
+        | "gl-draw-line-active"
+        | "gl-draw-line-inactive"
+        | "gl-draw-point-static"
+        | "gl-draw-point-active"
+        | "gl-draw-point-inactive"
+        | "gl-draw-point-stroke-active"
+        | "gl-draw-point-point-stroke-inactive";
 
     interface MapboxDrawOptions {
         displayControlsDefault?: boolean | undefined;
@@ -586,13 +584,13 @@ declare class MapboxDraw implements IControl {
 
     getMode(): (MapboxDraw.DrawMode & {}) | string;
 
-    changeMode(mode: 'simple_select', options?: { featureIds: string[] }): this;
-    changeMode(mode: 'direct_select', options: { featureId: string }): this;
+    changeMode(mode: "simple_select", options?: { featureIds: string[] }): this;
+    changeMode(mode: "direct_select", options: { featureId: string }): this;
     changeMode(
-        mode: 'draw_line_string',
+        mode: "draw_line_string",
         options?: { featureId: string; from: Feature<Point> | Point | number[] },
     ): this;
-    changeMode(mode: Exclude<MapboxDraw.DrawMode, 'direct_select' | 'simple_select' | 'draw_line_string'>): this;
+    changeMode(mode: Exclude<MapboxDraw.DrawMode, "direct_select" | "simple_select" | "draw_line_string">): this;
     changeMode<T extends string>(mode: T & (T extends MapboxDraw.DrawMode ? never : T), options?: object): this;
 
     setFeatureProperty(featureId: string, property: string, value: any): this;

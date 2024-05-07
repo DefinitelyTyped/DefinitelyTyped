@@ -1,12 +1,12 @@
-import { Helpers, Full, Data, AllowPartial, PartialHelpers } from 'meteor/dburles:collection-helpers';
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { AllowPartial, Data, Full, Helpers, PartialHelpers } from "meteor/dburles:collection-helpers";
+import { Meteor } from "meteor/meteor";
+import { Mongo } from "meteor/mongo";
 
 // Cursor<T> and Collection<T> are pulled from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/meteor/mongo.d.ts
 // and should be kept in sync with any changes to it
 // only modified properties are included
 
-declare module 'meteor/mongo' {
+declare module "meteor/mongo" {
     namespace Mongo {
         interface Collection<T> {
             /**
@@ -21,9 +21,9 @@ declare module 'meteor/mongo' {
              * If you plan to mostly pass around items that came out of a collection, make them required and use Data<T>
              * when creating new items.
              */
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             helpers<allowPartial extends (false | AllowPartial) = false>(
-                // eslint-disable-next-line no-unnecessary-generics
-                helpers: (allowPartial extends AllowPartial ? PartialHelpers<T> : Helpers<T>)
+                helpers: allowPartial extends AllowPartial ? PartialHelpers<T> : Helpers<T>,
             ): void;
 
             // modifications:
@@ -32,20 +32,24 @@ declare module 'meteor/mongo' {
 
             allow(options: {
                 insert?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
-                update?: ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean) | undefined;
+                update?:
+                    | ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean)
+                    | undefined;
                 remove?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
                 fetch?: string[] | undefined;
                 // ditto
-                // tslint:disable-next-line ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 transform?: Function | null | undefined;
             }): boolean;
             deny(options: {
                 insert?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
-                update?: ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean) | undefined;
+                update?:
+                    | ((userId: string, doc: Full<T> & T, fieldNames: string[], modifier: any) => boolean)
+                    | undefined;
                 remove?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
                 fetch?: string[] | undefined;
                 // ditto
-                // tslint:disable-next-line ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 transform?: Function | null | undefined;
             }): boolean;
             findOne(
@@ -56,12 +60,12 @@ declare module 'meteor/mongo' {
                     fields?: FieldSpecifier | undefined;
                     reactive?: boolean | undefined;
                     // ditto
-                    // tslint:disable-next-line ban-types
+                    // eslint-disable-next-line @typescript-eslint/ban-types
                     transform?: Function | null | undefined;
                 },
             ): (Full<T> & T) | undefined;
             // ditto
-            // tslint:disable-next-line ban-types
+            // eslint-disable-next-line @typescript-eslint/ban-types
             insert(doc: OptionalId<Data<T>>, callback?: Function): string;
             update(
                 selector: Selector<T> | ObjectID | string,
@@ -72,7 +76,7 @@ declare module 'meteor/mongo' {
                     arrayFilters?: Array<{ [identifier: string]: any }> | undefined;
                 },
                 // ditto
-                // tslint:disable-next-line ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 callback?: Function,
             ): number;
             upsert(
@@ -82,7 +86,7 @@ declare module 'meteor/mongo' {
                     multi?: boolean | undefined;
                 },
                 // ditto
-                // tslint:disable-next-line ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 callback?: Function,
             ): {
                 numberAffected?: number | undefined;

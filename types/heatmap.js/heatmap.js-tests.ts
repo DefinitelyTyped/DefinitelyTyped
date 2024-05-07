@@ -10,21 +10,21 @@ declare const container: HTMLElement;
 {
     const config: h337.HeatmapConfiguration = {
         container,
-        xField: 'x',
-        yField: 'y',
-        valueField: 'value',
+        xField: "x",
+        yField: "y",
+        valueField: "value",
     };
 }
 
 {
     // @ts-expect-error
-    const config: h337.HeatmapConfiguration = { container, valueField: 'foo' };
+    const config: h337.HeatmapConfiguration = { container, valueField: "foo" };
 }
 
 {
-    const config: h337.HeatmapConfiguration<'foo'> = {
+    const config: h337.HeatmapConfiguration<"foo"> = {
         container,
-        valueField: 'foo',
+        valueField: "foo",
     };
     config; // $ExpectType HeatmapConfiguration<"foo", "x", "y">
 }
@@ -77,7 +77,7 @@ declare const container: HTMLElement;
     // @ts-expect-error
     heatmap.addData({ x: 1, value: 1 });
     // @ts-expect-error
-    heatmap.addData({ x: 1, y: 1, });
+    heatmap.addData({ x: 1, y: 1 });
 }
 
 {
@@ -107,14 +107,13 @@ declare const container: HTMLElement;
     // @ts-expect-error
     heatmap.addData({ xPos: 1, count: 1 });
     // @ts-expect-error
-    heatmap.addData({ xPos: 1, yPos: 1, });
+    heatmap.addData({ xPos: 1, yPos: 1 });
 }
 
 // -- Heatmap#setData --
 
 {
-    const validData: ReadonlyArray<h337.DataPoint> =
-        [{ x: 1, y: 2, value: 1 }];
+    const validData: readonly h337.DataPoint[] = [{ x: 1, y: 2, value: 1 }];
 
     const heatmap = h337.create({ container });
     // @ts-expect-error
@@ -126,7 +125,7 @@ declare const container: HTMLElement;
     heatmap.setData({
         min: 0,
         max: 1,
-        data: validData
+        data: validData,
     });
 
     // @ts-expect-error
@@ -134,8 +133,7 @@ declare const container: HTMLElement;
 }
 
 {
-    const validData: ReadonlyArray<h337.DataPoint<"count", "xPos", "yPos">> =
-        [{ xPos: 1, yPos: 2, count: 1 }];
+    const validData: ReadonlyArray<h337.DataPoint<"count", "xPos", "yPos">> = [{ xPos: 1, yPos: 2, count: 1 }];
 
     const heatmap = h337.create<"count", "xPos", "yPos">({ container });
     // @ts-expect-error
@@ -147,7 +145,7 @@ declare const container: HTMLElement;
     heatmap.setData({
         min: 0,
         max: 1,
-        data: validData
+        data: validData,
     });
 
     // @ts-expect-error
@@ -185,7 +183,7 @@ declare const container: HTMLElement;
         container,
         valueField: "count",
         xField: "xPos",
-        yField: "yPos"
+        yField: "yPos",
     });
 
     nextHeatmap; // $ExpectType Heatmap<"count", "xPos", "yPos">
@@ -234,47 +232,49 @@ declare const container: HTMLElement;
 
 {
     const baseLayer = L.tileLayer(
-        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            // tslint:disable-next-line max-line-length
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-            maxZoom: 18
-        }
+        "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            attribution:
+                "Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"http://cloudmade.com\">CloudMade</a>",
+            maxZoom: 18,
+        },
     );
 
-    const testData: h337.HeatmapData<h337.DataPoint<'count', 'lat', 'lng'>> = {
+    const testData: h337.HeatmapData<h337.DataPoint<"count", "lat", "lng">> = {
         min: 1,
         max: 3,
         data: [
             {
                 lat: 24.6408,
                 lng: 46.7728,
-                count: 3
-            }, {
+                count: 3,
+            },
+            {
                 lat: 50.75,
                 lng: -1.55,
-                count: 1
-            }
-        ]
+                count: 1,
+            },
+        ],
     };
 
-    const config: h337.HeatmapOverlayConfiguration<'count'> = {
+    const config: h337.HeatmapOverlayConfiguration<"count"> = {
         radius: 2,
         maxOpacity: .8,
         scaleRadius: true,
         useLocalExtrema: true,
-        latField: 'lat',
-        lngField: 'lng',
-        valueField: 'count'
+        latField: "lat",
+        lngField: "lng",
+        valueField: "count",
     };
     config; // $ExpectType HeatmapOverlayConfiguration<"count", "lat", "lng">
 
     const heatmapLayer = new HeatmapOverlay(config);
     heatmapLayer; // $ExpectType HeatmapOverlay<"count", "lat", "lng">
 
-    const map = new L.Map('map-canvas', {
+    const map = new L.Map("map-canvas", {
         center: new L.LatLng(25.6586, -80.3568),
         zoom: 4,
-        layers: [baseLayer, heatmapLayer]
+        layers: [baseLayer, heatmapLayer],
     });
 
     // $ExpectType void

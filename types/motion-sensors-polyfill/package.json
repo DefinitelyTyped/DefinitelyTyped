@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/motion-sensors-polyfill",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/kenchris/lit-element"
+    ],
+    "devDependencies": {
+        "@types/motion-sensors-polyfill": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kevin Wylder",
+            "githubUsername": "me"
+        }
+    ]
+}

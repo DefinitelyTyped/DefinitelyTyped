@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/chayns",
+    "version": "3.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "chayns",
+    "projects": [
+        "https://github.com/TobitSoftware/chayns-js"
+    ],
+    "devDependencies": {
+        "@types/chayns": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Henning Kuehl",
+            "githubUsername": "HenningKuehl"
+        }
+    ]
+}

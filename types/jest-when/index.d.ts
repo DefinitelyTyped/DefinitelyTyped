@@ -1,13 +1,3 @@
-// Type definitions for jest-when 3.5
-// Project: https://github.com/timkindberg/jest-when#readme
-// Definitions by: Alden Taylor <https://github.com/aldentaylor>
-//                 Trung Dang <https://github.com/immanuel192>
-//                 Gregor Stamać <https://github.com/gstamac>
-//                 Nicholas Hehr <https://github.com/hipsterbrown>
-//                 Bogi Napoleon Wennerström <https://github.com/boginw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 /// <reference types="jest" />
 
 export type ArgumentOrMatcher<ArgTypes extends any[]> = {
@@ -46,7 +36,7 @@ export interface WhenMockWithMatchers<T = any, Y extends any[] = any> {
 }
 
 export interface AllArgsMatcher<Y> {
-    (args: Y, equals: jest.MatcherUtils['equals']): boolean;
+    (args: Y, equals: jest.MatcherUtils["equals"]): boolean;
     // Internal, but needed to distinguish from normal callables
     _isAllArgsFunctionMatcher: true;
     _isFunctionMatcher: true;
@@ -55,7 +45,7 @@ export interface AllArgsMatcher<Y> {
 export interface When {
     <T, Y extends any[]>(fn: ((...args: Y) => T) | jest.MockInstance<T, Y>): WhenMock<T, Y>;
 
-    allArgs<Y extends any[]>(matcher: (args: Y, equals: jest.MatcherUtils['equals']) => boolean): AllArgsMatcher<Y>;
+    allArgs<Y extends any[]>(matcher: (args: Y, equals: jest.MatcherUtils["equals"]) => boolean): AllArgsMatcher<Y>;
 }
 
 export const when: When;

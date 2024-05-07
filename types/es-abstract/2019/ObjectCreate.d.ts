@@ -1,2 +1,2 @@
-import ObjectCreate = require('../2018/ObjectCreate');
+import ObjectCreate = require("../2018/ObjectCreate");
 export = ObjectCreate;

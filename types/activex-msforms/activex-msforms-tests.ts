@@ -1,1 +1,1 @@
-let obj0 = new ActiveXObject('Forms.Image');
+let obj0 = new ActiveXObject("Forms.Image");

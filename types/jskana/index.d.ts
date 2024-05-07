@@ -1,8 +1,3 @@
-// Type definitions for jskana 0.1
-// Project: https://github.com/EClaesson/jskana
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns true if all characters in str is hiragana or whitespace.
  * If include_punctuation is true, punctuation characters will also be accepted.

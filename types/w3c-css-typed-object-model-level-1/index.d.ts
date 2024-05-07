@@ -1,9 +1,3 @@
-// Type definitions for non-npm package css-typed-object-model-level-1 20180410.0
-// Project: https://www.w3.org/TR/css-typed-om-1/
-// Definitions by: Nathan Shively-Sanders <https://github.com/sandersn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.1
-
 interface CSSStyleValue {
     toString(): string;
 }
@@ -27,7 +21,10 @@ declare var CSSVariableReferenceValue: {
 
 interface CSSUnparsedValue extends CSSStyleValue {
     readonly length: number;
-    forEach(callbackfn: (value: CSSUnparsedSegment, key: number, parent: CSSUnparsedValue) => void, thisArg?: any): void;
+    forEach(
+        callbackfn: (value: CSSUnparsedSegment, key: number, parent: CSSUnparsedValue) => void,
+        thisArg?: any,
+    ): void;
 }
 
 declare var CSSUnparsedValue: {
@@ -174,7 +171,10 @@ interface CSSTransformValue extends CSSStyleValue {
     readonly is2D: boolean;
     readonly length: number;
     toMatrix(): DOMMatrix;
-    forEach(callbackfn: (value: CSSTransformComponent, key: number, parent: CSSTransformValue) => void, thisArg?: any): void;
+    forEach(
+        callbackfn: (value: CSSTransformComponent, key: number, parent: CSSTransformValue) => void,
+        thisArg?: any,
+    ): void;
 }
 
 declare var CSSTransformValue: {
@@ -280,7 +280,7 @@ declare var CSSMatrixComponent: {
 interface CSSMatrixComponentOptions {
     is2D?: boolean;
 }
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface CSSImageValue extends CSSStyleValue {
 }
 
@@ -294,7 +294,10 @@ interface StylePropertyMapReadOnly {
     get(property: string): undefined | CSSStyleValue;
     getAll(property: string): CSSStyleValue[];
     has(property: string): boolean;
-    forEach(callbackfn: (value: CSSStyleValue[], key: string, parent: StylePropertyMapReadOnly) => void, thisArg?: any): void;
+    forEach(
+        callbackfn: (value: CSSStyleValue[], key: string, parent: StylePropertyMapReadOnly) => void,
+        thisArg?: any,
+    ): void;
 }
 
 declare var StylePropertyMapReadOnly: {

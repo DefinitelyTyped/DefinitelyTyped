@@ -18,5 +18,5 @@ declare const Input: {
     /**
      * 单行文本输入组件。
      */
-    new (): Input;
+    new(): Input;
 };

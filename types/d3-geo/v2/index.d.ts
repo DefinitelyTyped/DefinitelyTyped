@@ -1,16 +1,6 @@
-// Type definitions for D3JS d3-geo module 2.0
-// Project: https://github.com/d3/d3-geo/, https://d3js.org/d3-geo
-// Definitions by: Hugues Stefanski <https://github.com/ledragon>
-//                 Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last module patch version validated against: 2.0.1
 
-import * as GeoJSON from 'geojson';
+import * as GeoJSON from "geojson";
 
 // ----------------------------------------------------------------------
 // Shared Interfaces and Types
@@ -24,7 +14,7 @@ export interface GeoSphere {
     /**
      * Sphere geometry type
      */
-    type: 'Sphere';
+    type: "Sphere";
 }
 
 /**
@@ -61,8 +51,8 @@ export interface ExtendedGeometryCollection<GeometryType extends GeoGeometryObje
  */
 export interface ExtendedFeature<
     GeometryType extends GeoGeometryObjects | null = GeoGeometryObjects | null,
-    Properties extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties
-    > extends GeoJSON.GeoJsonObject {
+    Properties extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties,
+> extends GeoJSON.GeoJsonObject {
     geometry: GeometryType;
     properties: Properties;
     id?: string | number | undefined;
@@ -74,7 +64,9 @@ export interface ExtendedFeature<
  *
  * The generic refers to the type of ExtendedFeature contained in the ExtendedFeatureCollection.
  */
-export interface ExtendedFeatureCollection<FeatureType extends ExtendedFeature = ExtendedFeature> extends GeoJSON.GeoJsonObject {
+export interface ExtendedFeatureCollection<FeatureType extends ExtendedFeature = ExtendedFeature>
+    extends GeoJSON.GeoJsonObject
+{
     features: FeatureType[];
 }
 
@@ -82,7 +74,11 @@ export interface ExtendedFeatureCollection<FeatureType extends ExtendedFeature =
  * Type Alias for permissible objects which can be used with d3-geo
  * methods
  */
-export type GeoPermissibleObjects = GeoGeometryObjects | ExtendedGeometryCollection | ExtendedFeature | ExtendedFeatureCollection;
+export type GeoPermissibleObjects =
+    | GeoGeometryObjects
+    | ExtendedGeometryCollection
+    | ExtendedFeature
+    | ExtendedFeatureCollection;
 
 // ----------------------------------------------------------------------
 // Spherical Math
@@ -317,7 +313,7 @@ export interface GeoCircleGenerator<This = any, Datum = any> {
     /**
      * Returns the current center accessor, which defaults to a function returning [0, 0].
      */
-    center(): ((this: This, d: Datum, ...args: any[]) => [number, number]);
+    center(): (this: This, d: Datum, ...args: any[]) => [number, number];
     /**
      * Sets the circle center to the specified point [longitude, latitude] in degrees, and returns this circle generator.
      *
@@ -330,12 +326,12 @@ export interface GeoCircleGenerator<This = any, Datum = any> {
      * @param center An accessor function which will be invoked whenever a circle is generated, being passed any arguments passed to the circle generator.
      * It returns the center point specified as [longitude, latitude] in degrees.
      */
-    center(center: ((this: This, d: Datum, ...args: any[]) => [number, number])): this;
+    center(center: (this: This, d: Datum, ...args: any[]) => [number, number]): this;
 
     /**
      * Returns the current radius accessor, which defaults to a function returning 90.
      */
-    radius(): ((this: This, d: Datum, ...args: any[]) => number);
+    radius(): (this: This, d: Datum, ...args: any[]) => number;
     /**
      * Sets the circle radius to the specified angle in degrees, and returns this circle generator.
      *
@@ -348,12 +344,12 @@ export interface GeoCircleGenerator<This = any, Datum = any> {
      * @param radius An accessor function which will be invoked whenever a circle is generated, being passed any arguments passed to the circle generator.
      * It returns the radius as the specified angle in degrees.
      */
-    radius(radius: ((this: This, d: Datum, ...args: any[]) => number)): this;
+    radius(radius: (this: This, d: Datum, ...args: any[]) => number): this;
 
     /**
      * Returns the current precision accessor, which defaults to a function returning 6.
      */
-    precision(): ((this: This, d: Datum, ...args: any[]) => number);
+    precision(): (this: This, d: Datum, ...args: any[]) => number;
     /**
      * Sets the circle precision to the specified angle in degrees, and returns this circle generator.
      *
@@ -1067,7 +1063,6 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      *
      * The type Sphere is also supported, which is useful for rendering the outline of the globe; a sphere has no coordinates.
      *
-     *
      * Any additional arguments are passed along to the pointRadius accessor.
      *
      * IMPORTANT: If the rendering context of the geoPath generator is null,
@@ -1095,7 +1090,6 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * + FeatureCollection - an array of feature objects.
      *
      * The type Sphere is also supported, which is useful for rendering the outline of the globe; a sphere has no coordinates.
-     *
      *
      * Any additional arguments are passed along to the pointRadius accessor.
      *
@@ -1279,7 +1273,10 @@ export function geoPath(projection?: GeoProjection | GeoStreamWrapper | null, co
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
-export function geoPath<DatumObject extends GeoPermissibleObjects>(projection?: GeoProjection | GeoStreamWrapper | null, context?: GeoContext | null): GeoPath<any, DatumObject>;
+export function geoPath<DatumObject extends GeoPermissibleObjects>(
+    projection?: GeoProjection | GeoStreamWrapper | null,
+    context?: GeoContext | null,
+): GeoPath<any, DatumObject>;
 /**
  * Creates a new geographic path generator with the default settings.
  *
@@ -1300,7 +1297,10 @@ export function geoPath<DatumObject extends GeoPermissibleObjects>(projection?: 
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
-export function geoPath<This, DatumObject extends GeoPermissibleObjects>(projection?: GeoProjection | GeoStreamWrapper | null, context?: GeoContext | null): GeoPath<This, DatumObject>;
+export function geoPath<This, DatumObject extends GeoPermissibleObjects>(
+    projection?: GeoProjection | GeoStreamWrapper | null,
+    context?: GeoContext | null,
+): GeoPath<This, DatumObject>;
 
 // geoProjection ==========================================================
 

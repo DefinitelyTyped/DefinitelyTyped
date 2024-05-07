@@ -1,4 +1,4 @@
-import ATNState from './ATNState';
+import ATNState from "./ATNState";
 
 /**
  * The last node in the ATN for a rule, unless that rule is the start symbol.

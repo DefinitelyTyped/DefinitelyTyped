@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/git-semver-tags",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-semver-tags#readme"
+    ],
+    "devDependencies": {
+        "@types/git-semver-tags": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

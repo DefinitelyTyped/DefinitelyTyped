@@ -1,16 +1,10 @@
-// Type definitions for non-npm package amap-js-api-control-bar 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/map-control#control-bar
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace ControlBar {
         interface EventMap {
-            hide: Event<'hide'>;
-            show: Event<'show'>;
+            hide: Event<"hide">;
+            show: Event<"show">;
         }
         interface Position {
             top?: string | undefined;

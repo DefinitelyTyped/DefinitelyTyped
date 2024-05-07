@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/web-push",
+    "version": "3.6.9999",
+    "projects": [
+        "https://github.com/web-push-libs/web-push"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/web-push": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Lessing",
+            "githubUsername": "paullessing"
+        }
+    ]
+}

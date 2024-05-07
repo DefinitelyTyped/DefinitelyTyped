@@ -1,17 +1,16 @@
-
-import read = require('read');
+import read = require("read");
 
 var opts: read.Options;
 opts = {
-    prompt: 'please enter...',
+    prompt: "please enter...",
     silent: true,
-    replace: '*',
+    replace: "*",
     timeout: 1500,
-    default: 'nothing',
+    default: "nothing",
     edit: false,
     terminal: true,
-    input: {x: 'thing'},
-    output: {y: 'thang'}
+    input: { x: "thing" },
+    output: { y: "thang" },
 };
 
-read(opts, function (error, result, isDefault) { });
+read(opts, function(error, result, isDefault) {});

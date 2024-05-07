@@ -1,6 +1,6 @@
-import Koa = require('koa');
-import koaCors = require('koa-cors');
+import Koa = require("koa");
+import koaCors = require("koa-cors");
 
 const app = new Koa();
 app.use(koaCors());
-app.use(koaCors({ origin: '*' }));
+app.use(koaCors({ origin: "*" }));

@@ -1,7 +1,39 @@
 {
     "private": true,
+    "name": "@types/webpack-hot-middleware",
+    "version": "2.25.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/webpack-hot-middleware"
+    ],
     "dependencies": {
+        "@types/connect": "*",
         "tapable": "^2.2.0",
         "webpack": "^5"
-    }
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/webpack-hot-middleware": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Benjamin Lim",
+            "githubUsername": "bumbleblym"
+        },
+        {
+            "name": "Ron Martinez",
+            "githubUsername": "icylace"
+        },
+        {
+            "name": "Chris Abrams",
+            "githubUsername": "chrisabrams"
+        },
+        {
+            "name": "Ilya Zelenko",
+            "githubUsername": "iliyaZelenko"
+        },
+        {
+            "name": "Rodrigo Saboya",
+            "githubUsername": "saboya"
+        }
+    ]
 }

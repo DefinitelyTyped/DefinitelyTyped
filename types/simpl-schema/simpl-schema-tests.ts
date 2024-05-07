@@ -1,17 +1,17 @@
-import SimpleSchema, { SimpleSchemaDefinition, SchemaDefinition } from 'simpl-schema';
-import { check } from 'meteor/check';
+import { check } from "meteor/check";
+import SimpleSchema, { SchemaDefinition, SimpleSchemaDefinition } from "simpl-schema";
 
 const schema: SimpleSchemaDefinition = {
     basicString: {
-        type: String
+        type: String,
     },
     limitedString: {
         type: String,
-        allowedValues: ['pro', 'con']
+        allowedValues: ["pro", "con"],
     },
     regExpString: {
         type: String,
-        regEx: SimpleSchema.RegEx.Id
+        regEx: SimpleSchema.RegEx.Id,
     },
     createdAt: {
         type: Date,
@@ -26,54 +26,54 @@ const schema: SimpleSchemaDefinition = {
             this.value;
             this.operator;
             this.validationContext;
-            this.field('field');
-            this.siblingField('field');
+            this.field("field");
+            this.siblingField("field");
             this.addValidationErrors([
                 {
-                    type: 'validation-error',
-                    name: 'Error',
-                }
+                    type: "validation-error",
+                    name: "Error",
+                },
             ]);
             return undefined;
         },
         autoValue() {
             this.closestSubschemaFieldName;
-            this.field('basicString');
+            this.field("basicString");
             this.isModifier;
             this.isUpsert;
             this.isSet;
             this.key;
             this.operator;
             this.parentField();
-            this.siblingField('field');
+            this.siblingField("field");
             this.unset();
             this.value;
 
             return new Date();
-        }
+        },
     },
     title: {
         type: String,
-        label: 'Title',
+        label: "Title",
         /* Can't use arrow function here, else the context won't be available */
         custom() {
-          const text = this.value;
+            const text = this.value;
 
-          if (text.length > 100) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: 100 };
-          else if (text.length < 10) return SimpleSchema.ErrorTypes.MIN_STRING;
-        }
-    }
+            if (text.length > 100) return { type: SimpleSchema.ErrorTypes.MAX_STRING, max: 100 };
+            else if (text.length < 10) return SimpleSchema.ErrorTypes.MIN_STRING;
+        },
+    },
 };
 
 const StringSchema = new SimpleSchema(schema);
 
 const testData = {
-    basicString: 'Test',
-    limitedString: 'pro',
-    regExpString: 'id',
+    basicString: "Test",
+    limitedString: "pro",
+    regExpString: "id",
 };
 
-const testOptions = {keys: ['basicString']};
+const testOptions = { keys: ["basicString"] };
 
 StringSchema.validate(testData);
 
@@ -90,44 +90,43 @@ StringSchema.validator({
     modifier: true,
     upsert: true,
     extendedCustomContext: {},
-    ignore: ['Error'],
-    keys: ['key']
+    ignore: ["Error"],
+    keys: ["key"],
 });
 
 // If clean: true, clean options can be provided
 StringSchema.validator({
     clean: true,
     trimStrings: true,
-    removeNullsFromArrays: true
+    removeNullsFromArrays: true,
 });
 
-StringSchema.clean({title: ''}, {
+StringSchema.clean({ title: "" }, {
     removeEmptyStrings: true,
     removeNullsFromArrays: true,
-    isUpsert: false
+    isUpsert: false,
 });
 
 const StringSchemaWithOptions = new SimpleSchema({
     basicString: {
-        type: String
+        type: String,
     },
     limitedString: {
         type: String,
-        allowedValues: ['pro', 'con']
+        allowedValues: ["pro", "con"],
     },
     subschema: {
-        type: StringSchema
+        type: StringSchema,
     },
     userId: {
         type: String,
-        regEx: SimpleSchema.RegEx.Id
+        regEx: SimpleSchema.RegEx.Id,
     },
     createdAt: {
         type: Date,
-        autoValue: () => new Date()
-    }
-},
-{
+        autoValue: () => new Date(),
+    },
+}, {
     clean: {
         filter: true,
         autoConvert: true,
@@ -151,32 +150,32 @@ new SimpleSchema({
     arrayOfInteger: [SimpleSchema.Integer],
     arrayOfSchema: [StringSchema],
     oneOfTest: SimpleSchema.oneOf(String, SimpleSchema.Integer, Number, Boolean, /regextest/),
-    subSchema: StringSchemaWithOptions
+    subSchema: StringSchemaWithOptions,
 });
 
 StringSchema.extend(
     new SimpleSchema({
-        name: { type: String }
-    })
+        name: { type: String },
+    }),
 );
 StringSchema.extend({
-    name: { type: String }
+    name: { type: String },
 });
 
 StringSchema.extend({
-    name: { type: String, required: false }
+    name: { type: String, required: false },
 });
 
 StringSchema.extend({
-    name: { type: String, required: () => false }
+    name: { type: String, required: () => false },
 });
 
-SimpleSchema.extendOptions(['autoform']);
+SimpleSchema.extendOptions(["autoform"]);
 
 SimpleSchema.setDefaultMessages({
     messages: {
         en: {
-            required: '{{{label}}} is required',
+            required: "{{{label}}} is required",
         },
     },
 });
@@ -195,7 +194,7 @@ objectKeysTestSchema.objectKeys("_prefix");
 StringSchema.schema();
 
 // $ExpectType SchemaDefinition
-StringSchema.schema('basicString');
+StringSchema.schema("basicString");
 
 // $ExpectType typeof SimpleSchema | undefined
-StringSchema.getObjectSchema('basicString');
+StringSchema.getObjectSchema("basicString");

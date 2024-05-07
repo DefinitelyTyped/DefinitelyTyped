@@ -26,7 +26,9 @@ Config.navigation.override = (passageName: string) => passageName + "anything";
 Config.passages.descriptions = false;
 Config.passages.descriptions = true;
 Config.passages.descriptions = null;
-Config.passages.descriptions = function() { return this.domId; };
+Config.passages.descriptions = function() {
+    return this.domId;
+};
 Config.passages.displayTitles = false;
 Config.passages.nobr = true;
 Config.passages.onProcess = (passage) => passage.text;

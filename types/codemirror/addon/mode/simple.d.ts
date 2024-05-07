@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     // Based on https://codemirror.net/demo/simplemode.html
     interface Rule {
         regex?: string | RegExp | undefined;
@@ -21,7 +21,7 @@ declare module '../../' {
 
     function defineSimpleMode<K extends string>(
         name: string,
-        // eslint-disable-next-line no-unnecessary-generics
-        mode: { [P in K]: P extends 'meta' ? Record<string, any> : Rule[] } & { start: Rule[] },
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        mode: { [P in K]: P extends "meta" ? Record<string, any> : Rule[] } & { start: Rule[] },
     ): void;
 }

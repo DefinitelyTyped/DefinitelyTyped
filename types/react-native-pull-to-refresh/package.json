@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-pull-to-refresh",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/moschan/react-native-pull-to-refresh#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "react-native": "*",
+        "@types/react-native-pull-to-refresh": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "euZebe",
+            "githubUsername": "me"
+        }
+    ]
+}

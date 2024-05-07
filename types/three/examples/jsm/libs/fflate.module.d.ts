@@ -1,1 +1,1 @@
-export * from 'fflate';
+export * from "fflate";

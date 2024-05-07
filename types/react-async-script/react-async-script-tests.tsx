@@ -1,5 +1,5 @@
-import * as React from 'react';
-import makeAsyncScript = require('react-async-script');
+import * as React from "react";
+import makeAsyncScript = require("react-async-script");
 
 interface Props {
     grecaptcha?: any;
@@ -11,13 +11,13 @@ function DisplayComponent({ grecaptcha }: Props) {
 
 const AsyncHoC = makeAsyncScript(`https://www.google.com/recaptcha/api.js?render=test`, {
     attributes: {
-        'data-attr1': 'attr1-value',
-        'data-attr2': 'attr2-value',
+        "data-attr1": "attr1-value",
+        "data-attr2": "attr2-value",
     },
-    globalName: 'grecaptcha',
+    globalName: "grecaptcha",
     removeOnUnmount: true,
 })(DisplayComponent);
 
 function WrapperComponent() {
-    return <AsyncHoC asyncScriptOnLoad={() => console.log('script loaded')} />;
+    return <AsyncHoC asyncScriptOnLoad={() => console.log("script loaded")} />;
 }

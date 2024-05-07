@@ -1,0 +1,64 @@
+{
+    "private": true,
+    "name": "@types/selenium-webdriver",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/SeleniumHQ/selenium"
+    ],
+    "dependencies": {
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/selenium-webdriver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bill Armstrong",
+            "githubUsername": "BillArmstrong"
+        },
+        {
+            "name": "Yuki Kokubun",
+            "githubUsername": "Kuniwak"
+        },
+        {
+            "name": "Craig Nishina",
+            "githubUsername": "cnishina"
+        },
+        {
+            "name": "Simon Gellis",
+            "githubUsername": "SupernaviX"
+        },
+        {
+            "name": "Ben Dixon",
+            "githubUsername": "bendxn"
+        },
+        {
+            "name": "Ziyu",
+            "githubUsername": "oddui"
+        },
+        {
+            "name": "Johann Wolf",
+            "githubUsername": "beta-vulgaris"
+        },
+        {
+            "name": "Aleksey Chemakin",
+            "githubUsername": "Dzenly"
+        },
+        {
+            "name": "David Burns",
+            "githubUsername": "AutomatedTester"
+        },
+        {
+            "name": "Pirasis Leelatanon",
+            "githubUsername": "1pete"
+        },
+        {
+            "name": "Harmandeep Singh",
+            "githubUsername": "SinghHrmn"
+        },
+        {
+            "name": "Shubh Sheth",
+            "githubUsername": "shubhsheth"
+        }
+    ]
+}

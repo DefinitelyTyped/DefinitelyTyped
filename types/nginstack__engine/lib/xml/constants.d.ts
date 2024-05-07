@@ -1,2 +1,2 @@
-export const unsupportedIsoLatin8859_1Chars: string[];
-export const specialChars: string[];
+export let unsupportedIsoLatin8859_1Chars: string[];
+export let specialChars: string[];

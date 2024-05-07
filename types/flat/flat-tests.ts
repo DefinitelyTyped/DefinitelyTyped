@@ -4,15 +4,15 @@ namespace TestFlatten {
     type Target = {
         a: {
             b: number;
-        },
+        };
         c: boolean[][];
     };
 
     let target: Target;
 
     type Result = {
-        'a.b': number;
-        'c.0.0': boolean;
+        "a.b": number;
+        "c.0.0": boolean;
     };
 
     let result: Result;
@@ -20,7 +20,7 @@ namespace TestFlatten {
     result = flatten<Target, Result>(target);
     result = flatten<Target, Result>(target, {});
     result = flatten<Target, Result>(target, {
-        delimiter: '_',
+        delimiter: "_",
     });
     result = flatten<Target, Result>(target, {
         maxDepth: 3,
@@ -35,8 +35,8 @@ namespace TestFlatten {
 
 namespace TestUnflatten {
     type Target = {
-        'a.b': number;
-        'c.0.0': boolean;
+        "a.b": number;
+        "c.0.0": boolean;
     };
 
     let target: Target;
@@ -44,7 +44,7 @@ namespace TestUnflatten {
     type Result = {
         a: {
             b: number;
-        },
+        };
         c: boolean[][];
     };
 
@@ -53,7 +53,7 @@ namespace TestUnflatten {
     result = unflatten<Target, Result>(target);
     result = unflatten<Target, Result>(target, {});
     result = unflatten<Target, Result>(target, {
-        delimiter: '_',
+        delimiter: "_",
     });
     result = unflatten<Target, Result>(target, {
         object: true,

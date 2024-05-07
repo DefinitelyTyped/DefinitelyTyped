@@ -1,9 +1,3 @@
-// Type definitions for conventional-changelog-writer 4.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-writer#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="node" />
 
 import * as Stream from "stream";
@@ -17,8 +11,11 @@ import { Commit } from "conventional-commits-parser";
  *                object contains, but not limits to the following fields.
  * @param options
  */
-// eslint-disable-next-line no-unnecessary-generics
-declare function conventionalChangelogWriter<TCommit extends Commit = Commit, TContext extends Context = Context>(context?: Partial<TContext>, options?: Options<TCommit, TContext>): Stream.Transform;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function conventionalChangelogWriter<TCommit extends Commit = Commit, TContext extends Context = Context>(
+    context?: Partial<TContext>,
+    options?: Options<TCommit, TContext>,
+): Stream.Transform;
 
 declare namespace conventionalChangelogWriter {
     interface CommitGroup<T extends Commit = Commit> {
@@ -100,7 +97,10 @@ declare namespace conventionalChangelogWriter {
         date: string;
     }
 
-    type GeneratedContext<TCommit extends Commit = Commit, TContext extends Context = Context> = TContext & TransformedCommit<TCommit> & GeneratedContext.ExtraContext<TCommit>;
+    type GeneratedContext<TCommit extends Commit = Commit, TContext extends Context = Context> =
+        & TContext
+        & TransformedCommit<TCommit>
+        & GeneratedContext.ExtraContext<TCommit>;
 
     namespace GeneratedContext {
         interface ExtraContext<T extends Commit = Commit> {
@@ -316,11 +316,18 @@ declare namespace conventionalChangelogWriter {
              * @param commits   Filtered commits from your git metadata.
              * @param keyCommit The commit that triggers to generate the log.
              */
-            // tslint:disable-next-line max-line-length
-            (context: GeneratedContext<TCommit, TContext>, options: Options<TCommit, TContext>, commits: Array<TransformedCommit<TCommit>>, keyCommit: TransformedCommit<TCommit>): GeneratedContext<TCommit, TContext>;
+            (
+                context: GeneratedContext<TCommit, TContext>,
+                options: Options<TCommit, TContext>,
+                commits: Array<TransformedCommit<TCommit>>,
+                keyCommit: TransformedCommit<TCommit>,
+            ): GeneratedContext<TCommit, TContext>;
         }
 
-        type GenerateOn<TContext extends Context = Context, TCommit extends Commit = Commit> = GenerateOn.Function<TContext, TCommit> | string | object;
+        type GenerateOn<TContext extends Context = Context, TCommit extends Commit = Commit> =
+            | GenerateOn.Function<TContext, TCommit>
+            | string
+            | object;
 
         namespace GenerateOn {
             interface FunctionType<TContext extends Context = Context, TCommit extends Commit = Commit> {
@@ -331,25 +338,28 @@ declare namespace conventionalChangelogWriter {
                  *                `options`.
                  * @param options Normalized options.
                  */
-                (commit: TransformedCommit<TCommit>, commits: Array<TransformedCommit<TCommit>>, context: GeneratedContext<TCommit, TContext>, options: Options<TCommit, TContext>): boolean;
+                (
+                    commit: TransformedCommit<TCommit>,
+                    commits: Array<TransformedCommit<TCommit>>,
+                    context: GeneratedContext<TCommit, TContext>,
+                    options: Options<TCommit, TContext>,
+                ): boolean;
             }
 
-            export {
-                FunctionType as Function,
-            };
+            export { FunctionType as Function };
         }
 
-        type Sort<T = any> = Sort.Function<T> | string | ReadonlyArray<string> | false;
+        type Sort<T = any> = Sort.Function<T> | string | readonly string[] | false;
 
         namespace Sort {
             type FunctionType<T = any> = (a: T, b: T) => number;
 
-            export {
-                FunctionType as Function,
-            };
+            export { FunctionType as Function };
         }
 
-        type Transform<TCommit extends Commit = Commit, TContext extends Context = Context> = Transform.Object | Transform.Function<TCommit, TContext>;
+        type Transform<TCommit extends Commit = Commit, TContext extends Context = Context> =
+            | Transform.Object
+            | Transform.Function<TCommit, TContext>;
 
         namespace Transform {
             interface FunctionType<TCommit extends Commit = Commit, TContext extends Context = Context> {
@@ -361,24 +371,22 @@ declare namespace conventionalChangelogWriter {
             namespace ObjectType {
                 type FunctionType<T = any> = (value: T, path: string) => T;
 
-                export {
-                    FunctionType as Function,
-                };
+                export { FunctionType as Function };
             }
 
-            export {
-                FunctionType as Function,
-                ObjectType as Object,
-            };
+            export { FunctionType as Function, ObjectType as Object };
         }
     }
 
-    type TransformedCommit<T extends Commit = Commit> = Omit<T, "raw"> & { raw: T; };
+    type TransformedCommit<T extends Commit = Commit> = Omit<T, "raw"> & { raw: T };
 }
 
 type Context = conventionalChangelogWriter.Context;
-type Options<TCommit extends Commit = Commit, TContext extends Context = Context> = conventionalChangelogWriter.Options<TCommit, TContext>;
+type Options<TCommit extends Commit = Commit, TContext extends Context = Context> = conventionalChangelogWriter.Options<
+    TCommit,
+    TContext
+>;
 
-type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P]; };
+type Omit<T, K extends string | number | symbol> = { [P in Exclude<keyof T, K>]: T[P] };
 
 export = conventionalChangelogWriter;

@@ -1,26 +1,7 @@
-// Type definitions for react-router-redux 5.0
-// Project: https://github.com/reactjs/react-router-redux
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
-//                 Shoya Tanaka <https://github.com/8398a7>
-//                 Mykolas <https://github.com/mykolas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import {
-    Store,
-    Dispatch,
-    Middleware,
-    Reducer
-} from 'redux';
-import {
-    History,
-    Location,
-    Path,
-    LocationState,
-    LocationDescriptor
-} from 'history';
-import * as React from 'react';
-import { match } from 'react-router';
+import { History, Location, LocationDescriptor, LocationState, Path } from "history";
+import * as React from "react";
+import { match } from "react-router";
+import { Action, Dispatch, Middleware, Reducer, Store } from "redux";
 
 export interface ConnectedRouterProps<State> {
     children?: React.ReactNode;
@@ -29,15 +10,15 @@ export interface ConnectedRouterProps<State> {
 }
 export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
 
-export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
+export const LOCATION_CHANGE = "@@router/LOCATION_CHANGE";
 
 export interface RouterState {
     location: Location | null;
 }
 
-export const routerReducer: Reducer<RouterState>;
+export const routerReducer: Reducer<RouterState, Action>;
 
-export const CALL_HISTORY_METHOD = '@@router/CALL_HISTORY_METHOD';
+export const CALL_HISTORY_METHOD = "@@router/CALL_HISTORY_METHOD";
 
 export function push(location: LocationDescriptor, state?: LocationState): RouterAction;
 export function replace(location: LocationDescriptor, state?: LocationState): RouterAction;
@@ -46,11 +27,11 @@ export function goBack(): RouterAction;
 export function goForward(): RouterAction;
 
 export const routerActions: {
-    push: typeof push
-    replace: typeof replace
-    go: typeof go
-    goBack: typeof goBack
-    goForward: typeof goForward
+    push: typeof push;
+    replace: typeof replace;
+    go: typeof go;
+    goBack: typeof goBack;
+    goForward: typeof goForward;
 };
 
 export interface LocationActionPayload {
@@ -72,10 +53,10 @@ export interface LocationChangeAction {
                 url: string;
                 params: any;
                 isExact: boolean;
-            },
+            };
             location: Location;
             history: History;
-        } | undefined
+        } | undefined;
     };
 }
 

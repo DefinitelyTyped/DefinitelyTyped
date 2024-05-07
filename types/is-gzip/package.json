@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/is-gzip",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/kevva/is-gzip#readme"
+    ],
+    "devDependencies": {
+        "@types/is-gzip": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Kit Peters",
+            "githubUsername": "PopeFelix"
+        }
+    ]
+}

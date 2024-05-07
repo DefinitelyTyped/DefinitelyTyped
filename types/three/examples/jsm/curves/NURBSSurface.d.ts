@@ -1,4 +1,4 @@
-import { Vector2, Vector3, Vector4 } from '../../../src/Three.js';
+import { Vector2, Vector3, Vector4 } from "three";
 
 export class NURBSSurface {
     constructor(

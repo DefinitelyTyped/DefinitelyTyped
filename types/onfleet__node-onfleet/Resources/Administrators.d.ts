@@ -1,10 +1,10 @@
-import { OnfleetMetadata, MatchMetadata } from '../metadata';
+import { MatchMetadata, OnfleetMetadata } from "../metadata";
 
 declare class Admin {
     create(obj: Admin.CreateAdminProps): Promise<Admin.OnfleetAdmin>;
     deleteOne(id: string): Promise<void>;
     get(): Promise<Admin.OnfleetAdmin[]>;
-    matchMetadata: MatchMetadata<Admin.OnfleetAdmin['metadata']>;
+    matchMetadata: MatchMetadata<Admin.OnfleetAdmin["metadata"]>;
     update(id: string, obj: Admin.UpdateAdminProps): Promise<Admin.OnfleetAdmin>;
 }
 
@@ -19,7 +19,7 @@ declare namespace Admin {
         phone: string;
         timeCreated: number;
         timeLastModified: number;
-        type: 'super' | 'standard';
+        type: "super" | "standard";
     }
 
     /**

@@ -1,4 +1,4 @@
-import Mixin from '@ember/object/mixin';
+import Mixin from "@ember/object/mixin";
 
 /**
  * This mixin allows for Ember objects to subscribe to and emit events.
@@ -10,7 +10,7 @@ interface Evented {
     on<Target>(
         name: string,
         target: Target,
-        method: string | ((this: Target, ...args: any[]) => void)
+        method: string | ((this: Target, ...args: any[]) => void),
     ): this;
     on(name: string, method: ((...args: any[]) => void) | string): this;
     /**
@@ -21,7 +21,7 @@ interface Evented {
     one<Target>(
         name: string,
         target: Target,
-        method: string | ((this: Target, ...args: any[]) => void)
+        method: string | ((this: Target, ...args: any[]) => void),
     ): this;
     one(name: string, method: string | ((...args: any[]) => void)): this;
     /**
@@ -36,7 +36,7 @@ interface Evented {
     off<Target>(
         name: string,
         target: Target,
-        method: string | ((this: Target, ...args: any[]) => void)
+        method: string | ((this: Target, ...args: any[]) => void),
     ): this;
     off(name: string, method: string | ((...args: any[]) => void)): this;
     /**
@@ -59,20 +59,20 @@ export default Evented;
  */
 export function on(
     eventName: string,
-    func: (...args: any[]) => void
+    func: (...args: any[]) => void,
 ): (...args: any[]) => void;
 
 export function on(
     eventName: string,
     eventName2: string,
-    func: (...args: any[]) => void
+    func: (...args: any[]) => void,
 ): (...args: any[]) => void;
 
 export function on(
     eventName: string,
     eventName2: string,
     eventName3: string,
-    func: (...args: any[]) => void
+    func: (...args: any[]) => void,
 ): (...args: any[]) => void;
 
 export function on(
@@ -80,7 +80,7 @@ export function on(
     eventName2: string,
     eventName3: string,
     eventName4: string,
-    func: (...args: any[]) => void
+    func: (...args: any[]) => void,
 ): (...args: any[]) => void;
 
 export function on(
@@ -89,7 +89,7 @@ export function on(
     eventName3: string,
     eventName4: string,
     eventName5: string,
-    func: (...args: any[]) => void
+    func: (...args: any[]) => void,
 ): (...args: any[]) => void;
 
 export function on(
@@ -99,5 +99,5 @@ export function on(
     eventName4: string,
     eventName5: string,
     eventName6: string,
-    func: (...args: any[]) => void
+    func: (...args: any[]) => void,
 ): (...args: any[]) => void;

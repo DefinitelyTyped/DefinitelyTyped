@@ -1,4 +1,4 @@
-import size = require('element-size');
+import size = require("element-size");
 
 const element = document.body;
 // returns tuple [number, number]

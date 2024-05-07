@@ -1,11 +1,3 @@
-// Type definitions for Knockout.Mapping 2.0
-// Project: https://github.com/SteveSanderson/knockout.mapping
-// Definitions by: Boris Yankov <https://github.com/borisyankov> 
-//                 Mathias Lorenzen <https://github.com/ffMathy>
-//                 Leonardo Lombardi <https://github.com/ltlombardi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="knockout" />
 
 export as namespace mapping;
@@ -16,23 +8,23 @@ export = self;
 type Primitives = string | number | boolean | symbol;
 
 declare global {
-
-    type MappedType<T> =
-        [T] extends [Primitives] ? KnockoutObservable<T> :
-        [T] extends [object] ? KnockoutObservableType<T> :
-        any;
+    type MappedType<T> = [T] extends [Primitives] ? KnockoutObservable<T>
+        : [T] extends [object] ? KnockoutObservableType<T>
+        : any;
 
     type KnockoutObservableType<T> = {
-        [P in keyof T]: T[P] extends Primitives ? KnockoutObservable<T[P]> :
-                        T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]> :
-                        T[P] extends ReadonlyArray<any> ? KnockoutReadonlyObservableArrayType<T[P][number]> :
-                        MappedType<T[P]>;
+        [P in keyof T]: T[P] extends Primitives ? KnockoutObservable<T[P]>
+            : T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]>
+            : T[P] extends readonly any[] ? KnockoutReadonlyObservableArrayType<T[P][number]>
+            : MappedType<T[P]>;
     };
 
     // Could not get this to return any when T is any. It returns a Union type of the possible values.
-    type KnockoutObservableArrayType<T> = T extends Primitives ? KnockoutObservableArray<T> : KnockoutObservableArray<KnockoutObservableType<T>>;
+    type KnockoutObservableArrayType<T> = T extends Primitives ? KnockoutObservableArray<T>
+        : KnockoutObservableArray<KnockoutObservableType<T>>;
 
-    type KnockoutReadonlyObservableArrayType<T> = T extends Primitives ? KnockoutReadonlyObservableArray<T> : KnockoutReadonlyObservableArray<KnockoutObservableType<T>>;
+    type KnockoutReadonlyObservableArrayType<T> = T extends Primitives ? KnockoutReadonlyObservableArray<T>
+        : KnockoutReadonlyObservableArray<KnockoutObservableType<T>>;
 
     type KnockoutMappingOptions<T> = KnockoutMappingSpecificOptions<T> | KnockoutMappingStandardOptions;
 
@@ -46,8 +38,8 @@ declare global {
     }
 
     type KnockoutMappingSpecificOptions<T> = {
-        [P in keyof T]?: KnockoutPropertyMappingCallBack
-    }
+        [P in keyof T]?: KnockoutPropertyMappingCallBack;
+    };
 
     interface KnockoutPropertyMappingCallBack {
         create?: ((options: KnockoutMappingCreateOptions) => void) | undefined;
@@ -74,13 +66,17 @@ declare global {
          */
         isMapped(viewModel: any): boolean;
         /**
-         * Creates an observable array view model. Objects on the source array are also converted to observables. Primitive types and arrays are not. 
+         * Creates an observable array view model. Objects on the source array are also converted to observables. Primitive types and arrays are not.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source Array to be mapped.
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: T[], options?: KnockoutMappingOptions<T[]>, target?: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
+        fromJS<T>(
+            source: T[],
+            options?: KnockoutMappingOptions<T[]>,
+            target?: KnockoutObservableArrayType<T>,
+        ): KnockoutObservableArrayType<T>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Array to be mapped.
@@ -88,21 +84,28 @@ declare global {
          */
         fromJS<T>(source: T[], target: KnockoutObservableArrayType<T>): KnockoutObservableArrayType<T>;
         /**
-         * Creates an readonly observable array view model. Objects on the source array are also converted to observables. Primitive types and arrays are not. 
+         * Creates an readonly observable array view model. Objects on the source array are also converted to observables. Primitive types and arrays are not.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source Array to be mapped.
          * @param options Options on mapping behavior.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: ReadonlyArray<T>, options?: KnockoutMappingOptions<ReadonlyArray<T>>, target?: KnockoutReadonlyObservableArrayType<T>): KnockoutReadonlyObservableArrayType<T>;
+        fromJS<T>(
+            source: readonly T[],
+            options?: KnockoutMappingOptions<readonly T[]>,
+            target?: KnockoutReadonlyObservableArrayType<T>,
+        ): KnockoutReadonlyObservableArrayType<T>;
         /**
          * Updates target's observable properties with those of the sources.
          * @param source Array to be mapped.
          * @param target View model object previosly mapped to be updated.
          */
-        fromJS<T>(source: ReadonlyArray<T>, target: KnockoutReadonlyObservableArrayType<T>): KnockoutReadonlyObservableArrayType<T>;
+        fromJS<T>(
+            source: readonly T[],
+            target: KnockoutReadonlyObservableArrayType<T>,
+        ): KnockoutReadonlyObservableArrayType<T>;
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source Plain JavaScript object to be mapped.
          * @param options Options on mapping behavior.
@@ -116,7 +119,7 @@ declare global {
          */
         fromJS<T>(source: T, target: MappedType<T>): MappedType<T>;
         /**
-         * Creates a view model object with observable properties for each of the properties on the source. 
+         * Creates a view model object with observable properties for each of the properties on the source.
          * If 'target' is supplied, instead, target's observable properties are updated.
          * @param source JSON of a JavaScript object to be mapped.
          * @param options Options on mapping behavior.
@@ -130,7 +133,7 @@ declare global {
          */
         fromJSON(source: string, target: any): any;
         /**
-         * Creates an unmapped object containing only the properties of the mapped object that were part of your original JS object. 
+         * Creates an unmapped object containing only the properties of the mapped object that were part of your original JS object.
          * @param viewModel View model object previosly mapped.
          * @param options Options on mapping behavior.
          */
@@ -163,7 +166,13 @@ declare global {
         visitModel(
             rootObject: any,
             callback: Function,
-            options?: { visitedObjects?: any; parentName?: string | undefined; ignore?: string[] | undefined; copy?: string[] | undefined; include?: string[] | undefined; }
+            options?: {
+                visitedObjects?: any;
+                parentName?: string | undefined;
+                ignore?: string[] | undefined;
+                copy?: string[] | undefined;
+                include?: string[] | undefined;
+            },
         ): any;
     }
 

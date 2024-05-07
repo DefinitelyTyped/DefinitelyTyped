@@ -1,0 +1,46 @@
+{
+    "private": true,
+    "name": "@types/navermaps",
+    "version": "3.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "NAVER Maps JavaScript API",
+    "projects": [
+        "https://navermaps.github.io/maps.js.ncp/"
+    ],
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/navermaps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ckboyjiy",
+            "githubUsername": "ckboyjiy"
+        },
+        {
+            "name": "DongKyuuuu",
+            "githubUsername": "DongKyuuuu"
+        },
+        {
+            "name": "Minchul Joh",
+            "githubUsername": "fclemonschool"
+        },
+        {
+            "name": "Suhwan Cha",
+            "githubUsername": "suhwancha"
+        },
+        {
+            "name": "Yellowinq",
+            "githubUsername": "hig4342"
+        },
+        {
+            "name": "kkokko Jeong",
+            "githubUsername": "kkokkojeong"
+        },
+        {
+            "name": "gseok",
+            "githubUsername": "gseok"
+        }
+    ]
+}

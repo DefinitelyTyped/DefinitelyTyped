@@ -1,8 +1,8 @@
-import { Oid } from './oid';
-import { IndexEntry } from './index-entry';
-import { Repository } from './repository';
-import { Tree } from './tree';
-import { Strarray } from './str-array';
+import { IndexEntry } from "./index-entry";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Strarray } from "./str-array";
+import { Tree } from "./tree";
 
 export namespace Index {
     const enum ADD_OPTION {

@@ -1,4 +1,4 @@
-import { FormatCallback } from '../index';
+import { FormatCallback } from "../index";
 /**
  * types of options for BlockTextBuilder methods.  These replace previously positional options.
  */
@@ -154,6 +154,6 @@ export interface BlockTextBuilder {
      * to the caller.  See the test driver for sample usage.
      */
     options: {
-      formatters: Record<string, FormatCallback>;
+        formatters: Record<string, FormatCallback>;
     };
 }

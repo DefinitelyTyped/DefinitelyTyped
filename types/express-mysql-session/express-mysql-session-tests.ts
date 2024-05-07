@@ -1,28 +1,28 @@
-import * as mysqlSession from 'express-mysql-session';
-import * as session from 'express-session';
+import * as mysqlSession from "express-mysql-session";
+import * as session from "express-session";
 
 // $ExpectType typeof MySQLStoreClass
 const MySQLStore = mysqlSession(session);
 
 const sessionStore = new MySQLStore({
-    host: 'host',
+    host: "host",
     port: 3306,
-    user: 'user',
-    password: 'password',
-    database: 'database',
+    user: "user",
+    password: "password",
+    database: "database",
     clearExpired: true,
     checkExpirationInterval: 60000,
     expiration: 60000,
     createDatabaseTable: true,
     endConnectionOnClose: true,
     disableTouch: true,
-    charset: 'charset',
+    charset: "charset",
     schema: {
-        tableName: 'table',
+        tableName: "table",
         columnNames: {
-            session_id: 'session_id',
-            expires: 'expires',
-            data: 'data',
+            session_id: "session_id",
+            expires: "expires",
+            data: "data",
         },
     },
     waitForConnections: true,
@@ -33,7 +33,7 @@ const sessionStore = new MySQLStore({
 });
 
 session({
-    secret: 'session-secret',
+    secret: "session-secret",
     store: sessionStore,
 });
 
@@ -47,12 +47,12 @@ sessionStore.onReady();
 sessionStore.createDatabaseTable();
 
 // $ExpectType Promise<any>
-sessionStore.get('session-id');
-sessionStore.get('session-id', (error, session) => {});
+sessionStore.get("session-id");
+sessionStore.get("session-id", (error, session) => {});
 
 // $ExpectType Promise<void>
-sessionStore.set('session-id', { key: 'value' });
-sessionStore.set('session-id', { key: 'value' }, error => {});
+sessionStore.set("session-id", { key: "value" });
+sessionStore.set("session-id", { key: "value" }, error => {});
 
 // $ExpectType Promise<void>
 sessionStore.close();
@@ -62,6 +62,6 @@ sessionStore.close(() => {});
 sessionStore.length();
 sessionStore.length((error, length) => length.toFixed());
 
-sessionStore.load('session-id', (error, session) => {});
+sessionStore.load("session-id", (error, session) => {});
 
-sessionStore.on('connect', () => {});
+sessionStore.on("connect", () => {});

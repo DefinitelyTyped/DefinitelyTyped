@@ -1,78 +1,92 @@
 import * as THREE from "three";
 
-export interface BaseStyle {
-    color: any;
-    opacity: any;
-    base_altitude: any;
+// export const cacheStyle = new Cache();
+// export function readExpression(property, ctx);
+// export class StyleContext {}
+
+// TODO: Type later
+export type StyleContext = any;
+
+// TODO: Access to property as value between brackets
+export type StyleParameter<T> = T | ((prop?: any, ctx?: StyleContext) => T);
+
+export interface ImagePattern {
+    source: HTMLImageElement | string;
+    cropValues: { x: number; y: number; width: number; height: number };
 }
 
-export interface FillStyle extends BaseStyle {
-    pattern: any;
-    extrusion_height: any;
+export interface ColorPattern {
+    color: string | THREE.Color;
 }
 
-export interface StrokeStyle extends BaseStyle {
-    width: any;
+export type Pattern = ImagePattern | ColorPattern;
+
+export interface FillStyle {
+    color: StyleParameter<string | THREE.Color>;
+    pattern: StyleParameter<Pattern>;
+    opacity: StyleParameter<number>;
+    base_altitude: StyleParameter<number>;
+    extrusion_height: StyleParameter<number>;
 }
 
-export interface PointStyle extends BaseStyle {
-    radius: any;
-    line: any;
-    width: any;
+export interface StrokeStyle {
+    color: StyleParameter<string | THREE.Color>;
+    opacity: StyleParameter<number>;
+    width: StyleParameter<number>;
+    base_altitude: StyleParameter<number>;
+}
+
+export interface PointStyle {
+    color: StyleParameter<string | THREE.Color>;
+    radius: StyleParameter<number>;
+    line: StyleParameter<string>;
+    width: StyleParameter<number>;
+    opacity: StyleParameter<number>;
+    base_altitude: StyleParameter<number>;
+    model: StyleParameter<THREE.Object3D>; // TODO: Update iTowns doc
 }
 
 export interface TextStyle {
-    field: any;
-    color: any;
-    anchor: any;
-    offset: any;
-    padding: any;
-    size: any;
-    wrap: any;
-    spacing: any;
-    transform: any;
-    justify: any;
-    opacity: any;
-    font: any;
-    haloColor: any;
-    haloWidth: any;
-    haloBlur: any;
+    field: StyleParameter<string>;
+    color: StyleParameter<string>;
+    anchor: StyleParameter<string | number[]>;
+    offset: StyleParameter<[number, number]>;
+    padding: StyleParameter<number>;
+    size: StyleParameter<number>;
+    wrap: StyleParameter<number>;
+    spacing: StyleParameter<number>;
+    transform: StyleParameter<string>;
+    justify: StyleParameter<string>;
+    opacity: StyleParameter<number>;
+    font: StyleParameter<string[]>;
+    haloColor: StyleParameter<string>;
+    haloWidth: StyleParameter<number>;
+    haloBlur: StyleParameter<number>;
 }
 
 export interface IconStyle {
     source: string;
-    key: string;
-    anchor: string; // TODO
+    id: string;
+    cropValues: string;
+    anchor: string; // TODO: Restrict type to values
     size: number;
+    color: StyleParameter<string>;
+    opacity: StyleParameter<number>;
 }
 
-declare class Style {
-    constructor(params?: any, parent?: Style);
-
-    readonly isStyle: boolean;
-
-    order: number;
-    parent: Style;
-    zoom: { min: number, max: number };
-
-    fill: FillStyle;
-    stroke: StrokeStyle;
-    point: PointStyle;
-    text: TextStyle;
-    icon: IconStyle;
-
-    applyToHTML(domElement: Element, sprites: any): void;
-    clone(): Style;
-    copy(style: Style): Style;
-    drawingStylefromContext(context: any): any;
-    getTextAnchorPosition(): number[];
-    getTextFromProperties(ctx: any): string | undefined;
-    setFromGeojsonProperties(properties: any, type: number): Style;
-    setFromVectorTileLayer(
-        layer: any,
-        sprites: any,
-        order?: number,
-        symbolToCircle?: boolean): Style;
-    symbolStylefromContext(context: any): any;
+export default interface Style {
+    order?: number;
+    zoom?: { min?: number; max?: number };
+    fill?: Partial<FillStyle>;
+    stroke?: Partial<StrokeStyle>;
+    point?: Partial<PointStyle>;
+    text?: Partial<TextStyle>;
+    icon?: Partial<IconStyle>;
 }
-export default Style;
+
+// // TODO: Define style public API
+// export default class Style {
+//     constructor(params?: any);
+//
+//     readonly isStyle: boolean;
+// }

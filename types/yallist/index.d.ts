@@ -1,9 +1,3 @@
-// Type definitions for yallist 4.0
-// Project: https://github.com/isaacs/yallist#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = Yallist;
 
 declare class Yallist<T> implements Iterable<T> {
@@ -53,7 +47,7 @@ declare namespace Yallist {
 
     interface NodeConstructor {
         <T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
-        new <T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
+        new<T>(value: T, prev?: Node<T>, next?: Node<T>, list?: Yallist<T>): Node<T>;
     }
 
     interface Node<T> {

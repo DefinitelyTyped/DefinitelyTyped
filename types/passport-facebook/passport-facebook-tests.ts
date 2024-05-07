@@ -1,14 +1,14 @@
 /**
  * Created by jcabresos on 4/19/2014.
  */
-import * as passport from 'passport';
-import * as facebook from 'passport-facebook';
-import * as express from 'express';
+import * as express from "express";
+import * as passport from "passport";
+import * as facebook from "passport-facebook";
 
 // just some test model
 const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
-        callback(null, { username: 'james' });
+        callback(null, { username: "james" });
     },
 };
 
@@ -92,7 +92,7 @@ passport.use(
             profile: facebook.Profile,
             done: (error: any, user?: any, info?: any) => void,
         ) => {
-            done(null, false, { message: 'Some error.' });
+            done(null, false, { message: "Some error." });
         },
     ),
 );

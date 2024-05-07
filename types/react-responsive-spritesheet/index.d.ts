@@ -1,10 +1,5 @@
-// Type definitions for react-responsive-spritesheet 1.0
-// Project: https://github.com/danilosetra/react-responsive-spritesheet
-// Definitions by: Michael Liu <https://github.com/triangularcube>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
-import * as CSS from 'csstype';
+import * as CSS from "csstype";
+import * as React from "react";
 
 export default class ReactResponsiveSpritesheet extends React.Component<Props> {
     play(): void;
@@ -17,7 +12,7 @@ export default class ReactResponsiveSpritesheet extends React.Component<Props> {
     setDirection(direction: Direction): void;
     getInfo(type: NumberInfoType): number;
     getInfo(type: BooleanInfoType): boolean;
-    getInfo(type: 'direction'): Direction;
+    getInfo(type: "direction"): Direction;
 }
 
 export interface Props {
@@ -62,6 +57,6 @@ export interface Props {
 }
 
 export type Callback = (spritesheet: ReactResponsiveSpritesheet) => void;
-export type Direction = 'forward' | 'rewind';
-export type NumberInfoType = 'frame' | 'fps' | 'steps' | 'width' | 'height' | 'scale' | 'completeLoopCicles';
-export type BooleanInfoType = 'isPlaying' | 'isPaused';
+export type Direction = "forward" | "rewind";
+export type NumberInfoType = "frame" | "fps" | "steps" | "width" | "height" | "scale" | "completeLoopCicles";
+export type BooleanInfoType = "isPlaying" | "isPaused";

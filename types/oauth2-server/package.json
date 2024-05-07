@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/oauth2-server",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/oauthjs/node-oauth2-server"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/oauth2-server": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Robbie Van Gorkom",
+            "githubUsername": "vangorra"
+        },
+        {
+            "name": "Charles Irick",
+            "githubUsername": "cirick"
+        },
+        {
+            "name": "Daniel Fischer",
+            "githubUsername": "d-fischer"
+        },
+        {
+            "name": "Vitor Santos",
+            "githubUsername": "rvitorsantos"
+        }
+    ]
+}

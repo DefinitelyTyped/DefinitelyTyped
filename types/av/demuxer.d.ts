@@ -43,7 +43,7 @@ declare namespace AV {
     }
 
     interface DemuxerConstructor {
-        new (): Demuxer;
+        new(): Demuxer;
 
         probe(stream: Stream): boolean;
     }

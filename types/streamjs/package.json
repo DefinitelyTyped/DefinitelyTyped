@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/streamjs",
+    "version": "1.5.9999",
+    "projects": [
+        "http://winterbe.github.io/streamjs/"
+    ],
+    "devDependencies": {
+        "@types/streamjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bence Eros",
+            "githubUsername": "erosb"
+        }
+    ]
+}

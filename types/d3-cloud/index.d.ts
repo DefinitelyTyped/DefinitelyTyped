@@ -1,13 +1,8 @@
-// Type definitions for d3JS cloud layout plugin by Jason Davies v1.2.5
-// Project: https://github.com/jasondavies/d3-cloud
-// Definitions by: hans windhoff <https://github.com/hansrwindhoff>, locknono <https://github.com/locknono>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 export = d3.layout.cloud;
 
-declare module 'd3' {
+declare module "d3" {
     namespace layout {
         export function cloud(): Cloud<cloud.Word>;
         export function cloud<T extends cloud.Word>(): Cloud<T>;
@@ -76,17 +71,16 @@ declare module 'd3' {
              * If specified, sets the canvas generator function, which is used internally to draw text.
              * When using Node.js, you will almost definitely override the default, e.g. using the canvas module.
              * @param canvasGenerator should return a HTMLCanvasElement.The default is:  ()=>{document.createElement("canvas");}
-             *
              */
             canvas(): Cloud<T>;
             canvas(canvasGenerator: () => HTMLCanvasElement): Cloud<T>;
 
-            on(type: 'word', listener: (word: T) => void): Cloud<T>;
-            on(type: 'end', listener: (tags: T[], bounds: { x: number; y: number }[]) => void): Cloud<T>;
+            on(type: "word", listener: (word: T) => void): Cloud<T>;
+            on(type: "end", listener: (tags: T[], bounds: Array<{ x: number; y: number }>) => void): Cloud<T>;
             on(type: string, listener: (...args: any[]) => void): Cloud<T>;
 
-            on(type: 'word'): (word: T) => void;
-            on(type: 'end'): (tags: T[], bounds: { x: number; y: number }[]) => void;
+            on(type: "word"): (word: T) => void;
+            on(type: "end"): (tags: T[], bounds: Array<{ x: number; y: number }>) => void;
             on(type: string): (...args: any[]) => void;
         }
     }

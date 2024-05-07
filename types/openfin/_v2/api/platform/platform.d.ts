@@ -1,14 +1,20 @@
-import { View, ViewCreationOptions } from '../view/view';
-import { Base, EmitterBase } from '../base';
-import { Channel } from '../interappbus/channel/index';
-import { ChannelClient } from '../interappbus/channel/client';
-import { Identity } from '../../identity';
-import { RvmLaunchOptions, Application } from '../application/application';
-import Transport from '../../transport/transport';
-import LayoutModule from './layout';
-import { PlatformEvents } from '../events/platform';
-import { _Window } from '../window/window';
-import { PlatformOptions, ApplySnapshotOptions, Snapshot, InitPlatformOptions, PlatformWindowCreationOptions } from '../../shapes/Platform';
+import { Identity } from "../../identity";
+import {
+    ApplySnapshotOptions,
+    InitPlatformOptions,
+    PlatformOptions,
+    PlatformWindowCreationOptions,
+    Snapshot,
+} from "../../shapes/Platform";
+import Transport from "../../transport/transport";
+import { Application, RvmLaunchOptions } from "../application/application";
+import { Base, EmitterBase } from "../base";
+import { PlatformEvents } from "../events/platform";
+import { ChannelClient } from "../interappbus/channel/client";
+import { Channel } from "../interappbus/channel/index";
+import { View, ViewCreationOptions } from "../view/view";
+import { _Window } from "../window/window";
+import LayoutModule from "./layout";
 /**
  * @lends Platform
  */

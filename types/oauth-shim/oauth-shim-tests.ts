@@ -16,12 +16,12 @@ oauthshim.init([
 
 function customHandler(req: oauthshim.Request, res: express.Response, next: express.NextFunction) {
     if (
-        req.oauthshim &&
-        req.oauthshim.redirect &&
-        req.oauthshim.data &&
-        req.oauthshim.data.access_token &&
-        req.oauthshim.options &&
-        !req.oauthshim.options.path
+        req.oauthshim
+        && req.oauthshim.redirect
+        && req.oauthshim.data
+        && req.oauthshim.data.access_token
+        && req.oauthshim.options
+        && !req.oauthshim.options.path
     ) {}
 
     next();
@@ -33,7 +33,7 @@ app.all(
     customHandler,
     oauthshim.proxy,
     oauthshim.redirect,
-    oauthshim.unhandled
+    oauthshim.unhandled,
 );
 
 oauthshim.credentials.get = (query, callback) => {

@@ -1,11 +1,4 @@
-// Type definitions for react-copy-write 0.7
-// Project: https://github.com/aweary/react-copy-write
-// Definitions by: Sam A. Horvath-Hunt <https://github.com/samhh>
-//                 Dave Jeffery        <https://github.com/davej>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Component } from 'react';
+import { Component, JSX } from "react";
 
 // It'd be nice if this could somehow be improved! Perhaps we need variadic
 // kinds plus infer keyword? Alternatively unions may solve our issue if we had
@@ -43,10 +36,10 @@ interface ProviderProps<T> {
 declare class Provider<T> extends Component<ProviderProps<T>> {}
 
 declare function create<T extends object>(state: T): {
-    Provider: new() => Provider<T>,
-    Consumer: new() => Consumer<T>,
-    createSelector: SelectorFn<T>,
-    mutate: Mutator<T>,
+    Provider: new() => Provider<T>;
+    Consumer: new() => Consumer<T>;
+    createSelector: SelectorFn<T>;
+    mutate: Mutator<T>;
 };
 
 export default create;

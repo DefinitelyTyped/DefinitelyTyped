@@ -1,10 +1,4 @@
-// Type definitions for Persona
-// Project: http://www.mozilla.org/en-US/persona
-// Definitions by: James Frasca <https://github.com/Nycto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Persona {
-
     export interface WatchOptions {
         loggedInUser: string;
         onlogin: (s: string) => void;
@@ -38,10 +32,8 @@ declare namespace Persona {
         get(gotAssertion: (s: string) => void): void;
         get(gotAssertion: (s: string) => void, options: GetOptions): void;
     }
-
 }
 
 interface Navigator {
     id: Persona.Persona;
 }
-

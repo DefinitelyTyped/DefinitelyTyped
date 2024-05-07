@@ -1,6 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-any-union": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-any-union": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off"
     }
 }

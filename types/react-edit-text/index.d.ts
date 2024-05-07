@@ -1,22 +1,17 @@
-// Type definitions for react-edit-text 5.0
-// Project: https://github.com/bymi15/react-edit-text#readme
-// Definitions by: Brian Min <https://github.com/bymi15>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export type inputTextType =
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'search'
-    | 'tel'
-    | 'text'
-    | 'url'
-    | 'week';
+    | "date"
+    | "datetime-local"
+    | "email"
+    | "month"
+    | "number"
+    | "password"
+    | "search"
+    | "tel"
+    | "text"
+    | "url"
+    | "week";
 
 export interface onSaveProps {
     name: string;

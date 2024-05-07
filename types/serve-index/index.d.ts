@@ -1,10 +1,5 @@
-// Type definitions for serve-index 1.9
-// Project: https://github.com/expressjs/serve-index
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Handler } from 'express';
-import { Stats } from 'fs';
+import { Handler } from "express";
+import { Stats } from "fs";
 
 /** Serves pages that contain directory listings for a given path. */
 declare function serveIndex(path: string, options?: serveIndex.Options): Handler;

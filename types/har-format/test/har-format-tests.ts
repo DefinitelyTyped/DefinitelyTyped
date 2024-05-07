@@ -1,8 +1,8 @@
-import * as harFormat from 'har-format';
+import * as harFormat from "har-format";
 
 const testCreator: harFormat.Creator = {
-    name: 'WebInspector',
-    version: '537.36',
+    name: "WebInspector",
+    version: "537.36",
 };
 
 const testPageTiming: harFormat.PageTiming = {
@@ -11,23 +11,23 @@ const testPageTiming: harFormat.PageTiming = {
 };
 
 const testPage: harFormat.Page = {
-    startedDateTime: '2017-02-11T09:36:22.868Z',
-    id: 'page_1',
-    title: 'https://github.com/',
+    startedDateTime: "2017-02-11T09:36:22.868Z",
+    id: "page_1",
+    title: "https://github.com/",
     pageTimings: testPageTiming,
     // TS >= v4.4 only
-    _iAmSomeCustomField: 'some value',
+    _iAmSomeCustomField: "some value",
 };
 
 const testHeader: harFormat.Header = {
-    name: 'Accept',
-    value: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    name: "Accept",
+    value: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
 };
 
 const testRequest: harFormat.Request = {
-    method: 'GET',
-    url: 'https://github.com/',
-    httpVersion: 'HTTP/1.1',
+    method: "GET",
+    url: "https://github.com/",
+    httpVersion: "HTTP/1.1",
     headers: [testHeader],
     queryString: [],
     cookies: [],
@@ -36,66 +36,66 @@ const testRequest: harFormat.Request = {
 };
 
 const testHeaders: harFormat.Header = {
-    name: 'Content-Encoding',
-    value: 'gzip',
+    name: "Content-Encoding",
+    value: "gzip",
 };
 
 const testCookie: harFormat.Cookie = {
-    name: 'logged_in',
-    value: 'no',
-    path: '/',
-    domain: '.github.com',
-    expires: '2037-02-11T09:36:23.000Z',
+    name: "logged_in",
+    value: "no",
+    path: "/",
+    domain: ".github.com",
+    expires: "2037-02-11T09:36:23.000Z",
     httpOnly: true,
     secure: true,
 };
 
 const textPostData: harFormat.PostData = {
-    mimeType: 'text/plain',
-    text: 'some-text',
+    mimeType: "text/plain",
+    text: "some-text",
 };
 
 const paramsPostData: harFormat.PostData = {
-    mimeType: 'multipart/form-data',
+    mimeType: "multipart/form-data",
     params: [
         {
-            name: 'some-param',
-            value: 'val',
+            name: "some-param",
+            value: "val",
         },
     ],
 };
 
 // @ts-expect-error
 const missingPostData: harFormat.PostData = {
-    mimeType: 'text/plain',
+    mimeType: "text/plain",
 };
 
 // @ts-expect-error
 const tooMuchPostData: harFormat.PostData = {
-    mimeType: 'multipart/form-data',
+    mimeType: "multipart/form-data",
     params: [
         {
-            name: 'some-param',
-            value: 'val',
+            name: "some-param",
+            value: "val",
         },
     ],
-    text: 'asd',
+    text: "asd",
 };
 
 const testContent: harFormat.Content = {
     size: 26915,
-    mimeType: 'text/html',
+    mimeType: "text/html",
     compression: 18635,
 };
 
 const testResponse: harFormat.Response = {
     status: 200,
-    statusText: 'OK',
-    httpVersion: 'HTTP/1.1',
+    statusText: "OK",
+    httpVersion: "HTTP/1.1",
     headers: [testHeaders],
     cookies: [testCookie],
     content: testContent,
-    redirectURL: '',
+    redirectURL: "",
     headersSize: 2084,
     bodySize: 8280,
     _transferSize: 10364,
@@ -112,20 +112,35 @@ const testTimings: harFormat.Timings = {
 };
 
 const testEntry: harFormat.Entry = {
-    startedDateTime: '2017-02-11T09:36:22.868Z',
+    startedDateTime: "2017-02-11T09:36:22.868Z",
     time: 816.8100000002596,
     request: testRequest,
     response: testResponse,
     cache: {},
     timings: testTimings,
-    serverIPAddress: '192.30.253.113',
-    connection: '26487',
-    pageref: 'page_1',
+    serverIPAddress: "192.30.253.113",
+    connection: "26487",
+    pageref: "page_1",
     _gzip_total: null,
+    _resourceType: "websocket",
     _server_rtt: null,
     _chunks: [{ ts: 1, bytes: 4 }],
+    _webSocketMessages: [
+        {
+            type: "send",
+            time: 12.34,
+            opcode: 1,
+            data: "Ping!",
+        },
+        {
+            type: "receive",
+            time: 56.78,
+            opcode: 1,
+            data: "Pong!",
+        },
+    ],
     // TS >= v4.4 only
-    _iAmSomeCustomField: 'some value',
+    _iAmSomeCustomField: "some value",
 };
 
 // Examples from http://www.softwareishard.com/blog/har-12-spec/#cache
@@ -141,7 +156,7 @@ const testCacheNotCached: harFormat.Cache = {
 };
 
 const testLog: harFormat.Log = {
-    version: '1.2',
+    version: "1.2",
     creator: testCreator,
     pages: [testPage],
     entries: [testEntry],

@@ -1,8 +1,3 @@
-// Type definitions for line-column 1.0
-// Project: https://github.com/io-monad/line-column
-// Definitions by: Dom Parfitt <https://github.com/DomParfitt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Interface definining the return type of calls to the `fromIndex` function.
  */

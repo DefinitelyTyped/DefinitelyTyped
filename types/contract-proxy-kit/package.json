@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/contract-proxy-kit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gnosis/contract-proxy-kit#readme"
+    ],
     "dependencies": {
         "ethers": "^4.0.43"
-    }
+    },
+    "devDependencies": {
+        "@types/contract-proxy-kit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alan Lu",
+            "githubUsername": "cag"
+        }
+    ]
 }

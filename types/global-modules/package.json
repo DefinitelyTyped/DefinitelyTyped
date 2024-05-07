@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/global-modules",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/global-modules"
+    ],
+    "devDependencies": {
+        "@types/global-modules": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,1 +1,1 @@
-export { MediaUpload } from '@wordpress/block-editor';
+export { MediaUpload } from "@wordpress/block-editor";

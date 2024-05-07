@@ -1,6 +1,6 @@
 Frida.version; // $ExpectType string
 
-const opts: HexdumpOptions = { address: ptr('0x1000') };
+const opts: HexdumpOptions = { address: ptr("0x1000") };
 // $ExpectType NativePointer | undefined
 opts.address;
 
@@ -13,7 +13,9 @@ Script.runtime;
 // $ExpectType any
 Script.evaluate("/true.js", "true");
 
-const screenshot = Script.load("/plugins/screenshot.js", `
+const screenshot = Script.load(
+    "/plugins/screenshot.js",
+    `
 import { registerPlugin } from "/agent.js";
 
 registerPlugin({
@@ -26,7 +28,8 @@ registerPlugin({
 export function screenshot() {
     // TODO
 }
-`) as Promise<ScreenshotPlugin>;
+`,
+) as Promise<ScreenshotPlugin>;
 
 interface ScreenshotPlugin {
     screenshot(): void;
@@ -83,6 +86,9 @@ Memory.alloc(1, { near: ptr(1234), maxDistance: 42 });
 Memory.alloc(1, { near: ptr(1234) });
 // @ts-expect-error
 Memory.alloc(1, { maxDistance: 42 });
+
+// $ExpectType string
+Memory.queryProtection(Process.mainModule.base);
 
 new NativeCallback(
     (a, b) => {
@@ -160,8 +166,14 @@ result.value;
 // $ExpectType Promise<void>
 Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
     onMatch(address, size) {
-    }
+    },
 });
+
+// $ExpectType Module
+Process.mainModule;
+
+// $ExpectType ApiResolver
+const resolver = new ApiResolver("swift");
 
 // $ExpectType number
 File.SEEK_SET;
@@ -248,6 +260,12 @@ Interceptor.attach(puts, {
 
 Interceptor.flush();
 
+// $ExpectType void
+Interceptor.replace(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
+
+// $ExpectType NativePointer
+Interceptor.replaceFast(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
+
 const ccode = `
 #include <gum/gumstalker.h>
 
@@ -288,15 +306,33 @@ Stalker.follow(Process.getCurrentThreadId(), {
     events: {
         compile: true,
         call: true,
-        ret: true
+        ret: true,
     },
     onEvent: cm.process,
-    data: ptr(42)
+    data: ptr(42),
+    transform(iterator: StalkerX86Iterator) {
+        let instruction = iterator.next();
+
+        if (instruction == null) {
+            return;
+        }
+
+        const startAddress = instruction.address;
+        do {
+            if (startAddress == ptr(0)) {
+                iterator.putChainingReturn();
+            }
+            iterator.keep();
+        } while ((instruction = iterator.next()) !== null);
+    },
 });
 
 const basicBlockStartAddress = ptr("0x400000");
 Stalker.invalidate(basicBlockStartAddress);
 Stalker.invalidate(Process.getCurrentThreadId(), basicBlockStartAddress);
+
+// $ExpectType boolean
+Cloak.hasCurrentThread();
 
 const obj = new ObjC.Object(ptr("0x42"));
 

@@ -14,14 +14,15 @@ export default class Os {
     arch(): string;
 }
 
-type Platform = 'aix'
-    | 'android'
-    | 'darwin'
-    | 'freebsd'
-    | 'linux'
-    | 'openbsd'
-    | 'sunos'
-    | 'win32'
-    | 'cygwin';
+type Platform =
+    | "aix"
+    | "android"
+    | "darwin"
+    | "freebsd"
+    | "linux"
+    | "openbsd"
+    | "sunos"
+    | "win32"
+    | "cygwin";
 
 export {};

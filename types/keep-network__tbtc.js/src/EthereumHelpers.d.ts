@@ -1,4 +1,4 @@
-import type { Contract, Web3 } from './CommonTypes';
+import type { Contract, Web3 } from "./CommonTypes";
 import BN = require("bn.js");
 
 export namespace EthereumHelpers {
@@ -20,7 +20,11 @@ export namespace EthereumHelpers {
     function getEvent(sourceContract: Contract, eventName: string, filter?: any): Promise<any>;
     function getExistingEvent(source: Contract, eventName: string, filter?: any): Promise<any>;
     function bytesToRaw(bytesString: string): string;
-    function sendSafely(boundContractMethod: ContractCall, sendParams?: ContractCallOptions, forceSend?: boolean): Promise<any>;
+    function sendSafely(
+        boundContractMethod: ContractCall,
+        sendParams?: ContractCallOptions,
+        forceSend?: boolean,
+    ): Promise<any>;
     interface Artifact {
         contractName: string;
         abi: any;
@@ -30,6 +34,11 @@ export namespace EthereumHelpers {
             };
         };
     }
-    function sendSafelyRetryable(boundContractMethod: ContractCall, sendParams: ContractCallOptions, forceSend: boolean, totalAttempts: number): Promise<any>;
+    function sendSafelyRetryable(
+        boundContractMethod: ContractCall,
+        sendParams: ContractCallOptions,
+        forceSend: boolean,
+        totalAttempts: number,
+    ): Promise<any>;
     function getDeployedContract(artifact: Artifact, web3: Web3, networkId: string): Contract;
 }

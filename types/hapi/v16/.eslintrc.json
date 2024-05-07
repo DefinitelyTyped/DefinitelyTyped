@@ -1,6 +1,9 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-any-union": "off"
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

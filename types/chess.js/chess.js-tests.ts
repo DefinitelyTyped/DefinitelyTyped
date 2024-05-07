@@ -1,6 +1,6 @@
-import * as chessjs from 'chess.js';
+import * as chessjs from "chess.js";
 
-const fen = 'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1';
+const fen = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1";
 
 // --- constructors --- \\
 
@@ -37,7 +37,6 @@ chessjs.KING;
 // $ExpectType number
 chessjs.EMPTY;
 
-// tslint:disable-next-line:max-line-length
 // $ExpectType ["a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8", "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7", "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6", "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5", "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4", "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3", "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2", "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1"]
 chessjs.SQUARES;
 
@@ -65,22 +64,22 @@ chess.moves({ legal: false });
 chess.moves({ legal: true });
 
 // $ExpectType string[]
-chess.moves({ piece: 'n' });
+chess.moves({ piece: "n" });
 
 // $ExpectType string[]
-chess.moves({ square: 'b1', piece: 'n' });
+chess.moves({ square: "b1", piece: "n" });
 
 // $ExpectType Move[]
-chess.moves({ square: 'b1', piece: 'n', verbose: true });
+chess.moves({ square: "b1", piece: "n", verbose: true });
 
 // $ExpectType Move[]
-chess.moves({ square: 'e2', verbose: true });
+chess.moves({ square: "e2", verbose: true });
 
 // $ExpectType string[]
-chess.moves({ square: 'e2', verbose: false });
+chess.moves({ square: "e2", verbose: false });
 
 // $ExpectType string[]
-chess.moves({ square: 'e2' });
+chess.moves({ square: "e2" });
 
 // $ExpectType string[]
 chess.moves({});
@@ -118,13 +117,13 @@ chess.fen();
 // --- pgn --- \\
 
 // $ExpectType string
-chess.pgn({ max_width: 80, newline_char: '\n' });
+chess.pgn({ max_width: 80, newline_char: "\n" });
 
 // $ExpectType string
 chess.pgn({ max_width: 120 });
 
 // $ExpectType string
-chess.pgn({ newline_char: '\r\n' });
+chess.pgn({ newline_char: "\r\n" });
 
 // $ExpectType string
 chess.pgn({});
@@ -135,10 +134,10 @@ const pgn = chess.pgn();
 // --- load_pgn --- \\
 
 // $ExpectType boolean
-chess.load_pgn(pgn, { newline_char: '\n', sloppy: true });
+chess.load_pgn(pgn, { newline_char: "\n", sloppy: true });
 
 // $ExpectType boolean
-chess.load_pgn(pgn, { newline_char: '\r\n' });
+chess.load_pgn(pgn, { newline_char: "\r\n" });
 
 // $ExpectType boolean
 chess.load_pgn(pgn, { sloppy: true });
@@ -150,7 +149,7 @@ chess.load_pgn(pgn, {});
 chess.load_pgn(pgn);
 
 // $ExpectType { [key: string]: string | undefined; }
-chess.header('White', 'Morphy', 'Black', 'Anderssen', 'Date', '1858-??-??');
+chess.header("White", "Morphy", "Black", "Anderssen", "Date", "1858-??-??");
 
 // $ExpectType string
 chess.ascii();
@@ -161,28 +160,28 @@ chess.turn();
 // --- move --- \\
 
 // $ExpectType Move | null
-chess.move('e3');
+chess.move("e3");
 
 // $ExpectType Move | null
-chess.move('e3', {});
+chess.move("e3", {});
 
 // $ExpectType Move | null
-chess.move('e3', { sloppy: true });
+chess.move("e3", { sloppy: true });
 
 // $ExpectType Move | null
-chess.move('e3', { sloppy: false });
+chess.move("e3", { sloppy: false });
 
 // $ExpectType Move | null
-chess.move({ from: 'e2', to: 'e3' });
+chess.move({ from: "e2", to: "e3" });
 
 // $ExpectType Move | null
-chess.move({ from: 'e2', to: 'e3', promotion: 'q' });
+chess.move({ from: "e2", to: "e3", promotion: "q" });
 
 // $ExpectType Move | null
-chess.move({ from: 'e2', to: 'e3' });
+chess.move({ from: "e2", to: "e3" });
 
 // $ExpectType Move | null
-chess.move({ from: 'e2', to: 'e3', promotion: 'q' });
+chess.move({ from: "e2", to: "e3", promotion: "q" });
 
 // $ExpectType Move | null
 chess.undo();
@@ -191,19 +190,19 @@ chess.undo();
 chess.clear();
 
 // $ExpectType boolean
-chess.put({ type: 'p', color: 'b' }, 'a5');
+chess.put({ type: "p", color: "b" }, "a5");
 
 // $ExpectType Piece | null
-chess.get('a5');
+chess.get("a5");
 
 // $ExpectType Piece | null
-chess.remove('a5');
+chess.remove("a5");
 
 // $ExpectType SquareColor
-chess.square_color('a5');
+chess.square_color("a5");
 
 // $ExpectType SquareColor | null
-chess.square_color('invalid square string');
+chess.square_color("invalid square string");
 
 // --- history --- \\
 
@@ -225,7 +224,7 @@ chess.board();
 // --- comments --- \\
 
 // $ExpectType void
-chess.set_comment('comment');
+chess.set_comment("comment");
 
 // $ExpectType string | undefined
 chess.get_comment();

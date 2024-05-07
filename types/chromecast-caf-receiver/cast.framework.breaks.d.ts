@@ -1,4 +1,4 @@
-import { Break, BreakClip } from './cast.framework.messages';
+import { Break, BreakClip } from "./cast.framework.messages";
 
 export as namespace breaks;
 

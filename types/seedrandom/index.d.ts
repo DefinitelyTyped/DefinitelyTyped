@@ -1,11 +1,3 @@
-// Type definitions for seedrandom 3.0
-// Project: https://github.com/davidbau/seedrandom
-// Definitions by: Kern Handa <https://github.com/kernhanda>
-//                 Eugene Zaretskiy <https://github.com/EugeneZ>
-//                 Martin Badin <https://github.com/martin-badin>
-//                 Martijn van der Ven <https://github.com/Zegnat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type StateBuilder<S extends string> = Record<S, number>;
 type ComplexStateBuilder<S extends string, M extends string> = StateBuilder<S> & Record<M, number[]>;
 
@@ -45,13 +37,13 @@ declare namespace seedrandom {
         state(): State;
     }
     namespace State {
-        type Arc4 = ComplexStateBuilder<'i' | 'j', 'S'>;
-        type Alea = StateBuilder<'c' | 's0' | 's1' | 's2'>;
-        type Xor128 = StateBuilder<'x' | 'y' | 'z' | 'w'>;
-        type Xorwow = StateBuilder<'x' | 'y' | 'z' | 'w' | 'v' | 'd'>;
-        type Xorshift7 = ComplexStateBuilder<'i', 'x'>;
-        type Xor4096 = ComplexStateBuilder<'i' | 'w', 'X'>;
-        type Tychei = StateBuilder<'a' | 'b' | 'c' | 'd'>;
+        type Arc4 = ComplexStateBuilder<"i" | "j", "S">;
+        type Alea = StateBuilder<"c" | "s0" | "s1" | "s2">;
+        type Xor128 = StateBuilder<"x" | "y" | "z" | "w">;
+        type Xorwow = StateBuilder<"x" | "y" | "z" | "w" | "v" | "d">;
+        type Xorshift7 = ComplexStateBuilder<"i", "x">;
+        type Xor4096 = ComplexStateBuilder<"i" | "w", "X">;
+        type Tychei = StateBuilder<"a" | "b" | "c" | "d">;
     }
 }
 
@@ -59,10 +51,8 @@ interface seedrandom {
     // Arc4 Algorithm, default seedrandom
     <O extends seedrandomOptions<any>>(seed?: string, options?: O | boolean): O extends callbackOption<
         infer callbackReturnType
-    >
-        ? callbackReturnType
-        : O extends stateOptionEnabled
-        ? seedrandom.StatefulPRNG<seedrandom.State.Arc4>
+    > ? callbackReturnType
+        : O extends stateOptionEnabled ? seedrandom.StatefulPRNG<seedrandom.State.Arc4>
         : seedrandom.PRNG;
     <O extends seedrandomOptions<any>, callbackReturnType>(
         seed: string | undefined,

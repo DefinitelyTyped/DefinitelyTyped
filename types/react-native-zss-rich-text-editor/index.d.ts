@@ -1,11 +1,5 @@
-// Type definitions for react-native-zss-rich-text-editor 1.x
-// Project: https://github.com/wix/react-native-zss-rich-text-editor
-// Definitions by: Naveen Ithappu <https://github.com/naveen-ithappu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import { Component, ReactNode } from "react";
-import { ImageStyle, StyleProp, TextStyle, ViewStyle, ImageProps, ImageSourcePropType } from "react-native";
+import { ImageProps, ImageSourcePropType, ImageStyle, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export type FunctionWithZeroArgs = () => void;
 
@@ -43,60 +37,60 @@ export interface IconsMap {
 }
 
 export enum ACTIONS {
-    enableOnChange = 'ENABLE_ON_CHANGE',
-    setTitleHtml = 'SET_TITLE_HTML',
-    setContentHtml = 'SET_CONTENT_HTML',
-    getTitleHtml = 'GET_TITLE_HTML',
-    getTitleText = 'GET_TITLE_TEXT',
-    toggleTitle = 'TOGGLE_TITLE',
-    hideTitle = 'HIDE_TITLE',
-    showTitle = 'SHOW_TITLE',
-    getContentHtml = 'GET_CONTENT_HTML',
-    getSelectedText = 'GET_SELECTED_TEXT',
-    blurTitleEditor = 'BLUR_TITLE_EDITOR',
-    blurContentEditor = 'BLUR_CONTENT_EDITOR',
-    focusTitle = 'FOCUS_TITLE',
-    focusContent = 'FOCUS_CONTENT',
+    enableOnChange = "ENABLE_ON_CHANGE",
+    setTitleHtml = "SET_TITLE_HTML",
+    setContentHtml = "SET_CONTENT_HTML",
+    getTitleHtml = "GET_TITLE_HTML",
+    getTitleText = "GET_TITLE_TEXT",
+    toggleTitle = "TOGGLE_TITLE",
+    hideTitle = "HIDE_TITLE",
+    showTitle = "SHOW_TITLE",
+    getContentHtml = "GET_CONTENT_HTML",
+    getSelectedText = "GET_SELECTED_TEXT",
+    blurTitleEditor = "BLUR_TITLE_EDITOR",
+    blurContentEditor = "BLUR_CONTENT_EDITOR",
+    focusTitle = "FOCUS_TITLE",
+    focusContent = "FOCUS_CONTENT",
 
-    setBold = 'bold',
-    setItalic = 'italic',
-    setUnderline = 'underline',
-    heading1 = 'h1',
-    heading2 = 'h2',
-    heading3 = 'h3',
-    heading4 = 'h4',
-    heading5 = 'h5',
-    heading6 = 'h6',
-    setParagraph = 'SET_PARAGRAPH',
-    removeFormat = 'REMOVE_FORMAT',
-    alignLeft = 'justifyLeft',
-    alignCenter = 'justifyCenter',
-    alignRight = 'justifyRight',
-    alignFull = 'justifyFull',
-    insertBulletsList = 'unorderedList',
-    insertOrderedList = 'orderedList',
-    insertLink = 'INST_LINK',
-    updateLink = 'UPDATE_LINK',
-    insertImage = 'INST_IMAGE',
-    setSubscript = 'subscript',
-    setSuperscript = 'superscript',
-    setStrikethrough = 'strikeThrough',
-    setHR = 'horizontalRule',
-    setIndent = 'indent',
-    setOutdent = 'outdent',
-    setTitlePlaceholder = 'SET_TITLE_PLACEHOLDER',
-    setContentPlaceholder = 'SET_CONTENT_PLACEHOLDER',
-    setTitleFocusHandler = 'SET_TITLE_FOCUS_HANDLER',
-    setContentFocusHandler = 'SET_CONTENT_FOCUS_HANDLER',
-    prepareInsert = 'PREPARE_INSERT',
-    restoreSelection = 'RESTORE_SELECTION',
-    setCustomCSS = 'SET_CUSTOM_CSS',
-    setTextColor = 'SET_TEXT_COLOR',
-    setBackgroundColor = 'SET_BACKGROUND_COLOR',
-    init = 'ZSSS_INIT',
-    setEditorHeight = 'SET_EDITOR_HEIGHT',
-    setFooterHeight = 'SET_FOOTER_HEIGHT',
-    setPlatform = 'SET_PLATFORM'
+    setBold = "bold",
+    setItalic = "italic",
+    setUnderline = "underline",
+    heading1 = "h1",
+    heading2 = "h2",
+    heading3 = "h3",
+    heading4 = "h4",
+    heading5 = "h5",
+    heading6 = "h6",
+    setParagraph = "SET_PARAGRAPH",
+    removeFormat = "REMOVE_FORMAT",
+    alignLeft = "justifyLeft",
+    alignCenter = "justifyCenter",
+    alignRight = "justifyRight",
+    alignFull = "justifyFull",
+    insertBulletsList = "unorderedList",
+    insertOrderedList = "orderedList",
+    insertLink = "INST_LINK",
+    updateLink = "UPDATE_LINK",
+    insertImage = "INST_IMAGE",
+    setSubscript = "subscript",
+    setSuperscript = "superscript",
+    setStrikethrough = "strikeThrough",
+    setHR = "horizontalRule",
+    setIndent = "indent",
+    setOutdent = "outdent",
+    setTitlePlaceholder = "SET_TITLE_PLACEHOLDER",
+    setContentPlaceholder = "SET_CONTENT_PLACEHOLDER",
+    setTitleFocusHandler = "SET_TITLE_FOCUS_HANDLER",
+    setContentFocusHandler = "SET_CONTENT_FOCUS_HANDLER",
+    prepareInsert = "PREPARE_INSERT",
+    restoreSelection = "RESTORE_SELECTION",
+    setCustomCSS = "SET_CUSTOM_CSS",
+    setTextColor = "SET_TEXT_COLOR",
+    setBackgroundColor = "SET_BACKGROUND_COLOR",
+    init = "ZSSS_INIT",
+    setEditorHeight = "SET_EDITOR_HEIGHT",
+    setFooterHeight = "SET_FOOTER_HEIGHT",
+    setPlatform = "SET_PLATFORM",
 }
 
 // RichTextEditor takes the following optional props
@@ -219,4 +213,4 @@ export class RichTextEditor extends Component<Partial<RichTextEditorProps>> {
 
 // This is a Component that provides a toolbar for easily controlling an editor.
 // It is designed to be used together with a RichTextEditor component.
-export class RichTextToolbar extends Component<Partial<RichTextToolbarProps>> { }
+export class RichTextToolbar extends Component<Partial<RichTextToolbarProps>> {}

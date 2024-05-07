@@ -1,12 +1,12 @@
-import { IUniform } from '../../../src/Three.js';
+import { IUniform } from "three";
 
 export const SSAOShader: {
+    name: string;
     defines: {
         PERSPECTIVE_CAMERA: number;
         KERNEL_SIZE: number;
     };
     uniforms: {
-        tDiffuse: IUniform;
         tNormal: IUniform;
         tDepth: IUniform;
         tNoise: IUniform;
@@ -25,6 +25,7 @@ export const SSAOShader: {
 };
 
 export const SSAODepthShader: {
+    name: string;
     defines: {
         PERSPECTIVE_CAMERA: number;
     };
@@ -38,6 +39,7 @@ export const SSAODepthShader: {
 };
 
 export const SSAOBlurShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         resolution: IUniform;

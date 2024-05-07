@@ -6,7 +6,7 @@ async function example_1() {
 
     const connectButton = document.getElementById("connect");
     if (connectButton) {
-        connectButton.addEventListener('click', async () => {
+        connectButton.addEventListener("click", async () => {
             try {
                 const port = await navigator.serial.requestPort();
                 // Continue connecting to the device attached to |port|.
@@ -20,17 +20,17 @@ async function example_1() {
 /*~ https://wicg.github.io/serial/#example-2 */
 
 // Check to see what ports are available when the page loads.
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const ports = await navigator.serial.getPorts();
     // Populate the UI with options for the user to select or
     // automatically connect to devices.
 });
 
-navigator.serial.addEventListener('connect', e => {
+navigator.serial.addEventListener("connect", e => {
     // Add |e.port| to the UI or automatically connect.
 });
 
-navigator.serial.addEventListener('disconnect', e => {
+navigator.serial.addEventListener("disconnect", e => {
     // Remove |e.port| from the UI. If the device was open the
     // disconnection can also be observed as a stream error.
 });
@@ -76,12 +76,12 @@ async function example_4b() {
         container: string;
 
         constructor() {
-            this.container = '';
+            this.container = "";
         }
 
         transform(chunk: string, controller: TransformStreamDefaultController<string>) {
             this.container += chunk;
-            const lines = this.container.split('\r\n');
+            const lines = this.container.split("\r\n");
             this.container = lines.pop()!;
             lines.forEach(line => controller.enqueue(line));
         }

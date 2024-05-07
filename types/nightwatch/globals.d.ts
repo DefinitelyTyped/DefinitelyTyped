@@ -1,5 +1,5 @@
-import { NightwatchBrowser, globalElement, Ensure, NightwatchAPI, Expect } from './index';
-import { By as seleniumBy, locateWith as seleniumLocateWith } from 'selenium-webdriver';
+import { By as seleniumBy, locateWith as seleniumLocateWith } from "selenium-webdriver";
+import { Ensure, Expect, globalElement, NightwatchAPI, NightwatchBrowser } from "./index";
 
 declare global {
     const browser: NightwatchBrowser;

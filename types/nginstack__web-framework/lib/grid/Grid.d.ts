@@ -159,9 +159,9 @@ declare class Grid {
     name: string;
     help:
         | {
-              overview: string;
-              buttons: Record<string, string>;
-          }
+            overview: string;
+            buttons: Record<string, string>;
+        }
         | string;
     private formatEventId;
     refresh(opt_force?: boolean): void;
@@ -273,7 +273,7 @@ declare class Grid {
         type: string,
         opt_options?: {
             cancelable: boolean;
-        }
+        },
     ): GridEvent;
     insert(): void;
     private _setFieldDefaultValue;
@@ -299,7 +299,7 @@ declare class Grid {
         opt_target?: string | ((arg0: any) => any),
         opt_order?: number,
         opt_processKey?: number,
-        opt_newTab?: boolean
+        opt_newTab?: boolean,
     ): Button;
     action(name: any, target: any, order: any, processKey: any, newTab: any): Button;
     visibleButtons: Array<Button | string>;
@@ -425,52 +425,52 @@ declare class Grid {
 }
 declare namespace Grid {
     export {
-        FORM_VIEW as FORMVIEW,
-        TABLE_VIEW as TABLEVIEW,
-        NEVER,
+        AdapterDescriptor,
         ALWAYS,
-        USER_PERMISSION,
-        MDA_ERROR,
-        MDA_DELETE,
-        MDA_UNLINK,
+        Button,
+        Event,
+        FORM_VIEW as FORMVIEW,
         LOCATE_ALL_FIELDS,
         LOCATE_EXACT,
         LOCATE_NEXT,
-        persist,
         MAX_VISIBLE_RECORD_COUNT,
-        AdapterDescriptor,
-        Event,
-        Button,
-        ViewDefField,
+        MDA_DELETE,
+        MDA_ERROR,
+        MDA_UNLINK,
+        NEVER,
+        persist,
         Process,
+        TABLE_VIEW as TABLEVIEW,
+        USER_PERMISSION,
+        ViewDefField,
     };
 }
-import ClassDefManager = require('@nginstack/engine/lib/classdef/ClassDefManager.js');
-import FieldGroupSet = require('@nginstack/engine/lib/classdef/FieldGroupSet.js');
-import TableViewBuffer = require('./TableViewBuffer.js');
-import FieldList = require('@nginstack/engine/lib/classdef/FieldList.js');
-type Process = import('../process/Process');
-import Field = require('@nginstack/engine/lib/classdef/Field.js');
-type AdapterDescriptor = import('@nginstack/engine/lib/event/AdapterDescriptor');
-type Event = import('@nginstack/engine/lib/event/Event');
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
-import GridField = require('./GridField.js');
-import GridEvent = require('../classdef/GridEvent.js');
-import StringList = require('@nginstack/engine/lib/string/StringList.js');
-type ViewDefField = import('../classdef/ViewDefField');
-type Button = import('../button/Button');
+import ClassDefManager = require("@nginstack/engine/lib/classdef/ClassDefManager.js");
+import FieldGroupSet = require("@nginstack/engine/lib/classdef/FieldGroupSet.js");
+import TableViewBuffer = require("./TableViewBuffer.js");
+import FieldList = require("@nginstack/engine/lib/classdef/FieldList.js");
+type Process = import("../process/Process");
+import Field = require("@nginstack/engine/lib/classdef/Field.js");
+type Event = import("@nginstack/engine/lib/event/Event");
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import GridField = require("./GridField.js");
+import GridEvent = require("../classdef/GridEvent.js");
+import StringList = require("@nginstack/engine/lib/string/StringList.js");
+type Button = import("../button/Button");
 declare const FORM_VIEW: number;
 declare const TABLE_VIEW: number;
-declare var NEVER: number;
-declare var ALWAYS: number;
-declare var USER_PERMISSION: number;
-declare var MDA_ERROR: typeof MasterDeleteAction;
-declare var MDA_DELETE: typeof MasterDeleteAction;
-declare var MDA_UNLINK: typeof MasterDeleteAction;
-declare var LOCATE_ALL_FIELDS: number;
-declare var LOCATE_EXACT: number;
-declare var LOCATE_NEXT: number;
+declare let NEVER: number;
+declare let ALWAYS: number;
+declare let USER_PERMISSION: number;
+declare let MDA_ERROR: typeof MasterDeleteAction;
+declare let MDA_DELETE: typeof MasterDeleteAction;
+declare let MDA_UNLINK: typeof MasterDeleteAction;
+declare let LOCATE_ALL_FIELDS: number;
+declare let LOCATE_EXACT: number;
+declare let LOCATE_NEXT: number;
 declare function persist(grids: Grid | Grid[]): number;
-declare var MAX_VISIBLE_RECORD_COUNT: number;
-import MasterDeleteAction = require('@nginstack/engine/lib/classdef/MasterDeleteAction.js');
+declare let MAX_VISIBLE_RECORD_COUNT: number;
+type AdapterDescriptor = import("@nginstack/engine/lib/event/AdapterDescriptor");
+type ViewDefField = import("../classdef/ViewDefField");
+import MasterDeleteAction = require("@nginstack/engine/lib/classdef/MasterDeleteAction.js");

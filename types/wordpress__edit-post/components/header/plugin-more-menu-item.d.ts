@@ -1,8 +1,8 @@
-import { Dashicon, MenuItem } from '@wordpress/components';
-import { ComponentType, ReactNode } from 'react';
+import { Dashicon, MenuItem } from "@wordpress/components";
+import { ComponentProps, ComponentType, JSX, ReactNode } from "react";
 
 declare namespace PluginMoreMenuItem {
-    interface Props extends Omit<MenuItem.Props, 'href'> {
+    interface Props extends Omit<ComponentProps<typeof MenuItem>, "href" | "icon"> {
         children: ReactNode;
         /**
          * When `href` is provided then the menu item is represented as an anchor rather than
@@ -13,7 +13,7 @@ declare namespace PluginMoreMenuItem {
          * A Dashicon slug or a custom JSX element to be rendered to the left of the menu item
          * label.
          */
-        icon?: Dashicon.Icon | JSX.Element | undefined;
+        icon?: ComponentProps<typeof Dashicon>["icon"] | JSX.Element | undefined;
         /**
          * The callback function to be executed when the user clicks the menu item.
          */

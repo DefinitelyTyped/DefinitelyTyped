@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/react-native-material-textfield",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/n4kz/react-native-material-textfield"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-material-textfield": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ville Venäläinen",
+            "githubUsername": "mindhivefi"
+        },
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        },
+        {
+            "name": "Deividi Cavarzan",
+            "githubUsername": "cavarzan"
+        },
+        {
+            "name": "Neel bhasin",
+            "githubUsername": "neelb2"
+        }
+    ]
+}

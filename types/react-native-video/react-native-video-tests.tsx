@@ -1,13 +1,13 @@
-import * as React from 'react';
-import Video, { FilterType } from 'react-native-video';
+import * as React from "react";
+import Video, { FilterType } from "react-native-video";
 
 const playerRef = React.useRef<Video>(null);
 
 <Video
     ref={playerRef}
-    source={{ uri: '//:example.com/test.mp4', headers: { accept: "*/*" }, type: 'mp4' }}
+    source={{ uri: "//:example.com/test.mp4", headers: { accept: "*/*" }, type: "mp4" }}
     onProgress={data => console.log(data.currentTime, data.playableDuration, data.seekableDuration)}
-    onError={error => console.log(error.error[''], error.error.errorString)}
+    onError={error => console.log(error.error[""], error.error.errorString)}
     onLoad={data => {
         console.log(
             data.canPlayFastForward,
@@ -24,10 +24,10 @@ const playerRef = React.useRef<Video>(null);
             data.naturalSize.orientation,
             data.audioTracks,
             data.textTracks,
-            data.videoTracks
+            data.videoTracks,
         );
     }}
-    onPlaybackRateChange={({playbackRate}) => console.log(playbackRate)}
+    onPlaybackRateChange={({ playbackRate }) => console.log(playbackRate)}
     posterResizeMode={"cover"}
     onPictureInPictureStatusChanged={data => {
         console.log(data.isActive);
@@ -39,8 +39,8 @@ const playerRef = React.useRef<Video>(null);
     }}
     filterEnabled={true}
     filter={FilterType.MONO}
-    selectedAudioTrack={{ type: 'index', value: 6 }}
-    selectedVideoTrack={{ type: 'auto' }}
+    selectedAudioTrack={{ type: "index", value: 6 }}
+    selectedVideoTrack={{ type: "auto" }}
     preventsDisplaySleepDuringVideoPlayback={true}
 />;
 

@@ -1,7 +1,8 @@
-import Particle from '../core/Particle';
-import Initializer from './Initializer';
-import { JSONObject } from './Rate';
-import { MaterialPropertiesDefaults } from './Texture';
+import * as THREE from "three";
+import Particle from "../core/Particle";
+import Initializer from "./Initializer";
+import { JSONObject } from "./Rate";
+import { MaterialPropertiesDefaults } from "./Texture";
 /**
  * Sets the body property to be a THREE.Sprite on initialized particles.
  *
@@ -18,14 +19,12 @@ export default class BodySprite extends Initializer {
     materialProperties: MaterialPropertiesDefaults;
     /**
      * Sets the particle body to the sprite.
-     *
      */
     initialize(particle: Particle): void;
     /**
      * Creates a BodySprite initializer from JSON.
-     *
      */
     static fromJSON(json: JSONObject, THREE: THREE.WebGLRenderer): BodySprite;
 }
 
-export type THREE = typeof import('three');
+export type THREE = typeof import("three");

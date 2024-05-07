@@ -1,4 +1,4 @@
-import { Particle, System } from '../core';
+import { Particle, System } from "../core";
 
 export default class BaseRenderer {
     constructor(type: string);

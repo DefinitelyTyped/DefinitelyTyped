@@ -1,5 +1,6 @@
-import GeometryLayer, { GeometryLayerOptions } from "./GeometryLayer";
+import * as THREE from "three";
 import { PNTS_MODE } from "../Renderer/PointsMaterial";
+import GeometryLayer, { GeometryLayerOptions } from "./GeometryLayer";
 
 interface PointCloudLayer {
     group: THREE.Group;
@@ -16,23 +17,27 @@ interface PointCloudLayer {
 
 export type PointCloudLayerOptions = Partial<PointCloudLayer> & GeometryLayerOptions; // TODO: check output type
 
+// TODO: Define public API
 declare class PointCloudLayer extends GeometryLayer {
     constructor(id: string, config?: PointCloudLayerOptions);
 
-    readonly isPointCloudLayer: boolean;
+    readonly isPointCloudLayer: true;
     readonly protocol: "pointcloud";
 
-    preUpdate(context: any, changeSources: any): any[];
-    update(context: any, layer: any, elt: any): any;
+    root: any; // TODO
+
     displayedCount: number;
+
+    // preUpdate(context: any, changeSources: any): any[];
+    // update(context: any, layer: any, elt: any): any;
     // pickObjectsAt(view: any, mouse: any, radius: any, target?: any[]): any[] | undefined;
-    getObjectToUpdateForAttachedLayers(meta: any): {
-        element: any;
-        parent: any;
-    } | {
-        element: any;
-        parent?: undefined;
-    } | undefined;
+    // getObjectToUpdateForAttachedLayers(meta: any): {
+    //     element: any;
+    //     parent: any;
+    // } | {
+    //     element: any;
+    //     parent?: undefined;
+    // } | undefined;
 }
 
 export default PointCloudLayer;

@@ -1,8 +1,8 @@
 import Validation = require("business-rules-engine");
 export as namespace Validators;
 
-import * as moment from 'moment';
-import * as Q from 'q';
+import * as moment from "moment";
+import * as Q from "q";
 
 export class LettersOnlyValidator implements Validation.IStringValidator {
     public isAcceptable(s: string): boolean;
@@ -60,8 +60,8 @@ export class RangeLengthValidator implements Validation.IStringValidator {
     public RangeLength: number[];
     constructor(RangeLength?: number[]);
     public isAcceptable(s: string): boolean;
-    public MinLength : number;
-    public MaxLength : number;
+    public MinLength: number;
+    public MaxLength: number;
     public tagName: string;
 }
 export class MinValidator implements Validation.IPropertyValidator {
@@ -80,8 +80,8 @@ export class RangeValidator implements Validation.IPropertyValidator {
     public Range: number[];
     constructor(Range?: number[]);
     public isAcceptable(s: any): boolean;
-    public Min : number;
-    public Max : number;
+    public Min: number;
+    public Max: number;
     public tagName: string;
 }
 export class StepValidator implements Validation.IPropertyValidator {

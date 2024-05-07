@@ -1,4 +1,4 @@
-import { EventEmitter } from '../';
+import { EventEmitter } from "../";
 
 /**
  * promise

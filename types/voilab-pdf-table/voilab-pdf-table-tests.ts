@@ -1,7 +1,7 @@
-import VoilabPdfTable = require('voilab-pdf-table');
-import PdfKit = require('pdfkit');
-import PluginFitColumn = require('voilab-pdf-table/plugins/fitcolumn');
-import PluginRowShader = require('voilab-pdf-table/plugins/rowshader');
+import VoilabPdfTable = require("voilab-pdf-table");
+import PdfKit = require("pdfkit");
+import PluginFitColumn = require("voilab-pdf-table/plugins/fitcolumn");
+import PluginRowShader = require("voilab-pdf-table/plugins/rowshader");
 
 const doc = new PdfKit();
 
@@ -23,8 +23,8 @@ const table = new VoilabPdfTable<SampleDataType>(doc, {
     bottomMargin: 1,
     columns: [
         {
-            id: 'name',
-            header: 'Name',
+            id: "name",
+            header: "Name",
             headerRenderer: (tbl, header) => {
                 tbl; // $ExpectType VoilabPdfTable<SampleDataType>
                 header; // $ExpectType VoilabPdfTableHeader<SampleDataType>
@@ -34,7 +34,7 @@ const table = new VoilabPdfTable<SampleDataType>(doc, {
                 tbl; // $ExpectType VoilabPdfTable<SampleDataType>
                 header; // $ExpectType VoilabPdfTableHeader<SampleDataType>
             },
-            headerBorder: 'T',
+            headerBorder: "T",
             headerHeight: 1,
         },
     ],
@@ -119,68 +119,68 @@ table
 table.pdf; // $ExpectType PDFDocument
 
 const fitColumnCfg: PluginFitColumn.VoilabPdfTablePluginFitColumnConf<SampleDataType> = {
-    column: 'price',
+    column: "price",
 };
 
 const rowShaderCfg: PluginRowShader.VoilabPdfTablePluginRowShaderConf = {
-    textColor: '#000000',
+    textColor: "#000000",
     offsetHeader: false,
 };
 
 table
     .addPlugin(new PluginFitColumn(fitColumnCfg))
     .addPlugin(new PluginRowShader(rowShaderCfg))
-    .getPlugin('fitcolumn')
-    .removePlugin('fitcolumn');
+    .getPlugin("fitcolumn")
+    .removePlugin("fitcolumn");
 
 table.setShowHeaders(true);
 
 // Can't have any headerX options without providing the header property
 // @ts-expect-error
 table.addColumn({
-    id: 'price',
+    id: "price",
     headerFill: true,
 });
 
 table.addColumn({
-    id: 'price',
+    id: "price",
 });
 
 table.setColumnsDefaults({
-    align: 'left',
-    valign: 'center',
-    border: 'T',
-    header: 'something',
-    headerBorder: 'T',
+    align: "left",
+    valign: "center",
+    border: "T",
+    header: "something",
+    headerBorder: "T",
     headerPadding: [1],
 });
 
 // Make sure we can send headerX
 // even without header in this method
 table.setColumnsDefaults({
-    align: 'left',
-    border: 'T',
-    headerBorder: 'B',
+    align: "left",
+    border: "T",
+    headerBorder: "B",
     headerPadding: [1, 2],
 });
 
 table.setColumnsDefaults({
-    align: 'left',
-    border: 'T',
-    headerBorder: 'B',
+    align: "left",
+    border: "T",
+    headerBorder: "B",
     headerPadding: [1, 2, 3, 4],
 });
 
 table.addColumns([
     {
-        id: 'qty',
+        id: "qty",
     },
 ]);
 
 table.setColumns(
     [
         {
-            id: 'qty',
+            id: "qty",
         },
     ],
     true,
@@ -188,59 +188,59 @@ table.setColumns(
 
 table.setColumns([
     {
-        id: 'qty',
+        id: "qty",
     },
 ]);
 
 table.setColumns([
     {
         // @ts-expect-error
-        id: 'invalid',
+        id: "invalid",
     },
 ]);
 
 table.getColumns(); // $ExpectType VoilabPdfTableColumn<SampleDataType>[]
-table.getColumn('name'); // $ExpectType VoilabPdfTableColumn<SampleDataType>
+table.getColumn("name"); // $ExpectType VoilabPdfTableColumn<SampleDataType>
 // @ts-expect-error
-table.getColumn('invalid');
+table.getColumn("invalid");
 
-table.getColumnWidthBetween('name', 'qty'); // $ExpectType number
+table.getColumnWidthBetween("name", "qty"); // $ExpectType number
 // @ts-expect-error
-table.getColumnWidthBetween('invalid', 'other');
+table.getColumnWidthBetween("invalid", "other");
 
-table.getColumnWidthUntil('name'); // $ExpectType number
+table.getColumnWidthUntil("name"); // $ExpectType number
 // @ts-expect-error
-table.getColumnWidthUntil('invalid');
+table.getColumnWidthUntil("invalid");
 
-table.getColumnWidthFrom('name'); // $ExpectType number
+table.getColumnWidthFrom("name"); // $ExpectType number
 // @ts-expect-error
-table.getColumnWidthFrom('invalid');
+table.getColumnWidthFrom("invalid");
 
 table.getWidth(); // $ExpectType number
 
-table.getColumnWidth('name'); // $ExpectType number
+table.getColumnWidth("name"); // $ExpectType number
 // @ts-expect-error
-table.getColumnWidth('invalid');
+table.getColumnWidth("invalid");
 
-table.setColumnWidth('name', 100);
-table.setColumnWidth('name', 100, true);
+table.setColumnWidth("name", 100);
+table.setColumnWidth("name", 100, true);
 // @ts-expect-error
-table.setColumnWidth('invalid', 100, true);
+table.setColumnWidth("invalid", 100, true);
 
-table.getColumnParam('name', 'header'); // $ExpectType string | undefined
-table.getColumnParam('name', 'height'); // $ExpectType number | undefined
+table.getColumnParam("name", "header"); // $ExpectType string | undefined
+table.getColumnParam("name", "height"); // $ExpectType number | undefined
 
-table.setColumnParam('name', 'height', 100);
-table.setColumnParam('name', 'height', 100, true);
+table.setColumnParam("name", "height", 100);
+table.setColumnParam("name", "height", 100, true);
 
 table.addBody([
     {
-        name: 'someName',
+        name: "someName",
         price: 10,
         qty: 1,
     },
     {
-        name: 'otherName',
+        name: "otherName",
         price: 5,
         qty: 100,
     },
@@ -248,7 +248,7 @@ table.addBody([
 
 table.addBody([
     {
-        name: 'someName',
+        name: "someName",
         price: 10,
         qty: 1,
         // @ts-expect-error

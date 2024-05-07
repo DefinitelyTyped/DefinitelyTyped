@@ -1,4 +1,4 @@
-import randomBytes = require('randombytes');
+import randomBytes = require("randombytes");
 
 // $ExpectType Buffer
 randomBytes(16);

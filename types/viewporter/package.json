@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/viewporter",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/zynga/viewporter"
+    ],
+    "devDependencies": {
+        "@types/google-maps": "*",
+        "@types/jquery": "*",
+        "@types/viewporter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        }
+    ]
+}

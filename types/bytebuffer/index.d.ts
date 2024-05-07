@@ -1,12 +1,5 @@
-// Type definitions for bytebuffer.js 5.0.0
-// Project: https://github.com/dcodeIO/bytebuffer.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: SINTEF-9012 <https://github.com/SINTEF-9012>
-// Definitions by: Marek Urbanowicz <https://github.com/murbanowicz>
-
 /// <reference types="node" />
-import Long = require('long');
+import Long = require("long");
 
 declare namespace ByteBuffer {}
 export = ByteBuffer;
@@ -29,7 +22,7 @@ declare class ByteBuffer {
     static DEFAULT_CAPACITY: number;
 
     /**
-     * Default endianess of false for big endian.
+     * Default endianness of false for big endian.
      */
     static DEFAULT_ENDIAN: boolean;
 
@@ -510,7 +503,7 @@ declare class ByteBuffer {
     toBuffer(forceCopy?: boolean): Buffer;
 
     /**
-     *Encodes this ByteBuffer to a hex encoded string with marked offsets. Offset symbols are:
+     * Encodes this ByteBuffer to a hex encoded string with marked offsets. Offset symbols are:
      *  < : offset,
      *  ' : markedOffset,
      *  > : limit,
@@ -519,7 +512,7 @@ declare class ByteBuffer {
      *  ] : markedOffset and limit,
      *  ! : offset, markedOffset and limit
      */
-    toDebug(columns?: boolean): string | Array<string>;
+    toDebug(columns?: boolean): string | string[];
 
     /**
      * Encodes this ByteBuffer's contents to a hex encoded string.

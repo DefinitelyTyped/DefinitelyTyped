@@ -1,6 +1,6 @@
-import { User } from '@wordpress/core-data';
-import { EditorInserterItem } from '@wordpress/block-editor';
-import { Autocomplete } from '@wordpress/components';
+import { EditorInserterItem } from "@wordpress/block-editor";
+import { WPCompleter } from "@wordpress/components/build-types/autocomplete/types";
+import { User } from "@wordpress/core-data";
 
-export const blockAutocompleter: Autocomplete.Completer<EditorInserterItem>;
-export const userAutocompleter: Autocomplete.Completer<User>;
+export const blockAutocompleter: WPCompleter<EditorInserterItem>;
+export const userAutocompleter: WPCompleter<User>;

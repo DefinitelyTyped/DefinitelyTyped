@@ -1,7 +1,7 @@
-import { Color } from '../math/Color.js';
-import { Matrix4 } from '../math/Matrix4.js';
-import { Camera } from './../cameras/Camera.js';
-import { LineSegments } from './../objects/LineSegments.js';
+import { Camera } from "../cameras/Camera.js";
+import { Color } from "../math/Color.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { LineSegments } from "../objects/LineSegments.js";
 
 /**
  * This helps with visualizing what a camera contains in its frustum
@@ -32,7 +32,7 @@ export class CameraHelper extends LineSegments {
      * @override
      * @defaultValue `CameraHelper`
      */
-    override readonly type: string | 'CameraHelper';
+    override readonly type: string | "CameraHelper";
 
     /**
      * The camera being visualized.

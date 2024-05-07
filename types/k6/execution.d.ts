@@ -1,8 +1,8 @@
-import { Options } from './options';
+import { Options } from "./options";
 
 /*
  * The execution module provides information about the current test execution state.
- * https://k6.io/docs/javascript-api/k6-execution/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-execution/
  */
 declare namespace execution {
     /**
@@ -67,7 +67,7 @@ declare namespace execution {
     const test: {
         /**
          * Aborts the test run with the exit code 108.
-         * https://k6.io/docs/javascript-api/k6-execution/#test
+         * https://grafana.com/docs/k6/latest/javascript-api/k6-execution/#test
          * @param input - Aborted message.
          * @example
          * import exec from "k6/execution";
@@ -114,7 +114,7 @@ declare namespace execution {
              * 	Map to set or get VU metadata.
              */
             metadata: Record<string, number | string | boolean>;
-        }
+        };
     };
 }
 

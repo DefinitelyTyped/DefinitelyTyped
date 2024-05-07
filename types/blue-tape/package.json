@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/blue-tape",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/spion/blue-tape"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/tape": "*"
+    },
+    "devDependencies": {
+        "@types/blue-tape": "workspace:.",
+        "@types/bluebird": "*"
+    },
+    "owners": [
+        {
+            "name": "Haoqun Jiang",
+            "githubUsername": "sodatea"
+        }
+    ]
+}

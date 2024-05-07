@@ -1,11 +1,6 @@
-// Type definitions for mp4frag 0.6
-// Project: https://github.com/kevinGodell/mp4frag
-// Definitions by: Ken Sanders <https://github.com/kensand>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { Transform } from 'stream';
-import 'node/buffer';
+import { Transform } from "stream";
 
 declare namespace Mp4Frag {
     /**

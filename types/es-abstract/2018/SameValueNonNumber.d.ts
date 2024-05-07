@@ -1,2 +1,2 @@
-import SameValueNonNumber = require('../2017/SameValueNonNumber');
+import SameValueNonNumber = require("../2017/SameValueNonNumber");
 export = SameValueNonNumber;

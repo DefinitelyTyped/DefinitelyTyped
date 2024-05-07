@@ -1,9 +1,9 @@
-import * as angular from 'angular';
-import * as angulartics from 'angulartics';
+import * as angular from "angular";
+import * as angulartics from "angulartics";
 
 namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])
-        .config(["$analyticsProvider", ($analyticsProvider:angulartics.IAnalyticsServiceProvider) => {
+        .config(["$analyticsProvider", ($analyticsProvider: angulartics.IAnalyticsServiceProvider) => {
             angulartics.waitForVendorApi("location", 1000, (message: string) => {
                 console.log(message);
             });
@@ -21,7 +21,7 @@ namespace Analytics {
                 console.log(action);
             });
 
-            $analyticsProvider.registerPageTrack((path:string, locationObj:angular.ILocationService) => {
+            $analyticsProvider.registerPageTrack((path: string, locationObj: angular.ILocationService) => {
                 console.log("viewed " + path);
             });
 
@@ -30,13 +30,12 @@ namespace Analytics {
         .run(($analytics: angulartics.IAnalyticsService) => {
             let isOptedOut = $analytics.getOptOut();
 
-            $analytics.eventTrack('eventName', { label: 'test' });
-            $analytics.pageTrack('/');
-            $analytics.setAlias('alias');
+            $analytics.eventTrack("eventName", { label: "test" });
+            $analytics.pageTrack("/");
+            $analytics.setAlias("alias");
             $analytics.setOptOut(false);
-            $analytics.setUsername('username');
+            $analytics.setUsername("username");
             $analytics.setUserProperties({ id: 1 });
-            $analytics.setSuperProperties({ role: 'admin' });
+            $analytics.setSuperProperties({ role: "admin" });
         });
 }
-

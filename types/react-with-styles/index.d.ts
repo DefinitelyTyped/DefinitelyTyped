@@ -1,16 +1,8 @@
-// Type definitions for react-with-styles 4.0
-// Project: https://github.com/airbnb/react-with-styles#readme
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>
-//                 Brie Bunge <https://github.com/brieb>
-//                 Joe Lencioni <https://github.com/lencioni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import { CSSProperties } from "aphrodite";
+import * as PropTypes from "prop-types";
+import * as React from "react";
 
-import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { CSSProperties } from 'aphrodite';
-
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Theme {}
 
 interface WithStylesProps<T = Theme> {
@@ -41,14 +33,13 @@ interface WithStylesOptions {
 }
 
 type Omit<T, K> = Pick<T, Exclude<keyof T, K>>;
-type ComponentClassProps<C> = C extends new (props: infer P, context?: any) => any ? P : never;
-type SFCProps<C> = C extends (props: infer P & { children?: React.ReactNode | undefined }, context?: any) => any ? P : never;
-type ElementProps<C> = C extends React.ComponentClass<any>
-    ? ComponentClassProps<C>
-    : C extends React.FC<any>
-    ? SFCProps<C>
+type ComponentClassProps<C> = C extends new(props: infer P, context?: any) => any ? P : never;
+type SFCProps<C> = C extends (props: infer P & { children?: React.ReactNode | undefined }, context?: any) => any ? P
+    : never;
+type ElementProps<C> = C extends React.ComponentClass<any> ? ComponentClassProps<C>
+    : C extends React.FC<any> ? SFCProps<C>
     : any;
-type ElementConfig<C> = JSX.LibraryManagedAttributes<C, ElementProps<C>>;
+type ElementConfig<C> = React.JSX.LibraryManagedAttributes<C, ElementProps<C>>;
 
 declare function withStyles<T = Theme>(
     styleFn?: ((theme: T) => Styles) | null,
@@ -59,13 +50,4 @@ declare function withStyles<T = Theme>(
 
 declare function css(...styles: any[]): object;
 
-export {
-  css,
-  withStyles,
-  WithStylesProps,
-  withStylesPropTypes,
-  WithStylesOptions,
-  Theme,
-  Styles,
-  CSSProperties,
-};
+export { css, CSSProperties, Styles, Theme, withStyles, WithStylesOptions, WithStylesProps, withStylesPropTypes };

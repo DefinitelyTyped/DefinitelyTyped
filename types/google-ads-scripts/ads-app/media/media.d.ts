@@ -123,11 +123,13 @@ declare namespace GoogleAdsScripts {
          *        .get();
          */
         interface MediaSelector
-            extends Base.Selector<MediaIterator>,
+            extends
+                Base.Selector<MediaIterator>,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
 
         /** URLs for different sizes of a media object. */
         interface MediaUrls {

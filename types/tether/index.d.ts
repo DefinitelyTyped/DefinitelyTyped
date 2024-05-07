@@ -1,9 +1,3 @@
-// Type definitions for Tether v1.4
-// Project: https://github.com/shipshapecode/tether
-// Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = Tether;
 export as namespace Tether;
 
@@ -24,7 +18,7 @@ declare namespace Tether {
     interface ITetherOptions {
         attachment: string;
         bodyElement?: HTMLElement | undefined;
-        classes?: {[className: string]: boolean | string} | undefined;
+        classes?: { [className: string]: boolean | string } | undefined;
         classPrefix?: string | undefined;
         constraints?: ITetherConstraint[] | undefined;
         element?: HTMLElement | string | any | undefined /* JQuery */;

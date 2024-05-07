@@ -1,5 +1,5 @@
-import Mousetrap = require('mousetrap');
-import { ExtendedKeyboardEvent } from 'mousetrap';
+import Mousetrap = require("mousetrap");
+import { ExtendedKeyboardEvent } from "mousetrap";
 
 // $ExpectType MousetrapStatic
 Mousetrap;
@@ -7,28 +7,28 @@ Mousetrap;
 // Can import event
 type Event = ExtendedKeyboardEvent;
 
-Mousetrap.bind('4', () => {
-    console.log('4');
+Mousetrap.bind("4", () => {
+    console.log("4");
 });
-Mousetrap.bind('?', () => {
-    console.log('show shortcuts!');
+Mousetrap.bind("?", () => {
+    console.log("show shortcuts!");
 });
 Mousetrap.bind(
-    'esc',
+    "esc",
     () => {
-        console.log('escape');
+        console.log("escape");
     },
-    'keyup',
+    "keyup",
 );
 
 // combinations
-Mousetrap.bind('command+shift+k', () => {
-    console.log('command shift k');
+Mousetrap.bind("command+shift+k", () => {
+    console.log("command shift k");
 });
 
 // map multiple combinations to the same callback
-Mousetrap.bind(['command+k', 'ctrl+k'], () => {
-    console.log('command k or control k');
+Mousetrap.bind(["command+k", "ctrl+k"], () => {
+    console.log("command k or control k");
 
     // return false to prevent default browser behavior
     // and stop event from bubbling
@@ -36,22 +36,22 @@ Mousetrap.bind(['command+k', 'ctrl+k'], () => {
 });
 
 // gmail style sequences
-Mousetrap.bind('g i', () => {
-    console.log('go to inbox');
+Mousetrap.bind("g i", () => {
+    console.log("go to inbox");
 });
-Mousetrap.bind('* a', () => {
-    console.log('select all');
+Mousetrap.bind("* a", () => {
+    console.log("select all");
 });
 
 // konami code!
-Mousetrap.bind('up up down down left right left right b a enter', () => {
-    console.log('konami code');
+Mousetrap.bind("up up down down left right left right b a enter", () => {
+    console.log("konami code");
 });
 
 const handler = (e: ExtendedKeyboardEvent, combo: string) => {
     return false;
 };
-Mousetrap.bind(['command+k', 'ctrl+k'], handler);
-Mousetrap.bind(['command+k', 'ctrl+k'], e => {
+Mousetrap.bind(["command+k", "ctrl+k"], handler);
+Mousetrap.bind(["command+k", "ctrl+k"], e => {
     return false;
 });

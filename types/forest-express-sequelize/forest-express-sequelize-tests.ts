@@ -1,26 +1,40 @@
+import * as express from "express";
 import {
+    collection,
+    CollectionOptions,
     Filter,
+    init,
+    LianaOptions,
     Page,
-    Params, PermissionMiddlewareCreator,
-    PUBLIC_ROUTES, RecordCreator,
-    RecordGetter, RecordRemover, RecordsCounter, RecordSerializer,
-    RecordsGetter, RecordsRemover, RecordUpdater, StatSerialized, StatSerializer,
-    SmartActionOptions, SmartFieldOptions, SmartSegmentOptions,
-    collection, CollectionOptions, LianaOptions, init,
-} from 'forest-express-sequelize';
-import * as express from 'express';
-import { Sequelize } from 'sequelize';
+    Params,
+    PermissionMiddlewareCreator,
+    PUBLIC_ROUTES,
+    RecordCreator,
+    RecordGetter,
+    RecordRemover,
+    RecordsCounter,
+    RecordSerializer,
+    RecordsGetter,
+    RecordsRemover,
+    RecordUpdater,
+    SmartActionOptions,
+    SmartFieldOptions,
+    SmartSegmentOptions,
+    StatSerialized,
+    StatSerializer,
+} from "forest-express-sequelize";
+import { Sequelize } from "sequelize";
 
 const lianaOptions: LianaOptions = {
     objectMapping: Sequelize,
-    envSecret: 'aSecretKey',
-    authSecret: 'aSecretKey',
+    envSecret: "aSecretKey",
+    authSecret: "aSecretKey",
     connections: {
-        'main-connection': new Sequelize('uri'),
+        "main-connection": new Sequelize("uri"),
     },
-    includedModels: ['aModel'],
-    excludedModels: ['aModel'],
-    configDir: 'aDirectory',
+    includedModels: ["aModel"],
+    excludedModels: ["aModel"],
+    configDir: "aDirectory",
 };
 
 init(lianaOptions).then((expressApplication: express.Application) => {
@@ -30,34 +44,34 @@ init(lianaOptions).then((expressApplication: express.Application) => {
 const MY_PUBLIC_ROUTES = PUBLIC_ROUTES;
 
 const model = {
-    name: 'my-model',
+    name: "my-model",
 };
 
 const page: Page = {
-    number: '1',
-    size: '10',
+    number: "1",
+    size: "10",
 };
 
 const filter: Filter = {
-    field: 'my-field',
-    operator: 'is',
-    value: 'empty',
+    field: "my-field",
+    operator: "is",
+    value: "empty",
 };
 
 const params: Params = {
-    timezone: 'EU',
-    search: '',
+    timezone: "EU",
+    search: "",
     fields: {
-        users: 'createdAt,firstname,id,lastname,updatedAt',
+        users: "createdAt,firstname,id,lastname,updatedAt",
     },
-    sort: 'ASC',
+    sort: "ASC",
     filters: filter,
     page,
-    searchExtended: '0',
+    searchExtended: "0",
 };
 
 const recordGetter = new RecordGetter(model);
-recordGetter.get('1234');
+recordGetter.get("1234");
 
 const recordsGetter = new RecordsGetter(model);
 recordsGetter.getAll(params);
@@ -66,22 +80,22 @@ const recordsCounter = new RecordsCounter(model);
 recordsCounter.count(params);
 
 const recordUpdater = new RecordUpdater(model);
-recordUpdater.update({}, '1234');
+recordUpdater.update({}, "1234");
 
 const recordCreator = new RecordCreator(model);
 recordCreator.create({});
 
 const recordRemover = new RecordRemover(model);
-recordRemover.remove('1234');
+recordRemover.remove("1234");
 
 const recordsRemover = new RecordsRemover(model);
-recordsRemover.remove(['1234', '5678']);
+recordsRemover.remove(["1234", "5678"]);
 
 const recordSerializer = new RecordSerializer(model);
-recordSerializer.serialize([{}, {}]).then((statSerialized: StatSerialized) => { });
+recordSerializer.serialize([{}, {}]).then((statSerialized: StatSerialized) => {});
 
 let requestHandler: express.RequestHandler;
-const permissionMiddlewareCreator = new PermissionMiddlewareCreator('users');
+const permissionMiddlewareCreator = new PermissionMiddlewareCreator("users");
 requestHandler = permissionMiddlewareCreator.list();
 requestHandler = permissionMiddlewareCreator.export();
 requestHandler = permissionMiddlewareCreator.details();
@@ -97,37 +111,39 @@ const stats = {
 const statSerializer = new StatSerializer(stats);
 statSerialized = statSerializer.perform();
 
-collection('simpleCollection', { });
+collection("simpleCollection", {});
 
 const fields: SmartFieldOptions[] = [{
-    field: 'simple-field',
-    type: 'boolean',
+    field: "simple-field",
+    type: "boolean",
 }];
 const actions: SmartActionOptions[] = [{
-    name: 'simple-action',
+    name: "simple-action",
 }];
 const segments: SmartSegmentOptions[] = [{
-    name: 'simple-segment',
-    where: () => ({ }),
+    name: "simple-segment",
+    where: () => ({}),
 }];
 const simpleCollectionOptions: CollectionOptions = {
-    fields, actions, segments,
+    fields,
+    actions,
+    segments,
 };
-collection('simpleCollection', simpleCollectionOptions);
+collection("simpleCollection", simpleCollectionOptions);
 
 const complexCollectionOptions: CollectionOptions = {
     fields: [{
-        field: 'complex-field',
-        type: 'String',
-        description: 'a-complex-field',
+        field: "complex-field",
+        type: "String",
+        description: "a-complex-field",
         isReadOnly: false,
-        enums: ['one', 'two', 'three'],
-        defaultValue: ['one'],
+        enums: ["one", "two", "three"],
+        defaultValue: ["one"],
         get: (record) => {
             return `${record.lastName} ${record.firstName}`;
         },
         set: (record) => {
-            const [lastName, firstName, ] = record.fullName.split(' ');
+            const [lastName, firstName] = record.fullName.split(" ");
 
             record.lastName = lastName;
             record.firstName = firstName;
@@ -138,23 +154,23 @@ const complexCollectionOptions: CollectionOptions = {
             query.where = {
                 firstName: {
                     like: search,
-                }
+                },
             };
 
             return query;
-        }
+        },
     }, {
-        field: 'complex-field-2',
-        type: ['Number'],
-        description: 'a-complex-field-2',
+        field: "complex-field-2",
+        type: ["Number"],
+        description: "a-complex-field-2",
         isReadOnly: false,
-        enums: ['1', '2', '3'],
-        defaultValue: ['one'],
+        enums: ["1", "2", "3"],
+        defaultValue: ["one"],
         get: (record) => {
-            return '2';
+            return "2";
         },
         set: (record) => {
-            record.duplicate = '2';
+            record.duplicate = "2";
 
             return record;
         },
@@ -162,62 +178,62 @@ const complexCollectionOptions: CollectionOptions = {
             query.where = {
                 duplicate: {
                     is: search,
-                }
+                },
             };
 
             return query;
-        }
+        },
     }],
     actions: [{
-        name: 'complex-action',
-        type: 'single',
+        name: "complex-action",
+        type: "single",
         fields: [{
-            field: 'complex-field',
-            type: 'string',
-            enums: ['one', 'two', 'three'],
-            description: 'complex-description',
+            field: "complex-field",
+            type: "string",
+            enums: ["one", "two", "three"],
+            description: "complex-description",
             isRequired: true,
         }, {
-            field: 'complex-field-2',
-            type: 'string',
-            reference: 'complex-collection-2',
-            description: 'complex-description',
+            field: "complex-field-2",
+            type: "string",
+            reference: "complex-collection-2",
+            description: "complex-description",
             isRequired: true,
         }],
     }, {
-        name: 'complex-action',
-        type: 'bulk',
+        name: "complex-action",
+        type: "bulk",
         fields: [{
-            field: 'complex-field',
-            type: 'string',
-            enums: ['one', 'two', 'three'],
-            description: 'complex-description',
+            field: "complex-field",
+            type: "string",
+            enums: ["one", "two", "three"],
+            description: "complex-description",
             isRequired: true,
         }],
-        endpoint: 'complex-endpoint',
-        httpMethod: 'POST',
+        endpoint: "complex-endpoint",
+        httpMethod: "POST",
         download: false,
         values: (record) => {
             return {
-                'complex-field': record.belongsToId,
+                "complex-field": record.belongsToId,
             };
-        }
+        },
     }],
-    segments : [{
-        name: 'complex-segment',
+    segments: [{
+        name: "complex-segment",
         where: (record) => {
             return {
                 id: {
                     in: record.hasManyIds,
-                }
+                },
             };
-        }
+        },
     }],
 };
-collection('complexCollection', complexCollectionOptions);
+collection("complexCollection", complexCollectionOptions);
 
 const app = express();
 
-app.get('/', (request) => {
+app.get("/", (request) => {
     return recordsGetter.getIdsFromRequest(request);
 });

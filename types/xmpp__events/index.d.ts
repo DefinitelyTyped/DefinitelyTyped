@@ -1,17 +1,12 @@
-// Type definitions for @xmpp/events 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/events
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as events from 'events';
+import * as events from "events";
 
 export const EventEmitter: typeof events.EventEmitter;
 export type EventEmitter = events.EventEmitter;
 
 export class TimeoutError extends Error {
-    readonly name: 'TimeoutError';
+    readonly name: "TimeoutError";
 }
 
 export function delay(ms: number): Promise<void> & { timeout: NodeJS.Timeout | number };

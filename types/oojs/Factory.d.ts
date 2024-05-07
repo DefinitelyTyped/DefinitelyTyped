@@ -1,6 +1,6 @@
 declare namespace OO {
     // HACK: Omit register and unregister because Factory changed their call signatures (!)
-    interface Factory extends Omit<Registry, 'register' | 'unregister'> {
+    interface Factory extends Omit<Registry, "register" | "unregister"> {
         /**
          * Register a constructor with the factory.
          *
@@ -20,7 +20,9 @@ declare namespace OO {
          *  its own name, through `constructor.static.name`.
          * @throws {Error} If a parameter is invalid
          */
-        register(constructor: (ConstructorLike & { static: { name: string } }) | (ConstructorLike & { key: string })): void;
+        register(
+            constructor: (ConstructorLike & { static: { name: string } }) | (ConstructorLike & { key: string }),
+        ): void;
 
         /**
          * Register a class with the factory.
@@ -68,7 +70,7 @@ declare namespace OO {
     }
 
     interface FactoryConstructor {
-        new (): Factory;
+        new(): Factory;
         prototype: Factory;
         super: RegistryConstructor;
         /** @deprecated Use `super` instead */

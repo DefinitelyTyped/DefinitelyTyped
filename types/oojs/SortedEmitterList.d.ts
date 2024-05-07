@@ -54,7 +54,7 @@ declare namespace OO {
 
     interface SortedEmitterListConstructor {
         /** @param sortingCallback Callback that compares two items. */
-        new (sortingCallback: SortingCallback): SortedEmitterList;
+        new(sortingCallback: SortingCallback): SortedEmitterList;
         prototype: SortedEmitterList;
         super: EmitterListConstructor;
         /** @deprecated Use `super` instead */

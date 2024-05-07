@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "name": "@types/bootbox",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/makeusabrew/bootbox"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Bortone",
+            "githubUsername": "vbortone"
+        },
+        {
+            "name": "Kon Pik",
+            "githubUsername": "konpikwastaken"
+        },
+        {
+            "name": "Anup Kattel",
+            "githubUsername": "kanup"
+        },
+        {
+            "name": "Dominik Schroeter",
+            "githubUsername": "icereed"
+        },
+        {
+            "name": "Troy McKinnon",
+            "githubUsername": "trodi"
+        },
+        {
+            "name": "Stanny Nuytkens",
+            "githubUsername": "stannynuytkens"
+        },
+        {
+            "name": "Soner Köksal",
+            "githubUsername": "renjfk"
+        }
+    ]
+}

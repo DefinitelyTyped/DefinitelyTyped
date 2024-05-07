@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/chai-enzyme",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/producthunt/chai-enzyme"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/cheerio": "*",
+        "@types/enzyme": "*",
+        "@types/react": "^16"
+    },
+    "devDependencies": {
+        "@types/chai-enzyme": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexey Svetliakov",
+            "githubUsername": "asvetliakov"
+        }
+    ]
+}

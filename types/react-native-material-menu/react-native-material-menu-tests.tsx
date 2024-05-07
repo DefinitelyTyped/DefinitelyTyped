@@ -1,12 +1,14 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { View, Text, Alert } from 'react-native';
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import { Alert, Text, View } from "react-native";
+import Menu, { MenuDivider, MenuItem } from "react-native-material-menu";
 
 class App extends React.PureComponent {
     _menu: Menu | null = null;
 
-    setMenuRef = (ref: Menu | null) => (this._menu = ref);
+    setMenuRef = (ref: Menu | null) => {
+        this._menu = ref;
+    };
 
     hideMenu = (onHidden?: () => void) => this._menu && this._menu.hide(onHidden);
 
@@ -14,7 +16,7 @@ class App extends React.PureComponent {
 
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
                 <Menu ref={this.setMenuRef} button={<Text onPress={this.showMenu}>Show menu</Text>}>
                     <MenuItem onPress={() => this.hideMenu()}>Menu item 1</MenuItem>
                     <MenuItem onPress={() => this.hideMenu}>Menu item 2</MenuItem>
@@ -22,7 +24,7 @@ class App extends React.PureComponent {
                         Menu item 3
                     </MenuItem>
                     <MenuDivider />
-                    <MenuItem onPress={() => this.hideMenu(() => Alert.alert('With callback'))}>Menu item 4</MenuItem>
+                    <MenuItem onPress={() => this.hideMenu(() => Alert.alert("With callback"))}>Menu item 4</MenuItem>
                 </Menu>
             </View>
         );

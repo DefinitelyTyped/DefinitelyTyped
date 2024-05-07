@@ -1,4 +1,4 @@
-import * as jsts from 'jsts';
+import * as jsts from "jsts";
 
 var str: string;
 var n: number;
@@ -23,7 +23,7 @@ const o: jsts.algorithm.Orientation = new jsts.algorithm.Orientation();
 const bnr: jsts.algorithm.BoundaryNodeRule = new jsts.algorithm.BoundaryNodeRule();
 
 let im0: jsts.geom.IntersectionMatrix = new jsts.geom.IntersectionMatrix();
-const im1: jsts.geom.IntersectionMatrix = new jsts.geom.IntersectionMatrix(['1', '2']);
+const im1: jsts.geom.IntersectionMatrix = new jsts.geom.IntersectionMatrix(["1", "2"]);
 const im2: jsts.geom.IntersectionMatrix = new jsts.geom.IntersectionMatrix(im0);
 
 let at0: jsts.geom.util.AffineTransformation = new jsts.geom.util.AffineTransformation(n, n, n, n, n, n);
@@ -91,14 +91,14 @@ e.setToNull();
 str = e.toString();
 e.translate(n, n);
 
-g.apply({filter: Geometry => {}});
+g.apply({ filter: Geometry => {} });
 g = g.buffer(n);
 g = g.buffer(n, n);
 g = g.buffer(n, n, n);
 if (g instanceof jsts.geom.Polygon) {
-  poly = g;
+    poly = g;
 } else {
-  multiPoly = g;
+    multiPoly = g;
 }
 g.checkNotGeometryCollection(g);
 g = g.clone();
@@ -225,7 +225,7 @@ str = im0.toString();
 im0.setAll(n);
 n = im0.get(n, n);
 im0 = im0.transpose();
-bool = im0.matches([str, str, str, str, str, str ,str, str, str]);
+bool = im0.matches([str, str, str, str, str, str, str, str, str]);
 im0.add(im1);
 bool = im0.isDisjoint();
 bool = im0.isCrosses(n, n);

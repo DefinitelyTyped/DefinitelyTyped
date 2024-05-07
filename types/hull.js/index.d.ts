@@ -1,8 +1,3 @@
-// Type definitions for hull.js 1.0
-// Project: https://github.com/AndriiHeonia/hull
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Builds concave hull by a set of points.
  *

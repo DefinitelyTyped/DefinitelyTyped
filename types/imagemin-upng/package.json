@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/imagemin-upng",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/fisker/imagemin-upng#readme"
+    ],
+    "dependencies": {
+        "@types/imagemin": "*"
+    },
+    "devDependencies": {
+        "@types/imagemin-upng": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

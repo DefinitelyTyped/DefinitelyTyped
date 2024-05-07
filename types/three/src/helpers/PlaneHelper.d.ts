@@ -1,5 +1,5 @@
-import { Plane } from './../math/Plane.js';
-import { LineSegments } from './../objects/LineSegments.js';
+import { Plane } from "../math/Plane.js";
+import { LineSegments } from "../objects/LineSegments.js";
 
 /**
  * Helper object to visualize a {@link THREE.Plane | Plane}.
@@ -27,7 +27,7 @@ export class PlaneHelper extends LineSegments {
      * @override
      * @defaultValue `PlaneHelper`
      */
-    override readonly type: string | 'PlaneHelper';
+    override readonly type: string | "PlaneHelper";
 
     /**
      * The {@link Plane | plane} being visualized.

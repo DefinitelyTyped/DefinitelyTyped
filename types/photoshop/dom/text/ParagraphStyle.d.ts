@@ -1,5 +1,5 @@
 import * as Constants from "../Constants";
-import { JustificationProperties, HyphenationProperties } from "../types/TextTypes";
+import { HyphenationProperties, JustificationProperties } from "../types/TextTypes";
 /**
  * The Class that stores properties related to the Paragraph panel in the Photoshop UI.
  * @minVersion 24.1

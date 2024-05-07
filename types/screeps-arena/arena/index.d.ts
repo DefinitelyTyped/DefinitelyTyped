@@ -1,5 +1,4 @@
-/// <reference path="prototypes/index.d.ts" />
+/// <reference path="season_alpha/index.d.ts" />
 
 declare module "arena" {
-  export * from "arena/prototypes";
 }

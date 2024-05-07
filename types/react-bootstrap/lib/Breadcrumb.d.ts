@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as BreadcrumbItem from './BreadcrumbItem';
+import * as React from "react";
+import * as BreadcrumbItem from "./BreadcrumbItem";
 
 declare namespace Breadcrumb {
     interface BreadcrumbProps extends React.HTMLProps<Breadcrumb> {

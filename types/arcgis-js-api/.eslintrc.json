@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "no-any-union": "off",
-        "no-unnecessary-generics": "off"
-    }
-}

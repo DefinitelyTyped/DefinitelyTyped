@@ -1,5 +1,5 @@
 // Tests
-import welcome = require('cli-welcome');
+import welcome = require("cli-welcome");
 
 // Use it.
 welcome({ title: `Welcome CLI`, tagLine: `by Ahmad Awais` });

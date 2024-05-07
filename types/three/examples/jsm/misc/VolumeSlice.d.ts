@@ -1,6 +1,6 @@
-import { Matrix3, Mesh } from '../../../src/Three.js';
+import { Matrix3, Mesh } from "three";
 
-import { Volume } from './Volume.js';
+import { Volume } from "./Volume.js";
 
 export class VolumeSlice {
     constructor(volume: Volume, index?: number, axis?: string);

@@ -1,10 +1,3 @@
-// Type definitions for bootstrap-fileinput 5.2
-// Project: https://github.com/kartik-v/bootstrap-fileinput
-// Definitions by: Ché Coxshall <https://github.com/CheCoxshall>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Zach Hall <https://github.com/zshall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 
 // tslint:disable:unified-signatures self-documenting code and JSDoc require non-unified signatures
@@ -13,97 +6,97 @@ interface JQuery<TElement = HTMLElement> {
     /**
      * Disable the file input
      */
-    fileinput(method: 'disable'): this;
+    fileinput(method: "disable"): this;
     /**
      * Enable the file input
      */
-    fileinput(method: 'enable'): this;
+    fileinput(method: "enable"): this;
     /**
      * Softer reset of the file input than the clear method.
      * It cleans up the preview thumbnails (except successful uploads and initialPreview) and cleans up the ajax upload file stack.
      */
-    fileinput(method: 'reset'): this;
+    fileinput(method: "reset"): this;
     /**
      * Destroys the file input plugin and reverts to a normal native file input
      */
-    fileinput(method: 'destroy'): this;
+    fileinput(method: "destroy"): this;
     /**
      * Refreshes the file input plugin based on options provided
      */
-    fileinput(method: 'refresh', options?: BootstrapFileInput.FileInputOptions): this;
+    fileinput(method: "refresh", options?: BootstrapFileInput.FileInputOptions): this;
     /**
      * Clear the file input.
      * This method clears the preview of all non-uploaded files, clears the ajax filestack, and also clears the native file input.
      */
-    fileinput(method: 'clear'): this;
+    fileinput(method: "clear"): this;
     /**
      * Trigger ajax upload of the files that are selected. Applicable only if `uploadUrl` is set.
      */
-    fileinput(method: 'upload'): this;
+    fileinput(method: "upload"): this;
     /**
      * Cancel an ongoing ajax upload of the files
      */
-    fileinput(method: 'cancel'): this;
+    fileinput(method: "cancel"): this;
     /**
      * Pause an ongoing resumable ajax upload of the files (applicable only when `enableResumableUpload` property to `true`).
      */
-    fileinput(method: 'pause'): this;
+    fileinput(method: "pause"): this;
     /**
      * Resume a paused resumable ajax upload of the files (applicable only when enableResumableUpload property to true)
      */
-    fileinput(method: 'resume'): this;
+    fileinput(method: "resume"): this;
     /**
      * Locks the file input by disabling all actions/buttons except a cancel button to abort ongoing AJAX requests (for ajax uploads only).
      */
-    fileinput(method: 'lock'): this;
+    fileinput(method: "lock"): this;
     /**
      * Unlocks and enables the file input back again by reversing the outcome of the `lock` action
      */
-    fileinput(method: 'unlock'): this;
+    fileinput(method: "unlock"): this;
     /**
      * This method pushes (appends) a file object to the cached file stack array for upload (note that this only adds files to the internal stack and does not update the preview)
      */
-    fileinput(method: 'addToStack', fileObj: File, id?: string): this;
+    fileinput(method: "addToStack", fileObj: File, id?: string): this;
     /**
      * This method clears the entire file upload array stack (note that this only clears files from the internal stack and does not update the preview).
      */
-    fileinput(method: 'clearFileStack'): this;
+    fileinput(method: "clearFileStack"): this;
     /**
      * This method returns an object (associative array) containing the file objects selected indexed by file identifer (see `generateFileId` option).
      */
-    fileinput(method: 'getFileStack'): BootstrapFileInput.FileStack;
+    fileinput(method: "getFileStack"): BootstrapFileInput.FileStack;
     /**
      * This method returns an array of file objects (in case you do not wish to read an object/ associative array as returned by `getFileStack`)
      */
-    fileinput(method: 'getFileList'): FileList;
+    fileinput(method: "getFileList"): FileList;
     /**
      * This method returns the count of all files pending upload and files already uploaded (based on initial preview)
      */
-    fileinput(method: 'getFilesCount', includeInitial?: boolean): number;
+    fileinput(method: "getFilesCount", includeInitial?: boolean): number;
     /**
      * This method reads a FileList object, appends/pushes it to the file object stack, and also updates the preview to display the files based on the plugin settings.
      */
-    fileinput(method: 'readFiles', files: FileList): this;
+    fileinput(method: "readFiles", files: FileList): this;
     /**
      * Zooms the content in detailed preview for the passed thumbnail frame id parameter.
      * @param frameId - the HTML identifier for the file preview thumbnail frame for which the exif data will be returned
      */
-    fileinput(method: 'zoom', frameId: string): this;
+    fileinput(method: "zoom", frameId: string): this;
     /**
      * Returns the initial preview content, the initial preview configuration, and initial preview thumb tags
      */
-    fileinput(method: 'getPreview'): BootstrapFileInput.PreviewInfo;
+    fileinput(method: "getPreview"): BootstrapFileInput.PreviewInfo;
     /**
      * Gets the exif data for the specified file thumbnail frame (applicable only for JPEG image file types).
      * The exif data is returned as an object using the `piexif.js` library.
      * @param frameId - the HTML identifier for the file preview thumbnail frame for which the exif data will be returned.
      */
-    fileinput(method: 'getExif', frameId: string): object | null;
+    fileinput(method: "getExif", frameId: string): object | null;
     /**
      * Returns the list of file preview thumbnail frames as jQuery objects.
      * @param cssFilter - additional CSS filter to be applied to restrict and return the relevant thumbnail preview frames
      */
-    fileinput(method: 'getFrames', cssFilter?: string): this;
+    fileinput(method: "getFrames", cssFilter?: string): this;
 }
 // tslint:enable:unified-signatures
 
@@ -185,7 +178,7 @@ declare namespace BootstrapFileInput {
          * Whether to display the file browse button. Defaults to true
          * @default true
          */
-         showBrowse?: boolean | undefined;
+        showBrowse?: boolean | undefined;
         /**
          * Whether to display the file upload cancel button.
          * @default true
@@ -320,7 +313,7 @@ declare namespace BootstrapFileInput {
          * You need to be careful in case you are setting both allowedFileTypes and allowedFileExtensions.
          * In this case, the allowedFileTypes property is validated first and generally precedes the allowedFileExtensions setting (and the latter validation maybe skipped).
          */
-        allowedFileTypes?: Array<'image' | 'html' | 'text' | 'video' | 'audio' | 'flash' | 'object'> | undefined;
+        allowedFileTypes?: Array<"image" | "html" | "text" | "video" | "audio" | "flash" | "object"> | undefined;
         /**
          * the list of allowed file extensions for upload.
          * This by default is set to null which means the plugin supports all file extensions for upload.
@@ -337,7 +330,7 @@ declare namespace BootstrapFileInput {
          * To disable this behavior, you can remove object from the list of allowedPreviewTypes OR fine tune it through allowedPreviewMimeTypes.
          * To disable content preview for all file-types and show the previewIcon instead as a thumbnail, set this to null, empty, or false.
          */
-        allowedPreviewTypes?: Array<'image' | 'html' | 'text' | 'video' | 'audio' | 'flash' | 'object'> | undefined;
+        allowedPreviewTypes?: Array<"image" | "html" | "text" | "video" | "audio" | "flash" | "object"> | undefined;
         /**
          * the list of allowed mime types for preview.
          * This is set to null by default which means all possible mime types are allowed.
@@ -517,7 +510,7 @@ declare namespace BootstrapFileInput {
          * This will behave conversely, when resizePreference is set to height - the maxImageHeight will be first tested against image height
          * and then the rest of steps will be similarly parsed with preference given to height instead of width as before.
          */
-        resizePreference?: 'width' | 'height' | undefined;
+        resizePreference?: "width" | "height" | undefined;
         /**
          * the quality of the resized image. This must be a decimal number between 0.00 to 1.00.
          * Defaults to 0.92.
@@ -781,7 +774,7 @@ declare namespace BootstrapFileInput {
          *     any: Both image and text files content will be shown in preview.
          * Files other than image or text will be displayed as a thumbnail with the filename in the preview window.
          */
-        previewFileType?: 'image' | 'text' | 'any' | undefined;
+        previewFileType?: "image" | "text" | "any" | undefined;
         /**
          * the icon for zooming the file content in a new modal dialog.
          * This is currently applicable only for text file previews.
@@ -898,13 +891,13 @@ declare namespace BootstrapFileInput {
          * 'before': when set to 'before', the ajax callbacks set in ajaxDeleteSettings will be merged before the default plugin callback.
          * 'after': when set to 'after', the ajax callbacks set in ajaxDeleteSettings will be merged after the default plugin callback.
          */
-         mergeAjaxDeleteCallbacks?: boolean | string;
-         /**
-          * whether the initial preview content set is to be parsed as data instead of raw markup.
-          * @default false
-          * for backward compatibility (prior to v4.3.2).
-          */
-         initialPreviewAsData?: boolean | undefined;
+        mergeAjaxDeleteCallbacks?: boolean | string;
+        /**
+         * whether the initial preview content set is to be parsed as data instead of raw markup.
+         * @default false
+         * for backward compatibility (prior to v4.3.2).
+         */
+        initialPreviewAsData?: boolean | undefined;
     }
 
     interface PreviewConfig {

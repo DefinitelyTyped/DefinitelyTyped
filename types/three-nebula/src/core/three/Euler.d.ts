@@ -1,6 +1,6 @@
-import { Matrix4 } from './Matrix4.js';
-import { Quaternion } from './Quaternion.js';
-import { Vector3 } from './Vector3.js';
+import { Matrix4 } from "./Matrix4.js";
+import { Quaternion } from "./Quaternion.js";
+import { Vector3 } from "./Vector3.js";
 
 /**
  * @author mrdoob / http://mrdoob.com/

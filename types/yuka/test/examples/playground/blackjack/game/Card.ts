@@ -1,4 +1,4 @@
-export type CardType = 'A' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K';
+export type CardType = "A" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "J" | "Q" | "K";
 
 /**
  * Represents a French-suited playing card.
@@ -15,13 +15,13 @@ export class Card {
     }
 
     getColor() {
-        return (this.suit === '♣' || this.suit === '♠') ? 'black' : 'red';
+        return (this.suit === "♣" || this.suit === "♠") ? "black" : "red";
     }
 
     getMarkup() {
-        const cardDiv = document.createElement('div');
+        const cardDiv = document.createElement("div");
         cardDiv.innerText = this.suit;
-        cardDiv.classList.add('card', this.getColor());
+        cardDiv.classList.add("card", this.getColor());
         cardDiv.dataset.value = `${this.type} ${this.suit}`;
         return cardDiv;
     }
@@ -31,7 +31,7 @@ export class Card {
     }
 
     isAce() {
-        return this.type === 'A';
+        return this.type === "A";
     }
 }
 
@@ -50,5 +50,5 @@ const TYPE_VALUE_MAPPING = Object.freeze({
     10: 10,
     J: 10,
     Q: 10,
-    K: 10
+    K: 10,
 });

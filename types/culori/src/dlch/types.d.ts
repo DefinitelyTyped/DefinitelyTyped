@@ -1,5 +1,5 @@
 export interface Dlch {
-    mode: 'dlch';
+    mode: "dlch";
     l: number;
     c: number;
     h?: number;

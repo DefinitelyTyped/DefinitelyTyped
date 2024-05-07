@@ -1,8 +1,3 @@
-// Type definitions for cordova-plugin-mapsforge
-// Project: https://github.com/afsuarez/mapsforge-cordova-plugin
-// Definitions by: rafw87 <https://github.com/rafw87>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Window {
     mapsforge: MapsforgePlugin;
 }
@@ -15,23 +10,22 @@ interface MapsforgePlugin {
 }
 
 interface MapsforgeEmbeddedPlugin {
+    COLOR_DKGRAY: number | string;
+    COLOR_CYAN: number | string;
+    COLOR_BLACK: number | string;
+    COLOR_BLUE: number | string;
+    COLOR_GREEN: number | string;
+    COLOR_RED: number | string;
+    COLOR_WHITE: number | string;
+    COLOR_TRANSPARENT: number | string;
+    COLOR_YELLOW: number | string;
 
-    COLOR_DKGRAY: number|string;
-    COLOR_CYAN: number|string;
-    COLOR_BLACK: number|string;
-    COLOR_BLUE: number|string;
-    COLOR_GREEN: number|string;
-    COLOR_RED: number|string;
-    COLOR_WHITE: number|string;
-    COLOR_TRANSPARENT: number|string;
-    COLOR_YELLOW: number|string;
-
-    MARKER_RED: number|string;
-    MARKER_GREEN: number|string;
-    MARKER_BLUE: number|string;
-    MARKER_YELLOW: number|string;
-    MARKER_BLACK: number|string;
-    MARKER_WHITE: number|string;
+    MARKER_RED: number | string;
+    MARKER_GREEN: number | string;
+    MARKER_BLUE: number | string;
+    MARKER_YELLOW: number | string;
+    MARKER_BLACK: number | string;
+    MARKER_WHITE: number | string;
 
     /**
      * The map file path provided must be the absolute file path. You can specify the width and height values for the view that will be added,
@@ -98,7 +92,6 @@ interface MapsforgeEmbeddedPlugin {
     setOfflineTileLayer(args: any[], success?: () => void, error?: (message: string) => void): void;
 
     /**
-     *
      * @param args Array in the following form: [String providerName, String host, String baseUrl, String extension, int port]
      * @param success Success callback.
      * @param error Error callback
@@ -115,7 +108,6 @@ interface MapsforgeEmbeddedPlugin {
     addMarker(arg: any[], success?: (key: number) => void, error?: (message: string) => void): void;
 
     /**
-     *
      * @param arg Array in the following form: [int color, int strokeWidth,[double points]].
      * The color can be one of the constants specified before, or the new color you want.
      * This function will use the odd positions of the array of points for the latitudes and the even positions for the longitudes.
@@ -141,7 +133,6 @@ interface MapsforgeEmbeddedPlugin {
      */
     onStart(success?: () => void, error?: (message: string) => void): void;
 
-
     /**
      * Stops the rendering. Useful for when the app goes to the background. You have to call the onStart method to restart it.
      * @param success Success callback.
@@ -158,7 +149,6 @@ interface MapsforgeEmbeddedPlugin {
 }
 
 interface MapsforgeCachePlugin {
-
     /**
      * You should call this method before any other one, and provide it with the absolute map file path.
      * @param mapFilePath Absolute map file path.

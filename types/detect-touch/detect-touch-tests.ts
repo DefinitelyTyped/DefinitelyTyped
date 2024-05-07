@@ -1,4 +1,4 @@
-import { hasTouch, detectTouch } from 'detect-touch';
+import { detectTouch, hasTouch } from "detect-touch";
 
 // $ExpectType boolean
 hasTouch;

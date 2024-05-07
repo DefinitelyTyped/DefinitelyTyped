@@ -1,22 +1,13 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "target": "es6",
         "lib": [
             "es6",
             "dom"
         ],
         "strict": true,
-        "baseUrl": "../",
         "experimentalDecorators": true,
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@ember/*": [
-                "ember__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "exactOptionalPropertyTypes": true,

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/deep-freeze-strict",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jsdf/deep-freeze"
+    ],
+    "devDependencies": {
+        "@types/deep-freeze-strict": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        }
+    ]
+}

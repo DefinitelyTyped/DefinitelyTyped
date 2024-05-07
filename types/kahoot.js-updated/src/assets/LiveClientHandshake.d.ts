@@ -1,5 +1,5 @@
-import Kahoot = require('../..');
-import LiveBaseMessage = require('./LiveBaseMessage');
+import Kahoot = require("../..");
+import LiveBaseMessage = require("./LiveBaseMessage");
 
 declare class LiveClientHandshake extends LiveBaseMessage {
     constructor(

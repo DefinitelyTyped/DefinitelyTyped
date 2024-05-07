@@ -102,7 +102,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): PendingElement;
+            new(config?: ConfigOptions): PendingElement;
             prototype: Prototype;
             static: {};
         }

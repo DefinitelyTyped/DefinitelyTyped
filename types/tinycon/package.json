@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/tinycon",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/tommoor/tinycon"
+    ],
+    "devDependencies": {
+        "@types/tinycon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Waxweiler",
+            "githubUsername": "dwaxweiler"
+        },
+        {
+            "name": "Julian Hundeloh",
+            "githubUsername": "jaulz"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

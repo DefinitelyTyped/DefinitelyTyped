@@ -1,22 +1,10 @@
-// Type definitions for Sinon 10.0
-// Project: https://sinonjs.org
-// Definitions by: William Sears <https://github.com/mrbigdog2u>
-//                 Nico Jansen <https://github.com/nicojs>
-//                 James Garbutt <https://github.com/43081j>
-//                 Greg Jednaszewski <https://github.com/gjednaszewski>
-//                 John Wood <https://github.com/johnjesse>
-//                 Alec Flett <https://github.com/alecf>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Mathias Schreck <https://github.com/lo1tuma>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as FakeTimers from '@sinonjs/fake-timers';
+import * as FakeTimers from "@sinonjs/fake-timers";
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
-interface Event {} // tslint:disable-line no-empty-interface
-interface Document {} // tslint:disable-line no-empty-interface
+interface Event {} // eslint-disable-line @typescript-eslint/no-empty-interface
+interface Document {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
 declare namespace Sinon {
     type MatchPartialArguments<T> = {
@@ -132,7 +120,8 @@ declare namespace Sinon {
     }
 
     interface SinonSpyCall<TArgs extends readonly any[] = any[], TReturnValue = any>
-        extends SinonSpyCallApi<TArgs, TReturnValue> {
+        extends SinonSpyCallApi<TArgs, TReturnValue>
+    {
         /**
          * The call’s this value.
          */
@@ -164,7 +153,6 @@ declare namespace Sinon {
         /**
          * Returns true if the spy call occurred before another spy call.
          * @param call
-         *
          */
         calledBefore(call: SinonSpyCall<any>): boolean;
         /**
@@ -174,11 +162,12 @@ declare namespace Sinon {
         calledAfter(call: SinonSpyCall<any>): boolean;
     }
 
-    interface SinonSpy<TArgs extends readonly any[] = any[], TReturnValue = any>
-        extends Pick<
+    interface SinonSpy<TArgs extends readonly any[] = any[], TReturnValue = any> extends
+        Pick<
             SinonSpyCallApi<TArgs, TReturnValue>,
-            Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, 'args'>
-        > {
+            Exclude<keyof SinonSpyCallApi<TArgs, TReturnValue>, "args">
+        >
+    {
         // Properties
         /**
          * The number of recorded calls.
@@ -386,11 +375,13 @@ declare namespace Sinon {
          * The original method can be restored by calling object.method.restore().
          * The returned spy is the function object which replaced the original method. spy === object.method.
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (...args: infer TArgs) => infer TReturnValue
-            ? SinonSpy<TArgs, TReturnValue>
+        <T, K extends keyof T>(
+            obj: T,
+            method: K,
+        ): T[K] extends (...args: infer TArgs) => infer TReturnValue ? SinonSpy<TArgs, TReturnValue>
             : SinonSpy;
 
-        <T, K extends keyof T>(obj: T, method: K, types: Array<'get' | 'set'>): PropertyDescriptor & {
+        <T, K extends keyof T>(obj: T, method: K, types: Array<"get" | "set">): PropertyDescriptor & {
             get: SinonSpy<[], T[K]>;
             set: SinonSpy<[T[K]], void>;
         };
@@ -400,12 +391,12 @@ declare namespace Sinon {
         [P in keyof T]: SinonSpiedMember<T[P]>;
     };
 
-    type SinonSpiedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue
-        ? SinonSpy<TArgs, TReturnValue>
+    type SinonSpiedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue ? SinonSpy<TArgs, TReturnValue>
         : T;
 
     interface SinonStub<TArgs extends readonly any[] = any[], TReturnValue = any>
-        extends SinonSpy<TArgs, TReturnValue> {
+        extends SinonSpy<TArgs, TReturnValue>
+    {
         /**
          * Resets the stub’s behaviour to the default behaviour
          * You can reset behaviour of all stubs using sinon.resetBehavior()
@@ -684,8 +675,10 @@ declare namespace Sinon {
          * An exception is thrown if the property is not already a function.
          * The original function can be restored by calling object.method.restore(); (or stub.restore();).
          */
-        <T, K extends keyof T>(obj: T, method: K): T[K] extends (...args: infer TArgs) => infer TReturnValue
-            ? SinonStub<TArgs, TReturnValue>
+        <T, K extends keyof T>(
+            obj: T,
+            method: K,
+        ): T[K] extends (...args: infer TArgs) => infer TReturnValue ? SinonStub<TArgs, TReturnValue>
             : SinonStub;
     }
 
@@ -883,7 +876,7 @@ declare namespace Sinon {
     }
 
     interface SinonFakeXMLHttpRequestStatic {
-        new (): SinonFakeXMLHttpRequest;
+        new(): SinonFakeXMLHttpRequest;
         /**
          * Default false.
          * When set to true, Sinon will check added filters if certain requests should be “unfaked”
@@ -1172,7 +1165,7 @@ declare namespace Sinon {
          */
         calledOnceWithMatch<TArgs extends any[]>(
             spyOrSpyCall: SinonSpy<TArgs> | SinonSpyCall<TArgs>,
-            ...args: TArgs
+            ...args: MatchPartialArguments<TArgs>
         ): void;
         /**
          * Passes if spy was always called with matching arguments.
@@ -1456,6 +1449,13 @@ declare namespace Sinon {
          * you might want to do:
          */
         useFakeServer: boolean | SinonFakeServer;
+        /**
+         * The assert options can help limit the amount of output produced by assert.fail
+         */
+        assertOptions: {
+            shouldLimitAssertionLogs?: boolean;
+            assertionLogLimit?: number;
+        };
     }
 
     /**
@@ -1470,15 +1470,16 @@ declare namespace Sinon {
      *
      * @template TType Object type being stubbed.
      */
-    type SinonStubbedInstance<TType> = TType & {
-        [P in keyof TType]: SinonStubbedMember<TType[P]>;
-    };
+    type SinonStubbedInstance<TType> =
+        & TType
+        & {
+            [P in keyof TType]: SinonStubbedMember<TType[P]>;
+        };
 
     /**
      * Replaces a type with a Sinon stub if it's a function.
      */
-    type SinonStubbedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue
-        ? SinonStub<TArgs, TReturnValue>
+    type SinonStubbedMember<T> = T extends (...args: infer TArgs) => infer TReturnValue ? SinonStub<TArgs, TReturnValue>
         : T;
 
     interface SinonFake {
@@ -1533,6 +1534,24 @@ declare namespace Sinon {
         yieldsAsync<TArgs extends readonly any[] = any[], TReturnValue = any>(
             ...args: any[]
         ): SinonSpy<TArgs, TReturnValue>;
+    }
+
+    interface SandboxReplace {
+        /**
+         * Replaces property on object with replacement argument.
+         * Attempts to replace an already replaced value cause an exception.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on non-accessor properties, for replacing accessors,
+         * use sandbox.replaceGetter() and sandbox.replaceSetter().
+         */
+        <T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
+
+        /**
+         * Assigns a value to a property on object with replacement argument.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on accessor properties.
+         */
+        usingAccessor<T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
     }
 
     interface SinonSandbox {
@@ -1623,12 +1642,8 @@ declare namespace Sinon {
          */
         verifyAndRestore(): void;
 
-        /**
-         * Replaces property on object with replacement argument. Attempts to replace an already replaced value cause an exception.
-         * replacement can be any value, including spies, stubs and fakes.
-         * This method only works on non-accessor properties, for replacing accessors, use sandbox.replaceGetter() and sandbox.replaceSetter().
-         */
-        replace<T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
+        replace: SandboxReplace;
+
         /**
          * Replaces getter for property on object with replacement argument. Attempts to replace an already replaced getter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1637,6 +1652,7 @@ declare namespace Sinon {
          * @param replacement
          */
         replaceGetter<T, TKey extends keyof T>(obj: T, prop: TKey, replacement: () => T[TKey]): () => T[TKey];
+
         /**
          * Replaces setter for property on object with replacement argument. Attempts to replace an already replaced setter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1667,10 +1683,20 @@ declare namespace Sinon {
                     | (TType[K] extends (...args: any[]) => infer R ? R : TType[K]);
             },
         ): SinonStubbedInstance<TType>;
+
+        /**
+         * Defines a property on the given object which will be torn down when
+         * the sandbox is restored
+         */
+        define(
+            obj: object,
+            key: PropertyKey,
+            value: unknown,
+        ): void;
     }
 
     type SinonPromise<T> = Promise<T> & {
-        status: 'pending' | 'resolved' | 'rejected';
+        status: "pending" | "resolved" | "rejected";
         resolve(val: unknown): Promise<T>;
         reject(reason: unknown): Promise<void>;
         resolvedValue?: T;

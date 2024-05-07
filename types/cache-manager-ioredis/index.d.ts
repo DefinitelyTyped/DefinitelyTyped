@@ -1,16 +1,11 @@
-// Type definitions for cache-manager-ioredis 2.0
-// Project: https://github.com/dabroek/node-cache-manager-ioredis
-// Definitions by: Yi Hong <https://github.com/hongyiweiwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+import { Cache, CacheOptions, CachingConfig, Store } from "cache-manager";
 import * as IORedis from "ioredis";
-import { Store, CachingConfig, CacheOptions, Cache } from 'cache-manager';
 
 declare const methods: CacheManagerIORedis.RedisStoreConstructor;
 export = methods;
-export { };
+export {};
 
-declare module 'cache-manager' {
+declare module "cache-manager" {
     function caching(IConfig: CacheManagerIORedis.RedisStoreClusterConfig): CacheManagerIORedis.ClusterCache;
     function caching(IConfig: CacheManagerIORedis.RedisStoreSingleNodeConfig): CacheManagerIORedis.SingleNodeCache;
     function caching(IConfig: StoreConfig & CacheOptions): Cache;
@@ -26,23 +21,25 @@ declare namespace CacheManagerIORedis {
     }
 
     interface RedisStoreConstructor {
-        create: ((...options: RedisStoreSingleNodeConfig[]) => RedisSingleNodeStore) | ((...options: RedisStoreClusterConfig[]) => RedisClusterStore);
+        create:
+            | ((...options: RedisStoreSingleNodeConfig[]) => RedisSingleNodeStore)
+            | ((...options: RedisStoreClusterConfig[]) => RedisClusterStore);
     }
 
-    type RedisStoreSingleNodeConfig = (CachingConfig & IORedis.RedisOptions & {
+    type RedisStoreSingleNodeConfig = CachingConfig & IORedis.RedisOptions & {
         store: RedisStoreConstructor;
         max?: number | undefined;
-    } & CacheOptions);
+    } & CacheOptions;
 
-    type RedisStoreClusterConfig = (CachingConfig & {
+    type RedisStoreClusterConfig = CachingConfig & {
         store: RedisStoreConstructor;
         max?: number | undefined;
         clusterConfig: ClusterOptions;
-    } & CacheOptions);
+    } & CacheOptions;
 
     interface RedisStore extends Store {
         getClient(): IORedis.Redis | IORedis.Cluster;
-        name: 'redis';
+        name: "redis";
         isCacheableValue(value: any): boolean;
         del(...args: any[]): Promise<any>;
         reset(...args: any[]): Promise<any>;

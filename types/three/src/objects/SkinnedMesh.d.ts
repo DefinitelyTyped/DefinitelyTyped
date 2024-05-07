@@ -1,17 +1,16 @@
-import { Material } from './../materials/Material.js';
-import { Box3 } from '../math/Box3.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Vector3 } from './../math/Vector3.js';
-import { Skeleton } from './Skeleton.js';
-import { Mesh } from './Mesh.js';
-import { BufferGeometry } from '../core/BufferGeometry.js';
-import { Sphere } from '../math/Sphere.js';
+import { BindMode } from "../constants.js";
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Box3 } from "../math/Box3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Sphere } from "../math/Sphere.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Mesh } from "./Mesh.js";
+import { Skeleton } from "./Skeleton.js";
 
 /**
  * A mesh that has a {@link THREE.Skeleton | Skeleton} with {@link Bone | bones} that can then be used to animate the vertices of the geometry.
- * @remarks
- * {@link SkinnedMesh} can only be used with WebGL 2 or
- * With WebGL 1 `OES_texture_float` and vertex textures support is required.
  * @example
  * ```typescript
  * const geometry = new THREE.CylinderGeometry(5, 5, 5, 5, 15, 5, 30);
@@ -50,7 +49,8 @@ import { Sphere } from '../math/Sphere.js';
 export class SkinnedMesh<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Mesh<TGeometry, TMaterial> {
+    TEventMap extends Object3DEventMap = Object3DEventMap,
+> extends Mesh<TGeometry, TMaterial, TEventMap> {
     /**
      * Create a new instance of {@link SkinnedMesh}
      * @param geometry An instance of {@link THREE.BufferGeometry | BufferGeometry}. Default {@link THREE.BufferGeometry | `new THREE.BufferGeometry()`}.
@@ -69,15 +69,15 @@ export class SkinnedMesh<
      * @override
      * @defaultValue `SkinnedMesh`
      */
-    override readonly type: string | 'SkinnedMesh';
+    override readonly type: string | "SkinnedMesh";
 
     /**
-     * Either `attached` or `detached`.
-     *  - `attached` uses the {@link THREE.SkinnedMesh.matrixWorld | SkinnedMesh.matrixWorld} property for the base transform matrix of the bones.
-     *  - `detached` uses the {@link THREE.SkinnedMesh.bindMatrix | SkinnedMesh.bindMatrix}.
-     * @defaultValue `attached`.
+     * Either {@link AttachedBindMode} or {@link DetachedBindMode}. {@link AttachedBindMode} means the skinned mesh
+     * shares the same world space as the skeleton. This is not true when using {@link DetachedBindMode} which is useful
+     * when sharing a skeleton across multiple skinned meshes.
+     * @defaultValue `AttachedBindMode`
      */
-    bindMode: 'attached' | 'detached';
+    bindMode: BindMode;
 
     /**
      * The base matrix that is used for the bound bone transforms.
@@ -115,19 +115,16 @@ export class SkinnedMesh<
     bind(skeleton: Skeleton, bindMatrix?: Matrix4): void;
 
     /**
-     * Computes the bounding box, updating {@link boundingBox | .boundingBox} attribute.
-     * @remarks
-     * Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`. If an
-     * instance of SkinnedMesh is animated, this method should be called per frame to compute a correct bounding box.
+     * Computes the bounding box of the skinned mesh, and updates the {@link .boundingBox} attribute. The bounding box
+     * is not computed by the engine; it must be computed by your app. If the skinned mesh is animated, the bounding box
+     * should be recomputed per frame.
      */
     computeBoundingBox(): void;
 
     /**
-     * Computes the bounding sphere, updating {@link boundingSphere | .boundingSphere} attribute.
-     * @remarks
-     * Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`. If
-     * an instance of SkinnedMesh is animated, this method should be called per frame to compute a correct bounding
-     * sphere.
+     * Computes the bounding sphere of the skinned mesh, and updates the {@link .boundingSphere} attribute. The bounding
+     * sphere is automatically computed by the engine when it is needed, e.g., for ray casting and view frustum culling.
+     * If the skinned mesh is animated, the bounding sphere should be recomputed per frame.
      */
     computeBoundingSphere(): void;
 
@@ -148,9 +145,4 @@ export class SkinnedMesh<
      * @param vector
      */
     applyBoneTransform(index: number, vector: Vector3): Vector3;
-
-    /**
-     * @deprecated {@link THREE.SkinnedMesh}: {@link boneTransform | .boneTransform()} was renamed to {@link applyBoneTransform | .applyBoneTransform()} in **r151**.
-     */
-    boneTransform(index: number, target: Vector3): Vector3;
 }

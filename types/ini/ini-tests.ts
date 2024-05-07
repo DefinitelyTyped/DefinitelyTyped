@@ -1,6 +1,6 @@
-import * as ini from 'ini';
+import * as ini from "ini";
 
-const iniContent = '';
+const iniContent = "";
 
 /* ini.decode() / ini.parse() */
 
@@ -21,10 +21,19 @@ badDecoded = ini.parse(null);
 
 // $ExpectType string
 let encoded = ini.encode(decoded);
-encoded = ini.encode(decoded, 'Section');
+encoded = ini.encode(decoded, "Section");
 encoded = ini.encode(decoded, { whitespace: true });
-encoded = ini.encode(decoded, { section: 'Section' });
-encoded = ini.encode(decoded, { whitespace: true, section: 'Section' });
+encoded = ini.encode(decoded, { section: "Section" });
+encoded = ini.encode(decoded, { whitespace: true, section: "Section" });
+encoded = ini.encode(decoded, {
+    align: true,
+    sort: true,
+    whitespace: true,
+    section: "Section",
+    newline: true,
+    platform: "linux",
+    bracketedArray: true,
+});
 
 // @ts-expect-error
 let badEncoded = ini.encode();
@@ -32,10 +41,19 @@ let badEncoded = ini.encode();
 badEncoded = ini.encode(decoded, null);
 
 encoded = ini.stringify(decoded);
-encoded = ini.stringify(decoded, 'Section');
+encoded = ini.stringify(decoded, "Section");
 encoded = ini.stringify(decoded, { whitespace: true });
-encoded = ini.stringify(decoded, { section: 'Section' });
-encoded = ini.stringify(decoded, { whitespace: true, section: 'Section' });
+encoded = ini.stringify(decoded, { section: "Section" });
+encoded = ini.stringify(decoded, { whitespace: true, section: "Section" });
+encoded = ini.stringify(decoded, {
+    align: true,
+    sort: true,
+    whitespace: true,
+    section: "Section",
+    newline: true,
+    platform: "linux",
+    bracketedArray: true,
+});
 
 // @ts-expect-error
 badEncoded = ini.stringify();
@@ -45,7 +63,7 @@ badEncoded = ini.stringify(decoded, null);
 /* ini.safe() / ini.unsafe() */
 
 // $ExpectType string
-const safeStr = ini.safe('foo bar');
+const safeStr = ini.safe("foo bar");
 
 // @ts-expect-error
 let badSafeStr = ini.safe();

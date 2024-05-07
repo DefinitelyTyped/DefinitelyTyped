@@ -1,7 +1,7 @@
 function test_search_static() {
-    $.fn.search.settings.error!.method = 'method';
-    $.fn.search.settings.namespace = 'namespace';
-    $.fn.search.settings.name = 'name';
+    $.fn.search.settings.error!.method = "method";
+    $.fn.search.settings.namespace = "namespace";
+    $.fn.search.settings.name = "name";
     $.fn.search.settings.silent = false;
     $.fn.search.settings.debug = true;
     $.fn.search.settings.performance = true;
@@ -9,46 +9,46 @@ function test_search_static() {
 }
 
 function test_search() {
-    const selector = '.ui.search';
-    $(selector).search('query', () => { }); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('display message', 'text', 'type'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('cancel query'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('search local', 'query'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('has minimum characters'); // $ExpectType boolean
-    $(selector).search('search remote', 'query', () => { }); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('search object', 'query', {}, ['searchField']); // $ExpectType any
-    $(selector).search('cancel query'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('is focused'); // $ExpectType boolean
-    $(selector).search('is visible'); // $ExpectType boolean
-    $(selector).search('is empty'); // $ExpectType boolean
-    $(selector).search('get value'); // $ExpectType any
-    $(selector).search('get result', 'value'); // $ExpectType any
-    $(selector).search('set value', 'value'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('read cache', 'query'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('clear cache', 'query'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('write cache', 'query'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('add results', 'html'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('show results', () => { }); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('hide results', () => { }); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('generate results', {}); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('destroy'); // $ExpectType JQuery<HTMLElement>
-    $(selector).search('setting', 'debug', undefined); // $ExpectType boolean
-    $(selector).search('setting', 'debug'); // $ExpectType boolean
-    $(selector).search('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    const selector = ".ui.search";
+    $(selector).search("query", () => {}); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("display message", "text", "type"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("cancel query"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("search local", "query"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("has minimum characters"); // $ExpectType boolean
+    $(selector).search("search remote", "query", () => {}); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("search object", "query", {}, ["searchField"]); // $ExpectType any
+    $(selector).search("cancel query"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("is focused"); // $ExpectType boolean
+    $(selector).search("is visible"); // $ExpectType boolean
+    $(selector).search("is empty"); // $ExpectType boolean
+    $(selector).search("get value"); // $ExpectType any
+    $(selector).search("get result", "value"); // $ExpectType any
+    $(selector).search("set value", "value"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("read cache", "query"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("clear cache", "query"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("write cache", "query"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("add results", "html"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("show results", () => {}); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("hide results", () => {}); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("generate results", {}); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("destroy"); // $ExpectType JQuery<HTMLElement>
+    $(selector).search("setting", "debug", undefined); // $ExpectType boolean
+    $(selector).search("setting", "debug"); // $ExpectType boolean
+    $(selector).search("setting", "debug", true); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
-    $(selector).search('setting', {
-        namespace: 'namespace',
-        name: 'name',
+    $(selector).search("setting", {
+        namespace: "namespace",
+        name: "name",
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).search({
-        type: 'type',
+        type: "type",
         apiSettings: {
-            on: 'on',
+            on: "on",
             cache: true,
             stateContext: $(),
             encodeParameters: false,
@@ -60,8 +60,8 @@ function test_search() {
             loadingDuration: 3,
             hideError: true,
             errorDuration: 10,
-            action: 'action',
-            url: 'url',
+            action: "action",
+            url: "url",
             urlData: false,
             response: false,
             responseAsync(settings, callback) {
@@ -73,8 +73,8 @@ function test_search() {
                 settings; // $ExpectType Param
                 callback; // $ExpectType (response: any) => void
             },
-            method: 'post',
-            dataType: 'xml',
+            method: "post",
+            dataType: "xml",
             data: {},
             beforeSend(settings) {
                 settings; // $ExpectType Param
@@ -120,38 +120,38 @@ function test_search() {
             },
             regExp: {
                 required: /{\$*[A-z0-9]+}/g,
-                optional: /{\/\$*[A-z0-9]+}/g
+                optional: /{\/\$*[A-z0-9]+}/g,
             },
             selector: {
-                disabled: '.disabled',
-                form: 'form'
+                disabled: ".disabled",
+                form: "form",
             },
             className: {
-                loading: 'loading',
-                error: 'error'
+                loading: "loading",
+                error: "error",
             },
             metadata: {
-                action: 'action',
-                url: 'url'
+                action: "action",
+                url: "url",
             },
             error: {
-                beforeSend: 'beforeSend',
-                error: 'error',
-                exitConditions: 'exitConditions',
-                JSONParse: 'JSONParse',
-                legacyParameters: 'legacyParameters',
-                missingAction: 'missingAction',
-                missingSerialize: 'missingSerialize',
-                missingURL: 'missingURL',
-                noReturnedValue: 'noReturnedValue',
-                parseError: 'parseError',
-                requiredParameter: 'requiredParameter',
-                statusMessage: 'statusMessage',
-                timeout: 'timeout'
-            }
+                beforeSend: "beforeSend",
+                error: "error",
+                exitConditions: "exitConditions",
+                JSONParse: "JSONParse",
+                legacyParameters: "legacyParameters",
+                missingAction: "missingAction",
+                missingSerialize: "missingSerialize",
+                missingURL: "missingURL",
+                noReturnedValue: "noReturnedValue",
+                parseError: "parseError",
+                requiredParameter: "requiredParameter",
+                statusMessage: "statusMessage",
+                timeout: "timeout",
+            },
         },
         minCharacters: 10,
-        transition: 'fade',
+        transition: "fade",
         duration: 200,
         maxResults: 2,
         cache: false,
@@ -160,25 +160,25 @@ function test_search() {
         showNoResults: false,
         searchFullText: true,
         fields: {
-            categories: 'categories',
-            categoryName: 'categoryName',
-            categoryResults: 'categoryResults',
-            description: 'description',
-            image: 'image',
-            price: 'price',
-            results: 'results',
-            title: 'title',
-            action: 'action',
-            actionText: 'actionText',
-            actionURL: 'actionURL'
+            categories: "categories",
+            categoryName: "categoryName",
+            categoryResults: "categoryResults",
+            description: "description",
+            image: "image",
+            price: "price",
+            results: "results",
+            title: "title",
+            action: "action",
+            actionText: "actionText",
+            actionURL: "actionURL",
         },
         searchFields: [
-            'field1',
-            'field2'
+            "field1",
+            "field2",
         ],
         hideDelay: 20,
         searchDelay: 10,
-        easing: 'easeOutExpo',
+        easing: "easeOutExpo",
         onSelect(result, response) {
             this; // $ExpectType JQuery<HTMLElement>
             result; // $ExpectType any
@@ -210,66 +210,66 @@ function test_search() {
             escape(string) {
                 string; // $ExpectType string
 
-                return 'escape';
+                return "escape";
             },
             message(message, type) {
                 message; // $ExpectType string
                 type; // $ExpectType string
 
-                return 'message';
+                return "message";
             },
             category(response) {
                 response; // $ExpectType any
 
-                return 'category';
+                return "category";
             },
             standard(response) {
                 response; // $ExpectType any
 
-                return 'standard';
-            }
+                return "standard";
+            },
         },
         regExp: {
             escape: /[\-\[\]\/{}()*+?.\\^$|]/g,
-            beginsWith: '(?:\s|^)'
+            beginsWith: "(?:\s|^)",
         },
         selector: {
-            prompt: 'prompt',
-            searchButton: 'searchButton',
-            results: 'results',
-            category: 'category',
-            result: 'result'
+            prompt: "prompt",
+            searchButton: "searchButton",
+            results: "results",
+            category: "category",
+            result: "result",
         },
         metadata: {
-            cache: 'cache',
-            results: 'results'
+            cache: "cache",
+            results: "results",
         },
         className: {
-            active: 'active',
-            empty: 'empty',
-            focus: 'focus',
-            loading: 'loading',
-            pressed: 'pressed'
+            active: "active",
+            empty: "empty",
+            focus: "focus",
+            loading: "loading",
+            pressed: "pressed",
         },
         error: {
-            source: 'source',
-            noResults: 'noResults',
-            logging: 'logging',
-            noTemplate: 'noTemplate',
-            serverError: 'serverError',
-            maxResults: 'maxResults',
-            method: 'method'
-        }
+            source: "source",
+            noResults: "noResults",
+            logging: "logging",
+            noTemplate: "noTemplate",
+            serverError: "serverError",
+            maxResults: "maxResults",
+            method: "method",
+        },
     });
     $(selector).search(); // $ExpectType JQuery<HTMLElement>
 
     // @ts-expect-error
-    $(selector).search('foo');
+    $(selector).search("foo");
     // @ts-expect-error
-    $(selector).search({ foo: 'bar' });
+    $(selector).search({ foo: "bar" });
 }
 
-import search = require('semantic-ui-search');
+import search = require("semantic-ui-search");
 
 function test_module() {
     search; // $ExpectType Search

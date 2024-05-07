@@ -20,5 +20,9 @@ export interface AjaxDataProcessor<TElement = HTMLElement> {
      * @return
      * The data for the pager to show.
      */
-    (data: any, table: TElement, request: JQuery.jqXHR): PagerDataPart<TElement> | [number] | [number, JQuery | any[][], string[]?];
+    (
+        data: any,
+        table: TElement,
+        request: JQuery.jqXHR,
+    ): PagerDataPart<TElement> | [number] | [number, JQuery | any[][], string[]?];
 }

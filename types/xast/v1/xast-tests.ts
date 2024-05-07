@@ -1,11 +1,11 @@
-import { Data, Node, Point, Position } from 'unist';
-import { Parent, Attributes, Literal, Root, Element, Doctype, Comment, Text, Instruction, Cdata } from 'xast';
+import { Data, Node, Point, Position } from "unist";
+import { Attributes, Cdata, Comment, Doctype, Element, Instruction, Literal, Parent, Root, Text } from "xast";
 
 const data: Data = {
-    string: 'string',
+    string: "string",
     number: 1,
     object: {
-        key: 'value',
+        key: "value",
     },
     array: [],
     boolean: true,
@@ -25,76 +25,76 @@ const position: Position = {
 };
 
 const literal: Literal = {
-    type: 'text',
+    type: "text",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const comment: Comment = {
-    type: 'comment',
+    type: "comment",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const text: Text = {
-    type: 'text',
+    type: "text",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const docType: Doctype = {
-    type: 'doctype',
+    type: "doctype",
     data,
     position,
-    name: 'name',
-    public: 'public',
-    system: 'system',
+    name: "name",
+    public: "public",
+    system: "system",
 };
 
 const cdata: Cdata = {
-    type: 'cdata',
+    type: "cdata",
     data,
     position,
-    value: 'value',
+    value: "value",
 };
 
 const instruction: Instruction = {
-    type: 'instruction',
+    type: "instruction",
     data,
     position,
-    name: 'name',
-    value: 'value',
+    name: "name",
+    value: "value",
 };
 
 let element: Element = getElement();
 
 const parent: Parent = {
-    type: 'parent',
+    type: "parent",
     data,
     position,
     children: [getElement(), docType, comment, text, instruction, cdata],
 };
 
 let root: Root = {
-    type: 'root',
+    type: "root",
     data,
     position,
     children: [getElement(), docType, comment, text, instruction, cdata],
 };
 
 const attributes: Attributes = {
-    attributeName1: 'attributeValue',
+    attributeName1: "attributeValue",
     attributeName2: null,
     attributeName3: undefined,
 };
 
 function getElement(): Element {
     return {
-        type: 'element',
-        name: 'name',
+        type: "element",
+        name: "name",
         attributes,
         children: [element, comment, text, cdata, instruction],
     };
@@ -102,10 +102,10 @@ function getElement(): Element {
 
 // Test custom xast node registration
 interface Custom extends Node {
-    type: 'custom';
+    type: "custom";
 }
 
-declare module 'xast' {
+declare module "xast" {
     interface RootChildMap {
         custom: Custom;
     }
@@ -116,33 +116,33 @@ declare module 'xast' {
 }
 
 root = {
-    type: 'root',
+    type: "root",
     data,
     position,
-    children: [{ type: 'custom' }],
+    children: [{ type: "custom" }],
 };
 
 element = {
-    type: 'element',
-    name: 'foo',
+    type: "element",
+    name: "foo",
     data,
     position,
-    children: [{ type: 'custom' }],
+    children: [{ type: "custom" }],
 };
 
 root = {
-    type: 'root',
+    type: "root",
     data,
     position,
     // @ts-expect-error
-    children: [{ type: 'invalid' }],
+    children: [{ type: "invalid" }],
 };
 
 element = {
-    type: 'element',
-    name: 'foo',
+    type: "element",
+    name: "foo",
     data,
     position,
     // @ts-expect-error
-    children: [{ type: 'invalid' }],
+    children: [{ type: "invalid" }],
 };

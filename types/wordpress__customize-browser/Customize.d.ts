@@ -1,16 +1,16 @@
-import { Class } from './Class';
-import { Control } from './Control';
-import { Control_Constructor } from './Control_Constructor';
-import { Notifications } from './Notifications';
-import { Panel } from './Panel';
-import { Panel_Constructor } from './Panel_Constructor';
-import { Previewer } from './Previewer';
-import { Section } from './Section';
-import { Section_Constructor } from './Section_Constructor';
-import { Setting } from './Setting';
-import { Setting_Constructor } from './Setting_Constructor';
-import { Utils } from './Utils';
-import { Values } from './Values';
+import { Class } from "./Class";
+import { Control } from "./Control";
+import { Control_Constructor } from "./Control_Constructor";
+import { Notifications } from "./Notifications";
+import { Panel } from "./Panel";
+import { Panel_Constructor } from "./Panel_Constructor";
+import { Previewer } from "./Previewer";
+import { Section } from "./Section";
+import { Section_Constructor } from "./Section_Constructor";
+import { Setting } from "./Setting";
+import { Setting_Constructor } from "./Setting_Constructor";
+import { Utils } from "./Utils";
+import { Values } from "./Values";
 
 export interface DirtyValuesOptions {
     unsaved?: boolean | undefined;
@@ -50,7 +50,7 @@ export interface Customize extends Values<Setting<any>> {
     panelConstructor: Panel_Constructor;
     sectionConstructor: Section_Constructor;
     _handleSettingValidities(args: HandleSettingValiditiesArgs): void;
-    findControlsForSettings(settingIds: ReadonlyArray<string>): Record<string, Control>;
+    findControlsForSettings(settingIds: readonly string[]): Record<string, Control>;
     reflowPaneContents(): void;
     state: Values<Class>;
     settings: any; // TODO

@@ -7,4 +7,4 @@ export class GraphicsCommand {
     getBoolean(ix: number): boolean;
     getObject(ix: number): any;
 }
-import { GraphicsCommandType } from './GraphicsCommandType';
+import { GraphicsCommandType } from "./GraphicsCommandType";

@@ -1,4 +1,4 @@
-import isIterable = require('is-iterable');
+import isIterable = require("is-iterable");
 
 declare const it: unknown;
 

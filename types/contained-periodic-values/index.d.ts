@@ -1,8 +1,3 @@
-// Type definitions for contained-periodic-values 1.0
-// Project: https://github.com/jmeas/contained-periodic-values.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Find how many values of a discrete periodic function contained in an interval.
  */

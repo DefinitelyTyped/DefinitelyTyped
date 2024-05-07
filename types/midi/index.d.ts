@@ -1,12 +1,7 @@
-// Type definitions for midi 2.0
-// Project: https://github.com/justinlatimer/node-midi
-// Definitions by: Matthew Soulanille <https://github.com/mattsoulanille>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as Stream from 'stream';
-import * as EventEmitter from 'events';
+import * as EventEmitter from "events";
+import * as Stream from "stream";
 
 /**
  * An array of numbers corresponding to the MIDI bytes: [status, data1, data2].
@@ -40,7 +35,7 @@ export class Input extends EventEmitter {
      */
     openVirtualPort(port: string): void;
 
-    on(event: 'message', callback: MidiCallback): this;
+    on(event: "message", callback: MidiCallback): this;
 }
 
 export class Output {

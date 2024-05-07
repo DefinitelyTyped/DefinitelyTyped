@@ -1,6 +1,69 @@
 {
     "private": true,
+    "name": "@types/vis",
+    "version": "4.21.9999",
+    "projects": [
+        "https://github.com/almende/vis",
+        "http://visjs.org"
+    ],
     "dependencies": {
         "moment": ">=2.13.0"
-    }
+    },
+    "devDependencies": {
+        "@types/vis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michaël Bitard",
+            "githubUsername": "MichaelBitard"
+        },
+        {
+            "name": "MacLeod Broad",
+            "githubUsername": "macleodbroad-wf"
+        },
+        {
+            "name": "Adrian Caballero",
+            "githubUsername": "adripanico"
+        },
+        {
+            "name": "Severin",
+            "githubUsername": "seveves"
+        },
+        {
+            "name": "kaktus40",
+            "githubUsername": "kaktus40"
+        },
+        {
+            "name": "Matthieu Maitre",
+            "githubUsername": "mmaitre314"
+        },
+        {
+            "name": "Adam Lewis",
+            "githubUsername": "supercargo"
+        },
+        {
+            "name": "Alex Soh",
+            "githubUsername": "takato1314"
+        },
+        {
+            "name": "dcop",
+            "githubUsername": "dcop"
+        },
+        {
+            "name": "Avraham Essoudry",
+            "githubUsername": "avrahamcool"
+        },
+        {
+            "name": "Dmitriy Trifonov",
+            "githubUsername": "divideby"
+        },
+        {
+            "name": "Sam Welek",
+            "githubUsername": "tiberiushunter"
+        },
+        {
+            "name": "Slaven Tomac",
+            "githubUsername": "slavede"
+        }
+    ]
 }

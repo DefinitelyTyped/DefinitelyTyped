@@ -1,22 +1,11 @@
-// Type definitions for react-grid-layout 1.3
-// Project: https://github.com/STRML/react-grid-layout
-// Definitions by: Andrew Birkholz <https://github.com/abirkholz>
-//                 Ali Taheri <https://github.com/alitaheri>
-//                 Zheyang Song <https://github.com/ZheyangSong>
-//                 Andrew Hathaway <https://github.com/andrewhathaway>
-//                 Manav Mishra <https://github.com/manav-m>
-//                 Alexey Fyodorov <https://github.com/al-fyodorov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
 declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> {}
 
-type ResizeHandle = 's' | 'w' | 'e' | 'n' | 'sw' | 'nw' | 'se' | 'ne';
+type ResizeHandle = "s" | "w" | "e" | "n" | "sw" | "nw" | "se" | "ne";
 
 declare namespace ReactGridLayout {
     interface Layout {
@@ -113,9 +102,9 @@ declare namespace ReactGridLayout {
 
     type DragOverEvent = MouseEvent & {
         nativeEvent: {
-            layerX: number,
-            layerY: number,
-        } & Event
+            layerX: number;
+            layerY: number;
+        } & Event;
     };
 
     interface CoreProps {
@@ -158,7 +147,7 @@ declare namespace ReactGridLayout {
         /**
          * Compaction type.
          */
-        compactType?: 'vertical' | 'horizontal' | null | undefined;
+        compactType?: "vertical" | "horizontal" | null | undefined;
 
         /**
          * Rows have a static height, but you can change this based on breakpoints if you like.
@@ -300,7 +289,7 @@ declare namespace ReactGridLayout {
          * This callback should return an object to dynamically change the droppingItem size
          * Return false to short-circuit the dragover
          */
-        onDropDragOver?(e: DragOverEvent): { w?: number, h?: number } | false | undefined;
+        onDropDragOver?(e: DragOverEvent): { w?: number; h?: number } | false | undefined;
 
         /**
          * Ref for getting a reference for the grid's wrapping div.

@@ -1,2 +1,2 @@
-import { startsWith } from '../index';
+import { startsWith } from "../index";
 export default startsWith;

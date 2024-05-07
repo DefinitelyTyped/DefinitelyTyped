@@ -1,13 +1,3 @@
-// Type definitions for eslint 8.44
-// Project: https://eslint.org
-// Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
-//                 Jed Fox <https://github.com/j-f1>
-//                 Saad Quadri <https://github.com/saadq>
-//                 Jason Kwok <https://github.com/JasonHK>
-//                 Brad Zacher <https://github.com/bradzacher>
-//                 JounQin <https://github.com/JounQin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="helpers.d.ts" />
 
 import * as ESTree from "estree";
@@ -115,22 +105,22 @@ export namespace Scope {
         | { type: "FunctionName"; node: ESTree.FunctionDeclaration | ESTree.FunctionExpression; parent: null }
         | { type: "ImplicitGlobalVariable"; node: ESTree.Program; parent: null }
         | {
-              type: "ImportBinding";
-              node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier;
-              parent: ESTree.ImportDeclaration;
-          }
+            type: "ImportBinding";
+            node: ESTree.ImportSpecifier | ESTree.ImportDefaultSpecifier | ESTree.ImportNamespaceSpecifier;
+            parent: ESTree.ImportDeclaration;
+        }
         | {
-              type: "Parameter";
-              node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression;
-              parent: null;
-          }
+            type: "Parameter";
+            node: ESTree.FunctionDeclaration | ESTree.FunctionExpression | ESTree.ArrowFunctionExpression;
+            parent: null;
+        }
         | { type: "TDZ"; node: any; parent: null }
         | { type: "Variable"; node: ESTree.VariableDeclarator; parent: ESTree.VariableDeclaration };
 
     type Definition = DefinitionType & { name: ESTree.Identifier };
 }
 
-//#region SourceCode
+// #region SourceCode
 
 export class SourceCode {
     text: string;
@@ -200,8 +190,9 @@ export class SourceCode {
 
     getTokensBetween: SourceCode.BinaryCursorWithCountOptions;
 
-    getTokens: ((node: ESTree.Node, beforeCount?: number, afterCount?: number) => AST.Token[]) &
-        SourceCode.UnaryNodeCursorWithCountOptions;
+    getTokens:
+        & ((node: ESTree.Node, beforeCount?: number, afterCount?: number) => AST.Token[])
+        & SourceCode.UnaryNodeCursorWithCountOptions;
 
     commentsExistBetween(
         left: ESTree.Node | AST.Token | ESTree.Comment,
@@ -217,8 +208,8 @@ export class SourceCode {
     getScope(node: ESTree.Node): Scope.Scope;
 
     isSpaceBetween(
-        first: ESTree.Node|AST.Token,
-        second: ESTree.Node|AST.Token
+        first: ESTree.Node | AST.Token,
+        second: ESTree.Node | AST.Token,
     ): boolean;
 
     markVariableAsUsed(name: string, refNode?: ESTree.Node): boolean;
@@ -244,7 +235,11 @@ export namespace SourceCode {
             node: ESTree.Node,
             options:
                 | ((token: AST.Token) => token is T)
-                | { filter: (token: AST.Token) => token is T; includeComments?: false | undefined; skip?: number | undefined },
+                | {
+                    filter: (token: AST.Token) => token is T;
+                    includeComments?: false | undefined;
+                    skip?: number | undefined;
+                },
         ): T | null;
         <T extends AST.Token | ESTree.Comment>(
             node: ESTree.Node,
@@ -257,7 +252,11 @@ export namespace SourceCode {
         (
             node: ESTree.Node,
             options?:
-                | { filter?: ((token: AST.Token) => boolean) | undefined; includeComments?: false | undefined; skip?: number | undefined }
+                | {
+                    filter?: ((token: AST.Token) => boolean) | undefined;
+                    includeComments?: false | undefined;
+                    skip?: number | undefined;
+                }
                 | ((token: AST.Token) => boolean)
                 | number,
         ): AST.Token | null;
@@ -276,7 +275,11 @@ export namespace SourceCode {
             node: ESTree.Node,
             options:
                 | ((token: AST.Token) => token is T)
-                | { filter: (token: AST.Token) => token is T; includeComments?: false | undefined; count?: number | undefined },
+                | {
+                    filter: (token: AST.Token) => token is T;
+                    includeComments?: false | undefined;
+                    count?: number | undefined;
+                },
         ): T[];
         <T extends AST.Token | ESTree.Comment>(
             node: ESTree.Node,
@@ -289,7 +292,11 @@ export namespace SourceCode {
         (
             node: ESTree.Node,
             options?:
-                | { filter?: ((token: AST.Token) => boolean) | undefined; includeComments?: false | undefined; count?: number | undefined }
+                | {
+                    filter?: ((token: AST.Token) => boolean) | undefined;
+                    includeComments?: false | undefined;
+                    count?: number | undefined;
+                }
                 | ((token: AST.Token) => boolean)
                 | number,
         ): AST.Token[];
@@ -308,7 +315,11 @@ export namespace SourceCode {
             node: ESTree.Node | AST.Token | ESTree.Comment,
             options:
                 | ((token: AST.Token) => token is T)
-                | { filter: (token: AST.Token) => token is T; includeComments?: false | undefined; skip?: number | undefined },
+                | {
+                    filter: (token: AST.Token) => token is T;
+                    includeComments?: false | undefined;
+                    skip?: number | undefined;
+                },
         ): T | null;
         <T extends AST.Token | ESTree.Comment>(
             node: ESTree.Node | AST.Token | ESTree.Comment,
@@ -321,7 +332,11 @@ export namespace SourceCode {
         (
             node: ESTree.Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: ((token: AST.Token) => boolean) | undefined; includeComments?: false | undefined; skip?: number | undefined }
+                | {
+                    filter?: ((token: AST.Token) => boolean) | undefined;
+                    includeComments?: false | undefined;
+                    skip?: number | undefined;
+                }
                 | ((token: AST.Token) => boolean)
                 | number,
         ): AST.Token | null;
@@ -340,7 +355,11 @@ export namespace SourceCode {
             node: ESTree.Node | AST.Token | ESTree.Comment,
             options:
                 | ((token: AST.Token) => token is T)
-                | { filter: (token: AST.Token) => token is T; includeComments?: false | undefined; count?: number | undefined },
+                | {
+                    filter: (token: AST.Token) => token is T;
+                    includeComments?: false | undefined;
+                    count?: number | undefined;
+                },
         ): T[];
         <T extends AST.Token | ESTree.Comment>(
             node: ESTree.Node | AST.Token | ESTree.Comment,
@@ -353,7 +372,11 @@ export namespace SourceCode {
         (
             node: ESTree.Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: ((token: AST.Token) => boolean) | undefined; includeComments?: false | undefined; count?: number | undefined }
+                | {
+                    filter?: ((token: AST.Token) => boolean) | undefined;
+                    includeComments?: false | undefined;
+                    count?: number | undefined;
+                }
                 | ((token: AST.Token) => boolean)
                 | number,
         ): AST.Token[];
@@ -373,7 +396,11 @@ export namespace SourceCode {
             right: ESTree.Node | AST.Token | ESTree.Comment,
             options:
                 | ((token: AST.Token) => token is T)
-                | { filter: (token: AST.Token) => token is T; includeComments?: false | undefined; skip?: number | undefined },
+                | {
+                    filter: (token: AST.Token) => token is T;
+                    includeComments?: false | undefined;
+                    skip?: number | undefined;
+                },
         ): T | null;
         <T extends AST.Token | ESTree.Comment>(
             left: ESTree.Node | AST.Token | ESTree.Comment,
@@ -388,7 +415,11 @@ export namespace SourceCode {
             left: ESTree.Node | AST.Token | ESTree.Comment,
             right: ESTree.Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: ((token: AST.Token) => boolean) | undefined; includeComments?: false | undefined; skip?: number | undefined }
+                | {
+                    filter?: ((token: AST.Token) => boolean) | undefined;
+                    includeComments?: false | undefined;
+                    skip?: number | undefined;
+                }
                 | ((token: AST.Token) => boolean)
                 | number,
         ): AST.Token | null;
@@ -409,7 +440,11 @@ export namespace SourceCode {
             right: ESTree.Node | AST.Token | ESTree.Comment,
             options:
                 | ((token: AST.Token) => token is T)
-                | { filter: (token: AST.Token) => token is T; includeComments?: false | undefined; count?: number | undefined },
+                | {
+                    filter: (token: AST.Token) => token is T;
+                    includeComments?: false | undefined;
+                    count?: number | undefined;
+                },
         ): T[];
         <T extends AST.Token | ESTree.Comment>(
             left: ESTree.Node | AST.Token | ESTree.Comment,
@@ -424,7 +459,11 @@ export namespace SourceCode {
             left: ESTree.Node | AST.Token | ESTree.Comment,
             right: ESTree.Node | AST.Token | ESTree.Comment,
             options?:
-                | { filter?: ((token: AST.Token) => boolean) | undefined; includeComments?: false | undefined; count?: number | undefined }
+                | {
+                    filter?: ((token: AST.Token) => boolean) | undefined;
+                    includeComments?: false | undefined;
+                    count?: number | undefined;
+                }
                 | ((token: AST.Token) => boolean)
                 | number,
         ): AST.Token[];
@@ -440,7 +479,7 @@ export namespace SourceCode {
     }
 }
 
-//#endregion
+// #endregion
 
 export namespace Rule {
     /**
@@ -462,7 +501,9 @@ export namespace Rule {
         ArrayPattern?: ((node: ESTree.ArrayPattern & NodeParentExtension) => void) | undefined;
         "ArrayPattern:exit"?: ((node: ESTree.ArrayPattern & NodeParentExtension) => void) | undefined;
         ArrowFunctionExpression?: ((node: ESTree.ArrowFunctionExpression & NodeParentExtension) => void) | undefined;
-        "ArrowFunctionExpression:exit"?: ((node: ESTree.ArrowFunctionExpression & NodeParentExtension) => void) | undefined;
+        "ArrowFunctionExpression:exit"?:
+            | ((node: ESTree.ArrowFunctionExpression & NodeParentExtension) => void)
+            | undefined;
         AssignmentExpression?: ((node: ESTree.AssignmentExpression & NodeParentExtension) => void) | undefined;
         "AssignmentExpression:exit"?: ((node: ESTree.AssignmentExpression & NodeParentExtension) => void) | undefined;
         AssignmentPattern?: ((node: ESTree.AssignmentPattern & NodeParentExtension) => void) | undefined;
@@ -500,9 +541,13 @@ export namespace Rule {
         ExportAllDeclaration?: ((node: ESTree.ExportAllDeclaration & NodeParentExtension) => void) | undefined;
         "ExportAllDeclaration:exit"?: ((node: ESTree.ExportAllDeclaration & NodeParentExtension) => void) | undefined;
         ExportDefaultDeclaration?: ((node: ESTree.ExportDefaultDeclaration & NodeParentExtension) => void) | undefined;
-        "ExportDefaultDeclaration:exit"?: ((node: ESTree.ExportDefaultDeclaration & NodeParentExtension) => void) | undefined;
+        "ExportDefaultDeclaration:exit"?:
+            | ((node: ESTree.ExportDefaultDeclaration & NodeParentExtension) => void)
+            | undefined;
         ExportNamedDeclaration?: ((node: ESTree.ExportNamedDeclaration & NodeParentExtension) => void) | undefined;
-        "ExportNamedDeclaration:exit"?: ((node: ESTree.ExportNamedDeclaration & NodeParentExtension) => void) | undefined;
+        "ExportNamedDeclaration:exit"?:
+            | ((node: ESTree.ExportNamedDeclaration & NodeParentExtension) => void)
+            | undefined;
         ExportSpecifier?: ((node: ESTree.ExportSpecifier & NodeParentExtension) => void) | undefined;
         "ExportSpecifier:exit"?: ((node: ESTree.ExportSpecifier & NodeParentExtension) => void) | undefined;
         ExpressionStatement?: ((node: ESTree.ExpressionStatement & NodeParentExtension) => void) | undefined;
@@ -524,11 +569,15 @@ export namespace Rule {
         ImportDeclaration?: ((node: ESTree.ImportDeclaration & NodeParentExtension) => void) | undefined;
         "ImportDeclaration:exit"?: ((node: ESTree.ImportDeclaration & NodeParentExtension) => void) | undefined;
         ImportDefaultSpecifier?: ((node: ESTree.ImportDefaultSpecifier & NodeParentExtension) => void) | undefined;
-        "ImportDefaultSpecifier:exit"?: ((node: ESTree.ImportDefaultSpecifier & NodeParentExtension) => void) | undefined;
+        "ImportDefaultSpecifier:exit"?:
+            | ((node: ESTree.ImportDefaultSpecifier & NodeParentExtension) => void)
+            | undefined;
         ImportExpression?: ((node: ESTree.ImportExpression & NodeParentExtension) => void) | undefined;
         "ImportExpression:exit"?: ((node: ESTree.ImportExpression & NodeParentExtension) => void) | undefined;
         ImportNamespaceSpecifier?: ((node: ESTree.ImportNamespaceSpecifier & NodeParentExtension) => void) | undefined;
-        "ImportNamespaceSpecifier:exit"?: ((node: ESTree.ImportNamespaceSpecifier & NodeParentExtension) => void) | undefined;
+        "ImportNamespaceSpecifier:exit"?:
+            | ((node: ESTree.ImportNamespaceSpecifier & NodeParentExtension) => void)
+            | undefined;
         ImportSpecifier?: ((node: ESTree.ImportSpecifier & NodeParentExtension) => void) | undefined;
         "ImportSpecifier:exit"?: ((node: ESTree.ImportSpecifier & NodeParentExtension) => void) | undefined;
         LabeledStatement?: ((node: ESTree.LabeledStatement & NodeParentExtension) => void) | undefined;
@@ -574,7 +623,9 @@ export namespace Rule {
         SwitchStatement?: ((node: ESTree.SwitchStatement & NodeParentExtension) => void) | undefined;
         "SwitchStatement:exit"?: ((node: ESTree.SwitchStatement & NodeParentExtension) => void) | undefined;
         TaggedTemplateExpression?: ((node: ESTree.TaggedTemplateExpression & NodeParentExtension) => void) | undefined;
-        "TaggedTemplateExpression:exit"?: ((node: ESTree.TaggedTemplateExpression & NodeParentExtension) => void) | undefined;
+        "TaggedTemplateExpression:exit"?:
+            | ((node: ESTree.TaggedTemplateExpression & NodeParentExtension) => void)
+            | undefined;
         TemplateElement?: ((node: ESTree.TemplateElement & NodeParentExtension) => void) | undefined;
         "TemplateElement:exit"?: ((node: ESTree.TemplateElement & NodeParentExtension) => void) | undefined;
         TemplateLiteral?: ((node: ESTree.TemplateLiteral & NodeParentExtension) => void) | undefined;
@@ -645,17 +696,15 @@ export namespace Rule {
     }
 
     interface RuleMetaData {
+        /** Properties often used for documentation generation and tooling. */
         docs?: {
-            /** Provides a short description of the rule. */
+            /** Provides a short description of the rule. Commonly used when generating lists of rules. */
             description?: string | undefined;
-            /**
-             * TODO: remove this field in next major release of @types/eslint.
-             * @deprecated no longer used
-             */
+            /** Historically used by some plugins that divide rules into categories in their documentation. */
             category?: string | undefined;
-            /** Whether the rule is enabled in the plugin's `recommended` configuration. */
+            /** Historically used by some plugins to indicate a rule belongs in their `recommended` configuration. */
             recommended?: boolean | undefined;
-            /** Specifies the URL at which the full documentation can be accessed (enabling code editors to provide a helpful link on highlighted rule violations). */
+            /** Specifies the URL at which the full documentation can be accessed. Code editors often use this to provide a helpful link on highlighted rule violations. */
             url?: string | undefined;
             /**
              * TODO: remove this field in next major release of @types/eslint.
@@ -673,7 +722,7 @@ export namespace Rule {
         /**
          * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
          * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
-         * TODO: schema is potentially planned to be no longer be optional in v9 (https://github.com/eslint/rfcs/blob/main/designs/2021-schema-object-rules/README.md)
+         * Mandatory for rules with options.
          */
         schema?: JSONSchema4 | JSONSchema4[] | undefined;
 
@@ -702,7 +751,8 @@ export namespace Rule {
         id: string;
         options: any[];
         settings: { [name: string]: any };
-        parserPath: string;
+        parserPath: string | undefined;
+        languageOptions: Linter.FlatConfig["languageOptions"];
         parserOptions: Linter.ParserOptions;
         parserServices: SourceCode.ParserServices;
         cwd: string;
@@ -784,20 +834,32 @@ export namespace Rule {
     }
 }
 
-//#region Linter
+// #region Linter
 
 export class Linter {
     static version: string;
 
     version: string;
 
-    constructor(options?: { cwd?: string | undefined, configType?: 'flat' });
+    constructor(options?: { cwd?: string | undefined; configType?: "flat" | "eslintrc" });
 
-    verify(code: SourceCode | string, config: Linter.Config | Linter.FlatConfig[], filename?: string): Linter.LintMessage[];
-    verify(code: SourceCode | string, config: Linter.Config | Linter.FlatConfig[], options: Linter.LintOptions): Linter.LintMessage[];
+    verify(
+        code: SourceCode | string,
+        config: Linter.Config | Linter.FlatConfig[],
+        filename?: string,
+    ): Linter.LintMessage[];
+    verify(
+        code: SourceCode | string,
+        config: Linter.Config | Linter.FlatConfig[],
+        options: Linter.LintOptions,
+    ): Linter.LintMessage[];
 
     verifyAndFix(code: string, config: Linter.Config | Linter.FlatConfig[], filename?: string): Linter.FixReport;
-    verifyAndFix(code: string, config: Linter.Config | Linter.FlatConfig[], options: Linter.FixOptions): Linter.FixReport;
+    verifyAndFix(
+        code: string,
+        config: Linter.Config | Linter.FlatConfig[],
+        options: Linter.FixOptions,
+    ): Linter.FixReport;
 
     getSourceCode(): SourceCode;
 
@@ -811,51 +873,248 @@ export class Linter {
 }
 
 export namespace Linter {
+    /**
+     * The numeric severity level for a rule.
+     *
+     * - `0` means off.
+     * - `1` means warn.
+     * - `2` means error.
+     *
+     * @see [Rule Severities](https://eslint.org/docs/latest/use/configure/rules#rule-severities)
+     */
     type Severity = 0 | 1 | 2;
+
+    /**
+     * The human readable severity level for a rule.
+     *
+     * @see [Rule Severities](https://eslint.org/docs/latest/use/configure/rules#rule-severities)
+     */
     type StringSeverity = "off" | "warn" | "error";
 
+    /**
+     * The numeric or human readable severity level for a rule.
+     *
+     * @see [Rule Severities](https://eslint.org/docs/latest/use/configure/rules#rule-severities)
+     */
     type RuleLevel = Severity | StringSeverity;
+
+    /**
+     * An array containing the rule severity level, followed by the rule options.
+     *
+     * @see [Rules](https://eslint.org/docs/user-guide/configuring/rules)
+     */
     type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
+    /**
+     * The severity level for the rule or an array containing the rule severity level, followed by the rule options.
+     *
+     * @see [Rules](https://eslint.org/docs/user-guide/configuring/rules)
+     */
     type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
 
+    /**
+     * The rules config object is a key/value map of rule names and their severity and options.
+     */
     interface RulesRecord {
         [rule: string]: RuleEntry;
     }
 
+    /**
+     * A configuration object that may have a `rules` block.
+     */
     interface HasRules<Rules extends RulesRecord = RulesRecord> {
         rules?: Partial<Rules> | undefined;
     }
 
-    interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends HasRules<Rules> {
+    /**
+     * ESLint configuration.
+     *
+     * @see [ESLint Configuration](https://eslint.org/docs/latest/user-guide/configuring/)
+     */
+    interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules>
+        extends HasRules<Rules>
+    {
         $schema?: string | undefined;
+
+        /**
+         * An environment provides predefined global variables.
+         *
+         * @see [Environments](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-environments)
+         */
         env?: { [name: string]: boolean } | undefined;
+
+        /**
+         * Extending configuration files.
+         *
+         * @see [Extends](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#extending-configuration-files)
+         */
         extends?: string | string[] | undefined;
+
+        /**
+         * Specifying globals.
+         *
+         * @see [Globals](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-globals)
+         */
         globals?: { [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable" } | undefined;
+
+        /**
+         * Disable processing of inline comments.
+         *
+         * @see [Disabling Inline Comments](https://eslint.org/docs/latest/user-guide/configuring/rules#disabling-inline-comments)
+         */
         noInlineConfig?: boolean | undefined;
+
+        /**
+         * Overrides can be used to use a differing configuration for matching sub-directories and files.
+         *
+         * @see [How do overrides work](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#how-do-overrides-work)
+         */
         overrides?: Array<ConfigOverride<OverrideRules>> | undefined;
+
+        /**
+         * Parser.
+         *
+         * @see [Working with Custom Parsers](https://eslint.org/docs/latest/developer-guide/working-with-custom-parsers)
+         * @see [Specifying Parser](https://eslint.org/docs/latest/user-guide/configuring/plugins#configure-a-parser)
+         */
         parser?: string | undefined;
+
+        /**
+         * Parser options.
+         *
+         * @see [Working with Custom Parsers](https://eslint.org/docs/latest/developer-guide/working-with-custom-parsers)
+         * @see [Specifying Parser Options](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options)
+         */
         parserOptions?: ParserOptions | undefined;
+
+        /**
+         * Which third-party plugins define additional rules, environments, configs, etc. for ESLint to use.
+         *
+         * @see [Configuring Plugins](https://eslint.org/docs/latest/user-guide/configuring/plugins#configure-plugins)
+         */
         plugins?: string[] | undefined;
+
+        /**
+         * Specifying processor.
+         *
+         * @see [processor](https://eslint.org/docs/latest/user-guide/configuring/plugins#specify-a-processor)
+         */
         processor?: string | undefined;
+
+        /**
+         * Report unused `ESLint-disable` comments as warning.
+         *
+         * @see [Report unused `ESLint-disable` comments](https://eslint.org/docs/latest/user-guide/configuring/rules#report-unused-eslint-disable-comments)
+         */
         reportUnusedDisableDirectives?: boolean | undefined;
+
+        /**
+         * Settings.
+         *
+         * @see [Settings](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#adding-shared-settings)
+         */
         settings?: { [name: string]: any } | undefined;
     }
 
+    /**
+     * The overwrites that apply more differing configuration to specific files or directories.
+     */
     interface ConfigOverride<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+        /**
+         * The glob patterns for excluded files.
+         */
         excludedFiles?: string | string[] | undefined;
+
+        /**
+         * The glob patterns for target files.
+         */
         files: string | string[];
     }
 
+    /**
+     * ESLint configuration.
+     *
+     * @see [ESLint Configuration](https://eslint.org/docs/latest/user-guide/configuring/)
+     */
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
-    interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules> extends BaseConfig<Rules, OverrideRules> {
+    interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules>
+        extends BaseConfig<Rules, OverrideRules>
+    {
+        /**
+         * Tell ESLint to ignore specific files and directories.
+         *
+         * @see [Ignore Patterns](https://eslint.org/docs/latest/user-guide/configuring/ignoring-code)
+         */
         ignorePatterns?: string | string[] | undefined;
+
+        /**
+         * @see [Using Configuration Files](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#using-configuration-files)
+         */
         root?: boolean | undefined;
     }
 
+    /**
+     * Parser options.
+     *
+     * @see [Specifying Parser Options](https://eslint.org/docs/user-guide/configuring/language-options#specifying-parser-options)
+     */
     interface ParserOptions {
-        ecmaVersion?: 3 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 2015 | 2016 | 2017 | 2018 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | "latest" | undefined;
+        /**
+         * Accepts any valid ECMAScript version number or `'latest'`:
+         *
+         * - A version: es3, es5, es6, es7, es8, es9, es10, es11, es12, es13, es14, ..., or
+         * - A year: es2015, es2016, es2017, es2018, es2019, es2020, es2021, es2022, es2023, ..., or
+         * - `'latest'`
+         *
+         * When it's a version or a year, the value must be a number - so do not include the `es` prefix.
+         *
+         * Specifies the version of ECMAScript syntax you want to use. This is used by the parser to determine how to perform scope analysis, and it affects the default
+         *
+         * @default 2018
+         *
+         * @see https://typescript-eslint.io/architecture/parser/#ecmaversion
+         */
+        ecmaVersion?:
+            | 3
+            | 5
+            | 6
+            | 7
+            | 8
+            | 9
+            | 10
+            | 11
+            | 12
+            | 13
+            | 14
+            | 15
+            | 2015
+            | 2016
+            | 2017
+            | 2018
+            | 2019
+            | 2020
+            | 2021
+            | 2022
+            | 2023
+            | 2024
+            | "latest"
+            | undefined;
+
+        /**
+         * Set to "script" (default) or "module" if your code is in ECMAScript modules.
+         *
+         * @default 'script'
+         *
+         * @see https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options
+         */
         sourceType?: "script" | "module" | undefined;
+
+        /**
+         * An object indicating which additional language features you'd like to use.
+         *
+         * @see https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options
+         * @see https://typescript-eslint.io/architecture/parser#ecmafeatures
+         */
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;
             impliedStrict?: boolean | undefined;
@@ -918,13 +1177,24 @@ export namespace Linter {
         messages: LintMessage[];
     }
 
+    // Temporarily loosen type for just flat config files (see #68232)
+    type FlatConfigParserModule =
+        & Omit<ParserModule, "parseForESLint">
+        & ({
+            parse(text: string, options?: any): unknown;
+        } | {
+            parseForESLint(text: string, options?: any): Omit<ESLintParseResult, "ast" | "scopeManager"> & {
+                ast: unknown;
+                scopeManager?: unknown;
+            };
+        });
+
     type ParserModule =
-        | {
-              parse(text: string, options?: any): AST.Program;
-          }
-        | {
-              parseForESLint(text: string, options?: any): ESLintParseResult;
-          };
+        & ESLint.ObjectMetaProperties
+        & (
+            | { parse(text: string, options?: any): AST.Program }
+            | { parseForESLint(text: string, options?: any): ESLintParseResult }
+        );
 
     interface ESLintParseResult {
         ast: AST.Program;
@@ -939,102 +1209,118 @@ export namespace Linter {
     }
 
     // https://eslint.org/docs/developer-guide/working-with-plugins#processors-in-plugins
-    interface Processor<T extends string | ProcessorFile = string | ProcessorFile> {
+    interface Processor<T extends string | ProcessorFile = string | ProcessorFile> extends ESLint.ObjectMetaProperties {
         supportsAutofix?: boolean | undefined;
         preprocess?(text: string, filename: string): T[];
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
     }
 
-    type FlatConfigFileSpec = string | ((filePath: string) => boolean);
+    interface FlatConfig<Rules extends RulesRecord = RulesRecord> {
+        /**
+         * An string to identify the configuration object. Used in error messages and
+         * inspection tools.
+         */
+        name?: string;
 
-    interface FlatConfig {
-      /**
-       * An array of glob patterns indicating the files that the configuration
-       * object should apply to. If not specified, the configuration object applies
-       * to all files
-       */
-      files?: Array<FlatConfigFileSpec | FlatConfigFileSpec[]>;
-      /**
-       * An array of glob patterns indicating the files that the configuration
-       * object should not apply to. If not specified, the configuration object
-       * applies to all files matched by files
-       */
-      ignores?: FlatConfigFileSpec[];
-      /**
-       * An object containing settings related to how JavaScript is configured for
-       * linting.
-       */
-      languageOptions?: {
         /**
-         * The version of ECMAScript to support. May be any year (i.e., 2022) or
-         * version (i.e., 5). Set to "latest" for the most recent supported version.
-         * @default "latest"
+         * An array of glob patterns indicating the files that the configuration
+         * object should apply to. If not specified, the configuration object applies
+         * to all files
          */
-        ecmaVersion?: ParserOptions["ecmaVersion"],
+        files?: Array<string | string[]>;
+
         /**
-         * The type of JavaScript source code. Possible values are "script" for
-         * traditional script files, "module" for ECMAScript modules (ESM), and
-         * "commonjs" for CommonJS files. (default: "module" for .js and .mjs
-         * files; "commonjs" for .cjs files)
+         * An array of glob patterns indicating the files that the configuration
+         * object should not apply to. If not specified, the configuration object
+         * applies to all files matched by files
          */
-        sourceType?: "script" | "module" | "commonjs",
+        ignores?: string[];
+
         /**
-         * An object specifying additional objects that should be added to the
-         * global scope during linting.
+         * An object containing settings related to how JavaScript is configured for
+         * linting.
          */
-        globals?: ESLint.Environment["globals"],
+        languageOptions?: {
+            /**
+             * The version of ECMAScript to support. May be any year (i.e., 2022) or
+             * version (i.e., 5). Set to "latest" for the most recent supported version.
+             * @default "latest"
+             */
+            ecmaVersion?: ParserOptions["ecmaVersion"];
+
+            /**
+             * The type of JavaScript source code. Possible values are "script" for
+             * traditional script files, "module" for ECMAScript modules (ESM), and
+             * "commonjs" for CommonJS files. (default: "module" for .js and .mjs
+             * files; "commonjs" for .cjs files)
+             */
+            sourceType?: "script" | "module" | "commonjs";
+
+            /**
+             * An object specifying additional objects that should be added to the
+             * global scope during linting.
+             */
+            globals?: ESLint.Environment["globals"];
+
+            /**
+             * An object containing a parse() or parseForESLint() method.
+             * If not configured, the default ESLint parser (Espree) will be used.
+             */
+            parser?: FlatConfigParserModule;
+
+            /**
+             * An object specifying additional options that are passed directly to the
+             * parser() method on the parser. The available options are parser-dependent
+             */
+            parserOptions?: ESLint.Environment["parserOptions"];
+        };
+
         /**
-         * An object containing a parse() or parseForESLint() method.
-         * If not configured, the default ESLint parser (Espree) will be used.
+         * An object containing settings related to the linting process
          */
-        parser?: ParserModule,
+        linterOptions?: {
+            /**
+             * A boolean value indicating if inline configuration is allowed.
+             */
+            noInlineConfig?: boolean;
+
+            /**
+             * A severity value indicating if and how unused disable directives should be
+             * tracked and reported.
+             */
+            reportUnusedDisableDirectives?: Severity | StringSeverity | boolean;
+        };
+
         /**
-         * An object specifying additional options that are passed directly to the
-         * parser() method on the parser. The available options are parser-dependent
+         * Either an object containing preprocess() and postprocess() methods or a
+         * string indicating the name of a processor inside of a plugin
+         * (i.e., "pluginName/processorName").
          */
-        parserOptions?: ESLint.Environment["parserOptions"],
-      };
-      /**
-       * An object containing settings related to the linting process
-       */
-      linterOptions?: {
+        processor?: string | Processor;
+
         /**
-         * A Boolean value indicating if inline configuration is allowed.
+         * An object containing a name-value mapping of plugin names to plugin objects.
+         * When files is specified, these plugins are only available to the matching files.
          */
-        noInlineConfig?: boolean,
+        plugins?: Record<string, ESLint.Plugin>;
+
         /**
-         * A Boolean value indicating if unused disable directives should be
-         * tracked and reported.
+         * An object containing the configured rules. When files or ignores are specified,
+         * these rule configurations are only available to the matching files.
          */
-        reportUnusedDisableDirectives?: boolean,
-      };
-      /**
-       * Either an object containing preprocess() and postprocess() methods or a
-       * string indicating the name of a processor inside of a plugin
-       * (i.e., "pluginName/processorName").
-       */
-      processor?: string | Processor;
-      /**
-       * An object containing a name-value mapping of plugin names to plugin objects.
-       * When files is specified, these plugins are only available to the matching files.
-       */
-      plugins?: Record<string, ESLint.Plugin>;
-      /**
-       * An object containing the configured rules. When files or ignores are specified,
-       * these rule configurations are only available to the matching files.
-       */
-      rules?: RulesRecord;
-      /**
-       * An object containing name-value pairs of information that should be
-       * available to all rules.
-       */
-      settings?: Record<string, unknown>;
+        rules?: Partial<Rules>;
+
+        /**
+         * An object containing name-value pairs of information that should be
+         * available to all rules.
+         */
+        settings?: Record<string, unknown>;
     }
 }
 
-//#endregion
+// #endregion
 
-//#region ESLint
+// #region ESLint
 
 export class ESLint {
     static version: string;
@@ -1047,9 +1333,12 @@ export class ESLint {
 
     lintFiles(patterns: string | string[]): Promise<ESLint.LintResult[]>;
 
-    lintText(code: string, options?: { filePath?: string | undefined; warnIgnored?: boolean | undefined }): Promise<ESLint.LintResult[]>;
+    lintText(
+        code: string,
+        options?: { filePath?: string | undefined; warnIgnored?: boolean | undefined },
+    ): Promise<ESLint.LintResult[]>;
 
-    getRulesMetaForResults(results: ESLint.LintResult[]): ESLint.LintResultData['rulesMeta'];
+    getRulesMetaForResults(results: ESLint.LintResult[]): ESLint.LintResultData["rulesMeta"];
 
     calculateConfigForFile(filePath: string): Promise<any>;
 
@@ -1061,12 +1350,29 @@ export class ESLint {
 export namespace ESLint {
     type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<Linter.Config<Rules>, "$schema">;
 
+    interface Globals {
+        [name: string]: boolean | "writable" | "readonly" | "off";
+    }
+
     interface Environment {
-        globals?: { [name: string]: boolean; } | undefined;
+        globals?: Globals | undefined;
         parserOptions?: Linter.ParserOptions | undefined;
     }
 
-    interface Plugin {
+    interface ObjectMetaProperties {
+        /** @deprecated Use `meta.name` instead. */
+        name?: string | undefined;
+
+        /** @deprecated Use `meta.version` instead. */
+        version?: string | undefined;
+
+        meta?: {
+            name?: string | undefined;
+            version?: string | undefined;
+        };
+    }
+
+    interface Plugin extends ObjectMetaProperties {
         configs?: Record<string, ConfigData | Linter.FlatConfig | Linter.FlatConfig[]> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
@@ -1137,9 +1443,9 @@ export namespace ESLint {
     type EditInfo = Rule.Fix;
 }
 
-//#endregion
+// #endregion
 
-//#region RuleTester
+// #region RuleTester
 
 export class RuleTester {
     constructor(config?: any);
@@ -1196,4 +1502,4 @@ export namespace RuleTester {
     }
 }
 
-//#endregion
+// #endregion

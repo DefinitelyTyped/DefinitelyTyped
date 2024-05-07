@@ -17,7 +17,7 @@ app.use(
         allowPrototypes: true,
         parameterLimit: 123,
         strictNullHandling: true,
-        ignoreQueryPrefix: true
-    })
+        ignoreQueryPrefix: true,
+    }),
 );
 app.use(query({ delimiter: /regexp/ }));

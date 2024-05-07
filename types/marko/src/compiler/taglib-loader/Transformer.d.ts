@@ -1,4 +1,4 @@
-import Tag = require('./Tag');
+import Tag = require("./Tag");
 
 export default class Transformer {
     id: number;

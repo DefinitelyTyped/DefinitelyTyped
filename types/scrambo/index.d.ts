@@ -1,10 +1,5 @@
-// Type definitions for scrambo 0.3
-// Project: https://github.com/nickcolley/scrambo
-// Definitions by: Christopher Mühl <https://github.com/padarom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type NNN = '222' | '333' | '444' | '555' | '666' | '777';
-type ScrambleType = NNN | 'clock' | 'minx' | 'pyram' | 'sq1' | 'skewb';
+type NNN = "222" | "333" | "444" | "555" | "666" | "777";
+type ScrambleType = NNN | "clock" | "minx" | "pyram" | "sq1" | "skewb";
 
 declare class Scrambo {
     /**

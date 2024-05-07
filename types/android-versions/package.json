@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/android-versions",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/dvoiss/android-versions#readme"
+    ],
+    "devDependencies": {
+        "@types/android-versions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/beautify",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/gko/beautify#readme"
+    ],
+    "devDependencies": {
+        "@types/beautify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zhang Nan",
+            "githubUsername": "anyone-developer"
+        }
+    ]
+}

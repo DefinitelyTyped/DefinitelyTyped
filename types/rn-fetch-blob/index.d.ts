@@ -1,15 +1,16 @@
-// Type definitions for rn-fetch-blob 1.2
-// Project: https://github.com/joltup/rn-fetch-blob#readme
-// Definitions by: Cao Peng <https://github.com/pengcao1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const RNFetchBlob: RNFetchBlobStatic;
 export type RNFetchBlob = RNFetchBlobStatic;
 export default RNFetchBlob;
 
 interface RNFetchBlobStatic {
-    fetch(method: Methods, url: string, headers?: { [key: string]: string }, body?: {}
-        | null): StatefulPromise<FetchBlobResponse>;
+    fetch(
+        method: Methods,
+        url: string,
+        headers?: { [key: string]: string },
+        body?:
+            | {}
+            | null,
+    ): StatefulPromise<FetchBlobResponse>;
     base64: { encode(input: string): string; decode(input: string): string };
     android: AndroidApi;
     ios: IOSApi;
@@ -438,7 +439,7 @@ export interface RNFetchBlobReadStream {
 
 type Encoding = "utf8" | "ascii" | "base64";
 
-/* tslint:disable-next-line interface-name*/
+/* eslint-disable-next-line @typescript-eslint/naming-convention*/
 export interface IOSApi {
     /**
      * Open a file in {@link https://developer.apple.com/reference/uikit/uidocumentinteractioncontroller UIDocumentInteractionController},
@@ -484,7 +485,10 @@ export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Add an event listener with custom configuration
      */
-    progress(config: { count?: number | undefined, interval?: number | undefined }, callback: (received: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
+    progress(
+        config: { count?: number | undefined; interval?: number | undefined },
+        callback: (received: number, total: number) => void,
+    ): StatefulPromise<FetchBlobResponse>;
 
     /**
      * Add an event listener with custom configuration.
@@ -494,7 +498,10 @@ export interface StatefulPromise<T> extends Promise<T> {
     /**
      * Add an event listener with custom configuration
      */
-    uploadProgress(config: { count?: number | undefined, interval?: number | undefined }, callback: (sent: number, total: number) => void): StatefulPromise<FetchBlobResponse>;
+    uploadProgress(
+        config: { count?: number | undefined; interval?: number | undefined },
+        callback: (sent: number, total: number) => void,
+    ): StatefulPromise<FetchBlobResponse>;
 
     /**
      * An IOS only API, when IOS app turns into background network tasks will be terminated after ~180 seconds,

@@ -9,7 +9,7 @@ export class Test extends React.Component<any> {
             <div>
                 <CountTo to={100} speed={1000} />
                 <CountTo to={100} speed={1000} delay={50} easing={easing}>
-                {(value) => <strong>{value}</strong>}
+                    {(value) => <strong>{value}</strong>}
                 </CountTo>
             </div>
         );

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-key",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/thlorenz/parse-key"
+    ],
+    "devDependencies": {
+        "@types/parse-key": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

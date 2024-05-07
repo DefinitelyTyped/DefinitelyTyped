@@ -1,7 +1,7 @@
-import { Interface as ReadlineInterface } from 'readline';
-import { Subject, Subscription } from 'rxjs';
-import inquirer, { Answers, EditorQuestionOptions } from '../../index.js';
-import Prompt from './base.js';
+import { Interface as ReadlineInterface } from "readline";
+import { Subject, Subscription } from "rxjs";
+import inquirer, { Answers, EditorQuestionOptions } from "../../index.js";
+import Prompt from "./base.js";
 
 /**
  * The question-options for the {@link EditorPrompt `EditorPrompt<TQuestion>`}.

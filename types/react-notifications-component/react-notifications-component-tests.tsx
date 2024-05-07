@@ -1,23 +1,23 @@
-import * as React from 'react';
-import ReactNotification, { ReactNotificationOptions, store } from 'react-notifications-component';
+import * as React from "react";
+import ReactNotification, { ReactNotificationOptions, store } from "react-notifications-component";
 
 const SampleNotification = () => {
     store.addNotification({
-        title: 'Wonderful!',
-        message: 'Configurable',
-        type: 'success',
-        insert: 'top',
-        container: 'top-right',
-        animationIn: ['animated', 'fadeIn'],
-        animationOut: ['animated', 'fadeOut'],
+        title: "Wonderful!",
+        message: "Configurable",
+        type: "success",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
     });
 };
 
 const WrongSampleNotification = () => {
     store.addNotification({
         // @ts-expect-error
-        somethingRandom: 'Wonderful!',
-        animationOut: ['animated', 'fadeOut'],
+        somethingRandom: "Wonderful!",
+        animationOut: ["animated", "fadeOut"],
     });
 };
 
@@ -35,21 +35,21 @@ const WrongPropTest: React.FC = () => {
 };
 
 const OptionsTest: ReactNotificationOptions = {
-    container: 'bottom-full',
+    container: "bottom-full",
     touchSlidingExit: {
         fade: {
             duration: 3,
-            timingFunction: 'ease',
-            delay: 10
-        }
-    }
+            timingFunction: "ease",
+            delay: 10,
+        },
+    },
 };
 
 const WrongOptionsTest: ReactNotificationOptions = {
     // @ts-expect-error
-    container: 'center-full',
+    container: "center-full",
     touchSlidingExit: {
         // @ts-expect-error
         notValid: 1,
-    }
+    },
 };

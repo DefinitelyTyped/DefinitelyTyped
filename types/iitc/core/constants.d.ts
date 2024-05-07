@@ -1,6 +1,6 @@
 import { IITC, PortalGUID } from "./iitctypes";
 
-export { };
+export {};
 
 declare global {
     const script_info: any;
@@ -10,7 +10,8 @@ declare global {
     const REFRESH: number; /** @default = 30; // refresh view every 30s (base time) */
     const ZOOM_LEVEL_ADJ: number; /** @default = 5; // add 5 seconds per zoom level */
     const ON_MOVE_REFRESH: number; /** @default = 2.5;  //refresh time to use after a movement event */
-    const MINIMUM_OVERRIDE_REFRESH: number; /** @default = 10; //limit on refresh time since previous refresh, limiting repeated move refresh rate */
+    const MINIMUM_OVERRIDE_REFRESH:
+        number; /** @default = 10; //limit on refresh time since previous refresh, limiting repeated move refresh rate */
     const REFRESH_GAME_SCORE: number; /** @default = 15 * 60; // refresh game score every 15 minutes */
     const MAX_IDLE_TIME: number; /** @default = 15 * 60; // stop updating map after 15min idling */
     const HIDDEN_SCROLLBAR_ASSUMED_WIDTH: number; /** @default = 20; */

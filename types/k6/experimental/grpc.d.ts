@@ -17,15 +17,63 @@ export interface Response {
 }
 
 export interface ConnectParams {
+    /**
+     * If `true` will connect to the gRPC server using plaintext i.e. insecure.
+     */
     plaintext?: boolean;
 
+    /**
+     * If `true` connection will try to use the gRPC server reflection protocol.
+     * https://github.com/grpc/grpc/blob/master/doc/server-reflection.md
+     */
     reflect?: boolean;
 
+    /**
+     * Metadata to send with reflection request.
+     */
+    reflectMetadata?: object;
+
+    /**
+     * Connection timeout to use.
+     */
     timeout?: string | number;
 
+    /**
+     *  Maximum message size in bytes the client can receive.
+     */
     maxReceiveSize?: number;
 
+    /**
+     * Maximum message size in bytes the client can send.
+     */
     maxSendSize?: number;
+
+    /**
+     * TLS settings of the connection.
+     */
+    tls?: TLSParams;
+}
+
+export interface TLSParams {
+    /**
+     *  PEM formatted client certificate.
+     */
+    cert: string;
+
+    /**
+     * PEM formatted client private key.
+     */
+    key: string;
+
+    /**
+     * Password for decrypting the client's private key.
+     */
+    password?: string;
+
+    /**
+     * PEM formatted string/strings of the certificate authorities.
+     */
+    cacerts?: string | string[];
 }
 
 export interface Params {
@@ -49,12 +97,16 @@ export interface GrpcError {
 
 /**
  * This module provides classes for Remote Procedure Calls over HTTP/2.
- * https://k6.io/docs/javascript-api/k6-experimental/grpc/
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/grpc/
+ *
+ * @deprecated Use the `k6/net/grpc` module instead.
  */
 declare namespace grpc {
     /**
      * gRPC client to interact with a gRPC server.
-     * https://k6.io/docs/javascript-api/k6-experimental/grpc/client/
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/grpc/client/
+     *
+     * @deprecated Use the `k6/net/grpc` module instead.
      */
     class Client {
         protected __brand: never;
@@ -81,25 +133,24 @@ declare namespace grpc {
      * StreamEvent describes the possible events that can be emitted
      * by a gRPC stream.
      */
-    enum StreamEvent {
+    type StreamEvent =
         /**
          * Event fired when data has been received from the server.
          */
-        Data = 'data',
-
+        | "data"
         /**
          * Event fired when a stream has been closed due to an error.
          */
-        Error = 'error',
-
+        | "error"
         /**
          * Event fired when the stream closes.
          */
-        End = 'end',
-    }
+        | "end";
 
     /**
      * Stream allows you to use streaming RPCs.
+     *
+     * @deprecated Use the `k6/net/grpc` module instead.
      */
     class Stream {
         /**

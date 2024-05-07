@@ -1,19 +1,24 @@
-import { Euler } from './Euler.js';
-import { Matrix3 } from './Matrix3.js';
-import { Matrix4 } from './Matrix4.js';
-import { Quaternion } from './Quaternion.js';
-import { Camera } from '../cameras/Camera.js';
-import { Spherical } from './Spherical.js';
-import { Cylindrical } from './Cylindrical.js';
-import { BufferAttribute } from '../core/BufferAttribute.js';
-import { InterleavedBufferAttribute } from '../core/InterleavedBufferAttribute.js';
-import { Vector } from './Vector2.js';
-import { Color } from './Color.js';
+import { Camera } from "../cameras/Camera.js";
+import { BufferAttribute } from "../core/BufferAttribute.js";
+import { InterleavedBufferAttribute } from "../core/InterleavedBufferAttribute.js";
+import { RGB } from "./Color.js";
+import { Cylindrical } from "./Cylindrical.js";
+import { Euler } from "./Euler.js";
+import { Matrix3 } from "./Matrix3.js";
+import { Matrix4 } from "./Matrix4.js";
+import { QuaternionLike } from "./Quaternion.js";
+import { Spherical } from "./Spherical.js";
 
 export type Vector3Tuple = [number, number, number];
 
+export interface Vector3Like {
+    readonly x: number;
+    readonly y: number;
+    readonly z: number;
+}
+
 /**
- * 3D vector. ( class Vector3 implements Vector<Vector3> )
+ * 3D vector.
  *
  * see {@link https://github.com/mrdoob/three.js/blob/master/src/math/Vector3.js}
  *
@@ -23,7 +28,7 @@ export type Vector3Tuple = [number, number, number];
  * const c = new THREE.Vector3();
  * c.crossVectors( a, b );
  */
-export class Vector3 implements Vector {
+export class Vector3 {
     constructor(x?: number, y?: number, z?: number);
 
     /**
@@ -55,25 +60,19 @@ export class Vector3 implements Vector {
     /**
      * Sets x value of this vector.
      */
-    setX(x: number): Vector3;
+    setX(x: number): this;
 
     /**
      * Sets y value of this vector.
      */
-    setY(y: number): Vector3;
+    setY(y: number): this;
 
     /**
      * Sets z value of this vector.
      */
-    setZ(z: number): Vector3;
+    setZ(z: number): this;
 
     setComponent(index: number, value: number): this;
-
-    /**
-     * Sets this vector's {@link x}, {@link y} and {@link z} components from the r, g, and b components of the specified
-     * {@link Color | color}.
-     */
-    setFromColor(color: Color): this;
 
     getComponent(index: number): number;
 
@@ -85,42 +84,42 @@ export class Vector3 implements Vector {
     /**
      * Copies value of v to this vector.
      */
-    copy(v: Vector3): this;
+    copy(v: Vector3Like): this;
 
     /**
      * Adds v to this vector.
      */
-    add(v: Vector3): this;
+    add(v: Vector3Like): this;
 
     addScalar(s: number): this;
-
-    addScaledVector(v: Vector3, s: number): this;
 
     /**
      * Sets this vector to a + b.
      */
-    addVectors(a: Vector3, b: Vector3): this;
+    addVectors(a: Vector3Like, b: Vector3Like): this;
+
+    addScaledVector(v: Vector3, s: number): this;
 
     /**
      * Subtracts v from this vector.
      */
-    sub(a: Vector3): this;
+    sub(a: Vector3Like): this;
 
     subScalar(s: number): this;
 
     /**
      * Sets this vector to a - b.
      */
-    subVectors(a: Vector3, b: Vector3): this;
+    subVectors(a: Vector3Like, b: Vector3Like): this;
 
-    multiply(v: Vector3): this;
+    multiply(v: Vector3Like): this;
 
     /**
      * Multiplies this vector by scalar s.
      */
     multiplyScalar(s: number): this;
 
-    multiplyVectors(a: Vector3, b: Vector3): this;
+    multiplyVectors(a: Vector3Like, b: Vector3Like): this;
 
     applyEuler(euler: Euler): this;
 
@@ -132,7 +131,7 @@ export class Vector3 implements Vector {
 
     applyMatrix4(m: Matrix4): this;
 
-    applyQuaternion(q: Quaternion): this;
+    applyQuaternion(q: QuaternionLike): this;
 
     project(camera: Camera): this;
 
@@ -140,7 +139,7 @@ export class Vector3 implements Vector {
 
     transformDirection(m: Matrix4): this;
 
-    divide(v: Vector3): this;
+    divide(v: Vector3Like): this;
 
     /**
      * Divides this vector by scalar s.
@@ -148,11 +147,11 @@ export class Vector3 implements Vector {
      */
     divideScalar(s: number): this;
 
-    min(v: Vector3): this;
+    min(v: Vector3Like): this;
 
-    max(v: Vector3): this;
+    max(v: Vector3Like): this;
 
-    clamp(min: Vector3, max: Vector3): this;
+    clamp(min: Vector3Like, max: Vector3Like): this;
 
     clampScalar(min: number, max: number): this;
 
@@ -174,7 +173,7 @@ export class Vector3 implements Vector {
     /**
      * Computes dot product of this vector and v.
      */
-    dot(v: Vector3): number;
+    dot(v: Vector3Like): number;
 
     /**
      * Computes squared length of this vector.
@@ -187,26 +186,11 @@ export class Vector3 implements Vector {
     length(): number;
 
     /**
-     * Computes Manhattan length of this vector.
-     * http://en.wikipedia.org/wiki/Taxicab_geometry
-     *
-     * @deprecated Use {@link Vector3#manhattanLength .manhattanLength()} instead.
-     */
-    lengthManhattan(): number;
-
-    /**
      * Computes the Manhattan length of this vector.
      *
      * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
      */
     manhattanLength(): number;
-
-    /**
-     * Computes the Manhattan length (distance) from this vector to the given vector v
-     *
-     * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
-     */
-    manhattanDistanceTo(v: Vector3): number;
 
     /**
      * Normalizes this vector.
@@ -217,38 +201,40 @@ export class Vector3 implements Vector {
      * Normalizes this vector and multiplies it by l.
      */
     setLength(l: number): this;
-    lerp(v: Vector3, alpha: number): this;
+    lerp(v: Vector3Like, alpha: number): this;
 
-    lerpVectors(v1: Vector3, v2: Vector3, alpha: number): this;
+    lerpVectors(v1: Vector3Like, v2: Vector3Like, alpha: number): this;
 
     /**
      * Sets this vector to cross product of itself and v.
      */
-    cross(a: Vector3): this;
+    cross(a: Vector3Like): this;
 
     /**
      * Sets this vector to cross product of a and b.
      */
-    crossVectors(a: Vector3, b: Vector3): this;
+    crossVectors(a: Vector3Like, b: Vector3Like): this;
     projectOnVector(v: Vector3): this;
     projectOnPlane(planeNormal: Vector3): this;
-    reflect(vector: Vector3): this;
+    reflect(vector: Vector3Like): this;
     angleTo(v: Vector3): number;
 
     /**
      * Computes distance of this vector to v.
      */
-    distanceTo(v: Vector3): number;
+    distanceTo(v: Vector3Like): number;
 
     /**
      * Computes squared distance of this vector to v.
      */
-    distanceToSquared(v: Vector3): number;
+    distanceToSquared(v: Vector3Like): number;
 
     /**
-     * @deprecated Use {@link Vector3#manhattanDistanceTo .manhattanDistanceTo()} instead.
+     * Computes the Manhattan length (distance) from this vector to the given vector v
+     *
+     * see {@link http://en.wikipedia.org/wiki/Taxicab_geometry|Wikipedia: Taxicab Geometry}
      */
-    distanceToManhattan(v: Vector3): number;
+    manhattanDistanceTo(v: Vector3Like): number;
 
     setFromSpherical(s: Spherical): this;
     setFromSphericalCoords(r: number, phi: number, theta: number): this;
@@ -265,9 +251,15 @@ export class Vector3 implements Vector {
     setFromEuler(e: Euler): this;
 
     /**
+     * Sets this vector's {@link x}, {@link y} and {@link z} components from the r, g, and b components of the specified
+     * {@link Color | color}.
+     */
+    setFromColor(color: RGB): this;
+
+    /**
      * Checks for strict equality of this vector and v.
      */
-    equals(v: Vector3): boolean;
+    equals(v: Vector3Like): boolean;
 
     /**
      * Sets this vector's x, y and z value from the provided array or array-like.

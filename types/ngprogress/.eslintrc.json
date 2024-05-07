@@ -1,6 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-type-only-packages": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

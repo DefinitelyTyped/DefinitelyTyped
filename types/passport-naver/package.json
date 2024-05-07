@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/passport-naver",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/naver/passport-naver"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-naver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Park9eon",
+            "githubUsername": "Park9eon"
+        },
+        {
+            "name": "ZeroCho",
+            "githubUsername": "zerocho"
+        }
+    ]
+}

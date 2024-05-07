@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/w3c-web-serial",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "w3c-web-serial",
+    "projects": [
+        "https://wicg.github.io/serial"
+    ],
+    "devDependencies": {
+        "@types/w3c-web-serial": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Reilly Grant",
+            "githubUsername": "reillyeon"
+        }
+    ]
+}

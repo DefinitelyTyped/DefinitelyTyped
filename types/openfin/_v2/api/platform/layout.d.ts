@@ -1,6 +1,6 @@
 /// <reference path="./golden-layout.d.ts" />
-import { Identity } from '../../identity';
-import { LayoutPresetTypes } from './utils';
+import { Identity } from "../../identity";
+import { LayoutPresetTypes } from "./utils";
 export interface InitLayoutOptions {
     containerId?: string | undefined;
     layout?: GoldenLayout.Config | undefined;

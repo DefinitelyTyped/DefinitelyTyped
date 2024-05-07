@@ -1,13 +1,7 @@
-// Type definitions for applest-atem 0.2
-// Project: https://github.com/applest/node-applest-atem
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { PNG } from 'pngjs';
+import { EventEmitter } from "events";
+import { PNG } from "pngjs";
 
 declare namespace ATEM {
     /** 0-indexed, so ME1 = 0, ..., ME4 = 3 */
@@ -172,12 +166,12 @@ declare namespace ATEM {
 
     enum Model {
         TVS = 0x01,
-        '1ME' = 0x02,
-        '2ME' = 0x03,
+        "1ME" = 0x02,
+        "2ME" = 0x03,
         PS4K = 0x04,
-        '1ME4K' = 0x05,
-        '2ME4K' = 0x06,
-        '2MEBS4K' = 0x07,
+        "1ME4K" = 0x05,
+        "2ME4K" = 0x06,
+        "2MEBS4K" = 0x07,
     }
 
     enum TransitionStyle {
@@ -330,18 +324,18 @@ declare class ATEM {
 
     on: {
         /** called when a state packet is received from the ATEM */
-        (event: 'stateChanged', callback: (error?: Error, state?: ATEM.State) => void): void;
+        (event: "stateChanged", callback: (error?: Error, state?: ATEM.State) => void): void;
 
         /** called when a ping packet is received from the ATEM at an interval of one second */
-        (event: 'ping', callback: () => void): void;
+        (event: "ping", callback: () => void): void;
 
         /** called when the first ping packet is received from the ATEM. */
-        (event: 'connect', callback: (error: null) => void): void;
+        (event: "connect", callback: (error: null) => void): void;
 
         /** called when we detect that we cannot communicate to the ATEM within `RECONNECT_INTERVAL` seconds */
-        (event: 'disconnect', callback: (error: null, state: null) => void): void;
+        (event: "disconnect", callback: (error: null, state: null) => void): void;
     };
-    once: ATEM['on'];
+    once: ATEM["on"];
 }
 
 export = ATEM;
