@@ -351,7 +351,7 @@ interface ImportMeta {
      * `import.meta.webpackContext` as ESM alternative to `require.context`
      * Available: 5.70.0+
      */
-    webpackContext?: (
+    webpackContext: (
         request: string,
         options?: {
             recursive?: boolean;
