@@ -5259,12 +5259,9 @@ declare namespace cytoscape {
         padding?: number | undefined;
     }
 
-    interface SortableNode {
-        data: { weight: number };
-    }
-
-    // function(a, b){ return a.data('weight') - b.data('weight') }
-    type SortingFunction = (a: SortableNode, b: SortableNode) => number;
+    // A function that determines the order of the nodes. The return value has the same
+    // semantics as for compare function passed to Array.sort.
+    type SortingFunction = (a: NodeSingular, b: NodeSingular) => number;
 
     interface ShapedLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         // whether to fit to viewport
