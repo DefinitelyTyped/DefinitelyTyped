@@ -9,7 +9,9 @@ export interface Options {
     precision?: number | undefined;
 }
 
-export default function approximateNumber(
+declare function approximateNumber(
     input: number | string,
     options?: Options,
 ): string;
+
+export = approximateNumber
