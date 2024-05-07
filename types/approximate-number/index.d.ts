@@ -1,4 +1,4 @@
-export type Options = {
+export interface Options {
     separator?: string | boolean;
     decimal?: string | boolean;
     round?: boolean;
@@ -7,7 +7,7 @@ export type Options = {
     suffix?: string;
     capital?: boolean;
     precision?: number | undefined;
-};
+}
 
 export default function approximateNumber(
     input: number | string,
