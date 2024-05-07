@@ -32,8 +32,8 @@ export function mapGoogleProfileToUser(profile: google.Profile): UserProfile {
     // @ts-expect-error - because emails[0] may not exist.
     console.log(profile.emails?.[0].verified);
 
-    // @ts-expect-error - because emails[0].verified will be 'true' or 'false'.
-    console.log(profile.emails?.[0]?.verified === true);
+    // @ts-expect-error - because emails[0].verified will be true or false.
+    console.log(profile.emails[0].verified);
 
     // @ts-expect-error
     console.log(profile._json.email.toLowerCase());
@@ -41,7 +41,7 @@ export function mapGoogleProfileToUser(profile: google.Profile): UserProfile {
     return {
         googleUserId: profile.id,
         email: email ? email.value : null,
-        emailVerified: email ? email.verified === "true" : null,
+        emailVerified: email ? email.verified : null,
         familyName: profile.name?.familyName || null,
         givenName: profile.name?.givenName || null,
         name: profile.name ? profile.displayName : null,

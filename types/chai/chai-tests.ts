@@ -2491,6 +2491,10 @@ suite("assert", () => {
             "Should have correct value of the property",
         );
     });
+
+    test("notIncludeDeepMembers", () => {
+        assert.notIncludeDeepMembers([{ a: 1 }, { b: 2 }, { c: 3 }], [{ b: 2 }], "not include deep members");
+    });
 });
 
 suite("narrowing", () => {
