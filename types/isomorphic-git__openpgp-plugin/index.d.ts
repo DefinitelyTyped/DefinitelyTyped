@@ -1,7 +1,20 @@
-export const pgp: {
-    sign(options: { payload: string; secretKey: string }): Promise<{ signature: string }>;
+export interface SignOptions {
+    payload: string;
+    secretKey: string;
+}
 
-    verify(options: { payload: string; publicKey: string; signature: string }): Promise<{
+export interface VerifyOptions {
+    payload: string;
+    publicKey: string;
+    signature: string;
+}
+
+export const pgp: {
+    sign(options: SignOptions): Promise<{
+        signature: string;
+    }>;
+
+    verify(options: VerifyOptions): Promise<{
         valid: string[];
         invalid: string[];
     }>;
