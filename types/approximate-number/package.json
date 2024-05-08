@@ -3,7 +3,7 @@
     "name": "@types/approximate-number",
     "version": "2.1.9999",
     "projects": [
-        "https://github.com/apostrophecms/sluggo"
+        "https://github.com/nfriedly/approximate-number"
     ],
     "owners": [
         {
@@ -11,8 +11,6 @@
             "githubUsername": "giokaxo"
         }
     ],
-    "dependencies": {
-    },
     "devDependencies": {
         "@types/approximate-number": "workspace:."
     }

@@ -1,12 +1,12 @@
 declare namespace approximateNumber {
     interface Options {
-        separator?: string | boolean;
-        decimal?: string | boolean;
-        round?: boolean;
-        min10k?: boolean;
-        prefix?: string;
-        suffix?: string;
-        capital?: boolean;
+        separator?: string | boolean | undefined;
+        decimal?: string | boolean | undefined;
+        round?: boolean | undefined;
+        min10k?: boolean | undefined;
+        prefix?: string | undefined;
+        suffix?: string | undefined;
+        capital?: boolean | undefined;
         precision?: number | undefined;
     }
 }
@@ -17,3 +17,4 @@ declare function approximateNumber(
 ): string;
 
 export = approximateNumber;
+export as namespace approximateNumber;
