@@ -247,6 +247,11 @@ declare module "fs" {
         parentPath: string;
         /**
          * The base path that this `fs.Dirent` object refers to.
+         * @since v20.12.0
+         */
+        parentPath: string;
+        /**
+         * Alias for `dirent.parentPath`.
          * @since v20.1.0
          * @deprecated since v21.5.0, v20.12.0, v18.20.0
          */
