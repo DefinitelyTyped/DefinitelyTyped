@@ -9,7 +9,15 @@ import {
     TimeDivider,
 } from "video-react";
 
-const testProps: PlayerProps = { autoPlay: true, crossOrigin: 'anonymous', videoId: "123" };
+const testProps: PlayerProps = { 
+    autoPlay: true, 
+    crossOrigin: 'anonymous', 
+    videoId: "123", 
+    onPlay: () => {}, 
+    onEnded: () => {}, 
+    onLoadStart: () => {}, 
+    onPause: () => {} 
+};
 
 function TestComponent(props: PlayerProps): React.JSX.Element {
     return (
