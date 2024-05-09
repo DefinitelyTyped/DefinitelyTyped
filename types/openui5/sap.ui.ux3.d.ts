@@ -1,4 +1,4 @@
-// For Library Version: 1.122.0
+// For Library Version: 1.123.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -867,7 +867,11 @@ declare module "sap/ui/ux3/ActionBar" {
       bUpdateState?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ActionBar constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.Toolbar` or `sap.m.OverflowToolbar` control.
+   */
   export interface $ActionBarSettings extends $ControlSettings {
     /**
      * Keeps track of the actionBars Follow/Unfollow button’s state. Its value is one of - FollowActionState.Default
@@ -961,6 +965,9 @@ declare module "sap/ui/ux3/ActionBar" {
     feedSubmit?: (oEvent: ActionBar$FeedSubmitEvent) => void;
   }
 
+  /**
+   * Parameters of the ActionBar#actionSelected event.
+   */
   export interface ActionBar$ActionSelectedEventParameters {
     /**
      * Id of selected ThingAction
@@ -979,11 +986,17 @@ declare module "sap/ui/ux3/ActionBar" {
     newState?: string;
   }
 
+  /**
+   * Event object of the ActionBar#actionSelected event.
+   */
   export type ActionBar$ActionSelectedEvent = Event<
     ActionBar$ActionSelectedEventParameters,
     ActionBar
   >;
 
+  /**
+   * Parameters of the ActionBar#feedSubmit event.
+   */
   export interface ActionBar$FeedSubmitEventParameters {
     /**
      * Feed text
@@ -991,6 +1004,9 @@ declare module "sap/ui/ux3/ActionBar" {
     text?: string;
   }
 
+  /**
+   * Event object of the ActionBar#feedSubmit event.
+   */
   export type ActionBar$FeedSubmitEvent = Event<
     ActionBar$FeedSubmitEventParameters,
     ActionBar
@@ -1435,7 +1451,11 @@ declare module "sap/ui/ux3/Collection" {
       sTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Collection constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $CollectionSettings extends $ElementSettings {
     /**
      * Name for the collection
@@ -1473,15 +1493,27 @@ declare module "sap/ui/ux3/Collection" {
     propertyChanged?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the Collection#propertyChanged event.
+   */
   export interface Collection$PropertyChangedEventParameters {}
 
+  /**
+   * Event object of the Collection#propertyChanged event.
+   */
   export type Collection$PropertyChangedEvent = Event<
     Collection$PropertyChangedEventParameters,
     Collection
   >;
 
+  /**
+   * Parameters of the Collection#selectionChanged event.
+   */
   export interface Collection$SelectionChangedEventParameters {}
 
+  /**
+   * Event object of the Collection#selectionChanged event.
+   */
   export type Collection$SelectionChangedEvent = Event<
     Collection$SelectionChangedEventParameters,
     Collection
@@ -2057,7 +2089,11 @@ declare module "sap/ui/ux3/CollectionInspector" {
       bSidebarVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the CollectionInspector constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $CollectionInspectorSettings extends $ControlSettings {
     /**
      * Defines if the list of collection items is visible on the left
@@ -2104,22 +2140,40 @@ declare module "sap/ui/ux3/CollectionInspector" {
     editCollection?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the CollectionInspector#collectionSelected event.
+   */
   export interface CollectionInspector$CollectionSelectedEventParameters {}
 
+  /**
+   * Event object of the CollectionInspector#collectionSelected event.
+   */
   export type CollectionInspector$CollectionSelectedEvent = Event<
     CollectionInspector$CollectionSelectedEventParameters,
     CollectionInspector
   >;
 
+  /**
+   * Parameters of the CollectionInspector#editCollection event.
+   */
   export interface CollectionInspector$EditCollectionEventParameters {}
 
+  /**
+   * Event object of the CollectionInspector#editCollection event.
+   */
   export type CollectionInspector$EditCollectionEvent = Event<
     CollectionInspector$EditCollectionEventParameters,
     CollectionInspector
   >;
 
+  /**
+   * Parameters of the CollectionInspector#itemSelectionChanged event.
+   */
   export interface CollectionInspector$ItemSelectionChangedEventParameters {}
 
+  /**
+   * Event object of the CollectionInspector#itemSelectionChanged event.
+   */
   export type CollectionInspector$ItemSelectionChangedEvent = Event<
     CollectionInspector$ItemSelectionChangedEventParameters,
     CollectionInspector
@@ -2851,7 +2905,11 @@ declare module "sap/ui/ux3/DataSet" {
      */
     unbindItems(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the DataSet constructor.
+   *
+   * @deprecated (since 1.38) - Use a container by choice from the {@link sap.m} library, instead.
+   */
   export interface $DataSetSettings extends $ControlSettings {
     /**
      * show Toolbar
@@ -2912,6 +2970,9 @@ declare module "sap/ui/ux3/DataSet" {
     search?: (oEvent: DataSet$SearchEvent) => void;
   }
 
+  /**
+   * Parameters of the DataSet#search event.
+   */
   export interface DataSet$SearchEventParameters {
     /**
      * The search query
@@ -2919,11 +2980,17 @@ declare module "sap/ui/ux3/DataSet" {
     query?: string;
   }
 
+  /**
+   * Event object of the DataSet#search event.
+   */
   export type DataSet$SearchEvent = Event<
     DataSet$SearchEventParameters,
     DataSet
   >;
 
+  /**
+   * Parameters of the DataSet#selectionChanged event.
+   */
   export interface DataSet$SelectionChangedEventParameters {
     /**
      * Old lead selected index
@@ -2936,6 +3003,9 @@ declare module "sap/ui/ux3/DataSet" {
     newLeadSelectedIndex?: int;
   }
 
+  /**
+   * Event object of the DataSet#selectionChanged event.
+   */
   export type DataSet$SelectionChangedEvent = Event<
     DataSet$SelectionChangedEventParameters,
     DataSet
@@ -3212,7 +3282,11 @@ declare module "sap/ui/ux3/DataSetItem" {
       sTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the DataSetItem constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $DataSetItemSettings extends $ElementSettings {
     /**
      * image
@@ -3240,6 +3314,9 @@ declare module "sap/ui/ux3/DataSetItem" {
     selected?: (oEvent: DataSetItem$SelectedEvent) => void;
   }
 
+  /**
+   * Parameters of the DataSetItem#selected event.
+   */
   export interface DataSetItem$SelectedEventParameters {
     /**
      * Id of the selected Datset item
@@ -3247,6 +3324,9 @@ declare module "sap/ui/ux3/DataSetItem" {
     itemId?: string;
   }
 
+  /**
+   * Event object of the DataSetItem#selected event.
+   */
   export type DataSetItem$SelectedEvent = Event<
     DataSetItem$SelectedEventParameters,
     DataSetItem
@@ -3727,7 +3807,11 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
       aDiff: DataSetItem[]
     ): void;
   }
-
+  /**
+   * Describes the settings that can be provided to the DataSetSimpleView constructor.
+   *
+   * @deprecated (since 1.38) - Use a layout by choice from the {@link sap.m} library, instead.
+   */
   export interface $DataSetSimpleViewSettings extends $ControlSettings {
     /**
      * When true the DatSet items are floating containers. When set to false The Items are rendered in a 1 column
@@ -4191,7 +4275,12 @@ declare module "sap/ui/ux3/Exact" {
       oSettingsMenu: Menu
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Exact constructor.
+   *
+   * @deprecated (since 1.38)
+   * @experimental (since 1.2) - API is not yet finished and might change completely
+   */
   export interface $ExactSettings extends $ControlSettings {
     /**
      * A title text which is displayed above the result section
@@ -4223,6 +4312,9 @@ declare module "sap/ui/ux3/Exact" {
     refineSearch?: (oEvent: Exact$RefineSearchEvent) => void;
   }
 
+  /**
+   * Parameters of the Exact#refineSearch event.
+   */
   export interface Exact$RefineSearchEventParameters {
     /**
      * The query string which was entered in the search field
@@ -4240,11 +4332,17 @@ declare module "sap/ui/ux3/Exact" {
     allSelectedAttributes?: object;
   }
 
+  /**
+   * Event object of the Exact#refineSearch event.
+   */
   export type Exact$RefineSearchEvent = Event<
     Exact$RefineSearchEventParameters,
     Exact
   >;
 
+  /**
+   * Parameters of the Exact#search event.
+   */
   export interface Exact$SearchEventParameters {
     /**
      * The query string which was entered in the search field.
@@ -4252,6 +4350,9 @@ declare module "sap/ui/ux3/Exact" {
     query?: string;
   }
 
+  /**
+   * Event object of the Exact#search event.
+   */
   export type Exact$SearchEvent = Event<Exact$SearchEventParameters, Exact>;
 }
 
@@ -4521,7 +4622,12 @@ declare module "sap/ui/ux3/ExactArea" {
       bToolbarVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ExactArea constructor.
+   *
+   * @deprecated (since 1.38)
+   * @experimental (since 1.6) - API is not yet finished and might change completely
+   */
   export interface $ExactAreaSettings extends $ControlSettings {
     /**
      * Specifies whether the tool bar shall be visible
@@ -5070,7 +5176,11 @@ declare module "sap/ui/ux3/ExactAttribute" {
       iWidth?: int
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ExactAttribute constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $ExactAttributeSettings extends $ElementSettings {
     /**
      * The attribute name
@@ -5145,6 +5255,9 @@ declare module "sap/ui/ux3/ExactAttribute" {
     supplyAttributes?: (oEvent: ExactAttribute$SupplyAttributesEvent) => void;
   }
 
+  /**
+   * Parameters of the ExactAttribute#supplyAttributes event.
+   */
   export interface ExactAttribute$SupplyAttributesEventParameters {
     /**
      * The ExactAttribute
@@ -5152,6 +5265,9 @@ declare module "sap/ui/ux3/ExactAttribute" {
     attribute?: ExactAttribute;
   }
 
+  /**
+   * Event object of the ExactAttribute#supplyAttributes event.
+   */
   export type ExactAttribute$SupplyAttributesEvent = Event<
     ExactAttribute$SupplyAttributesEventParameters,
     ExactAttribute
@@ -5828,7 +5944,11 @@ declare module "sap/ui/ux3/ExactBrowser" {
       iTopListWidth?: int
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ExactBrowser constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $ExactBrowserSettings extends $ControlSettings {
     /**
      * Title text in the list area of the Exact Browser. The title is not shown when the property showTopList
@@ -5924,6 +6044,9 @@ declare module "sap/ui/ux3/ExactBrowser" {
     save?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the ExactBrowser#attributeSelected event.
+   */
   export interface ExactBrowser$AttributeSelectedEventParameters {
     /**
      * The attribute which was selected or unselected recently
@@ -5936,13 +6059,22 @@ declare module "sap/ui/ux3/ExactBrowser" {
     allAttributes?: object;
   }
 
+  /**
+   * Event object of the ExactBrowser#attributeSelected event.
+   */
   export type ExactBrowser$AttributeSelectedEvent = Event<
     ExactBrowser$AttributeSelectedEventParameters,
     ExactBrowser
   >;
 
+  /**
+   * Parameters of the ExactBrowser#save event.
+   */
   export interface ExactBrowser$SaveEventParameters {}
 
+  /**
+   * Event object of the ExactBrowser#save event.
+   */
   export type ExactBrowser$SaveEvent = Event<
     ExactBrowser$SaveEventParameters,
     ExactBrowser
@@ -6294,7 +6426,11 @@ declare module "sap/ui/ux3/ExactList" {
       sTopTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ExactList constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $ExactListSettings extends $ControlSettings {
     /**
      * Defines whether the close icon shall be displayed in the header.
@@ -6328,6 +6464,9 @@ declare module "sap/ui/ux3/ExactList" {
     attributeSelected?: (oEvent: ExactList$AttributeSelectedEvent) => void;
   }
 
+  /**
+   * Parameters of the ExactList#attributeSelected event.
+   */
   export interface ExactList$AttributeSelectedEventParameters {
     /**
      * The attribute which was selected/unselected recently
@@ -6340,6 +6479,9 @@ declare module "sap/ui/ux3/ExactList" {
     allAttributes?: object;
   }
 
+  /**
+   * Event object of the ExactList#attributeSelected event.
+   */
   export type ExactList$AttributeSelectedEvent = Event<
     ExactList$AttributeSelectedEventParameters,
     ExactList
@@ -6541,7 +6683,11 @@ declare module "sap/ui/ux3/FacetFilter" {
         | keyof typeof VisibleItemCountMode
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FacetFilter constructor.
+   *
+   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
+   */
   export interface $FacetFilterSettings extends $ControlSettings {
     /**
      * If the value is "Auto" - the Facet Filter takes the whole available height. If "Fixed" , then the default
@@ -6942,7 +7088,11 @@ declare module "sap/ui/ux3/FacetFilterList" {
       sTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FacetFilterList constructor.
+   *
+   * @deprecated (since 1.38) - replaced by {@link sap.m.FacetFilter}
+   */
   export interface $FacetFilterListSettings extends $ControlSettings {
     /**
      * The title of this list.
@@ -6983,6 +7133,9 @@ declare module "sap/ui/ux3/FacetFilterList" {
     select?: (oEvent: FacetFilterList$SelectEvent) => void;
   }
 
+  /**
+   * Parameters of the FacetFilterList#select event.
+   */
   export interface FacetFilterList$SelectEventParameters {
     /**
      * Id of the FacetFilterList taht fires the event.
@@ -7006,6 +7159,9 @@ declare module "sap/ui/ux3/FacetFilterList" {
     all?: boolean;
   }
 
+  /**
+   * Event object of the FacetFilterList#select event.
+   */
   export type FacetFilterList$SelectEvent = Event<
     FacetFilterList$SelectEventParameters,
     FacetFilterList
@@ -7900,7 +8056,14 @@ declare module "sap/ui/ux3/Feed" {
      */
     unbindToolsMenuItems(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Feed constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use **any** `sap.ui.layout` container control.
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
+   * Feed model topic is still open.
+   */
   export interface $FeedSettings extends $ControlSettings {
     /**
      * The path to the thumbnail image used for the feeder
@@ -7971,6 +8134,9 @@ declare module "sap/ui/ux3/Feed" {
     toggleLive?: (oEvent: Feed$ToggleLiveEvent) => void;
   }
 
+  /**
+   * Parameters of the Feed#chunkAdded event.
+   */
   export interface Feed$ChunkAddedEventParameters {
     /**
      * New chunk
@@ -7978,11 +8144,17 @@ declare module "sap/ui/ux3/Feed" {
     chunk?: FeedChunk;
   }
 
+  /**
+   * Event object of the Feed#chunkAdded event.
+   */
   export type Feed$ChunkAddedEvent = Event<
     Feed$ChunkAddedEventParameters,
     Feed
   >;
 
+  /**
+   * Parameters of the Feed#filterChange event.
+   */
   export interface Feed$FilterChangeEventParameters {
     /**
      * The new/changed value of the filter
@@ -7990,11 +8162,17 @@ declare module "sap/ui/ux3/Feed" {
     newValue?: string;
   }
 
+  /**
+   * Event object of the Feed#filterChange event.
+   */
   export type Feed$FilterChangeEvent = Event<
     Feed$FilterChangeEventParameters,
     Feed
   >;
 
+  /**
+   * Parameters of the Feed#search event.
+   */
   export interface Feed$SearchEventParameters {
     /**
      * The search query
@@ -8002,8 +8180,14 @@ declare module "sap/ui/ux3/Feed" {
     query?: string;
   }
 
+  /**
+   * Event object of the Feed#search event.
+   */
   export type Feed$SearchEvent = Event<Feed$SearchEventParameters, Feed>;
 
+  /**
+   * Parameters of the Feed#toggleLive event.
+   */
   export interface Feed$ToggleLiveEventParameters {
     /**
      * Current live indicator
@@ -8011,11 +8195,17 @@ declare module "sap/ui/ux3/Feed" {
     live?: boolean;
   }
 
+  /**
+   * Event object of the Feed#toggleLive event.
+   */
   export type Feed$ToggleLiveEvent = Event<
     Feed$ToggleLiveEventParameters,
     Feed
   >;
 
+  /**
+   * Parameters of the Feed#toolsItemSelected event.
+   */
   export interface Feed$ToolsItemSelectedEventParameters {
     /**
      * The Id of the selected item
@@ -8028,6 +8218,9 @@ declare module "sap/ui/ux3/Feed" {
     item?: MenuItemBase;
   }
 
+  /**
+   * Event object of the Feed#toolsItemSelected event.
+   */
   export type Feed$ToolsItemSelectedEvent = Event<
     Feed$ToolsItemSelectedEventParameters,
     Feed
@@ -9491,7 +9684,14 @@ declare module "sap/ui/ux3/FeedChunk" {
      */
     unbindComments(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FeedChunk constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedListItem` control.
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
+   * Feed model topic is still open.
+   */
   export interface $FeedChunkSettings extends $ControlSettings {
     /**
      * URL to the thumbnail image.
@@ -9643,6 +9843,9 @@ declare module "sap/ui/ux3/FeedChunk" {
     actionItemSelected?: (oEvent: FeedChunk$ActionItemSelectedEvent) => void;
   }
 
+  /**
+   * Parameters of the FeedChunk#actionItemSelected event.
+   */
   export interface FeedChunk$ActionItemSelectedEventParameters {
     /**
      * The Id of the selected item
@@ -9655,11 +9858,17 @@ declare module "sap/ui/ux3/FeedChunk" {
     item?: MenuItemBase;
   }
 
+  /**
+   * Event object of the FeedChunk#actionItemSelected event.
+   */
   export type FeedChunk$ActionItemSelectedEvent = Event<
     FeedChunk$ActionItemSelectedEventParameters,
     FeedChunk
   >;
 
+  /**
+   * Parameters of the FeedChunk#commentAdded event.
+   */
   export interface FeedChunk$CommentAddedEventParameters {
     /**
      * New comment chunk
@@ -9667,25 +9876,43 @@ declare module "sap/ui/ux3/FeedChunk" {
     comment?: FeedChunk;
   }
 
+  /**
+   * Event object of the FeedChunk#commentAdded event.
+   */
   export type FeedChunk$CommentAddedEvent = Event<
     FeedChunk$CommentAddedEventParameters,
     FeedChunk
   >;
 
+  /**
+   * Parameters of the FeedChunk#deleted event.
+   */
   export interface FeedChunk$DeletedEventParameters {}
 
+  /**
+   * Event object of the FeedChunk#deleted event.
+   */
   export type FeedChunk$DeletedEvent = Event<
     FeedChunk$DeletedEventParameters,
     FeedChunk
   >;
 
+  /**
+   * Parameters of the FeedChunk#inspect event.
+   */
   export interface FeedChunk$InspectEventParameters {}
 
+  /**
+   * Event object of the FeedChunk#inspect event.
+   */
   export type FeedChunk$InspectEvent = Event<
     FeedChunk$InspectEventParameters,
     FeedChunk
   >;
 
+  /**
+   * Parameters of the FeedChunk#referenceClicked event.
+   */
   export interface FeedChunk$ReferenceClickedEventParameters {
     /**
      * Text of the @-reference
@@ -9693,18 +9920,30 @@ declare module "sap/ui/ux3/FeedChunk" {
     text?: string;
   }
 
+  /**
+   * Event object of the FeedChunk#referenceClicked event.
+   */
   export type FeedChunk$ReferenceClickedEvent = Event<
     FeedChunk$ReferenceClickedEventParameters,
     FeedChunk
   >;
 
+  /**
+   * Parameters of the FeedChunk#senderClicked event.
+   */
   export interface FeedChunk$SenderClickedEventParameters {}
 
+  /**
+   * Event object of the FeedChunk#senderClicked event.
+   */
   export type FeedChunk$SenderClickedEvent = Event<
     FeedChunk$SenderClickedEventParameters,
     FeedChunk
   >;
 
+  /**
+   * Parameters of the FeedChunk#toggleFavorite event.
+   */
   export interface FeedChunk$ToggleFavoriteEventParameters {
     /**
      * Current favorite state
@@ -9712,11 +9951,17 @@ declare module "sap/ui/ux3/FeedChunk" {
     favorite?: boolean;
   }
 
+  /**
+   * Event object of the FeedChunk#toggleFavorite event.
+   */
   export type FeedChunk$ToggleFavoriteEvent = Event<
     FeedChunk$ToggleFavoriteEventParameters,
     FeedChunk
   >;
 
+  /**
+   * Parameters of the FeedChunk#toggleFlagged event.
+   */
   export interface FeedChunk$ToggleFlaggedEventParameters {
     /**
      * Current flagged state
@@ -9724,11 +9969,17 @@ declare module "sap/ui/ux3/FeedChunk" {
     flagged?: boolean;
   }
 
+  /**
+   * Event object of the FeedChunk#toggleFlagged event.
+   */
   export type FeedChunk$ToggleFlaggedEvent = Event<
     FeedChunk$ToggleFlaggedEventParameters,
     FeedChunk
   >;
 
+  /**
+   * Parameters of the FeedChunk#toggleShared event.
+   */
   export interface FeedChunk$ToggleSharedEventParameters {
     /**
      * Current shared state
@@ -9736,6 +9987,9 @@ declare module "sap/ui/ux3/FeedChunk" {
     shareed?: boolean;
   }
 
+  /**
+   * Event object of the FeedChunk#toggleShared event.
+   */
   export type FeedChunk$ToggleSharedEvent = Event<
     FeedChunk$ToggleSharedEventParameters,
     FeedChunk
@@ -10015,7 +10269,14 @@ declare module "sap/ui/ux3/Feeder" {
       sType?: FeederType | keyof typeof FeederType
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Feeder constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.FeedInput` control.
+   * @experimental (since 1.2) - The whole Feed/Feeder API is still under discussion, significant changes
+   * are likely. Especially text presentation (e.g. @-references and formatted text) is not final. Also the
+   * Feed model topic is still open.
+   */
   export interface $FeederSettings extends $ControlSettings {
     /**
      * URL to the thumb nail image This property is optional if the feeder is a sub-control of a feed or a feedChunk
@@ -10048,6 +10309,9 @@ declare module "sap/ui/ux3/Feeder" {
     submit?: (oEvent: Feeder$SubmitEvent) => void;
   }
 
+  /**
+   * Parameters of the Feeder#submit event.
+   */
   export interface Feeder$SubmitEventParameters {
     /**
      * The text that is submitted
@@ -10055,6 +10319,9 @@ declare module "sap/ui/ux3/Feeder" {
     text?: string;
   }
 
+  /**
+   * Event object of the Feeder#submit event.
+   */
   export type Feeder$SubmitEvent = Event<Feeder$SubmitEventParameters, Feeder>;
 }
 
@@ -10435,7 +10702,12 @@ declare module "sap/ui/ux3/NavigationBar" {
       bToplevelVariant?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the NavigationBar constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
+   * control.
+   */
   export interface $NavigationBarSettings extends $ControlSettings {
     /**
      * Defines whether the navigation bar shall have top-level appearance
@@ -10477,6 +10749,9 @@ declare module "sap/ui/ux3/NavigationBar" {
     select?: (oEvent: NavigationBar$SelectEvent) => void;
   }
 
+  /**
+   * Parameters of the NavigationBar#select event.
+   */
   export interface NavigationBar$SelectEventParameters {
     /**
      * The ID of the newly selected NavigationItem.
@@ -10489,6 +10764,9 @@ declare module "sap/ui/ux3/NavigationBar" {
     item?: NavigationItem;
   }
 
+  /**
+   * Event object of the NavigationBar#select event.
+   */
   export type NavigationBar$SelectEvent = Event<
     NavigationBar$SelectEventParameters,
     NavigationBar
@@ -10724,7 +11002,12 @@ declare module "sap/ui/ux3/NavigationItem" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the NavigationItem constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.IconTabBar`, `sap.m.TabContainer` or `sap.uxap.ObjectPageLayout`
+   * control.
+   */
   export interface $NavigationItemSettings extends $ItemSettings {
     /**
      * Whether the NavigationItem is currently visible. When making NavigationItems invisible at runtime it
@@ -11202,7 +11485,11 @@ declare module "sap/ui/ux3/NotificationBar" {
         | keyof typeof NotificationBarStatus
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the NotificationBar constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.MessagePopover` control.
+   */
   export interface $NotificationBarSettings extends $ControlSettings {
     /**
      * This property displays the bar corresponding to given status
@@ -11254,6 +11541,9 @@ declare module "sap/ui/ux3/NotificationBar" {
     resize?: (oEvent: NotificationBar$ResizeEvent) => void;
   }
 
+  /**
+   * Parameters of the NotificationBar#display event.
+   */
   export interface NotificationBar$DisplayEventParameters {
     /**
      * Indicates if the bar wants to be shown or hidden
@@ -11261,11 +11551,17 @@ declare module "sap/ui/ux3/NotificationBar" {
     show?: boolean;
   }
 
+  /**
+   * Event object of the NotificationBar#display event.
+   */
   export type NotificationBar$DisplayEvent = Event<
     NotificationBar$DisplayEventParameters,
     NotificationBar
   >;
 
+  /**
+   * Parameters of the NotificationBar#resize event.
+   */
   export interface NotificationBar$ResizeEventParameters {
     /**
      * The corresponding status to which the bar was resized. The corresponding heights can be taken for the
@@ -11274,6 +11570,9 @@ declare module "sap/ui/ux3/NotificationBar" {
     status?: NotificationBarStatus | keyof typeof NotificationBarStatus;
   }
 
+  /**
+   * Event object of the NotificationBar#resize event.
+   */
   export type NotificationBar$ResizeEvent = Event<
     NotificationBar$ResizeEventParameters,
     NotificationBar
@@ -11577,7 +11876,11 @@ declare module "sap/ui/ux3/Notifier" {
       sTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Notifier constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $NotifierSettings extends $ElementSettings {
     /**
      * Icon of the control that should be displayed within the corresponding bar
@@ -11600,6 +11903,9 @@ declare module "sap/ui/ux3/Notifier" {
     messageSelected?: (oEvent: Notifier$MessageSelectedEvent) => void;
   }
 
+  /**
+   * Parameters of the Notifier#messageSelected event.
+   */
   export interface Notifier$MessageSelectedEventParameters {
     /**
      * The message that was selected
@@ -11612,6 +11918,9 @@ declare module "sap/ui/ux3/Notifier" {
     notifier?: Notifier;
   }
 
+  /**
+   * Event object of the Notifier#messageSelected event.
+   */
   export type Notifier$MessageSelectedEvent = Event<
     Notifier$MessageSelectedEventParameters,
     Notifier
@@ -11632,7 +11941,7 @@ declare module "sap/ui/ux3/Overlay" {
   /**
    * Overlay Control
    *
-   * @deprecated (since 1.38)
+   * @deprecated (since 1.38) - the concept has been discarded.
    */
   export default class Overlay extends Control implements PopupInterface {
     __implements__sap_ui_core_PopupInterface: boolean;
@@ -12092,7 +12401,11 @@ declare module "sap/ui/ux3/Overlay" {
       bOpenButtonVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Overlay constructor.
+   *
+   * @deprecated (since 1.38) - the concept has been discarded.
+   */
   export interface $OverlaySettings extends $ControlSettings {
     /**
      * Defines whether the 'Open' button shall be visible.
@@ -12125,6 +12438,9 @@ declare module "sap/ui/ux3/Overlay" {
     open?: (oEvent: Overlay$OpenEvent) => void;
   }
 
+  /**
+   * Parameters of the Overlay#close event.
+   */
   export interface Overlay$CloseEventParameters {
     /**
      * The ID of the Overlay instance.
@@ -12132,8 +12448,14 @@ declare module "sap/ui/ux3/Overlay" {
     id?: string;
   }
 
+  /**
+   * Event object of the Overlay#close event.
+   */
   export type Overlay$CloseEvent = Event<Overlay$CloseEventParameters, Overlay>;
 
+  /**
+   * Parameters of the Overlay#closed event.
+   */
   export interface Overlay$ClosedEventParameters {
     /**
      * The ID of the Overlay instance.
@@ -12141,11 +12463,17 @@ declare module "sap/ui/ux3/Overlay" {
     id?: string;
   }
 
+  /**
+   * Event object of the Overlay#closed event.
+   */
   export type Overlay$ClosedEvent = Event<
     Overlay$ClosedEventParameters,
     Overlay
   >;
 
+  /**
+   * Parameters of the Overlay#open event.
+   */
   export interface Overlay$OpenEventParameters {
     /**
      * The ID of the Overlay instance
@@ -12153,8 +12481,14 @@ declare module "sap/ui/ux3/Overlay" {
     id?: string;
   }
 
+  /**
+   * Event object of the Overlay#open event.
+   */
   export type Overlay$OpenEvent = Event<Overlay$OpenEventParameters, Overlay>;
 
+  /**
+   * Parameters of the Overlay#openNew event.
+   */
   export interface Overlay$OpenNewEventParameters {
     /**
      * The ID of the Overlay instance.
@@ -12162,6 +12496,9 @@ declare module "sap/ui/ux3/Overlay" {
     id?: string;
   }
 
+  /**
+   * Event object of the Overlay#openNew event.
+   */
   export type Overlay$OpenNewEvent = Event<
     Overlay$OpenNewEventParameters,
     Overlay
@@ -12180,7 +12517,7 @@ declare module "sap/ui/ux3/OverlayContainer" {
   /**
    * Is to be embedded into the Overlay control as content container
    *
-   * @deprecated (since 1.38)
+   * @deprecated (since 1.38) - the concept has been discarded.
    */
   export default class OverlayContainer extends Overlay {
     /**
@@ -12323,7 +12660,11 @@ declare module "sap/ui/ux3/OverlayContainer" {
       vContent: int | string | Control
     ): Control | null;
   }
-
+  /**
+   * Describes the settings that can be provided to the OverlayContainer constructor.
+   *
+   * @deprecated (since 1.38) - the concept has been discarded.
+   */
   export interface $OverlayContainerSettings extends $OverlaySettings {
     /**
      * Aggregation for content
@@ -12350,7 +12691,7 @@ declare module "sap/ui/ux3/OverlayDialog" {
    * Dialog implementation based on the Overlay. If used in a Shell it leaves the Tool-Palette, Pane-Bar and
    * Header-Items accessible.
    *
-   * @deprecated (since 1.38)
+   * @deprecated (since 1.38) - replaced by {@link sap.m.Dialog}
    */
   export default class OverlayDialog extends Overlay {
     /**
@@ -12532,7 +12873,11 @@ declare module "sap/ui/ux3/OverlayDialog" {
      */
     setWidth(sWidth: CSSSize): void;
   }
-
+  /**
+   * Describes the settings that can be provided to the OverlayDialog constructor.
+   *
+   * @deprecated (since 1.38) - replaced by {@link sap.m.Dialog}
+   */
   export interface $OverlayDialogSettings extends $OverlaySettings {
     /**
      * Determines the width of the Overlay Dialog. If the width is set to "auto" it is always 50% of the overlay
@@ -13485,7 +13830,11 @@ declare module "sap/ui/ux3/QuickView" {
       sWidth?: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the QuickView constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.QuickView` control.
+   */
   export interface $QuickViewSettings extends $CalloutBaseSettings {
     /**
      * Thing type (mandatory) like Account, Material, Employee etc. is displayed in a header at the top part
@@ -13608,6 +13957,9 @@ declare module "sap/ui/ux3/QuickView" {
     navigate?: (oEvent: QuickView$NavigateEvent) => void;
   }
 
+  /**
+   * Parameters of the QuickView#actionSelected event.
+   */
   export interface QuickView$ActionSelectedEventParameters {
     /**
      * Id of selected ThingAction
@@ -13626,11 +13978,17 @@ declare module "sap/ui/ux3/QuickView" {
     newState?: string;
   }
 
+  /**
+   * Event object of the QuickView#actionSelected event.
+   */
   export type QuickView$ActionSelectedEvent = Event<
     QuickView$ActionSelectedEventParameters,
     QuickView
   >;
 
+  /**
+   * Parameters of the QuickView#feedSubmit event.
+   */
   export interface QuickView$FeedSubmitEventParameters {
     /**
      * Feed text
@@ -13638,11 +13996,17 @@ declare module "sap/ui/ux3/QuickView" {
     text?: string;
   }
 
+  /**
+   * Event object of the QuickView#feedSubmit event.
+   */
   export type QuickView$FeedSubmitEvent = Event<
     QuickView$FeedSubmitEventParameters,
     QuickView
   >;
 
+  /**
+   * Parameters of the QuickView#navigate event.
+   */
   export interface QuickView$NavigateEventParameters {
     /**
      * URI of the Thing Inspector application.
@@ -13650,6 +14014,9 @@ declare module "sap/ui/ux3/QuickView" {
     href?: string;
   }
 
+  /**
+   * Event object of the QuickView#navigate event.
+   */
   export type QuickView$NavigateEvent = Event<
     QuickView$NavigateEventParameters,
     QuickView
@@ -15342,7 +15709,11 @@ declare module "sap/ui/ux3/Shell" {
       bShowTools?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Shell constructor.
+   *
+   * @deprecated (since 1.38) - replaced by {@link sap.m.Shell}
+   */
   export interface $ShellSettings extends $ControlSettings {
     /**
      * The application title to appear in the left part of the header, usually a company and/or product name.
@@ -15548,17 +15919,32 @@ declare module "sap/ui/ux3/Shell" {
     paneClosed?: (oEvent: Shell$PaneClosedEvent) => void;
   }
 
+  /**
+   * Parameters of the Shell#feedSubmit event.
+   */
   export interface Shell$FeedSubmitEventParameters {}
 
+  /**
+   * Event object of the Shell#feedSubmit event.
+   */
   export type Shell$FeedSubmitEvent = Event<
     Shell$FeedSubmitEventParameters,
     Shell
   >;
 
+  /**
+   * Parameters of the Shell#logout event.
+   */
   export interface Shell$LogoutEventParameters {}
 
+  /**
+   * Event object of the Shell#logout event.
+   */
   export type Shell$LogoutEvent = Event<Shell$LogoutEventParameters, Shell>;
 
+  /**
+   * Parameters of the Shell#paneBarItemSelected event.
+   */
   export interface Shell$PaneBarItemSelectedEventParameters {
     /**
      * The ID of the selected PaneBarItem.
@@ -15576,11 +15962,17 @@ declare module "sap/ui/ux3/Shell" {
     key?: string;
   }
 
+  /**
+   * Event object of the Shell#paneBarItemSelected event.
+   */
   export type Shell$PaneBarItemSelectedEvent = Event<
     Shell$PaneBarItemSelectedEventParameters,
     Shell
   >;
 
+  /**
+   * Parameters of the Shell#paneClosed event.
+   */
   export interface Shell$PaneClosedEventParameters {
     /**
      * The id of the PaneBarItem to which the closed pane belonged.
@@ -15588,15 +15980,27 @@ declare module "sap/ui/ux3/Shell" {
     id?: string;
   }
 
+  /**
+   * Event object of the Shell#paneClosed event.
+   */
   export type Shell$PaneClosedEvent = Event<
     Shell$PaneClosedEventParameters,
     Shell
   >;
 
+  /**
+   * Parameters of the Shell#search event.
+   */
   export interface Shell$SearchEventParameters {}
 
+  /**
+   * Event object of the Shell#search event.
+   */
   export type Shell$SearchEvent = Event<Shell$SearchEventParameters, Shell>;
 
+  /**
+   * Parameters of the Shell#worksetItemSelected event.
+   */
   export interface Shell$WorksetItemSelectedEventParameters {
     /**
      * The id of the workset item that has been newly selected by the user. If a top-level item has been clicked
@@ -15615,6 +16019,9 @@ declare module "sap/ui/ux3/Shell" {
     key?: string;
   }
 
+  /**
+   * Event object of the Shell#worksetItemSelected event.
+   */
   export type Shell$WorksetItemSelectedEvent = Event<
     Shell$WorksetItemSelectedEventParameters,
     Shell
@@ -15831,7 +16238,11 @@ declare module "sap/ui/ux3/ThingAction" {
       sText?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ThingAction constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $ThingActionSettings extends $ElementSettings {
     /**
      * text of action
@@ -15849,6 +16260,9 @@ declare module "sap/ui/ux3/ThingAction" {
     select?: (oEvent: ThingAction$SelectEvent) => void;
   }
 
+  /**
+   * Parameters of the ThingAction#select event.
+   */
   export interface ThingAction$SelectEventParameters {
     /**
      * Id of selected action
@@ -15861,6 +16275,9 @@ declare module "sap/ui/ux3/ThingAction" {
     action?: ThingAction;
   }
 
+  /**
+   * Event object of the ThingAction#select event.
+   */
   export type ThingAction$SelectEvent = Event<
     ThingAction$SelectEventParameters,
     ThingAction
@@ -16156,7 +16573,11 @@ declare module "sap/ui/ux3/ThingGroup" {
       sTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ThingGroup constructor.
+   *
+   * @deprecated (since 1.38)
+   */
   export interface $ThingGroupSettings extends $ElementSettings {
     /**
      * Title of Group
@@ -17209,7 +17630,11 @@ declare module "sap/ui/ux3/ThingInspector" {
       bUpdateActionEnabled?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ThingInspector constructor.
+   *
+   * @deprecated (since 1.38) - There is not an exact replacement.
+   */
   export interface $ThingInspectorSettings extends $OverlaySettings {
     /**
      * First Line of the Thing Inspector Title
@@ -17342,6 +17767,9 @@ declare module "sap/ui/ux3/ThingInspector" {
     feedSubmit?: (oEvent: ThingInspector$FeedSubmitEvent) => void;
   }
 
+  /**
+   * Parameters of the ThingInspector#actionSelected event.
+   */
   export interface ThingInspector$ActionSelectedEventParameters {
     /**
      * Id of selected ThingAction
@@ -17354,11 +17782,17 @@ declare module "sap/ui/ux3/ThingInspector" {
     action?: ThingAction;
   }
 
+  /**
+   * Event object of the ThingInspector#actionSelected event.
+   */
   export type ThingInspector$ActionSelectedEvent = Event<
     ThingInspector$ActionSelectedEventParameters,
     ThingInspector
   >;
 
+  /**
+   * Parameters of the ThingInspector#facetSelected event.
+   */
   export interface ThingInspector$FacetSelectedEventParameters {
     /**
      * Id of selected NavigationItem
@@ -17376,11 +17810,17 @@ declare module "sap/ui/ux3/ThingInspector" {
     key?: string;
   }
 
+  /**
+   * Event object of the ThingInspector#facetSelected event.
+   */
   export type ThingInspector$FacetSelectedEvent = Event<
     ThingInspector$FacetSelectedEventParameters,
     ThingInspector
   >;
 
+  /**
+   * Parameters of the ThingInspector#feedSubmit event.
+   */
   export interface ThingInspector$FeedSubmitEventParameters {
     /**
      * Feed text
@@ -17388,6 +17828,9 @@ declare module "sap/ui/ux3/ThingInspector" {
     text?: string;
   }
 
+  /**
+   * Event object of the ThingInspector#feedSubmit event.
+   */
   export type ThingInspector$FeedSubmitEvent = Event<
     ThingInspector$FeedSubmitEventParameters,
     ThingInspector
@@ -18035,7 +18478,11 @@ declare module "sap/ui/ux3/ThingViewer" {
       sWidth?: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ThingViewer constructor.
+   *
+   * @deprecated (since 1.38) - There is not an exact replacement.
+   */
   export interface $ThingViewerSettings extends $ControlSettings {
     /**
      * Title of the Thing Inspector
@@ -18121,6 +18568,9 @@ declare module "sap/ui/ux3/ThingViewer" {
     facetSelected?: (oEvent: ThingViewer$FacetSelectedEvent) => void;
   }
 
+  /**
+   * Parameters of the ThingViewer#facetSelected event.
+   */
   export interface ThingViewer$FacetSelectedEventParameters {
     /**
      * Id of selected NavigationItem
@@ -18138,6 +18588,9 @@ declare module "sap/ui/ux3/ThingViewer" {
     key?: string;
   }
 
+  /**
+   * Event object of the ThingViewer#facetSelected event.
+   */
   export type ThingViewer$FacetSelectedEvent = Event<
     ThingViewer$FacetSelectedEventParameters,
     ThingViewer
@@ -19264,7 +19717,11 @@ declare module "sap/ui/ux3/ToolPopup" {
       sTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ToolPopup constructor.
+   *
+   * @deprecated (since 1.38) - Instead, use the `sap.m.Popover` control.
+   */
   export interface $ToolPopupSettings extends $ControlSettings {
     /**
      * Determines the title displayed in the pop up window
@@ -19412,20 +19869,35 @@ declare module "sap/ui/ux3/ToolPopup" {
     opened?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the ToolPopup#close event.
+   */
   export interface ToolPopup$CloseEventParameters {}
 
+  /**
+   * Event object of the ToolPopup#close event.
+   */
   export type ToolPopup$CloseEvent = Event<
     ToolPopup$CloseEventParameters,
     ToolPopup
   >;
 
+  /**
+   * Parameters of the ToolPopup#closed event.
+   */
   export interface ToolPopup$ClosedEventParameters {}
 
+  /**
+   * Event object of the ToolPopup#closed event.
+   */
   export type ToolPopup$ClosedEvent = Event<
     ToolPopup$ClosedEventParameters,
     ToolPopup
   >;
 
+  /**
+   * Parameters of the ToolPopup#enter event.
+   */
   export interface ToolPopup$EnterEventParameters {
     /**
      * The onsapenter event, received by the pop up
@@ -19438,27 +19910,48 @@ declare module "sap/ui/ux3/ToolPopup" {
     originalSrcControl?: Control;
   }
 
+  /**
+   * Event object of the ToolPopup#enter event.
+   */
   export type ToolPopup$EnterEvent = Event<
     ToolPopup$EnterEventParameters,
     ToolPopup
   >;
 
+  /**
+   * Parameters of the ToolPopup#iconChanged event.
+   */
   export interface ToolPopup$IconChangedEventParameters {}
 
+  /**
+   * Event object of the ToolPopup#iconChanged event.
+   */
   export type ToolPopup$IconChangedEvent = Event<
     ToolPopup$IconChangedEventParameters,
     ToolPopup
   >;
 
+  /**
+   * Parameters of the ToolPopup#open event.
+   */
   export interface ToolPopup$OpenEventParameters {}
 
+  /**
+   * Event object of the ToolPopup#open event.
+   */
   export type ToolPopup$OpenEvent = Event<
     ToolPopup$OpenEventParameters,
     ToolPopup
   >;
 
+  /**
+   * Parameters of the ToolPopup#opened event.
+   */
   export interface ToolPopup$OpenedEventParameters {}
 
+  /**
+   * Event object of the ToolPopup#opened event.
+   */
   export type ToolPopup$OpenedEvent = Event<
     ToolPopup$OpenedEventParameters,
     ToolPopup
