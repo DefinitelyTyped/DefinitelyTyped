@@ -229,7 +229,7 @@ export interface PlayerActions {
     /**
      * Activate a text track.
      */
-    activateTextTrack: (track: TextTrack) => void
+    activateTextTrack: (track: TextTrack) => void;
 }
 
 export interface PlayerProps extends RefAttributes<PlayerReference> {
@@ -306,23 +306,23 @@ export interface PlayerProps extends RefAttributes<PlayerReference> {
     /**
      * Set Cross Origin configuration
      */
-    crossOrigin?: string
+    crossOrigin?: string;
     /**
      * Event on Play
      */
-    onPlay: () => void
+    onPlay: () => void;
     /**
      * Event on Ended
      */
-    onEnded: () => void
+    onEnded: () => void;
     /**
      * Event on Load start
      */
-    onLoadStart: () => void
+    onLoadStart: () => void;
     /**
      * Event on Pause start
      */
-    onPause: () => void
+    onPause: () => void;
     /**
      * Set the id of the video element.
      */
