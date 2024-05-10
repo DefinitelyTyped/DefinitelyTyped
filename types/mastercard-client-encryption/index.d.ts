@@ -240,8 +240,9 @@ export namespace EncryptionUtils {
         config: unknown
     ): import('node-forge').pki.Certificate
 
-    // TODO
-    function getPrivateKeyFromContent(
-        config: unknown
-    ): import('node-forge').pki.PrivateKey | null
+    function getPrivateKeyFromContent<T extends { privateKey: string }>(
+        config: T
+    ): T extends { privateKey: string }
+        ? import('node-forge').pki.PrivateKey
+        : null
 }

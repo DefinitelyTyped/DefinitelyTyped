@@ -47,3 +47,8 @@ EncryptionUtils.getPrivateKey({
     keyStoreAlias: '',
     keyStorePassword: '',
 })
+
+// @ts-expect-error
+EncryptionUtils.getPrivateKeyFromContent({ keystore: '' })
+
+EncryptionUtils.getPrivateKeyFromContent({ privateKey: '' })
