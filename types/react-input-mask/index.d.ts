@@ -16,7 +16,7 @@ export interface BeforeMaskedStateChangeStates {
     nextState: InputState;
 }
 
-export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>,'children'> {
     /**
      * Mask string. Format characters are:
      * * `9`: `0-9`
@@ -50,6 +50,10 @@ export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
      * * nextState: Input state with applied mask. Contains value and selection fields.
      */
     beforeMaskedStateChange?(states: BeforeMaskedStateChangeStates): InputState;
+    /**
+     * children could be function that returning JSXElement or ReactNode
+     */
+    children?:(React.ReactNode | (()=>JSX.Element))
 }
 
 export class ReactInputMask extends React.Component<Props> {
