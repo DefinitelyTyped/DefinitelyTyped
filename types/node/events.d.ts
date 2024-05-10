@@ -222,11 +222,7 @@ declare module "events" {
             eventName: string | symbol,
             options?: StaticEventEmitterOptions,
         ): Promise<any[]>;
-        static once(
-            emitter: EventTarget,
-            eventName: string,
-            options?: StaticEventEmitterOptions,
-        ): Promise<any[]>;
+        static once(emitter: EventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
          * import { on, EventEmitter } from 'node:events';
