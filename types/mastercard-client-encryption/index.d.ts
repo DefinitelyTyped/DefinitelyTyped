@@ -90,7 +90,7 @@ export namespace EncryptionUtils {
      */
     function bytesToString(
         bytes: string,
-        dataEncoding: Lowercase<DataEncodingType>
+        dataEncoding: DataEncodingType
     ): string
 
     /**
@@ -102,7 +102,7 @@ export namespace EncryptionUtils {
      */
     function stringToBytes(
         value: string,
-        dataEncoding: Lowercase<DataEncodingType>
+        dataEncoding: DataEncodingType
     ): string
 
     function toByteArray(
@@ -171,4 +171,77 @@ export namespace EncryptionUtils {
     | import('node-forge').pki.PrivateKey
     | null
     | undefined
+
+    function readPublicCertificate (
+        publicCertificatePath: string
+    ):
+    | import('node-forge').pki.Certificate
+    | undefined
+
+    function computePublicFingerprint (
+        config: {
+            publicKeyFingerprintType: PublicKeyFingerprintType
+        },
+        encryptionCertificate: import('node-forge').pki.Certificate,
+        encoding: DataEncodingType
+    ): string
+
+    function nodeVersionSupportsJWE (): boolean
+
+    function checkConfigFieldsArePopulated (
+        config: {
+            paths: unknown
+        },
+        propertiesBasic: string[],
+        propertiesField: string[],
+        propertiesHeader: string[],
+    ): boolean | undefined
+
+    // TODO
+    function validateRootMapping(
+        config: unknown
+    ): void
+
+    function hasConfig(
+        config: unknown,
+        endpoint: string
+    ): string[] | null
+
+    // TODO
+    function elemFromPath(
+        path: unknown,
+        obj: unknown
+    ):
+    | { node: unknown, parent: unknown }
+    | null
+
+    // TODO
+    function isJsonRoot(
+        elem: unknown
+    ): boolean
+
+    // TODO
+    function computeBody(
+        configParam: unknown,
+        body: unknown,
+        bodyMap: unknown,
+    ): boolean
+
+    // TODO
+    function addEncryptedDataToBody<T>(
+        encryptedData: unknown,
+        path: string,
+        encryptedValueFieldName: unknown,
+        body: T
+    ): T
+
+    // TODO
+    function readPublicCertificateContent(
+        config: unknown
+    ): import('node-forge').pki.Certificate
+
+    // TODO
+    function getPrivateKeyFromContent(
+        config: unknown
+    ): import('node-forge').pki.PrivateKey | null
 }
