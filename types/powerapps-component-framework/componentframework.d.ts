@@ -5,7 +5,7 @@ declare namespace ComponentFramework {
      * Interface for the Power Apps Controls (Standard)
      */
     interface StandardControl<TInputs, TOutputs, TEvents = IEventBag> {
-      /**
+        /**
          * Used to initialize the control instance. Controls can kick off remote server calls and other initialization actions here.
          * Data-set values are not initialized here, use updateView.
          * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped
