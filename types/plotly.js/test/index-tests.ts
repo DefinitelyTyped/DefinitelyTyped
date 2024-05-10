@@ -1111,61 +1111,61 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 // Plotly.animate as per https://plot.ly/javascript/animations/
 (() => {
- Plotly.animate('myDiv', {
-    data: [{y: [Math.random(), Math.random(), Math.random()]}],
-    traces: [0],
-    layout: {}
-  }, {
-    transition: {
-      duration: 500,
-      easing: 'cubic-in-out'
-    },
-    frame: {
-      duration: 500
-    }
-  });
+    Plotly.animate("myDiv", {
+        data: [{ y: [Math.random(), Math.random(), Math.random()] }],
+        traces: [0],
+        layout: {},
+    }, {
+        transition: {
+            duration: 500,
+            easing: "cubic-in-out",
+        },
+        frame: {
+            duration: 500,
+        },
+    });
 
-  var min = 0.45 * Math.random();
-  var max = 0.55 + 0.45 * Math.random();
-  Plotly.animate('myDiv', {
-    layout: {
-      xaxis: {range: [min, max]},
-      yaxis: {range: [min, max]}
-    }
-  }, {
-    transition: {
-      duration: 500,
-      easing: 'cubic-in-out'
-    }
-  });
+    var min = 0.45 * Math.random();
+    var max = 0.55 + 0.45 * Math.random();
+    Plotly.animate("myDiv", {
+        layout: {
+            xaxis: { range: [min, max] },
+            yaxis: { range: [min, max] },
+        },
+    }, {
+        transition: {
+            duration: 500,
+            easing: "cubic-in-out",
+        },
+    });
 
-   Plotly.animate('myDiv', ['frame1', 'frame2'], {
-    frame: [
-      {duration: 1500},
-      {duration: 500},
-    ],
-    transition: [
-      {duration: 800, easing: 'elastic-in'},
-      {duration: 100, easing: 'cubic-in'},
-    ],
-    mode: 'afterall'
-  });
+    Plotly.animate("myDiv", ["frame1", "frame2"], {
+        frame: [
+            { duration: 1500 },
+            { duration: 500 },
+        ],
+        transition: [
+            { duration: 800, easing: "elastic-in" },
+            { duration: 100, easing: "cubic-in" },
+        ],
+        mode: "afterall",
+    });
 
-  Plotly.animate('myDiv', {
-    data: [{x: [], y: []}]
-  }, {
-    transition: {
-      duration: 0
-    },
-    frame: {
-      duration: 0,
-      redraw: false
-    }
-  });
+    Plotly.animate("myDiv", {
+        data: [{ x: [], y: [] }],
+    }, {
+        transition: {
+            duration: 0,
+        },
+        frame: {
+            duration: 0,
+            redraw: false,
+        },
+    });
 
-  var ids = ['1', '2', '3', '4', '5', '6'];
+    var ids = ["1", "2", "3", "4", "5", "6"];
 
-  Plotly.animate('myDiv', [{
-    data: [{ids: ids}]
-  }]);
+    Plotly.animate("myDiv", [{
+        data: [{ ids: ids }],
+    }]);
 });

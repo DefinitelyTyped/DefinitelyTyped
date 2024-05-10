@@ -310,8 +310,8 @@ export interface AnimationFrameOpts {
 }
 
 export interface AnimationOpts {
-    mode: 'immediate' | 'next' | 'afterall';
-    direction: 'forward' | 'reverse';
+    mode: "immediate" | "next" | "afterall";
+    direction: "forward" | "reverse";
     fromcurrent: boolean;
     transition: Partial<Transition> | Array<Partial<Transition>>;
     frame: Partial<AnimationFrameOpts> | Array<Partial<AnimationFrameOpts>>;
@@ -391,7 +391,7 @@ export function register(modules: PlotlyModule | PlotlyModule[]): void;
 export function animate(
     root: Root,
     frameOrGroupNameOrFrameList?: string | string[] | Partial<Frame> | Array<Partial<Frame>>,
-    opts?: Partial<AnimationOpts>
+    opts?: Partial<AnimationOpts>,
 ): Promise<void>;
 
 // Layout
