@@ -90,7 +90,7 @@ export namespace EncryptionUtils {
      */
     function bytesToString(
         bytes: string,
-        dataEncoding: Lowercase<string>
+        dataEncoding: Lowercase<DataEncodingType>
     ): string
 
     /**
@@ -102,12 +102,12 @@ export namespace EncryptionUtils {
      */
     function stringToBytes(
         value: string,
-        dataEncoding: Lowercase<string>
+        dataEncoding: Lowercase<DataEncodingType>
     ): string
 
     function toByteArray(
         value: string,
-        fromFormat: string
+        fromFormat: import('node:buffer').TranscodeEncoding
     ): Buffer
 
     type JSONPrimitive = string | number | boolean | null | undefined;
@@ -162,9 +162,7 @@ export namespace EncryptionUtils {
         keyStorePassword: JweEncryptionConfiguration['keyStorePassword']
     }
 
-    type getPrivateKeyConfig =
-        | PrivateKeyConfig
-        | KeystoreConfig
+    type getPrivateKeyConfig = PrivateKeyConfig | KeystoreConfig
 
     function getPrivateKey(
         config: getPrivateKeyConfig
