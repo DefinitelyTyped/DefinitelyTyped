@@ -7282,6 +7282,9 @@ _.templateSettings; // $ExpectType TemplateSettings
     const func3 = (arg1: number, arg2: string, arg3: boolean): number => {
         return arg1 * arg2.length + (arg3 ? 1 : 0);
     };
+    const func4 = (arg1: number, arg2: string, arg3: boolean, arg4: number): number => {
+        return arg1 * arg2.length + (arg3 ? 1 : 0) - arg4;
+    }
 
     // with arity 0 function
     _.partial(func0); // $ExpectType () => number
@@ -7295,7 +7298,16 @@ _.templateSettings; // $ExpectType TemplateSettings
     _.partial(func2, _.partial.placeholder, "foo"); // $ExpectType Function1<number, number>
     _.partial(func2, 42, "foo"); // $ExpectType () => number
     // with arity 3 function
-    _.partial(func3, 42,     _, true);
+    _.partial(func3) // $ExpectType (arg1: number, arg2: string, arg3: boolean) => number
+    _.partial(func3, 42) // $ExpectType (arg2: string, arg3: boolean) => number
+    _.partial(func3, 42,     _, true) // $ExpectType Function1<string, number>;
+    _.partial(func3, 42, "foo", true) // $ExpectType () => number
+    // with arity 4 function
+    _.partial(func4) // $ExpectType (arg1: number, arg2: string, arg3: boolean: arg4: number) => number
+    _.partial(func4, 42) // $ExpectType (arg2: string, arg3: boolean: arg4: number) => number
+    _.partial(func4, 42,     _, true, 10) // $ExpectType Function1<string, number>;
+    _.partial(func4, _,      _,    _, 10) // $ExpectType Function3<number, string, boolean, number>;
+    _.partial(func4, 42, "foo", true, 10) // $ExpectType () => number
 
     // with arity 0 function
     _.partialRight(func0); // $ExpectType Function0<number>
