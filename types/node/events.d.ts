@@ -75,17 +75,13 @@ declare module "events" {
          */
         captureRejections?: boolean | undefined;
     }
-    interface EventEmitterStaticOnceOptions {
+    interface StaticEventEmitterOptions {
         /**
          * Can be used to cancel awaiting events.
          */
         signal?: AbortSignal | undefined;
     }
-    interface EventEmitterStaticOnOptions {
-        /**
-         * Can be used to cancel awaiting events.
-         */
-        signal?: AbortSignal | undefined;
+    interface StaticEventEmitterOnOptions extends StaticEventEmitterOptions {
         /**
          * Names of events that will end the iteration.
          * @since v20.0.0
@@ -224,12 +220,12 @@ declare module "events" {
         static once(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
-            options?: EventEmitterStaticOnceOptions,
+            options?: StaticEventEmitterOptions,
         ): Promise<any[]>;
         static once(
             emitter: EventTarget,
             eventName: string,
-            options?: EventEmitterStaticOnceOptions,
+            options?: StaticEventEmitterOptions,
         ): Promise<any[]>;
         /**
          * ```js
@@ -293,7 +289,7 @@ declare module "events" {
         static on(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
-            options?: EventEmitterStaticOnOptions,
+            options?: StaticEventEmitterOnOptions,
         ): AsyncIterableIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
