@@ -811,7 +811,21 @@ declare namespace validator {
     /**
      * Check  if the string matches the format of a country's license plate.
      */
-    export function isLicensePlate(str: string, locale:'cs-CZ' | 'de-DE' | 'de-LI' | 'en-IN' | 'es-AR' | 'hu-HU' | 'pt-BR' | 'pt-PT' | 'sq-AL' | 'sv-SE' | 'any'): boolean;
+    export function isLicensePlate(
+        str: string,
+        locale:
+            | "cs-CZ"
+            | "de-DE"
+            | "de-LI"
+            | "en-IN"
+            | "es-AR"
+            | "hu-HU"
+            | "pt-BR"
+            | "pt-PT"
+            | "sq-AL"
+            | "sv-SE"
+            | "any",
+    ): boolean;
 
     /**
      * Check if the string passes the [Luhn algorithm check](https://en.m.wikipedia.org/wiki/Luhn_algorithm).
