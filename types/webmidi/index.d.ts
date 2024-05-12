@@ -202,14 +202,14 @@ declare namespace WebMidi {
         /**
          * A Uint8Array containing the MIDI data bytes of a single MIDI message.
          */
-        data: Uint8Array;
+        readonly data: Uint8Array;
     }
 
     interface MIDIMessageEventInit extends EventInit {
         /**
          * A Uint8Array containing the MIDI data bytes of a single MIDI message.
          */
-        data: Uint8Array;
+        readonly data: Uint8Array;
     }
 
     interface MIDIConnectionEvent extends Event {
