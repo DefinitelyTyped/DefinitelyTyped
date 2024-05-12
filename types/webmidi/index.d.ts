@@ -73,38 +73,38 @@ declare namespace WebMidi {
          * A unique ID of the port. This can be used by developers to remember ports the
          * user has chosen for their application.
          */
-        id: string;
+        readonly id: string;
 
         /**
          * The manufacturer of the port.
          */
-        manufacturer?: string | undefined;
+        readonly manufacturer?: string | undefined;
 
         /**
          * The system name of the port.
          */
-        name?: string | undefined;
+        readonly name?: string | undefined;
 
         /**
          * A descriptor property to distinguish whether the port is an input or an output
          * port.
          */
-        type: MIDIPortType;
+        readonly type: MIDIPortType;
 
         /**
          * The version of the port.
          */
-        version?: string | undefined;
+        readonly version?: string | undefined;
 
         /**
          * The state of the device.
          */
-        state: MIDIPortDeviceState;
+        readonly state: MIDIPortDeviceState;
 
         /**
          * The state of the connection to the device.
          */
-        connection: MIDIPortConnectionState;
+        readonly connection: MIDIPortConnectionState;
 
         /**
          * The handler called when an existing port changes its state or connection
