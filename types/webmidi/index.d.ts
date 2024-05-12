@@ -13,6 +13,12 @@ declare namespace WebMidi {
          * exclusive messages is requested or allowed on a given MIDIAccess object.
          */
         sysex: boolean;
+
+        /**
+         * This member informs the system whether the ability to utilize any software synthesizers
+         * installed in the host system is requested or allowed on a given MIDIAccess object. 
+         */
+        software: boolean;   
     }
 
     /**
