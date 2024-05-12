@@ -25,6 +25,7 @@ import {
     IbmZAndLinuxoneMultiFrame,
     MovingDolly,
     RedHatApplications,
+    ShanghaiSkyline,
     SolarField,
     Spss,
     SystemsDevopsAnalyze,
@@ -32,7 +33,6 @@ import {
     UserMask,
     Video_01,
     Visibility,
-    ShanghaiSkyline,
     WatsonLogo,
 } from "@carbon/pictograms-react";
 import * as React from "react";
