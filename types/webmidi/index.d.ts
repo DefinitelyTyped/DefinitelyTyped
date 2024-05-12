@@ -216,13 +216,13 @@ declare namespace WebMidi {
         /**
          * The port that has been connected or disconnected.
          */
-        port: MIDIPort;
+        readonly port: MIDIPort;
     }
 
     interface MIDIConnectionEventInit extends EventInit {
         /**
          * The port that has been connected or disconnected.
          */
-        port: MIDIPort;
+        readonly port: MIDIPort;
     }
 }
