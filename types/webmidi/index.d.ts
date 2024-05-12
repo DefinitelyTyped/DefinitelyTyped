@@ -42,7 +42,7 @@ declare namespace WebMidi {
          * The handler called when a new port is connected or an existing port changes the
          * state attribute.
          */
-        onstatechange(e: MIDIConnectionEvent): void;
+        onstatechange: ((e: MIDIConnectionEvent) => void) | null;
 
         addEventListener(
             type: "statechange",
@@ -110,7 +110,7 @@ declare namespace WebMidi {
          * The handler called when an existing port changes its state or connection
          * attributes.
          */
-        onstatechange(e: MIDIConnectionEvent): void;
+        onstatechange: ((e: MIDIConnectionEvent) => void) | null;
 
         addEventListener(
             type: "statechange",
@@ -152,7 +152,7 @@ declare namespace WebMidi {
 
     interface MIDIInput extends MIDIPort {
         type: "input";
-        onmidimessage(e: MIDIMessageEvent): void;
+        onmidimessage : ((e: MIDIMessageEvent) => void) | null;
 
         addEventListener(
             type: "midimessage",
