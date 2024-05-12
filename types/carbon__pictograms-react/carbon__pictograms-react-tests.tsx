@@ -32,6 +32,7 @@ import {
     UserMask,
     Video_01,
     Visibility,
+    ShanghaiSkyline,
     WatsonLogo,
 } from "@carbon/pictograms-react";
 import * as React from "react";
@@ -71,3 +72,4 @@ import * as React from "react";
 <UserMask />; // $ExpectType Element
 <Spss />; // $ExpectType Element
 <BentoBoxTray />; // $ExpectType Element
+<ShanghaiSkyline />; // $ExpectType Element
