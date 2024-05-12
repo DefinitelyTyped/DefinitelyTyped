@@ -37,12 +37,12 @@ declare namespace WebMidi {
         /**
          * The MIDI input ports available to the system.
          */
-        inputs: MIDIInputMap;
+        readonly inputs: MIDIInputMap;
 
         /**
          * The MIDI output ports available to the system.
          */
-        outputs: MIDIOutputMap;
+        readonly outputs: MIDIOutputMap;
 
         /**
          * The handler called when a new port is connected or an existing port changes the
@@ -65,7 +65,7 @@ declare namespace WebMidi {
          * This attribute informs the user whether system exclusive support is enabled on
          * this MIDIAccess.
          */
-        sysexEnabled: boolean;
+        readonly sysexEnabled: boolean;
     }
 
     type MIDIPortType = "input" | "output";
