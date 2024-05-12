@@ -200,22 +200,12 @@ declare namespace WebMidi {
 
     interface MIDIMessageEvent extends Event {
         /**
-         * A timestamp specifying when the event occurred.
-         */
-        receivedTime: number;
-
-        /**
          * A Uint8Array containing the MIDI data bytes of a single MIDI message.
          */
         data: Uint8Array;
     }
 
     interface MIDIMessageEventInit extends EventInit {
-        /**
-         * A timestamp specifying when the event occurred.
-         */
-        receivedTime: number;
-
         /**
          * A Uint8Array containing the MIDI data bytes of a single MIDI message.
          */
