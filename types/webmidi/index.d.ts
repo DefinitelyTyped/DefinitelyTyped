@@ -61,6 +61,17 @@ declare namespace WebMidi {
             options?: boolean | AddEventListenerOptions,
         ): void;
 
+        removeEventListener(
+            type: "statechange",
+            listener: (this: this, e: MIDIConnectionEvent) => any,
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | EventListenerOptions,
+        ): void;
+
         /**
          * This attribute informs the user whether system exclusive support is enabled on
          * this MIDIAccess.
@@ -129,6 +140,17 @@ declare namespace WebMidi {
             options?: boolean | AddEventListenerOptions,
         ): void;
 
+        removeEventListener(
+            type: "statechange",
+            listener: (this: this, e: MIDIConnectionEvent) => any,
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | EventListenerOptions,
+        ): void;
+
         /**
          * Makes the MIDI device corresponding to the MIDIPort explicitly available. Note
          * that this call is NOT required in order to use the MIDIPort - calling send() on
@@ -174,6 +196,22 @@ declare namespace WebMidi {
             type: string,
             listener: EventListenerOrEventListenerObject,
             options?: boolean | AddEventListenerOptions,
+        ): void;
+
+        removeEventListener(
+            type: "midimessage",
+            listener: (this: this, e: MIDIMessageEvent) => any,
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: "statechange",
+            listener: (this: this, e: MIDIConnectionEvent) => any,
+            options?: boolean | EventListenerOptions,
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListenerOrEventListenerObject,
+            options?: boolean | EventListenerOptions,
         ): void;
     }
 
