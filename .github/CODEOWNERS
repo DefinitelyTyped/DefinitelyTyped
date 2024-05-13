@@ -288,6 +288,7 @@
 /types/applepayjs/                                        @martincostello
 /types/applest-atem/                                      @k-yle
 /types/appletvjs/                                         @brainded
+/types/approximate-number/                                @giokaxo
 /types/apptimize__apptimize-web-sdk/                      @innovation-team @rlbaxter
 /types/arangodb/                                          @pluma
 /types/arbiter/                                           @arash16
@@ -3559,6 +3560,7 @@
 /types/iso8601-localizer/                                 @avielfedida
 /types/isomorphic-fetch/                                  @toddlucas
 /types/isomorphic-form-data/                              @maxbogus
+/types/isomorphic-git__openpgp-plugin/                    @k-yle
 /types/isotope-layout/                                    @avidenic @SPWizard01
 /types/isstream/                                          @MasterOdin
 /types/issue-parser/                                      @Leko
@@ -5990,7 +5992,7 @@
 /types/printer/                                           @chrispanag
 /types/priorityqueuejs/                                   @geoffreak
 /types/prismic-dom/                                       @nickw444 @sbilstein @douglasnomizo @henrymyers
-/types/prismjs/                                           @RunDevelopment @ExE-Boss @eriklieben @andrewiggins @mmiszy
+/types/prismjs/                                           @RunDevelopment @ExE-Boss @eriklieben @andrewiggins @typeofweb
 /types/probability-distributions/                         @sdankel
 /types/probe-image-size/                                  @jineshshah36 @peterblazejewicz
 /types/proc-log/                                          @legodude17
@@ -7508,6 +7510,7 @@
 /types/slocket/                                           @BendingBender
 /types/slonik/                                            @sebald @mmkal
 /types/slug/                                              @danielclausmeyer
+/types/sluggo/                                            @RDIL
 /types/sm-crypto/                                         @Moonisky
 /types/smallest-enclosing-circle/                         @ChocolateLoverRaj
 /types/smallwei__avue/                                    @SoulLyoko
