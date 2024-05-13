@@ -37,7 +37,7 @@ pendo.initialize({
 });
 
 // $ExpectType string | null
-pendo.getAccountId()
+pendo.getAccountId();
 
 pendo.initialize({
     visitor: {
