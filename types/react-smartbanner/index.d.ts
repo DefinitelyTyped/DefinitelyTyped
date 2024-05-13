@@ -23,4 +23,6 @@ interface Props {
 
 declare const SmartBanner: React.FC<Props>;
 
+declare module 'dist/main.css';
+
 export = SmartBanner;

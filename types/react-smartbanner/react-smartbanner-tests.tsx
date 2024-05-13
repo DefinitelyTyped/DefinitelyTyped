@@ -1,5 +1,6 @@
 import React from "react";
 import SmartBanner from "react-smartbanner";
+import 'react-smartbanner/dist/main.css';
 
 const EmptySmartBanner: React.FC = () => {
     // @ts-expect-error required parameter 'position' is missing
