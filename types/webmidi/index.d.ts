@@ -131,7 +131,7 @@ declare namespace WebMidi {
 
         addEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
@@ -142,7 +142,7 @@ declare namespace WebMidi {
 
         removeEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | EventListenerOptions,
         ): void;
         removeEventListener(
@@ -184,12 +184,12 @@ declare namespace WebMidi {
 
         addEventListener(
             type: "midimessage",
-            listener: (this: this, e: MIDIMessageEvent) => any,
+            listener: (this: this, e: MIDIMessageEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
@@ -200,12 +200,12 @@ declare namespace WebMidi {
 
         removeEventListener(
             type: "midimessage",
-            listener: (this: this, e: MIDIMessageEvent) => any,
+            listener: (this: this, e: MIDIMessageEvent) => void,
             options?: boolean | EventListenerOptions,
         ): void;
         removeEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | EventListenerOptions,
         ): void;
         removeEventListener(
