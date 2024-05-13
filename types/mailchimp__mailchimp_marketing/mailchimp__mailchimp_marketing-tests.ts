@@ -149,6 +149,9 @@ const triggerCustomerJourneyBody: mailchimp.customerJourneys.TriggerCustomerJour
 // $ExpectType Promise<SearchMembersSuccessResponse | ErrorResponse>
 mailchimp.searchMembers.search("test");
 
+// $ExpectType Promise<SearchMembersSuccessResponse | ErrorResponse>
+mailchimp.searchMembers.search("test", {list_id: "test"});
+
 // $ExpectType Promise<BatchListMembersResponse | ErrorResponse>
 mailchimp.lists.batchListMembers("test", batchListMembersBody, batchListMembersOpts);
 
