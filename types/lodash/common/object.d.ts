@@ -1328,7 +1328,7 @@ declare module "../index" {
          * _.has(other, 'a');
          * // => false
          */
-        has<T, K extends PropertyName>(object: T, path: K): object is T & {[uniqueSymbol]: unknown} & { [P in K]: P extends keyof T ? T[P] : Record<string, unknown> extends T ? T[keyof T] : unknown};
+        has<T, K extends PropertyName>(object: T, path: K): object is T & { [P in K]: P extends keyof T ? T[P] : Record<string, unknown> extends T ? T[keyof T] : unknown} & {[uniqueSymbol]: unknown};
         has<T>(object: T, path: PropertyPath): boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
