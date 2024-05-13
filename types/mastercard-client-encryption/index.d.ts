@@ -284,3 +284,147 @@ export class FieldLevelEncryption {
      */
     decrypt: <T extends DecryptOptions>(response: T) => T['body']
 }
+
+/**
+* Manages low level client-server communications, parameter marshalling, etc. There should not be any need for an
+* application to use this class directly - the *Api and model classes provide the public API for the service. The
+* contents of this file should be regarded as internal but are documented for completeness.
+* @alias module:ApiClient
+*/
+export class ApiClient {
+    /**
+     * The base URL against which to resolve every API call's (relative) path.
+     * Overrides the default value set in spec file if present
+     * @param {String} basePath
+     */
+    constructor(basePath: string);
+
+    /**
+     * The base URL against which to resolve every API call's (relative) path.
+     */
+    basePath: string;
+
+    /**
+     * The authentication methods to be included for all API calls.
+     */
+    authentications: Record<string, unknown>;
+
+    /**
+     * The default HTTP headers to be included for all API calls.
+     * @default {}
+     */
+    defaultHeaders: Record<string, unknown>;
+
+    /**
+     * The default HTTP timeout for all API calls.
+     * @default 60000
+     */
+    timeout: number;
+
+    /**
+     * If set to false an additional timestamp parameter is added to all API GET calls to
+     * prevent browser caching
+     * @default true
+     */
+    cache: boolean;
+
+    /**
+     * If set to true, the client will save the cookies from each server
+     * response, and return them in the next request.
+     * @default false
+     */
+    enableCookies: boolean;
+
+    // TODO: find superagent.agent type
+    agent: undefined;
+
+    /**
+     * Allow user to override superagent agent
+     */
+    // TODO: find superagent.agent type
+    requestAgent: unknown | null;
+
+    /**
+     * Allow user to add superagent plugins
+     */
+    plugins: unknown[];
+
+    /**
+     * Returns a string representation for an actual parameter.
+     * @param param The actual parameter.
+     * @returns {String} The string representation of <code>param</code>.
+     */
+    paramToString(
+        param: unknown
+    ): string
+
+    /**
+     *
+     * Returns a boolean indicating if the parameter could be JSON.stringified
+     * @param param The actual parameter
+     * @returns Flag indicating if <code>param</code> can be JSON.stringified
+     */
+    static canBeJsonified(str: string): boolean;
+
+    /**
+     * Builds full URL by appending the given path to the base URL and replacing path parameter place-holders with parameter values.
+     * NOTE: query parameters are not handled here.
+     * @param path The path to append to the base URL.
+     * @param pathParams The parameter values to append.
+     * @param apiBasePath Base path defined in the path, operation level to override the default one
+     * @returns The encoded path with parameter values substituted.
+     */
+    buildUrl(
+        path: string,
+        pathParams: Record<string, unknown>,
+        apiBasePath: NonNullable<string>
+    ): string
+
+    /**
+     * Checks whether the given content type represents JSON.<br>
+     * JSON content type examples:<br>
+     * @example
+     * application/json
+     * @example
+     * application/json; charset=UTF8
+     * @example
+     * APPLICATION/JSON
+     * @param contentType The MIME content type to check.
+     * @returns <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
+     */
+    isJsonMime(
+        contentType: string
+    ): boolean;
+
+    /**
+     * Chooses a content type from the given array, with JSON preferred; i.e. return JSON if included, otherwise return the first.
+     * @param contentTypes
+     * @returns The chosen content type, preferring JSON.
+     */
+    jsonPreferredMime(
+        contentTypes: Record<string, unknown>
+    ): string
+
+    /**
+     * Checks whether the given parameter value represents file-like content.
+     * @param param The parameter to check.
+     * @returns <code>true</code> if <code>param</code> represents a file.
+     */
+    isFileParam(
+        param: import('fs').ReadStream | Buffer | Blob | File
+    ): boolean
+
+    /**
+     * Normalizes parameter values:
+     * <ul>
+     * <li>remove nils</li>
+     * <li>keep files and arrays</li>
+     * <li>format to string with `paramToString` for other cases</li>
+     * </ul>
+     * @param params The parameters as object properties.
+     * @returns normalized parameters.
+     */
+    normalizeParams(
+        params: Record<string, unknown>
+    ): Record<string, unknown>
+}
