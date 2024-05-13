@@ -180,7 +180,7 @@ export enum BinaryType {
     /**
      * Binary data is returned in ArrayBuffer form. k6 supports only this type.
      */
-    ArrayBuffer = "ArrayBuffer",
+    ArrayBuffer = "arraybuffer",
 }
 
 /**
