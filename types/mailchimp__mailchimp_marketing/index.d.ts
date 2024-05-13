@@ -1211,6 +1211,11 @@ export namespace searchMembers {
 
     function search(
         query: string,
+        parameters: {
+            list_id?: string;
+            exclude_fields?: string[];
+            fields?: string[];
+        }
     ): Promise<SearchMembersSuccessResponse | ErrorResponse>;
 }
 
