@@ -95,12 +95,12 @@ declare namespace WebMidi {
         /**
          * The manufacturer of the port.
          */
-        readonly manufacturer?: string | undefined;
+        readonly manufacturer?: string;
 
         /**
          * The system name of the port.
          */
-        readonly name?: string | undefined;
+        readonly name?: string;
 
         /**
          * A descriptor property to distinguish whether the port is an input or an output
@@ -111,7 +111,7 @@ declare namespace WebMidi {
         /**
          * The version of the port.
          */
-        readonly version?: string | undefined;
+        readonly version?: string;
 
         /**
          * The state of the device.
