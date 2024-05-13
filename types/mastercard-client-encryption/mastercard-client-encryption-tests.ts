@@ -52,3 +52,66 @@ EncryptionUtils.getPrivateKey({
 EncryptionUtils.getPrivateKeyFromContent({ keystore: '' })
 
 EncryptionUtils.getPrivateKeyFromContent({ privateKey: '' })
+
+EncryptionUtils.readPublicCertificate('path/to/certificate')
+
+EncryptionUtils.computePublicFingerprint(
+    { publicKeyFingerprintType: 'certificate', },
+    // @ts-expect-error
+    { publicKey: '' },
+    'base64'
+)
+
+EncryptionUtils.computePublicFingerprint(
+    { publicKeyFingerprintType: 'publicKey' },
+    // @ts-ignore no public key initialization to test whole public key shape
+    { publicKey: '' },
+    'base64'
+)
+
+EncryptionUtils.nodeVersionSupportsJWE()
+
+EncryptionUtils.checkConfigFieldsArePopulated(
+    { paths: [] },
+    ['path'],
+    ['field'],
+    ['header']
+)
+
+EncryptionUtils.validateRootMapping({
+    paths: [
+        {
+            path: '/',
+            toEncrypt: [],
+            toDecrypt: []
+        }
+    ]
+})
+
+EncryptionUtils.hasConfig({
+    paths: []
+}, '/')
+
+EncryptionUtils.elemFromPath('path.to.object', {
+    to: {
+        object: ''
+    }
+})
+
+EncryptionUtils.isJsonRoot({})
+
+EncryptionUtils.computeBody(
+    [
+        { element: '', obj: '' }
+    ],
+    {},
+    []
+)
+
+EncryptionUtils.addEncryptedDataToBody(
+    {},
+    { element: '', obj: '', },
+    '',
+    {}
+)
+

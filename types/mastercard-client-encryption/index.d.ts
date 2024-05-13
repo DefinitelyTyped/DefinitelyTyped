@@ -18,10 +18,14 @@ export interface RootMapping {
     obj: string
 }
 
+export type EncryptionParameter =
+    | RootMapping[]
+    | []
+
 export interface RootMappingNode {
     path: string,
-    toEncrypt: RootMapping[] | [],
-    toDecrypt: RootMapping[] | [],
+    toEncrypt: EncryptionParameter,
+    toDecrypt: EncryptionParameter,
 }
 
 export interface JweEncryptionConfiguration {
@@ -110,23 +114,6 @@ export namespace EncryptionUtils {
         fromFormat: import('node:buffer').TranscodeEncoding
     ): Buffer
 
-    type JSONPrimitive = string | number | boolean | null | undefined;
-
-    type JSONValue = JSONPrimitive | JSONValue[] | {
-        [key: string]: JSONValue;
-    };
-
-    type NotAssignableToJson =
-            | bigint
-            | symbol;
-
-    type JSONCompatible<T> = unknown extends T ? never : {
-            [P in keyof T]:
-                    T[P] extends JSONValue ? T[P] :
-                    T[P] extends NotAssignableToJson ? never :
-                    JSONCompatible<T[P]>;
-    };
-
     /**
      * Convert a json object or json string to string
      *
@@ -146,6 +133,14 @@ export namespace EncryptionUtils {
      */
     function stringToJson(
         data: string
+    ): unknown
+
+    function mutateObjectProperty(
+        path: string,
+        value: unknown,
+        obj: unknown,
+        srcPath: NonNullable<string>,
+        properties: string[]
     ): unknown
 
     interface PrivateKeyConfig {
@@ -178,11 +173,15 @@ export namespace EncryptionUtils {
     | import('node-forge').pki.Certificate
     | undefined
 
-    function computePublicFingerprint (
+    function computePublicFingerprint <
+        T extends PublicKeyFingerprintType
+    >(
         config: {
-            publicKeyFingerprintType: PublicKeyFingerprintType
+            publicKeyFingerprintType: T
         },
-        encryptionCertificate: import('node-forge').pki.Certificate,
+        encryptionCertificate: T extends 'certificate'
+            ? import('node-forge').pki.Certificate
+            : Pick<import('node-forge').pki.Certificate, 'publicKey'>,
         encoding: DataEncodingType
     ): string
 
@@ -197,9 +196,8 @@ export namespace EncryptionUtils {
         propertiesHeader: string[],
     ): boolean | undefined
 
-    // TODO
     function validateRootMapping(
-        config: unknown
+        config: Pick<JweEncryptionConfiguration, 'paths'>
     ): void
 
     function hasConfig(
@@ -207,37 +205,32 @@ export namespace EncryptionUtils {
         endpoint: string
     ): string[] | null
 
-    // TODO
     function elemFromPath(
-        path: unknown,
+        path: string,
         obj: unknown
     ):
     | { node: unknown, parent: unknown }
     | null
 
-    // TODO
     function isJsonRoot(
         elem: unknown
     ): boolean
 
-    // TODO
     function computeBody(
-        configParam: unknown,
+        configParam: EncryptionParameter,
         body: unknown,
         bodyMap: unknown,
     ): boolean
 
-    // TODO
-    function addEncryptedDataToBody<T>(
+    function addEncryptedDataToBody(
         encryptedData: unknown,
-        path: string,
-        encryptedValueFieldName: unknown,
-        body: T
-    ): T
+        path: RootMapping,
+        encryptedValueFieldName: string,
+        body: unknown
+    ): unknown
 
-    // TODO
     function readPublicCertificateContent(
-        config: unknown
+        config: string
     ): import('node-forge').pki.Certificate
 
     function getPrivateKeyFromContent<T extends { privateKey: string }>(
