@@ -179,7 +179,7 @@ declare namespace WebMidi {
     }
 
     interface MIDIInput extends MIDIPort {
-        type: "input";
+        readonly type: "input";
         onmidimessage : ((e: MIDIMessageEvent) => void) | null;
 
         addEventListener(
@@ -216,7 +216,7 @@ declare namespace WebMidi {
     }
 
     interface MIDIOutput extends MIDIPort {
-        type: "output";
+        readonly type: "output";
 
         /**
          * Enqueues the message to be sent to the corresponding MIDI port.
