@@ -16,9 +16,9 @@ declare namespace WebMidi {
 
         /**
          * This member informs the system whether the ability to utilize any software synthesizers
-         * installed in the host system is requested or allowed on a given MIDIAccess object. 
+         * installed in the host system is requested or allowed on a given MIDIAccess object.
          */
-        software: boolean;   
+        software: boolean;
     }
 
     /**
@@ -180,7 +180,7 @@ declare namespace WebMidi {
 
     interface MIDIInput extends MIDIPort {
         readonly type: "input";
-        onmidimessage : ((e: MIDIMessageEvent) => void) | null;
+        onmidimessage: ((e: MIDIMessageEvent) => void) | null;
 
         addEventListener(
             type: "midimessage",

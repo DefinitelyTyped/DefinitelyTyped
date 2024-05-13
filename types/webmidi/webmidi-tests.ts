@@ -14,12 +14,12 @@ const onFulfilled = (item: WebMidi.MIDIAccess) => {
     };
     midiPort.onstatechange = null;
 
-    const onStateChange = (event : WebMidi.MIDIConnectionEvent) => {
+    const onStateChange = (event: WebMidi.MIDIConnectionEvent) => {
         console.log(event.port);
 
         // @ts-expect-error port is read-only
         event.port = null;
-    }
+    };
     midiPort.addEventListener("statechange", onStateChange);
     midiPort.removeEventListener("statechange", onStateChange);
 
@@ -81,7 +81,6 @@ const onFulfilled = (item: WebMidi.MIDIAccess) => {
         input.removeEventListener("midimessage", onMidiMessage);
     }
 
-
     const inputOrOutput = [...inputs, ...outputs][0];
     if (inputOrOutput.type === "output") {
         // 'send' only available on outputs
@@ -98,10 +97,10 @@ const onRejected = (e: Error) => {
     console.error(e);
 };
 
-const midiOptions : WebMidi.MIDIOptions = {
+const midiOptions: WebMidi.MIDIOptions = {
     sysex: true,
-    software : false,
-}
+    software: false,
+};
 
 if (navigator.requestMIDIAccess !== undefined) {
     navigator.requestMIDIAccess(midiOptions).then(onFulfilled, onRejected);
