@@ -997,7 +997,7 @@ const concentricAllOptions: ConcentricLayoutOptions = {
     height: 5,
     width: 3,
     spacingFactor: 7,
-    concentric: _node => 6,
+    concentric: _node => _node.neighborhood().size(),
     levelWidth: _nodes => 5,
     animate: true,
     animationDuration: 50,
