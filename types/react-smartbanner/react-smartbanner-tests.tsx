@@ -1,6 +1,6 @@
 import React from "react";
 import SmartBanner from "react-smartbanner";
-import 'react-smartbanner/dist/main.css';
+import "react-smartbanner/dist/main.css";
 
 const EmptySmartBanner: React.FC = () => {
     // @ts-expect-error required parameter 'position' is missing
@@ -8,14 +8,13 @@ const EmptySmartBanner: React.FC = () => {
 };
 
 const CorrectStoreObject: React.FC = () => {
-  return <SmartBanner position="bottom" storeText={{ ios: 'hello' }} />;
-}
-
-const WrongStoreObject: React.FC = () => {
-  // @ts-expect-error invalid field 'blabla'
-  return <SmartBanner position="bottom" storeText={{ blabla: 'hello', ios: 'hello' }} />;
+    return <SmartBanner position="bottom" storeText={{ ios: "hello" }} />;
 };
 
+const WrongStoreObject: React.FC = () => {
+    // @ts-expect-error invalid field 'blabla'
+    return <SmartBanner position="bottom" storeText={{ blabla: "hello", ios: "hello" }} />;
+};
 
 const ValidSmartBanner: React.FC = () => {
     return <SmartBanner position="top" />;
@@ -45,16 +44,16 @@ const FullSmartBanner: React.FC = () => {
                 kindle: "",
             }}
             storeText={{
-              ios: 'On the App Store',
-              android: 'In Google Play',
-              windows: 'In Windows Store',
-              kindle: 'In the Amazon Appstore',
+                ios: "On the App Store",
+                android: "In Google Play",
+                windows: "In Windows Store",
+                kindle: "In the Amazon Appstore",
             }}
             price={{
-              ios: 'Free',
-              android: 'Free',
-              windows: 'Free',
-              kindle: 'Free',
+                ios: "Free",
+                android: "Free",
+                windows: "Free",
+                kindle: "Free",
             }}
             button={<button>Click Me!</button>}
             onClose={() => {}}

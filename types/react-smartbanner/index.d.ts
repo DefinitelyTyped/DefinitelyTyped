@@ -1,10 +1,10 @@
 /// <reference types="react" />
 
-type Stores = 'ios' | 'android' | 'windows' | 'kindle';
+type Stores = "ios" | "android" | "windows" | "kindle";
 type StoreObject = Partial<Record<Stores, string>>;
 
 interface Props {
-    position: 'top' | 'bottom';
+    position: "top" | "bottom";
     daysHidden?: number;
     daysReminder?: number;
     appStoreLanguage?: string;
@@ -23,6 +23,6 @@ interface Props {
 
 declare const SmartBanner: React.FC<Props>;
 
-declare module 'dist/main.css';
+declare module "dist/main.css";
 
 export = SmartBanner;
