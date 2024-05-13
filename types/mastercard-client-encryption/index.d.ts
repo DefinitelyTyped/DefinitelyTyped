@@ -304,6 +304,7 @@ export class ApiClient {
      */
     basePath: string;
 
+    // TODO: authentications type
     /**
      * The authentication methods to be included for all API calls.
      */
@@ -427,4 +428,136 @@ export class ApiClient {
     normalizeParams(
         params: Record<string, unknown>
     ): Record<string, unknown>
+
+    /**
+     * Builds a string representation of an array-type actual parameter, according to the given collection format.
+     * @param param An array parameter.
+     * @param collectionFormat The array element separator strategy.
+     * @returns {String|Array} A string representation of the supplied collection, using the specified delimiter. Returns
+     * <code>param</code> as is if <code>collectionFormat</code> is <code>multi</code>.
+     */
+    buildCollectionParam(
+        param: unknown[],
+        collectionFormat: ApiClient.CollectionFormatEnum
+    ): string | [] | null | undefined
+
+    /**
+     * Applies authentication headers to the request.
+     * @param {Object} request The request object created by a <code>superagent()</code> call.
+     * @param {Array.<String>} authNames An array of authentication method names.
+     */
+    applyAuthToRequest(
+        request: unknown, // TODO: get type of request from superagent
+        authNames: string[]
+    ): void
+
+    /**
+     * Deserializes an HTTP response body into a value of the specified type.
+     * @param {Object} response A SuperAgent response object.
+     * @param {(String|Array.<String>|Object.<String, Object>|Function)} returnType The type to return. Pass a string for simple types
+     * or the constructor function for a complex type. Pass an array containing the type name to return an array of that type. To
+     * return an object, pass an object with one property whose name is the key type and whose value is the corresponding value type:
+     * all properties on <code>data<code> will be converted to this type.
+     * @returns {object} A value of the specified type.
+     */
+    deserialize(
+        response: unknown, // TODO: get superagent response object shape
+        returnType: string | string[] | Record<string, unknown> | Function
+    ): unknown
+
+    /**
+     * Converts a value to the specified type.
+     * @param data - The data to convert, as a string or object.
+     * @param type - The type to return. Pass a string for simple types
+     *      or the constructor function for a complex type. Pass an array
+     *      containing the type name to return an array of that type. To
+     *      return an object, pass an object with one property whose name
+     *      is the key type and whose value is the corresponding value type:
+     *      all properties on <code>data<code> will be converted to this type.
+     * @returns {unknown} An instance of the specified type or null or undefined if data is null or undefined.
+     */
+    static convertToType(
+        data: unknown,
+        type: string | string[] | Record<string, unknown> | Function
+    ): unknown;
+
+    /**
+     * Invokes the REST service using the supplied settings and parameters.
+     * @param path The base URL to invoke.
+     * @param httpMethod The HTTP method to use.
+     * @param pathParams A map of path parameters and their values.
+     * @param queryParams A map of query parameters and their values.
+     * @param headerParams A map of header parameters and their values.
+     * @param formParams A map of form parameters and their values.
+     * @param bodyParam The value to pass as the request body.
+     * @param authNames An array of authentication type names.
+     * @param contentTypes An array of request MIME types.
+     * @param accepts An array of acceptable response MIME types.
+     * @param returnType The required type to return; can be a string for simple types or the
+     * constructor for a complex type.
+     * @param apiBasePath base path defined in the operation/path level to override the default one
+     */
+    callApi<TResponse>(
+        path: string,
+        httpMethod: string,
+        pathParams: Record<string, string>,
+        queryParams: Record<string, unknown>,
+        headerParams: Record<string, unknown>,
+        formParams: Record<string, unknown>,
+        bodyParam: unknown,
+        authNames: string[],
+        contentTypes: string[],
+        accepts: string[],
+        returnType: string | [] | Function | unknown,
+        apiBasePath: string
+    ): Promise<
+        (TResponse & { data: unknown })
+        | ApiClient.ErrorResponse<TResponse>
+    >
+
+    /**
+     * Parses an ISO-8601 string representation or epoch representation of a date value.
+     * @param {String} str The date value as a string.
+     * @returns {Date} The parsed date object.
+     */
+    static parseDate(str: string): Date;
+
+    hostSettings(): { url: string, description: string}[];
+
+    getBasePathFromSettings(
+        index: number,
+        variables: Record<string, string>
+    ): string | undefined
+
+    /**
+     * Constructs a new map or array model from REST data.
+     * @param data - The REST data.
+     * @param obj - The target object or array.
+     * @param type
+     */
+    static constructFromObject(
+        data: unknown[] | unknown,
+        obj: unknown[] | unknown,
+        type: string
+    ): void
+
+    /**
+     * The default API client implementation.
+     */
+    instance: ApiClient;
+}
+
+export namespace ApiClient {
+    export type CollectionFormatEnum = 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi' | 'passthrough'
+
+    interface Response<T> {
+        status: unknown,
+        statusText: string,
+        body: unknown,
+        response: T
+    }
+
+    type ErrorResponse<T> = Response<T> & {
+        error: Error
+    }
 }
