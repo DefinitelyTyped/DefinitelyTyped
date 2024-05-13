@@ -239,3 +239,48 @@ export namespace EncryptionUtils {
         ? import('node-forge').pki.PrivateKey
         : null
 }
+
+export type FieldLevelEncryptionConfiguration = JweEncryptionConfiguration & {
+    ivFieldName: string,
+    ivHeaderName?: string,
+    encryptedKeyFieldName: string,
+    encryptedKeyHeaderName?: string,
+    publicKeyFingerprintFieldName: string,
+    publicKeyFingerprintHeaderName?: string,
+    oaepHashingAlgorithmFieldName: string,
+}
+
+/**
+ * Performs field level encryption on HTTP payloads.
+ *
+ * @module encryption/FieldLevelEncryption
+ * @version 1.0.0
+ */
+export class FieldLevelEncryption {
+    constructor(config: FieldLevelEncryptionConfiguration);
+
+    /**
+     * Encrypt parts of a HTTP request using the given config
+     *
+     * @param endpoint HTTP URL for the current call
+     * @param header HTTP Header
+     * @param body HTTP Body
+     * @returns {{header: *, body: *}}
+     */
+    encrypt<T>(
+        endpoint: string,
+        header: Record<string, string | undefined>,
+        body: T
+    ): {
+        header: Record<string, string | undefined>,
+        body: T
+    }
+
+    /**
+     * Decrypt part of the HTTP response using the given config
+     *
+     * @param response HTTP response to decrypt
+     * @returns {*}
+     */
+    decrypt: <T extends DecryptOptions>(response: T) => T['body']
+}

@@ -1,4 +1,17 @@
-import { JweEncryption, EncryptionUtils } from 'mastercard-client-encryption'
+import { JweEncryption, EncryptionUtils, FieldLevelEncryption } from 'mastercard-client-encryption'
+
+const jweEncryptionConfig = {
+    mode: 'JWE',
+    paths: [
+        {
+            path: '',
+            toEncrypt: [],
+            toDecrypt: []
+        }
+    ],
+    encryptedValueFieldName: 'encryptedData',
+    encryptionCertificate: '',
+}
 
 const jwe = new JweEncryption({
     mode: 'JWE',
@@ -115,3 +128,17 @@ EncryptionUtils.addEncryptedDataToBody(
     {}
 )
 
+const fle = new FieldLevelEncryption({
+    ...jweEncryptionConfig,
+    ivFieldName: 'iv',
+    encryptedKeyFieldName: 'encryptedKey',
+    encryptedValueFieldName: 'encryptedData',
+    oaepHashingAlgorithmFieldName: 'SHA-256',
+    publicKeyFingerprintFieldName: '',
+})
+
+fle.encrypt('/', {}, {})
+fle.decrypt({
+    request: { url: '' },
+    body: {}
+})
