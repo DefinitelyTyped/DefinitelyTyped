@@ -462,7 +462,7 @@ export class ApiClient {
      */
     deserialize(
         response: unknown, // TODO: get superagent response object shape
-        returnType: string | string[] | Record<string, unknown> | Function
+        returnType: string | string[] | Record<string, unknown> | ApiClient.Model
     ): unknown
 
     /**
@@ -478,7 +478,7 @@ export class ApiClient {
      */
     static convertToType(
         data: unknown,
-        type: string | string[] | Record<string, unknown> | Function
+        type: string | string[] | Record<string, unknown> | ApiClient.Model
     ): unknown;
 
     /**
@@ -508,7 +508,7 @@ export class ApiClient {
         authNames: string[],
         contentTypes: string[],
         accepts: string[],
-        returnType: string | [] | Function | unknown,
+        returnType: string | [] | ApiClient.Model | unknown,
         apiBasePath: string
     ): Promise<
         (TResponse & { data: unknown })
@@ -522,7 +522,7 @@ export class ApiClient {
      */
     static parseDate(str: string): Date;
 
-    hostSettings(): { url: string, description: string}[];
+    hostSettings(): Array<{ url: string, description: string}>;
 
     getBasePathFromSettings(
         index: number,
@@ -548,7 +548,7 @@ export class ApiClient {
 }
 
 export namespace ApiClient {
-    export type CollectionFormatEnum = 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi' | 'passthrough'
+    type CollectionFormatEnum = 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi' | 'passthrough'
 
     interface Response<T> {
         status: unknown,
@@ -559,5 +559,12 @@ export namespace ApiClient {
 
     type ErrorResponse<T> = Response<T> & {
         error: Error
+    }
+
+    interface Model {
+        constructFromObject(
+            data: unknown,
+            obj: unknown
+        ): unknown;
     }
 }
