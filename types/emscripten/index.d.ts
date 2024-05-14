@@ -202,17 +202,17 @@ declare namespace FS {
 
     let ignorePermissions: boolean;
     let trackingDelegate: {
-        onOpenFile(path: string, trackingFlags: number);
-        onCloseFile(path: string);
-        onSeekFile(path: string, position: number, whence: number);
-        onReadFile(path: string, bytesRead: number);
-        onWriteToFile(path: string, bytesWritten: number);
-        onMakeDirectory(path: string, mode: number);
-        onMakeSymlink(oldpath: string, newpath: string);
-        willMovePath(old_path: string, new_path: string);
-        onMovePath(old_path: string, new_path: string);
-        willDeletePath(path: string);
-        onDeletePath(path: string);
+        onOpenFile(path: string, trackingFlags: number): unknown;
+        onCloseFile(path: string): unknown;
+        onSeekFile(path: string, position: number, whence: number): unknown;
+        onReadFile(path: string, bytesRead: number): unknown;
+        onWriteToFile(path: string, bytesWritten: number): unknown;
+        onMakeDirectory(path: string, mode: number): unknown;
+        onMakeSymlink(oldpath: string, newpath: string): unknown;
+        willMovePath(old_path: string, new_path: string): unknown;
+        onMovePath(old_path: string, new_path: string): unknown;
+        willDeletePath(path: string): unknown;
+        onDeletePath(path: string): unknown;
     };
     let tracking: any;
     let genericErrors: Record<number, ErrnoError>;
@@ -230,6 +230,7 @@ declare namespace FS {
              */
             follow: boolean;
             recurse_count: number;
+            parent: boolean;
         }>,
     ): Lookup;
     function getPath(node: FSNode): string;
@@ -252,7 +253,7 @@ declare namespace FS {
     function major(dev: number): number;
     function minor(dev: number): number;
     function makedev(ma: number, mi: number): number;
-    function registerDevice(dev: number, ops: StreamOps): void;
+    function registerDevice(dev: number, ops: Partial<StreamOps>): void;
     function getDevice(dev: number): { stream_ops: StreamOps };
 
     //
