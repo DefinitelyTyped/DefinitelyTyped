@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -2782,7 +2782,8 @@ declare module "sap/f/cards/NumericHeader" {
    */
   export default class NumericHeader
     extends BaseHeader
-    implements cards.IHeader {
+    implements cards.IHeader
+  {
     __implements__sap_f_cards_IHeader: boolean;
     /**
      * Constructor for a new `NumericHeader`.
@@ -2905,6 +2906,14 @@ declare module "sap/f/cards/NumericHeader" {
        */
       oListener?: object
     ): this;
+    /**
+     * Destroys the microChart in the aggregation {@link #getMicroChart microChart}.
+     *
+     * @experimental (since 1.124)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyMicroChart(): this;
     /**
      * Destroys all the sideIndicators in the aggregation {@link #getSideIndicators sideIndicators}.
      *
@@ -3087,6 +3096,14 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Value of property `iconVisible`
      */
     getIconVisible(): boolean;
+    /**
+     * Gets content of aggregation {@link #getMicroChart microChart}.
+     *
+     * Micro Chart
+     *
+     * @experimental (since 1.124)
+     */
+    getMicroChart(): Control;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -3482,6 +3499,19 @@ declare module "sap/f/cards/NumericHeader" {
        * New value for property `iconVisible`
        */
       bIconVisible?: boolean
+    ): this;
+    /**
+     * Sets the aggregated {@link #getMicroChart microChart}.
+     *
+     * @experimental (since 1.124)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMicroChart(
+      /**
+       * The microChart to set
+       */
+      oMicroChart: Control
     ): this;
     /**
      * Sets a new value for property {@link #getNumber number}.
@@ -3915,6 +3945,13 @@ declare module "sap/f/cards/NumericHeader" {
       | `{${string}}`;
 
     /**
+     * Micro Chart
+     *
+     * @experimental (since 1.124)
+     */
+    microChart?: Control;
+
+    /**
      * Fires when the user presses the control.
      */
     press?: (oEvent: Event) => void;
@@ -4252,9 +4289,7 @@ declare module "sap/f/dnd/GridDropInfo" {
      * @returns Value of property `dropIndicatorSize`
      */
     getDropIndicatorSize():
-      | ((
-          p1: Control
-        ) => {
+      | ((p1: Control) => {
           rows: int;
 
           columns: int;
@@ -4283,9 +4318,7 @@ declare module "sap/f/dnd/GridDropInfo" {
       /**
        * New value for property `dropIndicatorSize`
        */
-      fnDropIndicatorSize?: (
-        p1: Control
-      ) => {
+      fnDropIndicatorSize?: (p1: Control) => {
         rows: int;
 
         columns: int;
@@ -7144,7 +7177,8 @@ declare module "sap/f/FlexibleColumnLayout" {
    */
   export default class FlexibleColumnLayout
     extends Control
-    implements IPlaceholderSupport {
+    implements IPlaceholderSupport
+  {
     __implements__sap_ui_core_IPlaceholderSupport: boolean;
     /**
      * Constructor for a new `sap.f.FlexibleColumnLayout`.
@@ -10467,7 +10501,8 @@ declare module "sap/f/GridContainer" {
    */
   export default class GridContainer
     extends Control
-    implements dnd.IGridDroppable {
+    implements dnd.IGridDroppable
+  {
     __implements__sap_f_dnd_IGridDroppable: boolean;
     /**
      * Constructor for a new `sap.f.GridContainer`.
@@ -12106,7 +12141,8 @@ declare module "sap/f/GridList" {
    */
   export default class GridList
     extends ListBase
-    implements cssgrid.IGridConfigurable, dnd.IGridDroppable {
+    implements cssgrid.IGridConfigurable, dnd.IGridDroppable
+  {
     __implements__sap_ui_layout_cssgrid_IGridConfigurable: boolean;
     __implements__sap_f_dnd_IGridDroppable: boolean;
     /**
@@ -19455,7 +19491,8 @@ declare module "sap/f/ShellBar" {
    */
   export default class ShellBar
     extends Control
-    implements IShellBar, IBar, IToolHeader {
+    implements IShellBar, IBar, IToolHeader
+  {
     __implements__sap_f_IShellBar: boolean;
     __implements__sap_m_IBar: boolean;
     __implements__sap_tnt_IToolHeader: boolean;

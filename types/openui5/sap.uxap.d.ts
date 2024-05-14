@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/uxap/library" {
   /**
@@ -2092,7 +2092,8 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
    */
   export default class ObjectPageDynamicHeaderContent
     extends DynamicPageHeader
-    implements IHeaderContent {
+    implements IHeaderContent
+  {
     __implements__sap_uxap_IHeaderContent: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderContent`.
@@ -2195,7 +2196,8 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
    */
   export default class ObjectPageDynamicHeaderTitle
     extends DynamicPageTitle
-    implements IHeaderTitle {
+    implements IHeaderTitle
+  {
     __implements__sap_uxap_IHeaderTitle: boolean;
     /**
      * Constructor for a new `ObjectPageDynamicHeaderTitle`.
@@ -2324,7 +2326,8 @@ declare module "sap/uxap/ObjectPageHeader" {
    */
   export default class ObjectPageHeader
     extends Control
-    implements IHeaderTitle {
+    implements IHeaderTitle
+  {
     __implements__sap_uxap_IHeaderTitle: boolean;
     /**
      * Constructor for a new `ObjectPageHeader`.
@@ -3736,7 +3739,8 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
    */
   export default class ObjectPageHeaderActionButton
     extends Button
-    implements IOverflowToolbarContent {
+    implements IOverflowToolbarContent
+  {
     __implements__sap_m_IOverflowToolbarContent: boolean;
     /**
      * Constructor for a new `ObjectPageHeaderActionButton`.
@@ -3960,7 +3964,8 @@ declare module "sap/uxap/ObjectPageHeaderContent" {
    */
   export default class ObjectPageHeaderContent
     extends Control
-    implements IHeaderContent {
+    implements IHeaderContent
+  {
     __implements__sap_uxap_IHeaderContent: boolean;
     /**
      * Constructor for a new `ObjectPageHeaderContent`.

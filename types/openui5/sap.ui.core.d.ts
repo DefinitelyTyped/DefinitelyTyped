@@ -279,8 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/base/assert" {
   /**
@@ -3527,29 +3526,47 @@ declare module "sap/base/util/Version" {
       /**
        * the minor part of the version number
        */
-      iMinor: int,
+      iMinor?: int,
       /**
        * the patch part of the version number
        */
-      iPatch: int,
+      iPatch?: int,
       /**
        * the suffix part of the version number
        */
-      sSuffix: string
+      sSuffix?: string
     );
 
     /**
      * Compares this version with a given one.
      *
      * The version with which this version should be compared can be given as a `sap/base/util/Version` instance,
-     * as a string (e.g. `v.compareto("1.4.5")`). Or major, minor, patch and suffix values can be given as separate
+     * as a string (e.g. `v.compareTo("1.4.5")`). Or major, minor, patch and suffix values can be given as separate
      * parameters (e.g. `v.compareTo(1, 4, 5)`) or in an array (e.g. `v.compareTo([1, 4, 5])`).
      *
      *
      * @returns 0, if the given version is equal to this version, a negative value if the given other version
      * is greater and a positive value otherwise
      */
-    compareTo(): int;
+    compareTo(
+      /**
+       * The major part (an integer) of the version to compare to or the full version in any of the single parameter
+       * variants, as documented for the {@link module:sap/base/util/Version constructor}.
+       */
+      vOtherMajor: int | string | any[] | Version,
+      /**
+       * A minor version to compare to (only valid when `vOther` is a single integer)
+       */
+      iOtherMinor?: int,
+      /**
+       * A patch version to compare to (only valid when `vOther` is a single integer)
+       */
+      iOtherPatch?: int,
+      /**
+       * A version suffix like "-SNAPSHOT" to compare to (only valid when `vOther` is an integer)
+       */
+      sOtherSuffix?: string
+    ): int;
     /**
      * Returns the major version part of this version.
      *
@@ -8164,10 +8181,11 @@ declare module "sap/ui/base/Event" {
    */
   export default class Event<
       ParamsType extends Record<string, any> = object,
-      SourceType extends EventProvider = EventProvider
+      SourceType extends EventProvider = EventProvider,
     >
     extends BaseObject
-    implements Poolable {
+    implements Poolable
+  {
     __implements__sap_ui_base_Poolable: boolean;
     /**
      * Creates an event with the given `sId`, linked to the provided `oSource` and enriched with the `mParameters`.
@@ -8309,7 +8327,7 @@ declare module "sap/ui/base/EventProvider" {
    * Provides eventing capabilities for objects like attaching or detaching event handlers for events which
    * are notified when events are fired.
    */
-  export default abstract class EventProvider extends BaseObject {
+  export default class EventProvider extends BaseObject {
     /**
      * Creates an instance of EventProvider.
      */
@@ -16065,7 +16083,8 @@ declare module "sap/ui/core/ComponentContainer" {
    */
   export default class ComponentContainer
     extends Control
-    implements IPlaceholderSupport {
+    implements IPlaceholderSupport
+  {
     __implements__sap_ui_core_IPlaceholderSupport: boolean;
     /**
      * Constructor for a new ComponentContainer.
@@ -22162,7 +22181,8 @@ declare module "sap/ui/core/dnd/DragDropInfo" {
    */
   export default class DragDropInfo
     extends DropInfo
-    implements dnd.IDragInfo, dnd.IDropInfo {
+    implements dnd.IDragInfo, dnd.IDropInfo
+  {
     __implements__sap_ui_core_dnd_IDragInfo: boolean;
     __implements__sap_ui_core_dnd_IDropInfo: boolean;
     /**
@@ -25935,7 +25955,7 @@ declare module "sap/ui/core/format/DateFormat" {
     ):
       | [
           Date | import("sap/ui/core/date/UI5Date").default | undefined,
-          string | undefined
+          string | undefined,
         ]
       | null;
   }
@@ -26405,8 +26425,8 @@ declare module "sap/ui/core/format/NumberFormat" {
         strictGroupingValidation?: boolean;
         /**
          * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
-         * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
-         * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
+         * When set to 'short' or 'long', numbers are formatted into the 'short' form only. When this option is
+         * set, the default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
          * decimals, shortDecimals, or the 'precision' option itself.
          */
         style?: string;
@@ -35189,7 +35209,6 @@ declare module "sap/ui/core/mvc/View" {
      * Synchronously loading views get wrapped in an immediately resolving Promise.
      *
      * @since 1.30
-     * @deprecated (since 1.66) - Use {@link sap.ui.core.mvc.View.create View.create} instead
      *
      * @returns resolves with the complete view instance, rejects with any thrown error
      */
@@ -35938,17 +35957,6 @@ declare module "sap/ui/core/mvc/XMLView" {
      * Configuration for the XMLView caching.
      */
     cache?: Object;
-
-    /**
-     * legacy-relevant:
-     *
-     * A map containing references to modules loaded via a 'core:require' statement in an XMLView.
-     *
-     * Only used for HTML embedded in an XMLView. This kind of HTML is processed synchronously only and needs
-     * access to 'core:require' modules from outside. Normally 'core:require' modules are NOT passed into nested
-     * Views and Fragments.
-     */
-    requireContext?: Object;
   }
 }
 
@@ -48367,7 +48375,8 @@ declare module "sap/ui/core/webc/WebComponent" {
   /**
    * HACK! This mapping omits the `no-unnecessary-qualifier` error or we need to extend the `tslint.json`!
    */
-  export type MetadataOptionsAssociationMapping = MetadataOptions.Association.Mapping;
+  export type MetadataOptionsAssociationMapping =
+    MetadataOptions.Association.Mapping;
 
   /**
    * HACK! This mapping omits the `no-unnecessary-qualifier` error or we need to extend the `tslint.json`!
@@ -54372,18 +54381,6 @@ declare module "sap/ui/model/ClientTreeBinding" {
        */
       aSorters?: Sorter[] | Sorter
     ): this;
-  }
-}
-
-declare module "sap/ui/model/ClientTreeBindingAdapter" {
-  export default class ClientTreeBindingAdapter {
-    /**
-     * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
-     * controls.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    protected constructor();
   }
 }
 
@@ -62701,6 +62698,20 @@ declare module "sap/ui/model/odata/type/Currency" {
     /**
      * Formats the given values of the parts of the `Currency` composite type to the given target type.
      *
+     * If CLDR or custom currencies are used and the `preserveDecimals` format option is set to `false`, the
+     * maximal number of decimal places for the numeric part of the {@link sap.ui.model.odata.type.Currency }
+     * type depends on:
+     * 	The `DecimalPlaces` property of the current currency code. The `maxFractionDigits` format option
+     * of the {@link sap.ui.model.odata.type.Currency} type. The `scale` constraint of the {@link sap.ui.model.odata.type.Decimal }
+     * type for the quantity part.  The maximal number of decimal places is determined as follows:
+     * 	If `maxFractionDigits` is provided and is less than the current currency code's `DecimalPlaces`, the
+     * `maxFractionDigits` is used to determine the number of decimal places. Conversely, if `DecimalPlaces`
+     * is less than `maxFractionDigits`, `DecimalPlaces` wins. If `maxFractionDigits` is not provided, the
+     * `DecimalPlaces` of the current currency code is applied, unless it is greater than the `scale` of the
+     * {@link sap.ui.model.odata.type.Decimal} type for the numeric part, in which case `scale` wins. A
+     * `scale='variable'` is treated as being always greater than the `DecimalPlaces` of the current currency
+     * code. In this case, the `DecimalPlaces` of the current currency code is applied.
+     *
      * @since 1.63.0
      *
      * @returns The formatted output value; `null`, if `aValues` is `undefined` or `null` or if the amount,
@@ -65523,6 +65534,20 @@ declare module "sap/ui/model/odata/type/Unit" {
     /**
      * Formats the given values of the parts of the `Unit` composite type to the given target type.
      *
+     * If CLDR or custom units are used and the `preserveDecimals` format option is set to `false`, the maximal
+     * number of decimal places for the numeric part of the {@link sap.ui.model.odata.type.Unit} type depends
+     * on:
+     * 	The `DecimalPlaces` property of the current unit code. The `maxFractionDigits` format option of
+     * the {@link sap.ui.model.odata.type.Unit} type. The `scale` constraint of the {@link sap.ui.model.odata.type.Decimal }
+     * type for the quantity part.  The maximal number of decimal places is determined as follows:
+     * 	If `maxFractionDigits` is provided and is less than the current unit code's `DecimalPlaces`, the `maxFractionDigits`
+     * is used to determine the number of decimal places. Conversely, if `DecimalPlaces` is less than `maxFractionDigits`,
+     * `DecimalPlaces` wins. If `maxFractionDigits` is not provided, the `DecimalPlaces` of the current
+     * unit code is applied, unless it is greater than the `scale` of the {@link sap.ui.model.odata.type.Decimal }
+     * type for the numeric part, in which case `scale` wins. A `scale='variable'` is treated as being always
+     * greater than the `DecimalPlaces` of the current unit code. In this case, the `DecimalPlaces` of the current
+     * unit code is applied.
+     *
      * @since 1.63.0
      *
      * @returns The formatted output value; `null`, if `aValues` is `undefined` or `null` or if the measure,
@@ -67923,12 +67948,11 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          * A tree state handle can be given to the `ODataTreeBinding` when two conditions are met:
          * 	 - The binding is running in {@link sap.ui.model.odata.OperationMode.Client OperationMode.Client}, and
          *
-         * 	 - the {@link sap.ui.table.TreeTable} is used.  The feature is only available when using the `ODataTreeBindingAdapter`,
-         *     which is automatically applied when using the `sap.ui.table.TreeTable`. The tree state handle will contain
-         *     all necessary information to expand the tree to the given state.
+         * 	 - the {@link sap.ui.table.TreeTable} is used.  The feature is only available when using the {@link sap.ui.table.TreeTable}.
+         *     The tree state handle will contain all necessary information to expand the tree to the given state.
          *
          * This feature is not supported if {@link sap.ui.model.odata.OperationMode.Server OperationMode.Server }
-         * or {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is used. See also {@link sap.ui.model.odata.ODataTreeBindingAdapter#getCurrentTreeState}
+         * or {@link sap.ui.model.odata.OperationMode.Auto OperationMode.Auto} is used.
          */
         treeState?: any;
         /**
@@ -71214,6 +71238,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * can also be accessed via instance annotation "@$ui5.context.isTransient" at the entity.
      * See:
      * 	#isInactive
+     * 	#move
      *
      * @since 1.43.0
      *
@@ -71222,16 +71247,31 @@ declare module "sap/ui/model/odata/v4/Context" {
      */
     isTransient(): boolean | undefined;
     /**
-     * Moves this node to the given parent (in case of a recursive hierarchy, see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation},
-     * where `oAggregation.expandTo` must be either one or at least `Number.MAX_SAFE_INTEGER`). No other {@link sap.ui.model.odata.v4.ODataListBinding#create creation},
-     * {@link #delete deletion}, or move must be pending, and no other modification (including collapse of some
-     * ancestor node) must happen while this move is pending! Omitting a new parent turns this node into a root
-     * node (since 1.121.0).
+     * In a {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation recursive hierarchy}, this method moves
+     * a node to the given new parent, just before the given next sibling. No other {@link sap.ui.model.odata.v4.ODataListBinding#create creation},
+     * {@link #delete deletion}, or move must be pending, and no other modification (including the collapse
+     * of an ancestor node) must happen while this move is pending!
      *
-     * This context's {@link #getIndex index} may change and, in case of `oAggregation.expandTo : 1`, it becomes
-     * "created persisted", with {@link #isTransient} returning `false` etc. In case of `oAggregation.expandTo
-     * >= Number.MAX_SAFE_INTEGER`, a created node becomes simply "persisted", with {@link #isTransient} returning
-     * `undefined` etc.
+     * The move potentially changes the {@link #getIndex index} of this context, of all of its descendants,
+     * and of all other nodes affected by the move. Any index change can, however, only be observed reliably
+     * for this context itself.
+     *
+     * The move changes the {@link https://ui5.sap.com/#/topic/c9723f8265f644af91c0ed941e114d46/section_CST context states }
+     * of the nodes as follows:
+     * 	 If the moved node is in the "created" state, it becomes simply "persisted", with {@link #isTransient }
+     * returning `undefined`. In this case, any descendants of this node are themselves in the "created" state
+     * and also become "persisted"; otherwise, their states remain unaffected by the move.  If the moved
+     * node's new parent node is in the "created" state, the parent's lowest-level {@link getParent ancestor }
+     * is determined that is also in the "created" state (if no ancestor nodes are in "created" state, this
+     * will be the new parent itself). Any descendants of that node are then themselves in the "created" state
+     * and also become "persisted"; otherwise, their states remain unaffected by the move.
+     *
+     * Note that a node in the "created" state is not shown in its usual position as defined by the service
+     * and the current sort order, but out of place as the first child of its parent. It is even shown if it
+     * doesn't match current search or filter criteria! Once it becomes simply "persisted" due to the move (as
+     * described above), this special handling ends. The node is then shown in place again, or it might even
+     * not be shown anymore due to the search or filter criteria. If the latter happens to this context, its
+     * {@link #getIndex index} becomes `undefined`.
      *
      * @experimental (since 1.119.0)
      *
@@ -71242,11 +71282,16 @@ declare module "sap/ui/model/odata/v4/Context" {
       /**
        * A parameter object
        */
-      oParameters?: {
+      oParameters: {
         /**
-         * The new parent's context
+         * The next sibling's context, or `null` to turn this node into the last sibling (since 1.124.0). Omitting
+         * the sibling moves this node to a position determined by the server.
          */
-        parent?: Context;
+        nextSibling?: Context | null;
+        /**
+         * The new parent's context, or (since 1.121.0) `null` to turn this node into a root node
+         */
+        parent: Context | null;
       }
     ): Promise<void>;
     /**
@@ -71579,8 +71624,12 @@ declare module "sap/ui/model/odata/v4/Context" {
      * on the client, it does not appear as {@link #isSelected selected}. If the preconditions of {@link #setKeepAlive }
      * hold, a best effort is made to implicitly keep a selected context alive in order to preserve the selection
      * state. Once the selection is no longer needed, for example because you perform an operation on this context
-     * which logically removes it from its list, you need to reset the selection. If this context is a header
-     * context of a list binding, the new selection state is propagated to all row contexts.
+     * which logically removes it from its list, you need to reset the selection.
+     *
+     * If this context is a header context of a list binding, the new selection state is propagated to all row
+     * contexts. This method can be called repeatedly with the same value to again select all row contexts.
+     * For example, if a row context was deselected explicitly, it is selected again by selecting the header
+     * context (even if the header context is already selected).
      *
      * **Note:** It is unsafe to keep a reference to a context instance which is not {@link #isKeepAlive kept alive}.
      * See:
@@ -71759,7 +71808,8 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
     ): this;
     /**
      * Changes this binding's parameters and refreshes the binding. Since 1.111.0, a list binding's header context
-     * is deselected.
+     * is deselected, but (since 1.120.13) only if the binding parameter '$$clearSelectionOnFilter' is set and
+     * the '$filter' or '$search' parameter is changed.
      *
      * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
      * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
@@ -72426,7 +72476,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     ): this;
     /**
      * Changes this binding's parameters and refreshes the binding. Since 1.111.0, a list binding's header context
-     * is deselected.
+     * is deselected, but (since 1.120.13) only if the binding parameter '$$clearSelectionOnFilter' is set and
+     * the '$filter' or '$search' parameter is changed.
      *
      * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
      * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
@@ -72645,7 +72696,8 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     ): this;
     /**
      * Filters the list with the given filters. Since 1.97.0, if filters are unchanged, no request is sent,
-     * regardless of pending changes. Since 1.111.0, the header context is deselected.
+     * regardless of pending changes. Since 1.111.0, all contexts (incl. the header context) are deselected,
+     * but (since 1.120.13) only if the binding parameter '$$clearSelectionOnFilter' is set.
      *
      * If there are pending changes that cannot be ignored, an error is thrown. Use {@link #hasPendingChanges }
      * to check if there are such pending changes. If there are, call {@link sap.ui.model.odata.v4.ODataModel#submitBatch }
@@ -73224,7 +73276,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * certain content will break the syntax of the system query option `$apply` and result in an invalid request.
          * If the OData service supports the proposal ODATA-1452,
          * then `ODataUtils.formatLiteral(sSearch, "Edm.String");` should be used to encapsulate the whole search
-         * string beforehand (see {@link sap.ui.model.odata.v4.ODataUtils.formatLiteral}).
+         * string beforehand (see {@link sap.ui.model.odata.v4.ODataUtils.formatLiteral}). Since 1.120.13, all contexts,
+         * including the header context are deselected if the '$$clearSelectionOnFilter' binding parameter is set
+         * and the search parameter is changed.
          */
         search?: string;
         /**
@@ -74778,6 +74832,11 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         $$canonicalPath?: boolean;
         /**
+         * Whether the selection state of the list binding is cleared when a filter is changed; this includes dynamic
+         * filters, '$filter', '$search', and `$$aggregation.search`. Supported since 1.120.13.
+         */
+        $$clearSelectionOnFilter?: boolean;
+        /**
          * Whether this binding is considered for a match when {@link #getKeepAliveContext} is called; only the
          * value `true` is allowed. Must not be combined with `$apply`, `$$aggregation`, `$$canonicalPath`, or `$$sharedRequest`.
          * If the binding is relative, `$$ownRequest` must be set as well. Supported since 1.99.0; since 1.113.0
@@ -76205,6 +76264,10 @@ declare module "sap/ui/model/PropertyBinding" {
 
   import Type from "sap/ui/model/Type";
 
+  import ParseException from "sap/ui/model/ParseException";
+
+  import ValidateException from "sap/ui/model/ValidateException";
+
   /**
    * The PropertyBinding is used to access single data values in the data model.
    */
@@ -76359,7 +76422,7 @@ declare module "sap/ui/model/PropertyBinding" {
      * set to the model.
      *
      *
-     * @returns A promise to set the value; `undefined` if the binding has no type
+     * @returns A promise in case of asynchronous type validation
      */
     setInternalValue(
       /**
@@ -76372,7 +76435,7 @@ declare module "sap/ui/model/PropertyBinding" {
      * case a type is defined on the binding.
      *
      *
-     * @returns A promise to set the value; `undefined` if the binding has no type
+     * @returns A promise in case of asynchronous type validation
      */
     setRawValue(
       /**
@@ -77548,172 +77611,6 @@ declare module "sap/ui/model/TreeBinding" {
        */
       aSorters?: Sorter[]
     ): void;
-  }
-}
-
-declare module "sap/ui/model/TreeBindingAdapter" {
-  import Context from "sap/ui/model/Context";
-
-  export default class TreeBindingAdapter {
-    /**
-     * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
-     * controls.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    protected constructor();
-
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
-     * this `sap.ui.model.TreeBindingAdapter`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.TreeBindingAdapter` itself.
-     *
-     * Event is fired if the selection of tree nodes is changed in any way.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachSelectionChanged(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `TreeBindingAdapter` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:selectionChanged selectionChanged} event of
-     * this `sap.ui.model.TreeBindingAdapter`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.model.TreeBindingAdapter` itself.
-     *
-     * Event is fired if the selection of tree nodes is changed in any way.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachSelectionChanged(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object to call the event handler with. Defaults to this `TreeBindingAdapter` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:selectionChanged selectionChanged} event of
-     * this `sap.ui.model.TreeBindingAdapter`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachSelectionChanged(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: Function,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Fires event {@link #event:selectionChanged selectionChanged} to attached listeners.
-     *
-     * Expects following event parameters:
-     * 	 - 'leadIndex' of type `int` Lead selection index.
-     * 	 - 'rowIndices' of type `int[]` Other selected indices (if available)
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    fireSelectionChanged(
-      /**
-       * Parameters to pass along with the event.
-       */
-      oParameters: {
-        /**
-         * Lead selection index
-         */
-        leadIndex: int;
-        /**
-         * Other selected indices (if available)
-         */
-        rowIndices?: int[];
-      }
-    ): this;
-    /**
-     * Gets an array of contexts for the requested part of the tree.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns The requested tree contexts
-     */
-    getContexts(
-      /**
-       * The index of the first requested context
-       */
-      iStartIndex?: number,
-      /**
-       * The maximum number of returned contexts; if not given the model's size limit is used; see {@link sap.ui.model.Model#setSizeLimit}
-       */
-      iLength?: number,
-      /**
-       * The maximum number of contexts to read to read additionally as buffer
-       */
-      iThreshold?: number
-    ): Context[];
-    /**
-     * Returns the number of entries in the tree.
-     *
-     *
-     * @returns Returns the number of entries in the tree
-     */
-    getLength(): number;
-  }
-}
-
-declare module "sap/ui/model/TreeBindingCompatibilityAdapter" {
-  import TreeBinding from "sap/ui/model/TreeBinding";
-
-  /**
-   * @deprecated (since 1.96.0) - use {@link sap.ui.model.TreeBindingAdapter} instead
-   * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
-   */
-  export default class TreeBindingCompatibilityAdapter {
-    /**
-     * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
-     * controls.
-     *
-     * This module is only for experimental and internal use!
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     */
-    protected constructor(
-      /**
-       * The binding to add ListBinding functionality to
-       */
-      oBinding: TreeBinding,
-      /**
-       * The tree or tree table control using the given binding; the control is used for selection handling
-       */
-      oControl: object
-    );
   }
 }
 
@@ -87488,6 +87385,8 @@ declare namespace sap {
     "sap/ui/core/format/ListFormat": undefined;
 
     "sap/ui/core/format/NumberFormat": undefined;
+
+    "sap/ui/core/format/TimezoneUtil": undefined;
 
     "sap/ui/core/Fragment": undefined;
 
