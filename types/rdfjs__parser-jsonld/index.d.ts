@@ -3,7 +3,7 @@ import { EventEmitter } from "events";
 import { Context } from "jsonld/jsonld-spec.js";
 
 export interface DocumentLoader {
-    load(url: string): Promise<Object>;
+    load(url: string): Promise<unknown>;
 }
 
 export interface ParserOptions {
