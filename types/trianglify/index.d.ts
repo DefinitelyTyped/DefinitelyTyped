@@ -23,7 +23,7 @@ declare namespace trianglify {
         /** Size of the cells used to generate a randomized grid */
         cellSize?: number;
         /** how much to randomize the grid */
-        variance?: number | undefined;
+        variance?: number;
         /** Seed for the RNG */
         seed?: number | string | null | undefined;
         /** X color stops */
@@ -35,11 +35,11 @@ declare namespace trianglify {
         /** Color function f(x, y) that returns a color specification that is consumable by chroma-js */
         colorFunction?: ColorFunction;
         /** Width of stroke. Defaults to 1.51 to fix an issue with canvas antialiasing. */
-        strokeWidth?: number | undefined;
+        strokeWidth?: number;
         /** An array of [x,y] coordinates to triangulate. Defaults to `undefined`, and points are generated. */
         points?: Points | undefined;
         /** A boolean value to tell if trianglify should render the triangles or not. Defaults to `true` */
-        fill?: boolean | undefined;
+        fill?: boolean;
         /** The array of color combinations to pick from when using random for the `xColors` or `yColors`. */
         palette?: Record<string, string[]> | Color;
     }
@@ -47,13 +47,13 @@ declare namespace trianglify {
     type RequiredOptions = Required<Options>;
 
     interface SVGOptions {
-        includeNamespace?: boolean | null | undefined;
-        coordinateDecimals?: number | null | undefined;
+        includeNamespace?: boolean;
+        coordinateDecimals?: number;
     }
 
     interface CanvasOptions {
-        scaling?: "auto" | false | null | undefined;
-        applyCssScaling?: boolean | null | undefined;
+        scaling?: "auto" | false;
+        applyCssScaling?: boolean;
     }
 
     type Polys = Array<{
