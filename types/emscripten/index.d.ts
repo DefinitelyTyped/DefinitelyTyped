@@ -134,6 +134,16 @@ declare namespace FS {
         readonly isAppend: boolean;
         flags: number;
         position: number;
+        fd?: number;
+        nfd?: number;
+    }
+
+    interface StreamOps {
+        open(stream: FSStream): void;
+        close(stream: FSStream): void;
+        read(stream: FSStream, buffer: Uint8Array, offset: number, length: number, position: number): number;
+        write(stream: FSStream, buffer: Uint8Array, offset: number, length: number, position: number): number;
+        llseek(stream: FSStream, offset: number, whence: number): number;
     }
 
     class FSNode {
@@ -153,21 +163,75 @@ declare namespace FS {
         readonly isDevice: boolean;
     }
 
+    interface NodeOps {
+        getattr(node: FS.FSNode): Stats;
+        setattr(node: FS.FSNode, attr: Stats): void;
+        lookup(parent: FS.FSNode, name: string): FS.FSNode;
+        mknod(parent: FS.FSNode, name: string, mode: number, dev: unknown): FS.FSNode;
+        rename(oldNode: FS.FSNode, newDir: FS.FSNode, newName: string): void;
+        unlink(parent: FS.FSNode, name: string): void;
+        rmdir(parent: FS.FSNode, name: string): void;
+        readdir(node: FS.FSNode): string[];
+        symlink(parent: FS.FSNode, newName: string, oldPath: string): void;
+        readlink(node: FS.FSNode): string;
+    }
+
+    interface Stats {
+        dev: number;
+        ino: number;
+        mode: number;
+        nlink: number;
+        uid: number;
+        gid: number;
+        rdev: number;
+        size: number;
+        blksize: number;
+        blocks: number;
+        atime: Date;
+        mtime: Date;
+        ctime: Date;
+        timestamp?: number;
+    }
+
     class ErrnoError extends Error {
         name: "ErronoError";
         errno: number;
         code: string;
+        constructor(errno: number);
     }
 
     let ignorePermissions: boolean;
-    let trackingDelegate: any;
+    let trackingDelegate: {
+        onOpenFile(path: string, trackingFlags: number);
+        onCloseFile(path: string);
+        onSeekFile(path: string, position: number, whence: number);
+        onReadFile(path: string, bytesRead: number);
+        onWriteToFile(path: string, bytesWritten: number);
+        onMakeDirectory(path: string, mode: number);
+        onMakeSymlink(oldpath: string, newpath: string);
+        willMovePath(old_path: string, new_path: string);
+        onMovePath(old_path: string, new_path: string);
+        willDeletePath(path: string);
+        onDeletePath(path: string);
+    };
     let tracking: any;
-    let genericErrors: any;
+    let genericErrors: Record<number, ErrnoError>;
 
     //
     // paths
     //
-    function lookupPath(path: string, opts: any): Lookup;
+    function lookupPath(
+        path: string,
+        opts: Partial<{
+            follow_mount: boolean;
+            /**
+             * by default, lookupPath will not follow a symlink if it is the final path component.
+             * setting opts.follow = true will override this behavior.
+             */
+            follow: boolean;
+            recurse_count: number;
+        }>,
+    ): Lookup;
     function getPath(node: FSNode): string;
     function analyzePath(path: string, dontResolveLastLink?: boolean): Analyze;
 
@@ -188,26 +252,28 @@ declare namespace FS {
     function major(dev: number): number;
     function minor(dev: number): number;
     function makedev(ma: number, mi: number): number;
-    function registerDevice(dev: number, ops: any): void;
+    function registerDevice(dev: number, ops: StreamOps): void;
+    function getDevice(dev: number): { stream_ops: StreamOps };
 
     //
     // core
     //
+    function getMounts(mount: Mount): Mount[];
     function syncfs(populate: boolean, callback: (e: any) => any): void;
     function syncfs(callback: (e: any) => any, populate?: boolean): void;
     function mount(type: Emscripten.FileSystemType, opts: any, mountpoint: string): any;
     function unmount(mountpoint: string): void;
 
-    function mkdir(path: string, mode?: number): any;
-    function mkdev(path: string, mode?: number, dev?: number): any;
-    function symlink(oldpath: string, newpath: string): any;
+    function mkdir(path: string, mode?: number): FSNode;
+    function mkdev(path: string, mode?: number, dev?: number): FSNode;
+    function symlink(oldpath: string, newpath: string): FSNode;
     function rename(old_path: string, new_path: string): void;
     function rmdir(path: string): void;
-    function readdir(path: string): any;
+    function readdir(path: string): string[];
     function unlink(path: string): void;
     function readlink(path: string): string;
-    function stat(path: string, dontFollow?: boolean): any;
-    function lstat(path: string): any;
+    function stat(path: string, dontFollow?: boolean): Stats;
+    function lstat(path: string): Stats;
     function chmod(path: string, mode: number, dontFollow?: boolean): void;
     function lchmod(path: string, mode: number): void;
     function fchmod(fd: number, mode: number): void;
@@ -219,7 +285,7 @@ declare namespace FS {
     function utime(path: string, atime: number, mtime: number): void;
     function open(path: string, flags: string, mode?: number, fd_start?: number, fd_end?: number): FSStream;
     function close(stream: FSStream): void;
-    function llseek(stream: FSStream, offset: number, whence: number): any;
+    function llseek(stream: FSStream, offset: number, whence: number): number;
     function read(stream: FSStream, buffer: ArrayBufferView, offset: number, length: number, position?: number): number;
     function write(
         stream: FSStream,
@@ -238,7 +304,10 @@ declare namespace FS {
         position: number,
         prot: number,
         flags: number,
-    ): any;
+    ): {
+        allocated: boolean;
+        ptr: number;
+    };
     function ioctl(stream: FSStream, cmd: any, arg: any): any;
     function readFile(path: string, opts: { encoding: "binary"; flags?: string | undefined }): Uint8Array;
     function readFile(path: string, opts: { encoding: "utf8"; flags?: string | undefined }): string;
