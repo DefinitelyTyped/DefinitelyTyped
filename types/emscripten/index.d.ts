@@ -164,16 +164,16 @@ declare namespace FS {
     }
 
     interface NodeOps {
-        getattr(node: FS.FSNode): Stats;
-        setattr(node: FS.FSNode, attr: Stats): void;
-        lookup(parent: FS.FSNode, name: string): FS.FSNode;
-        mknod(parent: FS.FSNode, name: string, mode: number, dev: unknown): FS.FSNode;
-        rename(oldNode: FS.FSNode, newDir: FS.FSNode, newName: string): void;
-        unlink(parent: FS.FSNode, name: string): void;
-        rmdir(parent: FS.FSNode, name: string): void;
-        readdir(node: FS.FSNode): string[];
-        symlink(parent: FS.FSNode, newName: string, oldPath: string): void;
-        readlink(node: FS.FSNode): string;
+        getattr(node: FSNode): Stats;
+        setattr(node: FSNode, attr: Stats): void;
+        lookup(parent: FSNode, name: string): FSNode;
+        mknod(parent: FSNode, name: string, mode: number, dev: unknown): FSNode;
+        rename(oldNode: FSNode, newDir: FSNode, newName: string): void;
+        unlink(parent: FSNode, name: string): void;
+        rmdir(parent: FSNode, name: string): void;
+        readdir(node: FSNode): string[];
+        symlink(parent: FSNode, newName: string, oldPath: string): void;
+        readlink(node: FSNode): string;
     }
 
     interface Stats {
