@@ -10,7 +10,7 @@ export interface ParserOptions {
     baseIRI?: string | undefined;
     context?: Context | undefined;
     factory?: DataFactory | undefined;
-    documentLoader?: DocumentLoader | null;
+    documentLoader?: DocumentLoader | undefined;
 }
 
 export default class Parser<Q extends BaseQuad = Quad> implements Sink<EventEmitter, Stream<Q>> {
