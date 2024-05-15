@@ -16,9 +16,13 @@
         {
             "name": "Fernando Daciuk",
             "githubUsername": "fdaciuk"
+        },
+        {
+            "name": "Matheus Henrique",
+            "githubUsername": "mxthevs"
         }
     ],
     "dependencies": {
-        "@types/chroma-js": "^2.4.9999"
+        "@types/chroma-js": "^2.4"
     }
 }
