@@ -156,7 +156,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "pie-15-background-size": 5,
             "pie-16-background-color": "001100",
             "pie-16-background-size": 5,
-        }
+        },
     },
 ];
 
