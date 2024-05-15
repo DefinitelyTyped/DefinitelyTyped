@@ -35,7 +35,7 @@ function assertNever(value: never) {
         throw new Error("Can't test instance of XRSession");
     }
 
-    if(session.inputSources[0].gamepad?.hapticActuators){
+    if (session.inputSources[0].gamepad?.hapticActuators) {
         session.inputSources[0].gamepad.hapticActuators[0].pulse(0.5, 100);
     }
 
