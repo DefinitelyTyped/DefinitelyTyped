@@ -38,3 +38,8 @@
         },
     );
 }
+
+{
+    const abort = new AbortController();
+    AbortSignal.any([abort.signal]); // $ExpectType AbortSignal
+}
