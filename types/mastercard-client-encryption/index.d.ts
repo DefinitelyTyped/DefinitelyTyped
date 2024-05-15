@@ -28,6 +28,11 @@ export interface RootMappingNode {
     toDecrypt: EncryptionParameter,
 }
 
+export type KeyStoreFile =
+    | `${string}.p12`
+    | `${string}.pem`
+    | `${string}.der`
+
 export interface JweEncryptionConfiguration {
     mode: string,
     encryptionCertificate: unknown,
@@ -38,7 +43,7 @@ export interface JweEncryptionConfiguration {
         ? DataEncodingType
         : unknown,
     privateKey?: unknown,
-    keyStore?: unknown,
+    keyStore?: KeyStoreFile,
     keyStoreAlias?: unknown,
     keyStorePassword?: unknown,
 }
@@ -567,4 +572,32 @@ export namespace ApiClient {
             obj: unknown
         ): unknown;
     }
+}
+
+export type JweCryptoConfiguration =
+    { encryptionCertificate: string }
+    & EncryptionUtils.getPrivateKeyConfig
+    & (
+        {
+            publicKeyFingerprint: unknown,
+            publicKeyFingerprintType?: never,
+            dataEncoding?: never,
+        }
+        | {
+            publicKeyFingerprint?: never,
+            publicKeyFingerprintType: PublicKeyFingerprintType,
+            dataEncoding: DataEncodingType,
+        }
+    )
+    & { encryptedValueFieldName: string }
+export class JweCrypto {
+	encryptionCertificate: string;
+
+	privateKey: string | null;
+
+	publicKeyFingerprint: unknown | string | null;
+
+	encryptedValueFieldName: string;
+
+	constructor(options: JweCryptoConfiguration)
 }

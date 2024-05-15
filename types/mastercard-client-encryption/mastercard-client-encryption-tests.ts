@@ -1,4 +1,4 @@
-import { JweEncryption, EncryptionUtils, FieldLevelEncryption } from 'mastercard-client-encryption'
+import { JweEncryption, EncryptionUtils, FieldLevelEncryption, JweCrypto } from 'mastercard-client-encryption'
 
 const jweEncryptionConfig = {
     mode: 'JWE',
@@ -56,7 +56,7 @@ EncryptionUtils.getPrivateKey({
     privateKey: ''
 })
 EncryptionUtils.getPrivateKey({
-    keyStore: '',
+    keyStore: '.pem',
     keyStoreAlias: '',
     keyStorePassword: '',
 })
@@ -141,4 +141,34 @@ fle.encrypt('/', {}, {})
 fle.decrypt({
     request: { url: '' },
     body: {}
+})
+
+new JweCrypto({
+    encryptionCertificate: '',
+    encryptedValueFieldName: '',
+
+    publicKeyFingerprint: '',
+
+    privateKey: '',
+})
+new JweCrypto({
+    encryptionCertificate: '',
+    encryptedValueFieldName: '',
+
+    publicKeyFingerprint: '',
+
+    keyStore: '.pem',
+    keyStoreAlias: '',
+    keyStorePassword: ''
+})
+new JweCrypto({
+    encryptionCertificate: '',
+    encryptedValueFieldName: '',
+
+    publicKeyFingerprintType: 'certificate',
+    dataEncoding: 'base64',
+
+    keyStore: '.der',
+    keyStoreAlias: '',
+    keyStorePassword: ''
 })
