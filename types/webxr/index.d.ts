@@ -267,11 +267,11 @@ interface XRInputSource {
 declare abstract class XRInputSource implements XRInputSource {}
 
 interface GamepadHapticActuator{
-    pulse(strength: number, duration: number): void;
+    pulse(strength: number, duration: number): Promise<boolean>;
 }
 
 interface Gamepad{
-    hapticActuators?: GamepadHapticActuator[] | undefined;
+    readonly hapticActuators: readonly GamepadHapticActuator[];
 }
 
 /**
