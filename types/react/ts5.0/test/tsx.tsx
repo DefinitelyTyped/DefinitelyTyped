@@ -155,15 +155,30 @@ const FunctionComponentWithoutProps: React.FunctionComponent = props => {
 <FunctionComponentWithoutProps />;
 
 // React.createContext
-const ContextWithRenderProps = React.createContext("defaultValue");
+const Context = React.createContext("defaultValue");
+
+// @ts-expect-error Forgot value
+<Context.Provider />;
+<Context.Provider value="provided" />;
+<Context.Provider value="provided">
+    <div />
+</Context.Provider>;
+// @ts-expect-error Wrong value type
+<Context.Provider value={5} />;
+// @ts-expect-error Requires explicit default value.
+React.createContext();
+const UndefinedContext = React.createContext(undefined);
+// @ts-expect-error Forgot value even if it can be undefined
+<UndefinedContext.Provider />;
+<UndefinedContext.Provider value={undefined} />;
 
 // unstable APIs should not be part of the typings
 // @ts-expect-error
 const ContextUsingUnstableObservedBits = React.createContext(undefined, (previous, next) => 7);
 // @ts-expect-error
-<ContextWithRenderProps.Consumer unstable_observedBits={4}>
+<Context.Consumer unstable_observedBits={4}>
     {(value: unknown) => null}
-</ContextWithRenderProps.Consumer>;
+</Context.Consumer>;
 
 // Fragments
 <div>
@@ -427,8 +442,8 @@ class LegacyContextAnnotated extends React.Component {
 }
 
 class NewContext extends React.Component {
-    static contextType = ContextWithRenderProps;
-    context: React.ContextType<typeof ContextWithRenderProps> = "";
+    static contextType = Context;
+    context: React.ContextType<typeof Context> = "";
 
     render() {
         // $ExpectType string

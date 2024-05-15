@@ -182,8 +182,18 @@ function Optimistic() {
 }
 
 // ref cleanup
+const ref: React.RefCallback<HTMLDivElement> = current => {
+    // Should be non-nullable
+    // $ExpectType HTMLDivElement | null
+    current;
+    return function refCleanup() {
+    };
+};
 <div
     ref={current => {
+        // Should be non-nullable
+        // $ExpectType HTMLDivElement | null
+        current;
         return function refCleanup() {
         };
     }}
@@ -338,4 +348,55 @@ function formTest() {
             </button>
         );
     }
+}
+
+// New transition events
+<div
+    onTransitionStart={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionRun={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionCancel={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionEnd={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+/>;
+
+// ReactNode tests
+{
+    // @ts-expect-error
+    const render: React.ReactNode = () => React.createElement("div");
+    // @ts-expect-error
+    const emptyObject: React.ReactNode = {};
+    // @ts-expect-error
+    const plainObject: React.ReactNode = { dave: true };
+    const promise: React.ReactNode = Promise.resolve("React");
+    // @ts-expect-error plain objects are not allowed
+    <div>{{ dave: true }}</div>;
+    <div>{Promise.resolve("React")}</div>;
+
+    const asyncTests = async function asyncTests() {
+        const node: Awaited<React.ReactNode> = await Promise.resolve("React");
+    };
+
+    const RenderableContext = React.createContext<React.ReactNode>("HAL");
+    const NestedContext = React.createContext(RenderableContext);
+    // @ts-expect-error TODO Is supported in Canary release channel
+    let node: React.ReactNode = RenderableContext;
+    // @ts-expect-error TODO context values are recursively unwrapped so this should be allowed by types.
+    node = NestedContext;
+
+    const NotRenderableContext = React.createContext(() => {});
+    // @ts-expect-error
+    node = NotRenderableContext;
+
+    node = BigInt(10);
 }

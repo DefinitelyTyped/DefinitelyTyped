@@ -49,6 +49,14 @@ FB.login({
     scope: "public_profile",
 });
 
+FB.login({
+    scope: "business_management, whatsapp_business_management, whatsapp_business_messaging",
+    extras: {
+        featureType: "only_waba_sharing",
+        setup: {},
+    },
+});
+
 FB.login({ auth_type: "reauthenticate" });
 FB.login({ auth_type: "reauthorize" });
 FB.login({ auth_type: "rerequest" });

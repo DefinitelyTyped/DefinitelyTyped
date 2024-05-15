@@ -194,10 +194,12 @@ export namespace Simulate {
 
 /**
  * Render a React element into a detached DOM node in the document. __This function requires a DOM__.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function renderIntoDocument<T extends Element>(
     element: DOMElement<any, T>,
 ): T;
+/** @deprecated https://react.dev/warnings/react-dom-test-utils */
 export function renderIntoDocument(
     element: FunctionComponentElement<any>,
 ): void;
@@ -205,9 +207,15 @@ export function renderIntoDocument(
 // calls to `renderIntoDocument` choose the last overload on the
 // subtype-relation pass and get an undesirably broad return type.  Using `P`
 // allows this overload to match on the subtype-relation pass.
+/**
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
+ */
 export function renderIntoDocument<P, T extends Component<P>>(
     element: CElement<P, T>,
 ): T;
+/**
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
+ */
 export function renderIntoDocument<P>(
     element: ReactElement<P>,
 ): Component<P> | Element | void;
@@ -216,6 +224,7 @@ export function renderIntoDocument<P>(
  * Pass a mocked component module to this method to augment it with useful methods that allow it to
  * be used as a dummy React component. Instead of rendering as usual, the component will become
  * a simple `<div>` (or other tag if `mockTagName` is provided) containing any provided children.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function mockComponent(
     mocked: MockedComponentClass,
@@ -224,11 +233,13 @@ export function mockComponent(
 
 /**
  * Returns `true` if `element` is any React element.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function isElement(element: any): boolean;
 
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function isElementOfType<T extends HTMLElement>(
     element: ReactElement,
@@ -236,6 +247,7 @@ export function isElementOfType<T extends HTMLElement>(
 ): element is ReactHTMLElement<T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
     element: ReactElement,
@@ -243,6 +255,7 @@ export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
 ): element is DOMElement<P, T>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function isElementOfType<P>(
     element: ReactElement,
@@ -250,6 +263,7 @@ export function isElementOfType<P>(
 ): element is FunctionComponentElement<P>;
 /**
  * Returns `true` if `element` is a React element whose type is of a React `componentClass`.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function isElementOfType<P, T extends Component<P>, C extends ComponentClass<P>>(
     element: ReactElement,
@@ -258,14 +272,17 @@ export function isElementOfType<P, T extends Component<P>, C extends ComponentCl
 
 /**
  * Returns `true` if `instance` is a DOM component (such as a `<div>` or `<span>`).
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function isDOMComponent(instance: ReactInstance): instance is Element;
 /**
  * Returns `true` if `instance` is a user-defined component, such as a class or a function.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function isCompositeComponent(instance: ReactInstance): instance is Component<any>;
 /**
  * Returns `true` if `instance` is a component whose type is of a React `componentClass`.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function isCompositeComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
     instance: ReactInstance,
@@ -276,6 +293,7 @@ export function isCompositeComponentWithType<T extends Component<any>, C extends
  * Traverse all components in `tree` and accumulate all components where
  * `test(component)` is `true`. This is not that useful on its own, but it's used
  * as a primitive for other test utils.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function findAllInRenderedTree(
     root: Component<any>,
@@ -285,6 +303,7 @@ export function findAllInRenderedTree(
 /**
  * Finds all DOM elements of components in the rendered tree that are
  * DOM components with the class name matching `className`.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function scryRenderedDOMComponentsWithClass(
     root: Component<any>,
@@ -294,6 +313,7 @@ export function scryRenderedDOMComponentsWithClass(
  * Like `scryRenderedDOMComponentsWithClass()` but expects there to be one result,
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function findRenderedDOMComponentWithClass(
     root: Component<any>,
@@ -303,6 +323,7 @@ export function findRenderedDOMComponentWithClass(
 /**
  * Finds all DOM elements of components in the rendered tree that are
  * DOM components with the tag name matching `tagName`.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function scryRenderedDOMComponentsWithTag(
     root: Component<any>,
@@ -312,6 +333,7 @@ export function scryRenderedDOMComponentsWithTag(
  * Like `scryRenderedDOMComponentsWithTag()` but expects there to be one result,
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function findRenderedDOMComponentWithTag(
     root: Component<any>,
@@ -320,6 +342,7 @@ export function findRenderedDOMComponentWithTag(
 
 /**
  * Finds all instances of components with type equal to `componentClass`.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function scryRenderedComponentsWithType<T extends Component<any>, C extends ComponentClass<any>>(
     root: Component<any>,
@@ -330,6 +353,7 @@ export function scryRenderedComponentsWithType<T extends Component<any>, C exten
  * Same as `scryRenderedComponentsWithType()` but expects there to be one result
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function findRenderedComponentWithType<T extends Component<any>, C extends ComponentClass<any>>(
     root: Component<any>,
@@ -338,9 +362,18 @@ export function findRenderedComponentWithType<T extends Component<any>, C extend
 
 /**
  * Call this in your tests to create a shallow renderer.
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
 export function createRenderer(): ShallowRenderer;
 
+// NOTES
+// - the order of these signatures matters - typescript will check the signatures in source order.
+//   If the `() => VoidOrUndefinedOnly` signature is first, it'll erroneously match a Promise returning function for users with
+//   `strictNullChecks: false`.
+// - VoidOrUndefinedOnly is there to forbid any non-void return values for users with `strictNullChecks: true`
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 /**
  * Wrap any code rendering and triggering updates to your components into `act()` calls.
  *
@@ -351,17 +384,14 @@ export function createRenderer(): ShallowRenderer;
  * @param callback A synchronous, void callback that will execute as a single, complete React commit.
  *
  * @see https://reactjs.org/blog/2019/02/06/react-v16.8.0.html#testing-hooks
+ *
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
  */
-// NOTES
-// - the order of these signatures matters - typescript will check the signatures in source order.
-//   If the `() => VoidOrUndefinedOnly` signature is first, it'll erroneously match a Promise returning function for users with
-//   `strictNullChecks: false`.
-// - VoidOrUndefinedOnly is there to forbid any non-void return values for users with `strictNullChecks: true`
-declare const UNDEFINED_VOID_ONLY: unique symbol;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 // While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
 export function act(callback: () => VoidOrUndefinedOnly): void;
+/**
+ * @deprecated https://react.dev/warnings/react-dom-test-utils
+ */
 export function act<T>(callback: () => T | Promise<T>): Promise<T>;
 
 // Intentionally doesn't extend PromiseLike<never>.

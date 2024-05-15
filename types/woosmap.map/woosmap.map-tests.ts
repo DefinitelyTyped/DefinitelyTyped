@@ -302,6 +302,13 @@ const directionsRequest = expectType({
             location: new woosmap.map.LatLng(52.37342, 4.84631),
         },
     ],
+    optimizeWaypoints: true,
+    method: "distance",
+    language: "de",
+    avoidHighways: false,
+    avoidTolls: false,
+    avoidFerries: false,
+    avoidZones: [[{ lat: 48.86288, lng: 2.34946 }, { lat: 48.86288, lng: 2.34946 }, { lat: 52.52457, lng: 13.42347 }]],
 }) as woosmap.map.DirectionRequest;
 
 let directionsService;
@@ -515,6 +522,19 @@ storesService = new woosmap.map.StoresService();
 const promiseStoresSearch = storesService.search(storesSearchRequest);
 promiseStoresSearch.then((result) => {
     // $ExpectType StoresSearchResponse
+    result;
+});
+
+const transitRequest = expectType({
+    origin: { lat: 43.6, lng: 3.883 },
+    destination: { lat: 43.6, lng: 3.883 },
+} as woosmap.map.transit.TransitRouteRequest);
+
+const _ = ({ origin: { lat: 43.6, lng: 3.883 } }) as woosmap.map.transit.TransitRouteRequest;
+const transitService = new woosmap.map.TransitService();
+const promiseTransitRoute = transitService.route(transitRequest);
+promiseTransitRoute.then((result) => {
+    // $ExpectType TransitRouteResponse
     result;
 });
 

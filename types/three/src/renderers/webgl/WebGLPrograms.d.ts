@@ -73,6 +73,8 @@ export interface WebGLProgramParameters {
     clearcoatNormalMap: boolean;
     clearcoatRoughnessMap: boolean;
 
+    dispersion: boolean;
+
     iridescence: boolean;
     iridescenceMap: boolean;
     iridescenceThicknessMap: boolean;

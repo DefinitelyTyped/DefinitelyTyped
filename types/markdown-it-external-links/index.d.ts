@@ -1,5 +1,4 @@
-import { PluginWithOptions } from "markdown-it";
-import { RenderRule } from "markdown-it/lib/renderer";
+import { PluginWithOptions, Renderer } from "markdown-it";
 
 declare namespace markdownItExternalLinks {
     interface Config {
@@ -13,8 +12,10 @@ declare namespace markdownItExternalLinks {
     }
 }
 declare const markdownItExternalLinks:
-    & PluginWithOptions<markdownItExternalLinks.Config | markdownItExternalLinks.Config[]>
+    & PluginWithOptions<
+        markdownItExternalLinks.Config | markdownItExternalLinks.Config[]
+    >
     & {
-        readonly defaultRender: RenderRule;
+        readonly defaultRender: Renderer.RenderRule;
     };
 export = markdownItExternalLinks;

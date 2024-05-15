@@ -186,5 +186,5 @@ declare module "node:test" {
         todo?: boolean | string;
     }
 
-    export { describe, it, test, test as default };
+    export { describe, it, test, test as default, TestContext };
 }

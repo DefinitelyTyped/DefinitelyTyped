@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.124.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -512,7 +512,11 @@ declare module "sap/f/Avatar" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the Avatar constructor.
+   *
+   * @deprecated (since 1.73) - Use the {@link sap.m.Avatar} instead.
+   */
   export interface $AvatarSettings extends $AvatarSettings1 {}
 }
 
@@ -920,7 +924,9 @@ declare module "sap/f/AvatarGroup" {
       sGroupType?: AvatarGroupType | keyof typeof AvatarGroupType
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the AvatarGroup constructor.
+   */
   export interface $AvatarGroupSettings extends $ControlSettings {
     /**
      * Defines the mode of the `AvatarGroup`.
@@ -979,6 +985,9 @@ declare module "sap/f/AvatarGroup" {
     press?: (oEvent: AvatarGroup$PressEvent) => void;
   }
 
+  /**
+   * Parameters of the AvatarGroup#press event.
+   */
   export interface AvatarGroup$PressEventParameters {
     /**
      * The `GroupType` of the control.
@@ -996,6 +1005,9 @@ declare module "sap/f/AvatarGroup" {
     avatarsDisplayed?: int;
   }
 
+  /**
+   * Event object of the AvatarGroup#press event.
+   */
   export type AvatarGroup$PressEvent = Event<
     AvatarGroup$PressEventParameters,
     AvatarGroup
@@ -1175,7 +1187,12 @@ declare module "sap/f/AvatarGroupItem" {
       sSrc?: URI
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the AvatarGroupItem constructor.
+   *
+   * @experimental (since 1.73) - This class is experimental and provides only limited functionality. Also
+   * the API might be changed in future.
+   */
   export interface $AvatarGroupItemSettings extends $ControlSettings {
     /**
      * Determines the path to the desired image or icon.
@@ -1388,7 +1405,9 @@ declare module "sap/f/Card" {
       sHeaderPosition?: cards.HeaderPosition | keyof typeof cards.HeaderPosition
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the Card constructor.
+   */
   export interface $CardSettings extends $CardBaseSettings {
     /**
      * Defines the position of the Card Header.
@@ -1560,7 +1579,9 @@ declare module "sap/f/CardBase" {
       sWidth?: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the CardBase constructor.
+   */
   export interface $CardBaseSettings extends $ControlSettings {
     /**
      * Defines the width of the card.
@@ -1580,6 +1601,8 @@ declare module "sap/f/cards/BaseHeader" {
   import Text from "sap/m/Text";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { WrappingType } from "sap/m/library";
 
   import {
     PropertyBindingInfo,
@@ -1711,6 +1734,16 @@ declare module "sap/f/cards/BaseHeader" {
      */
     getDataTimestamp(): string;
     /**
+     * Gets current value of property {@link #getHref href}.
+     *
+     * Defines the href which the header should open. If set - the header will act and render as a link.
+     *
+     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     *
+     * @returns Value of property `href`
+     */
+    getHref(): string;
+    /**
      * Gets current value of property {@link #getStatusVisible statusVisible}.
      *
      * Defines the status text visibility.
@@ -1723,6 +1756,16 @@ declare module "sap/f/cards/BaseHeader" {
      */
     getStatusVisible(): boolean;
     /**
+     * Gets current value of property {@link #getTarget target}.
+     *
+     * Defines the target for the case when `href` is given.
+     *
+     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     *
+     * @returns Value of property `target`
+     */
+    getTarget(): string;
+    /**
      * Gets content of aggregation {@link #getToolbar toolbar}.
      *
      * Defines the toolbar.
@@ -1731,6 +1774,19 @@ declare module "sap/f/cards/BaseHeader" {
      * @experimental (since 1.86)
      */
     getToolbar(): Control;
+    /**
+     * Gets current value of property {@link #getWrappingType wrappingType}.
+     *
+     * Defines the type of text wrapping to be used inside the header. This applies to title, subtitle and details
+     * texts of the header.
+     *
+     * Default value is `Normal`.
+     *
+     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     *
+     * @returns Value of property `wrappingType`
+     */
+    getWrappingType(): WrappingType | keyof typeof WrappingType;
     /**
      * Checks for the provided `sap.m.Text` in the aggregation {@link #getBannerLines bannerLines}. and returns
      * its index if found or -1 otherwise.
@@ -1816,6 +1872,23 @@ declare module "sap/f/cards/BaseHeader" {
       sDataTimestamp?: string
     ): this;
     /**
+     * Sets a new value for property {@link #getHref href}.
+     *
+     * Defines the href which the header should open. If set - the header will act and render as a link.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHref(
+      /**
+       * New value for property `href`
+       */
+      sHref: string
+    ): this;
+    /**
      * Sets a new value for property {@link #getStatusVisible statusVisible}.
      *
      * Defines the status text visibility.
@@ -1835,6 +1908,23 @@ declare module "sap/f/cards/BaseHeader" {
       bStatusVisible?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getTarget target}.
+     *
+     * Defines the target for the case when `href` is given.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTarget(
+      /**
+       * New value for property `target`
+       */
+      sTarget: string
+    ): this;
+    /**
      * Sets the aggregated {@link #getToolbar toolbar}.
      *
      * @since 1.86
@@ -1848,8 +1938,30 @@ declare module "sap/f/cards/BaseHeader" {
        */
       oToolbar: Control
     ): this;
+    /**
+     * Sets a new value for property {@link #getWrappingType wrappingType}.
+     *
+     * Defines the type of text wrapping to be used inside the header. This applies to title, subtitle and details
+     * texts of the header.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Normal`.
+     *
+     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWrappingType(
+      /**
+       * New value for property `wrappingType`
+       */
+      sWrappingType?: WrappingType | keyof typeof WrappingType
+    ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the BaseHeader constructor.
+   */
   export interface $BaseHeaderSettings extends $ControlSettings {
     /**
      * Defines the timestamp of the oldest data in the card. Use this to show to the end user how fresh the
@@ -1869,6 +1981,31 @@ declare module "sap/f/cards/BaseHeader" {
      * @experimental (since 1.116) - this feature is experimental and the API may change.
      */
     statusVisible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the type of text wrapping to be used inside the header. This applies to title, subtitle and details
+     * texts of the header.
+     *
+     * @experimental (since 1.122) - this feature is experimental and the API may change.
+     */
+    wrappingType?:
+      | (WrappingType | keyof typeof WrappingType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the href which the header should open. If set - the header will act and render as a link.
+     *
+     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     */
+    href?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the target for the case when `href` is given.
+     *
+     * @experimental (since 1.122) - Do not use this feature outside of sap.ui.integration.widgets.Card.
+     */
+    target?: string | PropertyBindingInfo;
 
     /**
      * Defines the toolbar.
@@ -2452,7 +2589,9 @@ declare module "sap/f/cards/Header" {
      */
     shouldShowIcon(): boolean;
   }
-
+  /**
+   * Describes the settings that can be provided to the Header constructor.
+   */
   export interface $HeaderSettings extends $BaseHeaderSettings {
     /**
      * Defines the title.
@@ -2541,8 +2680,14 @@ declare module "sap/f/cards/Header" {
     press?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the Header#press event.
+   */
   export interface Header$PressEventParameters {}
 
+  /**
+   * Event object of the Header#press event.
+   */
   export type Header$PressEvent = Event<Header$PressEventParameters, Header>;
 }
 
@@ -2637,7 +2782,8 @@ declare module "sap/f/cards/NumericHeader" {
    */
   export default class NumericHeader
     extends BaseHeader
-    implements cards.IHeader {
+    implements cards.IHeader
+  {
     __implements__sap_f_cards_IHeader: boolean;
     /**
      * Constructor for a new `NumericHeader`.
@@ -2760,6 +2906,14 @@ declare module "sap/f/cards/NumericHeader" {
        */
       oListener?: object
     ): this;
+    /**
+     * Destroys the microChart in the aggregation {@link #getMicroChart microChart}.
+     *
+     * @experimental (since 1.124)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyMicroChart(): this;
     /**
      * Destroys all the sideIndicators in the aggregation {@link #getSideIndicators sideIndicators}.
      *
@@ -2942,6 +3096,14 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Value of property `iconVisible`
      */
     getIconVisible(): boolean;
+    /**
+     * Gets content of aggregation {@link #getMicroChart microChart}.
+     *
+     * Micro Chart
+     *
+     * @experimental (since 1.124)
+     */
+    getMicroChart(): Control;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -3339,6 +3501,19 @@ declare module "sap/f/cards/NumericHeader" {
       bIconVisible?: boolean
     ): this;
     /**
+     * Sets the aggregated {@link #getMicroChart microChart}.
+     *
+     * @experimental (since 1.124)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMicroChart(
+      /**
+       * The microChart to set
+       */
+      oMicroChart: Control
+    ): this;
+    /**
      * Sets a new value for property {@link #getNumber number}.
      *
      * The numeric value of the main number indicator. If the value contains more than five characters, only
@@ -3579,7 +3754,9 @@ declare module "sap/f/cards/NumericHeader" {
      */
     shouldShowIcon(): boolean;
   }
-
+  /**
+   * Describes the settings that can be provided to the NumericHeader constructor.
+   */
   export interface $NumericHeaderSettings extends $BaseHeaderSettings {
     /**
      * The title of the card
@@ -3768,13 +3945,26 @@ declare module "sap/f/cards/NumericHeader" {
       | `{${string}}`;
 
     /**
+     * Micro Chart
+     *
+     * @experimental (since 1.124)
+     */
+    microChart?: Control;
+
+    /**
      * Fires when the user presses the control.
      */
     press?: (oEvent: Event) => void;
   }
 
+  /**
+   * Parameters of the NumericHeader#press event.
+   */
   export interface NumericHeader$PressEventParameters {}
 
+  /**
+   * Event object of the NumericHeader#press event.
+   */
   export type NumericHeader$PressEvent = Event<
     NumericHeader$PressEventParameters,
     NumericHeader
@@ -3955,7 +4145,9 @@ declare module "sap/f/cards/NumericSideIndicator" {
       sValue: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the NumericSideIndicator constructor.
+   */
   export interface $NumericSideIndicatorSettings extends $ControlSettings {
     /**
      * The title of the indicator
@@ -4014,7 +4206,6 @@ declare module "sap/f/dnd/GridDropInfo" {
    * restrictions.
    *
    * @since 1.68
-   * @experimental (since 1.68) - This class is experimental. The API may change.
    */
   export default class GridDropInfo extends DropInfo implements dnd.IDropInfo {
     __implements__sap_ui_core_dnd_IDropInfo: boolean;
@@ -4098,9 +4289,7 @@ declare module "sap/f/dnd/GridDropInfo" {
      * @returns Value of property `dropIndicatorSize`
      */
     getDropIndicatorSize():
-      | ((
-          p1: Control
-        ) => {
+      | ((p1: Control) => {
           rows: int;
 
           columns: int;
@@ -4129,16 +4318,16 @@ declare module "sap/f/dnd/GridDropInfo" {
       /**
        * New value for property `dropIndicatorSize`
        */
-      fnDropIndicatorSize?: (
-        p1: Control
-      ) => {
+      fnDropIndicatorSize?: (p1: Control) => {
         rows: int;
 
         columns: int;
       } | null
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the GridDropInfo constructor.
+   */
   export interface $GridDropInfoSettings extends $DropInfoSettings {
     /**
      * A function which will define the desired drop indicator size. The drop indicator shows the user how the
@@ -4853,7 +5042,9 @@ declare module "sap/f/DynamicPage" {
       bToggleHeaderOnTitleClick?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the DynamicPage constructor.
+   */
   export interface $DynamicPageSettings extends $ControlSettings {
     /**
      * Preserves the current header state when scrolling. For example, if the user expands the header by clicking
@@ -5004,6 +5195,9 @@ declare module "sap/f/DynamicPage" {
     pinnedStateChange?: (oEvent: DynamicPage$PinnedStateChangeEvent) => void;
   }
 
+  /**
+   * Parameters of the DynamicPage#pinnedStateChange event.
+   */
   export interface DynamicPage$PinnedStateChangeEventParameters {
     /**
      * False or True values indicate the new pinned property value.
@@ -5011,6 +5205,9 @@ declare module "sap/f/DynamicPage" {
     pinned?: boolean;
   }
 
+  /**
+   * Event object of the DynamicPage#pinnedStateChange event.
+   */
   export type DynamicPage$PinnedStateChangeEvent = Event<
     DynamicPage$PinnedStateChangeEventParameters,
     DynamicPage
@@ -5363,7 +5560,9 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
       sRootRole?: AccessibleLandmarkRole | keyof typeof AccessibleLandmarkRole
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the DynamicPageAccessibleLandmarkInfo constructor.
+   */
   export interface $DynamicPageAccessibleLandmarkInfoSettings
     extends $ElementSettings {
     /**
@@ -5679,7 +5878,9 @@ declare module "sap/f/DynamicPageHeader" {
       bPinnable?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the DynamicPageHeader constructor.
+   */
   export interface $DynamicPageHeaderSettings extends $ControlSettings {
     /**
      * Determines whether the header is pinnable.
@@ -6678,7 +6879,9 @@ declare module "sap/f/DynamicPageTitle" {
       oSnappedTitleOnMobile: Title
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the DynamicPageTitle constructor.
+   */
   export interface $DynamicPageTitleSettings extends $ControlSettings {
     /**
      * Determines which of the `DynamicPageTitle` areas (Begin, Middle) is primary.
@@ -6886,6 +7089,9 @@ declare module "sap/f/DynamicPageTitle" {
     stateChange?: (oEvent: DynamicPageTitle$StateChangeEvent) => void;
   }
 
+  /**
+   * Parameters of the DynamicPageTitle#stateChange event.
+   */
   export interface DynamicPageTitle$StateChangeEventParameters {
     /**
      * Whether the title was expanded (true) or collapsed (false).
@@ -6893,6 +7099,9 @@ declare module "sap/f/DynamicPageTitle" {
     isExpanded?: boolean;
   }
 
+  /**
+   * Event object of the DynamicPageTitle#stateChange event.
+   */
   export type DynamicPageTitle$StateChangeEvent = Event<
     DynamicPageTitle$StateChangeEventParameters,
     DynamicPageTitle
@@ -6968,7 +7177,8 @@ declare module "sap/f/FlexibleColumnLayout" {
    */
   export default class FlexibleColumnLayout
     extends Control
-    implements IPlaceholderSupport {
+    implements IPlaceholderSupport
+  {
     __implements__sap_ui_core_IPlaceholderSupport: boolean;
     /**
      * Constructor for a new `sap.f.FlexibleColumnLayout`.
@@ -8821,7 +9031,9 @@ declare module "sap/f/FlexibleColumnLayout" {
       oTransitionParameters: object
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FlexibleColumnLayout constructor.
+   */
   export interface $FlexibleColumnLayoutSettings extends $ControlSettings {
     /**
      * Determines whether the initial focus is set automatically on first rendering and after navigating to
@@ -9027,6 +9239,9 @@ declare module "sap/f/FlexibleColumnLayout" {
     columnResize?: (oEvent: FlexibleColumnLayout$ColumnResizeEvent) => void;
   }
 
+  /**
+   * Parameters of the FlexibleColumnLayout#afterBeginColumnNavigate event.
+   */
   export interface FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters {
     /**
      * The page, which had been displayed before navigation.
@@ -9080,11 +9295,17 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
+  /**
+   * Event object of the FlexibleColumnLayout#afterBeginColumnNavigate event.
+   */
   export type FlexibleColumnLayout$AfterBeginColumnNavigateEvent = Event<
     FlexibleColumnLayout$AfterBeginColumnNavigateEventParameters,
     FlexibleColumnLayout
   >;
 
+  /**
+   * Parameters of the FlexibleColumnLayout#afterEndColumnNavigate event.
+   */
   export interface FlexibleColumnLayout$AfterEndColumnNavigateEventParameters {
     /**
      * The page, which had been displayed before navigation.
@@ -9138,11 +9359,17 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
+  /**
+   * Event object of the FlexibleColumnLayout#afterEndColumnNavigate event.
+   */
   export type FlexibleColumnLayout$AfterEndColumnNavigateEvent = Event<
     FlexibleColumnLayout$AfterEndColumnNavigateEventParameters,
     FlexibleColumnLayout
   >;
 
+  /**
+   * Parameters of the FlexibleColumnLayout#afterMidColumnNavigate event.
+   */
   export interface FlexibleColumnLayout$AfterMidColumnNavigateEventParameters {
     /**
      * The page, which had been displayed before navigation.
@@ -9196,11 +9423,17 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
+  /**
+   * Event object of the FlexibleColumnLayout#afterMidColumnNavigate event.
+   */
   export type FlexibleColumnLayout$AfterMidColumnNavigateEvent = Event<
     FlexibleColumnLayout$AfterMidColumnNavigateEventParameters,
     FlexibleColumnLayout
   >;
 
+  /**
+   * Parameters of the FlexibleColumnLayout#beginColumnNavigate event.
+   */
   export interface FlexibleColumnLayout$BeginColumnNavigateEventParameters {
     /**
      * The page, which was displayed before the current navigation.
@@ -9254,11 +9487,17 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
+  /**
+   * Event object of the FlexibleColumnLayout#beginColumnNavigate event.
+   */
   export type FlexibleColumnLayout$BeginColumnNavigateEvent = Event<
     FlexibleColumnLayout$BeginColumnNavigateEventParameters,
     FlexibleColumnLayout
   >;
 
+  /**
+   * Parameters of the FlexibleColumnLayout#columnResize event.
+   */
   export interface FlexibleColumnLayout$ColumnResizeEventParameters {
     /**
      * Determines whether `beginColumn` resize has completed.
@@ -9276,11 +9515,17 @@ declare module "sap/f/FlexibleColumnLayout" {
     endColumn?: boolean;
   }
 
+  /**
+   * Event object of the FlexibleColumnLayout#columnResize event.
+   */
   export type FlexibleColumnLayout$ColumnResizeEvent = Event<
     FlexibleColumnLayout$ColumnResizeEventParameters,
     FlexibleColumnLayout
   >;
 
+  /**
+   * Parameters of the FlexibleColumnLayout#endColumnNavigate event.
+   */
   export interface FlexibleColumnLayout$EndColumnNavigateEventParameters {
     /**
      * The page, which was displayed before the current navigation.
@@ -9334,11 +9579,17 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
+  /**
+   * Event object of the FlexibleColumnLayout#endColumnNavigate event.
+   */
   export type FlexibleColumnLayout$EndColumnNavigateEvent = Event<
     FlexibleColumnLayout$EndColumnNavigateEventParameters,
     FlexibleColumnLayout
   >;
 
+  /**
+   * Parameters of the FlexibleColumnLayout#midColumnNavigate event.
+   */
   export interface FlexibleColumnLayout$MidColumnNavigateEventParameters {
     /**
      * The page, which was displayed before the current navigation.
@@ -9392,11 +9643,17 @@ declare module "sap/f/FlexibleColumnLayout" {
     direction?: string;
   }
 
+  /**
+   * Event object of the FlexibleColumnLayout#midColumnNavigate event.
+   */
   export type FlexibleColumnLayout$MidColumnNavigateEvent = Event<
     FlexibleColumnLayout$MidColumnNavigateEventParameters,
     FlexibleColumnLayout
   >;
 
+  /**
+   * Parameters of the FlexibleColumnLayout#stateChange event.
+   */
   export interface FlexibleColumnLayout$StateChangeEventParameters {
     /**
      * The value of the `layout` property
@@ -9427,6 +9684,9 @@ declare module "sap/f/FlexibleColumnLayout" {
     isResize?: boolean;
   }
 
+  /**
+   * Event object of the FlexibleColumnLayout#stateChange event.
+   */
   export type FlexibleColumnLayout$StateChangeEvent = Event<
     FlexibleColumnLayout$StateChangeEventParameters,
     FlexibleColumnLayout
@@ -9728,7 +9988,9 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
       sMiddleColumnLabel?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the FlexibleColumnLayoutAccessibleLandmarkInfo constructor.
+   */
   export interface $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
     extends $ElementSettings {
     /**
@@ -10239,7 +10501,8 @@ declare module "sap/f/GridContainer" {
    */
   export default class GridContainer
     extends Control
-    implements dnd.IGridDroppable {
+    implements dnd.IGridDroppable
+  {
     __implements__sap_f_dnd_IGridDroppable: boolean;
     /**
      * Constructor for a new `sap.f.GridContainer`.
@@ -10535,8 +10798,6 @@ declare module "sap/f/GridContainer" {
     /**
      * Destroys the layoutXS in the aggregation {@link #getLayoutXS layoutXS}.
      *
-     * @experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10641,7 +10902,7 @@ declare module "sap/f/GridContainer" {
      *
      * **Note:**Should not be called before the `GridContainer` has been rendered.
      *
-     * @experimental (since 1.81) - Behavior might change.
+     * @since 1.81
      */
     focusItem(
       /**
@@ -10661,7 +10922,7 @@ declare module "sap/f/GridContainer" {
      *
      * **Note:**Should be called after the rendering of `GridContainer` is ready.
      *
-     * @experimental (since 1.85) - Behavior might change.
+     * @since 1.85
      */
     focusItemByDirection(
       /**
@@ -10694,8 +10955,6 @@ declare module "sap/f/GridContainer" {
      *
      * Default value is `false`.
      *
-     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      *
      * @returns Value of property `allowDenseFill`
      */
@@ -10731,8 +10990,6 @@ declare module "sap/f/GridContainer" {
      *
      * Default value is `false`.
      *
-     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      *
      * @returns Value of property `inlineBlockLayout`
      */
@@ -10783,9 +11040,6 @@ declare module "sap/f/GridContainer" {
      * Gets content of aggregation {@link #getLayoutXS layoutXS}.
      *
      * The sap.f.GridContainerSettings applied for size "XS". Range: up to 374px.
-     *
-     * @experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      */
     getLayoutXS(): GridContainerSettings;
     /**
@@ -10797,8 +11051,6 @@ declare module "sap/f/GridContainer" {
      *
      * Default value is `"2rem"`.
      *
-     * @experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release.
      *
      * @returns Value of property `minHeight`
      */
@@ -10929,8 +11181,6 @@ declare module "sap/f/GridContainer" {
      *
      * Default value is `false`.
      *
-     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10972,8 +11222,6 @@ declare module "sap/f/GridContainer" {
      *
      * Default value is `false`.
      *
-     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11046,8 +11294,6 @@ declare module "sap/f/GridContainer" {
     /**
      * Sets the aggregated {@link #getLayoutXS layoutXS}.
      *
-     * @experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11068,8 +11314,6 @@ declare module "sap/f/GridContainer" {
      *
      * Default value is `"2rem"`.
      *
-     * @experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release.
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11118,7 +11362,9 @@ declare module "sap/f/GridContainer" {
       sWidth?: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the GridContainer constructor.
+   */
   export interface $GridContainerSettings extends $ControlSettings {
     /**
      * Defines the width of the control.
@@ -11129,9 +11375,6 @@ declare module "sap/f/GridContainer" {
      * Defines the minimum height of the grid.
      *
      * Allows an empty grid to be available as a drop target.
-     *
-     * @experimental (since 1.81) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release.
      */
     minHeight?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
@@ -11153,9 +11396,6 @@ declare module "sap/f/GridContainer" {
      * ignoring their order.
      *
      * **Note:** The order of the items is ignored. An item which is normally at the bottom, can appear on top.
-     *
-     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      */
     allowDenseFill?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -11165,9 +11405,6 @@ declare module "sap/f/GridContainer" {
      *
      * **Note:** If set to `true` the properties `rowSize` for grid layout, and `minRows` and `rows` per item
      * will be ignored.
-     *
-     * @experimental (since 1.66) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      */
     inlineBlockLayout?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -11189,9 +11426,6 @@ declare module "sap/f/GridContainer" {
 
     /**
      * The sap.f.GridContainerSettings applied for size "XS". Range: up to 374px.
-     *
-     * @experimental (since 1.71) - Disclaimer: this property is in a beta state - incompatible API changes
-     * may be done before its official public release. Use at your own discretion.
      */
     layoutXS?: GridContainerSettings;
 
@@ -11241,6 +11475,9 @@ declare module "sap/f/GridContainer" {
     borderReached?: (oEvent: GridContainer$BorderReachedEvent) => void;
   }
 
+  /**
+   * Parameters of the GridContainer#borderReached event.
+   */
   export interface GridContainer$BorderReachedEventParameters {
     /**
      * Event that leads to the focus change.
@@ -11263,11 +11500,17 @@ declare module "sap/f/GridContainer" {
     column?: int;
   }
 
+  /**
+   * Event object of the GridContainer#borderReached event.
+   */
   export type GridContainer$BorderReachedEvent = Event<
     GridContainer$BorderReachedEventParameters,
     GridContainer
   >;
 
+  /**
+   * Parameters of the GridContainer#columnsChange event.
+   */
   export interface GridContainer$ColumnsChangeEventParameters {
     /**
      * The count of the gird columns.
@@ -11275,11 +11518,17 @@ declare module "sap/f/GridContainer" {
     columns?: int;
   }
 
+  /**
+   * Event object of the GridContainer#columnsChange event.
+   */
   export type GridContainer$ColumnsChangeEvent = Event<
     GridContainer$ColumnsChangeEventParameters,
     GridContainer
   >;
 
+  /**
+   * Parameters of the GridContainer#layoutChange event.
+   */
   export interface GridContainer$LayoutChangeEventParameters {
     /**
      * The name of the newly active layout.
@@ -11287,6 +11536,9 @@ declare module "sap/f/GridContainer" {
     layout?: string;
   }
 
+  /**
+   * Event object of the GridContainer#layoutChange event.
+   */
   export type GridContainer$LayoutChangeEvent = Event<
     GridContainer$LayoutChangeEventParameters,
     GridContainer
@@ -11307,7 +11559,6 @@ declare module "sap/f/GridContainerItemLayoutData" {
    * Holds layout data for an item inside a `sap.f.GridContainer`.
    *
    * @since 1.65
-   * @experimental (since 1.65) - This class is experimental. The API may change.
    */
   export default class GridContainerItemLayoutData extends LayoutData {
     /**
@@ -11404,9 +11655,9 @@ declare module "sap/f/GridContainerItemLayoutData" {
     /**
      * Gets current value of property {@link #getRows rows}.
      *
-     * Specifies the number of rows, which the item should take.
+     * Specifies the number of rows, which the item should take. For more flexible layout in which the number
+     * of rows is determined by the item's height it is recommended to use the "minRows" property instead
      *
-     * @experimental (since 1.65) - this property may soon be removed, use minRows instead
      *
      * @returns Value of property `rows`
      */
@@ -11453,11 +11704,11 @@ declare module "sap/f/GridContainerItemLayoutData" {
     /**
      * Sets a new value for property {@link #getRows rows}.
      *
-     * Specifies the number of rows, which the item should take.
+     * Specifies the number of rows, which the item should take. For more flexible layout in which the number
+     * of rows is determined by the item's height it is recommended to use the "minRows" property instead
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @experimental (since 1.65) - this property may soon be removed, use minRows instead
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -11468,7 +11719,9 @@ declare module "sap/f/GridContainerItemLayoutData" {
       iRows: int
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the GridContainerItemLayoutData constructor.
+   */
   export interface $GridContainerItemLayoutDataSettings
     extends $LayoutDataSettings {
     /**
@@ -11487,9 +11740,8 @@ declare module "sap/f/GridContainerItemLayoutData" {
     minRows?: int | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Specifies the number of rows, which the item should take.
-     *
-     * @experimental (since 1.65) - this property may soon be removed, use minRows instead
+     * Specifies the number of rows, which the item should take. For more flexible layout in which the number
+     * of rows is determined by the item's height it is recommended to use the "minRows" property instead
      */
     rows?: int | PropertyBindingInfo | `{${string}}`;
   }
@@ -11513,7 +11765,6 @@ declare module "sap/f/GridContainerSettings" {
    * aggregations of `sap.f.GridContainer`.
    *
    * @since 1.65
-   * @experimental (since 1.65) - This class is experimental. The API may change.
    */
   export default class GridContainerSettings extends ManagedObject {
     /**
@@ -11769,7 +12020,9 @@ declare module "sap/f/GridContainerSettings" {
       sRowSize?: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the GridContainerSettings constructor.
+   */
   export interface $GridContainerSettingsSettings
     extends $ManagedObjectSettings {
     /**
@@ -11888,7 +12141,8 @@ declare module "sap/f/GridList" {
    */
   export default class GridList
     extends ListBase
-    implements cssgrid.IGridConfigurable, dnd.IGridDroppable {
+    implements cssgrid.IGridConfigurable, dnd.IGridDroppable
+  {
     __implements__sap_ui_layout_cssgrid_IGridConfigurable: boolean;
     __implements__sap_f_dnd_IGridDroppable: boolean;
     /**
@@ -12057,7 +12311,7 @@ declare module "sap/f/GridList" {
      *
      * **Note:**Should be called after the rendering of `GridList` is ready.
      *
-     * @experimental (since 1.87) - Behavior might change.
+     * @since 1.87
      */
     focusItemByDirection(
       /**
@@ -12108,7 +12362,9 @@ declare module "sap/f/GridList" {
       oCustomLayout: GridLayoutBase
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the GridList constructor.
+   */
   export interface $GridListSettings extends $ListBaseSettings {
     /**
      * Defines a custom grid layout
@@ -12121,6 +12377,9 @@ declare module "sap/f/GridList" {
     borderReached?: (oEvent: GridList$BorderReachedEvent) => void;
   }
 
+  /**
+   * Parameters of the GridList#borderReached event.
+   */
   export interface GridList$BorderReachedEventParameters {
     /**
      * Event that leads to the focus change.
@@ -12143,6 +12402,9 @@ declare module "sap/f/GridList" {
     column?: int;
   }
 
+  /**
+   * Event object of the GridList#borderReached event.
+   */
   export type GridList$BorderReachedEvent = Event<
     GridList$BorderReachedEventParameters,
     GridList
@@ -12332,7 +12594,9 @@ declare module "sap/f/GridListItem" {
      */
     unbindContent(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the GridListItem constructor.
+   */
   export interface $GridListItemSettings extends $ListItemBaseSettings {
     /**
      * The content of this list item
@@ -12450,7 +12714,11 @@ declare module "sap/f/IllustratedMessage" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the IllustratedMessage constructor.
+   *
+   * @deprecated (since 1.98) - Use the {@link sap.m.IllustratedMessage} instead.
+   */
   export interface $IllustratedMessageSettings
     extends $IllustratedMessageSettings1 {}
 }
@@ -12541,7 +12809,11 @@ declare module "sap/f/Illustration" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the Illustration constructor.
+   *
+   * @deprecated (since 1.98) - Use the {@link sap.m.Illustration} instead.
+   */
   export interface $IllustrationSettings extends $IllustrationSettings1 {}
 }
 
@@ -12568,6 +12840,9 @@ declare module "sap/f/IllustrationPool" {
    */
   interface IllustrationPool {}
   const IllustrationPool: IllustrationPool;
+  /**
+   * @deprecated (since 1.98) - Use the {@link sap.m.IllustrationPool} instead.
+   */
   export default IllustrationPool;
 }
 
@@ -12829,7 +13104,12 @@ declare module "sap/f/ProductSwitch" {
       vItem: ID | ProductSwitchItem | null
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ProductSwitch constructor.
+   *
+   * @experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
+   * the API might be changed in future.
+   */
   export interface $ProductSwitchSettings extends $ControlSettings {
     /**
      * `ProductSwitch` content.
@@ -12851,6 +13131,9 @@ declare module "sap/f/ProductSwitch" {
     change?: (oEvent: ProductSwitch$ChangeEvent) => void;
   }
 
+  /**
+   * Parameters of the ProductSwitch#change event.
+   */
   export interface ProductSwitch$ChangeEventParameters {
     /**
      * Reference to the new item that has been selected.
@@ -12858,6 +13141,9 @@ declare module "sap/f/ProductSwitch" {
     itemPressed?: ProductSwitchItem;
   }
 
+  /**
+   * Event object of the ProductSwitch#change event.
+   */
   export type ProductSwitch$ChangeEvent = Event<
     ProductSwitch$ChangeEventParameters,
     ProductSwitch
@@ -13085,7 +13371,12 @@ declare module "sap/f/ProductSwitchItem" {
       sTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ProductSwitchItem constructor.
+   *
+   * @experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
+   * the API might be changed in future.
+   */
   export interface $ProductSwitchItemSettings extends $ControlSettings {
     /**
      * Defines the icon to be displayed as graphical element within the `ProductSwitchItem`. It can be an icon
@@ -14306,7 +14597,9 @@ declare module "sap/f/SearchManager" {
      */
     unbindValue(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the SearchManager constructor.
+   */
   export interface $SearchManagerSettings extends $ElementSettings {
     /**
      * Defines the input value.
@@ -14369,6 +14662,9 @@ declare module "sap/f/SearchManager" {
     suggest?: (oEvent: SearchManager$SuggestEvent) => void;
   }
 
+  /**
+   * Parameters of the SearchManager#liveChange event.
+   */
   export interface SearchManager$LiveChangeEventParameters {
     /**
      * Current search string.
@@ -14376,11 +14672,17 @@ declare module "sap/f/SearchManager" {
     newValue?: string;
   }
 
+  /**
+   * Event object of the SearchManager#liveChange event.
+   */
   export type SearchManager$LiveChangeEvent = Event<
     SearchManager$LiveChangeEventParameters,
     SearchManager
   >;
 
+  /**
+   * Parameters of the SearchManager#search event.
+   */
   export interface SearchManager$SearchEventParameters {
     /**
      * The search query string.
@@ -14393,11 +14695,17 @@ declare module "sap/f/SearchManager" {
     clearButtonPressed?: boolean;
   }
 
+  /**
+   * Event object of the SearchManager#search event.
+   */
   export type SearchManager$SearchEvent = Event<
     SearchManager$SearchEventParameters,
     SearchManager
   >;
 
+  /**
+   * Parameters of the SearchManager#suggest event.
+   */
   export interface SearchManager$SuggestEventParameters {
     /**
      * Current search string of the search field.
@@ -14405,6 +14713,9 @@ declare module "sap/f/SearchManager" {
     suggestValue?: string;
   }
 
+  /**
+   * Event object of the SearchManager#suggest event.
+   */
   export type SearchManager$SuggestEvent = Event<
     SearchManager$SuggestEventParameters,
     SearchManager
@@ -14497,7 +14808,9 @@ declare module "sap/f/semantic/AddAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the AddAction constructor.
+   */
   export interface $AddActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -14587,7 +14900,9 @@ declare module "sap/f/semantic/CloseAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the CloseAction constructor.
+   */
   export interface $CloseActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -14677,7 +14992,9 @@ declare module "sap/f/semantic/CopyAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the CopyAction constructor.
+   */
   export interface $CopyActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -14767,7 +15084,9 @@ declare module "sap/f/semantic/DeleteAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the DeleteAction constructor.
+   */
   export interface $DeleteActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -14857,7 +15176,9 @@ declare module "sap/f/semantic/DiscussInJamAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the DiscussInJamAction constructor.
+   */
   export interface $DiscussInJamActionSettings
     extends $SemanticButtonSettings {}
 }
@@ -14948,7 +15269,9 @@ declare module "sap/f/semantic/EditAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the EditAction constructor.
+   */
   export interface $EditActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -15038,7 +15361,9 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ExitFullScreenAction constructor.
+   */
   export interface $ExitFullScreenActionSettings
     extends $SemanticButtonSettings {}
 }
@@ -15129,7 +15454,9 @@ declare module "sap/f/semantic/FavoriteAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the FavoriteAction constructor.
+   */
   export interface $FavoriteActionSettings
     extends $SemanticToggleButtonSettings {}
 }
@@ -15220,7 +15547,9 @@ declare module "sap/f/semantic/FlagAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the FlagAction constructor.
+   */
   export interface $FlagActionSettings extends $SemanticToggleButtonSettings {}
 }
 
@@ -15310,7 +15639,9 @@ declare module "sap/f/semantic/FooterMainAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the FooterMainAction constructor.
+   */
   export interface $FooterMainActionSettings extends $MainActionSettings {}
 }
 
@@ -15400,7 +15731,9 @@ declare module "sap/f/semantic/FullScreenAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the FullScreenAction constructor.
+   */
   export interface $FullScreenActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -15511,7 +15844,9 @@ declare module "sap/f/semantic/MainAction" {
       sText?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the MainAction constructor.
+   */
   export interface $MainActionSettings extends $SemanticButtonSettings {
     /**
      * Defines `MainAction` text
@@ -15606,7 +15941,9 @@ declare module "sap/f/semantic/MessagesIndicator" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the MessagesIndicator constructor.
+   */
   export interface $MessagesIndicatorSettings extends $SemanticButtonSettings {}
 }
 
@@ -15717,7 +16054,9 @@ declare module "sap/f/semantic/NegativeAction" {
       sText?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the NegativeAction constructor.
+   */
   export interface $NegativeActionSettings extends $SemanticButtonSettings {
     /**
      * Defines `NegativeAction` text. **Note:** the default text is "Reject"
@@ -15833,7 +16172,9 @@ declare module "sap/f/semantic/PositiveAction" {
       sText?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the PositiveAction constructor.
+   */
   export interface $PositiveActionSettings extends $SemanticButtonSettings {
     /**
      * Defines `PositiveAction` text. **Note:** the default text is "Accept"
@@ -15928,7 +16269,9 @@ declare module "sap/f/semantic/PrintAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the PrintAction constructor.
+   */
   export interface $PrintActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -16016,7 +16359,9 @@ declare module "sap/f/semantic/SemanticButton" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the SemanticButton constructor.
+   */
   export interface $SemanticButtonSettings extends $SemanticButtonSettings1 {}
 }
 
@@ -16125,7 +16470,9 @@ declare module "sap/f/semantic/SemanticControl" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the SemanticControl constructor.
+   */
   export interface $SemanticControlSettings extends $ElementSettings {
     /**
      * Determines whether the `SemanticControl` is visible.
@@ -18142,7 +18489,9 @@ declare module "sap/f/semantic/SemanticPage" {
       bToggleHeaderOnTitleClick?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the SemanticPage constructor.
+   */
   export interface $SemanticPageSettings extends $ControlSettings {
     /**
      * Determines whether the header is expanded.
@@ -18718,7 +19067,9 @@ declare module "sap/f/semantic/SemanticToggleButton" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the SemanticToggleButton constructor.
+   */
   export interface $SemanticToggleButtonSettings
     extends $SemanticToggleButtonSettings1 {}
 }
@@ -18809,7 +19160,9 @@ declare module "sap/f/semantic/SendEmailAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the SendEmailAction constructor.
+   */
   export interface $SendEmailActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -18899,7 +19252,9 @@ declare module "sap/f/semantic/SendMessageAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the SendMessageAction constructor.
+   */
   export interface $SendMessageActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -18989,7 +19344,9 @@ declare module "sap/f/semantic/ShareInJamAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ShareInJamAction constructor.
+   */
   export interface $ShareInJamActionSettings extends $SemanticButtonSettings {}
 }
 
@@ -19079,7 +19436,9 @@ declare module "sap/f/semantic/TitleMainAction" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the TitleMainAction constructor.
+   */
   export interface $TitleMainActionSettings extends $MainActionSettings {}
 }
 
@@ -19132,7 +19491,8 @@ declare module "sap/f/ShellBar" {
    */
   export default class ShellBar
     extends Control
-    implements IShellBar, IBar, IToolHeader {
+    implements IShellBar, IBar, IToolHeader
+  {
     __implements__sap_f_IShellBar: boolean;
     __implements__sap_m_IBar: boolean;
     __implements__sap_tnt_IToolHeader: boolean;
@@ -20394,7 +20754,9 @@ declare module "sap/f/ShellBar" {
       sTitle?: string
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ShellBar constructor.
+   */
   export interface $ShellBarSettings extends $ControlSettings {
     /**
      * Defines the main title of the control.
@@ -20529,6 +20891,9 @@ declare module "sap/f/ShellBar" {
     avatarPressed?: (oEvent: ShellBar$AvatarPressedEvent) => void;
   }
 
+  /**
+   * Parameters of the ShellBar#avatarPressed event.
+   */
   export interface ShellBar$AvatarPressedEventParameters {
     /**
      * Reference to the button that has been pressed
@@ -20536,11 +20901,17 @@ declare module "sap/f/ShellBar" {
     avatar?: Avatar;
   }
 
+  /**
+   * Event object of the ShellBar#avatarPressed event.
+   */
   export type ShellBar$AvatarPressedEvent = Event<
     ShellBar$AvatarPressedEventParameters,
     ShellBar
   >;
 
+  /**
+   * Parameters of the ShellBar#copilotPressed event.
+   */
   export interface ShellBar$CopilotPressedEventParameters {
     /**
      * Reference to the button that has been pressed
@@ -20553,11 +20924,17 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
+  /**
+   * Event object of the ShellBar#copilotPressed event.
+   */
   export type ShellBar$CopilotPressedEvent = Event<
     ShellBar$CopilotPressedEventParameters,
     ShellBar
   >;
 
+  /**
+   * Parameters of the ShellBar#homeIconPressed event.
+   */
   export interface ShellBar$HomeIconPressedEventParameters {
     /**
      * Reference to the image that has been pressed
@@ -20565,11 +20942,17 @@ declare module "sap/f/ShellBar" {
     icon?: Image;
   }
 
+  /**
+   * Event object of the ShellBar#homeIconPressed event.
+   */
   export type ShellBar$HomeIconPressedEvent = Event<
     ShellBar$HomeIconPressedEventParameters,
     ShellBar
   >;
 
+  /**
+   * Parameters of the ShellBar#menuButtonPressed event.
+   */
   export interface ShellBar$MenuButtonPressedEventParameters {
     /**
      * Reference to the button that has been pressed
@@ -20577,11 +20960,17 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
+  /**
+   * Event object of the ShellBar#menuButtonPressed event.
+   */
   export type ShellBar$MenuButtonPressedEvent = Event<
     ShellBar$MenuButtonPressedEventParameters,
     ShellBar
   >;
 
+  /**
+   * Parameters of the ShellBar#navButtonPressed event.
+   */
   export interface ShellBar$NavButtonPressedEventParameters {
     /**
      * Reference to the button that has been pressed
@@ -20589,11 +20978,17 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
+  /**
+   * Event object of the ShellBar#navButtonPressed event.
+   */
   export type ShellBar$NavButtonPressedEvent = Event<
     ShellBar$NavButtonPressedEventParameters,
     ShellBar
   >;
 
+  /**
+   * Parameters of the ShellBar#notificationsPressed event.
+   */
   export interface ShellBar$NotificationsPressedEventParameters {
     /**
      * Reference to the button that has been pressed
@@ -20601,11 +20996,17 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
+  /**
+   * Event object of the ShellBar#notificationsPressed event.
+   */
   export type ShellBar$NotificationsPressedEvent = Event<
     ShellBar$NotificationsPressedEventParameters,
     ShellBar
   >;
 
+  /**
+   * Parameters of the ShellBar#productSwitcherPressed event.
+   */
   export interface ShellBar$ProductSwitcherPressedEventParameters {
     /**
      * Reference to the button that has been pressed
@@ -20613,11 +21014,17 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
+  /**
+   * Event object of the ShellBar#productSwitcherPressed event.
+   */
   export type ShellBar$ProductSwitcherPressedEvent = Event<
     ShellBar$ProductSwitcherPressedEventParameters,
     ShellBar
   >;
 
+  /**
+   * Parameters of the ShellBar#searchButtonPressed event.
+   */
   export interface ShellBar$SearchButtonPressedEventParameters {
     /**
      * Reference to the button that has been pressed
@@ -20625,6 +21032,9 @@ declare module "sap/f/ShellBar" {
     button?: Button;
   }
 
+  /**
+   * Event object of the ShellBar#searchButtonPressed event.
+   */
   export type ShellBar$SearchButtonPressedEvent = Event<
     ShellBar$SearchButtonPressedEventParameters,
     ShellBar
@@ -21321,7 +21731,9 @@ declare module "sap/f/SidePanel" {
       iSidePanelResizeStep?: int
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the SidePanel constructor.
+   */
   export interface $SidePanelSettings extends $ControlSettings {
     /**
      * Determines whether the action bar is expanded or collapsed.
@@ -21424,6 +21836,9 @@ declare module "sap/f/SidePanel" {
     toggle?: (oEvent: SidePanel$ToggleEvent) => void;
   }
 
+  /**
+   * Parameters of the SidePanel#toggle event.
+   */
   export interface SidePanel$ToggleEventParameters {
     /**
      * The action item that triggers the event.
@@ -21436,6 +21851,9 @@ declare module "sap/f/SidePanel" {
     expanded?: boolean;
   }
 
+  /**
+   * Event object of the SidePanel#toggle event.
+   */
   export type SidePanel$ToggleEvent = Event<
     SidePanel$ToggleEventParameters,
     SidePanel
@@ -21633,7 +22051,9 @@ declare module "sap/f/SidePanelItem" {
       sIcon?: URI
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the SidePanelItem constructor.
+   */
   export interface $SidePanelItemSettings extends $ItemSettings {
     /**
      * Specifies the icon for the item.

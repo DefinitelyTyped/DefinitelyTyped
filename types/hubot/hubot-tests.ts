@@ -69,7 +69,8 @@ brain.remove("test"); // $ExpectType Brain<Adapter>
 brain.setAutoSave(false); // $ExpectType void
 brain.resetSaveInterval(15); // $ExpectType void
 brain.mergeData({ foo: "bar" }); // $ExpectType void
-brain.users(); // $ExpectType User[]
+brain.users(); // $ExpectType any
+robot.adapter.users(); // $ExpectType any
 brain.userForId("123"); // $ExpectType User
 brain.userForName("jon"); // $ExpectType User | null
 brain.usersForRawFuzzyName("fuzzy"); // $ExpectType User[]

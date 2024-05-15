@@ -31,30 +31,7 @@ declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
 declare module "." {
-    interface ThenableImpl<T> {
-        then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
-    }
-    interface UntrackedThenable<T> extends ThenableImpl<T> {
-        status?: void;
-    }
-
-    export interface PendingThenable<T> extends ThenableImpl<T> {
-        status: "pending";
-    }
-
-    export interface FulfilledThenable<T> extends ThenableImpl<T> {
-        status: "fulfilled";
-        value: T;
-    }
-
-    export interface RejectedThenable<T> extends ThenableImpl<T> {
-        status: "rejected";
-        reason: unknown;
-    }
-
-    export type Thenable<T> = UntrackedThenable<T> | PendingThenable<T> | FulfilledThenable<T> | RejectedThenable<T>;
-
-    export type Usable<T> = Thenable<T> | Context<T>;
+    export type Usable<T> = PromiseLike<T> | Context<T>;
 
     export function use<T>(usable: Usable<T>): T;
 
@@ -102,6 +79,13 @@ declare module "." {
         (callback: () => Promise<VoidOrUndefinedOnly>): void;
     }
 
+    /**
+     * Similar to `useTransition` but allows uses where hooks are not available.
+     *
+     * @param callback An _asynchronous_ function which causes state updates that can be deferred.
+     */
+    export function startTransition(scope: () => Promise<VoidOrUndefinedOnly>): void;
+
     export function useOptimistic<State>(
         passthrough: State,
     ): [State, (action: State | ((pendingState: State) => State)) => void];
@@ -124,4 +108,33 @@ declare module "." {
         initialState: Awaited<State>,
         permalink?: string,
     ): [state: Awaited<State>, dispatch: (payload: Payload) => void, isPending: boolean];
+
+    interface DOMAttributes<T> {
+        // Transition Events
+        onTransitionCancel?: TransitionEventHandler<T> | undefined;
+        onTransitionCancelCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionRun?: TransitionEventHandler<T> | undefined;
+        onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
+        onTransitionStart?: TransitionEventHandler<T> | undefined;
+        onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
+    }
+
+    /**
+     * @internal Use `Awaited<ReactNode>` instead
+     */
+    // Helper type to enable `Awaited<ReactNode>`.
+    // Must be a copy of the non-thenables of `ReactNode`.
+    type AwaitedReactNode =
+        | ReactElement
+        | string
+        | number
+        | Iterable<AwaitedReactNode>
+        | ReactPortal
+        | boolean
+        | null
+        | undefined;
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_REACT_NODES {
+        promises: Promise<AwaitedReactNode>;
+        bigints: bigint;
+    }
 }

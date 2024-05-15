@@ -556,9 +556,11 @@ declare namespace OracleDB {
      * For non-CLOB types, the conversion to string is handled by Oracle client libraries and is often referred to as defining the fetch type.
      */
     let fetchAsString: Array<typeof DATE | typeof NUMBER | typeof BUFFER | typeof CLOB>;
-
-    function converter<T>(arg: T): T;
-
+    /**
+     * Converter can be used with fetch type handlers to change the returned data.
+     * If the value returned by the fetch type handler function is undefined then no conversion takes place.
+     */
+    function converter<T>(arg: T | null): any;
     type FetchTypeResponse =
         | { type: DbType; converter?: typeof converter }
         | { type?: DbType; converter: typeof converter };
@@ -584,7 +586,7 @@ declare namespace OracleDB {
      * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
      * This property can be overridden by the fetchTypeHandler option in execute().
      */
-    function fetchTypeHandler(metadata: Metadata<any>): Promise<FetchTypeResponse>;
+    function fetchTypeHandler(metadata: Metadata<any>): FetchTypeResponse | undefined;
     /**
      * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
      * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -693,7 +695,16 @@ declare namespace OracleDB {
      * @default 60
      * @since 1.12
      */
-    let poolPingInterval: number;
+    let poolPingInterval: number | undefined;
+    /**
+     * The number of milliseconds that a connection should wait for a response from connection.ping(). Refer to oracledb.poolPingTimeout for details.
+     * The default value is 5000 milliseconds.
+     * This optional property overrides the oracledb.poolPingTimeout property.
+     * See Connection Pool Pinging for more information.
+     *
+     * @since 6.4
+     */
+    let poolPingTimeout: number;
     /**
      * The number of seconds after which idle connections (unused in the pool) are terminated.
      * Idle connections are terminated only when the pool is accessed. If the poolTimeout is set to 0,
@@ -1143,7 +1154,27 @@ declare namespace OracleDB {
          */
         createLob(type: DbType): Promise<Lob>;
         createLob(type: DbType, callback: (error: DBError, lob: Lob) => void): void;
-
+        /**
+         * This synchronous method decodes an OSON Buffer and returns a Javascript value. This method is useful for fetching BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
+         * The parameters of the connection.decodeOSON() are: buf; Buffer; The OSON buffer that is to be decoded.
+         *
+         * @param buf The OSON buffer that is to be decoded.
+         *
+         * @since 6.4
+         *
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
+         */
+        decodeOSON(buf: Buffer): any;
+        /**
+         * This synchronous method encodes a JavaScript value to OSON bytes and returns a Buffer. This method is useful for inserting OSON bytes directly into BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
+         *
+         * @param value The JavaScript value that is to be encoded into OSON bytes. The JavaScript value can be any value supported by JSON.
+         *
+         * @since 6.4
+         *
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
+         */
+        encodeOSON(value: any): Buffer;
         /**
          * This call executes a single SQL or PL/SQL statement.
          *
@@ -1166,6 +1197,8 @@ declare namespace OracleDB {
          * This call executes a single SQL or PL/SQL statement.
          *
          * @param sql The SQL statement that is executed. The statement may contain bind parameters.
+         * Changed in version 6.4: The ability to accept an object (returned from the sql function of the third-party sql-template-tag module) as an input parameter was added to connection.execute().
+         *
          * @param bindParams This function parameter is needed if there are bind parameters in the SQL statement.
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
@@ -1188,7 +1221,26 @@ declare namespace OracleDB {
          */
         execute<T>(sql: string): Promise<Result<T>>;
         execute<T>(sql: string, callback: (error: DBError, result: Result<T>) => void): void;
-
+        /**
+         * This call executes a single SQL or PL/SQL statement.
+         *
+         * @param sql The SQL object that has statement to be executed and bindParams.
+         * The statement may contain bind parameters.
+         * The SQL object contains bind parameters if statement has it.
+         * @param options This is an optional parameter to execute() that may be used to control statement execution.
+         *
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
+         * @see https://github.com/blakeembrey/sql-template-tag
+         * @see https://github.com/oracle/node-oracledb/issues/1629
+         */
+        execute<T>(sql: object): Promise<Result<T>>;
+        execute<T>(sql: object, callback: (error: DBError, result: Result<T>) => void): void;
+        execute<T>(sql: object, options: ExecuteOptions): Promise<Result<T>>;
+        execute<T>(
+            sql: object,
+            options: ExecuteOptions,
+            callback: (error: DBError, result: Result<T>) => void,
+        ): void;
         /**
          * This method allows sets of data values to be bound to one DML or PL/SQL statement for execution.
          * It is like calling connection.execute() multiple times but requires fewer round-trips.
@@ -1737,7 +1789,7 @@ declare namespace OracleDB {
          */
         newPassword?: string | undefined;
         /**
-         * Specifies which previously created pool in the connection pool cache to obtain the connection from. See Pool Alias.
+         * The password of the database user. A password is also necessary if a proxy user is specified.
          */
         password?: string | undefined;
         /**
@@ -2007,7 +2059,7 @@ declare namespace OracleDB {
          *
          * @since 6.0
          */
-        fetchTypeHandler?: (metadata: Metadata<any>) => Promise<FetchTypeResponse>;
+        fetchTypeHandler?: (metadata: Metadata<any>) => FetchTypeResponse | undefined;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -2208,10 +2260,41 @@ declare namespace OracleDB {
          *
          * Note it is an asynchronous method and requires a round-trip to the database.
          *
+         * For LOBs of type CLOB and NCLOB, the offset is the position from which the data is to be fetched, in UCS-2 code points. UCS-2 code points are equivalent to characters for all but supplemental characters. If supplemental characters are in the LOB, the offset and amount will have to be chosen carefully to avoid splitting a character.
+         * For LOBs of type BLOB and BFILE, the offset is the position of the byte from which the data is to be fetched.
+         * The default is 1.
+         * The value of offset must be greater than or equal to 1.
+         * If the offset specified in lob.getData() exceeds the length of the LOB, then the value null is returned.
+         *
          * @since 4.0
          */
         getData(): Promise<string | Buffer>;
         getData(callback: (error: DBError, data: string | Buffer) => void): void;
+
+        /**
+         * Returns a portion (or all) of the data in the LOB object. Note that
+         * the offset is in bytes for BLOB and BFILE type LOBs and
+         * in UCS-2 code points for CLOB and NCLOB type LOBs. UCS-2 code points
+         * are equivalent to characters for all but supplemental characters.
+         * If supplemental characters are in the LOB, the offset will
+         * have to be chosen carefully to avoid splitting a character.
+         *
+         * This method is usable for LOBs up to 1 GB in length.
+         *
+         * For queries returning LOB columns, it can be more efficient to use fetchAsString,
+         * fetchAsBuffer, or fetchInfo instead of lob.getData().
+         *
+         * Note it is an asynchronous method and requires a round-trip to the database.
+         *
+         * @since 6.4.0
+         *
+         * @param offset The absolute offset inside LOB.
+         * @param amount The number of bytes(BLOB) or characters(CLOB) returned starting from offset.
+         */
+        getData(offset: number): Promise<string | Buffer>;
+        getData(offset: number, callback: (error: DBError, data: string | Buffer) => void): void;
+        getData(offset: number, amount: number): Promise<string | Buffer>;
+        getData(offset: number, amount: number, callback: (error: DBError, data: string | Buffer) => void): void;
     }
 
     /**
@@ -2259,6 +2342,11 @@ declare namespace OracleDB {
          * Indicates if the column is known to contain JSON data. This will be true for JSON columns (from Oracle Database 21c) and for LOB and VARCHAR2 columns where “IS JSON” constraint is enabled (from Oracle Database 19c). This property will be false for all the other columns. It will also be false for any column when Oracle Client 18c or earlier is used in Thick mode or the Oracle Database version is earlier than 19c.
          */
         isJson?: boolean | undefined;
+        /**
+
+         * Indicates if the column is known to contain binary encoded OSON data. This attribute will be true in Thin mode and while using Oracle Client version 21c (or later) in Thick mode when the “IS JSON FORMAT OSON” check constraint is enabled on BLOB and RAW columns. It will be set to false for all other columns. It will also be set to false for any column when the Thick mode uses Oracle Client versions earlier than 21c. Note that the “IS JSON FORMAT OSON” check constraint is available from Oracle Database 19c onwards.
+         */
+        isOson?: boolean | undefined;
         /**
          * Database byte size. This is only set for DB_TYPE_VARCHAR, DB_TYPE_CHAR and DB_TYPE_RAW column types.
          */
@@ -2355,6 +2443,12 @@ declare namespace OracleDB {
          * before node-oracledb pings the database prior to returning that connection to the application.
          */
         readonly poolPingInterval: number;
+        /**
+         * This read-only property is a number which specifies the maximum number of milliseconds that a connection should wait for a response from connection.ping().
+         *
+         * @since 6.4
+         */
+        readonly poolPingTimeout: number;
         /**
          * The time (in seconds) after which the pool terminates idle connections (unused in the pool).
          * The number of connections does not drop below poolMin.
@@ -3062,6 +3156,12 @@ declare namespace OracleDB {
          */
         getValues(): T[];
         /**
+         * Returns a map object for the collection types indexed by PLS_INTEGER where the collection’s indexes are the keys and the elements are its values. See Associative Array Indexed By PLS_INTEGER for example.
+         *
+         * @since 6.4
+         */
+        toMap<V>(): Map<T, V>;
+        /**
          * Trims the specified number of elements from the end of the collection.
          */
         trim(count: number): void;
@@ -3263,6 +3363,17 @@ declare namespace OracleDB {
          * of the binds parameter. It is only present if a DML statement was executed.
          */
         rowsAffected?: number | undefined;
+        /**
+         * This property provides an error object that gives information about any database warnings (such as PL/SQL compilation warnings) that were generated during the last call to connection.executeMany().
+         *
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/plsql_execution.html#plsqlcompwarnings
+         *
+         * @since 6.4
+         */
+        warning: {
+            message: string;
+            code: string;
+        };
     }
 
     /**

@@ -467,6 +467,8 @@ async function testPromisify() {
 {
     fs.opendir("test", async (err, dir) => {
         const dirEnt: fs.Dirent | null = await dir.read();
+        dirEnt?.parentPath; // $ExpectType string | undefined
+        dirEnt?.path; // $ExpectType string | undefined
     });
 
     fs.opendir(Buffer.from("test"), async (err, dir) => {

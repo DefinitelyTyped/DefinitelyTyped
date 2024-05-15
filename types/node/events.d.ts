@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/events.js)
  */
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
@@ -74,16 +74,6 @@ declare module "events" {
          * Enables automatic capturing of promise rejection.
          */
         captureRejections?: boolean | undefined;
-    }
-    // Any EventTarget with a DOM-style `addEventListener`
-    interface _DOMEventTarget {
-        addEventListener(
-            eventName: string,
-            listener: (...args: any[]) => void,
-            opts?: {
-                once: boolean;
-            },
-        ): any;
     }
     interface StaticEventEmitterOptions {
         signal?: AbortSignal | undefined;
@@ -158,7 +148,7 @@ declare module "events" {
          * }
          * ```
          *
-         * The special handling of the `'error'` event is only used when `events.once()`is used to wait for another event. If `events.once()` is used to wait for the
+         * The special handling of the `'error'` event is only used when `events.once()` is used to wait for another event. If `events.once()` is used to wait for the
          * '`error'` event itself, then it is treated as any other kind of event without
          * special handling:
          *
@@ -208,7 +198,7 @@ declare module "events" {
             eventName: string | symbol,
             options?: StaticEventEmitterOptions,
         ): Promise<any[]>;
-        static once(emitter: _DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: EventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
          * import { on, EventEmitter } from 'node:events';
@@ -266,7 +256,7 @@ declare module "events" {
          * ```
          * @since v13.6.0, v12.16.0
          * @param eventName The name of the event being listened for
-         * @return that iterates `eventName` events emitted by the `emitter`
+         * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
          */
         static on(
             emitter: NodeJS.EventEmitter,
@@ -274,7 +264,7 @@ declare module "events" {
             options?: StaticEventEmitterOptions,
         ): AsyncIterableIterator<any>;
         /**
-         * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
+         * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
          *
          * ```js
          * import { EventEmitter, listenerCount } from 'node:events';
@@ -318,7 +308,7 @@ declare module "events" {
          * ```
          * @since v15.2.0, v14.17.0
          */
-        static getEventListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
+        static getEventListeners(emitter: EventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
          * Returns the currently set max amount of listeners.
          *
@@ -347,7 +337,7 @@ declare module "events" {
          * ```
          * @since v19.9.0
          */
-        static getMaxListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter): number;
+        static getMaxListeners(emitter: EventTarget | NodeJS.EventEmitter): number;
         /**
          * ```js
          * import { setMaxListeners, EventEmitter } from 'node:events';
@@ -362,7 +352,7 @@ declare module "events" {
          * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
          * objects.
          */
-        static setMaxListeners(n?: number, ...eventTargets: Array<_DOMEventTarget | NodeJS.EventEmitter>): void;
+        static setMaxListeners(n?: number, ...eventTargets: Array<EventTarget | NodeJS.EventEmitter>): void;
         /**
          * Listens once to the `abort` event on the provided `signal`.
          *
@@ -399,9 +389,9 @@ declare module "events" {
          */
         static addAbortListener(signal: AbortSignal, resource: (event: Event) => void): Disposable;
         /**
-         * This symbol shall be used to install a listener for only monitoring `'error'`events. Listeners installed using this symbol are called before the regular`'error'` listeners are called.
+         * This symbol shall be used to install a listener for only monitoring `'error'` events. Listeners installed using this symbol are called before the regular `'error'` listeners are called.
          *
-         * Installing a listener using this symbol does not change the behavior once an`'error'` event is emitted. Therefore, the process will still crash if no
+         * Installing a listener using this symbol does not change the behavior once an `'error'` event is emitted. Therefore, the process will still crash if no
          * regular `'error'` listener is installed.
          * @since v13.6.0, v12.17.0
          */
@@ -424,16 +414,18 @@ declare module "events" {
          * By default, a maximum of `10` listeners can be registered for any single
          * event. This limit can be changed for individual `EventEmitter` instances
          * using the `emitter.setMaxListeners(n)` method. To change the default
-         * for _all_`EventEmitter` instances, the `events.defaultMaxListeners`property can be used. If this value is not a positive number, a `RangeError`is thrown.
+         * for _all_`EventEmitter` instances, the `events.defaultMaxListeners` property
+         * can be used. If this value is not a positive number, a `RangeError` is thrown.
          *
          * Take caution when setting the `events.defaultMaxListeners` because the
-         * change affects _all_`EventEmitter` instances, including those created before
+         * change affects _all_ `EventEmitter` instances, including those created before
          * the change is made. However, calling `emitter.setMaxListeners(n)` still has
          * precedence over `events.defaultMaxListeners`.
          *
          * This is not a hard limit. The `EventEmitter` instance will allow
          * more listeners to be added but will output a trace warning to stderr indicating
-         * that a "possible EventEmitter memory leak" has been detected. For any single`EventEmitter`, the `emitter.getMaxListeners()` and `emitter.setMaxListeners()`methods can be used to
+         * that a "possible EventEmitter memory leak" has been detected. For any single
+         * `EventEmitter`, the `emitter.getMaxListeners()` and `emitter.setMaxListeners()` methods can be used to
          * temporarily avoid this warning:
          *
          * ```js
@@ -557,10 +549,10 @@ declare module "events" {
                  */
                 addListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
-                 * Adds the `listener` function to the end of the listeners array for the
-                 * event named `eventName`. No checks are made to see if the `listener` has
-                 * already been added. Multiple calls passing the same combination of `eventName`and `listener` will result in the `listener` being added, and called, multiple
-                 * times.
+                 * Adds the `listener` function to the end of the listeners array for the event
+                 * named `eventName`. No checks are made to see if the `listener` has already
+                 * been added. Multiple calls passing the same combination of `eventName` and
+                 * `listener` will result in the `listener` being added, and called, multiple times.
                  *
                  * ```js
                  * server.on('connection', (stream) => {
@@ -570,7 +562,7 @@ declare module "events" {
                  *
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  *
-                 * By default, event listeners are invoked in the order they are added. The`emitter.prependListener()` method can be used as an alternative to add the
+                 * By default, event listeners are invoked in the order they are added. The `emitter.prependListener()` method can be used as an alternative to add the
                  * event listener to the beginning of the listeners array.
                  *
                  * ```js
@@ -589,7 +581,7 @@ declare module "events" {
                  */
                 on<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
-                 * Adds a **one-time**`listener` function for the event named `eventName`. The
+                 * Adds a **one-time** `listener` function for the event named `eventName`. The
                  * next time `eventName` is triggered, this listener is removed and then invoked.
                  *
                  * ```js
@@ -600,7 +592,7 @@ declare module "events" {
                  *
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  *
-                 * By default, event listeners are invoked in the order they are added. The`emitter.prependOnceListener()` method can be used as an alternative to add the
+                 * By default, event listeners are invoked in the order they are added. The `emitter.prependOnceListener()` method can be used as an alternative to add the
                  * event listener to the beginning of the listeners array.
                  *
                  * ```js
@@ -619,7 +611,7 @@ declare module "events" {
                  */
                 once<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
                 /**
-                 * Removes the specified `listener` from the listener array for the event named`eventName`.
+                 * Removes the specified `listener` from the listener array for the event named `eventName`.
                  *
                  * ```js
                  * const callback = (stream) => {
@@ -636,7 +628,7 @@ declare module "events" {
                  * called multiple times to remove each instance.
                  *
                  * Once an event is emitted, all listeners attached to it at the
-                 * time of emitting are called in order. This implies that any`removeListener()` or `removeAllListeners()` calls _after_ emitting and _before_ the last listener finishes execution
+                 * time of emitting are called in order. This implies that any `removeListener()` or `removeAllListeners()` calls _after_ emitting and _before_ the last listener finishes execution
                  * will not remove them from`emit()` in progress. Subsequent events behave as expected.
                  *
                  * ```js
@@ -679,7 +671,7 @@ declare module "events" {
                  *
                  * When a single function has been added as a handler multiple times for a single
                  * event (as in the example below), `removeListener()` will remove the most
-                 * recently added instance. In the example the `once('ping')`listener is removed:
+                 * recently added instance. In the example the `once('ping')` listener is removed:
                  *
                  * ```js
                  * import { EventEmitter } from 'node:events';
@@ -721,7 +713,7 @@ declare module "events" {
                  * By default `EventEmitter`s will print a warning if more than `10` listeners are
                  * added for a particular event. This is a useful default that helps finding
                  * memory leaks. The `emitter.setMaxListeners()` method allows the limit to be
-                 * modified for this specific `EventEmitter` instance. The value can be set to`Infinity` (or `0`) to indicate an unlimited number of listeners.
+                 * modified for this specific `EventEmitter` instance. The value can be set to `Infinity` (or `0`) to indicate an unlimited number of listeners.
                  *
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.3.5
@@ -778,7 +770,7 @@ declare module "events" {
                  */
                 rawListeners<K>(eventName: Key<K, T>): Array<Listener2<K, T>>;
                 /**
-                 * Synchronously calls each of the listeners registered for the event named`eventName`, in the order they were registered, passing the supplied arguments
+                 * Synchronously calls each of the listeners registered for the event named `eventName`, in the order they were registered, passing the supplied arguments
                  * to each.
                  *
                  * Returns `true` if the event had listeners, `false` otherwise.
@@ -830,8 +822,8 @@ declare module "events" {
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
-                 * already been added. Multiple calls passing the same combination of `eventName`and `listener` will result in the `listener` being added, and called, multiple
-                 * times.
+                 * already been added. Multiple calls passing the same combination of `eventName`
+                 * and `listener` will result in the `listener` being added, and called, multiple times.
                  *
                  * ```js
                  * server.prependListener('connection', (stream) => {

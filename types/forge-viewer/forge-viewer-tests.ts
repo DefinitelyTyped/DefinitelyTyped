@@ -1,7 +1,7 @@
 let viewer: Autodesk.Viewing.GuiViewer3D;
 const options = {
-    env: "AutodeskProduction",
-    api: "derivativeV2", // for models uploaded to EMEA change this option to 'derivativeV2_EU'
+    env: "AutodeskProduction2",
+    api: "streamingV2", // for models uploaded to EMEA change this option to 'streamingV2_EU'
     accessToken: "",
 };
 
@@ -61,6 +61,9 @@ Autodesk.Viewing.Initializer(options, async () => {
     await streamLineTests(viewer);
     await stringExtractorTests(viewer);
     await visualClustersTests(viewer);
+    await selectiveLoadingTest(viewer);
+    await cameraMappingTest(viewer);
+    await dbIdRemappingTest(viewer);
     // shutdown the viewer
     viewer.tearDown();
 });
@@ -661,4 +664,97 @@ function selectionTests(viewer: Autodesk.Viewing.GuiViewer3D) {
     }
 
     viewer.select([]);
+}
+
+async function selectiveLoadingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const documentId = "urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXktYnVja2V0L215LWF3ZXNvbWUtZm9yZ2UtZmlsZS5ydnQ";
+    const doc = await loadDocument(documentId);
+    const viewable = doc.getRoot().getDefaultGeometry();
+
+    let query = [{
+        $like: ["?Name", "'%2%'"],
+    }];
+    let fakeLoadedModel = await viewer.loadDocumentNode(doc, viewable, {
+        filter: {
+            property_query: query,
+        },
+    });
+
+    await viewer.waitForLoadDone();
+
+    const propHashes = await fakeLoadedModel.getPropertyHashes();
+    viewer.unloadDocumentNode(fakeLoadedModel.getDocumentNode());
+
+    const matches = JSON.stringify(query).matchAll(/(["'])\?([\w\d\s]+)\1/g);
+    for (const match of matches) {
+        const attributeSearchString = match[2].trim();
+        query = propHashes.filter(propHash => propHash[1] === attributeSearchString)
+            .map(propHash => {
+                return {
+                    $like: [`s.props.${propHash[0]}`, query[0]["$like"][1]],
+                };
+            });
+    }
+
+    let model = await viewer.loadDocumentNode(doc, viewable, {
+        filter: {
+            property_query: query,
+        },
+    });
+
+    await viewer.waitForLoadDone();
+}
+
+async function cameraMappingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    const state = viewer.getState({ viewport: true });
+    const model = viewer.getAllModels()[0];
+    const invTransform = model.getInverseModelToViewerTransform();
+
+    const currentTarget = new THREE.Vector3().fromArray(state.viewport.target);
+    // {x: -14.770469665527344, y: 36.571967124938965, z: -1.212925910949707}
+
+    const currentPosition = new THREE.Vector3().fromArray(state.viewport.eye);
+    // {x: -14.870469093322754, y: 36.57156276702881, z: -1.212925910949707}
+
+    const originTarget = currentTarget.clone().applyMatrix4(invTransform);
+    // {x: -15.02436066552734, y: -8.984211875061035, z: 4.921260089050291}
+
+    const originPosition = currentPosition.clone().applyMatrix4(invTransform);
+    // {x: -15.12436009332275, y: -8.984616232971192, z: 4.921260089050291}
+
+    let data =
+        "{\"aspect\":1.7963206307490145,\"isPerspective\":true,\"fov\":90.6808770984145,\"position\":[-15.165047992449978,-8.997701015094862,4.916143307734757],\"target\":[-15.02430824140946,-8.997131602441378,4.916143307734757],\"up\":[0,0,1],\"orthoScale\":1}";
+    const viewData = JSON.parse(data);
+    let view = new Autodesk.Viewing.UnifiedCamera();
+    view = Object.assign(view, {
+        aspect: viewData.aspect,
+        isPerspective: viewData.isPerspective,
+        fov: viewData.fov,
+        position: new THREE.Vector3().fromArray(viewData.position),
+        target: new THREE.Vector3().fromArray(viewData.target),
+        up: new THREE.Vector3().fromArray(viewData.up),
+        orthoScale: viewData.orthoScale,
+    });
+
+    const offsetMatrix = model.getModelToViewerTransform();
+    view.position = view.position.applyMatrix4(offsetMatrix);
+    view.target = view.target.applyMatrix4(offsetMatrix);
+
+    viewer.impl.setViewFromCamera(view);
+}
+
+async function dbIdRemappingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promise<void> {
+    // Override `PropDbLoader#load` so that the svf1/svf2 dbid mapping is always loaded.
+    const _load = Autodesk.Viewing.Private.PropDbLoader.prototype.load;
+    Autodesk.Viewing.Private.PropDbLoader.prototype.load = function() {
+        this.needsDbIdRemap = true;
+        _load.call(this);
+    };
+
+    // Override `PropDbLoader#processLoadResult` so that the dbid mapping is stored within all models (by default it is only stored in 2D models).
+    const _processLoadResult = Autodesk.Viewing.Private.PropDbLoader.prototype.processLoadResult;
+    Autodesk.Viewing.Private.PropDbLoader.prototype.processLoadResult = function(result) {
+        _processLoadResult.call(this, result);
+        this.model.idRemap = result.dbidOldToNew;
+    };
 }

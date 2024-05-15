@@ -1,4 +1,12 @@
-import { ComponentType, CSSProperties, FunctionComponent, ImgHTMLAttributes, ReactElement, ReactNode } from "react";
+import {
+    ComponentType,
+    CSSProperties,
+    FunctionComponent,
+    ImgHTMLAttributes,
+    ReactElement,
+    ReactEventHandler,
+    ReactNode,
+} from "react";
 
 export type DelayMethod = "debounce" | "throttle";
 export type Effect = "blur" | "black-and-white" | "opacity";
@@ -12,7 +20,7 @@ export interface CommonProps {
     /** @deprecated Use onLoad instead. This prop is only for backward compatibility. */
     afterLoad?: (() => any) | undefined;
     /** Function called when the image has been loaded. This is the same function as the onLoad of an <img> which contains an event object. */
-    onLoad?: (() => any) | undefined;
+    onLoad?: ReactEventHandler<HTMLImageElement>;
     /** Function called right before the placeholder is replaced with the image element. */
     beforeLoad?: (() => any) | undefined;
     /* Method from lodash to use to delay the scroll/resize events. */

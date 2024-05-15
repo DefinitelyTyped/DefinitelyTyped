@@ -10,7 +10,7 @@ export type FunctionNodeArguments = Node[] | { [name: string]: Node };
 
 export default class FunctionNode<P extends Node[] | { [name: string]: Node }> extends CodeNode {
     keywords: { [key: string]: Node };
-    constructor(code?: string, includes?: CodeNodeInclude[]);
+    constructor(code?: string, includes?: CodeNodeInclude[], language?: string);
 
     getInputs(builder: NodeBuilder): NodeFunctionInput[];
     getNodeFunction(builder: NodeBuilder): NodeFunction;
@@ -20,13 +20,19 @@ export default class FunctionNode<P extends Node[] | { [name: string]: Node }> e
 export type Fn<P extends FunctionNodeArguments> = P extends readonly [...unknown[]] ? ProxiedTuple<P>
     : readonly [ProxiedObject<P>];
 
-export const func: <P extends FunctionNodeArguments>(
+export const nativeFn: <P extends FunctionNodeArguments>(
+    code: string,
+    includes?: CodeNodeInclude[],
+    language?: string,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+) => (...params: Fn<P>) => ShaderNodeObject<Node>;
+
+export const glslFn: <P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-) => { call: (...params: Fn<P>) => ShaderNodeObject<Node> };
-
-export const fn: <P extends FunctionNodeArguments>(
+) => (...params: Fn<P>) => ShaderNodeObject<Node>;
+export const wgslFn: <P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics

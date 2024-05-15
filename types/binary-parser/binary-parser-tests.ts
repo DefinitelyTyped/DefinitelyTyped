@@ -2,7 +2,7 @@ import { Parser } from "binary-parser";
 
 // Build an IP packet header Parser
 const ipHeader = new Parser()
-    .endianess("big")
+    .endianness("big")
     .bit4("version")
     .bit4("headerLength")
     .uint8("tos")
