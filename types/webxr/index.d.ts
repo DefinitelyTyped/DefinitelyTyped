@@ -266,6 +266,14 @@ interface XRInputSource {
 
 declare abstract class XRInputSource implements XRInputSource {}
 
+interface GamepadHapticActuator{
+    pulse(strength: number, duration: number): void;
+}
+
+interface Gamepad{
+    hapticActuators?: GamepadHapticActuator[] | undefined;
+}
+
 /**
  * Represents a list of XRInputSources. It is used in favor of a frozen array type when the contents
  * of the list are expected to change over time, such as with the XRSession inputSources attribute.
