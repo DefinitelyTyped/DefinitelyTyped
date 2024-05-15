@@ -1,1 +1,1 @@
-import { Commerce7AdminUI } from '@commerce7/admin-ui'
+import { Commerce7AdminUI } from "@commerce7/admin-ui";
