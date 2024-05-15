@@ -19,6 +19,6 @@
         }
     ],
     "dependencies": {
-        "@types/chroma-js": "^2.4.9999"
+        "@types/chroma-js": "^2.4"
     }
 }
