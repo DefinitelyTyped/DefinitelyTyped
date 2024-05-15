@@ -1,7 +1,7 @@
 
 import * as React from "react";
 
-export export class Commerce7AdminUI extends React.Component<{
+export class Commerce7AdminUI extends React.Component<{
     mode?: "light" | "dark" | undefined;
     children?: React.ReactNode | undefined;
 }> {}
