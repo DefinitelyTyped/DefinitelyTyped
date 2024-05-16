@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/tnt/library" {
   /**
@@ -2494,7 +2494,8 @@ declare module "sap/tnt/ToolHeader" {
    */
   export default class ToolHeader
     extends OverflowToolbar
-    implements IToolHeader {
+    implements IToolHeader
+  {
     __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new ToolHeader.

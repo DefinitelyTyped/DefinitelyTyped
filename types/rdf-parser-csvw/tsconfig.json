@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "jsx": "preserve",
         "module": "node16",
         "lib": [
             "es6"
@@ -15,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "mdx-js__react-tests.tsx"
+        "rdf-parser-csvw-tests.ts"
     ]
 }

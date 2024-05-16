@@ -27,6 +27,7 @@ export interface DomOptions {
 export type ViewLogger = (view: View, kind: string, msg: any, obj: any) => void;
 
 export interface SocketOptions {
+    longPollFallbackMs?: number | undefined;
     bindingPrefix?: string | undefined;
     defaults?: Defaults | undefined;
     dom?: DomOptions | undefined;

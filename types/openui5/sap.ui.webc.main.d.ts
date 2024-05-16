@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/webc/main/library" {
   /**
@@ -3455,7 +3455,8 @@ declare module "sap/ui/webc/main/BreadcrumbsItem" {
    */
   export default class BreadcrumbsItem
     extends WebComponent
-    implements IBreadcrumbsItem {
+    implements IBreadcrumbsItem
+  {
     __implements__sap_ui_webc_main_IBreadcrumbsItem: boolean;
     /**
      * Constructor for a new `BreadcrumbsItem`.
@@ -4156,7 +4157,8 @@ declare module "sap/ui/webc/main/Button" {
    */
   export default class Button
     extends WebComponent
-    implements IButton, IFormContent {
+    implements IButton, IFormContent
+  {
     __implements__sap_ui_webc_main_IButton: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
     /**
@@ -5485,7 +5487,8 @@ declare module "sap/ui/webc/main/CalendarDate" {
    */
   export default class CalendarDate
     extends WebComponent
-    implements ICalendarDate {
+    implements ICalendarDate
+  {
     __implements__sap_ui_webc_main_ICalendarDate: boolean;
     /**
      * Constructor for a new `CalendarDate`.
@@ -8349,7 +8352,8 @@ declare module "sap/ui/webc/main/ColorPaletteItem" {
    */
   export default class ColorPaletteItem
     extends WebComponent
-    implements IColorPaletteItem {
+    implements IColorPaletteItem
+  {
     __implements__sap_ui_webc_main_IColorPaletteItem: boolean;
     /**
      * Constructor for a new `ColorPaletteItem`.
@@ -10200,7 +10204,8 @@ declare module "sap/ui/webc/main/ComboBoxGroupItem" {
    */
   export default class ComboBoxGroupItem
     extends WebComponent
-    implements IComboBoxItem {
+    implements IComboBoxItem
+  {
     __implements__sap_ui_webc_main_IComboBoxItem: boolean;
     /**
      * Constructor for a new `ComboBoxGroupItem`.
@@ -10327,7 +10332,8 @@ declare module "sap/ui/webc/main/ComboBoxItem" {
    */
   export default class ComboBoxItem
     extends WebComponent
-    implements IComboBoxItem {
+    implements IComboBoxItem
+  {
     __implements__sap_ui_webc_main_IComboBoxItem: boolean;
     /**
      * Constructor for a new `ComboBoxItem`.
@@ -10510,7 +10516,8 @@ declare module "sap/ui/webc/main/CustomListItem" {
    */
   export default class CustomListItem
     extends WebComponent
-    implements IListItem {
+    implements IListItem
+  {
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
      * Constructor for a new `CustomListItem`.
@@ -12141,7 +12148,8 @@ declare module "sap/ui/webc/main/DateRangePicker" {
    */
   export default class DateRangePicker
     extends WebComponent
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `DateRangePicker`.
@@ -13265,7 +13273,8 @@ declare module "sap/ui/webc/main/DateTimePicker" {
    */
   export default class DateTimePicker
     extends WebComponent
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `DateTimePicker`.
@@ -15601,7 +15610,8 @@ declare module "sap/ui/webc/main/FileUploader" {
    */
   export default class FileUploader
     extends WebComponent
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `FileUploader`.
@@ -16279,7 +16289,8 @@ declare module "sap/ui/webc/main/GroupHeaderListItem" {
    */
   export default class GroupHeaderListItem
     extends WebComponent
-    implements IListItem {
+    implements IListItem
+  {
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
      * Constructor for a new `GroupHeaderListItem`.
@@ -17240,7 +17251,8 @@ declare module "sap/ui/webc/main/Input" {
    */
   export default class Input
     extends WebComponent
-    implements IInput, IFormContent {
+    implements IInput, IFormContent
+  {
     __implements__sap_ui_webc_main_IInput: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
     /**
@@ -22927,7 +22939,8 @@ declare module "sap/ui/webc/main/MultiComboBox" {
    */
   export default class MultiComboBox
     extends WebComponent
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `MultiComboBox`.
@@ -24071,7 +24084,8 @@ declare module "sap/ui/webc/main/MultiComboBoxGroupItem" {
    */
   export default class MultiComboBoxGroupItem
     extends WebComponent
-    implements IMultiComboBoxItem {
+    implements IMultiComboBoxItem
+  {
     __implements__sap_ui_webc_main_IMultiComboBoxItem: boolean;
     /**
      * Constructor for a new `MultiComboBoxGroupItem`.
@@ -24199,7 +24213,8 @@ declare module "sap/ui/webc/main/MultiComboBoxItem" {
    */
   export default class MultiComboBoxItem
     extends WebComponent
-    implements IMultiComboBoxItem {
+    implements IMultiComboBoxItem
+  {
     __implements__sap_ui_webc_main_IMultiComboBoxItem: boolean;
     /**
      * Constructor for a new `MultiComboBoxItem`.
@@ -24421,7 +24436,8 @@ declare module "sap/ui/webc/main/MultiInput" {
    */
   export default class MultiInput
     extends WebComponent
-    implements IFormContent, ISemanticFormContent {
+    implements IFormContent, ISemanticFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_core_ISemanticFormContent: boolean;
     /**
@@ -28493,7 +28509,8 @@ declare module "sap/ui/webc/main/ProgressIndicator" {
    */
   export default class ProgressIndicator
     extends WebComponent
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `ProgressIndicator`.
@@ -28888,7 +28905,8 @@ declare module "sap/ui/webc/main/RadioButton" {
    */
   export default class RadioButton
     extends WebComponent
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `RadioButton`.
@@ -30313,7 +30331,8 @@ declare module "sap/ui/webc/main/RatingIndicator" {
    */
   export default class RatingIndicator
     extends WebComponent
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `RatingIndicator`.
@@ -32130,7 +32149,8 @@ declare module "sap/ui/webc/main/SegmentedButton" {
    */
   export default class SegmentedButton
     extends WebComponent
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `SegmentedButton`.
@@ -32582,7 +32602,8 @@ declare module "sap/ui/webc/main/SegmentedButtonItem" {
    */
   export default class SegmentedButtonItem
     extends WebComponent
-    implements ISegmentedButtonItem {
+    implements ISegmentedButtonItem
+  {
     __implements__sap_ui_webc_main_ISegmentedButtonItem: boolean;
     /**
      * Constructor for a new `SegmentedButtonItem`.
@@ -34529,7 +34550,8 @@ declare module "sap/ui/webc/main/SelectMenuOption" {
    */
   export default class SelectMenuOption
     extends WebComponent
-    implements ISelectMenuOption {
+    implements ISelectMenuOption
+  {
     __implements__sap_ui_webc_main_ISelectMenuOption: boolean;
     /**
      * Constructor for a new `SelectMenuOption`.
@@ -36021,7 +36043,8 @@ declare module "sap/ui/webc/main/StandardListItem" {
    */
   export default class StandardListItem
     extends WebComponent
-    implements IListItem {
+    implements IListItem
+  {
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
      * Constructor for a new `StandardListItem`.
@@ -37573,7 +37596,8 @@ declare module "sap/ui/webc/main/SuggestionGroupItem" {
    */
   export default class SuggestionGroupItem
     extends WebComponent
-    implements IInputSuggestionItem {
+    implements IInputSuggestionItem
+  {
     __implements__sap_ui_webc_main_IInputSuggestionItem: boolean;
     /**
      * Constructor for a new `SuggestionGroupItem`.
@@ -37702,7 +37726,8 @@ declare module "sap/ui/webc/main/SuggestionItem" {
    */
   export default class SuggestionItem
     extends WebComponent
-    implements IInputSuggestionItem {
+    implements IInputSuggestionItem
+  {
     __implements__sap_ui_webc_main_IInputSuggestionItem: boolean;
     /**
      * Constructor for a new `SuggestionItem`.
@@ -41457,7 +41482,8 @@ declare module "sap/ui/webc/main/TableColumn" {
    */
   export default class TableColumn
     extends WebComponent
-    implements ITableColumn {
+    implements ITableColumn
+  {
     __implements__sap_ui_webc_main_ITableColumn: boolean;
     /**
      * Constructor for a new `TableColumn`.
@@ -45940,7 +45966,8 @@ declare module "sap/ui/webc/main/ToolbarButton" {
    */
   export default class ToolbarButton
     extends WebComponent
-    implements IToolbarItem {
+    implements IToolbarItem
+  {
     __implements__sap_ui_webc_main_IToolbarItem: boolean;
     /**
      * Constructor for a new `ToolbarButton`.
@@ -46560,7 +46587,8 @@ declare module "sap/ui/webc/main/ToolbarSelect" {
    */
   export default class ToolbarSelect
     extends WebComponent
-    implements IToolbarItem {
+    implements IToolbarItem
+  {
     __implements__sap_ui_webc_main_IToolbarItem: boolean;
     /**
      * Constructor for a new `ToolbarSelect`.
@@ -47253,7 +47281,8 @@ declare module "sap/ui/webc/main/ToolbarSelectOption" {
    */
   export default class ToolbarSelectOption
     extends WebComponent
-    implements IToolbarSelectOption {
+    implements IToolbarSelectOption
+  {
     __implements__sap_ui_webc_main_IToolbarSelectOption: boolean;
     /**
      * Constructor for a new `ToolbarSelectOption`.
@@ -47413,7 +47442,8 @@ declare module "sap/ui/webc/main/ToolbarSeparator" {
    */
   export default class ToolbarSeparator
     extends WebComponent
-    implements IToolbarItem {
+    implements IToolbarItem
+  {
     __implements__sap_ui_webc_main_IToolbarItem: boolean;
     /**
      * Constructor for a new `ToolbarSeparator`.
@@ -47515,7 +47545,8 @@ declare module "sap/ui/webc/main/ToolbarSpacer" {
    */
   export default class ToolbarSpacer
     extends WebComponent
-    implements IToolbarItem {
+    implements IToolbarItem
+  {
     __implements__sap_ui_webc_main_IToolbarItem: boolean;
     /**
      * Constructor for a new `ToolbarSpacer`.
@@ -49766,7 +49797,8 @@ declare module "sap/ui/webc/main/TreeItemCustom" {
    */
   export default class TreeItemCustom
     extends WebComponent
-    implements ITreeItem {
+    implements ITreeItem
+  {
     __implements__sap_ui_webc_main_ITreeItem: boolean;
     /**
      * Constructor for a new `TreeItemCustom`.

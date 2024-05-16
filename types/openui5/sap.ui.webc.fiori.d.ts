@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/webc/fiori/library" {
   /**
@@ -2726,7 +2726,8 @@ declare module "sap/ui/webc/fiori/FilterItemOption" {
    */
   export default class FilterItemOption
     extends WebComponent
-    implements IFilterItemOption {
+    implements IFilterItemOption
+  {
     __implements__sap_ui_webc_fiori_IFilterItemOption: boolean;
     /**
      * Constructor for a new `FilterItemOption`.
@@ -4832,7 +4833,8 @@ declare module "sap/ui/webc/fiori/MediaGalleryItem" {
    */
   export default class MediaGalleryItem
     extends WebComponent
-    implements IMediaGalleryItem {
+    implements IMediaGalleryItem
+  {
     __implements__sap_ui_webc_fiori_IMediaGalleryItem: boolean;
     /**
      * Constructor for a new `MediaGalleryItem`.
@@ -5110,7 +5112,8 @@ declare module "sap/ui/webc/fiori/NotificationAction" {
    */
   export default class NotificationAction
     extends WebComponent
-    implements INotificationAction {
+    implements INotificationAction
+  {
     __implements__sap_ui_webc_fiori_INotificationAction: boolean;
     /**
      * Constructor for a new `NotificationAction`.
@@ -5485,7 +5488,8 @@ declare module "sap/ui/webc/fiori/NotificationListGroupItem" {
    */
   export default class NotificationListGroupItem
     extends WebComponent
-    implements IListItem {
+    implements IListItem
+  {
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
      * Constructor for a new `NotificationListGroupItem`.
@@ -6311,7 +6315,8 @@ declare module "sap/ui/webc/fiori/NotificationListItem" {
    */
   export default class NotificationListItem
     extends WebComponent
-    implements INotificationListItem, IListItem {
+    implements INotificationListItem, IListItem
+  {
     __implements__sap_ui_webc_fiori_INotificationListItem: boolean;
     __implements__sap_ui_webc_main_IListItem: boolean;
     /**
@@ -7745,7 +7750,8 @@ declare module "sap/ui/webc/fiori/ProductSwitchItem" {
    */
   export default class ProductSwitchItem
     extends WebComponent
-    implements IProductSwitchItem {
+    implements IProductSwitchItem
+  {
     __implements__sap_ui_webc_fiori_IProductSwitchItem: boolean;
     /**
      * Constructor for a new `ProductSwitchItem`.
@@ -9666,7 +9672,8 @@ declare module "sap/ui/webc/fiori/ShellBarItem" {
    */
   export default class ShellBarItem
     extends WebComponent
-    implements IShellBarItem {
+    implements IShellBarItem
+  {
     __implements__sap_ui_webc_fiori_IShellBarItem: boolean;
     /**
      * Constructor for a new `ShellBarItem`.
@@ -10516,7 +10523,8 @@ declare module "sap/ui/webc/fiori/SideNavigationItem" {
    */
   export default class SideNavigationItem
     extends WebComponent
-    implements ISideNavigationItem {
+    implements ISideNavigationItem
+  {
     __implements__sap_ui_webc_fiori_ISideNavigationItem: boolean;
     /**
      * Constructor for a new `SideNavigationItem`.
@@ -10992,7 +11000,8 @@ declare module "sap/ui/webc/fiori/SideNavigationSubItem" {
    */
   export default class SideNavigationSubItem
     extends WebComponent
-    implements ISideNavigationSubItem {
+    implements ISideNavigationSubItem
+  {
     __implements__sap_ui_webc_fiori_ISideNavigationSubItem: boolean;
     /**
      * Constructor for a new `SideNavigationSubItem`.
@@ -11804,7 +11813,8 @@ declare module "sap/ui/webc/fiori/TimelineItem" {
    */
   export default class TimelineItem
     extends WebComponent
-    implements ITimelineItem {
+    implements ITimelineItem
+  {
     __implements__sap_ui_webc_fiori_ITimelineItem: boolean;
     /**
      * Constructor for a new `TimelineItem`.
@@ -13134,7 +13144,8 @@ declare module "sap/ui/webc/fiori/UploadCollectionItem" {
    */
   export default class UploadCollectionItem
     extends WebComponent
-    implements IUploadCollectionItem {
+    implements IUploadCollectionItem
+  {
     __implements__sap_ui_webc_fiori_IUploadCollectionItem: boolean;
     /**
      * Constructor for a new `UploadCollectionItem`.

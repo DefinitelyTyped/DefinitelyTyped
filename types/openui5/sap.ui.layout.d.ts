@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -1855,7 +1855,8 @@ declare module "sap/ui/layout/cssgrid/CSSGrid" {
    */
   export default class CSSGrid
     extends Control
-    implements cssgrid.IGridConfigurable {
+    implements cssgrid.IGridConfigurable
+  {
     __implements__sap_ui_layout_cssgrid_IGridConfigurable: boolean;
     /**
      * Constructor for a new CSSGrid.
@@ -2994,7 +2995,8 @@ declare module "sap/ui/layout/cssgrid/GridItemLayoutData" {
    */
   export default class GridItemLayoutData
     extends LayoutData
-    implements cssgrid.IGridItemLayoutData {
+    implements cssgrid.IGridItemLayoutData
+  {
     __implements__sap_ui_layout_cssgrid_IGridItemLayoutData: boolean;
     /**
      * Constructor for a new `sap.ui.layout.cssgrid.GridItemLayoutData`.
@@ -4214,7 +4216,8 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnItemLayoutData" {
    */
   export default class ResponsiveColumnItemLayoutData
     extends LayoutData
-    implements cssgrid.IGridItemLayoutData {
+    implements cssgrid.IGridItemLayoutData
+  {
     __implements__sap_ui_layout_cssgrid_IGridItemLayoutData: boolean;
     /**
      * Constructor for a new `sap.ui.layout.cssgrid.ResponsiveColumnItemLayoutData`.

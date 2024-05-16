@@ -30,6 +30,10 @@ export interface AppSyncResolverEventHeaders {
     [name: string]: string | undefined;
 }
 
+export interface AppSyncAuthorizerEventHeaders {
+    [name: string]: string | undefined;
+}
+
 export type AppSyncIdentity =
     | AppSyncIdentityIAM
     | AppSyncIdentityCognito
@@ -76,6 +80,7 @@ export interface AppSyncAuthorizerEvent {
         operationName?: string;
         variables: { [key: string]: any };
     };
+    requestHeaders: AppSyncAuthorizerEventHeaders;
 }
 
 export interface AppSyncAuthorizerResult<TResolverContext = undefined> {

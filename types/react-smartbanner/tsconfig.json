@@ -8,13 +8,13 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "esModuleInterop": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "conventional-recommended-bump-tests.ts"
+        "react-smartbanner-tests.tsx"
     ]
 }
