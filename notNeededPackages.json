@@ -3413,6 +3413,10 @@
             "libraryName": "mdarea",
             "asOfVersion": "2.0.0"
         },
+        "mdx-js__react": {
+            "libraryName": "@mdx-js/react",
+            "asOfVersion": "2.0.0"
+        },
         "mem": {
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
