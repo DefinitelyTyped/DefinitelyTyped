@@ -22,5 +22,9 @@
             "name": "Joshua Schmeder",
             "githubUsername": "MaximumWoahverdrive"
         }
-    ]
+    ],
+    "exports": {
+        "import": "./index.d.ts",
+        "require": "./index.d.cts"
+    }
 }
