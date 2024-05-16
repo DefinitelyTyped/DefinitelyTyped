@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/node": "*",
         "@types/readable-stream": "*",
-        "javascript-obfuscator": "^3.0.0"
+        "javascript-obfuscator": "^4.0.1"
     },
     "devDependencies": {
         "@types/gulp": "*",
