@@ -1,4 +1,7 @@
 import gamedig = require("gamedig");
+import { GameDig } from "gamedig";
+
+GameDig.getInstance();
 
 // direct usage from import
 gamedig.GameDig.query(
