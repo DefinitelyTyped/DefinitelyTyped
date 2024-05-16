@@ -3656,25 +3656,62 @@ fp.now(); // $ExpectType number
 
 // _.throttle
 {
-    const options: _.ThrottleSettings = {
+    const optionsLeading: _.ThrottleSettingsLeading = {
         leading: true,
         trailing: false,
+    }
+    const optionsNoLeading: _.ThrottleSettings = {
+        leading: false,
     };
+
+    const optionsAmbiguous = {
+        leading: true as boolean,
+    };
+    const boolean = false as boolean; // $ExpectType boolean
+    const maybeUndefined = true as true | undefined; // $ExpectType true | undefined
 
     const func = (a: number, b: string): boolean => true;
 
-    _.throttle(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42, options); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _(func).throttle(); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42, options); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42, options); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.throttle(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, {}); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: true, trailing: false }); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: false }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: boolean }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, optionsAmbiguous); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
 
-    fp.throttle(42, func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    fp.throttle(42)(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _(func).throttle(); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, {}); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: true, trailing: false }); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: false }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: boolean }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, optionsAmbiguous); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+
+    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, {}); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: true, trailing: false }); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: false }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: boolean }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, optionsAmbiguous); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+
+    fp.throttle(42, func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    fp.throttle(42)(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+
+    // _.throttle treats an explicit `leading: undefined` the same as `leading: false`
+    const badOptionsLeading: _.ThrottleSettingsLeading = {
+        // @ts-expect-error explicit undefined is not allowed here
+        leading: undefined,
+    };
+
+    // any invokation where leading might be set as undefined should return DebouncedFunc, not DebouncedFuncLeading
+    _.throttle(func, 42, { leading: undefined }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: maybeUndefined }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.chain(func).throttle(42, { leading: undefined }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: maybeUndefined }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: undefined }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: maybeUndefined }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
 }
 
 // _.unary
