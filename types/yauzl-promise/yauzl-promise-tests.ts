@@ -34,7 +34,9 @@ async function test() {
     const rar1 = await yauzl.fromRandomAccessReader(new FakeRaR(), 1);
     const rar2 = await yauzl.fromRandomAccessReader(new FakeRaR(), 1, options);
 
-    const entry = await zip.readEntry();
+    // $ExpectType Entry | null
+    const entryOrNull = await zip.readEntry();
+    const entry = entryOrNull!;
     await zip.readEntries();
     await zip.readEntries(1);
 
