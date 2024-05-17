@@ -1,0 +1,19 @@
+{
+  "name": "@types/node-fork.js",
+  "version": "1.0.0",
+  "description": "type definitions for node-fork.js package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sah246ir/Fork.js.git"
+  },
+  "author": "sahir chawla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sah246ir/Fork.js/issues"
+  },
+  "homepage": "https://github.com/sah246ir/Fork.js#readme"
+}
