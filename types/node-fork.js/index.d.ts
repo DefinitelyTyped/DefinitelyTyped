@@ -1,5 +1,8 @@
 // piecemoves.d.ts
  
+// Type definitions for node-fork.js 
+// Definitions by: sah246ir https://github.com/sah246ir
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type castlingType = "long"|"short"
 export type TypeofBoard = CellTypeMinimal[][] | CellType[][]
