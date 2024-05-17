@@ -7,12 +7,12 @@ interface PetDocument extends MongooseDelete.SoftDeleteDocument {
 
 // Custom methods
 interface PetMethods {
-    checkName(name: string): boolean
+    checkName(name: string): boolean;
 }
 
 // Custom Static methods
 interface PetModel extends MongooseDelete.SoftDeleteModel<PetDocument, {}, PetMethods> {
-    getNames(): string[]
+    getNames(): string[];
 }
 
 const PetSchema = new mongoose.Schema<PetDocument>({
@@ -53,7 +53,7 @@ const Pet = mongoose.model<PetDocument, MongooseDelete.SoftDeleteModel<PetDocume
 
 const Pet2 = mongoose.model("Pet", PetSchema) as MongooseDelete.SoftDeleteModel<PetDocument>;
 
-const Pet3 = mongoose.model<PetDocument, PetModel>("Pet", PetSchema)
+const Pet3 = mongoose.model<PetDocument, PetModel>("Pet", PetSchema);
 
 const fluffy = new Pet({ name: "Fluffy" });
 
@@ -117,4 +117,4 @@ Pet.aggregateDeleted([{ $match: { age: 10 } }]);
 Pet.aggregateWithDeleted([{ $match: { age: 10 } }]);
 
 // $ExpectType string[]
-Pet3.getNames()
+Pet3.getNames();

@@ -22,13 +22,16 @@ declare namespace MongooseDelete {
         TInstanceMethods = {},
         TVirtuals = {},
         THydratedDocumentType = mongoose.HydratedDocument<T, TVirtuals & TInstanceMethods, QueryHelpers>,
-        TSchema = any> extends mongoose.Model<
-                T,
-                QueryHelpers,
-                TInstanceMethods,
-                TVirtuals,
-                THydratedDocumentType,
-                TSchema>
+        TSchema = any,
+    > extends
+        mongoose.Model<
+            T,
+            QueryHelpers,
+            TInstanceMethods,
+            TVirtuals,
+            THydratedDocumentType,
+            TSchema
+        >
     {
         /** Count only deleted documents */
         countDocumentsDeleted: this["countDocuments"];
