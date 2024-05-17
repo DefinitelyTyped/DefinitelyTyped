@@ -988,6 +988,10 @@
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
         },
+        "conventional-recommended-bump": {
+            "libraryName": "conventional-recommended-bump",
+            "asOfVersion": "10.0.0"
+        },
         "convert-hrtime": {
             "libraryName": "convert-hrtime",
             "asOfVersion": "3.0.0"
@@ -3407,6 +3411,10 @@
         },
         "mdarea": {
             "libraryName": "mdarea",
+            "asOfVersion": "2.0.0"
+        },
+        "mdx-js__react": {
+            "libraryName": "@mdx-js/react",
             "asOfVersion": "2.0.0"
         },
         "mem": {
