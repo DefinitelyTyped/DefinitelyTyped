@@ -21,18 +21,6 @@ export class ZipFile extends EventEmitter implements AsyncIterable<Entry> {
     readEntryCursor: boolean;
     validateEntrySizes: boolean;
 
-    constructor(
-        reader: RandomAccessReader,
-        centralDirectoryOffset: number,
-        fileSize: number,
-        entryCount: number,
-        comment: string,
-        autoClose: boolean,
-        lazyEntries: boolean,
-        decodeStrings: boolean,
-        validateEntrySizes: boolean,
-    );
-
     // These funcitons are custom to yauzl-promise
 
     close(): Promise<void>;
