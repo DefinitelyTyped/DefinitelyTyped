@@ -2,8 +2,10 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es6"
+            "es2018",
+            "DOM"
         ],
+        "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
@@ -14,6 +16,6 @@
     },
     "files": [
         "index.d.ts",
-        "commerce7__admin-ui-tests.ts"
+        "commerce7__admin-ui-tests.tsx"
     ]
 }

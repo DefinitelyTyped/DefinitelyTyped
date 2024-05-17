@@ -215,7 +215,7 @@ export class Column extends React.Component<{
     span?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "none" | "auto" | undefined;
 }> {}
 
-export class Colums extends React.Component<{
+export class Columns extends React.Component<{
     children: React.ReactNode;
     justify?: React.CSSProperties["justifyContent"] | undefined;
     align?: React.CSSProperties["alignItems"] | undefined;
@@ -272,7 +272,7 @@ export class Modal extends React.Component<{
 export class NoRecords extends React.Component<{
     title?: string | undefined;
     description?: string | undefined;
-    icon: IconName | undefined;
+    icon?: IconName | undefined;
     className?: string | undefined;
 }> {}
 
@@ -280,6 +280,7 @@ export class Picture extends React.Component<{
     className?: string | undefined;
     height?: number | undefined;
     src?: string | { src: string; webp: string; avif: string } | undefined;
+    alt?: string | undefined;
 }> {}
 
 export class ProgressBar extends React.Component<{
@@ -331,6 +332,7 @@ export class ButtonMenuItem extends React.Component<{
     size?: "default" | "small" | undefined;
     variant?: "primary" | "secondary" | "text" | undefined;
     onClick?: (() => void) | undefined;
+    icon?: IconName | undefined;
 }> {}
 
 export class ButtonMenu extends React.Component<{
@@ -443,6 +445,7 @@ export class Step extends React.Component<{
     onClick?: (() => void) | undefined;
     href?: string | undefined;
     activeClassName?: string | undefined;
+    icon?: IconName | undefined;
 }> {}
 
 export class Stepper extends React.Component<{
@@ -536,8 +539,8 @@ export class DatePicker extends React.Component<{
     isValidDate?: ((d: Date) => boolean) | undefined;
     label?: string | undefined;
     onChange: (d: Date) => void;
-    onBlur: (() => void) | undefined;
-    onFocus: (() => void) | undefined;
+    onBlur?: (() => void) | undefined;
+    onFocus?: (() => void) | undefined;
     placeholder?: string | undefined;
     required?: boolean | undefined;
     value: string;
@@ -557,12 +560,16 @@ export class Input extends React.Component<{
     label?: string | undefined;
     inputMode?: "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url" | undefined;
     onBlur?: (() => void) | undefined;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: ((e: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
+    // onChange is marked as required in the docs, but Input elements are shown elsewhere
+    // in the docs with this property omitted
     onFocus?: (() => void) | undefined;
     placeholder?: string | undefined;
     required?: boolean | undefined;
     type?: "text" | "number" | "password" | "email" | "color" | undefined;
-    value: string | number;
+    value?: string | number | undefined;
+    // value is marked as required in the docs, but Input elements are shown elsewhere
+    // in the docs with this property omitted
 }> {}
 
 export class Radio extends React.Component<{
@@ -573,7 +580,7 @@ export class Radio extends React.Component<{
     errorMessage?: string | undefined;
     id?: string | undefined;
     label?: string | undefined;
-    onChange: () => void;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClick?: (() => void) | undefined;
     required?: boolean | undefined;
     value: string;
@@ -583,17 +590,18 @@ export class Radio extends React.Component<{
 }> {}
 
 export class RadioGroup extends React.Component<{
-    checked: boolean;
+    children: React.ReactNode;
+    checked?: boolean | undefined;
     className?: string | undefined;
     description?: string | undefined;
     disabled?: boolean | undefined;
     errorMessage?: string | undefined;
     id?: string | undefined;
     label?: string | undefined;
-    onChange: () => void;
+    onChange?: (() => void) | undefined;
     onClick?: (() => void) | undefined;
     required?: boolean | undefined;
-    value: string;
+    value?: string | undefined;
     variant?: "button" | "default" | undefined;
     size?: "small" | "medium" | "large" | undefined;
     icon?: IconName | undefined;
@@ -682,7 +690,7 @@ export class Text extends React.Component<{
     children?: React.ReactNode | undefined;
     className?: string | undefined;
     error?: boolean | undefined;
-    string?: boolean | undefined;
+    strong?: boolean | undefined;
     italic?: boolean | undefined;
     small?: boolean | undefined;
     uppercase?: boolean | undefined;
@@ -691,7 +699,7 @@ export class Text extends React.Component<{
 }> {}
 
 export class Legend extends React.Component<{
-    data: Array<{ title: string; value: string | number; color: string }>;
+    data: Array<{ title: string; value?: string | number; color: string }>;
     isVertical?: boolean | undefined;
     width?: string | number | undefined;
     legendHeader?: string | undefined;
