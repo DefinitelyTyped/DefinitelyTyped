@@ -37,6 +37,11 @@ csgo.on("connectedToGC", () => {
     csgo.inspectItem(
         "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198998693595A24253228054D5687567561993251583",
     );
+    // with link and callback
+    csgo.inspectItem(
+        "steam://rungame/730/76561202255233023/+csgo_econ_action_preview%20S76561198998693595A24253228054D5687567561993251583",
+        console.log,
+    );
 
     csgo.requestPlayersProfile("76561198814489169");
     csgo.requestPlayersProfile(new SteamID("76561198814489169"), console.log);

@@ -92,6 +92,10 @@ declare class GlobalOffensive extends EventEmitter {
         d?: string,
         callback?: (item: GlobalOffensive.ItemInfo) => void,
     ): void;
+    inspectItem(
+        owner: string,
+        callback?: (item: GlobalOffensive.ItemInfo) => void,
+    ): void;
 
     /**
      * Sends the same request to the GC that viewing the CSGO player profile from the in-game friendlist sends.
