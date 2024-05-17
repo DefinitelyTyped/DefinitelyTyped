@@ -310,23 +310,23 @@ export interface PlayerProps extends RefAttributes<PlayerReference> {
     /**
      * Event on Play
      */
-    onPlay: () => void;
+    onPlay?: () => void;
     /**
      * Event on Ended
      */
-    onEnded: () => void;
+    onEnded?: () => void;
     /**
      * Event on Load start
      */
-    onLoadStart: () => void;
+    onLoadStart?: () => void;
     /**
      * Event on Pause start
      */
-    onPause: () => void;
+    onPause?: () => void;
     /**
      * Set the id of the video element.
      */
-    videoId: string;
+    videoId?: string;
 
     children?: React.ReactNode;
 }
