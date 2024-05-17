@@ -128,7 +128,7 @@ declare const mappableIterator: IterableIterator<object> & {
     map: typeof IteratorMap;
 };
 
-// $ExpectType Generator<string | awrap<Promise<any>>, void, undefined>
+// $ExpectType Generator<string | awrap<Promise<any>>, void, undefined> || Generator<string | awrap<Promise<any>>, void, unknown>
 const mappedIterator = mappableIterator.map(value => {
     value; // $ExpectType object
     return value instanceof Promise ? regenerator.awrap(value) : String(value);
