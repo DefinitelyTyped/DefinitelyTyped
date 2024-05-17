@@ -5481,6 +5481,12 @@ fp.now(); // $ExpectType number
         const result: { a: number | string } = record;
         record; // $ExpectType Record<string, number | string>
     }
+    const data = {
+        level: 1,
+        length: 1,
+    };
+    _.has(data, 'level') || !!data.length;
+
     _(abcObject).has(""); // $ExpectType boolean
     _(abcObject).has(42); // $ExpectType boolean
     _(abcObject).has(["", 42]); // $ExpectType boolean
