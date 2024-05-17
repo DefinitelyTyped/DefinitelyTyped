@@ -49,14 +49,6 @@ async function test() {
     const filename = entry.filename;
     const filenameLength = entry.filenameLength;
 
-    await zip.walkEntries(async (entry: yauzl.Entry) => {
-        console.log("foo");
-    });
-
-    await zip.walkEntries(async (entry: yauzl.Entry) => {
-        console.log("foo");
-    }, 1);
-
     {
         let entry: yauzl.Entry;
         for await (entry of zip) {}

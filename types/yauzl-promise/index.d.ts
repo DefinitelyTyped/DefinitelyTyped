@@ -24,7 +24,6 @@ export class ZipFile extends EventEmitter implements AsyncIterable<Entry> {
     close(): Promise<void>;
     readEntry(): Promise<Entry | null>;
     readEntries(numEntries?: number): Promise<Entry[]>;
-    walkEntries(callback: (entry: Entry) => Promise<void> | void, numEntries?: number): Promise<void>;
     openReadStream(entry: Entry, options?: ZipFileOptions): Promise<Readable>;
     [Symbol.asyncIterator](): AsyncIterator<Entry>;
 }
