@@ -4,7 +4,7 @@ import * as remote from "./remote";
 /**
  * Creates a new WebDriver client for Microsoft's Edge.
  */
-export class Driver extends webdriver.chromium.Driver {
+export class Driver extends webdriver.chromium.ChromiumWebDriver {
     /**
      * Creates a new browser session for Microsoft's Edge browser.
      *

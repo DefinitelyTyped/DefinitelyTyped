@@ -2,7 +2,7 @@ import * as webdriver from "selenium-webdriver";
 import * as chromium from "selenium-webdriver/chromium";
 
 async function TestChromoiumDriver() {
-    let driver: chromium.Driver = chromium.Driver.createSession();
+    let driver: chromium.ChromiumWebDriver = chromium.ChromiumWebDriver.createSession();
 
     let baseDriver: webdriver.WebDriver = driver;
     await driver.setDownloadPath("/path/to/dir");

@@ -333,7 +333,7 @@ export class Extensions {
 /**
  * Creates a new WebDriver client for Chromium-based browsers.
  */
-export class Driver extends webdriver.WebDriver {
+export class ChromiumWebDriver extends webdriver.WebDriver {
     /**
      * Creates a new session with the WebDriver server.
      *
@@ -345,9 +345,9 @@ export class Driver extends webdriver.WebDriver {
      *     default.
      * @param vendorPrefix Either 'goog' or 'ms'
      * @param vendorCapabilityKey Either 'goog:chromeOptions' or 'ms:edgeOptions'
-     * @return {!Driver} A new driver instance.
+     * @return {!ChromiumWebDriver} A new driver instance.
      */
-    static createSession(caps?: webdriver.Capabilities | Options, opt_serviceExecutor?: remote.DriverService | http.Executor, vendorPrefix?: string, vendorCapabilityKey?: string): Driver;
+    static createSession(caps?: webdriver.Capabilities | Options, opt_serviceExecutor?: remote.DriverService | http.Executor, vendorPrefix?: string, vendorCapabilityKey?: string): ChromiumWebDriver;
 
     /**
      * This function is a no-op as file detectors are not supported by this

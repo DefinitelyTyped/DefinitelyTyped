@@ -5,7 +5,7 @@ import * as remote from "./remote";
 /**
  * Creates a new WebDriver client for Chrome.
  */
-export class Driver extends webdriver.chromium.Driver {
+export class Driver extends webdriver.chromium.ChromiumWebDriver {
     /**
      * Creates a new session with the ChromeDriver.
      *
