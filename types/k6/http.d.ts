@@ -300,7 +300,7 @@ export interface Params {
  * Used to infer response body type.
  */
 export interface RefinedParams<RT extends ResponseType | undefined> extends Params {
-    responseType?: RT;
+    responseType?: RT extends ResponseType ? RT : never;
 }
 
 /**
