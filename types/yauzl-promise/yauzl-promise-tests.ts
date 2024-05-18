@@ -53,4 +53,6 @@ async function test() {
         let entry: yauzl.Entry;
         for await (entry of zip) {}
     }
+
+    await zip.close();
 }
