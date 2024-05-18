@@ -44,26 +44,28 @@ export interface Options {
 }
 
 export class Entry {
+    /** This property can also be a Buffer if the option 'decodeStrings' is false */
     comment: string;
     compressedSize: number;
     compressionMethod: number;
     crc32: number;
     externalFileAttributes: number;
-    extraFieldLength: number;
     extraFields: Array<{ id: number; data: Buffer }>;
-    fileCommentLength: number;
+    fileDataOffset: null | number;
+    fileHeaderOffset: number;
+    /** This property can also be a Buffer if the option 'decodeStrings' is false */
     filename: string;
     filenameLength: number;
     generalPurposeBitFlag: number;
     internalFileAttributes: number;
-    lastModFileDate: number;
-    lastModFileTime: number;
-    relativeOffsetOfLocalHeader: number;
+    lastModDate: number;
+    lastModTime: number;
     uncompressedSize: number;
+    uncompressedSizeIsCertain: boolean;
     versionMadeBy: number;
     versionNeededToExtract: number;
 
-    getLastModDate(): Date;
+    getLastMod(): Date;
     isEncrypted(): boolean;
     isCompressed(): boolean;
     openReadStream(options?: ZipFileOptions): Promise<Readable>;

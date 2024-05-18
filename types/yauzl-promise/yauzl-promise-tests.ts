@@ -54,8 +54,28 @@ async function test() {
     await entry.openReadStream();
     await entry.openReadStream(zipOptions);
 
-    const filename = entry.filename;
-    const filenameLength = entry.filenameLength;
+    entry.comment; // $ExpectType string;
+    entry.compressedSize; // $ExpectType number;
+    entry.compressionMethod; // $ExpectType number;
+    entry.crc32; // $ExpectType number;
+    entry.externalFileAttributes; // $ExpectType number;
+    entry.extraFields; // $ExpectType { id: number; data: Buffer }[];
+    entry.fileDataOffset; // $ExpectType null | number;
+    entry.fileHeaderOffset; // $ExpectType number;
+    entry.filename; // $ExpectType string;
+    entry.filenameLength; // $ExpectType number;
+    entry.generalPurposeBitFlag; // $ExpectType number;
+    entry.internalFileAttributes; // $ExpectType number;
+    entry.lastModDate; // $ExpectType number;
+    entry.lastModTime; // $ExpectType number;
+    entry.uncompressedSize; // $ExpectType number;
+    entry.uncompressedSizeIsCertain; // $ExpectType boolean;
+    entry.versionMadeBy; // $ExpectType number;
+    entry.versionNeededToExtract; // $ExpectType number;
+
+    entry.getLastMod(); // $ExpectType Date
+    entry.isEncrypted(); // $ExpectType boolean
+    entry.isCompressed(); // $ExpectType boolean
 
     {
         let entry: yauzl.Entry;
