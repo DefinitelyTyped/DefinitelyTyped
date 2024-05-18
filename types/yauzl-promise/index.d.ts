@@ -8,17 +8,16 @@ import { Readable } from "stream";
 // This class is not directly compatible with @types/yauzl 's ZipFile as this library changes the function signatures
 // Therefore, it is replaced, albeit with a significant portion
 export class ZipFile extends EventEmitter implements AsyncIterable<Entry> {
-    // This chunk taken directly from @types/yauzl
-    autoClose: boolean;
+    /** This property can also be a Buffer if the option 'decodeStrings' is false */
     comment: string;
-    decodeStrings: boolean;
-    emittedError: boolean;
-    entriesRead: number;
     entryCount: number;
-    fileSize: number;
+    entryCountIsCertain: boolean;
     isOpen: boolean;
-    lazyEntries: boolean;
-    readEntryCursor: boolean;
+    isZip64: boolean;
+
+    // These options do exist in the ZipFile class, but are not officially documented.
+    // Keeping them for backward compatibility with previous types version.
+    decodeStrings: boolean;
     validateEntrySizes: boolean;
 
     close(): Promise<void>;
