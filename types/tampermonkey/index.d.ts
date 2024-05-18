@@ -585,7 +585,7 @@ declare namespace Tampermonkey {
         partitionKey: {
             /** The top frame site of the cookies. */
             topLevelSite?: string;
-        }
+        };
     }
 }
 
@@ -968,7 +968,7 @@ declare function GM_notification(
 declare function GM_setClipboard(
     data: string,
     info?: Tampermonkey.ContentType,
-    callback?: () => void
+    callback?: () => void,
 ): void;
 
 /**
