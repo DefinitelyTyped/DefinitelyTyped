@@ -1,6 +1,6 @@
 import * as yauzl from "yauzl-promise";
 
-class FakeRaR extends yauzl.RandomAccessReader {}
+class FakeReader extends yauzl.Reader {}
 
 const options: yauzl.Options = {
     decodeStrings: true,
@@ -31,8 +31,8 @@ async function test() {
     const buffer1 = await yauzl.fromBuffer(Buffer.from("test", "utf-8"));
     const buffer2 = await yauzl.fromBuffer(Buffer.from("test", "utf-8"), options);
 
-    const rar1 = await yauzl.fromRandomAccessReader(new FakeRaR(), 1);
-    const rar2 = await yauzl.fromRandomAccessReader(new FakeRaR(), 1, options);
+    const reader1 = await yauzl.fromReader(new FakeReader(), 1);
+    const reader2 = await yauzl.fromReader(new FakeReader(), 1, options);
 
     zip.comment; // $ExpectType string
     zip.entryCount; // $ExpectType number

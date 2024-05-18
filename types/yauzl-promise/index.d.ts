@@ -71,7 +71,7 @@ export class Entry {
     openReadStream(options?: ZipFileOptions): Promise<Readable>;
 }
 
-export abstract class RandomAccessReader {
+export abstract class Reader {
     _createReadStream(start: number, length: number): Readable;
     _read(start: number, length: number): Promise<Buffer>;
     _open(): Promise<{}>;
@@ -79,17 +79,13 @@ export abstract class RandomAccessReader {
 }
 
 export function open(path: string, options?: Options): Promise<ZipFile>;
-// export function open(path: string): Promise<ZipFile>;
 export function fromFd(fd: number, options?: Options): Promise<ZipFile>;
-// export function fromFd(fd: number): Promise<ZipFile>;
 export function fromBuffer(buffer: Buffer, options?: Options): Promise<ZipFile>;
-// export function fromBuffer(buffer: Buffer): Promise<ZipFile>;
-export function fromRandomAccessReader(
-    reader: RandomAccessReader,
+export function fromReader(
+    reader: Reader,
     totalSize: number,
     options?: Options,
 ): Promise<ZipFile>;
-// export function fromRandomAccessReader(reader: RandomAccessReader, totalSize: number): Promise<ZipFile>;
 
 export function dosDateTimeToDate(date: number, time: number): Date;
 export function validateFilename(filename: string): string | null;
