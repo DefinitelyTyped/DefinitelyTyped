@@ -11,5 +11,5 @@
   "devDependencies" : {
     "@types/node-fork.js": "workspace:."
   },
-  "private":"true" 
+  "private":true
 }
