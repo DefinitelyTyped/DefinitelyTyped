@@ -44,19 +44,19 @@ export class ZipFile extends EventEmitter implements AsyncIterable<Entry> {
 }
 
 export interface ZipFileOptions {
-    decompress: boolean | null;
-    decrypt: boolean | null;
-    validateCrc32: boolean | null;
-    start: number | null;
-    end: number | null;
+    decompress?: boolean | null | undefined;
+    decrypt?: boolean | null | undefined;
+    validateCrc32?: boolean | null | undefined;
+    start?: number | null | undefined;
+    end?: number | null | undefined;
 }
 
 export interface Options {
-    decodeStrings?: boolean | undefined;
-    validateEntrySizes?: boolean | undefined;
-    validateFilenames?: boolean | undefined;
-    strictFilenames?: boolean | undefined;
-    supportMacArchive?: boolean | undefined;
+    decodeStrings?: boolean | null | undefined;
+    validateEntrySizes?: boolean | null | undefined;
+    validateFilenames?: boolean | null | undefined;
+    strictFilenames?: boolean | null | undefined;
+    supportMacArchive?: boolean | null | undefined;
 }
 
 export class Entry {
