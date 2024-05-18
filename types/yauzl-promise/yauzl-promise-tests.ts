@@ -19,7 +19,7 @@ const zipOptions: yauzl.ZipFileOptions = {
 };
 
 const date = yauzl.dosDateTimeToDate(1, 1);
-const fn = yauzl.validateFilename("fake");
+yauzl.validateFilename("fake");
 
 async function test() {
     const zip = await yauzl.open("");

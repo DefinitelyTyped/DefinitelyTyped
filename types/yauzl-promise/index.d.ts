@@ -88,4 +88,4 @@ export function fromReader(
 ): Promise<ZipFile>;
 
 export function dosDateTimeToDate(date: number, time: number): Date;
-export function validateFilename(filename: string): string | null;
+export function validateFilename(filename: string): void;
