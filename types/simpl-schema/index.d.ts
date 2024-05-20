@@ -82,7 +82,7 @@ export interface AutoValueContext {
     value?: FieldInfo["value"] | undefined;
 }
 
-type Validator = (this: CustomValidationContext) => undefined | string | SimpleSchemaValidationError;
+type Validator = (this: CustomValidationContext) => undefined | string | false | SimpleSchemaValidationError;
 
 export interface SchemaDefinition {
     type: any;

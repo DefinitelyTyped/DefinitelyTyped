@@ -63,6 +63,17 @@ const schema: SimpleSchemaDefinition = {
             else if (text.length < 10) return SimpleSchema.ErrorTypes.MIN_STRING;
         },
     },
+    username: {
+        type: Date,
+        custom() {
+            this.validationContext.addValidationErrors([{
+                name: "username",
+                type: "notUnique"
+            }]);
+
+            return false;
+        }
+    }
 };
 
 const StringSchema = new SimpleSchema(schema);
