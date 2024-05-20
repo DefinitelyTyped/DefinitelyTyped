@@ -68,12 +68,12 @@ const schema: SimpleSchemaDefinition = {
         custom() {
             this.validationContext.addValidationErrors([{
                 name: "username",
-                type: "notUnique"
+                type: "notUnique",
             }]);
 
             return false;
-        }
-    }
+        },
+    },
 };
 
 const StringSchema = new SimpleSchema(schema);
