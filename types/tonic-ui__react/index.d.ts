@@ -111,7 +111,6 @@ export function Radio(props: InputProps): JSX.Element;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function RadioGroup<T extends string | number | undefined = number>(props: RadioGroupProps<T>): JSX.Element;
 export function ResizeHandle(props: PropsWithChildren<ResizeHandleProps>): JSX.Element;
-export function SVGIcon(props: TonicProps): JSX.Element;
 export function Scale(props: TransitionScaleProps): JSX.Element;
 export function Scrollbar(props: ScrollbarProps): JSX.Element;
 export function SearchInput(props: SearchInputProps): JSX.Element;

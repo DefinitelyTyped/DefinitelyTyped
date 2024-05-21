@@ -1,1 +1,0 @@
-declare const __ICON__: ForwardRefExoticComponent<IconProps & RefAttributes<HTMLDivElement>>;

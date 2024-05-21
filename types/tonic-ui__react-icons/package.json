@@ -6,7 +6,7 @@
         "https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react-icons"
     ],
     "scripts": {
-        "build": "bun scripts/generate-definitions.ts"
+        "generate-definitions": "pnpm exec ts-node scripts/generate-definitions.ts"
     },
     "dependencies": {
         "@types/react": "*",
@@ -15,13 +15,16 @@
     "devDependencies": {
         "@trendmicro/tmicon": "1.37.0",
         "@types/node": "^20.11.24",
-        "@types/tonic-ui__react-icons": "workspace:.",
-        "bun": "^1.0.29"
+        "@types/tonic-ui__react-icons": "workspace:."
     },
     "owners": [
         {
-            "name": "zachlegros",
+            "name": "Zachary Legros",
             "githubUsername": "ZachLegros"
+        },
+        {
+            "name": "Derek Hawker",
+            "githubUsername": "derekhawker"
         }
     ]
 }
