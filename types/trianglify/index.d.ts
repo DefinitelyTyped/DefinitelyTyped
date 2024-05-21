@@ -25,7 +25,7 @@ declare namespace trianglify {
         /** how much to randomize the grid */
         variance?: number;
         /** Seed for the RNG */
-        seed?: number | string | null | undefined;
+        seed?: string | null | undefined;
         /** X color stops */
         xColors?: string[];
         /** Y color stops */
