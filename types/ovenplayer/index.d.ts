@@ -278,7 +278,9 @@ interface OvenPlayerEvents {
     /** large(>992), medium(<992), small(<768), xsmall(<576) */
     resized: "large" | "medium" | "small" | "xsmall";
     /** The new playback rate */
-    playbackRateChanged: number;
+    playbackRateChanged: {
+        playbackRate: number;
+    };
     seek: {
         /** The position of the player before the player seeks (in seconds). */
         position: string;
