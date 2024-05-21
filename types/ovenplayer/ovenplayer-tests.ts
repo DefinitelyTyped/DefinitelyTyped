@@ -181,7 +181,7 @@ player.on("volumeChanged", data => {
 player.on("playbackRateChanged", data => {
     // $ExpectType number
     data.playbackRate;
-})
+});
 
 // off(eventName: keyof OvenPlayerEvents): void;
 player.off("ready");
