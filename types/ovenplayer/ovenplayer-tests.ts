@@ -154,7 +154,7 @@ player.load([
     },
 ]);
 
-const quality: OvenPlayerQuality = {
+const quality: OvenPlayer.OvenPlayerQuality = {
     bitrate: "4000",
     height: 320,
     width: 320,
@@ -165,10 +165,10 @@ const quality: OvenPlayerQuality = {
 // getMediaElement(): HTMLVideoElement;
 const videoElement: HTMLVideoElement = player.getMediaElement();
 
-// on(evnetName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
+// on(eventName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
 player.on("ready", () => {});
 
-// once (evnetName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
+// once (eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
 player.once("stateChanged", data => {});
 
 player.on("volumeChanged", data => {
