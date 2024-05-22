@@ -3,3 +3,6 @@
 !**/*.d.cts
 !**/*.d.mts
 !**/*.d.*.ts
+src/*
+scripts/*
+tmicon.d.ts

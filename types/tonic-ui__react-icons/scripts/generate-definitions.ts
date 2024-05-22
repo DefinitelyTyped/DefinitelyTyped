@@ -27,10 +27,9 @@ const iconDefinitions = tmicon.icons.reduce((acc: Record<string, TmiconDefinitio
 const header = fs.readFileSync(path.resolve(path.join("src", "header.d.ts")), "utf-8");
 const iconTemplate = fs.readFileSync(path.resolve(path.join("src", "template.d.ts")), "utf-8");
 
-const icons = Object.keys(iconDefinitions).map((icon) => {
-  let template = iconTemplate.replace(/__ICON__/g, iconDefinitions[icon].name)
-  return template;
-}).join("\n");
+const icons = Object.keys(iconDefinitions).map((icon) => (
+  iconTemplate.replace(/__ICON__/g, iconDefinitions[icon].name))
+).join("\n");
 
 // clean previous file
 try {

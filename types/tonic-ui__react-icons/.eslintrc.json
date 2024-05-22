@@ -3,7 +3,7 @@
         "@typescript-eslint/no-empty-interface": "off"
     },
     "ignorePatterns": [
-        "src/template.d.ts",
-        "src/modules.d.ts"
+        "src/header.d.ts",
+        "src/template.d.ts"
     ]
 }
