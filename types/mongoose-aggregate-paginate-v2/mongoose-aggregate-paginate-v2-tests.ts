@@ -4,7 +4,7 @@
  */
 
 import { Request, Response, Router } from "express";
-import { Aggregate, AggregatePaginateModel, AggregatePaginateResult, PaginateOptions, Schema, model } from "mongoose";
+import { Aggregate, AggregatePaginateModel, AggregatePaginateResult, model, PaginateOptions, Schema } from "mongoose";
 import mongooseAggregatePaginate = require("mongoose-aggregate-paginate-v2");
 
 // #region Test Models
