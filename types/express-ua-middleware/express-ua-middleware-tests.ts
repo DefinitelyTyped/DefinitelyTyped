@@ -3,7 +3,8 @@ import express = require("express");
 
 const server = express();
 
-server.use(userAgent);
+const uaHandler = userAgent();
+server.use((req, res, next) => uaHandler(req, res, next));
 server.get("/", (req, res) => {
     req.userAgent; // $ExpectType UserAgent & UserAgentRaw
 });
