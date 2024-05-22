@@ -77,15 +77,6 @@ export function renderToString(element: ReactNode, options?: ServerOptions): str
  */
 export function renderToStaticMarkup(element: ReactNode, options?: ServerOptions): string;
 
-/**
- * Similar to `renderToNodeStream`, except this doesn't create extra DOM attributes
- * such as `data-reactid`, that React uses internally. The HTML output by this stream
- * is exactly equal to what `ReactDOMServer.renderToStaticMarkup()` would return.
- *
- * @deprecated
- */
-export function renderToStaticNodeStream(element: ReactNode, options?: ServerOptions): NodeJS.ReadableStream;
-
 export interface RenderToReadableStreamOptions {
     identifierPrefix?: string;
     namespaceURI?: string;
