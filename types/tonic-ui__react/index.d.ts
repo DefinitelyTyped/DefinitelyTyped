@@ -48,6 +48,7 @@ export function Button(props: ButtonProps): JSX.Element;
 export function ButtonBase(props: ButtonProps): JSX.Element;
 export function ButtonGroup(props: ButtonGroupProps): JSX.Element;
 export function ButtonLink(props: ButtonLinkProps): JSX.Element;
+export function Calendar(props: CalendarProps): JSX.Element;
 export function Checkbox(props: CheckboxProps): JSX.Element;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function CheckboxGroup<T extends string | number | undefined = number>(
@@ -56,6 +57,7 @@ export function CheckboxGroup<T extends string | number | undefined = number>(
 export function Collapse(props: TransitionProps): JSX.Element;
 export function ControlBox(props: ControlBoxProps): JSX.Element;
 export function DarkMode(props: PropsWithChildren<{}>): JSX.Element;
+export function DatePicker(props: DatePickerProps): JSX.Element;
 export function Divider(props: DividerProps): JSX.Element;
 export function Drawer(props: DrawerProps): JSX.Element;
 export function DrawerBody(props: TonicProps): JSX.Element;
