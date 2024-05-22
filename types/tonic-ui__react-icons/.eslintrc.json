@@ -2,8 +2,4 @@
     "rules": {
         "@typescript-eslint/no-empty-interface": "off"
     },
-    "ignorePatterns": [
-        "src/header.d.ts",
-        "src/template.d.ts"
-    ]
 }
