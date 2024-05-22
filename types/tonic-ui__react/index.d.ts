@@ -292,6 +292,22 @@ export interface ButtonLinkProps extends ButtonProps {
     href?: string;
 }
 
+export interface CalendarProps extends Omit<TonicProps, "children" | "onChange" | "onError"> {
+    date?: Date;
+    defaultDate?: Date;
+    /**
+     * 0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday
+     * @default 0
+     */
+    firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    minDate?: Date;
+    maxDate?: Date;
+    onChange?: (date: Date) => void;
+    onError?: (error: string, date: Date) => void;
+    formatDate?: (date: Date, format: string, options: object) => string;
+    shouldDisableDate?: (date: Date) => boolean;
+}
+
 export interface CheckboxProps extends TonicHTMLInputProps {
     children?: ReactNode;
     variantColor?: string;
@@ -323,6 +339,36 @@ export interface ControlBoxProps extends TonicProps {
     _indeterminateAndDisabled?: _ExtendedCSSProperties;
     _indeterminateAndFocus?: _ExtendedCSSProperties;
     _indeterminateAndHover?: _ExtendedCSSProperties;
+}
+
+export interface DatePickerProps extends Omit<TonicProps, "children" | "onChange" | "onError"> {
+    value?: Date | string;
+    defaultValue?: Date | string;
+    /**
+     * 0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday
+     * @default 0
+     */
+    firstDayOfWeek?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    /**
+     * @default "yyyy-MM-dd"
+     */
+    inputFormat?: string;
+    /**
+     * [skidding, distance]
+     * @default [0, 0]
+     */
+    offset?: [number, number];
+    minDate?: Date;
+    maxDate?: Date;
+    /**
+     * @default "bottom-start"
+     */
+    placement?: "top" | "top-start" | "top-end" | "bottom" | "bottom-start" | "bottom-end";
+    renderInput?: (props: InputControlProps) => ReactNode;
+    onChange?: (date: Date) => void;
+    onError?: (error: string | undefined, date: Date) => void;
+    formatDate?: (date: Date, format: string, options: object) => string;
+    shouldDisableDate?: (date: Date) => boolean;
 }
 
 export interface DividerProps extends TonicProps {

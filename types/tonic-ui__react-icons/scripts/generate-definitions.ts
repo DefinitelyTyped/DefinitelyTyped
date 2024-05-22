@@ -29,7 +29,6 @@ const iconTemplate = fs.readFileSync(path.resolve(path.join("src", "template.d.t
 
 const icons = Object.keys(iconDefinitions).map((icon) => {
   let template = iconTemplate.replace(/__ICON__/g, iconDefinitions[icon].name)
-  template = template.replace(/declare/g, "export");
   return template;
 }).join("\n");
 
