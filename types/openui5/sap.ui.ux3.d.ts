@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/ux3/library" {
   /**
@@ -3355,7 +3355,8 @@ declare module "sap/ui/ux3/DataSetSimpleView" {
    */
   export default class DataSetSimpleView
     extends Control
-    implements DataSetView {
+    implements DataSetView
+  {
     __implements__sap_ui_ux3_DataSetView: boolean;
     /**
      * Constructor for a new DataSetSimpleView.

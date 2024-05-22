@@ -160,6 +160,7 @@ snowflake.createConnection({
     proxyProtocol: "",
     proxyUser: "",
     proxyPassword: "",
+    noProxy: "",
 });
 
 // Pool

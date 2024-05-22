@@ -25,6 +25,12 @@ function testRecommendedOptions() {
         itemSelector: ".grid-item",
     });
 
+    const masonryOptions: Masonry.Options = {
+        columnWidth: 250,
+        itemSelector: ".grid-item",
+    };
+    msnry!.option!(masonryOptions);
+
     // Test JQuery 2-parameter interface added to address issue 59558
     $(".grid").masonry("remove", $(".grid-item"));
 }

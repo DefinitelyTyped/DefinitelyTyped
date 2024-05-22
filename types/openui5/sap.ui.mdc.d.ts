@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -167,6 +167,7 @@ declare module "sap/ui/mdc/ChartDelegate" {
    * the internal behavior.
    *
    * @since 1.88
+   * @experimental (since 1.88)
    */
   interface ChartDelegate extends AggregationBaseDelegate {
     /**
@@ -230,6 +231,9 @@ declare module "sap/ui/mdc/ChartDelegate" {
     ): void;
     /**
      * Returns the relevant property info based on the metadata used with the chart instance.
+     *
+     * **Note:** The result of this function must be kept stable throughout the lifecycle of your application.
+     * Any changes of the returned values might result in undesired effects.
      *
      *
      * @returns Array of the property infos that is used within the chart
@@ -631,6 +635,8 @@ declare module "sap/ui/mdc/ChartDelegate" {
 
   /**
    * Chart `ChartTypeLayoutConfig` type.
+   *
+   * @experimental (since 1.80)
    */
   export type ChartTypeLayoutConfig = {
     /**
@@ -645,6 +651,8 @@ declare module "sap/ui/mdc/ChartDelegate" {
 
   /**
    * Chart `ChartTypeObject` type.
+   *
+   * @experimental (since 1.80)
    */
   export type ChartTypeObject = {
     /**
@@ -667,6 +675,8 @@ declare module "sap/ui/mdc/ChartDelegate" {
 
   /**
    * Event handler for `SelectionDetails` popover.
+   *
+   * @experimental (since 1.80)
    */
   export type SelectionDetails = {
     /**
@@ -681,6 +691,8 @@ declare module "sap/ui/mdc/ChartDelegate" {
 
   /**
    * Chart `ZoomState` type.
+   *
+   * @experimental (since 1.80)
    */
   export type ZoomState = {
     /**
@@ -729,6 +741,8 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
 
   import { ConditionObject } from "sap/ui/mdc/condition/Condition";
 
+  import ContentMode from "sap/ui/mdc/enums/ContentMode";
+
   import {
     default as ValueHelp,
     ItemForValueConfiguration,
@@ -742,10 +756,13 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
 
   import ParseException from "sap/ui/model/ParseException";
 
+  import Operator from "sap/ui/mdc/condition/Operator";
+
+  import SimpleType from "sap/ui/model/SimpleType";
+
   /**
    * Delegate for {@link sap.ui.mdc.field.FieldBase FieldBase}.
-   *  **Note:** The class is experimental and the API/behavior is not finalized and hence this should not
-   * be used for productive usage.
+   *
    *
    * @since 1.72.0
    */
@@ -848,6 +865,28 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
        */
       aValues: any[]
     ): undefined | object;
+    /**
+     * Provides the possibility to customize / replace the internal content of a field
+     *
+     * @since 1.124.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Array containing the created controls
+     */
+    createContent(
+      /**
+       * `Field` control instance
+       */
+      oField: FieldBase,
+      /**
+       * A given content mode
+       */
+      sContentMode: ContentMode | keyof typeof ContentMode,
+      /**
+       * ID of the internal control to be created.
+       */
+      sId: string
+    ): Promise<Control[]>;
     /**
      * Determines the text for the autocomplete functionality.
      *
@@ -1230,6 +1269,51 @@ declare module "sap/ui/mdc/field/FieldBaseDelegate" {
        */
       bCaseSensitive: boolean
     ): boolean;
+    /**
+     * Enables applications to control condition updates based on pasted values.
+     * By default, this method returns conditions with an `EQ` operator without using the description, as it
+     * does not ensure the description is valid.
+     *
+     * **Note:** Returned values can either be strings which should be parsed by the ConditionType itself or
+     * pre-created conditions.
+     *
+     * @since 1.124
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Array of `ConditionObject`/`string` values. If it is not available right away, a `Promise` is
+     * returned.
+     */
+    parsePasteDataToConditions(
+      /**
+       * `Field` control instance
+       */
+      oField: FieldBase,
+      /**
+       * Pre-parsed paste data
+       */
+      aParsedData: Array<{
+        value: string;
+
+        additionalValue: string;
+      }>,
+      /**
+       * Condition-related settings object
+       */
+      oSettings: {
+        /**
+         * Default operator for the current field
+         */
+        defaultOperator: Operator;
+        /**
+         * Configured type for a value
+         */
+        valueType: SimpleType;
+        /**
+         * Configured type for an additional value
+         */
+        additionalValueType: SimpleType;
+      }
+    ): Array<ConditionObject | string> | Promise<any[]>;
   }
   const FieldBaseDelegate: FieldBaseDelegate;
   export default FieldBaseDelegate;
@@ -1246,6 +1330,7 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
    * Delegate for {@link sap.ui.mdc.MultiValueField MultiValueField}.
    *
    * @since 1.93.0
+   * @experimental (since 1.93)
    */
   interface MultiValueFieldDelegate extends FieldBaseDelegate {
     /**
@@ -1253,6 +1338,8 @@ declare module "sap/ui/mdc/field/MultiValueFieldDelegate" {
      *
      * Items can be removed, updated, or added. Use the binding information of the `MultiValueField` control
      * to update the data in the related model.
+     *
+     * @experimental
      */
     updateItems(
       /**
@@ -1374,6 +1461,9 @@ declare module "sap/ui/mdc/FilterBarDelegate" {
     /**
      * Retrieves the relevant metadata for a given payload and returns the property info array.
      *
+     * **Note:** The result of this function must be kept stable throughout the lifecycle of your application.
+     * Any changes of the returned values might result in undesired effects.
+     *
      *
      * @returns `Promise` that resolves into an array of property info objects
      */
@@ -1469,8 +1559,7 @@ declare module "sap/ui/mdc/LinkDelegate" {
 
   /**
    * Base delegate for {@link sap.ui.mdc.Link}. Extend this object in your project to use all functionalities
-   * of the {@link sap.ui.mdc.Link}. **Note:** The delegate is experimental and the API/behaviour is not finalized
-   * and hence this should not be used for productive usage.
+   * of the {@link sap.ui.mdc.Link}.
    *
    * @since 1.74
    */
@@ -1952,6 +2041,9 @@ declare module "sap/ui/mdc/TableDelegate" {
      *
      * By default, this method returns a `Promise` that resolves with an empty array.
      *
+     * **Note:** The result of this function must be kept stable throughout the lifecycle of your application.
+     * Any changes of the returned values might result in undesired effects.
+     *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns A `Promise` that resolves with the property information
@@ -2127,9 +2219,6 @@ declare module "sap/ui/mdc/util/TypeMap" {
   /**
    * Configuration class for type handling in delegates. Allows mapping of model types to {@link sap.ui.mdc.enums.BaseType }
    * and enables model-specific type configuration.
-   *
-   * **Note:** This utility is experimental and the API/behavior is not finalized. Hence, it should not be
-   * used for productive usage.
    *
    * @since 1.114.0
    */
@@ -2390,9 +2479,6 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
 
   /**
    * Delegate for {@link sap.ui.mdc.ValueHelp}.
-   *
-   * **Note:** The class is experimental and the API/behavior is not finalized and hence this should not be
-   * used for productive usage.
    *
    * @since 1.95.0
    */
@@ -3002,7 +3088,7 @@ declare module "sap/ui/mdc/library" {
       /**
        * of the grouped item
        */
-      name: string;
+      key: string;
       /**
        * Defines if the item has to be grouped
        */
@@ -3016,7 +3102,7 @@ declare module "sap/ui/mdc/library" {
       /**
        * of the item
        */
-      name: string;
+      key: string;
       /**
        * of the item in the aggregation
        */
@@ -3034,7 +3120,7 @@ declare module "sap/ui/mdc/library" {
       /**
        * of the sorted item
        */
-      name: string;
+      key: string;
       /**
        * Sort order for this item
        */
@@ -3106,466 +3192,6 @@ declare module "sap/ui/mdc/library" {
   }
 }
 
-declare module "sap/ui/mdc/ActionToolbar" {
-  import {
-    default as OverflowToolbar,
-    $OverflowToolbarSettings,
-  } from "sap/m/OverflowToolbar";
-
-  import ActionToolbarAction from "sap/ui/mdc/actiontoolbar/ActionToolbarAction";
-
-  import Control from "sap/ui/core/Control";
-
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
-  import {
-    PropertyBindingInfo,
-    AggregationBindingInfo,
-  } from "sap/ui/base/ManagedObject";
-
-  /**
-   * The `ActionToolbar` control can be used in the {@link sap.ui.mdc.Chart Chart} and {@link sap.ui.mdc.Table Table }
-   * controls to display actions. The control handles key user adaptation and positioning of the actions depending
-   * on the given layout information. **Note:** The content aggregation of the control must not be used.
-   *
-   * @since 1.58
-   */
-  export default class ActionToolbar extends OverflowToolbar {
-    /**
-     * Constructor for a new ActionToolbar.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * initial settings for the new control
-       */
-      mSettings?: $ActionToolbarSettings
-    );
-    /**
-     * Constructor for a new ActionToolbar.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * ID for the new control, generated automatically if no ID is given
-       */
-      sId?: string,
-      /**
-       * initial settings for the new control
-       */
-      mSettings?: $ActionToolbarSettings
-    );
-
-    /**
-     * Creates a new subclass of class sap.ui.mdc.ActionToolbar with name `sClassName` and enriches it with
-     * the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.OverflowToolbar.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, ActionToolbar>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.mdc.ActionToolbar.
-     *
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): ElementMetadata;
-    /**
-     * Adds some action to the aggregation {@link #getActions actions}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    addAction(
-      /**
-       * The action to add; if empty, nothing is inserted
-       */
-      oAction: ActionToolbarAction
-    ): this;
-    /**
-     * Adds some begin to the aggregation {@link #getBegin begin}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    addBegin(
-      /**
-       * The begin to add; if empty, nothing is inserted
-       */
-      oBegin: Control
-    ): this;
-    /**
-     * Adds some between to the aggregation {@link #getBetween between}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    addBetween(
-      /**
-       * The between to add; if empty, nothing is inserted
-       */
-      oBetween: Control
-    ): this;
-    /**
-     * Adds some end to the aggregation {@link #getEnd end}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    addEnd(
-      /**
-       * The end to add; if empty, nothing is inserted
-       */
-      oEnd: Control
-    ): this;
-    /**
-     * Destroys all the actions in the aggregation {@link #getActions actions}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyActions(): this;
-    /**
-     * Destroys all the begin in the aggregation {@link #getBegin begin}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyBegin(): this;
-    /**
-     * Destroys all the between in the aggregation {@link #getBetween between}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyBetween(): this;
-    /**
-     * Destroys all the end in the aggregation {@link #getEnd end}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    destroyEnd(): this;
-    /**
-     * Gets content of aggregation {@link #getActions actions}.
-     *
-     * Further actions in the toolbar.
-     */
-    getActions(): ActionToolbarAction[];
-    /**
-     * Gets content of aggregation {@link #getBegin begin}.
-     *
-     * Content shown at the begin of the toolbar (e.g. Title).
-     */
-    getBegin(): Control[];
-    /**
-     * Gets content of aggregation {@link #getBetween between}.
-     *
-     * Content shown between the title and actions on the toolbar.
-     */
-    getBetween(): Control[];
-    /**
-     * Gets content of aggregation {@link #getEnd end}.
-     *
-     * Content at the end of the toolbar.
-     */
-    getEnd(): Control[];
-    /**
-     * Gets current value of property {@link #getUseAsHeader useAsHeader}.
-     *
-     * Determines whether the toolbar is used as header (e.g. for a table).
-     *
-     * Default value is `true`.
-     *
-     *
-     * @returns Value of property `useAsHeader`
-     */
-    getUseAsHeader(): boolean;
-    /**
-     * Checks for the provided `sap.ui.mdc.actiontoolbar.ActionToolbarAction` in the aggregation {@link #getActions actions}.
-     * and returns its index if found or -1 otherwise.
-     *
-     *
-     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
-     */
-    indexOfAction(
-      /**
-       * The action whose index is looked for
-       */
-      oAction: ActionToolbarAction
-    ): int;
-    /**
-     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getBegin begin}. and returns
-     * its index if found or -1 otherwise.
-     *
-     *
-     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
-     */
-    indexOfBegin(
-      /**
-       * The begin whose index is looked for
-       */
-      oBegin: Control
-    ): int;
-    /**
-     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getBetween between}. and returns
-     * its index if found or -1 otherwise.
-     *
-     *
-     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
-     */
-    indexOfBetween(
-      /**
-       * The between whose index is looked for
-       */
-      oBetween: Control
-    ): int;
-    /**
-     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getEnd end}. and returns its
-     * index if found or -1 otherwise.
-     *
-     *
-     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
-     */
-    indexOfEnd(
-      /**
-       * The end whose index is looked for
-       */
-      oEnd: Control
-    ): int;
-    /**
-     * Inserts a action into the aggregation {@link #getActions actions}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    insertAction(
-      /**
-       * The action to insert; if empty, nothing is inserted
-       */
-      oAction: ActionToolbarAction,
-      /**
-       * The `0`-based index the action should be inserted at; for a negative value of `iIndex`, the action is
-       * inserted at position 0; for a value greater than the current size of the aggregation, the action is inserted
-       * at the last position
-       */
-      iIndex: int
-    ): this;
-    /**
-     * Inserts a begin into the aggregation {@link #getBegin begin}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    insertBegin(
-      /**
-       * The begin to insert; if empty, nothing is inserted
-       */
-      oBegin: Control,
-      /**
-       * The `0`-based index the begin should be inserted at; for a negative value of `iIndex`, the begin is inserted
-       * at position 0; for a value greater than the current size of the aggregation, the begin is inserted at
-       * the last position
-       */
-      iIndex: int
-    ): this;
-    /**
-     * Inserts a between into the aggregation {@link #getBetween between}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    insertBetween(
-      /**
-       * The between to insert; if empty, nothing is inserted
-       */
-      oBetween: Control,
-      /**
-       * The `0`-based index the between should be inserted at; for a negative value of `iIndex`, the between
-       * is inserted at position 0; for a value greater than the current size of the aggregation, the between
-       * is inserted at the last position
-       */
-      iIndex: int
-    ): this;
-    /**
-     * Inserts a end into the aggregation {@link #getEnd end}.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    insertEnd(
-      /**
-       * The end to insert; if empty, nothing is inserted
-       */
-      oEnd: Control,
-      /**
-       * The `0`-based index the end should be inserted at; for a negative value of `iIndex`, the end is inserted
-       * at position 0; for a value greater than the current size of the aggregation, the end is inserted at the
-       * last position
-       */
-      iIndex: int
-    ): this;
-    /**
-     * Removes a action from the aggregation {@link #getActions actions}.
-     *
-     *
-     * @returns The removed action or `null`
-     */
-    removeAction(
-      /**
-       * The action to remove or its index or id
-       */
-      vAction: int | string | ActionToolbarAction
-    ): ActionToolbarAction | null;
-    /**
-     * Removes all the controls from the aggregation {@link #getActions actions}.
-     *
-     * Additionally, it unregisters them from the hosting UIArea.
-     *
-     *
-     * @returns An array of the removed elements (might be empty)
-     */
-    removeAllActions(): ActionToolbarAction[];
-    /**
-     * Removes all the controls from the aggregation {@link #getBegin begin}.
-     *
-     * Additionally, it unregisters them from the hosting UIArea.
-     *
-     *
-     * @returns An array of the removed elements (might be empty)
-     */
-    removeAllBegin(): Control[];
-    /**
-     * Removes all the controls from the aggregation {@link #getBetween between}.
-     *
-     * Additionally, it unregisters them from the hosting UIArea.
-     *
-     *
-     * @returns An array of the removed elements (might be empty)
-     */
-    removeAllBetween(): Control[];
-    /**
-     * Removes all the controls from the aggregation {@link #getEnd end}.
-     *
-     * Additionally, it unregisters them from the hosting UIArea.
-     *
-     *
-     * @returns An array of the removed elements (might be empty)
-     */
-    removeAllEnd(): Control[];
-    /**
-     * Removes a begin from the aggregation {@link #getBegin begin}.
-     *
-     *
-     * @returns The removed begin or `null`
-     */
-    removeBegin(
-      /**
-       * The begin to remove or its index or id
-       */
-      vBegin: int | string | Control
-    ): Control | null;
-    /**
-     * Removes a between from the aggregation {@link #getBetween between}.
-     *
-     *
-     * @returns The removed between or `null`
-     */
-    removeBetween(
-      /**
-       * The between to remove or its index or id
-       */
-      vBetween: int | string | Control
-    ): Control | null;
-    /**
-     * Removes a end from the aggregation {@link #getEnd end}.
-     *
-     *
-     * @returns The removed end or `null`
-     */
-    removeEnd(
-      /**
-       * The end to remove or its index or id
-       */
-      vEnd: int | string | Control
-    ): Control | null;
-    /**
-     * Sets a new value for property {@link #getUseAsHeader useAsHeader}.
-     *
-     * Determines whether the toolbar is used as header (e.g. for a table).
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setUseAsHeader(
-      /**
-       * New value for property `useAsHeader`
-       */
-      bUseAsHeader?: boolean
-    ): this;
-  }
-  /**
-   * Describes the settings that can be provided to the ActionToolbar constructor.
-   */
-  export interface $ActionToolbarSettings extends $OverflowToolbarSettings {
-    /**
-     * Determines whether the toolbar is used as header (e.g. for a table).
-     */
-    useAsHeader?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Content shown at the begin of the toolbar (e.g. Title).
-     */
-    begin?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
-
-    /**
-     * Content shown between the title and actions on the toolbar.
-     */
-    between?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
-
-    /**
-     * Further actions in the toolbar.
-     */
-    actions?:
-      | ActionToolbarAction[]
-      | ActionToolbarAction
-      | AggregationBindingInfo
-      | `{${string}}`;
-
-    /**
-     * Content at the end of the toolbar.
-     */
-    end?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
-  }
-}
-
 declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
@@ -3577,15 +3203,15 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
 
   /**
    * The action for an {@link sap.ui.mdc.ActionToolbar ActionToolbar} control with given layout information
-   * that determines where the wrapped control is displayed on the `ActionToolbar`. **Note:** The control
-   * is experimental and the API / behavior is not finalized. It should only be used internally in other mdc
-   * controls (e.g. chart/table).
+   * that determines where the wrapped control is displayed on the `ActionToolbar`.
    *
    * @since 1.58
+   * @experimental
    */
   export default class ActionToolbarAction
     extends Control
-    implements IOverflowToolbarContent {
+    implements IOverflowToolbarContent
+  {
     __implements__sap_m_IOverflowToolbarContent: boolean;
     /**
      * Constructor for a new ActionToolbarAction.
@@ -3717,6 +3343,8 @@ declare module "sap/ui/mdc/actiontoolbar/ActionToolbarAction" {
   }
   /**
    * Describes the settings that can be provided to the ActionToolbarAction constructor.
+   *
+   * @experimental
    */
   export interface $ActionToolbarActionSettings extends $ControlSettings {
     /**
@@ -3946,10 +3574,11 @@ declare module "sap/ui/mdc/Chart" {
      * Gets content of aggregation {@link #getActions actions}.
      *
      * This aggregation describes actions that are added to the chart toolbar.
-     *  For more information, see {@link sap.ui.mdc.actiontoolbar.ActionToolbarAction}. **Note:** This aggregation
-     * is managed by the control, can only be populated during the definition in the XML view, and is not bindable.
-     * Any changes of the initial aggregation content might result in undesired effects. Changes of the aggregation
-     * have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
+     *  For more information, see {@link sap.ui.mdc.actiontoolbar.ActionToolbarAction}.
+     *
+     * **Note:** This aggregation is managed by the control, can only be populated during the definition in
+     * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
+     * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
      */
     getActions(): Control1[];
     /**
@@ -4601,6 +4230,8 @@ declare module "sap/ui/mdc/Chart" {
    * 	 - `aggregatable`
    * 	 - `role`
    * 	 - `dataType`
+   *
+   * @experimental (since 1.80)
    */
   export type PropertyInfo = PropertyInfo1 & {
     /**
@@ -4822,10 +4453,11 @@ declare module "sap/ui/mdc/Chart" {
 
     /**
      * This aggregation describes actions that are added to the chart toolbar.
-     *  For more information, see {@link sap.ui.mdc.actiontoolbar.ActionToolbarAction}. **Note:** This aggregation
-     * is managed by the control, can only be populated during the definition in the XML view, and is not bindable.
-     * Any changes of the initial aggregation content might result in undesired effects. Changes of the aggregation
-     * have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
+     *  For more information, see {@link sap.ui.mdc.actiontoolbar.ActionToolbarAction}.
+     *
+     * **Note:** This aggregation is managed by the control, can only be populated during the definition in
+     * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
+     * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
      */
     actions?: Control1[] | Control1 | AggregationBindingInfo | `{${string}}`;
 
@@ -4917,6 +4549,7 @@ declare module "sap/ui/mdc/chart/ChartImplementationContainer" {
    * Based on the `showNoDataStruct` the `content` or `noDataContent` will be shown.
    *
    * @since 1.105
+   * @experimental (since 1.105)
    */
   export default class ChartImplementationContainer extends Control {
     /**
@@ -5028,6 +4661,8 @@ declare module "sap/ui/mdc/chart/ChartImplementationContainer" {
   }
   /**
    * Describes the settings that can be provided to the ChartImplementationContainer constructor.
+   *
+   * @experimental (since 1.105)
    */
   export interface $ChartImplementationContainerSettings
     extends $ControlSettings {
@@ -5069,6 +4704,7 @@ declare module "sap/ui/mdc/chart/ChartSelectionDetails" {
    * the configuration specified.
    *
    * @since 1.88
+   * @experimental (since 1.88)
    */
   export default class ChartSelectionDetails extends SelectionDetails {
     /**
@@ -5142,6 +4778,8 @@ declare module "sap/ui/mdc/chart/ChartSelectionDetails" {
   }
   /**
    * Describes the settings that can be provided to the ChartSelectionDetails constructor.
+   *
+   * @experimental (since 1.88)
    */
   export interface $ChartSelectionDetailsSettings
     extends $SelectionDetailsSettings {}
@@ -5159,6 +4797,7 @@ declare module "sap/ui/mdc/chart/Item" {
    * to override the default/metadata behavior.
    *
    * @since 1.88
+   * @experimental (since 1.88)
    */
   export default class Item extends UI5Element {
     /**
@@ -5371,6 +5010,8 @@ declare module "sap/ui/mdc/chart/Item" {
   }
   /**
    * Describes the settings that can be provided to the Item constructor.
+   *
+   * @experimental (since 1.88)
    */
   export interface $ItemSettings extends $ElementSettings {
     /**
@@ -5423,6 +5064,7 @@ declare module "sap/ui/mdc/chart/SelectionDetailsActions" {
    * The `SelectionDetailsActions` is used to provide additional functionality to the Details popover.
    *
    * @since 1.88
+   * @experimental (since 1.88)
    */
   export default class SelectionDetailsActions extends UI5Element {
     /**
@@ -5721,6 +5363,8 @@ declare module "sap/ui/mdc/chart/SelectionDetailsActions" {
   }
   /**
    * Describes the settings that can be provided to the SelectionDetailsActions constructor.
+   *
+   * @experimental (since 1.88)
    */
   export interface $SelectionDetailsActionsSettings extends $ElementSettings {
     /**
@@ -6259,23 +5903,7 @@ declare module "sap/ui/mdc/condition/Operator" {
          */
         group?: {
           /**
-           * Group ID for the operator. The following groups are available for the `DynamicDateRange` control:
-           *
-           * 	 - 1 - Single Dates
-           * 	 - 2 - Date Ranges
-           * 	 - 3 - Weeks
-           * 	 - 4 - Months
-           * 	 - 5 - Quarters
-           * 	 - 6 - Years  See {@link sap.m.DynamicDateRangeGroups DynamicDateRangeGroups}.
-           *  This only works for `FilterFields` with custom operators if `maxConditions=1` and no `valueHelp` is
-           * assigned to the `FilterField`. Example:
-           *  group: undefined - if group is not specified; default behavior include/exclude group with id 1 and 2
-           * will be created
-           *  group: {id : 1} - adds the operator to existing group 1 'Single Dates'
-           *  group: {id : 2, text: "new group"} - inserts a new group with id 2. Existing group 2 will be shifted
-           * to 3, 4....
-           *  group: {id : 10, text: "new group at the end"} - adds a new group with id 10 and text "new group as
-           * the end" to the end of all groups
+           * Group ID for the operator.
            */
           id: string;
           /**
@@ -6283,6 +5911,27 @@ declare module "sap/ui/mdc/condition/Operator" {
            */
           text?: string;
         };
+        /**
+         * Function to determine the text copied into clipboard The following groups are available for the `DynamicDateRange`
+         * control:
+         *
+         * 	 - 1 - Single Dates
+         * 	 - 2 - Date Ranges
+         * 	 - 3 - Weeks
+         * 	 - 4 - Months
+         * 	 - 5 - Quarters
+         * 	 - 6 - Years  See {@link sap.m.DynamicDateRangeGroups DynamicDateRangeGroups}.
+         *  This only works for `FilterFields` with custom operators if `maxConditions=1` and no `valueHelp` is
+         * assigned to the `FilterField`. Example:
+         *  group: undefined - if group is not specified; default behavior include/exclude group with id 1 and 2
+         * will be created
+         *  group: {id : 1} - adds the operator to existing group 1 'Single Dates'
+         *  group: {id : 2, text: "new group"} - inserts a new group with id 2. Existing group 2 will be shifted
+         * to 3, 4....
+         *  group: {id : 10, text: "new group at the end"} - adds a new group with id 10 and text "new group as
+         * the end" to the end of all groups
+         */
+        getTextForCopy?: Function;
       }
     );
 
@@ -6446,7 +6095,6 @@ declare module "sap/ui/mdc/Control" {
    * {@link sap.ui.mdc.mixin.DelegateMixin}).
    *
    * @since 1.61
-   * @experimental (since 1.61)
    */
   export default abstract class Control extends Control1 {
     /**
@@ -6629,8 +6277,6 @@ declare module "sap/ui/mdc/Control" {
   }
   /**
    * Describes the settings that can be provided to the Control constructor.
-   *
-   * @experimental (since 1.61)
    */
   export interface $ControlSettings extends $ControlSettings1 {
     /**
@@ -6647,8 +6293,6 @@ declare module "sap/ui/mdc/Control" {
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
      * that).
      *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * @experimental
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
   }
@@ -6673,7 +6317,6 @@ declare module "sap/ui/mdc/Element" {
    * (see {@link sap.ui.mdc.mixin.DelegateMixin}).
    *
    * @since 1.74
-   * @experimental (since 1.74)
    */
   export default abstract class Element1 extends UI5Element {
     /**
@@ -6856,8 +6499,6 @@ declare module "sap/ui/mdc/Element" {
   }
   /**
    * Describes the settings that can be provided to the Element constructor.
-   *
-   * @experimental (since 1.74)
    */
   export interface $ElementSettings extends $ElementSettings1 {
     /**
@@ -6874,8 +6515,6 @@ declare module "sap/ui/mdc/Element" {
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
      * that).
      *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * @experimental
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
   }
@@ -6886,6 +6525,7 @@ declare module "sap/ui/mdc/enums/ActionToolbarActionAlignment" {
    * Defines the alignment of the `ActionToolbarAction` action control.
    *
    * @since 1.115
+   * @experimental (since 1.115)
    */
   enum ActionToolbarActionAlignment {
     /**
@@ -6948,6 +6588,7 @@ declare module "sap/ui/mdc/enums/ChartP13nMode" {
    * Defines the personalization mode of the chart.
    *
    * @since 1.115
+   * @experimental (since 1.115)
    */
   enum ChartP13nMode {
     /**
@@ -6976,6 +6617,7 @@ declare module "sap/ui/mdc/enums/ChartToolbarActionType" {
    *  Can be used to remove some of the default `ToolbarAction`. For more information, see {@link sap.ui.mdc.Chart#ignoreToolbarActions}.
    *
    * @since 1.115
+   * @experimental (since 1.115)
    */
   enum ChartToolbarActionType {
     /**
@@ -7017,6 +6659,17 @@ declare module "sap/ui/mdc/enums/ConditionValidated" {
     Validated = "Validated",
   }
   export default ConditionValidated;
+}
+
+declare module "sap/ui/mdc/enums/ContentMode" {
+  /**
+   * Defines in which mode the content of a {@link sap.ui.mdc.Field Field}, {@link sap.ui.mdc.FilterField FilterField }
+   * or {@link sap.ui.mdc.MultiValueField MultiValueField} is rendered.
+   *
+   * @since 1.115
+   */
+  enum ContentMode {}
+  export default ContentMode;
 }
 
 declare module "sap/ui/mdc/enums/FieldDisplay" {
@@ -7969,11 +7622,11 @@ declare module "sap/ui/mdc/Field" {
    *     number and one for unit.
    *
    * @since 1.54.0
-   * @experimental (since 1.54.0)
    */
   export default class Field
     extends FieldBase
-    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent {
+    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_core_ISemanticFormContent: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
@@ -8391,8 +8044,6 @@ declare module "sap/ui/mdc/Field" {
   }
   /**
    * Describes the settings that can be provided to the Field constructor.
-   *
-   * @experimental (since 1.54.0)
    */
   export interface $FieldSettings extends $FieldBaseSettings {
     /**
@@ -8880,6 +8531,20 @@ declare module "sap/ui/mdc/field/ConditionType" {
       sTargetType: string
     ): any | Promise<any>;
     /**
+     * Determines the text what is copied to clipboard if a token or item with the condition is selected and
+     * copied. For equal-conditions key/description pairs needs to be copied to allow pasing of such conditions.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns key/description pair seperated by TAB
+     */
+    getTextForCopy(
+      /**
+       * The condition to be copied
+       */
+      oCondition: ConditionObject
+    ): string;
+    /**
      * Parses an external value of the given source type to a condition that holds the value in model representation.
      * These values are parsed using the given data type. Depending on the operator and the configuration (set
      * in `FormatOptions`), a value will be determined by a given value help or delegate.
@@ -9136,7 +8801,8 @@ declare module "sap/ui/mdc/field/FieldBase" {
    */
   export default abstract class FieldBase
     extends Control
-    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent {
+    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_core_ISemanticFormContent: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
@@ -9790,7 +9456,6 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Value of property `delegate`
      */
@@ -10309,7 +9974,6 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10804,8 +10468,6 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
      * that).
      *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * @experimental
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -11382,6 +11044,7 @@ declare module "sap/ui/mdc/field/MultiValueFieldItem" {
    * its values as items. The `MultiValueFieldItem` element defines these items.
    *
    * @since 1.93.0
+   * @experimental (since 1.93)
    */
   export default class MultiValueFieldItem extends UI5Element {
     /**
@@ -11499,6 +11162,8 @@ declare module "sap/ui/mdc/field/MultiValueFieldItem" {
   }
   /**
    * Describes the settings that can be provided to the MultiValueFieldItem constructor.
+   *
+   * @experimental (since 1.93)
    */
   export interface $MultiValueFieldItemSettings extends $ElementSettings {
     /**
@@ -11541,7 +11206,6 @@ declare module "sap/ui/mdc/FilterBar" {
    * implementation. This implementation has to be provided by the application.
    *
    * @since 1.61.0
-   * @experimental (since 1.61.0)
    */
   export default class FilterBar extends FilterBarBase {
     /**
@@ -11727,8 +11391,6 @@ declare module "sap/ui/mdc/FilterBar" {
 
   /**
    * Describes the settings that can be provided to the FilterBar constructor.
-   *
-   * @experimental (since 1.61.0)
    */
   export interface $FilterBarSettings extends $FilterBarBaseSettings {
     /**
@@ -11785,7 +11447,8 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
    */
   export default class FilterBarBase
     extends Control
-    implements IFilterSource, IFilter, IxState {
+    implements IFilterSource, IFilter, IxState
+  {
     __implements__sap_ui_mdc_IFilterSource: boolean;
     __implements__sap_ui_mdc_IFilter: boolean;
     __implements__sap_ui_mdc_IxState: boolean;
@@ -12098,7 +11761,6 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Value of property `delegate`
      */
@@ -12107,6 +11769,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      * Gets content of aggregation {@link #getFilterItems filterItems}.
      *
      * Contains all the displayed {@link sap.ui.mdc.FilterField filter fields} of the `FilterBarBase` control.
+     *
      * **Note:** This aggregation is managed by the control, can only be populated during the definition in
      * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
      * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
@@ -12237,7 +11900,6 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -12381,8 +12043,6 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
      * that).
      *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * @experimental
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -12440,6 +12100,7 @@ declare module "sap/ui/mdc/filterbar/FilterBarBase" {
 
     /**
      * Contains all the displayed {@link sap.ui.mdc.FilterField filter fields} of the `FilterBarBase` control.
+     *
      * **Note:** This aggregation is managed by the control, can only be populated during the definition in
      * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
      * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
@@ -12599,8 +12260,6 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
-
   /**
    * The `FilterBar` control is used to display filter properties in a user-friendly manner to populate values
    * for a query. The filters are arranged in a logical row that is divided depending on the space available
@@ -12613,14 +12272,11 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
    * on its own.
    *
    * @since 1.84.0
+   * @deprecated (since 1.124.0) - Please use the `sap.ui.mdc.valuehelp.FilterBar` control instead.
    */
   export default class FilterBar extends FilterBarBase {
     /**
      * Constructor for a new `FilterBar` for a value help dialog.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
      */
     constructor(
       /**
@@ -12630,10 +12286,6 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
     );
     /**
      * Constructor for a new `FilterBar` for a value help dialog.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
      */
     constructor(
       /**
@@ -12677,157 +12329,13 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
-    /**
-     * Gets current value of property {@link #getDelegate delegate}.
-     *
-     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
-     *  The object has the following properties:
-     * 	 - `name` defines the path to the `Delegate` module
-     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
-     *      Sample delegate object:
-     * ```javascript
-     * {
-     * 	name: "sap/ui/mdc/BaseDelegate",
-     * 	payload: {}
-     * }```
-     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
-     * that).
-     *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * Default value is `...see text or source`.
-     *
-     * @experimental
-     *
-     * @returns Value of property `delegate`
-     */
-    getDelegate(): object;
-    /**
-     * Gets current value of property {@link #getExpandFilterFields expandFilterFields}.
-     *
-     * Determines whether the Show/Hide Filters button is in the state show or hide.
-     *
-     *
-     * Default value is `true`.
-     *
-     *
-     * @returns Value of property `expandFilterFields`
-     */
-    getExpandFilterFields(): boolean;
-    /**
-     * Gets current value of property {@link #getFilterFieldThreshold filterFieldThreshold}.
-     *
-     * Number of FilterItems which will be shown via Show Filters.
-     *
-     *
-     * Default value is `8`.
-     *
-     *
-     * @returns Value of property `filterFieldThreshold`
-     */
-    getFilterFieldThreshold(): int;
-    /**
-     * Sets a new value for property {@link #getDelegate delegate}.
-     *
-     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
-     *  The object has the following properties:
-     * 	 - `name` defines the path to the `Delegate` module
-     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
-     *      Sample delegate object:
-     * ```javascript
-     * {
-     * 	name: "sap/ui/mdc/BaseDelegate",
-     * 	payload: {}
-     * }```
-     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
-     * that).
-     *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `...see text or source`.
-     *
-     * @experimental
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setDelegate(
-      /**
-       * New value for property `delegate`
-       */
-      oDelegate?: object
-    ): this;
-    /**
-     * Sets a new value for property {@link #getExpandFilterFields expandFilterFields}.
-     *
-     * Determines whether the Show/Hide Filters button is in the state show or hide.
-     *
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setExpandFilterFields(
-      /**
-       * New value for property `expandFilterFields`
-       */
-      bExpandFilterFields?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getFilterFieldThreshold filterFieldThreshold}.
-     *
-     * Number of FilterItems which will be shown via Show Filters.
-     *
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `8`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setFilterFieldThreshold(
-      /**
-       * New value for property `filterFieldThreshold`
-       */
-      iFilterFieldThreshold?: int
-    ): this;
   }
   /**
    * Describes the settings that can be provided to the FilterBar constructor.
+   *
+   * @deprecated (since 1.124.0) - Please use the `sap.ui.mdc.valuehelp.FilterBar` control instead.
    */
-  export interface $FilterBarSettings extends $FilterBarBaseSettings {
-    /**
-     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
-     *  The object has the following properties:
-     * 	 - `name` defines the path to the `Delegate` module
-     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
-     *      Sample delegate object:
-     * ```javascript
-     * {
-     * 	name: "sap/ui/mdc/BaseDelegate",
-     * 	payload: {}
-     * }```
-     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
-     * that).
-     *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * @experimental
-     */
-    delegate?: object | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Determines whether the Show/Hide Filters button is in the state show or hide.
-     */
-    expandFilterFields?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Number of FilterItems which will be shown via Show Filters.
-     */
-    filterFieldThreshold?: int | PropertyBindingInfo | `{${string}}`;
-  }
+  export interface $FilterBarSettings extends $FilterBarBaseSettings {}
 }
 
 declare module "sap/ui/mdc/FilterField" {
@@ -12876,11 +12384,11 @@ declare module "sap/ui/mdc/FilterField" {
    * 	 - If used for search, a {@link sap.m.SearchField SearchField} control is rendered.
    *
    * @since 1.48.0
-   * @experimental (since 1.48.0)
    */
   export default class FilterField
     extends FieldBase
-    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent {
+    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_core_ISemanticFormContent: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
@@ -13234,8 +12742,6 @@ declare module "sap/ui/mdc/FilterField" {
   }
   /**
    * Describes the settings that can be provided to the FilterField constructor.
-   *
-   * @experimental (since 1.48.0)
    */
   export interface $FilterFieldSettings extends $FieldBaseSettings {
     /**
@@ -13357,7 +12863,6 @@ declare module "sap/ui/mdc/Link" {
    * of a {@link module:sap/ui/mdc/LinkDelegate LinkDelegate}.
    *
    * @since 1.74
-   * @experimental (since 1.74.0)
    */
   export default class Link extends FieldInfoBase {
     /**
@@ -13467,7 +12972,6 @@ declare module "sap/ui/mdc/Link" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Value of property `delegate`
      */
@@ -13531,7 +13035,6 @@ declare module "sap/ui/mdc/Link" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -13633,8 +13136,6 @@ declare module "sap/ui/mdc/Link" {
 
   /**
    * Describes the settings that can be provided to the Link constructor.
-   *
-   * @experimental (since 1.74.0)
    */
   export interface $LinkSettings extends $FieldInfoBaseSettings {
     /**
@@ -13656,8 +13157,6 @@ declare module "sap/ui/mdc/Link" {
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
      * that).
      *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * @experimental
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -14093,7 +13592,8 @@ declare module "sap/ui/mdc/MultiValueField" {
    */
   export default class MultiValueField
     extends FieldBase
-    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent {
+    implements IFormContent, ISemanticFormContent, IOverflowToolbarContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_core_ISemanticFormContent: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
@@ -14780,7 +14280,6 @@ declare module "sap/ui/mdc/Table" {
    * and their types are subject to change without notice.
    *
    * @since 1.58
-   * @experimental (since 1.58.0)
    */
   export default class Table extends Control implements IFilterSource, IxState {
     __implements__sap_ui_mdc_IFilterSource: boolean;
@@ -15126,6 +14625,7 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Destroys the creationRow in the aggregation {@link #getCreationRow creationRow}.
      *
+     * @deprecated (since 1.124) - the concept has been discarded.
      * @experimental - Do not use
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -15272,17 +14772,20 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Fires event {@link #event:beforeExport beforeExport} to attached listeners.
      *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
      * @since 1.75
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Whether or not to prevent the default action
      */
     fireBeforeExport(
       /**
        * Parameters to pass along with the event
        */
       mParameters?: Table$BeforeExportEventParameters
-    ): this;
+    ): boolean;
     /**
      * Fires event {@link #event:beforeOpenContextMenu beforeOpenContextMenu} to attached listeners.
      *
@@ -15409,7 +14912,7 @@ declare module "sap/ui/mdc/Table" {
      * Columns of the table.
      *
      * **Note:** This aggregation is managed by the control, can only be populated during the definition in
-     * the XML view, and is not bindable. Any changes of the initial aggregation content might result in unwanted
+     * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
      * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
      */
     getColumns(): Column[];
@@ -15446,6 +14949,7 @@ declare module "sap/ui/mdc/Table" {
      *
      * **Note:** Once the binding supports creating transient records, this aggregation will be removed.
      *
+     * @deprecated (since 1.124) - the concept has been discarded.
      * @experimental - Do not use
      */
     getCreationRow(): /* was: sap.ui.mdc.table.CreationRow */ any;
@@ -15453,9 +14957,6 @@ declare module "sap/ui/mdc/Table" {
      * Gets content of aggregation {@link #getDataStateIndicator dataStateIndicator}.
      *
      * `DataStateIndicator` plugin that can be used to show binding-related messages.
-     *
-     * **Note:** The message filtering is not yet supported for this control. Therefore the {@link sap.m.plugins.DataStateIndicator#getEnableFiltering enableFiltering }
-     * property of the `DataStateIndicator` plugin must not be set to `true`.
      *
      * @since 1.89
      */
@@ -15482,7 +14983,6 @@ declare module "sap/ui/mdc/Table" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Value of property `delegate`
      */
@@ -15583,7 +15083,7 @@ declare module "sap/ui/mdc/Table" {
      * Defines style of the header. For more information, see {@link sap.m.Title#setTitleStyle}.
      *
      * @since 1.116
-     * @experimental - Internal use only
+     * @experimental
      *
      * @returns Value of property `headerStyle`
      */
@@ -15953,6 +15453,7 @@ declare module "sap/ui/mdc/Table" {
     /**
      * Sets the aggregated {@link #getCreationRow creationRow}.
      *
+     * @deprecated (since 1.124) - the concept has been discarded.
      * @experimental - Do not use
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -16000,7 +15501,6 @@ declare module "sap/ui/mdc/Table" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16159,7 +15659,7 @@ declare module "sap/ui/mdc/Table" {
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * @since 1.116
-     * @experimental - Internal use only
+     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16598,8 +16098,6 @@ declare module "sap/ui/mdc/Table" {
 
   /**
    * Describes the settings that can be provided to the Table constructor.
-   *
-   * @experimental (since 1.58.0)
    */
   export interface $TableSettings extends $ControlSettings {
     /**
@@ -16645,8 +16143,6 @@ declare module "sap/ui/mdc/Table" {
      * **Note:** Ensure that the related file can be requested (any required library has to be loaded before
      * that).
      *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * @experimental
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -16664,7 +16160,7 @@ declare module "sap/ui/mdc/Table" {
      * Defines style of the header. For more information, see {@link sap.m.Title#setTitleStyle}.
      *
      * @since 1.116
-     * @experimental - Internal use only
+     * @experimental
      */
     headerStyle?:
       | (TitleLevel | keyof typeof TitleLevel)
@@ -16912,7 +16408,7 @@ declare module "sap/ui/mdc/Table" {
      * Columns of the table.
      *
      * **Note:** This aggregation is managed by the control, can only be populated during the definition in
-     * the XML view, and is not bindable. Any changes of the initial aggregation content might result in unwanted
+     * the XML view, and is not bindable. Any changes of the initial aggregation content might result in undesired
      * effects. Changes of the aggregation have to be made with the {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
      */
     columns?: Column[] | Column | AggregationBindingInfo | `{${string}}`;
@@ -16923,6 +16419,7 @@ declare module "sap/ui/mdc/Table" {
      *
      * **Note:** Once the binding supports creating transient records, this aggregation will be removed.
      *
+     * @deprecated (since 1.124) - the concept has been discarded.
      * @experimental - Do not use
      */
     creationRow?: /* was: sap.ui.mdc.table.CreationRow */ any;
@@ -16956,9 +16453,6 @@ declare module "sap/ui/mdc/Table" {
 
     /**
      * `DataStateIndicator` plugin that can be used to show binding-related messages.
-     *
-     * **Note:** The message filtering is not yet supported for this control. Therefore the {@link sap.m.plugins.DataStateIndicator#getEnableFiltering enableFiltering }
-     * property of the `DataStateIndicator` plugin must not be set to `true`.
      *
      * @since 1.89
      */
@@ -17345,7 +16839,8 @@ declare module "sap/ui/mdc/table/Column" {
     /**
      * Destroys the creationTemplate in the aggregation {@link #getCreationTemplate creationTemplate}.
      *
-     * @experimental - Do not use
+     * @deprecated (since 1.124) - the concept has been discarded.
+     * @experimental - Internal use only
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17372,7 +16867,8 @@ declare module "sap/ui/mdc/table/Column" {
      *
      * **Note:** Once the binding supports creating transient records, this aggregation will be removed.
      *
-     * @experimental - Do not use
+     * @deprecated (since 1.124) - the concept has been discarded.
+     * @experimental - Internal use only
      */
     getCreationTemplate(): Control;
     /**
@@ -17512,7 +17008,8 @@ declare module "sap/ui/mdc/table/Column" {
     /**
      * Sets the aggregated {@link #getCreationTemplate creationTemplate}.
      *
-     * @experimental - Do not use
+     * @deprecated (since 1.124) - the concept has been discarded.
+     * @experimental - Internal use only
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -17843,7 +17340,8 @@ declare module "sap/ui/mdc/table/Column" {
      *
      * **Note:** Once the binding supports creating transient records, this aggregation will be removed.
      *
-     * @experimental - Do not use
+     * @deprecated (since 1.124) - the concept has been discarded.
+     * @experimental - Internal use only
      */
     creationTemplate?: Control;
 
@@ -20346,8 +19844,7 @@ declare module "sap/ui/mdc/util/PropertyHelper" {
     /**
      * Unique, stable key for the property. It must only contain characters allowed for IDs, see {@link sap.ui.core.ID}.
      * Does not have to be an existing attribute in the data model or the technical name of an attribute in
-     * the data model. **Note:** 'key' replaces the deprecated 'name' attribute, which will also be interpolated
-     * by the PropertyHelper for legacy code support.
+     * the data model.
      */
     key: string;
     /**
@@ -20423,7 +19920,6 @@ declare module "sap/ui/mdc/ValueHelp" {
    * in the control tree on the container holding the fields.
    *
    * @since 1.95.0
-   * @experimental (since 1.95.0)
    */
   export default abstract class ValueHelp extends Element1 {
     /**
@@ -21184,7 +20680,6 @@ declare module "sap/ui/mdc/ValueHelp" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Value of property `delegate`
      */
@@ -21279,7 +20774,6 @@ declare module "sap/ui/mdc/ValueHelp" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -21428,8 +20922,6 @@ declare module "sap/ui/mdc/ValueHelp" {
 
   /**
    * Describes the settings that can be provided to the ValueHelp constructor.
-   *
-   * @experimental (since 1.95.0)
    */
   export interface $ValueHelpSettings extends $ElementSettings {
     /**
@@ -21457,8 +20949,6 @@ declare module "sap/ui/mdc/ValueHelp" {
      *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
      * that).
      *  Do not bind or modify the module. This property can only be configured during control initialization.
-     *
-     * @experimental
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -26188,6 +25678,241 @@ declare module "sap/ui/mdc/valuehelp/content/MTable" {
   >;
 }
 
+declare module "sap/ui/mdc/valuehelp/FilterBar" {
+  import {
+    default as FilterBarBase,
+    $FilterBarBaseSettings,
+  } from "sap/ui/mdc/filterbar/FilterBarBase";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * The `FilterBar` control is used to display filter properties in a user-friendly manner to populate values
+   * for a query. The filters are arranged in a logical row that is divided depending on the space available
+   * and the width of the filters. The Go button triggers the search event, and the Show Filters button shows
+   * the additional filter field.
+   *  The `FilterBar` control creates and handles the filters based on the provided metadata information.
+   * The metadata information is provided via the {@link module:sap/ui/mdc/FilterBarDelegate FilterBarDelegate }
+   * implementation. This implementation has to be provided by the application.
+   *  **Note:** The `FilterBar` can only be used for a {@link sap.ui.mdc.valuehelp.Dialog Dialog} and not
+   * on its own.
+   *
+   * @since 1.124.0
+   */
+  export default class FilterBar extends FilterBarBase {
+    /**
+     * Constructor for a new `FilterBar` for a value help dialog.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $FilterBarSettings
+    );
+    /**
+     * Constructor for a new `FilterBar` for a value help dialog.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * initial settings for the new control
+       */
+      mSettings?: $FilterBarSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.mdc.valuehelp.FilterBar with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.mdc.filterbar.FilterBarBase.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, FilterBar>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.valuehelp.FilterBar.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getDelegate delegate}.
+     *
+     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
+     *  The object has the following properties:
+     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
+     *      Sample delegate object:
+     * ```javascript
+     * {
+     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	payload: {}
+     * }```
+     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
+     * that).
+     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     *
+     * Default value is `...see text or source`.
+     *
+     *
+     * @returns Value of property `delegate`
+     */
+    getDelegate(): object;
+    /**
+     * Gets current value of property {@link #getExpandFilterFields expandFilterFields}.
+     *
+     * Determines whether the Show/Hide Filters button is in the state show or hide.
+     *
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `expandFilterFields`
+     */
+    getExpandFilterFields(): boolean;
+    /**
+     * Gets current value of property {@link #getFilterFieldThreshold filterFieldThreshold}.
+     *
+     * Number of FilterItems which will be shown via Show Filters.
+     *
+     *
+     * Default value is `8`.
+     *
+     *
+     * @returns Value of property `filterFieldThreshold`
+     */
+    getFilterFieldThreshold(): int;
+    /**
+     * Sets a new value for property {@link #getDelegate delegate}.
+     *
+     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
+     *  The object has the following properties:
+     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
+     *      Sample delegate object:
+     * ```javascript
+     * {
+     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	payload: {}
+     * }```
+     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
+     * that).
+     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `...see text or source`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDelegate(
+      /**
+       * New value for property `delegate`
+       */
+      oDelegate?: object
+    ): this;
+    /**
+     * Sets a new value for property {@link #getExpandFilterFields expandFilterFields}.
+     *
+     * Determines whether the Show/Hide Filters button is in the state show or hide.
+     *
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setExpandFilterFields(
+      /**
+       * New value for property `expandFilterFields`
+       */
+      bExpandFilterFields?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFilterFieldThreshold filterFieldThreshold}.
+     *
+     * Number of FilterItems which will be shown via Show Filters.
+     *
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `8`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFilterFieldThreshold(
+      /**
+       * New value for property `filterFieldThreshold`
+       */
+      iFilterFieldThreshold?: int
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the FilterBar constructor.
+   */
+  export interface $FilterBarSettings extends $FilterBarBaseSettings {
+    /**
+     * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
+     *  The object has the following properties:
+     * 	 - `name` defines the path to the `Delegate` module
+     * 	 - `payload` (optional) defines application-specific information that can be used in the given delegate
+     *      Sample delegate object:
+     * ```javascript
+     * {
+     * 	name: "sap/ui/mdc/BaseDelegate",
+     * 	payload: {}
+     * }```
+     *  **Note:** Ensure that the related file can be requested (any required library has to be loaded before
+     * that).
+     *  Do not bind or modify the module. This property can only be configured during control initialization.
+     */
+    delegate?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the Show/Hide Filters button is in the state show or hide.
+     */
+    expandFilterFields?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Number of FilterItems which will be shown via Show Filters.
+     */
+    filterFieldThreshold?: int | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
 declare module "sap/ui/mdc/valuehelp/Popover" {
   import {
     default as Container,
@@ -26387,8 +26112,6 @@ declare module "sap/ui/mdc/valuehelp/Popover" {
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
-    "sap/ui/mdc/ActionToolbar": undefined;
-
     "sap/ui/mdc/actiontoolbar/ActionToolbarAction": undefined;
 
     "sap/ui/mdc/AggregationBaseDelegate": undefined;
@@ -26667,6 +26390,8 @@ declare namespace sap {
 
     "sap/ui/mdc/valuehelp/base/ListContent": undefined;
 
+    "sap/ui/mdc/valuehelp/CollectiveSearchSelect": undefined;
+
     "sap/ui/mdc/valuehelp/content/Bool": undefined;
 
     "sap/ui/mdc/valuehelp/content/Conditions": undefined;
@@ -26680,6 +26405,8 @@ declare namespace sap {
     "sap/ui/mdc/valuehelp/content/MTable": undefined;
 
     "sap/ui/mdc/valuehelp/Dialog": undefined;
+
+    "sap/ui/mdc/valuehelp/FilterBar": undefined;
 
     "sap/ui/mdc/valuehelp/Popover": undefined;
 

@@ -34,7 +34,6 @@
         "test/webcrypto.ts",
         "test/websockets.ts",
         "test/experimental/fs.ts",
-        "test/experimental/grpc.ts",
         "test/ws.ts"
     ]
 }

@@ -4,7 +4,10 @@ declare namespace WebAssembly {
 }
 
 declare namespace Emscripten {
-    interface FileSystemType {}
+    interface FileSystemType {
+        mount(mount: FS.Mount): FS.FSNode;
+        syncfs(mount: FS.Mount, populate: () => unknown, done: (err?: number | null) => unknown): void;
+    }
     type EnvironmentType = "WEB" | "NODE" | "SHELL" | "WORKER";
 
     type JSType = "number" | "string" | "array" | "boolean";
@@ -115,14 +118,45 @@ declare namespace FS {
         parentObject: Lookup["node"];
     }
 
-    interface FSStream {}
-    interface FSNode {
+    interface Mount {
+        type: Emscripten.FileSystemType;
+        opts: object;
+        mountpoint: string;
+        mounts: Mount[];
+        root: FSNode;
+    }
+
+    class FSStream {
+        constructor();
+        object: FSNode;
+        readonly isRead: boolean;
+        readonly isWrite: boolean;
+        readonly isAppend: boolean;
+        flags: number;
+        position: number;
+    }
+
+    class FSNode {
+        parent: FSNode;
+        mount: Mount;
+        mounted?: Mount;
+        id: number;
+        name: string;
         mode: number;
+        rdev: number;
+        readMode: number;
+        writeMode: number;
+        constructor(parent: FSNode, name: string, mode: number, rdev: number);
+        read: boolean;
+        write: boolean;
+        readonly isFolder: boolean;
+        readonly isDevice: boolean;
     }
 
     class ErrnoError extends Error {
         name: "ErronoError";
         errno: number;
+        code: string;
     }
 
     let ignorePermissions: boolean;

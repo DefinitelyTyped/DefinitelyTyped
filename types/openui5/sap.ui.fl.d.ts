@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -220,7 +220,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     implements
       IShrinkable,
       IOverflowToolbarContent,
-      /* was: sap.m.IToolbarInteractiveControl */ Object {
+      /* was: sap.m.IToolbarInteractiveControl */ Object
+  {
     __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
     __implements__sap_m_IToolbarInteractiveControl: boolean;

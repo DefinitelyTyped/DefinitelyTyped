@@ -35,7 +35,6 @@ import "./experimental/timers";
 import "./experimental/tracing";
 import "./experimental/webcrypto";
 import "./experimental/websockets";
-import "./experimental/grpc";
 import "./timers";
 import "./ws";
 import "./net/grpc";

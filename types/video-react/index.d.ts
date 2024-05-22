@@ -8,7 +8,7 @@ export interface StaticPlayerInstanceMethods {
     /**
      * Get the redux State.
      */
-    getState: () => PlayerState;
+    getState: () => { player: PlayerState };
     /**
      * Play the video.
      */
@@ -140,6 +140,33 @@ export interface PlayerState {
      * Set the id of the video element.
      */
     videoId: string;
+    /**
+     * All available subtitles.
+     */
+    textTracks: TextTrack[];
+    /**
+     * Active subtitle.
+     */
+    activeTextTrack?: TextTrack;
+}
+
+export interface TextTrack {
+    /**
+     * Kind of the track, usually 'captions'.
+     */
+    kind: string;
+    /**
+     * Label of the track.
+     */
+    label: string;
+    /**
+     * Language of the track.
+     */
+    language: string;
+    /**
+     * Visibility of the track. i.e. 'showing' or 'hide'.
+     */
+    mode: string;
 }
 
 export interface PlayerActions {
@@ -180,6 +207,18 @@ export interface PlayerActions {
      */
     replay: (seconds: number) => void;
     /**
+     * Change video speed
+     */
+    changeRate: (rate: number) => void;
+    /**
+     * Change video volume
+     */
+    changeVolume: (volume: number) => void;
+    /**
+     * Mute/Unmute video
+     */
+    mute: (mute: boolean) => void;
+    /**
      * Enter or exist full screen
      */
     toggleFullscreen: () => void;
@@ -187,6 +226,10 @@ export interface PlayerActions {
      * Subscribe to the player state changes.
      */
     subscribeToStateChange: (listener: StateListener) => void;
+    /**
+     * Activate a text track.
+     */
+    activateTextTrack: (track: TextTrack) => void;
 }
 
 export interface PlayerProps extends RefAttributes<PlayerReference> {
@@ -260,6 +303,30 @@ export interface PlayerProps extends RefAttributes<PlayerReference> {
      * Seek the Video at A Specific Time On Load
      */
     startTime?: number;
+    /**
+     * Set Cross Origin configuration
+     */
+    crossOrigin?: string;
+    /**
+     * Event on Play
+     */
+    onPlay?: () => void;
+    /**
+     * Event on Ended
+     */
+    onEnded?: () => void;
+    /**
+     * Event on Load start
+     */
+    onLoadStart?: () => void;
+    /**
+     * Event on Pause start
+     */
+    onPause?: () => void;
+    /**
+     * Set the id of the video element.
+     */
+    videoId?: string;
 
     children?: React.ReactNode;
 }
