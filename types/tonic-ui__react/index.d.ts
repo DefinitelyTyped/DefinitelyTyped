@@ -4,6 +4,7 @@ import {
     ComponentType,
     CSSProperties,
     Dispatch,
+    ElementType,
     HTMLAttributes,
     ImgHTMLAttributes,
     InputHTMLAttributes,
@@ -427,7 +428,7 @@ export interface GridProps extends TonicProps {
 }
 
 export interface IconProps extends TonicProps {
-    icon: string;
+    icon?: string;
     size?: string | number;
     spin?: boolean | "cw" | "ccw";
 }
@@ -1065,7 +1066,7 @@ type _CSSPropsWithHTML<Attributes> =
     & Attributes
     & _ResponsiveCSSProperties
     & {
-        as?: string;
+        as?: ElementType | string;
 
         // Protip, avoid using this if it can be handled with regular CSS props
         css?: Record<string, unknown>;
