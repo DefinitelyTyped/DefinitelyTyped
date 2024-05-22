@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "jsx": "react-jsx",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [
+            "node",
+            "react"
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "tmicon.d.ts",
+        "tonic-ui__react-icons-tests.tsx"
+    ]
+}
