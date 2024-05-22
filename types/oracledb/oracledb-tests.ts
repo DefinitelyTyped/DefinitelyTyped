@@ -65,7 +65,7 @@ const testGetStatmentInfo = async (connection: oracledb.Connection): Promise<voi
         {
             name: "1",
             fetchType: 2002,
-            dbType: 2,
+            dbType: oracledb.DB_TYPE_NUMBER,
             nullable: true,
             precision: 0,
             scale: -127,
@@ -691,4 +691,15 @@ export const fetchAsStringTests = (): void => {
     defaultOracledb.fetchAsString = [{}];
     // @ts-expect-error
     defaultOracledb.fetchAsString = [oracledb.STRING];
+};
+
+export const version6Tests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({
+        user: "test",
+    });
+
+    const lob = await connection.createLob(oracledb.CLOB);
+    const offset = 1, len = 100;
+    await lob.getData(offset);
+    await lob.getData(offset + 3, len);
 };

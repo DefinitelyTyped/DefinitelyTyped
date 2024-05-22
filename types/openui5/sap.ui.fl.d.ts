@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -186,7 +186,12 @@ declare module "sap/ui/fl/transport/TransportDialog" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the TransportDialog constructor.
+   *
+   * @deprecated (since 1.74) - The TransportDialog should be used only internally inside the `sap.ui.fl`
+   * library.
+   */
   export interface $TransportDialogSettings extends $DialogSettings {}
 }
 
@@ -215,7 +220,8 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     implements
       IShrinkable,
       IOverflowToolbarContent,
-      /* was: sap.m.IToolbarInteractiveControl */ Object {
+      /* was: sap.m.IToolbarInteractiveControl */ Object
+  {
     __implements__sap_ui_core_IShrinkable: boolean;
     __implements__sap_m_IOverflowToolbarContent: boolean;
     __implements__sap_m_IToolbarInteractiveControl: boolean;
@@ -1105,7 +1111,9 @@ declare module "sap/ui/fl/variants/VariantManagement" {
       bUpdateVariantInURL?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the VariantManagement constructor.
+   */
   export interface $VariantManagementSettings extends $ControlSettings {
     /**
      * Indicates whether the current variant is updated based on the passed information in the URL.  **Note:**
@@ -1218,20 +1226,35 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     select?: (oEvent: VariantManagement$SelectEvent) => void;
   }
 
+  /**
+   * Parameters of the VariantManagement#cancel event.
+   */
   export interface VariantManagement$CancelEventParameters {}
 
+  /**
+   * Event object of the VariantManagement#cancel event.
+   */
   export type VariantManagement$CancelEvent = Event<
     VariantManagement$CancelEventParameters,
     VariantManagement
   >;
 
+  /**
+   * Parameters of the VariantManagement#initialized event.
+   */
   export interface VariantManagement$InitializedEventParameters {}
 
+  /**
+   * Event object of the VariantManagement#initialized event.
+   */
   export type VariantManagement$InitializedEvent = Event<
     VariantManagement$InitializedEventParameters,
     VariantManagement
   >;
 
+  /**
+   * Parameters of the VariantManagement#manage event.
+   */
   export interface VariantManagement$ManageEventParameters {
     /**
      * List of changed variants. Each entry contains a `key` (the variant key) and a `name` (the new title of
@@ -1269,11 +1292,17 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     contexts?: object[];
   }
 
+  /**
+   * Event object of the VariantManagement#manage event.
+   */
   export type VariantManagement$ManageEvent = Event<
     VariantManagement$ManageEventParameters,
     VariantManagement
   >;
 
+  /**
+   * Parameters of the VariantManagement#save event.
+   */
   export interface VariantManagement$SaveEventParameters {
     /**
      * Variant title
@@ -1316,11 +1345,17 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     tile?: boolean;
   }
 
+  /**
+   * Event object of the VariantManagement#save event.
+   */
   export type VariantManagement$SaveEvent = Event<
     VariantManagement$SaveEventParameters,
     VariantManagement
   >;
 
+  /**
+   * Parameters of the VariantManagement#select event.
+   */
   export interface VariantManagement$SelectEventParameters {
     /**
      * Variant key
@@ -1328,6 +1363,9 @@ declare module "sap/ui/fl/variants/VariantManagement" {
     key?: string;
   }
 
+  /**
+   * Event object of the VariantManagement#select event.
+   */
   export type VariantManagement$SelectEvent = Event<
     VariantManagement$SelectEventParameters,
     VariantManagement
@@ -1592,8 +1630,6 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/preprocessors/ComponentLifecycleHooks": undefined;
 
     "sap/ui/fl/apply/_internal/preprocessors/ControllerExtension": undefined;
-
-    "sap/ui/fl/apply/_internal/preprocessors/EventHistory": undefined;
 
     "sap/ui/fl/apply/api/ControlVariantApplyAPI": undefined;
 

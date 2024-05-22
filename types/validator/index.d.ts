@@ -809,6 +809,30 @@ declare namespace validator {
     export function isLength(str: string, options?: IsLengthOptions): boolean;
 
     /**
+     * Check  if the string matches the format of a country's license plate.
+     */
+    export function isLicensePlate(
+        str: string,
+        locale:
+            | "cs-CZ"
+            | "de-DE"
+            | "de-LI"
+            | "en-IN"
+            | "es-AR"
+            | "hu-HU"
+            | "pt-BR"
+            | "pt-PT"
+            | "sq-AL"
+            | "sv-SE"
+            | "any",
+    ): boolean;
+
+    /**
+     * Check if the string passes the [Luhn algorithm check](https://en.m.wikipedia.org/wiki/Luhn_algorithm).
+     */
+    export function isLuhnNumber(str: string): boolean;
+
+    /**
      * Check if the string is a locale.
      */
     export function isLocale(str: string): boolean;

@@ -1,6 +1,6 @@
 import * as be from "@wordpress/block-editor";
 import * as UseBlockProps from "@wordpress/block-editor/components/use-block-props";
-import { BlockInstance } from "@wordpress/blocks";
+import { BlockInstance, createBlock } from "@wordpress/blocks";
 import { dispatch, select } from "@wordpress/data";
 import { useRef } from "react";
 
@@ -44,27 +44,48 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 <be.BlockControls
     controls={[
         {
-            icon: "yes",
+            icon: "admin-appearance",
             title: "Yes",
             onClick() {},
-            shortcut: {
-                display: "Yes",
-            },
             isDisabled: false,
         },
         {
-            icon: "no",
+            icon: null,
             title: "No",
             onClick() {},
             subscript: "no",
             isActive: false,
-            shortcut: "No",
+            isDisabled: false,
         },
     ]}
 >
     Hello World
 </be.BlockControls>;
+<be.BlockControls group="block">Hello World</be.BlockControls>;
 <be.BlockControls.Slot />;
+
+<be.BlockControls
+    controls={[[
+        {
+            icon: "admin-appearance",
+            title: "Yes",
+            subscript: "Yes",
+            onClick() {},
+            isActive: false,
+            isDisabled: false,
+        },
+        {
+            icon: null,
+            title: "No",
+            onClick() {},
+            subscript: "no",
+            isActive: false,
+            isDisabled: false,
+        },
+    ]]}
+>
+    Hello World
+</be.BlockControls>;
 
 //
 // BlockEditorProvider
@@ -202,6 +223,9 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
+<be.InnerBlocks orientation="vertical" />;
+<be.InnerBlocks prioritizedInserterBlocks={["core/navigation-link/page"]} />;
+<be.InnerBlocks templateLock="all" />;
 
 //
 // inserter
@@ -327,6 +351,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
     onChange={nextContent => console.log(nextContent.toUpperCase())}
     onReplace={blocks => blocks.forEach(b => console.log(b.clientId))}
     allowedFormats={["core/bold", "core/italic"]}
+    onSplit={(value, isOriginal) => createBlock("core/paragraph", { content: value })}
 />;
 <be.RichText.Content value="foo" />;
 <be.RichText.Content tagName="p" style={{ color: "blue" }} className="foo" value="Hello World" dir="rtl" />;
@@ -579,6 +604,12 @@ be.useBlockProps.save({ foo: "bar" });
     const innerBlocksProps = be.useInnerBlocksProps({ ref: useRef("test") });
 
     innerBlocksProps.ref((current: unknown) => {});
+}
+
+{
+    const { children } = be.useInnerBlocksProps();
+    // $ExpectType ReactElement<any, string | JSXElementConstructor<any>>
+    children;
 }
 
 // $ExpectType Record<string, unknown>

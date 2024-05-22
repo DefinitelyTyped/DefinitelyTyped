@@ -8,6 +8,7 @@
     "dependencies": {
         "@npm/types": "*",
         "@types/cacache": "*",
+        "@types/node": "*",
         "@types/npmcli__package-json": "*",
         "@types/pacote": "*"
     },

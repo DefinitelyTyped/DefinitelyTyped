@@ -141,6 +141,17 @@ export interface PossibleErrors extends Linter.RulesRecord {
     "no-dupe-args": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow duplicate conditions in if-else-if chains.
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 6.7.0
+     * @see https://eslint.org/docs/rules/no-dupe-else-if
+     */
+    "no-dupe-else-if": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow duplicate keys in object literals.
      *
      * @remarks
@@ -334,6 +345,17 @@ export interface PossibleErrors extends Linter.RulesRecord {
     >;
 
     /**
+     * Disallow literal numbers that lose precision.
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 7.1.0
+     * @see https://eslint.org/docs/latest/rules/no-loss-of-precision
+     */
+    "no-loss-of-precision": Linter.RuleEntry<[]>;
+
+    /**
      * Rule to disallow characters which are made with multiple code points in character class syntax.
      *
      * @remarks
@@ -434,6 +456,23 @@ export interface PossibleErrors extends Linter.RulesRecord {
     "no-unreachable": Linter.RuleEntry<[]>;
 
     /**
+     * Disallow loops with a body that allows only one iteration.
+     *
+     * @since 7.3.0
+     * @see https://eslint.org/docs/latest/rules/no-unreachable-loop
+     */
+    "no-unreachable-loop": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default []
+                 */
+                ignore: "WhileStatement" | "DoWhileStatement" | "ForStatement" | "ForInStatement" | "ForOfStatement";
+            }>,
+        ]
+    >;
+
+    /**
      * Rule to disallow control flow statements in `finally` blocks.
      *
      * @remarks
@@ -454,6 +493,26 @@ export interface PossibleErrors extends Linter.RulesRecord {
      * @see https://eslint.org/docs/rules/no-unsafe-negation
      */
     "no-unsafe-negation": Linter.RuleEntry<[]>;
+
+    /**
+     * Disallow use of optional chaining in contexts where the `undefined` value is not allowed.
+     *
+     * @remarks
+     * Recommended by ESLint, the rule was enabled in `eslint:recommended`.
+     *
+     * @since 7.15.0
+     * @see https://eslint.org/docs/rules/no-unsafe-optional-chaining
+     */
+    "no-unsafe-optional-chaining": Linter.RuleEntry<
+        [
+            Partial<{
+                /**
+                 * @default false
+                 */
+                disallowArithmeticOperators: boolean;
+            }>,
+        ]
+    >;
 
     /**
      * Rule to disallow assignments that can lead to race conditions due to usage of `await` or `yield`.

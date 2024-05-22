@@ -12,6 +12,7 @@ import {
     RenderTarget,
     Scene,
     ShadowMapType,
+    Texture,
     ToneMapping,
     Vector2,
     Vector4,
@@ -90,19 +91,19 @@ export default class Renderer {
     depth: boolean;
 
     /**
-     * @default true
+     * @default false
      */
     stencil: boolean;
 
     clippingPlanes: readonly Plane[];
+
+    toneMappingNode: Node | null;
 
     info: Info;
 
     shadowMap: { enabled: boolean; type: ShadowMapType };
 
     xr: { enabled: boolean };
-
-    toneMappingNode?: Node;
 
     localClippingEnabled?: boolean;
 
@@ -251,9 +252,9 @@ export default class Renderer {
 
     dispose(): void;
 
-    setRenderTarget(renderTarget: RenderTarget, activeCubeFace?: number, activeMipmapLevel?: number): void;
+    setRenderTarget(renderTarget: RenderTarget | null, activeCubeFace?: number, activeMipmapLevel?: number): void;
 
-    getRenderTarget(): RenderTarget;
+    getRenderTarget(): RenderTarget | null;
 
     setRenderObjectFunction(renderObjectFunction: () => {}): void;
 
@@ -264,9 +265,13 @@ export default class Renderer {
      */
     computeAsync(computeNodes: ComputeNode | ComputeNode[]): Promise<void>;
 
+    hasFeatureAsync(name: string): Promise<boolean>;
+
     hasFeature(name: string): boolean;
 
     copyFramebufferToTexture(framebufferTexture: FramebufferTexture): void;
+
+    copyTextureToTexture(position: Vector2, srcTexture: Texture, dstTexture: Texture, level?: number): void;
 
     readRenderTargetPixelsAsync(
         renderTarget: RenderTarget,
@@ -274,6 +279,7 @@ export default class Renderer {
         y: number,
         width: number,
         height: number,
+        index?: number,
     ): Promise<Float32Array | Uint16Array | Uint8Array | Int8Array | Int16Array | Uint32Array | Int32Array>;
 
     renderObject(

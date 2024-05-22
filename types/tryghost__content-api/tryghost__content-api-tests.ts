@@ -10,7 +10,8 @@ const makeRequest = (options: MakeRequestOptions) => {
     return Promise.resolve(data);
 };
 
-const api = new GhostContentAPI({ url: "test", version: "v3", key: "", makeRequest }); // $ExpectType GhostAPI
+// Accept arbitrary version strings
+const api = new GhostContentAPI({ url: "test", version: "v5.9999", key: "", makeRequest }); // $ExpectType GhostAPI
 
 const pagesBrowsePromise = api.pages.browse(); // $ExpectType Promise<PostsOrPages>
 

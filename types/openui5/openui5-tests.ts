@@ -31,10 +31,11 @@ import IllustratedMessage from "sap/m/IllustratedMessage";
 import { SingleControlSelector } from "sap/ui/test/Opa5";
 import Mobile from "sap/ui/util/Mobile";
 import Input from "sap/m/Input";
-import { DynamicDateRangeGroups, ITableItem } from "sap/m/library";
+import { ContentConfigType, DynamicDateRangeGroups, ITableItem } from "sap/m/library";
 import ColumnListItem from "sap/m/ColumnListItem";
 import Filter from "sap/ui/model/Filter";
 import Model from "sap/ui/model/Model";
+import Version from "sap/base/util/Version";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -211,3 +212,13 @@ const iti: ITableItem = new ColumnListItem();
 
 // 1.120
 const noneFilter = Filter.NONE;
+
+// 1.121: this commit just updates the version in package.json
+
+// 1.122
+const cct = ContentConfigType.Link;
+
+// 1.123 mainly comes with comment changes, deprecations etc.
+
+// 1.124
+const v: Version = new Version(1); // minor version is only optional since 1.124

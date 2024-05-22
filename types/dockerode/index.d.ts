@@ -2,6 +2,7 @@
 
 import * as DockerModem from "docker-modem";
 import * as events from "events";
+import { ConnectConfig } from "ssh2";
 import * as stream from "stream";
 
 declare namespace Dockerode {
@@ -465,8 +466,9 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
         /**
          * Filters to process on the prune list, encoded as JSON (a `map[string][]string`).
+         * A dictionary of key/value list is also accepted.
          */
-        filters?: string;
+        filters?: string | { [key: string]: string[] };
     }
 
     interface VolumeRemoveOptions {
@@ -647,8 +649,9 @@ declare namespace Dockerode {
     interface NetworkListOptions {
         /**
          * JSON encoded value of the filters (a `map[string][]string`) to process on the networks list.
+         * A dictionary of key/value list is also accepted.
          */
-        filters?: string;
+        filters?: string | { [key: string]: string[] };
         abortSignal?: AbortSignal;
     }
 
@@ -670,9 +673,9 @@ declare namespace Dockerode {
     interface VolumeListOptions {
         abortSignal?: AbortSignal;
         /**
-         * A JSON encoded value of the filters (a map[string][]string) to process on the images list.
+         * A JSON encoded value of the filters (a map[string][]string) to process on the volume list.
          */
-        filters?: string;
+        filters?: string | { [key: string]: string[] };
         /**
          * Show digest information as a RepoDigests field on each image.
          * @default false
@@ -996,9 +999,13 @@ declare namespace Dockerode {
     }
 
     interface AuthConfig {
-        username: string;
-        password: string;
-        serveraddress: string;
+        username?: string;
+        password?: string;
+        auth?: string;
+        serveraddress?: string;
+        identitytoken?: string;
+        registrytoken?: string;
+        /** @deprecated */
         email?: string | undefined;
     }
 
@@ -1236,6 +1243,7 @@ declare namespace Dockerode {
         timeout?: number | undefined;
         version?: string | undefined;
         sshAuthAgent?: string | undefined;
+        sshOptions?: ConnectConfig | undefined;
         Promise?: typeof Promise | undefined;
     }
 
@@ -1559,8 +1567,9 @@ declare namespace Dockerode {
         size?: boolean;
         /**
          * Filters to process on the container list, encoded as JSON (a map[string][]string).
+         * A dictionary of key/value list is also accepted.
          */
-        filters?: string;
+        filters?: string | { [key: string]: string[] };
     }
 
     interface ServiceListOptions {
@@ -1825,7 +1834,7 @@ declare namespace Dockerode {
 
     interface ListImagesOptions {
         all?: boolean | undefined;
-        filters?: string | undefined;
+        filters?: string | { [key: string]: string[] } | undefined;
         digests?: boolean | undefined;
         abortSignal?: AbortSignal;
     }
@@ -2119,8 +2128,8 @@ declare class Dockerode {
     getEvents(callback: Callback<NodeJS.ReadableStream>): void;
     getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
 
-    pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
-    pull(repoTag: string, options?: {}): Promise<any>;
+    pull(repoTag: string, options: {}, callback: Callback<NodeJS.ReadableStream>, auth?: {}): Dockerode.Image;
+    pull(repoTag: string, options?: {}): Promise<NodeJS.ReadableStream>;
 
     run(
         image: string,

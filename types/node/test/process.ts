@@ -1,6 +1,9 @@
 import * as p from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
+import { constants } from "node:os";
+import { dlopen } from "node:process";
+import { fileURLToPath } from "node:url";
 
 {
     let eventEmitter: EventEmitter;
@@ -70,8 +73,8 @@ import EventEmitter = require("node:events");
     if (process.send) {
         let r: boolean = process.send("aMessage");
         r = process.send({ msg: "foo" }, {});
-        r = process.send({ msg: "foo" }, {}, { swallowErrors: true });
-        r = process.send({ msg: "foo" }, {}, { swallowErrors: true }, (err: Error | null) => {});
+        r = process.send({ msg: "foo" }, {}, { keepOpen: true });
+        r = process.send({ msg: "foo" }, {}, { keepOpen: true }, (err: Error | null) => {});
     }
 }
 
@@ -132,6 +135,24 @@ process.env.TZ = "test";
 
 {
     const arch: NodeJS.Architecture = process.arch;
+}
+
+{
+    const module = { exports: {} };
+    dlopen(module, fileURLToPath(new URL("src", "process.ts")), constants.dlopen.RTLD_NOW);
+}
+
+{
+    process.getActiveResourcesInfo(); // $ExpectType string[]
+}
+
+{
+    process.permission.has("fs.read"); // $ExpectType boolean
+    process.permission.has("fs.read", "./README.md"); // $ExpectType boolean
+}
+
+{
+    process.throwDeprecation = true;
 }
 
 {

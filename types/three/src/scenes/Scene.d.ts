@@ -83,6 +83,12 @@ export class Scene extends Object3D {
     environment: Texture | null;
 
     /**
+     * Attenuates the color of the environment. Only influences environment maps assigned to {@link Scene.environment}.
+     * @default 1
+     */
+    environmentIntensity: number;
+
+    /**
      * The rotation of the environment map in radians. Only influences physical materials in the scene when
      * {@link .environment} is used. Default is `(0,0,0)`.
      */

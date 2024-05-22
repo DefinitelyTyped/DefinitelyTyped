@@ -60,7 +60,23 @@ const test5 = (
     </PanelGroup>
 );
 
-const test6: PanelWidth = {
+const test6 = (
+    <PanelGroup
+        direction="column"
+        borderColor="#FFF"
+        panelColor="#FFF"
+        spacing={12}
+        onUpdate={data => {}}
+        onResizeStart={data => {}}
+        onResizeEnd={data => {}}
+    >
+        <div>panel 1</div>
+        <div>panel 2</div>
+        <div>panel 3</div>
+    </PanelGroup>
+);
+
+const test7: PanelWidth = {
     size: 100,
     minSize: 100,
     resize: "fixed",

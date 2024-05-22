@@ -1,5 +1,21 @@
 import * as OneLine from "pxr-oneline";
-const ndmOne: OneLine.OneLine = {
+
+interface BidderParams {
+    placementId: string;
+}
+interface VideoCustomParameters {
+    [key: string]: number | string | undefined;
+}
+
+interface BidderConfig {
+    bidder: string;
+    params: BidderParams;
+}
+
+type NoParamFunction = () => void;
+type ParamFunction = (arg: any) => void;
+
+const ndOne: OneLine.OneLine = {
     event: {
         o: {},
         topic: {
@@ -12,10 +28,11 @@ const ndmOne: OneLine.OneLine = {
         cons: {
             OneTime: "OneTime",
         },
-        subscribe: (topic, fn) => {},
-        broadcast: (oneTime, topic, data) => {},
+
+        subscribe: (topic: string, fn: NoParamFunction) => {},
+        broadcast: (oneTime: boolean, topic: string, data?: any) => {},
     },
-    adUnitRequest: (arrFoAdIds, allowReload) => {
+    adUnitRequest: (arrFoAdIds: string[], allowReload: boolean) => {
         // Mock implementation for testing
         console.assert(
             !arrFoAdIds && !allowReload,
@@ -27,11 +44,15 @@ const ndmOne: OneLine.OneLine = {
             "adUnitRequest - should allow reload when specified in the arguments",
         );
     },
-    buildVideoUrl: (bidder, placementID) => {},
-    adUnitInfiniteRequest: (bidder) => {},
+    buildVideoUrl: (bidder: BidderConfig[], placementID: string, customParams: VideoCustomParameters): string => {
+        // Example implementation that concatenates placementID with bidder info to form a URL
+        // This is a mock implementation and should be replaced with your actual logic
+        return `https://example.com/video?placement=${placementID}&bidder=${bidder.map(b => b.bidder).join(",")}`;
+    },
 };
 
 // Test cases
-ndmOne.adUnitRequest();
-ndmOne.adUnitRequest(["ndm-1", "ndm-2"]);
-ndmOne.adUnitRequest(["push-up-all"], true);
+ndOne.adUnitRequest();
+ndOne.adUnitRequest(["ndm-1", "ndm-2"]);
+ndOne.adUnitRequest(["push-up-all"], true);
+ndOne.buildVideoUrl([{ bidder: "testBidder", params: { placementId: "testPlacementId" } }], "testPlacementId", {});

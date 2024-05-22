@@ -157,8 +157,18 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     setGeometryAt(index: number, geometry: BufferGeometry): number;
 
     /**
-     * Marks the geometry at the given index as deleted and to not be rendered anymore.
+     * Gets the instance count of the geometry at `index`. Returns `null` if instance counts are not configured.
+     * @param index The index of an instance. Values have to be in the range [0, count].
      */
+    getInstanceCountAt(index: number): number | null;
+
+    /**
+     * Sets an instance count of the geometry at `index`.
+     * @param index Which geometry index to configure an instance count for.
+     * @param instanceCount The number of instances to render of the given geometry index.
+     */
+    setInstanceCountAt(index: number, instanceCount: number): number;
+
     deleteGeometry(index: number): this;
 
     getBoundingBoxAt(index: number, target: Box3): Box3 | null;

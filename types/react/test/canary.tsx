@@ -98,6 +98,7 @@ function useAsyncAction() {
     function handleClick() {
         // $ExpectType void
         startTransition(async () => {});
+        React.startTransition(async () => {});
     }
 }
 
@@ -178,4 +179,224 @@ function Optimistic() {
         // @ts-expect-error string is not assignable to number
         setStateDefaultAction("4");
     };
+}
+
+// ref cleanup
+const ref: React.RefCallback<HTMLDivElement> = current => {
+    // Should be non-nullable
+    // $ExpectType HTMLDivElement | null
+    current;
+    return function refCleanup() {
+    };
+};
+<div
+    ref={current => {
+        // Should be non-nullable
+        // $ExpectType HTMLDivElement | null
+        current;
+        return function refCleanup() {
+        };
+    }}
+/>;
+<div
+    // @ts-expect-error ref cleanup does not accept arguments
+    ref={current => {
+        // @ts-expect-error
+        return function refCleanup(implicitAny) {
+        };
+    }}
+/>;
+<div
+    // @ts-expect-error ref cleanup does not accept arguments
+    ref={current => {
+        return function refCleanup(neverPassed: string) {
+        };
+    }}
+/>;
+
+const useActionState = React.useActionState;
+// Keep in sync with ReactDOM.useFormState tests
+function formTest() {
+    function Page1() {
+        async function action(state: number) {
+            return state + 1;
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+            // $ExpectType boolean
+            isPending,
+        ] = useActionState(action, 1);
+
+        function actionExpectingPromiseState(state: Promise<number>) {
+            return state.then((s) => s + 1);
+        }
+
+        useActionState(
+            // @ts-expect-error
+            actionExpectingPromiseState,
+            Promise.resolve(1),
+        );
+        useActionState(
+            action,
+            // @ts-expect-error
+            Promise.resolve(1),
+        );
+        // $ExpectType number
+        useActionState<Promise<number>>(action, 1)[0];
+
+        useActionState(
+            async (
+                prevState: // only needed in TypeScript 4.9
+                    // 5.0 infers `number` whereas 4.9 infers `0`
+                    number,
+            ) => prevState + 1,
+            0,
+        )[0];
+        // $ExpectType number
+        useActionState(
+            async (prevState) => prevState + 1,
+            // @ts-expect-error
+            Promise.resolve(0),
+        )[0];
+
+        const [
+            state2,
+            action2,
+            // $ExpectType boolean
+            isPending2,
+        ] = useActionState(
+            async (state: React.ReactNode, payload: FormData): Promise<React.ReactNode> => {
+                return state;
+            },
+            (
+                <button>
+                    New Project
+                </button>
+            ),
+        );
+
+        return (
+            <button
+                onClick={() => {
+                    dispatch();
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+
+    function Page2() {
+        async function action(state: number) {
+            return state + 1;
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useActionState(action, 1, "/permalink");
+        return (
+            <form action={dispatch}>
+                <span>Count: {state}</span>
+                <input type="text" name="incrementAmount" defaultValue="5" />
+            </form>
+        );
+    }
+
+    function Page3() {
+        function actionSync(state: number, type: "increment" | "decrement") {
+            return state + (type === "increment" ? 1 : -1);
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useActionState(actionSync, 1, "/permalink");
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+
+    function Page4() {
+        async function action(state: number, type: "increment" | "decrement") {
+            return state + (type === "increment" ? 1 : -1);
+        }
+
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useActionState(action, 1, "/permalink");
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+}
+
+// New transition events
+<div
+    onTransitionStart={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionRun={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionCancel={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+    onTransitionEnd={event => {
+        // $ExpectType TransitionEvent<HTMLDivElement>
+        event;
+    }}
+/>;
+
+// ReactNode tests
+{
+    // @ts-expect-error
+    const render: React.ReactNode = () => React.createElement("div");
+    // @ts-expect-error
+    const emptyObject: React.ReactNode = {};
+    // @ts-expect-error
+    const plainObject: React.ReactNode = { dave: true };
+    const promise: React.ReactNode = Promise.resolve("React");
+    // @ts-expect-error plain objects are not allowed
+    <div>{{ dave: true }}</div>;
+    <div>{Promise.resolve("React")}</div>;
+
+    const asyncTests = async function asyncTests() {
+        const node: Awaited<React.ReactNode> = await Promise.resolve("React");
+    };
+
+    const RenderableContext = React.createContext<React.ReactNode>("HAL");
+    const NestedContext = React.createContext(RenderableContext);
+    // @ts-expect-error TODO Is supported in Canary release channel
+    let node: React.ReactNode = RenderableContext;
+    // @ts-expect-error TODO context values are recursively unwrapped so this should be allowed by types.
+    node = NestedContext;
+
+    const NotRenderableContext = React.createContext(() => {});
+    // @ts-expect-error
+    node = NotRenderableContext;
+
+    node = BigInt(10);
 }

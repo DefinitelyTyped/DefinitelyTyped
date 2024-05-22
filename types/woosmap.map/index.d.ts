@@ -1146,6 +1146,44 @@ declare namespace woosmap.map {
         getDetails(
             request: woosmap.map.localities.LocalitiesDetailsRequest,
         ): Promise<woosmap.map.localities.LocalitiesDetailsResponse>;
+
+        /**
+         * Retrieves localities results based on the nearby request.
+         */
+        nearby(
+            request: woosmap.map.localities.LocalitiesNearbyRequest,
+        ): Promise<woosmap.map.localities.LocalitiesNearbyResponse>;
+    }
+}
+declare namespace woosmap.map.query {
+    class Field {
+        /**
+         * Represents a field filter. Used to build a string for query parameter to pass to Store Search Service.
+         */
+        constructor(key: string, value: string | number | boolean, operator?: woosmap.map.query.Operators | null);
+
+        /**
+         * Returns the field clause in query format.
+         */
+        toString(): string;
+    }
+}
+declare namespace woosmap.map.query {
+    class Query {
+        /**
+         * Represents a Query.  Used to build a string for query parameter to pass to Store Search Service.
+         * Default operator is `BoolOperators.AND`
+         */
+        constructor(
+            children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>,
+            connector: woosmap.map.query.BoolOperators,
+            negate: boolean,
+        );
+
+        /**
+         * Returns the Query as a string usable for the search endpoint query parameter.
+         */
+        toString(): string;
     }
 }
 declare namespace woosmap.map.errors {
@@ -1185,6 +1223,43 @@ declare namespace woosmap.map.errors {
 declare namespace woosmap.map.errors {
     class InternalServerError extends woosmap.map.errors.APIError {
         constructor(message?: string);
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * A service for computing route using public transportation networks.
+     */
+    class TransitService {
+        /**
+         * A service for computing route using public transportation networks.
+         */
+        constructor();
+
+        /**
+         * Get distance, duration and path (as a polyline and transports details) for a pair of origin and destination,
+         * based on the recommended route between those two points and by using public transportations.
+         */
+        route(request: woosmap.map.transit.TransitRouteRequest): Promise<woosmap.map.transit.TransitRouteResponse>;
+    }
+}
+declare namespace woosmap.map {
+    class TransitRenderer extends woosmap.map.MVCObject {
+        constructor(options?: woosmap.map.TransitRendererOptions);
+
+        /**
+         * Sets the map.
+         */
+        setMap(map: woosmap.map.Map | null): any;
+
+        /**
+         * Sets the current selected route.
+         */
+        setRouteIndex(routeIndex: number): any;
+
+        /**
+         * Sets the transit routes to display.
+         */
+        setRoutes(routes: woosmap.map.transit.TransitRoute[]): any;
     }
 }
 declare namespace woosmap.map {
@@ -1602,6 +1677,7 @@ declare namespace woosmap.map {
     interface DirectionResult {
         error_message?: string;
         routes: woosmap.map.DirectionRoute[];
+        status: string;
     }
 }
 declare namespace woosmap.map {
@@ -1623,6 +1699,25 @@ declare namespace woosmap.map {
          */
         arrival_time?: string;
         /**
+         * If `true`, instructs the directions service to avoid ferries
+         * where possible. Optional.
+         */
+        avoidFerries?: boolean;
+        /**
+         * If `true`, instructs the directions service to avoid highways
+         * where possible. Optional.
+         */
+        avoidHighways?: boolean;
+        /**
+         * If `true`, instructs the directions service to avoid toll
+         * roads where possible. Optional.
+         */
+        avoidTolls?: boolean;
+        /**
+         * If set, instructs the directions service to avoid the specific polygons.
+         */
+        avoidZones?: woosmap.map.LatLng[][] | woosmap.map.LatLngLiteral[][];
+        /**
          * Valid values are a timestamp (e.g. 1600799173 for the date:22/09/2020 20:26:13) or now. Use either arrival_time or departure_time, not both.
          */
         departure_time?: string;
@@ -1631,6 +1726,15 @@ declare namespace woosmap.map {
          * When set to full the response will contain detailed driving instructions.
          */
         details?: "none" | "full";
+        /**
+         * The language code, indicating in which language the results should be returned
+         */
+        language?: string;
+        /**
+         * Specifies the method to compute the route between the start point and the end point
+         */
+        method?: "time" | "distance";
+        optimizeWaypoints?: boolean;
         origin: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
         provideRouteAlternatives?: boolean;
         travelMode?: string;
@@ -2745,6 +2849,42 @@ declare namespace woosmap.map.localities {
 }
 declare namespace woosmap.map.localities {
     /**
+     * A Localities Nearby request to be sent to `LocalitiesService.nearby`
+     */
+    interface LocalitiesNearbyRequest {
+        categories?: string;
+        /**
+         * The language code, using ISO 3166-1 Alpha-2 country codes,
+         * indicating in which language the results should be returned, if possible.
+         * If language is not supplied, the Localities service will use english as default language.
+         */
+        language?: string;
+        /**
+         * Limit of results per page. (Default is 10, max is 30)
+         */
+        limit?: number;
+        /**
+         * The center of the search circle.
+         */
+        location: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+        /**
+         * Page number when accessing paginated results.
+         */
+        page?: number;
+        /**
+         * Define the distance in meters within which the API will return results.
+         * Default radius if this parameter is not set is 1000, allowed values are between 10 and 50 000.
+         */
+        radius?: number;
+        /**
+         * Types of targeted items.
+         * The only available value for now is `point_of_interest`.
+         */
+        types?: string | string[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
      * A Localities Autocomplete response returned by the call to
      * `LocalitiesService.autocomplete` containing a
      * list of `LocalitiesPredictions`.
@@ -2771,6 +2911,23 @@ declare namespace woosmap.map.localities {
      */
     interface LocalitiesDetailsResponse {
         result: woosmap.map.localities.LocalitiesDetailsResult;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * A Localities Nearby response returned by the call to
+     * `LocalitiesService.nearby` containing a
+     * list of `LocalitiesNearbyResult`.
+     */
+    interface LocalitiesNearbyResponse {
+        /**
+         * Helps to navigate through paginated results.
+         */
+        pagination: woosmap.map.localities.LocalitiesNearbyPagination;
+        /**
+         * The array of nearby results.
+         */
+        results: woosmap.map.localities.LocalitiesNearbyResult[];
     }
 }
 declare namespace woosmap.map.localities {
@@ -2825,7 +2982,7 @@ declare namespace woosmap.map.localities {
     interface LocalitiesDetailsGeometry {
         accuracy: woosmap.map.localities.LocalitiesDetailsAccuracy;
         location: woosmap.map.LatLngLiteral;
-        viewport: woosmap.map.localties.LocalitiesBounds;
+        viewport: woosmap.map.localities.LocalitiesBounds;
     }
 }
 declare namespace woosmap.map.localities {
@@ -2960,16 +3117,258 @@ declare namespace woosmap.map.localities {
     interface LocalitiesGeocodeGeometry {
         location: woosmap.map.LatLngLiteral;
         location_type: woosmap.map.localities.LocalitiesGeocodeLocationType;
-        viewport: woosmap.map.localties.LocalitiesBounds;
+        viewport: woosmap.map.localities.LocalitiesBounds;
     }
 }
-declare namespace woosmap.map.localties {
+declare namespace woosmap.map.localities {
     /**
      * Defines a viewport by its geographical coordinates of North-East and South-West corners.
      */
     interface LocalitiesBounds {
         northeast: woosmap.map.LatLngLiteral;
         southwest: woosmap.map.LatLngLiteral;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * The types of result returned by nearby search.
+     */
+    type LocalitiesNearbyTypes = "point_of_interest";
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about a Nearby element.
+     */
+    interface LocalitiesNearbyResult {
+        /**
+         * An array containing Address Components with additional information
+         */
+        address_components: woosmap.map.localities.AddressComponents[];
+        /**
+         * An array containing the categories of the result.
+         */
+        categories: string[];
+        /**
+         * The location of the result, in latitude and longitude, eventually associated with a Viewport.
+         */
+        geometry: woosmap.map.localities.LocalitiesNearbyGeometry;
+        /**
+         * The name of the result.
+         */
+        name: string;
+        /**
+         * Contains a unique ID for each result. Please use this ID to give feedbacks on results.
+         */
+        public_id: string;
+        /**
+         * An array containing the types of the result.
+         */
+        types: woosmap.map.localities.LocalitiesNearbyTypes[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about the geometry of a Locality.
+     */
+    interface LocalitiesNearbyGeometry {
+        location: woosmap.map.LatLngLiteral;
+        viewport?: woosmap.map.localities.LocalitiesBounds;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about the pagination of nearby results.
+     */
+    interface LocalitiesNearbyPagination {
+        /**
+         * If more results are available, this will contain the value to pass to the `page` parameter to get the next page.
+         */
+        next_page?: number;
+        /**
+         * If previous results are available, this will contain the value to pass to the `page` parameter to get the previous page.
+         */
+        previous_page?: number;
+    }
+}
+declare namespace woosmap.map {
+    interface TransitRendererOptions {
+        map?: woosmap.map.Map;
+        preserveViewport?: boolean;
+        routes?: woosmap.map.transit.TransitRoute[];
+        showDecorations?: boolean;
+    }
+}
+declare namespace woosmap.map.transit {
+    /**
+     * A Transit request to be sent to `TransitService.route`
+     * `arrivalTime` and `departureTime` are mutually exclusive, if both of them are valued only `departureTime` will be used.
+     */
+    interface TransitRouteRequest {
+        /**
+         * When the travel is expected to finish should be a string encoded timestamp or a string encoded date.
+         */
+        arrivalTime?: string;
+        /**
+         * When the travel is expected to start, should be a string encoded timestamp or a string encoded date.
+         */
+        departureTime?: string;
+        /**
+         * The destination of the trip
+         */
+        destination: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+        /**
+         * Transit mode filter used to determine which modes of transit to include in the response. By default, all supported transit modes are permitted.
+         * Supported modes: `highSpeedTrain` `intercityTrain` `interRegionalTrain` `regionalTrain` `cityTrain` `bus` `ferry` `subway` `lightRail` `privateBus` `inclined` `aerial` `busRapid` `monorail` `flight` `spaceship`
+         * This parameter also support an exclusion list: It's sufficient to specify each mode to exclude by prefixing it with -. Mixing of inclusive and exclusive transit modes is not allowed.
+         */
+        modes?: string[];
+        /**
+         * The origin of the trip
+         */
+        origin: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+    }
+}
+declare namespace woosmap.map.transit {
+    interface TransitPlace {
+        /**
+         * Location coordinates of the place
+         */
+        location: woosmap.map.LatLngLiteral;
+        /**
+         * Name of the place can be null if no place could be identified for the user-provided coordinates (origin or destination)
+         */
+        name: string | null;
+        /**
+         * Type of the place
+         */
+        type: string;
+    }
+}
+declare namespace woosmap.map.transit {
+    /**
+     * When TransitAttribution is valued it's content must be shown to the end user.
+     */
+    interface TransitAttribution {
+        /**
+         * A link to the transport network operator
+         */
+        href: string;
+        /**
+         * Identifier for the attribution
+         */
+        id: string;
+        /**
+         * The text to show to the user
+         */
+        text: string;
+        /**
+         * Type of attribution
+         */
+        type: string;
+    }
+}
+declare namespace woosmap.map.transit {
+    interface TransitTransport {
+        /**
+         * The attribution for this transport, when valued must be shown to user. This can be added at the end of the road book
+         */
+        attributions: woosmap.map.transit.TransitAttribution[] | null;
+        /**
+         * The category, rail, bus ...
+         */
+        category: string | null;
+        /**
+         * The color used to draw polylines.
+         */
+        color: string | null;
+        headsign: string | null;
+        long_name: string | null;
+        /**
+         * The mode of transportation
+         */
+        mode: "pedestrian";
+        /**
+         * Name of the transport (transit line name for example)
+         */
+        name: string | null;
+        short_name: string | null;
+        /**
+         * Color that can be used to draw line text
+         */
+        text_color: string | null;
+    }
+}
+declare namespace woosmap.map.transit {
+    /**
+     * A leg represents a part of the route using a single transport mode.
+     */
+    interface TransitLeg {
+        /**
+         * The bounds of the leg
+         */
+        bounds: woosmap.map.LatLngBounds;
+        /**
+         * The decoded polyline for the leg.
+         */
+        decodedPolyline: woosmap.map.LatLng[];
+        /**
+         * The leg length in meters
+         */
+        distance: number;
+        /**
+         * The leg duration in seconds.
+         */
+        duration: number;
+        /**
+         * The ending location of the leg
+         */
+        end_location: woosmap.map.transit.TransitPlace;
+        polyline: string | null;
+        /**
+         * The starting location of the leg
+         */
+        start_location: woosmap.map.transit.TransitPlace;
+        /**
+         * The transport used for the leg
+         */
+        transport: woosmap.map.transit.TransitTransport;
+        /**
+         * The travel mode for the leg
+         */
+        travel_mode: "pedestrian" | "transit";
+    }
+}
+declare namespace woosmap.map.transit {
+    /**
+     * A transit route composed of multiple TransitLeg, a leg represents a part of the route using a single transport mode.
+     * A list of transit and pedestrian list of the route.
+     */
+    interface TransitRoute {
+        /**
+         * The bounds for the route, union of the leg bounds.
+         */
+        bounds: woosmap.map.LatLngBounds;
+        /**
+         * Duration of the route in seconds
+         */
+        duration: number;
+        /**
+         * The legs for the route
+         */
+        legs: woosmap.map.transit.TransitLeg[];
+        notice: string;
+    }
+}
+declare namespace woosmap.map.transit {
+    interface TransitRouteResponse {
+        /**
+         * The routes.
+         */
+        routes: woosmap.map.transit.TransitRoute[];
+        /**
+         * The status of the response
+         */
+        status: "OK" | "NOT_FOUND";
     }
 }
 declare namespace woosmap.map {
@@ -3015,6 +3414,27 @@ declare namespace woosmap.map.distance {
         OK = "OK",
         OVER_QUERY_LIMIT = "OVER_QUERY_LIMIT",
         REQUEST_DENIED = "REQUEST_DENIED",
+    }
+}
+declare namespace woosmap.map.query {
+    /**
+     * Represents Query Boolean operators.
+     */
+    enum BoolOperators {
+        AND = "AND",
+        NOT = "NOT",
+        OR = "OR",
+    }
+}
+declare namespace woosmap.map.query {
+    /**
+     * Represents Query operators.
+     */
+    enum Operators {
+        gt = "gt",
+        gte = "gte",
+        lt = "lt",
+        lte = "lte",
     }
 }
 declare namespace woosmap.map.event {
@@ -3073,6 +3493,33 @@ declare namespace woosmap.map.geometry {
         poly: woosmap.map.Polygon,
         tolerance?: number,
     ): boolean;
+}
+declare namespace woosmap.map.query {
+    /**
+     * Function helper to instantiate a Field or an array of Fields, used to form queries.
+     * If value is an array, it will create a Field for each item in the array.
+     */
+    function F(
+        key: string,
+        value: string | number | boolean | Array<string | number>,
+        operator?: woosmap.map.query.Operators | null,
+    ): woosmap.map.query.Field | woosmap.map.query.Field[];
+    /**
+     * Helper function to instantiate a Query with AND connector
+     */
+    function and(
+        ...children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>
+    ): woosmap.map.query.Query;
+    /**
+     * Helper function to instantiate a Query with OR connector
+     */
+    function or(
+        ...children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>
+    ): woosmap.map.query.Query;
+    /**
+     * Helper function to instantiate a negated Query
+     */
+    function not(child: woosmap.map.query.Query | woosmap.map.query.Field | string): woosmap.map.query.Query;
 }
 declare namespace woosmap.map {
     class NavigationWidget {
@@ -3179,6 +3626,11 @@ declare namespace woosmap.map {
          * Gets the autocompleteWithDistance option
          */
         getAutocompleteWithDistance(): boolean;
+
+        /**
+         * Gets the autocomplete's maxResponses option value if set to determine the number of search suggestions to retrieve. The default value is 5 and the maximum limit is 10.
+         */
+        getAutocompleteMaxResponses(): number;
 
         /**
          * Renders map with custom theme
@@ -3397,6 +3849,7 @@ declare namespace woosmap.map {
             id?: string | null,
             fromLocation?: string | null,
             advancedFilter?: string | null,
+            maxResponses?: number | null,
         ): void;
     }
 }
@@ -3455,38 +3908,21 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
-     * Options of the Indoor widget.
+     * Widget's autocomplete options
      */
-    interface IndoorWidgetOptions {
+    interface IndoorWidgetAutocompleteOptions {
         /**
-         * Set directions mode/routing profile
+         * If set true, search responses will be retrived with distance from the user's location
          */
-        autocompleteWithDistance?: boolean;
-        /**
-         * Areas to avoid while routing. Useful when certain areas of the venues are restricted or under maintenance.
-         * Expected format `level;lat,lng;lat,lng;lat,lng|level;lat,lng;lat,lng;lat,lng`
-         */
-        avoidZones?: string;
+        autocompleteWithDistance: boolean;
         /**
          * Filter the map and the autocomplete to display/search only labels and icons of POIs which are matching the filters
          */
-        baseFilter?: string;
+        baseFilter: string;
         /**
-         * Set directions mode/routing profile
+         * Number of search responses to retrieve. Default is 5 and the maximum limit is 10.
          */
-        directionsMode?: string;
-        /**
-         * Sets whether to enable/disable navigation mode.
-         */
-        navigationMode?: boolean;
-        /**
-         * Set the custom colors of the indoor widget
-         */
-        ui?: woosmap.map.IndoorWidgetOptionsui;
-        /**
-         * Set units to use to show distance in directions itinerary
-         */
-        units?: "imperial" | "metric" | "";
+        maxResponses: number;
     }
 }
 declare namespace woosmap.map {
@@ -3597,6 +4033,40 @@ declare namespace woosmap.map {
         name?: string | null;
         opening_hours?: string | null;
         ref?: string | null;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Options of the Indoor widget.
+     */
+    interface IndoorWidgetOptions {
+        /**
+         * A set of optional autocomplete options to enrich the autocomplete backend request.
+         */
+        autocomplete?: woosmap.map.IndoorWidgetAutocompleteOptions;
+        autocompleteWithDistance?: boolean;
+        /**
+         * Areas to avoid while routing. Useful when certain areas of the venues are restricted or under maintenance.
+         * Expected format `level;lat,lng;lat,lng;lat,lng|level;lat,lng;lat,lng;lat,lng`
+         */
+        avoidZones?: string;
+        baseFilter?: string;
+        /**
+         * Set directions mode/routing profile
+         */
+        directionsMode?: string;
+        /**
+         * Sets whether to enable/disable navigation mode.
+         */
+        navigationMode?: boolean;
+        /**
+         * Set the custom colors of the indoor widget
+         */
+        ui?: woosmap.map.IndoorWidgetOptionsui;
+        /**
+         * Set units to use to show distance in directions itinerary
+         */
+        units?: "imperial" | "metric" | "";
     }
 }
 declare namespace woosmap.map {

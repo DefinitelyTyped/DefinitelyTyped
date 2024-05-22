@@ -617,10 +617,11 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     clone(recursive?: boolean): this;
 
     /**
-     * Copy the given object into this object
-     * @remarks Note: event listeners and user-defined callbacks ({@link onAfterRender | .onAfterRender} and {@link onBeforeRender | .onBeforeRender}) are not copied.
-     * @param source
-     * @param recursive If true, descendants of the object are also copied. Default `true`
+     * Copies the given object into this object.
+     * @remarks Event listeners and user-defined callbacks ({@link .onAfterRender} and {@link .onBeforeRender}) are not copied.
+     * @param object
+     * @param recursive If set to `true`, descendants of the object are copied next to the existing ones. If set to
+     * `false`, descendants are left unchanged. Default is `true`.
      */
-    copy(source: this, recursive?: boolean): this;
+    copy(object: Object3D, recursive?: boolean): this;
 }

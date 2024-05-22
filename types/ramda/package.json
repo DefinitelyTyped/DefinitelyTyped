@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/ramda",
-    "version": "0.29.9999",
+    "version": "0.30.9999",
     "projects": [
         "https://ramdajs.com"
     ],
@@ -18,9 +18,9 @@
         "./src/": "./src/",
         "./dist/": "./dist/"
     },
-    "minimumTypeScriptVersion": "5.0",
+    "minimumTypeScriptVersion": "4.7",
     "dependencies": {
-        "types-ramda": "^0.29.9"
+        "types-ramda": "^0.30.0"
     },
     "devDependencies": {
         "@types/ramda": "workspace:."

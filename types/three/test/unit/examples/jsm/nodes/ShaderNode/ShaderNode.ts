@@ -15,9 +15,9 @@ import {
     PropertyNode,
     RotateUVNode,
     ShaderNode,
-} from "three/examples/jsm/nodes/Nodes";
+} from "three/addons/nodes/Nodes.js";
 
-import { color, ShaderNodeObject, Swizzable, tslFn, vec3 } from "three/examples/jsm/nodes/shadernode/ShaderNode";
+import { color, ShaderNodeObject, Swizzable, tslFn, vec3 } from "three/addons/nodes/shadernode/ShaderNode.js";
 
 // just to type check
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -71,5 +71,8 @@ assertSwizzable<Node>(shader.call({ a: s, b: new ConstNode(1) }));
 const fnWithoutArgs = tslFn(() => vec3(1, 2, 3));
 assertSwizzable<Node>(fnWithoutArgs());
 
+const fnWithArrayArgs = tslFn(([a, b]: [a: ShaderNodeObject<Node>, b: ShaderNodeObject<Node>]) => a.add(b));
+assertSwizzable<Node>(fnWithArrayArgs(0.5, color(0.0, 0.25, 0.5)));
+
 const fnWithArgs = tslFn(({ a, b }: { a: ShaderNodeObject<Node>; b: ShaderNodeObject<Node> }) => a.add(b));
-assertSwizzable<Node>(fnWithArgs({ a: color(0, 0.5, 0), b: color(1, 0.5, 0) }));
+assertSwizzable<Node>(fnWithArgs({ a: 0.5, b: color(0.0, 0.25, 0.5) }));

@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-import { PLYExporter } from "three/examples/jsm/exporters/PLYExporter";
+import { PLYExporter } from "three/addons/exporters/PLYExporter.js";
 
 const exporter = new PLYExporter();
 declare const mesh: THREE.Mesh;

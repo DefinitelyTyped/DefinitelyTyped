@@ -5,7 +5,7 @@ declare const Timecode: {
 
 declare namespace Timecode {
     type TIMECODE = number | string | Date | TimecodeObject;
-    type FRAMERATE = 23.976 | 24 | 25 | 29.97 | 30 | 50 | 59.94 | 60;
+    type FRAMERATE = 23.976 | 24 | 25 | 29.97 | 30 | 50 | 59.94 | 60 | [number, number];
 
     interface TimecodeObject {
         hours: number;

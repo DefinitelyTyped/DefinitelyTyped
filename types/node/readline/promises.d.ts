@@ -6,7 +6,7 @@ declare module "readline/promises" {
     import { AsyncCompleter, Completer, Direction, Interface as _Interface, ReadLineOptions } from "node:readline";
     import { Abortable } from "node:events";
     /**
-     * Instances of the `readlinePromises.Interface` class are constructed using the`readlinePromises.createInterface()` method. Every instance is associated with a
+     * Instances of the `readlinePromises.Interface` class are constructed using the `readlinePromises.createInterface()` method. Every instance is associated with a
      * single `input` `Readable` stream and a single `output` `Writable` stream.
      * The `output` stream is used to print prompts for user input that arrives on,
      * and is read from, the `input` stream.
@@ -15,12 +15,12 @@ declare module "readline/promises" {
     class Interface extends _Interface {
         /**
          * The `rl.question()` method displays the `query` by writing it to the `output`,
-         * waits for user input to be provided on `input`, then invokes the `callback`function passing the provided input as the first argument.
+         * waits for user input to be provided on `input`, then invokes the `callback` function passing the provided input as the first argument.
          *
          * When called, `rl.question()` will resume the `input` stream if it has been
          * paused.
          *
-         * If the `Interface` was created with `output` set to `null` or`undefined` the `query` is not written.
+         * If the `Interface` was created with `output` set to `null` or `undefined` the `query` is not written.
          *
          * If the question is called after `rl.close()`, it returns a rejected promise.
          *
@@ -67,7 +67,7 @@ declare module "readline/promises" {
          * The `rl.clearLine()` method adds to the internal list of pending action an
          * action that clears current line of the associated `stream` in a specified
          * direction identified by `dir`.
-         * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true`was passed to the constructor.
+         * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true` was passed to the constructor.
          * @since v17.0.0
          * @return this
          */
@@ -76,20 +76,20 @@ declare module "readline/promises" {
          * The `rl.clearScreenDown()` method adds to the internal list of pending action an
          * action that clears the associated stream from the current position of the
          * cursor down.
-         * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true`was passed to the constructor.
+         * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true` was passed to the constructor.
          * @since v17.0.0
          * @return this
          */
         clearScreenDown(): this;
         /**
-         * The `rl.commit()` method sends all the pending actions to the associated`stream` and clears the internal list of pending actions.
+         * The `rl.commit()` method sends all the pending actions to the associated `stream` and clears the internal list of pending actions.
          * @since v17.0.0
          */
         commit(): Promise<void>;
         /**
          * The `rl.cursorTo()` method adds to the internal list of pending action an action
          * that moves cursor to the specified position in the associated `stream`.
-         * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true`was passed to the constructor.
+         * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true` was passed to the constructor.
          * @since v17.0.0
          * @return this
          */
@@ -98,7 +98,7 @@ declare module "readline/promises" {
          * The `rl.moveCursor()` method adds to the internal list of pending action an
          * action that moves the cursor _relative_ to its current position in the
          * associated `stream`.
-         * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true`was passed to the constructor.
+         * Call `rl.commit()` to see the effect of this method, unless `autoCommit: true` was passed to the constructor.
          * @since v17.0.0
          * @return this
          */
@@ -112,7 +112,7 @@ declare module "readline/promises" {
         rollback(): this;
     }
     /**
-     * The `readlinePromises.createInterface()` method creates a new `readlinePromises.Interface`instance.
+     * The `readlinePromises.createInterface()` method creates a new `readlinePromises.Interface` instance.
      *
      * ```js
      * const readlinePromises = require('node:readline/promises');

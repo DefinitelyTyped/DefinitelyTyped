@@ -172,7 +172,7 @@ For a more manageable clone that includes _only_ the type packages relevant to y
   If you make breaking changes, do not forget to [update a major version](#if-a-library-is-updated-to-a-new-major-version-with-breaking-changes-how-should-i-update-its-type-declaration-package).
 - [Run `pnpm test <package to test>`](#running-tests).
 
-When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
+When you make a PR to edit an existing package, `dt-bot` should @-mention the package's owners.
 If it doesn't, you can do so yourself in the comment associated with the PR.
 
 #### Create a new package
@@ -513,7 +513,7 @@ CI will fail if this file contains the wrong contents and provide the intended v
 
 ### Definition owners
 
-> TL;DR: do not modify `.github/CODEOWNERS`, always modify list of the owners in the `index.d.ts` header
+> TL;DR: do not modify `.github/CODEOWNERS`, always modify list of the owners in `package.json`.
 
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types.
 
@@ -558,7 +558,7 @@ Roughly:
 
 > PRs which only change the types of a module and have corresponding tests changes will be merged much faster
 
-PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
+PRs that have been approved by an owner listed in the definition's `package.json` are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or Definitely Typed team member before being merged, so please be patient as human factors may cause delays. Check the [New Pull Request Status Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/5) to see progress as maintainers work through the open PRs.
 
 #### I'd like to submit a change to a very popular project, why are they treated differently?
 
@@ -639,7 +639,7 @@ For an npm package, `export =` is accurate if `node -p 'require("foo")'` works t
 
 #### I want to use features from very new TypeScript versions.
 
-Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// Minimum TypeScript Version: X.Y`. This will set the lowest minimum supported version.
+Then you will have set the minimum supported version by specifying `"minimumTypeScriptVersion": "X.Y"` in `package.json`.
 
 However, if your project needs to maintain types that are compatible with, say, 3.7 and above _at the same time as_ types that are compatible with 3.6 or below, you will need to use the `typesVersions` feature.
 You can find a detailed explanation of this feature in the [official TypeScript documentation](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-1.html#version-selection-with-typesversions).
@@ -661,8 +661,6 @@ Here's a short example to get you started:
 2. Create the sub-directory mentioned in the `typesVersions` field inside your types directory (`ts3.6/` in this example).
    `ts3.6/` will support TypeScript versions 3.6 and below, so copy the existing types and tests there.
 
-   You'll need to delete the definition header from `ts3.6/index.d.ts` since only the root `index.d.ts` is supposed to have it.
-
 3. Back in the root of the package, add the TypeScript 3.7 features you want to use.
    When people install the package, TypeScript 3.6 and below will start from `ts3.6/index.d.ts`, whereas TypeScript 3.7 and above will start from `index.d.ts`.
 
@@ -672,7 +670,7 @@ Here's a short example to get you started:
 
 This may belong in [TypeScript-DOM-lib-generator](https://github.com/Microsoft/TypeScript-DOM-lib-generator#readme). See the guidelines there.
 If the standard is still a draft, it belongs here.
-Use a name beginning with `dom-` and include a link to the standard as the "Project" link in the header.
+Use a name beginning with `dom-` and include a link to the standard as the "Project" link in `package.json`.
 When it graduates draft mode, we may remove it from Definitely Typed and deprecate the associated `@types` package.
 
 #### How do Definitely Typed package versions relate to versions of the corresponding library?

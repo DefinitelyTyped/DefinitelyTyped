@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -24,7 +24,6 @@
         "test/integration/nodes-webgl.ts",
         "test/integration/objects-reflector.ts",
         "test/integration/three-examples/webgl2_rendertarget_texture2darray.ts",
-        "test/integration/three-examples/webgl_camera_array.ts",
         "test/integration/three-examples/webgl_camera_cinematic.ts",
         "test/integration/three-examples/webgl_loader_ldraw.ts",
         "test/integration/three-examples/webgl_loader_mmd.ts",
@@ -39,7 +38,10 @@
         "test/unit/examples/jsm/lines/LineMaterial.ts",
         "test/unit/examples/jsm/nodes/core/FunctionNode.ts",
         "test/unit/examples/jsm/nodes/display/ColorAdjustmentNode.ts",
-        "test/unit/examples/jsm/nodes/materials/lib/mx_noise.ts",
+        "test/unit/examples/jsm/nodes/materialx/lib/mx_hsv.ts",
+        "test/unit/examples/jsm/nodes/materialx/lib/mx_noise.ts",
+        "test/unit/examples/jsm/nodes/materialx/lib/mx_transform_color.ts",
+        "test/unit/examples/jsm/nodes/materialx/MaterialXNodes.ts",
         "test/unit/examples/jsm/nodes/ShaderNode/ShaderNode.ts",
         "test/unit/examples/jsm/postprocessing/EffectComposer.ts",
         "test/unit/examples/jsm/postprocessing/SavePass.ts",

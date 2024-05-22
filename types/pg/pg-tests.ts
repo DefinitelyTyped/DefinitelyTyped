@@ -67,7 +67,7 @@ client.query("SELECT NOW()", (err, res) => {
     client.end();
 });
 
-client.query("SELECT $1::text as name", ["brianc"], (err, res) => {
+client.query("SELECT $1::text as name, $2::float as age", ["brianc", 99], (err, res) => {
     if (err) throw err;
     console.log(res);
     client.end();
@@ -75,18 +75,19 @@ client.query("SELECT $1::text as name", ["brianc"], (err, res) => {
 
 interface Person {
     name: string;
+    age: number;
 }
 
-client.query<Person, [string]>("SELECT $1::text as name", ["brianc"], (err, res) => {
+client.query<Person, [string, number]>("SELECT $1::text as name, $2::float as age", ["brianc", 99], (err, res) => {
     if (err) throw err;
-    console.log(res.rows[0].name);
+    console.log(res.rows[0].name, res.rows[0].age);
     client.end();
 });
 
 const query = {
     name: "get-name",
-    text: "SELECT $1::text",
-    values: ["brianc"],
+    text: "SELECT $1::text, $2::float",
+    values: ["brianc", 99],
     rowMode: ["array"],
 };
 client.query(query, (err, res) => {
@@ -107,7 +108,7 @@ client
         console.error(e.stack);
     });
 client
-    .query(query, ["brianc"])
+    .query(query, ["brianc", 99])
     .then(res => {
         console.log(res.rows);
         console.log(res.fields.map(f => f.name));
@@ -116,10 +117,10 @@ client
         console.error(e.stack);
     });
 
-const queryArrMode: QueryArrayConfig = {
+const queryArrMode: QueryArrayConfig<[string, number]> = {
     name: "get-name-array",
-    text: "SELECT $1::text",
-    values: ["brianc"],
+    text: "SELECT $1::text, $2::float",
+    values: ["brianc", 99],
     rowMode: "array",
 };
 client.query(queryArrMode, (err, res) => {
@@ -150,10 +151,10 @@ const customTypes: CustomTypesConfig = {
     getTypeParser: () => () => "aCustomTypeParser!",
 };
 
-const queryCustomTypes = {
+const queryCustomTypes: pg.QueryConfig<[string, number]> = {
     name: "get-name",
-    text: "SELECT $1::text",
-    values: ["brianc"],
+    text: "SELECT $1::text, $2::float",
+    values: ["brianc", 99],
     types: customTypes,
 };
 client.query(queryCustomTypes, (err, res) => {
@@ -292,7 +293,7 @@ pool.on("remove", (client) => {
     client.release(true);
 })();
 
-pool.query("SELECT $1::text as name", ["brianc"], (err, result) => {
+pool.query("SELECT $1::text as name, $2::float as age", ["brianc", 99], (err, result) => {
     if (err) {
         console.error("Error executing query", err.stack);
         return;
@@ -300,10 +301,10 @@ pool.query("SELECT $1::text as name", ["brianc"], (err, result) => {
     console.log(result.rows[0].name);
 });
 
-pool.query("SELECT $1::text as name", ["brianc"])
+pool.query("SELECT $1::text as name, $2::float as age", ["brianc", 99])
     .then(res => console.log(res.rows[0].name))
     .catch(err => console.error("Error executing query", err.stack));
-pool.query({ text: "SELECT $1::text as name" }, ["brianc"])
+pool.query({ text: "SELECT $1::text as name, $2::float as age" }, ["brianc", 99])
     .then(res => console.log(res.rows[0].name))
     .catch(err => console.error("Error executing query", err.stack));
 

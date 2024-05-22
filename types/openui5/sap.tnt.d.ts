@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.124.0
 
 declare module "sap/tnt/library" {
   /**
@@ -564,7 +564,9 @@ declare module "sap/tnt/InfoLabel" {
      */
     unbindText(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the InfoLabel constructor.
+   */
   export interface $InfoLabelSettings extends $ControlSettings {
     /**
      * Specifies the text inside the `InfoLabel` control.
@@ -1030,7 +1032,9 @@ declare module "sap/tnt/NavigationList" {
       sWidth: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the NavigationList constructor.
+   */
   export interface $NavigationListSettings extends $ControlSettings {
     /**
      * Specifies the width of the control.
@@ -1081,6 +1085,9 @@ declare module "sap/tnt/NavigationList" {
     itemSelect?: (oEvent: NavigationList$ItemSelectEvent) => void;
   }
 
+  /**
+   * Parameters of the NavigationList#itemSelect event.
+   */
   export interface NavigationList$ItemSelectEventParameters {
     /**
      * The selected item.
@@ -1088,6 +1095,9 @@ declare module "sap/tnt/NavigationList" {
     item?: Item;
   }
 
+  /**
+   * Event object of the NavigationList#itemSelect event.
+   */
   export type NavigationList$ItemSelectEvent = Event<
     NavigationList$ItemSelectEventParameters,
     NavigationList
@@ -1260,7 +1270,9 @@ declare module "sap/tnt/NavigationListGroup" {
       vItem: int | string | NavigationListItem
     ): NavigationListItem | null;
   }
-
+  /**
+   * Describes the settings that can be provided to the NavigationListGroup constructor.
+   */
   export interface $NavigationListGroupSettings
     extends $NavigationListItemBaseSettings {
     /**
@@ -1677,7 +1689,9 @@ declare module "sap/tnt/NavigationListItem" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the NavigationListItem constructor.
+   */
   export interface $NavigationListItemSettings
     extends $NavigationListItemBaseSettings {
     /**
@@ -1732,6 +1746,9 @@ declare module "sap/tnt/NavigationListItem" {
     select?: (oEvent: NavigationListItem$SelectEvent) => void;
   }
 
+  /**
+   * Parameters of the NavigationListItem#select event.
+   */
   export interface NavigationListItem$SelectEventParameters {
     /**
      * The selected item.
@@ -1739,6 +1756,9 @@ declare module "sap/tnt/NavigationListItem" {
     item?: Item;
   }
 
+  /**
+   * Event object of the NavigationListItem#select event.
+   */
   export type NavigationListItem$SelectEvent = Event<
     NavigationListItem$SelectEventParameters,
     NavigationListItem
@@ -1921,7 +1941,9 @@ declare module "sap/tnt/NavigationListItemBase" {
       bVisible?: boolean
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the NavigationListItemBase constructor.
+   */
   export interface $NavigationListItemBaseSettings extends $ItemSettings {
     /**
      * Specifies if the item is expanded.
@@ -2340,7 +2362,9 @@ declare module "sap/tnt/SideNavigation" {
      */
     unbindItem(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the SideNavigation constructor.
+   */
   export interface $SideNavigationSettings extends $ControlSettings {
     /**
      * Specifies the width of the control.
@@ -2401,6 +2425,9 @@ declare module "sap/tnt/SideNavigation" {
     itemSelect?: (oEvent: SideNavigation$ItemSelectEvent) => void;
   }
 
+  /**
+   * Parameters of the SideNavigation#itemSelect event.
+   */
   export interface SideNavigation$ItemSelectEventParameters {
     /**
      * The selected item.
@@ -2408,6 +2435,9 @@ declare module "sap/tnt/SideNavigation" {
     item?: Item;
   }
 
+  /**
+   * Event object of the SideNavigation#itemSelect event.
+   */
   export type SideNavigation$ItemSelectEvent = Event<
     SideNavigation$ItemSelectEventParameters,
     SideNavigation
@@ -2464,7 +2494,8 @@ declare module "sap/tnt/ToolHeader" {
    */
   export default class ToolHeader
     extends OverflowToolbar
-    implements IToolHeader {
+    implements IToolHeader
+  {
     __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new ToolHeader.
@@ -2535,7 +2566,9 @@ declare module "sap/tnt/ToolHeader" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ToolHeader constructor.
+   */
   export interface $ToolHeaderSettings extends $OverflowToolbarSettings {}
 }
 
@@ -2620,7 +2653,9 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
      */
     static getMetadata(): ElementMetadata;
   }
-
+  /**
+   * Describes the settings that can be provided to the ToolHeaderUtilitySeparator constructor.
+   */
   export interface $ToolHeaderUtilitySeparatorSettings
     extends $ControlSettings {}
 }
@@ -2935,7 +2970,9 @@ declare module "sap/tnt/ToolPage" {
      */
     toggleSideContentMode(): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the ToolPage constructor.
+   */
   export interface $ToolPageSettings extends $ControlSettings {
     /**
      * Indicates if the side menu is expanded. Overrides the `expanded` property of the `sideContent` aggregation.
