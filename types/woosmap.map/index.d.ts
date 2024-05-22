@@ -1146,6 +1146,44 @@ declare namespace woosmap.map {
         getDetails(
             request: woosmap.map.localities.LocalitiesDetailsRequest,
         ): Promise<woosmap.map.localities.LocalitiesDetailsResponse>;
+
+        /**
+         * Retrieves localities results based on the nearby request.
+         */
+        nearby(
+            request: woosmap.map.localities.LocalitiesNearbyRequest,
+        ): Promise<woosmap.map.localities.LocalitiesNearbyResponse>;
+    }
+}
+declare namespace woosmap.map.query {
+    class Field {
+        /**
+         * Represents a field filter. Used to build a string for query parameter to pass to Store Search Service.
+         */
+        constructor(key: string, value: string | number | boolean, operator?: woosmap.map.query.Operators | null);
+
+        /**
+         * Returns the field clause in query format.
+         */
+        toString(): string;
+    }
+}
+declare namespace woosmap.map.query {
+    class Query {
+        /**
+         * Represents a Query.  Used to build a string for query parameter to pass to Store Search Service.
+         * Default operator is `BoolOperators.AND`
+         */
+        constructor(
+            children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>,
+            connector: woosmap.map.query.BoolOperators,
+            negate: boolean,
+        );
+
+        /**
+         * Returns the Query as a string usable for the search endpoint query parameter.
+         */
+        toString(): string;
     }
 }
 declare namespace woosmap.map.errors {
@@ -2811,6 +2849,42 @@ declare namespace woosmap.map.localities {
 }
 declare namespace woosmap.map.localities {
     /**
+     * A Localities Nearby request to be sent to `LocalitiesService.nearby`
+     */
+    interface LocalitiesNearbyRequest {
+        categories?: string;
+        /**
+         * The language code, using ISO 3166-1 Alpha-2 country codes,
+         * indicating in which language the results should be returned, if possible.
+         * If language is not supplied, the Localities service will use english as default language.
+         */
+        language?: string;
+        /**
+         * Limit of results per page. (Default is 10, max is 30)
+         */
+        limit?: number;
+        /**
+         * The center of the search circle.
+         */
+        location: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+        /**
+         * Page number when accessing paginated results.
+         */
+        page?: number;
+        /**
+         * Define the distance in meters within which the API will return results.
+         * Default radius if this parameter is not set is 1000, allowed values are between 10 and 50 000.
+         */
+        radius?: number;
+        /**
+         * Types of targeted items.
+         * The only available value for now is `point_of_interest`.
+         */
+        types?: string | string[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
      * A Localities Autocomplete response returned by the call to
      * `LocalitiesService.autocomplete` containing a
      * list of `LocalitiesPredictions`.
@@ -2837,6 +2911,23 @@ declare namespace woosmap.map.localities {
      */
     interface LocalitiesDetailsResponse {
         result: woosmap.map.localities.LocalitiesDetailsResult;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * A Localities Nearby response returned by the call to
+     * `LocalitiesService.nearby` containing a
+     * list of `LocalitiesNearbyResult`.
+     */
+    interface LocalitiesNearbyResponse {
+        /**
+         * Helps to navigate through paginated results.
+         */
+        pagination: woosmap.map.localities.LocalitiesNearbyPagination;
+        /**
+         * The array of nearby results.
+         */
+        results: woosmap.map.localities.LocalitiesNearbyResult[];
     }
 }
 declare namespace woosmap.map.localities {
@@ -2891,7 +2982,7 @@ declare namespace woosmap.map.localities {
     interface LocalitiesDetailsGeometry {
         accuracy: woosmap.map.localities.LocalitiesDetailsAccuracy;
         location: woosmap.map.LatLngLiteral;
-        viewport: woosmap.map.localties.LocalitiesBounds;
+        viewport: woosmap.map.localities.LocalitiesBounds;
     }
 }
 declare namespace woosmap.map.localities {
@@ -3026,16 +3117,77 @@ declare namespace woosmap.map.localities {
     interface LocalitiesGeocodeGeometry {
         location: woosmap.map.LatLngLiteral;
         location_type: woosmap.map.localities.LocalitiesGeocodeLocationType;
-        viewport: woosmap.map.localties.LocalitiesBounds;
+        viewport: woosmap.map.localities.LocalitiesBounds;
     }
 }
-declare namespace woosmap.map.localties {
+declare namespace woosmap.map.localities {
     /**
      * Defines a viewport by its geographical coordinates of North-East and South-West corners.
      */
     interface LocalitiesBounds {
         northeast: woosmap.map.LatLngLiteral;
         southwest: woosmap.map.LatLngLiteral;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * The types of result returned by nearby search.
+     */
+    type LocalitiesNearbyTypes = "point_of_interest";
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about a Nearby element.
+     */
+    interface LocalitiesNearbyResult {
+        /**
+         * An array containing Address Components with additional information
+         */
+        address_components: woosmap.map.localities.AddressComponents[];
+        /**
+         * An array containing the categories of the result.
+         */
+        categories: string[];
+        /**
+         * The location of the result, in latitude and longitude, eventually associated with a Viewport.
+         */
+        geometry: woosmap.map.localities.LocalitiesNearbyGeometry;
+        /**
+         * The name of the result.
+         */
+        name: string;
+        /**
+         * Contains a unique ID for each result. Please use this ID to give feedbacks on results.
+         */
+        public_id: string;
+        /**
+         * An array containing the types of the result.
+         */
+        types: woosmap.map.localities.LocalitiesNearbyTypes[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about the geometry of a Locality.
+     */
+    interface LocalitiesNearbyGeometry {
+        location: woosmap.map.LatLngLiteral;
+        viewport?: woosmap.map.localities.LocalitiesBounds;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about the pagination of nearby results.
+     */
+    interface LocalitiesNearbyPagination {
+        /**
+         * If more results are available, this will contain the value to pass to the `page` parameter to get the next page.
+         */
+        next_page?: number;
+        /**
+         * If previous results are available, this will contain the value to pass to the `page` parameter to get the previous page.
+         */
+        previous_page?: number;
     }
 }
 declare namespace woosmap.map {
@@ -3264,6 +3416,27 @@ declare namespace woosmap.map.distance {
         REQUEST_DENIED = "REQUEST_DENIED",
     }
 }
+declare namespace woosmap.map.query {
+    /**
+     * Represents Query Boolean operators.
+     */
+    enum BoolOperators {
+        AND = "AND",
+        NOT = "NOT",
+        OR = "OR",
+    }
+}
+declare namespace woosmap.map.query {
+    /**
+     * Represents Query operators.
+     */
+    enum Operators {
+        gt = "gt",
+        gte = "gte",
+        lt = "lt",
+        lte = "lte",
+    }
+}
 declare namespace woosmap.map.event {
     /**
      * Adds the given listener function to the given event name for the given object instance.
@@ -3320,6 +3493,33 @@ declare namespace woosmap.map.geometry {
         poly: woosmap.map.Polygon,
         tolerance?: number,
     ): boolean;
+}
+declare namespace woosmap.map.query {
+    /**
+     * Function helper to instantiate a Field or an array of Fields, used to form queries.
+     * If value is an array, it will create a Field for each item in the array.
+     */
+    function F(
+        key: string,
+        value: string | number | boolean | Array<string | number>,
+        operator?: woosmap.map.query.Operators | null,
+    ): woosmap.map.query.Field | woosmap.map.query.Field[];
+    /**
+     * Helper function to instantiate a Query with AND connector
+     */
+    function and(
+        ...children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>
+    ): woosmap.map.query.Query;
+    /**
+     * Helper function to instantiate a Query with OR connector
+     */
+    function or(
+        ...children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>
+    ): woosmap.map.query.Query;
+    /**
+     * Helper function to instantiate a negated Query
+     */
+    function not(child: woosmap.map.query.Query | woosmap.map.query.Field | string): woosmap.map.query.Query;
 }
 declare namespace woosmap.map {
     class NavigationWidget {
