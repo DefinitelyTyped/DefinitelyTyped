@@ -28,10 +28,12 @@ export interface RootMappingNode {
     toDecrypt: EncryptionParameter,
 }
 
-export type KeyStoreFile =
-    | `${string}.p12`
-    | `${string}.pem`
-    | `${string}.der`
+export type KeyStoreFileExtension =
+    | '.p12'
+    | '.pem'
+    | '.der'
+
+export type KeyStoreFile = `${string}${KeyStoreFileExtension}`
 
 export interface JweEncryptionConfiguration {
     mode: string,
