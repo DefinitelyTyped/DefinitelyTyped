@@ -18,6 +18,6 @@ const store = new MongoStore(ready => {
 const app = express();
 const bruteforce = new ExpressBrute(store);
 
-app.post("/auth", bruteforce.prevent, (req, res, next) => {
+app.post("/auth", (req, res, next) => void bruteforce.prevent(req, res, next), (req, res, next) => {
     res.send("Success!");
 });
