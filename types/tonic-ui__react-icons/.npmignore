@@ -6,4 +6,3 @@
 src/*
 scripts/*
 tmicon.d.ts
-generateDefinitions.sh
