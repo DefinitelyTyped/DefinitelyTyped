@@ -837,31 +837,31 @@ async function test() {
 
     // @ts-expect-error
     keyboard.down();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     keyboard.down("a");
 
     // @ts-expect-error
     keyboard.insertText();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     keyboard.insertText("a");
 
     // @ts-expect-error
     keyboard.press();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     keyboard.press("a");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     keyboard.press("a", { delay: 1000 });
 
     // @ts-expect-error
     keyboard.type();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     keyboard.type("a");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     keyboard.type("a", { delay: 1000 });
 
     // @ts-expect-error
     keyboard.up();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     keyboard.up("a");
 
     //
