@@ -15,6 +15,7 @@ type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
 type NativePointerEvent = PointerEvent;
+type NativeToggleEvent = ToggleEvent;
 type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
@@ -2093,6 +2094,11 @@ declare namespace React {
         pseudoElement: string;
     }
 
+    interface ToggleEvent<T = Element> extends SyntheticEvent<T, NativeToggleEvent> {
+        oldState: "closed" | "open";
+        newState: "closed" | "open";
+    }
+
     interface TransitionEvent<T = Element> extends SyntheticEvent<T, NativeTransitionEvent> {
         elapsedTime: number;
         propertyName: string;
@@ -2120,6 +2126,7 @@ declare namespace React {
     type UIEventHandler<T = Element> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T = Element> = EventHandler<WheelEvent<T>>;
     type AnimationEventHandler<T = Element> = EventHandler<AnimationEvent<T>>;
+    type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
     type TransitionEventHandler<T = Element> = EventHandler<TransitionEvent<T>>;
 
     //
@@ -2332,6 +2339,10 @@ declare namespace React {
         onAnimationEndCapture?: AnimationEventHandler<T> | undefined;
         onAnimationIteration?: AnimationEventHandler<T> | undefined;
         onAnimationIterationCapture?: AnimationEventHandler<T> | undefined;
+
+        // Toggle Events
+        onToggle?: ToggleEventHandler<T> | undefined;
+        onBeforeToggle?: ToggleEventHandler<T> | undefined;
 
         // Transition Events
         onTransitionCancel?: TransitionEventHandler<T> | undefined;
@@ -2711,6 +2722,11 @@ declare namespace React {
         security?: string | undefined;
         unselectable?: "on" | "off" | undefined;
 
+        // Popover API
+        popover?: "" | "auto" | "manual" | undefined;
+        popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
+        popoverTarget?: string | undefined;
+
         // Living Standard
         /**
          * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert
@@ -2944,7 +2960,6 @@ declare namespace React {
 
     interface DetailsHTMLAttributes<T> extends HTMLAttributes<T> {
         open?: boolean | undefined;
-        onToggle?: ReactEventHandler<T> | undefined;
         name?: string | undefined;
     }
 
