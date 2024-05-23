@@ -5,9 +5,6 @@
     "projects": [
         "https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react-icons"
     ],
-    "scripts": {
-        "generate-definitions": "pnpm exec ts-node scripts/generate-definitions.ts"
-    },
     "dependencies": {
         "@types/react": "*",
         "@types/tonic-ui__react": "*"
