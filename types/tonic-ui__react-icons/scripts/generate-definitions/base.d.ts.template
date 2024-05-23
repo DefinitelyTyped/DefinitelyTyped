@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from "react";
-import { TonicProps } from "tonic-ui__react";
+import { TonicProps } from "@tonic-ui/react";
 
 export {}
 export function SVGIcon(props: SVGIconProps): ReactElement;
