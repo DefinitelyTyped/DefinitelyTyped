@@ -2078,7 +2078,7 @@ export interface Mouse {
      * @param y The y position.
      * @param options The click options.
      */
-    click(x: number, y: number, options?: MouseMultiClickOptions): void;
+    click(x: number, y: number, options?: MouseMultiClickOptions): Promise<void>;
 
     /**
      * Shortcut for `mouse.move(x, y)`, `mouse.down()`, `mouse.up()`, `mouse.down()`,
@@ -2087,13 +2087,13 @@ export interface Mouse {
      * @param y The y position.
      * @param options The click options.
      */
-    dblclick(x: number, y: number, options?: MouseClickOptions): void;
+    dblclick(x: number, y: number, options?: MouseClickOptions): Promise<void>;
 
     /**
      * Dispatches a `mousedown` event.
      * @param options The mouse down options.
      */
-    down(options?: MouseDownUpOptions): void;
+    down(options?: MouseDownUpOptions): Promise<void>;
 
     /**
      * Dispatches a `mousemove` event.
@@ -2101,13 +2101,13 @@ export interface Mouse {
      * @param y The y position.
      * @param options The mouse move options.
      */
-    move(x: number, y: number, options?: { steps?: number }): void;
+    move(x: number, y: number, options?: { steps?: number }): Promise<void>;
 
     /**
      * Dispatches a `mouseup` event.
      * @param options The mouse up options.
      */
-    up(options?: MouseDownUpOptions): void;
+    up(options?: MouseDownUpOptions): Promise<void>;
 }
 
 /**
