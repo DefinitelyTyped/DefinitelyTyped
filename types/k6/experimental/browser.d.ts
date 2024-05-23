@@ -607,7 +607,7 @@ export interface Browser {
      * `Browser` and `BrowserContext`. If no `BrowserContext` has been
      * initialized, it will return null.
      */
-    context(): BrowserContext;
+    context(): BrowserContext | null;
 
     /**
      * Indicates whether the CDP connection to the browser process is active or
@@ -627,7 +627,7 @@ export interface Browser {
      */
     newContext(
         options?: NewBrowserContextOptions,
-    ): BrowserContext;
+    ): Promise<BrowserContext>;
 
     /**
      * Creates and returns a new `Page` in a new `BrowserContext` if a
@@ -641,7 +641,7 @@ export interface Browser {
      */
     newPage(
         options?: NewBrowserContextOptions,
-    ): Page;
+    ): Promise<Page>;
 
     /**
      * Returns the browser application's user agent.
@@ -675,16 +675,16 @@ export interface BrowserContext {
      * An example of overriding `Math.random` before the page loads:
      *
      * ```js
-     * const browserContext = browser.newContext();
-     * browserContext.addInitScript("Math.random = function(){return 0}");
+     * const browserContext = await browser.newContext();
+     * await browserContext.addInitScript("Math.random = function(){return 0}");
      *
-     * const page = browserContext.newPage();
+     * const page = await browserContext.newPage();
      * await page.goto(url);
      * ```
      *
      * @param script Script to be evaluated in all pages in the browser context.
      */
-    addInitScript(script: string | { content?: string }): void;
+    addInitScript(script: string | { content?: string }): Promise<void>;
 
     /**
      * Returns the `Browser` instance that this `BrowserContext` belongs to.
@@ -697,64 +697,63 @@ export interface BrowserContext {
      * @param cookies The {@link Cookie | cookies} to add to this {@link BrowserContext}.
      * @example
      * ```js
-     * context.addCookies([
+     * await context.addCookies([
      *   { name: 'foo', value: 'foovalue', sameSite: 'Lax', url: 'https://k6.io' },
      *   { name: 'bar', value: 'barvalue', sameSite: 'Strict', domain: 'test.k6.io', path: '/bar' },
      * ]);
      * ```
      */
-    addCookies(cookies: Cookie[]): void;
+    addCookies(cookies: Cookie[]): Promise<void>;
 
     /**
      * Clears the {@link Cookie | cookies} in this {@link BrowserContext}.
      *
      * @example
      * ```js
-     * context.addCookies([{ name: 'foo', value: 'bar', url: 'https://k6.io' }]);
+     * await context.addCookies([{ name: 'foo', value: 'bar', url: 'https://k6.io' }]);
      * context.cookies().length; // 1
-     * context.clearCookies();
+     * await context.clearCookies();
      * context.cookies().length; // 0
      * ```
      */
-    clearCookies(): void;
+    clearCookies(): Promise<void>;
 
     /**
      * Retrieves the {@link Cookie | cookies} in this {@link BrowserContext} filtered by provided URLs,
      * or all {@link Cookie | cookies} if no URLs are provided.
      *
      * @param urls URLs to filter {@link Cookie | cookies} by.
-     * @returns An array of {@link Cookie | cookies}.
      * @example
      * ```js
      * // Get all cookies in the browser context
-     * const cookies = context.cookies();
+     * const cookies = await context.cookies();
      *
      * // Get all cookies for the specified URLs
-     * const cookies = context.cookies('https://k6.io', 'https://test.k6.io');
+     * const cookies = await context.cookies('https://k6.io', 'https://test.k6.io');
      *
      * // Get all cookies for the specified URLs and filter by name
-     * const cookies = context.cookies('https://k6.io', 'https://test.k6.io').filter(c => c.name === 'foo');
+     * const cookies = await context.cookies('https://k6.io', 'https://test.k6.io').filter(c => c.name === 'foo');
      * ```
      */
-    cookies(...urls: string[]): Cookie[];
+    cookies(...urls: string[]): Promise<Cookie[]>;
 
     /**
      * Clears all permission overrides for the {@link BrowserContext}.
      * ```js
-     * context.clearPermissions();
+     * await context.clearPermissions();
      * ```
      */
-    clearPermissions(): void;
+    clearPermissions(): Promise<void>;
 
     /**
      * Close the `BrowserContext` and all its `Page`s.
      */
-    close(): void;
+    close(): Promise<void>;
 
     /**
      * Grants specified permissions to the {@link BrowserContext}.
      * ```js
-     * context.grantPermissions(['geolocation']);
+     * await context.grantPermissions(['geolocation']);
      * ```
      */
     grantPermissions(
@@ -768,12 +767,12 @@ export interface BrowserContext {
              */
             origin: string;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * Creates a new `Page` in the `BrowserContext`.
      */
-    newPage(): Page;
+    newPage(): Promise<Page>;
 
     /**
      * Returns a list of `Page`s that belongs to the `BrowserContext`.
@@ -821,7 +820,7 @@ export interface BrowserContext {
              */
             accuracy: number;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * Toggles the `BrowserContext`'s connectivity on/off.
@@ -832,7 +831,7 @@ export interface BrowserContext {
          * or connected (`false`). Defaults to `false`.
          */
         offline: boolean,
-    ): void;
+    ): Promise<void>;
 
     /**
      * Waits for the event to fire and passes its value into the predicate
@@ -843,15 +842,18 @@ export interface BrowserContext {
      * ```js
      * // Call waitForEvent with a predicate which will return true once at least
      * // one page has been created.
-     * const promise = context.waitForEvent("page", { predicate: page => {
-     *   if (++counter >= 1) {
-     *     return true
+     * const promise = context.waitForEvent("page", {
+     *   predicate: page => {
+     *     if (++counter >= 1) {
+     *       return true
+     *     }
+     *
+     *     return false
      *   }
-     *   return false
-     * } })
+     * })
      *
      * // Now we create a page.
-     * const page = context.newPage()
+     * const page = await context.newPage()
      *
      * // Wait for the predicate to pass.
      * await promise
