@@ -874,47 +874,47 @@ async function test() {
     mouse.click();
     // @ts-expect-error
     mouse.click(0);
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.click(0, 0);
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.click(0, 0, { button: "right" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.click(0, 0, { clickCount: 2 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.click(0, 0, { delay: 1000 });
 
     // @ts-expect-error
     mouse.dblclick();
     // @ts-expect-error
     mouse.dblclick(0);
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.dblclick(0, 0);
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.dblclick(0, 0, { button: "right" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.dblclick(0, 0, { delay: 1000 });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.down();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.down({ button: "right" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.down({ clickCount: 2 });
 
     // @ts-expect-error
     mouse.move();
     // @ts-expect-error
     mouse.move(0);
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.move(0, 0);
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.move(0, 0, { steps: 10 });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.up();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.up({ button: "right" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     mouse.up({ clickCount: 2 });
 
     //
