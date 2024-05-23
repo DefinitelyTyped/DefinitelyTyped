@@ -10,19 +10,11 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "types": [
-            "node",
-            "react"
-        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "tmicon.d.ts",
-        "src/header.d.ts",
-        "src/template.d.ts",
-        "scripts/generate-definitions.ts",
         "tonic-ui__react-icons-tests.tsx"
     ]
 }
