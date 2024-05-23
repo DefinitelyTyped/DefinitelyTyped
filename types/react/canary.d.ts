@@ -30,26 +30,9 @@ export {};
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
-type NativeToggleEvent = ToggleEvent;
-
 declare module "." {
     // eslint-disable-next-line @typescript-eslint/ban-types
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
     export function unstable_useCacheRefresh(): () => void;
-
-    type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
-
-    interface HTMLAttributes<T> {
-        popover?: "" | "auto" | "manual" | undefined;
-        popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
-        popoverTarget?: string | undefined;
-        onToggle?: ToggleEventHandler<T> | undefined;
-        onBeforeToggle?: ToggleEventHandler<T> | undefined;
-    }
-
-    interface ToggleEvent<T = Element> extends SyntheticEvent<T, NativeToggleEvent> {
-        oldState: "closed" | "open";
-        newState: "closed" | "open";
-    }
 }
