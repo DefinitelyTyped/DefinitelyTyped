@@ -52,7 +52,7 @@ declare namespace WebMidi {
 
         addEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
@@ -63,7 +63,7 @@ declare namespace WebMidi {
 
         removeEventListener(
             type: "statechange",
-            listener: (this: this, e: MIDIConnectionEvent) => any,
+            listener: (this: this, e: MIDIConnectionEvent) => void,
             options?: boolean | EventListenerOptions,
         ): void;
         removeEventListener(
