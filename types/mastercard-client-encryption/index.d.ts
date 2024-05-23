@@ -1,53 +1,52 @@
 export interface DecryptOptions {
     body: unknown;
     request: {
-        url: string
+        url: string;
     };
 }
 
 export type PublicKeyFingerprintType =
-    | 'certificate'
-    | 'publicKey'
+    | "certificate"
+    | "publicKey";
 
 export type DataEncodingType =
-    | 'base64'
-    | 'hex'
+    | "base64"
+    | "hex";
 
 export interface RootMapping {
-    element: string,
-    obj: string
+    element: string;
+    obj: string;
 }
 
 export type EncryptionParameter =
     | RootMapping[]
-    | []
+    | [];
 
 export interface RootMappingNode {
-    path: string,
-    toEncrypt: EncryptionParameter,
-    toDecrypt: EncryptionParameter,
+    path: string;
+    toEncrypt: EncryptionParameter;
+    toDecrypt: EncryptionParameter;
 }
 
 export type KeyStoreFileExtension =
-    | '.p12'
-    | '.pem'
-    | '.der'
+    | ".p12"
+    | ".pem"
+    | ".der";
 
-export type KeyStoreFile = `${string}${KeyStoreFileExtension}`
+export type KeyStoreFile = `${string}${KeyStoreFileExtension}`;
 
 export interface JweEncryptionConfiguration {
-    mode: string,
-    encryptionCertificate: unknown,
-    encryptedValueFieldName: unknown,
-    paths: RootMappingNode[],
-    publicKeyFingerprintType?: PublicKeyFingerprintType
-    publicKeyFingerprint?: PublicKeyFingerprintType extends 'certificate'
-        ? DataEncodingType
-        : unknown,
-    privateKey?: unknown,
-    keyStore?: KeyStoreFile,
-    keyStoreAlias?: unknown,
-    keyStorePassword?: unknown,
+    mode: string;
+    encryptionCertificate: unknown;
+    encryptedValueFieldName: unknown;
+    paths: RootMappingNode[];
+    publicKeyFingerprintType?: PublicKeyFingerprintType;
+    publicKeyFingerprint?: PublicKeyFingerprintType extends "certificate" ? DataEncodingType
+        : unknown;
+    privateKey?: unknown;
+    keyStore?: KeyStoreFile;
+    keyStoreAlias?: unknown;
+    keyStorePassword?: unknown;
 }
 
 /**
@@ -70,11 +69,11 @@ export class JweEncryption {
     encrypt: <T>(
         url: string,
         headers: Record<string, string | undefined>,
-        body: T
+        body: T,
     ) => {
-        headers: Record<string, string | undefined>,
-        body: T
-    }
+        headers: Record<string, string | undefined>;
+        body: T;
+    };
 
     /**
      * Decrypt part of the HTTP response using the given config
@@ -82,7 +81,7 @@ export class JweEncryption {
      * @param response HTTP response to decrypt
      * @returns {*}
      */
-    decrypt: <T extends DecryptOptions>(response: T) => T['body']
+    decrypt: <T extends DecryptOptions>(response: T) => T["body"];
 }
 
 export namespace EncryptionUtils {
@@ -90,7 +89,7 @@ export namespace EncryptionUtils {
      * Utils module
      * @version 1.0.0
      */
-    function isSet(value: unknown): boolean
+    function isSet(value: unknown): boolean;
 
     /**
      * Converts a 'binary' encoded string of bytes to (hex or base64) encoded string.
@@ -101,8 +100,8 @@ export namespace EncryptionUtils {
      */
     function bytesToString(
         bytes: string,
-        dataEncoding: DataEncodingType
-    ): string
+        dataEncoding: DataEncodingType,
+    ): string;
 
     /**
      * Converts a (hex or base64) string into a 'binary' encoded string of bytes.
@@ -113,13 +112,13 @@ export namespace EncryptionUtils {
      */
     function stringToBytes(
         value: string,
-        dataEncoding: DataEncodingType
-    ): string
+        dataEncoding: DataEncodingType,
+    ): string;
 
     function toByteArray(
         value: string,
-        fromFormat: import('node:buffer').TranscodeEncoding
-    ): Buffer
+        fromFormat: import("node:buffer").TranscodeEncoding,
+    ): Buffer;
 
     /**
      * Convert a json object or json string to string
@@ -128,8 +127,8 @@ export namespace EncryptionUtils {
      * @returns {string}
      */
     function jsonToString(
-        data: unknown
-    ): string
+        data: unknown,
+    ): string;
 
     /**
      * Convert Json string to Json object if it is a valid Json
@@ -139,123 +138,121 @@ export namespace EncryptionUtils {
      * @returns {Object|string}
      */
     function stringToJson(
-        data: string
-    ): unknown
+        data: string,
+    ): unknown;
 
     function mutateObjectProperty(
         path: string,
         value: unknown,
         obj: unknown,
         srcPath: NonNullable<string>,
-        properties: string[]
-    ): unknown
+        properties: string[],
+    ): unknown;
 
     interface PrivateKeyConfig {
-        privateKey: JweEncryptionConfiguration['privateKey'],
-        keyStore?: never,
-        keyStoreAlias?: never,
-        keyStorePassword?: never
+        privateKey: JweEncryptionConfiguration["privateKey"];
+        keyStore?: never;
+        keyStoreAlias?: never;
+        keyStorePassword?: never;
     }
 
     interface KeystoreConfig {
-        privateKey?: never,
-        keyStore: JweEncryptionConfiguration['keyStore'],
-        keyStoreAlias: JweEncryptionConfiguration['keyStoreAlias'],
-        keyStorePassword: JweEncryptionConfiguration['keyStorePassword']
+        privateKey?: never;
+        keyStore: JweEncryptionConfiguration["keyStore"];
+        keyStoreAlias: JweEncryptionConfiguration["keyStoreAlias"];
+        keyStorePassword: JweEncryptionConfiguration["keyStorePassword"];
     }
 
-    type getPrivateKeyConfig = PrivateKeyConfig | KeystoreConfig
+    type getPrivateKeyConfig = PrivateKeyConfig | KeystoreConfig;
 
     function getPrivateKey(
-        config: getPrivateKeyConfig
+        config: getPrivateKeyConfig,
     ):
-    | import('node-forge').pki.rsa.PrivateKey
-    | import('node-forge').pki.PrivateKey
-    | null
-    | undefined
+        | import("node-forge").pki.rsa.PrivateKey
+        | import("node-forge").pki.PrivateKey
+        | null
+        | undefined;
 
-    function readPublicCertificate (
-        publicCertificatePath: string
+    function readPublicCertificate(
+        publicCertificatePath: string,
     ):
-    | import('node-forge').pki.Certificate
-    | undefined
+        | import("node-forge").pki.Certificate
+        | undefined;
 
-    function computePublicFingerprint <
-        T extends PublicKeyFingerprintType
+    function computePublicFingerprint<
+        T extends PublicKeyFingerprintType,
     >(
         config: {
-            publicKeyFingerprintType: T
+            publicKeyFingerprintType: T;
         },
-        encryptionCertificate: T extends 'certificate'
-            ? import('node-forge').pki.Certificate
-            : Pick<import('node-forge').pki.Certificate, 'publicKey'>,
-        encoding: DataEncodingType
-    ): string
+        encryptionCertificate: T extends "certificate" ? import("node-forge").pki.Certificate
+            : Pick<import("node-forge").pki.Certificate, "publicKey">,
+        encoding: DataEncodingType,
+    ): string;
 
-    function nodeVersionSupportsJWE (): boolean
+    function nodeVersionSupportsJWE(): boolean;
 
-    function checkConfigFieldsArePopulated (
+    function checkConfigFieldsArePopulated(
         config: {
-            paths: unknown
+            paths: unknown;
         },
         propertiesBasic: string[],
         propertiesField: string[],
         propertiesHeader: string[],
-    ): boolean | undefined
+    ): boolean | undefined;
 
     function validateRootMapping(
-        config: Pick<JweEncryptionConfiguration, 'paths'>
-    ): void
+        config: Pick<JweEncryptionConfiguration, "paths">,
+    ): void;
 
     function hasConfig(
         config: unknown,
-        endpoint: string
-    ): string[] | null
+        endpoint: string,
+    ): string[] | null;
 
     function elemFromPath(
         path: string,
-        obj: unknown
+        obj: unknown,
     ):
-    | { node: unknown, parent: unknown }
-    | null
+        | { node: unknown; parent: unknown }
+        | null;
 
     function isJsonRoot(
-        elem: unknown
-    ): boolean
+        elem: unknown,
+    ): boolean;
 
     function computeBody(
         configParam: EncryptionParameter,
         body: unknown,
         bodyMap: unknown,
-    ): boolean
+    ): boolean;
 
     function addEncryptedDataToBody(
         encryptedData: unknown,
         path: RootMapping,
         encryptedValueFieldName: string,
-        body: unknown
-    ): unknown
+        body: unknown,
+    ): unknown;
 
     function readPublicCertificateContent(
-        config: string
-    ): import('node-forge').pki.Certificate
+        config: string,
+    ): import("node-forge").pki.Certificate;
 
     function getPrivateKeyFromContent<T extends { privateKey: string }>(
-        config: T
-    ): T extends { privateKey: string }
-        ? import('node-forge').pki.PrivateKey
-        : null
+        config: T,
+    ): T extends { privateKey: string } ? import("node-forge").pki.PrivateKey
+        : null;
 }
 
 export type FieldLevelEncryptionConfiguration = JweEncryptionConfiguration & {
-    ivFieldName: string,
-    ivHeaderName?: string,
-    encryptedKeyFieldName: string,
-    encryptedKeyHeaderName?: string,
-    publicKeyFingerprintFieldName: string,
-    publicKeyFingerprintHeaderName?: string,
-    oaepHashingAlgorithmFieldName: string,
-}
+    ivFieldName: string;
+    ivHeaderName?: string;
+    encryptedKeyFieldName: string;
+    encryptedKeyHeaderName?: string;
+    publicKeyFingerprintFieldName: string;
+    publicKeyFingerprintHeaderName?: string;
+    oaepHashingAlgorithmFieldName: string;
+};
 
 /**
  * Performs field level encryption on HTTP payloads.
@@ -277,11 +274,11 @@ export class FieldLevelEncryption {
     encrypt<T>(
         endpoint: string,
         header: Record<string, string | undefined>,
-        body: T
+        body: T,
     ): {
-        header: Record<string, string | undefined>,
-        body: T
-    }
+        header: Record<string, string | undefined>;
+        body: T;
+    };
 
     /**
      * Decrypt part of the HTTP response using the given config
@@ -289,15 +286,15 @@ export class FieldLevelEncryption {
      * @param response HTTP response to decrypt
      * @returns {*}
      */
-    decrypt: <T extends DecryptOptions>(response: T) => T['body']
+    decrypt: <T extends DecryptOptions>(response: T) => T["body"];
 }
 
 /**
-* Manages low level client-server communications, parameter marshalling, etc. There should not be any need for an
-* application to use this class directly - the *Api and model classes provide the public API for the service. The
-* contents of this file should be regarded as internal but are documented for completeness.
-* @alias module:ApiClient
-*/
+ * Manages low level client-server communications, parameter marshalling, etc. There should not be any need for an
+ * application to use this class directly - the *Api and model classes provide the public API for the service. The
+ * contents of this file should be regarded as internal but are documented for completeness.
+ * @alias module:ApiClient
+ */
 export class ApiClient {
     /**
      * The base URL against which to resolve every API call's (relative) path.
@@ -363,11 +360,10 @@ export class ApiClient {
      * @returns {String} The string representation of <code>param</code>.
      */
     paramToString(
-        param: unknown
-    ): string
+        param: unknown,
+    ): string;
 
     /**
-     *
      * Returns a boolean indicating if the parameter could be JSON.stringified
      * @param param The actual parameter
      * @returns Flag indicating if <code>param</code> can be JSON.stringified
@@ -385,8 +381,8 @@ export class ApiClient {
     buildUrl(
         path: string,
         pathParams: Record<string, unknown>,
-        apiBasePath: NonNullable<string>
-    ): string
+        apiBasePath: NonNullable<string>,
+    ): string;
 
     /**
      * Checks whether the given content type represents JSON.<br>
@@ -401,7 +397,7 @@ export class ApiClient {
      * @returns <code>true</code> if <code>contentType</code> represents JSON, otherwise <code>false</code>.
      */
     isJsonMime(
-        contentType: string
+        contentType: string,
     ): boolean;
 
     /**
@@ -410,8 +406,8 @@ export class ApiClient {
      * @returns The chosen content type, preferring JSON.
      */
     jsonPreferredMime(
-        contentTypes: Record<string, unknown>
-    ): string
+        contentTypes: Record<string, unknown>,
+    ): string;
 
     /**
      * Checks whether the given parameter value represents file-like content.
@@ -419,8 +415,8 @@ export class ApiClient {
      * @returns <code>true</code> if <code>param</code> represents a file.
      */
     isFileParam(
-        param: import('fs').ReadStream | Buffer | Blob | File
-    ): boolean
+        param: import("fs").ReadStream | Buffer | Blob | File,
+    ): boolean;
 
     /**
      * Normalizes parameter values:
@@ -433,8 +429,8 @@ export class ApiClient {
      * @returns normalized parameters.
      */
     normalizeParams(
-        params: Record<string, unknown>
-    ): Record<string, unknown>
+        params: Record<string, unknown>,
+    ): Record<string, unknown>;
 
     /**
      * Builds a string representation of an array-type actual parameter, according to the given collection format.
@@ -445,8 +441,8 @@ export class ApiClient {
      */
     buildCollectionParam(
         param: unknown[],
-        collectionFormat: ApiClient.CollectionFormatEnum
-    ): string | [] | null | undefined
+        collectionFormat: ApiClient.CollectionFormatEnum,
+    ): string | [] | null | undefined;
 
     /**
      * Applies authentication headers to the request.
@@ -455,8 +451,8 @@ export class ApiClient {
      */
     applyAuthToRequest(
         request: unknown, // TODO: get type of request from superagent
-        authNames: string[]
-    ): void
+        authNames: string[],
+    ): void;
 
     /**
      * Deserializes an HTTP response body into a value of the specified type.
@@ -469,8 +465,8 @@ export class ApiClient {
      */
     deserialize(
         response: unknown, // TODO: get superagent response object shape
-        returnType: string | string[] | Record<string, unknown> | ApiClient.Model
-    ): unknown
+        returnType: string | string[] | Record<string, unknown> | ApiClient.Model,
+    ): unknown;
 
     /**
      * Converts a value to the specified type.
@@ -485,7 +481,7 @@ export class ApiClient {
      */
     static convertToType(
         data: unknown,
-        type: string | string[] | Record<string, unknown> | ApiClient.Model
+        type: string | string[] | Record<string, unknown> | ApiClient.Model,
     ): unknown;
 
     /**
@@ -516,11 +512,11 @@ export class ApiClient {
         contentTypes: string[],
         accepts: string[],
         returnType: string | [] | ApiClient.Model | unknown,
-        apiBasePath: string
+        apiBasePath: string,
     ): Promise<
-        (TResponse & { data: unknown })
+        | (TResponse & { data: unknown })
         | ApiClient.ErrorResponse<TResponse>
-    >
+    >;
 
     /**
      * Parses an ISO-8601 string representation or epoch representation of a date value.
@@ -529,12 +525,12 @@ export class ApiClient {
      */
     static parseDate(str: string): Date;
 
-    hostSettings(): Array<{ url: string, description: string}>;
+    hostSettings(): Array<{ url: string; description: string }>;
 
     getBasePathFromSettings(
         index: number,
-        variables: Record<string, string>
-    ): string | undefined
+        variables: Record<string, string>,
+    ): string | undefined;
 
     /**
      * Constructs a new map or array model from REST data.
@@ -545,8 +541,8 @@ export class ApiClient {
     static constructFromObject(
         data: unknown[] | unknown,
         obj: unknown[] | unknown,
-        type: string
-    ): void
+        type: string,
+    ): void;
 
     /**
      * The default API client implementation.
@@ -555,51 +551,51 @@ export class ApiClient {
 }
 
 export namespace ApiClient {
-    type CollectionFormatEnum = 'csv' | 'ssv' | 'tsv' | 'pipes' | 'multi' | 'passthrough'
+    type CollectionFormatEnum = "csv" | "ssv" | "tsv" | "pipes" | "multi" | "passthrough";
 
     interface Response<T> {
-        status: unknown,
-        statusText: string,
-        body: unknown,
-        response: T
+        status: unknown;
+        statusText: string;
+        body: unknown;
+        response: T;
     }
 
     type ErrorResponse<T> = Response<T> & {
-        error: Error
-    }
+        error: Error;
+    };
 
     interface Model {
         constructFromObject(
             data: unknown,
-            obj: unknown
+            obj: unknown,
         ): unknown;
     }
 }
 
 export type JweCryptoConfiguration =
-    { encryptionCertificate: string }
+    & { encryptionCertificate: string }
     & EncryptionUtils.getPrivateKeyConfig
     & (
-        {
-            publicKeyFingerprint: unknown,
-            publicKeyFingerprintType?: never,
-            dataEncoding?: never,
+        | {
+            publicKeyFingerprint: unknown;
+            publicKeyFingerprintType?: never;
+            dataEncoding?: never;
         }
         | {
-            publicKeyFingerprint?: never,
-            publicKeyFingerprintType: PublicKeyFingerprintType,
-            dataEncoding: DataEncodingType,
+            publicKeyFingerprint?: never;
+            publicKeyFingerprintType: PublicKeyFingerprintType;
+            dataEncoding: DataEncodingType;
         }
     )
-    & { encryptedValueFieldName: string }
+    & { encryptedValueFieldName: string };
 export class JweCrypto {
-	encryptionCertificate: string;
+    encryptionCertificate: string;
 
-	privateKey: string | null;
+    privateKey: string | null;
 
-	publicKeyFingerprint: unknown | string | null;
+    publicKeyFingerprint: unknown | string | null;
 
-	encryptedValueFieldName: string;
+    encryptedValueFieldName: string;
 
-	constructor(options: JweCryptoConfiguration)
+    constructor(options: JweCryptoConfiguration);
 }

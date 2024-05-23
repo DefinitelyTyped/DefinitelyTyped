@@ -1,174 +1,174 @@
-import { JweEncryption, EncryptionUtils, FieldLevelEncryption, JweCrypto } from 'mastercard-client-encryption'
+import { EncryptionUtils, FieldLevelEncryption, JweCrypto, JweEncryption } from "mastercard-client-encryption";
 
 const jweEncryptionConfig = {
-    mode: 'JWE',
+    mode: "JWE",
     paths: [
         {
-            path: '',
+            path: "",
             toEncrypt: [],
-            toDecrypt: []
-        }
+            toDecrypt: [],
+        },
     ],
-    encryptedValueFieldName: 'encryptedData',
-    encryptionCertificate: '',
-}
+    encryptedValueFieldName: "encryptedData",
+    encryptionCertificate: "",
+};
 
 const jwe = new JweEncryption({
-    mode: 'JWE',
+    mode: "JWE",
     paths: [
         {
-            path: '',
+            path: "",
             toEncrypt: [],
-            toDecrypt: []
-        }
+            toDecrypt: [],
+        },
     ],
-    encryptedValueFieldName: 'encryptedData',
-    encryptionCertificate: '',
-})
-
-jwe.encrypt('/', {}, {});
-jwe.decrypt({
-    request: { url: '' },
-    body: {}
+    encryptedValueFieldName: "encryptedData",
+    encryptionCertificate: "",
 });
 
-EncryptionUtils.bytesToString('', 'base64')
-EncryptionUtils.bytesToString('', 'hex')
+jwe.encrypt("/", {}, {});
+jwe.decrypt({
+    request: { url: "" },
+    body: {},
+});
 
-EncryptionUtils.stringToBytes('', 'base64')
-EncryptionUtils.stringToBytes('', 'hex')
+EncryptionUtils.bytesToString("", "base64");
+EncryptionUtils.bytesToString("", "hex");
 
-EncryptionUtils.stringToJson('{"name":""}')
-EncryptionUtils.jsonToString({ name: '' })
+EncryptionUtils.stringToBytes("", "base64");
+EncryptionUtils.stringToBytes("", "hex");
 
-EncryptionUtils.toByteArray('', 'utf-8')
+EncryptionUtils.stringToJson("{\"name\":\"\"}");
+EncryptionUtils.jsonToString({ name: "" });
 
-EncryptionUtils.isSet(null)
-EncryptionUtils.isSet(undefined)
-EncryptionUtils.isSet('')
-EncryptionUtils.isSet([])
-EncryptionUtils.isSet(true)
-EncryptionUtils.isSet(false)
-EncryptionUtils.isSet(1)
-EncryptionUtils.isSet(0)
+EncryptionUtils.toByteArray("", "utf-8");
+
+EncryptionUtils.isSet(null);
+EncryptionUtils.isSet(undefined);
+EncryptionUtils.isSet("");
+EncryptionUtils.isSet([]);
+EncryptionUtils.isSet(true);
+EncryptionUtils.isSet(false);
+EncryptionUtils.isSet(1);
+EncryptionUtils.isSet(0);
 
 EncryptionUtils.getPrivateKey({
-    privateKey: ''
-})
+    privateKey: "",
+});
 EncryptionUtils.getPrivateKey({
-    keyStore: '.pem',
-    keyStoreAlias: '',
-    keyStorePassword: '',
-})
+    keyStore: ".pem",
+    keyStoreAlias: "",
+    keyStorePassword: "",
+});
 
 // @ts-expect-error
-EncryptionUtils.getPrivateKeyFromContent({ keystore: '' })
+EncryptionUtils.getPrivateKeyFromContent({ keystore: "" });
 
-EncryptionUtils.getPrivateKeyFromContent({ privateKey: '' })
+EncryptionUtils.getPrivateKeyFromContent({ privateKey: "" });
 
-EncryptionUtils.readPublicCertificate('path/to/certificate')
+EncryptionUtils.readPublicCertificate("path/to/certificate");
 
 EncryptionUtils.computePublicFingerprint(
-    { publicKeyFingerprintType: 'certificate', },
+    { publicKeyFingerprintType: "certificate" },
     // @ts-expect-error
-    { publicKey: '' },
-    'base64'
-)
+    { publicKey: "" },
+    "base64",
+);
 
 EncryptionUtils.computePublicFingerprint(
-    { publicKeyFingerprintType: 'publicKey' },
+    { publicKeyFingerprintType: "publicKey" },
     // @ts-ignore no public key initialization to test whole public key shape
-    { publicKey: '' },
-    'base64'
-)
+    { publicKey: "" },
+    "base64",
+);
 
-EncryptionUtils.nodeVersionSupportsJWE()
+EncryptionUtils.nodeVersionSupportsJWE();
 
 EncryptionUtils.checkConfigFieldsArePopulated(
     { paths: [] },
-    ['path'],
-    ['field'],
-    ['header']
-)
+    ["path"],
+    ["field"],
+    ["header"],
+);
 
 EncryptionUtils.validateRootMapping({
     paths: [
         {
-            path: '/',
+            path: "/",
             toEncrypt: [],
-            toDecrypt: []
-        }
-    ]
-})
+            toDecrypt: [],
+        },
+    ],
+});
 
 EncryptionUtils.hasConfig({
-    paths: []
-}, '/')
+    paths: [],
+}, "/");
 
-EncryptionUtils.elemFromPath('path.to.object', {
+EncryptionUtils.elemFromPath("path.to.object", {
     to: {
-        object: ''
-    }
-})
+        object: "",
+    },
+});
 
-EncryptionUtils.isJsonRoot({})
+EncryptionUtils.isJsonRoot({});
 
 EncryptionUtils.computeBody(
     [
-        { element: '', obj: '' }
+        { element: "", obj: "" },
     ],
     {},
-    []
-)
+    [],
+);
 
 EncryptionUtils.addEncryptedDataToBody(
     {},
-    { element: '', obj: '', },
-    '',
-    {}
-)
+    { element: "", obj: "" },
+    "",
+    {},
+);
 
 const fle = new FieldLevelEncryption({
     ...jweEncryptionConfig,
-    ivFieldName: 'iv',
-    encryptedKeyFieldName: 'encryptedKey',
-    encryptedValueFieldName: 'encryptedData',
-    oaepHashingAlgorithmFieldName: 'SHA-256',
-    publicKeyFingerprintFieldName: '',
-})
+    ivFieldName: "iv",
+    encryptedKeyFieldName: "encryptedKey",
+    encryptedValueFieldName: "encryptedData",
+    oaepHashingAlgorithmFieldName: "SHA-256",
+    publicKeyFingerprintFieldName: "",
+});
 
-fle.encrypt('/', {}, {})
+fle.encrypt("/", {}, {});
 fle.decrypt({
-    request: { url: '' },
-    body: {}
-})
+    request: { url: "" },
+    body: {},
+});
 
 new JweCrypto({
-    encryptionCertificate: '',
-    encryptedValueFieldName: '',
+    encryptionCertificate: "",
+    encryptedValueFieldName: "",
 
-    publicKeyFingerprint: '',
+    publicKeyFingerprint: "",
 
-    privateKey: '',
-})
+    privateKey: "",
+});
 new JweCrypto({
-    encryptionCertificate: '',
-    encryptedValueFieldName: '',
+    encryptionCertificate: "",
+    encryptedValueFieldName: "",
 
-    publicKeyFingerprint: '',
+    publicKeyFingerprint: "",
 
-    keyStore: '.pem',
-    keyStoreAlias: '',
-    keyStorePassword: ''
-})
+    keyStore: ".pem",
+    keyStoreAlias: "",
+    keyStorePassword: "",
+});
 new JweCrypto({
-    encryptionCertificate: '',
-    encryptedValueFieldName: '',
+    encryptionCertificate: "",
+    encryptedValueFieldName: "",
 
-    publicKeyFingerprintType: 'certificate',
-    dataEncoding: 'base64',
+    publicKeyFingerprintType: "certificate",
+    dataEncoding: "base64",
 
-    keyStore: '.der',
-    keyStoreAlias: '',
-    keyStorePassword: ''
-})
+    keyStore: ".der",
+    keyStoreAlias: "",
+    keyStorePassword: "",
+});
