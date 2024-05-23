@@ -10,7 +10,7 @@
         "@types/tonic-ui__react": "*"
     },
     "devDependencies": {
-        "@types/tonic-ui__react-icons": "*"
+        "@types/tonic-ui__react-icons": "workspace:."
     },
     "owners": [
         {
