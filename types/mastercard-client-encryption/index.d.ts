@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 export interface DecryptOptions {
     body: unknown;
     request: {
