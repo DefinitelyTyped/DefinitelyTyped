@@ -7,7 +7,7 @@
     ],
 
     "devDependencies": {
-        "@types/PACKAGE-NAME": "workspace:."
+        "@types/prng": "workspace:."
     },
     "owners": [
         {
