@@ -3,6 +3,7 @@
     "name": "@types/prng",
     "version": "1.0.9999",
     "nonNpm": "conflict",
+    "nonNpmDescription": "TypeScript definitions for the prng package",
     "projects": [
         "https://github.com/kmirjana/Echoes-of-Travian"
     ],
