@@ -1840,14 +1840,14 @@ export interface Keyboard {
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
      * @param key Name of key to press, such as `ArrowLeft`.
      */
-    down(key: string): void;
+    down(key: string): Promise<void>;
 
     /**
      * Dispatches an `input` event with the given `text`.
      * This method does not emit `keyDown`, `keyUp` or `keyPress` events.
      * @param text Event text.
      */
-    insertText(text: string): void;
+    insertText(text: string): Promise<void>;
 
     /**
      * Sends a key press message to a session target.
@@ -1855,7 +1855,7 @@ export interface Keyboard {
      * @param key Sequence of keys to press.
      * @param options Specifies the typing options.
      */
-    press(key: string, options?: { delay?: number }): void;
+    press(key: string, options?: { delay?: number }): Promise<void>;
 
     /**
      * Type sends a `press` message to a session target for each character in text.
@@ -1865,14 +1865,14 @@ export interface Keyboard {
      * @param text A text to type into a focused element.
      * @param options Specifies the typing options.
      */
-    type(text: string, options?: { delay?: number }): void;
+    type(text: string, options?: { delay?: number }): Promise<void>;
 
     /**
      * Sends a key up message to a session target.
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
      * @param key Name of key to release, such as `ArrowLeft`.
      */
-    up(key: string): void;
+    up(key: string): Promise<void>;
 }
 
 /**
@@ -2078,7 +2078,7 @@ export interface Mouse {
      * @param y The y position.
      * @param options The click options.
      */
-    click(x: number, y: number, options?: MouseMultiClickOptions): void;
+    click(x: number, y: number, options?: MouseMultiClickOptions): Promise<void>;
 
     /**
      * Shortcut for `mouse.move(x, y)`, `mouse.down()`, `mouse.up()`, `mouse.down()`,
@@ -2087,13 +2087,13 @@ export interface Mouse {
      * @param y The y position.
      * @param options The click options.
      */
-    dblclick(x: number, y: number, options?: MouseClickOptions): void;
+    dblclick(x: number, y: number, options?: MouseClickOptions): Promise<void>;
 
     /**
      * Dispatches a `mousedown` event.
      * @param options The mouse down options.
      */
-    down(options?: MouseDownUpOptions): void;
+    down(options?: MouseDownUpOptions): Promise<void>;
 
     /**
      * Dispatches a `mousemove` event.
@@ -2101,13 +2101,13 @@ export interface Mouse {
      * @param y The y position.
      * @param options The mouse move options.
      */
-    move(x: number, y: number, options?: { steps?: number }): void;
+    move(x: number, y: number, options?: { steps?: number }): Promise<void>;
 
     /**
      * Dispatches a `mouseup` event.
      * @param options The mouse up options.
      */
-    up(options?: MouseDownUpOptions): void;
+    up(options?: MouseDownUpOptions): Promise<void>;
 }
 
 /**
