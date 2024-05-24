@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/detect-rpi",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/fourcube/detect-rpi#readme"
+    ],
+    "devDependencies": {
+        "@types/detect-rpi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}
