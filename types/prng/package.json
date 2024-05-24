@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/prng",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/kmirjana/Echoes-of-Travian"
+    ],
+
+    "devDependencies": {
+        "@types/PACKAGE-NAME": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "kmirjana",
+            "githubUsername": "kmirjana"
+        }
+    ]
+}
