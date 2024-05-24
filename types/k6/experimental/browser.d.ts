@@ -1898,7 +1898,7 @@ export interface Locator {
      *
      * @param options Options to use.
      */
-    clear(options?: ElementHandleOptions): void;
+    clear(options?: ElementHandleOptions): Promise<void>;
 
     /**
      * Mouse click on the chosen element.
@@ -1911,72 +1911,72 @@ export interface Locator {
      * Mouse double click on the chosen element.
      * @param options Options to use.
      */
-    dblclick(options?: MouseMoveOptions & MouseMultiClickOptions): void;
+    dblclick(options?: MouseMoveOptions & MouseMultiClickOptions): Promise<void>;
 
     /**
      * Use this method to select an `input type="checkbox"`.
      * @param options Options to use.
      */
-    check(options?: ElementClickOptions): void;
+    check(options?: ElementClickOptions): Promise<void>;
 
     /**
      * Use this method to unselect an `input type="checkbox"`.
      * @param options Options to use.
      */
-    uncheck(options?: ElementClickOptions): void;
+    uncheck(options?: ElementClickOptions): Promise<void>;
 
     /**
      * Checks to see if the `input type="checkbox"` is selected or not.
      * @param options Options to use.
      * @returns `true` if the element is checked, `false` otherwise.
      */
-    isChecked(options?: TimeoutOptions): boolean;
+    isChecked(options?: TimeoutOptions): Promise<boolean>;
 
     /**
      * Checks if the element is editable.
      * @param options Options to use.
      * @returns `true` if the element is editable, `false` otherwise.
      */
-    isEditable(options?: TimeoutOptions): boolean;
+    isEditable(options?: TimeoutOptions): Promise<boolean>;
 
     /**
      * Checks if the element is `enabled`.
      * @param options Options to use.
      * @returns `true` if the element is enabled, `false` otherwise.
      */
-    isEnabled(options?: TimeoutOptions): boolean;
+    isEnabled(options?: TimeoutOptions): Promise<boolean>;
 
     /**
      * Checks if the element is `disabled`.
      * @param options Options to use.
      * @returns `true` if the element is disabled, `false` otherwise.
      */
-    isDisabled(options?: TimeoutOptions): boolean;
+    isDisabled(options?: TimeoutOptions): Promise<boolean>;
 
     /**
      * Checks if the element is `visible`.
      * @returns `true` if the element is visible, `false` otherwise.
      */
-    isVisible(): boolean;
+    isVisible(): Promise<boolean>;
 
     /**
      * Checks if the element is `hidden`.
      * @returns `true` if the element is hidden, `false` otherwise.
      */
-    isHidden(): boolean;
+    isHidden(): Promise<boolean>;
 
     /**
      * Fill an `input`, `textarea` or `contenteditable` element with the provided value.
      * @param value Value to fill for the `input` or `textarea` element.
      * @param options Options to use.
      */
-    fill(value: string, options?: ElementHandleOptions): void;
+    fill(value: string, options?: ElementHandleOptions): Promise<void>;
 
     /**
      * Focuses the element using locator's selector.
      * @param options Options to use.
      */
-    focus(options?: TimeoutOptions): void;
+    focus(options?: TimeoutOptions): Promise<void>;
 
     /**
      * Returns the element attribute value for the given attribute name.
@@ -1984,35 +1984,35 @@ export interface Locator {
      * @param options Options to use.
      * @returns Attribute value.
      */
-    getAttribute(name: string, options?: TimeoutOptions): string | null;
+    getAttribute(name: string, options?: TimeoutOptions): Promise<string | null>;
 
     /**
      * Returns the `element.innerHTML`.
      * @param options Options to use.
      * @returns Element's innerHTML.
      */
-    innerHTML(options?: TimeoutOptions): string;
+    innerHTML(options?: TimeoutOptions): Promise<string>;
 
     /**
      * Returns the `element.innerText`.
      * @param options Options to use.
      * @returns Element's innerText.
      */
-    innerText(options?: TimeoutOptions): string;
+    innerText(options?: TimeoutOptions): Promise<string>;
 
     /**
      * Returns the `element.textContent`.
      * @param options Options to use.
      * @returns Element's textContent.
      */
-    textContent(options?: TimeoutOptions): string;
+    textContent(options?: TimeoutOptions): Promise<string>;
 
     /**
      * Returns `input.value` for the selected `input`, `textarea` or `select` element.
      * @param options Options to use.
      * @returns The input value of the element.
      */
-    inputValue(options?: TimeoutOptions): string;
+    inputValue(options?: TimeoutOptions): Promise<string>;
 
     /**
      * Select one or more options which match the values. If the select has the multiple attribute, all matching options are selected,
@@ -2024,7 +2024,7 @@ export interface Locator {
     selectOption(
         values: string | string[] | { value?: string; label?: string; index?: number },
         options?: ElementHandleOptions,
-    ): string[];
+    ): Promise<string[]>;
 
     /**
      * Press a single key on the keyboard or a combination of keys.
@@ -2032,26 +2032,26 @@ export interface Locator {
      * @param key Name of the key to press or a character to generate, such as `ArrowLeft` or `a`.
      * @param options Keyboard press options.
      */
-    press(key: string, options?: KeyboardPressOptions): void;
+    press(key: string, options?: KeyboardPressOptions): Promise<void>;
 
     /**
      * Type a text into the input field.
      * @param text Text to type into the input field.
      * @param options Typing options.
      */
-    type(text: string, options?: KeyboardPressOptions): void;
+    type(text: string, options?: KeyboardPressOptions): Promise<void>;
 
     /**
      * Hover over the element.
      * @param options Options to use.
      */
-    hover(options?: MouseMoveOptions): void;
+    hover(options?: MouseMoveOptions): Promise<void>;
 
     /**
      * Tap on the chosen element.
      * @param options Options to use.
      */
-    tap(options?: MouseMoveOptions): void;
+    tap(options?: MouseMoveOptions): Promise<void>;
 
     /**
      * Dispatches HTML DOM event types e.g. `click`.
@@ -2059,13 +2059,13 @@ export interface Locator {
      * @param eventInit Event-specific properties.
      * @param options Options to use.
      */
-    dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions): void;
+    dispatchEvent(type: string, eventInit?: EvaluationArgument, options?: TimeoutOptions): Promise<void>;
 
     /**
      * Wait for the element to be in a particular state e.g. `visible`.
      * @param options Wait options.
      */
-    waitFor(options?: { state?: ElementState } & TimeoutOptions): void;
+    waitFor(options?: { state?: ElementState } & TimeoutOptions): Promise<void>;
 }
 
 /**
