@@ -2005,7 +2005,7 @@ export interface Locator {
      * @param options Options to use.
      * @returns Element's textContent.
      */
-    textContent(options?: TimeoutOptions): Promise<string>;
+    textContent(options?: TimeoutOptions): Promise<string | null>;
 
     /**
      * Returns `input.value` for the selected `input`, `textarea` or `select` element.
