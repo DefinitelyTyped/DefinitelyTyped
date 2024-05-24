@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/prng",
-    "version": "1.0.9999",
+    "version": "0.0.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "TypeScript definitions for the prng package",
     "projects": [
@@ -12,9 +12,5 @@
         "@types/prng": "workspace:."
     },
     "owners": [
-        {
-            "name": "kmirjana",
-            "githubUsername": "kmirjana"
-        }
-    ]
+]
 }
