@@ -1414,28 +1414,28 @@ export interface Frame {
      * @param selector A selector to query element for.
      * @returns An `ElementHandle` pointing to the result element or `null`.
      */
-    $(selector: string): ElementHandle | null;
+    $(selector: string): Promise<ElementHandle | null>;
 
     /**
      * Finds all elements matching the specified selector within the `Frame`.
      * @param selector A selector to query element for.
      * @returns A list of `ElementHandle`s pointing to the result elements.
      */
-    $$(selector: string): ElementHandle[];
+    $$(selector: string): Promise<ElementHandle[]>;
 
     /**
      * Checks the first checkbox element found that matches selector.
      * @param selector The selector to use.
      * @param options The options to use.
      */
-    check(selector: string, options?: ElementClickOptions & StrictnessOptions): void;
+    check(selector: string, options?: ElementClickOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Uncheck the first found element that matches the selector.
      * @param selector The selector to use.
      * @param options The options to use.
      */
-    uncheck(selector: string, options?: ElementClickOptions & StrictnessOptions): void;
+    uncheck(selector: string, options?: ElementClickOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Clicks the element.
@@ -1450,7 +1450,7 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      */
-    dblclick(selector: string, options?: MouseClickOptions & MouseMoveOptions & StrictnessOptions): void;
+    dblclick(selector: string, options?: MouseClickOptions & MouseMoveOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Fills out the first element found that matches the selector.
@@ -1458,28 +1458,28 @@ export interface Frame {
      * @param value The value to fill.
      * @param options The options to use.
      */
-    fill(selector: string, value: string, options?: ElementHandleOptions & StrictnessOptions): void;
+    fill(selector: string, value: string, options?: ElementHandleOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Focuses the first element found that matches the selector.
      * @param selector The selector to use.
      * @param options The options to use.
      */
-    focus(selector: string, options?: TimeoutOptions & StrictnessOptions): void;
+    focus(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Hovers the first element found that matches the selector.
      * @param selector The selector to use.
      * @param options The options to use.
      */
-    hover(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): void;
+    hover(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Taps the first element found that matches the selector.
      * @param selector The selector to use.
      * @param options The options to use.
      */
-    tap(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): void;
+    tap(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Press the given key for the first element found that matches the selector.
@@ -1487,7 +1487,7 @@ export interface Frame {
      * @param key The key to press.
      * @param options The options to use.
      */
-    press(selector: string, key: string, options?: KeyboardPressOptions & StrictnessOptions): void;
+    press(selector: string, key: string, options?: KeyboardPressOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Type the given text for the first element found that matches the selector.
@@ -1495,7 +1495,7 @@ export interface Frame {
      * @param text The text to type.
      * @param options The options to use.
      */
-    type(selector: string, text: string, options?: KeyboardPressOptions & StrictnessOptions): void;
+    type(selector: string, text: string, options?: KeyboardPressOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Select the given options and return the array of option values of the first element
@@ -1508,7 +1508,7 @@ export interface Frame {
         selector: string,
         values: string | ElementHandle | SelectOptionsObject | string[] | ElementHandle[] | SelectOptionsObject[],
         options?: ElementHandleOptions & StrictnessOptions,
-    ): string[];
+    ): Promise<string[]>;
 
     /**
      * Dispatches an event for the first element matching the selector.
@@ -1522,7 +1522,7 @@ export interface Frame {
         type: string,
         eventInit?: object,
         options?: TimeoutOptions & StrictnessOptions,
-    ): void;
+    ): Promise<void>;
 
     /**
      * Returns the value of the `pageFunction` invocation.
@@ -1532,7 +1532,7 @@ export interface Frame {
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
      */
-    evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
+    evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): Promise<R>;
 
     /**
      * Returns the value of the `pageFunction` invocation as a [JSHandle].
@@ -1544,7 +1544,7 @@ export interface Frame {
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
      */
-    evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
+    evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): Promise<JSHandle<R>>;
 
     /**
      * Get the page that owns frame.
@@ -1568,7 +1568,7 @@ export interface Frame {
      * Get the `ElementHandle` for this frame.
      * @returns The `ElementHandle` for this frame.
      */
-    frameElement(): ElementHandle;
+    frameElement(): Promise<ElementHandle>;
 
     /**
      * Navigate the frame to the specified URL and return a HTTP response object.
@@ -1583,7 +1583,7 @@ export interface Frame {
      * @param html The HTML to use.
      * @param options The options to use.
      */
-    setContent(html: string, options?: ContentLoadOptions): void;
+    setContent(html: string, options?: ContentLoadOptions): Promise<void>;
 
     /**
      * Get the name of the frame.
@@ -1595,7 +1595,7 @@ export interface Frame {
      * Get the title of the frame.
      * @returns The title of the frame.
      */
-    title(): string;
+    title(): Promise<string>;
 
     /**
      * Get the URL of the frame.
@@ -1607,7 +1607,7 @@ export interface Frame {
      * Get the HTML content of the frame.
      * @returns The HTML content of the frame.
      */
-    content(): string;
+    content(): Promise<string>;
 
     /**
      * Get whether the frame is detached or not.
@@ -1628,7 +1628,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns The `innerHTML` attribute of the first element found.
      */
-    innerHTML(selector: string, options?: TimeoutOptions & StrictnessOptions): string;
+    innerHTML(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<string>;
 
     /**
      * Get the `innerText` attribute of the first element found that matches the selector.
@@ -1636,7 +1636,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns The `innerText` attribute of the first element found.
      */
-    innerText(selector: string, options?: TimeoutOptions & StrictnessOptions): string;
+    innerText(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<string>;
 
     /**
      * Get the text content of the first element found that matches the selector.
@@ -1644,7 +1644,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns The text content of the first element found.
      */
-    textContent(selector: string, options?: TimeoutOptions & StrictnessOptions): string;
+    textContent(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<string>;
 
     /**
      * Get the value of an attribute of the first element found that matches the selector.
@@ -1653,7 +1653,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns The value of the attribute.
      */
-    getAttribute(selector: string, name: string, options?: TimeoutOptions & StrictnessOptions): string;
+    getAttribute(selector: string, name: string, options?: TimeoutOptions & StrictnessOptions): Promise<string>;
 
     /**
      * Get the input value of the first element found that matches the selector.
@@ -1661,7 +1661,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns The input value of the first element found.
      */
-    inputValue(selector: string, options?: TimeoutOptions & StrictnessOptions): string;
+    inputValue(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<string>;
 
     /**
      * Get the `checked` attribute of the first checkbox element found that matches the selector.
@@ -1669,7 +1669,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the checkbox is checked, `false` otherwise.
      */
-    isChecked(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isChecked(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<boolean>;
 
     /**
      * Get whether the first element found that matches the selector is disabled or not.
@@ -1677,7 +1677,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is disabled, `false` otherwise.
      */
-    isDisabled(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isDisabled(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<boolean>;
 
     /**
      * Get whether the first element found that matches the selector is enabled or not.
@@ -1685,7 +1685,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is enabled, `false` otherwise.
      */
-    isEnabled(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isEnabled(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<boolean>;
 
     /**
      * Get whether the first element found that matches the selector is editable or not.
@@ -1693,7 +1693,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is editable, `false` otherwise.
      */
-    isEditable(selector: string, options?: TimeoutOptions & StrictnessOptions): boolean;
+    isEditable(selector: string, options?: TimeoutOptions & StrictnessOptions): Promise<boolean>;
 
     /**
      * Get whether the first element found that matches the selector is hidden or not.
@@ -1701,7 +1701,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is hidden, `false` otherwise.
      */
-    isHidden(selector: string, options?: StrictnessOptions): boolean;
+    isHidden(selector: string, options?: StrictnessOptions): Promise<boolean>;
 
     /**
      * Get whether the first element found that matches the selector is visible or not.
@@ -1709,7 +1709,7 @@ export interface Frame {
      * @param options The options to use.
      * @returns `true` if the element is visible, `false` otherwise.
      */
-    isVisible(selector: string, options?: StrictnessOptions): boolean;
+    isVisible(selector: string, options?: StrictnessOptions): Promise<boolean>;
 
     /**
      * Sets the file input element's value to the specified files.
@@ -1739,7 +1739,7 @@ export interface Frame {
          * @default false
          */
         noWaitAfter?: boolean;
-    }): void;
+    }): Promise<void>;
 
     /**
      * Wait for the given function to return a truthy value.
@@ -1758,7 +1758,7 @@ export interface Frame {
      * @param state The load state to wait for, defaults to `load`.
      * @param options The options to use.
      */
-    waitForLoadState(state?: LifecycleEvent, options?: TimeoutOptions): void;
+    waitForLoadState(state?: LifecycleEvent, options?: TimeoutOptions): Promise<void>;
 
     /**
      * Waits for the navigation event to happen.
@@ -1773,13 +1773,13 @@ export interface Frame {
      * @param options The options to use.
      * @returns The first element found that matches the selector.
      */
-    waitForSelector(selector: string, options?: ElementStateFilter & TimeoutOptions & StrictnessOptions): ElementHandle;
+    waitForSelector(selector: string, options?: ElementStateFilter & TimeoutOptions & StrictnessOptions): Promise<ElementHandle>;
 
     /**
      * Wait for the given timeout to elapse.
      * @param timeout The timeout to wait for.
      */
-    waitForTimeout(timeout: number): void;
+    waitForTimeout(timeout: number): Promise<void>;
 }
 
 /**
