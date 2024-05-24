@@ -1,4 +1,6 @@
 declare module 'prng' {
+    export {};
+
     type PRNGFunction = (() => number) & {
         quick: () => number;
         double: () => number;
