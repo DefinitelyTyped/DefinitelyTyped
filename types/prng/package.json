@@ -1,6 +1,7 @@
 {
     "private": true,
     "name": "@types/prng",
+    "version": "1.0.9999",
     "nonNpm": "true",
     "projects": [
         "https://github.com/kmirjana/Echoes-of-Travian"
