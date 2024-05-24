@@ -12,7 +12,6 @@
         ]
     },
     "files": [
-        "index.ts",
-        "tmicon.d.ts"
+        "index.ts"
     ]
 }
