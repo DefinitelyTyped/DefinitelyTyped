@@ -26,12 +26,6 @@ declare namespace audit {
         maskBody?: string[] | undefined;
 
         /**
-         * pass the fields you wish to mask in the query of the requests (sensitive data like passwords, credit cards numbers etc..).
-         * {@link https://github.com/PayU/express-request-logger#maskquery}
-         */
-        maskQuery?: string[] | undefined;
-
-        /**
          * pass the header names you wish to exclude from the audit (senstitive data like authorization headers etc..). * field - exclude all headers
          * {@link https://github.com/PayU/express-request-logger#excludeheaders}
          */
@@ -53,13 +47,24 @@ declare namespace audit {
     /**
      * {@link https://github.com/PayU/express-request-logger#options}
      */
-    interface Options extends CommonOptions {
+    interface Options {
         /**
          * The logger to use for logging the request/response.
          * Package tested only with `bunyan` logger, but should work with any logger which has a info method which takes an object.
          * {@link https://github.com/PayU/express-request-logger#logger}
          */
         logger?: Logger | undefined;
+
+        /**
+         * Should be a function, that returns boolean value to indicate whether
+         * to skip the audit for the current request. Usually the logic should
+         * be around the request/response params. Useful to provide a custom
+         * logic for cases we would want to skip logging specific request.
+         *
+         * The default implementation of the function returns false.
+         * {@link https://github.com/PayU/express-request-logger#shouldskipauditfunc}
+         */
+        shouldSkipAuditFunc?: ((req: Express.Request, res: Express.Response) => boolean) | undefined;
 
         /**
          * `true` - log once the request arrives (request details), and log after response is sent (both request and response).
@@ -79,8 +84,16 @@ declare namespace audit {
          * Specific configuration for requests
          * {@link https://github.com/PayU/express-request-logger#request}
          */
-        request?: any;
+        request?: RequestOptions | undefined;
 
+        /**
+         * Specific configuration for responses
+         * {@link https://github.com/PayU/express-request-logger#response}
+         */
+        response?: ResponseOptions | undefined;
+    }
+
+    interface RequestOptions extends CommonOptions {
         /**
          * Additional to mask options, you can add your own functionality to mask request body.
          * This function will execute as a masking function before the package functions.
@@ -90,10 +103,10 @@ declare namespace audit {
         customMaskBodyFunc?: ((req: Request) => string) | undefined;
 
         /**
-         * Specific configuration for responses
-         * {@link https://github.com/PayU/express-request-logger#response}
+         * pass the fields you wish to mask in the query of the requests (sensitive data like passwords, credit cards numbers etc..).
+         * {@link https://github.com/PayU/express-request-logger#maskquery}
          */
-        response?: ResponseOptions | undefined;
+        maskQuery?: string[] | undefined;
     }
 
     interface ResponseOptions extends CommonOptions {

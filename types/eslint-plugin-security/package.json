@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eslint-plugin-security",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/eslint-community/eslint-plugin-security#readme"
+    ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
+    "devDependencies": {
+        "@types/eslint-plugin-security": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rhysd",
+            "githubUsername": "rhysd"
+        }
+    ]
+}

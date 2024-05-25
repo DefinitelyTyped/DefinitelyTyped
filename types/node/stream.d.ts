@@ -2,9 +2,10 @@
  * A stream is an abstract interface for working with streaming data in Node.js.
  * The `node:stream` module provides an API for implementing the stream interface.
  *
- * There are many stream objects provided by Node.js. For instance, a `request to an HTTP server` and `process.stdout` are both stream instances.
+ * There are many stream objects provided by Node.js. For instance, a [request to an HTTP server](https://nodejs.org/docs/latest-v20.x/api/http.html#class-httpincomingmessage)
+ * and [`process.stdout`](https://nodejs.org/docs/latest-v20.x/api/process.html#processstdout) are both stream instances.
  *
- * Streams can be readable, writable, or both. All streams are instances of `EventEmitter`.
+ * Streams can be readable, writable, or both. All streams are instances of [`EventEmitter`](https://nodejs.org/docs/latest-v20.x/api/events.html#class-eventemitter).
  *
  * To access the `node:stream` module:
  *
@@ -41,16 +42,20 @@ declare module "stream" {
     import Readable = internal.Readable;
     import ReadableOptions = internal.ReadableOptions;
     interface ArrayOptions {
-        /** the maximum concurrent invocations of `fn` to call on the stream at once.
+        /**
+         * The maximum concurrent invocations of `fn` to call on the stream at once.
          * @default 1
          */
         concurrency?: number;
-        /** allows destroying the stream if the signal is aborted. */
+        /** Allows destroying the stream if the signal is aborted. */
         signal?: AbortSignal;
     }
     class ReadableBase extends Stream implements NodeJS.ReadableStream {
         /**
          * A utility method for creating Readable Streams out of iterators.
+         * @since v12.3.0, v10.17.0
+         * @param iterable Object implementing the `Symbol.asyncIterator` or `Symbol.iterator` iterable protocol. Emits an 'error' event if a null value is passed.
+         * @param options Options provided to `new stream.Readable([options])`. By default, `Readable.from()` will set `options.objectMode` to `true`, unless this is explicitly opted out by setting `options.objectMode` to `false`.
          */
         static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
         /**
@@ -65,7 +70,7 @@ declare module "stream" {
          */
         readonly readableAborted: boolean;
         /**
-         * Is `true` if it is safe to call `readable.read()`, which means
+         * Is `true` if it is safe to call {@link read}, which means
          * the stream has not been destroyed or emitted `'error'` or `'end'`.
          * @since v11.4.0
          */
@@ -77,18 +82,18 @@ declare module "stream" {
          */
         readonly readableDidRead: boolean;
         /**
-         * Getter for the property `encoding` of a given `Readable` stream. The `encoding` property can be set using the `readable.setEncoding()` method.
+         * Getter for the property `encoding` of a given `Readable` stream. The `encoding` property can be set using the {@link setEncoding} method.
          * @since v12.7.0
          */
         readonly readableEncoding: BufferEncoding | null;
         /**
-         * Becomes `true` when `'end'` event is emitted.
+         * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v20.x/api/stream.html#event-end) event is emitted.
          * @since v12.9.0
          */
         readonly readableEnded: boolean;
         /**
          * This property reflects the current state of a `Readable` stream as described
-         * in the `Three states` section.
+         * in the [Three states](https://nodejs.org/docs/latest-v20.x/api/stream.html#three-states) section.
          * @since v9.4.0
          */
         readonly readableFlowing: boolean | null;
@@ -1366,20 +1371,18 @@ declare module "stream" {
          * ```
          * @since v15.4.0
          * @param signal A signal representing possible cancellation
-         * @param stream a stream to attach a signal to
+         * @param stream A stream to attach a signal to.
          */
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
         /**
          * Returns the default highWaterMark used by streams.
          * Defaults to `16384` (16 KiB), or `16` for `objectMode`.
          * @since v19.9.0
-         * @param objectMode
          */
         function getDefaultHighWaterMark(objectMode: boolean): number;
         /**
          * Sets the default highWaterMark used by streams.
          * @since v19.9.0
-         * @param objectMode
          * @param value highWaterMark value
          */
         function setDefaultHighWaterMark(objectMode: boolean, value: number): void;
@@ -1431,7 +1434,7 @@ declare module "stream" {
          * @since v10.0.0
          * @param stream A readable and/or writable stream.
          * @param callback A callback function that takes an optional error argument.
-         * @return A cleanup function which removes all registered listeners.
+         * @returns A cleanup function which removes all registered listeners.
          */
         function finished(
             stream: NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream,
@@ -1542,7 +1545,7 @@ declare module "stream" {
         function pipeline<A extends PipelineSource<any>, B extends PipelineDestination<A, any>>(
             source: A,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1552,7 +1555,7 @@ declare module "stream" {
             source: A,
             transform1: T1,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1564,7 +1567,7 @@ declare module "stream" {
             transform1: T1,
             transform2: T2,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1578,7 +1581,7 @@ declare module "stream" {
             transform2: T2,
             transform3: T3,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1594,11 +1597,11 @@ declare module "stream" {
             transform3: T3,
             transform4: T4,
             destination: B,
-            callback?: PipelineCallback<B>,
+            callback: PipelineCallback<B>,
         ): B extends NodeJS.WritableStream ? B : NodeJS.WritableStream;
         function pipeline(
             streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
-            callback?: (err: NodeJS.ErrnoException | null) => void,
+            callback: (err: NodeJS.ErrnoException | null) => void,
         ): NodeJS.WritableStream;
         function pipeline(
             stream1: NodeJS.ReadableStream,

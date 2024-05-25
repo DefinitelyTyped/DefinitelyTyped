@@ -3894,6 +3894,8 @@ declare namespace chrome.fileSystemProvider {
         entryPath: string;
         /** The type of the change which happened to the entry. */
         changeType: string;
+        /** Information relating to the file if backed by a cloud file system. */
+        cloudFileInfo?: CloudFileInfo | undefined;
     }
 
     export interface NotificationOptions {

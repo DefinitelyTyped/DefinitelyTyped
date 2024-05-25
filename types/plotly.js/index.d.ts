@@ -137,10 +137,7 @@ export interface FrameAnimationEvent {
     name: string;
     frame: Frame;
     animation: {
-        frame: {
-            duration: number;
-            redraw: boolean;
-        };
+        frame: AnimationFrameOpts;
         transition: Transition;
     };
 }
@@ -307,6 +304,19 @@ export interface DownloadImgopts {
     filename: string;
 }
 
+export interface AnimationFrameOpts {
+    duration: number;
+    redraw: boolean;
+}
+
+export interface AnimationOpts {
+    mode: "immediate" | "next" | "afterall";
+    direction: "forward" | "reverse";
+    fromcurrent: boolean;
+    transition: Partial<Transition> | Array<Partial<Transition>>;
+    frame: Partial<AnimationFrameOpts> | Array<Partial<AnimationFrameOpts>>;
+}
+
 export interface PolarLayout {
     domain: Partial<Domain>;
     sector: number[];
@@ -378,6 +388,11 @@ export function react(
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 export function register(modules: PlotlyModule | PlotlyModule[]): void;
+export function animate(
+    root: Root,
+    frameOrGroupNameOrFrameList?: string | string[] | Partial<Frame> | Array<Partial<Frame>>,
+    opts?: Partial<AnimationOpts>,
+): Promise<void>;
 
 // Layout
 export interface Layout {

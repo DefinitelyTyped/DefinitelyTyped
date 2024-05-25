@@ -42,7 +42,7 @@ declare namespace OAuth2Strategy {
         verify(req: Request, state: string, meta: Metadata, callback: StateStoreVerifyCallback): void;
     }
 
-    type VerifyCallback = (err?: Error | null, user?: Express.User, info?: object) => void;
+    type VerifyCallback = (err?: Error | null | unknown, user?: Express.User | false, info?: object) => void;
 
     type VerifyFunction<TProfile = any, TResults = any> =
         | ((accessToken: string, refreshToken: string, profile: TProfile, verified: VerifyCallback) => void)

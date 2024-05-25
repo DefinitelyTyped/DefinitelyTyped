@@ -91,24 +91,23 @@ export interface SubtleCrypto {
      *
      * To export a key, the key must have `CryptoKey.extractable` set to `true`.
      *
-     * @param format the format in which to export the key. Currently, only "raw" and "jwk" are supported.
+     * @param format the format in which to export the key.
      * @param key the key to export.
      * @throws {InvalidAccessError} - if the key is not extractable.
      * @throws {NotSupportedError} - if the format is not supported.
      * @throws {TypeError} - when trying to use an invalid format.
      * @returns A promise that resolves with the exported key.
      */
-    exportKey(format: "raw" | "jwk", key: CryptoKey): Promise<ArrayBuffer | JWK>;
+    exportKey(format: "raw" | "jwk" | "spki" | "pkcs8", key: CryptoKey): Promise<ArrayBuffer | JWK>;
 
     /**
-     * Use the `generateKey()` method to generate a new key (for symmetric
-     * algorithms) or key pair (for public-key algorithms).
+     * Use the `generateKey()` method to generate a new key.
      *
      * @param algorithm defines the type of key to generate and providing extra algorithm-specific parameters.
      * @param extractable indicates whether it will be possible to export the key using `SubtleCrypto.exportKey()` or `SubtleCrypto.wrapKey`.
      * @param keyUsages indicates what can be done with the newly generated key.
      * @throws {SyntaxError} - if the result is a `CryptoKey` of type `secret` or `private` but `keyUsages is empty.
-     * @returns A promise that resolves with the newly generated `CryptoKey` or `CryptoKeyPair`.
+     * @returns A promise that resolves with the newly generated `CryptoKey`.
      */
     generateKey(
         algorithm: AesKeyGenParams | HmacKeyGenParams,
@@ -117,11 +116,26 @@ export interface SubtleCrypto {
     ): Promise<CryptoKey>;
 
     /**
+     * Use the `generateKey()` method to generate a new key pair for asymmetric algorithms.
+     *
+     * @param algorithm defines the type of key to generate and providing extra algorithm-specific parameters.
+     * @param extractable indicates whether it will be possible to export the key using `SubtleCrypto.exportKey()` or `SubtleCrypto.wrapKey`.
+     * @param keyUsages indicates what can be done with the newly generated key.
+     * @throws {SyntaxError} - if the result is a `CryptoKey` of type `secret` or `private` but `keyUsages is empty.
+     * @returns A promise that resolves with the newly generated CryptoKeyPair`.
+     */
+    generateKey(
+        algorithm: EcKeyGenParams,
+        extractable: boolean,
+        keyUsages: Array<"sign" | "verify" | "deriveKey" | "deriveBits">,
+    ): Promise<CryptoKeyPair>;
+
+    /**
      * The `importKey()` method imports a key into a `CryptoKey` object.
      * It takes as input a key in an external, portable format and gives you
      * a `CryptoKey` object that can be used in the Web Crypto API.
      *
-     * @param format the format of the key to import. Currently, only "raw" and "jwk" are supported.
+     * @param format the format of the key to import.
      * @param keyData the key data to import.
      * @param algorithm defines the algorithm to use and any extra-parameters.
      * @param extractable indicates whether it will be possible to export the key using `SubtleCrypto.exportKey()` or `SubtleCrypto.wrapKey`.
@@ -131,11 +145,17 @@ export interface SubtleCrypto {
      * @returns A promise that resolves with the imported `CryptoKey`.
      */
     importKey(
-        format: "raw" | "jwk",
+        format: "raw" | "jwk" | "spki" | "pkcs8",
         keyData: ArrayBuffer | ArrayBufferView | DataView | JWK,
-        algorithm: "AES-CBC" | "AES-CTR" | "AES-GCM" | Algorithm<"AES-CBC" | "AES-CTR" | "AES-GCM"> | HmacImportParams,
+        algorithm:
+            | "AES-CBC"
+            | "AES-CTR"
+            | "AES-GCM"
+            | Algorithm<"AES-CBC" | "AES-CTR" | "AES-GCM">
+            | HmacImportParams
+            | EcKeyImportParams,
         extractable: boolean,
-        keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify">,
+        keyUsages: Array<"encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits">,
     ): Promise<CryptoKey>;
 
     /**
@@ -151,7 +171,7 @@ export interface SubtleCrypto {
      * @returns A promise that resolves with the signature.
      */
     sign(
-        algorithm: "HMAC" | Algorithm<"HMAC">,
+        algorithm: "HMAC" | Algorithm<"HMAC"> | EcdsaParams,
         key: CryptoKey,
         data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<ArrayBuffer>;
@@ -167,11 +187,24 @@ export interface SubtleCrypto {
      * @returns A promise that resolves with a boolean indicating whether the signature is valid.
      */
     verify(
-        algorithm: "HMAC" | Algorithm<"HMAC">,
+        algorithm: "HMAC" | Algorithm<"HMAC"> | EcdsaParams,
         key: CryptoKey,
         signature: ArrayBuffer | ArrayBufferView | DataView,
         data: ArrayBuffer | ArrayBufferView | DataView,
     ): Promise<boolean>;
+
+    /**
+     * The `deriveBits()` method derives an array of bits from a base key.
+     *
+     * @param algorithm defines the derivation algorithm to use.
+     * @param baseKey A `CryptoKey` representing the input to the derivation algorithm. Currently, only an ECDH private key is possible.
+     * @param length A number representing the number of bits to derive. Currently, the number should be a multiple of 8.
+     */
+    deriveBits(
+        algorithm: EcdhKeyDeriveParams,
+        baseKey: CryptoKey,
+        length?: number,
+    ): Promise<ArrayBuffer>;
 }
 
 export interface CryptoKey {
@@ -196,7 +229,27 @@ export interface CryptoKey {
     /**
      * An array of strings, indicating what can be done with the key.
      */
-    readonly usages: Array<"encrypt" | "decrypt" | "sign" | "verify">;
+    readonly usages: Array<"encrypt" | "decrypt" | "sign" | "verify" | "deriveKey" | "deriveBits">;
+}
+
+/**
+ * The `CryptoKeyPair` dictionary represents a key pair
+ * for an asymmetric cryptography algorithm,
+ * also known as a public-key algorithm.
+ */
+export interface CryptoKeyPair {
+    /**
+     * A `CryptoKey` object representing the private key.
+     * For encryption and decryption algorithms, this key is used to decrypt.
+     * For signing and verification algorithms it is used to sign.
+     */
+    readonly privateKey: CryptoKey;
+    /**
+     * A CryptoKey object representing the public key.
+     * For encryption and decryption algorithms, this key is used to encrypt.
+     * For signing and verification algorithms it is used to verify signatures.
+     */
+    readonly publicKey: CryptoKey;
 }
 
 /**
@@ -354,6 +407,26 @@ export interface HmacKeyGenParams extends Algorithm<AlgorithmIdentifier> {
 }
 
 /**
+ * The EcKeyGenParams dictionary of the Web Crypto API represents the
+ * object that should be passed as the algorithm parameter into
+ * `SubtleCrypto.generateKey()`, when generating
+ *  any elliptic-curve-based key pair:
+ *  that is, when the algorithm is identified as either of ECDSA or ECDH.
+ */
+export interface EcKeyGenParams extends Algorithm<AlgorithmIdentifier> {
+    /**
+     * The name of the algorithm to use.
+     */
+    name: "ECDSA" | "ECDH";
+
+    /**
+     * The name of the elliptic curve to use.
+     * This may be any of the following names for NIST-approved curves.
+     */
+    namedCurve: "P-256" | "P-384" | "P-521";
+}
+
+/**
  * The `HmacImportParams` dictionary of the Web Crypto API represents the
  * object that should be passed as the `algorithm` parameter of the
  * `SubtleCrypto.importKey()` method when importing an HMAC key.
@@ -376,6 +449,61 @@ export interface HmacImportParams extends Algorithm<AlgorithmIdentifier> {
      * to use a different length, omit this property and use the default.
      */
     length?: number;
+}
+
+/**
+ * The `EcKeyImportParams` dictionary of the Web Crypto API represents
+ * the object that should be passed as the algorithm parameter
+ * into SubtleCrypto.importKey() or SubtleCrypto.unwrapKey(),
+ * when generating any elliptic-curve-based key pair:
+ * that is, when the algorithm is identified as either of ECDSA or ECDH.
+ */
+export interface EcKeyImportParams extends Algorithm<AlgorithmIdentifier> {
+    /**
+     * The name of the algorithm to use.
+     */
+    name: "ECDSA" | "ECDH";
+
+    /**
+     * The name of the elliptic curve to use.
+     * This may be any of the following names for NIST-approved curves.
+     */
+    namedCurve: "P-256" | "P-384" | "P-521";
+}
+
+/**
+ * The `EcdsaParams` dictionary of the Web Crypto API represents
+ * the object that should be passed as the algorithm parameter
+ * into SubtleCrypto.sign() or SubtleCrypto.verify()
+ * when using the ECDSA algorithm.
+ */
+export interface EcdsaParams extends Algorithm<AlgorithmIdentifier> {
+    /**
+     * The name of the algorithm to use.
+     */
+    name: "ECDSA";
+
+    /**
+     * An identifier for the digest algorithm to use.
+     */
+    hash: "SHA-1" | "SHA-256" | "SHA-384" | "SHA-512";
+}
+
+/**
+ * The `EcdhKeyDeriveParams` dictionary of the Web Crypto API represents
+ * the object that should be passed as the algorithm parameter
+ * into `SubtleCrypto.deriveKey()`, when using the ECDH algorithm.
+ */
+export interface EcdhKeyDeriveParams extends Algorithm<AlgorithmIdentifier> {
+    /**
+     * The name of the algorithm to use. Only the "ECDH" value is possible.
+     */
+    name: "ECDH";
+
+    /**
+     * A `CryptoKey` object representing the public key of the other entity.
+     */
+    public: CryptoKey;
 }
 
 /**

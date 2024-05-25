@@ -1487,6 +1487,19 @@ declare namespace Chai {
         includeDeepMembers<T>(superset: T[], subset: T[], message?: string): void;
 
         /**
+         * Asserts that `subset` isn't included in `superset` in any order. Uses a
+         * deep equality check. Duplicates are ignored.
+         *
+         * assert.notIncludeDeepMembers([ { a: 1 }, { b: 2 }, { c: 3 } ], [ { b: 2 }, { f: 5 } ], 'not include deep members');
+         *
+         * T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeDeepMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
          * Asserts that non-object, non-array value inList appears in the flat array list.
          *
          * T   Type of list values.

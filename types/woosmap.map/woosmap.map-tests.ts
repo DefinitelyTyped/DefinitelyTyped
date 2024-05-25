@@ -539,6 +539,38 @@ promiseTransitRoute.then((result) => {
 });
 
 /**
+ * Query
+ */
+const query1 = new woosmap.map.query.Query(
+    [new woosmap.map.query.Field("type", "myType")],
+    woosmap.map.query.BoolOperators.AND,
+    false,
+);
+// $ExpectType Query
+query1;
+const field1 = new woosmap.map.query.Field("type", "myType");
+// $ExpectType Field
+field1;
+const query2 = woosmap.map.query.and(
+    new woosmap.map.query.Field("type", "myType"),
+    new woosmap.map.query.Field("type", "myOtherType"),
+);
+// $ExpectType Query
+query2;
+const query3 = woosmap.map.query.or(
+    new woosmap.map.query.Field("type", "myType"),
+    new woosmap.map.query.Field("type", "myOtherType"),
+);
+// $ExpectType Query
+query3;
+const query4 = woosmap.map.query.not(new woosmap.map.query.Field("type", "myType"));
+// $ExpectType Query
+query4;
+const field2 = woosmap.map.query.F("type", "myType");
+// $ExpectType Field | Field[]
+field2;
+
+/**
  * helper functions for testing purpose
  */
 function expectType(value: any) {

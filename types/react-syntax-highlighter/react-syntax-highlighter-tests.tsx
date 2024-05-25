@@ -102,11 +102,21 @@ function prismHighlighter(): React.JSX.Element {
 
 function primsLightHighlighter(): React.JSX.Element {
     PrismLightHighlighter.registerLanguage("jsx", jsx);
+    PrismLightHighlighter.alias("jsx", "jsx-alias");
+    PrismLightHighlighter.alias({ "jsx": ["alias-jsx"] });
 
     return (
-        <PrismLightHighlighter language="jsx" style={oneLight}>
-            {codeString}
-        </PrismLightHighlighter>
+        <>
+            <PrismLightHighlighter language="jsx" style={oneLight}>
+                {codeString}
+            </PrismLightHighlighter>
+            <PrismLightHighlighter language="jsx-alias" style={oneLight}>
+                {codeString}
+            </PrismLightHighlighter>
+            <PrismLightHighlighter language="alias-jsx" style={oneLight}>
+                {codeString}
+            </PrismLightHighlighter>
+        </>
     );
 }
 
