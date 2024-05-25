@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -14718,7 +14718,8 @@ declare module "sap/ui/unified/FileUploader" {
    */
   export default class FileUploader
     extends Control
-    implements IFormContent, IProcessableBlobs {
+    implements IFormContent, IProcessableBlobs
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     __implements__sap_ui_unified_IProcessableBlobs: boolean;
     /**
@@ -17592,7 +17593,7 @@ declare module "sap/ui/unified/FileUploader" {
      * Required for receiving a `status` is to set the property `sendXHR` to true. This property is not supported
      * by Internet Explorer 9.
      */
-    status?: string;
+    status?: int;
 
     /**
      * Http-Response which comes from the server.

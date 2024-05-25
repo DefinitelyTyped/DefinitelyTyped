@@ -315,7 +315,11 @@ function streamPipelineAsyncTransform() {
     );
 
     // Accepts buffer as source
-    pipeline(Buffer.from("test"), stdout);
+    pipeline(
+        Buffer.from("test"),
+        stdout,
+        err => console.error(err),
+    );
 }
 
 async function streamPipelineAsyncPromiseTransform() {

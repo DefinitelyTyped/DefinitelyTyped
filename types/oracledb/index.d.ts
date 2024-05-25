@@ -895,7 +895,7 @@ declare namespace OracleDB {
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
     type BindParameters =
-        | Record<string, BindParameter | string | number | Date | DBObject_IN<any> | Buffer | null | undefined>
+        | Record<string, BindParameter | string | number | bigint | Date | DBObject_IN<any> | Buffer | null | undefined>
         | BindParameter[]
         | any[];
 

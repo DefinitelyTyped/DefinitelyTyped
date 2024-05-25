@@ -1,4 +1,4 @@
-// For Library Version: 1.123.0
+// For Library Version: 1.124.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -3108,7 +3108,8 @@ declare module "sap/ui/commons/Button" {
    */
   export default class Button
     extends Control
-    implements ToolbarItem, IFormContent {
+    implements ToolbarItem, IFormContent
+  {
     __implements__sap_ui_commons_ToolbarItem: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
     /**
@@ -8272,7 +8273,8 @@ declare module "sap/ui/commons/TextField" {
    */
   export default class TextField
     extends Control
-    implements ToolbarItem, IFormContent {
+    implements ToolbarItem, IFormContent
+  {
     __implements__sap_ui_commons_ToolbarItem: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
     /**
@@ -10745,7 +10747,8 @@ declare module "sap/ui/commons/Image" {
    */
   export default class Image
     extends Control
-    implements ToolbarItem, FormattedTextViewControl, IFormContent {
+    implements ToolbarItem, FormattedTextViewControl, IFormContent
+  {
     __implements__sap_ui_commons_ToolbarItem: boolean;
     __implements__sap_ui_commons_FormattedTextViewControl: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
@@ -15069,7 +15072,8 @@ declare module "sap/ui/commons/Link" {
    */
   export default class Link
     extends Control
-    implements ToolbarItem, FormattedTextViewControl, IFormContent {
+    implements ToolbarItem, FormattedTextViewControl, IFormContent
+  {
     __implements__sap_ui_commons_ToolbarItem: boolean;
     __implements__sap_ui_commons_FormattedTextViewControl: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
@@ -20682,7 +20686,8 @@ declare module "sap/ui/commons/RadioButtonGroup" {
    */
   export default class RadioButtonGroup
     extends Control
-    implements IFormContent {
+    implements IFormContent
+  {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new RadioButtonGroup.
@@ -26292,7 +26297,8 @@ declare module "sap/ui/commons/SegmentedButton" {
    */
   export default class SegmentedButton
     extends Control
-    implements ToolbarItem, IFormContent {
+    implements ToolbarItem, IFormContent
+  {
     __implements__sap_ui_commons_ToolbarItem: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
     /**
@@ -29083,7 +29089,8 @@ declare module "sap/ui/commons/TextView" {
    */
   export default class TextView
     extends Control
-    implements ToolbarItem, IFormContent {
+    implements ToolbarItem, IFormContent
+  {
     __implements__sap_ui_commons_ToolbarItem: boolean;
     __implements__sap_ui_core_IFormContent: boolean;
     /**
@@ -30265,7 +30272,8 @@ declare module "sap/ui/commons/ToolbarSeparator" {
    */
   export default class ToolbarSeparator
     extends UI5Element
-    implements ToolbarItem {
+    implements ToolbarItem
+  {
     __implements__sap_ui_commons_ToolbarItem: boolean;
     /**
      * Constructor for a new ToolbarSeparator.

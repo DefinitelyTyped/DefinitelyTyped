@@ -395,6 +395,7 @@ GM_setClipboard("<b>Some text in clipboard</b>", {
     type: "text",
     mimetype: "text/plain",
 });
+GM_setClipboard("This is the clipboard text.", "text", () => console.log("Clipboard set!"));
 
 // GM_webRequest
 

@@ -288,6 +288,7 @@
 /types/applepayjs/                                        @martincostello
 /types/applest-atem/                                      @k-yle
 /types/appletvjs/                                         @brainded
+/types/approximate-number/                                @giokaxo
 /types/apptimize__apptimize-web-sdk/                      @innovation-team @rlbaxter
 /types/arangodb/                                          @pluma
 /types/arbiter/                                           @arash16
@@ -1015,6 +1016,7 @@
 /types/command-shell-lib/                                 @TrueSkrillor
 /types/commander-remaining-args/                          @ffflorian
 /types/commangular/                                       @hiraash
+/types/commerce7__admin-ui/                               @Weldawadyathink
 /types/commercetools__enzyme-extensions/                  @screendriver
 /types/common-ancestor-path/                              @BendingBender
 /types/common-errors/                                     @icopp
@@ -1101,7 +1103,6 @@
 /types/conventional-changelog-writer/                     @JasonHK
 /types/conventional-commits-detector/                     @JamieMagee
 /types/conventional-commits-parser/                       @JasonHK
-/types/conventional-recommended-bump/                     @JasonHK @favna
 /types/convert-array-to-csv/                              @Qiming-Liu
 /types/convert-excel-to-json/                             @UNIDY2002
 /types/convert-layout/                                    @xeningem
@@ -1891,6 +1892,7 @@
 /types/eslint-plugin-markdown/                            @JounQin
 /types/eslint-plugin-mocha/                               @rhysd
 /types/eslint-plugin-prettier/                            @ikatyang @JounQin
+/types/eslint-plugin-security/                            @rhysd
 /types/eslint-scope/                                      @mysticatea
 /types/eslint-utils/                                      @JoshuaKGoldberg
 /types/eslint__eslintrc/                                  @gdlol
@@ -3559,6 +3561,7 @@
 /types/iso8601-localizer/                                 @avielfedida
 /types/isomorphic-fetch/                                  @toddlucas
 /types/isomorphic-form-data/                              @maxbogus
+/types/isomorphic-git__openpgp-plugin/                    @k-yle
 /types/isotope-layout/                                    @avidenic @SPWizard01
 /types/isstream/                                          @MasterOdin
 /types/issue-parser/                                      @Leko
@@ -4172,7 +4175,6 @@
 /types/langdetect/                                        @SaidTorres3
 /types/langmap/                                           @grabofus @remcohaszing
 /types/langs/                                             @orgads
-/types/language-name-map/                                 @CreatorX64
 /types/language-tags/                                     @remcohaszing
 /types/lapo__asn1js/                                      @MysteryBlokHed
 /types/laravel-vapor/                                     @saibotk
@@ -4834,7 +4836,6 @@
 /types/mdurl/                                             @rokt33r
 /types/mdv/                                               @peterblazejewicz
 /types/mdx/                                               @ChristianMurphy @remcohaszing @wooorm
-/types/mdx-js__react/                                     @ifiokjr
 /types/meaningful-string/                                 @RDIL
 /types/media-typer/                                       @BendingBender @peterblazejewicz
 /types/media-typer/v0/                                    @BendingBender
@@ -5960,7 +5961,7 @@
 /types/power-assert/                                      @vvakame @ChristianMurphy
 /types/power-assert-formatter/                            @vvakame
 /types/power-radix/                                       @peterblazejewicz
-/types/powerapps-component-framework/                     @jopursle @kaushikkaul
+/types/powerapps-component-framework/                     @jopursle @kaushikkaul @rarattay @OliverDumrique @CoPrez @pjramirez-ms @Alex-MSFT @mikepenaMS
 /types/powerbi-visuals-tools/                             @zBritva @Microsoft
 /types/pqclean/                                           @tniessen
 /types/pragma/                                            @e6nlaq
@@ -5990,7 +5991,7 @@
 /types/printer/                                           @chrispanag
 /types/priorityqueuejs/                                   @geoffreak
 /types/prismic-dom/                                       @nickw444 @sbilstein @douglasnomizo @henrymyers
-/types/prismjs/                                           @RunDevelopment @ExE-Boss @eriklieben @andrewiggins @mmiszy
+/types/prismjs/                                           @RunDevelopment @ExE-Boss @eriklieben @andrewiggins @typeofweb
 /types/probability-distributions/                         @sdankel
 /types/probe-image-size/                                  @jineshshah36 @peterblazejewicz
 /types/proc-log/                                          @legodude17
@@ -6091,6 +6092,7 @@
 /types/puppeteer-lottie/                                  @peterblazejewicz
 /types/purdy/                                             @YellowKirby
 /types/pure-render-decorator/                             @seansfkelley
+/types/purify/                                            @ffflorian
 /types/purifycss-webpack/                                 @garbetjie
 /types/purl/                                              @danfma
 /types/pusher__chatkit-client/                            @alexhayton
@@ -6199,6 +6201,8 @@
 /types/rdf-dataset-ext/                                   @thewilkybarkid
 /types/rdf-dataset-indexed/                               @thewilkybarkid
 /types/rdf-ext/                                           @tpluscode @jeswr
+/types/rdf-parser-csvw/                                   @tpluscode
+/types/rdf-parser-csvw-xlsx/                              @tpluscode
 /types/rdf-store-fs/                                      @tpluscode
 /types/rdf-transform-triple-to-quad/                      @tpluscode
 /types/rdf-utils-dataset/                                 @thewilkybarkid
@@ -6223,6 +6227,7 @@
 /types/rdfjs__serializer-rdfjs/                           @tpluscode @BenjaminHofstetter
 /types/rdfjs__serializer-turtle/                          @tpluscode
 /types/rdfjs__sink-map/                                   @tpluscode @jeswr
+/types/rdfjs__sink-to-duplex/                             @tpluscode
 /types/rdfjs__term-map/                                   @tpluscode @jeswr
 /types/rdfjs__term-set/                                   @tpluscode @jeswr
 /types/rdfjs__to-ntriples/                                @tpluscode
@@ -6729,6 +6734,7 @@
 /types/react-sizes/                                       @janKir @micahstubbs
 /types/react-slick/                                       @GiedriusGrabauskas @r3nya @Shannor
 /types/react-slider/                                      @jsonunger @bjorgvin @loichuder @axelboc
+/types/react-smartbanner/                                 @PCOffline
 /types/react-smooth-scrollbar/                            @asvetliakov
 /types/react-snapshot/                                    @gubareve
 /types/react-sortable-tree/                               @wouterhardeman @jzoric @kevinsperrine @acemac @dolezel
@@ -6832,7 +6838,7 @@
 /types/read-json-sync/                                    @yoursunny
 /types/read-package-tree/                                 @mgroenhoff
 /types/read-time-estimate/                                @rubek-joshi
-/types/readable-stream/                                   @TeamworkGuy2 @markdreyer
+/types/readable-stream/                                   @TeamworkGuy2 @markdreyer @mcollina
 /types/readable-to-readable/                              @tpluscode @ludovicm67
 /types/readdir-glob/                                      @dolanmiu
 /types/readdir-stream/                                    @Bartvds
@@ -7508,6 +7514,7 @@
 /types/slocket/                                           @BendingBender
 /types/slonik/                                            @sebald @mmkal
 /types/slug/                                              @danielclausmeyer
+/types/sluggo/                                            @RDIL
 /types/sm-crypto/                                         @Moonisky
 /types/smallest-enclosing-circle/                         @ChocolateLoverRaj
 /types/smallwei__avue/                                    @SoulLyoko
@@ -8111,7 +8118,7 @@
 /types/treeverse/                                         @HugoMendes98
 /types/tress/                                             @sindilevich
 /types/triangle-wasm/                                     @danikaze
-/types/trianglify/                                        @unindented
+/types/trianglify/                                        @unindented @fdaciuk @mxthevs
 /types/trie-prefix-tree/                                  @jlismore
 /types/trim/                                              @skysteve
 /types/triple-beam/                                       @danwbyrne

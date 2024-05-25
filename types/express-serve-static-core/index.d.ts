@@ -560,14 +560,14 @@ export interface Request<
      * a reverse proxy that supplies https for you this
      * may be enabled.
      */
-    protocol: string;
+    readonly protocol: string;
 
     /**
      * Short-hand for:
      *
      *    req.protocol == 'https'
      */
-    secure: boolean;
+    readonly secure: boolean;
 
     /**
      * Return the remote address, or when
@@ -577,7 +577,7 @@ export interface Request<
      * Value may be undefined if the `req.socket` is destroyed
      * (for example, if the client disconnected).
      */
-    ip: string | undefined;
+    readonly ip: string | undefined;
 
     /**
      * When "trust proxy" is `true`, parse
@@ -587,7 +587,7 @@ export interface Request<
      * you would receive the array `["client", "proxy1", "proxy2"]`
      * where "proxy2" is the furthest down-stream.
      */
-    ips: string[];
+    readonly ips: string[];
 
     /**
      * Return subdomains as an array.
@@ -600,41 +600,41 @@ export interface Request<
      * If "subdomain offset" is not set, req.subdomains is `["ferrets", "tobi"]`.
      * If "subdomain offset" is 3, req.subdomains is `["tobi"]`.
      */
-    subdomains: string[];
+    readonly subdomains: string[];
 
     /**
      * Short-hand for `url.parse(req.url).pathname`.
      */
-    path: string;
+    readonly path: string;
 
     /**
      * Parse the "Host" header field hostname.
      */
-    hostname: string;
+    readonly hostname: string;
 
     /**
      * @deprecated Use hostname instead.
      */
-    host: string;
+    readonly host: string;
 
     /**
      * Check if the request is fresh, aka
      * Last-Modified and/or the ETag
      * still match.
      */
-    fresh: boolean;
+    readonly fresh: boolean;
 
     /**
      * Check if the request is stale, aka
      * "Last-Modified" and / or the "ETag" for the
      * resource has changed.
      */
-    stale: boolean;
+    readonly stale: boolean;
 
     /**
      * Check if the request was an _XMLHttpRequest_.
      */
-    xhr: boolean;
+    readonly xhr: boolean;
 
     // body: { username: string; password: string; remember: boolean; title: string; };
     body: ReqBody;
