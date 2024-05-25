@@ -31,27 +31,20 @@ app.use(
     "/users",
     connectRoute(function(router) {
         router.get("/", function(req, res, next) {
-            res.end("index");
+            res.end("users list");
         });
 
         router.get(
-            "/home",
+            "/:id",
             function(req, res, next) {
-                res.end("home");
-            },
-        );
-
-        router.get(
-            "/home/:id",
-            function(req, res, next) {
-                res.end("home " + req.params.id);
+                res.end("users " + req.params.id);
             },
         );
 
         router.post(
-            "/home",
+            "/",
             function(req, res, next) {
-                res.end("POST to home");
+                res.end("POST to users");
             },
         );
     }),
