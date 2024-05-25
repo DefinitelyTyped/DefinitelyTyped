@@ -6,7 +6,7 @@
         "https://github.com/baryshev/connect-route"
     ],
     "dependencies": {
-        "@types/node":"*",
+        "@types/node": "*",
         "@types/connect": "*"
     },
     "devDependencies": {
