@@ -195,7 +195,7 @@ import * as url from "node:url";
 }
 
 {
-    const path: url.URL = url.pathToFileURL("file://test");
+    let path: url.URL = url.pathToFileURL("file://test");
     path = url.pathToFileURL("file://test", { windows: false });
     path = url.pathToFileURL("file://test", { windows: true });
 }
