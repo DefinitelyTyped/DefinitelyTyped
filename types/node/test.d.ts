@@ -517,6 +517,7 @@ declare module "node:test" {
          */
         readonly mock: MockTracker;
     }
+
     /**
      * An instance of `SuiteContext` is passed to each suite function in order to
      * interact with the test runner. However, the `SuiteContext` constructor is not
@@ -1246,8 +1247,10 @@ declare module "node:test" {
         only,
         run,
         skip,
+        SuiteContext,
         test,
         test as default,
+        TestContext,
         todo,
     };
 }

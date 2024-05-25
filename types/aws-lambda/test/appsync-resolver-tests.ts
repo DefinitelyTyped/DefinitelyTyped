@@ -179,6 +179,8 @@ const authorizerHandler: AppSyncAuthorizerHandler<AuthorizorTestArguments> = asy
     str = event.requestContext.requestId;
     anyObj = event.requestContext.variables;
     strOrUndefined = event.requestContext.operationName ? event.requestContext.operationName : undefined;
+    const headers = event.requestHeaders; // $ExpectType AppSyncAuthorizerEventHeaders
+    strOrUndefined = event.requestHeaders["example"];
 
     return {
         isAuthorized: true,

@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/language-name-map": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Hakan Güçlü",
-            "githubUsername": "CreatorX64"
-        }
-    ]
+    "owners": []
 }
