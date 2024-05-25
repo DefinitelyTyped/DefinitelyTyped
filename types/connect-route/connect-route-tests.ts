@@ -1,6 +1,5 @@
 import connect from "connect";
 import connectRoute from "connect-route";
-import * as http from "http";
 
 const app = connect();
 
@@ -13,7 +12,7 @@ app.use(connectRoute(function(router) {
         res.end("home");
     });
 
-    router.get<{ id?: string }>(
+    router.get(
         "/home/:id",
         function(req, res, next) {
             res.end("home " + req.params.id);
@@ -22,6 +21,9 @@ app.use(connectRoute(function(router) {
 
     router.post("/home", function(req, res, next) {
         res.end("POST to home");
+    });
+
+    router.add("OPTIONS", "/home", (res, req, next) => {
     });
 }));
 
