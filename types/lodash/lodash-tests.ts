@@ -4198,6 +4198,12 @@ fp.now(); // $ExpectType number
     if (_.isEmpty(foo)) {
         foo.bar = "baz";
     }
+
+    let unionFromEmptyAndNonEmpty: null | undefined | 0 | '' | object | boolean
+    unionFromEmptyAndNonEmpty = [null, undefined, 0 as const, '' as const, { test: 1 }, false, true][Math.round(Math.random() * 5)]
+    if (!_.isEmpty(unionFromEmptyAndNonEmpty)) {
+        const e = unionFromEmptyAndNonEmpty // $ExpectType true | object
+    }
 }
 
 // _.isEqual
