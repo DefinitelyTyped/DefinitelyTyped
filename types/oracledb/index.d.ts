@@ -886,7 +886,7 @@ declare namespace OracleDB {
         /**
          * The node-oracledb or JavaScript data type to be bound. One of the Node-oracledb Type Constants.
          */
-        type?: number | undefined;
+        type?: DbType | number | undefined;
     }
 
     /**
@@ -2223,7 +2223,7 @@ declare namespace OracleDB {
          * The value is derived from the bind type when using LOB bind variables, or from the column
          * type when a LOB is returned by a query.
          */
-        readonly type: number;
+        readonly type: DbType | number;
 
         /**
          * Explicitly closes a Lob.
@@ -2311,7 +2311,7 @@ declare namespace OracleDB {
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsnodbtype
          */
-        fetchType?: number | undefined;
+        fetchType?: DbType | number | undefined;
         /**
          * The annotations object associated with the fetched column. If the column has no associated annotations, this property value is undefined. Annotations are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
          */
@@ -2966,7 +2966,7 @@ declare namespace OracleDB {
         /** Options to use when enqueuing messages. Attributes can be set before each queue.enqOne() or queue.denqMany(). */
         enqOptions: EnqueueOptions;
         /** One of the DB_TYPE_RAW or DB_TYPE_OBJECT or DB_TYPE_JSON constants. */
-        readonly payloadType: number;
+        readonly payloadType: DbType | number;
         /**
          * The DBObject Class corresponding to the payload type specified when the queue was created
          *
@@ -3084,7 +3084,7 @@ declare namespace OracleDB {
             string,
             {
                 /** One of the DB_TYPE constants. */
-                type: number;
+                type: DbType | number;
                 /** Type, such as 'VARCHAR2' or 'NUMBER'. */
                 typeName: string;
                 /** Set if the value of type is a DBObject. */
@@ -3092,7 +3092,7 @@ declare namespace OracleDB {
             }
         >;
         /** When dbObject.isCollection is true, this will be one of the DB_TYPE constants. */
-        readonly elementType: number;
+        readonly elementType: DbType | number;
         readonly elementTypeClass: DBObjectClass<T>;
         /** When dbObject.isCollection is true, this will have the name of the element type, such as “VARCHAR2” or “NUMBER”. */
         readonly elementTypeName: string;

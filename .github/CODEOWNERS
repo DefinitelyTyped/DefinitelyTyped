@@ -667,6 +667,7 @@
 /types/bricks.js/                                         @kondi
 /types/bristol/                                           @eheikes @ElliottCampbellJHA
 /types/bristol-sentry/                                    @ElliottCampbellJHA
+/types/brittle/                                           @EvanHahn
 /types/bro-fs/                                            @ffflorian
 /types/broccoli-funnel/                                   @KonradPerlicki
 /types/broccoli-merge-trees/                              @KonradPerlicki
@@ -1499,6 +1500,7 @@
 /types/detect-node/                                       @LogvinovLeon
 /types/detect-pointer/                                    @thomastilkema
 /types/detect-port/                                       @ivandevp
+/types/detect-rpi/                                        @LeoDog896
 /types/detect-touch/                                      @ChocolateLoverRaj
 /types/detect-touch-events/                               @thomastilkema
 /types/detective/                                         @TeamworkGuy2
@@ -1738,6 +1740,7 @@
 /types/elementary-circuits-directed-graph/                @maienm
 /types/elementtree/                                       @dwieeb
 /types/elgamal/                                           @arbuztw
+/types/elizabot/                                          @elliottlawrence
 /types/ellipsize/                                         @natterstefan
 /types/elliptic/                                          @danwbyrne @Gilthoniel
 /types/elm/                                               @thSoft @renanpvaz
@@ -4294,7 +4297,7 @@
 /types/librato-node/                                      @jgeurts
 /types/libsodium-wrappers/                                @ffflorian
 /types/libsodium-wrappers-sumo/                           @ffflorian
-/types/libxmljs/                                          @fdecampredon @ComFreek @r03
+/types/libxmljs/                                          @fdecampredon @ComFreek
 /types/libxslt/                                           @alejo90 @daniel-pedersen
 /types/license-checker/                                   @rogierschouten @unindented @alechemy
 /types/license-key-gen/                                   @abh80
@@ -4800,6 +4803,7 @@
 /types/massive/                                           @swissspidy @clarenceh @AmazingTurtle @mike-engel
 /types/massive/v3/                                        @swissspidy @clarenceh
 /types/massive/v4/                                        @swissspidy @clarenceh @AmazingTurtle
+/types/mastercard-client-encryption/                      @eLoyyyyy
 /types/mastercard-oauth1-signer/                          @deanpienaar
 /types/match-it/                                          @BendingBender
 /types/match-media-mock/                                  @asvetliakov
@@ -5189,7 +5193,7 @@
 /types/new-relic-browser/                                 @renehamburger @piotrkubisa
 /types/newline-remove/                                    @OpenByteDev
 /types/newman/                                            @LogvinovLeon
-/types/newrelic/                                          @mastermatt @brookspatton @MichaelRBond @zieka @kennethaasan @funkswing @dylansmith @bluejeans
+/types/newrelic/                                          @mastermatt @brookspatton @MichaelRBond @zieka @kennethaasan @funkswing @dylansmith
 /types/newrelic__winston-enricher/                        @wrumsby
 /types/nexpect/                                           @vvakame
 /types/next-biz-date/                                     @peterblazejewicz
