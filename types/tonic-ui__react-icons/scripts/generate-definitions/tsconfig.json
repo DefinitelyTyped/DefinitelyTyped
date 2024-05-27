@@ -8,7 +8,7 @@
         "esModuleInterop": true,
         "target": "ES2021",
         "types": [
-            "node",
+            "node"
         ]
     },
     "files": [

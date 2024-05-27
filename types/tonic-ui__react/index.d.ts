@@ -145,12 +145,12 @@ export function TableHeader(props: TonicProps): JSX.Element;
 /**
  * @deprecated Use TableCell instead.
  * See https://trendmicro-frontend.github.io/tonic-ui/react/latest/components/table#tablecell
-*/
+ */
 export function TableHeaderCell(props: TonicProps): JSX.Element;
 /**
  * @deprecated Use TableRow instead.
  * See https://trendmicro-frontend.github.io/tonic-ui/react/latest/components/table#tablerow
-*/
+ */
 export function TableHeaderRow(props: TonicProps): JSX.Element;
 export function TableRow(props: TonicProps): JSX.Element;
 export function TableScrollbar(props: ScrollbarProps): JSX.Element;
