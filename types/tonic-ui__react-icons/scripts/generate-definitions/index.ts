@@ -13,14 +13,9 @@ function kebabCaseToPascalCase(str: string) {
         .join("");
 }
 
-const iconDefinitions = (tmicon as { icons: Array<{ name: string }> }).icons.reduce((acc, { name }) => {
-    return {
-        ...acc,
-        [name]: {
-            name: `${kebabCaseToPascalCase(name)}Icon`,
-        },
-    };
-}, {} as Record<string, { name: string }>);
+const iconDefinitions = (tmicon as { icons: Array<{ name: string }> }).icons.map(
+    ({ name }) => `${kebabCaseToPascalCase(name)}Icon`,
+);
 
 const base = fs.readFileSync(path.resolve(path.join("scripts", "generate-definitions", "base.d.ts.template")), "utf-8");
 const iconTemplate = fs.readFileSync(
@@ -28,8 +23,8 @@ const iconTemplate = fs.readFileSync(
     "utf-8",
 );
 
-const icons = Object.keys(iconDefinitions).map((icon) => (
-    iconTemplate.replace(/__ICON__/g, iconDefinitions[icon].name)
+const icons = iconDefinitions.map((iconName) => (
+    iconTemplate.replace(/__ICON__/g, iconName)
 )).join("\n");
 
 // clean previous file
