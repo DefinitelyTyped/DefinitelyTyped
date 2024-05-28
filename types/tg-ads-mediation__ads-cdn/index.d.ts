@@ -8,13 +8,16 @@ interface AdEvents {
 
 interface AdsParams {
     key: string;
-    test?: boolean | string;
+    test?: boolean | string | { enabled?: boolean | string; stubs?: boolean };
 }
 
 declare class Ads {
     constructor(params: AdsParams);
     showRewardedVideo(listeners?: AdEvents): Promise<boolean>;
     showBottomBanner(listeners?: AdEvents): Promise<boolean>;
+    closeRewardedVideo(): void;
+    closeBottomBanner(): void;
+    closeAll(): void;
     destroy(): void;
 }
 
