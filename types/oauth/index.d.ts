@@ -12,7 +12,7 @@ export type oauth1tokenCallback = (
 ) => any;
 
 export type oauth2tokenCallback = (
-    err: { statusCode: number; data?: any } | null | unknown,
+    err: unknown,
     access_token?: string,
     refresh_token?: string,
     result?: any,
