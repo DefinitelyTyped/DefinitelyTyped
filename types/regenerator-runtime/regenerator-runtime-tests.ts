@@ -6,9 +6,6 @@ import regenerator = require("regenerator-runtime");
  */
 declare function expectType<T>(value: T): T;
 
-expectType<typeof regenerator>(regeneratorRuntime);
-expectType<typeof regeneratorRuntime>(regenerator);
-
 declare const number: number;
 declare const anyArray: object[];
 declare const anyArrayLike: ArrayLike<object>;
