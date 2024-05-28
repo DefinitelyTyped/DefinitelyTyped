@@ -1021,17 +1021,19 @@ declare module "../index" {
         functionsIn(): CollectionChain<string>;
     }
 
-    type GetIndexedField<T, K> = K extends keyof T
-        ? T[K]
-        : K extends `${number}`
-            ? 'length' extends keyof T
-                ? number extends T['length']
-                    ? number extends keyof T
-                        ? T[number]
+    type GetIndexedField<T, K> = K extends string | number | bigint | boolean | null | undefined
+        ? `${K}` extends keyof T
+            ? T[`${K}`]
+            : K extends `${number}`
+                ? 'length' extends keyof T
+                    ? number extends T['length']
+                        ? number extends keyof T
+                            ? T[number]
+                            : undefined
                         : undefined
                     : undefined
                 : undefined
-            : undefined;
+        : undefined;
 
     type FieldWithPossiblyUndefined<T, Key> =
         | GetFieldType<Exclude<T, undefined>, Key>
