@@ -1051,9 +1051,11 @@ declare module "../index" {
                 : undefined
         : P extends keyof T
             ? T[P]
-            : P extends `${infer FieldKey}[${infer IndexKey}]`
+            : P extends `${infer FieldKey}[${infer IndexKey}]${infer Rest}`
                 ? FieldKey extends keyof T
-                    ? IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>
+                    ? '' extends Rest
+                        ? IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>
+                        : FieldWithPossiblyUndefined<IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>, Rest>
                     : undefined
                 : IndexedFieldWithPossiblyUndefined<T, P>;
 
