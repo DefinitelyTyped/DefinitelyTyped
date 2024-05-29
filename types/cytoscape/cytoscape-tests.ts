@@ -980,7 +980,7 @@ const circleAllOptions: CircleLayoutOptions = {
     startAngle: 0,
     sweep: Math.PI,
     clockwise: false,
-    sort: (x, y) => 0,
+    sort: (x, y) => x.id().length - y.id().length,
     animate: true,
     animationDuration: 750,
     animationEasing: "ease",
