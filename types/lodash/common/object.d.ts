@@ -1021,19 +1021,43 @@ declare module "../index" {
         functionsIn(): CollectionChain<string>;
     }
 
-    type GetIndexedField<T, K> = K extends string | number | bigint | boolean | null | undefined
-        ? `${K}` extends keyof T
-            ? T[`${K}`]
-            : K extends `${number}`
-                ? 'length' extends keyof T
-                    ? number extends T['length']
-                        ? number extends keyof T
-                            ? T[number]
-                            : undefined
+    type GetIndexedField<T, K> =
+        // This covers a lot of ground: indexing arrays and strings by number,
+        // retrieving their "length", indexing objects by proper keys.
+        K extends keyof T ? T[K]
+
+        // Corner-case: T = Record<string,SomeType>; K = number.
+        // Here K does not extend keyof T (the condition above),
+        // because keyof T equals string; however T[K] is allowed by TS
+        // and equals SomeType (accounts for JS auto-casting numeric keys
+        // into strings when indexing objects). Thus, we handle it here.
+        : K extends number ? (`${K}` extends keyof T ? T[`${K}`] : never)
+
+        // TODO: This is a better variant for the rest of this function,
+        // but it needs TypeScript >= 4.8, and DefinitelyTyped still demands
+        // to support TypeScript 4.7. However 4.7 support will be dropped
+        // anytime soon!
+        /*
+        // If T is a type indexable by a number, and K is a string literal
+        // index representation.
+        : K extends `${infer N extends number}`
+            ? (N extends keyof T ? T[N] : never)
+            : never;
+        */
+
+        // Previous way to handle the rest of the logic, it is wrong in some
+        // corner cases. For example GetIndexedField<[1],number> goes into this
+        // branch and evaluates undefined, however type T = [1][number]
+        // is evaluated as 1 by TS.
+        : K extends `${number}`
+            ? 'length' extends keyof T
+                ? number extends T['length']
+                    ? number extends keyof T
+                        ? T[number]
                         : undefined
                     : undefined
-                : undefined
-        : undefined;
+                : never
+            : never;
 
     type FieldWithPossiblyUndefined<T, Key> =
         | GetFieldType<Exclude<T, undefined>, Key>

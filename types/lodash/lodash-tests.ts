@@ -2,6 +2,8 @@
 import fp = require("./fp");
 import _ = require("lodash");
 
+import type { GetIndexedField } from "lodash";
+
 declare const anything: any;
 
 interface AbcObject {
@@ -5368,7 +5370,12 @@ fp.now(); // $ExpectType number
     _.get({ a: tupleOfNumbers }, 'a.0'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[0]'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
+
+    // TODO: This current behavior is wrong, as TS actually evaluates T = 1
+    // in the expression type T = [1][number]! It will be fixed by a pending
+    // patch in GetIndexedField<>, which is on hold as it requires TS >= 4.8.
     _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType undefined
+
     _.get({ a: dictionary }, 'a.b'); // $ExpectType string
     _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
     _.get("abc", [0], "_");
@@ -5396,7 +5403,10 @@ fp.now(); // $ExpectType number
     _({ a: tupleOfNumbers }).get('a.0'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType undefined
+
+    // TODO: The current behavior is wrong, see the comment on the line 5374.
     _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType undefined
+
     _({ a: dictionary }).get('a.b'); // $ExpectType string
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
@@ -5422,7 +5432,10 @@ fp.now(); // $ExpectType number
     _.chain({ a: tupleOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType never
+
+    // TODO: The current behavior is wrong, see the comment on the line 5374.
     _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType never
+
     _.chain({ a: dictionary }).get('a.b'); // $ExpectType StringChain
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
@@ -7388,4 +7401,121 @@ _.templateSettings; // $ExpectType TemplateSettings
     _("").stubFalse(); // $ExpectType false
     _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
     fp.stubFalse(); // $ExpectType false
+}
+
+/********************
+ * TypeScript Utils *
+ ********************/
+
+// GetIndexedFields: indexing arrays
+{
+    type A1 = Array<'OK'>;
+    type A2 = Array<'OK'> & { x: 'OK' };
+
+    type A = GetIndexedField<A1, number>; // $ExpectType "OK"
+    type B = GetIndexedField<A1, 1>; // $ExpectType "OK"
+    type C = GetIndexedField<A1, '1'>; // $ExpectType "OK"
+    type D = GetIndexedField<A1, 'length'>; // $ExpectType number
+    type E = GetIndexedField<A2, 'x'>; // $ExpectType "OK"
+
+    // @ts-expect-error
+    type F = A1['x'];
+    type G = GetIndexedField<A1, 'x'>; // $ExpectType never
+}
+
+// GetIndexedField: indexing objects
+{
+    const sym = Symbol();
+
+    interface O1 {
+        [sym]: 'sym-OK';
+        [key: string]: 'OK';
+    }
+
+    interface O2 { [key: string]: 'OK' };
+
+    type O3 = Record<string | typeof sym, 'OK'>;
+
+    {   // Trivial cases:
+        type A = GetIndexedField<AbcObject, 'a'>; // $ExpectType number
+        type B = GetIndexedField<AbcObject, 'b'>; // $ExpectType string
+
+        // @ts-expect-error
+        type C = AbcObject[1];
+        type D = GetIndexedField<AbcObject, '1'>; // $ExpectType never
+
+        // @ts-expect-error
+        type E = AbcObject[number];
+        type F = GetIndexedField<AbcObject, number>; // $ExpectType never
+
+        type G = GetIndexedField<O1, typeof sym>; // $ExpectType "sym-OK"
+        type H = GetIndexedField<O1, string>; // $ExpectType "OK"
+        type I = GetIndexedField<O3, typeof sym>; // $ExpectType "OK"
+    }
+
+    {   // Note, TS resolves keyof Ox differently for our test object types:
+        type A = keyof O1 // $ExpectType keyof O1
+        type B = keyof O2 // $ExpectType number | string
+        type C = keyof O3 // $ExpectType string | typeof sym
+
+        // However, in all cases TS knows a number type can be used for indexing:
+        type D = O1[number]; // $ExpectType "OK"
+        type E = O2[number]; // $ExpectType "OK"
+        type F = O3[number]; // $ExpectType "OK"
+
+        // And GetIndexedField<> should behave the same:
+        type G = GetIndexedField<O1, number>; // $ExpectType "OK"
+        type H = GetIndexedField<O2, number>; // $ExpectType "OK"
+        type I = GetIndexedField<O3, number>; // $ExpectType "OK"
+        type J = GetIndexedField<O3, 1>; // $ExpectType "OK"
+    }
+
+    {
+        // These are TS errors:
+        // @ts-expect-error
+        type A = O1[bigint];
+        // @ts-expect-error
+        type B = O2[boolean];
+        // @ts-expect-error
+        type C = O3[null];
+        // @ts-expect-error
+        type D = O1[undefined];
+
+        // GetIndexedField<> better resolves "never" in these cases:
+        type E = GetIndexedField<O1, bigint>; // $ExpectType never
+        type F = GetIndexedField<O2, boolean>; // $ExpectType never
+        type G = GetIndexedField<O3, null>; // $ExpectType never
+        type H = GetIndexedField<O1, undefined>; // $ExpectType never
+    }
+}
+
+// GetIndexedField: indexing strings
+
+{
+    type S1 = string;
+    type S2 = string & { x: 'OK' };
+
+    type A = GetIndexedField<S1, number>; // $ExpectType string
+    type B = GetIndexedField<S1, 1>; // $ExpectType string
+    type C = GetIndexedField<S1, '1'>; // $ExpectType string
+    type D = GetIndexedField<S1, 'length'>; // $ExpectType number
+
+    // @ts-expect-error
+    type E = S1['x'];
+    type F = GetIndexedField<S1, 'x'>; // $ExpectType never
+
+    type G = GetIndexedField<S2, 'x'>; // $ExpectType "OK"
+}
+
+// GetIndexedFields: indexing tuples
+
+{
+    type T1 = ['OK'];
+
+    type A = GetIndexedField<T1, number>; // $ExpectType "OK"
+    type B = GetIndexedField<T1, 0>; // $ExpectType "OK"
+    type C = GetIndexedField<T1, 1>; // $ExpectType undefined
+    type D = GetIndexedField<T1, '0'>; // $ExpectType "OK"
+    type E = GetIndexedField<T1, '1'>; // $ExpectType undefined
+    type F = GetIndexedField<T1, 'length'>; // $ExpectType 1
 }
