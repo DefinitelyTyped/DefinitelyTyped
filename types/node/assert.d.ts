@@ -1,7 +1,7 @@
 /**
  * The `node:assert` module provides a set of assertion functions for verifying
  * invariants.
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/assert.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/assert.js)
  */
 declare module "assert" {
     /**

@@ -15,7 +15,7 @@
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/stream.js)
  */
 declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
@@ -272,14 +272,14 @@ declare module "stream" {
          *   });
          * ```
          *
-         * The `readable.resume()` method has no effect if there is a `'readable'`event listener.
+         * The `readable.resume()` method has no effect if there is a `'readable'` event listener.
          * @since v0.9.4
          */
         resume(): this;
         /**
-         * The `readable.isPaused()` method returns the current operating state of the `Readable`. This is
-         * used primarily by the mechanism that underlies the `readable.pipe()` method. In most typical cases,
-         * there will be no reason to use this method directly.
+         * The `readable.isPaused()` method returns the current operating state of the `Readable`.
+         * This is used primarily by the mechanism that underlies the `readable.pipe()` method.
+         * In most typical cases, there will be no reason to use this method directly.
          *
          * ```js
          * const readable = new stream.Readable();
@@ -381,8 +381,8 @@ declare module "stream" {
          * however it is best to simply avoid calling `readable.unshift()` while in the
          * process of performing a read.
          * @since v0.9.11
-         * @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must be a string, `Buffer`, `Uint8Array`, or `null`. For object mode
-         * streams, `chunk` may be any JavaScript value.
+         * @param chunk Chunk of data to unshift onto the read queue. For streams not operating in object mode, `chunk` must
+         * be a {string}, {Buffer}, {TypedArray}, {DataView} or `null`. For object mode streams, `chunk` may be any JavaScript value.
          * @param encoding Encoding of string chunks. Must be a valid `Buffer` encoding, such as `'utf8'` or `'ascii'`.
          */
         unshift(chunk: any, encoding?: BufferEncoding): void;
@@ -782,8 +782,8 @@ declare module "stream" {
          *
          * A `Writable` stream in object mode will always ignore the `encoding` argument.
          * @since v0.9.4
-         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a string, `Buffer` or `Uint8Array`. For object mode streams, `chunk` may be any
-         * JavaScript value other than `null`.
+         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a {string}, {Buffer},
+         * {TypedArray} or {DataView}. For object mode streams, `chunk` may be any JavaScript value other than `null`.
          * @param [encoding='utf8'] The encoding, if `chunk` is a string.
          * @param callback Callback for when this chunk of data is flushed.
          * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
@@ -813,8 +813,8 @@ declare module "stream" {
          * // Writing more now is not allowed!
          * ```
          * @since v0.9.4
-         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a string, `Buffer` or `Uint8Array`. For object mode streams, `chunk` may be any
-         * JavaScript value other than `null`.
+         * @param chunk Optional data to write. For streams not operating in object mode, `chunk` must be a {string}, {Buffer},
+         * {TypedArray} or {DataView}. For object mode streams, `chunk` may be any JavaScript value other than `null`.
          * @param encoding The encoding if `chunk` is a string
          * @param callback Callback for when the stream is finished.
          */
@@ -1300,8 +1300,8 @@ declare module "stream" {
          * Attaches an AbortSignal to a readable or writeable stream. This lets code
          * control stream destruction using an `AbortController`.
          *
-         * Calling `abort` on the `AbortController` corresponding to the passed `AbortSignal` will behave the same way as
-         * calling `.destroy(new AbortError())` on the stream, and `controller.error(new AbortError())` for webstreams.
+         * Calling `abort` on the `AbortController` corresponding to the passed `AbortSignal` will behave the same way as calling `.destroy(new AbortError())` on the
+         * stream, and `controller.error(new AbortError())` for webstreams.
          *
          * ```js
          * const fs = require('node:fs');
@@ -1417,7 +1417,7 @@ declare module "stream" {
          * Especially useful in error handling scenarios where a stream is destroyed
          * prematurely (like an aborted HTTP request), and will not emit `'end'` or `'finish'`.
          *
-         * The `finished` API provides [promise version](https://nodejs.org/docs/latest-v20.x/api/stream.html#streamfinishedstream-options).
+         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v20.x/api/stream.html#streamfinishedstream-options).
          *
          * `stream.finished()` leaves dangling event listeners (in particular `'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
          * invoked. The reason for this is so that unexpected `'error'` events (due to
@@ -1505,7 +1505,7 @@ declare module "stream" {
          * );
          * ```
          *
-         * The `pipeline` API provides a [promise version](https://nodejs.org/docs/latest-v20.x/api/stream.html#streampipelinesource-transforms-destination-options).
+         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v20.x/api/stream.html#streampipelinesource-transforms-destination-options).
          *
          * `stream.pipeline()` will call `stream.destroy(err)` on all streams except:
          *

@@ -31,7 +31,7 @@
  *
  * Once this code is invoked, the Node.js application will not terminate until the `readline.Interface` is closed because the interface waits for data to be
  * received on the `input` stream.
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/readline.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/readline.js)
  */
 declare module "readline" {
     import { Abortable, EventEmitter } from "node:events";
