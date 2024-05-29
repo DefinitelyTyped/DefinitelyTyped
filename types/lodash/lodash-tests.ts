@@ -2,7 +2,12 @@
 import fp = require("./fp");
 import _ = require("lodash");
 
-import type { GetIndexedField } from "lodash";
+import type {
+    GetIndexedField,
+    GetFieldType_AccessByDotPath,
+    GetFieldType_IndexPossiblyUndefined,
+    GetFieldType,
+} from "lodash";
 
 declare const anything: any;
 
@@ -7417,10 +7422,7 @@ _.templateSettings; // $ExpectType TemplateSettings
     type C = GetIndexedField<A1, '1'>; // $ExpectType "OK"
     type D = GetIndexedField<A1, 'length'>; // $ExpectType number
     type E = GetIndexedField<A2, 'x'>; // $ExpectType "OK"
-
-    // @ts-expect-error
-    type F = A1['x'];
-    type G = GetIndexedField<A1, 'x'>; // $ExpectType never
+    type G = GetIndexedField<A1, 'x'>; // $ExpectType undefined
 }
 
 // GetIndexedField: indexing objects
@@ -7439,15 +7441,8 @@ _.templateSettings; // $ExpectType TemplateSettings
     {   // Trivial cases:
         type A = GetIndexedField<AbcObject, 'a'>; // $ExpectType number
         type B = GetIndexedField<AbcObject, 'b'>; // $ExpectType string
-
-        // @ts-expect-error
-        type C = AbcObject[1];
-        type D = GetIndexedField<AbcObject, '1'>; // $ExpectType never
-
-        // @ts-expect-error
-        type E = AbcObject[number];
-        type F = GetIndexedField<AbcObject, number>; // $ExpectType never
-
+        type D = GetIndexedField<AbcObject, '1'>; // $ExpectType undefined
+        type F = GetIndexedField<AbcObject, number>; // $ExpectType undefined
         type G = GetIndexedField<O1, typeof sym>; // $ExpectType "sym-OK"
         type H = GetIndexedField<O1, string>; // $ExpectType "OK"
         type I = GetIndexedField<O3, typeof sym>; // $ExpectType "OK"
@@ -7471,21 +7466,10 @@ _.templateSettings; // $ExpectType TemplateSettings
     }
 
     {
-        // These are TS errors:
-        // @ts-expect-error
-        type A = O1[bigint];
-        // @ts-expect-error
-        type B = O2[boolean];
-        // @ts-expect-error
-        type C = O3[null];
-        // @ts-expect-error
-        type D = O1[undefined];
-
-        // GetIndexedField<> better resolves "never" in these cases:
-        type E = GetIndexedField<O1, bigint>; // $ExpectType never
-        type F = GetIndexedField<O2, boolean>; // $ExpectType never
-        type G = GetIndexedField<O3, null>; // $ExpectType never
-        type H = GetIndexedField<O1, undefined>; // $ExpectType never
+        type E = GetIndexedField<O1, bigint>; // $ExpectType undefined
+        type F = GetIndexedField<O2, boolean>; // $ExpectType undefined
+        type G = GetIndexedField<O3, null>; // $ExpectType undefined
+        type H = GetIndexedField<O1, undefined>; // $ExpectType undefined
     }
 }
 
@@ -7499,11 +7483,7 @@ _.templateSettings; // $ExpectType TemplateSettings
     type B = GetIndexedField<S1, 1>; // $ExpectType string
     type C = GetIndexedField<S1, '1'>; // $ExpectType string
     type D = GetIndexedField<S1, 'length'>; // $ExpectType number
-
-    // @ts-expect-error
-    type E = S1['x'];
-    type F = GetIndexedField<S1, 'x'>; // $ExpectType never
-
+    type F = GetIndexedField<S1, 'x'>; // $ExpectType undefined
     type G = GetIndexedField<S2, 'x'>; // $ExpectType "OK"
 }
 
@@ -7518,4 +7498,61 @@ _.templateSettings; // $ExpectType TemplateSettings
     type D = GetIndexedField<T1, '0'>; // $ExpectType "OK"
     type E = GetIndexedField<T1, '1'>; // $ExpectType undefined
     type F = GetIndexedField<T1, 'length'>; // $ExpectType 1
+}
+
+// GetFieldType: correctly handles any possible combination of dots and square
+// brackets in path type literals.
+{
+    interface O1 { key: 'value' };
+    interface O2 { some: { test: { path: 'value' } } };
+
+    interface O3 {
+        'some.key': 'value1';
+        'key[with]brackets': 'value2';
+    };
+
+    type A = GetFieldType<O1, 'key'>; // $ExpectType "value"
+    type B = GetFieldType<O1, '[key]'>; // $ExpectType "value"
+
+    type C = GetFieldType<O2, 'some.test.path'>; // $ExpectType "value"
+    type D = GetFieldType<O2, 'some.test[path]'>; // $ExpectType "value"
+    type E = GetFieldType<O2, 'some[test].path'>; // $ExpectType "value"
+    type F = GetFieldType<O2, '[some].test.path'>; // $ExpectType "value"
+    type G = GetFieldType<O2, 'some[test][path]'>; // $ExpectType "value"
+    type H = GetFieldType<O2, '[some].test[path]'>; // $ExpectType "value"
+    type I = GetFieldType<O2, '[some][test].path'>; // $ExpectType "value"
+    type J = GetFieldType<O2, '[some][test][path]'>; // $ExpectType "value"
+
+    // Here are tricky cases, where dots and square brackets inside key names
+    // mess-up with TypeScript parsing of path type literals we can do.
+
+    // No way to distinguish a single key with dot vs. two dot-separated keys,
+    // GetFieldType<> interpretes it as the later, thus undefined result.
+    type K = GetFieldType<O3, 'some.key'>; // $ExpectType undefined
+
+    // However, wrapping it inside square brackets is a viable work-around
+    // we can support.
+    type L = GetFieldType<O3, '[some.key]'>; // $ExpectType "value1"
+
+    // I guess, no way to support closing square brackets inside key names,
+    // thus this results in undefined.
+    type M = GetFieldType<O3, "['key[with]brackets']">; // $ExpectType "value2"
+    type N = GetFieldType<O3, '["key[with]brackets"]'>; // $ExpectType "value2"
+}
+
+{ // GetFieldType: additional tests for internals.
+    interface O1 { a: [{ b: { c: 3 } }] };
+
+    type A = GetFieldType_AccessByDotPath<O1, 'a'>;
+    type B = GetFieldType_IndexPossiblyUndefined<A, '0'>;
+    type C = GetFieldType_AccessByDotPath<B, '.b.c'>; // $ExpectType 3
+    type D = GetFieldType<B, '.b.c'>; // $ExpectType 3
+    type E = GetFieldType<O1, 'a[0].b.c'>; // $ExpectType 3
+}
+
+// GetFieldType: number as key.
+{
+    interface O1 { [id: string]: 'OK' };
+
+    type A = GetFieldType<O1, `[${number}]`>; // $ExpectType "OK"
 }

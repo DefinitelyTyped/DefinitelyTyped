@@ -1021,17 +1021,25 @@ declare module "../index" {
         functionsIn(): CollectionChain<string>;
     }
 
+    /**
+     * If a value of type T can be indexed by a key of type K
+     * GetIndexedField<T, K> deduces the type of value at that key,
+     * otherwise it returns undefined type.
+     */
     type GetIndexedField<T, K> =
         // This covers a lot of ground: indexing arrays and strings by number,
-        // retrieving their "length", indexing objects by proper keys.
+        // retrieving their "length", indexing objects by their proper keys.
         K extends keyof T ? T[K]
 
-        // Corner-case: T = Record<string,SomeType>; K = number.
-        // Here K does not extend keyof T (the condition above),
-        // because keyof T equals string; however T[K] is allowed by TS
-        // and equals SomeType (accounts for JS auto-casting numeric keys
-        // into strings when indexing objects). Thus, we handle it here.
-        : K extends number ? (`${K}` extends keyof T ? T[`${K}`] : never)
+        // Corner-case: T = Record<string, SomeType>; K = number.
+        // This case does not match the condition above because K
+        // does not extend keyof T (which equals string). However,
+        // in this case it is legal to index a value of type T by
+        // a key of type K, and even TS evaluates T[K] as SomeType,
+        // accounting for JS auto-casting numeric keys to strings
+        // when indexing objects. Thus, this case gets a special
+        // treatment here.
+        : K extends number ? (`${K}` extends keyof T ? T[`${K}`] : undefined)
 
         // TODO: This is a better variant for the rest of this function,
         // but it needs TypeScript >= 4.8, and DefinitelyTyped still demands
@@ -1041,14 +1049,13 @@ declare module "../index" {
         // If T is a type indexable by a number, and K is a string literal
         // index representation.
         : K extends `${infer N extends number}`
-            ? (N extends keyof T ? T[N] : never)
-            : never;
+            ? (N extends keyof T ? T[N] : undefined)
+            : undefined;
         */
 
-        // Previous way to handle the rest of the logic, it is wrong in some
-        // corner cases. For example GetIndexedField<[1],number> goes into this
-        // branch and evaluates undefined, however type T = [1][number]
-        // is evaluated as 1 by TS.
+        // Previous variant for the rest of this function. It is wrong in some
+        // edge-cases, e.g. GetIndexedField<[1], number> goes into this branch
+        // and evaluates undefined, while TS evaluates [1][number] as 1.
         : K extends `${number}`
             ? 'length' extends keyof T
                 ? number extends T['length']
@@ -1056,34 +1063,77 @@ declare module "../index" {
                         ? T[number]
                         : undefined
                     : undefined
-                : never
-            : never;
-
-    type FieldWithPossiblyUndefined<T, Key> =
-        | GetFieldType<Exclude<T, undefined>, Key>
-        | Extract<T, undefined>;
-
-    type IndexedFieldWithPossiblyUndefined<T, Key> =
-        | GetIndexedField<Exclude<T, undefined>, Key>
-        | Extract<T, undefined>;
-
-    type GetFieldType<T, P> = P extends `${infer Left}.${infer Right}`
-        ? Left extends keyof Exclude<T, undefined>
-            ? FieldWithPossiblyUndefined<Exclude<T, undefined>[Left], Right> | Extract<T, undefined>
-            : Left extends `${infer FieldKey}[${infer IndexKey}]`
-                ? FieldKey extends keyof T
-                    ? FieldWithPossiblyUndefined<IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>, Right>
-                    : undefined
                 : undefined
-        : P extends keyof T
-            ? T[P]
-            : P extends `${infer FieldKey}[${infer IndexKey}]${infer Rest}`
-                ? FieldKey extends keyof T
-                    ? '' extends Rest
-                        ? IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>
-                        : FieldWithPossiblyUndefined<IndexedFieldWithPossiblyUndefined<T[FieldKey], IndexKey>, Rest>
-                    : undefined
-                : IndexedFieldWithPossiblyUndefined<T, P>;
+            : undefined;
+
+    /**
+     * Internal. Assumes P has no square (indexing) bracket pairs.
+     */
+    type GetFieldType_AccessPossiblyUndefinedByDotPath<T, P> =
+        | GetFieldType_AccessByDotPath<Exclude<T, undefined>, P>
+        | Extract<T, undefined>;
+
+    /**
+     * Internal. Assumes T does not include undefined; and P has no square
+     * (indexing) brackets.
+     */
+    type GetFieldType_AccessByDotPath<T, P> = P extends `${infer L}.${infer R}`
+        ? '' extends L
+            ? GetFieldType_AccessByDotPath<T, R>
+            : GetFieldType_AccessPossiblyUndefinedByDotPath<GetIndexedField<T, L>, R>
+        : GetIndexedField<T, P>;
+
+    /**
+     * Internal. Assumes I is an index (key name), and does not have to be
+     * parsed further.
+     */
+    type GetFieldType_IndexPossiblyUndefined<T, I> =
+        | GetIndexedField<Exclude<T, undefined>, I>
+        | Extract<T, undefined>;
+
+    /**
+     * Internal. Assumes T does not include undefined; L has no square (indexing)
+     * brackets; I is an index (key name, does not have to be further parsed as
+     * path). Both L and R might be empty, and they are not interpreted as empty
+     * string keys in such cases.
+     */
+    type GetFieldType_Index<T, L, I, R> =
+        '' extends L
+        ? '' extends R
+            ? GetIndexedField<T, I>
+            : GetFieldType<GetIndexedField<T, I>, R>
+        : '' extends R
+            ? GetFieldType_IndexPossiblyUndefined<GetFieldType_AccessByDotPath<T, L>, I>
+            : GetFieldType<GetFieldType_IndexPossiblyUndefined<GetFieldType_AccessByDotPath<T, L>, I>, R>
+
+    /**
+     * Internal. Parses the first pair of square (indexing) brackets inside
+     * the path, if any, accounting for possible quotation, or double quotation
+     * of index inside those brackets (which allows to include closing square
+     * brackets inside such quouted indices).
+     */
+    type GetFieldType_ParseBrackets<T, P> =
+        // Note: checks for ['index'] and ["index"] (below) allow to support
+        // closing square brackets inside path names, as long as such path names
+        // are used inside brackets and are quoted or double-qouted.
+        P extends `${infer L}['${infer Index}']${infer R}`
+            ? GetFieldType_Index<T, L, Index, R>
+
+        : P extends `${infer L}["${infer Index}"]${infer R}`
+            ? GetFieldType_Index<T, L, Index, R>
+
+        : P extends `${infer L}[${infer Index}]${infer R}`
+            ? GetFieldType_Index<T, L, Index, R>
+
+        : GetFieldType_AccessByDotPath<T, P>;
+
+    /**
+     * The entry-point for GetFieldType logic handles the possibility of type T
+     * including the undefined type.
+     */
+    type GetFieldType<T, P> = undefined extends Extract<T, undefined>
+        ? GetFieldType_ParseBrackets<Exclude<T, undefined>, P> | undefined
+        : GetFieldType_ParseBrackets<T, P>;
 
     interface LoDashStatic {
         /**
