@@ -2,12 +2,12 @@ import { type NextFunction, type NextHandleFunction } from "connect";
 import * as connect from "connect";
 import { type ServerResponse } from "http";
 
-declare namespace ConnectRoute {
-    class IncomingMessage extends connect.IncomingMessage {
-        route: string;
-        params?: any;
-    }
+declare class IncomingMessage extends connect.IncomingMessage {
+    route: string;
+    params?: any;
+}
 
+declare namespace ConnectRoute {
     type NextHandlerFunction = (
         req: IncomingMessage,
         res: ServerResponse,
