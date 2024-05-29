@@ -273,7 +273,10 @@ const captcha = webAuth.renderCaptcha(captchaInputElement, {
     },
 });
 
-webAuth.login({ username: "bar", password: "foo", state: "1234", onRedirecting: () => {}, captcha: captcha}, (err, data) => {});
+webAuth.login(
+    { username: "bar", password: "foo", state: "1234", onRedirecting: () => {}, captcha: captcha },
+    (err, data) => {},
+);
 
 // cross-origin verification
 webAuth.crossOriginVerification();
