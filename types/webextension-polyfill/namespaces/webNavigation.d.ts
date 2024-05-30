@@ -8,11 +8,6 @@
  * Use the <code>browser.webNavigation</code> API to receive notifications about the status of navigation requests
  * in-flight.
  * Permissions: "webNavigation"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 import { Events } from "./events";
 
@@ -433,8 +428,7 @@ export namespace WebNavigation {
      * Fired when a new window, or a new tab in an existing window, is created to host a navigation.
      */
     interface onCreatedNavigationTargetEvent
-        extends Events.Event<(details: OnCreatedNavigationTargetDetailsType) => void>
-    {
+        extends Events.Event<(details: OnCreatedNavigationTargetDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -449,8 +443,7 @@ export namespace WebNavigation {
      * Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL.
      */
     interface onReferenceFragmentUpdatedEvent
-        extends Events.Event<(details: OnReferenceFragmentUpdatedDetailsType) => void>
-    {
+        extends Events.Event<(details: OnReferenceFragmentUpdatedDetailsType) => void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -534,8 +527,6 @@ export namespace WebNavigation {
 
         /**
          * Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab.
-         *
-         * @param details
          */
         onTabReplaced: Events.Event<(details: OnTabReplacedDetailsType) => void>;
 

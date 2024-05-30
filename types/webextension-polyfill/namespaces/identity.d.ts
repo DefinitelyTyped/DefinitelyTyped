@@ -33,8 +33,6 @@ export namespace Identity {
     interface Static {
         /**
          * Starts an auth flow at the specified URL.
-         *
-         * @param details
          */
         launchWebAuthFlow(details: LaunchWebAuthFlowDetailsType): Promise<string>;
 

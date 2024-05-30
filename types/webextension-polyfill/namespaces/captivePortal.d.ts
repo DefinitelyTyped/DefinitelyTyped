@@ -39,8 +39,6 @@ export namespace CaptivePortal {
 
         /**
          * Fired when the captive portal state changes.
-         *
-         * @param details
          */
         onStateChanged: Events.Event<(details: OnStateChangedDetailsType) => void>;
 
@@ -48,8 +46,6 @@ export namespace CaptivePortal {
          * This notification will be emitted when the captive portal service has determined that we can connect to the internet.
          * The service will pass either `captive` if there is an unlocked captive portal present,
          * or `clear` if no captive portal was detected.
-         *
-         * @param status
          */
         onConnectivityAvailable: Events.Event<(status: OnConnectivityAvailableStatusEnum) => void>;
 

@@ -1,5 +1,8 @@
 {
     "rules": {
+        "@definitelytyped/export-just-namespace": "off",
+        "@typescript-eslint/no-invalid-void-type": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/no-single-element-tuple-type": "off"
     }
 }

@@ -8,8 +8,8 @@
  * Normandy Study API
  * Permissions: "normandyAddonStudy"
  */
-import { Events } from "./events";
 import { ExtensionTypes } from "./extensionTypes";
+import { Events } from "./events";
 
 export namespace NormandyAddonStudy {
     interface Study {

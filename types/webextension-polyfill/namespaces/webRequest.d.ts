@@ -8,11 +8,6 @@
  * Use the <code>browser.webRequest</code> API to observe and analyze traffic and to intercept, block,
  * or modify requests in-flight.
  * Permissions: "webRequest"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 import { Events } from "./events";
 
@@ -295,7 +290,7 @@ export namespace WebRequest {
          * An ArrayBuffer with a copy of the data.
          * Optional.
          */
-        bytes?: any;
+        bytes?: unknown;
 
         /**
          * A string with the file's path and name.
@@ -387,9 +382,6 @@ export namespace WebRequest {
 
         /**
          * Creates a stream filter for the given add-on and the given extension ID.
-         *
-         * @param requestId
-         * @param addonId
          */
         create(requestId: number, addonId: string): void;
 
@@ -418,38 +410,28 @@ export namespace WebRequest {
 
         /**
          * Writes a chunk of data to the output stream. This may not be called before the "start" event has been received.
-         *
-         * @param data
          */
         write(data: ArrayBuffer | Uint8Array): void;
 
         /**
          * Dispatched with a StreamFilterDataEvent whenever incoming data is available on the stream.
          * This data will not be delivered to the output stream unless it is explicitly written via a write() call.
-         *
-         * @param data
          */
         ondata?: (data: StreamFilterEventData) => void;
 
         /**
          * Dispatched when the stream is opened, and is about to begin delivering data.
-         *
-         * @param data
          */
         onstart?: (data: StreamFilterEventData) => void;
 
         /**
          * Dispatched when the stream has closed, and has no more data to deliver. The output stream remains open and writable
          * until close() is called.
-         *
-         * @param data
          */
         onstop?: (data: StreamFilterEventData) => void;
 
         /**
          * Dispatched when an error has occurred. No further data may be read or written after this point.
-         *
-         * @param data
          */
         onerror?: (data: StreamFilterEventData) => void;
     }
@@ -1518,9 +1500,7 @@ export namespace WebRequest {
      * Fired when a request is about to occur.
      */
     interface onBeforeRequestEvent
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        extends Events.Event<(details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void>
-    {
+        extends Events.Event<(details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1529,7 +1509,6 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: OnBeforeRequestDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
             extraInfoSpec?: OnBeforeRequestOptions[],
@@ -1541,9 +1520,7 @@ export namespace WebRequest {
      * made to the server, but before any HTTP data is sent.
      */
     interface onBeforeSendHeadersEvent
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        extends Events.Event<(details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void>
-    {
+        extends Events.Event<(details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1552,7 +1529,6 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: OnBeforeSendHeadersDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
             extraInfoSpec?: OnBeforeSendHeadersOptions[],
@@ -1582,9 +1558,7 @@ export namespace WebRequest {
      * Fired when HTTP response headers of a request have been received.
      */
     interface onHeadersReceivedEvent
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        extends Events.Event<(details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void>
-    {
+        extends Events.Event<(details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1593,7 +1567,6 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: OnHeadersReceivedDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
             extraInfoSpec?: OnHeadersReceivedOptions[],
@@ -1606,9 +1579,7 @@ export namespace WebRequest {
      * If bad user credentials are provided, this may be called multiple times for the same request.
      */
     interface onAuthRequiredEvent
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        extends Events.Event<(details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void>
-    {
+        extends Events.Event<(details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void> {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -1617,7 +1588,6 @@ export namespace WebRequest {
          * @param extraInfoSpec Optional. Array of extra information that should be passed to the listener function.
          */
         addListener(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: OnAuthRequiredDetailsType) => BlockingResponseOrPromise | void,
             filter: RequestFilter,
             extraInfoSpec?: OnAuthRequiredOptions[],
@@ -1706,15 +1676,12 @@ export namespace WebRequest {
 
         /**
          * ...
-         *
-         * @param requestId
          */
         filterResponseData(requestId: string): StreamFilter;
 
         /**
          * Retrieves the security information for the request.  Returns a promise that will resolve to a SecurityInfo object.
          *
-         * @param requestId
          * @param options Optional.
          */
         getSecurityInfo(requestId: string, options?: GetSecurityInfoOptionsType): Promise<SecurityInfo>;

@@ -6,23 +6,9 @@
  * Namespace: browser.manifest
  *
  * Permissions: -
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- * Copyright 2014 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- * Copyright 2013 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
-import { Experiments } from "./experiments";
 import { ExtensionTypes } from "./extensionTypes";
+import { Experiments } from "./experiments";
 
 export namespace Manifest {
     /**
@@ -105,6 +91,7 @@ export namespace Manifest {
         icons?: Record<string, ExtensionFileUrl>;
 
         /**
+         * The 'split' value is not supported.
          * Optional.
          */
         incognito?: WebExtensionManifestIncognitoEnum;
@@ -116,6 +103,13 @@ export namespace Manifest {
             | WebExtensionManifestBackgroundC1Type
             | WebExtensionManifestBackgroundC2Type
             | WebExtensionManifestBackgroundC3Type;
+
+        /**
+         * Alias property for options_ui.page, ignored when options_ui.page is set. When using this property the options page is
+         * always opened in a new tab.
+         * Optional.
+         */
+        options_page?: ExtensionURL;
 
         /**
          * Optional.
@@ -146,6 +140,11 @@ export namespace Manifest {
          * Optional.
          */
         host_permissions?: MatchPattern[];
+
+        /**
+         * Optional.
+         */
+        optional_host_permissions?: MatchPattern[];
 
         /**
          * Optional.
@@ -299,6 +298,7 @@ export namespace Manifest {
         | "search"
         | "activeTab"
         | "webRequest"
+        | "webRequestAuthProvider"
         | "webRequestBlocking"
         | "webRequestFilterResponse"
         | "webRequestFilterResponse.serviceWorkerScript";
@@ -332,7 +332,7 @@ export namespace Manifest {
 
     type OptionalPermissionOrOrigin = OptionalPermission | MatchPattern;
 
-    type PermissionPrivileged = "mozillaAddons" | "activityLog" | "networkStatus" | "normandyAddonStudy" | "urlbar";
+    type PermissionPrivileged = "mozillaAddons" | "activityLog" | "networkStatus" | "normandyAddonStudy";
 
     type PermissionNoPrompt =
         | OptionalPermissionNoPrompt
@@ -475,11 +475,20 @@ export namespace Manifest {
         all_frames?: boolean;
 
         /**
-         * If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has
-         * access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is <code>false</code>.
+         * If match_about_blank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension
+         * has access to its parent document. Ignored if match_origin_as_fallback is specified. By default it is <code>false</code>.
          * Optional.
          */
         match_about_blank?: boolean;
+
+        /**
+         * If match_origin_as_fallback is true, then the code is also injected in about:, data:,
+         * blob: when their origin matches the pattern in 'matches', even if the actual document origin is opaque (due to the use
+         * of CSP sandbox or iframe sandbox). Match patterns in 'matches' must specify a wildcard path glob. By default it is <code>
+         * false</code>.
+         * Optional.
+         */
+        match_origin_as_fallback?: boolean;
 
         /**
          * The soonest that the JavaScript or CSS will be injected into the tab. Defaults to "document_idle".
@@ -660,7 +669,10 @@ export namespace Manifest {
         url?: string;
     }
 
-    type WebExtensionManifestIncognitoEnum = "not_allowed" | "spanning";
+    /**
+     * The 'split' value is not supported.
+     */
+    type WebExtensionManifestIncognitoEnum = "not_allowed" | "spanning" | "split";
 
     interface WebExtensionManifestBackgroundC1Type {
         page: ExtensionURL;
