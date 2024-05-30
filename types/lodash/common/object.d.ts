@@ -1069,25 +1069,25 @@ declare module "../index" {
     /**
      * Internal. Assumes P has no square (indexing) bracket pairs.
      */
-    type GetFieldType_AccessPossiblyUndefinedByDotPath<T, P> =
-        | GetFieldType_AccessByDotPath<Exclude<T, undefined>, P>
+    type GetFieldTypeOfMaybeUndefinedByDotPath<T, P> =
+        | GetFieldTypeByDotPath<Exclude<T, undefined>, P>
         | Extract<T, undefined>;
 
     /**
      * Internal. Assumes T does not include undefined; and P has no square
      * (indexing) brackets.
      */
-    type GetFieldType_AccessByDotPath<T, P> = P extends `${infer L}.${infer R}`
+    type GetFieldTypeByDotPath<T, P> = P extends `${infer L}.${infer R}`
         ? '' extends L
-            ? GetFieldType_AccessByDotPath<T, R>
-            : GetFieldType_AccessPossiblyUndefinedByDotPath<GetIndexedField<T, L>, R>
+            ? GetFieldTypeByDotPath<T, R>
+            : GetFieldTypeOfMaybeUndefinedByDotPath<GetIndexedField<T, L>, R>
         : GetIndexedField<T, P>;
 
     /**
      * Internal. Assumes I is an index (key name), and does not have to be
      * parsed further.
      */
-    type GetFieldType_IndexPossiblyUndefined<T, I> =
+    type GetFieldTypeOfMaybeUndefinedByIndex<T, I> =
         | GetIndexedField<Exclude<T, undefined>, I>
         | Extract<T, undefined>;
 
@@ -1097,14 +1097,14 @@ declare module "../index" {
      * path). Both L and R might be empty, and they are not interpreted as empty
      * string keys in such cases.
      */
-    type GetFieldType_Index<T, L, I, R> =
+    type GetFieldTypeEnterBrackets<T, L, I, R> =
         '' extends L
         ? '' extends R
             ? GetIndexedField<T, I>
             : GetFieldType<GetIndexedField<T, I>, R>
         : '' extends R
-            ? GetFieldType_IndexPossiblyUndefined<GetFieldType_AccessByDotPath<T, L>, I>
-            : GetFieldType<GetFieldType_IndexPossiblyUndefined<GetFieldType_AccessByDotPath<T, L>, I>, R>
+            ? GetFieldTypeOfMaybeUndefinedByIndex<GetFieldTypeByDotPath<T, L>, I>
+            : GetFieldType<GetFieldTypeOfMaybeUndefinedByIndex<GetFieldTypeByDotPath<T, L>, I>, R>
 
     /**
      * Internal. Parses the first pair of square (indexing) brackets inside
@@ -1112,28 +1112,28 @@ declare module "../index" {
      * of index inside those brackets (which allows to include closing square
      * brackets inside such quouted indices).
      */
-    type GetFieldType_ParseBrackets<T, P> =
+    type GetFieldTypeParseBrackets<T, P> =
         // Note: checks for ['index'] and ["index"] (below) allow to support
         // closing square brackets inside path names, as long as such path names
         // are used inside brackets and are quoted or double-qouted.
         P extends `${infer L}['${infer Index}']${infer R}`
-            ? GetFieldType_Index<T, L, Index, R>
+            ? GetFieldTypeEnterBrackets<T, L, Index, R>
 
         : P extends `${infer L}["${infer Index}"]${infer R}`
-            ? GetFieldType_Index<T, L, Index, R>
+            ? GetFieldTypeEnterBrackets<T, L, Index, R>
 
         : P extends `${infer L}[${infer Index}]${infer R}`
-            ? GetFieldType_Index<T, L, Index, R>
+            ? GetFieldTypeEnterBrackets<T, L, Index, R>
 
-        : GetFieldType_AccessByDotPath<T, P>;
+        : GetFieldTypeByDotPath<T, P>;
 
     /**
      * The entry-point for GetFieldType logic handles the possibility of type T
      * including the undefined type.
      */
     type GetFieldType<T, P> = undefined extends Extract<T, undefined>
-        ? GetFieldType_ParseBrackets<Exclude<T, undefined>, P> | undefined
-        : GetFieldType_ParseBrackets<T, P>;
+        ? GetFieldTypeParseBrackets<Exclude<T, undefined>, P> | undefined
+        : GetFieldTypeParseBrackets<T, P>;
 
     interface LoDashStatic {
         /**

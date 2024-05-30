@@ -4,8 +4,8 @@ import _ = require("lodash");
 
 import type {
     GetIndexedField,
-    GetFieldType_AccessByDotPath,
-    GetFieldType_IndexPossiblyUndefined,
+    GetFieldTypeByDotPath,
+    GetFieldTypeOfMaybeUndefinedByIndex,
     GetFieldType,
 } from "lodash";
 
@@ -7543,9 +7543,9 @@ _.templateSettings; // $ExpectType TemplateSettings
 { // GetFieldType: additional tests for internals.
     interface O1 { a: [{ b: { c: 3 } }] };
 
-    type A = GetFieldType_AccessByDotPath<O1, 'a'>;
-    type B = GetFieldType_IndexPossiblyUndefined<A, '0'>;
-    type C = GetFieldType_AccessByDotPath<B, '.b.c'>; // $ExpectType 3
+    type A = GetFieldTypeByDotPath<O1, 'a'>;
+    type B = GetFieldTypeOfMaybeUndefinedByIndex<A, '0'>;
+    type C = GetFieldTypeByDotPath<B, '.b.c'>; // $ExpectType 3
     type D = GetFieldType<B, '.b.c'>; // $ExpectType 3
     type E = GetFieldType<O1, 'a[0].b.c'>; // $ExpectType 3
 }
