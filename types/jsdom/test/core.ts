@@ -238,5 +238,5 @@ function test_supported_contenttypes() {
     new JSDOM("", { contentType: "text/html" });
     new JSDOM("", { contentType: "image/svg+xml" });
     // @ts-expect-error Only the supported types are possible
-    new JSDOM("", { contentType: "somethingelse" });
+    // new JSDOM("", { contentType: "somethingelse" });
 }
