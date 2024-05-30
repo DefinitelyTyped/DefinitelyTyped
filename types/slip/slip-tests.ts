@@ -1,4 +1,4 @@
-import slip from "slip";
+import * as slip from "slip";
 
 let encodeOptions: slip.EncodeOptions = {
     bufferPadding: 4,
