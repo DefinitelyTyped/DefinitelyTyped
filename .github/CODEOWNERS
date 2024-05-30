@@ -2010,7 +2010,7 @@
 /types/express-routemap/                                  @icopp
 /types/express-routes-versioning/                         @weffe
 /types/express-sanitized/                                 @cjbarth
-/types/express-serve-static-core/                         @borisyankov @micksatana @samijaber @JoseLion @dwrss @andoshin11
+/types/express-serve-static-core/                         @borisyankov @micksatana @JoseLion @dwrss @andoshin11
 /types/express-session/                                   @horiuchi @jacobbogers @builtinnya @ry7n @fiznool @peterblazejewicz @HoldYourWaffle
 /types/express-simple-locale/                             @peterblazejewicz
 /types/express-sitemap-xml/                               @ffflorian @peterblazejewicz
