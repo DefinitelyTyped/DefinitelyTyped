@@ -8,8 +8,8 @@
  * Use the <code>browser.windows</code> API to interact with browser windows. You can use this API to create, modify,
  * and rearrange windows in the browser.
  */
-import { Tabs } from "./tabs";
 import { Events } from "./events";
+import { Tabs } from "./tabs";
 
 export namespace Windows {
     /**

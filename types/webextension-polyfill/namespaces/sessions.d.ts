@@ -8,9 +8,9 @@
  * Use the <code>chrome.sessions</code> API to query and restore tabs and windows from a browsing session.
  * Permissions: "sessions"
  */
+import { Events } from "./events";
 import { Tabs } from "./tabs";
 import { Windows } from "./windows";
-import { Events } from "./events";
 
 export namespace Sessions {
     interface Filter {

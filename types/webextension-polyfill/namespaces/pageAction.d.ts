@@ -9,8 +9,8 @@
  * be taken on the current page, but that aren't applicable to all pages.
  * Permissions: "manifest:page_action"
  */
-import { Tabs } from "./tabs";
 import { Events } from "./events";
+import { Tabs } from "./tabs";
 
 export namespace PageAction {
     /**

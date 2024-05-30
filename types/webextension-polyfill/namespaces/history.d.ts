@@ -10,8 +10,8 @@
  * [Override Pages].
  * Permissions: "history"
  */
-import { ExtensionTypes } from "./extensionTypes";
 import { Events } from "./events";
+import { ExtensionTypes } from "./extensionTypes";
 
 export namespace History {
     /**

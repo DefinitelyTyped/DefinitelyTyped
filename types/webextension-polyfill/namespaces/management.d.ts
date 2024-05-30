@@ -7,8 +7,8 @@
  *
  * The <code>browser.management</code> API provides ways to manage the list of extensions that are installed and running.
  */
-import { Manifest } from "./manifest";
 import { Events } from "./events";
+import { Manifest } from "./manifest";
 
 export namespace Management {
     /**

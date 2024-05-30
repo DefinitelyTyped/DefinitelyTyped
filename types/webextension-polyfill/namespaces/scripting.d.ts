@@ -8,8 +8,8 @@
  * Use the scripting API to execute script in different contexts.
  * Permissions: "scripting"
  */
-import { Manifest } from "./manifest";
 import { ExtensionTypes } from "./extensionTypes";
+import { Manifest } from "./manifest";
 
 export namespace Scripting {
     /**

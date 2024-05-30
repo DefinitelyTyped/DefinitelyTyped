@@ -7,8 +7,8 @@
  *
  * The theme API allows customizing of visual elements of the browser.
  */
-import { Manifest } from "./manifest";
 import { Events } from "./events";
+import { Manifest } from "./manifest";
 
 export namespace Theme {
     /**

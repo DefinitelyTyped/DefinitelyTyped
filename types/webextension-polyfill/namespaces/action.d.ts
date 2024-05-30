@@ -9,8 +9,8 @@
  * a browser action can also have a tooltip, a badge, and a popup.
  * Permissions: "manifest:action", "manifest:browser_action"
  */
-import { Tabs } from "./tabs";
 import { Events } from "./events";
+import { Tabs } from "./tabs";
 
 export namespace Action {
     /**

@@ -9,9 +9,9 @@
  * and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the
  * relative path of URLs to fully-qualified URLs.
  */
-import { Tabs } from "./tabs";
-import { Manifest } from "./manifest";
 import { Events } from "./events";
+import { Manifest } from "./manifest";
+import { Tabs } from "./tabs";
 
 export namespace Runtime {
     /**

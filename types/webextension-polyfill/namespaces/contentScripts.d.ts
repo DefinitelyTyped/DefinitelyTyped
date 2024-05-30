@@ -5,8 +5,8 @@
 /**
  * Namespace: browser.contentScripts
  */
-import { Manifest } from "./manifest";
 import { ExtensionTypes } from "./extensionTypes";
+import { Manifest } from "./manifest";
 
 export namespace ContentScripts {
     /**

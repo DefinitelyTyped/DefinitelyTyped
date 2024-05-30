@@ -7,8 +7,8 @@
  *
  * Permissions: -
  */
-import { ExtensionTypes } from "./extensionTypes";
 import { Experiments } from "./experiments";
+import { ExtensionTypes } from "./extensionTypes";
 
 export namespace Manifest {
     /**

@@ -9,8 +9,8 @@
  * an action to open the browser action or send a command to the xtension.
  * Permissions: "manifest:commands"
  */
-import { Tabs } from "./tabs";
 import { Events } from "./events";
+import { Tabs } from "./tabs";
 
 export namespace Commands {
     interface Command {

@@ -9,9 +9,9 @@
  * additions apply to, such as images, hyperlinks, and pages.
  * Permissions: "menus"
  */
+import { Events } from "./events";
 import { Extension } from "./extension";
 import { Tabs } from "./tabs";
-import { Events } from "./events";
 
 export namespace Menus {
     /**
