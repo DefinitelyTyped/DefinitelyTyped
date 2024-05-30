@@ -59,10 +59,10 @@ import { WebRequest as ImportedWebRequest } from "./namespaces/webRequest";
 import { Windows as ImportedWindows } from "./namespaces/windows";
 
 declare namespace Browser {
-    const action: Action.Static;
     const activityLog: ActivityLog.Static;
     const alarms: Alarms.Static;
     const bookmarks: Bookmarks.Static;
+    const action: Action.Static;
     const browserAction: BrowserAction.Static;
     const browserSettings: BrowserSettings.Static;
     const browsingData: BrowsingData.Static;
@@ -70,7 +70,6 @@ declare namespace Browser {
     const clipboard: Clipboard.Static;
     const commands: Commands.Static;
     const contentScripts: ContentScripts.Static;
-    const contextMenus: ContextMenus.Static;
     const contextualIdentities: ContextualIdentities.Static;
     const cookies: Cookies.Static;
     const declarativeContent: DeclarativeContent.Static;
@@ -90,6 +89,7 @@ declare namespace Browser {
     const idle: Idle.Static;
     const management: Management.Static;
     const manifest: Manifest.Static;
+    const contextMenus: ContextMenus.Static;
     const menus: Menus.Static;
     const networkStatus: NetworkStatus.Static;
     const normandyAddonStudy: NormandyAddonStudy.Static;
@@ -116,10 +116,10 @@ declare namespace Browser {
     const windows: Windows.Static;
 
     interface Browser {
-        action: Action.Static;
         activityLog: ActivityLog.Static;
         alarms: Alarms.Static;
         bookmarks: Bookmarks.Static;
+        action: Action.Static;
         browserAction: BrowserAction.Static;
         browserSettings: BrowserSettings.Static;
         browsingData: BrowsingData.Static;
@@ -127,7 +127,6 @@ declare namespace Browser {
         clipboard: Clipboard.Static;
         commands: Commands.Static;
         contentScripts: ContentScripts.Static;
-        contextMenus: ContextMenus.Static;
         contextualIdentities: ContextualIdentities.Static;
         cookies: Cookies.Static;
         declarativeContent: DeclarativeContent.Static;
@@ -147,6 +146,7 @@ declare namespace Browser {
         idle: Idle.Static;
         management: Management.Static;
         manifest: Manifest.Static;
+        contextMenus: ContextMenus.Static;
         menus: Menus.Static;
         networkStatus: NetworkStatus.Static;
         normandyAddonStudy: NormandyAddonStudy.Static;
@@ -174,10 +174,10 @@ declare namespace Browser {
     }
 
     /* tslint:disable:strict-export-declare-modifiers */
-    export import Action = ImportedAction;
     export import ActivityLog = ImportedActivityLog;
     export import Alarms = ImportedAlarms;
     export import Bookmarks = ImportedBookmarks;
+    export import Action = ImportedAction;
     export import BrowserAction = ImportedBrowserAction;
     export import BrowserSettings = ImportedBrowserSettings;
     export import BrowsingData = ImportedBrowsingData;
@@ -185,7 +185,6 @@ declare namespace Browser {
     export import Clipboard = ImportedClipboard;
     export import Commands = ImportedCommands;
     export import ContentScripts = ImportedContentScripts;
-    export import ContextMenus = ImportedContextMenus;
     export import ContextualIdentities = ImportedContextualIdentities;
     export import Cookies = ImportedCookies;
     export import DeclarativeContent = ImportedDeclarativeContent;
@@ -205,6 +204,7 @@ declare namespace Browser {
     export import Idle = ImportedIdle;
     export import Management = ImportedManagement;
     export import Manifest = ImportedManifest;
+    export import ContextMenus = ImportedContextMenus;
     export import Menus = ImportedMenus;
     export import NetworkStatus = ImportedNetworkStatus;
     export import NormandyAddonStudy = ImportedNormandyAddonStudy;

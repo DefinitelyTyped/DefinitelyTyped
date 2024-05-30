@@ -171,13 +171,13 @@ export namespace DeclarativeContent {
     }
 
     interface Static {
-        PageStateMatcher: { new (options?: PageStateMatcher): PageStateMatcher };
+        PageStateMatcher: { new(options?: PageStateMatcher): PageStateMatcher };
 
-        ShowAction: { new (options?: ShowAction): ShowAction };
+        ShowAction: { new(options?: ShowAction): ShowAction };
 
-        SetIcon: { new (options?: SetIcon): SetIcon };
+        SetIcon: { new(options?: SetIcon): SetIcon };
 
-        RequestContentScript: { new (options?: RequestContentScript): RequestContentScript };
+        RequestContentScript: { new(options?: RequestContentScript): RequestContentScript };
 
         onPageChanged: RuleEvent<PageStateMatcher, RequestContentScript | SetIcon | ShowPageAction | ShowAction>;
     }

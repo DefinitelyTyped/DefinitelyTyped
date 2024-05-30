@@ -428,7 +428,8 @@ export namespace WebNavigation {
      * Fired when a new window, or a new tab in an existing window, is created to host a navigation.
      */
     interface onCreatedNavigationTargetEvent
-        extends Events.Event<(details: OnCreatedNavigationTargetDetailsType) => void> {
+        extends Events.Event<(details: OnCreatedNavigationTargetDetailsType) => void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -443,7 +444,8 @@ export namespace WebNavigation {
      * Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL.
      */
     interface onReferenceFragmentUpdatedEvent
-        extends Events.Event<(details: OnReferenceFragmentUpdatedDetailsType) => void> {
+        extends Events.Event<(details: OnReferenceFragmentUpdatedDetailsType) => void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *

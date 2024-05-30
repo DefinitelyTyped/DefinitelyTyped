@@ -1017,7 +1017,8 @@ export namespace Tabs {
      * Fired when a tab is updated.
      */
     interface onUpdatedEvent
-        extends Events.Event<(tabId: number, changeInfo: OnUpdatedChangeInfoType, tab: Tab) => void> {
+        extends Events.Event<(tabId: number, changeInfo: OnUpdatedChangeInfoType, tab: Tab) => void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
