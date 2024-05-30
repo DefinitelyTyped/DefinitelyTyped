@@ -292,12 +292,23 @@ export interface IRouter extends RequestHandler {
     /**
      * Stack of configured routes
      */
-    stack: any[];
+    stack: ILayer[];
+}
+
+export interface ILayer {
+    route?: IRoute;
+    name: string | "<anonymous>";
+    params?: Record<string, any>;
+    keys: string[];
+    path?: string;
+    method: string;
+    regexp: RegExp;
+    handle: (req: Request, res: Response, next: NextFunction) => any;
 }
 
 export interface IRoute<Route extends string = string> {
     path: string;
-    stack: any;
+    stack: ILayer[];
     all: IRouterHandler<this, Route>;
     get: IRouterHandler<this, Route>;
     post: IRouterHandler<this, Route>;

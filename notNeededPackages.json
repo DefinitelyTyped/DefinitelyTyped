@@ -5679,6 +5679,10 @@
             "libraryName": "soap",
             "asOfVersion": "0.21.0"
         },
+        "social-logos": {
+            "libraryName": "social-logos",
+            "asOfVersion": "3.0.1"
+        },
         "socket.io": {
             "libraryName": "socket.io",
             "asOfVersion": "3.0.0"

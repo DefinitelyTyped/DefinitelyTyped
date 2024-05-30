@@ -3648,6 +3648,16 @@ declare namespace woosmap.map {
         getZonesToAvoid(): string | null;
 
         /**
+         * Sets whether to disable the autofocus for the search input.
+         */
+        setIsAutofocusDisabled(disableFocus: boolean): boolean | null;
+
+        /**
+         * Gets whether auto focus on search input is enabled/disabled
+         */
+        getIsAutofocusDisabled(): boolean;
+
+        /**
          * Sets the floor for the venue
          */
         setFloor(floor: number): void;
@@ -3920,6 +3930,10 @@ declare namespace woosmap.map {
          */
         baseFilter: string;
         /**
+         * Sets whether to disable the autofocus for the search input.
+         */
+        disableAutoFocus?: boolean;
+        /**
          * Number of search responses to retrieve. Default is 5 and the maximum limit is 10.
          */
         maxResponses: number;
@@ -4037,6 +4051,14 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
+     * List of venues.
+     */
+    interface VenuesResult {
+        venues: woosmap.map.Venue[];
+    }
+}
+declare namespace woosmap.map {
+    /**
      * Options of the Indoor widget.
      */
     interface IndoorWidgetOptions {
@@ -4067,14 +4089,6 @@ declare namespace woosmap.map {
          * Set units to use to show distance in directions itinerary
          */
         units?: "imperial" | "metric" | "";
-    }
-}
-declare namespace woosmap.map {
-    /**
-     * List of venues.
-     */
-    interface VenuesResult {
-        venues: woosmap.map.Venue[];
     }
 }
 declare namespace woosmap.map {

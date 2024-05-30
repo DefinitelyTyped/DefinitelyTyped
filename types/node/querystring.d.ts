@@ -9,7 +9,7 @@
  * `querystring` is more performant than `URLSearchParams` but is not a
  * standardized API. Use `URLSearchParams` when performance is not critical or
  * when compatibility with browser code is desirable.
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/querystring.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/querystring.js)
  */
 declare module "querystring" {
     interface StringifyOptions {

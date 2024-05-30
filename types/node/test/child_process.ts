@@ -1,4 +1,5 @@
 import * as childProcess from "node:child_process";
+import * as dgram from "node:dgram";
 import * as fs from "node:fs";
 import * as net from "node:net";
 import assert = require("node:assert");
@@ -338,7 +339,7 @@ async function testPromisify() {
     });
     cp = cp.addListener("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
     cp = cp.addListener("spawn", () => {
     });
@@ -364,7 +365,7 @@ async function testPromisify() {
     });
     cp = cp.on("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
 
     cp = cp.once("close", (code, signal) => {
@@ -381,7 +382,7 @@ async function testPromisify() {
     });
     cp = cp.once("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
 
     cp = cp.prependListener("close", (code, signal) => {
@@ -398,7 +399,7 @@ async function testPromisify() {
     });
     cp = cp.prependListener("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
 
     cp = cp.prependOnceListener("close", (code, signal) => {
@@ -415,7 +416,7 @@ async function testPromisify() {
     });
     cp = cp.prependOnceListener("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
 
     _boolean = cp.kill();
