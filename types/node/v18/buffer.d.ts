@@ -79,7 +79,7 @@ declare module "buffer" {
      * Throws if the `fromEnc` or `toEnc` specify invalid character encodings or if
      * conversion from `fromEnc` to `toEnc` is not permitted.
      *
-     * Encodings supported by `buffer.transcode()` are: `'ascii'`, `'utf8'`,`'utf16le'`, `'ucs2'`, `'latin1'`, and `'binary'`.
+     * Encodings supported by `buffer.transcode()` are: `'ascii'`, `'utf8'`, `'utf16le'`, `'ucs2'`, `'latin1'`, and `'binary'`.
      *
      * The transcoding process will use substitution characters if a given byte
      * sequence cannot be adequately represented in the target encoding. For instance:
@@ -787,7 +787,7 @@ declare module "buffer" {
              * // Prints: 1
              * ```
              *
-             * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`,`targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
+             * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`, `targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
              * @since v0.11.13
              * @param target A `Buffer` or {@link Uint8Array} with which to compare `buf`.
              * @param [targetStart=0] The offset within `target` at which to begin comparison.

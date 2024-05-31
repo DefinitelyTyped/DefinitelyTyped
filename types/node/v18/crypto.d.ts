@@ -1501,7 +1501,7 @@ declare module "crypto" {
          * The `signature` argument is the previously calculated signature for the data, in
          * the `signatureEncoding`.
          * If a `signatureEncoding` is specified, the `signature` is expected to be a
-         * string; otherwise `signature` is expected to be a `Buffer`,`TypedArray`, or `DataView`.
+         * string; otherwise `signature` is expected to be a `Buffer`, `TypedArray`, or `DataView`.
          *
          * The `verify` object can not be used again after `verify.verify()` has been
          * called. Multiple calls to `verify.verify()` will result in an error being
@@ -1606,7 +1606,7 @@ declare module "crypto" {
          * key is interpreted using the specified `inputEncoding`, and secret is
          * encoded using specified `outputEncoding`.
          * If the `inputEncoding` is not
-         * provided, `otherPublicKey` is expected to be a `Buffer`,`TypedArray`, or `DataView`.
+         * provided, `otherPublicKey` is expected to be a `Buffer`, `TypedArray`, or `DataView`.
          *
          * If `outputEncoding` is given a string is returned; otherwise, a `Buffer` is returned.
          * @since v0.5.0
@@ -1725,7 +1725,7 @@ declare module "crypto" {
     type DiffieHellmanGroup = Omit<DiffieHellman, "setPublicKey" | "setPrivateKey">;
     /**
      * Creates a predefined `DiffieHellmanGroup` key exchange object. The
-     * supported groups are: `'modp1'`, `'modp2'`, `'modp5'` (defined in [RFC 2412](https://www.rfc-editor.org/rfc/rfc2412.txt), but see `Caveats`) and `'modp14'`, `'modp15'`,`'modp16'`, `'modp17'`,
+     * supported groups are: `'modp1'`, `'modp2'`, `'modp5'` (defined in [RFC 2412](https://www.rfc-editor.org/rfc/rfc2412.txt), but see `Caveats`) and `'modp14'`, `'modp15'`, `'modp16'`, `'modp17'`,
      * `'modp18'` (defined in [RFC 3526](https://www.rfc-editor.org/rfc/rfc3526.txt)). The
      * returned object mimics the interface of objects created by {@link createDiffieHellman}, but will not allow changing
      * the keys (with `diffieHellman.setPublicKey()`, for example). The
@@ -2339,7 +2339,7 @@ declare module "crypto" {
          *
          * If `format` is not specified the point will be returned in `'uncompressed'`format.
          *
-         * If the `inputEncoding` is not provided, `key` is expected to be a `Buffer`,`TypedArray`, or `DataView`.
+         * If the `inputEncoding` is not provided, `key` is expected to be a `Buffer`, `TypedArray`, or `DataView`.
          *
          * Example (uncompressing a key):
          *
@@ -2438,7 +2438,7 @@ declare module "crypto" {
         /**
          * Sets the EC Diffie-Hellman private key.
          * If `encoding` is provided, `privateKey` is expected
-         * to be a string; otherwise `privateKey` is expected to be a `Buffer`,`TypedArray`, or `DataView`.
+         * to be a string; otherwise `privateKey` is expected to be a `Buffer`, `TypedArray`, or `DataView`.
          *
          * If `privateKey` is not valid for the curve specified when the `ECDH` object was
          * created, an error is thrown. Upon setting the private key, the associated
@@ -3431,7 +3431,7 @@ declare module "crypto" {
      */
     function getCipherInfo(nameOrNid: string | number, options?: CipherInfoOptions): CipherInfo | undefined;
     /**
-     * HKDF is a simple key derivation function defined in RFC 5869\. The given `ikm`,`salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
+     * HKDF is a simple key derivation function defined in RFC 5869\. The given `ikm`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
      *
      * The supplied `callback` function is called with two arguments: `err` and`derivedKey`. If an errors occurs while deriving the key, `err` will be set;
      * otherwise `err` will be `null`. The successfully generated `derivedKey` will
