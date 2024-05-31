@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-hooks-compose",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/helloitsjoe/react-hooks-compose#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-hooks-compose": "*"
+    },
+    "devDependencies": {
+        "@types/react-hooks-compose": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Carroll",
+            "githubUsername": "paulcarroll"
+        }
+    ]
+}
