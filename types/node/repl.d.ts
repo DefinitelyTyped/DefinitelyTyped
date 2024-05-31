@@ -251,7 +251,7 @@ declare module "repl" {
         private constructor();
         /**
          * The `replServer.defineCommand()` method is used to add new `.`\-prefixed commands
-         * to the REPL instance. Such commands are invoked by typing a `.` followed by the`keyword`. The `cmd` is either a `Function` or an `Object` with the following
+         * to the REPL instance. Such commands are invoked by typing a `.` followed by the `keyword`. The `cmd` is either a `Function` or an `Object` with the following
          * properties:
          *
          * The following example shows two new commands added to the REPL instance:
@@ -289,7 +289,7 @@ declare module "repl" {
         defineCommand(keyword: string, cmd: REPLCommandAction | REPLCommand): void;
         /**
          * The `replServer.displayPrompt()` method readies the REPL instance for input
-         * from the user, printing the configured `prompt` to a new line in the `output`and resuming the `input` to accept new input.
+         * from the user, printing the configured `prompt` to a new line in the `output` and resuming the `input` to accept new input.
          *
          * When multi-line input is being entered, an ellipsis is printed rather than the
          * 'prompt'.
@@ -304,7 +304,7 @@ declare module "repl" {
         /**
          * The `replServer.clearBufferedCommand()` method clears any command that has been
          * buffered but not yet executed. This method is primarily intended to be
-         * called from within the action function for commands registered using the`replServer.defineCommand()` method.
+         * called from within the action function for commands registered using the `replServer.defineCommand()` method.
          * @since v9.0.0
          */
         clearBufferedCommand(): void;
