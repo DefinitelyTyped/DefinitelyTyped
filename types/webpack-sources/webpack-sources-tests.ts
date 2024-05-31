@@ -142,4 +142,7 @@ const tests = (options: MapOptions, hash: Hash, sourceMap: RawSourceMap) => {
     const { source: sourceCode, map } = source.sourceAndMap(options);
     sourceCode; // $ExpectType string | Buffer
     map; // $ExpectType RawSourceMap | null
+
+    new SourceMapSource(Buffer.from(new Array(256)), "file.wasm", Buffer.from(new Array(256)));
+    new RawSource(Buffer.from(new Array(256)));
 };
