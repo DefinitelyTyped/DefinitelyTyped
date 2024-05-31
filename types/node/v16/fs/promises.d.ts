@@ -172,7 +172,7 @@ declare module "fs/promises" {
          * it may require the `flags` `open` option to be set to `r+` rather than the
          * default `r`. The `encoding` can be any one of those accepted by `Buffer`.
          *
-         * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
+         * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'` the file descriptor will be closed automatically. If `autoClose` is false,
          * then the file descriptor won't be closed, even if there's an error.
          * It is the application's responsibility to close it and make sure there's no
          * file descriptor leak.

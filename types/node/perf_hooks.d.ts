@@ -506,7 +506,7 @@ declare module "perf_hooks" {
          */
         disconnect(): void;
         /**
-         * Subscribes the `PerformanceObserver` instance to notifications of new `PerformanceEntry` instances identified either by `options.entryTypes`or `options.type`:
+         * Subscribes the `PerformanceObserver` instance to notifications of new `PerformanceEntry` instances identified either by `options.entryTypes` or `options.type`:
          *
          * ```js
          * const {

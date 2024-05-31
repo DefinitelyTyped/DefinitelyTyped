@@ -771,7 +771,7 @@ declare module "buffer" {
              * // (This result is equal to: [buf1, buf3, buf2].)
              * ```
              *
-             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd`arguments can be used to limit the comparison to specific ranges within `target` and `buf` respectively.
+             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd` arguments can be used to limit the comparison to specific ranges within `target` and `buf` respectively.
              *
              * ```js
              * import { Buffer } from 'node:buffer';
@@ -1205,7 +1205,7 @@ declare module "buffer" {
              */
             readBigInt64LE(offset?: number): bigint;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as an unsigned, little-endian integer supporting
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned, little-endian integer supporting
              * up to 48 bits of accuracy.
              *
              * This function is also available under the `readUintLE` alias.
@@ -1229,7 +1229,7 @@ declare module "buffer" {
              */
             readUintLE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as an unsigned big-endian integer supporting
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned big-endian integer supporting
              * up to 48 bits of accuracy.
              *
              * This function is also available under the `readUintBE` alias.
@@ -1255,7 +1255,7 @@ declare module "buffer" {
              */
             readUintBE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as a little-endian, two's complement signed value
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a little-endian, two's complement signed value
              * supporting up to 48 bits of accuracy.
              *
              * ```js
@@ -1272,7 +1272,7 @@ declare module "buffer" {
              */
             readIntLE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as a big-endian, two's complement signed value
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a big-endian, two's complement signed value
              * supporting up to 48 bits of accuracy.
              *
              * ```js

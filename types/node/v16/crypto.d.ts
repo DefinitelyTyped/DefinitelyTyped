@@ -971,7 +971,7 @@ declare module "crypto" {
     /** @deprecated since v10.0.0 use `createDecipheriv()` */
     function createDecipher(algorithm: string, password: BinaryLike, options?: stream.TransformOptions): Decipher;
     /**
-     * Creates and returns a `Decipher` object that uses the given `algorithm`, `key`and initialization vector (`iv`).
+     * Creates and returns a `Decipher` object that uses the given `algorithm`, `key` and initialization vector (`iv`).
      *
      * The `options` argument controls stream behavior and is optional except when a
      * cipher in CCM or OCB mode is used (e.g. `'aes-128-ccm'`). In that case, the`authTagLength` option is required and specifies the length of the

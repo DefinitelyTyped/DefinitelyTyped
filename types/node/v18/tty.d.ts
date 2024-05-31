@@ -21,7 +21,7 @@
  * ```
  *
  * In most cases, there should be little to no reason for an application to
- * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
+ * manually create instances of the `tty.ReadStream` and `tty.WriteStream` classes.
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tty.js)
  */
 declare module "tty" {

@@ -783,7 +783,7 @@ declare module "node:test" {
          * Alternatively, if you call `mock.timers.enable()` without any parameters:
          *
          * All timers (`'setInterval'`, `'clearInterval'`, `'setTimeout'`, and `'clearTimeout'`)
-         * will be mocked. The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout`functions from `node:timers`, `node:timers/promises`,
+         * will be mocked. The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout` functions from `node:timers`, `node:timers/promises`,
          * and `globalThis` will be mocked.
          * @since v18.19.0
          */
