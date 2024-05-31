@@ -35,7 +35,11 @@ export class Driver extends webdriver.WebDriver {
  * Class for managing IEDriver specific options.
  */
 export class Options extends webdriver.Capabilities {
-    constructor();
+    /**
+     * @param {(Capabilities|Map<string, ?>|Object)=} other Another set of
+     *     capabilities to initialize this instance from.
+     */
+    constructor(other?: webdriver.Capabilities | Map<string, any> | object);
 
     /**
      * Whether to disable the protected mode settings check when the session is
@@ -131,10 +135,11 @@ export class Options extends webdriver.Capabilities {
      * Specifies command-line switches to use when launching Internet Explorer.
      * This is only valid when used with {@link #forceCreateProcessApi}.
      *
-     * @param {...(string|!Array.<string>)} var_args The arguments to add.
+     * @param {...(string|!Array.<string>)} args The arguments to add.
+     * @deprecated Use {@link #addBrowserCommandSwitches} instead.
      * @return {!Options} A self reference.
      */
-    addArguments(...var_args: string[]): Options;
+    addArguments(...args: string[]): Options;
 
     /**
      * Configures whether proxies should be configured on a per-process basis. If
@@ -193,11 +198,12 @@ export class Options extends webdriver.Capabilities {
     silent(silent: boolean): Options;
 
     /**
-     * Sets the proxy settings for the new session.
-     * @param {capabilities.ProxyConfig} proxy The proxy configuration to use.
+     * The options File Upload Dialog Timeout in milliseconds
+     *
+     * @param {number} timeout How long to wait for IE.
      * @return {!Options} A self reference.
      */
-    setProxy(proxy: webdriver.ProxyConfig): Options;
+    fileUploadDialogTimeout(timeout: number): Options;
 
     /**
      * Sets the IEDriver to drive Chromium-based Edge in Internet Explorer mode.
@@ -212,6 +218,14 @@ export class Options extends webdriver.Capabilities {
      * @return {!Options} A self reference.
      */
     setEdgePath(path: string): Options;
+
+    /**
+     * Sets how elements should be scrolled into view for interaction.
+     * @param {number} behavior The desired scroll behavior: either 0 to align with
+     *     the top of the viewport or 1 to align with the bottom.
+     * @return {!Options} A self reference.
+     */
+    setScrollBehavior(behavior: number): Options;
 }
 
 /**
