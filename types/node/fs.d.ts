@@ -128,7 +128,6 @@ declare module "fs" {
      *   ctime: Mon, 10 Oct 2011 23:24:11 GMT,
      *   birthtime: Mon, 10 Oct 2011 23:24:11 GMT }
      * ```
-     * @deprecated Since v20.13.0. Public constructor is deprecated.
      * @since v0.1.21
      */
     export class Stats {}
