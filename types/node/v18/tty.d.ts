@@ -147,7 +147,7 @@ declare module "tty" {
          * * 256 colors: `FORCE_COLOR = 2`
          * * 16,777,216 colors: `FORCE_COLOR = 3`
          *
-         * Disabling color support is also possible by using the `NO_COLOR` and`NODE_DISABLE_COLORS` environment variables.
+         * Disabling color support is also possible by using the `NO_COLOR` and `NODE_DISABLE_COLORS` environment variables.
          * @since v9.9.0
          * @param [env=process.env] An object containing the environment variables to check. This enables simulating the usage of a specific terminal.
          */

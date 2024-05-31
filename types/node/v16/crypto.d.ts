@@ -662,7 +662,7 @@ declare module "crypto" {
         authTagLength: number;
     }
     /**
-     * Creates and returns a `Cipher` object that uses the given `algorithm` and`password`.
+     * Creates and returns a `Cipher` object that uses the given `algorithm` and `password`.
      *
      * The `options` argument controls stream behavior and is optional except when a
      * cipher in CCM or OCB mode is used (e.g. `'aes-128-ccm'`). In that case, the`authTagLength` option is required and specifies the length of the
@@ -945,7 +945,7 @@ declare module "crypto" {
         getAuthTag(): Buffer;
     }
     /**
-     * Creates and returns a `Decipher` object that uses the given `algorithm` and`password` (key).
+     * Creates and returns a `Decipher` object that uses the given `algorithm` and `password` (key).
      *
      * The `options` argument controls stream behavior and is optional except when a
      * cipher in CCM or OCB mode is used (e.g. `'aes-128-ccm'`). In that case, the`authTagLength` option is required and specifies the length of the
@@ -1726,7 +1726,7 @@ declare module "crypto" {
      * implementation. A selected HMAC digest algorithm specified by `digest` is
      * applied to derive a key of the requested byte length (`keylen`) from the`password`, `salt` and `iterations`.
      *
-     * The supplied `callback` function is called with two arguments: `err` and`derivedKey`. If an error occurs while deriving the key, `err` will be set;
+     * The supplied `callback` function is called with two arguments: `err` and `derivedKey`. If an error occurs while deriving the key, `err` will be set;
      * otherwise `err` will be `null`. By default, the successfully generated`derivedKey` will be passed to the callback as a `Buffer`. An error will be
      * thrown if any of the input arguments specify invalid values or types.
      *
@@ -2832,7 +2832,7 @@ declare module "crypto" {
      * });
      * ```
      *
-     * On completion, `callback` will be called with `err` set to `undefined` and`publicKey` / `privateKey` representing the generated key pair.
+     * On completion, `callback` will be called with `err` set to `undefined` and `publicKey` / `privateKey` representing the generated key pair.
      *
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a `Promise` for an `Object` with `publicKey` and `privateKey` properties.
@@ -3394,7 +3394,7 @@ declare module "crypto" {
     /**
      * HKDF is a simple key derivation function defined in RFC 5869\. The given `ikm`, `salt` and `info` are used with the `digest` to derive a key of `keylen` bytes.
      *
-     * The supplied `callback` function is called with two arguments: `err` and`derivedKey`. If an errors occurs while deriving the key, `err` will be set;
+     * The supplied `callback` function is called with two arguments: `err` and `derivedKey`. If an errors occurs while deriving the key, `err` will be set;
      * otherwise `err` will be `null`. The successfully generated `derivedKey` will
      * be passed to the callback as an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer). An error will be thrown if any
      * of the input arguments specify invalid values or types.

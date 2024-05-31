@@ -594,7 +594,7 @@ declare module "process" {
                  *
                  * Calling `process.exit()` will force the process to exit as quickly as possible
                  * even if there are still asynchronous operations pending that have not yet
-                 * completed fully, including I/O operations to `process.stdout` and`process.stderr`.
+                 * completed fully, including I/O operations to `process.stdout` and `process.stderr`.
                  *
                  * In most situations, it is not actually necessary to call `process.exit()`explicitly. The Node.js process will exit on its own _if there is no additional_
                  * _work pending_ in the event loop. The `process.exitCode` property can be set to

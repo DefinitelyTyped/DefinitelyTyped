@@ -1897,7 +1897,7 @@ declare module "http2" {
         write(chunk: string | Uint8Array, encoding: BufferEncoding, callback?: (err: Error) => void): boolean;
         /**
          * Sends a status `100 Continue` to the client, indicating that the request body
-         * should be sent. See the `'checkContinue'` event on `Http2Server` and`Http2SecureServer`.
+         * should be sent. See the `'checkContinue'` event on `Http2Server` and `Http2SecureServer`.
          * @since v8.4.0
          */
         writeContinue(): void;

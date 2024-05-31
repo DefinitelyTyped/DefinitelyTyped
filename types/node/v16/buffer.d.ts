@@ -2237,7 +2237,7 @@ declare module "buffer" {
          * **and should never be used in new code, because they use strings to represent**
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
+         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
          * @legacy Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
@@ -2253,7 +2253,7 @@ declare module "buffer" {
          * **and should never be used in new code, because they use strings to represent**
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
+         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
          * @legacy Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.

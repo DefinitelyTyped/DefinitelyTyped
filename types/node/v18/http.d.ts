@@ -1300,7 +1300,7 @@ declare module "http" {
          * new URL(request.url, `http://${request.getHeaders().host}`);
          * ```
          *
-         * When `request.url` is `'/status?name=ryan'` and`request.getHeaders().host` is `'localhost:3000'`:
+         * When `request.url` is `'/status?name=ryan'` and `request.getHeaders().host` is `'localhost:3000'`:
          *
          * ```console
          * $ node
