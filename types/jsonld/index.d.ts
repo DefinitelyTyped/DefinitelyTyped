@@ -12,7 +12,7 @@ export * from "./jsonld";
 // Some typealiases for better readability and some placeholders
 type MimeNQuad = "application/n-quads";
 type RdfDataSet = object; // Placeholder
-type RdfOrString = RdfDataSet|string;
+type RdfOrString = RdfDataSet | string;
 type Callback<T> = (err: Error, res: T) => void;
 
 /*
