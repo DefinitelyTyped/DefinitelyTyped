@@ -1,10 +1,7 @@
 declare namespace Pannellum {
     interface ConfigOptions
-        extends GeneralOptions,
-            EquirectangularOptions,
-            CubemapOptions,
-            MultiresOptions,
-            DynamicOptions {}
+        extends GeneralOptions, EquirectangularOptions, CubemapOptions, MultiresOptions, DynamicOptions
+    {}
 
     interface GeneralOptions {
         /**
@@ -450,7 +447,7 @@ declare namespace Pannellum {
                 horizonPitch?: number;
                 horizonRoll?: number;
                 backgroundColor?: [number, number, number];
-            }
+            },
         ): void;
 
         /**
@@ -491,7 +488,7 @@ declare namespace Pannellum {
                  * Return rendered image?
                  */
                 returnImage?: boolean;
-            }
+            },
         ): void;
 
         /**
@@ -534,7 +531,7 @@ declare namespace Pannellum {
             pitch: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown
+            callbackArgs?: unknown,
         ): this;
 
         /**
@@ -564,7 +561,7 @@ declare namespace Pannellum {
             yaw: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown
+            callbackArgs?: unknown,
         ): this;
 
         /**
@@ -594,7 +591,7 @@ declare namespace Pannellum {
             hfov: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown
+            callbackArgs?: unknown,
         ): this;
 
         /**
@@ -623,7 +620,7 @@ declare namespace Pannellum {
             hfov?: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown
+            callbackArgs?: unknown,
         ): this;
 
         /**
