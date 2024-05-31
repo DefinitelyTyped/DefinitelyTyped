@@ -433,13 +433,13 @@ declare module "process" {
                  * the same execution environment as the parent.
                  *
                  * ```bash
-                 * node --icu-data-dir=./foo --require ./bar.js script.js --version
+                 * node --harmony script.js --version
                  * ```
                  *
                  * Results in `process.execArgv`:
                  *
                  * ```js
-                 * ["--icu-data-dir=./foo", "--require", "./bar.js"]
+                 * ['--harmony']
                  * ```
                  *
                  * And `process.argv`:
@@ -1293,21 +1293,14 @@ declare module "process" {
                 /**
                  * Gets the amount of memory available to the process (in bytes) based on
                  * limits imposed by the OS. If there is no such constraint, or the constraint
-                 * is unknown, `0` is returned.
+                 * is unknown, `undefined` is returned.
                  *
                  * See [`uv_get_constrained_memory`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_get_constrained_memory) for more
                  * information.
                  * @since v19.6.0, v18.15.0
                  * @experimental
                  */
-                constrainedMemory(): number;
-                /**
-                 * Gets the amount of free memory that is still available to the process (in bytes).
-                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v20.x/api/process.html#processavailablememory) for more information.
-                 * @experimental
-                 * @since v20.13.0
-                 */
-                availableMemory(): number;
+                constrainedMemory(): number | undefined;
                 /**
                  * The `process.cpuUsage()` method returns the user and system CPU time usage of
                  * the current process, in an object with properties `user` and `system`, whose

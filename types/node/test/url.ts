@@ -187,17 +187,11 @@ import * as url from "node:url";
 
 {
     let path: string = url.fileURLToPath("file://test");
-    path = url.fileURLToPath("file://test", { windows: false });
-    path = url.fileURLToPath("file://test", { windows: true });
     path = url.fileURLToPath(new url.URL("file://test"));
-    path = url.fileURLToPath(new url.URL("file://test"), { windows: false });
-    path = url.fileURLToPath(new url.URL("file://test"), { windows: true });
 }
 
 {
-    let path: url.URL = url.pathToFileURL("file://test");
-    path = url.pathToFileURL("file://test", { windows: false });
-    path = url.pathToFileURL("file://test", { windows: true });
+    const path: url.URL = url.pathToFileURL("file://test");
 }
 
 {
