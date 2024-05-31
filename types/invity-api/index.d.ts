@@ -712,6 +712,7 @@ export interface WatchSellTradeResponse {
     error?: string | undefined; // something went wrong
     destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
     destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
+    cryptoStringAmount?: string; // Crypto amount to send in case of change on provider's side (Banxa)
 }
 
 export type SpendTrade = SellVoucherTrade;
