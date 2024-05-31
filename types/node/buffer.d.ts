@@ -781,7 +781,7 @@ declare module "buffer" {
              * // (This result is equal to: [buf1, buf3, buf2].)
              * ```
              *
-             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd`arguments can be used to limit the comparison to specific ranges within `target`and `buf` respectively.
+             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd`arguments can be used to limit the comparison to specific ranges within `target` and `buf` respectively.
              *
              * ```js
              * import { Buffer } from 'node:buffer';
