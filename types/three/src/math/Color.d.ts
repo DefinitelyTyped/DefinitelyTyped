@@ -255,7 +255,7 @@ export class Color {
      * Copies given color.
      * @param color Color to copy.
      */
-    copy(color: this): this;
+    copy(color: Color): this;
 
     /**
      * Copies given color making conversion from sRGB to linear space.

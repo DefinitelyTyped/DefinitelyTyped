@@ -10,6 +10,7 @@ export default class ShadowNodeMaterial extends NodeMaterial {
     // Properties from ShadowMaterial
     readonly isShadowMaterial: true;
     color: Color;
+    fog: boolean;
 
     constructor(parameters?: ShadowNodeMaterialParameters);
 }
