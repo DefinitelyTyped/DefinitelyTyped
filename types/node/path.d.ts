@@ -13,7 +13,7 @@ declare module "path/win32" {
  * ```js
  * const path = require('node:path');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/path.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/path.js)
  */
 declare module "path" {
     namespace path {

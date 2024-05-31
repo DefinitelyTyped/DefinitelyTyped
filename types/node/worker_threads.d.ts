@@ -49,7 +49,7 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/worker_threads.js)
  */
 declare module "worker_threads" {
     import { Blob } from "node:buffer";

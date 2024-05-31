@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/fs.js)
  */
 declare module "fs" {
     import * as stream from "node:stream";
@@ -77,7 +77,7 @@ declare module "fs" {
      * their synchronous counterparts are of this type.
      * If `bigint` in the `options` passed to those methods is true, the numeric values
      * will be `bigint` instead of `number`, and the object will contain additional
-     * nanosecond-precision properties suffixed with `Ns`.
+     * nanosecond-precision properties suffixed with `Ns`. `Stat` objects are not to be created directly using the `new` keyword.
      *
      * ```console
      * Stats {

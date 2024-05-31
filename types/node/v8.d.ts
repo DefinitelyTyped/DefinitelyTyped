@@ -4,7 +4,7 @@
  * ```js
  * const v8 = require('node:v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/v8.js)
  */
 declare module "v8" {
     import { Readable } from "node:stream";
@@ -183,6 +183,50 @@ declare module "v8" {
      * @since v1.0.0
      */
     function setFlagsFromString(flags: string): void;
+    /**
+     * This is similar to the [`queryObjects()` console API](https://developer.chrome.com/docs/devtools/console/utilities#queryObjects-function)
+     * provided by the Chromium DevTools console. It can be used to search for objects that have the matching constructor on its prototype chain
+     * in the heap after a full garbage collection, which can be useful for memory leak regression tests. To avoid surprising results, users should
+     * avoid using this API on constructors whose implementation they don't control, or on constructors that can be invoked by other parties in the
+     * application.
+     *
+     * To avoid accidental leaks, this API does not return raw references to the objects found. By default, it returns the count of the objects
+     * found. If `options.format` is `'summary'`, it returns an array containing brief string representations for each object. The visibility provided
+     * in this API is similar to what the heap snapshot provides, while users can save the cost of serialization and parsing and directly filter the
+     * target objects during the search.
+     *
+     * Only objects created in the current execution context are included in the results.
+     *
+     * ```js
+     * import { queryObjects } from 'node:v8';
+     * class A { foo = 'bar'; }
+     * console.log(queryObjects(A)); // 0
+     * const a = new A();
+     * console.log(queryObjects(A)); // 1
+     * // [ "A { foo: 'bar' }" ]
+     * console.log(queryObjects(A, { format: 'summary' }));
+     *
+     * class B extends A { bar = 'qux'; }
+     * const b = new B();
+     * console.log(queryObjects(B)); // 1
+     * // [ "B { foo: 'bar', bar: 'qux' }" ]
+     * console.log(queryObjects(B, { format: 'summary' }));
+     *
+     * // Note that, when there are child classes inheriting from a constructor,
+     * // the constructor also shows up in the prototype chain of the child
+     * // classes's prototoype, so the child classes's prototoype would also be
+     * // included in the result.
+     * console.log(queryObjects(A));  // 3
+     * // [ "B { foo: 'bar', bar: 'qux' }", 'A {}', "A { foo: 'bar' }" ]
+     * console.log(queryObjects(A, { format: 'summary' }));
+     * ```
+     * @param ctor The constructor that can be used to search on the prototype chain in order to filter target objects in the heap.
+     * @since v20.13.0
+     * @experimental
+     */
+    function queryObjects(ctor: Function): number | string[];
+    function queryObjects(ctor: Function, options: { format: "count" }): number;
+    function queryObjects(ctor: Function, options: { format: "summary" }): string[];
     /**
      * Generates a snapshot of the current V8 heap and returns a Readable
      * Stream that may be used to read the JSON serialized representation.
