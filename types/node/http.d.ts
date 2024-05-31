@@ -26,8 +26,8 @@
  *
  * See `message.headers` for details on how duplicate headers are handled.
  *
- * The raw headers as they were received are retained in the `rawHeaders`property, which is an array of `[key, value, key2, value2, ...]`. For
- * example, the previous message header object might have a `rawHeaders`list like the following:
+ * The raw headers as they were received are retained in the `rawHeaders` property, which is an array of `[key, value, key2, value2, ...]`. For
+ * example, the previous message header object might have a `rawHeaders` list like the following:
  *
  * ```js
  * [ 'ConTent-Length', '123456',
@@ -37,7 +37,7 @@
  *   'Host', 'example.com',
  *   'accepT', '*' ]
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/http.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/http.js)
  */
 declare module "http" {
     import * as stream from "node:stream";
@@ -282,9 +282,8 @@ declare module "http" {
          */
         insecureHTTPParser?: boolean | undefined;
         /**
-         * Optionally overrides the value of
-         * `--max-http-header-size` for requests received by this server, i.e.
-         * the maximum length of request headers in bytes.
+         * Optionally overrides the value of `--max-http-header-size` for requests received by
+         * this server, i.e. the maximum length of request headers in bytes.
          * @default 16384
          * @since v13.3.0
          */
@@ -388,7 +387,7 @@ declare module "http" {
          * The number of milliseconds of inactivity a server needs to wait for additional
          * incoming data, after it has finished writing the last response, before a socket
          * will be destroyed. If the server receives new data before the keep-alive
-         * timeout has fired, it will reset the regular inactivity timeout, i.e.,`server.timeout`.
+         * timeout has fired, it will reset the regular inactivity timeout, i.e., `server.timeout`.
          *
          * A value of `0` will disable the keep-alive timeout behavior on incoming
          * connections.
@@ -575,7 +574,7 @@ declare module "http" {
         readonly socket: Socket | null;
         constructor();
         /**
-         * Once a socket is associated with the message and is connected,`socket.setTimeout()` will be called with `msecs` as the first parameter.
+         * Once a socket is associated with the message and is connected, `socket.setTimeout()` will be called with `msecs` as the first parameter.
          * @since v0.9.12
          * @param callback Optional function to be called when a timeout occurs. Same as binding to the `timeout` event.
          */
@@ -691,7 +690,7 @@ declare module "http" {
          * packet.
          *
          * It is usually desired (it saves a TCP round-trip), but not when the first
-         * data is not sent until possibly much later. `outgoingMessage.flushHeaders()`bypasses the optimization and kickstarts the message.
+         * data is not sent until possibly much later. `outgoingMessage.flushHeaders()` bypasses the optimization and kickstarts the message.
          * @since v1.6.0
          */
         flushHeaders(): void;
@@ -732,7 +731,7 @@ declare module "http" {
          */
         statusMessage: string;
         /**
-         * If set to `true`, Node.js will check whether the `Content-Length`header value and the size of the body, in bytes, are equal.
+         * If set to `true`, Node.js will check whether the `Content-Length` header value and the size of the body, in bytes, are equal.
          * Mismatching the `Content-Length` header value will result
          * in an `Error` being thrown, identified by `code:``'ERR_HTTP_CONTENT_LENGTH_MISMATCH'`.
          * @since v18.10.0, v16.18.0
@@ -743,7 +742,7 @@ declare module "http" {
         detachSocket(socket: Socket): void;
         /**
          * Sends an HTTP/1.1 100 Continue message to the client, indicating that
-         * the request body should be sent. See the `'checkContinue'` event on`Server`.
+         * the request body should be sent. See the `'checkContinue'` event on `Server`.
          * @since v0.3.0
          */
         writeContinue(callback?: () => void): void;
@@ -863,10 +862,10 @@ declare module "http" {
     /**
      * This object is created internally and returned from {@link request}. It
      * represents an _in-progress_ request whose header has already been queued. The
-     * header is still mutable using the `setHeader(name, value)`,`getHeader(name)`, `removeHeader(name)` API. The actual header will
+     * header is still mutable using the `setHeader(name, value)`, `getHeader(name)`, `removeHeader(name)` API. The actual header will
      * be sent along with the first data chunk or when calling `request.end()`.
      *
-     * To get the response, add a listener for `'response'` to the request object.`'response'` will be emitted from the request object when the response
+     * To get the response, add a listener for `'response'` to the request object. `'response'` will be emitted from the request object when the response
      * headers have been received. The `'response'` event is executed with one
      * argument which is an instance of {@link IncomingMessage}.
      *
@@ -882,10 +881,10 @@ declare module "http" {
      * the data is read it will consume memory that can eventually lead to a
      * 'process out of memory' error.
      *
-     * For backward compatibility, `res` will only emit `'error'` if there is an`'error'` listener registered.
+     * For backward compatibility, `res` will only emit `'error'` if there is an `'error'` listener registered.
      *
      * Set `Content-Length` header to limit the response body size.
-     * If `response.strictContentLength` is set to `true`, mismatching the`Content-Length` header value will result in an `Error` being thrown,
+     * If `response.strictContentLength` is set to `true`, mismatching the `Content-Length` header value will result in an `Error` being thrown,
      * identified by `code:``'ERR_HTTP_CONTENT_LENGTH_MISMATCH'`.
      *
      * `Content-Length` value should be in bytes, not characters. Use `Buffer.byteLength()` to determine the length of the body in bytes.
@@ -896,7 +895,7 @@ declare module "http" {
          * The `request.aborted` property will be `true` if the request has
          * been aborted.
          * @since v0.11.14
-         * @deprecated Since v17.0.0,v16.12.0 - Check `destroyed` instead.
+         * @deprecated Since v17.0.0, v16.12.0 - Check `destroyed` instead.
          */
         aborted: boolean;
         /**
@@ -1128,7 +1127,7 @@ declare module "http" {
      * access response
      * status, headers, and data.
      *
-     * Different from its `socket` value which is a subclass of `stream.Duplex`, the`IncomingMessage` itself extends `stream.Readable` and is created separately to
+     * Different from its `socket` value which is a subclass of `stream.Duplex`, the `IncomingMessage` itself extends `stream.Readable` and is created separately to
      * parse and emit the incoming HTTP headers and payload, as the underlying socket
      * may be reused multiple times in case of keep-alive.
      * @since v0.1.17
@@ -1147,7 +1146,7 @@ declare module "http" {
          * client response, the HTTP version of the connected-to server.
          * Probably either `'1.1'` or `'1.0'`.
          *
-         * Also `message.httpVersionMajor` is the first integer and`message.httpVersionMinor` is the second.
+         * Also `message.httpVersionMajor` is the first integer and `message.httpVersionMinor` is the second.
          * @since v0.1.1
          */
         httpVersion: string;
@@ -1212,8 +1211,8 @@ declare module "http" {
          * Duplicates in raw headers are handled in the following ways, depending on the
          * header name:
          *
-         * * Duplicates of `age`, `authorization`, `content-length`, `content-type`,`etag`, `expires`, `from`, `host`, `if-modified-since`, `if-unmodified-since`,`last-modified`, `location`,
-         * `max-forwards`, `proxy-authorization`, `referer`,`retry-after`, `server`, or `user-agent` are discarded.
+         * * Duplicates of `age`, `authorization`, `content-length`, `content-type`, `etag`, `expires`, `from`, `host`, `if-modified-since`, `if-unmodified-since`, `last-modified`, `location`,
+         * `max-forwards`, `proxy-authorization`, `referer`, `retry-after`, `server`, or `user-agent` are discarded.
          * To allow duplicate values of the headers listed above to be joined,
          * use the option `joinDuplicateHeaders` in {@link request} and {@link createServer}. See RFC 9110 Section 5.3 for more
          * information.
@@ -1307,29 +1306,32 @@ declare module "http" {
          * To parse the URL into its parts:
          *
          * ```js
-         * new URL(request.url, `http://${request.headers.host}`);
+         * new URL(`http://${process.env.HOST ?? 'localhost'}${request.url}`);
          * ```
          *
-         * When `request.url` is `'/status?name=ryan'` and `request.headers.host` is`'localhost:3000'`:
+         * When `request.url` is `'/status?name=ryan'` and `process.env.HOST` is undefined:
          *
          * ```console
          * $ node
-         * > new URL(request.url, `http://${request.headers.host}`)
+         * > new URL(`http://${process.env.HOST ?? 'localhost'}${request.url}`);
          * URL {
-         *   href: 'http://localhost:3000/status?name=ryan',
-         *   origin: 'http://localhost:3000',
+         *   href: 'http://localhost/status?name=ryan',
+         *   origin: 'http://localhost',
          *   protocol: 'http:',
          *   username: '',
          *   password: '',
-         *   host: 'localhost:3000',
+         *   host: 'localhost',
          *   hostname: 'localhost',
-         *   port: '3000',
+         *   port: '',
          *   pathname: '/status',
          *   search: '?name=ryan',
          *   searchParams: URLSearchParams { 'name' => 'ryan' },
          *   hash: ''
          * }
          * ```
+         *
+         * Ensure that you set `process.env.HOST` to the server's host name, or consider replacing this part entirely. If using `req.headers.host`, ensure proper
+         * validation is used, as clients may specify a custom `Host` header.
          * @since v0.1.90
          */
         url?: string | undefined;
@@ -1348,7 +1350,7 @@ declare module "http" {
          */
         statusMessage?: string | undefined;
         /**
-         * Calls `destroy()` on the socket that received the `IncomingMessage`. If `error`is provided, an `'error'` event is emitted on the socket and `error` is passed
+         * Calls `destroy()` on the socket that received the `IncomingMessage`. If `error` is provided, an `'error'` event is emitted on the socket and `error` is passed
          * as an argument to any listeners on the event.
          * @since v0.3.0
          */
@@ -1392,7 +1394,7 @@ declare module "http" {
      * for a given host and port, reusing a single socket connection for each
      * until the queue is empty, at which time the socket is either destroyed
      * or put into a pool where it is kept to be used again for requests to the
-     * same host and port. Whether it is destroyed or pooled depends on the`keepAlive` `option`.
+     * same host and port. Whether it is destroyed or pooled depends on the `keepAlive` `option`.
      *
      * Pooled connections have TCP Keep-Alive enabled for them, but servers may
      * still close idle connections, in which case they will be removed from the
@@ -1423,7 +1425,7 @@ declare module "http" {
      * });
      * ```
      *
-     * An agent may also be used for an individual request. By providing`{agent: false}` as an option to the `http.get()` or `http.request()`functions, a one-time use `Agent` with default options
+     * An agent may also be used for an individual request. By providing `{agent: false}` as an option to the `http.get()` or `http.request()`functions, a one-time use `Agent` with default options
      * will be used
      * for the client connection.
      *
@@ -1438,6 +1440,17 @@ declare module "http" {
      * }, (res) => {
      *   // Do stuff with response
      * });
+     * ```
+     *
+     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v20.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
+     *
+     * To configure any of them, a custom {@link Agent} instance must be created.
+     *
+     * ```js
+     * const http = require('node:http');
+     * const keepAliveAgent = new http.Agent({ keepAlive: true });
+     * options.agent = keepAliveAgent;
+     * http.request(options, onResponseCallback)
      * ```
      * @since v0.3.4
      */
@@ -1561,7 +1574,7 @@ declare module "http" {
      * `url` can be a string or a `URL` object. If `url` is a
      * string, it is automatically parsed with `new URL()`. If it is a `URL` object, it will be automatically converted to an ordinary `options` object.
      *
-     * If both `url` and `options` are specified, the objects are merged, with the`options` properties taking precedence.
+     * If both `url` and `options` are specified, the objects are merged, with the `options` properties taking precedence.
      *
      * The optional `callback` parameter will be added as a one-time listener for
      * the `'response'` event.
@@ -1661,7 +1674,7 @@ declare module "http" {
      * the following events will be emitted in the following order:
      *
      * * `'socket'`
-     * * `'error'` with an error with message `'Error: socket hang up'` and code`'ECONNRESET'`
+     * * `'error'` with an error with message `'Error: socket hang up'` and code `'ECONNRESET'`
      * * `'close'`
      *
      * In the case of a premature connection close after the response is received,
@@ -1672,15 +1685,15 @@ declare module "http" {
      *    * `'data'` any number of times, on the `res` object
      * * (connection closed here)
      * * `'aborted'` on the `res` object
-     * * `'error'` on the `res` object with an error with message`'Error: aborted'` and code `'ECONNRESET'`
      * * `'close'`
+     * * `'error'` on the `res` object with an error with message `'Error: aborted'` and code `'ECONNRESET'`
      * * `'close'` on the `res` object
      *
      * If `req.destroy()` is called before a socket is assigned, the following
      * events will be emitted in the following order:
      *
      * * (`req.destroy()` called here)
-     * * `'error'` with an error with message `'Error: socket hang up'` and code`'ECONNRESET'`, or the error with which `req.destroy()` was called
+     * * `'error'` with an error with message `'Error: socket hang up'` and code `'ECONNRESET'`, or the error with which `req.destroy()` was called
      * * `'close'`
      *
      * If `req.destroy()` is called before the connection succeeds, the following
@@ -1688,7 +1701,7 @@ declare module "http" {
      *
      * * `'socket'`
      * * (`req.destroy()` called here)
-     * * `'error'` with an error with message `'Error: socket hang up'` and code`'ECONNRESET'`, or the error with which `req.destroy()` was called
+     * * `'error'` with an error with message `'Error: socket hang up'` and code `'ECONNRESET'`, or the error with which `req.destroy()` was called
      * * `'close'`
      *
      * If `req.destroy()` is called after the response is received, the following
@@ -1699,8 +1712,8 @@ declare module "http" {
      *    * `'data'` any number of times, on the `res` object
      * * (`req.destroy()` called here)
      * * `'aborted'` on the `res` object
-     * * `'error'` on the `res` object with an error with message `'Error: aborted'`and code `'ECONNRESET'`, or the error with which `req.destroy()` was called
      * * `'close'`
+     * * `'error'` on the `res` object with an error with message `'Error: aborted'` and code `'ECONNRESET'`, or the error with which `req.destroy()` was called
      * * `'close'` on the `res` object
      *
      * If `req.abort()` is called before a socket is assigned, the following
@@ -1716,7 +1729,7 @@ declare module "http" {
      * * `'socket'`
      * * (`req.abort()` called here)
      * * `'abort'`
-     * * `'error'` with an error with message `'Error: socket hang up'` and code`'ECONNRESET'`
+     * * `'error'` with an error with message `'Error: socket hang up'` and code `'ECONNRESET'`
      * * `'close'`
      *
      * If `req.abort()` is called after the response is received, the following
@@ -1728,16 +1741,16 @@ declare module "http" {
      * * (`req.abort()` called here)
      * * `'abort'`
      * * `'aborted'` on the `res` object
-     * * `'error'` on the `res` object with an error with message`'Error: aborted'` and code `'ECONNRESET'`.
+     * * `'error'` on the `res` object with an error with message `'Error: aborted'` and code `'ECONNRESET'`.
      * * `'close'`
      * * `'close'` on the `res` object
      *
      * Setting the `timeout` option or using the `setTimeout()` function will
      * not abort the request or do anything besides add a `'timeout'` event.
      *
-     * Passing an `AbortSignal` and then calling `abort()` on the corresponding`AbortController` will behave the same way as calling `.destroy()` on the
+     * Passing an `AbortSignal` and then calling `abort()` on the corresponding `AbortController` will behave the same way as calling `.destroy()` on the
      * request. Specifically, the `'error'` event will be emitted with an error with
-     * the message `'AbortError: The operation was aborted'`, the code `'ABORT_ERR'`and the `cause`, if one was provided.
+     * the message `'AbortError: The operation was aborted'`, the code `'ABORT_ERR'` and the `cause`, if one was provided.
      * @since v0.3.6
      */
     function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
@@ -1748,7 +1761,7 @@ declare module "http" {
     ): ClientRequest;
     /**
      * Since most requests are GET requests without bodies, Node.js provides this
-     * convenience method. The only difference between this method and {@link request} is that it sets the method to GET by default and calls `req.end()`automatically. The callback must take care to
+     * convenience method. The only difference between this method and {@link request} is that it sets the method to GET by default and calls `req.end()` automatically. The callback must take care to
      * consume the response
      * data for reasons stated in {@link ClientRequest} section.
      *
@@ -1809,7 +1822,7 @@ declare module "http" {
     function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     /**
-     * Performs the low-level validations on the provided `name` that are done when`res.setHeader(name, value)` is called.
+     * Performs the low-level validations on the provided `name` that are done when `res.setHeader(name, value)` is called.
      *
      * Passing illegal value as `name` will result in a `TypeError` being thrown,
      * identified by `code: 'ERR_INVALID_HTTP_TOKEN'`.
@@ -1835,7 +1848,7 @@ declare module "http" {
      */
     function validateHeaderName(name: string): void;
     /**
-     * Performs the low-level validations on the provided `value` that are done when`res.setHeader(name, value)` is called.
+     * Performs the low-level validations on the provided `value` that are done when `res.setHeader(name, value)` is called.
      *
      * Passing illegal value as `value` will result in a `TypeError` being thrown.
      *
@@ -1877,6 +1890,12 @@ declare module "http" {
      * @param [max=1000]
      */
     function setMaxIdleHTTPParsers(max: number): void;
+    /**
+     * Global instance of `Agent` which is used as the default for all HTTP client
+     * requests. Diverges from a default `Agent` configuration by having `keepAlive`
+     * enabled and a `timeout` of 5 seconds.
+     * @since v0.5.9
+     */
     let globalAgent: Agent;
     /**
      * Read-only property specifying the maximum allowed size of HTTP headers in bytes.

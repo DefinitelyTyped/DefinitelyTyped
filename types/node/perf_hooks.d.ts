@@ -27,7 +27,7 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/perf_hooks.js)
  */
 declare module "perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
@@ -151,6 +151,11 @@ declare module "perf_hooks" {
          */
         readonly loopStart: number;
         /**
+         * The high resolution millisecond timestamp at which the Node.js process was initialized.
+         * @since v8.5.0
+         */
+        readonly nodeStart: number;
+        /**
          * The high resolution millisecond timestamp at which the V8 platform was
          * initialized.
          * @since v8.5.0
@@ -163,12 +168,12 @@ declare module "perf_hooks" {
         utilization: number;
     }
     /**
-     * @param util1 The result of a previous call to eventLoopUtilization()
-     * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
+     * @param utilization1 The result of a previous call to `eventLoopUtilization()`.
+     * @param utilization2 The result of a previous call to `eventLoopUtilization()` prior to `utilization1`.
      */
     type EventLoopUtilityFunction = (
-        util1?: EventLoopUtilization,
-        util2?: EventLoopUtilization,
+        utilization1?: EventLoopUtilization,
+        utilization2?: EventLoopUtilization,
     ) => EventLoopUtilization;
     interface MarkOptions {
         /**
@@ -177,7 +182,7 @@ declare module "perf_hooks" {
         detail?: unknown | undefined;
         /**
          * An optional timestamp to be used as the mark time.
-         * @default `performance.now()`.
+         * @default `performance.now()`
          */
         startTime?: number | undefined;
     }
@@ -201,26 +206,36 @@ declare module "perf_hooks" {
     }
     interface TimerifyOptions {
         /**
-         * A histogram object created using
-         * `perf_hooks.createHistogram()` that will record runtime durations in
-         * nanoseconds.
+         * A histogram object created using `perf_hooks.createHistogram()` that will record runtime
+         * durations in nanoseconds.
          */
         histogram?: RecordableHistogram | undefined;
     }
     interface Performance {
         /**
-         * If name is not provided, removes all PerformanceMark objects from the Performance Timeline.
-         * If name is provided, removes only the named mark.
-         * @param name
+         * If `name` is not provided, removes all `PerformanceMark` objects from the Performance Timeline.
+         * If `name` is provided, removes only the named mark.
+         * @since v8.5.0
          */
         clearMarks(name?: string): void;
         /**
-         * If name is not provided, removes all PerformanceMeasure objects from the Performance Timeline.
-         * If name is provided, removes only the named measure.
-         * @param name
+         * If `name` is not provided, removes all `PerformanceMeasure` objects from the Performance Timeline.
+         * If `name` is provided, removes only the named measure.
          * @since v16.7.0
          */
         clearMeasures(name?: string): void;
+        /**
+         * If `name` is not provided, removes all `PerformanceResourceTiming` objects from the Resource Timeline.
+         * If `name` is provided, removes only the named resource.
+         * @since v18.2.0, v16.17.0
+         */
+        clearResourceTimings(name?: string): void;
+        /**
+         * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
+         * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
+         * No other CPU idle time is taken into consideration.
+         */
+        eventLoopUtilization: EventLoopUtilityFunction;
         /**
          * Returns a list of `PerformanceEntry` objects in chronological order with respect to `performanceEntry.startTime`.
          * If you are only interested in performance entries of certain types or that have certain names, see
@@ -244,14 +259,17 @@ declare module "perf_hooks" {
          */
         getEntriesByType(type: EntryType): PerformanceEntry[];
         /**
-         * Creates a new PerformanceMark entry in the Performance Timeline.
-         * A PerformanceMark is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'mark',
-         * and whose performanceEntry.duration is always 0.
+         * Creates a new `PerformanceMark` entry in the Performance Timeline.
+         * A `PerformanceMark` is a subclass of `PerformanceEntry` whose `performanceEntry.entryType` is always `'mark'`,
+         * and whose `performanceEntry.duration` is always `0`.
          * Performance marks are used to mark specific significant moments in the Performance Timeline.
+         *
+         * The created `PerformanceMark` entry is put in the global Performance Timeline and can be queried with
+         * `performance.getEntries`, `performance.getEntriesByName`, and `performance.getEntriesByType`. When the observation is
+         * performed, the entries should be cleared from the global Performance Timeline manually with `performance.clearMarks`.
          * @param name
-         * @return The PerformanceMark entry that was created
          */
-        mark(name?: string, options?: MarkOptions): PerformanceMark;
+        mark(name: string, options?: MarkOptions): PerformanceMark;
         /**
          * Creates a new PerformanceMeasure entry in the Performance Timeline.
          * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
@@ -271,31 +289,74 @@ declare module "perf_hooks" {
         measure(name: string, startMark?: string, endMark?: string): PerformanceMeasure;
         measure(name: string, options: MeasureOptions): PerformanceMeasure;
         /**
-         * An instance of the PerformanceNodeTiming class that provides performance metrics for specific Node.js operational milestones.
+         * _This property is an extension by Node.js. It is not available in Web browsers._
+         *
+         * An instance of the `PerformanceNodeTiming` class that provides performance metrics for specific Node.js operational milestones.
+         * @since v8.5.0
          */
         readonly nodeTiming: PerformanceNodeTiming;
         /**
-         * @return the current high resolution millisecond timestamp
+         * Returns the current high resolution millisecond timestamp, where 0 represents the start of the current `node` process.
+         * @since v8.5.0
          */
         now(): number;
         /**
-         * The timeOrigin specifies the high resolution millisecond timestamp from which all performance metric durations are measured.
+         * Sets the global performance resource timing buffer size to the specified number of "resource" type performance entry objects.
+         *
+         * By default the max buffer size is set to 250.
+         * @since v18.8.0
+         */
+        setResourceTimingBufferSize(maxSize: number): void;
+        /**
+         * The [`timeOrigin`](https://w3c.github.io/hr-time/#dom-performance-timeorigin) specifies the high resolution millisecond timestamp
+         * at which the current `node` process began, measured in Unix time.
+         * @since v8.5.0
          */
         readonly timeOrigin: number;
         /**
+         * _This property is an extension by Node.js. It is not available in Web browsers._
+         *
          * Wraps a function within a new function that measures the running time of the wrapped function.
-         * A PerformanceObserver must be subscribed to the 'function' event type in order for the timing details to be accessed.
+         * A `PerformanceObserver` must be subscribed to the `'function'` event type in order for the timing details to be accessed.
+         *
+         * ```js
+         * const {
+         *   performance,
+         *   PerformanceObserver,
+         * } = require('node:perf_hooks');
+         *
+         * function someFunction() {
+         *   console.log('hello world');
+         * }
+         *
+         * const wrapped = performance.timerify(someFunction);
+         *
+         * const obs = new PerformanceObserver((list) => {
+         *   console.log(list.getEntries()[0].duration);
+         *
+         *   performance.clearMarks();
+         *   performance.clearMeasures();
+         *   obs.disconnect();
+         * });
+         * obs.observe({ entryTypes: ['function'] });
+         *
+         * // A performance timeline entry will be created
+         * wrapped();
+         * ```
+         *
+         * If the wrapped function returns a promise, a finally handler will be attached to the promise and the duration will be reported
+         * once the finally handler is invoked.
          * @param fn
          */
         timerify<T extends (...params: any[]) => any>(fn: T, options?: TimerifyOptions): T;
         /**
-         * eventLoopUtilization is similar to CPU utilization except that it is calculated using high precision wall-clock time.
-         * It represents the percentage of time the event loop has spent outside the event loop's event provider (e.g. epoll_wait).
-         * No other CPU idle time is taken into consideration.
+         * An object which is JSON representation of the performance object. It is similar to
+         * [`window.performance.toJSON`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/toJSON) in browsers.
+         * @since v16.1.0
          */
-        eventLoopUtilization: EventLoopUtilityFunction;
+        toJSON(): any;
     }
-    interface PerformanceObserverEntryList {
+    class PerformanceObserverEntryList {
         /**
          * Returns a list of `PerformanceEntry` objects in chronological order
          * with respect to `performanceEntry.startTime`.
@@ -475,6 +536,103 @@ declare module "perf_hooks" {
                 },
         ): void;
     }
+    /**
+     * Provides detailed network timing data regarding the loading of an application's resources.
+     *
+     * The constructor of this class is not exposed to users directly.
+     * @since v18.2.0, v16.17.0
+     */
+    class PerformanceResourceTiming extends PerformanceEntry {
+        protected constructor();
+        /**
+         * The high resolution millisecond timestamp at immediately before dispatching the `fetch`
+         * request. If the resource is not intercepted by a worker the property will always return 0.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly workerStart: number;
+        /**
+         * The high resolution millisecond timestamp that represents the start time of the fetch which
+         * initiates the redirect.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly redirectStart: number;
+        /**
+         * The high resolution millisecond timestamp that will be created immediately after receiving
+         * the last byte of the response of the last redirect.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly redirectEnd: number;
+        /**
+         * The high resolution millisecond timestamp immediately before the Node.js starts to fetch the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly fetchStart: number;
+        /**
+         * The high resolution millisecond timestamp immediately before the Node.js starts the domain name lookup
+         * for the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly domainLookupStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately after the Node.js finished
+         * the domain name lookup for the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly domainLookupEnd: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately before Node.js starts to
+         * establish the connection to the server to retrieve the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly connectStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately after Node.js finishes
+         * establishing the connection to the server to retrieve the resource.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly connectEnd: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately before Node.js starts the
+         * handshake process to secure the current connection.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly secureConnectionStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately before Node.js receives the
+         * first byte of the response from the server.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly requestStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately after Node.js receives the
+         * last byte of the resource or immediately before the transport connection is closed, whichever comes first.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly responseEnd: number;
+        /**
+         * A number representing the size (in octets) of the fetched resource. The size includes the response header
+         * fields plus the response payload body.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly transferSize: number;
+        /**
+         * A number representing the size (in octets) received from the fetch (HTTP or cache), of the payload body, before
+         * removing any applied content-codings.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly encodedBodySize: number;
+        /**
+         * A number representing the size (in octets) received from the fetch (HTTP or cache), of the message body, after
+         * removing any applied content-codings.
+         * @since v18.2.0, v16.17.0
+         */
+        readonly decodedBodySize: number;
+        /**
+         * Returns a `object` that is the JSON representation of the `PerformanceResourceTiming` object
+         * @since v18.2.0, v16.17.0
+         */
+        toJSON(): any;
+    }
     namespace constants {
         const NODE_PERFORMANCE_GC_MAJOR: number;
         const NODE_PERFORMANCE_GC_MINOR: number;
@@ -499,10 +657,15 @@ declare module "perf_hooks" {
     }
     interface Histogram {
         /**
-         * Returns a `Map` object detailing the accumulated percentile distribution.
-         * @since v11.10.0
+         * The number of samples recorded by the histogram.
+         * @since v17.4.0, v16.14.0
          */
-        readonly percentiles: Map<number, number>;
+        readonly count: number;
+        /**
+         * The number of samples recorded by the histogram.
+         * v17.4.0, v16.14.0
+         */
+        readonly countBigInt: bigint;
         /**
          * The number of times the event loop delay exceeded the maximum 1 hour event
          * loop delay threshold.
@@ -510,36 +673,67 @@ declare module "perf_hooks" {
          */
         readonly exceeds: number;
         /**
-         * The minimum recorded event loop delay.
-         * @since v11.10.0
+         * The number of times the event loop delay exceeded the maximum 1 hour event loop delay threshold.
+         * @since v17.4.0, v16.14.0
          */
-        readonly min: number;
+        readonly exceedsBigInt: bigint;
         /**
          * The maximum recorded event loop delay.
          * @since v11.10.0
          */
         readonly max: number;
         /**
+         * The maximum recorded event loop delay.
+         * v17.4.0, v16.14.0
+         */
+        readonly maxBigInt: number;
+        /**
          * The mean of the recorded event loop delays.
          * @since v11.10.0
          */
         readonly mean: number;
         /**
-         * The standard deviation of the recorded event loop delays.
+         * The minimum recorded event loop delay.
          * @since v11.10.0
          */
-        readonly stddev: number;
+        readonly min: number;
         /**
-         * Resets the collected histogram data.
-         * @since v11.10.0
+         * The minimum recorded event loop delay.
+         * v17.4.0, v16.14.0
          */
-        reset(): void;
+        readonly minBigInt: bigint;
         /**
          * Returns the value at the given percentile.
          * @since v11.10.0
          * @param percentile A percentile value in the range (0, 100].
          */
         percentile(percentile: number): number;
+        /**
+         * Returns the value at the given percentile.
+         * @since v17.4.0, v16.14.0
+         * @param percentile A percentile value in the range (0, 100].
+         */
+        percentileBigInt(percentile: number): bigint;
+        /**
+         * Returns a `Map` object detailing the accumulated percentile distribution.
+         * @since v11.10.0
+         */
+        readonly percentiles: Map<number, number>;
+        /**
+         * Returns a `Map` object detailing the accumulated percentile distribution.
+         * @since v17.4.0, v16.14.0
+         */
+        readonly percentilesBigInt: Map<bigint, bigint>;
+        /**
+         * Resets the collected histogram data.
+         * @since v11.10.0
+         */
+        reset(): void;
+        /**
+         * The standard deviation of the recorded event loop delays.
+         * @since v11.10.0
+         */
+        readonly stddev: number;
     }
     interface IntervalHistogram extends Histogram {
         /**
@@ -564,8 +758,6 @@ declare module "perf_hooks" {
         /**
          * Calculates the amount of time (in nanoseconds) that has passed since the
          * previous call to `recordDelta()` and records that amount in the histogram.
-         *
-         * ## Examples
          * @since v15.9.0, v14.18.0
          */
         recordDelta(): void;
@@ -626,11 +818,79 @@ declare module "perf_hooks" {
      * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
-    import { performance as _performance } from "perf_hooks";
+    import {
+        performance as _performance,
+        PerformanceEntry as _PerformanceEntry,
+        PerformanceMark as _PerformanceMark,
+        PerformanceMeasure as _PerformanceMeasure,
+        PerformanceObserver as _PerformanceObserver,
+        PerformanceObserverEntryList as _PerformanceObserverEntryList,
+        PerformanceResourceTiming as _PerformanceResourceTiming,
+    } from "perf_hooks";
     global {
         /**
-         * `performance` is a global reference for `require('perf_hooks').performance`
-         * https://nodejs.org/api/globals.html#performance
+         * `PerformanceEntry` is a global reference for `require('node:perf_hooks').PerformanceEntry`
+         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceentry
+         * @since v19.0.0
+         */
+        var PerformanceEntry: typeof globalThis extends {
+            onmessage: any;
+            PerformanceEntry: infer T;
+        } ? T
+            : typeof _PerformanceEntry;
+        /**
+         * `PerformanceMark` is a global reference for `require('node:perf_hooks').PerformanceMark`
+         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performancemark
+         * @since v19.0.0
+         */
+        var PerformanceMark: typeof globalThis extends {
+            onmessage: any;
+            PerformanceMark: infer T;
+        } ? T
+            : typeof _PerformanceMark;
+        /**
+         * `PerformanceMeasure` is a global reference for `require('node:perf_hooks').PerformanceMeasure`
+         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performancemeasure
+         * @since v19.0.0
+         */
+        var PerformanceMeasure: typeof globalThis extends {
+            onmessage: any;
+            PerformanceMeasure: infer T;
+        } ? T
+            : typeof _PerformanceMeasure;
+        /**
+         * `PerformanceObserver` is a global reference for `require('node:perf_hooks').PerformanceObserver`
+         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceobserver
+         * @since v19.0.0
+         */
+        var PerformanceObserver: typeof globalThis extends {
+            onmessage: any;
+            PerformanceObserver: infer T;
+        } ? T
+            : typeof _PerformanceObserver;
+        /**
+         * `PerformanceObserverEntryList` is a global reference for `require('node:perf_hooks').PerformanceObserverEntryList`
+         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceobserverentrylist
+         * @since v19.0.0
+         */
+        var PerformanceObserverEntryList: typeof globalThis extends {
+            onmessage: any;
+            PerformanceObserverEntryList: infer T;
+        } ? T
+            : typeof _PerformanceObserverEntryList;
+        /**
+         * `PerformanceResourceTiming` is a global reference for `require('node:perf_hooks').PerformanceResourceTiming`
+         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceresourcetiming
+         * @since v19.0.0
+         */
+        var PerformanceResourceTiming: typeof globalThis extends {
+            onmessage: any;
+            PerformanceResourceTiming: infer T;
+        } ? T
+            : typeof _PerformanceResourceTiming;
+        /**
+         * `performance` is a global reference for `require('node:perf_hooks').performance`
+         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performance
          * @since v16.0.0
          */
         var performance: typeof globalThis extends {
