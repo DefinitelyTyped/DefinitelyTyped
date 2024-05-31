@@ -221,7 +221,7 @@ export interface Condition {
 export type Statement = BaseStatement & StatementAction & (StatementResource | StatementPrincipal);
 
 export interface BaseStatement {
-    Effect: string;
+    Effect: 'Allow' | 'Deny';
     Sid?: string | undefined;
     Condition?: ConditionBlock | undefined;
 }
