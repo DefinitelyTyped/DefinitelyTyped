@@ -28,7 +28,7 @@ function TestFirefoxOptions() {
     options = options.addExtensions("/dev/null");
     options = options.setPreference("key", "value");
     options = options.windowSize({ width: 100, height: 50 });
-    options = options.enableMobile("org.mozilla.firefox","com.example.Activity","5554");
+    options = options.enableMobile("org.mozilla.firefox", "com.example.Activity", "5554");
     options.enableDebugger();
     options.enableBidi();
 }

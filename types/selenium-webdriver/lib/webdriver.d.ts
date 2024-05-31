@@ -1,9 +1,20 @@
 import { WebSocket } from "ws";
-import { Actions, Capabilities, IWebElementId, Locator, Logs, Serializable, Session, WebElement, WebElementPromise, Window } from "..";
+import {
+    Actions,
+    Capabilities,
+    IWebElementId,
+    Locator,
+    Logs,
+    Serializable,
+    Session,
+    WebElement,
+    WebElementPromise,
+    Window,
+} from "..";
 import { HttpResponse } from "../devtools/networkinterceptor";
 import command, { Command } from "./command";
 import { FileDetector } from "./input";
-export { };
+export {};
 
 type ConditionFn<T> = (webdriver: WebDriver) => T | null | Promise<T | null>;
 
@@ -79,8 +90,8 @@ export interface ITimeouts {
 
 /**
  * Defines a condition for use with WebDriver's {@linkplain WebDriver#wait wait
-* command}.
-*/
+ * command}.
+ */
 export class Condition<T> {
     /**
      * @param {string} message A descriptive error message. Should complete the
@@ -217,9 +228,8 @@ export class TargetLocator {
 
 /**
  * Each WebDriver instance provides automated control over a browser session.
- *
  */
-export class WebDriver{
+export class WebDriver {
     /**
      * @param {!(./session.Session|IThenable<!./session.Session>)} session Either
      *     a known session or a promise that will be resolved to a session.
@@ -228,7 +238,7 @@ export class WebDriver{
      * @param {(function(this: void): ?)=} onQuit A function to call, if any,
      *     when the session is terminated.
      */
-    constructor(session: Session| Promise<Session>, executor: command.Executor, onQuit?: ((this: void) => any));
+    constructor(session: Session | Promise<Session>, executor: command.Executor, onQuit?: (this: void) => any);
 
     /**
      * Creates a new WebDriver session.
@@ -258,7 +268,7 @@ export class WebDriver{
     static createSession(...var_args: any[]): WebDriver;
 
     /** @override */
-    execute(command:command.Command): Promise<void>;
+    execute(command: command.Command): Promise<void>;
 
     /** @override */
     setFileDetector(detector: FileDetector): void;
@@ -276,7 +286,7 @@ export class WebDriver{
     quit(): Promise<void>;
 
     /** @override */
-    actions(options: {async: (boolean|undefined), bridge: (boolean|undefined)}): Actions;    
+    actions(options: { async: boolean | undefined; bridge: boolean | undefined }): Actions;
 
     /**
      * Executes a snippet of JavaScript in the context of the currently selected
@@ -315,8 +325,8 @@ export class WebDriver{
      * @template T
      */
     /** @override */
-    executeScript<T>(script: string|Function, ...args: any[]): Promise<T>;
-    
+    executeScript<T>(script: string | Function, ...args: any[]): Promise<T>;
+
     /**
      * Executes a snippet of asynchronous JavaScript in the context of the
      * currently selected frame or window. The script fragment will be executed as
@@ -393,14 +403,14 @@ export class WebDriver{
      * @template T
      */
     executeAsyncScript<T>(script: string | Function, ...args: any[]): Promise<T>;
-    
+
     wait(
         condition: WebElementCondition,
         timeout?: number,
         message?: string,
         pollTimeout?: number,
     ): WebElementPromise;
-    
+
     /**
      * Waits for a condition to evaluate to a "truthy" value. The condition may be
      * specified by a {@link Condition}, as a custom function, or as any
@@ -459,7 +469,7 @@ export class WebDriver{
      * @return {!Promise<void>} A promise that will be resolved when the sleep has
      *     finished.
      */
-    sleep(ms:number): Promise<void>;
+    sleep(ms: number): Promise<void>;
 
     /**
      * Retrieves the current window handle.
@@ -468,7 +478,7 @@ export class WebDriver{
      *     window handle.
      */
     getWindowHandle(): Promise<string>;
-    
+
     /**
      * Retrieves a list of all available window handles.
      *
@@ -493,7 +503,7 @@ export class WebDriver{
      * @return {!Promise<void>} A promise that will be resolved when this command
      *     has completed.
      */
-    close(): Promise<void>;    
+    close(): Promise<void>;
 
     /**
      * Navigates to the given URL.
@@ -502,8 +512,8 @@ export class WebDriver{
      * @return {!Promise<void>} A promise that will be resolved when the document
      *     has finished loading.
      */
-    get(url: string): Promise<void>;  
-    
+    get(url: string): Promise<void>;
+
     /**
      * Retrieves the URL for the current page.
      *
@@ -610,7 +620,7 @@ export class WebDriver{
      * @return {!Options} The options interface for this instance.
      */
     manage(): Options;
-    
+
     /**
      * @return {!Navigation} The navigation interface for this instance.
      */
@@ -623,7 +633,6 @@ export class WebDriver{
     switchTo(): TargetLocator;
 
     /**
-     *
      * Takes a PDF of the current page. The driver makes a best effort to
      * return a PDF based on the provided parameters.
      *
@@ -639,18 +648,19 @@ export class WebDriver{
      *         shrinkToFit:(boolean|undefined),
      *         pageRanges:(Array|undefined)}} options
      */
-    printPage(options:{
-        orientation:(string|undefined),
-        scale:(number|undefined),
-        background:(boolean|undefined),
-        width:(number|undefined),
-        height:(number|undefined),
-        top:(number|undefined),
-        bottom:(number|undefined),
-        left:(number|undefined),
-        right:(number|undefined),
-        shrinkToFit:(boolean|undefined),
-        pageRanges:([]|undefined)}): void; 
+    printPage(options: {
+        orientation: string | undefined;
+        scale: number | undefined;
+        background: boolean | undefined;
+        width: number | undefined;
+        height: number | undefined;
+        top: number | undefined;
+        bottom: number | undefined;
+        left: number | undefined;
+        right: number | undefined;
+        shrinkToFit: boolean | undefined;
+        pageRanges: [] | undefined;
+    }): void;
 
     /**
      * Creates a new WebSocket connection.
@@ -767,7 +777,7 @@ export class Navigation {
 export class Options {
     /**
      * @param {!WebDriver} driver The parent driver.
-     */   
+     */
     constructor(driver: WebDriver);
 
     /**
@@ -795,7 +805,7 @@ export class Options {
      * @throws {error.InvalidArgumentError} if any of the cookie parameters are
      *     invalid.
      * @throws {TypeError} if `spec` is not a cookie object.
-     */    
+     */
     addCookie(spec: IWebDriverOptionsCookie): Promise<void>;
 
     /**
@@ -803,7 +813,7 @@ export class Options {
      *
      * @return {!Promise<void>} A promise that will be resolved
      *     when all cookies have been deleted.
-     */   
+     */
     deleteAllCookies(): Promise<void>;
 
     /**
@@ -813,7 +823,7 @@ export class Options {
      * @param {string} name The name of the cookie to delete.
      * @return {!Promise<void>} A promise that will be resolved
      *     when the cookie has been deleted.
-     */    
+     */
     deleteCookie(name: string): Promise<void>;
 
     /**
@@ -834,7 +844,7 @@ export class Options {
      * @return {!Promise<?Options.Cookie>} A promise that will be resolved
      *     with the named cookie
      * @throws {error.NoSuchCookieError} if there is no such cookie.
-     */    
+     */
     getCookie(name: string): Promise<IWebDriverOptionsCookie>;
 
     /**
@@ -877,7 +887,7 @@ export class Options {
      * @throws {!TypeError} if an invalid options object is provided.
      * @see #getTimeouts()
      * @see <https://w3c.github.io/webdriver/webdriver-spec.html#dfn-set-timeouts>
-     */    
+     */
     setTimeouts(timeouts: ITimeouts): Promise<void>;
 
     /**
@@ -896,7 +906,7 @@ export class Options {
      * @param {number} ms
      * @return {!Promise<void>}
      */
-    legacyTimeout(driver: WebDriver, type: string, ms: number): Promise<void>
+    legacyTimeout(driver: WebDriver, type: string, ms: number): Promise<void>;
 }
 
 //////////////////////////////////////////////////////////////////////////////

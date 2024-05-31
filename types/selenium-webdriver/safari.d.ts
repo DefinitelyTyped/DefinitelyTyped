@@ -12,7 +12,7 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @param {string=} opt_exe Path to the server executable to use. If omitted,
      *     the builder will attempt to locate the safaridriver on the system PATH.
      */
-    constructor(opt_exe: string); 
+    constructor(opt_exe: string);
 }
 
 /**
@@ -23,7 +23,7 @@ export class Options extends webdriver.Capabilities {
      * @param {(Capabilities|Map<string, ?>|Object)=} other Another set of
      *     capabilities to initialize this instance from.
      */
-    constructor(other?: webdriver.Capabilities | Map<string, any> | object );
+    constructor(other?: webdriver.Capabilities | Map<string, any> | object);
 
     /**
      * Instruct the SafariDriver to use the Safari Technology Preview if true.

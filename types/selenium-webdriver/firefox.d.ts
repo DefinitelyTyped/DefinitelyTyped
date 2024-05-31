@@ -2,12 +2,12 @@ import * as http from "./http";
 import * as webdriver from "./index";
 import Symbols from "./lib/symbols";
 import * as remote from "./remote";
-export { };
+export {};
 
 declare class Profile {
     constructor();
-    
-    addExtensions():void;
+
+    addExtensions(): void;
 
     /**
      * @return {(!Promise<string>|undefined)} a promise for a base64 encoded
@@ -17,8 +17,8 @@ declare class Profile {
 }
 
 export enum Context {
-    CONTENT = 'content',
-    CHROME = 'chrome',
+    CONTENT = "content",
+    CHROME = "chrome",
 }
 
 /**
@@ -44,7 +44,7 @@ export class Options extends webdriver.Capabilities {
      * @param {(string|!Profile)} profile The profile to use.
      * @return {!Options} A self reference.
      */
-    setProfile(profile: string| Profile): Options;
+    setProfile(profile: string | Profile): Options;
 
     /**
      * @param {string} key the preference key.
@@ -102,13 +102,13 @@ export class Options extends webdriver.Capabilities {
     /**
      * Enables moz:debuggerAddress for firefox cdp
      */
-    enableDebugger(): void;    
+    enableDebugger(): void;
 
     /**
      * Enable bidi connection
      * @returns {!Capabilities}
      */
-    enableBidi(): webdriver.Capabilities;    
+    enableBidi(): webdriver.Capabilities;
 }
 
 /**
@@ -138,7 +138,7 @@ export class Driver extends webdriver.WebDriver {
      * @return {!Driver} A new driver instance.
      */
     static createSession(
-        opt_config?: Options | webdriver.Capabilities| Object,
+        opt_config?: Options | webdriver.Capabilities | Object,
         opt_executor?: http.Executor | remote.DriverService,
     ): Driver;
 

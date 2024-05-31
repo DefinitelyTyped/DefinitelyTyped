@@ -98,7 +98,7 @@ declare namespace Gtag {
         event_label?: string | undefined;
         event_category?: string | undefined;
         /** @see {@link https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data#specify_different_transport_mechanisms specify_different_transport_mechanisms} */
-        transport_type?: 'image' | 'xhr' | 'beacon' | undefined;
+        transport_type?: "image" | "xhr" | "beacon" | undefined;
     }
 
     type Currency = string | number;

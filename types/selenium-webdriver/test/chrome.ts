@@ -26,7 +26,7 @@ async function TestChromeDriver() {
 
 function TestChromeOptions() {
     let options: chrome.Options = new chrome.Options(webdriver.Capabilities.chrome());
-   
+
     options = options.setChromeBinaryPath("path");
     options = options.setChromeLogFile("logfile");
     options = options.androidChrome();

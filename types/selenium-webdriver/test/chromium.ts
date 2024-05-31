@@ -33,14 +33,14 @@ function TestChromiumOptions() {
 
     options = options.addArguments("path");
     options = options.debuggerAddress("localhost:9222");
-    options = options.windowSize({width:500,height:800});
+    options = options.windowSize({ width: 500, height: 800 });
     options = options.excludeSwitches();
     options = options.addExtensions("/path-to-dir");
     options = options.addExtensions("/path-to-dir", "/path-to-dir");
-    options = options.addExtensions("/path-to-dir", Buffer.from('abc'));
+    options = options.addExtensions("/path-to-dir", Buffer.from("abc"));
     options = options.setBinaryPath("/path-to-dir");
     options = options.detachDriver(true);
-    options = options.setUserPreferences({prefs:"preferences"});
+    options = options.setUserPreferences({ prefs: "preferences" });
     options = options.setPerfLoggingPrefs({
         enableNetwork: true,
         enablePage: true,
@@ -48,7 +48,7 @@ function TestChromiumOptions() {
         traceCategories: "category",
         bufferUsageReportingInterval: 1000,
     });
-    options = options.setLocalState({state:"state"});
+    options = options.setLocalState({ state: "state" });
     options = options.androidActivity("com.example.Activity");
     options = options.androidDeviceSerial("emulator-5554");
     options = options.androidPackage("com.android.edge");
@@ -56,7 +56,7 @@ function TestChromiumOptions() {
     options = options.androidUseRunningApp(true);
     options = options.setBrowserLogFile("/path-to-dir");
     options = options.setBrowserMinidumpPath("/path-to-dir");
-    options = options.setMobileEmulation({deviceName: 'Google Nexus 5'});
+    options = options.setMobileEmulation({ deviceName: "Google Nexus 5" });
     options = options.windowTypes("/path-to-dir");
     options.enableBidi();
 }
@@ -72,8 +72,8 @@ function TestServiceBuilder() {
     builder = builder.setPath("/path-to-dir");
 }
 
-function TestExtension(){
+function TestExtension() {
     let extension: chromium.Extensions = new chromium.Extensions();
     let length: number = extension.length;
-    extension.add("/path-to-extension","/path-to-extension");
+    extension.add("/path-to-extension", "/path-to-extension");
 }

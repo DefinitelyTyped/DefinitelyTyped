@@ -1,4 +1,4 @@
-import http from './http';
+import http from "./http";
 import * as webdriver from "./index";
 import * as remote from "./remote";
 
@@ -21,7 +21,7 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @param {number} port Which port adb is running on.
      * @return {!ServiceBuilder} A self reference.
      */
-    setAdbPort(port:number): ServiceBuilder;
+    setAdbPort(port: number): ServiceBuilder;
 
     /**
      * Sets the path of the log file the driver should log to. If a log file is
@@ -29,7 +29,7 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @param {string} path Path of the log file to use.
      * @return {!ServiceBuilder} A self reference.
      */
-    loggingTo(path:string): ServiceBuilder;
+    loggingTo(path: string): ServiceBuilder;
 
     /**
      * Enables Chrome logging.
@@ -49,12 +49,12 @@ export class ServiceBuilder extends remote.DriverService.Builder {
      * @param {number} n The number of threads to use.
      * @return {!ServiceBuilder} A self reference.
      */
-    setNumHttpThreads(n:number): ServiceBuilder;
+    setNumHttpThreads(n: number): ServiceBuilder;
 
     /**
      * @override
      */
-    setPath(path:string): any;
+    setPath(path: string): any;
 }
 
 /**
@@ -96,7 +96,7 @@ export class Options extends webdriver.Capabilities {
      * @throws {TypeError} if width or height is unspecified, not a number, or
      *     less than or equal to 0.
      */
-    windowSize({ width, height }: { width: number; height: number; }): Options;
+    windowSize({ width, height }: { width: number; height: number }): Options;
 
     /**
      * List of Chrome command line switches to exclude that ChromeDriver by default
@@ -115,7 +115,7 @@ export class Options extends webdriver.Capabilities {
      *     extensions to add.
      * @return {!Options} A self reference.
      */
-    addExtensions(...args: Array< string | Buffer>): Options;
+    addExtensions(...args: Array<string | Buffer>): Options;
 
     /**
      * Sets the path to the browser binary to use. On Mac OS X, this path should
@@ -173,12 +173,12 @@ export class Options extends webdriver.Capabilities {
      * @return {!Options} A self reference.
      */
     setPerfLoggingPrefs(prefs: {
-            enableNetwork: boolean;
-            enablePage: boolean;
-            enableTimeline: boolean;
-            traceCategories: string;
-            bufferUsageReportingInterval: number;
-        }): Options;
+        enableNetwork: boolean;
+        enablePage: boolean;
+        enableTimeline: boolean;
+        traceCategories: string;
+        bufferUsageReportingInterval: number;
+    }): Options;
 
     /**
      * Sets preferences for the "Local State" file in Chrome's user data
@@ -280,7 +280,6 @@ export class Options extends webdriver.Capabilities {
      *
      *     let driver = chrome.Driver.createSession(options);
      *
-     *
      * [em]: https://chromedriver.chromium.org/mobile-emulation
      * [devem]: https://developer.chrome.com/devtools/docs/device-mode
      *
@@ -289,8 +288,11 @@ export class Options extends webdriver.Capabilities {
      *     mobile emulation configuration, or `null` to disable emulation.
      * @return {!Options} A self reference.
      */
-    setMobileEmulation(config?: { deviceName: string } |
-        { width: number, height: number, pixelRatio: number }): Options;
+    setMobileEmulation(
+        config?:
+            | { deviceName: string }
+            | { width: number; height: number; pixelRatio: number },
+    ): Options;
 
     /**
      * Sets a list of the window types that will appear when getting window
@@ -347,7 +349,12 @@ export class ChromiumWebDriver extends webdriver.WebDriver {
      * @param vendorCapabilityKey Either 'goog:chromeOptions' or 'ms:edgeOptions'
      * @return {!ChromiumWebDriver} A new driver instance.
      */
-    static createSession(caps?: webdriver.Capabilities | Options, opt_serviceExecutor?: remote.DriverService | http.Executor, vendorPrefix?: string, vendorCapabilityKey?: string): ChromiumWebDriver;
+    static createSession(
+        caps?: webdriver.Capabilities | Options,
+        opt_serviceExecutor?: remote.DriverService | http.Executor,
+        vendorPrefix?: string,
+        vendorCapabilityKey?: string,
+    ): ChromiumWebDriver;
 
     /**
      * This function is a no-op as file detectors are not supported by this
@@ -394,7 +401,9 @@ export class ChromiumWebDriver extends webdriver.WebDriver {
      * @return {!Promise<void>} A promise that will be resolved when network
      *     emulation settings are set.
      */
-    setNetworkConditions(spec: {offline: boolean, latency: number, download_throughput: number, upload_throughput: number}): Promise<void>;
+    setNetworkConditions(
+        spec: { offline: boolean; latency: number; download_throughput: number; upload_throughput: number },
+    ): Promise<void>;
 
     /**
      * Sends an arbitrary devtools command to the browser.

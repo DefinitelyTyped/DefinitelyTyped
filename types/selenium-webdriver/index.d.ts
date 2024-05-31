@@ -12,13 +12,22 @@ import * as until from "./lib/until";
 import { ShadowRootPromise, WebDriver } from "./lib/webdriver";
 import * as safari from "./safari";
 
-export * as chromium from './chromium';
+export * as chromium from "./chromium";
 export * from "./lib/by";
 export { Browser, Capabilities, Capability, ITimeouts } from "./lib/capabilities";
 export { Actions, Button, FileDetector, Key, Origin } from "./lib/input";
 export { promise } from "./lib/promise";
-export { Alert, Condition, IWebDriverOptionsCookie, Navigation, Options, TargetLocator, WebDriver, WebElementCondition } from './lib/webdriver';
-export { LogInspector, logging, until };
+export {
+    Alert,
+    Condition,
+    IWebDriverOptionsCookie,
+    Navigation,
+    Options,
+    TargetLocator,
+    WebDriver,
+    WebElementCondition,
+} from "./lib/webdriver";
+export { logging, LogInspector, until };
 
 /**
  * Typings for lib/error
