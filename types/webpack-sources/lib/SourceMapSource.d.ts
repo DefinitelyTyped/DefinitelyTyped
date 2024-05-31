@@ -8,15 +8,23 @@ import Source = require("./Source");
  */
 declare class SourceMapSource extends Source implements SourceAndMapMixin {
     constructor(
-        sourceCode: string,
+        source: string | Buffer,
         name: string,
-        sourceMap: SourceMapGenerator | RawSourceMap,
-        originalSource?: string,
-        innerSourceMap?: RawSourceMap | string,
+        sourceMap: SourceMapGenerator | RawSourceMap | string | Buffer,
+        originalSource?: string | Buffer,
+        innerSourceMap?: RawSourceMap | string | Buffer,
         removeOriginalSource?: boolean,
     );
     buffer(): Buffer;
     source(): string;
+    getArgsAsBuffers(): [
+		Buffer,
+		string,
+		Buffer,
+		undefined | Buffer,
+		undefined | Buffer,
+		boolean
+	];
 }
 
 export = SourceMapSource;

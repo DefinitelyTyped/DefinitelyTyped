@@ -11,8 +11,11 @@ declare class OriginalSource extends Source implements SourceAndMapMixin {
     /**
      * OriginalSource tries to create column mappings if requested, by splitting the source code at typical statement borders (;, {, }).
      */
-    constructor(sourceCode: string | Buffer, name: string);
+    constructor(source: string | Buffer, name: string);
+
     source(): string;
+
+	getName(): string;
 }
 
 export = OriginalSource;

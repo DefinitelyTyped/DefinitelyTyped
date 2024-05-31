@@ -5,8 +5,6 @@ import Source = require("./Source");
  * Decorates a Source with replacements and insertions of source code.
  */
 declare class ReplaceSource extends Source implements SourceAndMapMixin {
-    replacements: Replacement[];
-
     /**
      * The ReplaceSource supports "identity" mappings for child source.
      * When original source matches generated source for a mapping it's assumed to be mapped char by char allowing to split mappings at replacements/insertions.
@@ -29,6 +27,8 @@ declare class ReplaceSource extends Source implements SourceAndMapMixin {
     original(): Source;
 
     source(): string;
+
+    getReplacements(): Replacement[];
 }
 
 export = ReplaceSource;

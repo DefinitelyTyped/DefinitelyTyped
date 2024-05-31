@@ -83,7 +83,7 @@ const tests = (options: MapOptions, hash: Hash, sourceMap: RawSourceMap) => {
     });
     const cachedSource = new CachedSource(source);
     cachedSource.size(); // $ExpectType number
-    cachedSource.source(); // $ExpectType string | ArrayBuffer
+    cachedSource.source(); // $ExpectType string | Buffer
     cachedSource.updateHash(hash); // $ExpectType void
     cachedSource.map(); // $ExpectType RawSourceMap
     cachedSource.map(options); // $ExpectType RawSourceMap

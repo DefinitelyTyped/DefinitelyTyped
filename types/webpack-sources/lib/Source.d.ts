@@ -11,7 +11,7 @@ declare abstract class Source {
     /**
      * Returns the represented source code as string.
      */
-    source(): string | ArrayBuffer;
+    source(): string | Buffer;
 
     /**
      * Returns the represented source code as Buffer. Strings are converted to utf-8.

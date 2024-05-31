@@ -12,6 +12,7 @@ declare class CachedSource extends Source {
     constructor(source: Source);
     map(options?: MapOptions): RawSourceMap;
     original(): Source;
+    originalLazy(): Source | (() => Source);
     getCachedData(): CachedData;
 }
 
