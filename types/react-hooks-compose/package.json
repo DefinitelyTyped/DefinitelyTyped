@@ -6,8 +6,7 @@
         "https://github.com/helloitsjoe/react-hooks-compose#readme"
     ],
     "dependencies": {
-        "@types/react": "*",
-        "react-hooks-compose": "*"
+        "@types/react": "*"
     },
     "devDependencies": {
         "@types/react-hooks-compose": "workspace:."
