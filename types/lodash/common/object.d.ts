@@ -1021,119 +1021,65 @@ declare module "../index" {
         functionsIn(): CollectionChain<string>;
     }
 
-    /**
-     * If a value of type T can be indexed by a key of type K
-     * GetIndexedField<T, K> deduces the type of value at that key,
-     * otherwise it returns undefined type.
-     */
-    type GetIndexedField<T, K> =
-        // This covers a lot of ground: indexing arrays and strings by number,
-        // retrieving their "length", indexing objects by their proper keys.
+    type GetFieldTypeOfNarrowedByKey<T, K> =
         K extends keyof T ? T[K]
-
-        // Corner-case: T = Record<string, SomeType>; K = number.
-        // This case does not match the condition above because K
-        // does not extend keyof T (which equals string). However,
-        // in this case it is legal to index a value of type T by
-        // a key of type K, and even TS evaluates T[K] as SomeType,
-        // accounting for JS auto-casting numeric keys to strings
-        // when indexing objects. Thus, this case gets a special
-        // treatment here.
-        : K extends number ? (`${K}` extends keyof T ? T[`${K}`] : undefined)
-
-        // TODO: This is a better variant for the rest of this function,
-        // but it needs TypeScript >= 4.8, and DefinitelyTyped still demands
-        // to support TypeScript 4.7. However 4.7 support will be dropped
-        // anytime soon!
-        /*
-        // If T is a type indexable by a number, and K is a string literal
-        // index representation.
+        : K extends number ? ( `${K}` extends keyof T ? T[`${K}`] : undefined)
         : K extends `${infer N extends number}`
             ? (N extends keyof T ? T[N] : undefined)
             : undefined;
-        */
 
-        // Previous variant for the rest of this function. It is wrong in some
-        // edge-cases, e.g. GetIndexedField<[1], number> goes into this branch
-        // and evaluates undefined, while TS evaluates [1][number] as 1.
-        : K extends `${number}`
-            ? 'length' extends keyof T
-                ? number extends T['length']
-                    ? number extends keyof T
-                        ? T[number]
-                        : undefined
-                    : undefined
-                : undefined
-            : undefined;
-
-    /**
-     * Internal. Assumes P has no square (indexing) bracket pairs.
-     */
-    type GetFieldTypeOfMaybeUndefinedByDotPath<T, P> =
-        | GetFieldTypeByDotPath<Exclude<T, undefined>, P>
-        | Extract<T, undefined>;
-
-    /**
-     * Internal. Assumes T does not include undefined; and P has no square
-     * (indexing) brackets.
-     */
-    type GetFieldTypeByDotPath<T, P> = P extends `${infer L}.${infer R}`
+    /** Internal. Assumes P is a dot-delimitered path. */
+    type GetFieldTypeOfNarrowedByDotPath<T, P> = P extends `${infer L}.${infer R}`
         ? '' extends L
-            ? GetFieldTypeByDotPath<T, R>
-            : GetFieldTypeOfMaybeUndefinedByDotPath<GetIndexedField<T, L>, R>
-        : GetIndexedField<T, P>;
+            ? GetFieldTypeOfNarrowedByDotPath<T, R>
+            : GetFieldType<GetFieldTypeOfNarrowedByKey<T, L>, R>
+        : GetFieldTypeOfNarrowedByKey<T, P>;
 
-    /**
-     * Internal. Assumes I is an index (key name), and does not have to be
-     * parsed further.
-     */
-    type GetFieldTypeOfMaybeUndefinedByIndex<T, I> =
-        | GetIndexedField<Exclude<T, undefined>, I>
-        | Extract<T, undefined>;
-
-    /**
-     * Internal. Assumes T does not include undefined; L has no square (indexing)
-     * brackets; I is an index (key name, does not have to be further parsed as
-     * path). Both L and R might be empty, and they are not interpreted as empty
-     * string keys in such cases.
-     */
-    type GetFieldTypeEnterBrackets<T, L, I, R> =
+    type GetFieldTypeOfNarrowedByLIR<T, L, I, R> =
         '' extends L
         ? '' extends R
-            ? GetIndexedField<T, I>
-            : GetFieldType<GetIndexedField<T, I>, R>
+            ? GetFieldTypeOfNarrowedByKey<T, I>
+            : GetFieldType<GetFieldTypeOfNarrowedByKey<T, I>, R>
         : '' extends R
-            ? GetFieldTypeOfMaybeUndefinedByIndex<GetFieldTypeByDotPath<T, L>, I>
-            : GetFieldType<GetFieldTypeOfMaybeUndefinedByIndex<GetFieldTypeByDotPath<T, L>, I>, R>
+            ? GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, L>, I, 'Index'>
+            : GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, L>, I, 'Index'>, R>
+
+    /** Internal. Assumes T has been narrowed. */
+    type GetFieldTypeOfNarrowed<T, X, XT extends 'Index' | 'Path'> =
+        XT extends 'Index' ? GetFieldTypeOfNarrowedByKey<T, X>
+        : X extends `${infer L}['${infer I}']${infer R}`
+            ? GetFieldTypeOfNarrowedByLIR<T, L, I, R>
+        : X extends `${infer L}["${infer I}"]${infer R}`
+            ? GetFieldTypeOfNarrowedByLIR<T, L, I, R>
+        : X extends `${infer L}[${infer I}]${infer R}`
+            ? GetFieldTypeOfNarrowedByLIR<T, L, I, R>
+        : GetFieldTypeOfNarrowedByDotPath<T, X>;
+
+    /** Internal. Assumes T has been narrowed to an object type. */
+    type GetFieldTypeOfObject<T, X, XT extends 'Index' | 'Path'> =
+        Extract<T, unknown[]> extends never
+        ? GetFieldTypeOfNarrowed<T, X, XT>
+        : GetFieldTypeOfNarrowed<Exclude<T, unknown[]>, X, XT>
+            | GetFieldTypeOfNarrowed<Extract<T, unknown[]>, X, XT>;
+
+    /** Internal. Assumes T has been narrowed to a primitive type. */
+    type GetFieldTypeOfPrimitive<T, X, XT extends 'Index' | 'Path'> =
+        Extract<T, string> extends never
+        ? T extends never ? never : undefined
+        : (Exclude<T, string> extends never ? never : undefined)
+            | GetFieldTypeOfNarrowed<Extract<T, string>, X, XT>;
 
     /**
-     * Internal. Parses the first pair of square (indexing) brackets inside
-     * the path, if any, accounting for possible quotation, or double quotation
-     * of index inside those brackets (which allows to include closing square
-     * brackets inside such quouted indices).
+     * Deduces the type of value at the path P of type T,
+     * so that _.get<T, P>(t: T, p: P): GetFieldType<T, P>.
+     * XT specifies whether X is a path type (default),
+     * or a simple index (key name), which needs not to be parsed.
      */
-    type GetFieldTypeParseBrackets<T, P> =
-        // Note: checks for ['index'] and ["index"] (below) allow to support
-        // closing square brackets inside path names, as long as such path names
-        // are used inside brackets and are quoted or double-qouted.
-        P extends `${infer L}['${infer Index}']${infer R}`
-            ? GetFieldTypeEnterBrackets<T, L, Index, R>
-
-        : P extends `${infer L}["${infer Index}"]${infer R}`
-            ? GetFieldTypeEnterBrackets<T, L, Index, R>
-
-        : P extends `${infer L}[${infer Index}]${infer R}`
-            ? GetFieldTypeEnterBrackets<T, L, Index, R>
-
-        : GetFieldTypeByDotPath<T, P>;
-
-    /**
-     * The entry-point for GetFieldType logic handles the possibility of type T
-     * including the undefined type.
-     */
-    type GetFieldType<T, P> = undefined extends Extract<T, undefined>
-        ? GetFieldTypeParseBrackets<Exclude<T, undefined>, P> | undefined
-        : GetFieldTypeParseBrackets<T, P>;
+    type GetFieldType<T, X, XT extends 'Index' | 'Path' = 'Path'> =
+        Extract<T, object> extends never
+        ? GetFieldTypeOfPrimitive<T, X, XT>
+        : GetFieldTypeOfPrimitive<Exclude<T, object>, X, XT>
+            | GetFieldTypeOfObject<Extract<T, object>, X, XT>;
 
     interface LoDashStatic {
         /**

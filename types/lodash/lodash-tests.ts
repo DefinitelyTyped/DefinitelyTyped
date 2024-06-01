@@ -2,12 +2,7 @@
 import fp = require("./fp");
 import _ = require("lodash");
 
-import type {
-    GetIndexedField,
-    GetFieldTypeByDotPath,
-    GetFieldTypeOfMaybeUndefinedByIndex,
-    GetFieldType,
-} from "lodash";
+import type { GetFieldType, GetFieldTypeOfNarrowedByKey } from "lodash";
 
 declare const anything: any;
 
@@ -5361,6 +5356,7 @@ fp.now(); // $ExpectType number
 
     const dictionary: _.Dictionary<string> = anything;
     const maybeObject: { a: _.Dictionary<string> } | undefined = anything;
+    const maybeObject2: { a: _.Dictionary<string> } | null = anything;
 
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
@@ -5375,14 +5371,10 @@ fp.now(); // $ExpectType number
     _.get({ a: tupleOfNumbers }, 'a.0'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[0]'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
-
-    // TODO: This current behavior is wrong, as TS actually evaluates T = 1
-    // in the expression type T = [1][number]! It will be fixed by a pending
-    // patch in GetIndexedField<>, which is on hold as it requires TS >= 4.8.
-    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType undefined
-
+    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType 1
     _.get({ a: dictionary }, 'a.b'); // $ExpectType string
-    _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
+    const a = _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
+    _.get(maybeObject2, 'a.b'); // $ExpectType string | undefined
     _.get("abc", [0], "_");
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
@@ -5408,10 +5400,7 @@ fp.now(); // $ExpectType number
     _({ a: tupleOfNumbers }).get('a.0'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType undefined
-
-    // TODO: The current behavior is wrong, see the comment on the line 5374.
-    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType undefined
-
+    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType 1
     _({ a: dictionary }).get('a.b'); // $ExpectType string
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
@@ -5437,10 +5426,7 @@ fp.now(); // $ExpectType number
     _.chain({ a: tupleOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType never
-
-    // TODO: The current behavior is wrong, see the comment on the line 5374.
-    _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType never
-
+    _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType PrimitiveChain<1>
     _.chain({ a: dictionary }).get('a.b'); // $ExpectType StringChain
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
@@ -5940,6 +5926,9 @@ fp.now(); // $ExpectType number
     _.chain(obj2).pick(["a", "b"]); // $ExpectType ObjectChain<Pick<AbcObject, "a" | "b">>
     let result3: _.LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>;
     result3 = _.chain(obj2).pick(literalsArray);
+
+    const tmp = _.chain(obj2).pick(literalsArray);
+
     result3 = _.chain(obj2).pick(roLiteralsArray);
 
     fp.pick<AbcObject, "a">("a", obj2); // $ExpectType Pick<AbcObject, "a">
@@ -7412,20 +7401,20 @@ _.templateSettings; // $ExpectType TemplateSettings
  * TypeScript Utils *
  ********************/
 
-// GetIndexedFields: indexing arrays
+// GetFieldTypeOfNarrowedByKey: indexing arrays
 {
     type A1 = Array<'OK'>;
     type A2 = Array<'OK'> & { x: 'OK' };
 
-    type A = GetIndexedField<A1, number>; // $ExpectType "OK"
-    type B = GetIndexedField<A1, 1>; // $ExpectType "OK"
-    type C = GetIndexedField<A1, '1'>; // $ExpectType "OK"
-    type D = GetIndexedField<A1, 'length'>; // $ExpectType number
-    type E = GetIndexedField<A2, 'x'>; // $ExpectType "OK"
-    type G = GetIndexedField<A1, 'x'>; // $ExpectType undefined
+    type A = GetFieldTypeOfNarrowedByKey<A1, number>; // $ExpectType "OK"
+    type B = GetFieldTypeOfNarrowedByKey<A1, 1>; // $ExpectType "OK"
+    type C = GetFieldTypeOfNarrowedByKey<A1, '1'>; // $ExpectType "OK"
+    type D = GetFieldTypeOfNarrowedByKey<A1, 'length'>; // $ExpectType number
+    type E = GetFieldTypeOfNarrowedByKey<A2, 'x'>; // $ExpectType "OK"
+    type G = GetFieldTypeOfNarrowedByKey<A1, 'x'>; // $ExpectType undefined
 }
 
-// GetIndexedField: indexing objects
+// GetFieldTypeOfNarrowedByKey: indexing objects
 {
     const sym = Symbol();
 
@@ -7439,13 +7428,13 @@ _.templateSettings; // $ExpectType TemplateSettings
     type O3 = Record<string | typeof sym, 'OK'>;
 
     {   // Trivial cases:
-        type A = GetIndexedField<AbcObject, 'a'>; // $ExpectType number
-        type B = GetIndexedField<AbcObject, 'b'>; // $ExpectType string
-        type D = GetIndexedField<AbcObject, '1'>; // $ExpectType undefined
-        type F = GetIndexedField<AbcObject, number>; // $ExpectType undefined
-        type G = GetIndexedField<O1, typeof sym>; // $ExpectType "sym-OK"
-        type H = GetIndexedField<O1, string>; // $ExpectType "OK"
-        type I = GetIndexedField<O3, typeof sym>; // $ExpectType "OK"
+        type A = GetFieldTypeOfNarrowedByKey<AbcObject, 'a'>; // $ExpectType number
+        type B = GetFieldTypeOfNarrowedByKey<AbcObject, 'b'>; // $ExpectType string
+        type D = GetFieldTypeOfNarrowedByKey<AbcObject, '1'>; // $ExpectType undefined
+        type F = GetFieldTypeOfNarrowedByKey<AbcObject, number>; // $ExpectType undefined
+        type G = GetFieldTypeOfNarrowedByKey<O1, typeof sym>; // $ExpectType "sym-OK"
+        type H = GetFieldTypeOfNarrowedByKey<O1, string>; // $ExpectType "OK"
+        type I = GetFieldTypeOfNarrowedByKey<O3, typeof sym>; // $ExpectType "OK"
     }
 
     {   // Note, TS resolves keyof Ox differently for our test object types:
@@ -7459,45 +7448,49 @@ _.templateSettings; // $ExpectType TemplateSettings
         type F = O3[number]; // $ExpectType "OK"
 
         // And GetIndexedField<> should behave the same:
-        type G = GetIndexedField<O1, number>; // $ExpectType "OK"
-        type H = GetIndexedField<O2, number>; // $ExpectType "OK"
-        type I = GetIndexedField<O3, number>; // $ExpectType "OK"
-        type J = GetIndexedField<O3, 1>; // $ExpectType "OK"
+        type G = GetFieldTypeOfNarrowedByKey<O1, number>; // $ExpectType "OK"
+        type H = GetFieldTypeOfNarrowedByKey<O2, number>; // $ExpectType "OK"
+        type I = GetFieldTypeOfNarrowedByKey<O3, number>; // $ExpectType "OK"
+        type J = GetFieldTypeOfNarrowedByKey<O3, 1>; // $ExpectType "OK"
+
+        type T1 = keyof { 0: 'OK' };
+
+        type K = GetFieldTypeOfNarrowedByKey<{ 0: 'OK' }, '0'>; // $ExpectType "OK"
     }
 
     {
-        type E = GetIndexedField<O1, bigint>; // $ExpectType undefined
-        type F = GetIndexedField<O2, boolean>; // $ExpectType undefined
-        type G = GetIndexedField<O3, null>; // $ExpectType undefined
-        type H = GetIndexedField<O1, undefined>; // $ExpectType undefined
+        type E = GetFieldTypeOfNarrowedByKey<O1, bigint>; // $ExpectType undefined
+        type F = GetFieldTypeOfNarrowedByKey<O2, boolean>; // $ExpectType undefined
+        type G = GetFieldTypeOfNarrowedByKey<O3, null>; // $ExpectType undefined
+        type H = GetFieldTypeOfNarrowedByKey<O1, undefined>; // $ExpectType undefined
     }
 }
 
-// GetIndexedField: indexing strings
+// GetFieldTypeOfNarrowedByKey: indexing strings
 
 {
     type S1 = string;
     type S2 = string & { x: 'OK' };
 
-    type A = GetIndexedField<S1, number>; // $ExpectType string
-    type B = GetIndexedField<S1, 1>; // $ExpectType string
-    type C = GetIndexedField<S1, '1'>; // $ExpectType string
-    type D = GetIndexedField<S1, 'length'>; // $ExpectType number
-    type F = GetIndexedField<S1, 'x'>; // $ExpectType undefined
-    type G = GetIndexedField<S2, 'x'>; // $ExpectType "OK"
+    type A = GetFieldTypeOfNarrowedByKey<S1, number>; // $ExpectType string
+    type B = GetFieldTypeOfNarrowedByKey<S1, 1>; // $ExpectType string
+    type C = GetFieldTypeOfNarrowedByKey<S1, '1'>; // $ExpectType string
+    type D = GetFieldTypeOfNarrowedByKey<S1, 'length'>; // $ExpectType number
+    type F = GetFieldTypeOfNarrowedByKey<S1, 'x'>; // $ExpectType undefined
+    type G = GetFieldTypeOfNarrowedByKey<S2, 'x'>; // $ExpectType "OK"
 }
 
-// GetIndexedFields: indexing tuples
+// GetFieldTypeOfNarrowedByKey: indexing tuples
 
 {
     type T1 = ['OK'];
 
-    type A = GetIndexedField<T1, number>; // $ExpectType "OK"
-    type B = GetIndexedField<T1, 0>; // $ExpectType "OK"
-    type C = GetIndexedField<T1, 1>; // $ExpectType undefined
-    type D = GetIndexedField<T1, '0'>; // $ExpectType "OK"
-    type E = GetIndexedField<T1, '1'>; // $ExpectType undefined
-    type F = GetIndexedField<T1, 'length'>; // $ExpectType 1
+    type A = GetFieldTypeOfNarrowedByKey<T1, number>; // $ExpectType "OK"
+    type B = GetFieldTypeOfNarrowedByKey<T1, 0>; // $ExpectType "OK"
+    type C = GetFieldTypeOfNarrowedByKey<T1, 1>; // $ExpectType undefined
+    type D = GetFieldTypeOfNarrowedByKey<T1, '0'>; // $ExpectType "OK"
+    type E = GetFieldTypeOfNarrowedByKey<T1, '1'>; // $ExpectType undefined
+    type F = GetFieldTypeOfNarrowedByKey<T1, 'length'>; // $ExpectType 1
 }
 
 // GetFieldType: correctly handles any possible combination of dots and square
@@ -7538,16 +7531,13 @@ _.templateSettings; // $ExpectType TemplateSettings
     // thus this results in undefined.
     type M = GetFieldType<O3, "['key[with]brackets']">; // $ExpectType "value2"
     type N = GetFieldType<O3, '["key[with]brackets"]'>; // $ExpectType "value2"
-}
 
-{ // GetFieldType: additional tests for internals.
-    interface O1 { a: [{ b: { c: 3 } }] };
-
-    type A = GetFieldTypeByDotPath<O1, 'a'>;
-    type B = GetFieldTypeOfMaybeUndefinedByIndex<A, '0'>;
-    type C = GetFieldTypeByDotPath<B, '.b.c'>; // $ExpectType 3
-    type D = GetFieldType<B, '.b.c'>; // $ExpectType 3
-    type E = GetFieldType<O1, 'a[0].b.c'>; // $ExpectType 3
+    type O = GetFieldType<{ key: 'V' } | undefined, 'key'>; // $ExpectType "V" | undefined
+    type P = GetFieldType<{ key: 'V' } | null, 'key'>; // $ExpectType "V" | undefined
+    type R = GetFieldType<{ key: 'V' } | string, 'key'>; // $ExpectType "V" | undefined
+    type S = GetFieldType<{ 0: 'A'} | ['B'], '0'>; // $ExpectType 'A' | 'B'
+    type T = GetFieldType<string, 0>; // $ExpectType string
+    type U = GetFieldType<[1] | 'A' | null, '0'>; // $ExpectType 1 | string | undefined
 }
 
 // GetFieldType: number as key.
