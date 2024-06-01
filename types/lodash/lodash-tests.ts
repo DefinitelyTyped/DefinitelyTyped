@@ -5934,9 +5934,6 @@ fp.now(); // $ExpectType number
     _.chain(obj2).pick(["a", "b"]); // $ExpectType ObjectChain<Pick<AbcObject, "a" | "b">>
     let result3: _.LoDashExplicitWrapper<Pick<AbcObject, "a" | "b">>;
     result3 = _.chain(obj2).pick(literalsArray);
-
-    const tmp = _.chain(obj2).pick(literalsArray);
-
     result3 = _.chain(obj2).pick(roLiteralsArray);
 
     fp.pick<AbcObject, "a">("a", obj2); // $ExpectType Pick<AbcObject, "a">
