@@ -1,8 +1,7 @@
 import NodeVar from "./NodeVar.js";
-
-export default class NodeVarying extends NodeVar {
-    needsInterpolation: false;
-    isNodeVarying: true;
-
-    constructor(name: string, type: string);
+declare class NodeVarying extends NodeVar {
+    needsInterpolation: boolean;
+    readonly isNodeVarying: true;
+    constructor(name: string, type: string | null);
 }
+export default NodeVarying;

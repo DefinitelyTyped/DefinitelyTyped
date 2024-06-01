@@ -1,5 +1,4 @@
 import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
-import { NodeTypeOption } from "./constants.js";
 import Node from "./Node.js";
 
 export default class PropertyNode extends Node {
@@ -8,11 +7,11 @@ export default class PropertyNode extends Node {
 
     readonly isPropertyNode: true;
 
-    constructor(nodeType?: NodeTypeOption | null, name?: string | null, varying?: boolean);
+    constructor(nodeType?: string | null, name?: string | null, varying?: boolean);
 }
 
-export const property: (type?: NodeTypeOption | null, name?: string | null) => ShaderNodeObject<PropertyNode>;
-export const varyingProperty: (type?: NodeTypeOption | null, name?: string | null) => ShaderNodeObject<PropertyNode>;
+export const property: (type?: string | null, name?: string | null) => ShaderNodeObject<PropertyNode>;
+export const varyingProperty: (type?: string | null, name?: string | null) => ShaderNodeObject<PropertyNode>;
 
 export const diffuseColor: ShaderNodeObject<PropertyNode>;
 export const roughness: ShaderNodeObject<PropertyNode>;
@@ -40,3 +39,4 @@ export const transmission: ShaderNodeObject<PropertyNode>;
 export const thickness: ShaderNodeObject<PropertyNode>;
 export const attenuationDistance: ShaderNodeObject<PropertyNode>;
 export const attenuationColor: ShaderNodeObject<PropertyNode>;
+export const dispersion: ShaderNodeObject<PropertyNode>;

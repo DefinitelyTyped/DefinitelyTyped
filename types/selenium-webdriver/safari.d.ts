@@ -1,37 +1,30 @@
 import * as webdriver from "./index";
-
-export class Server {}
-
-/**
- * @return {!Promise<string>} A promise that will resolve with the path
- *     to Safari on the current system.
- */
-export function findSafariDriver(): any;
+import * as remote from "./remote";
 
 /**
- * @param {string} serverUrl The URL to connect to.
- * @return {!Promise<string>} A promise for the path to a file that Safari can
- *     open on start-up to trigger a new connection to the WebSocket server.
+ * Creates {@link selenium-webdriver/remote.DriverService} instances that manage
+ * a [safaridriver] server in a child process.
+ *
+ * [safaridriver]: https://developer.apple.com/library/prerelease/content/releasenotes/General/WhatsNewInSafari/Articles/Safari_10_0.html#//apple_ref/doc/uid/TP40014305-CH11-DontLinkElementID_28
  */
-export function createConnectFile(serverUrl: string): any;
-
-/**
- * Deletes all session data files if so desired.
- * @param {!Object} desiredCapabilities .
- * @return {!Array<promise.Promise>} A list of promises for the deleted files.
- */
-export function cleanSession(desiredCapabilities: webdriver.Capabilities): any[];
-
-/** @return {string} . */
-export function getRandomString(): string;
-
-/** */
-export class CommandExecutor {}
+export class ServiceBuilder extends remote.DriverService.Builder {
+    /**
+     * @param {string=} opt_exe Path to the server executable to use. If omitted,
+     *     the builder will attempt to locate the safaridriver on the system PATH.
+     */
+    constructor(opt_exe: string);
+}
 
 /**
  * Configuration options specific to the {@link Driver SafariDriver}.
  */
 export class Options extends webdriver.Capabilities {
+    /**
+     * @param {(Capabilities|Map<string, ?>|Object)=} other Another set of
+     *     capabilities to initialize this instance from.
+     */
+    constructor(other?: webdriver.Capabilities | Map<string, any> | object);
+
     /**
      * Instruct the SafariDriver to use the Safari Technology Preview if true.
      * Otherwise, use the release version of Safari. Defaults to using the release version of Safari.
@@ -54,9 +47,8 @@ export class Driver extends webdriver.WebDriver {
     /**
      * Creates a new Safari session.
      *
-     * @param {(Options|Capabilities)=} opt_config The configuration
-     *     options for the new session.
+     * @param {(Options|Capabilities)=} options The configuration options.
      * @return {!Driver} A new driver instance.
      */
-    static createSession(opt_config?: Options | webdriver.Capabilities): Driver;
+    static createSession(options?: Options | webdriver.Capabilities): Driver;
 }

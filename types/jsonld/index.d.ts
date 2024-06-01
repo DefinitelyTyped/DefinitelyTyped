@@ -12,6 +12,7 @@ export * from "./jsonld";
 // Some typealiases for better readability and some placeholders
 type MimeNQuad = "application/n-quads";
 type RdfDataSet = object; // Placeholder
+type RdfOrString = RdfDataSet | string;
 type Callback<T> = (err: Error, res: T) => void;
 
 /*
@@ -143,13 +144,13 @@ export function normalize(input: JsonLdDocument, options?: Options.Normalize): P
 
 export const canonize: typeof normalize;
 
-export function fromRDF(dataset: RdfDataSet, options: Options.FromRdf, callback: Callback<JsonLdArray>): void;
-export function fromRDF(dataset: RdfDataSet, callback: Callback<JsonLdArray>): void;
-export function fromRDF(dataset: RdfDataSet, options?: Options.FromRdf): Promise<JsonLdArray>;
+export function fromRDF(dataset: RdfOrString, options: Options.FromRdf, callback: Callback<JsonLdArray>): void;
+export function fromRDF(dataset: RdfOrString, callback: Callback<JsonLdArray>): void;
+export function fromRDF(dataset: RdfOrString, options?: Options.FromRdf): Promise<JsonLdArray>;
 
-export function toRDF(input: JsonLdDocument, callback: Callback<RdfDataSet>): void;
-export function toRDF(input: JsonLdDocument, options: Options.ToRdf, callback: Callback<RdfDataSet>): void;
-export function toRDF(input: JsonLdDocument, options?: Options.ToRdf): Promise<RdfDataSet>;
+export function toRDF(input: JsonLdDocument, callback: Callback<RdfOrString>): void;
+export function toRDF(input: JsonLdDocument, options: Options.ToRdf, callback: Callback<RdfOrString>): void;
+export function toRDF(input: JsonLdDocument, options?: Options.ToRdf): Promise<RdfOrString>;
 
 export let JsonLdProcessor: JsonLdProcessorInterface;
 

@@ -7,6 +7,7 @@ export default class PhysicalLightingModel extends LightingModel {
     iridescence: boolean;
     anisotropy: boolean;
     transmission: boolean;
+    dispersion: boolean;
 
     clearcoatRadiance: Node | null;
     clearcoatSpecularDirect: Node | null;
@@ -22,6 +23,7 @@ export default class PhysicalLightingModel extends LightingModel {
         iridescence?: boolean,
         anisotropy?: boolean,
         transmission?: boolean,
+        dispersion?: boolean,
     );
 
     computeMultiscattering(singleScatter: Node, multiScatter: Node, specularF90: Node): void;
