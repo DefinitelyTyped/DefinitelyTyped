@@ -1048,7 +1048,7 @@ declare module "../index" {
 
     /** Internal. Assumes T has been narrowed. */
     type GetFieldTypeOfNarrowed<T, X, XT extends 'DotPath' | 'Key' | 'Path'> =
-        XT extends 'Index' ? GetFieldTypeOfNarrowedByKey<T, X>
+        XT extends 'Key' ? GetFieldTypeOfNarrowedByKey<T, X>
         : XT extends 'DotPath' ? GetFieldTypeOfNarrowedByDotPath<T, X>
         : X extends `${infer L}['${infer K}']${infer R}`
             ? GetFieldTypeOfNarrowedByLKR<T, L, K, R>
@@ -1076,9 +1076,9 @@ declare module "../index" {
      * Deduces the type of value at the path P of type T,
      * so that _.get<T, P>(t: T, p: P): GetFieldType<T, P>.
      * XT specifies the exact meaning of X:
-     * - 'Path' (default) - X is a path type to be fully parced;
+     * - 'Path' (default) - X is a path type to be fully parsed;
      * - 'DotPath - X is a dot-delimitered path, without square (indexing) brackets;
-     * - 'Key' - X is a simple key, and needs no parcing.
+     * - 'Key' - X is a simple key, and needs no parsing.
      */
     type GetFieldType<T, X, XT extends 'DotPath' | 'Key' | 'Path' = 'Path'> =
         Extract<T, object> extends never
