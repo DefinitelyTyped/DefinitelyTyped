@@ -1,5 +1,5 @@
 import * as React from "react";
-import { composeHooks } from "react-hooks-compose";
+import composeHooks from "react-hooks-compose";
 
 interface CustomerData {
     name: string;
@@ -12,23 +12,29 @@ function useCustomerHook(): CustomerData {
 }
 
 interface Props {
-    data: CustomerData,
+    hook: CustomerData,
     value: string;
 }
 
 const CustomerPresenter = (props: Props) => {
     return (
       <div>
-        <p>{props.data.name}</p>
+        <p>{props.hook.name}</p>
         <p>{props.value}</p>
       </div>
     );
   };
 
 const Customer = composeHooks({
-    data: useCustomerHook
+    hook: useCustomerHook,
+    value: () => 'default'
  })(CustomerPresenter);
 
-export const ComposeWithDefaultHook = <Customer value='test' />
+export const ComposeWithDefaultHookAndDefaultValue = <Customer />
 
-export const TestUnderlyingPresenter = <CustomerPresenter value='test' data={{ name: 'xyz' }} />
+export const ComposeWithDefaultHookAndInjectedValue = <Customer value='test' />
+
+export const ComposeWithInjectedHookAndInjectedValue = <Customer value='test' hook={{ name: 'xyz' }} />
+
+export const ComposeWithInjectedHookAndDefaultValue = <Customer hook={{ name: 'xyz' }} />
+

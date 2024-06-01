@@ -1,3 +1,11 @@
 /// <reference types="react"/>
 
-export function composeHooks<T extends Record<string, (...args: unknown[]) => unknown>>(hooks: T): <P>(Component: React.ComponentType<P>) => React.FC<Omit<P, keyof T>>;
+declare namespace ReactHooksCompose {
+    function composeHooks<T extends object>(
+        props: {
+            [K in keyof T]: () => T[K];
+        },
+        ): (Component: React.ComponentType<T>) => React.FC<Partial<T>>;
+}
+
+export = ReactHooksCompose.composeHooks;
