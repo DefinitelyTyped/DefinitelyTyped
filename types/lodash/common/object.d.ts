@@ -1023,47 +1023,50 @@ declare module "../index" {
 
     type GetFieldTypeOfNarrowedByKey<T, K> =
         K extends keyof T ? T[K]
-        : K extends number ? ( `${K}` extends keyof T ? T[`${K}`] : undefined)
+        : K extends number
+            ? (`${K}` extends keyof T ? T[`${K}`] : undefined)
         : K extends `${infer N extends number}`
             ? (N extends keyof T ? T[N] : undefined)
             : undefined;
 
     /** Internal. Assumes P is a dot-delimitered path. */
-    type GetFieldTypeOfNarrowedByDotPath<T, P> = P extends `${infer L}.${infer R}`
+    type GetFieldTypeOfNarrowedByDotPath<T, P> =
+        P extends `${infer L}.${infer R}`
         ? '' extends L
             ? GetFieldTypeOfNarrowedByDotPath<T, R>
-            : GetFieldType<GetFieldTypeOfNarrowedByKey<T, L>, R>
+            : GetFieldType<GetFieldTypeOfNarrowedByKey<T, L>, R, 'DotPath'>
         : GetFieldTypeOfNarrowedByKey<T, P>;
 
-    type GetFieldTypeOfNarrowedByLIR<T, L, I, R> =
+    type GetFieldTypeOfNarrowedByLKR<T, L, K, R> =
         '' extends L
         ? '' extends R
-            ? GetFieldTypeOfNarrowedByKey<T, I>
-            : GetFieldType<GetFieldTypeOfNarrowedByKey<T, I>, R>
+            ? GetFieldTypeOfNarrowedByKey<T, K>
+            : GetFieldType<GetFieldTypeOfNarrowedByKey<T, K>, R>
         : '' extends R
-            ? GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, L>, I, 'Index'>
-            : GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, L>, I, 'Index'>, R>
+            ? GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, L>, K, 'Key'>
+            : GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, L>, K, 'Key'>, R>
 
     /** Internal. Assumes T has been narrowed. */
-    type GetFieldTypeOfNarrowed<T, X, XT extends 'Index' | 'Path'> =
+    type GetFieldTypeOfNarrowed<T, X, XT extends 'DotPath' | 'Key' | 'Path'> =
         XT extends 'Index' ? GetFieldTypeOfNarrowedByKey<T, X>
-        : X extends `${infer L}['${infer I}']${infer R}`
-            ? GetFieldTypeOfNarrowedByLIR<T, L, I, R>
-        : X extends `${infer L}["${infer I}"]${infer R}`
-            ? GetFieldTypeOfNarrowedByLIR<T, L, I, R>
-        : X extends `${infer L}[${infer I}]${infer R}`
-            ? GetFieldTypeOfNarrowedByLIR<T, L, I, R>
+        : XT extends 'DotPath' ? GetFieldTypeOfNarrowedByDotPath<T, X>
+        : X extends `${infer L}['${infer K}']${infer R}`
+            ? GetFieldTypeOfNarrowedByLKR<T, L, K, R>
+        : X extends `${infer L}["${infer K}"]${infer R}`
+            ? GetFieldTypeOfNarrowedByLKR<T, L, K, R>
+        : X extends `${infer L}[${infer K}]${infer R}`
+            ? GetFieldTypeOfNarrowedByLKR<T, L, K, R>
         : GetFieldTypeOfNarrowedByDotPath<T, X>;
 
     /** Internal. Assumes T has been narrowed to an object type. */
-    type GetFieldTypeOfObject<T, X, XT extends 'Index' | 'Path'> =
+    type GetFieldTypeOfObject<T, X, XT extends 'DotPath' | 'Key' | 'Path'> =
         Extract<T, unknown[]> extends never
         ? GetFieldTypeOfNarrowed<T, X, XT>
         : GetFieldTypeOfNarrowed<Exclude<T, unknown[]>, X, XT>
             | GetFieldTypeOfNarrowed<Extract<T, unknown[]>, X, XT>;
 
     /** Internal. Assumes T has been narrowed to a primitive type. */
-    type GetFieldTypeOfPrimitive<T, X, XT extends 'Index' | 'Path'> =
+    type GetFieldTypeOfPrimitive<T, X, XT extends 'DotPath' | 'Key' | 'Path'> =
         Extract<T, string> extends never
         ? T extends never ? never : undefined
         : (Exclude<T, string> extends never ? never : undefined)
@@ -1072,10 +1075,12 @@ declare module "../index" {
     /**
      * Deduces the type of value at the path P of type T,
      * so that _.get<T, P>(t: T, p: P): GetFieldType<T, P>.
-     * XT specifies whether X is a path type (default),
-     * or a simple index (key name), which needs not to be parsed.
+     * XT specifies the exact meaning of X:
+     * - 'Path' (default) - X is a path type to be fully parced;
+     * - 'DotPath - X is a dot-delimitered path, without square (indexing) brackets;
+     * - 'Key' - X is a simple key, and needs no parcing.
      */
-    type GetFieldType<T, X, XT extends 'Index' | 'Path' = 'Path'> =
+    type GetFieldType<T, X, XT extends 'DotPath' | 'Key' | 'Path' = 'Path'> =
         Extract<T, object> extends never
         ? GetFieldTypeOfPrimitive<T, X, XT>
         : GetFieldTypeOfPrimitive<Exclude<T, object>, X, XT>
