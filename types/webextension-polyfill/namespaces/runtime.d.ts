@@ -473,6 +473,7 @@ export namespace Runtime {
          * $(topic:manifest/externally_connectable)[web messaging].
          * @param options Optional.
          */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         sendMessage<TMessage = unknown, TResponse = unknown>(
             extensionId: string | undefined,
             message: TMessage,
@@ -488,6 +489,7 @@ export namespace Runtime {
          *
          * @param options Optional.
          */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         sendMessage<TMessage = unknown, TResponse = unknown>(
             message: TMessage,
             options?: SendMessageOptionsType,
@@ -499,6 +501,7 @@ export namespace Runtime {
          * @param application The name of the native messaging host.
          * @param message The message that will be passed to the native messaging host.
          */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         sendNativeMessage<TMessage = unknown, TResponse = unknown>(
             application: string,
             message: TMessage,
@@ -581,7 +584,7 @@ export namespace Runtime {
                 message: unknown,
                 sender: MessageSender,
                 sendResponse: (message: unknown) => void,
-            ) => Promise<unknown> | true | void
+            ) => Promise<unknown> | true | undefined
         >;
 
         /**
@@ -599,7 +602,7 @@ export namespace Runtime {
                 message: unknown,
                 sender: MessageSender,
                 sendResponse: (message: unknown) => void,
-            ) => Promise<unknown> | true | void
+            ) => Promise<unknown> | true | undefined
         >;
 
         /**

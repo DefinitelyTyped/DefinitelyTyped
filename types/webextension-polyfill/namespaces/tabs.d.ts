@@ -1061,6 +1061,7 @@ export namespace Tabs {
          *
          * @param options Optional.
          */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         sendMessage<TMessage = unknown, TResponse = unknown>(
             tabId: number,
             message: TMessage,
