@@ -1072,7 +1072,6 @@
 /types/connect-mongodb-session/                           @NattapongSiri @HoldYourWaffle
 /types/connect-pg-simple/                                 @pasieronen @samarmohan
 /types/connect-redis/                                     @xstoudi @sbutler2901 @JipSterk
-/types/connect-route/                                     @cthompson92
 /types/connect-sequence/                                  @levibostian
 /types/connect-slashes/                                   @samherrmann
 /types/connect-sqlite3/                                   @oof2win2
@@ -2011,7 +2010,7 @@
 /types/express-routemap/                                  @icopp
 /types/express-routes-versioning/                         @weffe
 /types/express-sanitized/                                 @cjbarth
-/types/express-serve-static-core/                         @borisyankov @micksatana @JoseLion @dwrss @andoshin11
+/types/express-serve-static-core/                         @borisyankov @micksatana @samijaber @JoseLion @dwrss @andoshin11
 /types/express-session/                                   @horiuchi @jacobbogers @builtinnya @ry7n @fiznool @peterblazejewicz @HoldYourWaffle
 /types/express-simple-locale/                             @peterblazejewicz
 /types/express-sitemap-xml/                               @ffflorian @peterblazejewicz
@@ -4286,7 +4285,6 @@
 /types/levelup/v1/                                        @blittle @tarruda
 /types/levenshtein/                                       @geoffreak
 /types/lexicographic-integer/                             @me
-/types/lfsr/                                              @mildsunrise
 /types/lgtv2/                                             @ovidiupruteanu
 /types/libarchive.js/                                     @finesunes
 /types/libhoney/                                          @dcposch
@@ -5042,7 +5040,6 @@
 /types/mongoose-delete/                                   @ndunks @alexbrazier
 /types/mongoose-geojson-schema/                           @bondz
 /types/mongoose-id-validator/                             @kerolloz
-/types/mongoose-lean-id/                                  @yincrash
 /types/mongoose-lean-virtuals/                            @isaacdecoded
 /types/mongoose-mock/                                     @jt000
 /types/mongoose-paginate/                                 @linusbrolin
@@ -6416,7 +6413,6 @@
 /types/react-hint/                                        @lucasghizoni
 /types/react-holder/                                      @isman-usoh
 /types/react-hook-mousetrap/                              @barrymichaeldoyle
-/types/react-hooks-compose/                               @paulcarroll
 /types/react-hooks-helper/                                @jedmundo
 /types/react-howler/                                      @maksimovicdanijel
 /types/react-html-email/                                  @saiichihashimoto
@@ -7518,7 +7514,6 @@
 /types/slickgrid/                                         @jbaldwin
 /types/slideout/                                          @ToastHawaii
 /types/slimerjs/                                          @alexwall
-/types/slip/                                              @Finomnis
 /types/sloc/                                              @garyking
 /types/slocket/                                           @BendingBender
 /types/slonik/                                            @sebald @mmkal
@@ -7554,6 +7549,7 @@
 /types/snowpack-env/                                      @FredKSchott @stramel @drwpow @Jack-Works
 /types/sns-validator/                                     @kevin68
 /types/snuownd/                                           @eritbh
+/types/social-logos/                                      @tdukart
 /types/socket.io-p2p/                                     @saenglert
 /types/socket.io.users/                                   @kataras
 /types/socketcluster/                                     @DanielRose
@@ -8088,7 +8084,6 @@
 /types/token-stream/                                      @MaikoTan
 /types/tokgen/                                            @l-jonas
 /types/tonic-ui__react/                                   @derekhawker @ZachLegros
-/types/tonic-ui__react-icons/                             @ZachLegros @derekhawker
 /types/toobusy-js/                                        @atd-schubert @BendingBender
 /types/tooltipster/                                       @stephenlautier @pjmagee @VorobeY1326 @leonard-thieu @janhi @joeskeen
 /types/topo/                                              @BendingBender
