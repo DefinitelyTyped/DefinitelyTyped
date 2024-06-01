@@ -1032,19 +1032,34 @@ declare module "../index" {
     /** Internal. Assumes P is a dot-delimitered path. */
     type GetFieldTypeOfNarrowedByDotPath<T, P> =
         P extends `${infer L}.${infer R}`
-        ? '' extends L
-            ? GetFieldTypeOfNarrowedByDotPath<T, R>
-            : GetFieldType<GetFieldTypeOfNarrowedByKey<T, L>, R, 'DotPath'>
+        ? GetFieldType<GetFieldTypeOfNarrowedByKey<T, L>, R, 'DotPath'>
         : GetFieldTypeOfNarrowedByKey<T, P>;
 
+    /** Internal. This is a piece of GetFieldTypeOfNarrowedByLKR logic,
+     *  assuming that Lc isn't to be ignored, and does not end with dot. */
+    type GetFieldTypeOfNarrowedByLcKR<T, Lc, K, R> =
+        '' extends R
+            ? GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, Lc>, K, 'Key'>
+        : R extends `.${infer Rc}`
+            ? GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, Lc>, K, 'Key'>, Rc>
+            : GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, Lc>, K, 'Key'>, R>
+
+    /** Internal. Assumes T has been narrowed; L is a dot-delimetered path,
+     *  and should be ignored if an empty string; K is a key name; and R is
+     *  a dot-delimetered path, to be ignored if an empty string. Also if
+     *  L has a tail dot, or R has a front dot, these dots should be discarted,
+     *  however when L or R is just a dot, they should be interpreted as empty
+     *  key name (rather than ignored). */
     type GetFieldTypeOfNarrowedByLKR<T, L, K, R> =
         '' extends L
         ? '' extends R
             ? GetFieldTypeOfNarrowedByKey<T, K>
-            : GetFieldType<GetFieldTypeOfNarrowedByKey<T, K>, R>
-        : '' extends R
-            ? GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, L>, K, 'Key'>
-            : GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, L>, K, 'Key'>, R>
+            : R extends `.${infer Rc}`
+                ? GetFieldType<GetFieldTypeOfNarrowedByKey<T, K>, Rc>
+                : GetFieldType<GetFieldTypeOfNarrowedByKey<T, K>, R>
+        : L extends `${infer Lc}.`
+            ? GetFieldTypeOfNarrowedByLcKR<T, Lc, K, R>
+            : GetFieldTypeOfNarrowedByLcKR<T, L, K, R>
 
     /** Internal. Assumes T has been narrowed. */
     type GetFieldTypeOfNarrowed<T, X, XT extends 'DotPath' | 'Key' | 'Path'> =

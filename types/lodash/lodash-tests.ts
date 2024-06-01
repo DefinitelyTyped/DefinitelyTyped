@@ -2,7 +2,15 @@
 import fp = require("./fp");
 import _ = require("lodash");
 
-import type { GetFieldType, GetFieldTypeOfNarrowedByKey } from "lodash";
+import type {
+    GetFieldType,
+    GetFieldTypeOfNarrowed,
+    GetFieldTypeOfNarrowedByDotPath,
+    GetFieldTypeOfNarrowedByKey,
+    GetFieldTypeOfNarrowedByLKR,
+    GetFieldTypeOfObject,
+    GetFieldTypeOfPrimitive,
+} from "lodash";
 
 declare const anything: any;
 
@@ -7401,148 +7409,169 @@ _.templateSettings; // $ExpectType TemplateSettings
  * TypeScript Utils *
  ********************/
 
-// GetFieldTypeOfNarrowedByKey: indexing arrays
+// GetFieldTypeOfNarrowedByKey
 {
-    type A1 = Array<'OK'>;
-    type A2 = Array<'OK'> & { x: 'OK' };
-
-    type A = GetFieldTypeOfNarrowedByKey<A1, number>; // $ExpectType "OK"
-    type B = GetFieldTypeOfNarrowedByKey<A1, 1>; // $ExpectType "OK"
-    type C = GetFieldTypeOfNarrowedByKey<A1, '1'>; // $ExpectType "OK"
-    type D = GetFieldTypeOfNarrowedByKey<A1, 'length'>; // $ExpectType number
-    type E = GetFieldTypeOfNarrowedByKey<A2, 'x'>; // $ExpectType "OK"
-    type G = GetFieldTypeOfNarrowedByKey<A1, 'x'>; // $ExpectType undefined
-}
-
-// GetFieldTypeOfNarrowedByKey: indexing objects
-{
-    const sym = Symbol();
-
-    interface O1 {
-        [sym]: 'sym-OK';
-        [key: string]: 'OK';
+    // of array
+    {
+        type Arr = Array<'OK'>;
+        type A = GetFieldTypeOfNarrowedByKey<Arr, 0>; // $ExpectType 'OK'
+        type B = GetFieldTypeOfNarrowedByKey<Arr, '0'>; // $ExpectType 'OK'
+        type C = GetFieldTypeOfNarrowedByKey<Arr, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<Arr, 'length'>; // $ExpectType number
     }
 
-    interface O2 { [key: string]: 'OK' };
+    // of object
+    {
+        const symbol = Symbol();
 
-    type O3 = Record<string | typeof sym, 'OK'>;
+        interface ObjectLiteral { [key: string]: 'OK', [symbol]: 'SymVal' }
+        type ObjectWithNumberKeys = Record<number, 'OK'>; // keyof ObjectWithNumberKeys equals number
+        type ObjectWithStringKeys = Record<string, 'OK'>; // keyof ObjectWithStringKeys equals string
 
-    {   // Trivial cases:
         type A = GetFieldTypeOfNarrowedByKey<AbcObject, 'a'>; // $ExpectType number
         type B = GetFieldTypeOfNarrowedByKey<AbcObject, 'b'>; // $ExpectType string
-        type D = GetFieldTypeOfNarrowedByKey<AbcObject, '1'>; // $ExpectType undefined
-        type F = GetFieldTypeOfNarrowedByKey<AbcObject, number>; // $ExpectType undefined
-        type G = GetFieldTypeOfNarrowedByKey<O1, typeof sym>; // $ExpectType "sym-OK"
-        type H = GetFieldTypeOfNarrowedByKey<O1, string>; // $ExpectType "OK"
-        type I = GetFieldTypeOfNarrowedByKey<O3, typeof sym>; // $ExpectType "OK"
+        type C = GetFieldTypeOfNarrowedByKey<AbcObject, 'c'>; // $ExpectType boolean
+        type D = GetFieldTypeOfNarrowedByKey<AbcObject, 'd'>; // $ExpectType undefined
+        type E = GetFieldTypeOfNarrowedByKey<AbcObject, 0>; // $ExpectType undefined
+        type F = GetFieldTypeOfNarrowedByKey<AbcObject, '0'>; // $ExpectType undefined
+
+        type G = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 'key'>; // $ExpectType 'OK'
+        type H = GetFieldTypeOfNarrowedByKey<ObjectLiteral, typeof symbol>; // $ExpectType "SymVal"
+
+        // Note: It is legit, as JS & TS auto-cast numeric values to string keys.
+        type I = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 0>; // $ExpectType 'OK'
+
+        type J = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 0>; // $ExpectType 'OK'
+        type K = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, '0'>; // $ExpectType 'OK'
+        type L = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 'key'>; // $ExpectType undefined
+        type M = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, typeof symbol>; // $ExpectType undefined
+
+        // Again, JS & TS auto-cast numeric values to string keys, thus the next two test cases are valid.
+        type N = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 0>; // $ExpectType 'OK'
+        type O = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, '0'>; // $ExpectType 'OK'
+        type P = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 'key'>; // $ExpectType 'OK'
+        type R = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, typeof symbol>; // $ExpectType undefined
     }
 
-    {   // Note, TS resolves keyof Ox differently for our test object types:
-        type A = keyof O1 // $ExpectType keyof O1
-        type B = keyof O2 // $ExpectType number | string
-        type C = keyof O3 // $ExpectType string | typeof sym
-
-        // However, in all cases TS knows a number type can be used for indexing:
-        type D = O1[number]; // $ExpectType "OK"
-        type E = O2[number]; // $ExpectType "OK"
-        type F = O3[number]; // $ExpectType "OK"
-
-        // And GetIndexedField<> should behave the same:
-        type G = GetFieldTypeOfNarrowedByKey<O1, number>; // $ExpectType "OK"
-        type H = GetFieldTypeOfNarrowedByKey<O2, number>; // $ExpectType "OK"
-        type I = GetFieldTypeOfNarrowedByKey<O3, number>; // $ExpectType "OK"
-        type J = GetFieldTypeOfNarrowedByKey<O3, 1>; // $ExpectType "OK"
-
-        type T1 = keyof { 0: 'OK' };
-
-        type K = GetFieldTypeOfNarrowedByKey<{ 0: 'OK' }, '0'>; // $ExpectType "OK"
-    }
-
+    // of non-accessible primitives
     {
-        type E = GetFieldTypeOfNarrowedByKey<O1, bigint>; // $ExpectType undefined
-        type F = GetFieldTypeOfNarrowedByKey<O2, boolean>; // $ExpectType undefined
-        type G = GetFieldTypeOfNarrowedByKey<O3, null>; // $ExpectType undefined
-        type H = GetFieldTypeOfNarrowedByKey<O1, undefined>; // $ExpectType undefined
+        const symbol = Symbol();
+        type A = GetFieldTypeOfNarrowedByKey<never, 'key'>; // $ExpectType never
+        type B = GetFieldTypeOfNarrowedByKey<null, 'key'>; // $ExpectType undefined
+        type C = GetFieldTypeOfNarrowedByKey<number, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<typeof symbol, 'key'>; // $ExpectType undefined
+        type E = GetFieldTypeOfNarrowedByKey<undefined, 'key'>; // $ExpectType undefined
+    }
+
+    // of string
+    {
+        type A = GetFieldTypeOfNarrowedByKey<string, 0>; // $ExpectType string
+        type B = GetFieldTypeOfNarrowedByKey<string, '0'>; // $ExpectType string
+        type C = GetFieldTypeOfNarrowedByKey<string, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<string, 'length'>; // $ExpectType number
     }
 }
 
-// GetFieldTypeOfNarrowedByKey: indexing strings
-
+// GetFieldTypeOfNarrowedByDotPath
 {
-    type S1 = string;
-    type S2 = string & { x: 'OK' };
+    // handling of empty key names (based on the runtime _.get() behavior)
+    interface ObjA { '': { '': { '': 'OK' } } };
+    type A = GetFieldTypeOfNarrowedByDotPath<ObjA, ''>; // $ExpectType { '': { '': 'OK' } }
+    type B = GetFieldTypeOfNarrowedByDotPath<ObjA, '.'>; // $ExpectType { '': 'OK' }
+    type C = GetFieldTypeOfNarrowedByDotPath<ObjA, '..'>; // $ExpectType 'OK'
+    type D = GetFieldTypeOfNarrowedByDotPath<ObjA, '...'>; // $ExpectType undefined
 
-    type A = GetFieldTypeOfNarrowedByKey<S1, number>; // $ExpectType string
-    type B = GetFieldTypeOfNarrowedByKey<S1, 1>; // $ExpectType string
-    type C = GetFieldTypeOfNarrowedByKey<S1, '1'>; // $ExpectType string
-    type D = GetFieldTypeOfNarrowedByKey<S1, 'length'>; // $ExpectType number
-    type F = GetFieldTypeOfNarrowedByKey<S1, 'x'>; // $ExpectType undefined
-    type G = GetFieldTypeOfNarrowedByKey<S2, 'x'>; // $ExpectType "OK"
+    // handling of objects with non-empty key names
+    interface ObjB { some: { path: 'OK' } };
+    type E = GetFieldTypeOfNarrowedByDotPath<ObjB, ''>; // $ExpectType undefined
+    type F = GetFieldTypeOfNarrowedByDotPath<ObjB, 'some'> // $ExpectType { path: 'OK' }
+    type G = GetFieldTypeOfNarrowedByDotPath<ObjB, 'some.path'> // $ExpectType 'OK'
+    type H = GetFieldTypeOfNarrowedByDotPath<ObjB, '.some'>; // $ExpectType undefined
 }
 
-// GetFieldTypeOfNarrowedByKey: indexing tuples
-
+// GetFieldTypeOfNarrowedByLKR
 {
-    type T1 = ['OK'];
+    interface ObjA { some: { test: { path: 'OK' } } };
 
-    type A = GetFieldTypeOfNarrowedByKey<T1, number>; // $ExpectType "OK"
-    type B = GetFieldTypeOfNarrowedByKey<T1, 0>; // $ExpectType "OK"
-    type C = GetFieldTypeOfNarrowedByKey<T1, 1>; // $ExpectType undefined
-    type D = GetFieldTypeOfNarrowedByKey<T1, '0'>; // $ExpectType "OK"
-    type E = GetFieldTypeOfNarrowedByKey<T1, '1'>; // $ExpectType undefined
-    type F = GetFieldTypeOfNarrowedByKey<T1, 'length'>; // $ExpectType 1
+    type A = GetFieldTypeOfNarrowedByLKR<ObjA, 'some.test', 'path', ''>; // $ExpectType 'OK' 
+    type B = GetFieldTypeOfNarrowedByLKR<ObjA, 'some', 'test', 'path'>; // $ExpectType 'OK'
+    type C = GetFieldTypeOfNarrowedByLKR<ObjA, '', 'some', 'test.path'>; // $ExpectType 'OK'
+
+    // it should ignore the tail dot in L, and the front dot in R, if any
+    type D = GetFieldTypeOfNarrowedByLKR<ObjA, 'some.', 'test', '.path'>; // $ExpectType 'OK'
+    type E = GetFieldTypeOfNarrowedByLKR<ObjA, '.some', 'test', 'path.'>; // $ExpectType undefined
+
+    // and if there are empty key names, they should be handled correctly
+    type F = GetFieldTypeOfNarrowedByLKR<{ '': { test: 'OK' } }, '.', 'test', ''> // $ExpectType 'OK'
+    type G = GetFieldTypeOfNarrowedByLKR<{ test: { '': 'OK' } }, '', 'test', '.'> // $ExpectType 'OK'
+    type H = GetFieldTypeOfNarrowedByLKR<{ '': { test: { '': 'OK' } } }, '.', 'test', '.'> // $ExpectType 'OK'
 }
 
-// GetFieldType: correctly handles any possible combination of dots and square
-// brackets in path type literals.
+// GetFieldTypeOfNarrowed
 {
-    interface O1 { key: 'value' };
-    interface O2 { some: { test: { path: 'value' } } };
-
-    interface O3 {
-        'some.key': 'value1';
-        'key[with]brackets': 'value2';
+    interface Obj {
+        some: { test: { path: 'Value1' } },
+        'some.test.path': 'Value2',
+        'some[test]path': 'Value3',
     };
 
-    type A = GetFieldType<O1, 'key'>; // $ExpectType "value"
-    type B = GetFieldType<O1, '[key]'>; // $ExpectType "value"
+    // XT argument causes expected path/key parsing mode
+    type A = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'Key'>; // $ExpectType 'Value2'
+    type B = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'Key'>; // $ExpectType 'Value3'
+    type C = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'DotPath'>; // $ExpectType 'Value1'
+    type D = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'DotPath'>; // $ExpectType 'Value3'
+    type E = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'Path'>; // $ExpectType 'Value1'
+    type F = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'Path'>; // $ExpectType 'Value1'
 
-    type C = GetFieldType<O2, 'some.test.path'>; // $ExpectType "value"
-    type D = GetFieldType<O2, 'some.test[path]'>; // $ExpectType "value"
-    type E = GetFieldType<O2, 'some[test].path'>; // $ExpectType "value"
-    type F = GetFieldType<O2, '[some].test.path'>; // $ExpectType "value"
-    type G = GetFieldType<O2, 'some[test][path]'>; // $ExpectType "value"
-    type H = GetFieldType<O2, '[some].test[path]'>; // $ExpectType "value"
-    type I = GetFieldType<O2, '[some][test].path'>; // $ExpectType "value"
-    type J = GetFieldType<O2, '[some][test][path]'>; // $ExpectType "value"
+    // Dots around brackets are handled the same as by _.get() during the runtime
+    type G = GetFieldTypeOfNarrowed<Obj, '.some[test]path', 'Path'>; // $ExpectType undefined
+    type H = GetFieldTypeOfNarrowed<Obj, 'some.[test]path', 'Path'>; // $ExpectType 'Value1'
+    type I = GetFieldTypeOfNarrowed<Obj, 'some[test].path', 'Path'>; // $ExpectType 'Value1'
+    type J = GetFieldTypeOfNarrowed<Obj, 'some[test]path.', 'Path'>; // $ExpectType undefined
 
-    // Here are tricky cases, where dots and square brackets inside key names
-    // mess-up with TypeScript parsing of path type literals we can do.
+    // Brackets in front, or in the end
+    type K = GetFieldTypeOfNarrowed<Obj, '[some]test.path', 'Path'>; // $ExpectType 'Value1'
+    type L = GetFieldTypeOfNarrowed<Obj, '.[some]test.path', 'Path'>; // $ExpectType undefined
+    type M = GetFieldTypeOfNarrowed<Obj, 'some.test[path]', 'Path'>; // $ExpectType 'Value1'
+    type N = GetFieldTypeOfNarrowed<Obj, 'some.test[path].', 'Path'>; // $ExpectType undefined
 
-    // No way to distinguish a single key with dot vs. two dot-separated keys,
-    // GetFieldType<> interpretes it as the later, thus undefined result.
-    type K = GetFieldType<O3, 'some.key'>; // $ExpectType undefined
-
-    // However, wrapping it inside square brackets is a viable work-around
-    // we can support.
-    type L = GetFieldType<O3, '[some.key]'>; // $ExpectType "value1"
-
-    // I guess, no way to support closing square brackets inside key names,
-    // thus this results in undefined.
-    type M = GetFieldType<O3, "['key[with]brackets']">; // $ExpectType "value2"
-    type N = GetFieldType<O3, '["key[with]brackets"]'>; // $ExpectType "value2"
-
-    type O = GetFieldType<{ key: 'V' } | undefined, 'key'>; // $ExpectType "V" | undefined
-    type P = GetFieldType<{ key: 'V' } | null, 'key'>; // $ExpectType "V" | undefined
-    type R = GetFieldType<{ key: 'V' } | string, 'key'>; // $ExpectType "V" | undefined
-    type S = GetFieldType<{ 0: 'A'} | ['B'], '0'>; // $ExpectType 'A' | 'B'
-    type T = GetFieldType<string, 0>; // $ExpectType string
-    type U = GetFieldType<[1] | 'A' | null, '0'>; // $ExpectType 1 | string | undefined
+    // Key inside brackets can be quoted, to avoid parsing any dots / brackets inside it
+    type O = GetFieldTypeOfNarrowed<Obj, "['some.test.path']", 'Path'>; // $ExpectType 'Value2'
+    type P = GetFieldTypeOfNarrowed<Obj, '["some[test]path"]', 'Path'>; // $ExpectType 'Value3'
 }
 
-// GetFieldType: number as key.
+// GetFieldTypeOfObject
 {
-    interface O1 { [id: string]: 'OK' };
+    type Arr = Array<'ArrVal'>;
+    interface Obj { '0': 'ObjVal' };
+    type ArrOrObj = Arr | Obj;
 
-    type A = GetFieldType<O1, `[${number}]`>; // $ExpectType "OK"
+    type A = GetFieldTypeOfObject<Arr, 0, 'Path'>; // $ExpectType 'ArrVal'
+    type B = GetFieldTypeOfObject<Obj, 0, 'Path'>; // $ExpectType 'ObjVal'
+    type C = GetFieldTypeOfObject<ArrOrObj, 0, 'Path'>; // $ExpectType 'ArrVal' | 'ObjVal'
+    type D = GetFieldTypeOfObject<ArrOrObj, 'length', 'Path'>; // $ExpectType number | undefined
+}
+
+// GetFieldTypeOfPrimitive
+{
+    type A = GetFieldTypeOfPrimitive<string, 0, 'Path'>; // $ExpectType string
+    type B = GetFieldTypeOfPrimitive<null, 0, 'Path'>; // $ExpectType undefined
+    type C = GetFieldTypeOfPrimitive<never, 0, 'Path'>; // $ExpectType never
+    type D = GetFieldTypeOfPrimitive<string | null, 0, 'Path'>; // $ExpectType string | undefined
+    type E = GetFieldTypeOfPrimitive<string | null, 'length', 'Path'>; // $ExpectType number | undefined
+}
+
+// GetFieldType
+{
+    type Type =
+        | Array<'ArrVal'>
+        | { '0': 'ObjVal0', 'A': 'ObjValA' }
+        | string
+        | undefined;
+    type T = Exclude<Type, string>;
+
+    type A = GetFieldType<Type, 0>; // $ExpectType string | undefined
+    type B = GetFieldType<Exclude<Type, string>, 0>; // $ExpectType 'ArrVal' | 'ObjVal0' | undefined
+    type C = GetFieldType<Type, 'A'>; // $ExpectType 'ObjValA' | undefined
+    type D = GetFieldType<Type, 'length'>; // $ExpectType number | undefined
 }
