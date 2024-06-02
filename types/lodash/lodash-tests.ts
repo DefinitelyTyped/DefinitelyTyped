@@ -5372,13 +5372,13 @@ fp.now(); // $ExpectType number
     _.get({ a: false }, "a"); // $ExpectType boolean
     _.get(objectWithOptionalField, "a"); // $ExpectType boolean | undefined
     _.get(objectWithOptionalField, "a" as string); // $ExpectType any
-    _.get({ a: arrayOfNumbers }, 'a.0'); // $ExpectType number
-    _.get({ a: arrayOfNumbers }, 'a[0]'); // $ExpectType number
-    _.get({ a: arrayOfNumbers }, `a[${anyNumber}]`); // $ExpectType number
+    _.get({ a: arrayOfNumbers }, 'a.0'); // $ExpectType number | undefined
+    _.get({ a: arrayOfNumbers }, 'a[0]'); // $ExpectType number | undefined
+    _.get({ a: arrayOfNumbers }, `a[${anyNumber}]`); // $ExpectType number | undefined
     _.get({ a: tupleOfNumbers }, 'a.0'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[0]'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
-    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType 1
+    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType 1 | undefined
     _.get({ a: dictionary }, 'a.b'); // $ExpectType string
     _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
     _.get("abc", [0], "_");
@@ -5400,13 +5400,13 @@ fp.now(); // $ExpectType number
     _({ a: false }).get("a"); // $ExpectType boolean
     _(objectWithOptionalField).get("a"); // $ExpectType boolean | undefined
     _(objectWithOptionalField).get("a" as string); // $ExpectType any
-    _({ a: arrayOfNumbers }).get('a.0'); // $ExpectType number
-    _({ a: arrayOfNumbers }).get('a[0]'); // $ExpectType number
-    _({ a: arrayOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType number
+    _({ a: arrayOfNumbers }).get('a.0'); // $ExpectType number | undefined
+    _({ a: arrayOfNumbers }).get('a[0]'); // $ExpectType number | undefined
+    _({ a: arrayOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType number | undefined
     _({ a: tupleOfNumbers }).get('a.0'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType undefined
-    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType 1
+    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType 1 | undefined
     _({ a: dictionary }).get('a.b'); // $ExpectType string
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
@@ -7409,8 +7409,8 @@ _.templateSettings; // $ExpectType TemplateSettings
     // of array
     {
         type Arr = Array<'OK'>;
-        type A = GetFieldTypeOfNarrowedByKey<Arr, 0>; // $ExpectType 'OK'
-        type B = GetFieldTypeOfNarrowedByKey<Arr, '0'>; // $ExpectType 'OK'
+        type A = GetFieldTypeOfNarrowedByKey<Arr, 0>; // $ExpectType 'OK' | undefined
+        type B = GetFieldTypeOfNarrowedByKey<Arr, '0'>; // $ExpectType 'OK' | undefined
         type C = GetFieldTypeOfNarrowedByKey<Arr, 'key'>; // $ExpectType undefined
         type D = GetFieldTypeOfNarrowedByKey<Arr, 'length'>; // $ExpectType number
     }
@@ -7464,6 +7464,18 @@ _.templateSettings; // $ExpectType TemplateSettings
         type B = GetFieldTypeOfNarrowedByKey<string, '0'>; // $ExpectType string
         type C = GetFieldTypeOfNarrowedByKey<string, 'key'>; // $ExpectType undefined
         type D = GetFieldTypeOfNarrowedByKey<string, 'length'>; // $ExpectType number
+    }
+
+    // of tuple
+    {
+        type Tuple = ['A'];
+        type A = GetFieldTypeOfNarrowedByKey<Tuple, 0>; // $ExpectType 'A'
+        type B = GetFieldTypeOfNarrowedByKey<Tuple, 1>; // $ExpectType undefined
+        type C = GetFieldTypeOfNarrowedByKey<Tuple, number>; // $ExpectType 'A' | undefined
+        type D = GetFieldTypeOfNarrowedByKey<Tuple, '0'>; // $ExpectType 'A'
+        type E = GetFieldTypeOfNarrowedByKey<Tuple, '1'>; // $ExpectType undefined
+        type F = GetFieldTypeOfNarrowedByKey<Tuple, 'key'>; // $ExpectType undefined
+        type G = GetFieldTypeOfNarrowedByKey<Tuple, 'length'>; // $ExpectType 1
     }
 }
 
@@ -7541,9 +7553,9 @@ _.templateSettings; // $ExpectType TemplateSettings
     interface Obj { '0': 'ObjVal' };
     type ArrOrObj = Arr | Obj;
 
-    type A = GetFieldTypeOfObject<Arr, 0, 'Path'>; // $ExpectType 'ArrVal'
+    type A = GetFieldTypeOfObject<Arr, 0, 'Path'>; // $ExpectType 'ArrVal' | undefined
     type B = GetFieldTypeOfObject<Obj, 0, 'Path'>; // $ExpectType 'ObjVal'
-    type C = GetFieldTypeOfObject<ArrOrObj, 0, 'Path'>; // $ExpectType 'ArrVal' | 'ObjVal'
+    type C = GetFieldTypeOfObject<ArrOrObj, 0, 'Path'>; // $ExpectType 'ArrVal' | 'ObjVal' | undefined
     type D = GetFieldTypeOfObject<ArrOrObj, 'length', 'Path'>; // $ExpectType number | undefined
 }
 
@@ -7563,7 +7575,6 @@ _.templateSettings; // $ExpectType TemplateSettings
         | { '0': 'ObjVal0', 'A': 'ObjValA' }
         | string
         | undefined;
-    type T = Exclude<Type, string>;
 
     type A = GetFieldType<Type, 0>; // $ExpectType string | undefined
     type B = GetFieldType<Exclude<Type, string>, 0>; // $ExpectType 'ArrVal' | 'ObjVal0' | undefined

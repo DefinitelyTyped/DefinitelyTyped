@@ -1021,13 +1021,28 @@ declare module "../index" {
         functionsIn(): CollectionChain<string>;
     }
 
+    type GetElementTypeOfFixedSizeArrayLikeByIndex<T extends unknown[], I extends number> =
+        number extends I ? T[I] | undefined : T[I];
+
+    type GetFieldTypeOfArrayLikeByKey<T extends unknown[], K> =
+        number extends T['length'] // is exact length unknown at compile time?
+        ?   K extends number ? T[K] | undefined
+            : K extends `${infer N extends number}` ? T[N] | undefined
+            : K extends keyof T ? T[K] : undefined
+        :   K extends number ? GetElementTypeOfFixedSizeArrayLikeByIndex<T, K>
+            : K extends `${infer N extends number}` ? GetElementTypeOfFixedSizeArrayLikeByIndex<T, N>
+            : K extends keyof T ? T[K] : undefined;
+
     type GetFieldTypeOfNarrowedByKey<T, K> =
-        K extends keyof T ? T[K]
+        T extends unknown[]
+        ? GetFieldTypeOfArrayLikeByKey<T, K>
+        : K extends keyof T
+            ? T[K]
         : K extends number
-            ? (`${K}` extends keyof T ? T[`${K}`] : undefined)
-        : K extends `${infer N extends number}`
-            ? (N extends keyof T ? T[N] : undefined)
-            : undefined;
+             ? (`${K}` extends keyof T ? T[`${K}`] : undefined)
+         : K extends `${infer N extends number}`
+             ? (N extends keyof T ? T[N] : undefined)
+             : undefined;
 
     /** Internal. Assumes P is a dot-delimitered path. */
     type GetFieldTypeOfNarrowedByDotPath<T, P> =
