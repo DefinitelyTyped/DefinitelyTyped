@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/node": "*",
         "@types/ws": "*",
-        "form-data": "^3.0.1"
+        "got": "^11.8.2"
     },
     "devDependencies": {
         "@types/exaroton": "workspace:."
@@ -16,7 +16,7 @@
     "owners": [
         {
             "name": "Maximilian Hofmann",
-            "githubUsername": "hofmmaxi"
+            "githubUsername": "maxiicodes"
         }
     ]
 }
