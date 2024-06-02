@@ -58,8 +58,6 @@ const startServer = async (name: string) => {
     myServer.on("heap:heap", function(data) {
         console.log(data.usage);
     });
-
-
 };
 
 startServer("my server");

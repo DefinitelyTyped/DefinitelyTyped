@@ -1,9 +1,9 @@
-import {EventEmitter} from "node:events";
-import {ReadStream, WriteStream} from "node:fs";
-import {WebSocket} from "ws";
-import {Method, Options as GotOptions, ResponseType} from "got";
+import { Method, Options as GotOptions, ResponseType } from "got";
+import { EventEmitter } from "node:events";
+import { ReadStream, WriteStream } from "node:fs";
+import { WebSocket } from "ws";
 
-export {Client, Request, Response, Server, Software, ServerStatus, Pool, PoolMember, ConfigOptionType};
+export { Client, ConfigOptionType, Pool, PoolMember, Request, Response, Server, ServerStatus, Software };
 
 declare enum ServerStatus {
     OFFLINE = 0,
@@ -15,7 +15,7 @@ declare enum ServerStatus {
     LOADING = 6,
     CRASHED = 7,
     PENDING = 8,
-    PREPARING = 10
+    PREPARING = 10,
 }
 
 declare class Client {
@@ -41,9 +41,13 @@ declare class Client {
 
     private request<T extends Request>(request: T): Promise<unknown>;
 
-    private streamResponse<T extends NodeJS.WritableStream>(url: string, gotOptions: GotOptions & {
-        isStream?: true | boolean
-    }, outputStream: T): Promise<void>;
+    private streamResponse<T extends NodeJS.WritableStream>(
+        url: string,
+        gotOptions: GotOptions & {
+            isStream?: true | boolean;
+        },
+        outputStream: T,
+    ): Promise<void>;
 
     getServers(): Promise<Server[]>;
 
@@ -179,11 +183,11 @@ declare class File {
 
     getChildren(): Promise<File[] | null>;
 
-    getConfig(): Config
+    getConfig(): Config;
 }
 
 declare class Config {
-    #file?: File
+    #file?: File;
     #options: Map<string, ConfigOption> | null;
     #originalValues: Map<string, ConfigOptionValue> | null;
 
@@ -193,7 +197,7 @@ declare class Config {
 
     private loadOptions(): Promise<this>;
 
-    getOptions(update?: boolean): Promise<Map<string, ConfigOption>>
+    getOptions(update?: boolean): Promise<Map<string, ConfigOption>>;
 
     getOption(key: PropertyKey): Promise<ConfigOption | null>;
 
@@ -230,7 +234,7 @@ declare enum ConfigOptionType {
     FLOAT = "float",
     BOOLEAN = "boolean",
     MULTI_SELECT = "multiselect",
-    SELECT = "select"
+    SELECT = "select",
 }
 
 declare class Pool {
@@ -297,9 +301,9 @@ declare module "node:events" {
 export interface ClientEvents {
     status: [server: Server];
     "console:line": [data: string];
-    "tick:tick": [data: {averageTickTime: number, tps: number}]
-    "stats:stats": [data: {memory: {percent: number, usage: number}}]
-    "heap:heap": [data: {usage: number}]
+    "tick:tick": [data: { averageTickTime: number; tps: number }];
+    "stats:stats": [data: { memory: { percent: number; usage: number } }];
+    "heap:heap": [data: { usage: number }];
 }
 
 declare class Server extends EventEmitter {
