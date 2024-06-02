@@ -1033,16 +1033,31 @@ declare module "../index" {
             : K extends `${infer N extends number}` ? GetElementTypeOfFixedSizeArrayLikeByIndex<T, N>
             : K extends keyof T ? T[K] : undefined;
 
+    type GetFieldTypeOfStringByKey<T extends string, K> =
+        // As of TS 5.4, even for string constants TS does not deduce the exact
+        // string length, nor evaluates str[i] based on that length and literal i value.
+        K extends number ? T[K] | undefined
+        : K extends `${infer N extends number}` ? T[N] | undefined
+        : K extends keyof T ? T[K]
+        : undefined;
+
     type GetFieldTypeOfNarrowedByKey<T, K> =
-        T extends unknown[]
-        ? GetFieldTypeOfArrayLikeByKey<T, K>
+        T extends unknown[] ? GetFieldTypeOfArrayLikeByKey<T, K>
+        : T extends string ? GetFieldTypeOfStringByKey<T, K>
         : K extends keyof T
-            ? T[K]
+            ? K extends Symbol ? T[K]
+            : number extends keyof T ? T[K] | undefined
+            : string extends keyof T ? T[K] | undefined
+            : T[K]
         : K extends number
-             ? (`${K}` extends keyof T ? T[`${K}`] : undefined)
-         : K extends `${infer N extends number}`
-             ? (N extends keyof T ? T[N] : undefined)
-             : undefined;
+            ? `${K}` extends keyof T
+                ? string extends keyof T ? T[`${K}`] | undefined
+                : T[`${K}`] : undefined
+        : K extends `${infer N extends number}`
+            ? N extends keyof T
+                ? number extends keyof T ? T[N] | undefined : T[N]
+            : undefined
+        : undefined;
 
     /** Internal. Assumes P is a dot-delimitered path. */
     type GetFieldTypeOfNarrowedByDotPath<T, P> =
