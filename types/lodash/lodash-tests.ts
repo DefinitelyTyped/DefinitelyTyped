@@ -5364,7 +5364,6 @@ fp.now(); // $ExpectType number
 
     const dictionary: _.Dictionary<string> = anything;
     const maybeObject: { a: _.Dictionary<string> } | undefined = anything;
-    const maybeObject2: { a: _.Dictionary<string> } | null = anything;
 
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
@@ -5381,8 +5380,7 @@ fp.now(); // $ExpectType number
     _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
     _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType 1
     _.get({ a: dictionary }, 'a.b'); // $ExpectType string
-    const a = _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
-    _.get(maybeObject2, 'a.b'); // $ExpectType string | undefined
+    _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
     _.get("abc", [0], "_");
     _.get([42], 0, -1); // $ExpectType number
     _.get({ a: { b: true } }, "a"); // $ExpectType { b: boolean; }
