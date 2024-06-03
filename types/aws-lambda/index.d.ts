@@ -48,5 +48,6 @@ export * from "./trigger/self-managed-kafka";
 export * from "./trigger/ses";
 export * from "./trigger/sns";
 export * from "./trigger/sqs";
+export * from "./trigger/transfer-family-authorizer";
 
 export as namespace AWSLambda;
