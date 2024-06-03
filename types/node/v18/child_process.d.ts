@@ -146,7 +146,7 @@ declare module "child_process" {
         /**
          * A sparse array of pipes to the child process, corresponding with positions in
          * the `stdio` option passed to {@link spawn} that have been set
-         * to the value `'pipe'`. `subprocess.stdio[0]`, `subprocess.stdio[1]`, and`subprocess.stdio[2]` are also available as `subprocess.stdin`,`subprocess.stdout`, and `subprocess.stderr`,
+         * to the value `'pipe'`. `subprocess.stdio[0]`, `subprocess.stdio[1]`, and`subprocess.stdio[2]` are also available as `subprocess.stdin`, `subprocess.stdout`, and `subprocess.stderr`,
          * respectively.
          *
          * In the following example, only the child's fd `1` (stdout) is configured as a
