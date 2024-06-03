@@ -573,7 +573,7 @@ declare namespace jwplayer {
         default?: boolean;
         drm?: DRMConfig;
         file: string;
-        label: string;
+        label?: string;
         liveSyncDuration?: number;
         mimeType?: string;
         preload?: Preload;
