@@ -1329,7 +1329,7 @@ declare module "buffer" {
              */
             readUint8(offset?: number): number;
             /**
-             * Reads an unsigned, little-endian 16-bit integer from `buf` at the specified`offset`.
+             * Reads an unsigned, little-endian 16-bit integer from `buf` at the specified `offset`.
              *
              * This function is also available under the `readUint16LE` alias.
              *
@@ -1702,7 +1702,7 @@ declare module "buffer" {
              */
             writeUint8(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value`must be a valid unsigned 16-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a valid unsigned 16-bit integer. Behavior is undefined when `value` is
              * anything other than an unsigned 16-bit integer.
              *
              * This function is also available under the `writeUint16LE` alias.
@@ -1730,7 +1730,7 @@ declare module "buffer" {
              */
             writeUint16LE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value`must be a valid unsigned 16-bit integer. Behavior is undefined when `value`is anything other than an
+             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a valid unsigned 16-bit integer. Behavior is undefined when `value`is anything other than an
              * unsigned 16-bit integer.
              *
              * This function is also available under the `writeUint16BE` alias.
@@ -1758,7 +1758,7 @@ declare module "buffer" {
              */
             writeUint16BE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value`must be a valid unsigned 32-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a valid unsigned 32-bit integer. Behavior is undefined when `value` is
              * anything other than an unsigned 32-bit integer.
              *
              * This function is also available under the `writeUint32LE` alias.
@@ -1785,7 +1785,7 @@ declare module "buffer" {
              */
             writeUint32LE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value`must be a valid unsigned 32-bit integer. Behavior is undefined when `value`is anything other than an
+             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a valid unsigned 32-bit integer. Behavior is undefined when `value`is anything other than an
              * unsigned 32-bit integer.
              *
              * This function is also available under the `writeUint32BE` alias.
@@ -1836,7 +1836,7 @@ declare module "buffer" {
              */
             writeInt8(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian.  The `value`must be a valid signed 16-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as little-endian.  The `value` must be a valid signed 16-bit integer. Behavior is undefined when `value` is
              * anything other than a signed 16-bit integer.
              *
              * The `value` is interpreted and written as a two's complement signed integer.
@@ -1858,7 +1858,7 @@ declare module "buffer" {
              */
             writeInt16LE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian.  The `value`must be a valid signed 16-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as big-endian.  The `value` must be a valid signed 16-bit integer. Behavior is undefined when `value` is
              * anything other than a signed 16-bit integer.
              *
              * The `value` is interpreted and written as a two's complement signed integer.
@@ -1880,7 +1880,7 @@ declare module "buffer" {
              */
             writeInt16BE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value`must be a valid signed 32-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a valid signed 32-bit integer. Behavior is undefined when `value` is
              * anything other than a signed 32-bit integer.
              *
              * The `value` is interpreted and written as a two's complement signed integer.
@@ -1902,7 +1902,7 @@ declare module "buffer" {
              */
             writeInt32LE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value`must be a valid signed 32-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a valid signed 32-bit integer. Behavior is undefined when `value` is
              * anything other than a signed 32-bit integer.
              *
              * The `value` is interpreted and written as a two's complement signed integer.
@@ -1964,7 +1964,7 @@ declare module "buffer" {
              */
             writeFloatBE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value`must be a JavaScript number. Behavior is undefined when `value` is anything
+             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything
              * other than a JavaScript number.
              *
              * ```js
@@ -1984,7 +1984,7 @@ declare module "buffer" {
              */
             writeDoubleLE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value`must be a JavaScript number. Behavior is undefined when `value` is anything
+             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything
              * other than a JavaScript number.
              *
              * ```js
@@ -2066,7 +2066,7 @@ declare module "buffer" {
             /**
              * If `value` is:
              *
-             * * a string, `value` is interpreted according to the character encoding in`encoding`.
+             * * a string, `value` is interpreted according to the character encoding in `encoding`.
              * * a `Buffer` or [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array), `value` will be used in its entirety.
              * To compare a partial `Buffer`, use `buf.subarray`.
              * * a number, `value` will be interpreted as an unsigned 8-bit integer
@@ -2164,7 +2164,7 @@ declare module "buffer" {
              * // Prints: 4
              * ```
              *
-             * If `value` is not a string, number, or `Buffer`, this method will throw a`TypeError`. If `value` is a number, it will be coerced to a valid byte value,
+             * If `value` is not a string, number, or `Buffer`, this method will throw a `TypeError`. If `value` is a number, it will be coerced to a valid byte value,
              * an integer between 0 and 255.
              *
              * If `byteOffset` is not a number, it will be coerced to a number. Any arguments
