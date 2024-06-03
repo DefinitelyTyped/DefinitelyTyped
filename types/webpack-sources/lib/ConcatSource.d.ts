@@ -16,8 +16,8 @@ declare class ConcatSource extends Source implements SourceAndMapMixin {
     /**
      * Adds an item to the source.
      */
-	add(item: string | Source): void;
-	addAllSkipOptimizing(items: Source[]): void;
+    add(item: string | Source): void;
+    addAllSkipOptimizing(items: Source[]): void;
 }
 
 export = ConcatSource;

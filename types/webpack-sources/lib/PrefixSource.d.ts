@@ -8,7 +8,7 @@ declare class PrefixSource extends Source implements SourceAndMapMixin {
     constructor(prefix: string, source: string | Source);
     source(): string;
     original(): Source;
-	getPrefix(): string;
+    getPrefix(): string;
 }
 
 export = PrefixSource;

@@ -18,13 +18,13 @@ declare class SourceMapSource extends Source implements SourceAndMapMixin {
     buffer(): Buffer;
     source(): string;
     getArgsAsBuffers(): [
-		Buffer,
-		string,
-		Buffer,
-		undefined | Buffer,
-		undefined | Buffer,
-		boolean
-	];
+        Buffer,
+        string,
+        Buffer,
+        undefined | Buffer,
+        undefined | Buffer,
+        boolean,
+    ];
 }
 
 export = SourceMapSource;

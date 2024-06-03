@@ -15,7 +15,7 @@ declare class OriginalSource extends Source implements SourceAndMapMixin {
 
     source(): string;
 
-	getName(): string;
+    getName(): string;
 }
 
 export = OriginalSource;
