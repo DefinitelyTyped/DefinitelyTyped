@@ -13,9 +13,9 @@ async function runtimeTests() {
                     label: "Custom Strategy",
                     icon: "path/to/icon.png",
                     strategy: {
-                        authenticate: () => {}
+                        authenticate: () => {},
                     },
-                    options: {}
+                    options: {},
                 },
                 users: async (username) => {
                     return {
@@ -45,7 +45,7 @@ async function runtimeTests() {
             },
             uiPort: 18880,
             uiHost: "localhost",
-        }, 
+        },
         httpServer,
         editorApi,
     );

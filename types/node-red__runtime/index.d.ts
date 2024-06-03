@@ -237,7 +237,7 @@ declare namespace runtime {
                     strategy: Strategy;
                     options: object;
                 };
-                users: UsernamePermissions[]  | ((username: string) => Promise<UsernamePermissions | null>);
+                users: UsernamePermissions[] | ((username: string) => Promise<UsernamePermissions | null>);
             }
             | undefined;
 
