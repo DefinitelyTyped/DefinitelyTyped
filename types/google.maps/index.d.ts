@@ -1,7 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.56
+// Google Maps JS API Version: 3.57
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -2558,14 +2558,14 @@ declare namespace google.maps {
      * according to the content. To set an explicit size for the header content,
      * set headerContent to be a HTML element with that size.
      */
-    headerContent?: string|Element|Text|null;
+    headerContent?: string | Element | Text | null;
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Disables the whole header row in the InfoWindow. When set to true, the
      * header will be removed so that the header content and the close button
      * will be hidden.
      */
-    headerDisabled?: boolean|null;
+    headerDisabled?: boolean | null;
     /**
      * Maximum width of the InfoWindow, regardless of content&#39;s width. This
      * value is only considered if it is set before a call to
@@ -5278,7 +5278,9 @@ declare namespace google.maps {
     Autocomplete: typeof google.maps.places.Autocomplete;
     AutocompleteService: typeof google.maps.places.AutocompleteService;
     AutocompleteSessionToken: typeof google.maps.places.AutocompleteSessionToken;
+    AutocompleteSuggestion: typeof google.maps.places.AutocompleteSuggestion;
     BusinessStatus: typeof google.maps.places.BusinessStatus;
+    FormattableText: typeof google.maps.places.FormattableText;
     OpeningHours: typeof google.maps.places.OpeningHours;
     OpeningHoursPeriod: typeof google.maps.places.OpeningHoursPeriod;
     OpeningHoursPoint: typeof google.maps.places.OpeningHoursPoint;
@@ -5286,6 +5288,7 @@ declare namespace google.maps {
     PaymentOptions: typeof google.maps.places.PaymentOptions;
     Photo: typeof google.maps.places.Photo;
     Place: typeof google.maps.places.Place;
+    PlacePrediction: typeof google.maps.places.PlacePrediction;
     PlacesService: typeof google.maps.places.PlacesService;
     PlacesServiceStatus: typeof google.maps.places.PlacesServiceStatus;
     PlusCode: typeof google.maps.places.PlusCode;
@@ -5295,6 +5298,7 @@ declare namespace google.maps {
     SearchBox: typeof google.maps.places.SearchBox;
     SearchByTextRankPreference: typeof google.maps.places.SearchByTextRankPreference;
     SearchNearbyRankPreference: typeof google.maps.places.SearchNearbyRankPreference;
+    StringRange: typeof google.maps.places.StringRange;
   }
   /**
    * Access by calling `const {Point} = await
@@ -7502,15 +7506,22 @@ declare namespace google.maps {
    * namespace is not generally recommended.)
    */
   export function importLibrary(
-      libraryName: string,
-      ):
-      Promise<|google.maps.CoreLibrary|google.maps.MapsLibrary|
-              google.maps.Maps3DLibrary|google.maps.PlacesLibrary|
-              google.maps.GeocodingLibrary|google.maps.RoutesLibrary|
-              google.maps.MarkerLibrary|google.maps.GeometryLibrary|
-              google.maps.ElevationLibrary|google.maps.StreetViewLibrary|
-              google.maps.JourneySharingLibrary|
-              google.maps.DrawingLibrary|google.maps.VisualizationLibrary>;
+    libraryName: string,
+  ): Promise<
+    | google.maps.CoreLibrary
+    | google.maps.MapsLibrary
+    | google.maps.Maps3DLibrary
+    | google.maps.PlacesLibrary
+    | google.maps.GeocodingLibrary
+    | google.maps.RoutesLibrary
+    | google.maps.MarkerLibrary
+    | google.maps.GeometryLibrary
+    | google.maps.ElevationLibrary
+    | google.maps.StreetViewLibrary
+    | google.maps.JourneySharingLibrary
+    | google.maps.DrawingLibrary
+    | google.maps.VisualizationLibrary
+  >;
   /**
    * Google Maps JavaScript API version loaded by the browser. See <a
    * href="https://developers.google.com/maps/documentation/javascript/versions">https://developers.google.com/maps/documentation/javascript/versions</a>
@@ -12118,7 +12129,7 @@ declare namespace google.maps.maps3d {
      * returned. Also, sea floor elevation may be returned for the altitude
      * value when clicking at the water surface from higher camera positions.
      */
-    position: google.maps.LatLngAltitude|null;
+    position: google.maps.LatLngAltitude | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -12152,8 +12163,10 @@ declare namespace google.maps.maps3d {
    * google.maps.importLibrary("maps3d")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class Map3DElement extends HTMLElement implements
-      google.maps.maps3d.Map3DElementOptions {
+  export class Map3DElement
+    extends HTMLElement
+    implements google.maps.maps3d.Map3DElementOptions
+  {
     /**
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
@@ -12173,7 +12186,7 @@ declare namespace google.maps.maps3d {
      * longitude-only bounds use north and south latitudes of <code>90</code>
      * and <code>-90</code>, respectively.
      */
-    bounds?: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|null;
+    bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | null;
     /**
      * The center of the map given as a LatLngAltitude, where altitude is in
      * meters above ground level. Note that this is not necessarily where the
@@ -12182,23 +12195,23 @@ declare namespace google.maps.maps3d {
      * <code>{lat: 0, lng: 0, altitude: 63170000}</code>. 63170000 meters is a
      * maximum allowed altitude (Earth radius multiplied by 10).
      */
-    center?: google.maps.LatLngAltitudeLiteral|null;
+    center?: google.maps.LatLngAltitudeLiteral | null;
     /**
      * When <code>true</code>, default map labels aren&#39;t rendered.
      * @defaultValue <code>false</code>
      */
-    defaultLabelsDisabled?: boolean|null;
+    defaultLabelsDisabled?: boolean | null;
     /**
      * The compass heading of the map, in degrees, where due north is zero. When
      * there is no tilt, any roll will be interpreted as heading.
      */
-    heading?: number|null;
+    heading?: number | null;
     /**
      * The maximum altitude above the ground which will be displayed on the map.
      * A valid value is between <code>0</code> and <code>63170000</code> meters
      * (Earth radius multiplied by 10).
      */
-    maxAltitude?: number|null;
+    maxAltitude?: number | null;
     /**
      * The maximum angle of heading (rotation) of the map. A valid value is
      * between <code>0</code> and <code>360</code> degrees.
@@ -12209,18 +12222,18 @@ declare namespace google.maps.maps3d {
      * 360]</code>. <code>minHeading = 90</code> and <code>maxHeading =
      * 180</code> will allow heading in <code>[90, 180]</code>.
      */
-    maxHeading?: number|null;
+    maxHeading?: number | null;
     /**
      * The maximum angle of incidence of the map. A valid value is between
      * <code>0</code> and <code>90</code> degrees.
      */
-    maxTilt?: number|null;
+    maxTilt?: number | null;
     /**
      * The minimum altitude above the ground which will be displayed on the map.
      * A valid value is between <code>0</code> and <code>63170000</code> meters
      * (Earth radius multiplied by 10).
      */
-    minAltitude?: number|null;
+    minAltitude?: number | null;
     /**
      * The minimum angle of heading (rotation) of the map. A valid value is
      * between <code>0</code> and <code>360</code> degrees.
@@ -12231,29 +12244,29 @@ declare namespace google.maps.maps3d {
      * 360]</code>. <code>minHeading = 90</code> and <code>maxHeading =
      * 180</code> will allow heading in <code>[90, 180]</code>.
      */
-    minHeading?: number|null;
+    minHeading?: number | null;
     /**
      * The minimum angle of incidence of the map. A valid value is between
      * <code>0</code> and <code>90</code> degrees.
      */
-    minTilt?: number|null;
+    minTilt?: number | null;
     /**
      * The distance from camera to the center of the map, in meters.
      */
-    range?: number|null;
+    range?: number | null;
     /**
      * The roll of the camera around the view vector in degrees. To resolve
      * ambiguities, when there is no tilt, any roll will be interpreted as
      * heading.
      */
-    roll?: number|null;
+    roll?: number | null;
     /**
      * The tilt of the camera&#39;s view vector in degrees. A view vector
      * looking directly down at the earth would have a tilt of zero degrees. A
      * view vector pointing away from the earth would have a tilt of
      * <code>180</code> degrees.
      */
-    tilt?: number|null;
+    tilt?: number | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -12265,55 +12278,55 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.Map3DElement.bounds}.
      */
-    bounds?: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|null;
+    bounds?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.center}.
      */
-    center?: google.maps.LatLngAltitudeLiteral|null;
+    center?: google.maps.LatLngAltitudeLiteral | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.defaultLabelsDisabled}.
      */
-    defaultLabelsDisabled?: boolean|null;
+    defaultLabelsDisabled?: boolean | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.heading}.
      */
-    heading?: number|null;
+    heading?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.maxAltitude}.
      */
-    maxAltitude?: number|null;
+    maxAltitude?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.maxHeading}.
      */
-    maxHeading?: number|null;
+    maxHeading?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.maxTilt}.
      */
-    maxTilt?: number|null;
+    maxTilt?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.minAltitude}.
      */
-    minAltitude?: number|null;
+    minAltitude?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.minHeading}.
      */
-    minHeading?: number|null;
+    minHeading?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.minTilt}.
      */
-    minTilt?: number|null;
+    minTilt?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.range}.
      */
-    range?: number|null;
+    range?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.roll}.
      */
-    roll?: number|null;
+    roll?: number | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.tilt}.
      */
-    tilt?: number|null;
+    tilt?: number | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -12326,8 +12339,10 @@ declare namespace google.maps.maps3d {
    * google.maps.importLibrary("maps3d")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class Polygon3DElement extends HTMLElement implements
-      google.maps.maps3d.Polygon3DElementOptions {
+  export class Polygon3DElement
+    extends HTMLElement
+    implements google.maps.maps3d.Polygon3DElementOptions
+  {
     /**
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
@@ -12344,64 +12359,64 @@ declare namespace google.maps.maps3d {
      * Specifies how altitude components in the coordinates are interpreted.
      * @defaultValue {@link google.maps.maps3d.AltitudeMode.ABSOLUTE}
      */
-    altitudeMode?: google.maps.maps3d.AltitudeMode|null;
+    altitudeMode?: google.maps.maps3d.AltitudeMode | null;
     /**
      * Specifies whether parts of the polygon which could be occluded are drawn
      * or not. Polygons can be occluded by map geometry (e.g. buildings).
      * @defaultValue <code>false</code>
      */
-    drawsOccludedSegments?: boolean|null;
+    drawsOccludedSegments?: boolean | null;
     /**
      * Specifies whether to connect the polygon to the ground. To extrude a
      * polygon, the <code>altitudeMode</code> must be either
      * <code>RELATIVE_TO_GROUND</code> or <code>ABSOLUTE</code>.
      * @defaultValue <code>false</code>
      */
-    extruded?: boolean|null;
+    extruded?: boolean | null;
     /**
      * The fill color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    fillColor?: string|null;
+    fillColor?: string | null;
     /**
      * The fill opacity between 0.0 and 1.0.
      */
-    fillOpacity?: number|null;
+    fillOpacity?: number | null;
     /**
      * When <code>true</code>, edges of the polygon are interpreted as geodesic
      * and will follow the curvature of the Earth. When <code>false</code>,
      * edges of the polygon are rendered as straight lines in screen space.
      * @defaultValue <code>false</code>
      */
-    geodesic?: boolean|null;
+    geodesic?: boolean | null;
     /**
      * The ordered sequence of coordinates that designates a closed loop. Unlike
      * polylines, a polygon may consist of one or more paths, which create
      * multiple cut-outs inside the polygon.
      */
-    innerCoordinates?: Iterable<Iterable<google.maps.LatLngLiteral>>|null;
+    innerCoordinates?: Iterable<Iterable<google.maps.LatLngLiteral>> | null;
     /**
      * The ordered sequence of coordinates that designates a closed loop.
      * Altitude is ignored in certain modes and thus optional.
      */
-    outerCoordinates?: Iterable<google.maps.LatLngLiteral>|null;
+    outerCoordinates?: Iterable<google.maps.LatLngLiteral> | null;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: string|null;
+    strokeColor?: string | null;
     /**
      * The stroke opacity between <code>0.0</code> and <code>1.0</code>.
      */
-    strokeOpacity?: number|null;
+    strokeOpacity?: number | null;
     /**
      * The stroke width in pixels.
      */
-    strokeWidth?: number|null;
+    strokeWidth?: number | null;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: number|null;
+    zIndex?: number | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -12414,54 +12429,54 @@ declare namespace google.maps.maps3d {
      * See {@link google.maps.maps3d.Polygon3DElement.altitudeMode}.
      * @defaultValue {@link google.maps.maps3d.AltitudeMode.ABSOLUTE}
      */
-    altitudeMode?: google.maps.maps3d.AltitudeMode|null;
+    altitudeMode?: google.maps.maps3d.AltitudeMode | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.drawsOccludedSegments}.
      * @defaultValue <code>false</code>
      */
-    drawsOccludedSegments?: boolean|null;
+    drawsOccludedSegments?: boolean | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.extruded}.
      * @defaultValue <code>false</code>
      */
-    extruded?: boolean|null;
+    extruded?: boolean | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.fillColor}.
      */
-    fillColor?: string|null;
+    fillColor?: string | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.fillOpacity}.
      */
-    fillOpacity?: number|null;
+    fillOpacity?: number | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.geodesic}.
      * @defaultValue <code>false</code>
      */
-    geodesic?: boolean|null;
+    geodesic?: boolean | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.innerCoordinates}.
      */
-    innerCoordinates?: Iterable<Iterable<any>>|null;
+    innerCoordinates?: Iterable<Iterable<any>> | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.outerCoordinates}.
      */
-    outerCoordinates?: Iterable<google.maps.LatLngLiteral>|null;
+    outerCoordinates?: Iterable<google.maps.LatLngLiteral> | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.strokeColor}.
      */
-    strokeColor?: string|null;
+    strokeColor?: string | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.strokeOpacity}.
      */
-    strokeOpacity?: number|null;
+    strokeOpacity?: number | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.strokeWidth}.
      */
-    strokeWidth?: number|null;
+    strokeWidth?: number | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.zIndex}.
      */
-    zIndex?: number|null;
+    zIndex?: number | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -12472,8 +12487,10 @@ declare namespace google.maps.maps3d {
    * google.maps.importLibrary("maps3d")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class Polyline3DElement extends HTMLElement implements
-      google.maps.maps3d.Polyline3DElementOptions {
+  export class Polyline3DElement
+    extends HTMLElement
+    implements google.maps.maps3d.Polyline3DElementOptions
+  {
     /**
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
@@ -12488,63 +12505,63 @@ declare namespace google.maps.maps3d {
      * Specifies how altitude components in the coordinates are interpreted.
      * @defaultValue {@link google.maps.maps3d.AltitudeMode.ABSOLUTE}
      */
-    altitudeMode?: google.maps.maps3d.AltitudeMode|null;
+    altitudeMode?: google.maps.maps3d.AltitudeMode | null;
     /**
      * The ordered sequence of coordinates of the Polyline. Altitude is ignored
      * in certain modes and thus optional.
      */
-    coordinates?: Iterable<google.maps.LatLngLiteral>|null;
+    coordinates?: Iterable<google.maps.LatLngLiteral> | null;
     /**
      * Specifies whether parts of the polyline which could be occluded are drawn
      * or not. Polylines can be occluded by map geometry (e.g. buildings).
      * @defaultValue <code>false</code>
      */
-    drawsOccludedSegments?: boolean|null;
+    drawsOccludedSegments?: boolean | null;
     /**
      * Specifies whether to connect the polyline to the ground. To extrude a
      * polyline, the <code>altitudeMode</code> must be either
      * <code>RELATIVE_TO_GROUND</code> or <code>ABSOLUTE</code>.
      * @defaultValue <code>false</code>
      */
-    extruded?: boolean|null;
+    extruded?: boolean | null;
     /**
      * When <code>true</code>, edges of the polyline are interpreted as geodesic
      * and will follow the curvature of the Earth. When <code>false</code>,
      * edges of the polyline are rendered as straight lines in screen space.
      * @defaultValue <code>false</code>
      */
-    geodesic?: boolean|null;
+    geodesic?: boolean | null;
     /**
      * The outer color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    outerColor?: string|null;
+    outerColor?: string | null;
     /**
      * The outer opacity between <code>0.0</code> and <code>1.0</code>.
      */
-    outerOpacity?: number|null;
+    outerOpacity?: number | null;
     /**
      * The outer width is between <code>0.0</code> and <code>1.0</code>. This is
      * a percentage of the <code>strokeWidth</code>.
      */
-    outerWidth?: number|null;
+    outerWidth?: number | null;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
      */
-    strokeColor?: string|null;
+    strokeColor?: string | null;
     /**
      * The stroke opacity between <code>0.0</code> and <code>1.0</code>.
      */
-    strokeOpacity?: number|null;
+    strokeOpacity?: number | null;
     /**
      * The stroke width in pixels.
      */
-    strokeWidth?: number|null;
+    strokeWidth?: number | null;
     /**
      * The zIndex compared to other polys.
      */
-    zIndex?: number|null;
+    zIndex?: number | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -12557,54 +12574,54 @@ declare namespace google.maps.maps3d {
      * See {@link google.maps.maps3d.Polyline3DElement.altitudeMode}.
      * @defaultValue {@link google.maps.maps3d.AltitudeMode.ABSOLUTE}
      */
-    altitudeMode?: google.maps.maps3d.AltitudeMode|null;
+    altitudeMode?: google.maps.maps3d.AltitudeMode | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.coordinates}.
      */
-    coordinates?: Iterable<google.maps.LatLngLiteral>|null;
+    coordinates?: Iterable<google.maps.LatLngLiteral> | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.drawsOccludedSegments}.
      * @defaultValue <code>false</code>
      */
-    drawsOccludedSegments?: boolean|null;
+    drawsOccludedSegments?: boolean | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.extruded}.
      * @defaultValue <code>false</code>
      */
-    extruded?: boolean|null;
+    extruded?: boolean | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.geodesic}.
      * @defaultValue <code>false</code>
      */
-    geodesic?: boolean|null;
+    geodesic?: boolean | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.outerColor}.
      */
-    outerColor?: string|null;
+    outerColor?: string | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.outerOpacity}.
      */
-    outerOpacity?: number|null;
+    outerOpacity?: number | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.outerWidth}.
      */
-    outerWidth?: number|null;
+    outerWidth?: number | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.strokeColor}.
      */
-    strokeColor?: string|null;
+    strokeColor?: string | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.strokeOpacity}.
      */
-    strokeOpacity?: number|null;
+    strokeOpacity?: number | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.strokeWidth}.
      */
-    strokeWidth?: number|null;
+    strokeWidth?: number | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.zIndex}.
      */
-    zIndex?: number|null;
+    zIndex?: number | null;
   }
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
@@ -13256,6 +13273,108 @@ declare namespace google.maps.places {
     types: string[];
   }
   /**
+   * Request interface for {@link
+   * google.maps.places.AutocompleteSuggestion.fetchAutocompleteSuggestions}.
+   */
+  export interface AutocompleteRequest {
+    /**
+     * Included primary <a
+     * href="https://developers.google.com/maps/documentation/places/javascript/place-types">Place
+     * type</a> (for example, &quot;restaurant&quot; or
+     * &quot;gas_station&quot;). <br/><br/> A Place is only returned if its
+     * primary type is included in this list. Up to 5 values can be specified.
+     * If no types are specified, all Place types are returned.
+     */
+    includedPrimaryTypes?: string[];
+    /**
+     * Only include results in the specified regions, specified as up to 15 CLDR
+     * two-character region codes. An empty set will not restrict the results.
+     * If both <code>locationRestriction</code> and
+     * <code>includedRegionCodes</code> are set, the results will be located in
+     * the area of intersection.
+     */
+    includedRegionCodes?: string[];
+    /**
+     * The text string on which to search.
+     */
+    input: string;
+    /**
+     * A zero-based Unicode character offset of <code>input</code> indicating
+     * the cursor position in <code>input</code>. The cursor position may
+     * influence what predictions are returned. If not specified, defaults to
+     * the length of <code>input</code>.
+     */
+    inputOffset?: number;
+    /**
+     * The language in which to return results. Will default to the
+     * browser&#39;s language preference. The results may be in mixed languages
+     * if the language used in <code>input</code> is different from
+     * <code>language</code>, or if the returned Place does not have a
+     * translation from the local language to <code>language</code>.
+     */
+    language?: string;
+    /**
+     * Bias results to a specified location. <br/><br/> At most one of
+     * <code>locationBias</code> or <code>locationRestriction</code> should be
+     * set. If neither are set, the results will be biased by IP address,
+     * meaning the IP address will be mapped to an imprecise location and used
+     * as a biasing signal.
+     */
+    locationBias?:
+      | google.maps.LatLng
+      | google.maps.LatLngLiteral
+      | google.maps.LatLngBounds
+      | google.maps.LatLngBoundsLiteral
+      | google.maps.Circle
+      | google.maps.CircleLiteral
+      | string;
+    /**
+     * Restrict results to a specified location. <br/><br/> At most one of
+     * <code>locationBias</code> or <code>locationRestriction</code> should be
+     * set. If neither are set, the results will be biased by IP address,
+     * meaning the IP address will be mapped to an imprecise location and used
+     * as a biasing signal.
+     */
+    locationRestriction?:
+      | google.maps.LatLngBounds
+      | google.maps.LatLngBoundsLiteral;
+    /**
+     * The origin point from which to calculate geodesic distance to the
+     * destination (returned as {@link
+     * google.maps.places.PlacePrediction.distanceMeters}). If this value is
+     * omitted, geodesic distance will not be returned.
+     */
+    origin?: google.maps.LatLng | google.maps.LatLngLiteral;
+    /**
+     * The region code, specified as a CLDR two-character region code. This
+     * affects address formatting, result ranking, and may influence what
+     * results are returned. This does not restrict results to the specified
+     * region.
+     */
+    region?: string;
+    /**
+     * A token which identifies an Autocomplete session for billing purposes.
+     * Generate a new session token via {@link
+     * google.maps.places.AutocompleteSessionToken}. <br/><br/> The session
+     * begins when the user starts typing a query, and concludes when they
+     * select a place and call {@link google.maps.places.Place.fetchFields}.
+     * Each session can have multiple queries, followed by one
+     * <code>fetchFields</code> call. The credentials used for each request
+     * within a session must belong to the same Google Cloud Console project.
+     * Once a session has concluded, the token is no longer valid; your app must
+     * generate a fresh token for each session. If the <code>sessionToken</code>
+     * parameter is omitted, or if you reuse a session token, the session is
+     * charged as if no session token was provided (each request is billed
+     * separately). <br/><br/> We recommend the following guidelines:
+     * <ul><li>Use session tokens for all Place Autocomplete calls.</li>
+     * <li>Generate a fresh token for each session.</li> <li>Be sure to pass a
+     * unique session token for each new session. Using the same token for more
+     * than one session will result in each request being billed
+     * individually.</li> </ul>
+     */
+    sessionToken?: google.maps.places.AutocompleteSessionToken;
+  }
+  /**
    * An Autocomplete response returned by the call to {@link
    * google.maps.places.AutocompleteService.getPlacePredictions} containing a
    * list of {@link google.maps.places.AutocompletePrediction}s.
@@ -13305,16 +13424,34 @@ declare namespace google.maps.places {
     ): void;
   }
   /**
-   * Represents a session token used for tracking an autocomplete session, which
-   * can be a series of {@link
-   * google.maps.places.AutocompleteService.getPlacePredictions} calls followed
-   * by a single {@link google.maps.places.PlacesService.getDetails} call.
+   * Represents a session token used for tracking an autocomplete session.
    *
    * Access by calling `const {AutocompleteSessionToken} = await
    * google.maps.importLibrary("places")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export class AutocompleteSessionToken {}
+  /**
+   * An Autocomplete suggestion result.
+   *
+   * Access by calling `const {AutocompleteSuggestion} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class AutocompleteSuggestion {
+    /**
+     * Contains the human-readable name for the returned result. For
+     * establishment results, this is usually the business name and address.
+     */
+    placePrediction: google.maps.places.PlacePrediction | null;
+    /**
+     * Fetches a list of AutocompleteSuggestions.
+     */
+    static fetchAutocompleteSuggestions(
+      this: any,
+      autocompleteRequest: google.maps.places.AutocompleteRequest,
+    ): Promise<{suggestions: google.maps.places.AutocompleteSuggestion[]}>;
+  }
   /**
    * An Autocompletion request to be sent to {@link
    * google.maps.places.AutocompleteService.getPlacePredictions}.
@@ -13553,6 +13690,33 @@ declare namespace google.maps.places {
      * The request&#39;s query. For example, the name or address of a place.
      */
     query: string;
+  }
+  /**
+   * Text representing a Place prediction. The text may be used as is or
+   * formatted.
+   *
+   * Access by calling `const {FormattableText} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class FormattableText {
+    /**
+     * A list of string ranges identifying where the input request matched
+     * in {@link google.maps.places.FormattableText.text}. The ranges can be
+     * used to format specific parts of <code>text</code>. The substrings may
+     * not be exact matches of {@link
+     * google.maps.places.AutocompleteRequest.input} if the matching was
+     * determined by criteria other than string matching (for example, spell
+     * corrections or transliterations). These values are Unicode character
+     * offsets of {@link google.maps.places.FormattableText.text}. The ranges
+     * are guaranteed to be ordered in increasing offset values.
+     */
+    matches: google.maps.places.StringRange[];
+    /**
+     * Text that may be used as is or formatted with {@link
+     * google.maps.places.FormattableText.matches}.
+     */
+    text: string;
   }
   export type LocationBias =
     | google.maps.LatLng
@@ -14484,6 +14648,51 @@ declare namespace google.maps.places {
     global_code: string;
   }
   /**
+   * Prediction results for a Place Autocomplete prediction.
+   *
+   * Access by calling `const {PlacePrediction} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlacePrediction {
+    /**
+     * The length of the geodesic in meters from <code>origin</code> if
+     * <code>origin</code> is specified.
+     */
+    distanceMeters: number | null;
+    /**
+     * Represents additional disambiguating features (such as a city or region)
+     * to further identify the Place or refine the query.
+     */
+    mainText: google.maps.places.FormattableText | null;
+    /**
+     * The unique identifier of the suggested Place. This identifier can be used
+     * in other APIs that accept Place IDs.
+     */
+    placeId: string;
+    /**
+     * Represents additional disambiguating features (such as a city or region)
+     * to further identify the Place or refine the query.
+     */
+    secondaryText: google.maps.places.FormattableText | null;
+    /**
+     * Contains the human-readable name for the returned result. For
+     * establishment results, this is usually the business name and address.
+     */
+    text: google.maps.places.FormattableText;
+    /**
+     * Returns a Place representation of this PlacePrediction. A subsequent call
+     * to {@link google.maps.places.Place.fetchFields} is required to get full
+     * Place details.
+     */
+    toPlace(): google.maps.places.Place;
+    /**
+     * List of types that apply to this Place from Table A or Table B in <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">https://developers.google.com/maps/documentation/places/web-service/place-types</a>.
+     */
+    types: string[];
+  }
+  /**
    * Defines information about a Place.
    */
   export interface PlaceResult {
@@ -15218,9 +15427,8 @@ declare namespace google.maps.places {
      * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which
      * will be billed for</a>. If <code>[&#39;*&#39;]</code> is passed in, all
      * available fields will be returned and billed for (this is not recommended
-     * for production deployments). For a list of fields see {@link
-     * google.maps.places.PlaceResult}. Nested fields can be specified with
-     * dot-paths (for example, <code>"geometry.location"</code>).
+     * for production deployments). You can request any property in the {@link
+     * google.maps.places.Place} class as a field.
      */
     fields: string[];
     /**
@@ -15350,13 +15558,21 @@ declare namespace google.maps.places {
      */
     excludedPrimaryTypes?: string[];
     /**
+     * Excluded place type. See the <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">full
+     * list of types supported</a>. A place can have many different place types.
+     * Up to 50 types may be specified. If you specify the same type in both
+     * <code>included</code> and <code>excluded</code> lists, an
+     * INVALID_ARGUMENT error is returned.
+     */
+    excludedTypes?: string[];
+    /**
      * Fields to be included in the response, <a
      * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which
      * will be billed for</a>. If <code>[&#39;*&#39;]</code> is passed in, all
      * available fields will be returned and billed for (this is not recommended
-     * for production deployments). For a list of fields see {@link
-     * google.maps.places.PlaceResult}. Nested fields can be specified with
-     * dot-paths (for example, <code>"geometry.location"</code>).
+     * for production deployments). You can request any property in the {@link
+     * google.maps.places.Place} class as a field.
      */
     fields: string[];
     /**
@@ -15408,6 +15624,25 @@ declare namespace google.maps.places {
      * Note that 3-digit region codes are not currently supported.
      */
     region?: string;
+  }
+  /**
+   * Identifies a substring within a given text.
+   *
+   * Access by calling `const {StringRange} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class StringRange {
+    /**
+     * Zero-based offset of the last Unicode character of the substring
+     * (exclusive).
+     */
+    endOffset: number;
+    /**
+     * Zero-based offset of the first Unicode character of the substring
+     * (inclusive).
+     */
+    startOffset: number;
   }
   /**
    * Contains structured information about the place&#39;s description, divided
