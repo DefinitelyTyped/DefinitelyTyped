@@ -922,9 +922,9 @@ async function test() {
     //
     const locator = page.locator(selector);
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.clear();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.clear({ noWaitAfter: true, timeout: 10000 });
 
     // $ExpectType Promise<void>
@@ -950,199 +950,199 @@ async function test() {
     // $ExpectType Promise<void>
     locator.click({ trial: true });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick({ button: "right" });
     // @ts-expect-error
     locator.dblclick({ button: "top" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick({ delay: 1000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick({ modifiers: ["Alt", "Control", "Meta", "Shift"] });
     // @ts-expect-error
     locator.dblclick({ modifiers: ["Esc"] });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick({ noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dblclick({ trial: true });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.check();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.check({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.check({ noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.check({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.check({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.check({ trial: true });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.uncheck();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.uncheck({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.uncheck({ noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.uncheck({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.uncheck({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.uncheck({ trial: true });
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     locator.isChecked();
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     locator.isChecked({ timeout: 10000 });
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     locator.isEnabled();
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     locator.isEnabled({ timeout: 10000 });
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     locator.isDisabled();
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     locator.isDisabled({ timeout: 10000 });
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     locator.isVisible();
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     locator.isHidden();
 
     // @ts-expect-error
     locator.fill();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.fill("text");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.fill("text", { force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.fill("text", { noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.fill("text", { timeout: 10000 });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.focus();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.focus({ timeout: 10000 });
 
     // @ts-expect-error
     locator.getAttribute();
-    // $ExpectType string | null
+    // $ExpectType Promise<string | null>
     locator.getAttribute("attr");
-    // $ExpectType string | null
+    // $ExpectType Promise<string | null>
     locator.getAttribute("attr", { timeout: 10000 });
 
-    // $ExpectType string
+    // $ExpectType Promise<string>
     locator.innerHTML();
-    // $ExpectType string
+    // $ExpectType Promise<string>
     locator.innerHTML({ timeout: 10000 });
 
-    // $ExpectType string
+    // $ExpectType Promise<string>
     locator.innerText();
-    // $ExpectType string
+    // $ExpectType Promise<string>
     locator.innerText({ timeout: 10000 });
 
-    // $ExpectType string
+    // $ExpectType Promise<string | null>
     locator.textContent();
-    // $ExpectType string
+    // $ExpectType Promise<string | null>
     locator.textContent({ timeout: 10000 });
 
-    // $ExpectType string
+    // $ExpectType Promise<string>
     locator.inputValue();
-    // $ExpectType string
+    // $ExpectType Promise<string>
     locator.inputValue({ timeout: 10000 });
 
     // @ts-expect-error
     locator.selectOption();
     // @ts-expect-error
     locator.selectOption({ timeout: 10000 });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     locator.selectOption("value");
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     locator.selectOption(["value1", "value2"]);
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     locator.selectOption({ value: "value" });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     locator.selectOption({ label: "label" });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     locator.selectOption({ index: 1 });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     locator.selectOption("value", { force: true });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     locator.selectOption("value", { noWaitAfter: true });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     locator.selectOption("value", { timeout: 10000 });
 
     // @ts-expect-error
     locator.type();
     // @ts-expect-error
     locator.type({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.type("text");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.type("text", { delay: 1000 });
     // @ts-expect-error
     locator.type("text", { force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.type("text", { noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.type("text", { timeout: 10000 });
     // @ts-expect-error
     locator.type("text", { trial: true });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.hover();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.hover({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.hover({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.hover({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.hover({ trial: true });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.tap();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.tap({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.tap({ noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.tap({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.tap({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.tap({ trial: true });
 
     // @ts-expect-error
     locator.dispatchEvent();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dispatchEvent("click");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dispatchEvent("click", { buttons: 2 & 4 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dispatchEvent("click", { buttons: 2 & 4 }, { timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.dispatchEvent("click", { buttons: 2 & 4 });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.waitFor();
     for (const state of ["attached", "detached", "visible", "hidden"]) {
-        // $ExpectType void
+        // $ExpectType Promise<void>
         locator.waitFor({ state: state as any });
     }
-    // $ExpectType void
+    // $ExpectType Promise<void>
     locator.waitFor({ timeout: 10000 });
 
     //
