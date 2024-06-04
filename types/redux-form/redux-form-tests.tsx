@@ -1,19 +1,17 @@
 import * as React from "react";
-import { Action, Dispatch } from "redux";
+import { Dispatch } from "redux";
 import {
     actionTypes,
     BaseFieldProps,
     DecoratedFormProps,
     Field,
     FieldArray,
-    FieldArrayFieldsProps,
     Fields,
     Form,
     FormAction,
     FormName,
     FormSection,
     formValues,
-    formValueSelector,
     GenericField,
     GenericFieldArray,
     GenericFields,
@@ -31,15 +29,12 @@ import {
 
 import {
     Field as ImmutableField,
-    reduxForm as immutableReduxForm,
-    startSubmit as immutableStartSubmit,
-    stopSubmit as immutableStopSubmit,
+    reduxForm as immutableReduxForm
 } from "redux-form/immutable";
 
 import libActions from "redux-form/lib/actions";
-import LibField, { WrappedFieldProps as LibWrappedFieldProps } from "redux-form/lib/Field";
+import LibField from "redux-form/lib/Field";
 import LibFormSection from "redux-form/lib/FormSection";
-import libFormValueSelector from "redux-form/lib/formValueSelector";
 import libReducer from "redux-form/lib/reducer";
 import libReduxForm from "redux-form/lib/reduxForm";
 import LibSubmissionError from "redux-form/lib/SubmissionError";
