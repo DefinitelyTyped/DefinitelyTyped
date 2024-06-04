@@ -27,10 +27,7 @@ import {
     WrappedFieldsProps,
 } from "redux-form";
 
-import {
-    Field as ImmutableField,
-    reduxForm as immutableReduxForm
-} from "redux-form/immutable";
+import { Field as ImmutableField, reduxForm as immutableReduxForm } from "redux-form/immutable";
 
 import libActions from "redux-form/lib/actions";
 import LibField from "redux-form/lib/Field";
