@@ -603,7 +603,7 @@ async function test() {
     // $ExpectType Promise<string[]>
     page.selectOption(selector, "option");
     // $ExpectType Promise<string[]>
-    page.selectOption(selector, page.waitForSelector(selector));
+    page.selectOption(selector, await page.waitForSelector(selector));
     // $ExpectType Promise<string[]>
     page.selectOption(selector, { value: "" });
     // $ExpectType Promise<string[]>
@@ -613,7 +613,7 @@ async function test() {
     // $ExpectType Promise<string[]>
     page.selectOption(selector, ["option", "option2"]);
     // $ExpectType Promise<string[]>
-    page.selectOption(selector, [page.waitForSelector(selector), page.waitForSelector(selector)]);
+    page.selectOption(selector, [await page.waitForSelector(selector), await page.waitForSelector(selector)]);
     // $ExpectType Promise<string[]>
     page.selectOption(selector, [{ value: "" }, { label: "" }]);
     // $ExpectType Promise<string[]>
@@ -1148,7 +1148,7 @@ async function test() {
     //
     // JSHandle
     //
-    const jsHandle = page.evaluateHandle(() => null);
+    const jsHandle = await page.evaluateHandle(() => null);
 
     // $ExpectType ElementHandle | null
     jsHandle.asElement();
@@ -1307,7 +1307,7 @@ async function test() {
     // ElementHandle
     //
 
-    const elementHandle = page.waitForSelector(selector);
+    const elementHandle = await page.waitForSelector(selector);
 
     // @ts-expect-error
     elementHandle.$();
