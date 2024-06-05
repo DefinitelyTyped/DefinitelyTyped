@@ -757,7 +757,7 @@ const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, 
     return result;
 };
 
-function createPolicyDocument(effect: 'Allow' | 'Deny' = 'Deny'): PolicyDocument {
+function createPolicyDocument(effect: "Allow" | "Deny" = "Deny"): PolicyDocument {
     let statement: Statement = {
         Action: str,
         Effect: effect,

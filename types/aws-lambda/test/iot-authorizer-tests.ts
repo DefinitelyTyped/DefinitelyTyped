@@ -93,7 +93,7 @@ const iotCustomAuthorizerHandler: IoTCustomAuthorizerHandler = async (event, con
     return result;
 };
 
-function createPolicyDocument(effect: 'Allow' | 'Deny' = 'Deny'): PolicyDocument {
+function createPolicyDocument(effect: "Allow" | "Deny" = "Deny"): PolicyDocument {
     let statement: Statement = {
         Action: str,
         Effect: effect,
