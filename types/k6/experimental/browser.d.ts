@@ -2119,7 +2119,7 @@ export interface Page {
      * Activates the browser tab so that it comes into focus and actions can be
      * performed against it.
      */
-    bringToFront(): void;
+    bringToFront(): Promise<void>;
 
     /**
      * **NOTE** Use locator-based `locator.check([options])` instead.
@@ -2177,7 +2177,7 @@ export interface Page {
              */
             trial?: boolean;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * **NOTE** Use locator-based `locator.click([options])` instead.
@@ -2263,12 +2263,12 @@ export interface Page {
     /**
      * This will close the tab that this page is associated with.
      */
-    close(): void;
+    close(): Promise<void>;
 
     /**
      * Gets the HTML contents of the page.
      */
-    content(): string;
+    content(): Promise<string>;
 
     /**
      * Gets the `BrowserContext` that the page belongs to.
@@ -2349,7 +2349,7 @@ export interface Page {
              */
             trial?: boolean;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * **NOTE** Use locator-based locator.dispatchEvent([options]) instead.
@@ -2381,7 +2381,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * This method changes the `CSS media type` through the `media` argument,
@@ -2407,7 +2407,7 @@ export interface Page {
          * `'reduce'`, `'no-preference'`.
          */
         reducedMotion?: "reduce" | "no-preference";
-    }): void;
+    }): Promise<void>;
 
     /**
      * This emulates your website with the specified vision deficiency type.
@@ -2423,7 +2423,7 @@ export interface Page {
      */
     emulateVisionDeficiency(
         type: "none" | "blurredVision" | "deuteranopia" | "protanopia" | "tritanopia" | "achromatopsia",
-    ): void;
+    ): Promise<void>;
 
     /**
      * Returns the value of the `pageFunction` invocation.
@@ -2433,7 +2433,7 @@ export interface Page {
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
      */
-    evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
+    evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): Promise<R>;
 
     /**
      * Returns the value of the `pageFunction` invocation as a [JSHandle].
@@ -2445,7 +2445,7 @@ export interface Page {
      * @param pageFunction Function to be evaluated in the page context.
      * @param arg Optional argument to pass to `pageFunction`.
      */
-    evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
+    evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): Promise<JSHandle<R>>;
 
     /**
      * **NOTE** Use locator-based `locator.fill(value[, options])` instead.
@@ -2491,7 +2491,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * **NOTE** Use locator-based `locator.focus([options])` instead.
@@ -2521,7 +2521,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * Frames returns an array of frames on the page.
@@ -2558,7 +2558,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): null | string;
+    ): Promise<string | null>;
 
     /**
      * Navigates to the specified url and returns the main resource response.
@@ -2570,7 +2570,7 @@ export interface Page {
      * `https://`.
      * @param options
      */
-    goto(url: string, options?: NavigationOptions): Promise<null | Response>;
+    goto(url: string, options?: NavigationOptions): Promise<Response | null>;
 
     /**
      * **NOTE** Use locator-based locator.hover([options]) instead.
@@ -2636,7 +2636,7 @@ export interface Page {
              */
             trial?: boolean;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * **NOTE** Use locator-based locator.innerHTML([options]) instead.
@@ -2666,7 +2666,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): string;
+    ): Promise<string>;
 
     /**
      * **NOTE** Use locator-based locator.innerText([options]) instead.
@@ -2696,7 +2696,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): string;
+    ): Promise<string>;
 
     /**
      * **NOTE** Use locator-based locator.inputValue([options]) instead.
@@ -2727,7 +2727,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): string;
+    ): Promise<string>;
 
     /**
      * **NOTE** Use locator-based locator.isChecked([options]) instead.
@@ -2757,7 +2757,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): boolean;
+    ): Promise<boolean>;
 
     /**
      * Indicates that the page has been closed.
@@ -2792,7 +2792,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): boolean;
+    ): Promise<boolean>;
 
     /**
      * **NOTE** Use locator-based locator.isEditable([options]) instead.
@@ -2822,7 +2822,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): boolean;
+    ): Promise<boolean>;
 
     /**
      * **NOTE** Use locator-based locator.isEnabled([options]) instead.
@@ -2852,7 +2852,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): boolean;
+    ): Promise<boolean>;
 
     /**
      * **NOTE** Use locator-based locator.isHidden() instead.
@@ -2863,7 +2863,7 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param options
      */
-    isHidden(selector: string, options?: StrictnessOptions): boolean;
+    isHidden(selector: string, options?: StrictnessOptions): Promise<boolean>;
 
     /**
      * **NOTE** Use locator-based locator.isVisible() instead.
@@ -2874,7 +2874,7 @@ export interface Page {
      * elements satisfying the selector, the first will be used.
      * @param options
      */
-    isVisible(selector: string, options?: StrictnessOptions): boolean;
+    isVisible(selector: string, options?: StrictnessOptions): Promise<boolean>;
 
     /**
      * Returns the keyboard instance to interact with a virtual keyboard on the
@@ -2928,7 +2928,7 @@ export interface Page {
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
-    opener(): Page | null;
+    opener(): Promise<Page | null>;
 
     /**
      * **NOTE** Use locator-based locator.press(key[, options]) instead.
@@ -2988,7 +2988,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * This reloads the current page Returns the main resource response.
@@ -3021,7 +3021,7 @@ export interface Page {
          * may never fire, rely on web assertions to assess readiness instead.
          */
         waitUntil?: "load" | "domcontentloaded" | "networkidle";
-    }): null | Response;
+    }): Promise<Response | null>;
 
     /**
      * Returns the buffer with the captured screenshot from the browser.
@@ -3061,7 +3061,7 @@ export interface Page {
              */
             fullPage?: boolean;
         } & ScreenshotOptions,
-    ): ArrayBuffer;
+    ): Promise<ArrayBuffer>;
 
     /**
      * **NOTE** Use locator-based locator.selectOption(values[, options]) instead.
@@ -3109,7 +3109,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): string[];
+    ): Promise<string[]>;
 
     /**
      * Set the supplied html string to the current page.
@@ -3146,7 +3146,7 @@ export interface Page {
              */
             waitUntil?: "load" | "domcontentloaded" | "networkidle";
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * This setting will change the navigation timeout for the following methods:
@@ -3174,7 +3174,7 @@ export interface Page {
      * @param headers An object containing the additional HTTP headers.
      * All header values must be strings.
      */
-    setExtraHTTPHeaders(headers: { [key: string]: string }): void;
+    setExtraHTTPHeaders(headers: { [key: string]: string }): Promise<void>;
 
     /**
      * Sets the file input element's value to the specified files.
@@ -3204,7 +3204,7 @@ export interface Page {
          * @default false
          */
         noWaitAfter?: boolean;
-    }): void;
+    }): Promise<void>;
 
     /**
      * This will update the page's width and height.
@@ -3221,7 +3221,7 @@ export interface Page {
          * page height in pixels.
          */
         height: number;
-    }): void;
+    }): Promise<void>;
 
     /**
      * **NOTE** Use locator-based locator.tap([options]) instead.
@@ -3287,7 +3287,7 @@ export interface Page {
              */
             trial?: boolean;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * **NOTE** Use locator-based locator.textContent([options]) instead.
@@ -3317,7 +3317,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): string;
+    ): Promise<string | null>;
 
     /**
      * Throttles the CPU in Chrome/Chromium to slow it down by the specified
@@ -3330,7 +3330,7 @@ export interface Page {
      * page.throttleCPU({ rate: 4 });
      * ```
      */
-    throttleCPU(profile: CPUProfile): void;
+    throttleCPU(profile: CPUProfile): Promise<void>;
 
     /**
      * Throttles the network in Chrome/Chromium to slow it down by the specified
@@ -3366,12 +3366,12 @@ export interface Page {
      * ... // redacted
      * ```
      */
-    throttleNetwork(profile: NetworkProfile): void;
+    throttleNetwork(profile: NetworkProfile): Promise<void>;
 
     /**
      * Returns the page's title.
      */
-    title(): string;
+    title(): Promise<string>;
 
     /**
      * Returns the touchscreen instance to interact with a virtual touchscreen on
@@ -3420,7 +3420,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * **NOTE** Use locator-based `locator.uncheck([options])` instead.
@@ -3479,7 +3479,7 @@ export interface Page {
              */
             trial?: boolean;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * Returns the page's URL.
@@ -3561,7 +3561,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * Waits for the given navigation lifecycle event to occur and returns the main
@@ -3595,7 +3595,7 @@ export interface Page {
          * may never fire, rely on web assertions to assess readiness instead.
          */
         waitUntil?: "load" | "domcontentloaded" | "networkidle";
-    }): Promise<null | Response>;
+    }): Promise<Response | null>;
 
     /**
      * **NOTE** Use web assertions that assert visibility or a locator-based
@@ -3636,7 +3636,7 @@ export interface Page {
              */
             timeout?: number;
         },
-    ): ElementHandle;
+    ): Promise<ElementHandle>;
 
     /**
      * **NOTE** Never wait for timeout in production, use this only for debugging.
@@ -3647,7 +3647,7 @@ export interface Page {
      *
      * @param timeout A timeout to wait for
      */
-    waitForTimeout(timeout: number): void;
+    waitForTimeout(timeout: number): Promise<void>;
 
     /**
      * This method returns all of the dedicated WebWorkers associated with the page.
@@ -3662,7 +3662,7 @@ export interface Page {
      * To wait for an element on the page, use locator.waitFor([options]).
      * @param selector A selector to query for.
      */
-    $(selector: string): ElementHandle | null;
+    $(selector: string): Promise<ElementHandle | null>;
 
     /**
      * **NOTE** Use locator-based page.locator(selector[, options]) instead.
@@ -3671,7 +3671,7 @@ export interface Page {
      * page. If no elements match the selector, the return value resolves to `[]`.
      * @param selector A selector to query for.
      */
-    $$(selector: string): ElementHandle[];
+    $$(selector: string): Promise<ElementHandle[]>;
 }
 
 /**
