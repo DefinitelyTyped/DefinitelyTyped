@@ -779,6 +779,18 @@ function createPolicyDocument(effect: "Allow" | "Deny" = "Deny"): PolicyDocument
     // @ts-expect-error
     statement = { Effect: str, Action: str, Principal: 123, Resource: str };
 
+    // Lowercase allow for effect
+    // @ts-expect-error
+    statement = { Effect: 'allow', Action: str, Resource: 123 };
+
+    // Lowercase deny for effect
+    // @ts-expect-error
+    statement = { Effect: 'deny', Action: str, Resource: 123 };
+
+    // Invalid effect
+    // @ts-expect-error
+    statement = { Effect: 'foo', Action: str, Resource: 123 };
+
     // No Effect
     // @ts-expect-error
     statement = { Action: str, Principal: str };
