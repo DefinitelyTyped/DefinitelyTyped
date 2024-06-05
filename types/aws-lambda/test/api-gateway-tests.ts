@@ -757,10 +757,10 @@ const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, 
     return result;
 };
 
-function createPolicyDocument(): PolicyDocument {
+function createPolicyDocument(effect: 'Allow' | 'Deny' = 'Deny'): PolicyDocument {
     let statement: Statement = {
         Action: str,
-        Effect: str,
+        Effect: effect,
         Resource: str,
     };
 
@@ -786,7 +786,7 @@ function createPolicyDocument(): PolicyDocument {
     statement = {
         Sid: str,
         Action: [str, str],
-        Effect: str,
+        Effect: effect,
         Resource: [str, str],
         Condition: {
             condition1: { key: "value" },
@@ -804,11 +804,11 @@ function createPolicyDocument(): PolicyDocument {
         NotPrincipal: [str, str],
     };
 
-    statement = { Action: str, Principal: str, Effect: str };
+    statement = { Action: str, Principal: str, Effect: effect };
 
-    statement = { Action: str, NotPrincipal: { Service: str }, Effect: str };
+    statement = { Action: str, NotPrincipal: { Service: str }, Effect: effect };
 
-    statement = { Effect: str, NotAction: str, NotResource: str };
+    statement = { Effect: effect, NotAction: str, NotResource: str };
 
     let policyDocument: PolicyDocument = { Version: str, Statement: [statement] };
 
