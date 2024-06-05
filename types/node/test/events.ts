@@ -102,6 +102,20 @@ async function test() {
     events.on(new events.EventEmitter(), "test", { signal: new AbortController().signal });
 }
 
+async function testWithSymbol() {
+    for await (const e of events.on(new events.EventEmitter(), Symbol("test"))) {
+        console.log(e);
+    }
+    events.on(new events.EventEmitter(), Symbol("test"), { signal: new AbortController().signal });
+}
+
+async function testEventTarget() {
+    for await (const e of events.on(new EventTarget(), "test")) {
+        console.log(e);
+    }
+    events.on(new EventTarget(), "test", { signal: new AbortController().signal });
+}
+
 {
     emitter.on(events.errorMonitor, listener);
     emitter.on(events.EventEmitter.errorMonitor, listener);
