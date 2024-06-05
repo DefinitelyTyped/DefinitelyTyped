@@ -299,49 +299,57 @@ declare module "node:test" {
     }
     interface RunOptions {
         /**
-         * If a number is provided, then that many files would run in parallel.
-         * If truthy, it would run (number of cpu cores - 1) files in parallel.
-         * If falsy, it would only run one file at a time.
-         * If unspecified, subtests inherit this value from their parent.
-         * @default true
+         * If a number is provided, then that many test processes would run in parallel, where each process corresponds to one test file.
+         * If `true`, it would run `os.availableParallelism() - 1` test files in parallel. If `false`, it would only run one test file at a time.
+         * @default false
          */
         concurrency?: number | boolean | undefined;
         /**
-         * An array containing the list of files to run.
-         * If unspecified, the test runner execution model will be used.
+         * An array containing the list of files to run. **Default** matching files from
+         * [test runner execution model](https://nodejs.org/docs/latest-v20.x/api/test.html#test-runner-execution-model).
          */
         files?: readonly string[] | undefined;
         /**
-         * Allows aborting an in-progress test execution.
-         * @default undefined
+         * Configures the test runner to exit the process once all known
+         * tests have finished executing even if the event loop would
+         * otherwise remain active.
+         * @default false
          */
-        signal?: AbortSignal | undefined;
-        /**
-         * A number of milliseconds the test will fail after.
-         * If unspecified, subtests inherit this value from their parent.
-         * @default Infinity
-         */
-        timeout?: number | undefined;
+        forceExit?: boolean | undefined;
         /**
          * Sets inspector port of test child process.
          * If a nullish value is provided, each process gets its own port,
          * incremented from the primary's `process.debugPort`.
+         * @default undefined
          */
         inspectPort?: number | (() => number) | undefined;
-        /**
-         * That can be used to only run tests whose name matches the provided pattern.
-         * Test name patterns are interpreted as JavaScript regular expressions.
-         * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
-         */
-        testNamePatterns?: string | RegExp | string[] | RegExp[];
         /**
          * If truthy, the test context will only run tests that have the `only` option set
          */
         only?: boolean;
         /**
-         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         * A function that accepts the `TestsStream` instance and can be used to setup listeners before any tests are run.
+         * @default undefined
          */
         setup?: (root: Test) => void | Promise<void>;
+        /**
+         * Allows aborting an in-progress test execution.
+         */
+        signal?: AbortSignal | undefined;
+        /**
+         * A String, RegExp or a RegExp Array, that can be used to only run tests whose
+         * name matches the provided pattern. Test name patterns are interpreted as JavaScript
+         * regular expressions. For each test that is executed, any corresponding test hooks,
+         * such as `beforeEach()`, are also run.
+         * @default undefined
+         */
+        testNamePatterns?: string | RegExp | string[] | RegExp[];
+        /**
+         * A number of milliseconds the test execution will fail after.
+         * If unspecified, subtests inherit this value from their parent.
+         * @default Infinity
+         */
+        timeout?: number | undefined;
         /**
          * Whether to run in watch mode or not.
          * @default false

@@ -280,6 +280,11 @@ declare module "events" {
          */
         static on(
             emitter: NodeJS.EventEmitter,
+            eventName: string | symbol,
+            options?: StaticEventEmitterOptions,
+        ): AsyncIterableIterator<any>;
+        static on(
+            emitter: EventTarget,
             eventName: string,
             options?: StaticEventEmitterOptions,
         ): AsyncIterableIterator<any>;

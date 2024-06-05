@@ -128,7 +128,6 @@ declare module "fs" {
      *   ctime: Mon, 10 Oct 2011 23:24:11 GMT,
      *   birthtime: Mon, 10 Oct 2011 23:24:11 GMT }
      * ```
-     * @deprecated Since v20.13.0. Public constructor is deprecated.
      * @since v0.1.21
      */
     export class Stats {}
@@ -303,7 +302,7 @@ declare module "fs" {
         /**
          * Asynchronously read the next directory entry via [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) as an `fs.Dirent`.
          *
-         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null`if there are no more directory entries to read.
+         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null` if there are no more directory entries to read.
          *
          * Directory entries returned by this function are in no particular order as
          * provided by the operating system's underlying directory mechanisms.
@@ -3618,7 +3617,7 @@ declare module "fs" {
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
-     * checks to be performed. `mode` should be either the value `fs.constants.F_OK`or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and `fs.constants.X_OK`
+     * checks to be performed. `mode` should be either the value `fs.constants.F_OK` or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and `fs.constants.X_OK`
      * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
      * possible values of `mode`.
      *

@@ -95,7 +95,7 @@ declare module "child_process" {
          * `subprocess.stdin` is an alias for `subprocess.stdio[0]`. Both properties will
          * refer to the same value.
          *
-         * The `subprocess.stdin` property can be `null` or `undefined`if the child process could not be successfully spawned.
+         * The `subprocess.stdin` property can be `null` or `undefined` if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stdin: Writable | null;
@@ -118,7 +118,7 @@ declare module "child_process" {
          * });
          * ```
          *
-         * The `subprocess.stdout` property can be `null` or `undefined`if the child process could not be successfully spawned.
+         * The `subprocess.stdout` property can be `null` or `undefined` if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stdout: Readable | null;
@@ -131,7 +131,7 @@ declare module "child_process" {
          * `subprocess.stderr` is an alias for `subprocess.stdio[2]`. Both properties will
          * refer to the same value.
          *
-         * The `subprocess.stderr` property can be `null` or `undefined`if the child process could not be successfully spawned.
+         * The `subprocess.stderr` property can be `null` or `undefined` if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stderr: Readable | null;
