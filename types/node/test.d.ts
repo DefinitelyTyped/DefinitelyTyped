@@ -331,7 +331,7 @@ declare module "node:test" {
          * A function that accepts the `TestsStream` instance and can be used to setup listeners before any tests are run.
          * @default undefined
          */
-        setup?: (root: Test) => void | Promise<void>;
+        setup?: (root: TestsStream) => void | Promise<void>;
         /**
          * Allows aborting an in-progress test execution.
          */
