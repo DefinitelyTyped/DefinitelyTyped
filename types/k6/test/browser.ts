@@ -1311,30 +1311,30 @@ async function test() {
 
     // @ts-expect-error
     elementHandle.$();
-    // $ExpectType ElementHandle | null
+    // $ExpectType Promise<ElementHandle | null>
     elementHandle.$("div");
 
     // @ts-expect-error
     elementHandle.$$();
-    // $ExpectType ElementHandle[]
+    // $ExpectType Promise<ElementHandle[]>
     elementHandle.$$("div");
 
-    // $ExpectType Rect
+    // $ExpectType Promise<Rect | null>
     elementHandle.boundingBox();
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.check();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.check({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.check({ noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.check({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.check({ strict: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.check({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.check({ trial: true });
 
     // $ExpectType Promise<void>
@@ -1362,166 +1362,166 @@ async function test() {
     // $ExpectType Promise<void>
     elementHandle.click({ trial: true });
 
-    // $ExpectType Frame
+    // $ExpectType Promise<Frame>
     elementHandle.contentFrame();
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ button: "left" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ button: "middle" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ button: "right" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ delay: 1000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ modifiers: ["Alt", "Control", "Meta", "Shift"] });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dblclick({ trial: true });
 
     // @ts-expect-error
     elementHandle.dispatchEvent();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dispatchEvent("click");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.dispatchEvent("click", { type: "look" });
 
     // @ts-expect-error
     elementHandle.fill();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.fill("text");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.fill("text", { force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.fill("text", { noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.fill("text", { timeout: 10000 });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.focus();
 
     // @ts-expect-error
     elementHandle.getAttribute();
-    // $ExpectType string | null
+    // $ExpectType Promise<string | null>
     elementHandle.getAttribute("foo");
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.hover();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.hover({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.hover({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.hover({ trial: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.hover({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.hover({ modifiers: ["Shift"] });
 
-    // $ExpectType string
+    // $ExpectType Promise<string>
     elementHandle.innerHTML();
 
-    // $ExpectType string
+    // $ExpectType Promise<string>
     elementHandle.innerText();
 
-    // $ExpectType string
+    // $ExpectType Promise<string>
     elementHandle.inputValue();
-    // $ExpectType string
+    // $ExpectType Promise<string>
     elementHandle.inputValue({ timeout: 10000 });
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     elementHandle.isChecked();
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     elementHandle.isDisabled();
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     elementHandle.isEditable();
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     elementHandle.isEnabled();
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     elementHandle.isHidden();
 
-    // $ExpectType boolean
+    // $ExpectType Promise<boolean>
     elementHandle.isVisible();
 
-    // $ExpectType Frame
+    // $ExpectType Promise<Frame>
     elementHandle.ownerFrame();
 
     // @ts-expect-error
     elementHandle.press();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.press("Enter");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.press("Enter", { noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.press("Enter", { delay: 100 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.press("Enter", { timeout: 10000 });
 
-    // $ExpectType ArrayBuffer
+    // $ExpectType Promise<ArrayBuffer>
     elementHandle.screenshot();
-    // $ExpectType ArrayBuffer
+    // $ExpectType Promise<ArrayBuffer>
     elementHandle.screenshot({ timeout: 10000 });
-    // $ExpectType ArrayBuffer
+    // $ExpectType Promise<ArrayBuffer>
     elementHandle.screenshot({ omitBackground: true });
-    // $ExpectType ArrayBuffer
+    // $ExpectType Promise<ArrayBuffer>
     elementHandle.screenshot({ quality: 100 });
     for (const format of ["png", "jpeg"]) {
-        // $ExpectType ArrayBuffer
+        // $ExpectType Promise<ArrayBuffer>
         elementHandle.screenshot({ type: format as any });
     }
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.scrollIntoViewIfNeeded();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.scrollIntoViewIfNeeded({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.scrollIntoViewIfNeeded({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.scrollIntoViewIfNeeded({ noWaitAfter: true });
 
     // @ts-expect-error
     elementHandle.selectOption();
     // @ts-expect-error
     elementHandle.selectOption({ timeout: 10000 });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption("foo");
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption(["foo", "bar"]);
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption(elementHandle);
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption({ value: "foo" });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption({ label: "bar" });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption({ index: 1 });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption("foo", { timeout: 10000 });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption("foo", { force: true });
-    // $ExpectType string[]
+    // $ExpectType Promise<string[]>
     elementHandle.selectOption("foo", { noWaitAfter: true });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.selectText();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.selectText({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.selectText({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.selectText({ noWaitAfter: true });
 
     // @ts-expect-error
@@ -1532,82 +1532,82 @@ async function test() {
     elementHandle.setInputFiles({ name: "file.txt" });
     // @ts-expect-error
     elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain" });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.setInputFiles([{ name: "file1.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
         name: "file2.txt",
         mimeType: "text/plain",
         buffer: new ArrayBuffer(0),
     }]);
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.setInputFiles({ name: "file.txt", mimeType: "text/plain", buffer: new ArrayBuffer(0) }, {
         noWaitAfter: true,
         timeout: 1000,
     });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.tap();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.tap({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.tap({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.tap({ noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.tap({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.tap({ modifiers: ["Shift"] });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.tap({ trial: true });
 
-    // $ExpectType string
+    // $ExpectType Promise<string>
     elementHandle.textContent();
 
     // @ts-expect-error
     elementHandle.type();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.type("text");
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.type("text", { delay: 100 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.type("text", { timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.type("text", { noWaitAfter: true });
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.uncheck();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.uncheck({ force: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.uncheck({ noWaitAfter: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.uncheck({ timeout: 10000 });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.uncheck({ trial: true });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.uncheck({ position: { x: 0, y: 0 } });
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.uncheck({ strict: true });
 
     // @ts-expect-error
     elementHandle.waitForElementState();
     for (const state of ["visible", "hidden", "stable", "enabled", "disabled", "editable", "disabled"]) {
-        // $ExpectType void
+        // $ExpectType Promise<void>
         elementHandle.waitForElementState(state as any);
     }
-    // $ExpectType void
+    // $ExpectType Promise<void>
     elementHandle.waitForElementState("visible", { timeout: 10000 });
 
     // @ts-expect-error
     elementHandle.waitForSelector();
-    // $ExpectType ElementHandle
+    // $ExpectType Promise<ElementHandle>
     elementHandle.waitForSelector("div");
-    // $ExpectType ElementHandle
+    // $ExpectType Promise<ElementHandle>
     elementHandle.waitForSelector("div", { timeout: 10000 });
-    // $ExpectType ElementHandle
+    // $ExpectType Promise<ElementHandle>
     elementHandle.waitForSelector("div", { state: "attached" });
-    // $ExpectType ElementHandle
+    // $ExpectType Promise<ElementHandle>
     elementHandle.waitForSelector("div", { strict: true });
 
     //
