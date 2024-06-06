@@ -376,19 +376,6 @@ declare namespace runtime {
         } | undefined;
 
         /**
-         * The following property can be used to configure the storage module.
-         * If a string is provided, it is assumed to be the absolute path to a module
-         * that exports a StorageModule. When undefined, the default storage module
-         * will be used.
-         */
-        storageModule?: StorageModule | string;
-
-        /**
-         * The following property can be used to configure the storage module.
-         */
-        storageModuleOptions?: object;
-
-        /**
          * The following property can be used to order the categories in the editor
          * palette. If a node's category is not in the list, the category will get
          * added to the end of the palette.

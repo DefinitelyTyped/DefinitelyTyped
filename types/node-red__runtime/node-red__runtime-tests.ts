@@ -24,25 +24,6 @@ async function runtimeTests() {
                     };
                 },
             },
-            storageModule: {
-                init: (_) => {},
-                getFlows: async () => ({
-                    flows: [],
-                    credentials: {},
-                    rev: "",
-                }),
-                saveFlows: async () => {},
-                saveCredentials: async () => {},
-                getSettings: async () => null,
-                saveSettings: async () => {},
-                getSessions: async () => null,
-                saveSessions: async () => {},
-                getLibraryEntry: async () => "",
-                saveLibraryEntry: async () => {},
-            },
-            storageModuleOptions: {
-                name: "custom",
-            },
             uiPort: 18880,
             uiHost: "localhost",
         },
