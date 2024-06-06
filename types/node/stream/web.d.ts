@@ -1,64 +1,30 @@
 declare module "stream/web" {
-    // stub module, pending copy&paste from .d.ts or manual impl
-    // copy from lib.dom.d.ts
     interface ReadableWritablePair<R = any, W = any> {
+        /**
+         * The ReadableStream to which transform.writable will push the potentially modified data it receives from this ReadableStream.
+         */
         readable: ReadableStream<R>;
         /**
-         * Provides a convenient, chainable way of piping this readable stream
-         * through a transform stream (or any other { writable, readable }
-         * pair). It simply pipes the stream into the writable side of the
-         * supplied pair, and returns the readable side for further use.
-         *
-         * Piping a stream will lock it for the duration of the pipe, preventing
-         * any other consumer from acquiring a reader.
+         * The WritableStream to which this ReadableStream's data will be written.
          */
         writable: WritableStream<W>;
     }
     interface StreamPipeOptions {
+        /**
+         * When `true`, errors in this `ReadableStream` will not cause `transform.writable` to be aborted.
+         */
         preventAbort?: boolean;
+        /**
+         * When `true`, errors in the destination `transform.writable` do not cause this `ReadableStream` to be canceled.
+         */
         preventCancel?: boolean;
         /**
-         * Pipes this readable stream to a given writable stream destination.
-         * The way in which the piping process behaves under various error
-         * conditions can be customized with a number of passed options. It
-         * returns a promise that fulfills when the piping process completes
-         * successfully, or rejects if any errors were encountered.
-         *
-         * Piping a stream will lock it for the duration of the pipe, preventing
-         * any other consumer from acquiring a reader.
-         *
-         * Errors and closures of the source and destination streams propagate
-         * as follows:
-         *
-         * An error in this source readable stream will abort destination,
-         * unless preventAbort is truthy. The returned promise will be rejected
-         * with the source's error, or with any error that occurs during
-         * aborting the destination.
-         *
-         * An error in destination will cancel this source readable stream,
-         * unless preventCancel is truthy. The returned promise will be rejected
-         * with the destination's error, or with any error that occurs during
-         * canceling the source.
-         *
-         * When this source readable stream closes, destination will be closed,
-         * unless preventClose is truthy. The returned promise will be fulfilled
-         * once this process completes, unless an error is encountered while
-         * closing the destination, in which case it will be rejected with that
-         * error.
-         *
-         * If destination starts out closed or closing, this source readable
-         * stream will be canceled, unless preventCancel is true. The returned
-         * promise will be rejected with an error indicating piping to a closed
-         * stream failed, or with any error that occurs during canceling the
-         * source.
-         *
-         * The signal option can be set to an AbortSignal to allow aborting an
-         * ongoing pipe operation via the corresponding AbortController. In this
-         * case, this source readable stream will be canceled, and destination
-         * aborted, unless the respective options preventCancel or preventAbort
-         * are set.
+         * When `true`, closing this `ReadableStream` does not cause `transform.writable` to be closed.
          */
         preventClose?: boolean;
+        /**
+         * Allows the transfer of data to be canceled using an {@link AbortController}.
+         */
         signal?: AbortSignal;
     }
     interface ReadableStreamGenericReader {
@@ -66,8 +32,8 @@ declare module "stream/web" {
         cancel(reason?: any): Promise<void>;
     }
     interface ReadableStreamDefaultReadValueResult<T> {
-        done: false;
-        value: T;
+        done: boolean;
+        value: ArrayBuffer;
     }
     interface ReadableStreamDefaultReadDoneResult {
         done: true;
@@ -142,26 +108,121 @@ declare module "stream/web" {
     interface ReadableStreamErrorCallback {
         (reason: any): void | PromiseLike<void>;
     }
-    /** This Streams API interface represents a readable stream of byte data. */
     interface ReadableStream<R = any> {
+        /**
+         * The `readableStream.locked` property is `false` by default, and is switched to `true`
+         * while there is an active reader consuming the stream's data.
+         * @since v16.5.0
+         */
         readonly locked: boolean;
+        /**
+         * @since v16.5.0
+         * @returns A promise fulfilled with `undefined` once cancelation has been completed.
+         */
         cancel(reason?: any): Promise<void>;
+        /**
+         * ```js
+         * import { ReadableStream } from 'node:stream/web';
+         *
+         * const stream = new ReadableStream();
+         *
+         * const reader = stream.getReader();
+         *
+         * console.log(await reader.read());
+         * ```
+         *
+         * Causes the `readableStream.locked` to be `true`.
+         * @since v16.5.0
+         */
         getReader(): ReadableStreamDefaultReader<R>;
         getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
+        /**
+         * Connects this {@link ReadableStream} to the pair of <ReadableStream> and <WritableStream> provided in the transform argument such that the data from this <ReadableStream> is written in to transform.writable, possibly transformed, then pushed to transform.readable. Once the pipeline is configured, transform.readable is returned.
+         *
+         * Causes the readableStream.locked to be true while the pipe operation is active.
+         */
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
+        /**
+         * Causes the `readableStream.locked` to be `true` while the pipe operation is active.
+         * @since v16.5.0
+         * @param A {@link WritableStream} to which this `ReadableStream`'s data will be written.
+         * @returns A promise fulfilled with `undefined`
+         */
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
+        /**
+         * Returns a pair of new {@link ReadableStream} instances to which this `ReadableStream`'s data will be forwarded. Each will receive the same data.
+         *
+         * Causes the `readableStream.locked` to be `true`.
+         * @since v16.5.0
+         */
         tee(): [ReadableStream<R>, ReadableStream<R>];
+        /**
+         * Creates and returns an async iterator usable for consuming this `ReadableStream`'s data.
+         *
+         * Causes the `readableStream.locked` to be `true` while the async iterator is active.
+         * 
+         * ```js
+         * import { Buffer } from 'node:buffer';
+         *
+         * const stream = new ReadableStream(getSomeSource());
+         *
+         * for await (const chunk of stream.values({ preventCancel: true }))
+         *   console.log(Buffer.from(chunk).toString());
+         * ```
+         * @since v16.5.0
+         */
         values(options?: { preventCancel?: boolean }): AsyncIterableIterator<R>;
-        [Symbol.asyncIterator](): AsyncIterableIterator<R>;
-    }
+      }
     const ReadableStream: {
         prototype: ReadableStream;
+        /**
+         * A utility method that creates a new {@link ReadableStream} from an iterable.
+         *
+         * import { ReadableStream } from 'node:stream/web';
+         *
+         * async function* asyncIterableGenerator() {
+         *   yield 'a';
+         *   yield 'b';
+         *   yield 'c';
+         * }
+         *
+         * const stream = ReadableStream.from(asyncIterableGenerator());
+         *
+         * for await (const chunk of stream)
+         *   console.log(chunk); // Prints: 'a', 'b', 'c'
+         * ```
+         * @since v20.6.0
+         * @param iterable Object implementing the `Symbol.asyncIterator` or `Symbol.iterator` iterable protocol.
+         */
         from<T>(iterable: Iterable<T> | AsyncIterable<T>): ReadableStream<T>;
         new(underlyingSource: UnderlyingByteSource, strategy?: QueuingStrategy<Uint8Array>): ReadableStream<Uint8Array>;
         new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };
+    /**
+     * Creates a new <ReadableStreamDefaultReader> that is locked to the given <ReadableStream>.
+     */
     interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
+        /**
+         * Cancels the {@link ReadableStream} and returns a promise that is fulfilled when the underlying stream has been canceled.
+         * @returns A promise fulfilled with `undefined`.
+         * @since v16.5.0
+         */
+        cancel(reason?: any): Promise<undefined>;
+        /**
+         * Fulfilled with `undefined` when the associated {@link ReadableStream} is closed or rejected if the stream errors or the reader's 
+         * lock is released before the stream finishes closing.
+         * @since v16.5.0
+         */
+        readonly closed: Promise<any>;
+        /**
+         * Requests the next chunk of data from the underlying <ReadableStream> and returns a promise that is fulfilled with the data once it is available.
+         * @since v16.5.0
+         */
         read(): Promise<ReadableStreamDefaultReadResult<R>>;
+        /**
+         * Releases this reader's lock on the underlying {@link ReadableStream}.
+         * @since v16.5.0 
+         */
         releaseLock(): void;
     }
     interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
@@ -196,30 +257,78 @@ declare module "stream/web" {
         new(): ReadableStreamDefaultController;
     };
     interface Transformer<I = any, O = any> {
-        flush?: TransformerFlushCallback<O>;
-        readableType?: undefined;
+        /**
+         * A user-defined function that is invoked immediately when the `TransformStream` is created.
+         */
         start?: TransformerStartCallback<O>;
+        /**
+         * A user-defined function that receives, and potentially modifies, a chunk of data written to 
+         * `transformStream.writable`, before forwarding that on to `transformStream.readable`.
+         */
         transform?: TransformerTransformCallback<I, O>;
+        /**
+         * A user-defined function that is called immediately before the writable side of the `TransformStream` 
+         * is closed, signaling the end of the transformation process.
+         */
+        flush?: TransformerFlushCallback<O>;
+        /**
+         * the `readableType` option is reserved for future use and _must_ be `undefined`.
+         */
+        readableType?: undefined;
+        /**
+         * the `writableType` option is reserved for future use and _must_ be `undefined`.
+         */
         writableType?: undefined;
     }
-    interface TransformStream<I = any, O = any> {
-        readonly readable: ReadableStream<O>;
-        readonly writable: WritableStream<I>;
+    interface TransformStream<R = any, W = any> {
+        /**
+         * @since v16.5.0
+         */
+        readonly readable: ReadableStream<R>;
+        /**
+         * @since v16.5.0
+         */
+        readonly writable: WritableStream<W>;
     }
+    /**
+     * A TransformStream consists of a <ReadableStream> and a <WritableStream> that are connected such that the data written to the WritableStream is received, and potentially transformed, before being pushed into the ReadableStream's queue.
+     */
     const TransformStream: {
         prototype: TransformStream;
-        new<I = any, O = any>(
-            transformer?: Transformer<I, O>,
-            writableStrategy?: QueuingStrategy<I>,
-            readableStrategy?: QueuingStrategy<O>,
+        new<W = any, R = any>(
+            transformer?: Transformer<W, R>,
+            writableStrategy?: QueuingStrategy<W>,
+            readableStrategy?: QueuingStrategy<R>,
         ): TransformStream<I, O>;
     };
     interface TransformStreamDefaultController<O = any> {
+        /**
+         * The amount of data required to fill the readable side's queue.
+         * @since v16.5.0
+         */
         readonly desiredSize: number | null;
+        /**
+         * Appends a chunk of data to the readable side's queue.
+         * @since v16.5.0
+         */
         enqueue(chunk?: O): void;
+        /**
+         * Signals to both the readable and writable side that an error has occurred while
+         * processing the transform data, causing both sides to be abruptly closed.
+         * @since v16.5.0
+         */
         error(reason?: any): void;
+        /**
+         * Closes the readable side of the transport and causes the writable side to be
+         * abruptly closed with an error.
+         * @since v16.5.0
+         */ 
         terminate(): void;
     }
+    /**
+     * The `TransformStreamDefaultController` manages the internal state of the `TransformStream`.
+     * @since v16.5.0
+     */
     const TransformStreamDefaultController: {
         prototype: TransformStreamDefaultController;
         new(): TransformStreamDefaultController;
@@ -230,11 +339,35 @@ declare module "stream/web" {
      * built-in back pressure and queuing.
      */
     interface WritableStream<W = any> {
+        /**
+         * The `writableStream.locked` property is `false` by default, and is switched
+         * to `true` while there is an active writer attached to this `WritableStream`.
+         * @since v16.5.0
+         */
         readonly locked: boolean;
-        abort(reason?: any): Promise<void>;
-        close(): Promise<void>;
+        /**
+         * Abruptly terminates the `WritableStream`. All queued writes will be canceled
+         * with their associated promises rejected.
+         * @since v16.5.0
+         * @returns A promise fulfilled with `undefined`.
+         */
+        abort(reason?: any): Promise<undefined>;
+        /**
+         * Closes the `WritableStream` when no additional writes are expected.
+         * @since v16.5.0
+         * @returns A promise fulfilled with `undefined`.
+         */
+        close(): Promise<undefined>;
+        /**
+         * Creates and returns a new writer instance that can be used to write data into
+         * the `WritableStream`.
+         * @since v16.5.0
+         */
         getWriter(): WritableStreamDefaultWriter<W>;
     }
+    /**
+     * @since v16.5.0
+     */
     const WritableStream: {
         prototype: WritableStream;
         new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
@@ -256,110 +389,190 @@ declare module "stream/web" {
     }
     const WritableStreamDefaultWriter: {
         prototype: WritableStreamDefaultWriter;
+        /**
+         * Creates a new WritableStreamDefaultWriter that is locked to the given WritableStream.
+         */
         new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
     };
-    /**
-     * This Streams API interface represents a controller allowing control of a
-     * WritableStream's state. When constructing a WritableStream, the
-     * underlying sink is given a corresponding WritableStreamDefaultController
-     * instance to manipulate.
-     */
     interface WritableStreamDefaultController {
-        error(e?: any): void;
+        /**
+         * Called by user-code to signal that an error has occurred while processing the `WritableStream` data.
+         * When called, the {@link WritableStream} will be aborted, with currently pending writes canceled.
+         * @since v16.5.0
+         */
+        error(error?: any): void;
+        /**
+         * An `AbortSignal` that can be used to cancel pending write or close operations when a {@link WritableStream} is aborted.
+         */
+        readonly signal: AbortSignal;
     }
+    /**
+     * The `WritableStreamDefaultController` manages the {@link WritableStream}'s internal state.
+     * @since v16.5.0
+     */
     const WritableStreamDefaultController: {
         prototype: WritableStreamDefaultController;
         new(): WritableStreamDefaultController;
     };
     interface QueuingStrategy<T = any> {
+        /**
+         * The maximum internal queue size before backpressure is applied.
+         */
         highWaterMark?: number;
+        /**
+         *  A user-defined function used to identify the size of each chunk of data.
+         */
         size?: QueuingStrategySize<T>;
     }
     interface QueuingStrategySize<T = any> {
         (chunk?: T): number;
     }
     interface QueuingStrategyInit {
-        /**
-         * Creates a new ByteLengthQueuingStrategy with the provided high water
-         * mark.
-         *
-         * Note that the provided high water mark will not be validated ahead of
-         * time. Instead, if it is negative, NaN, or not a number, the resulting
-         * ByteLengthQueuingStrategy will cause the corresponding stream
-         * constructor to throw.
-         */
         highWaterMark: number;
     }
-    /**
-     * This Streams API interface provides a built-in byte length queuing
-     * strategy that can be used when constructing streams.
-     */
     interface ByteLengthQueuingStrategy extends QueuingStrategy<ArrayBufferView> {
+        /**
+         * @since v16.5.0
+         */
         readonly highWaterMark: number;
+        /**
+         * @since v16.5.0
+         */
         readonly size: QueuingStrategySize<ArrayBufferView>;
     }
+    /**
+     * @since v16.5.0
+     */
     const ByteLengthQueuingStrategy: {
         prototype: ByteLengthQueuingStrategy;
         new(init: QueuingStrategyInit): ByteLengthQueuingStrategy;
     };
-    /**
-     * This Streams API interface provides a built-in byte length queuing
-     * strategy that can be used when constructing streams.
-     */
     interface CountQueuingStrategy extends QueuingStrategy {
+        /**
+         * @since v16.5.0
+         */
         readonly highWaterMark: number;
+        /**
+         * @since v16.5.0
+         */
         readonly size: QueuingStrategySize;
     }
+    /**
+     * @since v16.5.0
+     */
     const CountQueuingStrategy: {
         prototype: CountQueuingStrategy;
         new(init: QueuingStrategyInit): CountQueuingStrategy;
     };
     interface TextEncoderStream {
-        /** Returns "utf-8". */
-        readonly encoding: "utf-8";
-        readonly readable: ReadableStream<Uint8Array>;
-        readonly writable: WritableStream<string>;
-        readonly [Symbol.toStringTag]: string;
+        /**
+         * The encoding supported by the `TextEncoderStream` instance.
+         * @since v16.6.0
+         */
+        readonly encoding: string;
+        /**
+         * @since v16.6.0
+         */
+        readonly readable: ReadableStream;
+        /**
+         * @since v16.6.0
+         */
+        readonly writable: WritableStream;
     }
+    /**
+     * @since v16.6.0
+     */
     const TextEncoderStream: {
         prototype: TextEncoderStream;
+        /**
+         * Creates a new `TextEncoderStream` instance.
+         */
         new(): TextEncoderStream;
     };
     interface TextDecoderOptions {
+        /**
+         * `true` if decoding failures are fatal.
+         */
         fatal?: boolean;
+        /**
+         * When `true`, the `TextDecoderStream` will include the byte order mark in the decoded result.
+         * When `false`, the byte order mark will be removed from the output. This option is only used 
+         * when encoding is `'utf-8'`, `'utf-16be'`, or `'utf-16le'`.
+         * @default false
+         */
         ignoreBOM?: boolean;
     }
     type BufferSource = ArrayBufferView | ArrayBuffer;
     interface TextDecoderStream {
-        /** Returns encoding's name, lower cased. */
+        /**
+         * The encoding supported by the `TextDecoderStream` instance.
+         * @since v16.6.0
+         */
         readonly encoding: string;
-        /** Returns `true` if error mode is "fatal", and `false` otherwise. */
+        /**
+         * The value will be `true` if decoding errors result in a `TypeError` being thrown.
+         * @since v16.6.0
+         */
         readonly fatal: boolean;
-        /** Returns `true` if ignore BOM flag is set, and `false` otherwise. */
+        /**
+         * The value will be `true` if the decoding result will include the byte order mark.
+         * @since v16.6.0
+         */
         readonly ignoreBOM: boolean;
-        readonly readable: ReadableStream<string>;
-        readonly writable: WritableStream<BufferSource>;
-        readonly [Symbol.toStringTag]: string;
+        /**
+         * @since v16.6.0
+         */
+        readonly readable: ReadableStream;
+        /**
+         * @since v16.6.0
+         */
+        readonly writable: WritableStream;
     }
+    /**
+     * @since v16.6.0
+     */
     const TextDecoderStream: {
         prototype: TextDecoderStream;
+        /**
+         * @param [encoding='utf8'] Identifies the `encoding` that this `TextDecoder` instance supports.
+         * Creates a new `TextDecoderStream` instance.
+         */
         new(encoding?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
+    type Format = "deflate" | "deflate-raw" | "gzip";
     interface CompressionStream<R = any, W = any> {
+        /**
+         * @since v17.0.0
+         */
         readonly readable: ReadableStream<R>;
+        /**
+         * @since v17.0.0
+         */
         readonly writable: WritableStream<W>;
     }
+    /**
+     * @since v17.0.0
+     */      
     const CompressionStream: {
         prototype: CompressionStream;
-        new<R = any, W = any>(format: "deflate" | "deflate-raw" | "gzip"): CompressionStream<R, W>;
+        new<R = any, W = any>(format: Format): CompressionStream<R, W>;
     };
     interface DecompressionStream<R = any, W = any> {
+        /**
+         * @since v17.0.0
+         */
         readonly readable: ReadableStream<R>;
+        /**
+         * @since v17.0.0
+         */
         readonly writable: WritableStream<W>;
     }
+    /**
+     * @since v17.0.0
+     */      
     const DecompressionStream: {
         prototype: DecompressionStream;
-        new<R = any, W = any>(format: "deflate" | "deflate-raw" | "gzip"): DecompressionStream<R, W>;
+        new<R = any, W = any>(format: Format): DecompressionStream<R, W>;
     };
 }
 declare module "node:stream/web" {
