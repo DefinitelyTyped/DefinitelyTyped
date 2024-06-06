@@ -868,7 +868,7 @@ declare module "buffer" {
             copy(target: Uint8Array, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
             /**
              * Returns a new `Buffer` that references the same memory as the original, but
-             * offset and cropped by the `start` and `end` indices.
+             * offset and cropped by the `start` and `end` indexes.
              *
              * This method is not compatible with the `Uint8Array.prototype.slice()`,
              * which is a superclass of `Buffer`. To copy the slice, use`Uint8Array.prototype.slice()`.
@@ -902,7 +902,7 @@ declare module "buffer" {
             slice(start?: number, end?: number): Buffer;
             /**
              * Returns a new `Buffer` that references the same memory as the original, but
-             * offset and cropped by the `start` and `end` indices.
+             * offset and cropped by the `start` and `end` indexes.
              *
              * Specifying `end` greater than `buf.length` will return the same result as
              * that of `end` equal to `buf.length`.
@@ -2256,7 +2256,7 @@ declare module "buffer" {
              */
             includes(value: string | number | Buffer, byteOffset?: number, encoding?: BufferEncoding): boolean;
             /**
-             * Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) of `buf` keys (indices).
+             * Creates and returns an [iterator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols) of `buf` keys (indexes).
              *
              * ```js
              * import { Buffer } from 'node:buffer';
