@@ -42,7 +42,7 @@ declare module "crypto" {
          * ```
          * @since v9.0.0
          * @param encoding The `encoding` of the `spkac` string.
-         * @return The challenge component of the `spkac` data structure, which includes a public key and a challenge.
+         * @returns The challenge component of the `spkac` data structure, which includes a public key and a challenge.
          */
         static exportChallenge(spkac: BinaryLike): Buffer;
         /**
@@ -55,7 +55,7 @@ declare module "crypto" {
          * ```
          * @since v9.0.0
          * @param encoding The `encoding` of the `spkac` string.
-         * @return The public key component of the `spkac` data structure, which includes a public key and a challenge.
+         * @returns The public key component of the `spkac` data structure, which includes a public key and a challenge.
          */
         static exportPublicKey(spkac: BinaryLike, encoding?: string): Buffer;
         /**
@@ -289,7 +289,7 @@ declare module "crypto" {
      * * Using the `hash.update()` and `hash.digest()` methods to produce the
      * computed hash.
      *
-     * The {@link createHash} method is used to create `Hash` instances. `Hash`objects are not to be created directly using the `new` keyword.
+     * The {@link createHash} method is used to create `Hash` instances. `Hash` objects are not to be created directly using the `new` keyword.
      *
      * Example: Using `Hash` objects as streams:
      *
@@ -384,7 +384,7 @@ declare module "crypto" {
          * Updates the hash content with the given `data`, the encoding of which
          * is given in `inputEncoding`.
          * If `encoding` is not provided, and the `data` is a string, an
-         * encoding of `'utf8'` is enforced. If `data` is a `Buffer`, `TypedArray`, or`DataView`, then `inputEncoding` is ignored.
+         * encoding of `'utf8'` is enforced. If `data` is a `Buffer`, `TypedArray`, or `DataView`, then `inputEncoding` is ignored.
          *
          * This can be called many times with new data as it is streamed.
          * @since v0.1.92
@@ -414,7 +414,7 @@ declare module "crypto" {
      * * Using the `hmac.update()` and `hmac.digest()` methods to produce the
      * computed HMAC digest.
      *
-     * The {@link createHmac} method is used to create `Hmac` instances. `Hmac`objects are not to be created directly using the `new` keyword.
+     * The {@link createHmac} method is used to create `Hmac` instances. `Hmac` objects are not to be created directly using the `new` keyword.
      *
      * Example: Using `Hmac` objects as streams:
      *
@@ -470,7 +470,6 @@ declare module "crypto" {
      * //   7fd04df92f636fd450bc841c9418e5825c17f33ad9c87c518115a45971f7f77e
      * ```
      * @since v0.1.94
-     * @deprecated Since v20.13.0 Calling `Hmac` class directly with `Hmac()` or `new Hmac()` is deprecated due to being internals, not intended for public use. Please use the {@link createHmac} method to create Hmac instances.
      */
     class Hmac extends stream.Transform {
         private constructor();
@@ -478,7 +477,7 @@ declare module "crypto" {
          * Updates the `Hmac` content with the given `data`, the encoding of which
          * is given in `inputEncoding`.
          * If `encoding` is not provided, and the `data` is a string, an
-         * encoding of `'utf8'` is enforced. If `data` is a `Buffer`, `TypedArray`, or`DataView`, then `inputEncoding` is ignored.
+         * encoding of `'utf8'` is enforced. If `data` is a `Buffer`, `TypedArray`, or `DataView`, then `inputEncoding` is ignored.
          *
          * This can be called many times with new data as it is streamed.
          * @since v0.1.94
@@ -488,8 +487,7 @@ declare module "crypto" {
         update(data: string, inputEncoding: Encoding): Hmac;
         /**
          * Calculates the HMAC digest of all of the data passed using `hmac.update()`.
-         * If `encoding` is
-         * provided a string is returned; otherwise a `Buffer` is returned;
+         * If `encoding` is provided a string is returned; otherwise a `Buffer` is returned;
          *
          * The `Hmac` object can not be used again after `hmac.digest()` has been
          * called. Multiple calls to `hmac.digest()` will result in an error being thrown.
@@ -557,8 +555,8 @@ declare module "crypto" {
     }
     /**
      * Node.js uses a `KeyObject` class to represent a symmetric or asymmetric key,
-     * and each kind of key exposes different functions. The {@link createSecretKey}, {@link createPublicKey} and {@link createPrivateKey} methods are used to create `KeyObject`instances. `KeyObject`
-     * objects are not to be created directly using the `new`keyword.
+     * and each kind of key exposes different functions. The {@link createSecretKey}, {@link createPublicKey} and {@link createPrivateKey} methods are used to create `KeyObject` instances. `KeyObject`
+     * objects are not to be created directly using the `new` keyword.
      *
      * Most applications should consider using the new `KeyObject` API instead of
      * passing keys as strings or `Buffer`s due to improved security features.
@@ -643,8 +641,8 @@ declare module "crypto" {
          * ignored.
          *
          * PKCS#1, SEC1, and PKCS#8 type keys can be encrypted by using a combination of
-         * the `cipher` and `format` options. The PKCS#8 `type` can be used with any`format` to encrypt any key algorithm (RSA, EC, or DH) by specifying a`cipher`. PKCS#1 and SEC1 can only be
-         * encrypted by specifying a `cipher`when the PEM `format` is used. For maximum compatibility, use PKCS#8 for
+         * the `cipher` and `format` options. The PKCS#8 `type` can be used with any `format` to encrypt any key algorithm (RSA, EC, or DH) by specifying a `cipher`. PKCS#1 and SEC1 can only be
+         * encrypted by specifying a `cipher` when the PEM `format` is used. For maximum compatibility, use PKCS#8 for
          * encrypted private keys. Since PKCS#8 defines its own
          * encryption mechanism, PEM-level encryption is not supported when encrypting
          * a PKCS#8 key. See [RFC 5208](https://www.rfc-editor.org/rfc/rfc5208.txt) for PKCS#8 encryption and [RFC 1421](https://www.rfc-editor.org/rfc/rfc1421.txt) for
@@ -668,7 +666,7 @@ declare module "crypto" {
          */
         symmetricKeySize?: number | undefined;
         /**
-         * Depending on the type of this `KeyObject`, this property is either`'secret'` for secret (symmetric) keys, `'public'` for public (asymmetric) keys
+         * Depending on the type of this `KeyObject`, this property is either `'secret'` for secret (symmetric) keys, `'public'` for public (asymmetric) keys
          * or `'private'` for private (asymmetric) keys.
          * @since v11.6.0
          */
@@ -692,8 +690,8 @@ declare module "crypto" {
      * Creates and returns a `Cipher` object that uses the given `algorithm` and `password`.
      *
      * The `options` argument controls stream behavior and is optional except when a
-     * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the`authTagLength` option is required and specifies the length of the
-     * authentication tag in bytes, see `CCM mode`. In GCM mode, the `authTagLength`option is not required but can be used to set the length of the authentication
+     * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the `authTagLength` option is required and specifies the length of the
+     * authentication tag in bytes, see `CCM mode`. In GCM mode, the `authTagLength` option is not required but can be used to set the length of the authentication
      * tag that will be returned by `getAuthTag()` and defaults to 16 bytes.
      * For `chacha20-poly1305`, the `authTagLength` option defaults to 16 bytes.
      *
@@ -702,7 +700,7 @@ declare module "crypto" {
      * display the available cipher algorithms.
      *
      * The `password` is used to derive the cipher key and initialization vector (IV).
-     * The value must be either a `'latin1'` encoded string, a `Buffer`, a`TypedArray`, or a `DataView`.
+     * The value must be either a `'latin1'` encoded string, a `Buffer`, a `TypedArray`, or a `DataView`.
      *
      * **This function is semantically insecure for all**
      * **supported ciphers and fatally flawed for ciphers in counter mode (such as CTR,**
@@ -745,7 +743,7 @@ declare module "crypto" {
      * display the available cipher algorithms.
      *
      * The `key` is the raw key used by the `algorithm` and `iv` is an [initialization vector](https://en.wikipedia.org/wiki/Initialization_vector). Both arguments must be `'utf8'` encoded
-     * strings,`Buffers`, `TypedArray`, or `DataView`s. The `key` may optionally be
+     * strings, `Buffers`, `TypedArray`, or `DataView`s. The `key` may optionally be
      * a `KeyObject` of type `secret`. If the cipher does not need
      * an initialization vector, `iv` may be `null`.
      *
@@ -907,11 +905,11 @@ declare module "crypto" {
         private constructor();
         /**
          * Updates the cipher with `data`. If the `inputEncoding` argument is given,
-         * the `data`argument is a string using the specified encoding. If the `inputEncoding`argument is not given, `data` must be a `Buffer`, `TypedArray`, or `DataView`. If `data` is a `Buffer`,
+         * the `data` argument is a string using the specified encoding. If the `inputEncoding` argument is not given, `data` must be a `Buffer`, `TypedArray`, or `DataView`. If `data` is a `Buffer`,
          * `TypedArray`, or `DataView`, then `inputEncoding` is ignored.
          *
          * The `outputEncoding` specifies the output format of the enciphered
-         * data. If the `outputEncoding`is specified, a string using the specified encoding is returned. If no`outputEncoding` is provided, a `Buffer` is returned.
+         * data. If the `outputEncoding` is specified, a string using the specified encoding is returned. If no `outputEncoding` is provided, a `Buffer` is returned.
          *
          * The `cipher.update()` method can be called multiple times with new data until `cipher.final()` is called. Calling `cipher.update()` after `cipher.final()` will result in an error being
          * thrown.
@@ -946,7 +944,7 @@ declare module "crypto" {
          * The `cipher.setAutoPadding()` method must be called before `cipher.final()`.
          * @since v0.7.1
          * @param [autoPadding=true]
-         * @return for method chaining.
+         * @returns for method chaining.
          */
         setAutoPadding(autoPadding?: boolean): this;
     }
@@ -2251,7 +2249,7 @@ declare module "crypto" {
      * console.log(getCiphers()); // ['aes-128-cbc', 'aes-128-ccm', ...]
      * ```
      * @since v0.9.3
-     * @return An array with the names of the supported cipher algorithms.
+     * @returns An array with the names of the supported cipher algorithms.
      */
     function getCiphers(): string[];
     /**
@@ -2263,12 +2261,12 @@ declare module "crypto" {
      * console.log(getCurves()); // ['Oakley-EC2N-3', 'Oakley-EC2N-4', ...]
      * ```
      * @since v2.3.0
-     * @return An array with the names of the supported elliptic curves.
+     * @returns An array with the names of the supported elliptic curves.
      */
     function getCurves(): string[];
     /**
      * @since v10.0.0
-     * @return `1` if and only if a FIPS compliant crypto provider is currently in use, `0` otherwise. A future semver-major release may change the return type of this API to a {boolean}.
+     * @returns `1` if and only if a FIPS compliant crypto provider is currently in use, `0` otherwise. A future semver-major release may change the return type of this API to a {boolean}.
      */
     function getFips(): 1 | 0;
     /**
@@ -3958,7 +3956,7 @@ declare module "crypto" {
      * implementation is not compliant with the Web Crypto spec, to write
      * web-compatible code use {@link webcrypto.getRandomValues} instead.
      * @since v17.4.0
-     * @return Returns `typedArray`.
+     * @returns Returns `typedArray`.
      */
     function getRandomValues<T extends webcrypto.BufferSource>(typedArray: T): T;
     /**
