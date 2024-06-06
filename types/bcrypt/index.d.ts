@@ -121,7 +121,7 @@ export declare function hash(
     data: string | Buffer,
     saltOrRounds: string | number,
     callback: (err: Error | undefined, encrypted: string) => any,
-): void;
+): Promise<string>;
 
 /**
  * @param data The data to be encrypted.
