@@ -10,7 +10,7 @@ export interface SQSRecord {
     receiptHandle: string;
     body: string;
     attributes: SQSRecordAttributes;
-    messageAttributes: SQSMessageAttributes;
+    messageAttributes: Partial<SQSMessageAttributes>;
     md5OfBody: string;
     eventSource: string;
     eventSourceARN: string;

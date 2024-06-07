@@ -5,9 +5,16 @@ import { SQSEvent, SQSHandler } from "aws-lambda";
 const handler: SQSHandler = async (event, context, callback) => {
     str = event.Records[0].messageId;
     anyObj = event.Records[0].body;
-    strOrUndefined = event.Records[0].messageAttributes.testAttr.stringValue;
-    strOrUndefined = event.Records[0].messageAttributes.testAttr.binaryValue;
-    str = event.Records[0].messageAttributes.testAttr.dataType;
+
+    // We do a non-null assertion here because we know it's there, based on the type below and to further test deeper properties.
+    let knownAttr = event.Records[0].messageAttributes.testAttr; 
+    if (knownAttr) {
+      strOrUndefined = knownAttr.stringValue;
+      strOrUndefined = knownAttr.binaryValue;
+      str = knownAttr.dataType;
+    }
+
+    objectOrUndefined = event.Records[0].messageAttributes.nonExistingAttr;
 
     callback();
     callback(new Error());
