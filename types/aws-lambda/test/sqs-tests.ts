@@ -7,11 +7,11 @@ const handler: SQSHandler = async (event, context, callback) => {
     anyObj = event.Records[0].body;
 
     // We do a non-null assertion here because we know it's there, based on the type below and to further test deeper properties.
-    let knownAttr = event.Records[0].messageAttributes.testAttr; 
+    let knownAttr = event.Records[0].messageAttributes.testAttr;
     if (knownAttr) {
-      strOrUndefined = knownAttr.stringValue;
-      strOrUndefined = knownAttr.binaryValue;
-      str = knownAttr.dataType;
+        strOrUndefined = knownAttr.stringValue;
+        strOrUndefined = knownAttr.binaryValue;
+        str = knownAttr.dataType;
     }
 
     objectOrUndefined = event.Records[0].messageAttributes.nonExistingAttr;
