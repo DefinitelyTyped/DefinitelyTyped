@@ -1,7 +1,10 @@
 declare namespace Pannellum {
     interface ConfigOptions
-        extends GeneralOptions, EquirectangularOptions, CubemapOptions, MultiresOptions, DynamicOptions
-    {}
+        extends GeneralOptions,
+            EquirectangularOptions,
+            CubemapOptions,
+            MultiresOptions,
+            DynamicOptions {}
 
     interface GeneralOptions {
         /**
@@ -194,8 +197,12 @@ declare namespace Pannellum {
          */
         horizonRoll?: number;
 
-        // ### `animationTimingFunction` (function) [API only]
-        // This specifies a timing function to be used for animating movements such as when the `lookAt` method is called. The default timing function is `easeInOutQuad`. If a custom function is specified, it should take a number [0, 1] as its only argument and return a number [0, 1].
+        /**
+         * This specifies a timing function to be used for animating movements such as when the `lookAt` method is called. The default timing function is `easeInOutQuad`. If a custom function is specified, it should take a number [0, 1] as its only argument and return a number [0, 1].
+         * Note: This option is only available when using the API.
+         * @param t Normalized time in animation
+         */
+        animationTimingFunction?(t: number): number;
 
         /**
          * When true, HTML is escaped from configuration strings to help mitigate possible DOM XSS attacks. This is always `true` when using the standalone viewer since the configuration is provided via the URL; it defaults to `false` but can be set to `true` when using the API.
@@ -447,7 +454,7 @@ declare namespace Pannellum {
                 horizonPitch?: number;
                 horizonRoll?: number;
                 backgroundColor?: [number, number, number];
-            },
+            }
         ): void;
 
         /**
@@ -488,7 +495,7 @@ declare namespace Pannellum {
                  * Return rendered image?
                  */
                 returnImage?: boolean;
-            },
+            }
         ): void;
 
         /**
@@ -531,7 +538,7 @@ declare namespace Pannellum {
             pitch: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown,
+            callbackArgs?: unknown
         ): this;
 
         /**
@@ -561,7 +568,7 @@ declare namespace Pannellum {
             yaw: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown,
+            callbackArgs?: unknown
         ): this;
 
         /**
@@ -591,7 +598,7 @@ declare namespace Pannellum {
             hfov: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown,
+            callbackArgs?: unknown
         ): this;
 
         /**
@@ -620,7 +627,7 @@ declare namespace Pannellum {
             hfov?: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown,
+            callbackArgs?: unknown
         ): this;
 
         /**
