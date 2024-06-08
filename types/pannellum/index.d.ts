@@ -1,10 +1,7 @@
 declare namespace Pannellum {
     interface ConfigOptions
-        extends GeneralOptions,
-            EquirectangularOptions,
-            CubemapOptions,
-            MultiresOptions,
-            DynamicOptions {}
+        extends GeneralOptions, EquirectangularOptions, CubemapOptions, MultiresOptions, DynamicOptions
+    {}
 
     interface GeneralOptions {
         /**
@@ -265,7 +262,7 @@ declare namespace Pannellum {
         avoidShowingBackground?: boolean;
     }
 
-    interface EquirectangularOptions extends DynamicOptions {
+    interface EquirectangularOptions {
         /**
          * Sets the URL to the equirectangular panorama image. This is relative to `basePath` if it is set, else it is relative to the location of `pannellum.htm`. An absolute URL can also be used.
          */
@@ -474,7 +471,7 @@ declare namespace Pannellum {
                 horizonPitch?: number;
                 horizonRoll?: number;
                 backgroundColor?: [number, number, number];
-            }
+            },
         ): void;
 
         /**
@@ -515,7 +512,7 @@ declare namespace Pannellum {
                  * Return rendered image?
                  */
                 returnImage?: boolean;
-            }
+            },
         ): void;
 
         /**
@@ -558,7 +555,7 @@ declare namespace Pannellum {
             pitch: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown
+            callbackArgs?: unknown,
         ): this;
 
         /**
@@ -588,7 +585,7 @@ declare namespace Pannellum {
             yaw: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown
+            callbackArgs?: unknown,
         ): this;
 
         /**
@@ -618,7 +615,7 @@ declare namespace Pannellum {
             hfov: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown
+            callbackArgs?: unknown,
         ): this;
 
         /**
@@ -647,7 +644,7 @@ declare namespace Pannellum {
             hfov?: number,
             animated?: boolean | number,
             callback?: (args: unknown) => void,
-            callbackArgs?: unknown
+            callbackArgs?: unknown,
         ): this;
 
         /**
