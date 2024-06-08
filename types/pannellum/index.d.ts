@@ -30,7 +30,27 @@ declare namespace Pannellum {
         /**
          * Allows user-facing strings to be changed / translated. See `defaultConfig.strings` definition in `pannellum.js` for more details.
          */
-        strings?: Record<string, string>;
+        strings?: Partial<
+            Record<
+                // Labels
+                | "loadButtonLabel"
+                | "loadingLabel"
+                | "bylineLabel"
+                // Errors
+                | "noPanoramaError"
+                | "fileAccessError"
+                | "malformedURLError"
+                | "iOS8WebGLError"
+                | "genericWebGLError"
+                | "textureSizeError"
+                | "unknownError"
+                | "twoTouchActivate"
+                | "twoTouchXActivate"
+                | "twoTouchYActivate"
+                | "ctrlZoomActivate",
+                string
+            >
+        >;
 
         /**
          * This specifies a base path to load the images from.
