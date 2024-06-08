@@ -5673,6 +5673,14 @@ fp.now(); // $ExpectType number
         return abcObject;
     });
 
+    // $ExpectType NumericDictionary<boolean>
+    _.mapValues(arrayParam, (value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
     // $ExpectType { [x: string]: string; }
     _.mapValues(dictionary, (value, key, collection) => {
         value;  // $ExpectType AbcObject
@@ -5734,6 +5742,14 @@ fp.now(); // $ExpectType number
         return "";
     });
 
+    // $ExpectType NumericDictionary<boolean>
+    _(arrayParam).mapValues((value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
     // $ExpectType Object<{ [x: number]: string; }>
     _(numericDictionary).mapValues((value, key, collection) => {
         value;  // $ExpectType AbcObject
@@ -5783,6 +5799,16 @@ fp.now(); // $ExpectType number
         collection; // $ExpectType Dictionary<AbcObject>
         return "";
     });
+
+    // $ExpectType ObjectChain<NumericDictionary<boolean>>
+    _.chain(arrayParam).mapValues((value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
+    
 
     // $ExpectType ObjectChain<{ [x: number]: string; }>
     _.chain(numericDictionary).mapValues((value, key, collection) => {
