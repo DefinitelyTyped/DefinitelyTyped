@@ -1070,7 +1070,7 @@ declare namespace AP {
          */
         function openIssueDialog(
             issueKey: string,
-            callback: (issueKeyOrErr: string) => void,
+            callback?: (issueKeyOrErr: string) => void,
         ): void;
 
         /**
