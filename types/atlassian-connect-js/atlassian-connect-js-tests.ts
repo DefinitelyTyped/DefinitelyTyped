@@ -130,6 +130,8 @@ AP.jira.refreshIssuePage(); // $ExpectType void
 AP.jira.getWorkflowConfiguration(workflowConfiguration => console.log(workflowConfiguration)); // $ExpectType void
 AP.jira.isDashboardItemEditable(editable => console.log(editable)); // $ExpectType void
 AP.jira.openCreateIssueDialog(issues => console.log(issues), { pid: 1, issueType: 1, fields: { field1: "field" } }); // $ExpectType void
+AP.jira.openIssueDialog("key-1"); // $ExpectType void
+AP.jira.openIssueDialog("key-1", (issueKey) => console.log(issueKey)); // $ExpectType void
 AP.jira.setDashboardItemTitle("title"); // $ExpectType void
 AP.jira.initJQLEditor(); // $ExpectType void
 AP.jira.showJQLEditor(obj => console.log(obj.jql), {}); // $ExpectType void
