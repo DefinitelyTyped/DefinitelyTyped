@@ -116,8 +116,10 @@ declare namespace Autocomplete {
         /**
          * Whether or not to automatically highlight the top match in the dropdown
          * menu.
+         *
+         * @default true
          */
-        autoHighlight?: true | undefined;
+        autoHighlight?: boolean | undefined;
         /**
          * Whether or not to automatically select the highlighted item when the
          * `<input>` loses focus.
