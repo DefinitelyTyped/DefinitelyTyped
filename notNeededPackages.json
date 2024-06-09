@@ -528,6 +528,10 @@
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
         },
+        "carbon__icon-helpers": {
+            "libraryName": "@carbon/icon-helpers",
+            "asOfVersion": "10.45.0"
+        },
         "carbon__icons-react": {
             "libraryName": "@carbon/icons-react",
             "asOfVersion": "11.29.0"
