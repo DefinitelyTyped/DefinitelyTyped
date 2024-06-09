@@ -25,9 +25,14 @@
     ],
     "exports": {
         ".": {
-          "types": "./index.d.ts",
-          "import": "./index.d.ts",
-          "require": "./index.d.cts"
+            "import": {
+                "types": "./index.d.ts",
+                "default": "./index.js"
+            },
+            "require": {
+                "types": "./index.d.cts",
+                "default": "./index.cjs"
+            }
         }
     }
 }
