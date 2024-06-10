@@ -84,8 +84,10 @@ declare namespace DNS {
         type: "udp4" | "udp6";
     }
 
+    type UdpListenOptions = ListenOptions & UdpDnsServerOptions;
+
     interface DnsServerListenOptions {
-        udp?: ListenOptions;
+        udp?: UdpListenOptions;
         tcp?: ListenOptions;
         doh?: ListenOptions;
     }
@@ -101,6 +103,7 @@ declare namespace DNS {
     type ListenOptions = number | {
         port: number;
         address: string;
+        type: "udp4" | "udp6"
     };
 }
 
