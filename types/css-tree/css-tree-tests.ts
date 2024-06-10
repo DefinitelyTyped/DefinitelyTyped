@@ -90,7 +90,7 @@ csstree.generate(ast, {
             return handlers.result.call(handlers);
         },
     }),
-    mode: 'spec',
+    mode: "spec",
 });
 
 const property = csstree.property("*-vendor-property"); // $ExpectType Property
