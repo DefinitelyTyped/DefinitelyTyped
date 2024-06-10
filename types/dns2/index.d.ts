@@ -103,7 +103,6 @@ declare namespace DNS {
     type ListenOptions = number | {
         port: number;
         address: string;
-        type: "udp4" | "udp6"
     };
 }
 
