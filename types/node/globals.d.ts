@@ -146,6 +146,7 @@ declare global {
     interface BigUint64Array extends RelativeIndexable<bigint> {}
     // #endregion ArrayLike.at() end
 
+    // DeepWritable and types from https://github.com/ts-essentials/ts-essentials/blob/365612c0de7f32d203552861d8431986c0d291c4/lib/deep-writable/index.ts
     type IsAny<Type> = 0 extends 1 & Type ? true : false;
     type Primitive = string | number | boolean | bigint | symbol | undefined | null;
     type Builtin = Primitive | Function | Date | Error | RegExp;
