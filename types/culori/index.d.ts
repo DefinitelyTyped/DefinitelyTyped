@@ -72,8 +72,7 @@ export {
     interpolatorSplineMonotoneClosed,
 } from "./src/interpolate/splineMonotone";
 
-export { clampChroma, clampRgb } from "./src/clamp";
-export { default as displayable } from "./src/displayable";
+export { clampChroma, clampGamut, clampRgb, displayable, inGamut, toGamut } from "./src/clamp";
 export { default as lerp } from "./src/interpolate/lerp";
 export { getMode, removeParser, useMode, useParser } from "./src/modes";
 export { default as nearest } from "./src/nearest";
