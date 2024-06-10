@@ -4,14 +4,14 @@ import { DiffFn } from "./difference";
 /**
  * Returns whether the color is in the sRGB gamut.
  */
-export function displayable(color: Color | string): boolean
+export function displayable(color: Color | string): boolean;
 
 /**
  * Given a color space `mode`, returns a function
  * with which to check whether a color is
  * in that color space's gamut.
  */
-export function inGamut(mode?: Mode): (color: Color | string) => boolean
+export function inGamut(mode?: Mode): (color: Color | string) => boolean;
 
 /*
  * Obtain a color that's in the sRGB gamut
@@ -34,7 +34,7 @@ export function clampRgb<C extends Color>(color: C): C;
  * any combination of in-range channel values
  * produces an in-gamut color.
  */
-export function clampGamut(mode?: Mode): (color: Color | string) => Color | undefined
+export function clampGamut(mode?: Mode): (color: Color | string) => Color | undefined;
 
 /**
  * Obtain a color that’s in a RGB gamut (by default sRGB)
@@ -49,7 +49,7 @@ export function clampGamut(mode?: Mode): (color: Color | string) => Color | unde
 export function clampChroma(
     color: string,
     mode?: Mode,
-    rgbGamut?: GamutMode
+    rgbGamut?: GamutMode,
 ): Color | undefined;
 export function clampChroma<C extends Color>(color: C, mode?: Mode, rgbGamut?: GamutMode): C;
 
@@ -81,5 +81,5 @@ export function toGamut(
     dest: Mode,
     mode: Mode,
     delta?: number,
-    jnd?: number
-): (color: Color | string) => Color | undefined
+    jnd?: number,
+): (color: Color | string) => Color | undefined;

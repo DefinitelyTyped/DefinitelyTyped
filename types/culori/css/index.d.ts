@@ -16,4 +16,4 @@ export {
     rgb,
     xyz50,
     xyz65,
-} from '../index';
+} from "../index";

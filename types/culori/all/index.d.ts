@@ -28,4 +28,4 @@ export {
     xyz50,
     xyz65,
     yiq,
-} from '../index'
+} from "../index";
