@@ -7986,10 +7986,16 @@ declare namespace chrome.runtime {
  */
 declare namespace chrome.scripting {
     /* The CSS style origin for a style change. */
-    export type StyleOrigin = "AUTHOR" | "USER";
+    export enum StyleOrigin {
+        AUTHOR = "AUTHOR",
+        USER = "USER",
+    }
 
     /* The JavaScript world for a script to execute within. */
-    export type ExecutionWorld = "ISOLATED" | "MAIN";
+    export enum ExecutionWorld {
+        ISOLATED = "ISOLATED",
+        MAIN = "MAIN",
+    }
 
     export interface InjectionResult<T extends any = any> {
         /**
@@ -8036,7 +8042,7 @@ declare namespace chrome.scripting {
             /* Details specifying the target into which to inject the script. */
             target: InjectionTarget;
             /* The JavaScript world for a script to execute within. */
-            world?: ExecutionWorld;
+            world?: ExecutionWorld.MAIN | ExecutionWorld.ISOLATED;
             /* Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target. */
             injectImmediately?: boolean;
         }
@@ -13095,7 +13101,7 @@ declare namespace chrome.userScripts {
         /** Specifies when JavaScript files are injected into the web page. The preferred and default value is document_idle */
         runAt?: RunAt;
         /** The JavaScript execution environment to run the script in. The default is `USER_SCRIPT` */
-        world?: ExecutionWorld;
+        world?: ExecutionWorld.MAIN | ExecutionWorld.ISOLATED;
     }
 
     /**
