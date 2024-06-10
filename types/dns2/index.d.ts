@@ -84,7 +84,9 @@ declare namespace DNS {
         type: "udp4" | "udp6";
     }
 
-    type UdpListenOptions = ListenOptions & UdpDnsServerOptions;
+    type UdpListenOptions = ListenOptions & {
+        type?: "udp4" | "udp6"
+    }
 
     interface DnsServerListenOptions {
         udp?: UdpListenOptions;
