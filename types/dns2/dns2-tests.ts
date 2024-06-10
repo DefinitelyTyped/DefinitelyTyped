@@ -178,7 +178,7 @@ serverOnAddressWithUdpType.listen({
     udp: {
         port: 5355,
         address: "0.0.0.0",
-        type: 'udp4'
+        type: "udp4",
     },
 });
 
