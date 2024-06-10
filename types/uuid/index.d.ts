@@ -37,7 +37,7 @@ interface V7BaseOptions {
 }
 export type V7Options = (RandomOptions | RngOptions) & V7BaseOptions;
 
-type VToV = ((uuid: string) => string) & ((uuid: Uint8Array) => Uint8Array) & ((uuid: OutputBuffer) => OutputBuffer);
+type VToV = ((uuid: string) => string) & ((uuid: OutputBuffer) => Uint8Array);
 
 type v1String = (options?: V1Options) => string;
 type v1Buffer = <T extends OutputBuffer>(options: V1Options | null | undefined, buffer: T, offset?: number) => T;
