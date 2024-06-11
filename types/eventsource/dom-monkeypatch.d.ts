@@ -73,7 +73,7 @@ declare module "eventsource" {
     }
 
     /** The MessageEvent interface represents a message received by a target object. */
-    interface MessageEvent<T = any> extends Event {
+    export interface MessageEvent<T = any> extends Event {
         /**
          * Returns the data of the message.
          */
@@ -89,7 +89,7 @@ declare module "eventsource" {
         readonly origin: string;
     }
 
-    var MessageEvent: {
+    export var MessageEvent: {
         prototype: MessageEvent;
         new<T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>;
     };
