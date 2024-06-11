@@ -15,5 +15,5 @@ export import stringify = uuid.stringify;
 export import parse = uuid.parse;
 export import V1Options = uuid.V1Options;
 export import V4Options = uuid.V4Options;
-export import V6Options = uuid.V7Options;
-export import V7Options = uuid.V6Options;
+export import V6Options = uuid.V6Options;
+export import V7Options = uuid.V7Options;
