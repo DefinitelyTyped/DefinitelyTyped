@@ -40,17 +40,16 @@ function testMap() {
 function testWithSymbols() {
     var obj = { a: 1, b: 2, [Symbol("c")]: 3 };
 
-    traverse(obj, {includeSymbols: true}).forEach(function(x) {
+    traverse(obj, { includeSymbols: true }).forEach(function(x) {
         console.log(x);
     });
 }
 
-
 function testImmutable() {
     var obj = { a: 1 };
 
-    traverse(obj, {immutable: true}).forEach(function(x) {
-        this.remove()
+    traverse(obj, { immutable: true }).forEach(function(x) {
+        this.remove();
     });
 
     console.dir(obj);
