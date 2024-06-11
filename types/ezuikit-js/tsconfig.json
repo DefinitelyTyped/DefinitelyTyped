@@ -8,8 +8,9 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
         "types": [],
-        "noEmit": true,
+        "noEmit": true
     },
     "files": [
         "index.d.ts",

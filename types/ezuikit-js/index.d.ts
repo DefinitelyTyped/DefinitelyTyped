@@ -8,7 +8,7 @@ declare namespace EZUIKit {
     /**
      * @description 授权过程获取的 access_token
      */
-    accessToken: string; 
+    accessToken: string;
     /**
      * @description 视频 ezopen 协议播放地址	
      * @example ezopen://open.ys7.com/${设备序列号}/{通道号}.live
@@ -24,11 +24,11 @@ declare namespace EZUIKit {
      /**
      * @description 视频宽度，默认值为容器容器 DOM 宽度		
      */
-    width?: number,
+    width?: number;
     /**
      * @description 视频高度，默认值为容器容器 DOM 高度		
      */
-    height?: number,
+    height?: number;
     /**
      * @description 设置静态资源地址, 自定义可以自行下载 `ezuikit_static`放置在自己的服务器下， 设置 {staticPath: "/ezuikit_static"}	
      */
@@ -139,7 +139,7 @@ declare namespace EZUIKit {
       /**
         * @description 重置画面宽高
         */
-      reSize(width: number, height: number): void
+      reSize(width: number, height: number): void;
   
       /**
         * @description 开启电子放大
@@ -149,7 +149,7 @@ declare namespace EZUIKit {
       /**
         * @description 关闭电子放大
       */
-      closeZoom(): Promise<void>
+      closeZoom(): Promise<void>;
       
       /**
        * @description 切换地址播放
