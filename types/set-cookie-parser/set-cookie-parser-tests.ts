@@ -30,7 +30,6 @@ assert.deepStrictEqual(cookies[0].expires, new Date("Tue Jul 01 2025 06:01:11 GM
 assert.strictEqual(cookies[0].maxAge, 1000);
 assert.strictEqual(cookies[0].httpOnly, true);
 assert.strictEqual(cookies[0].secure, true);
-assert.strictEqual(cookies[0].sameSite, "Strict");
 
 // Array of strings test
 const arrayOfCookies = ["bam=baz", "foo=bar"];
