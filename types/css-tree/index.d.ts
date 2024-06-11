@@ -528,6 +528,7 @@ export interface GenerateHandlers {
 export interface GenerateOptions {
     sourceMap?: boolean | undefined;
     decorator?: ((handlers: GenerateHandlers) => GenerateHandlers) | undefined;
+    mode?: "safe" | "spec" | undefined;
 }
 
 export function generate(ast: CssNode, options?: GenerateOptions): string;
