@@ -99,7 +99,7 @@ declare namespace traverse {
         clone(): T;
     }
 
-    export interface TraverseOptions {
+    interface TraverseOptions {
         /**
          * If true, does not alter the original object
          */
@@ -107,7 +107,7 @@ declare namespace traverse {
 
         /**
          * If false, removes all symbols from traversed objects
-         * 
+         *
          * @default false
          */
         includeSymbols?: boolean;
