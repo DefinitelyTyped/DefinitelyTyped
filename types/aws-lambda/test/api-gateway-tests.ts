@@ -48,6 +48,7 @@ import {
     ProxyCallback,
     ProxyHandler,
     Statement,
+    StatementEffect,
 } from "aws-lambda";
 
 interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
@@ -757,7 +758,7 @@ const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, 
     return result;
 };
 
-function createPolicyDocument(effect: "Allow" | "Deny" = "Deny"): PolicyDocument {
+function createPolicyDocument(effect: StatementEffect = "Deny"): PolicyDocument {
     let statement: Statement = {
         Action: str,
         Effect: effect,

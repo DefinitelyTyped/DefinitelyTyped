@@ -220,8 +220,10 @@ export interface Condition {
  */
 export type Statement = BaseStatement & StatementAction & (StatementResource | StatementPrincipal);
 
+export type StatementEffect = "Allow" | "Deny";
+
 export interface BaseStatement {
-    Effect: "Allow" | "Deny";
+    Effect: StatementEffect;
     Sid?: string | undefined;
     Condition?: ConditionBlock | undefined;
 }

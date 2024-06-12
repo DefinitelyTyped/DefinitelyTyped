@@ -8,6 +8,7 @@ import {
     IoTProtocolType,
     PolicyDocument,
     Statement,
+    StatementEffect,
 } from "aws-lambda";
 
 // IoT Custom Authorizer
@@ -93,7 +94,7 @@ const iotCustomAuthorizerHandler: IoTCustomAuthorizerHandler = async (event, con
     return result;
 };
 
-function createPolicyDocument(effect: "Allow" | "Deny" = "Deny"): PolicyDocument {
+function createPolicyDocument(effect: StatementEffect = "Deny"): PolicyDocument {
     let statement: Statement = {
         Action: str,
         Effect: effect,
