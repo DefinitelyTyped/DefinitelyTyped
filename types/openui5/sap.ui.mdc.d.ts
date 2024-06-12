@@ -1,4 +1,4 @@
-// For Library Version: 1.124.0
+// For Library Version: 1.125.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -12371,7 +12371,7 @@ declare module "sap/ui/mdc/FilterField" {
    * 	 - In edit mode, usually an {@link sap.m.Input Input} control is rendered.
    * 	 - If multiple values are allowed, a {@link sap.m.MultiInput MultiInput} control is rendered.
    * 	 - If `multipleLines` is set, a {@link sap.m.TextArea TextArea} control is rendered.
-   * 	 - If a date type or a date/time type is used, a {@link sap.m.DateRangeSelection DateRangeSelection }
+   * 	 - If a date type or a date/time type is used and only one condition is supported, a {@link sap.m.DynamicDateRange DynamicDateRange }
    *     control is rendered.
    * 	 - If a date type is used and only single values are allowed, a {@link sap.m.DatePicker DatePicker }
    *     control is rendered.
@@ -17894,16 +17894,19 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
     /**
      * Fires event {@link #event:dragOver dragOver} to attached listeners.
      *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Whether or not to prevent the default action
      */
     fireDragOver(
       /**
        * Parameters to pass along with the event
        */
       mParameters?: DragDropConfig$DragOverEventParameters
-    ): this;
+    ): boolean;
     /**
      * Fires event {@link #event:dragStart dragStart} to attached listeners.
      *
@@ -18133,6 +18136,11 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
      * The binding context of the dragged row
      */
     bindingContext?: Context;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
   }
 
   /**
@@ -18156,6 +18164,18 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
      * The binding context of the dragged row or the dragged control itself
      */
     dragSource?: DragSource;
+
+    /**
+     * The calculated position of the drop action relative to the row being dropped
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
   }
 
   /**
@@ -18186,6 +18206,11 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
     dropPosition?:
       | dnd.RelativeDropPosition
       | keyof typeof dnd.RelativeDropPosition;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
   }
 
   /**
@@ -18204,6 +18229,11 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
      * The binding context of the dragged row
      */
     bindingContext?: Context;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
   }
 
   /**
@@ -18234,6 +18264,11 @@ declare module "sap/ui/mdc/table/DragDropConfig" {
     dropPosition?:
       | dnd.RelativeDropPosition
       | keyof typeof dnd.RelativeDropPosition;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
   }
 
   /**
@@ -23862,7 +23897,7 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
     $ListContentSettings,
   } from "sap/ui/mdc/valuehelp/base/ListContent";
 
-  import FilterBar from "sap/ui/mdc/filterbar/vh/FilterBar";
+  import FilterBar from "sap/ui/mdc/valuehelp/FilterBar";
 
   import Context from "sap/ui/model/Context";
 
@@ -24002,7 +24037,7 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
     /**
      * Gets content of aggregation {@link #getFilterBar filterBar}.
      *
-     * {@link sap.ui.mdc.filterbar.vh.FilterBar FilterBar} used for filtering.
+     * {@link sap.ui.mdc.valuehelp.FilterBar FilterBar} used for filtering.
      */
     getFilterBar(): FilterBar;
     /**
@@ -24236,7 +24271,7 @@ declare module "sap/ui/mdc/valuehelp/base/FilterableListContent" {
     group?: string | PropertyBindingInfo;
 
     /**
-     * {@link sap.ui.mdc.filterbar.vh.FilterBar FilterBar} used for filtering.
+     * {@link sap.ui.mdc.valuehelp.FilterBar FilterBar} used for filtering.
      */
     filterBar?: FilterBar;
   }
