@@ -10,9 +10,12 @@ declare namespace EZUIKit {
         accessToken: string;
         /**
          * @description 视频 ezopen 协议播放地址
-         * @example ezopen://open.ys7.com/${设备序列号}/{通道号}.live
-         * @example ezopen://open.ys7.com/${设备序列号}/{通道号}.hd.live
-         * @example ezopen://open.ys7.com/${设备序列号}/{通道号}.rec?begin=yyyyMMddhhmmss
+         * @example
+         * { url: "ezopen://open.ys7.com/${设备序列号}/{通道号}.live" }
+         * @example
+         * { url: "ezopen://open.ys7.com/${设备序列号}/{通道号}.hd.live" }
+         * @example
+         * { url: "ezopen://open.ys7.com/${设备序列号}/{通道号}.rec?begin=yyyyMMddhhmmss" }
          */
         url: string;
         /**
@@ -69,13 +72,24 @@ declare namespace EZUIKit {
 
     class EZUIKitPlayer {
         constructor(options: EZUIKit.EZUIKitPlayerOptions);
+
         /**
          * @description 开启播放
+         * @example
+         * // 方式一
+         * player.play();
+         * // 方式二
+         * player.play().then(()=>{ console.log("执行播放成功后其他动作");});
          */
         play(): Promise<void>;
 
         /**
          * @description 结束播放
+         * @example
+         * // 方式一
+         * player.stop();
+         * // 方式二
+         * player.stop().then(()=>{ console.log("执行停止成功后其他动作");});
          */
         stop(): Promise<void>;
 
@@ -106,6 +120,14 @@ declare namespace EZUIKit {
 
         /**
          * @description 视频截图
+         * @example
+        * // 方式1 - 下载到本地
+          player.capturePicture("文件名");
+          // 方式2 - 返回base64格式
+          const capCallback = (data) => {
+             console.log("data",data)
+          }
+          player.capturePicture('default',capCallback)
          */
         capturePicture(filename: string, fn?: (data: any) => void): void;
 
@@ -121,6 +143,9 @@ declare namespace EZUIKit {
 
         /**
          * @description 获取播放时间回调
+         * @example
+         * player.getOSDTime()
+              .then((time) => { console.log("获取到的当前播放时间", time)});
          */
         getOSDTime(): Promise<{ code: number; data: number; retCode: number }>;
 
