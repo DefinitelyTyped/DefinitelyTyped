@@ -1,4 +1,4 @@
-import ".";
+import "pannellum";
 
 const hotspot: Pannellum.HotspotOptions = {
     id: "hs-main",
