@@ -7,12 +7,11 @@ var player = new EZUIKit.EZUIKitPlayer({
     width: 600,
     height: 400,
     handleError: (err) => {
-      if (err.type === "handleRunTimeInfoError" && err.data.nErrorCode === 5) {
-        // 加密设备密码错误
-      }
-    }
-})
-
+        if (err.type === "handleRunTimeInfoError" && err.data.nErrorCode === 5) {
+            // 加密设备密码错误
+        }
+    },
+});
 
 // 执行播放
 player.play();
@@ -30,12 +29,12 @@ player.stopTalk();
 
 player.capturePicture("file-1");
 
-player.capturePicture("file-1", args => {})
+player.capturePicture("file-1", args => {});
 
 player.getOSDTime();
 
 player.changePlayUrl({
-  type: "rec",
-  deviceSerial: "foobarvz",
-  channelNo: 1
-})
+    type: "rec",
+    deviceSerial: "foobarvz",
+    channelNo: 1,
+});
