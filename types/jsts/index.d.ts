@@ -3104,7 +3104,7 @@ declare namespace jsts {
                 MultiPoint: any /* ol.geom.MultiPoint */, 
                 MultiLineString: any /* ol.geom.MultiLineString */, 
                 MultiPolygon: any /* ol.geom.MultiPolygon */, 
-                GeometryCollection: any /* ol.geom.GeometryCollection */)
+                GeometryCollection: any /* ol.geom.GeometryCollection */): void;
         }
 
         export class GeoJSONReader {
@@ -3602,7 +3602,7 @@ declare namespace jsts {
                  * Gets the buffer parameters being used to generate the curve.
                  * @return {BufferParameters} the buffer parameters being used
                  */
-                public getBufferParameters(): BufferParameters;
+                getBufferParameters(): BufferParameters;
 
                 /**
                  * This method handles single points as well as LineStrings. LineStrings are assumed not to be closed 
@@ -3611,7 +3611,7 @@ declare namespace jsts {
                  * @param {number} distance - the offset distance
                  * @return {Coordinate[]} a Coordinate array representing the curve or null if the curve is empty
                  */
-                public getLineCurve(inputPts: Coordinate[], distance: number): Coordinate[];
+                getLineCurve(inputPts: Coordinate[], distance: number): Coordinate[];
 
                 /**
                  * Tests whether the offset curve for line or point geometries at the given offset distance is empty (does not exist).
@@ -3621,7 +3621,7 @@ declare namespace jsts {
                  * @param {number} distance - the offset curve distance
                  * @return {boolean} true if the offset curve is empty
                  */
-                public isLineOffsetEmpty(distance: number): boolean;
+                isLineOffsetEmpty(distance: number): boolean;
 
                 /**
                  * This method handles the degenerate cases of single points and lines, as well as valid rings.
@@ -3630,14 +3630,14 @@ declare namespace jsts {
                  * @param {number} distance - the positive distance at which to create the offset
                  * @return {Coordinate[]} a Coordinate array representing the curve, or null if the curve is empty
                  */
-                public getRingCurve(inputPts: Coordinate[], side: number, distance: number): Coordinate[];
+                getRingCurve(inputPts: Coordinate[], side: number, distance: number): Coordinate[];
 
                 /**
                  * @param {Coordinate[]} inputPts - the coordinates to offset
                  * @param {number} distance - the distance at which to create the offset
                  * @return {Coordinate[]} a Coordinate array representing the offset curve, or null if the curve is empty
                  */
-                public getOffsetCurve(inputPts: Coordinate[], distance: number): Coordinate[];
+                getOffsetCurve(inputPts: Coordinate[], distance: number): Coordinate[];
             }
         }
 
