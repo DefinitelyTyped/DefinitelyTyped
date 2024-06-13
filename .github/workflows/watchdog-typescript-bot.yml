@@ -1,0 +1,24 @@
+name: typescript-bot watchdog
+
+on:
+  schedule:
+    # Hourly
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  watchdog:
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+
+      - run: node ./scripts/watchdog-typescript-bot.js
