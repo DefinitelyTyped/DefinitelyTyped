@@ -22,3 +22,5 @@ jobs:
             - args: [--filter, ., --filter, '{./scripts}...']
 
       - run: node ./scripts/watchdog-publisher.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
