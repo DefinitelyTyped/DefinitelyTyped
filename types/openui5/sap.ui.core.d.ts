@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.124.0
+// For Library Version: 1.125.0
 
 declare module "sap/base/assert" {
   /**
@@ -15152,7 +15152,11 @@ declare module "sap/ui/core/Component" {
    */
   export default abstract class Component extends ManagedObject {
     /**
-     * Creates and initializes a new Component with the given `sId` and settings.
+     * As `Component` is an abstract base class for components, applications should not call the constructor.
+     * For many use cases the static {@link #.create Component.create} factory can be used to instantiate a
+     * `Component`. Depending on the requirements, the framework also provides other ways to instantiate a `Component`,
+     * documented under the {@link https://ui5.sap.com/#/topic/958ead51e2e94ab8bcdc90fb7e9d53d0 "Component" }
+     * chapter.
      *
      * The set of allowed entries in the `mSettings` object depends on the concrete subclass and is described
      * there. See {@link sap.ui.core.Component} for a general description of this argument.
@@ -15171,7 +15175,11 @@ declare module "sap/ui/core/Component" {
       mSettings?: $ComponentSettings
     );
     /**
-     * Creates and initializes a new Component with the given `sId` and settings.
+     * As `Component` is an abstract base class for components, applications should not call the constructor.
+     * For many use cases the static {@link #.create Component.create} factory can be used to instantiate a
+     * `Component`. Depending on the requirements, the framework also provides other ways to instantiate a `Component`,
+     * documented under the {@link https://ui5.sap.com/#/topic/958ead51e2e94ab8bcdc90fb7e9d53d0 "Component" }
+     * chapter.
      *
      * The set of allowed entries in the `mSettings` object depends on the concrete subclass and is described
      * there. See {@link sap.ui.core.Component} for a general description of this argument.
@@ -19363,22 +19371,28 @@ declare module "sap/ui/core/Core" {
   import Interface from "sap/ui/base/Interface";
 
   /**
-   * Core Class of the SAP UI Library.
+   * Singleton Core instance of the SAP UI Library.
    *
-   * This class boots the Core framework and makes it available for the application by requiring `sap.ui.core.Core`.
+   * The module export of `sap/ui/core/Core` is **not** a class, but the singleton Core instance itself. The
+   * `sap.ui.core.Core` class itself must not be instantiated, except by the framework itself.
    *
-   * The Core provides a {@link #ready ready function} to execute code after the core was booted.
+   * The Core provides a {@link #ready ready function} to execute code after the Core was booted.
    *
    * Example:
    * ```javascript
    *
    *
-   *   oCore.ready(function() {
-   *       ...
-   *   });
+   *   sap.ui.require(["sap/ui/core/Core"], async function(Core) {
    *
-   *   await oCore.ready();
-   *   ...
+   *     // Usage of a callback function
+   *     Core.ready(function() {
+   *       ...
+   *     });
+   *
+   *     // Usage of Core.ready() as a Promise
+   *     await Core.ready();
+   *     ...
+   *   });
    *
    * ```
    */
@@ -20739,7 +20753,8 @@ declare module "sap/ui/core/Core" {
      */
     notifyContentDensityChanged(): void;
     /**
-     * Returns a Promise that resolves if the Core is initialized.
+     * Returns a Promise that resolves if the Core is initialized. Additionally, a callback function can be
+     * passed, for use cases where using Promises is not an option.
      *
      * @since 1.118.0
      *
@@ -23346,17 +23361,20 @@ declare module "sap/ui/core/dnd/DropInfo" {
     /**
      * Fires event {@link #event:dragOver dragOver} to attached listeners.
      *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
      * @since 1.56
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
-     * @returns Reference to `this` in order to allow method chaining
+     * @returns Whether or not to prevent the default action
      */
     fireDragOver(
       /**
        * Parameters to pass along with the event
        */
       mParameters?: DropInfo$DragOverEventParameters
-    ): this;
+    ): boolean;
     /**
      * Fires event {@link #event:drop drop} to attached listeners.
      *
@@ -23554,6 +23572,13 @@ declare module "sap/ui/core/dnd/DropInfo" {
      * The UI5 `dragSession` object that exists only during drag and drop
      */
     dragSession?: DragSession;
+
+    /**
+     * The calculated position of the drop action relative to the `target`
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
 
     /**
      * The underlying browser event
@@ -42230,7 +42255,7 @@ declare module "sap/ui/core/search/OpenSearchProvider" {
   /**
    * A SearchProvider which uses the OpenSearch protocol (either JSON or XML).
    *
-   * @deprecated (since 1.120)
+   * @deprecated (since 1.120) - There is no API replacement.
    */
   export default class OpenSearchProvider extends SearchProvider {
     /**
@@ -42370,7 +42395,7 @@ declare module "sap/ui/core/search/OpenSearchProvider" {
   /**
    * Describes the settings that can be provided to the OpenSearchProvider constructor.
    *
-   * @deprecated (since 1.120)
+   * @deprecated (since 1.120) - There is no API replacement.
    */
   export interface $OpenSearchProviderSettings extends $SearchProviderSettings {
     /**
@@ -42398,7 +42423,7 @@ declare module "sap/ui/core/search/SearchProvider" {
    *
    * Do not create instances of this class, but use a concrete subclass instead.
    *
-   * @deprecated (since 1.120)
+   * @deprecated (since 1.120) - There is no API replacement.
    */
   export default abstract class SearchProvider extends UI5Element {
     /**
@@ -42507,7 +42532,7 @@ declare module "sap/ui/core/search/SearchProvider" {
   /**
    * Describes the settings that can be provided to the SearchProvider constructor.
    *
-   * @deprecated (since 1.120)
+   * @deprecated (since 1.120) - There is no API replacement.
    */
   export interface $SearchProviderSettings extends $ElementSettings {
     /**
@@ -43117,7 +43142,8 @@ declare module "sap/ui/core/tmpl/DOMAttribute" {
    * Represents a DOM attribute of a DOM element.
    *
    * @since 1.15
-   * @deprecated (since 1.56)
+   * @deprecated (since 1.56) - Use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    */
   export default class DOMAttribute extends UI5Element {
     /**
@@ -43236,7 +43262,8 @@ declare module "sap/ui/core/tmpl/DOMAttribute" {
   /**
    * Describes the settings that can be provided to the DOMAttribute constructor.
    *
-   * @deprecated (since 1.56)
+   * @deprecated (since 1.56) - Use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    */
   export interface $DOMAttributeSettings extends $ElementSettings {
     /**
@@ -43267,7 +43294,8 @@ declare module "sap/ui/core/tmpl/DOMElement" {
    * Represents a DOM element. It allows to use databinding for the properties and nested DOM attributes.
    *
    * @since 1.15
-   * @deprecated (since 1.56)
+   * @deprecated (since 1.56) - Use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    */
   export default class DOMElement extends Control {
     /**
@@ -43574,7 +43602,8 @@ declare module "sap/ui/core/tmpl/DOMElement" {
   /**
    * Describes the settings that can be provided to the DOMElement constructor.
    *
-   * @deprecated (since 1.56)
+   * @deprecated (since 1.56) - Use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    */
   export interface $DOMElementSettings extends $ControlSettings {
     /**
@@ -43619,7 +43648,8 @@ declare module "sap/ui/core/tmpl/HandlebarsTemplate" {
    * The class for Handlebars Templates.
    *
    * @since 1.15
-   * @deprecated (since 1.56)
+   * @deprecated (since 1.56) - Use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    */
   export default abstract class HandlebarsTemplate extends Template {
     /**
@@ -43701,7 +43731,8 @@ declare module "sap/ui/core/tmpl/HandlebarsTemplate" {
   /**
    * Describes the settings that can be provided to the HandlebarsTemplate constructor.
    *
-   * @deprecated (since 1.56)
+   * @deprecated (since 1.56) - Use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    */
   export interface $HandlebarsTemplateSettings extends $TemplateSettings {}
 }
@@ -43998,7 +44029,8 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
    * This is the base class for all template controls. Template controls are declared based on templates.
    *
    * @since 1.15
-   * @deprecated (since 1.56)
+   * @deprecated (since 1.56) - Use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    */
   export default class TemplateControl extends Control {
     /**
@@ -44429,7 +44461,8 @@ declare module "sap/ui/core/tmpl/TemplateControl" {
   /**
    * Describes the settings that can be provided to the TemplateControl constructor.
    *
-   * @deprecated (since 1.56)
+   * @deprecated (since 1.56) - Use an {@link sap.ui.core.mvc.XMLView XMLView} or a {@link topic:e6bb33d076dc4f23be50c082c271b9f0 Typed View }
+   * instead.
    */
   export interface $TemplateControlSettings extends $ControlSettings {
     /**
@@ -45034,7 +45067,7 @@ declare module "sap/ui/core/UIArea" {
      *
      * @since 1.107
      * @deprecated (since 1.120) - without a replacement. Applications should not be interested in the set of
-     * all `UIArea`s. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
+     * `UIArea`s. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
      * or use the API of a `UIArea` as reachable via {@link sap.ui.core.Control.prototype.getUIArea Control.prototype.getUIArea}.
      */
     static registry: registry;
@@ -45350,7 +45383,7 @@ declare module "sap/ui/core/UIArea" {
      * The node must have an ID that will be used as ID for this instance of `UIArea`.
      *
      * @deprecated (since 1.107) - without a replacement. Applications should not create or modify `UIArea`s
-     * programmatically. THey should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
+     * programmatically. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
      * or use the API of a `UIArea` as reachable via {@link sap.ui.core.Control.prototype.getUIArea Control.prototype.getUIArea}.
      */
     setRootNode(
@@ -45371,7 +45404,7 @@ declare module "sap/ui/core/UIArea" {
    *
    * @since 1.107
    * @deprecated (since 1.120) - without a replacement. Applications should not be interested in the set of
-   * all `UIArea`s. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
+   * `UIArea`s. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
    * or use the API of a `UIArea` as reachable via {@link sap.ui.core.Control.prototype.getUIArea Control.prototype.getUIArea}.
    */
   interface registry {
@@ -45379,7 +45412,7 @@ declare module "sap/ui/core/UIArea" {
      * Number of existing UIAreas.
      *
      * @deprecated (since 1.120) - without a replacement. Applications should not be interested in the set of
-     * all `UIArea`s. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
+     * `UIArea`s. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
      * or use the API of a `UIArea` as reachable via {@link sap.ui.core.Control.prototype.getUIArea Control.prototype.getUIArea}.
      */
     size: int;
@@ -45483,8 +45516,8 @@ declare module "sap/ui/core/UIArea" {
      * When the ID is `null` or `undefined` or when there's no UIArea with the given ID, then `undefined` is
      * returned.
      *
-     * @deprecated (since 1.120) - without a replacement. Applications should not be interested in the set of
-     * all `UIArea`s. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
+     * @deprecated (since 1.120) - without a replacement. Applications should not be interested in a certain
+     * `UIArea`. They should only assign controls to them, by using {@link sap.ui.core.Control.prototype.placeAt Control.prototype.placeAt }
      * or use the API of a `UIArea` as reachable via {@link sap.ui.core.Control.prototype.getUIArea Control.prototype.getUIArea}.
      *
      * @returns UIArea with the given ID or `undefined`
@@ -45555,7 +45588,11 @@ declare module "sap/ui/core/UIComponent" {
    */
   export default abstract class UIComponent extends Component {
     /**
-     * Creates and initializes a new UIComponent with the given `sId` and settings.
+     * As `UIComponent` is an abstract base class for UI components, applications should not call the constructor.
+     * For many use cases the static {@link sap.ui.core.Component.create Component.create} factory can be used
+     * to instantiate a `UIComponent`. Depending on the requirements, the framework also provides other ways
+     * to instantiate a `UIComponent`, documented under the {@link https://ui5.sap.com/#/topic/958ead51e2e94ab8bcdc90fb7e9d53d0 "Component" }
+     * chapter.
      *
      * The set of allowed entries in the `mSettings` object depends on the concrete subclass and is described
      * there. See {@link sap.ui.core.Component} for a general description of this argument.
@@ -45571,7 +45608,11 @@ declare module "sap/ui/core/UIComponent" {
       mSettings?: $UIComponentSettings
     );
     /**
-     * Creates and initializes a new UIComponent with the given `sId` and settings.
+     * As `UIComponent` is an abstract base class for UI components, applications should not call the constructor.
+     * For many use cases the static {@link sap.ui.core.Component.create Component.create} factory can be used
+     * to instantiate a `UIComponent`. Depending on the requirements, the framework also provides other ways
+     * to instantiate a `UIComponent`, documented under the {@link https://ui5.sap.com/#/topic/958ead51e2e94ab8bcdc90fb7e9d53d0 "Component" }
+     * chapter.
      *
      * The set of allowed entries in the `mSettings` object depends on the concrete subclass and is described
      * there. See {@link sap.ui.core.Component} for a general description of this argument.
@@ -56045,9 +56086,11 @@ declare module "sap/ui/model/json/JSONModel" {
     /**
      * Constructor for a new JSONModel.
      *
-     * The observation feature is experimental! When observation is activated, the application can directly
-     * change the JS objects without the need to call setData, setProperty or refresh. Observation does only
-     * work for existing properties in the JSON, it cannot detect new properties or new array entries.
+     * When observation is activated, the application can directly change the JS objects without the need to
+     * call {@link sap.ui.model.json.JSONModel#setData}, {@link sap.ui.model.json.JSONModel#setProperty} or
+     * {@link sap.ui.model.Model#refresh}. **Note:** Observation only works for existing properties in the JSON
+     * model. Newly added or removed properties and newly added or removed array entries, for example, are not
+     * detected.
      */
     constructor(
       /**
@@ -56055,7 +56098,7 @@ declare module "sap/ui/model/json/JSONModel" {
        */
       oData?: object | string,
       /**
-       * Whether to observe the JSON data for property changes (experimental)
+       * Whether to observe the JSON data for property changes
        */
       bObserve?: boolean
     );
@@ -67252,8 +67295,8 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
          */
         useBatch?: boolean;
         /**
-         * Experimental - `true` when user credentials are to be included in a cross-origin request; please note
-         * that this only works if all requests are asynchronous
+         * If set to `true`, the user credentials are included in a cross-origin request. **Note:** This only works
+         * if all requests are asynchronous.
          */
         withCredentials?: boolean;
         /**
@@ -69314,7 +69357,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
       /**
        * Paths to be reset; if no array is passed, all changes are reset
        */
-      aPath?: any[],
+      aPath?: string[],
       /**
        * Whether also deferred requests are taken into account so that they are aborted
        */
@@ -70961,9 +71004,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      * depending on this context become unresolved, but no attempt is made to restore these bindings in case
      * of reset or failure.
      *
-     * Deleting a node in a recursive hierarchy (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation})
-     * is supported (@experimental as of version 1.118.0). As a precondition, the context must not be {@link #setKeepAlive kept-alive }
-     * and hidden (for example due to a filter), and the group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
+     * Since 1.125.0, deleting a node in a recursive hierarchy (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation})
+     * is supported. As a precondition, the context must not be both {@link #setKeepAlive kept-alive} and hidden
+     * (for example due to a filter), and the group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
      * Such a deletion is not a pending change.
      * See:
      * 	#hasPendingChanges
@@ -71273,7 +71316,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * not be shown anymore due to the search or filter criteria. If the latter happens to this context, its
      * {@link #getIndex index} becomes `undefined`.
      *
-     * @experimental (since 1.119.0)
+     * @since 1.125.0
      *
      * @returns A promise which is resolved without a defined result when the move is finished, or rejected
      * in case of an error
@@ -71284,12 +71327,12 @@ declare module "sap/ui/model/odata/v4/Context" {
        */
       oParameters: {
         /**
-         * The next sibling's context, or `null` to turn this node into the last sibling (since 1.124.0). Omitting
-         * the sibling moves this node to a position determined by the server.
+         * The next sibling's context, or `null` to turn this node into the last sibling. Omitting the sibling moves
+         * this node to a position determined by the server.
          */
         nextSibling?: Context | null;
         /**
-         * The new parent's context, or (since 1.121.0) `null` to turn this node into a root node
+         * The new parent's context, or `null` to turn this node into a root node
          */
         parent: Context | null;
       }
@@ -72558,14 +72601,19 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * has been read or if the system query option `$count` is `true` and the binding has processed at least
      * one request.
      *
-     * Creating a new child beneath an existing and visible parent node (which must either be a leaf or expanded,
-     * but not collapsed) is supported (@experimental as of version 1.117.0) in case of a recursive hierarchy
-     * (see {@link #setAggregation}). The parent node must be identified via an {@link sap.ui.model.odata.v4.Context }
-     * instance given as `oInitialData["@$ui5.node.parent"]` (which is immediately removed from the new child's
-     * data). It can be `null` or absent when creating a new root node (@experimental as of version 1.120.0).
-     * `bSkipRefresh` must be set, but both `bAtEnd` and `bInactive` must not be set. No other creation or {@link sap.ui.model.odata.v4.Context#move move }
-     * must be pending, and no other modification (including collapse of some ancestor node) must happen while
-     * this creation is pending!
+     * Since 1.125.0, creating a new child beneath an existing and visible parent node (which must either be
+     * a leaf or expanded, but not collapsed) is supported in case of a recursive hierarchy (see {@link #setAggregation}).
+     * The parent node must be identified via an {@link sap.ui.model.odata.v4.Context} instance given as `oInitialData["@$ui5.node.parent"]`
+     * (which is immediately removed from the new child's data). It can be `null` or absent when creating a
+     * new root node. `bSkipRefresh` must be set, but both `bAtEnd` and `bInactive` must not be set. No other
+     * creation or {@link sap.ui.model.odata.v4.Context#move move} must be pending, and no other modification
+     * (including collapse of some ancestor node) must happen while this creation is pending! When using the
+     * `createInPlace` parameter (see {@link #setAggregation}, @experimental as of version 1.125.0), the new
+     * {@link sap.ui.model.odata.v4.Context#isTransient transient} child is hidden until it becomes {@link sap.ui.model.odata.v4.Context#created created},
+     * and then it is shown at a position determined by the back end and the current sort order. The position
+     * of the new child can be retrieved by using its {@link sap.ui.model.odata.v4.Context#getIndex index}.
+     * If the created child does not become part of the hierarchy due to the search or filter criteria, the
+     * context will be destroyed and its {@link sap.ui.model.odata.v4.Context#getIndex index} is set to `undefined`.
      *
      * @since 1.43.0
      *
@@ -72753,7 +72801,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
     getAggregation(
       /**
        * Whether to additionally return the "$"-prefixed values described below which obviously cannot be given
-       * back to the setter (@experimental as of version 1.111.0). They are retrieved from the pair of "Org.OData.Aggregation.V1.RecursiveHierarchy"
+       * back to the setter (since 1.125.0). They are retrieved from the pair of "Org.OData.Aggregation.V1.RecursiveHierarchy"
        * and "com.sap.vocabularies.Hierarchy.v1.RecursiveHierarchy" annotations at this binding's entity type,
        * identified via the `hierarchyQualifier` given to {@link #setAggregation}.
        * 	 "$DistanceFromRoot" holds the path to the property which provides the raw value for "@$ui5.node.level"
@@ -73206,14 +73254,13 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
        * An object holding the information needed for data aggregation; see also OData
        * Extension for Data Aggregation Version 4.0. Since 1.76.0, `undefined` can be used to remove the data
        * aggregation object, which allows to set `$apply` explicitly afterwards. `null` is not supported.
-       *  Since 1.89.0, the deprecated property `"grandTotal like 1.84" : true` can be used to turn on the handling
-       * of grand totals like in 1.84.0, using aggregates of aggregates and thus allowing to filter by aggregated
-       * properties while grand totals are needed. Beware that methods like "average" or "countdistinct" are not
-       * compatible with this approach, and it cannot be combined with group levels.
-       *  Since 1.105.0, either a recursive hierarchy or pure data aggregation is supported, but no mix; `hierarchyQualifier`
-       * is the leading property that decides between those two use cases - this is an **experimental API** and
-       * is only supported if the model uses the `autoExpandSelect` parameter! Since 1.117.0, it is available
-       * for read-only hierarchies.
+       *  Since 1.89.0, the **deprecated** property `"grandTotal like 1.84" : true` can be used to turn on the
+       * handling of grand totals like in 1.84.0, using aggregates of aggregates and thus allowing to filter by
+       * aggregated properties while grand totals are needed. Beware that methods like "average" or "countdistinct"
+       * are not compatible with this approach, and it cannot be combined with group levels.
+       *  Since 1.117.0, either a read-only recursive hierarchy or pure data aggregation is supported, but no
+       * mix; `hierarchyQualifier` is the leading property that decides between those two use cases. Since 1.125.0,
+       * maintenance of a recursive hierarchy is supported.
        */
       oAggregation?: {
         /**
@@ -73234,11 +73281,16 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          */
         aggregate?: object;
         /**
+         * Whether created nodes are shown in place at the position specified by the service (@experimental as of
+         * version 1.125.0); only the value `true` is allowed. Otherwise, created nodes are displayed out of place
+         * as the first child of their parent.
+         */
+        createInPlace?: boolean;
+        /**
          * The number (as a positive integer) of different levels initially available without calling {@link sap.ui.model.odata.v4.Context#expand }
-         * (@experimental as of version 1.105.0; available for read-only hierarchies since 1.117.0), supported only
-         * if a `hierarchyQualifier` is given. Root nodes are on the first level. By default, only root nodes are
-         * available; they are not yet expanded. Since 1.120.0, `expandTo >= Number.MAX_SAFE_INTEGER` can be used
-         * to expand all levels (`1E16` is recommended inside XML views for simplicity).
+         * (since 1.117.0), supported only if a `hierarchyQualifier` is given. Root nodes are on the first level.
+         * By default, only root nodes are available; they are not yet expanded. Since 1.120.0, `expandTo >= Number.MAX_SAFE_INTEGER`
+         * can be used to expand all levels (`1E16` is recommended inside XML views for simplicity).
          */
         expandTo?: number;
         /**
@@ -73263,12 +73315,10 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
         groupLevels?: string[];
         /**
          * The qualifier for the pair of "Org.OData.Aggregation.V1.RecursiveHierarchy" and "com.sap.vocabularies.Hierarchy.v1.RecursiveHierarchy"
-         * annotations at this binding's entity type (@experimental as of version 1.105.0; available for read-only
-         * hierarchies since 1.117.0). If present, a recursive hierarchy without data aggregation is defined, and
-         * the only other supported properties are `expandTo` and `search`. A recursive hierarchy cannot be combined
-         * with:
-         * 	 "$search",  the `vGroup` parameter of {@link sap.ui.model.Sorter} (since 1.107.0),  shared
-         * requests (since 1.108.0).
+         * annotations at this binding's entity type (since 1.117.0). If present, a recursive hierarchy without
+         * data aggregation is defined, and the only other supported properties are `createInPlace`, `expandTo`,
+         * and `search`. A recursive hierarchy cannot be combined with:
+         * 	 "$search",  the `vGroup` parameter of {@link sap.ui.model.Sorter},  shared requests.
          */
         hierarchyQualifier?: string;
         /**
@@ -74110,7 +74160,7 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * must refer to a function in `mParameters.scope` in case of a relative name starting with a dot, which
      * is stripped before lookup; see the `<template:alias>` instruction for XML Templating. In case of an
      * absolute name, it is searched in `mParameters.scope` first and then in the global namespace. (Using the
-     * global namespace is deprecated as of version 1.120.3). The names "requestCurrencyCodes" and "requestUnitsOfMeasure"
+     * global namespace is **deprecated** as of version 1.120.3). The names "requestCurrencyCodes" and "requestUnitsOfMeasure"
      * default to {@link #requestCurrencyCodes} and {@link #requestUnitsOfMeasure} resp. if not present in `mParameters.scope`.
      * This function is called with the current object (or primitive value) and additional details and returns
      * the result of this {@link #requestObject} call. The additional details are given as an object with the
@@ -74219,8 +74269,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
         /**
          * Scope for lookup of aliases for computed annotations (since 1.43.0) as a map from alias to a module (like
          * `{AH : AnnotationHelper}`) or function (like `{format : AnnotationHelper.format}`); the alias must not
-         * contain a dot. Since 1.120.3 looking up a computed annotation via its global name is deprecated; always
-         * use this scope instead.
+         * contain a dot. Since 1.120.3 looking up a computed annotation via its global name is **deprecated**;
+         * always use this scope instead.
          */
         scope?: Record<string, object | Function>;
       }
@@ -74537,10 +74587,10 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          */
         supportReferences?: boolean;
         /**
+         * **deprecated:** As of Version 1.110.0, this parameter is obsolete; see also {@link https://ui5.sap.com/#/topic/648e360fa22d46248ca783dc6eb44531 Data Reuse }
          * (Controls synchronization between different bindings which refer to the same data for the case data changes
          * in one binding. Must be set to 'None' which means bindings are not synchronized at all; all other values
-         * are not supported and lead to an error.) **deprecated:** As of Version 1.110.0, this parameter is obsolete;
-         * see also {@link https://ui5.sap.com/#/topic/648e360fa22d46248ca783dc6eb44531 Data Reuse}
+         * are not supported and lead to an error.)
          */
         synchronizationMode?: string;
         /**
@@ -75031,7 +75081,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * are not supported.
      *
      * It is possible to create binding contexts pointing to metadata. A '##' is recognized as separator in
-     * the resolved path and splits it into two parts; note that '#' may also be used as separator but is deprecated
+     * the resolved path and splits it into two parts; note that '#' may also be used as separator but is **deprecated**
      * since 1.51. The part before the separator is transformed into a metadata context (see {@link sap.ui.model.odata.v4.ODataMetaModel#getMetaContext}).
      * The part following the separator is then interpreted relative to this metadata context, even if it starts
      * with a '/'; a trailing '/' is allowed here, see {@link sap.ui.model.odata.v4.ODataMetaModel#requestObject }
@@ -76533,7 +76583,7 @@ declare module "sap/ui/model/resource/ResourceModel" {
          */
         activeTerminologies?: string[];
         /**
-         * Whether the language bundle should be loaded asynchronously
+         * **Deprecated as of Version 1.125**; always use asynchronous loading for performance reasons
          */
         async?: boolean;
         /**
@@ -87723,6 +87773,8 @@ declare namespace sap {
     "sap/ui/model/ContextBinding": undefined;
 
     "sap/ui/model/DataState": undefined;
+
+    "sap/ui/model/FieldHelp": undefined;
 
     "sap/ui/model/Filter": undefined;
 
