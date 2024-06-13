@@ -4098,27 +4098,27 @@ declare namespace jsts {
              * Returns the index of the start of the line.
              * @return {number} the start index
              */
-            public getStartIndex(): number;
+            getStartIndex(): number;
 
             /**
              * Returns the index of the end of the line.
              * @return {number} the end index
              */
-            public getEndIndex(): number;
+            getEndIndex(): number;
 
             /**
              * Tests whether an index is in the valid index range for the line.
              * @param {number} index - the index to test
              * @return {boolean} true if the index is in the valid range
              */
-            public isValidIndex(index: number): boolean;
+            isValidIndex(index: number): boolean;
 
             /**
              * Computes a valid index for this line by clamping the given index to the valid range of index values.
              * @param {number} index - the index to clamp
              * @return {number} a valid index value
              */
-            public clampIndex(index: number): number;
+            clampIndex(index: number): number;
         }
     }
 
