@@ -3235,6 +3235,7 @@ declare namespace jsts {
         }
 
         namespace buffer {
+            import Coordinate = jsts.geom.Coordinate;
             import Geometry = jsts.geom.Geometry;
             import PrecisionModel = jsts.geom.PrecisionModel;
 
