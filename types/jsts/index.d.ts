@@ -3596,7 +3596,7 @@ declare namespace jsts {
              */
             export class OffsetCurveBuilder {
                 
-                constructor(public precisionModel: PrecisionModel, public bufParams: BufferParameters);
+                constructor(precisionModel: PrecisionModel, bufParams: BufferParameters);
 
                 /**
                  * Gets the buffer parameters being used to generate the curve.
