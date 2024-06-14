@@ -6,7 +6,7 @@
         "https://github.com/jakepusateri/graphql-list-fields#readme"
     ],
     "dependencies": {
-        "graphql": "^14.5.3"
+        "graphql": "*"
     },
     "devDependencies": {
         "@types/graphql-list-fields": "workspace:."
