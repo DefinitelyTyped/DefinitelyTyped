@@ -51,8 +51,13 @@ const ndOne: OneLine.OneLine = {
     },
 };
 
+function requestVideoPlayerMethod() {
+    console.log("requestVideoPlayerMethod")
+}
+
 // Test cases
 ndOne.adUnitRequest();
 ndOne.adUnitRequest(["ndm-1", "ndm-2"]);
 ndOne.adUnitRequest(["push-up-all"], true);
 ndOne.buildVideoUrl([{ bidder: "testBidder", params: { placementId: "testPlacementId" } }], "testPlacementId", {});
+ndOne.requestVideoPlayerAds(requestVideoPlayerMethod());
