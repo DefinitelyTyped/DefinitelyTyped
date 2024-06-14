@@ -51,7 +51,7 @@ const ndOne: OneLine.OneLine = {
     },
 };
 
-function requestVideoPlayerMethod() {
+function requestVideoPlayerMethod(): void {
     console.log("requestVideoPlayerMethod")
 }
 
