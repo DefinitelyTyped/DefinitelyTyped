@@ -203,7 +203,7 @@ commitMutation<{
     },
     onCompleted(_, errors) {
         errors?.[0].path?.[0];
-    }
+    },
 });
 
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
