@@ -201,6 +201,9 @@ commitMutation<{
         const newName = data?.setUsername?.name;
         newName && store.get("userid")?.setValue(newName, "name");
     },
+    onCompleted(_, errors) {
+        errors?.[0].path?.[0];
+    }
 });
 
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
