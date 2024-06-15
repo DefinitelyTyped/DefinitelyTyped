@@ -1,4 +1,5 @@
 import _ = require("../index");
+import { uniqueSymbol } from "./common";
 declare module "../index" {
     interface LoDashStatic {
         /**
@@ -1327,7 +1328,7 @@ declare module "../index" {
          * _.has(other, 'a');
          * // => false
          */
-        has<T, K extends PropertyName>(object: T, path: K): object is T & { [P in K]: P extends keyof T ? T[P] : Record<string, unknown> extends T ? T[keyof T] : unknown};
+        has<T, K extends PropertyName>(object: T, path: K): object is T & { [P in K]: P extends keyof T ? T[P] : Record<string, unknown> extends T ? T[keyof T] : unknown} & {[uniqueSymbol]: unknown};
         has<T>(object: T, path: PropertyPath): boolean;
     }
     interface LoDashImplicitWrapper<TValue> {
@@ -1581,6 +1582,10 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
+        mapValues<T, TResult>(array: T[], callback: ArrayIterator<T, TResult>): NumericDictionary<TResult>;
+        /**
+         * @see _.mapValues
+         */
         mapValues<T extends object, TResult>(obj: T | null | undefined, callback: ObjectIterator<T, TResult>): { [P in keyof T]: TResult };
         /**
          * @see _.mapValues
@@ -1633,7 +1638,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): Object<Dictionary<TResult>>;
+        mapValues<TResult>(callback: ArrayIterator<T, TResult>): NumericDictionary<TResult>;
         /**
          * @see _.mapValues
          */
@@ -1701,7 +1706,7 @@ declare module "../index" {
         /**
          * @see _.mapValues
          */
-        mapValues<TResult>(callback: DictionaryIterator<T, TResult>): ObjectChain<Dictionary<TResult>>;
+        mapValues<TResult>(callback: ArrayIterator<T, TResult>): ObjectChain<NumericDictionary<TResult>>;
         /**
          * @see _.mapValues
          */

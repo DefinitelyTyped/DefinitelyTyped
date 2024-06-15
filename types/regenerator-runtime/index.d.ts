@@ -1,7 +1,4 @@
 export as namespace regeneratorRuntime;
-declare global {
-    var regeneratorRuntime: typeof import(".");
-}
 
 /**
  * The implementation of the generator.

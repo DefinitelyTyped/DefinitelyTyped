@@ -68,6 +68,9 @@ console.log(util.styleText("red", "Error! Error!"));
 console.log(
     util.styleText("underline", util.styleText("italic", "My italic underlined message")),
 );
+console.log(
+    util.styleText(["red", "green"], "text"),
+);
 
 // util.callbackify
 class callbackifyTest {

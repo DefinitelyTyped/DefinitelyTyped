@@ -3656,25 +3656,62 @@ fp.now(); // $ExpectType number
 
 // _.throttle
 {
-    const options: _.ThrottleSettings = {
+    const optionsLeading: _.ThrottleSettingsLeading = {
         leading: true,
         trailing: false,
+    }
+    const optionsNoLeading: _.ThrottleSettings = {
+        leading: false,
     };
+
+    const optionsAmbiguous = {
+        leading: true as boolean,
+    };
+    const boolean = false as boolean; // $ExpectType boolean
+    const maybeUndefined = true as true | undefined; // $ExpectType true | undefined
 
     const func = (a: number, b: string): boolean => true;
 
-    _.throttle(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42, options); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _(func).throttle(); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42, options); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42, options); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.throttle(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, {}); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: true, trailing: false }); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: false }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: boolean }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, optionsAmbiguous); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
 
-    fp.throttle(42, func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    fp.throttle(42)(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _(func).throttle(); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, {}); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: true, trailing: false }); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: false }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: boolean }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, optionsAmbiguous); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+
+    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, {}); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: true, trailing: false }); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: false }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: boolean }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, optionsAmbiguous); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+
+    fp.throttle(42, func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    fp.throttle(42)(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+
+    // _.throttle treats an explicit `leading: undefined` the same as `leading: false`
+    const badOptionsLeading: _.ThrottleSettingsLeading = {
+        // @ts-expect-error explicit undefined is not allowed here
+        leading: undefined,
+    };
+
+    // any invokation where leading might be set as undefined should return DebouncedFunc, not DebouncedFuncLeading
+    _.throttle(func, 42, { leading: undefined }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: maybeUndefined }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.chain(func).throttle(42, { leading: undefined }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: maybeUndefined }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: undefined }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: maybeUndefined }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
 }
 
 // _.unary
@@ -5444,6 +5481,12 @@ fp.now(); // $ExpectType number
         const result: { a: number | string } = record;
         record; // $ExpectType Record<string, number | string>
     }
+    const data = {
+        level: 1,
+        length: 1,
+    };
+    _.has(data, 'level') || !!data.length;
+
     _(abcObject).has(""); // $ExpectType boolean
     _(abcObject).has(42); // $ExpectType boolean
     _(abcObject).has(["", 42]); // $ExpectType boolean
@@ -5630,6 +5673,14 @@ fp.now(); // $ExpectType number
         return abcObject;
     });
 
+    // $ExpectType NumericDictionary<boolean>
+    _.mapValues(arrayParam, (value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
     // $ExpectType { [x: string]: string; }
     _.mapValues(dictionary, (value, key, collection) => {
         value;  // $ExpectType AbcObject
@@ -5691,6 +5742,14 @@ fp.now(); // $ExpectType number
         return "";
     });
 
+    // $ExpectType NumericDictionary<boolean>
+    _(arrayParam).mapValues((value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
     // $ExpectType Object<{ [x: number]: string; }>
     _(numericDictionary).mapValues((value, key, collection) => {
         value;  // $ExpectType AbcObject
@@ -5740,6 +5799,16 @@ fp.now(); // $ExpectType number
         collection; // $ExpectType Dictionary<AbcObject>
         return "";
     });
+
+    // $ExpectType ObjectChain<NumericDictionary<boolean>>
+    _.chain(arrayParam).mapValues((value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
+    
 
     // $ExpectType ObjectChain<{ [x: number]: string; }>
     _.chain(numericDictionary).mapValues((value, key, collection) => {
@@ -7282,6 +7351,9 @@ _.templateSettings; // $ExpectType TemplateSettings
     const func3 = (arg1: number, arg2: string, arg3: boolean): number => {
         return arg1 * arg2.length + (arg3 ? 1 : 0);
     };
+    const func4 = (arg1: number, arg2: string, arg3: boolean, arg4: number): number => {
+        return arg1 * arg2.length + (arg3 ? 1 : 0) - arg4;
+    }
 
     // with arity 0 function
     _.partial(func0); // $ExpectType () => number
@@ -7295,7 +7367,16 @@ _.templateSettings; // $ExpectType TemplateSettings
     _.partial(func2, _.partial.placeholder, "foo"); // $ExpectType Function1<number, number>
     _.partial(func2, 42, "foo"); // $ExpectType () => number
     // with arity 3 function
-    _.partial(func3, 42,     _, true);
+    _.partial(func3) // $ExpectType (arg1: number, arg2: string, arg3: boolean) => number
+    _.partial(func3, 42) // $ExpectType (arg2: string, arg3: boolean) => number
+    _.partial(func3, 42,     _, true) // $ExpectType Function1<string, number>;
+    _.partial(func3, 42, "foo", true) // $ExpectType () => number
+    // with arity 4 function
+    _.partial(func4) // $ExpectType (arg1: number, arg2: string, arg3: boolean: arg4: number) => number
+    _.partial(func4, 42) // $ExpectType (arg2: string, arg3: boolean: arg4: number) => number
+    _.partial(func4, 42,     _, true, 10) // $ExpectType Function1<string, number>;
+    _.partial(func4, _,      _,    _, 10) // $ExpectType Function3<number, string, boolean, number>;
+    _.partial(func4, 42, "foo", true, 10) // $ExpectType () => number
 
     // with arity 0 function
     _.partialRight(func0); // $ExpectType Function0<number>

@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/events.js)
  */
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
@@ -75,18 +75,28 @@ declare module "events" {
          */
         captureRejections?: boolean | undefined;
     }
-    // Any EventTarget with a DOM-style `addEventListener`
-    interface _DOMEventTarget {
-        addEventListener(
-            eventName: string,
-            listener: (...args: any[]) => void,
-            opts?: {
-                once: boolean;
-            },
-        ): any;
-    }
     interface StaticEventEmitterOptions {
+        /**
+         * Can be used to cancel awaiting events.
+         */
         signal?: AbortSignal | undefined;
+        /**
+         * Names of events that will end the iteration.
+         */
+        close?: string[] | undefined;
+        /**
+         * The high watermark. The emitter is paused every time the size
+         * of events being buffered is higher than it. Supported only
+         * on emitters implementing `pause()` and `resume()` methods.
+         * @default `Number.MAX_SAFE_INTEGER`
+         */
+        highWaterMark?: number | undefined;
+        /**
+         * The low watermark. The emitter is resumed every time the size of events being buffered
+         * is lower than it. Supported only on emitters implementing `pause()` and `resume()` methods.
+         * @default 1
+         */
+        lowWaterMark?: number | undefined;
     }
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
     type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
@@ -206,9 +216,9 @@ declare module "events" {
         static once(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
-            options?: StaticEventEmitterOptions,
+            options?: Pick<StaticEventEmitterOptions, "signal">,
         ): Promise<any[]>;
-        static once(emitter: _DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(emitter: EventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
          * import { on, EventEmitter } from 'node:events';
@@ -270,6 +280,11 @@ declare module "events" {
          */
         static on(
             emitter: NodeJS.EventEmitter,
+            eventName: string | symbol,
+            options?: StaticEventEmitterOptions,
+        ): AsyncIterableIterator<any>;
+        static on(
+            emitter: EventTarget,
             eventName: string,
             options?: StaticEventEmitterOptions,
         ): AsyncIterableIterator<any>;
@@ -318,7 +333,7 @@ declare module "events" {
          * ```
          * @since v15.2.0, v14.17.0
          */
-        static getEventListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
+        static getEventListeners(emitter: EventTarget | NodeJS.EventEmitter, name: string | symbol): Function[];
         /**
          * Returns the currently set max amount of listeners.
          *
@@ -347,7 +362,7 @@ declare module "events" {
          * ```
          * @since v19.9.0
          */
-        static getMaxListeners(emitter: _DOMEventTarget | NodeJS.EventEmitter): number;
+        static getMaxListeners(emitter: EventTarget | NodeJS.EventEmitter): number;
         /**
          * ```js
          * import { setMaxListeners, EventEmitter } from 'node:events';
@@ -362,7 +377,7 @@ declare module "events" {
          * @param eventsTargets Zero or more {EventTarget} or {EventEmitter} instances. If none are specified, `n` is set as the default max for all newly created {EventTarget} and {EventEmitter}
          * objects.
          */
-        static setMaxListeners(n?: number, ...eventTargets: Array<_DOMEventTarget | NodeJS.EventEmitter>): void;
+        static setMaxListeners(n?: number, ...eventTargets: Array<EventTarget | NodeJS.EventEmitter>): void;
         /**
          * Listens once to the `abort` event on the provided `signal`.
          *

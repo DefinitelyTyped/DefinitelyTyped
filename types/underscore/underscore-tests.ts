@@ -2978,6 +2978,17 @@ _.defer(() => alert("deferred")); // $ExpectType void
     welcome("moe"); // $ExpectType any
 }
 
+// restArguments
+
+// Create a function that can accept any number of arguments and return those arguments as an array.
+{
+    const myFunction = () => {
+        let firstArg = arguments[0];
+        let restArgs = arguments[1];
+    }
+    _.restArguments(myFunction, 1); // $ExpectType (...args: any[]) => any
+}
+
 /***********
  * Objects *
  ***********/
@@ -3552,6 +3563,9 @@ _.uniqueId("contact_"); // $ExpectType string
 
 // HTML-escaping a string
 _.escape("Curly, Larry & Moe"); // $ExpectType string
+
+// returns an array containing the names of each property on the path from the root object to the target property.
+_.toPath('types/underscore') // $ExpectType number | string | Array<number | string>
 
 // result
 

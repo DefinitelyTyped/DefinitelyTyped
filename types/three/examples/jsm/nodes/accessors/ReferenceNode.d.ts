@@ -1,11 +1,10 @@
-import { NodeTypeOption } from "../core/constants.js";
 import Node from "../core/Node.js";
 import { NodeOrType, NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
 export default class ReferenceNode<T> extends Node {
     property: string;
 
-    uniformType: NodeTypeOption;
+    uniformType: string;
 
     object: T;
     count: number | null;
@@ -14,9 +13,9 @@ export default class ReferenceNode<T> extends Node {
     reference: T | null;
     node: Node | null;
 
-    constructor(property: string, uniformType: NodeTypeOption, object?: T | null, count?: number | null);
+    constructor(property: string, uniformType: string, object?: T | null, count?: number | null);
 
-    setNodeType(uniformType: NodeTypeOption): void;
+    setNodeType(uniformType: string): void;
 }
 
 export const reference: <T>(name: string, nodeOrType: NodeOrType, object: T) => ShaderNodeObject<ReferenceNode<T>>;

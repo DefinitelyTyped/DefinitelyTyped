@@ -76,7 +76,7 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/test.js)
  */
 declare module "node:test" {
     import { Readable } from "node:stream";
@@ -110,7 +110,7 @@ declare module "node:test" {
      * additional diagnostic information, or creating subtests.
      *
      * `test()` returns a `Promise` that fulfills once the test completes.
-     * if `test()` is called within a `describe()` block, it fulfills immediately.
+     * if `test()` is called within a suite, it fulfills immediately.
      * The return value can usually be discarded for top level tests.
      * However, the return value from subtests should be used to prevent the parent
      * test from finishing first and cancelling the subtest
@@ -137,7 +137,7 @@ declare module "node:test" {
      * @param options Configuration options for the test. The following properties are supported:
      * @param [fn='A no-op function'] The function under test. The first argument to this function is a {@link TestContext} object. If the test uses callbacks, the
      * callback function is passed as the second argument.
-     * @return Fulfilled with `undefined` once the test completes, or immediately if the test runs within {@link describe}.
+     * @return Fulfilled with `undefined` once the test completes, or immediately if the test runs within a suite.
      */
     function test(name?: string, fn?: TestFn): Promise<void>;
     function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
@@ -147,14 +147,47 @@ declare module "node:test" {
         export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, test, todo };
     }
     /**
-     * The `describe()` function imported from the `node:test` module. Each
-     * invocation of this function results in the creation of a Subtest.
-     * After invocation of top level `describe` functions,
-     * all top level tests and suites will execute.
-     * @param [name='The name'] The name of the suite, which is displayed when reporting test results.
-     * @param options Configuration options for the suite. supports the same options as `test([name][, options][, fn])`.
-     * @param [fn='A no-op function'] The function under suite declaring all subtests and subsuites. The first argument to this function is a {@link SuiteContext} object.
+     * The `suite()` function is imported from the `node:test` module.
+     * @param name The name of the suite, which is displayed when reporting test results. **Default:** The `name` property of `fn`, or `'<anonymous>'` if `fn` does not have a name.
+     * @param options Optional configuration options for the suite. This supports the same options as `test([name][, options][, fn])`.
+     * @param [fn='A no-op function'] The suite function declaring nested tests and suites. The first argument to this function is a `{@link SuiteContext}` object.
      * @return Immediately fulfilled with `undefined`.
+     * @since v20.13.0
+     */
+    function suite(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+    function suite(name?: string, fn?: SuiteFn): Promise<void>;
+    function suite(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+    function suite(fn?: SuiteFn): Promise<void>;
+    namespace suite {
+        /**
+         * Shorthand for skipping a suite. This is the same as [`suite([name], { skip: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * @since v20.13.0
+         */
+        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function skip(name?: string, fn?: SuiteFn): Promise<void>;
+        function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function skip(fn?: SuiteFn): Promise<void>;
+        /**
+         * Shorthand for marking a suite as `TODO`. This is the same as [`suite([name], { todo: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * @since v20.13.0
+         */
+        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function todo(name?: string, fn?: SuiteFn): Promise<void>;
+        function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function todo(fn?: SuiteFn): Promise<void>;
+        /**
+         * Shorthand for marking a suite as `only`. This is the same as [`suite([name], { only: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * @since v20.13.0
+         */
+        function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function only(name?: string, fn?: SuiteFn): Promise<void>;
+        function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+        function only(fn?: SuiteFn): Promise<void>;
+    }
+    /**
+     * Alias for `{@link suite}`.
+     *
+     * The `describe()` function is imported from the `node:test` module.
      */
     function describe(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
     function describe(name?: string, fn?: SuiteFn): Promise<void>;
@@ -162,21 +195,23 @@ declare module "node:test" {
     function describe(fn?: SuiteFn): Promise<void>;
     namespace describe {
         /**
-         * Shorthand for skipping a suite, same as `describe([name], { skip: true }[, fn])`.
+         * Shorthand for skipping a suite. This is the same as [`describe([name], { skip: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
+         * @since v18.15.0
          */
         function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function skip(name?: string, fn?: SuiteFn): Promise<void>;
         function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function skip(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `TODO`, same as `describe([name], { todo: true }[, fn])`.
+         * Shorthand for marking a suite as `TODO`. This is the same as [`describe([name], { todo: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
+         * @since v18.15.0
          */
         function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function todo(name?: string, fn?: SuiteFn): Promise<void>;
         function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function todo(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `only`, same as `describe([name], { only: true }[, fn])`.
+         * Shorthand for marking a suite as `only`. This is the same as [`describe([name], { only: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
          * @since v18.15.0
          */
         function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -185,7 +220,7 @@ declare module "node:test" {
         function only(fn?: SuiteFn): Promise<void>;
     }
     /**
-     * Shorthand for `test()`.
+     * Alias for `test()`.
      *
      * The `it()` function is imported from the `node:test` module.
      * @since v18.6.0, v16.17.0
@@ -264,49 +299,57 @@ declare module "node:test" {
     }
     interface RunOptions {
         /**
-         * If a number is provided, then that many files would run in parallel.
-         * If truthy, it would run (number of cpu cores - 1) files in parallel.
-         * If falsy, it would only run one file at a time.
-         * If unspecified, subtests inherit this value from their parent.
-         * @default true
+         * If a number is provided, then that many test processes would run in parallel, where each process corresponds to one test file.
+         * If `true`, it would run `os.availableParallelism() - 1` test files in parallel. If `false`, it would only run one test file at a time.
+         * @default false
          */
         concurrency?: number | boolean | undefined;
         /**
-         * An array containing the list of files to run.
-         * If unspecified, the test runner execution model will be used.
+         * An array containing the list of files to run. **Default** matching files from
+         * [test runner execution model](https://nodejs.org/docs/latest-v20.x/api/test.html#test-runner-execution-model).
          */
         files?: readonly string[] | undefined;
         /**
-         * Allows aborting an in-progress test execution.
-         * @default undefined
+         * Configures the test runner to exit the process once all known
+         * tests have finished executing even if the event loop would
+         * otherwise remain active.
+         * @default false
          */
-        signal?: AbortSignal | undefined;
-        /**
-         * A number of milliseconds the test will fail after.
-         * If unspecified, subtests inherit this value from their parent.
-         * @default Infinity
-         */
-        timeout?: number | undefined;
+        forceExit?: boolean | undefined;
         /**
          * Sets inspector port of test child process.
          * If a nullish value is provided, each process gets its own port,
          * incremented from the primary's `process.debugPort`.
+         * @default undefined
          */
         inspectPort?: number | (() => number) | undefined;
-        /**
-         * That can be used to only run tests whose name matches the provided pattern.
-         * Test name patterns are interpreted as JavaScript regular expressions.
-         * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
-         */
-        testNamePatterns?: string | RegExp | string[] | RegExp[];
         /**
          * If truthy, the test context will only run tests that have the `only` option set
          */
         only?: boolean;
         /**
-         * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
+         * A function that accepts the `TestsStream` instance and can be used to setup listeners before any tests are run.
+         * @default undefined
          */
         setup?: (root: Test) => void | Promise<void>;
+        /**
+         * Allows aborting an in-progress test execution.
+         */
+        signal?: AbortSignal | undefined;
+        /**
+         * A String, RegExp or a RegExp Array, that can be used to only run tests whose
+         * name matches the provided pattern. Test name patterns are interpreted as JavaScript
+         * regular expressions. For each test that is executed, any corresponding test hooks,
+         * such as `beforeEach()`, are also run.
+         * @default undefined
+         */
+        testNamePatterns?: string | RegExp | string[] | RegExp[];
+        /**
+         * A number of milliseconds the test execution will fail after.
+         * If unspecified, subtests inherit this value from their parent.
+         * @default Infinity
+         */
+        timeout?: number | undefined;
         /**
          * Whether to run in watch mode or not.
          * @default false
@@ -330,10 +373,16 @@ declare module "node:test" {
     /**
      * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests. `TestsStream` will emit events, in the
      * order of the tests definition
+     *
+     * Some of the events are guaranteed to be emitted in the same order as the tests are defined, while others are emitted in the order that the tests execute.
      * @since v18.9.0, v16.19.0
      */
     class TestsStream extends Readable implements NodeJS.ReadableStream {
+        addListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        addListener(event: "test:complete", listener: (data: TestComplete) => void): this;
+        addListener(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         addListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        addListener(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         addListener(event: "test:fail", listener: (data: TestFail) => void): this;
         addListener(event: "test:pass", listener: (data: TestPass) => void): this;
         addListener(event: "test:plan", listener: (data: TestPlan) => void): this;
@@ -341,7 +390,11 @@ declare module "node:test" {
         addListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         addListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
+        emit(event: "test:coverage", data: TestCoverage): boolean;
+        emit(event: "test:complete", data: TestComplete): boolean;
+        emit(event: "test:dequeue", data: TestDequeue): boolean;
         emit(event: "test:diagnostic", data: DiagnosticData): boolean;
+        emit(event: "test:enqueue", data: TestEnqueue): boolean;
         emit(event: "test:fail", data: TestFail): boolean;
         emit(event: "test:pass", data: TestPass): boolean;
         emit(event: "test:plan", data: TestPlan): boolean;
@@ -349,7 +402,11 @@ declare module "node:test" {
         emit(event: "test:stderr", data: TestStderr): boolean;
         emit(event: "test:stdout", data: TestStdout): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
+        on(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        on(event: "test:complete", listener: (data: TestComplete) => void): this;
+        on(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         on(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        on(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         on(event: "test:fail", listener: (data: TestFail) => void): this;
         on(event: "test:pass", listener: (data: TestPass) => void): this;
         on(event: "test:plan", listener: (data: TestPlan) => void): this;
@@ -357,7 +414,11 @@ declare module "node:test" {
         on(event: "test:stderr", listener: (data: TestStderr) => void): this;
         on(event: "test:stdout", listener: (data: TestStdout) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
+        once(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        once(event: "test:complete", listener: (data: TestComplete) => void): this;
+        once(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         once(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        once(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         once(event: "test:fail", listener: (data: TestFail) => void): this;
         once(event: "test:pass", listener: (data: TestPass) => void): this;
         once(event: "test:plan", listener: (data: TestPlan) => void): this;
@@ -365,7 +426,11 @@ declare module "node:test" {
         once(event: "test:stderr", listener: (data: TestStderr) => void): this;
         once(event: "test:stdout", listener: (data: TestStdout) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        prependListener(event: "test:complete", listener: (data: TestComplete) => void): this;
+        prependListener(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         prependListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        prependListener(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         prependListener(event: "test:fail", listener: (data: TestFail) => void): this;
         prependListener(event: "test:pass", listener: (data: TestPass) => void): this;
         prependListener(event: "test:plan", listener: (data: TestPlan) => void): this;
@@ -373,7 +438,11 @@ declare module "node:test" {
         prependListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        prependOnceListener(event: "test:complete", listener: (data: TestComplete) => void): this;
+        prependOnceListener(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         prependOnceListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        prependOnceListener(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         prependOnceListener(event: "test:fail", listener: (data: TestFail) => void): this;
         prependOnceListener(event: "test:pass", listener: (data: TestPass) => void): this;
         prependOnceListener(event: "test:plan", listener: (data: TestPlan) => void): this;
@@ -517,6 +586,7 @@ declare module "node:test" {
          */
         readonly mock: MockTracker;
     }
+
     /**
      * An instance of `SuiteContext` is passed to each suite function in order to
      * interact with the test runner. However, the `SuiteContext` constructor is not
@@ -577,7 +647,7 @@ declare module "node:test" {
         todo?: boolean | string | undefined;
     }
     /**
-     * This function is used to create a hook running before running a suite.
+     * This function creates a hook that runs before executing a suite.
      *
      * ```js
      * describe('tests', async () => {
@@ -593,7 +663,7 @@ declare module "node:test" {
      */
     function before(fn?: HookFn, options?: HookOptions): void;
     /**
-     * This function is used to create a hook running after  running a suite.
+     * This function creates a hook that runs after executing a suite.
      *
      * ```js
      * describe('tests', async () => {
@@ -609,8 +679,7 @@ declare module "node:test" {
      */
     function after(fn?: HookFn, options?: HookOptions): void;
     /**
-     * This function is used to create a hook running
-     * before each subtest of the current suite.
+     * This function creates a hook that runs before each test in the current suite.
      *
      * ```js
      * describe('tests', async () => {
@@ -626,8 +695,8 @@ declare module "node:test" {
      */
     function beforeEach(fn?: HookFn, options?: HookOptions): void;
     /**
-     * This function is used to create a hook running
-     * after each subtest of the current test.
+     * This function creates a hook that runs after each test in the current suite.
+     * The `afterEach()` hook is run even if the test fails.
      *
      * ```js
      * describe('tests', async () => {
@@ -1246,8 +1315,10 @@ declare module "node:test" {
         only,
         run,
         skip,
+        SuiteContext,
         test,
         test as default,
+        TestContext,
         todo,
     };
 }
@@ -1259,12 +1330,11 @@ interface TestLocationInfo {
      */
     column?: number;
     /**
-     * The path of the test file, `undefined` if test is not ran through a file.
+     * The path of the test file, `undefined` if test was run through the REPL.
      */
     file?: string;
     /**
-     * The line number where the test is defined, or
-     * `undefined` if the test was run through the REPL.
+     * The line number where the test is defined, or `undefined` if the test was run through the REPL.
      */
     line?: number;
 }
@@ -1273,6 +1343,202 @@ interface DiagnosticData extends TestLocationInfo {
      * The diagnostic message.
      */
     message: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestCoverage {
+    /**
+     * An object containing the coverage report.
+     */
+    summary: {
+        /**
+         * An array of coverage reports for individual files. Each report is an object with the following schema:
+         */
+        files: Array<{
+            /**
+             * The absolute path of the file.
+             */
+            path: string;
+            /**
+             * The total number of lines.
+             */
+            totalLineCount: number;
+            /**
+             * The total number of branches.
+             */
+            totalBranchCount: number;
+            /**
+             * The total number of functions.
+             */
+            totalFunctionCount: number;
+            /**
+             * The number of covered lines.
+             */
+            coveredLineCount: number;
+            /**
+             * The number of covered branches.
+             */
+            coveredBranchCount: number;
+            /**
+             * The number of covered functions.
+             */
+            coveredFunctionCount: number;
+            /**
+             * The percentage of lines covered.
+             */
+            coveredLinePercent: number;
+            /**
+             * The percentage of branches covered.
+             */
+            coveredBranchPercent: number;
+            /**
+             * The percentage of functions covered.
+             */
+            coveredFunctionPercent: number;
+            /**
+             * An array of functions representing function coverage.
+             */
+            functions: Array<{
+                /**
+                 * The name of the function.
+                 */
+                name: string;
+                /**
+                 * The line number where the function is defined.
+                 */
+                line: number;
+                /**
+                 * The number of times the function was called.
+                 */
+                count: number;
+            }>;
+            /**
+             * An array of lines representing line numbers and the number of times they were covered.
+             */
+            lines: Array<{
+                /**
+                 * The line number.
+                 */
+                line: number;
+                /**
+                 * The number of times the line was covered.
+                 */
+                count: number;
+            }>;
+        }>;
+        /**
+         * An object containing a summary of coverage for all files.
+         */
+        totals: {
+            /**
+             * The total number of lines.
+             */
+            totalLineCount: number;
+            /**
+             * The total number of branches.
+             */
+            totalBranchCount: number;
+            /**
+             * The total number of functions.
+             */
+            totalFunctionCount: number;
+            /**
+             * The number of covered lines.
+             */
+            coveredLineCount: number;
+            /**
+             * The number of covered branches.
+             */
+            coveredBranchCount: number;
+            /**
+             * The number of covered functions.
+             */
+            coveredFunctionCount: number;
+            /**
+             * The percentage of lines covered.
+             */
+            coveredLinePercent: number;
+            /**
+             * The percentage of branches covered.
+             */
+            coveredBranchPercent: number;
+            /**
+             * The percentage of functions covered.
+             */
+            coveredFunctionPercent: number;
+        };
+        /**
+         * The working directory when code coverage began. This
+         * is useful for displaying relative path names in case
+         * the tests changed the working directory of the Node.js process.
+         */
+        workingDirectory: string;
+    };
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestComplete extends TestLocationInfo {
+    /**
+     * Additional execution metadata.
+     */
+    details: {
+        /**
+         * Whether the test passed or not.
+         */
+        passed: boolean;
+        /**
+         * The duration of the test in milliseconds.
+         */
+        duration_ms: number;
+        /**
+         * An error wrapping the error thrown by the test if it did not pass.
+         */
+        error: Error;
+        /**
+         * The type of the test, used to denote whether this is a suite.
+         */
+        type?: "suite";
+    };
+    /**
+     * The test name.
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+    /**
+     * The ordinal number of the test.
+     */
+    testNumber: number;
+    /**
+     * Present if `context.todo` is called.
+     */
+    todo?: string | boolean;
+    /**
+     * Present if `context.skip` is called.
+     */
+    skip?: string | boolean;
+}
+interface TestDequeue extends TestLocationInfo {
+    /**
+     * The test name.
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestEnqueue extends TestLocationInfo {
+    /**
+     * The test name.
+     */
+    name: string;
     /**
      * The nesting level of the test.
      */
@@ -1288,12 +1554,12 @@ interface TestFail extends TestLocationInfo {
          */
         duration_ms: number;
         /**
-         * The error thrown by the test.
+         * An error wrapping the error thrown by the test if it did not pass.
          */
         error: Error;
         /**
          * The type of the test, used to denote whether this is a suite.
-         * @since 20.0.0, 19.9.0, 18.17.0
+         * @since v20.0.0, v19.9.0, v18.17.0
          */
         type?: "suite";
     };
@@ -1376,35 +1642,15 @@ interface TestStart extends TestLocationInfo {
 }
 interface TestStderr extends TestLocationInfo {
     /**
-     * The message written to `stderr`
+     * The message written to `stderr`.
      */
     message: string;
 }
 interface TestStdout extends TestLocationInfo {
     /**
-     * The message written to `stdout`
+     * The message written to `stdout`.
      */
     message: string;
-}
-interface TestEnqueue extends TestLocationInfo {
-    /**
-     * The test name
-     */
-    name: string;
-    /**
-     * The nesting level of the test.
-     */
-    nesting: number;
-}
-interface TestDequeue extends TestLocationInfo {
-    /**
-     * The test name
-     */
-    name: string;
-    /**
-     * The nesting level of the test.
-     */
-    nesting: number;
 }
 
 /**
@@ -1422,21 +1668,23 @@ interface TestDequeue extends TestLocationInfo {
  * import test from 'test/reporters';
  * ```
  * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/test/reporters.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/test/reporters.js)
  */
 declare module "node:test/reporters" {
     import { Transform, TransformOptions } from "node:stream";
 
     type TestEvent =
+        | { type: "test:coverage"; data: TestCoverage }
+        | { type: "test:complete"; data: TestComplete }
+        | { type: "test:dequeue"; data: TestDequeue }
         | { type: "test:diagnostic"; data: DiagnosticData }
+        | { type: "test:enqueue"; data: TestEnqueue }
         | { type: "test:fail"; data: TestFail }
         | { type: "test:pass"; data: TestPass }
         | { type: "test:plan"; data: TestPlan }
         | { type: "test:start"; data: TestStart }
         | { type: "test:stderr"; data: TestStderr }
         | { type: "test:stdout"; data: TestStdout }
-        | { type: "test:enqueue"; data: TestEnqueue }
-        | { type: "test:dequeue"; data: TestDequeue }
         | { type: "test:watch:drained" };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
@@ -1457,9 +1705,12 @@ declare module "node:test/reporters" {
         constructor();
     }
     /**
-     * The `junit` reporter outputs test results in a jUnit XML format
+     * The `junit` reporter outputs test results in a jUnit XML format.
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
+    /**
+     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--experimental-test-coverage) flag.
+     */
     class Lcov extends Transform {
         constructor(opts?: TransformOptions);
     }

@@ -25,7 +25,7 @@
  * limited (and platform-specific) capacity. If the subprocess writes to
  * stdout in excess of that limit without the output being captured, the
  * subprocess blocks waiting for the pipe buffer to accept more data. This is
- * identical to the behavior of pipes in the shell. Use the `{ stdio: 'ignore' }`option if the output will not be consumed.
+ * identical to the behavior of pipes in the shell. Use the `{ stdio: 'ignore' }` option if the output will not be consumed.
  *
  * The command lookup is performed using the `options.env.PATH` environment
  * variable if `env` is in the `options` object. Otherwise, `process.env.PATH` is
@@ -38,7 +38,7 @@
  * lexicographically sorts the `env` keys and uses the first one that
  * case-insensitively matches. Only first (in lexicographic order) entry will be
  * passed to the subprocess. This might lead to issues on Windows when passing
- * objects to the `env` option that have multiple variants of the same key, such as`PATH` and `Path`.
+ * objects to the `env` option that have multiple variants of the same key, such as `PATH` and `Path`.
  *
  * The {@link spawn} method spawns the child process asynchronously,
  * without blocking the Node.js event loop. The {@link spawnSync} function provides equivalent functionality in a synchronous manner that blocks
@@ -63,16 +63,17 @@
  * For certain use cases, such as automating shell scripts, the `synchronous counterparts` may be more convenient. In many cases, however,
  * the synchronous methods can have significant impact on performance due to
  * stalling the event loop while spawned processes complete.
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/child_process.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/child_process.js)
  */
 declare module "child_process" {
     import { ObjectEncodingOptions } from "node:fs";
     import { Abortable, EventEmitter } from "node:events";
+    import * as dgram from "node:dgram";
     import * as net from "node:net";
     import { Pipe, Readable, Stream, Writable } from "node:stream";
     import { URL } from "node:url";
     type Serializable = string | object | number | boolean | bigint;
-    type SendHandle = net.Socket | net.Server;
+    type SendHandle = net.Socket | net.Server | dgram.Socket | undefined;
     /**
      * Instances of the `ChildProcess` represent spawned child processes.
      *
@@ -94,7 +95,7 @@ declare module "child_process" {
          * `subprocess.stdin` is an alias for `subprocess.stdio[0]`. Both properties will
          * refer to the same value.
          *
-         * The `subprocess.stdin` property can be `null` or `undefined`if the child process could not be successfully spawned.
+         * The `subprocess.stdin` property can be `null` or `undefined` if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stdin: Writable | null;
@@ -117,7 +118,7 @@ declare module "child_process" {
          * });
          * ```
          *
-         * The `subprocess.stdout` property can be `null` or `undefined`if the child process could not be successfully spawned.
+         * The `subprocess.stdout` property can be `null` or `undefined` if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stdout: Readable | null;
@@ -130,7 +131,7 @@ declare module "child_process" {
          * `subprocess.stderr` is an alias for `subprocess.stdio[2]`. Both properties will
          * refer to the same value.
          *
-         * The `subprocess.stderr` property can be `null` or `undefined`if the child process could not be successfully spawned.
+         * The `subprocess.stderr` property can be `null` or `undefined` if the child process could not be successfully spawned.
          * @since v0.1.90
          */
         stderr: Readable | null;
@@ -143,7 +144,7 @@ declare module "child_process" {
         /**
          * A sparse array of pipes to the child process, corresponding with positions in
          * the `stdio` option passed to {@link spawn} that have been set
-         * to the value `'pipe'`. `subprocess.stdio[0]`, `subprocess.stdio[1]`, and`subprocess.stdio[2]` are also available as `subprocess.stdin`,`subprocess.stdout`, and `subprocess.stderr`,
+         * to the value `'pipe'`. `subprocess.stdio[0]`, `subprocess.stdio[1]`, and `subprocess.stdio[2]` are also available as `subprocess.stdin`, `subprocess.stdout`, and `subprocess.stderr`,
          * respectively.
          *
          * In the following example, only the child's fd `1` (stdout) is configured as a
@@ -212,7 +213,7 @@ declare module "child_process" {
         readonly pid?: number | undefined;
         /**
          * The `subprocess.connected` property indicates whether it is still possible to
-         * send and receive messages from a child process. When `subprocess.connected` is`false`, it is no longer possible to send or receive messages.
+         * send and receive messages from a child process. When `subprocess.connected` is `false`, it is no longer possible to send or receive messages.
          * @since v0.7.2
          */
         readonly connected: boolean;
@@ -272,7 +273,7 @@ declare module "child_process" {
          * See [`kill(2)`](http://man7.org/linux/man-pages/man2/kill.2.html) for reference.
          *
          * On Windows, where POSIX signals do not exist, the `signal` argument will be
-         * ignored, and the process will be killed forcefully and abruptly (similar to`'SIGKILL'`).
+         * ignored, and the process will be killed forcefully and abruptly (similar to `'SIGKILL'`).
          * See `Signal Events` for more details.
          *
          * On Linux, child processes of child processes will not be terminated
@@ -346,20 +347,20 @@ declare module "child_process" {
          *
          * There is a special case when sending a `{cmd: 'NODE_foo'}` message. Messages
          * containing a `NODE_` prefix in the `cmd` property are reserved for use within
-         * Node.js core and will not be emitted in the child's `'message'` event. Rather, such messages are emitted using the`'internalMessage'` event and are consumed internally by Node.js.
-         * Applications should avoid using such messages or listening for`'internalMessage'` events as it is subject to change without notice.
+         * Node.js core and will not be emitted in the child's `'message'` event. Rather, such messages are emitted using the `'internalMessage'` event and are consumed internally by Node.js.
+         * Applications should avoid using such messages or listening for `'internalMessage'` events as it is subject to change without notice.
          *
          * The optional `sendHandle` argument that may be passed to `subprocess.send()` is
          * for passing a TCP server or socket object to the child process. The child will
          * receive the object as the second argument passed to the callback function
-         * registered on the `'message'` event. Any data that is received
-         * and buffered in the socket will not be sent to the child.
+         * registered on the `'message'` event. Any data that is received and buffered in
+         * the socket will not be sent to the child. Sending IPC sockets is not supported on Windows.
          *
          * The optional `callback` is a function that is invoked after the message is
          * sent but before the child may have received it. The function is called with a
          * single argument: `null` on success, or an `Error` object on failure.
          *
-         * If no `callback` function is provided and the message cannot be sent, an`'error'` event will be emitted by the `ChildProcess` object. This can
+         * If no `callback` function is provided and the message cannot be sent, an `'error'` event will be emitted by the `ChildProcess` object. This can
          * happen, for instance, when the child process has already exited.
          *
          * `subprocess.send()` will return `false` if the channel has closed or when the
@@ -400,8 +401,8 @@ declare module "child_process" {
          * Once the server is now shared between the parent and child, some connections
          * can be handled by the parent and some by the child.
          *
-         * While the example above uses a server created using the `node:net` module,`node:dgram` module servers use exactly the same workflow with the exceptions of
-         * listening on a `'message'` event instead of `'connection'` and using`server.bind()` instead of `server.listen()`. This is, however, only
+         * While the example above uses a server created using the `node:net` module, `node:dgram` module servers use exactly the same workflow with the exceptions of
+         * listening on a `'message'` event instead of `'connection'` and using `server.bind()` instead of `server.listen()`. This is, however, only
          * supported on Unix platforms.
          *
          * #### Example: sending a socket object
@@ -454,6 +455,7 @@ declare module "child_process" {
          * as the connection may have been closed during the time it takes to send the
          * connection to the child.
          * @since v0.5.9
+         * @param sendHandle `undefined`, or a [`net.Socket`](https://nodejs.org/docs/latest-v20.x/api/net.html#class-netsocket), [`net.Server`](https://nodejs.org/docs/latest-v20.x/api/net.html#class-netserver), or [`dgram.Socket`](https://nodejs.org/docs/latest-v20.x/api/dgram.html#class-dgramsocket) object.
          * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles. `options` supports the following properties:
          */
         send(message: Serializable, callback?: (error: Error | null) => void): boolean;
@@ -482,7 +484,7 @@ declare module "child_process" {
         disconnect(): void;
         /**
          * By default, the parent will wait for the detached child to exit. To prevent the
-         * parent from waiting for a given `subprocess` to exit, use the`subprocess.unref()` method. Doing so will cause the parent's event loop to not
+         * parent from waiting for a given `subprocess` to exit, use the `subprocess.unref()` method. Doing so will cause the parent's event loop to not
          * include the child in its reference count, allowing the parent to exit
          * independently of the child, unless there is an established IPC channel between
          * the child and the parent.
@@ -678,7 +680,7 @@ declare module "child_process" {
         stdio: [Stdin, Stdout, Stderr];
     }
     /**
-     * The `child_process.spawn()` method spawns a new process using the given`command`, with command-line arguments in `args`. If omitted, `args` defaults
+     * The `child_process.spawn()` method spawns a new process using the given `command`, with command-line arguments in `args`. If omitted, `args` defaults
      * to an empty array.
      *
      * **If the `shell` option is enabled, do not pass unsanitized user input to this**
@@ -776,10 +778,10 @@ declare module "child_process" {
      * Certain platforms (macOS, Linux) will use the value of `argv[0]` for the process
      * title while others (Windows, SunOS) will use `command`.
      *
-     * Node.js overwrites `argv[0]` with `process.execPath` on startup, so`process.argv[0]` in a Node.js child process will not match the `argv0`parameter passed to `spawn` from the parent. Retrieve
-     * it with the`process.argv0` property instead.
+     * Node.js overwrites `argv[0]` with `process.execPath` on startup, so `process.argv[0]` in a Node.js child process will not match the `argv0` parameter passed to `spawn` from the parent. Retrieve
+     * it with the `process.argv0` property instead.
      *
-     * If the `signal` option is enabled, calling `.abort()` on the corresponding`AbortController` is similar to calling `.kill()` on the child process except
+     * If the `signal` option is enabled, calling `.abort()` on the corresponding `AbortController` is similar to calling `.kill()` on the child process except
      * the error passed to the callback will be an `AbortError`:
      *
      * ```js
@@ -917,9 +919,9 @@ declare module "child_process" {
      * **Never pass unsanitized user input to this function. Any input containing shell**
      * **metacharacters may be used to trigger arbitrary command execution.**
      *
-     * If a `callback` function is provided, it is called with the arguments`(error, stdout, stderr)`. On success, `error` will be `null`. On error,`error` will be an instance of `Error`. The
+     * If a `callback` function is provided, it is called with the arguments `(error, stdout, stderr)`. On success, `error` will be `null`. On error, `error` will be an instance of `Error`. The
      * `error.code` property will be
-     * the exit code of the process. By convention, any exit code other than `0`indicates an error. `error.signal` will be the signal that terminated the
+     * the exit code of the process. By convention, any exit code other than `0` indicates an error. `error.signal` will be the signal that terminated the
      * process.
      *
      * The `stdout` and `stderr` arguments passed to the callback will contain the
@@ -949,7 +951,7 @@ declare module "child_process" {
      * the existing process and uses a shell to execute the command.
      *
      * If this method is invoked as its `util.promisify()` ed version, it returns
-     * a `Promise` for an `Object` with `stdout` and `stderr` properties. The returned`ChildProcess` instance is attached to the `Promise` as a `child` property. In
+     * a `Promise` for an `Object` with `stdout` and `stderr` properties. The returned `ChildProcess` instance is attached to the `Promise` as a `child` property. In
      * case of an error (including any error resulting in an exit code other than 0), a
      * rejected promise is returned, with the same `error` object given in the
      * callback, but with two additional properties `stdout` and `stderr`.
@@ -966,7 +968,7 @@ declare module "child_process" {
      * lsExample();
      * ```
      *
-     * If the `signal` option is enabled, calling `.abort()` on the corresponding`AbortController` is similar to calling `.kill()` on the child process except
+     * If the `signal` option is enabled, calling `.abort()` on the corresponding `AbortController` is similar to calling `.kill()` on the child process except
      * the error passed to the callback will be an `AbortError`:
      *
      * ```js
@@ -1111,7 +1113,7 @@ declare module "child_process" {
      * encoding, `Buffer` objects will be passed to the callback instead.
      *
      * If this method is invoked as its `util.promisify()` ed version, it returns
-     * a `Promise` for an `Object` with `stdout` and `stderr` properties. The returned`ChildProcess` instance is attached to the `Promise` as a `child` property. In
+     * a `Promise` for an `Object` with `stdout` and `stderr` properties. The returned `ChildProcess` instance is attached to the `Promise` as a `child` property. In
      * case of an error (including any error resulting in an exit code other than 0), a
      * rejected promise is returned, with the same `error` object given in the
      * callback, but with two additional properties `stdout` and `stderr`.
@@ -1130,7 +1132,7 @@ declare module "child_process" {
      * **function. Any input containing shell metacharacters may be used to trigger**
      * **arbitrary command execution.**
      *
-     * If the `signal` option is enabled, calling `.abort()` on the corresponding`AbortController` is similar to calling `.kill()` on the child process except
+     * If the `signal` option is enabled, calling `.abort()` on the corresponding `AbortController` is similar to calling `.kill()` on the child process except
      * the error passed to the callback will be an `AbortError`:
      *
      * ```js
@@ -1354,7 +1356,7 @@ declare module "child_process" {
      * required, spawning a large number of child Node.js processes is not
      * recommended.
      *
-     * By default, `child_process.fork()` will spawn new Node.js instances using the `process.execPath` of the parent process. The `execPath` property in the`options` object allows for an alternative
+     * By default, `child_process.fork()` will spawn new Node.js instances using the `process.execPath` of the parent process. The `execPath` property in the `options` object allows for an alternative
      * execution path to be used.
      *
      * Node.js processes launched with a custom `execPath` will communicate with the
@@ -1364,9 +1366,9 @@ declare module "child_process" {
      * Unlike the [`fork(2)`](http://man7.org/linux/man-pages/man2/fork.2.html) POSIX system call, `child_process.fork()` does not clone the
      * current process.
      *
-     * The `shell` option available in {@link spawn} is not supported by`child_process.fork()` and will be ignored if set.
+     * The `shell` option available in {@link spawn} is not supported by `child_process.fork()` and will be ignored if set.
      *
-     * If the `signal` option is enabled, calling `.abort()` on the corresponding`AbortController` is similar to calling `.kill()` on the child process except
+     * If the `signal` option is enabled, calling `.abort()` on the corresponding `AbortController` is similar to calling `.kill()` on the child process except
      * the error passed to the callback will be an `AbortError`:
      *
      * ```js
@@ -1475,7 +1477,7 @@ declare module "child_process" {
      * The `child_process.execSync()` method is generally identical to {@link exec} with the exception that the method will not return
      * until the child process has fully closed. When a timeout has been encountered
      * and `killSignal` is sent, the method won't return until the process has
-     * completely exited. If the child process intercepts and handles the `SIGTERM`signal and doesn't exit, the parent process will wait until the child process
+     * completely exited. If the child process intercepts and handles the `SIGTERM` signal and doesn't exit, the parent process will wait until the child process
      * has exited.
      *
      * If the process times out or has a non-zero exit code, this method will throw.

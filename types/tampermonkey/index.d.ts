@@ -67,18 +67,23 @@ declare namespace Tampermonkey {
     interface Request<TContext = object> {
         method?: "GET" | "HEAD" | "POST";
         /** The destination URL */
-        url: string;
+        url: string | URL;
         /**
          * i.e. user-agent, referer... (some special headers are not supported
          * by Safari and Android browsers)
          */
         headers?: RequestHeaders;
-        /** String to send via a POST request */
-        data?: string;
+        /** Data to send via a POST request */
+        data?: string | Blob | File | object | any[] | FormData | URLSearchParams;
         /** Controls what to happen when a redirect is detected (build 6180+, enforces fetch mode). */
         redirect?: "follow" | "error" | "manual";
         /** A cookie to be patched into the sent cookie set */
         cookie?: string;
+        /** Object containing the partition key to be used for sent and received partitioned cookies */
+        cookiePartition?: {
+            /** String representing the top frame site for partitioned cookies */
+            topLevelSite?: string;
+        };
         /** Send the data string in binary mode */
         binary?: boolean;
         /** Don't cache the resource */
@@ -483,6 +488,11 @@ declare namespace Tampermonkey {
         domain: string;
         /** The first-party domain of the cookie. */
         firstPartyDomain?: string;
+        /** The partition key of the cookie. */
+        partitionKey?: {
+            /** The top frame site of the cookie. */
+            topLevelSite?: string;
+        };
         /** Indicates whether the cookie is a host-only cookie. */
         hostOnly: boolean;
         /** Indicates whether the cookie is an HTTP-only cookie. */
@@ -512,6 +522,14 @@ declare namespace Tampermonkey {
         name?: string;
         /** The path of the cookies to retrieve. */
         path?: string;
+        /**
+         * Object containing the partition key to be used for sent and received partitioned cookies.
+         * Use an empty object to retrieve all cookies.
+         */
+        partitionKey?: {
+            /** String representing the top frame site of the cookies */
+            topLevelSite?: string;
+        };
     }
 
     type ListCookiesCallback = (
@@ -535,6 +553,11 @@ declare namespace Tampermonkey {
         domain?: string;
         /** The first-party domain of the cookie. */
         firstPartyDomain?: string;
+        /** The partition key of the cookie. */
+        partitionKey?: {
+            /** The top frame site of the cookie. */
+            topLevelSite?: string;
+        };
         /** The path of the cookie. */
         path?: string;
         /** Whether the cookie should only be sent over HTTPS. */
@@ -549,9 +572,20 @@ declare namespace Tampermonkey {
     }
 
     interface DeleteCookiesDetails {
+        /**
+         * The URL associated with the cookie. If `url` is not specified,
+         * the current document's URL will be used.
+         */
         url: string;
+        /** The name of the cookie to delete. */
         name: string;
+        /** The first party domain of the cookie to delete. */
         firstPartyDomain: string;
+        /** The partition key of the cookie to delete. */
+        partitionKey: {
+            /** The top frame site of the cookies. */
+            topLevelSite?: string;
+        };
     }
 }
 
@@ -754,7 +788,7 @@ declare function GM_registerMenuCommand(
          * If specified, the according menu item will be updated with the new options.
          * If not specified or the menu item can't be found, a new menu item will be created.
          */
-        id?: number;
+        id?: number | string;
         /**
          * An optional access key for the menu item. This can be used to create a shortcut for the menu item.
          * For example, if the access key is "s", the user can select the menu item by pressing "s"
@@ -820,11 +854,13 @@ declare function GM_download(url: string, name: string): Tampermonkey.AbortHandl
 // Tabs
 
 /**
- * Saves information about a tab for later use.
+ * Saves information about a tab so that it can be retrieved later
+ * using the `GM_getTab` function.
  * @url https://www.tampermonkey.net/documentation.php#api:GM_saveTab
  * @param tab An object containing the information to be saved about the tab.
+ * @param callback An optional callback function
  */
-declare function GM_saveTab(tab: object): void;
+declare function GM_saveTab(tab: object, callback?: () => void): void;
 
 /**
  * Gets a object that is persistent as long as this tab is open
@@ -927,8 +963,13 @@ declare function GM_notification(
  * @url https://www.tampermonkey.net/documentation.php#api:GM_setClipboard
  * @param data The string to set as the clipboard text.
  * @param info A string expressing the type `text` or `html` or an object.
+ * @param callback An optional callback function that is called when the clipboard has been set.
  */
-declare function GM_setClipboard(data: string, info?: Tampermonkey.ContentType): void;
+declare function GM_setClipboard(
+    data: string,
+    info?: Tampermonkey.ContentType,
+    callback?: () => void,
+): void;
 
 /**
  * `GM_webRequest` (re-)registers rules for web request manipulations

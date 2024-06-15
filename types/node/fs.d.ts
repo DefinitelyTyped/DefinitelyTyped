@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/fs.js)
  */
 declare module "fs" {
     import * as stream from "node:stream";
@@ -77,7 +77,7 @@ declare module "fs" {
      * their synchronous counterparts are of this type.
      * If `bigint` in the `options` passed to those methods is true, the numeric values
      * will be `bigint` instead of `number`, and the object will contain additional
-     * nanosecond-precision properties suffixed with `Ns`.
+     * nanosecond-precision properties suffixed with `Ns`. `Stat` objects are not to be created directly using the `new` keyword.
      *
      * ```console
      * Stats {
@@ -242,7 +242,13 @@ declare module "fs" {
         name: string;
         /**
          * The base path that this `fs.Dirent` object refers to.
+         * @since v20.12.0
+         */
+        parentPath: string;
+        /**
+         * Alias for `dirent.parentPath`.
          * @since v20.1.0
+         * @deprecated Since v20.12.0
          */
         path: string;
     }
@@ -296,7 +302,7 @@ declare module "fs" {
         /**
          * Asynchronously read the next directory entry via [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) as an `fs.Dirent`.
          *
-         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null`if there are no more directory entries to read.
+         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null` if there are no more directory entries to read.
          *
          * Directory entries returned by this function are in no particular order as
          * provided by the operating system's underlying directory mechanisms.
@@ -3611,7 +3617,7 @@ declare module "fs" {
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
-     * checks to be performed. `mode` should be either the value `fs.constants.F_OK`or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and `fs.constants.X_OK`
+     * checks to be performed. `mode` should be either the value `fs.constants.F_OK` or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and `fs.constants.X_OK`
      * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
      * possible values of `mode`.
      *

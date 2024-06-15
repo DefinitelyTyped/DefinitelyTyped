@@ -4928,13 +4928,13 @@ declare namespace _ {
          * Wrapped type `(...args: any[]) => any`.
          * @see _.restArguments
          */
-        restArguments(func:Function, startIndex:number): (...args: any[]) => any;
+        restArguments(startIndex:number): (...args: any[]) => any;
 
         /**
-         * Wrapped type `Array<number | string>`.
+         * Wrapped type `number | string | Array<number | string>`.
          * @see _.toPath
          */
-        toPath(path: number | string | Array<number | string>): Array<number | string>;
+        toPath(): Array<number | string>;
 
         /***********
          * Objects *
@@ -6221,13 +6221,13 @@ declare namespace _ {
          * Wrapped type `(...args: any[]) => any`.
          * @see _.restArguments
          */
-        restArguments(func:Function, startIndex:number): _Chain<T>;
+        restArguments(startIndex:number): _Chain<T>;
 
         /**
-         * Wrapped type `Array<number | string>`.
+         * Wrapped type `number | string | Array<number | string>`.
          * @see _.toPath
          */
-        toPath(path: number | string | Array<number | string>): _Chain<T>;
+        toPath(): _Chain<T>;
 
         /***********
          * Objects *

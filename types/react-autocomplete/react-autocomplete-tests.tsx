@@ -9,6 +9,7 @@ const items = ["hello", "world"];
     getItemValue={(item) => item}
     renderItem={(item) => <div key={item}>{item}</div>}
     value={items[0]}
+    autoHighlight={false}
 />;
 
 // @ts-expect-error

@@ -41,7 +41,7 @@
  * // Creates a Buffer containing the Latin-1 bytes [0x74, 0xe9, 0x73, 0x74].
  * const buf7 = Buffer.from('tést', 'latin1');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/buffer.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/buffer.js)
  */
 declare module "buffer" {
     import { BinaryLike } from "node:crypto";
@@ -88,7 +88,7 @@ declare module "buffer" {
      * Throws if the `fromEnc` or `toEnc` specify invalid character encodings or if
      * conversion from `fromEnc` to `toEnc` is not permitted.
      *
-     * Encodings supported by `buffer.transcode()` are: `'ascii'`, `'utf8'`,`'utf16le'`, `'ucs2'`, `'latin1'`, and `'binary'`.
+     * Encodings supported by `buffer.transcode()` are: `'ascii'`, `'utf8'`, `'utf16le'`, `'ucs2'`, `'latin1'`, and `'binary'`.
      *
      * The transcoding process will use substitution characters if a given byte
      * sequence cannot be adequately represented in the target encoding. For instance:
@@ -781,7 +781,7 @@ declare module "buffer" {
              * // (This result is equal to: [buf1, buf3, buf2].)
              * ```
              *
-             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd`arguments can be used to limit the comparison to specific ranges within `target`and `buf` respectively.
+             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd` arguments can be used to limit the comparison to specific ranges within `target` and `buf` respectively.
              *
              * ```js
              * import { Buffer } from 'node:buffer';
@@ -797,7 +797,7 @@ declare module "buffer" {
              * // Prints: 1
              * ```
              *
-             * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`,`targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
+             * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`, `targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
              * @since v0.11.13
              * @param target A `Buffer` or {@link Uint8Array} with which to compare `buf`.
              * @param [targetStart=0] The offset within `target` at which to begin comparison.
@@ -1215,7 +1215,7 @@ declare module "buffer" {
              */
             readBigInt64LE(offset?: number): bigint;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as an unsigned, little-endian integer supporting
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned, little-endian integer supporting
              * up to 48 bits of accuracy.
              *
              * This function is also available under the `readUintLE` alias.
@@ -1239,7 +1239,7 @@ declare module "buffer" {
              */
             readUintLE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as an unsigned big-endian integer supporting
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned big-endian integer supporting
              * up to 48 bits of accuracy.
              *
              * This function is also available under the `readUintBE` alias.
@@ -1265,7 +1265,7 @@ declare module "buffer" {
              */
             readUintBE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as a little-endian, two's complement signed value
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a little-endian, two's complement signed value
              * supporting up to 48 bits of accuracy.
              *
              * ```js
@@ -1282,7 +1282,7 @@ declare module "buffer" {
              */
             readIntLE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as a big-endian, two's complement signed value
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a big-endian, two's complement signed value
              * supporting up to 48 bits of accuracy.
              *
              * ```js
@@ -1329,7 +1329,7 @@ declare module "buffer" {
              */
             readUint8(offset?: number): number;
             /**
-             * Reads an unsigned, little-endian 16-bit integer from `buf` at the specified`offset`.
+             * Reads an unsigned, little-endian 16-bit integer from `buf` at the specified `offset`.
              *
              * This function is also available under the `readUint16LE` alias.
              *
@@ -1702,7 +1702,7 @@ declare module "buffer" {
              */
             writeUint8(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value`must be a valid unsigned 16-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a valid unsigned 16-bit integer. Behavior is undefined when `value` is
              * anything other than an unsigned 16-bit integer.
              *
              * This function is also available under the `writeUint16LE` alias.
@@ -1730,7 +1730,7 @@ declare module "buffer" {
              */
             writeUint16LE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value`must be a valid unsigned 16-bit integer. Behavior is undefined when `value`is anything other than an
+             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a valid unsigned 16-bit integer. Behavior is undefined when `value`is anything other than an
              * unsigned 16-bit integer.
              *
              * This function is also available under the `writeUint16BE` alias.
@@ -1758,7 +1758,7 @@ declare module "buffer" {
              */
             writeUint16BE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value`must be a valid unsigned 32-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a valid unsigned 32-bit integer. Behavior is undefined when `value` is
              * anything other than an unsigned 32-bit integer.
              *
              * This function is also available under the `writeUint32LE` alias.
@@ -1785,7 +1785,7 @@ declare module "buffer" {
              */
             writeUint32LE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value`must be a valid unsigned 32-bit integer. Behavior is undefined when `value`is anything other than an
+             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a valid unsigned 32-bit integer. Behavior is undefined when `value`is anything other than an
              * unsigned 32-bit integer.
              *
              * This function is also available under the `writeUint32BE` alias.
@@ -1836,7 +1836,7 @@ declare module "buffer" {
              */
             writeInt8(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian.  The `value`must be a valid signed 16-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as little-endian.  The `value` must be a valid signed 16-bit integer. Behavior is undefined when `value` is
              * anything other than a signed 16-bit integer.
              *
              * The `value` is interpreted and written as a two's complement signed integer.
@@ -1858,7 +1858,7 @@ declare module "buffer" {
              */
             writeInt16LE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian.  The `value`must be a valid signed 16-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as big-endian.  The `value` must be a valid signed 16-bit integer. Behavior is undefined when `value` is
              * anything other than a signed 16-bit integer.
              *
              * The `value` is interpreted and written as a two's complement signed integer.
@@ -1880,7 +1880,7 @@ declare module "buffer" {
              */
             writeInt16BE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value`must be a valid signed 32-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a valid signed 32-bit integer. Behavior is undefined when `value` is
              * anything other than a signed 32-bit integer.
              *
              * The `value` is interpreted and written as a two's complement signed integer.
@@ -1902,7 +1902,7 @@ declare module "buffer" {
              */
             writeInt32LE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value`must be a valid signed 32-bit integer. Behavior is undefined when `value` is
+             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a valid signed 32-bit integer. Behavior is undefined when `value` is
              * anything other than a signed 32-bit integer.
              *
              * The `value` is interpreted and written as a two's complement signed integer.
@@ -1964,7 +1964,7 @@ declare module "buffer" {
              */
             writeFloatBE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value`must be a JavaScript number. Behavior is undefined when `value` is anything
+             * Writes `value` to `buf` at the specified `offset` as little-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything
              * other than a JavaScript number.
              *
              * ```js
@@ -1984,7 +1984,7 @@ declare module "buffer" {
              */
             writeDoubleLE(value: number, offset?: number): number;
             /**
-             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value`must be a JavaScript number. Behavior is undefined when `value` is anything
+             * Writes `value` to `buf` at the specified `offset` as big-endian. The `value` must be a JavaScript number. Behavior is undefined when `value` is anything
              * other than a JavaScript number.
              *
              * ```js
@@ -2066,7 +2066,7 @@ declare module "buffer" {
             /**
              * If `value` is:
              *
-             * * a string, `value` is interpreted according to the character encoding in`encoding`.
+             * * a string, `value` is interpreted according to the character encoding in `encoding`.
              * * a `Buffer` or [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array), `value` will be used in its entirety.
              * To compare a partial `Buffer`, use `buf.subarray`.
              * * a number, `value` will be interpreted as an unsigned 8-bit integer
@@ -2164,7 +2164,7 @@ declare module "buffer" {
              * // Prints: 4
              * ```
              *
-             * If `value` is not a string, number, or `Buffer`, this method will throw a`TypeError`. If `value` is a number, it will be coerced to a valid byte value,
+             * If `value` is not a string, number, or `Buffer`, this method will throw a `TypeError`. If `value` is a number, it will be coerced to a valid byte value,
              * an integer between 0 and 255.
              *
              * If `byteOffset` is not a number, it will be coerced to a number. Any arguments
@@ -2323,7 +2323,7 @@ declare module "buffer" {
          * **and should never be used in new code, because they use strings to represent**
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
+         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
          * @legacy Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
@@ -2339,7 +2339,7 @@ declare module "buffer" {
          * **and should never be used in new code, because they use strings to represent**
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
+         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
          * @legacy Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.

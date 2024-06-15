@@ -33,6 +33,8 @@ http.createServer((req, res) => {
         state: "some random string to protect against cross-site request forgery attacks",
     });
 
+    oauth2.getOAuthAccessToken("", {}, () => {});
+
     /**
      * Creating an anchor with authURL as href and sending as response
      */

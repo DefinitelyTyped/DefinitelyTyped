@@ -6,7 +6,7 @@
  * ```js
  * const util = require('node:util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/util.js)
  */
 declare module "util" {
     import * as types from "node:util/types";
@@ -1256,16 +1256,32 @@ declare module "util" {
      *
      * ```js
      * console.log(
-     *   util.styleText('underline', util.styleText('italic', 'My italic underlined message')),
+     *   util.styleText(['underline', 'italic'], 'My italic underlined message'),
+     * );
+     * ```
+     *
+     * When passing an array of formats, the order of the format applied is left to right so the following style
+     * might overwrite the previous one.
+     *
+     * ```js
+     * console.log(
+     *   util.styleText(['red', 'green'], 'text'), // green
      * );
      * ```
      *
      * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v20.x/api/util.html#modifiers).
-     * @param format A text format defined in `util.inspect.colors`.
+     * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
      * @param text The text to to be formatted.
      * @since v20.12.0
      */
-    export function styleText(format: ForegroundColors | BackgroundColors | Modifiers, text: string): string;
+    export function styleText(
+        format:
+            | ForegroundColors
+            | BackgroundColors
+            | Modifiers
+            | Array<ForegroundColors | BackgroundColors | Modifiers>,
+        text: string,
+    ): string;
     /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
      *

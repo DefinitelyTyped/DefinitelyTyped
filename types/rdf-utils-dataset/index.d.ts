@@ -1,4 +1,4 @@
-import resource from "./resource";
-import resourcesToGraph from "./resourcesToGraph";
+import resource from "./resource.js";
+import resourcesToGraph from "./resourcesToGraph.js";
 
 export { resource, resourcesToGraph };

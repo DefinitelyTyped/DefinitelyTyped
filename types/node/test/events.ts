@@ -79,12 +79,18 @@ declare const any: any;
 }
 
 {
+    class CustomEventTarget extends EventTarget {
+        override addEventListener(...args: Parameters<EventTarget["addEventListener"]>) {
+            const [name, listener] = args;
+
+            if (typeof listener === "function") {
+                setTimeout(() => listener(new Event(name)), 100);
+            }
+        }
+    }
+
     events.once(
-        {
-            addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
-                setTimeout(() => listener(123), 100);
-            },
-        },
+        new CustomEventTarget(),
         "name",
     );
 }
@@ -94,6 +100,20 @@ async function test() {
         console.log(e);
     }
     events.on(new events.EventEmitter(), "test", { signal: new AbortController().signal });
+}
+
+async function testWithSymbol() {
+    for await (const e of events.on(new events.EventEmitter(), Symbol("test"))) {
+        console.log(e);
+    }
+    events.on(new events.EventEmitter(), Symbol("test"), { signal: new AbortController().signal });
+}
+
+async function testEventTarget() {
+    for await (const e of events.on(new EventTarget(), "test")) {
+        console.log(e);
+    }
+    events.on(new EventTarget(), "test", { signal: new AbortController().signal });
 }
 
 {

@@ -32,6 +32,7 @@ export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
     thicknessNode: ShaderNodeObject<Node> | null;
     attenuationDistanceNode: ShaderNodeObject<Node> | null;
     attenuationColorNode: ShaderNodeObject<Node> | null;
+    dispersionNode: ShaderNodeObject<Node> | null;
 
     anisotropyNode: ShaderNodeObject<Node> | null;
 
@@ -78,4 +79,11 @@ export default class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
     set transmission(value: number);
 
     constructor(parameters?: MeshPhysicalNodeMaterialParameters);
+
+    get useClearcoat(): boolean;
+    get useIridescence(): boolean;
+    get useSheen(): boolean;
+    get useAnisotropy(): boolean;
+    get useTransmission(): boolean;
+    get useDispersion(): boolean;
 }

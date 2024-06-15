@@ -12,7 +12,7 @@
  * import async_hooks from 'node:async_hooks';
  * ```
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/async_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/async_hooks.js)
  */
 declare module "async_hooks" {
     /**

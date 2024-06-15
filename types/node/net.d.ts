@@ -10,7 +10,7 @@
  * ```js
  * const net = require('node:net');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/net.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/net.js)
  */
 declare module "net" {
     import * as stream from "node:stream";
@@ -278,7 +278,7 @@ declare module "net" {
          */
         readonly bytesWritten: number;
         /**
-         * If `true`,`socket.connect(options[, connectListener])` was
+         * If `true`, `socket.connect(options[, connectListener])` was
          * called and has not yet finished. It will stay `true` until the socket becomes
          * connected, then it is set to `false` and the `'connect'` event is emitted. Note
          * that the `socket.connect(options[, connectListener])` callback is a listener for the `'connect'` event.
@@ -564,7 +564,7 @@ declare module "net" {
          *
          * All `listen()` methods can take a `backlog` parameter to specify the maximum
          * length of the queue of pending connections. The actual length will be determined
-         * by the OS through sysctl settings such as `tcp_max_syn_backlog` and `somaxconn`on Linux. The default value of this parameter is 511 (not 512).
+         * by the OS through sysctl settings such as `tcp_max_syn_backlog` and `somaxconn` on Linux. The default value of this parameter is 511 (not 512).
          *
          * All {@link Socket} are set to `SO_REUSEADDR` (see [`socket(7)`](https://man7.org/linux/man-pages/man7/socket.7.html) for
          * details).
@@ -899,13 +899,16 @@ declare module "net" {
     function setDefaultAutoSelectFamily(value: boolean): void;
     /**
      * Gets the current default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
-     * The initial default value is `250`.
-     * @since v19.8.0
+     * The initial default value is `250` or the value specified via the command line option `--network-family-autoselection-attempt-timeout`.
+     * @returns The current default value of the `autoSelectFamilyAttemptTimeout` option.
+     * @since v19.8.0, v18.8.0
      */
     function getDefaultAutoSelectFamilyAttemptTimeout(): number;
     /**
      * Sets the default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
-     * @since v19.8.0
+     * @param value The new default value, which must be a positive number. If the number is less than `10`, the value `10` is used instead. The initial default value is `250` or the value specified via the command line
+     * option `--network-family-autoselection-attempt-timeout`.
+     * @since v19.8.0, v18.8.0
      */
     function setDefaultAutoSelectFamilyAttemptTimeout(value: number): void;
     /**

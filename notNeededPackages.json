@@ -528,6 +528,10 @@
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
         },
+        "carbon__icon-helpers": {
+            "libraryName": "@carbon/icon-helpers",
+            "asOfVersion": "10.45.0"
+        },
         "carbon__icons-react": {
             "libraryName": "@carbon/icons-react",
             "asOfVersion": "11.29.0"
@@ -987,6 +991,10 @@
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
+        },
+        "conventional-recommended-bump": {
+            "libraryName": "conventional-recommended-bump",
+            "asOfVersion": "10.0.0"
         },
         "convert-hrtime": {
             "libraryName": "convert-hrtime",
@@ -3409,6 +3417,10 @@
             "libraryName": "mdarea",
             "asOfVersion": "2.0.0"
         },
+        "mdx-js__react": {
+            "libraryName": "@mdx-js/react",
+            "asOfVersion": "2.0.0"
+        },
         "mem": {
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
@@ -5670,6 +5682,10 @@
         "soap": {
             "libraryName": "soap",
             "asOfVersion": "0.21.0"
+        },
+        "social-logos": {
+            "libraryName": "social-logos",
+            "asOfVersion": "3.0.1"
         },
         "socket.io": {
             "libraryName": "socket.io",

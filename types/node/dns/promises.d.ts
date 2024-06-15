@@ -338,7 +338,7 @@ declare module "dns/promises" {
      * progress.
      *
      * This method works much like [resolve.conf](https://man7.org/linux/man-pages/man5/resolv.conf.5.html).
-     * That is, if attempting to resolve with the first server provided results in a`NOTFOUND` error, the `resolve()` method will _not_ attempt to resolve with
+     * That is, if attempting to resolve with the first server provided results in a `NOTFOUND` error, the `resolve()` method will _not_ attempt to resolve with
      * subsequent servers provided. Fallback DNS servers will only be used if the
      * earlier ones time out or result in some other error.
      * @since v10.6.0
@@ -346,19 +346,20 @@ declare module "dns/promises" {
      */
     function setServers(servers: readonly string[]): void;
     /**
-     * Set the default value of `verbatim` in `dns.lookup()` and `dnsPromises.lookup()`. The value could be:
+     * Set the default value of `order` in `dns.lookup()` and `{@link lookup}`. The value could be:
      *
-     * * `ipv4first`: sets default `verbatim` `false`.
-     * * `verbatim`: sets default `verbatim` `true`.
+     * * `ipv4first`: sets default `order` to `ipv4first`.
+     * * `ipv6first`: sets default `order` to `ipv6first`.
+     * * `verbatim`: sets default `order` to `verbatim`.
      *
      * The default is `verbatim` and [dnsPromises.setDefaultResultOrder()](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetdefaultresultorderorder)
      * have higher priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder).
      * When using [worker threads](https://nodejs.org/docs/latest-v20.x/api/worker_threads.html), [`dnsPromises.setDefaultResultOrder()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetdefaultresultorderorder)
      * from the main thread won't affect the default dns orders in workers.
      * @since v16.4.0, v14.18.0
-     * @param order must be `'ipv4first'` or `'verbatim'`.
+     * @param order must be `'ipv4first'`, `'ipv6first'` or `'verbatim'`.
      */
-    function setDefaultResultOrder(order: "ipv4first" | "verbatim"): void;
+    function setDefaultResultOrder(order: "ipv4first" | "ipv6first" | "verbatim"): void;
     const NODATA: "NODATA";
     const FORMERR: "FORMERR";
     const SERVFAIL: "SERVFAIL";
