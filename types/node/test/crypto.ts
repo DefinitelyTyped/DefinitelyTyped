@@ -1191,6 +1191,47 @@ import { promisify } from "node:util";
         },
         Buffer.from("sig"),
     );
+
+    const jwk = key.export({format: 'jwk'});
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: 'jwk',
+            key: jwk,    
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: 'jwk',
+            key: jwk,    
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+        callback,
+    );
+    promisify(crypto.verify)(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: 'jwk',
+            key: jwk,    
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    ).then((result: boolean) => {});
+    crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
+        {
+            format: 'jwk',
+            key: jwk,    
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
 }
 
 {
