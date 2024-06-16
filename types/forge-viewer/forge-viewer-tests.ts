@@ -761,7 +761,6 @@ async function dbIdRemappingTest(viewer: Autodesk.Viewing.GuiViewer3D): Promise<
 }
 
 function errorCodeTests(): void {
-
     // $ExpectType ErrorCodes.UNKNOWN_FAILURE
     Autodesk.Viewing.ErrorCodes.UNKNOWN_FAILURE;
     // $ExpectType ErrorCodes.BAD_DATA
@@ -794,6 +793,4 @@ function errorCodeTests(): void {
     Autodesk.Viewing.ErrorCodes.WEBGL_LOST_CONTEXT;
     // $ExpectType ErrorCodes.LOAD_CANCELED
     Autodesk.Viewing.ErrorCodes.LOAD_CANCELED;
-
-
 }
