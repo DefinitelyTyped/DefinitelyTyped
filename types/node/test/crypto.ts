@@ -1111,24 +1111,24 @@ import { promisify } from "node:util";
         dsaEncoding: "der",
     });
 
-    const jwk = key.export({format: 'jwk'});
+    const jwk = key.export({ format: "jwk" });
     crypto.sign("sha256", Buffer.from("asd"), {
-        format: 'jwk',
+        format: "jwk",
         key: jwk,
         dsaEncoding: "der",
     });
     crypto.sign("sha256", Buffer.from("asd"), {
-        format: 'jwk',
+        format: "jwk",
         key: jwk,
         dsaEncoding: "der",
     }, callback);
     promisify(crypto.sign)("sha256", Buffer.from("asd"), {
-        format: 'jwk',
+        format: "jwk",
         key: jwk,
         dsaEncoding: "der",
     }).then((signature: Buffer) => {});
     crypto.createSign("sha256").update(Buffer.from("asd")).sign({
-        format: 'jwk',
+        format: "jwk",
         key: jwk,
         dsaEncoding: "der",
     });
@@ -1192,13 +1192,13 @@ import { promisify } from "node:util";
         Buffer.from("sig"),
     );
 
-    const jwk = key.export({format: 'jwk'});
+    const jwk = key.export({ format: "jwk" });
     crypto.verify(
         "sha256",
         Buffer.from("asd"),
         {
-            format: 'jwk',
-            key: jwk,    
+            format: "jwk",
+            key: jwk,
             dsaEncoding: "der",
         },
         Buffer.from("sig"),
@@ -1207,8 +1207,8 @@ import { promisify } from "node:util";
         "sha256",
         Buffer.from("asd"),
         {
-            format: 'jwk',
-            key: jwk,    
+            format: "jwk",
+            key: jwk,
             dsaEncoding: "der",
         },
         Buffer.from("sig"),
@@ -1218,16 +1218,16 @@ import { promisify } from "node:util";
         "sha256",
         Buffer.from("asd"),
         {
-            format: 'jwk',
-            key: jwk,    
+            format: "jwk",
+            key: jwk,
             dsaEncoding: "der",
         },
         Buffer.from("sig"),
     ).then((result: boolean) => {});
     crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
         {
-            format: 'jwk',
-            key: jwk,    
+            format: "jwk",
+            key: jwk,
             dsaEncoding: "der",
         },
         Buffer.from("sig"),
