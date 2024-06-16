@@ -25,9 +25,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     if (gc) {
         gc();
         gc(true);
-        gc({execution: "sync"}); // $ExpectType void
-        gc({execution: "async"}); // $ExpectType Promise<void>
-        gc({execution: "async", flavor: "regular", type: "major"}); // $ExpectType Promise<void>     
+        gc({ execution: "sync" }); // $ExpectType void
+        gc({ execution: "async" }); // $ExpectType Promise<void>
+        gc({ execution: "async", flavor: "regular", type: "major" }); // $ExpectType Promise<void>
     }
 }
 

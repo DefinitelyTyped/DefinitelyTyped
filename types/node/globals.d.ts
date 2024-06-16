@@ -54,27 +54,29 @@ declare global {
     var exports: any;
 
     interface GCFunction {
-      (options: {
-        execution?: "sync"
-        flavor?: "regular" | "last-resort"
-        type?: "major-snapshot" | "major" | "minor"
-        filename?: string
-      }): void
-      (options: {
-        execution?: "async"
-        flavor?: "regular" | "last-resort"
-        type?: "major-snapshot" | "major" | "minor"
-        filename?: string
-      }): Promise<void>
-      (options?: boolean): void
-      (options?: {
-        execution?: "async" | "sync"
-        flavor?: "regular" | "last-resort"
-        type?: "major-snapshot" | "major" | "minor"
-        filename?: string
-      } | boolean): void | Promise<void>
+        (options: {
+            execution?: "sync";
+            flavor?: "regular" | "last-resort";
+            type?: "major-snapshot" | "major" | "minor";
+            filename?: string;
+        }): void;
+        (options: {
+            execution?: "async";
+            flavor?: "regular" | "last-resort";
+            type?: "major-snapshot" | "major" | "minor";
+            filename?: string;
+        }): Promise<void>;
+        (options?: boolean): void;
+        (
+            options?: {
+                execution?: "async" | "sync";
+                flavor?: "regular" | "last-resort";
+                type?: "major-snapshot" | "major" | "minor";
+                filename?: string;
+            } | boolean,
+        ): void | Promise<void>;
     }
-        
+
     /**
      * Only available if `--expose-gc` is passed to the process.
      */
