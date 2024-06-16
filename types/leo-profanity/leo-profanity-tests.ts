@@ -15,3 +15,4 @@ filter.clearList();
 filter.reset();
 
 filter.loadDictionary("fr");
+filter.loadDictionary("ru");
