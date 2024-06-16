@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"esModuleInterop": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"target": "ES2022",
+		"moduleResolution": "Node10",
+		"module": "CommonJS",
+		"declaration": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "react-jsx"
+	},
+	"files": [
+		"index.d.ts",
+		"vite-plugin-react-control-statements-tests.tsx"
+	],
+	"exclude": ["node_modules"]
+}
