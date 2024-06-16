@@ -157,7 +157,6 @@ const FunctionComponentWithoutProps: React.FunctionComponent = props => {
 // React.createContext
 const Context = React.createContext("defaultValue");
 
-// @ts-expect-error Forgot value
 <Context.Provider />;
 <Context.Provider value="provided" />;
 <Context.Provider value="provided">
@@ -168,7 +167,7 @@ const Context = React.createContext("defaultValue");
 // @ts-expect-error Requires explicit default value.
 React.createContext();
 const UndefinedContext = React.createContext(undefined);
-// @ts-expect-error Forgot value even if it can be undefined
+
 <UndefinedContext.Provider />;
 <UndefinedContext.Provider value={undefined} />;
 
