@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 declare global {
 	/** Render conditionally based on the condition prop */
