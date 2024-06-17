@@ -1,4 +1,4 @@
-import { Color, GamutMode, Mode } from "./common";
+import { Color, FindColorByMode, GamutMode, Mode } from "./common";
 
 /**
  * Returns whether the color is in the sRGB gamut.
@@ -33,7 +33,7 @@ export function clampRgb<C extends Color>(color: C): C;
  * any combination of in-range channel values
  * produces an in-gamut color.
  */
-export function clampGamut(mode?: Mode): (color: Color | string) => Color | undefined;
+export function clampGamut<M extends Mode = "rgb">(mode?: M): (color: Color | string) => FindColorByMode<M> | undefined;
 
 /**
  * Obtain a color that’s in a RGB gamut (by default sRGB)
@@ -76,9 +76,9 @@ export function clampChroma<C extends Color>(color: C, mode?: Mode, rgbGamut?: G
  * To disable the “roughly in gamut” part, pass either
  * `null` for the `delta` parameter, or zero for `jnd`.
  */
-export function toGamut(
-    dest: Mode,
+export function toGamut<M extends Mode>(
+    dest: M,
     mode: Mode,
     delta?: number,
     jnd?: number,
-): <C extends Color>(color: string | C) => C | undefined;
+): (color: string | Color) => FindColorByMode<M>;
