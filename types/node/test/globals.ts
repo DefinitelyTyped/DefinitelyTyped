@@ -46,8 +46,19 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     readonlyArray.at(-1);
 }
 
+// AbortController and AbortSignal
 {
     const x = new AbortController().signal;
     x.reason; // $ExpectType any
     x.throwIfAborted(); // $ExpectType void
+    // @ts-expect-error
+    AbortSignal.any();
+    // @ts-expect-error
+    AbortSignal.any(null);
+    // @ts-expect-error
+    AbortSignal.any(undefined);
+    // @ts-expect-error
+    AbortSignal.any([] as number[]);
+    AbortSignal.any([]); // $ExpectType AbortSignal
+    AbortSignal.any([new AbortController().signal]); // $ExpectType AbortSignal
 }
