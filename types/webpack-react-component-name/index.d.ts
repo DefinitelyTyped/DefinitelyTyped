@@ -1,4 +1,4 @@
-import { WebpackPluginInstance } from "webpack";
+import { Compiler, WebpackPluginInstance } from "webpack";
 
 declare namespace WebpackReactComponentNamePlugin {
   /**
@@ -18,17 +18,24 @@ declare namespace WebpackReactComponentNamePlugin {
      * If the path matches any of the elements in this array, it will be included if it isn't explicitly excluded
      * @defaultValue []
      */
-    include?: PathMatch[];
+    include?: readonly PathMatch[];
     
     /**
      * If the path matches any of the elements in this array, it will be excluded
      * @defaultValue []
      */
-    exclude?: PathMatch[];
+    exclude?: readonly PathMatch[];
   }
 }
 
 /** Normally React component names are minified during compilation. This plugin makes these component names available through the `displayName` property in production bundles */
-declare const WebpackReactComponentNamePlugin: new (options?: WebpackReactComponentNamePlugin.Options) => WebpackPluginInstance;
+declare class WebpackReactComponentNamePlugin implements WebpackPluginInstance {
+  constructor(options?: WebpackReactComponentNamePlugin.Options);
+
+  /**
+	 * The run point of the plugin, required method.
+	 */
+	apply: (compiler: Compiler) => void
+}
 
 export = WebpackReactComponentNamePlugin;
