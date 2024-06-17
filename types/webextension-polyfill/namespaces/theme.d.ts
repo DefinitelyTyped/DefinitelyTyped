@@ -40,7 +40,7 @@ export namespace Theme {
          *
          * @param windowId Optional. The window for which we want the theme.
          */
-        getCurrent(windowId?: number): Promise<unknown>;
+        getCurrent(windowId?: number): Promise<Manifest.ThemeType>;
 
         /**
          * Make complete updates to the theme. Resolves when the update has completed.
