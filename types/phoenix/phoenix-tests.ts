@@ -1,12 +1,20 @@
 import { Channel, Presence, Socket, Timer } from "phoenix";
 
 class InMemoryStorage {
-  storage: { [key: string]: any };
+    storage: { [key: string]: any };
 
-  constructor() { this.storage = {} }
-  getItem(keyName: string) { return this.storage[keyName] || null }
-  removeItem(keyName: string) { delete this.storage[keyName] }
-  setItem(keyName: string, keyValue: any) { this.storage[keyName] = keyValue }
+    constructor() {
+        this.storage = {};
+    }
+    getItem(keyName: string) {
+        return this.storage[keyName] || null;
+    }
+    removeItem(keyName: string) {
+        delete this.storage[keyName];
+    }
+    setItem(keyName: string, keyValue: any) {
+        this.storage[keyName] = keyValue;
+    }
 }
 
 function test_socket() {
