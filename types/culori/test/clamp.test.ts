@@ -25,8 +25,8 @@ inGamut(mode)(lch1); // $ExpectType boolean
 inGamut(mode)(lch2); // $ExpectType boolean
 
 toGamut(gamutMode, mode)(lch1); // $ExpectType Color | undefined
-toGamut(gamutMode, mode)(lch2); // $ExpectType Color | undefined
+toGamut(gamutMode, mode)(lch2); // $ExpectType Lch | undefined
 toGamut(gamutMode, mode, 0)(lch1); // $ExpectType Color | undefined
-toGamut(gamutMode, mode, 0)(lch2); // $ExpectType Color | undefined
+toGamut(gamutMode, mode, 0)(lch2); // $ExpectType Lch | undefined
 toGamut(gamutMode, mode, 0, 0.02)(lch1); // $ExpectType Color | undefined
-toGamut(gamutMode, mode, 0, 0.02)(lch2); // $ExpectType Color | undefined
+toGamut(gamutMode, mode, 0, 0.02)(lch2); // $ExpectType Lch | undefined

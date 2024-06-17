@@ -1,5 +1,4 @@
 import { Color, GamutMode, Mode } from "./common";
-import { DiffFn } from "./difference";
 
 /**
  * Returns whether the color is in the sRGB gamut.
@@ -82,4 +81,4 @@ export function toGamut(
     mode: Mode,
     delta?: number,
     jnd?: number,
-): (color: Color | string) => Color | undefined;
+): <C extends Color>(color: string | C) => C | undefined;
