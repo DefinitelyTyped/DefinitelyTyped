@@ -1,5 +1,5 @@
 {
-	"compilerOptions": {
+    "compilerOptions": {
         "forceConsistentCasingInFileNames": true,
         "jsx": "react-jsx",
         "lib": [
@@ -14,8 +14,8 @@
         "strictNullChecks": true,
         "types": []
     },
-	"files": [
-		"index.d.ts",
-		"vite-plugin-react-control-statements-tests.tsx"
-	]
+    "files": [
+        "index.d.ts",
+        "vite-plugin-react-control-statements-tests.tsx"
+    ]
 }
