@@ -386,6 +386,11 @@ export namespace Manifest {
          * Optional.
          */
         strict_max_version?: string;
+
+        /**
+         * Optional.
+         */
+        admin_install_only?: boolean;
     }
 
     interface GeckoAndroidSpecificProperties {
@@ -495,6 +500,12 @@ export namespace Manifest {
          * Optional.
          */
         run_at?: ExtensionTypes.RunAt;
+
+        /**
+         * The JavaScript world for a script to execute within. Defaults to "ISOLATED".
+         * Optional.
+         */
+        world?: ExtensionTypes.ExecutionWorld;
     }
 
     type IconPath = Record<string, ExtensionFileUrl> | ExtensionFileUrl;

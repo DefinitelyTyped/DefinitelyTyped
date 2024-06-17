@@ -58,6 +58,12 @@ export namespace ExtensionTypes {
     type RunAt = "document_start" | "document_end" | "document_idle";
 
     /**
+     * The JavaScript world for a script to execute within. <code>ISOLATED</code> is the default execution environment of
+     * content scripts, <code>MAIN</code> is the web page's execution environment.
+     */
+    type ExecutionWorld = "ISOLATED" | "MAIN";
+
+    /**
      * The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet.
      */
     type CSSOrigin = "user" | "author";

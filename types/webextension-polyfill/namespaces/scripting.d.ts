@@ -147,7 +147,8 @@ export namespace Scripting {
     }
 
     /**
-     * The JavaScript world for a script to execute within. We currently only support the <code>'ISOLATED'</code> world.
+     * The JavaScript world for a script to execute within. <code>ISOLATED</code> is the default execution environment of
+     * content scripts, <code>MAIN</code> is the web page's execution environment.
      */
     type ExecutionWorld = "ISOLATED" | "MAIN";
 
@@ -200,6 +201,12 @@ export namespace Scripting {
          * Optional.
          */
         runAt?: ExtensionTypes.RunAt;
+
+        /**
+         * The JavaScript world for a script to execute within. Defaults to "ISOLATED".
+         * Optional.
+         */
+        world?: ExecutionWorld;
 
         /**
          * Specifies if this content script will persist into future sessions. This is currently NOT supported.

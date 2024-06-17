@@ -72,6 +72,12 @@ export namespace ContentScripts {
         runAt?: ExtensionTypes.RunAt;
 
         /**
+         * The JavaScript world for a script to execute within. Defaults to "ISOLATED".
+         * Optional.
+         */
+        world?: ExtensionTypes.ExecutionWorld;
+
+        /**
          * limit the set of matched tabs to those that belong to the given cookie store id
          * Optional.
          */
