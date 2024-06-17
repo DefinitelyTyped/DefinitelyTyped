@@ -103,6 +103,7 @@ export interface Context {
     logStreamName: string;
     identity?: CognitoIdentity | undefined;
     clientContext?: ClientContext | undefined;
+    authorizer: { [key: string]: string };
 
     getRemainingTimeInMillis(): number;
 
