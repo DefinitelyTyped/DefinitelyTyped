@@ -79,6 +79,6 @@ export function clampChroma<C extends Color>(color: C, mode?: Mode, rgbGamut?: G
 export function toGamut<M extends Mode>(
     dest: M,
     mode: Mode,
-    delta?: number,
+    delta?: number | null,
     jnd?: number,
 ): (color: string | Color) => FindColorByMode<M>;

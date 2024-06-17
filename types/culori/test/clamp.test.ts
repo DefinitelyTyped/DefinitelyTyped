@@ -31,5 +31,6 @@ toGamut("rgb", mode)(lch2); // $ExpectType Rgb
 toGamut("lch", mode)(lch2); // $ExpectType Lch
 toGamut("p3", mode, 0)(lch1); // $ExpectType P3
 toGamut("p3", mode, 0)(lch2); // $ExpectType P3
+toGamut("p3", mode, null)(lch2); // $ExpectType P3
 toGamut("p3", mode, 0, 0.02)(lch1); // $ExpectType P3
 toGamut("p3", mode, 0, 0.02)(lch2); // $ExpectType P3
