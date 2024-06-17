@@ -13,10 +13,5 @@
     "devDependencies": {
         "@types/exaroton": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Maximilian Hofmann",
-            "githubUsername": "hofmmaxi"
-        }
-    ]
+    "owners": []
 }
