@@ -1,5 +1,5 @@
-import WebpackReactComponentNamePlugin, { type  Options, type PathMatch } from "webpack-react-component-name";
 import { Configuration, WebpackPluginInstance } from "webpack";
+import WebpackReactComponentNamePlugin, { type Options, type PathMatch } from "webpack-react-component-name";
 
 const plugin: WebpackPluginInstance = new WebpackReactComponentNamePlugin();
 
@@ -7,7 +7,7 @@ const plugin2: WebpackPluginInstance = new WebpackReactComponentNamePlugin(undef
 
 const plugin3: WebpackPluginInstance = new WebpackReactComponentNamePlugin({});
 
-const manyOptions: Options[] = [{},{
+const manyOptions: Options[] = [{}, {
     parseDependencies: undefined,
     include: undefined,
     exclude: undefined,
@@ -18,11 +18,11 @@ const manyOptions: Options[] = [{},{
 }, {
     include: [],
 }, {
-    exclude: []
+    exclude: [],
 }];
 
 const pathMatches: PathMatch[] = ["test", /test/, (path: string) => path === "test"];
 
 const configuration: Configuration = {
-    plugins: [plugin]
-}
+    plugins: [plugin],
+};
