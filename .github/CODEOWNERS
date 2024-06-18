@@ -782,7 +782,6 @@
 /types/carbon__colors/                                    @vpicone @szbihary
 /types/carbon__elements/                                  @metonym
 /types/carbon__feature-flags/                             @metonym
-/types/carbon__icon-helpers/                              @metonym
 /types/carbon__layout/                                    @vpicone
 /types/carbon__motion/                                    @vpicone
 /types/carbon__pictograms-react/                          @metonym
@@ -5612,6 +5611,7 @@
 /types/pako/v1/                                           @calebegg @hlthi
 /types/palx/                                              @mikefowler
 /types/pangu/                                             @plantain-00 @AH-dark
+/types/pannellum/                                         @zhirzh
 /types/papaparse/                                         @torpedro @rainshen49 @jfloff @johnnyreilly @albertorestifo @jliuhtonen @rbarbazz @peterblazejewicz @emmanuelgautier @OpportunityLiu
 /types/parallel-transform/                                @djcsdy
 /types/paralleljs/                                        @jbaldwin

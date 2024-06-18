@@ -39,6 +39,7 @@ export interface SocketConnectOption {
     transport: new(endpoint: string) => object;
     timeout: number;
     heartbeatIntervalMs: number;
+    longPollFallbackMs: number;
     longpollerTimeout: number;
     encode: (payload: object, callback: (encoded: any) => void | Promise<void>) => void;
     decode: (payload: string, callback: (decoded: any) => void | Promise<void>) => void;
@@ -46,6 +47,8 @@ export interface SocketConnectOption {
     reconnectAfterMs: (tries: number) => number;
     rejoinAfterMs: (tries: number) => number;
     vsn: string;
+    debug: boolean;
+    sessionStorage: object;
 }
 
 export type MessageRef = string;

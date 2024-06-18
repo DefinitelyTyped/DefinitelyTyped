@@ -98,6 +98,22 @@ declare module "events" {
          */
         lowWaterMark?: number | undefined;
     }
+    interface StaticEventEmitterIteratorOptions extends StaticEventEmitterOptions {
+        /**
+         * Names of events that will end the iteration.
+         */
+        close?: string[];
+        /**
+         * The emitter is paused every time the size of events being buffered is higher than it. Supported only on emitters implementing pause() and resume() methods.
+         * @default Number.MAX_SAFE_INTEGER
+         */
+        highWaterMark?: number;
+        /**
+         * The emitter is resumed every time the size of events being buffered is lower than it. Supported only on emitters implementing pause() and resume() methods.
+         * @default 1
+         */
+        lowWaterMark?: number;
+    }
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
     type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
     type DefaultEventMap = [never];
@@ -274,6 +290,28 @@ declare module "events" {
          *
          * process.nextTick(() => ac.abort());
          * ```
+         *
+         * Use the `close` option to specify an array of event names that will end the iteration:
+         *
+         * ```js
+         * import { on, EventEmitter } from 'node:events';
+         * import process from 'node:process';
+         *
+         * const ee = new EventEmitter();
+         *
+         * // Emit later on
+         * process.nextTick(() => {
+         *   ee.emit('foo', 'bar');
+         *   ee.emit('foo', 42);
+         *   ee.emit('close');
+         * });
+         *
+         * for await (const event of on(ee, 'foo', { close: ['close'] })) {
+         *   console.log(event); // prints ['bar'] [42]
+         * }
+         * // the loop will exit after 'close' is emitted
+         * console.log('done'); // prints 'done'
+         * ```
          * @since v13.6.0, v12.16.0
          * @param eventName The name of the event being listened for
          * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
@@ -286,7 +324,7 @@ declare module "events" {
         static on(
             emitter: EventTarget,
             eventName: string,
-            options?: StaticEventEmitterOptions,
+            options?: StaticEventEmitterIteratorOptions,
         ): AsyncIterableIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
