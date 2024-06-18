@@ -18,7 +18,7 @@ jobs:
         with:
           # Use a deploy key so that CI triggers on pushes; we want to know if formatting broke something.
           ssh-key: ${{ secrets.DEPLOY_KEY }}
-      - uses: ./.github/actions/setup-scripts
+      - uses: ./.github/actions/setup-for-scripts
 
       - name: Get date
         id: date

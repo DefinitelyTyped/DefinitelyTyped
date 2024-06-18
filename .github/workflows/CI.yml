@@ -132,7 +132,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-      - uses: ./.github/actions/setup-scripts
+      - uses: ./.github/actions/setup-for-scripts
 
       - name: Get suggestions dir
         id: suggestions-dir
@@ -162,6 +162,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-      - uses: ./.github/actions/setup-scripts
+      - uses: ./.github/actions/setup-for-scripts
 
       - run: pnpm tsc -p ./scripts

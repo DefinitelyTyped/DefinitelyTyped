@@ -25,7 +25,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: ./.github/actions/setup-scripts
+      - uses: ./.github/actions/setup-for-scripts
 
       - run: git config --global user.email "typescriptbot@microsoft.com"
       - run: git config --global user.name "TypeScript Bot"
