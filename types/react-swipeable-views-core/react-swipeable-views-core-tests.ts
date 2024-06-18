@@ -37,6 +37,7 @@ checkIndexBounds(oldProps); // $ExpectType void
 
 // @ts-expect-error
 checkIndexBounds();
+// $ExpectType { index: number; startX: number; }
 computeIndex({
     children: oldProps.children,
     resistance: oldProps.resistance,
@@ -44,4 +45,4 @@ computeIndex({
     startX: 50,
     pageX: 10,
     viewLength: 2,
-}); //  $ExpectType { index: number; startX: number; }
+});
