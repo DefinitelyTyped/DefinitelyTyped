@@ -1150,54 +1150,54 @@ async function test() {
     //
     const jsHandle = await page.evaluateHandle(() => null);
 
-    // $ExpectType ElementHandle | null
+    // $ExpectType Promise<ElementHandle | null>
     jsHandle.asElement();
 
-    // $ExpectType void
+    // $ExpectType Promise<void>
     jsHandle.dispose();
 
     // @ts-expect-error
     jsHandle.evaluate();
     // @ts-expect-error
     jsHandle.evaluate(1);
-    // @ExpectType void
+    // @ExpectType Promise<void>
     jsHandle.evaluate("");
-    // @ExpectType void
+    // @ExpectType Promise<void>
     jsHandle.evaluate(() => {});
-    // @ExpectType string
+    // @ExpectType Promise<string>
     jsHandle.evaluate(() => {
         "";
     });
-    // @ExpectType string
+    // @ExpectType Promise<string>
     jsHandle.evaluate((a: string) => {
         a;
     }, "");
-    // @ExpectType string[]
+    // @ExpectType Promise<string[]>
     jsHandle.evaluate((a: string[]) => a, [""]);
 
     // @ts-expect-error
     jsHandle.evaluateHandle();
     // @ts-expect-error
     jsHandle.evaluateHandle(1);
-    // @ExpectType JSHandle
+    // @ExpectType Promise<JSHandle>
     jsHandle.evaluateHandle("");
-    // @ExpectType JSHandle
+    // @ExpectType Promise<JSHandle>
     jsHandle.evaluateHandle(() => {});
-    // @ExpectType JSHandle
+    // @ExpectType Promise<JSHandle>
     jsHandle.evaluateHandle(() => {
         "";
     });
-    // @ExpectType JSHandle
+    // @ExpectType Promise<JSHandle>
     jsHandle.evaluateHandle((a: string) => {
         a;
     }, "");
-    // @ExpectType JSHandle
+    // @ExpectType Promise<JSHandle>
     jsHandle.evaluateHandle((a: string[]) => a, [""]);
 
-    // $ExpectType Map<string, JSHandle<any>>
+    // $ExpectType Promise<Map<string, JSHandle<any>>>
     jsHandle.getProperties();
 
-    // $ExpectType any
+    // $ExpectType Promise<any>
     jsHandle.jsonValue();
 
     //
