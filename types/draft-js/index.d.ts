@@ -438,7 +438,7 @@ declare namespace Draft {
              *
              * See `CompositeDraftDecorator` for the most common use case.
              */
-            interface DraftDecoratorType {
+            interface DraftDecoratorType<P = {}> {
                 /**
                  * Given a `ContentBlock`, return an immutable List of decorator keys.
                  */
@@ -448,7 +448,7 @@ declare namespace Draft {
                  * Given a decorator key, return the component to use when rendering
                  * this decorated range.
                  */
-                getComponentForKey(key: string): Function;
+                getComponentForKey(key: string): DraftDecoratorComponent<P>;
 
                 /**
                  * Given a decorator key, optionally return the props to use when rendering
@@ -456,6 +456,14 @@ declare namespace Draft {
                  */
                 getPropsForKey(key: string): any;
             }
+
+            /**
+             * DraftDecoratorComponent is the component that will be used to render the "decorated" section of text.
+             */
+            type DraftDecoratorComponent<P = {}> =
+                | React.Component
+                | React.ComponentClass<any>
+                | ((props: DraftDecoratorComponentProps & P) => React.ReactNode);
 
             /**
              * DraftDecoratorComponentProps are the core set of props that will be
@@ -497,16 +505,13 @@ declare namespace Draft {
              *   - "props": Props to be passed into the React component that will be used
              *     merged with DraftDecoratorComponentProps
              */
-            interface DraftDecorator<P = any> {
+            interface DraftDecorator<P = {}> {
                 strategy: (
                     block: ContentBlock,
                     callback: (start: number, end: number) => void,
                     contentState: ContentState,
                 ) => void;
-                component:
-                    | React.Component
-                    | React.ComponentClass<any>
-                    | ((props: DraftDecoratorComponentProps & P) => React.ReactNode);
+                component: DraftDecoratorComponent;
                 props?: P | undefined;
             }
 
@@ -533,7 +538,7 @@ declare namespace Draft {
                 constructor(decorators: DraftDecorator[]);
 
                 getDecorations(block: ContentBlock, contentState: ContentState): Immutable.List<string>;
-                getComponentForKey(key: string): Function;
+                getComponentForKey<P = {}>(key: string): DraftDecoratorComponent<P>;
                 getPropsForKey(key: string): Object;
             }
         }
@@ -1125,6 +1130,7 @@ import EditorState = Draft.Model.ImmutableData.EditorState;
 import EditorChangeType = Draft.Model.ImmutableData.EditorChangeType;
 import EditorCommand = Draft.Component.Base.EditorCommand;
 
+import DraftDecoratorComponent = Draft.Model.Decorators.DraftDecoratorComponent;
 import DraftDecoratorComponentProps = Draft.Model.Decorators.DraftDecoratorComponentProps;
 import DraftDecoratorType = Draft.Model.Decorators.DraftDecoratorType;
 import DraftDecorator = Draft.Model.Decorators.DraftDecorator;
@@ -1195,6 +1201,7 @@ export {
     DraftBlockType,
     DraftComponent,
     DraftDecorator,
+    DraftDecoratorComponent,
     DraftDecoratorComponentProps,
     DraftDecoratorType,
     DraftDragType,
