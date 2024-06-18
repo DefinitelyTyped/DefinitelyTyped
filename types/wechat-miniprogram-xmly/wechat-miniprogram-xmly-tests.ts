@@ -63,12 +63,12 @@ XMPlugin.getVersion();
     player.getPlaylist();
     player.getPlaylist(true);
     player.setPlayMode("order");
-    //  $ExpectType string
+    // $ExpectType string
     player.getPlayMode();
     player.setPlaybackRate(0.5);
-    //  $ExpectType number
+    // $ExpectType number
     player.getPlaybackRate();
-    //  $ExpectType string
+    // $ExpectType string
     player.getPlayState();
     player.setAutoskip(true);
     player.destroy();

@@ -44,4 +44,4 @@ computeIndex({
     startX: 50,
     pageX: 10,
     viewLength: 2,
-}); //  $ExpectType { index: number; startX: number; }
+}); // $ExpectType { index: number; startX: number; }
