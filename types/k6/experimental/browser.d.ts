@@ -1791,12 +1791,12 @@ export interface JSHandle<T = any> {
      * an instance of `ElementHandle`.
      * @returns The ElementHandle if available.
      */
-    asElement(): ElementHandle | null;
+    asElement(): Promise<ElementHandle | null>;
 
     /**
      * Stops referencing the element handle.
      */
-    dispose(): void;
+    dispose(): Promise<void>;
 
     /**
      * Evaluates the page function and returns its return value.
@@ -1805,7 +1805,7 @@ export interface JSHandle<T = any> {
      * @param args The arguments to pass to the page function.
      * @returns The return value of `pageFunction`.
      */
-    evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
+    evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): Promise<R>;
 
     /**
      * Evaluates the page function and returns a `JSHandle`.
@@ -1815,20 +1815,20 @@ export interface JSHandle<T = any> {
      * @param args The arguments to pass to the page function.
      * @returns A JSHandle of the return value of `pageFunction`.
      */
-    evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
+    evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): Promise<JSHandle<R>>;
 
     /**
      * Fetches a map with own property names of of the `JSHandle` with their values as
      * `JSHandle` instances.
      * @returns A map with property names as keys and `JSHandle` instances for the property values.
      */
-    getProperties(): Map<string, JSHandle>;
+    getProperties(): Promise<Map<string, JSHandle>>;
 
     /**
      * Fetches a JSON representation of the object.
      * @returns A JSON representation of the object.
      */
-    jsonValue(): any;
+    jsonValue(): Promise<any>;
 }
 
 /**
