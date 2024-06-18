@@ -25,8 +25,8 @@ import CrimsonQClient = require("crimsonq");
         password: "crimsonQ!", // default password with docker image
     });
     CQ; // $ExpectType CrimsonQClient
-    CQ.redisCommander; // $ExpectType typeof IORedis;
-    CQ.redisSubscriber; // $ExpectType typeof IORedis;
+    CQ.redisCommander; // $ExpectType { default: RedisStatic; Cluster: ClusterStatic; Command: typeof Command; };
+    CQ.redisSubscriber; // $ExpectType { default: RedisStatic; Cluster: ClusterStatic; Command: typeof Command; };
     CQ.command; // $ExpectType Command;
 
     await CQ.connect(); // $ExpectType { value: string; error: Error; }
