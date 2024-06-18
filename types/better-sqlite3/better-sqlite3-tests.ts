@@ -61,8 +61,8 @@ db.defaultSafeIntegers(true);
 const vtable: Sqlite.Statement = db.prepare("SELECT * FROM vtable");
 vtable.all();
 
-const vtable_params: Sqlite.Statement = db.prepare("SELECT * FROM vtable_parameters('testName')");
-vtable_params.all();
+const vtable_parameters: Sqlite.Statement = db.prepare("SELECT * FROM vtable_parameters('testName')");
+vtable_parameters.all();
 
 interface TypedParameter {
     search: string;
