@@ -1561,7 +1561,7 @@ async function test() {
     // $ExpectType Promise<void>
     elementHandle.tap({ trial: true });
 
-    // $ExpectType Promise<string>
+    // $ExpectType Promise<string | null>
     elementHandle.textContent();
 
     // @ts-expect-error

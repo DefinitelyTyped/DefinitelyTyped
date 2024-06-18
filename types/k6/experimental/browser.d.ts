@@ -1371,7 +1371,7 @@ export interface ElementHandle extends JSHandle {
      * Returns the `node.textContent`.
      * @returns The text content of the element.
      */
-    textContent(): Promise<string>;
+    textContent(): Promise<string | null>;
 
     /**
      * Scrolls element into view, focuses element and types text.
