@@ -6,5 +6,5 @@ fn; // $ExpectType FnHelper
 get; // $ExpectType GetHelper
 hash; // $ExpectType HashHelper
 invokeHelper; // $ExpectType (context: object, definition: object, computeArgs?: ((context: object) => Partial<Arguments>) | undefined) => Cache<unknown>
-capabilities; //  $ExpectType <O extends object, T extends object>(factory: ManagerFactory<O | undefined, HelperManager<unknown>>, obj: T) => T
+capabilities; // $ExpectType <Version extends "3.23">(managerAPI: Version, options?: Partial<HelperCapabilities> | undefined) => HelperCapabilities
 setHelperManager; // $ExpectType <O extends object, T extends object>(factory: ManagerFactory<O | undefined, HelperManager<unknown>>, obj: T) => T || <O extends Owner, T extends object>(factory: ManagerFactory<O | undefined, HelperManager<unknown>>, obj: T) => T
