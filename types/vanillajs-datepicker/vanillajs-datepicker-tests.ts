@@ -45,5 +45,5 @@ const datePickerWithCustomOptions = new Datepicker(container, {
     format: {
         toValue: (date: string, format: object, locale: object) => new Date().getTime(),
         toDisplay: (date: Date, format: object, locale: object) => date.toString(),
-    }
+    },
 });
