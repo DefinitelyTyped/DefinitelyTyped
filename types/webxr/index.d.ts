@@ -278,6 +278,8 @@ interface GamepadHapticActuator {
      * @param value A double representing the intensity of the pulse. This can vary depending on the hardware type, but generally takes a value between 0.0 (no intensity) and 1.0 (full intensity).
      * @param duration A double representing the duration of the pulse, in milliseconds.
      * @returns A promise that resolves with a value of true when the pulse has successfully completed.
+     *
+     * @remarks This feature should be documented in the Gamepad API, but it is not yet implemented in any browser thus missing there. However, it is commonly used in WebXR applications and causes issues for people if omitted.
      */
     pulse(value: number, duration: number): Promise<boolean>;
 }
