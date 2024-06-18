@@ -112,7 +112,7 @@ declare module "events" {
          * The emitter is resumed every time the size of events being buffered is lower than it. Supported only on emitters implementing pause() and resume() methods.
          * @default 1
          */
-        lowWaterMark?: number
+        lowWaterMark?: number;
     }
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
     type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
