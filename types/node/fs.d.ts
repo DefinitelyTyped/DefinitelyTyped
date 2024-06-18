@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/fs.js)
  */
 declare module "fs" {
     import * as stream from "node:stream";
@@ -77,7 +77,7 @@ declare module "fs" {
      * their synchronous counterparts are of this type.
      * If `bigint` in the `options` passed to those methods is true, the numeric values
      * will be `bigint` instead of `number`, and the object will contain additional
-     * nanosecond-precision properties suffixed with `Ns`.
+     * nanosecond-precision properties suffixed with `Ns`. `Stat` objects are not to be created directly using the `new` keyword.
      *
      * ```console
      * Stats {
@@ -242,7 +242,13 @@ declare module "fs" {
         name: string;
         /**
          * The base path that this `fs.Dirent` object refers to.
+         * @since v20.12.0
+         */
+        parentPath: string;
+        /**
+         * Alias for `dirent.parentPath`.
          * @since v20.1.0
+         * @deprecated Since v20.12.0
          */
         path: string;
     }
@@ -296,7 +302,7 @@ declare module "fs" {
         /**
          * Asynchronously read the next directory entry via [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) as an `fs.Dirent`.
          *
-         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null`if there are no more directory entries to read.
+         * A promise is returned that will be fulfilled with an `fs.Dirent`, or `null` if there are no more directory entries to read.
          *
          * Directory entries returned by this function are in no particular order as
          * provided by the operating system's underlying directory mechanisms.
@@ -1439,7 +1445,7 @@ declare module "fs" {
      * 2. The maximum number of symbolic links is platform-independent and generally
      * (much) higher than what the native [`realpath(3)`](http://man7.org/linux/man-pages/man3/realpath.3.html) implementation supports.
      *
-     * The `callback` gets two arguments `(err, resolvedPath)`. May use `process.cwd`to resolve relative paths.
+     * The `callback` gets two arguments `(err, resolvedPath)`. May use `process.cwd` to resolve relative paths.
      *
      * Only paths that can be converted to UTF8 strings are supported.
      *
@@ -1683,7 +1689,7 @@ declare module "fs" {
         retryDelay?: number | undefined;
     }
     /**
-     * Asynchronously removes files and directories (modeled on the standard POSIX `rm`utility). No arguments other than a possible exception are given to the
+     * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility). No arguments other than a possible exception are given to the
      * completion callback.
      * @since v14.14.0
      */
@@ -1696,7 +1702,7 @@ declare module "fs" {
         function __promisify__(path: PathLike, options?: RmOptions): Promise<void>;
     }
     /**
-     * Synchronously removes files and directories (modeled on the standard POSIX `rm`utility). Returns `undefined`.
+     * Synchronously removes files and directories (modeled on the standard POSIX `rm` utility). Returns `undefined`.
      * @since v14.14.0
      */
     export function rmSync(path: PathLike, options?: RmOptions): void;
@@ -1721,7 +1727,7 @@ declare module "fs" {
      * created (for instance, if it was previously created).
      *
      * The optional `options` argument can be an integer specifying `mode` (permission
-     * and sticky bits), or an object with a `mode` property and a `recursive`property indicating whether parent directories should be created. Calling`fs.mkdir()` when `path` is a directory that
+     * and sticky bits), or an object with a `mode` property and a `recursive` property indicating whether parent directories should be created. Calling `fs.mkdir()` when `path` is a directory that
      * exists results in an error only
      * when `recursive` is false. If `recursive` is false and the directory exists,
      * an `EEXIST` error occurs.
@@ -1829,7 +1835,7 @@ declare module "fs" {
         ): Promise<string | undefined>;
     }
     /**
-     * Synchronously creates a directory. Returns `undefined`, or if `recursive` is`true`, the first directory path created.
+     * Synchronously creates a directory. Returns `undefined`, or if `recursive` is `true`, the first directory path created.
      * This is the synchronous version of {@link mkdir}.
      *
      * See the POSIX [`mkdir(2)`](http://man7.org/linux/man-pages/man2/mkdir.2.html) documentation for more details.
@@ -1866,7 +1872,7 @@ declare module "fs" {
     /**
      * Creates a unique temporary directory.
      *
-     * Generates six random characters to be appended behind a required`prefix` to create a unique temporary directory. Due to platform
+     * Generates six random characters to be appended behind a required `prefix` to create a unique temporary directory. Due to platform
      * inconsistencies, avoid trailing `X` characters in `prefix`. Some platforms,
      * notably the BSDs, can return more than six random characters, and replace
      * trailing `X` characters in `prefix` with random characters.
@@ -2003,7 +2009,7 @@ declare module "fs" {
      */
     export function mkdtempSync(prefix: string, options?: EncodingOption): string | Buffer;
     /**
-     * Reads the contents of a directory. The callback gets two arguments `(err, files)`where `files` is an array of the names of the files in the directory excluding`'.'` and `'..'`.
+     * Reads the contents of a directory. The callback gets two arguments `(err, files)` where `files` is an array of the names of the files in the directory excluding `'.'` and `'..'`.
      *
      * See the POSIX [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) documentation for more details.
      *
@@ -2297,8 +2303,8 @@ declare module "fs" {
      *
      * The `atime` and `mtime` arguments follow these rules:
      *
-     * * Values can be either numbers representing Unix epoch time in seconds,`Date`s, or a numeric string like `'123456789.0'`.
-     * * If the value can not be converted to a number, or is `NaN`, `Infinity`, or`-Infinity`, an `Error` will be thrown.
+     * * Values can be either numbers representing Unix epoch time in seconds, `Date`s, or a numeric string like `'123456789.0'`.
+     * * If the value can not be converted to a number, or is `NaN`, `Infinity`, or `-Infinity`, an `Error` will be thrown.
      * @since v0.4.2
      */
     export function utimes(path: PathLike, atime: TimeLike, mtime: TimeLike, callback: NoParamCallback): void;
@@ -2371,7 +2377,7 @@ declare module "fs" {
      * should be written. If `typeof position !== 'number'`, the data will be written
      * at the current position. See [`pwrite(2)`](http://man7.org/linux/man-pages/man2/pwrite.2.html).
      *
-     * The callback will be given three arguments `(err, bytesWritten, buffer)` where`bytesWritten` specifies how many _bytes_ were written from `buffer`.
+     * The callback will be given three arguments `(err, bytesWritten, buffer)` where `bytesWritten` specifies how many _bytes_ were written from `buffer`.
      *
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a promise for an `Object` with `bytesWritten` and `buffer` properties.
@@ -2820,7 +2826,7 @@ declare module "fs" {
      * If the `encoding` option is specified then this function returns a
      * string. Otherwise it returns a buffer.
      *
-     * Similar to {@link readFile}, when the path is a directory, the behavior of`fs.readFileSync()` is platform-specific.
+     * Similar to {@link readFile}, when the path is a directory, the behavior of `fs.readFileSync()` is platform-specific.
      *
      * ```js
      * import { readFileSync } from 'node:fs';
@@ -2890,7 +2896,7 @@ declare module "fs" {
      * When `file` is a filename, asynchronously writes data to the file, replacing the
      * file if it already exists. `data` can be a string or a buffer.
      *
-     * When `file` is a file descriptor, the behavior is similar to calling`fs.write()` directly (which is recommended). See the notes below on using
+     * When `file` is a file descriptor, the behavior is similar to calling `fs.write()` directly (which is recommended). See the notes below on using
      * a file descriptor.
      *
      * The `encoding` option is ignored if `data` is a buffer.
@@ -3139,7 +3145,7 @@ declare module "fs" {
      * Watch for changes on `filename`. The callback `listener` will be called each
      * time the file is accessed.
      *
-     * The `options` argument may be omitted. If provided, it should be an object. The`options` object may contain a boolean named `persistent` that indicates
+     * The `options` argument may be omitted. If provided, it should be an object. The `options` object may contain a boolean named `persistent` that indicates
      * whether the process should continue to run as long as files are being watched.
      * The `options` object may specify an `interval` property indicating how often the
      * target should be polled in milliseconds.
@@ -3168,7 +3174,7 @@ declare module "fs" {
      * again, with the latest stat objects. This is a change in functionality since
      * v0.10.
      *
-     * Using {@link watch} is more efficient than `fs.watchFile` and`fs.unwatchFile`. `fs.watch` should be used instead of `fs.watchFile` and`fs.unwatchFile` when possible.
+     * Using {@link watch} is more efficient than `fs.watchFile` and `fs.unwatchFile`. `fs.watch` should be used instead of `fs.watchFile` and `fs.unwatchFile` when possible.
      *
      * When a file being watched by `fs.watchFile()` disappears and reappears,
      * then the contents of `previous` in the second callback event (the file's
@@ -3190,7 +3196,7 @@ declare module "fs" {
      * Watch for changes on `filename`. The callback `listener` will be called each
      * time the file is accessed.
      *
-     * The `options` argument may be omitted. If provided, it should be an object. The`options` object may contain a boolean named `persistent` that indicates
+     * The `options` argument may be omitted. If provided, it should be an object. The `options` object may contain a boolean named `persistent` that indicates
      * whether the process should continue to run as long as files are being watched.
      * The `options` object may specify an `interval` property indicating how often the
      * target should be polled in milliseconds.
@@ -3219,7 +3225,7 @@ declare module "fs" {
      * again, with the latest stat objects. This is a change in functionality since
      * v0.10.
      *
-     * Using {@link watch} is more efficient than `fs.watchFile` and`fs.unwatchFile`. `fs.watch` should be used instead of `fs.watchFile` and`fs.unwatchFile` when possible.
+     * Using {@link watch} is more efficient than `fs.watchFile` and `fs.unwatchFile`. `fs.watch` should be used instead of `fs.watchFile` and `fs.unwatchFile` when possible.
      *
      * When a file being watched by `fs.watchFile()` disappears and reappears,
      * then the contents of `previous` in the second callback event (the file's
@@ -3263,7 +3269,7 @@ declare module "fs" {
      * Calling `fs.unwatchFile()` with a filename that is not being watched is a
      * no-op, not an error.
      *
-     * Using {@link watch} is more efficient than `fs.watchFile()` and`fs.unwatchFile()`. `fs.watch()` should be used instead of `fs.watchFile()`and `fs.unwatchFile()` when possible.
+     * Using {@link watch} is more efficient than `fs.watchFile()` and `fs.unwatchFile()`. `fs.watch()` should be used instead of `fs.watchFile()` and `fs.unwatchFile()` when possible.
      * @since v0.1.31
      * @param listener Optional, a listener previously attached using `fs.watchFile()`
      */
@@ -3291,7 +3297,7 @@ declare module "fs" {
      * On most platforms, `'rename'` is emitted whenever a filename appears or
      * disappears in the directory.
      *
-     * The listener callback is attached to the `'change'` event fired by `fs.FSWatcher`, but it is not the same thing as the `'change'` value of`eventType`.
+     * The listener callback is attached to the `'change'` event fired by `fs.FSWatcher`, but it is not the same thing as the `'change'` value of `eventType`.
      *
      * If a `signal` is passed, aborting the corresponding AbortController will close
      * the returned `fs.FSWatcher`.
@@ -3351,11 +3357,11 @@ declare module "fs" {
      * ```
      *
      * **The parameters for this callback are not consistent with other Node.js**
-     * **callbacks.** Normally, the first parameter to a Node.js callback is an `err`parameter, optionally followed by other parameters. The `fs.exists()` callback
+     * **callbacks.** Normally, the first parameter to a Node.js callback is an `err` parameter, optionally followed by other parameters. The `fs.exists()` callback
      * has only one boolean parameter. This is one reason `fs.access()` is recommended
      * instead of `fs.exists()`.
      *
-     * Using `fs.exists()` to check for the existence of a file before calling`fs.open()`, `fs.readFile()`, or `fs.writeFile()` is not recommended. Doing
+     * Using `fs.exists()` to check for the existence of a file before calling `fs.open()`, `fs.readFile()`, or `fs.writeFile()` is not recommended. Doing
      * so introduces a race condition, since other processes may change the file's
      * state between the two calls. Instead, user code should open/read/write the
      * file directly and handle the error raised if the file does not exist.
@@ -3482,7 +3488,7 @@ declare module "fs" {
      * For detailed information, see the documentation of the asynchronous version of
      * this API: {@link exists}.
      *
-     * `fs.exists()` is deprecated, but `fs.existsSync()` is not. The `callback`parameter to `fs.exists()` accepts parameters that are inconsistent with other
+     * `fs.exists()` is deprecated, but `fs.existsSync()` is not. The `callback` parameter to `fs.exists()` accepts parameters that are inconsistent with other
      * Node.js callbacks. `fs.existsSync()` does not use a callback.
      *
      * ```js
@@ -3611,13 +3617,13 @@ declare module "fs" {
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
-     * checks to be performed. `mode` should be either the value `fs.constants.F_OK`or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`,`fs.constants.W_OK`, and `fs.constants.X_OK`
+     * checks to be performed. `mode` should be either the value `fs.constants.F_OK` or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and `fs.constants.X_OK`
      * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
      * possible values of `mode`.
      *
      * The final argument, `callback`, is a callback function that is invoked with
      * a possible error argument. If any of the accessibility checks fail, the error
-     * argument will be an `Error` object. The following examples check if`package.json` exists, and if it is readable or writable.
+     * argument will be an `Error` object. The following examples check if `package.json` exists, and if it is readable or writable.
      *
      * ```js
      * import { access, constants } from 'node:fs';
@@ -3645,7 +3651,7 @@ declare module "fs" {
      * });
      * ```
      *
-     * Do not use `fs.access()` to check for the accessibility of a file before calling`fs.open()`, `fs.readFile()`, or `fs.writeFile()`. Doing
+     * Do not use `fs.access()` to check for the accessibility of a file before calling `fs.open()`, `fs.readFile()`, or `fs.writeFile()`. Doing
      * so introduces a race condition, since other processes may change the file's
      * state between the two calls. Instead, user code should open/read/write the
      * file directly and handle the error raised if the file is not accessible.
@@ -3785,7 +3791,7 @@ declare module "fs" {
     /**
      * Synchronously tests a user's permissions for the file or directory specified
      * by `path`. The `mode` argument is an optional integer that specifies the
-     * accessibility checks to be performed. `mode` should be either the value`fs.constants.F_OK` or a mask consisting of the bitwise OR of any of`fs.constants.R_OK`, `fs.constants.W_OK`, and
+     * accessibility checks to be performed. `mode` should be either the value `fs.constants.F_OK` or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and
      * `fs.constants.X_OK` (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
      * possible values of `mode`.
      *
@@ -3859,8 +3865,8 @@ declare module "fs" {
      * By default, the stream will emit a `'close'` event after it has been
      * destroyed.  Set the `emitClose` option to `false` to change this behavior.
      *
-     * By providing the `fs` option, it is possible to override the corresponding `fs`implementations for `open`, `read`, and `close`. When providing the `fs` option,
-     * an override for `read` is required. If no `fd` is provided, an override for`open` is also required. If `autoClose` is `true`, an override for `close` is
+     * By providing the `fs` option, it is possible to override the corresponding `fs` implementations for `open`, `read`, and `close`. When providing the `fs` option,
+     * an override for `read` is required. If no `fd` is provided, an override for `open` is also required. If `autoClose` is `true`, an override for `close` is
      * also required.
      *
      * ```js
@@ -3908,7 +3914,7 @@ declare module "fs" {
      * replacing it may require the `flags` option to be set to `r+` rather than the
      * default `w`. The `encoding` can be any one of those accepted by `Buffer`.
      *
-     * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
+     * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'` the file descriptor will be closed automatically. If `autoClose` is false,
      * then the file descriptor won't be closed, even if there's an error.
      * It is the application's responsibility to close it and make sure there's no
      * file descriptor leak.
@@ -3916,12 +3922,12 @@ declare module "fs" {
      * By default, the stream will emit a `'close'` event after it has been
      * destroyed.  Set the `emitClose` option to `false` to change this behavior.
      *
-     * By providing the `fs` option it is possible to override the corresponding `fs`implementations for `open`, `write`, `writev`, and `close`. Overriding `write()`without `writev()` can reduce
+     * By providing the `fs` option it is possible to override the corresponding `fs` implementations for `open`, `write`, `writev`, and `close`. Overriding `write()` without `writev()` can reduce
      * performance as some optimizations (`_writev()`)
-     * will be disabled. When providing the `fs` option, overrides for at least one of`write` and `writev` are required. If no `fd` option is supplied, an override
-     * for `open` is also required. If `autoClose` is `true`, an override for `close`is also required.
+     * will be disabled. When providing the `fs` option, overrides for at least one of `write` and `writev` are required. If no `fd` option is supplied, an override
+     * for `open` is also required. If `autoClose` is `true`, an override for `close` is also required.
      *
-     * Like `fs.ReadStream`, if `fd` is specified, `fs.WriteStream` will ignore the`path` argument and will use the specified file descriptor. This means that no`'open'` event will be
+     * Like `fs.ReadStream`, if `fd` is specified, `fs.WriteStream` will ignore the `path` argument and will use the specified file descriptor. This means that no `'open'` event will be
      * emitted. `fd` should be blocking; non-blocking `fd`s
      * should be passed to `net.Socket`.
      *
@@ -4030,15 +4036,15 @@ declare module "fs" {
      */
     export function copyFileSync(src: PathLike, dest: PathLike, mode?: number): void;
     /**
-     * Write an array of `ArrayBufferView`s to the file specified by `fd` using`writev()`.
+     * Write an array of `ArrayBufferView`s to the file specified by `fd` using `writev()`.
      *
      * `position` is the offset from the beginning of the file where this data
      * should be written. If `typeof position !== 'number'`, the data will be written
      * at the current position.
      *
-     * The callback will be given three arguments: `err`, `bytesWritten`, and`buffers`. `bytesWritten` is how many bytes were written from `buffers`.
+     * The callback will be given three arguments: `err`, `bytesWritten`, and `buffers`. `bytesWritten` is how many bytes were written from `buffers`.
      *
-     * If this method is `util.promisify()` ed, it returns a promise for an`Object` with `bytesWritten` and `buffers` properties.
+     * If this method is `util.promisify()` ed, it returns a promise for an `Object` with `bytesWritten` and `buffers` properties.
      *
      * It is unsafe to use `fs.writev()` multiple times on the same file without
      * waiting for the callback. For this scenario, use {@link createWriteStream}.
@@ -4087,7 +4093,7 @@ declare module "fs" {
      * should be read. If `typeof position !== 'number'`, the data will be read
      * from the current position.
      *
-     * The callback will be given three arguments: `err`, `bytesRead`, and`buffers`. `bytesRead` is how many bytes were read from the file.
+     * The callback will be given three arguments: `err`, `bytesRead`, and `buffers`. `bytesRead` is how many bytes were read from the file.
      *
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a promise for an `Object` with `bytesRead` and `buffers` properties.

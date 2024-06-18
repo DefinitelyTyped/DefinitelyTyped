@@ -9,14 +9,26 @@
  * `querystring` is more performant than `URLSearchParams` but is not a
  * standardized API. Use `URLSearchParams` when performance is not critical or
  * when compatibility with browser code is desirable.
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/querystring.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/querystring.js)
  */
 declare module "querystring" {
     interface StringifyOptions {
+        /**
+         * The function to use when converting URL-unsafe characters to percent-encoding in the query string.
+         * @default `querystring.escape()`
+         */
         encodeURIComponent?: ((str: string) => string) | undefined;
     }
     interface ParseOptions {
+        /**
+         * Specifies the maximum number of keys to parse. Specify `0` to remove key counting limitations.
+         * @default 1000
+         */
         maxKeys?: number | undefined;
+        /**
+         * The function to use when decoding percent-encoded characters in the query string.
+         * @default `querystring.unescape()`
+         */
         decodeURIComponent?: ((str: string) => string) | undefined;
     }
     interface ParsedUrlQuery extends NodeJS.Dict<string | string[]> {}
@@ -35,7 +47,7 @@ declare module "querystring" {
      * The `querystring.stringify()` method produces a URL query string from a
      * given `obj` by iterating through the object's "own properties".
      *
-     * It serializes the following types of values passed in `obj`:[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
+     * It serializes the following types of values passed in `obj`: [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) |
      * [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Number_type) |
      * [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) |
      * [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type) |
@@ -54,7 +66,7 @@ declare module "querystring" {
      * ```
      *
      * By default, characters requiring percent-encoding within the query string will
-     * be encoded as UTF-8\. If an alternative encoding is required, then an alternative`encodeURIComponent` option will need to be specified:
+     * be encoded as UTF-8\. If an alternative encoding is required, then an alternative `encodeURIComponent` option will need to be specified:
      *
      * ```js
      * // Assuming gbkEncodeURIComponent function already exists,
@@ -81,7 +93,7 @@ declare module "querystring" {
      * }
      * ```
      *
-     * The object returned by the `querystring.parse()` method _does not_prototypically inherit from the JavaScript `Object`. This means that typical`Object` methods such as `obj.toString()`,
+     * The object returned by the `querystring.parse()` method _does not_ prototypically inherit from the JavaScript `Object`. This means that typical `Object` methods such as `obj.toString()`,
      * `obj.hasOwnProperty()`, and others
      * are not defined and _will not work_.
      *
@@ -98,7 +110,7 @@ declare module "querystring" {
      * @since v0.1.25
      * @param str The URL query string to parse
      * @param [sep='&'] The substring used to delimit key and value pairs in the query string.
-     * @param [eq='='] . The substring used to delimit keys and values in the query string.
+     * @param [eq='='] The substring used to delimit keys and values in the query string.
      */
     function parse(str: string, sep?: string, eq?: string, options?: ParseOptions): ParsedUrlQuery;
     /**
@@ -110,7 +122,7 @@ declare module "querystring" {
      */
     const decode: typeof parse;
     /**
-     * The `querystring.escape()` method performs URL percent-encoding on the given`str` in a manner that is optimized for the specific requirements of URL
+     * The `querystring.escape()` method performs URL percent-encoding on the given `str` in a manner that is optimized for the specific requirements of URL
      * query strings.
      *
      * The `querystring.escape()` method is used by `querystring.stringify()` and is

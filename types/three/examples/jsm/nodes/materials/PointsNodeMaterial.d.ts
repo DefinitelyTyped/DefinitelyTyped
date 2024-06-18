@@ -14,6 +14,7 @@ export default class PointsNodeMaterial extends NodeMaterial {
     alphaMap: Texture | null;
     size: number;
     sizeAttenuation: boolean;
+    fog: boolean;
 
     constructor(parameters?: PointsNodeMaterialParameters);
 }

@@ -780,3 +780,16 @@ declare module "alpinejs" {
         };
     }
 }
+
+{
+    // Support for classes since 3.13.6
+    class Counter implements AlpineComponent<{ count: number }> {
+        constructor(public count: number) {}
+
+        increment() {
+            this.count++;
+        }
+    }
+
+    Alpine.data("counter", () => new Counter(5));
+}

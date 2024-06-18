@@ -260,8 +260,23 @@ webAuth.redirect.signupAndLogin(
         // do something with data
     },
 );
+// Get a Captcha object
+const captchaInputElement: HTMLInputElement = document.querySelector("input[name=\"captcha\"]");
+const captcha = webAuth.renderCaptcha(captchaInputElement, {
+    lang: "pl",
+    templates: {
+        error: error => {
+            return "error";
+        },
+        auth0: challenge => "auth0",
+        recaptcha_v2: challenge => "recaptcha_v2",
+    },
+});
 
-webAuth.login({ username: "bar", password: "foo", state: "1234", onRedirecting: () => {} }, (err, data) => {});
+webAuth.login(
+    { username: "bar", password: "foo", state: "1234", onRedirecting: () => {}, captcha: captcha },
+    (err, data) => {},
+);
 
 // cross-origin verification
 webAuth.crossOriginVerification();

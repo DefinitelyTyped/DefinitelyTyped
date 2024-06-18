@@ -2552,6 +2552,21 @@ declare namespace google.maps {
      */
     disableAutoPan?: boolean | null;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * The content to display in the InfoWindow header row. This can be an HTML
+     * element, or a string containing HTML. The InfoWindow will be sized
+     * according to the content. To set an explicit size for the header content,
+     * set headerContent to be a HTML element with that size.
+     */
+    headerContent?: string|Element|Text|null;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Disables the whole header row in the InfoWindow. When set to true, the
+     * header will be removed so that the header content and the close button
+     * will be hidden.
+     */
+    headerDisabled?: boolean|null;
+    /**
      * Maximum width of the InfoWindow, regardless of content&#39;s width. This
      * value is only considered if it is set before a call to
      * <code>open()</code>. To change the maximum width when changing content,
@@ -3457,6 +3472,12 @@ declare namespace google.maps {
      */
     getHeading(): number | undefined;
     /**
+     * Returns whether heading interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    getHeadingInteractionEnabled(): boolean | null;
+    /**
      * Informs the caller of the current capabilities available to the map based
      * on the Map ID that was provided.
      */
@@ -3489,6 +3510,12 @@ declare namespace google.maps {
      * <code>setTilt</code>. See <code>setTilt</code> for details.
      */
     getTilt(): number | undefined;
+    /**
+     * Returns whether tilt interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    getTiltInteractionEnabled(): boolean | null;
     /**
      * Returns the zoom of the map. If the zoom has not been set then the result
      * is <code>undefined</code>.
@@ -3556,8 +3583,18 @@ declare namespace google.maps {
      * imagery.
      */
     setHeading(heading: number): void;
+    /**
+     * Sets whether heading interactions are enabled. This option is only in
+     * effect when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    setHeadingInteractionEnabled(headingInteractionEnabled: boolean): void;
     setMapTypeId(mapTypeId: string): void;
     setOptions(options: google.maps.MapOptions | null): void;
+    /**
+     * Sets the current RenderingType of the map.
+     */
+    setRenderingType(renderingType: google.maps.RenderingType): void;
     /**
      * Binds a <code>StreetViewPanorama</code> to the map. This panorama
      * overrides the default <code>StreetViewPanorama</code>, allowing the map
@@ -3568,9 +3605,9 @@ declare namespace google.maps {
     setStreetView(panorama: google.maps.StreetViewPanorama | null): void;
     /**
      * For vector maps, sets the angle of incidence of the map. The allowed
-     * values are restricted depending on the zoom level of the map. For raster
-     * maps, controls the automatic switching behavior for the angle of
-     * incidence of the map. The only allowed values are <code>0</code> and
+     * values are restricted depending on the zoom level of the map. <br><br>
+     * For raster maps, controls the automatic switching behavior for the angle
+     * of incidence of the map. The only allowed values are <code>0</code> and
      * <code>45</code>. <code>setTilt(0)</code> causes the map to always use a
      * 0&deg; overhead view regardless of the zoom level and viewport.
      * <code>setTilt(45)</code> causes the tilt angle to automatically switch to
@@ -3586,6 +3623,12 @@ declare namespace google.maps {
      * unpredictable effects.
      */
     setTilt(tilt: number): void;
+    /**
+     * Sets whether tilt interactions are enabled. This option is only in effect
+     * when the map is a vector map. If not set in code, then the cloud
+     * configuration for the map ID will be used (if available).
+     */
+    setTiltInteractionEnabled(tiltInteractionEnabled: boolean): void;
     /**
      * Sets the zoom of the map.
      * @param zoom Larger zoom values correspond to a higher resolution.
@@ -3672,6 +3715,11 @@ declare namespace google.maps {
      * for more information.
      */
     isDataDrivenStylingAvailable?: boolean;
+    /**
+     * If true, this map is configured properly to allow for the use of {@link
+     * google.maps.WebGLOverlayView}.
+     */
+    isWebGLOverlayViewAvailable?: boolean;
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -3717,18 +3765,48 @@ declare namespace google.maps {
      */
     center: google.maps.LatLng | google.maps.LatLngLiteral | null;
     /**
+     * Whether the map should allow user control of the camera heading
+     * (rotation). This option is only in effect when the map is a vector map.
+     * If not set in code, then the cloud configuration for the map ID will be
+     * used (if available).
+     * @defaultValue <code>false</code>
+     */
+    headingInteractionDisabled: boolean | null;
+    /**
      * A reference to the {@link google.maps.Map} that the MapElement uses
      * internally.
      */
     innerMap: google.maps.Map;
     /**
-     * The Map ID of the map. See the <a
-     * href="https://developers.google.com/maps/documentation/get-map-id">Map ID
-     * documentation</a> for more information.
+     * The <a
+     * href="https://developers.google.com/maps/documentation/get-map-id">Map
+     * ID</a> of the map. This parameter cannot be set or changed after a map is
+     * instantiated. {@link google.maps.Map.DEMO_MAP_ID} can be used to try out
+     * features that require a map ID but which do not require cloud enablement.
      */
     mapId: string | null;
     /**
-     * The zoom level of the map.
+     * Whether the map should be a raster or vector map. This parameter cannot
+     * be set or changed after a map is instantiated. If not set, then the cloud
+     * configuration for the map ID will determine the rendering type (if
+     * available). Please note that vector maps may not be available for all
+     * devices and browsers and the map will fall back to a raster map as
+     * needed.
+     * @defaultValue {@link google.maps.RenderingType.VECTOR}
+     */
+    renderingType: google.maps.RenderingType | null;
+    /**
+     * Whether the map should allow user control of the camera tilt. This option
+     * is only in effect when the map is a vector map. If not set in code, then
+     * the cloud configuration for the map ID will be used (if available).
+     * @defaultValue <code>false</code>
+     */
+    tiltInteractionDisabled: boolean | null;
+    /**
+     * The zoom level of the map. Valid zoom values are numbers from zero up to
+     * the supported <a
+     * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
+     * zoom level</a>. Larger zoom values correspond to a higher resolution.
      */
     zoom: number | null;
   }
@@ -3740,21 +3818,27 @@ declare namespace google.maps {
    */
   export interface MapElementOptions {
     /**
-     * The initial Map center.
+     * See {@link google.maps.MapElement.center}.
      */
     center?: google.maps.LatLng | google.maps.LatLngLiteral | null;
     /**
-     * The <a
-     * href="https://developers.google.com/maps/documentation/get-map-id">Map
-     * ID</a> of the map. This parameter cannot be set or changed after a map is
-     * instantiated.
+     * See {@link google.maps.MapElement.headingInteractionDisabled}.
+     */
+    headingInteractionDisabled?: boolean | null;
+    /**
+     * See {@link google.maps.MapElement.mapId}.
      */
     mapId?: string | null;
     /**
-     * The initial Map zoom level. Valid zoom values are numbers from zero up to
-     * the supported <a
-     * href="https://developers.google.com/maps/documentation/javascript/maxzoom">maximum
-     * zoom level</a>. Larger zoom values correspond to a higher resolution.
+     * See {@link google.maps.MapElement.renderingType}.
+     */
+    renderingType?: google.maps.RenderingType | null;
+    /**
+     * See {@link google.maps.MapElement.tiltInteractionDisabled}.
+     */
+    tiltInteractionDisabled?: boolean | null;
+    /**
+     * See {@link google.maps.MapElement.zoom}.
      */
     zoom?: number | null;
   }
@@ -3883,6 +3967,14 @@ declare namespace google.maps {
      */
     heading?: number | null;
     /**
+     * Whether the map should allow user control of the camera heading
+     * (rotation). This option is only in effect when the map is a vector map.
+     * If not set in code, then the cloud configuration for the map ID will be
+     * used (if available).
+     * @defaultValue <code>false</code>
+     */
+    headingInteractionEnabled?: boolean | null;
+    /**
      * Whether the map should allow fractional zoom levels. Listen to
      * <code>isfractionalzoomenabled_changed</code> to know when the default has
      * been set.
@@ -3899,7 +3991,8 @@ declare namespace google.maps {
      * The <a
      * href="https://developers.google.com/maps/documentation/get-map-id">Map
      * ID</a> of the map. This parameter cannot be set or changed after a map is
-     * instantiated.
+     * instantiated. {@link google.maps.Map.DEMO_MAP_ID} can be used to try out
+     * features that require a map ID but which do not require cloud enablement.
      */
     mapId?: string | null;
     /**
@@ -3946,6 +4039,16 @@ declare namespace google.maps {
      * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControlOptions?: google.maps.PanControlOptions | null;
+    /**
+     * Whether the map should be a raster or vector map. This parameter cannot
+     * be set or changed after a map is instantiated. If not set, then the cloud
+     * configuration for the map ID will determine the rendering type (if
+     * available). Please note that vector maps may not be available for all
+     * devices and browsers and the map will fall back to a raster map as
+     * needed.
+     * @defaultValue {@link google.maps.RenderingType.RASTER}
+     */
+    renderingType?: google.maps.RenderingType | null;
     /**
      * Defines a boundary that restricts the area of the map accessible to
      * users. When set, a user can only pan and zoom while the camera view stays
@@ -3997,7 +4100,10 @@ declare namespace google.maps {
     /**
      * Styles to apply to each of the default map types. Note that for
      * <code>satellite</code>/<code>hybrid</code> and <code>terrain</code>
-     * modes, these styles will only apply to labels and geometry.
+     * modes, these styles will only apply to labels and geometry. This feature
+     * is not available when using a map ID, or when using vector maps (use <a
+     * href="https://developers.google.com/maps/documentation/cloud-customization">cloud-based
+     * maps styling</a> instead).
      */
     styles?: google.maps.MapTypeStyle[] | null;
     /**
@@ -4019,6 +4125,13 @@ declare namespace google.maps {
      * yield unpredictable effects.
      */
     tilt?: number | null;
+    /**
+     * Whether the map should allow user control of the camera tilt. This option
+     * is only in effect when the map is a vector map. If not set in code, then
+     * the cloud configuration for the map ID will be used (if available).
+     * @defaultValue <code>false</code>
+     */
+    tiltInteractionEnabled?: boolean | null;
     /**
      * The initial Map zoom level. Valid zoom values are numbers from zero up to
      * the supported <a
@@ -4264,6 +4377,22 @@ declare namespace google.maps {
      * reference</a>.
      */
     stylers: object[];
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   */
+  export interface Maps3DLibrary {
+    AltitudeMode: typeof google.maps.maps3d.AltitudeMode;
+    CenterChangeEvent: typeof google.maps.maps3d.CenterChangeEvent;
+    ClickEvent: typeof google.maps.maps3d.ClickEvent;
+    HeadingChangeEvent: typeof google.maps.maps3d.HeadingChangeEvent;
+    Map3DElement: typeof google.maps.maps3d.Map3DElement;
+    Polygon3DElement: typeof google.maps.maps3d.Polygon3DElement;
+    Polyline3DElement: typeof google.maps.maps3d.Polyline3DElement;
+    RangeChangeEvent: typeof google.maps.maps3d.RangeChangeEvent;
+    RollChangeEvent: typeof google.maps.maps3d.RollChangeEvent;
+    SteadyChangeEvent: typeof google.maps.maps3d.SteadyChangeEvent;
+    TiltChangeEvent: typeof google.maps.maps3d.TiltChangeEvent;
   }
   /**
    * An event listener, created by <code><a
@@ -7162,7 +7291,10 @@ declare namespace google.maps {
    * after removing. The <code>onDraw()</code> method will then be called
    * whenever a map property changes that could change the position of the
    * element, such as zoom, center, or map type. WebGLOverlayView may only be
-   * added to a vector map having a {@link google.maps.MapOptions.mapId}.
+   * added to a vector map having a {@link google.maps.MapOptions.mapId}
+   * (including maps set to the {@link google.maps.RenderingType.VECTOR} {@link
+   * google.maps.MapOptions.renderingType} and using {@link
+   * google.maps.Map.DEMO_MAP_ID} as the {@link google.maps.MapOptions.mapId}).
    *
    * Access by calling `const {WebGLOverlayView} = await
    * google.maps.importLibrary("maps")`. See
@@ -7335,7 +7467,7 @@ declare namespace google.maps {
     static clearListeners(this: any, instance: object, eventName: string): void;
     /**
      * Returns if there are listeners for the given event on the given instance.
-     * Can be used to to save the computation of expensive event details.
+     * Can be used to save the computation of expensive event details.
      */
     static hasListeners(
       this: any,
@@ -7370,21 +7502,15 @@ declare namespace google.maps {
    * namespace is not generally recommended.)
    */
   export function importLibrary(
-    libraryName: string,
-  ): Promise<
-    | google.maps.CoreLibrary
-    | google.maps.MapsLibrary
-    | google.maps.PlacesLibrary
-    | google.maps.GeocodingLibrary
-    | google.maps.RoutesLibrary
-    | google.maps.MarkerLibrary
-    | google.maps.GeometryLibrary
-    | google.maps.ElevationLibrary
-    | google.maps.StreetViewLibrary
-    | google.maps.JourneySharingLibrary
-    | google.maps.DrawingLibrary
-    | google.maps.VisualizationLibrary
-  >;
+      libraryName: string,
+      ):
+      Promise<|google.maps.CoreLibrary|google.maps.MapsLibrary|
+              google.maps.Maps3DLibrary|google.maps.PlacesLibrary|
+              google.maps.GeocodingLibrary|google.maps.RoutesLibrary|
+              google.maps.MarkerLibrary|google.maps.GeometryLibrary|
+              google.maps.ElevationLibrary|google.maps.StreetViewLibrary|
+              google.maps.JourneySharingLibrary|
+              google.maps.DrawingLibrary|google.maps.VisualizationLibrary>;
   /**
    * Google Maps JavaScript API version loaded by the browser. See <a
    * href="https://developers.google.com/maps/documentation/javascript/versions">https://developers.google.com/maps/documentation/javascript/versions</a>
@@ -11904,6 +12030,680 @@ declare namespace google.maps.localContext {
    */
   export type PlaceTypePreference = {type: string; weight?: number};
 }
+declare namespace google.maps.maps3d {
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * Specifies how altitude components in the coordinates are interpreted.
+   *
+   * Access by calling `const {AltitudeMode} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum AltitudeMode {
+    /**
+     * Allows to express objects relative to the average mean sea level. That
+     * also means that if the terrain level of detail changes underneath the
+     * object, its absolute position will remain the same.
+     */
+    ABSOLUTE = 'ABSOLUTE',
+    /**
+     * Allows to express objects placed on the ground. They will remain at
+     * ground level following the terrain regardless of what altitude is
+     * provided. If the object is positioned over a major body of water, it will
+     * be placed at sea level.
+     */
+    CLAMP_TO_GROUND = 'CLAMP_TO_GROUND',
+    /**
+     * Allows to express objects relative to the ground surface. If the terrain
+     * level of detail changes, the position of the object will remain constant
+     * relative to the ground. When over water, the altitude will be interpreted
+     * as a value in meters above sea level.
+     */
+    RELATIVE_TO_GROUND = 'RELATIVE_TO_GROUND',
+    /**
+     * Allows to express objects relative to the highest of
+     * ground+building+water surface. When over water, this will be water
+     * surface; when over terrain, this will be the building surface (if
+     * present) or ground surface (if no buildings).
+     */
+    RELATIVE_TO_MESH = 'RELATIVE_TO_MESH',
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from monitoring center change on
+   * <code>Map3DElement</code>.
+   *
+   * Access by calling `const {CenterChangeEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class CenterChangeEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from monitoring center change on
+     * <code>Map3DElement</code>.
+     *
+     * Access by calling `const {CenterChangeEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from clicking a Map3DElement.
+   *
+   * Access by calling `const {ClickEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class ClickEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from clicking a Map3DElement.
+     *
+     * Access by calling `const {ClickEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+    /**
+     * The latitude/longitude/altitude that was below the cursor when the event
+     * occurred. Please note, that at coarser levels, less accurate data will be
+     * returned. Also, sea floor elevation may be returned for the altitude
+     * value when clicking at the water surface from higher camera positions.
+     */
+    position: google.maps.LatLngAltitude|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from monitoring heading change on
+   * <code>Map3DElement</code>.
+   *
+   * Access by calling `const {HeadingChangeEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class HeadingChangeEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from monitoring heading change on
+     * <code>Map3DElement</code>.
+     *
+     * Access by calling `const {HeadingChangeEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * Map3DElement is an HTML interface for the 3D Map view.
+   *
+   * Access by calling `const {Map3DElement} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class Map3DElement extends HTMLElement implements
+      google.maps.maps3d.Map3DElementOptions {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * Map3DElement is an HTML interface for the 3D Map view.
+     *
+     * Access by calling `const {Map3DElement} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor(options?: google.maps.maps3d.Map3DElementOptions);
+    /**
+     * When set, restricts the position of the camera within the specified
+     * lat/lng bounds. Note that objects outside the bounds are still rendered.
+     * Bounds can restrict both longitude and latitude, or can restrict either
+     * latitude or longitude only. For latitude-only bounds use west and east
+     * longitudes of <code>-180</code> and <code>180</code>, respectively. For
+     * longitude-only bounds use north and south latitudes of <code>90</code>
+     * and <code>-90</code>, respectively.
+     */
+    bounds?: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|null;
+    /**
+     * The center of the map given as a LatLngAltitude, where altitude is in
+     * meters above ground level. Note that this is not necessarily where the
+     * camera is located, as the <code>range</code> field affects the
+     * camera&#39;s distance from the map center. If not set, defaults to
+     * <code>{lat: 0, lng: 0, altitude: 63170000}</code>. 63170000 meters is a
+     * maximum allowed altitude (Earth radius multiplied by 10).
+     */
+    center?: google.maps.LatLngAltitudeLiteral|null;
+    /**
+     * When <code>true</code>, default map labels aren&#39;t rendered.
+     * @defaultValue <code>false</code>
+     */
+    defaultLabelsDisabled?: boolean|null;
+    /**
+     * The compass heading of the map, in degrees, where due north is zero. When
+     * there is no tilt, any roll will be interpreted as heading.
+     */
+    heading?: number|null;
+    /**
+     * The maximum altitude above the ground which will be displayed on the map.
+     * A valid value is between <code>0</code> and <code>63170000</code> meters
+     * (Earth radius multiplied by 10).
+     */
+    maxAltitude?: number|null;
+    /**
+     * The maximum angle of heading (rotation) of the map. A valid value is
+     * between <code>0</code> and <code>360</code> degrees.
+     * <code>minHeading</code> and <code>maxHeading</code> represent an interval
+     * of &lt;= <code>360</code> degrees in which heading gestures will be
+     * allowed. <code>minHeading = 180</code> and <code>maxHeading = 90</code>
+     * will allow heading in <code>[0, 90]</code> and heading in <code>[180,
+     * 360]</code>. <code>minHeading = 90</code> and <code>maxHeading =
+     * 180</code> will allow heading in <code>[90, 180]</code>.
+     */
+    maxHeading?: number|null;
+    /**
+     * The maximum angle of incidence of the map. A valid value is between
+     * <code>0</code> and <code>90</code> degrees.
+     */
+    maxTilt?: number|null;
+    /**
+     * The minimum altitude above the ground which will be displayed on the map.
+     * A valid value is between <code>0</code> and <code>63170000</code> meters
+     * (Earth radius multiplied by 10).
+     */
+    minAltitude?: number|null;
+    /**
+     * The minimum angle of heading (rotation) of the map. A valid value is
+     * between <code>0</code> and <code>360</code> degrees.
+     * <code>minHeading</code> and <code>maxHeading</code> represent an interval
+     * of &lt;= <code>360</code> degrees in which heading gestures will be
+     * allowed. <code>minHeading = 180</code> and <code>maxHeading = 90</code>
+     * will allow heading in <code>[0, 90]</code> and heading in <code>[180,
+     * 360]</code>. <code>minHeading = 90</code> and <code>maxHeading =
+     * 180</code> will allow heading in <code>[90, 180]</code>.
+     */
+    minHeading?: number|null;
+    /**
+     * The minimum angle of incidence of the map. A valid value is between
+     * <code>0</code> and <code>90</code> degrees.
+     */
+    minTilt?: number|null;
+    /**
+     * The distance from camera to the center of the map, in meters.
+     */
+    range?: number|null;
+    /**
+     * The roll of the camera around the view vector in degrees. To resolve
+     * ambiguities, when there is no tilt, any roll will be interpreted as
+     * heading.
+     */
+    roll?: number|null;
+    /**
+     * The tilt of the camera&#39;s view vector in degrees. A view vector
+     * looking directly down at the earth would have a tilt of zero degrees. A
+     * view vector pointing away from the earth would have a tilt of
+     * <code>180</code> degrees.
+     */
+    tilt?: number|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * Map3DElementOptions object used to define the properties that can be set on
+   * a Map3DElement.
+   */
+  export interface Map3DElementOptions {
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.bounds}.
+     */
+    bounds?: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.center}.
+     */
+    center?: google.maps.LatLngAltitudeLiteral|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.defaultLabelsDisabled}.
+     */
+    defaultLabelsDisabled?: boolean|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.heading}.
+     */
+    heading?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.maxAltitude}.
+     */
+    maxAltitude?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.maxHeading}.
+     */
+    maxHeading?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.maxTilt}.
+     */
+    maxTilt?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.minAltitude}.
+     */
+    minAltitude?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.minHeading}.
+     */
+    minHeading?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.minTilt}.
+     */
+    minTilt?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.range}.
+     */
+    range?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.roll}.
+     */
+    roll?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.tilt}.
+     */
+    tilt?: number|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * A 3D polygon (like a 3D polyline) defines a series of connected coordinates
+   * in an ordered sequence. Additionally, polygons form a closed loop and
+   * define a filled region.
+   *
+   * Access by calling `const {Polygon3DElement} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class Polygon3DElement extends HTMLElement implements
+      google.maps.maps3d.Polygon3DElementOptions {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * A 3D polygon (like a 3D polyline) defines a series of connected
+     * coordinates in an ordered sequence. Additionally, polygons form a closed
+     * loop and define a filled region.
+     *
+     * Access by calling `const {Polygon3DElement} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor(options?: google.maps.maps3d.Polygon3DElementOptions);
+    /**
+     * Specifies how altitude components in the coordinates are interpreted.
+     * @defaultValue {@link google.maps.maps3d.AltitudeMode.ABSOLUTE}
+     */
+    altitudeMode?: google.maps.maps3d.AltitudeMode|null;
+    /**
+     * Specifies whether parts of the polygon which could be occluded are drawn
+     * or not. Polygons can be occluded by map geometry (e.g. buildings).
+     * @defaultValue <code>false</code>
+     */
+    drawsOccludedSegments?: boolean|null;
+    /**
+     * Specifies whether to connect the polygon to the ground. To extrude a
+     * polygon, the <code>altitudeMode</code> must be either
+     * <code>RELATIVE_TO_GROUND</code> or <code>ABSOLUTE</code>.
+     * @defaultValue <code>false</code>
+     */
+    extruded?: boolean|null;
+    /**
+     * The fill color. All CSS3 colors are supported except for extended named
+     * colors.
+     */
+    fillColor?: string|null;
+    /**
+     * The fill opacity between 0.0 and 1.0.
+     */
+    fillOpacity?: number|null;
+    /**
+     * When <code>true</code>, edges of the polygon are interpreted as geodesic
+     * and will follow the curvature of the Earth. When <code>false</code>,
+     * edges of the polygon are rendered as straight lines in screen space.
+     * @defaultValue <code>false</code>
+     */
+    geodesic?: boolean|null;
+    /**
+     * The ordered sequence of coordinates that designates a closed loop. Unlike
+     * polylines, a polygon may consist of one or more paths, which create
+     * multiple cut-outs inside the polygon.
+     */
+    innerCoordinates?: Iterable<Iterable<google.maps.LatLngLiteral>>|null;
+    /**
+     * The ordered sequence of coordinates that designates a closed loop.
+     * Altitude is ignored in certain modes and thus optional.
+     */
+    outerCoordinates?: Iterable<google.maps.LatLngLiteral>|null;
+    /**
+     * The stroke color. All CSS3 colors are supported except for extended named
+     * colors.
+     */
+    strokeColor?: string|null;
+    /**
+     * The stroke opacity between <code>0.0</code> and <code>1.0</code>.
+     */
+    strokeOpacity?: number|null;
+    /**
+     * The stroke width in pixels.
+     */
+    strokeWidth?: number|null;
+    /**
+     * The zIndex compared to other polys.
+     */
+    zIndex?: number|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * Polygon3DElementOptions object used to define the properties that can be
+   * set on a Polygon3DElement.
+   */
+  export interface Polygon3DElementOptions {
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.altitudeMode}.
+     * @defaultValue {@link google.maps.maps3d.AltitudeMode.ABSOLUTE}
+     */
+    altitudeMode?: google.maps.maps3d.AltitudeMode|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.drawsOccludedSegments}.
+     * @defaultValue <code>false</code>
+     */
+    drawsOccludedSegments?: boolean|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.extruded}.
+     * @defaultValue <code>false</code>
+     */
+    extruded?: boolean|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.fillColor}.
+     */
+    fillColor?: string|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.fillOpacity}.
+     */
+    fillOpacity?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.geodesic}.
+     * @defaultValue <code>false</code>
+     */
+    geodesic?: boolean|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.innerCoordinates}.
+     */
+    innerCoordinates?: Iterable<Iterable<any>>|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.outerCoordinates}.
+     */
+    outerCoordinates?: Iterable<google.maps.LatLngLiteral>|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.strokeColor}.
+     */
+    strokeColor?: string|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.strokeOpacity}.
+     */
+    strokeOpacity?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.strokeWidth}.
+     */
+    strokeWidth?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Polygon3DElement.zIndex}.
+     */
+    zIndex?: number|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * A 3D polyline is a linear overlay of connected line segments on a 3D map.
+   *
+   * Access by calling `const {Polyline3DElement} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class Polyline3DElement extends HTMLElement implements
+      google.maps.maps3d.Polyline3DElementOptions {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * A 3D polyline is a linear overlay of connected line segments on a 3D map.
+     *
+     * Access by calling `const {Polyline3DElement} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor(options?: google.maps.maps3d.Polyline3DElementOptions);
+    /**
+     * Specifies how altitude components in the coordinates are interpreted.
+     * @defaultValue {@link google.maps.maps3d.AltitudeMode.ABSOLUTE}
+     */
+    altitudeMode?: google.maps.maps3d.AltitudeMode|null;
+    /**
+     * The ordered sequence of coordinates of the Polyline. Altitude is ignored
+     * in certain modes and thus optional.
+     */
+    coordinates?: Iterable<google.maps.LatLngLiteral>|null;
+    /**
+     * Specifies whether parts of the polyline which could be occluded are drawn
+     * or not. Polylines can be occluded by map geometry (e.g. buildings).
+     * @defaultValue <code>false</code>
+     */
+    drawsOccludedSegments?: boolean|null;
+    /**
+     * Specifies whether to connect the polyline to the ground. To extrude a
+     * polyline, the <code>altitudeMode</code> must be either
+     * <code>RELATIVE_TO_GROUND</code> or <code>ABSOLUTE</code>.
+     * @defaultValue <code>false</code>
+     */
+    extruded?: boolean|null;
+    /**
+     * When <code>true</code>, edges of the polyline are interpreted as geodesic
+     * and will follow the curvature of the Earth. When <code>false</code>,
+     * edges of the polyline are rendered as straight lines in screen space.
+     * @defaultValue <code>false</code>
+     */
+    geodesic?: boolean|null;
+    /**
+     * The outer color. All CSS3 colors are supported except for extended named
+     * colors.
+     */
+    outerColor?: string|null;
+    /**
+     * The outer opacity between <code>0.0</code> and <code>1.0</code>.
+     */
+    outerOpacity?: number|null;
+    /**
+     * The outer width is between <code>0.0</code> and <code>1.0</code>. This is
+     * a percentage of the <code>strokeWidth</code>.
+     */
+    outerWidth?: number|null;
+    /**
+     * The stroke color. All CSS3 colors are supported except for extended named
+     * colors.
+     */
+    strokeColor?: string|null;
+    /**
+     * The stroke opacity between <code>0.0</code> and <code>1.0</code>.
+     */
+    strokeOpacity?: number|null;
+    /**
+     * The stroke width in pixels.
+     */
+    strokeWidth?: number|null;
+    /**
+     * The zIndex compared to other polys.
+     */
+    zIndex?: number|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * Polyline3DElementOptions object used to define the properties that can be
+   * set on a Polyline3DElement.
+   */
+  export interface Polyline3DElementOptions {
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.altitudeMode}.
+     * @defaultValue {@link google.maps.maps3d.AltitudeMode.ABSOLUTE}
+     */
+    altitudeMode?: google.maps.maps3d.AltitudeMode|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.coordinates}.
+     */
+    coordinates?: Iterable<google.maps.LatLngLiteral>|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.drawsOccludedSegments}.
+     * @defaultValue <code>false</code>
+     */
+    drawsOccludedSegments?: boolean|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.extruded}.
+     * @defaultValue <code>false</code>
+     */
+    extruded?: boolean|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.geodesic}.
+     * @defaultValue <code>false</code>
+     */
+    geodesic?: boolean|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.outerColor}.
+     */
+    outerColor?: string|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.outerOpacity}.
+     */
+    outerOpacity?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.outerWidth}.
+     */
+    outerWidth?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.strokeColor}.
+     */
+    strokeColor?: string|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.strokeOpacity}.
+     */
+    strokeOpacity?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.strokeWidth}.
+     */
+    strokeWidth?: number|null;
+    /**
+     * See {@link google.maps.maps3d.Polyline3DElement.zIndex}.
+     */
+    zIndex?: number|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from monitoring range change on
+   * <code>Map3DElement</code>.
+   *
+   * Access by calling `const {RangeChangeEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class RangeChangeEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from monitoring range change on
+     * <code>Map3DElement</code>.
+     *
+     * Access by calling `const {RangeChangeEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from monitoring roll change on
+   * <code>Map3DElement</code>.
+   *
+   * Access by calling `const {RollChangeEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class RollChangeEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from monitoring roll change on
+     * <code>Map3DElement</code>.
+     *
+     * Access by calling `const {RollChangeEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from monitoring a steady state of
+   * <code>Map3DElement</code>.
+   *
+   * Access by calling `const {SteadyChangeEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class SteadyChangeEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from monitoring a steady state of
+     * <code>Map3DElement</code>.
+     *
+     * Access by calling `const {SteadyChangeEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+    /**
+     * Indicates whether Map3DElement is steady (i.e. all rendering for the
+     * current scene has completed) or not.
+     */
+    isSteady: boolean;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created from monitoring tilt change on
+   * <code>Map3DElement</code>.
+   *
+   * Access by calling `const {TiltChangeEvent} = await
+   * google.maps.importLibrary("maps3d")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class TiltChangeEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created from monitoring tilt change on
+     * <code>Map3DElement</code>.
+     *
+     * Access by calling `const {TiltChangeEvent} = await
+     * google.maps.importLibrary("maps3d")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+}
 declare namespace google.maps.marker {
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -14492,7 +15292,7 @@ declare namespace google.maps.places {
     rankBy?: google.maps.places.SearchByTextRankPreference;
     /**
      * How results will be ranked in the response.
-     * @defaultValue <code>SearchByTextRankPreference.DISTANCE</code>
+     * @defaultValue <code>SearchByTextRankPreference.RELEVANCE</code>
      */
     rankPreference?: google.maps.places.SearchByTextRankPreference;
     /**

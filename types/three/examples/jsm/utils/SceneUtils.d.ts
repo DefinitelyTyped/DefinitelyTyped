@@ -33,19 +33,25 @@ export function reduceVertices<TValue>(
 ): TValue;
 
 /**
- * @param object Object to traverse.
+ * A generator based version of {@link Object3D.traverse}.
+ *
+ * @param object The 3D object to traverse.
  * @yields Objects that passed the filter condition.
  */
 export function traverseGenerator(object: Object3D): Generator<Object3D, void, unknown>;
 
 /**
- * @param object Object to traverse.
+ * A generator based version of {@link Object3D.traverseVisible}.
+ *
+ * @param object The 3D object to traverse.
  * @yields Objects that passed the filter condition.
  */
 export function traverseVisibleGenerator(object: Object3D): Generator<Object3D, void, unknown>;
 
 /**
- * @param object Object to traverse.
+ * A generator based version of {@link Object3D.traverseAncestors}.
+ *
+ * @param object The 3D object to traverse.
  * @yields Objects that passed the filter condition.
  */
 export function traverseAncestorsGenerator(object: Object3D): Generator<Object3D, void, unknown>;

@@ -11,7 +11,7 @@
  * asynchronous I/O operations are more efficient than Workers can be.
  *
  * Unlike `child_process` or `cluster`, `worker_threads` can share memory. They do
- * so by transferring `ArrayBuffer` instances or sharing `SharedArrayBuffer`instances.
+ * so by transferring `ArrayBuffer` instances or sharing `SharedArrayBuffer` instances.
  *
  * ```js
  * const {
@@ -49,7 +49,7 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/worker_threads.js)
  */
 declare module "worker_threads" {
     import { Blob } from "node:buffer";
@@ -69,7 +69,7 @@ declare module "worker_threads" {
     /**
      * Instances of the `worker.MessageChannel` class represent an asynchronous,
      * two-way communications channel.
-     * The `MessageChannel` has no methods of its own. `new MessageChannel()`yields an object with `port1` and `port2` properties, which refer to linked `MessagePort` instances.
+     * The `MessageChannel` has no methods of its own. `new MessageChannel()` yields an object with `port1` and `port2` properties, which refer to linked `MessagePort` instances.
      *
      * ```js
      * const { MessageChannel } = require('node:worker_threads');
@@ -92,7 +92,7 @@ declare module "worker_threads" {
     /**
      * Instances of the `worker.MessagePort` class represent one end of an
      * asynchronous, two-way communications channel. It can be used to transfer
-     * structured data, memory regions and other `MessagePort`s between different `Worker` s.
+     * structured data, memory regions and other `MessagePort`s between different `Worker`s.
      *
      * This implementation matches [browser `MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) s.
      * @since v10.5.0
@@ -100,7 +100,7 @@ declare module "worker_threads" {
     class MessagePort extends EventEmitter {
         /**
          * Disables further sending of messages on either side of the connection.
-         * This method can be called when no further communication will happen over this`MessagePort`.
+         * This method can be called when no further communication will happen over this `MessagePort`.
          *
          * The `'close' event` is emitted on both `MessagePort` instances that
          * are part of the channel.
@@ -108,13 +108,13 @@ declare module "worker_threads" {
          */
         close(): void;
         /**
-         * Sends a JavaScript value to the receiving side of this channel.`value` is transferred in a way which is compatible with
+         * Sends a JavaScript value to the receiving side of this channel. `value` is transferred in a way which is compatible with
          * the [HTML structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm).
          *
          * In particular, the significant differences to `JSON` are:
          *
          * * `value` may contain circular references.
-         * * `value` may contain instances of builtin JS types such as `RegExp`s,`BigInt`s, `Map`s, `Set`s, etc.
+         * * `value` may contain instances of builtin JS types such as `RegExp`s, `BigInt`s, `Map`s, `Set`s, etc.
          * * `value` may contain typed arrays, both using `ArrayBuffer`s
          * and `SharedArrayBuffer`s.
          * * `value` may contain [`WebAssembly.Module`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Module) instances.
@@ -140,7 +140,7 @@ declare module "worker_threads" {
          * If `value` contains [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instances, those are accessible
          * from either thread. They cannot be listed in `transferList`.
          *
-         * `value` may still contain `ArrayBuffer` instances that are not in`transferList`; in that case, the underlying memory is copied rather than moved.
+         * `value` may still contain `ArrayBuffer` instances that are not in `transferList`; in that case, the underlying memory is copied rather than moved.
          *
          * ```js
          * const { MessageChannel } = require('node:worker_threads');
@@ -186,16 +186,16 @@ declare module "worker_threads" {
         ref(): void;
         /**
          * Calling `unref()` on a port allows the thread to exit if this is the only
-         * active handle in the event system. If the port is already `unref()`ed calling`unref()` again has no effect.
+         * active handle in the event system. If the port is already `unref()`ed calling `unref()` again has no effect.
          *
-         * If listeners are attached or removed using `.on('message')`, the port is`ref()`ed and `unref()`ed automatically depending on whether
+         * If listeners are attached or removed using `.on('message')`, the port is `ref()`ed and `unref()`ed automatically depending on whether
          * listeners for the event exist.
          * @since v10.5.0
          */
         unref(): void;
         /**
          * Starts receiving messages on this `MessagePort`. When using this port
-         * as an event emitter, this is called automatically once `'message'`listeners are attached.
+         * as an event emitter, this is called automatically once `'message'` listeners are attached.
          *
          * This method exists for parity with the Web `MessagePort` API. In Node.js,
          * it is only useful for ignoring messages when no event listener is present.
@@ -415,7 +415,7 @@ declare module "worker_threads" {
         ref(): void;
         /**
          * Calling `unref()` on a worker allows the thread to exit if this is the only
-         * active handle in the event system. If the worker is already `unref()`ed calling`unref()` again has no effect.
+         * active handle in the event system. If the worker is already `unref()`ed calling `unref()` again has no effect.
          * @since v10.5.0
          */
         unref(): void;
@@ -574,7 +574,7 @@ declare module "worker_threads" {
      */
     function markAsUntransferable(object: object): void;
     /**
-     * Transfer a `MessagePort` to a different `vm` Context. The original `port`object is rendered unusable, and the returned `MessagePort` instance
+     * Transfer a `MessagePort` to a different `vm` Context. The original `port` object is rendered unusable, and the returned `MessagePort` instance
      * takes its place.
      *
      * The returned `MessagePort` is an object in the target context and
@@ -592,7 +592,7 @@ declare module "worker_threads" {
     function moveMessagePortToContext(port: MessagePort, contextifiedSandbox: Context): MessagePort;
     /**
      * Receive a single message from a given `MessagePort`. If no message is available,`undefined` is returned, otherwise an object with a single `message` property
-     * that contains the message payload, corresponding to the oldest message in the`MessagePort`'s queue.
+     * that contains the message payload, corresponding to the oldest message in the `MessagePort`'s queue.
      *
      * ```js
      * const { MessageChannel, receiveMessageOnPort } = require('node:worker_threads');
@@ -605,7 +605,7 @@ declare module "worker_threads" {
      * // Prints: undefined
      * ```
      *
-     * When this function is used, no `'message'` event is emitted and the`onmessage` listener is not invoked.
+     * When this function is used, no `'message'` event is emitted and the `onmessage` listener is not invoked.
      * @since v12.3.0
      */
     function receiveMessageOnPort(port: MessagePort):
@@ -640,7 +640,7 @@ declare module "worker_threads" {
      */
     function getEnvironmentData(key: Serializable): Serializable;
     /**
-     * The `worker.setEnvironmentData()` API sets the content of`worker.getEnvironmentData()` in the current thread and all new `Worker`instances spawned from the current context.
+     * The `worker.setEnvironmentData()` API sets the content of `worker.getEnvironmentData()` in the current thread and all new `Worker` instances spawned from the current context.
      * @since v15.12.0, v14.18.0
      * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value

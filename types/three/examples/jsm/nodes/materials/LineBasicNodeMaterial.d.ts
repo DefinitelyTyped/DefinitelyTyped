@@ -10,6 +10,8 @@ export default class LineBasicNodeMaterial extends NodeMaterial {
     // Properties from LineBasicMaterial
     readonly isLineBasicMaterial: true;
     color: Color;
+    fog: boolean;
+    linewidth: number;
     linecap: string;
     linejoin: string;
     map: Texture | null;

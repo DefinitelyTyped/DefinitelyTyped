@@ -19,6 +19,7 @@ export default class SpriteNodeMaterial extends NodeMaterial {
     alphaMap: Texture | null;
     rotation: number;
     sizeAttenuation: boolean;
+    fog: boolean;
 
     constructor(parameters?: SpriteNodeMaterialParameters);
 }

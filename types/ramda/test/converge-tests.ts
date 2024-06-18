@@ -6,7 +6,7 @@ import * as R from "ramda";
         value: string;
     }
 
-    const indentN = R.pipe(R.times(R.always(" ")), R.join(""), R.replace(/^(?!$)/gm));
+    const indentN = R.pipe(R.times(R.always(" ")), R.join(""), (str) => R.replace(/^(?!$)/gm, str));
 
     // $ExpectType Curry<(args_0: FormatSpec) => any>
     const format = R.converge(R.call, [({ indent }: FormatSpec) => indentN(indent), ({ value }: FormatSpec) => value]);

@@ -65,7 +65,7 @@ export default class StateInline {
      * Scan a sequence of emphasis-like markers, and determine whether
      * it can start an emphasis sequence or end an emphasis sequence.
      *
-     * @param start position to scan from (it should point at a valid marker);
+     * @param start position to scan from (it should point at a valid marker)
      * @param canSplitWord determine if these markers can be found inside a word
      */
     scanDelims(start: number, canSplitWord: boolean): Scanned;

@@ -15,8 +15,6 @@ export default class UniformsNode extends BufferNode {
 
     constructor(value: unknown[], elementType?: string | null);
 
-    getElementType(): string | null;
-
     getElementLength(): number;
 
     element(indexNode: number): ShaderNodeObject<UniformsElementNode>;

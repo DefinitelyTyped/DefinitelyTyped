@@ -155,7 +155,7 @@ declare namespace busboy {
          * @param listener.transferEncoding Contains the 'Content-Transfer-Encoding' value for the file stream.
          * @param listener.mimeType Contains the 'Content-Type' value for the file stream.
          */
-        file: (name: string, stream: Readable, info: FileInfo) => void;
+        file: (name: string, stream: Readable & { truncated?: boolean }, info: FileInfo) => void;
 
         /**
          * Emitted for each new non-file field found.
