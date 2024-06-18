@@ -3097,14 +3097,16 @@ declare namespace jsts {
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
             read(geometry: any /* ol.geom.Geometry */): jsts.geom.Geometry;
             write(geometry: jsts.geom.Geometry): any /* ol.geom.Geometry */;
-            inject(point: any /* ol.geom.Point */, 
-                LineString: any /* ol.geom.LineString */, 
-                LinearRing: any /* ol.geom.LinearRing */, 
-                Polygon: any /* ol.geom.Polygon */, 
-                MultiPoint: any /* ol.geom.MultiPoint */, 
-                MultiLineString: any /* ol.geom.MultiLineString */, 
-                MultiPolygon: any /* ol.geom.MultiPolygon */, 
-                GeometryCollection: any /* ol.geom.GeometryCollection */): void;
+            inject(
+                point: any, /* ol.geom.Point */
+                LineString: any, /* ol.geom.LineString */
+                LinearRing: any, /* ol.geom.LinearRing */
+                Polygon: any, /* ol.geom.Polygon */
+                MultiPoint: any, /* ol.geom.MultiPoint */
+                MultiLineString: any, /* ol.geom.MultiLineString */
+                MultiPolygon: any, /* ol.geom.MultiPolygon */
+                GeometryCollection: any, /* ol.geom.GeometryCollection */
+            ): void;
         }
 
         export class GeoJSONReader {
@@ -3590,13 +3592,12 @@ declare namespace jsts {
             }
 
             /**
-             * Computes the raw offset curve for a single Geometry component (ring, line or point). A raw offset curve line is not 
-             * noded - it may contain self-intersections (and usually will). The final buffer polygon is computed by forming a 
-             * topological graph of all the noded raw curves and tracing outside contours. The points in the raw curve are rounded 
+             * Computes the raw offset curve for a single Geometry component (ring, line or point). A raw offset curve line is not
+             * noded - it may contain self-intersections (and usually will). The final buffer polygon is computed by forming a
+             * topological graph of all the noded raw curves and tracing outside contours. The points in the raw curve are rounded
              * to a given PrecisionModel.
              */
             export class OffsetCurveBuilder {
-                
                 constructor(precisionModel: PrecisionModel, bufParams: BufferParameters);
 
                 /**
@@ -3606,7 +3607,7 @@ declare namespace jsts {
                 getBufferParameters(): BufferParameters;
 
                 /**
-                 * This method handles single points as well as LineStrings. LineStrings are assumed not to be closed 
+                 * This method handles single points as well as LineStrings. LineStrings are assumed not to be closed
                  * (the function will not fail for closed lines, but will generate superfluous line caps).
                  * @param {Coordinate[]} inputPts - the vertices of the line to offset
                  * @param {number} distance - the offset distance
@@ -3990,28 +3991,27 @@ declare namespace jsts {
         import Coordinate = jsts.geom.Coordinate;
 
         /**
-         * Supports linear referencing along a linear Geometry using the length along the line as 
-         * the index. Negative length values are taken as measured in the reverse direction from 
+         * Supports linear referencing along a linear Geometry using the length along the line as
+         * the index. Negative length values are taken as measured in the reverse direction from
          * the end of the geometry. Out-of-range index values are handled by clamping them to the
-         * valid range of values. Non-simple lines (i.e. which loop back to cross or touch 
+         * valid range of values. Non-simple lines (i.e. which loop back to cross or touch
          * themselves) are supported.
          */
         export class LengthIndexedLine {
-
             /**
-             * Constructs an object which allows a linear Geometry to be linearly referenced 
+             * Constructs an object which allows a linear Geometry to be linearly referenced
              * using length as an index.
-             * 
+             *
              * @param {Geometry} linearGeom the linear geometry to reference along
              */
             constructor(linearGeom: Geometry);
 
             /**
-             * Computes the Coordinate for the point on the line at the given index. If the 
-             * index is out of range the first or last point on the line will be returned. 
-             * The Z-ordinate of the computed point will be interpolated from the Z-ordinates 
+             * Computes the Coordinate for the point on the line at the given index. If the
+             * index is out of range the first or last point on the line will be returned.
+             * The Z-ordinate of the computed point will be interpolated from the Z-ordinates
              * of the line segment containing it, if they exist.
-             * 
+             *
              * @param {number} index the index of the desired point
              * @return {Coordinate} the Coordinate at the given index
              */
@@ -4019,12 +4019,12 @@ declare namespace jsts {
 
             /**
              * Computes the Coordinate for the point on the line at the given index, offset
-             * by the given distance. If the index is out of range the first or last point 
-             * on the line will be returned. The computed point is offset to the left of the 
-             * line if the offset distance is positive, to the right if negative. The 
-             * Z-ordinate of the computed point will be interpolated from the Z-ordinates 
+             * by the given distance. If the index is out of range the first or last point
+             * on the line will be returned. The computed point is offset to the left of the
+             * line if the offset distance is positive, to the right if negative. The
+             * Z-ordinate of the computed point will be interpolated from the Z-ordinates
              * of the line segment containing it, if they exist.
-             * 
+             *
              * @param {number} index the index of the desired point
              * @param {number} offsetDistance the index of the desired point
              * @return {Coordinate} the Coordinate at the given index
@@ -4032,10 +4032,10 @@ declare namespace jsts {
             extractPoint(index: number, offsetDistance: number): Coordinate;
 
             /**
-             * Computes the LineString for the interval on the line between the given 
-             * indices. If the endIndex lies before the startIndex, the computed 
+             * Computes the LineString for the interval on the line between the given
+             * indices. If the endIndex lies before the startIndex, the computed
              * geometry is reversed.
-             * 
+             *
              * @param {number} startIndex the index of the start of the interval
              * @param {number} endIndex the index of the end of the interval
              * @return {Geometry} the linear interval between the indices
@@ -4043,31 +4043,31 @@ declare namespace jsts {
             extractLine(startIndex: number, endIndex: number): Geometry;
 
             /**
-             * Computes the minimum index for a point on the line. If the line is not 
-             * simple (i.e. loops back on itself) a single point may have more than one 
-             * possible index. In this case, the smallest index is returned. The supplied 
-             * point does not necessarily have to lie precisely on the line, but if it 
-             * is far from the line the accuracy and performance of this function is not 
-             * guaranteed. Use project(org.locationtech.jts.geom.Coordinate) to compute 
+             * Computes the minimum index for a point on the line. If the line is not
+             * simple (i.e. loops back on itself) a single point may have more than one
+             * possible index. In this case, the smallest index is returned. The supplied
+             * point does not necessarily have to lie precisely on the line, but if it
+             * is far from the line the accuracy and performance of this function is not
+             * guaranteed. Use project(org.locationtech.jts.geom.Coordinate) to compute
              * a guaranteed result for points which may be far from the line.
-             * 
+             *
              * @param {Coordinate} pt a point on the line
              * @return {number} the minimum index of the point
              */
             indexOf(pt: Coordinate): number;
 
             /**
-             * Finds the index for a point on the line which is greater than the given 
-             * index. If no such index exists, returns minIndex. This method can be used 
-             * to determine all indexes for a point which occurs more than once on a 
-             * non-simple line. It can also be used to disambiguate cases where the given 
-             * point lies slightly off the line and is equidistant from two different 
-             * points on the line. The supplied point does not necessarily have to lie 
-             * precisely on the line, but if it is far from the line the accuracy and 
-             * performance of this function is not guaranteed. Use 
-             * project(org.locationtech.jts.geom.Coordinate) to compute a guaranteed 
+             * Finds the index for a point on the line which is greater than the given
+             * index. If no such index exists, returns minIndex. This method can be used
+             * to determine all indexes for a point which occurs more than once on a
+             * non-simple line. It can also be used to disambiguate cases where the given
+             * point lies slightly off the line and is equidistant from two different
+             * points on the line. The supplied point does not necessarily have to lie
+             * precisely on the line, but if it is far from the line the accuracy and
+             * performance of this function is not guaranteed. Use
+             * project(org.locationtech.jts.geom.Coordinate) to compute a guaranteed
              * result for points which may be far from the line.
-             * 
+             *
              * @param {Coordinate} pt a point on the line
              * @param {number} minIndex the value the returned index must be greater than
              * @return {number} the index of the point greater than the given minimum index
@@ -4075,26 +4075,26 @@ declare namespace jsts {
             indexOf(pt: Coordinate, minIndex: number): number;
 
             /**
-             * Computes the indices for a subline of the line. (The subline must conform 
-             * to the line; that is, all vertices in the subline (except possibly the 
+             * Computes the indices for a subline of the line. (The subline must conform
+             * to the line; that is, all vertices in the subline (except possibly the
              * first and last) must be vertices of the line and occur in the same order).
-             * 
+             *
              * @param {Geometry} subLine a subLine of the line
              * @return {number[]} a pair of indices for the start and end of the subline.
              */
             indicesOf(startIndex: number, endIndex: number): number[];
 
             /**
-             * Computes the index for the closest point on the line to the given point. 
-             * If more than one point has the closest distance the first one along the 
-             * line is returned. (The point does not necessarily have to lie precisely 
+             * Computes the index for the closest point on the line to the given point.
+             * If more than one point has the closest distance the first one along the
+             * line is returned. (The point does not necessarily have to lie precisely
              * on the line.)
-             * 
+             *
              * @param {Coordinate} pt a point on the line
              * @return {number} the index of the point
              */
             project(startIndex: number, endIndex: number): Geometry;
-            
+
             /**
              * Returns the index of the start of the line.
              * @return {number} the start index
