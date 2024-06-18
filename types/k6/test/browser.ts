@@ -1203,105 +1203,105 @@ async function test() {
     //
     // Request
     //
-    const request = page.goto(url).then(r => r?.request());
+    const request = await page.goto(url).then(r => r?.request()!);
 
-    // $ExpectType Promise<Record<string, string> | undefined>
-    request.then(r => r?.allHeaders());
+    // $ExpectType Promise<Record<string, string>>
+    request.allHeaders();
 
-    // $ExpectType Promise<Frame | undefined>
-    request.then(r => r?.frame());
+    // $ExpectType Frame
+    request.frame();
 
-    // $ExpectType Promise<Record<string, string> | undefined>
-    request.then(r => r?.headers());
+    // $ExpectType Record<string, string>
+    request.headers();
 
-    // $ExpectType Promise<{ name: string; value: string; }[] | undefined>
-    request.then(r => r?.headersArray());
+    // $ExpectType Promise<{ name: string; value: string; }[]>
+    request.headersArray();
 
     // @ts-expect-error
-    request.then(r => r?.headerValue());
-    // $ExpectType Promise<string | null | undefined>
-    request.then(r => r?.headerValue("content-type"));
+    request.headerValue();
+    // $ExpectType Promise<string | null>
+    request.headerValue("content-type");
 
-    // $ExpectType Promise<boolean | undefined>
-    request.then(r => r?.isNavigationRequest());
+    // $ExpectType boolean
+    request.isNavigationRequest();
 
-    // $ExpectType Promise<string | undefined>
-    request.then(r => r?.method());
+    // $ExpectType string
+    request.method();
 
-    // $ExpectType Promise<string | undefined>
-    request.then(r => r?.postData());
+    // $ExpectType string | null
+    request.postData();
 
-    // $ExpectType Promise<ArrayBuffer | null | undefined>
-    request.then(r => r?.postDataBuffer());
+    // $ExpectType ArrayBuffer | null
+    request.postDataBuffer();
 
-    // $ExpectType Promise<"document" | "stylesheet" | "image" | "media" | "font" | "script" | "texttrack" | "xhr" | "fetch" | "eventsource" | "websocket" | "manifest" | "other" | undefined>
-    request.then(r => r?.resourceType());
+    // $ExpectType ResourceType
+    request.resourceType();
 
-    // $ExpectType Promise<Response | null | undefined>
-    request.then(r => r?.response());
+    // $ExpectType Promise<Response | null>
+    request.response();
 
-    // $ExpectType Promise<{ body: number; headers: number; } | undefined>
-    request.then(r => r?.size());
+    // $ExpectType Promise<{ body: number; headers: number; }>
+    request.size();
 
-    // $ExpectType Promise<ResourceTiming | undefined>
-    request.then(r => r?.timing());
+    // $ExpectType ResourceTiming
+    request.timing();
 
     //
     // Response
     //
-    const response = page.goto(url);
+    const response = await page.goto(url).then(r => r!);
 
-    // $ExpectType Promise<Record<string, string> | undefined>
-    response.then(r => r?.allHeaders());
+    // $ExpectType Promise<Record<string, string>>
+    response.allHeaders();
 
-    // $ExpectType Promise<ArrayBuffer | undefined>
-    response.then(r => r?.body());
+    // $ExpectType Promise<ArrayBuffer>
+    response.body();
 
-    // $ExpectType Promise<Frame | undefined>
-    response.then(r => r?.frame());
+    // $ExpectType Frame
+    response.frame();
 
-    // $ExpectType Promise<Record<string, string> | undefined>
-    response.then(r => r?.headers());
+    // $ExpectType Record<string, string>
+    response.headers();
 
-    // $ExpectType Promise<{ name: string; value: string; }[] | undefined>
-    response.then(r => r?.headersArray());
-
-    // @ts-expect-error
-    response.then(r => r?.headerValue());
-    // $ExpectType Promise<string | null | undefined>
-    response.then(r => r?.headerValue("content-type"));
+    // $ExpectType Promise<{ name: string; value: string; }[]>
+    response.headersArray();
 
     // @ts-expect-error
-    response.then(r => r?.headerValues());
-    // $ExpectType Promise<string[] | undefined>
-    response.then(r => r?.headerValues("content-type"));
+    response.headerValue();
+    // $ExpectType Promise<string | null>
+    response.headerValue("content-type");
+
+    // @ts-expect-error
+    response.headerValues();
+    // $ExpectType Promise<string[]>
+    response.headerValues("content-type");
 
     // $ExpectType Promise<any>
-    response.then(r => r?.json());
+    response.json();
 
-    // $ExpectType Promise<boolean | undefined>
-    response.then(r => r?.ok());
+    // $ExpectType boolean
+    response.ok();
 
-    // $ExpectType Promise<Request | undefined>
-    response.then(r => r?.request());
+    // $ExpectType Request
+    response.request();
 
-    // $ExpectType Promise<SecurityDetailsObject | null | undefined>
-    response.then(r => r?.securityDetails());
+    // $ExpectType Promise<SecurityDetailsObject | null>
+    response.securityDetails();
 
-    // $ExpectType Promise<{ ipAddress: string; port: number; } | null | undefined>
-    response.then(r => r?.serverAddr());
+    // $ExpectType Promise<{ ipAddress: string; port: number; } | null>
+    response.serverAddr();
 
-    // $ExpectType Promise<number | undefined>
-    response.then(r => r?.status());
+    // $ExpectType number
+    response.status();
 
-    // $ExpectType Promise<string | undefined>
-    response.then(r => r?.statusText());
+    // $ExpectType string
+    response.statusText();
 
-    // $ExpectType Promise<{ body: number; headers: number; } | undefined>
-    response.then(r => r?.size());
+    // $ExpectType Promise<{ body: number; headers: number; }>
+    response.size();
 
-    // $ExpectType Promise<string | undefined>
-    response.then(r => r?.url());
+    // $ExpectType string
+    response.url();
 
     //
     // ElementHandle

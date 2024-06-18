@@ -3683,7 +3683,7 @@ export interface Request {
      * lower-case.
      * @returns The headers object.
      */
-    allHeaders(): Record<string, string>;
+    allHeaders(): Promise<Record<string, string>>;
 
     /**
      * @returns the Frame that initiated this request
@@ -3703,14 +3703,14 @@ export interface Request {
      * `Set-Cookie`, appear in the array multiple times.
      * @returns An array of all the request HTTP headers.
      */
-    headersArray(): Array<{ name: string; value: string }>;
+    headersArray(): Promise<Array<{ name: string; value: string }>>;
 
     /**
      * Retuns the value of the header matching the name. The name is case insensitive.
      * @param name Header name to retrieve value for.
      * @returns The value of the header matching the name.
      */
-    headerValue(name: string): string | null;
+    headerValue(name: string): Promise<string | null>;
 
     /**
      * @returns a boolean stating whether the request is for a navigation
@@ -3727,7 +3727,7 @@ export interface Request {
      * Contains the request's post body, if any.
      * @returns request's post body
      */
-    postData(): string;
+    postData(): string | null;
 
     /**
      * Request's post body in a binary form, if any.
@@ -3749,13 +3749,13 @@ export interface Request {
      * due to error.
      * @returns The `Response` object, or `null` if the response was not received due to error.
      */
-    response(): Response | null;
+    response(): Promise<Response | null>;
 
     /**
      * Returns resource size information for given request.
      * @returns Resource size information for given request.
      */
-    size(): { body: number; headers: number };
+    size(): Promise<{ body: number; headers: number }>;
 
     /**
      * Returns resource timing information for given request. Most of the timing values
@@ -3781,13 +3781,13 @@ export interface Response {
      * lower-case.
      * @returns The headers object.
      */
-    allHeaders(): Record<string, string>;
+    allHeaders(): Promise<Record<string, string>>;
 
     /**
      * Returns the response body.
      * @returns A buffer with response body.
      */
-    body(): ArrayBuffer;
+    body(): Promise<ArrayBuffer>;
 
     /**
      * @returns the Frame that initiated this response
@@ -3807,7 +3807,7 @@ export interface Response {
      * appear in the array multiple times.
      * @returns An array of all the request HTTP headers.
      */
-    headersArray(): Array<{ name: string; value: string }>;
+    headersArray(): Promise<Array<{ name: string; value: string }>>;
 
     /**
      * Returns the value of the header matching the name. The name is case insensitive.
@@ -3817,7 +3817,7 @@ export interface Response {
      * @param name Header name to retrieve value for.
      * @returns The header value for the given name.
      */
-    headerValue(name: string): string | null;
+    headerValue(name: string): Promise<string | null>;
 
     /**
      * Returns all values of the headers matching the name, for example `set-cookie`.
@@ -3825,14 +3825,14 @@ export interface Response {
      * @param name Header name to retrieve values for.
      * @returns An array of header values for the given name.
      */
-    headerValues(name: string): string[];
+    headerValues(name: string): Promise<string[]>;
 
     /**
      * Returns the JSON representation of response body. Throws if response body is not
      * parsable via `JSON.parse`.
      * @returns JSON representation of response body.
      */
-    json(): any;
+    json(): Promise<any>;
 
     /**
      * Contains a boolean stating whether the response was successful (status in the
@@ -3851,13 +3851,13 @@ export interface Response {
      * Security details associated with this response.
      * @returns A matching `SecurityDetailsObject`
      */
-    securityDetails(): SecurityDetailsObject | null;
+    securityDetails(): Promise<SecurityDetailsObject | null>;
 
     /**
      * Returns the IP address and port of the server for this response.
      * @returns The IP address and port of the server
      */
-    serverAddr(): { ipAddress: string; port: number } | null;
+    serverAddr(): Promise<{ ipAddress: string; port: number } | null>;
 
     /**
      * Contains the status code of the response (e.g., 200 for a success).
@@ -3875,7 +3875,7 @@ export interface Response {
      * The size of the response body and the headers.
      * @returns The size of the response body and the headers.
      */
-    size(): { body: number; headers: number };
+    size(): Promise<{ body: number; headers: number }>;
 
     /**
      * Contains the URL of the response.
