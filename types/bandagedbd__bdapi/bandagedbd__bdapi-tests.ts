@@ -3,7 +3,6 @@ window.BdApi; // $ExpectType BdApi
 global.BdApi; // $ExpectType BdApi
 
 // lodash is available globally in the discord app
-_;
 window._;
 
 BdApi; // $ExpectType BdApi

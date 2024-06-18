@@ -1,4 +1,4 @@
-import { Color, Combine, MeshBasicMaterialParameters, Texture } from "three";
+import { Color, Combine, Euler, MeshBasicMaterialParameters, Texture } from "three";
 import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
 
 export interface MeshBasicNodeMaterialParameters extends NodeMaterialParameters, MeshBasicMaterialParameters {
@@ -18,11 +18,15 @@ export default class MeshBasicNodeMaterial extends NodeMaterial {
     specularMap: Texture | null;
     alphaMap: Texture | null;
     envMap: Texture | null;
+    envMapRotation: Euler;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
+    wireframe: boolean;
+    wireframeLinewidth: number;
     wireframeLinecap: string;
     wireframeLinejoin: string;
+    fog: boolean;
 
     constructor(parameters?: MeshBasicNodeMaterialParameters);
 }

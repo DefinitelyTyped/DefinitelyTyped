@@ -224,7 +224,7 @@ declare module "os" {
     /**
      * Returns information about the currently effective user. On POSIX platforms,
      * this is typically a subset of the password file. The returned object includes
-     * the `username`, `uid`, `gid`, `shell`, and `homedir`. On Windows, the `uid` and`gid` fields are `-1`, and `shell` is `null`.
+     * the `username`, `uid`, `gid`, `shell`, and `homedir`. On Windows, the `uid` and `gid` fields are `-1`, and `shell` is `null`.
      *
      * The value of `homedir` returned by `os.userInfo()` is provided by the operating
      * system. This differs from the result of `os.homedir()`, which queries
@@ -395,7 +395,7 @@ declare module "os" {
     const EOL: string;
     /**
      * Returns the operating system CPU architecture for which the Node.js binary was
-     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`, `'ppc64'`, `'s390'`, `'s390x'`, and `'x64'`.
+     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'s390'`, `'s390x'`, and `'x64'`.
      *
      * The return value is equivalent to `process.arch`.
      * @since v0.5.0
@@ -412,7 +412,7 @@ declare module "os" {
     /**
      * Returns a string identifying the operating system platform for which
      * the Node.js binary was compiled. The value is set at compile time.
-     * Possible values are `'aix'`, `'darwin'`, `'freebsd'`,`'linux'`,`'openbsd'`, `'sunos'`, and `'win32'`.
+     * Possible values are `'aix'`, `'darwin'`, `'freebsd'`, `'linux'`, `'openbsd'`, `'sunos'`, and `'win32'`.
      *
      * The return value is equivalent to `process.platform`.
      *
@@ -454,7 +454,7 @@ declare module "os" {
     /**
      * Attempts to set the scheduling priority for the process specified by `pid`. If`pid` is not provided or is `0`, the process ID of the current process is used.
      *
-     * The `priority` input must be an integer between `-20` (high priority) and `19`(low priority). Due to differences between Unix priority levels and Windows
+     * The `priority` input must be an integer between `-20` (high priority) and `19` (low priority). Due to differences between Unix priority levels and Windows
      * priority classes, `priority` is mapped to one of six priority constants in`os.constants.priority`. When retrieving a process priority level, this range
      * mapping may cause the return value to be slightly different on Windows. To avoid
      * confusion, set `priority` to one of the priority constants.

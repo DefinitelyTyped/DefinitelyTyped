@@ -72,3 +72,12 @@ v8.startupSnapshot.setDeserializeMainFunction((shelf: BookShelf): void => {
     const name = `${book}.${lang}`;
     console.log(shelf.storage.get(name));
 }, shelf);
+
+class A {
+    foo = "bar";
+}
+v8.queryObjects(A); // $ExpectType number | string[]
+const a = new A();
+v8.queryObjects(A); // $ExpectType number | string[]
+v8.queryObjects(A, { format: "count" }); // $ExpectType number
+v8.queryObjects(A, { format: "summary" }); // $ExpectType string[]

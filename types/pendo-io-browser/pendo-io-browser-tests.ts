@@ -36,6 +36,9 @@ pendo.initialize({
     disableCookies: true,
 });
 
+// $ExpectType string | null
+pendo.getAccountId();
+
 pendo.initialize({
     visitor: {
         id: "PUT_VISITOR_ID_HERE",
@@ -154,3 +157,9 @@ pendo.onGuideDismissed();
 pendo.feedback.loginAndRedirect();
 const a = document.createElement("a");
 pendo.feedback.loginAndRedirect({ anchor: a });
+
+// $ExpectType void
+pendo.teardown();
+
+// $ExpectType void
+pendo.clearSession();

@@ -42,7 +42,7 @@
  * ```
  *
  * See the [Implementation considerations section](https://nodejs.org/docs/latest-v20.x/api/dns.html#implementation-considerations) for more information.
- * @see [source](https://github.com/nodejs/node/blob/v20.11.1/lib/dns.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/dns.js)
  */
 declare module "dns" {
     import * as dnsPromises from "node:dns/promises";
@@ -64,7 +64,7 @@ declare module "dns" {
     export const ALL: number;
     export interface LookupOptions {
         /**
-         * The record family. Must be `4`, `6`, or `0`. For backward compatibility reasons,`'IPv4'` and `'IPv6'` are interpreted
+         * The record family. Must be `4`, `6`, or `0`. For backward compatibility reasons, `'IPv4'` and `'IPv6'` are interpreted
          * as `4` and `6` respectively. The value 0 indicates that either an IPv4 or IPv6 address is returned. If the value `0` is used
          * with `{ all: true } (see below)`, both IPv4 and IPv6 addresses are returned.
          * @default 0
@@ -81,8 +81,17 @@ declare module "dns" {
          */
         all?: boolean | undefined;
         /**
+         * When `verbatim`, the resolved addresses are return unsorted. When `ipv4first`, the resolved addresses are sorted
+         * by placing IPv4 addresses before IPv6 addresses. When `ipv6first`, the resolved addresses are sorted by placing IPv6
+         * addresses before IPv4 addresses. Default value is configurable using
+         * {@link setDefaultResultOrder} or [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder).
+         * @default `verbatim` (addresses are not reordered)
+         */
+        order?: "ipv4first" | "ipv6first" | "verbatim" | undefined;
+        /**
          * When `true`, the callback receives IPv4 and IPv6 addresses in the order the DNS resolver returned them. When `false`, IPv4
-         * addresses are placed before IPv6 addresses. Default value is configurable using {@link setDefaultResultOrder()}
+         * addresses are placed before IPv6 addresses. This option will be deprecated in favor of `order`. When both are specified,
+         * `order` has higher precedence. New code should only use `order`. Default value is configurable using {@link setDefaultResultOrder}
          * or [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder).
          * @default true (addresses are not reordered)
          */
@@ -663,14 +672,15 @@ declare module "dns" {
         callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void,
     ): void;
     /**
-     * Get the default value for `verbatim` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).
+     * Get the default value for `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).
      * The value could be:
      *
-     * * `ipv4first`: for `verbatim` defaulting to `false`.
-     * * `verbatim`: for `verbatim` defaulting to `true`.
+     * * `ipv4first`: for `order` defaulting to `ipv4first`.
+     * * `ipv6first`: for `order` defaulting to `ipv6first`.
+     * * `verbatim`: for `order` defaulting to `verbatim`.
      * @since v18.17.0
      */
-    export function getDefaultResultOrder(): "ipv4first" | "verbatim";
+    export function getDefaultResultOrder(): "ipv4first" | "ipv6first" | "verbatim";
     /**
      * Sets the IP address and port of servers to be used when performing DNS
      * resolution. The `servers` argument is an array of [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6) formatted
@@ -717,20 +727,21 @@ declare module "dns" {
      */
     export function getServers(): string[];
     /**
-     * Set the default value of `verbatim` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).
+     * Set the default value of `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).
      * The value could be:
      *
-     * * `ipv4first`: sets default `verbatim` `false`.
-     * * `verbatim`: sets default `verbatim` `true`.
+     * * `ipv4first`: sets default `order` to `ipv4first`.
+     * * `ipv6first`: sets default `order` to `ipv6first`.
+     * * `verbatim`: sets default `order` to `verbatim`.
      *
      * The default is `verbatim` and {@link setDefaultResultOrder} have higher
      * priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder). When using
      * [worker threads](https://nodejs.org/docs/latest-v20.x/api/worker_threads.html), {@link setDefaultResultOrder} from the main
      * thread won't affect the default dns orders in workers.
      * @since v16.4.0, v14.18.0
-     * @param order must be `'ipv4first'` or `'verbatim'`.
+     * @param order must be `'ipv4first'`, `'ipv6first'` or `'verbatim'`.
      */
-    export function setDefaultResultOrder(order: "ipv4first" | "verbatim"): void;
+    export function setDefaultResultOrder(order: "ipv4first" | "ipv6first" | "verbatim"): void;
     // Error codes
     export const NODATA: "NODATA";
     export const FORMERR: "FORMERR";

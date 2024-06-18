@@ -3895,7 +3895,7 @@ export interface Touchscreen {
      * @param x The x position.
      * @param y The y position.
      */
-    tap(x: number, y: number): void;
+    tap(x: number, y: number): Promise<void>;
 }
 
 /**

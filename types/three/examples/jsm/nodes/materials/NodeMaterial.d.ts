@@ -1,14 +1,15 @@
 import {
     LineBasicMaterial,
     Material,
+    MaterialParameters,
     MeshBasicMaterial,
+    MeshMatcapMaterial,
     MeshNormalMaterial,
     MeshPhongMaterial,
     MeshPhysicalMaterial,
     MeshStandardMaterial,
+    MeshToonMaterial,
     PointsMaterial,
-    ShaderMaterial,
-    ShaderMaterialParameters,
     ShadowMaterial,
     SpriteMaterial,
 } from "three";
@@ -20,15 +21,17 @@ import LightsNode from "../lighting/LightsNode.js";
 import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 import LineBasicNodeMaterial from "./LineBasicNodeMaterial.js";
 import MeshBasicNodeMaterial from "./MeshBasicNodeMaterial.js";
+import MeshMatcapNodeMaterial from "./MeshMatcapNodeMaterial.js";
 import MeshNormalNodeMaterial from "./MeshNormalNodeMaterial.js";
 import MeshPhongNodeMaterial from "./MeshPhongNodeMaterial.js";
 import MeshPhysicalNodeMaterial from "./MeshPhysicalNodeMaterial.js";
 import MeshStandardNodeMaterial from "./MeshStandardNodeMaterial.js";
+import MeshToonNodeMaterial from "./MeshToonNodeMaterial.js";
 import PointsNodeMaterial from "./PointsNodeMaterial.js";
 import ShadowNodeMaterial from "./ShadowNodeMaterial.js";
 import SpriteNodeMaterial from "./SpriteNodeMaterial.js";
 
-export interface NodeMaterialParameters extends ShaderMaterialParameters {
+export interface NodeMaterialParameters extends MaterialParameters {
     normals?: boolean | undefined;
 
     colorSpaced?: boolean | undefined;
@@ -55,7 +58,7 @@ export interface NodeMaterialParameters extends ShaderMaterialParameters {
     vertexNode?: ShaderNodeObject<Node> | null | undefined;
 }
 
-export default class NodeMaterial extends ShaderMaterial {
+export default class NodeMaterial extends Material {
     readonly isNodeMaterial: true;
 
     normals: boolean;
@@ -102,10 +105,12 @@ export default class NodeMaterial extends ShaderMaterial {
 
     static fromMaterial(material: LineBasicMaterial): LineBasicNodeMaterial;
     static fromMaterial(material: MeshBasicMaterial): MeshBasicNodeMaterial;
+    static fromMaterial(material: MeshMatcapMaterial): MeshMatcapNodeMaterial;
     static fromMaterial(material: MeshNormalMaterial): MeshNormalNodeMaterial;
     static fromMaterial(material: MeshPhongMaterial): MeshPhongNodeMaterial;
     static fromMaterial(material: MeshPhysicalMaterial): MeshPhysicalNodeMaterial;
     static fromMaterial(material: MeshStandardMaterial): MeshStandardNodeMaterial;
+    static fromMaterial(material: MeshToonMaterial): MeshToonNodeMaterial;
     static fromMaterial(material: PointsMaterial): PointsNodeMaterial;
     static fromMaterial(material: ShadowMaterial): ShadowNodeMaterial;
     static fromMaterial(material: SpriteMaterial): SpriteNodeMaterial;

@@ -13,7 +13,10 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "build/index.cjs.d.ts",
         "index.d.ts",
-        "linkify-it-tests.ts"
+        "index.d.mts",
+        "linkify-it-tests.ts",
+        "linkify-it-tests.mts"
     ]
 }

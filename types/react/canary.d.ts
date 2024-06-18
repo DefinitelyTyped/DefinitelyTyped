@@ -30,31 +30,10 @@ export {};
 declare const UNDEFINED_VOID_ONLY: unique symbol;
 type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
 
+type NativeToggleEvent = ToggleEvent;
+
 declare module "." {
-    interface ThenableImpl<T> {
-        then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
-    }
-    interface UntrackedThenable<T> extends ThenableImpl<T> {
-        status?: void;
-    }
-
-    export interface PendingThenable<T> extends ThenableImpl<T> {
-        status: "pending";
-    }
-
-    export interface FulfilledThenable<T> extends ThenableImpl<T> {
-        status: "fulfilled";
-        value: T;
-    }
-
-    export interface RejectedThenable<T> extends ThenableImpl<T> {
-        status: "rejected";
-        reason: unknown;
-    }
-
-    export type Thenable<T> = UntrackedThenable<T> | PendingThenable<T> | FulfilledThenable<T> | RejectedThenable<T>;
-
-    export type Usable<T> = Thenable<T> | Context<T>;
+    export type Usable<T> = PromiseLike<T> | Context<T>;
 
     export function use<T>(usable: Usable<T>): T;
 
@@ -140,6 +119,21 @@ declare module "." {
         onTransitionRunCapture?: TransitionEventHandler<T> | undefined;
         onTransitionStart?: TransitionEventHandler<T> | undefined;
         onTransitionStartCapture?: TransitionEventHandler<T> | undefined;
+    }
+
+    type ToggleEventHandler<T = Element> = EventHandler<ToggleEvent<T>>;
+
+    interface HTMLAttributes<T> {
+        popover?: "" | "auto" | "manual" | undefined;
+        popoverTargetAction?: "toggle" | "show" | "hide" | undefined;
+        popoverTarget?: string | undefined;
+        onToggle?: ToggleEventHandler<T> | undefined;
+        onBeforeToggle?: ToggleEventHandler<T> | undefined;
+    }
+
+    interface ToggleEvent<T = Element> extends SyntheticEvent<T, NativeToggleEvent> {
+        oldState: "closed" | "open";
+        newState: "closed" | "open";
     }
 
     /**

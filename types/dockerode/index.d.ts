@@ -999,9 +999,13 @@ declare namespace Dockerode {
     }
 
     interface AuthConfig {
-        username: string;
-        password: string;
-        serveraddress: string;
+        username?: string;
+        password?: string;
+        auth?: string;
+        serveraddress?: string;
+        identitytoken?: string;
+        registrytoken?: string;
+        /** @deprecated */
         email?: string | undefined;
     }
 
@@ -2124,8 +2128,8 @@ declare class Dockerode {
     getEvents(callback: Callback<NodeJS.ReadableStream>): void;
     getEvents(options?: Dockerode.GetEventsOptions): Promise<NodeJS.ReadableStream>;
 
-    pull(repoTag: string, options: {}, callback: Callback<any>, auth?: {}): Dockerode.Image;
-    pull(repoTag: string, options?: {}): Promise<any>;
+    pull(repoTag: string, options: {}, callback: Callback<NodeJS.ReadableStream>, auth?: {}): Dockerode.Image;
+    pull(repoTag: string, options?: {}): Promise<NodeJS.ReadableStream>;
 
     run(
         image: string,

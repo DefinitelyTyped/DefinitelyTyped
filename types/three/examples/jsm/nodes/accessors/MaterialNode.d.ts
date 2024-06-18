@@ -37,7 +37,8 @@ export type MaterialNodeScope =
     | typeof MaterialNode.LINE_GAP_SIZE
     | typeof MaterialNode.LINE_WIDTH
     | typeof MaterialNode.LINE_DASH_OFFSET
-    | typeof MaterialNode.POINT_WIDTH;
+    | typeof MaterialNode.POINT_WIDTH
+    | typeof MaterialNode.DISPERSION;
 
 export default class MaterialNode extends Node {
     static ALPHA_TEST: "alphaTest";
@@ -74,6 +75,7 @@ export default class MaterialNode extends Node {
     static LINE_WIDTH: "linewidth";
     static LINE_DASH_OFFSET: "dashOffset";
     static POINT_WIDTH: "pointWidth";
+    static DISPERSION: "dispersion";
 
     scope: MaterialNodeScope;
     constructor(scope?: MaterialNodeScope);
@@ -115,4 +117,5 @@ export const materialLineGapSize: ShaderNodeObject<MaterialNode>;
 export const materialLineWidth: ShaderNodeObject<MaterialNode>;
 export const materialLineDashOffset: ShaderNodeObject<MaterialNode>;
 export const materialPointWidth: ShaderNodeObject<MaterialNode>;
+export const materialDispersion: ShaderNodeObject<MaterialNode>;
 export const materialAnisotropyVector: ShaderNodeObject<UniformNode<Vector2>>;

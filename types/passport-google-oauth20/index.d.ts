@@ -40,7 +40,7 @@ export interface StrategyOptionsWithRequest extends _StrategyOptionsBase {
 
 export interface Profile extends passport.Profile {
     profileUrl: string;
-
+    provider: "google";
     /**
      * An identifier for the user, unique among all Google accounts and
      * never reused. A Google account can have multiple email addresses at
@@ -51,8 +51,7 @@ export interface Profile extends passport.Profile {
      * Ex: `"10769150350006150715113082367"`
      */
     id: string;
-    emails?: Array<{ value: string; verified: "true" | "false" }>;
-
+    emails?: Array<{ value: string; verified: boolean }>;
     _raw: string;
     /**
      * ID Token payload, adhering to Google's implementation of the OpenID
@@ -69,7 +68,7 @@ export interface Profile extends passport.Profile {
      *   "at_hash": "HK6E_P6Dh8Y93mRNtsDB1Q",
      *   "hd": "example.com",
      *   "email": "jsmith@example.com",
-     *   "email_verified": "true",
+     *   "email_verified": true,
      *   "iat": 1353601026,
      *   "exp": 1353604926,
      *   "nonce": "0394852-3190485-2490358"
@@ -147,12 +146,8 @@ export interface Profile extends passport.Profile {
         email?: string;
         /**
          * True if the user's e-mail address has been verified; otherwise false.
-         *
-         * _Note:_ This comes as the string "true" or "false", not as a boolean!
-         *
-         * Ex: `"true"`
          */
-        email_verified?: "true" | "false";
+        email_verified?: boolean;
         /**
          * The user's given name(s) or first name(s). Might be provided when a name
          * claim is present.
@@ -215,7 +210,7 @@ export interface Profile extends passport.Profile {
     };
 }
 
-export type VerifyCallback = (err?: string | Error | null, user?: Express.User, info?: any) => void;
+export type VerifyCallback = oauth2.VerifyCallback;
 
 export class Strategy extends oauth2.Strategy {
     constructor(
@@ -283,7 +278,7 @@ declare module "passport" {
         InitializeRet = express.Handler,
         AuthenticateRet = any,
         AuthorizeRet = AuthenticateRet,
-        AuthorizeOptions = AuthenticateOptions,
+        AuthorizeOptions = passport.AuthenticateOptions,
     > {
         authenticate(
             strategy: "google",

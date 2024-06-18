@@ -149,7 +149,7 @@ ODI4MDQ1MTI5WjANBgkqhkiG9w0BAQQFAANBAJorY7DUJ91uthNlAA+PT6zw6rVo
 uZLFeYZPNVXgF217YOCtJtKDT+16bR5kgk0p/1xIbgReshjMNTmXPqARNjE=
 -----END X509 CRL-----`);
 x509crl.getIssuer();
-x509crl.getRevCertArray();
+x509crl.getRevCertArray(); // $ExpectType RevokedCertificate[] | null
 x509crl.findRevCert(PEM_CERTIFICATE);
 x509crl.findRevCertBySN("0000");
 x509crl.getParam();

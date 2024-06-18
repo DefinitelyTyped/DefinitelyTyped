@@ -2091,7 +2091,7 @@ async function test() {
 
     // @ts-expect-error
     page.touchscreen.tap();
-    // $ExpectType void
+    // $ExpectType Promise<void>
     page.touchscreen.tap(1, 2);
 
     //
