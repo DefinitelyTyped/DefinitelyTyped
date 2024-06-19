@@ -3,9 +3,9 @@
  * Adapted to mongoose-aggregate-paginate-v2 by Alexandre Croteau <https://github.com/acrilex1>
  */
 
+import { Request, Response, Router } from "express";
 import { Aggregate, AggregatePaginateModel, AggregatePaginateResult, model, PaginateOptions, Schema } from "mongoose";
 import mongooseAggregatePaginate = require("mongoose-aggregate-paginate-v2");
-import { Request, Response, Router } from "express";
 
 // #region Test Models
 interface User {
@@ -65,10 +65,10 @@ router.get("/users.json", async (req: Request, res: Response) => {
         console.log("offset: " + value.offset);
         console.log("docs: ");
         console.dir(value.docsCustom);
-        return res.json(value);
+        return void res.json(value);
     } catch (err) {
         console.log(err);
-        return res.status(500).send(err);
+        return void res.status(500).send(err);
     }
 });
 
@@ -90,10 +90,10 @@ router.get("/stats/hobbies.json", async (req: Request, res: Response) => {
 
     try {
         const value: AggregatePaginateResult<HobbyStats> = await UserModel.aggregatePaginate(aggregate, options);
-        return res.json(value);
+        return void res.json(value);
     } catch (err) {
         console.log(err);
-        return res.status(500).send(err);
+        return void res.status(500).send(err);
     }
 });
 
@@ -117,10 +117,10 @@ router.get("/stats/hobbies.json", async (req: Request, res: Response) => {
 
     try {
         const value: AggregatePaginateResult<HobbyStats> = await UserModel.aggregatePaginate(aggregate, options);
-        return res.json(value);
+        return void res.json(value);
     } catch (err) {
         console.log(err);
-        return res.status(500).send(err);
+        return void res.status(500).send(err);
     }
 });
 // #endregion

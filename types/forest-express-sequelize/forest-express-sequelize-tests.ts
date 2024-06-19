@@ -235,5 +235,5 @@ collection("complexCollection", complexCollectionOptions);
 const app = express();
 
 app.get("/", (request) => {
-    return recordsGetter.getIdsFromRequest(request);
+    recordsGetter.getIdsFromRequest(request);
 });
