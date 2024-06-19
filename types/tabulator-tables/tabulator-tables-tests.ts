@@ -247,9 +247,9 @@ colDef.cellClick = (_e: UIEvent, cell) => {
     console.log(cell.checkHeight);
 };
 
-colDef.formatterParams = { stars: 3 };
+colDef. = { stars: 3 };
 
-colDef.formatterParams = { url: cell => `${cell.getValue()}` };
+colDef. = { url: cell => `${cell.getValue()}` };
 
 colDef.editorParams = {};
 colDef.editorParams = {
@@ -410,7 +410,7 @@ colDef.bottomCalcParams = (values, data) => {
 
 colDef.bottomCalcParams = { precision: 2 };
 
-colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
+colDef.bottomCalcFormatter = (cell, , onRendered) => {
     return "";
 };
 
@@ -424,7 +424,7 @@ colDef.topCalcParams = (values, data) => {
 
 colDef.topCalcParams = { precision: 2 };
 
-colDef.topCalcFormatter = (cell, formatterParams, onRendered) => {
+colDef.topCalcFormatter = (cell, , onRendered) => {
     return "";
 };
 
@@ -1721,13 +1721,24 @@ table.on("importImported", function(data) {
 
 table = new Tabulator("#example-table", {
     columns: [
-        {title:"First", field:"rownum", formatter:"rownum", accessor:"rownum"},
-        {title:"Toggle", field:"toggle", formatter:"toggle", editable:false, formatterParams:{
-            onValue:"true",
-            offValue:"false",
-            onColor:"green",
-            offColor:"gray",
-            clickable:true,
-        }},
+        {
+            title: "First",
+            field: "rownum",
+            formatter: "rownum",
+            accessor: "rownum",
+        },
+        {
+            title: "Toggle",
+            field: "toggle",
+            formatter: "toggle",
+            editable: false,
+            formatterParams: {
+                onValue: "true",
+                offValue: "false",
+                onColor: "green",
+                offColor: "gray",
+                clickable: true,
+            },
+        },
     ],
 });
