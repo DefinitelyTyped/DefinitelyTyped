@@ -360,30 +360,32 @@ declare module "dns/promises" {
      * @param order must be `'ipv4first'`, `'ipv6first'` or `'verbatim'`.
      */
     function setDefaultResultOrder(order: "ipv4first" | "ipv6first" | "verbatim"): void;
-    const NODATA: "NODATA";
-    const FORMERR: "FORMERR";
-    const SERVFAIL: "SERVFAIL";
-    const NOTFOUND: "NOTFOUND";
-    const NOTIMP: "NOTIMP";
-    const REFUSED: "REFUSED";
-    const BADQUERY: "BADQUERY";
-    const BADNAME: "BADNAME";
-    const BADFAMILY: "BADFAMILY";
-    const BADRESP: "BADRESP";
-    const CONNREFUSED: "TIMEOUT";
-    const TIMEOUT: "TIMEOUT";
+    // Error codes
+    const NODATA: "ENODATA";
+    const FORMERR: "EFORMERR";
+    const SERVFAIL: "ESERVFAIL";
+    const NOTFOUND: "ENOTFOUND";
+    const NOTIMP: "ENOTIMP";
+    const REFUSED: "EREFUSED";
+    const BADQUERY: "EBADQUERY";
+    const BADNAME: "EBADNAME";
+    const BADFAMILY: "EBADFAMILY";
+    const BADRESP: "EBADRESP";
+    const CONNREFUSED: "ECONNREFUSED";
+    const TIMEOUT: "ETIMEOUT";
     const EOF: "EOF";
-    const FILE: "FILE";
-    const NOMEM: "NOMEM";
-    const DESTRUCTION: "DESTRUCTION";
-    const BADSTR: "BADSTR";
-    const BADFLAGS: "BADFLAGS";
-    const NONAME: "NONAME";
-    const BADHINTS: "BADHINTS";
-    const NOTINITIALIZED: "NOTINITIALIZED";
-    const LOADIPHLPAPI: "LOADIPHLPAPI";
-    const ADDRGETNETWORKPARAMS: "ADDRGETNETWORKPARAMS";
-    const CANCELLED: "CANCELLED";
+    const FILE: "EFILE";
+    const NOMEM: "ENOMEM";
+    const DESTRUCTION: "EDESTRUCTION";
+    const BADSTR: "EBADSTR";
+    const BADFLAGS: "EBADFLAGS";
+    const NONAME: "ENONAME";
+    const BADHINTS: "EBADHINTS";
+    const NOTINITIALIZED: "ENOTINITIALIZED";
+    const LOADIPHLPAPI: "ELOADIPHLPAPI";
+    const ADDRGETNETWORKPARAMS: "EADDRGETNETWORKPARAMS";
+    const CANCELLED: "ECANCELLED";
+
     /**
      * An independent resolver for DNS requests.
      *
