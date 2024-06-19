@@ -20,34 +20,34 @@ export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unbo
     : Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
     : Arg;
 
-/*
+/**
  * CPUProfile is the mandatory input to be passed into {@link Page}'s
  * `throttleCPU` method.
  */
 export interface CPUProfile {
-    /*
+    /**
      * rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
      */
     rate: number;
 }
 
-/*
+/**
  * NetworkProfile is the mandatory input to be passed into {@link Page}'s
  * `throttleNetwork` method.
  */
 export interface NetworkProfile {
-    /*
+    /**
      * Minimum latency from request sent to response headers received (ms).
      */
     latency: number;
 
-    /*
+    /**
      * Maximal aggregated download throughput (bytes/sec). -1 disables download
      * throttling.
      */
     download: number;
 
-    /*
+    /**
      * Maximal aggregated upload throughput (bytes/sec). -1 disables upload
      * throttling.
      */
