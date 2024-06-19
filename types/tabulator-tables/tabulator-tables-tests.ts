@@ -247,9 +247,9 @@ colDef.cellClick = (_e: UIEvent, cell) => {
     console.log(cell.checkHeight);
 };
 
-colDef. = { stars: 3 };
+colDef.formatterParams = { stars: 3 };
 
-colDef. = { url: cell => `${cell.getValue()}` };
+colDef.formatterParams = { url: cell => `${cell.getValue()}` };
 
 colDef.editorParams = {};
 colDef.editorParams = {
@@ -410,7 +410,7 @@ colDef.bottomCalcParams = (values, data) => {
 
 colDef.bottomCalcParams = { precision: 2 };
 
-colDef.bottomCalcFormatter = (cell, , onRendered) => {
+colDef.bottomCalcFormatter = (cell, formatterParams, onRendered) => {
     return "";
 };
 
@@ -424,7 +424,7 @@ colDef.topCalcParams = (values, data) => {
 
 colDef.topCalcParams = { precision: 2 };
 
-colDef.topCalcFormatter = (cell, , onRendered) => {
+colDef.topCalcFormatter = (cell, formatterParams, onRendered) => {
     return "";
 };
 
