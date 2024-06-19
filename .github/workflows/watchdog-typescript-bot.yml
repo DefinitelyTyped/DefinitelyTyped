@@ -3,7 +3,7 @@ name: typescript-bot watchdog
 on:
   schedule:
     # Hourly
-    - cron: '0 * * * *'
+    - cron: '42 * * * *'
   workflow_dispatch:
 
 jobs:
