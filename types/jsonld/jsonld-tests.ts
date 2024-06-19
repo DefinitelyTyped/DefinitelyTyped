@@ -69,7 +69,13 @@ jsonld.compact(doc, context, { graph: false })
  * expand() test
  */
 jsonld.expand(doc, (err, res) => {
+    res // $ExpectType JsonLdArray
     log(res);
+});
+
+jsonld.expand(doc, (err, res) => {
+    const result = res.filter(item => item) // $ExpectType JsonLdArray
+    log(result);
 });
 
 jsonld.expand(doc, { keepFreeFloatingNodes: false }, (err, res) => {
