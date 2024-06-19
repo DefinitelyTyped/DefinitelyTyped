@@ -1718,3 +1718,16 @@ table.on("importError", function(err) {
 table.on("importImported", function(data) {
     // data - array of row data
 });
+
+table = new Tabulator("#example-table", {
+    columns: [
+        {title:"First", field:"rownum", formatter:"rownum", accessor:"rownum"},
+        {title:"Toggle", field:"toggle", formatter:"toggle", editable:false, formatterParams:{
+            onValue:"true",
+            offValue:"false",
+            onColor:"green",
+            offColor:"gray",
+            clickable:true,
+        }},
+    ],
+})
