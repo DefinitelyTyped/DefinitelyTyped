@@ -1,11 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * TargetingProductAudienceSubSpec
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class TargetingProductAudienceSubSpec extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        retention_seconds: "retention_seconds";
-        rule: "rule";
-    }>;
+    static get Fields(): Record<string, any>;
 }

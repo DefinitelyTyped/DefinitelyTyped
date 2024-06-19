@@ -1,22 +1,10 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * EntityAtTextRange
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class EntityAtTextRange extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        id: "id";
-        length: "length";
-        name: "name";
-        object: "object";
-        offset: "offset";
-        type: "type";
-    }>;
-    static get Type(): Readonly<{
-        application: "application";
-        event: "event";
-        group: "group";
-        page: "page";
-        user: "user";
-    }>;
+    static get Fields(): Record<string, any>;
+    static get Type(): Record<string, any>;
 }

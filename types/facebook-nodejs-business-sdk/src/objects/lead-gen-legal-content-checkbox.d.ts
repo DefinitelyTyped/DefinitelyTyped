@@ -1,14 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * LeadGenLegalContentCheckbox
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class LeadGenLegalContentCheckbox extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        id: "id";
-        is_checked_by_default: "is_checked_by_default";
-        is_required: "is_required";
-        key: "key";
-        text: "text";
-    }>;
+    static get Fields(): Record<string, any>;
 }

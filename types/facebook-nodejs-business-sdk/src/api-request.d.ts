@@ -5,10 +5,10 @@ declare class APIRequest {
     _nodeId: string;
     _method: string;
     _endpoint: string;
-    _path: string[];
-    _fields: string[];
-    _params: Record<any, any>;
-    _fileParams: Record<any, any>;
+    _path: Array<string>;
+    _fields: Array<string>;
+    _params: Record<string, any>;
+    _fileParams: Record<string, any>;
     _fileCounter: number;
     /**
      * @param {string} nodeId The node id to perform the api call.
@@ -33,24 +33,24 @@ declare class APIRequest {
     get endpoint(): string;
     /**
      * Getter function for path tokens
-     * @return {string[]} Array of path tokens
+     * @return {Array<string>} Array of path tokens
      */
-    get path(): string[];
+    get path(): Array<string>;
     /**
      * Getter function for requested fields
-     * @return {string[]} Array of request fields
+     * @return {Array<string>} Array of request fields
      */
-    get fields(): string[];
+    get fields(): Array<string>;
     /**
      * Getter function for API params
      * @return {Object} Object containing API Params
      */
-    get params(): Record<any, any>;
+    get params(): Record<string, any>;
     /**
      * Getter function for API fileparams
      * @return {Object} Object containing API fileParams
      */
-    get fileParams(): Record<any, any>;
+    get fileParams(): Record<string, any>;
     /**
      * @param {string} filePath Path to file attached to the request
      * @return {APIReqeust} APIRequest instance
@@ -60,7 +60,7 @@ declare class APIRequest {
      * @param {string[]} filePaths Array of paths to files attached to the request
      * @return {APIRequest} APIRequest instance
      */
-    addFiles(filePaths: string[]): APIRequest;
+    addFiles(filePaths: Array<string>): APIRequest;
     /**
      * @param {string} field Requested field
      * @return {APIReqeust} APIRequest instance
@@ -70,7 +70,7 @@ declare class APIRequest {
      * @param {string[]} fields Array of requested fields
      * @return {APIRequest} APIRequest instance
      */
-    addFields(fields: string[]): APIRequest;
+    addFields(fields: Array<string>): APIRequest;
     /**
      * @param {string} key Param key
      * @param {*} value Param value
@@ -81,6 +81,6 @@ declare class APIRequest {
      * @param {Object} params An object containing param keys and values
      * @return {APIRequest} APIRequest instance
      */
-    addParams(params: Record<any, any>): APIRequest;
+    addParams(params: Record<string, any>): APIRequest;
 }
 export default APIRequest;

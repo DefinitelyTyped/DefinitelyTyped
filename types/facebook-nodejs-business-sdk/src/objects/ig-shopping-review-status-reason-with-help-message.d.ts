@@ -1,12 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * IGShoppingReviewStatusReasonWithHelpMessage
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class IGShoppingReviewStatusReasonWithHelpMessage extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        code: "code";
-        help_url: "help_url";
-        message: "message";
-    }>;
+    static get Fields(): Record<string, any>;
 }

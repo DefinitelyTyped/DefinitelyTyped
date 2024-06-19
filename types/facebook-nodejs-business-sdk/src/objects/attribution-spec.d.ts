@@ -1,11 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AttributionSpec
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AttributionSpec extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        event_type: "event_type";
-        window_days: "window_days";
-    }>;
+    static get Fields(): Record<string, any>;
 }

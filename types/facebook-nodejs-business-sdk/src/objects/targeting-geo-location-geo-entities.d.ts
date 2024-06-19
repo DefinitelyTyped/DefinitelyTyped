@@ -1,14 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * TargetingGeoLocationGeoEntities
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class TargetingGeoLocationGeoEntities extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        country: "country";
-        key: "key";
-        name: "name";
-        region: "region";
-        region_id: "region_id";
-    }>;
+    static get Fields(): Record<string, any>;
 }

@@ -1,12 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdCampaignOptimizationEvent
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdCampaignOptimizationEvent extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        custom_conversion_id: "custom_conversion_id";
-        event_sequence: "event_sequence";
-        event_type: "event_type";
-    }>;
+    static get Fields(): Record<string, any>;
 }

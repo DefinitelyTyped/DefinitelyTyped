@@ -1,7 +1,7 @@
-import SignalUserData from './user-data';
-import SignalCustomData from './custom-data';
-import BusinessDataEvent from '../businessdataapi/event';
-import ServerEvent from '../serverside/server-event';
+import SignalUserData from "./user-data";
+import SignalCustomData from "./custom-data";
+import BusinessDataEvent from "../businessdataapi/event";
+import ServerEvent from "../serverside/server-event";
 /**
  * SignalEvent, event data for both Conversion API and Business Data API
  */
@@ -17,11 +17,11 @@ export default class Event {
      * @param {Boolean} opt_out A flag that indicates we should not use this event for ads delivery optimization.
      * @param {SignalUserData} user_data SignalUserData contains user data for both Business Data API and Conversion API
      * @param {SignalCustomData} custom_data SignalCustomData contains custom data for both Business Data API and Conversion API
-     * @param {string[]} data_processing_options Processing options you would like to enable for a specific event.
+     * @param {Array<string>} data_processing_options Processing options you would like to enable for a specific event.
      * @param {Number} data_processing_options_country A country that you want to associate to this data processing option.
      * @param {Number} data_processing_options_state A state that you want to associate with this data processing option.
      */
-    constructor(event_name: string, event_time: number, event_source_url: string, user_data: SignalUserData, custom_data: SignalCustomData, event_id: string, opt_out: boolean, action_source: string, data_processing_options: string[], data_processing_options_country: number, data_processing_options_state: number);
+    constructor(event_name: string, event_time: number, event_source_url: string, user_data: SignalUserData, custom_data: SignalCustomData, event_id: string, opt_out: boolean, action_source: string, data_processing_options: Array<string>, data_processing_options_country: number, data_processing_options_state: number);
     /**
      * Gets the Event Name for the current Event.
      */
@@ -139,17 +139,17 @@ export default class Event {
      * Gets the data_processing_options for the current event.
      * Processing options you would like to enable for a specific event.
      */
-    get data_processing_options(): string[];
+    get data_processing_options(): Array<string>;
     /**
      * Sets the data_processing_options for the current event.
-     * @param {string[]} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
+     * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      */
-    set data_processing_options(data_processing_options: string[]);
+    set data_processing_options(data_processing_options: Array<string>);
     /**
      * Sets the data_processing_options for the current event.
-     * @param {string[]} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
+     * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      */
-    setDataProcessingOptions(data_processing_options: string[]): Event;
+    setDataProcessingOptions(data_processing_options: Array<string>): Event;
     /**
      * Gets the data_processing_options_country for the current event.
      * A country that you want to associate to this data processing option.
@@ -191,5 +191,5 @@ export default class Event {
     /**
      * Convert to Json object for api call
      */
-    toJson(): Record<any, any>;
+    toJson(): Record<string, any>;
 }

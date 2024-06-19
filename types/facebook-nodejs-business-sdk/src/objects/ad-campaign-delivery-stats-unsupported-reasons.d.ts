@@ -1,11 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdCampaignDeliveryStatsUnsupportedReasons
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdCampaignDeliveryStatsUnsupportedReasons extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        reason_data: "reason_data";
-        reason_type: "reason_type";
-    }>;
+    static get Fields(): Record<string, any>;
 }

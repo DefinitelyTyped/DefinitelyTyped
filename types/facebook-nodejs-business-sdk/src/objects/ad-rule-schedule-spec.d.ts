@@ -1,11 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdRuleScheduleSpec
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdRuleScheduleSpec extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        schedule: "schedule";
-        schedule_type: "schedule_type";
-    }>;
+    static get Fields(): Record<string, any>;
 }

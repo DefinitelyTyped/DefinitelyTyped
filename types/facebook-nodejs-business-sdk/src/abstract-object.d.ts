@@ -1,9 +1,9 @@
 export default class AbstractObject {
     _data: any;
-    _fields: string[];
+    _fields: Array<string>;
     $key: string;
     $value: unknown;
-    static get Fields(): Record<any, any>;
+    static get Fields(): {};
     constructor();
     /**
      * Define data getter and setter field
@@ -22,10 +22,10 @@ export default class AbstractObject {
      * @param {Object} data
      * @return this
      */
-    setData(data: Record<any, any>): AbstractObject;
+    setData(data: Record<string, any>): AbstractObject;
     /**
      * Export object data
      * @return {Object}
      */
-    exportData(): Record<any, any>;
+    exportData(): Record<string, any>;
 }

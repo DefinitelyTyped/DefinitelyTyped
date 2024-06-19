@@ -1,12 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * DeliveryCheckExtraInfo
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class DeliveryCheckExtraInfo extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        adgroup_ids: "adgroup_ids";
-        campaign_ids: "campaign_ids";
-        countries: "countries";
-    }>;
+    static get Fields(): Record<string, any>;
 }

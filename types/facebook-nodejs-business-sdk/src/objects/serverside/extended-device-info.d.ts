@@ -64,6 +64,6 @@ export default class ExtendedDeviceInfo {
     get device_time_zone(): string;
     set device_time_zone(device_time_zone: string);
     setDeviceTimeZone(device_time_zone: string): ExtendedDeviceInfo;
-    normalize(): Record<any, any>;
-    toJson(): Record<any, any>;
+    normalize(): Record<string, any>;
+    toJson(): Record<string, any>;
 }

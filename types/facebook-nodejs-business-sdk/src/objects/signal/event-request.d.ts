@@ -1,7 +1,7 @@
-import BusinessDataEventRequest from '../businessdataapi/event-request';
-import ServerEventRequest from '../serverside/event-request';
-import HttpServiceInterface from '../serverside/http-service-interface';
-import SignalEvent from './event';
+import BusinessDataEventRequest from "../businessdataapi/event-request";
+import ServerEventRequest from "../serverside/event-request";
+import HttpServiceInterface from "../serverside/http-service-interface";
+import SignalEvent from "./event";
 /**
  * EventRequest
  */
@@ -12,7 +12,7 @@ export default class EventRequest {
      * @param {String} access_token Access Token for the user calling Graph API
      * @param {String} pixel_id Pixel Id to which you are sending the events
      * @param {String} page_id Page Id to which you are sending the events
-     * @param {SignalEvent[]} events Data for the request Payload for a Server Side Event
+     * @param {Array<SignalEvent>} events Data for the request Payload for a Server Side Event
      * @param {?String} partner_agent Platform from which the event is sent e.g. wordpress
      * @param {?String} test_event_code Test Event Code used to verify that your server events are received correctly by Facebook.
      * @param {?String} namespace_id Scope used to resolve extern_id or Third-party ID. Can be another data set or data partner ID.
@@ -22,21 +22,21 @@ export default class EventRequest {
      * @param {Boolean} debug_mode_flag Set to true if you want to enable more logging in SDK
      * @param {?HttpServiceInterface} http_service Override the default http request method by setting an object that implements HttpServiceInterface
      */
-    constructor(access_token: string, pixel_id: string, page_id: string, events?: SignalEvent[], partner_agent?: string | null, test_event_code?: string | null, namespace_id?: string | null, upload_id?: string | null, upload_tag?: string | null, upload_source?: string | null, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null);
+    constructor(access_token: string, pixel_id: string, page_id: string, events?: Array<SignalEvent>, partner_agent?: string | null | undefined, test_event_code?: string | null | undefined, namespace_id?: string | null | undefined, upload_id?: string | null | undefined, upload_tag?: string | null | undefined, upload_source?: string | null | undefined, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null | undefined);
     /**
      * Gets the data for the request Payload for a Server Side Event and Business Data Event.
      */
-    get events(): SignalEvent[];
+    get events(): Array<SignalEvent>;
     /**
      * Sets the events for the request Payload for a Server Side Event and Business Data Event.
      * @param events for the current event
      */
-    set events(events: SignalEvent[]);
+    set events(events: Array<SignalEvent>);
     /**
      * Sets the events for the request Payload for a Server Side Event and Business Data Event.
-     * @param {SignalEvent[]} events for the current event
+     * @param {Array<SignalEvent>} events for the current event
      */
-    setEvents(events: SignalEvent[]): EventRequest;
+    setEvents(events: Array<SignalEvent>): EventRequest;
     /**
      * Gets the partner_agent for the request
      * Allows you to specify the platform from which the event is sent e.g. wordpress, Zapier
@@ -181,5 +181,5 @@ export default class EventRequest {
     /**
      * Executes the current event_request data by making a call to the Facebook Graph API.
      */
-    execute(): Promise<Record<any, any>>;
+    execute(): Promise<Record<string, any>>;
 }

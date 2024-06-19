@@ -1,11 +1,9 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdCreativePortraitCustomizations
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdCreativePortraitCustomizations extends AbstractCrudObject {
-    static get Fields(): Readonly<{
-        carousel_delivery_mode: "carousel_delivery_mode";
-        specifications: "specifications";
-    }>;
+    static get Fields(): Record<string, any>;
 }

@@ -1,4 +1,4 @@
-import Content from './content.js';
+import Content from "./content";
 /**
  * CustomData represents the Custom Data Parameters of a Conversions API Event Request. Use these parameters to send additional data we can use for ads delivery optimization.
  * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data}
@@ -8,8 +8,8 @@ export default class CustomData {
     _currency: string;
     _content_name: string;
     _content_category: string;
-    _content_ids: string[];
-    _contents: Content[];
+    _content_ids: Array<string>;
+    _contents: Array<Content>;
     _content_type: string;
     _order_id: string;
     _predicted_ltv: number;
@@ -18,14 +18,14 @@ export default class CustomData {
     _status: string;
     _item_number: string;
     _delivery_category: string;
-    _custom_properties: Record<any, any>;
+    _custom_properties: Record<string, any>;
     /**
      * @param {Number} value value of the item Eg: 123.45
      * @param {String} currency currency involved in the transaction Eg: usd
      * @param {String} content_name name of the Content Eg: lettuce
      * @param {String} content_category category of the content Eg: grocery
-     * @param {string[]} content_ids list of content unique ids involved in the event
-     * @param {Content[]} contents Array of Content Objects. Use {Content} class to define a content.
+     * @param {Array<String>} content_ids list of content unique ids involved in the event
+     * @param {Array<Content>} contents Array of Content Objects. Use {Content} class to define a content.
      * @param {String} content_type Type of the Content group or Product SKU
      * @param {String} order_id Unique id representing the order
      * @param {Number} predicted_ltv Predicted LifeTime Value for the customer involved in the event
@@ -36,7 +36,7 @@ export default class CustomData {
      * @param {String} delivery_category The type of delivery for a purchase event
      * @param {Object} custom_properties Custom Properties to be added to the Custom Data
      */
-    constructor(value?: number, currency?: string, content_name?: string, content_category?: string, content_ids?: string[], contents?: Content[], content_type?: string, order_id?: string, predicted_ltv?: number, num_items?: number, search_string?: string, status?: string, item_number?: string, delivery_category?: string, custom_properties?: Record<any, any>);
+    constructor(value: number, currency: string, content_name: string, content_category: string, content_ids: Array<string>, contents: Array<Content>, content_type: string, order_id: string, predicted_ltv: number, num_items: number, search_string: string, status: string, item_number: string, delivery_category: string, custom_properties: Record<string, any>);
     /**
      * Gets the value of the custom data.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -115,39 +115,39 @@ export default class CustomData {
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    get content_ids(): string[];
+    get content_ids(): Array<string>;
     /**
      * Sets the content_ids for the custom data.
      * @param content_ids The content IDs associated with the event, such as product SKUs for items in an AddToCart, represented as Array of string.
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    set content_ids(content_ids: string[]);
+    set content_ids(content_ids: Array<string>);
     /**
      * Sets the content_ids for the custom data.
      * @param {Array} content_ids The content IDs associated with the event, such as product SKUs for items in an AddToCart, represented as Array of string.
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    setContentIds(content_ids: string[]): CustomData;
+    setContentIds(content_ids: Array<string>): CustomData;
     /**
      * Gets the contents for the custom data.
      * An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    get contents(): Content[];
+    get contents(): Array<Content>;
     /**
      * Sets the contents for the custom data.
      * @param contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    set contents(contents: Content[]);
+    set contents(contents: Array<Content>);
     /**
      * Sets the contents for the custom data.
-     * @param {Content[]} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
+     * @param {Array<Content>} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    setContents(contents: Content[]): CustomData;
+    setContents(contents: Array<Content>): CustomData;
     /**
      * Gets the content type for the custom data.
      * A String equal to either product or product_group. Set to product if the keys you send content_ids or contents represent products.
@@ -273,7 +273,7 @@ export default class CustomData {
      * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data#custom-properties}
      * Eg: '{ 'warehouse_location' : 'washington', 'package_size' : 'L'}'
      */
-    get custom_properties(): Record<any, any>;
+    get custom_properties(): Record<string, any>;
     /**
      * Sets the custom properties to be included in the Custom Data.
      * If our predefined object properties don't suit your needs, you can include your own, custom properties. Custom properties can be used with both standard and custom events, and can help you further define custom audiences.
@@ -281,7 +281,7 @@ export default class CustomData {
      * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data#custom-properties}
      * @param {Object} custom_properties custom properties property bag to be included in the Custom Data. Eg: '{ 'warehouse_location' : 'washington', 'package_size' : 'L'}'
      */
-    set custom_properties(custom_properties: Record<any, any>);
+    set custom_properties(custom_properties: Record<string, any>);
     /**
      * Sets the search string for the custom data.
      * @param custom_properties A custom properties property bag to be included in the Custom Data.
@@ -291,7 +291,7 @@ export default class CustomData {
      * Eg: '{ 'warehouse_location' : 'washington', 'package_size' : 'L'}'
      * * @returns {Object} custom_properties property bag.
      */
-    setCustomProperties(custom_properties: Record<any, any>): CustomData;
+    setCustomProperties(custom_properties: Record<string, any>): CustomData;
     /**
      * Gets the status of the registration event.
      * Status of the registration event, as a String.Use only with CompleteRegistration events.
@@ -317,5 +317,5 @@ export default class CustomData {
      * Returns the normalized payload for the custom_data.
      * @returns {Object} normalized custom_data payload.
      */
-    normalize(): Record<any, any>;
+    normalize(): Record<string, any>;
 }
