@@ -402,6 +402,18 @@ declare namespace GorillaEngine {
          * List all instrument names contained in this blob
          */
         getInstrumentNames(): string[];
+        /**
+         * Get the unique ID of the blob
+         */
+        uuid: string;
+        /**
+         * Get the version/timestamp string of the first blob part, if any
+         */
+        part1version: string;
+        /**
+         * Get the version/timestamp string of the second blob part, if any
+         */
+        part2version: string;
     }
 
     interface PreviewPlayer {
