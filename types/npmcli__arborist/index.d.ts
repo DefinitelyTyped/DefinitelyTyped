@@ -202,7 +202,7 @@ declare namespace Arborist {
          * Edges in the dependency graph indicating nodes that this node depends
          * on, which resolve its dependencies.
          */
-        edgesOut: Edge[];
+        edgesOut: Map<string, Edge>;
         /** Edges in the dependency graph indicating nodes that depend on this node. */
         edgesIn: Edge[];
 
@@ -215,6 +215,8 @@ declare namespace Arborist {
         get pkgid(): string;
 
         get inBundle(): boolean;
+
+        get isWorkspace(): boolean;
 
         /** Errors encountered while parsing package.json or version specifiers. */
         errors: Error[];
