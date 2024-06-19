@@ -1730,4 +1730,4 @@ table = new Tabulator("#example-table", {
             clickable:true,
         }},
     ],
-})
+});
