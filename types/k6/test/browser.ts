@@ -1,4 +1,4 @@
-import { browser } from "k6/experimental/browser";
+import { browser } from "k6/browser";
 
 const url = "http://example.com";
 const selector = "a[href=\"http://example.com\"]";
