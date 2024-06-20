@@ -14,13 +14,13 @@ export default class CustomAudience extends AbstractCrudObject {
     static get Subtype(): Record<string, any>;
     static get ActionSource(): Record<string, any>;
     deleteAdAccounts(params?: Record<string, any>): Promise<any>;
-    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
-    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getSalts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getSalts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createSalt(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
-    getSessions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getShareDAccountInfo(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getSessions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getShareDAccountInfo(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteUsers(params?: Record<string, any>): Promise<any>;
     createUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
     createUsersReplace(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;

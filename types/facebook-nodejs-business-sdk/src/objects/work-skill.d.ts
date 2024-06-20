@@ -6,6 +6,6 @@ import Cursor from "./../cursor";
  */
 export default class WorkSkill extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<WorkSkill>;
 }

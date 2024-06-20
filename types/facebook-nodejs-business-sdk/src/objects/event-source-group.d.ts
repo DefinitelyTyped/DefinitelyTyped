@@ -7,7 +7,7 @@ import Cursor from "./../cursor";
  */
 export default class EventSourceGroup extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getShareDAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getShareDAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createShareDAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<EventSourceGroup>;
     get(fields: string[], params?: Record<string, any>): Promise<EventSourceGroup>;    get(fields: string[], params?: Record<string, any>): Promise<EventSourceGroup>;
 }

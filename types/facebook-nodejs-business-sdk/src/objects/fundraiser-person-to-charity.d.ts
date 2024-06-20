@@ -9,9 +9,9 @@ import Cursor from "./../cursor";
 export default class FundraiserPersonToCharity extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     static get FundraiserType(): Record<string, any>;
-    getDonations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getDonations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createEndFundraiser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    getExternalDonations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getExternalDonations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createExternalDonation(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<FundraiserPersonToCharity>;    get(fields: string[], params?: Record<string, any>): Promise<FundraiserPersonToCharity>;
 }

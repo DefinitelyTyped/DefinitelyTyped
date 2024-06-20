@@ -20,5 +20,5 @@ export default class AdVideo extends AbstractCrudObject {
     /**
      *  Returns all the thumbnails associated with the ad video
      */
-    getThumbnails(fields: Record<string, any>, params: Record<string, any>): Cursor | Promise<any>;
+    getThumbnails(fields: Record<string, any>, params: Record<string, any>): Cursor | Promise<Cursor>;
 }

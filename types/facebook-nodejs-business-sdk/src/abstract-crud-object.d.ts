@@ -93,7 +93,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {String}  [endpoint]
      * @return {Cursor}
      */
-    getEdge(targetClass: Record<string, any>, fields: string[], params: Record<string, any> | undefined, fetchFirstPage: boolean | undefined, endpoint: string | null | undefined): Cursor | Promise<any>;
+    getEdge(targetClass: Record<string, any>, fields: string[], params: Record<string, any> | undefined, fetchFirstPage: boolean | undefined, endpoint: string | null | undefined): Cursor | Promise<Cursor>;
     /**
      * Create edge object
      * @param   {String}  [endpoint]

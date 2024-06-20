@@ -7,6 +7,6 @@ import Cursor from "./../cursor";
  */
 export default class CommerceOrderTransactionDetail extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getItems(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getTaxDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getItems(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getTaxDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
 }

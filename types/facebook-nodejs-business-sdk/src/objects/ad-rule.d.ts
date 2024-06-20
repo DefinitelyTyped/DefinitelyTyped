@@ -11,7 +11,7 @@ export default class AdRule extends AbstractCrudObject {
     static get Status(): Record<string, any>;
     static get UiCreationSource(): Record<string, any>;
     createExecute(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    getHistory(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getHistory(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createPreview(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdRule>;
     get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<AdRule>;    get(fields: string[], params?: Record<string, any>): Promise<AdRule>;

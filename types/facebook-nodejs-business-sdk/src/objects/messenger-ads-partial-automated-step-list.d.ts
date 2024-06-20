@@ -7,6 +7,6 @@ import Cursor from "./../cursor";
  */
 export default class MessengerAdsPartialAutomatedStepList extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getSteps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getSteps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<MessengerAdsPartialAutomatedStepList>;
 }

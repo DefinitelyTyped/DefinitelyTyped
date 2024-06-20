@@ -8,7 +8,7 @@ import Cursor from "./../cursor";
 export default class WhatsAppBusinessPreVerifiedPhoneNumber extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     static get CodeVerificationStatus(): Record<string, any>;
-    getPartners(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getPartners(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createRequestCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     createVerifyCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;

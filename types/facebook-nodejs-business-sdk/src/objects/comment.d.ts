@@ -12,12 +12,12 @@ export default class Comment extends AbstractCrudObject {
     static get CommentPrivacyValue(): Record<string, any>;
     static get Filter(): Record<string, any>;
     static get LiveFilter(): Record<string, any>;
-    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
     deleteLikes(params?: Record<string, any>): Promise<any>;
-    getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
-    getReactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getReactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<Comment>;    get(fields: string[], params?: Record<string, any>): Promise<Comment>;
 }

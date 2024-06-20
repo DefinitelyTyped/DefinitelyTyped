@@ -6,6 +6,6 @@ import Cursor from "./../cursor";
  */
 export default class AdAccountCreationRequest extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<AdAccountCreationRequest>;
 }
