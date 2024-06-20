@@ -292,15 +292,27 @@ export interface PlotlyHTMLElement extends HTMLElement {
 
 export interface ToImgopts {
     format: "jpeg" | "png" | "webp" | "svg";
-    width: number;
-    height: number;
+    /**
+     * If null, uses current graph width
+     */
+    width: number | null;
+    /**
+     * If null, uses current graph height
+     */
+    height: number | null;
     scale?: number | undefined;
 }
-
+   
 export interface DownloadImgopts {
     format: "jpeg" | "png" | "webp" | "svg";
-    width: number;
-    height: number;
+    /**
+     * If null, uses current graph width
+     */
+    width: number | null;
+    /**
+     * If null, uses current graph height
+     */
+    height: number | null;
     filename: string;
 }
 
