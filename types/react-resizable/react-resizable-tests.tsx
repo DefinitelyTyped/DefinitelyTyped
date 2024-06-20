@@ -128,7 +128,7 @@ class TestXYResizableComponent extends React.Component<{ children?: React.ReactN
     }
 }
 
-class TestXYResizableComponent extends React.Component<{ children?: React.ReactNode }> {
+class TestNoneResizableComponent extends React.Component<{ children?: React.ReactNode }> {
     render() {
         return (
             <Resizable
