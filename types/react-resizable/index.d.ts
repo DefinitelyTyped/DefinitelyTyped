@@ -62,6 +62,11 @@ export type ResizableProps =
             height: number;
             axis?: "both";
         }
+        | {
+            width?: number | undefined;
+            height?: number | undefined;
+            axis?: "none";
+        }
     );
 
 export class Resizable extends React.Component<ResizableProps, ResizableState> {}
