@@ -14,7 +14,7 @@
         "@types/jsonwebtoken": "*",
         "@types/memcached": "*",
         "firebase-admin": "^11.5.0",
-        "mysql2": "^2.2.5"
+        "mysql2": "^3.9.8"
     },
     "devDependencies": {
         "@types/lesgo": "workspace:.",
