@@ -7,7 +7,7 @@ import Cursor from "./../cursor";
  */
 export default class Canvas extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getPreview(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getPreviews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getPreview(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPreviews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<Canvas>;    get(fields: string[], params?: Record<string, any>): Promise<Canvas>;
 }

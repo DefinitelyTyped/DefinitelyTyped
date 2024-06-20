@@ -8,7 +8,7 @@ import InstagramComment from "./instagram-comment";
  */
 export default class InstagramMedia extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<InstagramComment>;
     get(fields: string[], params?: Record<string, any>): Promise<InstagramMedia>;
 }

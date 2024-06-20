@@ -7,7 +7,7 @@ import Cursor from "./../cursor";
  */
 export default class OffsiteSignalContainerBusinessObject extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getLinkedApplication(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getLinkedPage(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getLinkedApplication(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getLinkedPage(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<OffsiteSignalContainerBusinessObject>;
 }

@@ -9,7 +9,7 @@ import ProductItem from "./product-item";
  */
 export default class ProductGroup extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createProduct(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductItem>;
     get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductGroup>;    get(fields: string[], params?: Record<string, any>): Promise<ProductGroup>;

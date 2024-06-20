@@ -7,6 +7,6 @@ import Cursor from "./../cursor";
  */
 export default class AdsValueAdjustmentRule extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getCriterias(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getCriterias(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<AdsValueAdjustmentRule>;
 }

@@ -6,6 +6,6 @@ import Cursor from "./../cursor";
  */
 export default class VideoAsset extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<VideoAsset>;
 }

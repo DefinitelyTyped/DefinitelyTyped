@@ -10,7 +10,7 @@ export default class CustomConversion extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     static get CustomEventType(): Record<string, any>;
     static get ActionSourceType(): Record<string, any>;
-    getStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<CustomConversion>;    get(fields: string[], params?: Record<string, any>): Promise<CustomConversion>;
 }

@@ -10,7 +10,7 @@ export default class ProductFeedUploadError extends AbstractCrudObject {
     static get AffectedSurfaces(): Record<string, any>;
     static get Severity(): Record<string, any>;
     static get ErrorPriority(): Record<string, any>;
-    getSamples(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getSuggestedRules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getSamples(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getSuggestedRules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductFeedUploadError>;
 }

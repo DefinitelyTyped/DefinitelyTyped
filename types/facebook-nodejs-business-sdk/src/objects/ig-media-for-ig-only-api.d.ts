@@ -7,6 +7,6 @@ import Cursor from "./../cursor";
  */
 export default class IGMediaForIGOnlyAPI extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getChildren(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getChildren(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<IGMediaForIGOnlyAPI>;
 }
