@@ -729,7 +729,7 @@ declare module "node:test" {
          * This function is used to change the behavior of an existing mock.
          * @param implementation The function to be used as the mock's new implementation.
          */
-        mockImplementation(implementation: F): void;
+        mockImplementation(implementation: Function): void;
 
         /**
          * This function is used to change the behavior of an existing mock for a single invocation.
@@ -739,7 +739,7 @@ declare module "node:test" {
          * @param onCall The invocation number that will use `implementation`.
          *  If the specified invocation has already occurred then an exception is thrown.
          */
-        mockImplementationOnce(implementation: F, onCall?: number): void;
+        mockImplementationOnce(implementation: Function, onCall?: number): void;
 
         /**
          * Resets the call history of the mock function.

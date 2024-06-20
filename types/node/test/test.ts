@@ -772,12 +772,6 @@ class TestReporter extends Transform {
     }
 }
 const createdMock: Mock<() => undefined> = mock.fn(() => undefined);
-// @ts-expect-error
-createdMock.mock.mockImplementation(() => null);
-createdMock.mock.mockImplementation(() => undefined);
-// @ts-expect-error
-createdMock.mock.mockImplementationOnce(() => null);
-createdMock.mock.mockImplementationOnce(() => undefined);
 
 // Allows for typing of TestContext outside of a test
 const contextTest = (t: TestContext) => {
