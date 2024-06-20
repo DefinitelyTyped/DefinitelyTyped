@@ -302,7 +302,7 @@ export interface ToImgopts {
     height: number | null;
     scale?: number | undefined;
 }
-   
+
 export interface DownloadImgopts {
     format: "jpeg" | "png" | "webp" | "svg";
     /**
