@@ -1,7 +1,7 @@
 import FacebookAdsApi from "./api";
 import AbstractObject from "./abstract-object";
 import Cursor from "./cursor";
-export declare class AbstractCrudObject extends AbstractObject {
+export class AbstractCrudObject extends AbstractObject {
     _parentId: string | null | undefined;
     _changes: Record<string, any>;
     _api: FacebookAdsApi;
@@ -64,13 +64,20 @@ export declare class AbstractCrudObject extends AbstractObject {
      * @param   {Object}  [params]
      * @return  {Promise}
      */
-    read(fields: Array<string>, params?: Record<string, any>): Promise<any>;
+    read(fields: string[], params?: Record<string, any>): Promise<any>;
     /**
      * Update object
      * @param   {Object}  [params]
      * @return  {Promise}
      */
     update(params?: Record<string, any>): Promise<any>;
+    /**
+     * Update object
+     * @param {Array} [fields]
+     * @param   {Object}  [params]
+     * @return  {Promise}
+     */
+    update(fields: string[], params?: Record<string, any>): Promise<any>;
     /**
      * Delete object
      * @param   {Object}  [params]
@@ -86,7 +93,7 @@ export declare class AbstractCrudObject extends AbstractObject {
      * @param  {String}  [endpoint]
      * @return {Cursor}
      */
-    getEdge(targetClass: Record<string, any>, fields: Array<string>, params: Record<string, any> | undefined, fetchFirstPage: boolean | undefined, endpoint: string | null | undefined): Cursor | Promise<any>;
+    getEdge(targetClass: Record<string, any>, fields: string[], params: Record<string, any> | undefined, fetchFirstPage: boolean | undefined, endpoint: string | null | undefined): Cursor | Promise<any>;
     /**
      * Create edge object
      * @param   {String}  [endpoint]
@@ -95,7 +102,7 @@ export declare class AbstractCrudObject extends AbstractObject {
      * @param   {Function} [targetClassConstructor]
      * @return  {Promise}
      */
-    createEdge(endpoint: string, fields: Array<string>, params?: Record<string, any>, targetClassConstructor?: (...args: Array<any>) => any, pathOverride?: string | null | undefined): Promise<any>;
+    createEdge(endpoint: string, fields: string[], params?: Record<string, any>, targetClassConstructor?: (...args: any[]) => any, pathOverride?: string | null): Promise<any>;
     /**
      * Delete edge object
      * @param   {String}  [endpoint]
@@ -111,6 +118,6 @@ export declare class AbstractCrudObject extends AbstractObject {
      * @param  {FacebookAdsApi} [api]
      * @return {Promise}
      */
-    static getByIds(ids: Array<number>, fields: Array<string>, params: Record<string, any> | undefined, api: FacebookAdsApi): Promise<any>;
+    static getByIds(ids: number[], fields: string[], params: Record<string, any> | undefined, api: FacebookAdsApi): Promise<any>;
 }
 export default AbstractCrudObject;

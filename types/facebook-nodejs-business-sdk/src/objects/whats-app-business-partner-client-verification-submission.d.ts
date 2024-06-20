@@ -1,7 +1,6 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * WhatsAppBusinessPartnerClientVerificationSubmission
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class WhatsAppBusinessPartnerClientVerificationSubmission extends AbstractCrudObject {

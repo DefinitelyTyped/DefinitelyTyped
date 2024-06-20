@@ -1,7 +1,7 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AudienceOverlap
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AudienceOverlap extends AbstractCrudObject {

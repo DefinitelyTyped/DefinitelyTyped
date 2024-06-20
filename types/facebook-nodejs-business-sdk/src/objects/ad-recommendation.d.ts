@@ -1,7 +1,7 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdRecommendation
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdRecommendation extends AbstractCrudObject {

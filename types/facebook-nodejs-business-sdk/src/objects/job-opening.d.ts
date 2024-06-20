@@ -1,7 +1,7 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * JobOpening
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class JobOpening extends AbstractCrudObject {
@@ -10,5 +10,5 @@ export default class JobOpening extends AbstractCrudObject {
     static get PlatformReviewStatus(): Record<string, any>;
     static get ReviewRejectionReasons(): Record<string, any>;
     static get Type(): Record<string, any>;
-    get(fields: Array<string>, params?: Record<string, any>): JobOpening;
+    get(fields: string[], params?: Record<string, any>): Promise<JobOpening>;
 }

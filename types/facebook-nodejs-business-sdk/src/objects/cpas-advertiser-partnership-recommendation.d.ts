@@ -1,10 +1,10 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CPASAdvertiserPartnershipRecommendation
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CPASAdvertiserPartnershipRecommendation extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    get(fields: Array<string>, params?: Record<string, any>): CPASAdvertiserPartnershipRecommendation;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASAdvertiserPartnershipRecommendation>;
 }

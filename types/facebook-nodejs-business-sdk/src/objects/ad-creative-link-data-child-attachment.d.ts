@@ -1,7 +1,7 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdCreativeLinkDataChildAttachment
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdCreativeLinkDataChildAttachment extends AbstractCrudObject {

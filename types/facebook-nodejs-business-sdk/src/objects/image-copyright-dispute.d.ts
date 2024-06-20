@@ -1,10 +1,10 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ImageCopyrightDispute
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ImageCopyrightDispute extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    get(fields: Array<string>, params?: Record<string, any>): ImageCopyrightDispute;
+    get(fields: string[], params?: Record<string, any>): Promise<ImageCopyrightDispute>;
 }

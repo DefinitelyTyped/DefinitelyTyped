@@ -4,15 +4,14 @@ import Cursor from "./../cursor";
 import AdAccount from "./ad-account";
 /**
  * ExtendedCreditInvoiceGroup
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ExtendedCreditInvoiceGroup extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     deleteAdAccounts(params?: Record<string, any>): Promise<any>;
-    getAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createAdAccount(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdAccount>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): ExtendedCreditInvoiceGroup;
-    update(fields: Array<string>, params?: Record<string, any>): ExtendedCreditInvoiceGroup;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdAccount>;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<ExtendedCreditInvoiceGroup>;    get(fields: string[], params?: Record<string, any>): Promise<ExtendedCreditInvoiceGroup>;
 }

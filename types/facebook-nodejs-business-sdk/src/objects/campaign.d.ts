@@ -5,7 +5,7 @@ import HighDemandPeriod from "./high-demand-period";
 import AdReportRun from "./ad-report-run";
 /**
  * Campaign
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Campaign extends AbstractCrudObject {
@@ -23,17 +23,16 @@ export default class Campaign extends AbstractCrudObject {
     static get Operator(): Record<string, any>;
     static get SpecialAdCategory(): Record<string, any>;
     static get StatusOption(): Record<string, any>;
-    getAdStudies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createAdLabel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Campaign>;
-    getAdRulesGoverned(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAds(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAdSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createBudgetSchedule(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<HighDemandPeriod>;
-    getCopies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createCopy(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Campaign>;
-    getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getInsightsAsync(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdReportRun>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): Campaign;
-    update(fields: Array<string>, params?: Record<string, any>): Campaign;
+    getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
+    getAdRulesGoverned(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAdSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createBudgetSchedule(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<HighDemandPeriod>;
+    getCopies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
+    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdReportRun>;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<Campaign>;    get(fields: string[], params?: Record<string, any>): Promise<Campaign>;
 }

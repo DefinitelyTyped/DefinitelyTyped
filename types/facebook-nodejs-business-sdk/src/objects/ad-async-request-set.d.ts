@@ -3,14 +3,13 @@ import AbstractObject from "./../abstract-object";
 import Cursor from "./../cursor";
 /**
  * AdAsyncRequestSet
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdAsyncRequestSet extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     static get NotificationMode(): Record<string, any>;
-    getRequests(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): AdAsyncRequestSet;
-    update(fields: Array<string>, params?: Record<string, any>): AdAsyncRequestSet;
+    getRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdAsyncRequestSet>;    get(fields: string[], params?: Record<string, any>): Promise<AdAsyncRequestSet>;
 }

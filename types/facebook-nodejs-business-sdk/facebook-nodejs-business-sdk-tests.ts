@@ -19,7 +19,7 @@ async function testGetAdsFetchFirstPageFalse(): Promise<Array<Record<string, str
     fbAdsApi.setDebug(true);
 
     const fbAdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
-    const cursor = fbAdAccount.getAds(['id', 'name'], { limit: 10 }, false);
+    const cursor = await fbAdAccount.getAds(['id', 'name'], { limit: 10 }, false);
 
     while (cursor.hasNext()) {
         await cursor.next();

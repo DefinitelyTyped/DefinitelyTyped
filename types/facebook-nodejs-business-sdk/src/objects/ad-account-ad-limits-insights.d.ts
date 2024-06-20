@@ -1,7 +1,6 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdAccountAdLimitsInsights
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdAccountAdLimitsInsights extends AbstractCrudObject {

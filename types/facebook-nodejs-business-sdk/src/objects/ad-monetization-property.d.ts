@@ -2,13 +2,13 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 import Cursor from "./../cursor";
 /**
  * AdMonetizationProperty
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdMonetizationProperty extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getAdNetworkAnalytics(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createAdNetworkAnalytic(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdMonetizationProperty>;
-    getAdNetworkAnalyticsResults(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): AdMonetizationProperty;
+    getAdNetworkAnalytics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createAdNetworkAnalytic(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdMonetizationProperty>;
+    getAdNetworkAnalyticsResults(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdMonetizationProperty>;
 }

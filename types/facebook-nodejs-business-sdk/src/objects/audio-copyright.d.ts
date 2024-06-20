@@ -2,11 +2,11 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 import Cursor from "./../cursor";
 /**
  * AudioCopyright
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AudioCopyright extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
-    getUpdateRecords(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): AudioCopyright;
+    getUpdateRecords(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<string, any>): Promise<AudioCopyright>;
 }

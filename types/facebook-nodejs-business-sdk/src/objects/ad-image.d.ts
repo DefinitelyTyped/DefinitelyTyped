@@ -1,11 +1,11 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdImage
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdImage extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     static get Status(): Record<string, any>;
-    get(fields: Array<string>, params?: Record<string, any>): AdImage;
+    get(fields: string[], params?: Record<string, any>): Promise<AdImage>;
 }

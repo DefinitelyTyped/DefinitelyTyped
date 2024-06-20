@@ -3,7 +3,7 @@ import AbstractObject from "./../abstract-object";
 import Cursor from "./../cursor";
 /**
  * Comment
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Comment extends AbstractCrudObject {
@@ -12,13 +12,12 @@ export default class Comment extends AbstractCrudObject {
     static get CommentPrivacyValue(): Record<string, any>;
     static get Filter(): Record<string, any>;
     static get LiveFilter(): Record<string, any>;
-    getComments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createComment(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Comment>;
+    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
     deleteLikes(params?: Record<string, any>): Promise<any>;
-    getLikes(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createLike(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Comment>;
-    getReactions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): Comment;
-    update(fields: Array<string>, params?: Record<string, any>): Comment;
+    getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
+    getReactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<Comment>;    get(fields: string[], params?: Record<string, any>): Promise<Comment>;
 }

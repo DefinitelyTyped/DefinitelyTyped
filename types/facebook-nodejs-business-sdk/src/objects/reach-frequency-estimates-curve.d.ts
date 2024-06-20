@@ -1,7 +1,7 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ReachFrequencyEstimatesCurve
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ReachFrequencyEstimatesCurve extends AbstractCrudObject {

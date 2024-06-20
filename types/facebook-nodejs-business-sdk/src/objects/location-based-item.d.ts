@@ -2,13 +2,13 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 import Cursor from "./../cursor";
 /**
  * LocationBasedItem
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class LocationBasedItem extends AbstractCrudObject {
     static get Fields(): Record<string, any>;
     static get ImageFetchStatus(): Record<string, any>;
     static get Visibility(): Record<string, any>;
-    getChannelsToIntegrityStatus(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): LocationBasedItem;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<string, any>): Promise<LocationBasedItem>;
 }

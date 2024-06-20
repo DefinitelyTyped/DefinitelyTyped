@@ -1,7 +1,7 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CustomAudienceSharedAccountCampaignInfo
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CustomAudienceSharedAccountCampaignInfo extends AbstractCrudObject {

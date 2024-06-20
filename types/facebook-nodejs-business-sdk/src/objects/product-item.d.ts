@@ -3,7 +3,7 @@ import AbstractObject from "./../abstract-object";
 import Cursor from "./../cursor";
 /**
  * ProductItem
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ProductItem extends AbstractCrudObject {
@@ -23,10 +23,9 @@ export default class ProductItem extends AbstractCrudObject {
     static get MarkedForProductLaunch(): Record<string, any>;
     static get OriginCountry(): Record<string, any>;
     static get WaComplianceCategory(): Record<string, any>;
-    getChannelsToIntegrityStatus(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getProductSets(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getVideosMetadata(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): ProductItem;
-    update(fields: Array<string>, params?: Record<string, any>): ProductItem;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getProductSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductItem>;    get(fields: string[], params?: Record<string, any>): Promise<ProductItem>;
 }

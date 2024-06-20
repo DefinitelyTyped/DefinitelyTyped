@@ -3,7 +3,7 @@ import AbstractObject from "./../abstract-object";
 import Cursor from "./../cursor";
 /**
  * AdCreative
- * @extends AbstractCrudObject
+
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdCreative extends AbstractCrudObject {
@@ -17,10 +17,9 @@ export default class AdCreative extends AbstractCrudObject {
     static get CategoryMediaSource(): Record<string, any>;
     static get DynamicAdVoice(): Record<string, any>;
     static get Operator(): Record<string, any>;
-    createAdLabel(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdCreative>;
-    getCreativeInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getPreviews(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): AdCreative;
-    update(fields: Array<string>, params?: Record<string, any>): AdCreative;
+    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdCreative>;
+    getCreativeInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getPreviews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdCreative>;    get(fields: string[], params?: Record<string, any>): Promise<AdCreative>;
 }
