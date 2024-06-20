@@ -11,5 +11,10 @@
     "dependencies": {
         "@types/node": "*"
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Maximilian Hofmann",
+            "githubUsername": "maxiicodes"
+        }
+    ]
 }
