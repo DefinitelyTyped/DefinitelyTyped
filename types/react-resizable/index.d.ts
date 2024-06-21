@@ -58,14 +58,14 @@ export type ResizableProps =
             axis: "y";
         }
         | {
+            width?: number | undefined;
+            height?: number | undefined;
+            axis: "none";
+        }
+        | {
             width: number;
             height: number;
             axis?: "both";
-        }
-        | {
-            width?: number | undefined;
-            height?: number | undefined;
-            axis?: "none";
         }
     );
 
