@@ -1509,3 +1509,10 @@ function test_context_subclass() {
         });
     });
 }
+
+// You should not be able to call new BaseContext(), because BaseContext exists
+// only as an abstractions in the definitions, not at runtime.
+function test_no_basecontext_constructor() {
+    // @ts-expect-error
+    return new LocalMocha.BaseContext();
+}

@@ -1335,11 +1335,20 @@ declare namespace Mocha {
     // #endregion Runnable untyped events
 
     /**
-     * Test context
+     * BaseContext does not actually exist at runtime, so the constructor is
+     * marked as protected.
+     *
+     * It is merely a definition that subclasses can extend to get the Context
+     * interface without a index-signature, since the index-signature breaks
+     * strong type checks on extensions of Context.
+     *
+     * This should contain all actual members of Context.
      *
      * @see https://mochajs.org/api/module-Context.html#~Context
      */
     class BaseContext {
+        protected constructor();
+
         test?: Runnable | undefined;
         currentTest?: Test | undefined;
 
@@ -1389,6 +1398,19 @@ declare namespace Mocha {
         retries(n: number): this;
     }
 
+    /**
+     * Test context.
+     *
+     * Inherits from BaseContext for the purpose of this definition, but
+     * BaseContext does not exist at runtime.
+     *
+     * Actual members of Context are defined on BaseContext above.  Context
+     * then adds the index-signature that allow arbitrary fields.  For strong
+     * typing of extensions to a Mocha context, create a type for your project
+     * that inherits from BaseContext.
+     *
+     * @see https://mochajs.org/api/module-Context.html#~Context
+     */
     class Context extends BaseContext {
         /** Arbitrary, untyped fixtures. */
         [key: string]: any;
