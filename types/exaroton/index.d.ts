@@ -291,14 +291,14 @@ interface Software {
 
 declare module "node:events" {
     class EventEmitter {
-        static on<Emitter extends EventEmitter, Events extends keyof ClientEvents>(
+        static on<Emitter extends EventEmitter, StreamType extends keyof StreamTypes>(
             eventEmitter: Emitter,
-            eventName: Emitter extends Client ? Events : string,
-        ): AsyncIterableIterator<Emitter extends Client ? ClientEvents[Events] : any>;
+            eventName: Emitter extends Client ? StreamType : string,
+        ): AsyncIterableIterator<Emitter extends Client ? StreamTypes[StreamType] : any>;
     }
 }
 
-export interface ClientEvents {
+export interface StreamTypes {
     status: [server: Server];
     "console:line": [data: string];
     "tick:tick": [data: { averageTickTime: number; tps: number }];
@@ -390,7 +390,7 @@ declare class Server extends EventEmitter {
 
     toJSON(): Server;
 
-    on<Event extends keyof ClientEvents>(event: Event, listener: (...args: ClientEvents[Event]) => void): this;
+    on<StreamType extends keyof StreamTypes>(stream: StreamType, listener: (...args: StreamTypes[StreamType]) => void): this;
 }
 
 declare class Software {
