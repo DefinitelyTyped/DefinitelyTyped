@@ -1412,6 +1412,8 @@ declare namespace Mocha {
      * @see https://mochajs.org/api/module-Context.html#~Context
      */
     class Context extends BaseContext {
+        constructor();
+
         /** Arbitrary, untyped fixtures. */
         [key: string]: any;
     }
