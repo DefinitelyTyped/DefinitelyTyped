@@ -1,4 +1,4 @@
-// For Library Version: 1.124.0
+// For Library Version: 1.125.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -750,6 +750,11 @@ declare module "sap/ui/integration/widgets/Card" {
      * Description
      */
     description?: string;
+    /**
+     * Path to a custom image to be shown on the place of the regular illustration. Relative to the card base
+     * URL.
+     */
+    imageSrc?: string;
     /**
      * Response object in case of a network error
      */

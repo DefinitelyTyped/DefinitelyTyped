@@ -202,9 +202,9 @@ declare namespace Arborist {
          * Edges in the dependency graph indicating nodes that this node depends
          * on, which resolve its dependencies.
          */
-        edgesOut: Edge[];
+        edgesOut: Map<string, Edge>;
         /** Edges in the dependency graph indicating nodes that depend on this node. */
-        edgesIn: Edge[];
+        edgesIn: Set<Edge>;
 
         /** True if this package is not required by any other for any reason.  False for top of tree. */
         extraneous: boolean;

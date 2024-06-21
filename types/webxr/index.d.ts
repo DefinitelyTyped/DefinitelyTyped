@@ -1166,3 +1166,60 @@ interface XRSession {
  * END: WebXR DOM Overlays Module
  * https://immersive-web.github.io/dom-overlays/
  */
+
+/**
+ * BEGIN: WebXR Depth Sensing Module
+ * https://www.w3.org/TR/webxr-depth-sensing-1/
+ */
+
+type XRDepthUsage = "cpu-optimized" | "gpu-optimized";
+
+type XRDepthDataFormat = "luminance-alpha" | "float32" | "unsigned-short";
+
+interface XRDepthStateInit {
+    usagePreference: XRDepthUsage[];
+    dataFormatPreference: XRDepthDataFormat[];
+}
+
+interface XRSessionInit {
+    depthSensing?: XRDepthStateInit | undefined;
+}
+
+interface XRSession {
+    readonly depthUsage?: XRDepthUsage | undefined;
+    readonly depthDataFormat?: XRDepthDataFormat | undefined;
+}
+
+interface XRDepthInformation {
+    readonly width: number;
+    readonly height: number;
+
+    readonly normDepthBufferFromNormView: XRRigidTransform;
+    readonly rawValueToMeters: number;
+}
+
+interface XRCPUDepthInformation extends XRDepthInformation {
+    readonly data: ArrayBuffer;
+
+    getDepthInMeters(x: number, y: number): number;
+}
+
+interface XRFrame {
+    getDepthInformation(view: XRView): XRCPUDepthInformation | null | undefined;
+}
+
+interface XRWebGLDepthInformation extends XRDepthInformation {
+    readonly texture: WebGLTexture;
+
+    readonly textureType: XRTextureType;
+    readonly imageIndex?: number | null | undefined;
+}
+
+interface XRWebGLBinding {
+    getDepthInformation(view: XRView): XRWebGLDepthInformation | null | undefined;
+}
+
+/**
+ * END: WebXR Depth Sensing Module
+ * https://www.w3.org/TR/webxr-depth-sensing-1/
+ */

@@ -116,6 +116,8 @@ declare namespace Autocomplete {
         /**
          * Whether or not to automatically highlight the top match in the dropdown
          * menu.
+         *
+         * @default true
          */
         autoHighlight?: boolean | undefined;
         /**

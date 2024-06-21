@@ -689,7 +689,7 @@ declare module "crypto" {
         authTagLength: number;
     }
     /**
-     * Creates and returns a `Cipher` object that uses the given `algorithm` and`password`.
+     * Creates and returns a `Cipher` object that uses the given `algorithm` and `password`.
      *
      * The `options` argument controls stream behavior and is optional except when a
      * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the`authTagLength` option is required and specifies the length of the
@@ -978,7 +978,7 @@ declare module "crypto" {
         getAuthTag(): Buffer;
     }
     /**
-     * Creates and returns a `Decipher` object that uses the given `algorithm` and`password` (key).
+     * Creates and returns a `Decipher` object that uses the given `algorithm` and `password` (key).
      *
      * The `options` argument controls stream behavior and is optional except when a
      * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the `authTagLength` option is required and specifies the length of the
@@ -2871,7 +2871,7 @@ declare module "crypto" {
      * });
      * ```
      *
-     * On completion, `callback` will be called with `err` set to `undefined` and`publicKey` / `privateKey` representing the generated key pair.
+     * On completion, `callback` will be called with `err` set to `undefined` and `publicKey` / `privateKey` representing the generated key pair.
      *
      * If this method is invoked as its `util.promisify()` ed version, it returns
      * a `Promise` for an `Object` with `publicKey` and `privateKey` properties.

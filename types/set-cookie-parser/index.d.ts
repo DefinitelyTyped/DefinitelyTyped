@@ -85,7 +85,7 @@ declare namespace parse {
         /**
          * indicates a cookie ought not to be sent along with cross-site requests
          */
-        sameSite?: string | undefined;
+        sameSite?: true | false | "lax" | "strict" | "none" | undefined;
     }
 
     interface CookieMap {

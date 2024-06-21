@@ -7,15 +7,21 @@ const iniContent = "";
 // $ExpectType { [key: string]: any; }
 let decoded = ini.decode(iniContent);
 decoded = ini.parse(iniContent);
+decoded = ini.decode(iniContent, { bracketedArray: true });
+decoded = ini.parse(iniContent, { bracketedArray: true });
 
 // @ts-expect-error
 let badDecoded = ini.decode();
 // @ts-expect-error
 badDecoded = ini.decode(null);
 // @ts-expect-error
+badDecoded = ini.decode(iniContent, null);
+// @ts-expect-error
 badDecoded = ini.parse();
 // @ts-expect-error
 badDecoded = ini.parse(null);
+// @ts-expect-error
+badDecoded = ini.parse(iniContent, null);
 
 /* ini.encode() / ini.stringify() */
 

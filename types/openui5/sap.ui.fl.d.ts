@@ -1,4 +1,4 @@
-// For Library Version: 1.124.0
+// For Library Version: 1.125.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1469,49 +1469,12 @@ declare module "sap/ui/fl/write/_internal/fieldExtensibility/MultiTenantABAPExte
 }
 
 declare module "sap/ui/fl/write/_internal/fieldExtensibility/SingleTenantABAPExtensibilityVariant" {
-  import ABAPExtensibilityVariant from "sap/ui/fl/write/_internal/fieldExtensibility/ABAPExtensibilityVariant";
-
-  import Metadata from "sap/ui/base/Metadata";
-
   /**
    * Extension variant for ABAP single tenant environnments (via so called Custom Fields)
    *
    * @since 1.87
    */
-  interface SingleTenantABAPExtensibilityVariant
-    extends ABAPExtensibilityVariant {
-    /**
-     * Creates a new subclass of class sap.ui.fl.write._internal.fieldExtensibility.SingleTenantABAPExtensibilityVariant
-     * with name `sClassName` and enriches it with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.fl.write._internal.fieldExtensibility.ABAPExtensibilityVariant.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    extend(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: object,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.fl.write._internal.fieldExtensibility.SingleTenantABAPExtensibilityVariant.
-     *
-     *
-     * @returns Metadata object describing this class
-     */
-    getMetadata(): Metadata;
-  }
+  interface SingleTenantABAPExtensibilityVariant {}
   const SingleTenantABAPExtensibilityVariant: SingleTenantABAPExtensibilityVariant;
   export default SingleTenantABAPExtensibilityVariant;
 }
@@ -1618,6 +1581,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/flexState/controlVariants/VariantManagementState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/DataSelector": undefined;
+
+    "sap/ui/fl/apply/_internal/flexState/FlexObjectState": undefined;
 
     "sap/ui/fl/apply/_internal/flexState/FlexState": undefined;
 

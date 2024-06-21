@@ -23,6 +23,7 @@ export interface PayloadError {
             column: number;
         }>
         | undefined;
+    path?: Array<string | number>;
     severity?: "CRITICAL" | "ERROR" | "WARNING" | undefined; // Not officially part of the spec, but used at Facebook
 }
 

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pannellum",
+    "version": "2.5.9999",
+    "projects": [
+        "https://pannellum.org/"
+    ],
+    "devDependencies": {
+        "@types/pannellum": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shirsh Zibbu",
+            "githubUsername": "zhirzh"
+        }
+    ]
+}

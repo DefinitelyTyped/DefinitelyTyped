@@ -1,5 +1,22 @@
 import { Channel, Presence, Socket, Timer } from "phoenix";
 
+class InMemoryStorage {
+    storage: { [key: string]: any };
+
+    constructor() {
+        this.storage = {};
+    }
+    getItem(keyName: string) {
+        return this.storage[keyName] || null;
+    }
+    removeItem(keyName: string) {
+        delete this.storage[keyName];
+    }
+    setItem(keyName: string, keyValue: any) {
+        this.storage[keyName] = keyValue;
+    }
+}
+
 function test_socket() {
     const socket = new Socket("/ws", {
         binaryType: "arraybuffer",
@@ -7,6 +24,9 @@ function test_socket() {
         reconnectAfterMs: tries => 1000,
         rejoinAfterMs: tries => 1000,
         vsn: "2.0.0",
+        longPollFallbackMs: 10_000,
+        debug: true,
+        sessionStorage: new InMemoryStorage(),
     });
     socket.connect();
 

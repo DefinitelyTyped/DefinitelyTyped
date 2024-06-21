@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es6",
-            "DOM"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "carbon__icon-helpers-tests.ts"
+        "stream-line-wrapper-tests.ts"
     ]
 }
