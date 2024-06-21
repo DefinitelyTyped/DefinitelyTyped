@@ -216,6 +216,8 @@ declare namespace Arborist {
 
         get inBundle(): boolean;
 
+        get isWorkspace(): boolean;
+
         /** Errors encountered while parsing package.json or version specifiers. */
         errors: Error[];
 
