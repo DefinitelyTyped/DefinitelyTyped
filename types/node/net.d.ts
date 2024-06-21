@@ -278,7 +278,7 @@ declare module "net" {
          */
         readonly bytesWritten: number;
         /**
-         * If `true`,`socket.connect(options[, connectListener])` was
+         * If `true`, `socket.connect(options[, connectListener])` was
          * called and has not yet finished. It will stay `true` until the socket becomes
          * connected, then it is set to `false` and the `'connect'` event is emitted. Note
          * that the `socket.connect(options[, connectListener])` callback is a listener for the `'connect'` event.
@@ -564,7 +564,7 @@ declare module "net" {
          *
          * All `listen()` methods can take a `backlog` parameter to specify the maximum
          * length of the queue of pending connections. The actual length will be determined
-         * by the OS through sysctl settings such as `tcp_max_syn_backlog` and `somaxconn`on Linux. The default value of this parameter is 511 (not 512).
+         * by the OS through sysctl settings such as `tcp_max_syn_backlog` and `somaxconn` on Linux. The default value of this parameter is 511 (not 512).
          *
          * All {@link Socket} are set to `SO_REUSEADDR` (see [`socket(7)`](https://man7.org/linux/man-pages/man7/socket.7.html) for
          * details).

@@ -118,12 +118,12 @@ export interface PlotScene {
 }
 
 export interface PlotRelayoutEvent extends Partial<Layout> {
-    "xaxis.range[0]"?: number | undefined;
-    "xaxis.range[1]"?: number | undefined;
-    "yaxis.range[0]"?: number | undefined;
-    "yaxis.range[1]"?: number | undefined;
-    "xaxis.autorange"?: boolean | undefined;
-    "yaxis.autorange"?: boolean | undefined;
+    "xaxis.range[0]"?: number;
+    "xaxis.range[1]"?: number;
+    "yaxis.range[0]"?: number;
+    "yaxis.range[1]"?: number;
+    "xaxis.autorange"?: boolean;
+    "yaxis.autorange"?: boolean;
 }
 
 export interface ClickAnnotationEvent {

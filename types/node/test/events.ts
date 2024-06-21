@@ -100,6 +100,23 @@ async function test() {
         console.log(e);
     }
     events.on(new events.EventEmitter(), "test", { signal: new AbortController().signal });
+    events.on(new events.EventEmitter(), "test", { close: ["close"] });
+    events.on(new events.EventEmitter(), "test", { highWaterMark: 42 });
+    events.on(new events.EventEmitter(), "test", { lowWaterMark: 42 });
+}
+
+async function testWithSymbol() {
+    for await (const e of events.on(new events.EventEmitter(), Symbol("test"))) {
+        console.log(e);
+    }
+    events.on(new events.EventEmitter(), Symbol("test"), { signal: new AbortController().signal });
+}
+
+async function testEventTarget() {
+    for await (const e of events.on(new EventTarget(), "test")) {
+        console.log(e);
+    }
+    events.on(new EventTarget(), "test", { signal: new AbortController().signal });
 }
 
 {

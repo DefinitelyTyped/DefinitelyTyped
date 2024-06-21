@@ -137,3 +137,64 @@ import { createContext } from "node:vm";
     workerThreads.getEnvironmentData("test"); // $ExpectType Serializable
     workerThreads.getEnvironmentData(1); // $ExpectType Serializable
 }
+
+{
+    // Test addEventListener, removeEventListener and dispatchEvent
+    if (workerThreads.isMainThread) {
+        const worker = new workerThreads.Worker(__filename);
+        const { port1, port2 } = new workerThreads.MessageChannel();
+        const events: string[] = [];
+
+        const customEvent = (event: Event) => events.push(event.type);
+
+        // addEventListener
+        port1.addEventListener("message", (event) => events.push(event.type));
+        port1.addEventListener("close", (event) => events.push(event.type));
+        port1.addEventListener("dispatch", (event) => events.push(event.type));
+        port1.addEventListener("custom_event", customEvent);
+
+        // emit custom_event
+        port1.emit("custom_event", "test");
+
+        // removeEventListener
+        port1.removeEventListener("custom_event", customEvent);
+        port1.emit("custom_event", "It won't emit as it has been removed");
+
+        // emit dispatch event
+        port1.dispatchEvent(new Event("dispatch"));
+
+        // emit message event
+        worker.postMessage({ port: port2 }, [port2]);
+        port1.postMessage("From main to parent");
+
+        // close event
+        setTimeout(() => {
+            port1.close();
+            port2.close();
+
+            assert.deepStrictEqual(events, [
+                "custom_event",
+                "dispatch",
+                "message",
+                "close",
+            ], "Main Events");
+        }, 250);
+    } else if (workerThreads.parentPort) {
+        const events: string[] = [];
+
+        workerThreads.parentPort.once("message", ({ port: parentPort }) => {
+            const port: workerThreads.MessagePort = parentPort;
+
+            port.addEventListener("message", (event) => {
+                events.push(event.type);
+                port.postMessage("From parent to main");
+            });
+
+            setTimeout(() => {
+                port.close();
+
+                assert.deepStrictEqual(events, ["message"], "Parent Events");
+            }, 125);
+        });
+    }
+}

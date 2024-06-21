@@ -146,7 +146,7 @@ declare module "child_process" {
         /**
          * A sparse array of pipes to the child process, corresponding with positions in
          * the `stdio` option passed to {@link spawn} that have been set
-         * to the value `'pipe'`. `subprocess.stdio[0]`, `subprocess.stdio[1]`, and`subprocess.stdio[2]` are also available as `subprocess.stdin`,`subprocess.stdout`, and `subprocess.stderr`,
+         * to the value `'pipe'`. `subprocess.stdio[0]`, `subprocess.stdio[1]`, and`subprocess.stdio[2]` are also available as `subprocess.stdin`, `subprocess.stdout`, and `subprocess.stderr`,
          * respectively.
          *
          * In the following example, only the child's fd `1` (stdout) is configured as a
@@ -1391,8 +1391,8 @@ declare module "child_process" {
      * @param modulePath The module to run in the child.
      * @param args List of string arguments.
      */
-    function fork(modulePath: string, options?: ForkOptions): ChildProcess;
-    function fork(modulePath: string, args?: readonly string[], options?: ForkOptions): ChildProcess;
+    function fork(modulePath: string | URL, options?: ForkOptions): ChildProcess;
+    function fork(modulePath: string | URL, args?: readonly string[], options?: ForkOptions): ChildProcess;
     interface SpawnSyncOptions extends CommonSpawnOptions {
         input?: string | NodeJS.ArrayBufferView | undefined;
         maxBuffer?: number | undefined;
