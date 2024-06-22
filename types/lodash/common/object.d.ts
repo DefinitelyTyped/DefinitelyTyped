@@ -1021,23 +1021,14 @@ declare module "../index" {
         functionsIn(): CollectionChain<string>;
     }
 
-    type GetElementTypeOfFixedSizeArrayLikeByIndex<T extends unknown[], I extends number> =
-        number extends I ? T[I] | undefined : T[I];
-
     type GetFieldTypeOfArrayLikeByKey<T extends unknown[], K> =
-        number extends T['length'] // is exact length unknown at compile time?
-        ?   K extends number ? T[K] | undefined
-            : K extends `${infer N extends number}` ? T[N] | undefined
-            : K extends keyof T ? T[K] : undefined
-        :   K extends number ? GetElementTypeOfFixedSizeArrayLikeByIndex<T, K>
-            : K extends `${infer N extends number}` ? GetElementTypeOfFixedSizeArrayLikeByIndex<T, N>
-            : K extends keyof T ? T[K] : undefined;
+        K extends number ? T[K]
+        : K extends `${infer N extends number}` ? T[N]
+        : K extends keyof T ? T[K] : undefined;
 
     type GetFieldTypeOfStringByKey<T extends string, K> =
-        // As of TS 5.4, even for string constants TS does not deduce the exact
-        // string length, nor evaluates str[i] based on that length and literal i value.
-        K extends number ? T[K] | undefined
-        : K extends `${infer N extends number}` ? T[N] | undefined
+        K extends number ? T[K]
+        : K extends `${infer N extends number}` ? T[N]
         : K extends keyof T ? T[K]
         : undefined;
 
@@ -1059,7 +1050,7 @@ declare module "../index" {
             : undefined
         : undefined;
 
-    /** Internal. Assumes P is a dot-delimitered path. */
+    /** Internal. Assumes P is a dot-delimited path. */
     type GetFieldTypeOfNarrowedByDotPath<T, P> =
         P extends `${infer L}.${infer R}`
         ? GetFieldType<GetFieldTypeOfNarrowedByKey<T, L>, R, 'DotPath'>
@@ -1074,10 +1065,10 @@ declare module "../index" {
             ? GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, Lc>, K, 'Key'>, Rc>
             : GetFieldType<GetFieldType<GetFieldTypeOfNarrowedByDotPath<T, Lc>, K, 'Key'>, R>
 
-    /** Internal. Assumes T has been narrowed; L is a dot-delimetered path,
+    /** Internal. Assumes T has been narrowed; L is a dot-delimited path,
      *  and should be ignored if an empty string; K is a key name; and R is
      *  a dot-delimetered path, to be ignored if an empty string. Also if
-     *  L has a tail dot, or R has a front dot, these dots should be discarted,
+     *  L has a tail dot, or R has a front dot, these dots should be discarded,
      *  however when L or R is just a dot, they should be interpreted as empty
      *  key name (rather than ignored). */
     type GetFieldTypeOfNarrowedByLKR<T, L, K, R> =
