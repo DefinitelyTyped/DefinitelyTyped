@@ -212,7 +212,6 @@ declare namespace EZUIKit {
             end?: string;
         }): Promise<void>;
 
-
         /**
          * @description 获取当前清晰度
          * @version 7.5.0
@@ -226,10 +225,10 @@ declare namespace EZUIKit {
         setDefinition(type: string): void;
 
         /**
-         * @description 设置播放器封面	
+         * @description 设置播放器封面
          */
-        setPoster(url:string): void;
-        
+        setPoster(url: string): void;
+
         /**
          * @description 目标倍速（目前仅支持1倍、2倍、4倍）
          * @version 7.6.1
@@ -239,8 +238,8 @@ declare namespace EZUIKit {
             data: {
                 speed: number;
                 result: string;
-            }
-        }>
+            };
+        }>;
 
         /**
          * @description 获取当前云台状态
@@ -291,9 +290,9 @@ declare namespace EZUIKit {
          *  player.setWaterMarkFont({
          *      fontString: 'watermark',
          *      startPos: { fX: 100), fY:  100},
-         *      fontColor: { 
-         *              fR: parseFloat(0 / 255).toFixed(3), 
-         *              fG: parseFloat(0 / 255).toFixed(3), 
+         *      fontColor: {
+         *              fR: parseFloat(0 / 255).toFixed(3),
+         *              fG: parseFloat(0 / 255).toFixed(3),
          *              fB: parseFloat(0 / 255).toFixed(3),
          *              fA: 1 },
          *      fontSize: { nFontWidth:  16, nFontHeight: 16 },
@@ -302,18 +301,21 @@ declare namespace EZUIKit {
          *      fontNumber: { nRowNumber: 4, nColNumber:  4},
          *      space: 1
          *  })
-         * 
          */
-        setWaterMarkFont(config: null | Partial<{
-            fontString: string,
-            startPos: { fX: number, fY: number },
-            fontColor: { fR: string, fG: string, fB: string, fA: number },
-            fontSize: { nFontWidth: number, nFontHeight: number },
-            fontRotate: { fRotateAngle: number, fFillFullScreen: boolean },
-            fontFamily: string,
-            fontNumber: { nRowNumber: number, nColNumber: number },
-            space: number
-        }>): void;
+        setWaterMarkFont(
+            config:
+                | null
+                | Partial<{
+                    fontString: string;
+                    startPos: { fX: number; fY: number };
+                    fontColor: { fR: string; fG: string; fB: string; fA: number };
+                    fontSize: { nFontWidth: number; nFontHeight: number };
+                    fontRotate: { fRotateAngle: number; fFillFullScreen: boolean };
+                    fontFamily: string;
+                    fontNumber: { nRowNumber: number; nColNumber: number };
+                    space: number;
+                }>,
+        ): void;
     }
 }
 

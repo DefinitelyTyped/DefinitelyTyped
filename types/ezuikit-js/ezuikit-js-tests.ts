@@ -39,7 +39,6 @@ player.changePlayUrl({
     channelNo: 1,
 });
 
-
 // expect return a number
 player.getPlayRate().speed;
 
@@ -51,4 +50,4 @@ if (player.isBrowserFullscreen()) {
 player.setWaterMarkFont(null);
 player.setWaterMarkFont({
     fontSize: { nFontWidth: 16, nFontHeight: 16 },
-})
+});
