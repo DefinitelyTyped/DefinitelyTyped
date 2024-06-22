@@ -1748,11 +1748,11 @@ table = new Tabulator("#example-table", {
     layout: "fitColumns",
     ajaxURL: "https://jsonplaceholder.typicode.com/posts",
     columns: [
-        {title: "ID", field: "id", width: 50},
-        {title: "User ID", field: "userId", width: 50},
-        {title: "Title", field: "title"},
-        {title: "Body", field: "body"},
-    ]
+        { title: "ID", field: "id", width: 50 },
+        { title: "User ID", field: "userId", width: 50 },
+        { title: "Title", field: "title" },
+        { title: "Body", field: "body" },
+    ],
 });
 
 table.setData(table.getAjaxUrl());
