@@ -79,7 +79,7 @@ const componentConstructor = Moon.component("my-component", {
     methods: {
         halfFoo() {
             const currentFoo = this.get("foo");
-            currentFoo; // $ExpectType: number
+            currentFoo; // $ExpectType number
             return currentFoo / 2;
         },
         bothProps(): [any, any] {
