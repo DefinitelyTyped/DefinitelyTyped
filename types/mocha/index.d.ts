@@ -181,6 +181,13 @@ declare class Mocha {
     delay(): boolean;
 
     /**
+     * Fails test run if no tests encountered with exit-code 1.
+     *
+     * @see https://mochajs.org/api/mocha#failZero
+     */
+    failZero(failZero?: boolean): this;
+
+    /**
      * Tests marked only fail the suite
      *
      * @see https://mochajs.org/api/mocha#forbidOnly
@@ -2312,6 +2319,9 @@ declare namespace Mocha {
 
         /** Report tests without running them? */
         dryRun?: boolean | undefined;
+
+        /** Fail test run if zero tests encountered. */
+        failZero?: boolean | undefined;
 
         /** Test filter given string. */
         fgrep?: string | undefined;
