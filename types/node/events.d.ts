@@ -298,7 +298,6 @@ declare module "events" {
          * console.log('done'); // prints 'done'
          * ```
          * @since v13.6.0, v12.16.0
-         * @param eventName The name of the event being listened for
          * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
          */
         static on(
