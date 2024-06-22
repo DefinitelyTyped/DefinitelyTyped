@@ -305,12 +305,12 @@ declare module "events" {
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
             options?: StaticEventEmitterIteratorOptions,
-        ): AsyncIterableIterator<any>;
+        ): AsyncIterableIterator<any[]>;
         static on(
             emitter: EventTarget,
             eventName: string,
             options?: StaticEventEmitterIteratorOptions,
-        ): AsyncIterableIterator<any>;
+        ): AsyncIterableIterator<any[]>;
         /**
          * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
          *
