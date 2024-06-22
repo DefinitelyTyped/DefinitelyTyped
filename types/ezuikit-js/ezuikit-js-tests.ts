@@ -38,3 +38,17 @@ player.changePlayUrl({
     deviceSerial: "foobarvz",
     channelNo: 1,
 });
+
+
+// expect return a number
+player.getPlayRate().speed;
+
+if (player.isBrowserFullscreen()) {
+    // 浏览器处于全屏状态
+}
+
+// 关闭水印
+player.setWaterMarkFont(null);
+player.setWaterMarkFont({
+    fontSize: { nFontWidth: 16, nFontHeight: 16 },
+})

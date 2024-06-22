@@ -211,6 +211,109 @@ declare namespace EZUIKit {
              */
             end?: string;
         }): Promise<void>;
+
+
+        /**
+         * @description 获取当前清晰度
+         * @version 7.5.0
+         */
+        getDefinition(): string;
+
+        /**
+         * @description 切换清晰度
+         * @version 7.5.0
+         */
+        setDefinition(type: string): void;
+
+        /**
+         * @description 设置播放器封面	
+         */
+        setPoster(url:string): void;
+        
+        /**
+         * @description 目标倍速（目前仅支持1倍、2倍、4倍）
+         * @version 7.6.1
+         */
+        fast(speed: number): Promise<{
+            code: number;
+            data: {
+                speed: number;
+                result: string;
+            }
+        }>
+
+        /**
+         * @description 获取当前云台状态
+         * @version 7.5.0
+         */
+        getPtzStatus(): boolean;
+
+        /**
+         * @description 开启云台
+         * @version 7.5.0
+         */
+        openPtz(): void;
+
+        /**
+         * @description 关闭云台
+         * @version 7.5.0
+         */
+        closePtz(): void;
+
+        /**
+         * @description 获取浏览器网页全屏状态
+         * @version 7.5.0
+         */
+        isBrowserFullscreen(): boolean;
+
+        /**
+         * @description 开启网页全屏
+         * @version 7.5.0
+         */
+        browserFullscreen(): void;
+
+        /**
+         * @description 退出网页全屏
+         * @version 7.5.0
+         */
+        exitBrowserFullscreen(): void;
+
+        /**
+         * @description 获取当前播放速率
+         * @version 7.5.0
+         */
+        getPlayRate(): { speed: number };
+
+        /**
+         * @description 水印叠加
+         * @version 7.7.9
+         * @example
+         *  player.setWaterMarkFont({
+         *      fontString: 'watermark',
+         *      startPos: { fX: 100), fY:  100},
+         *      fontColor: { 
+         *              fR: parseFloat(0 / 255).toFixed(3), 
+         *              fG: parseFloat(0 / 255).toFixed(3), 
+         *              fB: parseFloat(0 / 255).toFixed(3),
+         *              fA: 1 },
+         *      fontSize: { nFontWidth:  16, nFontHeight: 16 },
+         *      fontRotate: { fRotateAngle: 0, fFillFullScreen: true},
+         *      fontFamily: 'Arial',
+         *      fontNumber: { nRowNumber: 4, nColNumber:  4},
+         *      space: 1
+         *  })
+         * 
+         */
+        setWaterMarkFont(config: null | Partial<{
+            fontString: string,
+            startPos: { fX: number, fY: number },
+            fontColor: { fR: string, fG: string, fB: string, fA: number },
+            fontSize: { nFontWidth: number, nFontHeight: number },
+            fontRotate: { fRotateAngle: number, fFillFullScreen: boolean },
+            fontFamily: string,
+            fontNumber: { nRowNumber: number, nColNumber: number },
+            space: number
+        }>): void;
     }
 }
 
