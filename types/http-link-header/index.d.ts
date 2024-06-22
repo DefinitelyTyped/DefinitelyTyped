@@ -55,6 +55,11 @@ declare class Link {
      * @return The calling instance
      */
     parse(value: string, offset?: number): Link;
+    /**
+     * Get a string representation of the link header instance
+     * @return A string representation of the link header instance
+     */
+    toString(): string;
 }
 
 declare namespace Link {

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/passport-line",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/nitzo/passport-line"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*",
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/passport-line": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicholas Lim",
+            "githubUsername": "niclimcy"
+        }
+    ]
+}
