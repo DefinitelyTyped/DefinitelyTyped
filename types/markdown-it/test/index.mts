@@ -1,4 +1,4 @@
-import LinkifyIt = require("linkify-it");
+import LinkifyIt from "linkify-it";
 import MarkdownIt, { Options, PluginSimple, PluginWithOptions, PluginWithParams } from "markdown-it/lib/index.mjs";
 import ParserBlock from "markdown-it/lib/parser_block.mjs";
 import ParserCore from "markdown-it/lib/parser_core.mjs";
@@ -68,7 +68,7 @@ import Renderer from "markdown-it/lib/renderer.mjs";
     const core: ParserCore = md.core;
     const renderer: Renderer = md.renderer;
 
-    const linkify: LinkifyIt.LinkifyIt = md.linkify;
+    const linkify: LinkifyIt = md.linkify;
 
     const options: Options = md.options;
 }

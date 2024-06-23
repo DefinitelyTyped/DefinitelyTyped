@@ -1,18 +1,21 @@
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
-import { NodeTypeOption } from "./constants.js";
+import { NodeUpdateType } from "./constants.js";
 import InputNode from "./InputNode.js";
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
-
-export default class UniformNode<Value> extends InputNode<Value> {
+import NodeFrame from "./NodeFrame.js";
+import UniformGroupNode from "./UniformGroupNode.js";
+declare class UniformNode<TValue> extends InputNode<TValue> {
     readonly isUniformNode: true;
-
-    constructor(value: Value, nodeType?: NodeTypeOption | null);
-
+    groupNode: UniformGroupNode;
+    constructor(value: TValue, nodeType?: string | null);
+    setGroup(group: UniformGroupNode): this;
+    getGroup(): UniformGroupNode;
     getUniformHash(builder: NodeBuilder): string;
+    onUpdate(callback: (frame: NodeFrame, self: this) => TValue | undefined, updateType: NodeUpdateType): this;
+    generate(builder: NodeBuilder, output: string | null): string;
 }
-
-export const uniform: <Value>(
-    arg1: InputNode<Value> | Value,
+export default UniformNode;
+export declare const uniform: <TValue>(
+    arg1: InputNode<TValue> | TValue,
     arg2?: Node | string,
-) => ShaderNodeObject<UniformNode<Value>>;
+) => import("../shadernode/ShaderNode.js").ShaderNodeObject<UniformNode<TValue>>;

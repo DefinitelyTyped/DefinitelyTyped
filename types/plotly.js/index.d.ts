@@ -118,12 +118,12 @@ export interface PlotScene {
 }
 
 export interface PlotRelayoutEvent extends Partial<Layout> {
-    "xaxis.range[0]"?: number | undefined;
-    "xaxis.range[1]"?: number | undefined;
-    "yaxis.range[0]"?: number | undefined;
-    "yaxis.range[1]"?: number | undefined;
-    "xaxis.autorange"?: boolean | undefined;
-    "yaxis.autorange"?: boolean | undefined;
+    "xaxis.range[0]"?: number;
+    "xaxis.range[1]"?: number;
+    "yaxis.range[0]"?: number;
+    "yaxis.range[1]"?: number;
+    "xaxis.autorange"?: boolean;
+    "yaxis.autorange"?: boolean;
 }
 
 export interface ClickAnnotationEvent {
@@ -137,10 +137,7 @@ export interface FrameAnimationEvent {
     name: string;
     frame: Frame;
     animation: {
-        frame: {
-            duration: number;
-            redraw: boolean;
-        };
+        frame: AnimationFrameOpts;
         transition: Transition;
     };
 }
@@ -307,6 +304,19 @@ export interface DownloadImgopts {
     filename: string;
 }
 
+export interface AnimationFrameOpts {
+    duration: number;
+    redraw: boolean;
+}
+
+export interface AnimationOpts {
+    mode: "immediate" | "next" | "afterall";
+    direction: "forward" | "reverse";
+    fromcurrent: boolean;
+    transition: Partial<Transition> | Array<Partial<Transition>>;
+    frame: Partial<AnimationFrameOpts> | Array<Partial<AnimationFrameOpts>>;
+}
+
 export interface PolarLayout {
     domain: Partial<Domain>;
     sector: number[];
@@ -378,6 +388,11 @@ export function react(
 export function addFrames(root: Root, frames: Array<Partial<Frame>>): Promise<PlotlyHTMLElement>;
 export function deleteFrames(root: Root, frames: number[]): Promise<PlotlyHTMLElement>;
 export function register(modules: PlotlyModule | PlotlyModule[]): void;
+export function animate(
+    root: Root,
+    frameOrGroupNameOrFrameList?: string | string[] | Partial<Frame> | Array<Partial<Frame>>,
+    opts?: Partial<AnimationOpts>,
+): Promise<void>;
 
 // Layout
 export interface Layout {
@@ -524,8 +539,10 @@ export interface Legend extends Label {
     valign: "top" | "middle" | "bottom";
     x: number;
     xanchor: "auto" | "left" | "center" | "right";
+    xref: "container" | "paper";
     y: number;
     yanchor: "auto" | "top" | "middle" | "bottom";
+    yref: "container" | "paper";
 }
 
 export type AxisType = "-" | "linear" | "log" | "date" | "category" | "multicategory";

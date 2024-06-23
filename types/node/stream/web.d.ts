@@ -351,7 +351,7 @@ declare module "stream/web" {
     }
     const CompressionStream: {
         prototype: CompressionStream;
-        new<R = any, W = any>(format: string): CompressionStream<R, W>;
+        new<R = any, W = any>(format: "deflate" | "deflate-raw" | "gzip"): CompressionStream<R, W>;
     };
     interface DecompressionStream<R = any, W = any> {
         readonly readable: ReadableStream<R>;
@@ -359,7 +359,7 @@ declare module "stream/web" {
     }
     const DecompressionStream: {
         prototype: DecompressionStream;
-        new<R = any, W = any>(format: string): DecompressionStream<R, W>;
+        new<R = any, W = any>(format: "deflate" | "deflate-raw" | "gzip"): DecompressionStream<R, W>;
     };
 }
 declare module "node:stream/web" {

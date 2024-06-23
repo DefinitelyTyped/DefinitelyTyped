@@ -27,7 +27,7 @@ declare namespace query {
     /** From a JS AST and a selector AST, collect all JS AST nodes that match the selector. */
     function traverse(
         ast: Node,
-        selector: string,
+        selector: Selector,
         visitor: (node: Node, parent: Node, ancestry: Node[]) => void,
         options?: ESQueryOptions,
     ): void;

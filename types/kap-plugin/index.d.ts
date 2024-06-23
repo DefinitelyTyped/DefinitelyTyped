@@ -1,4 +1,4 @@
-import * as ElectronStore from "electron-store";
+import ElectronStore = require("electron-store");
 import * as got from "got";
 import { JSONSchema7 } from "json-schema";
 

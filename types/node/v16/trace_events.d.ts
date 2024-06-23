@@ -12,7 +12,7 @@
  * * `node.async_hooks`: Enables capture of detailed `async_hooks` trace data.
  * The `async_hooks` events have a unique `asyncId` and a special `triggerId` `triggerAsyncId` property.
  * * `node.bootstrap`: Enables capture of Node.js bootstrap milestones.
- * * `node.console`: Enables capture of `console.time()` and `console.count()`output.
+ * * `node.console`: Enables capture of `console.time()` and `console.count()` output.
  * * `node.dns.native`: Enables capture of trace data for DNS queries.
  * * `node.environment`: Enables capture of Node.js Environment milestones.
  * * `node.fs.sync`: Enables capture of trace data for file system sync methods.

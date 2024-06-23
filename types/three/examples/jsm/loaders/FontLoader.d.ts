@@ -1,7 +1,7 @@
 import { Loader, LoadingManager, Shape } from "three";
 
 export interface FontData {
-    glyphs: Record<string, { ha: number; x_min: number; x_max: number; o: string }>;
+    glyphs: Record<string, { ha: number; x_min: number; x_max: number; o?: string | undefined }>;
     familyName: string;
     ascender: number;
     descender: number;

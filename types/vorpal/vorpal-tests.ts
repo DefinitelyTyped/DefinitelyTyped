@@ -41,3 +41,20 @@ vorpal
     });
 
 vorpal.show();
+
+vorpal.hide();
+
+vorpal = new Vorpal();
+
+vorpal
+    .command(
+        "helpTest",
+        "Test help override.  Use `help helpTest`, `helpTest --help`, or `helpTest /?` to see override.",
+    )
+    .help((args: Vorpal.Args, callback?: (helpText: string) => void) => {
+        callback && callback("This is a custom help override.");
+    });
+
+vorpal.show();
+
+vorpal.log(vorpal.execSync("help helpTest"));

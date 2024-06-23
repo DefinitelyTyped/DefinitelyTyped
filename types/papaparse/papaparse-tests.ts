@@ -20,7 +20,7 @@ Papa.parse("3,3,3", {
     comments: false,
     step(results, p) {
         p.abort();
-        //  $ExpectType unknown
+        // $ExpectType unknown
         results.data;
     },
     dynamicTyping: true,

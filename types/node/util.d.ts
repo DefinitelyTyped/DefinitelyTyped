@@ -6,7 +6,7 @@
  * ```js
  * const util = require('node:util');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/util.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/util.js)
  */
 declare module "util" {
     import * as types from "node:util/types";
@@ -110,7 +110,7 @@ declare module "util" {
     }
     /**
      * The `util.format()` method returns a formatted string using the first argument
-     * as a `printf`\-like format string which can contain zero or more format
+     * as a `printf`-like format string which can contain zero or more format
      * specifiers. Each specifier is replaced with the converted value from the
      * corresponding argument. Supported specifiers are:
      *
@@ -121,7 +121,7 @@ declare module "util" {
      * // Returns: 'foo:%s'
      * ```
      *
-     * Values that are not part of the format string are formatted using`util.inspect()` if their type is not `string`.
+     * Values that are not part of the format string are formatted using `util.inspect()` if their type is not `string`.
      *
      * If there are more arguments passed to the `util.format()` method than the
      * number of specifiers, the extra arguments are concatenated to the returned
@@ -132,7 +132,7 @@ declare module "util" {
      * // Returns: 'foo:bar baz'
      * ```
      *
-     * If the first argument does not contain a valid format specifier, `util.format()`returns a string that is the concatenation of all arguments separated by spaces:
+     * If the first argument does not contain a valid format specifier, `util.format()` returns a string that is the concatenation of all arguments separated by spaces:
      *
      * ```js
      * util.format(1, 2, 3);
@@ -265,7 +265,7 @@ declare module "util" {
      * The `util.inspect()` method returns a string representation of `object` that is
      * intended for debugging. The output of `util.inspect` may change at any time
      * and should not be depended upon programmatically. Additional `options` may be
-     * passed that alter the result.`util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
+     * passed that alter the result. `util.inspect()` will use the constructor's name and/or `@@toStringTag` to make
      * an identifiable tag for an inspected value.
      *
      * ```js
@@ -507,7 +507,7 @@ declare module "util" {
      */
     export function isDate(object: unknown): object is Date;
     /**
-     * Returns `true` if the given `object` is an `Error`. Otherwise, returns`false`.
+     * Returns `true` if the given `object` is an `Error`. Otherwise, returns `false`.
      *
      * ```js
      * const util = require('node:util');
@@ -521,7 +521,7 @@ declare module "util" {
      * ```
      *
      * This method relies on `Object.prototype.toString()` behavior. It is
-     * possible to obtain an incorrect result when the `object` argument manipulates`@@toStringTag`.
+     * possible to obtain an incorrect result when the `object` argument manipulates `@@toStringTag`.
      *
      * ```js
      * const util = require('node:util');
@@ -538,11 +538,11 @@ declare module "util" {
      */
     export function isError(object: unknown): object is Error;
     /**
-     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and`extends` keywords to get language level inheritance support. Also note
+     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and `extends` keywords to get language level inheritance support. Also note
      * that the two styles are [semantically incompatible](https://github.com/nodejs/node/issues/4179).
      *
      * Inherit the prototype methods from one [constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor) into another. The
-     * prototype of `constructor` will be set to a new object created from`superConstructor`.
+     * prototype of `constructor` will be set to a new object created from `superConstructor`.
      *
      * This mainly adds some input validation on top of`Object.setPrototypeOf(constructor.prototype, superConstructor.prototype)`.
      * As an additional convenience, `superConstructor` will be accessible
@@ -693,7 +693,7 @@ declare module "util" {
      */
     export function isBuffer(object: unknown): object is Buffer;
     /**
-     * Returns `true` if the given `object` is a `Function`. Otherwise, returns`false`.
+     * Returns `true` if the given `object` is a `Function`. Otherwise, returns `false`.
      *
      * ```js
      * const util = require('node:util');
@@ -881,7 +881,7 @@ declare module "util" {
      * }, 'obsoleteFunction() is deprecated. Use newShinyFunction() instead.');
      * ```
      *
-     * When called, `util.deprecate()` will return a function that will emit a`DeprecationWarning` using the `'warning'` event. The warning will
+     * When called, `util.deprecate()` will return a function that will emit a `DeprecationWarning` using the `'warning'` event. The warning will
      * be emitted and printed to `stderr` the first time the returned function is
      * called. After the warning is emitted, the wrapped function is called without
      * emitting a warning.
@@ -907,10 +907,10 @@ declare module "util" {
      * stack trace are printed to `stderr` the first time the deprecated function is
      * called.
      *
-     * If the `--throw-deprecation` command-line flag is set, or the`process.throwDeprecation` property is set to `true`, then an exception will be
+     * If the `--throw-deprecation` command-line flag is set, or the `process.throwDeprecation` property is set to `true`, then an exception will be
      * thrown when the deprecated function is called.
      *
-     * The `--throw-deprecation` command-line flag and `process.throwDeprecation`property take precedence over `--trace-deprecation` and`process.traceDeprecation`.
+     * The `--throw-deprecation` command-line flag and `process.throwDeprecation` property take precedence over `--trace-deprecation` and `process.traceDeprecation`.
      * @since v0.8.0
      * @param fn The function that is being deprecated.
      * @param msg A warning message to display when the deprecated function is invoked.
@@ -941,7 +941,7 @@ declare module "util" {
      * Takes an `async` function (or a function that returns a `Promise`) and returns a
      * function following the error-first callback style, i.e. taking
      * an `(err, value) => ...` callback as the last argument. In the callback, the
-     * first argument will be the rejection reason (or `null` if the `Promise`resolved), and the second argument will be the resolved value.
+     * first argument will be the rejection reason (or `null` if the `Promise` resolved), and the second argument will be the resolved value.
      *
      * ```js
      * const util = require('node:util');
@@ -968,7 +968,7 @@ declare module "util" {
      *
      * Since `null` has a special meaning as the first argument to a callback, if a
      * wrapped function rejects a `Promise` with a falsy value as a reason, the value
-     * is wrapped in an `Error` with the original value stored in a field named`reason`.
+     * is wrapped in an `Error` with the original value stored in a field named `reason`.
      *
      * ```js
      * function fn() {
@@ -1097,10 +1097,10 @@ declare module "util" {
      * callStat();
      * ```
      *
-     * If there is an `original[util.promisify.custom]` property present, `promisify`will return its value, see `Custom promisified functions`.
+     * If there is an `original[util.promisify.custom]` property present, `promisify` will return its value, see `Custom promisified functions`.
      *
      * `promisify()` assumes that `original` is a function taking a callback as its
-     * final argument in all cases. If `original` is not a function, `promisify()`will throw an error. If `original` is a function but its last argument is not
+     * final argument in all cases. If `original` is not a function, `promisify()` will throw an error. If `original` is a function but its last argument is not
      * an error-first callback, it will still be passed an error-first
      * callback as its last argument.
      *
@@ -1174,6 +1174,115 @@ declare module "util" {
         const custom: unique symbol;
     }
     /**
+     * Stability: 1.1 - Active development
+     * Given an example `.env` file:
+     *
+     * ```js
+     * const { parseEnv } = require('node:util');
+     *
+     * parseEnv('HELLO=world\nHELLO=oh my\n');
+     * // Returns: { HELLO: 'oh my' }
+     * ```
+     * @param content The raw contents of a `.env` file.
+     * @since v20.12.0
+     */
+    export function parseEnv(content: string): object;
+    // https://nodejs.org/docs/latest/api/util.html#foreground-colors
+    type ForegroundColors =
+        | "black"
+        | "blackBright"
+        | "blue"
+        | "blueBright"
+        | "cyan"
+        | "cyanBright"
+        | "gray"
+        | "green"
+        | "greenBright"
+        | "grey"
+        | "magenta"
+        | "magentaBright"
+        | "red"
+        | "redBright"
+        | "white"
+        | "whiteBright"
+        | "yellow"
+        | "yellowBright";
+    // https://nodejs.org/docs/latest/api/util.html#background-colors
+    type BackgroundColors =
+        | "bgBlack"
+        | "bgBlackBright"
+        | "bgBlue"
+        | "bgBlueBright"
+        | "bgCyan"
+        | "bgCyanBright"
+        | "bgGray"
+        | "bgGreen"
+        | "bgGreenBright"
+        | "bgGrey"
+        | "bgMagenta"
+        | "bgMagentaBright"
+        | "bgRed"
+        | "bgRedBright"
+        | "bgWhite"
+        | "bgWhiteBright"
+        | "bgYellow"
+        | "bgYellowBright";
+    // https://nodejs.org/docs/latest/api/util.html#modifiers
+    type Modifiers =
+        | "blink"
+        | "bold"
+        | "dim"
+        | "doubleunderline"
+        | "framed"
+        | "hidden"
+        | "inverse"
+        | "italic"
+        | "overlined"
+        | "reset"
+        | "strikethrough"
+        | "underline";
+    /**
+     * Stability: 1.1 - Active development
+     *
+     * This function returns a formatted text considering the `format` passed.
+     *
+     * ```js
+     * const { styleText } = require('node:util');
+     * const errorMessage = styleText('red', 'Error! Error!');
+     * console.log(errorMessage);
+     * ```
+     *
+     * `util.inspect.colors` also provides text formats such as `italic`, and `underline` and you can combine both:
+     *
+     * ```js
+     * console.log(
+     *   util.styleText(['underline', 'italic'], 'My italic underlined message'),
+     * );
+     * ```
+     *
+     * When passing an array of formats, the order of the format applied is left to right so the following style
+     * might overwrite the previous one.
+     *
+     * ```js
+     * console.log(
+     *   util.styleText(['red', 'green'], 'text'), // green
+     * );
+     * ```
+     *
+     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v20.x/api/util.html#modifiers).
+     * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
+     * @param text The text to to be formatted.
+     * @since v20.12.0
+     */
+    export function styleText(
+        format:
+            | ForegroundColors
+            | BackgroundColors
+            | Modifiers
+            | Array<ForegroundColors | BackgroundColors | Modifiers>,
+        text: string,
+    ): string;
+    /**
      * An implementation of the [WHATWG Encoding Standard](https://encoding.spec.whatwg.org/) `TextDecoder` API.
      *
      * ```js
@@ -1210,7 +1319,7 @@ declare module "util" {
          * incomplete byte sequences occurring at the end of the `input` are buffered
          * internally and emitted after the next call to `textDecoder.decode()`.
          *
-         * If `textDecoder.fatal` is `true`, decoding errors that occur will result in a`TypeError` being thrown.
+         * If `textDecoder.fatal` is `true`, decoding errors that occur will result in a `TypeError` being thrown.
          * @param input An `ArrayBuffer`, `DataView`, or `TypedArray` instance containing the encoded data.
          */
         decode(
@@ -1589,7 +1698,7 @@ declare module "util" {
         toString(): string;
     }
     /**
-     * The `MIMEParams` API provides read and write access to the parameters of a`MIMEType`.
+     * The `MIMEParams` API provides read and write access to the parameters of a `MIMEType`.
      * @since v19.1.0, v18.13.0
      */
     export class MIMEParams {
@@ -1630,7 +1739,7 @@ declare module "util" {
          */
         keys(): IterableIterator<string>;
         /**
-         * Sets the value in the `MIMEParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
+         * Sets the value in the `MIMEParams` object associated with `name` to `value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value`.
          *
          * ```js
@@ -1965,8 +2074,8 @@ declare module "util/types" {
      * console.log(util.types.isNativeError(new MyError()));  // true
      * ```
      *
-     * A value being `instanceof` a native error class is not equivalent to `isNativeError()`returning `true` for that value. `isNativeError()` returns `true` for errors
-     * which come from a different [realm](https://tc39.es/ecma262/#realm) while `instanceof Error` returns `false`for these errors:
+     * A value being `instanceof` a native error class is not equivalent to `isNativeError()` returning `true` for that value. `isNativeError()` returns `true` for errors
+     * which come from a different [realm](https://tc39.es/ecma262/#realm) while `instanceof Error` returns `false` for these errors:
      *
      * ```js
      * const vm = require('node:vm');

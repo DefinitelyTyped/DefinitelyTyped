@@ -15,6 +15,24 @@ export type NormalOrGLBufferAttributes = Record<
     BufferAttribute | InterleavedBufferAttribute | GLBufferAttribute
 >;
 
+export interface GeometryGroup {
+    /**
+     * Specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index.
+     * @remarks Expects a `Integer`
+     */
+    start: number;
+    /**
+     * Specifies how many vertices (or indices) are included.
+     * @remarks Expects a `Integer`
+     */
+    count: number;
+    /**
+     * Specifies the material array index to use.
+     * @remarks Expects a `Integer`
+     */
+    materialIndex?: number | undefined;
+}
+
 /**
  * A representation of mesh, line, or point geometry
  * Includes vertex positions, face indices, normals, colors, UVs, and custom attributes within buffers, reducing the cost of passing all this data to the GPU.
@@ -144,23 +162,7 @@ export class BufferGeometry<
      * @remarks Use {@link addGroup | .addGroup} to add groups, rather than modifying this array directly.
      * @defaultValue `[]`
      */
-    groups: Array<{
-        /**
-         * Specifies the first element in this draw call – the first vertex for non-indexed geometry, otherwise the first triangle index.
-         * @remarks Expects a `Integer`
-         */
-        start: number;
-        /**
-         * Specifies how many vertices (or indices) are included.
-         * @remarks Expects a `Integer`
-         */
-        count: number;
-        /**
-         * Specifies the material array index to use.
-         * @remarks Expects a `Integer`
-         */
-        materialIndex?: number | undefined;
-    }>;
+    groups: GeometryGroup[];
 
     /**
      * Bounding box for the {@link THREE.BufferGeometry | BufferGeometry}, which can be calculated with {@link computeBoundingBox | .computeBoundingBox()}.

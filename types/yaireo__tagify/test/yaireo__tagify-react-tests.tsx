@@ -1,8 +1,8 @@
 import * as React from "react";
 import Tagify = require("@yaireo/tagify");
 import { BaseTagData, ChangeEventData, EventData, TagifySettings } from "@yaireo/tagify";
-import Tags = require("@yaireo/tagify/dist/react.tagify");
-import { MixedTags, TagifyTagsReactProps } from "@yaireo/tagify/dist/react.tagify";
+import Tags = require("@yaireo/tagify/src/react.tagify");
+import { MixedTags, TagifyTagsReactProps } from "@yaireo/tagify/src/react.tagify";
 
 // Tests the minimal required attribute for the Tags component
 export function TestTagsMinimal(): React.ReactElement {
@@ -201,6 +201,26 @@ export function TestTagsReadOnly(): React.ReactElement {
         <div>
             <Tags readOnly={false} />
             <Tags readOnly={true} />
+        </div>
+    );
+}
+
+// Tests the disabled prop of the Tags component
+export function TestTagsDisabled(): React.ReactElement {
+    return (
+        <div>
+            <Tags disabled={false} />
+            <Tags disabled={true} />
+        </div>
+    );
+}
+
+// Tests the userInput prop of the Tags component
+export function TestTagsUserInput(): React.ReactElement {
+    return (
+        <div>
+            <Tags userInput={false} />
+            <Tags userInput={true} />
         </div>
     );
 }

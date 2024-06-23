@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/uuid",
-    "version": "9.0.9999",
+    "version": "10.0.9999",
     "projects": [
         "https://github.com/uuidjs/uuid"
     ],
