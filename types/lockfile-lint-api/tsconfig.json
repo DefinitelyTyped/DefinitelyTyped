@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "jsx": "react",
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "lockfile-lint-api-tests.ts"
+    ]
+}

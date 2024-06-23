@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "jsx": "react",
+        "types": [],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "gulp-bump-tests.ts"
+    ]
+}

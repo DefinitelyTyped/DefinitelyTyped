@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bump-regex",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/stevelacy/bump-regex"
+    ],
+    "devDependencies": {
+        "@types/bump-regex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "silkentrance",
+            "githubUsername": "silkentrance"
+        }
+    ]
+}

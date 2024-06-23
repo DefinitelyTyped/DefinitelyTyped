@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/console-ui",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/ember-cli/console-ui#readme"
+    ],
+    "dependencies": {
+        "@types/inquirer": "*"
+    },
+    "devDependencies": {
+        "@types/console-ui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Freeman",
+            "githubUsername": "dfreeman"
+        }
+    ]
+}

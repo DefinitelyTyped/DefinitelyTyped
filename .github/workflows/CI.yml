@@ -1,0 +1,167 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    # 12PM UTC -> 4AM Pacific
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # If in a PR, use the ref (refs/pull/<num>) so outdated PR runs are cancelled.
+  # Otherwise, run_id is unique so all other events will never be cancelled.
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          # Need this to be able to inquire about origin/master
+          filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+          fetch-depth: 0 # Default is 1; need to set to 0 to get the benefits of blob:none.
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: '20'
+
+      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+
+      - id: matrix
+        run: |
+          if [ "${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}" == "true" ]; then
+            TESTS=all
+          else
+            TESTS=$(pnpm ls --depth -1 --parseable --filter '...@types/**[HEAD^1]' | wc -)
+          fi
+          MATRIX=$(node ./scripts/get-ci-matrix $TESTS)
+          echo $MATRIX
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+
+  test:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    needs: setup-matrix
+
+    strategy:
+      matrix: ${{ fromJson(needs.setup-matrix.outputs.matrix) }}
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          # Need this to be able to inquire about origin/master
+          filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+          fetch-depth: 0 # Default is 1; need to set to 0 to get the benefits of blob:none.
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: '20'
+
+      # forbid symlinks
+      - name: 'Pre-run validation'
+        run: |
+          symlinks="$(find . -type l)"
+          if [[ -n "$symlinks" ]]; then
+            printf "Aborting: symlinks found:\n%s" "$symlinks"; exit 1
+          fi
+
+      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+
+      - name: Get pnpm cache info
+        id: pnpm-cache
+        run: |
+          echo "store=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Restore pnpm cache
+        uses: actions/cache/restore@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        with:
+          path: ${{ steps.pnpm-cache.outputs.store }}
+          key: ${{ runner.os }}-pnpm-store-cache-
+          restore-keys: ${{ runner.os }}-pnpm-store-cache-
+
+      - run: ./scripts/pnpm-install.sh
+        name: pnpm install (filtered)
+        if: ${{ !(github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
+
+      - run: pnpm install
+        name: pnpm install
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+
+      - run: pnpm ls
+
+      - run: pnpm run test-all --diffBase HEAD^1 --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ !(github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
+
+      - run: pnpm run test-all --selection all --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
+        if: ${{ github.event_name == 'pull_request' }}
+
+      - name: Upload suggestions
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        with:
+          name: suggestions_${{ matrix.shardId }}_${{ matrix.shardCount }}
+          if-no-files-found: ignore
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          retention-days: 1
+        if: ${{ github.event_name == 'pull_request' }}
+
+  dangerbot:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
+
+    needs:
+      - test
+
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: ./.github/actions/setup-for-scripts
+
+      - name: Get suggestions dir
+        id: suggestions-dir
+        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
+        with:
+          path: ${{ steps.suggestions-dir.outputs.path }}
+          merge-multiple: true
+
+      - name: 'Run Danger'
+        env:
+          # See https://github.com/danger/danger-js/issues/1042
+          DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
+
+        # Danger failing (for example through rate-limiting) shouldn't fail the build
+        run: |
+          # Exposing this token is safe because the user of it has no other public repositories
+          # and has no permission to modify this repository. See #62638 for the discussion.
+          TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
+          TOKEN+='On3bHOkcV2AmVY6'
+          DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
+
+  scripts:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: ./.github/actions/setup-for-scripts
+
+      - run: pnpm tsc -p ./scripts

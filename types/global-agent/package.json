@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/global-agent",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/gajus/global-agent#readme"
+    ],
+    "devDependencies": {
+        "@types/global-agent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/xmpp__stream-management",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/stream-management"
+    ],
+    "dependencies": {
+        "@types/xmpp__middleware": "*",
+        "@types/xmpp__stream-features": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__stream-management": "workspace:.",
+        "@types/xmpp__xml": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

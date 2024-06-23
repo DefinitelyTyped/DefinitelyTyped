@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/title",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/vercel/title#readme"
+    ],
+    "devDependencies": {
+        "@types/title": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fahad",
+            "githubUsername": "fa7ad"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

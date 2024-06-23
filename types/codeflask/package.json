@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/codeflask",
+    "version": "1.4.9999",
+    "projects": [
+        "https://kazzkiq.github.io/CodeFlask/"
+    ],
+    "dependencies": {
+        "@types/prismjs": "*"
+    },
+    "devDependencies": {
+        "@types/codeflask": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joachim Holwech",
+            "githubUsername": "holwech"
+        }
+    ]
+}

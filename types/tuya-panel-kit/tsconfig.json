@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "jsx": "react",
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react": [
+                "../react/v17/index.d.ts"
+            ],
+            "react-native": [
+                "../react-native/v0.65/index.d.ts"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts"
+    ]
+}

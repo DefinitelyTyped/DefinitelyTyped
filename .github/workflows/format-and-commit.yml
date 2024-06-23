@@ -1,0 +1,48 @@
+name: Format And Commit
+
+concurrency:
+  group: ${{ github.ref }}
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch: ~
+
+jobs:
+  dprint-fmt:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          # Use a deploy key so that CI triggers on pushes; we want to know if formatting broke something.
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+      - uses: ./.github/actions/setup-for-scripts
+
+      - name: Get date
+        id: date
+        run: echo "date=$(/bin/date -u "+%Y-%m-%d")" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        with:
+          # dprint caches info about the files in the repo to skip formatting them.
+          # However, since package.json and .dprint.jsonc don't change very often,
+          # using them solely for the cache key would mean that the cache would be
+          # eventually outdated enough to make the cache useless. To avoid this,
+          # we also include the date in the cache key to ensure the cache is invalidated
+          # more often.
+          key: ${{ runner.os }}-dprint-${{ hashFiles('package.json', '.dprint.jsonc') }}-${{ steps.date.outputs.date }}
+          path: ~/.cache/dprint
+          restore-keys: |
+            ${{ runner.os }}-dprint-${{ hashFiles('package.json', '.dprint.jsonc') }}
+            ${{ runner.os }}-dprint-
+
+      - run: pnpm dprint fmt
+
+      - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 # v5.0.1
+        with:
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 dprint fmt'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'

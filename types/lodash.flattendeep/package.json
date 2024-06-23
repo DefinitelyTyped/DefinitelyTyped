@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/lodash.flattendeep",
+    "version": "4.4.9999",
+    "projects": [
+        "https://lodash.com"
+    ],
+    "dependencies": {
+        "@types/lodash": "*"
+    },
+    "devDependencies": {
+        "@types/lodash.flattendeep": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Zengel",
+            "githubUsername": "bczengel"
+        },
+        {
+            "name": "Ilya Mochalov",
+            "githubUsername": "chrootsu"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "types": [],
+        "noEmit": true,
+        "exactOptionalPropertyTypes": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "rsvp-tests.ts"
+    ]
+}

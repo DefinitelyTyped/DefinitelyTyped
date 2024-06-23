@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cryptex",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/technologyadvice/cryptex"
+    ],
+    "devDependencies": {
+        "@types/cryptex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Brownstein",
+            "githubUsername": "brownstein"
+        }
+    ]
+}

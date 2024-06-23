@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/geopattern",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/btmills/geopattern",
+        "http://btmills.github.io/geopattern/geopattern.html"
+    ],
+    "devDependencies": {
+        "@types/geopattern": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Gaelan",
+            "githubUsername": "Gaelan"
+        }
+    ]
+}

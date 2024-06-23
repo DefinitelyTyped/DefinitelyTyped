@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/novnc-core",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/larryprice/novnc-core"
+    ],
+    "devDependencies": {
+        "@types/novnc-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ken Smith",
+            "githubUsername": "smithkl42"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-rename",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/hparra/gulp-rename"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-rename": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/sipml",
+    "version": "0.0.9999",
+    "projects": [
+        "http://sipml5.org/"
+    ],
+    "devDependencies": {
+        "@types/sipml": "workspace:."
+    },
+    "owners": []
+}

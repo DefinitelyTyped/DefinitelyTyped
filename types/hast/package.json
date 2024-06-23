@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/hast",
+    "version": "3.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "hast",
+    "projects": [
+        "https://github.com/syntax-tree/hast"
+    ],
+    "dependencies": {
+        "@types/unist": "*"
+    },
+    "devDependencies": {
+        "@types/hast": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "lukeggchapman",
+            "githubUsername": "lukeggchapman"
+        },
+        {
+            "name": "Junyoung Choi",
+            "githubUsername": "rokt33r"
+        },
+        {
+            "name": "Christian Murphy",
+            "githubUsername": "ChristianMurphy"
+        },
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

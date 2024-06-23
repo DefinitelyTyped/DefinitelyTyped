@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "strictFunctionTypes": true,
+        "noUnusedParameters": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "tz-offset-tests.ts"
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/katex",
+    "version": "0.16.9999",
+    "projects": [
+        "http://khan.github.io/KaTeX/"
+    ],
+    "devDependencies": {
+        "@types/katex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Randolph",
+            "githubUsername": "mrand01"
+        },
+        {
+            "name": "Kevin Nguyen",
+            "githubUsername": "knguyen0125"
+        },
+        {
+            "name": "bLue",
+            "githubUsername": "dreamerblue"
+        },
+        {
+            "name": "Sebastian Weigand",
+            "githubUsername": "s-weigand"
+        },
+        {
+            "name": "sapphi-red",
+            "githubUsername": "sapphi-red"
+        },
+        {
+            "name": "Stefaans",
+            "githubUsername": "Stefaans"
+        }
+    ]
+}

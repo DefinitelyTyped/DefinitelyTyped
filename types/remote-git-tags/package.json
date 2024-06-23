@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/remote-git-tags",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/remote-git-tags"
+    ],
+    "devDependencies": {
+        "@types/remote-git-tags": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Midgley",
+            "githubUsername": "midgleyc"
+        }
+    ]
+}

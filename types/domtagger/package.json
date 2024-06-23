@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/domtagger",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/WebReflection/domtagger"
+    ],
+    "devDependencies": {
+        "@types/domtagger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

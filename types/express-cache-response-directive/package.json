@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/express-cache-response-directive",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/dantman/express-cache-response-directive"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-cache-response-directive": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "yutak23",
+            "githubUsername": "yutak23"
+        }
+    ]
+}

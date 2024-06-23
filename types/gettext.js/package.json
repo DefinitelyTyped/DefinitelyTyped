@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gettext.js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/guillaumepotier/gettext.js"
+    ],
+    "devDependencies": {
+        "@types/gettext.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Julien Crouzet",
+            "githubUsername": "jucrouzet"
+        },
+        {
+            "name": "Florian Schwingenschlögl",
+            "githubUsername": "FlorianSchwingenschloegl"
+        }
+    ]
+}

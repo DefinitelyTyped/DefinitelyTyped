@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/license-key-gen",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/arunahk/license-key-gen"
+    ],
+    "devDependencies": {
+        "@types/license-key-gen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "abh80",
+            "githubUsername": "abh80"
+        }
+    ]
+}

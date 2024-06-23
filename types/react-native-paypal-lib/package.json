@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-paypal-lib",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zeddz92/react-native-paypal#readme"
+    ],
+    "devDependencies": {
+        "@types/react-native-paypal-lib": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gustavo Silva",
+            "githubUsername": "gstvds"
+        }
+    ]
+}

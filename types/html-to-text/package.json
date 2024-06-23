@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/html-to-text",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/html-to-text/node-html-to-text"
+    ],
+    "devDependencies": {
+        "@types/html-to-text": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eryk Warren",
+            "githubUsername": "erykwarren"
+        },
+        {
+            "name": "Carson Full",
+            "githubUsername": "CarsonF"
+        },
+        {
+            "name": "Chris. Webster",
+            "githubUsername": "webstech"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/webpack-cdn-inject",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/drolsen/webpack-cdn-inject#readme"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/webpack-cdn-inject": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

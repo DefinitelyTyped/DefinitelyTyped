@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cli-welcome",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/ahmadawais/cli-welcome"
+    ],
+    "devDependencies": {
+        "@types/cli-welcome": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Programming",
+            "githubUsername": "max-programming"
+        }
+    ]
+}

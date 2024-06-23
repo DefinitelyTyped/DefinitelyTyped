@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/buffer-builder",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/PeterReid/node-buffer-builder"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/buffer-builder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Natalie Weizenbaum",
+            "githubUsername": "nex3"
+        }
+    ]
+}

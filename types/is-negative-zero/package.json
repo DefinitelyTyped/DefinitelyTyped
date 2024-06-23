@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-negative-zero",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/inspect-js/is-negative-zero"
+    ],
+    "devDependencies": {
+        "@types/is-negative-zero": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

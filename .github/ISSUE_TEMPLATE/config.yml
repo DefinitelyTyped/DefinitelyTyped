@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: There is an issue with @types/[library]
+    url: https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/new?category=issues-with-a-types-package
+    about: Request a change in an existing package.
+
+  - name: Request a new @types library
+    url: https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/new?category=request-a-new-types-package
+    about: Request someone more experienced create a DT module.

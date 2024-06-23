@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/emilbayes__capped-array",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/emilbayes/capped-array#readme"
+    ],
+    "devDependencies": {
+        "@types/emilbayes__capped-array": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

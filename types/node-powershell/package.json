@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/node-powershell",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/rannn505/node-powershell"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-powershell": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rodrigo F. Fernandes",
+            "githubUsername": "rodrigoff"
+        },
+        {
+            "name": "Jeroen \"Favna\" Claassens",
+            "githubUsername": "favna"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/fluxible-router",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/yahoo/fluxible#readme"
+    ],
+    "dependencies": {
+        "@types/fluxible": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/fluxible-router": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "xbim",
+            "githubUsername": "xbim"
+        }
+    ]
+}

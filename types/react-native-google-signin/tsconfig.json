@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictFunctionTypes": true,
+        "jsx": "react-native"
+    },
+    "files": [
+        "index.d.ts",
+        "react-native-google-signin-tests.tsx"
+    ]
+}

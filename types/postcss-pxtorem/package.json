@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/postcss-pxtorem",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/cuth/postcss-pxtorem#readme"
+    ],
+    "dependencies": {
+        "postcss": "^8.2.6"
+    },
+    "devDependencies": {
+        "@types/postcss-pxtorem": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steven Bassett",
+            "githubUsername": "bassettsj"
+        }
+    ]
+}

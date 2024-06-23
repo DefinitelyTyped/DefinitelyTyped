@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/path-complete-extname",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ruyadorno/path-complete-extname"
+    ],
+    "devDependencies": {
+        "@types/path-complete-extname": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcin C",
+            "githubUsername": "melangue"
+        }
+    ]
+}

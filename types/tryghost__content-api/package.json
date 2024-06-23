@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/tryghost__content-api",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/TryGhost/Ghost-SDK/tree/master/packages/content-api"
+    ],
+    "devDependencies": {
+        "@types/tryghost__content-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kevin Nguyen",
+            "githubUsername": "knguyen0125"
+        },
+        {
+            "name": "Anton Van Eechaute",
+            "githubUsername": "antonve"
+        },
+        {
+            "name": "Yashar Moradi",
+            "githubUsername": "maveric1977"
+        },
+        {
+            "name": "Oliver Emery",
+            "githubUsername": "thrymgjol"
+        }
+    ]
+}

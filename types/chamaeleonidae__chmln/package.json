@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/chamaeleonidae__chmln",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/chamaeleonidae/chmln"
+    ],
+    "devDependencies": {
+        "@types/chamaeleonidae__chmln": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "chamaeleonidae",
+            "githubUsername": "chamaeleonidae"
+        }
+    ]
+}

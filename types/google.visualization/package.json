@@ -1,0 +1,51 @@
+{
+    "private": true,
+    "name": "@types/google.visualization",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google.visualization",
+    "projects": [
+        "https://developers.google.com/chart/"
+    ],
+    "devDependencies": {
+        "@types/google.visualization": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Ludwig",
+            "githubUsername": "danludwig"
+        },
+        {
+            "name": "Gregory Moore",
+            "githubUsername": "gmoore-sjcorg"
+        },
+        {
+            "name": "Dan Manastireanu",
+            "githubUsername": "danmana"
+        },
+        {
+            "name": "Michael Cheng",
+            "githubUsername": "mlcheng"
+        },
+        {
+            "name": "Ivan Bisultanov",
+            "githubUsername": "IvanBisultanov"
+        },
+        {
+            "name": "Gleb Mazovetskiy",
+            "githubUsername": "glebm"
+        },
+        {
+            "name": "Shrujal Shah",
+            "githubUsername": "shrujalshah28"
+        },
+        {
+            "name": "David",
+            "githubUsername": "dckorben"
+        },
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "files": [
+        "index.d.ts",
+        "fixed-data-table-2-tests.tsx"
+    ],
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "jsx": "preserve",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

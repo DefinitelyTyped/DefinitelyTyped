@@ -1,0 +1,11 @@
+{
+    "rules": {
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "no-duplicate-imports": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "module": "node16",
+        "noEmit": true,
+        "types": [],
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "react-instantsearch-tests.tsx"
+    ]
+}

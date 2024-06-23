@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/tedious-connection-pool",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tediousjs/tedious-connection-pool"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/tedious": "*"
+    },
+    "devDependencies": {
+        "@types/tedious-connection-pool": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyprien Autexier",
+            "githubUsername": "sandorfr"
+        }
+    ]
+}

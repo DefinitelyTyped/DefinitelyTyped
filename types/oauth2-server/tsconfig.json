@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es2017"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": false,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "target": "es6"
+    },
+    "files": [
+        "index.d.ts",
+        "oauth2-server-tests.ts"
+    ]
+}

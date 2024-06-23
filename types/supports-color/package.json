@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/supports-color",
+    "version": "8.1.9999",
+    "projects": [
+        "https://github.com/chalk/supports-color"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/supports-color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Melvin Groenhoff",
+            "githubUsername": "mgroenhoff"
+        },
+        {
+            "name": "Matt Traynham",
+            "githubUsername": "mtraynham"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/staticmaps",
+    "version": "1.12.9999",
+    "projects": [
+        "https://github.com/StephanGeorg/staticmaps#readme"
+    ],
+    "dependencies": {
+        "@types/sharp": "^0.31.0"
+    },
+    "devDependencies": {
+        "@types/staticmaps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Olivier Kamers",
+            "githubUsername": "olivierkamers"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

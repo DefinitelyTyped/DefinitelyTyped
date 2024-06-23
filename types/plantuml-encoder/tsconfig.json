@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "strict": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "plantuml-encoder-tests.ts"
+    ]
+}

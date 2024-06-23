@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/typography",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/KyleAMathews/typography.js"
+    ],
+    "devDependencies": {
+        "@types/typography": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boye",
+            "githubUsername": "boyeborg"
+        },
+        {
+            "name": "Krzysztof Żuraw",
+            "githubUsername": "krzysztofzuraw"
+        },
+        {
+            "name": "Dominic Fallows",
+            "githubUsername": "dominicfallows"
+        }
+    ]
+}

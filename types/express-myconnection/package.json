@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/express-myconnection",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.org/package/express-myconnection"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/mysql": "*"
+    },
+    "devDependencies": {
+        "@types/express-myconnection": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Ferris",
+            "githubUsername": "Cellule"
+        }
+    ]
+}

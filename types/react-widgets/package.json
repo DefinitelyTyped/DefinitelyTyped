@@ -1,0 +1,61 @@
+{
+    "private": true,
+    "name": "@types/react-widgets",
+    "version": "4.4.9999",
+    "projects": [
+        "https://github.com/jquense/react-widgets"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom": "*",
+        "@types/react-widgets": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "Balázs Sándor",
+            "githubUsername": "sanyatuning"
+        },
+        {
+            "name": "Frode Hansen",
+            "githubUsername": "frodehansen2"
+        },
+        {
+            "name": "Andrew Makarov",
+            "githubUsername": "r3nya"
+        },
+        {
+            "name": "Maxime Billemaz",
+            "githubUsername": "MBillemaz"
+        },
+        {
+            "name": "Georg Steinmetz",
+            "githubUsername": "georg94"
+        },
+        {
+            "name": "Troy Zarger",
+            "githubUsername": "tzarger"
+        },
+        {
+            "name": "Siya Mzam ",
+            "githubUsername": "vegtelenseg"
+        },
+        {
+            "name": "Cale Bergh",
+            "githubUsername": "calebergh"
+        },
+        {
+            "name": "Ryan McKeel",
+            "githubUsername": "rmckeel"
+        },
+        {
+            "name": "Jan Kalfus",
+            "githubUsername": "jankalfus"
+        }
+    ]
+}

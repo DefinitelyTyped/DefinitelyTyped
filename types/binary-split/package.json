@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/binary-split",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/maxogden/binary-split#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/binary-split": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krisztián Balla",
+            "githubUsername": "krisztianb"
+        }
+    ]
+}

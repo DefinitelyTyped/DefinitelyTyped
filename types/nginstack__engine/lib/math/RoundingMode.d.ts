@@ -1,0 +1,12 @@
+export type exports = number;
+declare let HALF_EVEN: number;
+declare let HALF_ODD: number;
+declare let HALF_POSITIVE: number;
+declare let HALF_NEGATIVE: number;
+declare let HALF_DOWN: number;
+declare let HALF_UP: number;
+declare let FLOOR: number;
+declare let CEILING: number;
+declare let DOWN: number;
+declare let UP: number;
+export {};

@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/prop-types",
+    "version": "15.7.9999",
+    "projects": [
+        "https://github.com/reactjs/prop-types",
+        "https://facebook.github.io/react"
+    ],
+    "devDependencies": {
+        "@types/prop-types": "workspace:.",
+        "@types/react": "*"
+    },
+    "owners": [
+        {
+            "name": "DovydasNavickas",
+            "githubUsername": "DovydasNavickas"
+        },
+        {
+            "name": "Ferdy Budhidharma",
+            "githubUsername": "ferdaber"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        }
+    ]
+}

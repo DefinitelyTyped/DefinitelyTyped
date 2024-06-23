@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/error-subclass",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/spudly/error-subclass#readme"
+    ],
+    "devDependencies": {
+        "@types/error-subclass": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fitbit",
+            "githubUsername": "fitbit"
+        }
+    ]
+}

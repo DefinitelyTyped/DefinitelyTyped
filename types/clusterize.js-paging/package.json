@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clusterize.js-paging",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zazukoians/clusterize.js-paging"
+    ],
+    "devDependencies": {
+        "@types/clusterize.js-paging": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Goran Jovanovic",
+            "githubUsername": "gjovanovicst"
+        }
+    ]
+}

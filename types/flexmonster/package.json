@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/flexmonster",
+    "version": "2.7.9999",
+    "projects": [
+        "https://flexmonster.com/"
+    ],
+    "devDependencies": {
+        "@types/flexmonster": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Dima Zvazhii",
+            "githubUsername": "Uaman"
+        },
+        {
+            "name": "Ian Sadovy",
+            "githubUsername": "iansadovy"
+        },
+        {
+            "name": "Flexmonster Team (Admin)",
+            "githubUsername": "flexmonsterowner"
+        },
+        {
+            "name": "Flexmonster Team",
+            "githubUsername": "flexmonsterteam"
+        },
+        {
+            "name": "Iryna Kulchytska",
+            "githubUsername": "irakulchytska"
+        }
+    ]
+}

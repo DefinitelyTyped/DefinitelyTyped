@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/type-name",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/twada/type-name/"
+    ],
+    "devDependencies": {
+        "@types/type-name": "workspace:."
+    },
+    "owners": []
+}

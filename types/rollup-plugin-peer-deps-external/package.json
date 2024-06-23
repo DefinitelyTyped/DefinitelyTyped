@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/rollup-plugin-peer-deps-external",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/Updater/rollup-plugin-peer-deps-external"
+    ],
+    "dependencies": {
+        "rollup": "^0.63.4"
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-peer-deps-external": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick",
+            "githubUsername": "fobdy"
+        },
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
+}

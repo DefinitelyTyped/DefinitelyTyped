@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-bootstrap-range-slider",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/jaywilz/react-bootstrap-range-slider#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-bootstrap-range-slider": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Isaac Moore",
+            "githubUsername": "rmsy"
+        }
+    ]
+}

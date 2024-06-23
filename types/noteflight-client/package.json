@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/noteflight-client",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "noteflight-client",
+    "projects": [
+        "Noteflight Client API 2.0 - <https://github.com/noteflight>"
+    ],
+    "devDependencies": {
+        "@types/noteflight-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicholas Epps",
+            "githubUsername": "nickslick03"
+        }
+    ]
+}

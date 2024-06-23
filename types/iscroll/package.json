@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/iscroll",
+    "version": "5.2.9999",
+    "projects": [
+        "http://cubiq.org/iscroll-5-ready-for-beta-test"
+    ],
+    "devDependencies": {
+        "@types/iscroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christiaan Rakowski",
+            "githubUsername": "csrakowski"
+        },
+        {
+            "name": "Denis Tokarev",
+            "githubUsername": "devlato"
+        }
+    ]
+}

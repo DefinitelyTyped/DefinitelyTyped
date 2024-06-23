@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-phone-input",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/thegamenicorus/react-native-phone-input"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-phone-input": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthew Elphick",
+            "githubUsername": "maael"
+        }
+    ]
+}

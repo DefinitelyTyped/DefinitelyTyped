@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "node16",
+        "lib": [
+            "es2017"
+        ],
+        "types": [],
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts"
+    ]
+}

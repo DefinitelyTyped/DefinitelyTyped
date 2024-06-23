@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/express-to-koa",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kaelzhang/express-to-koa"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/connect": "*",
+        "@types/express-to-koa": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xiaohan Zhang",
+            "githubUsername": "xiaohanzhang"
+        }
+    ]
+}

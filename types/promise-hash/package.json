@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/promise-hash",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/mtimofiiv/promise-hash"
+    ],
+    "devDependencies": {
+        "@types/promise-hash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Shafir",
+            "githubUsername": "mshafir"
+        }
+    ]
+}

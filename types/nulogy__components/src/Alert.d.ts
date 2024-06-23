@@ -1,0 +1,1 @@
+export const Alert: any;

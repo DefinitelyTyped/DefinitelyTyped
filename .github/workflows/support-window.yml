@@ -1,0 +1,51 @@
+name: Update support window diagram
+on:
+  # When our dependencies change
+  push:
+    paths:
+      - .github/workflows/support-window.yml
+      - package.json
+      - scripts/support-window.js
+      - scripts/jsconfig.json
+  # Manually, when TypeScript is released
+  # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
+  workflow_dispatch:
+  schedule:
+    # Weekly at 16:00 UTC on Monday
+    - cron: '0 16 * * 1'
+permissions:
+  contents: read
+
+jobs:
+  support-window:
+    permissions:
+      contents: write # for Git to git push
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: ./.github/actions/setup-for-scripts
+
+      - name: Fetch TypeScript versions and release dates from npm
+        run: |
+          npm view --json typescript time |
+            jq '
+              to_entries
+              # Earliest non-pre-release <major>.<minor>
+              | map(
+                (.key |= capture("^(?<version>[0-9]+\\.[0-9]+)\\.[0-9]+$").version)
+                | select(.key)
+              )
+              | unique_by(.key)
+              | from_entries
+            ' > docs/support-window.json
+
+      - name: Make SVG diagram
+        run: node --experimental-json-modules scripts/support-window > docs/support-window.svg
+
+      - uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 # v5.0.1
+        with:
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 Update support window'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'

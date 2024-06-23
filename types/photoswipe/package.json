@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/photoswipe",
+    "version": "4.1.9999",
+    "projects": [
+        "http://photoswipe.com/"
+    ],
+    "devDependencies": {
+        "@types/photoswipe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xiaohan Zhang",
+            "githubUsername": "hellochar"
+        },
+        {
+            "name": "PikachuEXE",
+            "githubUsername": "PikachuEXE"
+        },
+        {
+            "name": "RazDva122",
+            "githubUsername": "Razdva122"
+        }
+    ]
+}

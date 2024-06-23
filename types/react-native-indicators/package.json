@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-indicators",
+    "version": "0.16.9999",
+    "projects": [
+        "https://github.com/n4kz/react-native-indicators#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-indicators": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        }
+    ]
+}

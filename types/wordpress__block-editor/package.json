@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/wordpress__block-editor",
+    "version": "11.5.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/block-editor/README.md"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/wordpress__blocks": "*",
+        "@wordpress/data": "^9.13.0",
+        "@wordpress/components": "^27.2.0",
+        "@wordpress/element": "^5.0.0",
+        "@wordpress/keycodes": "^3.54.0",
+        "react-autosize-textarea": "^7.1.0"
+    },
+    "devDependencies": {
+        "@types/wordpress__block-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        },
+        {
+            "name": "Jon Surrell",
+            "githubUsername": "sirreal"
+        },
+        {
+            "name": "Dennis Snell",
+            "githubUsername": "dmsnell"
+        }
+    ]
+}

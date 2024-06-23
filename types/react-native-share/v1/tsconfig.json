@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react-native": [
+                "../../react-native/index.d.ts"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "react-native-share-tests.ts"
+    ]
+}

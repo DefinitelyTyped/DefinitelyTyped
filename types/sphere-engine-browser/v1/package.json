@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/sphere-engine-browser",
+    "version": "1.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "sphere-engine-browser",
+    "projects": [
+        "https://github.com/fatcerberus/miniSphere"
+    ],
+    "devDependencies": {
+        "@types/sphere-engine-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eggbertx",
+            "githubUsername": "Eggbertx"
+        }
+    ]
+}

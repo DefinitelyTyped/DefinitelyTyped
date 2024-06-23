@@ -1,0 +1,20 @@
+{
+    "files": [
+        "index.d.ts",
+        "ansi-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es5",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noEmit": true,
+        "types": [],
+        "forceConsistentCasingInFileNames": true
+    }
+}

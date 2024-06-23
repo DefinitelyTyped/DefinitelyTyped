@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/node-media-server",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/illuspas/Node-Media-Server"
+    ],
+    "devDependencies": {
+        "@types/node-media-server": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Seberechts",
+            "githubUsername": "Tseberechts"
+        },
+        {
+            "name": "Chris Frewin",
+            "githubUsername": "princefishthrower"
+        }
+    ]
+}

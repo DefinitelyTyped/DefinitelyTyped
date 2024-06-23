@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/easeljs",
+    "version": "1.0.9999",
+    "projects": [
+        "http://www.createjs.com/#!/EaselJS"
+    ],
+    "dependencies": {
+        "@types/createjs-lib": "*",
+        "@types/tweenjs": "*"
+    },
+    "devDependencies": {
+        "@types/easeljs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Ferreira",
+            "url": "https://bitbucket.org/drk4"
+        },
+        {
+            "name": "Chris Smith",
+            "githubUsername": "evilangelist"
+        }
+    ]
+}

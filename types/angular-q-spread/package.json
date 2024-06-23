@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/angular-q-spread",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/angular-q-spread"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-q-spread": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rafw87",
+            "githubUsername": "rafw87"
+        }
+    ]
+}

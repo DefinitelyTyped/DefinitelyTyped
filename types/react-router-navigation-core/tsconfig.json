@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "types": [],
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "jsx": "react",
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "paths": {
+            "react": [
+                "../react/v17/index.d.ts"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "react-router-navigation-core-tests.tsx"
+    ]
+}

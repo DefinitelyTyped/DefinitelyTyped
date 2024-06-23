@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es2015"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "files": [
+        "index.d.ts",
+        "k6-tests.ts",
+        "test/browser.ts",
+        "test/crypto.ts",
+        "test/data.ts",
+        "test/encoding.ts",
+        "test/execution.ts",
+        "test/global.ts",
+        "test/grpc.ts",
+        "test/html.ts",
+        "test/http.ts",
+        "test/index.ts",
+        "test/metrics.ts",
+        "test/options.ts",
+        "test/redis.ts",
+        "test/timers.ts",
+        "test/tracing.ts",
+        "test/webcrypto.ts",
+        "test/websockets.ts",
+        "test/experimental/fs.ts",
+        "test/ws.ts"
+    ]
+}

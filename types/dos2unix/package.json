@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/dos2unix",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/JamesMGreene/node-dos2unix"
+    ],
+    "dependencies": {
+        "@types/glob": "~5.0.36"
+    },
+    "devDependencies": {
+        "@types/dos2unix": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

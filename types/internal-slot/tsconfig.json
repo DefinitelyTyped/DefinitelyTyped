@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es5"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "internal-slot-tests.ts"
+    ]
+}

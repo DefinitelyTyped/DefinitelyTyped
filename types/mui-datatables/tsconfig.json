@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es2017.object",
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "jsx": "react",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "mui-datatables-tests.tsx"
+    ]
+}

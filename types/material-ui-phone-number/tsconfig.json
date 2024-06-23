@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom",
+            "es2017.object"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "paths": {
+            "react": [
+                "../react/v17/index.d.ts"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "material-ui-phone-number-tests.tsx"
+    ]
+}

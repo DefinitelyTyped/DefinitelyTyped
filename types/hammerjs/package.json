@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hammerjs",
+    "version": "2.0.9999",
+    "projects": [
+        "http://hammerjs.github.io/"
+    ],
+    "devDependencies": {
+        "@types/hammerjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Han Lin Yap",
+            "githubUsername": "codler"
+        }
+    ]
+}

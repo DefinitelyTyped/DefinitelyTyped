@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wampy",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/KSDaemon/wampy.js"
+    ],
+    "devDependencies": {
+        "@types/wampy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konstantin Burkalev",
+            "githubUsername": "KSDaemon"
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "private": true,
+    "name": "@types/react-dom",
+    "version": "18.3.9999",
+    "projects": [
+        "https://reactjs.org"
+    ],
+    "exports": {
+        ".": {
+            "types": {
+                "default": "./index.d.ts"
+            }
+        },
+        "./client": {
+            "types": {
+                "default": "./client.d.ts"
+            }
+        },
+        "./canary": {
+            "types": {
+                "default": "./canary.d.ts"
+            }
+        },
+        "./server": {
+            "types": {
+                "default": "./server.d.ts"
+            }
+        },
+        "./experimental": {
+            "types": {
+                "default": "./experimental.d.ts"
+            }
+        },
+        "./test-utils": {
+            "types": {
+                "default": "./test-utils/index.d.ts"
+            }
+        }
+    },
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "AssureSign",
+            "url": "http://www.assuresign.com"
+        },
+        {
+            "name": "Microsoft",
+            "url": "https://microsoft.com"
+        },
+        {
+            "name": "MartynasZilinskas",
+            "githubUsername": "MartynasZilinskas"
+        },
+        {
+            "name": "Josh Rutherford",
+            "githubUsername": "theruther4d"
+        },
+        {
+            "name": "Jessica Franco",
+            "githubUsername": "Jessidhia"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        }
+    ]
+}

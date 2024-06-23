@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "build/index.cjs.d.ts",
+        "index.d.ts",
+        "index.d.mts",
+        "linkify-it-tests.ts",
+        "linkify-it-tests.mts"
+    ]
+}

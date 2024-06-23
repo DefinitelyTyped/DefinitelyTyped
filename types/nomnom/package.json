@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nomnom",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/harthur/nomnom"
+    ],
+    "devDependencies": {
+        "@types/nomnom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Vick",
+            "githubUsername": "panopticoncentral"
+        }
+    ]
+}
