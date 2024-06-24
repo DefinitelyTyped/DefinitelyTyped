@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/fex-team/yog2-kernel"
     ],
-    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/express": "*",
         "@types/lodash": "*",
