@@ -392,9 +392,13 @@ test("mocks a counting function", (t) => {
     // $ExpectType number
     fn();
 
-    const mock = t.mock.module('node:readline', {
-        namedExports: { fn() { return 42; } },
-        cache: true
+    const mock = t.mock.module("node:readline", {
+        namedExports: {
+            fn() {
+                return 42;
+            },
+        },
+        cache: true,
     });
     // $ExpectType void
     mock.restore();
