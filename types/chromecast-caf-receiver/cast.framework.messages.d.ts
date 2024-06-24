@@ -2088,11 +2088,11 @@ export class LiveSeekableRange {
     start?: number | undefined;
 
     /**
-     * The maximum possible time (in seconds) the player can seek to 
+     * The maximum possible time (in seconds) the player can seek to
      * Based on available segments, relative to the beginning of the stream.
      */
     end?: number | undefined;
-    
+
     /**
      * A boolean value indicates whether a live stream is ended. If it is done;
      * the end of live seekable range should stop updating.
