@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/node-record-lpcm16",
+    "version": "1.0.9999",
+    "type": "commonjs",
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.ts",
+                "require": "./index.d.cts"
+            }
+        }
+    },
+    "projects": [
+        "https://github.com/gillesdemey/node-record-lpcm16"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-record-lpcm16": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gilles Demey",
+            "githubUsername": "gillesdemey"
+        },
+        {
+            "name": "Niels Swimberghe",
+            "githubUsername": "swimburger"
+        }
+    ]
+}
