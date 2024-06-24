@@ -3413,9 +3413,12 @@ declare namespace cytoscape {
         harmonic?: boolean | undefined;
     }
     /**
-     * http://js.cytoscape.org/#eles.closenessCentralityNormalized
-     * trivial
+     * http://js.cytoscape.org/#eles.closenessCentrality
      */
+    interface SearchClosenessCentralityNormalizedResult {
+        /** the normalised closeness centrality of the specified node */
+        closeness(node: NodeSingular): any;
+    }
 
     /**
      * http://js.cytoscape.org/#eles.betweennessCentrality
@@ -3600,7 +3603,7 @@ declare namespace cytoscape {
          */
         closenessCentralityNormalized(
             options: SearchClosenessCentralityNormalizedOptions,
-        ): SearchDegreeCentralityNormalizedResultDirected | SearchDegreeCentralityNormalizedResultUndirected;
+        ): SearchClosenessCentralityNormalizedResult;
         /**
          * Considering only the elements in the calling collection,
          * calculate the betweenness centrality of the nodes.
