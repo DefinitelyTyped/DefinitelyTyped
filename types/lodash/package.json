@@ -5,7 +5,6 @@
     "projects": [
         "https://lodash.com"
     ],
-    "minimumTypeScriptVersion": "4.8",
     "devDependencies": {
         "@types/lodash": "workspace:."
     },
