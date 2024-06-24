@@ -6,7 +6,6 @@
         "http://sequelizejs.com",
         "https://github.com/sequelize/sequelize"
     ],
-    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/bluebird": "*",
         "@types/lodash": "*",
