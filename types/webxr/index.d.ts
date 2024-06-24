@@ -19,7 +19,7 @@ interface Navigator {
 }
 
 /**
- * WebGL Context Compatability
+ * WebGL Context Compatibility
  *
  * ref: https://immersive-web.github.io/webxr/#contextcompatibility
  */
@@ -387,7 +387,7 @@ interface XRSessionInit {
 }
 
 interface XRSessionEventMap {
-    inputsourceschange: XRInputSourceChangeEvent;
+    inputsourceschange: XRInputSourcesChangeEvent;
     end: XRSessionEvent;
     visibilitychange: XRSessionEvent;
     frameratechange: XRSessionEvent;
@@ -460,7 +460,7 @@ interface XRSession extends EventTarget {
     updateTargetFrameRate(rate: number): Promise<void>;
 
     onend: XRSessionEventHandler;
-    oninputsourceschange: XRInputSourceChangeEventHandler;
+    oninputsourceschange: XRInputSourcesChangeEventHandler;
     onselect: XRInputSourceEventHandler;
     onselectstart: XRInputSourceEventHandler;
     onselectend: XRInputSourceEventHandler;
@@ -546,13 +546,13 @@ declare abstract class XRView implements XRView {}
  * available to an XRSession.
  * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
  */
-interface XRInputSourceChangeEvent extends XRSessionEvent {
+interface XRInputSourcesChangeEvent extends XRSessionEvent {
     readonly removed: readonly XRInputSource[];
     readonly added: readonly XRInputSource[];
 }
 
-interface XRInputSourceChangeEventHandler {
-    (evt: XRInputSourceChangeEvent): any;
+interface XRInputSourcesChangeEventHandler {
+    (evt: XRInputSourcesChangeEvent): any;
 }
 
 // Experimental/Draft features
