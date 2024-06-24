@@ -398,6 +398,11 @@ test("mocks a counting function", (t) => {
                 return 42;
             },
         },
+        defaultExport: {
+            foo() {
+                return "bar";
+            },
+        },
         cache: true,
     });
     // $ExpectType void
