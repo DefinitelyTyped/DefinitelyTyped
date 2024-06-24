@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/open-wc/open-wc/tree/master/packages/testing-karma"
     ],
-    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/karma": "*"
     },

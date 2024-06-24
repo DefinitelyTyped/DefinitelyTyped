@@ -6,7 +6,6 @@
         "https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react",
         "https://community.algolia.com/react-instantsearch"
     ],
-    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/react": "*",
         "@types/react-instantsearch-core": "*"

@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/ysocorp/koa2-ratelimit"
     ],
-    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/koa": "*",
         "@types/node": "*",

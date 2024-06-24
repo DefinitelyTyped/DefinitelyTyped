@@ -5,7 +5,6 @@
     "projects": [
         "http://lodash.com/"
     ],
-    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/lodash": "*"
     },

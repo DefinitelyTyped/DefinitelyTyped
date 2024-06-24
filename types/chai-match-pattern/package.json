@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/mjhm/chai-match-pattern#readme"
     ],
-    "minimumTypeScriptVersion": "4.8",
     "dependencies": {
         "@types/chai": "*",
         "@types/lodash-match-pattern": "*"
