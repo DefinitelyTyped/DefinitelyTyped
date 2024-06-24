@@ -3413,7 +3413,7 @@ declare namespace cytoscape {
         harmonic?: boolean | undefined;
     }
     /**
-     * http://js.cytoscape.org/#eles.closenessCentrality
+     * http://js.cytoscape.org/#eles.closenessCentralityNormalized
      */
     interface SearchClosenessCentralityNormalizedResult {
         /** the normalised closeness centrality of the specified node */
