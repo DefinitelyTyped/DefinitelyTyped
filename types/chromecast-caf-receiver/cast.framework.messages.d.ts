@@ -2083,6 +2083,17 @@ export class LiveSeekableRange {
     constructor(start?: number, end?: number, isMovingWindow?: boolean, isLiveDone?: boolean);
 
     /**
+     * The start time (in seconds) of the range relative to the beginning of the stream in seconds.
+     */
+    start?: number | undefined;
+
+    /**
+     * The maximum possible time (in seconds) the player can seek to 
+     * Based on available segments, relative to the beginning of the stream.
+     */
+    end?: number | undefined;
+    
+    /**
      * A boolean value indicates whether a live stream is ended. If it is done;
      * the end of live seekable range should stop updating.
      */
