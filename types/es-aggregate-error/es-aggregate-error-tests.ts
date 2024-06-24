@@ -21,19 +21,19 @@ const explicitError: AggregateError = new AggregateError([oneError, otherError],
 
 AggregateError.prototype; // $ExpectType AggregateError
 AggregateError.shim; // $ExpectType () => typeof AggregateError
-AggregateError.shim(); // $ExpectType: AggregateError
+AggregateError.shim(); // $ExpectType typeof AggregateError
 
-implicitError.errors; // $ExpectType: Array<unknown>
-implicitError.message; // $ExpectType: string
-implicitError.name; // $ExpectType: "AggregateError"
+implicitError.errors; // $ExpectType ReadonlyArray<any>
+implicitError.message; // $ExpectType string
+implicitError.name; // $ExpectType "AggregateError"
 
 // @ts-expect-error
 implicitError.name = "something else";
 
 const err = new Error("test");
 if (err instanceof AggregateError) {
-    const aggregateErr: AggregateError = err; // $ExpectType: AggregateError
+    const aggregateErr: AggregateError = err; // $ExpectType AggregateError
     // @ts-expect-error
     const notAggregateErr: typeof AggregateError = err;
-    aggregateErr.name; // $ExpectType: "AggregateError"
+    aggregateErr.name; // $ExpectType "AggregateError"
 }
