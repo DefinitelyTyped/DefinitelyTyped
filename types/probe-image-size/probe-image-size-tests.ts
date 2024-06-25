@@ -33,6 +33,28 @@ const data = fs.readFileSync("image.jpg");
 
 // Tests for deep imports.
 
+
+// -- /lib/parse_sync/bmp.js
+
+import parseBmp from "probe-image-size/lib/parse_sync/bmp.js";
+
+/** The smallest BMP that will pass `parseBmp` checks. */
+const testBmpMinimal = 'BM' + // Signature
+'\x1A\x00\x00\x00' + // File size: 26 bytes (header size)
+'\x00\x00\x00\x00' + // Reserved
+'\x1A\x00\x00\x00' + // Pixel data offset: 26 bytes (header size)
+'\x0C\x00\x00\x00' + // Header size: 12 bytes (BITMAPCOREHEADER)
+'\x01\x00' + // Width: 1
+'\x01\x00' + // Height: 1
+'\x01\x00' + // Planes: 1
+'\x01\x00' + // Bits per pixel: 1
+'\x00\x00\x00\x00'; // Pixel data: 0 (black pixel)
+
+// @ts-expect-error - not a Buffer.
+parseBmp(testBmpMinimal);
+
+parseBmp(Buffer.from(testBmpMinimal)); // $ExpectType { width: number; height: number; type: "bmp"; mime: "image/bmp"; wUnits: "px"; hUnits: "px"; } | undefined
+
 // -- /lib/parse_sync/png.js
 
 import parsePng from "probe-image-size/lib/parse_sync/png.js";
@@ -48,3 +70,5 @@ const testPngMinimal = '\x89PNG\r\n\x1a\n' +
 parsePng(testPngMinimal);
 
 parsePng(Buffer.from(testPngMinimal)); // $ExpectType { width: number; height: number; type: "png"; mime: "image/png"; wUnits: "px"; hUnits: "px"; } | undefined
+
+
