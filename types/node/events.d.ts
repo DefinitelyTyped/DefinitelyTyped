@@ -80,39 +80,24 @@ declare module "events" {
          * Can be used to cancel awaiting events.
          */
         signal?: AbortSignal | undefined;
-        /**
-         * Names of events that will end the iteration.
-         */
-        close?: string[] | undefined;
-        /**
-         * The high watermark. The emitter is paused every time the size
-         * of events being buffered is higher than it. Supported only
-         * on emitters implementing `pause()` and `resume()` methods.
-         * @default `Number.MAX_SAFE_INTEGER`
-         */
-        highWaterMark?: number | undefined;
-        /**
-         * The low watermark. The emitter is resumed every time the size of events being buffered
-         * is lower than it. Supported only on emitters implementing `pause()` and `resume()` methods.
-         * @default 1
-         */
-        lowWaterMark?: number | undefined;
     }
     interface StaticEventEmitterIteratorOptions extends StaticEventEmitterOptions {
         /**
          * Names of events that will end the iteration.
          */
-        close?: string[];
+        close?: string[] | undefined;
         /**
-         * The emitter is paused every time the size of events being buffered is higher than it. Supported only on emitters implementing pause() and resume() methods.
+         * The high watermark. The emitter is paused every time the size of events being buffered is higher than it.
+         * Supported only on emitters implementing `pause()` and `resume()` methods.
          * @default Number.MAX_SAFE_INTEGER
          */
-        highWaterMark?: number;
+        highWaterMark?: number | undefined;
         /**
-         * The emitter is resumed every time the size of events being buffered is lower than it. Supported only on emitters implementing pause() and resume() methods.
+         * The low watermark. The emitter is resumed every time the size of events being buffered is lower than it.
+         * Supported only on emitters implementing `pause()` and `resume()` methods.
          * @default 1
          */
-        lowWaterMark?: number;
+        lowWaterMark?: number | undefined;
     }
     interface EventEmitter<T extends EventMap<T> = DefaultEventMap> extends NodeJS.EventEmitter<T> {}
     type EventMap<T> = Record<keyof T, any[]> | DefaultEventMap;
@@ -232,7 +217,7 @@ declare module "events" {
         static once(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
-            options?: Pick<StaticEventEmitterOptions, "signal">,
+            options?: StaticEventEmitterOptions,
         ): Promise<any[]>;
         static once(emitter: EventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
@@ -313,19 +298,18 @@ declare module "events" {
          * console.log('done'); // prints 'done'
          * ```
          * @since v13.6.0, v12.16.0
-         * @param eventName The name of the event being listened for
          * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
          */
         static on(
             emitter: NodeJS.EventEmitter,
             eventName: string | symbol,
-            options?: StaticEventEmitterOptions,
-        ): AsyncIterableIterator<any>;
+            options?: StaticEventEmitterIteratorOptions,
+        ): AsyncIterableIterator<any[]>;
         static on(
             emitter: EventTarget,
             eventName: string,
             options?: StaticEventEmitterIteratorOptions,
-        ): AsyncIterableIterator<any>;
+        ): AsyncIterableIterator<any[]>;
         /**
          * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
          *
