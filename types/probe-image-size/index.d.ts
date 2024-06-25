@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference path="./lib/parse_sync/png.js/index.d.ts" />
 
 import needle = require("needle");
 import { Transform } from "stream";

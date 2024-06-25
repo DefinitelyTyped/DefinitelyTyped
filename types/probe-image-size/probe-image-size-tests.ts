@@ -29,3 +29,22 @@ const data = fs.readFileSync("image.jpg");
     new probe.Error("Error", "ECONTENT"); // $ExpectType ProbeError
     new probe.Error("Error", "ECONTENT", 404); // $ExpectType ProbeError
 })();
+
+
+// Tests for deep imports.
+
+// -- /lib/parse_sync/png.js
+
+import parsePng from "probe-image-size/lib/parse_sync/png.js";
+
+/** The smallest PNG that will pass `parsePng` checks. */
+const testPngMinimal = '\x89PNG\r\n\x1a\n' +
+    '\x00\x00\x00\x0D' + // IHDR chunk length: 13 bytes
+    'IHDR' +
+    '\x00\x00\x00\x01' + // Width: 1
+    '\x00\x00\x00\x01';  // Height: 1
+
+// @ts-expect-error - not a Buffer.
+parsePng(testPngMinimal);
+
+parsePng(Buffer.from(testPngMinimal)); // $ExpectType { width: number; height: number; type: "png"; mime: "image/png"; wUnits: "px"; hUnits: "px"; } | undefined
