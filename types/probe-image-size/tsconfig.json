@@ -17,6 +17,7 @@
         "probe-image-size-tests.ts",
         "lib/parse_sync/bmp.js/index.d.ts",
         "lib/parse_sync/ico.js/index.d.ts",
-        "lib/parse_sync/png.js/index.d.ts"
+        "lib/parse_sync/png.js/index.d.ts",
+        "stream.js/index.d.ts"
     ]
 }

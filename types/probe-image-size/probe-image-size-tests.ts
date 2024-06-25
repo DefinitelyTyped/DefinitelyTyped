@@ -84,3 +84,15 @@ const testPngMinimal = "\x89PNG\r\n\x1a\n"
 parsePng(testPngMinimal);
 
 parsePng(Buffer.from(testPngMinimal)); // $ExpectType { width: number; height: number; type: "png"; mime: "image/png"; wUnits: "px"; hUnits: "px"; } | undefined
+
+// -- /stream.js
+
+import probeStream from "probe-image-size/stream.js";
+
+(async () => {
+    await probeStream(fs.createReadStream("image.jpg")); // $ExpectType ProbeResult
+    await probeStream(fs.createReadStream("image.jpg"), true); // $ExpectType ProbeResult
+
+    // @ts-expect-error - not a Readable.
+    await probeStream("Foo");
+})();
