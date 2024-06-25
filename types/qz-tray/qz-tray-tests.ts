@@ -114,6 +114,7 @@ const sendDataUsbFn = async () =>
 qz.usb.setUsbCallbacks(() => doSomething());
 qz.websocket.getNetworkInfo();
 const connectFn = async () => qz.websocket.connect();
+const connectFnWithOptions = async () => qz.websocket.connect({ retries: 10, delay: 3 });
 const disconnectFn = async () => qz.websocket.disconnect();
 const getConnectionInfoFn = async () => qz.websocket.getConnectionInfo();
 qz.websocket.isActive();

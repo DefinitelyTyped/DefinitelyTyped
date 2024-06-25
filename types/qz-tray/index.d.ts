@@ -136,6 +136,8 @@ export interface ConnectOptions {
     };
     usingSecure?: boolean;
     keepAlive?: number;
+    retries?: number;
+    delay?: number;
 }
 
 export interface GetConnectionInfoResponse {
