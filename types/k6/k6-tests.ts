@@ -59,6 +59,14 @@ function test6() {
     http.get("https://loadimpact.com/features");
 }
 
+function test7() {
+    const res = http.get("https://httpbin.test.k6.io/bytes/10", { responseType: "binary" });
+    check(res, {
+        "response code was 200": res => res.status === 200,
+        "body size was 1234 bytes": res => res.body.byteLength === 1234,
+    });
+}
+
 function httpTest1() {
     const responses = http.batch([
         "http://test.loadimpact.com",
