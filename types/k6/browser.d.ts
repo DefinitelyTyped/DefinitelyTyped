@@ -1773,7 +1773,10 @@ export interface Frame {
      * @param options The options to use.
      * @returns The first element found that matches the selector.
      */
-    waitForSelector(selector: string, options?: ElementStateFilter & TimeoutOptions & StrictnessOptions): Promise<ElementHandle>;
+    waitForSelector(
+        selector: string,
+        options?: ElementStateFilter & TimeoutOptions & StrictnessOptions,
+    ): Promise<ElementHandle>;
 
     /**
      * Wait for the given timeout to elapse.

@@ -32,7 +32,7 @@ export interface CPUProfile {
     /**
      * rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
      *
-    * @deprecated Use "k6/browser" module instead.
+     * @deprecated Use "k6/browser" module instead.
      */
     rate: number;
 }
@@ -47,7 +47,7 @@ export interface NetworkProfile {
     /**
      * Minimum latency from request sent to response headers received (ms).
      *
-    * @deprecated Use "k6/browser" module instead.
+     * @deprecated Use "k6/browser" module instead.
      */
     latency: number;
 
