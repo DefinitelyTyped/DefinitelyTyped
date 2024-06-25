@@ -55,6 +55,23 @@ parseBmp(testBmpMinimal);
 
 parseBmp(Buffer.from(testBmpMinimal)); // $ExpectType { width: number; height: number; type: "bmp"; mime: "image/bmp"; wUnits: "px"; hUnits: "px"; } | undefined
 
+// -- /lib/parse_sync/ico.js
+
+import parseIco from "probe-image-size/lib/parse_sync/ico.js";
+
+/** The smallest input that will pass `parseIco` checks (not a complete ICO). */
+const testIcoMinimal =
+    "\x00\x00" + // Reserved. Must always be 0.
+    "\x01\x00" + // Specifies image type: 1 for icon (.ICO)
+    "\x01\x00" + // Specifies number of images in the file: 1
+    "\x01" + // Width, 1 pixel. 0 means 256 pixels.
+    "\x01"; // Height, 1 pixel. 0 means 256 pixels.
+
+// @ts-expect-error - not a Buffer.
+parseIco(testIcoMinimal);
+
+parseIco(Buffer.from(testIcoMinimal)); // $ExpectType { width: number; height: number; variants: { width: number; height: number; }[]; type: "ico"; mime: "image/x-icon"; wUnits: "px"; hUnits: "px"; } | undefined
+
 // -- /lib/parse_sync/png.js
 
 import parsePng from "probe-image-size/lib/parse_sync/png.js";
