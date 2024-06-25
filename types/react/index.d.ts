@@ -2375,6 +2375,8 @@ declare namespace React {
     interface SVGLineElementAttributes<T> extends SVGProps<T> {}
     interface SVGTextElementAttributes<T> extends SVGProps<T> {}
 
+    interface MathMLProps<T> extends MathMLAttributes<T> {}
+
     interface DOMAttributes<T> {
         children?: ReactNode | undefined;
         dangerouslySetInnerHTML?: {
@@ -3922,6 +3924,22 @@ declare namespace React {
         zoomAndPan?: string | undefined;
     }
 
+    // https://developer.mozilla.org/en-US/docs/Web/MathML/Global_attributes
+    interface MathMLAttributes<T> extends DOMAttributes<T> {
+        className?: string | undefined;
+        dir?: 'ltr' | 'rtl' | undefined;
+        displaystyle?: boolean | undefined;
+        href?: string | undefined;
+        id?: string | undefined;
+        mathbackground?: string | undefined;
+        mathcolor?: string | undefined;
+        mathsize?: string | undefined;
+        nonce?: string | undefined;
+        scriptlevel?: string | undefined;
+        style?: CSSProperties | undefined;
+        tabindex?: number | undefined;
+    }
+
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
         allowpopups?: boolean | undefined;
@@ -4516,6 +4534,9 @@ declare global {
             tspan: React.SVGProps<SVGTSpanElement>;
             use: React.SVGProps<SVGUseElement>;
             view: React.SVGProps<SVGViewElement>;
+
+            // MathML
+            match: 
         }
     }
 }
