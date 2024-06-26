@@ -381,7 +381,10 @@ declare class Server extends EventEmitter {
 
     toJSON(): Server;
 
-    on<StreamType extends keyof StreamTypes>(stream: StreamType, listener: (...args: StreamTypes[StreamType]) => void): this;
+    on<StreamType extends keyof StreamTypes>(
+        stream: StreamType,
+        listener: (...args: StreamTypes[StreamType]) => void,
+    ): this;
 }
 
 declare class Software {
