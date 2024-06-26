@@ -67,14 +67,6 @@ declare global {
             filename?: string;
         }): Promise<void>;
         (options?: boolean): void;
-        (
-            options?: {
-                execution?: "async" | "sync";
-                flavor?: "regular" | "last-resort";
-                type?: "major-snapshot" | "major" | "minor";
-                filename?: string;
-            } | boolean,
-        ): void | Promise<void>;
     }
 
     /**
