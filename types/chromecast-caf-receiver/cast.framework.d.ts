@@ -568,7 +568,12 @@ export class PlayerManager {
     /**
      * Sends a media status message to all senders (broadcast). Applications use this to send a custom state change.
      */
-    broadcastStatus(includeMedia?: boolean, requestId?: number, customData?: any, includeQueueItems?: boolean): void;
+    broadcastStatus(
+        includeMedia?: boolean,
+        requestId?: number,
+        customData?: messages.MediaStatusCustomData | null,
+        includeQueueItems?: boolean,
+    ): void;
 
     /**
      * Convert media time to absolute time.
@@ -736,7 +741,7 @@ export class PlayerManager {
         requestId: number,
         type: messages.ErrorType,
         reason?: messages.ErrorReason,
-        customData?: any,
+        customData?: unknown,
     ): void;
 
     /**
@@ -751,7 +756,7 @@ export class PlayerManager {
         senderId: string,
         requestId: number,
         includeMedia?: boolean,
-        customData?: any,
+        customData?: messages.MediaStatusCustomData | null,
         includeQueueItems?: boolean,
     ): void;
 
@@ -887,6 +892,11 @@ export class PlaybackConfig {
      * A flag to enable manifest refresh logic for Smooth Live streaming.
      */
     enableSmoothLiveRefresh?: boolean | undefined;
+
+    /**
+     * A flag to enable Shaka Player's DOM-based text renderer, shaka.text.UITextDisplayer.
+     */
+    enableUITextDisplayer?: boolean | undefined;
 
     /**
      * A flag whether to ignore TTML positioning information.

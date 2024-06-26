@@ -55,7 +55,7 @@ user.enableTwoFactor()
     })
     .catch(err => console.error(err));
 
-user.finalizeTwoFactor(Buffer.from("iwpergjawhirgos"), "active")
+user.finalizeTwoFactor("iwpergjawhirgos", "active")
     .then(response => {
         // do something with response
     })
@@ -185,7 +185,7 @@ user.chat.on("chatRoomGroupRoomsChange", details => {
 // ADDED IN v4.21.0
 
 user.chat
-    .createGroup(["76561197960287930", "76561197960287931", "76561197960287932"])
+    .createGroup(["76561197960287930", "76561197960287931", "76561197960287932", "76561197960287933"])
     .then(response => {
         console.log(response.chat_group_id);
         console.log(response.state);

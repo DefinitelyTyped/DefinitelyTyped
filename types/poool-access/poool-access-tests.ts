@@ -59,7 +59,7 @@ access.config(
     true,
 );
 
-//  $ExpectType AccessFactory
+// $ExpectType AccessFactory
 access.config("key", "value", true);
 
 // $ExpectType AccessFactory

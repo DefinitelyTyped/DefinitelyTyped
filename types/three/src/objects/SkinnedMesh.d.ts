@@ -11,8 +11,6 @@ import { Skeleton } from "./Skeleton.js";
 
 /**
  * A mesh that has a {@link THREE.Skeleton | Skeleton} with {@link Bone | bones} that can then be used to animate the vertices of the geometry.
- * @remarks
- * {@link SkinnedMesh} can only be used with WebGL 2.
  * @example
  * ```typescript
  * const geometry = new THREE.CylinderGeometry(5, 5, 5, 5, 15, 5, 30);

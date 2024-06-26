@@ -32,6 +32,8 @@ declare namespace Autodesk {
             RTC_ERROR = 12,
             UNSUPORTED_FILE_EXTENSION = 13,
             VIEWER_INTERNAL_ERROR = 14,
+            WEBGL_LOST_CONTEXT = 15,
+            LOAD_CANCELED = 16,
         }
 
         enum SelectionMode {
@@ -256,11 +258,16 @@ declare namespace Autodesk {
 
         interface LoadModelOptions {
             fileLoader?: FileLoader | undefined;
+            keepCurrentModels?: boolean;
             loadOptions?: object | undefined;
             sharedPropertyDbPath?: string | undefined;
-            ids?: string | undefined;
-            applyScaling?: string | { from: string; to: string };
+            ids?: number[] | undefined;
+            loadAsHidden?: boolean;
             modelNameOverride?: string;
+            placementTransform?: THREE.Matrix4 | undefined;
+            applyScaling?: string | { from: string; to: string };
+            applyPlacementInModelUnits?: boolean;
+            globalOffset?: THREE.Vector3 | undefined;
             [key: string]: any;
         }
 
@@ -503,6 +510,7 @@ declare namespace Autodesk {
             isRevitPdf(): boolean;
             isViewable(): boolean;
             isViewPreset(): boolean;
+            isMasterView(): boolean;
             lineageUrn(encode?: boolean): string;
             name(): string;
             search(propsToMatch: BubbleNodeSearchProps): BubbleNode[];
@@ -703,6 +711,7 @@ declare namespace Autodesk {
         class Model {
             id: number;
             visibilityManager: Private.VisibilityManager;
+            idRemap: Int32Array;
 
             clearThemingColors(): void;
             fetchTopology(maxSizeMB: number): Promise<object>;
@@ -757,7 +766,7 @@ declare namespace Autodesk {
                 errorCallback?: (err: any) => void,
                 options?: { needExternalId: boolean },
             ): void;
-            getPropertyDb(): PropDbLoader;
+            getPropertyDb(): Private.PropDbLoader;
             getPropertySet(
                 dbIds: number[],
                 options: {
@@ -774,6 +783,7 @@ declare namespace Autodesk {
                     needsExternalId?: boolean | undefined;
                 },
             ): Promise<PropertySet>;
+            getPropertyHashes(): Promise<string[]>;
             geomPolyCount(): number;
             getDefaultCamera(): THREE.Camera;
             getDisplayUnit(): string;
@@ -891,10 +901,6 @@ declare namespace Autodesk {
                 DIFF_TOOL_DEACTIVATED = "diff.tool.deactivated",
                 DIFF_TOOL_MODEL_VISIBILITY_CHANGED = "diff.tool.model.visibility.changed",
             }
-        }
-
-        interface PropDbLoader {
-            executeUserFunction(userFunc: (pdb: any, ...args: any[]) => any, args?: any): Promise<any>;
         }
 
         interface PropertyResult {
@@ -1198,7 +1204,11 @@ declare namespace Autodesk {
                 onErrorCallback?: (errorCode: number, errorMessage: string, errorArgs: any) => void,
             ): any;
             unloadModel(model: Model): void;
-            loadDocumentNode(avDocument: Document, manifestNode: any, /*BubbleNode*/ options?: object): Promise<Model>;
+            loadDocumentNode(
+                avDocument: Document,
+                manifestNode: any,
+                /*BubbleNode*/ options?: LoadModelOptions,
+            ): Promise<Model>;
             unloadDocumentNode(manifestNode: any /*BubbleNode*/): boolean;
             getDimensions(): Private.Dimensions;
             resize(): void;
@@ -1876,6 +1886,57 @@ declare namespace Autodesk {
                     vpId: number,
                 ): void;
                 onVertex?(cx: number, cy: number, vpId: number): void;
+            }
+
+            class PropDbLoader {
+                model: Autodesk.Viewing.Model;
+                needsDbIdRemap: boolean;
+                processLoadResult(result: any): void;
+                load(options: any): void;
+
+                getProperties(
+                    dbId: number,
+                    successCallback?: (r: PropertyResult) => void,
+                    errorCallback?: (err: any) => void,
+                ): void;
+                getProperties2(
+                    dbIds: number[],
+                    successCallback?: (r: PropertyResult) => void,
+                    errorCallback?: (err: any) => void,
+                    options?: { needExternalId: boolean },
+                ): void;
+                getBulkProperties(
+                    dbIds: number[],
+                    options?: {
+                        propFilter?: string[] | undefined;
+                        ignoreHidden?: boolean | undefined;
+                    },
+                    successCallback?: (r: PropertyResult[]) => void,
+                    errorCallback?: (err: any) => void,
+                    ignoreHidden?: boolean,
+                ): void;
+                getBulkProperties2(
+                    dbIds: number[],
+                    options?: {
+                        propFilter?: string[] | undefined;
+                        categoryFilter?: string[] | undefined;
+                        ignoreHidden?: boolean | undefined;
+                        needExternalId?: boolean | undefined;
+                    },
+                    successCallback?: (r: PropertyResult[]) => void,
+                    errorCallback?: (s: any, m: any, d: any) => void,
+                ): void;
+                getPropertySet(
+                    dbIds: number[],
+                    options: {
+                        propFilter?: string[] | undefined;
+                        ignoreHidden?: boolean | undefined;
+                        needsExternalId?: boolean | undefined;
+                    },
+                ): void;
+                executeUserFunction(userFunc: (pdb: any, ...args: any[]) => any, args?: any): Promise<any>;
+                getLoadProgress(): number;
+                isLoadDone(): boolean;
             }
 
             interface GeometryList {

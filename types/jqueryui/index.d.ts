@@ -585,9 +585,10 @@ declare namespace JQueryUI {
         animate?: boolean | undefined;
         animateDuration?: any; // number or string
         animateEasing?: string | undefined;
-        aspectRatio?: any; // boolean or number
+        aspectRatio?: number | boolean;
         autoHide?: boolean | undefined;
         cancel?: string | undefined;
+        classes?: Partial<Record<ResizableThemingClass, string>>;
         containment?: any; // Selector, Element or string
         delay?: number | undefined;
         disabled?: boolean | undefined;
@@ -625,6 +626,25 @@ declare namespace JQueryUI {
 
     interface Resizable extends Widget, ResizableOptions {
     }
+
+    type ResizableHandleDirection =
+        | "n"
+        | "e"
+        | "s"
+        | "w"
+        | "ne"
+        | "se"
+        | "sw"
+        | "nw"
+        | "all";
+    type ResizableThemingClass =
+        | "ui-resizable"
+        | "ui-resizable-resizing"
+        | "ui-resizable-autohide"
+        | "ui-resizable-handle"
+        | `ui-resizable-${ResizableHandleDirection}`
+        | "ui-resizable-ghost"
+        | "ui-resizable-helper";
 
     // Selectable //////////////////////////////////////////////////
 
@@ -1127,10 +1147,10 @@ interface JQuery {
     autocomplete(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     button(): JQuery;
-    button(methodName: "destroy"): void;
-    button(methodName: "disable"): void;
-    button(methodName: "enable"): void;
-    button(methodName: "refresh"): void;
+    button(methodName: "destroy"): JQuery;
+    button(methodName: "disable"): JQuery;
+    button(methodName: "enable"): JQuery;
+    button(methodName: "refresh"): JQuery;
     button(methodName: "widget"): JQuery;
     button(methodName: string): JQuery;
     button(options: JQueryUI.ButtonOptions): JQuery;
@@ -1139,10 +1159,10 @@ interface JQuery {
     button(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     buttonset(): JQuery;
-    buttonset(methodName: "destroy"): void;
-    buttonset(methodName: "disable"): void;
-    buttonset(methodName: "enable"): void;
-    buttonset(methodName: "refresh"): void;
+    buttonset(methodName: "destroy"): JQuery;
+    buttonset(methodName: "disable"): JQuery;
+    buttonset(methodName: "enable"): JQuery;
+    buttonset(methodName: "refresh"): JQuery;
     buttonset(methodName: "widget"): JQuery;
     buttonset(methodName: string): JQuery;
     buttonset(options: JQueryUI.ButtonOptions): JQuery;

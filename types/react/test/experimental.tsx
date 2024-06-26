@@ -72,20 +72,6 @@ function useEvent() {
     );
 }
 
-// ReactNode tests
-{
-    // @ts-expect-error
-    const render: React.ReactNode = () => React.createElement("div");
-    // @ts-expect-error
-    const emptyObject: React.ReactNode = {};
-    // @ts-expect-error
-    const plainObject: React.ReactNode = { dave: true };
-    const promise: React.ReactNode = Promise.resolve("React");
-    // @ts-expect-error plain objects are not allowed
-    <div>{{ dave: true }}</div>;
-    <div>{Promise.resolve("React")}</div>;
-}
-
 function elementTypeTests() {
     const ReturnPromise = () => Promise.resolve("React");
     const FCPromise: React.FC = ReturnPromise;
@@ -147,3 +133,8 @@ function taintTests() {
         true,
     );
 }
+
+<div inert={true} />;
+<div inert={false} />;
+<div // @ts-expect-error Old workaround that used to result in `element.inert = true` but would now result in `element.inert = false`
+ inert="" />;

@@ -8,6 +8,7 @@
     "dependencies": {
         "@npm/types": "*",
         "@types/cacache": "*",
+        "@types/node": "*",
         "@types/npmcli__package-json": "*",
         "@types/pacote": "*"
     },
@@ -18,6 +19,10 @@
         {
             "name": "Emily M Klassen",
             "githubUsername": "forivall"
+        },
+        {
+            "name": "Russell Haering",
+            "githubUsername": "russellhaering"
         }
     ]
 }

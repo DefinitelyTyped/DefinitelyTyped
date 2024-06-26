@@ -79,7 +79,7 @@ declare module "buffer" {
      * Throws if the `fromEnc` or `toEnc` specify invalid character encodings or if
      * conversion from `fromEnc` to `toEnc` is not permitted.
      *
-     * Encodings supported by `buffer.transcode()` are: `'ascii'`, `'utf8'`,`'utf16le'`, `'ucs2'`, `'latin1'`, and `'binary'`.
+     * Encodings supported by `buffer.transcode()` are: `'ascii'`, `'utf8'`, `'utf16le'`, `'ucs2'`, `'latin1'`, and `'binary'`.
      *
      * The transcoding process will use substitution characters if a given byte
      * sequence cannot be adequately represented in the target encoding. For instance:
@@ -771,7 +771,7 @@ declare module "buffer" {
              * // (This result is equal to: [buf1, buf3, buf2].)
              * ```
              *
-             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd`arguments can be used to limit the comparison to specific ranges within `target`and `buf` respectively.
+             * The optional `targetStart`, `targetEnd`, `sourceStart`, and `sourceEnd` arguments can be used to limit the comparison to specific ranges within `target` and `buf` respectively.
              *
              * ```js
              * import { Buffer } from 'node:buffer';
@@ -787,7 +787,7 @@ declare module "buffer" {
              * // Prints: 1
              * ```
              *
-             * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`,`targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
+             * `ERR_OUT_OF_RANGE` is thrown if `targetStart < 0`, `sourceStart < 0`, `targetEnd > target.byteLength`, or `sourceEnd > source.byteLength`.
              * @since v0.11.13
              * @param target A `Buffer` or {@link Uint8Array} with which to compare `buf`.
              * @param [targetStart=0] The offset within `target` at which to begin comparison.
@@ -1205,7 +1205,7 @@ declare module "buffer" {
              */
             readBigInt64LE(offset?: number): bigint;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as an unsigned, little-endian integer supporting
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned, little-endian integer supporting
              * up to 48 bits of accuracy.
              *
              * This function is also available under the `readUintLE` alias.
@@ -1229,7 +1229,7 @@ declare module "buffer" {
              */
             readUintLE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as an unsigned big-endian integer supporting
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as an unsigned big-endian integer supporting
              * up to 48 bits of accuracy.
              *
              * This function is also available under the `readUintBE` alias.
@@ -1255,7 +1255,7 @@ declare module "buffer" {
              */
             readUintBE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as a little-endian, two's complement signed value
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a little-endian, two's complement signed value
              * supporting up to 48 bits of accuracy.
              *
              * ```js
@@ -1272,7 +1272,7 @@ declare module "buffer" {
              */
             readIntLE(offset: number, byteLength: number): number;
             /**
-             * Reads `byteLength` number of bytes from `buf` at the specified `offset`and interprets the result as a big-endian, two's complement signed value
+             * Reads `byteLength` number of bytes from `buf` at the specified `offset` and interprets the result as a big-endian, two's complement signed value
              * supporting up to 48 bits of accuracy.
              *
              * ```js
@@ -2313,7 +2313,7 @@ declare module "buffer" {
          * **and should never be used in new code, because they use strings to represent**
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
+         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
          * @legacy Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
@@ -2329,7 +2329,7 @@ declare module "buffer" {
          * **and should never be used in new code, because they use strings to represent**
          * **binary data and predate the introduction of typed arrays in JavaScript.**
          * **For code running using Node.js APIs, converting between base64-encoded strings**
-         * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
+         * **and binary data should be performed using `Buffer.from(str, 'base64')` and `buf.toString('base64')`.**
          * @since v15.13.0, v14.17.0
          * @legacy Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.

@@ -382,13 +382,13 @@ function Argv$commandModule() {
 
     const CommandTwo: yargs.CommandModule<{ a: string }, { b: number }> = {
         builder: yargs => {
-            // $ExpectType: string
+            // $ExpectType string
             yargs.argv.a;
             return yargs.number("b").default("b", parseInt(yargs.argv.a, 10));
         },
 
         handler: argv => {
-            // $ExpectType: number
+            // $ExpectType number
             argv.b;
         },
     };
@@ -444,7 +444,7 @@ function Argv$commandModule() {
 
     const commandArgs = builder(yargs).argv;
 
-    // $ExpectType: { [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: (string | number)[]; $0: string; }
+    // $ExpectType { [x: string]: unknown; file: unknown; cleanDestination: boolean | undefined; _: (string | number)[]; $0: string; }
     commandArgs;
 
     // Backwards compatibility with older types

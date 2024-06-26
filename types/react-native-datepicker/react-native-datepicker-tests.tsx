@@ -19,7 +19,9 @@ export default class MyDatePicker extends React.Component<{}, MyDatePickerState>
     render() {
         return (
             <DatePicker
-                ref={datepicker => this.datepicker = datepicker}
+                ref={datepicker => {
+                    this.datepicker = datepicker;
+                }}
                 style={{ width: 200 }}
                 date={this.state.date}
                 mode="date"

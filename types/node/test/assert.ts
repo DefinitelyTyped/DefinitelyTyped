@@ -108,6 +108,8 @@ assert.ok(1);
 assert.strict.strict.strict(1);
 assert.strict.strict(1);
 assert.strict(1);
+
+const strictAssertionError: assert.strict.AssertionError = new assert.strict.AssertionError();
 assert(1);
 
 assert.match("test", /test/, new Error("yeet"));

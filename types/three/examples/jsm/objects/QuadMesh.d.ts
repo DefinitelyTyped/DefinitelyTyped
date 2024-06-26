@@ -1,15 +1,12 @@
-import { Material } from "three";
+import { Material, Mesh, OrthographicCamera } from "three";
 import Renderer from "../renderers/common/Renderer.js";
 
-export default class QuadMesh {
-    constructor(material?: Material | null);
+export default class QuadMesh extends Mesh {
+    camera: OrthographicCamera;
 
-    dispose(): void;
+    constructor(material?: Material | null);
 
     renderAsync(renderer: Renderer): Promise<void>;
 
-    get material(): Material;
-    set material(value: Material);
-
-    get render(): (renderer: Renderer) => Promise<void>;
+    render(renderer: Renderer): void;
 }

@@ -215,6 +215,8 @@ import {
 
     function onSearchBoxKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {}
 
+    function onSearchBoxFocus(event: React.FocusEvent<HTMLInputElement>) {}
+
     function onSearchBoxReset(event: React.SyntheticEvent<HTMLFormElement>) {}
 
     function onSearchBoxSubmit(event: React.SyntheticEvent<HTMLFormElement>) {}
@@ -222,6 +224,7 @@ import {
     <SearchBox
         onChange={onSearchBoxChange}
         onKeyDown={onSearchBoxKeyDown}
+        onFocus={onSearchBoxFocus}
         onReset={onSearchBoxReset}
         onSubmit={onSearchBoxSubmit}
         submit={<></>}

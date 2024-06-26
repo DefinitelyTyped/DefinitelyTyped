@@ -213,6 +213,13 @@ asyncRequest("get", addressFromHttpURL);
 asyncRequest("get", address).then(res => {
     responseDefault = res;
 });
+asyncRequest("get", address, null, { responseType: "binary" }).then(res => {
+    responseBinary = res;
+});
+asyncRequest("get", address, null, { responseType: "binary" }).then(res => {
+    // @ts-expect-error
+    responseDefault = res;
+});
 // @ts-expect-error
 asyncRequest("post", address, 5);
 asyncRequest("post", address, "welcome to the internet").then(res => {

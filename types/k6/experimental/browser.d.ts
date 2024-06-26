@@ -115,6 +115,23 @@ export interface EventSequenceOptions {
     delay?: number;
 }
 
+export interface File {
+    /**
+     * File name
+     */
+    name: string;
+
+    /**
+     * File type
+     */
+    mimeType: string;
+
+    /**
+     * File content
+     */
+    buffer: ArrayBuffer;
+}
+
 export type ElementHandleOptions = {
     /**
      * Setting this to `true` will bypass the actionability checks (visible,
@@ -627,6 +644,11 @@ export interface Browser {
     ): Page;
 
     /**
+     * Returns the browser application's user agent.
+     */
+    userAgent(): string;
+
+    /**
      * Returns the browser application's version.
      */
     version(): string;
@@ -637,6 +659,33 @@ export interface Browser {
  * separate pages, cache, and cookies.
  */
 export interface BrowserContext {
+    /**
+     * Adds a script which will be evaluated in one of the following scenarios:
+     * - Whenever a page is created in the browser context or is navigated.
+     * - Whenever a child frame is attached or navigated in any page in the
+     *   browser context. In this case, the script is evaluated in the context
+     *   of the newly attached frame.
+     *
+     * The script is evaluated after the document is created but before any of
+     * its scripts were run. This is useful to amend the JavaScript environment,
+     * e.g. to override `Math.random`.
+     *
+     * **Usage**
+     *
+     * An example of overriding `Math.random` before the page loads:
+     *
+     * ```js
+     * const browserContext = browser.newContext();
+     * browserContext.addInitScript("Math.random = function(){return 0}");
+     *
+     * const page = browserContext.newPage();
+     * await page.goto(url);
+     * ```
+     *
+     * @param script Script to be evaluated in all pages in the browser context.
+     */
+    addInitScript(script: string | { content?: string }): void;
+
     /**
      * Returns the `Browser` instance that this `BrowserContext` belongs to.
      */
@@ -1002,10 +1051,161 @@ export interface ElementHandle extends JSHandle {
     boundingBox(): Rect;
 
     /**
+     * Checks the checkbox element.
+     * @param options The options to use.
+     */
+    check(options?: ElementClickOptions & StrictnessOptions): void;
+
+    /**
+     * Clicks the element.
+     * @param options The options to use.
+     * @returns A promise that resolves when the element is clicked.
+     */
+    click(
+        options?: {
+            /**
+             * The mouse button (`left`, `middle` or `right`) to use during the action.
+             * Defaults to `left`.
+             */
+            button?: MouseButton;
+
+            /**
+             * The number of times the action is performed. Defaults to `1`.
+             */
+            clickCount?: number;
+
+            /**
+             * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             */
+            delay?: number;
+
+            /**
+             * Setting this to `true` will bypass the actionability checks (`visible`,
+             * `stable`, `enabled`). Defaults to `false`.
+             */
+            force?: boolean;
+
+            /**
+             * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
+             * action. If not specified, currently pressed modifiers are used,
+             * otherwise defaults to `null`.
+             */
+            modifiers?: KeyboardModifier[];
+
+            /**
+             * If set to `true` and a navigation occurs from performing this action, it
+             * will not wait for it to complete. Defaults to `false`.
+             */
+            noWaitAfter?: boolean;
+
+            /**
+             * A point to use relative to the top left corner of the element. If not
+             * supplied, a visible point of the element is used.
+             */
+            position?: {
+                x: number;
+
+                y: number;
+            };
+
+            /**
+             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
+             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+             * `page` methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+
+            /**
+             * Setting this to `true` will perform the actionability checks without
+             * performing the action. Useful to wait until the element is ready for the
+             * action without performing it. Defaults to `false`.
+             */
+            trial?: boolean;
+        },
+    ): Promise<void>;
+
+    /**
      * Get the content frame for element handles.
      * @returns The content frame handle of the element handle.
      */
     contentFrame(): Frame;
+
+    /**
+     * Double clicks the element.
+     * @param options The options to use.
+     */
+    dblclick(
+        options?: {
+            /**
+             * The mouse button (`left`, `middle` or `right`) to use during the action.
+             * Defaults to `left`.
+             */
+            button?: MouseButton;
+
+            /**
+             * Milliseconds to wait between `mousedown` and `mouseup`. Defaults to `0`.
+             */
+            delay?: number;
+
+            /**
+             * Setting this to `true` will bypass the actionability checks (`visible`,
+             * `stable`, `enabled`). Defaults to `false`.
+             */
+            force?: boolean;
+
+            /**
+             * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the
+             * action. If not specified, currently pressed modifiers are used,
+             * otherwise defaults to `null`.
+             */
+            modifiers?: KeyboardModifier[];
+
+            /**
+             * If set to `true` and a navigation occurs from performing this action, it
+             * will not wait for it to complete. Defaults to `false`.
+             */
+            noWaitAfter?: boolean;
+
+            /**
+             * A point to use relative to the top left corner of the element. If not
+             * supplied, a visible point of the element is used.
+             */
+            position?: {
+                x: number;
+
+                y: number;
+            };
+
+            /**
+             * Maximum time in milliseconds. Defaults to `30` seconds. Default is
+             * overridden by the `setDefaultTimeout` option on `BrowserContext` or
+             * `page` methods.
+             *
+             * Setting the value to `0` will disable the timeout.
+             */
+            timeout?: number;
+
+            /**
+             * Setting this to `true` will perform the actionability checks without
+             * performing the action. Useful to wait until the element is ready for the
+             * action without performing it. Defaults to `false`.
+             */
+            trial?: boolean;
+        },
+    ): void;
+
+    /**
+     * Dispatches a DOM event to the element.
+     * @param type DOM event type: `"click"` etc.
+     * @param eventInit Optional event-specific initialization properties.
+     * @param options
+     */
+    dispatchEvent(
+        type: string,
+        eventInit?: EvaluationArgument,
+    ): void;
 
     /**
      * Fill the `input` or `textarea` element with the provided `value`.
@@ -1132,11 +1332,38 @@ export interface ElementHandle extends JSHandle {
     selectText(options?: ElementHandleOptions): void;
 
     /**
+     * Sets the file input element's value to the specified files.
+     *
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
+     *
+     * The {@link ElementHandle | element handle} must be an [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * @param files
+     * @param options
+     */
+    setInputFiles(files: File | File[], options?: {
+        /**
+         * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}.
+         * @default 30000
+         */
+        timeout?: number;
+
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * does not wait for it to complete.
+         * @default false
+         */
+        noWaitAfter?: boolean;
+    }): void;
+
+    /**
      * Scrolls element into view if needed, and then uses `page.tapscreen` to tap in the center of the element
      * or at the specified position.
      * @param options Tap options.
      */
-    tap(options?: MouseMoveOptions): void;
+    tap(options?: MouseMoveOptions): Promise<void>;
 
     /**
      * Returns the `node.textContent`.
@@ -1250,7 +1477,7 @@ export interface Frame {
      * @param selector The selector to use.
      * @param options The options to use.
      */
-    tap(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): void;
+    tap(selector: string, options?: ElementClickOptions & KeyboardModifierOptions & StrictnessOptions): Promise<void>;
 
     /**
      * Press the given key for the first element found that matches the selector.
@@ -1483,6 +1710,36 @@ export interface Frame {
     isVisible(selector: string, options?: StrictnessOptions): boolean;
 
     /**
+     * Sets the file input element's value to the specified files.
+     *
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
+     *
+     * This method expects a `selector` to point to an
+     * [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * @param selector A selector to search for an element. If there are multiple
+     * elements satisfying the selector, the first will be used.
+     * @param files
+     * @param options
+     */
+    setInputFiles(selector: string, files: File | File[], options?: {
+        /**
+         * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}
+         * @default 30000
+         */
+        timeout?: number;
+
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * will not wait for it to complete.
+         * @default false
+         */
+        noWaitAfter?: boolean;
+    }): void;
+
+    /**
      * Wait for the given function to return a truthy value.
      * @param predicate The function to call and wait for.
      * @param options The options to use.
@@ -1559,7 +1816,7 @@ export interface JSHandle<T = any> {
     evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 
     /**
-     * Fethes a map with own property names of of the `JSHandle` with their values as
+     * Fetches a map with own property names of of the `JSHandle` with their values as
      * `JSHandle` instances.
      * @returns A map with property names as keys and `JSHandle` instances for the property values.
      */
@@ -1792,7 +2049,7 @@ export interface Locator {
      * Tap on the chosen element.
      * @param options Options to use.
      */
-    tap(options?: MouseMoveOptions): void;
+    tap(options?: MouseMoveOptions): Promise<void>;
 
     /**
      * Dispatches HTML DOM event types e.g. `click`.
@@ -2918,6 +3175,36 @@ export interface Page {
     setExtraHTTPHeaders(headers: { [key: string]: string }): void;
 
     /**
+     * Sets the file input element's value to the specified files.
+     *
+     * To work with local files on the file system, use the experimental
+     * fs module to load and read the file contents.
+     *
+     * This method expects a `selector` to point to an
+     * [input element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
+     * @param selector A selector to search for an element. If there are multiple
+     * elements satisfying the selector, the first will be used.
+     * @param files
+     * @param options
+     */
+    setInputFiles(selector: string, files: File | File[], options?: {
+        /**
+         * Maximum time in milliseconds. Pass 0 to disable the timeout. Default
+         * is overridden by the setDefaultTimeout option on {@link BrowserContext} or
+         * {@link Page}
+         * @default 30000
+         */
+        timeout?: number;
+
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * will not wait for it to complete.
+         * @default false
+         */
+        noWaitAfter?: boolean;
+    }): void;
+
+    /**
      * This will update the page's width and height.
      *
      * @param viewportSize
@@ -2998,7 +3285,7 @@ export interface Page {
              */
             trial?: boolean;
         },
-    ): void;
+    ): Promise<void>;
 
     /**
      * **NOTE** Use locator-based locator.textContent([options]) instead.
@@ -3606,7 +3893,7 @@ export interface Touchscreen {
      * @param x The x position.
      * @param y The y position.
      */
-    tap(x: number, y: number): void;
+    tap(x: number, y: number): Promise<void>;
 }
 
 /**

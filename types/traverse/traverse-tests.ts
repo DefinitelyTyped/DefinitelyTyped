@@ -37,6 +37,24 @@ function testMap() {
     console.dir(scrubbed);
 }
 
+function testWithSymbols() {
+    var obj = { a: 1, b: 2, [Symbol("c")]: 3 };
+
+    traverse(obj, { includeSymbols: true }).forEach(function(x) {
+        console.log(x);
+    });
+}
+
+function testImmutable() {
+    var obj = { a: 1 };
+
+    traverse(obj, { immutable: true }).forEach(function(x) {
+        this.remove();
+    });
+
+    console.dir(obj);
+}
+
 function testPaths() {
     let obj = { a: { b: { c: 42 } }, d: { e: 44 } };
     let paths: string[][] = traverse(obj).paths();

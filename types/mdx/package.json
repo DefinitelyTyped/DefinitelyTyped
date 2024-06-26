@@ -7,8 +7,11 @@
     "projects": [
         "https://github.com/mdx-js/mdx"
     ],
+    "tsconfigs": ["tsconfig.preact.json", "tsconfig.react.json"],
     "devDependencies": {
-        "@types/mdx": "workspace:."
+        "@types/mdx": "workspace:.",
+        "@types/react": "^18",
+        "preact": "*"
     },
     "owners": [
         {

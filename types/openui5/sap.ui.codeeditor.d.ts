@@ -1,4 +1,4 @@
-// For Library Version: 1.121.0
+// For Library Version: 1.125.0
 
 declare module "sap/ui/codeeditor/library" {}
 
@@ -615,7 +615,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
       sWidth?: CSSSize
     ): this;
   }
-
+  /**
+   * Describes the settings that can be provided to the CodeEditor constructor.
+   */
   export interface $CodeEditorSettings extends $ControlSettings {
     /**
      * The value displayed in the code editor.
@@ -701,6 +703,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     change?: (oEvent: CodeEditor$ChangeEvent) => void;
   }
 
+  /**
+   * Parameters of the CodeEditor#change event.
+   */
   export interface CodeEditor$ChangeEventParameters {
     /**
      * The current value of the code editor.
@@ -713,11 +718,17 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     oldValue?: string;
   }
 
+  /**
+   * Event object of the CodeEditor#change event.
+   */
   export type CodeEditor$ChangeEvent = Event<
     CodeEditor$ChangeEventParameters,
     CodeEditor
   >;
 
+  /**
+   * Parameters of the CodeEditor#liveChange event.
+   */
   export interface CodeEditor$LiveChangeEventParameters {
     /**
      * The current value of the code editor.
@@ -730,6 +741,9 @@ declare module "sap/ui/codeeditor/CodeEditor" {
     editorEvent?: object;
   }
 
+  /**
+   * Event object of the CodeEditor#liveChange event.
+   */
   export type CodeEditor$LiveChangeEvent = Event<
     CodeEditor$LiveChangeEventParameters,
     CodeEditor

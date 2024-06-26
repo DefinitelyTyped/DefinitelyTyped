@@ -189,7 +189,7 @@ declare module "fs/promises" {
          * replacing it may require the `flags` `open` option to be set to `r+` rather than
          * the default `r`. The `encoding` can be any one of those accepted by `Buffer`.
          *
-         * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'`the file descriptor will be closed automatically. If `autoClose` is false,
+         * If `autoClose` is set to true (default behavior) on `'error'` or `'finish'` the file descriptor will be closed automatically. If `autoClose` is false,
          * then the file descriptor won't be closed, even if there's an error.
          * It is the application's responsibility to close it and make sure there's no
          * file descriptor leak.
@@ -268,7 +268,7 @@ declare module "fs/promises" {
          *
          * The `FileHandle` has to support reading.
          *
-         * If one or more `filehandle.read()` calls are made on a file handle and then a`filehandle.readFile()` call is made, the data will be read from the current
+         * If one or more `filehandle.read()` calls are made on a file handle and then a `filehandle.readFile()` call is made, the data will be read from the current
          * position till the end of the file. It doesn't always read from the beginning
          * of the file.
          * @since v10.0.0
@@ -375,7 +375,7 @@ declare module "fs/promises" {
          */
         utimes(atime: TimeLike, mtime: TimeLike): Promise<void>;
         /**
-         * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
+         * Asynchronously writes data to a file, replacing the file if it already exists. `data` can be a string, a buffer, an
          * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface), or an
          * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object.
          * The promise is fulfilled with no arguments upon success.
@@ -485,7 +485,7 @@ declare module "fs/promises" {
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
      * The `mode` argument is an optional integer that specifies the accessibility
-     * checks to be performed. `mode` should be either the value `fs.constants.F_OK`or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`,`fs.constants.W_OK`, and `fs.constants.X_OK`
+     * checks to be performed. `mode` should be either the value `fs.constants.F_OK` or a mask consisting of the bitwise OR of any of `fs.constants.R_OK`, `fs.constants.W_OK`, and `fs.constants.X_OK`
      * (e.g.`fs.constants.W_OK | fs.constants.R_OK`). Check `File access constants` for
      * possible values of `mode`.
      *
@@ -570,7 +570,7 @@ declare module "fs/promises" {
      */
     function rename(oldPath: PathLike, newPath: PathLike): Promise<void>;
     /**
-     * Truncates (shortens or extends the length) of the content at `path` to `len`bytes.
+     * Truncates (shortens or extends the length) of the content at `path` to `len` bytes.
      * @since v10.0.0
      * @param [len=0]
      * @return Fulfills with `undefined` upon success.
@@ -580,7 +580,7 @@ declare module "fs/promises" {
      * Removes the directory identified by `path`.
      *
      * Using `fsPromises.rmdir()` on a file (not a directory) results in the
-     * promise being rejected with an `ENOENT` error on Windows and an `ENOTDIR`error on POSIX.
+     * promise being rejected with an `ENOENT` error on Windows and an `ENOTDIR` error on POSIX.
      *
      * To get a behavior similar to the `rm -rf` Unix command, use `fsPromises.rm()` with options `{ recursive: true, force: true }`.
      * @since v10.0.0
@@ -597,7 +597,7 @@ declare module "fs/promises" {
      * Asynchronously creates a directory.
      *
      * The optional `options` argument can be an integer specifying `mode` (permission
-     * and sticky bits), or an object with a `mode` property and a `recursive`property indicating whether parent directories should be created. Calling`fsPromises.mkdir()` when `path` is a directory
+     * and sticky bits), or an object with a `mode` property and a `recursive` property indicating whether parent directories should be created. Calling `fsPromises.mkdir()` when `path` is a directory
      * that exists results in a
      * rejection only when `recursive` is false.
      *
@@ -747,7 +747,7 @@ declare module "fs/promises" {
     /**
      * Creates a symbolic link.
      *
-     * The `type` argument is only used on Windows platforms and can be one of `'dir'`,`'file'`, or `'junction'`. If the `type` argument is not a string, Node.js will
+     * The `type` argument is only used on Windows platforms and can be one of `'dir'`, `'file'`, or `'junction'`. If the `type` argument is not a string, Node.js will
      * autodetect `target` type and use `'file'` or `'dir'`. If the `target` does not
      * exist, `'file'` will be used. Windows junction points require the destination
      * path to be absolute. When using `'junction'`, the `target` argument will
@@ -867,13 +867,13 @@ declare module "fs/promises" {
      *
      * * Values can be either numbers representing Unix epoch time, `Date`s, or a
      * numeric string like `'123456789.0'`.
-     * * If the value can not be converted to a number, or is `NaN`, `Infinity`, or`-Infinity`, an `Error` will be thrown.
+     * * If the value can not be converted to a number, or is `NaN`, `Infinity`, or `-Infinity`, an `Error` will be thrown.
      * @since v10.0.0
      * @return Fulfills with `undefined` upon success.
      */
     function utimes(path: PathLike, atime: TimeLike, mtime: TimeLike): Promise<void>;
     /**
-     * Determines the actual location of `path` using the same semantics as the`fs.realpath.native()` function.
+     * Determines the actual location of `path` using the same semantics as the `fs.realpath.native()` function.
      *
      * Only paths that can be converted to UTF8 strings are supported.
      *
@@ -927,7 +927,7 @@ declare module "fs/promises" {
      * ```
      *
      * The `fsPromises.mkdtemp()` method will append the six randomly selected
-     * characters directly to the `prefix` string. For instance, given a directory`/tmp`, if the intention is to create a temporary directory _within_`/tmp`, the`prefix` must end with a trailing
+     * characters directly to the `prefix` string. For instance, given a directory `/tmp`, if the intention is to create a temporary directory _within_ `/tmp`, the `prefix` must end with a trailing
      * platform-specific path separator
      * (`require('node:path').sep`).
      * @since v10.0.0
@@ -947,7 +947,7 @@ declare module "fs/promises" {
      */
     function mkdtemp(prefix: string, options?: ObjectEncodingOptions | BufferEncoding | null): Promise<string | Buffer>;
     /**
-     * Asynchronously writes data to a file, replacing the file if it already exists.`data` can be a string, a buffer, an
+     * Asynchronously writes data to a file, replacing the file if it already exists. `data` can be a string, a buffer, an
      * [AsyncIterable](https://tc39.github.io/ecma262/#sec-asynciterable-interface), or an
      * [Iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol) object.
      *
@@ -1008,6 +1008,12 @@ declare module "fs/promises" {
             | (ObjectEncodingOptions & {
                 mode?: Mode | undefined;
                 flag?: OpenMode | undefined;
+                /**
+                 * If all data is successfully written to the file, and `flush`
+                 * is `true`, `filehandle.sync()` is used to flush the data.
+                 * @default false
+                 */
+                flush?: boolean | undefined;
             } & Abortable)
             | BufferEncoding
             | null,

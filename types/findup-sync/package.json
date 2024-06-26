@@ -6,7 +6,7 @@
         "https://github.com/gulpjs/findup-sync"
     ],
     "dependencies": {
-        "@types/micromatch": "*"
+        "@types/micromatch": "^4.0.0"
     },
     "devDependencies": {
         "@types/findup-sync": "workspace:."

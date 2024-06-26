@@ -557,6 +557,37 @@ declare namespace OracleDB {
      */
     let fetchAsString: Array<typeof DATE | typeof NUMBER | typeof BUFFER | typeof CLOB>;
     /**
+     * Converter can be used with fetch type handlers to change the returned data.
+     * If the value returned by the fetch type handler function is undefined then no conversion takes place.
+     */
+    function converter<T>(arg: T | null): any;
+    type FetchTypeResponse =
+        | { type: DbType; converter?: typeof converter }
+        | { type?: DbType; converter: typeof converter };
+    /**
+     * This property is a function that allows applications to examine and modify queried column data before it is returned to the user. This function is called once for each column that is being fetched with a single object argument containing the following attributes:
+     * annotations: The object representing the annotations.
+     * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
+     * dbType: The database type, that is, one of the Oracle Database Type Objects.
+     * dbTypeName: The name of the database type, such as “NUMBER” or “VARCHAR2”.
+     * dbTypeClass: The class associated with the database type. This is only set if dbType is oracledb.DB_TYPE_OBJECT.
+     * domainName: The name of the SQL domain.
+     * domainSchema: The schema name of the SQL domain.
+     * isJson: Indicates if the column is known to contain JSON data.
+     * name: The name of the column.
+     * nullable: Indicates whether NULL values are permitted for this column.
+     * precision: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * scale: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * By default, this property is “undefined”, that is, it is not set.
+     * The function is expected to return either nothing or an object containing:
+     * the type attribute
+     * or the converter attribute
+     * or both the type and converter attributes
+     * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
+     * This property can be overridden by the fetchTypeHandler option in execute().
+     */
+    function fetchTypeHandler(metadata: Metadata<any>): FetchTypeResponse | undefined;
+    /**
      * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
      * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
      *
@@ -571,25 +602,6 @@ declare namespace OracleDB {
      * maxRows limit.
      *
      * @default 0 (unlimited)
-     */
-    function fetchTypeHandler(metadata: Metadata<any>): Promise<void>;
-    /**
-     * This property is a function that allows applications to examine and modify queried column data before it is returned to the user. This function is called once for each column that is being fetched with a single object argument containing the following attributes:
-     * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
-     * dbType: The database type, that is, one of the Oracle Database Type Objects.
-     * dbTypeName: The name of the database type, such as “NUMBER” or “VARCHAR2”.
-     * dbTypeClass: The class associated with the database type. This is only set if dbType is oracledb.DB_TYPE_OBJECT.
-     * name: The name of the column.
-     * nullable: Indicates whether NULL values are permitted for this column.
-     * precision: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
-     * scale: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
-     * By default, this property is “undefined”, that is, it is not set.
-     * The function is expected to return either nothing or an object containing:
-     * the type attribute
-     * or the converter attribute
-     * or both the type and converter attributes
-     * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
-     * This property can be overridden by the fetchTypeHandler option in execute().
      */
     let maxRows: number;
     /**
@@ -683,7 +695,16 @@ declare namespace OracleDB {
      * @default 60
      * @since 1.12
      */
-    let poolPingInterval: number;
+    let poolPingInterval: number | undefined;
+    /**
+     * The number of milliseconds that a connection should wait for a response from connection.ping(). Refer to oracledb.poolPingTimeout for details.
+     * The default value is 5000 milliseconds.
+     * This optional property overrides the oracledb.poolPingTimeout property.
+     * See Connection Pool Pinging for more information.
+     *
+     * @since 6.4
+     */
+    let poolPingTimeout: number;
     /**
      * The number of seconds after which idle connections (unused in the pool) are terminated.
      * Idle connections are terminated only when the pool is accessed. If the poolTimeout is set to 0,
@@ -865,7 +886,7 @@ declare namespace OracleDB {
         /**
          * The node-oracledb or JavaScript data type to be bound. One of the Node-oracledb Type Constants.
          */
-        type?: number | undefined;
+        type?: DbType | number | undefined;
     }
 
     /**
@@ -874,7 +895,7 @@ declare namespace OracleDB {
      * @see https://oracle.github.io/node-oracledb/doc/api.html#executebindParams
      */
     type BindParameters =
-        | Record<string, BindParameter | string | number | Date | DBObject_IN<any> | Buffer | null | undefined>
+        | Record<string, BindParameter | string | number | bigint | Date | DBObject_IN<any> | Buffer | null | undefined>
         | BindParameter[]
         | any[];
 
@@ -926,6 +947,21 @@ declare namespace OracleDB {
          */
         currentSchema?: string | undefined;
         /**
+         * This read-only property is a string that specifies the Oracle Database domain name associated with the connection. This property returns the same value as the SQL expression:
+         * SELECT UPPER(VALUE) FROM V$PARAMETER WHERE NAME = 'db_domain';
+         * The above SQL expression returns NULL if the domain name is not specified. The dbDomain property returns an empty string in this case.
+         *
+         * @since 6.3
+         */
+        readonly dbDomain?: string | undefined;
+        /**
+         * This read-only property is a string that specifies the name of the Oracle Database associated with the connection. This property returns the same value as the SQL expression:
+         * SELECT UPPER(NAME) FROM V$DATABASE;
+         *
+         * @since 6.3
+         */
+        readonly dbName?: string | undefined;
+        /**
          * The database operation information for end-to-end application tracing.
          * This is a write-only property. Displaying connection.dbOp will show a value of null.
          *
@@ -933,13 +969,28 @@ declare namespace OracleDB {
          * @since 4.1
          */
         dbOp?: string | undefined;
-
+        /**
+         * This write-only property is a string that sets the execution context identifier.
+         * The value is available in the ECID column of the V$SESSION view. It is also shown in audit logs.
+         * Note: This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
+         *
+         * @since 5.3
+         */
+        ecid?: string | undefined;
         /**
          * This read-only attribute specifies the Oracle Database instance name associated with the connection. It returns the same value as the SQL expression sys_context('userenv', 'instance_name').
          *
          * @since 6.1
          */
         instanceName?: string | undefined;
+        /**
+         * This read-only property is a number that indicates the maximum number of SQL statements that can be concurrently opened in one connection. This value can be specified in the server parameter file using the open_cursors parameter. This property returns the same value as the SQL expression:
+         * SELECT VALUE FROM V$PARAMETER WHERE NAME = 'open_cursors';
+         * This property requires Oracle Database 12.1 or later.
+         *
+         * @since 6.3
+         */
+        readonly maxOpenCursors?: number | undefined;
         /**
          * The module attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
@@ -963,6 +1014,13 @@ declare namespace OracleDB {
          */
         readonly oracleServerVersionString: string;
         /**
+         * This read-only property is a string that identifies the Oracle Database service name associated with the connection. This property returns the same value as the SQL expression:
+         * SELECT UPPER(SYS_CONTEXT('USERENV', 'SERVICE_NAME')) FROM DUAL;
+         *
+         * @since 6.3
+         */
+        readonly serviceName?: string | undefined;
+        /**
          * The number of statements to be cached in the statement cache of the connection.
          * The default value is the stmtCacheSize property in effect in the Pool object when the connection is created in the pool.
          */
@@ -979,7 +1037,41 @@ declare namespace OracleDB {
          * @since 3.1
          */
         tag?: string | undefined;
-
+        /**
+         * This read-only attribute is a boolean that identifies the node-oracledb mode in which the connection was established. If the value is true, then it indicates that the connection was established in node-oracledb Thin mode.
+         * If the value is false, then it indicates that the connection was established in node-oracledb Thick mode.
+         * The default value is true.
+         *
+         * @since 6.0
+         */
+        readonly thin?: boolean | undefined;
+        /**
+         * This read/write attribute is a string that specifies the internal name that is used by the connection when logging two-phase commit transactions.
+         * This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
+         *
+         * @since 5.3
+         */
+        tpcInternalName?: string | undefined;
+        /**
+         * This read/write attribute is a string that specifies the external name that is used by the connection when logging two-phase commit transactions.
+         * This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
+         */
+        tpcExternalName?: string | undefined;
+        /**
+         * This read-only property is a boolean that indicates whether a transaction is currently in progress in the connection. If the value is True, then it indicates that the specified connection has an active transaction. If the value is False, then the specified connection does not have an active transaction.
+         *
+         * @since 6.3
+         */
+        readonly transactionInProgress?: boolean | undefined;
+        /**
+         * This read-only property provides an error object that gives information about any database warnings (such as password being in the grace period) that were generated during connection establishment (both standalone connections and pooled connections). This attribute is present if a warning is thrown by the database but the operation is otherwise completed successfully. The connection will be usable despite the warning.
+         * For standalone connections, the error object returned by connection.warning will be present for the lifetime of the connection.
+         * For pooled connections, the error object returned by connection.warning will be cleared when a connection is released to the pool using connection.close().
+         * In node-oracledb Thick mode, warnings may be generated during pool creation itself. These warnings will be placed on the new connections created by the pool, provided no warnings were generated by the individual connection creations, in which case those connection warnings will be returned.
+         *
+         * @since 6.3
+         */
+        readonly warning?: DBError | undefined;
         /**
          * Stops the currently running operation on the connection.
          *
@@ -1062,7 +1154,27 @@ declare namespace OracleDB {
          */
         createLob(type: DbType): Promise<Lob>;
         createLob(type: DbType, callback: (error: DBError, lob: Lob) => void): void;
-
+        /**
+         * This synchronous method decodes an OSON Buffer and returns a Javascript value. This method is useful for fetching BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
+         * The parameters of the connection.decodeOSON() are: buf; Buffer; The OSON buffer that is to be decoded.
+         *
+         * @param buf The OSON buffer that is to be decoded.
+         *
+         * @since 6.4
+         *
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
+         */
+        decodeOSON(buf: Buffer): any;
+        /**
+         * This synchronous method encodes a JavaScript value to OSON bytes and returns a Buffer. This method is useful for inserting OSON bytes directly into BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
+         *
+         * @param value The JavaScript value that is to be encoded into OSON bytes. The JavaScript value can be any value supported by JSON.
+         *
+         * @since 6.4
+         *
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
+         */
+        encodeOSON(value: any): Buffer;
         /**
          * This call executes a single SQL or PL/SQL statement.
          *
@@ -1085,6 +1197,8 @@ declare namespace OracleDB {
          * This call executes a single SQL or PL/SQL statement.
          *
          * @param sql The SQL statement that is executed. The statement may contain bind parameters.
+         * Changed in version 6.4: The ability to accept an object (returned from the sql function of the third-party sql-template-tag module) as an input parameter was added to connection.execute().
+         *
          * @param bindParams This function parameter is needed if there are bind parameters in the SQL statement.
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
@@ -1107,7 +1221,26 @@ declare namespace OracleDB {
          */
         execute<T>(sql: string): Promise<Result<T>>;
         execute<T>(sql: string, callback: (error: DBError, result: Result<T>) => void): void;
-
+        /**
+         * This call executes a single SQL or PL/SQL statement.
+         *
+         * @param sql The SQL object that has statement to be executed and bindParams.
+         * The statement may contain bind parameters.
+         * The SQL object contains bind parameters if statement has it.
+         * @param options This is an optional parameter to execute() that may be used to control statement execution.
+         *
+         * @see https://oracle.github.io/node-oracledb/doc/api.html#sqlexecution
+         * @see https://github.com/blakeembrey/sql-template-tag
+         * @see https://github.com/oracle/node-oracledb/issues/1629
+         */
+        execute<T>(sql: object): Promise<Result<T>>;
+        execute<T>(sql: object, callback: (error: DBError, result: Result<T>) => void): void;
+        execute<T>(sql: object, options: ExecuteOptions): Promise<Result<T>>;
+        execute<T>(
+            sql: object,
+            options: ExecuteOptions,
+            callback: (error: DBError, result: Result<T>) => void,
+        ): void;
         /**
          * This method allows sets of data values to be bound to one DML or PL/SQL statement for execution.
          * It is like calling connection.execute() multiple times but requires fewer round-trips.
@@ -1535,10 +1668,62 @@ declare namespace OracleDB {
         statementType?: number | undefined;
     }
 
+    type AccessToken = () => string | string | { token: string } | (() => { token: string; privateKey: string }) | {
+        token: string;
+        privateKey: string;
+    };
+    interface AccessTokenConfigAzure {
+        clientId: string;
+        authority: string;
+        scopes: string;
+        clientSecret?: string | undefined;
+        authType: string;
+    }
+    interface AccessTokenConfigOCI {
+        profile: string;
+        configFileLocation: string;
+    }
     /**
      * Provides connection credentials and connection-specific configuration properties.
      */
     interface ConnectionAttributes {
+        /**
+         * For Microsoft Azure Active Directory OAuth 2.0 token-based authentication, accessToken can be:
+         *      a callback function returning the token as a string
+         *      an object with a token attribute containing the token as a string
+         *      or the token as a string
+         *
+         * Tokens can be obtained using various approaches. For example, using the Azure Active Directory API.
+         *
+         * For Oracle Cloud Infrastructure Identity and Access Management (IAM) token-based authentication, accessToken can be:
+         *      a callback function returning an object containing token and privateKey attributes
+         *      or an object containing token and privateKey attributes
+         *
+         * The properties of the accessToken object are described in createPool(): accessToken Object Attributes.
+         *
+         * If accessToken is a callback function:
+         *      function accessToken(boolean refresh, object accessTokenConfig)
+         *
+         * When accessToken is a callback function, it will be invoked at the time the pool is created (even if poolMin is 0). It is also called when the pool needs to expand (causing new connections to be created) and the current token has expired. The returned token is used by node-oracledb for authentication. The refresh parameter is described in createPool(): refresh Parameter Values.
+         * The accessTokenConfig parameter is described in accessTokenConfig.
+         *
+         * When the callback is first invoked, the refresh parameter will be set to false. This indicates that the application can provide a token from its own application managed cache, or it can generate a new token if there is no cached value. Node-oracledb checks whether the returned token has expired. If it has expired, then the callback function will be invoked a second time with refresh set to true. In this case the function must externally acquire a token, optionally add it to the application’s cache, and return the token.
+         * For token-based authentication, the externalAuth and homogeneous pool attributes must be set to true. The user (or username) and password attributes should not be set.
+         * See Token-Based Authentication for more information.
+         *
+         * New in version 5.4: The accessToken property was added to support IAM token-based authentication.For IAM token-based authentiation, this property must be an Object. For node-oracledb Thick mode, Oracle Client libraries 19.14 (or later), or 21.5 (or later) must be used for IAM token-based authentication.
+         *
+         * Changed in version 5.5: The accessToken property was extended to allow OAuth 2.0 token-based authentication in node-oracledb 5.5. For OAuth 2.0, the property should be a string, or a callback. For node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. The callback usage supports both OAuth 2.0 and IAM token-based authentication.
+         * @since 5.4
+         */
+        accessToken?: AccessToken | undefined;
+        /**
+         * An object containing the Azure-specific or OCI-specific parameters that need to be set when using the Azure Software Development Kit (SDK) or Oracle Cloud Infrastructure (OCI) SDK for token generation. This property should only be specified when the accessToken property is a callback function. For more information on the Azure-specific parameters, see sampleazuretokenauth.js  and for the OCI-specific parameters, see sampleocitokenauth.js.
+         * For OAuth2.0 token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. For IAM token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.14 (or later), or 21.5 (or later) are required.
+         *
+         * @since 6.3
+         */
+        accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI;
         /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance to connect to.
@@ -1604,7 +1789,7 @@ declare namespace OracleDB {
          */
         newPassword?: string | undefined;
         /**
-         * Specifies which previously created pool in the connection pool cache to obtain the connection from. See Pool Alias.
+         * The password of the database user. A password is also necessary if a proxy user is specified.
          */
         password?: string | undefined;
         /**
@@ -1618,6 +1803,82 @@ declare namespace OracleDB {
          */
         sslAllowWeakDNMatch?: boolean | undefined;
         /**
+         * The name or IP address of a proxy host to use for tunneling secure connections.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        httpsProxy?: string | undefined;
+        /**
+         * The port to be used to communicate with the proxy host.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        httpsProxyPort?: number | undefined;
+        /**
+         * Specifies the host and port of the PL/SQL debugger with the format host=<host>;port=<port>. This allows using the Java Debug Wire Protocol (JDWP) to debug PL/SQL code called by node-oracledb.
+         * The default value is the value of environment variable ORA_DEBUG_JDWP.
+         * For node-oracledb Thick mode, set the ORA_DEBUG_JDWP environment variable with the same syntax instead. See Application Tracing.
+         *
+         * @since 6.0
+         */
+        debugJdwp?: string | undefined;
+        /**
+         * The number of times that a connection attempt should be retried before the attempt is terminated.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        retryCount?: number | undefined;
+        /**
+         * The number of seconds to wait before making a new connection attempt.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        retryDelay?: number | undefined;
+        /**
+         * The timeout duration in seconds for an application to establish an Oracle Net connection.
+         * There is no timeout by default.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        connectTimeout?: number | undefined;
+        /**
+         * The maximum number of seconds to wait to establish a connection to the database host.
+         * The default value is 60.0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        transportConnectTimeout?: number | undefined;
+        /**
+         * The number of minutes between the sending of keepalive probes. If this property is set to a value greater than zero, it enables the keepalive probes.
+         * The default value is 0.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        expireTime?: number | undefined;
+        /**
+         * The Oracle Net Session Data Unit (SDU) packet size in bytes. The database server configuration should also set this parameter.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        sdu?: number | undefined;
+        /**
+         * The application specific prefix parameter that is added to the connection identifier.
+         *
+         * @since 6.0
+         */
+        connectionIdPrefix?: string | undefined;
+        /**
          * The password of the database user. A password is also necessary if a proxy user is specified.
          */
         configDir?: string | undefined;
@@ -1627,6 +1888,23 @@ declare namespace OracleDB {
          * @since 6.0
          */
         sourceRoute?: string | undefined;
+        /**
+         * The distinguished name (DN) that should be matched with the certificate DN. If not specified, a partial match is performed instead. A partial match matches the hostname that the client connected to against the common name (CN) of the certificate DN or the Subject Alternate Names (SAN) of the certificate.
+         * This value is ignored if the sslServerDNMatch property is not set to the value True.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        sslServerCertDN?: string | undefined;
+        /**
+         * Determines whether the server certificate DN should be matched in addition to the regular certificate verification that is performed.
+         * If the sslServerCertDN property is not provided, a partial DN match is performed instead. A partial match matches the hostname that the client connected to against the CN of the certificate DN or the SAN of the certificate.
+         * The default value is True.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        sslServerDNMatch?: boolean | undefined;
         /**
          * Enables network routing through multiple protocol addresses. The value of this property can be ON or OFF.
          *  The default value is ON.
@@ -1673,6 +1951,11 @@ declare namespace OracleDB {
          * The database user name. Can be a simple user name or a proxy of the form alison[fred].
          */
         user?: string | undefined;
+        /**
+         * The two properties are aliases for each other. Use only one of the properties.
+         * The database user name. Can be a simple user name or a proxy of the form alison[fred]. See the Client Access Through a Proxy section in the Oracle Call Interface manual for more details about proxy authentication.
+         */
+        username?: string | undefined;
     }
 
     interface DBError extends Error {
@@ -1771,6 +2054,12 @@ declare namespace OracleDB {
                 }
             >
             | undefined;
+        /**
+         * Overrides oracledb.fetchTypeHandler.
+         *
+         * @since 6.0
+         */
+        fetchTypeHandler?: (metadata: Metadata<any>) => FetchTypeResponse | undefined;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -1934,7 +2223,7 @@ declare namespace OracleDB {
          * The value is derived from the bind type when using LOB bind variables, or from the column
          * type when a LOB is returned by a query.
          */
-        readonly type: number;
+        readonly type: DbType | number;
 
         /**
          * Explicitly closes a Lob.
@@ -1971,10 +2260,41 @@ declare namespace OracleDB {
          *
          * Note it is an asynchronous method and requires a round-trip to the database.
          *
+         * For LOBs of type CLOB and NCLOB, the offset is the position from which the data is to be fetched, in UCS-2 code points. UCS-2 code points are equivalent to characters for all but supplemental characters. If supplemental characters are in the LOB, the offset and amount will have to be chosen carefully to avoid splitting a character.
+         * For LOBs of type BLOB and BFILE, the offset is the position of the byte from which the data is to be fetched.
+         * The default is 1.
+         * The value of offset must be greater than or equal to 1.
+         * If the offset specified in lob.getData() exceeds the length of the LOB, then the value null is returned.
+         *
          * @since 4.0
          */
         getData(): Promise<string | Buffer>;
         getData(callback: (error: DBError, data: string | Buffer) => void): void;
+
+        /**
+         * Returns a portion (or all) of the data in the LOB object. Note that
+         * the offset is in bytes for BLOB and BFILE type LOBs and
+         * in UCS-2 code points for CLOB and NCLOB type LOBs. UCS-2 code points
+         * are equivalent to characters for all but supplemental characters.
+         * If supplemental characters are in the LOB, the offset will
+         * have to be chosen carefully to avoid splitting a character.
+         *
+         * This method is usable for LOBs up to 1 GB in length.
+         *
+         * For queries returning LOB columns, it can be more efficient to use fetchAsString,
+         * fetchAsBuffer, or fetchInfo instead of lob.getData().
+         *
+         * Note it is an asynchronous method and requires a round-trip to the database.
+         *
+         * @since 6.4.0
+         *
+         * @param offset The absolute offset inside LOB.
+         * @param amount The number of bytes(BLOB) or characters(CLOB) returned starting from offset.
+         */
+        getData(offset: number): Promise<string | Buffer>;
+        getData(offset: number, callback: (error: DBError, data: string | Buffer) => void): void;
+        getData(offset: number, amount: number): Promise<string | Buffer>;
+        getData(offset: number, amount: number, callback: (error: DBError, data: string | Buffer) => void): void;
     }
 
     /**
@@ -1991,13 +2311,17 @@ declare namespace OracleDB {
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsnodbtype
          */
-        fetchType?: number | undefined;
+        fetchType?: DbType | number | undefined;
+        /**
+         * The annotations object associated with the fetched column. If the column has no associated annotations, this property value is undefined. Annotations are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
+         */
+        annotations?: any;
         /**
          * One of the Node-oracledb Type Constant values.
          *
          * @see https://oracle.github.io/node-oracledb/doc/api.html#oracledbconstantsdbtype
          */
-        dbType?: number | undefined;
+        dbType?: DbType | undefined;
         /**
          * The class associated with the database type. This is only set if the database type is an object type.
          */
@@ -2006,6 +2330,23 @@ declare namespace OracleDB {
          * Name of the database type, such as “NUMBER” or “VARCHAR2”. For object types, this will be the object name.
          */
         dbTypeName?: string | undefined;
+        /**
+         * The name of the SQL domain associated with the fetched column. If the column does not have a SQL domain, this property value is undefined. SQL domains are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
+         */
+        domainName?: string | undefined;
+        /**
+         * The schema name of the SQL domain associated with the fetched column. If the column does not have a SQL domain, this property value is undefined. SQL domains are supported from Oracle Database 23c onwards. If node-oracledb Thick mode is used, Oracle Client 23c is also required.
+         */
+        domainSchema?: string | undefined;
+        /**
+         * Indicates if the column is known to contain JSON data. This will be true for JSON columns (from Oracle Database 21c) and for LOB and VARCHAR2 columns where “IS JSON” constraint is enabled (from Oracle Database 19c). This property will be false for all the other columns. It will also be false for any column when Oracle Client 18c or earlier is used in Thick mode or the Oracle Database version is earlier than 19c.
+         */
+        isJson?: boolean | undefined;
+        /**
+
+         * Indicates if the column is known to contain binary encoded OSON data. This attribute will be true in Thin mode and while using Oracle Client version 21c (or later) in Thick mode when the “IS JSON FORMAT OSON” check constraint is enabled on BLOB and RAW columns. It will be set to false for all other columns. It will also be set to false for any column when the Thick mode uses Oracle Client versions earlier than 21c. Note that the “IS JSON FORMAT OSON” check constraint is available from Oracle Database 19c onwards.
+         */
+        isOson?: boolean | undefined;
         /**
          * Database byte size. This is only set for DB_TYPE_VARCHAR, DB_TYPE_CHAR and DB_TYPE_RAW column types.
          */
@@ -2102,6 +2443,12 @@ declare namespace OracleDB {
          * before node-oracledb pings the database prior to returning that connection to the application.
          */
         readonly poolPingInterval: number;
+        /**
+         * This read-only property is a number which specifies the maximum number of milliseconds that a connection should wait for a response from connection.ping().
+         *
+         * @since 6.4
+         */
+        readonly poolPingTimeout: number;
         /**
          * The time (in seconds) after which the pool terminates idle connections (unused in the pool).
          * The number of connections does not drop below poolMin.
@@ -2265,6 +2612,43 @@ declare namespace OracleDB {
      */
     interface PoolAttributes {
         /**
+         * For Microsoft Azure Active Directory OAuth 2.0 token-based authentication, accessToken can be:
+         *      a callback function returning the token as a string
+         *      an object with a token attribute containing the token as a string
+         *      or the token as a string
+         *
+         * Tokens can be obtained using various approaches. For example, using the Azure Active Directory API.
+         *
+         * For Oracle Cloud Infrastructure Identity and Access Management (IAM) token-based authentication, accessToken can be:
+         *      a callback function returning an object containing token and privateKey attributes
+         *      or an object containing token and privateKey attributes
+         *
+         * The properties of the accessToken object are described in createPool(): accessToken Object Attributes.
+         *
+         * If accessToken is a callback function:
+         *      function accessToken(boolean refresh, object accessTokenConfig)
+         *
+         * When accessToken is a callback function, it will be invoked at the time the pool is created (even if poolMin is 0). It is also called when the pool needs to expand (causing new connections to be created) and the current token has expired. The returned token is used by node-oracledb for authentication. The refresh parameter is described in createPool(): refresh Parameter Values.
+         * The accessTokenConfig parameter is described in accessTokenConfig.
+         *
+         * When the callback is first invoked, the refresh parameter will be set to false. This indicates that the application can provide a token from its own application managed cache, or it can generate a new token if there is no cached value. Node-oracledb checks whether the returned token has expired. If it has expired, then the callback function will be invoked a second time with refresh set to true. In this case the function must externally acquire a token, optionally add it to the application’s cache, and return the token.
+         * For token-based authentication, the externalAuth and homogeneous pool attributes must be set to true. The user (or username) and password attributes should not be set.
+         * See Token-Based Authentication for more information.
+         *
+         * New in version 5.4: The accessToken property was added to support IAM token-based authentication.For IAM token-based authentiation, this property must be an Object. For node-oracledb Thick mode, Oracle Client libraries 19.14 (or later), or 21.5 (or later) must be used for IAM token-based authentication.
+         *
+         * Changed in version 5.5: The accessToken property was extended to allow OAuth 2.0 token-based authentication in node-oracledb 5.5. For OAuth 2.0, the property should be a string, or a callback. For node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. The callback usage supports both OAuth 2.0 and IAM token-based authentication.
+         * @since 5.4
+         */
+        accessToken?: AccessToken | undefined;
+        /**
+         * An object containing the Azure-specific or OCI-specific parameters that need to be set when using the Azure Software Development Kit (SDK) or Oracle Cloud Infrastructure (OCI) SDK for token generation. This property should only be specified when the accessToken property is a callback function. For more information on the Azure-specific parameters, see sampleazuretokenauth.js  and for the OCI-specific parameters, see sampleocitokenauth.js.
+         * For OAuth2.0 token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.15 (or later), or 21.7 (or later) must be used. For IAM token-based authentication and when using node-oracledb Thick mode, Oracle Client libraries 19.14 (or later), or 21.5 (or later) are required.
+         *
+         * @since 6.3
+         */
+        accessTokenConfig?: AccessTokenConfigAzure | AccessTokenConfigOCI | undefined;
+        /**
          * An alias of connectionString. Only one of the properties should be used.
          * The Oracle database instance used by connections in the pool.
          * The string can be an Easy Connect string, or a Net Service Name from a tnsnames.ora file, or the name of a local Oracle database instance.
@@ -2278,6 +2662,20 @@ declare namespace OracleDB {
          * @since 2.1
          */
         connectionString?: string | undefined;
+        /**
+         * The password to decrypt the Privacy Enhanced Mail (PEM)-encoded private certificate, if it is encrypted.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        walletPassword?: string | undefined;
+        /**
+         * The directory where the wallet can be found. In node-oracledb Thin mode, this must be the directory that contains the PEM-encoded wallet file.
+         * For node-oracledb Thick mode, use an Easy Connect string or a Connect Descriptor string instead.
+         *
+         * @since 6.0
+         */
+        walletLocation?: string | undefined;
         /**
          * Sets the name used for Edition-Based Redefinition by connections in the pool.
          * This optional property overrides the oracledb.edition property.
@@ -2527,6 +2925,17 @@ declare namespace OracleDB {
             | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void)
             | undefined;
         /**
+         * Indicates whether the pool’s connections should share a cache of SODA metadata. This improves SODA performance by reducing round-trips to the database when opening collections. It has no effect on non-SODA operations.
+         * The default is false.
+         * There is no global equivalent for setting this attribute. SODA metadata caching is restricted to pooled connections only.
+         * Note that if the metadata of a collection is changed externally, the cache can get out of sync. If this happens, the cache can be cleared by calling pool.reconfigure({sodaMetadataCache: false}). See pool.reconfigure().
+         * A second call to reconfigure() should then be made to re-enable the cache.
+         * It requires Oracle Client 21.3 (or later). The feature is also available in Oracle Client 19c from 19.11 onward.
+         *
+         * @since 5.2
+         */
+        sodaMetaDataCache?: boolean | undefined;
+        /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
          */
@@ -2557,7 +2966,7 @@ declare namespace OracleDB {
         /** Options to use when enqueuing messages. Attributes can be set before each queue.enqOne() or queue.denqMany(). */
         enqOptions: EnqueueOptions;
         /** One of the DB_TYPE_RAW or DB_TYPE_OBJECT or DB_TYPE_JSON constants. */
-        readonly payloadType: number;
+        readonly payloadType: DbType | number;
         /**
          * The DBObject Class corresponding to the payload type specified when the queue was created
          *
@@ -2675,7 +3084,7 @@ declare namespace OracleDB {
             string,
             {
                 /** One of the DB_TYPE constants. */
-                type: number;
+                type: DbType | number;
                 /** Type, such as 'VARCHAR2' or 'NUMBER'. */
                 typeName: string;
                 /** Set if the value of type is a DBObject. */
@@ -2683,7 +3092,7 @@ declare namespace OracleDB {
             }
         >;
         /** When dbObject.isCollection is true, this will be one of the DB_TYPE constants. */
-        readonly elementType: number;
+        readonly elementType: DbType | number;
         readonly elementTypeClass: DBObjectClass<T>;
         /** When dbObject.isCollection is true, this will have the name of the element type, such as “VARCHAR2” or “NUMBER”. */
         readonly elementTypeName: string;
@@ -2746,6 +3155,12 @@ declare namespace OracleDB {
          * Returns an array of element values as a JavaScript array in key order.
          */
         getValues(): T[];
+        /**
+         * Returns a map object for the collection types indexed by PLS_INTEGER where the collection’s indexes are the keys and the elements are its values. See Associative Array Indexed By PLS_INTEGER for example.
+         *
+         * @since 6.4
+         */
+        toMap<V>(): Map<T, V>;
         /**
          * Trims the specified number of elements from the end of the collection.
          */
@@ -2905,6 +3320,13 @@ declare namespace OracleDB {
          * rowsAffected is undefined.
          */
         rowsAffected?: number | undefined;
+        /**
+         * This property provides an error object that gives information about any database warnings (such as PL/SQL compilation warnings) that were generated during the last call to connection.execute().
+         * See PL/SQL Compilation Warnings for more information.
+         *
+         * @since 6.3
+         */
+        warning?: DBError | undefined;
     }
 
     /**
@@ -2941,6 +3363,17 @@ declare namespace OracleDB {
          * of the binds parameter. It is only present if a DML statement was executed.
          */
         rowsAffected?: number | undefined;
+        /**
+         * This property provides an error object that gives information about any database warnings (such as PL/SQL compilation warnings) that were generated during the last call to connection.executeMany().
+         *
+         * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/plsql_execution.html#plsqlcompwarnings
+         *
+         * @since 6.4
+         */
+        warning: {
+            message: string;
+            code: string;
+        };
     }
 
     /**
@@ -4068,6 +4501,22 @@ declare namespace OracleDB {
         connectionAttributes: ConnectionAttributes,
         callback: (error: DBError, connection: Connection) => void,
     ): void;
+
+    /**
+     * A special object that contains properties which control the behavior of node-oracledb, allowing use of new features.
+     *
+     * @since 6.3
+     */
+    interface future {
+        /**
+         * This property is a boolean which when set to true while using Oracle Database 12c (or later), fetches VARCHAR2 and LOB columns that were created with the IS JSON constraint in the same way that columns of type JSON are fetched when using Oracle Database 21c (or later). The IS JSON constraint that is specified when creating VARCHAR2 and LOB columns ensures that only JSON data is stored in these columns.
+         * The default value is false.
+         * In a future version of node-oracledb, the setting of this attribute will no longer be required since this will be the default behavior.
+         *
+         * @since 6.3
+         */
+        oldJsonColumnAsObj?: boolean | undefined;
+    }
 
     /**
      * Retrieves a previously created pool from the connection pool cache. Note that this is a synchronous method.

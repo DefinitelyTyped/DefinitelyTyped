@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/approximate-number",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/nfriedly/approximate-number"
+    ],
+    "owners": [
+        {
+            "name": "Giorgi Kakhoshvili",
+            "githubUsername": "giokaxo"
+        }
+    ],
+    "devDependencies": {
+        "@types/approximate-number": "workspace:."
+    }
+}

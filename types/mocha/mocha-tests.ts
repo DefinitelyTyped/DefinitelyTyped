@@ -921,6 +921,7 @@ function test_constructor_all_options() {
         delay: true,
         diff: true,
         dryRun: true,
+        failZero: true,
         fgrep: "test",
         forbidOnly: true,
         forbidPending: true,
@@ -948,6 +949,12 @@ function test_constructor_all_options() {
         require: ["./rootHooks.js"],
         isWorker: true,
     });
+}
+
+function test_instance_methods() {
+    let m: Mocha = new LocalMocha();
+
+    m = m.failZero(true);
 }
 
 function test_run(localMocha: LocalMocha) {

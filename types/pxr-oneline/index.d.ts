@@ -2,13 +2,23 @@ declare namespace OneLine {
     interface OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
-        buildVideoUrl(bidder: BidderConfig[], placementID: string): void;
-        adUnitInfiniteRequest(arrOfOb: ArrOfOb[]): void;
+        preBidAdUnit(prebidBids: PrebidBids, gtag: string, isDebug: boolean): any;
+        requestVideoPlayerAds(onBiddingComplete: () => void): void;
+        buildVideoUrl(
+            bidder: BidderConfig[],
+            placementID: string,
+            customParams: VideoCustomParameters,
+            videoTitle?: string,
+        ): string;
+    }
+    interface VideoCustomParameters {
+        [key: string]: number | string | undefined;
     }
 
-    interface ArrOfOb {
-        infiniteId: string;
-        divId: string;
+    interface VideoParameters {
+        cust_params: VideoCustomParameters;
+        iu: string;
+        output: string;
     }
 
     interface BidderParams {
@@ -18,6 +28,15 @@ declare namespace OneLine {
     interface BidderConfig {
         bidder: string;
         params: BidderParams;
+    }
+
+    interface PrebidBids {
+        [key: string]: {
+            bidder: string;
+            params: {
+                placementId: string;
+            };
+        };
     }
 
     interface EventObject {

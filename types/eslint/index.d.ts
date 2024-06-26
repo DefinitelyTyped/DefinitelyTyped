@@ -841,7 +841,7 @@ export class Linter {
 
     version: string;
 
-    constructor(options?: { cwd?: string | undefined; configType?: "flat" });
+    constructor(options?: { cwd?: string | undefined; configType?: "flat" | "eslintrc" });
 
     verify(
         code: SourceCode | string,
@@ -1215,22 +1215,26 @@ export namespace Linter {
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
     }
 
-    type FlatConfigFileSpec = string | ((filePath: string) => boolean);
+    interface FlatConfig<Rules extends RulesRecord = RulesRecord> {
+        /**
+         * An string to identify the configuration object. Used in error messages and
+         * inspection tools.
+         */
+        name?: string;
 
-    interface FlatConfig {
         /**
          * An array of glob patterns indicating the files that the configuration
          * object should apply to. If not specified, the configuration object applies
          * to all files
          */
-        files?: Array<FlatConfigFileSpec | FlatConfigFileSpec[]>;
+        files?: Array<string | string[]>;
 
         /**
          * An array of glob patterns indicating the files that the configuration
          * object should not apply to. If not specified, the configuration object
          * applies to all files matched by files
          */
-        ignores?: FlatConfigFileSpec[];
+        ignores?: string[];
 
         /**
          * An object containing settings related to how JavaScript is configured for
@@ -1304,7 +1308,7 @@ export namespace Linter {
          * An object containing the configured rules. When files or ignores are specified,
          * these rule configurations are only available to the matching files.
          */
-        rules?: RulesRecord;
+        rules?: Partial<Rules>;
 
         /**
          * An object containing name-value pairs of information that should be

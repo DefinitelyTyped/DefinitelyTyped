@@ -117,6 +117,8 @@ const infowindow = new naver.maps.InfoWindow({
     content: `<div>InfoWindow Title</div>`,
 });
 infowindow.open(map, htmlMarker);
+infowindow.getContent();
+infowindow.getContentElement();
 infowindow.close();
 
 /**

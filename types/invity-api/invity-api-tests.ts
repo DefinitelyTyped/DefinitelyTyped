@@ -8,10 +8,11 @@ import {
     SavingsTradeItem,
     SavingsTradeKYCStatusSuccessfulResponse,
     SellFiatTrade,
+    WatchSellTradeResponse,
 } from "invity-api";
 
 const bt: BuyTrade = {
-    paymentMethodName: "Test",
+    paymentMethodName: "TestPay",
 };
 
 const et: ExchangeTrade = {
@@ -27,6 +28,10 @@ const sft: SellFiatTrade = {
         required: true,
         type: "number",
     },
+};
+
+const wstr: WatchSellTradeResponse = {
+    cryptoStringAmount: "",
 };
 
 const svt: SavingsTrade = { exchange: "", reauthorizationUrl: "" };

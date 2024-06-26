@@ -1,12 +1,9 @@
 import UI5Event from "sap/ui/base/Event";
-import Core from "sap/ui/core/Core";
 import UIComponent from "sap/ui/core/UIComponent";
-import XMLView from "sap/ui/core/mvc/XMLView";
 import Controller from "sap/ui/core/mvc/Controller";
 import JSONModel from "sap/ui/model/json/JSONModel";
 import ODataModel from "sap/ui/model/odata/v2/ODataModel";
 import ODataV4Model from "sap/ui/model/odata/v4/ODataModel";
-import Text from "sap/m/Text";
 import Table from "sap/m/Table";
 import Toolbar from "sap/m/Toolbar";
 import Button from "sap/m/Button";
@@ -21,7 +18,6 @@ import ODataV4ListBinding, { ODataListBinding$CreateCompletedEvent } from "sap/u
 import Target from "sap/ui/core/routing/Target";
 import { TitleLevel } from "sap/ui/core/library";
 import DateTimePicker from "sap/m/DateTimePicker";
-import RenderManager from "sap/ui/core/RenderManager";
 import NumberFormat from "sap/ui/core/format/NumberFormat";
 import CalendarUtils from "sap/ui/core/date/CalendarUtils";
 import PlanningCalendar from "sap/m/PlanningCalendar";
@@ -31,10 +27,11 @@ import IllustratedMessage from "sap/m/IllustratedMessage";
 import { SingleControlSelector } from "sap/ui/test/Opa5";
 import Mobile from "sap/ui/util/Mobile";
 import Input from "sap/m/Input";
-import { DynamicDateRangeGroups, ITableItem } from "sap/m/library";
+import { ContentConfigType, DynamicDateRangeGroups, ITableItem } from "sap/m/library";
 import ColumnListItem from "sap/m/ColumnListItem";
 import Filter from "sap/ui/model/Filter";
-import Model from "sap/ui/model/Model";
+import Version from "sap/base/util/Version";
+import UploadItem from "sap/m/upload/UploadItem";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -211,3 +208,17 @@ const iti: ITableItem = new ColumnListItem();
 
 // 1.120
 const noneFilter = Filter.NONE;
+
+// 1.121: this commit just updates the version in package.json
+
+// 1.122
+const cct = ContentConfigType.Link;
+
+// 1.123 mainly comes with comment changes, deprecations etc.
+
+// 1.124
+const v: Version = new Version(1); // minor version is only optional since 1.124
+
+// 1.125
+const ui = new UploadItem();
+ui.getIsTrustedSource();

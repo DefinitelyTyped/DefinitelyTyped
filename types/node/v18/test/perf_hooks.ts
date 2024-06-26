@@ -70,9 +70,6 @@ const mean: number = monitor.mean;
 const stddev: number = monitor.stddev;
 const exceeds: number = monitor.exceeds;
 
-// @ts-expect-error - Node API isn't available in DOM environment
-performance.eventLoopUtilization();
-
 let histogram: RecordableHistogram = createHistogram({
     figures: 123,
     min: 1,

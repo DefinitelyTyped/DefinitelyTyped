@@ -25,6 +25,8 @@ export default class PassNode extends TempNode {
 
     getTextureDepthNode(): ShaderNodeObject<PassTextureNode>;
 
+    getViewZNode(): ShaderNodeObject<Node>;
+
     getDepthNode(): ShaderNodeObject<Node>;
 
     setSize(width: number, height: number): void;

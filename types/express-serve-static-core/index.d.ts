@@ -292,12 +292,23 @@ export interface IRouter extends RequestHandler {
     /**
      * Stack of configured routes
      */
-    stack: any[];
+    stack: ILayer[];
+}
+
+export interface ILayer {
+    route?: IRoute;
+    name: string | "<anonymous>";
+    params?: Record<string, any>;
+    keys: string[];
+    path?: string;
+    method: string;
+    regexp: RegExp;
+    handle: (req: Request, res: Response, next: NextFunction) => any;
 }
 
 export interface IRoute<Route extends string = string> {
     path: string;
-    stack: any;
+    stack: ILayer[];
     all: IRouterHandler<this, Route>;
     get: IRouterHandler<this, Route>;
     post: IRouterHandler<this, Route>;
@@ -358,6 +369,8 @@ export interface CookieOptions {
      * @link https://datatracker.ietf.org/doc/html/draft-west-cookie-priority-00#section-4.3
      */
     priority?: "low" | "medium" | "high";
+    /** Marks the cookie to use partioned storage. */
+    partitioned?: boolean | undefined;
 }
 
 export interface ByteRange {
@@ -558,14 +571,14 @@ export interface Request<
      * a reverse proxy that supplies https for you this
      * may be enabled.
      */
-    protocol: string;
+    readonly protocol: string;
 
     /**
      * Short-hand for:
      *
      *    req.protocol == 'https'
      */
-    secure: boolean;
+    readonly secure: boolean;
 
     /**
      * Return the remote address, or when
@@ -575,7 +588,7 @@ export interface Request<
      * Value may be undefined if the `req.socket` is destroyed
      * (for example, if the client disconnected).
      */
-    ip: string | undefined;
+    readonly ip: string | undefined;
 
     /**
      * When "trust proxy" is `true`, parse
@@ -585,7 +598,7 @@ export interface Request<
      * you would receive the array `["client", "proxy1", "proxy2"]`
      * where "proxy2" is the furthest down-stream.
      */
-    ips: string[];
+    readonly ips: string[];
 
     /**
      * Return subdomains as an array.
@@ -598,41 +611,41 @@ export interface Request<
      * If "subdomain offset" is not set, req.subdomains is `["ferrets", "tobi"]`.
      * If "subdomain offset" is 3, req.subdomains is `["tobi"]`.
      */
-    subdomains: string[];
+    readonly subdomains: string[];
 
     /**
      * Short-hand for `url.parse(req.url).pathname`.
      */
-    path: string;
+    readonly path: string;
 
     /**
      * Parse the "Host" header field hostname.
      */
-    hostname: string;
+    readonly hostname: string;
 
     /**
      * @deprecated Use hostname instead.
      */
-    host: string;
+    readonly host: string;
 
     /**
      * Check if the request is fresh, aka
      * Last-Modified and/or the ETag
      * still match.
      */
-    fresh: boolean;
+    readonly fresh: boolean;
 
     /**
      * Check if the request is stale, aka
      * "Last-Modified" and / or the "ETag" for the
      * resource has changed.
      */
-    stale: boolean;
+    readonly stale: boolean;
 
     /**
      * Check if the request was an _XMLHttpRequest_.
      */
-    xhr: boolean;
+    readonly xhr: boolean;
 
     // body: { username: string; password: string; remember: boolean; title: string; };
     body: ReqBody;

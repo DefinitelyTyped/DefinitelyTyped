@@ -22,8 +22,6 @@ import { WebGLLightsState } from "./WebGLLights.js";
 import { WebGLProgram } from "./WebGLProgram.js";
 
 export interface WebGLProgramParameters {
-    isWebGL2: boolean;
-
     shaderID: string;
     shaderType: string;
     shaderName: string;
@@ -41,6 +39,7 @@ export interface WebGLProgramParameters {
     precision: "lowp" | "mediump" | "highp";
 
     batching: boolean;
+    batchingColor: boolean;
     instancing: boolean;
     instancingColor: boolean;
     instancingMorph: boolean;
@@ -74,6 +73,8 @@ export interface WebGLProgramParameters {
     clearcoatMap: boolean;
     clearcoatNormalMap: boolean;
     clearcoatRoughnessMap: boolean;
+
+    dispersion: boolean;
 
     iridescence: boolean;
     iridescenceMap: boolean;
@@ -186,7 +187,6 @@ export interface WebGLProgramParameters {
     shadowMapType: ShadowMapType;
 
     toneMapping: ToneMapping;
-    useLegacyLights: boolean;
 
     decodeVideoTexture: boolean;
 
@@ -200,16 +200,9 @@ export interface WebGLProgramParameters {
 
     index0AttributeName: string | undefined;
 
-    extensionDerivatives: boolean;
-    extensionFragDepth: boolean;
-    extensionDrawBuffers: boolean;
-    extensionShaderTextureLOD: boolean;
     extensionClipCullDistance: boolean;
     extensionMultiDraw: boolean;
 
-    rendererExtensionFragDepth: boolean;
-    rendererExtensionDrawBuffers: boolean;
-    rendererExtensionShaderTextureLod: boolean;
     rendererExtensionParallelShaderCompile: boolean;
 
     customProgramCacheKey: string;

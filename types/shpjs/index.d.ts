@@ -18,7 +18,7 @@ declare namespace shpjs {
             buffer: ShpJSBuffer,
             whiteList?: readonly string[],
         ): Promise<FeatureCollectionWithFilename | FeatureCollectionWithFilename[]>;
-        getShapeFile(
+        getShapefile(
             base: string | ShpJSBuffer,
             whiteList?: readonly string[],
         ): Promise<FeatureCollectionWithFilename | FeatureCollectionWithFilename[]>;

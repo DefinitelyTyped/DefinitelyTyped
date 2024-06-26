@@ -203,6 +203,10 @@ options = {
 };
 
 options = {
+    corejs: "1.2.3",
+};
+
+options = {
     corejs: {
         version: 2,
         proposals: true,
@@ -212,6 +216,12 @@ options = {
 options = {
     corejs: {
         version: 3,
+        proposals: false,
+    },
+};
+options = {
+    corejs: {
+        version: "1.2.3",
         proposals: false,
     },
 };

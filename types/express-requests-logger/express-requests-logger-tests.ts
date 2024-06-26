@@ -28,6 +28,9 @@ app.use(
                 "5xx": "error",
             },
         },
+        shouldSkipAuditFunc(_req, _res) {
+            return false;
+        },
     }),
     (req, res, next) => {
         req.maxBodyLength; // $ExpectType number

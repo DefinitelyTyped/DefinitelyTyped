@@ -93,3 +93,6 @@ app.onEvent("contactRequested", (req) => {
         req.status; // $ExpectType "cancelled"
     }
 });
+
+app.BiometricManager.init(() => console.log("init"));
+app.BiometricManager.openSettings();

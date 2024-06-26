@@ -64,7 +64,11 @@ export class NativeAdView extends React.Component<{
                 </View>
                 {data?.callToActionText && (
                     <View style={{ alignItems: "center" }}>
-                        <View ref={el => (this._triggerView = el)}>
+                        <View
+                            ref={el => {
+                                this._triggerView = el;
+                            }}
+                        >
                             <Text
                                 style={{
                                     fontSize: 15,

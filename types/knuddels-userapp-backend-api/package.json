@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/knuddels-userapp-backend-api",
-    "version": "1.20220921162223.9999",
+    "version": "1.20240419122957.9999",
     "nonNpm": true,
     "nonNpmDescription": "Knuddels UserApps API",
     "projects": [

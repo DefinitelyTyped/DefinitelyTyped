@@ -165,11 +165,23 @@ const quality: OvenPlayerQuality = {
 // getMediaElement(): HTMLVideoElement;
 const videoElement: HTMLVideoElement = player.getMediaElement();
 
-// on(evnetName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
+// on(eventName: 'ready', callback: (eventData: OvenPlayerEvents['ready']) => void): void;
 player.on("ready", () => {});
 
-// once (evnetName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
+// once (eventName: 'stateChanged', callback: (eventData: OvenPlayerEvents['stateChanged']) => void): void;
 player.once("stateChanged", data => {});
+
+player.on("volumeChanged", data => {
+    // $ExpectType number
+    data.volume;
+    // $ExpectType boolean
+    data.mute;
+});
+
+player.on("playbackRateChanged", data => {
+    // $ExpectType number
+    data.playbackRate;
+});
 
 // off(eventName: keyof OvenPlayerEvents): void;
 player.off("ready");

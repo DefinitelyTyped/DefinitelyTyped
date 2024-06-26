@@ -48,6 +48,7 @@ import {
     ProxyCallback,
     ProxyHandler,
     Statement,
+    StatementEffect,
 } from "aws-lambda";
 
 interface CustomAuthorizerContext extends APIGatewayAuthorizerResultContext {
@@ -757,10 +758,10 @@ const legacyAuthorizerHandler: CustomAuthorizerHandler = async (event, context, 
     return result;
 };
 
-function createPolicyDocument(): PolicyDocument {
+function createPolicyDocument(effect: StatementEffect = "Deny"): PolicyDocument {
     let statement: Statement = {
         Action: str,
-        Effect: str,
+        Effect: effect,
         Resource: str,
     };
 
@@ -779,6 +780,18 @@ function createPolicyDocument(): PolicyDocument {
     // @ts-expect-error
     statement = { Effect: str, Action: str, Principal: 123, Resource: str };
 
+    // Lowercase allow for effect
+    // @ts-expect-error
+    statement = { Effect: "allow", Action: str, Resource: 123 };
+
+    // Lowercase deny for effect
+    // @ts-expect-error
+    statement = { Effect: "deny", Action: str, Resource: 123 };
+
+    // Invalid effect
+    // @ts-expect-error
+    statement = { Effect: "foo", Action: str, Resource: 123 };
+
     // No Effect
     // @ts-expect-error
     statement = { Action: str, Principal: str };
@@ -786,7 +799,7 @@ function createPolicyDocument(): PolicyDocument {
     statement = {
         Sid: str,
         Action: [str, str],
-        Effect: str,
+        Effect: effect,
         Resource: [str, str],
         Condition: {
             condition1: { key: "value" },
@@ -804,11 +817,11 @@ function createPolicyDocument(): PolicyDocument {
         NotPrincipal: [str, str],
     };
 
-    statement = { Action: str, Principal: str, Effect: str };
+    statement = { Action: str, Principal: str, Effect: effect };
 
-    statement = { Action: str, NotPrincipal: { Service: str }, Effect: str };
+    statement = { Action: str, NotPrincipal: { Service: str }, Effect: effect };
 
-    statement = { Effect: str, NotAction: str, NotResource: str };
+    statement = { Effect: effect, NotAction: str, NotResource: str };
 
     let policyDocument: PolicyDocument = { Version: str, Statement: [statement] };
 

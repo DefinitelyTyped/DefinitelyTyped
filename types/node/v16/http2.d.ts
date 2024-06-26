@@ -89,7 +89,7 @@ declare module "http2" {
          */
         readonly destroyed: boolean;
         /**
-         * Set the `true` if the `END_STREAM` flag was set in the request or response
+         * Set to `true` if the `END_STREAM` flag was set in the request or response
          * HEADERS frame received, indicating that no additional data should be received
          * and the readable side of the `Http2Stream` will be closed.
          * @since v10.11.0
@@ -764,7 +764,7 @@ declare module "http2" {
          *
          * The maximum number of outstanding (unacknowledged) pings is determined by the`maxOutstandingPings` configuration option. The default maximum is 10.
          *
-         * If provided, the `payload` must be a `Buffer`, `TypedArray`, or `DataView`containing 8 bytes of data that will be transmitted with the `PING` and
+         * If provided, the `payload` must be a `Buffer`, `TypedArray`, or `DataView` containing 8 bytes of data that will be transmitted with the `PING` and
          * returned with the ping acknowledgment.
          *
          * The callback will be invoked with three arguments: an error argument that will
@@ -1897,7 +1897,7 @@ declare module "http2" {
         write(chunk: string | Uint8Array, encoding: BufferEncoding, callback?: (err: Error) => void): boolean;
         /**
          * Sends a status `100 Continue` to the client, indicating that the request body
-         * should be sent. See the `'checkContinue'` event on `Http2Server` and`Http2SecureServer`.
+         * should be sent. See the `'checkContinue'` event on `Http2Server` and `Http2SecureServer`.
          * @since v8.4.0
          */
         writeContinue(): void;
@@ -2065,7 +2065,13 @@ declare module "http2" {
         const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
         const HTTP2_HEADER_ACCEPT_RANGES: string;
         const HTTP2_HEADER_ACCEPT: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_CREDENTIALS: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_HEADERS: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_METHODS: string;
         const HTTP2_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_EXPOSE_HEADERS: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_REQUEST_HEADERS: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_REQUEST_METHOD: string;
         const HTTP2_HEADER_AGE: string;
         const HTTP2_HEADER_ALLOW: string;
         const HTTP2_HEADER_AUTHORIZATION: string;

@@ -215,6 +215,7 @@ declare namespace googletag {
             size: number[] | string;
             sourceAgnosticCreativeId?: number | undefined;
             sourceAgnosticLineItemId?: number | undefined;
+            isBackfill: boolean;
         }
 
         // eslint-disable-next-line @typescript-eslint/no-empty-interface

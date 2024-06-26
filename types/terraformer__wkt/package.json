@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/terraformer-js/terraformer/tree/main/packages/wkt"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "dependencies": {
         "@types/geojson": "*"
     },

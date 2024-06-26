@@ -217,15 +217,15 @@ redisClient.persist();
 redisClient.persist(5);
 
 //
-// Client.lpsuh
+// Client.lpush
 //
 
 // @ts-expect-error
-redisClient.lpsuh();
+redisClient.lpush();
 // @ts-expect-error
-redisClient.lpsuh(5);
+redisClient.lpush(5);
 // @ts-expect-error
-redisClient.lpsuh("key", { name: "value" });
+redisClient.lpush("key", { name: "value" });
 
 //
 // Client.rpush
