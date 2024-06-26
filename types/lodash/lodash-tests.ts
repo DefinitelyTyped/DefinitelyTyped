@@ -4495,6 +4495,12 @@ fp.now(); // $ExpectType number
     _(42).isObjectLike(); // $ExpectType boolean
     _.chain([]).isObjectLike(); // $ExpectType PrimitiveChain<boolean>
     fp.isObjectLike(anything); // $ExpectType boolean
+    if (fp.isObjectLike(anything)) {
+        anything; // $ExpectType object
+    }
+    if (_.isObjectLike(anything)) {
+        anything; // $ExpectType object
+    }
 }
 
 // _.isPlainObject

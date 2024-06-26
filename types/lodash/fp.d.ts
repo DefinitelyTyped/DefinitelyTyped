@@ -2004,7 +2004,7 @@ declare namespace _ {
     type LodashIsNull = (value: any) => value is null;
     type LodashIsNumber = (value: any) => value is number;
     type LodashIsObject = (value: any) => value is object;
-    type LodashIsObjectLike = (value: any) => boolean;
+    type LodashIsObjectLike = (value: any) => value is object;
     type LodashIsPlainObject = (value: any) => boolean;
     type LodashIsRegExp = (value: any) => value is RegExp;
     type LodashIsSafeInteger = (value: any) => boolean;
