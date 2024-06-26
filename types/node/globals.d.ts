@@ -61,7 +61,7 @@ declare global {
             filename?: string;
         }): void;
         (options: {
-            execution?: "async";
+            execution: "async";
             flavor?: "regular" | "last-resort";
             type?: "major-snapshot" | "major" | "minor";
             filename?: string;
