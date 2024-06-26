@@ -47,12 +47,12 @@ pm.scan("!./foo/*.js", { tokens: true });
 
 pm.makeRe("foo/*.js").test("foo/bar.js");
 pm.makeRe("foo/{01..25}/bar", {
-    expandRange(from, to) {
+    expandRange(from: string, to: string) {
         return `(<fill-range output>)`;
     },
 });
 pm.makeRe("foo/{01..25..5}/bar", {
-    expandRange(from, to, step) {
+    expandRange(from: string, to: string, step: string) {
         return `(<fill-range output>)`;
     },
 });
