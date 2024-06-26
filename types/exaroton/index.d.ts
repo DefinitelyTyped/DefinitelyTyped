@@ -289,15 +289,6 @@ interface Software {
     readonly version: string;
 }
 
-declare module "node:events" {
-    class EventEmitter {
-        static on<Emitter extends EventEmitter, StreamType extends keyof StreamTypes>(
-            eventEmitter: Emitter,
-            eventName: Emitter extends Client ? StreamType : string,
-        ): AsyncIterableIterator<Emitter extends Client ? StreamTypes[StreamType] : any>;
-    }
-}
-
 export interface StreamTypes {
     status: [server: Server];
     "console:line": [data: string];
