@@ -7,9 +7,7 @@
     "projects": [
         "https://poool.dev/fr/docs/engage/javascript"
     ],
-    "dependencies": {
-        "@types/poool-access": "*"
-    },
+
     "devDependencies": {
         "@types/poool-engage": "workspace:."
     },
