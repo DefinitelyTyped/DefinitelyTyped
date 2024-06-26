@@ -20,6 +20,7 @@
 import "./global"; // Type global environment
 
 // Expose everything to autoimport
+import "./browser";
 import "./crypto";
 import "./data";
 import "./encoding";
