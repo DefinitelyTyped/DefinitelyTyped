@@ -242,7 +242,8 @@ declare module "buffer" {
             | "base64url"
             | "latin1"
             | "binary"
-            | "hex";
+            | "hex"
+            | "buffer";
         type WithImplicitCoercion<T> =
             | T
             | {
