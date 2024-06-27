@@ -234,3 +234,7 @@ stringSeq = stringSeq.toUpperCase();
 var fooSeqSeqSequence: LazyJS.Sequence<LazyJS.Sequence<LazyJS.Sequence<Foo>>>;
 fooSequence = fooSeqSeqSequence.flatten();
 fooSequence = fooSeqSeqSequence.flatten(true).flatten(true);
+
+// Iterator
+
+new LazyJS.Iterator(fooSequence);
