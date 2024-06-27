@@ -1,9 +1,9 @@
-import {Method, Options as GotOptions, ResponseType} from "got";
-import {EventEmitter} from "node:events";
-import {ReadStream, WriteStream} from "node:fs";
-import {WebSocket} from "ws";
+import { Method, Options as GotOptions, ResponseType } from "got";
+import { EventEmitter } from "node:events";
+import { ReadStream, WriteStream } from "node:fs";
+import { WebSocket } from "ws";
 
-export {Client, ConfigOptionType, Pool, PoolMember, Request, Response, Server, ServerStatus, Software};
+export { Client, ConfigOptionType, Pool, PoolMember, Request, Response, Server, ServerStatus, Software };
 
 declare enum ServerStatus {
     OFFLINE = 0,
@@ -602,7 +602,6 @@ declare class Pool {
      * @throws {RequestError} if the request was unsuccessful
      */
     get(): Promise<this>;
-
 
     /**
      * Get pool members
