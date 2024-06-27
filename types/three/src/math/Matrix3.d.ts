@@ -52,6 +52,8 @@ export interface Matrix {
  * ( class Matrix3 implements Matrix<Matrix3> )
  */
 export class Matrix3 implements Matrix {
+    readonly isMatrix3: true;
+
     /**
      * Creates an identity matrix.
      */

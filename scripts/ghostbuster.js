@@ -1,5 +1,5 @@
-import { Octokit } from "@octokit/core";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { Octokit } from "octokit";
 
 /** @type {<T, U>(array: readonly T[] | undefined, mapfn: (x: T, i: number) => readonly U[]) => readonly U[]} */
 function flatMap(array, mapfn) {

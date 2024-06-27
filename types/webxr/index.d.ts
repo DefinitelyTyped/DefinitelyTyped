@@ -19,7 +19,7 @@ interface Navigator {
 }
 
 /**
- * WebGL Context Compatability
+ * WebGL Context Compatibility
  *
  * ref: https://immersive-web.github.io/webxr/#contextcompatibility
  */
@@ -387,7 +387,7 @@ interface XRSessionInit {
 }
 
 interface XRSessionEventMap {
-    inputsourceschange: XRInputSourceChangeEvent;
+    inputsourceschange: XRInputSourcesChangeEvent;
     end: XRSessionEvent;
     visibilitychange: XRSessionEvent;
     frameratechange: XRSessionEvent;
@@ -460,7 +460,7 @@ interface XRSession extends EventTarget {
     updateTargetFrameRate(rate: number): Promise<void>;
 
     onend: XRSessionEventHandler;
-    oninputsourceschange: XRInputSourceChangeEventHandler;
+    oninputsourceschange: XRInputSourcesChangeEventHandler;
     onselect: XRInputSourceEventHandler;
     onselectstart: XRInputSourceEventHandler;
     onselectend: XRInputSourceEventHandler;
@@ -546,13 +546,13 @@ declare abstract class XRView implements XRView {}
  * available to an XRSession.
  * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
  */
-interface XRInputSourceChangeEvent extends XRSessionEvent {
+interface XRInputSourcesChangeEvent extends XRSessionEvent {
     readonly removed: readonly XRInputSource[];
     readonly added: readonly XRInputSource[];
 }
 
-interface XRInputSourceChangeEventHandler {
-    (evt: XRInputSourceChangeEvent): any;
+interface XRInputSourcesChangeEventHandler {
+    (evt: XRInputSourcesChangeEvent): any;
 }
 
 // Experimental/Draft features
@@ -1165,4 +1165,61 @@ interface XRSession {
 /**
  * END: WebXR DOM Overlays Module
  * https://immersive-web.github.io/dom-overlays/
+ */
+
+/**
+ * BEGIN: WebXR Depth Sensing Module
+ * https://www.w3.org/TR/webxr-depth-sensing-1/
+ */
+
+type XRDepthUsage = "cpu-optimized" | "gpu-optimized";
+
+type XRDepthDataFormat = "luminance-alpha" | "float32" | "unsigned-short";
+
+interface XRDepthStateInit {
+    usagePreference: XRDepthUsage[];
+    dataFormatPreference: XRDepthDataFormat[];
+}
+
+interface XRSessionInit {
+    depthSensing?: XRDepthStateInit | undefined;
+}
+
+interface XRSession {
+    readonly depthUsage?: XRDepthUsage | undefined;
+    readonly depthDataFormat?: XRDepthDataFormat | undefined;
+}
+
+interface XRDepthInformation {
+    readonly width: number;
+    readonly height: number;
+
+    readonly normDepthBufferFromNormView: XRRigidTransform;
+    readonly rawValueToMeters: number;
+}
+
+interface XRCPUDepthInformation extends XRDepthInformation {
+    readonly data: ArrayBuffer;
+
+    getDepthInMeters(x: number, y: number): number;
+}
+
+interface XRFrame {
+    getDepthInformation(view: XRView): XRCPUDepthInformation | null | undefined;
+}
+
+interface XRWebGLDepthInformation extends XRDepthInformation {
+    readonly texture: WebGLTexture;
+
+    readonly textureType: XRTextureType;
+    readonly imageIndex?: number | null | undefined;
+}
+
+interface XRWebGLBinding {
+    getDepthInformation(view: XRView): XRWebGLDepthInformation | null | undefined;
+}
+
+/**
+ * END: WebXR Depth Sensing Module
+ * https://www.w3.org/TR/webxr-depth-sensing-1/
  */

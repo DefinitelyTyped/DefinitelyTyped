@@ -1,9 +1,8 @@
 import Node from "../core/Node.js";
 import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
-import PositionNode from "./PositionNode.js";
 
 export default class ModelViewProjectionNode extends Node {
-    constructor(positionNode?: PositionNode);
+    constructor(positionNode?: Node);
 }
 
 export const modelViewProjection: (position?: NodeRepresentation) => ShaderNodeObject<ModelViewProjectionNode>;

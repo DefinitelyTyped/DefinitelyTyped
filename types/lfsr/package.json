@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lfsr",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/dmitriiabramov/lfsr"
+    ],
+    "devDependencies": {
+        "@types/lfsr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alba Mendez",
+            "githubUsername": "mildsunrise"
+        }
+    ]
+}

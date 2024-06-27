@@ -433,13 +433,13 @@ declare module "process" {
                  * the same execution environment as the parent.
                  *
                  * ```bash
-                 * node --harmony script.js --version
+                 * node --icu-data-dir=./foo --require ./bar.js script.js --version
                  * ```
                  *
                  * Results in `process.execArgv`:
                  *
                  * ```js
-                 * ['--harmony']
+                 * ["--icu-data-dir=./foo", "--require", "./bar.js"]
                  * ```
                  *
                  * And `process.argv`:
@@ -1242,7 +1242,7 @@ declare module "process" {
                 title: string;
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
-                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`,`'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
+                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'node:process';
@@ -1293,14 +1293,21 @@ declare module "process" {
                 /**
                  * Gets the amount of memory available to the process (in bytes) based on
                  * limits imposed by the OS. If there is no such constraint, or the constraint
-                 * is unknown, `undefined` is returned.
+                 * is unknown, `0` is returned.
                  *
                  * See [`uv_get_constrained_memory`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_get_constrained_memory) for more
                  * information.
                  * @since v19.6.0, v18.15.0
                  * @experimental
                  */
-                constrainedMemory(): number | undefined;
+                constrainedMemory(): number;
+                /**
+                 * Gets the amount of free memory that is still available to the process (in bytes).
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v20.x/api/process.html#processavailablememory) for more information.
+                 * @experimental
+                 * @since v20.13.0
+                 */
+                availableMemory(): number;
                 /**
                  * The `process.cpuUsage()` method returns the user and system CPU time usage of
                  * the current process, in an object with properties `user` and `system`, whose

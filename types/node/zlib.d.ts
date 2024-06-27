@@ -89,7 +89,7 @@
  *   });
  * ```
  * @since v0.5.8
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/zlib.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/zlib.js)
  */
 declare module "zlib" {
     import * as stream from "node:stream";

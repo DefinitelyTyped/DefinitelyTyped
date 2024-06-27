@@ -13,8 +13,8 @@ emitter.setCustomDistributionAlgorithm(() => true); // $ExpectType void
 
 const sub = emitter.addActiveVariantListener("Experiment 1", () => "test2"); // $ExpectType Subscription
 sub.remove(); // $ExpectType void
-sub.eventType; //  $ExpectType string
-sub.listener; //  $ExpectType ListenerCallback
+sub.eventType; // $ExpectType string
+sub.listener; // $ExpectType ListenerCallback
 
 experimentDebugger.enable(); // $ExpectType void
 experimentDebugger.disable(); // $ExpectType void

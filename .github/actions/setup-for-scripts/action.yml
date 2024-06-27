@@ -1,0 +1,13 @@
+name: Set up scripts
+description: Set up repo for running scripts
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+      with:
+        node-version: '20'
+    - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+      with:
+        run_install: |
+          - args: [--filter, ., --filter, '{./scripts}...']

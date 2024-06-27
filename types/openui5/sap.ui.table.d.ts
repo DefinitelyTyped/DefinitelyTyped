@@ -1,4 +1,4 @@
-// For Library Version: 1.124.0
+// For Library Version: 1.125.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -1615,6 +1615,25 @@ declare module "sap/ui/table/Column" {
       oListener?: object
     ): this;
     /**
+     * The column is resized to the width of the widest cell content that is currently displayed. This can be
+     * the content of a column header cell, or a data cell. Only rows that are currently scrolled into view
+     * are taken into consideration. The content of cells that span multiple columns is not taken into consideration,
+     * for example, if the `headerSpan` property is used.
+     *
+     * The width might not be accurate if the cell content is not rendered yet, for example, because the data
+     * is still being loaded.
+     *
+     * This behavior only works if the cell content is one of the following controls:
+     * 	 - `sap.m.Text`
+     * 	 - `sap.m.Label`
+     * 	 - `sap.m.Link`
+     * 	 - `sap.m.CheckBox`  Otherwise, the width might not be accurate either. This includes cases where
+     *     the listed control is wrapped in another control.
+     *
+     * @since 1.125
+     */
+    autoResize(): void;
+    /**
      * Destroys the label in the aggregation {@link #getLabel label}.
      *
      *
@@ -1686,11 +1705,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets current value of property {@link #getAutoResizable autoResizable}.
      *
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
      * Default value is `false`.
      *
@@ -2102,11 +2118,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Sets a new value for property {@link #getAutoResizable autoResizable}.
      *
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2796,11 +2809,8 @@ declare module "sap/ui/table/Column" {
     headerSpan?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
      * @since 1.21.1
      */
@@ -6666,6 +6676,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Triggers automatic resizing of a column to the widest content.
      *
+     * @deprecated (since 1.125) - replaced by {@link sap.ui.table.Column#autoResize}
      * @experimental - Experimental! Presently implemented to only work with a very limited set of controls
      * (e.g. sap.m.Text).
      */

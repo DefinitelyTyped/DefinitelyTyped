@@ -364,9 +364,6 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
     shortcutType="primary"
     shortcutCharacter="b"
     onClick={() => console.log("Hello World")}
-    placeholder="Hello World"
-    onPointerEnterCapture={() => console.log("Hello World")}
-    onPointerLeaveCapture={() => console.log("Hello World")}
 />;
 
 //
@@ -613,6 +610,12 @@ be.useBlockProps.save({ foo: "bar" });
     const { children } = be.useInnerBlocksProps();
     // $ExpectType ReactElement<any, string | JSXElementConstructor<any>>
     children;
+}
+
+{
+    // Allow using blockProps as first parameter in useInnerBlocksProps.
+    const blockProps = be.useBlockProps({ foo: "bar" });
+    const innerBlocksProps = be.useInnerBlocksProps(blockProps);
 }
 
 // $ExpectType Record<string, unknown>

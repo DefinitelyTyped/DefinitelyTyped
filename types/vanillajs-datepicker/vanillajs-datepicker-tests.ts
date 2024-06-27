@@ -42,4 +42,8 @@ const datePickerWithCustomOptions = new Datepicker(container, {
     },
     todayButton: true,
     weekNumbers: 1,
+    format: {
+        toValue: (date: string, format: object, locale: object) => new Date().getTime(),
+        toDisplay: (date: Date, format: object, locale: object) => date.toString(),
+    },
 });

@@ -17,6 +17,8 @@ export default class MeshNormalNodeMaterial extends NodeMaterial {
     displacementMap: Texture | null;
     displacementScale: number;
     displacementBias: number;
+    wireframe: boolean;
+    wireframeLinewidth: number;
     flatShading: boolean;
 
     constructor(parameters?: MeshBasicNodeMaterialParameters);

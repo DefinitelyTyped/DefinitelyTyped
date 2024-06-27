@@ -46,3 +46,5 @@ main(
 cli({ all: true }).then((raw: string) => {});
 
 helpers.getNodeInfo();
+
+helpers.getpnpmInfo();

@@ -8,6 +8,7 @@ import {
     IoTProtocolType,
     PolicyDocument,
     Statement,
+    StatementEffect,
 } from "aws-lambda";
 
 // IoT Custom Authorizer
@@ -93,27 +94,39 @@ const iotCustomAuthorizerHandler: IoTCustomAuthorizerHandler = async (event, con
     return result;
 };
 
-function createPolicyDocument(): PolicyDocument {
+function createPolicyDocument(effect: StatementEffect = "Deny"): PolicyDocument {
     let statement: Statement = {
         Action: str,
-        Effect: str,
+        Effect: effect,
         Resource: str,
     };
 
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: 123 };
+    statement = { Effect: effect, Action: str, Principal: 123 };
 
     // Bad Resource
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Resource: 123 };
+    statement = { Effect: effect, Action: str, Resource: 123 };
 
     // Bad Resource with valid Principal
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: { Service: str }, Resource: 123 };
+    statement = { Effect: effect, Action: str, Principal: { Service: str }, Resource: 123 };
 
     // Bad principal with valid Resource
     // @ts-expect-error
-    statement = { Effect: str, Action: str, Principal: 123, Resource: str };
+    statement = { Effect: effect, Action: str, Principal: 123, Resource: str };
+
+    // Lowercase allow for effect
+    // @ts-expect-error
+    statement = { Effect: "allow", Action: str, Resource: 123 };
+
+    // Lowercase deny for effect
+    // @ts-expect-error
+    statement = { Effect: "deny", Action: str, Resource: 123 };
+
+    // Invalid effect
+    // @ts-expect-error
+    statement = { Effect: "foo", Action: str, Resource: 123 };
 
     // No Effect
     // @ts-expect-error
@@ -122,7 +135,7 @@ function createPolicyDocument(): PolicyDocument {
     statement = {
         Sid: str,
         Action: [str, str],
-        Effect: str,
+        Effect: effect,
         Resource: [str, str],
         Condition: {
             condition1: { key: "value" },
@@ -140,11 +153,11 @@ function createPolicyDocument(): PolicyDocument {
         NotPrincipal: [str, str],
     };
 
-    statement = { Action: str, Principal: str, Effect: str };
+    statement = { Action: str, Principal: str, Effect: effect };
 
-    statement = { Action: str, NotPrincipal: { Service: str }, Effect: str };
+    statement = { Action: str, NotPrincipal: { Service: str }, Effect: effect };
 
-    statement = { Effect: str, NotAction: str, NotResource: str };
+    statement = { Effect: effect, NotAction: str, NotResource: str };
 
     let policyDocument: PolicyDocument = { Version: str, Statement: [statement] };
 

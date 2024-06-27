@@ -42,6 +42,8 @@ export type Matrix4Tuple = [
  * m.multiply( m3 );
  */
 export class Matrix4 implements Matrix {
+    readonly isMatrix4: true;
+
     /**
      * Creates an identity matrix.
      */

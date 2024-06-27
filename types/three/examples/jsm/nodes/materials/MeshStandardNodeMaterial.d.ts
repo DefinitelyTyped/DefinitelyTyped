@@ -1,4 +1,4 @@
-import { Color, MeshStandardMaterialParameters, NormalMapTypes, Texture, Vector2 } from "three";
+import { Color, Euler, MeshStandardMaterialParameters, NormalMapTypes, Texture, Vector2 } from "three";
 import Node from "../core/Node.js";
 import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
@@ -39,10 +39,14 @@ export default class MeshStandardNodeMaterial extends NodeMaterial {
     metalnessMap: Texture | null;
     alphaMap: Texture | null;
     envMap: Texture | null;
+    envMapRotation: Euler;
     envMapIntensity: number;
+    wireframe: boolean;
+    wireframeLinewidth: number;
     wireframeLinecap: string;
     wireframeLinejoin: string;
     flatShading: boolean;
+    fog: boolean;
 
     constructor(paramters?: MeshStandardNodeMaterialParameters);
 }
