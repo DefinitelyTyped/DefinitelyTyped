@@ -5387,7 +5387,7 @@ fp.now(); // $ExpectType number
     _.get({ a: tupleOfNumbers }, 'a[0]'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
     _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType 1
-    _.get({ a: dictionary }, 'a.b'); // $ExpectType string | undefined
+    _.get({ a: dictionary }, 'a.b'); // $ExpectType string
     _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
     _.get("abc", [0], "_");
     _.get([42], 0, -1); // $ExpectType number
@@ -5428,7 +5428,7 @@ fp.now(); // $ExpectType number
     _({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType undefined
     _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType 1
-    _({ a: dictionary }).get('a.b'); // $ExpectType string | undefined
+    _({ a: dictionary }).get('a.b'); // $ExpectType string
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
     _({ a: { b: true } }).get("a"); // $ExpectType { b: boolean; }
@@ -7477,21 +7477,21 @@ _.templateSettings; // $ExpectType TemplateSettings
         type E = GetFieldTypeOfNarrowedByKey<AbcObject, 0>; // $ExpectType undefined
         type F = GetFieldTypeOfNarrowedByKey<AbcObject, '0'>; // $ExpectType undefined
 
-        type G = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 'key'>; // $ExpectType 'OK' | undefined
+        type G = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 'key'>; // $ExpectType 'OK'
         type H = GetFieldTypeOfNarrowedByKey<ObjectLiteral, typeof symbol>; // $ExpectType "SymVal"
 
         // Note: It is legit, as JS & TS auto-cast numeric values to string keys.
-        type I = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 0>; // $ExpectType 'OK' | undefined
+        type I = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 0>; // $ExpectType 'OK'
 
-        type J = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 0>; // $ExpectType 'OK' | undefined
-        type K = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, '0'>; // $ExpectType 'OK' | undefined
+        type J = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 0>; // $ExpectType 'OK'
+        type K = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, '0'>; // $ExpectType 'OK'
         type L = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 'key'>; // $ExpectType undefined
         type M = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, typeof symbol>; // $ExpectType undefined
 
         // Again, JS & TS auto-cast numeric values to string keys, thus the next two test cases are valid.
-        type N = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 0>; // $ExpectType 'OK' | undefined
-        type O = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, '0'>; // $ExpectType 'OK' | undefined
-        type P = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 'key'>; // $ExpectType 'OK' | undefined
+        type N = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 0>; // $ExpectType 'OK'
+        type O = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, '0'>; // $ExpectType 'OK'
+        type P = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 'key'>; // $ExpectType 'OK'
         type R = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, typeof symbol>; // $ExpectType undefined
     }
 

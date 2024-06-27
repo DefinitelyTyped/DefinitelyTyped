@@ -1035,19 +1035,11 @@ declare module "../index" {
     type GetFieldTypeOfNarrowedByKey<T, K> =
         T extends unknown[] ? GetFieldTypeOfArrayLikeByKey<T, K>
         : T extends string ? GetFieldTypeOfStringByKey<T, K>
-        : K extends keyof T
-            ? K extends Symbol ? T[K]
-            : number extends keyof T ? T[K] | undefined
-            : string extends keyof T ? T[K] | undefined
-            : T[K]
+        : K extends keyof T ? T[K]
         : K extends number
-            ? `${K}` extends keyof T
-                ? string extends keyof T ? T[`${K}`] | undefined
-                : T[`${K}`] : undefined
+            ? `${K}` extends keyof T ? T[`${K}`] : undefined
         : K extends `${infer N extends number}`
-            ? N extends keyof T
-                ? number extends keyof T ? T[N] | undefined : T[N]
-            : undefined
+            ? N extends keyof T ? T[N] : undefined
         : undefined;
 
     /** Internal. Assumes P is a dot-delimited path. */
