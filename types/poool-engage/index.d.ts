@@ -1,4 +1,3 @@
-
 declare global {
     var Engage: PooolEngage.Engage;
     /**
@@ -41,7 +40,7 @@ export namespace PooolEngage {
          *
          * More infos: https://www.poool.dev/docs/engage/javascript/configuration#stripepublickey
          */
-        stripePublicKey?: string
+        stripePublicKey?: string;
 
         /**
          * The locale used by default texts inside elements.
@@ -50,7 +49,7 @@ export namespace PooolEngage {
          *
          * More infos: https://www.poool.dev/docs/engage/javascript/configuration#locale
          */
-        locale?: "fr" | "en"
+        locale?: "fr" | "en";
 
         /**
          * Enable/disable automatic Piano tracking for particular events.
@@ -60,7 +59,7 @@ export namespace PooolEngage {
         *
         * More infos: https://www.poool.dev/docs/engage/javascript/configuration#pianoautotrackingenabled
         */
-        pianoAutoTrackingEnabled?: boolean
+        pianoAutoTrackingEnabled?: boolean;
 
         /**
          * Enable/disable automatic Google Analytics 4 tracking (Google Analytics 4 tag required) for particular events.
@@ -70,7 +69,7 @@ export namespace PooolEngage {
         *
         * More infos: https://www.poool.dev/docs/engage/javascript/configuration#gtagautotrackingenabled
         */
-        gtagAutoTrackingEnabled?: boolean
+        gtagAutoTrackingEnabled?: boolean;
     }
 
     interface EngageConfig {
@@ -125,40 +124,43 @@ export namespace PooolEngage {
         (variables: { [key: string]: string | number | boolean }): Engage;
     }
 
-    type EngageEventsList = 'ready'
-        | 'seen'
-        | 'click'
-        | 'formSubmit'
-        | 'destroy'
-        | 'error';
+    type EngageEventsList =
+        | "ready"
+        | "seen"
+        | "click"
+        | "formSubmit"
+        | "destroy"
+        | "error";
 
-    type EngageTextsType = 'form_optional'
-        | 'form_no_options'
-        | 'form_error'
-        | 'form_error_required_field'
-        | 'form_error_invalid_field'
-        | 'form_error_invalid_email_field'
-        | 'form_error_invalid_phone_field'
-        | 'form_error_invalid_date_field'
-        | 'form_error_invalid_credit_card_field'
-        | 'form_error_non_existent_email';
+    type EngageTextsType =
+        | "form_optional"
+        | "form_no_options"
+        | "form_error"
+        | "form_error_required_field"
+        | "form_error_invalid_field"
+        | "form_error_invalid_email_field"
+        | "form_error_invalid_phone_field"
+        | "form_error_invalid_date_field"
+        | "form_error_invalid_credit_card_field"
+        | "form_error_non_existent_email";
 
-    type EngageDisplayConditionsType = 'target'
-        | 'delay'
-        | 'scroll'
-        | 'views'
-        | 'viewsPerDay'
-        | 'visits'
-        | 'device'
-        | 'geoloc'
-        | 'url'
-        | 'referrer'
-        | 'date'
-        | 'time'
-        | 'customFilter'
-        | 'priority'
-        | 'and'
-        | 'or';
+    type EngageDisplayConditionsType =
+        | "target"
+        | "delay"
+        | "scroll"
+        | "views"
+        | "viewsPerDay"
+        | "visits"
+        | "device"
+        | "geoloc"
+        | "url"
+        | "referrer"
+        | "date"
+        | "time"
+        | "customFilter"
+        | "priority"
+        | "and"
+        | "or";
 
     interface EngageDisplayConditions {
         id: string;
@@ -169,7 +171,7 @@ export namespace PooolEngage {
     interface EngageElement {
         slug: string;
         name: string;
-        conditions: EngageDisplayConditions[]
+        conditions: EngageDisplayConditions[];
         /**
          * Destroys the element
          *
@@ -256,7 +258,6 @@ export namespace PooolEngage {
         texts: EngageTexts;
 
         /**
-         *
          * @param event the event name
          * @param callback the event callback
          * @returns the Engage instance
@@ -266,7 +267,6 @@ export namespace PooolEngage {
         on(event: EngageEventsList, callback: (...props: any) => any): Engage;
 
         /**
-         *
          * @param event the event name
          * @param callback the event callback
          * @returns the Engage instance
@@ -303,6 +303,6 @@ export namespace PooolEngage {
          *
          * More infos: https://www.poool.dev/docs/engage/javascript/methods#commitpageview
          */
-        commitPageView (): Engage
+        commitPageView(): Engage;
     }
 }

@@ -40,8 +40,8 @@ engage.config(
 // $ExpectType Engage
 engage.config(
     {
-     locale: "en",
-     stripePublicKey: "pk_test_123",
+        locale: "en",
+        stripePublicKey: "pk_test_123",
     },
     true,
 );
@@ -66,7 +66,6 @@ engage.texts(
     false,
     "en",
 );
-
 
 // $ExpectType Engage
 engage.variables("key", "value");
