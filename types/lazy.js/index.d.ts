@@ -253,7 +253,7 @@ declare namespace LazyJS {
         pairs(): Sequence<T>;
         pick(properties: string[]): ObjectLikeSequence<T>;
         toArray(): T[];
-        toObject(): any;
+        toObject(): Record<string, T>;
         values(): Sequence<T>;
         watch(propertyNames: string | string[]): Sequence<{ property: string; value: any }>;
 
