@@ -3,7 +3,6 @@ declare namespace LazyJS {
         (value: string): StringLikeSequence;
         <T>(value: readonly T[]): ArrayLikeSequence<T>;
         <T>(value: any): ObjectLikeSequence<T>;
-        (value: any): ObjectLikeSequence<any>;
 
         strict(): LazyStatic;
 
