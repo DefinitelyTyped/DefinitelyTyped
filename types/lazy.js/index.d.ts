@@ -105,7 +105,7 @@ declare namespace LazyJS {
     }
 
     interface SequenceBase<T> extends SequenceBaser<T> {
-        first(): any;
+        first(): T |  undefined;
         first(count: number): Sequence<T>;
         indexOf(value: any, startIndex?: number): number;
 
@@ -207,7 +207,7 @@ declare namespace LazyJS {
     interface ArrayLikeSequence<T> extends Sequence<T> {
         // define()X;
         concat(var_args: T[]): ArrayLikeSequence<T>;
-        first(): T;
+        first(): T | undefined;
         first(count?: number): ArrayLikeSequence<T>;
         get(index: number): T;
         length(): number;
