@@ -110,13 +110,17 @@ declare const event5: "event5";
 }
 
 {
-    let result: Promise<number[]>;
+    let result1: Promise<T["event1"]>;
+    let result2: Promise<T["event2"]>;
+    let result3: Promise<T["event3"]>;
+    let result4: Promise<T["event4"]>;
+    let result5: Promise<T["event5"]>;
 
-    result = events.once(emitter, event1);
-    result = events.once(emitter, event2);
-    result = events.once(emitter, event3);
-    result = events.once(emitter, event4);
-    result = events.once(emitter, event5);
+    result1 = events.once(emitter, event1);
+    result2 = events.once(emitter, event2);
+    result3 = events.once(emitter, event3);
+    result4 = events.once(emitter, event4);
+    result5 = events.once(emitter, event5);
 
     emitter.emit("event1", "hello", 42);
     emitter.emit("event2", true);
@@ -146,7 +150,7 @@ declare const event5: "event5";
 }
 
 {
-    let result: Array<keyof T>;
+    let result: Array<keyof T | keyof events.EventEmitterBuiltInEventMap>;
 
     result = emitter.eventNames();
 }
@@ -157,12 +161,12 @@ declare const event5: "event5";
         )
         : never;
 
-    function on1<K>(event: K, listener: Listener<K>): void {
+    function on1<K extends keyof T>(event: K, listener: Listener<K>): void {
         emitter.on(event, listener);
     }
 
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    function on2<K>(...args: Parameters<typeof emitter.on<K>>): void {
+    function on2<K extends keyof T>(...args: Parameters<typeof emitter.on<K>>): void {
         emitter.on(...args);
     }
 
@@ -204,7 +208,6 @@ declare const event5: "event5";
     emitter.emit("abc", "hello", 123);
     // @ts-expect-error
     emitter.emit("abc", 123, false);
-    // @ts-expect-error
     emitter.emit("def", "hello", 123);
 }
 
@@ -226,7 +229,6 @@ declare const event5: "event5";
     emitter.emit(s1, "hello", 123);
     // @ts-expect-error
     emitter.emit(s1, 123, false);
-    // @ts-expect-error
     emitter.emit(s2, "hello", 123);
 }
 
@@ -244,6 +246,36 @@ declare const event5: "event5";
     emitter.emit(789, 123, false);
     // @ts-expect-error
     emitter.emit(s1, "hello", false);
-    // @ts-expect-error
     emitter.emit(s2, "hello", false);
+}
+
+{
+    const promise1: Promise<[string, number]> = events.once(new events.EventEmitter<T>(), "event1");
+    const promise2: Promise<[boolean]> = events.once(new events.EventEmitter<T>(), "event2");
+    const promise3: Promise<[]> = events.once(new events.EventEmitter<T>(), "event3");
+    const promise4: Promise<string[]> = events.once(new events.EventEmitter<T>(), "event4");
+    const promise5: Promise<unknown[]> = events.once(new events.EventEmitter<T>(), "event5");
+    // @ts-expect-error
+    const promise6: Promise<[string, string]> = events.once(new events.EventEmitter<T>(), "event1");
+    const promise7: Promise<any[]> = events.once(new events.EventEmitter<T>(), "event");
+
+    const iterable1: NodeJS.AsyncIterator<[string, number]> = events.on(new events.EventEmitter<T>(), "event1");
+    const iterable2: NodeJS.AsyncIterator<[boolean]> = events.on(new events.EventEmitter<T>(), "event2");
+    const iterable3: NodeJS.AsyncIterator<[]> = events.on(new events.EventEmitter<T>(), "event3");
+    const iterable4: NodeJS.AsyncIterator<string[]> = events.on(new events.EventEmitter<T>(), "event4");
+    const iterable5: NodeJS.AsyncIterator<unknown[]> = events.on(new events.EventEmitter<T>(), "event5");
+    // @ts-expect-error
+    const iterable6: NodeJS.AsyncIterator<[string, string]> = events.on(new events.EventEmitter<T>(), "event1");
+    const iterable7: NodeJS.AsyncIterator<any[]> = events.on(new events.EventEmitter<T>(), "event");
+}
+
+{
+    function acceptsEventEmitterInterface(eventEmitter: NodeJS.EventEmitter) {
+    }
+
+    function acceptsEventEmitterClass(eventEmitter: events.EventEmitter) {
+    }
+
+    acceptsEventEmitterInterface(emitter);
+    acceptsEventEmitterClass(emitter);
 }
