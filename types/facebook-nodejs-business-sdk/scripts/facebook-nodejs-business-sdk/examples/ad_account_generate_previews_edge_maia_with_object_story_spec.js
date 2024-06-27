@@ -1,0 +1,43 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ * All rights reserved.
+ *
+ * This source code is licensed under the license found in the
+ * LICENSE file in the root directory of this source tree.
+ * @flow
+ */
+
+ 'use strict';
+const bizSdk = require('facebook-nodejs-business-sdk');
+const AdAccount = bizSdk.AdAccount;
+const AdPreview = bizSdk.AdPreview;
+
+const access_token = '<ACCESS_TOKEN>';
+const app_secret = '<APP_SECRET>';
+const app_id = '<APP_ID>';
+const id = '<AD_ACCOUNT_ID>';
+const api = bizSdk.FacebookAdsApi.init(access_token);
+const showDebugingInfo = true; // Setting this to true shows more debugging info.
+if (showDebugingInfo) {
+  api.setDebug(true);
+}
+
+const logApiCallResult = (apiCallName, data) => {
+  console.log(apiCallName);
+  if (showDebugingInfo) {
+    console.log('Data:' + JSON.stringify(data));
+  }
+};
+
+let fields, params;
+fields = [
+];
+params = {
+  'creative' : {'object_story_spec':{'link_data':{'call_to_action':{'type':'USE_APP','value':{'link':'<url>'}},'description':'Description','link':'<url>','message':'Message','name':'Name','picture':'<imageURL>'},'page_id':'<pageID>'}},
+  'ad_format' : 'MOBILE_FEED_STANDARD',
+};
+const generatepreviewss = (new AdAccount(id)).getGeneratePreviews(
+  fields,
+  params
+);
+logApiCallResult('generatepreviewss api call complete.', generatepreviewss);

@@ -1,0 +1,18 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * WindowsAppLink
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class WindowsAppLink extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      app_id: 'app_id',
+      app_name: 'app_name',
+      package_family_name: 'package_family_name',
+      url: 'url'
+    });
+  }
+
+}

@@ -1,9 +1,16 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ThirdPartyMeasurementReportDataset
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ThirdPartyMeasurementReportDataset extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<ThirdPartyMeasurementReportDataset>;
+    static get Fields(): Readonly<{
+        category: "category";
+        id: "id";
+        partner: "partner";
+        product: "product";
+        schema: "schema";
+    }>;
+    get(fields: Array<string>, params?: Record<string, any>): ThirdPartyMeasurementReportDataset;
 }

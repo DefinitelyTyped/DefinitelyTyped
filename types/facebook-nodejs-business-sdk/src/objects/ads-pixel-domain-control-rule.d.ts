@@ -1,9 +1,12 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdsPixelDomainControlRule
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdsPixelDomainControlRule extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        domain_list: "domain_list";
+        type: "type";
+    }>;
 }

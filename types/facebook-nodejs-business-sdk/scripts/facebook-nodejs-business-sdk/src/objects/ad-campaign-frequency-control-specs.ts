@@ -1,0 +1,17 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * AdCampaignFrequencyControlSpecs
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class AdCampaignFrequencyControlSpecs extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      event: 'event',
+      interval_days: 'interval_days',
+      max_frequency: 'max_frequency'
+    });
+  }
+
+}

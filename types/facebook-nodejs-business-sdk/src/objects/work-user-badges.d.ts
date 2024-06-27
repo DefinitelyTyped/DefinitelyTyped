@@ -1,8 +1,15 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * WorkUserBadges
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class WorkUserBadges extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        category: "category";
+        description: "description";
+        icon: "icon";
+        id: "id";
+        name: "name";
+    }>;
 }

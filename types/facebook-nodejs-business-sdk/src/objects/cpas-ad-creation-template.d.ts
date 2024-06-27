@@ -1,10 +1,18 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CPASAdCreationTemplate
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CPASAdCreationTemplate extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<CPASAdCreationTemplate>;
+    static get Fields(): Readonly<{
+        description: "description";
+        id: "id";
+        is_unused_template: "is_unused_template";
+        name: "name";
+        optimization_goal: "optimization_goal";
+        targeting_type: "targeting_type";
+        template_type: "template_type";
+    }>;
+    get(fields: Array<string>, params?: Record<string, any>): CPASAdCreationTemplate;
 }

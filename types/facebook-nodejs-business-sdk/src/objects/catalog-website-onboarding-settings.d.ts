@@ -1,10 +1,13 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CatalogWebsiteOnboardingSettings
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CatalogWebsiteOnboardingSettings extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<CatalogWebsiteOnboardingSettings>;
+    static get Fields(): Readonly<{
+        id: "id";
+        status: "status";
+    }>;
+    get(fields: Array<string>, params?: Record<string, any>): CatalogWebsiteOnboardingSettings;
 }

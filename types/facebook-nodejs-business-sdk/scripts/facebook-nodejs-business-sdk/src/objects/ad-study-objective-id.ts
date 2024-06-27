@@ -1,0 +1,17 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * AdStudyObjectiveID
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class AdStudyObjectiveID extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      event_names: 'event_names',
+      id: 'id',
+      type: 'type'
+    });
+  }
+
+}

@@ -1,9 +1,14 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AnalyticsFunnelQueryResult
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AnalyticsFunnelQueryResult extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        data: "data";
+        error: "error";
+        query_id: "query_id";
+        status: "status";
+    }>;
 }

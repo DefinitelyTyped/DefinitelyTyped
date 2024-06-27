@@ -44,7 +44,7 @@ export default class ServerSideUtils {
      * @param  {String} [gender] gender value to be normalized.
      * @return {String} Normalized gender value.
      */
-    static normalizeGender(gender: string): string | null;
+    static normalizeGender(gender: string): string;
     /**
     * Normalizes the 5 character name field.
     * @param  {String} [name] name value to be normalized.
@@ -68,7 +68,7 @@ export default class ServerSideUtils {
      * @param  {String} [zip] zip value to be normalized.
      * @return {String} Normalized zip code value.
      */
-    static normalizeZip(zip: string): string | null;
+    static normalizeZip(zip: string): string;
     /**
      * Normalizes the given date of birth day
      * @param  {String} [dobd] value to be normalized.

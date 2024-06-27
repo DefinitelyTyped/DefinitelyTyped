@@ -1,0 +1,22 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * IGBCAdsPermission
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class IGBCAdsPermission extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      id: 'id',
+      permission_type: 'permission_type',
+      status: 'status'
+    });
+  }
+
+  get(fields: Array<string>, params: Record<string, any> = {}): IGBCAdsPermission {
+    // $FlowFixMe : Support Generic Types
+    return this.read(fields, params);
+  }
+
+}

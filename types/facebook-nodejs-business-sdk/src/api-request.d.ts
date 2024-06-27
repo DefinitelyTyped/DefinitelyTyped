@@ -5,8 +5,8 @@ declare class APIRequest {
     _nodeId: string;
     _method: string;
     _endpoint: string;
-    _path: string[];
-    _fields: string[];
+    _path: Array<string>;
+    _fields: Array<string>;
     _params: Record<string, any>;
     _fileParams: Record<string, any>;
     _fileCounter: number;
@@ -35,12 +35,12 @@ declare class APIRequest {
      * Getter function for path tokens
      * @return {Array<string>} Array of path tokens
      */
-    get path(): string[];
+    get path(): Array<string>;
     /**
      * Getter function for requested fields
      * @return {Array<string>} Array of request fields
      */
-    get fields(): string[];
+    get fields(): Array<string>;
     /**
      * Getter function for API params
      * @return {Object} Object containing API Params
@@ -60,7 +60,7 @@ declare class APIRequest {
      * @param {string[]} filePaths Array of paths to files attached to the request
      * @return {APIRequest} APIRequest instance
      */
-    addFiles(filePaths: string[]): APIRequest;
+    addFiles(filePaths: Array<string>): APIRequest;
     /**
      * @param {string} field Requested field
      * @return {APIReqeust} APIRequest instance
@@ -70,7 +70,7 @@ declare class APIRequest {
      * @param {string[]} fields Array of requested fields
      * @return {APIRequest} APIRequest instance
      */
-    addFields(fields: string[]): APIRequest;
+    addFields(fields: Array<string>): APIRequest;
     /**
      * @param {string} key Param key
      * @param {*} value Param value

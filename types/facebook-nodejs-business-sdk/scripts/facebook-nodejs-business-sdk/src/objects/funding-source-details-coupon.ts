@@ -1,0 +1,19 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * FundingSourceDetailsCoupon
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class FundingSourceDetailsCoupon extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      amount: 'amount',
+      campaign_ids: 'campaign_ids',
+      currency: 'currency',
+      display_amount: 'display_amount',
+      expiration: 'expiration'
+    });
+  }
+
+}

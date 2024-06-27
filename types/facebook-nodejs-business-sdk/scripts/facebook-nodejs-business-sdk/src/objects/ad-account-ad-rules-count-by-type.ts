@@ -1,0 +1,16 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * AdAccountAdRulesCountByType
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class AdAccountAdRulesCountByType extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      count: 'count',
+      evaluation_type: 'evaluation_type'
+    });
+  }
+
+}

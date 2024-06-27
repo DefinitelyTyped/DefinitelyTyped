@@ -4,13 +4,19 @@ import Cursor from "./../cursor";
 import ProductItem from "./product-item";
 /**
  * ProductGroup
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ProductGroup extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createProduct(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductItem>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<string, any>): Promise<ProductGroup>;    get(fields: string[], params?: Record<string, any>): Promise<ProductGroup>;
+    static get Fields(): Readonly<{
+        id: "id";
+        product_catalog: "product_catalog";
+        retailer_id: "retailer_id";
+        variants: "variants";
+    }>;
+    getProducts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createProduct(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<ProductItem>;
+    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
+    get(fields: Array<string>, params?: Record<string, any>): ProductGroup;
+    update(fields: Array<string>, params?: Record<string, any>): ProductGroup;
 }

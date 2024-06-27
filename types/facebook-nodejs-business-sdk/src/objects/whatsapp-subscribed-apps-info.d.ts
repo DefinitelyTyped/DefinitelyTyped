@@ -1,9 +1,12 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * WhatsappSubscribedAppsInfo
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class WhatsappSubscribedAppsInfo extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        page_whatsapp_number: "page_whatsapp_number";
+        subscribed_apps: "subscribed_apps";
+    }>;
 }

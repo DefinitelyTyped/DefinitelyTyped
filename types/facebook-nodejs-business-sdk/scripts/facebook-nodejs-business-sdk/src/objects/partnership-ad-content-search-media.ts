@@ -1,0 +1,17 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * PartnershipAdContentSearchMedia
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class PartnershipAdContentSearchMedia extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      ig_media: 'ig_media',
+      ig_media_has_product_tags: 'ig_media_has_product_tags',
+      is_ad_code_entry: 'is_ad_code_entry'
+    });
+  }
+
+}

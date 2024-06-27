@@ -1,0 +1,13 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * CollaborativeAdsPartnerInfoListItem
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class CollaborativeAdsPartnerInfoListItem extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({});
+  }
+
+}

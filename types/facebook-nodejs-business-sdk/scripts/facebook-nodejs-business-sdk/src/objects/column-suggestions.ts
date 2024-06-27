@@ -1,0 +1,18 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * ColumnSuggestions
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class ColumnSuggestions extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      explanations: 'explanations',
+      format: 'format',
+      objective: 'objective',
+      optimization_goals: 'optimization_goals'
+    });
+  }
+
+}

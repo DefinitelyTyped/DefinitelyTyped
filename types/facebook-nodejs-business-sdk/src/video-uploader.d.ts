@@ -14,11 +14,11 @@ declare class VideoUploader {
      **/
     upload(video: AdVideo, waitForEncoding: boolean): Record<string, any>;
 }
-interface SlideshowSpec {
-    images_urls: string[];
+type SlideshowSpec = {
+    images_urls: Array<string>;
     duration_ms: number;
     transition_ms: number;
-}
+};
 declare class VideoUploadSession {
     _accountId: string;
     _api: FacebookAdsApi;
@@ -84,25 +84,25 @@ declare class VideoUploadRequestContext {
     _slideshowSpec: SlideshowSpec;
     _videoFileChunk: string;
     get accountId(): string;
-    set accountId(accountId: string);
+    set accountId(accountId: string): void;
     get fileName(): string;
-    set fileName(fileName: string);
+    set fileName(fileName: string): void;
     get filePath(): string;
-    set filePath(filePath: string);
+    set filePath(filePath: string): void;
     get fileSize(): number;
-    set fileSize(fileSize: number);
+    set fileSize(fileSize: number): void;
     get name(): string;
-    set name(name: string);
+    set name(name: string): void;
     get sessionId(): string;
-    set sessionId(sessionId: string);
+    set sessionId(sessionId: string): void;
     get startOffset(): number;
-    set startOffset(startOffset: number);
+    set startOffset(startOffset: number): void;
     get endOffset(): number;
-    set endOffset(endOffset: number);
+    set endOffset(endOffset: number): void;
     get slideshowSpec(): SlideshowSpec;
-    set slideshowSpec(slideshowSpec: SlideshowSpec);
+    set slideshowSpec(slideshowSpec: SlideshowSpec): void;
     get videoFileChunk(): string;
-    set videoFileChunk(videoFileChunk: string);
+    set videoFileChunk(videoFileChunk: string): void;
 }
 declare class VideoUploadRequest {
     _params: Record<string, any>;
@@ -112,7 +112,7 @@ declare class VideoUploadRequest {
     /**
      * Send the current request
      **/
-    send(path: string | string[]): Record<string, any>;
+    send(path: string | Array<string>): Record<string, any>;
     setParams(params: Record<string, any>, files?: Record<string, any>): void;
 }
 declare class VideoEncodingStatusChecker {

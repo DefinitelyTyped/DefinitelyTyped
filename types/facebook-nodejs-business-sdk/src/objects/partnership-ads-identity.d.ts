@@ -1,9 +1,12 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PartnershipAdsIdentity
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class PartnershipAdsIdentity extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        post_types: "post_types";
+        secondary_identities: "secondary_identities";
+    }>;
 }

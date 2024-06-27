@@ -1,9 +1,11 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CreativeAssetTag
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CreativeAssetTag extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        name: "name";
+    }>;
 }

@@ -1,0 +1,16 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * AdsPixelDomainLastFiredTime
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class AdsPixelDomainLastFiredTime extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      domain_name: 'domain_name',
+      last_fired_time: 'last_fired_time'
+    });
+  }
+
+}

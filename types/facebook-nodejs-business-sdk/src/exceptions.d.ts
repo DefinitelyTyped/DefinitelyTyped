@@ -5,7 +5,7 @@ declare namespace FacebookError {
 /**
  * Raised when an api request fails.
  */
-export class FacebookRequestError extends FacebookError {
+export declare class FacebookRequestError extends FacebookError {
     /**
      * @param  {[Object}  response
      * @param  {String}   method

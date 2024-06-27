@@ -1,0 +1,17 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * AdAccountSuggestedTag
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class AdAccountSuggestedTag extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      product_id: 'product_id',
+      x: 'x',
+      y: 'y'
+    });
+  }
+
+}

@@ -1,0 +1,43 @@
+{
+  "name": "facebook-business-sdk",
+  "version": "3.0.0",
+  "description": "SDK for the Facebook Ads API in Javascript and Node.js",
+  "authors": [
+    "Zain Aziz <zaziz@fb.com>",
+    "Neil Chen <xiaotchen@fb.com>",
+    "Cloud Xu <cloudxu@fb.com>",
+    "Supasate Choochaisri <supasate@fb.com>"
+  ],
+  "homepage": "https://github.com/facebook/facebook-nodejs-business-sdk/",
+  "bugs": "https://github.com/facebook/facebook-nodejs-business-sdk/issues",
+  "keywords": [
+    "facebook",
+    "ads",
+    "business",
+    "sdk",
+    "api",
+    "javascript",
+    "nodejs",
+    "amd",
+    "requirejs",
+    "umd",
+    "promises"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/facebook/facebook-nodejs-business-sdk.git"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "~6.17.0",
+    "babel-plugin-external-helpers": "~6.8.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babelrc-rollup": "^3.0.0",
+    "chai": "~3.5.0"
+  },
+  "main": "./dist/iife.js",
+  "license": "Platform License"
+}

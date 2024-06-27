@@ -1,0 +1,18 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * MessagingAppsInfo
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class MessagingAppsInfo extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      has_instagram_messaging_permission: 'has_instagram_messaging_permission',
+      has_messenger_messaging_permission: 'has_messenger_messaging_permission',
+      id: 'id',
+      name: 'name'
+    });
+  }
+
+}

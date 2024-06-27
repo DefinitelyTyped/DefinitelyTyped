@@ -6,7 +6,7 @@ import UserData from "./user-data";
 export default class CustomData {
     _value: number;
     _currency: string;
-    _contents: Content[];
+    _contents: Array<Content>;
     _order_id: string;
     _status: string;
     _shipping_contact: UserData;
@@ -26,7 +26,7 @@ export default class CustomData {
      * @param {String} original_order_id Original order id for refund. For Refund event only.
      * @param {String} message Reason for refund. For Refund event only.
      */
-    constructor(value: number, currency: string, contents: Content[], order_id: string, status: string, shipping_contact: UserData, billing_contact: UserData, external_order_id: string, original_order_id: string, message: string);
+    constructor(value: number, currency: string, contents: Array<Content>, order_id: string, status: string, shipping_contact: UserData, billing_contact: UserData, external_order_id: string, original_order_id: string, message: string);
     /**
      * Gets the total value of the order.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -68,19 +68,19 @@ export default class CustomData {
      * An array of Content objects that contain the product IDs associated with the event plus information about the products.
      * Example: [{'id':'ABC123','quantity' :2,'price':5.99}, {'id':'XYZ789','quantity':2, 'price':9.99}]
      */
-    get contents(): Content[];
+    get contents(): Array<Content>;
     /**
      * Sets the contents for the custom data.
      * @param contents An array of Content objects that contain the product IDs associated with the event plus information about the products.
      * Example: [{'id':'ABC123','quantity' :2,'price':5.99}, {'id':'XYZ789','quantity':2, 'price':9.99}]
      */
-    set contents(contents: Content[]);
+    set contents(contents: Array<Content>);
     /**
      * Sets the contents for the custom data.
      * @param { Array< Content >} contents An array of Content objects that contain the product IDs associated with the event plus information about the products.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    setContents(contents: Content[]): CustomData;
+    setContents(contents: Array<Content>): CustomData;
     /**
      * Gets the order id for the custom data.
      * order_id is the order ID for this transaction as a String.

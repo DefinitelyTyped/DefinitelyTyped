@@ -1,10 +1,15 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * BusinessObjectTransferOwnershipAgreement
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class BusinessObjectTransferOwnershipAgreement extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<BusinessObjectTransferOwnershipAgreement>;
+    static get Fields(): Readonly<{
+        id: "id";
+        receiving_business: "receiving_business";
+        requesting_business: "requesting_business";
+        status: "status";
+    }>;
+    get(fields: Array<string>, params?: Record<string, any>): BusinessObjectTransferOwnershipAgreement;
 }

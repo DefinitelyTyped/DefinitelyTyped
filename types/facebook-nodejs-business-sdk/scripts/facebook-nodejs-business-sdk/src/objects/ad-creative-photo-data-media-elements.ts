@@ -1,0 +1,18 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * AdCreativePhotoDataMediaElements
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class AdCreativePhotoDataMediaElements extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      element_id: 'element_id',
+      element_type: 'element_type',
+      x: 'x',
+      y: 'y'
+    });
+  }
+
+}

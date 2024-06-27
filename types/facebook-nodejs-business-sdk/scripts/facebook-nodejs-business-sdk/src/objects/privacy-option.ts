@@ -1,0 +1,20 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * PrivacyOption
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class PrivacyOption extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      description: 'description',
+      icon_src: 'icon_src',
+      id: 'id',
+      is_currently_selected: 'is_currently_selected',
+      type: 'type',
+      user_id: 'user_id'
+    });
+  }
+
+}

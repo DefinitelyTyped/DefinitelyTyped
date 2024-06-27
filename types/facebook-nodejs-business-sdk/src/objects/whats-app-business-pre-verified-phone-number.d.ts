@@ -3,14 +3,26 @@ import AbstractObject from "./../abstract-object";
 import Cursor from "./../cursor";
 /**
  * WhatsAppBusinessPreVerifiedPhoneNumber
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class WhatsAppBusinessPreVerifiedPhoneNumber extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    static get CodeVerificationStatus(): Record<string, any>;
-    getPartners(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createRequestCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    createVerifyCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<string, any>): Promise<WhatsAppBusinessPreVerifiedPhoneNumber>;
+    static get Fields(): Readonly<{
+        code_verification_status: "code_verification_status";
+        code_verification_time: "code_verification_time";
+        id: "id";
+        owner_business: "owner_business";
+        phone_number: "phone_number";
+        verification_expiry_time: "verification_expiry_time";
+    }>;
+    static get CodeVerificationStatus(): Readonly<{
+        expired: "EXPIRED";
+        not_verified: "NOT_VERIFIED";
+        verified: "VERIFIED";
+    }>;
+    getPartners(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createRequestCode(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
+    createVerifyCode(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
+    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
+    get(fields: Array<string>, params?: Record<string, any>): WhatsAppBusinessPreVerifiedPhoneNumber;
 }

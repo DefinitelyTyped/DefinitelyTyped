@@ -1,10 +1,19 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PartnerAccountLinking
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class PartnerAccountLinking extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<PartnerAccountLinking>;
+    static get Fields(): Readonly<{
+        adaccount: "adaccount";
+        app: "app";
+        business: "business";
+        externalidentifier: "externalidentifier";
+        externalidentifieruri: "externalidentifieruri";
+        id: "id";
+        partnername: "partnername";
+        pixel: "pixel";
+    }>;
+    get(fields: Array<string>, params?: Record<string, any>): PartnerAccountLinking;
 }

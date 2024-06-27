@@ -2,12 +2,25 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 import AbstractObject from "./../abstract-object";
 /**
  * HighDemandPeriod
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class HighDemandPeriod extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    static get BudgetValueType(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<string, any>): Promise<HighDemandPeriod>;    get(fields: string[], params?: Record<string, any>): Promise<HighDemandPeriod>;
+    static get Fields(): Readonly<{
+        ad_object_id: "ad_object_id";
+        budget_value: "budget_value";
+        budget_value_type: "budget_value_type";
+        id: "id";
+        recurrence_type: "recurrence_type";
+        time_end: "time_end";
+        time_start: "time_start";
+        weekly_schedule: "weekly_schedule";
+    }>;
+    static get BudgetValueType(): Readonly<{
+        absolute: "ABSOLUTE";
+        multiplier: "MULTIPLIER";
+    }>;
+    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
+    get(fields: Array<string>, params?: Record<string, any>): HighDemandPeriod;
+    update(fields: Array<string>, params?: Record<string, any>): HighDemandPeriod;
 }

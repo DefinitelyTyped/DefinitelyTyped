@@ -4,17 +4,41 @@ import Comment from "./comment";
 import Photo from "./photo";
 /**
  * Album
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Album extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
-    getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Album>;
-    getPhotos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPhoto(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Photo>;
-    getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<string, any>): Promise<Album>;
+    static get Fields(): Readonly<{
+        backdated_time: "backdated_time";
+        backdated_time_granularity: "backdated_time_granularity";
+        can_backdate: "can_backdate";
+        can_upload: "can_upload";
+        count: "count";
+        cover_photo: "cover_photo";
+        created_time: "created_time";
+        description: "description";
+        edit_link: "edit_link";
+        event: "event";
+        from: "from";
+        id: "id";
+        is_user_facing: "is_user_facing";
+        link: "link";
+        location: "location";
+        modified_major: "modified_major";
+        name: "name";
+        photo_count: "photo_count";
+        place: "place";
+        privacy: "privacy";
+        type: "type";
+        updated_time: "updated_time";
+        video_count: "video_count";
+    }>;
+    getComments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createComment(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Comment>;
+    getLikes(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createLike(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Album>;
+    getPhotos(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createPhoto(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Photo>;
+    getPicture(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: Array<string>, params?: Record<string, any>): Album;
 }

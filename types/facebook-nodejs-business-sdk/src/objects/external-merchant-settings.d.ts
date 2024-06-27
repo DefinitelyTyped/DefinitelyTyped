@@ -1,10 +1,14 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ExternalMerchantSettings
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ExternalMerchantSettings extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<ExternalMerchantSettings>;
+    static get Fields(): Readonly<{
+        connect_woo: "connect_woo";
+        external_platform: "external_platform";
+        id: "id";
+    }>;
+    get(fields: Array<string>, params?: Record<string, any>): ExternalMerchantSettings;
 }

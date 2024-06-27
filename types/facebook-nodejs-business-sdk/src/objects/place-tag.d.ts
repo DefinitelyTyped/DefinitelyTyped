@@ -1,10 +1,14 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PlaceTag
-
+ * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class PlaceTag extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<PlaceTag>;
+    static get Fields(): Readonly<{
+        created_time: "created_time";
+        id: "id";
+        place: "place";
+    }>;
+    get(fields: Array<string>, params?: Record<string, any>): PlaceTag;
 }

@@ -1,0 +1,16 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * AppRequestFormerRecipient
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class AppRequestFormerRecipient extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      id: 'id',
+      recipient_id: 'recipient_id'
+    });
+  }
+
+}

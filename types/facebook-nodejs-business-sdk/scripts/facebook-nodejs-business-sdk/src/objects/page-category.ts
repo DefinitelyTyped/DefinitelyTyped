@@ -1,0 +1,18 @@
+import { AbstractCrudObject } from "./../abstract-crud-object";
+/**
+ * PageCategory
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
+
+export default class PageCategory extends AbstractCrudObject {
+  static get Fields() {
+    return Object.freeze({
+      api_enum: 'api_enum',
+      fb_page_categories: 'fb_page_categories',
+      id: 'id',
+      name: 'name'
+    });
+  }
+
+}
