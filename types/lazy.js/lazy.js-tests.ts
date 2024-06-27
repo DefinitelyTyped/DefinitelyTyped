@@ -141,7 +141,8 @@ foo = fooSequence.max(fnNumberCallback);
 foo = fooSequence.min();
 foo = fooSequence.min(fnNumberCallback);
 strSequence = fooSequence.pluck("key");
-bar = fooSequence.reduce(fnMemoCallback);
+// $ExpectType Foo | Bar
+fooSequence.reduce(() => bar);
 bar = fooSequence.reduce(fnMemoCallback, bar);
 bar = fooSequence.reduceRight(fnMemoCallback, bar);
 fooSequence = fooSequence.reject(fnTestCallback);
