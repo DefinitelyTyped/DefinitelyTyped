@@ -29,3 +29,4 @@ export declare class Favico {
 
     webcam(): void;
 }
+export default Favico;
