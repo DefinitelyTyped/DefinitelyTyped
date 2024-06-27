@@ -148,7 +148,7 @@ declare namespace LazyJS {
     ];
 
     interface SequenceBaser<T> {
-        async(interval: number): AsyncSequence<T>;
+        async(interval?: number): AsyncSequence<T>;
         chunk<N extends number>(size: N): Sequence<Tuple<T, N>>;
         compact(): Sequence<T>;
         concat(var_args: T[]): Sequence<T>;
