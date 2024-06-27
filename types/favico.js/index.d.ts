@@ -1,8 +1,8 @@
-export interface FavicoJsStatic {
+interface FavicoJsStatic {
     new(opt?: FavicoJsOptions): Favico;
 }
 
-export interface FavicoJsOptions {
+interface FavicoJsOptions {
     bgColor?: string | undefined;
     textColor?: string | undefined;
     fontFamily?: string | undefined;
@@ -15,7 +15,7 @@ export interface FavicoJsOptions {
     dataUrl?: ((url: string) => any) | undefined;
 }
 
-export declare class Favico {
+declare class Favico {
     constructor(options?: FavicoJsOptions);
     badge(number: number): void;
     badge(number: number, animation: string): void;
