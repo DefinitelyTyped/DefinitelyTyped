@@ -56,7 +56,7 @@ export const hash: HashHelper;
  *
  * @see https://api.emberjs.com/ember/release/classes/Ember.Templates.helpers/methods/unique-id?anchor=unique-id
  */
-export const uniqueId: UniqueIdHelper
+export const uniqueId: UniqueIdHelper;
 
 /**
   `capabilities` returns a capabilities configuration which can be used to modify
