@@ -3,7 +3,6 @@ import Cursor from "./../cursor";
 import IGUpcomingEvent from "./ig-upcoming-event";
 /**
  * InstagramUser
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class InstagramUser extends AbstractCrudObject {

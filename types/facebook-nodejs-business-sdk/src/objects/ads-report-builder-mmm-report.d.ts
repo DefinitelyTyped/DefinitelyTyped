@@ -1,7 +1,6 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdsReportBuilderMMMReport
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdsReportBuilderMMMReport extends AbstractCrudObject {

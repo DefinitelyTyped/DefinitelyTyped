@@ -1,7 +1,6 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * FBImageCopyrightMatch
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class FBImageCopyrightMatch extends AbstractCrudObject {

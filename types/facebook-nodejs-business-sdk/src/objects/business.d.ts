@@ -18,7 +18,6 @@ import SystemUser from "./system-user";
 import AdVideo from "./ad-video";
 /**
  * Business
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Business extends AbstractCrudObject {

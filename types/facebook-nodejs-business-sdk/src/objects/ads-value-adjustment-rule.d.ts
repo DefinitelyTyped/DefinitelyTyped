@@ -2,7 +2,6 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 import Cursor from "./../cursor";
 /**
  * AdsValueAdjustmentRule
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdsValueAdjustmentRule extends AbstractCrudObject {

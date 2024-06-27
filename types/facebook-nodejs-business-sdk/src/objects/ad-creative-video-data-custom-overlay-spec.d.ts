@@ -1,7 +1,6 @@
 import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdCreativeVideoDataCustomOverlaySpec
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdCreativeVideoDataCustomOverlaySpec extends AbstractCrudObject {

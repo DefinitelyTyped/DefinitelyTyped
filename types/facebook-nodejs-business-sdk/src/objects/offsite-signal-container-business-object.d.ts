@@ -2,7 +2,6 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
 import Cursor from "./../cursor";
 /**
  * OffsiteSignalContainerBusinessObject
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class OffsiteSignalContainerBusinessObject extends AbstractCrudObject {
