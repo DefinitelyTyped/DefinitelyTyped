@@ -126,7 +126,8 @@ num = fooSequence.indexOf(x);
 fooSequence = fooSequence.initial();
 fooSequence = fooSequence.initial(num);
 fooSequence = fooSequence.intersection(arr);
-fooSequence = fooSequence.invoke(str);
+// $ExpectType Sequence<unknown>
+fooSequence.invoke(str);
 bool = fooSequence.isEmpty();
 str = fooSequence.join();
 str = fooSequence.join(str);

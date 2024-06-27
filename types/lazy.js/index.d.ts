@@ -166,7 +166,7 @@ declare namespace LazyJS {
         groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
         initial(count?: number): Sequence<T>;
         intersection(var_args: T[]): Sequence<T>;
-        invoke(methodName: string): Sequence<T>;
+        invoke(methodName: string): Sequence<unknown>;
         isEmpty(): boolean;
         join(delimiter?: string): string;
         map<U>(mapFn: MapCallback<T, U>): Sequence<U>;
