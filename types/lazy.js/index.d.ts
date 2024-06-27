@@ -159,7 +159,7 @@ declare namespace LazyJS {
         dropWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         every(predicateFn: TestCallback<T, string | number>): boolean;
         filter(predicateFn: TestCallback<T, string | number>): Sequence<T>;
-        find(predicateFn: TestCallback<T, string | number>): T;
+        find(predicateFn: TestCallback<T, string | number>): T | undefined;
         findWhere(properties: any): T;
         flatten(shallow: true): Sequence<Flatten<T, true>>;
         flatten(shallow?: false): Sequence<Flatten<T, false>>;
@@ -222,7 +222,7 @@ declare namespace LazyJS {
         dropWhile(predicateFn: TestCallback<T, number>): Sequence<T>;
         every(predicateFn: TestCallback<T, number>): boolean;
         filter(predicateFn: TestCallback<T, number>): Sequence<T>;
-        find(predicateFn: TestCallback<T, number>): T;
+        find(predicateFn: TestCallback<T, number>): T | undefined;
         none(valueFn?: TestCallback<T, number>): boolean;
         reject(predicateFn: TestCallback<T, number>): Sequence<T>;
         some(predicateFn?: TestCallback<T, number>): boolean;
@@ -256,7 +256,7 @@ declare namespace LazyJS {
         dropWhile(predicateFn: TestCallback<T, string>): Sequence<T>;
         every(predicateFn: TestCallback<T, string>): boolean;
         filter(predicateFn: TestCallback<T, string>): Sequence<T>;
-        find(predicateFn: TestCallback<T, string>): T;
+        find(predicateFn: TestCallback<T, string>): T | undefined;
         none(valueFn?: TestCallback<T, string>): boolean;
         reject(predicateFn: TestCallback<T, string>): Sequence<T>;
         some(predicateFn?: TestCallback<T, string>): boolean;
