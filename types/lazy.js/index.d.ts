@@ -173,7 +173,7 @@ declare namespace LazyJS {
         max(valueFn?: NumberCallback<T>): T;
         min(valueFn?: NumberCallback<T>): T;
         none(valueFn?: TestCallback<T, string | number>): boolean;
-        pluck(propertyName: string): Sequence<any>;
+        pluck<K extends keyof T>(propertyName: K): Sequence<T[K]>;
         reduce<U>(aggregatorFn: MemoCallback<T, U>, memo?: U): U;
         reduceRight<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;
         reject(predicateFn: TestCallback<T, string | number>): Sequence<T>;

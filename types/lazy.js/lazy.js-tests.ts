@@ -30,7 +30,6 @@ var anyObjectSeq: LazyJS.ObjectLikeSequence<any>;
 var fooAsyncSeq: LazyJS.AsyncSequence<Foo>;
 
 var strSequence: LazyJS.Sequence<string>;
-var anySequence: LazyJS.Sequence<any>;
 var unknownSequence: LazyJS.Sequence<unknown>;
 var stringSeq: LazyJS.StringLikeSequence;
 
@@ -141,7 +140,7 @@ foo = fooSequence.max();
 foo = fooSequence.max(fnNumberCallback);
 foo = fooSequence.min();
 foo = fooSequence.min(fnNumberCallback);
-anySequence = fooSequence.pluck(str);
+strSequence = fooSequence.pluck("key");
 bar = fooSequence.reduce(fnMemoCallback);
 bar = fooSequence.reduce(fnMemoCallback, bar);
 bar = fooSequence.reduceRight(fnMemoCallback, bar);
