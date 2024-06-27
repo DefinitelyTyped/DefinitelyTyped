@@ -160,7 +160,7 @@ declare namespace LazyJS {
         every(predicateFn: TestCallback<T, string | number>): boolean;
         filter(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         find(predicateFn: TestCallback<T, string | number>): T | undefined;
-        findWhere(properties: any): T;
+        findWhere(properties: Partial<T>): T;
         flatten(shallow: true): Sequence<Flatten<T, true>>;
         flatten(shallow?: false): Sequence<Flatten<T, false>>;
         groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
