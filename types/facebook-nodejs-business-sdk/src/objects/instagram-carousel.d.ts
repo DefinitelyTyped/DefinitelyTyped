@@ -19,6 +19,6 @@ export default class InstagramCarousel extends AbstractCrudObject {
         video_url: "video_url";
     }>;
     getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<InstagramComment>;
+    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<InstagramComment>;
     get(fields: string[], params?: Record<string, any>): Promise<InstagramCarousel>;
 }

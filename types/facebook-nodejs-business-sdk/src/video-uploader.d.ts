@@ -14,11 +14,11 @@ declare class VideoUploader {
      **/
     upload(video: AdVideo, waitForEncoding: boolean): Record<string, any>;
 }
-type SlideshowSpec = {
+interface SlideshowSpec {
     images_urls: string[];
     duration_ms: number;
     transition_ms: number;
-};
+}
 declare class VideoUploadSession {
     _accountId: string;
     _api: FacebookAdsApi;
@@ -84,25 +84,25 @@ declare class VideoUploadRequestContext {
     _slideshowSpec: SlideshowSpec;
     _videoFileChunk: string;
     get accountId(): string;
-    set accountId(accountId: string): void;
+    set accountId(accountId: string);
     get fileName(): string;
-    set fileName(fileName: string): void;
+    set fileName(fileName: string);
     get filePath(): string;
-    set filePath(filePath: string): void;
+    set filePath(filePath: string);
     get fileSize(): number;
-    set fileSize(fileSize: number): void;
+    set fileSize(fileSize: number);
     get name(): string;
-    set name(name: string): void;
+    set name(name: string);
     get sessionId(): string;
-    set sessionId(sessionId: string): void;
+    set sessionId(sessionId: string);
     get startOffset(): number;
-    set startOffset(startOffset: number): void;
+    set startOffset(startOffset: number);
     get endOffset(): number;
-    set endOffset(endOffset: number): void;
+    set endOffset(endOffset: number);
     get slideshowSpec(): SlideshowSpec;
-    set slideshowSpec(slideshowSpec: SlideshowSpec): void;
+    set slideshowSpec(slideshowSpec: SlideshowSpec);
     get videoFileChunk(): string;
-    set videoFileChunk(videoFileChunk: string): void;
+    set videoFileChunk(videoFileChunk: string);
 }
 declare class VideoUploadRequest {
     _params: Record<string, any>;

@@ -212,10 +212,10 @@ export default class AdCreative extends AbstractCrudObject {
         all: "ALL";
         any: "ANY";
     }>;
-    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdCreative>;
+    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdCreative>;
     getCreativeInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getPreviews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<AdCreative>;
     update(fields: string[], params?: Record<string, any>): Promise<AdCreative>;
 }

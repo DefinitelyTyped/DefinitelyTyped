@@ -117,15 +117,15 @@ export default class ProductFeed extends AbstractCrudObject {
     getMediaTitles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getProducts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getRules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createRule(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<ProductFeedRule>;
-    createSupplementaryFeedAssoc(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
+    createRule(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductFeedRule>;
+    createSupplementaryFeedAssoc(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getUploadSchedules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createUploadSchedule(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<ProductFeed>;
+    createUploadSchedule(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductFeed>;
     getUploads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createUpload(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<ProductFeedUpload>;
+    createUpload(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductFeedUpload>;
     getVehicleOffers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVehicles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductFeed>;
     update(fields: string[], params?: Record<string, any>): Promise<ProductFeed>;
 }

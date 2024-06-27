@@ -22,7 +22,7 @@ export default class EventRequest {
      * @param {Boolean} debug_mode_flag Set to true if you want to enable more logging in SDK
      * @param {?HttpServiceInterface} http_service Override the default http request method by setting an object that implements HttpServiceInterface
      */
-    constructor(access_token: string, pixel_id: string, page_id: string, events?: SignalEvent[], partner_agent?: string | null | undefined, test_event_code?: string | null | undefined, namespace_id?: string | null | undefined, upload_id?: string | null | undefined, upload_tag?: string | null | undefined, upload_source?: string | null | undefined, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null | undefined);
+    constructor(access_token: string, pixel_id: string, page_id: string, events?: SignalEvent[], partner_agent?: string | null, test_event_code?: string | null, namespace_id?: string | null, upload_id?: string | null, upload_tag?: string | null, upload_source?: string | null, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null);
     /**
      * Gets the data for the request Payload for a Server Side Event and Business Data Event.
      */

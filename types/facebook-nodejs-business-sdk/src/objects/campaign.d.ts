@@ -408,16 +408,16 @@ export default class Campaign extends AbstractCrudObject {
         paused: "PAUSED";
     }>;
     getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Campaign>;
+    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
     getAdRulesGoverned(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAdSets(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createBudgetSchedule(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<HighDemandPeriod>;
+    createBudgetSchedule(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<HighDemandPeriod>;
     getCopies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Campaign>;
+    createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
     getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdReportRun>;
-    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdReportRun>;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<Campaign>;
     update(fields: string[], params?: Record<string, any>): Promise<Campaign>;
 }

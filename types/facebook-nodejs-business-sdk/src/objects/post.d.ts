@@ -122,16 +122,16 @@ export default class Post extends AbstractCrudObject {
     }>;
     getAttachMEnts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Comment>;
+    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
     getDynamicPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteLikes(params?: Record<string, any>): Promise<any>;
-    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Post>;
+    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Post>;
     getReactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getShareDPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getSponsorTags(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTo(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<Post>;
     update(fields: string[], params?: Record<string, any>): Promise<Post>;
 }

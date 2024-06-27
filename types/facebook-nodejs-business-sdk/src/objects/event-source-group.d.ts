@@ -13,7 +13,7 @@ export default class EventSourceGroup extends AbstractCrudObject {
         owner_business: "owner_business";
     }>;
     getShareDAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createShareDAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<EventSourceGroup>;
+    createShareDAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<EventSourceGroup>;
     get(fields: string[], params?: Record<string, any>): Promise<EventSourceGroup>;
     update(fields: string[], params?: Record<string, any>): Promise<EventSourceGroup>;
 }

@@ -34,9 +34,9 @@ export default class FundraiserPersonToCharity extends AbstractCrudObject {
         person_for_charity: "person_for_charity";
     }>;
     getDonations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createEndFundraiser(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
+    createEndFundraiser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     getExternalDonations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createExternalDonation(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
+    createExternalDonation(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<FundraiserPersonToCharity>;
     update(fields: string[], params?: Record<string, any>): Promise<FundraiserPersonToCharity>;
 }

@@ -30,15 +30,15 @@ export default class IGMedia extends AbstractCrudObject {
     }>;
     getBoostAdsList(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getBrandedContentPartnerPromote(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createBrandedContentPartnerPromote(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<BrandedContentShadowIGUserID>;
+    createBrandedContentPartnerPromote(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<BrandedContentShadowIGUserID>;
     getChildren(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCollaborators(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<IGComment>;
+    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<IGComment>;
     getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteProductTags(params?: Record<string, any>): Promise<any>;
     getProductTags(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createProductTag(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<ShadowIGMediaProductTags>;
+    createProductTag(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ShadowIGMediaProductTags>;
     get(fields: string[], params?: Record<string, any>): Promise<IGMedia>;
     update(fields: string[], params?: Record<string, any>): Promise<IGMedia>;
 }

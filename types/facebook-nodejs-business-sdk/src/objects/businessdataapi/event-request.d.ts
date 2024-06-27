@@ -15,7 +15,7 @@ export default class EventRequest {
      * @param {Array<Event>} events Data for the request Payload for a Business Data Event
      * @param {String} partner_agent Platform from which the event is sent e.g. Zapier
      */
-    constructor(access_token: string, page_id: string, events?: Event[], partner_agent?: string | null | undefined);
+    constructor(access_token: string, page_id: string, events?: Event[], partner_agent?: string | null);
     /**
      * Gets the data for the request Payload for a Business Data Event.
      */

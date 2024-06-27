@@ -20,7 +20,7 @@ export default class Link extends AbstractCrudObject {
         privacy: "privacy";
         via: "via";
     }>;
-    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Comment>;
+    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
     getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<Link>;
 }

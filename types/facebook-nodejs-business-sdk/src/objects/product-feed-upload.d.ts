@@ -27,7 +27,7 @@ export default class ProductFeedUpload extends AbstractCrudObject {
         server_fetch: "Server Fetch";
         user_initiated_server_fetch: "User initiated server fetch";
     }>;
-    createErrorReport(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<ProductFeedUpload>;
+    createErrorReport(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductFeedUpload>;
     getErrors(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductFeedUpload>;
 }

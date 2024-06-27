@@ -7,7 +7,9 @@ import {
     ServerEvent,
     UserData,
     IGUser,
-    InstagramInsightsResult
+    InstagramInsightsResult,
+    AppData,
+    ExtendedDeviceInfo
 } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
@@ -18,7 +20,7 @@ async function testGetAdsFetchFirstPageFalse(): Promise<Array<Record<string, str
     const fbAdsApi = new FacebookAdsApi('TOKEN');
     fbAdsApi.setDebug(true);
 
-    const fbAdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
+    const fbAdAccount = new AdAccount(`act_ID`, {}, undefined, fbAdsApi);
     const cursor = await fbAdAccount.getAds(['id', 'name'], { limit: 10 }, false);
 
     while (cursor.hasNext()) {
@@ -41,7 +43,7 @@ async function testGetAdsFetchFirstPageDefault(): Promise<Array<Record<string, s
     const fbAdsApi = new FacebookAdsApi('TOKEN');
     fbAdsApi.setDebug(true);
 
-    const fbAdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
+    const fbAdAccount = new AdAccount(`act_ID`, {}, undefined, fbAdsApi);
     const cursor = await fbAdAccount.getAds(['id', 'name'], { limit: 10 });
 
     while (true) {
@@ -68,7 +70,7 @@ async function testGetAdsFetchFirstPageBoolean(): Promise<Array<Record<string, s
     const fbAdsApi = new FacebookAdsApi('TOKEN');
     fbAdsApi.setDebug(true);
 
-    const fbAdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
+    const fbAdAccount = new AdAccount(`act_ID`, {}, undefined, fbAdsApi);
     const fetchFirstPage = Math.random() > 0.5;
     const cursorOrPromise = fbAdAccount.getAds(['id', 'name'], { limit: 10 }, fetchFirstPage);
     const cursor = cursorOrPromise instanceof Promise ? await cursorOrPromise : cursorOrPromise;
@@ -97,21 +99,22 @@ async function testGetAdsFetchFirstPageBoolean(): Promise<Array<Record<string, s
 
 async function checkType() {
     const fbAdsApi: FacebookAdsApi = new FacebookAdsApi('TOKEN');
-    const fbAdAccount: AdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
+    const fbAdAccount: AdAccount = new AdAccount(`act_ID`, {}, undefined, fbAdsApi);
 }
 
 async function testConversionEvent(): Promise<TEventRequest> {
-    const userData = (new UserData())
+    const userData = (new UserData('joe@eg.com','','','','','','','','','','','','','','','','','','','','','','','','',''))
         .setEmails(['joe@eg.com'])
         .setPhones(['12345678901', '14251234567']);
 
-    const content = (new Content())
-        .setId('product123');
+    const content = new Content('product123',5,2,'','','','','');
 
-    const customData = (new CustomData())
+    const customData = (new CustomData(2,'','','',[],[],'','',0,0,'','','','',{}))
         .setContents([content]);
+    const extendedDeviceInfo = new ExtendedDeviceInfo('','','','','','','','','',0,0,'',0,0,0,'');
+    const appData = new AppData(false, false, '',false, extendedDeviceInfo, false, false, '', '', '', '', '');
 
-    const serverEvent = (new ServerEvent())
+    const serverEvent = (new ServerEvent('',0,'',userData,customData,appData,'',false,'',[],0,0,'',false,''))
         .setEventName('Purchase')
         .setEventTime(123)
         .setUserData(userData)

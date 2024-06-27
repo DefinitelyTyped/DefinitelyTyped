@@ -12,6 +12,6 @@ export default class Status extends AbstractCrudObject {
         place: "place";
         updated_time: "updated_time";
     }>;
-    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Status>;
+    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Status>;
     get(fields: string[], params?: Record<string, any>): Promise<Status>;
 }

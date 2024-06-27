@@ -20,8 +20,8 @@ export default class WhatsAppBusinessPreVerifiedPhoneNumber extends AbstractCrud
         verified: "VERIFIED";
     }>;
     getPartners(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createRequestCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
-    createVerifyCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
-    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    createRequestCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createVerifyCode(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<WhatsAppBusinessPreVerifiedPhoneNumber>;
 }

@@ -236,18 +236,18 @@ export default class AdSet extends AbstractCrudObject {
     getAdStudies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAdCreatives(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     deleteAdLabels(params?: Record<string, any>): Promise<any>;
-    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdSet>;
+    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdSet>;
     getAdRulesGoverned(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAsyncAdRequests(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createBudgetSchedule(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<HighDemandPeriod>;
+    createBudgetSchedule(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<HighDemandPeriod>;
     getCopies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdSet>;
+    createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdSet>;
     getDeliveryEstimate(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdReportRun>;
+    getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdReportRun>;
     getTargetingSentenceLines(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<AdSet>;
     update(fields: string[], params?: Record<string, any>): Promise<AdSet>;
 }

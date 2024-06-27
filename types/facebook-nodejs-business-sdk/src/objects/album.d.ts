@@ -33,11 +33,11 @@ export default class Album extends AbstractCrudObject {
         video_count: "video_count";
     }>;
     getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Comment>;
+    createComment(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Comment>;
     getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Album>;
+    createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Album>;
     getPhotos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPhoto(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Photo>;
+    createPhoto(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Photo>;
     getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<string, any>): Promise<Album>;
 }

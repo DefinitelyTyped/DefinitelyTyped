@@ -30,9 +30,9 @@ export default class ExtendedCredit extends AbstractCrudObject {
         sold_to_address: "sold_to_address";
     }>;
     getExtendedCreditInvoiceGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createExtendedCreditInvoiceGroup(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<ExtendedCreditInvoiceGroup>;
+    createExtendedCreditInvoiceGroup(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ExtendedCreditInvoiceGroup>;
     getOwningCreditAllocationConfigs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createOwningCreditAllocationConfig(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<ExtendedCreditAllocationConfig>;
-    createWhatsAppCreditSharingAnDAttach(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
+    createOwningCreditAllocationConfig(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ExtendedCreditAllocationConfig>;
+    createWhatsAppCreditSharingAnDAttach(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<ExtendedCredit>;
 }

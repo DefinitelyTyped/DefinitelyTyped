@@ -22,8 +22,8 @@ export default class InstagramUser extends AbstractCrudObject {
     getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getArEffects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getAuthorizedAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAuthorizedAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<InstagramUser>;
+    createAuthorizedAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<InstagramUser>;
     getUpcomingEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createUpcomingEvent(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<IGUpcomingEvent>;
+    createUpcomingEvent(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<IGUpcomingEvent>;
     get(fields: string[], params?: Record<string, any>): Promise<InstagramUser>;
 }

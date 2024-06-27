@@ -117,16 +117,16 @@ export default class Ad extends AbstractCrudObject {
         paused: "PAUSED";
     }>;
     getAdCreatives(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Ad>;
+    createAdLabel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Ad>;
     getAdRulesGoverned(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getCopies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Ad>;
+    createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Ad>;
     getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdReportRun>;
+    getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdReportRun>;
     getLeads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getPreviews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getTargetingSentenceLines(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<Ad>;
     update(fields: string[], params?: Record<string, any>): Promise<Ad>;
 }
