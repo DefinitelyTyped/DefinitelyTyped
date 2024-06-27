@@ -74,53 +74,53 @@ export namespace PooolEngage {
     }
 
     interface EngageConfig {
-            /**
-             * While the default configuration works for most use cases, you might want to configure some of Engage.js behaviors.
-             *
-             * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
-             *
-             * @param config - the configuration object
-             * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
-             *
-             * More infos: https://www.poool.dev/docs/engage/javascript/configuration
-             */
-            (config: EngageConfigOptions, readonly?: boolean): Engage;
-            /**
-             * While the default configuration works for most use cases, you might want to configure some of Engage.js behaviors.
-             *
-             * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
-             *
-             * @param optionName The configuration option name
-             * @param optionValue The configuration option value
-             * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
-             *
-             * More infos: https://www.poool.dev/docs/engage/javascript/configuration
-             */
-            (optionName: string, optionValue: any, readonly?: boolean): Engage;
+        /**
+         * While the default configuration works for most use cases, you might want to configure some of Engage.js behaviors.
+         *
+         * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
+         *
+         * @param config - the configuration object
+         * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
+         *
+         * More infos: https://www.poool.dev/docs/engage/javascript/configuration
+         */
+        (config: EngageConfigOptions, readonly?: boolean): Engage;
+        /**
+         * While the default configuration works for most use cases, you might want to configure some of Engage.js behaviors.
+         *
+         * ℹ️ Your Dashboard configuration will override these configuration values unless they have been set with a read-only mode.
+         *
+         * @param optionName The configuration option name
+         * @param optionValue The configuration option value
+         * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
+         *
+         * More infos: https://www.poool.dev/docs/engage/javascript/configuration
+         */
+        (optionName: string, optionValue: any, readonly?: boolean): Engage;
     }
 
     interface EngageVariables {
         /**
          * Some texts inside elements benefit from predefined & automatically integrated variables, such as {app_name}.
-             The .variable function allows you to define custom variables, which can be used in all element texts.
-        *
-        * The `.variable` function allows you to define custom variables, which can be used inside some textkeys.
-        *
-        * @param keyName - the variable key name
-        * @param value - the variable value
-        *
-        * More infos: https://www.poool.dev/docs/engage/javascript/variables
+            The .variable function allows you to define custom variables, which can be used in all element texts.
+         *
+         * The `.variable` function allows you to define custom variables, which can be used inside some textkeys.
+         *
+         * @param keyName - the variable key name
+         * @param value - the variable value
+         *
+         * More infos: https://www.poool.dev/docs/engage/javascript/variables
         */
         (keyName: string, value: string | number | boolean): Engage;
-    /**
+        /**
          * Some texts inside elements benefit from predefined & automatically integrated variables, such as {app_name}.
-             The .variable function allows you to define custom variables, which can be used in all element texts.
-        *
-        * The `.variable` function allows you to define custom variables, which can be used inside some textkeys.
-        *
-        * @param variables - the variables object
-        *
-        * More infos: https://www.poool.dev/docs/engage/javascript/variables
+             The variable function allows you to define custom variables, which can be used in all element texts.
+         *
+         * The `.variable` function allows you to define custom variables, which can be used inside some textkeys.
+         *
+         * @param variables - the variables object
+         *
+         * More infos: https://www.poool.dev/docs/engage/javascript/variables
         */
         (variables: { [key: string]: string | number | boolean }): Engage;
     }
@@ -157,7 +157,7 @@ export namespace PooolEngage {
         name: string;
         conditions: EngageDisplayConditions[]
         /**
-         *Destroys the element
+        * Destroys the element
         *
         * @returns Promise<void>
         */
@@ -264,12 +264,12 @@ export namespace PooolEngage {
         /**
          *Creates a new Element instance.
 
-        * @param slug the element slug
-        * @param target the target element or selector
-        * @returns a promise that resolves with the Element instance
-        *
-        * More infos: https://www.poool.dev/docs/engage/javascript/methods#createelement
-        */
+         * @param slug the element slug
+         * @param target the target element or selector
+         * @returns a promise that resolves with the Element instance
+         *
+         * More infos: https://www.poool.dev/docs/engage/javascript/methods#createelement
+         */
         createElement(slug: string, target: string | Element): Promise<EngageElement>;
 
         /**
