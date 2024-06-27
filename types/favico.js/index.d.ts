@@ -1,4 +1,4 @@
-declare namespace favicojs {
+declare module "favico.js" {
     interface FavicoJsStatic {
         new(opt?: FavicoJsOptions): Favico;
     }
@@ -16,7 +16,8 @@ declare namespace favicojs {
         dataUrl?: ((url: string) => any) | undefined;
     }
 
-    interface Favico {
+    class Favico {
+        constructor(options?: FavicoOptions);
         badge(number: number): void;
         badge(number: number, animation: string): void;
         badge(number: number, opts: FavicoJsOptions): void;
