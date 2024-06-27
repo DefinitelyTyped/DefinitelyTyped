@@ -1,13 +1,12 @@
 {
     "private": true,
     "name": "@types/poool-engage",
-    "version": "5.17.9999",
+    "version": "2.1.9999",
     "nonNpm": true,
     "nonNpmDescription": "poool-engage",
     "projects": [
         "https://poool.dev/fr/docs/engage/javascript"
     ],
-
     "devDependencies": {
         "@types/poool-engage": "workspace:."
     },

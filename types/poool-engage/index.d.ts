@@ -125,26 +125,40 @@ export namespace PooolEngage {
         (variables: { [key: string]: string | number | boolean }): Engage;
     }
 
-    type EngageEventsList = 'ready' | 'seen' | 'click' | 'formSubmit' | 'destroy' | 'error';
+    type EngageEventsList = 'ready'
+        | 'seen'
+        | 'click'
+        | 'formSubmit'
+        | 'destroy'
+        | 'error';
 
-    type EngageTextsType = 'form_optional' | 'form_no_options' | 'form_error' | 'form_error_required_field' | 'form_error_invalid_field' | 'form_error_invalid_email_field' | 'form_error_invalid_phone_field' | 'form_error_invalid_date_field' | 'form_error_invalid_credit_card_field' | 'form_error_non_existent_email'
+    type EngageTextsType = 'form_optional'
+        | 'form_no_options'
+        | 'form_error'
+        | 'form_error_required_field'
+        | 'form_error_invalid_field'
+        | 'form_error_invalid_email_field'
+        | 'form_error_invalid_phone_field'
+        | 'form_error_invalid_date_field'
+        | 'form_error_invalid_credit_card_field'
+        | 'form_error_non_existent_email';
 
     type EngageDisplayConditionsType = 'target'
-    | 'delay'
-    | 'scroll'
-    | 'views'
-    | 'viewsPerDay'
-    | 'visits'
-    | 'device'
-    | 'geoloc'
-    | 'url'
-    | 'referrer'
-    | 'date'
-    | 'time'
-    | 'customFilter'
-    | 'priority'
-    | 'and'
-    | 'or';
+        | 'delay'
+        | 'scroll'
+        | 'views'
+        | 'viewsPerDay'
+        | 'visits'
+        | 'device'
+        | 'geoloc'
+        | 'url'
+        | 'referrer'
+        | 'date'
+        | 'time'
+        | 'customFilter'
+        | 'priority'
+        | 'and'
+        | 'or';
 
     interface EngageDisplayConditions {
         id: string;
@@ -157,10 +171,10 @@ export namespace PooolEngage {
         name: string;
         conditions: EngageDisplayConditions[]
         /**
-        * Destroys the element
-        *
-        * @returns Promise<void>
-        */
+         * Destroys the element
+         *
+         * @returns Promise<void>
+         */
         destroy: () => void;
     }
 
@@ -177,7 +191,7 @@ export namespace PooolEngage {
          * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
          * @param [locale] - the locale to use
          *
-         * More infos: https://poool.dev/docs/access/javascript/access/texts
+         * More infos: https://www.poool.dev/docs/engage/javascript/texts
          */
         (keyName: EngageTextsType | string, value: string, readonly?: boolean, locale?: string): Engage;
         /**
@@ -191,7 +205,7 @@ export namespace PooolEngage {
          * @param [readonly=false] - if true, the configuration will be read-only and cannot be overridden by the Dashboard
          * @param [locale] - the locale to use
          *
-         * More infos: https://poool.dev/docs/access/javascript/access/texts
+         * More infos: https://www.poool.dev/docs/engage/javascript/texts
          */
         (texts: { [key: EngageTextsType | string]: string }, readonly?: boolean, locale?: string): Engage;
     }
@@ -201,7 +215,7 @@ export namespace PooolEngage {
          * Creates a new Engage instance (required to display Engage elements) using your app ID.
          *
          * @param key - Your poool app ID
-         * @returns The access factory instance.
+         * @returns The Engage instance.
          *
          *  More infos: https://www.poool.dev/fr/docs/engage/javascript/methods#init
          */
@@ -210,7 +224,7 @@ export namespace PooolEngage {
         /**
          * If an Engage object already exists in the global object of the current page, the Engage.js library will be renamed to PooolEngage and the original Engage object will be restored.
          *
-         *  @returns the Access instance
+         *  @returns the Engage instance
          *
          * More infos: https://www.poool.dev/fr/docs/engage/javascript/methods#noconflict
          */
