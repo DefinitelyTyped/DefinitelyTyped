@@ -109,7 +109,7 @@ declare namespace LazyJS {
         first(count: number): Sequence<T>;
         indexOf(value: T, equalityFn?: (a: T, b: T) => boolean): number;
 
-        last(): any;
+        last(): T | undefined;
         last(count: number): Sequence<T>;
         lastIndexOf(value: any): number;
 
