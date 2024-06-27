@@ -1,6 +1,7 @@
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 interface Foo {
+    key: string;
     foo(): string;
 }
 interface Bar {
@@ -23,6 +24,7 @@ var fooArrSequence: LazyJS.Sequence<Foo[]>;
 var barSequence: LazyJS.Sequence<Bar>;
 var fooArraySeq: LazyJS.ArrayLikeSequence<Foo>;
 var barArraySeq: LazyJS.ArrayLikeSequence<Bar>;
+var numObjectSeq: LazyJS.ObjectLikeSequence<number>;
 var fooObjectSeq: LazyJS.ObjectLikeSequence<Foo>;
 var anyObjectSeq: LazyJS.ObjectLikeSequence<any>;
 var fooAsyncSeq: LazyJS.AsyncSequence<Foo>;
@@ -106,8 +108,8 @@ fooSequence = fooSequence.compact();
 fooSequence = fooSequence.concat(arr);
 fooSequence = fooSequence.consecutive(num);
 bool = fooSequence.contains(foo);
-fooSequence = fooSequence.countBy(str);
-fooObjectSeq = fooSequence.countBy(fnGetKeyCallback);
+numObjectSeq = fooSequence.countBy("key");
+numObjectSeq = fooSequence.countBy(fnGetKeyCallback);
 fooSequence = fooSequence.dropWhile(fnTestCallback);
 fooSequence = fooSequence.each(fnValueCallback);
 bool = fooSequence.every(fnTestCallback);

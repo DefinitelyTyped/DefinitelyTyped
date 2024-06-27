@@ -154,8 +154,8 @@ declare namespace LazyJS {
         concat(var_args: T[]): Sequence<T>;
         consecutive(length: number): Sequence<T>;
         contains(value: T): boolean;
-        countBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
-        countBy(propertyName: string): ObjectLikeSequence<T>;
+        countBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<number>;
+        countBy(propertyName: keyof T): ObjectLikeSequence<number>;
         dropWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         every(predicateFn: TestCallback<T, string | number>): boolean;
         filter(predicateFn: TestCallback<T, string | number>): Sequence<T>;
