@@ -16,8 +16,6 @@ declare namespace LazyJS {
 
         repeat<T>(value: T, count?: number): GeneratedSequence<T>;
 
-        on<T>(eventType: string): Sequence<T>;
-
         readFile(path: string): StringLikeSequence;
         makeHttpRequest(path: string): StringLikeSequence;
     }
