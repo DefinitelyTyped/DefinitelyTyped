@@ -177,6 +177,8 @@ declare namespace LazyJS {
         reduce(aggregatorFn: (memo: T, value: T) => T): T | undefined;
         reduce<U>(aggregatorFn: (memo: T | U, value: T) => U): T | U | undefined;
         reduce<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;
+        reduceRight(aggregatorFn: (memo: T, value: T) => T): T | undefined;
+        reduceRight<U>(aggregatorFn: (memo: T | U, value: T) => U): T | U | undefined;
         reduceRight<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;
         reject(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         rest(count?: number): Sequence<T>;

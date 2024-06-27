@@ -144,6 +144,8 @@ strSequence = fooSequence.pluck("key");
 // $ExpectType Foo | Bar
 fooSequence.reduce(() => bar);
 bar = fooSequence.reduce(fnMemoCallback, bar);
+// $ExpectType Foo | Bar
+fooSequence.reduceRight(() => bar);
 bar = fooSequence.reduceRight(fnMemoCallback, bar);
 fooSequence = fooSequence.reject(fnTestCallback);
 fooSequence = fooSequence.rest(num);
