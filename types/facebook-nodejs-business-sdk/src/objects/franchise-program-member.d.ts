@@ -14,5 +14,5 @@ export default class FranchiseProgramMember extends AbstractCrudObject {
         membership_status: "membership_status";
         page: "page";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): FranchiseProgramMember;
+    get(fields: string[], params?: Record<string, any>): Promise<FranchiseProgramMember>;
 }

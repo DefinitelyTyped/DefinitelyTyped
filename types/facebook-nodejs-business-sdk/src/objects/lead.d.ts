@@ -26,6 +26,6 @@ export default class Lead extends AbstractCrudObject {
         retailer_item_id: "retailer_item_id";
         vehicle: "vehicle";
     }>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): Lead;
+    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<Lead>;
 }

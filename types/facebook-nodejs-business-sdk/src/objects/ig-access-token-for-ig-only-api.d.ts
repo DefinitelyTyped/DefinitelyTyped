@@ -10,5 +10,5 @@ export default class IGAccessTokenForIGOnlyAPI extends AbstractCrudObject {
         token_type: "token_type";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): IGAccessTokenForIGOnlyAPI;
+    get(fields: string[], params?: Record<string, any>): Promise<IGAccessTokenForIGOnlyAPI>;
 }

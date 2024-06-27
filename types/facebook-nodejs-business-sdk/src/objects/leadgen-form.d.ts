@@ -71,9 +71,9 @@ export default class LeadgenForm extends AbstractCrudObject {
         zh_hk: "ZH_HK";
         zh_tw: "ZH_TW";
     }>;
-    getLeads(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getTestLeads(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createTestLead(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Lead>;
-    get(fields: Array<string>, params?: Record<string, any>): LeadgenForm;
-    update(fields: Array<string>, params?: Record<string, any>): LeadgenForm;
+    getLeads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getTestLeads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createTestLead(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<Lead>;
+    get(fields: string[], params?: Record<string, any>): Promise<LeadgenForm>;
+    update(fields: string[], params?: Record<string, any>): Promise<LeadgenForm>;
 }

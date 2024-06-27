@@ -14,5 +14,5 @@ export default class BidSchedule extends AbstractCrudObject {
         time_end: "time_end";
         time_start: "time_start";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BidSchedule;
+    get(fields: string[], params?: Record<string, any>): Promise<BidSchedule>;
 }

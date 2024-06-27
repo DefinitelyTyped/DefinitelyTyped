@@ -8,5 +8,5 @@ export default class CatalogWebsiteOnboardingSettings extends AbstractCrudObject
         id: "id";
         status: "status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CatalogWebsiteOnboardingSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<CatalogWebsiteOnboardingSettings>;
 }

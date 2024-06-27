@@ -9,5 +9,5 @@ export default class ProductCatalogLocalizationSettings extends AbstractCrudObje
         default_language: "default_language";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ProductCatalogLocalizationSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductCatalogLocalizationSettings>;
 }

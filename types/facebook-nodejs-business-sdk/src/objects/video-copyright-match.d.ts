@@ -35,5 +35,5 @@ export default class VideoCopyrightMatch extends AbstractCrudObject {
         video_and_audio: "VIDEO_AND_AUDIO";
         video_only: "VIDEO_ONLY";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): VideoCopyrightMatch;
+    get(fields: string[], params?: Record<string, any>): Promise<VideoCopyrightMatch>;
 }

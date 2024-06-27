@@ -25,5 +25,5 @@ export default class AudioAsset extends AbstractCrudObject {
         title_with_featured_artists: "title_with_featured_artists";
         upc: "upc";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AudioAsset;
+    get(fields: string[], params?: Record<string, any>): Promise<AudioAsset>;
 }

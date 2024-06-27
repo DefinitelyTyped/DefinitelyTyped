@@ -11,5 +11,5 @@ export default class PersonalAdsPersona extends AbstractCrudObject {
         last_name: "last_name";
         pending_email: "pending_email";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PersonalAdsPersona;
+    get(fields: string[], params?: Record<string, any>): Promise<PersonalAdsPersona>;
 }

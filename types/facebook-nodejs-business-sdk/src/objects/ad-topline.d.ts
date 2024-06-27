@@ -41,5 +41,5 @@ export default class AdTopline extends AbstractCrudObject {
         trp_value: "trp_value";
         uom: "uom";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdTopline;
+    get(fields: string[], params?: Record<string, any>): Promise<AdTopline>;
 }

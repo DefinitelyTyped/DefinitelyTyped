@@ -60,8 +60,8 @@ export default class CustomConversion extends AbstractCrudObject {
         system_generated: "system_generated";
         website: "website";
     }>;
-    getStats(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): CustomConversion;
-    update(fields: Array<string>, params?: Record<string, any>): CustomConversion;
+    getStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<CustomConversion>;
+    update(fields: string[], params?: Record<string, any>): Promise<CustomConversion>;
 }

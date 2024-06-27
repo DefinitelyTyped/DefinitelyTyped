@@ -16,5 +16,5 @@ export default class PanelAPIReport extends AbstractCrudObject {
         start_date: "start_date";
         upload_date: "upload_date";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PanelAPIReport;
+    get(fields: string[], params?: Record<string, any>): Promise<PanelAPIReport>;
 }

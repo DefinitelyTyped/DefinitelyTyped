@@ -8,5 +8,5 @@ export default class AdLightAdgroup extends AbstractCrudObject {
         adset_id: "adset_id";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdLightAdgroup;
+    get(fields: string[], params?: Record<string, any>): Promise<AdLightAdgroup>;
 }

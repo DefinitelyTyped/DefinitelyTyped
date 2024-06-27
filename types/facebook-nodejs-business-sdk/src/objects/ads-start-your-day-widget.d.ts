@@ -8,5 +8,5 @@ export default class AdsStartYourDayWidget extends AbstractCrudObject {
         id: "id";
         widget_id: "widget_id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsStartYourDayWidget;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsStartYourDayWidget>;
 }

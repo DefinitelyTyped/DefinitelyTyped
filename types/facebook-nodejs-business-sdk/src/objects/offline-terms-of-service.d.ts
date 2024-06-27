@@ -9,5 +9,5 @@ export default class OfflineTermsOfService extends AbstractCrudObject {
         id: "id";
         signed_by_user: "signed_by_user";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): OfflineTermsOfService;
+    get(fields: string[], params?: Record<string, any>): Promise<OfflineTermsOfService>;
 }

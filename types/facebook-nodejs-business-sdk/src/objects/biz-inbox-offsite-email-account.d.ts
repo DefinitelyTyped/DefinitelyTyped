@@ -9,6 +9,6 @@ export default class BizInboxOffsiteEmailAccount extends AbstractCrudObject {
         email_address: "email_address";
         id: "id";
     }>;
-    getAssignedUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): BizInboxOffsiteEmailAccount;
+    getAssignedUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<BizInboxOffsiteEmailAccount>;
 }

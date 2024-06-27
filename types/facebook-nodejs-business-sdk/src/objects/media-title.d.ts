@@ -46,10 +46,10 @@ export default class MediaTitle extends AbstractCrudObject {
         music: "MUSIC";
         tv_show: "TV_SHOW";
     }>;
-    getAugmentedRealitiesMetadata(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getChannelsToIntegrityStatus(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getVideosMetadata(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): MediaTitle;
-    update(fields: Array<string>, params?: Record<string, any>): MediaTitle;
+    getAugmentedRealitiesMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getVideosMetadata(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<MediaTitle>;
+    update(fields: string[], params?: Record<string, any>): Promise<MediaTitle>;
 }

@@ -23,5 +23,5 @@ export default class BCPCampaign extends AbstractCrudObject {
         payment_amount_for_content: "payment_amount_for_content";
         payment_description: "payment_description";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BCPCampaign;
+    get(fields: string[], params?: Record<string, any>): Promise<BCPCampaign>;
 }

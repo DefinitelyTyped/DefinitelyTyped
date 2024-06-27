@@ -15,5 +15,5 @@ export default class AudioIsrc extends AbstractCrudObject {
         top_searchable_artist_name: "top_searchable_artist_name";
         top_searchable_artist_profile_pic_url: "top_searchable_artist_profile_pic_url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AudioIsrc;
+    get(fields: string[], params?: Record<string, any>): Promise<AudioIsrc>;
 }

@@ -20,6 +20,6 @@ export default class IGMediaForIGOnlyAPI extends AbstractCrudObject {
         timestamp: "timestamp";
         username: "username";
     }>;
-    getChildren(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): IGMediaForIGOnlyAPI;
+    getChildren(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<IGMediaForIGOnlyAPI>;
 }

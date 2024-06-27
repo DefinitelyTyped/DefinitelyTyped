@@ -32,6 +32,6 @@ export default class OmegaCustomerTrx extends AbstractCrudObject {
         inv: "INV";
         pro_forma: "PRO_FORMA";
     }>;
-    getCampaigns(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): OmegaCustomerTrx;
+    getCampaigns(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<OmegaCustomerTrx>;
 }

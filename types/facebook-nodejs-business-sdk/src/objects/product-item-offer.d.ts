@@ -9,5 +9,5 @@ export default class ProductItemOffer extends AbstractCrudObject {
         availability_radius: "availability_radius";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ProductItemOffer;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductItemOffer>;
 }

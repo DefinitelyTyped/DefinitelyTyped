@@ -15,7 +15,7 @@ declare class VideoUploader {
     upload(video: AdVideo, waitForEncoding: boolean): Record<string, any>;
 }
 type SlideshowSpec = {
-    images_urls: Array<string>;
+    images_urls: string[];
     duration_ms: number;
     transition_ms: number;
 };
@@ -112,7 +112,7 @@ declare class VideoUploadRequest {
     /**
      * Send the current request
      **/
-    send(path: string | Array<string>): Record<string, any>;
+    send(path: string | string[]): Record<string, any>;
     setParams(params: Record<string, any>, files?: Record<string, any>): void;
 }
 declare class VideoEncodingStatusChecker {

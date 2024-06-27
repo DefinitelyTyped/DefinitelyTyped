@@ -7,15 +7,15 @@ declare class FacebookAdsApiBatch {
     _api: FacebookAdsApi;
     _files: Array<Record<string, any>>;
     _batch: Array<Record<string, any>>;
-    _successCallbacks: Array<(...args: Array<any>) => any>;
-    _failureCallbacks: Array<(...args: Array<any>) => any>;
-    _requests: Array<APIRequest>;
+    _successCallbacks: Array<(...args: any[]) => any>;
+    _failureCallbacks: Array<(...args: any[]) => any>;
+    _requests: APIRequest[];
     /**
      * @param {FacebookAdsApi} api
      * @param {Function} successCallback
      * @param {Function} failureCallback
      */
-    constructor(api: FacebookAdsApi, successCallback?: (...args: Array<any>) => any, failureCallback?: (...args: Array<any>) => any);
+    constructor(api: FacebookAdsApi, successCallback?: (...args: any[]) => any, failureCallback?: (...args: any[]) => any);
     /**
      * Adds a call to the batch.
      * @param  {string} method The HTTP method name (e.g. 'GET').
@@ -35,7 +35,7 @@ declare class FacebookAdsApiBatch {
      * @param {APIRequest} [request] The APIRequest object
      * @return {Object} An object describing the call
      */
-    add(method: string, relativePath: Array<string> | string, params?: Record<string, any>, files?: Record<string, any>, successCallback?: (...args: Array<any>) => any, failureCallback?: (...args: Array<any>) => any, request?: APIRequest): {
+    add(method: string, relativePath: string[] | string, params?: Record<string, any>, files?: Record<string, any>, successCallback?: (...args: any[]) => any, failureCallback?: (...args: any[]) => any, request?: APIRequest): {
         attachedFiles: void | string;
         body: void | string;
         method: string;
@@ -51,7 +51,7 @@ declare class FacebookAdsApiBatch {
      *   will be called with the FacebookResponse of this call if the call failed.
      * @return {Object} An object describing the call
      */
-    addRequest(request: APIRequest, successCallback?: (...args: Array<any>) => any, failureCallback?: (...args: Array<any>) => any): {
+    addRequest(request: APIRequest, successCallback?: (...args: any[]) => any, failureCallback?: (...args: any[]) => any): {
         attachedFiles: void | string;
         body: void | string;
         method: string;

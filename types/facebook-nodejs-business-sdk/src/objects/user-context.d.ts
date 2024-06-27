@@ -7,5 +7,5 @@ export default class UserContext extends AbstractCrudObject {
     static get Fields(): Readonly<{
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): UserContext;
+    get(fields: string[], params?: Record<string, any>): Promise<UserContext>;
 }

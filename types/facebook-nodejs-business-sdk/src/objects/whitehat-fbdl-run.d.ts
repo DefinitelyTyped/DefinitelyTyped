@@ -14,5 +14,5 @@ export default class WhitehatFBDLRun extends AbstractCrudObject {
         status: "status";
         user_type: "user_type";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): WhitehatFBDLRun;
+    get(fields: string[], params?: Record<string, any>): Promise<WhitehatFBDLRun>;
 }

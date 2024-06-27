@@ -35,7 +35,7 @@ export default class CustomData {
      * @param {String} original_order_id Original order id for refund. For Refund event only.
      * @param {String} message Reason for refund. For Refund event only.
      */
-    constructor(value: number, currency: string, content_name: string, content_category: string, content_ids: Array<string>, contents: Array<SignalContent>, content_type: string, order_id: string, predicted_ltv: number, num_items: number, search_string: string, status: string, item_number: string, delivery_category: string, custom_properties: Record<string, any>, shipping_contact: SignalUserData, billing_contact: SignalUserData, external_order_id: string, original_order_id: string, message: string);
+    constructor(value: number, currency: string, content_name: string, content_category: string, content_ids: string[], contents: SignalContent[], content_type: string, order_id: string, predicted_ltv: number, num_items: number, search_string: string, status: string, item_number: string, delivery_category: string, custom_properties: Record<string, any>, shipping_contact: SignalUserData, billing_contact: SignalUserData, external_order_id: string, original_order_id: string, message: string);
     /**
      * Gets the value of the custom data.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -77,19 +77,19 @@ export default class CustomData {
      * An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    get contents(): Array<SignalContent>;
+    get contents(): SignalContent[];
     /**
      * Sets the contents for the custom data.
      * @param contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    set contents(contents: Array<SignalContent>);
+    set contents(contents: SignalContent[]);
     /**
      * Sets the contents for the custom data.
      * @param {Array<Content>} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    setContents(contents: Array<SignalContent>): CustomData;
+    setContents(contents: SignalContent[]): CustomData;
     /**
      * Gets the order id for the custom data.
      * order_id is the order ID for this transaction as a String.
@@ -170,21 +170,21 @@ export default class CustomData {
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    get content_ids(): Array<string>;
+    get content_ids(): string[];
     /**
      * Sets the content_ids for the custom data.
      * @param content_ids The content IDs associated with the event, such as product SKUs for items in an AddToCart, represented as Array of string.
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    set content_ids(content_ids: Array<string>);
+    set content_ids(content_ids: string[]);
     /**
      * Sets the content_ids for the custom data.
      * @param {Array} content_ids The content IDs associated with the event, such as product SKUs for items in an AddToCart, represented as Array of string.
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    setContentIds(content_ids: Array<string>): CustomData;
+    setContentIds(content_ids: string[]): CustomData;
     /**
      * Gets the content type for the custom data.
      * A String equal to either product or product_group. Set to product if the keys you send content_ids or contents represent products.

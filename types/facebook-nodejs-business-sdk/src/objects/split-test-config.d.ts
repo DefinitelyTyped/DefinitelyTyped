@@ -13,5 +13,5 @@ export default class SplitTestConfig extends AbstractCrudObject {
         test_variable: "test_variable";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): SplitTestConfig;
+    get(fields: string[], params?: Record<string, any>): Promise<SplitTestConfig>;
 }

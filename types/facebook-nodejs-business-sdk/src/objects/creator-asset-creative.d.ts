@@ -22,5 +22,5 @@ export default class CreatorAssetCreative extends AbstractCrudObject {
         paused: "PAUSED";
         unknown: "UNKNOWN";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CreatorAssetCreative;
+    get(fields: string[], params?: Record<string, any>): Promise<CreatorAssetCreative>;
 }

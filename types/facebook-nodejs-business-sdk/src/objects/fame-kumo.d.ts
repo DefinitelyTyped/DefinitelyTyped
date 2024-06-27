@@ -7,5 +7,5 @@ export default class FAMEKumo extends AbstractCrudObject {
     static get Fields(): Readonly<{
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): FAMEKumo;
+    get(fields: string[], params?: Record<string, any>): Promise<FAMEKumo>;
 }

@@ -12,5 +12,5 @@ export default class PrivateComputationEnvironment extends AbstractCrudObject {
         publisher_vpc_id: "publisher_vpc_id";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PrivateComputationEnvironment;
+    get(fields: string[], params?: Record<string, any>): Promise<PrivateComputationEnvironment>;
 }

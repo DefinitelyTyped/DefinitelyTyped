@@ -12,5 +12,5 @@ export default class BCPCreatorIgUser extends AbstractCrudObject {
         portfolio_url: "portfolio_url";
         username: "username";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BCPCreatorIgUser;
+    get(fields: string[], params?: Record<string, any>): Promise<BCPCreatorIgUser>;
 }

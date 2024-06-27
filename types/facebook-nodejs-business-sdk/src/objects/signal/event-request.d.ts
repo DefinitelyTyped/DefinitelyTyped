@@ -22,21 +22,21 @@ export default class EventRequest {
      * @param {Boolean} debug_mode_flag Set to true if you want to enable more logging in SDK
      * @param {?HttpServiceInterface} http_service Override the default http request method by setting an object that implements HttpServiceInterface
      */
-    constructor(access_token: string, pixel_id: string, page_id: string, events?: Array<SignalEvent>, partner_agent?: string | null | undefined, test_event_code?: string | null | undefined, namespace_id?: string | null | undefined, upload_id?: string | null | undefined, upload_tag?: string | null | undefined, upload_source?: string | null | undefined, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null | undefined);
+    constructor(access_token: string, pixel_id: string, page_id: string, events?: SignalEvent[], partner_agent?: string | null | undefined, test_event_code?: string | null | undefined, namespace_id?: string | null | undefined, upload_id?: string | null | undefined, upload_tag?: string | null | undefined, upload_source?: string | null | undefined, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null | undefined);
     /**
      * Gets the data for the request Payload for a Server Side Event and Business Data Event.
      */
-    get events(): Array<SignalEvent>;
+    get events(): SignalEvent[];
     /**
      * Sets the events for the request Payload for a Server Side Event and Business Data Event.
      * @param events for the current event
      */
-    set events(events: Array<SignalEvent>);
+    set events(events: SignalEvent[]);
     /**
      * Sets the events for the request Payload for a Server Side Event and Business Data Event.
      * @param {Array<SignalEvent>} events for the current event
      */
-    setEvents(events: Array<SignalEvent>): EventRequest;
+    setEvents(events: SignalEvent[]): EventRequest;
     /**
      * Gets the partner_agent for the request
      * Allows you to specify the platform from which the event is sent e.g. wordpress, Zapier

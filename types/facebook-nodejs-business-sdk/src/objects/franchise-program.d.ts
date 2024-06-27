@@ -18,5 +18,5 @@ export default class FranchiseProgram extends AbstractCrudObject {
         shared_custom_audience: "shared_custom_audience";
         start_date: "start_date";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): FranchiseProgram;
+    get(fields: string[], params?: Record<string, any>): Promise<FranchiseProgram>;
 }

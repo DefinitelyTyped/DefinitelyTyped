@@ -7,5 +7,5 @@ export default class WithAsset3D extends AbstractCrudObject {
     static get Fields(): Readonly<{
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): WithAsset3D;
+    get(fields: string[], params?: Record<string, any>): Promise<WithAsset3D>;
 }

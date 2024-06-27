@@ -8,5 +8,5 @@ export default class Hours extends AbstractCrudObject {
         id: "id";
         permanent_status: "permanent_status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): Hours;
+    get(fields: string[], params?: Record<string, any>): Promise<Hours>;
 }

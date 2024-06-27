@@ -9,5 +9,5 @@ export default class PlaceTag extends AbstractCrudObject {
         id: "id";
         place: "place";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PlaceTag;
+    get(fields: string[], params?: Record<string, any>): Promise<PlaceTag>;
 }

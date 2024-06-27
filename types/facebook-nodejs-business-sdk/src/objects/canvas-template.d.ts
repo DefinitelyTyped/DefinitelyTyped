@@ -20,5 +20,5 @@ export default class CanvasTemplate extends AbstractCrudObject {
         sub_verticals: "sub_verticals";
         verticals: "verticals";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CanvasTemplate;
+    get(fields: string[], params?: Record<string, any>): Promise<CanvasTemplate>;
 }

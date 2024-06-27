@@ -14,5 +14,5 @@ export default class LeadGenDirectCRMIntegrationConfig extends AbstractCrudObjec
         resources: "resources";
         third_party_app_id: "third_party_app_id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): LeadGenDirectCRMIntegrationConfig;
+    get(fields: string[], params?: Record<string, any>): Promise<LeadGenDirectCRMIntegrationConfig>;
 }

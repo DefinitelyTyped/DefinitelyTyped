@@ -34,8 +34,8 @@ export default class Canvas extends AbstractCrudObject {
         update_time: "update_time";
         use_retailer_item_ids: "use_retailer_item_ids";
     }>;
-    getPreview(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getPreviews(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): Canvas;
-    update(fields: Array<string>, params?: Record<string, any>): Canvas;
+    getPreview(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPreviews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<Canvas>;
+    update(fields: string[], params?: Record<string, any>): Promise<Canvas>;
 }

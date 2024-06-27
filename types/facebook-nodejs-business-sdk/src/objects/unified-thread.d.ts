@@ -28,6 +28,6 @@ export default class UnifiedThread extends AbstractCrudObject {
         instagram: "INSTAGRAM";
         messenger: "MESSENGER";
     }>;
-    getMessages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): UnifiedThread;
+    getMessages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<UnifiedThread>;
 }

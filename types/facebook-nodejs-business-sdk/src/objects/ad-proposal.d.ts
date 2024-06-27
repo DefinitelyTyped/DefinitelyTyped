@@ -25,5 +25,5 @@ export default class AdProposal extends AbstractCrudObject {
         status: "status";
         use_testing: "use_testing";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdProposal;
+    get(fields: string[], params?: Record<string, any>): Promise<AdProposal>;
 }

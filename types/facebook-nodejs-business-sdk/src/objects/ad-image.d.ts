@@ -28,5 +28,5 @@ export default class AdImage extends AbstractCrudObject {
         deleted: "DELETED";
         internal: "INTERNAL";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdImage;
+    get(fields: string[], params?: Record<string, any>): Promise<AdImage>;
 }

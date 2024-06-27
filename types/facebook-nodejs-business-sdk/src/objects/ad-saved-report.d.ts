@@ -24,5 +24,5 @@ export default class AdSavedReport extends AbstractCrudObject {
         user_filter: "user_filter";
         user_owner: "user_owner";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdSavedReport;
+    get(fields: string[], params?: Record<string, any>): Promise<AdSavedReport>;
 }

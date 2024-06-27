@@ -31,5 +31,5 @@ export default class ThirdPartyPartnerPanelRequest extends AbstractCrudObject {
         panel_sales_attribution: "PANEL_SALES_ATTRIBUTION";
         reach: "REACH";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ThirdPartyPartnerPanelRequest;
+    get(fields: string[], params?: Record<string, any>): Promise<ThirdPartyPartnerPanelRequest>;
 }

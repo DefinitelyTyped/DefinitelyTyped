@@ -10,5 +10,5 @@ export default class CPASParentCatalogSettings extends AbstractCrudObject {
         disable_use_as_parent_catalog: "disable_use_as_parent_catalog";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CPASParentCatalogSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASParentCatalogSettings>;
 }

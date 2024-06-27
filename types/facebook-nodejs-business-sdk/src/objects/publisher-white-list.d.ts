@@ -12,5 +12,5 @@ export default class PublisherWhiteList extends AbstractCrudObject {
         name: "name";
         placement_type: "placement_type";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PublisherWhiteList;
+    get(fields: string[], params?: Record<string, any>): Promise<PublisherWhiteList>;
 }

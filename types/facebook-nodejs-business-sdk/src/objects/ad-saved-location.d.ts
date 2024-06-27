@@ -16,5 +16,5 @@ export default class AdSavedLocation extends AbstractCrudObject {
         regions: "regions";
         zips: "zips";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdSavedLocation;
+    get(fields: string[], params?: Record<string, any>): Promise<AdSavedLocation>;
 }

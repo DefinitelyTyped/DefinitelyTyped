@@ -17,5 +17,5 @@ export default class MusicWorkCopyright extends AbstractCrudObject {
         tags: "tags";
         update_time: "update_time";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): MusicWorkCopyright;
+    get(fields: string[], params?: Record<string, any>): Promise<MusicWorkCopyright>;
 }

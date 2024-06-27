@@ -106,7 +106,7 @@ export default class PageCallToAction extends AbstractCrudObject {
         shop_on_facebook: "SHOP_ON_FACEBOOK";
         website: "WEBSITE";
     }>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): PageCallToAction;
-    update(fields: Array<string>, params?: Record<string, any>): PageCallToAction;
+    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<PageCallToAction>;
+    update(fields: string[], params?: Record<string, any>): Promise<PageCallToAction>;
 }

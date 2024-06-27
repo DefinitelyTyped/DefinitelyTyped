@@ -83,5 +83,5 @@ export default class AdAccountUserSettings extends AbstractCrudObject {
         video_views: "VIDEO_VIEWS";
         website_conversions: "WEBSITE_CONVERSIONS";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdAccountUserSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<AdAccountUserSettings>;
 }

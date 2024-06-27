@@ -23,5 +23,5 @@ export default class ImageReferenceMatch extends AbstractCrudObject {
         resolution_reason: "resolution_reason";
         update_time: "update_time";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ImageReferenceMatch;
+    get(fields: string[], params?: Record<string, any>): Promise<ImageReferenceMatch>;
 }

@@ -25,5 +25,5 @@ export default class AdsNamingTemplate extends AbstractCrudObject {
         topline: "TOPLINE";
         unique_adcreative: "UNIQUE_ADCREATIVE";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsNamingTemplate;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsNamingTemplate>;
 }

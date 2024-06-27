@@ -8,5 +8,5 @@ export default class BlindPig extends AbstractCrudObject {
         id: "id";
         name: "name";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BlindPig;
+    get(fields: string[], params?: Record<string, any>): Promise<BlindPig>;
 }

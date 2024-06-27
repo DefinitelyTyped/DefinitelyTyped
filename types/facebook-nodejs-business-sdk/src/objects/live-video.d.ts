@@ -93,16 +93,16 @@ export default class LiveVideo extends AbstractCrudObject {
         enable: "ENABLE";
         regenerate: "REGENERATE";
     }>;
-    getBlockedUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getComments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getCrosspostShareDPages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getCrosspostedBroadcasts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getErrors(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createInputStream(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<LiveVideoInputStream>;
-    getPolls(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createPoll(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<VideoPoll>;
-    getReactions(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): LiveVideo;
-    update(fields: Array<string>, params?: Record<string, any>): LiveVideo;
+    getBlockedUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCrosspostShareDPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCrosspostedBroadcasts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getErrors(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createInputStream(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<LiveVideoInputStream>;
+    getPolls(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createPoll(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<VideoPoll>;
+    getReactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<LiveVideo>;
+    update(fields: string[], params?: Record<string, any>): Promise<LiveVideo>;
 }

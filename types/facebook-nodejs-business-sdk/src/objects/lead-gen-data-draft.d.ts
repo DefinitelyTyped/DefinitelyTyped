@@ -21,5 +21,5 @@ export default class LeadGenDataDraft extends AbstractCrudObject {
         thank_you_page: "thank_you_page";
         tracking_parameters: "tracking_parameters";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): LeadGenDataDraft;
+    get(fields: string[], params?: Record<string, any>): Promise<LeadGenDataDraft>;
 }

@@ -122,5 +122,5 @@ export default class ReachFrequencyPrediction extends AbstractCrudObject {
         spanish: "SPANISH";
         sports: "SPORTS";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ReachFrequencyPrediction;
+    get(fields: string[], params?: Record<string, any>): Promise<ReachFrequencyPrediction>;
 }

@@ -13,5 +13,5 @@ export default class CPASMerchantConfig extends AbstractCrudObject {
         outcomes_compliance_status: "outcomes_compliance_status";
         qualified_to_onboard: "qualified_to_onboard";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CPASMerchantConfig;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASMerchantConfig>;
 }

@@ -8,5 +8,5 @@ export default class FavoriteCatalog extends AbstractCrudObject {
         catalog: "catalog";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): FavoriteCatalog;
+    get(fields: string[], params?: Record<string, any>): Promise<FavoriteCatalog>;
 }

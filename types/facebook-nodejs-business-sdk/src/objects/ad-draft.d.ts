@@ -21,5 +21,5 @@ export default class AdDraft extends AbstractCrudObject {
         time_created: "time_created";
         time_updated: "time_updated";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdDraft;
+    get(fields: string[], params?: Record<string, any>): Promise<AdDraft>;
 }

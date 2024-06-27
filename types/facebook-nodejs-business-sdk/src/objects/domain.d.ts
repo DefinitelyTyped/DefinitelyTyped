@@ -9,5 +9,5 @@ export default class Domain extends AbstractCrudObject {
         name: "name";
         url: "url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): Domain;
+    get(fields: string[], params?: Record<string, any>): Promise<Domain>;
 }

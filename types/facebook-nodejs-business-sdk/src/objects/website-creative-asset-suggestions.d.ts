@@ -10,5 +10,5 @@ export default class WebsiteCreativeAssetSuggestions extends AbstractCrudObject 
         id: "id";
         link_url: "link_url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): WebsiteCreativeAssetSuggestions;
+    get(fields: string[], params?: Record<string, any>): Promise<WebsiteCreativeAssetSuggestions>;
 }

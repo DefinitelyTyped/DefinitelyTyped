@@ -18,5 +18,5 @@ export default class Robot extends AbstractCrudObject {
         target_sw_image_uri: "target_sw_image_uri";
         user: "user";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): Robot;
+    get(fields: string[], params?: Record<string, any>): Promise<Robot>;
 }

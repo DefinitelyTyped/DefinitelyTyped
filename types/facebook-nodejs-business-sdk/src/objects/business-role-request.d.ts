@@ -38,7 +38,7 @@ export default class BusinessRoleRequest extends AbstractCrudObject {
         partner_center_marketing: "PARTNER_CENTER_MARKETING";
         partner_center_operations: "PARTNER_CENTER_OPERATIONS";
     }>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): BusinessRoleRequest;
-    update(fields: Array<string>, params?: Record<string, any>): BusinessRoleRequest;
+    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessRoleRequest>;
+    update(fields: string[], params?: Record<string, any>): Promise<BusinessRoleRequest>;
 }

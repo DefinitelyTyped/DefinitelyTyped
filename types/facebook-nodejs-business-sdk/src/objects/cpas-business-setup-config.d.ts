@@ -12,6 +12,6 @@ export default class CPASBusinessSetupConfig extends AbstractCrudObject {
         capabilities_compliance_status: "capabilities_compliance_status";
         id: "id";
     }>;
-    getAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): CPASBusinessSetupConfig;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASBusinessSetupConfig>;
 }

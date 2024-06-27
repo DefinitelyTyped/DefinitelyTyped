@@ -9,5 +9,5 @@ export default class IGBCAdsPermission extends AbstractCrudObject {
         permission_type: "permission_type";
         status: "status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): IGBCAdsPermission;
+    get(fields: string[], params?: Record<string, any>): Promise<IGBCAdsPermission>;
 }

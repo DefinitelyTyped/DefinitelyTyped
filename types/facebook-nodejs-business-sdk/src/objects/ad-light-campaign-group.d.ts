@@ -7,5 +7,5 @@ export default class AdLightCampaignGroup extends AbstractCrudObject {
     static get Fields(): Readonly<{
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdLightCampaignGroup;
+    get(fields: string[], params?: Record<string, any>): Promise<AdLightCampaignGroup>;
 }

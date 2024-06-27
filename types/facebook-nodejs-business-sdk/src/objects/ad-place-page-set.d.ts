@@ -21,5 +21,5 @@ export default class AdPlacePageSet extends AbstractCrudObject {
         marketing_area: "MARKETING_AREA";
         none: "NONE";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdPlacePageSet;
+    get(fields: string[], params?: Record<string, any>): Promise<AdPlacePageSet>;
 }

@@ -13,5 +13,5 @@ export default class CPASAdCreationTemplate extends AbstractCrudObject {
         targeting_type: "targeting_type";
         template_type: "template_type";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CPASAdCreationTemplate;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASAdCreationTemplate>;
 }

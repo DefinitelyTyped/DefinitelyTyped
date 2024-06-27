@@ -9,5 +9,5 @@ export default class AnalyticsUserConfig extends AbstractCrudObject {
         flags: "flags";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AnalyticsUserConfig;
+    get(fields: string[], params?: Record<string, any>): Promise<AnalyticsUserConfig>;
 }

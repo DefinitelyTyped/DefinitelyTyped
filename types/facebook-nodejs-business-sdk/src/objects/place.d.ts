@@ -10,5 +10,5 @@ export default class Place extends AbstractCrudObject {
         name: "name";
         overall_rating: "overall_rating";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): Place;
+    get(fields: string[], params?: Record<string, any>): Promise<Place>;
 }

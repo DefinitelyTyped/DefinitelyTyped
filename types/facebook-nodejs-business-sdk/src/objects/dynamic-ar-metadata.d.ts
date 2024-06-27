@@ -18,5 +18,5 @@ export default class DynamicARMetadata extends AbstractCrudObject {
         tags: "tags";
         variant_picker_url: "variant_picker_url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): DynamicARMetadata;
+    get(fields: string[], params?: Record<string, any>): Promise<DynamicARMetadata>;
 }

@@ -22,5 +22,5 @@ export default class AdsReportBuilderExportCore extends AbstractCrudObject {
         time_completed: "time_completed";
         time_start: "time_start";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsReportBuilderExportCore;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsReportBuilderExportCore>;
 }

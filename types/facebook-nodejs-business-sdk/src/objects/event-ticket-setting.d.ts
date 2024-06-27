@@ -8,5 +8,5 @@ export default class EventTicketSetting extends AbstractCrudObject {
         id: "id";
         ticket_delivery_type: "ticket_delivery_type";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): EventTicketSetting;
+    get(fields: string[], params?: Record<string, any>): Promise<EventTicketSetting>;
 }

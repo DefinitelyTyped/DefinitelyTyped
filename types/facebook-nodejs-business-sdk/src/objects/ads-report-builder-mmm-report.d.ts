@@ -14,5 +14,5 @@ export default class AdsReportBuilderMMMReport extends AbstractCrudObject {
         mmm_status: "mmm_status";
         time_start: "time_start";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsReportBuilderMMMReport;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsReportBuilderMMMReport>;
 }

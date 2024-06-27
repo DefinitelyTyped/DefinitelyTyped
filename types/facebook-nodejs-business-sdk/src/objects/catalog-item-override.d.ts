@@ -10,5 +10,5 @@ export default class CatalogItemOverride extends AbstractCrudObject {
         override_type: "override_type";
         override_value: "override_value";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CatalogItemOverride;
+    get(fields: string[], params?: Record<string, any>): Promise<CatalogItemOverride>;
 }

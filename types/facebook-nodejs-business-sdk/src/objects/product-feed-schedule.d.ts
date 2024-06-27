@@ -22,5 +22,5 @@ export default class ProductFeedSchedule extends AbstractCrudObject {
         monthly: "MONTHLY";
         weekly: "WEEKLY";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ProductFeedSchedule;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductFeedSchedule>;
 }

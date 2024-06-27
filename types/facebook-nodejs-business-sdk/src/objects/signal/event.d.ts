@@ -21,7 +21,7 @@ export default class Event {
      * @param {Number} data_processing_options_country A country that you want to associate to this data processing option.
      * @param {Number} data_processing_options_state A state that you want to associate with this data processing option.
      */
-    constructor(event_name: string, event_time: number, event_source_url: string, user_data: SignalUserData, custom_data: SignalCustomData, event_id: string, opt_out: boolean, action_source: string, data_processing_options: Array<string>, data_processing_options_country: number, data_processing_options_state: number);
+    constructor(event_name: string, event_time: number, event_source_url: string, user_data: SignalUserData, custom_data: SignalCustomData, event_id: string, opt_out: boolean, action_source: string, data_processing_options: string[], data_processing_options_country: number, data_processing_options_state: number);
     /**
      * Gets the Event Name for the current Event.
      */
@@ -139,17 +139,17 @@ export default class Event {
      * Gets the data_processing_options for the current event.
      * Processing options you would like to enable for a specific event.
      */
-    get data_processing_options(): Array<string>;
+    get data_processing_options(): string[];
     /**
      * Sets the data_processing_options for the current event.
      * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      */
-    set data_processing_options(data_processing_options: Array<string>);
+    set data_processing_options(data_processing_options: string[]);
     /**
      * Sets the data_processing_options for the current event.
      * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      */
-    setDataProcessingOptions(data_processing_options: Array<string>): Event;
+    setDataProcessingOptions(data_processing_options: string[]): Event;
     /**
      * Gets the data_processing_options_country for the current event.
      * A country that you want to associate to this data processing option.

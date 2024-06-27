@@ -61,5 +61,5 @@ export default class AdsUserSettings extends AbstractCrudObject {
         use_stepper_primary_entry: "use_stepper_primary_entry";
         user: "user";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsUserSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsUserSettings>;
 }

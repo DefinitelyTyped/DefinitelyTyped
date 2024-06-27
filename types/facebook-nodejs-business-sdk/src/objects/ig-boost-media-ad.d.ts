@@ -9,5 +9,5 @@ export default class IGBoostMediaAd extends AbstractCrudObject {
         ad_status: "ad_status";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): IGBoostMediaAd;
+    get(fields: string[], params?: Record<string, any>): Promise<IGBoostMediaAd>;
 }

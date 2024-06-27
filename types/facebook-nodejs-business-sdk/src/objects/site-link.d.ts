@@ -11,5 +11,5 @@ export default class SiteLink extends AbstractCrudObject {
         link_type: "link_type";
         link_url: "link_url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): SiteLink;
+    get(fields: string[], params?: Record<string, any>): Promise<SiteLink>;
 }

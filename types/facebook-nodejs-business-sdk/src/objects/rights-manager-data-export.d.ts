@@ -13,5 +13,5 @@ export default class RightsManagerDataExport extends AbstractCrudObject {
         time_range_end: "time_range_end";
         time_range_start: "time_range_start";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): RightsManagerDataExport;
+    get(fields: string[], params?: Record<string, any>): Promise<RightsManagerDataExport>;
 }

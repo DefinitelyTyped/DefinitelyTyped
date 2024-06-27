@@ -9,5 +9,5 @@ export default class DynamicContentSet extends AbstractCrudObject {
         id: "id";
         name: "name";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): DynamicContentSet;
+    get(fields: string[], params?: Record<string, any>): Promise<DynamicContentSet>;
 }

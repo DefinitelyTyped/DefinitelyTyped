@@ -9,6 +9,6 @@ export default class AdsValueAdjustmentRule extends AbstractCrudObject {
         base_value: "base_value";
         id: "id";
     }>;
-    getCriterias(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsValueAdjustmentRule;
+    getCriterias(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsValueAdjustmentRule>;
 }

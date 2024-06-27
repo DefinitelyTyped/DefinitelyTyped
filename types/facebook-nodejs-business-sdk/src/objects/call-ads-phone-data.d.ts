@@ -12,5 +12,5 @@ export default class CallAdsPhoneData extends AbstractCrudObject {
         page: "page";
         phone_number: "phone_number";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CallAdsPhoneData;
+    get(fields: string[], params?: Record<string, any>): Promise<CallAdsPhoneData>;
 }

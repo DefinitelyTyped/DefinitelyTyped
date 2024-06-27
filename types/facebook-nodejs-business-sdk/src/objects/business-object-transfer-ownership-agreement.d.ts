@@ -10,5 +10,5 @@ export default class BusinessObjectTransferOwnershipAgreement extends AbstractCr
         requesting_business: "requesting_business";
         status: "status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BusinessObjectTransferOwnershipAgreement;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessObjectTransferOwnershipAgreement>;
 }

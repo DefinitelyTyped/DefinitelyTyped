@@ -10,5 +10,5 @@ export default class SignalsIWLExtractor extends AbstractCrudObject {
         extractor_type: "extractor_type";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): SignalsIWLExtractor;
+    get(fields: string[], params?: Record<string, any>): Promise<SignalsIWLExtractor>;
 }

@@ -10,5 +10,5 @@ export default class AdvAInstance extends AbstractCrudObject {
         name: "name";
         owner_business: "owner_business";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdvAInstance;
+    get(fields: string[], params?: Record<string, any>): Promise<AdvAInstance>;
 }

@@ -9,5 +9,5 @@ export default class UserSetReportingRoot extends AbstractCrudObject {
         id: "id";
         last_modified_time: "last_modified_time";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): UserSetReportingRoot;
+    get(fields: string[], params?: Record<string, any>): Promise<UserSetReportingRoot>;
 }

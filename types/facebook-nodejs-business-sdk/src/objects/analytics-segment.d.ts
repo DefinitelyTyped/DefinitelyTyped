@@ -23,5 +23,5 @@ export default class AnalyticsSegment extends AbstractCrudObject {
         user_property_rules: "user_property_rules";
         web_param_rules: "web_param_rules";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AnalyticsSegment;
+    get(fields: string[], params?: Record<string, any>): Promise<AnalyticsSegment>;
 }

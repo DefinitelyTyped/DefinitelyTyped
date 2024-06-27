@@ -23,5 +23,5 @@ export default class AdCustomDerivedMetrics extends AbstractCrudObject {
         saved_report_id: "saved_report_id";
         scope: "scope";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdCustomDerivedMetrics;
+    get(fields: string[], params?: Record<string, any>): Promise<AdCustomDerivedMetrics>;
 }

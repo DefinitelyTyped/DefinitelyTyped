@@ -25,6 +25,6 @@ export default class PrivateLiftStudyInstance extends AbstractCrudObject {
         next: "NEXT";
         none: "NONE";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PrivateLiftStudyInstance;
-    update(fields: Array<string>, params?: Record<string, any>): PrivateLiftStudyInstance;
+    get(fields: string[], params?: Record<string, any>): Promise<PrivateLiftStudyInstance>;
+    update(fields: string[], params?: Record<string, any>): Promise<PrivateLiftStudyInstance>;
 }

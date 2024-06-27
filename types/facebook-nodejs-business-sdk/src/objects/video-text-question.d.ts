@@ -10,5 +10,5 @@ export default class VideoTextQuestion extends AbstractCrudObject {
         question_text: "question_text";
         status: "status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): VideoTextQuestion;
+    get(fields: string[], params?: Record<string, any>): Promise<VideoTextQuestion>;
 }

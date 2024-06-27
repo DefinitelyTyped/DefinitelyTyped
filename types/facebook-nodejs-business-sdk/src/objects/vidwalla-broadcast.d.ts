@@ -8,5 +8,5 @@ export default class VidwallaBroadcast extends AbstractCrudObject {
         id: "id";
         overlay_url: "overlay_url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): VidwallaBroadcast;
+    get(fields: string[], params?: Record<string, any>): Promise<VidwallaBroadcast>;
 }

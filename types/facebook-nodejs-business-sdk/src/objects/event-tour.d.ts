@@ -19,5 +19,5 @@ export default class EventTour extends AbstractCrudObject {
         ticketing_uri: "ticketing_uri";
         video: "video";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): EventTour;
+    get(fields: string[], params?: Record<string, any>): Promise<EventTour>;
 }

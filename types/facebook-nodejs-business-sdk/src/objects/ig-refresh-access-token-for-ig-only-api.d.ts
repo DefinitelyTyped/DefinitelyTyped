@@ -10,5 +10,5 @@ export default class IGRefreshAccessTokenForIGOnlyAPI extends AbstractCrudObject
         token_type: "token_type";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): IGRefreshAccessTokenForIGOnlyAPI;
+    get(fields: string[], params?: Record<string, any>): Promise<IGRefreshAccessTokenForIGOnlyAPI>;
 }

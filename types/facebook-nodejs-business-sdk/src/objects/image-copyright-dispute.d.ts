@@ -15,5 +15,5 @@ export default class ImageCopyrightDispute extends AbstractCrudObject {
         time_created: "time_created";
         time_updated: "time_updated";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ImageCopyrightDispute;
+    get(fields: string[], params?: Record<string, any>): Promise<ImageCopyrightDispute>;
 }

@@ -17,6 +17,6 @@ export default class BusinessAgreement extends AbstractCrudObject {
         pending_email_verification: "PENDING_EMAIL_VERIFICATION";
         pending_integrity_review: "PENDING_INTEGRITY_REVIEW";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BusinessAgreement;
-    update(fields: Array<string>, params?: Record<string, any>): BusinessAgreement;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessAgreement>;
+    update(fields: string[], params?: Record<string, any>): Promise<BusinessAgreement>;
 }

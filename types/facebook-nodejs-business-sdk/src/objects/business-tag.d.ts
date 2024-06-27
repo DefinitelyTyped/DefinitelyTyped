@@ -8,5 +8,5 @@ export default class BusinessTag extends AbstractCrudObject {
         id: "id";
         name: "name";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BusinessTag;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessTag>;
 }

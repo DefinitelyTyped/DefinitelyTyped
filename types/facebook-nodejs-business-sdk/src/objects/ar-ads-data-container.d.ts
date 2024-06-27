@@ -13,5 +13,5 @@ export default class ArAdsDataContainer extends AbstractCrudObject {
         last_modified_time: "last_modified_time";
         name: "name";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ArAdsDataContainer;
+    get(fields: string[], params?: Record<string, any>): Promise<ArAdsDataContainer>;
 }

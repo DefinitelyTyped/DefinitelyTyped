@@ -14,5 +14,5 @@ export default class PartnerAccountLinking extends AbstractCrudObject {
         partnername: "partnername";
         pixel: "pixel";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PartnerAccountLinking;
+    get(fields: string[], params?: Record<string, any>): Promise<PartnerAccountLinking>;
 }

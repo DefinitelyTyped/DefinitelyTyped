@@ -12,5 +12,5 @@ export default class AdExportPreset extends AbstractCrudObject {
         owner: "owner";
         updated_time: "updated_time";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdExportPreset;
+    get(fields: string[], params?: Record<string, any>): Promise<AdExportPreset>;
 }

@@ -9,5 +9,5 @@ export default class AdsDataPartner extends AbstractCrudObject {
         name: "name";
         rev_share_policies: "rev_share_policies";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsDataPartner;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsDataPartner>;
 }

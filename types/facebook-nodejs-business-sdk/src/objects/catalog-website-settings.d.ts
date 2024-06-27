@@ -8,5 +8,5 @@ export default class CatalogWebsiteSettings extends AbstractCrudObject {
         id: "id";
         is_allowed_to_crawl: "is_allowed_to_crawl";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CatalogWebsiteSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<CatalogWebsiteSettings>;
 }

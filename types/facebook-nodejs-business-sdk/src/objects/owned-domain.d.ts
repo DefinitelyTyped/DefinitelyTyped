@@ -11,5 +11,5 @@ export default class OwnedDomain extends AbstractCrudObject {
         status: "status";
         verification_code: "verification_code";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): OwnedDomain;
+    get(fields: string[], params?: Record<string, any>): Promise<OwnedDomain>;
 }

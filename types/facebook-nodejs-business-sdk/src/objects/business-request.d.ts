@@ -15,5 +15,5 @@ export default class BusinessRequest extends AbstractCrudObject {
         request_type: "request_type";
         requestor: "requestor";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BusinessRequest;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessRequest>;
 }

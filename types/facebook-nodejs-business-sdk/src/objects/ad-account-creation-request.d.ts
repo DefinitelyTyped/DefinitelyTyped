@@ -42,6 +42,6 @@ export default class AdAccountCreationRequest extends AbstractCrudObject {
         vertical: "vertical";
         vertical_v2: "vertical_v2";
     }>;
-    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: string[], params?: Record<string, any>): AdAccountCreationRequest;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdAccountCreationRequest>;
 }

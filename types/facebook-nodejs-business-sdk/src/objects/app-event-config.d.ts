@@ -33,5 +33,5 @@ export default class AppEventConfig extends AbstractCrudObject {
         track_android_app_uninstall: "track_android_app_uninstall";
         track_ios_app_uninstall: "track_ios_app_uninstall";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AppEventConfig;
+    get(fields: string[], params?: Record<string, any>): Promise<AppEventConfig>;
 }

@@ -22,5 +22,5 @@ export default class PartnerIntegrationLinked extends AbstractCrudObject {
         product_catalog: "product_catalog";
         setup_status: "setup_status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PartnerIntegrationLinked;
+    get(fields: string[], params?: Record<string, any>): Promise<PartnerIntegrationLinked>;
 }

@@ -9,5 +9,5 @@ export default class DogNotificationSettings extends AbstractCrudObject {
         id: "id";
         subscription_status_per_channel: "subscription_status_per_channel";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): DogNotificationSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<DogNotificationSettings>;
 }

@@ -9,5 +9,5 @@ export default class ProductSetUsage extends AbstractCrudObject {
         product_set: "product_set";
         usage_type: "usage_type";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ProductSetUsage;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductSetUsage>;
 }

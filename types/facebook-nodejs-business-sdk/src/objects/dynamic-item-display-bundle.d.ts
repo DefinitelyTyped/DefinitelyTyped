@@ -13,5 +13,5 @@ export default class DynamicItemDisplayBundle extends AbstractCrudObject {
         text_tokens: "text_tokens";
         url: "url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): DynamicItemDisplayBundle;
+    get(fields: string[], params?: Record<string, any>): Promise<DynamicItemDisplayBundle>;
 }

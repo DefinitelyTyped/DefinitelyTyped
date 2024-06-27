@@ -12,5 +12,5 @@ export default class WoodhengeSupporter extends AbstractCrudObject {
         number_of_months_subscribed: "number_of_months_subscribed";
         user: "user";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): WoodhengeSupporter;
+    get(fields: string[], params?: Record<string, any>): Promise<WoodhengeSupporter>;
 }

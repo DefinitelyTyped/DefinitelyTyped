@@ -10,7 +10,7 @@ export default class CPASLsbImageBank extends AbstractCrudObject {
         catalog_segment_proxy_id: "catalog_segment_proxy_id";
         id: "id";
     }>;
-    getBackupImages(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): CPASLsbImageBank;
-    update(fields: Array<string>, params?: Record<string, any>): CPASLsbImageBank;
+    getBackupImages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASLsbImageBank>;
+    update(fields: string[], params?: Record<string, any>): Promise<CPASLsbImageBank>;
 }

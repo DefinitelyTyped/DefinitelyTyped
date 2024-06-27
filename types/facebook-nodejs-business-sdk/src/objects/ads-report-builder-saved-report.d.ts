@@ -45,5 +45,5 @@ export default class AdsReportBuilderSavedReport extends AbstractCrudObject {
         user_metrics: "user_metrics";
         view_type: "view_type";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsReportBuilderSavedReport;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsReportBuilderSavedReport>;
 }

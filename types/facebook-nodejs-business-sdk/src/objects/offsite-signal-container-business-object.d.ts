@@ -14,7 +14,7 @@ export default class OffsiteSignalContainerBusinessObject extends AbstractCrudOb
         name: "name";
         primary_container_id: "primary_container_id";
     }>;
-    getLinkedApplication(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getLinkedPage(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): OffsiteSignalContainerBusinessObject;
+    getLinkedApplication(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getLinkedPage(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<OffsiteSignalContainerBusinessObject>;
 }

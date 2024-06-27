@@ -15,6 +15,6 @@ export default class AdsConversionGoal extends AbstractCrudObject {
         performance_goal: "performance_goal";
         update_status: "update_status";
     }>;
-    getConversionEvents(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsConversionGoal;
+    getConversionEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsConversionGoal>;
 }

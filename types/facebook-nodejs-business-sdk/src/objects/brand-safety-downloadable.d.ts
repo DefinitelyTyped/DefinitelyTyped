@@ -13,5 +13,5 @@ export default class BrandSafetyDownloadable extends AbstractCrudObject {
         request_surface: "request_surface";
         url: "url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BrandSafetyDownloadable;
+    get(fields: string[], params?: Record<string, any>): Promise<BrandSafetyDownloadable>;
 }

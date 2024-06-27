@@ -78,6 +78,6 @@ export default class LocalServiceBusiness extends AbstractCrudObject {
         published: "PUBLISHED";
         staging: "STAGING";
     }>;
-    getChannelsToIntegrityStatus(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): LocalServiceBusiness;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<LocalServiceBusiness>;
 }

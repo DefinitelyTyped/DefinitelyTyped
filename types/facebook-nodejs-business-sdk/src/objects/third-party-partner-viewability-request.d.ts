@@ -23,5 +23,5 @@ export default class ThirdPartyPartnerViewabilityRequest extends AbstractCrudObj
         scheduled: "SCHEDULED";
         success: "SUCCESS";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ThirdPartyPartnerViewabilityRequest;
+    get(fields: string[], params?: Record<string, any>): Promise<ThirdPartyPartnerViewabilityRequest>;
 }

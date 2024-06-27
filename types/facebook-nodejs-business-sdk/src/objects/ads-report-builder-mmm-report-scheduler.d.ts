@@ -11,5 +11,5 @@ export default class AdsReportBuilderMMMReportScheduler extends AbstractCrudObje
         report_name: "report_name";
         schedule_frequency: "schedule_frequency";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsReportBuilderMMMReportScheduler;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsReportBuilderMMMReportScheduler>;
 }

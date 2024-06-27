@@ -39,6 +39,6 @@ export default class Profile extends AbstractCrudObject {
         thankful: "THANKFUL";
         wow: "WOW";
     }>;
-    getPicture(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): Profile;
+    getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<Profile>;
 }

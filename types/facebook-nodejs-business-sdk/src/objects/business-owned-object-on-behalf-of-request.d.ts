@@ -20,5 +20,5 @@ export default class BusinessOwnedObjectOnBehalfOfRequest extends AbstractCrudOb
         pending_email_verification: "PENDING_EMAIL_VERIFICATION";
         pending_integrity_review: "PENDING_INTEGRITY_REVIEW";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BusinessOwnedObjectOnBehalfOfRequest;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessOwnedObjectOnBehalfOfRequest>;
 }

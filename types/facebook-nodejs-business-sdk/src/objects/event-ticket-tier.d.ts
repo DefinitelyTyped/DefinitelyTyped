@@ -24,5 +24,5 @@ export default class EventTicketTier extends AbstractCrudObject {
         status: "status";
         total_quantity: "total_quantity";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): EventTicketTier;
+    get(fields: string[], params?: Record<string, any>): Promise<EventTicketTier>;
 }

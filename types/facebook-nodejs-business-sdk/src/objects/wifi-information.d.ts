@@ -9,5 +9,5 @@ export default class WifiInformation extends AbstractCrudObject {
         name: "name";
         network_access_type: "network_access_type";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): WifiInformation;
+    get(fields: string[], params?: Record<string, any>): Promise<WifiInformation>;
 }

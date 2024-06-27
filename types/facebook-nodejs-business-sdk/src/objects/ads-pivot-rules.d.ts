@@ -16,5 +16,5 @@ export default class AdsPivotRules extends AbstractCrudObject {
         update_by: "update_by";
         update_time: "update_time";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsPivotRules;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsPivotRules>;
 }

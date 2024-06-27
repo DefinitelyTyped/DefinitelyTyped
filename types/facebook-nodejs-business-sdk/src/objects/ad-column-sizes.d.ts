@@ -15,5 +15,5 @@ export default class AdColumnSizes extends AbstractCrudObject {
         tab: "tab";
         view: "view";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdColumnSizes;
+    get(fields: string[], params?: Record<string, any>): Promise<AdColumnSizes>;
 }

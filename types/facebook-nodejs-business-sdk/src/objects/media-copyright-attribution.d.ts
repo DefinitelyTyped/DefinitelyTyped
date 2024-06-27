@@ -22,5 +22,5 @@ export default class MediaCopyrightAttribution extends AbstractCrudObject {
         status: "status";
         title: "title";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): MediaCopyrightAttribution;
+    get(fields: string[], params?: Record<string, any>): Promise<MediaCopyrightAttribution>;
 }

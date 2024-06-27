@@ -8,5 +8,5 @@ export default class PageLeadsAccessConfig extends AbstractCrudObject {
         id: "id";
         page: "page";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PageLeadsAccessConfig;
+    get(fields: string[], params?: Record<string, any>): Promise<PageLeadsAccessConfig>;
 }

@@ -23,5 +23,5 @@ export default class CopyrightMediaMisuse extends AbstractCrudObject {
         video_copyright: "video_copyright";
         video_segments: "video_segments";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CopyrightMediaMisuse;
+    get(fields: string[], params?: Record<string, any>): Promise<CopyrightMediaMisuse>;
 }

@@ -14,10 +14,10 @@ export default class AdVideo extends AbstractCrudObject {
      * Uploads filepath and creates the AdVideo object from it.
      * It requires 'filepath' property to be defined.
      **/
-    create(batch: FacebookAdsBatchApi, failureHandler: (...args: Array<any>) => any, successHandler: (...args: Array<any>) => any): any;
+    create(batch: FacebookAdsBatchApi, failureHandler: (...args: any[]) => any, successHandler: (...args: any[]) => any): any;
     waitUntilEncodingReady(interval?: number, timeout?: number): void;
     /**
      *  Returns all the thumbnails associated with the ad video
      */
-    getThumbnails(fields: Record<string, any>, params: Record<string, any>): Cursor | Promise<any>;
+    getThumbnails(fields: Record<string, any>, params: Record<string, any>): Cursor | Promise<Cursor>;
 }

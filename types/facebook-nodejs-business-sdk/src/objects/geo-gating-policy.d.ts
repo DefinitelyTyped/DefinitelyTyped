@@ -13,5 +13,5 @@ export default class GeoGatingPolicy extends AbstractCrudObject {
         valid_from: "valid_from";
         valid_until: "valid_until";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): GeoGatingPolicy;
+    get(fields: string[], params?: Record<string, any>): Promise<GeoGatingPolicy>;
 }

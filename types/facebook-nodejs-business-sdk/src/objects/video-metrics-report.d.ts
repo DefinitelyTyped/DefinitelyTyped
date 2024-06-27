@@ -17,5 +17,5 @@ export default class VideoMetricsReport extends AbstractCrudObject {
         upload_date: "upload_date";
         url: "url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): VideoMetricsReport;
+    get(fields: string[], params?: Record<string, any>): Promise<VideoMetricsReport>;
 }

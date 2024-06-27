@@ -14,5 +14,5 @@ export default class EducationExperience extends AbstractCrudObject {
         with: "with";
         year: "year";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): EducationExperience;
+    get(fields: string[], params?: Record<string, any>): Promise<EducationExperience>;
 }

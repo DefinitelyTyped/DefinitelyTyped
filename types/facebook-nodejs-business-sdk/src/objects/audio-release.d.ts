@@ -22,5 +22,5 @@ export default class AudioRelease extends AbstractCrudObject {
         proprietary_id: "proprietary_id";
         upc: "upc";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AudioRelease;
+    get(fields: string[], params?: Record<string, any>): Promise<AudioRelease>;
 }

@@ -19,5 +19,5 @@ export default class BusinessFranchiseConfig extends AbstractCrudObject {
         shared_creative_folder_count: "shared_creative_folder_count";
         shared_custom_audience_count: "shared_custom_audience_count";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BusinessFranchiseConfig;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessFranchiseConfig>;
 }

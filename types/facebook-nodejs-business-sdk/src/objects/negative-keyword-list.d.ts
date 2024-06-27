@@ -18,6 +18,6 @@ export default class NegativeKeywordList extends AbstractCrudObject {
         total_negative_keyword_count: "total_negative_keyword_count";
         total_validated_keyword_count: "total_validated_keyword_count";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): NegativeKeywordList;
-    update(fields: Array<string>, params?: Record<string, any>): NegativeKeywordList;
+    get(fields: string[], params?: Record<string, any>): Promise<NegativeKeywordList>;
+    update(fields: string[], params?: Record<string, any>): Promise<NegativeKeywordList>;
 }

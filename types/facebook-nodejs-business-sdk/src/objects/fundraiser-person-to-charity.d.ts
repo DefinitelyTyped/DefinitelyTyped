@@ -33,10 +33,10 @@ export default class FundraiserPersonToCharity extends AbstractCrudObject {
     static get FundraiserType(): Readonly<{
         person_for_charity: "person_for_charity";
     }>;
-    getDonations(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createEndFundraiser(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
-    getExternalDonations(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createExternalDonation(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
-    get(fields: Array<string>, params?: Record<string, any>): FundraiserPersonToCharity;
-    update(fields: Array<string>, params?: Record<string, any>): FundraiserPersonToCharity;
+    getDonations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createEndFundraiser(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
+    getExternalDonations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createExternalDonation(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<FundraiserPersonToCharity>;
+    update(fields: string[], params?: Record<string, any>): Promise<FundraiserPersonToCharity>;
 }

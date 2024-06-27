@@ -12,5 +12,5 @@ export default class AREffect extends AbstractCrudObject {
         status: "status";
         surfaces: "surfaces";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AREffect;
+    get(fields: string[], params?: Record<string, any>): Promise<AREffect>;
 }

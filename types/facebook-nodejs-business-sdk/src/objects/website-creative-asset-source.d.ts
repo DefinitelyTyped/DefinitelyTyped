@@ -8,5 +8,5 @@ export default class WebsiteCreativeAssetSource extends AbstractCrudObject {
         id: "id";
         source_url: "source_url";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): WebsiteCreativeAssetSource;
+    get(fields: string[], params?: Record<string, any>): Promise<WebsiteCreativeAssetSource>;
 }

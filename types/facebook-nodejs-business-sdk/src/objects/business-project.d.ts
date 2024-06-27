@@ -11,5 +11,5 @@ export default class BusinessProject extends AbstractCrudObject {
         id: "id";
         name: "name";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): BusinessProject;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessProject>;
 }

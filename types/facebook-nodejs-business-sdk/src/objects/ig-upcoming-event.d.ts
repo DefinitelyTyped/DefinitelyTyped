@@ -10,6 +10,6 @@ export default class IGUpcomingEvent extends AbstractCrudObject {
         start_time: "start_time";
         title: "title";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): IGUpcomingEvent;
-    update(fields: Array<string>, params?: Record<string, any>): IGUpcomingEvent;
+    get(fields: string[], params?: Record<string, any>): Promise<IGUpcomingEvent>;
+    update(fields: string[], params?: Record<string, any>): Promise<IGUpcomingEvent>;
 }

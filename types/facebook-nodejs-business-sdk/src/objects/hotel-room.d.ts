@@ -18,6 +18,6 @@ export default class HotelRoom extends AbstractCrudObject {
         sale_price: "sale_price";
         url: "url";
     }>;
-    getPricingVariables(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): HotelRoom;
+    getPricingVariables(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<HotelRoom>;
 }

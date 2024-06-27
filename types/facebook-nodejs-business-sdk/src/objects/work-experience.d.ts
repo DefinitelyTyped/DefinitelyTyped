@@ -16,5 +16,5 @@ export default class WorkExperience extends AbstractCrudObject {
         start_date: "start_date";
         with: "with";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): WorkExperience;
+    get(fields: string[], params?: Record<string, any>): Promise<WorkExperience>;
 }

@@ -14,5 +14,5 @@ export default class WearableDevicePublicKey extends AbstractCrudObject {
         product_use_case: "product_use_case";
         version: "version";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): WearableDevicePublicKey;
+    get(fields: string[], params?: Record<string, any>): Promise<WearableDevicePublicKey>;
 }

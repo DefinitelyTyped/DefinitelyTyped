@@ -11,5 +11,5 @@ export default class ThirdPartyMeasurementReportDataset extends AbstractCrudObje
         product: "product";
         schema: "schema";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ThirdPartyMeasurementReportDataset;
+    get(fields: string[], params?: Record<string, any>): Promise<ThirdPartyMeasurementReportDataset>;
 }

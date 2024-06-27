@@ -11,5 +11,5 @@ export default class AdsCreationSavedState extends AbstractCrudObject {
         time_updated: "time_updated";
         user: "user";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsCreationSavedState;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsCreationSavedState>;
 }

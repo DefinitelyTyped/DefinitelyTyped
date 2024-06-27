@@ -12,5 +12,5 @@ export default class AdCreationPackageConfig extends AbstractCrudObject {
         package_id: "package_id";
         status: "status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdCreationPackageConfig;
+    get(fields: string[], params?: Record<string, any>): Promise<AdCreationPackageConfig>;
 }

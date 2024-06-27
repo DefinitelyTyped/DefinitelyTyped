@@ -53,6 +53,6 @@ export default class VideoAsset extends AbstractCrudObject {
         title: "title";
         views: "views";
     }>;
-    getInsights(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): VideoAsset;
+    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<VideoAsset>;
 }

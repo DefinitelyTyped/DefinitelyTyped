@@ -17,5 +17,5 @@ export default class CalibratorExistingRule extends AbstractCrudObject {
         status: "status";
         transforms: "transforms";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CalibratorExistingRule;
+    get(fields: string[], params?: Record<string, any>): Promise<CalibratorExistingRule>;
 }

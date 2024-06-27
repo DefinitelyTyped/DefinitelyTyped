@@ -15,5 +15,5 @@ export default class PageInsightsAsyncExportRun extends AbstractCrudObject {
         sorters: "sorters";
         status: "status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PageInsightsAsyncExportRun;
+    get(fields: string[], params?: Record<string, any>): Promise<PageInsightsAsyncExportRun>;
 }

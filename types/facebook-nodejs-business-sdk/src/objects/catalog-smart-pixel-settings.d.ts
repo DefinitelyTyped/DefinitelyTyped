@@ -25,5 +25,5 @@ export default class CatalogSmartPixelSettings extends AbstractCrudObject {
         retention_time_sec: "retention_time_sec";
         trusted_domains: "trusted_domains";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CatalogSmartPixelSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<CatalogSmartPixelSettings>;
 }

@@ -12,5 +12,5 @@ export default class OffsitePixel extends AbstractCrudObject {
         name: "name";
         tag: "tag";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): OffsitePixel;
+    get(fields: string[], params?: Record<string, any>): Promise<OffsitePixel>;
 }

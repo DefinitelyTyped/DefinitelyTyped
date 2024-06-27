@@ -20,5 +20,5 @@ export default class MusicVideoCopyright extends AbstractCrudObject {
         whitelisted_fb_users: "whitelisted_fb_users";
         whitelisted_ig_users: "whitelisted_ig_users";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): MusicVideoCopyright;
+    get(fields: string[], params?: Record<string, any>): Promise<MusicVideoCopyright>;
 }

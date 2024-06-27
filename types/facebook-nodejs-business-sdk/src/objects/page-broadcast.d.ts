@@ -9,5 +9,5 @@ export default class PageBroadcast extends AbstractCrudObject {
         scheduled_time: "scheduled_time";
         status: "status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PageBroadcast;
+    get(fields: string[], params?: Record<string, any>): Promise<PageBroadcast>;
 }

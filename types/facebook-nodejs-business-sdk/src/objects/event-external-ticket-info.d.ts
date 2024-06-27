@@ -10,5 +10,5 @@ export default class EventExternalTicketInfo extends AbstractCrudObject {
         min_sales_price: "min_sales_price";
         sales_status: "sales_status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): EventExternalTicketInfo;
+    get(fields: string[], params?: Record<string, any>): Promise<EventExternalTicketInfo>;
 }

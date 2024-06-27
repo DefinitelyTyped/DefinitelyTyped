@@ -19,5 +19,5 @@ export default class FBImageCopyrightMatch extends AbstractCrudObject {
         reference_owner: "reference_owner";
         time_to_appeal: "time_to_appeal";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): FBImageCopyrightMatch;
+    get(fields: string[], params?: Record<string, any>): Promise<FBImageCopyrightMatch>;
 }

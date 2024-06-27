@@ -24,5 +24,5 @@ export default class PartnerStudy extends AbstractCrudObject {
         study_type: "study_type";
         submit_date: "submit_date";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): PartnerStudy;
+    get(fields: string[], params?: Record<string, any>): Promise<PartnerStudy>;
 }

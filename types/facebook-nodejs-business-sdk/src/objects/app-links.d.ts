@@ -15,5 +15,5 @@ export default class AppLinks extends AbstractCrudObject {
         windows_phone: "windows_phone";
         windows_universal: "windows_universal";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AppLinks;
+    get(fields: string[], params?: Record<string, any>): Promise<AppLinks>;
 }

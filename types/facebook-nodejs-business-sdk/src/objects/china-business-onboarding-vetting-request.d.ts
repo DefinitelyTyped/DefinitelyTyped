@@ -48,5 +48,5 @@ export default class ChinaBusinessOnboardingVettingRequest extends AbstractCrudO
         viewed_by_reseller: "viewed_by_reseller";
         zip_code: "zip_code";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ChinaBusinessOnboardingVettingRequest;
+    get(fields: string[], params?: Record<string, any>): Promise<ChinaBusinessOnboardingVettingRequest>;
 }

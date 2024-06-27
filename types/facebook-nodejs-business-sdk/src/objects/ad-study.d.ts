@@ -34,12 +34,12 @@ export default class AdStudy extends AbstractCrudObject {
         lift: "LIFT";
         split_test: "SPLIT_TEST";
     }>;
-    getCells(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createCheckPoint(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdStudy>;
-    getInstances(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createInstance(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<PrivateLiftStudyInstance>;
-    getObjectives(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): AdStudy;
-    update(fields: Array<string>, params?: Record<string, any>): AdStudy;
+    getCells(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCheckPoint(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<AdStudy>;
+    getInstances(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createInstance(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<PrivateLiftStudyInstance>;
+    getObjectives(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<AdStudy>;
+    update(fields: string[], params?: Record<string, any>): Promise<AdStudy>;
 }

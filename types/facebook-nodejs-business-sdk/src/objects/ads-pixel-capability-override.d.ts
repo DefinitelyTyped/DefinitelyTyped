@@ -10,5 +10,5 @@ export default class AdsPixelCapabilityOverride extends AbstractCrudObject {
         override_value: "override_value";
         reason: "reason";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): AdsPixelCapabilityOverride;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsPixelCapabilityOverride>;
 }

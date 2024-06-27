@@ -10,5 +10,5 @@ export default class EventRegistrationSetting extends AbstractCrudObject {
         target_type: "target_type";
         ticket_tier_ids: "ticket_tier_ids";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): EventRegistrationSetting;
+    get(fields: string[], params?: Record<string, any>): Promise<EventRegistrationSetting>;
 }

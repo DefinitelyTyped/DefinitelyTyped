@@ -20,6 +20,6 @@ export default class MediaFingerprint extends AbstractCrudObject {
         other: "OTHER";
         songtrack: "SONGTRACK";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): MediaFingerprint;
-    update(fields: Array<string>, params?: Record<string, any>): MediaFingerprint;
+    get(fields: string[], params?: Record<string, any>): Promise<MediaFingerprint>;
+    update(fields: string[], params?: Record<string, any>): Promise<MediaFingerprint>;
 }

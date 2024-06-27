@@ -13,5 +13,5 @@ export default class MediaCopyrightUpdateRecord extends AbstractCrudObject {
         ownership_countries: "ownership_countries";
         whitelisted_accounts: "whitelisted_accounts";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): MediaCopyrightUpdateRecord;
+    get(fields: string[], params?: Record<string, any>): Promise<MediaCopyrightUpdateRecord>;
 }

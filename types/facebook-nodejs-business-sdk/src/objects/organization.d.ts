@@ -11,5 +11,5 @@ export default class Organization extends AbstractCrudObject {
         master_bm_id: "master_bm_id";
         owner_business: "owner_business";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): Organization;
+    get(fields: string[], params?: Record<string, any>): Promise<Organization>;
 }

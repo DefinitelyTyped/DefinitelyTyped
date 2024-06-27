@@ -9,6 +9,6 @@ export default class WorkSkill extends AbstractCrudObject {
         id: "id";
         name: "name";
     }>;
-    getUsers(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): WorkSkill;
+    getUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<WorkSkill>;
 }

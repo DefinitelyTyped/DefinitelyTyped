@@ -9,5 +9,5 @@ export default class IGMediaBoostEligibilityInfo extends AbstractCrudObject {
         eligible_to_boost: "eligible_to_boost";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): IGMediaBoostEligibilityInfo;
+    get(fields: string[], params?: Record<string, any>): Promise<IGMediaBoostEligibilityInfo>;
 }

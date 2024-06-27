@@ -10,5 +10,5 @@ export default class SlicedEventSourceGroup extends AbstractCrudObject {
         id: "id";
         name: "name";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): SlicedEventSourceGroup;
+    get(fields: string[], params?: Record<string, any>): Promise<SlicedEventSourceGroup>;
 }

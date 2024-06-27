@@ -9,5 +9,5 @@ export default class ResearchPollStudy extends AbstractCrudObject {
         id: "id";
         name: "name";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ResearchPollStudy;
+    get(fields: string[], params?: Record<string, any>): Promise<ResearchPollStudy>;
 }

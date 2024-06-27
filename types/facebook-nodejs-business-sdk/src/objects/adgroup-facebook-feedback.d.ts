@@ -9,5 +9,5 @@ export default class AdgroupFacebookFeedback extends AbstractCrudObject {
         id: "id";
         preview: "preview";
     }>;
-    getComments(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
 }

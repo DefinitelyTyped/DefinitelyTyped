@@ -8,5 +8,5 @@ export default class FantasyGame extends AbstractCrudObject {
         id: "id";
         name: "name";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): FantasyGame;
+    get(fields: string[], params?: Record<string, any>): Promise<FantasyGame>;
 }

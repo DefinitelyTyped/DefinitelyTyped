@@ -11,5 +11,5 @@ export default class MeasurementReport extends AbstractCrudObject {
         report_type: "report_type";
         status: "status";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): MeasurementReport;
+    get(fields: string[], params?: Record<string, any>): Promise<MeasurementReport>;
 }

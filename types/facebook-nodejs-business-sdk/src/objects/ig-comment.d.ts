@@ -18,9 +18,9 @@ export default class IGComment extends AbstractCrudObject {
         user: "user";
         username: "username";
     }>;
-    getReplies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createReply(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<IGComment>;
-    delete(fields: Array<string>, params?: Record<string, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<string, any>): IGComment;
-    update(fields: Array<string>, params?: Record<string, any>): IGComment;
+    getReplies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createReply(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<IGComment>;
+    delete(fields: string[], params?: Record<string, any>): AbstractObject;
+    get(fields: string[], params?: Record<string, any>): Promise<IGComment>;
+    update(fields: string[], params?: Record<string, any>): Promise<IGComment>;
 }

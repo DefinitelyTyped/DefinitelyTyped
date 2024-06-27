@@ -9,5 +9,5 @@ export default class ExternalMerchantSettings extends AbstractCrudObject {
         external_platform: "external_platform";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ExternalMerchantSettings;
+    get(fields: string[], params?: Record<string, any>): Promise<ExternalMerchantSettings>;
 }

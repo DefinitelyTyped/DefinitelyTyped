@@ -19,11 +19,11 @@ export default class InstagramUser extends AbstractCrudObject {
         profile_pic: "profile_pic";
         username: "username";
     }>;
-    getAgencies(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getArEffects(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAuthorizedAdAccounts(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createAuthorizedAdAccount(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<InstagramUser>;
-    getUpcomingEvents(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createUpcomingEvent(fields: Array<string>, params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<IGUpcomingEvent>;
-    get(fields: Array<string>, params?: Record<string, any>): InstagramUser;
+    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getArEffects(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAuthorizedAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAuthorizedAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<InstagramUser>;
+    getUpcomingEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createUpcomingEvent(fields: string[], params?: Record<string, any>, pathOverride?: string | null | undefined): Promise<IGUpcomingEvent>;
+    get(fields: string[], params?: Record<string, any>): Promise<InstagramUser>;
 }

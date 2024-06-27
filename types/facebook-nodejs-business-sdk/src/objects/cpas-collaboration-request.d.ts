@@ -21,5 +21,5 @@ export default class CPASCollaborationRequest extends AbstractCrudObject {
         brand: "BRAND";
         merchant: "MERCHANT";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): CPASCollaborationRequest;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASCollaborationRequest>;
 }

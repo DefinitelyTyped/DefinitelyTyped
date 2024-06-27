@@ -12,5 +12,5 @@ export default class DynamicItemDisplayBundleFolder extends AbstractCrudObject {
         product_set: "product_set";
         valid_labels: "valid_labels";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): DynamicItemDisplayBundleFolder;
+    get(fields: string[], params?: Record<string, any>): Promise<DynamicItemDisplayBundleFolder>;
 }

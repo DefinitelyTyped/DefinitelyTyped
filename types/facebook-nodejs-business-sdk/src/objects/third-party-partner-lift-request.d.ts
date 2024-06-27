@@ -26,5 +26,5 @@ export default class ThirdPartyPartnerLiftRequest extends AbstractCrudObject {
         scheduled: "SCHEDULED";
         success: "SUCCESS";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ThirdPartyPartnerLiftRequest;
+    get(fields: string[], params?: Record<string, any>): Promise<ThirdPartyPartnerLiftRequest>;
 }

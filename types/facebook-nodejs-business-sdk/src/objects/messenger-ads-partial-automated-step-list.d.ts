@@ -14,6 +14,6 @@ export default class MessengerAdsPartialAutomatedStepList extends AbstractCrudOb
         reminder_text: "reminder_text";
         stop_question_message: "stop_question_message";
     }>;
-    getSteps(fields: Array<string>, params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<string, any>): MessengerAdsPartialAutomatedStepList;
+    getSteps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<MessengerAdsPartialAutomatedStepList>;
 }

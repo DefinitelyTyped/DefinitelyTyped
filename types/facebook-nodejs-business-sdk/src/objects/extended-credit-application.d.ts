@@ -31,5 +31,5 @@ export default class ExtendedCreditApplication extends AbstractCrudObject {
         tax_id: "tax_id";
         terms: "terms";
     }>;
-    get(fields: Array<string>, params?: Record<string, any>): ExtendedCreditApplication;
+    get(fields: string[], params?: Record<string, any>): Promise<ExtendedCreditApplication>;
 }
