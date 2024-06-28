@@ -212,7 +212,7 @@ declare namespace LazyJS {
         concat(var_args: T[]): ArrayLikeSequence<T>;
         first(): T | undefined;
         first(count?: number): ArrayLikeSequence<T>;
-        get(index: number): T;
+        get(index: number): T | undefined;
         length(): number;
         map<U>(mapFn: MapCallback<T, U>): ArrayLikeSequence<U>;
         pop(): ArrayLikeSequence<T>;
@@ -245,7 +245,7 @@ declare namespace LazyJS {
         // async(): X;
         defaults(defaults: any): ObjectLikeSequence<T>;
         functions(): Sequence<T>;
-        get(property: string): any;
+        get(property: string): T | undefined;
         invert(): ObjectLikeSequence<T>;
         keys(): Sequence<string>;
         merge(others: any | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
