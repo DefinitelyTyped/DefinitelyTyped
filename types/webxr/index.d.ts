@@ -267,6 +267,28 @@ interface XRInputSource {
 declare abstract class XRInputSource implements XRInputSource {}
 
 /**
+ * This Gamepad API interface represents hardware in the controller designed to provide haptic feedback to the user (if available), most commonly vibration hardware.
+ *
+ * [MDN Reference](https://developer.mozilla.org/docs/Web/API/GamepadHapticActuator)
+ */
+interface GamepadHapticActuator {
+    /**
+     * The pulse() method of the GamepadHapticActuator interface makes the hardware pulse at a certain intensity for a specified duration.
+     * @remarks Repeated calls to pulse() override the previous calls if they are still ongoing.
+     * @param value A double representing the intensity of the pulse. This can vary depending on the hardware type, but generally takes a value between 0.0 (no intensity) and 1.0 (full intensity).
+     * @param duration A double representing the duration of the pulse, in milliseconds.
+     * @returns A promise that resolves with a value of true when the pulse has successfully completed.
+     *
+     * @remarks This feature should be documented in the Gamepad API, but it is not yet implemented in any browser thus missing there. However, it is commonly used in WebXR applications and causes issues for people if omitted.
+     */
+    pulse(value: number, duration: number): Promise<boolean>;
+}
+
+interface Gamepad {
+    readonly hapticActuators: readonly GamepadHapticActuator[];
+}
+
+/**
  * Represents a list of XRInputSources. It is used in favor of a frozen array type when the contents
  * of the list are expected to change over time, such as with the XRSession inputSources attribute.
  * ref: https://immersive-web.github.io/webxr/#xrinputsourcearray-interface
