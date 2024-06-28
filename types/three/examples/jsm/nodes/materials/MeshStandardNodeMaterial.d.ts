@@ -1,6 +1,5 @@
 import { Color, Euler, MeshStandardMaterialParameters, NormalMapTypes, Texture, Vector2 } from "three";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
 
 export interface MeshStandardNodeMaterialParameters extends NodeMaterialParameters, MeshStandardMaterialParameters {
@@ -9,10 +8,10 @@ export interface MeshStandardNodeMaterialParameters extends NodeMaterialParamete
 export default class MeshStandardNodeMaterial extends NodeMaterial {
     readonly isMeshStandardNodeMaterial: true;
 
-    emissiveNode: ShaderNodeObject<Node> | null;
+    emissiveNode: Node | null;
 
-    metalnessNode: ShaderNodeObject<Node> | null;
-    roughnessNode: ShaderNodeObject<Node> | null;
+    metalnessNode: Node | null;
+    roughnessNode: Node | null;
 
     // Properties from MeshStandardMaterial
     readonly isMeshStandardMaterial: true;

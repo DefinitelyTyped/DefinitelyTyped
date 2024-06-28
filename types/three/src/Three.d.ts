@@ -71,6 +71,7 @@ export * as DataUtils from "./extras/DataUtils.js";
 export * from "./extras/ImageUtils.js";
 export * from "./extras/PMREMGenerator.js";
 export * from "./extras/ShapeUtils.js";
+export { TextureUtils } from "./extras/TextureUtils.js";
 /**
  * Geometries
  */

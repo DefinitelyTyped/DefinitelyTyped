@@ -13,6 +13,8 @@ import {
 import { EventDispatcher } from "../core/EventDispatcher.js";
 import { Matrix3 } from "../math/Matrix3.js";
 import { Vector2 } from "../math/Vector2.js";
+import { CompressedTextureMipmap } from "./CompressedTexture.js";
+import { CubeTexture } from "./CubeTexture.js";
 import { Source } from "./Source.js";
 
 /** Shim for OffscreenCanvas. */
@@ -127,7 +129,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * Array of user-specified mipmaps
      * @defaultValue `[]`
      */
-    mipmaps: any[]; // ImageData[] for 2D textures and CubeTexture[] for cube textures;
+    mipmaps: CompressedTextureMipmap[] | CubeTexture[] | HTMLCanvasElement[] | undefined;
 
     /**
      * How the image is applied to the object.

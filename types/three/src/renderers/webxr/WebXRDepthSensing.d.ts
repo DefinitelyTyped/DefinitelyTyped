@@ -24,4 +24,6 @@ export class WebXRDepthSensing {
     getMesh(cameraXR: WebXRArrayCamera): Mesh | null;
 
     reset(): void;
+
+    getDepthTexture(): Texture | null;
 }
