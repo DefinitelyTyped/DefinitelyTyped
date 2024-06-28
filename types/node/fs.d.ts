@@ -1662,7 +1662,7 @@ declare module "fs" {
     export function rmdirSync(path: PathLike, options?: RmDirOptions): void;
     export interface RmOptions {
         /**
-         * When `true`, exceptions will be ignored if `path` does not exist.
+         * When `true`, exceptions will be thrown if `path` does not exist.
          * @default false
          */
         force?: boolean | undefined;
