@@ -14,6 +14,24 @@
 
 declare namespace google.maps {
   /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * A relational description of a location. Includes a ranked set of nearby
+   * landmarks and the areas containing the target location.
+   */
+  export interface AddressDescriptor {
+    /**
+     * A ranked list of containing or adjacent areas. The most useful
+     * (recognizable and precise) areas are ranked first.
+     */
+    areas: google.maps.Area[];
+    /**
+     * A ranked list of nearby landmarks. The most useful (recognizable and
+     * nearby) landmarks are ranked first.
+     */
+    landmarks: google.maps.Landmark[];
+  }
+  /**
    * Animations that can be played on a marker. Use the {@link
    * google.maps.Marker.setAnimation} method on Marker or the {@link
    * google.maps.MarkerOptions.animation} option to play an animation.
@@ -35,6 +53,32 @@ declare namespace google.maps {
      * of animation is usually specified during creation of the marker.
      */
     DROP = 1.0,
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * A place that is a small region, such as a neighborhood, sublocality, or
+   * large complex that contains the target location.
+   */
+  export interface Area {
+    /**
+     * Defines the spatial relationship between the target location and the
+     * area.
+     */
+    containment: google.maps.Containment;
+    /**
+     * The name for the area.
+     */
+    display_name: string;
+    /**
+     * The language of the name for the area.
+     */
+    display_name_language_code: string;
+    /**
+     * The Place ID of the underlying area. Can be used to resolve more
+     * information about the area through Place Details or Place ID Lookup.
+     */
+    place_id: string;
   }
   /**
    * A layer showing bike lanes and paths.
@@ -266,6 +310,30 @@ declare namespace google.maps {
      * with the marker.
      */
     REQUIRED_AND_HIDES_OPTIONAL = 'REQUIRED_AND_HIDES_OPTIONAL',
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * An enum representing the spatial relationship between the area and the
+   * target location.
+   *
+   * Access by calling `const {Containment} = await
+   * google.maps.importLibrary("geocoding")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum Containment {
+    /**
+     * The target location is outside the area region, but close by.
+     */
+    NEAR = 'NEAR',
+    /**
+     * The target location is within the area region, close to the edge.
+     */
+    OUTSKIRTS = 'OUTSKIRTS',
+    /**
+     * The target location is within the area region, close to the center.
+     */
+    WITHIN = 'WITHIN',
   }
   /**
    * Identifiers used to specify the placement of controls on the map. Controls
@@ -1711,6 +1779,21 @@ declare namespace google.maps {
     error: Error;
   }
   /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * Extra computations to perform while completing a geocoding request.
+   *
+   * Access by calling `const {ExtraGeocodeComputation} = await
+   * google.maps.importLibrary("geocoding")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum ExtraGeocodeComputation {
+    /**
+     * Generate an address descriptor.
+     */
+    ADDRESS_DESCRIPTORS = 'ADDRESS_DESCRIPTORS',
+  }
+  /**
    * An interface representing a vector map tile feature. These are inputs to
    * the <code>FeatureStyleFunction</code>. Do not save a reference to a
    * particular <code>Feature</code> object because the reference will not be
@@ -2023,6 +2106,18 @@ declare namespace google.maps {
      */
     componentRestrictions?: google.maps.GeocoderComponentRestrictions | null;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A list of extra computations which may be used to complete the request.
+     * Note: These extra computations may return extra fields on the response.
+     */
+    extraComputations?: google.maps.ExtraGeocodeComputation[];
+    /**
+     * Fulfill the promise on a ZERO_RESULT status in the response. This may be
+     * desired because even with zero geocoding results there may still be
+     * additional response level fields returned.
+     */
+    fulfillOnZeroResults?: boolean | null;
+    /**
      * A language identifier for the language in which results should be
      * returned, when possible. See the <a
      * href="https://developers.google.com/maps/faq#languagesupport">list of
@@ -2065,6 +2160,18 @@ declare namespace google.maps {
    */
   export interface GeocoderResponse {
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A relational description of a location. Includes a ranked set of nearby
+     * landmarks and the areas containing the target location. It is only
+     * populated for reverse geocoding requests and only when {@link
+     * google.maps.ExtraGeocodeComputation.ADDRESS_DESCRIPTORS} is enabled.
+     */
+    address_descriptor?: google.maps.AddressDescriptor;
+    /**
+     * The plus code associated with the location.
+     */
+    plus_code?: google.maps.places.PlacePlusCode;
+    /**
      * The list of {@link google.maps.GeocoderResult}s.
      */
     results: google.maps.GeocoderResult[];
@@ -2080,6 +2187,16 @@ declare namespace google.maps {
      * An array of <code>GeocoderAddressComponent</code>s
      */
     address_components: google.maps.GeocoderAddressComponent[];
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A relational description of the location associated with this geocode.
+     * Includes a ranked set of nearby landmarks and the areas containing the
+     * target location. This will only be populated for forward geocoding and
+     * place ID lookup requests, only when {@link
+     * google.maps.ExtraGeocodeComputation.ADDRESS_DESCRIPTORS} is enabled, and
+     * only for certain localized places.
+     */
+    address_descriptor?: google.maps.AddressDescriptor;
     /**
      * A string containing the human-readable address of this location.
      */
@@ -2163,9 +2280,12 @@ declare namespace google.maps {
     ZERO_RESULTS = 'ZERO_RESULTS',
   }
   export interface GeocodingLibrary {
+    Containment: typeof google.maps.Containment;
+    ExtraGeocodeComputation: typeof google.maps.ExtraGeocodeComputation;
     Geocoder: typeof google.maps.Geocoder;
     GeocoderLocationType: typeof google.maps.GeocoderLocationType;
     GeocoderStatus: typeof google.maps.GeocoderStatus;
+    SpatialRelationship: typeof google.maps.SpatialRelationship;
   }
   export interface GeometryLibrary {
     encoding: typeof google.maps.geometry.encoding;
@@ -2451,8 +2571,14 @@ declare namespace google.maps {
      */
     focus(): void;
     getContent(): string | Element | null | Text | undefined;
+    getHeaderContent(): string | Element | null | Text | undefined;
+    getHeaderDisabled(): boolean | undefined;
     getPosition(): google.maps.LatLng | null | undefined;
     getZIndex(): number;
+    /**
+     * Checks if the InfoWindow is open.
+     */
+    isOpen: boolean;
     /**
      * Opens this InfoWindow on the given map. Optionally, an InfoWindow can be
      * associated with an anchor. In the core API, the only anchor is the Marker
@@ -2487,6 +2613,16 @@ declare namespace google.maps {
      * @param content The content to be displayed by this InfoWindow.
      */
     setContent(content?: string | Element | null | Text): void;
+    /**
+     * @param headerContent The header content to be displayed by this
+     *     InfoWindow. See {@link google.maps.InfoWindowOptions.headerContent}.
+     */
+    setHeaderContent(headerContent?: string | Element | null | Text): void;
+    /**
+     * @param headerDisabled Specifies whether to disable the whole header row.
+     *     See {@link google.maps.InfoWindowOptions.headerDisabled}.
+     */
+    setHeaderDisabled(headerDisabled?: boolean | null): void;
     setOptions(options?: google.maps.InfoWindowOptions | null): void;
     /**
      * @param position The LatLng position at which to display this InfoWindow.
@@ -2552,15 +2688,13 @@ declare namespace google.maps {
      */
     disableAutoPan?: boolean | null;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * The content to display in the InfoWindow header row. This can be an HTML
-     * element, or a string containing HTML. The InfoWindow will be sized
+     * element, or a string of plain text. The InfoWindow will be sized
      * according to the content. To set an explicit size for the header content,
      * set headerContent to be a HTML element with that size.
      */
     headerContent?: string | Element | Text | null;
     /**
-     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * Disables the whole header row in the InfoWindow. When set to true, the
      * header will be removed so that the header content and the close button
      * will be hidden.
@@ -2872,6 +3006,50 @@ declare namespace google.maps {
      * The offset to apply to an infowindow anchored on the clicked feature.
      */
     pixelOffset: google.maps.Size | null;
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * A place that represents a point of reference for the address.
+   */
+  export interface Landmark {
+    /**
+     * The name for the landmark.
+     */
+    display_name: string;
+    /**
+     * The language of the name for the landmark.
+     */
+    display_name_language_code: string;
+    /**
+     * The Place ID of the underlying establishment serving as the landmark. Can
+     * be used to resolve more information about the landmark through Place
+     * Details or Place Id Lookup.
+     */
+    place_id: string;
+    /**
+     * Defines the spatial relationship between the target location and the
+     * landmark.
+     */
+    spatial_relationship: google.maps.SpatialRelationship;
+    /**
+     * The straight line distance between the target location and the landmark.
+     */
+    straight_line_distance_meters: number;
+    /**
+     * The travel distance along the road network between the target location
+     * and the landmark. This can be unpopulated if the landmark is disconnected
+     * from the part of the road network the target is closest to OR if the
+     * target location was not actually considered to be on the road network.
+     */
+    travel_distance_meters?: number;
+    /**
+     * One or more values indicating the type of the returned result. Please see
+     * <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/supported_types">Types
+     * </a> for more detail.
+     */
+    types: string[];
   }
   /**
    * A <code>LatLng</code> is a point in geographical coordinates: latitude and
@@ -5950,6 +6128,49 @@ declare namespace google.maps {
      * The width along the x-axis, in pixels.
      */
     width: number;
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * An enum representing the relationship in space between the landmark and the
+   * target.
+   *
+   * Access by calling `const {SpatialRelationship} = await
+   * google.maps.importLibrary("geocoding")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum SpatialRelationship {
+    /**
+     * The target is directly opposite the landmark on the other side of the
+     * road.
+     */
+    ACROSS_THE_ROAD = 'ACROSS_THE_ROAD',
+    /**
+     * Not on the same route as the landmark but a single turn away.
+     */
+    AROUND_THE_CORNER = 'AROUND_THE_CORNER',
+    /**
+     * Close to the landmark&#39;s structure but further away from its access
+     * point.
+     */
+    BEHIND = 'BEHIND',
+    /**
+     * The target is directly adjacent to the landmark.
+     */
+    BESIDE = 'BESIDE',
+    /**
+     * On the same route as the landmark but not besides or across.
+     */
+    DOWN_THE_ROAD = 'DOWN_THE_ROAD',
+    /**
+     * This is the default relationship when nothing more specific below
+     * applies.
+     */
+    NEAR = 'NEAR',
+    /**
+     * The landmark has a spatial geometry and the target is within its bounds.
+     */
+    WITHIN = 'WITHIN',
   }
   /**
    * Options for the rendering of the Street View address control.
@@ -14661,8 +14882,7 @@ declare namespace google.maps.places {
      */
     distanceMeters: number | null;
     /**
-     * Represents additional disambiguating features (such as a city or region)
-     * to further identify the Place or refine the query.
+     * Represents the name of the Place.
      */
     mainText: google.maps.places.FormattableText | null;
     /**
@@ -14672,12 +14892,17 @@ declare namespace google.maps.places {
     placeId: string;
     /**
      * Represents additional disambiguating features (such as a city or region)
-     * to further identify the Place or refine the query.
+     * to further identify the Place.
      */
     secondaryText: google.maps.places.FormattableText | null;
     /**
      * Contains the human-readable name for the returned result. For
      * establishment results, this is usually the business name and address.
+     * <br/><br/> <code>text</code> is recommended for developers who wish to
+     * show a single UI element. Developers who wish to show two separate, but
+     * related, UI elements may want to use {@link
+     * google.maps.places.PlacePrediction.mainText} and {@link
+     * google.maps.places.PlacePrediction.secondaryText} instead.
      */
     text: google.maps.places.FormattableText;
     /**
