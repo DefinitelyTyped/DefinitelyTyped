@@ -26,6 +26,7 @@ var fooArraySeq: LazyJS.ArrayLikeSequence<Foo>;
 var barArraySeq: LazyJS.ArrayLikeSequence<Bar>;
 var numObjectSeq: LazyJS.ObjectLikeSequence<number>;
 var fooObjectSeq: LazyJS.ObjectLikeSequence<Foo>;
+var fooBarObjectSeq: LazyJS.ObjectLikeSequence<Foo | Bar>;
 var anyObjectSeq: LazyJS.ObjectLikeSequence<any>;
 var fooAsyncSeq: LazyJS.AsyncSequence<Foo>;
 
@@ -192,7 +193,8 @@ fooArraySeq = fooArraySeq.slice(num, num);
 
 // ObjectLikeSequence
 
-fooObjectSeq = fooObjectSeq.defaults(obj);
+fooObjectSeq = fooObjectSeq.defaults(foo);
+fooBarObjectSeq = fooObjectSeq.defaults(bar);
 fooSequence = fooObjectSeq.functions();
 x = fooObjectSeq.get(str);
 fooObjectSeq = fooObjectSeq.invert();

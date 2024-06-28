@@ -242,7 +242,7 @@ declare namespace LazyJS {
     interface ObjectLikeSequence<T> extends Sequence<T> {
         assign(other: any): ObjectLikeSequence<T>;
         async(): never;
-        defaults(defaults: any): ObjectLikeSequence<T>;
+        defaults<U>(defaults: U): ObjectLikeSequence<T | U>;
         functions(): Sequence<T>;
         get(property: string): T | undefined;
         invert(): ObjectLikeSequence<T>;
