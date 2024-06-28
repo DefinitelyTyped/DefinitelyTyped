@@ -195,7 +195,7 @@ declare namespace LazyJS {
         toObject(): any;
         union(var_args: T[]): Sequence<T>;
         uniq(key?: keyof T): Sequence<T>;
-        where(properties: any): Sequence<T>;
+        where(properties: Partial<T>): Sequence<T>;
         without(...var_args: T[]): Sequence<T>;
         without(var_args: T[]): Sequence<T>;
         zip(var_args: T[]): Sequence<T>;
