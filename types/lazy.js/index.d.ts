@@ -243,7 +243,7 @@ declare namespace LazyJS {
         assign(other: any): ObjectLikeSequence<T>;
         async(): never;
         defaults<U>(defaults: U): ObjectLikeSequence<T | U>;
-        functions(): Sequence<T>;
+        functions(): Sequence<keyof T>;
         get(property: string): T | undefined;
         invert(): ObjectLikeSequence<T>;
         keys(): Sequence<string>;

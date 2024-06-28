@@ -195,7 +195,8 @@ fooArraySeq = fooArraySeq.slice(num, num);
 
 fooObjectSeq = fooObjectSeq.defaults(foo);
 fooBarObjectSeq = fooObjectSeq.defaults(bar);
-fooSequence = fooObjectSeq.functions();
+// $ExpectType Sequence<keyof Foo>
+fooObjectSeq.functions();
 x = fooObjectSeq.get(str);
 fooObjectSeq = fooObjectSeq.invert();
 strSequence = fooObjectSeq.keys();
