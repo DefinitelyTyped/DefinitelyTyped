@@ -276,7 +276,9 @@ function testHas() {
     const cf: AnyPointer<Term, Dataset> = <any> {};
     let has: AnyPointer<Array<NamedNode | BlankNode>, Dataset> = cf.has(predicate, "Stuart");
     has = cf.has([predicate, predicate], "Stuart");
+    has = cf.has(new Set([predicate, predicate]), "Stuart");
     has = cf.has(predicate, [literal, literal]);
+    has = cf.has(predicate, new Set([literal, literal]));
 }
 
 function testIn() {
@@ -284,6 +286,7 @@ function testIn() {
     let cfIn: MultiPointer<NamedNode | BlankNode, Dataset> = cf.in();
     cfIn = cf.in(node);
     cfIn = cf.in([node, node]);
+    cfIn = cf.in(new Set([node, node]));
     cfIn = cf.in(cf.node(node));
     cfIn = cf.in(cf.node([node, node]));
 
@@ -363,6 +366,7 @@ function testNode() {
     let cfLit: AnyPointer<Literal, Dataset> = cf.node("foo");
     cfLit = cf.node(123);
     const cfLitMany: AnyPointer<Literal[], Dataset> = cf.node(["foo", "bar"]);
+    const cfLitManyFromSet: AnyPointer<Literal[], Dataset> = cf.node(new Set(["foo", "bar"]));
     singleTerm = cf.node("http://example.org/", { type: "NamedNode" });
     const cfBlank: AnyPointer<BlankNode, Dataset> = cf.node(null, { type: "BlankNode" });
     cfLit = cf.node("example", { datatype: node.value });
@@ -385,6 +389,7 @@ function testOut() {
     let cfTerm: AnyPointer<Term[], Dataset> = cf.out();
     cfTerm = cf.out(node);
     cfTerm = cf.out([node, node]);
+    cfTerm = cf.out(new Set([node, node]));
     cfTerm = cf.out(cf.node([node, node]));
 
     const singleContext: AnyPointer<NamedNode, Dataset> = <any> {};
@@ -458,7 +463,14 @@ function addInAddOutRetainsType() {
 
     const addOutSingle: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, "foo");
     const addOutSingleObjectArray: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, ["foo", "bar"]);
+    const addOutSingleObjectSet: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(
+        predicate,
+        new Set(["foo", "bar"]),
+    );
     const addOutSinglePredicateArray: AnyPointer<NamedNode, Dataset> = singleNamed.addOut([predicate, predicate]);
+    const addOutSinglePredicateSet: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(
+        new Set([predicate, predicate]),
+    );
     const addOutSingleNoObject: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate);
     const addOutSingleWithCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, () => {});
     const addOutSingleWithObjectAndCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(
@@ -469,7 +481,9 @@ function addInAddOutRetainsType() {
 
     const addInSingle: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, "foo");
     const addInSingleObjectArray: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, ["foo", "bar"]);
+    const addInSingleObjectSet: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, new Set(["foo", "bar"]));
     const addInSinglePredicateArray: AnyPointer<NamedNode, Dataset> = singleNamed.addIn([predicate, predicate]);
+    const addInSinglePredicateSet: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(new Set([predicate, predicate]));
     const addInSingleNoObject: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate);
     const addInSingleWithCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, () => {});
     const addInSingleWithObjectAndCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(

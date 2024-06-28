@@ -17,7 +17,7 @@ type TermOrClownface<X extends Term = Term> = MultiPointer<X> | X;
 type TermOrLiteral<X extends Term = Term> = TermOrClownface<X> | string | number | boolean;
 
 type AddCallback<D extends DatasetCore, X extends Term> = (added: AnyPointer<X, D>) => void;
-type SingleOrArray<T> = T | readonly T[];
+type SingleOrArray<T> = T | readonly T[] | Iterable<T>;
 type SingleOrOneElementArray<T> = T | readonly [T];
 
 type SingleOrArrayOfTerms<X extends Term> = SingleOrArray<X> | MultiPointer<X>;
@@ -85,7 +85,7 @@ export interface AnyPointer<T extends AnyContext = AnyContext, D extends Dataset
 
     node(value: SingleOrOneElementArray<boolean | string | number>, options?: NodeOptions): AnyPointer<Literal, D>;
 
-    node(values: Array<boolean | string | number>, options?: NodeOptions): AnyPointer<Literal[], D>;
+    node(values: Iterable<boolean | string | number>, options?: NodeOptions): AnyPointer<Literal[], D>;
 
     node<X extends Term>(value: SingleOrOneElementArray<X> | AnyPointer<X, D>, options?: NodeOptions): AnyPointer<X, D>;
 
@@ -100,14 +100,14 @@ export interface AnyPointer<T extends AnyContext = AnyContext, D extends Dataset
     node(values: null[] | Iterable<BlankNode>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
 
     node(
-        values: Array<boolean | string | number | Term | null> | Iterable<Term>,
+        values: Iterable<boolean | string | number | Term | null>,
         options?: NodeOptions,
     ): AnyPointer<Term[], D>;
 
     blankNode(value?: SingleOrOneElementArray<string> | AnyPointer<BlankNode, D>): AnyPointer<BlankNode, D>;
 
     blankNode(
-        values: string[] | MultiPointer<BlankNode, D> | Iterable<BlankNode> | Iterable<GraphPointer<BlankNode, D>>,
+        values: MultiPointer<BlankNode, D> | Iterable<BlankNode | string> | Iterable<GraphPointer<BlankNode, D>>,
     ): AnyPointer<BlankNode[], D>;
 
     literal(
@@ -117,9 +117,8 @@ export interface AnyPointer<T extends AnyContext = AnyContext, D extends Dataset
 
     literal(
         values:
-            | Array<boolean | string | number | null>
+            | Iterable<boolean | string | number | null | Literal>
             | MultiPointer<Literal, D>
-            | Iterable<Literal>
             | Iterable<GraphPointer<Literal, D>>,
         languageOrDatatype?: string | NamedNode,
     ): AnyPointer<Literal[], D>;
@@ -130,9 +129,8 @@ export interface AnyPointer<T extends AnyContext = AnyContext, D extends Dataset
 
     namedNode(
         values:
-            | Array<string | NamedNode>
+            | Iterable<string | NamedNode>
             | MultiPointer<NamedNode, D>
-            | Iterable<NamedNode>
             | Iterable<GraphPointer<NamedNode, D>>,
     ): AnyPointer<NamedNode[], D>;
 
