@@ -420,6 +420,11 @@ export const RGFormat: 1030;
 export const RGIntegerFormat: 1031;
 
 /**
+ * {@link RGBIntegerFormat} discrads the alpha components and reads the red, green, and blue components.
+ */
+export const RGBIntegerFormat: 1032;
+
+/**
  * {@link RGBAIntegerFormat} reads the red, green, blue and alpha component
  * @remarks This is the default for {@link THREE.Texture}.
  */
@@ -443,6 +448,7 @@ export type PixelFormat =
     | typeof RedIntegerFormat
     | typeof RGFormat
     | typeof RGIntegerFormat
+    | typeof RGBIntegerFormat
     | typeof RGBAIntegerFormat;
 
 /**

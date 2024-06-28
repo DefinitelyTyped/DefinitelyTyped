@@ -9,8 +9,8 @@ declare class Uniform<TValue> {
     setValue(value: TValue): void;
     getValue(): TValue;
 }
-declare class FloatUniform extends Uniform<number> {
-    readonly isFloatUniform: true;
+declare class NumberUniform extends Uniform<number> {
+    readonly isNumberUniform: true;
     constructor(name: string, value?: number);
 }
 declare class Vector2Uniform extends Uniform<Vector2> {
@@ -37,4 +37,4 @@ declare class Matrix4Uniform extends Uniform<Matrix4> {
     readonly isMatrix4Uniform: true;
     constructor(name: string, value?: Matrix4);
 }
-export { ColorUniform, FloatUniform, Matrix3Uniform, Matrix4Uniform, Vector2Uniform, Vector3Uniform, Vector4Uniform };
+export { ColorUniform, Matrix3Uniform, Matrix4Uniform, NumberUniform, Vector2Uniform, Vector3Uniform, Vector4Uniform };

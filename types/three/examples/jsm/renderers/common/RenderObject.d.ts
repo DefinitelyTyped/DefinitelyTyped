@@ -9,7 +9,7 @@ import {
     Scene,
 } from "three";
 import LightsNode from "../../nodes/lighting/LightsNode.js";
-import Binding from "./Binding.js";
+import BindGroup from "./BindGroup.js";
 import ClippingContext from "./ClippingContext.js";
 import Geometries from "./Geometries.js";
 import NodeBuilderState from "./nodes/NodeBuilderState.js";
@@ -42,7 +42,7 @@ export default class RenderObject {
     initialNodesCacheKey: string;
     initialCacheKey: string;
     _nodeBuilderState: NodeBuilderState | null;
-    _bindings: Binding[] | null;
+    _bindings: BindGroup[] | null;
     onDispose: (() => void) | null;
     readonly isRenderObject: true;
     onMaterialDispose: () => void;
@@ -60,7 +60,7 @@ export default class RenderObject {
     updateClipping(parent: ClippingContext): void;
     get clippingNeedsUpdate(): boolean;
     getNodeBuilderState(): NodeBuilderState;
-    getBindings(): Binding[];
+    getBindings(): BindGroup[];
     getIndex(): BufferAttribute | null;
     getChainArray(): readonly [Object3D<import("three").Object3DEventMap>, Material, RenderContext, LightsNode];
     getAttributes(): (InterleavedBufferAttribute | BufferAttribute)[];
