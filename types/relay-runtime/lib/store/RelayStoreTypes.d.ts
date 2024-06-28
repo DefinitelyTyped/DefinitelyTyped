@@ -354,7 +354,11 @@ export interface RecordProxy<T = {}> {
     ): [H] extends [never] ? RecordProxy[] | null
         : NonNullable<H> extends Array<infer U> ? Array<RecordProxy<U>> | (H extends null ? null : never)
         : never;
-    getOrCreateLinkedRecord<K extends keyof T>(name: K, typeName: string, args?: Variables | null): RecordProxy<NonNullable<T[K]>>;
+    getOrCreateLinkedRecord<K extends keyof T>(
+        name: K,
+        typeName: string,
+        args?: Variables | null,
+    ): RecordProxy<NonNullable<T[K]>>;
     getOrCreateLinkedRecord(name: string, typeName: string, args?: Variables | null): RecordProxy<T>;
     getType(): string;
     getValue<K extends keyof T>(name: K, args?: Variables | null): T[K];
