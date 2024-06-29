@@ -201,7 +201,8 @@ x = fooObjectSeq.get(str);
 fooObjectSeq = fooObjectSeq.invert();
 strSequence = fooObjectSeq.keys();
 fooObjectSeq = fooObjectSeq.omit(strArr);
-fooSequence = fooObjectSeq.pairs();
+// $ExpectType Sequence<[string, Foo]>
+fooObjectSeq.pairs();
 fooObjectSeq = fooObjectSeq.pick(strArr);
 arr = fooObjectSeq.toArray();
 obj = fooObjectSeq.toObject();

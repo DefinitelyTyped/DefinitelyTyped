@@ -249,7 +249,7 @@ declare namespace LazyJS {
         keys(): Sequence<string>;
         merge(others: any | ObjectLikeSequence<T>, mergeFn?: Function): ObjectLikeSequence<T>;
         omit(properties: string[]): ObjectLikeSequence<T>;
-        pairs(): Sequence<T>;
+        pairs(): Sequence<[string, T]>;
         pick(properties: string[]): ObjectLikeSequence<T>;
         toArray(): T[];
         toObject(): Record<string, T>;
