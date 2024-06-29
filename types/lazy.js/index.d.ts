@@ -176,11 +176,11 @@ declare namespace LazyJS {
         none(valueFn?: TestCallback<T, string | number>): boolean;
         pluck<K extends keyof T>(propertyName: K): Sequence<T[K]>;
         reduce(aggregatorFn: (memo: T, value: T) => T): T | undefined;
-        reduce<U>(aggregatorFn: (memo: T | U, value: T) => U): T | U | undefined;
         reduce<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;
+        reduce<U>(aggregatorFn: (memo: T | U, value: T) => U): T | U | undefined;
         reduceRight(aggregatorFn: (memo: T, value: T) => T): T | undefined;
-        reduceRight<U>(aggregatorFn: (memo: T | U, value: T) => U): T | U | undefined;
         reduceRight<U>(aggregatorFn: MemoCallback<T, U>, memo: U): U;
+        reduceRight<U>(aggregatorFn: (memo: T | U, value: T) => U): T | U | undefined;
         reject(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         rest(count?: number): Sequence<T>;
         shuffle(): Sequence<T>;
