@@ -28,6 +28,17 @@ new Provider("https://op.example.com", {
 });
 
 new Provider("https://op.example.com", {
+    extraParams: {
+        foo: null,
+        bar: (ctx, value, client) => {
+            ctx.oidc.issuer.substring(0);
+            value?.substring(0);
+            client.clientId.substring(0);
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
     adapter: class Adapter {
         name: string;
         constructor(name: string) {
