@@ -163,7 +163,7 @@ declare namespace LazyJS {
         findWhere(properties: Partial<T>): T;
         flatten(shallow: true): Sequence<Flatten<T, true>>;
         flatten(shallow?: false): Sequence<Flatten<T, false>>;
-        groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T>;
+        groupBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<T[]>;
         initial(count?: number): Sequence<T>;
         intersection(var_args: T[]): Sequence<T>;
         invoke(methodName: string): Sequence<unknown>;

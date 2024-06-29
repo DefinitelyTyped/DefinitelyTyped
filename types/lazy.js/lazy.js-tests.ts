@@ -121,7 +121,8 @@ x = fooSequence.first();
 fooSequence = fooSequence.first(num);
 
 fooSequence = fooSequence.flatten();
-fooObjectSeq = fooSequence.groupBy(fnGetKeyCallback);
+// $ExpectType ObjectLikeSequence<Foo[]>
+fooSequence.groupBy(fnGetKeyCallback);
 num = fooSequence.indexOf(x);
 fooSequence = fooSequence.initial();
 fooSequence = fooSequence.initial(num);
