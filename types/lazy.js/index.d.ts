@@ -151,7 +151,7 @@ declare namespace LazyJS {
         async(interval?: number): AsyncSequence<T>;
         chunk<N extends number>(size: N): Sequence<Tuple<T, N>>;
         compact(): Sequence<T>;
-        concat(var_args: T[]): Sequence<T>;
+        concat(...var_args: Array<T | T[]>): Sequence<T>;
         consecutive(length: number): Sequence<T>;
         contains(value: T): boolean;
         countBy(keyFn: GetKeyCallback<T>): ObjectLikeSequence<number>;
@@ -209,7 +209,7 @@ declare namespace LazyJS {
 
     interface ArrayLikeSequence<T> extends Sequence<T> {
         // define()X;
-        concat(var_args: T[]): ArrayLikeSequence<T>;
+        concat(...var_args: Array<T | T[]>): ArrayLikeSequence<T>;
         first(): T | undefined;
         first(count?: number): ArrayLikeSequence<T>;
         get(index: number): T | undefined;
