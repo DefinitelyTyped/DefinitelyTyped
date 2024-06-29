@@ -254,7 +254,7 @@ declare namespace LazyJS {
         toArray(): T[];
         toObject(): Record<string, T>;
         values(): Sequence<T>;
-        watch(propertyNames: string | string[]): Sequence<{ property: string; value: any }>;
+        watch(propertyNames: string | string[]): Sequence<{ property: string; value: T }>;
 
         dropWhile(predicateFn: TestCallback<T, string>): Sequence<T>;
         every(predicateFn: TestCallback<T, string>): boolean;
