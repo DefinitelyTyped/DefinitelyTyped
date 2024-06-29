@@ -44,6 +44,7 @@ declare var arr: any[];
 declare var exp: RegExp;
 declare var strArr: string[];
 declare var numArr: string[];
+declare var fooByNumber: Record<number, Foo>;
 
 function fnCallback(): void {
 }
@@ -91,6 +92,8 @@ function fnGeneratorCallback(index: number): Foo {
 fooArraySeq = Lazy(fooArr);
 fooObjectSeq = Lazy<Foo>({ a: foo, b: foo });
 anyObjectSeq = Lazy<any>({ a: num, b: str });
+// $ExpectType ObjectLikeSequence<Foo>
+Lazy(fooByNumber);
 stringSeq = Lazy(str);
 
 // Strict
