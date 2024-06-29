@@ -105,7 +105,7 @@ declare namespace LazyJS {
     }
 
     interface SequenceBase<T> extends SequenceBaser<T> {
-        first(): T |  undefined;
+        first(): T | undefined;
         first(count: number): Sequence<T>;
         indexOf(value: T, equalityFn?: (a: T, b: T) => boolean): number;
 
