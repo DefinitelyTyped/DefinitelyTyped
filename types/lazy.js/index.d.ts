@@ -158,6 +158,7 @@ declare namespace LazyJS {
         countBy(propertyName: keyof T): ObjectLikeSequence<number>;
         dropWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         every(predicateFn: TestCallback<T, string | number>): boolean;
+        filter<U extends T>(predicateFn: (value: T, index: string | number) => value is U): Sequence<U>;
         filter(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         find(predicateFn: TestCallback<T, string | number>): T | undefined;
         findWhere(properties: Partial<T>): T;
@@ -225,6 +226,7 @@ declare namespace LazyJS {
 
         dropWhile(predicateFn: TestCallback<T, number>): Sequence<T>;
         every(predicateFn: TestCallback<T, number>): boolean;
+        filter<U extends T>(predicateFn: (value: T, index: number) => value is U): Sequence<U>;
         filter(predicateFn: TestCallback<T, number>): Sequence<T>;
         find(predicateFn: TestCallback<T, number>): T | undefined;
         none(valueFn?: TestCallback<T, number>): boolean;
@@ -258,6 +260,7 @@ declare namespace LazyJS {
 
         dropWhile(predicateFn: TestCallback<T, string>): Sequence<T>;
         every(predicateFn: TestCallback<T, string>): boolean;
+        filter<U extends T>(predicateFn: (value: T, index: string) => value is U): Sequence<U>;
         filter(predicateFn: TestCallback<T, string>): Sequence<T>;
         find(predicateFn: TestCallback<T, string>): T | undefined;
         none(valueFn?: TestCallback<T, string>): boolean;
@@ -295,6 +298,7 @@ declare namespace LazyJS {
 
         dropWhile(predicateFn: TestCallback<string, number>): Sequence<string>;
         every(predicateFn: TestCallback<string, number>): boolean;
+        filter<U extends string>(predicateFn: (value: string, index: number) => value is U): Sequence<U>;
         filter(predicateFn: TestCallback<string, number>): Sequence<string>;
         find(predicateFn: TestCallback<string, number>): string;
         none(valueFn?: TestCallback<string, number>): boolean;
