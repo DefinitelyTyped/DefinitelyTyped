@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * VideoCopyright
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -33,9 +33,7 @@ export default class VideoCopyright extends AbstractCrudObject {
         video_and_audio: "VIDEO_AND_AUDIO";
         video_only: "VIDEO_ONLY";
     }>;
-    getUpdateRecords(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getUpdateRecords(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getUpdateRecords(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<VideoCopyright>;
-    update(fields: string[], params?: Record<any, any>): Promise<VideoCopyright>;
+    getUpdateRecords(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<VideoCopyright>;
+    update(fields: string[], params?: Record<string, any>): Promise<VideoCopyright>;
 }

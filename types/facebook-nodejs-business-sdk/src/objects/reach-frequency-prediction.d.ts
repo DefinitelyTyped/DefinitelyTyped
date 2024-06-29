@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ReachFrequencyPrediction
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -122,5 +122,5 @@ export default class ReachFrequencyPrediction extends AbstractCrudObject {
         spanish: "SPANISH";
         sports: "SPORTS";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<ReachFrequencyPrediction>;
+    get(fields: string[], params?: Record<string, any>): Promise<ReachFrequencyPrediction>;
 }

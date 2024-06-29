@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * MediaFingerprint
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -20,6 +20,6 @@ export default class MediaFingerprint extends AbstractCrudObject {
         other: "OTHER";
         songtrack: "SONGTRACK";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<MediaFingerprint>;
-    update(fields: string[], params?: Record<any, any>): Promise<MediaFingerprint>;
+    get(fields: string[], params?: Record<string, any>): Promise<MediaFingerprint>;
+    update(fields: string[], params?: Record<string, any>): Promise<MediaFingerprint>;
 }

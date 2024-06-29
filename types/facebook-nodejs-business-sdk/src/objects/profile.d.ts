@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * Profile
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -39,8 +39,6 @@ export default class Profile extends AbstractCrudObject {
         thankful: "THANKFUL";
         wow: "WOW";
     }>;
-    getPicture(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPicture(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<Profile>;
+    getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<Profile>;
 }

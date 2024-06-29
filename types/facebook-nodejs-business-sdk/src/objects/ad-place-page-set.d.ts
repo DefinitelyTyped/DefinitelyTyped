@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdPlacePageSet
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -21,5 +21,5 @@ export default class AdPlacePageSet extends AbstractCrudObject {
         marketing_area: "MARKETING_AREA";
         none: "NONE";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<AdPlacePageSet>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdPlacePageSet>;
 }

@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PartnerStudy
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -24,5 +24,5 @@ export default class PartnerStudy extends AbstractCrudObject {
         study_type: "study_type";
         submit_date: "submit_date";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<PartnerStudy>;
+    get(fields: string[], params?: Record<string, any>): Promise<PartnerStudy>;
 }
