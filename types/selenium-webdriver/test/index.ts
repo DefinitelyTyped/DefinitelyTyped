@@ -480,6 +480,13 @@ async function TestWebDriver() {
     let wsUrl: string = await driver.getWsUrl("TargetAddress", "target", await driver.getCapabilities());
 
     driver = webdriver.WebDriver.createSession(executor, webdriver.Capabilities.chrome());
+
+    // actions api
+    let actions = await driver.actions();
+    actions = driver.actions({ async: true });
+    actions = driver.actions({ bridge: true });
+    actions = driver.actions({ async: true, bridge: true });
+    actions.clear();
 }
 
 declare const serializable: webdriver.Serializable<string>;

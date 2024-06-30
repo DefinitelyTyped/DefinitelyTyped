@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/three",
-    "version": "0.165.9999",
+    "version": "0.166.9999",
     "projects": [
         "https://threejs.org/"
     ],
@@ -19,7 +19,7 @@
         "./nodes": "./examples/jsm/nodes/Nodes.js"
     },
     "dependencies": {
-        "@tweenjs/tween.js": "~23.1.1",
+        "@tweenjs/tween.js": "~23.1.2",
         "@types/stats.js": "*",
         "@types/webxr": "*",
         "fflate": "~0.8.2",

@@ -1742,3 +1742,18 @@ table = new Tabulator("#example-table", {
         },
     ],
 });
+
+table = new Tabulator("#example-table", {
+    height: "500px",
+    layout: "fitColumns",
+    ajaxURL: "https://jsonplaceholder.typicode.com/posts",
+    columns: [
+        { title: "ID", field: "id", width: 50 },
+        { title: "User ID", field: "userId", width: 50 },
+        { title: "Title", field: "title" },
+        { title: "Body", field: "body" },
+    ],
+});
+
+table.setData(table.getAjaxUrl());
+table.setData();

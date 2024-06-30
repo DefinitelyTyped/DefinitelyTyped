@@ -286,7 +286,7 @@ export class WebDriver {
     quit(): Promise<void>;
 
     /** @override */
-    actions(options: { async: boolean | undefined; bridge: boolean | undefined }): Actions;
+    actions(options?: { async?: boolean | undefined; bridge?: boolean | undefined }): Actions;
 
     /**
      * Executes a snippet of JavaScript in the context of the currently selected

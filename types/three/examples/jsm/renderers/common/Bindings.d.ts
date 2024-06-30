@@ -1,24 +1,20 @@
 import ComputeNode from "../../nodes/gpgpu/ComputeNode.js";
 import Attributes from "./Attributes.js";
 import Backend from "./Backend.js";
-import Binding from "./Binding.js";
+import BindGroup from "./BindGroup.js";
 import DataMap from "./DataMap.js";
 import Info from "./Info.js";
 import Nodes from "./nodes/Nodes.js";
 import Pipelines from "./Pipelines.js";
 import RenderObject from "./RenderObject.js";
 import Textures from "./Textures.js";
-interface Data {
-    bindings?: Binding[] | undefined;
+interface BindGroupData {
+    bindGroup?: BindGroup | undefined;
 }
 declare class Bindings extends DataMap<{
-    renderObject: {
-        key: RenderObject;
-        value: Data;
-    };
-    computeNode: {
-        key: ComputeNode;
-        value: Data;
+    bindGroup: {
+        key: BindGroup;
+        value: BindGroupData;
     };
 }> {
     backend: Backend;
@@ -35,11 +31,12 @@ declare class Bindings extends DataMap<{
         pipelines: Pipelines,
         info: Info,
     );
-    getForRender(renderObject: RenderObject): Binding[];
-    getForCompute(computeNode: ComputeNode): Binding[];
+    getForRender(renderObject: RenderObject): BindGroup[];
+    getForCompute(computeNode: ComputeNode): BindGroup[];
     updateForCompute(computeNode: ComputeNode): void;
     updateForRender(renderObject: RenderObject): void;
-    _init(bindings: Binding[]): void;
-    _update(object: ComputeNode | RenderObject, bindings: Binding[]): void;
+    _updateBindings(object: ComputeNode | RenderObject, bindings: BindGroup[]): void;
+    _init(bindGroup: BindGroup): void;
+    _update(object: ComputeNode | RenderObject, bindGroup: BindGroup, bindings: BindGroup[]): void;
 }
 export default Bindings;

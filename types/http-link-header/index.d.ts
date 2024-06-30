@@ -49,12 +49,23 @@ declare class Link {
     rel(value: string): Link.Reference[];
     set(ref: Link.Reference): Link;
     /**
+     * Sets a reference if a reference with similar properties isn’t already set
+     * @param ref A reference to set
+     * @return The calling instance
+     */
+    setUnique(ref: Link.Reference): Link;
+    /**
      * Parse a link header beginning at the provided offset
      * @param value The header to parse
      * @param offset The offset to start at. Defaults to 0.
      * @return The calling instance
      */
     parse(value: string, offset?: number): Link;
+    /**
+     * Get a string representation of the link header instance
+     * @return A string representation of the link header instance
+     */
+    toString(): string;
 }
 
 declare namespace Link {

@@ -42,6 +42,7 @@ declare namespace scan {
         isExtglob: boolean;
         isGlobstar: boolean;
         negated: boolean;
+        negatedExtglob: boolean;
         maxDepth?: number | undefined;
         tokens?: Token[] | undefined;
         slashes?: number[] | undefined;

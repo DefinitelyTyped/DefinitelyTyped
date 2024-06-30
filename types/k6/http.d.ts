@@ -620,7 +620,7 @@ export interface RefinedResponse<RT extends ResponseType | undefined> extends Re
 /**
  * Response body.
  */
-export type ResponseBody = string | bytes | null;
+export type ResponseBody = string | ArrayBuffer | null;
 
 /**
  * Refined response body.
@@ -628,7 +628,7 @@ export type ResponseBody = string | bytes | null;
  * @template RT - `Params.responseType` value.
  * @privateRemarks Default type is a union due to depending on program options.
  */
-export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends "binary" ? bytes
+export type RefinedResponseBody<RT extends ResponseType | undefined> = RT extends "binary" ? ArrayBuffer
     : RT extends "none" ? null
     : RT extends "text" ? string
     : RT extends undefined ? string | null

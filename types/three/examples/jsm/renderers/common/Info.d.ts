@@ -5,16 +5,21 @@ declare class Info {
     calls: number;
     render: {
         calls: number;
+        frameCalls: number;
         drawCalls: number;
         triangles: number;
         points: number;
         lines: number;
         timestamp: number;
+        previousFrameCalls: number;
+        timestampCalls: number;
     };
     compute: {
         calls: number;
-        computeCalls: number;
+        frameCalls: number;
         timestamp: number;
+        previousFrameCalls: number;
+        timestampCalls: number;
     };
     memory: {
         geometries: number;
