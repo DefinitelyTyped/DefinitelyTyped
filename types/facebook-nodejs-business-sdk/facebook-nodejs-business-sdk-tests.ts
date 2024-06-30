@@ -136,5 +136,5 @@ async function checkStaticFields() {
 
 export function testAbstractCrudObjectClassConstructor () {
     const abstractCrudObject =  new AbstractCrudObject();
-    const abstractCrudObject2 =  new AbstractCrudObject('some-id',);
+    const abstractCrudObject2 =  new AbstractCrudObject('some-id');
 }
