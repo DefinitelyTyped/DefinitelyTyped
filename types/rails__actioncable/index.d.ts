@@ -225,6 +225,6 @@ export const logger: {
 /**
  * @see https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable/index.js
  */
-export function createConsumer(url?: string): Consumer;
+export function createConsumer(url?: string | (() => string)): Consumer;
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function getConfig(name: string): string | void;

@@ -2862,7 +2862,7 @@ declare class Tabulator {
     /** Destructor. */
     destroy: () => void;
 
-    setData: (data: any, params?: any, config?: any) => Promise<void>;
+    setData: (data?: any, params?: any, config?: any) => Promise<void>;
 
     /** You can remove all data from the table using clearData */
     clearData: () => void;

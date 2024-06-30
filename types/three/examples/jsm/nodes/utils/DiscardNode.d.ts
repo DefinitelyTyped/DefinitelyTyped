@@ -8,6 +8,7 @@ export default class DiscardNode extends CondNode {
 
 export const inlineDiscard: (condNode: NodeRepresentation) => ShaderNodeObject<DiscardNode>;
 export const discard: (condNode: NodeRepresentation) => ShaderNodeObject<Node>;
+export const Return: (condNode: NodeRepresentation) => ShaderNodeObject<Node>;
 
 declare module "../shadernode/ShaderNode.js" {
     interface NodeElements {

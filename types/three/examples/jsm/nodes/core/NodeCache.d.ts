@@ -1,3 +1,5 @@
+import { BufferAttribute, InterleavedBuffer, TypedArray } from "three";
+import BufferAttributeNode from "../accessors/BufferAttributeNode.js";
 import Node from "./Node.js";
 import NodeAttribute from "./NodeAttribute.js";
 import NodeCode from "./NodeCode.js";
@@ -33,11 +35,17 @@ interface NodeData {
     compute?: ShaderStageNodeData | undefined;
     any?: ShaderStageNodeData | undefined;
 }
+interface BufferAttributeData {
+    node: BufferAttributeNode;
+}
 declare class NodeCache {
     id: number;
-    nodesData: WeakMap<Node, NodeData>;
-    constructor();
-    getNodeData(node: Node): NodeData | undefined;
-    setNodeData(node: Node, data: NodeData): void;
+    nodesData: WeakMap<Node | TypedArray | InterleavedBuffer | BufferAttribute, NodeData | BufferAttributeData>;
+    parent: NodeCache | null;
+    constructor(parent?: NodeCache | null);
+    getData(node: Node): NodeData | undefined;
+    getData(node: TypedArray | InterleavedBuffer | BufferAttribute): BufferAttributeData | undefined;
+    setData(node: Node, data: NodeData): void;
+    setData(node: TypedArray | InterleavedBuffer | BufferAttribute, data: BufferAttributeData): void;
 }
 export default NodeCache;

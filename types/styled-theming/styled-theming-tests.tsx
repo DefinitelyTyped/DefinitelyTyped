@@ -68,7 +68,7 @@ const Button = styled.button`
 
 const elementWithoutProp = React.createElement(Button);
 const elementWithCorrectProp = React.createElement(Button, { kind: "secondary" });
-// TODO(react): Unclear why this doesn't error. Probably picking an overload where excess props are fine.
+// @ts-expect-error >=5.6
 const element = React.createElement(Button, { kind: "wrong variant" });
 // @ts-expect-error
 <Button kind="wrong variant" />;

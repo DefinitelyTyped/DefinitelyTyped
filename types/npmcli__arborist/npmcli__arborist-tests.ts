@@ -18,6 +18,8 @@ const arb = new Arborist({
 
 arb.loadActual().then(tree => {
     tree; // $ExpectType Node
+    tree.isWorkspace; // $ExpectType boolean
+    tree.edgesOut; // $ExpectType Map<string, Edge>
 });
 
 arb.loadVirtual().then(tree => {

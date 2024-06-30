@@ -69,6 +69,7 @@ declare class Node extends EventDispatcher<{
     nodeType: string | null;
     updateType: NodeUpdateType;
     updateBeforeType: NodeUpdateType;
+    updateAfterType: NodeUpdateType;
     uuid: string;
     version: number;
     _cacheKey: string | null;
@@ -95,6 +96,7 @@ declare class Node extends EventDispatcher<{
     getHash(builder: NodeBuilder): string;
     getUpdateType(): NodeUpdateType;
     getUpdateBeforeType(): NodeUpdateType;
+    getUpdateAfterType(): NodeUpdateType;
     getElementType(builder: NodeBuilder): "bool" | "int" | "float" | "vec2" | "vec3" | "vec4" | "uint" | null;
     getNodeType(builder: NodeBuilder): string | null;
     getShared(builder: NodeBuilder): Node;
@@ -104,6 +106,7 @@ declare class Node extends EventDispatcher<{
     analyze(builder: NodeBuilder): void;
     generate(builder: NodeBuilder, output?: string | null): string | null | undefined;
     updateBefore(frame: NodeFrame): void;
+    updateAfter(frame: NodeFrame): void;
     update(frame: NodeFrame): void;
     build(builder: NodeBuilder, output?: string | null): string | null;
     getSerializeChildren(): Generator<import("./NodeUtils.js").NodeChild, void, unknown>;
