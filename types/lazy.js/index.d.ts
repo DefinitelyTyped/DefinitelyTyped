@@ -194,7 +194,7 @@ declare namespace LazyJS {
         takeWhile(predicateFn: TestCallback<T, string | number>): Sequence<T>;
         toArray(): T[];
         toObject(): any;
-        union(var_args: T[]): Sequence<T>;
+        union(var_args: T | T[] | SequenceBaser<T>): Sequence<T>;
         uniq(key?: keyof T): Sequence<T>;
         where(properties: Partial<T>): Sequence<T>;
         without(...var_args: T[]): Sequence<T>;
