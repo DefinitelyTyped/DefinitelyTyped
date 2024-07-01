@@ -146,7 +146,7 @@ its dependencies. If you need to run tests for packages that _depend_ on `@types
 
 We use a bot to let a large number of pull requests to DefinitelyTyped be handled entirely in a self-service manner. You can read more about [why and how here](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Here is a handy reference showing the life cycle of a pull request to DT:
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+<img src="https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
 
 #### Partial clone
 
@@ -518,7 +518,7 @@ CI will fail if this file contains the wrong contents and provide the intended v
 DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types.
 
 - Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-- Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
+- Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) which maintains this repo.
 - The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
 
 To add yourself as a Definition Owner, modify the `owners` array in `package.json`:

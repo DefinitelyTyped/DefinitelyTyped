@@ -265,7 +265,7 @@ Si un archivo no es probado ni referenciado en `index.d.ts`, añádelo a un arch
 DT tiene el concepto de "Propietarios de Definiciones" que son personas que desean mantener la calidad de los tipos de un módulo en particular.
 
 - Agregarte a la lista hará que recibas notificaciones (a través de tu nombre de usuario de GitHub) cada vez que alguien haga una solicitud de extracción o informe sobre el paquete.
-- Tus revisiones de solicitudes de extracción tendrán una mayor importancia para [el bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantiene este repositorio.
+- Tus revisiones de solicitudes de extracción tendrán una mayor importancia para [el bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) que mantiene este repositorio.
 - Los mantenedores de DT confían en los propietarios de las definiciones para asegurar un ecosistema estable, así que por favor, no te agregues ligeramente.
 
 Para agregarte como Propietario de Definiciones:
