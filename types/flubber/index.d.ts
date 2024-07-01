@@ -5,9 +5,9 @@ export function fromCircle(t: any, n: any, e: any, r: any, i: any): any;
 export function fromRect(t: any, n: any, e: any, r: any, i: any, a: any): any;
 
 export function interpolate(
-  from: string,
-  to: string,
-  options: { string?: boolean; maxSegmentLength?: number }
+    from: string,
+    to: string,
+    options: { string?: boolean; maxSegmentLength?: number }
 ): (t: number) => string;
 
 export function interpolateAll(t: any, n: any, e: any): any;
