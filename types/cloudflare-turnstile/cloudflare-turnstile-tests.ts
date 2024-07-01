@@ -3,8 +3,8 @@ const renderParams: Turnstile.RenderParameters = {
     action: "<YOUR_ACTION>",
     cData: "<YOUR_CUSTOMER_DATA>",
     callback: (token: string) => {},
-    "expired-callback": (error: string) => {},
-    "error-callback": () => {},
+    "expired-callback": () => {},
+    "error-callback": (error: string) => {},
     theme: "auto",
     tabindex: 5,
 };
