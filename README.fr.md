@@ -127,7 +127,7 @@ Tout d'abord, [fork](https://guides.github.com/activities/forking/) ce dépôt, 
 
 Nous utilisons un robot pour permettre à un grand nombre de pull requests vers DefinitelyTyped d'être traitées entièrement en libre-service. Vous pouvez en savoir plus sur [pourquoi et comment ici](https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/). Voici une référence pratique montrant le cycle de vie de pull request à DT :
 
-<img src="https://github.com/DefinitelyTyped/dt-mergebot/blob/master/docs/dt-mergebot-lifecycle.svg">
+<img src="https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot/docs/dt-mergebot-lifecycle.svg">
 
 #### Partial clone
 
@@ -385,7 +385,7 @@ Si un fichier n'est ni testé ni référencé dans `index.d.ts`, ajoutez-le à u
 DT a le concept de "propriétaires de définition" qui sont des personnes qui veulent maintenir la qualité des types d'un module particulier.
 
 - En vous ajoutant à la liste, vous serez notifié (via votre nom d'utilisateur GitHub) chaque fois que quelqu'un fera une pull request ou posera un problème concernant le paquet.
-- Vos évaluations de PR auront une plus grande importance pour [le bot](https://github.com/DefinitelyTyped/dt-mergebot) qui maintient ce repo.
+- Vos évaluations de PR auront une plus grande importance pour [le bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) qui maintient ce repo.
 - Les mainteneurs de DT font confiance aux propriétaires des définitions pour assurer un écosystème stable, ne vous ajoutez pas à la légère.
 
 Pour vous ajouter en tant que titulaire d'une définition :
