@@ -104,18 +104,18 @@ async function checkType() {
 }
 
 async function testConversionEvent(): Promise<TEventRequest> {
-    const userData = (new UserData('joe@eg.com','','','','','','','','','','','','','','','','','','','','','','','','',''))
+    const userData = (new UserData())
         .setEmails(['joe@eg.com'])
         .setPhones(['12345678901', '14251234567']);
 
-    const content = new Content('product123',5,2,'','','','','');
+    const content = new Content();
 
-    const customData = (new CustomData(2,'','','',[],[],'','',0,0,'','','','',{}))
+    const customData = (new CustomData())
         .setContents([content]);
-    const extendedDeviceInfo = new ExtendedDeviceInfo('','','','','','','','','',0,0,'',0,0,0,'');
-    const appData = new AppData(false, false, '',false, extendedDeviceInfo, false, false, '', '', '', '', '');
+    const extendedDeviceInfo = new ExtendedDeviceInfo();
+    const appData = new AppData();
 
-    const serverEvent = (new ServerEvent('',0,'',userData,customData,appData,'',false,'',[],0,0,'',false,''))
+    const serverEvent = (new ServerEvent())
         .setEventName('Purchase')
         .setEventTime(123)
         .setUserData(userData)
