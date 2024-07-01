@@ -1433,6 +1433,11 @@ ruleTester.run("simple-valid-test", rule, {
     },
 }));
 
+let config!: Linter.Config;
+let flatConfig!: Linter.FlatConfig;
+config = flatConfig;
+flatConfig = config;
+
 // #endregion Config
 
 loadESLint();

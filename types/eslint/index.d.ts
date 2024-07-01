@@ -1257,6 +1257,9 @@ export namespace Linter {
         settings?: Record<string, unknown>;
     }
 
+    /** @deprecated  Use `Config` instead of `FlatConfig` */
+    type FlatConfig = Config;
+
     interface Globals {
         [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable";
     }
