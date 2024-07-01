@@ -5,8 +5,8 @@ const Map = () => {
 
     const { 
         geographies, // $ExpectType any[]
-        path, // $ExpectType GeoPath
-        projection // $ExpectType GeoProjection
+        path, // $ExpectType GeoPath <any, GeoPermissibleObjects>
+        projection // $ExpectType GeoProjection 
     } = useGeographies({ geography: '/worldmap.json' });
 
     const {
