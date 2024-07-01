@@ -1,20 +1,27 @@
 import * as React from "react";
-import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup, useGeographies, useZoomPanContext } from "react-simple-maps";
+import {
+    ComposableMap,
+    Geographies,
+    Geography,
+    Marker,
+    useGeographies,
+    useZoomPanContext,
+    ZoomableGroup,
+} from "react-simple-maps";
 
 const Map = () => {
-
-    const { 
+    const {
         geographies, // $ExpectType any[]
         path, // $ExpectType GeoPath <any, GeoPermissibleObjects>
-        projection // $ExpectType GeoProjection 
-    } = useGeographies({ geography: '/worldmap.json' });
+        projection, // $ExpectType GeoProjection
+    } = useGeographies({ geography: "/worldmap.json" });
 
     const {
         x, // $ExpectType number
         y, // $ExpectType number
         k, // $ExpectType number
-        transformString // $ExpectType string
-    } = useZoomPanContext()
+        transformString, // $ExpectType string
+    } = useZoomPanContext();
 
     return (
         <ComposableMap
@@ -79,5 +86,5 @@ const Map = () => {
                 </Marker>
             </ZoomableGroup>
         </ComposableMap>
-    )
-}
+    );
+};
