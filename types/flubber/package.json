@@ -1,24 +1,17 @@
 {
     "private": true,
     "name": "@types/flubber",
-    "version": "0.0.1",
+    "version": "0.0.9999",
     "projects": [
         "https://github.com/veltman/flubber#readme"
     ],
-    "description": "TypeScript definitions for flubber",
-    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/flubber",
-    "license": "MIT",
+    "devDependencies": {
+        "@types/flubber": "workspace:."
+    },
     "owners": [
         {
             "name": "Huxulm",
-            "githubUsername": "huxulm",
-            "url": "https://github.com/huxulm"
+            "githubUsername": "huxulm"
         }
-    ],
-    "types": "index.d.ts",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-        "directory": "types/flubber"
-    }
+    ]
 }
