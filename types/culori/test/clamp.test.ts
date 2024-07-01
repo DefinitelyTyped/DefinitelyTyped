@@ -25,6 +25,8 @@ displayable(lch2); // $ExpectType boolean
 inGamut(mode)(lch1); // $ExpectType boolean
 inGamut(mode)(lch2); // $ExpectType boolean
 
+toGamut()(lch1); // $ExpectType Lch
+toGamut("p3")(lch1); // $ExpectType P3
 toGamut("p3", mode)(lch1); // $ExpectType P3
 toGamut("p3", mode)(lch2); // $ExpectType P3
 toGamut("rgb", mode)(lch2); // $ExpectType Rgb
