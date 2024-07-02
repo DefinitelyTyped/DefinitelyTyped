@@ -1,8 +1,10 @@
 import * as THREE from "three";
 import Coordinates from "../Core/Geographic/Coordinates";
 
+type CameraLike = THREE.OrthographicCamera | THREE.PerspectiveCamera;
+
 export type CameraOptions =
-    | { cameraThree: THREE.Camera }
+    | { cameraThree: CameraLike }
     | { type: CAMERA_TYPE };
 
 export enum CAMERA_TYPE {
@@ -25,7 +27,7 @@ declare class Camera {
     );
 
     crs: string;
-    camera3D: THREE.Camera; // TODO: type wizardry =P
+    camera3D: CameraLike; // TODO: type wizardry =P
     width: number;
     height: number;
 
