@@ -11,7 +11,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {String} parentId
      * @param  {FacebookAdApi} [api]
      */
-    constructor(id: number | (string | null | undefined), data: Record<string, any>, parentId: string | null | undefined, api: FacebookAdsApi | null | undefined);
+    constructor(id?: number |string | null, data?: Record<string, any>, parentId?: string | null , api?: FacebookAdsApi | null );
     /**
      * Define data getter and setter recording changes
      * @param {String} field

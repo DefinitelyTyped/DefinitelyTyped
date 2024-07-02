@@ -12,7 +12,7 @@ export default class AppData {
     _receipt_data: string;
     _url_schemes: string;
     _windows_attribution_id: string;
-    constructor(application_tracking_enabled: boolean, advertiser_tracking_enabled: boolean, campaign_ids: string, consider_views: boolean, extinfo: ExtendedDeviceInfo, include_dwell_data: boolean, include_video_data: boolean, install_referrer: string, installer_package: string, receipt_data: string, url_schemes: string, windows_attribution_id: string);
+    constructor(application_tracking_enabled?: boolean, advertiser_tracking_enabled?: boolean, campaign_ids?: string, consider_views?: boolean, extinfo?: ExtendedDeviceInfo, include_dwell_data?: boolean, include_video_data?: boolean, install_referrer?: string, installer_package?: string, receipt_data?: string, url_schemes?: string, windows_attribution_id?: string);
     get application_tracking_enabled(): boolean;
     set application_tracking_enabled(application_tracking_enabled: boolean);
     setApplicationTrackingEnabled(application_tracking_enabled: boolean): AppData;

@@ -9,7 +9,8 @@ import {
     IGUser,
     InstagramInsightsResult,
     AppData,
-    ExtendedDeviceInfo
+    ExtendedDeviceInfo,
+    AbstractCrudObject
 } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
@@ -103,18 +104,18 @@ async function checkType() {
 }
 
 async function testConversionEvent(): Promise<TEventRequest> {
-    const userData = (new UserData('joe@eg.com','','','','','','','','','','','','','','','','','','','','','','','','',''))
+    const userData = (new UserData())
         .setEmails(['joe@eg.com'])
         .setPhones(['12345678901', '14251234567']);
 
-    const content = new Content('product123',5,2,'','','','','');
+    const content = new Content();
 
-    const customData = (new CustomData(2,'','','',[],[],'','',0,0,'','','','',{}))
+    const customData = (new CustomData())
         .setContents([content]);
-    const extendedDeviceInfo = new ExtendedDeviceInfo('','','','','','','','','',0,0,'',0,0,0,'');
-    const appData = new AppData(false, false, '',false, extendedDeviceInfo, false, false, '', '', '', '', '');
+    const extendedDeviceInfo = new ExtendedDeviceInfo();
+    const appData = new AppData();
 
-    const serverEvent = (new ServerEvent('',0,'',userData,customData,appData,'',false,'',[],0,0,'',false,''))
+    const serverEvent = (new ServerEvent())
         .setEventName('Purchase')
         .setEventTime(123)
         .setUserData(userData)
@@ -131,4 +132,9 @@ throw new FacebookRequestError({}, 'GET', 'url', 'data');
 async function checkStaticFields() {
     const fields = [IGUser.Fields.biography, IGUser.Fields.follows_count];
     const metrics = [InstagramInsightsResult.Metric.reach, InstagramInsightsResult.Metric.shares];
+}
+
+export function testAbstractCrudObjectClassConstructor () {
+    const abstractCrudObject =  new AbstractCrudObject();
+    const abstractCrudObject2 =  new AbstractCrudObject('some-id');
 }

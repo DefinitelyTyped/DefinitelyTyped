@@ -37,7 +37,7 @@ export default class ServerEvent {
      * @param {Boolean} advertiser_tracking_enabled A boolean that indicates whether the user has opted into/out of advertiser tracker on apps.
      * @param {String} messaging_channel Indicates which channel was used to send the message.
      */
-    constructor(event_name: string, event_time: number, event_source_url: string, user_data: UserData, custom_data: CustomData, app_data: AppData, event_id: string, opt_out: boolean, action_source: string, data_processing_options: string[], data_processing_options_country: number, data_processing_options_state: number, advanced_measurement_table: string, advertiser_tracking_enabled: boolean, messaging_channel: string);
+    constructor(event_name?: string, event_time?: number, event_source_url?: string, user_data?: UserData, custom_data?: CustomData, app_data?: AppData, event_id?: string, opt_out?: boolean, action_source?: string, data_processing_options?: string[], data_processing_options_country?: number, data_processing_options_state?: number, advanced_measurement_table?: string, advertiser_tracking_enabled?: boolean, messaging_channel?: string);
     /**
      * Gets the Event Name for the current Event.
      */
