@@ -48,8 +48,6 @@ export namespace NetworkStatus {
 
         /**
          * Fired when the network connection state changes.
-         *
-         * @param details
          */
         onConnectionChanged: Events.Event<(details: NetworkLinkInfo) => void>;
     }

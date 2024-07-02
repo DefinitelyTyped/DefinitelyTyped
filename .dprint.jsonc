@@ -28,7 +28,6 @@
         "./types/react-native",
         "./types/recurly__recurly-js",
         "./types/sawtooth-sdk",
-        "./types/webextension-polyfill",
         "./types/winrt-uwp",
         "./types/vscode",
 
