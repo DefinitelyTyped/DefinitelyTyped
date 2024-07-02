@@ -147,6 +147,34 @@ declare global {
     interface BigUint64Array extends RelativeIndexable<bigint> {}
     // #endregion ArrayLike.at() end
 
+    // DeepWritable and types from https://github.com/ts-essentials/ts-essentials/blob/365612c0de7f32d203552861d8431986c0d291c4/lib/deep-writable/index.ts
+    type IsAny<Type> = 0 extends 1 & Type ? true : false;
+    type Primitive = string | number | boolean | bigint | symbol | undefined | null;
+    type Builtin = Primitive | Function | Date | Error | RegExp;
+    type IsUnknown<Type> = IsAny<Type> extends true ? false : unknown extends Type ? true : false;
+
+    type DeepWritable<Type> = Type extends Exclude<Builtin, Error>
+        ? Type
+        : Type extends Map<infer Key, infer Value>
+        ? Map<DeepWritable<Key>, DeepWritable<Value>>
+        : Type extends ReadonlyMap<infer Key, infer Value>
+        ? Map<DeepWritable<Key>, DeepWritable<Value>>
+        : Type extends WeakMap<infer Key, infer Value>
+        ? WeakMap<DeepWritable<Key>, DeepWritable<Value>>
+        : Type extends Set<infer Values>
+        ? Set<DeepWritable<Values>>
+        : Type extends ReadonlySet<infer Values>
+        ? Set<DeepWritable<Values>>
+        : Type extends WeakSet<infer Values>
+        ? WeakSet<DeepWritable<Values>>
+        : Type extends Promise<infer Value>
+        ? Promise<DeepWritable<Value>>
+        : Type extends {}
+        ? { -readonly [Key in keyof Type]: DeepWritable<Type[Key]> }
+        : IsUnknown<Type> extends true
+        ? unknown
+        : Type;
+
     /**
      * @since v17.0.0
      *
@@ -155,7 +183,7 @@ declare global {
     function structuredClone<T>(
         value: T,
         transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
-    ): T;
+    ): DeepWritable<T>;
 
     /*----------------------------------------------*
     *                                               *

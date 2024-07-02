@@ -36,6 +36,8 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 
     const arrayBuffer = new ArrayBuffer(0);
     structuredClone({ test: arrayBuffer }, { transfer: [arrayBuffer] }); // $ExpectType { test: ArrayBuffer; }
+
+    structuredClone(Object.freeze({ test: arrayBuffer })); // $ExpectType { test: ArrayBuffer; }
 }
 
 // Array.prototype.at()
