@@ -6,11 +6,15 @@ declare namespace JMuxer {
         node: string | HTMLVideoElement;
         mode?: "both" | "audio" | "video" | undefined;
         flushingTime?: number | undefined;
+        maxDelay?: number | undefined;
         clearBuffer?: boolean | undefined;
         fps?: number | undefined;
+        readFpsFromTrack?: boolean | undefined;
         debug?: boolean | undefined;
         onReady?: (() => void) | undefined;
         onError?: ((data: any) => void) | undefined;
+        onMissingVideoFrames?: ((data: Feeder) => void) | undefined;
+        onMissingAudioFrames?: ((data: Feeder) => void) | undefined;
     }
 
     interface Feeder {
