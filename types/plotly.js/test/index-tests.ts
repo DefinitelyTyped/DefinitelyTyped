@@ -1,5 +1,5 @@
 import * as Plotly from "plotly.js";
-import { Config, Datum, Layout, newPlot, PlotData, Template } from "plotly.js";
+import { Config, Datum, Layout, newPlot, PlotData, Template, XAxisName, YAxisName } from "plotly.js";
 
 const graphDiv = "#test";
 
@@ -1169,3 +1169,89 @@ function rand() {
         data: [{ ids: ids }],
     }]);
 });
+
+//////////////////////////////////////////////////////////////////////
+// x and y axis names
+(() => {
+    // x
+
+    const validXAxes: XAxisName[] = [
+        "x",
+        "x2",
+        "x10 domain",
+        "x99 domain",
+        "x9",
+        "x10",
+        "x99",
+        "x domain",
+        "x2 domain",
+        "x10 domain",
+    ];
+
+    // @ts-expect-error
+    const invalidXAxes: XAxisName[] = ["xx", "X", "xy", "x100", "x00", "x -1"];
+
+    // taken from https://plotly.com/python/reference/layout/yaxis/
+    const regexXAxis = /^x([2-9]|[1-9][0-9]+)?( domain)?$/;
+
+    if (
+        !validXAxes.every(str => (
+            regexXAxis.test(str)
+        ))
+    ) {
+        throw new Error(
+            "Values accepted by ts definition as valid are not matching according to plotly documentation regex.",
+        );
+    }
+
+    if (
+        !invalidXAxes.every(str => (
+            !regexXAxis.test(str)
+        ))
+    ) {
+        throw new Error(
+            "Values not accepted by ts definition as valid are matching according to plotly documentation regex.",
+        );
+    }
+
+    // y
+
+    const validYAxes: YAxisName[] = [
+        "y",
+        "y2",
+        "y10 domain",
+        "y99 domain",
+        "y9",
+        "y10",
+        "y99",
+        "y domain",
+        "y2 domain",
+        "y10 domain",
+    ];
+
+    // @ts-expect-error
+    const invalidYAxes: YAxisName[] = ["yy", "Y", "yx", "y100", "y00", "y -1"];
+
+    // taken from https://plotly.com/python/reference/layout/yaxis/
+    const regexYAxis = /^y([2-9]|[1-9][0-9]+)?( domain)?$/;
+
+    if (
+        !validYAxes.every(str => (
+            regexYAxis.test(str)
+        ))
+    ) {
+        throw new Error(
+            "Values accepted by ts definition as valid are not matching according to plotly documentation regex.",
+        );
+    }
+
+    if (
+        !invalidYAxes.every(str => (
+            !regexXAxis.test(str)
+        ))
+    ) {
+        throw new Error(
+            "Values not accepted by ts definition as valid are matching according to plotly documentation regex.",
+        );
+    }
+})();
