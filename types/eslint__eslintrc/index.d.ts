@@ -15,8 +15,8 @@ export class FlatCompat {
          */
         baseDirectory?: string;
         resolvePluginsRelativeTo?: string;
-        recommendedConfig?: Linter.Config;
-        allConfig?: Linter.Config;
+        recommendedConfig?: Linter.LegacyConfig;
+        allConfig?: Linter.LegacyConfig;
     });
 
     /**
@@ -24,7 +24,7 @@ export class FlatCompat {
      * @param eslintrcConfig The ESLintRC-style config object.
      * @returns A flag-config-style config object.
      */
-    config(eslintrcConfig: Linter.Config): Linter.FlatConfig[];
+    config(eslintrcConfig: Linter.LegacyConfig): Linter.FlatConfig[];
 
     /**
      * Translates the `env` section of an ESLintRC-style config.
