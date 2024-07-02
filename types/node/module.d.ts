@@ -258,7 +258,10 @@ declare module "module" {
         data?: Data | undefined;
         transferList?: any[] | undefined;
     }
-    interface Module extends NodeModule {}
+    interface Module extends Omit<NodeModule, 'require'> {
+        load(filename: string): void;
+        require(id: string): any;
+    }
     class Module {
         static runMain(): void;
         static wrap(code: string): string;
@@ -273,6 +276,8 @@ declare module "module" {
         ): void;
         static register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
         constructor(id: string, parent?: Module);
+        load(filename: string): void;
+        require(id: string): any;
     }
     global {
         interface ImportMeta {
