@@ -124,10 +124,10 @@ export interface CommonProperties<T> {
     icons?: {
         [
             k in
-                | "moveLeft"
-                | "moveAllLeft"
-                | "moveRight"
-                | "moveAllRight"
+                | "moveToAvailable"
+                | "moveAllToAvailable"
+                | "moveToSelected"
+                | "moveAllToSelected"
                 | "moveDown"
                 | "moveUp"
                 | "moveTop"
@@ -148,10 +148,10 @@ export interface CommonProperties<T> {
             k in
                 | "availableFilterHeader"
                 | "availableHeader"
-                | "moveAllLeft"
-                | "moveAllRight"
-                | "moveLeft"
-                | "moveRight"
+                | "moveAllToAvailable"
+                | "moveAllToSelected"
+                | "moveToAvailable"
+                | "moveToSelected"
                 | "moveBottom"
                 | "moveDown"
                 | "moveUp"
