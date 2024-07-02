@@ -58,10 +58,10 @@ declare namespace Turnstile {
     type Theme = "auto" | "light" | "dark";
 
     /**
-     * The size of the Turnstile widget.
-     * The default is "normal", which is the default widget look. This can be set to "compact" to make the widget less large. The "invisible" option is only for invisible mode.
+     * The widget size.
+     * Can take the following values: normal, compact.
      */
-    type WidgetSize = "normal" | "compact" | "invisible";
+    type WidgetSize = "normal" | "compact";
 
     /**
      * How to retry on widget failure.
@@ -118,9 +118,10 @@ declare namespace Turnstile {
         "expired-callback"?: (token: string) => void;
 
         /**
-         * Optional. A JavaScript callback that is invoked when an error occurs with the widget.
+         * Optional. A JavaScript callback invoked when there is an error (e.g. network error or the challenge failed).
+         * Refer to [Client-side errors](https://developers.cloudflare.com/turnstile/troubleshooting/client-side-errors/).
          */
-        "error-callback"?: VoidFunction | undefined;
+        "error-callback"?: ((error: string) => void) | undefined;
 
         /**
          * Optional. A JavaScript callback that is invoked when the Turnstile widget times out.
