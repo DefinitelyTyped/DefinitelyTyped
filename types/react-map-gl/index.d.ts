@@ -328,7 +328,7 @@ export interface BaseControlProps {
 }
 
 export class BaseControl<T extends BaseControlProps, S extends Element> extends React.PureComponent<T> {
-    _containerRef: React.RefObject<S>;
+    _containerRef: React.RefObject<S | null>;
     _context: MapContextProps;
 }
 

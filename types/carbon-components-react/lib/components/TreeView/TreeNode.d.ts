@@ -1,7 +1,9 @@
 import * as React from "react";
 import { ReactLIAttr } from "../../../typings/shared";
 
-export interface TreeNodeStandaloneProps extends Omit<ReactLIAttr, "aria-expanded" | "onClick" | "onSelect"> {
+export interface TreeNodeStandaloneProps
+    extends Omit<ReactLIAttr, "aria-expanded" | "onClick" | "onSelect" | "onToggle">
+{
     active?: number | string | undefined;
     depth?: number | undefined;
     isExpanded?: boolean | undefined;

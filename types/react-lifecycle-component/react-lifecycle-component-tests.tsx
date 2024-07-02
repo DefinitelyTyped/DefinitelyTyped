@@ -64,9 +64,8 @@ function mapDispatchToProps(dispatch: Dispatch): MapDispatchProps {
         componentDidMount() {
             dispatch({ type: "ComponentDidMount" });
         },
-        componentWillUpdate(nextProps, nextState, nextContext) {
+        componentWillUpdate(nextProps, nextState) {
             const fooIsEqual: boolean = nextProps.propsFoo === nextState.stateFoo;
-            const hasNextContext: boolean = !!nextContext;
             dispatch({ type: "ComponentWillUpdate" });
         },
         componentDidUpdate(nextProps, nextState, nextContext) {
@@ -74,17 +73,15 @@ function mapDispatchToProps(dispatch: Dispatch): MapDispatchProps {
             const hasNextContext: boolean = !!nextContext;
             dispatch({ type: "ComponentDidUpdate" });
         },
-        componentWillReceiveProps(nextProps, nextContext) {
+        componentWillReceiveProps(nextProps) {
             const fooIsGreaterThanZero: boolean = nextProps.propsFoo > 0;
-            const hasNextContext: boolean = !!nextContext;
             dispatch({ type: "ComponentWillReceiveProps" });
         },
         componentWillUnmount() {
             dispatch({ type: "ComponentWillUnmount" });
         },
-        shouldComponentUpdate(nextProps, nextState, nextContext) {
+        shouldComponentUpdate(nextProps, nextState) {
             const fooIsEqual: boolean = nextProps.propsFoo === nextState.stateFoo;
-            const hasNextContext: boolean = !!nextContext;
             return !fooIsEqual;
         },
     };

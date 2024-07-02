@@ -1,24 +1,43 @@
+export {};
+
 export type ReactComponentLike =
     | string
-    | ((props: any, context?: any) => any)
-    | (new(props: any, context?: any) => any);
+    | ((props: any) => any)
+    | (new(props: any) => any);
 
 export interface ReactElementLike {
     type: ReactComponentLike;
-    props: any;
+    props: unknown;
     key: string | null;
 }
 
 export interface ReactNodeArray extends Iterable<ReactNodeLike> {}
+
+/**
+ * @internal Use `Awaited<ReactNodeLike>` instead
+ */
+// Helper type to enable `Awaited<ReactNodeLike>`.
+// Must be a copy of the non-thenables of `ReactNodeLike`.
+type AwaitedReactNodeLike =
+    | ReactElementLike
+    | string
+    | number
+    | bigint
+    | ReactNodeArray
+    | boolean
+    | null
+    | undefined;
 
 export type ReactNodeLike =
     | ReactElementLike
     | ReactNodeArray
     | string
     | number
+    | bigint
     | boolean
     | null
-    | undefined;
+    | undefined
+    | Promise<AwaitedReactNodeLike>;
 
 export const nominalTypeHack: unique symbol;
 

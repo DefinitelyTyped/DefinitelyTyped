@@ -6,7 +6,7 @@ import NavbarHeader = require("./NavbarHeader");
 import NavbarToggle = require("./NavbarToggle");
 
 declare namespace Navbar {
-    export interface NavbarProps extends React.HTMLProps<Navbar> {
+    export interface NavbarProps extends Omit<React.HTMLProps<Navbar>, "onToggle"> {
         brand?: any; // TODO: Add more specific type
         bsSize?: Sizes | undefined;
         bsStyle?: string | undefined;

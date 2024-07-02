@@ -83,10 +83,6 @@ const boxStyles = compose(
 
 const Box: React.ComponentType<BoxProps> = styled(boxStyles);
 
-Box.defaultProps = {
-    boxStyle: "normal",
-};
-
 const Text: React.ComponentType<TypographyProps> = styled(typography);
 const Flex: React.ComponentType<FlexboxProps> = styled(flexbox);
 const Grid: React.ComponentType<GridProps> = styled(grid);

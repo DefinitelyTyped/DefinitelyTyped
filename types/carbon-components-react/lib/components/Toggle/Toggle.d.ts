@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ReactInputAttr } from "../../../typings/shared";
 
-type ExcludedAttributes = "aria-labelledby" | "id" | "onChange" | "onKeyUp" | "size" | "type";
+type ExcludedAttributes = "aria-labelledby" | "id" | "onChange" | "onKeyUp" | "onToggle" | "size" | "type";
 
 export interface ToggleProps extends Omit<ReactInputAttr, ExcludedAttributes> {
     defaultToggled?: boolean | undefined;
