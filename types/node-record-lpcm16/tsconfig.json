@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["ES6"]
+    },
+    "files": [
+        "index.d.ts",
+        "index.d.cts",
+        "node-record-lpcm16-test.ts"
+    ]
+}
