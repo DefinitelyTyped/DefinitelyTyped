@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/astrocors",
+    "version": "1.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/astrocors-types"
+    ],
+    "dependencies": {
+        "astrocors-types": "^0.0.1"
+    },
+    "devDependencies": {
+        "@types/astrocors": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "eveeifyeve",
+            "githubUsername": "Eveeifyeve"
+        }
+    ]
+}
