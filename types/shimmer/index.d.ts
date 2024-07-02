@@ -1,9 +1,3 @@
-declare global {
-    interface Function {
-        __wrapped?: boolean | undefined;
-    }
-}
-
 declare const shimmer: {
     (options: { logger?(msg: string): void }): void;
     wrap<Nodule extends object, FieldName extends keyof Nodule>(
