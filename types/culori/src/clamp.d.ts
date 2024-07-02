@@ -77,8 +77,12 @@ export function clampChroma<C extends Color>(color: C, mode?: Mode, rgbGamut?: G
  * `null` for the `delta` parameter, or zero for `jnd`.
  */
 export function toGamut<M extends Mode>(
-    dest: M,
-    mode: Mode,
+    /** @default "rgb" */
+    dest?: M,
+    /** @default "oklch" */
+    mode?: Mode,
+    /** @default differenceEuclidean('oklch') */
     delta?: number | null,
+    /** @default 0.02 */
     jnd?: number,
 ): (color: string | Color) => FindColorByMode<M>;
