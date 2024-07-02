@@ -34,7 +34,7 @@ TPDirect.card.onUpdate((update) => {
 });
 
 // $ExpectType void
-TPDirect.card.setup({
+TPDirect.card.setup({fields:{
     number: {
         element: "#body",
         placeholder: "**** **** **** ****",
@@ -47,10 +47,11 @@ TPDirect.card.setup({
         element: "#body",
         placeholder: "MM / YYYY",
     },
-});
+}});
 
 // $ExpectType void
 TPDirect.card.setup({
+    fields: {
     number: {
         element: "#body",
         placeholder: "**** **** **** ****",
@@ -63,10 +64,12 @@ TPDirect.card.setup({
         element: "#body",
         placeholder: "MM / YYYY",
     },
-}, {
-    input: {
-        color: "red",
     },
+    styles:{
+        input: {
+            color: "red",
+        },
+    }
 });
 
 /**

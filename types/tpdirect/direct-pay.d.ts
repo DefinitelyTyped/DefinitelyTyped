@@ -47,7 +47,11 @@ interface UpdateResult {
 interface elementObject {
     element: string;
     placeholder: string;
+    field_type?: string;
+    isMaskCreditCardNumber?: boolean;
+    maskCreditCardNumberRange?: number[];
 }
+
 
 type cssKeyName =
     | "color"
@@ -75,7 +79,8 @@ type cssKeyName =
     | "-webkit-transitio";
 
 interface DirectPay {
-    setup(fields: {
+    setup(
+    {fields,styles}:{fields: {
         number: elementObject;
         expirationDate: elementObject;
         ccv: elementObject;
@@ -83,7 +88,7 @@ interface DirectPay {
         [key: string]: {
             [key in cssKeyName]?: string;
         };
-    }): void;
+    }}): void;
 
     onUpdate(
         callback: (
@@ -103,3 +108,4 @@ interface DirectPay {
         ) => void,
     ): void;
 }
+    
