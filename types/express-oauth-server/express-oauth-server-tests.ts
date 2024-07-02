@@ -72,17 +72,19 @@ resultingAuthorizationCodeMiddleware = expressOAuthServer.authorize();
 
 const expressApp = express();
 
+const authenticatePath = expressOAuthServer.authenticate();
 expressApp.all(
     "/path",
-    expressOAuthServer.authenticate(),
+    (res, req, next) => void authenticatePath(res, req, next),
     (req: express.Request, res: express.Response, next: express.NextFunction) => {
         res.json({ message: "Secure data" });
     },
 );
 
+const authenticateProfile = expressOAuthServer.authenticate({ scope: "profile" });
 expressApp.get(
     "/profile",
-    expressOAuthServer.authenticate({ scope: "profile" }),
+    (res, req, next) => void authenticateProfile(res, req, next),
     (
         req: express.Request & { user?: OAuth2Server.Token | undefined },
         res: express.Response,
