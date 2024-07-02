@@ -1076,3 +1076,6 @@ const coseAllOptions: CoseLayoutOptions = {
     minTemp: 10.0,
 };
 cy.layout(coseAllOptions);
+
+const ccn = cy.nodes().closenessCentralityNormalized({directed: false});
+ccn.closeness(cy.nodes()[0]);
