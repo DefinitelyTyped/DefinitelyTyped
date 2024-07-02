@@ -5,26 +5,26 @@ import EventEmitter = require("events");
 export interface Settings {
     targetAmsNetId: string;
     targetAdsPort: number;
-    objectifyEnumerations?: boolean;
-    convertDatesToJavascript?: boolean;
-    readAndCacheSymbols?: boolean;
-    readAndCacheDataTypes?: boolean;
-    disableSymbolVersionMonitoring?: boolean;
-    routerTcpPort?: number;
-    routerAddress?: string;
-    localAddress?: string;
-    localTcpPort?: number;
-    localAmsNetId?: string;
-    localAdsPort?: number;
-    timeoutDelay?: number;
-    hideConsoleWarnings?: boolean;
-    autoReconnect?: boolean;
-    reconnectInterval?: number;
-    checkStateInterval?: number;
-    connectionDownDelay?: number;
-    allowHalfOpen?: boolean;
-    disableBigInt?: boolean;
-    bareClient?: boolean;
+    objectifyEnumerations?: boolean | null;
+    convertDatesToJavascript?: boolean | null;
+    readAndCacheSymbols?: boolean | null;
+    readAndCacheDataTypes?: boolean | null;
+    disableSymbolVersionMonitoring?: boolean | null;
+    routerTcpPort?: number | null;
+    routerAddress?: string | null;
+    localAddress?: string | null;
+    localTcpPort?: number | null;
+    localAmsNetId?: string | null;
+    localAdsPort?: number | null;
+    timeoutDelay?: number | null;
+    hideConsoleWarnings?: boolean | null;
+    autoReconnect?: boolean | null;
+    reconnectInterval?: number | null;
+    checkStateInterval?: number | null;
+    connectionDownDelay?: number | null;
+    allowHalfOpen?: boolean | null;
+    disableBigInt?: boolean | null;
+    bareClient?: boolean | null;
 }
 
 export interface Metadata {
