@@ -1484,3 +1484,42 @@ function test_runnable_state(runnable: LocalMocha.Runnable) {
     runnable.state = "failed";
     runnable.state = "passed";
 }
+
+// Extends BaseContext, which has no index signature for arbitrary fixtures
+interface ContextWithFixtures extends LocalMocha.BaseContext {
+    doSomethingSync(): void;
+    doSomethingAsync(): Promise<void>;
+}
+
+function test_context_subclass() {
+    describe("ContextWithFixtures", function() {
+        // Should be usable in hooks and in tests
+        beforeEach(function(this: ContextWithFixtures): void {
+            this.doSomethingSync();
+        });
+
+        it("calls synchronous function", function(this: ContextWithFixtures): void {
+            this.doSomethingSync();
+        });
+
+        it("calls async function", async function(this: ContextWithFixtures): Promise<void> {
+            await this.doSomethingAsync();
+        });
+
+        it("fixtures are strongly typed", async function(this: ContextWithFixtures): Promise<void> {
+            // @ts-expect-error
+            this.doSomethingSync("extra argument");
+            // @ts-expect-error
+            await this.doSomethingAsync("extra argument");
+            // @ts-expect-error
+            this.doesNotExist = 5;
+        });
+    });
+}
+
+// You should not be able to call new BaseContext(), because BaseContext exists
+// only as an abstractions in the definitions, not at runtime.
+function test_no_basecontext_constructor() {
+    // @ts-expect-error
+    return new LocalMocha.BaseContext();
+}
