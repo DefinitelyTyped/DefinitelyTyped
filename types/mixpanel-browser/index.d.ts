@@ -1,5 +1,7 @@
 export type Persistence = "cookie" | "localStorage";
 
+export type ApiPayloadFormat = "base64" | "json";
+
 export type PushItem = Array<string | Dict>;
 
 export type Query = string | Element | Element[];
@@ -52,6 +54,7 @@ export interface Config {
     api_method: string;
     api_transport: string;
     app_host: string;
+    api_payload_format: ApiPayloadFormat;
     autotrack: boolean;
     cdn: string;
     cookie_domain: string;
