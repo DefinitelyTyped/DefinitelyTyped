@@ -156,17 +156,17 @@ function test_query() {
     query.sortByTextScore();
     // Find objects that match the aggregation pipeline
     query.aggregate({
-        group: {
+        $group: {
             objectId: "$name",
         },
     });
 
     query.aggregate({
-        count: "total",
+        $count: "total",
     });
 
     query.aggregate({
-        lookup: {
+        $lookup: {
             from: "Collection",
             foreignField: "id",
             localField: "id",
@@ -174,7 +174,7 @@ function test_query() {
         },
     });
     query.aggregate({
-        lookup: {
+        $lookup: {
             from: "Target",
             let: { foo: "bar", baz: 123 },
             pipeline: [],
@@ -183,7 +183,7 @@ function test_query() {
     });
 
     query.aggregate({
-        graphLookup: {
+        $graphLookup: {
             from: "Target",
             connectFromField: "objectId",
             connectToField: "newId",
@@ -192,7 +192,7 @@ function test_query() {
     });
 
     query.aggregate({
-        facet: {
+        $facet: {
             foo: [
                 {
                     count: "total",
@@ -209,11 +209,11 @@ function test_query() {
     });
 
     query.aggregate({
-        unwind: "$field",
+        $unwind: "$field",
     });
 
     query.aggregate({
-        unwind: {
+        $unwind: {
             path: "$field",
             includeArrayIndex: "newIndex",
             preserveNullAndEmptyArrays: true,
