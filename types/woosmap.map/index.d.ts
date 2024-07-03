@@ -3676,6 +3676,11 @@ declare namespace woosmap.map {
          * Triggers the given event. All arguments after eventName are passed as arguments to the listeners.
          */
         trigger(instance: object, eventName: string, eventArgs?: any[] | null): void;
+
+        /**
+         * Opens the widget's panel in itinerary mode.
+         */
+        showItinerary(origin?: GeoJSONFeature | object | string, destination?: GeoJSONFeature | object | string): any;
     }
 }
 declare namespace woosmap.map {
