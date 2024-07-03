@@ -153,10 +153,10 @@ osrm.match({ coordinates, timestamps, exclude }, (err, response) => {
         }
 
         // $ExpectType number
-        tracepoint.matchings_index
+        tracepoint.matchings_index;
 
         // $ExpectType number
-        tracepoint.waypoint_index
+        tracepoint.waypoint_index;
     });
 });
 
