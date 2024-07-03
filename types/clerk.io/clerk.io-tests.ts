@@ -16,8 +16,8 @@ window.Clerk("call", "test");
     });
 
     // @ts-expect-error
-    console.log(response.results);
+    response.results;
 
-    // $ExpectType number
-    console.log(response.result);
+    // $ExpectType number[]
+    response.result
 });
