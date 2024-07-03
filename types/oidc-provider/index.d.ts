@@ -684,6 +684,25 @@ declare class Client {
     static validate(metadata: ClientMetadata): Promise<void>;
 }
 
+export type {
+    AccessToken,
+    AuthorizationCode,
+    BackchannelAuthenticationRequest,
+    Client,
+    ClientCredentials,
+    DeviceCode,
+    Grant,
+    IdToken,
+    InitialAccessToken,
+    Interaction,
+    OIDCContext,
+    PushedAuthorizationRequest,
+    RefreshToken,
+    RegistrationAccessToken,
+    ReplayDetection,
+    Session,
+};
+
 export interface ResourceServer {
     scope: string;
     audience?: string | undefined;
@@ -905,7 +924,7 @@ export interface CookiesSetOptions {
     overwrite?: boolean | undefined;
 }
 
-declare class JWTStructured {
+export interface JWTStructured {
     header?: UnknownObject | undefined;
     payload: UnknownObject;
 }
@@ -2312,3 +2331,5 @@ export namespace errors {
         constructor(message: string, description?: string);
     }
 }
+
+export { Provider };
