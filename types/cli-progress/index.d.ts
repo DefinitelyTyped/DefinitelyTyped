@@ -208,7 +208,6 @@ export class MultiBar extends EventEmitter {
     /** Whether the progress bar is active */
     isActive: boolean;
 
-
     /** Add a new bar to the stack */
     create(total: number, startValue: number, payload?: any, barOptions?: Options): SingleBar;
 
