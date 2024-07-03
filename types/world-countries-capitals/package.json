@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/world-countries-capitals",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/bhatvikrant/world-countries-capitals"
+    ],
+    "devDependencies": {
+        "@types/world-countries-capitals": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Codiving",
+            "githubUsername": "Codiving"
+        }
+    ]
+}
