@@ -151,6 +151,9 @@ export class GenericBar extends EventEmitter {
     /** Initialize a new Progress bar. An instance can be used multiple times! it's not required to re-create it! */
     constructor(opt: Options, preset?: Preset);
 
+    /** Whether the progress bar is active */
+    isActive: boolean;
+
     /** Internal render function */
     render(forceRendering?: boolean): void;
 
@@ -201,6 +204,10 @@ export class SingleBar extends GenericBar {
 
 export class MultiBar extends EventEmitter {
     constructor(opt: Options, preset?: Preset);
+
+    /** whether the progress bar is active */
+    isActive: boolean;
+
 
     /** add a new bar to the stack */
     create(total: number, startValue: number, payload?: any, barOptions?: Options): SingleBar;
