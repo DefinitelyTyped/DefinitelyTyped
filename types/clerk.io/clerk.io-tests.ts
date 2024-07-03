@@ -9,9 +9,15 @@ window.Clerk("call", "test");
         return;
     }
 
-    // $ExpectType Promise<ClerkResponseSearchPredictive>
-    window.Clerk("call", "search/predictive", {
+    // $ExpectType ClerkResponseSearchPredictive
+    const response = await window.Clerk("call", "search/predictive", {
         query: "predictive",
         limit: 5,
     });
+
+    // @ts-expect-error
+    console.log(response.results);
+
+    // $ExpectType number
+    console.log(response.result);
 });
