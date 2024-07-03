@@ -19,5 +19,5 @@ window.Clerk("call", "test");
     response.results;
 
     // $ExpectType number[]
-    response.result
+    response.result;
 });
