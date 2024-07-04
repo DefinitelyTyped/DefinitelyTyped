@@ -3822,6 +3822,11 @@ declare namespace React {
         lquote?: string | undefined;
         rquote?: string | undefined;
     }
+    interface MathMLMspaceElement extends MathMLAttributes<MathMLMspaceElement> {
+        depth?: string | undefined;
+        height?: string | undefined;
+        width?: string | undefined;
+    }
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4295,6 +4300,7 @@ declare namespace React {
             mroot: React.MathMLProps<MathMLMrootElement>;
             mrow: React.MathMLProps<MathMLMrowElement>;
             ms: React.MathMLProps<MathMLMsElement>;
+            mspace: React.MathMLProps<MathMLMspaceElement>;
         }
     }
 }
