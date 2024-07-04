@@ -1,19 +1,19 @@
 import { Handler } from "../handler";
 
-export interface ResourcePropertiesCommon extends Record<string, any> {
+export interface CloudFormationCustomResourceResourcePropertiesCommon extends Record<string, any> {
     ServiceToken: string;
     ServiceTimeout?: string;
 }
 
 // Note, responses are *not* lambda results, they are sent to the event ResponseURL.
 export type CloudFormationCustomResourceHandler<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
+    TOldResourceProperties = TResourceProperties,
 > = Handler<CloudFormationCustomResourceEvent<TResourceProperties, TOldResourceProperties>, void>;
 
 export type CloudFormationCustomResourceEvent<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
+    TOldResourceProperties = TResourceProperties,
 > =
     | CloudFormationCustomResourceCreateEvent<TResourceProperties>
     | CloudFormationCustomResourceUpdateEvent<TResourceProperties, TOldResourceProperties>
@@ -28,7 +28,7 @@ export type CloudFormationCustomResourceResponse<TData extends Record<string, an
  * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/crpg-ref.html
  */
 export interface CloudFormationCustomResourceEventCommon<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
 > {
     ServiceToken: string;
     ResponseURL: string;
@@ -36,18 +36,18 @@ export interface CloudFormationCustomResourceEventCommon<
     RequestId: string;
     LogicalResourceId: string;
     ResourceType: string;
-    ResourceProperties: TResourceProperties;
+    ResourceProperties: TResourceProperties & CloudFormationCustomResourceResourcePropertiesCommon;
 }
 
 export interface CloudFormationCustomResourceCreateEvent<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
 > extends CloudFormationCustomResourceEventCommon<TResourceProperties> {
     RequestType: "Create";
 }
 
 export interface CloudFormationCustomResourceUpdateEvent<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
+    TOldResourceProperties = TResourceProperties,
 > extends CloudFormationCustomResourceEventCommon<TResourceProperties> {
     RequestType: "Update";
     PhysicalResourceId: string;
@@ -55,7 +55,7 @@ export interface CloudFormationCustomResourceUpdateEvent<
 }
 
 export interface CloudFormationCustomResourceDeleteEvent<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
 > extends CloudFormationCustomResourceEventCommon<TResourceProperties> {
     RequestType: "Delete";
     PhysicalResourceId: string;

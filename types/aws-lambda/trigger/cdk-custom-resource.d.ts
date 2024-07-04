@@ -1,13 +1,16 @@
 import { Callback, Handler } from "../handler";
-import { CloudFormationCustomResourceEvent, ResourcePropertiesCommon } from "./cloudformation-custom-resource";
+import {
+    CloudFormationCustomResourceEvent,
+    CloudFormationCustomResourceResourcePropertiesCommon,
+} from "./cloudformation-custom-resource";
 
 // The CDK docs only specify 'important' properties, but in reality the incoming event
 // to the Lambda matches that of a traditional custom resource.
 // This includes the ResponseURL property which should not be used as the framework
 // itself will deal with delivering responses.
 export type CdkCustomResourceEvent<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
+    TOldResourceProperties = TResourceProperties,
 > =
     & CloudFormationCustomResourceEvent<TResourceProperties, TOldResourceProperties>
     & {
@@ -24,9 +27,9 @@ export type CdkCustomResourceEvent<
  * @link https://docs.aws.amazon.com/cdk/api/latest/docs/custom-resources-readme.html#handling-lifecycle-events-onevent
  */
 export type CdkCustomResourceHandler<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
     TData extends Record<string, any> = Record<string, any>,
-    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
+    TOldResourceProperties = TResourceProperties,
 > = Handler<CdkCustomResourceEvent<TResourceProperties, TOldResourceProperties>, CdkCustomResourceResponse<TData>>;
 export type CdkCustomResourceCallback<TData extends Record<string, any>> = Callback<CdkCustomResourceResponse<TData>>;
 
@@ -41,9 +44,9 @@ export interface CdkCustomResourceResponse<TData extends Record<string, any> = R
 // IsComplete events will contain all normal request fields, as well as those returned from
 // the initial onEvent handler.
 export type CdkCustomResourceIsCompleteEvent<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
     TData extends Record<string, any> = Record<string, any>,
-    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
+    TOldResourceProperties = TResourceProperties,
 > = CdkCustomResourceEvent<TResourceProperties, TOldResourceProperties> & CdkCustomResourceResponse<TData>;
 
 export type CdkCustomResourceIsCompleteResponse<TData extends Record<string, any> = Record<string, any>> =
@@ -67,9 +70,9 @@ export interface CdkCustomResourceIsCompleteResponseWaiting {
  * @link https://docs.aws.amazon.com/cdk/api/latest/docs/custom-resources-readme.html#asynchronous-providers-iscomplete
  */
 export type CdkCustomResourceIsCompleteHandler<
-    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TResourceProperties = CloudFormationCustomResourceResourcePropertiesCommon,
     TOnEventData extends Record<string, any> = Record<string, any>,
-    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
+    TOldResourceProperties = TResourceProperties,
     TIsCompleteData extends Record<string, any> = TOnEventData,
 > = Handler<
     CdkCustomResourceIsCompleteEvent<TResourceProperties, TOnEventData, TOldResourceProperties>,

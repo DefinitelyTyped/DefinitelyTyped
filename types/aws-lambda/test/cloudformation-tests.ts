@@ -1,16 +1,16 @@
 import {
     CloudFormationCustomResourceFailedResponse,
     CloudFormationCustomResourceHandler,
+    CloudFormationCustomResourceResourcePropertiesCommon,
     CloudFormationCustomResourceResponse,
     CloudFormationCustomResourceSuccessResponse,
-    ResourcePropertiesCommon,
 } from "aws-lambda";
 
-interface CustomResourceProperties extends ResourcePropertiesCommon {
+interface CustomResourceProperties extends CloudFormationCustomResourceResourcePropertiesCommon {
     customSwitch: boolean;
 }
 
-interface CustomOldResourceProperties extends ResourcePropertiesCommon {
+interface CustomOldResourceProperties extends CloudFormationCustomResourceResourcePropertiesCommon {
     customNumber: number;
 }
 

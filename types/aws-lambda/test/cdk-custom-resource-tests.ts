@@ -3,10 +3,10 @@ import {
     CdkCustomResourceIsCompleteHandler,
     CdkCustomResourceIsCompleteResponse,
     CdkCustomResourceResponse,
-    ResourcePropertiesCommon,
+    CloudFormationCustomResourceResourcePropertiesCommon,
 } from "aws-lambda";
 
-interface CustomResourceProperties extends ResourcePropertiesCommon {
+interface CustomResourceProperties extends CloudFormationCustomResourceResourcePropertiesCommon {
     customSwitch: boolean;
 }
 

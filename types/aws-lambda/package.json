@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/aws-lambda",
-    "version": "8.11.9999",
+    "version": "8.10.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "AWS Lambda",
     "projects": [
