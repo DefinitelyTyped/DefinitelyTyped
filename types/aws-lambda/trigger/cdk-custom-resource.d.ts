@@ -7,7 +7,7 @@ import { CloudFormationCustomResourceEvent, ResourcePropertiesCommon } from "./c
 // itself will deal with delivering responses.
 export type CdkCustomResourceEvent<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
 > =
     & CloudFormationCustomResourceEvent<TResourceProperties, TOldResourceProperties>
     & {
@@ -26,7 +26,7 @@ export type CdkCustomResourceEvent<
 export type CdkCustomResourceHandler<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
     TData extends Record<string, any> = Record<string, any>,
-    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
 > = Handler<CdkCustomResourceEvent<TResourceProperties, TOldResourceProperties>, CdkCustomResourceResponse<TData>>;
 export type CdkCustomResourceCallback<TData extends Record<string, any>> = Callback<CdkCustomResourceResponse<TData>>;
 
@@ -43,7 +43,7 @@ export interface CdkCustomResourceResponse<TData extends Record<string, any> = R
 export type CdkCustomResourceIsCompleteEvent<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
     TData extends Record<string, any> = Record<string, any>,
-    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
 > = CdkCustomResourceEvent<TResourceProperties, TOldResourceProperties> & CdkCustomResourceResponse<TData>;
 
 export type CdkCustomResourceIsCompleteResponse<TData extends Record<string, any> = Record<string, any>> =
@@ -69,8 +69,8 @@ export interface CdkCustomResourceIsCompleteResponseWaiting {
 export type CdkCustomResourceIsCompleteHandler<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
     TOnEventData extends Record<string, any> = Record<string, any>,
-    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TIsCompleteData extends Record<string, any> = Record<string, any>,
+    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
+    TIsCompleteData extends Record<string, any> = TOnEventData,
 > = Handler<
     CdkCustomResourceIsCompleteEvent<TResourceProperties, TOnEventData, TOldResourceProperties>,
     CdkCustomResourceIsCompleteResponse<TIsCompleteData>

@@ -8,12 +8,12 @@ export interface ResourcePropertiesCommon extends Record<string, any> {
 // Note, responses are *not* lambda results, they are sent to the event ResponseURL.
 export type CloudFormationCustomResourceHandler<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
 > = Handler<CloudFormationCustomResourceEvent<TResourceProperties, TOldResourceProperties>, void>;
 
 export type CloudFormationCustomResourceEvent<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
 > =
     | CloudFormationCustomResourceCreateEvent<TResourceProperties>
     | CloudFormationCustomResourceUpdateEvent<TResourceProperties, TOldResourceProperties>
@@ -46,7 +46,7 @@ export interface CloudFormationCustomResourceCreateEvent<
 
 export interface CloudFormationCustomResourceUpdateEvent<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = TResourceProperties,
 > extends CloudFormationCustomResourceEventCommon<TResourceProperties> {
     RequestType: "Update";
     PhysicalResourceId: string;
