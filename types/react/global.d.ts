@@ -153,12 +153,12 @@ interface SVGViewElement extends SVGElement {}
 
 interface MathMLElement extends Element {}
 interface MathMLMathElement extends MathMLElement {}
-interface MathMLMErrorElement extends MathMLElement {}
-interface MathMLMFracElement extends MathMLElement {}
-interface MathMLMIElement extends MathMLElement {}
-interface MathMLMMultiScriptsElement extends MathMLElement {}
-interface MathMLMNElement extends MathMLElement {}
-interface MathMLMOElement extends MathMLElement {}
+interface MathMLMerrorElement extends MathMLElement {}
+interface MathMLMfracElement extends MathMLElement {}
+interface MathMLMiElement extends MathMLElement {}
+interface MathMLMmultiscriptsElement extends MathMLElement {}
+interface MathMLMnElement extends MathMLElement {}
+interface MathMLMoElement extends MathMLElement {}
 
 interface FormData {}
 interface Text {}
