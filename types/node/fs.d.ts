@@ -3282,8 +3282,8 @@ declare module "fs" {
     }
     export type WatchEventType = "rename" | "change";
     export type WatchListener<T> = (event: WatchEventType, filename: T | null) => void;
-    export type StatsListener = (curr: Stats, prev: Stats) => void;
-    export type BigIntStatsListener = (curr: BigIntStats, prev: BigIntStats) => void;
+    export type StatsListener = (curr?: Stats, prev?: Stats) => void;
+    export type BigIntStatsListener = (curr?: BigIntStats, prev?: BigIntStats) => void;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a
      * directory.
