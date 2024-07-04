@@ -3774,7 +3774,7 @@ declare namespace React {
     interface MathMLMathAttributes extends MathMLAttributes<MathMLMathElement> {
         display?: 'block' | 'inline'
     }
-
+    interface MathMLMErrorAttributes extends MathMLAttributes<MathMLMErrorAttributes> {}
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4236,6 +4236,7 @@ declare namespace React {
 
             // MathML
             math: React.MathMLProps<MathMLMathElement>;
+            merror: React.MathMLProps<MathMLMErrorElement>;
         }
     }
 }
