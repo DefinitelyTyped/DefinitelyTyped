@@ -27,6 +27,7 @@ const defaultOnEventHandler: CdkCustomResourceHandler = async (event, context) =
             strOrUndefined = event.ResourceProperties.ServiceTimeout;
             str = event.ResourceProperties.ServiceToken;
             str = event.ResourceType;
+            str = event.ServiceToken;
             // Should have custom comment to not use:
             str = event.ResponseURL;
             str = event.StackId;
@@ -122,6 +123,7 @@ const customOnEventHandler: CdkCustomResourceHandler<CustomResourceProperties, C
             str = event.ResourceType;
             // Should have custom comment to not use:
             str = event.ResponseURL;
+            str = event.ServiceToken;
             str = event.StackId;
 
             // @ts-expect-error

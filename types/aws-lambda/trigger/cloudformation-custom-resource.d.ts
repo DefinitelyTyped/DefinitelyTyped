@@ -30,6 +30,7 @@ export type CloudFormationCustomResourceResponse<TData extends Record<string, an
 export interface CloudFormationCustomResourceEventCommon<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
 > {
+    ServiceToken: string;
     ResponseURL: string;
     StackId: string;
     RequestId: string;

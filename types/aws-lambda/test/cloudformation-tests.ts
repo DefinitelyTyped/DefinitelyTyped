@@ -27,6 +27,7 @@ const defaultHandler: CloudFormationCustomResourceHandler = async (event, contex
             str = event.ResourceProperties.ServiceToken;
             str = event.ResourceType;
             str = event.ResponseURL;
+            str = event.ServiceToken;
             str = event.StackId;
             break;
         case "Update":
@@ -101,6 +102,7 @@ const customHandler: CloudFormationCustomResourceHandler<CustomResourcePropertie
             bool = event.ResourceProperties.customSwitch;
             str = event.ResourceType;
             str = event.ResponseURL;
+            str = event.ServiceToken;
             str = event.StackId;
             break;
         case "Update":
@@ -183,6 +185,7 @@ const customChangedHandler: CloudFormationCustomResourceHandler<CustomResourcePr
                 bool = event.ResourceProperties.customSwitch;
                 str = event.ResourceType;
                 str = event.ResponseURL;
+                str = event.ServiceToken;
                 str = event.StackId;
                 break;
             case "Update":
