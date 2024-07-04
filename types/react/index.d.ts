@@ -3945,17 +3945,29 @@ declare namespace React {
     // https://developer.mozilla.org/en-US/docs/Web/MathML/Element/math
     //
     interface MathMLMathAttributes extends MathMLAttributes<MathMLMathElement> {
-        display?: 'block' | 'inline';
+        display?: 'block' | 'inline' | undefined;
     }
     interface MathMLMErrorAttributes extends MathMLAttributes<MathMLMErrorAttributes> {}
     interface MathMLMFracElement extends MathMLAttributes<MathMLMFracElement> {
-        linethickness: string;
+        linethickness?: string | undefined;
     }
     interface MathMLMIElement extends MathMLAttributes<MathMLMIElement> {
-        mathvariant: 'normal';
+        mathvariant?: 'normal' | undefined;
     }
     interface MathMLMMultiScriptsElement extends MathMLAttributes<MathMLMMultiScriptsElement> {}
     interface MathMLMNElement extends MathMLAttributes<MathMLMNElement> {}
+    interface MathMLMOElement extends MathMLAttributes<MathMLMNElement> {
+        fence?: boolean | undefined;
+        largeop?: boolean | undefined;
+        lspace?: string | undefined;
+        maxsize?: string | undefined;
+        minsize?: string | undefined;
+        movablelimits?: boolean | undefined;
+        rspace?: string | undefined;
+        separator?: boolean | undefined;
+        stretchy?: boolean | undefined;
+        symmetric?: boolean | undefined;
+    }
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4559,6 +4571,7 @@ declare global {
             mi: React.MathMLProps<MathMLMIElement>;
             mmultiscripts: React.MathMLProps<MathMLMMultiScriptsElement>;
             mn: React.MathMLProps<MathMLMNElement>;
+            mo: React.MathMLProps<MathMLMOElement>;
         }
     }
 }
