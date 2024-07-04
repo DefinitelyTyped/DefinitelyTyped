@@ -3927,7 +3927,7 @@ declare namespace React {
     // https://developer.mozilla.org/en-US/docs/Web/MathML/Global_attributes
     interface MathMLAttributes<T> extends DOMAttributes<T> {
         className?: string | undefined;
-        dir?: 'ltr' | 'rtl' | undefined;
+        dir?: "ltr" | "rtl" | undefined;
         displaystyle?: boolean | undefined;
         href?: string | undefined;
         id?: string | undefined;
@@ -3945,14 +3945,14 @@ declare namespace React {
     // https://developer.mozilla.org/en-US/docs/Web/MathML/Element/math
     //
     interface MathMLMathAttributes extends MathMLAttributes<MathMLMathElement> {
-        display?: 'block' | 'inline' | undefined;
+        display?: "block" | "inline" | undefined;
     }
     interface MathMLMerrorAttributes extends MathMLAttributes<MathMLMerrorAttributes> {}
     interface MathMLMfracAttributes extends MathMLAttributes<MathMLMfracElement> {
         linethickness?: string | undefined;
     }
     interface MathMLMiAttributes extends MathMLAttributes<MathMLMiElement> {
-        mathvariant?: 'normal' | undefined;
+        mathvariant?: "normal" | undefined;
     }
     interface MathMLMmultiscriptsAttributes extends MathMLAttributes<MathMLMmultiscriptsElement> {}
     interface MathMLMnAttributes extends MathMLAttributes<MathMLMnElement> {}
@@ -4012,7 +4012,7 @@ declare namespace React {
         /* This attribute is non-standard. */
         columnspacing?: string | undefined;
         /* This attribute is non-standard. */
-        frame?: 'none' | 'solid' | 'dashed' | undefined;
+        frame?: "none" | "solid" | "dashed" | undefined;
         /* This attribute is non-standard. */
         framespacing?: string | undefined;
         /* This attribute is non-standard. */
@@ -4026,18 +4026,18 @@ declare namespace React {
     }
     interface MathMLMtdAttributes extends MathMLAttributes<MathMLMtdElement> {
         /* This attribute is non-standard. */
-        columnalign?: 'left' | 'center' | 'right' | undefined;
+        columnalign?: "left" | "center" | "right" | undefined;
         columnspan?: number | string | undefined;
         /* This attribute is non-standard. */
-        rowalign?: 'axis' | 'baseline' | 'bottom' | 'center' | 'top' | undefined;
+        rowalign?: "axis" | "baseline" | "bottom" | "center" | "top" | undefined;
         rowspan?: number | string | undefined;
     }
     interface MathMLMtextAttributes extends MathMLAttributes<MathMLMtextElement> {}
     interface MathMLMtrAttributes extends MathMLAttributes<MathMLMtrElement> {
         /* This attribute is non-standard. */
-        columnalign?: 'left' | 'center' | 'right' | undefined;
+        columnalign?: "left" | "center" | "right" | undefined;
         /* This attribute is non-standard. */
-        rowalign?: 'axis' | 'baseline' | 'bottom' | 'center' | 'top' | undefined;
+        rowalign?: "axis" | "baseline" | "bottom" | "center" | "top" | undefined;
     }
     interface MathMLMunderAttributes extends MathMLAttributes<MathMLMunderElement> {
         accentunder?: boolean | undefined;
@@ -4048,17 +4048,17 @@ declare namespace React {
     }
     /**
      * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
-    */
+     */
     interface MathMLSemanticsAttributes extends MathMLAttributes<MathMLSemanticsElement> {}
     /**
      * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
-    */
+     */
     interface MathMLAnnotationAttributes extends MathMLAttributes<MathMLAnnotationElement> {
         encoding?: string | undefined;
     }
     /**
      * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
-    */
+     */
     interface MathMLAnnotationXmlAttributes extends MathMLAttributes<MathMLAnnotationXmlElement> {
         encoding?: string | undefined;
     }
@@ -4688,7 +4688,7 @@ declare global {
             semantics: React.MathMLProps<React.MathMLSemanticsAttributes, MathMLSemanticsElement>;
             // MathML semantic annotations
             annotation: React.MathMLProps<React.MathMLAnnotationAttributes, MathMLAnnotationElement>;
-            'annotation-xml': React.MathMLProps<React.MathMLAnnotationXmlAttributes, MathMLAnnotationXmlElement>;
+            "annotation-xml": React.MathMLProps<React.MathMLAnnotationXmlAttributes, MathMLAnnotationXmlElement>;
         }
     }
 }

@@ -106,28 +106,31 @@ const testCases = [
     <mn>1</mn>,
     <mo>+</mo>,
     <mo
-      accent
-      fence
-      largeop
-      lspace="2px"
-      maxsize="14px"
-      minsize="12px"
-      movablelimits
-      rspace="2px"
-      separator
-      stretchy
-      symmetric
-      >+</mo>,
+        accent
+        fence
+        largeop
+        lspace="2px"
+        maxsize="14px"
+        minsize="12px"
+        movablelimits
+        rspace="2px"
+        separator
+        stretchy
+        symmetric
+    >
+        +
+    </mo>,
     <mover></mover>,
     <mover accent></mover>,
     <mpadded></mpadded>,
     <mpadded
-      depth="1px"
-      height="1px"
-      lspace="1px"
-      voffset="1px"
-      width="1px"
-      ></mpadded>,
+        depth="1px"
+        height="1px"
+        lspace="1px"
+        voffset="1px"
+        width="1px"
+    >
+    </mpadded>,
     <mphantom></mphantom>,
     <mroot></mroot>,
     <mrow></mrow>,
@@ -135,10 +138,11 @@ const testCases = [
     <ms lquote="&quot;" rquote="&quot;"></ms>,
     <mspace></mspace>,
     <mspace
-      depth="1px"
-      height="1px"
-      width="1px"
-      ></mspace>,
+        depth="1px"
+        height="1px"
+        width="1px"
+    >
+    </mspace>,
     <msqrt></msqrt>,
     <mstyle displaystyle={false} mathcolor="teal"></mstyle>,
     <msub></msub>,
@@ -146,45 +150,50 @@ const testCases = [
     <msup></msup>,
     <mtable></mtable>,
     <mtable
-      align="top"
-      columnalign="left"
-      columnlines="solid"
-      columnspacing="2em"
-      frame="solid"
-      framespacing="2px"
-      rowalign="top"
-      rowspacing="1em"
-      width="100%"
-      ></mtable>,
+        align="top"
+        columnalign="left"
+        columnlines="solid"
+        columnspacing="2em"
+        frame="solid"
+        framespacing="2px"
+        rowalign="top"
+        rowspacing="1em"
+        width="100%"
+    >
+    </mtable>,
     // @ts-expect-error
     <mtable frame="whoops"></mtable>,
     <mtext></mtext>,
     <mtd></mtd>,
     <mtd
-      columnalign="left"
-      columnspan={1}
-      rowalign="top"
-      rowspan={2}
-      ></mtd>,
+        columnalign="left"
+        columnspan={1}
+        rowalign="top"
+        rowspan={2}
+    >
+    </mtd>,
     <mtd
-      // @ts-expect-error
-      columnalign="whoops"
-      columnspan="1"
-      // @ts-expect-error
-      rowalign="whoops"
-      rowspan="2"
-      ></mtd>,
+        // @ts-expect-error
+        columnalign="whoops"
+        columnspan="1"
+        // @ts-expect-error
+        rowalign="whoops"
+        rowspan="2"
+    >
+    </mtd>,
     <mtr></mtr>,
     <mtr
-      columnalign="left"
-      rowalign="top"
-      ></mtr>,
+        columnalign="left"
+        rowalign="top"
+    >
+    </mtr>,
     <mtr
-      // @ts-expect-error
-      columnalign="whoops"
-      // @ts-expect-error
-      rowalign="whoops"
-      ></mtr>,
+        // @ts-expect-error
+        columnalign="whoops"
+        // @ts-expect-error
+        rowalign="whoops"
+    >
+    </mtr>,
     <munder></munder>,
     <munder accentunder></munder>,
     <munderover></munderover>,
@@ -200,38 +209,38 @@ const testCases = [
         The infinite sum
         <math display="block">
             <mrow>
-            <munderover>
-                <mo>∑</mo>
-                <mrow>
-                <mi>n</mi>
-                <mo>=</mo>
-                <mn>1</mn>
-                </mrow>
-                <mrow>
-                <mo>+</mo>
-                <mn>∞</mn>
-                </mrow>
-            </munderover>
-            <mfrac>
-                <mn>1</mn>
-                <msup>
-                <mi>n</mi>
-                <mn>2</mn>
-                </msup>
-            </mfrac>
+                <munderover>
+                    <mo>∑</mo>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>=</mo>
+                        <mn>1</mn>
+                    </mrow>
+                    <mrow>
+                        <mo>+</mo>
+                        <mn>∞</mn>
+                    </mrow>
+                </munderover>
+                <mfrac>
+                    <mn>1</mn>
+                    <msup>
+                        <mi>n</mi>
+                        <mn>2</mn>
+                    </msup>
+                </mfrac>
             </mrow>
         </math>
         is equal to the real number
         <math display="inline">
             <mfrac>
-            <msup>
-                <mi>π</mi>
-                <mn>2</mn>
-            </msup>
-            <mn>6</mn>
+                <msup>
+                    <mi>π</mi>
+                    <mn>2</mn>
+                </msup>
+                <mn>6</mn>
             </mfrac>
         </math>.
-    </p>
+    </p>,
 ];
 
 // Needed to check these HTML elements in event callbacks.
