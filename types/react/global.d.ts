@@ -177,6 +177,10 @@ interface MathMLMtextElement extends MathMLElement {}
 interface MathMLMtrElement extends MathMLElement {}
 interface MathMLMunderElement extends MathMLElement {}
 interface MathMLMunderoverElement extends MathMLElement {}
+interface MathMLSemanticsElement extends MathMLElement {}
+
+interface MathMLAnnotationElement extends MathMLElement {}
+interface MathMLAnnotationXmlElement extends MathMLElement {}
 
 interface FormData {}
 interface Text {}
