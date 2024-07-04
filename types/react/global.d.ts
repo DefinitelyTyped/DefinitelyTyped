@@ -160,6 +160,7 @@ interface MathMLMmultiscriptsElement extends MathMLElement {}
 interface MathMLMnElement extends MathMLElement {}
 interface MathMLMoElement extends MathMLElement {}
 interface MathMLMoverElement extends MathMLElement {}
+interface MathMLMpaddedElement extends MathMLElement {}
 
 interface FormData {}
 interface Text {}
