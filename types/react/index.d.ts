@@ -3957,6 +3957,8 @@ declare namespace React {
     interface MathMLMmultiscriptsElement extends MathMLAttributes<MathMLMmultiscriptsElement> {}
     interface MathMLMnElement extends MathMLAttributes<MathMLMnElement> {}
     interface MathMLMoElement extends MathMLAttributes<MathMLMoElement> {
+        /* This attribute is non-standard. */
+        accent?: boolean | undefined;
         fence?: boolean | undefined;
         largeop?: boolean | undefined;
         lspace?: string | undefined;
@@ -3995,13 +3997,43 @@ declare namespace React {
     interface MathMLMsubElement extends MathMLAttributes<MathMLMsubElement> {}
     interface MathMLMsubsupElement extends MathMLAttributes<MathMLMsubsupElement> {}
     interface MathMLMsupElement extends MathMLAttributes<MathMLMsupElement> {}
-    interface MathMLMtableElement extends MathMLAttributes<MathMLMtableElement> {}
+    interface MathMLMtableElement extends MathMLAttributes<MathMLMtableElement> {
+        /* This attribute is non-standard. */
+        align?: string | undefined;
+        /* This attribute is non-standard. */
+        columnalign?: string | undefined;
+        /* This attribute is non-standard. */
+        columnlines?: string | undefined;
+        /* This attribute is non-standard. */
+        columnspacing?: string | undefined;
+        /* This attribute is non-standard. */
+        frame?: 'none' | 'solid' | 'dashed' | undefined;
+        /* This attribute is non-standard. */
+        framespacing?: string | undefined;
+        /* This attribute is non-standard. */
+        rowalign?: string | undefined;
+        /* This attribute is non-standard. */
+        rowlines?: string | undefined;
+        /* This attribute is non-standard. */
+        rowspacing?: string | undefined;
+        /* This attribute is non-standard. */
+        width?: string | undefined;
+    }
     interface MathMLMtdElement extends MathMLAttributes<MathMLMtdElement> {
+        /* This attribute is non-standard. */
+        columnalign?: 'left' | 'center' | 'right' | undefined;
         columnspan?: number | string | undefined;
+        /* This attribute is non-standard. */
+        rowalign?: 'axis' | 'baseline' | 'bottom' | 'center' | 'top' | undefined;
         rowspan?: number | string | undefined;
     }
     interface MathMLMtextElement extends MathMLAttributes<MathMLMtextElement> {}
-    interface MathMLMtrElement extends MathMLAttributes<MathMLMtrElement> {}
+    interface MathMLMtrElement extends MathMLAttributes<MathMLMtrElement> {
+        /* This attribute is non-standard. */
+        columnalign?: 'left' | 'center' | 'right' | undefined;
+        /* This attribute is non-standard. */
+        rowalign?: 'axis' | 'baseline' | 'bottom' | 'center' | 'top' | undefined;
+    }
     interface MathMLMunderElement extends MathMLAttributes<MathMLMunderElement> {
         accentunder?: boolean | undefined;
     }
