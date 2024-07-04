@@ -3798,6 +3798,13 @@ declare namespace React {
     interface MathMLMoverElement extends MathMLAttributes<MathMLMoverElement> {
         accent?: boolean | undefined;
     }
+    interface MathMLMpaddedElement extends MathMLAttributes<MathMLMpaddedElement> {
+        depth?: string | undefined;
+        height?: string | undefined;
+        lspace?: string | undefined;
+        voffset?: string | undefined;
+        width?: string | undefined;
+    }
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4266,6 +4273,7 @@ declare namespace React {
             mn: React.MathMLProps<MathMLMnElement>;
             mo: React.MathMLProps<MathMLMoElement>;
             mover: React.MathMLProps<MathMLMoverElement>;
+            mpadded: React.MathMLProps<MathMLMpaddedElement>;
         }
     }
 }
