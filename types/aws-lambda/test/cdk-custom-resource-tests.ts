@@ -15,7 +15,6 @@ const onEventHandler: CdkCustomResourceHandler = async (event, context) => {
             str = event.ResourceType;
             // Should have custom comment to not use:
             str = event.ResponseURL;
-            str = event.ServiceToken;
             str = event.StackId;
 
             // @ts-expect-error

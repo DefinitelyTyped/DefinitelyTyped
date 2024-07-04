@@ -14,7 +14,6 @@ const handler: CloudFormationCustomResourceHandler = async (event, context, call
             str = event.ResourceProperties.ServiceToken;
             str = event.ResourceType;
             str = event.ResponseURL;
-            str = event.ServiceToken;
             str = event.StackId;
             break;
         case "Update":
