@@ -162,6 +162,7 @@ interface MathMLMoElement extends MathMLElement {}
 interface MathMLMoverElement extends MathMLElement {}
 interface MathMLMpaddedElement extends MathMLElement {}
 interface MathMLMphantomElement extends MathMLElement {}
+interface MathMLMprescriptsElement extends MathMLElement {}
 interface MathMLMrootElement extends MathMLElement {}
 interface MathMLMrowElement extends MathMLElement {}
 interface MathMLMsElement extends MathMLElement {}
