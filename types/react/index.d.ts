@@ -3947,16 +3947,16 @@ declare namespace React {
     interface MathMLMathAttributes extends MathMLAttributes<MathMLMathElement> {
         display?: 'block' | 'inline' | undefined;
     }
-    interface MathMLMErrorAttributes extends MathMLAttributes<MathMLMErrorAttributes> {}
-    interface MathMLMFracElement extends MathMLAttributes<MathMLMFracElement> {
+    interface MathMLMerrorAttributes extends MathMLAttributes<MathMLMerrorAttributes> {}
+    interface MathMLMfracElement extends MathMLAttributes<MathMLMfracElement> {
         linethickness?: string | undefined;
     }
-    interface MathMLMIElement extends MathMLAttributes<MathMLMIElement> {
+    interface MathMLMiElement extends MathMLAttributes<MathMLMiElement> {
         mathvariant?: 'normal' | undefined;
     }
-    interface MathMLMMultiScriptsElement extends MathMLAttributes<MathMLMMultiScriptsElement> {}
-    interface MathMLMNElement extends MathMLAttributes<MathMLMNElement> {}
-    interface MathMLMOElement extends MathMLAttributes<MathMLMNElement> {
+    interface MathMLMmultiscriptsElement extends MathMLAttributes<MathMLMmultiscriptsElement> {}
+    interface MathMLMnElement extends MathMLAttributes<MathMLMnElement> {}
+    interface MathMLMoElement extends MathMLAttributes<MathMLMoElement> {
         fence?: boolean | undefined;
         largeop?: boolean | undefined;
         lspace?: string | undefined;
@@ -4566,12 +4566,12 @@ declare global {
 
             // MathML
             math: React.MathMLProps<MathMLMathElement>;
-            merror: React.MathMLProps<MathMLMErrorElement>;
-            mfrac: React.MathMLProps<MathMLMFracElement>;
-            mi: React.MathMLProps<MathMLMIElement>;
-            mmultiscripts: React.MathMLProps<MathMLMMultiScriptsElement>;
-            mn: React.MathMLProps<MathMLMNElement>;
-            mo: React.MathMLProps<MathMLMOElement>;
+            merror: React.MathMLProps<MathMLMerrorElement>;
+            mfrac: React.MathMLProps<MathMLMfracElement>;
+            mi: React.MathMLProps<MathMLMiElement>;
+            mmultiscripts: React.MathMLProps<MathMLMmultiscriptsElement>;
+            mn: React.MathMLProps<MathMLMnElement>;
+            mo: React.MathMLProps<MathMLMoElement>;
         }
     }
 }
