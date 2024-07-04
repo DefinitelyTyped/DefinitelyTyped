@@ -163,6 +163,7 @@ interface MathMLMoverElement extends MathMLElement {}
 interface MathMLMpaddedElement extends MathMLElement {}
 interface MathMLMphantomElement extends MathMLElement {}
 interface MathMLMrootElement extends MathMLElement {}
+interface MathMLMrowElement extends MathMLElement {}
 
 interface FormData {}
 interface Text {}
