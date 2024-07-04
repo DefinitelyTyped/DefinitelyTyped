@@ -174,6 +174,7 @@ interface MathMLMsubsupElement extends MathMLElement {}
 interface MathMLMsupElement extends MathMLElement {}
 interface MathMLMtableElement extends MathMLElement {}
 interface MathMLMtdElement extends MathMLElement {}
+interface MathMLMtextElement extends MathMLElement {}
 
 interface FormData {}
 interface Text {}
