@@ -3815,6 +3815,7 @@ declare namespace React {
         voffset?: string | undefined;
         width?: string | undefined;
     }
+    interface MathMLMphantomElement extends MathMLAttributes<MathMLMphantomElement>;
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4284,6 +4285,7 @@ declare namespace React {
             mo: React.MathMLProps<MathMLMoElement>;
             mover: React.MathMLProps<MathMLMoverElement>;
             mpadded: React.MathMLProps<MathMLMpaddedElement>;
+            mphantom: React.MathMLProps<MathMLMphantomElement>;
         }
     }
 }
