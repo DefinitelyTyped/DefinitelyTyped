@@ -3828,6 +3828,10 @@ declare namespace React {
         rowspan?: number | string | undefined;
     }
     interface MathMLMtextElement extends MathMLAttributes<MathMLMtextElement> {}
+    interface MathMLMtrElement extends MathMLAttributes<MathMLMtrElement> {}
+    interface MathMLMunderElement extends MathMLAttributes<MathMLMunderElement> {
+        accentunder?: boolean | undefined;
+    }
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4310,6 +4314,8 @@ declare namespace React {
             mtable: React.MathMLProps<MathMLMtableElement>;
             mtd: React.MathMLProps<MathMLMtdElement>;
             mtext: React.MathMLProps<MathMLMtextElement>;
+            mtr: React.MathMLProps<MathMLMtrElement>;
+            munder: React.MathMLProps<MathMLMunderElement>;
         }
     }
 }
