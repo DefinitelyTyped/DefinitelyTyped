@@ -154,6 +154,7 @@ interface SVGViewElement extends SVGElement {}
 interface MathMLElement extends Element {}
 interface MathMLMathElement extends MathMLElement {}
 interface MathMLMErrorElement extends MathMLElement {}
+interface MathMLMFracElement extends MathMLElement {}
 
 interface FormData {}
 interface Text {}
