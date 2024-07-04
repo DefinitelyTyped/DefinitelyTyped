@@ -3993,6 +3993,7 @@ declare namespace React {
     interface MathMLMsqrtElement extends MathMLAttributes<MathMLMsqrtElement> {}
     interface MathMLMstyleElement extends MathMLAttributes<MathMLMstyleElement> {}
     interface MathMLMsubElement extends MathMLAttributes<MathMLMsubElement> {}
+    interface MathMLMsubsupElement extends MathMLAttributes<MathMLMsubsupElement> {}
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4607,6 +4608,7 @@ declare global {
             msqrt: React.MathMLProps<MathMLMsqrtElement>;
             mstyle: React.MathMLProps<MathMLMstyleElement>;
             msub: React.MathMLProps<MathMLMsubElement>;
+            msubsup: React.MathMLProps<MathMLMsubsupElement>;
         }
     }
 }
