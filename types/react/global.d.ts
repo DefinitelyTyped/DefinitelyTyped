@@ -152,6 +152,9 @@ interface SVGTSpanElement extends SVGElement {}
 interface SVGUseElement extends SVGElement {}
 interface SVGViewElement extends SVGElement {}
 
+interface MathMLElement extends Element {}
+interface MathMLMathElement extends MathMLElement {}
+
 interface FormData {}
 interface Text {}
 interface TouchList {}
