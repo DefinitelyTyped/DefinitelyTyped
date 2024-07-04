@@ -3846,6 +3846,7 @@ declare namespace React {
         accent?: boolean | undefined;
         accentunder?: boolean | undefined;
     }
+    interface MathMLSemanticsElement extends MathMLAttributes<MathMLSemanticsElement> {}
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
