@@ -3782,11 +3782,14 @@ declare namespace React {
     // https://developer.mozilla.org/en-US/docs/Web/MathML/Element/math
     //
     interface MathMLMathAttributes extends MathMLAttributes<MathMLMathElement> {
-        display?: 'block' | 'inline'
+        display?: 'block' | 'inline';
     }
     interface MathMLMErrorAttributes extends MathMLAttributes<MathMLMErrorAttributes> {}
     interface MathMLMFracElement extends MathMLAttributes<MathMLMFracElement> {
         linethickness: string;
+    }
+    interface MathMLMIElement extends MathMLAttributes<MathMLMIElement> {
+        mathvariant: 'normal';
     }
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -4251,6 +4254,7 @@ declare namespace React {
             math: React.MathMLProps<MathMLMathElement>;
             merror: React.MathMLProps<MathMLMErrorElement>;
             mfrac: React.MathMLProps<MathMLMFracElement>;
+            mi: React.MathMLProps<MathMLMIElement>;
         }
     }
 }
