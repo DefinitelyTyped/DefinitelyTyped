@@ -157,7 +157,8 @@ interface MathMLMathElement extends MathMLElement {}
 interface MathMLMErrorElement extends MathMLElement {}
 interface MathMLMFracElement extends MathMLElement {}
 interface MathMLMIElement extends MathMLElement {}
-interface MathMLMMultiScriptsElement extends MathMLElement{}
+interface MathMLMMultiScriptsElement extends MathMLElement {}
+interface MathMLMNElement extends MathMLElement {}
 
 interface FormData {}
 interface Text {}
