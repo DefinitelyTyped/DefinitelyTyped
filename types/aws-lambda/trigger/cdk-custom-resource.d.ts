@@ -5,8 +5,11 @@ import { CloudFormationCustomResourceEvent, ResourcePropertiesCommon } from "./c
 // to the Lambda matches that of a traditional custom resource.
 // This includes the ResponseURL property which should not be used as the framework
 // itself will deal with delivering responses.
-export type CdkCustomResourceEvent<TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon> =
-    & CloudFormationCustomResourceEvent<TResourceProperties>
+export type CdkCustomResourceEvent<
+    TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+> =
+    & CloudFormationCustomResourceEvent<TResourceProperties, TOldResourceProperties>
     & {
         /**
          * **This URL should not be used.** The CDK Provider Framework will call this URL
@@ -23,7 +26,8 @@ export type CdkCustomResourceEvent<TResourceProperties extends ResourcePropertie
 export type CdkCustomResourceHandler<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
     TData extends Record<string, any> = Record<string, any>,
-> = Handler<CdkCustomResourceEvent<TResourceProperties>, CdkCustomResourceResponse<TData>>;
+    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+> = Handler<CdkCustomResourceEvent<TResourceProperties, TOldResourceProperties>, CdkCustomResourceResponse<TData>>;
 export type CdkCustomResourceCallback<TData extends Record<string, any>> = Callback<CdkCustomResourceResponse<TData>>;
 
 export interface CdkCustomResourceResponse<TData extends Record<string, any> = Record<string, any>> {
@@ -39,7 +43,8 @@ export interface CdkCustomResourceResponse<TData extends Record<string, any> = R
 export type CdkCustomResourceIsCompleteEvent<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
     TData extends Record<string, any> = Record<string, any>,
-> = CdkCustomResourceEvent<TResourceProperties> & CdkCustomResourceResponse<TData>;
+    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+> = CdkCustomResourceEvent<TResourceProperties, TOldResourceProperties> & CdkCustomResourceResponse<TData>;
 
 export type CdkCustomResourceIsCompleteResponse<TData extends Record<string, any> = Record<string, any>> =
     | CdkCustomResourceIsCompleteResponseSuccess<TData>
@@ -64,9 +69,10 @@ export interface CdkCustomResourceIsCompleteResponseWaiting {
 export type CdkCustomResourceIsCompleteHandler<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
     TOnEventData extends Record<string, any> = Record<string, any>,
+    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
     TIsCompleteData extends Record<string, any> = Record<string, any>,
 > = Handler<
-    CdkCustomResourceIsCompleteEvent<TResourceProperties, TOnEventData>,
+    CdkCustomResourceIsCompleteEvent<TResourceProperties, TOnEventData, TOldResourceProperties>,
     CdkCustomResourceIsCompleteResponse<TIsCompleteData>
 >;
 export type CdkCustomResourceIsCompleteCallback<TData extends Record<string, any> = Record<string, any>> = Callback<

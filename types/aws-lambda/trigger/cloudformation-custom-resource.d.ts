@@ -8,13 +8,15 @@ export interface ResourcePropertiesCommon extends Record<string, any> {
 // Note, responses are *not* lambda results, they are sent to the event ResponseURL.
 export type CloudFormationCustomResourceHandler<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
-> = Handler<CloudFormationCustomResourceEvent<TResourceProperties>, void>;
+    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+> = Handler<CloudFormationCustomResourceEvent<TResourceProperties, TOldResourceProperties>, void>;
 
 export type CloudFormationCustomResourceEvent<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
 > =
     | CloudFormationCustomResourceCreateEvent<TResourceProperties>
-    | CloudFormationCustomResourceUpdateEvent<TResourceProperties>
+    | CloudFormationCustomResourceUpdateEvent<TResourceProperties, TOldResourceProperties>
     | CloudFormationCustomResourceDeleteEvent<TResourceProperties>;
 
 export type CloudFormationCustomResourceResponse<TData extends Record<string, any> = Record<string, any>> =
@@ -44,12 +46,11 @@ export interface CloudFormationCustomResourceCreateEvent<
 
 export interface CloudFormationCustomResourceUpdateEvent<
     TResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
+    TOldResourceProperties extends ResourcePropertiesCommon = ResourcePropertiesCommon,
 > extends CloudFormationCustomResourceEventCommon<TResourceProperties> {
     RequestType: "Update";
     PhysicalResourceId: string;
-    OldResourceProperties: {
-        [Key: string]: any;
-    };
+    OldResourceProperties: TOldResourceProperties;
 }
 
 export interface CloudFormationCustomResourceDeleteEvent<
