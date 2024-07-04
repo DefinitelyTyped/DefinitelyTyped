@@ -3981,6 +3981,11 @@ declare namespace React {
         width?: string | undefined;
     }
     interface MathMLMphantomAttributes extends MathMLAttributes<MathMLMphantomElement> {}
+    // Described in relation to <mmultiscripts /> here:
+    //
+    // https://developer.mozilla.org/en-US/docs/Web/MathML/Element/mmultiscripts#using_mprescripts
+    //
+    interface MathMLMprescriptsAttributes extends MathMLAttributes<MathMLMprescriptsElement> {}
     interface MathMLMrootAttributes extends MathMLAttributes<MathMLMrootElement> {}
     interface MathMLMrowAttributes extends MathMLAttributes<MathMLMrowElement> {}
     interface MathMLMsAttributes extends MathMLAttributes<MathMLMrowElement> {
@@ -4664,6 +4669,7 @@ declare global {
             mover: React.MathMLProps<React.MathMLMoverAttributes, MathMLMoverElement>;
             mpadded: React.MathMLProps<React.MathMLMpaddedAttributes, MathMLMpaddedElement>;
             mphantom: React.MathMLProps<React.MathMLMphantomAttributes, MathMLMphantomElement>;
+            mprescripts: React.MathMLProps<React.MathMLMprescriptsAttributes, MathMLMprescriptsElement>;
             mroot: React.MathMLProps<React.MathMLMrootAttributes, MathMLMrootElement>;
             mrow: React.MathMLProps<React.MathMLMrowAttributes, MathMLMrowElement>;
             ms: React.MathMLProps<React.MathMLMsAttributes, MathMLMsElement>;
@@ -4678,7 +4684,7 @@ declare global {
             mtext: React.MathMLProps<React.MathMLMtextAttributes, MathMLMtextElement>;
             mtr: React.MathMLProps<React.MathMLMtrAttributes, MathMLMtrElement>;
             munder: React.MathMLProps<React.MathMLMunderAttributes, MathMLMunderElement>;
-            munderover: React.MathMLProps<React.MathMLMoverAttributes, MathMLMoverElement>;
+            munderover: React.MathMLProps<React.MathMLMunderoverAttributes, MathMLMunderoverElement>;
             semantics: React.MathMLProps<React.MathMLSemanticsAttributes, MathMLSemanticsElement>;
             // MathML semantic annotations
             annotation: React.MathMLProps<React.MathMLAnnotationAttributes, MathMLAnnotationElement>;
