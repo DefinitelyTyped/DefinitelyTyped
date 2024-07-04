@@ -3878,7 +3878,22 @@ declare namespace React {
         accent?: boolean | undefined;
         accentunder?: boolean | undefined;
     }
+    /**
+     * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
+    */
     interface MathMLSemanticsElement extends MathMLAttributes<MathMLSemanticsElement> {}
+    /**
+     * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
+    */
+    interface MathMLAnnotationElement extends MathMLAttributes<MathMLAnnotationElement> {
+        encoding?: string | undefined;
+    }
+    /**
+     * @see https://w3c.github.io/mathml-core/#semantics-and-presentation
+    */
+    interface MathMLAnnotationXmlElement extends MathMLAttributes<MathMLAnnotationXmlElement> {
+        encoding?: string | undefined;
+    }
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4364,6 +4379,10 @@ declare namespace React {
             mtr: React.MathMLProps<MathMLMtrElement>;
             munder: React.MathMLProps<MathMLMunderElement>;
             munderover: React.MathMLProps<MathMLMunderoverElement>;
+            semantics: React.MathMLProps<MathMLSemanticsElement>;
+            // MathML semantic annotations
+            annotation: React.MathMLProps<MathMLAnnotationElement>;
+            'annotation-xml': React.MathMLProps<MathMLAnnotationXmlElement>;
         }
     }
 }
