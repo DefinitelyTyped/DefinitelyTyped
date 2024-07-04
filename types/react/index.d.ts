@@ -3805,6 +3805,9 @@ declare namespace React {
         stretchy?: boolean | undefined;
         symmetric?: boolean | undefined;
     }
+    interface MathMLMoverElement extends MathMLAttributes<MathMLMoverElement> {
+        accent?: boolean | undefined;
+    }
 
     interface WebViewHTMLAttributes<T> extends HTMLAttributes<T> {
         allowFullScreen?: boolean | undefined;
@@ -4272,6 +4275,7 @@ declare namespace React {
             mmultiscripts: React.MathMLProps<MathMLMmultiscriptsElement>;
             mn: React.MathMLProps<MathMLMnElement>;
             mo: React.MathMLProps<MathMLMoElement>;
+            mover: React.MathMLProps<MathMLMoverElement>;
         }
     }
 }
