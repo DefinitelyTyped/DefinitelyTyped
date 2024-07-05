@@ -35,11 +35,11 @@ declare namespace messenger {
             cloud_file?: _WebExtensionManifestCloudFile | undefined;
             commands?:
                 | {
-                      [key: string]: {
-                          suggested_key?: _UndefinedSuggestedKey | undefined;
-                          description?: string | undefined;
-                      };
-                  }
+                    [key: string]: {
+                        suggested_key?: _UndefinedSuggestedKey | undefined;
+                        description?: string | undefined;
+                    };
+                }
                 | undefined;
             compose_action?: _WebExtensionManifestComposeAction | undefined;
             message_display_action?: _WebExtensionManifestMessageDisplayAction | undefined;
@@ -67,19 +67,19 @@ declare namespace messenger {
             incognito?: _WebExtensionManifestIncognito | undefined;
             background?:
                 | {
-                      page: ExtensionURL;
-                      /** Not supported on manifest versions above 2. */
-                      persistent?: boolean | undefined;
-                  }
+                    page: ExtensionURL;
+                    /** Not supported on manifest versions above 2. */
+                    persistent?: boolean | undefined;
+                }
                 | {
-                      scripts: ExtensionURL[];
-                      type?: _UndefinedType | undefined;
-                      /** Not supported on manifest versions above 2. */
-                      persistent?: boolean | undefined;
-                  }
+                    scripts: ExtensionURL[];
+                    type?: _UndefinedType | undefined;
+                    /** Not supported on manifest versions above 2. */
+                    persistent?: boolean | undefined;
+                }
                 | {
-                      service_worker: ExtensionURL;
-                  }
+                    service_worker: ExtensionURL;
+                }
                 | undefined;
             /**
              * Alias property for options_ui.page, ignored when options_ui.page is
@@ -92,9 +92,9 @@ declare namespace messenger {
             content_security_policy?:
                 | string
                 | {
-                      /** The Content Security Policy used for extension pages. */
-                      extension_pages?: string | undefined;
-                  }
+                    /** The Content Security Policy used for extension pages. */
+                    extension_pages?: string | undefined;
+                }
                 | undefined;
             permissions?: PermissionOrOrigin[] | Permission[] | undefined;
             granted_host_permissions?: boolean | undefined;
@@ -104,10 +104,10 @@ declare namespace messenger {
             web_accessible_resources?:
                 | string[]
                 | Array<{
-                      resources: string[];
-                      matches?: MatchPattern[] | undefined;
-                      extension_ids?: Array<ExtensionID | '*'> | undefined;
-                  }>
+                    resources: string[];
+                    matches?: MatchPattern[] | undefined;
+                    extension_ids?: Array<ExtensionID | "*"> | undefined;
+                }>
                 | undefined;
             hidden?: boolean | undefined;
             page_action?: _WebExtensionManifestPageAction | undefined;
@@ -233,7 +233,7 @@ declare namespace messenger {
 
         export type PermissionPrivileged = _PermissionPrivileged;
 
-        export type Permission = string | PermissionNoPrompt | OptionalPermission | 'declarativeNetRequest';
+        export type Permission = string | PermissionNoPrompt | OptionalPermission | "declarativeNetRequest";
 
         /** Represents a protocol handler definition. */
         export interface ProtocolHandler {
@@ -394,7 +394,7 @@ declare namespace messenger {
             gecko_android?: GeckoAndroidSpecificProperties | undefined;
         }
 
-        export type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | '<all_urls>';
+        export type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | "<all_urls>";
 
         /** Same as MatchPattern above, but excludes<all_urls></all_urls> */
         export type MatchPatternRestricted = string;
@@ -444,14 +444,14 @@ declare namespace messenger {
 
         export type IconPath =
             | {
-                  [key: number]: ExtensionFileUrl;
-              }
+                [key: number]: ExtensionFileUrl;
+            }
             | ExtensionFileUrl;
 
         export type IconImageData =
             | {
-                  [key: number]: ImageData;
-              }
+                [key: number]: ImageData;
+            }
             | ImageData;
 
         export type ImageData = any;
@@ -465,70 +465,70 @@ declare namespace messenger {
         /** Represents a native manifest file */
         export type NativeManifest =
             | {
-                  name: string;
-                  description: string;
-                  path: string;
-                  type: 'pkcs11' | 'stdio';
-                  allowed_extensions: ExtensionID[];
-              }
+                name: string;
+                description: string;
+                path: string;
+                type: "pkcs11" | "stdio";
+                allowed_extensions: ExtensionID[];
+            }
             | {
-                  name: ExtensionID;
-                  description: string;
-                  data: { [key: string]: any };
-                  type: 'storage';
-              };
+                name: ExtensionID;
+                description: string;
+                data: { [key: string]: any };
+                type: "storage";
+            };
 
         export type _OptionalPermission =
-            | 'accountsRead'
-            | 'addressBooks'
-            | 'sensitiveDataUpload'
-            | 'compose'
-            | 'compose.save'
-            | 'compose.send'
-            | 'messagesModify'
-            | 'sensitiveDataUpload'
-            | 'accountsFolders'
-            | 'accountsIdentities'
-            | 'messagesDelete'
-            | 'messagesImport'
-            | 'messagesMove'
-            | 'messagesRead'
-            | 'messagesTags'
-            | 'messagesTagsList'
-            | 'messagesUpdate'
-            | 'messagesModifyPermanent'
-            | 'sensitiveDataUpload'
-            | 'tabs'
-            | 'tabHide'
-            | 'browserSettings'
-            | 'browsingData'
-            | 'declarativeNetRequestFeedback'
-            | 'downloads'
-            | 'downloads.open'
-            | 'management'
-            | 'clipboardRead'
-            | 'clipboardWrite'
-            | 'geolocation'
-            | 'notifications'
-            | 'pkcs11'
-            | 'privacy'
-            | 'proxy'
-            | 'nativeMessaging'
-            | 'webNavigation';
+            | "accountsRead"
+            | "addressBooks"
+            | "sensitiveDataUpload"
+            | "compose"
+            | "compose.save"
+            | "compose.send"
+            | "messagesModify"
+            | "sensitiveDataUpload"
+            | "accountsFolders"
+            | "accountsIdentities"
+            | "messagesDelete"
+            | "messagesImport"
+            | "messagesMove"
+            | "messagesRead"
+            | "messagesTags"
+            | "messagesTagsList"
+            | "messagesUpdate"
+            | "messagesModifyPermanent"
+            | "sensitiveDataUpload"
+            | "tabs"
+            | "tabHide"
+            | "browserSettings"
+            | "browsingData"
+            | "declarativeNetRequestFeedback"
+            | "downloads"
+            | "downloads.open"
+            | "management"
+            | "clipboardRead"
+            | "clipboardWrite"
+            | "geolocation"
+            | "notifications"
+            | "pkcs11"
+            | "privacy"
+            | "proxy"
+            | "nativeMessaging"
+            | "webNavigation";
 
-        export type _WebExtensionManifestActionDefaultWindows = 'normal' | 'messageDisplay';
+        export type _WebExtensionManifestActionDefaultWindows = "normal" | "messageDisplay";
 
         export type _WebExtensionManifestActionAllowedSpaces =
-            | 'mail'
-            | 'addressbook'
-            | 'calendar'
-            | 'tasks'
-            | 'chat'
-            | 'settings'
-            | 'default';
+            | "mail"
+            | "addressbook"
+            | "calendar"
+            | "tasks"
+            | "chat"
+            | "settings"
+            | "default";
 
         /** Specifies the type of the button. Default type is `button`. */
-        export type _WebExtensionManifestActionType = 'button' | 'menu';
+        export type _WebExtensionManifestActionType = "button" | "menu";
 
         /** Needs at least manifest version 3. */
         export interface _WebExtensionManifestAction {
@@ -583,21 +583,21 @@ declare namespace messenger {
          * Defines the location the browserAction button will appear. Deprecated
          * and ignored. Replaced by `allowed_spaces`
          */
-        export type _WebExtensionManifestBrowserActionDefaultArea = 'maintoolbar' | 'tabstoolbar';
+        export type _WebExtensionManifestBrowserActionDefaultArea = "maintoolbar" | "tabstoolbar";
 
-        export type _WebExtensionManifestBrowserActionDefaultWindows = 'normal' | 'messageDisplay';
+        export type _WebExtensionManifestBrowserActionDefaultWindows = "normal" | "messageDisplay";
 
         export type _WebExtensionManifestBrowserActionAllowedSpaces =
-            | 'mail'
-            | 'addressbook'
-            | 'calendar'
-            | 'tasks'
-            | 'chat'
-            | 'settings'
-            | 'default';
+            | "mail"
+            | "addressbook"
+            | "calendar"
+            | "tasks"
+            | "chat"
+            | "settings"
+            | "default";
 
         /** Specifies the type of the button. Default type is `button`. */
-        export type _WebExtensionManifestBrowserActionType = 'button' | 'menu';
+        export type _WebExtensionManifestBrowserActionType = "button" | "menu";
 
         /** Not supported on manifest versions above 2. */
         export interface _WebExtensionManifestBrowserAction {
@@ -655,18 +655,18 @@ declare namespace messenger {
         }
 
         /** The type of param can be either "purpose" or "pref". */
-        export type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = 'purpose' | 'pref';
+        export type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = "purpose" | "pref";
 
         /**
          * The context that initiates a search, required if condition is
          * "purpose".
          */
         export type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose =
-            | 'contextmenu'
-            | 'searchbar'
-            | 'homepage'
-            | 'keyword'
-            | 'newtab';
+            | "contextmenu"
+            | "searchbar"
+            | "homepage"
+            | "keyword"
+            | "newtab";
 
         export interface _WebExtensionManifestChromeSettingsOverridesSearchProviderParams {
             /** A url parameter name */
@@ -799,10 +799,10 @@ declare namespace messenger {
          * Defines the location the composeAction button will appear. The default
          * location is `maintoolbar`.
          */
-        export type _WebExtensionManifestComposeActionDefaultArea = 'maintoolbar' | 'formattoolbar';
+        export type _WebExtensionManifestComposeActionDefaultArea = "maintoolbar" | "formattoolbar";
 
         /** Specifies the type of the button. Default type is `button`. */
-        export type _WebExtensionManifestComposeActionType = 'button' | 'menu';
+        export type _WebExtensionManifestComposeActionType = "button" | "menu";
 
         export interface _WebExtensionManifestComposeAction {
             /**
@@ -845,7 +845,7 @@ declare namespace messenger {
         }
 
         /** Specifies the type of the button. Default type is `button`. */
-        export type _WebExtensionManifestMessageDisplayActionType = 'button' | 'menu';
+        export type _WebExtensionManifestMessageDisplayActionType = "button" | "menu";
 
         export interface _WebExtensionManifestMessageDisplayAction {
             /**
@@ -905,9 +905,9 @@ declare namespace messenger {
             [key: number]: ExtensionFileUrl;
         }
 
-        export type _WebExtensionManifestIncognito = 'not_allowed' | 'spanning';
+        export type _WebExtensionManifestIncognito = "not_allowed" | "spanning";
 
-        export type _UndefinedType = 'module' | 'classic';
+        export type _UndefinedType = "module" | "classic";
 
         export interface _WebExtensionManifestOptionsUi {
             page: ExtensionURL;
@@ -965,29 +965,29 @@ declare namespace messenger {
         }
 
         export type _PermissionNoPrompt =
-            | 'menus'
-            | 'theme'
-            | 'captivePortal'
-            | 'contextualIdentities'
-            | 'declarativeNetRequestWithHostAccess'
-            | 'dns'
-            | 'geckoProfiler'
-            | 'identity'
-            | 'alarms'
-            | 'storage'
-            | 'unlimitedStorage';
+            | "menus"
+            | "theme"
+            | "captivePortal"
+            | "contextualIdentities"
+            | "declarativeNetRequestWithHostAccess"
+            | "dns"
+            | "geckoProfiler"
+            | "identity"
+            | "alarms"
+            | "storage"
+            | "unlimitedStorage";
 
         export type _OptionalPermissionNoPrompt =
-            | 'menus.overrideContext'
-            | 'activeTab'
-            | 'cookies'
-            | 'idle'
-            | 'scripting'
-            | 'webRequest'
-            | 'webRequestAuthProvider'
-            | 'webRequestBlocking'
-            | 'webRequestFilterResponse'
-            | 'webRequestFilterResponse.serviceWorkerScript';
+            | "menus.overrideContext"
+            | "activeTab"
+            | "cookies"
+            | "idle"
+            | "scripting"
+            | "webRequest"
+            | "webRequestAuthProvider"
+            | "webRequestBlocking"
+            | "webRequestFilterResponse"
+            | "webRequestFilterResponse.serviceWorkerScript";
 
         /**
          * A _dictionary object_ with one or more _key-value_ pairs to map images
@@ -1150,31 +1150,31 @@ declare namespace messenger {
         }
 
         export type _ThemeTypeAdditionalBackgroundsAlignment =
-            | 'bottom'
-            | 'center'
-            | 'left'
-            | 'right'
-            | 'top'
-            | 'center bottom'
-            | 'center center'
-            | 'center top'
-            | 'left bottom'
-            | 'left center'
-            | 'left top'
-            | 'right bottom'
-            | 'right center'
-            | 'right top';
+            | "bottom"
+            | "center"
+            | "left"
+            | "right"
+            | "top"
+            | "center bottom"
+            | "center center"
+            | "center top"
+            | "left bottom"
+            | "left center"
+            | "left top"
+            | "right bottom"
+            | "right center"
+            | "right top";
 
-        export type _ThemeTypeAdditionalBackgroundsTiling = 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y';
+        export type _ThemeTypeAdditionalBackgroundsTiling = "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
 
         /**
          * If set, overrides the general theme (context menus, toolbars, content
          * area).
          */
-        export type _ThemeTypeColorScheme = 'light' | 'dark' | 'auto';
+        export type _ThemeTypeColorScheme = "light" | "dark" | "auto";
 
         /** If set, overrides the color scheme for the content area. */
-        export type _ThemeTypeContentColorScheme = 'light' | 'dark' | 'auto';
+        export type _ThemeTypeContentColorScheme = "light" | "dark" | "auto";
 
         /**
          * A _dictionary object_ with one or more _key-value_ pairs to map
@@ -1198,36 +1198,36 @@ declare namespace messenger {
             [key: number]: string;
         }
 
-        export type _PermissionPrivileged = 'activityLog' | 'mozillaAddons' | 'networkStatus' | 'telemetry';
+        export type _PermissionPrivileged = "activityLog" | "mozillaAddons" | "networkStatus" | "telemetry";
 
         export type _ProtocolHandlerProtocol =
-            | 'bitcoin'
-            | 'dat'
-            | 'dweb'
-            | 'ftp'
-            | 'geo'
-            | 'gopher'
-            | 'im'
-            | 'ipfs'
-            | 'ipns'
-            | 'irc'
-            | 'ircs'
-            | 'magnet'
-            | 'mailto'
-            | 'matrix'
-            | 'mms'
-            | 'news'
-            | 'nntp'
-            | 'sip'
-            | 'sms'
-            | 'smsto'
-            | 'ssb'
-            | 'ssh'
-            | 'tel'
-            | 'urn'
-            | 'webcal'
-            | 'wtai'
-            | 'xmpp';
+            | "bitcoin"
+            | "dat"
+            | "dweb"
+            | "ftp"
+            | "geo"
+            | "gopher"
+            | "im"
+            | "ipfs"
+            | "ipns"
+            | "irc"
+            | "ircs"
+            | "magnet"
+            | "mailto"
+            | "matrix"
+            | "mms"
+            | "news"
+            | "nntp"
+            | "sip"
+            | "sms"
+            | "smsto"
+            | "ssb"
+            | "ssh"
+            | "tel"
+            | "urn"
+            | "webcal"
+            | "wtai"
+            | "xmpp";
 
         export interface _ManifestBaseDeveloper {
             name?: string | undefined;
@@ -1238,8 +1238,8 @@ declare namespace messenger {
             [key: string]:
                 | ExtensionURL
                 | {
-                      [key: string]: ExtensionURL;
-                  };
+                    [key: string]: ExtensionURL;
+                };
         }
 
         export interface _WebExtensionLangpackManifestLanguages {
@@ -1275,7 +1275,7 @@ declare namespace messenger {
             url?: string | undefined;
         }
 
-        export type _SitePermission = 'midi' | 'midi-sysex';
+        export type _SitePermission = "midi" | "midi-sysex";
     }
 
     /**
@@ -1320,7 +1320,7 @@ declare namespace messenger {
         /** The type of an account. */
         export type MailAccountType = _MailAccountType;
 
-        export type _MailAccountType = 'imap' | 'pop3' | 'nntp' | 'none' | 'imap' | 'pop3' | 'nntp' | 'local';
+        export type _MailAccountType = "imap" | "pop3" | "nntp" | "none" | "imap" | "pop3" | "nntp" | "local";
 
         export interface _OnUpdatedChangedValues {
             /** The human-friendly name of this account. */
@@ -1410,7 +1410,7 @@ declare namespace messenger {
     export namespace addressBooks {
         /* addressBooks types */
         /** Indicates the type of a Node. */
-        export type NodeType = 'addressBook' | 'contact' | 'mailingList';
+        export type NodeType = "addressBook" | "contact" | "mailingList";
 
         /** A node representing an address book. */
         export interface AddressBookNode {
@@ -1872,7 +1872,7 @@ declare namespace messenger {
             button?: number | undefined;
         }
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         export interface _SetTitleDetails {
             /**
@@ -2211,7 +2211,7 @@ declare namespace messenger {
             button?: number | undefined;
         }
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         export interface _SetTitleDetails {
             /**
@@ -2892,16 +2892,16 @@ declare namespace messenger {
         export type ComposeRecipient =
             | string
             | {
-                  /**
-                   * The ID of a contact or mailing list from the
-                   * [contacts](https://webextension-api.thunderbird.net/en/stable/contacts.html)
-                   * and
-                   * [mailingLists](https://webextension-api.thunderbird.net/en/stable/mailingLists.html).
-                   */
-                  id: string;
-                  /** Which sort of object this ID is for. */
-                  type: _UndefinedType;
-              };
+                /**
+                 * The ID of a contact or mailing list from the
+                 * [contacts](https://webextension-api.thunderbird.net/en/stable/contacts.html)
+                 * and
+                 * [mailingLists](https://webextension-api.thunderbird.net/en/stable/mailingLists.html).
+                 */
+                id: string;
+                /** Which sort of object this ID is for. */
+                type: _UndefinedType;
+            };
 
         export type ComposeRecipientList = ComposeRecipient | ComposeRecipient[];
 
@@ -2923,7 +2923,7 @@ declare namespace messenger {
              * An additional fcc folder which can be selected while composing the
              * message, an empty string if not used.
              */
-            additionalFccFolder?: folders.MailFolderId | folders.MailFolder | '' | undefined;
+            additionalFccFolder?: folders.MailFolderId | folders.MailFolder | "" | undefined;
             /**
              * Whether or not the vCard of the used identity will be attached to the
              * message during send. **Note:** If the value has not been modified,
@@ -2994,7 +2994,7 @@ declare namespace messenger {
              * specifying the folder for the copy of the sent message, or an empty
              * string to not save a copy at all.
              */
-            overrideDefaultFccFolder?: folders.MailFolderId | folders.MailFolder | '' | undefined;
+            overrideDefaultFccFolder?: folders.MailFolderId | folders.MailFolder | "" | undefined;
             /** The plain text content of the message. */
             plainTextBody?: string | undefined;
             /** The priority of the message. */
@@ -3068,7 +3068,7 @@ declare namespace messenger {
         }
 
         /** Which sort of object this ID is for. */
-        export type _UndefinedType = 'contact' | 'mailingList';
+        export type _UndefinedType = "contact" | "mailingList";
 
         /**
          * Defines the MIME format of the sent message (ignored on plain text
@@ -3076,23 +3076,23 @@ declare namespace messenger {
          * text, if they do not include any formatting, and as `both` otherwise
          * (a multipart/mixed message).
          */
-        export type _ComposeDetailsDeliveryFormat = 'auto' | 'plaintext' | 'html' | 'both';
+        export type _ComposeDetailsDeliveryFormat = "auto" | "plaintext" | "html" | "both";
 
         /** The priority of the message. */
-        export type _ComposeDetailsPriority = 'lowest' | 'low' | 'normal' | 'high' | 'highest';
+        export type _ComposeDetailsPriority = "lowest" | "low" | "normal" | "high" | "highest";
 
         /**
          * Read-only. The type of the message being composed, depending on how
          * the compose window was opened by the user.
          */
-        export type _ComposeDetailsType = 'draft' | 'new' | 'redirect' | 'reply' | 'forward';
+        export type _ComposeDetailsType = "draft" | "new" | "redirect" | "reply" | "forward";
 
-        export type _BeginReplyReplyType = 'replyToSender' | 'replyToList' | 'replyToAll';
+        export type _BeginReplyReplyType = "replyToSender" | "replyToList" | "replyToAll";
 
-        export type _BeginForwardForwardType = 'forwardInline' | 'forwardAsAttachment';
+        export type _BeginForwardForwardType = "forwardInline" | "forwardAsAttachment";
 
         /** The used send mode. */
-        export type _SendMessageReturnReturnMode = 'sendNow' | 'sendLater';
+        export type _SendMessageReturnReturnMode = "sendNow" | "sendLater";
 
         export interface _SendMessageReturnReturn {
             /** The used send mode. */
@@ -3109,14 +3109,14 @@ declare namespace messenger {
             messages: messages.MessageHeader[];
         }
 
-        export type _SendMessageOptionsMode = 'default' | 'sendNow' | 'sendLater';
+        export type _SendMessageOptionsMode = "default" | "sendNow" | "sendLater";
 
         export interface _SendMessageOptions {
             mode: _SendMessageOptionsMode;
         }
 
         /** The used save mode. */
-        export type _SaveMessageReturnReturnMode = 'draft' | 'template';
+        export type _SaveMessageReturnReturnMode = "draft" | "template";
 
         export interface _SaveMessageReturnReturn {
             /** The used save mode. */
@@ -3128,14 +3128,14 @@ declare namespace messenger {
             messages: messages.MessageHeader[];
         }
 
-        export type _SaveMessageOptionsMode = 'draft' | 'template';
+        export type _SaveMessageOptionsMode = "draft" | "template";
 
         export interface _SaveMessageOptions {
             mode: _SaveMessageOptionsMode;
         }
 
         /** The used send mode. */
-        export type _OnAfterSendSendInfoMode = 'sendNow' | 'sendLater';
+        export type _OnAfterSendSendInfoMode = "sendNow" | "sendLater";
 
         export interface _OnAfterSendSendInfo {
             /** The used send mode. */
@@ -3155,7 +3155,7 @@ declare namespace messenger {
         }
 
         /** The used save mode. */
-        export type _OnAfterSaveSaveInfoMode = 'autoSave' | 'draft' | 'template';
+        export type _OnAfterSaveSaveInfoMode = "autoSave" | "draft" | "template";
 
         export interface _OnAfterSaveSaveInfo {
             /** The used save mode. */
@@ -3509,7 +3509,7 @@ declare namespace messenger {
             button?: number | undefined;
         }
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         export interface _SetTitleDetails {
             /**
@@ -3861,7 +3861,7 @@ declare namespace messenger {
          * states directly correspond to `Document.readyState`: `loading`,
          * `interactive` and `complete`
          */
-        export type _RegisteredMessageDisplayScriptOptionsRunAt = 'document_start' | 'document_end' | 'document_idle';
+        export type _RegisteredMessageDisplayScriptOptionsRunAt = "document_start" | "document_end" | "document_idle";
 
         /* messageDisplayScripts functions */
         /**
@@ -3938,7 +3938,6 @@ declare namespace messenger {
             /**
              * Deprecated. This information is now available in {@link folders.MailFolder}.
              *
-             *
              * Not supported on manifest versions above 2.
              */
             favorite?: boolean | undefined;
@@ -3970,14 +3969,14 @@ declare namespace messenger {
 
         /** Supported values for the special use of a folder. */
         export type MailFolderSpecialUse =
-            | 'inbox'
-            | 'drafts'
-            | 'sent'
-            | 'trash'
-            | 'templates'
-            | 'archives'
-            | 'junk'
-            | 'outbox';
+            | "inbox"
+            | "drafts"
+            | "sent"
+            | "trash"
+            | "templates"
+            | "archives"
+            | "junk"
+            | "outbox";
 
         /** An object containing quota information. */
         export interface MailFolderQuota {
@@ -4018,7 +4017,7 @@ declare namespace messenger {
          * constraining the available storage in bytes, a `MESSAGE` quota is
          * constraining the number of storable messages.
          */
-        export type _MailFolderQuotaType = 'STORAGE' | 'MESSAGE';
+        export type _MailFolderQuotaType = "STORAGE" | "MESSAGE";
 
         export interface _QueryQueryInfo {
             /** Limits the search to folders of the account with the specified id. */
@@ -4417,71 +4416,71 @@ declare namespace messenger {
          * should be present, or neither.
          */
         export type _MailTabSortType =
-            | 'none'
-            | 'date'
-            | 'subject'
-            | 'author'
-            | 'id'
-            | 'thread'
-            | 'priority'
-            | 'status'
-            | 'size'
-            | 'flagged'
-            | 'unread'
-            | 'recipient'
-            | 'location'
-            | 'tags'
-            | 'junkStatus'
-            | 'attachments'
-            | 'account'
-            | 'custom'
-            | 'received'
-            | 'correspondent';
+            | "none"
+            | "date"
+            | "subject"
+            | "author"
+            | "id"
+            | "thread"
+            | "priority"
+            | "status"
+            | "size"
+            | "flagged"
+            | "unread"
+            | "recipient"
+            | "location"
+            | "tags"
+            | "junkStatus"
+            | "attachments"
+            | "account"
+            | "custom"
+            | "received"
+            | "correspondent";
 
         /**
          * **Note:** `sortType` and `sortOrder` depend on each other, so both
          * should be present, or neither.
          */
-        export type _MailTabSortOrder = 'none' | 'ascending' | 'descending';
+        export type _MailTabSortOrder = "none" | "ascending" | "descending";
 
-        export type _MailTabViewType = 'ungrouped' | 'groupedByThread' | 'groupedBySortType';
+        export type _MailTabViewType = "ungrouped" | "groupedByThread" | "groupedBySortType";
 
-        export type _MailTabLayout = 'standard' | 'wide' | 'vertical';
+        export type _MailTabLayout = "standard" | "wide" | "vertical";
 
         /** Sorts the list of messages. `sortOrder` must also be given. */
         export type _MailTabPropertiesSortType =
-            | 'none'
-            | 'date'
-            | 'subject'
-            | 'author'
-            | 'id'
-            | 'thread'
-            | 'priority'
-            | 'status'
-            | 'size'
-            | 'flagged'
-            | 'unread'
-            | 'recipient'
-            | 'location'
-            | 'tags'
-            | 'junkStatus'
-            | 'attachments'
-            | 'account'
-            | 'custom'
-            | 'received'
-            | 'correspondent';
+            | "none"
+            | "date"
+            | "subject"
+            | "author"
+            | "id"
+            | "thread"
+            | "priority"
+            | "status"
+            | "size"
+            | "flagged"
+            | "unread"
+            | "recipient"
+            | "location"
+            | "tags"
+            | "junkStatus"
+            | "attachments"
+            | "account"
+            | "custom"
+            | "received"
+            | "correspondent";
 
         /** Sorts the list of messages. `sortType` must also be given. */
-        export type _MailTabPropertiesSortOrder = 'none' | 'ascending' | 'descending';
+        export type _MailTabPropertiesSortOrder = "none" | "ascending" | "descending";
 
-        export type _MailTabPropertiesViewType = 'ungrouped' | 'groupedByThread' | 'groupedBySortType';
+        export type _MailTabPropertiesViewType = "ungrouped" | "groupedByThread" | "groupedBySortType";
 
         /**
          * Sets the arrangement of the folder pane, message list pane, and
          * message display pane. Note that setting this applies it to all mail
          * tabs.
          */
-        export type _MailTabPropertiesLayout = 'standard' | 'wide' | 'vertical';
+        export type _MailTabPropertiesLayout = "standard" | "wide" | "vertical";
 
         export interface _QueryQueryInfo {
             /** Whether the tabs are active in their windows. */
@@ -4634,7 +4633,7 @@ declare namespace messenger {
         export type ContextType = _ContextType;
 
         /** The type of menu item. */
-        export type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
+        export type ItemType = "normal" | "checkbox" | "radio" | "separator";
 
         /**
          * Information sent when a context menu is being shown. Some properties
@@ -4862,52 +4861,52 @@ declare namespace messenger {
         }
 
         export type _ContextType =
-            | 'all'
-            | 'all_message_attachments'
-            | 'audio'
-            | 'compose_action'
-            | 'compose_action_menu'
-            | 'compose_attachments'
-            | 'compose_body'
-            | 'editable'
-            | 'folder_pane'
-            | 'frame'
-            | 'image'
-            | 'link'
-            | 'message_attachments'
-            | 'message_display_action'
-            | 'message_display_action_menu'
-            | 'message_list'
-            | 'page'
-            | 'password'
-            | 'selection'
-            | 'tab'
-            | 'tools_menu'
-            | 'video'
-            | 'browser_action'
-            | 'browser_action_menu'
-            | 'action'
-            | 'action_menu';
+            | "all"
+            | "all_message_attachments"
+            | "audio"
+            | "compose_action"
+            | "compose_action_menu"
+            | "compose_attachments"
+            | "compose_body"
+            | "editable"
+            | "folder_pane"
+            | "frame"
+            | "image"
+            | "link"
+            | "message_attachments"
+            | "message_display_action"
+            | "message_display_action_menu"
+            | "message_list"
+            | "page"
+            | "password"
+            | "selection"
+            | "tab"
+            | "tools_menu"
+            | "video"
+            | "browser_action"
+            | "browser_action_menu"
+            | "action"
+            | "action_menu";
 
         /** An identifier of the clicked Thunderbird UI element, if any. */
         export type _OnShowDataFieldId =
-            | 'composeSubject'
-            | 'composeTo'
-            | 'composeCc'
-            | 'composeBcc'
-            | 'composeReplyTo'
-            | 'composeNewsgroupTo';
+            | "composeSubject"
+            | "composeTo"
+            | "composeCc"
+            | "composeBcc"
+            | "composeReplyTo"
+            | "composeNewsgroupTo";
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         /** An identifier of the clicked Thunderbird UI element, if any. */
         export type _OnClickDataFieldId =
-            | 'composeSubject'
-            | 'composeTo'
-            | 'composeCc'
-            | 'composeBcc'
-            | 'composeReplyTo'
-            | 'composeNewsgroupTo';
+            | "composeSubject"
+            | "composeTo"
+            | "composeCc"
+            | "composeBcc"
+            | "composeReplyTo"
+            | "composeNewsgroupTo";
 
         export interface _CreateCreateProperties {
             /** The type of menu item. Defaults to `normal` if not specified. */
@@ -5021,7 +5020,7 @@ declare namespace messenger {
              * the menu. Currently only `tab` is supported.
              * `contextOptions.showDefaults` cannot be used with this option.
              */
-            context?: 'tab' | undefined;
+            context?: "tab" | undefined;
             /** Required when context is `tab`. Requires the _tabs_ permission. */
             tabId?: number | undefined;
         }
@@ -5136,7 +5135,7 @@ declare namespace messenger {
          * Where to open the message. If not specified, the users preference is
          * honoured.
          */
-        export type _OpenOpenPropertiesLocation = 'tab' | 'window';
+        export type _OpenOpenPropertiesLocation = "tab" | "window";
 
         /**
          * Settings for opening the message. Exactly one of messageId,
@@ -5261,7 +5260,7 @@ declare namespace messenger {
             button?: number | undefined;
         }
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         export interface _SetTitleDetails {
             /**
@@ -5657,7 +5656,6 @@ declare namespace messenger {
             name?: string | undefined;
             /**
              * The identifier of this part, used in {@link messages.getAttachmentFile}
-             *
              */
             partName?: string | undefined;
             /** Any sub-parts of this part */
@@ -5673,19 +5671,16 @@ declare namespace messenger {
         /**
          * Message properties used in {@link messages.update} and {@link messages.import}.
          *  They can also be monitored by {@link messages.onUpdated}.
-         *
          */
         export interface MessageProperties {
             /** Whether the message is flagged (a.k.a starred). */
             flagged?: boolean | undefined;
             /**
              * Whether the message is marked as junk. Only supported in {@link messages.update}
-             *
              */
             junk?: boolean | undefined;
             /**
              * Whether the message is marked as new. Only supported in {@link messages.import}
-             *
              */
             new?: boolean | undefined;
             /** Whether the message is marked as read. */
@@ -5731,7 +5726,7 @@ declare namespace messenger {
         }
 
         /** The decryption status, only available for the root part. */
-        export type _MessagePartDecryptionStatus = 'none' | 'skipped' | 'success' | 'fail';
+        export type _MessagePartDecryptionStatus = "none" | "skipped" | "success" | "fail";
 
         export interface _GetFullOptions {
             /**
@@ -5741,7 +5736,7 @@ declare namespace messenger {
             decrypt?: boolean | undefined;
         }
 
-        export type _GetRawOptionsDataFormat = 'File' | 'BinaryString' | 'File' | 'BinaryString';
+        export type _GetRawOptionsDataFormat = "File" | "BinaryString" | "File" | "BinaryString";
 
         export interface _GetRawOptions {
             /**
@@ -6153,7 +6148,7 @@ declare namespace messenger {
             }
 
             /** Whether all of the tag filters must apply, or any of them. */
-            export type _TagsDetailMode = 'all' | 'any';
+            export type _TagsDetailMode = "all" | "any";
 
             export interface _UpdateUpdateProperties {
                 /** Human-readable tag name. */
@@ -6606,37 +6601,37 @@ declare namespace messenger {
         }
 
         /** Whether the tabs have completed loading. */
-        export type TabStatus = 'loading' | 'complete';
+        export type TabStatus = "loading" | "complete";
 
         /** Tab types supported by the tabs API. */
         export type TabType =
-            | 'addressBook'
-            | 'calendar'
-            | 'calendarEvent'
-            | 'calendarTask'
-            | 'chat'
-            | 'content'
-            | 'mail'
-            | 'messageCompose'
-            | 'messageDisplay'
-            | 'special'
-            | 'tasks';
+            | "addressBook"
+            | "calendar"
+            | "calendarEvent"
+            | "calendarTask"
+            | "chat"
+            | "content"
+            | "mail"
+            | "messageCompose"
+            | "messageDisplay"
+            | "special"
+            | "tasks";
 
         /**
          * The type of a window. Under some circumstances a Window may not be
          * assigned a type property.
          */
         export type WindowType =
-            | 'normal'
-            | 'popup'
-            | 'panel'
-            | 'app'
-            | 'devtools'
-            | 'messageCompose'
-            | 'messageDisplay';
+            | "normal"
+            | "popup"
+            | "panel"
+            | "app"
+            | "devtools"
+            | "messageCompose"
+            | "messageDisplay";
 
         /** Event names supported in onUpdated. */
-        export type UpdatePropertyName = 'favIconUrl' | 'status' | 'title';
+        export type UpdatePropertyName = "favIconUrl" | "status" | "title";
 
         /** An object describing filters to apply to tabs.onUpdated events. */
         export interface UpdateFilter {
@@ -7048,7 +7043,6 @@ declare namespace messenger {
          * fired, representing the tab the user directly moved. Move events are
          * not fired for the other tabs that must move in response. This event is
          * not fired when a tab is moved between windows. For that, see {@link tabs.onDetached}.
-         *
          */
         export const onMoved: WebExtEvent<(tabId: number, moveInfo: _OnMovedMoveInfo) => void>;
 
@@ -7151,10 +7145,10 @@ declare namespace messenger {
          * The type of a window. Under some circumstances a window may not be
          * assigned a type property.
          */
-        export type WindowType = 'normal' | 'popup' | 'messageCompose' | 'messageDisplay';
+        export type WindowType = "normal" | "popup" | "messageCompose" | "messageDisplay";
 
         /** The state of this window. */
-        export type WindowState = 'normal' | 'minimized' | 'maximized' | 'fullscreen' | 'docked';
+        export type WindowState = "normal" | "minimized" | "maximized" | "fullscreen" | "docked";
 
         export interface Window {
             /** The ID of the window. Window IDs are unique within a session. */
@@ -7196,7 +7190,7 @@ declare namespace messenger {
          * Specifies what type of window to create. Thunderbird does not support
          * `panel` and `detached_panel`, they are interpreted as `popup`.
          */
-        export type CreateType = 'normal' | 'popup' | 'panel' | 'detached_panel';
+        export type CreateType = "normal" | "popup" | "panel" | "detached_panel";
 
         /** Specifies additional requirements for the returned windows. */
         export interface GetInfo {
@@ -7414,13 +7408,13 @@ declare namespace messenger {
     export namespace browserSettings {
         /* browserSettings types */
         /** How images should be animated in the browser. */
-        export type ImageAnimationBehavior = 'normal' | 'none' | 'once';
+        export type ImageAnimationBehavior = "normal" | "none" | "once";
 
         /** After which mouse event context menus should popup. */
-        export type ContextMenuMouseEvent = 'mouseup' | 'mousedown';
+        export type ContextMenuMouseEvent = "mouseup" | "mousedown";
 
         /** Color management mode. */
-        export type ColorManagementMode = 'off' | 'full' | 'tagged_only';
+        export type ColorManagementMode = "off" | "full" | "tagged_only";
 
         /* browserSettings properties */
         /**
@@ -7537,7 +7531,7 @@ declare namespace messenger {
      */
     export namespace clipboard {
         /** The type of imageData. */
-        export type _SetImageDataImageType = 'jpeg' | 'png';
+        export type _SetImageDataImageType = "jpeg" | "png";
 
         /* clipboard functions */
         /**
@@ -7627,7 +7621,7 @@ declare namespace messenger {
          * 'no_restriction' corresponds to a cookie set without a 'SameSite'
          * attribute, 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'.
          */
-        export type SameSiteStatus = 'no_restriction' | 'lax' | 'strict';
+        export type SameSiteStatus = "no_restriction" | "lax" | "strict";
 
         /**
          * The description of the storage partition of a cookie. This object may
@@ -7717,7 +7711,7 @@ declare namespace messenger {
          * cookie was automatically removed due to a "set" call that overwrote
          * it, "cause" will be "overwrite". Plan your response accordingly.
          */
-        export type OnChangedCause = 'evicted' | 'expired' | 'explicit' | 'expired_overwrite' | 'overwrite';
+        export type OnChangedCause = "evicted" | "expired" | "explicit" | "expired_overwrite" | "overwrite";
 
         /** Details to identify the cookie being retrieved. */
         export interface _GetDetails {
@@ -7979,16 +7973,16 @@ declare namespace messenger {
         export type ResolveFlags = _ResolveFlags[];
 
         export type _ResolveFlags =
-            | 'allow_name_collisions'
-            | 'bypass_cache'
-            | 'canonical_name'
-            | 'disable_ipv4'
-            | 'disable_ipv6'
-            | 'disable_trr'
-            | 'offline'
-            | 'priority_low'
-            | 'priority_medium'
-            | 'speculate';
+            | "allow_name_collisions"
+            | "bypass_cache"
+            | "canonical_name"
+            | "disable_ipv4"
+            | "disable_ipv6"
+            | "disable_trr"
+            | "offline"
+            | "priority_low"
+            | "priority_medium"
+            | "speculate";
 
         /* dns functions */
         /** Resolves a hostname to a DNS record. */
@@ -8004,33 +7998,33 @@ declare namespace messenger {
      */
     export namespace downloads {
         /* downloads types */
-        export type FilenameConflictAction = 'uniquify' | 'overwrite' | 'prompt';
+        export type FilenameConflictAction = "uniquify" | "overwrite" | "prompt";
 
         export type InterruptReason =
-            | 'FILE_FAILED'
-            | 'FILE_ACCESS_DENIED'
-            | 'FILE_NO_SPACE'
-            | 'FILE_NAME_TOO_LONG'
-            | 'FILE_TOO_LARGE'
-            | 'FILE_VIRUS_INFECTED'
-            | 'FILE_TRANSIENT_ERROR'
-            | 'FILE_BLOCKED'
-            | 'FILE_SECURITY_CHECK_FAILED'
-            | 'FILE_TOO_SHORT'
-            | 'NETWORK_FAILED'
-            | 'NETWORK_TIMEOUT'
-            | 'NETWORK_DISCONNECTED'
-            | 'NETWORK_SERVER_DOWN'
-            | 'NETWORK_INVALID_REQUEST'
-            | 'SERVER_FAILED'
-            | 'SERVER_NO_RANGE'
-            | 'SERVER_BAD_CONTENT'
-            | 'SERVER_UNAUTHORIZED'
-            | 'SERVER_CERT_PROBLEM'
-            | 'SERVER_FORBIDDEN'
-            | 'USER_CANCELED'
-            | 'USER_SHUTDOWN'
-            | 'CRASH';
+            | "FILE_FAILED"
+            | "FILE_ACCESS_DENIED"
+            | "FILE_NO_SPACE"
+            | "FILE_NAME_TOO_LONG"
+            | "FILE_TOO_LARGE"
+            | "FILE_VIRUS_INFECTED"
+            | "FILE_TRANSIENT_ERROR"
+            | "FILE_BLOCKED"
+            | "FILE_SECURITY_CHECK_FAILED"
+            | "FILE_TOO_SHORT"
+            | "NETWORK_FAILED"
+            | "NETWORK_TIMEOUT"
+            | "NETWORK_DISCONNECTED"
+            | "NETWORK_SERVER_DOWN"
+            | "NETWORK_INVALID_REQUEST"
+            | "SERVER_FAILED"
+            | "SERVER_NO_RANGE"
+            | "SERVER_BAD_CONTENT"
+            | "SERVER_UNAUTHORIZED"
+            | "SERVER_CERT_PROBLEM"
+            | "SERVER_FORBIDDEN"
+            | "USER_CANCELED"
+            | "USER_SHUTDOWN"
+            | "CRASH";
 
         /**
          * _file_: The download's filename is suspicious.
@@ -8043,7 +8037,7 @@ declare namespace messenger {
          * These string constants will never change, however the set of
          * DangerTypes may change.
          */
-        export type DangerType = 'file' | 'url' | 'content' | 'uncommon' | 'host' | 'unwanted' | 'safe' | 'accepted';
+        export type DangerType = "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted";
 
         /**
          * _in_progress_: The download is currently receiving data from the
@@ -8054,7 +8048,7 @@ declare namespace messenger {
          * These string constants will never change, however the set of States
          * may change.
          */
-        export type State = 'in_progress' | 'interrupted' | 'complete';
+        export type State = "in_progress" | "interrupted" | "complete";
 
         export interface DownloadItem {
             /** An identifier that is persistent across browser sessions. */
@@ -8255,7 +8249,7 @@ declare namespace messenger {
         }
 
         /** The HTTP method to use if the URL uses the HTTP[S] protocol. */
-        export type _DownloadOptionsMethod = 'GET' | 'POST';
+        export type _DownloadOptionsMethod = "GET" | "POST";
 
         export interface _DownloadOptionsHeaders {
             /** Name of the HTTP header. */
@@ -8679,11 +8673,11 @@ declare namespace messenger {
 
         export type APIEvents = APIEvent[];
 
-        export type APIEvent = 'startup';
+        export type APIEvent = "startup";
 
-        export type APIParentScope = 'addon_parent' | 'content_parent' | 'devtools_parent';
+        export type APIParentScope = "addon_parent" | "content_parent" | "devtools_parent";
 
-        export type APIChildScope = 'addon_child' | 'content_child' | 'devtools_child';
+        export type APIChildScope = "addon_child" | "content_child" | "devtools_child";
 
         export interface _ExperimentAPIParent {
             events?: APIEvents | undefined;
@@ -8710,7 +8704,7 @@ declare namespace messenger {
     export namespace extension {
         /* extension types */
         /** The type of extension view. */
-        export type ViewType = 'tab' | 'popup' | 'sidebar';
+        export type ViewType = "tab" | "popup" | "sidebar";
 
         /**
          * Set for the lifetime of a callback if an ansychronous extension api
@@ -8858,7 +8852,7 @@ declare namespace messenger {
     export namespace extensionTypes {
         /* extensionTypes types */
         /** The format of an image. */
-        export type ImageFormat = 'jpeg' | 'png';
+        export type ImageFormat = "jpeg" | "png";
 
         /** Details about the format, quality, area and scale of the capture. */
         export interface ImageDetails {
@@ -8886,13 +8880,13 @@ declare namespace messenger {
         }
 
         /** The soonest that the JavaScript or CSS will be injected into the tab. */
-        export type RunAt = 'document_start' | 'document_end' | 'document_idle';
+        export type RunAt = "document_start" | "document_end" | "document_idle";
 
         /**
          * The origin of the CSS to inject, this affects the cascading order
          * (priority) of the stylesheet.
          */
-        export type CSSOrigin = 'user' | 'author';
+        export type CSSOrigin = "user" | "author";
 
         /**
          * Details of the script or CSS to inject. Either the code or the file
@@ -8942,11 +8936,11 @@ declare namespace messenger {
 
         export type ExtensionFileOrCode =
             | {
-                  file: _manifest.ExtensionURL;
-              }
+                file: _manifest.ExtensionURL;
+            }
             | {
-                  code: string;
-              };
+                code: string;
+            };
 
         /** A plain JSON value */
         export type PlainJSONValue = null | string | number | boolean | _PlainJSONArray | _PlainJSONObject;
@@ -9158,7 +9152,7 @@ declare namespace messenger {
      */
     export namespace idle {
         /* idle types */
-        export type IdleState = 'active' | 'idle';
+        export type IdleState = "active" | "idle";
 
         /* idle functions */
         /**
@@ -9217,10 +9211,10 @@ declare namespace messenger {
         }
 
         /** A reason the item is disabled. */
-        export type ExtensionDisabledReason = 'unknown' | 'permissions_increase';
+        export type ExtensionDisabledReason = "unknown" | "permissions_increase";
 
         /** The type of this extension, 'extension' or 'theme'. */
-        export type ExtensionType = 'extension' | 'theme';
+        export type ExtensionType = "extension" | "theme";
 
         /**
          * How the extension was installed. One of
@@ -9230,7 +9224,7 @@ declare namespace messenger {
          * machine,
          * `other`: The extension was installed by other means.
          */
-        export type ExtensionInstallType = 'development' | 'normal' | 'sideload' | 'other';
+        export type ExtensionInstallType = "development" | "normal" | "sideload" | "other";
 
         /** Information about an installed extension. */
         export interface ExtensionInfo {
@@ -9360,9 +9354,9 @@ declare namespace messenger {
      */
     export namespace notifications {
         /* notifications types */
-        export type TemplateType = 'basic' | 'image' | 'list' | 'progress';
+        export type TemplateType = "basic" | "image" | "list" | "progress";
 
-        export type PermissionLevel = 'granted' | 'denied';
+        export type PermissionLevel = "granted" | "denied";
 
         export interface NotificationItem {
             /** Title of one item of a list notification. */
@@ -9672,11 +9666,11 @@ declare namespace messenger {
             /* privacy.network types */
             /** The IP handling policy of WebRTC. */
             export type IPHandlingPolicy =
-                | 'default'
-                | 'default_public_and_private_interfaces'
-                | 'default_public_interface_only'
-                | 'disable_non_proxied_udp'
-                | 'proxy_only';
+                | "default"
+                | "default_public_and_private_interfaces"
+                | "default_public_interface_only"
+                | "disable_non_proxied_udp"
+                | "proxy_only";
 
             /** An object which describes TLS minimum and maximum versions. */
             export interface tlsVersionRestrictionConfig {
@@ -9687,13 +9681,13 @@ declare namespace messenger {
             }
 
             /** The mode for https-only mode. */
-            export type HTTPSOnlyModeOption = 'always' | 'private_browsing' | 'never';
+            export type HTTPSOnlyModeOption = "always" | "private_browsing" | "never";
 
             /** The minimum TLS version supported. */
-            export type _TlsVersionRestrictionConfigMinimum = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+            export type _TlsVersionRestrictionConfigMinimum = "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3" | "unknown";
 
             /** The maximum TLS version supported. */
-            export type _TlsVersionRestrictionConfigMaximum = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+            export type _TlsVersionRestrictionConfigMaximum = "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3" | "unknown";
 
             /* privacy.network properties */
             /**
@@ -9767,7 +9761,7 @@ declare namespace messenger {
         export namespace websites {
             /* privacy.websites types */
             /** The mode for tracking protection. */
-            export type TrackingProtectionModeOption = 'always' | 'never' | 'private_browsing';
+            export type TrackingProtectionModeOption = "always" | "never" | "private_browsing";
 
             /** The settings for cookies. */
             export interface CookieConfig {
@@ -9785,12 +9779,12 @@ declare namespace messenger {
 
             /** The type of cookies to allow. */
             export type _CookieConfigBehavior =
-                | 'allow_all'
-                | 'reject_all'
-                | 'reject_third_party'
-                | 'allow_visited'
-                | 'reject_trackers'
-                | 'reject_trackers_and_partition_foreign';
+                | "allow_all"
+                | "reject_all"
+                | "reject_third_party"
+                | "allow_visited"
+                | "reject_trackers"
+                | "reject_trackers_and_partition_foreign";
 
             /* privacy.websites properties */
             /**
@@ -9917,7 +9911,7 @@ declare namespace messenger {
         }
 
         /** The type of proxy to use. */
-        export type _ProxyConfigProxyType = 'none' | 'autoDetect' | 'system' | 'manual' | 'autoConfig';
+        export type _ProxyConfigProxyType = "none" | "autoDetect" | "system" | "manual" | "autoConfig";
 
         export interface _OnRequestDetails {
             /**
@@ -9980,7 +9974,7 @@ declare namespace messenger {
         }
 
         export interface _ProxyOnRequestEvent<TCallback = (details: _OnRequestDetails) => void> {
-            addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<'requestHeaders'>): void;
+            addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">): void;
             removeListener(cb: TCallback): void;
             hasListener(cb: TCallback): boolean;
         }
@@ -10060,10 +10054,10 @@ declare namespace messenger {
         }
 
         /** The operating system the browser is running on. */
-        export type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
+        export type PlatformOs = "mac" | "win" | "android" | "cros" | "linux" | "openbsd";
 
         /** The machine's processor architecture. */
-        export type PlatformArch = 'aarch64' | 'arm' | 'ppc64' | 's390x' | 'sparc64' | 'x86-32' | 'x86-64' | 'noarch';
+        export type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64" | "noarch";
 
         /** An object containing information about the current platform. */
         export interface PlatformInfo {
@@ -10093,10 +10087,10 @@ declare namespace messenger {
         }
 
         /** Result of the update check. */
-        export type RequestUpdateCheckStatus = 'throttled' | 'no_update' | 'update_available';
+        export type RequestUpdateCheckStatus = "throttled" | "no_update" | "update_available";
 
         /** The reason that this event is being dispatched. */
-        export type OnInstalledReason = 'install' | 'update' | 'browser_update';
+        export type OnInstalledReason = "install" | "update" | "browser_update";
 
         /**
          * The reason that the event is being dispatched. 'app_update' is used
@@ -10106,18 +10100,18 @@ declare namespace messenger {
          * the system runs for more than the permitted uptime set in the
          * enterprise policy.
          */
-        export type OnRestartRequiredReason = 'app_update' | 'os_update' | 'periodic';
+        export type OnRestartRequiredReason = "app_update" | "os_update" | "periodic";
 
         /** The performance warning event category, e.g. 'content_script'. */
-        export type OnPerformanceWarningCategory = 'content_script';
+        export type OnPerformanceWarningCategory = "content_script";
 
         /**
          * The performance warning event severity. Will be 'high' for serious and
          * user-visible issues.
          */
-        export type OnPerformanceWarningSeverity = 'low' | 'medium' | 'high';
+        export type OnPerformanceWarningSeverity = "low" | "medium" | "high";
 
-        export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64';
+        export type PlatformNaclArch = "arm" | "x86-32" | "x86-64";
 
         /**
          * This will be defined during an API method callback if there was an
@@ -10695,7 +10689,7 @@ declare namespace messenger {
          *
          * Only `regular` is supported by Firefox at this time.
          */
-        export type SettingScope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
+        export type SettingScope = "regular" | "regular_only" | "incognito_persistent" | "incognito_session_only";
 
         /**
          * One of
@@ -10708,10 +10702,10 @@ declare namespace messenger {
          * - `controlled_by_this_extension`: controlled by this extension
          */
         export type LevelOfControl =
-            | 'not_controllable'
-            | 'controlled_by_other_extensions'
-            | 'controllable_by_this_extension'
-            | 'controlled_by_this_extension';
+            | "not_controllable"
+            | "controlled_by_other_extensions"
+            | "controllable_by_this_extension"
+            | "controlled_by_this_extension";
 
         export interface Setting {
             /**
@@ -10903,19 +10897,19 @@ declare namespace messenger {
          * `"auto_toplevel"` (for backwards compatibility).
          */
         export type TransitionType =
-            | 'link'
-            | 'typed'
-            | 'auto_bookmark'
-            | 'auto_subframe'
-            | 'manual_subframe'
-            | 'generated'
-            | 'start_page'
-            | 'form_submit'
-            | 'reload'
-            | 'keyword'
-            | 'keyword_generated';
+            | "link"
+            | "typed"
+            | "auto_bookmark"
+            | "auto_subframe"
+            | "manual_subframe"
+            | "generated"
+            | "start_page"
+            | "form_submit"
+            | "reload"
+            | "keyword"
+            | "keyword_generated";
 
-        export type TransitionQualifier = 'client_redirect' | 'server_redirect' | 'forward_back' | 'from_address_bar';
+        export type TransitionQualifier = "client_redirect" | "server_redirect" | "forward_back" | "from_address_bar";
 
         export interface EventUrlFilters {
             url: events.UrlFilter[];
@@ -11344,42 +11338,42 @@ declare namespace messenger {
     export namespace webRequest {
         /* webRequest types */
         export type ResourceType =
-            | 'main_frame'
-            | 'sub_frame'
-            | 'stylesheet'
-            | 'script'
-            | 'image'
-            | 'object'
-            | 'object_subrequest'
-            | 'xmlhttprequest'
-            | 'xslt'
-            | 'ping'
-            | 'beacon'
-            | 'xml_dtd'
-            | 'font'
-            | 'media'
-            | 'websocket'
-            | 'csp_report'
-            | 'imageset'
-            | 'web_manifest'
-            | 'speculative'
-            | 'other';
+            | "main_frame"
+            | "sub_frame"
+            | "stylesheet"
+            | "script"
+            | "image"
+            | "object"
+            | "object_subrequest"
+            | "xmlhttprequest"
+            | "xslt"
+            | "ping"
+            | "beacon"
+            | "xml_dtd"
+            | "font"
+            | "media"
+            | "websocket"
+            | "csp_report"
+            | "imageset"
+            | "web_manifest"
+            | "speculative"
+            | "other";
 
-        export type OnBeforeRequestOptions = 'blocking' | 'requestBody';
+        export type OnBeforeRequestOptions = "blocking" | "requestBody";
 
-        export type OnBeforeSendHeadersOptions = 'requestHeaders' | 'blocking';
+        export type OnBeforeSendHeadersOptions = "requestHeaders" | "blocking";
 
-        export type OnSendHeadersOptions = 'requestHeaders';
+        export type OnSendHeadersOptions = "requestHeaders";
 
-        export type OnHeadersReceivedOptions = 'blocking' | 'responseHeaders';
+        export type OnHeadersReceivedOptions = "blocking" | "responseHeaders";
 
-        export type OnAuthRequiredOptions = 'responseHeaders' | 'blocking' | 'asyncBlocking';
+        export type OnAuthRequiredOptions = "responseHeaders" | "blocking" | "asyncBlocking";
 
-        export type OnResponseStartedOptions = 'responseHeaders';
+        export type OnResponseStartedOptions = "responseHeaders";
 
-        export type OnBeforeRedirectOptions = 'responseHeaders';
+        export type OnBeforeRedirectOptions = "responseHeaders";
 
-        export type OnCompletedOptions = 'responseHeaders';
+        export type OnCompletedOptions = "responseHeaders";
 
         /** An object describing filters to apply to webRequest events. */
         export interface RequestFilter {
@@ -11474,12 +11468,12 @@ declare namespace messenger {
         }
 
         export type CertificateTransparencyStatus =
-            | 'not_applicable'
-            | 'policy_compliant'
-            | 'policy_not_enough_scts'
-            | 'policy_not_diverse_scts';
+            | "not_applicable"
+            | "policy_compliant"
+            | "policy_not_enough_scts"
+            | "policy_not_diverse_scts";
 
-        export type TransportWeaknessReasons = 'cipher';
+        export type TransportWeaknessReasons = "cipher";
 
         /**
          * Contains the security properties of the request (ie. SSL/TLS
@@ -11563,20 +11557,20 @@ declare namespace messenger {
 
         /** Tracking flags that match our internal tracking classification */
         export type UrlClassificationFlags =
-            | 'fingerprinting'
-            | 'fingerprinting_content'
-            | 'cryptomining'
-            | 'cryptomining_content'
-            | 'emailtracking'
-            | 'emailtracking_content'
-            | 'tracking'
-            | 'tracking_ad'
-            | 'tracking_analytics'
-            | 'tracking_social'
-            | 'tracking_content'
-            | 'any_basic_tracking'
-            | 'any_strict_tracking'
-            | 'any_social_tracking';
+            | "fingerprinting"
+            | "fingerprinting_content"
+            | "cryptomining"
+            | "cryptomining_content"
+            | "emailtracking"
+            | "emailtracking_content"
+            | "tracking"
+            | "tracking_ad"
+            | "tracking_analytics"
+            | "tracking_social"
+            | "tracking_content"
+            | "any_basic_tracking"
+            | "any_strict_tracking"
+            | "any_social_tracking";
 
         /**
          * If the request has been classified this is an array of
@@ -11668,29 +11662,29 @@ declare namespace messenger {
             sha256: string;
         }
 
-        export type _SecurityInfoState = 'insecure' | 'weak' | 'broken' | 'secure';
+        export type _SecurityInfoState = "insecure" | "weak" | "broken" | "secure";
 
         /** Protocol version if state is "secure" */
-        export type _SecurityInfoProtocolVersion = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+        export type _SecurityInfoProtocolVersion = "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3" | "unknown";
 
         /**
          * The type of certificate error that was overridden for this connection,
          * if any.
          */
         export type _SecurityInfoOverridableErrorCategory =
-            | 'trust_error'
-            | 'domain_mismatch'
-            | 'expired_or_not_yet_valid';
+            | "trust_error"
+            | "domain_mismatch"
+            | "expired_or_not_yet_valid";
 
         /** Describes the current status of the stream. */
         export type _StreamFilterStatus =
-            | 'uninitialized'
-            | 'transferringdata'
-            | 'finishedtransferringdata'
-            | 'suspended'
-            | 'closed'
-            | 'disconnected'
-            | 'failed';
+            | "uninitialized"
+            | "transferringdata"
+            | "finishedtransferringdata"
+            | "suspended"
+            | "closed"
+            | "disconnected"
+            | "failed";
 
         interface _StreamFilterOndataEvent extends Event {
             data: ArrayBuffer;
@@ -11853,7 +11847,9 @@ declare namespace messenger {
         }
 
         export interface _WebRequestOnBeforeSendHeadersEvent<
-            TCallback = (details: _OnBeforeSendHeadersDetails) => BlockingResponse | Promise<BlockingResponse> | undefined,
+            TCallback = (
+                details: _OnBeforeSendHeadersDetails,
+            ) => BlockingResponse | Promise<BlockingResponse> | undefined,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
             removeListener(cb: TCallback): void;
@@ -11984,7 +11980,9 @@ declare namespace messenger {
         }
 
         export interface _WebRequestOnHeadersReceivedEvent<
-            TCallback = (details: _OnHeadersReceivedDetails) => BlockingResponse | Promise<BlockingResponse> | undefined,
+            TCallback = (
+                details: _OnHeadersReceivedDetails,
+            ) => BlockingResponse | Promise<BlockingResponse> | undefined,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
             removeListener(cb: TCallback): void;
@@ -12507,11 +12505,11 @@ declare namespace browser {
             cloud_file?: _WebExtensionManifestCloudFile | undefined;
             commands?:
                 | {
-                      [key: string]: {
-                          suggested_key?: _UndefinedSuggestedKey | undefined;
-                          description?: string | undefined;
-                      };
-                  }
+                    [key: string]: {
+                        suggested_key?: _UndefinedSuggestedKey | undefined;
+                        description?: string | undefined;
+                    };
+                }
                 | undefined;
             compose_action?: _WebExtensionManifestComposeAction | undefined;
             message_display_action?: _WebExtensionManifestMessageDisplayAction | undefined;
@@ -12539,19 +12537,19 @@ declare namespace browser {
             incognito?: _WebExtensionManifestIncognito | undefined;
             background?:
                 | {
-                      page: ExtensionURL;
-                      /** Not supported on manifest versions above 2. */
-                      persistent?: boolean | undefined;
-                  }
+                    page: ExtensionURL;
+                    /** Not supported on manifest versions above 2. */
+                    persistent?: boolean | undefined;
+                }
                 | {
-                      scripts: ExtensionURL[];
-                      type?: _UndefinedType | undefined;
-                      /** Not supported on manifest versions above 2. */
-                      persistent?: boolean | undefined;
-                  }
+                    scripts: ExtensionURL[];
+                    type?: _UndefinedType | undefined;
+                    /** Not supported on manifest versions above 2. */
+                    persistent?: boolean | undefined;
+                }
                 | {
-                      service_worker: ExtensionURL;
-                  }
+                    service_worker: ExtensionURL;
+                }
                 | undefined;
             /**
              * Alias property for options_ui.page, ignored when options_ui.page is
@@ -12564,9 +12562,9 @@ declare namespace browser {
             content_security_policy?:
                 | string
                 | {
-                      /** The Content Security Policy used for extension pages. */
-                      extension_pages?: string | undefined;
-                  }
+                    /** The Content Security Policy used for extension pages. */
+                    extension_pages?: string | undefined;
+                }
                 | undefined;
             permissions?: PermissionOrOrigin[] | Permission[] | undefined;
             granted_host_permissions?: boolean | undefined;
@@ -12576,10 +12574,10 @@ declare namespace browser {
             web_accessible_resources?:
                 | string[]
                 | Array<{
-                      resources: string[];
-                      matches?: MatchPattern[] | undefined;
-                      extension_ids?: Array<ExtensionID | '*'> | undefined;
-                  }>
+                    resources: string[];
+                    matches?: MatchPattern[] | undefined;
+                    extension_ids?: Array<ExtensionID | "*"> | undefined;
+                }>
                 | undefined;
             hidden?: boolean | undefined;
             page_action?: _WebExtensionManifestPageAction | undefined;
@@ -12705,7 +12703,7 @@ declare namespace browser {
 
         export type PermissionPrivileged = _PermissionPrivileged;
 
-        export type Permission = string | PermissionNoPrompt | OptionalPermission | 'declarativeNetRequest';
+        export type Permission = string | PermissionNoPrompt | OptionalPermission | "declarativeNetRequest";
 
         /** Represents a protocol handler definition. */
         export interface ProtocolHandler {
@@ -12866,7 +12864,7 @@ declare namespace browser {
             gecko_android?: GeckoAndroidSpecificProperties | undefined;
         }
 
-        export type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | '<all_urls>';
+        export type MatchPattern = MatchPatternRestricted | MatchPatternUnestricted | "<all_urls>";
 
         /** Same as MatchPattern above, but excludes<all_urls></all_urls> */
         export type MatchPatternRestricted = string;
@@ -12916,14 +12914,14 @@ declare namespace browser {
 
         export type IconPath =
             | {
-                  [key: number]: ExtensionFileUrl;
-              }
+                [key: number]: ExtensionFileUrl;
+            }
             | ExtensionFileUrl;
 
         export type IconImageData =
             | {
-                  [key: number]: ImageData;
-              }
+                [key: number]: ImageData;
+            }
             | ImageData;
 
         export type ImageData = any;
@@ -12937,70 +12935,70 @@ declare namespace browser {
         /** Represents a native manifest file */
         export type NativeManifest =
             | {
-                  name: string;
-                  description: string;
-                  path: string;
-                  type: 'pkcs11' | 'stdio';
-                  allowed_extensions: ExtensionID[];
-              }
+                name: string;
+                description: string;
+                path: string;
+                type: "pkcs11" | "stdio";
+                allowed_extensions: ExtensionID[];
+            }
             | {
-                  name: ExtensionID;
-                  description: string;
-                  data: { [key: string]: any };
-                  type: 'storage';
-              };
+                name: ExtensionID;
+                description: string;
+                data: { [key: string]: any };
+                type: "storage";
+            };
 
         export type _OptionalPermission =
-            | 'accountsRead'
-            | 'addressBooks'
-            | 'sensitiveDataUpload'
-            | 'compose'
-            | 'compose.save'
-            | 'compose.send'
-            | 'messagesModify'
-            | 'sensitiveDataUpload'
-            | 'accountsFolders'
-            | 'accountsIdentities'
-            | 'messagesDelete'
-            | 'messagesImport'
-            | 'messagesMove'
-            | 'messagesRead'
-            | 'messagesTags'
-            | 'messagesTagsList'
-            | 'messagesUpdate'
-            | 'messagesModifyPermanent'
-            | 'sensitiveDataUpload'
-            | 'tabs'
-            | 'tabHide'
-            | 'browserSettings'
-            | 'browsingData'
-            | 'declarativeNetRequestFeedback'
-            | 'downloads'
-            | 'downloads.open'
-            | 'management'
-            | 'clipboardRead'
-            | 'clipboardWrite'
-            | 'geolocation'
-            | 'notifications'
-            | 'pkcs11'
-            | 'privacy'
-            | 'proxy'
-            | 'nativeMessaging'
-            | 'webNavigation';
+            | "accountsRead"
+            | "addressBooks"
+            | "sensitiveDataUpload"
+            | "compose"
+            | "compose.save"
+            | "compose.send"
+            | "messagesModify"
+            | "sensitiveDataUpload"
+            | "accountsFolders"
+            | "accountsIdentities"
+            | "messagesDelete"
+            | "messagesImport"
+            | "messagesMove"
+            | "messagesRead"
+            | "messagesTags"
+            | "messagesTagsList"
+            | "messagesUpdate"
+            | "messagesModifyPermanent"
+            | "sensitiveDataUpload"
+            | "tabs"
+            | "tabHide"
+            | "browserSettings"
+            | "browsingData"
+            | "declarativeNetRequestFeedback"
+            | "downloads"
+            | "downloads.open"
+            | "management"
+            | "clipboardRead"
+            | "clipboardWrite"
+            | "geolocation"
+            | "notifications"
+            | "pkcs11"
+            | "privacy"
+            | "proxy"
+            | "nativeMessaging"
+            | "webNavigation";
 
-        export type _WebExtensionManifestActionDefaultWindows = 'normal' | 'messageDisplay';
+        export type _WebExtensionManifestActionDefaultWindows = "normal" | "messageDisplay";
 
         export type _WebExtensionManifestActionAllowedSpaces =
-            | 'mail'
-            | 'addressbook'
-            | 'calendar'
-            | 'tasks'
-            | 'chat'
-            | 'settings'
-            | 'default';
+            | "mail"
+            | "addressbook"
+            | "calendar"
+            | "tasks"
+            | "chat"
+            | "settings"
+            | "default";
 
         /** Specifies the type of the button. Default type is `button`. */
-        export type _WebExtensionManifestActionType = 'button' | 'menu';
+        export type _WebExtensionManifestActionType = "button" | "menu";
 
         /** Needs at least manifest version 3. */
         export interface _WebExtensionManifestAction {
@@ -13055,21 +13053,21 @@ declare namespace browser {
          * Defines the location the browserAction button will appear. Deprecated
          * and ignored. Replaced by `allowed_spaces`
          */
-        export type _WebExtensionManifestBrowserActionDefaultArea = 'maintoolbar' | 'tabstoolbar';
+        export type _WebExtensionManifestBrowserActionDefaultArea = "maintoolbar" | "tabstoolbar";
 
-        export type _WebExtensionManifestBrowserActionDefaultWindows = 'normal' | 'messageDisplay';
+        export type _WebExtensionManifestBrowserActionDefaultWindows = "normal" | "messageDisplay";
 
         export type _WebExtensionManifestBrowserActionAllowedSpaces =
-            | 'mail'
-            | 'addressbook'
-            | 'calendar'
-            | 'tasks'
-            | 'chat'
-            | 'settings'
-            | 'default';
+            | "mail"
+            | "addressbook"
+            | "calendar"
+            | "tasks"
+            | "chat"
+            | "settings"
+            | "default";
 
         /** Specifies the type of the button. Default type is `button`. */
-        export type _WebExtensionManifestBrowserActionType = 'button' | 'menu';
+        export type _WebExtensionManifestBrowserActionType = "button" | "menu";
 
         /** Not supported on manifest versions above 2. */
         export interface _WebExtensionManifestBrowserAction {
@@ -13127,18 +13125,18 @@ declare namespace browser {
         }
 
         /** The type of param can be either "purpose" or "pref". */
-        export type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = 'purpose' | 'pref';
+        export type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsCondition = "purpose" | "pref";
 
         /**
          * The context that initiates a search, required if condition is
          * "purpose".
          */
         export type _WebExtensionManifestChromeSettingsOverridesSearchProviderParamsPurpose =
-            | 'contextmenu'
-            | 'searchbar'
-            | 'homepage'
-            | 'keyword'
-            | 'newtab';
+            | "contextmenu"
+            | "searchbar"
+            | "homepage"
+            | "keyword"
+            | "newtab";
 
         export interface _WebExtensionManifestChromeSettingsOverridesSearchProviderParams {
             /** A url parameter name */
@@ -13271,10 +13269,10 @@ declare namespace browser {
          * Defines the location the composeAction button will appear. The default
          * location is `maintoolbar`.
          */
-        export type _WebExtensionManifestComposeActionDefaultArea = 'maintoolbar' | 'formattoolbar';
+        export type _WebExtensionManifestComposeActionDefaultArea = "maintoolbar" | "formattoolbar";
 
         /** Specifies the type of the button. Default type is `button`. */
-        export type _WebExtensionManifestComposeActionType = 'button' | 'menu';
+        export type _WebExtensionManifestComposeActionType = "button" | "menu";
 
         export interface _WebExtensionManifestComposeAction {
             /**
@@ -13317,7 +13315,7 @@ declare namespace browser {
         }
 
         /** Specifies the type of the button. Default type is `button`. */
-        export type _WebExtensionManifestMessageDisplayActionType = 'button' | 'menu';
+        export type _WebExtensionManifestMessageDisplayActionType = "button" | "menu";
 
         export interface _WebExtensionManifestMessageDisplayAction {
             /**
@@ -13377,9 +13375,9 @@ declare namespace browser {
             [key: number]: ExtensionFileUrl;
         }
 
-        export type _WebExtensionManifestIncognito = 'not_allowed' | 'spanning';
+        export type _WebExtensionManifestIncognito = "not_allowed" | "spanning";
 
-        export type _UndefinedType = 'module' | 'classic';
+        export type _UndefinedType = "module" | "classic";
 
         export interface _WebExtensionManifestOptionsUi {
             page: ExtensionURL;
@@ -13437,29 +13435,29 @@ declare namespace browser {
         }
 
         export type _PermissionNoPrompt =
-            | 'menus'
-            | 'theme'
-            | 'captivePortal'
-            | 'contextualIdentities'
-            | 'declarativeNetRequestWithHostAccess'
-            | 'dns'
-            | 'geckoProfiler'
-            | 'identity'
-            | 'alarms'
-            | 'storage'
-            | 'unlimitedStorage';
+            | "menus"
+            | "theme"
+            | "captivePortal"
+            | "contextualIdentities"
+            | "declarativeNetRequestWithHostAccess"
+            | "dns"
+            | "geckoProfiler"
+            | "identity"
+            | "alarms"
+            | "storage"
+            | "unlimitedStorage";
 
         export type _OptionalPermissionNoPrompt =
-            | 'menus.overrideContext'
-            | 'activeTab'
-            | 'cookies'
-            | 'idle'
-            | 'scripting'
-            | 'webRequest'
-            | 'webRequestAuthProvider'
-            | 'webRequestBlocking'
-            | 'webRequestFilterResponse'
-            | 'webRequestFilterResponse.serviceWorkerScript';
+            | "menus.overrideContext"
+            | "activeTab"
+            | "cookies"
+            | "idle"
+            | "scripting"
+            | "webRequest"
+            | "webRequestAuthProvider"
+            | "webRequestBlocking"
+            | "webRequestFilterResponse"
+            | "webRequestFilterResponse.serviceWorkerScript";
 
         /**
          * A _dictionary object_ with one or more _key-value_ pairs to map images
@@ -13622,31 +13620,31 @@ declare namespace browser {
         }
 
         export type _ThemeTypeAdditionalBackgroundsAlignment =
-            | 'bottom'
-            | 'center'
-            | 'left'
-            | 'right'
-            | 'top'
-            | 'center bottom'
-            | 'center center'
-            | 'center top'
-            | 'left bottom'
-            | 'left center'
-            | 'left top'
-            | 'right bottom'
-            | 'right center'
-            | 'right top';
+            | "bottom"
+            | "center"
+            | "left"
+            | "right"
+            | "top"
+            | "center bottom"
+            | "center center"
+            | "center top"
+            | "left bottom"
+            | "left center"
+            | "left top"
+            | "right bottom"
+            | "right center"
+            | "right top";
 
-        export type _ThemeTypeAdditionalBackgroundsTiling = 'no-repeat' | 'repeat' | 'repeat-x' | 'repeat-y';
+        export type _ThemeTypeAdditionalBackgroundsTiling = "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
 
         /**
          * If set, overrides the general theme (context menus, toolbars, content
          * area).
          */
-        export type _ThemeTypeColorScheme = 'light' | 'dark' | 'auto';
+        export type _ThemeTypeColorScheme = "light" | "dark" | "auto";
 
         /** If set, overrides the color scheme for the content area. */
-        export type _ThemeTypeContentColorScheme = 'light' | 'dark' | 'auto';
+        export type _ThemeTypeContentColorScheme = "light" | "dark" | "auto";
 
         /**
          * A _dictionary object_ with one or more _key-value_ pairs to map
@@ -13670,36 +13668,36 @@ declare namespace browser {
             [key: number]: string;
         }
 
-        export type _PermissionPrivileged = 'activityLog' | 'mozillaAddons' | 'networkStatus' | 'telemetry';
+        export type _PermissionPrivileged = "activityLog" | "mozillaAddons" | "networkStatus" | "telemetry";
 
         export type _ProtocolHandlerProtocol =
-            | 'bitcoin'
-            | 'dat'
-            | 'dweb'
-            | 'ftp'
-            | 'geo'
-            | 'gopher'
-            | 'im'
-            | 'ipfs'
-            | 'ipns'
-            | 'irc'
-            | 'ircs'
-            | 'magnet'
-            | 'mailto'
-            | 'matrix'
-            | 'mms'
-            | 'news'
-            | 'nntp'
-            | 'sip'
-            | 'sms'
-            | 'smsto'
-            | 'ssb'
-            | 'ssh'
-            | 'tel'
-            | 'urn'
-            | 'webcal'
-            | 'wtai'
-            | 'xmpp';
+            | "bitcoin"
+            | "dat"
+            | "dweb"
+            | "ftp"
+            | "geo"
+            | "gopher"
+            | "im"
+            | "ipfs"
+            | "ipns"
+            | "irc"
+            | "ircs"
+            | "magnet"
+            | "mailto"
+            | "matrix"
+            | "mms"
+            | "news"
+            | "nntp"
+            | "sip"
+            | "sms"
+            | "smsto"
+            | "ssb"
+            | "ssh"
+            | "tel"
+            | "urn"
+            | "webcal"
+            | "wtai"
+            | "xmpp";
 
         export interface _ManifestBaseDeveloper {
             name?: string | undefined;
@@ -13710,8 +13708,8 @@ declare namespace browser {
             [key: string]:
                 | ExtensionURL
                 | {
-                      [key: string]: ExtensionURL;
-                  };
+                    [key: string]: ExtensionURL;
+                };
         }
 
         export interface _WebExtensionLangpackManifestLanguages {
@@ -13747,7 +13745,7 @@ declare namespace browser {
             url?: string | undefined;
         }
 
-        export type _SitePermission = 'midi' | 'midi-sysex';
+        export type _SitePermission = "midi" | "midi-sysex";
     }
 
     /**
@@ -13792,7 +13790,7 @@ declare namespace browser {
         /** The type of an account. */
         export type MailAccountType = _MailAccountType;
 
-        export type _MailAccountType = 'imap' | 'pop3' | 'nntp' | 'none' | 'imap' | 'pop3' | 'nntp' | 'local';
+        export type _MailAccountType = "imap" | "pop3" | "nntp" | "none" | "imap" | "pop3" | "nntp" | "local";
 
         export interface _OnUpdatedChangedValues {
             /** The human-friendly name of this account. */
@@ -13882,7 +13880,7 @@ declare namespace browser {
     export namespace addressBooks {
         /* addressBooks types */
         /** Indicates the type of a Node. */
-        export type NodeType = 'addressBook' | 'contact' | 'mailingList';
+        export type NodeType = "addressBook" | "contact" | "mailingList";
 
         /** A node representing an address book. */
         export interface AddressBookNode {
@@ -14344,7 +14342,7 @@ declare namespace browser {
             button?: number | undefined;
         }
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         export interface _SetTitleDetails {
             /**
@@ -14683,7 +14681,7 @@ declare namespace browser {
             button?: number | undefined;
         }
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         export interface _SetTitleDetails {
             /**
@@ -15364,16 +15362,16 @@ declare namespace browser {
         export type ComposeRecipient =
             | string
             | {
-                  /**
-                   * The ID of a contact or mailing list from the
-                   * [contacts](https://webextension-api.thunderbird.net/en/stable/contacts.html)
-                   * and
-                   * [mailingLists](https://webextension-api.thunderbird.net/en/stable/mailingLists.html).
-                   */
-                  id: string;
-                  /** Which sort of object this ID is for. */
-                  type: _UndefinedType;
-              };
+                /**
+                 * The ID of a contact or mailing list from the
+                 * [contacts](https://webextension-api.thunderbird.net/en/stable/contacts.html)
+                 * and
+                 * [mailingLists](https://webextension-api.thunderbird.net/en/stable/mailingLists.html).
+                 */
+                id: string;
+                /** Which sort of object this ID is for. */
+                type: _UndefinedType;
+            };
 
         export type ComposeRecipientList = ComposeRecipient | ComposeRecipient[];
 
@@ -15395,7 +15393,7 @@ declare namespace browser {
              * An additional fcc folder which can be selected while composing the
              * message, an empty string if not used.
              */
-            additionalFccFolder?: folders.MailFolderId | folders.MailFolder | '' | undefined;
+            additionalFccFolder?: folders.MailFolderId | folders.MailFolder | "" | undefined;
             /**
              * Whether or not the vCard of the used identity will be attached to the
              * message during send. **Note:** If the value has not been modified,
@@ -15466,7 +15464,7 @@ declare namespace browser {
              * specifying the folder for the copy of the sent message, or an empty
              * string to not save a copy at all.
              */
-            overrideDefaultFccFolder?: folders.MailFolderId | folders.MailFolder | '' | undefined;
+            overrideDefaultFccFolder?: folders.MailFolderId | folders.MailFolder | "" | undefined;
             /** The plain text content of the message. */
             plainTextBody?: string | undefined;
             /** The priority of the message. */
@@ -15540,7 +15538,7 @@ declare namespace browser {
         }
 
         /** Which sort of object this ID is for. */
-        export type _UndefinedType = 'contact' | 'mailingList';
+        export type _UndefinedType = "contact" | "mailingList";
 
         /**
          * Defines the MIME format of the sent message (ignored on plain text
@@ -15548,23 +15546,23 @@ declare namespace browser {
          * text, if they do not include any formatting, and as `both` otherwise
          * (a multipart/mixed message).
          */
-        export type _ComposeDetailsDeliveryFormat = 'auto' | 'plaintext' | 'html' | 'both';
+        export type _ComposeDetailsDeliveryFormat = "auto" | "plaintext" | "html" | "both";
 
         /** The priority of the message. */
-        export type _ComposeDetailsPriority = 'lowest' | 'low' | 'normal' | 'high' | 'highest';
+        export type _ComposeDetailsPriority = "lowest" | "low" | "normal" | "high" | "highest";
 
         /**
          * Read-only. The type of the message being composed, depending on how
          * the compose window was opened by the user.
          */
-        export type _ComposeDetailsType = 'draft' | 'new' | 'redirect' | 'reply' | 'forward';
+        export type _ComposeDetailsType = "draft" | "new" | "redirect" | "reply" | "forward";
 
-        export type _BeginReplyReplyType = 'replyToSender' | 'replyToList' | 'replyToAll';
+        export type _BeginReplyReplyType = "replyToSender" | "replyToList" | "replyToAll";
 
-        export type _BeginForwardForwardType = 'forwardInline' | 'forwardAsAttachment';
+        export type _BeginForwardForwardType = "forwardInline" | "forwardAsAttachment";
 
         /** The used send mode. */
-        export type _SendMessageReturnReturnMode = 'sendNow' | 'sendLater';
+        export type _SendMessageReturnReturnMode = "sendNow" | "sendLater";
 
         export interface _SendMessageReturnReturn {
             /** The used send mode. */
@@ -15581,14 +15579,14 @@ declare namespace browser {
             messages: messages.MessageHeader[];
         }
 
-        export type _SendMessageOptionsMode = 'default' | 'sendNow' | 'sendLater';
+        export type _SendMessageOptionsMode = "default" | "sendNow" | "sendLater";
 
         export interface _SendMessageOptions {
             mode: _SendMessageOptionsMode;
         }
 
         /** The used save mode. */
-        export type _SaveMessageReturnReturnMode = 'draft' | 'template';
+        export type _SaveMessageReturnReturnMode = "draft" | "template";
 
         export interface _SaveMessageReturnReturn {
             /** The used save mode. */
@@ -15600,14 +15598,14 @@ declare namespace browser {
             messages: messages.MessageHeader[];
         }
 
-        export type _SaveMessageOptionsMode = 'draft' | 'template';
+        export type _SaveMessageOptionsMode = "draft" | "template";
 
         export interface _SaveMessageOptions {
             mode: _SaveMessageOptionsMode;
         }
 
         /** The used send mode. */
-        export type _OnAfterSendSendInfoMode = 'sendNow' | 'sendLater';
+        export type _OnAfterSendSendInfoMode = "sendNow" | "sendLater";
 
         export interface _OnAfterSendSendInfo {
             /** The used send mode. */
@@ -15627,7 +15625,7 @@ declare namespace browser {
         }
 
         /** The used save mode. */
-        export type _OnAfterSaveSaveInfoMode = 'autoSave' | 'draft' | 'template';
+        export type _OnAfterSaveSaveInfoMode = "autoSave" | "draft" | "template";
 
         export interface _OnAfterSaveSaveInfo {
             /** The used save mode. */
@@ -15981,7 +15979,7 @@ declare namespace browser {
             button?: number | undefined;
         }
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         export interface _SetTitleDetails {
             /**
@@ -16333,7 +16331,7 @@ declare namespace browser {
          * states directly correspond to `Document.readyState`: `loading`,
          * `interactive` and `complete`
          */
-        export type _RegisteredMessageDisplayScriptOptionsRunAt = 'document_start' | 'document_end' | 'document_idle';
+        export type _RegisteredMessageDisplayScriptOptionsRunAt = "document_start" | "document_end" | "document_idle";
 
         /* messageDisplayScripts functions */
         /**
@@ -16410,7 +16408,6 @@ declare namespace browser {
             /**
              * Deprecated. This information is now available in {@link folders.MailFolder}.
              *
-             *
              * Not supported on manifest versions above 2.
              */
             favorite?: boolean | undefined;
@@ -16442,14 +16439,14 @@ declare namespace browser {
 
         /** Supported values for the special use of a folder. */
         export type MailFolderSpecialUse =
-            | 'inbox'
-            | 'drafts'
-            | 'sent'
-            | 'trash'
-            | 'templates'
-            | 'archives'
-            | 'junk'
-            | 'outbox';
+            | "inbox"
+            | "drafts"
+            | "sent"
+            | "trash"
+            | "templates"
+            | "archives"
+            | "junk"
+            | "outbox";
 
         /** An object containing quota information. */
         export interface MailFolderQuota {
@@ -16490,7 +16487,7 @@ declare namespace browser {
          * constraining the available storage in bytes, a `MESSAGE` quota is
          * constraining the number of storable messages.
          */
-        export type _MailFolderQuotaType = 'STORAGE' | 'MESSAGE';
+        export type _MailFolderQuotaType = "STORAGE" | "MESSAGE";
 
         export interface _QueryQueryInfo {
             /** Limits the search to folders of the account with the specified id. */
@@ -16889,71 +16886,71 @@ declare namespace browser {
          * should be present, or neither.
          */
         export type _MailTabSortType =
-            | 'none'
-            | 'date'
-            | 'subject'
-            | 'author'
-            | 'id'
-            | 'thread'
-            | 'priority'
-            | 'status'
-            | 'size'
-            | 'flagged'
-            | 'unread'
-            | 'recipient'
-            | 'location'
-            | 'tags'
-            | 'junkStatus'
-            | 'attachments'
-            | 'account'
-            | 'custom'
-            | 'received'
-            | 'correspondent';
+            | "none"
+            | "date"
+            | "subject"
+            | "author"
+            | "id"
+            | "thread"
+            | "priority"
+            | "status"
+            | "size"
+            | "flagged"
+            | "unread"
+            | "recipient"
+            | "location"
+            | "tags"
+            | "junkStatus"
+            | "attachments"
+            | "account"
+            | "custom"
+            | "received"
+            | "correspondent";
 
         /**
          * **Note:** `sortType` and `sortOrder` depend on each other, so both
          * should be present, or neither.
          */
-        export type _MailTabSortOrder = 'none' | 'ascending' | 'descending';
+        export type _MailTabSortOrder = "none" | "ascending" | "descending";
 
-        export type _MailTabViewType = 'ungrouped' | 'groupedByThread' | 'groupedBySortType';
+        export type _MailTabViewType = "ungrouped" | "groupedByThread" | "groupedBySortType";
 
-        export type _MailTabLayout = 'standard' | 'wide' | 'vertical';
+        export type _MailTabLayout = "standard" | "wide" | "vertical";
 
         /** Sorts the list of messages. `sortOrder` must also be given. */
         export type _MailTabPropertiesSortType =
-            | 'none'
-            | 'date'
-            | 'subject'
-            | 'author'
-            | 'id'
-            | 'thread'
-            | 'priority'
-            | 'status'
-            | 'size'
-            | 'flagged'
-            | 'unread'
-            | 'recipient'
-            | 'location'
-            | 'tags'
-            | 'junkStatus'
-            | 'attachments'
-            | 'account'
-            | 'custom'
-            | 'received'
-            | 'correspondent';
+            | "none"
+            | "date"
+            | "subject"
+            | "author"
+            | "id"
+            | "thread"
+            | "priority"
+            | "status"
+            | "size"
+            | "flagged"
+            | "unread"
+            | "recipient"
+            | "location"
+            | "tags"
+            | "junkStatus"
+            | "attachments"
+            | "account"
+            | "custom"
+            | "received"
+            | "correspondent";
 
         /** Sorts the list of messages. `sortType` must also be given. */
-        export type _MailTabPropertiesSortOrder = 'none' | 'ascending' | 'descending';
+        export type _MailTabPropertiesSortOrder = "none" | "ascending" | "descending";
 
-        export type _MailTabPropertiesViewType = 'ungrouped' | 'groupedByThread' | 'groupedBySortType';
+        export type _MailTabPropertiesViewType = "ungrouped" | "groupedByThread" | "groupedBySortType";
 
         /**
          * Sets the arrangement of the folder pane, message list pane, and
          * message display pane. Note that setting this applies it to all mail
          * tabs.
          */
-        export type _MailTabPropertiesLayout = 'standard' | 'wide' | 'vertical';
+        export type _MailTabPropertiesLayout = "standard" | "wide" | "vertical";
 
         export interface _QueryQueryInfo {
             /** Whether the tabs are active in their windows. */
@@ -17106,7 +17103,7 @@ declare namespace browser {
         export type ContextType = _ContextType;
 
         /** The type of menu item. */
-        export type ItemType = 'normal' | 'checkbox' | 'radio' | 'separator';
+        export type ItemType = "normal" | "checkbox" | "radio" | "separator";
 
         /**
          * Information sent when a context menu is being shown. Some properties
@@ -17334,52 +17331,52 @@ declare namespace browser {
         }
 
         export type _ContextType =
-            | 'all'
-            | 'all_message_attachments'
-            | 'audio'
-            | 'compose_action'
-            | 'compose_action_menu'
-            | 'compose_attachments'
-            | 'compose_body'
-            | 'editable'
-            | 'folder_pane'
-            | 'frame'
-            | 'image'
-            | 'link'
-            | 'message_attachments'
-            | 'message_display_action'
-            | 'message_display_action_menu'
-            | 'message_list'
-            | 'page'
-            | 'password'
-            | 'selection'
-            | 'tab'
-            | 'tools_menu'
-            | 'video'
-            | 'browser_action'
-            | 'browser_action_menu'
-            | 'action'
-            | 'action_menu';
+            | "all"
+            | "all_message_attachments"
+            | "audio"
+            | "compose_action"
+            | "compose_action_menu"
+            | "compose_attachments"
+            | "compose_body"
+            | "editable"
+            | "folder_pane"
+            | "frame"
+            | "image"
+            | "link"
+            | "message_attachments"
+            | "message_display_action"
+            | "message_display_action_menu"
+            | "message_list"
+            | "page"
+            | "password"
+            | "selection"
+            | "tab"
+            | "tools_menu"
+            | "video"
+            | "browser_action"
+            | "browser_action_menu"
+            | "action"
+            | "action_menu";
 
         /** An identifier of the clicked Thunderbird UI element, if any. */
         export type _OnShowDataFieldId =
-            | 'composeSubject'
-            | 'composeTo'
-            | 'composeCc'
-            | 'composeBcc'
-            | 'composeReplyTo'
-            | 'composeNewsgroupTo';
+            | "composeSubject"
+            | "composeTo"
+            | "composeCc"
+            | "composeBcc"
+            | "composeReplyTo"
+            | "composeNewsgroupTo";
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         /** An identifier of the clicked Thunderbird UI element, if any. */
         export type _OnClickDataFieldId =
-            | 'composeSubject'
-            | 'composeTo'
-            | 'composeCc'
-            | 'composeBcc'
-            | 'composeReplyTo'
-            | 'composeNewsgroupTo';
+            | "composeSubject"
+            | "composeTo"
+            | "composeCc"
+            | "composeBcc"
+            | "composeReplyTo"
+            | "composeNewsgroupTo";
 
         export interface _CreateCreateProperties {
             /** The type of menu item. Defaults to `normal` if not specified. */
@@ -17493,7 +17490,7 @@ declare namespace browser {
              * the menu. Currently only `tab` is supported.
              * `contextOptions.showDefaults` cannot be used with this option.
              */
-            context?: 'tab' | undefined;
+            context?: "tab" | undefined;
             /** Required when context is `tab`. Requires the _tabs_ permission. */
             tabId?: number | undefined;
         }
@@ -17608,7 +17605,7 @@ declare namespace browser {
          * Where to open the message. If not specified, the users preference is
          * honoured.
          */
-        export type _OpenOpenPropertiesLocation = 'tab' | 'window';
+        export type _OpenOpenPropertiesLocation = "tab" | "window";
 
         /**
          * Settings for opening the message. Exactly one of messageId,
@@ -17733,7 +17730,7 @@ declare namespace browser {
             button?: number | undefined;
         }
 
-        export type _OnClickDataModifiers = 'Shift' | 'Alt' | 'Command' | 'Ctrl' | 'MacCtrl';
+        export type _OnClickDataModifiers = "Shift" | "Alt" | "Command" | "Ctrl" | "MacCtrl";
 
         export interface _SetTitleDetails {
             /**
@@ -18129,7 +18126,6 @@ declare namespace browser {
             name?: string | undefined;
             /**
              * The identifier of this part, used in {@link messages.getAttachmentFile}
-             *
              */
             partName?: string | undefined;
             /** Any sub-parts of this part */
@@ -18145,19 +18141,16 @@ declare namespace browser {
         /**
          * Message properties used in {@link messages.update} and {@link messages.import}.
          *  They can also be monitored by {@link messages.onUpdated}.
-         *
          */
         export interface MessageProperties {
             /** Whether the message is flagged (a.k.a starred). */
             flagged?: boolean | undefined;
             /**
              * Whether the message is marked as junk. Only supported in {@link messages.update}
-             *
              */
             junk?: boolean | undefined;
             /**
              * Whether the message is marked as new. Only supported in {@link messages.import}
-             *
              */
             new?: boolean | undefined;
             /** Whether the message is marked as read. */
@@ -18203,7 +18196,7 @@ declare namespace browser {
         }
 
         /** The decryption status, only available for the root part. */
-        export type _MessagePartDecryptionStatus = 'none' | 'skipped' | 'success' | 'fail';
+        export type _MessagePartDecryptionStatus = "none" | "skipped" | "success" | "fail";
 
         export interface _GetFullOptions {
             /**
@@ -18213,7 +18206,7 @@ declare namespace browser {
             decrypt?: boolean | undefined;
         }
 
-        export type _GetRawOptionsDataFormat = 'File' | 'BinaryString' | 'File' | 'BinaryString';
+        export type _GetRawOptionsDataFormat = "File" | "BinaryString" | "File" | "BinaryString";
 
         export interface _GetRawOptions {
             /**
@@ -18625,7 +18618,7 @@ declare namespace browser {
             }
 
             /** Whether all of the tag filters must apply, or any of them. */
-            export type _TagsDetailMode = 'all' | 'any';
+            export type _TagsDetailMode = "all" | "any";
 
             export interface _UpdateUpdateProperties {
                 /** Human-readable tag name. */
@@ -19078,37 +19071,37 @@ declare namespace browser {
         }
 
         /** Whether the tabs have completed loading. */
-        export type TabStatus = 'loading' | 'complete';
+        export type TabStatus = "loading" | "complete";
 
         /** Tab types supported by the tabs API. */
         export type TabType =
-            | 'addressBook'
-            | 'calendar'
-            | 'calendarEvent'
-            | 'calendarTask'
-            | 'chat'
-            | 'content'
-            | 'mail'
-            | 'messageCompose'
-            | 'messageDisplay'
-            | 'special'
-            | 'tasks';
+            | "addressBook"
+            | "calendar"
+            | "calendarEvent"
+            | "calendarTask"
+            | "chat"
+            | "content"
+            | "mail"
+            | "messageCompose"
+            | "messageDisplay"
+            | "special"
+            | "tasks";
 
         /**
          * The type of a window. Under some circumstances a Window may not be
          * assigned a type property.
          */
         export type WindowType =
-            | 'normal'
-            | 'popup'
-            | 'panel'
-            | 'app'
-            | 'devtools'
-            | 'messageCompose'
-            | 'messageDisplay';
+            | "normal"
+            | "popup"
+            | "panel"
+            | "app"
+            | "devtools"
+            | "messageCompose"
+            | "messageDisplay";
 
         /** Event names supported in onUpdated. */
-        export type UpdatePropertyName = 'favIconUrl' | 'status' | 'title';
+        export type UpdatePropertyName = "favIconUrl" | "status" | "title";
 
         /** An object describing filters to apply to tabs.onUpdated events. */
         export interface UpdateFilter {
@@ -19520,7 +19513,6 @@ declare namespace browser {
          * fired, representing the tab the user directly moved. Move events are
          * not fired for the other tabs that must move in response. This event is
          * not fired when a tab is moved between windows. For that, see {@link tabs.onDetached}.
-         *
          */
         export const onMoved: WebExtEvent<(tabId: number, moveInfo: _OnMovedMoveInfo) => void>;
 
@@ -19623,10 +19615,10 @@ declare namespace browser {
          * The type of a window. Under some circumstances a window may not be
          * assigned a type property.
          */
-        export type WindowType = 'normal' | 'popup' | 'messageCompose' | 'messageDisplay';
+        export type WindowType = "normal" | "popup" | "messageCompose" | "messageDisplay";
 
         /** The state of this window. */
-        export type WindowState = 'normal' | 'minimized' | 'maximized' | 'fullscreen' | 'docked';
+        export type WindowState = "normal" | "minimized" | "maximized" | "fullscreen" | "docked";
 
         export interface Window {
             /** The ID of the window. Window IDs are unique within a session. */
@@ -19668,7 +19660,7 @@ declare namespace browser {
          * Specifies what type of window to create. Thunderbird does not support
          * `panel` and `detached_panel`, they are interpreted as `popup`.
          */
-        export type CreateType = 'normal' | 'popup' | 'panel' | 'detached_panel';
+        export type CreateType = "normal" | "popup" | "panel" | "detached_panel";
 
         /** Specifies additional requirements for the returned windows. */
         export interface GetInfo {
@@ -19886,13 +19878,13 @@ declare namespace browser {
     export namespace browserSettings {
         /* browserSettings types */
         /** How images should be animated in the browser. */
-        export type ImageAnimationBehavior = 'normal' | 'none' | 'once';
+        export type ImageAnimationBehavior = "normal" | "none" | "once";
 
         /** After which mouse event context menus should popup. */
-        export type ContextMenuMouseEvent = 'mouseup' | 'mousedown';
+        export type ContextMenuMouseEvent = "mouseup" | "mousedown";
 
         /** Color management mode. */
-        export type ColorManagementMode = 'off' | 'full' | 'tagged_only';
+        export type ColorManagementMode = "off" | "full" | "tagged_only";
 
         /* browserSettings properties */
         /**
@@ -20009,7 +20001,7 @@ declare namespace browser {
      */
     export namespace clipboard {
         /** The type of imageData. */
-        export type _SetImageDataImageType = 'jpeg' | 'png';
+        export type _SetImageDataImageType = "jpeg" | "png";
 
         /* clipboard functions */
         /**
@@ -20099,7 +20091,7 @@ declare namespace browser {
          * 'no_restriction' corresponds to a cookie set without a 'SameSite'
          * attribute, 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'.
          */
-        export type SameSiteStatus = 'no_restriction' | 'lax' | 'strict';
+        export type SameSiteStatus = "no_restriction" | "lax" | "strict";
 
         /**
          * The description of the storage partition of a cookie. This object may
@@ -20189,7 +20181,7 @@ declare namespace browser {
          * cookie was automatically removed due to a "set" call that overwrote
          * it, "cause" will be "overwrite". Plan your response accordingly.
          */
-        export type OnChangedCause = 'evicted' | 'expired' | 'explicit' | 'expired_overwrite' | 'overwrite';
+        export type OnChangedCause = "evicted" | "expired" | "explicit" | "expired_overwrite" | "overwrite";
 
         /** Details to identify the cookie being retrieved. */
         export interface _GetDetails {
@@ -20451,16 +20443,16 @@ declare namespace browser {
         export type ResolveFlags = _ResolveFlags[];
 
         export type _ResolveFlags =
-            | 'allow_name_collisions'
-            | 'bypass_cache'
-            | 'canonical_name'
-            | 'disable_ipv4'
-            | 'disable_ipv6'
-            | 'disable_trr'
-            | 'offline'
-            | 'priority_low'
-            | 'priority_medium'
-            | 'speculate';
+            | "allow_name_collisions"
+            | "bypass_cache"
+            | "canonical_name"
+            | "disable_ipv4"
+            | "disable_ipv6"
+            | "disable_trr"
+            | "offline"
+            | "priority_low"
+            | "priority_medium"
+            | "speculate";
 
         /* dns functions */
         /** Resolves a hostname to a DNS record. */
@@ -20476,33 +20468,33 @@ declare namespace browser {
      */
     export namespace downloads {
         /* downloads types */
-        export type FilenameConflictAction = 'uniquify' | 'overwrite' | 'prompt';
+        export type FilenameConflictAction = "uniquify" | "overwrite" | "prompt";
 
         export type InterruptReason =
-            | 'FILE_FAILED'
-            | 'FILE_ACCESS_DENIED'
-            | 'FILE_NO_SPACE'
-            | 'FILE_NAME_TOO_LONG'
-            | 'FILE_TOO_LARGE'
-            | 'FILE_VIRUS_INFECTED'
-            | 'FILE_TRANSIENT_ERROR'
-            | 'FILE_BLOCKED'
-            | 'FILE_SECURITY_CHECK_FAILED'
-            | 'FILE_TOO_SHORT'
-            | 'NETWORK_FAILED'
-            | 'NETWORK_TIMEOUT'
-            | 'NETWORK_DISCONNECTED'
-            | 'NETWORK_SERVER_DOWN'
-            | 'NETWORK_INVALID_REQUEST'
-            | 'SERVER_FAILED'
-            | 'SERVER_NO_RANGE'
-            | 'SERVER_BAD_CONTENT'
-            | 'SERVER_UNAUTHORIZED'
-            | 'SERVER_CERT_PROBLEM'
-            | 'SERVER_FORBIDDEN'
-            | 'USER_CANCELED'
-            | 'USER_SHUTDOWN'
-            | 'CRASH';
+            | "FILE_FAILED"
+            | "FILE_ACCESS_DENIED"
+            | "FILE_NO_SPACE"
+            | "FILE_NAME_TOO_LONG"
+            | "FILE_TOO_LARGE"
+            | "FILE_VIRUS_INFECTED"
+            | "FILE_TRANSIENT_ERROR"
+            | "FILE_BLOCKED"
+            | "FILE_SECURITY_CHECK_FAILED"
+            | "FILE_TOO_SHORT"
+            | "NETWORK_FAILED"
+            | "NETWORK_TIMEOUT"
+            | "NETWORK_DISCONNECTED"
+            | "NETWORK_SERVER_DOWN"
+            | "NETWORK_INVALID_REQUEST"
+            | "SERVER_FAILED"
+            | "SERVER_NO_RANGE"
+            | "SERVER_BAD_CONTENT"
+            | "SERVER_UNAUTHORIZED"
+            | "SERVER_CERT_PROBLEM"
+            | "SERVER_FORBIDDEN"
+            | "USER_CANCELED"
+            | "USER_SHUTDOWN"
+            | "CRASH";
 
         /**
          * _file_: The download's filename is suspicious.
@@ -20515,7 +20507,7 @@ declare namespace browser {
          * These string constants will never change, however the set of
          * DangerTypes may change.
          */
-        export type DangerType = 'file' | 'url' | 'content' | 'uncommon' | 'host' | 'unwanted' | 'safe' | 'accepted';
+        export type DangerType = "file" | "url" | "content" | "uncommon" | "host" | "unwanted" | "safe" | "accepted";
 
         /**
          * _in_progress_: The download is currently receiving data from the
@@ -20526,7 +20518,7 @@ declare namespace browser {
          * These string constants will never change, however the set of States
          * may change.
          */
-        export type State = 'in_progress' | 'interrupted' | 'complete';
+        export type State = "in_progress" | "interrupted" | "complete";
 
         export interface DownloadItem {
             /** An identifier that is persistent across browser sessions. */
@@ -20727,7 +20719,7 @@ declare namespace browser {
         }
 
         /** The HTTP method to use if the URL uses the HTTP[S] protocol. */
-        export type _DownloadOptionsMethod = 'GET' | 'POST';
+        export type _DownloadOptionsMethod = "GET" | "POST";
 
         export interface _DownloadOptionsHeaders {
             /** Name of the HTTP header. */
@@ -21151,11 +21143,11 @@ declare namespace browser {
 
         export type APIEvents = APIEvent[];
 
-        export type APIEvent = 'startup';
+        export type APIEvent = "startup";
 
-        export type APIParentScope = 'addon_parent' | 'content_parent' | 'devtools_parent';
+        export type APIParentScope = "addon_parent" | "content_parent" | "devtools_parent";
 
-        export type APIChildScope = 'addon_child' | 'content_child' | 'devtools_child';
+        export type APIChildScope = "addon_child" | "content_child" | "devtools_child";
 
         export interface _ExperimentAPIParent {
             events?: APIEvents | undefined;
@@ -21182,7 +21174,7 @@ declare namespace browser {
     export namespace extension {
         /* extension types */
         /** The type of extension view. */
-        export type ViewType = 'tab' | 'popup' | 'sidebar';
+        export type ViewType = "tab" | "popup" | "sidebar";
 
         /**
          * Set for the lifetime of a callback if an ansychronous extension api
@@ -21330,7 +21322,7 @@ declare namespace browser {
     export namespace extensionTypes {
         /* extensionTypes types */
         /** The format of an image. */
-        export type ImageFormat = 'jpeg' | 'png';
+        export type ImageFormat = "jpeg" | "png";
 
         /** Details about the format, quality, area and scale of the capture. */
         export interface ImageDetails {
@@ -21358,13 +21350,13 @@ declare namespace browser {
         }
 
         /** The soonest that the JavaScript or CSS will be injected into the tab. */
-        export type RunAt = 'document_start' | 'document_end' | 'document_idle';
+        export type RunAt = "document_start" | "document_end" | "document_idle";
 
         /**
          * The origin of the CSS to inject, this affects the cascading order
          * (priority) of the stylesheet.
          */
-        export type CSSOrigin = 'user' | 'author';
+        export type CSSOrigin = "user" | "author";
 
         /**
          * Details of the script or CSS to inject. Either the code or the file
@@ -21414,11 +21406,11 @@ declare namespace browser {
 
         export type ExtensionFileOrCode =
             | {
-                  file: _manifest.ExtensionURL;
-              }
+                file: _manifest.ExtensionURL;
+            }
             | {
-                  code: string;
-              };
+                code: string;
+            };
 
         /** A plain JSON value */
         export type PlainJSONValue = null | string | number | boolean | _PlainJSONArray | _PlainJSONObject;
@@ -21630,7 +21622,7 @@ declare namespace browser {
      */
     export namespace idle {
         /* idle types */
-        export type IdleState = 'active' | 'idle';
+        export type IdleState = "active" | "idle";
 
         /* idle functions */
         /**
@@ -21689,10 +21681,10 @@ declare namespace browser {
         }
 
         /** A reason the item is disabled. */
-        export type ExtensionDisabledReason = 'unknown' | 'permissions_increase';
+        export type ExtensionDisabledReason = "unknown" | "permissions_increase";
 
         /** The type of this extension, 'extension' or 'theme'. */
-        export type ExtensionType = 'extension' | 'theme';
+        export type ExtensionType = "extension" | "theme";
 
         /**
          * How the extension was installed. One of
@@ -21702,7 +21694,7 @@ declare namespace browser {
          * machine,
          * `other`: The extension was installed by other means.
          */
-        export type ExtensionInstallType = 'development' | 'normal' | 'sideload' | 'other';
+        export type ExtensionInstallType = "development" | "normal" | "sideload" | "other";
 
         /** Information about an installed extension. */
         export interface ExtensionInfo {
@@ -21832,9 +21824,9 @@ declare namespace browser {
      */
     export namespace notifications {
         /* notifications types */
-        export type TemplateType = 'basic' | 'image' | 'list' | 'progress';
+        export type TemplateType = "basic" | "image" | "list" | "progress";
 
-        export type PermissionLevel = 'granted' | 'denied';
+        export type PermissionLevel = "granted" | "denied";
 
         export interface NotificationItem {
             /** Title of one item of a list notification. */
@@ -22144,11 +22136,11 @@ declare namespace browser {
             /* privacy.network types */
             /** The IP handling policy of WebRTC. */
             export type IPHandlingPolicy =
-                | 'default'
-                | 'default_public_and_private_interfaces'
-                | 'default_public_interface_only'
-                | 'disable_non_proxied_udp'
-                | 'proxy_only';
+                | "default"
+                | "default_public_and_private_interfaces"
+                | "default_public_interface_only"
+                | "disable_non_proxied_udp"
+                | "proxy_only";
 
             /** An object which describes TLS minimum and maximum versions. */
             export interface tlsVersionRestrictionConfig {
@@ -22159,13 +22151,13 @@ declare namespace browser {
             }
 
             /** The mode for https-only mode. */
-            export type HTTPSOnlyModeOption = 'always' | 'private_browsing' | 'never';
+            export type HTTPSOnlyModeOption = "always" | "private_browsing" | "never";
 
             /** The minimum TLS version supported. */
-            export type _TlsVersionRestrictionConfigMinimum = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+            export type _TlsVersionRestrictionConfigMinimum = "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3" | "unknown";
 
             /** The maximum TLS version supported. */
-            export type _TlsVersionRestrictionConfigMaximum = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+            export type _TlsVersionRestrictionConfigMaximum = "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3" | "unknown";
 
             /* privacy.network properties */
             /**
@@ -22239,7 +22231,7 @@ declare namespace browser {
         export namespace websites {
             /* privacy.websites types */
             /** The mode for tracking protection. */
-            export type TrackingProtectionModeOption = 'always' | 'never' | 'private_browsing';
+            export type TrackingProtectionModeOption = "always" | "never" | "private_browsing";
 
             /** The settings for cookies. */
             export interface CookieConfig {
@@ -22257,12 +22249,12 @@ declare namespace browser {
 
             /** The type of cookies to allow. */
             export type _CookieConfigBehavior =
-                | 'allow_all'
-                | 'reject_all'
-                | 'reject_third_party'
-                | 'allow_visited'
-                | 'reject_trackers'
-                | 'reject_trackers_and_partition_foreign';
+                | "allow_all"
+                | "reject_all"
+                | "reject_third_party"
+                | "allow_visited"
+                | "reject_trackers"
+                | "reject_trackers_and_partition_foreign";
 
             /* privacy.websites properties */
             /**
@@ -22389,7 +22381,7 @@ declare namespace browser {
         }
 
         /** The type of proxy to use. */
-        export type _ProxyConfigProxyType = 'none' | 'autoDetect' | 'system' | 'manual' | 'autoConfig';
+        export type _ProxyConfigProxyType = "none" | "autoDetect" | "system" | "manual" | "autoConfig";
 
         export interface _OnRequestDetails {
             /**
@@ -22452,7 +22444,7 @@ declare namespace browser {
         }
 
         export interface _ProxyOnRequestEvent<TCallback = (details: _OnRequestDetails) => void> {
-            addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<'requestHeaders'>): void;
+            addListener(cb: TCallback, filter: webRequest.RequestFilter, extraInfoSpec?: Array<"requestHeaders">): void;
             removeListener(cb: TCallback): void;
             hasListener(cb: TCallback): boolean;
         }
@@ -22532,10 +22524,10 @@ declare namespace browser {
         }
 
         /** The operating system the browser is running on. */
-        export type PlatformOs = 'mac' | 'win' | 'android' | 'cros' | 'linux' | 'openbsd';
+        export type PlatformOs = "mac" | "win" | "android" | "cros" | "linux" | "openbsd";
 
         /** The machine's processor architecture. */
-        export type PlatformArch = 'aarch64' | 'arm' | 'ppc64' | 's390x' | 'sparc64' | 'x86-32' | 'x86-64' | 'noarch';
+        export type PlatformArch = "aarch64" | "arm" | "ppc64" | "s390x" | "sparc64" | "x86-32" | "x86-64" | "noarch";
 
         /** An object containing information about the current platform. */
         export interface PlatformInfo {
@@ -22565,10 +22557,10 @@ declare namespace browser {
         }
 
         /** Result of the update check. */
-        export type RequestUpdateCheckStatus = 'throttled' | 'no_update' | 'update_available';
+        export type RequestUpdateCheckStatus = "throttled" | "no_update" | "update_available";
 
         /** The reason that this event is being dispatched. */
-        export type OnInstalledReason = 'install' | 'update' | 'browser_update';
+        export type OnInstalledReason = "install" | "update" | "browser_update";
 
         /**
          * The reason that the event is being dispatched. 'app_update' is used
@@ -22578,18 +22570,18 @@ declare namespace browser {
          * the system runs for more than the permitted uptime set in the
          * enterprise policy.
          */
-        export type OnRestartRequiredReason = 'app_update' | 'os_update' | 'periodic';
+        export type OnRestartRequiredReason = "app_update" | "os_update" | "periodic";
 
         /** The performance warning event category, e.g. 'content_script'. */
-        export type OnPerformanceWarningCategory = 'content_script';
+        export type OnPerformanceWarningCategory = "content_script";
 
         /**
          * The performance warning event severity. Will be 'high' for serious and
          * user-visible issues.
          */
-        export type OnPerformanceWarningSeverity = 'low' | 'medium' | 'high';
+        export type OnPerformanceWarningSeverity = "low" | "medium" | "high";
 
-        export type PlatformNaclArch = 'arm' | 'x86-32' | 'x86-64';
+        export type PlatformNaclArch = "arm" | "x86-32" | "x86-64";
 
         /**
          * This will be defined during an API method callback if there was an
@@ -23167,7 +23159,7 @@ declare namespace browser {
          *
          * Only `regular` is supported by Firefox at this time.
          */
-        export type SettingScope = 'regular' | 'regular_only' | 'incognito_persistent' | 'incognito_session_only';
+        export type SettingScope = "regular" | "regular_only" | "incognito_persistent" | "incognito_session_only";
 
         /**
          * One of
@@ -23180,10 +23172,10 @@ declare namespace browser {
          * - `controlled_by_this_extension`: controlled by this extension
          */
         export type LevelOfControl =
-            | 'not_controllable'
-            | 'controlled_by_other_extensions'
-            | 'controllable_by_this_extension'
-            | 'controlled_by_this_extension';
+            | "not_controllable"
+            | "controlled_by_other_extensions"
+            | "controllable_by_this_extension"
+            | "controlled_by_this_extension";
 
         export interface Setting {
             /**
@@ -23375,19 +23367,19 @@ declare namespace browser {
          * `"auto_toplevel"` (for backwards compatibility).
          */
         export type TransitionType =
-            | 'link'
-            | 'typed'
-            | 'auto_bookmark'
-            | 'auto_subframe'
-            | 'manual_subframe'
-            | 'generated'
-            | 'start_page'
-            | 'form_submit'
-            | 'reload'
-            | 'keyword'
-            | 'keyword_generated';
+            | "link"
+            | "typed"
+            | "auto_bookmark"
+            | "auto_subframe"
+            | "manual_subframe"
+            | "generated"
+            | "start_page"
+            | "form_submit"
+            | "reload"
+            | "keyword"
+            | "keyword_generated";
 
-        export type TransitionQualifier = 'client_redirect' | 'server_redirect' | 'forward_back' | 'from_address_bar';
+        export type TransitionQualifier = "client_redirect" | "server_redirect" | "forward_back" | "from_address_bar";
 
         export interface EventUrlFilters {
             url: events.UrlFilter[];
@@ -23816,42 +23808,42 @@ declare namespace browser {
     export namespace webRequest {
         /* webRequest types */
         export type ResourceType =
-            | 'main_frame'
-            | 'sub_frame'
-            | 'stylesheet'
-            | 'script'
-            | 'image'
-            | 'object'
-            | 'object_subrequest'
-            | 'xmlhttprequest'
-            | 'xslt'
-            | 'ping'
-            | 'beacon'
-            | 'xml_dtd'
-            | 'font'
-            | 'media'
-            | 'websocket'
-            | 'csp_report'
-            | 'imageset'
-            | 'web_manifest'
-            | 'speculative'
-            | 'other';
+            | "main_frame"
+            | "sub_frame"
+            | "stylesheet"
+            | "script"
+            | "image"
+            | "object"
+            | "object_subrequest"
+            | "xmlhttprequest"
+            | "xslt"
+            | "ping"
+            | "beacon"
+            | "xml_dtd"
+            | "font"
+            | "media"
+            | "websocket"
+            | "csp_report"
+            | "imageset"
+            | "web_manifest"
+            | "speculative"
+            | "other";
 
-        export type OnBeforeRequestOptions = 'blocking' | 'requestBody';
+        export type OnBeforeRequestOptions = "blocking" | "requestBody";
 
-        export type OnBeforeSendHeadersOptions = 'requestHeaders' | 'blocking';
+        export type OnBeforeSendHeadersOptions = "requestHeaders" | "blocking";
 
-        export type OnSendHeadersOptions = 'requestHeaders';
+        export type OnSendHeadersOptions = "requestHeaders";
 
-        export type OnHeadersReceivedOptions = 'blocking' | 'responseHeaders';
+        export type OnHeadersReceivedOptions = "blocking" | "responseHeaders";
 
-        export type OnAuthRequiredOptions = 'responseHeaders' | 'blocking' | 'asyncBlocking';
+        export type OnAuthRequiredOptions = "responseHeaders" | "blocking" | "asyncBlocking";
 
-        export type OnResponseStartedOptions = 'responseHeaders';
+        export type OnResponseStartedOptions = "responseHeaders";
 
-        export type OnBeforeRedirectOptions = 'responseHeaders';
+        export type OnBeforeRedirectOptions = "responseHeaders";
 
-        export type OnCompletedOptions = 'responseHeaders';
+        export type OnCompletedOptions = "responseHeaders";
 
         /** An object describing filters to apply to webRequest events. */
         export interface RequestFilter {
@@ -23946,12 +23938,12 @@ declare namespace browser {
         }
 
         export type CertificateTransparencyStatus =
-            | 'not_applicable'
-            | 'policy_compliant'
-            | 'policy_not_enough_scts'
-            | 'policy_not_diverse_scts';
+            | "not_applicable"
+            | "policy_compliant"
+            | "policy_not_enough_scts"
+            | "policy_not_diverse_scts";
 
-        export type TransportWeaknessReasons = 'cipher';
+        export type TransportWeaknessReasons = "cipher";
 
         /**
          * Contains the security properties of the request (ie. SSL/TLS
@@ -24035,20 +24027,20 @@ declare namespace browser {
 
         /** Tracking flags that match our internal tracking classification */
         export type UrlClassificationFlags =
-            | 'fingerprinting'
-            | 'fingerprinting_content'
-            | 'cryptomining'
-            | 'cryptomining_content'
-            | 'emailtracking'
-            | 'emailtracking_content'
-            | 'tracking'
-            | 'tracking_ad'
-            | 'tracking_analytics'
-            | 'tracking_social'
-            | 'tracking_content'
-            | 'any_basic_tracking'
-            | 'any_strict_tracking'
-            | 'any_social_tracking';
+            | "fingerprinting"
+            | "fingerprinting_content"
+            | "cryptomining"
+            | "cryptomining_content"
+            | "emailtracking"
+            | "emailtracking_content"
+            | "tracking"
+            | "tracking_ad"
+            | "tracking_analytics"
+            | "tracking_social"
+            | "tracking_content"
+            | "any_basic_tracking"
+            | "any_strict_tracking"
+            | "any_social_tracking";
 
         /**
          * If the request has been classified this is an array of
@@ -24140,29 +24132,29 @@ declare namespace browser {
             sha256: string;
         }
 
-        export type _SecurityInfoState = 'insecure' | 'weak' | 'broken' | 'secure';
+        export type _SecurityInfoState = "insecure" | "weak" | "broken" | "secure";
 
         /** Protocol version if state is "secure" */
-        export type _SecurityInfoProtocolVersion = 'TLSv1' | 'TLSv1.1' | 'TLSv1.2' | 'TLSv1.3' | 'unknown';
+        export type _SecurityInfoProtocolVersion = "TLSv1" | "TLSv1.1" | "TLSv1.2" | "TLSv1.3" | "unknown";
 
         /**
          * The type of certificate error that was overridden for this connection,
          * if any.
          */
         export type _SecurityInfoOverridableErrorCategory =
-            | 'trust_error'
-            | 'domain_mismatch'
-            | 'expired_or_not_yet_valid';
+            | "trust_error"
+            | "domain_mismatch"
+            | "expired_or_not_yet_valid";
 
         /** Describes the current status of the stream. */
         export type _StreamFilterStatus =
-            | 'uninitialized'
-            | 'transferringdata'
-            | 'finishedtransferringdata'
-            | 'suspended'
-            | 'closed'
-            | 'disconnected'
-            | 'failed';
+            | "uninitialized"
+            | "transferringdata"
+            | "finishedtransferringdata"
+            | "suspended"
+            | "closed"
+            | "disconnected"
+            | "failed";
 
         interface _StreamFilterOndataEvent extends Event {
             data: ArrayBuffer;
@@ -24325,7 +24317,9 @@ declare namespace browser {
         }
 
         export interface _WebRequestOnBeforeSendHeadersEvent<
-            TCallback = (details: _OnBeforeSendHeadersDetails) => BlockingResponse | Promise<BlockingResponse> | undefined,
+            TCallback = (
+                details: _OnBeforeSendHeadersDetails,
+            ) => BlockingResponse | Promise<BlockingResponse> | undefined,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
             removeListener(cb: TCallback): void;
@@ -24456,7 +24450,9 @@ declare namespace browser {
         }
 
         export interface _WebRequestOnHeadersReceivedEvent<
-            TCallback = (details: _OnHeadersReceivedDetails) => BlockingResponse | Promise<BlockingResponse> | undefined,
+            TCallback = (
+                details: _OnHeadersReceivedDetails,
+            ) => BlockingResponse | Promise<BlockingResponse> | undefined,
         > {
             addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
             removeListener(cb: TCallback): void;
