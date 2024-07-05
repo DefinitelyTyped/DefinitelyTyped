@@ -2622,9 +2622,7 @@ declare namespace chrome.devtools.panels {
         onSelectionChanged: SelectionChangedEvent;
     }
 
-    export interface ExtensionSidebarPaneShownEvent
-        extends chrome.events.Event<(window: Window) => void>
-    {}
+    export interface ExtensionSidebarPaneShownEvent extends chrome.events.Event<(window: Window) => void> {}
 
     export interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> {}
 
