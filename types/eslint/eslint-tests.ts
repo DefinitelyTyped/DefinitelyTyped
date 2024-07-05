@@ -791,6 +791,11 @@ linterWithFlatConfig.verify(
 linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-console": "warn" } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-console": "off" } }], "test.js");
 
+linterWithFlatConfig.verify(SOURCE, { linterOptions: {} }, "test.js");
+linterWithFlatConfig.verify(SOURCE, { linterOptions: {} }, { filename: "test.js" });
+linterWithFlatConfig.verifyAndFix(SOURCE, { linterOptions: {} }, "test.js");
+linterWithFlatConfig.verifyAndFix(SOURCE, { linterOptions: {} }, { filename: "test.js" });
+
 // #endregion Linter with flat config
 
 // #region Linter with eslintrc config

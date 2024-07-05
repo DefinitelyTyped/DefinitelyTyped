@@ -829,19 +829,23 @@ export class Linter {
 
     verify(
         code: SourceCode | string,
-        config: Linter.LegacyConfig | Linter.Config[],
+        config: Linter.LegacyConfig | Linter.Config | Linter.Config[],
         filename?: string,
     ): Linter.LintMessage[];
     verify(
         code: SourceCode | string,
-        config: Linter.LegacyConfig | Linter.Config[],
+        config: Linter.LegacyConfig | Linter.Config | Linter.Config[],
         options: Linter.LintOptions,
     ): Linter.LintMessage[];
 
-    verifyAndFix(code: string, config: Linter.LegacyConfig | Linter.Config[], filename?: string): Linter.FixReport;
     verifyAndFix(
         code: string,
-        config: Linter.LegacyConfig | Linter.Config[],
+        config: Linter.LegacyConfig | Linter.Config | Linter.Config[],
+        filename?: string,
+    ): Linter.FixReport;
+    verifyAndFix(
+        code: string,
+        config: Linter.LegacyConfig | Linter.Config | Linter.Config[],
         options: Linter.FixOptions,
     ): Linter.FixReport;
 
@@ -853,7 +857,7 @@ export class Linter {
 
     getRules(): Map<string, Rule.RuleModule>;
 
-    defineParser(name: string, parser: Linter.LegacyParser): void;
+    defineParser(name: string, parser: Linter.Parser): void;
 
     getTimes(): Linter.Stats["times"];
 
@@ -1162,8 +1166,8 @@ export namespace Linter {
     }
 
     // Temporarily loosen type for just flat config files (see #68232)
-    type Parser =
-        & Omit<LegacyParser, "parseForESLint">
+    type NonESTreeParser =
+        & Omit<ESTreeParser, "parseForESLint">
         & ({
             parse(text: string, options?: any): unknown;
         } | {
@@ -1173,12 +1177,14 @@ export namespace Linter {
             };
         });
 
-    type LegacyParser =
+    type ESTreeParser =
         & ESLint.ObjectMetaProperties
         & (
             | { parse(text: string, options?: any): AST.Program }
             | { parseForESLint(text: string, options?: any): ESLintParseResult }
         );
+
+    type Parser = NonESTreeParser | ESTreeParser;
 
     interface ESLintParseResult {
         ast: AST.Program;
@@ -1392,7 +1398,7 @@ export namespace ESLint {
     }
 
     interface Plugin extends ObjectMetaProperties {
-        configs?: Record<string, ConfigData | Linter.Config | Linter.Config[]> | undefined;
+        configs?: Record<string, Linter.LegacyConfig | Linter.Config | Linter.Config[]> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
         rules?: Record<string, Rule.RuleModule> | undefined;
