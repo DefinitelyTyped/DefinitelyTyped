@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * Canvas
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -34,9 +34,8 @@ export default class Canvas extends AbstractCrudObject {
         update_time: "update_time";
         use_retailer_item_ids: "use_retailer_item_ids";
     }>;
-    getPreviews(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPreviews(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPreviews(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<Canvas>;
-    update(fields: string[], params?: Record<any, any>): Promise<Canvas>;
+    getPreview(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPreviews(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<Canvas>;
+    update(fields: string[], params?: Record<string, any>): Promise<Canvas>;
 }

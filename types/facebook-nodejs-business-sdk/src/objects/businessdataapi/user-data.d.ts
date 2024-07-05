@@ -222,5 +222,5 @@ export default class UserData {
     /**
      * Convert to Json object for api call
      */
-    toJson(): Record<any, any>;
+    toJson(): Record<string, any>;
 }

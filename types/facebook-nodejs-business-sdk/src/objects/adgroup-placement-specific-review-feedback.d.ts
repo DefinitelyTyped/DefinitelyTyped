@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdgroupPlacementSpecificReviewFeedback
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -13,6 +13,7 @@ export default class AdgroupPlacementSpecificReviewFeedback extends AbstractCrud
         bsg: "bsg";
         city_community: "city_community";
         commerce: "commerce";
+        compromise: "compromise";
         daily_deals: "daily_deals";
         daily_deals_legacy: "daily_deals_legacy";
         dpa: "dpa";

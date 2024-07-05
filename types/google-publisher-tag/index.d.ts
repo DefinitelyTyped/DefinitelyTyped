@@ -2211,7 +2211,12 @@ declare namespace googletag {
             push(provider: SecureSignalProvider): void;
 
             /**
-             * Clears all cached signals from local storage.
+             * Clears all signals for all collectors from cache.
+             *
+             * Calling this method may reduce the likelihood of signals being included
+             * in ad requests for the current and potentially later page views. Due to
+             * this, it should only be called when meaningful state changes occur,
+             * such as events that indicate a new user (log in, log out, sign up, etc.).
              */
             clearAllCache(): void;
         }

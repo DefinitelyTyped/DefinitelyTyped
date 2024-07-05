@@ -25,6 +25,11 @@ export class LightShadow<TCamera extends Camera = Camera> {
     camera: TCamera;
 
     /**
+     * The intensity of the shadow. The default is `1`. Valid values are in the range `[0, 1]`.
+     */
+    intensity: number;
+
+    /**
      * Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.
      * @remark The Very tiny adjustments here (in the order of 0.0001) may help reduce artifacts in shadows.
      * @remarks Expects a `Float`

@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdAssetFeedSpec
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -23,23 +23,30 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         message_extensions: "message_extensions";
         onsite_destinations: "onsite_destinations";
         optimization_type: "optimization_type";
+        promotional_metadata: "promotional_metadata";
         reasons_to_shop: "reasons_to_shop";
         shops_bundle: "shops_bundle";
         titles: "titles";
+        upcoming_events: "upcoming_events";
         videos: "videos";
     }>;
     static get CallToActionTypes(): Readonly<{
         add_to_cart: "ADD_TO_CART";
         apply_now: "APPLY_NOW";
+        ask_about_services: "ASK_ABOUT_SERVICES";
+        ask_for_more_info: "ASK_FOR_MORE_INFO";
         audio_call: "AUDIO_CALL";
+        book_a_consultation: "BOOK_A_CONSULTATION";
         book_now: "BOOK_NOW";
         book_travel: "BOOK_TRAVEL";
         buy: "BUY";
         buy_now: "BUY_NOW";
         buy_tickets: "BUY_TICKETS";
+        buy_via_message: "BUY_VIA_MESSAGE";
         call: "CALL";
         call_me: "CALL_ME";
         call_now: "CALL_NOW";
+        chat_with_us: "CHAT_WITH_US";
         confirm: "CONFIRM";
         contact: "CONTACT";
         contact_us: "CONTACT_US";
@@ -52,6 +59,7 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         follow_news_storyline: "FOLLOW_NEWS_STORYLINE";
         follow_page: "FOLLOW_PAGE";
         follow_user: "FOLLOW_USER";
+        get_a_quote: "GET_A_QUOTE";
         get_directions: "GET_DIRECTIONS";
         get_offer: "GET_OFFER";
         get_offer_view: "GET_OFFER_VIEW";
@@ -62,10 +70,12 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         inquire_now: "INQUIRE_NOW";
         install_app: "INSTALL_APP";
         install_mobile_app: "INSTALL_MOBILE_APP";
+        join_channel: "JOIN_CHANNEL";
         learn_more: "LEARN_MORE";
         like_page: "LIKE_PAGE";
         listen_music: "LISTEN_MUSIC";
         listen_now: "LISTEN_NOW";
+        make_an_appointment: "MAKE_AN_APPOINTMENT";
         message_page: "MESSAGE_PAGE";
         mobile_download: "MOBILE_DOWNLOAD";
         no_button: "NO_BUTTON";
@@ -99,6 +109,7 @@ export default class AdAssetFeedSpec extends AbstractCrudObject {
         use_mobile_app: "USE_MOBILE_APP";
         video_annotation: "VIDEO_ANNOTATION";
         video_call: "VIDEO_CALL";
+        view_product: "VIEW_PRODUCT";
         visit_pages_feed: "VISIT_PAGES_FEED";
         watch_more: "WATCH_MORE";
         watch_video: "WATCH_VIDEO";

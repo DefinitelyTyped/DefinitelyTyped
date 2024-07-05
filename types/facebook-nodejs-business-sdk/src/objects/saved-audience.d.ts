@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * SavedAudience
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -22,5 +22,5 @@ export default class SavedAudience extends AbstractCrudObject {
         time_created: "time_created";
         time_updated: "time_updated";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<SavedAudience>;
+    get(fields: string[], params?: Record<string, any>): Promise<SavedAudience>;
 }

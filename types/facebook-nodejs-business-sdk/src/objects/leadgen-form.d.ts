@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
-import Lead from './lead';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
+import Lead from "./lead";
 /**
  * LeadgenForm
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -71,13 +71,9 @@ export default class LeadgenForm extends AbstractCrudObject {
         zh_hk: "ZH_HK";
         zh_tw: "ZH_TW";
     }>;
-    getLeads(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getLeads(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getLeads(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getTestLeads(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getTestLeads(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getTestLeads(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createTestLead(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Lead>;
-    get(fields: string[], params?: Record<any, any>): Promise<LeadgenForm>;
-    update(fields: string[], params?: Record<any, any>): Promise<LeadgenForm>;
+    getLeads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getTestLeads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createTestLead(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Lead>;
+    get(fields: string[], params?: Record<string, any>): Promise<LeadgenForm>;
+    update(fields: string[], params?: Record<string, any>): Promise<LeadgenForm>;
 }

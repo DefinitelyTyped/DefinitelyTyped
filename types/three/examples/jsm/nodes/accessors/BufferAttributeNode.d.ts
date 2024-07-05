@@ -15,6 +15,7 @@ declare class BufferAttributeNode extends InputNode<TypedArray | InterleavedBuff
         bufferStride?: number,
         bufferOffset?: number,
     );
+    getHash(builder: NodeBuilder): string;
     getNodeType(builder: NodeBuilder): string | null;
     setup(builder: NodeBuilder): void;
     generate(builder: NodeBuilder): string | null | undefined;

@@ -137,6 +137,12 @@ export class Vector4 {
      */
     setAxisAngleFromRotationMatrix(m: Matrix4): this;
 
+    /**
+     * Sets this vector to the position elements of the
+     * [transformation matrix]{@link https://en.wikipedia.org/wiki/Transformation_matrix} m.
+     */
+    setFromMatrixPosition(m: Matrix4): this;
+
     min(v: Vector4Like): this;
     max(v: Vector4Like): this;
     clamp(min: Vector4Like, max: Vector4Like): this;

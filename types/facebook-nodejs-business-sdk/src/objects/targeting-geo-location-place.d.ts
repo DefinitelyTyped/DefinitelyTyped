@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * TargetingGeoLocationPlace
  * @see {@link https://developers.facebook.com/docs/marketing-api/}

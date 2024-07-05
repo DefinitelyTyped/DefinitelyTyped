@@ -1,4 +1,4 @@
-import { BufferGeometry, Material, Object3D, Renderer } from "three";
+import { BufferGeometry, Material, Object3D, Renderer, Texture } from "three";
 import FogNode from "../fog/FogNode.js";
 import LightsNode from "../lighting/LightsNode.js";
 import { NodeShaderStage } from "./constants.js";
@@ -58,6 +58,7 @@ export default abstract class NodeBuilder {
     setHashNode(node: Node, hash: string): void;
     addNode(node: Node): void;
     get currentNode(): Node;
+    isFilteredTexture(texture: Texture): boolean;
     getMethod(method: string): string;
     getNodeFromHash(hash: string): Node;
 
@@ -65,6 +66,9 @@ export default abstract class NodeBuilder {
 
     setContext(context: NodeBuilderContext): void;
     getContext(): NodeBuilderContext;
+    setCache(cache: NodeCache): void;
+    getCache(): NodeCache;
+    getCacheFromNode(node: Node, parent?: boolean): NodeCache;
     isAvailable(name: string): boolean;
 
     abstract getInstanceIndex(): string;
@@ -83,7 +87,7 @@ export default abstract class NodeBuilder {
 
     getAttribute(name: string, type: string): NodeAttribute;
 
-    getPropertyName(node: Node, shaderStage: NodeShaderStage): string;
+    getPropertyName<TValue>(node: NodeVar | NodeUniform<TValue>, shaderStage: NodeShaderStage): string;
     isVector(type: string): boolean;
 
     isMatrix(type: string): boolean;
@@ -117,7 +121,7 @@ export default abstract class NodeBuilder {
     ): FlowData;
     hasGeometryAttribute(name: string): boolean;
     abstract getAttributes(shaderStage: NodeShaderStage): string;
-    abstract getVarys(shaderStage: NodeShaderStage): string;
+    abstract getVaryings(shaderStage: NodeShaderStage): string;
     getVars(shaderStage: NodeShaderStage): string;
     abstract getUniforms(stage: NodeShaderStage): string;
     getCodes(shaderStage: NodeShaderStage): string;

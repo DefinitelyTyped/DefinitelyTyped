@@ -5,7 +5,7 @@ declare class NodeUniform<TValue> {
     type: string | null;
     node: UniformNode<TValue>;
     needsUpdate: boolean | undefined;
-    constructor(name: string, type: string | null, node: UniformNode<TValue>, needsUpdate?: undefined);
+    constructor(name: string, type: string | null, node: UniformNode<TValue>);
     get value(): TValue;
     set value(val: TValue);
     get id(): number;

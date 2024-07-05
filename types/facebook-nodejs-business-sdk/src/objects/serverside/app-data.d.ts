@@ -1,4 +1,4 @@
-import ExtendedDeviceInfo from './extended-device-info';
+import ExtendedDeviceInfo from "./extended-device-info";
 export default class AppData {
     _application_tracking_enabled: boolean;
     _advertiser_tracking_enabled: boolean;
@@ -49,6 +49,6 @@ export default class AppData {
     get windows_attribution_id(): string;
     set windows_attribution_id(windows_attribution_id: string);
     setWindowsAttributionId(windows_attribution_id: string): AppData;
-    normalize(): Record<any, any>;
-    toJson(): Record<any, any>;
+    normalize(): Record<string, any>;
+    toJson(): Record<string, any>;
 }

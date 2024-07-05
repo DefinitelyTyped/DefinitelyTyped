@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdPromotedObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -26,8 +26,10 @@ export default class AdPromotedObject extends AbstractCrudObject {
         place_page_set_id: "place_page_set_id";
         product_catalog_id: "product_catalog_id";
         product_item_id: "product_item_id";
+        product_set: "product_set";
         product_set_id: "product_set_id";
         retention_days: "retention_days";
+        whatsapp_phone_number: "whatsapp_phone_number";
     }>;
     static get CustomEventType(): Readonly<{
         achievement_unlocked: "ACHIEVEMENT_UNLOCKED";

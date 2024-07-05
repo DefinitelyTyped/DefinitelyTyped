@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CreditCard
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -27,5 +27,5 @@ export default class CreditCard extends AbstractCrudObject {
         time_created_ts: "time_created_ts";
         type: "type";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<CreditCard>;
+    get(fields: string[], params?: Record<string, any>): Promise<CreditCard>;
 }

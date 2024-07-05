@@ -127,6 +127,7 @@ export {
     step,
     tan,
     transformDirection,
+    transpose,
     trunc,
 } from "./math/MathNode.js";
 
@@ -164,7 +165,7 @@ export { triNoise3D } from "./math/TriNoise3D.js";
 // utils
 export { default as ArrayElementNode } from "./utils/ArrayElementNode.js";
 export { default as ConvertNode } from "./utils/ConvertNode.js";
-export { default as DiscardNode, discard } from "./utils/DiscardNode.js";
+export { default as DiscardNode, discard, Return } from "./utils/DiscardNode.js";
 export { default as EquirectUVNode, equirectUV } from "./utils/EquirectUVNode.js";
 export { default as JoinNode } from "./utils/JoinNode.js";
 export { default as MatcapUVNode, matcapUV } from "./utils/MatcapUVNode.js";
@@ -266,6 +267,7 @@ export * from "./accessors/ReflectVectorNode.js";
 export { default as RendererReferenceNode, rendererReference } from "./accessors/RendererReferenceNode.js";
 export { default as SkinningNode, skinning } from "./accessors/SkinningNode.js";
 export { default as StorageBufferNode, storage, storageObject } from "./accessors/StorageBufferNode.js";
+export { default as StorageTextureNode, storageTexture, textureStore } from "./accessors/StorageTextureNode.js";
 export * from "./accessors/TangentNode.js";
 export { default as Texture3DNode, texture3D } from "./accessors/Texture3DNode.js";
 export { default as TextureBicubicNode, textureBicubic } from "./accessors/TextureBicubicNode.js";
@@ -297,19 +299,23 @@ export {
     linearTosRGB,
     sRGBToLinear,
 } from "./display/ColorSpaceNode.js";
+export { default as DepthOfFieldNode, dof } from "./display/DepthOfFieldNode.js";
+export { default as DotScreenNode, dotScreen } from "./display/DotScreenNode.js";
 export { default as FrontFacingNode, faceDirection, frontFacing } from "./display/FrontFacingNode.js";
 export { default as GaussianBlurNode, gaussianBlur } from "./display/GaussianBlurNode.js";
 export { default as NormalMapNode, normalMap } from "./display/NormalMapNode.js";
 export { default as PosterizeNode, posterize } from "./display/PosterizeNode.js";
+export { default as RGBShiftNode, rgbShift } from "./display/RGBShiftNode.js";
+export { default as SobelOperatorNode, sobel } from "./display/SobelOperatorNode.js";
 export { default as ToneMappingNode, toneMapping } from "./display/ToneMappingNode.js";
 export {
     default as ViewportDepthNode,
     depth,
-    depthPixel,
-    depthTexture,
+    linearDepth,
     orthographicDepthToViewZ,
     perspectiveDepthToViewZ,
     ViewportDepthNodeScope,
+    viewportLinearDepth,
     viewZToOrthographicDepth,
     viewZToPerspectiveDepth,
 } from "./display/ViewportDepthNode.js";
@@ -355,6 +361,7 @@ export { default as LightingContextNode, lightingContext } from "./lighting/Ligh
 export { default as LightingNode } from "./lighting/LightingNode.js";
 export { default as LightsNode, lights } from "./lighting/LightsNode.js";
 export { default as PointLightNode } from "./lighting/PointLightNode.js";
+export { default as RectAreaLightNode } from "./lighting/RectAreaLightNode.js";
 export { default as SpotLightNode } from "./lighting/SpotLightNode.js";
 
 // pmrem

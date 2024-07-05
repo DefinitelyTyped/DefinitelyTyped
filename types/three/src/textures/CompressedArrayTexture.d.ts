@@ -1,5 +1,5 @@
 import { CompressedPixelFormat, TextureDataType, Wrapping } from "../constants.js";
-import { CompressedTexture } from "./CompressedTexture.js";
+import { CompressedTexture, CompressedTextureMipmap } from "./CompressedTexture.js";
 
 /**
  * Creates an texture 2D array based on data in compressed form, for example from a
@@ -37,8 +37,8 @@ export class CompressedArrayTexture extends CompressedTexture {
 
     /**
      * Create a new instance of {@link CompressedArrayTexture}
-     * @param mipmaps The mipmaps array should contain objects with data, width and height.
-     * The mipmaps should be of the correct {@link format} and {@link type}. See {@link THREE.mipmaps}.
+     * @param mipmaps The mipmaps array should contain objects with data, width and height. The mipmaps should be of the
+     * correct format and type.
      * @param width The width of the biggest mipmap.
      * @param height The height of the biggest mipmap.
      * @param depth The number of layers of the 2D array texture
@@ -46,7 +46,7 @@ export class CompressedArrayTexture extends CompressedTexture {
      * @param type See {@link Texture.type | .type}. Default {@link THREE.UnsignedByteType}
      */
     constructor(
-        mipmaps: ImageData[],
+        mipmaps: CompressedTextureMipmap[],
         width: number,
         height: number,
         depth: number,

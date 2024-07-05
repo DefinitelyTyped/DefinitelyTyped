@@ -2,14 +2,14 @@ import { Color, Matrix3, Matrix4, Vector2, Vector3, Vector4 } from "three";
 import NodeUniform from "../../../nodes/core/NodeUniform.js";
 import {
     ColorUniform,
-    FloatUniform,
     Matrix3Uniform,
     Matrix4Uniform,
+    NumberUniform,
     Vector2Uniform,
     Vector3Uniform,
     Vector4Uniform,
 } from "../Uniform.js";
-declare class FloatNodeUniform extends FloatUniform {
+declare class NumberNodeUniform extends NumberUniform {
     nodeUniform: NodeUniform<number>;
     constructor(nodeUniform: NodeUniform<number>);
     getValue(): number;
@@ -46,15 +46,15 @@ declare class Matrix4NodeUniform extends Matrix4Uniform {
 }
 export {
     ColorNodeUniform,
-    FloatNodeUniform,
     Matrix3NodeUniform,
     Matrix4NodeUniform,
+    NumberNodeUniform,
     Vector2NodeUniform,
     Vector3NodeUniform,
     Vector4NodeUniform,
 };
 export type NodeUniformGPU =
-    | FloatNodeUniform
+    | NumberNodeUniform
     | Vector2NodeUniform
     | Vector3NodeUniform
     | Vector4NodeUniform

@@ -443,8 +443,8 @@ declare namespace OSRM {
      * https://github.com/Project-OSRM/node-osrm/blob/master/docs/api.md#match
      */
     interface MatchWaypoint extends Waypoint {
-        matchings_index: number[];
-        waypoint_index: number[];
+        matchings_index: number;
+        waypoint_index: number;
     }
 
     /**

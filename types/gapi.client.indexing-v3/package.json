@@ -3,7 +3,7 @@
     "name": "@types/gapi.client.indexing-v3",
     "version": "0.0.9999",
     "nonNpm": true,
-    "nonNpmDescription": "Indexing API v3",
+    "nonNpmDescription": "Web Search Indexing API v3",
     "projects": [
         "https://developers.google.com/search/apis/indexing-api/"
     ],

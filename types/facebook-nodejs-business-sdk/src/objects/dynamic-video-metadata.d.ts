@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * DynamicVideoMetadata
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -10,5 +10,5 @@ export default class DynamicVideoMetadata extends AbstractCrudObject {
         url: "url";
         video: "video";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<DynamicVideoMetadata>;
+    get(fields: string[], params?: Record<string, any>): Promise<DynamicVideoMetadata>;
 }
