@@ -2623,7 +2623,7 @@ declare namespace chrome.devtools.panels {
     }
 
     export interface ExtensionSidebarPaneShownEvent
-        extends chrome.events.Event<(window: chrome.windows.Window) => void>
+        extends chrome.events.Event<(window: Window) => void>
     {}
 
     export interface ExtensionSidebarPaneHiddenEvent extends chrome.events.Event<() => void> {}
