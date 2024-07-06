@@ -1,6 +1,6 @@
-export type Interpolator = (t: number) => string
+export type Interpolator = (t: number) => string;
 
-export type Shape = number[][] | string
+export type Shape = number[][] | string;
 
 export interface Options {
     maxSegmentLength?: number;
@@ -12,11 +12,25 @@ export function interpolate(fromShape: Shape, toShape: Shape, options?: Options)
 
 export function toCircle(fromShape: Shape, x: number, y: number, r: number): Interpolator;
 
-export function toRect(fromShape: Shape, x: number, y: number, width: number, height: number, options?: Options): Interpolator;
+export function toRect(
+    fromShape: Shape,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    options?: Options,
+): Interpolator;
 
 export function fromCircle(x: number, y: number, radius: number, toShape: Shape, options?: Options): Interpolator;
 
-export function fromRect(x: number, y: number, width: number, height: number, toShape: Shape, options?: Options): Interpolator;
+export function fromRect(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    toShape: Shape,
+    options?: Options,
+): Interpolator;
 
 export function separate(fromShape: Shape, toShapeList: Shape[], options?: Options): Interpolator;
 
