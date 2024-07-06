@@ -16,7 +16,8 @@ export function toRect(fromShape: Shape, x: number, y: number, width: number, he
 
 export function fromCircle(x: number, y: number, radius: number, toShape: Shape, options?: Options): Interpolator;
 
-export function fromRect(x: number, y: number, width: number, height: number, toShape:Shape, options?:Options): Interpolator;
+export function fromRect(x: number, y: number, width: number, height: number, toShape: Shape, options?: Options): Interpolator;
+
 
 export function separate(fromShape: Shape, toShapeList: Shape[], options?: Options): Interpolator;
 
