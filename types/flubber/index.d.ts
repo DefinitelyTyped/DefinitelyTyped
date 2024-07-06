@@ -1,23 +1,29 @@
-export function combine(t: any, n: any, e: any): any;
+export type Interpolator = (t: number) => string
 
-export function fromCircle(t: any, n: any, e: any, r: any, i: any): any;
+export type Shape = number[][] | string
 
-export function fromRect(t: any, n: any, e: any, r: any, i: any, a: any): any;
+export interface Options {
+    maxSegmentLength?: number;
+    string?: boolean;
+    single?: boolean;
+}
 
-export function interpolate(
-    from: string,
-    to: string,
-    options: { string?: boolean; maxSegmentLength?: number }
-): (t: number) => string;
+export function interpolate(fromShape: Shape, toShape: Shape, options?: Options): Interpolator;
 
-export function interpolateAll(t: any, n: any, e: any): any;
+export function toCircle(fromShape: Shape, x: number, y: number, r: number): Interpolator;
 
-export function separate(t: any, n: any, e: any): any;
+export function toRect(fromShape: Shape, x: number, y: number, width: number, height: number, options?: Options): Interpolator;
 
-export function splitPathString(t: any): any;
+export function fromCircle(x: number, y: number, radius: number, toShape: Shape, options?: Options): Interpolator;
 
-export function toCircle(t: any, n: any, e: any, r: any, i: any): any;
+export function fromRect(x: number, y: number, width: number, height: number, toShape:Shape, options?:Options): Interpolator;
 
-export function toPathString(t: any): any;
+export function separate(fromShape: Shape, toShapeList: Shape[], options?: Options): Interpolator;
 
-export function toRect(t: any, n: any, e: any, r: any, i: any, a: any): any;
+export function combine(fromShapeList: Shape[], toShape: Shape, options?:Options): Interpolator;
+
+export function interpolateAll(fromShapeList: Shape[], toShapeList: Shape[], options?:Options): Interpolator;
+
+export function toPathString(ring: Array<[number, number]>): string;
+
+export function splitPathString(pathString: string): string[];
