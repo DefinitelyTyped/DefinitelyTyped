@@ -377,6 +377,12 @@ rule = {
     create(context) {
         return {};
     },
+    meta: { schema: false },
+};
+rule = {
+    create(context) {
+        return {};
+    },
     meta: { deprecated: true, replacedBy: ["other-rule-name"] },
 };
 rule = {
@@ -896,7 +902,7 @@ linterWithEslintrcConfig.getRules();
     eslint = new ESLint({ errorOnUnmatchedPattern: true });
     eslint = new ESLint({ fix: true });
     eslint = new ESLint({ fix: message => false });
-    eslint = new ESLint({ fixTypes: ["problem"] });
+    eslint = new ESLint({ fixTypes: ["directive", "problem"] });
     eslint = new ESLint({ flags: ["foo", "bar"] });
     eslint = new ESLint({ globInputPaths: true });
     eslint = new ESLint({ ignore: true });
@@ -998,6 +1004,8 @@ linterWithEslintrcConfig.getRules();
 
         ESLint.outputFixes(results);
     })();
+
+    const hasFooFlag: boolean = eslint.hasFlag("foo");
 }
 
 // #endregion
@@ -1020,7 +1028,7 @@ linterWithEslintrcConfig.getRules();
     eslint = new LegacyESLint({ extensions: ["js"] });
     eslint = new LegacyESLint({ fix: true });
     eslint = new LegacyESLint({ fix: message => false });
-    eslint = new LegacyESLint({ fixTypes: ["problem"] });
+    eslint = new LegacyESLint({ fixTypes: ["directive", "problem"] });
     eslint = new LegacyESLint({ flags: ["foo", "bar"] });
     eslint = new LegacyESLint({ globInputPaths: true });
     eslint = new LegacyESLint({ ignore: true });
@@ -1124,6 +1132,8 @@ linterWithEslintrcConfig.getRules();
 
         LegacyESLint.outputFixes(results);
     })();
+
+    const hasFooFlag: false = eslint.hasFlag("foo");
 }
 
 // #endregion
@@ -1132,23 +1142,19 @@ linterWithEslintrcConfig.getRules();
 
 let results!: ESLint.LintResult[];
 
-results[0].errorCount = 0;
-results[0].warningCount = 0;
-results[0].fixableErrorCount = 0;
-results[0].fixableWarningCount = 0;
+for (const result of results) {
+    result.filePath = "foo.js";
 
-for (const file of results) {
-    file.filePath = "foo.js";
+    result.fatalErrorCount = 0;
+    result.errorCount = 1;
+    result.warningCount = 2;
+    result.fixableErrorCount = 3;
+    result.fixableWarningCount = 4;
 
-    file.errorCount = 0;
-    file.warningCount = 0;
-    file.fixableErrorCount = 0;
-    file.fixableWarningCount = 0;
+    result.source = "foo";
+    result.output = "foo";
 
-    file.source = "foo";
-    file.output = "foo";
-
-    file.stats = {
+    result.stats = {
         fixPasses: 2,
         times: {
             passes: [{
@@ -1163,13 +1169,13 @@ for (const file of results) {
             }],
         },
     };
-    delete file.stats;
+    delete result.stats;
 
-    for (const message of file.messages) {
+    for (const message of result.messages) {
         message.ruleId = "foo";
     }
 
-    for (const suppressedMessage of file.suppressedMessages) {
+    for (const suppressedMessage of result.suppressedMessages) {
         suppressedMessage.suppressions = [
             {
                 kind: "foo",
@@ -1292,7 +1298,7 @@ ruleTester.run("my-rule", rule, {
 
 RuleTester.describe = null;
 
-RuleTester.it = RuleTester.it = function(text: string, fn: () => Promise<void>) {};
+RuleTester.it = RuleTester.itOnly = function(text: string, fn: () => Promise<void>) {};
 
 ruleTester.run("simple-valid-test", rule, {
     valid: ["foo", "bar", { code: "foo", options: [{ allowFoo: true }] }],
