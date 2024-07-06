@@ -18,12 +18,11 @@ export function fromCircle(x: number, y: number, radius: number, toShape: Shape,
 
 export function fromRect(x: number, y: number, width: number, height: number, toShape: Shape, options?: Options): Interpolator;
 
-
 export function separate(fromShape: Shape, toShapeList: Shape[], options?: Options): Interpolator;
 
-export function combine(fromShapeList: Shape[], toShape: Shape, options?:Options): Interpolator;
+export function combine(fromShapeList: Shape[], toShape: Shape, options?: Options): Interpolator;
 
-export function interpolateAll(fromShapeList: Shape[], toShapeList: Shape[], options?:Options): Interpolator;
+export function interpolateAll(fromShapeList: Shape[], toShapeList: Shape[], options?: Options): Interpolator;
 
 export function toPathString(ring: Array<[number, number]>): string;
 
