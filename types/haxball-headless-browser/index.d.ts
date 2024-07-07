@@ -38,7 +38,7 @@ declare class RoomObject {
     reorderPlayers(playerIdList: readonly number[], moveToTop: boolean): void;
     sendAnnouncement(msg: string, targetId?: number, color?: number, style?: string, sound?: number): void;
     setKickRateLimit(min: number, rate: number, burst: number): void;
-    setPlayerAvatar(playerId: number, avatar: string): void;
+    setPlayerAvatar(playerId: number, avatar: string | null): void;
     setDiscProperties(discIndex: number, properties: Partial<DiscPropertiesObject>): void;
     getDiscProperties(discIndex: number): DiscPropertiesObject;
     setPlayerDiscProperties(playerId: number, properties: Partial<DiscPropertiesObject>): void;
