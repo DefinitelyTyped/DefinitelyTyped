@@ -145,62 +145,38 @@ interface WebApp {
      * A method that sets the app event handler. Check the list of available
      * events.
      */
-    onEvent(
-        eventType:
-            | "themeChanged"
-            | "mainButtonClicked"
-            | "backButtonClicked"
-            | "settingsButtonClicked"
-            | "biometricManagerUpdated",
-        eventHandler: () => void,
-    ): void;
-    onEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
-    onEvent(eventType: "viewportChanged", eventHandler: (eventData: { isStateStable: boolean }) => void): void;
-    onEvent(
-        eventType: "invoiceClosed",
-        eventHandler: (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void,
-    ): void;
-    onEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
-    onEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
-    onEvent(
-        eventType: "writeAccessRequested",
-        eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
-    ): void;
-    onEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
-    onEvent(
-        eventType: "biometricAuthRequested",
-        eventHandler: (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void,
-    ): void;
-    onEvent(eventType: "biometricTokenUpdated", eventHandler: (eventData: { isUpdated: boolean }) => void): void;
+    onEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
+    onEvent(eventType: "mainButtonClicked", eventHandler: MainButtonClickedCallback): void;
+    onEvent(eventType: "backButtonClicked", eventHandler: BackButtonClickedCallback): void;
+    onEvent(eventType: "settingsButtonClicked", eventHandler: SettingsButtonClickedCallback): void;
+    onEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
+    onEvent(eventType: "viewportChanged", eventHandler: ViewportChangedCallback): void;
+    onEvent(eventType: "invoiceClosed", eventHandler: InvoiceClosedCallback): void;
+    onEvent(eventType: "qrTextReceived", eventHandler: QrTextReceivedCallback): void;
+    onEvent(eventType: "scanQrPopupClosed", eventHandler: ScanQrPopupClosedCallback): void;
+    onEvent(eventType: "clipboardTextReceived", eventHandler: ClipboardTextReceivedCallback): void;
+    onEvent(eventType: "writeAccessRequested", eventHandler: WriteAccessRequestedCallback): void;
+    onEvent(eventType: "contactRequested", eventHandler: ContactRequestedCallback): void;
+    onEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
+    onEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
+    onEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
 
     /** A method that deletes a previously set event handler. */
-    offEvent(
-        eventType:
-            | "themeChanged"
-            | "mainButtonClicked"
-            | "backButtonClicked"
-            | "settingsButtonClicked"
-            | "biometricManagerUpdated",
-        eventHandler: () => void,
-    ): void;
-    offEvent(eventType: "popupClosed", eventHandler: (eventData: { button_id: string | null }) => void): void;
-    offEvent(eventType: "viewportChanged", eventHandler: (eventData: { isStateStable: boolean }) => void): void;
-    offEvent(
-        eventType: "invoiceClosed",
-        eventHandler: (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void,
-    ): void;
-    offEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
-    offEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
-    offEvent(
-        eventType: "writeAccessRequested",
-        eventHandler: (eventData: { status: "allowed" | "cancelled" }) => void,
-    ): void;
-    offEvent(eventType: "contactRequested", eventHandler: (eventData: RequestContactResponse) => void): void;
-    offEvent(
-        eventType: "biometricAuthRequested",
-        eventHandler: (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void,
-    ): void;
-    offEvent(eventType: "biometricTokenUpdated", eventHandler: (eventData: { isUpdated: boolean }) => void): void;
+    offEvent(eventType: "themeChanged", eventHandler: ThemeChangedCallback): void;
+    offEvent(eventType: "mainButtonClicked", eventHandler: MainButtonClickedCallback): void;
+    offEvent(eventType: "backButtonClicked", eventHandler: BackButtonClickedCallback): void;
+    offEvent(eventType: "settingsButtonClicked", eventHandler: SettingsButtonClickedCallback): void;
+    offEvent(eventType: "popupClosed", eventHandler: PopupClosedCallback): void;
+    offEvent(eventType: "viewportChanged", eventHandler: ViewportChangedCallback): void;
+    offEvent(eventType: "invoiceClosed", eventHandler: InvoiceClosedCallback): void;
+    offEvent(eventType: "qrTextReceived", eventHandler: QrTextReceivedCallback): void;
+    offEvent(eventType: "scanQrPopupClosed", eventHandler: ScanQrPopupClosedCallback): void;
+    offEvent(eventType: "clipboardTextReceived", eventHandler: ClipboardTextReceivedCallback): void;
+    offEvent(eventType: "writeAccessRequested", eventHandler: WriteAccessRequestedCallback): void;
+    offEvent(eventType: "contactRequested", eventHandler: ContactRequestedCallback): void;
+    offEvent(eventType: "biometricManagerUpdated", eventHandler: BiometricManagerUpdatedCallback): void;
+    offEvent(eventType: "biometricAuthRequested", eventHandler: BiometricAuthRequestedCallback): void;
+    offEvent(eventType: "biometricTokenUpdated", eventHandler: BiometricTokenUpdatedCallback): void;
 
     /**
      * A method used to send data to the bot. When this method is called, a
@@ -269,6 +245,7 @@ interface WebApp {
      * The Web App will receive the event qrTextReceived every time the scanner catches a code with text data.
      * If an optional callback parameter was passed, the callback function will be called and the text from the QR
      * code will be passed as the first argument. Returning true inside this callback function causes the popup to be closed.
+     * Starting from **Bot API 7.7**, the Mini App will receive the scanQrPopupClosed event if the user closes the native popup for scanning a QR code.
      */
     showScanQrPopup(params: ScanQrPopupParams, callback?: (data: string) => void): void;
     /**
@@ -325,7 +302,39 @@ interface WebApp {
     expand(): void;
     /** A method that closes the Web App. */
     close(): void;
+    /**
+     * `True`, if vertical swipes to close or minimize the Mini App are enabled.
+     * `False`, if vertical swipes to close or minimize the Mini App are disabled.
+     * In any case, the user will still be able to minimize and close the Mini App by swiping the Mini App's header.
+     */
+    isVerticalSwipesEnabled: boolean;
+    /**
+     * **Bot API 7.7+** A method that enables vertical swipes to close or minimize the Mini App.
+     * For user convenience, it is recommended to always enable swipes unless they conflict with the Mini App's own gestures.
+     */
+    enableVerticalSwipes(): void;
+    /**
+     * **Bot API 7.7+** A method that disables vertical swipes to close or minimize the Mini App.
+     * This method is useful if your Mini App uses swipe gestures that may conflict with the gestures for minimizing and closing the app.
+     */
+    disableVerticalSwipes(): void;
 }
+
+type ThemeChangedCallback = () => void;
+type ViewportChangedCallback = (eventData: { isStateStable: boolean }) => void;
+type MainButtonClickedCallback = () => void;
+type BackButtonClickedCallback = () => void;
+type SettingsButtonClickedCallback = () => void;
+type InvoiceClosedCallback = (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void;
+type PopupClosedCallback = (eventData: { button_id: string | null }) => void;
+type QrTextReceivedCallback = (eventData: { data: string }) => void;
+type ScanQrPopupClosedCallback = () => void;
+type ClipboardTextReceivedCallback = (eventData: { data: string | null }) => void;
+type WriteAccessRequestedCallback = (eventData: { status: "allowed" | "cancelled" }) => void;
+type ContactRequestedCallback = (eventData: RequestContactResponse) => void;
+type BiometricManagerUpdatedCallback = () => void;
+type BiometricAuthRequestedCallback = (eventData: { isAuthenticated: boolean; biometricToken?: string }) => void;
+type BiometricTokenUpdatedCallback = (eventData: { isUpdated: boolean }) => void;
 
 /**
  * Web Apps can adjust the appearance of the interface to match the Telegram
@@ -389,6 +398,11 @@ interface ThemeParams {
      * Also available as the CSS variable `var(--tg-theme-section-header-text-color)`.
      */
     section_header_text_color?: `#${string}`;
+    /**
+     * **Bot API 7.6+** Section separator color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-section-separator-color)`.
+     */
+    section_separator_color?: string;
     /**
      * **Bot API 7.0+** Subtitle text color in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
@@ -640,7 +654,7 @@ interface CloudStorage {
      * null and the second argument will be a boolean indicating whether the
      * value was stored.
      */
-    setItem(key: string, value: string, callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    setItem(key: string, value: string, callback?: CloudStorageSetItemCallback): CloudStorage;
     /**
      * A method that receives a value from the cloud storage using
      * the specified key.
@@ -652,7 +666,7 @@ interface CloudStorage {
      * success, the first argument will be null and the value will be passed
      * as the second argument.
      */
-    getItem(key: string, callback?: (error: string | null, value: null | string) => void): CloudStorage;
+    getItem(key: string, callback?: CloudStorageGetItemCallback): CloudStorage;
     /**
      * A method that receives values from the cloud storage using the specified
      * keys.
@@ -664,10 +678,7 @@ interface CloudStorage {
      * success, the first argument will be null and the values will be passed
      * as the second argument.
      */
-    getItems(
-        keys: string[],
-        callback?: (error: string | null, values: null | Record<string, string>) => void,
-    ): CloudStorage;
+    getItems(keys: string[], callback?: CloudStorageGetItemsCallback): CloudStorage;
     /**
      * A method that removes a value from the cloud storage using the specified
      * key.
@@ -680,7 +691,7 @@ interface CloudStorage {
      * argument will be null and the second argument will be a boolean
      * indicating whether the value was removed.
      */
-    removeItem(key: string, callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    removeItem(key: string, callback?: CloudStorageRemoveItemCallback): CloudStorage;
     /**
      * A method that removes values from the cloud storage using the specified
      * keys.
@@ -693,7 +704,7 @@ interface CloudStorage {
      * argument will be null and the second argument will be a boolean
      * indicating whether the values were removed.
      */
-    removeItems(keys: string[], callback?: (error: string | null, success: null | true) => void): CloudStorage;
+    removeItems(keys: string[], callback?: CloudStorageRemoveItemsCallback): CloudStorage;
     /**
      * A method that receives the list of all keys stored in the cloud storage.
      *
@@ -702,8 +713,15 @@ interface CloudStorage {
      * first argument will be null and the list of keys will be passed as the
      * second argument.
      */
-    getKeys(callback?: (error: string | null, keys: null | string[]) => void): CloudStorage;
+    getKeys(callback?: CloudStorageGetKeysCallback): CloudStorage;
 }
+
+type CloudStorageSetItemCallback = (error: string | null, success: null | true) => void;
+type CloudStorageGetItemCallback = (error: string | null, value: null | string) => void;
+type CloudStorageGetItemsCallback = (error: string | null, values: null | Record<string, string>) => void;
+type CloudStorageRemoveItemCallback = (error: string | null, success: null | true) => void;
+type CloudStorageRemoveItemsCallback = (error: string | null, success: null | true) => void;
+type CloudStorageGetKeysCallback = (error: string | null, keys: null | string[]) => void;
 
 /**
  * This object controls biometrics on the device. Before the first use
@@ -755,7 +773,7 @@ interface BiometricManager {
      */
     requestAccess: (
         params: BiometricRequestAccessParams,
-        callback?: (isAccessGranted: boolean) => void,
+        callback?: BiometricRequestAccessCallback,
     ) => BiometricManager;
     /**
      * A method that authenticates the user using biometrics according to the params
@@ -767,7 +785,7 @@ interface BiometricManager {
      */
     authenticate: (
         params: BiometricAuthenticateParams,
-        callback?: (isAuthenticated: boolean, biometricToken?: string) => void,
+        callback?: BiometricAuthenticateCallback,
     ) => BiometricManager;
     /**
      * A method that updates the biometric token in secure storage on the device.
@@ -775,7 +793,10 @@ interface BiometricManager {
      * was passed, the callback function will be called and the first argument will be
      * a boolean indicating whether the token was updated.
      */
-    updateBiometricToken: (token: string, callback?: (applied: boolean) => void) => BiometricManager;
+    updateBiometricToken: (
+        token: string,
+        callback?: BiometricUpdateBiometricTokenCallback,
+    ) => BiometricManager;
     /**
      * A method that opens the biometric access settings for bots. Useful when you
      * need to request biometrics access to users who haven't granted it yet.
@@ -785,6 +806,10 @@ interface BiometricManager {
      */
     openSettings: () => BiometricManager;
 }
+
+type BiometricRequestAccessCallback = (isAccessGranted: boolean) => void;
+type BiometricAuthenticateCallback = (isAuthenticated: boolean, biometricToken?: string) => void;
+type BiometricUpdateBiometricTokenCallback = (applied: boolean) => void;
 
 /**
  * This object describes the native popup for requesting permission to use biometrics.
