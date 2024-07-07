@@ -14,7 +14,7 @@ btn.onClick(() => {
     app.close();
 });
 
-app.onEvent("viewportChanged", e => {
+app.onEvent("viewportChanged", (e) => {
     if (e.isStateStable) console.log("Done at", app.viewportHeight);
     else console.log("Changing, currently at ", app.viewportHeight);
 });
@@ -24,10 +24,10 @@ app.showPopup(
         message: "Hello",
         buttons: [{ type: "default", text: "Button text", id: "btn_id" }],
     },
-    btn_id => console.log(btn_id),
+    (btn_id) => console.log(btn_id),
 );
 
-app.onEvent("popupClosed", e => {
+app.onEvent("popupClosed", (e) => {
     console.log(e.button_id);
 });
 
@@ -64,7 +64,7 @@ app.CloudStorage.getKeys((err, keys) => {
     }
 });
 
-app.requestWriteAccess(success => {
+app.requestWriteAccess((success) => {
     const test = success; // $ExpectType boolean
 });
 
