@@ -161,6 +161,7 @@ interface WebApp {
         eventHandler: (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void,
     ): void;
     onEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
+    onEvent(eventType: "scanQrPopupClosed", eventHandler: () => void): void;
     onEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
     onEvent(
         eventType: "writeAccessRequested",
@@ -190,6 +191,7 @@ interface WebApp {
         eventHandler: (eventData: { url: string; status: "paid" | "cancelled" | "failed" | "pending" }) => void,
     ): void;
     offEvent(eventType: "qrTextReceived", eventHandler: (eventData: { data: string }) => void): void;
+    offEvent(eventType: "scanQrPopupClosed", eventHandler: () => void): void;
     offEvent(eventType: "clipboardTextReceived", eventHandler: (eventData: { data: string | null }) => void): void;
     offEvent(
         eventType: "writeAccessRequested",
@@ -269,6 +271,7 @@ interface WebApp {
      * The Web App will receive the event qrTextReceived every time the scanner catches a code with text data.
      * If an optional callback parameter was passed, the callback function will be called and the text from the QR
      * code will be passed as the first argument. Returning true inside this callback function causes the popup to be closed.
+     * Starting from **Bot API 7.7**, the Mini App will receive the scanQrPopupClosed event if the user closes the native popup for scanning a QR code.
      */
     showScanQrPopup(params: ScanQrPopupParams, callback?: (data: string) => void): void;
     /**
@@ -325,6 +328,22 @@ interface WebApp {
     expand(): void;
     /** A method that closes the Web App. */
     close(): void;
+    /**
+     * `True`, if vertical swipes to close or minimize the Mini App are enabled.
+     * `False`, if vertical swipes to close or minimize the Mini App are disabled.
+     * In any case, the user will still be able to minimize and close the Mini App by swiping the Mini App's header.
+     */
+    isVerticalSwipesEnabled: boolean;
+    /**
+     * **Bot API 7.7+** A method that enables vertical swipes to close or minimize the Mini App.
+     * For user convenience, it is recommended to always enable swipes unless they conflict with the Mini App's own gestures.
+     */
+    enableVerticalSwipes(): void;
+    /**
+     * **Bot API 7.7+** A method that disables vertical swipes to close or minimize the Mini App.
+     * This method is useful if your Mini App uses swipe gestures that may conflict with the gestures for minimizing and closing the app.
+     */
+    disableVerticalSwipes(): void;
 }
 
 /**
@@ -389,6 +408,11 @@ interface ThemeParams {
      * Also available as the CSS variable `var(--tg-theme-section-header-text-color)`.
      */
     section_header_text_color?: `#${string}`;
+    /**
+     * **Bot API 7.6+** Section separator color in the `#RRGGBB` format.
+     * Also available as the CSS variable `var(--tg-theme-section-separator-color)`.
+     */
+    section_separator_color?: string;
     /**
      * **Bot API 7.0+** Subtitle text color in the `#RRGGBB` format.
      * Also available as the CSS variable `var(--tg-theme-subtitle-text-color)`.
