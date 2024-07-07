@@ -97,6 +97,6 @@ app.onEvent("contactRequested", (req) => {
 app.BiometricManager.init(() => console.log("init"));
 app.BiometricManager.openSettings();
 
-app.isVerticalSwipesEnabled // $ExpectType boolean
-app.enableVerticalSwipes()
-app.disableVerticalSwipes()
+app.isVerticalSwipesEnabled; // $ExpectType boolean
+app.enableVerticalSwipes();
+app.disableVerticalSwipes();
