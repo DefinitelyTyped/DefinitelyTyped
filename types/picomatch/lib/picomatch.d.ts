@@ -204,10 +204,6 @@ declare namespace picomatch {
          */
         unescape?: boolean | undefined;
         /**
-         * Alias for `posixSlashes`, for backwards compatibility.
-         */
-        unixify?: boolean | undefined;
-        /**
          * Also accept backslashes as the path separator.
          */
         windows?: boolean | undefined;
