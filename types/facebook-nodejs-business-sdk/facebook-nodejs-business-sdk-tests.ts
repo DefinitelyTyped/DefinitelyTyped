@@ -10,7 +10,12 @@ import {
     InstagramInsightsResult,
     AppData,
     ExtendedDeviceInfo,
-    AbstractCrudObject
+    AbstractCrudObject,
+    AdSet,
+    Campaign,
+    AdsPixel,
+    AdCreative,
+    Ad
 } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
@@ -137,4 +142,13 @@ async function checkStaticFields() {
 export function testAbstractCrudObjectClassConstructor () {
     const abstractCrudObject =  new AbstractCrudObject();
     const abstractCrudObject2 =  new AbstractCrudObject('some-id');
+}
+
+export function testDeleteFunctionInAbstractCrudObjects(){
+    const deleteAdSetFunction = new AdSet().delete;
+    const deleteCampaignFunction = new Campaign().delete;
+    const deleteAdAccountFunction = new AdAccount().delete;
+    const deletePixelFunction = new AdsPixel().delete;
+    const deleteAdCreativeFunction = new AdCreative().delete;
+    const deleteAdFunction = new Ad().delete;
 }
