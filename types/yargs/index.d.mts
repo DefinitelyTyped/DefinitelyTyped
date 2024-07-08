@@ -19,6 +19,7 @@ export type {
     Arguments,
     ArgumentsCamelCase,
     Argv,
+    ArgvFromBuilder,
     AsyncCompletionFunction,
     BuilderCallback,
     Choices,
