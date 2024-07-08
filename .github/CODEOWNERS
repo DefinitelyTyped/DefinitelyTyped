@@ -578,7 +578,6 @@
 /types/bitcore-lib/                                       @lautarodragan
 /types/bitcore-lib-cash/                                  @jcramer @blockparty-sh @rkalis @bitjson
 /types/bitfield-rle/                                      @BendingBender
-/types/bittorrent-protocol/                               @feross @tlaziuk @h1b9b
 /types/bitwise-xor/                                       @rogierschouten @BendingBender
 /types/black-engine/                                      @Dunnings
 /types/blacklist/                                         @mhegazy
@@ -778,7 +777,7 @@
 /types/capture-console/                                   @AustonZ
 /types/car-names/                                         @peterblazejewicz
 /types/carbon-components/                                 @metonym
-/types/carbon-components-react/                           @kalbert312 @sgregoire @matchilling
+/types/carbon-components-react/                           @kalbert312 @matchilling
 /types/carbon__colors/                                    @vpicone @szbihary
 /types/carbon__elements/                                  @metonym
 /types/carbon__feature-flags/                             @metonym
@@ -1184,7 +1183,6 @@
 /types/create-react-class/                                @jgoz
 /types/create-subscription/                               @Asana @vsiao
 /types/create-test-server/                                @midgleyc
-/types/create-torrent/                                    @jesec
 /types/create-xpub/                                       @BendingBender
 /types/createjs/                                          @evilangelist @gyohk
 /types/createjs-lib/                                      @evilangelist @gyohk
@@ -2208,6 +2206,7 @@
 /types/flowjs/                                            @martinnuc
 /types/flowjs__flow.js/                                   @gentoo90
 /types/floyd-steinberg/                                   @tajnymag
+/types/flubber/                                           @huxulm
 /types/fluent/                                            @huy-nguyen @jamesnimlos
 /types/fluent-ffmpeg/                                     @tcaesvk @DingWeizhe @mabidina @hados99 @buzzertech
 /types/fluent-langneg/                                    @huy-nguyen
@@ -5696,7 +5695,6 @@
 /types/parse-path/                                        @ffflorian
 /types/parse-prefer-header/                               @XVincentX @marcelltoth
 /types/parse-srcset/                                      @dylanarmstrong
-/types/parse-torrent/                                     @niieani @tlaziuk
 /types/parse-torrent-file/                                @tlaziuk
 /types/parse-unit/                                        @Jack-Works
 /types/parse-uri/                                         @tpluscode
@@ -5925,6 +5923,7 @@
 /types/polyline/                                          @Kern0
 /types/polymer/                                           @lgrignon
 /types/poool-access/                                      @maximedasilva @dackmin
+/types/poool-engage/                                      @maximedasilva @dackmin @antoinechassagne
 /types/popcnt32/                                          @BendingBender
 /types/popcorn/                                           @grapswiz
 /types/popoto/                                            @alma3lol
@@ -7978,7 +7977,7 @@
 /types/task-worklet/                                      @karol-majewski
 /types/tasker-js-runner/                                  @ivansoriarab
 /types/taskkill/                                          @peterblazejewicz
-/types/tcp-ping/                                          @stegano @rymate1234
+/types/tcp-ping/                                          @stegano
 /types/tcp-port-used/                                     @gautejohan
 /types/tdigest/                                           @BendingBender
 /types/tdweb/                                             @esindger
@@ -8639,7 +8638,6 @@
 /types/websocket/                                         @loyd @flynetworks @zhaoleimxd @jdneo @MasterOdin
 /types/websocket-async/                                   @bigbeno37
 /types/websql/                                            @TeamworkGuy2
-/types/webtorrent/                                        @niieani @tlaziuk @gjuchault @cheeseandcereal
 /types/webvr-api/                                         @efokschaner
 /types/webvtt-parser/                                     @dodomorandi
 /types/webxr/                                             @robrohan @RaananW @capnmidnight @sorskoot
