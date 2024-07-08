@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/smile-js",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/ngyewch/smile-js"
+    ],
+    "devDependencies": {
+        "@types/smile-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Ng",
+            "githubUsername": "ngyewch"
+        }
+    ]
+}
