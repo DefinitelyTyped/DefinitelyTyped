@@ -58,7 +58,7 @@ const p2pQuote: P2pQuote = {
     title: "",
     currency: "",
     price: "",
-    amountRange: { maximum: "0", minimum: "0" },
+    amountRange: { maximum: "0", minimum: "0", },
     paymentWindowMinutes: 0,
     paymentMethods: [],
     confirmations: 0,
