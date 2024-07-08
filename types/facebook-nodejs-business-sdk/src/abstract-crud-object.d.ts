@@ -1,9 +1,9 @@
-import FacebookAdsApi from './api';
-import AbstractObject from './abstract-object';
-import Cursor from './cursor';
+import FacebookAdsApi from "./api";
+import AbstractObject from "./abstract-object";
+import Cursor from "./cursor";
 export class AbstractCrudObject extends AbstractObject {
     _parentId: string | null | undefined;
-    _changes: Record<any, any>;
+    _changes: Record<string, any>;
     _api: FacebookAdsApi;
     id: string;
     /**
@@ -11,7 +11,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {String} parentId
      * @param  {FacebookAdApi} [api]
      */
-    constructor(id?: number | string | null, data?: Record<any, any>, parentId?: string | null, api?: FacebookAdsApi | null);
+    constructor(id?: number |string | null, data?: Record<string, any>, parentId?: string | null , api?: FacebookAdsApi | null );
     /**
      * Define data getter and setter recording changes
      * @param {String} field
@@ -22,22 +22,22 @@ export class AbstractCrudObject extends AbstractObject {
      * @param {Object} data
      * @return this
      */
-    setData(data: Record<any, any>): AbstractCrudObject;
+    setData(data: Record<string, any>): AbstractCrudObject;
     /**
      * Export changed object data
      * @return {Object}
      */
-    exportData(): Record<any, any>;
+    exportData(): Record<string, any>;
     /**
      * Export object data
      * @return {Object}
      */
-    exportAllData(): Record<any, any>;
+    exportAllData(): Record<string, any>;
     /**
      * Clear change history
      * @return this
      */
-    clearHistory(): Record<any, any>;
+    clearHistory(): Record<string, any>;
     /**
      * @throws {Error} if object has no id
      * @return {String}
@@ -64,19 +64,19 @@ export class AbstractCrudObject extends AbstractObject {
      * @param   {Object}  [params]
      * @return  {Promise}
      */
-    read(fields: string[], params?: Record<any, any>): Promise<any>;
+    read(fields: string[], params?: Record<string, any>): Promise<any>;
     /**
      * Update object
      * @param   {Object}  [params]
      * @return  {Promise}
      */
-    update(params?: Record<any, any>): Promise<any>;
+    update(params?: Record<string, any>): Promise<any>;
     /**
      * Delete object
      * @param   {Object}  [params]
      * @return  {Promise}
      */
-    delete(params?: Record<any, any>): Promise<any>;
+    delete(params?: Record<string, any>): Promise<any>;
     /**
      * Initialize Cursor to paginate on edges
      * @param  {Object}  targetClass
@@ -86,7 +86,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {String}  [endpoint]
      * @return {Cursor}
      */
-    getEdge(targetClass: Record<any, any>, fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean, endpoint?: string | null): Cursor | Promise<any>;
+    getEdge(targetClass: Record<string, any>, fields: string[], params: Record<string, any>, fetchFirstPage: boolean, endpoint: string | null | undefined): Cursor | Promise<Cursor>;
     /**
      * Create edge object
      * @param   {String}  [endpoint]
@@ -95,14 +95,14 @@ export class AbstractCrudObject extends AbstractObject {
      * @param   {Function} [targetClassConstructor]
      * @return  {Promise}
      */
-    createEdge(endpoint: string, fields: string[], params?: Record<any, any>, targetClassConstructor?: any, pathOverride?: string | null): Promise<any>;
+    createEdge(endpoint: string, fields: string[], params?: Record<string, any>, targetClassConstructor?: (...args: any[]) => any, pathOverride?: string | null): Promise<any>;
     /**
      * Delete edge object
      * @param   {String}  [endpoint]
      * @param   {Object}  [params]
      * @return  {Promise}
      */
-    deleteEdge(endpoint: string, params?: Record<any, any>): Promise<any>;
+    deleteEdge(endpoint: string, params?: Record<string, any>): Promise<any>;
     /**
      * Read Objects by Ids
      * @param  {Array}          ids
@@ -111,6 +111,6 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {FacebookAdsApi} [api]
      * @return {Promise}
      */
-    static getByIds(ids: number[], fields: string[], params: Record<any, any> | null | undefined, api: FacebookAdsApi): Promise<any>;
+    static getByIds(ids: number[], fields: string[], params: Record<string, any>, api: FacebookAdsApi): Promise<any>;
 }
 export default AbstractCrudObject;

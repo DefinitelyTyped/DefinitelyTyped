@@ -240,6 +240,48 @@ export const cryptoSymbols: readonly [
 
 export type CryptoSymbol = typeof cryptoSymbols[number];
 
+export type FiatCurrencyCode =
+    | "usd"
+    | "eur"
+    | "gbp"
+    | "aed"
+    | "ars"
+    | "aud"
+    | "bdt"
+    | "brl"
+    | "cad"
+    | "chf"
+    | "clp"
+    | "cny"
+    | "czk"
+    | "dkk"
+    | "hkd"
+    | "huf"
+    | "idr"
+    | "ils"
+    | "inr"
+    | "jpy"
+    | "krw"
+    | "kwd"
+    | "lkr"
+    | "mxn"
+    | "myr"
+    | "nok"
+    | "nzd"
+    | "php"
+    | "pln"
+    | "rub"
+    | "sar"
+    | "sek"
+    | "sgd"
+    | "thb"
+    | "try"
+    | "twd"
+    | "vnd"
+    | "zar";
+
+export type FiatCurrenciesProps = Record<FiatCurrencyCode, number>;
+
 // buy types
 
 export type BuyTradeFinalStatus =
@@ -305,6 +347,7 @@ export interface BuyListResponse {
     country: string;
     suggestedFiatCurrency?: string | undefined; // optional field, fiat currency based on user's IP
     providers: BuyProviderInfo[];
+    defaultAmountsOfFiatCurrencies: FiatCurrenciesProps;
 }
 
 export interface BuyTradeQuoteRequest {

@@ -32,7 +32,8 @@ export type MathNodeMethod1 =
     | typeof MathNode.RECIPROCAL
     | typeof MathNode.TRUNC
     | typeof MathNode.FWIDTH
-    | typeof MathNode.BITCAST;
+    | typeof MathNode.BITCAST
+    | typeof MathNode.TRANSPOSE;
 
 export type MathNodeMethod2 =
     | typeof MathNode.ATAN2
@@ -93,6 +94,7 @@ export default class MathNode extends TempNode {
     static TRUNC: "trunc";
     static FWIDTH: "fwidth";
     static BITCAST: "bitcast";
+    static TRANSPOSE: "transpose";
 
     // 2 inputs
 
@@ -167,6 +169,7 @@ export const reciprocal: Unary;
 export const trunc: Unary;
 export const fwidth: Unary;
 export const bitcast: Unary;
+export const transpose: Unary;
 
 type Binary = (a: NodeRepresentation, b: NodeRepresentation) => ShaderNodeObject<MathNode>;
 
@@ -261,5 +264,6 @@ declare module "../shadernode/ShaderNode.js" {
         difference: typeof difference;
         saturate: typeof saturate;
         cbrt: typeof cbrt;
+        transpose: typeof transpose;
     }
 }

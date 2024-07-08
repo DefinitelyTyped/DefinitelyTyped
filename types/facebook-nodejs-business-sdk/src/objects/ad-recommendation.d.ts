@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdRecommendation
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -12,6 +12,7 @@ export default class AdRecommendation extends AbstractCrudObject {
         message: "message";
         recommendation_data: "recommendation_data";
         title: "title";
+        value: "value";
     }>;
     static get Confidence(): Readonly<{
         high: "HIGH";

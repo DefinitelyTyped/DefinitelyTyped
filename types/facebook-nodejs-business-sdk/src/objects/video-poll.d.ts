@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * VideoPoll
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -26,9 +26,7 @@ export default class VideoPoll extends AbstractCrudObject {
         show_results: "SHOW_RESULTS";
         show_voting: "SHOW_VOTING";
     }>;
-    getPollOptions(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPollOptions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPollOptions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<VideoPoll>;
-    update(fields: string[], params?: Record<any, any>): Promise<VideoPoll>;
+    getPollOptions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<VideoPoll>;
+    update(fields: string[], params?: Record<string, any>): Promise<VideoPoll>;
 }

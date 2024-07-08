@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
+import Cursor from "./../cursor";
 /**
  * CustomAudience
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -61,11 +61,11 @@ export default class CustomAudience extends AbstractCrudObject {
         automotive_model: "AUTOMOTIVE_MODEL";
         destination: "DESTINATION";
         flight: "FLIGHT";
+        generic: "GENERIC";
         home_listing: "HOME_LISTING";
         hotel: "HOTEL";
         job: "JOB";
         local_service_business: "LOCAL_SERVICE_BUSINESS";
-        location_based_item: "LOCATION_BASED_ITEM";
         media_title: "MEDIA_TITLE";
         offline_product: "OFFLINE_PRODUCT";
         product: "PRODUCT";
@@ -84,6 +84,7 @@ export default class CustomAudience extends AbstractCrudObject {
         claim: "CLAIM";
         custom: "CUSTOM";
         engagement: "ENGAGEMENT";
+        exclusion: "EXCLUSION";
         fox: "FOX";
         lookalike: "LOOKALIKE";
         managed: "MANAGED";
@@ -101,24 +102,18 @@ export default class CustomAudience extends AbstractCrudObject {
         physical_store: "PHYSICAL_STORE";
         website: "WEBSITE";
     }>;
-    deleteAdAccounts(params?: Record<any, any>): Promise<any>;
-    getAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAdAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CustomAudience>;
-    getAds(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getAds(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getAds(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getSessions(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getSessions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getSessions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getSharedAccountInfo(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getSharedAccountInfo(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getSharedAccountInfo(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    deleteUsers(params?: Record<any, any>): Promise<any>;
-    createUser(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CustomAudience>;
-    createUsersReplace(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CustomAudience>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<CustomAudience>;
-    update(fields: string[], params?: Record<any, any>): Promise<CustomAudience>;
+    deleteAdAccounts(params?: Record<string, any>): Promise<any>;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAdAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
+    getAds(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getSalts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createSalt(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
+    getSessions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getShareDAccountInfo(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteUsers(params?: Record<string, any>): Promise<any>;
+    createUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
+    createUsersReplace(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<CustomAudience>;
+    update(fields: string[], params?: Record<string, any>): Promise<CustomAudience>;
 }

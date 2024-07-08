@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * BrandRequest
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -27,5 +27,5 @@ export default class BrandRequest extends AbstractCrudObject {
         submit_date: "submit_date";
         total_budget: "total_budget";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<BrandRequest>;
+    get(fields: string[], params?: Record<string, any>): Promise<BrandRequest>;
 }

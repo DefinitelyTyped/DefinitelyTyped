@@ -32,7 +32,10 @@ pm.isMatch("a.a", "b.*");
 pm.parse("pattern");
 pm.parse("pattern", {});
 
-pm.scan("!./foo/*.js");
+// $ExpectType State
+const scanState = pm.scan("!./foo/*.js");
+// $ExpectType boolean
+scanState.negatedExtglob;
 
 const state = pm.parse("*.js");
 pm.compileRe(state);
@@ -43,7 +46,10 @@ pm.toRegex(state.output, {
     nocase: true,
 });
 
-pm.scan("!./foo/*.js", { tokens: true });
+// $ExpectType State
+const scanStateWithTokens = pm.scan("!./foo/*.js", { tokens: true });
+// $ExpectType boolean
+scanStateWithTokens.negatedExtglob;
 
 pm.makeRe("foo/*.js").test("foo/bar.js");
 pm.makeRe("foo/{01..25}/bar", {

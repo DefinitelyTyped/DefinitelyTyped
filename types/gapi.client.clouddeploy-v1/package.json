@@ -3,7 +3,7 @@
     "name": "@types/gapi.client.clouddeploy-v1",
     "version": "0.0.9999",
     "nonNpm": true,
-    "nonNpmDescription": "Google Cloud Deploy API v1",
+    "nonNpmDescription": "Cloud Deploy API v1",
     "projects": [
         "https://cloud.google.com/deploy/"
     ],

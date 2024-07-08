@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
 /**
  * AdAsyncRequest
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -31,6 +31,6 @@ export default class AdAsyncRequest extends AbstractCrudObject {
         user_canceled: "USER_CANCELED";
         user_canceled_dependency: "USER_CANCELED_DEPENDENCY";
     }>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<AdAsyncRequest>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdAsyncRequest>;
 }

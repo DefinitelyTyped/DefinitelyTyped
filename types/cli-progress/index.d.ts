@@ -14,7 +14,7 @@ export interface Params {
 
 export interface Options {
     /**
-     * progress bar output format.
+     * Progress bar output format.
      * The progressbar can be customized by using the following build-in placeholders. They can be combined in any order.
      *   {bar} - the progress bar, customizable by the options barsize, barCompleteString and barIncompleteString
      *   {percentage} - the current progress in percent (0-100)
@@ -32,92 +32,92 @@ export interface Options {
      */
     format?: string | GenericFormatter | undefined;
 
-    /** a custom bar formatter function which renders the bar-element (default: format-bar.js) */
+    /** A custom bar formatter function which renders the bar-element (default: format-bar.js) */
     formatBar?: BarFormatter | undefined;
 
-    /** a custom timer formatter function which renders the formatted time elements like eta_formatted and duration-formatted (default: format-time.js) */
+    /** A custom timer formatter function which renders the formatted time elements like eta_formatted and duration-formatted (default: format-time.js) */
     formatTime?: TimeFormatter | undefined;
 
-    /** a custom value formatter function which renders all other values (default: format-value.js) */
+    /** A custom value formatter function which renders all other values (default: format-value.js) */
     formatValue?: ValueFormatter | undefined;
 
-    /** the maximum update rate (default: 10) */
+    /** The maximum update rate (default: 10) */
     fps?: number | undefined;
 
-    /** output stream to use (default: process.stderr) */
+    /** Output stream to use (default: process.stderr) */
     stream?: NodeJS.WritableStream | undefined;
 
-    /**  automatically call stop() when the value reaches the total (default: false) */
+    /** Automatically call stop() when the value reaches the total (default: false) */
     stopOnComplete?: boolean | undefined;
 
-    /** clear the progress bar on complete / stop() call (default: false) */
+    /** Clear the progress bar on complete / stop() call (default: false) */
     clearOnComplete?: boolean | undefined;
 
-    /** the length of the progress bar in chars (default: 40) */
+    /** The length of the progress bar in chars (default: 40) */
     barsize?: number | undefined;
 
-    /**  position of the progress bar - 'left' (default), 'right' or 'center  */
+    /** Position of the progress bar - 'left' (default), 'right' or 'center  */
     align?: "left" | "right" | "center" | undefined;
 
-    /** character to use as "complete" indicator in the bar (default: "=") */
+    /** Character to use as "complete" indicator in the bar (default: "=") */
     barCompleteString?: string | undefined;
 
-    /** character to use as "incomplete" indicator in the bar (default: "-") */
+    /** Character to use as "incomplete" indicator in the bar (default: "-") */
     barIncompleteString?: string | undefined;
 
-    /** character to use as "complete" indicator in the bar (default: "=") */
+    /** Character to use as "complete" indicator in the bar (default: "=") */
     barCompleteChar?: string | undefined;
 
-    /** character to use as "incomplete" indicator in the bar (default: "-") */
+    /** Character to use as "incomplete" indicator in the bar (default: "-") */
     barIncompleteChar?: string | undefined;
 
     /**
-     * hide the cursor during progress operation; restored on complete (default: false)
+     * Hide the cursor during progress operation; restored on complete (default: false)
      * - pass `null` to keep terminal settings
      */
     hideCursor?: boolean | null | undefined;
 
-    /** glue sequence (control chars) between bar elements (default: '') */
+    /** Glue sequence (control chars) between bar elements (default: '') */
     barGlue?: string | undefined;
 
-    /** number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
+    /** Number of updates with which to calculate the eta; higher numbers give a more stable eta (default: 10) */
     etaBuffer?: number | undefined;
 
     /**
-     *  trigger an eta calculation update during asynchronous rendering trigger using the current value
+     *  Trigger an eta calculation update during asynchronous rendering trigger using the current value
      * - should only be used for long running processes in conjunction with lof `fps` values and large `etaBuffer`
      * @default false
      */
     etaAsynchronousUpdate?: boolean | undefined;
 
-    /** progress calculation relative to start value ? default start at 0 (default: false) */
+    /** Progress calculation relative to start value ? default start at 0 (default: false) */
     progressCalculationRelative?: boolean | undefined;
 
-    /** disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width */
+    /** Disable line wrapping (default: false) - pass null to keep terminal settings; pass true to trim the output to terminal width */
     linewrap?: boolean | null | undefined;
 
-    /** trigger redraw during update() in case threshold time x2 is exceeded (default: true) - limited to single bar usage */
+    /** Trigger redraw during update() in case threshold time x2 is exceeded (default: true) - limited to single bar usage */
     synchronousUpdate?: boolean | undefined;
 
-    /** enable scheduled output to notty streams - e.g. redirect to files (default: false) */
+    /** Enable scheduled output to notty streams - e.g. redirect to files (default: false) */
     noTTYOutput?: boolean | undefined;
 
-    /** set the output schedule/interval for notty output in ms (default: 2000ms) */
+    /** Set the output schedule/interval for notty output in ms (default: 2000ms) */
     notTTYSchedule?: number | undefined;
 
-    /** display progress bars with 'total' of zero(0) as empty, not full (default: false) */
+    /** Display progress bars with 'total' of zero(0) as empty, not full (default: false) */
     emptyOnZero?: boolean | undefined;
 
-    /** trigger redraw on every frame even if progress remains the same; can be useful if progress bar gets overwritten by other concurrent writes to the terminal (default: false) */
+    /** Trigger redraw on every frame even if progress remains the same; can be useful if progress bar gets overwritten by other concurrent writes to the terminal (default: false) */
     forceRedraw?: boolean | undefined;
 
-    /** add padding chars to formatted time and percentage to force fixed width (default: false) */
+    /** Add padding chars to formatted time and percentage to force fixed width (default: false) */
     autopadding?: boolean | undefined;
 
-    /** the character sequence used for autopadding (default: " ") */
+    /** The character sequence used for autopadding (default: " ") */
     autopaddingChar?: string | undefined;
 
-    /** stop bar on SIGINT/SIGTERM to restore cursor settings (default: true) */
+    /** Stop bar on SIGINT/SIGTERM to restore cursor settings (default: true) */
     gracefulExit?: boolean | undefined;
 }
 
@@ -150,6 +150,9 @@ export interface Preset {
 export class GenericBar extends EventEmitter {
     /** Initialize a new Progress bar. An instance can be used multiple times! it's not required to re-create it! */
     constructor(opt: Options, preset?: Preset);
+
+    /** Whether the progress bar is active */
+    isActive: boolean;
 
     /** Internal render function */
     render(forceRendering?: boolean): void;
@@ -202,18 +205,21 @@ export class SingleBar extends GenericBar {
 export class MultiBar extends EventEmitter {
     constructor(opt: Options, preset?: Preset);
 
-    /** add a new bar to the stack */
+    /** Whether the progress bar is active */
+    isActive: boolean;
+
+    /** Add a new bar to the stack */
     create(total: number, startValue: number, payload?: any, barOptions?: Options): SingleBar;
 
-    /** remove a bar from the stack */
+    /** Remove a bar from the stack */
     remove(bar: SingleBar): boolean;
 
-    /** internal update routine */
+    /** Internal update routine */
     update(): void;
 
     stop(): void;
 
-    /** log output above the progress bars; string must end with newline character! */
+    /** Log output above the progress bars; string must end with newline character! */
     log(data: string): void;
 }
 

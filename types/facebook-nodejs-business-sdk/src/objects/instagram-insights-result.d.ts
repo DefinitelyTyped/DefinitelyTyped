@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * InstagramInsightsResult
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -20,15 +20,10 @@ export default class InstagramInsightsResult extends AbstractCrudObject {
         surface_type: "surface_type";
     }>;
     static get Metric(): Readonly<{
-        carousel_album_engagement: "carousel_album_engagement";
-        carousel_album_impressions: "carousel_album_impressions";
-        carousel_album_reach: "carousel_album_reach";
-        carousel_album_saved: "carousel_album_saved";
-        carousel_album_video_views: "carousel_album_video_views";
+        clips_replays_count: "clips_replays_count";
         comments: "comments";
-        engagement: "engagement";
-        exits: "exits";
         follows: "follows";
+        ig_reels_aggregated_all_plays_count: "ig_reels_aggregated_all_plays_count";
         ig_reels_avg_watch_time: "ig_reels_avg_watch_time";
         ig_reels_video_view_total_time: "ig_reels_video_view_total_time";
         impressions: "impressions";
@@ -41,8 +36,6 @@ export default class InstagramInsightsResult extends AbstractCrudObject {
         replies: "replies";
         saved: "saved";
         shares: "shares";
-        taps_back: "taps_back";
-        taps_forward: "taps_forward";
         total_interactions: "total_interactions";
         video_views: "video_views";
     }>;
