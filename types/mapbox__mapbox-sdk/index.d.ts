@@ -1,6 +1,14 @@
 /// <reference types="node" />
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@mapbox/mapbox-sdk" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+
+    export default function createNodeClient(config: SdkConfig): MapiClient;
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "@mapbox/mapbox-sdk/lib/classes/mapi-client" {
     // eslint-disable-next-line @definitelytyped/no-self-import
     import { MapiRequest, MapiRequestOptions } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
