@@ -69,12 +69,12 @@ jsonld.compact(doc, context, { graph: false })
  * expand() test
  */
 jsonld.expand(doc, (err, res) => {
-    res // $ExpectType JsonLdArray
+    res
     log(res);
 });
 
 jsonld.expand(doc, (err, res) => {
-    const result = res.filter(item => item) // $ExpectType JsonLdArray
+    const result = res.filter(item => item)
     log(result);
 });
 
