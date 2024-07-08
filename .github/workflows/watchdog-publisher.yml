@@ -3,7 +3,7 @@ name: Publisher watchdog
 on:
   schedule:
     # Hourly
-    - cron: '17 * * * *'
+    - cron: '15 0/2 * * *'
   workflow_dispatch:
 
 jobs:

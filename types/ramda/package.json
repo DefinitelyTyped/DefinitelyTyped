@@ -20,7 +20,7 @@
     },
     "minimumTypeScriptVersion": "4.7",
     "dependencies": {
-        "types-ramda": "^0.30.0"
+        "types-ramda": "^0.30.1"
     },
     "devDependencies": {
         "@types/ramda": "workspace:."
