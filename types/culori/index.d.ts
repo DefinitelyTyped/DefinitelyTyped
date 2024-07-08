@@ -25,6 +25,7 @@ import modeP3 from "./src/p3/definition";
 import modeProphoto from "./src/prophoto/definition";
 import modeRec2020 from "./src/rec2020/definition";
 import modeRgb from "./src/rgb/definition";
+import modeXyb from "./src/xyb/definition";
 import modeXyz50 from "./src/xyz50/definition";
 import modeXyz65 from "./src/xyz65/definition";
 import modeYiq from "./src/yiq/definition";
@@ -72,8 +73,7 @@ export {
     interpolatorSplineMonotoneClosed,
 } from "./src/interpolate/splineMonotone";
 
-export { clampChroma, clampRgb } from "./src/clamp";
-export { default as displayable } from "./src/displayable";
+export { clampChroma, clampGamut, clampRgb, displayable, inGamut, toGamut } from "./src/clamp";
 export { default as lerp } from "./src/interpolate/lerp";
 export { getMode, removeParser, useMode, useParser } from "./src/modes";
 export { default as nearest } from "./src/nearest";
@@ -172,6 +172,8 @@ export { default as convertProphotoToXyz50 } from "./src/prophoto/convertProphot
 export { default as convertXyz50ToProphoto } from "./src/prophoto/convertXyz50ToProphoto";
 export { default as convertRec2020ToXyz65 } from "./src/rec2020/convertRec2020ToXyz65";
 export { default as convertXyz65ToRec2020 } from "./src/rec2020/convertXyz65ToRec2020";
+export { default as convertRgbToXyb } from "./src/xyb/convertRgbToXyb";
+export { default as convertXybToRgb } from "./src/xyb/convertXybToRgb";
 export { default as convertRgbToXyz50 } from "./src/xyz50/convertRgbToXyz50";
 export { default as convertXyz50ToRgb } from "./src/xyz50/convertXyz50ToRgb";
 export { default as convertRgbToXyz65 } from "./src/xyz65/convertRgbToXyz65";
@@ -207,6 +209,7 @@ export {
     modeProphoto,
     modeRec2020,
     modeRgb,
+    modeXyb,
     modeXyz50,
     modeXyz65,
     modeYiq,
@@ -238,6 +241,7 @@ export const prophoto: ConvertFn<"prophoto">;
 export const rec2020: ConvertFn<"rec2020">;
 // tslint:disable-next-line:use-default-type-parameter
 export const rgb: ConvertFn<"rgb">;
+export const xyb: ConvertFn<"xyb">;
 export const xyz50: ConvertFn<"xyz50">;
 export const xyz65: ConvertFn<"xyz65">;
 export const yiq: ConvertFn<"yiq">;
@@ -270,6 +274,7 @@ export type { P3 } from "./src/p3/types";
 export type { Prophoto } from "./src/prophoto/types";
 export type { Rec2020 } from "./src/rec2020/types";
 export type { Rgb } from "./src/rgb/types";
+export type { Xyb } from "./src/xyb/types";
 export type { Xyz50 } from "./src/xyz50/types";
 export type { Xyz65 } from "./src/xyz65/types";
 export type { Yiq } from "./src/yiq/types";
