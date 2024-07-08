@@ -125,7 +125,7 @@ export default class ProductFeed extends AbstractCrudObject {
     createUpload(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<ProductFeedUpload>;
     getVehicleOffers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getVehicles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<ProductFeed>;
     update(fields: string[], params?: Record<string, any>): Promise<ProductFeed>;
 }

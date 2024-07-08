@@ -132,7 +132,7 @@ export default class User extends AbstractCrudObject {
     createStagingResource(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<User>;
     getVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<User>;
     update(fields: string[], params?: Record<string, any>): Promise<User>;
 }
