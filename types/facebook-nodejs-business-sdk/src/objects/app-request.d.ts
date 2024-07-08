@@ -16,6 +16,6 @@ export default class AppRequest extends AbstractCrudObject {
         object: "object";
         to: "to";
     }>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<AppRequest>;
 }

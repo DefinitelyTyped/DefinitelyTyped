@@ -417,7 +417,7 @@ export default class Campaign extends AbstractCrudObject {
     createCopy(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Campaign>;
     getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     getInsightsAsync(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdReportRun>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<Campaign>;
     update(fields: string[], params?: Record<string, any>): Promise<Campaign>;
 }
