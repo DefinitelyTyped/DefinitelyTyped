@@ -52,7 +52,7 @@ pm.makeRe("foo/{01..25}/bar", {
     },
 });
 pm.makeRe("foo/{01..25..5}/bar", {
-    expandRange(from: string, to: string, step: string) {
+    expandRange(from: string, to: string, step: string | pm.PicomatchOptions) {
         return `(<fill-range output>)`;
     },
 });
