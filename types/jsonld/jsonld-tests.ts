@@ -69,12 +69,12 @@ jsonld.compact(doc, context, { graph: false })
  * expand() test
  */
 jsonld.expand(doc, (err, res) => {
-    res
+    res;
     log(res);
 });
 
 jsonld.expand(doc, (err, res) => {
-    const result = res.filter(item => item)
+    const result = res.filter(item => item);
     log(result);
 });
 
