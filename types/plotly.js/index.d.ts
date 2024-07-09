@@ -604,7 +604,7 @@ export interface MinorAxisLayout {
     tick0: DTickValue;
     tickcolor: Color;
     ticklen: number;
-    tickmode:  "auto" | "linear" | "array";
+    tickmode: "auto" | "linear" | "array";
     ticks: "outside" | "inside" | "";
     tickvals: any[];
     tickwidth: number;
@@ -908,14 +908,24 @@ export interface LayoutAxis extends Axis {
     griddash: Dash;
     l2p: (v: Datum) => number;
 
-    autotickangles: number[]; 
+    autotickangles: number[];
     insiderange: any[];
     matches: AxisName;
     minor: Partial<MinorAxisLayout>;
-    rangebreaks: Partial<RangeBreak>[];
+    rangebreaks: Array<Partial<RangeBreak>>;
     ticklabelmode: "instant" | "period";
     ticklabeloverflow: "allow" | "hide past div" | "hide past domain";
-    ticklabelposition: "outside" | "inside" | "outside top" | "inside top" | "outside left" | "inside left" | "outside right" | "inside right" | "outside bottom" | "inside bottom";
+    ticklabelposition:
+        | "outside"
+        | "inside"
+        | "outside top"
+        | "inside top"
+        | "outside left"
+        | "inside left"
+        | "outside right"
+        | "inside right"
+        | "outside bottom"
+        | "inside bottom";
     ticklabelstep: number;
     tickson: "labels" | "boundaries";
     uirevision: DTickValue;
