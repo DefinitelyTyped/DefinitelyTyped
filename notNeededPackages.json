@@ -4819,6 +4819,10 @@
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
         },
+        "react-datepicker": {
+            "libraryName": "react-datepicker",
+            "asOfVersion": "7.0.0"
+        },
         "react-datetime-picker": {
             "libraryName": "react-datetime-picker",
             "asOfVersion": "5.0.0"
