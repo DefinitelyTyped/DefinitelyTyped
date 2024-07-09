@@ -1,4 +1,4 @@
-import mbxClient from '@mapbox/mapbox-sdk'
+import mbxClient from "@mapbox/mapbox-sdk";
 import { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
