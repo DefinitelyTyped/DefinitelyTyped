@@ -1,4 +1,5 @@
-import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+import mbxClient from '@mapbox/mapbox-sdk'
+import { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
 import Directions, { DirectionsResponse, DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
@@ -13,7 +14,7 @@ import { LineString } from "geojson";
 const config: SdkConfig = {
     accessToken: "access-token",
 };
-const client = new MapiClient(config);
+const client = mbxClient(config);
 
 const directionsService: DirectionsService = Directions(client);
 
