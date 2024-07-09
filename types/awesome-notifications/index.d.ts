@@ -88,7 +88,7 @@ declare namespace AWN {
         beforeInsert(): void;
         afterInsert(): void;
         insert(): Elem;
-        replace(el?: Elem): Elem;
+        replace(el: Elem): Elem;
         beforeDelete(el?: Elem): Promise<number>;
         delete(el?: Elem): Promise<void> | null;
         afterDelete(): void;
