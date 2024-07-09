@@ -586,6 +586,40 @@ export interface TickFormatStop {
     templateitemname: string;
 }
 
+export interface AutoRangeOptions {
+    clipmax: DTickValue;
+    clipmin: DTickValue;
+    include: DTickValue;
+    maxallowed: DTickValue;
+    minallowed: DTickValue;
+}
+
+export interface MinorAxisLayout {
+    dtick: DTickValue;
+    gridcolor: Color;
+    griddash: Dash;
+    gridwidth: number;
+    nticks: number;
+    showgrid: boolean;
+    tick0: DTickValue;
+    tickcolor: Color;
+    ticklen: number;
+    tickmode:  "auto" | "linear" | "array";
+    ticks: "outside" | "inside" | "";
+    tickvals: any[];
+    tickwidth: number;
+}
+
+export interface RangeBreak {
+    bounds: any[];
+    dvalue: number;
+    enabled: boolean;
+    name: string;
+    pattern: "day of week" | "hour" | "";
+    templateitemname: string;
+    values: any[];
+}
+
 export interface Axis {
     /**
      * A single toggle to hide the axis while preserving interaction like dragging.
@@ -607,7 +641,8 @@ export interface Axis {
      */
     titlefont: Partial<Font>;
     type: AxisType;
-    autorange: true | false | "reversed";
+    autorange: true | false | "reversed" | "min reversed" | "max reversed" | "min" | "max";
+    autorangeoptions: Partial<AutoRangeOptions>;
     /**
      * 'If *normal*, the range is computed in relation to the extrema
      * of the input data.
@@ -822,6 +857,11 @@ export interface Axis {
      * Only has an effect on *multicategory* axes.
      */
     dividerwidth: number;
+
+    autotypenumbers: "convert types" | "strict";
+    labelalias: DTickValue;
+    maxallowed: DTickValue;
+    minallowed: DTickValue;
 }
 
 export type Calendar =
@@ -867,6 +907,18 @@ export interface LayoutAxis extends Axis {
     angle: any;
     griddash: Dash;
     l2p: (v: Datum) => number;
+
+    autotickangles: number[]; 
+    insiderange: any[];
+    matches: AxisName;
+    minor: Partial<MinorAxisLayout>;
+    rangebreaks: Partial<RangeBreak>[];
+    ticklabelmode: "instant" | "period";
+    ticklabeloverflow: "allow" | "hide past div" | "hide past domain";
+    ticklabelposition: "outside" | "inside" | "outside top" | "inside top" | "outside left" | "inside left" | "outside right" | "inside right" | "outside bottom" | "inside bottom";
+    ticklabelstep: number;
+    tickson: "labels" | "boundaries";
+    uirevision: DTickValue;
 }
 
 export interface SceneAxis extends Axis {
