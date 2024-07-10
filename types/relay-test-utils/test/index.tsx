@@ -118,6 +118,11 @@ function environmentTests() {
     environment.mock.nextValue(operation, { data: {} });
     environment.mock.resolve(operation, { data: {} });
     environment.mock.queuePendingOperation(userQuery, {});
+
+    // @ExpectType OperationDescriptor
+    const newOperation = environment.mock.getMostRecentOperation();
+
+    environment.mock.resolve(operation, MockPayloadGenerator.generateWithDefer(newOperation, null, { generateDeferredPayload: true, mockClientData: true }))
 }
 
 function testResolverTests() {
