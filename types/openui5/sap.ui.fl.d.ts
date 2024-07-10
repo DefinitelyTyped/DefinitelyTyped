@@ -1,4 +1,4 @@
-// For Library Version: 1.125.0
+// For Library Version: 1.126.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1516,6 +1516,8 @@ declare namespace sap {
 
     "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetAbstract": undefined;
 
+    "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetCloudDevAdaptationStatus": undefined;
+
     "sap/ui/fl/apply/_internal/changes/descriptor/fiori/SetRegistrationIds": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/ovp/AddNewCard": undefined;
@@ -1609,6 +1611,10 @@ declare namespace sap {
     "sap/ui/fl/apply/api/UI2PersonalizationApplyAPI": undefined;
 
     "sap/ui/fl/changeHandler/Base": undefined;
+
+    "sap/ui/fl/changeHandler/BaseAddViaDelegate": undefined;
+
+    "sap/ui/fl/changeHandler/BaseRename": undefined;
 
     "sap/ui/fl/ChangePersistenceFactory": undefined;
 
