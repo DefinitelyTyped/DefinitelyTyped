@@ -107,22 +107,24 @@ ffmpeg("/path/to/part1.avi")
     .mergeToFile("/path/to/merged.avi", "/path/to/tempDir");
 
 ffmpeg("/path/to/file.avi")
-    .on('start', (commandLine) => {
-        console.log('Spawned Ffmpeg with command: ' + commandLine);
+    .on("start", (commandLine) => {
+        console.log("Spawned Ffmpeg with command: " + commandLine);
     })
-    .on('codecData', (data) => {
-        console.log('Input is ' + data.audio + ' audio ' +
-          'with ' + data.video + ' video');
+    .on("codecData", (data) => {
+        console.log(
+            "Input is " + data.audio + " audio "
+                + "with " + data.video + " video",
+        );
     })
-    .on('progress', (progress) => {
-        console.log('Processing: ' + progress.percent + '% done');
+    .on("progress", (progress) => {
+        console.log("Processing: " + progress.percent + "% done");
     })
-    .on('stderr', (stderrLine) => {
-        console.log('Stderr output: ' + stderrLine);
+    .on("stderr", (stderrLine) => {
+        console.log("Stderr output: " + stderrLine);
     })
-    .on('error', (err, stdout, stderr) => {
-        console.log('Cannot process video: ' + err.message);
+    .on("error", (err, stdout, stderr) => {
+        console.log("Cannot process video: " + err.message);
     })
     .on("end", () => {
-        console.log('Transcoding succeeded !');
+        console.log("Transcoding succeeded !");
     });

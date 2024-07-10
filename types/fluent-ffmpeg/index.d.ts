@@ -403,14 +403,17 @@ declare namespace Ffmpeg {
          * @param {String} progress.timemark current video timemark
          * @param {Number} [progress.percent] processing progress (may not be available depending on input)
          */
-        on(event: "progress", listener: (progress: {
-            frames: number;
-            currentFps: number;
-            currentKbps: number;
-            targetSize: number;
-            timemark: string;
-            percent?: number | undefined;
-        }) => void): this;
+        on(
+            event: "progress",
+            listener: (progress: {
+                frames: number;
+                currentFps: number;
+                currentKbps: number;
+                targetSize: number;
+                timemark: string;
+                percent?: number | undefined;
+            }) => void,
+        ): this;
 
         /**
          * Emitted when ffmpeg outputs to stderr
@@ -431,13 +434,16 @@ declare namespace Ffmpeg {
          * @param {String} codecData.video input video codec name
          * @param {String} codecData.video_details input video codec parameters
          */
-        on(event: "codecData", listener: (codecData: {
-            format: string;
-            audio: string;
-            audio_details: string;
-            video: string;
-            video_details: string;
-        }) => void): this;
+        on(
+            event: "codecData",
+            listener: (codecData: {
+                format: string;
+                audio: string;
+                audio_details: string;
+                video: string;
+                video_details: string;
+            }) => void,
+        ): this;
 
         /**
          * Emitted when an error happens when preparing or running a command
