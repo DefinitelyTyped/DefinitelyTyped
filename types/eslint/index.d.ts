@@ -921,6 +921,41 @@ export namespace Linter {
     }
 
     /**
+     * The ECMAScript version of the code being linted.
+     */
+    type EcmaVersion =
+        | 3
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12
+        | 13
+        | 14
+        | 15
+        | 16
+        | 2015
+        | 2016
+        | 2017
+        | 2018
+        | 2019
+        | 2020
+        | 2021
+        | 2022
+        | 2023
+        | 2024
+        | 2025
+        | "latest";
+
+    /**
+     * The type of JavaScript source code.
+     */
+    type SourceType = "script" | "module" | "commonjs";
+
+    /**
      * ESLint legacy configuration.
      *
      * @see [ESLint Legacy Configuration](https://eslint.org/docs/latest/use/configure/)
@@ -1066,41 +1101,18 @@ export namespace Linter {
          *
          * @default 5
          */
-        ecmaVersion?:
-            | 3
-            | 5
-            | 6
-            | 7
-            | 8
-            | 9
-            | 10
-            | 11
-            | 12
-            | 13
-            | 14
-            | 15
-            | 2015
-            | 2016
-            | 2017
-            | 2018
-            | 2019
-            | 2020
-            | 2021
-            | 2022
-            | 2023
-            | 2024
-            | 2025
-            | "latest"
-            | undefined;
+        ecmaVersion?: EcmaVersion | undefined;
 
         /**
-         * Set to "script" (default) or "module" if your code is in ECMAScript modules.
+         * The type of JavaScript source code. Possible values are "script" for
+         * traditional script files, "module" for ECMAScript modules (ESM), and
+         * "commonjs" for CommonJS files.
          *
          * @default 'script'
          *
          * @see https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options
          */
-        sourceType?: "script" | "module" | undefined;
+        sourceType?: SourceType | undefined;
 
         /**
          * An object indicating which additional language features you'd like to use.
@@ -1278,7 +1290,7 @@ export namespace Linter {
          * version (i.e., 5). Set to "latest" for the most recent supported version.
          * @default "latest"
          */
-        ecmaVersion?: ParserOptions["ecmaVersion"];
+        ecmaVersion?: EcmaVersion | undefined;
 
         /**
          * The type of JavaScript source code. Possible values are "script" for
@@ -1286,7 +1298,7 @@ export namespace Linter {
          * "commonjs" for CommonJS files. (default: "module" for .js and .mjs
          * files; "commonjs" for .cjs files)
          */
-        sourceType?: "script" | "module" | "commonjs" | undefined;
+        sourceType?: SourceType | undefined;
 
         /**
          * An object specifying additional objects that should be added to the
@@ -1406,6 +1418,10 @@ export namespace ESLint {
         rules?: Record<string, Rule.RuleModule> | undefined;
     }
 
+    type FixType = "directive" | "problem" | "suggestion" | "layout";
+
+    type CacheStrategy = "content" | "metadata";
+
     interface Options {
         // File enumeration
         cwd?: string | undefined;
@@ -1427,12 +1443,12 @@ export namespace ESLint {
 
         // Autofix
         fix?: boolean | ((message: Linter.LintMessage) => boolean) | undefined;
-        fixTypes?: Array<"directive" | "problem" | "suggestion" | "layout"> | undefined;
+        fixTypes?: FixType[] | undefined;
 
         // Cache-related
         cache?: boolean | undefined;
         cacheLocation?: string | undefined;
-        cacheStrategy?: "content" | "metadata" | undefined;
+        cacheStrategy?: CacheStrategy | undefined;
 
         // Other Options
         flags?: string[] | undefined;
@@ -1460,12 +1476,12 @@ export namespace ESLint {
 
         // Autofix
         fix?: boolean | ((message: Linter.LintMessage) => boolean) | undefined;
-        fixTypes?: Array<"directive" | "problem" | "suggestion" | "layout"> | undefined;
+        fixTypes?: FixType[] | undefined;
 
         // Cache-related
         cache?: boolean | undefined;
         cacheLocation?: string | undefined;
-        cacheStrategy?: "content" | "metadata" | undefined;
+        cacheStrategy?: CacheStrategy | undefined;
 
         // Other Options
         flags?: string[] | undefined;
@@ -1510,6 +1526,8 @@ export namespace ESLint {
 
 // #endregion
 
+export function loadESLint(options: { useFlatConfig: true }): Promise<typeof ESLint>;
+export function loadESLint(options: { useFlatConfig: false }): Promise<typeof LegacyESLint>;
 export function loadESLint(
     options?: { useFlatConfig?: boolean | undefined },
 ): Promise<typeof ESLint | typeof LegacyESLint>;

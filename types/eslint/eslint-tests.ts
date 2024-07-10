@@ -505,10 +505,10 @@ rule = {
 
         return {
             onCodePathStart(codePath, node) {
-                const origin: string = codePath.origin;
+                const origin: Rule.CodePathOrigin = codePath.origin;
             },
             onCodePathEnd(codePath, node) {
-                const origin: string = codePath.origin;
+                const origin: Rule.CodePathOrigin = codePath.origin;
             },
             onCodePathSegmentStart(segment, node) {},
             onCodePathSegmentEnd(segment, node) {},
@@ -756,6 +756,7 @@ linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2021 } }]
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2022 } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2023 } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2024 } }], "test.js");
+linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2025 } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: "latest" } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 6 } }], "test.js");
 linterWithFlatConfig.verify(
@@ -1451,11 +1452,14 @@ flatConfig = config;
 
 // #endregion Config
 
-loadESLint();
-loadESLint({});
-loadESLint({ useFlatConfig: true });
+(async (useFlatConfig?: boolean) => {
+    await loadESLint(); // $ExpectType typeof ESLint | typeof LegacyESLint
+    await loadESLint({}); // $ExpectType typeof ESLint | typeof LegacyESLint
+    await loadESLint({ useFlatConfig: undefined }); // $ExpectType typeof ESLint | typeof LegacyESLint
+    await loadESLint({ useFlatConfig: true }); // $ExpectType typeof ESLint
+    await loadESLint({ useFlatConfig: false }); // $ExpectType typeof LegacyESLint
+    await loadESLint({ useFlatConfig }); // $ExpectType typeof ESLint | typeof LegacyESLint
 
-(async () => {
     const DefaultESLint = await loadESLint();
     if (DefaultESLint.configType === "flat") {
         const eslint = new DefaultESLint({ stats: true }); // $ExpectType ESLint
