@@ -32,6 +32,7 @@ import ColumnListItem from "sap/m/ColumnListItem";
 import Filter from "sap/ui/model/Filter";
 import Version from "sap/base/util/Version";
 import UploadItem from "sap/m/upload/UploadItem";
+import DragDropInfo from "sap/ui/core/dnd/DragDropInfo";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -222,3 +223,7 @@ const v: Version = new Version(1); // minor version is only optional since 1.124
 // 1.125
 const ui = new UploadItem();
 ui.getIsTrustedSource();
+
+// 1.126
+const drag = new DragDropInfo();
+drag.getKeyboardHandling();
