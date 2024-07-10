@@ -667,9 +667,11 @@ export namespace Rule {
             | undefined;
     }
 
+    type CodePathOrigin = "program" | "function" | "class-field-initializer" | "class-static-block";
+
     interface CodePath {
         id: string;
-        origin: "program" | "function" | "class-field-initializer" | "class-static-block";
+        origin: CodePathOrigin;
         initialSegment: CodePathSegment;
         finalSegments: CodePathSegment[];
         returnedSegments: CodePathSegment[];
