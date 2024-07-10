@@ -1,6 +1,6 @@
 export = didYouMean;
 
-declare function didYouMean(str: string, list: string[], key?: string): string | string[];
+declare function didYouMean(str: string, list: string[] | object[], key?: string): string | string[];
 
 declare namespace didYouMean {
     let caseSensitive: boolean;
