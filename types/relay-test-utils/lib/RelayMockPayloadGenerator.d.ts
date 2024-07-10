@@ -8,29 +8,28 @@ export interface MockResolverContext {
     readonly args: Record<string, unknown> | null | undefined;
 }
 
-export type DeepPartial<T> = T extends object
-  ? {
-      [P in keyof T]?: DeepPartial<T[P]>;
+export type DeepPartial<T> = T extends object ? {
+        [P in keyof T]?: DeepPartial<T[P]>;
     }
-  : T;
+    : T;
 
 export type MockResolver<T = unknown> = (
-  context: MockResolverContext,
-  generateId: () => number,
+    context: MockResolverContext,
+    generateId: () => number,
 ) => DeepPartial<T> | undefined;
 
 export type DefaultMockResolvers = Partial<{
-  ID: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  [key: string]: unknown;
+    ID: string;
+    Boolean: boolean;
+    Int: number;
+    Float: number;
+    [key: string]: unknown;
 }>;
 
 export type MockResolvers<
-  TypeMap extends DefaultMockResolvers = DefaultMockResolvers,
+    TypeMap extends DefaultMockResolvers = DefaultMockResolvers,
 > = {
-  [K in keyof TypeMap]?: MockResolver<TypeMap[K]>;
+    [K in keyof TypeMap]?: MockResolver<TypeMap[K]>;
 };
 
 export function generate(
@@ -42,5 +41,5 @@ export function generate(
 export function generateWithDefer(
     operation: OperationDescriptor,
     mockResolvers?: MockResolvers | null,
-    options?: { mockClientData?: boolean, generateDeferredPayload?: boolean } | null,
-): GraphQLResponse
+    options?: { mockClientData?: boolean; generateDeferredPayload?: boolean } | null,
+): GraphQLResponse;
