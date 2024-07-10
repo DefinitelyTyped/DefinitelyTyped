@@ -122,7 +122,13 @@ function environmentTests() {
     // @ExpectType OperationDescriptor
     const newOperation = environment.mock.getMostRecentOperation();
 
-    environment.mock.resolve(operation, MockPayloadGenerator.generateWithDefer(newOperation, null, { generateDeferredPayload: true, mockClientData: true }))
+    environment.mock.resolve(
+        operation,
+        MockPayloadGenerator.generateWithDefer(newOperation, null, {
+            generateDeferredPayload: true,
+            mockClientData: true,
+        }),
+    );
 }
 
 function testResolverTests() {

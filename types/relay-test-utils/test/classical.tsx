@@ -40,10 +40,10 @@ function TestQueryRenderer() {
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type User = {
-    __typename?: "User",
-    id: string,
-    displayName?: string,
-}
+    __typename?: "User";
+    id: string;
+    displayName?: string;
+};
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type TypeMap = {
@@ -52,7 +52,7 @@ type TypeMap = {
     Int: number;
     Float: number;
     User: User;
-}
+};
 
 type MockResolvers = MockPayloadGenerator.MockResolvers<TypeMap>;
 type UserMockResolver = MockResolvers["User"];
@@ -64,7 +64,7 @@ const userResolver: UserMockResolver = (context, generateId) => {
         id: (context.name || "") + String(id),
         displayName: "User " + id,
     };
-}
+};
 
 const mockResolvers: MockResolvers = {
     User: userResolver,
