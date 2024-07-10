@@ -21,7 +21,7 @@ result = didYouMean(input, list);
 input = "insargrm";
 const listOfObjects: ListType[] = [{ id: "facebook" }, { id: "twitter" }, { id: "instagram" }, { id: "linkedin" }];
 const key = "id";
-result = didYouMean(input, list, key);
+result = didYouMean(input, listOfObjects, key);
 
 didYouMean.returnWinningObject = true;
-result = didYouMean(input, list, key);
+result = didYouMean(input, listOfObjects, key);
