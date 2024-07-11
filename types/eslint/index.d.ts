@@ -1280,8 +1280,10 @@ export namespace Linter {
     /** @deprecated  Use `Config` instead of `FlatConfig` */
     type FlatConfig = Config;
 
+    type GlobalConf = boolean | "off" | "readable" | "readonly" | "writable" | "writeable";
+
     interface Globals {
-        [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable";
+        [name: string]: GlobalConf;
     }
 
     interface LanguageOptions {
