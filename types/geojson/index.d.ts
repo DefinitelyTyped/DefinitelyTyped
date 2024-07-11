@@ -24,11 +24,16 @@ export type BBox = [number, number, number, number] | [number, number, number, n
 /**
  * A Position is an array of coordinates.
  * https://tools.ietf.org/html/rfc7946#section-3.1.1
- * Array should contain between two and three elements.
- * The previous GeoJSON specification allowed more elements (e.g., which could be used to represent M values),
- * but the current specification only allows X, Y, and (optionally) Z to be defined.
+ * Array must contain two or more number elements.
+ * The previous GeoJSON specification allowed more elements (e.g., which could 
+ * be used to represent M values). However the current specification allows for
+ * an optional third element, and strongly suggests implementations "SHOULD NOT"
+ * go beyond that.
+ * For that reason the type guarantees a minimum of two elements (longitude and
+ * latitude) while allowing users to include any additional elements if they
+ * choose to.
  */
-export type Position = number[]; // [number, number] | [number, number, number];
+export type Position = [number, number, ...number[]];
 
 /**
  * The base GeoJSON object.

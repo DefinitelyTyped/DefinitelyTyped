@@ -11,6 +11,7 @@ import {
     MultiPolygon,
     Point,
     Polygon,
+    Position,
 } from "geojson";
 
 let featureCollection: FeatureCollection = {
@@ -100,7 +101,38 @@ const featureWithPolygon: Feature<Polygon> = {
 featureWithPolygon.type; // $ExpectType "Feature"
 featureWithPolygon.geometry; // $ExpectType Polygon
 featureWithPolygon.geometry.type; // $ExpectType "Polygon"
-featureWithPolygon.geometry.coordinates; // $ExpectType number[][][] || Position[][]
+featureWithPolygon.geometry.coordinates; // $ExpectType Position[][]
+
+// @ts-expect-error need minimum of two number elements
+const p1: Position = [];
+// @ts-expect-error need minimum of two number elements 
+const p2: Position = [1];
+const p3: Position = [1, 2];
+const p4: Position = [1, 2, 3];
+const p5: Position = [1, 2, 3, 4];
+const p6: Position = [1, 2, 3, 4, 5, 6, 7, 8];
+// @ts-expect-error third element not a number
+const p7: Position = [1, 2, "foo"];
+
+// Legacy code i.e. Turf will need to update any coord definitions like this
+// e.g. number[][] to Position[]
+const n1: number[] = [1, 2];
+// @ts-expect-error insufficiently strict type
+const pc1: Position = n1;
+
+const n2: [number, number] = [1, 2];
+const pc2: Position = n2;
+
+const n3: [number, number, number] = [1, 2, 3];
+const pc3: Position = n3;
+
+const n4 = [1, 2, 3, 4, 5];
+// @ts-expect-error only infers number[], not good enough
+const pc4: Position = n4;
+
+// From typescript 4.9 can use satisfies as a safer alternative to "as"
+const n5 = [1, 2, 3, 4, 5] satisfies Position;
+const pc5: Position = n5;
 
 const point: Point = {
     type: "Point",

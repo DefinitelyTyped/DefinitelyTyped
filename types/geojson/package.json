@@ -1,9 +1,10 @@
 {
     "private": true,
     "name": "@types/geojson",
-    "version": "7946.0.9999",
+    "version": "8000.0.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "geojson",
+    "minimumTypeScriptVersion": "4.9",
     "projects": [
         "https://geojson.org/"
     ],
