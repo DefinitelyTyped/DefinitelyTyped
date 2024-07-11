@@ -1,4 +1,4 @@
-declare class Delaunator<P> {
+declare class Delaunator {
     /**
      * A Uint32Array array of triangle vertex indices (each group of three numbers forms a triangle).
      * All triangles are directed counterclockwise.
