@@ -1,5 +1,5 @@
-import Node from '../core/Node';
-import { TempNode } from '../Nodes';
+import Node from "../core/Node.js";
+import { TempNode } from "../Nodes.js";
 
 export default class ArrayElementNode extends TempNode {
     node: Node;

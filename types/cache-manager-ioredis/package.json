@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/cache-manager-ioredis",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/dabroek/node-cache-manager-ioredis"
+    ],
     "dependencies": {
+        "@types/cache-manager": "*",
         "@types/ioredis": "^4.28.10"
-    }
+    },
+    "devDependencies": {
+        "@types/cache-manager-ioredis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yi Hong",
+            "githubUsername": "hongyiweiwu"
+        }
+    ]
 }

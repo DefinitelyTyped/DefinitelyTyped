@@ -1,4 +1,4 @@
-import Node from './Node';
+import Node from "./Node.js";
 
 export default class StackNode extends Node {
     isStackNode: true;
@@ -7,5 +7,11 @@ export default class StackNode extends Node {
 
     constructor();
 
-    assign(targetNode: Node, sourceValue: Node): this;
+    add(node: Node): this;
+
+    if(boolNode: Node, method: () => void): this;
+
+    elseIf(node: Node, method: () => void): this;
+
+    else(node: Node, method: () => void): this;
 }

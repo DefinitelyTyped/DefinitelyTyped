@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/mapbox__mapbox-gl-traffic",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mapbox/mapbox-gl-traffic"
+    ],
+    "dependencies": {
+        "@types/mapbox-gl": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mapbox__mapbox-gl-traffic": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Niek van Bennekom",
+            "githubUsername": "niekvb"
+        }
+    ]
+}

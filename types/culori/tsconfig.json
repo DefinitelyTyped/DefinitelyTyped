@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6"
         ],
@@ -8,18 +8,18 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "all/index.d.ts",
+        "css/index.d.ts",
+        "fn/index.d.ts",
         "index.d.ts",
         "test/average.test.ts",
         "test/blend.test.ts",
+        "test/clamp.test.ts",
         "test/colorsNamed.test.ts",
         "test/common.test.ts",
         "test/converter.test.ts",

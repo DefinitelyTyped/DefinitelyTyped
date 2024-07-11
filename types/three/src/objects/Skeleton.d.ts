@@ -1,6 +1,6 @@
-import { Bone } from './Bone';
-import { Matrix4 } from './../math/Matrix4';
-import { DataTexture } from './../textures/DataTexture';
+import { Matrix4 } from "../math/Matrix4.js";
+import { DataTexture } from "../textures/DataTexture.js";
+import { Bone } from "./Bone.js";
 
 /**
  * Use an array of {@link Bone | bones} to create a {@link Skeleton} that can be used by a {@link THREE.SkinnedMesh | SkinnedMesh}.
@@ -32,7 +32,7 @@ export class Skeleton {
      * @param bones The array of {@link THREE.Bone | bones}. Default `[]`.
      * @param boneInverses An array of {@link THREE.Matrix4 | Matrix4s}. Default `[]`.
      */
-    constructor(bones: Bone[], boneInverses?: Matrix4[]);
+    constructor(bones?: Bone[], boneInverses?: Matrix4[]);
 
     /**
      * {@link http://en.wikipedia.org/wiki/Universally_unique_identifier | UUID} of this object instance.
@@ -60,12 +60,6 @@ export class Skeleton {
      * The {@link THREE.DataTexture | DataTexture} holding the bone data when using a vertex texture.
      */
     boneTexture: null | DataTexture;
-
-    /**
-     * The size of the {@link boneTexture | .boneTexture}.
-     * @remarks Expects a `Integer`
-     */
-    boneTextureSize: number;
 
     frame: number;
 
@@ -112,4 +106,8 @@ export class Skeleton {
      * Call this method whenever this instance is no longer used in your app.
      */
     dispose(): void;
+
+    toJSON(): unknown;
+
+    fromJSON(json: unknown, bones: Record<string, Bone>): void;
 }

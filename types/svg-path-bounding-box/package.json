@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svg-path-bounding-box",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/icons8/svg-path-bounding-box"
+    ],
+    "devDependencies": {
+        "@types/svg-path-bounding-box": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tiger Oakes",
+            "githubUsername": "NotWoods"
+        }
+    ]
+}

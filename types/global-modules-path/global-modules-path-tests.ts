@@ -1,4 +1,4 @@
-import globalModulesPath = require('global-modules-path');
+import globalModulesPath = require("global-modules-path");
 
 // @ts-expect-error
 globalModulesPath();
@@ -7,7 +7,7 @@ globalModulesPath.getPath();
 // @ts-expect-error
 globalModulesPath.getPath(undefined, undefined);
 // @ts-expect-error
-globalModulesPath.getPath(undefined, 'hello');
+globalModulesPath.getPath(undefined, "hello");
 
 // @ts-expect-error
 globalModulesPath.getPath(undefined);
@@ -22,21 +22,21 @@ globalModulesPath.getPath(1);
 // @ts-expect-error
 globalModulesPath.getPath([]);
 // @ts-expect-error
-globalModulesPath.getPath(({}));
+globalModulesPath.getPath({});
 
-globalModulesPath.getPath('typescript', undefined); // $ExpectType string | null
+globalModulesPath.getPath("typescript", undefined); // $ExpectType string | null
 // @ts-expect-error
-globalModulesPath.getPath('typescript', null);
+globalModulesPath.getPath("typescript", null);
 // @ts-expect-error
-globalModulesPath.getPath('typescript', () => {});
+globalModulesPath.getPath("typescript", () => {});
 // @ts-expect-error
-globalModulesPath.getPath('typescript', {});
+globalModulesPath.getPath("typescript", {});
 // @ts-expect-error
-globalModulesPath.getPath('typescript', 1);
+globalModulesPath.getPath("typescript", 1);
 // @ts-expect-error
-globalModulesPath.getPath('typescript', []);
+globalModulesPath.getPath("typescript", []);
 // @ts-expect-error
-globalModulesPath.getPath('typescript', ({}));
+globalModulesPath.getPath("typescript", {});
 
-globalModulesPath.getPath('typescript'); // $ExpectType string | null
-globalModulesPath.getPath('typescript', 'tsc'); // $ExpectType string | null
+globalModulesPath.getPath("typescript"); // $ExpectType string | null
+globalModulesPath.getPath("typescript", "tsc"); // $ExpectType string | null

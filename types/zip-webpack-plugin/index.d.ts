@@ -1,11 +1,4 @@
-// Type definitions for zip-webpack-plugin 3.0
-// Project: https://github.com/erikdesjardins/zip-webpack-plugin
-// Definitions by: Blaise Kal <https://github.com/blaise-io>
-//                 Chuah Chee Shian <https://github.com/shian15810>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Compiler } from 'webpack';
+import { Compiler } from "webpack";
 
 export = ZipPlugin;
 
@@ -51,11 +44,11 @@ declare namespace ZipPlugin {
          * Include file paths or patterns.
          * Defaults to including all files in the webpack output path.
          */
-        include?: string | RegExp | ReadonlyArray<string|RegExp> | undefined;
+        include?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
         /**
          * Exclude file paths or patterns. Takes precedence over include. Defaults to no excluding.
          */
-        exclude?: string | RegExp | ReadonlyArray<string|RegExp> | undefined;
+        exclude?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
         /**
          * File options passed to yazl `addFile`.
          * See https://github.com/thejoshwolfe/yazl#addfilerealpath-metadatapath-options

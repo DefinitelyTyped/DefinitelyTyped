@@ -1,6 +1,6 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-declare-current-package": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-declare-current-package": "off"
     }
 }

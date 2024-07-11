@@ -4,6 +4,10 @@
             "libraryName": "3d-bin-packing",
             "asOfVersion": "1.1.3"
         },
+        "@types/hyphenate-style-name": {
+            "libraryName": "hyphenate-style-name",
+            "asOfVersion": "1.1.0"
+        },
         "a11y-dialog": {
             "libraryName": "a11y-dialog",
             "asOfVersion": "5.3.2"
@@ -39,6 +43,10 @@
         "adobe__node-fetch-retry": {
             "libraryName": "@adobe/node-fetch-retry",
             "asOfVersion": "2.1.0"
+        },
+        "aero__sanitizer": {
+            "libraryName": "@aero/sanitizer",
+            "asOfVersion": "1.3.2"
         },
         "ag-grid": {
             "libraryName": "ag-grid",
@@ -167,6 +175,10 @@
         "applicationinsights": {
             "libraryName": "applicationinsights",
             "asOfVersion": "0.20.0"
+        },
+        "arcgis-js-api": {
+            "libraryName": "arcgis-js-api",
+            "asOfVersion": "4.28.0"
         },
         "argon2": {
             "libraryName": "argon2",
@@ -304,6 +316,26 @@
             "libraryName": "badgen",
             "asOfVersion": "2.7.1"
         },
+        "barnard59": {
+            "libraryName": "barnard59",
+            "asOfVersion": "4.4.0"
+        },
+        "barnard59-base": {
+            "libraryName": "barnard59-base",
+            "asOfVersion": "2.3.0"
+        },
+        "barnard59-core": {
+            "libraryName": "barnard59-core",
+            "asOfVersion": "5.3.0"
+        },
+        "barnard59-graph-store": {
+            "libraryName": "barnard59-graph-store",
+            "asOfVersion": "5.1.0"
+        },
+        "barnard59-validate-shacl": {
+            "libraryName": "barnard59-shacl",
+            "asOfVersion": "1.3.0"
+        },
         "base-x": {
             "libraryName": "base-x",
             "asOfVersion": "3.0.6"
@@ -375,6 +407,10 @@
         "bitcoinjs-lib": {
             "libraryName": "bitcoinjs-lib",
             "asOfVersion": "5.0.0"
+        },
+        "bittorrent-protocol": {
+            "libraryName": "bittorrent-protocol",
+            "asOfVersion": "3.5.4"
         },
         "bitwise": {
             "libraryName": "bitwise",
@@ -500,6 +536,14 @@
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
         },
+        "carbon__icon-helpers": {
+            "libraryName": "@carbon/icon-helpers",
+            "asOfVersion": "10.45.0"
+        },
+        "carbon__icons-react": {
+            "libraryName": "@carbon/icons-react",
+            "asOfVersion": "11.29.0"
+        },
         "card-validator": {
             "libraryName": "card-validator",
             "asOfVersion": "7.0.1"
@@ -564,6 +608,262 @@
             "libraryName": "ci-info",
             "asOfVersion": "3.1.0"
         },
+        "ckeditor__ckeditor5-adapter-ckfinder": {
+            "libraryName": "@ckeditor/ckeditor5-adapter-ckfinder",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-alignment": {
+            "libraryName": "@ckeditor/ckeditor5-alignment",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-autoformat": {
+            "libraryName": "@ckeditor/ckeditor5-autoformat",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-autosave": {
+            "libraryName": "@ckeditor/ckeditor5-autosave",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-basic-styles": {
+            "libraryName": "@ckeditor/ckeditor5-basic-styles",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-block-quote": {
+            "libraryName": "@ckeditor/ckeditor5-block-quote",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-build-balloon": {
+            "libraryName": "@ckeditor/ckeditor5-build-balloon",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-build-balloon-block": {
+            "libraryName": "@ckeditor/ckeditor5-build-balloon-block",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-build-classic": {
+            "libraryName": "@ckeditor/ckeditor5-build-classic",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-build-decoupled-document": {
+            "libraryName": "@ckeditor/ckeditor5-build-decoupled-document",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-build-inline": {
+            "libraryName": "@ckeditor/ckeditor5-build-inline",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-ckfinder": {
+            "libraryName": "@ckeditor/ckeditor5-ckfinder",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-clipboard": {
+            "libraryName": "@ckeditor/ckeditor5-clipboard",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-cloud-services": {
+            "libraryName": "@ckeditor/ckeditor5-cloud-services",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-code-block": {
+            "libraryName": "@ckeditor/ckeditor5-code-block",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-collaboration-core": {
+            "libraryName": "@ckeditor/ckeditor5-collaboration-core",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-core": {
+            "libraryName": "@ckeditor/ckeditor5-core",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-easy-image": {
+            "libraryName": "@ckeditor/ckeditor5-easy-image",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-editor-balloon": {
+            "libraryName": "@ckeditor/ckeditor5-editor-balloon",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-editor-classic": {
+            "libraryName": "@ckeditor/ckeditor5-editor-classic",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-editor-decoupled": {
+            "libraryName": "@ckeditor/ckeditor5-editor-decoupled",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-editor-inline": {
+            "libraryName": "@ckeditor/ckeditor5-editor-inline",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-engine": {
+            "libraryName": "@ckeditor/ckeditor5-engine",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-enter": {
+            "libraryName": "@ckeditor/ckeditor5-enter",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-essentials": {
+            "libraryName": "@ckeditor/ckeditor5-essentials",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-export-pdf": {
+            "libraryName": "@ckeditor/ckeditor5-export-pdf",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-export-word": {
+            "libraryName": "@ckeditor/ckeditor5-export-word",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-find-and-replace": {
+            "libraryName": "@ckeditor/ckeditor5-find-and-replace",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-font": {
+            "libraryName": "@ckeditor/ckeditor5-font",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-heading": {
+            "libraryName": "@ckeditor/ckeditor5-heading",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-highlight": {
+            "libraryName": "@ckeditor/ckeditor5-highlight",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-horizontal-line": {
+            "libraryName": "@ckeditor/ckeditor5-horizontal-line",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-html-embed": {
+            "libraryName": "@ckeditor/ckeditor5-html-embed",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-html-support": {
+            "libraryName": "@ckeditor/ckeditor5-html-support",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-image": {
+            "libraryName": "@ckeditor/ckeditor5-image",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-indent": {
+            "libraryName": "@ckeditor/ckeditor5-indent",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-language": {
+            "libraryName": "@ckeditor/ckeditor5-language",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-link": {
+            "libraryName": "@ckeditor/ckeditor5-link",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-list": {
+            "libraryName": "@ckeditor/ckeditor5-list",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-markdown-gfm": {
+            "libraryName": "@ckeditor/ckeditor5-markdown-gfm",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-media-embed": {
+            "libraryName": "@ckeditor/ckeditor5-media-embed",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-mention": {
+            "libraryName": "@ckeditor/ckeditor5-mention",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-minimap": {
+            "libraryName": "@ckeditor/ckeditor5-minimap",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-page-break": {
+            "libraryName": "@ckeditor/ckeditor5-page-break",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-pagination": {
+            "libraryName": "@ckeditor/ckeditor5-pagination",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-paragraph": {
+            "libraryName": "@ckeditor/ckeditor5-paragraph",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-paste-from-office": {
+            "libraryName": "@ckeditor/ckeditor5-paste-from-office",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-real-time-collaboration": {
+            "libraryName": "@ckeditor/ckeditor5-real-time-collaboration",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-remove-format": {
+            "libraryName": "@ckeditor/ckeditor5-remove-format",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-restricted-editing": {
+            "libraryName": "@ckeditor/ckeditor5-restricted-editing",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-revision-history": {
+            "libraryName": "@ckeditor/ckeditor5-revision-history",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-select-all": {
+            "libraryName": "@ckeditor/ckeditor5-select-all",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-source-editing": {
+            "libraryName": "@ckeditor/ckeditor5-source-editing",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-special-characters": {
+            "libraryName": "@ckeditor/ckeditor5-special-characters",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-table": {
+            "libraryName": "@ckeditor/ckeditor5-table",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-track-changes": {
+            "libraryName": "@ckeditor/ckeditor5-track-changes",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-typing": {
+            "libraryName": "@ckeditor/ckeditor5-typing",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-ui": {
+            "libraryName": "@ckeditor/ckeditor5-ui",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-undo": {
+            "libraryName": "@ckeditor/ckeditor5-undo",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-upload": {
+            "libraryName": "@ckeditor/ckeditor5-upload",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-utils": {
+            "libraryName": "@ckeditor/ckeditor5-utils",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-watchdog": {
+            "libraryName": "@ckeditor/ckeditor5-watchdog",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-widget": {
+            "libraryName": "@ckeditor/ckeditor5-widget",
+            "asOfVersion": "37.0.0"
+        },
+        "ckeditor__ckeditor5-word-count": {
+            "libraryName": "@ckeditor/ckeditor5-word-count",
+            "asOfVersion": "37.0.0"
+        },
         "classify-poetry": {
             "libraryName": "classify-poetry",
             "asOfVersion": "1.0.1"
@@ -616,6 +916,10 @@
             "libraryName": "cnpj",
             "asOfVersion": "3.1.0"
         },
+        "cobe": {
+            "libraryName": "cobe",
+            "asOfVersion": "0.5.0"
+        },
         "codegen.macro": {
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
@@ -643,6 +947,10 @@
         "compare-versions": {
             "libraryName": "compare-versions",
             "asOfVersion": "3.3.0"
+        },
+        "complex.js": {
+            "libraryName": "complex.js",
+            "asOfVersion": "2.0.14"
         },
         "composer-concerto": {
             "libraryName": "composer-concerto",
@@ -691,6 +999,10 @@
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
+        },
+        "conventional-recommended-bump": {
+            "libraryName": "conventional-recommended-bump",
+            "asOfVersion": "10.0.0"
         },
         "convert-hrtime": {
             "libraryName": "convert-hrtime",
@@ -824,9 +1136,17 @@
             "libraryName": "create-html-element",
             "asOfVersion": "2.1.0"
         },
+        "create-torrent": {
+            "libraryName": "create-torrent",
+            "asOfVersion": "6.0.0"
+        },
         "credit-card-type": {
             "libraryName": "credit-card-type",
             "asOfVersion": "9.0.0"
+        },
+        "cron": {
+            "libraryName": "cron",
+            "asOfVersion": "2.4.0"
         },
         "cron-converter": {
             "libraryName": "cron-converter",
@@ -920,6 +1240,54 @@
         "datastore-level": {
             "libraryName": "datastore-level",
             "asOfVersion": "3.0.0"
+        },
+        "datatables.net": {
+            "libraryName": "datatables.net",
+            "asOfVersion": "1.12.0"
+        },
+        "datatables.net-autofill": {
+            "libraryName": "datatables.net-autofill",
+            "asOfVersion": "2.4.0"
+        },
+        "datatables.net-buttons": {
+            "libraryName": "datatables.net-buttons",
+            "asOfVersion": "2.2.0"
+        },
+        "datatables.net-colreorder": {
+            "libraryName": "datatables.net-colreorder",
+            "asOfVersion": "1.6.0"
+        },
+        "datatables.net-fixedcolumns": {
+            "libraryName": "datatables.net-fixedcolumns",
+            "asOfVersion": "4.0.0"
+        },
+        "datatables.net-fixedheader": {
+            "libraryName": "datatables.net-fixedheader",
+            "asOfVersion": "3.3.0"
+        },
+        "datatables.net-keytable": {
+            "libraryName": "datatables.net-keytable",
+            "asOfVersion": "2.7.0"
+        },
+        "datatables.net-rowgroup": {
+            "libraryName": "datatables.net-rowgroup",
+            "asOfVersion": "1.2.0"
+        },
+        "datatables.net-rowreorder": {
+            "libraryName": "datatables.net-rowreorder",
+            "asOfVersion": "1.3.0"
+        },
+        "datatables.net-scroller": {
+            "libraryName": "datatables.net-scroller",
+            "asOfVersion": "2.3.0"
+        },
+        "datatables.net-select": {
+            "libraryName": "datatables.net-select",
+            "asOfVersion": "1.4.0"
+        },
+        "date-and-time": {
+            "libraryName": "date-and-time",
+            "asOfVersion": "3.0.3"
         },
         "date-fns": {
             "libraryName": "date-fns",
@@ -1317,6 +1685,10 @@
             "libraryName": "execall",
             "asOfVersion": "2.0.0"
         },
+        "exif-reader": {
+            "libraryName": "exif-reader",
+            "asOfVersion": "2.0.0"
+        },
         "exit-hook": {
             "libraryName": "exit-hook",
             "asOfVersion": "2.2.0"
@@ -1509,6 +1881,14 @@
             "libraryName": "filter-console",
             "asOfVersion": "0.1.1"
         },
+        "filter-invalid-dom-props": {
+            "libraryName": "filter-invalid-dom-props",
+            "asOfVersion": "3.0.0"
+        },
+        "find-cache-dir": {
+            "libraryName": "find-cache-dir",
+            "asOfVersion": "5.0.0"
+        },
         "find-java-home": {
             "libraryName": "find-java-home",
             "asOfVersion": "1.0.0"
@@ -1544,6 +1924,10 @@
         "fkill": {
             "libraryName": "fkill",
             "asOfVersion": "6.0.0"
+        },
+        "flatbush": {
+            "libraryName": "flatbush",
+            "asOfVersion": "4.2.0"
         },
         "flatpickr": {
             "libraryName": "flatpickr",
@@ -1741,6 +2125,10 @@
             "libraryName": "@google-cloud/storage",
             "asOfVersion": "2.3.0"
         },
+        "google-cloud__tasks": {
+            "libraryName": "@google-cloud/tasks",
+            "asOfVersion": "1.7.0"
+        },
         "google-cloud__text-to-speech": {
             "libraryName": "@google-cloud/text-to-speech",
             "asOfVersion": "2.0.0"
@@ -1748,6 +2136,10 @@
         "google-maps-react": {
             "libraryName": "google-maps-react",
             "asOfVersion": "2.0.5"
+        },
+        "google-spreadsheet": {
+            "libraryName": "google-spreadsheet",
+            "asOfVersion": "4.0.0"
         },
         "google__markerclustererplus": {
             "libraryName": "@google/markerclustererplus",
@@ -2125,6 +2517,10 @@
             "libraryName": "inversify-restify-utils",
             "asOfVersion": "2.0.0"
         },
+        "iobroker": {
+            "libraryName": "@iobroker/types",
+            "asOfVersion": "5.0.6"
+        },
         "ionic": {
             "libraryName": "ionic",
             "asOfVersion": "3.19.0"
@@ -2432,6 +2828,26 @@
         "json-to-csv-export": {
             "libraryName": "json-to-csv-export",
             "asOfVersion": "2.0.0"
+        },
+        "json2csv__formatters": {
+            "libraryName": "@json2csv/formatters",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__node": {
+            "libraryName": "@json2csv/node",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__plainjs": {
+            "libraryName": "@json2csv/plainjs",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__transforms": {
+            "libraryName": "@json2csv/transforms",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__whatwg": {
+            "libraryName": "@json2csv/whatwg",
+            "asOfVersion": "7.0.0"
         },
         "json5": {
             "libraryName": "json5",
@@ -2861,6 +3277,10 @@
             "libraryName": "markdownlint",
             "asOfVersion": "0.18.0"
         },
+        "marked": {
+            "libraryName": "marked",
+            "asOfVersion": "6.0.0"
+        },
         "match-sorter": {
             "libraryName": "match-sorter",
             "asOfVersion": "6.0.0"
@@ -2989,6 +3409,10 @@
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
         },
+        "matrix-js-sdk": {
+            "libraryName": "matrix-js-sdk",
+            "asOfVersion": "11.1.0"
+        },
         "matteodisabatino__gc_info": {
             "libraryName": "@matteodisabatino/gc_info",
             "asOfVersion": "1.1.0"
@@ -3003,6 +3427,10 @@
         },
         "mdarea": {
             "libraryName": "mdarea",
+            "asOfVersion": "2.0.0"
+        },
+        "mdx-js__react": {
+            "libraryName": "@mdx-js/react",
             "asOfVersion": "2.0.0"
         },
         "mem": {
@@ -3029,9 +3457,49 @@
             "libraryName": "mermaid",
             "asOfVersion": "9.2.0"
         },
+        "metalsmith": {
+            "libraryName": "metalsmith",
+            "asOfVersion": "2.6.0"
+        },
         "metismenu": {
             "libraryName": "metismenu",
             "asOfVersion": "2.7.1"
+        },
+        "metro": {
+            "libraryName": "metro",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-babel-transformer": {
+            "libraryName": "metro-babel-transformer",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-cache": {
+            "libraryName": "metro-cache",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-config": {
+            "libraryName": "metro-config",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-core": {
+            "libraryName": "metro-core",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-file-map": {
+            "libraryName": "metro-file-map",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-resolver": {
+            "libraryName": "metro-resolver",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-source-map": {
+            "libraryName": "metro-source-map",
+            "asOfVersion": "0.76.3"
+        },
+        "metro-transform-worker": {
+            "libraryName": "metro-transform-worker",
+            "asOfVersion": "0.76.3"
         },
         "micro": {
             "libraryName": "micro",
@@ -3041,6 +3509,10 @@
             "libraryName": "microgears",
             "asOfVersion": "4.0.5"
         },
+        "mime": {
+            "libraryName": "mime",
+            "asOfVersion": "4.0.0"
+        },
         "mini-css-extract-plugin": {
             "libraryName": "mini-css-extract-plugin",
             "asOfVersion": "2.5.0"
@@ -3048,6 +3520,10 @@
         "minimist-options": {
             "libraryName": "minimist-options",
             "asOfVersion": "4.0.1"
+        },
+        "minio": {
+            "libraryName": "minio",
+            "asOfVersion": "7.1.1"
         },
         "minipass": {
             "libraryName": "minipass",
@@ -3144,6 +3620,10 @@
         "mqtt": {
             "libraryName": "mqtt",
             "asOfVersion": "2.5.0"
+        },
+        "mri": {
+            "libraryName": "mri",
+            "asOfVersion": "1.2.0"
         },
         "msportalfx-test": {
             "libraryName": "msportalfx-test",
@@ -3280,6 +3760,10 @@
         "node-downloader-helper": {
             "libraryName": "node-downloader-helper",
             "asOfVersion": "1.0.16"
+        },
+        "node-emoji": {
+            "libraryName": "node-emoji",
+            "asOfVersion": "2.1.0"
         },
         "node-json-db": {
             "libraryName": "node-json-db",
@@ -3649,6 +4133,10 @@
             "libraryName": "parse-ms",
             "asOfVersion": "2.1.0"
         },
+        "parse-torrent": {
+            "libraryName": "parse-torrent",
+            "asOfVersion": "11.0.0"
+        },
         "parse5": {
             "libraryName": "parse5",
             "asOfVersion": "7.0.0"
@@ -3911,6 +4399,10 @@
             "libraryName": "preferred-pm",
             "asOfVersion": "3.0.0"
         },
+        "prettier": {
+            "libraryName": "prettier",
+            "asOfVersion": "3.0.0"
+        },
         "prettier-package-json": {
             "libraryName": "prettier-package-json",
             "asOfVersion": "2.3.0"
@@ -4111,6 +4603,10 @@
             "libraryName": "random-obj-prop",
             "asOfVersion": "2.0.0"
         },
+        "random-words": {
+            "libraryName": "random-words",
+            "asOfVersion": "1.2.0"
+        },
         "randoma": {
             "libraryName": "randoma",
             "asOfVersion": "1.3.0"
@@ -4190,6 +4686,18 @@
         "rdf-js": {
             "libraryName": "rdf-js",
             "asOfVersion": "4.0.2"
+        },
+        "rdf-loader-code": {
+            "libraryName": "rdf-loader-code",
+            "asOfVersion": "2.1.1"
+        },
+        "rdf-loaders-registry": {
+            "libraryName": "rdf-loaders-registry",
+            "asOfVersion": "1.0.0"
+        },
+        "rdf-validate-datatype": {
+            "libraryName": "rdf-validate-datatype",
+            "asOfVersion": "0.2.0"
         },
         "rdflib": {
             "libraryName": "rdflib",
@@ -4271,6 +4779,10 @@
             "libraryName": "react-bootstrap-daterangepicker",
             "asOfVersion": "7.0.0"
         },
+        "react-calendar": {
+            "libraryName": "react-calendar",
+            "asOfVersion": "4.1.0"
+        },
         "react-chartjs-2": {
             "libraryName": "react-chartjs-2",
             "asOfVersion": "2.5.7"
@@ -4282,6 +4794,14 @@
         "react-circular-progressbar": {
             "libraryName": "react-circular-progressbar",
             "asOfVersion": "1.1.0"
+        },
+        "react-clipboardjs-copy": {
+            "libraryName": "react-clipboardjs-copy",
+            "asOfVersion": "2.0.0"
+        },
+        "react-clock": {
+            "libraryName": "react-clock",
+            "asOfVersion": "4.1.0"
         },
         "react-collapsible": {
             "libraryName": "react-collapsible",
@@ -4298,6 +4818,10 @@
         "react-countup": {
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
+        },
+        "react-datetime-picker": {
+            "libraryName": "react-datetime-picker",
+            "asOfVersion": "5.0.0"
         },
         "react-daum-postcode": {
             "libraryName": "react-daum-postcode",
@@ -4434,6 +4958,10 @@
         "react-monaco-editor": {
             "libraryName": "react-monaco-editor",
             "asOfVersion": "0.16.0"
+        },
+        "react-native": {
+            "libraryName": "react-native",
+            "asOfVersion": "0.73.0"
         },
         "react-native-app-intro-slider": {
             "libraryName": "react-native-app-intro-slider",
@@ -4583,6 +5111,14 @@
             "libraryName": "react-owl-carousel",
             "asOfVersion": "2.3.0"
         },
+        "react-pdf": {
+            "libraryName": "react-pdf",
+            "asOfVersion": "7.0.0"
+        },
+        "react-phone-number-input": {
+            "libraryName": "react-phone-number-input",
+            "asOfVersion": "3.1.37"
+        },
         "react-plaid-link": {
             "libraryName": "react-plaid-link",
             "asOfVersion": "2.0.0"
@@ -4654,6 +5190,10 @@
         "react-textarea-autosize": {
             "libraryName": "react-textarea-autosize",
             "asOfVersion": "8.0.0"
+        },
+        "react-time-picker": {
+            "libraryName": "react-time-picker",
+            "asOfVersion": "6.0.0"
         },
         "react-toast-notifications": {
             "libraryName": "react-toast-notifications",
@@ -4947,6 +5487,10 @@
             "libraryName": "rword",
             "asOfVersion": "3.0.0"
         },
+        "sade": {
+            "libraryName": "sade",
+            "asOfVersion": "1.8.0"
+        },
         "samchon": {
             "libraryName": "samchon",
             "asOfVersion": "2.0.22"
@@ -4995,6 +5539,10 @@
             "libraryName": "sdbm",
             "asOfVersion": "1.1.0"
         },
+        "seatsio": {
+            "libraryName": "@seatsio/seatsio-types",
+            "asOfVersion": "2.0.0"
+        },
         "semver-diff": {
             "libraryName": "semver-diff",
             "asOfVersion": "3.0.0"
@@ -5019,9 +5567,17 @@
             "libraryName": "@sentry/webpack-plugin",
             "asOfVersion": "1.10.0"
         },
+        "sequelize-cursor-pagination": {
+            "libraryName": "sequelize-cursor-pagination",
+            "asOfVersion": "3.0.0"
+        },
         "serialize-error": {
             "libraryName": "serialize-error",
             "asOfVersion": "4.0.0"
+        },
+        "sharp": {
+            "libraryName": "sharp",
+            "asOfVersion": "0.32.0"
         },
         "sharp-timer": {
             "libraryName": "sharp-timer",
@@ -5107,6 +5663,10 @@
             "libraryName": "slate-react",
             "asOfVersion": "0.50.0"
         },
+        "slice-ansi": {
+            "libraryName": "slice-ansi",
+            "asOfVersion": "7.1.0"
+        },
         "smooth-scrollbar": {
             "libraryName": "smooth-scrollbar",
             "asOfVersion": "8.2.5"
@@ -5138,6 +5698,10 @@
         "soap": {
             "libraryName": "soap",
             "asOfVersion": "0.21.0"
+        },
+        "social-logos": {
+            "libraryName": "social-logos",
+            "asOfVersion": "3.0.1"
         },
         "socket.io": {
             "libraryName": "socket.io",
@@ -5359,6 +5923,10 @@
             "libraryName": "strip-bom",
             "asOfVersion": "4.0.0"
         },
+        "strip-final-newline": {
+            "libraryName": "strip-final-newline",
+            "asOfVersion": "4.0.0"
+        },
         "strip-indent": {
             "libraryName": "strip-indent",
             "asOfVersion": "3.0.0"
@@ -5530,6 +6098,10 @@
         "testing-library__dom": {
             "libraryName": "@testing-library/dom",
             "asOfVersion": "7.5.0"
+        },
+        "testing-library__jest-dom": {
+            "libraryName": "@testing-library/jest-dom",
+            "asOfVersion": "6.0.0"
         },
         "testing-library__react": {
             "libraryName": "@testing-library/react",
@@ -5867,6 +6439,10 @@
             "libraryName": "wallpaper",
             "asOfVersion": "4.3.0"
         },
+        "wanakana": {
+            "libraryName": "wanakana",
+            "asOfVersion": "5.3.0"
+        },
         "watson-developer-cloud": {
             "libraryName": "watson-developer-cloud",
             "asOfVersion": "3.0.1"
@@ -5927,6 +6503,14 @@
             "libraryName": "webpack-subresource-integrity",
             "asOfVersion": "5.0.0"
         },
+        "webpack-virtual-modules": {
+            "libraryName": "webpack-virtual-modules",
+            "asOfVersion": "0.4.2"
+        },
+        "webtorrent": {
+            "libraryName": "webtorrent",
+            "asOfVersion": "2.0.0"
+        },
         "whatwg-streams": {
             "libraryName": "typescript",
             "asOfVersion": "3.2.1"
@@ -5954,6 +6538,14 @@
         "wix-style-react": {
             "libraryName": "wix-style-react",
             "asOfVersion": "7.47.1"
+        },
+        "wojtekmaj__react-daterange-picker": {
+            "libraryName": "@wojtekmaj/react-daterange-picker",
+            "asOfVersion": "5.0.1"
+        },
+        "wojtekmaj__react-datetimerange-picker": {
+            "libraryName": "@wojtekmaj/react-datetimerange-picker",
+            "asOfVersion": "5.0.1"
         },
         "wolfy87-eventemitter": {
             "libraryName": "wolfy87-eventemitter",
@@ -5991,13 +6583,45 @@
             "libraryName": "@wordpress/blob",
             "asOfVersion": "2.8.0"
         },
+        "wordpress__block-serialization-default-parser": {
+            "libraryName": "@wordpress/block-serialization-default-parser",
+            "asOfVersion": "4.17.0"
+        },
+        "wordpress__components": {
+            "libraryName": "@wordpress/components",
+            "asOfVersion": "23.8.0"
+        },
+        "wordpress__compose": {
+            "libraryName": "@wordpress/compose",
+            "asOfVersion": "6.1.0"
+        },
         "wordpress__core-data": {
             "libraryName": "@wordpress/core-data",
             "asOfVersion": "5.0.0"
         },
+        "wordpress__data": {
+            "libraryName": "@wordpress/data",
+            "asOfVersion": "7.0.0"
+        },
+        "wordpress__data-controls": {
+            "libraryName": "@wordpress/data-controls",
+            "asOfVersion": "3.0.0"
+        },
+        "wordpress__date": {
+            "libraryName": "@wordpress/date",
+            "asOfVersion": "3.15.0"
+        },
         "wordpress__dependency-extraction-webpack-plugin": {
             "libraryName": "@wordpress/dependency-extraction-webpack-plugin",
             "asOfVersion": "2.7.0"
+        },
+        "wordpress__deprecated": {
+            "libraryName": "@wordpress/deprecated",
+            "asOfVersion": "2.11.0"
+        },
+        "wordpress__dom": {
+            "libraryName": "@wordpress/dom",
+            "asOfVersion": "2.18.0"
         },
         "wordpress__dom-ready": {
             "libraryName": "@wordpress/dom-ready",
@@ -6031,9 +6655,29 @@
             "libraryName": "@wordpress/jest-console",
             "asOfVersion": "5.2.0"
         },
+        "wordpress__keycodes": {
+            "libraryName": "@wordpress/keycodes",
+            "asOfVersion": "2.18.0"
+        },
+        "wordpress__notices": {
+            "libraryName": "@wordpress/notices",
+            "asOfVersion": "4.0.0"
+        },
+        "wordpress__plugins": {
+            "libraryName": "@wordpress/plugins",
+            "asOfVersion": "6.0.0"
+        },
         "wordpress__priority-queue": {
             "libraryName": "@wordpress/priority-queue",
             "asOfVersion": "1.6.0"
+        },
+        "wordpress__redux-routine": {
+            "libraryName": "@wordpress/redux-routine",
+            "asOfVersion": "4.2.0"
+        },
+        "wordpress__rich-text": {
+            "libraryName": "@wordpress/rich-text",
+            "asOfVersion": "6.10.0"
         },
         "wordpress__token-list": {
             "libraryName": "@wordpress/token-list",
@@ -6111,6 +6755,10 @@
             "libraryName": "wouter",
             "asOfVersion": "2.2.0"
         },
+        "wrap-ansi": {
+            "libraryName": "wrap-ansi",
+            "asOfVersion": "8.1.0"
+        },
         "write-json-file": {
             "libraryName": "write-json-file",
             "asOfVersion": "3.2.0"
@@ -6159,6 +6807,14 @@
             "libraryName": "xregexp",
             "asOfVersion": "4.4.0"
         },
+        "xstyled__styled-components": {
+            "libraryName": "@xstyled/styled-components",
+            "asOfVersion": "2.0.0"
+        },
+        "xstyled__system": {
+            "libraryName": "@xstyled/system",
+            "asOfVersion": "2.0.0"
+        },
         "xterm": {
             "libraryName": "xterm",
             "asOfVersion": "3.0.0"
@@ -6202,6 +6858,10 @@
         "zetapush-js": {
             "libraryName": "zetapush-js",
             "asOfVersion": "3.1.2"
+        },
+        "ziggy-js": {
+            "libraryName": "ziggy-js",
+            "asOfVersion": "1.8.0"
         },
         "zipkin-instrumentation-express": {
             "libraryName": "zipkin-instrumentation-express",

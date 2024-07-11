@@ -1,8 +1,3 @@
-// Type definitions for watermark-dom 2.3
-// Project: https://github.com/saucxs/watermark-dom
-// Definitions by: shenhaoliang <https://github.com/shlroland>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace watermark;
 export interface Settings {
     /**
@@ -82,7 +77,6 @@ export interface Settings {
      *
      * @description 要求设置在大于等于0.005
      * @default 0.15
-     *
      */
     watermark_alpha?: number | undefined;
     /**

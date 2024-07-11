@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gh-pages",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/tschaub/gh-pages"
+    ],
+    "devDependencies": {
+        "@types/gh-pages": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Daniel Rosenwasser",
+            "githubUsername": "DanielRosenwasser"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

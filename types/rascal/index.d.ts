@@ -1,20 +1,12 @@
-// Type definitions for rascal 10.0
-// Project: https://guidesmiths.github.io/rascal/
-// Definitions by: ethan <https://github.com/zijin-m>
-//                 MartinTechy <https://github.com/MartinTechy>
-//                 Nikita Volodin <https://github.com/qlonik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { Message, Options, Connection, Channel } from 'amqplib';
+import { Channel, Connection, Message, Options } from "amqplib";
+import { EventEmitter } from "events";
 
 export interface BindingConfig {
     source?: string | undefined;
     destination?: string | undefined;
-    destinationType?: 'queue' | 'exchange' | undefined;
+    destinationType?: "queue" | "exchange" | undefined;
     bindingKey?: string | undefined;
     bindingKeys?: string[] | undefined;
     options?: any;
@@ -31,7 +23,7 @@ export interface ExchangeConfig {
     name?: string | undefined;
     assert?: boolean | undefined;
     check?: boolean | undefined;
-    type?: 'direct' | 'fanout' | 'headers' | 'topic' | undefined;
+    type?: "direct" | "fanout" | "headers" | "topic" | undefined;
     options?: Options.AssertExchange | undefined;
 }
 
@@ -50,21 +42,21 @@ export interface ConnectionAttributes {
     loggableUrl?: string | undefined;
     options?:
         | {
-              heartbeat?: number | undefined;
-              timeout?: number | undefined;
-              channelMax?: number | undefined;
-              connection_timeout?: number | undefined;
-              [key: string]: any;
-          }
+            heartbeat?: number | undefined;
+            timeout?: number | undefined;
+            channelMax?: number | undefined;
+            connection_timeout?: number | undefined;
+            [key: string]: any;
+        }
         | undefined;
     socketOptions?:
         | {
-              timeout?: number | undefined;
-              clientProperties?: {
-                  connection_name?: string | undefined;
-                  [key: string]: string | undefined;
-              };
-          }
+            timeout?: number | undefined;
+            clientProperties?: {
+                connection_name?: string | undefined;
+                [key: string]: string | undefined;
+            };
+        }
         | undefined;
 }
 
@@ -72,7 +64,7 @@ export interface RetryConfig {
     factor?: number | undefined;
     max?: number | undefined;
     min?: number | undefined;
-    strategy?: 'exponential' | 'linear' | undefined;
+    strategy?: "exponential" | "linear" | undefined;
     delay?: number | undefined;
 }
 
@@ -96,40 +88,40 @@ export interface VhostConfig {
     namespace?: string | boolean | undefined;
     publicationChannelPools?:
         | {
-              regularPool?: ChannelPoolConfig | undefined;
-              confirmPool?: ChannelPoolConfig | undefined;
-          }
+            regularPool?: ChannelPoolConfig | undefined;
+            confirmPool?: ChannelPoolConfig | undefined;
+        }
         | undefined;
     connection?: ConnectionConfig | undefined;
     connections?: ConnectionConfig[] | undefined;
-    connectionStrategy?: 'random' | 'fixed' | undefined;
+    connectionStrategy?: "random" | "fixed" | undefined;
     exchanges?:
         | {
-              [key: string]: ExchangeConfig;
-          }
+            [key: string]: ExchangeConfig;
+        }
         | Array<string | ExchangeConfig>
         | undefined;
     queues?:
         | {
-              [key: string]: QueueConfig;
-          }
+            [key: string]: QueueConfig;
+        }
         | Array<string | QueueConfig>
         | undefined;
     bindings?:
         | {
-              [key: string]: BindingConfig;
-          }
+            [key: string]: BindingConfig;
+        }
         | Array<string | BindingConfig>
         | undefined;
     publications?:
         | {
-              [key: string]: PublicationConfig;
-          }
+            [key: string]: PublicationConfig;
+        }
         | undefined;
     subscriptions?:
         | {
-              [key: string]: SubscriptionConfig;
-          }
+            [key: string]: SubscriptionConfig;
+        }
         | undefined;
 }
 
@@ -154,16 +146,16 @@ export interface Encryption {
 export interface Redelivery {
     counters?:
         | {
-              [key: string]: {
-                  type: 'stub' | 'inMemory' | 'inMemoryCluster';
-                  size?: number | undefined;
-              };
-          }
+            [key: string]: {
+                type: "stub" | "inMemory" | "inMemoryCluster";
+                size?: number | undefined;
+            };
+        }
         | undefined;
 }
 
 export interface Recovery {
-    strategy: 'ack' | 'nack' | 'republish' | 'forward';
+    strategy: "ack" | "nack" | "republish" | "forward";
     defer?: number | undefined;
     attempts?: number | undefined;
     requeue?: boolean | undefined;
@@ -188,40 +180,40 @@ export interface SubscriptionConfig {
     autoCreated?: boolean | undefined;
     redeliveries?:
         | {
-              counter: string;
-              limit: number;
-              timeout?: number | undefined;
-          }
+            counter: string;
+            limit: number;
+            timeout?: number | undefined;
+        }
         | undefined;
 }
 
 interface BrokerConfig {
     vhosts?:
         | {
-              [key: string]: VhostConfig;
-          }
+            [key: string]: VhostConfig;
+        }
         | undefined;
     publications?:
         | {
-              [key: string]: PublicationConfig;
-          }
+            [key: string]: PublicationConfig;
+        }
         | undefined;
     subscriptions?:
         | {
-              [key: string]: SubscriptionConfig;
-          }
+            [key: string]: SubscriptionConfig;
+        }
         | undefined;
     redeliveries?: Redelivery | undefined;
     recovery?:
         | {
-              [key: string]: Recovery | Recovery[];
-          }
+            [key: string]: Recovery | Recovery[];
+        }
         | undefined;
     defaults?: VhostConfig | undefined;
     encryption?:
         | {
-              [key: string]: Encryption;
-          }
+            [key: string]: Encryption;
+        }
         | undefined;
 }
 
@@ -445,10 +437,10 @@ export class SubscriberSessionAsPromised extends EventEmitter {
     name: string;
     cancel(): Promise<void>;
 
-    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
-    on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
+    on(event: "message", listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
+    on(event: "error" | "cancelled", listener: (err: Error) => void): this;
     on(
-        event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error',
+        event: "invalid_content" | "redeliveries_exceeded" | "redeliveries_error",
         listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
     ): this;
 }
@@ -474,10 +466,10 @@ export class SubscriptionSession extends EventEmitter {
     isCancelled(): boolean;
     cancel(next: ErrorCb): void;
 
-    on(event: 'message', listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
-    on(event: 'error' | 'cancelled', listener: (err: Error) => void): this;
+    on(event: "message", listener: (message: Message, content: any, ackOrNackFn: AckOrNack) => void): this;
+    on(event: "error" | "cancelled", listener: (err: Error) => void): this;
     on(
-        event: 'invalid_content' | 'redeliveries_exceeded' | 'redeliveries_error',
+        event: "invalid_content" | "redeliveries_exceeded" | "redeliveries_error",
         listener: (err: Error, message: Message, ackOrNackFn: AckOrNack) => void,
     ): this;
 }
@@ -523,9 +515,9 @@ export class PublicationSession extends EventEmitter {
     isAborted(): boolean;
     emitPaused(): void;
 
-    on(event: 'error', cb: (err: Error, messageId: string) => void): this;
-    on(event: 'success', cb: (messageId: string) => void): this;
-    on(event: 'return', cb: (message: Message) => void): this;
+    on(event: "error", cb: (err: Error, messageId: string) => void): this;
+    on(event: "success", cb: (messageId: string) => void): this;
+    on(event: "return", cb: (message: Message) => void): this;
 }
 
 export class Vhost extends EventEmitter {
@@ -567,15 +559,15 @@ declare namespace counters {
 }
 
 export {
+    AckOrNack,
     Broker,
     BrokerAsPromised,
+    BrokerConfig,
+    counters,
     createBroker,
     createBrokerAsPromised,
     defaultConfig,
     testConfig,
     withDefaultConfig,
     withTestConfig,
-    counters,
-    BrokerConfig,
-    AckOrNack,
 };

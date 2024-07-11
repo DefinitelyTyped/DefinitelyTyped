@@ -1,19 +1,19 @@
 /**
  * @module Index
  */
-import { Context } from './context';
-import { Application, AppName } from './directory';
-import { ChannelChangedEvent, ChannelContextListener } from './contextChannels';
+import { Context } from "./context";
+import { ChannelChangedEvent, ChannelContextListener } from "./contextChannels";
+import { Application, AppName } from "./directory";
 /**
  * This file was copied from the FDC3 v1 specification.
  *
  * Original file: https://github.com/FDC3/FDC3/blob/master/src/api/interface.ts
  */
-export * from './contextChannels';
-export * from './context';
-export * from './directory';
-export * from './intents';
-export * from './errors';
+export * from "./context";
+export * from "./contextChannels";
+export * from "./directory";
+export * from "./errors";
+export * from "./intents";
 /**
  * Describes an intent.
  */
@@ -284,5 +284,11 @@ export declare function addContextListener(handler: (context: Context) => void):
 /**
  * Event that is fired whenever a window changes from one channel to another. This captures events from all channels (including the default channel).
  */
-export declare function addEventListener(eventType: 'channel-changed', handler: (event: ChannelChangedEvent) => void): void;
-export declare function removeEventListener(eventType: 'channel-changed', handler: (event: ChannelChangedEvent) => void): void;
+export declare function addEventListener(
+    eventType: "channel-changed",
+    handler: (event: ChannelChangedEvent) => void,
+): void;
+export declare function removeEventListener(
+    eventType: "channel-changed",
+    handler: (event: ChannelChangedEvent) => void,
+): void;

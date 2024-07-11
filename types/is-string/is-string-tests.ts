@@ -1,7 +1,7 @@
-import isString = require('is-string');
+import isString = require("is-string");
 
-isString(''); // $ExpectType boolean
-isString(Object('foo')); // $ExpectType boolean
+isString(""); // $ExpectType boolean
+isString(Object("foo")); // $ExpectType boolean
 
 isString(undefined); // $ExpectType boolean
 isString(null); // $ExpectType boolean

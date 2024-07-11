@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lime-js",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/takenet/lime-js"
+    ],
+    "devDependencies": {
+        "@types/lime-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arthur Xavier",
+            "githubUsername": "arthur-xavier"
+        }
+    ]
+}

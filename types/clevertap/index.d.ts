@@ -1,10 +1,6 @@
-// Type definitions for clevertap 1.2
-// Project: https://github.com/CleverTap/clevertap-node
-// Definitions by: Royson <https://github.com/droyson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyof T, Keys>> &
-    {
+type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
+    & Pick<T, Exclude<keyof T, Keys>>
+    & {
         [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>;
     }[Keys];
 
@@ -17,17 +13,17 @@ type Identity = RequireAtLeastOne<
         GPID?: string;
         objectId?: string;
     },
-    'identity' | 'FBID' | 'GPID' | 'objectId'
+    "identity" | "FBID" | "GPID" | "objectId"
 >;
 
 type ProfileUploadData = {
-    type: 'profile';
+    type: "profile";
     profileData: Record<string, any>;
     ts?: number;
 } & Identity;
 
 type EventUploadData = {
-    type: 'event';
+    type: "event";
     evtName: string;
     evtData: Record<string, any>;
     ts?: number;
@@ -63,12 +59,12 @@ type ProfileOptions = {
 } & ProfileIdentity;
 
 interface CustomControlGroup {
-    type: 'custom';
+    type: "custom";
     name: string;
 }
 
 interface CampaignControlGroup {
-    type: 'campaign';
+    type: "campaign";
     percentage: number;
 }
 
@@ -94,7 +90,7 @@ interface TargetBasePayload {
 }
 
 type TargetSegmentPayload = {
-    segment: 'all';
+    segment: "all";
 } & TargetBasePayload;
 
 type TargetWherePayload = {
@@ -120,36 +116,36 @@ interface CleverTap {
     profiles(query: Query, options?: QueryOptions, callback?: Callback): Promise<any>;
     events(query: Query, options?: QueryOptions, callback?: Callback): Promise<any>;
     targets(
-        action: 'create' | 'estimate',
+        action: "create" | "estimate",
         payload: TargetCreatePayload,
         options?: TargetOptions,
         callback?: Callback,
     ): Promise<any>;
     targets(
-        action: 'list',
+        action: "list",
         payload: { from?: number; to?: number },
         options?: TargetOptions,
         callback?: Callback,
     ): Promise<any>;
     targets(
-        action: 'stop' | 'result',
+        action: "stop" | "result",
         payload: { id: number },
         options?: TargetOptions,
         callback?: Callback,
     ): Promise<any>;
-    readonly TARGET_CREATE: 'create';
-    readonly TARGET_ESTIMATE: 'estimate';
-    readonly TARGET_LIST: 'list';
-    readonly TARGET_RESULT: 'result';
-    readonly TARGET_STOP: 'stop';
-    readonly TARGET_ACTIONS: ['create', 'estimate', 'list', 'result', 'stop'];
+    readonly TARGET_CREATE: "create";
+    readonly TARGET_ESTIMATE: "estimate";
+    readonly TARGET_LIST: "list";
+    readonly TARGET_RESULT: "result";
+    readonly TARGET_STOP: "stop";
+    readonly TARGET_ACTIONS: ["create", "estimate", "list", "result", "stop"];
 }
 
 declare enum REGIONS {
-    EUROPE = 'eu1',
-    INDIA = 'in1',
-    SINGAPORE = 'sg1',
-    US = 'us1',
+    EUROPE = "eu1",
+    INDIA = "in1",
+    SINGAPORE = "sg1",
+    US = "us1",
 }
 
 /**
@@ -158,14 +154,14 @@ declare enum REGIONS {
 declare function init(accountId: string, accountPasscode: string, region?: REGIONS): CleverTap;
 
 export {
-    REGIONS,
+    Callback,
     init,
-    UploadData,
-    UploadOptions,
+    ProfileOptions,
     Query,
     QueryOptions,
-    ProfileOptions,
+    REGIONS,
     TargetCreatePayload,
     TargetOptions,
-    Callback,
+    UploadData,
+    UploadOptions,
 };

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-css-collapse",
+    "version": "3.6.9999",
+    "projects": [
+        "https://github.com/SparebankenVest/react-css-collapse"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-css-collapse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Ford",
+            "githubUsername": "dford07"
+        }
+    ]
+}

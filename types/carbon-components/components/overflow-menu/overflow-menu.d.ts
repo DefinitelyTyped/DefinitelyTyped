@@ -17,9 +17,9 @@ export function getMenuOffset(
     trigger: Element,
 ):
     | {
-          left: number;
-          top: number;
-      }
+        left: number;
+        top: number;
+    }
     | undefined;
 declare const OverflowMenu_base: any;
 declare class OverflowMenu extends OverflowMenu_base {

@@ -1,7 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "export-just-namespace": "off",
-        "trim-file": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/export-just-namespace": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

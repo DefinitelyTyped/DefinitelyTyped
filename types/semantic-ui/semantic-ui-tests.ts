@@ -26,26 +26,26 @@ function test_static() {
 }
 
 function test() {
-    $('.ui.site').site() === $();
+    $(".ui.site").site() === $();
 
-    $('.ui.accordion').accordion() === $();
-    $('.ui.checkbox').checkbox() === $();
-    $('.ui.dimmer').dimmer() === $();
-    $('.ui.dropdown').dropdown() === $();
-    $('.ui.embed').embed() === $();
-    $('.ui.modal').modal() === $();
-    $('.ui.nag').nag() === $();
-    $('.ui.popup').popup() === $();
-    $('.ui.progress').progress() === $();
-    $('.ui.rating').rating() === $();
-    $('.ui.search').search() === $();
-    $('.ui.shape').shape() === $();
-    $('.ui.sidebar').sidebar() === $();
-    $('.ui.sticky').sticky() === $();
-    $('.ui.tab').tab() === $();
-    $('.ui.transition').transition() === $();
+    $(".ui.accordion").accordion() === $();
+    $(".ui.checkbox").checkbox() === $();
+    $(".ui.dimmer").dimmer() === $();
+    $(".ui.dropdown").dropdown() === $();
+    $(".ui.embed").embed() === $();
+    $(".ui.modal").modal() === $();
+    $(".ui.nag").nag() === $();
+    $(".ui.popup").popup() === $();
+    $(".ui.progress").progress() === $();
+    $(".ui.rating").rating() === $();
+    $(".ui.search").search() === $();
+    $(".ui.shape").shape() === $();
+    $(".ui.sidebar").sidebar() === $();
+    $(".ui.sticky").sticky() === $();
+    $(".ui.tab").tab() === $();
+    $(".ui.transition").transition() === $();
 
-    $('.ui.api').api() === $();
-    $('.ui.form').form() === $();
-    $('.ui.visibility').visibility() === $();
+    $(".ui.api").api() === $();
+    $(".ui.form").form() === $();
+    $(".ui.visibility").visibility() === $();
 }

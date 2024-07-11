@@ -1,23 +1,18 @@
-// Type definitions for @rails/ujs 6.0
-// Project: http://rubyonrails.org/
-// Definitions by: fsubal <https://github.com/fsubal>, abcang <https://github.com/abcang>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { SelectorObject } from "./utils/dom";
 
-import { SelectorObject } from './utils/dom';
+export * from "./start";
 
-export * from './start';
+export * from "./features/confirm";
+export * from "./features/disable";
+export * from "./features/method";
+export * from "./features/remote";
 
-export * from './features/confirm';
-export * from './features/disable';
-export * from './features/method';
-export * from './features/remote';
-
-export * from './utils/ajax';
-export * from './utils/csp';
-export * from './utils/csrf';
-export * from './utils/dom';
-export * from './utils/event';
-export * from './utils/form';
+export * from "./utils/ajax";
+export * from "./utils/csp";
+export * from "./utils/csrf";
+export * from "./utils/dom";
+export * from "./utils/event";
+export * from "./utils/form";
 
 export as namespace Rails;
 

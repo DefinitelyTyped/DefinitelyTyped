@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/generic-functions",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/stpettersens/genericFunctions-for-node#readme"
+    ],
+    "devDependencies": {
+        "@types/generic-functions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        }
+    ]
+}

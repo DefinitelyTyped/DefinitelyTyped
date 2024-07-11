@@ -37,11 +37,11 @@ const alternativeLog = Roarr.child((message: MessageType) => {
 });
 
 alternativeLog({ logLevel: 60 }, "Something critical");
-alternativeLog.debug({ foo: "bar" }, 'foo 1');
-alternativeLog.fatal('foo 2');
+alternativeLog.debug({ foo: "bar" }, "foo 1");
+alternativeLog.fatal("foo 2");
 
 const implicitLog = Roarr.child((message) => {
-    message;                    // $Expect MessageType
+    message; // $Expect MessageType
     message.message = message.message.replace("foo", "bar");
     message.context["new key"] = "new value";
     // @ts-expect-error

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/reveal.js",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/hakimel/reveal.js/"
+    ],
+    "devDependencies": {
+        "@types/reveal.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "robertop87",
+            "githubUsername": "robertop87"
+        },
+        {
+            "name": "JPtenBerge",
+            "githubUsername": "JPtenBerge"
+        }
+    ]
+}

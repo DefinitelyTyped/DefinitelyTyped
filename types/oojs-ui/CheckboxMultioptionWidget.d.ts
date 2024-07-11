@@ -27,7 +27,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): CheckboxMultioptionWidget;
+            new(config?: ConfigOptions): CheckboxMultioptionWidget;
             prototype: Prototype;
             static: Static;
             super: MultioptionWidget.Constructor;

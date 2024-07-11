@@ -1,10 +1,4 @@
-// Type definitions for core-object 3.0
-// Project: https://github.com/ember-cli/core-object
-// Definitions by: Dan Freeman <https://github.com/dfreeman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { Mix, Super, Constructor } from './-private/utils';
+import { Constructor, Mix, Super } from "./-private/utils";
 
 declare namespace CoreObject {
     /** The type of options allowed to be passed to `Base.extend()` */
@@ -20,7 +14,7 @@ declare class CoreObject {
 
     static extend<BaseClass extends Constructor<any>, Ext extends CoreObject.ExtendOptions<InstanceType<BaseClass>>>(
         this: BaseClass,
-        options: Ext & CoreObject.ExtendThisType<InstanceType<BaseClass>, Ext>
+        options: Ext & CoreObject.ExtendThisType<InstanceType<BaseClass>, Ext>,
     ): BaseClass & Constructor<Mix<InstanceType<BaseClass>, Ext>>;
 }
 export = CoreObject;

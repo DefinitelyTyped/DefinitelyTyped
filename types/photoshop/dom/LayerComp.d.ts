@@ -2,10 +2,6 @@ import { Document } from "./Document";
 import { Layer } from "./Layer";
 import { LayerCompRecaptureOptions } from "./types/LayerCompTypes";
 /**
- * @ignore
- */
-export declare function PSLayerComp(id: number, docId: number): LayerComp;
-/**
  * Represents a single layer comp in the document.
  *
  * @minVersion 24.0

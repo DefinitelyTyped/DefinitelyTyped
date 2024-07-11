@@ -1,5 +1,5 @@
 import { ComponentClass } from "react";
-import { ReactWidgetsCommonProps, AutoFocus } from "./CommonProps";
+import { AutoFocus, ReactWidgetsCommonProps } from "./CommonProps";
 
 declare namespace SelectList {
     interface SelectListProps extends ReactWidgetsCommonProps, AutoFocus {
@@ -110,7 +110,7 @@ declare namespace SelectList {
     }
     interface SelectListMessages {
         /**
-         * @default: "There are no items in this list"
+         * @default "There are no items in this list"
          */
         emptyList?: string | ((props: SelectListProps) => string) | undefined;
     }

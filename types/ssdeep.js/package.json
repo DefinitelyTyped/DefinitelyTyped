@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ssdeep.js",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/cloudtracer/ssdeep.js"
+    ],
+    "devDependencies": {
+        "@types/ssdeep.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JPBM135",
+            "githubUsername": "JPBM135"
+        }
+    ]
+}

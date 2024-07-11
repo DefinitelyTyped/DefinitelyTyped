@@ -1,8 +1,8 @@
-import * as Grid from '@nginstack/web-framework/lib/grid/Grid';
-import * as GridField from '@nginstack/web-framework/lib/grid/GridField';
+import * as Grid from "@nginstack/web-framework/lib/grid/Grid";
+import * as GridField from "@nginstack/web-framework/lib/grid/GridField";
 
-const grid = new Grid('*', 'name'); // $ExpectType Grid
-const gridField = new GridField('name', 'type', null); // $ExpectType GridField
+const grid = new Grid("*", "name"); // $ExpectType Grid
+const gridField = new GridField("name", "type", null); // $ExpectType GridField
 
 grid.classDefManager; // $ExpectType ClassDefManager
 grid.classesToValidatePermissions; // $ExpectType any[]
@@ -48,10 +48,10 @@ grid.onAfterPrepare; // $ExpectType Event
 grid.onBeforeExpand; // $ExpectType Event
 grid.onAfterExpand; // $ExpectType Event
 grid.onExport; // $ExpectType Event
-grid.setFieldsProperties(['*']); // $ExpectType void
-grid.getFieldsByProperty(['*']); // $ExpectType Field[]
+grid.setFieldsProperties(["*"]); // $ExpectType void
+grid.getFieldsByProperty(["*"]); // $ExpectType Field[]
 grid.getKeyField(); // $ExpectType Field
-grid.emit('*', ['*']); // $ExpectType any
+grid.emit("*", ["*"]); // $ExpectType any
 grid.resetFields(); // $ExpectType void
 grid.clearButtons(); // $ExpectType void
 grid.name; // $ExpectType string
@@ -99,8 +99,8 @@ grid.del(true); // $ExpectType void
 grid.post(); // $ExpectType boolean
 grid.cancel(); // $ExpectType void
 grid.getFieldsAsStringList(); // $ExpectType StringList
-grid.field('name'); // $ExpectType Field | ViewDefField
-grid.button('name'); // $ExpectType Button
+grid.field("name"); // $ExpectType Field | ViewDefField
+grid.button("name"); // $ExpectType Button
 grid.visibleButtons; // $ExpectType (string | Button)[]
 grid.visibleActions; // $ExpectType (string | Button)[]
 grid.enabledButtons; // $ExpectType (string | Button)[]
@@ -109,15 +109,15 @@ grid.persist(); // $ExpectType number
 grid.write(); // $ExpectType void
 grid.userKeyToValidatePermissions; // $ExpectType number
 grid.validateFieldPermissions; // $ExpectType boolean
-grid.scroll('action'); // $ExpectType void
+grid.scroll("action"); // $ExpectType void
 grid.duplicateRecord(); // $ExpectType void
 grid.lookup(gridField); // $ExpectType void
-grid.expand('nodeValue'); // $ExpectType void
-grid.colapse('nodeValue'); // $ExpectType void
+grid.expand("nodeValue"); // $ExpectType void
+grid.colapse("nodeValue"); // $ExpectType void
 grid.toggleKeyVisibility(); // $ExpectType void
-grid.toggleFieldVisibility('field'); // $ExpectType void
+grid.toggleFieldVisibility("field"); // $ExpectType void
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return "71.0.256";
 }
-testMajorVersions(69, 70); // $ExpectType boolean
+getVersion(); // $ExpectType string

@@ -9,16 +9,16 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      */
     "arrow-body-style":
         | Linter.RuleEntry<
-              [
-                  "as-needed",
-                  Partial<{
-                      /**
-                       * @default false
-                       */
-                      requireReturnForObjectLiteral: boolean;
-                  }>,
-              ]
-          >
+            [
+                "as-needed",
+                Partial<{
+                    /**
+                     * @default false
+                     */
+                    requireReturnForObjectLiteral: boolean;
+                }>,
+            ]
+        >
         | Linter.RuleEntry<["always" | "never"]>;
 
     /**
@@ -30,16 +30,16 @@ export interface ECMAScript6 extends Linter.RulesRecord {
     "arrow-parens":
         | Linter.RuleEntry<["always"]>
         | Linter.RuleEntry<
-              [
-                  "as-needed",
-                  Partial<{
-                      /**
-                       * @default false
-                       */
-                      requireForBlockBody: boolean;
-                  }>,
-              ]
-          >;
+            [
+                "as-needed",
+                Partial<{
+                    /**
+                     * @default false
+                     */
+                    requireForBlockBody: boolean;
+                }>,
+            ]
+        >;
 
     /**
      * Rule to enforce consistent spacing before and after the arrow in arrow functions.
@@ -69,42 +69,62 @@ export interface ECMAScript6 extends Linter.RulesRecord {
     "generator-star-spacing": Linter.RuleEntry<
         [
             | Partial<{
-                  before: boolean;
-                  after: boolean;
-                  named:
-                      | Partial<{
-                            before: boolean;
-                            after: boolean;
-                        }>
-                      | "before"
-                      | "after"
-                      | "both"
-                      | "neither";
-                  anonymous:
-                      | Partial<{
-                            before: boolean;
-                            after: boolean;
-                        }>
-                      | "before"
-                      | "after"
-                      | "both"
-                      | "neither";
-                  method:
-                      | Partial<{
-                            before: boolean;
-                            after: boolean;
-                        }>
-                      | "before"
-                      | "after"
-                      | "both"
-                      | "neither";
-              }>
+                before: boolean;
+                after: boolean;
+                named:
+                    | Partial<{
+                        before: boolean;
+                        after: boolean;
+                    }>
+                    | "before"
+                    | "after"
+                    | "both"
+                    | "neither";
+                anonymous:
+                    | Partial<{
+                        before: boolean;
+                        after: boolean;
+                    }>
+                    | "before"
+                    | "after"
+                    | "both"
+                    | "neither";
+                method:
+                    | Partial<{
+                        before: boolean;
+                        after: boolean;
+                    }>
+                    | "before"
+                    | "after"
+                    | "both"
+                    | "neither";
+            }>
             | "before"
             | "after"
             | "both"
             | "neither",
         ]
     >;
+
+    /**
+     * Require or disallow logical assignment operator shorthand.
+     *
+     * @since 8.24.0
+     * @see https://eslint.org/docs/rules/logical-assignment-operators
+     */
+    "logical-assignment-operators":
+        | Linter.RuleEntry<
+            [
+                "always",
+                Partial<{
+                    /**
+                     * @default false
+                     */
+                    enforceForIfStatements: boolean;
+                }>,
+            ]
+        >
+        | Linter.RuleEntry<["never"]>;
 
     /**
      * Rule to disallow reassigning class members.
@@ -160,9 +180,9 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      * Rule to disallow duplicate module imports.
      *
      * @since 2.5.0
-     * @see https://eslint.org/docs/rules/no-duplicate-import
+     * @see https://eslint.org/docs/rules/no-duplicate-imports
      */
-    "no-duplicate-import": Linter.RuleEntry<
+    "no-duplicate-imports": Linter.RuleEntry<
         [
             Partial<{
                 /**
@@ -195,22 +215,22 @@ export interface ECMAScript6 extends Linter.RulesRecord {
             ...Array<
                 | string
                 | {
-                      name: string;
-                      importNames?: string[] | undefined;
-                      message?: string | undefined;
-                  }
+                    name: string;
+                    importNames?: string[] | undefined;
+                    message?: string | undefined;
+                }
                 | Partial<{
-                      paths: Array<
-                          | string
-                          | {
-                                name: string;
-                                importNames?: string[] | undefined;
-                                message?: string | undefined;
-                            }
-                      >;
-                      patterns: string[];
-                  }>
-            >
+                    paths: Array<
+                        | string
+                        | {
+                            name: string;
+                            importNames?: string[] | undefined;
+                            message?: string | undefined;
+                        }
+                    >;
+                    patterns: string[];
+                }>
+            >,
         ]
     >;
 
@@ -282,35 +302,35 @@ export interface ECMAScript6 extends Linter.RulesRecord {
      */
     "object-shorthand":
         | Linter.RuleEntry<
-              [
-                  "always" | "methods",
-                  Partial<{
-                      /**
-                       * @default false
-                       */
-                      avoidQuotes: boolean;
-                      /**
-                       * @default false
-                       */
-                      ignoreConstructors: boolean;
-                      /**
-                       * @default false
-                       */
-                      avoidExplicitReturnArrows: boolean;
-                  }>,
-              ]
-          >
+            [
+                "always" | "methods",
+                Partial<{
+                    /**
+                     * @default false
+                     */
+                    avoidQuotes: boolean;
+                    /**
+                     * @default false
+                     */
+                    ignoreConstructors: boolean;
+                    /**
+                     * @default false
+                     */
+                    avoidExplicitReturnArrows: boolean;
+                }>,
+            ]
+        >
         | Linter.RuleEntry<
-              [
-                  "properties",
-                  Partial<{
-                      /**
-                       * @default false
-                       */
-                      avoidQuotes: boolean;
-                  }>,
-              ]
-          >
+            [
+                "properties",
+                Partial<{
+                    /**
+                     * @default false
+                     */
+                    avoidQuotes: boolean;
+                }>,
+            ]
+        >
         | Linter.RuleEntry<["never" | "consistent" | "consistent-as-needed"]>;
 
     /**
@@ -365,25 +385,33 @@ export interface ECMAScript6 extends Linter.RulesRecord {
         [
             Partial<
                 | {
-                      VariableDeclarator: Partial<{
-                          array: boolean;
-                          object: boolean;
-                      }>;
-                      AssignmentExpression: Partial<{
-                          array: boolean;
-                          object: boolean;
-                      }>;
-                  }
+                    VariableDeclarator: Partial<{
+                        array: boolean;
+                        object: boolean;
+                    }>;
+                    AssignmentExpression: Partial<{
+                        array: boolean;
+                        object: boolean;
+                    }>;
+                }
                 | {
-                      array: boolean;
-                      object: boolean;
-                  }
+                    array: boolean;
+                    object: boolean;
+                }
             >,
             Partial<{
                 enforceForRenamedProperties: boolean;
             }>,
         ]
     >;
+
+    /**
+     * Disallow the use of `Math.pow` in favor of the `**` operator.
+     *
+     * @since 6.7.0
+     * @see https://eslint.org/docs/latest/rules/prefer-exponentiation-operator
+     */
+    "prefer-exponentiation-operator": Linter.RuleEntry<[]>;
 
     /**
      * Rule to disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals.
@@ -461,6 +489,10 @@ export interface ECMAScript6 extends Linter.RulesRecord {
                  * @default ['none', 'all', 'multiple', 'single']
                  */
                 memberSyntaxSortOrder: Array<"none" | "all" | "multiple" | "single">;
+                /**
+                 * @default false
+                 */
+                allowSeparatedGroups: boolean;
             }>,
         ]
     >;
@@ -490,9 +522,9 @@ export interface ECMAScript6 extends Linter.RulesRecord {
     "yield-star-spacing": Linter.RuleEntry<
         [
             | Partial<{
-                  before: boolean;
-                  after: boolean;
-              }>
+                before: boolean;
+                after: boolean;
+            }>
             | "before"
             | "after"
             | "both"

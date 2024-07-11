@@ -3,4 +3,4 @@ export class Oriented extends Modifier {
     angleShift: number;
     update(emitter: any, particle: any, dt: any): void;
 }
-import { Modifier } from '../Modifier';
+import { Modifier } from "../Modifier";

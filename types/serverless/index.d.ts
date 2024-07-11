@@ -1,36 +1,31 @@
-// Type definitions for serverless 3.12
-// Project: https://github.com/serverless/serverless#readme
-// Definitions by: Hassan Khan <https://github.com/hassankhan>
-//                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
-//                 Alex Pavlenko <https://github.com/a-pavlenko>
-//                 Frédéric Barthelet <https://github.com/fredericbarthelet>
-//                 Bryan Hunter <https://github.com/bryan-hunter>
-//                 Thomas Aribart <https://github.com/thomasaribart>
-//                 Gareth Jones <https://github.com/G-Rath>
-//                 Abdullah Ali <https://github.com/AbdullahAli>
-//                 François Farge <https://github.com/fargito>
-//                 Bruno Bodian <https://github.com/bacarybruno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import Service = require('./classes/Service');
-import PluginManager = require('./classes/PluginManager');
-import Utils = require('./classes/Utils');
-import YamlParser = require('./classes/YamlParser');
-import AwsProvider = require('./plugins/aws/provider/awsProvider');
+import Service = require("./classes/Service");
+import PluginManager = require("./classes/PluginManager");
+import Utils = require("./classes/Utils");
+import YamlParser = require("./classes/YamlParser");
+import AwsProvider = require("./plugins/aws/provider/awsProvider");
+import ServerlessError = require("./classes/ServerlessError");
 
 declare namespace Serverless {
+    /**
+     * CLI options provided to the command
+     * @example
+     * // serverless --verbose --stage prod
+     * { verbose: true, stage: 'prod' }
+     */
     interface Options {
         function?: string | undefined;
         watch?: boolean | undefined;
         verbose?: boolean | undefined;
         extraServicePath?: string | undefined;
-        stage: string | null;
-        region: string | null;
+        stage?: string | undefined;
+        region?: string | undefined;
         noDeploy?: boolean | undefined;
+        [key: string]: string | boolean | string[] | undefined;
     }
 
     interface Config {
         servicePath: string;
+        serviceDir: string;
     }
 
     interface FunctionDefinition {
@@ -71,6 +66,10 @@ declare namespace Serverless {
     }
 
     type Event = AwsProvider.Event | object;
+
+    interface Classes {
+        Error: typeof ServerlessError;
+    }
 }
 
 declare class Serverless {
@@ -99,8 +98,11 @@ declare class Serverless {
     yamlParser: YamlParser;
     pluginManager: PluginManager;
 
+    classes: Serverless.Classes;
     config: Serverless.Config;
+    configurationFilename: string;
     serverlessDirPath: string;
+    serviceDir: string;
 
     service: Service;
     version: string;

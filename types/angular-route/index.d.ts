@@ -1,16 +1,9 @@
-// Type definitions for Angular JS (ngRoute module) 1.7
-// Project: http://angularjs.org
-// Definitions by: Jonathan Park <https://github.com/park9140>
-//                 George Kalpakas <https://github.com/gkalpak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     ///////////////////////////////////////////////////////////////////////////////
     // ngRoute module (angular-route.js)
     ///////////////////////////////////////////////////////////////////////////////
@@ -46,7 +39,7 @@ declare module 'angular' {
             updateParams(newParams: { [key: string]: string }): void;
         }
 
-        type InlineAnnotatedFunction = Function | Array<string | Function>
+        type InlineAnnotatedFunction = Function | Array<string | Function>;
 
         /**
          * see http://docs.angularjs.org/api/ngRoute/provider/$routeProvider#when for API documentation
@@ -69,7 +62,7 @@ declare module 'angular' {
              *
              * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
              */
-            template?: string | { ($routeParams?: IRouteParamsService): string; } | undefined
+            template?: string | { ($routeParams?: IRouteParamsService): string } | undefined;
             /**
              * {(string|Function)=}
              * Path or function that returns a path to an html template that should be used by ngView.
@@ -78,7 +71,7 @@ declare module 'angular' {
              *
              * {Array.<Object>} - route parameters extracted from the current $location.path() by applying the current route
              */
-            templateUrl?: string | { ($routeParams?: IRouteParamsService): string; } | undefined
+            templateUrl?: string | { ($routeParams?: IRouteParamsService): string } | undefined;
             /**
              * {Object.<string, Function>=}
              * An optional map of dependencies which should be injected into the controller. If any of these
@@ -131,7 +124,9 @@ declare module 'angular' {
              * is if the `redirectTo` is a function that returns `undefined`. In this case the route transition occurs
              * as though there was no redirection.
              */
-            redirectTo?: string | { ($routeParams?: IRouteParamsService, $locationPath?: string, $locationSearch?: any): string } | undefined;
+            redirectTo?: string | {
+                ($routeParams?: IRouteParamsService, $locationPath?: string, $locationSearch?: any): string;
+            } | undefined;
             /**
              * {Function=}
              * A function that will (eventually) return the value to update `$location` URL with and trigger route
@@ -148,7 +143,9 @@ declare module 'angular' {
              * `redirectTo` takes precedence over `resolveRedirectTo`, so specifying both on the same route definition,
              * will cause the latter to be ignored.
              */
-            resolveRedirectTo?: angular.Injectable<(...deps: any[]) => angular.IPromise<string | undefined> | string | undefined> | undefined;
+            resolveRedirectTo?:
+                | angular.Injectable<(...deps: any[]) => angular.IPromise<string | undefined> | string | undefined>
+                | undefined;
             /**
              * {boolean=true}
              * Reload route when any part of the URL changes (including the path) even if the new URL maps to the same
@@ -209,15 +206,15 @@ declare module 'angular' {
              *
              * @param enabled If provided, update the internal eagerInstantiationEnabled flag.
              */
-            eagerInstantiationEnabled(enabled: boolean) : IRouteProvider;
+            eagerInstantiationEnabled(enabled: boolean): IRouteProvider;
             /**
              * Call this method as a getter (i.e. without any arguments) to get the current value of the eagerInstantiationEnabled flag.
              */
-            eagerInstantiationEnabled() : boolean;
+            eagerInstantiationEnabled(): boolean;
             /**
              * Sets route definition that will be used on route change when no other route definition is matched.
              *
-             * @params Mapping information to be assigned to $route.current.
+             * @param params Mapping information to be assigned to $route.current.
              */
             otherwise(params: IRoute | string): IRouteProvider;
             /**

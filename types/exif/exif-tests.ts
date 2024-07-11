@@ -1,7 +1,7 @@
-import Exif = require('exif');
+import Exif = require("exif");
 const ExifImage = Exif.ExifImage;
 
-new ExifImage({ image: 'myImage.jpg' }, (error, exifData) => {
+new ExifImage({ image: "myImage.jpg" }, (error, exifData) => {
     if (error) {
         console.log(`Error: ${error.message}`);
     } else {
@@ -9,7 +9,7 @@ new ExifImage({ image: 'myImage.jpg' }, (error, exifData) => {
     }
 });
 
-Exif('myImage.jpg', (error, exifData, dataPath) => {
+Exif("myImage.jpg", (error, exifData, dataPath) => {
     if (error) {
         console.log(`Error: ${error.message}`);
     } else {

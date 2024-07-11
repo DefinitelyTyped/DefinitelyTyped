@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/mparticle__web-sdk",
+    "version": "2.20.9999",
+    "projects": [
+        "https://github.com/mParticle/mparticle-web-sdk"
+    ],
     "dependencies": {
         "@mparticle/event-models": "^1.1.3"
-    }
+    },
+    "devDependencies": {
+        "@types/mparticle__web-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Sapountzis",
+            "githubUsername": "asap"
+        },
+        {
+            "name": "Robert Ing",
+            "githubUsername": "rmi22186"
+        }
+    ]
 }

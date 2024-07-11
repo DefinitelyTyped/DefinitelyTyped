@@ -1,12 +1,3 @@
-// Type definitions for google-apps-script 1.0
-// Project: https://developers.google.com/apps-script/
-// Definitions by: PopGoesTheWza <https://github.com/PopGoesTheWza>
-//                 motemen <https://github.com/motemen/>
-//                 pierluigi-montagna <https://github.com/pierluigi-montagna>
-//                 mtgto <https://github.com/mtgto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 // Base Types
 /// <reference path="google-apps-script.base.d.ts"/>
 /// <reference path="google-apps-script.cache.d.ts"/>

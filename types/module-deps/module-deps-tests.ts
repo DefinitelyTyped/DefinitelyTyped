@@ -5,14 +5,14 @@ function coreDepsTest() {
     const coreModules = {
         assert: "./assert.js",
         buffer: "./buffer.js",
-        path: "./path.js"
+        path: "./path.js",
     };
 
     const opts = {
-        resolve: () => { },
+        resolve: () => {},
         modules: coreModules,
         extensions: [".js", ".json"],
-        transform: []
+        transform: [],
     };
 
     const s = moduleDeps(opts);
@@ -39,7 +39,7 @@ function rifiTest() {
         },
         transform: ["transformer", (file, opts) => <NodeJS.ReadWriteStream> <any> null],
         globalTransform: [],
-        cache: {}
+        cache: {},
     });
 
     md.once("error", (err) => {
@@ -88,7 +88,7 @@ function browserifyTest(opts: moduleDeps.Options) {
 
     const inst: moduleDeps.ModuleDepsObject = moduleDeps({
         expose: { id: "file.txt" },
-        extensions: [ ".js", ".json" ],
+        extensions: [".js", ".json"],
         transform: [],
         transformKey: ["browserify", "transform"],
         filter: (id) => {
@@ -103,7 +103,7 @@ function browserifyTest(opts: moduleDeps.Options) {
         modules: {},
         resolve: (id, parent, cb) => {
             cb(null, "", {});
-        }
+        },
     });
 
     inst.on("file", (file, id) => {

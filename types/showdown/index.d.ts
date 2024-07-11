@@ -1,12 +1,3 @@
-// Type definitions for showdown 2.0
-// Project: https://github.com/showdownjs/showdown
-// Definitions by: Hamed Baatour <https://github.com/hamedbaatour>,
-//                 cbowdon <https://github.com/cbowdon>,
-//                 Pei-Tang Huang <https://github.com/tan9>,
-//                 Ariel-Saldana <https://github.com/arielsaldana>,
-//                 Yisrael Eliav <https://github.com/yisraelx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Showdown;
 export as namespace showdown;
 
@@ -16,7 +7,6 @@ export as namespace showdown;
  * @see https://github.com/showdownjs/showdown/blob/master/src/showdown.js
  */
 declare namespace Showdown {
-
     /**
      * Showdown event listener.
      */
@@ -34,26 +24,33 @@ declare namespace Showdown {
          * let listener: EventListener = (evtName, text, converter, options, globals) => doSome(text);
          * ```
          */
-        (evtName: string, text: string, converter: Converter, options: ShowdownOptions, globals: ConverterGlobals): void | string;
+        (
+            evtName: string,
+            text: string,
+            converter: Converter,
+            options: ShowdownOptions,
+            globals: ConverterGlobals,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        ): void | string;
     }
 
     interface ConverterGlobals {
         converter?: Converter | undefined;
         gDimensions?: {
-            width?:  number | undefined;
+            width?: number | undefined;
             height?: number | undefined;
         } | undefined;
-        gHtmlBlocks?:  string[] | undefined;
+        gHtmlBlocks?: string[] | undefined;
         gHtmlMdBlocks?: string[] | undefined;
         gHtmlSpans?: string[] | undefined;
         gListLevel?: number | undefined;
-        gTitles?: {[key: string]: string} | undefined;
-        gUrls?: {[key: string]: string} | undefined;
-        ghCodeBlocks?: {codeblock?: string | undefined, text?: string | undefined}[] | undefined;
-        hashLinkCounts?: {[key: string]: number} | undefined;
+        gTitles?: { [key: string]: string } | undefined;
+        gUrls?: { [key: string]: string } | undefined;
+        ghCodeBlocks?: Array<{ codeblock?: string | undefined; text?: string | undefined }> | undefined;
+        hashLinkCounts?: { [key: string]: number } | undefined;
         langExtensions?: ShowdownExtension[] | undefined;
         metadata?: {
-            parsed?: {[key: string]: string} | undefined;
+            parsed?: { [key: string]: string } | undefined;
             raw?: string | undefined;
             format?: string | undefined;
         } | undefined;
@@ -73,13 +70,13 @@ declare namespace Showdown {
         /**
          * Event listeners functions that called on the conversion, when the `event` occurs.
          */
-        listeners?: {[event: string]: EventListener} | undefined
+        listeners?: { [event: string]: EventListener } | undefined;
     }
 
     /**
      * Regex/replace style extensions are very similar to javascript's string.replace function.
      * Two properties are given, `regex` and `replace`.
-     * 
+     *
      * @example
      * ```ts
      * let myExt: RegexReplaceExtension = {
@@ -109,12 +106,12 @@ declare namespace Showdown {
     /**
      * If you'd just like to do everything yourself,you can specify a filter property.
      * The filter property should be a function that acts as a callback.
-     * 
+     *
      * @example
      * ```ts
-     * let myExt: ShowdownExtension = { 
+     * let myExt: ShowdownExtension = {
      *   type: 'lang',
-     *   filter: (text: string, converter: Converter) => text.replace('#', '*') 
+     *   filter: (text: string, converter: Converter) => text.replace('#', '*')
      * };
      * ```
      */
@@ -129,9 +126,9 @@ declare namespace Showdown {
      * + Language Extension -- Language extensions are ones that that add new markdown syntax to showdown. For example, say you wanted ^^youtube http://www.youtube.com/watch?v=oHg5SJYRHA0 to automatically render as an embedded YouTube video, that would be a language extension.
      * + Output Modifiers -- After showdown has run, and generated HTML, an output modifier would change that HTML. For example, say you wanted to change <div class="header"> to be <header>, that would be an output modifier.
      * + Listener Extension -- Listener extensions for listen to conversion events.
-     * 
+     *
      * Each extension can provide two combinations of interfaces for showdown.
-     * 
+     *
      * @example
      * ```ts
      * let myext: ShowdownExtension = {
@@ -145,7 +142,7 @@ declare namespace Showdown {
      *          // ... do stuff to text ...
      *          return text;
      *      },
-     *      // ... 
+     *      // ...
      *   }
      * };
      * ```
@@ -157,7 +154,7 @@ declare namespace Showdown {
      * Showdown extensions store object.
      */
     interface ShowdownExtensions {
-        [name: string]: ShowdownExtension[]
+        [name: string]: ShowdownExtension[];
     }
 
     /**
@@ -308,7 +305,7 @@ declare namespace Showdown {
 
         /**
          * Enable support for setting image dimensions from within markdown syntax.
-         * 
+         *
          * @example
          * ```md
          * ![foo](foo.jpg =100x80)   simple, assumes units are in px
@@ -322,7 +319,7 @@ declare namespace Showdown {
 
         /**
          * Set the header starting level. For instance, setting this to 3 means that
-         * 
+         *
          * @example
          *  **input**:
          *
@@ -374,7 +371,7 @@ declare namespace Showdown {
 
         /**
          * @deprecated https://github.com/showdownjs/showdown/commit/d3ebff7ef0cde5abfc3874463946d5297fc82e78
-         * 
+         *
          * This option excludes trailing punctuation from autolinking urls.
          * Punctuation excluded: . ! ? ( ).
          *
@@ -504,7 +501,7 @@ declare namespace Showdown {
 
         /**
          * Prevents weird effects in live previews due to incomplete input.
-         * 
+         *
          * @example
          * ![awkward effect](http://i.imgur.com/YQ9iHTL.gif)
          * You can prevent this by enabling this option.
@@ -728,7 +725,7 @@ declare namespace Showdown {
          * ```html
          * <p><a href="http://showdownjs.com">Showdown</a></p>
          * ```
-         * 
+         *
          * **openLinksInNewWindow** = true
          * ```html
          * <p><a href="http://showdownjs.com" target="_blank">Showdown</a></p>
@@ -752,7 +749,7 @@ declare namespace Showdown {
          * ```html
          * <p>\<div>foo\</div></p>
          * ```
-         * 
+         *
          * **backslashEscapesHTMLTags** = true
          * ```html
          * <p>&lt;div&gt;foo&lt;/div&gt;</p>
@@ -764,7 +761,7 @@ declare namespace Showdown {
 
         /**
          * Enable emoji support.
-         * 
+         *
          * @example
          * ```md
          * this is a :smile: emoji
@@ -790,7 +787,7 @@ declare namespace Showdown {
          * ```html
          * <p><strong>underlined word</strong></p>
          * ```
-         * 
+         *
          * **underline** = true
          * ```html
          * <p><u>underlined word</u></p>
@@ -820,7 +817,7 @@ declare namespace Showdown {
          * ```html
          * <p><strong>Showdown</strong></p>
          * ```
-         * 
+         *
          * **completeHTMLDocument** = true
          * ```html
          * <!DOCTYPE HTML>
@@ -841,7 +838,7 @@ declare namespace Showdown {
         /**
          * Enable support for document metadata (defined at the top of the document
          * between `«««` and `»»»` or between `---` and `---`).
-         * 
+         *
          * @example
          *  ```js
          *  var conv = new showdown.Converter({metadata: true});
@@ -863,26 +860,26 @@ declare namespace Showdown {
         /**
          * For custom options {extension, subParser} And also an out-of-date definitions
          */
-        [key:string]: any;
+        [key: string]: any;
     }
 
-
     interface ConverterOptions extends ShowdownOptions {
-
         /**
          * Add extensions to the new converter can be showdown extensions or "global" extensions name.
          */
-        extensions?: ((() => ShowdownExtension[] | ShowdownExtension)  | ShowdownExtension[] | ShowdownExtension | string)[] | undefined;
+        extensions?:
+            | Array<(() => ShowdownExtension[] | ShowdownExtension) | ShowdownExtension[] | ShowdownExtension | string>
+            | undefined;
     }
 
     /**
      * Showdown Flavor names.
      */
-    type Flavor = 'github' | 'original' | 'ghost' | 'vanilla' | 'allOn';
+    type Flavor = "github" | "original" | "ghost" | "vanilla" | "allOn";
 
     /**
-    * Showdown option description.
-    */
+     * Showdown option description.
+     */
     interface ShowdownOptionDescription {
         /**
          * The default value of option.
@@ -895,19 +892,19 @@ declare namespace Showdown {
         /**
          * The type of the option value.
          */
-        type?: 'boolean' | 'string' | 'integer' | undefined
+        type?: "boolean" | "string" | "integer" | undefined;
     }
 
-   /**
-    * Showdown options schema.
-    */
+    /**
+     * Showdown options schema.
+     */
     interface ShowdownOptionsSchema {
         [key: string]: ShowdownOptionDescription;
     }
 
-   /**
-    * Showdown subParser.
-    */
+    /**
+     * Showdown subParser.
+     */
     type SubParser = (...args: any[]) => string;
 
     /**
@@ -916,7 +913,6 @@ declare namespace Showdown {
      * @see https://github.com/showdownjs/showdown/blob/master/src/converter.js
      */
     interface Converter {
-
         /**
          * Listen to an event.
          *
@@ -939,7 +935,7 @@ declare namespace Showdown {
 
         /**
          * Converts a markdown string into HTML string.
-         * 
+         *
          * @param text - The input text (markdown).
          * @return The output HTML.
          */
@@ -972,7 +968,7 @@ declare namespace Showdown {
 
         /**
          * Get the options of this Converter instance.
-         * 
+         *
          * @returns Returns the current convertor options object.
          */
         getOptions(): ShowdownOptions;
@@ -983,7 +979,10 @@ declare namespace Showdown {
          * @param extension - The new extension to add.
          * @param name - The extension name.
          */
-        addExtension(extension: (() => ShowdownExtension[] | ShowdownExtension)  | ShowdownExtension[] | ShowdownExtension, name?: string): void;
+        addExtension(
+            extension: (() => ShowdownExtension[] | ShowdownExtension) | ShowdownExtension[] | ShowdownExtension,
+            name?: string,
+        ): void;
 
         /**
          * Use a global registered extension with THIS converter.
@@ -1024,31 +1023,29 @@ declare namespace Showdown {
 
         /**
          * Get the metadata of the previously parsed document.
-         * 
+         *
          * @param raw - If to returns Row or Metadata.
          * @returns Returns Row if `row` is `true`, otherwise Metadata.
          */
-        getMetadata(raw?: boolean): string | Metadata
+        getMetadata(raw?: boolean): string | Metadata;
 
         /**
          * Get the metadata format of the previously parsed document.
-         * 
+         *
          * @returns Returns the metadata format.
          */
         getMetadataFormat(): string;
-
     }
 
     interface ConverterStatic {
         /**
-         * @constructor
          * @param converterOptions - Configuration object, describes which extensions to apply.
          */
         new(converterOptions?: ConverterOptions): Converter;
     }
 
-    /** 
-     * Helper Interface 
+    /**
+     * Helper Interface
      */
     interface Helper {
         replaceRecursiveRegExp(...args: any[]): string;
@@ -1072,7 +1069,7 @@ declare namespace Showdown {
 
     /**
      * Setting a "global" option affects all instances of showdown.
-     * 
+     *
      * @param key - the option key.
      * @param value - the option value.
      */
@@ -1147,7 +1144,6 @@ declare namespace Showdown {
      */
     function subParser(name: string, func: SubParser): void;
 
-
     /**
      * Get a registered extension.
      *
@@ -1164,7 +1160,10 @@ declare namespace Showdown {
      * @param ext - The extension.
      * @throws Throws if `name` is not of type string.
      */
-    function extension(name: string, ext: (() => ShowdownExtension[] | ShowdownExtension)  | ShowdownExtension[] | ShowdownExtension): void;
+    function extension(
+        name: string,
+        ext: (() => ShowdownExtension[] | ShowdownExtension) | ShowdownExtension[] | ShowdownExtension,
+    ): void;
 
     /**
      * Get the "global" extensions.

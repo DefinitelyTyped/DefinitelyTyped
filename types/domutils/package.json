@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-      "domhandler": "^2.4.0"
-  }
+    "private": true,
+    "name": "@types/domutils",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/FB55/domutils#readme"
+    ],
+    "dependencies": {
+        "@types/domhandler": "^2.4.0"
+    },
+    "devDependencies": {
+        "@types/domutils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Johan Davidsson",
+            "githubUsername": "johandavidson"
+        }
+    ]
 }

@@ -1,11 +1,6 @@
-// Type definitions for cose-js 0.8
-// Project: https://github.com/erdtman/COSE-JS
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 export type BufferLike = string | Buffer | ArrayBuffer | Uint8Array | Uint8ClampedArray | DataView | Readable;
 
@@ -47,7 +42,7 @@ export namespace encrypt {
         externalAAD?: Buffer;
         randomSource?(bytes: number): Buffer;
         contextIv?: Buffer;
-        encodep?: 'empty';
+        encodep?: "empty";
         excludetag?: boolean;
     }
 
@@ -82,7 +77,7 @@ export namespace sign {
     }
 
     interface CreateOptions {
-        encodep?: 'empty';
+        encodep?: "empty";
         excludetag?: boolean;
     }
 

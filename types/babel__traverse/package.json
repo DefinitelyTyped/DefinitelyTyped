@@ -1,6 +1,49 @@
 {
     "private": true,
+    "name": "@types/babel__traverse",
+    "version": "7.20.9999",
+    "projects": [
+        "https://github.com/babel/babel/tree/main/packages/babel-traverse",
+        "https://babeljs.io"
+    ],
     "dependencies": {
-        "@babel/types": "^7.3.0"
-    }
+        "@babel/types": "^7.20.7"
+    },
+    "devDependencies": {
+        "@types/babel__traverse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Troy Gerwien",
+            "githubUsername": "yortus"
+        },
+        {
+            "name": "Marvin Hagemeister",
+            "githubUsername": "marvinhagemeister"
+        },
+        {
+            "name": "Ryan Petrich",
+            "githubUsername": "rpetrich"
+        },
+        {
+            "name": "Melvin Groenhoff",
+            "githubUsername": "mgroenhoff"
+        },
+        {
+            "name": "Dean L.",
+            "githubUsername": "dlgrit"
+        },
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "Daniel Tschinder",
+            "githubUsername": "danez"
+        }
+    ]
 }

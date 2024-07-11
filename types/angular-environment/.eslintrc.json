@@ -1,6 +1,6 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-type-only-packages": "off"
     }
 }

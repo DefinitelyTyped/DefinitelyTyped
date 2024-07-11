@@ -1,22 +1,14 @@
-import { Loader, LoadingManager, Texture } from '../../../../src/Three';
-import { Node, AnyJson } from '../Nodes';
+import { Loader, LoadingManager, Texture } from "three";
+import { Node } from "../Nodes.js";
 
 export interface NodeLoaderResult {
     [hash: string]: Node;
 }
 
-export default class NodeLoader extends Loader {
+export default class NodeLoader extends Loader<NodeLoaderResult> {
     constructor(manager?: LoadingManager);
 
-    load(
-        url: string,
-        onLoad: (gltf: NodeLoaderResult) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<NodeLoaderResult>;
-
-    parseNodes(json: AnyJson): NodeLoaderResult;
-    parse(json: AnyJson): Node;
+    parseNodes(json: unknown): NodeLoaderResult;
+    parse(json: unknown): Node;
     setTextures(textures: { [key: string]: Texture }): this;
 }

@@ -1,2 +1,2 @@
-import TimeWithinDay = require('../2017/TimeWithinDay');
+import TimeWithinDay = require("../2017/TimeWithinDay");
 export = TimeWithinDay;

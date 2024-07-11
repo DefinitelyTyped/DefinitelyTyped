@@ -1,9 +1,3 @@
-// Type definitions for react-motion-slider 0.4.1
-// Project: https://github.com/souporserious/react-motion-slider
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare module "react-motion-slider" {
     import * as React from "react";
     import { OpaqueConfig } from "react-motion";

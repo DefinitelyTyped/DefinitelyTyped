@@ -1,12 +1,3 @@
-// Type definitions for Mustache 4.2
-// Project: https://github.com/janl/mustache.js
-// Definitions by: Mark Ashley Bell <https://github.com/markashleybell>,
-//                 Manuel Thalmann <https://github.com/manuth>,
-//                 Phillip Johnsen <https://github.com/phillipj>
-//                 Steve Dignam <https://github.com/sbdchd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 /**
  * The name of the module.
  */
@@ -370,16 +361,24 @@ export function render(
     tagsOrOptions?: OpeningAndClosingTags | RenderOptions,
 ): string;
 
-export type RAW_VALUE = 'text';
-export type ESCAPED_VALUE = 'name';
-export type UNESCAPED_VALUE = '&';
-export type SECTION = '#';
-export type INVERTED = '^';
-export type COMMENT = '!';
-export type PARTIAL = '>';
-export type EQUAL = '=';
+export type RAW_VALUE = "text";
+export type ESCAPED_VALUE = "name";
+export type UNESCAPED_VALUE = "&";
+export type SECTION = "#";
+export type INVERTED = "^";
+export type COMMENT = "!";
+export type PARTIAL = ">";
+export type EQUAL = "=";
 
-export type TemplateSpanType = RAW_VALUE | ESCAPED_VALUE | SECTION | UNESCAPED_VALUE | INVERTED | COMMENT | PARTIAL | EQUAL;
+export type TemplateSpanType =
+    | RAW_VALUE
+    | ESCAPED_VALUE
+    | SECTION
+    | UNESCAPED_VALUE
+    | INVERTED
+    | COMMENT
+    | PARTIAL
+    | EQUAL;
 
 export type TemplateSpans = Array<
     | [TemplateSpanType, string, number, number]

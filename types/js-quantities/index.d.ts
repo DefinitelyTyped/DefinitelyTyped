@@ -1,8 +1,3 @@
-// Type definitions for JS-quantities 1.6
-// Project: http://gentooboontoo.github.io/js-quantities/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const Qty: Qty.Type;
 
 interface Qty {
@@ -42,8 +37,8 @@ declare namespace Qty {
     interface Type {
         (value: Source): Qty;
         (value: number, unit: string): Qty;
-        new (value: Source): Qty;
-        new (value: number, unit: string): Qty;
+        new(value: Source): Qty;
+        new(value: number, unit: string): Qty;
         parse(value: string): Qty;
         getKinds(): string[];
         getUnits(kind?: string): string[];

@@ -1,9 +1,3 @@
-// Type definitions for mrz 3.1
-// Project: https://github.com/cheminfo-js/mrz#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export interface Result {
     /**
      * String identifying the format of the parsed MRZ. Supported formats are:
@@ -14,7 +8,7 @@ export interface Result {
      * * SWISS_DRIVING_LICENSE
      * * FRENCH_NATIONAL_ID
      */
-    format: 'TD1' | 'TD2' | 'TD3' | 'SWISS_DRIVING_LICENSE' | 'FRENCH_NATIONAL_ID';
+    format: "TD1" | "TD2" | "TD3" | "SWISS_DRIVING_LICENSE" | "FRENCH_NATIONAL_ID";
     /** `true` if all fields are valid. `false` otherwise. */
     valid: boolean;
     /**
@@ -34,7 +28,7 @@ export interface ResultFields {
     documentNumberCheckDigit: string | null;
     documentCode: string | null;
     nationality: string | null;
-    sex: 'male' | 'female' | 'nonspecified' | null;
+    sex: "male" | "female" | "nonspecified" | null;
     expirationDate: string | null;
     expirationDateCheckDigit: string | null;
     compositeCheckDigit: string | null;
@@ -65,7 +59,7 @@ export interface ResultDetails {
     /** Full english term for the field. */
     label: string;
     /** Name of the field in `result.fields`. */
-    field: keyof Result['fields'];
+    field: keyof Result["fields"];
     /** Value of the field or `null`. */
     value: string | null;
     valid: boolean;
@@ -93,22 +87,22 @@ export interface Range {
  * in the MRZ. Instead, the `result.valid` value will be `false` and
  * details about the invalid fields can be found in `result.details`.
  */
-export function parse(lines: string | ReadonlyArray<string>): Result;
+export function parse(lines: string | readonly string[]): Result;
 
 export namespace parse {
-    function FRENCH_NATIONAL_ID(lines: string | ReadonlyArray<string>): Result;
-    function SWISS_DRIVING_LICENSE(lines: string | ReadonlyArray<string>): Result;
-    function TD1(lines: string | ReadonlyArray<string>): Result;
-    function TD2(lines: string | ReadonlyArray<string>): Result;
-    function TD3(lines: string | ReadonlyArray<string>): Result;
+    function FRENCH_NATIONAL_ID(lines: string | readonly string[]): Result;
+    function SWISS_DRIVING_LICENSE(lines: string | readonly string[]): Result;
+    function TD1(lines: string | readonly string[]): Result;
+    function TD2(lines: string | readonly string[]): Result;
+    function TD3(lines: string | readonly string[]): Result;
 }
 
 export const formats: {
-    readonly TD1: 'TD1';
-    readonly TD2: 'TD2';
-    readonly TD3: 'TD3';
-    readonly SWISS_DRIVING_LICENSE: 'SWISS_DRIVING_LICENSE';
-    readonly FRENCH_NATIONAL_ID: 'FRENCH_NATIONAL_ID';
+    readonly TD1: "TD1";
+    readonly TD2: "TD2";
+    readonly TD3: "TD3";
+    readonly SWISS_DRIVING_LICENSE: "SWISS_DRIVING_LICENSE";
+    readonly FRENCH_NATIONAL_ID: "FRENCH_NATIONAL_ID";
 };
 
 export const states: {

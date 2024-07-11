@@ -1,3 +1,3 @@
-import atob = require('atob-lite');
+import atob = require("atob-lite");
 
-atob('PDM=');
+atob("PDM=");

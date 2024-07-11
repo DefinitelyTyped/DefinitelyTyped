@@ -1,4 +1,4 @@
-import name = require('random-name');
+import name = require("random-name");
 
 name.first(); // $ExpectType string
 name.last(); // $ExpectType string

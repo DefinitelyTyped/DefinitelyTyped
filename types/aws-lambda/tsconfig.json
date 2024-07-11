@@ -8,10 +8,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -35,6 +31,7 @@
         "test/dynamodb-tests.ts",
         "test/eventbridge-tests.ts",
         "test/iot-tests.ts",
+        "test/iot-authorizer-tests.ts",
         "test/kinesis-tests.ts",
         "test/lex-tests.ts",
         "test/lex-v2-tests.ts",
@@ -43,6 +40,7 @@
         "test/sns-tests.ts",
         "test/sqs-tests.ts",
         "test/msk-tests.ts",
+        "test/self-managed-kafka-tests.ts",
         "test/secretsmanager-tests.ts",
         "test/s3-event-notification-tests.ts",
         "test/amplify-resolver-tests.ts"

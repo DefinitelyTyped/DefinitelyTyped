@@ -1,18 +1,18 @@
-import Ember from 'ember';
-import DS from 'ember-data';
-import Controller from '@ember/controller';
+import Controller from "@ember/controller";
+import Ember from "ember";
+import DS from "ember-data";
 
 class MyModel extends DS.Model {}
 
-declare module 'ember-data/types/registries/model' {
+declare module "ember-data/types/registries/model" {
     export default interface ModelRegistry {
-        'my-model': MyModel;
+        "my-model": MyModel;
     }
 }
 
 Ember.Route.extend({
     model(): any {
-        return this.store.findAll('my-model');
+        return this.store.findAll("my-model");
     },
 });
 
@@ -20,13 +20,13 @@ Controller.extend({
     actions: {
         create(): any {
             this.queryParams;
-            return this.store.createRecord('my-model');
+            return this.store.createRecord("my-model");
         },
     },
 });
 
 Ember.DataAdapter.extend({
     test() {
-        this.store.findRecord('my-model', 123);
+        this.store.findRecord("my-model", 123);
     },
 });

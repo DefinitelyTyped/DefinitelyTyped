@@ -1,4 +1,4 @@
-import pollUntil from 'until-promise';
+import pollUntil from "until-promise";
 
 pollUntil(
     async () => Promise.resolve(true),

@@ -1,14 +1,8 @@
-// Type definitions for non-npm package w3c-web-serial 1.0
-// Project: https://wicg.github.io/serial
-// Definitions by: Reilly Grant <https://github.com/reillyeon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 /*~ https://wicg.github.io/serial/#dom-paritytype */
-type ParityType = 'none' | 'even' | 'odd';
+type ParityType = "none" | "even" | "odd";
 
 /*~ https://wicg.github.io/serial/#dom-flowcontroltype */
-type FlowControlType = 'none' | 'hardware';
+type FlowControlType = "none" | "hardware";
 
 /*~ https://wicg.github.io/serial/#dom-serialoptions */
 interface SerialOptions {
@@ -56,21 +50,25 @@ declare class SerialPort extends EventTarget {
     forget(): Promise<void>;
 
     addEventListener(
-        type: 'connect' | 'disconnect',
+        type: "connect" | "disconnect",
         listener: (this: this, ev: Event) => any,
-        useCapture?: boolean): void;
+        useCapture?: boolean,
+    ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject | null,
-        options?: boolean | AddEventListenerOptions): void;
+        options?: boolean | AddEventListenerOptions,
+    ): void;
     removeEventListener(
-        type: 'connect' | 'disconnect',
+        type: "connect" | "disconnect",
         callback: (this: this, ev: Event) => any,
-        useCapture?: boolean): void;
+        useCapture?: boolean,
+    ): void;
     removeEventListener(
         type: string,
         callback: EventListenerOrEventListenerObject | null,
-        options?: EventListenerOptions | boolean): void;
+        options?: EventListenerOptions | boolean,
+    ): void;
 }
 
 /*~ https://wicg.github.io/serial/#dom-serialportfilter */
@@ -92,21 +90,25 @@ declare class Serial extends EventTarget {
     getPorts(): Promise<SerialPort[]>;
     requestPort(options?: SerialPortRequestOptions): Promise<SerialPort>;
     addEventListener(
-        type: 'connect' | 'disconnect',
+        type: "connect" | "disconnect",
         listener: (this: this, ev: Event) => any,
-        useCapture?: boolean): void;
+        useCapture?: boolean,
+    ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject | null,
-        options?: boolean | AddEventListenerOptions): void;
+        options?: boolean | AddEventListenerOptions,
+    ): void;
     removeEventListener(
-        type: 'connect' | 'disconnect',
+        type: "connect" | "disconnect",
         callback: (this: this, ev: Event) => any,
-        useCapture?: boolean): void;
+        useCapture?: boolean,
+    ): void;
     removeEventListener(
         type: string,
         callback: EventListenerOrEventListenerObject | null,
-        options?: EventListenerOptions | boolean): void;
+        options?: EventListenerOptions | boolean,
+    ): void;
 }
 
 /*~ https://wicg.github.io/serial/#extensions-to-the-navigator-interface */

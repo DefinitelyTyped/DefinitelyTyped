@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/functional-red-black-tree",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mikolalysenko/functional-red-black-tree"
+    ],
+    "devDependencies": {
+        "@types/functional-red-black-tree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Campbell Wass",
+            "githubUsername": "CamWass"
+        }
+    ]
+}

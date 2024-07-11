@@ -1,9 +1,3 @@
-// Type definitions for secure-json-parse 1.0
-// Project: https://github.com/fastify/secure-json-parse#readme
-// Definitions by: Sjoerd Diepen <https://github.com/OSjoerdWie>
-//                 Mike MacCana <https://github.com/mikemaccana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Reviver = (this: any, key: string, value: any) => any;
 
 export interface ParseOptions {

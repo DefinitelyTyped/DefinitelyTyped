@@ -5,7 +5,7 @@ interface TestType {
 
 const testVar: TestType = {
     a: 1,
-    b: "s"
+    b: "s",
 };
 
 const t: TestType = clone(testVar);
@@ -58,7 +58,7 @@ n = turns();
 // @ts-expect-error
 tmpVar = variables().varName;
 // @ts-expect-error
-tmpVar = variables()['varName'];
+tmpVar = variables()["varName"];
 
 n = visited("passage");
 n = visited("passage1", "passage2");

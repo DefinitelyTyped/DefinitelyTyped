@@ -1,11 +1,16 @@
-import { AnimationClip } from './AnimationClip';
-import { AnimationAction } from './AnimationAction';
-import { AnimationBlendMode } from '../constants';
-import { EventDispatcher } from './../core/EventDispatcher';
-import { Object3D } from '../core/Object3D';
-import { AnimationObjectGroup } from './AnimationObjectGroup';
+import { AnimationBlendMode } from "../constants.js";
+import { EventDispatcher } from "../core/EventDispatcher.js";
+import { Object3D } from "../core/Object3D.js";
+import { AnimationAction } from "./AnimationAction.js";
+import { AnimationClip } from "./AnimationClip.js";
+import { AnimationObjectGroup } from "./AnimationObjectGroup.js";
 
-export class AnimationMixer extends EventDispatcher {
+export interface AnimationMixerEventMap {
+    loop: { action: AnimationAction; loopDelta: number };
+    finished: { action: AnimationAction; direction: number };
+}
+
+export class AnimationMixer extends EventDispatcher<AnimationMixerEventMap> {
     constructor(root: Object3D | AnimationObjectGroup);
 
     /**

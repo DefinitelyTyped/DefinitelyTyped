@@ -1,22 +1,23 @@
+import * as fs from "node:fs";
+import * as stream from "node:stream";
 import {
-    createSecureContext,
-    SecureContext,
-    ConnectionOptions,
     connect,
-    PeerCertificate,
-    EphemeralKeyInfo,
-    getCiphers,
+    ConnectionOptions,
+    createSecureContext,
+    createServer,
+    DEFAULT_CIPHERS,
     DEFAULT_ECDH_CURVE,
     DEFAULT_MAX_VERSION,
     DEFAULT_MIN_VERSION,
-    createServer,
-    TLSSocket,
+    EphemeralKeyInfo,
+    getCiphers,
+    PeerCertificate,
     rootCertificates,
+    SecureContext,
     Server,
     TlsOptions,
-} from 'node:tls';
-import * as fs from 'node:fs';
-import * as stream from 'node:stream';
+    TLSSocket,
+} from "node:tls";
 
 {
     const ctx: SecureContext = createSecureContext({
@@ -29,12 +30,12 @@ import * as stream from 'node:stream';
         host: "127.0.0.1",
         port: 55,
         pskCallback(hint) {
-            if (hint === 'something??') {
+            if (hint === "something??") {
                 return null;
             }
             return {
-                identity: 'henlo',
-                psk: Buffer.from('asd'),
+                identity: "henlo",
+                psk: Buffer.from("asd"),
             };
         },
     };
@@ -62,8 +63,9 @@ import * as stream from 'node:stream';
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;
     const minVersion: string = DEFAULT_MIN_VERSION;
+    const cyphers: string = DEFAULT_CIPHERS;
 
-    const buf: Buffer = tlsSocket.exportKeyingMaterial(123, 'test', Buffer.from('nope'));
+    const buf: Buffer = tlsSocket.exportKeyingMaterial(123, "test", Buffer.from("nope"));
 
     tlsSocket.getPeerX509Certificate(); // $ExpectType X509Certificate | undefined
     tlsSocket.getX509Certificate(); // $ExpectType X509Certificate | undefined
@@ -73,16 +75,16 @@ import * as stream from 'node:stream';
     const _server = createServer({
         enableTrace: true,
         pskCallback(socket, ident) {
-            if (ident === 'something') {
+            if (ident === "something") {
                 return null;
             }
-            return Buffer.from('asdasd');
-        }
+            return Buffer.from("asdasd");
+        },
     });
 
     _server.addContext("example", {
         cert: fs.readFileSync("cert_filepath"),
-        key: fs.readFileSync("key_filepath")
+        key: fs.readFileSync("key_filepath"),
     });
 }
 
@@ -104,8 +106,8 @@ import * as stream from 'node:stream';
 {
     let _server = createServer({});
     let _boolean: boolean;
-    const _func1 = () => { };
-    const _func2 = (err: Error | null, sessionData: Buffer | null) => { };
+    const _func1 = () => {};
+    const _func2 = (err: Error | null, sessionData: Buffer | null) => {};
     /**
      * events.EventEmitter
      * 1. tlsClientError
@@ -139,9 +141,9 @@ import * as stream from 'node:stream';
 
     const _err: Error = new Error();
     const _tlsSocket: TLSSocket = connect(1);
-    const _any: Buffer = Buffer.from('asd');
+    const _any: Buffer = Buffer.from("asd");
     const _func: Function = () => {};
-    const _buffer: Buffer = Buffer.from('a');
+    const _buffer: Buffer = Buffer.from("a");
     _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
     _boolean = _server.emit("newSession", _any, _any, _func1);
     _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
@@ -246,13 +248,12 @@ import * as stream from 'node:stream';
 
     // close callback parameter doesn't specify any arguments, so any
     // function is acceptable
-    _server = _server.close(() => { });
-    _server = _server.close((...args: any[]) => { });
+    _server = _server.close(() => {});
+    _server = _server.close((...args: any[]) => {});
 }
 
 {
-    let socket = connect({
-    });
+    let socket = connect({});
     let _boolean: boolean;
     /**
      * events.EventEmitter
@@ -265,7 +266,7 @@ import * as stream from 'node:stream';
     socket = socket.addListener("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
-    socket = socket.addListener("secureConnect", () => { });
+    socket = socket.addListener("secureConnect", () => {});
 
     const _buffer: Buffer = Buffer.from("");
     _boolean = socket.emit("OCSPResponse", _buffer);
@@ -274,24 +275,24 @@ import * as stream from 'node:stream';
     socket = socket.on("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
-    socket = socket.on("secureConnect", () => { });
+    socket = socket.on("secureConnect", () => {});
 
     socket = socket.once("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
-    socket = socket.once("secureConnect", () => { });
+    socket = socket.once("secureConnect", () => {});
 
     socket = socket.prependListener("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
-    socket = socket.prependListener("secureConnect", () => { });
+    socket = socket.prependListener("secureConnect", () => {});
 
     socket = socket.prependOnceListener("OCSPResponse", (response) => {
         const _response: Buffer = response;
     });
-    socket = socket.prependOnceListener("secureConnect", () => { });
+    socket = socket.prependOnceListener("secureConnect", () => {});
 
-    socket.once('session', (buff: Buffer) => {});
+    socket.once("session", (buff: Buffer) => {});
 }
 
 {
@@ -303,7 +304,7 @@ import * as stream from 'node:stream';
 }
 
 {
-    const r00ts: ReadonlyArray<string> = rootCertificates;
+    const r00ts: readonly string[] = rootCertificates;
 }
 
 {
@@ -313,13 +314,13 @@ import * as stream from 'node:stream';
 
 {
     const ctx: SecureContext = createSecureContext({
-        key: 'NOT REALLY A KEY',
-        cert: 'SOME CERTIFICATE',
+        key: "NOT REALLY A KEY",
+        cert: "SOME CERTIFICATE",
     });
     const _options: TlsOptions = {
         SNICallback: (servername: string, cb: (err: Error | null, ctx?: SecureContext) => void): void => {
-            cb(new Error('Not found'));
-            cb(new Error('Not found'), undefined);
+            cb(new Error("Not found"));
+            cb(new Error("Not found"), undefined);
             cb(null, undefined);
             cb(null, ctx);
         },

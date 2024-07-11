@@ -1,7 +1,7 @@
-import { ScoreFn } from '.';
+import { ScoreFn } from "./index.js";
 
 declare const combine: ScoreFn & {
-    prioritized: ScoreFn
+    prioritized: ScoreFn;
 };
 declare const prioritized: ScoreFn;
 

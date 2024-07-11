@@ -1,6 +1,6 @@
-import '../../';
+import "../../";
 
-declare module '../../' {
+declare module "../../" {
     interface MatchBrackets {
         /**
          * Only use the character after the start position, never the one before it.

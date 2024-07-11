@@ -1,11 +1,5 @@
 import { Document } from "./Document";
 /**
- * @ignore
- */
-export declare function PSHistoryState(id: number, docId: number): HistoryState;
-/** @ignore */
-export declare function validateHistoryState(h: HistoryState): void;
-/**
  * Represents a single history state in the History panel.
  * @minVersion 22.5
  */

@@ -10,7 +10,7 @@ import * as Bluebird from "bluebird";
 let obj: object = {};
 let bool = false;
 let num = 0;
-let str = '';
+let str = "";
 let err: Error = new Error();
 let x: any = 0;
 let f: (...args: any[]) => any = () => {};
@@ -35,7 +35,7 @@ interface Bar {
     bar(): string;
 }
 interface Baz {
-      baz(): string;
+    baz(): string;
 }
 interface Qux {
     qux: string;
@@ -63,10 +63,22 @@ interface StrBarArrMap {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-let foo: Foo = { foo() { return 'foo'; } };
-let bar: Bar = { bar() { return 'bar'; } };
-let baz: Baz = { baz() { return 'baz'; } };
-let qux: Qux = { qux: 'quix' };
+let foo: Foo = {
+    foo() {
+        return "foo";
+    },
+};
+let bar: Bar = {
+    bar() {
+        return "bar";
+    },
+};
+let baz: Baz = {
+    baz() {
+        return "baz";
+    },
+};
+let qux: Qux = { qux: "quix" };
 
 let fooArr: Foo[] = [foo];
 let barArr: Bar[];
@@ -290,7 +302,7 @@ fooProm.caught((error: any) => {
 });
 
 // $ExpectType Bluebird<void | Foo>
-fooProm.catch<void | Foo>((reason: any) => { // tslint:disable-line:void-return
+fooProm.catch<void | Foo>((reason: any) => { // eslint-disable-line @typescript-eslint/no-invalid-void-type
     // handle multiple valid return types simultaneously
     if (foo === null) {
         return;
@@ -415,7 +427,7 @@ fooProm.catch(booPredicate1, booPredicate2, booPredicate3, booPredicate4, booPre
 const booObject1 = new CustomError1();
 const booObject2 = [400, 500];
 const booObject3 = ["Error1", "Error2"];
-const booObject4 = {code: 400};
+const booObject4 = { code: 400 };
 const booObject5: any = null;
 
 // $ExpectType Bluebird<void | Foo>
@@ -537,12 +549,12 @@ fooProm = fooProm.timeout(num, str);
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 fooProm.nodeify();
-fooProm = fooProm.nodeify((err: any) => { });
-fooProm = fooProm.nodeify((err: any, foo?: Foo) => { });
+fooProm = fooProm.nodeify((err: any) => {});
+fooProm = fooProm.nodeify((err: any, foo?: Foo) => {});
 
 fooProm.nodeify({ spread: true });
-fooProm = fooProm.nodeify((err: any) => { }, { spread: true });
-fooProm = fooProm.nodeify((err: any, foo?: Foo) => { }, { spread: true });
+fooProm = fooProm.nodeify((err: any) => {}, { spread: true });
+fooProm = fooProm.nodeify((err: any, foo?: Foo) => {}, { spread: true });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -640,22 +652,36 @@ fooProm.race();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-let propsValue: { num: number, str: string };
-Bluebird.resolve({ num: 1, str: Bluebird.resolve('a') }).props().then(val => { propsValue = val; });
-Bluebird.props({ num: 1, str: Bluebird.resolve('a') }).then(val => { propsValue = val; });
-Bluebird.props(Bluebird.props({ num: 1, str: Bluebird.resolve('a') })).then(val => { propsValue = val; });
+let propsValue: { num: number; str: string };
+Bluebird.resolve({ num: 1, str: Bluebird.resolve("a") }).props().then(val => {
+    propsValue = val;
+});
+Bluebird.props({ num: 1, str: Bluebird.resolve("a") }).then(val => {
+    propsValue = val;
+});
+Bluebird.props(Bluebird.props({ num: 1, str: Bluebird.resolve("a") })).then(val => {
+    propsValue = val;
+});
 
 let propsMapValue: Map<number, string>;
-Bluebird.resolve(new Map<number, string>()).props().then(val => { propsMapValue = val; });
-Bluebird.resolve(new Map<number, PromiseLike<string>>()).props().then(val => { propsMapValue = val; });
-Bluebird.props(new Map<number, string>()).then(val => { propsMapValue = val; });
-Bluebird.props(new Map<number, PromiseLike<string>>()).then(val => { propsMapValue = val; });
+Bluebird.resolve(new Map<number, string>()).props().then(val => {
+    propsMapValue = val;
+});
+Bluebird.resolve(new Map<number, PromiseLike<string>>()).props().then(val => {
+    propsMapValue = val;
+});
+Bluebird.props(new Map<number, string>()).then(val => {
+    propsMapValue = val;
+});
+Bluebird.props(new Map<number, PromiseLike<string>>()).then(val => {
+    propsMapValue = val;
+});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 Bluebird.all([fooProm, barProm]).then(result => {
-      foo = result[0];
-      bar = result[1];
+    foo = result[0];
+    bar = result[1];
 });
 
 Bluebird.all([fooProm, fooProm]).then(result => {
@@ -711,12 +737,12 @@ barArrProm = fooArrProm.map((item: Foo) => {
 barArrProm = fooArrProm.map((item: Foo, index: number, arrayLength: number) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = fooArrProm.map((item: Foo) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -749,12 +775,12 @@ fooArrProm = fooArrProm.filter((item: Foo) => {
 fooArrProm = fooArrProm.filter((item: Foo, index: number, arrayLength: number) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = fooArrProm.filter((item: Foo) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -775,7 +801,7 @@ fooProm = Bluebird.Promise.try<Foo>(() => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-function getMaybePromise(): Foo|Bluebird<Foo> {
+function getMaybePromise(): Foo | Bluebird<Foo> {
     return foo;
 }
 
@@ -887,28 +913,28 @@ const emtpyFn = () => {};
 
 const promiseModule = Bluebird.promisifyAll({
     movedMethod: (someArg: string, callback: (error: Error, data: number) => void) => {},
-    ignoredMethod: (someArg: string) => {}
+    ignoredMethod: (someArg: string) => {},
 });
 const normalMethod = promiseModule.movedMethod;
-normalMethod('foo', (err, data) => {
+normalMethod("foo", (err, data) => {
     const stack = err.stack;
     const value = data * 25;
 });
 
 // We want to test the return type of the standard methods, so we disable the no void rule for these lines
 // tslint:disable-next-line:no-void-expression
-const normalMethodValue = normalMethod('foo', emtpyFn);
+const normalMethodValue = normalMethod("foo", emtpyFn);
 // @ts-expect-error
 normalMethodValue.then();
 
 const asyncMethod = promiseModule.movedMethodAsync;
-asyncMethod('foo').then(data => {
+asyncMethod("foo").then(data => {
     const value = data * 25;
 });
 
 const ignoredMethod = promiseModule.ignoredMethod;
 // tslint:disable-next-line:no-void-expression
-const ignoredMethodValue = ignoredMethod('foo');
+const ignoredMethodValue = ignoredMethod("foo");
 
 // @ts-expect-error
 ignoredMethodValue.then();
@@ -918,22 +944,22 @@ const ignoredMethodAsync = promiseModule.ignoredMethodAsync;
 
 anyProm = Bluebird.fromNode(nodeCallbackFunc);
 anyProm = Bluebird.fromNode(nodeCallbackFuncErrorOnly);
-anyProm = Bluebird.fromNode(nodeCallbackFunc, {multiArgs : true});
-anyProm = Bluebird.fromNode(nodeCallbackFuncErrorOnly, {multiArgs : true});
+anyProm = Bluebird.fromNode(nodeCallbackFunc, { multiArgs: true });
+anyProm = Bluebird.fromNode(nodeCallbackFuncErrorOnly, { multiArgs: true });
 
 anyProm = Bluebird.fromCallback(nodeCallbackFunc);
 anyProm = Bluebird.fromCallback(nodeCallbackFuncErrorOnly);
-anyProm = Bluebird.fromCallback(nodeCallbackFunc, {multiArgs : true});
-anyProm = Bluebird.fromCallback(nodeCallbackFuncErrorOnly, {multiArgs : true});
+anyProm = Bluebird.fromCallback(nodeCallbackFunc, { multiArgs: true });
+anyProm = Bluebird.fromCallback(nodeCallbackFuncErrorOnly, { multiArgs: true });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 declare let util: any;
 
 function defaultFilter(name: string, func: (...args: any[]) => any) {
-    return util.isIdentifier(name) &&
-        name.charAt(0) !== "_" &&
-        !util.isClass(func);
+    return util.isIdentifier(name)
+        && name.charAt(0) !== "_"
+        && !util.isClass(func);
 }
 
 function DOMPromisifier(originalMethod: (...args: any[]) => any) {
@@ -950,12 +976,14 @@ function DOMPromisifier(originalMethod: (...args: any[]) => any) {
 obj = Bluebird.promisifyAll(obj, {
     suffix: "",
     filter: defaultFilter,
-    promisifier: DOMPromisifier
+    promisifier: DOMPromisifier,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-const generator1 = function*(a: number, b: string) { return "string"; };
+const generator1 = function*(a: number, b: string) {
+    return "string";
+};
 const coroutine1 = Bluebird.coroutine<string, number, string>(generator1);
 strProm = coroutine1(5, "foo");
 
@@ -1042,22 +1070,22 @@ barArrProm = Bluebird.map(fooThenArrThen, (item: Foo, index: number, arrayLength
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo) => {
     return barThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
     return barThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -1079,22 +1107,22 @@ barArrProm = Bluebird.map(fooArrThen, (item: Foo, index: number, arrayLength: nu
 barArrProm = Bluebird.map(fooArrThen, (item: Foo) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo) => {
     return barThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
     return barThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1117,22 +1145,22 @@ barArrProm = Bluebird.map(fooThenArr, (item: Foo, index: number, arrayLength: nu
 barArrProm = Bluebird.map(fooThenArr, (item: Foo) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo) => {
     return barThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
     return barThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1155,22 +1183,22 @@ barArrProm = Bluebird.map(fooArr, (item: Foo, index: number, arrayLength: number
 barArrProm = Bluebird.map(fooArr, (item: Foo) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo) => {
     return barThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo, index: number, arrayLength: number) => {
     return bar;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 barArrProm = Bluebird.map(fooArr, (item: Foo, index: number, arrayLength: number) => {
     return barThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1341,22 +1369,22 @@ fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo, index: number, arrayLen
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo) => {
     return boolThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooThenArrThen, (item: Foo, index: number, arrayLength: number) => {
     return boolThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1379,22 +1407,22 @@ fooArrProm = Bluebird.filter(fooArrThen, (item: Foo, index: number, arrayLength:
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo) => {
     return boolThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooArrThen, (item: Foo, index: number, arrayLength: number) => {
     return boolThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1417,22 +1445,22 @@ fooArrProm = Bluebird.filter(fooThenArr, (item: Foo, index: number, arrayLength:
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo) => {
     return boolThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooThenArr, (item: Foo, index: number, arrayLength: number) => {
     return boolThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -1455,22 +1483,22 @@ fooArrProm = Bluebird.filter(fooArr, (item: Foo, index: number, arrayLength: num
 fooArrProm = Bluebird.filter(fooArr, (item: Foo) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo) => {
     return boolThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo, index: number, arrayLength: number) => {
     return bool;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 fooArrProm = Bluebird.filter(fooArr, (item: Foo, index: number, arrayLength: number) => {
     return boolThen;
 }, {
-    concurrency: 1
+    concurrency: 1,
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

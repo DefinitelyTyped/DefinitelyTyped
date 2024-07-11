@@ -36,15 +36,33 @@ flatMapImpl(["foo"], (_, __, input) => input); // $ExpectType string[]
 ["foo"].flatMap((_, __, input) => input); // $ExpectType string[]
 
 // the third argument is used as the calling context for the callback
-flatMap(["foo"], function() { return this.foo; }, { foo: [1, 2] }); // $ExpectType number[]
-flatMapImpl(["foo"], function() { return this.foo; }, { foo: [1, 2] }); // $ExpectType number[]
-["foo"].flatMap(function() { return this.foo; }, { foo: [1, 2] }); // $ExpectType number[]
+// $ExpectType number[]
+flatMap(["foo"], function() {
+    return this.foo;
+}, { foo: [1, 2] });
+// $ExpectType number[]
+flatMapImpl(["foo"], function() {
+    return this.foo;
+}, { foo: [1, 2] });
+// $ExpectType number[]
+["foo"].flatMap(function() {
+    return this.foo;
+}, { foo: [1, 2] });
 
 // assumes that value of `this` in callback is `undefined` by default (this is
 // accurate in strict mode)
-flatMap([1], function() { return [this]; }); // $ExpectType undefined[]
-flatMapImpl([1], function() { return [this]; }); // $ExpectType undefined[]
-[1].flatMap(function() { return [this]; }); // $ExpectType undefined[]
+// $ExpectType undefined[]
+flatMap([1], function() {
+    return [this];
+});
+// $ExpectType undefined[]
+flatMapImpl([1], function() {
+    return [this];
+});
+// $ExpectType undefined[]
+[1].flatMap(function() {
+    return [this];
+});
 
 // `getPolyfill` returns a flatMap implementation
 getPolyfill()(["foo"], word => word.split("")); // $ExpectType string[]
@@ -53,10 +71,10 @@ getPolyfill()(["foo"], word => word.split("")); // $ExpectType string[]
 shim()(["foo"], word => word.split("")); // $ExpectType string[]
 
 // `ReadonlyArray` is supported
-(["foo"] as ReadonlyArray<string>).flatMap(word => word.split("")); // $ExpectType string[]
+(["foo"] as readonly string[]).flatMap(word => word.split("")); // $ExpectType string[]
 
 // Readonly result from callback is supported
-flatMap([[1], [2]], a => a as ReadonlyArray<number>); // $ExpectType number[]
-flatMap([[1], [2]] as ReadonlyArray<ReadonlyArray<number>>, a => a); // $ExpectType number[]
-([[1], [2]]).flatMap(a => a as ReadonlyArray<number>); // $ExpectType number[]
-([[1], [2]] as ReadonlyArray<ReadonlyArray<number>>).flatMap(a => a); // $ExpectType number[]
+flatMap([[1], [2]], a => a as readonly number[]); // $ExpectType number[]
+flatMap([[1], [2]] as ReadonlyArray<readonly number[]>, a => a); // $ExpectType number[]
+[[1], [2]].flatMap(a => a as readonly number[]); // $ExpectType number[]
+([[1], [2]] as ReadonlyArray<readonly number[]>).flatMap(a => a); // $ExpectType number[]

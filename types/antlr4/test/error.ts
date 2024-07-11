@@ -1,39 +1,39 @@
-import ATN from 'antlr4/atn/ATN';
-import ATNConfigSet from 'antlr4/atn/ATNConfigSet';
-import CommonTokenStream from 'antlr4/CommonTokenStream';
-import ParserRuleContext from 'antlr4/context/ParserRuleContext';
-import DFA from 'antlr4/dfa/DFA';
-import BailErrorStrategy from 'antlr4/error/BailErrorStrategy';
-import ConsoleErrorListener from 'antlr4/error/ConsoleErrorListener';
-import DefaultErrorStrategy from 'antlr4/error/DefaultErrorStrategy';
-import DiagnosticErrorListener from 'antlr4/error/DiagnosticErrorListener';
-import ErrorListener from 'antlr4/error/ErrorListener';
-import ErrorStrategy from 'antlr4/error/ErrorStrategy';
-import FailedPredicateException from 'antlr4/error/FailedPredicateException';
-import InputMismatchException from 'antlr4/error/InputMismatchException';
-import LexerNoViableAltException from 'antlr4/error/LexerNoViableAltException';
-import NoViableAltException from 'antlr4/error/NoViableAltException';
-import ParseCancellationException from 'antlr4/error/ParseCancellationException';
-import ProxyErrorListener from 'antlr4/error/ProxyErrorListener';
-import RecognitionException from 'antlr4/error/RecognitionException';
-import InputStream from 'antlr4/InputStream';
-import Lexer from 'antlr4/Lexer';
-import BitSet from 'antlr4/misc/BitSet';
-import IntervalSet from 'antlr4/misc/IntervalSet';
-import Parser from 'antlr4/Parser';
-import Token from 'antlr4/Token';
+import ATN from "antlr4/atn/ATN";
+import ATNConfigSet from "antlr4/atn/ATNConfigSet";
+import CommonTokenStream from "antlr4/CommonTokenStream";
+import ParserRuleContext from "antlr4/context/ParserRuleContext";
+import DFA from "antlr4/dfa/DFA";
+import BailErrorStrategy from "antlr4/error/BailErrorStrategy";
+import ConsoleErrorListener from "antlr4/error/ConsoleErrorListener";
+import DefaultErrorStrategy from "antlr4/error/DefaultErrorStrategy";
+import DiagnosticErrorListener from "antlr4/error/DiagnosticErrorListener";
+import ErrorListener from "antlr4/error/ErrorListener";
+import ErrorStrategy from "antlr4/error/ErrorStrategy";
+import FailedPredicateException from "antlr4/error/FailedPredicateException";
+import InputMismatchException from "antlr4/error/InputMismatchException";
+import LexerNoViableAltException from "antlr4/error/LexerNoViableAltException";
+import NoViableAltException from "antlr4/error/NoViableAltException";
+import ParseCancellationException from "antlr4/error/ParseCancellationException";
+import ProxyErrorListener from "antlr4/error/ProxyErrorListener";
+import RecognitionException from "antlr4/error/RecognitionException";
+import InputStream from "antlr4/InputStream";
+import Lexer from "antlr4/Lexer";
+import BitSet from "antlr4/misc/BitSet";
+import IntervalSet from "antlr4/misc/IntervalSet";
+import Parser from "antlr4/Parser";
+import Token from "antlr4/Token";
 
 const atnInstance = new ATN(0, 0);
 const atnConfigSetInstance = new ATNConfigSet(false);
 const bitsetInstance = new BitSet();
 const dfaInstance = new DFA(atnInstance, 0);
-const inputStreamInstance = new InputStream('');
+const inputStreamInstance = new InputStream("");
 const intervalSetInstance = new IntervalSet();
 const lexerInstance = new Lexer(inputStreamInstance);
 const parserInstance = new Parser(new CommonTokenStream(lexerInstance));
 const parserRuleContextInstance = new ParserRuleContext();
 const recognitionException = new RecognitionException({
-    message: '',
+    message: "",
     recognizer: parserInstance,
     input: inputStreamInstance,
     ctx: parserRuleContextInstance,
@@ -56,7 +56,7 @@ diagnosticErrorListener.getConflictingAlts(bitsetInstance, atnConfigSetInstance)
 
 // ErrorListener
 const errorListenerInstance = new ErrorListener();
-errorListenerInstance.syntaxError(parserInstance, tokenInstance, 0, 0, '', recognitionException); // $ExpectType void
+errorListenerInstance.syntaxError(parserInstance, tokenInstance, 0, 0, "", recognitionException); // $ExpectType void
 errorListenerInstance.reportAmbiguity(parserInstance, dfaInstance, 0, 0, false, bitsetInstance, atnConfigSetInstance); // $ExpectType void
 // $ExpectType void
 errorListenerInstance.reportAttemptingFullContext(
@@ -79,14 +79,14 @@ errorStrategy.inErrorRecoveryMode(parserInstance); // $ExpectType void
 errorStrategy.reportError(parserInstance, recognitionException); // $ExpectType void
 
 // FailedPredicateException
-const failedPredicateException = new FailedPredicateException(parserInstance, '', '');
+const failedPredicateException = new FailedPredicateException(parserInstance, "", "");
 failedPredicateException.ruleIndex; // $ExpectType number
 failedPredicateException.predicateIndex; // $ExpectType number
 failedPredicateException.predicate; // $ExpectType string
 
 // InputMismatchException
 const inputMismatchExceptionInstance = new InputMismatchException({
-    message: '',
+    message: "",
     recognizer: parserInstance,
     input: inputStreamInstance,
     ctx: parserRuleContextInstance,
@@ -175,6 +175,6 @@ defaultErrorStrategyInstance.singleTokenDeletion(parserInstance); // $ExpectType
 defaultErrorStrategyInstance.getMissingSymbol(parserInstance); // $ExpectType Token
 defaultErrorStrategyInstance.getExpectedTokens(parserInstance); // $ExpectType Token[]
 defaultErrorStrategyInstance.getTokenErrorDisplay(tokenInstance); // $ExpectType string
-defaultErrorStrategyInstance.escapeWSAndQuote(''); // $ExpectType string
+defaultErrorStrategyInstance.escapeWSAndQuote(""); // $ExpectType string
 defaultErrorStrategyInstance.getErrorRecoverySet(parserInstance); // $ExpectType IntervalSet
 defaultErrorStrategyInstance.consumeUntil(parserInstance, intervalSetInstance); // $ExpectType void

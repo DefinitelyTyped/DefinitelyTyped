@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/rdf-dataset-ext",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rdf-ext/rdf-dataset-ext"
+    ],
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@types/readable-stream": "*",
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/rdf-dataset-ext": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wilkinson",
+            "githubUsername": "thewilkybarkid"
+        }
+    ]
+}

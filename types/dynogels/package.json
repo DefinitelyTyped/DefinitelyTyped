@@ -1,6 +1,30 @@
 {
     "private": true,
+    "name": "@types/dynogels",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/clarkie/dynogels#readme"
+    ],
     "dependencies": {
+        "@types/aws-sdk2-types": "*",
+        "@types/node": "*",
         "joi": "^17.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/dynogels": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Spartan Labs",
+            "githubUsername": "SpartanLabs"
+        },
+        {
+            "name": "Ramon de Klein",
+            "githubUsername": "ramondeklein"
+        },
+        {
+            "name": "Stephen Tuso",
+            "githubUsername": "stephentuso"
+        }
+    ]
 }

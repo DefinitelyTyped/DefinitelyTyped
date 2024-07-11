@@ -1,6 +1,7 @@
-export default class NodeVar {
-    isNodeVar: true;
+declare class NodeVar {
+    readonly isNodeVar: true;
     name: string;
-    type: string;
-    constructor(name: string, type: string);
+    type: string | null;
+    constructor(name: string, type: string | null);
 }
+export default NodeVar;

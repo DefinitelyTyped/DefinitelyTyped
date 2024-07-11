@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/dirty-chai",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/prodatakey/dirty-chai"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/chai-as-promised": "*"
+    },
+    "devDependencies": {
+        "@types/dirty-chai": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
+}

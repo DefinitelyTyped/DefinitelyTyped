@@ -1,12 +1,12 @@
-import Commerce = require('@chec/commerce.js');
-import { Live } from '../types/live';
-import { Price } from '../types/price';
-import { DiscountType } from '../types/discount';
-import { CheckoutToken } from '../types/checkout-token';
-import { CheckoutCapture } from '../types/checkout-capture';
-import { CheckoutCaptureResponse } from '../types/checkout-capture-response';
+import Commerce = require("../");
+import { CheckoutCapture } from "../types/checkout-capture";
+import { CheckoutCaptureResponse } from "../types/checkout-capture-response";
+import { CheckoutToken } from "../types/checkout-token";
+import { DiscountType } from "../types/discount";
+import { Live } from "../types/live";
+import { Price } from "../types/price";
 
-export type IdentifierType = 'product_id' | 'cart' | 'permalink';
+export type IdentifierType = "product_id" | "cart" | "permalink";
 
 export interface CheckPayWhatYouWantResponse {
     valid: boolean;

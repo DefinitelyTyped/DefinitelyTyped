@@ -1,10 +1,5 @@
-// Type definitions for react-signature-canvas 1.0
-// Project: https://github.com/agilgur5/react-signature-canvas
-// Definitions by: Kamil Socha <https://github.com/ksocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
-import SignaturePad = require('signature_pad');
+import * as React from "react";
+import SignaturePad = require("signature_pad");
 
 export interface ReactSignatureCanvasProps extends SignaturePad.SignaturePadOptions {
     canvasProps?: React.CanvasHTMLAttributes<HTMLCanvasElement> | undefined;
@@ -12,21 +7,21 @@ export interface ReactSignatureCanvasProps extends SignaturePad.SignaturePadOpti
 }
 
 declare class ReactSignatureCanvas extends React.Component<ReactSignatureCanvasProps> {
-    on: SignaturePad['on'];
+    on: SignaturePad["on"];
 
-    off: SignaturePad['off'];
+    off: SignaturePad["off"];
 
-    clear: SignaturePad['clear'];
+    clear: SignaturePad["clear"];
 
-    isEmpty: SignaturePad['isEmpty'];
+    isEmpty: SignaturePad["isEmpty"];
 
-    fromDataURL: SignaturePad['fromDataURL'];
+    fromDataURL: SignaturePad["fromDataURL"];
 
-    toDataURL: SignaturePad['toDataURL'];
+    toDataURL: SignaturePad["toDataURL"];
 
-    fromData: SignaturePad['fromData'];
+    fromData: SignaturePad["fromData"];
 
-    toData: SignaturePad['toData'];
+    toData: SignaturePad["toData"];
 
     getCanvas(): HTMLCanvasElement;
 

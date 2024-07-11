@@ -22,7 +22,7 @@ export interface LexEvent {
         name: string;
         slots: LexEventSlots;
         slotDetails: LexSlotDetails;
-        confirmationStatus: 'None' | 'Confirmed' | 'Denied';
+        confirmationStatus: "None" | "Confirmed" | "Denied";
     };
     bot: {
         name: string;
@@ -31,9 +31,9 @@ export interface LexEvent {
     };
     userId: string;
     inputTranscript: string;
-    invocationSource: 'DialogCodeHook' | 'FulfillmentCodeHook';
-    outputDialogMode: 'Text' | 'Voice';
-    messageVersion: '1.0';
+    invocationSource: "DialogCodeHook" | "FulfillmentCodeHook";
+    outputDialogMode: "Text" | "Voice";
+    messageVersion: "1.0";
     sessionAttributes: LexEventSessionAttributes;
     requestAttributes: LexEventRequestAttributes | null;
 }
@@ -64,42 +64,46 @@ export interface LexGenericAttachment {
 }
 
 export interface LexDialogActionBase {
-    type: 'Close' | 'ElicitIntent' | 'ElicitSlot' | 'ConfirmIntent';
-    message?: {
-        contentType: 'PlainText' | 'SSML' | 'CustomPayload';
-        content: string;
-    } | undefined;
-    responseCard?: {
-        version: number;
-        contentType: 'application/vnd.amazonaws.card.generic';
-        genericAttachments: LexGenericAttachment[];
-    } | undefined;
+    type: "Close" | "ElicitIntent" | "ElicitSlot" | "ConfirmIntent";
+    message?:
+        | {
+            contentType: "PlainText" | "SSML" | "CustomPayload";
+            content: string;
+        }
+        | undefined;
+    responseCard?:
+        | {
+            version: number;
+            contentType: "application/vnd.amazonaws.card.generic";
+            genericAttachments: LexGenericAttachment[];
+        }
+        | undefined;
 }
 
 export interface LexDialogActionClose extends LexDialogActionBase {
-    type: 'Close';
-    fulfillmentState: 'Fulfilled' | 'Failed';
+    type: "Close";
+    fulfillmentState: "Fulfilled" | "Failed";
 }
 
 export interface LexDialogActionElicitIntent extends LexDialogActionBase {
-    type: 'ElicitIntent';
+    type: "ElicitIntent";
 }
 
 export interface LexDialogActionElicitSlot extends LexDialogActionBase {
-    type: 'ElicitSlot';
+    type: "ElicitSlot";
     intentName: string;
     slots: { [name: string]: string | null };
     slotToElicit: string;
 }
 
 export interface LexDialogActionConfirmIntent extends LexDialogActionBase {
-    type: 'ConfirmIntent';
+    type: "ConfirmIntent";
     intentName: string;
     slots: { [name: string]: string | null };
 }
 
 export interface LexDialogActionDelegate {
-    type: 'Delegate';
+    type: "Delegate";
     slots: { [name: string]: string | null };
 }
 

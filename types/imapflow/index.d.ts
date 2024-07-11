@@ -1,20 +1,13 @@
-// Type definitions for imapflow 1.0
-// Project: https://imapflow.com/
-// Definitions by: Jeffrey Ratton <https://github.com/jeffreyratton98>
-//                 Martin Badin <https://github.com/martin-badin>
-//                 Northern Star <https://github.com/grayson-code>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'stream';
+import { EventEmitter } from "stream";
 
-export type Readable = import('stream').Readable;
+export type Readable = import("stream").Readable;
 
 export class ImapFlow extends EventEmitter {
     constructor(options: ImapFlowOptions);
     authenticated: string | boolean;
-    capabilities: Map<string, (boolean|number)>;
+    capabilities: Map<string, (boolean | number)>;
     emitLogs: boolean;
     enabled: Set<string>;
     id: string;
@@ -37,7 +30,7 @@ export class ImapFlow extends EventEmitter {
     download(
         range: SequenceString,
         part?: string,
-        options?: { uid?: boolean; maxBytes?: number, chunkSize?: number },
+        options?: { uid?: boolean; maxBytes?: number; chunkSize?: number },
     ): Promise<DownloadObject>;
 
     getMailboxLock(path: string, options?: null | { readonly?: boolean }): Promise<MailboxLockObject>;
@@ -50,8 +43,8 @@ export class ImapFlow extends EventEmitter {
      * @see {@link https://imapflow.com/module-imapflow-ImapFlow.html#list}
      */
     list(options?: {
-        statusQuery?: StatusQuery,
-        specialUseHints?: SpecialUseHints,
+        statusQuery?: StatusQuery;
+        specialUseHints?: SpecialUseHints;
     }): Promise<ListResponse[]>;
 
     listTree(): Promise<ListTreeResponse>;
@@ -117,20 +110,26 @@ export class ImapFlow extends EventEmitter {
     status(
         path: string,
         query: {
-            messages: boolean;
-            recent: boolean;
-            uidNext: boolean;
-            uidValidity: boolean;
-            unseen: boolean;
-            highestModseq: boolean;
+            messages?: boolean;
+            recent?: boolean;
+            uidNext?: boolean;
+            uidValidity?: boolean;
+            unseen?: boolean;
+            highestModseq?: boolean;
         },
     ): Promise<StatusObject>;
 
     fetch(
         range: SequenceString | number[] | SearchObject,
         query: FetchQueryObject,
-        options?: { uid?: boolean; changedSince: bigint },
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
     ): AsyncGenerator<FetchMessageObject, never, void>;
+
+    fetchAll(
+        range: SequenceString | number[] | SearchObject,
+        query: FetchQueryObject,
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
+    ): Promise<FetchMessageObject[]>;
 }
 
 export interface ImapFlowOptions {
@@ -150,6 +149,16 @@ export interface ImapFlowOptions {
     logger?: Logger | false;
     emitLogs?: boolean;
     verifyOnly?: boolean;
+    logRaw?: boolean;
+    proxy?: string;
+    qresync?: boolean;
+    maxIdleTime?: number;
+    missingIdleCommand?: string;
+    disableBinary?: boolean;
+    disableAutoEnable?: boolean;
+    connectionTimeout?: number;
+    greetingTimeout?: number;
+    socketTimeout?: number;
 }
 
 export interface AppendResonseObject {
@@ -203,7 +212,7 @@ export interface FetchMessageObject {
     source: Buffer;
     modseq: BigInt;
     emailId: string;
-    threadId: string;
+    threadId?: string;
     labels: Set<string>;
     size: number;
     flags: Set<string>;
@@ -222,7 +231,7 @@ export interface FetchQueryObject {
     internalDate?: boolean;
     size?: boolean;
     source?: boolean | object;
-    threadId?: string;
+    threadId?: boolean;
     labels?: boolean;
     headers?: boolean | string[];
     bodyParts?: string[];
@@ -298,10 +307,10 @@ export interface StatusObject {
     path: string;
     messages?: number;
     recent?: number;
-    uid?: number;
+    uidNext?: number;
     uidValidity?: bigint;
     unseen?: number;
-    highestModSeq?: bigint;
+    highestModseq?: bigint;
 }
 
 export interface IdInfoObject {
@@ -309,7 +318,7 @@ export interface IdInfoObject {
     version?: string;
     os?: string;
     vendor?: string;
-    ' support-url '?: string;
+    " support-url "?: string;
     date?: Date;
 }
 

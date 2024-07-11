@@ -6,17 +6,17 @@ import {
     isDestroyed,
     isDestroying,
     registerDestructor,
-    unregisterDestructor
-} from '@ember/destroyable';
+    unregisterDestructor,
+} from "@ember/destroyable";
 
-import { assertType } from './lib/assert';
+import { assertType } from "./lib/assert";
 
 // @ts-expect-error
 enableDestroyableTracking(true);
 // @ts-expect-error
 enableDestroyableTracking({});
 // @ts-expect-error
-enableDestroyableTracking('foo');
+enableDestroyableTracking("foo");
 // @ts-expect-error
 enableDestroyableTracking(1);
 enableDestroyableTracking();
@@ -85,7 +85,7 @@ assertDestroyablesDestroyed(true);
 // @ts-expect-error
 assertDestroyablesDestroyed({});
 // @ts-expect-error
-assertDestroyablesDestroyed('foo');
+assertDestroyablesDestroyed("foo");
 // @ts-expect-error
 assertDestroyablesDestroyed(1);
 assertDestroyablesDestroyed();

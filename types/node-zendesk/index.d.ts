@@ -1,12 +1,6 @@
-// Type definitions for node-zendesk 2.0
-// Project: https://github.com/blakmatrix/node-zendesk
-// Definitions by: jgeth <https://github.com/jgeth>
-//                 dannyhostetler <https://github.com/dannyhostetler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 /// <reference types="node"/>
 
+import stream = require("node:stream");
 import { PathLike } from "fs";
 
 export type ZendeskCallback<TResponse, TResult> = (
@@ -86,18 +80,20 @@ export namespace Attachments {
         show(attachmentId: number): Promise<ShowResponseModel>;
 
         upload(
-            file: PathLike,
+            file: PathLike | Buffer | stream,
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
+                binary?: boolean;
             },
             cb: ZendeskCallback<unknown, UploadResponseModel>,
         ): void;
         upload(
-            file: PathLike,
+            file: PathLike | Buffer | stream,
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
+                binary?: boolean;
             },
         ): Promise<UploadResponseModel>;
     }
@@ -117,7 +113,7 @@ export namespace Attachments {
     }
 
     interface Model extends Attachment {
-        thumbnails?: ReadonlyArray<Attachment> | undefined;
+        thumbnails?: readonly Attachment[] | undefined;
     }
 
     interface ShowResponseModel {
@@ -163,7 +159,7 @@ export namespace JobStatuses {
         readonly progress?: number | undefined;
         readonly status?: Status | undefined;
         readonly message?: string | null | undefined;
-        readonly results?: ReadonlyArray<Result> | undefined;
+        readonly results?: readonly Result[] | undefined;
     }
 
     interface ResponsePayload {
@@ -213,13 +209,23 @@ export namespace Organizations {
         /** Creating Organizations */
         create(organization: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
         create(organization: CreatePayload): Promise<ResponsePayload>;
-        createMany(organizations: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        createMany(
+            organizations: CreateManyPayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): JobStatuses.ResponsePayload;
         createMany(organizations: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Updating Organizations */
-        update(organizationId: ZendeskID, organization: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(
+            organizationId: ZendeskID,
+            organization: UpdatePayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): ResponsePayload;
         update(organizationId: ZendeskID, organization: UpdatePayload): Promise<ResponsePayload>;
-        updateMany(organizations: UpdateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        updateMany(
+            organizations: UpdateManyPayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): JobStatuses.ResponsePayload;
         updateMany(organizations: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Deleting Organizations */
@@ -237,13 +243,13 @@ export namespace Organizations {
         readonly url?: string | undefined;
         external_id?: string | null | undefined;
         name: string;
-        domain_names?: ReadonlyArray<string> | undefined;
+        domain_names?: readonly string[] | undefined;
         details?: string | null | undefined;
         notes?: string | null | undefined;
         group_id?: number | null | undefined;
         shared_tickets?: boolean | undefined;
         shared_comments?: boolean | undefined;
-        tags?: ReadonlyArray<string> | undefined;
+        tags?: readonly string[] | undefined;
         organization_fields?: object | null | undefined;
     }
 
@@ -264,7 +270,7 @@ export namespace Organizations {
     }
 
     interface ListPayload extends PaginablePayload {
-        readonly organizations: ReadonlyArray<ResponseModel>;
+        readonly organizations: readonly ResponseModel[];
     }
 
     interface CreatePayload {
@@ -272,7 +278,7 @@ export namespace Organizations {
     }
 
     interface CreateManyPayload {
-        readonly organizations: ReadonlyArray<CreateModel>;
+        readonly organizations: readonly CreateModel[];
     }
 
     interface UpdatePayload {
@@ -280,7 +286,7 @@ export namespace Organizations {
     }
 
     interface UpdateManyPayload {
-        readonly organizations: ReadonlyArray<UpdateManyModel>;
+        readonly organizations: readonly UpdateManyModel[];
     }
 }
 
@@ -410,7 +416,7 @@ export namespace Requests {
     }
 
     interface ListPayload extends PaginablePayload {
-        readonly requests: ReadonlyArray<ResponseModel>;
+        readonly requests: readonly ResponseModel[];
     }
 
     namespace Comments {
@@ -421,7 +427,7 @@ export namespace Requests {
             html_body?: string | undefined;
             public?: boolean | undefined;
             author_id?: ZendeskID | undefined;
-            uploads?: ReadonlyArray<string> | undefined;
+            uploads?: readonly string[] | undefined;
         }
 
         interface ResponseModel extends TemporalModel {
@@ -433,7 +439,7 @@ export namespace Requests {
             readonly plain_body: string;
             readonly public: boolean;
             readonly author_id: ZendeskID;
-            readonly attachments: ReadonlyArray<Attachments.Model>;
+            readonly attachments: readonly Attachments.Model[];
             readonly via?: Tickets.Via | undefined;
             readonly metadata?: Tickets.Comments.Metadata | undefined;
         }
@@ -450,9 +456,9 @@ export namespace Requests {
         }
 
         interface ListPayload extends PaginablePayload {
-            comments: ReadonlyArray<ResponseModel>;
-            users: ReadonlyArray<CommentsUsers.ResponseModel>;
-            organizations: ReadonlyArray<Tickets.Comments.Organizations.ResponseModel>;
+            comments: readonly ResponseModel[];
+            users: readonly CommentsUsers.ResponseModel[];
+            organizations: readonly Tickets.Comments.Organizations.ResponseModel[];
         }
 
         interface ResponsePayload {
@@ -491,8 +497,8 @@ export namespace Tickets {
         /** Viewing Tickets */
         show(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
         show(ticketId: ZendeskID): Promise<ResponsePayload>;
-        showMany(ticketIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): ListPayload;
-        showMany(ticketIds: ReadonlyArray<ZendeskID>): Promise<ListPayload>;
+        showMany(ticketIds: readonly ZendeskID[], cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        showMany(ticketIds: readonly ZendeskID[]): Promise<ListPayload>;
 
         /** Creating Tickets */
         create(ticket: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
@@ -509,8 +515,8 @@ export namespace Tickets {
         /** Deleting Tickets */
         delete(ticketId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): unknown;
         delete(ticketId: ZendeskID): Promise<unknown>;
-        deleteMany(ticketIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): unknown;
-        deleteMany(ticketIds: ReadonlyArray<ZendeskID>): Promise<unknown>;
+        deleteMany(ticketIds: readonly ZendeskID[], cb: ZendeskCallback<unknown, unknown>): unknown;
+        deleteMany(ticketIds: readonly ZendeskID[]): Promise<unknown>;
 
         /** Merging Tickets */
         merge(
@@ -540,8 +546,8 @@ export namespace Tickets {
         exportAudit(ticketId: ZendeskID): Promise<AuditsListPayload>;
 
         /** Adding Tags */
-        addTags(ticketId: ZendeskID, tags: ReadonlyArray<string>, cb: ZendeskCallback<unknown, unknown>): TagsPayload;
-        addTags(ticketId: ZendeskID, tags: ReadonlyArray<string>): Promise<TagsPayload>;
+        addTags(ticketId: ZendeskID, tags: readonly string[], cb: ZendeskCallback<unknown, unknown>): TagsPayload;
+        addTags(ticketId: ZendeskID, tags: readonly string[]): Promise<TagsPayload>;
     }
 
     /**
@@ -562,18 +568,18 @@ export namespace Tickets {
         assignee_id?: ZendeskID | null | undefined;
         organization_id?: number | null | undefined;
         group_id?: number | null | undefined;
-        collaborator_ids?: ReadonlyArray<number> | null | undefined;
-        collaborators?: ReadonlyArray<any> | null | undefined;
-        follower_ids?: ReadonlyArray<number> | null | undefined;
-        email_cc_ids?: ReadonlyArray<number> | null | undefined;
+        collaborator_ids?: readonly number[] | null | undefined;
+        collaborators?: readonly any[] | null | undefined;
+        follower_ids?: readonly number[] | null | undefined;
+        email_cc_ids?: readonly number[] | null | undefined;
         forum_topic_id?: number | null | undefined;
         problem_id?: number | null | undefined;
         due_at?: string | null | undefined;
-        tags?: ReadonlyArray<string> | null | undefined;
+        tags?: readonly string[] | null | undefined;
         custom_fields?: Field[] | null | undefined;
         fields?: Field[] | null | undefined;
         via_followup_source_id?: number | null | undefined;
-        macro_ids?: ReadonlyArray<number> | null | undefined;
+        macro_ids?: readonly number[] | null | undefined;
         ticket_form_id?: number | null | undefined;
         brand_id?: number | null | undefined;
     }
@@ -589,23 +595,23 @@ export namespace Tickets {
         assignee_email?: string | null | undefined;
         group_id?: number | null | undefined;
         organization_id?: number | null | undefined;
-        collaborator_ids?: ReadonlyArray<number> | null | undefined;
-        additional_collaborators?: ReadonlyArray<any> | null | undefined;
-        followers?: ReadonlyArray<Follower> | null | undefined;
-        email_ccs?: ReadonlyArray<EmailCC> | null | undefined;
+        collaborator_ids?: readonly number[] | null | undefined;
+        additional_collaborators?: readonly any[] | null | undefined;
+        followers?: readonly Follower[] | null | undefined;
+        email_ccs?: readonly EmailCC[] | null | undefined;
         type?: TicketType | null | undefined;
         priority?: Priority | null | undefined;
         status?: Status | null | undefined;
-        tags?: ReadonlyArray<string> | null | undefined;
+        tags?: readonly string[] | null | undefined;
         external_id?: string | null | undefined;
         problem_id?: number | null | undefined;
         due_at?: string | null | undefined;
         custom_fields?: Field[] | null | undefined;
         updated_stamp?: string | null | undefined;
         safe_update?: boolean | undefined;
-        sharing_agreement_ids?: ReadonlyArray<number> | null | undefined;
-        macro_ids?: ReadonlyArray<number> | null | undefined;
-        attribute_value_ids?: ReadonlyArray<number> | null | undefined;
+        sharing_agreement_ids?: readonly number[] | null | undefined;
+        macro_ids?: readonly number[] | null | undefined;
+        attribute_value_ids?: readonly number[] | null | undefined;
     }
 
     /**
@@ -626,20 +632,20 @@ export namespace Tickets {
         readonly assignee_id: ZendeskID | null;
         readonly organization_id: number;
         readonly group_id: number | null;
-        readonly collaborator_ids: ReadonlyArray<number>;
-        readonly follower_ids: ReadonlyArray<number>;
-        readonly email_cc_ids: ReadonlyArray<number>;
+        readonly collaborator_ids: readonly number[];
+        readonly follower_ids: readonly number[];
+        readonly email_cc_ids: readonly number[];
         readonly forum_topic_id: number | null;
         readonly problem_id: number | null;
         readonly has_incidents: boolean;
         readonly due_at: string | null;
-        readonly tags: ReadonlyArray<string>;
+        readonly tags: readonly string[];
         readonly via: Via;
         readonly custom_fields: Field[];
         readonly fields: Field[];
         readonly satisfaction_rating: object | string | null;
-        readonly sharing_agreement_ids: ReadonlyArray<number>;
-        readonly followup_ids: ReadonlyArray<number>;
+        readonly sharing_agreement_ids: readonly number[];
+        readonly followup_ids: readonly number[];
         readonly ticket_form_id?: number | null | undefined; // Enterprise version only
         readonly brand_id?: number | null | undefined; // Enterprise version only
         readonly allow_channelback: boolean;
@@ -655,7 +661,7 @@ export namespace Tickets {
         readonly via: Via | null;
         readonly created_at: string;
         readonly author_id: ZendeskID;
-        readonly events: ReadonlyArray<unknown> | null;
+        readonly events: readonly unknown[] | null;
     }
 
     interface EmailCC {
@@ -699,7 +705,7 @@ export namespace Tickets {
     }
 
     interface CreateManyPayload {
-        readonly tickets: ReadonlyArray<CreateModel>;
+        readonly tickets: readonly CreateModel[];
     }
 
     interface UpdatePayload {
@@ -707,21 +713,21 @@ export namespace Tickets {
     }
 
     interface UpdateManyPayload {
-        readonly tickets: ReadonlyArray<UpdateModel>;
+        readonly tickets: readonly UpdateModel[];
     }
 
     interface MergePayload {
-        readonly ids: ReadonlyArray<ZendeskID>;
+        readonly ids: readonly ZendeskID[];
         readonly target_comment?: string | null | undefined;
         readonly source_comment?: string | null | undefined;
     }
 
     interface AuditsListPayload extends PaginablePayload {
-        readonly audits: ReadonlyArray<Audit>;
+        readonly audits: readonly Audit[];
     }
 
     interface TagsPayload {
-        readonly tags: ReadonlyArray<string>;
+        readonly tags: readonly string[];
     }
 
     interface ResponsePayload {
@@ -730,7 +736,7 @@ export namespace Tickets {
     }
 
     interface ListPayload extends PaginablePayload {
-        readonly tickets: ReadonlyArray<ResponseModel>;
+        readonly tickets: readonly ResponseModel[];
     }
 
     namespace Comments {
@@ -740,12 +746,12 @@ export namespace Tickets {
         }
 
         interface Metadata {
-            flags?: ReadonlyArray<number> | undefined;
+            flags?: readonly number[] | undefined;
             flag_options: unknown;
         }
 
         interface ListPayload extends PaginablePayload {
-            comments: ReadonlyArray<ResponseModel>;
+            comments: readonly ResponseModel[];
         }
 
         namespace CommentsUsers {
@@ -792,7 +798,7 @@ export namespace Tickets {
         }
 
         interface ListPayload {
-            readonly ticket_metrics: ReadonlyArray<ResponseModel>;
+            readonly ticket_metrics: readonly ResponseModel[];
         }
     }
 
@@ -916,7 +922,7 @@ export namespace Groups {
     }
 
     interface ListPayload extends PaginablePayload {
-        readonly groups: ReadonlyArray<ResponseModel>;
+        readonly groups: readonly ResponseModel[];
     }
 }
 
@@ -940,8 +946,8 @@ export namespace Users {
         /** Showing Users */
         show(userId: ZendeskID, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
         show(userId: ZendeskID): Promise<ResponseModel>;
-        showMany(userIds: ReadonlyArray<ZendeskID>, cb: ZendeskCallback<unknown, unknown>): ListPayload;
-        showMany(userIds: ReadonlyArray<ZendeskID>): Promise<ListPayload>;
+        showMany(userIds: readonly ZendeskID[], cb: ZendeskCallback<unknown, unknown>): ListPayload;
+        showMany(userIds: readonly ZendeskID[]): Promise<ListPayload>;
 
         /** Creating Users */
         create(user: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
@@ -1024,7 +1030,7 @@ export namespace Users {
         role?: Role | null | undefined;
         signature?: string | null | undefined;
         suspended?: boolean | null | undefined;
-        tags?: ReadonlyArray<unknown> | null | undefined;
+        tags?: readonly unknown[] | null | undefined;
         ticket_restriction?: TicketRestriction | null | undefined;
         time_zone?: string | null | undefined;
         user_fields?: object | null | undefined;
@@ -1075,7 +1081,7 @@ export namespace Users {
         readonly shared_agent: boolean;
         readonly signature: string | null;
         readonly suspended: boolean;
-        readonly tags?: ReadonlyArray<unknown> | null | undefined;
+        readonly tags?: readonly unknown[] | null | undefined;
         readonly ticket_restriction: TicketRestriction | null;
         readonly time_zone: string | null;
         readonly two_factor_auth_enabled: boolean;
@@ -1087,16 +1093,16 @@ export namespace Users {
 
     type UpdateIdPayload =
         | string
-        | ReadonlyArray<ZendeskID>
-        | { ids: ReadonlyArray<ZendeskID> }
-        | { external_ids: ReadonlyArray<ZendeskID> };
+        | readonly ZendeskID[]
+        | { ids: readonly ZendeskID[] }
+        | { external_ids: readonly ZendeskID[] };
 
     interface CreatePayload {
         user: CreateModel;
     }
 
     interface CreateManyPayload {
-        users: ReadonlyArray<CreateModel>;
+        users: readonly CreateModel[];
     }
 
     interface UpdatePayload {
@@ -1104,7 +1110,7 @@ export namespace Users {
     }
 
     interface UpdateManyPayload {
-        users: ReadonlyArray<UpdateModel>;
+        users: readonly UpdateModel[];
     }
 
     interface ResponsePayload {
@@ -1112,7 +1118,7 @@ export namespace Users {
     }
 
     interface ListPayload extends PaginablePayload {
-        users: ReadonlyArray<ResponseModel>;
+        users: readonly ResponseModel[];
     }
 
     type Role = "admin" | "agent" | "end-user";
@@ -1200,7 +1206,7 @@ export namespace Users {
         }
 
         interface ListPayload extends PaginablePayload {
-            readonly identities: ReadonlyArray<ResponseModel>;
+            readonly identities: readonly ResponseModel[];
         }
 
         interface ResponsePayload {

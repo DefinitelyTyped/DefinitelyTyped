@@ -1,8 +1,3 @@
-// Type definitions for bash-glob 2.0
-// Project: https://github.com/micromatch/bash-glob
-// Definitions by: mrmlnc <https://github.com/mrmlnc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Patterns = string | string[];
 type Callback = (err: Error, files: string[]) => void;
 
@@ -22,8 +17,8 @@ declare namespace bashGlob {
         nullglob?: boolean | undefined;
     }
 
-    function on(event: 'match' | 'files', callback: (files: string, cwd: string) => void): void;
-    function on(event: 'end', callback: (files: string) => void): void;
+    function on(event: "match" | "files", callback: (files: string, cwd: string) => void): void;
+    function on(event: "end", callback: (files: string) => void): void;
 
     function each(patterns: Patterns, callback: Callback): void;
     function each(patterns: Patterns, options: Options, callback: Callback): void;

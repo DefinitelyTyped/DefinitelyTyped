@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.browsingData
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>chrome.browsingData</code> API to remove browsing data from a user's local profile.
  * Permissions: "browsingData"

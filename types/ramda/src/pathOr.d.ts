@@ -1,2 +1,2 @@
-import { pathOr } from '../index';
+import { pathOr } from "../index";
 export default pathOr;

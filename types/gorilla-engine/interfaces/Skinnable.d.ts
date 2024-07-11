@@ -3,7 +3,7 @@ declare namespace GorillaEngine.UI {
         filmstrip: {
             path: string;
             count: number;
-            direction: string;
+            direction?: string;
         };
         animation: LottieAnimation;
     }

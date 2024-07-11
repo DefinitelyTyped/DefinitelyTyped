@@ -88,7 +88,7 @@ database.columnExists('iVfs', 'iKey'); // $ExpectType boolean
 database.userHasScope(456, 'scope'); // $ExpectType boolean
 database.logout(); // $ExpectType void
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return '71.0.253';
 }
-testMajorVersions(69, 70); // $ExpectType boolean
+getVersion(); // $ExpectType string

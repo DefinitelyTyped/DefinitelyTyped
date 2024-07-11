@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/riotjs",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/moot/riotjs"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/riotjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        }
+    ]
+}

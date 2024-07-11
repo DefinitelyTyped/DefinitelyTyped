@@ -1,5 +1,9 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@definitelytyped/dt-header": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "no-duplicate-imports": "off"
     }
 }

@@ -1,6 +1,6 @@
 /* tslint:disable:no-redundant-jsdoc-2 */
 
-import { Gender } from './Gender';
+import { Gender } from "./Gender";
 
 export interface LemmaOptions {
     text: string;

@@ -1,13 +1,7 @@
-// Type definitions for is.js
-// Project: http://arasatasaygin.github.io/is.js/
-// Definitions by: Rodrigo Cabral <https://github.com/cabralRodrigo>, Mitchell Grice <https://github.com/gricey432>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type EnvironmentVersionRange = number | string;
 
 interface IsStatic {
-
-    //#region Type checks
+    // #region Type checks
 
     /**
      * Checks if the given value type is arguments.
@@ -99,9 +93,9 @@ interface IsStatic {
      */
     sameType(value1: any, value2: any): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Presence checks
+    // #region Presence checks
 
     /**
      * Checks if the given value is empty.
@@ -128,9 +122,9 @@ interface IsStatic {
      */
     space(value: any): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region RegExp checks
+    // #region RegExp checks
 
     /**
      * Checks if the given value matches url regexp.
@@ -222,9 +216,9 @@ interface IsStatic {
      */
     ipv6(value: any): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region String checks
+    // #region String checks
 
     /**
      * Checks if the given string contains a substring.
@@ -261,9 +255,9 @@ interface IsStatic {
      */
     palindrome(value: string): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Arithmetic checks
+    // #region Arithmetic checks
 
     /**
      * Checks if the given values are equal.
@@ -325,9 +319,9 @@ interface IsStatic {
      */
     infinite(value: number): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Object checks
+    // #region Object checks
 
     /**
      * Checks if objects' property count is equal to given count.
@@ -349,9 +343,9 @@ interface IsStatic {
      */
     domNode(value: any): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Array checks
+    // #region Array checks
 
     /**
      * Checks if the given item is in array.
@@ -363,49 +357,49 @@ interface IsStatic {
      */
     sorted(value: any[]): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Environment checks
+    // #region Environment checks
 
     /**
      * Checks if current browser is ie
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     ie(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is chrome.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     chrome(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is firefox.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     firefox(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is edge.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     edge(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is opera.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     opera(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is safari.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     safari(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current browser is phantom.
-     * @parm value Optional version range of browser
+     * @param value Optional version range of browser
      */
     phantom(range?: EnvironmentVersionRange): boolean;
 
@@ -416,19 +410,19 @@ interface IsStatic {
 
     /**
      * Checks if current device is iPhone.
-     * @parm value Optional version range of device
+     * @param value Optional version range of device
      */
     iphone(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current device is iPad.
-     * @parm value Optional version range of device
+     * @param value Optional version range of device
      */
     ipad(range?: EnvironmentVersionRange): boolean;
 
     /**
      * Checks if current device is iPod.
-     * @parm value Optional version range of device
+     * @param value Optional version range of device
      */
     ipod(range?: EnvironmentVersionRange): boolean;
 
@@ -507,9 +501,9 @@ interface IsStatic {
      */
     touchDevice(): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Time checks
+    // #region Time checks
 
     /**
      * Checks if the given date object indicate today.
@@ -611,13 +605,11 @@ interface IsStatic {
      */
     dayLightSavingTime(value: Date): boolean;
 
-    //#endregion
-
+    // #endregion
 }
 
 interface IsStaticApi {
-
-    //#region Type checks
+    // #region Type checks
 
     /**
      * Checks if the given value type is arguments.
@@ -789,9 +781,9 @@ interface IsStaticApi {
      */
     defined(value: any[]): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Presence checks
+    // #region Presence checks
 
     /**
      * Checks if the given value is empty.
@@ -843,9 +835,9 @@ interface IsStaticApi {
      */
     space(value: any[]): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region RegExp checks
+    // #region RegExp checks
 
     /**
      * Checks if the given value matches url regexp.
@@ -1027,9 +1019,9 @@ interface IsStaticApi {
      */
     ipv6(value: any[]): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region String checks
+    // #region String checks
 
     /**
      * Checks if the given string is UPPERCASE.
@@ -1071,9 +1063,9 @@ interface IsStaticApi {
      */
     palindrome(value: string[]): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Arithmetic checks
+    // #region Arithmetic checks
 
     /**
      * Checks if the given value is even.
@@ -1155,9 +1147,9 @@ interface IsStaticApi {
      */
     infinite(value: number[]): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Object checks
+    // #region Object checks
 
     /**
      * Checks if the given object is window object.
@@ -1179,9 +1171,9 @@ interface IsStaticApi {
      */
     domNode(value: any[]): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Array checks
+    // #region Array checks
 
     /**
      * Checks if the given array is sorted.
@@ -1193,9 +1185,9 @@ interface IsStaticApi {
      */
     sorted(value: number[][]): boolean;
 
-    //#endregion
+    // #endregion
 
-    //#region Time checks
+    // #region Time checks
 
     /**
      * Checks if the given date object indicate today.
@@ -1277,11 +1269,10 @@ interface IsStaticApi {
      */
     weekday(value: Date[]): boolean;
 
-    //#endregion
+    // #endregion
 }
 
 interface Is extends IsStatic {
-
     not: IsStatic;
     any: IsStaticApi;
     all: IsStaticApi;
@@ -1289,77 +1280,77 @@ interface Is extends IsStatic {
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'url'): boolean;
+    setRegexp(value: RegExp, regexp: "url"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'email'): boolean;
+    setRegexp(value: RegExp, regexp: "email"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'creditCard'): boolean;
+    setRegexp(value: RegExp, regexp: "creditCard"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'alphaNumeric'): boolean;
+    setRegexp(value: RegExp, regexp: "alphaNumeric"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'timeString'): boolean;
+    setRegexp(value: RegExp, regexp: "timeString"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'dateString'): boolean;
+    setRegexp(value: RegExp, regexp: "dateString"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'usZipCode'): boolean;
+    setRegexp(value: RegExp, regexp: "usZipCode"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'caPostalCode'): boolean;
+    setRegexp(value: RegExp, regexp: "caPostalCode"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'nanpPhone'): boolean;
+    setRegexp(value: RegExp, regexp: "nanpPhone"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'eppPhone'): boolean;
+    setRegexp(value: RegExp, regexp: "eppPhone"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'affirmative'): boolean;
+    setRegexp(value: RegExp, regexp: "affirmative"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'hexadecimal'): boolean;
+    setRegexp(value: RegExp, regexp: "hexadecimal"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'hexColor'): boolean;
+    setRegexp(value: RegExp, regexp: "hexColor"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'ip'): boolean;
+    setRegexp(value: RegExp, regexp: "ip"): boolean;
 
     /**
      * Override RegExps if you think they suck.
      */
-    setRegexp(value: RegExp, regexp: 'ipv6'): boolean;
+    setRegexp(value: RegExp, regexp: "ipv6"): boolean;
 
     /**
      * Override RegExps if you think they suck.
@@ -1374,10 +1365,10 @@ interface Is extends IsStatic {
 
 declare var is: Is;
 
-declare module 'is' {
+declare module "is" {
     export = is;
 }
 
-declare module 'is_js' {
+declare module "is_js" {
     export = is;
 }

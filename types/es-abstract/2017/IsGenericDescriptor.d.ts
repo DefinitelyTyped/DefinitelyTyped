@@ -1,2 +1,2 @@
-import IsGenericDescriptor = require('../2016/IsGenericDescriptor');
+import IsGenericDescriptor = require("../2016/IsGenericDescriptor");
 export = IsGenericDescriptor;

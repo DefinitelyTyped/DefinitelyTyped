@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/showdown",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/showdownjs/showdown"
+    ],
+    "devDependencies": {
+        "@types/showdown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hamed Baatour",
+            "githubUsername": "hamedbaatour"
+        },
+        {
+            "name": "cbowdon",
+            "githubUsername": "cbowdon"
+        },
+        {
+            "name": "Pei-Tang Huang",
+            "githubUsername": "tan9"
+        },
+        {
+            "name": "Ariel-Saldana",
+            "githubUsername": "arielsaldana"
+        },
+        {
+            "name": "Yisrael Eliav",
+            "githubUsername": "yisraelx"
+        }
+    ]
+}

@@ -1,9 +1,9 @@
-import gulp = require('gulp');
-import muxml = require('gulp-muxml');
+import gulp = require("gulp");
+import muxml = require("gulp-muxml");
 
-gulp.task('default', () => {
+gulp.task("default", () => {
     return gulp
-        .src('src/*')
+        .src("src/*")
         .pipe(muxml({ strict: true }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest("dist"));
 });

@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/sinonjs__fake-timers",
+    "version": "8.1.9999",
+    "projects": [
+        "https://github.com/sinonjs/fake-timers"
+    ],
+    "devDependencies": {
+        "@types/sinonjs__fake-timers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wim Looman",
+            "githubUsername": "Nemo157"
+        },
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "Yishai Zehavi",
+            "githubUsername": "zyishai"
+        },
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        },
+        {
+            "name": "Jaden Simon",
+            "githubUsername": "JadenSimon"
+        }
+    ]
+}

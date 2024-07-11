@@ -1,8 +1,3 @@
-// Type definitions for gulp-inject 5.0
-// Project: https://github.com/klei/gulp-inject
-// Definitions by: Keita Kagurazaka <https://github.com/k-kagurazaka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 /// <reference types="vinyl" />
 

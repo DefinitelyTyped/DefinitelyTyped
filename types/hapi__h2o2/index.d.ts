@@ -1,17 +1,9 @@
-// Type definitions for @hapi/h2o2 10.0
-// Project: https://github.com/hapijs/h2o2
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-//                 AJP <https://github.com/AJamesPhillips>
-//                 Garth Kidd <https://github.com/garthk>
-//                 Silas Rech <https://github.com/lenovouser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Agent, IncomingMessage } from 'http';
-import { Boom } from '@hapi/boom';
-import Wreck = require('@hapi/wreck');
-import { Plugin, Request, ResponseToolkit, Lifecycle, RouteOptions, ResponseObject } from '@hapi/hapi';
+import { Boom } from "@hapi/boom";
+import { Agent, IncomingMessage } from "http";
+import Wreck = require("@hapi/wreck");
+import { Lifecycle, Plugin, Request, ResponseObject, ResponseToolkit, RouteOptions } from "@hapi/hapi";
 
 declare namespace h2o2 {
     /**
@@ -45,7 +37,7 @@ declare namespace h2o2 {
         /**
          * protocol to use when making the request to the proxied host:
          */
-        protocol?: 'http' | 'https' | undefined;
+        protocol?: "http" | "https" | undefined;
         /**
          * absolute URI used instead of host, port, protocol, path, and query.
          * Cannot be used with host, port, protocol, or mapUri.
@@ -151,21 +143,21 @@ declare namespace h2o2 {
          */
         onResponse?:
             | ((
-                  this: RouteOptions,
-                  err: null | Boom,
-                  res: IncomingMessage,
-                  req: Request,
-                  h: ResponseToolkit,
-                  settings: ProxyHandlerOptions,
-                  ttl: number,
-              ) => Lifecycle.ReturnValue)
+                this: RouteOptions,
+                err: null | Boom,
+                res: IncomingMessage,
+                req: Request,
+                h: ResponseToolkit,
+                settings: ProxyHandlerOptions,
+                ttl: number,
+            ) => Lifecycle.ReturnValue)
             | undefined;
         /**
          * if set to 'upstream', applies the upstream response caching policy to
          * the response using the response.ttl() method (or passed as an
          * argument to the onResponse method if provided).
          */
-        ttl?: 'upstream' | undefined;
+        ttl?: "upstream" | undefined;
         /**
          * a node http(s) agent to be used for connections to upstream server.
          * @see {@link https://nodejs.org/api/http.html#http_class_http_agent}
@@ -201,7 +193,7 @@ declare namespace h2o2 {
     }
 }
 
-declare module '@hapi/hapi' {
+declare module "@hapi/hapi" {
     interface HandlerDecorations {
         /**
          * Proxies the request to an upstream endpoint.

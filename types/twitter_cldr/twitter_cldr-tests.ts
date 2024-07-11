@@ -1,7 +1,7 @@
-import * as twitterCldr from 'twitter_cldr';
+import * as twitterCldr from "twitter_cldr";
 
 // $ExpectType TwitterCldr
-const TwitterCldr = twitterCldr.load('th');
+const TwitterCldr = twitterCldr.load("th");
 
 // $ExpectType string
 TwitterCldr.Settings.locale();
@@ -25,9 +25,9 @@ new TwitterCldr.CurrencyFormatter().format(1);
 new TwitterCldr.PercentFormatter().format(1);
 
 // $ExpectType string
-new TwitterCldr.RBNF().format(1, 'SpelloutRules', 'spellout-numbering');
+new TwitterCldr.RBNF().format(1, "SpelloutRules", "spellout-numbering");
 // @ts-expect-error
-new TwitterCldr.RBNF().format(1, '???', 'spellout-numbering');
+new TwitterCldr.RBNF().format(1, "???", "spellout-numbering");
 
 // $ExpectType PluralRule
 TwitterCldr.PluralRules.rule_for(1);
@@ -37,42 +37,42 @@ TwitterCldr.PluralRules.all();
 // $ExpectType string[]
 TwitterCldr.Currencies.currency_codes();
 // $ExpectType Currency
-TwitterCldr.Currencies.for_code('CNY');
+TwitterCldr.Currencies.for_code("CNY");
 
 // $ExpectType BidiString
-const bidiString = TwitterCldr.Bidi.from_string('abc', { direction: 'RTL' });
+const bidiString = TwitterCldr.Bidi.from_string("abc", { direction: "RTL" });
 // @ts-expect-error
-TwitterCldr.Bidi.from_string('abc', { direction: '???' });
+TwitterCldr.Bidi.from_string("abc", { direction: "???" });
 // $ExpectType BidiString
 bidiString.reorder_visually();
 // $ExpectType string
 bidiString.toString();
 
 // $ExpectType boolean
-TwitterCldr.PostalCodes.is_valid('US', '88888');
+TwitterCldr.PostalCodes.is_valid("US", "88888");
 // $ExpectType RegExp
-TwitterCldr.PostalCodes.regex_for_territory('GB');
+TwitterCldr.PostalCodes.regex_for_territory("GB");
 // $ExpectType string[]
 TwitterCldr.PostalCodes.territories();
 
 // $ExpectType string
-TwitterCldr.PhoneCodes.code_for_territory('EG');
+TwitterCldr.PhoneCodes.code_for_territory("EG");
 // $ExpectType string[]
 TwitterCldr.PhoneCodes.territories();
 
 // $ExpectType string[]
-TwitterCldr.TerritoriesContainment.children('001');
+TwitterCldr.TerritoriesContainment.children("001");
 // $ExpectType string[]
-TwitterCldr.TerritoriesContainment.parents('015');
+TwitterCldr.TerritoriesContainment.parents("015");
 // $ExpectType boolean
-TwitterCldr.TerritoriesContainment.contains('001', '015');
+TwitterCldr.TerritoriesContainment.contains("001", "015");
 
 // $ExpectType UnicodeRegex
-const r = TwitterCldr.UnicodeRegex.compile(String.raw`\p{L}`, 'g');
+const r = TwitterCldr.UnicodeRegex.compile(String.raw`\p{L}`, "g");
 // $ExpectType string[]
-r.match('x');
+r.match("x");
 // $ExpectType RegExp
 r.to_regexp();
 
 // $ExpectType string[]
-new TwitterCldr.BreakIterator('en').each_sentence('One. Two.');
+new TwitterCldr.BreakIterator("en").each_sentence("One. Two.");

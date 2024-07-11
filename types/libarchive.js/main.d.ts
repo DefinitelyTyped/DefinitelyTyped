@@ -1,1 +1,1 @@
-export { Archive } from './src/libarchive';
+export { Archive } from "./src/libarchive";

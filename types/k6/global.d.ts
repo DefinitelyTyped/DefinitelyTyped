@@ -6,7 +6,7 @@
  * others in both contexts. Comments note availability.
  */
 
-import { bytes } from '.';
+import { bytes } from ".";
 
 export {};
 
@@ -17,7 +17,7 @@ declare global {
 
     /**
      * Opens a file, reading all its contents into memory.
-     * https://k6.io/docs/javascript-api/init-context/open-filepath-mode/
+     * https://grafana.com/docs/k6/latest/javascript-api/init-context/open/
      * @param filePath - Path to file.
      * @returns File contents decoded as UTF-8.
      * @example
@@ -35,7 +35,7 @@ declare global {
 
     /**
      * Opens a file, reading all its contents into memory.
-     * https://k6.io/docs/javascript-api/init-context/open-filepath-mode/
+     * https://grafana.com/docs/k6/latest/javascript-api/init-context/open/
      * @param filePath - Path to file.
      * @returns Binary file contents.
      * @example
@@ -49,14 +49,14 @@ declare global {
      *  sleep(3);
      * }
      */
-    function open(filePath: string, mode: 'b'): ArrayBuffer;
+    function open(filePath: string, mode: "b"): ArrayBuffer;
 
     // === Init context and VU logic ===
     // ---------------------------------
 
     /**
      * Environment variables.
-     * https://k6.io/docs/using-k6/environment-variables/
+     * https://grafana.com/docs/k6/latest/using-k6/environment-variables/
      */
     const __ENV: { [name: string]: string };
 
@@ -65,13 +65,13 @@ declare global {
 
     /**
      * Current VU number.
-     * https://k6.io/docs/using-k6/execution-context-variables/
+     * https://grafana.com/docs/k6/latest/using-k6/execution-context-variables/
      */
     const __VU: number;
 
     /**
      * Current iteration number.
-     * https://k6.io/docs/using-k6/execution-context-variables/
+     * https://grafana.com/docs/k6/latest/using-k6/execution-context-variables/
      */
     const __ITER: number;
 }

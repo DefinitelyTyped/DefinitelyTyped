@@ -1,31 +1,121 @@
-import { AnyJson, NodeTypeOption, NodeUpdateTypeOption } from './constants';
-import NodeBuilder from './NodeBuilder';
-import NodeFrame from './NodeFrame';
-
-export default abstract class Node {
-    uuid: string;
-    type: string;
-    isNode: true;
-    nodeType: NodeTypeOption | null;
-    updateType: NodeUpdateTypeOption;
-    id: number;
-
-    constructor(nodeType?: NodeTypeOption | null);
-
-    isGlobal(builder: NodeBuilder): boolean;
-    getChildren(): Node[];
-    getHash(builder: NodeBuilder): string;
-    getUpdateType(builder: NodeBuilder): NodeUpdateTypeOption;
-    getNodeType(builder: NodeBuilder, output?: string | null): NodeTypeOption | null;
-    getReference(builder: NodeBuilder): Node;
-    construct(builder: NodeBuilder): Node | null;
-    analyze(builder: NodeBuilder): void;
-    generate(builder: NodeBuilder, output?: string | null): string;
-    /** This method must be overriden when {@link updateType} !== 'none' */
-    update(frame: NodeFrame): void;
-    build(builder: NodeBuilder, output?: string | null): string;
-    serialize(json: AnyJson): void;
-    deserialize(json: AnyJson): void;
-    toJSON(meta?: string | { textures: {}; images: {}; nodes: {} }): AnyJson;
-    getCacheKey(): string;
+import { EventDispatcher } from "three";
+import { NodeUpdateType } from "./constants.js";
+import NodeBuilder from "./NodeBuilder.js";
+import NodeFrame from "./NodeFrame.js";
+interface NodeJSONMeta {
+    textures: {
+        [key: string]: unknown;
+    };
+    images: {
+        [key: string]: unknown;
+    };
+    nodes: {
+        [key: string]: NodeJSONIntermediateOutputData;
+    };
 }
+interface NodeJSONMetadata {
+    version: number;
+    type: "Node";
+    generator: "Node.toJSON";
+}
+interface NodeJSONInputNodes {
+    [property: string]:
+        | string[]
+        | {
+            [index: string]: string | undefined;
+        }
+        | string
+        | undefined;
+}
+interface NodeJSONInputData {
+    inputNodes?: NodeJSONInputNodes | undefined;
+    meta: {
+        textures: {
+            [key: string]: unknown;
+        };
+        nodes: {
+            [key: string]: Node;
+        };
+    };
+}
+interface NodeJSONInputData {
+    uuid: string;
+    type: string | undefined;
+    metadata?: NodeJSONMetadata;
+    inputNodes?: NodeJSONInputNodes | undefined;
+}
+interface NodeJSONIntermediateOutputData {
+    uuid: string;
+    type: string | undefined;
+    meta?: NodeJSONMeta | undefined;
+    metadata?: NodeJSONMetadata;
+    inputNodes?: NodeJSONInputNodes | undefined;
+    textures?: unknown[];
+    images?: unknown[];
+    nodes?: NodeJSONIntermediateOutputData[];
+}
+interface NodeJSONOutputData {
+    uuid: string;
+    type: string | undefined;
+    metadata?: NodeJSONMetadata;
+    inputNodes?: NodeJSONInputNodes | undefined;
+    textures?: unknown[];
+    images?: unknown[];
+    nodes?: NodeJSONOutputData[];
+}
+declare class Node extends EventDispatcher<{
+    dispose: {};
+}> {
+    nodeType: string | null;
+    updateType: NodeUpdateType;
+    updateBeforeType: NodeUpdateType;
+    updateAfterType: NodeUpdateType;
+    uuid: string;
+    version: number;
+    _cacheKey: string | null;
+    _cacheKeyVersion: number;
+    global: boolean;
+    readonly isNode: true;
+    readonly id: number;
+    self?: this;
+    constructor(nodeType?: string | null);
+    set needsUpdate(value: boolean);
+    get type(): string | undefined;
+    onUpdate(callback: (this: this, frame: NodeFrame) => unknown, updateType: NodeUpdateType): this;
+    onFrameUpdate(callback: (this: this, frame: NodeFrame) => void): this;
+    onRenderUpdate(callback: (this: this, frame: NodeFrame) => void): this;
+    onObjectUpdate(callback: (this: this, frame: NodeFrame) => void): this;
+    onReference(callback: (this: this, frame: NodeBuilder | NodeFrame) => unknown): this;
+    getSelf(): this;
+    updateReference(state: NodeBuilder | NodeFrame): unknown;
+    isGlobal(builder: NodeBuilder): boolean;
+    getChildren(): Generator<Node, void, unknown>;
+    dispose(): void;
+    traverse(callback: (node: Node) => void): void;
+    getCacheKey(force?: boolean): string;
+    getHash(builder: NodeBuilder): string;
+    getUpdateType(): NodeUpdateType;
+    getUpdateBeforeType(): NodeUpdateType;
+    getUpdateAfterType(): NodeUpdateType;
+    getElementType(builder: NodeBuilder): "bool" | "int" | "float" | "vec2" | "vec3" | "vec4" | "uint" | null;
+    getNodeType(builder: NodeBuilder): string | null;
+    getShared(builder: NodeBuilder): Node;
+    setup(builder: NodeBuilder): unknown;
+    construct(builder: NodeBuilder): unknown;
+    increaseUsage(builder: NodeBuilder): number;
+    analyze(builder: NodeBuilder): void;
+    generate(builder: NodeBuilder, output?: string | null): string | null | undefined;
+    updateBefore(frame: NodeFrame): void;
+    updateAfter(frame: NodeFrame): void;
+    update(frame: NodeFrame): void;
+    build(builder: NodeBuilder, output?: string | null): string | null;
+    getSerializeChildren(): Generator<import("./NodeUtils.js").NodeChild, void, unknown>;
+    serialize(json: NodeJSONIntermediateOutputData): void;
+    deserialize(json: NodeJSONInputData): void;
+    toJSON(meta?: NodeJSONMeta | string): NodeJSONOutputData;
+}
+export default Node;
+export declare function addNodeClass(type: string, nodeClass: {
+    new(...args: any[]): Node;
+}): void;
+export declare function createNodeFromType(type: string): Node | undefined;

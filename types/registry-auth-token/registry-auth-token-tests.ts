@@ -1,18 +1,18 @@
-import getAuthToken = require('registry-auth-token');
-import getRegistryUrl = require('registry-auth-token/registry-url');
+import getAuthToken = require("registry-auth-token");
+import getRegistryUrl = require("registry-auth-token/registry-url");
 
 // $ExpectType NpmCredentials | undefined
-getAuthToken('url');
+getAuthToken("url");
 // $ExpectType NpmCredentials | undefined
 getAuthToken({ recursive: true });
 // $ExpectType NpmCredentials | undefined
-getAuthToken({ npmrc: { url: 'value' } });
+getAuthToken({ npmrc: { url: "value" } });
 // $ExpectType NpmCredentials | undefined
-getAuthToken({ npmrc: { registry: 'url' } });
+getAuthToken({ npmrc: { registry: "url" } });
 // $ExpectType NpmCredentials | undefined
-getAuthToken('url', { npmrc: { url: 'value' } });
+getAuthToken("url", { npmrc: { url: "value" } });
 
-const token = getAuthToken('url', {});
+const token = getAuthToken("url", {});
 
 if (token) {
     token; // $ExpectType NpmCredentials
@@ -27,10 +27,10 @@ if (token) {
 // @ts-expect-error
 getAuthToken();
 
-getRegistryUrl('@foobar');
-getRegistryUrl('http://registry.foobar.eu/', {
+getRegistryUrl("@foobar");
+getRegistryUrl("http://registry.foobar.eu/", {
     npmrc: {
-        registry: 'http://registry.foobar.eu/',
-        '//registry.foobar.eu/:_authToken': 'qar',
+        registry: "http://registry.foobar.eu/",
+        "//registry.foobar.eu/:_authToken": "qar",
     },
 });

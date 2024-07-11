@@ -1,4 +1,4 @@
-import * as Humanize from 'humanize-plus';
+import * as Humanize from "humanize-plus";
 
 /////////////
 // Numbers //
@@ -47,11 +47,11 @@ Humanize.ordinal(22);
 /**
  * times
  */
-for (let i = 0; i < 5; i ++) {
-  Humanize.times(i, {4: 'too many'});
-  if (i === 1) {
-    Humanize.times(1.1);
-  }
+for (let i = 0; i < 5; i++) {
+    Humanize.times(i, { 4: "too many" });
+    if (i === 1) {
+        Humanize.times(1.1);
+    }
 }
 // never
 // once
@@ -107,19 +107,19 @@ Humanize.pluralize(3, "duck", "duckies");
 /**
  * truncate
  */
-Humanize.truncate('long text is good for you');
+Humanize.truncate("long text is good for you");
 // "long text is good for you"
 
-Humanize.truncate('long text is good for you', 19);
+Humanize.truncate("long text is good for you", 19);
 // "long text is goo..."
 
-Humanize.truncate('long text is good for you', 19, '... etc');
+Humanize.truncate("long text is good for you", 19, "... etc");
 // "long text is... etc"
 
 /**
  * truncateWords
  */
-Humanize.truncateWords('long text is good for you', 5);
+Humanize.truncateWords("long text is good for you", 5);
 // "long text is good for ..."
 
 /**
@@ -156,7 +156,7 @@ Humanize.titleCase("cool the          iTunes cake, O'Malley!");
 /**
  * oxford
  */
-const items = ['apple', 'orange', 'banana', 'pear', 'pineapple'];
+const items = ["apple", "orange", "banana", "pear", "pineapple"];
 
 Humanize.oxford(items);
 // "apple, orange, banana, pear, and pineapple"
@@ -175,9 +175,9 @@ Humanize.oxford(items, 3, "and some other fruits");
  * frequency
  */
 const aznPics = [
-  'http://24.media.tumblr.com/77082543cb69af56ede38a0cdb2511d0/tumblr_mh96olWPLv1r8k4ywo1_1280.jpg',
-  'http://25.media.tumblr.com/3e2d318be34d5ef8f86a612cd1d795ff/tumblr_mhbhb96t3z1r8k4ywo1_1280.jpg',
-  'http://24.media.tumblr.com/8c5a052e33c27c784514e1b124b383a1/tumblr_mhexaqrk0w1r8k4ywo1_1280.jpg'
+    "http://24.media.tumblr.com/77082543cb69af56ede38a0cdb2511d0/tumblr_mh96olWPLv1r8k4ywo1_1280.jpg",
+    "http://25.media.tumblr.com/3e2d318be34d5ef8f86a612cd1d795ff/tumblr_mhbhb96t3z1r8k4ywo1_1280.jpg",
+    "http://24.media.tumblr.com/8c5a052e33c27c784514e1b124b383a1/tumblr_mhexaqrk0w1r8k4ywo1_1280.jpg",
 ];
 const bigfootPics: string[] = [];
 

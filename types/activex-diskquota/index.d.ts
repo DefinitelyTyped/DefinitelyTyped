@@ -1,13 +1,7 @@
-// Type definitions for non-npm package DiskQuotaTypeLibrary 1.0
-// Project: https://msdn.microsoft.com/en-us/library/windows/desktop/bb773938(v=vs.85).aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-interop" />
 
 declare namespace DiskQuotaTypeLibrary {
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum AccountStatusConstants {
         dqAcctDeleted = 2,
         dqAcctInvalid = 3,
@@ -17,14 +11,14 @@ declare namespace DiskQuotaTypeLibrary {
         dqAcctUnresolved = 5,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum QuotaStateConstants {
         dqStateDisable = 0,
         dqStateEnforce = 2,
         dqStateTrack = 1,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum UserNameResolutionConstants {
         dqResolveAsync = 2,
         dqResolveNone = 0,
@@ -33,7 +27,7 @@ declare namespace DiskQuotaTypeLibrary {
 
     /** Automation interface for DiskQuotaUser */
     class DIDiskQuotaUser {
-        private 'DiskQuotaTypeLibrary.DIDiskQuotaUser_typekey': DIDiskQuotaUser;
+        private "DiskQuotaTypeLibrary.DIDiskQuotaUser_typekey": DIDiskQuotaUser;
         private constructor();
 
         /** Name of user's account container */
@@ -75,7 +69,7 @@ declare namespace DiskQuotaTypeLibrary {
 
     /** Microsoft Disk Quota */
     class DiskQuotaControl {
-        private 'DiskQuotaTypeLibrary.DiskQuotaControl_typekey': DiskQuotaControl;
+        private "DiskQuotaTypeLibrary.DiskQuotaControl_typekey": DiskQuotaControl;
         private constructor();
 
         /** Add a user quota entry by Name */
@@ -136,12 +130,18 @@ declare namespace DiskQuotaTypeLibrary {
 
 interface ActiveXObject {
     on(
-        obj: DiskQuotaTypeLibrary.DiskQuotaControl, event: 'OnUserNameChanged', argNames: ['pUser'], handler: (
-            this: DiskQuotaTypeLibrary.DiskQuotaControl, parameter: {readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser}) => void): void;
+        obj: DiskQuotaTypeLibrary.DiskQuotaControl,
+        event: "OnUserNameChanged",
+        argNames: ["pUser"],
+        handler: (
+            this: DiskQuotaTypeLibrary.DiskQuotaControl,
+            parameter: { readonly pUser: DiskQuotaTypeLibrary.DIDiskQuotaUser },
+        ) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Microsoft.DiskQuota': DiskQuotaTypeLibrary.DiskQuotaControl;
+    "Microsoft.DiskQuota": DiskQuotaTypeLibrary.DiskQuotaControl;
 }
 
 interface EnumeratorConstructor {

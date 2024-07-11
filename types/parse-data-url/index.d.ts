@@ -1,8 +1,3 @@
-// Type definitions for parse-data-url 3.0
-// Project: https://github.com/killmenot/parse-data-url
-// Definitions by: Jaime Filho <https://github.com/jaimeadf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare function parseDataUrl(s: string): false | parseDataUrl.DataUrl;

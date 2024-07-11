@@ -1,20 +1,14 @@
-// Type definitions for non-npm package poool-access 5.10
-// Project: https://poool.dev/docs/access/javascript
-// Definitions by: Maxime Da Silva <https://github.com/maximedasilva>
-//                 Ugo Stephant <https://github.com/dackmin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
-    const Access: Poool.Access;
-    const Audit: Poool.Audit;
+    var Access: Poool.Access;
+    var Audit: Poool.Audit;
     /**
      * Use PooolAccess just if you have done `Access.noConflict()` before
      */
-    const PooolAccess: Poool.Access;
+    var PooolAccess: Poool.Access;
     /**
      * Use PooolAudit just if you have done `Audit.noConflict()` before
      */
-    const PooolAudit: Poool.Audit;
+    var PooolAudit: Poool.Audit;
     interface Window {
         Access: Poool.Access;
         Audit: Poool.Audit;
@@ -40,7 +34,7 @@ export namespace Poool {
          *
          * More Infos: https://poool.dev/docs/access/javascript/access/appearances
          */
-        layout?: 'portrait' | 'landscape';
+        layout?: "portrait" | "landscape";
         /**
          * URL to your media's logo. `.png`, `.jpg` or `.svg` format, `140px` min height, `200kb` max.
          *
@@ -126,7 +120,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        mode?: 'hide' | 'excerpt' | 'custom';
+        mode?: "hide" | "excerpt" | "custom";
         /**
          * Percentage of text you want to be hidden/stripped.
          *
@@ -165,20 +159,20 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
         force_widget?:
-            | 'auto'
-            | 'hidden'
-            | 'disabled'
-            | 'none'
-            | 'video'
-            | 'newsletter'
-            | 'subscription'
-            | 'gift'
-            | 'question'
-            | 'unlock'
-            | 'link'
-            | 'pass'
-            | 'unlock'
-            | 'invisible';
+            | "auto"
+            | "hidden"
+            | "disabled"
+            | "none"
+            | "video"
+            | "newsletter"
+            | "subscription"
+            | "gift"
+            | "question"
+            | "unlock"
+            | "link"
+            | "pass"
+            | "unlock"
+            | "invisible";
         /**
          * Your subscription page URL. The subscription widget will redirect the reader to this when they decide to subscribe.
          * - `{return_url}` variable can be used to get the current URL.
@@ -258,7 +252,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        video_client?: 'vast' | 'googima';
+        video_client?: "vast" | "googima";
         /**
          * Shows/hides the popover displayed when the paywall is not already inside the viewport.
          *
@@ -282,7 +276,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        alternative_widget?: 'none' | 'video' | 'gift' | 'question' | 'subscription' | 'newsletter';
+        alternative_widget?: "none" | "video" | "gift" | "question" | "subscription" | "newsletter";
         /**
          * URL needed to display video ads inside the video widget on the desktop.
          *
@@ -308,7 +302,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        context?: string;
+        context?: string | string[];
         /**
          * Used to allocate a reader to a custom group previously created in Poool's Dashboard.
          *
@@ -332,7 +326,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        consent_rejection_widget?: 'invisible' | 'unlock' | 'gift' | 'subscription';
+        consent_rejection_widget?: "invisible" | "unlock" | "gift" | "subscription";
         /**
          * Link URL shown inside widgets that require the collection of user information.
          * - `{return_url}` variable can be used to get the current URL.
@@ -350,7 +344,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        locale?: 'fr' | 'en';
+        locale?: "fr" | "en";
         /**
          * Popover display timeout (in milliseconds).
          *
@@ -481,7 +475,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
-        ati_tracking_method?: 'default' | 'events';
+        ati_tracking_method?: "default" | "events";
         /**
          * Enable/disable automatic Piano tracking (Piano SDK integration required) for particular events.
          *
@@ -598,7 +592,7 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
 
-        default_widget?: 'invisible' | 'unlock' | 'gift' | 'subscription';
+        default_widget?: "invisible" | "unlock" | "gift" | "subscription";
         /**
          * Used to defined a fallback widget in case of error on advertising widgets (`video`, `viewpay`).
          *
@@ -635,28 +629,37 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/access/configuration
          */
         cookies_path?: string;
+        /**
+         * Avoid waiting for Audit to load before displaying the paywall. If set to true, you must manually initialize the paywall after Audit's identityAvailable event has been triggered.
+         *
+         * Default: `false`
+         *
+         * More infos: https://www.poool.dev/docs/access/javascript/audit/installation
+         */
+        skip_audit_loader?: boolean;
     }
 
     type EventsList =
-        | 'identityAvailable'
-        | 'lock'
-        | 'ready'
-        | 'paywallSeen'
-        | 'release'
-        | 'register'
-        | 'subscribeClick'
-        | 'loginClick'
-        | 'discoveryLinkClick'
-        | 'alternativeClick'
-        | 'error'
-        | 'outdatedBrowser'
-        | 'dataPolicyClick'
-        | 'formSubmit'
-        | 'facebookLoginClick'
-        | 'googleLoginClick'
-        | 'answer'
-        | 'consent'
-        | 'customButtonClick';
+        | "identityAvailable"
+        | "lock"
+        | "ready"
+        | "paywallSeen"
+        | "release"
+        | "register"
+        | "subscribeClick"
+        | "loginClick"
+        | "discoveryLinkClick"
+        | "alternativeClick"
+        | "error"
+        | "outdatedBrowser"
+        | "dataPolicyClick"
+        | "formSubmit"
+        | "facebookLoginClick"
+        | "googleLoginClick"
+        | "answer"
+        | "consent"
+        | "customButtonClick"
+        | "externalLinkClick";
 
     interface AccessConfig {
         /**
@@ -759,7 +762,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/variables
          */
-        (keyName: string, value: string): AccessFactory;
+        (keyName: string, value: string | number | boolean): AccessFactory;
         /**
          * Some texts inside the paywall benefit from predefined & automatically integrated variables, such as `{app_name}`.
          *
@@ -769,7 +772,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/access/variables
          */
-        (variables: { [key: string]: string }): AccessFactory;
+        (variables: { [key: string]: string | number | boolean }): AccessFactory;
     }
 
     interface AuditConfigOptions {
@@ -854,7 +857,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
-        ati_tracking_method?: 'default' | 'events';
+        ati_tracking_method?: "default" | "events";
         /**
          * Enable/disable automatic Piano tracking (Piano SDK integration required) for particular events.
          *
@@ -941,7 +944,6 @@ export namespace Poool {
          * @param [readonly=false] - Whether or not the configuration should be read-only.
          * @returns The audit instance.
          *
-         *
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
         (config: AuditConfigOptions, readonly?: boolean): Audit;
@@ -971,10 +973,10 @@ export namespace Poool {
          * More infos: https://poool.dev/docs/access/javascript/access/methods
          */
         createPaywall(config: {
-            target?: string;
+            target?: string | HTMLElement;
             content?: string | HTMLElement;
-            pageType?: 'premium' | 'free';
-            mode?: 'hide' | 'excerpt' | 'custom';
+            pageType?: "premium" | "free";
+            mode?: "hide" | "excerpt" | "custom";
             percent?: number;
         }): AccessFactory;
         texts: AccessTexts;
@@ -1002,7 +1004,6 @@ export namespace Poool {
         once(event: EventsList, callback: (...props: any) => any): AccessFactory;
         /**
          * Allows to remove an event callback previously set with {@link on} or {@link once}.
-         *
          *
          * @param event - the event name
          * @param callback - the callback function
@@ -1045,21 +1046,21 @@ export namespace Poool {
          * @param eventName - the event name
          * @param data - the event datas
          * @param options - the event options
-         * @returns the Audit instance
+         * @returns A Promise that fullfills with a boolean value indicating if the event has been correctly sent or not.
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/methods
          */
         sendEvent(
-            eventName: 'page-view',
+            eventName: "page-view",
             data?: {
-                type?: 'premium' | 'free' | 'page';
+                type?: "premium" | "free" | "page";
                 [key: string]: any;
             },
             options?: {
                 beacons?: boolean;
                 [key: string]: any;
             },
-        ): Audit;
+        ): Promise<boolean>;
         config: AuditConfig;
         /**
          * Allows to set a callback to be called when a specific event is triggered
@@ -1083,7 +1084,6 @@ export namespace Poool {
         once(event: EventsList, callback: (...props: any) => any): Audit;
         /**
          * Allows to remove an event callback previously set with {@link on} or {@link once}.
-         *
          *
          * @param event - the event name
          * @param callback - the callback function

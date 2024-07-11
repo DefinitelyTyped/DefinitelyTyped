@@ -1,6 +1,6 @@
 /// <reference types="windows-script-host" />
 
-const collectionToArray = <T>(col: {Item(index: any): T}): T[] => {
+const collectionToArray = <T>(col: { Item(index: any): T }): T[] => {
     const results: T[] = [];
     const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
@@ -10,7 +10,7 @@ const collectionToArray = <T>(col: {Item(index: any): T}): T[] => {
     return results;
 };
 
-const app = new ActiveXObject('Word.Application');
+const app = new ActiveXObject("Word.Application");
 
 // https://msdn.microsoft.com/en-us/vba/word-vba/articles/modifying-a-portion-of-a-document
 app.Selection.Words.Item(1).Copy();
@@ -25,7 +25,7 @@ const activeDoc = app.ActiveDocument;
     const rngThreeWords = activeDoc.Range(activeDoc.Words.Item(1).Start, activeDoc.Words.Item(3).End);
     const rngParagraphs = activeDoc.Range(
         activeDoc.Paragraphs.Item(2).Range.Start,
-        activeDoc.Paragraphs.Item(3).Range.End
+        activeDoc.Paragraphs.Item(3).Range.End,
     );
 })();
 
@@ -37,11 +37,11 @@ const activeDoc = app.ActiveDocument;
     rngDoc.Bold = true;
 
     rngDoc = activeDoc.Range(0, 0);
-    rngDoc.InsertBefore('Hello');
+    rngDoc.InsertBefore("Hello");
 
     rngDoc = activeDoc.Range(
         activeDoc.Paragraphs.Item(2).Range.Start,
-        activeDoc.Paragraphs.Item(3).Range.End
+        activeDoc.Paragraphs.Item(3).Range.End,
     );
 
     // using the Range property
@@ -52,7 +52,7 @@ const activeDoc = app.ActiveDocument;
 
     rngParagraphs.Bold = true;
     rngParagraphs.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-    rngParagraphs.Font.Name = 'Stencil';
+    rngParagraphs.Font.Name = "Stencil";
     rngParagraphs.Font.Size = 15;
 
     // redefine a Range object
@@ -79,7 +79,7 @@ const activeDoc = app.ActiveDocument;
 
     dlg = app.Dialogs.Item(Word.WdWordDialog.wdDialogToolsOptionsUserInfo);
     dlg.Display();
-    if ((dlg as any).Name !== '') { dlg.Execute(); }
+    if ((dlg as any).Name !== "") dlg.Execute();
 
     // returning and changing dialog box settings
 
@@ -92,14 +92,14 @@ const activeDoc = app.ActiveDocument;
 
     // use of the Update method -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/dialog-update-method-word
     dlg = app.Dialogs.Item(Word.WdWordDialog.wdDialogFormatFont);
-    app.Selection.Font.Name = 'Arial';
+    app.Selection.Font.Name = "Arial";
     dlg.Update();
     dlg.Show();
 
     // checking how a dialog box was closed
 
     if (app.Dialogs.Item(Word.WdWordDialog.wdDialogInsertBreak).Show() === -1) {
-        app.StatusBar = 'Break inserted';
+        app.StatusBar = "Break inserted";
     }
 })();
 
@@ -107,7 +107,7 @@ const activeDoc = app.ActiveDocument;
 (() => {
     // Applying formatting to the selection
     let font = app.Selection.Font;
-    font.Name = 'Times New Roman';
+    font.Name = "Times New Roman";
     font.Size = 14;
     font.AllCaps = true;
     const paragraphFormat = app.Selection.ParagraphFormat;
@@ -117,17 +117,17 @@ const activeDoc = app.ActiveDocument;
     // Applying formatting to a range
     let rngFormat = activeDoc.Range(
         activeDoc.Paragraphs.Item(1).Range.Start,
-        activeDoc.Paragraphs.Item(3).Range.End
+        activeDoc.Paragraphs.Item(3).Range.End,
     );
-    rngFormat.Font.Name = 'Arial';
+    rngFormat.Font.Name = "Arial";
     rngFormat.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphJustify;
 
     // Inserting text and applying character and paragraph formatting
     rngFormat = activeDoc.Range(0, 0);
-    rngFormat.InsertAfter('Title');
+    rngFormat.InsertAfter("Title");
     rngFormat.InsertParagraphAfter();
     font = rngFormat.Font;
-    font.Name = 'Tahoma';
+    font.Name = "Tahoma";
     font.Size = 24;
     font.Bold = true;
     let paragraph = activeDoc.Paragraphs.Item(1);
@@ -168,7 +168,7 @@ const activeDoc = app.ActiveDocument;
     if (app.Selection.Type === Word.WdSelectionType.wdSelectionIP) {
         app.Selection.Font.Engrave = true;
     } else {
-        WScript.Echo('You need to select some text');
+        WScript.Echo("You need to select some text");
     }
 
     // Collapsing a section or range
@@ -177,7 +177,7 @@ const activeDoc = app.ActiveDocument;
 
     const rngWords = activeDoc.Words.Item(1);
     rngWords.Collapse(Word.WdCollapseDirection.wdCollapseEnd);
-    rngWords.Text = '(This is a test.)';
+    rngWords.Text = "(This is a test.)";
 
     // Extending a selection or range
 
@@ -188,11 +188,11 @@ const activeDoc = app.ActiveDocument;
 
     // Changing text
 
-    activeDoc.Words.Item(1).Text = 'The ';
+    activeDoc.Words.Item(1).Text = "The ";
 
     const rngFirstParagraph = activeDoc.Paragraphs.Item(1).Range;
     rngFirstParagraph.Delete();
-    rngFirstParagraph.InsertAfter('New text');
+    rngFirstParagraph.InsertAfter("New text");
     rngFirstParagraph.InsertParagraphAfter();
 })();
 
@@ -202,26 +202,38 @@ const activeDoc = app.ActiveDocument;
     const find = app.Selection.Find;
     find.Forward = true;
     find.Wrap = Word.WdFindWrap.wdFindStop;
-    find.Text = 'Hello';
+    find.Text = "Hello";
     find.Execute();
 
     // Finding text without changing the selection
     const find2 = app.ActiveDocument.Content.Find;
-    find2.Text = 'blue';
+    find2.Text = "blue";
     find2.Forward = true;
     find2.Execute();
-    if (find2.Found) { find2.Parent.Bold = true; }
+    if (find2.Found) find2.Parent.Bold = true;
 
     // Using the Replacement object
 
     const find3 = app.Selection.Find;
     find3.ClearFormatting;
-    find3.Text = 'Hi';
+    find3.Text = "Hi";
     find3.Replacement.ClearFormatting();
-    find3.Replacement.Text = 'Hello';
+    find3.Replacement.Text = "Hello";
     find3.Forward = true;
     find3.Wrap = Word.WdFindWrap.wdFindContinue;
-    find3.Execute(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, Word.WdReplace.wdReplaceAll);
+    find3.Execute(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        Word.WdReplace.wdReplaceAll,
+    );
 
     const find4 = app.ActiveDocument.Content.Find;
     find4.ClearFormatting();
@@ -229,7 +241,19 @@ const activeDoc = app.ActiveDocument;
     find4.Font.Bold = true;
     find4.Replacement.ClearFormatting();
     find4.Replacement.Font.Bold = false;
-    find4.Execute("", undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, Word.WdReplace.wdReplaceAll);
+    find4.Execute(
+        "",
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        Word.WdReplace.wdReplaceAll,
+    );
 })();
 
 // looping through a collection -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/looping-through-a-collection
@@ -241,20 +265,20 @@ const activeDoc = app.ActiveDocument;
         .map(bookmark => bookmark.Name);
 
     collectionToArray<Word.Field>(activeDoc.Fields)
-        .filter(dateField => dateField.Code.Text.indexOf('Date', 1) !== -1)
+        .filter(dateField => dateField.Code.Text.indexOf("Date", 1) !== -1)
         .forEach(dateField => dateField.Update());
 
     const exists = collectionToArray<Word.AutoTextEntry>(activeDoc.AttachedTemplate.AutoTextEntries)
-        .some(autotextEntry => autotextEntry.Name === 'Filename');
+        .some(autotextEntry => autotextEntry.Name === "Filename");
     if (exists) {
-            WScript.Echo('The Filename AutoText entry exists.');
+        WScript.Echo("The Filename AutoText entry exists.");
     }
 })();
 
 // inserting text in a document -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/inserting-text-in-a-document
 (() => {
-    activeDoc.Content.InsertAfter(' The end.');
-    app.Selection.InsertBefore('new text');
+    activeDoc.Content.InsertAfter(" The end.");
+    app.Selection.InsertBefore("new text");
 })();
 
 // referring to the active document element -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/referring-to-the-active-document-element
@@ -266,7 +290,7 @@ const activeDoc = app.ActiveDocument;
     if (app.Selection.Tables.Count >= 1) {
         app.Selection.Tables.Item(1).Rows.Item(1).Shading.Texture = Word.WdTextureIndex.wdTexture10Percent;
     } else {
-        WScript.Echo('Selection doesn\'t include a table');
+        WScript.Echo("Selection doesn't include a table");
     }
 
     if (app.Selection.Tables.Count >= 1) {
@@ -280,7 +304,7 @@ const activeDoc = app.ActiveDocument;
     // no default properties in Javascript; we can't write app.Documents(1)
     const docFirst = app.Documents.Item(1);
 
-    app.Documents.Item('Sales.doc').Activate();
+    app.Documents.Item("Sales.doc").Activate();
     WScript.Echo(app.ActiveDocument.Name);
 
     app.ActiveDocument.Bookmarks.Item(1).Select();
@@ -324,7 +348,7 @@ const activeDoc = app.ActiveDocument;
 
     const rngParagraphs = activeDoc.Range(
         activeDoc.Paragraphs.Item(1).Range.Start,
-        activeDoc.Paragraphs.Item(4).Range.End
+        activeDoc.Paragraphs.Item(4).Range.End,
     );
     rngParagraphs.Select();
 })();
@@ -332,22 +356,22 @@ const activeDoc = app.ActiveDocument;
 // storing values when a macro ends -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/storing-values-when-a-macro-ends
 (() => {
     // document variables
-    activeDoc.Variables.Add('Age', 12);
-    const i = parseInt(activeDoc.Variables.Item('Age').Value, 10);
+    activeDoc.Variables.Add("Age", 12);
+    const i = parseInt(activeDoc.Variables.Item("Age").Value, 10);
 
     // document properties
-    activeDoc.CustomDocumentProperties.Add('YourName', false, Office.MsoDocProperties.msoPropertyTypeString);
+    activeDoc.CustomDocumentProperties.Add("YourName", false, Office.MsoDocProperties.msoPropertyTypeString);
 
-    activeDoc.AttachedTemplate.AutoTextEntries.Add('MyText', app.Selection.Range);
+    activeDoc.AttachedTemplate.AutoTextEntries.Add("MyText", app.Selection.Range);
 
     // no method assignment in Javascript
-    ActiveXObject.set(app.System, 'PrivateProfileString', ['C:\\My Documents\\Macro.ini', 'DocTracker', 'DocNum'], '1');
+    ActiveXObject.set(app.System, "PrivateProfileString", ["C:\\My Documents\\Macro.ini", "DocTracker", "DocNum"], "1");
 
-    const docNum = parseInt(app.System.PrivateProfileString('C:\\My Documents\\Macro.ini', 'DocTracker', 'DocNum'), 10);
+    const docNum = parseInt(app.System.PrivateProfileString("C:\\My Documents\\Macro.ini", "DocTracker", "DocNum"), 10);
 
-    const section = 'HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\12.0\\Word\Options';
-    const programDir = app.System.PrivateProfileString('', section, 'PROGRAMDIR');
+    const section = "HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\12.0\\Word\Options";
+    const programDir = app.System.PrivateProfileString("", section, "PROGRAMDIR");
     WScript.Echo(`The program directory for Word is ${programDir}`);
 
-    ActiveXObject.set(app.System, 'PrivateProfileString', ['', section, 'DOC-PATH'], 'C:\\My Documents');
+    ActiveXObject.set(app.System, "PrivateProfileString", ["", section, "DOC-PATH"], "C:\\My Documents");
 })();

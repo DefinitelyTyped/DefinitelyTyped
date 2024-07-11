@@ -1,9 +1,3 @@
-// Type definitions for Material Components Web 0.35
-// Project: https://material.io/components/, https://github.com/material-components/material-components-web
-// Definitions by: Brent Douglas <https://github.com/BrentDouglas>, Collin Kostichuk <https://github.com/ckosti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /**
  * @license
  * Copyright 2016 Google Inc.
@@ -21,7 +15,7 @@
  * limitations under the License.
  */
 
-import MDCFoundation, { MDCNumbers, MDCStrings } from './foundation';
-import MDCComponent from './component';
+import MDCComponent from "./component";
+import MDCFoundation, { MDCNumbers, MDCStrings } from "./foundation";
 
-export { MDCNumbers, MDCStrings, MDCFoundation, MDCComponent };
+export { MDCComponent, MDCFoundation, MDCNumbers, MDCStrings };

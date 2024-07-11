@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jfp",
+    "version": "0.0.9999",
+    "projects": [
+        "http://cmstead.github.io/JFP"
+    ],
+    "devDependencies": {
+        "@types/jfp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Stead",
+            "url": "http://www.chrisstead.com"
+        }
+    ]
+}

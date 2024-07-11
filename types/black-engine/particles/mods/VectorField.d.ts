@@ -13,5 +13,5 @@ export class VectorField extends Modifier {
     getVectorAt(x: number, y: number): Vector | null;
     update(emitter: any, particle: any, dt: any): void;
 }
-import { Modifier } from '../Modifier';
-import { Vector } from '../../geom/Vector';
+import { Vector } from "../../geom/Vector";
+import { Modifier } from "../Modifier";

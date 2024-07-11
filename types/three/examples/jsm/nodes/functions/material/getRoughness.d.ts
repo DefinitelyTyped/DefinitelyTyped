@@ -1,6 +1,7 @@
-import { ShaderNode } from '../../shadernode/ShaderNodeElements';
-import Node from '../../core/Node';
+import Node from "../../core/Node.js";
+import MathNode from "../../math/MathNode.js";
+import { ShaderNodeObject } from "../../shadernode/ShaderNode.js";
 
-declare const getRoughness: ShaderNode<{ roughness: Node }>;
+declare const getRoughness: (args: { roughness: Node }) => ShaderNodeObject<MathNode>;
 
 export default getRoughness;

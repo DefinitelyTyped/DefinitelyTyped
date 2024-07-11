@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef } from "../pdfservices-sdk";
 
 /**
  * An operation which exports a source PDF file to a supported format specified by
@@ -31,7 +31,6 @@ import { ExecutionContext, FileRef } from '../pdfservices-sdk';
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class ExportPDFToImagesOperation {
     static get SupportedExportFormats(): {

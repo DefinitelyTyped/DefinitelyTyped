@@ -8,5 +8,5 @@ declare class HighchartsVisualizationDef {
 declare namespace HighchartsVisualizationDef {
     export { DataSet, HighchartsVisualization };
 }
-type HighchartsVisualization = import('./HighchartsVisualization');
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type HighchartsVisualization = import("./HighchartsVisualization");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");

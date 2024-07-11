@@ -1,9 +1,3 @@
-// Type definitions for consumable-stream 1.0
-// Project: https://github.com/SocketCluster/consumable-stream
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 declare abstract class ConsumableStream<T> implements AsyncIterator<T>, AsyncIterable<T> {

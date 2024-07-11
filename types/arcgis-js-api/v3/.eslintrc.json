@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "trim-file": "off",
-        "no-any-union": "off"
-    }
-}

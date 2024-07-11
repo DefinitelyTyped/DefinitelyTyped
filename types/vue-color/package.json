@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "vue": "^2.0.0"
-  }
+    "private": true,
+    "name": "@types/vue-color",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/xiaokaike/vue-color#readme"
+    ],
+    "dependencies": {
+        "vue": "^2.0.0"
+    },
+    "devDependencies": {
+        "@types/vue-color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Clément Flodrops",
+            "githubUsername": "mildful"
+        }
+    ]
 }

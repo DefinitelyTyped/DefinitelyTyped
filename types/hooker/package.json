@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hooker",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/cowboy/javascript-hooker"
+    ],
+    "devDependencies": {
+        "@types/hooker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Zabka",
+            "githubUsername": "misak113"
+        }
+    ]
+}

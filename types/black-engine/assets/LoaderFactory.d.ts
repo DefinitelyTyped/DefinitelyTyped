@@ -3,6 +3,6 @@ export class LoaderFactory {
     mAssetManager: AssetManager;
     get(type: string, url: string | LoaderType, ...args: any[]): AssetLoader;
 }
-import { LoaderType } from './LoaderType';
-import { AssetLoader } from './loaders/AssetLoader';
-import { AssetManager } from './AssetManager';
+import { AssetManager } from "./AssetManager";
+import { AssetLoader } from "./loaders/AssetLoader";
+import { LoaderType } from "./LoaderType";

@@ -5,8 +5,6 @@ const SEARCH_WORDS = ["test"];
 
 export default class ExampleComponent extends React.Component {
     render() {
-        return (
-            <Highlighter searchWords={SEARCH_WORDS} textToHighlight={"test"} />
-        );
+        return <Highlighter searchWords={SEARCH_WORDS} textToHighlight={"test"} />;
     }
 }

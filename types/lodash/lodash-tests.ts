@@ -1,6 +1,16 @@
-// tslint:disable-next-line:no-relative-import-in-test
+// eslint-disable-next-line @definitelytyped/no-relative-import-in-test
 import fp = require("./fp");
 import _ = require("lodash");
+
+import type {
+    GetFieldType,
+    GetFieldTypeOfNarrowed,
+    GetFieldTypeOfNarrowedByDotPath,
+    GetFieldTypeOfNarrowedByKey,
+    GetFieldTypeOfNarrowedByLKR,
+    GetFieldTypeOfObject,
+    GetFieldTypeOfPrimitive,
+} from "lodash";
 
 declare const anything: any;
 
@@ -183,7 +193,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
         const t4: T4 = { a: "a", b: [] };
 
         // $ExpectType T1[]
-        _.differenceBy([t1], [t2], "a");
+        _.differenceBy([t1], [t2], "name");
         // $ExpectType T1[]
         _.differenceBy([t1], [t2], (value) => {
             value; // $ExpectType T1 | T2
@@ -251,7 +261,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
             return 0;
         });
 
-        fp.differenceBy("a", [t1], [t2]); // $ExpectType T1[]
+        fp.differenceBy("name", [t1], [t2]); // $ExpectType T1[]
         fp.differenceBy((value: T1 | T2) => 0, [t1], [t2]); // $ExpectType T1[]
         fp.differenceBy((value: T1 | T2 | T3) => 0, [t1], [t2, t3]); // $ExpectType T1[]
     }
@@ -337,42 +347,42 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     _.dropWhile(list); // $ExpectType AbcObject[]
     _.dropWhile(list, listIterator); // $ExpectType AbcObject[]
-    _.dropWhile(list, "a"); // $ExpectType AbcObject[]
+    _.dropWhile(list, ""); // $ExpectType AbcObject[]
     _.dropWhile(list, {a: 42}); // $ExpectType AbcObject[]
 
     _(list).dropWhile(); // $ExpectType Collection<AbcObject>
     _(list).dropWhile(listIterator); // $ExpectType Collection<AbcObject>
-    _(list).dropWhile("a"); // $ExpectType Collection<AbcObject>
+    _(list).dropWhile(""); // $ExpectType Collection<AbcObject>
     _(list).dropWhile({a: 42}); // $ExpectType Collection<AbcObject>
 
     _.chain(list).dropWhile(); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).dropWhile(listIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).dropWhile("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).dropWhile(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).dropWhile({a: 42}); // $ExpectType CollectionChain<AbcObject>
 
     fp.dropWhile(valueIterator, list); // $ExpectType AbcObject[]
     fp.dropWhile(valueIterator)(list); // $ExpectType AbcObject[]
-    fp.dropWhile("a", list); // $ExpectType AbcObject[]
+    fp.dropWhile("", list); // $ExpectType AbcObject[]
     fp.dropWhile({ a: 42 }, list); // $ExpectType AbcObject[]
 
     _.dropRightWhile(list); // $ExpectType AbcObject[]
     _.dropRightWhile(list, listIterator); // $ExpectType AbcObject[]
-    _.dropRightWhile(list, "a"); // $ExpectType AbcObject[]
+    _.dropRightWhile(list, ""); // $ExpectType AbcObject[]
     _.dropRightWhile(list, {a: 42}); // $ExpectType AbcObject[]
 
     _(list).dropRightWhile(); // $ExpectType Collection<AbcObject>
     _(list).dropRightWhile(listIterator); // $ExpectType Collection<AbcObject>
-    _(list).dropRightWhile("a"); // $ExpectType Collection<AbcObject>
+    _(list).dropRightWhile(""); // $ExpectType Collection<AbcObject>
     _(list).dropRightWhile({a: 42}); // $ExpectType Collection<AbcObject>
 
     _.chain(list).dropRightWhile(); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).dropRightWhile(listIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).dropRightWhile("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).dropRightWhile(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).dropRightWhile({a: 42}); // $ExpectType CollectionChain<AbcObject>
 
     fp.dropRightWhile(valueIterator, list); // $ExpectType AbcObject[]
     fp.dropRightWhile(valueIterator)(list); // $ExpectType AbcObject[]
-    fp.dropRightWhile("a", list); // $ExpectType AbcObject[]
+    fp.dropRightWhile("", list); // $ExpectType AbcObject[]
     fp.dropRightWhile({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
@@ -404,58 +414,58 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     _.findIndex(list); // $ExpectType number
     _.findIndex(list, listIterator); // $ExpectType number
-    _.findIndex(list, "a"); // $ExpectType number
+    _.findIndex(list, ""); // $ExpectType number
     _.findIndex(list, {a: 42}); // $ExpectType number
     _.findIndex(list, listIterator, 1); // $ExpectType number
 
     _(list).findIndex(); // $ExpectType number
     _(list).findIndex(listIterator); // $ExpectType number
-    _(list).findIndex("a"); // $ExpectType number
+    _(list).findIndex(""); // $ExpectType number
     _(list).findIndex({a: 42}); // $ExpectType number
     _(list).findIndex(listIterator, 1); // $ExpectType number
 
     _.chain(list).findIndex(); // $ExpectType PrimitiveChain<number>
     _.chain(list).findIndex(listIterator); // $ExpectType PrimitiveChain<number>
-    _.chain(list).findIndex("a"); // $ExpectType PrimitiveChain<number>
+    _.chain(list).findIndex(""); // $ExpectType PrimitiveChain<number>
     _.chain(list).findIndex({a: 42}); // $ExpectType PrimitiveChain<number>
     _.chain(list).findIndex(listIterator, 1); // $ExpectType PrimitiveChain<number>
 
     fp.findIndex(valueIterator, list); // $ExpectType number
     fp.findIndex(valueIterator)(list); // $ExpectType number
-    fp.findIndex("a", list); // $ExpectType number
+    fp.findIndex("", list); // $ExpectType number
     fp.findIndex({ a: 42 }, list); // $ExpectType number
 
     fp.findIndexFrom(valueIterator, 1, list); // $ExpectType number
     fp.findIndexFrom(valueIterator)(1)(list); // $ExpectType number
-    fp.findIndexFrom("a", 1, list); // $ExpectType number
+    fp.findIndexFrom("", 1, list); // $ExpectType number
     fp.findIndexFrom({ a: 42 }, 1, list); // $ExpectType number
 
     _.findLastIndex(list); // $ExpectType number
     _.findLastIndex(list, listIterator); // $ExpectType number
-    _.findLastIndex(list, "a"); // $ExpectType number
+    _.findLastIndex(list, ""); // $ExpectType number
     _.findLastIndex(list, {a: 42}); // $ExpectType number
     _.findLastIndex(list, listIterator, 1); // $ExpectType number
 
     _(list).findLastIndex(); // $ExpectType number
     _(list).findLastIndex(listIterator); // $ExpectType number
-    _(list).findLastIndex("a"); // $ExpectType number
+    _(list).findLastIndex(""); // $ExpectType number
     _(list).findLastIndex({a: 42}); // $ExpectType number
     _(list).findLastIndex(listIterator, 1); // $ExpectType number
 
     _.chain(list).findLastIndex(); // $ExpectType PrimitiveChain<number>
     _.chain(list).findLastIndex(listIterator); // $ExpectType PrimitiveChain<number>
-    _.chain(list).findLastIndex("a"); // $ExpectType PrimitiveChain<number>
+    _.chain(list).findLastIndex(""); // $ExpectType PrimitiveChain<number>
     _.chain(list).findLastIndex({a: 42}); // $ExpectType PrimitiveChain<number>
     _.chain(list).findLastIndex(listIterator, 1); // $ExpectType PrimitiveChain<number>
 
     fp.findLastIndex(valueIterator, list); // $ExpectType number
     fp.findLastIndex(valueIterator)(list); // $ExpectType number
-    fp.findLastIndex("a", list); // $ExpectType number
+    fp.findLastIndex("", list); // $ExpectType number
     fp.findLastIndex({ a: 42 }, list); // $ExpectType number
 
     fp.findLastIndexFrom(valueIterator, 1, list); // $ExpectType number
     fp.findLastIndexFrom(valueIterator)(1)(list); // $ExpectType number
-    fp.findLastIndexFrom("a", 1, list); // $ExpectType number
+    fp.findLastIndexFrom("", 1, list); // $ExpectType number
     fp.findLastIndexFrom({ a: 42 }, 1, list); // $ExpectType number
 }
 
@@ -1102,22 +1112,22 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.remove(list); // $ExpectType AbcObject[]
     _.remove(list, listIterator); // $ExpectType AbcObject[]
-    _.remove(list, "a"); // $ExpectType AbcObject[]
+    _.remove(list, ""); // $ExpectType AbcObject[]
     _.remove(list, { a: 42 }); // $ExpectType AbcObject[]
 
     _(list).remove(); // $ExpectType Collection<AbcObject>
     _(list).remove(listIterator); // $ExpectType Collection<AbcObject>
-    _(list).remove("a"); // $ExpectType Collection<AbcObject>
+    _(list).remove(""); // $ExpectType Collection<AbcObject>
     _(list).remove({ a: 42 }); // $ExpectType Collection<AbcObject>
 
     _.chain(list).remove(); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).remove(listIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).remove("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).remove(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).remove({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
 
     fp.remove(valueIterator, list); // $ExpectType AbcObject[]
     fp.remove(valueIterator)(list); // $ExpectType AbcObject[]
-    fp.remove("a", list); // $ExpectType AbcObject[]
+    fp.remove("", list); // $ExpectType AbcObject[]
     fp.remove({ a: 42 }, list); // $ExpectType AbcObject[]
 }
 
@@ -1147,13 +1157,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 // _.sortedLastIndexBy
 {
     _.sortedIndexBy(list, abcObject, valueIterator); // $ExpectType number
-    _.sortedIndexBy(list, abcObject, "a"); // $ExpectType number
+    _.sortedIndexBy(list, abcObject, ""); // $ExpectType number
     _.sortedIndexBy(list, abcObject, { a: 42 }); // $ExpectType number
     _(list).sortedIndexBy(abcObject, valueIterator); // $ExpectType number
-    _(list).sortedIndexBy(abcObject, "a"); // $ExpectType number
+    _(list).sortedIndexBy(abcObject, ""); // $ExpectType number
     _(list).sortedIndexBy(abcObject, { a: 42 }); // $ExpectType number
     _.chain(list).sortedIndexBy(abcObject, valueIterator); // $ExpectType PrimitiveChain<number>
-    _.chain(list).sortedIndexBy(abcObject, "a"); // $ExpectType PrimitiveChain<number>
+    _.chain(list).sortedIndexBy(abcObject, ""); // $ExpectType PrimitiveChain<number>
     _.chain(list).sortedIndexBy(abcObject, { a: 42 }); // $ExpectType PrimitiveChain<number>
     fp.sortedIndexBy(valueIterator, abcObject, list); // $ExpectType number
     fp.sortedIndexBy(valueIterator)(abcObject)(list); // $ExpectType number
@@ -1161,13 +1171,13 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.sortedIndexBy({ a: 42 }, abcObject, list); // $ExpectType number
 
     _.sortedLastIndexBy(list, abcObject, valueIterator); // $ExpectType number
-    _.sortedLastIndexBy(list, abcObject, "a"); // $ExpectType number
+    _.sortedLastIndexBy(list, abcObject, ""); // $ExpectType number
     _.sortedLastIndexBy(list, abcObject, { a: 42 }); // $ExpectType number
     _(list).sortedLastIndexBy(abcObject, valueIterator); // $ExpectType number
-    _(list).sortedLastIndexBy(abcObject, "a"); // $ExpectType number
+    _(list).sortedLastIndexBy(abcObject, ""); // $ExpectType number
     _(list).sortedLastIndexBy(abcObject, { a: 42 }); // $ExpectType number
     _.chain(list).sortedLastIndexBy(abcObject, valueIterator); // $ExpectType PrimitiveChain<number>
-    _.chain(list).sortedLastIndexBy(abcObject, "a"); // $ExpectType PrimitiveChain<number>
+    _.chain(list).sortedLastIndexBy(abcObject, ""); // $ExpectType PrimitiveChain<number>
     _.chain(list).sortedLastIndexBy(abcObject, { a: 42 }); // $ExpectType PrimitiveChain<number>
     fp.sortedLastIndexBy(valueIterator, abcObject, list); // $ExpectType number
     fp.sortedLastIndexBy(valueIterator)(abcObject)(list); // $ExpectType number
@@ -1218,17 +1228,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 {
     _.takeWhile(list); // $ExpectType AbcObject[]
     _.takeWhile(list, listIterator); // $ExpectType AbcObject[]
-    _.takeWhile(list, "a"); // $ExpectType AbcObject[]
+    _.takeWhile(list, ""); // $ExpectType AbcObject[]
     _.takeWhile(list, { a: 42 }); // $ExpectType AbcObject[]
 
     _(list).takeWhile(); // $ExpectType Collection<AbcObject>
     _(list).takeWhile(listIterator); // $ExpectType Collection<AbcObject>
-    _(list).takeWhile("a"); // $ExpectType Collection<AbcObject>
+    _(list).takeWhile(""); // $ExpectType Collection<AbcObject>
     _(list).takeWhile({ a: 42 }); // $ExpectType Collection<AbcObject>
 
     _.chain(list).takeWhile(); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).takeWhile(listIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).takeWhile("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).takeWhile(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).takeWhile({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
 
     fp.takeWhile(valueIterator, list); // $ExpectType AbcObject[]
@@ -1238,17 +1248,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.takeRightWhile(list); // $ExpectType AbcObject[]
     _.takeRightWhile(list, listIterator); // $ExpectType AbcObject[]
-    _.takeRightWhile(list, "a"); // $ExpectType AbcObject[]
+    _.takeRightWhile(list, ""); // $ExpectType AbcObject[]
     _.takeRightWhile(list, { a: 42 }); // $ExpectType AbcObject[]
 
     _(list).takeRightWhile(); // $ExpectType Collection<AbcObject>
     _(list).takeRightWhile(listIterator); // $ExpectType Collection<AbcObject>
-    _(list).takeRightWhile("a"); // $ExpectType Collection<AbcObject>
+    _(list).takeRightWhile(""); // $ExpectType Collection<AbcObject>
     _(list).takeRightWhile({ a: 42 }); // $ExpectType Collection<AbcObject>
 
     _.chain(list).takeRightWhile(); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).takeRightWhile(listIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).takeRightWhile("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).takeRightWhile(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).takeRightWhile({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
 
     fp.takeRightWhile(valueIterator, list); // $ExpectType AbcObject[]
@@ -1634,17 +1644,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.countBy(list); // $ExpectType Dictionary<number>
     _.countBy(list, valueIterator); // $ExpectType Dictionary<number>
-    _.countBy(list, "a"); // $ExpectType Dictionary<number>
+    _.countBy(list, ""); // $ExpectType Dictionary<number>
     _.countBy(list, { a: 42 }); // $ExpectType Dictionary<number>
 
     _.countBy(dictionary); // $ExpectType Dictionary<number>
     _.countBy(dictionary, valueIterator); // $ExpectType Dictionary<number>
-    _.countBy(dictionary, "a"); // $ExpectType Dictionary<number>
+    _.countBy(dictionary, ""); // $ExpectType Dictionary<number>
     _.countBy(dictionary, { a: 42 }); // $ExpectType Dictionary<number>
 
     _.countBy(numericDictionary); // $ExpectType Dictionary<number>
     _.countBy(numericDictionary, valueIterator); // $ExpectType Dictionary<number>
-    _.countBy(numericDictionary, "a"); // $ExpectType Dictionary<number>
+    _.countBy(numericDictionary, ""); // $ExpectType Dictionary<number>
     _.countBy(numericDictionary, { a: 42 }); // $ExpectType Dictionary<number>
 
     _("").countBy(); // $ExpectType Object<Dictionary<number>>
@@ -1652,17 +1662,17 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _(list).countBy(); // $ExpectType Object<Dictionary<number>>
     _(list).countBy(valueIterator); // $ExpectType Object<Dictionary<number>>
-    _(list).countBy("a"); // $ExpectType Object<Dictionary<number>>
+    _(list).countBy(""); // $ExpectType Object<Dictionary<number>>
     _(list).countBy({ a: 42 }); // $ExpectType Object<Dictionary<number>>
 
     _(dictionary).countBy(); // $ExpectType Object<Dictionary<number>>
     _(dictionary).countBy(valueIterator); // $ExpectType Object<Dictionary<number>>
-    _(dictionary).countBy("a"); // $ExpectType Object<Dictionary<number>>
+    _(dictionary).countBy(""); // $ExpectType Object<Dictionary<number>>
     _(dictionary).countBy({ a: 42 }); // $ExpectType Object<Dictionary<number>>
 
     _(numericDictionary).countBy(); // $ExpectType Object<Dictionary<number>>
     _(numericDictionary).countBy(valueIterator); // $ExpectType Object<Dictionary<number>>
-    _(numericDictionary).countBy("a"); // $ExpectType Object<Dictionary<number>>
+    _(numericDictionary).countBy(""); // $ExpectType Object<Dictionary<number>>
     _(numericDictionary).countBy({ a: 42 }); // $ExpectType Object<Dictionary<number>>
 
     _.chain("").countBy(); // $ExpectType ObjectChain<Dictionary<number>>
@@ -1670,23 +1680,23 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.chain(list).countBy(); // $ExpectType ObjectChain<Dictionary<number>>
     _.chain(list).countBy(valueIterator); // $ExpectType ObjectChain<Dictionary<number>>
-    _.chain(list).countBy("a"); // $ExpectType ObjectChain<Dictionary<number>>
+    _.chain(list).countBy(""); // $ExpectType ObjectChain<Dictionary<number>>
     _.chain(list).countBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<number>>
 
     _.chain(dictionary).countBy(); // $ExpectType ObjectChain<Dictionary<number>>
     _.chain(dictionary).countBy(valueIterator); // $ExpectType ObjectChain<Dictionary<number>>
-    _.chain(dictionary).countBy("a"); // $ExpectType ObjectChain<Dictionary<number>>
+    _.chain(dictionary).countBy(""); // $ExpectType ObjectChain<Dictionary<number>>
     _.chain(dictionary).countBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<number>>
 
     _.chain(numericDictionary).countBy(); // $ExpectType ObjectChain<Dictionary<number>>
     _.chain(numericDictionary).countBy(valueIterator); // $ExpectType ObjectChain<Dictionary<number>>
-    _.chain(numericDictionary).countBy("a"); // $ExpectType ObjectChain<Dictionary<number>>
+    _.chain(numericDictionary).countBy(""); // $ExpectType ObjectChain<Dictionary<number>>
     _.chain(numericDictionary).countBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<number>>
 
     fp.countBy(stringIterator, ""); // $ExpectType Dictionary<number>
     fp.countBy(stringIterator)(""); // $ExpectType Dictionary<number>
     fp.countBy(valueIterator, list); // $ExpectType Dictionary<number>
-    fp.countBy("a", list); // $ExpectType Dictionary<number>
+    fp.countBy("", list); // $ExpectType Dictionary<number>
     fp.countBy({ a: 42 }, list); // $ExpectType Dictionary<number>
     fp.countBy(valueIterator, dictionary); // $ExpectType Dictionary<number>
     fp.countBy({ a: 42 }, dictionary); // $ExpectType Dictionary<number>
@@ -1772,46 +1782,46 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.filter("", stringIterator); // $ExpectType string[]
     _.filter(list, listIterator); // $ExpectType AbcObject[]
-    _.filter(list, "a"); // $ExpectType AbcObject[]
+    _.filter(list, ""); // $ExpectType AbcObject[]
     _.filter(list, { a: 42 }); // $ExpectType AbcObject[]
     _.filter([{ a: { b: { c: 1 }, other1: "o" }, other2: "p" }], { a: { b: 0 } }); // $ExpectType { a: { b: { c: number; }; other1: string; }; other2: string; }[]
     _.filter(list, ["a", 42]); // $ExpectType AbcObject[]
     _.filter(dictionary, dictionaryIterator); // $ExpectType AbcObject[]
-    _.filter(dictionary, "a"); // $ExpectType AbcObject[]
+    _.filter(dictionary, ""); // $ExpectType AbcObject[]
     _.filter(dictionary, { a: 42 }); // $ExpectType AbcObject[]
     _.filter(dictionary, ["a", 42]); // $ExpectType AbcObject[]
 
     _("").filter(stringIterator); // $ExpectType Collection<string>
     _(list).filter(listIterator); // $ExpectType Collection<AbcObject>
-    _(list).filter("a"); // $ExpectType Collection<AbcObject>
+    _(list).filter(""); // $ExpectType Collection<AbcObject>
     _(list).filter({ a: 42 }); // $ExpectType Collection<AbcObject>
     _(list).filter(["a", 42]); // $ExpectType Collection<AbcObject>
     _(dictionary).filter(dictionaryIterator); // $ExpectType Collection<AbcObject>
-    _(dictionary).filter("a"); // $ExpectType Collection<AbcObject>
+    _(dictionary).filter(""); // $ExpectType Collection<AbcObject>
     _(dictionary).filter({ a: 42 }); // $ExpectType Collection<AbcObject>
     _(dictionary).filter(["a", 42]); // $ExpectType Collection<AbcObject>
 
     _.chain("").filter(stringIterator); // $ExpectType CollectionChain<string>
     _.chain(list).filter(listIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).filter("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).filter(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).filter({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).filter(["a", 42]); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).filter(dictionaryIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(dictionary).filter("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(dictionary).filter(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).filter({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).filter(["a", 42]); // $ExpectType CollectionChain<AbcObject>
 
     fp.filter(valueIterator, list); // $ExpectType AbcObject[]
     fp.filter(valueIterator)(list); // $ExpectType AbcObject[]
-    fp.filter("a", list); // $ExpectType AbcObject[]
+    fp.filter("", list); // $ExpectType AbcObject[]
     fp.filter({ a: 42 }, list); // $ExpectType AbcObject[]
     fp.filter(["a", 42], list); // $ExpectType AbcObject[]
     fp.filter(valueIterator, dictionary); // $ExpectType AbcObject[]
-    fp.filter("a", dictionary); // $ExpectType AbcObject[]
+    fp.filter("", dictionary); // $ExpectType AbcObject[]
     fp.filter({ a: 42 }, dictionary); // $ExpectType AbcObject[]
     fp.filter(["a", 42], dictionary); // $ExpectType AbcObject[]
-    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType string[]
-    fp.filter((s: string) => s === "a")("ab"); // $ExpectType string[]
+    fp.filter((s: string) => s === "a")(["a", "b"]); // $ExpectType "a"[] || string[]
+    fp.filter((s: string) => s === "a")("ab"); // $ExpectType "a"[] || string[]
 
     // Test filtering with type guard
     const a2: Array<string | number> | null | undefined = anything;
@@ -1873,7 +1883,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.chain(dictionary).find(); // $ExpectType ObjectChain<AbcObject>
     _.chain(dictionary).find(dictionaryIterator); // $ExpectType ObjectChain<AbcObject>
     _.chain(dictionary).find(dictionaryIterator, 1); // $ExpectType ObjectChain<AbcObject>
-    _.chain(dictionary).find("a"); // $ExpectType ObjectChain<AbcObject>
+    _.chain(dictionary).find(""); // $ExpectType ObjectChain<AbcObject>
     _.chain(dictionary).find({ a: 42 }); // $ExpectType ObjectChain<AbcObject>
     _.chain(dictionary).find(["a", 5]); // $ExpectType ObjectChain<AbcObject>
     // $ExpectType ObjectChain<AbcObject>
@@ -1932,7 +1942,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.chain(dictionary).findLast(); // $ExpectType ObjectChain<AbcObject>
     _.chain(dictionary).findLast(dictionaryIterator); // $ExpectType ObjectChain<AbcObject>
     _.chain(dictionary).findLast(dictionaryIterator, 1); // $ExpectType ObjectChain<AbcObject>
-    _.chain(dictionary).findLast("a"); // $ExpectType ObjectChain<AbcObject>
+    _.chain(dictionary).findLast(""); // $ExpectType ObjectChain<AbcObject>
     _.chain(dictionary).findLast({ a: 42 }); // $ExpectType ObjectChain<AbcObject>
     _.chain(dictionary).findLast(["a", 5]); // $ExpectType ObjectChain<AbcObject>
     // $ExpectType ObjectChain<AbcObject>
@@ -2520,29 +2530,29 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.groupBy(list, { a: 42 }); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary, valueIterator); // $ExpectType Dictionary<AbcObject[]>
-    _.groupBy(dictionary, "a"); // $ExpectType Dictionary<AbcObject[]>
+    _.groupBy(dictionary, ""); // $ExpectType Dictionary<AbcObject[]>
     _.groupBy(dictionary, { a: 42 }); // $ExpectType Dictionary<AbcObject[]>
 
     _("").groupBy(); // $ExpectType Object<Dictionary<string[]>>
     _("").groupBy(stringIterator); // $ExpectType Object<Dictionary<string[]>>
     _(list).groupBy(); // $ExpectType Object<Dictionary<AbcObject[]>>
     _(list).groupBy(valueIterator); // $ExpectType Object<Dictionary<AbcObject[]>>
-    _(list).groupBy("a"); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(list).groupBy(""); // $ExpectType Object<Dictionary<AbcObject[]>>
     _(list).groupBy({ a: 42 }); // $ExpectType Object<Dictionary<AbcObject[]>>
     _(dictionary).groupBy(); // $ExpectType Object<Dictionary<AbcObject[]>>
     _(dictionary).groupBy(valueIterator); // $ExpectType Object<Dictionary<AbcObject[]>>
-    _(dictionary).groupBy("a"); // $ExpectType Object<Dictionary<AbcObject[]>>
+    _(dictionary).groupBy(""); // $ExpectType Object<Dictionary<AbcObject[]>>
     _(dictionary).groupBy({ a: 42 }); // $ExpectType Object<Dictionary<AbcObject[]>>
 
     _.chain("").groupBy(); // $ExpectType ObjectChain<Dictionary<string[]>>
     _.chain("").groupBy(stringIterator); // $ExpectType ObjectChain<Dictionary<string[]>>
     _.chain(list).groupBy(); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(list).groupBy(valueIterator); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
-    _.chain(list).groupBy("a"); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(list).groupBy(""); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(list).groupBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy(); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy(valueIterator); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
-    _.chain(dictionary).groupBy("a"); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
+    _.chain(dictionary).groupBy(""); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(dictionary).groupBy({ a: 42 }); // $ExpectType ObjectChain<Dictionary<AbcObject[]>>
     _.chain(nullableString).groupBy(); // $ExpectType ObjectChain<Dictionary<string[]>>
 
@@ -2590,7 +2600,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 // _.keyBy
 {
     const valueIterator = (value: AbcObject) => "";
-    const subKey: keyof AbcObject = anything;
+    const subKey: string | number | symbol = anything;
 
     _.keyBy("abcd"); // $ExpectType Dictionary<string>
     _.keyBy("abcd", stringIterator); // $ExpectType Dictionary<string>
@@ -2960,26 +2970,26 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
     _.reject("", stringIterator); // $ExpectType string[]
     _.reject(list, listIterator); // $ExpectType AbcObject[]
-    _.reject(list, "a"); // $ExpectType AbcObject[]
+    _.reject(list, ""); // $ExpectType AbcObject[]
     _.reject(list, { a: 42 }); // $ExpectType AbcObject[]
     _.reject(dictionary, dictionaryIterator); // $ExpectType AbcObject[]
-    _.reject(dictionary, "a"); // $ExpectType AbcObject[]
+    _.reject(dictionary, ""); // $ExpectType AbcObject[]
     _.reject(dictionary, { a: 42 }); // $ExpectType AbcObject[]
 
     _("").reject(stringIterator); // $ExpectType Collection<string>
     _(list).reject(listIterator); // $ExpectType Collection<AbcObject>
-    _(list).reject("a"); // $ExpectType Collection<AbcObject>
+    _(list).reject(""); // $ExpectType Collection<AbcObject>
     _(list).reject({ a: 42 }); // $ExpectType Collection<AbcObject>
     _(dictionary).reject(dictionaryIterator); // $ExpectType Collection<AbcObject>
-    _(dictionary).reject("a"); // $ExpectType Collection<AbcObject>
+    _(dictionary).reject(""); // $ExpectType Collection<AbcObject>
     _(dictionary).reject({ a: 42 }); // $ExpectType Collection<AbcObject>
 
     _.chain("").reject(stringIterator); // $ExpectType CollectionChain<string>
     _.chain(list).reject(listIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).reject("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).reject(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).reject({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).reject(dictionaryIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(dictionary).reject("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(dictionary).reject(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).reject({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
 
     fp.reject(valueIterator, list); // $ExpectType AbcObject[]
@@ -2996,12 +3006,15 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     const list: _.List<string> | null | undefined = anything;
     const dictionary: _.Dictionary<string> | null | undefined = anything;
     const numericDictionary: _.NumericDictionary<string>  | null | undefined = anything;
+    const tuple: [string, string, string] = anything;
 
     _.sample("abc"); // $ExpectType string | undefined
     _.sample(list); // $ExpectType string | undefined
     _.sample(dictionary); // $ExpectType string | undefined
     _.sample(numericDictionary); // $ExpectType string | undefined
     _.sample({ a: "foo" }); // $ExpectType string | undefined
+    _.sample(tuple); // $ExpectType string
+    _.sample(["foo", "bar"] as const); // $ExpectType "foo" | "bar"
 
     _("abc").sample(); // $ExpectType string | undefined
     _(list).sample(); // $ExpectType string | undefined
@@ -3018,6 +3031,8 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     fp.sample("abc"); // $ExpectType string | undefined
     fp.sample(list); // $ExpectType string | undefined
     fp.sample({ a: "foo" }); // $ExpectType string | undefined
+    fp.sample(tuple); // $ExpectType string
+    fp.sample(["foo", "bar"] as const); // $ExpectType "foo" | "bar"
 
     _.sampleSize("abc"); // $ExpectType string[]
     _.sampleSize("abc", 3); // $ExpectType string[]
@@ -3079,7 +3094,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
 
 // _.some
 {
-    const subKey: keyof AbcObject = anything;
+    const subKey: string | number | symbol = anything;
 
     _.some(list); // $ExpectType boolean
     _.some(list, listIterator); // $ExpectType boolean
@@ -3157,33 +3172,33 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.sortBy(list, listIterator); // $ExpectType AbcObject[]
     _.sortBy(list, listIterator, listIterator); // $ExpectType AbcObject[]
     _.sortBy(list, [listIterator, listIterator]); // $ExpectType AbcObject[]
-    _.sortBy(list, "a"); // $ExpectType AbcObject[]
+    _.sortBy(list, ""); // $ExpectType AbcObject[]
     _.sortBy(list, { a: 42 }); // $ExpectType AbcObject[]
     _.sortBy(dictionary); // $ExpectType AbcObject[]
     _.sortBy(dictionary, dictionaryIterator); // $ExpectType AbcObject[]
-    _.sortBy(dictionary, "a"); // $ExpectType AbcObject[]
+    _.sortBy(dictionary, ""); // $ExpectType AbcObject[]
     _.sortBy(dictionary, { a: 42 }); // $ExpectType AbcObject[]
 
     _(list).sortBy(); // $ExpectType Collection<AbcObject>
     _(list).sortBy(listIterator); // $ExpectType Collection<AbcObject>
     _(list).sortBy(listIterator, listIterator); // $ExpectType Collection<AbcObject>
     _(list).sortBy([listIterator, listIterator]); // $ExpectType Collection<AbcObject>
-    _(list).sortBy("a"); // $ExpectType Collection<AbcObject>
+    _(list).sortBy(""); // $ExpectType Collection<AbcObject>
     _(list).sortBy({ a: 42 }); // $ExpectType Collection<AbcObject>
     _(dictionary).sortBy(); // $ExpectType Collection<AbcObject>
     _(dictionary).sortBy(dictionaryIterator); // $ExpectType Collection<AbcObject>
-    _(dictionary).sortBy("a"); // $ExpectType Collection<AbcObject>
+    _(dictionary).sortBy(""); // $ExpectType Collection<AbcObject>
     _(dictionary).sortBy({ a: 42 }); // $ExpectType Collection<AbcObject>
 
     _.chain(list).sortBy(); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).sortBy(listIterator); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).sortBy(listIterator, listIterator); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).sortBy([listIterator, listIterator]); // $ExpectType CollectionChain<AbcObject>
-    _.chain(list).sortBy("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(list).sortBy(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(list).sortBy({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).sortBy(); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).sortBy(dictionaryIterator); // $ExpectType CollectionChain<AbcObject>
-    _.chain(dictionary).sortBy("a"); // $ExpectType CollectionChain<AbcObject>
+    _.chain(dictionary).sortBy(""); // $ExpectType CollectionChain<AbcObject>
     _.chain(dictionary).sortBy({ a: 42 }); // $ExpectType CollectionChain<AbcObject>
 
     fp.sortBy(fp.identity, "bca"); // $ExpectType string[]
@@ -3205,7 +3220,7 @@ _.chain([1, 2, 3, 4]).unshift(5, 6); // $ExpectType CollectionChain<number>
     _.orderBy("acbd", [(value) => 1, (value) => 2], [true, false]); // $ExpectType string[]
     _.orderBy(list, (value) => 1); // $ExpectType AbcObject[]
     _.orderBy(list, (value) => 1, true); // $ExpectType AbcObject[]
-    _.orderBy(list, [(value) => 1, 'a', (value) => 2], [true, false]); // $ExpectType AbcObject[]
+    _.orderBy(list, [(value) => 1, 'third', (value) => 2], [true, false]); // $ExpectType AbcObject[]
     _.orderBy(dictionary, (value) => 1); // $ExpectType AbcObject[]
     _.orderBy(dictionary, (value) => 1, true); // $ExpectType AbcObject[]
     _.orderBy(numericDictionary, (value) => 1); // $ExpectType AbcObject[]
@@ -3651,25 +3666,62 @@ fp.now(); // $ExpectType number
 
 // _.throttle
 {
-    const options: _.ThrottleSettings = {
+    const optionsLeading: _.ThrottleSettingsLeading = {
         leading: true,
         trailing: false,
+    }
+    const optionsNoLeading: _.ThrottleSettings = {
+        leading: false,
     };
+
+    const optionsAmbiguous = {
+        leading: true as boolean,
+    };
+    const boolean = false as boolean; // $ExpectType boolean
+    const maybeUndefined = true as true | undefined; // $ExpectType true | undefined
 
     const func = (a: number, b: string): boolean => true;
 
-    _.throttle(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42, options); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _(func).throttle(); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42, options); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42, options); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.throttle(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, {}); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: true, trailing: false }); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: false }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: boolean }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, optionsAmbiguous); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
 
-    fp.throttle(42, func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    fp.throttle(42)(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _(func).throttle(); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, {}); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: true, trailing: false }); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: false }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: boolean }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, optionsAmbiguous); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+
+    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, {}); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: true, trailing: false }); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: false }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: boolean }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, optionsAmbiguous); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+
+    fp.throttle(42, func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    fp.throttle(42)(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+
+    // _.throttle treats an explicit `leading: undefined` the same as `leading: false`
+    const badOptionsLeading: _.ThrottleSettingsLeading = {
+        // @ts-expect-error explicit undefined is not allowed here
+        leading: undefined,
+    };
+
+    // any invokation where leading might be set as undefined should return DebouncedFunc, not DebouncedFuncLeading
+    _.throttle(func, 42, { leading: undefined }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: maybeUndefined }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.chain(func).throttle(42, { leading: undefined }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: maybeUndefined }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: undefined }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: maybeUndefined }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
 }
 
 // _.unary
@@ -5313,6 +5365,14 @@ fp.now(); // $ExpectType number
     const dictionary: _.Dictionary<string> = anything;
     const maybeObject: { a: _.Dictionary<string> } | undefined = anything;
 
+    const complexValue: {
+        some: { test: { path: 'Value1' } };
+        'some.test.path': 'Value2';
+        'some[test]path': 'Value3';
+        '0': 'Value4';
+        'length': 'Value5';
+    } | number[] = anything;
+
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
 
@@ -5326,7 +5386,7 @@ fp.now(); // $ExpectType number
     _.get({ a: tupleOfNumbers }, 'a.0'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[0]'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
-    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType undefined
+    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType 1
     _.get({ a: dictionary }, 'a.b'); // $ExpectType string
     _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
     _.get("abc", [0], "_");
@@ -5343,6 +5403,19 @@ fp.now(); // $ExpectType number
     _.get({}, "a", defaultValue); // $ExpectType boolean
     _.get({}, "a" as string, defaultValue); // $ExpectType boolean
     _.get(objectWithOptionalField, "a", undefined); // $ExpectType boolean | undefined
+    _.get(complexValue, 'some.test.path'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some].test.path'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, 'some[test].path'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, 'some.test[path]'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some][test].path'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some].test[path]'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, 'some[test][path]'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some][test][path]'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some.test.path]'); // $ExpectType 'Value2' | undefined
+    _.get(complexValue, '["some[test]path"]'); // $ExpectType 'Value3' | undefined
+    _.get(complexValue, '0'); // $ExpectType 'Value4' | number
+    _.get(complexValue, '1'); // $ExpectType undefined | number
+    _.get(complexValue, 'length'); // $ExpectType 'Value5' | number
 
     _("abc").get(1); // $ExpectType string
     _({ a: false }).get("a"); // $ExpectType boolean
@@ -5354,7 +5427,7 @@ fp.now(); // $ExpectType number
     _({ a: tupleOfNumbers }).get('a.0'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType undefined
-    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType undefined
+    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType 1
     _({ a: dictionary }).get('a.b'); // $ExpectType string
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
@@ -5380,7 +5453,7 @@ fp.now(); // $ExpectType number
     _.chain({ a: tupleOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType never
-    _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType never
+    _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType PrimitiveChain<1>
     _.chain({ a: dictionary }).get('a.b'); // $ExpectType StringChain
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
@@ -5419,6 +5492,32 @@ fp.now(); // $ExpectType number
     _.has(abcObject, ""); // $ExpectType boolean
     _.has(abcObject, 42); // $ExpectType boolean
     _.has(abcObject, ["", 42]); // $ExpectType boolean
+    if (_.has(abcObject, 'd')) {
+        abcObject.d // $ExpectType unknown
+    } else {
+        abcObject; // $ExpectType AbcObject
+    }
+    const partialObject: Partial<AbcObject> = {};
+    if (_.has(partialObject, 'a')) {
+        partialObject.a; // $ExpectType number | undefined
+    } else {
+        partialObject; // $ExpectType Partial<AbcObject>
+    }
+    const record: Record<string, number | string> = {};
+    if (_.has(record, 'a')) {
+        record.a; // $ExpectType number | string
+        const result: { a: number | string } = record;
+    } else {
+        // @ts-expect-error
+        const result: { a: number | string } = record;
+        record; // $ExpectType Record<string, number | string>
+    }
+    const data = {
+        level: 1,
+        length: 1,
+    };
+    _.has(data, 'level') || !!data.length;
+
     _(abcObject).has(""); // $ExpectType boolean
     _(abcObject).has(42); // $ExpectType boolean
     _(abcObject).has(["", 42]); // $ExpectType boolean
@@ -5521,17 +5620,17 @@ fp.now(); // $ExpectType number
 
     _.mapKeys(list); // $ExpectType Dictionary<AbcObject>
     _.mapKeys(list, listIterator); // $ExpectType Dictionary<AbcObject>
-    _.mapKeys(list, "a"); // $ExpectType Dictionary<AbcObject>
+    _.mapKeys(list, ""); // $ExpectType Dictionary<AbcObject>
     _.mapKeys(list, {}); // $ExpectType Dictionary<AbcObject>
 
     _.mapKeys(dictionary); // $ExpectType Dictionary<AbcObject>
     _.mapKeys(dictionary, dictionaryIterator); // $ExpectType Dictionary<AbcObject>
-    _.mapKeys(dictionary, "a"); // $ExpectType Dictionary<AbcObject>
+    _.mapKeys(dictionary, ""); // $ExpectType Dictionary<AbcObject>
     _.mapKeys(dictionary, {}); // $ExpectType Dictionary<AbcObject>
 
     _.mapKeys(numericDictionary); // $ExpectType Dictionary<AbcObject>
     _.mapKeys(numericDictionary, numericDictionaryIterator); // $ExpectType Dictionary<AbcObject>
-    _.mapKeys(numericDictionary, "a"); // $ExpectType Dictionary<AbcObject>
+    _.mapKeys(numericDictionary, ""); // $ExpectType Dictionary<AbcObject>
     _.mapKeys(numericDictionary, {}); // $ExpectType Dictionary<AbcObject>
 
     _.mapKeys(abcObject); // $ExpectType Dictionary<string | number | boolean>
@@ -5540,17 +5639,17 @@ fp.now(); // $ExpectType number
 
     _(list).mapKeys(); // $ExpectType Object<Dictionary<AbcObject>>
     _(list).mapKeys(listIterator); // $ExpectType Object<Dictionary<AbcObject>>
-    _(list).mapKeys("a"); // $ExpectType Object<Dictionary<AbcObject>>
+    _(list).mapKeys(""); // $ExpectType Object<Dictionary<AbcObject>>
     _(list).mapKeys({}); // $ExpectType Object<Dictionary<AbcObject>>
 
     _(dictionary).mapKeys(); // $ExpectType Object<Dictionary<AbcObject>>
     _(dictionary).mapKeys(dictionaryIterator); // $ExpectType Object<Dictionary<AbcObject>>
-    _(dictionary).mapKeys("a"); // $ExpectType Object<Dictionary<AbcObject>>
+    _(dictionary).mapKeys(""); // $ExpectType Object<Dictionary<AbcObject>>
     _(dictionary).mapKeys({}); // $ExpectType Object<Dictionary<AbcObject>>
 
     _(numericDictionary).mapKeys(); // $ExpectType Object<Dictionary<AbcObject>>
     _(numericDictionary).mapKeys(numericDictionaryIterator); // $ExpectType Object<Dictionary<AbcObject>>
-    _(numericDictionary).mapKeys("a"); // $ExpectType Object<Dictionary<AbcObject>>
+    _(numericDictionary).mapKeys(""); // $ExpectType Object<Dictionary<AbcObject>>
     _(numericDictionary).mapKeys({}); // $ExpectType Object<Dictionary<AbcObject>>
 
     _(abcObject).mapKeys(); // $ExpectType Object<Dictionary<string | number | boolean>>
@@ -5559,17 +5658,17 @@ fp.now(); // $ExpectType number
 
     _.chain(list).mapKeys(); // $ExpectType ObjectChain<Dictionary<AbcObject>>
     _.chain(list).mapKeys(listIterator); // $ExpectType ObjectChain<Dictionary<AbcObject>>
-    _.chain(list).mapKeys("a"); // $ExpectType ObjectChain<Dictionary<AbcObject>>
+    _.chain(list).mapKeys(""); // $ExpectType ObjectChain<Dictionary<AbcObject>>
     _.chain(list).mapKeys({}); // $ExpectType ObjectChain<Dictionary<AbcObject>>
 
     _.chain(dictionary).mapKeys(); // $ExpectType ObjectChain<Dictionary<AbcObject>>
     _.chain(dictionary).mapKeys(dictionaryIterator); // $ExpectType ObjectChain<Dictionary<AbcObject>>
-    _.chain(dictionary).mapKeys("a"); // $ExpectType ObjectChain<Dictionary<AbcObject>>
+    _.chain(dictionary).mapKeys(""); // $ExpectType ObjectChain<Dictionary<AbcObject>>
     _.chain(dictionary).mapKeys({}); // $ExpectType ObjectChain<Dictionary<AbcObject>>
 
     _.chain(numericDictionary).mapKeys(); // $ExpectType ObjectChain<Dictionary<AbcObject>>
     _.chain(numericDictionary).mapKeys(numericDictionaryIterator); // $ExpectType ObjectChain<Dictionary<AbcObject>>
-    _.chain(numericDictionary).mapKeys("a"); // $ExpectType ObjectChain<Dictionary<AbcObject>>
+    _.chain(numericDictionary).mapKeys(""); // $ExpectType ObjectChain<Dictionary<AbcObject>>
     _.chain(numericDictionary).mapKeys({}); // $ExpectType ObjectChain<Dictionary<AbcObject>>
 
     _.chain(abcObject).mapKeys(); // $ExpectType ObjectChain<Dictionary<string | number | boolean>>
@@ -5603,6 +5702,14 @@ fp.now(); // $ExpectType number
         index; // $ExpectType number
         str; // $ExpectType string
         return abcObject;
+    });
+
+    // $ExpectType NumericDictionary<boolean>
+    _.mapValues(arrayParam, (value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
     });
 
     // $ExpectType { [x: string]: string; }
@@ -5666,6 +5773,14 @@ fp.now(); // $ExpectType number
         return "";
     });
 
+    // $ExpectType NumericDictionary<boolean>
+    _(arrayParam).mapValues((value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
     // $ExpectType Object<{ [x: number]: string; }>
     _(numericDictionary).mapValues((value, key, collection) => {
         value;  // $ExpectType AbcObject
@@ -5715,6 +5830,16 @@ fp.now(); // $ExpectType number
         collection; // $ExpectType Dictionary<AbcObject>
         return "";
     });
+
+    // $ExpectType ObjectChain<NumericDictionary<boolean>>
+    _.chain(arrayParam).mapValues((value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
+    
 
     // $ExpectType ObjectChain<{ [x: number]: string; }>
     _.chain(numericDictionary).mapValues((value, key, collection) => {
@@ -5809,7 +5934,7 @@ fp.now(); // $ExpectType number
 {
     const obj1: AbcObject | null | undefined = anything;
     const obj2: AbcObject = anything;
-    const readonlyArray: ReadonlyArray<string> = ["a", "b"];
+    const readonlyArray: readonly string[] = ["a", "b"];
     const literalsArray: Array<"a" | "b"> = ["a", "b"];
     const roLiteralsArray: ReadonlyArray<"a" | "b"> = literalsArray;
 
@@ -6019,7 +6144,7 @@ fp.now(); // $ExpectType number
 // _.transform
 {
     const array: number[] = [];
-    const readonlyArray: ReadonlyArray<number> = [];
+    const readonlyArray: readonly number[] = [];
     const dictionary: _.Dictionary<number> = {};
 
     {
@@ -6329,7 +6454,7 @@ fp.now(); // $ExpectType number
 
 // _.prototype.concat
 {
-    const numberROA: ReadonlyArray<number> = [0];
+    const numberROA: readonly number[] = [0];
 
     _.concat(1); // $ExpectType number[]
     _.concat([1]); // $ExpectType number[]
@@ -6354,7 +6479,7 @@ fp.now(); // $ExpectType number
     _.chain(numberROA).concat(numberROA); // $ExpectType CollectionChain<number>
     _.chain(numberROA).concat(numberROA, numberROA); // $ExpectType CollectionChain<number>
 
-    const objectROA: ReadonlyArray<AbcObject> = [{ a: 1, b: 'foo', c: true }];
+    const objectROA: readonly AbcObject[] = [{ a: 1, b: 'foo', c: true }];
 
     _.concat(abcObject, abcObject); // $ExpectType AbcObject[]
     _.concat(abcObject, [abcObject], objectROA); // $ExpectType AbcObject[]
@@ -7257,6 +7382,9 @@ _.templateSettings; // $ExpectType TemplateSettings
     const func3 = (arg1: number, arg2: string, arg3: boolean): number => {
         return arg1 * arg2.length + (arg3 ? 1 : 0);
     };
+    const func4 = (arg1: number, arg2: string, arg3: boolean, arg4: number): number => {
+        return arg1 * arg2.length + (arg3 ? 1 : 0) - arg4;
+    }
 
     // with arity 0 function
     _.partial(func0); // $ExpectType () => number
@@ -7270,7 +7398,16 @@ _.templateSettings; // $ExpectType TemplateSettings
     _.partial(func2, _.partial.placeholder, "foo"); // $ExpectType Function1<number, number>
     _.partial(func2, 42, "foo"); // $ExpectType () => number
     // with arity 3 function
-    _.partial(func3, 42,     _, true);
+    _.partial(func3) // $ExpectType (arg1: number, arg2: string, arg3: boolean) => number
+    _.partial(func3, 42) // $ExpectType (arg2: string, arg3: boolean) => number
+    _.partial(func3, 42,     _, true) // $ExpectType Function1<string, number>;
+    _.partial(func3, 42, "foo", true) // $ExpectType () => number
+    // with arity 4 function
+    _.partial(func4) // $ExpectType (arg1: number, arg2: string, arg3: boolean: arg4: number) => number
+    _.partial(func4, 42) // $ExpectType (arg2: string, arg3: boolean: arg4: number) => number
+    _.partial(func4, 42,     _, true, 10) // $ExpectType Function1<string, number>;
+    _.partial(func4, _,      _,    _, 10) // $ExpectType Function3<number, string, boolean, number>;
+    _.partial(func4, 42, "foo", true, 10) // $ExpectType () => number
 
     // with arity 0 function
     _.partialRight(func0); // $ExpectType Function0<number>
@@ -7308,4 +7445,186 @@ _.templateSettings; // $ExpectType TemplateSettings
     _("").stubFalse(); // $ExpectType false
     _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
     fp.stubFalse(); // $ExpectType false
+}
+
+/********************
+ * TypeScript Utils *
+ ********************/
+
+// GetFieldTypeOfNarrowedByKey
+{
+    // of array
+    {
+        type Arr = Array<'OK'>;
+        type A = GetFieldTypeOfNarrowedByKey<Arr, 0>; // $ExpectType 'OK'
+        type B = GetFieldTypeOfNarrowedByKey<Arr, '0'>; // $ExpectType 'OK'
+        type C = GetFieldTypeOfNarrowedByKey<Arr, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<Arr, 'length'>; // $ExpectType number
+    }
+
+    // of object
+    {
+        const symbol = Symbol();
+
+        interface ObjectLiteral { [key: string]: 'OK', [symbol]: 'SymVal' }
+        type ObjectWithNumberKeys = Record<number, 'OK'>; // keyof ObjectWithNumberKeys equals number
+        type ObjectWithStringKeys = Record<string, 'OK'>; // keyof ObjectWithStringKeys equals string
+
+        type A = GetFieldTypeOfNarrowedByKey<AbcObject, 'a'>; // $ExpectType number
+        type B = GetFieldTypeOfNarrowedByKey<AbcObject, 'b'>; // $ExpectType string
+        type C = GetFieldTypeOfNarrowedByKey<AbcObject, 'c'>; // $ExpectType boolean
+        type D = GetFieldTypeOfNarrowedByKey<AbcObject, 'd'>; // $ExpectType undefined
+        type E = GetFieldTypeOfNarrowedByKey<AbcObject, 0>; // $ExpectType undefined
+        type F = GetFieldTypeOfNarrowedByKey<AbcObject, '0'>; // $ExpectType undefined
+
+        type G = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 'key'>; // $ExpectType 'OK'
+        type H = GetFieldTypeOfNarrowedByKey<ObjectLiteral, typeof symbol>; // $ExpectType "SymVal"
+
+        // Note: It is legit, as JS & TS auto-cast numeric values to string keys.
+        type I = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 0>; // $ExpectType 'OK'
+
+        type J = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 0>; // $ExpectType 'OK'
+        type K = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, '0'>; // $ExpectType 'OK'
+        type L = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 'key'>; // $ExpectType undefined
+        type M = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, typeof symbol>; // $ExpectType undefined
+
+        // Again, JS & TS auto-cast numeric values to string keys, thus the next two test cases are valid.
+        type N = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 0>; // $ExpectType 'OK'
+        type O = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, '0'>; // $ExpectType 'OK'
+        type P = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 'key'>; // $ExpectType 'OK'
+        type R = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, typeof symbol>; // $ExpectType undefined
+    }
+
+    // of non-accessible primitives
+    {
+        const symbol = Symbol();
+        type A = GetFieldTypeOfNarrowedByKey<never, 'key'>; // $ExpectType never
+        type B = GetFieldTypeOfNarrowedByKey<null, 'key'>; // $ExpectType undefined
+        type C = GetFieldTypeOfNarrowedByKey<number, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<typeof symbol, 'key'>; // $ExpectType undefined
+        type E = GetFieldTypeOfNarrowedByKey<undefined, 'key'>; // $ExpectType undefined
+    }
+
+    // of string
+    {
+        type A = GetFieldTypeOfNarrowedByKey<string, 0>; // $ExpectType string
+        type B = GetFieldTypeOfNarrowedByKey<string, '0'>; // $ExpectType string
+        type C = GetFieldTypeOfNarrowedByKey<string, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<string, 'length'>; // $ExpectType number
+    }
+
+    // of tuple
+    {
+        type Tuple = ['A'];
+        type A = GetFieldTypeOfNarrowedByKey<Tuple, 0>; // $ExpectType 'A'
+        type B = GetFieldTypeOfNarrowedByKey<Tuple, 1>; // $ExpectType undefined
+        type C = GetFieldTypeOfNarrowedByKey<Tuple, number>; // $ExpectType 'A'
+        type D = GetFieldTypeOfNarrowedByKey<Tuple, '0'>; // $ExpectType 'A'
+        type E = GetFieldTypeOfNarrowedByKey<Tuple, '1'>; // $ExpectType undefined
+        type F = GetFieldTypeOfNarrowedByKey<Tuple, 'key'>; // $ExpectType undefined
+        type G = GetFieldTypeOfNarrowedByKey<Tuple, 'length'>; // $ExpectType 1
+    }
+}
+
+// GetFieldTypeOfNarrowedByDotPath
+{
+    // handling of empty key names (based on the runtime _.get() behavior)
+    interface ObjA { '': { '': { '': 'OK' } } };
+    type A = GetFieldTypeOfNarrowedByDotPath<ObjA, ''>; // $ExpectType { '': { '': 'OK' } }
+    type B = GetFieldTypeOfNarrowedByDotPath<ObjA, '.'>; // $ExpectType { '': 'OK' }
+    type C = GetFieldTypeOfNarrowedByDotPath<ObjA, '..'>; // $ExpectType 'OK'
+    type D = GetFieldTypeOfNarrowedByDotPath<ObjA, '...'>; // $ExpectType undefined
+
+    // handling of objects with non-empty key names
+    interface ObjB { some: { path: 'OK' } };
+    type E = GetFieldTypeOfNarrowedByDotPath<ObjB, ''>; // $ExpectType undefined
+    type F = GetFieldTypeOfNarrowedByDotPath<ObjB, 'some'> // $ExpectType { path: 'OK' }
+    type G = GetFieldTypeOfNarrowedByDotPath<ObjB, 'some.path'> // $ExpectType 'OK'
+    type H = GetFieldTypeOfNarrowedByDotPath<ObjB, '.some'>; // $ExpectType undefined
+}
+
+// GetFieldTypeOfNarrowedByLKR
+{
+    interface ObjA { some: { test: { path: 'OK' } } };
+
+    type A = GetFieldTypeOfNarrowedByLKR<ObjA, 'some.test', 'path', ''>; // $ExpectType 'OK' 
+    type B = GetFieldTypeOfNarrowedByLKR<ObjA, 'some', 'test', 'path'>; // $ExpectType 'OK'
+    type C = GetFieldTypeOfNarrowedByLKR<ObjA, '', 'some', 'test.path'>; // $ExpectType 'OK'
+
+    // it should ignore the tail dot in L, and the front dot in R, if any
+    type D = GetFieldTypeOfNarrowedByLKR<ObjA, 'some.', 'test', '.path'>; // $ExpectType 'OK'
+    type E = GetFieldTypeOfNarrowedByLKR<ObjA, '.some', 'test', 'path.'>; // $ExpectType undefined
+
+    // and if there are empty key names, they should be handled correctly
+    type F = GetFieldTypeOfNarrowedByLKR<{ '': { test: 'OK' } }, '.', 'test', ''> // $ExpectType 'OK'
+    type G = GetFieldTypeOfNarrowedByLKR<{ test: { '': 'OK' } }, '', 'test', '.'> // $ExpectType 'OK'
+    type H = GetFieldTypeOfNarrowedByLKR<{ '': { test: { '': 'OK' } } }, '.', 'test', '.'> // $ExpectType 'OK'
+}
+
+// GetFieldTypeOfNarrowed
+{
+    interface Obj {
+        some: { test: { path: 'Value1' } },
+        'some.test.path': 'Value2',
+        'some[test]path': 'Value3',
+    };
+
+    // XT argument causes expected path/key parsing mode
+    type A = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'Key'>; // $ExpectType 'Value2'
+    type B = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'Key'>; // $ExpectType 'Value3'
+    type C = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'DotPath'>; // $ExpectType 'Value1'
+    type D = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'DotPath'>; // $ExpectType 'Value3'
+    type E = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'Path'>; // $ExpectType 'Value1'
+    type F = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'Path'>; // $ExpectType 'Value1'
+
+    // Dots around brackets are handled the same as by _.get() during the runtime
+    type G = GetFieldTypeOfNarrowed<Obj, '.some[test]path', 'Path'>; // $ExpectType undefined
+    type H = GetFieldTypeOfNarrowed<Obj, 'some.[test]path', 'Path'>; // $ExpectType 'Value1'
+    type I = GetFieldTypeOfNarrowed<Obj, 'some[test].path', 'Path'>; // $ExpectType 'Value1'
+    type J = GetFieldTypeOfNarrowed<Obj, 'some[test]path.', 'Path'>; // $ExpectType undefined
+
+    // Brackets in front, or in the end
+    type K = GetFieldTypeOfNarrowed<Obj, '[some]test.path', 'Path'>; // $ExpectType 'Value1'
+    type L = GetFieldTypeOfNarrowed<Obj, '.[some]test.path', 'Path'>; // $ExpectType undefined
+    type M = GetFieldTypeOfNarrowed<Obj, 'some.test[path]', 'Path'>; // $ExpectType 'Value1'
+    type N = GetFieldTypeOfNarrowed<Obj, 'some.test[path].', 'Path'>; // $ExpectType undefined
+
+    // Key inside brackets can be quoted, to avoid parsing any dots / brackets inside it
+    type O = GetFieldTypeOfNarrowed<Obj, "['some.test.path']", 'Path'>; // $ExpectType 'Value2'
+    type P = GetFieldTypeOfNarrowed<Obj, '["some[test]path"]', 'Path'>; // $ExpectType 'Value3'
+}
+
+// GetFieldTypeOfObject
+{
+    type Arr = Array<'ArrVal'>;
+    interface Obj { '0': 'ObjVal' };
+    type ArrOrObj = Arr | Obj;
+
+    type A = GetFieldTypeOfObject<Arr, 0, 'Path'>; // $ExpectType 'ArrVal'
+    type B = GetFieldTypeOfObject<Obj, 0, 'Path'>; // $ExpectType 'ObjVal'
+    type C = GetFieldTypeOfObject<ArrOrObj, 0, 'Path'>; // $ExpectType 'ArrVal' | 'ObjVal'
+    type D = GetFieldTypeOfObject<ArrOrObj, 'length', 'Path'>; // $ExpectType number | undefined
+}
+
+// GetFieldTypeOfPrimitive
+{
+    type A = GetFieldTypeOfPrimitive<string, 0, 'Path'>; // $ExpectType string
+    type B = GetFieldTypeOfPrimitive<null, 0, 'Path'>; // $ExpectType undefined
+    type C = GetFieldTypeOfPrimitive<never, 0, 'Path'>; // $ExpectType never
+    type D = GetFieldTypeOfPrimitive<string | null, 0, 'Path'>; // $ExpectType string | undefined
+    type E = GetFieldTypeOfPrimitive<string | null, 'length', 'Path'>; // $ExpectType number | undefined
+}
+
+// GetFieldType
+{
+    type Type =
+        | Array<'ArrVal'>
+        | { '0': 'ObjVal0', 'A': 'ObjValA' }
+        | string
+        | undefined;
+
+    type A = GetFieldType<Type, 0>; // $ExpectType string | undefined
+    type B = GetFieldType<Exclude<Type, string>, 0>; // $ExpectType 'ArrVal' | 'ObjVal0' | undefined
+    type C = GetFieldType<Type, 'A'>; // $ExpectType 'ObjValA' | undefined
+    type D = GetFieldType<Type, 'length'>; // $ExpectType number | undefined
 }

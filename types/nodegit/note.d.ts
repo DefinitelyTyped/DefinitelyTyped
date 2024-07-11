@@ -1,6 +1,6 @@
-import { Repository } from './repository';
-import { Signature } from './signature';
-import { Oid } from './oid';
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Signature } from "./signature";
 
 export class Note {
     static create(
@@ -27,7 +27,6 @@ export class Note {
     author(): Signature;
     committer(): Signature;
 
-    free(): void;
     id(): Oid;
     message(): string;
 }

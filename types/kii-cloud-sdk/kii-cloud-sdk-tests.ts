@@ -7,12 +7,12 @@ function main() {
         success(user: KiiUser) {
         },
         failure(user: KiiUser, message: string) {
-        }
+        },
     });
 
     user.register({
         success: (user: KiiUser) => 123,
-        failure: (user: KiiUser, message: string) => 456
+        failure: (user: KiiUser, message: string) => 456,
     });
 
     user.register()
@@ -39,12 +39,10 @@ function main() {
     const query = KiiQuery.queryWithClause(clause3);
 
     bucket.executeQuery(query, {
-        success: (query: KiiQuery,
-                  results: KiiObject[],
-                  nextQuery: KiiQuery) => {
+        success: (query: KiiQuery, results: KiiObject[], nextQuery: KiiQuery) => {
         },
         failure: (bucket: KiiBucket, message: string) => {
-        }
+        },
     });
 
     bucket.executeQuery<KiiObject>(query)
@@ -62,11 +60,13 @@ function main() {
         success: (theSavedGroup: KiiGroup) => {
             theSavedGroup.saveWithOwner("user ID");
         },
-        failure: (theGroup: KiiGroup,
-                  anErrorString: string,
-                  addMembersArray: KiiUser[],
-                  removeMembersArray: KiiUser[]) => {
-        }
+        failure: (
+            theGroup: KiiGroup,
+            anErrorString: string,
+            addMembersArray: KiiUser[],
+            removeMembersArray: KiiUser[],
+        ) => {
+        },
     });
 
     Kii.authenticateAsThing("thing id", "password", {
@@ -74,7 +74,7 @@ function main() {
             thingAuthContext.bucketWithName("");
         },
         failure: (error) => {
-        }
+        },
     })
         .then((thingAuthContext: KiiThingContext) => {
         });
@@ -84,7 +84,7 @@ function main() {
             thingAuthContext.bucketWithName("");
         },
         failure: (error) => {
-        }
+        },
     })
         .then((thingAuthContext: KiiThingContext) => {
         });

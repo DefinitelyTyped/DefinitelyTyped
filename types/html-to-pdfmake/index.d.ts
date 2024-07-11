@@ -1,10 +1,3 @@
-// Type definitions for html-to-pdfmake 2.4
-// Project: https://github.com/Aymkdn/html-to-pdfmake#readme
-// Definitions by: Martin Zloch <https://github.com/me>
-//                 Cecil Wöbker <https://github.com/cwoebker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 /**
  * This module will convert some basic and valid HTML code to its equivalent in pdfmake.
  * @see https://www.npmjs.com/package/html-to-pdfmake
@@ -38,7 +31,7 @@ declare function htmlToPdfmake(
          * and it will automatically load your images in your PDF using the {images} option of PDFMake.
          * Using this option will change the output of html-to-pdfmake that will return an object with {content, images}
          */
-        imagesByReferences: boolean;
+        imagesByReference: boolean;
         /**
          * You can overwrite the default sizes for the old HTML4 tag <font> by using fontSizes. It must be an array with 7 values
          */

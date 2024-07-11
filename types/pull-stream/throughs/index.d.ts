@@ -1,12 +1,12 @@
-import asyncMapImport = require('./async-map');
-import filterNotImport = require('./filter-not');
-import filterImport = require('./filter');
-import flattenImport = require('./flatten');
-import mapImport = require('./map');
-import nonUniqueImport = require('./non-unique');
-import takeImport = require('./take');
-import throughImport = require('./through');
-import uniqueImport = require('./unique');
+import asyncMapImport = require("./async-map");
+import filterNotImport = require("./filter-not");
+import filterImport = require("./filter");
+import flattenImport = require("./flatten");
+import mapImport = require("./map");
+import nonUniqueImport = require("./non-unique");
+import takeImport = require("./take");
+import throughImport = require("./through");
+import uniqueImport = require("./unique");
 
 export const asyncMap: typeof asyncMapImport;
 export const filterNot: typeof filterNotImport;

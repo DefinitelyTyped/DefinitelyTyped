@@ -1,11 +1,3 @@
-// Type definitions for non-npm package dom-background-sync-browser 0.0
-// Project: https://wicg.github.io/background-sync/spec/#api-description
-// Definitions by: Hana Joo <https://github.com/h-joo>
-//                 Jan Kuehle <https://github.com/frigus02>
-//                 Martin Probst <https://github.com/mprobst>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 interface SyncEventInit extends ExtendableEventInit {
     lastChance?: boolean;
     tag: string;
@@ -17,7 +9,7 @@ interface SyncEvent extends ExtendableEvent {
     readonly tag: string;
 }
 
-declare var SyncEvent: { prototype: SyncEvent; new (type: string, init?: SyncEventInit): SyncEvent };
+declare var SyncEvent: { prototype: SyncEvent; new(type: string, init?: SyncEventInit): SyncEvent };
 
 // https://wicg.github.io/background-sync/spec/#syncmanager
 interface SyncManager {
@@ -27,7 +19,7 @@ interface SyncManager {
 
 declare var SyncManager: {
     prototype: SyncManager;
-    new (): SyncManager;
+    new(): SyncManager;
 };
 
 interface ServiceWorkerRegistration {

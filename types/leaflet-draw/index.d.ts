@@ -1,15 +1,6 @@
-// Type definitions for leaflet-draw 1.0
-// Project: https://github.com/Leaflet/Leaflet.draw
-// Definitions by: Matt Guest <https://github.com/matt-guest>
-//                 Ryan Blace <https://github.com/reblace>
-//                 Yun Shi <https://github.com/YunS-Stacy>
-//                 Kevin Richter <https://github.com/beschoenen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface MapOptions {
         drawControl?: boolean | undefined;
         drawControlTooltips?: boolean | undefined;
@@ -57,6 +48,7 @@ declare module 'leaflet' {
     class Toolbar extends Class {
         constructor(options?: ToolbarOptions);
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         addToolbar(map: DrawMap): HTMLElement | void;
 
         removeToolbar(): void;
@@ -160,7 +152,7 @@ declare module 'leaflet' {
              *
              * @default null
              */
-            edit?: Omit<EditToolbar.EditHandlerOptions, 'featureGroup'> | false | undefined;
+            edit?: Omit<EditToolbar.EditHandlerOptions, "featureGroup"> | false | undefined;
 
             /**
              * Delete handler options. Set to false to disable handler.
@@ -215,9 +207,11 @@ declare module 'leaflet' {
              *
              * @default { stroke: true, color: '#3388ff', weight: 4, opacity: 0.5, fill: false, clickable: true }
              */
-            shapeOptions?: L.PolylineOptions & {
-                clickable?: boolean | undefined;
-            } | undefined;
+            shapeOptions?:
+                | L.PolylineOptions & {
+                    clickable?: boolean | undefined;
+                }
+                | undefined;
 
             /**
              * Whether to display distance in the tooltip
@@ -358,7 +352,7 @@ declare module 'leaflet' {
             nautic?: boolean | undefined;
         }
 
-        interface CircleMarkerOptions {
+        interface CircleMarkerOptions extends MarkerOptions {
             /**
              * Whether to draw stroke around the circle marker.
              *
@@ -455,22 +449,22 @@ declare module 'leaflet' {
 
     namespace Draw {
         namespace Event {
-            const CREATED: 'draw:created';
-            const DELETED: 'draw:deleted';
-            const DELETESTART: 'draw:deletestart';
-            const DELETESTOP: 'draw:deletestop';
-            const DRAWSTART: 'draw:drawstart';
-            const DRAWSTOP: 'draw:drawstop';
-            const DRAWVERTEX: 'draw:drawvertex';
-            const EDITED: 'draw:edited';
-            const EDITMOVE: 'draw:editmove';
-            const EDITRESIZE: 'draw:editresize';
-            const EDITSTART: 'draw:editstart';
-            const EDITSTOP: 'draw:editstop';
-            const EDITVERTEX: 'draw:editvertex';
-            const MARKERCONTEXT: 'draw:markercontext';
-            const TOOLBARCLOSED: 'draw:toolbarclosed';
-            const TOOLBAROPENED: 'draw:toolbaropened';
+            const CREATED: "draw:created";
+            const DELETED: "draw:deleted";
+            const DELETESTART: "draw:deletestart";
+            const DELETESTOP: "draw:deletestop";
+            const DRAWSTART: "draw:drawstart";
+            const DRAWSTOP: "draw:drawstop";
+            const DRAWVERTEX: "draw:drawvertex";
+            const EDITED: "draw:edited";
+            const EDITMOVE: "draw:editmove";
+            const EDITRESIZE: "draw:editresize";
+            const EDITSTART: "draw:editstart";
+            const EDITSTOP: "draw:editstop";
+            const EDITVERTEX: "draw:editvertex";
+            const MARKERCONTEXT: "draw:markercontext";
+            const TOOLBARCLOSED: "draw:toolbarclosed";
+            const TOOLBAROPENED: "draw:toolbaropened";
         }
 
         /**
@@ -480,75 +474,79 @@ declare module 'leaflet' {
          * for (const key in eventHandlers) { map.off(eventHandlers[key], LeafletFn); }
          */
         interface EventHandlers {
-          onCreated: typeof Event.CREATED;
-          onDeleted: typeof Event.DELETED;
-          onDeleteStart: typeof Event.DELETESTART;
-          onDeleteStop: typeof Event.DELETESTOP;
-          onDrawStart: typeof Event.DRAWSTART;
-          onDrawStop: typeof Event.DRAWSTOP;
-          onDrawVertex: typeof Event.DRAWVERTEX;
-          onEdited: typeof Event.EDITED;
-          onEditMove: typeof Event.EDITMOVE;
-          onEditResize: typeof Event.EDITRESIZE;
-          onEditStart: typeof Event.EDITSTART;
-          onEditStop: typeof Event.EDITSTOP;
-          onEditVertex: typeof Event.EDITVERTEX;
-          onMarkerContext: typeof Event.MARKERCONTEXT;
-          onToolbarClosed: typeof Event.TOOLBARCLOSED;
-          onToolbarOpened: typeof Event.TOOLBAROPENED;
+            onCreated: typeof Event.CREATED;
+            onDeleted: typeof Event.DELETED;
+            onDeleteStart: typeof Event.DELETESTART;
+            onDeleteStop: typeof Event.DELETESTOP;
+            onDrawStart: typeof Event.DRAWSTART;
+            onDrawStop: typeof Event.DRAWSTOP;
+            onDrawVertex: typeof Event.DRAWVERTEX;
+            onEdited: typeof Event.EDITED;
+            onEditMove: typeof Event.EDITMOVE;
+            onEditResize: typeof Event.EDITRESIZE;
+            onEditStart: typeof Event.EDITSTART;
+            onEditStop: typeof Event.EDITSTOP;
+            onEditVertex: typeof Event.EDITVERTEX;
+            onMarkerContext: typeof Event.MARKERCONTEXT;
+            onToolbarClosed: typeof Event.TOOLBARCLOSED;
+            onToolbarOpened: typeof Event.TOOLBAROPENED;
 
-          // Requires an index signature of type string to be properly useful
-          [key: string]: string;
+            // Requires an index signature of type string to be properly useful
+            [key: string]: string;
         }
 
         class Feature extends Handler {
             initialize(
                 map: DrawMap,
                 options:
-                    | DrawOptions.PolylineOptions | DrawOptions.PolygonOptions
-                    | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions
+                    | DrawOptions.PolylineOptions
+                    | DrawOptions.PolygonOptions
+                    | DrawOptions.RectangleOptions
+                    | DrawOptions.MarkerOptions,
             ): void;
 
             setOptions(
                 options:
-                    | DrawOptions.PolylineOptions | DrawOptions.PolygonOptions
-                    | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions
+                    | DrawOptions.PolylineOptions
+                    | DrawOptions.PolygonOptions
+                    | DrawOptions.RectangleOptions
+                    | DrawOptions.MarkerOptions,
             ): void;
         }
 
         class SimpleShape extends Feature {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.SimpleShapeOptions
-            )
+                options?: DrawOptions.SimpleShapeOptions,
+            );
         }
 
         class Marker extends Feature {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.MarkerOptions
-            )
+                options?: DrawOptions.MarkerOptions,
+            );
         }
 
         class CircleMarker extends Marker {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.MarkerOptions
-            )
+                options?: DrawOptions.MarkerOptions,
+            );
         }
 
         class Circle extends SimpleShape {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.CircleOptions
-            )
+                options?: DrawOptions.CircleOptions,
+            );
         }
 
         class Polyline extends Feature {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.PolylineOptions
-            )
+                options?: DrawOptions.PolylineOptions,
+            );
 
             deleteLastVertex(): void;
 
@@ -560,15 +558,15 @@ declare module 'leaflet' {
         class Rectangle extends SimpleShape {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.RectangleOptions
-            )
+                options?: DrawOptions.RectangleOptions,
+            );
         }
 
         class Polygon extends Polyline {
             constructor(
                 map: DrawMap,
-                options?: DrawOptions.PolygonOptions
-            )
+                options?: DrawOptions.PolygonOptions,
+            );
         }
 
         class Tooltip extends Class {
@@ -576,7 +574,7 @@ declare module 'leaflet' {
 
             dispose(): void;
 
-            updateContent(labelText?: { text: string, subtext?: string | undefined }): Tooltip;
+            updateContent(labelText?: { text: string; subtext?: string | undefined }): Tooltip;
 
             updatePosition(latlng: LatLng): Tooltip;
 
@@ -719,8 +717,11 @@ declare module 'leaflet' {
          * The value will be rounded as defined by the precision option object.
          */
         function readableDistance(
-            distance: number, isMetric?: boolean, isFeet?: boolean,
-            isNauticalMile?: boolean, precision?: PrecisionOptions
+            distance: number,
+            isMetric?: boolean,
+            isFeet?: boolean,
+            isNauticalMile?: boolean,
+            precision?: PrecisionOptions,
         ): string;
 
         /**

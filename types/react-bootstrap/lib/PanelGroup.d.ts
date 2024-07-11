@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes, SelectCallback } from 'react-bootstrap';
+import * as React from "react";
+import { SelectCallback, Sizes } from "react-bootstrap";
 
 declare namespace PanelGroup {
     export interface PanelGroupProps extends React.HTMLProps<PanelGroup> {
@@ -11,5 +11,5 @@ declare namespace PanelGroup {
         generateChildId?: Function | undefined;
     }
 }
-declare class PanelGroup extends React.Component<PanelGroup.PanelGroupProps> { }
+declare class PanelGroup extends React.Component<PanelGroup.PanelGroupProps> {}
 export = PanelGroup;

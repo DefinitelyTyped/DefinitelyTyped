@@ -1,6 +1,6 @@
-import { Color, FindColorByMode, Mode } from './common';
+import { Color, FindColorByMode, Mode } from "./common";
 
-export interface ConvertFn<M extends Mode = 'rgb'> {
+export interface ConvertFn<M extends Mode = "rgb"> {
     (color: undefined, target_mode?: M): undefined;
     (color: Color, target_mode?: M): FindColorByMode<M>;
     (color: undefined | string | Color, target_mode?: M): FindColorByMode<M> | undefined;

@@ -1,6 +1,6 @@
-import { Guide } from "../Guide";
-import { Document } from "../Document";
 import * as Constants from "../Constants";
+import { Document } from "../Document";
+import { Guide } from "../Guide";
 /**
  * A collections class allowing for array access into a document's guides
  *
@@ -11,7 +11,7 @@ import * as Constants from "../Constants";
  * app.activeDocument.guides.add(Constants.Direction.HORIZONTAL, 20);
  * ```
  */
-export declare class Guides {
+export declare class Guides extends Array<Guide> {
     /**
      * @ignore
      */
@@ -53,14 +53,13 @@ export declare class Guides {
     /**
      * Adds a guide for the collection at the given coordinate and direction
      *
-     *
      * ***Fixes in Photoshop 24.0:***
      * - *Correct coordinate when resolution is not 72 PPI*
      * - *Returns valid instance of guide*
      *
      * @param direction Indicates whether the guide is vertical or horizontal
      * @param coordinate Position of the guide measured from the ruler origin in pixels.
-     * The value can be a decimal number.
+     * The value can be a decimal.
      *
      * Note: the user can move the ruler origin which will affect the position value of the guides.
      * @minVersion 23.0

@@ -1,7 +1,10 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-declare-current-package": "off",
-        "no-single-element-tuple-type": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/consistent-type-definitions": "off"
     }
 }

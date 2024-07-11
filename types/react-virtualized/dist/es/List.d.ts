@@ -1,10 +1,10 @@
-import { PureComponent } from 'react';
-import { Grid, GridCoreProps, GridCellProps, OverscanIndicesGetter } from './Grid';
-import { IndexRange, OverscanIndexRange, Alignment } from '../../index';
-import { CellPosition } from './CellMeasurer';
+import { JSX, PureComponent } from "react";
+import { Alignment, IndexRange, OverscanIndexRange } from "../../index";
+import { CellPosition } from "./CellMeasurer";
+import { Grid, GridCellProps, GridCoreProps, OverscanIndicesGetter } from "./Grid";
 
-export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, 'rowIndex'>> & {
-    index: GridCellProps['rowIndex'];
+export type ListRowProps = Pick<GridCellProps, Exclude<keyof GridCellProps, "rowIndex">> & {
+    index: GridCellProps["rowIndex"];
 };
 
 export type ListRowRenderer = (props: ListRowProps) => React.ReactNode;
@@ -41,7 +41,7 @@ export class List extends PureComponent<ListProps> {
         onRowsRendered: () => void;
         overscanIndicesGetter: OverscanIndicesGetter;
         overscanRowCount: 10;
-        scrollToAlignment: 'auto';
+        scrollToAlignment: "auto";
         scrollToIndex: -1;
         style: {};
     };

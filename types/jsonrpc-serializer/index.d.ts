@@ -1,10 +1,4 @@
-// Type definitions for jsonrpc-serializer 0.2
-// Project: https://github.com/soggie/jsonrpc-serializer
-// Definitions by: Akim95 <https://github.com/Akim95>, many20 <https://github.com/many20>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
-
-export type PayloadType = 'request' | 'notification' | 'success' | 'error';
+export type PayloadType = "request" | "notification" | "success" | "error";
 // export const PayloadType = {
 //    request: 'request' as PayloadType,
 //    notification: 'notification' as PayloadType,
@@ -67,7 +61,12 @@ export function deserializeObject(msg: PayloadObject): DeserializeObject;
 export type errorHandler = (errors: string[] | null) => void;
 
 export namespace err {
-    type ErrorName = 'JsonRpcError' | 'ParseError' | 'InvalidRequestError' | 'MethodNotFoundError' | 'InvalidParamsError';
+    type ErrorName =
+        | "JsonRpcError"
+        | "ParseError"
+        | "InvalidRequestError"
+        | "MethodNotFoundError"
+        | "InvalidParamsError";
     // const ErrorName = {
     //    JsonRpcError: 'JsonRpcError' as ErrorName,
     //    ParseError: 'ParseError' as ErrorName,

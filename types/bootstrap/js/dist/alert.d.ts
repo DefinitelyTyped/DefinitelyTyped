@@ -1,7 +1,7 @@
-import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
 declare class Alert extends BaseComponent {
-    static NAME: 'alert';
+    static NAME: "alert";
     static jQueryInterface: Alert.jQueryInterface;
 
     /**
@@ -30,16 +30,16 @@ declare namespace Alert {
         /**
          * Fires immediately when the close instance method is called.
          */
-        close = 'close.bs.alert',
+        close = "close.bs.alert",
 
         /**
          * Fired when the alert has been closed and CSS transitions have
          * completed.
          */
-        closed = 'closed.bs.alert',
+        closed = "closed.bs.alert",
     }
 
-    type jQueryInterface = (config?: 'close' | 'dispose') => JQuery;
+    type jQueryInterface = (config?: "close" | "dispose") => JQuery;
 }
 
 export default Alert;

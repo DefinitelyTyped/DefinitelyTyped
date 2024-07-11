@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-modalbox",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/maxs15/react-native-modalbox#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-modalbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        }
+    ]
+}

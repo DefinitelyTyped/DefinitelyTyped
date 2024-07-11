@@ -1,9 +1,3 @@
-// Type definitions for non-npm package MediaStreamTrack Insertable Media Processing using Streams 0.1
-// Project: https://w3c.github.io/mediacapture-transform/
-// Definitions by: Ben Wagner <https://github.com/dogben>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.1
-
 // In general, these types are only available behind a command line flag or an origin trial in
 // Chrome 90+.
 
@@ -54,8 +48,8 @@ declare var MediaStreamTrackProcessor: {
     prototype: MediaStreamTrackProcessor<any>;
 
     /** Constructor overrides based on the type of track. */
-    new(init: MediaStreamTrackProcessorInit & { track: MediaStreamAudioTrack; }): MediaStreamTrackProcessor<AudioData>;
-    new (init: MediaStreamTrackProcessorInit & { track: MediaStreamVideoTrack }): MediaStreamTrackProcessor<VideoFrame>;
+    new(init: MediaStreamTrackProcessorInit & { track: MediaStreamAudioTrack }): MediaStreamTrackProcessor<AudioData>;
+    new(init: MediaStreamTrackProcessorInit & { track: MediaStreamVideoTrack }): MediaStreamTrackProcessor<VideoFrame>;
 };
 
 interface MediaStreamTrackProcessorInit {
@@ -94,8 +88,12 @@ declare var MediaStreamTrackGenerator: {
     prototype: MediaStreamTrackGenerator<any>;
 
     /** Constructor overrides based on the type of track. */
-    new (init: MediaStreamTrackGeneratorInit & { kind: "audio", signalTarget?: MediaStreamAudioTrack | undefined }): MediaStreamAudioTrackGenerator;
-    new (init: MediaStreamTrackGeneratorInit & { kind: "video", signalTarget?: MediaStreamVideoTrack | undefined }): MediaStreamVideoTrackGenerator;
+    new(
+        init: MediaStreamTrackGeneratorInit & { kind: "audio"; signalTarget?: MediaStreamAudioTrack | undefined },
+    ): MediaStreamAudioTrackGenerator;
+    new(
+        init: MediaStreamTrackGeneratorInit & { kind: "video"; signalTarget?: MediaStreamVideoTrack | undefined },
+    ): MediaStreamVideoTrackGenerator;
 };
 
 interface MediaStreamTrackGeneratorInit {

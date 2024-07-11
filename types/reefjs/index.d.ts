@@ -1,9 +1,3 @@
-// Type definitions for reefjs 7.6
-// Project: https://github.com/cferdinandi/reef#readme
-// Definitions by: shockdevv <https://github.com/shockdevv>
-//                 cferdinandi <https://github.com/cferdinandi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Reef;
 
 declare class Reef {
@@ -145,7 +139,6 @@ declare namespace Reef {
          * @param DataStore - Single object containing data, setters, and getters.
          *
          * {@link https://reefjs.com/advanced/#shared-state-with-data-stores}
-         *
          */
         constructor(DataStore: DataStore);
 
@@ -156,7 +149,6 @@ declare namespace Reef {
          * @param args - Any required arguments.
          *
          * {@link https://reefjs.com/advanced/#setters}
-         *
          */
         do(name: string, ...args: any[]): void;
 
@@ -166,7 +158,6 @@ declare namespace Reef {
          * @param name - Name of getter.
          *
          * {@link https://reefjs.com/advanced/#getters}
-         *
          */
         get(name: string): any;
     }

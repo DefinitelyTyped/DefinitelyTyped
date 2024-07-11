@@ -1,19 +1,19 @@
-import AsyncStreamEmitter = require('async-stream-emitter');
-import { Secret } from 'jsonwebtoken';
-import { Server } from 'http';
-import WebSocket = require('ws');
-import WritableConsumableStream = require('writable-consumable-stream');
-import ConsumableStream = require('consumable-stream');
-import AGSimpleBroker = require('ag-simple-broker');
-import AuthEngine = require('ag-auth');
+import AsyncStreamEmitter = require("async-stream-emitter");
+import { Server } from "http";
+import { Secret } from "jsonwebtoken";
+import WebSocket = require("ws");
+import WritableConsumableStream = require("writable-consumable-stream");
+import ConsumableStream = require("consumable-stream");
+import AGSimpleBroker = require("ag-simple-broker");
+import AuthEngine = require("ag-auth");
 
-import AGServerSocket = require('./serversocket');
-import AGAction = require('./action');
+import AGServerSocket = require("./serversocket");
+import AGAction = require("./action");
 
-declare const MIDDLEWARE_HANDSHAKE = 'handshake';
-declare const MIDDLEWARE_INBOUND_RAW = 'inboundRaw';
-declare const MIDDLEWARE_INBOUND = 'inbound';
-declare const MIDDLEWARE_OUTBOUND = 'outbound';
+declare const MIDDLEWARE_HANDSHAKE = "handshake";
+declare const MIDDLEWARE_INBOUND_RAW = "inboundRaw";
+declare const MIDDLEWARE_INBOUND = "inbound";
+declare const MIDDLEWARE_OUTBOUND = "outbound";
 
 declare class AGServer extends AsyncStreamEmitter<any> {
     readonly MIDDLEWARE_HANDSHAKE: typeof MIDDLEWARE_HANDSHAKE;
@@ -59,40 +59,40 @@ declare class AGServer extends AsyncStreamEmitter<any> {
     };
     pendingClientsCount: number;
 
-    wsServer: WebSocket.Server;
+    wsServer: WebSocket.WebSocketServer;
 
     constructor(options?: AGServer.AGServerOptions);
 
     emitError(error: Error): void;
     emitWarning(warning: Error): void;
 
-    emit(eventName: 'error', data: { error: Error }): void;
-    emit(eventName: 'warning', data: { warning: Error }): void;
-    emit(eventName: 'handshake', data: { socket: AGServerSocket }): void;
-    emit(eventName: 'authenticationStateChange', data: AGServer.AuthStateChangeData): void;
-    emit(eventName: 'authentication', data: AGServer.AuthenticationData): void;
-    emit(eventName: 'deauthentication', data: AGServer.DeauthenticationData): void;
-    emit(eventName: 'badSocketAuthToken', data: AGServer.BadSocketAuthTokenData): void;
-    emit(eventName: 'connection', data: AGServer.ConnectionData): void;
-    emit(eventName: 'subscription', data: AGServer.SubscriptionData): void;
-    emit(eventName: 'unsubscription', data: AGServer.UnsubscriptionData): void;
-    emit(eventName: 'connectionAbort', data: AGServer.ConnectionAbortData): void;
-    emit(eventName: 'disconnection', data: AGServer.DisconnectionData): void;
-    emit(eventName: 'closure', data: AGServer.ClosureData): void;
+    emit(eventName: "error", data: { error: Error }): void;
+    emit(eventName: "warning", data: { warning: Error }): void;
+    emit(eventName: "handshake", data: { socket: AGServerSocket }): void;
+    emit(eventName: "authenticationStateChange", data: AGServer.AuthStateChangeData): void;
+    emit(eventName: "authentication", data: AGServer.AuthenticationData): void;
+    emit(eventName: "deauthentication", data: AGServer.DeauthenticationData): void;
+    emit(eventName: "badSocketAuthToken", data: AGServer.BadSocketAuthTokenData): void;
+    emit(eventName: "connection", data: AGServer.ConnectionData): void;
+    emit(eventName: "subscription", data: AGServer.SubscriptionData): void;
+    emit(eventName: "unsubscription", data: AGServer.UnsubscriptionData): void;
+    emit(eventName: "connectionAbort", data: AGServer.ConnectionAbortData): void;
+    emit(eventName: "disconnection", data: AGServer.DisconnectionData): void;
+    emit(eventName: "closure", data: AGServer.ClosureData): void;
 
-    listener(eventName: 'error'): ConsumableStream<{ error: Error }>;
-    listener(eventName: 'warning'): ConsumableStream<{ warning: Error }>;
-    listener(eventName: 'handshake'): ConsumableStream<{ socket: AGServerSocket }>;
-    listener(eventName: 'authenticationStateChange'): ConsumableStream<AGServer.AuthStateChangeData>;
-    listener(eventName: 'authentication'): ConsumableStream<AGServer.AuthenticationData>;
-    listener(eventName: 'deauthentication'): ConsumableStream<AGServer.DeauthenticationData>;
-    listener(eventName: 'badSocketAuthToken'): ConsumableStream<AGServer.BadSocketAuthTokenData>;
-    listener(eventName: 'connection'): ConsumableStream<AGServer.ConnectionData>;
-    listener(eventName: 'subscription'): ConsumableStream<AGServer.SubscriptionData>;
-    listener(eventName: 'unsubscription'): ConsumableStream<AGServer.UnsubscriptionData>;
-    listener(eventName: 'connectionAbort'): ConsumableStream<AGServer.ConnectionAbortData>;
-    listener(eventName: 'disconnection'): ConsumableStream<AGServer.DisconnectionData>;
-    listener(eventName: 'closure'): ConsumableStream<AGServer.ClosureData>;
+    listener(eventName: "error"): ConsumableStream<{ error: Error }>;
+    listener(eventName: "warning"): ConsumableStream<{ warning: Error }>;
+    listener(eventName: "handshake"): ConsumableStream<{ socket: AGServerSocket }>;
+    listener(eventName: "authenticationStateChange"): ConsumableStream<AGServer.AuthStateChangeData>;
+    listener(eventName: "authentication"): ConsumableStream<AGServer.AuthenticationData>;
+    listener(eventName: "deauthentication"): ConsumableStream<AGServer.DeauthenticationData>;
+    listener(eventName: "badSocketAuthToken"): ConsumableStream<AGServer.BadSocketAuthTokenData>;
+    listener(eventName: "connection"): ConsumableStream<AGServer.ConnectionData>;
+    listener(eventName: "subscription"): ConsumableStream<AGServer.SubscriptionData>;
+    listener(eventName: "unsubscription"): ConsumableStream<AGServer.UnsubscriptionData>;
+    listener(eventName: "connectionAbort"): ConsumableStream<AGServer.ConnectionAbortData>;
+    listener(eventName: "disconnection"): ConsumableStream<AGServer.DisconnectionData>;
+    listener(eventName: "closure"): ConsumableStream<AGServer.ClosureData>;
 
     setMiddleware(type: typeof MIDDLEWARE_HANDSHAKE, middleware: AGServer.handshakeMiddlewareFunction): void;
     setMiddleware(type: typeof MIDDLEWARE_INBOUND_RAW, middleware: AGServer.inboundRawMiddlewareFunction): void;
@@ -169,7 +169,7 @@ declare namespace AGServer {
 
         // This can be the name of an npm module or a path to a
         // Node.js module to use as the WebSocket server engine.
-        wsEngine?: string | { Server: WebSocket.Server };
+        wsEngine?: string | { Server: WebSocket.WebSocketServer };
 
         // Custom options to pass to the wsEngine when it is being
         // instantiated.
@@ -267,7 +267,7 @@ declare namespace AGServer {
         // Close mode means that consumers on the socket will
         // be able to finish processing their stream backlogs
         // bebfore they are ended.
-        socketStreamCleanupMode?: 'kill' | 'close';
+        socketStreamCleanupMode?: "kill" | "close";
 
         authVerifyAlgorithms?: string[];
         authEngine?: AuthEngineType;
@@ -292,7 +292,11 @@ declare namespace AGServer {
     ) => void;
     type outboundMiddlewareFunction = (stream: WritableConsumableStream<AGAction.AGActionPublishOut>) => void;
 
-    type Middlewares = typeof MIDDLEWARE_HANDSHAKE | typeof MIDDLEWARE_INBOUND_RAW | typeof MIDDLEWARE_INBOUND | typeof MIDDLEWARE_OUTBOUND;
+    type Middlewares =
+        | typeof MIDDLEWARE_HANDSHAKE
+        | typeof MIDDLEWARE_INBOUND_RAW
+        | typeof MIDDLEWARE_INBOUND
+        | typeof MIDDLEWARE_OUTBOUND;
 
     interface CodecEngine {
         decode: (input: any) => any;

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/data-urls",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jsdom/data-urls#readme"
+    ],
+    "dependencies": {
+        "@types/whatwg-mimetype": "*",
+        "@types/whatwg-url": "*"
+    },
+    "devDependencies": {
+        "@types/data-urls": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jaime Filho",
+            "githubUsername": "jaimeadf"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "bendingbender"
+        }
+    ]
+}

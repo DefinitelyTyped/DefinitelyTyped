@@ -1,8 +1,3 @@
-// Type definitions for uuid v2.0.3
-// Project: https://github.com/defunctzombie/node-uuid
-// Definitions by: Oliver Hoffmann <https://github.com/iamolivinius/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace uuid {
@@ -13,7 +8,7 @@ declare namespace uuid {
         nsecs?: number | undefined;
     }
 
-    type V4Options = { random: number[] } | { rng: () => number[]; }
+    type V4Options = { random: number[] } | { rng: () => number[] };
 
     interface UuidStatic {
         (options?: V4Options): string;
@@ -31,5 +26,5 @@ declare namespace uuid {
     }
 }
 
-declare const uuid: uuid.UuidStatic
-export = uuid
+declare const uuid: uuid.UuidStatic;
+export = uuid;

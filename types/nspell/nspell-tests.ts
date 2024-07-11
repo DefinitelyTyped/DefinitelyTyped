@@ -1,34 +1,34 @@
-import nspell from 'nspell';
+import nspell from "nspell";
 
 // $ExpectType NSpell
-nspell('');
+nspell("");
 // $ExpectType NSpell
-nspell(new Buffer(''));
+nspell(new Buffer(""));
 // $ExpectType NSpell
-nspell(new Buffer(''), new Buffer(''));
+nspell(new Buffer(""), new Buffer(""));
 // $ExpectType NSpell
-nspell({ aff: new Buffer(''), dic: new Buffer('') });
+nspell({ aff: new Buffer(""), dic: new Buffer("") });
 // $ExpectType NSpell
-nspell([{ aff: new Buffer('') }, { aff: new Buffer('') }]);
+nspell([{ aff: new Buffer("") }, { aff: new Buffer("") }]);
 
-const spell = nspell('', '');
+const spell = nspell("", "");
 // $ExpectType boolean
-spell.correct('');
+spell.correct("");
 // $ExpectType string[]
-spell.suggest('');
+spell.suggest("");
 // $ExpectType SpellCheck
-spell.spell('');
+spell.spell("");
 // $ExpectType NSpell
-spell.add('');
+spell.add("");
 // $ExpectType NSpell
-spell.remove('');
+spell.remove("");
 // $ExpectType string | undefined
 spell.wordCharacters();
 // $ExpectType NSpell
-spell.dictionary('');
+spell.dictionary("");
 // $ExpectType NSpell
-spell.dictionary(new Buffer(''));
+spell.dictionary(new Buffer(""));
 // $ExpectType NSpell
-spell.personal('');
+spell.personal("");
 // $ExpectType NSpell
-spell.personal(new Buffer(''));
+spell.personal(new Buffer(""));

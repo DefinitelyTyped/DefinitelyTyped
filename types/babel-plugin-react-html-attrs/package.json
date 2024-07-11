@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/babel-plugin-react-html-attrs",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/insin/babel-plugin-react-html-attrs"
+    ],
     "dependencies": {
+        "@types/prop-types": "*",
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/babel-plugin-react-html-attrs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonny Buchanan",
+            "githubUsername": "insin"
+        }
+    ]
 }

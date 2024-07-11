@@ -1,4 +1,4 @@
-import * as ansi from 'ansi-escape-sequences';
+import * as ansi from "ansi-escape-sequences";
 
 // $ExpectType string
 ansi.style.red;
@@ -6,24 +6,24 @@ ansi.style.red;
 ansi.style.invalidStyle;
 
 // $ExpectType string
-ansi.styles('green');
+ansi.styles("green");
 // $ExpectType string
-ansi.styles(['green', 'underline']);
+ansi.styles(["green", "underline"]);
 // @ts-expect-error
-ansi.styles('invalidStyle');
+ansi.styles("invalidStyle");
 // @ts-expect-error
-ansi.styles(['invalidStyle']);
+ansi.styles(["invalidStyle"]);
 
 // $ExpectType string
-ansi.format('what?', 'green');
+ansi.format("what?", "green");
 // $ExpectType string
-ansi.format('what?', ['green', 'bold']);
+ansi.format("what?", ["green", "bold"]);
 // $ExpectType string
-ansi.format('[green bold]{what?}');
+ansi.format("[green bold]{what?}");
 // @ts-expect-error
-ansi.styles('what?', 'invalidStyle');
+ansi.styles("what?", "invalidStyle");
 // @ts-expect-error
-ansi.styles('what?', ['invalidStyle']);
+ansi.styles("what?", ["invalidStyle"]);
 
 // $ExpectType string
 ansi.cursor.up();

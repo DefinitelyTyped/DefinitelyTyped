@@ -1,11 +1,3 @@
-// Type definitions for diff 5.0
-// Project: https://github.com/kpdecker/jsdiff
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 szdc <https://github.com/szdc>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Diff;
 
 export type Callback = (err: undefined, value?: Change[]) => void;
@@ -89,12 +81,14 @@ export interface ApplyPatchOptions {
      *
      * @default strict equality
      */
-    compareLine?: ((
-        lineNumber: number,
-        line: string,
-        operation: '-' | ' ',
-        patchContent: string
-    ) => boolean) | undefined;
+    compareLine?:
+        | ((
+            lineNumber: number,
+            line: string,
+            operation: "-" | " ",
+            patchContent: string,
+        ) => boolean)
+        | undefined;
 }
 
 export interface ApplyPatchesOptions extends ApplyPatchOptions {
@@ -147,14 +141,14 @@ export interface Hunk {
 
 export interface BestPath {
     newPos: number;
-    componenets: Change[];
+    components: Change[];
 }
 
 export class Diff {
     diff(
         oldString: string,
         newString: string,
-        options?: Callback | (ArrayOptions<any, any> & Partial<CallbackOptions>)
+        options?: Callback | (ArrayOptions<any, any> & Partial<CallbackOptions>),
     ): Change[];
 
     pushComponent(components: Change[], added: boolean, removed: boolean): void;
@@ -163,7 +157,7 @@ export class Diff {
         basePath: BestPath,
         newString: string,
         oldString: string,
-        diagonalPath: number
+        diagonalPath: number,
     ): number;
 
     equals(left: any, right: any): boolean;
@@ -186,7 +180,7 @@ export function diffChars(oldStr: string, newStr: string, options?: BaseOptions)
 export function diffChars(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback | (BaseOptions & CallbackOptions),
 ): void;
 
 /**
@@ -198,7 +192,7 @@ export function diffWords(oldStr: string, newStr: string, options?: WordsOptions
 export function diffWords(
     oldStr: string,
     newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
+    options: Callback | (WordsOptions & CallbackOptions),
 ): void;
 
 /**
@@ -209,12 +203,12 @@ export function diffWords(
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
-    options?: WordsOptions
+    options?: WordsOptions,
 ): Change[];
 export function diffWordsWithSpace(
     oldStr: string,
     newStr: string,
-    options: Callback | (WordsOptions & CallbackOptions)
+    options: Callback | (WordsOptions & CallbackOptions),
 ): void;
 
 /**
@@ -226,7 +220,7 @@ export function diffLines(oldStr: string, newStr: string, options?: LinesOptions
 export function diffLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
+    options: Callback | (LinesOptions & CallbackOptions),
 ): void;
 
 /**
@@ -238,7 +232,7 @@ export function diffTrimmedLines(oldStr: string, newStr: string, options?: Lines
 export function diffTrimmedLines(
     oldStr: string,
     newStr: string,
-    options: Callback | (LinesOptions & CallbackOptions)
+    options: Callback | (LinesOptions & CallbackOptions),
 ): void;
 
 /**
@@ -250,7 +244,7 @@ export function diffSentences(oldStr: string, newStr: string, options?: BaseOpti
 export function diffSentences(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback | (BaseOptions & CallbackOptions),
 ): void;
 
 /**
@@ -262,7 +256,7 @@ export function diffCss(oldStr: string, newStr: string, options?: BaseOptions): 
 export function diffCss(
     oldStr: string,
     newStr: string,
-    options: Callback | (BaseOptions & CallbackOptions)
+    options: Callback | (BaseOptions & CallbackOptions),
 ): void;
 
 /**
@@ -274,12 +268,12 @@ export function diffCss(
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,
-    options?: JsonOptions
+    options?: JsonOptions,
 ): Change[];
 export function diffJson(
     oldObj: string | object,
     newObj: string | object,
-    options: Callback | (JsonOptions & CallbackOptions)
+    options: Callback | (JsonOptions & CallbackOptions),
 ): void;
 
 /**
@@ -290,7 +284,7 @@ export function diffJson(
 export function diffArrays<TOld, TNew>(
     oldArr: TOld[],
     newArr: TNew[],
-    options?: ArrayOptions<TOld, TNew>
+    options?: ArrayOptions<TOld, TNew>,
 ): Array<ArrayChange<TOld | TNew>>;
 
 /**
@@ -310,7 +304,7 @@ export function createTwoFilesPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): string;
 
 /**
@@ -329,7 +323,7 @@ export function createPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): string;
 
 /**
@@ -351,20 +345,20 @@ export function structuredPatch(
     newStr: string,
     oldHeader?: string,
     newHeader?: string,
-    options?: PatchOptions
+    options?: PatchOptions,
 ): ParsedDiff;
 
 /**
  * Applies a unified diff patch.
  *
  * @param patch May be a string diff or the output from the `parsePatch()` or `structuredPatch()` methods.
- * @returns A string containing new version of provided data.
+ * @returns A string containing new version of provided data. false when failed
  */
 export function applyPatch(
     source: string,
     patch: string | ParsedDiff | [ParsedDiff],
-    options?: ApplyPatchOptions
-): string;
+    options?: ApplyPatchOptions,
+): string | false;
 
 /**
  * Applies one or more patches.
@@ -399,5 +393,11 @@ export function convertChangesToXML(changes: Change[]): string;
 export function convertChangesToDMP(changes: Change[]): Array<[1 | 0 | -1, string]>;
 
 export function merge(mine: string, theirs: string, base: string): ParsedDiff;
+
+/**
+ * Returns a new structured patch which when applied will undo the original `patch`.
+ * `patch` may be either a single structured patch object (as returned by `structuredPatch`) or an array of them (as returned by `parsePatch`).
+ */
+export function reversePatch(patch: ParsedDiff | ParsedDiff[]): ParsedDiff;
 
 export function canonicalize(obj: any, stack: any[], replacementStack: any[]): any;

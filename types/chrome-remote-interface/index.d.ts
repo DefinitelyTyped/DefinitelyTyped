@@ -1,12 +1,5 @@
-// Type definitions for chrome-remote-interface 0.31
-// Project: https://github.com/cyrus-and/chrome-remote-interface
-// Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
-//                 Seth Westphal <https://github.com/westy92>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
-import type ProtocolProxyApi from 'devtools-protocol/types/protocol-proxy-api';
-import type ProtocolMappingApi from 'devtools-protocol/types/protocol-mapping';
+import type ProtocolMappingApi from "devtools-protocol/types/protocol-mapping";
+import type ProtocolProxyApi from "devtools-protocol/types/protocol-proxy-api";
 
 declare namespace CDP {
     interface BaseOptions {
@@ -53,7 +46,7 @@ declare namespace CDP {
 
     interface SendCallback<T extends keyof ProtocolMappingApi.Commands> {
         (error: true, response: SendError): void;
-        (error: false, response: ProtocolMappingApi.Commands[T]['returnType']): void;
+        (error: false, response: ProtocolMappingApi.Commands[T]["returnType"]): void;
         (error: Error, response: undefined): void;
     }
 
@@ -69,10 +62,10 @@ declare namespace CDP {
 
     interface VersionResult {
         Browser: string;
-        'Protocol-Version': string;
-        'User-Agent': string;
-        'V8-Version': string;
-        'Webkit-Version': string;
+        "Protocol-Version": string;
+        "User-Agent": string;
+        "V8-Version": string;
+        "Webkit-Version": string;
         webSocketDebuggerUrl: string;
     }
 
@@ -155,17 +148,18 @@ declare namespace CDP {
 
     type GetEventFromString<D extends string, S extends string> = S extends `${D}.${infer E}` ? E : never;
     type GetEvent<D extends string> = GetEventFromString<D, keyof ProtocolMappingApi.Events>;
-    type GetReturnType<D extends string, E extends string> =
-        `${D}.${E}` extends keyof ProtocolMappingApi.Events ?
-            ProtocolMappingApi.Events[`${D}.${E}`][0] : never;
+    type GetReturnType<D extends string, E extends string> = `${D}.${E}` extends keyof ProtocolMappingApi.Events
+        ? ProtocolMappingApi.Events[`${D}.${E}`][0]
+        : never;
     type DoEventPromises<D extends string> = {
         [event in GetEvent<D>]:
-            // tslint:disable-next-line: void-return
-            () => Promise<GetReturnType<D, event> extends undefined ? void : GetReturnType<D, event>>
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            () => Promise<GetReturnType<D, event> extends undefined ? void : GetReturnType<D, event>>;
     };
     type DoEventListeners<D extends string> = {
-        [event in GetEvent<D>]:
-            (listener: (params: GetReturnType<D, event>, sessionId?: string) => void) => () => Client
+        [event in GetEvent<D>]: (
+            listener: (params: GetReturnType<D, event>, sessionId?: string) => void,
+        ) => () => Client;
     };
     type DoEventObj<D> = D extends string ? DoEventPromises<D> & DoEventListeners<D> : {};
 
@@ -175,14 +169,19 @@ declare namespace CDP {
      * its properties are optional, and makes it optional if so.
      */
     type OptIfParamNullable<T> = {
-        [key in keyof T]: T[key] extends (params: any) => any ?
-            IsNullableObj<Parameters<T[key]>[0]> extends true ?
-                (params?: Parameters<T[key]>[0]) => ReturnType<T[key]> :
-                T[key] :
-            T[key]
+        [key in keyof T]: T[key] extends (params: any) => any
+            ? IsNullableObj<Parameters<T[key]>[0]> extends true ? (params?: Parameters<T[key]>[0]) => ReturnType<T[key]>
+            : T[key]
+            : T[key];
     };
 
-    type ImproveAPI<T> = {[key in keyof T]: DoEventObj<key> & OptIfParamNullable<T[key]>};
+    type AddOptParams<T> = {
+        [key in keyof T]: key extends "on" ? T[key]
+            : T[key] extends (...args: infer P) => infer R ? (...args: [...curArgs: P, sessionId?: string]) => R
+            : T[key];
+    };
+
+    type ImproveAPI<T> = { [key in keyof T]: DoEventObj<key> & AddOptParams<OptIfParamNullable<T[key]>> };
     interface StableDomains {
         Browser: ProtocolProxyApi.BrowserApi;
         Debugger: ProtocolProxyApi.DebuggerApi;
@@ -265,21 +264,40 @@ declare namespace CDP {
         WebAuthn: ProtocolProxyApi.WebAuthnApi;
     }
     type AllDomains = StableDomains & DeprecatedDomains & ExperimentalDomains;
-    type Client = {
-        close: () => Promise<void>;
-        on(event: 'event', callback: (message: EventMessage) => void): void;
-        on(event: 'ready' | 'disconnect', callback: () => void): void;
-        // '<domain>.<method>' i.e. Network.requestWillBeSent
-        on<T extends keyof ProtocolMappingApi.Events>(event: T, callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void): void;
-        // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
-        on(event: string, callback: (params: object, sessionId?: string) => void): void;
-        // client.send(method, [params], [sessionId], [callback])
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: SendCallback<T>): void;
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], callback: SendCallback<T>): void;
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId: string, callback: SendCallback<T>): void;
-        send<T extends keyof ProtocolMappingApi.Commands>(event: T, params?: ProtocolMappingApi.Commands[T]['paramsType'][0], sessionId?: string):
-            Promise<ProtocolMappingApi.Commands[T]['returnType']>;
-    } & EventPromises<ProtocolMappingApi.Events> & EventCallbacks<ProtocolMappingApi.Events> & ImproveAPI<AllDomains>;
+    type Client =
+        & {
+            close: () => Promise<void>;
+            on(event: "event", callback: (message: EventMessage) => void): void;
+            on(event: "ready" | "disconnect", callback: () => void): void;
+            // '<domain>.<method>' i.e. Network.requestWillBeSent
+            on<T extends keyof ProtocolMappingApi.Events>(
+                event: T,
+                callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void,
+            ): void;
+            // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
+            on(event: string, callback: (params: object, sessionId?: string) => void): void;
+            // client.send(method, [params], [sessionId], [callback])
+            send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: SendCallback<T>): void;
+            send<T extends keyof ProtocolMappingApi.Commands>(
+                event: T,
+                params: ProtocolMappingApi.Commands[T]["paramsType"][0],
+                callback: SendCallback<T>,
+            ): void;
+            send<T extends keyof ProtocolMappingApi.Commands>(
+                event: T,
+                params: ProtocolMappingApi.Commands[T]["paramsType"][0],
+                sessionId: string,
+                callback: SendCallback<T>,
+            ): void;
+            send<T extends keyof ProtocolMappingApi.Commands>(
+                event: T,
+                params?: ProtocolMappingApi.Commands[T]["paramsType"][0],
+                sessionId?: string,
+            ): Promise<ProtocolMappingApi.Commands[T]["returnType"]>;
+        }
+        & EventPromises<ProtocolMappingApi.Events>
+        & EventCallbacks<ProtocolMappingApi.Events>
+        & ImproveAPI<AllDomains>;
 
     // '<domain>.<event>' i.e. Page.loadEventFired
     type EventPromises<T extends ProtocolMappingApi.Events> = {
@@ -287,7 +305,9 @@ declare namespace CDP {
     };
 
     type EventCallbacks<T extends ProtocolMappingApi.Events> = {
-        [Property in keyof T]: (callback: (params: T[Property] extends [any] ? T[Property][0] : undefined, sessionId?: string) => void) => () => Client;
+        [Property in keyof T]: (
+            callback: (params: T[Property] extends [any] ? T[Property][0] : undefined, sessionId?: string) => void,
+        ) => () => Client;
     };
 }
 

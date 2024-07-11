@@ -1,3 +1,3 @@
-import btoa = require('btoa-lite');
+import btoa = require("btoa-lite");
 
-btoa('<3');
+btoa("<3");

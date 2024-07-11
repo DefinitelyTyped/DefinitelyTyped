@@ -1,70 +1,93 @@
-// Type definitions for loglinecolor 0.1
-// Project: https://github.com/vixerys/loglinecolor
-// Definitions by: Muunatic <https://github.com/Muunatic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class loglinecolor {
     /**
      * black color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    black(params: string): string;
+    black(params: string): void;
     /**
      * red color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    red(params: string): string;
+    red(params: string): void;
     /**
      * green color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    green(params: string): string;
+    green(params: string): void;
     /**
      * yellow color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    yellow(params: string): string;
+    yellow(params: string): void;
     /**
      * blue color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    blue(params: string): string;
+    blue(params: string): void;
     /**
      * magenta color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    magenta(params: string): string;
+    magenta(params: string): void;
     /**
      * cyan color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    cyan(params: string): string;
+    cyan(params: string): void;
     /**
      * white color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    white(params: string): string;
+    white(params: string): void;
     /**
      * gray color
      *
      * @param params
-     * @returns string
+     * @returns void
      */
-    gray(params: string): string;
+    gray(params: string): void;
+    /**
+     * highlight font
+     *
+     * @param params
+     * @returns void
+     */
+    highlight(params: string): void;
+    /**
+     * dark font
+     *
+     * @param params
+     * @returns void
+     */
+    dark(params: string): void;
+    /**
+     * bold font
+     *
+     * @param params
+     * @returns void
+     */
+    bold(params: string): void;
+    /**
+     * underline font
+     *
+     * @param params
+     * @returns void
+     */
+    underline(params: string): void;
 }

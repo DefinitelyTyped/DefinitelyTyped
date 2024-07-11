@@ -1,20 +1,11 @@
-// Type definitions for non-npm package @ember/modifier 4.0
-// Project: https://github.com/emberjs/ember.js
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
-import Owner from '@ember/owner';
-import { Opaque } from 'ember/-private/type-utils';
+import Owner from "@ember/owner";
+import { Opaque } from "ember/-private/type-utils";
 
 // In normal TypeScript, this modifier is essentially an opaque token
 // that just needs to be importable. Declaring it with a unique interface
 // like this, however, gives tools like Glint (that DO have a richer
 // notion of what it is) a place to install more detailed type information.
-export interface OnModifier extends Opaque<'modifier:on'> {}
+export interface OnModifier extends Opaque<"modifier:on"> {}
 
 /**
  * The `{{on}}` modifier lets you easily add event listeners.
@@ -31,13 +22,25 @@ export const on: OnModifier;
  *   manager](https://emberjs.github.io/rfcs/0373-Element-Modifier-Managers.html).
  * @param modifier The modifier definition to associate with the manager.
  */
-export function setModifierManager<T>(
-  factory: (owner: Owner) => unknown,
-  modifier: T
-): T;
+export function setModifierManager<T>(factory: (owner: Owner) => unknown, modifier: T): T;
+
+export interface ModifierCapabilitiesVersions {
+    // passes factoryFor(...).class to `.createModifier`
+    // uses args proxy, does not provide a way to opt-out
+    "3.22": {
+        disableAutoTracking?: boolean;
+    };
+}
+
+export interface ModifierCapabilities {
+    disableAutoTracking: boolean;
+}
 
 /**
  * Given a target version of Ember, return an opaque token which Ember can use
  * to determine what a given modifier manager supports.
  */
-export function capabilities(version: string): unknown;
+export function capabilities<Version extends keyof ModifierCapabilitiesVersions>(
+    managerAPI: Version,
+    optionalFeatures?: ModifierCapabilitiesVersions[Version],
+): ModifierCapabilities;

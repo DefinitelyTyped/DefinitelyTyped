@@ -1,8 +1,3 @@
-// Type definitions for chacha20-universal 1.0
-// Project: https://github.com/chm-diederichs/chacha20-universal#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Chacha20;
 
 /**

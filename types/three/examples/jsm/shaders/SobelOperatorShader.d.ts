@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const SobelOperatorShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         resolution: IUniform;

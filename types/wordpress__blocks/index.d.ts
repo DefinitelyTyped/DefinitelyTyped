@@ -1,40 +1,30 @@
-// Type definitions for @wordpress/blocks 12.5
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-//                 Jon Surrell <https://github.com/sirreal>
-//                 Dennis Snell <https://github.com/dmsnell>
-//                 Tomasz Tunik <https://github.com/tomasztunik>
-//                 Lucio Giannotta <https://github.com/sunyatasattva>
-//                 Bas Tolen <https://github.com/bastolen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+import { IconType } from "@wordpress/components";
+import { StoreDescriptor } from "@wordpress/data";
+import { ShortcodeMatch } from "@wordpress/shortcode";
+import { ComponentType, ReactElement } from "react";
 
-import { Dashicon } from '@wordpress/components';
-import { ShortcodeMatch } from '@wordpress/shortcode';
-import { ComponentType, ReactElement } from 'react';
-import { StoreDescriptor } from '@wordpress/data';
+export * from "./api";
+export { withBlockContentContext } from "./block-content-provider";
 
-export * from './api';
-export { withBlockContentContext } from './block-content-provider';
-
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/blocks'): typeof import('./store/actions');
-    function select(key: 'core/blocks'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    function dispatch(key: "core/blocks"): typeof import("./store/actions");
+    function select(key: "core/blocks"): typeof import("./store/selectors");
 }
 
 export interface BlocksStoreDescriptor extends StoreDescriptor {
-    name: 'core/blocks';
+    name: "core/blocks";
 }
 
-declare module '@wordpress/blocks' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@wordpress/blocks" {
     const store: BlocksStoreDescriptor;
 }
 
-export type AxialDirection = 'horizontal' | 'vertical';
+export type AxialDirection = "horizontal" | "vertical";
 
-export type CSSDirection = 'top' | 'right' | 'bottom' | 'left';
+export type CSSDirection = "top" | "right" | "bottom" | "left";
 
-export type BlockAlignment = 'left' | 'center' | 'right' | 'wide' | 'full';
+export type BlockAlignment = "left" | "center" | "right" | "wide" | "full";
 
 export interface BlockEditProps<T extends Record<string, any>> extends BlockSaveProps<T> {
     readonly clientId: string;
@@ -47,10 +37,10 @@ export interface BlockIconNormalized {
     background?: string | undefined;
     foreground?: string | undefined;
     shadowColor?: string | undefined;
-    src: Dashicon.Icon | ReactElement | ComponentType;
+    src: IconType | ReactElement | ComponentType;
 }
 
-export type BlockIcon = BlockIconNormalized['src'] | BlockIconNormalized;
+export type BlockIcon = BlockIconNormalized["src"] | BlockIconNormalized;
 
 export interface BlockSaveProps<T extends Record<string, any>> {
     readonly className: string;
@@ -151,9 +141,11 @@ export interface SpacingProps {
  * @see Block.example
  * @see {@link https://github.com/DefinitelyTyped/DefinitelyTyped/pull/55245#discussion_r692208988}
  */
-type BlockExampleInnerBlock = Partial<Block> &
-    Pick<Block, 'name' | 'attributes'> & {
-        innerBlocks?: ReadonlyArray<BlockExampleInnerBlock>;
+type BlockExampleInnerBlock =
+    & Partial<Block>
+    & Pick<Block, "name" | "attributes">
+    & {
+        innerBlocks?: readonly BlockExampleInnerBlock[];
     };
 
 export interface Block<T extends Record<string, any> = {}> {
@@ -205,7 +197,7 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#example}
      */
-    readonly example?: Readonly<Partial<Block> & { innerBlocks?: ReadonlyArray<BlockExampleInnerBlock> }>;
+    readonly example?: Readonly<Partial<Block> & { innerBlocks?: readonly BlockExampleInnerBlock[] }>;
     /**
      * Icon for the block.
      */
@@ -285,15 +277,15 @@ export interface Block<T extends Record<string, any> = {}> {
      */
     readonly transforms?:
         | {
-              /**
-               * Transforms from another block type to this block type.
-               */
-              readonly from?: ReadonlyArray<Transform<T>> | undefined;
-              /**
-               * Transforms from this block type to another block type.
-               */
-              readonly to?: readonly Transform[] | undefined;
-          }
+            /**
+             * Transforms from another block type to this block type.
+             */
+            readonly from?: ReadonlyArray<Transform<T>> | undefined;
+            /**
+             * Transforms from this block type to another block type.
+             */
+            readonly to?: readonly Transform[] | undefined;
+        }
         | undefined;
     /**
      * Array of the names of context values to inherit from an ancestor
@@ -320,8 +312,10 @@ export interface Block<T extends Record<string, any> = {}> {
     merge?(attributes: T, attributesToMerge: T): Partial<T>;
 }
 
-export type BlockConfiguration<T extends Record<string, any> = {}> = Partial<Omit<Block<T>, 'icon'>> &
-    Pick<Block<T>, 'attributes' | 'category' | 'title'> & {
+export type BlockConfiguration<T extends Record<string, any> = {}> =
+    & Partial<Omit<Block<T>, "icon">>
+    & Pick<Block<T>, "attributes" | "category" | "title">
+    & {
         icon?: BlockIcon | undefined;
     };
 
@@ -357,7 +351,7 @@ export interface BlockDeprecation<
     N extends Record<string, any>,
     // The old block attribute types.
     O extends Record<string, any> = Record<string, any>,
-> extends Pick<Block<O>, 'attributes' | 'save' | 'supports'> {
+> extends Pick<Block<O>, "attributes" | "save" | "supports"> {
     /**
      * A function which, given the attributes and inner blocks of the
      * parsed block, returns true if the deprecation can handle the block
@@ -481,49 +475,51 @@ export interface BlockSupports {
 // ----------------------------------------------------------------------------
 
 export namespace AttributeSource {
-    type Attribute = {
-        source: 'attribute';
-        attribute: string;
-        selector?: string | undefined;
-    } & (
-        | {
-              type: 'boolean';
-              default?: boolean | undefined;
-          }
-        | {
-              type: 'number';
-              default?: number | undefined;
-          }
-        | {
-              type: 'string';
-              default?: string | undefined;
-          }
-    );
+    type Attribute =
+        & {
+            source: "attribute";
+            attribute: string;
+            selector?: string | undefined;
+        }
+        & (
+            | {
+                type: "boolean";
+                default?: boolean | undefined;
+            }
+            | {
+                type: "number";
+                default?: number | undefined;
+            }
+            | {
+                type: "string";
+                default?: string | undefined;
+            }
+        );
 
     interface Children {
-        source: 'children';
-        type: 'array';
+        source: "children";
+        type: "array";
         selector?: string | undefined;
     }
 
     interface HTML {
-        source: 'html';
-        type: 'string';
-        multiline?: 'li' | 'p' | undefined;
+        source: "html";
+        type: "string";
+        multiline?: "li" | "p" | undefined;
         selector?: string | undefined;
         default?: string | undefined;
     }
 
     interface Meta {
-        source: 'meta';
-        type: 'string';
+        source: "meta";
+        type: "string";
         meta: string;
         default?: string | undefined;
     }
 
     interface Query<T> {
-        source: 'query';
-        type: 'array';
+        source: "query";
+        type: "array";
         selector: string;
         query: {
             [k in keyof T]: BlockAttribute<T[k] extends Array<infer U> ? U : T[k]>;
@@ -532,42 +528,45 @@ export namespace AttributeSource {
     }
 
     interface Text {
-        source: 'text';
-        type: 'string';
+        source: "text";
+        type: "string";
         selector?: string | undefined;
         default?: string | undefined;
     }
 
     type None =
-        | ({
-              source?: never | undefined;
-          } & (
-              | {
-                    type: 'array';
+        | (
+            & {
+                source?: never | undefined;
+            }
+            & (
+                | {
+                    type: "array";
                     default?: any[] | undefined;
                 }
-              | {
-                    type: 'object';
+                | {
+                    type: "object";
                     default?: object | undefined;
                 }
-              | {
-                    type: 'boolean';
+                | {
+                    type: "boolean";
                     default?: boolean | undefined;
                 }
-              | {
-                    type: 'number';
+                | {
+                    type: "number";
                     default?: number | undefined;
                 }
-              | {
-                    type: 'string';
+                | {
+                    type: "string";
                     default?: string | undefined;
                 }
-          ))
-        | 'array'
-        | 'object'
-        | 'boolean'
-        | 'number'
-        | 'string';
+            )
+        )
+        | "array"
+        | "object"
+        | "boolean"
+        | "number"
+        | "string";
 }
 
 export type BlockAttribute<T> =
@@ -584,7 +583,7 @@ export type BlockAttribute<T> =
 // ----------------------------------------------------------------------------
 
 export type TransformRawSchema = {
-    [k in keyof HTMLElementTagNameMap | '#text']?: {
+    [k in keyof HTMLElementTagNameMap | "#text"]?: {
         attributes?: string[] | undefined;
         require?: Array<keyof HTMLElementTagNameMap> | undefined;
         classes?: Array<string | RegExp> | undefined;
@@ -593,37 +592,37 @@ export type TransformRawSchema = {
 };
 
 export interface TransformBlock<T extends Record<string, any>> {
-    type: 'block';
+    type: "block";
     priority?: number | undefined;
     blocks: string[];
-    isMatch?(attributes: T, block: string|string[]): boolean;
+    isMatch?(attributes: T, block: string | string[]): boolean;
     isMultiBlock?: boolean | undefined;
     transform(attributes: T): BlockInstance<Partial<T>>;
 }
 
 export interface TransformEnter<T extends Record<string, any>> {
-    type: 'enter';
+    type: "enter";
     priority?: number | undefined;
     regExp: RegExp;
     transform(): BlockInstance<Partial<T>>;
 }
 
 export interface TransformFiles<T extends Record<string, any>> {
-    type: 'files';
+    type: "files";
     priority?: number | undefined;
     isMatch?(files: FileList): boolean;
     transform(files: FileList, onChange?: (id: string, attrs: T) => void): BlockInstance<Partial<T>>;
 }
 
 export interface TransformPrefix<T extends Record<string, any>> {
-    type: 'prefix';
+    type: "prefix";
     priority?: number | undefined;
     prefix: string;
     transform(content: string): BlockInstance<Partial<T>>;
 }
 
 export interface TransformRaw<T extends Record<string, any>> {
-    type: 'raw';
+    type: "raw";
     priority?: number | undefined;
     /**
      * Comma-separated list of selectors, no spaces.
@@ -633,11 +632,12 @@ export interface TransformRaw<T extends Record<string, any>> {
     selector?: string | undefined;
     schema?: TransformRawSchema | undefined;
     isMatch?(node: Node): boolean;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     transform?(node: Node): BlockInstance<Partial<T>> | void;
 }
 
 export interface TransformShortcode<T extends Record<string, any>> {
-    type: 'shortcode';
+    type: "shortcode";
     priority?: number | undefined;
     tag: string;
     transform?(attributes: any, match: ShortcodeMatch): BlockInstance<T>;
@@ -656,7 +656,7 @@ export type BlockAttributes = Record<string, any>;
 
 export type InnerBlockTemplate = [string, BlockAttributes?, InnerBlockTemplate[]?];
 
-export type BlockVariationScope = 'block' | 'inserter' | 'transform';
+export type BlockVariationScope = "block" | "inserter" | "transform";
 
 export interface BlockVariation<Attributes extends BlockAttributes = BlockAttributes> {
     name: string;
@@ -670,9 +670,9 @@ export interface BlockVariation<Attributes extends BlockAttributes = BlockAttrib
     example?:
         | BlockExampleInnerBlock
         | {
-              attributes: Attributes;
-              innerBlocks?: InnerBlockTemplate[];
-          };
+            attributes: Attributes;
+            innerBlocks?: InnerBlockTemplate[];
+        };
     scope?: BlockVariationScope[];
     keywords?: string[];
     isActive?: ((blockAttributes: Attributes, variationAttributes: Attributes) => boolean) | string[];

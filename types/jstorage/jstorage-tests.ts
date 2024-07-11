@@ -1,8 +1,7 @@
 /// <reference types="jquery" />
 
-
 // Test set first overload
-var storedValue = $.jStorage.set("testObj", { foo: 'bar' });
+var storedValue = $.jStorage.set("testObj", { foo: "bar" });
 console.assert(storedValue.foo === "bar");
 
 // Test set second overload
@@ -12,7 +11,7 @@ console.assert(readValue + 5 === 47);
 
 // Test deleteKey
 if ($.jStorage.deleteKey("testObj") === true) {
-    console.log('deleted');
+    console.log("deleted");
 }
 
 // Test setTTL/getTTL
@@ -46,27 +45,29 @@ console.assert(isStorageAvailable === true);
 $.jStorage.listenKeyChange("testNum", (key, value) => {
     console.assert(key.length > 0);
     console.assert(value != null);
-} );
+});
 
 $.jStorage.listenKeyChange<number>("testNum", (key, value) => {
     console.assert(key === "testNum");
     console.assert(value + 10 > 0);
-} );
+});
 
 // Test stopListening
 $.jStorage.stopListening("testNum");
-$.jStorage.stopListening("testNum", () => { console.assert(); } );
+$.jStorage.stopListening("testNum", () => {
+    console.assert();
+});
 
 // Test subscribe
 $.jStorage.subscribe("ESPN", (channel, value) => {
     console.assert(channel !== "ABC");
     console.assert(value !== null);
-} );
+});
 
 $.jStorage.subscribe<Date>("ESPN", (channel, value) => {
     console.assert(channel === "ESPN");
     console.assert(value.getDate() > Date.now());
-} );
+});
 
 // Test publish
 $.jStorage.publish("ESPN", { date: new Date(2013, 4, 26, 7), game: "Miami Heat" });

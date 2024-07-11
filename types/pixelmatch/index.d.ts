@@ -1,10 +1,3 @@
-// Type definitions for pixelmatch 5.2
-// Project: https://github.com/mapbox/pixelmatch#readme
-// Definitions by: Oleg Repin <https://github.com/iamolegga>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Damian Frizzi <https://github.com/damianfrizzi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare function Pixelmatch(

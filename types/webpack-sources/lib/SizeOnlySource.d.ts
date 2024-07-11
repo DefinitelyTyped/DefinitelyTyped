@@ -1,4 +1,4 @@
-import Source = require('./Source');
+import Source = require("./Source");
 
 declare class SizeOnlySource extends Source {
     constructor(size: number);

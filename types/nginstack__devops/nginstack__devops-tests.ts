@@ -1,6 +1,6 @@
-import Connection = require('@nginstack/engine/lib/connection/Connection.js');
-import Database = require('@nginstack/engine/lib/database/Database');
-import UpdateScript = require('@nginstack/devops/lib/update/UpdateScript.js');
+import Connection = require("@nginstack/engine/lib/connection/Connection.js");
+import Database = require("@nginstack/engine/lib/database/Database");
+import UpdateScript = require("@nginstack/devops/lib/update/UpdateScript.js");
 
 const script = new UpdateScript(); // $ExpectType UpdateScript
 
@@ -11,11 +11,11 @@ script.targetDB; // $ExpectType Database
 script.result; // $ExpectType string
 
 script.getProductFromKey(-1); // $ExpectType number | null
-script.finish('*', -1); // $ExpectType void
-script.fail(new Error('*')); // $ExpectType void
+script.finish("*", -1); // $ExpectType void
+script.fail(new Error("*")); // $ExpectType void
 script.copyChildrenViewPermissions(-1); // $ExpectType number
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return "71.0.229";
 }
-testMajorVersions(69, 70); // $ExpectType boolean
+getVersion(); // $ExpectType string

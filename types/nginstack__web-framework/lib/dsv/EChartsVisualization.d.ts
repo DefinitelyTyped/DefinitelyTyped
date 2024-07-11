@@ -11,4 +11,4 @@ declare class EChartsVisualization {
 declare namespace EChartsVisualization {
     export { Event };
 }
-type Event = import('@nginstack/engine/lib/event/Event');
+type Event = import("@nginstack/engine/lib/event/Event");

@@ -1,15 +1,6 @@
-// Type definitions for jsoneditor 9.9
-// Project: https://github.com/josdejong/jsoneditor
-// Definitions by: Alejandro Sánchez <https://github.com/alejo90>
-//                 Errietta Kostala <https://github.com/errietta>
-//                 Adam Vigneaux <https://github.com/adamvig>
-//                 Joep Kockelkorn <https://github.com/joepkockelkorn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="ace" />
 
-import { Ajv, ErrorObject } from 'ajv';
+import { Ajv, ErrorObject } from "ajv";
 
 export type JSONPath = Array<string | number>;
 
@@ -19,9 +10,9 @@ export interface EditableNode {
     path: JSONPath;
 }
 
-export type NodeType = 'object' | 'array' | 'string' | 'auto';
+export type NodeType = "object" | "array" | "string" | "auto";
 
-export type JSONEditorMode = 'tree' | 'view' | 'form' | 'code' | 'text' | 'preview';
+export type JSONEditorMode = "tree" | "view" | "form" | "code" | "text" | "preview";
 
 export interface ValidationError {
     path: JSONPath;
@@ -52,7 +43,7 @@ export interface Node extends BaseNode {
     previousValue: NodeValue;
     visibleChilds: number;
     schema?: object | undefined;
-    enum?: null | ReadonlyArray<string> | undefined;
+    enum?: null | readonly string[] | undefined;
     id?: string | undefined;
     valueFieldHTML?: string | undefined;
     error?: ErrorObject | undefined;
@@ -64,7 +55,7 @@ export interface Node extends BaseNode {
     showMore?: BaseNode | undefined;
 }
 
-export type SchemaValidationErrorType = 'validation' | 'customValidation';
+export type SchemaValidationErrorType = "validation" | "customValidation";
 
 export interface SchemaValidationError {
     node: Node;
@@ -75,7 +66,7 @@ export interface SchemaValidationError {
 export interface ParseError {
     line: number;
     message: string;
-    type: 'error';
+    type: "error";
 }
 
 export interface Template {
@@ -88,11 +79,11 @@ export interface Template {
 
 export type AutoCompleteCompletion = null | string[] | { startFrom: number; options: string[] };
 
-export type AutoCompleteMatchingStrategy = 'start' | 'contain';
+export type AutoCompleteMatchingStrategy = "start" | "contain";
 
-export type AutoCompleteTrigger = 'keydown' | 'focus';
+export type AutoCompleteTrigger = "keydown" | "focus";
 
-export type AutoCompleteElementType = 'field' | 'value';
+export type AutoCompleteElementType = "field" | "value";
 
 export type AutoCompleteGetOptions = (
     text: string,
@@ -159,36 +150,36 @@ export interface Color {
 export interface MenuItem {
     text: string;
     title: string;
-    type?: 'separator' | undefined;
+    type?: "separator" | undefined;
     className: string;
     submenu?: MenuItem[] | undefined;
     submenuTitle?: string | undefined;
     click?: (() => void) | undefined;
 }
 
-export type MenuItemNodeType = 'single' | 'multiple' | 'append';
+export type MenuItemNodeType = "single" | "multiple" | "append";
 
 export interface MenuItemNode {
     type: MenuItemNodeType;
-    path: ReadonlyArray<string>;
-    paths: ReadonlyArray<ReadonlyArray<string>>;
+    path: readonly string[];
+    paths: ReadonlyArray<readonly string[]>;
 }
 
 export interface TimestampNode {
     field: string;
     value: string;
-    path: ReadonlyArray<string>;
+    path: readonly string[];
 }
 
 export interface QueryFilter {
-    field: string | '@';
-    relation: '==' | '!=' | '<' | '<=' | '>' | '>=';
+    field: string | "@";
+    relation: "==" | "!=" | "<" | "<=" | ">" | ">=";
     value: string;
 }
 
 export interface QuerySort {
-    field: string | '@';
-    direction: 'asc' | 'desc';
+    field: string | "@";
+    direction: "asc" | "desc";
 }
 
 export interface QueryProjection {
@@ -202,19 +193,19 @@ export interface QueryOptions {
 }
 
 export interface OnClassNameParams {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     field: string;
     value: string;
 }
 
 export interface ExpandOptions {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     isExpand: boolean;
     recursive: boolean;
 }
 
 export interface OnNodeNameParams {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     type: NodeType;
     size: number;
     value: any;
@@ -222,97 +213,97 @@ export interface OnNodeNameParams {
 
 /** Obtained from master/src/js/i18n.js */
 export type TranslationKey =
-    | 'actionsMenu'
-    | 'appendSubmenuTitle'
-    | 'appendText'
-    | 'appendTitle'
-    | 'appendTitleAuto'
-    | 'array'
-    | 'arrayType'
-    | 'ascending'
-    | 'ascendingTitle'
-    | 'auto'
-    | 'autoType'
-    | 'cannotParseFieldError'
-    | 'cannotParseValueError'
-    | 'collapseAll'
-    | 'compactTitle'
-    | 'containsInvalidItems'
-    | 'containsInvalidProperties'
-    | 'default'
-    | 'descending'
-    | 'descendingTitle'
-    | 'drag'
-    | 'duplicateField'
-    | 'duplicateFieldError'
-    | 'duplicateKey'
-    | 'duplicateText'
-    | 'duplicateTitle'
-    | 'empty'
-    | 'examples'
-    | 'expandAll'
-    | 'expandTitle'
-    | 'extract'
-    | 'extractTitle'
-    | 'formatTitle'
-    | 'insert'
-    | 'insertSub'
-    | 'insertTitle'
-    | 'modeCodeText'
-    | 'modeCodeTitle'
-    | 'modeEditorTitle'
-    | 'modeFormText'
-    | 'modeFormTitle'
-    | 'modePreviewText'
-    | 'modePreviewTitle'
-    | 'modeTextText'
-    | 'modeTextTitle'
-    | 'modeTreeText'
-    | 'modeTreeTitle'
-    | 'modeViewText'
-    | 'modeViewTitle'
-    | 'object'
-    | 'objectType'
-    | 'ok'
-    | 'openUrl'
-    | 'redo'
-    | 'removeField'
-    | 'removeText'
-    | 'removeTitle'
-    | 'repairTitle'
-    | 'searchNextResultTitle'
-    | 'searchPreviousResultTitle'
-    | 'searchTitle'
-    | 'selectNode'
-    | 'showAll'
-    | 'showMore'
-    | 'showMoreStatus'
-    | 'sort'
-    | 'sortAscending'
-    | 'sortAscendingTitle'
-    | 'sortDescending'
-    | 'sortDescendingTitle'
-    | 'sortDirectionLabel'
-    | 'sortFieldLabel'
-    | 'sortFieldTitle'
-    | 'sortTitle'
-    | 'sortTitleShort'
-    | 'string'
-    | 'stringType'
-    | 'transform'
-    | 'transformPreviewLabel'
-    | 'transformQueryLabel'
-    | 'transformQueryTitle'
-    | 'transformTitle'
-    | 'transformTitleShort'
-    | 'transformWizardFilter'
-    | 'transformWizardLabel'
-    | 'transformWizardSelectFields'
-    | 'transformWizardSortBy'
-    | 'type'
-    | 'typeTitle'
-    | 'undo'
-    | 'validationCannotMove';
+    | "actionsMenu"
+    | "appendSubmenuTitle"
+    | "appendText"
+    | "appendTitle"
+    | "appendTitleAuto"
+    | "array"
+    | "arrayType"
+    | "ascending"
+    | "ascendingTitle"
+    | "auto"
+    | "autoType"
+    | "cannotParseFieldError"
+    | "cannotParseValueError"
+    | "collapseAll"
+    | "compactTitle"
+    | "containsInvalidItems"
+    | "containsInvalidProperties"
+    | "default"
+    | "descending"
+    | "descendingTitle"
+    | "drag"
+    | "duplicateField"
+    | "duplicateFieldError"
+    | "duplicateKey"
+    | "duplicateText"
+    | "duplicateTitle"
+    | "empty"
+    | "examples"
+    | "expandAll"
+    | "expandTitle"
+    | "extract"
+    | "extractTitle"
+    | "formatTitle"
+    | "insert"
+    | "insertSub"
+    | "insertTitle"
+    | "modeCodeText"
+    | "modeCodeTitle"
+    | "modeEditorTitle"
+    | "modeFormText"
+    | "modeFormTitle"
+    | "modePreviewText"
+    | "modePreviewTitle"
+    | "modeTextText"
+    | "modeTextTitle"
+    | "modeTreeText"
+    | "modeTreeTitle"
+    | "modeViewText"
+    | "modeViewTitle"
+    | "object"
+    | "objectType"
+    | "ok"
+    | "openUrl"
+    | "redo"
+    | "removeField"
+    | "removeText"
+    | "removeTitle"
+    | "repairTitle"
+    | "searchNextResultTitle"
+    | "searchPreviousResultTitle"
+    | "searchTitle"
+    | "selectNode"
+    | "showAll"
+    | "showMore"
+    | "showMoreStatus"
+    | "sort"
+    | "sortAscending"
+    | "sortAscendingTitle"
+    | "sortDescending"
+    | "sortDescendingTitle"
+    | "sortDirectionLabel"
+    | "sortFieldLabel"
+    | "sortFieldTitle"
+    | "sortTitle"
+    | "sortTitleShort"
+    | "string"
+    | "stringType"
+    | "transform"
+    | "transformPreviewLabel"
+    | "transformQueryLabel"
+    | "transformQueryTitle"
+    | "transformTitle"
+    | "transformTitleShort"
+    | "transformWizardFilter"
+    | "transformWizardLabel"
+    | "transformWizardSelectFields"
+    | "transformWizardSortBy"
+    | "type"
+    | "typeTitle"
+    | "undo"
+    | "validationCannotMove";
 
 export interface JSONEditorOptions {
     /**
@@ -360,6 +351,7 @@ export interface JSONEditorOptions {
      * Set a callback function to be invoked when a node is expanded/collapsed (not programtically via APIs).
      * Only applicable when option mode is `tree`, `form`, or `view`.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onExpand?: (expandParams: ExpandOptions) => void | undefined;
     /**
      * Set a callback function to determine whether individual nodes are editable or readonly.
@@ -532,10 +524,12 @@ export interface JSONEditorOptions {
     /**
      * Callback method, triggered when the editor comes into focus
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onFocus?: (event: Event) => void | undefined;
     /**
      * Callback method, triggered when the editor goes out of focus
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onBlur?: (event: Event) => void | undefined;
     /**
      * When true, values containing a color name or color code will have a color picker rendered on their left side.

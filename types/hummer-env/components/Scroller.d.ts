@@ -62,5 +62,5 @@ declare const Scroller: {
     /**
      * 垂直滚动组件。
      */
-    new (): Scroller;
+    new(): Scroller;
 };

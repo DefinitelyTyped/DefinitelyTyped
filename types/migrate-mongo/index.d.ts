@@ -1,17 +1,11 @@
-// Type definitions for migrate-mongo 8.2
-// Project: https://github.com/seppevs/migrate-mongo#readme
-// Definitions by: Amit Beckenstein <https://github.com/amitbeck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
-import * as mongo from 'mongodb';
+import * as mongo from "mongodb";
 
 export function init(): Promise<void>;
 export function create(description: string): Promise<string>;
 export namespace database {
     function connect(): Promise<{
         client: mongo.MongoClient;
-        db: mongo.Db & { close: mongo.MongoClient['close'] };
+        db: mongo.Db & { close: mongo.MongoClient["close"] };
     }>;
 }
 export namespace config {
@@ -43,8 +37,8 @@ export namespace config {
 
     interface Config {
         mongodb: {
-            url: Parameters<typeof mongo.MongoClient['connect']>[0];
-            databaseName?: mongo.Db['databaseName'];
+            url: Parameters<typeof mongo.MongoClient["connect"]>[0];
+            databaseName?: mongo.Db["databaseName"];
             options?: mongo.MongoClientOptions;
         };
         /**

@@ -1,8 +1,3 @@
-// Type definitions for wgs84 0.0
-// Project: https://github.com/mapbox/wgs84
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Semi-major Axis (a).
  */

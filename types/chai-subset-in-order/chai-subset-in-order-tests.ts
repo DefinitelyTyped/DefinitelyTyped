@@ -1,5 +1,5 @@
-import { expect, use, assert } from 'chai';
-import * as chaiSubsetInOrder from 'chai-subset-in-order';
+import { assert, expect, use } from "chai";
+import * as chaiSubsetInOrder from "chai-subset-in-order";
 
 use(chaiSubsetInOrder);
 

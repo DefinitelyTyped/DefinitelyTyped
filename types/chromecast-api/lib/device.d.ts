@@ -1,4 +1,4 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 import { DeviceStatus } from "./device";
 
 declare namespace Device {
@@ -22,15 +22,22 @@ declare namespace Device {
         subtitles_style?: {
             backgroundColor?: string;
             foregroundColor?: string;
-            edgeType?: 'NONE' | 'OUTLINE' | 'DROP_SHADOW' | 'RAISED' | 'DEPRESSED';
+            edgeType?: "NONE" | "OUTLINE" | "DROP_SHADOW" | "RAISED" | "DEPRESSED";
             edgeColor?: string;
             fontScale?: number;
-            fontStyle?: 'NORMAL' | 'BOLD' | 'ITALIC' | 'BOLD_ITALIC';
+            fontStyle?: "NORMAL" | "BOLD" | "ITALIC" | "BOLD_ITALIC";
             fontFamily?: string;
-            fontGenericFamily?: 'SANS_SERIF' | 'MONOSPACED_SANS_SERIF' | 'SERIF' | 'MONOSPACED_SERIF' | 'CASUAL' | 'CURSIVE' | 'SMALL_CAPITALS';
+            fontGenericFamily?:
+                | "SANS_SERIF"
+                | "MONOSPACED_SANS_SERIF"
+                | "SERIF"
+                | "MONOSPACED_SERIF"
+                | "CASUAL"
+                | "CURSIVE"
+                | "SMALL_CAPITALS";
             windowColor?: string;
             windowRoundedCornerRadius?: number;
-            windowType?: 'NONE' | 'NORMAL' | 'ROUNDED_CORNERS';
+            windowType?: "NONE" | "NORMAL" | "ROUNDED_CORNERS";
         };
     }
 
@@ -53,7 +60,7 @@ declare namespace Device {
         metadataType: 0;
         title?: string;
         subtitle?: string;
-        images?: ReadonlyArray<Image>;
+        images?: readonly Image[];
         releaseDate?: string; /* ISO 8601 */
     }
 
@@ -62,7 +69,7 @@ declare namespace Device {
         title?: string;
         subtitle?: string;
         studio?: string;
-        images?: ReadonlyArray<Image>;
+        images?: readonly Image[];
         releaseDate?: string; /* ISO 8601 */
     }
 
@@ -72,7 +79,7 @@ declare namespace Device {
         subtitle?: string;
         season?: number;
         episode?: number;
-        images?: ReadonlyArray<Image>;
+        images?: readonly Image[];
         originalAirDate?: string; /* ISO 8601 */
     }
 
@@ -85,7 +92,7 @@ declare namespace Device {
         composer?: string;
         trackNumber?: number;
         discNumber?: number;
-        images?: ReadonlyArray<Image>;
+        images?: readonly Image[];
         releaseDate?: string; /* ISO 8601 */
     }
 
@@ -101,22 +108,29 @@ declare namespace Device {
         creationDateTime?: string; /* ISO 8601 */
     }
 
-     interface DeviceStatus {
+    interface DeviceStatus {
         mediaSessionId: number;
         playbackRate: number;
-        playerState: 'IDLE' | 'PLAYING' | 'PAUSED' | 'BUFFERING';
+        playerState: "IDLE" | "PLAYING" | "PAUSED" | "BUFFERING";
         currentTime: number;
-        supportedMediaCommands: number; /* Flags using bits: 1 Pause; 2 Seek; 4 Stream volume; 8 Stream mute; 16 Skip forward; 32 Skip backward */
+        supportedMediaCommands:
+            number; /* Flags using bits: 1 Pause; 2 Seek; 4 Stream volume; 8 Stream mute; 16 Skip forward; 32 Skip backward */
         volume: DeviceVolume;
         media?: {
             contentId: string;
-            streamType: 'BUFFERED' | 'LIVE' | 'NONE';
+            streamType: "BUFFERED" | "LIVE" | "NONE";
             contentType: string;
-            metadata?: GenericMediaMetadata | MovieMediaMetadata | TvShowMediaMetadata | MusicTrackMediaMetadata | PhotoMediaMetadata;
+            metadata?:
+                | GenericMediaMetadata
+                | MovieMediaMetadata
+                | TvShowMediaMetadata
+                | MusicTrackMediaMetadata
+                | PhotoMediaMetadata;
             duration?: number;
-            customData?: object; /* Application-specific blob of data defined by either the sender application or the receiver application */
+            customData?:
+                object; /* Application-specific blob of data defined by either the sender application or the receiver application */
         };
-        idleReason?: 'CANCELLED' | 'INTERRUPTED' | 'FINISHED' | 'ERROR';
+        idleReason?: "CANCELLED" | "INTERRUPTED" | "FINISHED" | "ERROR";
         customData?: object; /* Application-specific blob of data defined by the receiver application */
     }
 }
@@ -132,7 +146,11 @@ declare class Device extends EventEmitter {
      * Use this function to play any media in the chromecast device. Make sure mediaURL is accessible by the chromecast.
      * Pass an attribute startTime in the opts object to set where to start an audio or video content (in seconds).
      */
-    play(resource: string | Device.MediaResource, options: Device.PlaybackOptions, callback?: (error?: Error) => void): void;
+    play(
+        resource: string | Device.MediaResource,
+        options: Device.PlaybackOptions,
+        callback?: (error?: Error) => void,
+    ): void;
     play(resource: string | Device.MediaResource, callback?: (error?: Error) => void): void;
 
     /**
@@ -212,8 +230,8 @@ declare class Device extends EventEmitter {
 
     close(callback?: () => void): void;
 
-    on(event: 'connected' | 'finished', callback: () => void): this;
-    on(event: 'status', callback: (status: DeviceStatus) => void): this;
+    on(event: "connected" | "finished", callback: () => void): this;
+    on(event: "status", callback: (status: DeviceStatus) => void): this;
 
     _connect(callback: () => void): void;
     _tryConnect(callback: () => void): void;

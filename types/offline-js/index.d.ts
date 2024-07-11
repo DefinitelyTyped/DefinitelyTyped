@@ -1,8 +1,3 @@
-// Type definitions for Offline 0.7.14
-// Project: https://github.com/HubSpot/offline
-// Definitions by: Chris Wrench <https://github.com/cgwrench>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Offline: {
     options: OfflineOptions;
     check: () => void;
@@ -60,5 +55,7 @@ interface OfflineChecks {
 }
 
 interface OfflineCheck {
-    url: string;
+    url: string | (() => string);
+    timeout?: number;
+    type?: "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "CONNECT" | "OPTIONS" | "TRACE" | "PATCH";
 }

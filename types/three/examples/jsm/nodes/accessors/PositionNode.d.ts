@@ -1,21 +1,9 @@
-import Node from '../core/Node';
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
-export type PositionNodeScope =
-    | typeof PositionNode.GEOMETRY
-    | typeof PositionNode.LOCAL
-    | typeof PositionNode.WORLD
-    | typeof PositionNode.WORLD_DIRECTION
-    | typeof PositionNode.VIEW
-    | typeof PositionNode.VIEW_DIRECTION;
-
-export default class PositionNode extends Node {
-    static GEOMETRY: 'geometry';
-    static LOCAL: 'local';
-    static WORLD: 'world';
-    static WORLD_DIRECTION: 'worldDirection';
-    static VIEW: 'view';
-    static VIEW_DIRECTION: 'viewDirection';
-    scope: PositionNodeScope;
-
-    constructor(scope?: PositionNodeScope);
-}
+export const positionGeometry: ShaderNodeObject<Node>;
+export const positionLocal: ShaderNodeObject<Node>;
+export const positionWorld: ShaderNodeObject<Node>;
+export const positionWorldDirection: ShaderNodeObject<Node>;
+export const positionView: ShaderNodeObject<Node>;
+export const positionViewDirection: ShaderNodeObject<Node>;

@@ -1,8 +1,3 @@
-// Type definitions for ftps 1.2
-// Project: https://github.com/Atinux/node-ftps#readme
-// Definitions by: Christos Panagiotakopoulos <https://github.com/chrispanag>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = FTP;
 
 declare namespace FTP {

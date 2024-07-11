@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/npm-packlist",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/npm/npm-packlist",
+        "https://www.npmjs.com/package/npm-packlist"
+    ],
+    "dependencies": {
+        "@types/ignore-walk": "*",
+        "@types/npmcli__arborist": "*"
+    },
+    "devDependencies": {
+        "@types/npm-packlist": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Klaus Meinhardt",
+            "githubUsername": "ajafff"
+        },
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

@@ -1,11 +1,6 @@
-// Type definitions for forever-monitor 1.7
-// Project: https://github.com/nodejitsu/forever-monitor#readme
-// Definitions by: Shun Takahashi <https://github.com/shuntksh>
-//                 Will Boyce <https://github.com/wrboyce>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface SpawnWith {
     customFds: number[];
@@ -35,7 +30,7 @@ export interface Options {
     logFile?: string | undefined;
     outFile?: string | undefined;
     errFile?: string | undefined;
-    parser?(command: string, args: string[]): { command: string, args: string[] };
+    parser?(command: string, args: string[]): { command: string; args: string[] };
 }
 
 export function start(script: string | string[], options?: Options): Monitor;
@@ -91,5 +86,5 @@ export class Monitor extends EventEmitter {
      * @param command - Command string to parse
      * @param args - Additional default arguments
      */
-    parseCommand(command: string, args?: string[]): (false | { command: string, args?: string[] | undefined});
+    parseCommand(command: string, args?: string[]): false | { command: string; args?: string[] | undefined };
 }

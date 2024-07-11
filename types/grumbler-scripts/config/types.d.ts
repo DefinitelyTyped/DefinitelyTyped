@@ -1,6 +1,6 @@
 export interface WebpackConfigOptions {
     context?: string | undefined;
-    entry?: string | ReadonlyArray<string> | undefined;
+    entry?: string | readonly string[] | undefined;
     filename?: string | undefined;
     modulename?: string | undefined;
     minify?: boolean | undefined;
@@ -20,5 +20,5 @@ export interface WebpackConfigOptions {
     babelConfig?: string | undefined;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WebpackConfig {}

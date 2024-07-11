@@ -8,13 +8,13 @@ import {
     listAlgorithms,
     listModes,
     Mode,
-} from 'js-rijndael';
+} from "js-rijndael";
 
-const cipher: CipherAlgorithm = 'rijndael-128';
+const cipher: CipherAlgorithm = "rijndael-128";
 const iv: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
 const key: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 const message: number[] = [0, 0, 0, 0, 0, 0, 0, 0];
-const mode: Mode = 'cbc';
+const mode: Mode = "cbc";
 
 const ctext: number[] = encrypt(message, iv, key, cipher, mode) as number[];
 const ptext: number[] = decrypt(ctext, iv, key, cipher, mode) as number[];

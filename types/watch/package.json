@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/watch",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mikeal/watch"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/watch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Ballesteros Velasco",
+            "githubUsername": "soywiz"
+        },
+        {
+            "name": "Gyusun Yeom",
+            "githubUsername": "Perlmint"
+        }
+    ]
+}

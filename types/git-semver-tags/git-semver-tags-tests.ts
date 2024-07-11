@@ -1,25 +1,24 @@
 import * as gitSemverTags from "git-semver-tags";
 
-declare const callback: gitSemverTags.Callback;
 declare const options: gitSemverTags.Options;
 
-// $ExpectType void
-gitSemverTags(callback);
-
-gitSemverTags({ tagPrefix: 'skip/', skipUnstable: true }, (err, tags) => {
-    if (err) {
-        //
-    }
-});
-
-// $ExpectType void
-gitSemverTags(options, callback);
-
-// @ts-expect-error
+// $ExpectType Promise<string[]>
 gitSemverTags();
 
-// @ts-expect-error
+// $ExpectType Promise<string[]>
 gitSemverTags(options);
 
 // @ts-expect-error
-gitSemverTags(callback, options);
+gitSemverTags({ ...options, foo: "bar" });
+
+// @ts-expect-error
+gitSemverTags({ ...options, lernaTags: "not a boolean" });
+
+// @ts-expect-error
+gitSemverTags({ ...options, package: 123 });
+
+// @ts-expect-error
+gitSemverTags({ ...options, tagPrefix: 123 });
+
+// @ts-expect-error
+gitSemverTags({ ...options, skipUnstable: "not a boolean" });

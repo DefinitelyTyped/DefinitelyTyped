@@ -1,8 +1,3 @@
-// Type definitions for hyphen 1.6
-// Project: https://github.com/ytiurin/hyphen
-// Definitions by: Krisztián Balla <https://github.com/krisztianb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace hyphen {
     /**
      * Hyphenation patterns and exceptions for a language.

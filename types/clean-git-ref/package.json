@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clean-git-ref",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/TheSavior/clean-git-ref#readme"
+    ],
+    "devDependencies": {
+        "@types/clean-git-ref": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

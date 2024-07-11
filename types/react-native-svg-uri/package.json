@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-svg-uri",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/matiascba/react-native-svg-uri#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-svg-uri": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        }
+    ]
+}

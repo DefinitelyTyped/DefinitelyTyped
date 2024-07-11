@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/html-validator",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/zrrrzzt/html-validator"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/html-validator": "workspace:."
+    },
+    "owners": []
+}

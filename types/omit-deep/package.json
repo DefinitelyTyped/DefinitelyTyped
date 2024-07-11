@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/omit-deep",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/omit-deep"
+    ],
+    "devDependencies": {
+        "@types/omit-deep": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

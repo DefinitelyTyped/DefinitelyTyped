@@ -1,12 +1,6 @@
-// Type definitions for esri-leaflet 2.1
-// Project: http://esri.github.io/esri-leaflet
-// Definitions by: strajuser <https://github.com/strajuser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as L from "leaflet";
 
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace esri {
         type CallbackHandler = (error: any, metadata: any) => void;
 
@@ -30,26 +24,26 @@ declare module 'leaflet' {
         }
 
         type Basemaps =
-            'Streets'
-            | 'Topographic'
-            | 'NationalGeographic'
-            | 'Oceans'
-            | 'Gray'
-            | 'DarkGray'
-            | 'Imagery'
-            | 'ShadedRelief'
-            | 'Terrain'
-            | 'USATopo'
-            | 'OceansLabels'
-            | 'GrayLabels'
-            | 'DarkGrayLabels'
-            | 'ImageryLabels'
-            | 'ImageryClarity'
-            | 'ImageryTransportation'
-            | 'ShadedReliefLabels'
-            | 'TerrainLabels';
+            | "Streets"
+            | "Topographic"
+            | "NationalGeographic"
+            | "Oceans"
+            | "Gray"
+            | "DarkGray"
+            | "Imagery"
+            | "ShadedRelief"
+            | "Terrain"
+            | "USATopo"
+            | "OceansLabels"
+            | "GrayLabels"
+            | "DarkGrayLabels"
+            | "ImageryLabels"
+            | "ImageryClarity"
+            | "ImageryTransportation"
+            | "ShadedReliefLabels"
+            | "TerrainLabels";
 
-        type LeafletGeometry = L.Marker | L.Polygon | L.Polyline | L.LatLngExpression | L.LatLngBounds | L.GeoJSON;
+        type LeafletGeometry = Marker | Polygon | Polyline | LatLngExpression | LatLngBounds | GeoJSON;
         type GeoJSONGeometry = GeoJSON.Point | GeoJSON.Polygon | GeoJSON.LineString;
         type Geometry = LeafletGeometry | GeoJSONGeometry;
         type SpatialReferenceExpression = number | SpatialReference;
@@ -62,19 +56,25 @@ declare module 'leaflet' {
         /**
          * Options for `L.esri.BasemapLayer`
          */
-        interface BasemapLayerOptions extends L.TileLayerOptions {
+        interface BasemapLayerOptions extends TileLayerOptions {
             /**
-             *     Will use this token to authenticate all calls to the service.
-             *
+             * Will use this token to authenticate all calls to the service.
              */
             token?: string | undefined;
+
+            /**
+             * When true, will not show the deprecation warning in the developer console.
+             */
+            ignoreDeprecationWarning?: boolean | undefined;
         }
 
         /**
+         * @deprecated use L.esri.Vector.vectorBasemapLayer instead
+         *
          * `L.esri.BasemapLayer` is used to display Esri hosted basemaps and attributes data providers appropriately.
          * The Terms of Use for Esri hosted services apply to all Leaflet applications.
          */
-        class BasemapLayer extends L.TileLayer {
+        class BasemapLayer extends TileLayer {
             constructor(key: Basemaps, options?: BasemapLayerOptions);
         }
 
@@ -87,7 +87,7 @@ declare module 'leaflet' {
         /**
          * Options for `L.esri.TiledMapLayer`
          */
-        interface TiledMapLayerOptions extends L.TileLayerOptions, LayerOptionsBase {
+        interface TiledMapLayerOptions extends TileLayerOptions, LayerOptionsBase {
             /**
              * If correctZoomLevels is enabled this controls the amount of tolerance for the difference at each scale
              * level for remapping tile levels.
@@ -101,7 +101,7 @@ declare module 'leaflet' {
          * Access tiles from ArcGIS Online and ArcGIS Server to visualize and identify features. Copyright text from the
          * service is added to map attribution automatically.
          */
-        class TiledMapLayer extends L.TileLayer {
+        class TiledMapLayer extends TileLayer {
             constructor(options: TiledMapLayerOptions);
             /**
              * Authenticates this service with a new token and runs any pending requests that required a token
@@ -136,7 +136,7 @@ declare module 'leaflet' {
         /**
          * Options for RasterLayer
          */
-        interface RasterLayerOptions extends L.ImageOverlayOptions {
+        interface RasterLayerOptions extends ImageOverlayOptions {
             /**
              * Server response content type.
              * @default 'image'
@@ -148,7 +148,7 @@ declare module 'leaflet' {
              */
             position?: string | undefined;
             /**
-             *     Closest zoom level the layer will be displayed on the map.
+             * Closest zoom level the layer will be displayed on the map.
              */
             maxZoom?: number | undefined;
             /**
@@ -160,17 +160,17 @@ declare module 'leaflet' {
         /**
          * A generic class representing an image layer. This class can be extended to provide support for making export requests from ArcGIS REST services.
          */
-        abstract class RasterLayer extends L.ImageOverlay {
+        abstract class RasterLayer extends ImageOverlay {
             /**
              * Redraws this layer below all other overlay layers.
              */
             bringToBack(): this;
             /**
-             *     Redraws this layer above all other overlay layers.
+             * Redraws this layer above all other overlay layers.
              */
             bringToFront(): this;
             /**
-             *     Returns the current opacity of the layer.
+             * Returns the current opacity of the layer.
              */
             getOpacity(): number;
             /**
@@ -205,7 +205,7 @@ declare module 'leaflet' {
         interface DynamicMapLayerOptions extends RasterLayerOptions, LayerOptionsBase {
             /**
              * Output format of the image.
-             * @default 'png24'
+             * @default 'png32'
              */
             format?: string | undefined;
             /**
@@ -222,8 +222,8 @@ declare module 'leaflet' {
              */
             layers?: any[] | undefined;
             /**
-             *     SQL filters to define what features will be included in the image rendered by the service. An object is
-             *     used with keys that map each query to its respective layer.
+             * SQL filters to define what features will be included in the image rendered by the service. An object is
+             * used with keys that map each query to its respective layer.
              *
              * { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" }
              */
@@ -255,8 +255,10 @@ declare module 'leaflet' {
              * should return the appropriate HTML. If you do not want to open the popup when there are no results,
              * return false.
              */
-            bindPopup(fn: FeatureCallbackHandler, popupOptions?: L.PopupOptions): this;
-            bindPopup(content: ((layer: Layer) => Content) | Content | Popup, options?: PopupOptions): this;
+            bindPopup(
+                fn: FeatureCallbackHandler | ((layer: Layer) => Content) | Content | Popup,
+                popupOptions?: PopupOptions,
+            ): this;
             /**
              * Removes a popup previously bound with bindPopup.
              */
@@ -341,11 +343,11 @@ declare module 'leaflet' {
             /**
              * Function that will be used to get style options for vector layers created for GeoJSON features.
              */
-            style?: ((feature: any, layer: L.Layer) => void) | undefined;
+            style?: ((feature: any, layer: Layer) => void) | undefined;
             /**
-             *     Provides an opportunity to introspect individual GeoJSON features in the layer.
+             * Provides an opportunity to introspect individual GeoJSON features in the layer.
              */
-            onEachFeature?: ((feature: any, layer: L.Layer) => void) | undefined;
+            onEachFeature?: ((feature: any, layer: Layer) => void) | undefined;
             /**
              * An optional expression to filter features server side. String values should be denoted using single
              * quotes ie: where: "FIELDNAME = 'field value'"; More information about valid SQL syntax can be found here.
@@ -364,13 +366,13 @@ declare module 'leaflet' {
              */
             cacheLayers?: boolean | undefined;
             /**
-             *     An array of fieldnames to pull from the service. Includes all fields by default. You should always
-             *     specify the name of the unique id for the service. Usually either `FID` or `OBJECTID`.
+             * An array of fieldnames to pull from the service. Includes all fields by default. You should always
+             * specify the name of the unique id for the service. Usually either `FID` or `OBJECTID`.
              */
             fields?: string[] | undefined;
             /**
-             *     When paired with to defines the time range of features to display. Requires the Feature Layer to be time
-             *     enabled.
+             * When paired with to defines the time range of features to display. Requires the Feature Layer to be time
+             * enabled.
              */
             from?: Date | undefined;
             /**
@@ -387,10 +389,10 @@ declare module 'leaflet' {
              * Determines where features are filtered by time. By default features will be filtered by the server. If
              * set to 'client' all features are requested and filtered by the app before display.
              */
-            timeFilterMode?: 'server' | 'client' | undefined;
+            timeFilterMode?: "server" | "client" | undefined;
             /**
-             *     How much to simplify polygons and polylines. A higher value gives better performance, a lower value
-             *     gives a more accurate representation.
+             * How much to simplify polygons and polylines. A higher value gives better performance, a lower value
+             * gives a more accurate representation.
              */
             simplifyFactor?: number | undefined;
             /**
@@ -402,7 +404,7 @@ declare module 'leaflet' {
              * The vector renderer to use to draw the service. Usually L.svg() is preferable but setting to `L.canvas()`
              * can have performance benefits for large polygon layers.
              */
-            renderer?: L.SVG | L.Canvas | undefined;
+            renderer?: SVG | Canvas | undefined;
             /**
              * Set this to false if your own service supports GeoJSON as an output format but you'd like to ask for
              * Geoservices JSON instead.
@@ -413,6 +415,11 @@ declare module 'leaflet' {
              * symbology defined by the service itself.
              */
             ignoreRenderer?: boolean | undefined;
+
+            /**
+             * If you pass an api key in your options it will be included in all requests to the service.
+             */
+            apiKey?: string | undefined;
         }
 
         type StyleCallback = (feature: any) => any;
@@ -441,7 +448,7 @@ declare module 'leaflet' {
          * queries to fetch nearby features. This technique is comparable to `MODE_ONDEMAND` in the ArcGIS API for
          * JavaScript.
          */
-        class FeatureLayer extends L.Layer {
+        class FeatureLayer extends Layer {
             constructor(options: FeatureLayerOptions);
             /**
              * Sets the given path options to each layer that has a setStyle method. Can also be a Function that will
@@ -450,13 +457,13 @@ declare module 'leaflet' {
              * `featureLayer.setStyle({ color: 'white' })`
              * `featureLayer.setStyle(function(feature){ return { weight: feature.properties.pixelWidth };})`
              */
-            setStyle(style: L.PathOptions | StyleCallback): this;
+            setStyle(style: PathOptions | StyleCallback): this;
             /**
              * Changes the style on a specfic feature.
              */
-            setFeatureStyle(id: string | number, style: L.PathOptions | StyleCallback): this;
+            setFeatureStyle(id: string | number, style: PathOptions | StyleCallback): this;
             /**
-             *     Given the ID of a feature, reset that feature to the original style.
+             * Given the ID of a feature, reset that feature to the original style.
              */
             resetStyle(): this;
             /**
@@ -474,7 +481,7 @@ declare module 'leaflet' {
              * Given the id of a Feature return the layer on the map that represents it. This will usually be a Leaflet
              * vector layer like Polyline or Polygon, or a Leaflet Marker.
              */
-            getFeature(id: string | number): L.Layer;
+            getFeature(id: string | number): Layer;
             /**
              * Returns the current where setting
              */
@@ -485,7 +492,7 @@ declare module 'leaflet' {
              */
             setWhere(where: string, callback?: FeatureCallbackHandler, context?: any): this;
             /**
-             *     Returns the current time range as an array like [from, to]
+             * Returns the current time range as an array like [from, to]
              */
             getTimeRange(): Date[];
             /**
@@ -597,6 +604,199 @@ declare module 'leaflet' {
         type ResponseCallbackHandler = (error?: any, response?: any) => void;
 
         /**
+         * Options for `L.esri.ImageMapLayer`
+         */
+        interface ImageMapLayerOptions extends ImageOverlayOptions, LayerOptionsBase {
+            /**
+             * If there are multiple bands, you can specify which bands to export
+             */
+            bandIds?: string | undefined;
+
+            /**
+             * The pixel value representing no information.
+             */
+            noData?: number | undefined;
+
+            /**
+             * Interpretation of the noData setting.
+             */
+            noDataInterpretation?: string | undefined;
+
+            /**
+             * Leave pixelType as unspecified, or UNKNOWN, in most exportImage use cases, unless such pixelType is
+             * desired. Possible values: C128, C64, F32, F64, S16, S32, S8, U1, U16, U2, U32, U4, U8, UNKNOWN.
+             */
+            pixelType?: string | undefined;
+
+            /**
+             * A JSON representation of a raster function
+             */
+            renderingRule?: object | undefined;
+
+            /**
+             * A JSON representation of a mosaic rule
+             */
+            mosaicRule?: object | undefined;
+
+            /**
+             * Furthest zoom level the layer will be displayed on the map.
+             */
+            minZoom?: number | undefined;
+
+            /**
+             * Closest zoom level the layer will be displayed on the map.
+             */
+            maxZoom?: number | undefined;
+
+            /**
+             * Server response content type "json" | "image". Default is 'image'
+             */
+            f?: "json" | "image" | undefined;
+
+            /**
+             * Output format of the image. Default is 'jpegpng
+             */
+            format?: string | undefined;
+
+            /**
+             * Legacy option to control draw order. For best results, use pane. Default is 'front'
+             */
+            position?: string | undefined;
+
+            /**
+             * Used to filter what is drawn from the service based on a time range.
+             */
+            to?: Date | undefined;
+
+            /**
+             * Used to filter what is drawn from the service based on a time range.
+             */
+            from?: Date | undefined;
+        }
+
+        /**
+         * Render and visualize Image Services from ArcGIS Online and ArcGIS Server.
+         * Image Services provide access to raster data through a web service.
+         */
+
+        class ImageMapLayer extends RasterLayer {
+            constructor(options: ImageMapLayerOptions);
+
+            /**
+             * Uses the provided function to create a popup that will identify pixel value(s) whenever the map is clicked.
+             * Your function will be passed an object with a `pixel` property that is a GeoJSON Point with the pixel
+             * value(s) at the clicked location and should return the appropriate HTML. If you do not want to open the
+             * popup when there are no results, return false.
+             *
+             * NOTE: by default, if the layer has a mosaic rule applied, then the same rule will be applied to the
+             * identify request. Conversely, if the layer has a rendering rule applied, that rule is NOT applied to the
+             * layer so that the raw pixel value can be returned. If you need specific control over how these rules
+             * (and/or other identify parameters) are passed to the identify service, use L.esri.IdentifyImage.
+             */
+            bindPopup(
+                fn: LayerCallbackHandler | ((layer: Layer) => Content) | string | HTMLElement | Popup,
+                popupOptions?: PopupOptions,
+            ): this;
+
+            /**
+             * Removes a popup previously bound with bindPopup.
+             */
+            unbindPopup(): this;
+
+            /**
+             * Returns the current band value(s).
+             */
+            getBandIds(): string;
+
+            /**
+             * Specify a single band to export, or you can change the band combination (red, green, blue) by
+             * specifying the band number.
+             */
+            setBandIds(bandIds: string | string[]): this;
+
+            /**
+             * Returns the current no data value.
+             */
+            getNoData(): string;
+
+            /**
+             * Specify a single value, or an array of values to treat as no data. No data will values will be rendered transparent.
+             * The optional `noDataInterpretation` can be either `esriNoDataMatchAny` | `esriNoDataMatchAll`. The
+             * default is `esriNoDataMatchAny` when `noData` is a number, and `esriNoDataMatchAll` when noData is an array.
+             * See Image Service Export Image documentation for more details
+             */
+            setNoData(noData: number | number[], noDataInterpretation?: string): this;
+
+            /**
+             * Returns the current no data interpretation value.
+             */
+            getNoDataInterpretation(): string;
+
+            /**
+             * Returns the current pixel type.
+             */
+            getPixelType(): string;
+
+            /**
+             * The pixel type, also known as data type, pertains to the type of values stored in the raster, such as
+             * signed integer, unsigned integer, or floating point. Possible values: `C128`, `C64`, `F32`, `F64`,
+             * `S16`, `S32`, `S8`, `U1`, `U16`, `U2`, `U32`, `U4`, `U8`, `UNKNOWN`.
+             */
+            setPixelType(
+                pixelType:
+                    | "C128"
+                    | "C64"
+                    | "F32"
+                    | "F64"
+                    | "S16"
+                    | "S32"
+                    | "S8"
+                    | "U1"
+                    | "U16"
+                    | "U2"
+                    | "U32"
+                    | "U4"
+                    | "U8"
+                    | "UNKNOWN",
+            ): this;
+
+            /**
+             * Returns a new `L.esri.Query` object that can be used to query this service.
+             */
+            query(): Query;
+
+            /**
+             * Returns the current rendering rule of the layer.
+             */
+            getRenderingRule(): object;
+
+            /**
+             * Redraws the layer with the passed rendering rule.
+             */
+            setRenderingRule(renderingRule: object): this;
+
+            /**
+             * Returns the current mosaic rule of the layer.
+             */
+            getMosaicRule(): object;
+
+            /**
+             * Redraws the layer with the passed mosaic rule.
+             */
+            setMosaicRule(mosaicRule: object): this;
+        }
+
+        /**
+         * Extends L.esri.RasterLayer
+         *
+         * Render and visualize Image Services from ArcGIS Online and ArcGIS Server.
+         * Image Services provide access to raster data through a web service.
+         */
+        function imageMapLayer(options: ImageMapLayerOptions): ImageMapLayer;
+
+        type LayerCallbackHandler = (error?: any, layer?: any, response?: any) => void;
+
+        /**
          * Options for `L.esri.Service`
          */
         interface ServiceOptions {
@@ -619,14 +819,14 @@ declare module 'leaflet' {
             /**
              * Will include credentials for CORS requests
              */
-             withCredentials?: boolean | undefined;
+            withCredentials?: boolean | undefined;
         }
 
         /**
          * A generic class representing a hosted resource on ArcGIS Online or ArcGIS Server. This class can be extended
          * to provide support for making requests and serves as a standard for authentication and proxying.
          */
-        abstract class Service extends L.Evented {
+        abstract class Service extends Evented {
             /**
              * Makes a GET request to the service. The service's URL will be combined with the path option and
              * parameters will be serialized to a query string. Accepts an optional function context for the callback.
@@ -648,16 +848,11 @@ declare module 'leaflet' {
         }
 
         /**
-         * Options for MapService
-         */
-        interface MapServiceOptions extends ServiceOptions { }
-
-        /**
          * `L.esri.MapService` is an abstraction for interacting with Map Services running on ArcGIS Online and ArcGIS
          * Server that allows you to make requests to the API, as well as query and identify published features.
          */
         class MapService extends Service {
-            constructor(options: MapServiceOptions);
+            constructor(options: ServiceOptions);
             /**
              * Returns a new `L.esri.services.IdentifyFeatures` object that can be used to identify features on this
              * layer. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
@@ -678,19 +873,14 @@ declare module 'leaflet' {
          * `L.esri.MapService` is an abstraction for interacting with Map Services running on ArcGIS Online and ArcGIS
          * Server that allows you to make requests to the API, as well as query and identify published features.
          */
-        function mapService(options: MapServiceOptions): MapService;
-
-        /**
-         * Options for Task
-         */
-        interface TaskOptions extends ServiceOptions { }
+        function mapService(options: ServiceOptions): MapService;
 
         /**
          * `L.esri.Task` is a generic class that provides the foundation for calling operations on ArcGIS Online and
          * ArcGIS Server Services like query, find and identify.
          */
-        class Task extends L.Class {
-            constructor(options: TaskOptions | Service);
+        class Task extends Class {
+            constructor(options: ServiceOptions | Service);
             /**
              * Makes a request to the associated service. The service's URL will be combined with the path option and
              * parameters will be serialized. Accepts an optional function context for the callback.
@@ -703,18 +893,19 @@ declare module 'leaflet' {
             token(token: string): this;
 
             format(returnUnformattedValues: boolean): this;
+
+            /**
+             * Adds an api key to this request if the service requires authentication. Will be added automatically if
+             * used with a service.
+             */
+            apiKey(apiKey: string): this;
         }
 
         /**
          * `L.esri.Task` is a generic class that provides the foundation for calling operations on ArcGIS Online and
          * ArcGIS Server Services like query, find and identify.
          */
-        function task(options: TaskOptions | Service): Task;
-
-        /**
-         * Options for ImageService
-         */
-        interface ImageServiceOptions extends ServiceOptions {}
+        function task(options: ServiceOptions | Service): Task;
 
         /**
          * `L.esri.ImageService` is an abstraction for interacting with Image Services running on ArcGIS Online and
@@ -722,7 +913,7 @@ declare module 'leaflet' {
          * service.
          */
         class ImageService extends Service {
-            constructor(options: ImageServiceOptions);
+            constructor(options: ServiceOptions);
             /**
              * Returns a new `L.esri.Query` object that can be used to query this service.
              */
@@ -734,12 +925,7 @@ declare module 'leaflet' {
          * ArcGIS Server that allows you to make requests to the API, as well as query and identify features on the
          * service.
          */
-        function imageService(options: ImageServiceOptions): ImageService;
-
-        /**
-         * Options for FeatureLayerService
-         */
-        interface FeatureLayerServiceOptions extends ServiceOptions { }
+        function imageService(options: ServiceOptions): ImageService;
 
         /**
          * `L.esri.FeatureLayerService` is an abstraction for interacting with Feature Layers running on ArcGIS Online
@@ -747,7 +933,7 @@ declare module 'leaflet' {
          * features from the service.
          */
         class FeatureLayerService extends Service {
-            constructor(options: FeatureLayerServiceOptions);
+            constructor(options: ServiceOptions);
             /**
              * Returns a new `L.esri.Query` object that can be used to query this layer.
              */
@@ -803,12 +989,7 @@ declare module 'leaflet' {
          * and ArcGIS Server that allows you to make requests to the API, as well as query, add, update and remove
          * features from the service.
          */
-        function featureLayerService(options: FeatureLayerServiceOptions): FeatureLayerService;
-
-        /**
-         * Options for Query
-         */
-        interface QueryOptions extends TaskOptions { }
+        function featureLayerService(options: ServiceOptions): FeatureLayerService;
 
         /**
          * `L.esri.Query` is an abstraction for the query API included in Feature Layers and Image Services. It provides
@@ -818,7 +999,7 @@ declare module 'leaflet' {
          * version of ArcGIS Server that hosts the service some of these options may not be available.
          */
         class Query extends Task {
-            constructor(options: QueryOptions);
+            constructor(options: ServiceOptions);
             /**
              * Queries features from the service within (fully contained by) the passed geometry object. geometry can be
              * an instance of `L.Marker`, `L.Polygon`, `L.Polyline`, `L.LatLng`, `L.LatLngBounds` and `L.GeoJSON`. It
@@ -860,7 +1041,7 @@ declare module 'leaflet' {
              * Only available for Feature Layers hosted on ArcGIS Online or ArcGIS Server 10.3 that include the
              * capability supportQueryWithDistance.
              */
-            nearby(latlng: L.LatLng, distance: number): this;
+            nearby(latlng: LatLng, distance: number): this;
             /**
              * Adds a where clause to the query. String values should be denoted using single quotes ie:
              *
@@ -898,7 +1079,7 @@ declare module 'leaflet' {
              * Simplify the geometries of the output features for the current map view. the factor parameter controls
              * the amount of simplification between 0 (no simplification) and 1 (the most basic shape possible).
              */
-            simplify(map: L.Map, factor: number): this;
+            simplify(map: Map, factor: number): this;
             /**
              * Sort output features using values from an individual field. "ASC" (ascending) is the default sort order,
              * but "DESC" can be passed as an alternative. This method can be called more than once to apply advanced
@@ -924,7 +1105,7 @@ declare module 'leaflet' {
              *
              * Only available for Image Services.
              */
-            pixelSize(point: L.Point): this;
+            pixelSize(point: Point): this;
             /**
              * Executes the query request with the current parameters, features will be passed to callback as a GeoJSON
              * FeatureCollection. Accepts an optional function context.
@@ -963,23 +1144,18 @@ declare module 'leaflet' {
          * Note Depending on the type of service you are querying (Feature Layer, Map Service, Image Service) and the
          * version of ArcGIS Server that hosts the service some of these options may not be available.
          */
-        function query(options: QueryOptions): Query;
-
-        /**
-         * Options for IdentifyFeatures
-         */
-        interface IdentifyFeaturesOptions extends ServiceOptions { }
+        function query(options: ServiceOptions): Query;
 
         /**
          * `L.esri.IdentifyFeatures` is an abstraction for the Identify API found in Map Services. It provides a
          * chainable API for building request parameters and executing the request.
          */
         class IdentifyFeatures extends Task {
-            constructor(options: IdentifyFeaturesOptions | ImageService);
+            constructor(options: ServiceOptions | ImageService);
             /**
              * The map to identify features on.
              */
-            on(map: L.Map): this;
+            on(map: Map): this;
             /**
              * Identifies features at a given LatLng geometry can also be an instance of `L.Marker`, `L.Polygon`,
              * `L.Polyline`, `L.LatLngBounds`, `L.GeoJSON` or a valid GeoJSON object literal.
@@ -1017,7 +1193,7 @@ declare module 'leaflet' {
              * Simplify the geometries of the output features for the current map view. the factor parameter controls
              * the amount of simplification between `0` (no simplification) and `1` (the most basic shape possible).
              */
-            simplify(map: L.Map, factor: number): this;
+            simplify(map: Map, factor: number): this;
             /**
              * Executes the identify request with the current parameters, identified features will be passed to callback
              * as a GeoJSON FeatureCollection. Accepts an optional function context
@@ -1029,19 +1205,14 @@ declare module 'leaflet' {
          * `L.esri.IdentifyFeatures` is an abstraction for the Identify API found in Map Services. It provides a
          * chainable API for building request parameters and executing the request.
          */
-        function identifyFeatures(options: IdentifyFeaturesOptions | ImageService): IdentifyFeatures;
-
-        /**
-         * Options for Find Task
-         */
-        interface FindOptions extends ServiceOptions { }
+        function identifyFeatures(options: ServiceOptions | ImageService): IdentifyFeatures;
 
         /**
          * `L.esri.Find` is an abstraction for the find API included in Map Services. It provides a chainable API for
          * building request parameters and executing find tasks.
          */
         class Find extends Task {
-            constructor(options: FindOptions | MapService);
+            constructor(options: ServiceOptions | MapService);
             /**
              * Text that is searched across the layers and fields the user specifies.
              */
@@ -1052,19 +1223,19 @@ declare module 'leaflet' {
              */
             contains(contains: boolean): this;
             /**
-             *     An array or comma-separated list of field names to search. If not specified, all fields are searched.
+             * An array or comma-separated list of field names to search. If not specified, all fields are searched.
              */
             fields(fields: string | string[]): this;
             /**
-             *     The well known ID (ex. 4326) for the results.
+             * The well known ID (ex. 4326) for the results.
              */
             spatialReference(sr: number): this;
             /**
-             *     Add a layer definition to the find task.
+             * Add a layer definition to the find task.
              */
             layerDef(id: number, where: string): this;
             /**
-             *     Layers to perform find task on. Accepts an array of layer IDs or comma-separated list.
+             * Layers to perform find task on. Accepts an array of layer IDs or comma-separated list.
              */
             layers(layers: string | string[]): this;
             /**
@@ -1099,7 +1270,7 @@ declare module 'leaflet' {
              * the amount of simplification between `0` (no simplification) and `1`
              * (simplify to the most basic shape possible).
              */
-            simplify(map: L.Map, factor: number): this;
+            simplify(map: Map, factor: number): this;
             /**
              * Executes the find request with the current parameters, features will be passed to callback as a GeoJSON
              * FeatureCollection. Accepts an optional function context.
@@ -1111,7 +1282,90 @@ declare module 'leaflet' {
          * L.esri.Find is an abstraction for the find API included in Map Services. It provides a chainable API for
          * building request parameters and executing find tasks.
          */
-        function find(options: FindOptions | MapService): Find;
+        function find(options: ServiceOptions | MapService): Find;
+
+        class IdentifyImage extends Task {
+            constructor(options: ServiceOptions | ImageService);
+
+            /**
+             * Identify the pixel value at a given LatLng
+             */
+            at(latlng: LatLng): this;
+
+            /**
+             * Identifies pixel values within a given time range.
+             */
+            between(from: Date, to: Date): this;
+
+            /**
+             * Returns the current rendering rule of the task.
+             */
+            getRenderingRule(): object;
+
+            /**
+             * Sets the rendering rule to apply when getting a pixel value.
+             */
+            setRenderingRule(renderingRule: object): this;
+
+            /**
+             * Returns the current mosaic rule of the task.
+             */
+            getMosaicRule(): object;
+
+            /**
+             * Sets the mosaic rule to apply when getting a pixel value.
+             */
+            setMosaicRule(mosaicRule: object): this;
+
+            /**
+             * Sets the pixel size to use when getting a pixel value. Either an array ([x,y]) or string ('x,y').
+             * If not set, it will use the pixel size defined by the service.
+             */
+            setPixelSize(pixelSize: string[] | string): this;
+
+            /**
+             * Returns the current pixel size of the task.
+             */
+            getPixelSize(): object;
+
+            /**
+             * Indicates whether or not to return raster catalog items. Set it to `false` when catalog items are not
+             * needed to improve the identify operation's performance significantly. When set to `false`, neither the
+             * geometry nor attributes of catalog items will be returned. Default is `false`.
+             */
+            returnCatalogItems(returnCatalogItems: boolean): this;
+
+            /**
+             * Return catalog footprints (geometry) with catalog item results. Default is `false`.
+             */
+            returnGeometry(returnGeometry: boolean): this;
+
+            /**
+             * Executes the identify request with the current parameters, identified pixel value will be passed to
+             * callback as a GeoJSON Point. Accepts an optional function context
+             */
+            run(callback: IdentifyImageCallbackHandler, context?: any): this;
+        }
+
+        interface IdentifyImageResponseProperties {
+            OBJECTID: string;
+            name: string;
+            value: any;
+        }
+        interface IdentifyImageResponse {
+            pixel: GeoJSON.Feature<GeoJSON.Point, IdentifyImageResponseProperties>;
+            catalogItems: GeoJSON.FeatureCollection<GeoJSON.Point>;
+        }
+        type IdentifyImageCallbackHandler = (
+            err: any,
+            identifyImageResponse: IdentifyImageResponse,
+            rawResponse: any,
+        ) => void;
+
+        /**
+         * Accepts either an `options` object or an instance of ImageService.
+         */
+        function identifyImage(options: ServiceOptions | ImageService): IdentifyImage;
     }
 }
 

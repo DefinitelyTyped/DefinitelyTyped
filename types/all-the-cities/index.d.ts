@@ -1,8 +1,3 @@
-// Type definitions for all-the-cities 3.1
-// Project: https://github.com/zeke/all-the-cities#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = all_the_cities;
 
 interface AllTheCitiesCity {
@@ -13,26 +8,26 @@ interface AllTheCitiesCity {
     adminCode: string;
     population: number;
     featureCode:
-        | 'PPL'
-        | 'PPLA'
-        | 'PPLC'
-        | 'PPLA2'
-        | 'PPLW'
-        | 'PPLA3'
-        | 'PPLX'
-        | 'PPLA4'
-        | 'PPLL'
-        | 'PPLS'
-        | 'PPLQ'
-        | 'PPLF'
-        | 'PPLG'
-        | 'PPLH'
-        | 'PPLCH'
-        | 'PPLA5'
-        | 'PPLR'
-        | 'STLMT';
+        | "PPL"
+        | "PPLA"
+        | "PPLC"
+        | "PPLA2"
+        | "PPLW"
+        | "PPLA3"
+        | "PPLX"
+        | "PPLA4"
+        | "PPLL"
+        | "PPLS"
+        | "PPLQ"
+        | "PPLF"
+        | "PPLG"
+        | "PPLH"
+        | "PPLCH"
+        | "PPLA5"
+        | "PPLR"
+        | "STLMT";
     loc: {
-        type: 'Point';
+        type: "Point";
         coordinates: [number, number];
     };
 }

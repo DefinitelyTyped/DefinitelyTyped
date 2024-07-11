@@ -1,6 +1,7 @@
-import { Material } from './../materials/Material';
-import { Line } from './Line';
-import { BufferGeometry } from '../core/BufferGeometry';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3DEventMap } from "../core/Object3D.js";
+import { Material } from "../materials/Material.js";
+import { Line } from "./Line.js";
 
 /**
  * A series of lines drawn between pairs of vertices.
@@ -14,7 +15,8 @@ import { BufferGeometry } from '../core/BufferGeometry';
 export class LineSegments<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-> extends Line<TGeometry, TMaterial> {
+    TEventMap extends Object3DEventMap = Object3DEventMap,
+> extends Line<TGeometry, TMaterial, TEventMap> {
     /**
      * Create a new instance of {@link LineSegments}
      * @param geometry Pair(s) of vertices representing each line segment(s). Default {@link THREE.BufferGeometry | `new THREE.BufferGeometry()`}.
@@ -30,8 +32,10 @@ export class LineSegments<
     readonly isLineSegments: true;
 
     /**
+     * A Read-only _string_ to check if `this` object type.
+     * @remarks Sub-classes will update this value.
      * @override
      * @defaultValue `LineSegments`
      */
-    override readonly type: string | 'LineSegments';
+    override readonly type: string | "LineSegments";
 }

@@ -1,9 +1,3 @@
-// Type definitions for numeric 1.2
-// Project: https://github.com/sloisel/numeric
-// Definitions by: Sasha Grin <https://github.com/tup1tsa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 // Documentation: http://www.numericjs.com/documentation.html
 
 type NonNullPrimitive = number | string | boolean | undefined;
@@ -148,7 +142,7 @@ interface Numeric {
     //     Matrix-Matrix, Matrix-Vector, Vector-Matrix and Vector-Vector product
     dot(
         x: Vector | Matrix | Scalar,
-        y: Vector | Matrix | Scalar
+        y: Vector | Matrix | Scalar,
     ): Vector | Matrix | Scalar;
     dotMMsmall(x: Matrix, y: Matrix): Matrix;
     dotMMbig(x: Matrix, y: Matrix): Matrix;
@@ -267,13 +261,13 @@ interface Numeric {
     not(x: NonNullPrimitive): boolean;
     not(x: NonNullPrimitive[]): VectorBoolean;
     not(
-        x: MultidimensionalArray<NonNullPrimitive>
+        x: MultidimensionalArray<NonNullPrimitive>,
     ): MultidimensionalArray<boolean>;
     notV(x: NonNullPrimitive[]): VectorBoolean;
     noteq(x: NonNullPrimitive): boolean;
     noteq(x: NonNullPrimitive[]): VectorBoolean;
     noteq(
-        x: MultidimensionalArray<NonNullPrimitive>
+        x: MultidimensionalArray<NonNullPrimitive>,
     ): MultidimensionalArray<boolean>;
     noteqV(x: NonNullPrimitive[]): VectorBoolean;
 
@@ -285,16 +279,16 @@ interface Numeric {
 
     // Deep copy of Array
     clone<
-        T extends NonNullPrimitive[] | MultidimensionalArray<NonNullPrimitive>
-        >(
-        x: T
+        T extends NonNullPrimitive[] | MultidimensionalArray<NonNullPrimitive>,
+    >(
+        x: T,
     ): T;
     cloneV(x: NonNullPrimitive[]): NonNullPrimitive[];
     cloneeq(x: NonNullPrimitive[]): NonNullPrimitive[];
     cloneeq<
-        T extends NonNullPrimitive[] | MultidimensionalArray<NonNullPrimitive>
-        >(
-        x: T
+        T extends NonNullPrimitive[] | MultidimensionalArray<NonNullPrimitive>,
+    >(
+        x: T,
     ): T;
     cloneeqV(x: NonNullPrimitive[]): NonNullPrimitive[];
 
@@ -513,13 +507,13 @@ interface Numeric {
     eq(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     eq(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     "==="(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
     "==="(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     "==="(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     eqVV(x: Vector, y: Vector): VectorBoolean;
     eqSV(x: Scalar, y: Vector): VectorBoolean;
@@ -533,13 +527,13 @@ interface Numeric {
     neq(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     neq(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     "!=="(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
     "!=="(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     "!=="(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     neqVV(x: Vector, y: Vector): VectorBoolean;
     neqSV(x: Scalar, y: Vector): VectorBoolean;
@@ -553,13 +547,13 @@ interface Numeric {
     lt(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     lt(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     "<"(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
     "<"(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     "<"(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     ltVV(x: Vector, y: Vector): VectorBoolean;
     ltSV(x: Scalar, y: Vector): VectorBoolean;
@@ -573,13 +567,13 @@ interface Numeric {
     gt(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     gt(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     ">"(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
     ">"(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     ">"(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     gtVV(x: Vector, y: Vector): VectorBoolean;
     gtSV(x: Scalar, y: Vector): VectorBoolean;
@@ -593,13 +587,13 @@ interface Numeric {
     leq(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     leq(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     "<="(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
     "<="(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     "<="(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     leqVV(x: Vector, y: Vector): VectorBoolean;
     leqSV(x: Scalar, y: Vector): VectorBoolean;
@@ -613,13 +607,13 @@ interface Numeric {
     geq(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     geq(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     ">="(x: Scalar, y: Scalar, ...args: Scalar[]): boolean;
     ">="(x: Scalar | Vector, y: Scalar | Vector): VectorBoolean;
     ">="(
         x: MultidimensionalMatrix,
-        y: MultidimensionalMatrix
+        y: MultidimensionalMatrix,
     ): MultidimensionalArray<boolean>;
     geqVV(x: Vector, y: Vector): VectorBoolean;
     geqSV(x: Scalar, y: Vector): VectorBoolean;
@@ -944,14 +938,14 @@ interface Numeric {
     getBlock<T extends MultidimensionalMatrix>(
         x: T,
         from: Vector,
-        to: Vector
+        to: Vector,
     ): T;
     // Set a block of a matrix
     setBlock<T extends MultidimensionalMatrix>(
         x: T,
         from: Vector,
         to: Vector,
-        b: T
+        b: T,
     ): T;
     // create two-dimensional matrix
     blockMatrix(x: Scalar | Vector | MultidimensionalMatrix): Matrix;
@@ -977,7 +971,7 @@ interface Numeric {
         b: Vector,
         x?: Vector,
         bj?: Vector,
-        xj?: Vector
+        xj?: Vector,
     ): Vector;
     ccsDot(A: SparseMatrix, B: SparseMatrix): SparseMatrix;
     ccsLUP(matrix: SparseMatrix, threshold?: number): LUPP;
@@ -985,7 +979,7 @@ interface Numeric {
     ccsGetBlock(
         matrix: SparseMatrix,
         i?: Vector | Scalar,
-        j?: Vector | Scalar
+        j?: Vector | Scalar,
     ): SparseMatrix;
     ccsLUPSolve(lup: LUPP, B: SparseMatrix): Vector;
     ccsScatter(matrix: SparseMatrix): SparseMatrix;
@@ -1080,24 +1074,24 @@ interface Numeric {
     /** @deprecated */
     sdotMM(
         a: DeprecatedSparseMatrix,
-        b: DeprecatedSparseMatrix
+        b: DeprecatedSparseMatrix,
     ): DeprecatedSparseMatrix;
     /** @deprecated */
     sdotMV(
         matrix: DeprecatedSparseMatrix,
-        vector: DeprecatedSparseVector
+        vector: DeprecatedSparseVector,
     ): DeprecatedSparseVector;
     /** @deprecated */
     sdotVM(
         vector: DeprecatedSparseVector,
-        matrix: DeprecatedSparseMatrix
+        matrix: DeprecatedSparseMatrix,
     ): DeprecatedSparseMatrix;
     /** @deprecated */
     sdotVV(x: DeprecatedSparseVector, y: DeprecatedSparseVector): number;
     /** @deprecated */
     sdot(
         x: Scalar | DeprecatedSparseVector | DeprecatedSparseMatrix,
-        y: Scalar | DeprecatedSparseVector | DeprecatedSparseMatrix
+        y: Scalar | DeprecatedSparseVector | DeprecatedSparseMatrix,
     ): Scalar | DeprecatedSparseVector | DeprecatedSparseMatrix;
     /** @deprecated */
     sscatter(matrix: DeprecatedSparseMatrix): DeprecatedSparseMatrix;
@@ -1105,7 +1099,7 @@ interface Numeric {
     sgather(
         matrix: DeprecatedSparseMatrix,
         ret?: DeprecatedSparseVector,
-        k?: DeprecatedSparseVector
+        k?: DeprecatedSparseVector,
     ): DeprecatedSparseMatrix;
 
     // Coordinate matrices
@@ -1120,7 +1114,7 @@ interface Numeric {
         x: Vector,
         y: Vector | Matrix,
         k1?: "periodic" | Scalar,
-        kn?: "periodic" | Scalar
+        kn?: "periodic" | Scalar,
     ): Spline;
 
     // Unconstrained optimisations
@@ -1135,9 +1129,9 @@ interface Numeric {
             x0: Vector,
             f0: Scalar,
             g0: Vector,
-            h1: Matrix
+            h1: Matrix,
         ) => any,
-        options?: { Hinv: Matrix }
+        options?: { Hinv: Matrix },
     ): {
         solution: Vector;
         f: Scalar;
@@ -1156,7 +1150,7 @@ interface Numeric {
         f: (x: Vector | Scalar, y: Vector | Scalar) => Vector | Scalar,
         tol?: number,
         maxit?: number,
-        event?: (x: Vector | Scalar, y: Vector | Scalar) => Vector | Scalar
+        event?: (x: Vector | Scalar, y: Vector | Scalar) => Vector | Scalar,
     ): Dopri;
 
     // Solving the linear problem Ax=b
@@ -1173,7 +1167,7 @@ interface Numeric {
         Aeq?: Matrix,
         beq?: Matrix,
         tol?: number,
-        maxit?: number
+        maxit?: number,
     ): { solution: Scalar | Vector; message: string; iterations: number };
 
     solveQP(
@@ -1182,7 +1176,7 @@ interface Numeric {
         Amat: Matrix,
         bvec: Vector,
         meq?: number,
-        factorized?: any
+        factorized?: any,
     ): {
         solution: Vector;
         value: Vector;

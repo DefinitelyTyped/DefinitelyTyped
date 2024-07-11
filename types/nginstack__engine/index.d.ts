@@ -1,10 +1,3 @@
-// Type definitions for @nginstack/engine 70.0
-// Project: https://dev.azure.com/nginstack/nginstack
-// Definitions by: Renato Ribeiro <https://github.com/Henato>
-//                 Paulo Moreno <https://github.com/paulocmoreno>
-//                 Ricardo Cavalcante <https://github.com/oficial>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
 /// <reference path="context/connection.d.ts" />
 /// <reference path="context/database.d.ts" />
 /// <reference path="context/engine.d.ts" />
@@ -113,6 +106,7 @@
 /// <reference path="lib/database/LogDatumIterator.d.ts" />
 /// <reference path="lib/database/QueryUtilities.d.ts" />
 /// <reference path="lib/database/SystemFields.d.ts" />
+/// <reference path="lib/database/TransactionLog.d.ts" />
 /// <reference path="lib/dataset/ApplyUpdatesAction.d.ts" />
 /// <reference path="lib/dataset/canApplyUpdates.d.ts" />
 /// <reference path="lib/dataset/ClientDataSet.d.ts" />
@@ -265,7 +259,6 @@
 /// <reference path="lib/java/Enginelet.d.ts" />
 /// <reference path="lib/java/JavaImporter.d.ts" />
 /// <reference path="lib/java/JavaRequest.d.ts" />
-/// <reference path="lib/java/JavaServer.d.ts" />
 /// <reference path="lib/jaz/listJazPackages.d.ts" />
 /// <reference path="lib/jose/Algorithm.d.ts" />
 /// <reference path="lib/jose/JWS.d.ts" />
@@ -431,8 +424,6 @@
 /// <reference path="lib/version/compareVersions.d.ts" />
 /// <reference path="lib/vfs/VirtualFileSystem.d.ts" />
 /// <reference path="lib/xml/formatCDATA.d.ts" />
-/// <reference path="lib/xml/ReadElementTextBehaviour.d.ts" />
-/// <reference path="lib/xml/ReadError.d.ts" />
 /// <reference path="lib/xml/removeUnsupportedChars.d.ts" />
 /// <reference path="lib/xml/TokenType.d.ts" />
 /// <reference path="lib/xml/XMLStreamReader.d.ts" />

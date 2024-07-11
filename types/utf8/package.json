@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/utf8",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/mathiasbynens/utf8.js"
+    ],
+    "devDependencies": {
+        "@types/utf8": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,10 +1,10 @@
-import { ReactDivAttr, ForwardRefReturn } from "../../../typings/shared";
+import { ForwardRefReturn, ReactDivAttr } from "../../../typings/shared";
 
 export interface ListBoxMenuProps extends Omit<ReactDivAttr, "id"> {
     id: string;
 }
 
-export interface ListBoxMenuComponent extends ForwardRefReturn<HTMLDivElement, ListBoxMenuProps> { }
+export interface ListBoxMenuComponent extends ForwardRefReturn<HTMLDivElement, ListBoxMenuProps> {}
 
 declare const ListBoxMenu: ListBoxMenuComponent;
 

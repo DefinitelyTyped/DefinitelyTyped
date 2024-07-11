@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     ControlBar,
     CurrentTimeDisplay,
@@ -7,19 +7,37 @@ import {
     PlayerProps,
     ProgressControl,
     TimeDivider,
-} from 'video-react';
+} from "video-react";
 
-const testProps: PlayerProps = { autoPlay: true };
+const testProps: PlayerProps = {
+    autoPlay: true,
+    crossOrigin: "anonymous",
+    videoId: "123",
+    onPlay: () => {},
+    onEnded: () => {},
+    onLoadStart: () => {},
+    onPause: () => {},
+};
 
-function TestComponent(props: PlayerProps): JSX.Element {
+function TestComponent(props: PlayerProps): React.JSX.Element {
     return (
-        <Player {...testProps}>
-            <ControlBar>
-                <CurrentTimeDisplay order={1} />
-                <DurationDisplay order={2} />
-                <ProgressControl order={3} />
-                <TimeDivider order={4} />
-            </ControlBar>
-        </Player>
+        <div>
+            <Player>
+                <ControlBar>
+                    <CurrentTimeDisplay order={1} />
+                    <DurationDisplay order={2} />
+                    <ProgressControl order={3} />
+                    <TimeDivider order={4} />
+                </ControlBar>
+            </Player>
+            <Player {...testProps}>
+                <ControlBar>
+                    <CurrentTimeDisplay order={1} />
+                    <DurationDisplay order={2} />
+                    <ProgressControl order={3} />
+                    <TimeDivider order={4} />
+                </ControlBar>
+            </Player>
+        </div>
     );
 }

@@ -1,8 +1,3 @@
-// Type definitions for spinnies 0.5
-// Project: https://github.com/jcarpanelli/spinnies
-// Definitions by: Benjamin Burns <https://github.com/benjamincburns>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Attribution note:
 // These type declarations are modified from type declarations in
 // jcarpanelli/spinnies#25 by Adam Jarret <https://github.com/adamjarret>.
@@ -15,22 +10,22 @@ declare namespace Spinnies {
     const dashes: Spinner;
 
     type Color =
-      "black"
-      | "red"
-      | "green"
-      | "yellow"
-      | "blue"
-      | "magenta"
-      | "cyan"
-      | "white"
-      | "gray"
-      | "redBright"
-      | "greenBright"
-      | "yellowBright"
-      | "blueBright"
-      | "magentaBright"
-      | "cyanBright"
-      | "whiteBright";
+        | "black"
+        | "red"
+        | "green"
+        | "yellow"
+        | "blue"
+        | "magenta"
+        | "cyan"
+        | "white"
+        | "gray"
+        | "redBright"
+        | "greenBright"
+        | "yellowBright"
+        | "blueBright"
+        | "magentaBright"
+        | "cyanBright"
+        | "whiteBright";
 
     type StopAllStatus = "succeed" | "fail" | "stopped";
     type SpinnerStatus = StopAllStatus | "spinning" | "non-spinnable";

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.declarativeNetRequest
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the declarativeNetRequest API to block or modify network requests by specifying declarative rules.
  * Permissions: "declarativeNetRequest", "declarativeNetRequestWithHostAccess"
@@ -35,6 +38,11 @@ export namespace DeclarativeNetRequest {
         | "web_manifest"
         | "speculative"
         | "other";
+
+    /**
+     * Describes the reason why a given regular expression isn't supported.
+     */
+    type UnsupportedRegexReason = "syntaxError" | "memoryLimitExceeded";
 
     interface MatchedRule {
         /**
@@ -178,6 +186,39 @@ export namespace DeclarativeNetRequest {
         enableRulesetIds?: string[];
     }
 
+    interface IsRegexSupportedRegexOptionsType {
+        /**
+         * The regular expresson to check.
+         */
+        regex: string;
+
+        /**
+         * Whether the 'regex' specified is case sensitive.
+         * Optional.
+         */
+        isCaseSensitive?: boolean;
+
+        /**
+         * Whether the 'regex' specified requires capturing. Capturing is only required for redirect rules which specify a
+         * 'regexSubstition' action.
+         * Optional.
+         */
+        requireCapturing?: boolean;
+    }
+
+    interface IsRegexSupportedCallbackResultType {
+        /**
+         * Whether the given regex is supported
+         */
+        isSupported: boolean;
+
+        /**
+         * Specifies the reason why the regular expression is not supported. Only provided if 'isSupported' is false.
+         * Optional.
+         */
+        reason?: UnsupportedRegexReason;
+    }
+
     /**
      * The details of the request to test.
      */
@@ -285,7 +326,7 @@ export namespace DeclarativeNetRequest {
         regexFilter?: string;
 
         /**
-         * Whether 'urlFilter' or 'regexFilter' is case-sensitive. Defaults to true.
+         * Whether 'urlFilter' or 'regexFilter' is case-sensitive.
          * Optional.
          */
         isUrlFilterCaseSensitive?: boolean;
@@ -394,7 +435,9 @@ export namespace DeclarativeNetRequest {
         url?: string;
 
         /**
-         * TODO with regexFilter + Substitution pattern for rules which specify a 'regexFilter'.
+         * Substitution pattern for rules which specify a 'regexFilter'. The first match of regexFilter within the url will be
+         * replaced with this pattern. Within regexSubstitution, backslash-escaped digits (\1 to \9)
+         * can be used to insert the corresponding capture groups. \0 refers to the entire matching text.
          * Optional.
          */
         regexSubstitution?: string;
@@ -510,6 +553,13 @@ export namespace DeclarativeNetRequest {
         getSessionRules(): Promise<Rule[]>;
 
         /**
+         * Checks if the given regular expression will be supported as a 'regexFilter' rule condition.
+         *
+         * @param regexOptions
+         */
+        isRegexSupported(regexOptions: IsRegexSupportedRegexOptionsType): Promise<IsRegexSupportedCallbackResultType>;
+
+        /**
          * Checks if any of the extension's declarativeNetRequest rules would match a hypothetical request.
          *
          * @param request The details of the request to test.
@@ -518,7 +568,46 @@ export namespace DeclarativeNetRequest {
          */
         testMatchOutcome(
             request: TestMatchOutcomeRequestType,
-            options?: TestMatchOutcomeOptionsType
+            options?: TestMatchOutcomeOptionsType,
         ): Promise<TestMatchOutcomeCallbackResultType>;
+
+        /**
+         * Ruleset ID for the dynamic rules added by the extension.
+         */
+        DYNAMIC_RULESET_ID: "_dynamic";
+
+        /**
+         * The minimum number of static rules guaranteed to an extension across its enabled static rulesets.
+         * Any rules above this limit will count towards the global static rule limit.
+         */
+        GUARANTEED_MINIMUM_STATIC_RULES: number;
+
+        /**
+         * The maximum number of static Rulesets an extension can specify as part of the rule_resources manifest key.
+         */
+        MAX_NUMBER_OF_STATIC_RULESETS: number;
+
+        /**
+         * The maximum number of static Rulesets an extension can enable at any one time.
+         */
+        MAX_NUMBER_OF_ENABLED_STATIC_RULESETS: number;
+
+        /**
+         * The maximum number of dynamic and session rules an extension can add. NOTE: in the Firefox we are enforcing this limit
+         * to the session and dynamic rules count separately, instead of enforcing it to the rules count for both combined as the
+         * Chrome implementation does.
+         */
+        MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: number;
+
+        /**
+         * The maximum number of regular expression rules that an extension can add. This limit is evaluated separately for the set
+         * of session rules, dynamic rules and those specified in the rule_resources file.
+         */
+        MAX_NUMBER_OF_REGEX_RULES: number;
+
+        /**
+         * Ruleset ID for the session-scoped rules added by the extension.
+         */
+        SESSION_RULESET_ID: "_session";
     }
 }

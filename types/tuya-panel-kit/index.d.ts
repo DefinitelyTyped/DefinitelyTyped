@@ -1,39 +1,32 @@
-// Type definitions for tuya-panel-kit 4.7
-// Project: https://github.com/TuyaInc/tuya-panel-kit#readme
-// Definitions by: youngjuning <https://github.com/youngjuning>
-//                 ShinyLeee <https://github.com/ShinyLeee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-// tslint:disable:max-line-length
-import * as React from 'react';
+import * as React from "react";
 import {
-    StyleProp,
-    ViewStyle,
-    TextStyle,
-    TextProps,
-    TouchableOpacityProps,
-    ScrollViewProps,
     FlatListProps,
-    ViewPagerAndroidProps,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
-    ViewProps,
-    TextInputProps,
-    ImageStyle,
-    ImageSourcePropType,
     GestureResponderEvent,
+    ImageSourcePropType,
+    ImageStyle,
+    ListRenderItem,
+    ModalProps as ModalNativeProps,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
     PickerIOSProps,
     PickerProps,
-    ModalProps as ModalNativeProps,
+    ScrollViewProps,
     SectionListProps,
-    ListRenderItem,
-} from 'react-native';
-import { NavigationContainerProps, ParamListBase, RouteProp, NavigationContainerRef } from './@react-navigation/native';
-import { StackNavigationOptions } from './@react-navigation/stack';
-import { TransitionPreset } from './@react-navigation/stack/types';
-import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackground, BackgroundProps } from './theme';
+    StyleProp,
+    TextInputProps,
+    TextProps,
+    TextStyle,
+    TouchableOpacityProps,
+    ViewPagerAndroidProps,
+    ViewProps,
+    ViewStyle,
+} from "react-native";
+import { NavigationContainerProps, NavigationContainerRef, ParamListBase, RouteProp } from "./@react-navigation/native";
+import { StackNavigationOptions } from "./@react-navigation/stack";
+import { TransitionPreset } from "./@react-navigation/stack/types";
+import { BackgroundProps, GlobalTheme, LinearGradientBackground, RadialGradientBackground, StopsProps } from "./theme";
 
-export { GlobalTheme } from './theme';
+export { GlobalTheme } from "./theme";
 
 export type AnyFunction = (...args: any[]) => void;
 
@@ -42,91 +35,77 @@ export interface BatteryProps {
     /**
      * @language zh-CN
      * @description 电池尺寸
-     * @types number
      * @defaultValue cx(10)
      */
     /**
      * @language en-US
      * @description the size of battery
-     * @types number
      * @defaultValue cx(10)
      */
     size?: number | undefined;
     /**
      * @language zh-CN
      * @description 电池颜色
-     * @types string
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     /**
      * @language en-US
      * @description the color of battery
-     * @types string
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     batteryColor?: string | undefined;
     /**
      * @language zh-CN
      * @description 电量
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     /**
      * @language en-US
      * @description the value of battery power
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     value?: number | undefined;
     /**
      * @language zh-CN
      * @description 高电量颜色
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     /**
      * @language en-US
      * @description the color of high power
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     highColor?: string | undefined;
     /**
      * @language zh-CN
      * @description 中电量颜色
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     /**
      * @language en-US
      * @description the color of middle power
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     middleColor?: string | undefined;
     /**
      * @language zh-CN
      * @description 低电量颜色
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     /**
      * @language en-US
      * @description the color of low power
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     lowColor?: string | undefined;
     /**
      * @language zh-CN
      * @description 自定义电量的颜色分配规则
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     /**
      * @language en-US
      * @description Customize the color distribution rules of the battery
-     * @types number
      * @defaultValue 'rgba(0,0,0,.5)'
      */
     onCalcColor?: ((...args: any[]) => void) | undefined;
@@ -142,8 +121,8 @@ export interface BatteryProps {
      */
     theme?:
         | {
-              batteryColor: string;
-          }
+            batteryColor: string;
+        }
         | undefined;
 }
 export class Battery extends React.Component<BatteryProps> {}
@@ -153,26 +132,22 @@ export interface BrickButtonProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 点击事件
-     * @types (event: <a target='_blank' href='https://reactnative.dev/docs/pressevent'>GestureResponderEvent</a>) => void
      * @defaultValue () => {}
      */
     /**
      * @language en-US
      * @description Click event
-     * @types (event: <a target='_blank' href='https://reactnative.dev/docs/pressevent'>GestureResponderEvent</a>) => void
      * @defaultValue () => {}
      */
     onPress?: ((event: GestureResponderEvent) => void) | undefined;
@@ -212,13 +187,11 @@ export interface BrickButtonProps {
     /**
      * @language zh-CN
      * @description 按钮文字样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The text style of the button
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     textStyle?: StyleProp<TextStyle> | undefined;
@@ -232,17 +205,15 @@ export interface BrickButtonProps {
      * @description Type of button
      * @defaultValue 'primary'
      */
-    type?: 'primary' | 'primaryGradient' | 'primaryBorder' | 'normal' | 'small' | undefined;
+    type?: "primary" | "primaryGradient" | "primaryBorder" | "normal" | "small" | undefined;
     /**
      * @language zh-CN
      * @description 按钮内部包裹内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The content style of the package inside the button
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     wrapperStyle?: StyleProp<ViewStyle> | undefined;
@@ -333,17 +304,15 @@ export interface BrickButtonProps {
      * @description The size of the loading component
      * @defaultValue 'small'
      */
-    loadingSize?: ('small' | 'large') | number | undefined;
+    loadingSize?: ("small" | "large") | number | undefined;
     /**
      * @language zh-CN
      * @description 加载组件的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of the loading component
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     loadingStyle?: StyleProp<ViewStyle> | undefined;
@@ -361,13 +330,11 @@ export interface BrickButtonProps {
     /**
      * @language zh-CN
      * @description 渐变背景
-     * @types string | <a target="_blank" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/theme.d.ts#L6">LinearGradientBackground</a> | <a target="_blank" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/theme.d.ts#L14">RadialGradientBackground</a>
      * @defaultValue { x1: '0%', y1: '0%', x2: '0%', y2: '100%', stops: { '0%': 'red', '30%': 'blue', '100%': 'yellow' }}
      */
     /**
      * @language en-US
      * @description Gradient background
-     * @types string | <a target="_blank" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/theme.d.ts#L6">LinearGradientBackground</a> | <a target="_blank" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/theme.d.ts#L14">RadialGradientBackground</a>
      * @defaultValue { x1: '0%', y1: '0%', x2: '0%', y2: '100%', stops: { '0%': 'red', '30%': 'blue', '100%': 'yellow' }}
      */
     background?: BackgroundProps | undefined;
@@ -383,19 +350,19 @@ export interface BrickButtonProps {
      */
     theme?:
         | {
-              fontSize?: number | undefined;
-              fontColor?: string | undefined;
-              bgRadius?: number | undefined;
-              bgHeight?: number | undefined;
-              bgWidth?: number | undefined;
-              margin?: number[] | undefined;
-              padding?: number[] | undefined;
-              bgColor?: string | undefined;
-              bgBorder?: string | undefined;
-              bgBorderWidth?: number | undefined;
-              loadingColor?: string | undefined;
-              loadingBackground?: string | undefined;
-          }
+            fontSize?: number | undefined;
+            fontColor?: string | undefined;
+            bgRadius?: number | undefined;
+            bgHeight?: number | undefined;
+            bgWidth?: number | undefined;
+            margin?: number[] | undefined;
+            padding?: number[] | undefined;
+            bgColor?: string | undefined;
+            bgBorder?: string | undefined;
+            bgBorderWidth?: number | undefined;
+            loadingColor?: string | undefined;
+            loadingBackground?: string | undefined;
+        }
         | undefined;
 }
 export class BrickButton extends React.Component<BrickButtonProps> {}
@@ -434,7 +401,7 @@ export interface ButtonProps extends TouchableOpacityProps {
      * @description Button background size, the default is `noset`. large: 48, normal: 40, small: 32.
      * @defaultValue 'noSet'
      */
-    size?: 'large' | 'normal' | 'small' | 'noSet' | number | undefined;
+    size?: "large" | "normal" | "small" | "noSet" | number | undefined;
     /**
      * @language zh-CN
      * @description 按钮背景类型。normal：背景色为transparent；若为primary：则跟随主色
@@ -445,17 +412,15 @@ export interface ButtonProps extends TouchableOpacityProps {
      * @description Button background type. normal: the background color is transparent; primary: it follows the main color
      * @defaultValue 'normal'
      */
-    type?: 'primary' | 'normal' | undefined;
+    type?: "primary" | "normal" | undefined;
     /**
      * @language zh-CN
      * @description 按钮背景，可为颜色值或渐变值
-     * @types string | <a target="_blank" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/theme.d.ts#L6">LinearGradientBackground</a> | <a target="_blank" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/theme.d.ts#L14">RadialGradientBackground</a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Button background, can be color value or gradient value
-     * @types string | <a target="_blank" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/theme.d.ts#L6">LinearGradientBackground</a> | <a target="_blank" href="https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/theme.d.ts#L14">RadialGradientBackground</a>
      * @defaultValue null
      */
     background?: BackgroundProps | undefined;
@@ -491,7 +456,7 @@ export interface ButtonProps extends TouchableOpacityProps {
      * @description The text arrangement direction within the button. The default placement text is at the bottom of the button
      * @defaultValue 'bottom'
      */
-    textDirection?: 'left' | 'top' | 'right' | 'bottom' | 'center' | undefined;
+    textDirection?: "left" | "top" | "right" | "bottom" | "center" | undefined;
     /**
      * @language zh-CN
      * @description 按钮内的图标名称
@@ -561,13 +526,11 @@ export interface ButtonProps extends TouchableOpacityProps {
     /**
      * @language zh-CN
      * @description 按钮内的图片样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The image style inside the button
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      * @defaultValue null
      */
     imageStyle?: StyleProp<ImageStyle> | undefined;
@@ -596,26 +559,22 @@ export interface ButtonProps extends TouchableOpacityProps {
     /**
      * @language zh-CN
      * @description 按钮的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of the button
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 最外层容器的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of the outermost container
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     wrapperStyle?: StyleProp<ViewStyle> | undefined;
@@ -633,39 +592,33 @@ export interface ButtonProps extends TouchableOpacityProps {
     /**
      * @language zh-CN
      * @description 按钮内字体样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Font style in button
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     textStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 按钮内徽标容器的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of the logo container inside the button
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     badgeStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 按钮内徽标字体的样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of the logo font within the button
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     badgeTextStyle?: StyleProp<TextStyle> | undefined;
@@ -725,16 +678,16 @@ export interface ButtonProps extends TouchableOpacityProps {
      */
     theme?:
         | {
-              fontSize?: number | undefined;
-              fontColor?: string | undefined;
-              iconSize?: number | undefined;
-              bgWidth?: number | undefined;
-              bgHeight?: number | undefined;
-              bgColor?: string | undefined;
-              margin?: number[] | undefined;
-              iconColor?: string | undefined;
-              bgRadius?: number | undefined;
-          }
+            fontSize?: number | undefined;
+            fontColor?: string | undefined;
+            iconSize?: number | undefined;
+            bgWidth?: number | undefined;
+            bgHeight?: number | undefined;
+            bgColor?: string | undefined;
+            margin?: number[] | undefined;
+            iconColor?: string | undefined;
+            bgRadius?: number | undefined;
+        }
         | undefined;
 }
 export class Button extends React.Component<ButtonProps> {}
@@ -810,61 +763,53 @@ export interface CarouselProps extends ViewPagerAndroidProps {
     /**
      * @language zh-CN
      * @description 自定义指示点
-     * @types React.ElementType | ((params: { dotStyle: <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>; dotWrapperStyle: <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>; dotActiveStyle: <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>; currentIndex: number; count: number;}) => React.ReactNode)
      * @defaultValue <a target="_blank" href="https://github.com/tuya/tuya-panel-kit/blob/master/src/components/carousel/dot.js#L33">defaultDot</a>
      */
     /**
      * @language en-US
      * @description Custom indicator point
-     * @types React.ElementType | ((params: { dotStyle: <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>;dotWrapperStyle: <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>;dotActiveStyle: <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>; currentIndex: number; count: number;}) => React.ReactNode)
      * @defaultValue <a target="_blank" href="https://github.com/tuya/tuya-panel-kit/blob/master/src/components/carousel/dot.js#L33">defaultDot</a>
      */
     dots?:
         | React.ElementType
         | ((params: {
-              dotStyle: StyleProp<ViewStyle>;
-              dotWrapperStyle: StyleProp<ViewStyle>;
-              dotActiveStyle: StyleProp<ViewStyle>;
-              currentIndex: number;
-              count: number;
-          }) => React.ReactNode)
+            dotStyle: StyleProp<ViewStyle>;
+            dotWrapperStyle: StyleProp<ViewStyle>;
+            dotActiveStyle: StyleProp<ViewStyle>;
+            currentIndex: number;
+            count: number;
+        }) => React.ReactNode)
         | undefined;
     /**
      * @language zh-CN
      * @description 指示点样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Indicator point style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     dotStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 当前激活的指示点样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The currently active indicator style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     dotActiveStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 轮播页样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of the carousel page
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     pageStyle?: StyleProp<ViewStyle> | undefined;
@@ -893,26 +838,22 @@ export interface CarouselProps extends ViewPagerAndroidProps {
     /**
      * @language zh-CN
      * @description 指示点的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Indicates the style of the point
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     dotWrapperStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 轮播图内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Content style of carousel
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -930,39 +871,33 @@ export interface CarouselProps extends ViewPagerAndroidProps {
     /**
      * @language zh-CN
      * @description 用户停止拖动滚动视图时调用
-     * @types (event: <a target="_blank" href="https://reactnative.dev/docs/0.60/scrollview#onscroll">NativeSyntheticEvent<NativeScrollEvent></a>, state: any) => void
      * @defaultValue () => {}
      */
     /**
      * @language en-US
      * @description Called when the user stops dragging the scroll view and it either stops or begins to glide
-     * @types (event: <a target="_blank" href="https://reactnative.dev/docs/0.60/scrollview#onscroll">NativeSyntheticEvent<NativeScrollEvent></a>, state: any) => void
      * @defaultValue () => {}
      */
     onScrollEndDrag?: ((event: NativeSyntheticEvent<NativeScrollEvent>, state: any) => void) | undefined;
     /**
      * @language zh-CN
      * @description 当滚动结束时调用
-     * @types (event: <a target="_blank" href="https://reactnative.dev/docs/0.60/scrollview#onscroll">NativeSyntheticEvent<NativeScrollEvent></a>, state: any) => void
      * @defaultValue () => {}
      */
     /**
      * @language en-US
      * @description Called when the momentum scroll ends ( scroll which occurs as the ScrollView glides to a stop )
-     * @types (event: <a target="_blank" href="https://reactnative.dev/docs/0.60/scrollview#onscroll">NativeSyntheticEvent<NativeScrollEvent></a>, state: any) => void
      * @defaultValue () => {}
      */
     onMomentumScrollEnd?: ((event: NativeSyntheticEvent<NativeScrollEvent>, state: any) => void) | undefined;
     /**
      * @language zh-CN
      * @description 用户开始拖动滚动视图时调用
-     * @types (event: <a target="_blank" href="https://reactnative.dev/docs/0.60/scrollview#onscroll">NativeSyntheticEvent<NativeScrollEvent></a>, state: any) => void
      * @defaultValue () => {}
      */
     /**
      * @language en-US
      * @description Called when the user begins to drag the scroll view
-     * @types (event: <a target="_blank" href="https://reactnative.dev/docs/0.60/scrollview#onscroll">NativeSyntheticEvent<NativeScrollEvent></a>, state: any) => void
      * @defaultValue () => {}
      */
     onScrollBeginDrag?: ((event: NativeSyntheticEvent<NativeScrollEvent>, state: any) => void) | undefined;
@@ -985,13 +920,11 @@ export interface CheckboxProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -1124,13 +1057,11 @@ export interface CircleViewProps extends ViewProps {
     /**
      * @language zh-CN
      * @description 圆形视图的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Styles for circular views
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -1204,7 +1135,7 @@ export interface CollapsibleProps {
      * @description Alignment of child elements
      * @defaultValue 'top'
      */
-    align?: 'top' | 'center' | 'bottom' | undefined;
+    align?: "top" | "center" | "bottom" | undefined;
     /**
      * @language zh-CN
      * @description 是否折叠
@@ -1252,13 +1183,11 @@ export interface CollapsibleProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -1299,7 +1228,7 @@ export interface ControllerBarProps extends ViewProps {
      * @description The background type of the button
      * @defaultValue 'normal'
      */
-    type?: 'primary' | 'normal' | undefined;
+    type?: "primary" | "normal" | undefined;
     /**
      * @language zh-CN
      * @description 按钮大小
@@ -1310,7 +1239,7 @@ export interface ControllerBarProps extends ViewProps {
      * @description The size of the button
      * @defaultValue 'normal'
      */
-    size?: ('large' | 'normal' | 'small') | number | undefined;
+    size?: ("large" | "normal" | "small") | number | undefined;
     /**
      * @language zh-CN
      * @description 按钮是否跟随父容器拉伸
@@ -1332,7 +1261,7 @@ export interface ControllerBarProps extends ViewProps {
      * @description Transparent type of background
      * @defaultValue 'pure'
      */
-    backgroundType?: 'alpha' | 'pure' | undefined;
+    backgroundType?: "alpha" | "pure" | undefined;
     /**
      * @language zh-CN
      * @description 背景颜色
@@ -1358,13 +1287,11 @@ export interface ControllerBarProps extends ViewProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -1382,13 +1309,11 @@ export interface ControllerBarProps extends ViewProps {
     /**
      * @language zh-CN
      * @description 包裹按钮的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of the parcel button
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     wrapperStyle?: StyleProp<ViewStyle> | undefined;
@@ -1404,7 +1329,7 @@ export interface BarGroupProps {
      * @description Type of the bottom column of the group
      * @defaultValue 'warp'
      */
-    type?: 'warp' | 'swiper' | 'divide' | undefined;
+    type?: "warp" | "swiper" | "divide" | undefined;
     /**
      * @language zh-CN
      * @description 按钮的大小
@@ -1415,30 +1340,26 @@ export interface BarGroupProps {
      * @description The size of the button
      * @defaultValue  'normal'
      */
-    size?: 'large' | 'normal' | 'small' | number | undefined;
+    size?: "large" | "normal" | "small" | number | undefined;
     /**
      * @language zh-CN
      * @description 当 type 为 'swiper' 时的配置参数
-     * @types <a target='_blank' href='https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/index.d.ts#L119'>CarouselProps</a>
      * @defaultValue { selectIndex: 0 }
      */
     /**
      * @language en-US
      * @description When type is swiper, this is the configuration of swiper.
-     * @types <a target='_blank' href='https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/index.d.ts#L119'>CarouselProps</a>
      * @defaultValue { selectIndex: 0 }
      */
     swiperConfig?: CarouselProps | undefined;
     /**
      * @language zh-CN
      * @description 组合底部栏的容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Container styles for combining bottom columns
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -1459,7 +1380,7 @@ export class ControllerBar extends React.Component<ControllerBarProps> {
 }
 
 // DatePicker
-export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
+export interface DatePickerProps extends Omit<PickerViewProps, "mode"> {
     /**
      * @language zh-CN
      * @description 测试标识
@@ -1484,14 +1405,14 @@ export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
     locale?:
         | string
         | {
-              year?: string | undefined;
-              month?: string | undefined;
-              day?: string | undefined;
-              hour?: string | undefined;
-              minute?: string | undefined;
-              am?: string | undefined;
-              pm?: string | undefined;
-          }
+            year?: string | undefined;
+            month?: string | undefined;
+            day?: string | undefined;
+            hour?: string | undefined;
+            minute?: string | undefined;
+            am?: string | undefined;
+            pm?: string | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -1503,7 +1424,7 @@ export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
      * @description The selection type of the selector
      * @defaultValue 'date'
      */
-    mode?: 'datetime' | 'date' | 'time' | 'month' | 'year' | undefined;
+    mode?: "datetime" | "date" | "time" | "month" | "year" | undefined;
     /**
      * @language zh-CN
      * @description 选择 picker 是否可循环
@@ -1628,13 +1549,11 @@ export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -1668,26 +1587,22 @@ export interface DialogProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 头部样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Header style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     headerStyle?: StyleProp<ViewStyle> | undefined;
@@ -1705,13 +1620,11 @@ export interface DialogProps {
     /**
      * @language zh-CN
      * @description 标题样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Title style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     titleStyle?: StyleProp<ViewStyle> | undefined;
@@ -1740,39 +1653,33 @@ export interface DialogProps {
     /**
      * @language zh-CN
      * @description 副标题样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Subtitle style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     subTitleStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description content 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description  Content container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     contentStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description Footer 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Footer container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     footerWrapperStyle?: StyleProp<ViewStyle> | undefined;
@@ -1790,13 +1697,11 @@ export interface DialogProps {
     /**
      * @language zh-CN
      * @description 确认文字样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue ''
      */
     /**
      * @language en-US
      * @description Confirmation text style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue ''
      */
     confirmTextStyle?: StyleProp<TextStyle> | undefined;
@@ -1832,17 +1737,15 @@ export interface DialogProps {
      * @description Animation type
      * @defaultValue 'ScaleFadeIn'
      */
-    motionType?: 'none' | 'ScaleFadeIn' | 'Fade' | 'PullUp' | 'ScalePullDown' | 'PushDown' | undefined;
+    motionType?: "none" | "ScaleFadeIn" | "Fade" | "PullUp" | "ScalePullDown" | "PushDown" | undefined;
     /**
      * @language zh-CN
      * @description 动画配置
-     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2227'>MotionFadeProps</a> | <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2231'>MotionPullUpProps</a> | <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2235'>MotionScaleFadeInProps</a> | <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2243'>MotionScalePullDownProps</a> | <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2248'>MotionPushDownProps</a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Animation configuration
-     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2227'>MotionFadeProps</a> | <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2231'>MotionPullUpProps</a> | <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2235'>MotionScaleFadeInProps</a> | <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2243'>MotionScalePullDownProps</a> | <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L2248'>MotionPushDownProps</a>
      * @defaultValue null
      */
     motionConfig?:
@@ -1868,13 +1771,11 @@ export interface DialogCancelProps {
     /**
      * @language zh-CN
      * @description 取消文字样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Cancellation text style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     cancelTextStyle?: StyleProp<TextStyle> | undefined;
@@ -1901,7 +1802,7 @@ export interface DialogCancelProps {
      */
     onCancel?: (() => void) | undefined;
 }
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DialogAlertProps extends DialogProps {}
 export interface DialogCheckbox extends TYFlatListData {
     value?: string | number | undefined;
@@ -1913,9 +1814,8 @@ export interface DialogCheckbox extends TYFlatListData {
 }
 
 export interface DialogCheckboxProps
-    extends DialogProps,
-        DialogCancelProps,
-        Omit<TYFlatListProps<{}>, 'data' | 'renderItem'> {
+    extends DialogProps, DialogCancelProps, Omit<TYFlatListProps<{}>, "data" | "renderItem">
+{
     /**
      * @language zh-CN
      * @description CheckBox 类型
@@ -1926,7 +1826,7 @@ export interface DialogCheckboxProps
      * @description CheckBox type
      * @defaultValue 'radio'
      */
-    type?: 'radio' | 'switch' | undefined;
+    type?: "radio" | "switch" | undefined;
     /**
      * @language zh-CN
      * @description 选中的值
@@ -1952,13 +1852,11 @@ export interface DialogCheckboxProps
     /**
      * @language zh-CN
      * @description Checkbox 数据源
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L1610">DialogCheckbox</a>[]
      * @defaultValue 5
      */
     /**
      * @language en-US
      * @description Checkbox data source
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L1610">DialogCheckbox</a>[]
      * @defaultValue 5
      */
     dataSource: DialogCheckbox[];
@@ -1993,14 +1891,12 @@ export interface DialogConfirmProps extends DialogProps, DialogCancelProps {
      * @description 图片样式
      * @addVersion 4.3.0
      * @defaultValue undefined
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      */
     /**
      * @language en-US
      * @description image style
      * @addVersion 4.3.0
      * @defaultValue undefined
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      */
     imageStyle?: StyleProp<ImageStyle> | undefined;
     /**
@@ -2035,9 +1931,11 @@ export interface DialogList extends TYFlatListData {
     title: string;
 }
 export interface DialogListProps
-    extends Omit<DialogProps, 'motionType' | 'motionConfig'>,
+    extends
+        Omit<DialogProps, "motionType" | "motionConfig">,
         DialogCancelProps,
-        Omit<TYFlatListProps<{}>, 'data' | 'renderItem'> {
+        Omit<TYFlatListProps<{}>, "data" | "renderItem">
+{
     /**
      * @language zh-CN
      * @description 最大列表项
@@ -2052,32 +1950,28 @@ export interface DialogListProps
     /**
      * @language zh-CN
      * @description Checkbox 数据源
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L1610">DialogCheckbox[]</a>
      * @defaultValue 5
      */
     /**
      * @language en-US
      * @description Checkbox data source
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/9c5d06d5adde673df002d70c2c51a6f63213a282/types/tuya-panel-kit/index.d.ts#L1610">DialogCheckbox[]</a>
      * @defaultValue 5
      */
     dataSource: DialogList[];
     /**
      * @language zh-CN
      * @description 列表样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description List container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     listStyle?: StyleProp<ViewStyle> | undefined;
 }
 
-export interface DialogPromptProps extends TextInputProps, Omit<DialogProps, 'style'>, DialogCancelProps {
+export interface DialogPromptProps extends TextInputProps, Omit<DialogProps, "style">, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 是否显示帮助图标
@@ -2103,26 +1997,22 @@ export interface DialogPromptProps extends TextInputProps, Omit<DialogProps, 'st
     /**
      * @language zh-CN
      * @description 输入框的容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The container style of the input box
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     inputWrapperStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 输入框样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The style of the input box
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     inputStyle?: StyleProp<ViewStyle> | undefined;
@@ -2185,13 +2075,11 @@ export interface DividerProps {
     /**
      * @language zh-CN
      * @description 分割线样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Split line style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -2205,7 +2093,7 @@ export interface DividerProps {
      * @description The direction of main axis
      * @defaultValue 'row'
      */
-    flexDirection?: 'row' | 'column' | undefined;
+    flexDirection?: "row" | "column" | undefined;
     /**
      * @language zh-CN
      * @description 是否显示
@@ -2280,39 +2168,33 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
     /**
      * @language zh-CN
      * @description 文字样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Style of text
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     textStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 图标样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Icon style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     iconfontStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Content style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     contentStyle?: StyleProp<ViewStyle> | undefined;
@@ -2329,7 +2211,7 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
     showIcon?: boolean | undefined;
 }
 export const GlobalToast: {
-    show: (option: Omit<GlobalToastProps, 'show'>) => void;
+    show: (option: Omit<GlobalToastProps, "show">) => void;
     hide: () => void;
 };
 
@@ -2345,45 +2227,45 @@ export type IconFontName =
     | 7
     | 8
     | 9
-    | 'power'
-    | 'arrow'
-    | '+'
-    | '-'
-    | '.'
-    | ':'
-    | ','
-    | 'celsius'
-    | 'fahrenheit'
-    | '%'
-    | 'edit'
-    | 'minus'
-    | 'plus'
-    | 'error'
-    | 'warning'
-    | 'correct'
-    | 'backIos'
-    | 'backAndroid'
-    | 'moreV'
-    | 'moreH'
-    | 'close'
-    | 'selected'
-    | 'unselected'
-    | 'selectedUnBordered'
-    | 'volumeMute'
-    | 'volumeMax'
-    | 'volumeMuteBorder'
-    | 'volumeMaxBorder'
-    | 'help'
-    | 'pen'
-    | 'notice-sharp'
-    | 'selected-sharp'
-    | 'unselected-sharp'
-    | 'volume-sharp-off'
-    | 'volume-sharp-max'
-    | 'volume-border-2'
-    | 'volume-border-1'
-    | 'volume-border-off'
-    | 'help-sharp';
+    | "power"
+    | "arrow"
+    | "+"
+    | "-"
+    | "."
+    | ":"
+    | ","
+    | "celsius"
+    | "fahrenheit"
+    | "%"
+    | "edit"
+    | "minus"
+    | "plus"
+    | "error"
+    | "warning"
+    | "correct"
+    | "backIos"
+    | "backAndroid"
+    | "moreV"
+    | "moreH"
+    | "close"
+    | "selected"
+    | "unselected"
+    | "selectedUnBordered"
+    | "volumeMute"
+    | "volumeMax"
+    | "volumeMuteBorder"
+    | "volumeMaxBorder"
+    | "help"
+    | "pen"
+    | "notice-sharp"
+    | "selected-sharp"
+    | "unselected-sharp"
+    | "volume-sharp-off"
+    | "volume-sharp-max"
+    | "volume-border-2"
+    | "volume-border-1"
+    | "volume-border-off"
+    | "help-sharp";
 
 export interface IconFontProps {
     /**
@@ -2510,13 +2392,11 @@ export interface IconFontProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -2568,13 +2448,11 @@ export interface IconFontProps {
      * @language zh-CN
      * @description 图标id，会从组件库默认图标里取，优先级小于 d
      * @defaultValue undefined
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>IconFontName</a>
      */
     /**
      * @language en-US
      * @description The name of the built-in icon of the component library, which can be obtained from the default icons of the component library. The priority is greater than d.
      * @defaultValue undefined
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>IconFontName</a>
      */
     name?: IconFontName | undefined;
     /**
@@ -2642,7 +2520,7 @@ export interface IconFontProps {
      * @description Shape of the stroke join
      * @defaultValue "round"
      */
-    strokeJoin?: 'round' | 'miter' | 'bevel' | undefined;
+    strokeJoin?: "round" | "miter" | "bevel" | undefined;
     /**
      * @language zh-CN
      * @description 首尾端形状
@@ -2653,7 +2531,7 @@ export interface IconFontProps {
      * @description Shape of the stroke cap
      * @defaultValue "round"
      */
-    strokeCap?: 'round' | 'butt' | 'square' | undefined;
+    strokeCap?: "round" | "butt" | "square" | undefined;
     /**
      * @language zh-CN
      * @description 实虚线，数组内第一个元素为一段虚线的长度，第二个为间距
@@ -2706,13 +2584,11 @@ export interface LinearGradientProps extends LinearGradientBackground {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -2742,7 +2618,7 @@ export interface ModalProps extends ModalNativeProps {
      * @description The animation effect of the mask
      * @defaultValue 'fade'
      */
-    animationType?: 'fade' | 'none' | undefined;
+    animationType?: "fade" | "none" | undefined;
     /**
      * @language zh-CN
      * @description modal默认出现的位置
@@ -2753,7 +2629,7 @@ export interface ModalProps extends ModalNativeProps {
      * @description The default position of the mask
      * @defaultValue 'bottom'
      */
-    alignContainer?: 'top' | 'center' | 'bottom' | undefined;
+    alignContainer?: "top" | "center" | "bottom" | undefined;
     /**
      * @language zh-CN
      * @description 点击遮罩回调
@@ -2768,13 +2644,11 @@ export interface ModalProps extends ModalNativeProps {
     /**
      * @language zh-CN
      * @description modal 弹出内容的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Content style of modal pop-up
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     modalChildStyle?: StyleProp<ViewStyle> | undefined;
@@ -2792,13 +2666,11 @@ export interface ModalProps extends ModalNativeProps {
     /**
      * @language zh-CN
      * @description 遮罩层样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Style of the mask layer
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     maskStyle?: StyleProp<ViewStyle> | undefined;
@@ -2872,13 +2744,11 @@ export interface MotionProps {
     /**
      * @language zh-CN
      * @description 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -2960,11 +2830,11 @@ export interface MotionProps {
      */
     animationConfig?:
         | {
-              duration?: number | undefined;
-              delay?: number | undefined;
-              isInteraction?: boolean | undefined;
-              useNativeDriver?: boolean | undefined;
-          }
+            duration?: number | undefined;
+            delay?: number | undefined;
+            isInteraction?: boolean | undefined;
+            useNativeDriver?: boolean | undefined;
+        }
         | undefined;
 }
 export interface MotionFadeProps extends MotionProps {
@@ -3098,7 +2968,7 @@ export interface MotionPushDownProps extends MotionProps {
      */
     isAlign?: boolean | undefined;
 }
-export interface MotionToastProps extends Omit<MotionProps, 'onHide'> {
+export interface MotionToastProps extends Omit<MotionProps, "onHide"> {
     /**
      * @language zh-CN
      * @description 初始缩放倍数
@@ -3147,13 +3017,11 @@ export interface NotificationProps extends TouchableOpacityProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -3169,15 +3037,15 @@ export interface NotificationProps extends TouchableOpacityProps {
      */
     theme?:
         | {
-              background?: string | undefined;
-              text?: string | undefined;
-              iconColor?: string | undefined;
-              successIcon?: string | undefined;
-              warningIcon?: string | undefined;
-              errorIcon?: string | undefined;
-              closeIcon?: string | undefined;
-              radius?: number | undefined;
-          }
+            background?: string | undefined;
+            text?: string | undefined;
+            iconColor?: string | undefined;
+            successIcon?: string | undefined;
+            warningIcon?: string | undefined;
+            errorIcon?: string | undefined;
+            closeIcon?: string | undefined;
+            radius?: number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -3222,7 +3090,7 @@ export interface NotificationProps extends TouchableOpacityProps {
      * @description Type of notification bar
      * @defaultValue 'warning'
      */
-    variant?: 'success' | 'warning' | 'error' | undefined;
+    variant?: "success" | "warning" | "error" | undefined;
     /**
      * @language zh-CN
      * @description 是否显示关闭按钮。若为false，则会在 autoCloseTime 后自动触发 onClose 回调
@@ -3270,52 +3138,44 @@ export interface NotificationProps extends TouchableOpacityProps {
     /**
      * @language zh-CN
      * @description Notification 动画配置，参考 PushDown 属性
-     * @types <a target='_blank' href='https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/index.d.ts#L563'>MotionProps<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description For notification animation configuration, refer to pushdown property
-     * @types <a target='_blank' href='https://github.com/DefinitelyTyped/DefinitelyTyped/blob/15d697b0e21723a4c284a837cddc9c35e86a85a3/types/tuya-panel-kit/index.d.ts#L563'>MotionProps<ViewStyle></a>
      * @defaultValue {}
      */
     motionConfig?: MotionProps | undefined;
     /**
      * @language zh-CN
      * @description 动画样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Motion style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     motionStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 图片资源
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image#source">ImageSourcePropType</a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Image source
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image#source">ImageSourcePropType</a>
      * @defaultValue null
      */
     imageSource?: ImageSourcePropType | undefined;
     /**
      * @language zh-CN
      * @description 图片样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Image style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      * @defaultValue null
      */
     imageStyle?: StyleProp<ImageStyle> | undefined;
@@ -3364,13 +3224,11 @@ export interface NotificationLegacyProps extends TouchableOpacityProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -3386,15 +3244,15 @@ export interface NotificationLegacyProps extends TouchableOpacityProps {
      */
     theme?:
         | {
-              background?: string | undefined;
-              text?: string | undefined;
-              iconColor?: string | undefined;
-              successIcon?: string | undefined;
-              warningIcon?: string | undefined;
-              errorIcon?: string | undefined;
-              closeIcon?: string | undefined;
-              radius?: number | undefined;
-          }
+            background?: string | undefined;
+            text?: string | undefined;
+            iconColor?: string | undefined;
+            successIcon?: string | undefined;
+            warningIcon?: string | undefined;
+            errorIcon?: string | undefined;
+            closeIcon?: string | undefined;
+            radius?: number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -3417,7 +3275,7 @@ export interface NotificationLegacyProps extends TouchableOpacityProps {
      * @description Type of notification bar
      * @defaultValue 'warning'
      */
-    variant?: 'success' | 'warning' | 'error' | undefined;
+    variant?: "success" | "warning" | "error" | undefined;
     /**
      * @language zh-CN
      * @description 是否显示关闭按钮。若为false，则会在 autoCloseTime 后自动触发 onClose 回调
@@ -3512,15 +3370,15 @@ export interface PickerViewIOSProps extends PickerIOSProps {
      */
     theme?:
         | {
-              fontSize?: number | undefined;
-              fontColor?: string | undefined;
-              dividerColor?: string | undefined;
-              unitFontSize?: number | undefined;
-              unitFontColor?: string | undefined;
-          }
+            fontSize?: number | undefined;
+            fontColor?: string | undefined;
+            dividerColor?: string | undefined;
+            unitFontSize?: number | undefined;
+            unitFontColor?: string | undefined;
+        }
         | undefined;
 }
-export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 'selectedValue'>, PickerProps {
+export interface PickerViewProps extends Omit<PickerIOSProps, "onValueChange" | "selectedValue">, PickerProps {
     /**
      * @language zh-CN
      * @description Picker是否循环滚动
@@ -3630,17 +3488,15 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @description Alignment method of items
      * @defaultValue 'center'
      */
-    itemAlign?: 'flex-end' | 'center' | 'flex-start' | 'baseline' | 'stretch' | undefined;
+    itemAlign?: "flex-end" | "center" | "flex-start" | "baseline" | "stretch" | undefined;
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -3716,15 +3572,15 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @defaultValue 'DIN Alternate'
      * @platform IOS only
      */
-    fontFamily?: 'DIN Alternate' | 'Times New Roman' | 'PingFangHK-Regular' | 'PingFangHK-Medium' | string;
+    fontFamily?: "DIN Alternate" | "Times New Roman" | "PingFangHK-Regular" | "PingFangHK-Medium" | string;
     theme?:
         | {
-              fontSize?: number | undefined;
-              fontColor?: string | undefined;
-              dividerColor?: string | undefined;
-              unitFontSize?: number | undefined;
-              unitFontColor?: string | undefined;
-          }
+            fontSize?: number | undefined;
+            fontColor?: string | undefined;
+            dividerColor?: string | undefined;
+            unitFontSize?: number | undefined;
+            unitFontColor?: string | undefined;
+        }
         | undefined;
 }
 export class Picker extends React.Component<PickerViewProps> {
@@ -3732,17 +3588,15 @@ export class Picker extends React.Component<PickerViewProps> {
 }
 
 // Popup
-export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
+export interface PopupProps extends Omit<ModalProps, "onMaskPress"> {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     wrapperStyle?: StyleProp<TextStyle> | undefined;
@@ -3771,26 +3625,22 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
     /**
      * @language zh-CN
      * @description Popup 头部标题样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Popup header title style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     titleTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description Popup 头部样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Popup header style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     titleWrapperStyle?: StyleProp<ViewStyle> | undefined;
@@ -3863,26 +3713,22 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
     /**
      * @language zh-CN
      * @description 取消文案样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Cancellation text style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     cancelTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 确认文案样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Confirmation text style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     confirmTextStyle?: StyleProp<TextStyle> | undefined;
@@ -3900,13 +3746,11 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
     /**
      * @language zh-CN
      * @description 底部样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Footer container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     footerWrapperStyle?: StyleProp<ViewStyle> | undefined;
@@ -3920,7 +3764,7 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
      * @description footer container display status.
      * @defaultValue 'both'
      */
-    footerType?: 'both' | 'singleConfirm' | 'singleCancel' | undefined;
+    footerType?: "both" | "singleConfirm" | "singleCancel" | undefined;
     /**
      * @language zh-CN
      * @description 动画类型
@@ -3931,17 +3775,15 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
      * @description Animation type
      * @defaultValue "PullUp"
      */
-    motionType?: 'none' | 'ScaleFadeIn' | 'Fade' | 'PullUp' | 'ScalePullDown' | undefined;
+    motionType?: "none" | "ScaleFadeIn" | "Fade" | "PullUp" | "ScalePullDown" | undefined;
     /**
      * @language zh-CN
      * @description 动画配置
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2438">MotionScaleFadeInProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2430">MotionFadeProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2434">MotionPullUpProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2446">MotionScalePullDownProps</a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Painting configuration
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2438">MotionScaleFadeInProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2430">MotionFadeProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2434">MotionPullUpProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2446">MotionScalePullDownProps</a>
      * @defaultValue {}
      */
     motionConfig?: MotionScaleFadeInProps | MotionFadeProps | MotionPullUpProps | MotionScalePullDownProps | undefined;
@@ -4025,49 +3867,47 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
     /**
      * @language zh-CN
      * @description 样式配置
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2925">theme</a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Style configuration
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2925">theme</a>
      * @defaultValue {}
      */
     theme?:
         | {
-              cellHeight?: number | undefined;
-              cellBg?: string | undefined;
-              cellFontColor?: string | undefined;
-              cellFontSize?: number | undefined;
-              subTitleFontColor?: string | undefined;
-              titleRadius?: number | undefined;
-              titleBg?: string | undefined;
-              titleHeight?: number | undefined;
-              footerRadius?: number | undefined;
-              bottomBg?: string | undefined;
-              lineColor?: string | undefined;
-              titleFontSize?: number | undefined;
-              checkboxColor?: string | undefined;
-              titleFontColor?: string | undefined;
-              cancelFontSize?: number | undefined;
-              cancelFontColor?: string | undefined;
-              confirmFontSize?: number | undefined;
-              confirmFontColor?: string | undefined;
-              backIconColor?: string | undefined;
-              tintColor?: string | undefined;
-              numberSelector?:
-                  | {
-                        cellPlusColor?: string | undefined;
-                        maximumTrackTintColor?: string | undefined;
-                    }
-                  | undefined;
-              list?:
-                  | {
-                        cellFontColor?: string | undefined;
-                    }
-                  | undefined;
-          }
+            cellHeight?: number | undefined;
+            cellBg?: string | undefined;
+            cellFontColor?: string | undefined;
+            cellFontSize?: number | undefined;
+            subTitleFontColor?: string | undefined;
+            titleRadius?: number | undefined;
+            titleBg?: string | undefined;
+            titleHeight?: number | undefined;
+            footerRadius?: number | undefined;
+            bottomBg?: string | undefined;
+            lineColor?: string | undefined;
+            titleFontSize?: number | undefined;
+            checkboxColor?: string | undefined;
+            titleFontColor?: string | undefined;
+            cancelFontSize?: number | undefined;
+            cancelFontColor?: string | undefined;
+            confirmFontSize?: number | undefined;
+            confirmFontColor?: string | undefined;
+            backIconColor?: string | undefined;
+            tintColor?: string | undefined;
+            numberSelector?:
+                | {
+                    cellPlusColor?: string | undefined;
+                    maximumTrackTintColor?: string | undefined;
+                }
+                | undefined;
+            list?:
+                | {
+                    cellFontColor?: string | undefined;
+                }
+                | undefined;
+        }
         | undefined;
 }
 
@@ -4084,14 +3924,14 @@ export interface ListDate extends TYFlatListData {
      */
     styles?:
         | {
-              container?: StyleProp<ViewStyle> | undefined;
-              content?: StyleProp<ViewStyle> | undefined;
-              contentLeft?: StyleProp<ViewStyle> | undefined;
-              contentCenter?: StyleProp<ViewStyle> | undefined;
-              contentRight?: StyleProp<ViewStyle> | undefined;
-              title?: StyleProp<TextStyle> | undefined;
-              subTitle?: StyleProp<TextStyle> | undefined;
-          }
+            container?: StyleProp<ViewStyle> | undefined;
+            content?: StyleProp<ViewStyle> | undefined;
+            contentLeft?: StyleProp<ViewStyle> | undefined;
+            contentCenter?: StyleProp<ViewStyle> | undefined;
+            contentRight?: StyleProp<ViewStyle> | undefined;
+            title?: StyleProp<TextStyle> | undefined;
+            subTitle?: StyleProp<TextStyle> | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -4127,7 +3967,7 @@ export interface ListDate extends TYFlatListData {
      */
     value: any;
 }
-export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'renderItem' | 'data'> {
+export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, "renderItem" | "data"> {
     /**
      * @language zh-CN
      * @description 列表弹窗样式
@@ -4142,13 +3982,11 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
     /**
      * @language zh-CN
      * @description 数据源
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2770">ListDate[]</a>
      * @defaultValue []
      */
     /**
      * @language en-US
      * @description DataSource
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2770">ListDate[]</a>
      * @defaultValue []
      */
     dataSource?: ListDate[] | undefined;
@@ -4162,7 +4000,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
      * @description List selection popup type
      * @defaultValue 'radio'
      */
-    type?: 'radio' | 'switch' | 'arrow' | undefined;
+    type?: "radio" | "switch" | "arrow" | undefined;
     /**
      * @language zh-CN
      * @description 最大列表数量
@@ -4232,13 +4070,11 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
     /**
      * @language zh-CN
      * @description 列表弹窗样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description List pop up style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     listItemStyle?: StyleProp<ViewStyle> | undefined;
@@ -4267,35 +4103,31 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
     /**
      * @language zh-CN
      * @description 各部分的样式
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Style of each part
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2969">styles</a>
      * @defaultValue {}
      */
     styles?:
         | {
-              container?: StyleProp<ViewStyle> | undefined;
-              content?: StyleProp<ViewStyle> | undefined;
-              title?: StyleProp<TextStyle> | undefined;
-              contentRight?: StyleProp<ViewStyle> | undefined;
-          }
+            container?: StyleProp<ViewStyle> | undefined;
+            content?: StyleProp<ViewStyle> | undefined;
+            title?: StyleProp<TextStyle> | undefined;
+            contentRight?: StyleProp<ViewStyle> | undefined;
+        }
         | undefined;
 }
 export interface PopUpCountdownProps extends PopupProps {
     /**
      * @language zh-CN
      * @description 倒计时弹框样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Countdown pop-up style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     countdownWrapperStyle?: StyleProp<ViewStyle> | undefined;
@@ -4425,57 +4257,49 @@ export interface PopUpCountdownProps extends PopupProps {
     /**
      * @language zh-CN
      * @description 小时picker样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Hour picker style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     hourPickerStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 小时单位样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Hour unit style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     hourUnitStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 分钟 picker 样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Minute picker style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     minutePickerStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 分钟单位样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Minute unit style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     minuteUnitStyle?: StyleProp<TextStyle> | undefined;
 }
-export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 'theme' | 'children'> {
+export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, "theme" | "children"> {
     /**
      * @language zh-CN
      * @description 日期更改回调
@@ -4500,18 +4324,16 @@ export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 
     children?: React.ReactNode | undefined;
 }
 export interface PopupNumberSelectorProps
-    extends Omit<PopupProps, 'onLayout' | 'animationType'>,
-        Omit<SliderProps, 'theme' | 'type'> {
+    extends Omit<PopupProps, "onLayout" | "animationType">, Omit<SliderProps, "theme" | "type">
+{
     /**
      * @language zh-CN
      * @description numberSelector弹框样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Numberselector pop-up style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     numberSelectorWrapperStyle?: StyleProp<ViewStyle> | undefined;
@@ -4525,7 +4347,7 @@ export interface PopupNumberSelectorProps
      * @description alue selection popup type
      * @defaultValue 'basic'
      */
-    type?: 'basic' | 'slider' | undefined;
+    type?: "basic" | "slider" | undefined;
     /**
      * @language zh-CN
      * @description 最小值
@@ -4650,7 +4472,7 @@ export interface PickerDataProps {
      */
     value: string;
 }
-export interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<PickerViewProps, 'theme' | 'children'> {
+export interface PopupPickerProps extends Omit<PopupProps, "onConfirm">, Omit<PickerViewProps, "theme" | "children"> {
     /**
      * @language zh-CN
      * @description 单位标志
@@ -4687,26 +4509,22 @@ export interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<Pi
     /**
      * @language zh-CN
      * @description picker 弹框样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Picker wrapper style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     pickerWrapperStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description picker 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Picker style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     pickerStyle?: StyleProp<ViewStyle> | undefined;
@@ -4724,13 +4542,11 @@ export interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<Pi
     /**
      * @language zh-CN
      * @description 数据源
-     * @types <a targe="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L3022">PickerDataProps[][] | PickerDataProps[]</a>
      * @defaultValue []
      */
     /**
      * @language en-US
      * @description DataSource
-     * @types <a targe="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L3022">PickerDataProps[][] | PickerDataProps[]</a>
      * @defaultValue []
      */
     dataSource?: PickerDataProps[][] | PickerDataProps[] | undefined;
@@ -4801,7 +4617,7 @@ export interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<Pi
      */
     onConfirm?: ((data: any, idx: number, args: { close: () => void }) => void) | undefined;
 }
-export interface PopupTimerPickerProps extends PopupProps, Omit<TimerPickerProps, 'theme'> {}
+export interface PopupTimerPickerProps extends PopupProps, Omit<TimerPickerProps, "theme"> {}
 export interface PopupCustomProps extends PopupProps {
     /**
      * @language zh-CN
@@ -4819,13 +4635,11 @@ export interface PopupTipsProps extends TipsProps, ModalProps {
     /**
      * @language zh-CN
      * @description Modal 弹出内容的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The style of modal pop-up content
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     modalChildStyle?: StyleProp<ViewStyle> | undefined;
@@ -4880,7 +4694,7 @@ export interface PopupDropdownProps {
      * @description Top border width size
      * @defaultValue 'normal'
      */
-    cornerSize?: 'small' | 'large' | 'normal' | undefined;
+    cornerSize?: "small" | "large" | "normal" | undefined;
     /**
      * @language zh-CN
      * @description 自定义顶部边框宽度大小
@@ -4902,7 +4716,7 @@ export interface PopupDropdownProps {
      * @description Location of the pop-up area
      * @defaultValue 'top'
      */
-    cornerDirection?: 'top' | 'bottom' | 'left' | 'right' | undefined;
+    cornerDirection?: "top" | "bottom" | "left" | "right" | undefined;
     cornerDirectionValue?: string | undefined;
     cornerColor?: string | undefined;
     corner?: boolean | undefined;
@@ -4937,7 +4751,7 @@ export interface GestureProps extends ViewProps {
      * @description Gesture area
      * @defaultValue 'box-only'
      */
-    pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
+    pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
     /**
      * @language zh-CN
      * @description 是否禁止滑动
@@ -4976,13 +4790,11 @@ export interface ProgressProps extends GestureProps {
     /**
      * @language zh-CN
      * @description 进度条样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Progress bar style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -5099,21 +4911,19 @@ export interface ProgressProps extends GestureProps {
     /**
      * @language zh-CN
      * @description 进度条小于具体值的颜色
-     * @types string | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/bcd9b9272bcbe9e172409f2b0b0b9fa280fdb976/types/tuya-panel-kit/theme.d.ts#L1">StopsProps</a>[] | { [key: string]: string }
      * @defaultValue "#FF4800"
      */
     /**
      * @language en-US
      * @description Color of progress bar less than specific value
-     * @types string | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/bcd9b9272bcbe9e172409f2b0b0b9fa280fdb976/types/tuya-panel-kit/theme.d.ts#L1">StopsProps</a>[] | { [key: string]: string }
      * @defaultValue "#FF4800"
      */
     foreColor?:
         | string
         | StopsProps[]
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -5182,7 +4992,7 @@ export interface ProgressBasicProps extends ProgressProps {
      * @description Gesture area
      * @defaultValue 'box-only'
      */
-    pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
+    pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
     /**
      * @language zh-CN
      * @description thumb 小圆球的填充色
@@ -5500,13 +5310,11 @@ export interface ComposeProps extends GestureProps {
     /**
      * @language zh-CN
      * @description 进度条样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Progress bar style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -5656,21 +5464,19 @@ export interface ComposeProps extends GestureProps {
     /**
      * @language zh-CN
      * @description 进度条小于具体值的颜色
-     * @types string | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/bcd9b9272bcbe9e172409f2b0b0b9fa280fdb976/types/tuya-panel-kit/theme.d.ts#L1">StopsProps[]</a> | { [key: string]: string }
      * @defaultValue "#FF4800"
      */
     /**
      * @language en-US
      * @description Color of progress bar less than specific value
-     * @types string | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/bcd9b9272bcbe9e172409f2b0b0b9fa280fdb976/types/tuya-panel-kit/theme.d.ts#L1">StopsProps[]</a> | { [key: string]: string }
      * @defaultValue "#FF4800"
      */
     foreColor?:
         | string
         | StopsProps[]
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -5882,13 +5688,11 @@ export interface RadialGradientProps extends RadialGradientBackground {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -5922,13 +5726,11 @@ export interface RotationViewProps {
     /**
      * @language zh-CN
      * @description 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Container Style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -6006,15 +5808,15 @@ export interface SliderProps {
      */
     theme?:
         | {
-              width?: number | undefined;
-              trackRadius?: number | undefined;
-              trackHeight?: number | undefined;
-              minimumTrackTintColor?: string | undefined;
-              maximumTrackTintColor?: string | undefined;
-              thumbSize?: number | undefined;
-              thumbRadius?: number | undefined;
-              thumbTintColor?: string | undefined;
-          }
+            width?: number | undefined;
+            trackRadius?: number | undefined;
+            trackHeight?: number | undefined;
+            minimumTrackTintColor?: string | undefined;
+            maximumTrackTintColor?: string | undefined;
+            thumbSize?: number | undefined;
+            thumbRadius?: number | undefined;
+            thumbTintColor?: string | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -6149,9 +5951,9 @@ export interface SliderProps {
      */
     thumbTouchSize?:
         | {
-              width: number;
-              height: number;
-          }
+            width: number;
+            height: number;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -6200,39 +6002,33 @@ export interface SliderProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 通用的轨道样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description General track style.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     trackStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 滑块样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Style of the thumb.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     thumbStyle?: StyleProp<ViewStyle> | undefined;
@@ -6290,7 +6086,7 @@ export interface SliderProps {
      * @description Animation type, spring elastic animation or timing linear animation
      * @defaultValue 'timing'
      */
-    animationType?: 'spring' | 'timing' | undefined;
+    animationType?: "spring" | "timing" | undefined;
     /**
      * @language zh-CN
      * @description 动画配置
@@ -6303,12 +6099,12 @@ export interface SliderProps {
      */
     animationConfig?:
         | {
-              friction?: number | undefined;
-              tension?: number | undefined;
-              duration?: number | undefined;
-              easing?: (() => void) | undefined;
-              delay?: number | undefined;
-          }
+            friction?: number | undefined;
+            tension?: number | undefined;
+            duration?: number | undefined;
+            easing?: (() => void) | undefined;
+            delay?: number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -6366,12 +6162,12 @@ export interface SliderProps {
      */
     styles?:
         | {
-              container?: StyleProp<ViewStyle> | undefined;
-              track?: StyleProp<ViewStyle> | undefined;
-              thumb?: StyleProp<ViewStyle> | undefined;
-              touchArea?: StyleProp<ViewStyle> | undefined;
-              debugThumbTouchArea?: StyleProp<ViewStyle> | undefined;
-          }
+            container?: StyleProp<ViewStyle> | undefined;
+            track?: StyleProp<ViewStyle> | undefined;
+            thumb?: StyleProp<ViewStyle> | undefined;
+            touchArea?: StyleProp<ViewStyle> | undefined;
+            debugThumbTouchArea?: StyleProp<ViewStyle> | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -6385,7 +6181,7 @@ export interface SliderProps {
      * @addVersion 4.4.0
      * @defaultValue normal
      */
-    type?: 'normal' | 'parcel' | undefined;
+    type?: "normal" | "parcel" | undefined;
     /**
      * @language zh-CN
      * @description 是否使用刻度
@@ -6400,26 +6196,22 @@ export interface SliderProps {
     /**
      * @language zh-CN
      * @description 大于当前值的刻度样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Scale style greater than the current value
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     maxNounStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 小于当前值的刻度样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Scale style less than current value
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     minNounStyle?: StyleProp<ViewStyle> | undefined;
@@ -6478,13 +6270,11 @@ export interface SliderProgressProps {
     /**
      * @language zh-CN
      * @description 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Container Style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -6584,13 +6374,11 @@ export interface SliderWithLineProps {
     /**
      * @language zh-CN
      * @description 刻度滑动条样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Scale slider style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -6895,43 +6683,37 @@ export interface SliderWithLineProps {
 export class SliderWithLine extends React.Component<SliderProps> {}
 
 // Stepper
-export interface StepperProps extends Omit<TextInputProps, 'value'> {
+export interface StepperProps extends Omit<TextInputProps, "value"> {
     /**
      * @language zh-CN
      * @description 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Container Style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 加减按钮样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Button Style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     buttonStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 输入框样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Input style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     inputStyle?: StyleProp<ViewStyle> | undefined;
@@ -6945,7 +6727,7 @@ export interface StepperProps extends Omit<TextInputProps, 'value'> {
      * @description Button type
      * @defaultValue 'ellipse'
      */
-    buttonType?: 'ellipse' | 'triangle' | undefined;
+    buttonType?: "ellipse" | "triangle" | undefined;
     /**
      * @language zh-CN
      * @description 最小值
@@ -7170,7 +6952,7 @@ export interface SwipeoutAction {
      * @description Set the button type
      * @defaultValue undefined
      */
-    type?: 'delete' | 'primary' | 'secondary' | undefined;
+    type?: "delete" | "primary" | "secondary" | undefined;
     /**
      * @language zh-CN
      * @description 字体大小
@@ -7185,26 +6967,22 @@ export interface SwipeoutAction {
     /**
      * @language zh-CN
      * @description 文本样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Text Style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue undefined
      */
     textStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 点击按钮的回调
-     * @types (event: <a target='_blank' href='https://reactnative.dev/docs/pressevent'>GestureResponderEvent</a>) => void
      * @defaultValue () => {}
      */
     /**
      * @language en-US
      * @description Callback of clicking the button.
-     * @types (event: <a target='_blank' href='https://reactnative.dev/docs/pressevent'>GestureResponderEvent</a>) => void
      * @defaultValue () => {}
      */
     onPress?: ((e: GestureResponderEvent) => void) | undefined;
@@ -7257,26 +7035,22 @@ export interface SwipeoutProps {
     /**
      * @language zh-CN
      * @description 往左滑出现的按钮
-     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Swipeout buttons on the left.
-     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/master/types/tuya-panel-kit/index.d.ts#L2536'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     left?: SwipeoutAction[] | undefined;
     /**
      * @language zh-CN
      * @description 往右滑出现的按钮
-     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Swipeout buttons on the right.
-     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L6245'>SwipeoutAction[]</a>
      * @defaultValue undefined
      */
     right?: SwipeoutAction[] | undefined;
@@ -7338,13 +7112,11 @@ export interface SwipeoutProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -7398,31 +7170,29 @@ export interface SwitchButtonProps {
      */
     theme?:
         | {
-              width?: number | undefined;
-              height?: number | undefined;
-              thumbSize?: number | undefined;
-              margin?: number | number[] | undefined;
-              tintColor?:
-                  | string
-                  | {
-                        [key: string]: string;
-                    }
-                  | undefined;
-              onTintColor?: string | undefined;
-              thumbTintColor?: string | undefined;
-              onThumbTintColor?: string | undefined;
-          }
+            width?: number | undefined;
+            height?: number | undefined;
+            thumbSize?: number | undefined;
+            margin?: number | number[] | undefined;
+            tintColor?:
+                | string
+                | {
+                    [key: string]: string;
+                }
+                | undefined;
+            onTintColor?: string | undefined;
+            thumbTintColor?: string | undefined;
+            onThumbTintColor?: string | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Specify the style of the container that wraps the SwitchButton
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -7482,11 +7252,11 @@ export interface SwitchButtonProps {
      */
     size?:
         | {
-              width?: number | undefined;
-              height?: number | undefined;
-              activeSize?: number | undefined;
-              margin?: number | undefined;
-          }
+            width?: number | undefined;
+            height?: number | undefined;
+            activeSize?: number | undefined;
+            margin?: number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -7512,8 +7282,8 @@ export interface SwitchButtonProps {
     tintColor?:
         | string
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -7528,8 +7298,8 @@ export interface SwitchButtonProps {
     onTintColor?:
         | string
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -7567,13 +7337,11 @@ export interface SwitchButtonProps {
     /**
      * @language zh-CN
      * @description 指定 thumb 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Specify the style of the icon used for dragging in the switch.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     thumbStyle?: StyleProp<ViewStyle> | undefined;
@@ -7613,26 +7381,22 @@ export interface SwitchButtonProps {
     /**
      * @language zh-CN
      * @description SwitchButton 的 value 值为 false 时左侧显示的字符样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The character style displayed on the left when the value of SwitchButton is false
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     onTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description SwitchButton 的 value 值为 true 时右侧显示的字符样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The character style displayed on the right when the value of SwitchButton is true
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     offTextStyle?: StyleProp<TextStyle> | undefined;
@@ -7710,13 +7474,11 @@ export interface TabProps {
     /**
      * @language zh-CN
      * @description 设置 TabContent 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Set the style of the content area of the TabBar.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     tabContentStyle?: StyleProp<ViewStyle> | undefined;
@@ -7745,91 +7507,77 @@ export interface TabProps {
     /**
      * @language zh-CN
      * @description 设置 TabBar 的下划线样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Set the underline style of the TabBar.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     tabBarUnderlineStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 设置 TabBar 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Set the style of the TabBar
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     tabBarStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 未激活的文本样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description he text style of the unselected Tab.
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue undefined
      */
     tabTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 激活的文本样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description The selected text style.
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue undefined
      */
     tabActiveTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 设置包裹 TabBar 的容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Set the style of the container that wraps the TabBar
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     tabsContainerStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 单个 Tab 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description The style of a single tab
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     tabStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 包裹 tab 的容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Specify the style of the container that wraps the tab bar.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -7843,7 +7591,7 @@ export interface TabProps {
      * @description The position of the tabBar.
      * @defaultValue 'top'
      */
-    tabBarPosition?: 'top' | 'bottom' | undefined;
+    tabBarPosition?: "top" | "bottom" | undefined;
     /**
      * @language zh-CN
      * @description 测试标识
@@ -7912,52 +7660,44 @@ export interface TabBarArr {
         /**
          * @language zh-CN
          * @description Tab 内容样式
-         * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
          * @defaultValue undefined
          */
         /**
          * @language en-US
          * @description Tab content style
-         * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
          * @defaultValue undefined
          */
         style?: StyleProp<ViewStyle> | undefined;
         /**
          * @language zh-CN
          * @description 激活的 Tab 样式
-         * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
          * @defaultValue undefined
          */
         /**
          * @language en-US
          * @description Active tab style
-         * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
          * @defaultValue undefined
          */
         activeStyle?: StyleProp<ViewStyle> | undefined;
         /**
          * @language zh-CN
          * @description 文本样式
-         * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
          * @defaultValue undefined
          */
         /**
          * @language en-US
          * @description Text style
-         * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
          * @defaultValue undefined
          */
         textStyle?: StyleProp<TextStyle> | undefined;
         /**
          * @language zh-CN
          * @description 激活状态下的文本样式
-         * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
          * @defaultValue undefined
          */
         /**
          * @language en-US
          * @description Active text style
-         * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
          * @defaultValue undefined
          */
         activeTextStyle?: StyleProp<TextStyle> | undefined;
@@ -8018,95 +7758,81 @@ export interface TabBarProps {
      * @description Tab type
      * @defaultValue undefined
      */
-    type?: 'radio' | string | undefined;
+    type?: "radio" | string | undefined;
     /**
      * @language zh-CN
      * @description 下划线的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Style of the underline.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     underlineStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 单个 Tab 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of a single tab
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     tabStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 单个激活 Tab 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The style of a single active tab
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     tabActiveStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 未激活的文本样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description he text style of the unselected Tab.
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     tabTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 激活的文本样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description The selected text style.
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue {}
      */
     tabActiveTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description Tab 内层容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Tab inner container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     wrapperStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description Tab 外层容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Outer container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -8135,13 +7861,11 @@ export interface TabBarProps {
     /**
      * @language zh-CN
      * @description 数据源
-     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L7047'>TabBarArr[]</a>
      * @defaultValue []
      */
     /**
      * @language en-US
      * @description data Source
-     * @types <a target='_blank' href='https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L7047'>TabBarArr[]</a>
      * @defaultValue []
      */
     tabs: TabBarArr[];
@@ -8219,39 +7943,33 @@ export interface TopBarContainerProps {
     /**
      * @language zh-CN
      * @description TopBar.Container 的容器样式 内部处理了IOS、IPhoneX及安卓端三种StatusBar的情况，如果不需要StatusBar可以自行定义样式。
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The container style of the top toolbar internally handles the three StatusBar situations of iOS versions below and above iPhoneX, and Android. You can also define your own style.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description TopBar.Container容器主体的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The style of the container content of the top toolbar.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     contentStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description TopBar.Container容器的背景， 可为颜色或者渐变，渐变的格式可参考LinearGradient 或 RadialGradient
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/aa5f210a2f10112b55b3faf9457e312badebce86/types/tuya-panel-kit/theme.d.ts#L145">BackgroundProps</a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The background of the top toolbar container, which can be a solid color or a gradient color.
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/aa5f210a2f10112b55b3faf9457e312badebce86/types/tuya-panel-kit/theme.d.ts#L145">BackgroundProps</a>
      * @defaultValue null
      */
     background?: BackgroundProps | undefined;
@@ -8260,13 +7978,11 @@ export interface TopBarContentProps {
     /**
      * @language zh-CN
      * @description TopBar.Content 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The container style of the top toolbar internally handles the three StatusBar situations of iOS versions below and above iPhoneX, and Android. You can also define your own style.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -8295,13 +8011,11 @@ export interface TopBarContentProps {
     /**
      * @language zh-CN
      * @description 标题样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Title style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     titleStyle?: StyleProp<TextStyle> | undefined;
@@ -8319,13 +8033,11 @@ export interface TopBarContentProps {
     /**
      * @language zh-CN
      * @description 副标题样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description SubTitle style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     subTitleStyle?: StyleProp<TextStyle> | undefined;
@@ -8339,17 +8051,15 @@ export interface TopBarContentProps {
      * @description TopBar.Content  Can be left, center, and right
      * @defaultValue 'center'
      */
-    position?: 'left' | 'center' | 'right' | undefined;
+    position?: "left" | "center" | "right" | undefined;
     /**
      * @language zh-CN
      * @description 点击事件
-     * @types (event: <a target='_blank' href='https://reactnative.dev/docs/pressevent'>GestureResponderEvent</a>) => void
      * @defaultValue () => {}
      */
     /**
      * @language en-US
      * @description Click event
-     * @types (event: <a target='_blank' href='https://reactnative.dev/docs/pressevent'>GestureResponderEvent</a>) => void
      * @defaultValue () => {}
      */
     onPress?: ((event: GestureResponderEvent) => void) | undefined;
@@ -8369,26 +8079,22 @@ export interface TopBarActionProps extends TopBarProps, IconFontProps {
     /**
      * @language zh-CN
      * @description TopBar.Action 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description TopBar.Action style.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description TopBar.Action主体的样式，可为图片、文字或IconFont的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description TopBar.Action content style, which can be pictures, text, or IconFont.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     contentStyle?: StyleProp<ViewStyle> | undefined;
@@ -8428,13 +8134,11 @@ export interface TopBarActionProps extends TopBarProps, IconFontProps {
     /**
      * @language zh-CN
      * @description TopBar.Action的主体内容， 若为字符串则渲染文字组件，若为数值或网络图片则渲染图片组件，若不存在则渲染空View。
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image#source">ImageSourcePropType</a> | string
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description TopBar.Action content.
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image#source">ImageSourcePropType</a> | string
      * @defaultValue null
      */
     source?: ImageSourcePropType | string | undefined;
@@ -8463,13 +8167,11 @@ export interface TopBarActionProps extends TopBarProps, IconFontProps {
     /**
      * @language zh-CN
      * @description 点击事件
-     * @types (event: <a target='_blank' href='https://reactnative.dev/docs/pressevent'>GestureResponderEvent</a>) => void
      * @defaultValue () => {}
      */
     /**
      * @language en-US
      * @description Click event
-     * @types (event: <a target='_blank' href='https://reactnative.dev/docs/pressevent'>GestureResponderEvent</a>) => void
      * @defaultValue () => {}
      */
     onPress?: ((event: GestureResponderEvent) => void) | undefined;
@@ -8487,33 +8189,29 @@ export interface TopBarProps extends TopBarContentProps {
      */
     theme?:
         | {
-              background?: string | undefined;
-              color?: string | undefined;
-          }
+            background?: string | undefined;
+            color?: string | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
      * @description TopBar的左工具栏配置。如果它为空，它将呈现iOS和Android的默认返回按钮。
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2740">TopBarActionProps[]</a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The left toolbar configuration of TopBar. If it is null, it will render the default return buttons for iOS and Android.
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2740">TopBarActionProps[]</a>
      * @defaultValue null
      */
     leftActions?: TopBarActionProps[] | undefined;
     /**
      * @language zh-CN
      * @description TopBar的右工具栏配置
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2740">TopBarActionProps[]</a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The right toolbar configuration of TopBar.
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/299b2dd5a2ac708ca9464aba3685300acb7c865c/types/tuya-panel-kit/index.d.ts#L2740">TopBarActionProps[]</a>
      * @defaultValue null
      */
     actions?: TopBarActionProps[] | undefined;
@@ -8531,13 +8229,11 @@ export interface TopBarProps extends TopBarContentProps {
     /**
      * @language zh-CN
      * @description 顶部工具栏容器的背景，可以是纯色或渐变色。
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/aa5f210a2f10112b55b3faf9457e312badebce86/types/tuya-panel-kit/theme.d.ts#L145">BackgroundProps</a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The background of the top toolbar container, which can be a solid color or a gradient color.
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/aa5f210a2f10112b55b3faf9457e312badebce86/types/tuya-panel-kit/theme.d.ts#L145">BackgroundProps</a>
      * @defaultValue null
      */
     background?: BackgroundProps | undefined;
@@ -8622,104 +8318,88 @@ export interface TabsProps {
     /**
      * @language zh-CN
      * @description Tabs 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The style of Tabs.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 存在 TabContent 时，包裹着 Tabs 以及 TabContent 的容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The container style that wraps Tabs and TabContent. It only takes effect when TabContent is configured.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     wrapperStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 单个 Tab 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The style of a single tab
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     tabStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 单个激活 Tab 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The style of a single active tab
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     tabActiveStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 未激活的文本样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description he text style of the unselected Tab.
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     tabTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 激活的文本样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The selected text style.
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     tabActiveTextStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 存在 TabContent 时才有效，TabContent 的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description The style of TabContent. It only takes effect when TabContent is configured.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     tabContentStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 下划线的样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Style of the underline.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     underlineStyle?: StyleProp<ViewStyle> | undefined;
@@ -8759,13 +8439,11 @@ export interface TabsProps {
     /**
      * @language zh-CN
      * @description 数据源
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L7699">TabDataSource</a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Data source
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/3a07a00d4e5e3400adeee9c4857b5799d41e53d7/types/tuya-panel-kit/index.d.ts#L7699">TabDataSource</a>
      * @defaultValue undefined
      */
     dataSource: TabDataSource[];
@@ -8801,7 +8479,7 @@ export interface TabsProps {
      * @description When Tab and TabContent exist at the same time, the arrangement position of Tab
      * @defaultValue 'top'
      */
-    tabPosition?: 'top' | 'bottom' | undefined;
+    tabPosition?: "top" | "bottom" | undefined;
     /**
      * @language zh-CN
      * @description Tab Content 是否可滚动
@@ -8924,12 +8602,12 @@ export interface TabsProps {
      */
     animationConfig?:
         | {
-              duration?: number | undefined;
-              easing?: (() => void) | undefined;
-              delay?: number | undefined;
-              isInteraction?: boolean | undefined;
-              useNativeDriver?: boolean | undefined;
-          }
+            duration?: number | undefined;
+            easing?: (() => void) | undefined;
+            delay?: number | undefined;
+            isInteraction?: boolean | undefined;
+            useNativeDriver?: boolean | undefined;
+        }
         | undefined;
 }
 export interface TabContentProps {
@@ -9068,25 +8746,23 @@ export interface TabContentProps {
      */
     animationConfig?:
         | {
-              duration?: number | undefined;
-              easing?: (() => void) | undefined;
-              delay?: number | undefined;
-              isInteraction?: boolean | undefined;
-              useNativeDriver?: boolean | undefined;
-          }
+            duration?: number | undefined;
+            easing?: (() => void) | undefined;
+            delay?: number | undefined;
+            isInteraction?: boolean | undefined;
+            useNativeDriver?: boolean | undefined;
+        }
         | undefined;
 }
 export interface TabPanelProps extends ViewProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -9109,7 +8785,7 @@ export class Tabs extends React.Component<TabsProps> {
 }
 
 // TimerPicker
-export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
+export interface TimerPickerProps extends Omit<PickerViewProps, "children"> {
     /**
      * @language zh-CN
      * @description 测试标识
@@ -9124,13 +8800,11 @@ export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -9210,7 +8884,7 @@ export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
      * @description Prefix position (i.e. AM / PM position)
      * @defaultValue 'right'
      */
-    prefixPosition?: string[] | ('left' | 'right') | undefined;
+    prefixPosition?: string[] | ("left" | "right") | undefined;
     /**
      * @language zh-CN
      * @description picker 字体颜色
@@ -9263,26 +8937,22 @@ export interface TipsProps {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     contentStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 气泡位置信息
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Bubble position information
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     tipStyle?: StyleProp<ViewStyle> | undefined;
@@ -9340,7 +9010,7 @@ export interface TipsProps {
      * @description Bubble animation type
      * @defaultValue 'ScaleFadeIn'
      */
-    motionType?: 'Fade' | 'PullUp' | 'ScaleFadeIn' | 'ScalePullDown' | 'PushDown' | undefined;
+    motionType?: "Fade" | "PullUp" | "ScaleFadeIn" | "ScalePullDown" | "PushDown" | undefined;
     /**
      * @language zh-CN
      * @description 角标位置
@@ -9351,17 +9021,15 @@ export interface TipsProps {
      * @description Corner mark position
      * @defaultValue 'topCenter'
      */
-    cornerPosition?: 'topLeft' | 'topCenter' | 'topRight' | 'bottomLeft' | 'bottomCenter' | 'bottomRight' | undefined;
+    cornerPosition?: "topLeft" | "topCenter" | "topRight" | "bottomLeft" | "bottomCenter" | "bottomRight" | undefined;
     /**
      * @language zh-CN
      * @description 动画配置
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2767">MotionScaleFadeInProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2741">MotionFadeProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2754">MotionPullUpProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2824">MotionScalePullDownProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2848">MotionPushDownProps</a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Animation configuration
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2767">MotionScaleFadeInProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2741">MotionFadeProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2754">MotionPullUpProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2824">MotionScalePullDownProps</a> | <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/65d54ea9f8a91a28d45805aaa0f78ad7cec25a10/types/tuya-panel-kit/index.d.ts#L2848">MotionPushDownProps</a>
      * @defaultValue {}
      */
     motionConfig?:
@@ -9390,52 +9058,44 @@ export interface ToastProps {
     /**
      * @language zh-CN
      * @description 最外层样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Outermost style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 内层包裹样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Inner wrapping style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     contentStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 文字样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Text style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     textStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 图片样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Image style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/image-style-props">StyleProp<ImageStyle></a>
      * @defaultValue null
      */
     imageStyle?: StyleProp<ImageStyle> | undefined;
@@ -9482,7 +9142,7 @@ export interface ToastProps {
      * @description Display position
      * @defaultValue 'bottom'
      */
-    showPosition?: 'top' | 'bottom' | 'center' | undefined;
+    showPosition?: "top" | "bottom" | "center" | undefined;
     /**
      * @language zh-CN
      * @description 图片
@@ -9532,13 +9192,11 @@ export interface ToastSuccessProps extends ToastProps {
     /**
      * @language zh-CN
      * @description 图标样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Icon style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     iconfontStyle?: StyleProp<ViewStyle> | undefined;
@@ -9580,13 +9238,11 @@ export interface ToastWarningProps extends ToastProps {
     /**
      * @language zh-CN
      * @description 图标样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Icon style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     iconfontStyle?: StyleProp<ViewStyle> | undefined;
@@ -9628,13 +9284,11 @@ export interface ToastErrorProps extends ToastProps {
     /**
      * @language zh-CN
      * @description 图标样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Icon style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue Icon null
      */
     iconfontStyle?: StyleProp<ViewStyle> | undefined;
@@ -9709,13 +9363,11 @@ export interface ToastLoadingProps extends ToastProps {
     /**
      * @language zh-CN
      * @description 加载图标样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Loading icon styles
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     loadingStyle?: StyleProp<ViewStyle> | undefined;
@@ -9729,8 +9381,8 @@ export class Toast extends React.Component<ToastProps> {
 
 // TYFlatList
 export interface TYSectionInputProps
-    extends Omit<TYListItemProps, 'onBlur' | 'onFocus'>,
-        Omit<TextInputProps, 'style'> {
+    extends Omit<TYListItemProps, "onBlur" | "onFocus">, Omit<TextInputProps, "style">
+{
     /**
      * @language zh-CN
      * @description 标题
@@ -9745,26 +9397,22 @@ export interface TYSectionInputProps
     /**
      * @language zh-CN
      * @description 标题样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Title style
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     titleStyle?: StyleProp<TextStyle> | undefined;
     /**
      * @language zh-CN
      * @description 输入框样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     /**
      * @language en-US
      * @description Input box style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue {}
      */
     inputStyle?: StyleProp<ViewStyle> | undefined;
@@ -9848,56 +9496,48 @@ export interface TYFlatListData {
      */
     onChange?: (() => void) | undefined;
 }
-export interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListProps<ItemT>, 'renderItem'> {
+export interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListProps<ItemT>, "renderItem"> {
     /**
      * @language zh-CN
      * @description 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 数据源
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/84c8c92bc47dffbf2df6b0af1b8325573e6b91bc/types/tuya-panel-kit/index.d.ts#L8878">ItemT[]</a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Data source
-     * @types <a target="_blank" href="https://github.com/tuya/DefinitelyTyped/blob/84c8c92bc47dffbf2df6b0af1b8325573e6b91bc/types/tuya-panel-kit/index.d.ts#L8878">ItemT[]</a>
      * @defaultValue null
      */
     data: ItemT[];
     /**
      * @language zh-CN
      * @description 分割线样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Separator style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     separatorStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 应用于滚动视图内容容器，该容器包装了所有子视图
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     /**
      * @language en-US
      * @description These styles will be applied to the scroll view content container which wraps all of the child views.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue undefined
      */
     contentContainerStyle?: StyleProp<ViewStyle> | undefined;
@@ -9969,14 +9609,14 @@ export interface TYListItemProps extends TouchableOpacityProps {
      */
     styles?:
         | {
-              container?: StyleProp<ViewStyle> | undefined;
-              content?: StyleProp<ViewStyle> | undefined;
-              contentLeft?: StyleProp<ViewStyle> | undefined;
-              contentCenter?: StyleProp<ViewStyle> | undefined;
-              contentRight?: StyleProp<ViewStyle> | undefined;
-              title?: StyleProp<TextStyle> | undefined;
-              subTitle?: StyleProp<TextStyle> | undefined;
-          }
+            container?: StyleProp<ViewStyle> | undefined;
+            content?: StyleProp<ViewStyle> | undefined;
+            contentLeft?: StyleProp<ViewStyle> | undefined;
+            contentCenter?: StyleProp<ViewStyle> | undefined;
+            contentRight?: StyleProp<ViewStyle> | undefined;
+            title?: StyleProp<TextStyle> | undefined;
+            subTitle?: StyleProp<TextStyle> | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -9990,16 +9630,16 @@ export interface TYListItemProps extends TouchableOpacityProps {
      */
     theme?:
         | {
-              boardBg?: string | undefined;
-              fontColor?: string | undefined;
-              subFontColor?: string | undefined;
-              descFontColor?: string | undefined;
-              cellLine?: string | undefined;
-              cellBg?: string | undefined;
-              cellRadius?: number | undefined;
-              margin?: number[] | number | undefined;
-              padding?: number[] | number | undefined;
-          }
+            boardBg?: string | undefined;
+            fontColor?: string | undefined;
+            subFontColor?: string | undefined;
+            descFontColor?: string | undefined;
+            cellLine?: string | undefined;
+            cellBg?: string | undefined;
+            cellRadius?: number | undefined;
+            margin?: number[] | number | undefined;
+            padding?: number[] | number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -10110,7 +9750,7 @@ export interface TYListItemProps extends TouchableOpacityProps {
      * @description Icon type on the left
      * @defaultValue 'auto'
      */
-    iconType?: 'auto' | 'image' | 'iconfont' | 'text' | undefined;
+    iconType?: "auto" | "image" | "iconfont" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 右侧 Action 类型
@@ -10121,7 +9761,7 @@ export interface TYListItemProps extends TouchableOpacityProps {
      * @description Right action type
      * @defaultValue 'auto'
      */
-    actionType?: 'auto' | 'image' | 'iconfont' | 'text' | undefined;
+    actionType?: "auto" | "image" | "iconfont" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 图标尺寸
@@ -10271,17 +9911,17 @@ export interface SectionDataProps {
      */
     theme?:
         | {
-              boardBg?: string | undefined;
-              iconColor?: string | undefined;
-              fontColor?: string | undefined;
-              subFontColor?: string | undefined;
-              descFontColor?: string | undefined;
-              cellLine?: string | undefined;
-              cellBg?: string | undefined;
-              cellRadius?: number | undefined;
-              margin?: number[] | number | undefined;
-              padding?: number[] | number | undefined;
-          }
+            boardBg?: string | undefined;
+            iconColor?: string | undefined;
+            fontColor?: string | undefined;
+            subFontColor?: string | undefined;
+            descFontColor?: string | undefined;
+            cellLine?: string | undefined;
+            cellBg?: string | undefined;
+            cellRadius?: number | undefined;
+            margin?: number[] | number | undefined;
+            padding?: number[] | number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -10295,17 +9935,17 @@ export interface SectionDataProps {
      */
     data?:
         | Array<{
-              key?: string | number | undefined;
-              value?: string | number | boolean | undefined;
-              Action?: any;
-              title?: string | number | undefined;
-              subTitle?: string | undefined;
-              arrow?: boolean | undefined;
-              checked?: boolean | undefined;
-              disabled?: boolean | undefined;
-              onPress?: ((idx: number) => void) | undefined;
-              onValueChange?: ((value: string) => void) | undefined;
-          }>
+            key?: string | number | undefined;
+            value?: string | number | boolean | undefined;
+            Action?: any;
+            title?: string | number | undefined;
+            subTitle?: string | undefined;
+            arrow?: boolean | undefined;
+            checked?: boolean | undefined;
+            disabled?: boolean | undefined;
+            onPress?: ((idx: number) => void) | undefined;
+            onValueChange?: ((value: string) => void) | undefined;
+        }>
         | undefined;
 }
 export interface TYSectionListProps extends SectionListProps<SectionDataProps> {
@@ -10323,52 +9963,44 @@ export interface TYSectionListProps extends SectionListProps<SectionDataProps> {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 头部样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Header style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     headerStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 应用于滚动视图内容容器，该容器包装了所有子视图
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description These styles will be applied to the scroll view content container which wraps all of the child views.
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     contentContainerStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 分割线样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Separator style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     separatorStyle?: StyleProp<ViewStyle> | undefined;
@@ -10395,7 +10027,7 @@ export interface TYSectionListProps extends SectionListProps<SectionDataProps> {
      */
     useART?: boolean | undefined;
 }
-export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
+export interface TYSectionSliderProps extends Omit<SliderProps, "theme"> {
     /**
      * @language zh-CN
      * @description 主题配置
@@ -10432,7 +10064,7 @@ export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
      * @description Icon type on the left
      * @defaultValue 'auto'
      */
-    iconType?: 'auto' | 'image' | 'iconfont' | 'text' | undefined;
+    iconType?: "auto" | "image" | "iconfont" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 右侧 Action 类型
@@ -10443,7 +10075,7 @@ export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
      * @description Right action type
      * @defaultValue 'auto'
      */
-    actionType?: 'auto' | 'image' | 'iconfont' | 'text' | undefined;
+    actionType?: "auto" | "image" | "iconfont" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 图标尺寸
@@ -10491,52 +10123,44 @@ export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
     /**
      * @language zh-CN
      * @description 容器样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Content Style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     contentStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 滑块样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Style of slider
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     sliderStyle?: StyleProp<ViewStyle> | undefined;
     /**
      * @language zh-CN
      * @description 文字样式
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Style of text
-     * @types <a target="_blank" href="https://reactnative.dev/docs/text-style-props">StyleProp<TextStyle></a>
      * @defaultValue null
      */
     textStyle?: StyleProp<TextStyle> | undefined;
@@ -10564,7 +10188,7 @@ export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
     useART?: boolean | undefined;
 }
 export interface TYSectionCheckboxProps extends TYListItemProps, CheckboxProps {}
-export interface TYSectionSwitchProps extends Omit<TYListItemProps, 'theme'>, SwitchButtonProps {}
+export interface TYSectionSwitchProps extends Omit<TYListItemProps, "theme">, SwitchButtonProps {}
 export class TYSectionList extends React.Component<TYSectionListProps> {
     static CheckboxItem: React.ElementType<TYSectionCheckboxProps>;
     static Item: React.ElementType<TYListItemProps>;
@@ -10585,7 +10209,7 @@ export interface TYTextProps extends TextProps {
      * @description Type of font
      * @defaultValue null
      */
-    type?: 'heading' | 'title' | 'paragraph' | undefined;
+    type?: "heading" | "title" | "paragraph" | undefined;
     /**
      * @language zh-CN
      * @description 字体尺寸
@@ -10596,7 +10220,7 @@ export interface TYTextProps extends TextProps {
      * @description Size of font
      * @defaultValue null
      */
-    size?: ('large' | 'normal' | 'small') | number | undefined;
+    size?: ("large" | "normal" | "small") | number | undefined;
     /**
      * @language zh-CN
      * @description 字体对齐方式
@@ -10607,7 +10231,7 @@ export interface TYTextProps extends TextProps {
      * @description Font alignment
      * @defaultValue null
      */
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
     /**
      * @language zh-CN
      * @description 字体粗细
@@ -10660,13 +10284,11 @@ export interface UnitTextProps {
     /**
      * @language zh-CN
      * @description 内容样式
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     /**
      * @language en-US
      * @description Container style
-     * @types <a target='_blank' href='https://reactnative.dev/docs/view-style-props'>StyleProp<ViewStyle></a>
      * @defaultValue null
      */
     style?: StyleProp<ViewStyle> | undefined;
@@ -10779,7 +10401,7 @@ export interface UnitTextProps {
      * @description Type of unit
      * @defaultValue 'icon'
      */
-    unitType?: 'icon' | 'text' | undefined;
+    unitType?: "icon" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 具体值
@@ -10994,7 +10616,7 @@ export let Utils: {
         ThemeProvider: React.ElementType<ThemeProviderProps>;
         ThemeConsumer: React.ElementType<ThemeConsumerProps>;
         deepMerge(target: object, ...args: object[]): object;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         withTheme<P extends { theme?: T | undefined }, T>(component: React.ComponentType<P>): React.ComponentType<P>;
         parseToCss: (values: number[], key: string) => { [styleKey: string]: number };
         parseToStyle: (values: number[], key: string) => { [styleKey: string]: number };
@@ -11046,14 +10668,14 @@ export let Utils: {
 };
 
 export let defaultTheme: GlobalTheme;
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface I18NLanMap {
     en: Record<string, string>;
     zh: Record<string, string>;
     [lanKey: string]: Record<string, string>;
 }
 
-export type DpType = 'bool' | 'value' | 'enum' | 'raw' | 'string' | 'bitmap';
+export type DpType = "bool" | "value" | "enum" | "raw" | "string" | "bitmap";
 
 export interface DpSchema {
     code: string;
@@ -11076,7 +10698,7 @@ export interface DpSchema {
      * type: 'value' only
      */
     min?: number | undefined;
-    mode: 'rw' | 'ro' | 'rw';
+    mode: "rw" | "ro" | "rw";
     name: string;
     /**
      * type: 'enum' only
@@ -11097,7 +10719,7 @@ export interface DpSchema {
     unit?: string | undefined;
 }
 
-export type NetworkType = 'WIFI' | 'GPRS' | 'BLE' | 'NONE';
+export type NetworkType = "WIFI" | "GPRS" | "BLE" | "NONE";
 
 export type DpValue = boolean | number | string;
 
@@ -11110,7 +10732,7 @@ export interface DevInfo<S = Record<string, DpType>> {
     appId: number;
     appKey: string;
     /**
-     * @desc 网络是否在线
+     * @description 网络是否在线
      */
     appOnline: boolean;
     attribute: number;
@@ -11124,7 +10746,7 @@ export interface DevInfo<S = Record<string, DpType>> {
     communication: Record<string, any>;
     devAttribute: number;
     /**
-     * @desc 设备是否在线
+     * @description 设备是否在线
      */
     deviceOnline: boolean;
     deviceType: number;
@@ -11148,7 +10770,7 @@ export interface DevInfo<S = Record<string, DpType>> {
     isAdmin: boolean;
     isCloudOnline: boolean;
     /**
-     * @desc 局域网是否在线
+     * @description 局域网是否在线
      */
     isLocalOnline: boolean;
     isMeshBleOnline: boolean;
@@ -11202,7 +10824,7 @@ export interface DevInfo<S = Record<string, DpType>> {
     groupId?: string | undefined;
 }
 
-export type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
+export type MobileService = "AY" | "AZ" | "EU" | "WE" | "UE" | "IN";
 
 export interface MobileInfo {
     appRnVersion: string;
@@ -11262,7 +10884,6 @@ export interface NavigationOptions {
      * @label `{ uri: string }` 渲染网络图片
      * @label `RadialGradientBackground` 渲染径向渐变
      * @label `LinearGradientBackground` 渲染线性渐变
-     *
      */
     background?:
         | number
@@ -11290,7 +10911,7 @@ export interface NavigationOptions {
     hideTopbar?: boolean | undefined;
     /**
      * 控制是否显示离线遮罩
-     * @defaultValueValue true
+     * @defaultValue true
      */
     showOfflineView?: boolean | undefined;
     /**
@@ -11299,27 +10920,27 @@ export interface NavigationOptions {
     gesture?: boolean | undefined;
     /**
      * 是否启用首页手势返回 app 列表页面
-     * @defaultValueValue true
+     * @defaultValue true
      */
     enablePopGesture?: boolean | undefined;
     /**
-     * @desc 蓝牙离线提示是否覆盖整个面板(除头部栏外)
-     * @defaultValueValue true
+     * @description 蓝牙离线提示是否覆盖整个面板(除头部栏外)
+     * @defaultValue true
      */
     isBleOfflineOverlay?: boolean | undefined;
     /**
      * 自定义渲染头部栏
      */
-    renderTopBar?: (() => JSX.Element) | undefined;
+    renderTopBar?: (() => React.JSX.Element) | undefined;
     /**
      * 自定义渲染状态栏
      */
-    renderStatusBar?: (() => JSX.Element) | undefined;
+    renderStatusBar?: (() => React.JSX.Element) | undefined;
 }
 
 export class NavigatorLayout<P = {}, S = {}> extends React.Component<P, { modalVisible: boolean } & S> {
     hookRoute(route: DeprecatedNavigatorRoute): NavigationOptions;
-    renderScene(route: DeprecatedNavigatorRoute, navigator: DeprecatedNavigator): JSX.Element | undefined;
+    renderScene(route: DeprecatedNavigatorRoute, navigator: DeprecatedNavigator): React.JSX.Element | undefined;
 }
 
 export interface NavigationRoute {
@@ -11342,10 +10963,13 @@ export interface NavigationParam {
 }
 
 export interface NavigationComponentClass<P = {}, S = {}> {
-    new (props: P, context?: any): NavigatorLayout<P, S>;
+    new(props: P, context?: any): NavigatorLayout<P, S>;
 }
-// eslint-disable-next-line no-unnecessary-generics
-export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam, navigationContainerProps?: Omit<NavigationContainerProps, 'children'>): any;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function createNavigator<P = {}, S = {}>(
+    createNavigatorParam: NavigationParam,
+    navigationContainerProps?: Omit<NavigationContainerProps, "children">,
+): any;
 
 export type GotoDpAlarmData = Array<{
     dpId: string;
@@ -11383,7 +11007,7 @@ export let TYSdk: {
      * @param postData api params
      * @param version - api version, default 1.0
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     apiRequest<T>(a: string, postData: Record<string, any>, version?: string): Promise<T>;
     applyNavigator(navigator: DeprecatedNavigator): void;
     devInfo: DevInfo;
@@ -11394,12 +11018,12 @@ export let TYSdk: {
         getBleManagerState(): Promise<boolean>;
         getBluetoothState(): Promise<number>;
         getDeviceInfo(): Promise<DevInfo>;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         getDeviceState<S = Record<string, DpType>>(): Promise<S>;
         getDpCodeById(id: string | number): string;
         getDpCodes(): string[];
         /**
-         * @desc 主动从设备获取 dp 点状态
+         * @description 主动从设备获取 dp 点状态
          */
         getDpDataFromDevice(idOrCode: string | number): Promise<void>;
         getDpIdByCode(code: string): string;
@@ -11423,11 +11047,11 @@ export let TYSdk: {
         isSigMeshDevice(): boolean;
         isWifiDevice(): boolean;
         /**
-         * @desc 下发 dp 点
+         * @description 下发 dp 点
          */
         putDeviceData(cmd: Record<string, any>): Promise<{ success: boolean }>;
         /**
-         * @desc 局域网下发 dp 点
+         * @description 局域网下发 dp 点
          */
         putLocalDpData(cmd: Record<string, any>): Promise<void>;
         setDevState(state: Record<string, DpValue>): DevInfo;
@@ -11446,37 +11070,37 @@ export let TYSdk: {
          */
         off(event: string, callback?: AnyFunction): void;
         on(event: string, callback: AnyFunction): void;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         on<T>(event: string, callback: (args: T) => void): void;
         /**
-         * @desc
+         * @description
          * type: dpData 设备状态变更通知，payload 为更新的 DP 状态
          * type: devInfo 设备信息变更通知，payload 为 devInfo
          * type: deviceOnline 设备是否在线通知，payload 为 boolean
          */
         on(
-            event: 'deviceDataChange',
+            event: "deviceDataChange",
             callback: (data: {
-                type: 'dpData' | 'devInfo' | 'deviceOnline';
+                type: "dpData" | "devInfo" | "deviceOnline";
                 payload: Record<string, DpValue> | DevInfo | boolean;
             }) => void,
         ): void;
         /**
-         * @desc app 网络状态变更通知
+         * @description app 网络状态变更通知
          */
-        on(event: 'networkStateChange', callback: (data: { appOnline: boolean }) => void): void;
+        on(event: "networkStateChange", callback: (data: { appOnline: boolean }) => void): void;
         /**
-         * @desc 云定时状态变更通知
+         * @description 云定时状态变更通知
          */
-        on(event: 'linkageTimeUpdate', callback: (data: {}) => void): void;
+        on(event: "linkageTimeUpdate", callback: (data: {}) => void): void;
         /**
-         * @desc 设备局域网在线状态变更通知
+         * @description 设备局域网在线状态变更通知
          */
-        on(event: 'deviceLocalStateChange', callback: (data: { state: boolean }) => void): void;
+        on(event: "deviceLocalStateChange", callback: (data: { state: boolean }) => void): void;
         /**
-         * @desc 蓝牙状态变更通知
+         * @description 蓝牙状态变更通知
          */
-        on(event: 'bluetoothChange', callback: (value: boolean) => void): void;
+        on(event: "bluetoothChange", callback: (value: boolean) => void): void;
         once(event: string, callback: AnyFunction): void;
         remove(event: string, callback: AnyFunction): void;
     };
@@ -11518,11 +11142,11 @@ export let TYSdk: {
         };
 
         /**
-         * @desc 根据 uiId 跳转二级页面
+         * @description 根据 uiId 跳转二级页面
          */
         jumpSubPage(uiIdParams: { uiId: string }, pageParams: any): void;
         /**
-         * @desc 跳转到 app 内置路由页面或网页
+         * @description 跳转到 app 内置路由页面或网页
          * @param routeId app 路由 url 或网页链接
          */
         jumpTo(routeId: string): void;

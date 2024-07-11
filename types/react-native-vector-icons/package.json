@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/react-native-vector-icons",
+    "version": "6.4.9999",
+    "projects": [
+        "https://github.com/oblador/react-native-vector-icons"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-native": "^0.70"
+    },
+    "devDependencies": {
+        "@types/react-native-vector-icons": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        },
+        {
+            "name": "Tim Wang",
+            "githubUsername": "timwangdev"
+        },
+        {
+            "name": "Robert Ying",
+            "githubUsername": "robertying"
+        },
+        {
+            "name": "Jesse Katsumata",
+            "githubUsername": "Naturalclar"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for cordova-plugin-file-opener2 2.0
-// Project: https://github.com/pwlin/cordova-plugin-file-opener2
-// Definitions by: Cyril Gandon <https://github.com/cyrilgandon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface CordovaPluginsFileOpener2Result {
     status: number;
     message: string;
@@ -20,7 +15,11 @@ interface CordovaPluginsFileOpener2 {
     /**
      * Open a system modal to open document with one of the already installed app and optional callback object
      */
-    showOpenWithDialog(fileName: string, contentType: string, callbackContext?: CordovaPluginsFileOpener2CallbackContext): void;
+    showOpenWithDialog(
+        fileName: string,
+        contentType: string,
+        callbackContext?: CordovaPluginsFileOpener2CallbackContext,
+    ): void;
 
     /**
      * Uninstall a package with its id. Android platform only.

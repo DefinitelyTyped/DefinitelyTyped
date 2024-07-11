@@ -1,9 +1,3 @@
-// Type definitions for openstack-wrapper 2.1
-// Project: https://github.com/godaddy/node-openstack-wrapper
-// Definitions by: Sanjay Madane <https://github.com/sanjaymadane>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface RequestOption {
     uri?: string | undefined;
     headers?: any;
@@ -23,7 +17,13 @@ export interface Project {
     octavia: Octavia;
 }
 
-export function getSimpleProject(username: string, password: string, project_id: string, keystone_url: string, cb: (...args: any[]) => any): void;
+export function getSimpleProject(
+    username: string,
+    password: string,
+    project_id: string,
+    keystone_url: string,
+    cb: (...args: any[]) => any,
+): void;
 
 export class Nova {
     request: any;
@@ -61,8 +61,8 @@ export class Nova {
     resumeServer(is: string, cb: (...args: any[]) => any): any;
     getServerConsoleURL(type: any, id: string, cb: (...args: any[]) => any): any;
     getServerLog(id: string, length: any, cb: (...args: any[]) => any): any;
-    createServerImage(id: string , data: any, cb: (...args: any[]) => any): any;
-    setServerMetadata(id: string , data: any, cb: (...args: any[]) => any): any;
+    createServerImage(id: string, data: any, cb: (...args: any[]) => any): any;
+    setServerMetadata(id: string, data: any, cb: (...args: any[]) => any): any;
     listFlavors(cb: (...args: any[]) => any): any;
     getFlavor(id: string, cb: (...args: any[]) => any): any;
     listFloatingIps(cb: (...args: any[]) => any): any;
@@ -143,8 +143,22 @@ export class Keystone {
     getProjectByName(admin_access_token: any, project_name: any, cb: (...args: any[]) => any): any;
     listRoles(project_token: any, cb: (...args: any[]) => any): any;
     listRoleAssignments(project_token: any, project_id: any, cb: (...args: any[]) => any): any;
-    addRoleAssignment(project_token: any, project_id: any, entry_id: any, entry_type: any, role_id: any, cb: (...args: any[]) => any): any;
-    removeRoleAssignment(project_token: any, project_id: any, entry_id: any, entry_type: any, role_id: any, cb: (...args: any[]) => any): any;
+    addRoleAssignment(
+        project_token: any,
+        project_id: any,
+        entry_id: any,
+        entry_type: any,
+        role_id: any,
+        cb: (...args: any[]) => any,
+    ): any;
+    removeRoleAssignment(
+        project_token: any,
+        project_id: any,
+        entry_id: any,
+        entry_type: any,
+        role_id: any,
+        cb: (...args: any[]) => any,
+    ): any;
     listMetaEnvironments(auth_token: any, cb: (...args: any[]) => any): any;
     listMetaOwningGroups(auth_token: any, cb: (...args: any[]) => any): any;
     listProjectMeta(project_token: any, project_id: any, cb: (...args: any[]) => any): any;
@@ -200,22 +214,52 @@ export class Neutron {
     removeLoadBalancer(lb_id: any, cb: (...args: any[]) => any): any;
     listLBListeners(cb: (...args: any[]) => any): any;
     getLBListener(lb_id: any, cb: (...args: any[]) => any): any;
-    createLBListener(tenant_id: any, loadbalancer_id: any, description: any, protocol: any, data: any, cb: (...args: any[]) => any): any;
+    createLBListener(
+        tenant_id: any,
+        loadbalancer_id: any,
+        description: any,
+        protocol: any,
+        data: any,
+        cb: (...args: any[]) => any,
+    ): any;
     updateLBListener(listener_id: any, data: any, cb: (...args: any[]) => any): any;
     removeLBListener(listener_id: any, cb: (...args: any[]) => any): any;
     listLBPools(cb: (...args: any[]) => any): any;
     getLBPool(pool_id: any, cb: (...args: any[]) => any): any;
-    createLBPool(tenant_id: any, protocol: any, lb_algorithm: any, listener_id: any, data: any, cb: (...args: any[]) => any): any;
+    createLBPool(
+        tenant_id: any,
+        protocol: any,
+        lb_algorithm: any,
+        listener_id: any,
+        data: any,
+        cb: (...args: any[]) => any,
+    ): any;
     updateLBPool(pool_id: any, data: any, cb: (...args: any[]) => any): any;
     removeLBPool(pool_id: any, cb: (...args: any[]) => any): any;
     listLBPoolMembers(pool_id: any, cb: (...args: any[]) => any): any;
     getLBPoolMember(pool_id: any, member_id: any, cb: (...args: any[]) => any): any;
-    createLBPoolMember(pool_id: any, tenant_id: any, address: any, protocol_port: any, data: any, cb: (...args: any[]) => any): any;
+    createLBPoolMember(
+        pool_id: any,
+        tenant_id: any,
+        address: any,
+        protocol_port: any,
+        data: any,
+        cb: (...args: any[]) => any,
+    ): any;
     updateLBPoolMember(pool_id: any, member_id: any, data: any, cb: (...args: any[]) => any): any;
     removeLBPoolMember(pool_id: any, member_id: any, cb: (...args: any[]) => any): any;
     listLBHealthMonitors(cb: (...args: any[]) => any): any;
     getLBHealthMonitor(health_monitor_id: any, cb: (...args: any[]) => any): any;
-    createLBHealthMonitor(tenant_id: any, type: any, delay: any, timeout: any, max_retries: any, pool_id: any, data: any, cb: (...args: any[]) => any): any;
+    createLBHealthMonitor(
+        tenant_id: any,
+        type: any,
+        delay: any,
+        timeout: any,
+        max_retries: any,
+        pool_id: any,
+        data: any,
+        cb: (...args: any[]) => any,
+    ): any;
     updateLBHealthMonitor(health_monitor_id: any, data: any, cb: (...args: any[]) => any): any;
     removeLBHealthMonitor(health_monitor_id: any, cb: (...args: any[]) => any): any;
     getLBStats(lb_id: any, cb: (...args: any[]) => any): any;
@@ -262,7 +306,15 @@ export class Octavia {
     removeLBPoolMember(pool_id: string, member_id: string, cb: (...args: any[]) => any): any;
     listLBHealthMonitors(cb: (...args: any[]) => any): any;
     getLBHealthMonitor(health_monitor_id: string, cb: (...args: any[]) => any): any;
-    createLBHealthMonitor(pool_id: string, type: any, delay: number, timeout: number, max_retries: number, data: any, cb: (...args: any[]) => any): any;
+    createLBHealthMonitor(
+        pool_id: string,
+        type: any,
+        delay: number,
+        timeout: number,
+        max_retries: number,
+        data: any,
+        cb: (...args: any[]) => any,
+    ): any;
     updateLBHealthMonitor(health_monitor_id: string, data: any, cb: (...args: any[]) => any): any;
     removeLBHealthMonitor(health_monitor_id: string, cb: (...args: any[]) => any): any;
     getLBStats(lb_id: string, cb: (...args: any[]) => any): any;

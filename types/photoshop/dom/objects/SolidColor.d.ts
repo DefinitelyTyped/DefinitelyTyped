@@ -1,7 +1,12 @@
-import * as Colors from './Colors';
-import { ColorModel } from '../Constants';
+import { ColorModel } from "../Constants";
+import * as Colors from "./Colors";
 /**
  * Represents a color, and allows for mapping into all available Photoshop color models.
+ * Import SolidColor from the Photoshop's app object:
+ *
+ * ```javascript
+ * const SolidColor = require("photoshop").app.SolidColor;
+ * ```
  *
  * When a property is accessed (either via read or write), the current color model
  * of the SolidColor objects gets set to the space of the accessor. Photoshop internally
@@ -10,6 +15,7 @@ import { ColorModel } from '../Constants';
  * For example, to set the foreground color to red:
  *
  * ```javascript
+ * const SolidColor = require("photoshop").app.SolidColor;
  * const red = new SolidColor();
  * red.rgb.red = 255;
  * red.rgb.green = 0;
@@ -22,6 +28,7 @@ import { ColorModel } from '../Constants';
  * please see example below:
  *
  * ```javascript
+ * const SolidColor = require("photoshop").app.SolidColor;
  * const c = new SolidColor();
  * console.log(c.base.typename); // By default, this will be "RGBColor"
  *
@@ -38,6 +45,11 @@ import { ColorModel } from '../Constants';
  * @minVersion 23.0
  */
 export declare class SolidColor {
+    /**
+     * The class name of the referenced object: *"SolidColor"*.
+     * @minVersion 24.2
+     */
+    get typename(): "SolidColor";
     /**
      * The color's representation in RGB color space.
      *
@@ -88,21 +100,15 @@ export declare class SolidColor {
      */
     isEqual(color: SolidColor): boolean;
     /**
-     * All colors begin as white color.
+     * All colors default to pure white.
      *
-     * @param model Color model to start with.
-     *
-     * You can access this constructor such as:
      * ```
      * const SolidColor = require("photoshop").app.SolidColor;
      * const color = new SolidColor();
      * ```
+     *
+     * @param model Color model to start.
      * @minVersion 23.0
      */
     constructor(model?: ColorModel);
-    /**
-     * The class name of the referenced object: *"SolidColor"*.
-     * @minVersion 24.2
-     */
-    get typename(): "SolidColor";
 }

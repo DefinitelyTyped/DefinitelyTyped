@@ -1,28 +1,29 @@
-import { Options } from 'toastify-js';
-import Toastify = require('toastify-js');
+import { Options } from "toastify-js";
+import Toastify = require("toastify-js");
 
 Toastify({
-    avatar: 'https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp',
-    text: 'This is a toast',
+    avatar: "https://1.gravatar.com/avatar/767fc9c115a1b989744c755db47feb60?s=200&r=pg&d=mp",
+    text: "This is a toast",
     duration: 3000,
-    destination: 'https://github.com/apvarun/toastify-js',
+    destination: "https://github.com/apvarun/toastify-js",
     newWindow: true,
     close: true,
-    gravity: 'top',
-    position: 'left',
-    backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
+    gravity: "top",
+    position: "left",
+    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
     stopOnFocus: true,
     onClick: () => {},
 }).showToast();
 
 Toastify({
-    text: 'This is a toast',
-    backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
-    className: 'info',
+    text: "This is a toast",
+    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+    className: "info",
+    ariaLive: "assertive",
 }).showToast();
 
 Toastify({
-    text: 'This is a toast with offset',
+    text: "This is a toast with offset",
     offset: {
         x: 50,
         y: 10,
@@ -33,16 +34,16 @@ Toastify.reposition(); // $ExpectType void
 
 // Options for the toast
 const options: Options = {
-    text: 'Happy toasting!',
+    text: "Happy toasting!",
     duration: 2500,
     callback: () => {
-        console.log('Toast hidden');
+        console.log("Toast hidden");
         Toastify.reposition();
     },
     close: true,
-    backgroundColor: 'linear-gradient(to right, #00b09b, #96c93d)',
+    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
     style: {
-        color: '#aabbcc',
+        color: "#aabbcc",
     },
     escapeMarkup: true,
     oldestFirst: true,
@@ -52,7 +53,7 @@ Toastify(options);
 
 // #60413
 const toast = Toastify({
-    text: 'Update is pending',
+    text: "Update is pending",
     duration: 3000,
     close: false,
     stopOnFocus: true,

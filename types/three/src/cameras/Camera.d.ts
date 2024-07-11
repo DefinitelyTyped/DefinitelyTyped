@@ -1,7 +1,9 @@
-import { Matrix4 } from './../math/Matrix4';
-import { Vector3 } from './../math/Vector3';
-import { Object3D } from './../core/Object3D';
-import { Layers } from '../Three';
+import { CoordinateSystem } from "../constants.js";
+import { Layers } from "../core/Layers.js";
+import { Object3D } from "../core/Object3D.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Vector3 } from "../math/Vector3.js";
+import { Vector4 } from "../math/Vector4.js";
 
 /**
  * Abstract base class for cameras
@@ -10,7 +12,7 @@ import { Layers } from '../Three';
  * @see {@link https://threejs.org/docs/index.html#api/en/cameras/Camera | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/cameras/Camera.js | Source}
  */
-export abstract class Camera extends Object3D {
+export class Camera extends Object3D {
     /**
      * @remarks
      * Note that this class is not intended to be called directly; you probably want a
@@ -30,7 +32,7 @@ export abstract class Camera extends Object3D {
      * @override
      * @defaultValue `Camera`
      */
-    override readonly type: string | 'Camera';
+    override readonly type: string | "Camera";
 
     /**
      * @override
@@ -58,6 +60,10 @@ export abstract class Camera extends Object3D {
      * @defaultValue {@link THREE.Matrix4 | `new THREE.Matrix4()`}
      */
     projectionMatrixInverse: Matrix4;
+
+    coordinateSystem: CoordinateSystem;
+
+    viewport?: Vector4;
 
     /**
      * Returns a {@link THREE.Vector3 | Vector3} representing the world space direction in which the {@link Camera} is looking.

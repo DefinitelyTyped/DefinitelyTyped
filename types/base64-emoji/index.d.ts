@@ -1,8 +1,3 @@
-// Type definitions for base64-emoji 2.1
-// Project: https://github.com/watson/base64-emoji
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

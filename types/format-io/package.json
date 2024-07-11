@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/format-io",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/coderaiser/format-io"
+    ],
+    "devDependencies": {
+        "@types/format-io": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amit Beckenstein",
+            "githubUsername": "amitbeck"
+        }
+    ]
+}

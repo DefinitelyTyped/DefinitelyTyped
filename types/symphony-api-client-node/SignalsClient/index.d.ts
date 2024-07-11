@@ -36,7 +36,13 @@ export interface SignalSubscribersResponse {
 
 export function listSignals(skip: number, limit: number, sessionToken: string): Promise<Signal[]>;
 export function getSignal(id: string, sessionToken: string): Promise<Signal>;
-export function createSignal(name: string, query: string, visibleOnProfile: boolean, companyWide: boolean, sessionToken: string): Promise<Signal>;
+export function createSignal(
+    name: string,
+    query: string,
+    visibleOnProfile: boolean,
+    companyWide: boolean,
+    sessionToken: string,
+): Promise<Signal>;
 export function deleteSignal(id: string, sessionToken: string): Promise<DeleteOperationResult>;
 export function updateSignal(
     id: string,
@@ -46,6 +52,20 @@ export function updateSignal(
     companyWide?: boolean,
     sessionToken?: string,
 ): Promise<Signal>;
-export function unsubscribeSignal(id: string, userIds: number[], sessionToken: string): Promise<SignalSubscriptionResult>;
-export function subscribeSignal(id: string, userIds: number[], userCanUnsubscribe: boolean, sessionToken: string): Promise<SignalSubscriptionResult>;
-export function getSignalSubscribers(id: string, skip: number, limit: number, sessionToken: string): Promise<SignalSubscribersResponse>;
+export function unsubscribeSignal(
+    id: string,
+    userIds: number[],
+    sessionToken: string,
+): Promise<SignalSubscriptionResult>;
+export function subscribeSignal(
+    id: string,
+    userIds: number[],
+    userCanUnsubscribe: boolean,
+    sessionToken: string,
+): Promise<SignalSubscriptionResult>;
+export function getSignalSubscribers(
+    id: string,
+    skip: number,
+    limit: number,
+    sessionToken: string,
+): Promise<SignalSubscribersResponse>;

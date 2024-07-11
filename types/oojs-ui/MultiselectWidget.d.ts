@@ -17,9 +17,8 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
-                mixin.GroupElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {
+            extends Widget.ConfigOptions, mixin.GroupElement.ConfigOptions, mixin.TitledElement.ConfigOptions
+        {
             /** An array of options to add to the multiselect. */
             items?: MultioptionWidget[];
         }
@@ -103,21 +102,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MultiselectWidget;
+            new(config?: ConfigOptions): MultiselectWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

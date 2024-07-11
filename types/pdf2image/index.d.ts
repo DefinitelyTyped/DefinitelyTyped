@@ -1,8 +1,3 @@
-// Type definitions for pdf2image 1.2
-// Project: https://bitbucket.org/RicardoCacheira/pdf2image#readme
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.9
 
 /**
@@ -22,17 +17,27 @@
 
 /// <reference types="node" />
 
-export type OutputFormat = ((pageNum: number, pageIndex: number, totalPagesProcessed: number, totalPDFPages: number, name: string, path: string, vm: typeof import ('vm')) => string) | string;
+export type OutputFormat =
+    | ((
+        pageNum: number,
+        pageIndex: number,
+        totalPagesProcessed: number,
+        totalPDFPages: number,
+        name: string,
+        path: string,
+        vm: typeof import("vm"),
+    ) => string)
+    | string;
 
 export interface Options {
     density: number;
     height: number;
     width: number;
-    outputType: 'jpg' | 'png' | '.jpg' | '.png';
+    outputType: "jpg" | "png" | ".jpg" | ".png";
     quality: number;
-    pages: '*' | string;    // * | even | odd | '/1,/3,5-6,-8, 9-'
+    pages: "*" | string; // * | even | odd | '/1,/3,5-6,-8, 9-'
     singleProcess: boolean;
-    backgroundColor: string;    // #ffffff
+    backgroundColor: string; // #ffffff
     outputFormat: OutputFormat;
 }
 

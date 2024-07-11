@@ -14,7 +14,7 @@ numeric.parseFloat(["25.15", "44.25", "as"]); // $ExpectType number[]
 numeric.parseCSV("car, bike"); // $ExpectType string[][]
 numeric.toCSV([[25, 52, 62, 66], ["car", "bad", "bike", {}]]); // $ExpectType string
 numeric.imageURL([[25, 50], [52, 52]]); // $ExpectType string
-numeric.getURL('sdf'); // $ExpectType any
+numeric.getURL("sdf"); // $ExpectType any
 
 numeric.dim(matrix); // $ExpectType number[] || Vector
 numeric.same(25, [25]); // $ExpectType boolean
@@ -463,7 +463,7 @@ const block: number[][][] = numeric.setBlock(
     threeDimensionalMatrix,
     vector,
     vector,
-    threeDimensionalMatrix
+    threeDimensionalMatrix,
 );
 numeric.blockMatrix(matrix); // $ExpectType number[][] || Matrix
 numeric.tensor(3, 5); // $ExpectType number
@@ -607,7 +607,7 @@ spline.diff().roots(); // $ExpectType number[] || Vector
 spline.at(vector); // $ExpectType number | number[] || number | Vector
 
 numeric.uncmin((x: number[]) => 23, vector, 2, null, 3, () => undefined, {
-    Hinv: matrix
+    Hinv: matrix,
 });
 numeric.gradient((x: number[]) => 44, vector); // $ExpectType number[] || Vector
 
@@ -618,15 +618,28 @@ const dopri = numeric.dopri(
     (x = 23, y = 44) => 44,
     2,
     3,
-    (x = 23, y = 44) => 44
+    (x = 23, y = 44) => 44,
 );
 dopri.at(vector); // $ExpectType number[] | number[][] || Vector | Matrix
 
 numeric.echelonize(matrix); // $ExpectType { I: number[][]; A: number[][]; P: number[]; } || { I: Matrix; A: Matrix; P: Vector; }
-const temp1: { solution: number | number[]; message: string; iterations: number; } =
-    numeric.solveLP(vector, matrix, vector, matrix, matrix, 3, 4);
+const temp1: { solution: number | number[]; message: string; iterations: number } = numeric.solveLP(
+    vector,
+    matrix,
+    vector,
+    matrix,
+    matrix,
+    3,
+    4,
+);
 
-const temp2: { solution: number[]; value: number[]; unconstrained_solution: number[]; iterations: number[]; iact: number[]; message: string; } =
-    numeric.solveQP(matrix, vector, matrix, vector, 3, 44);
+const temp2: {
+    solution: number[];
+    value: number[];
+    unconstrained_solution: number[];
+    iterations: number[];
+    iact: number[];
+    message: string;
+} = numeric.solveQP(matrix, vector, matrix, vector, 3, 44);
 
 numeric.svd(matrix); // $ExpectType { U: number[][]; S: number[]; V: number[][]; } || { U: Matrix; S: Vector; V: Matrix; }

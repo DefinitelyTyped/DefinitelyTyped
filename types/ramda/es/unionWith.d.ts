@@ -1,2 +1,2 @@
-import { unionWith } from '../index';
+import { unionWith } from "../index.js";
 export default unionWith;

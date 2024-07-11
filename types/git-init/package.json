@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/git-init",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/yoshuawuyts/git-init#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/git-init": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Santi",
+            "githubUsername": "santi100a"
+        }
+    ]
+}

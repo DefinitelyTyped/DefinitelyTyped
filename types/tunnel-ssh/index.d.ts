@@ -1,10 +1,5 @@
-// Type definitions for tunnel-ssh 5.0
-// Project: https://github.com/agebrock/tunnel-ssh
-// Definitions by:  Noah Blumenthal <https://github.com/hackerhasid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as net from 'net';
-import * as ssh2 from 'ssh2';
+import * as net from "net";
+import * as ssh2 from "ssh2";
 
 export interface TunnelOptions {
     autoClose?: boolean;

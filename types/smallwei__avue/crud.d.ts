@@ -1,5 +1,5 @@
-import { DicItem } from './dic';
-import { AvueFormColumn, AvueFormGroup, AvueFormOption } from './form';
+import { DicItem } from "./dic";
+import { AvueFormColumn, AvueFormGroup, AvueFormOption } from "./form";
 
 export type AvueCrudDefaults = Record<string, AvueCrudColumn>;
 //  export type AvueCrudDefaults<T = any, K = T extends object ? keyof T : string> = {
@@ -26,9 +26,9 @@ export interface AvueCrudColumn<T = any> extends AvueFormColumn<T> {
     /** 对应列的最小宽度，与 width 的区别是 width 是固定的，minWidth 会把剩余宽度按比例分配给设置了 minWidth 的列 */
     minWidth?: number | string;
     /** 列是否固定在左侧或者右侧，true 表示固定在左侧 */
-    fixed?: boolean | 'left' | 'right';
+    fixed?: boolean | "left" | "right";
     /** 对应列是否可以排序，如果设置为 'custom'，则代表用户希望远程排序，需要监听 Table 的 sort-change 事件 */
-    sortable?: boolean | 'custom';
+    sortable?: boolean | "custom";
     /** 用来格式化内容 */
     formatter?: (row: T, value: any, label: string, column: Array<AvueCrudColumn<T>>) => string;
     /** 当内容过长被隐藏时显示 tooltip */
@@ -198,7 +198,7 @@ export interface AvueCrudOption<T = any> extends AvueFormOption<T> {
     /** 可以通过该属性设置目前的展开行，需要设置rowKey属性才能使用，该属性为展开行的keys数组。 */
     expandRowKeys?: Array<string | number>;
     /** 表格的排序字段{prop:'date',order:'descending'}prop默认排序字段，order排序方式 */
-    defaultSort?: { prop: string; order: 'ascending' | 'descending' };
+    defaultSort?: { prop: string; order: "ascending" | "descending" };
     /** 是否在表尾显示合计行 */
     showSummary?: boolean;
     /** 是否懒加载子节点数据,会调用tree-load方法回调 */
@@ -298,9 +298,9 @@ export interface AvueCrudOption<T = any> extends AvueFormOption<T> {
     /** 表格弹窗顶部的距离 */
     dialogTop?: string | number;
     /** 表格弹窗方式 */
-    dialogType?: 'dialog' | 'drawer';
+    dialogType?: "dialog" | "drawer";
     /** 表格抽屉打开方向 */
-    dialogDirection?: 'rtl' | 'ltr' | 'ttb' | 'btt';
+    dialogDirection?: "rtl" | "ltr" | "ttb" | "btt";
     /** 表格弹窗宽度 */
     dialogWidth?: string | number;
     /** 表格弹窗高度 */
@@ -377,38 +377,39 @@ export interface AvueCrudProps<T = any> {
     /** 配置项结构 v-model */
     defaults?: AvueCrudDefaults;
     /** 打开前的回调，会暂停Dialog的打开，done用于关闭Dialog，type为当前窗口的类型 */
-    'before-open'?: (done: () => void, type: FormType) => void;
+    "before-open"?: (done: () => void, type: FormType) => void;
     /** 关闭前的回调，会暂停Dialog的打开，done用于关闭Dialog，type为当前窗口的类型 */
-    'before-close'?: (done: () => void, type: FormType) => void;
+    "before-close"?: (done: () => void, type: FormType) => void;
     /** 单元格的className的回调方法，也可以使用字符串为所有单元格设置一个固定的className */
-    'cell-class-name'?: CellCls<T>;
+    "cell-class-name"?: CellCls<T>;
     /** 表头单元格的className的回调方法，也可以使用字符串为所有表头单元格设置一个固定的className */
-    'header-cell-class-name'?: CellCls<T>;
+    "header-cell-class-name"?: CellCls<T>;
     /** 行的className的回调方法，也可以使用字符串为所有行设置一个固定的className */
-    'row-class-name'?: ColumnCls<T>;
+    "row-class-name"?: ColumnCls<T>;
     /** 合并行或列的计算方法 */
-    'span-method'?: SpanMethod<T>;
+    "span-method"?: SpanMethod<T>;
     /** 自定义的合计计算方法 */
-    'summary-method'?: SummaryMethod<T>;
+    "summary-method"?: SummaryMethod<T>;
     /** 表格等待框的控制 */
-    'table-loading'?: boolean;
+    "table-loading"?: boolean;
     /** 图片上传前的回调，会暂停图片上传，done用于继续图片上传，loading用于中断操作 */
-    'upload-before'?: (
+    "upload-before"?: (
         file: UploadRawFile,
         done: (File?: File) => void,
         loading: () => void,
         column: AvueCrudColumn<T>,
     ) => void;
     /** 图片上传后的回调，done用于结束操作，loading用于中断操作 */
-    'upload-after'?: (res: any, done: () => void, loading: () => void, column: AvueCrudColumn<T>) => void;
+    "upload-after"?: (res: any, done: () => void, loading: () => void, column: AvueCrudColumn<T>) => void;
     /** 删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除 */
-    'upload-delete'?: (file: UploadFile, column: AvueCrudColumn<T>) => boolean | Promise<any> | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    "upload-delete"?: (file: UploadFile, column: AvueCrudColumn<T>) => boolean | Promise<any> | void;
     /** 查看前的回调 */
-    'upload-preview'?: (file: UploadFile, column: AvueCrudColumn<T>, done: () => void) => void;
+    "upload-preview"?: (file: UploadFile, column: AvueCrudColumn<T>, done: () => void) => void;
     /** 上传失败错误回调 */
-    'upload-error'?: (error: Error, column: AvueCrudColumn<T>) => void;
+    "upload-error"?: (error: Error, column: AvueCrudColumn<T>) => void;
     /** 上传超过长度限制回调 */
-    'upload-exceed'?: (limit: number, files: File[], fileList: UploadUserFile[], column: AvueCrudColumn<T>) => void;
+    "upload-exceed"?: (limit: number, files: File[], fileList: UploadUserFile[], column: AvueCrudColumn<T>) => void;
 
     /** 新增数据后点击确定触发该事件 */
     onRowSave?: (row: T, done: () => void, loading: () => void) => any;
@@ -457,19 +458,19 @@ export interface AvueCrudProps<T = any> {
     /** 当拖动表头改变了列的宽度的时候会触发该事件 */
     onHeaderDragend?: (newWidth: number, oldWidth: number, column: TableColumnCtx<T>, event: Event) => any;
     /** 当表格的排序条件发生变化的时候会触发该事件 */
-    onSortChange?: (args: { column: TableColumnCtx<T>; prop: string; order: 'ascsending' | 'descending' }) => any;
+    onSortChange?: (args: { column: TableColumnCtx<T>; prop: string; order: "ascsending" | "descending" }) => any;
     /** 当表格的筛选条件发生变化的时候会触发该事件 */
     onFilterChange?: (filters: Record<string, any[]>) => any;
     /** 当用户对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded） */
     onExpandChange?: (row: T, expanded: T[] | boolean) => any;
     /** 更新表单值 */
-    'onUpdate:modelValue'?: (row: T) => any;
+    "onUpdate:modelValue"?: (row: T) => any;
     /** 更新搜索表单 */
-    'onUpdate:search'?: (form: any) => any;
+    "onUpdate:search"?: (form: any) => any;
     /** 更新分页数据 */
-    'onUpdate:page'?: (page: PageOption) => any;
+    "onUpdate:page"?: (page: PageOption) => any;
     /** 更新配置项结构 */
-    'onUpdate:defaults'?: (defaluts: AvueCrudDefaults) => any;
+    "onUpdate:defaults"?: (defaluts: AvueCrudDefaults) => any;
 }
 export interface AvueCrudMethods<T = any> {
     /** 打开表单新增窗口 */
@@ -511,7 +512,7 @@ export interface AvueCrudMethods<T = any> {
     /** 进行重新初始化渲染 */
     refreshTable: () => void;
     /** 手动对 Table 进行排序。参数prop属性指定排序列，order指定排序顺序 */
-    sort: (prop: string, order: 'ascsending' | 'descending') => void;
+    sort: (prop: string, order: "ascsending" | "descending") => void;
 
     /** 重新初始化 */
     init: () => void;
@@ -541,15 +542,15 @@ export interface AvueCrudSlots<T = any> {
     empty: () => VNode[];
     expand: (scoped: { row: T; index: number }) => VNode[];
     menu: (scoped: { row: T; type: string; disabled: boolean; size: Size; index: number }) => VNode[];
-    'menu-form': (scoped: { disabled: boolean; size: Size; type?: FormType }) => VNode[];
+    "menu-form": (scoped: { disabled: boolean; size: Size; type?: FormType }) => VNode[];
     header: () => VNode[];
     footer: () => VNode[];
     page: () => VNode[];
-    'menu-btn': () => VNode[];
-    'menu-left': (scoped: { size: Size }) => VNode[];
-    'menu-right': (scoped: { size: Size }) => VNode[];
+    "menu-btn": () => VNode[];
+    "menu-left": (scoped: { size: Size }) => VNode[];
+    "menu-right": (scoped: { size: Size }) => VNode[];
     search: (scoped: { row: T; search: T; size: Size }) => VNode[];
-    'search-menu': (scoped: { row: T; search: T; disabled: boolean; size: Size }) => VNode[];
+    "search-menu": (scoped: { row: T; search: T; disabled: boolean; size: Size }) => VNode[];
     [x: `${string}-search`]: (scoped: {
         value: any;
         column: AvueCrudColumn<T>;
@@ -586,7 +587,7 @@ export interface AvueCrudSlots<T = any> {
 
 export type AvueCrudInstance = InstanceType<typeof AvueCrud> & AvueCrudMethods;
 
-export const AvueCrud: new () => {
+export const AvueCrud: new() => {
     $props: AvueCrudProps;
     $slots: AvueCrudSlots;
 };

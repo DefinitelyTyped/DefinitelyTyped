@@ -1,13 +1,13 @@
 /**
- * The `dgram` module provides an implementation of UDP datagram sockets.
+ * The `node:dgram` module provides an implementation of UDP datagram sockets.
  *
  * ```js
- * import dgram from 'dgram';
+ * import dgram from 'node:dgram';
  *
  * const server = dgram.createSocket('udp4');
  *
  * server.on('error', (err) => {
- *   console.log(`server error:\n${err.stack}`);
+ *   console.error(`server error:\n${err.stack}`);
  *   server.close();
  * });
  *
@@ -23,15 +23,15 @@
  * server.bind(41234);
  * // Prints: server listening 0.0.0.0:41234
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/dgram.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/dgram.js)
  */
-declare module 'dgram' {
-    import { AddressInfo } from 'node:net';
-    import * as dns from 'node:dns';
-    import { EventEmitter, Abortable } from 'node:events';
+declare module "dgram" {
+    import { AddressInfo } from "node:net";
+    import * as dns from "node:dns";
+    import { Abortable, EventEmitter } from "node:events";
     interface RemoteInfo {
         address: string;
-        family: 'IPv4' | 'IPv6';
+        family: "IPv4" | "IPv6";
         port: number;
         size: number;
     }
@@ -41,7 +41,7 @@ declare module 'dgram' {
         exclusive?: boolean | undefined;
         fd?: number | undefined;
     }
-    type SocketType = 'udp4' | 'udp6';
+    type SocketType = "udp4" | "udp6";
     interface SocketOptions extends Abortable {
         type: SocketType;
         reuseAddr?: boolean | undefined;
@@ -51,7 +51,13 @@ declare module 'dgram' {
         ipv6Only?: boolean | undefined;
         recvBufferSize?: number | undefined;
         sendBufferSize?: number | undefined;
-        lookup?: ((hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void) | undefined;
+        lookup?:
+            | ((
+                hostname: string,
+                options: dns.LookupOneOptions,
+                callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+            ) => void)
+            | undefined;
     }
     /**
      * Creates a `dgram.Socket` object. Once the socket is created, calling `socket.bind()` will instruct the socket to begin listening for datagram
@@ -60,7 +66,7 @@ declare module 'dgram' {
      * (it does the right thing for both `udp4` and `udp6` sockets). The bound address
      * and port can be retrieved using `socket.address().address` and `socket.address().port`.
      *
-     * If the `signal` option is enabled, calling `.abort()` on the corresponding`AbortController` is similar to calling `.close()` on the socket:
+     * If the `signal` option is enabled, calling `.abort()` on the corresponding `AbortController` is similar to calling `.close()` on the socket:
      *
      * ```js
      * const controller = new AbortController();
@@ -87,7 +93,7 @@ declare module 'dgram' {
      */
     class Socket extends EventEmitter {
         /**
-         * Tells the kernel to join a multicast group at the given `multicastAddress` and`multicastInterface` using the `IP_ADD_MEMBERSHIP` socket option. If the`multicastInterface` argument is not
+         * Tells the kernel to join a multicast group at the given `multicastAddress` and `multicastInterface` using the `IP_ADD_MEMBERSHIP` socket option. If the `multicastInterface` argument is not
          * specified, the operating system will choose
          * one interface and will add membership to it. To add membership to every
          * available interface, call `addMembership` multiple times, once per interface.
@@ -98,8 +104,8 @@ declare module 'dgram' {
          * When sharing a UDP socket across multiple `cluster` workers, the`socket.addMembership()` function must be called only once or an`EADDRINUSE` error will occur:
          *
          * ```js
-         * import cluster from 'cluster';
-         * import dgram from 'dgram';
+         * import cluster from 'node:cluster';
+         * import dgram from 'node:dgram';
          *
          * if (cluster.isPrimary) {
          *   cluster.fork(); // Works ok.
@@ -116,7 +122,7 @@ declare module 'dgram' {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         /**
          * Returns an object containing the address information for a socket.
-         * For UDP sockets, this object will contain `address`, `family` and `port`properties.
+         * For UDP sockets, this object will contain `address`, `family`, and `port` properties.
          *
          * This method throws `EBADF` if called on an unbound socket.
          * @since v0.1.99
@@ -127,10 +133,10 @@ declare module 'dgram' {
          * messages on a named `port` and optional `address`. If `port` is not
          * specified or is `0`, the operating system will attempt to bind to a
          * random port. If `address` is not specified, the operating system will
-         * attempt to listen on all addresses. Once binding is complete, a`'listening'` event is emitted and the optional `callback` function is
+         * attempt to listen on all addresses. Once binding is complete, a `'listening'` event is emitted and the optional `callback` function is
          * called.
          *
-         * Specifying both a `'listening'` event listener and passing a`callback` to the `socket.bind()` method is not harmful but not very
+         * Specifying both a `'listening'` event listener and passing a `callback` to the `socket.bind()` method is not harmful but not very
          * useful.
          *
          * A bound datagram socket keeps the Node.js process running to receive
@@ -142,12 +148,12 @@ declare module 'dgram' {
          * Example of a UDP server listening on port 41234:
          *
          * ```js
-         * import dgram from 'dgram';
+         * import dgram from 'node:dgram';
          *
          * const server = dgram.createSocket('udp4');
          *
          * server.on('error', (err) => {
-         *   console.log(`server error:\n${err.stack}`);
+         *   console.error(`server error:\n${err.stack}`);
          *   server.close();
          * });
          *
@@ -200,7 +206,7 @@ declare module 'dgram' {
          */
         disconnect(): void;
         /**
-         * Instructs the kernel to leave a multicast group at `multicastAddress` using the`IP_DROP_MEMBERSHIP` socket option. This method is automatically called by the
+         * Instructs the kernel to leave a multicast group at `multicastAddress` using the `IP_DROP_MEMBERSHIP` socket option. This method is automatically called by the
          * kernel when the socket is closed or the process terminates, so most apps will
          * never have reason to call this.
          *
@@ -221,6 +227,16 @@ declare module 'dgram' {
          * @return the `SO_SNDBUF` socket send buffer size in bytes.
          */
         getSendBufferSize(): number;
+        /**
+         * @since v18.8.0, v16.19.0
+         * @return Number of bytes queued for sending.
+         */
+        getSendQueueSize(): number;
+        /**
+         * @since v18.8.0, v16.19.0
+         * @return Number of send requests currently in the queue awaiting to be processed.
+         */
+        getSendQueueCount(): number;
         /**
          * By default, binding a socket will cause it to block the Node.js process from
          * exiting as long as the socket is open. The `socket.unref()` method can be used
@@ -253,14 +269,14 @@ declare module 'dgram' {
          * any `TypedArray` or a `DataView`,
          * the `offset` and `length` specify the offset within the `Buffer` where the
          * message begins and the number of bytes in the message, respectively.
-         * If `msg` is a `String`, then it is automatically converted to a `Buffer`with `'utf8'` encoding. With messages that
+         * If `msg` is a `String`, then it is automatically converted to a `Buffer` with `'utf8'` encoding. With messages that
          * contain multi-byte characters, `offset` and `length` will be calculated with
          * respect to `byte length` and not the character position.
          * If `msg` is an array, `offset` and `length` must not be specified.
          *
          * The `address` argument is a string. If the value of `address` is a host name,
          * DNS will be used to resolve the address of the host. If `address` is not
-         * provided or otherwise nullish, `'127.0.0.1'` (for `udp4` sockets) or `'::1'`(for `udp6` sockets) will be used by default.
+         * provided or otherwise nullish, `'127.0.0.1'` (for `udp4` sockets) or `'::1'` (for `udp6` sockets) will be used by default.
          *
          * If the socket has not been previously bound with a call to `bind`, the socket
          * is assigned a random port number and is bound to the "all interfaces" address
@@ -271,7 +287,7 @@ declare module 'dgram' {
          * DNS lookups delay the time to send for at least one tick of the
          * Node.js event loop.
          *
-         * The only way to know for sure that the datagram has been sent is by using a`callback`. If an error occurs and a `callback` is given, the error will be
+         * The only way to know for sure that the datagram has been sent is by using a `callback`. If an error occurs and a `callback` is given, the error will be
          * passed as the first argument to the `callback`. If a `callback` is not given,
          * the error is emitted as an `'error'` event on the `socket` object.
          *
@@ -284,8 +300,8 @@ declare module 'dgram' {
          * Example of sending a UDP packet to a port on `localhost`;
          *
          * ```js
-         * import dgram from 'dgram';
-         * import { Buffer } from 'buffer';
+         * import dgram from 'node:dgram';
+         * import { Buffer } from 'node:buffer';
          *
          * const message = Buffer.from('Some bytes');
          * const client = dgram.createSocket('udp4');
@@ -297,8 +313,8 @@ declare module 'dgram' {
          * Example of sending a UDP packet composed of multiple buffers to a port on`127.0.0.1`;
          *
          * ```js
-         * import dgram from 'dgram';
-         * import { Buffer } from 'buffer';
+         * import dgram from 'node:dgram';
+         * import { Buffer } from 'node:buffer';
          *
          * const buf1 = Buffer.from('Some ');
          * const buf2 = Buffer.from('bytes');
@@ -313,11 +329,11 @@ declare module 'dgram' {
          * determine the optimal strategy on a case-by-case basis. Generally speaking,
          * however, sending multiple buffers is faster.
          *
-         * Example of sending a UDP packet using a socket connected to a port on`localhost`:
+         * Example of sending a UDP packet using a socket connected to a port on `localhost`:
          *
          * ```js
-         * import dgram from 'dgram';
-         * import { Buffer } from 'buffer';
+         * import dgram from 'node:dgram';
+         * import { Buffer } from 'node:buffer';
          *
          * const message = Buffer.from('Some bytes');
          * const client = dgram.createSocket('udp4');
@@ -335,12 +351,42 @@ declare module 'dgram' {
          * @param address Destination host name or IP address.
          * @param callback Called when the message has been sent.
          */
-        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, callback?: (error: Error | null, bytes: number) => void): void;
+        send(
+            msg: string | Uint8Array | readonly any[],
+            port?: number,
+            address?: string,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array | readonly any[],
+            port?: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array | readonly any[],
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            port?: number,
+            address?: string,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            port?: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
         /**
          * Sets or clears the `SO_BROADCAST` socket option. When set to `true`, UDP
          * packets may be sent to a local interface's broadcast address.
@@ -465,7 +511,7 @@ declare module 'dgram' {
          * process active, allowing the process to exit even if the socket is still
          * listening.
          *
-         * Calling `socket.unref()` multiple times will have no addition effect.
+         * Calling `socket.unref()` multiple times will have no additional effect.
          *
          * The `socket.unref()` method returns a reference to the socket so calls can be
          * chained.
@@ -473,10 +519,10 @@ declare module 'dgram' {
          */
         unref(): this;
         /**
-         * Tells the kernel to join a source-specific multicast channel at the given`sourceAddress` and `groupAddress`, using the `multicastInterface` with the`IP_ADD_SOURCE_MEMBERSHIP` socket
+         * Tells the kernel to join a source-specific multicast channel at the given `sourceAddress` and `groupAddress`, using the `multicastInterface` with the `IP_ADD_SOURCE_MEMBERSHIP` socket
          * option. If the `multicastInterface` argument
          * is not specified, the operating system will choose one interface and will add
-         * membership to it. To add membership to every available interface, call`socket.addSourceSpecificMembership()` multiple times, once per interface.
+         * membership to it. To add membership to every available interface, call `socket.addSourceSpecificMembership()` multiple times, once per interface.
          *
          * When called on an unbound socket, this method will implicitly bind to a random
          * port, listening on all interfaces.
@@ -484,7 +530,7 @@ declare module 'dgram' {
          */
         addSourceSpecificMembership(sourceAddress: string, groupAddress: string, multicastInterface?: string): void;
         /**
-         * Instructs the kernel to leave a source-specific multicast channel at the given`sourceAddress` and `groupAddress` using the `IP_DROP_SOURCE_MEMBERSHIP`socket option. This method is
+         * Instructs the kernel to leave a source-specific multicast channel at the given `sourceAddress` and `groupAddress` using the `IP_DROP_SOURCE_MEMBERSHIP` socket option. This method is
          * automatically called by the kernel when the
          * socket is closed or the process terminates, so most apps will never have
          * reason to call this.
@@ -503,43 +549,48 @@ declare module 'dgram' {
          * 5. message
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'connect', listener: () => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'listening', listener: () => void): this;
-        addListener(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connect", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+        addListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close'): boolean;
-        emit(event: 'connect'): boolean;
-        emit(event: 'error', err: Error): boolean;
-        emit(event: 'listening'): boolean;
-        emit(event: 'message', msg: Buffer, rinfo: RemoteInfo): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connect"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+        emit(event: "message", msg: Buffer, rinfo: RemoteInfo): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'connect', listener: () => void): this;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'listening', listener: () => void): this;
-        on(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connect", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+        on(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'connect', listener: () => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'listening', listener: () => void): this;
-        once(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connect", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+        once(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'connect', listener: () => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'listening', listener: () => void): this;
-        prependListener(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connect", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+        prependListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'connect', listener: () => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'listening', listener: () => void): this;
-        prependOnceListener(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connect", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
+        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        /**
+         * Calls `socket.close()` and returns a promise that fulfills when the socket has closed.
+         * @since v20.5.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
 }
-declare module 'node:dgram' {
-    export * from 'dgram';
+declare module "node:dgram" {
+    export * from "dgram";
 }

@@ -1,6 +1,6 @@
-import './xml-hint';
+import "./xml-hint";
 
-declare module '../../' {
+declare module "../../" {
     interface HintHelpers {
         html: HintFunction;
     }

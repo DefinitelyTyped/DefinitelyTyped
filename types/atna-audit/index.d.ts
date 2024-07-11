@@ -1,11 +1,6 @@
-// Type definitions for atna-audit 1.0
-// Project: https://github.com/jembi/atna-audit
-// Definitions by: Alex Figl-Brick <https://github.com/bricka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import type { ConnectionOptions } from 'tls';
+import type { ConnectionOptions } from "tls";
 
 export interface Constants {
     OUTCOME_SUCCESS: 0;
@@ -14,11 +9,11 @@ export interface Constants {
     OUTCOME_MAJOR_FAILURE: 12;
 
     // Network Access Point Type Code
-    EVENT_ACTION_CREATE: 'C';
-    EVENT_ACTION_READ: 'R';
-    EVENT_ACTION_UPDATE: 'U';
-    EVENT_ACTION_DELETE: 'D';
-    EVENT_ACTION_EXECUTE: 'E';
+    EVENT_ACTION_CREATE: "C";
+    EVENT_ACTION_READ: "R";
+    EVENT_ACTION_UPDATE: "U";
+    EVENT_ACTION_DELETE: "D";
+    EVENT_ACTION_EXECUTE: "E";
 
     // Network Access Point Type Code
     NET_AP_TYPE_DNS: 1;
@@ -146,15 +141,15 @@ export namespace send {
     }
 
     interface UdpConnDetail extends CommonConnDetail {
-        interface: 'udp';
+        interface: "udp";
     }
 
     interface TcpConnDetail extends CommonConnDetail {
-        interface: 'tcp';
+        interface: "tcp";
     }
 
     interface TlsConnDetail extends CommonConnDetail {
-        interface: 'tls';
+        interface: "tls";
         options?: ConnectionOptions;
     }
 

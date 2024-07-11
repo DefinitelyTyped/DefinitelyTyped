@@ -1,9 +1,3 @@
-// Type definitions for db-stations-autocomplete 3.0
-// Project: https://github.com/derhuerst/db-stations-autocomplete
-// Definitions by: Freerk-Ole Zakfeld <https://github.com/fzakfeld>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = autocomplete;
 
 /**

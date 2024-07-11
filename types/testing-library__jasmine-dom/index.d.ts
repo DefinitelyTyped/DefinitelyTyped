@@ -1,9 +1,3 @@
-// Type definitions for Jasmine DOM 1.3
-// Project: https://github.com/testing-library/jasmine-dom
-// Definitions by: Brian Alexis Michel <https://github.com/brrianalexis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="jasmine" />
 
 declare namespace jasmine {
@@ -390,7 +384,6 @@ declare namespace jasmine {
          * <span id="msgID" aria-live="assertive" style="visibility:visible">
          *   Invalid time: the time must be between 9:00 AM and 5:00 PM"
          * </span>
-         *
          *
          * const timeInput = getByLabel('startTime')
          *

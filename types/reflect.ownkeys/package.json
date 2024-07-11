@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "name": "@types/reflect.ownkeys",
+    "version": "1.1.9999",
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.mts",
+                "default": "./index.d.ts"
+            }
+        },
+        "./auto": {
+            "types": "./auto.d.ts"
+        },
+        "./polyfill": {
+            "types": "./polyfill.d.ts"
+        },
+        "./implementation": {
+            "types": "./implementation.d.ts"
+        },
+        "./shim": {
+            "types": "./shim.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
+    "projects": [
+        "https://github.com/es-shims/Reflect.ownKeys"
+    ],
+    "devDependencies": {
+        "@types/reflect.ownkeys": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

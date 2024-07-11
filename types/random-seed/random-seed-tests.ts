@@ -1,11 +1,11 @@
-import { RandomSeed, create } from "random-seed";
+import { create, RandomSeed } from "random-seed";
 
 // these generators produce different numbers
 const rand1: RandomSeed = create(); // method 1
 
 // these generators will produce
 // the same sequence of numbers
-const seed = 'My Secret String Value';
+const seed = "My Secret String Value";
 const rand2 = create(seed);
 
 // API

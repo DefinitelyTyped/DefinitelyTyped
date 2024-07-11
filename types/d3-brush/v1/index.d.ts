@@ -1,15 +1,6 @@
-// Type definitions for D3JS d3-brush module 1.1
-// Project: https://github.com/d3/d3-brush/, https://d3js.org/d3-brush
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last module patch version validated against: 1.1.6
 
-import { Selection, TransitionLike, ValueFn } from 'd3-selection';
+import { Selection, TransitionLike, ValueFn } from "d3-selection";
 
 /**
  * Type alias for a BrushSelection. For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]],
@@ -289,7 +280,7 @@ export interface D3BrushEvent<Datum> {
     /**
      * The event type for the BrushEvent
      */
-    type: 'start' | 'brush' | 'end' | string; // Leave failsafe string type for cases like 'brush.foo'
+    type: "start" | "brush" | "end" | string; // Leave failsafe string type for cases like 'brush.foo'
     /**
      * The current brush selection associated with the event.
      * This is null when the selection is empty.

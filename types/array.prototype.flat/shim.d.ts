@@ -1,4 +1,4 @@
-import flat = require('./implementation');
+import flat = require("./implementation");
 
 declare function shim(): typeof flat;
 export = shim;

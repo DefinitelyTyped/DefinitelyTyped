@@ -1,11 +1,6 @@
-// Type definitions for hostile 1.3
-// Project: https://github.com/feross/hostile
-// Definitions by: Andrew Leedham <https://github.com/AndrewLeedham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export const HOSTS: "C:/Windows/System32/drivers/etc/hosts" | "/etc/hosts";
 
-export const HOSTS: 'C:/Windows/System32/drivers/etc/hosts' | '/etc/hosts';
-
-export type Line = string | [string /* host */, string /* ip */];
+export type Line = string | [string, /* host */ string /* ip */];
 export type Lines = Line[];
 export type Callback = (error: Error | null) => void;
 export type GetCallback = (error: Error | null, lines: Lines) => void;
@@ -26,6 +21,7 @@ export function getFile(filePath: string, preserveFormatting: boolean): Lines;
  * @param cb - Called when finished or failed (passing error or lines of file).
  */
 export function getFile(filePath: string, preserveFormatting: boolean, cb: GetCallback): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function getFile(filePath: string, preserveFormatting: boolean, cb?: GetCallback): void | Lines;
 
 /**
@@ -42,6 +38,7 @@ export function get(preserveFormatting: boolean): Lines;
  * @param cb - Called when finished or failed (passing error or lines of file).
  */
 export function get(preserveFormatting: boolean, cb: GetCallback): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function get(preserveFormatting: boolean, cb?: GetCallback): void | Lines;
 
 /**
@@ -70,4 +67,4 @@ export function remove(ip: string, host: string, cb?: Callback): void;
  * @param lines - Lines to write to the file.
  * @param cb - Called when finished or failed (passing error).
  */
-export function writeFile(lines: ReadonlyArray<Line>, preserveFormatting: boolean, cb?: Callback): void;
+export function writeFile(lines: readonly Line[], preserveFormatting: boolean, cb?: Callback): void;

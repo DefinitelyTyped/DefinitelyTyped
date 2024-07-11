@@ -1,28 +1,28 @@
-import createPersistedState from 'use-persisted-state';
-import { useState } from 'react';
+import { useState } from "react";
+import createPersistedState from "use-persisted-state";
 
 /**
  * Only the first argument is required.
  */
-createPersistedState('myKey');
+createPersistedState("myKey");
 
 /**
  * The generated hook conforms to the same signature as `React.useState`.
  */
-const myHook: typeof useState = createPersistedState('myKey');
+const myHook: typeof useState = createPersistedState("myKey");
 
 /**
  * Custom storage provider can be passed as the second argument.
  */
-createPersistedState('myKey', localStorage);
-createPersistedState('myKey', sessionStorage);
+createPersistedState("myKey", localStorage);
+createPersistedState("myKey", sessionStorage);
 
 /**
  * The provider is similar to the `Storage` interface,
  * but cares only about `getItem` and `setItem` methods.
  */
 const { getItem, setItem } = localStorage;
-createPersistedState('myKey', { getItem, setItem });
+createPersistedState("myKey", { getItem, setItem });
 
 /**
  * At least one argument must be provided.
@@ -46,11 +46,11 @@ createPersistedState(undefined);
  * The `provider` argument, when passed, must partially implement `Storage`.
  */
 // @ts-expect-error
-createPersistedState('myKey', { });
+createPersistedState("myKey", {});
 // @ts-expect-error
-createPersistedState('myKey', { getItem: localStorage.getItem });
+createPersistedState("myKey", { getItem: localStorage.getItem });
 // @ts-expect-error
-createPersistedState('myKey', { setItem: localStorage.setItem });
+createPersistedState("myKey", { setItem: localStorage.setItem });
 
 /**
  * createPersistedState takes an optional type parameter, which carries through
@@ -58,7 +58,7 @@ createPersistedState('myKey', { setItem: localStorage.setItem });
  *
  * (based on the README example)
  */
-const useCounterState = createPersistedState<number>('count');
+const useCounterState = createPersistedState<number>("count");
 const initialCount = 1;
 const [count, setCount] = useCounterState(initialCount);
 count; // $ExpectType number

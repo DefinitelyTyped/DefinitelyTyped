@@ -1,11 +1,6 @@
-// Type definitions for kurento-utils 6.7
-// Project: https://github.com/Kurento/kurento-utils-js, https://www.kurento.org
-// Definitions by: Miloslav Nenadál <https://github.com/nenadalm>
-//                 Benjamin Riggs <https://github.com/riggs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+/// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export class WebRtcPeer extends EventEmitter {
     /**
@@ -14,9 +9,9 @@ export class WebRtcPeer extends EventEmitter {
     peerConnection: RTCPeerConnection;
 
     constructor(
-        mode: 'recv' | 'send' | 'sendRecv',
+        mode: "recv" | "send" | "sendRecv",
         options?: object,
-        callback?: (error: string | undefined) => void
+        callback?: (error: string | undefined) => void,
     );
 
     /**
@@ -39,7 +34,7 @@ export class WebRtcPeer extends EventEmitter {
      */
     processAnswer: (
         sdpAnswer: string,
-        callback?: (error: string | undefined) => void
+        callback?: (error: string | undefined) => void,
     ) => void;
     /**
      * Callback function invoked when a SDP offer is received. Developers are expected to invoke this function in order to complete the SDP negotiation. This method has two parameters:
@@ -49,7 +44,7 @@ export class WebRtcPeer extends EventEmitter {
      */
     processOffer: (
         sdpOffer: string,
-        callback?: (error: string | undefined, sdp: string) => void
+        callback?: (error: string | undefined, sdp: string) => void,
     ) => void;
     /**
      * This method frees the resources used by WebRtcPeer.
@@ -63,7 +58,7 @@ export class WebRtcPeer extends EventEmitter {
      */
     addIceCandidate: (
         iceCandidate: RTCIceCandidate,
-        callback?: (error: string | undefined) => void
+        callback?: (error: string | undefined) => void,
     ) => void;
     /**
      * Using this method the user can get peerconnection’s local session descriptor.
@@ -77,14 +72,14 @@ export class WebRtcPeer extends EventEmitter {
      * Creates an offer that is a request to find a remote peer with a specific configuration.
      */
     generateOffer: (
-        callback: (error: string | undefined, sdp: string) => void
+        callback: (error: string | undefined, sdp: string) => void,
     ) => void;
     /**
      * Create a WebRtcPeer as receive only.
      */
     static WebRtcPeerRecvonly: (
         options: object,
-        callback: (error: string | undefined) => void
+        callback: (error: string | undefined) => void,
     ) => WebRtcPeer;
 
     /**
@@ -92,7 +87,7 @@ export class WebRtcPeer extends EventEmitter {
      */
     static WebRtcPeerSendonly: (
         options: object,
-        callback: (error: string | undefined) => void
+        callback: (error: string | undefined) => void,
     ) => WebRtcPeer;
 
     /**
@@ -100,6 +95,6 @@ export class WebRtcPeer extends EventEmitter {
      */
     static WebRtcPeerSendrecv: (
         options: object,
-        callback: (error: string | undefined) => void
+        callback: (error: string | undefined) => void,
     ) => WebRtcPeer;
 }

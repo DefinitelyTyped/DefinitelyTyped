@@ -1,8 +1,3 @@
-// Type definitions for ultra-strftime 1.0
-// Project: https://github.com/xio4/ultra_strftime
-// Definitions by: Piotr Roszatycki <https://github.com/dex4er>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function strftime(fmt: string, d?: Date, locale?: strftime.Locale, options?: strftime.Options): string;
 declare function strftime(fmt: string, locale?: strftime.Locale, options?: strftime.Options): string;
 

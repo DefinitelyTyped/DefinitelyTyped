@@ -1,2 +1,2 @@
 export class Camera extends DisplayObject {}
-import { DisplayObject } from './DisplayObject';
+import { DisplayObject } from "./DisplayObject";

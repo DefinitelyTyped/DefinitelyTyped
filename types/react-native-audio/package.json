@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-audio",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/jsierles/react-native-audio#readme"
+    ],
+    "devDependencies": {
+        "@types/react-native-audio": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        }
+    ]
+}

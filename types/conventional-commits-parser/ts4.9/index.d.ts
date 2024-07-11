@@ -19,7 +19,9 @@ declare namespace conventionalCommitsParser {
      */
     function sync(commit: string, options?: Options): Commit;
 
-    type Commit<Fields extends string | number | symbol = string | number | symbol> = CommitBase & { [Field in Exclude<Fields, keyof CommitBase>]?: Commit.Field };
+    type Commit<Fields extends string | number | symbol = string | number | symbol> =
+        & CommitBase
+        & { [Field in Exclude<Fields, keyof CommitBase>]?: Commit.Field };
 
     namespace Commit {
         type Field = string | null;
@@ -271,6 +273,14 @@ declare namespace conventionalCommitsParser {
         commentChar?: string | null | undefined;
 
         /**
+         * Breaking changes header pattern.
+         *
+         * @default
+         * undefined
+         */
+        breakingHeaderPattern?: RegExp | undefined;
+
+        /**
          * What warn function to use. For example, `console.warn.bind(console)` or
          * `grunt.log.writeln`. By default, it's a noop. If it is `true`, it will error
          * if commit cannot be parsed (strict).
@@ -289,11 +299,7 @@ declare namespace conventionalCommitsParser {
         type Prefixes = string[] | string | null;
     }
 
-    export {
-        Commit,
-        Options,
-        sync,
-    };
+    export { Commit, Options, sync };
 }
 
 export = conventionalCommitsParser;

@@ -1,14 +1,7 @@
-// Type definitions for chai-jquery 1.1.1
-// Project: https://github.com/chaijs/chai-jquery
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 /// <reference types="jquery" />
 
 declare namespace Chai {
-
     interface Assertion {
         attr(name: string, value?: string): Assertion;
         prop(name: string, value?: any): Assertion;
@@ -38,7 +31,6 @@ declare namespace Chai {
  * Static members of chai-jquery (those on $ and jQuery themselves)
  */
 interface ChaiJQueryStatic {
-
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
@@ -59,7 +51,10 @@ interface ChaiJQueryStatic {
      * @param dataTypes An optional string containing one or more space-separated dataTypes
      * @param handler A handler to set default values for future Ajax requests.
      */
-    ajaxPrefilter(dataTypes: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
+    ajaxPrefilter(
+        dataTypes: string,
+        handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any,
+    ): void;
     /**
      * Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().
      *
@@ -92,7 +87,12 @@ interface ChaiJQueryStatic {
      * @param success A callback function that is executed if the request succeeds.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).
      */
-    get(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    get(
+        url: string,
+        data?: Object | string,
+        success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any,
+        dataType?: string,
+    ): JQueryXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
@@ -107,7 +107,11 @@ interface ChaiJQueryStatic {
      * @param data A plain object or string that is sent to the server with the request.
      * @param success A callback function that is executed if the request succeeds.
      */
-    getJSON(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any): JQueryXHR;
+    getJSON(
+        url: string,
+        data?: Object | string,
+        success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any,
+    ): JQueryXHR;
     /**
      * Load a JavaScript file from the server using a GET HTTP request, then execute it.
      *
@@ -137,7 +141,12 @@ interface ChaiJQueryStatic {
      * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but can be null in that case.
      * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
      */
-    post(url: string, data?: Object|string, success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any, dataType?: string): JQueryXHR;
+    post(
+        url: string,
+        data?: Object | string,
+        success?: (data: any, textStatus: string, jqXHR: JQueryXHR) => any,
+        dataType?: string,
+    ): JQueryXHR;
 
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
@@ -159,7 +168,7 @@ interface ChaiJQueryStatic {
      * @param selector A string containing a selector expression
      * @param context A DOM Element, Document, or jQuery to use as context
      */
-    (selector: string, context?: Element|JQuery): ChaiJQuery;
+    (selector: string, context?: Element | JQuery): ChaiJQuery;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
      *
@@ -223,12 +232,12 @@ interface ChaiJQueryStatic {
      *
      * @param deferreds One or more Deferred objects, or plain JavaScript objects.
      */
-    when<T>(...deferreds: Array<T|JQueryPromise<T>/* as JQueryDeferred<T> */>): JQueryPromise<T>;
+    when<T>(...deferreds: Array<T | JQueryPromise<T> /* as JQueryDeferred<T> */>): JQueryPromise<T>;
 
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize CSS property naming, or create custom properties.
      */
-    cssHooks: { [key: string]: any; };
+    cssHooks: { [key: string]: any };
     cssNumber: any;
 
     /**
@@ -317,7 +326,7 @@ interface ChaiJQueryStatic {
          */
         interval: number;
         stop: () => void;
-        speeds: { slow: number; fast: number; };
+        speeds: { slow: number; fast: number };
         /**
          * Globally disable all animations.
          */
@@ -352,7 +361,7 @@ interface ChaiJQueryStatic {
     error(message: any): ChaiJQuery;
 
     expr: any;
-    fn: any;  //TODO: Decide how we want to type this
+    fn: any; // TODO: Decide how we want to type this
 
     isReady: boolean;
 
@@ -375,8 +384,8 @@ interface ChaiJQueryStatic {
      */
     each<T>(
         collection: T[],
-        callback: (indexInArray: number, valueOfElement: T) => any
-        ): any;
+        callback: (indexInArray: number, valueOfElement: T) => any,
+    ): any;
 
     /**
      * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
@@ -386,8 +395,8 @@ interface ChaiJQueryStatic {
      */
     each(
         collection: any,
-        callback: (indexInArray: any, valueOfElement: any) => any
-        ): any;
+        callback: (indexInArray: any, valueOfElement: any) => any,
+    ): any;
 
     /**
      * Merge the contents of two or more objects together into the first object.
@@ -578,13 +587,22 @@ interface ChaiJQuery {
      *
      * @param handler The function to be invoked.
      */
-    ajaxComplete(handler: (event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any): ChaiJQuery;
+    ajaxComplete(
+        handler: (event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: any) => any,
+    ): ChaiJQuery;
     /**
      * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
      *
      * @param handler The function to be invoked.
      */
-    ajaxError(handler: (event: JQueryEventObject, jqXHR: JQueryXHR, ajaxSettings: JQueryAjaxSettings, thrownError: any) => any): ChaiJQuery;
+    ajaxError(
+        handler: (
+            event: JQueryEventObject,
+            jqXHR: JQueryXHR,
+            ajaxSettings: JQueryAjaxSettings,
+            thrownError: any,
+        ) => any,
+    ): ChaiJQuery;
     /**
      * Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
      *
@@ -608,7 +626,9 @@ interface ChaiJQuery {
      *
      * @param handler The function to be invoked.
      */
-    ajaxSuccess(handler: (event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: JQueryAjaxSettings) => any): ChaiJQuery;
+    ajaxSuccess(
+        handler: (event: JQueryEventObject, XMLHttpRequest: XMLHttpRequest, ajaxOptions: JQueryAjaxSettings) => any,
+    ): ChaiJQuery;
 
     /**
      * Load data from the server and place the returned HTML into the matched element.
@@ -617,7 +637,11 @@ interface ChaiJQuery {
      * @param data A plain object or string that is sent to the server with the request.
      * @param complete A callback function that is executed when the request completes.
      */
-    load(url: string, data?: string|Object, complete?: (responseText: string, textStatus: string, XMLHttpRequest: XMLHttpRequest) => any): ChaiJQuery;
+    load(
+        url: string,
+        data?: string | Object,
+        complete?: (responseText: string, textStatus: string, XMLHttpRequest: XMLHttpRequest) => any,
+    ): ChaiJQuery;
 
     /**
      * Encode a set of form elements as a string for submission.
@@ -658,14 +682,14 @@ interface ChaiJQuery {
      * @param attributeName The name of the attribute to set.
      * @param value A value to set for the attribute.
      */
-    attr(attributeName: string, value: string|number): ChaiJQuery;
+    attr(attributeName: string, value: string | number): ChaiJQuery;
     /**
      * Set one or more attributes for the set of matched elements.
      *
      * @param attributeName The name of the attribute to set.
      * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old attribute value as arguments.
      */
-    attr(attributeName: string, func: (index: number, attr: string) => string|number): ChaiJQuery;
+    attr(attributeName: string, func: (index: number, attr: string) => string | number): ChaiJQuery;
     /**
      * Set one or more attributes for the set of matched elements.
      *
@@ -714,7 +738,7 @@ interface ChaiJQuery {
      * @param propertyName The name of the property to set.
      * @param value A value to set for the property.
      */
-    prop(propertyName: string, value: string|number|boolean): ChaiJQuery;
+    prop(propertyName: string, value: string | number | boolean): ChaiJQuery;
     /**
      * Set one or more properties for the set of matched elements.
      *
@@ -786,14 +810,13 @@ interface ChaiJQuery {
      *
      * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
      */
-    val(value: string|string[]): ChaiJQuery;
+    val(value: string | string[]): ChaiJQuery;
     /**
      * Set the value of each element in the set of matched elements.
      *
      * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      */
     val(func: (index: number, value: string) => string): ChaiJQuery;
-
 
     /**
      * Get the value of style properties for the first element in the set of matched elements.
@@ -807,14 +830,14 @@ interface ChaiJQuery {
      * @param propertyName A CSS property name.
      * @param value A value to set for the property.
      */
-    css(propertyName: string, value: string|number): ChaiJQuery;
+    css(propertyName: string, value: string | number): ChaiJQuery;
     /**
      * Set one or more CSS properties for the set of matched elements.
      *
      * @param propertyName A CSS property name.
      * @param value A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
      */
-    css(propertyName: string, value: (index: number, value: string) => string|number): ChaiJQuery;
+    css(propertyName: string, value: (index: number, value: string) => string | number): ChaiJQuery;
     /**
      * Set one or more CSS properties for the set of matched elements.
      *
@@ -831,13 +854,13 @@ interface ChaiJQuery {
      *
      * @param value An integer representing the number of pixels, or an integer with an optional unit of measure appended (as a string).
      */
-    height(value: number|string): ChaiJQuery;
+    height(value: number | string): ChaiJQuery;
     /**
      * Set the CSS height of every matched element.
      *
      * @param func A function returning the height to set. Receives the index position of the element in the set and the old height as arguments. Within the function, this refers to the current element in the set.
      */
-    height(func: (index: number, height: number) => number|string): ChaiJQuery;
+    height(func: (index: number, height: number) => number | string): ChaiJQuery;
 
     /**
      * Get the current computed height for the first element in the set of matched elements, including padding but not border.
@@ -849,7 +872,7 @@ interface ChaiJQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    innerHeight(height: number|string): ChaiJQuery;
+    innerHeight(height: number | string): ChaiJQuery;
 
     /**
      * Get the current computed width for the first element in the set of matched elements, including padding but not border.
@@ -861,7 +884,7 @@ interface ChaiJQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    innerWidth(width: number|string): ChaiJQuery;
+    innerWidth(width: number | string): ChaiJQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the document.
@@ -892,7 +915,7 @@ interface ChaiJQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    outerHeight(height: number|string): ChaiJQuery;
+    outerHeight(height: number | string): ChaiJQuery;
 
     /**
      * Get the current computed width for the first element in the set of matched elements, including padding and border.
@@ -906,7 +929,7 @@ interface ChaiJQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    outerWidth(width: number|string): ChaiJQuery;
+    outerWidth(width: number | string): ChaiJQuery;
 
     /**
      * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
@@ -944,13 +967,13 @@ interface ChaiJQuery {
      *
      * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure appended (as a string).
      */
-    width(value: number|string): ChaiJQuery;
+    width(value: number | string): ChaiJQuery;
     /**
      * Set the CSS width of each element in the set of matched elements.
      *
      * @param func A function returning the width to set. Receives the index position of the element in the set and the old width as arguments. Within the function, this refers to the current element in the set.
      */
-    width(func: (index: number, width: number) => number|string): ChaiJQuery;
+    width(func: (index: number, width: number) => number | string): ChaiJQuery;
 
     /**
      * Remove from the queue all items that have not yet been run.
@@ -971,7 +994,7 @@ interface ChaiJQuery {
      *
      * @param obj An object of key-value pairs of data to update.
      */
-    data(obj: { [key: string]: any; }): ChaiJQuery;
+    data(obj: { [key: string]: any }): ChaiJQuery;
     /**
      * Return the value at the named data store for the first element in the jQuery collection, as set by data(name, value) or by an HTML5 data-* attribute.
      *
@@ -1018,7 +1041,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    animate(properties: Object, duration?: string|number, complete?: Function): ChaiJQuery;
+    animate(properties: Object, duration?: string | number, complete?: Function): ChaiJQuery;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -1027,7 +1050,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition. (default: swing)
      * @param complete A function to call once the animation is complete.
      */
-    animate(properties: Object, duration?: string|number, easing?: string, complete?: Function): ChaiJQuery;
+    animate(properties: Object, duration?: string | number, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -1050,7 +1073,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    fadeIn(duration?: number|string, complete?: Function): ChaiJQuery;
+    fadeIn(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -1058,7 +1081,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    fadeIn(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    fadeIn(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -1072,7 +1095,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    fadeOut(duration?: number|string, complete?: Function): ChaiJQuery;
+    fadeOut(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Hide the matched elements by fading them to transparent.
      *
@@ -1080,7 +1103,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    fadeOut(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    fadeOut(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Hide the matched elements by fading them to transparent.
      *
@@ -1095,7 +1118,7 @@ interface ChaiJQuery {
      * @param opacity A number between 0 and 1 denoting the target opacity.
      * @param complete A function to call once the animation is complete.
      */
-    fadeTo(duration: string|number, opacity: number, complete?: Function): ChaiJQuery;
+    fadeTo(duration: string | number, opacity: number, complete?: Function): ChaiJQuery;
     /**
      * Adjust the opacity of the matched elements.
      *
@@ -1104,7 +1127,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    fadeTo(duration: string|number, opacity: number, easing?: string, complete?: Function): ChaiJQuery;
+    fadeTo(duration: string | number, opacity: number, easing?: string, complete?: Function): ChaiJQuery;
 
     /**
      * Display or hide the matched elements by animating their opacity.
@@ -1112,7 +1135,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    fadeToggle(duration?: number|string, complete?: Function): ChaiJQuery;
+    fadeToggle(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Display or hide the matched elements by animating their opacity.
      *
@@ -1120,7 +1143,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    fadeToggle(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    fadeToggle(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Display or hide the matched elements by animating their opacity.
      *
@@ -1141,7 +1164,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    hide(duration?: number|string, complete?: Function): ChaiJQuery;
+    hide(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Hide the matched elements.
      *
@@ -1149,7 +1172,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    hide(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    hide(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Hide the matched elements.
      *
@@ -1163,7 +1186,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    show(duration?: number|string, complete?: Function): ChaiJQuery;
+    show(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Display the matched elements.
      *
@@ -1171,7 +1194,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    show(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    show(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Display the matched elements.
      *
@@ -1185,7 +1208,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    slideDown(duration?: number|string, complete?: Function): ChaiJQuery;
+    slideDown(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Display the matched elements with a sliding motion.
      *
@@ -1193,7 +1216,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    slideDown(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    slideDown(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Display the matched elements with a sliding motion.
      *
@@ -1207,7 +1230,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    slideToggle(duration?: number|string, complete?: Function): ChaiJQuery;
+    slideToggle(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Display or hide the matched elements with a sliding motion.
      *
@@ -1215,7 +1238,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    slideToggle(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    slideToggle(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Display or hide the matched elements with a sliding motion.
      *
@@ -1229,7 +1252,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    slideUp(duration?: number|string, complete?: Function): ChaiJQuery;
+    slideUp(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Hide the matched elements with a sliding motion.
      *
@@ -1237,7 +1260,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    slideUp(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    slideUp(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Hide the matched elements with a sliding motion.
      *
@@ -1267,7 +1290,7 @@ interface ChaiJQuery {
      * @param duration A string or number determining how long the animation will run.
      * @param complete A function to call once the animation is complete.
      */
-    toggle(duration?: number|string, complete?: Function): ChaiJQuery;
+    toggle(duration?: number | string, complete?: Function): ChaiJQuery;
     /**
      * Display or hide the matched elements.
      *
@@ -1275,7 +1298,7 @@ interface ChaiJQuery {
      * @param easing A string indicating which easing function to use for the transition.
      * @param complete A function to call once the animation is complete.
      */
-    toggle(duration?: number|string, easing?: string, complete?: Function): ChaiJQuery;
+    toggle(duration?: number | string, easing?: string, complete?: Function): ChaiJQuery;
     /**
      * Display or hide the matched elements.
      *
@@ -1399,7 +1422,12 @@ interface ChaiJQuery {
     dblclick(eventData?: any, handler?: (eventObject: JQueryEventObject) => any): ChaiJQuery;
 
     delegate(selector: any, eventType: string, handler: (eventObject: JQueryEventObject) => any): ChaiJQuery;
-    delegate(selector: any, eventType: string, eventData: any, handler: (eventObject: JQueryEventObject) => any): ChaiJQuery;
+    delegate(
+        selector: any,
+        eventType: string,
+        eventData: any,
+        handler: (eventObject: JQueryEventObject) => any,
+    ): ChaiJQuery;
 
     /**
      * Trigger the "focus" event on an element.
@@ -1453,7 +1481,10 @@ interface ChaiJQuery {
      * @param handlerIn A function to execute when the mouse pointer enters the element.
      * @param handlerOut A function to execute when the mouse pointer leaves the element.
      */
-    hover(handlerIn: (eventObject: JQueryEventObject) => any, handlerOut: (eventObject: JQueryEventObject) => any): ChaiJQuery;
+    hover(
+        handlerIn: (eventObject: JQueryEventObject) => any,
+        handlerOut: (eventObject: JQueryEventObject) => any,
+    ): ChaiJQuery;
     /**
      * Bind a single handler to the matched elements, to be executed when the mouse pointer enters or leaves the elements.
      *
@@ -1680,7 +1711,7 @@ interface ChaiJQuery {
      * @param events An object where the string keys represent one or more space-separated event types and optional namespaces, and the values represent handler functions previously attached for the event(s).
      * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
      */
-    off(events: { [key: string]: any; }, selector?: string): ChaiJQuery;
+    off(events: { [key: string]: any }, selector?: string): ChaiJQuery;
 
     /**
      * Attach an event handler function for one or more events to the selected elements.
@@ -1695,7 +1726,7 @@ interface ChaiJQuery {
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
      * @param data Data to be passed to the handler in event.data when an event is triggered.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
-    */
+     */
     on(events: string, data: any, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): ChaiJQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
@@ -1704,7 +1735,11 @@ interface ChaiJQuery {
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      */
-    on(events: string, selector: string, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): ChaiJQuery;
+    on(
+        events: string,
+        selector: string,
+        handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any,
+    ): ChaiJQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -1713,7 +1748,12 @@ interface ChaiJQuery {
      * @param data Data to be passed to the handler in event.data when an event is triggered.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      */
-    on(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): ChaiJQuery;
+    on(
+        events: string,
+        selector: string,
+        data: any,
+        handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any,
+    ): ChaiJQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -1721,14 +1761,14 @@ interface ChaiJQuery {
      * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If the selector is null or omitted, the handler is always called when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
-    on(events: { [key: string]: any; }, selector?: string, data?: any): ChaiJQuery;
+    on(events: { [key: string]: any }, selector?: string, data?: any): ChaiJQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
-    on(events: { [key: string]: any; }, data?: any): ChaiJQuery;
+    on(events: { [key: string]: any }, data?: any): ChaiJQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -1771,7 +1811,7 @@ interface ChaiJQuery {
      * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If the selector is null or omitted, the handler is always called when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
-    one(events: { [key: string]: any; }, selector?: string, data?: any): ChaiJQuery;
+    one(events: { [key: string]: any }, selector?: string, data?: any): ChaiJQuery;
 
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
@@ -1779,8 +1819,7 @@ interface ChaiJQuery {
      * @param events An object in which the string keys represent one or more space-separated event types and optional namespaces, and the values represent a handler function to be called for the event(s).
      * @param data Data to be passed to the handler in event.data when an event occurs.
      */
-    one(events: { [key: string]: any; }, data?: any): ChaiJQuery;
-
+    one(events: { [key: string]: any }, data?: any): ChaiJQuery;
 
     /**
      * Specify a function to execute when the DOM is fully loaded.
@@ -1867,14 +1906,14 @@ interface ChaiJQuery {
      * @param eventType A string containing a JavaScript event type, such as click or submit.
      * @param extraParameters Additional parameters to pass along to the event handler.
      */
-    trigger(eventType: string, extraParameters?: any[]|Object): ChaiJQuery;
+    trigger(eventType: string, extraParameters?: any[] | Object): ChaiJQuery;
     /**
      * Execute all handlers and behaviors attached to the matched elements for the given event type.
      *
      * @param event A jQuery.Event object.
      * @param extraParameters Additional parameters to pass along to the event handler.
      */
-    trigger(event: JQueryEventObject, extraParameters?: any[]|Object): ChaiJQuery;
+    trigger(event: JQueryEventObject, extraParameters?: any[] | Object): ChaiJQuery;
 
     /**
      * Execute all handlers attached to an element for an event.
@@ -1987,13 +2026,13 @@ interface ChaiJQuery {
      * param content1 HTML string, DOM element, array of elements, or jQuery object to insert after each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert after each element in the set of matched elements.
      */
-    after(content1: JQuery|any[]|Element|Text|string, ...content2: any[]): ChaiJQuery;
+    after(content1: JQuery | any[] | Element | Text | string, ...content2: any[]): ChaiJQuery;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      *
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert after each element in the set of matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      */
-    after(func: (index: number, html: string) => string|Element|JQuery): ChaiJQuery;
+    after(func: (index: number, html: string) => string | Element | JQuery): ChaiJQuery;
 
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
@@ -2001,20 +2040,20 @@ interface ChaiJQuery {
      * param content1 DOM element, array of elements, HTML string, or jQuery object to insert at the end of each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the end of each element in the set of matched elements.
      */
-    append(content1: JQuery|any[]|Element|Text|string, ...content2: any[]): ChaiJQuery;
+    append(content1: JQuery | any[] | Element | Text | string, ...content2: any[]): ChaiJQuery;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert at the end of each element in the set of matched elements. Receives the index position of the element in the set and the old HTML value of the element as arguments. Within the function, this refers to the current element in the set.
      */
-    append(func: (index: number, html: string) => string|Element|JQuery): ChaiJQuery;
+    append(func: (index: number, html: string) => string | Element | JQuery): ChaiJQuery;
 
     /**
      * Insert every element in the set of matched elements to the end of the target.
      *
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements will be inserted at the end of the element(s) specified by this parameter.
      */
-    appendTo(target: JQuery|any[]|Element|string): ChaiJQuery;
+    appendTo(target: JQuery | any[] | Element | string): ChaiJQuery;
 
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
@@ -2022,13 +2061,13 @@ interface ChaiJQuery {
      * param content1 HTML string, DOM element, array of elements, or jQuery object to insert before each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert before each element in the set of matched elements.
      */
-    before(content1: JQuery|any[]|Element|Text|string, ...content2: any[]): ChaiJQuery;
+    before(content1: JQuery | any[] | Element | Text | string, ...content2: any[]): ChaiJQuery;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      *
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert before each element in the set of matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      */
-    before(func: (index: number, html: string) => string|Element|JQuery): ChaiJQuery;
+    before(func: (index: number, html: string) => string | Element | JQuery): ChaiJQuery;
 
     /**
      * Create a deep copy of the set of matched elements.
@@ -2055,14 +2094,14 @@ interface ChaiJQuery {
      *
      * param target A selector, element, array of elements, HTML string, or jQuery object; the matched set of elements will be inserted after the element(s) specified by this parameter.
      */
-    insertAfter(target: JQuery|any[]|Element|Text|string): ChaiJQuery;
+    insertAfter(target: JQuery | any[] | Element | Text | string): ChaiJQuery;
 
     /**
      * Insert every element in the set of matched elements before the target.
      *
      * param target A selector, element, array of elements, HTML string, or jQuery object; the matched set of elements will be inserted before the element(s) specified by this parameter.
      */
-    insertBefore(target: JQuery|any[]|Element|Text|string): ChaiJQuery;
+    insertBefore(target: JQuery | any[] | Element | Text | string): ChaiJQuery;
 
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
@@ -2070,20 +2109,20 @@ interface ChaiJQuery {
      * param content1 DOM element, array of elements, HTML string, or jQuery object to insert at the beginning of each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the beginning of each element in the set of matched elements.
      */
-    prepend(content1: JQuery|any[]|Element|Text|string, ...content2: any[]): ChaiJQuery;
+    prepend(content1: JQuery | any[] | Element | Text | string, ...content2: any[]): ChaiJQuery;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      *
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert at the beginning of each element in the set of matched elements. Receives the index position of the element in the set and the old HTML value of the element as arguments. Within the function, this refers to the current element in the set.
      */
-    prepend(func: (index: number, html: string) => string|Element|JQuery): ChaiJQuery;
+    prepend(func: (index: number, html: string) => string | Element | JQuery): ChaiJQuery;
 
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      *
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements will be inserted at the beginning of the element(s) specified by this parameter.
      */
-    prependTo(target: JQuery|any[]|Element|string): ChaiJQuery;
+    prependTo(target: JQuery | any[] | Element | string): ChaiJQuery;
 
     /**
      * Remove the set of matched elements from the DOM.
@@ -2097,20 +2136,20 @@ interface ChaiJQuery {
      *
      * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
      */
-    replaceAll(target: JQuery|any[]|Element|string): ChaiJQuery;
+    replaceAll(target: JQuery | any[] | Element | string): ChaiJQuery;
 
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
      *
      * param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
      */
-    replaceWith(newContent: JQuery|any[]|Element|Text|string): ChaiJQuery;
+    replaceWith(newContent: JQuery | any[] | Element | Text | string): ChaiJQuery;
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
      *
      * param func A function that returns content with which to replace the set of matched elements.
      */
-    replaceWith(func: () => Element|JQuery): ChaiJQuery;
+    replaceWith(func: () => Element | JQuery): ChaiJQuery;
 
     /**
      * Get the combined text contents of each element in the set of matched elements, including their descendants.
@@ -2121,7 +2160,7 @@ interface ChaiJQuery {
      *
      * @param text The text to set as the content of each matched element. When Number or Boolean is supplied, it will be converted to a String representation.
      */
-    text(text: string|number|boolean): ChaiJQuery;
+    text(text: string | number | boolean): ChaiJQuery;
     /**
      * Set the content of each element in the set of matched elements to the specified text.
      *
@@ -2144,20 +2183,20 @@ interface ChaiJQuery {
      *
      * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
      */
-    wrap(wrappingElement: JQuery|Element|string): ChaiJQuery;
+    wrap(wrappingElement: JQuery | Element | string): ChaiJQuery;
     /**
      * Wrap an HTML structure around each element in the set of matched elements.
      *
      * @param func A callback function returning the HTML content or jQuery object to wrap around the matched elements. Receives the index position of the element in the set as an argument. Within the function, this refers to the current element in the set.
      */
-    wrap(func: (index: number) => string|JQuery): ChaiJQuery;
+    wrap(func: (index: number) => string | JQuery): ChaiJQuery;
 
     /**
      * Wrap an HTML structure around all elements in the set of matched elements.
      *
      * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
      */
-    wrapAll(wrappingElement: JQuery|Element|string): ChaiJQuery;
+    wrapAll(wrappingElement: JQuery | Element | string): ChaiJQuery;
     wrapAll(func: (index: number) => string): ChaiJQuery;
 
     /**
@@ -2165,7 +2204,7 @@ interface ChaiJQuery {
      *
      * @param wrappingElement An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap around the content of the matched elements.
      */
-    wrapInner(wrappingElement: JQuery|Element|string): ChaiJQuery;
+    wrapInner(wrappingElement: JQuery | Element | string): ChaiJQuery;
     /**
      * Wrap an HTML structure around the content of each element in the set of matched elements.
      *
@@ -2200,7 +2239,7 @@ interface ChaiJQuery {
      *
      * @param selector A selector representing a jQuery collection in which to look for an element.
      */
-    index(selector: string|JQuery|Element): number;
+    index(selector: string | JQuery | Element): number;
 
     /**
      * The number of elements in the jQuery object.
@@ -2295,7 +2334,6 @@ interface ChaiJQuery {
      * Reduce the set of matched elements to the one at the specified index.
      *
      * @param index An integer indicating the 0-based position of the element. OR An integer indicating the position of the element, counting backwards from the last element in the set.
-     *
      */
     eq(index: number): ChaiJQuery;
 

@@ -1,32 +1,37 @@
-const dropzoneFromString = new Dropzone('.test');
-const dropzoneFromElement = new Dropzone(document.getElementById('test'));
+const dropzoneFromString = new Dropzone(".test");
+const dropzoneFromElement = new Dropzone(document.getElementById("test"));
 const dropzoneRenameFunction = (name: string): string => {
-    return name + 'new';
+    return name + "new";
 };
 
 const blacklistedBrowsers: RegExp[] = Dropzone.blacklistedBrowsers;
-Dropzone.createElement('<div id="divTest"></div>');
-const dataURItoBlob: Blob = Dropzone.dataURItoBlob('');
+Dropzone.createElement("<div id=\"divTest\"></div>");
+const dataURItoBlob: Blob = Dropzone.dataURItoBlob("");
 const discover: Dropzone[] = Dropzone.discover();
-const elementInside: boolean = Dropzone.elementInside(document.getElementById('test'), document.getElementById('parentOfTest'));
-const dropzoneForSelector: Dropzone = Dropzone.forElement('#selector');
-const dropzoneForElement: Dropzone = Dropzone.forElement(document.getElementById('test'));
-const getElementString: HTMLElement = Dropzone.getElement('.test', 'optional description');
-const getElementNodeLike: HTMLElement = Dropzone.getElement(document.getElementById('test'));
-const getElementsString: HTMLElement[] = Dropzone.getElements('.test');
-const getElementsNodeLike: HTMLElement[] = Dropzone.getElements(document.getElementById('test'));
-const getElementsWithArray: HTMLElement[] = Dropzone.getElements(['.test', document.getElementById('test')]);
+const elementInside: boolean = Dropzone.elementInside(
+    document.getElementById("test"),
+    document.getElementById("parentOfTest"),
+);
+const dropzoneForSelector: Dropzone = Dropzone.forElement("#selector");
+const dropzoneForElement: Dropzone = Dropzone.forElement(document.getElementById("test"));
+const getElementString: HTMLElement = Dropzone.getElement(".test", "optional description");
+const getElementNodeLike: HTMLElement = Dropzone.getElement(document.getElementById("test"));
+const getElementsString: HTMLElement[] = Dropzone.getElements(".test");
+const getElementsNodeLike: HTMLElement[] = Dropzone.getElements(document.getElementById("test"));
+const getElementsWithArray: HTMLElement[] = Dropzone.getElements([".test", document.getElementById("test")]);
 Dropzone.isBrowserSupported();
-const isValidFile: boolean = Dropzone.isValidFile(new File([], 'test'), 'application/javascript');
-const optionsForElement: Dropzone.DropzoneOptions | undefined =  Dropzone.optionsForElement(document.getElementById('test'));
+const isValidFile: boolean = Dropzone.isValidFile(new File([], "test"), "application/javascript");
+const optionsForElement: Dropzone.DropzoneOptions | undefined = Dropzone.optionsForElement(
+    document.getElementById("test"),
+);
 Dropzone.version;
-Dropzone.options['divTest'] = { clickable: true };
-Dropzone.options['noDiscover'] = false;
+Dropzone.options["divTest"] = { clickable: true };
+Dropzone.options["noDiscover"] = false;
 console.log(Dropzone.instances.length);
 
-const dropzoneWithOptions = new Dropzone('.test', {
-    url: '/some/url',
-    method: 'post',
+const dropzoneWithOptions = new Dropzone(".test", {
+    url: "/some/url",
+    method: "post",
     withCredentials: false,
     parallelUploads: 2,
     uploadMultiple: true,
@@ -37,55 +42,55 @@ const dropzoneWithOptions = new Dropzone('.test', {
     retryChunks: true,
     retryChunksLimit: 6,
     maxFilesize: 1024,
-    paramName: 'file',
+    paramName: "file",
     createImageThumbnails: true,
     maxThumbnailFilesize: 1024,
     thumbnailWidth: 120,
     thumbnailHeight: 120,
-    thumbnailMethod: 'crop',
+    thumbnailMethod: "crop",
     resizeWidth: 1024,
     resizeHeight: 1024,
-    resizeMimeType: 'image.jpeg',
+    resizeMimeType: "image.jpeg",
     resizeQuality: 0.8,
-    resizeMethod: 'contain',
+    resizeMethod: "contain",
     filesizeBase: 1000,
     maxFiles: 100,
     params: {
-        additional: 'param',
+        additional: "param",
     },
     headers: {
-        'Some-Header': 'Value',
+        "Some-Header": "Value",
     },
     clickable: true,
     ignoreHiddenFiles: true,
-    acceptedFiles: 'image/*',
+    acceptedFiles: "image/*",
     renameFilename: dropzoneRenameFunction,
     autoProcessQueue: true,
     autoQueue: true,
     addRemoveLinks: true,
-    previewsContainer: '<div></div>',
-    hiddenInputContainer: document.createElement('input'),
-    capture: 'camera',
+    previewsContainer: "<div></div>",
+    hiddenInputContainer: document.createElement("input"),
+    capture: "camera",
 
-    dictDefaultMessage: '',
-    dictFallbackMessage: '',
-    dictFallbackText: '',
-    dictFileTooBig: '',
-    dictInvalidFileType: '',
-    dictResponseError: '',
-    dictCancelUpload: '',
-    dictCancelUploadConfirmation: '',
-    dictRemoveFile: '',
-    dictRemoveFileConfirmation: '',
-    dictMaxFilesExceeded: '',
-    dictFileSizeUnits: { tb: '', gb: '', mb: '', kb: '', b: '' },
-    dictUploadCanceled: '',
+    dictDefaultMessage: "",
+    dictFallbackMessage: "",
+    dictFallbackText: "",
+    dictFileTooBig: "",
+    dictInvalidFileType: "",
+    dictResponseError: "",
+    dictCancelUpload: "",
+    dictCancelUploadConfirmation: "",
+    dictRemoveFile: "",
+    dictRemoveFileConfirmation: "",
+    dictMaxFilesExceeded: "",
+    dictFileSizeUnits: { tb: "", gb: "", mb: "", kb: "", b: "" },
+    dictUploadCanceled: "",
 
     accept: (file: Dropzone.DropzoneFile, done: (error?: string | Error) => void) => {
         if (file.accepted) {
-            file.previewElement.classList.add('accepted');
-            file.previewTemplate.classList.add('accepted');
-            file.previewsContainer.classList.add('accepted');
+            file.previewElement.classList.add("accepted");
+            file.previewTemplate.classList.add("accepted");
+            file.previewsContainer.classList.add("accepted");
             done();
         } else {
             done(new Error(file.status));
@@ -93,18 +98,18 @@ const dropzoneWithOptions = new Dropzone('.test', {
     },
     chunksUploaded: (file: Dropzone.DropzoneFile, done: (error?: string | Error) => void) => {
         if (file.accepted) {
-            file.previewElement.classList.add('accepted');
-            file.previewTemplate.classList.add('accepted');
-            file.previewsContainer.classList.add('accepted');
+            file.previewElement.classList.add("accepted");
+            file.previewTemplate.classList.add("accepted");
+            file.previewsContainer.classList.add("accepted");
             done();
         } else {
             done(new Error(file.status));
         }
     },
-    init: () => console.log('Initialized'),
+    init: () => console.log("Initialized"),
     forceFallback: false,
-    fallback: () => console.log('Fallback'),
-    resize: (file: Dropzone.DropzoneFile, width: 120, height: 120, resizeMethod: 'contain') => ({
+    fallback: () => console.log("Fallback"),
+    resize: (file: Dropzone.DropzoneFile, width: 120, height: 120, resizeMethod: "contain") => ({
         srcX: 0,
         srcY: 0,
         trgX: 10,
@@ -115,78 +120,78 @@ const dropzoneWithOptions = new Dropzone('.test', {
         trgHeight: 50,
     }),
 
-    drop: (e: DragEvent) => console.log('Drop'),
-    dragstart: (e: DragEvent) => console.log('Dragstart'),
-    dragend: (e: DragEvent) => console.log('Dragend'),
-    dragenter: (e: DragEvent) => console.log('Dragenter'),
-    dragover: (e: DragEvent) => console.log('Dragover'),
-    dragleave: (e: DragEvent) => console.log('Dragleave'),
-    paste: (e: DragEvent) => console.log('Paste'),
+    drop: (e: DragEvent) => console.log("Drop"),
+    dragstart: (e: DragEvent) => console.log("Dragstart"),
+    dragend: (e: DragEvent) => console.log("Dragend"),
+    dragenter: (e: DragEvent) => console.log("Dragenter"),
+    dragover: (e: DragEvent) => console.log("Dragover"),
+    dragleave: (e: DragEvent) => console.log("Dragleave"),
+    paste: (e: DragEvent) => console.log("Paste"),
 
-    reset: () => console.log('Reset'),
+    reset: () => console.log("Reset"),
 
-    addedfile: (file: Dropzone.DropzoneFile) => console.log('Addedfile'),
-    addedfiles: (files: Dropzone.DropzoneFile[]) => console.log('Addedfiles'),
-    removedfile: (file: Dropzone.DropzoneFile) => console.log('Removedfile'),
-    thumbnail: (file: Dropzone.DropzoneFile, dataUrl: string) => console.log('Thumbnail'),
+    addedfile: (file: Dropzone.DropzoneFile) => console.log("Addedfile"),
+    addedfiles: (files: Dropzone.DropzoneFile[]) => console.log("Addedfiles"),
+    removedfile: (file: Dropzone.DropzoneFile) => console.log("Removedfile"),
+    thumbnail: (file: Dropzone.DropzoneFile, dataUrl: string) => console.log("Thumbnail"),
 
-    error: (file: Dropzone.DropzoneFile, message: string | Error) => console.log('Error'),
-    errormultiple: (files: Dropzone.DropzoneFile[], message: string | Error) => console.log('Errormultiple'),
+    error: (file: Dropzone.DropzoneFile, message: string | Error) => console.log("Error"),
+    errormultiple: (files: Dropzone.DropzoneFile[], message: string | Error) => console.log("Errormultiple"),
 
-    processing: (file: Dropzone.DropzoneFile) => console.log('Processing'),
-    processingmultiple: (files: Dropzone.DropzoneFile[]) => console.log('Processingmultiple'),
+    processing: (file: Dropzone.DropzoneFile) => console.log("Processing"),
+    processingmultiple: (files: Dropzone.DropzoneFile[]) => console.log("Processingmultiple"),
 
-    uploadprogress: (file: Dropzone.DropzoneFile, progress: number, bytesSent: number) => console.log('Uploadprogress'),
+    uploadprogress: (file: Dropzone.DropzoneFile, progress: number, bytesSent: number) => console.log("Uploadprogress"),
     totaluploadprogress: (totalProgress: number, totalBytes: number, totalBytesSent: number) =>
-        console.log('Totaluploadprogress'),
+        console.log("Totaluploadprogress"),
 
-    sending: (file: Dropzone.DropzoneFile, xhr: XMLHttpRequest, formData: {}) => console.log('Sending'),
+    sending: (file: Dropzone.DropzoneFile, xhr: XMLHttpRequest, formData: {}) => console.log("Sending"),
     sendingmultiple: (files: Dropzone.DropzoneFile[], xhr: XMLHttpRequest, formData: {}) =>
-        console.log('Sendingmultiple'),
+        console.log("Sendingmultiple"),
 
-    success: (file: Dropzone.DropzoneFile) => console.log('Success'),
-    successmultiple: (files: Dropzone.DropzoneFile[]) => console.log('Successmultiple'),
+    success: (file: Dropzone.DropzoneFile) => console.log("Success"),
+    successmultiple: (files: Dropzone.DropzoneFile[]) => console.log("Successmultiple"),
 
-    canceled: (file: Dropzone.DropzoneFile) => console.log('Canceled'),
-    canceledmultiple: (file: Dropzone.DropzoneFile[]) => console.log('Canceledmultiple'),
+    canceled: (file: Dropzone.DropzoneFile) => console.log("Canceled"),
+    canceledmultiple: (file: Dropzone.DropzoneFile[]) => console.log("Canceledmultiple"),
 
-    complete: (file: Dropzone.DropzoneFile) => console.log('Complete'),
-    completemultiple: (file: Dropzone.DropzoneFile[]) => console.log('Completemultiple'),
+    complete: (file: Dropzone.DropzoneFile) => console.log("Complete"),
+    completemultiple: (file: Dropzone.DropzoneFile[]) => console.log("Completemultiple"),
 
-    maxfilesexceeded: (file: Dropzone.DropzoneFile) => console.log('Maxfilesexceeded'),
-    maxfilesreached: (files: Dropzone.DropzoneFile[]) => console.log('Maxfilesreached'),
-    queuecomplete: () => console.log('Queuecomplete'),
+    maxfilesexceeded: (file: Dropzone.DropzoneFile) => console.log("Maxfilesexceeded"),
+    maxfilesreached: (files: Dropzone.DropzoneFile[]) => console.log("Maxfilesreached"),
+    queuecomplete: () => console.log("Queuecomplete"),
 
     transformFile: (file, done) => done(file),
 
-    previewTemplate: '<div></div>',
+    previewTemplate: "<div></div>",
 });
 
 var dropzoneWithOptionsVariations: Dropzone;
-dropzoneWithOptionsVariations = new Dropzone('.test', {
-    clickable: '.test',
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    clickable: ".test",
 });
-dropzoneWithOptionsVariations = new Dropzone('.test', {
-    clickable: document.getElementById('test'),
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    clickable: document.getElementById("test"),
 });
-dropzoneWithOptionsVariations = new Dropzone('.test', {
-    clickable: ['.test', '.test'],
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    clickable: [".test", ".test"],
 });
-dropzoneWithOptionsVariations = new Dropzone('.test', {
-    clickable: [document.getElementById('test'), document.getElementById('test')],
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    clickable: [document.getElementById("test"), document.getElementById("test")],
 });
-dropzoneWithOptionsVariations = new Dropzone('.test', {
-    clickable: ['test', document.getElementById('test')],
-});
-
-dropzoneWithOptionsVariations = new Dropzone('.test', {
-    success: (file: Dropzone.DropzoneFile) => console.log(file),
-});
-dropzoneWithOptionsVariations = new Dropzone('.test', {
-    success: (file: Dropzone.DropzoneFile) => console.log(file),
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    clickable: ["test", document.getElementById("test")],
 });
 
-const dropzone = new Dropzone('.test');
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    success: (file: Dropzone.DropzoneFile) => console.log(file),
+});
+dropzoneWithOptionsVariations = new Dropzone(".test", {
+    success: (file: Dropzone.DropzoneFile) => console.log(file),
+});
+
+const dropzone = new Dropzone(".test");
 
 dropzone.element;
 dropzone.hiddenFileInput;
@@ -196,14 +201,14 @@ dropzone.version;
 dropzone.listeners;
 dropzone.listeners[0].element;
 dropzone.listeners[0].events;
-dropzone.listeners[0].events.click(new MouseEvent('click'));
-dropzone.listeners[0].events.dragstart(new DragEvent('drag'));
+dropzone.listeners[0].events.click(new MouseEvent("click"));
+dropzone.listeners[0].events.dragstart(new DragEvent("drag"));
 
 dropzone.options.clickable = true;
 if (!dropzone.options.headers) {
     dropzone.options.headers = {};
 }
-dropzone.options.headers.test = 'test';
+dropzone.options.headers.test = "test";
 dropzone.enable();
 dropzone.disable();
 
@@ -212,9 +217,9 @@ dropzone.files.forEach(f => {
         console.log(f.xhr.readyState);
     }
     if (f.accepted) {
-        f.previewElement.classList.add('accepted');
-        f.previewTemplate.classList.add('accepted');
-        f.previewsContainer.classList.add('accepted');
+        f.previewElement.classList.add("accepted");
+        f.previewTemplate.classList.add("accepted");
+        f.previewsContainer.classList.add("accepted");
     } else {
         console.log(f.status.toUpperCase());
     }
@@ -262,42 +267,42 @@ dropzone.createThumbnail(
     dropzone.defaultOptions.resizeMethod,
     true,
     () => {
-        console.log('createThumbnail');
+        console.log("createThumbnail");
     },
 );
 
 const mockFile: Dropzone.DropzoneMockFile = {
-    name: 'Mock File',
+    name: "Mock File",
     size: 123456,
-    customProperty: 'additional data',
+    customProperty: "additional data",
 };
-dropzone.displayExistingFile(mockFile, 'https://example.com/original.jpeg');
-dropzone.displayExistingFile(mockFile, 'https://example.com/original.jpeg', () => {
-    console.log('displayExistingFile');
+dropzone.displayExistingFile(mockFile, "https://example.com/original.jpeg");
+dropzone.displayExistingFile(mockFile, "https://example.com/original.jpeg", () => {
+    console.log("displayExistingFile");
 });
 dropzone.displayExistingFile(
     mockFile,
-    'https://example.com/original.jpeg',
+    "https://example.com/original.jpeg",
     () => {
-        console.log('displayExistingFile');
+        console.log("displayExistingFile");
     },
     undefined,
 );
 dropzone.displayExistingFile(
     mockFile,
-    'https://example.com/original.jpeg',
+    "https://example.com/original.jpeg",
     () => {
-        console.log('displayExistingFile');
+        console.log("displayExistingFile");
     },
-    'anonymous',
+    "anonymous",
 );
 dropzone.displayExistingFile(
     mockFile,
-    'https://example.com/original.jpeg',
+    "https://example.com/original.jpeg",
     () => {
-        console.log('displayExistingFile');
+        console.log("displayExistingFile");
     },
-    'anonymous',
+    "anonymous",
     false,
 );
 
@@ -324,7 +329,7 @@ dropzone.createThumbnailFromUrl(
     dropzone.defaultOptions.resizeMethod,
     true,
     () => {
-        console.log('createThumbnailFromUrl');
+        console.log("createThumbnailFromUrl");
     },
 );
 dropzone.accept(firstFile, (e: string | Error) => {
@@ -358,105 +363,105 @@ dropzone.removeAllFiles(true);
 dropzone.resizeImage(firstFile);
 dropzone.resizeImage(firstFile, 120);
 dropzone.resizeImage(firstFile, 120, 120);
-dropzone.resizeImage(firstFile, 120, 120, 'contain');
-dropzone.resizeImage(firstFile, 120, 120, 'contain', () => {});
+dropzone.resizeImage(firstFile, 120, 120, "contain");
+dropzone.resizeImage(firstFile, 120, 120, "contain", () => {});
 
-document.createElement('div').dropzone;
+document.createElement("div").dropzone;
 
 dropzone
-    .on('drop', () => {
-        console.count('drop');
+    .on("drop", () => {
+        console.count("drop");
     })
-    .on('dragstart', () => {
-        console.count('dragstart');
+    .on("dragstart", () => {
+        console.count("dragstart");
     })
-    .on('dragend', () => {
-        console.count('dragend');
+    .on("dragend", () => {
+        console.count("dragend");
     })
-    .on('dragenter', () => {
-        console.count('dragenter');
+    .on("dragenter", () => {
+        console.count("dragenter");
     })
-    .on('dragover', () => {
-        console.count('dragover');
+    .on("dragover", () => {
+        console.count("dragover");
     })
-    .on('dragleave', () => {
-        console.count('dragleave');
+    .on("dragleave", () => {
+        console.count("dragleave");
     })
-    .on('paste', () => {
-        console.count('paste');
+    .on("paste", () => {
+        console.count("paste");
     })
-    .on('reset', () => {
-        console.count('reset');
+    .on("reset", () => {
+        console.count("reset");
     })
-    .on('addedfile', () => {
-        console.count('addedfile');
+    .on("addedfile", () => {
+        console.count("addedfile");
     })
-    .on('addedfiles', () => {
-        console.count('addedfiles');
+    .on("addedfiles", () => {
+        console.count("addedfiles");
     })
-    .on('removedfile', () => {
-        console.count('removedfile');
+    .on("removedfile", () => {
+        console.count("removedfile");
     })
-    .on('thumbnail', () => {
-        console.count('thumbnail');
+    .on("thumbnail", () => {
+        console.count("thumbnail");
     })
-    .on('error', () => {
-        console.count('error');
+    .on("error", () => {
+        console.count("error");
     })
-    .on('errormultiple', () => {
-        console.count('errormultiple');
+    .on("errormultiple", () => {
+        console.count("errormultiple");
     })
-    .on('processing', () => {
-        console.count('processing');
+    .on("processing", () => {
+        console.count("processing");
     })
-    .on('processingmultiple', () => {
-        console.count('processingmultiple');
+    .on("processingmultiple", () => {
+        console.count("processingmultiple");
     })
-    .on('uploadprogress', () => {
-        console.count('uploadprogress');
+    .on("uploadprogress", () => {
+        console.count("uploadprogress");
     })
-    .on('totaluploadprogress', () => {
-        console.count('totaluploadprogress');
+    .on("totaluploadprogress", () => {
+        console.count("totaluploadprogress");
     })
-    .on('sending', () => {
-        console.count('sending');
+    .on("sending", () => {
+        console.count("sending");
     })
-    .on('sendingmultiple', () => {
-        console.count('sendingmultiple');
+    .on("sendingmultiple", () => {
+        console.count("sendingmultiple");
     })
-    .on('success', () => {
-        console.count('success');
+    .on("success", () => {
+        console.count("success");
     })
-    .on('successmultiple', () => {
-        console.count('successmultiple');
+    .on("successmultiple", () => {
+        console.count("successmultiple");
     })
-    .on('canceled', () => {
-        console.count('canceled');
+    .on("canceled", () => {
+        console.count("canceled");
     })
-    .on('canceledmultiple', () => {
-        console.count('canceledmultiple');
+    .on("canceledmultiple", () => {
+        console.count("canceledmultiple");
     })
-    .on('complete', () => {
-        console.count('complete');
+    .on("complete", () => {
+        console.count("complete");
     })
-    .on('completemultiple', () => {
-        console.count('completemultiple');
+    .on("completemultiple", () => {
+        console.count("completemultiple");
     })
-    .on('maxfilesexceeded', () => {
-        console.count('maxfilesexceeded');
+    .on("maxfilesexceeded", () => {
+        console.count("maxfilesexceeded");
     })
-    .on('maxfilesreached', () => {
-        console.count('maxfilesreached');
+    .on("maxfilesreached", () => {
+        console.count("maxfilesreached");
     })
-    .on('queuecomplete', () => {
-        console.count('queuecomplete');
+    .on("queuecomplete", () => {
+        console.count("queuecomplete");
     });
 
 dropzone
-    .off('drop', () => {
-        console.count('drop');
+    .off("drop", () => {
+        console.count("drop");
     })
-    .off('dragstart')
+    .off("dragstart")
     .off();
 
 dropzone.destroy();

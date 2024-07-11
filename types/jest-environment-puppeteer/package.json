@@ -1,8 +1,22 @@
 {
     "private": true,
+    "name": "@types/jest-environment-puppeteer",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/smooth-code/jest-puppeteer/tree/master/packages/jest-environment-puppeteer"
+    ],
     "dependencies": {
         "@jest/types": ">=24 <=27",
-        "jest-environment-node": ">=24 <=27",
-        "@types/puppeteer": "^5.4.0"
-    }
+        "@types/puppeteer": "^5.4.0",
+        "jest-environment-node": ">=24 <=27"
+    },
+    "devDependencies": {
+        "@types/jest-environment-puppeteer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        }
+    ]
 }

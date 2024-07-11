@@ -1,8 +1,3 @@
-// Type definitions for hash-chain 2.0
-// Project: https://github.com/emilbayes/hash-chain
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = HashChain;

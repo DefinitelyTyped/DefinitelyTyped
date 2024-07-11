@@ -3,22 +3,22 @@
  */
 
 import {
-    Schema,
-    model,
     Document,
+    model,
     PassportLocalDocument,
-    PassportLocalSchema,
+    PassportLocalErrorMessages,
     PassportLocalModel,
     PassportLocalOptions,
-    PassportLocalErrorMessages,
-} from 'mongoose';
-import passportLocalMongoose = require('passport-local-mongoose');
+    PassportLocalSchema,
+    Schema,
+} from "mongoose";
+import passportLocalMongoose = require("passport-local-mongoose");
 
-import { Router, Request, Response } from 'express';
-import * as passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
+import { Request, Response, Router } from "express";
+import * as passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
 
-//#region Test Models
+// #region Test Models
 interface User extends PassportLocalDocument {
     _id: string;
     username: string;
@@ -36,55 +36,55 @@ const UserSchema = new Schema({
     last: Date,
 }) as PassportLocalSchema;
 
-let options: PassportLocalOptions = <PassportLocalOptions>{};
+let options: PassportLocalOptions = <PassportLocalOptions> {};
 options.iterations = 25000;
 options.keylen = 512;
-options.digestAlgorithm = 'sha256';
+options.digestAlgorithm = "sha256";
 options.interval = 100;
-options.usernameField = 'username';
+options.usernameField = "username";
 options.usernameUnique = true;
 options.usernameLowerCase = true;
-options.hashField = 'hash';
-options.saltField = 'salt';
+options.hashField = "hash";
+options.saltField = "salt";
 options.saltlen = 32;
-options.attemptsField = 'attempts';
-options.lastLoginField = 'last';
-options.selectFields = 'undefined';
-options.populateFields = 'undefined';
-options.encoding = 'hex';
+options.attemptsField = "attempts";
+options.lastLoginField = "last";
+options.selectFields = "undefined";
+options.populateFields = "undefined";
+options.encoding = "hex";
 options.limitAttempts = false;
 options.maxAttempts = Infinity;
 options.passwordValidator = function(password: string, cb: (err: any) => void): void {};
 options.usernameQueryFields = [];
 
 let errorMessages: PassportLocalErrorMessages = {};
-errorMessages.MissingPasswordError = 'No password was given';
-errorMessages.AttemptTooSoonError = 'Account is currently locked. Try again later';
-errorMessages.TooManyAttemptsError = 'Account locked due to too many failed login attempts';
-errorMessages.NoSaltValueStoredError = 'Authentication not possible. No salt value stored';
-errorMessages.IncorrectPasswordError = 'Password or username are incorrect';
-errorMessages.IncorrectUsernameError = 'Password or username are incorrect';
-errorMessages.MissingUsernameError = 'No username was given';
-errorMessages.UserExistsError = 'A user with the given username is already registered';
+errorMessages.MissingPasswordError = "No password was given";
+errorMessages.AttemptTooSoonError = "Account is currently locked. Try again later";
+errorMessages.TooManyAttemptsError = "Account locked due to too many failed login attempts";
+errorMessages.NoSaltValueStoredError = "Authentication not possible. No salt value stored";
+errorMessages.IncorrectPasswordError = "Password or username are incorrect";
+errorMessages.IncorrectUsernameError = "Password or username are incorrect";
+errorMessages.MissingUsernameError = "No username was given";
+errorMessages.UserExistsError = "A user with the given username is already registered";
 
 options.errorMessages = errorMessages;
 UserSchema.plugin(passportLocalMongoose, options);
 
 interface UserModel<T extends Document> extends PassportLocalModel<T> {}
 
-let UserModel: UserModel<User> = model<User>('User', UserSchema);
-//#endregion
+let UserModel: UserModel<User> = model<User>("User", UserSchema);
+// #endregion
 
-//#region Test Passport/Passport-Local
+// #region Test Passport/Passport-Local
 passport.use(UserModel.createStrategy());
 
 passport.use(
-    'login',
+    "login",
     new LocalStrategy(
         {
             passReqToCallback: true,
-            usernameField: 'username',
-            passwordField: 'password',
+            usernameField: "username",
+            passwordField: "password",
         },
         (req: any, username: string, password: string, done: (err: any, res: any, msg?: any) => void) => {
             process.nextTick(() => {
@@ -122,7 +122,7 @@ type _User = User;
 
 declare global {
     namespace Express {
-        // tslint:disable-next-line:no-padding no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface User extends _User {}
     }
 }
@@ -132,8 +132,8 @@ passport.deserializeUser(UserModel.deserializeUser());
 
 let router: Router = Router();
 
-router.post('/login', passport.authenticate('local'), function(req: Request, res: Response) {
+router.post("/login", passport.authenticate("local"), function(req: Request, res: Response) {
     req.user?.username; // $ExpectType string | undefined
-    res.redirect('/');
+    res.redirect("/");
 });
-//#endregion
+// #endregion

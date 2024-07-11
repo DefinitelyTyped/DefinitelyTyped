@@ -1,10 +1,3 @@
-// Type definitions for @nginstack/web-framework 70.0
-// Project: https://dev.azure.com/nginstack/nginstack
-// Definitions by: Renato Ribeiro <https://github.com/Henato>
-//                 Paulo Moreno <https://github.com/paulocmoreno>
-//                 Ricardo Cavalcante <https://github.com/oficial>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
 /// <reference path="keys/Classes.d.ts" />
 /// <reference path="keys/Files.d.ts" />
 /// <reference path="keys/MimeTypes.d.ts" />
@@ -110,11 +103,9 @@
 /// <reference path="lib/messaging/Component.d.ts" />
 /// <reference path="lib/messaging/Controller.d.ts" />
 /// <reference path="lib/messaging/Location.d.ts" />
-/// <reference path="lib/messaging/MasterComponent.d.ts" />
+/// <reference path="lib/messaging/ServerComponent.d.ts" />
 /// <reference path="lib/messaging/MessageBuffer.d.ts" />
-/// <reference path="lib/personalization/Environment.d.ts" />
 /// <reference path="lib/personalization/Login.d.ts" />
-/// <reference path="lib/personalization/MenuBar.d.ts" />
 /// <reference path="lib/personalization/Theme.d.ts" />
 /// <reference path="lib/personalization/UserAgent.d.ts" />
 /// <reference path="lib/process/Interaction.d.ts" />

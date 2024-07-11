@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/medium-editor",
+    "version": "5.0.9999",
+    "projects": [
+        "https://yabwe.github.io/medium-editor/"
+    ],
+    "devDependencies": {
+        "@types/medium-editor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "pascaliske",
+            "githubUsername": "pascaliske"
+        }
+    ]
+}

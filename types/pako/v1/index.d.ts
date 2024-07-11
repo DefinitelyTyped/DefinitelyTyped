@@ -1,9 +1,3 @@
-// Type definitions for pako 1.0
-// Project: https://github.com/nodeca/pako
-// Definitions by: Caleb Eggensperger <https://github.com/calebegg>
-//                 Muhammet Öztürk <https://github.com/hlthi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Pako;
 export as namespace pako;
 
@@ -43,7 +37,7 @@ declare namespace Pako {
         strategy?: StrategyValues | undefined;
         dictionary?: any;
         raw?: boolean | undefined;
-        to?: 'string' | undefined;
+        to?: "string" | undefined;
         chunkSize?: number | undefined;
         gzip?: boolean | undefined;
         header?: Header | undefined;
@@ -56,21 +50,21 @@ declare namespace Pako {
         strategy?: StrategyValues | undefined;
         dictionary?: any;
         raw?: boolean | undefined;
-        to?: 'string' | undefined;
+        to?: "string" | undefined;
     }
 
     interface InflateOptions {
         windowBits?: number | undefined;
         dictionary?: any;
         raw?: boolean | undefined;
-        to?: 'string' | undefined;
+        to?: "string" | undefined;
         chunkSize?: number | undefined;
     }
 
     interface InflateFunctionOptions {
         windowBits?: number | undefined;
         raw?: boolean | undefined;
-        to?: 'string' | undefined;
+        to?: "string" | undefined;
     }
 
     interface Header {
@@ -88,38 +82,38 @@ declare namespace Pako {
     /**
      * Compress data with deflate algorithm and options.
      */
-    function deflate(data: Data, options: DeflateFunctionOptions & { to: 'string' }): string;
+    function deflate(data: Data, options: DeflateFunctionOptions & { to: "string" }): string;
     function deflate(data: Data, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * The same as deflate, but creates raw data, without wrapper (header and adler32 crc).
      */
-    function deflateRaw(data: Data, options: DeflateFunctionOptions & { to: 'string' }): string;
+    function deflateRaw(data: Data, options: DeflateFunctionOptions & { to: "string" }): string;
     function deflateRaw(data: Data, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * The same as deflate, but create gzip wrapper instead of deflate one.
      */
-    function gzip(data: Data, options: DeflateFunctionOptions & { to: 'string' }): string;
+    function gzip(data: Data, options: DeflateFunctionOptions & { to: "string" }): string;
     function gzip(data: Data, options?: DeflateFunctionOptions): Uint8Array;
 
     /**
      * Decompress data with inflate/ungzip and options. Autodetect format via wrapper header
      * by default. That's why we don't provide separate ungzip method.
      */
-    function inflate(data: Data, options: InflateFunctionOptions & { to: 'string' }): string;
+    function inflate(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
     function inflate(data: Data, options?: InflateFunctionOptions): Uint8Array;
 
     /**
      * The same as inflate, but creates raw data, without wrapper (header and adler32 crc).
      */
-    function inflateRaw(data: Data, options: InflateFunctionOptions & { to: 'string' }): string;
+    function inflateRaw(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
     function inflateRaw(data: Data, options?: InflateFunctionOptions): Uint8Array;
 
     /**
      * Just shortcut to inflate, because it autodetects format by header.content. Done for convenience.
      */
-    function ungzip(data: Data, options: InflateFunctionOptions & { to: 'string' }): string;
+    function ungzip(data: Data, options: InflateFunctionOptions & { to: "string" }): string;
     function ungzip(data: Data, options?: InflateFunctionOptions): Uint8Array;
 
     // https://github.com/nodeca/pako/blob/893381abcafa10fa2081ce60dae7d4d8e873a658/lib/deflate.js

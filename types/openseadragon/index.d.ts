@@ -1,14 +1,3 @@
-// Type definitions for OpenSeadragon 3.0
-// Project: https://openseadragon.github.io/
-// Definitions by:  Álvaro Martínez <https://github.com/alvaromartmart>
-//                  RobertYost <https://github.com/RobertYost>
-//                  Jasper Staab <https://github.com/jstaab>
-//                  Kristin Ruben <https://github.com/kristinruben>
-//                  Geoff Harper <https://github.com/geoff-harper>
-//                  Justin <https://github.com/justincy>
-//                  Peter Blazejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
 declare namespace OpenSeadragon {
     class Browser {
         vendor: BROWSERS;
@@ -245,27 +234,27 @@ declare namespace OpenSeadragon {
             | string
             | TileSourceOptions
             | {
-                  type: string;
-                  levels?: Array<{
-                      url: string;
-                      height: number;
-                      width: number;
-                  }>;
-              }
+                type: string;
+                levels?: Array<{
+                    url: string;
+                    height: number;
+                    width: number;
+                }>;
+            }
             | {
-                  Image: {
-                      xmlns?: string | undefined;
-                      Url: string;
-                      Format: string;
-                      Overlap: string;
-                      TileSize: string;
-                      Size: {
-                          Width: string;
-                          Height: string;
-                      };
-                  };
-              }
-            | Array<string | TileSource | { type: 'openstreetmaps' }>;
+                Image: {
+                    xmlns?: string | undefined;
+                    Url: string;
+                    Format: string;
+                    Overlap: string;
+                    TileSize: string;
+                    Size: {
+                        Width: string;
+                        Height: string;
+                    };
+                };
+            }
+            | Array<string | TileSource | { type: "openstreetmaps" }>;
         tabIndex?: number | undefined;
         overlays?: any[] | undefined;
         prefixUrl?: string | undefined;
@@ -280,17 +269,17 @@ declare namespace OpenSeadragon {
         opacity?: number | undefined;
         preload?: boolean | undefined;
         compositeOperation?:
-            | 'source-over'
-            | 'source-atop'
-            | 'source-in'
-            | 'source-out'
-            | 'destination-over'
-            | 'destination-atop'
-            | 'destination-in'
-            | 'destination-out'
-            | 'lighter'
-            | 'copy'
-            | 'xor'
+            | "source-over"
+            | "source-atop"
+            | "source-in"
+            | "source-out"
+            | "destination-over"
+            | "destination-atop"
+            | "destination-in"
+            | "destination-out"
+            | "lighter"
+            | "copy"
+            | "xor"
             | undefined;
         placeholderFillStyle?: string | CanvasGradient | CanvasPattern | undefined;
         degrees?: number | undefined;
@@ -330,7 +319,7 @@ declare namespace OpenSeadragon {
         zoomPerSecond?: number | undefined;
         showNavigator?: boolean | undefined;
         navigatorId?: string | undefined;
-        navigatorPosition?: 'TOP_LEFT' | 'TOP_RIGHT' | 'BOTTOM_LEFT' | 'BOTTOM_RIGHT' | 'ABSOLUTE' | undefined;
+        navigatorPosition?: "TOP_LEFT" | "TOP_RIGHT" | "BOTTOM_LEFT" | "BOTTOM_RIGHT" | "ABSOLUTE" | undefined;
         navigatorSizeRatio?: number | undefined;
         navigatorMaintainSizeRatio?: boolean | undefined;
         navigatorTop?: number | string | undefined;
@@ -387,10 +376,10 @@ declare namespace OpenSeadragon {
         collectionMode?: boolean | undefined;
         collectionRows?: number | undefined;
         collectionColumns?: number | undefined;
-        collectionLayout?: 'horizontal' | 'vertical' | undefined;
+        collectionLayout?: "horizontal" | "vertical" | undefined;
         collectionTileSize?: number | undefined;
         collectionTileMargin?: number | undefined;
-        crossOriginPolicy?: 'Anonymous' | 'use-credentials' | false | undefined;
+        crossOriginPolicy?: "Anonymous" | "use-credentials" | false | undefined;
         ajaxWithCredentials?: boolean | undefined;
         loadTilesWithAjax?: boolean | undefined;
         ajaxHeaders?: object | undefined;
@@ -685,25 +674,25 @@ declare namespace OpenSeadragon {
         originalTarget: Element;
         eventPhase: EventPhase;
         eventType:
-            | 'keydown'
-            | 'keyup'
-            | 'keypress'
-            | 'focus'
-            | 'blur'
-            | 'contextmenu'
-            | 'gotpointercapture'
-            | 'lostpointercapture'
-            | 'pointerenter'
-            | 'pointerleave'
-            | 'pointerover'
-            | 'pointerout'
-            | 'pointerdown'
-            | 'pointerup'
-            | 'pointermove'
-            | 'pointercancel'
-            | 'wheel'
-            | 'click'
-            | 'dblclick';
+            | "keydown"
+            | "keyup"
+            | "keypress"
+            | "focus"
+            | "blur"
+            | "contextmenu"
+            | "gotpointercapture"
+            | "lostpointercapture"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointerover"
+            | "pointerout"
+            | "pointerdown"
+            | "pointerup"
+            | "pointermove"
+            | "pointercancel"
+            | "wheel"
+            | "click"
+            | "dblclick";
         pointerType: string;
         isEmulated: boolean;
         isStoppable: boolean;
@@ -1102,6 +1091,7 @@ declare namespace OpenSeadragon {
         opacity?: number | undefined;
         preload?: boolean | undefined;
         degrees?: number | undefined;
+        flipped?: boolean | undefined;
         compositeOperation?: string | undefined;
         crossOriginPolicy?: string | undefined;
         ajaxWithCredentials?: boolean | undefined;
@@ -1288,7 +1278,7 @@ declare namespace OpenSeadragon {
         ): void;
         arrange(options: {
             immediately?: boolean | undefined;
-            layout?: 'horizontal' | 'vertical' | undefined;
+            layout?: "horizontal" | "vertical" | undefined;
             rows?: number | undefined;
             columns?: number | undefined;
             tileSize?: number | undefined;
@@ -1321,84 +1311,84 @@ declare namespace OpenSeadragon {
 
     type PreprocessEventHandler = (event: EventProcessInfo) => void;
 
-    type ButtonEventName = 'blur' | 'click' | 'enter' | 'exit' | 'focus' | 'press' | 'release';
+    type ButtonEventName = "blur" | "click" | "enter" | "exit" | "focus" | "press" | "release";
 
     interface TiledImageEventMap {
-        'bounds-change': TiledImageEvent;
-        'clip-change': TiledImageEvent;
-        'composite-operation-change': CompositeOperationChangeTiledImageEvent;
-        'fully-loaded-change': FullyLoadedChangeTiledImageEvent;
-        'opacity-change': OpacityChangeTiledImageEvent;
+        "bounds-change": TiledImageEvent;
+        "clip-change": TiledImageEvent;
+        "composite-operation-change": CompositeOperationChangeTiledImageEvent;
+        "fully-loaded-change": FullyLoadedChangeTiledImageEvent;
+        "opacity-change": OpacityChangeTiledImageEvent;
     }
 
     interface TileSourceEventMap {
-        'open-failed': OpenFailedTileSourceEvent;
-        'ready': ReadyTileSourceEvent;
+        "open-failed": OpenFailedTileSourceEvent;
+        "ready": ReadyTileSourceEvent;
     }
 
     interface ViewerEventMap {
-        'add-item-failed': AddItemFailedEvent;
-        'add-overlay': AddOverlayEvent;
-        'animation': ViewerEvent;
-        'animation-finish': ViewerEvent;
-        'animation-start': ViewerEvent;
-        'canvas-click': CanvasClickEvent;
-        'canvas-contextmenu': CanvasContextMenuEvent;
-        'canvas-double-click': CanvasDoubleClickEvent;
-        'canvas-drag': CanvasDragEvent;
-        'canvas-drag-end': CanvasDragEvent;
-        'canvas-enter': CanvasEnterEvent;
-        'canvas-exit': CanvasExitEvent;
-        'canvas-key': CanvasKeyEvent;
-        'canvas-nonprimary-press': CanvasNonPrimaryButtonEvent;
-        'canvas-nonprimary-release': CanvasNonPrimaryButtonEvent;
-        'canvas-pinch': CanvasPinchEvent;
-        'canvas-press': CanvasPressEvent;
-        'canvas-release': CanvasReleaseEvent;
-        'canvas-scroll': CanvasScrollEvent;
-        'clear-overlay': ViewerEvent;
-        'close': ViewerEvent;
-        'constrain': ConstrainEvent;
-        'container-enter': ContainerEvent;
-        'container-exit': ContainerEvent;
-        'controls-enabled': ControlsEnabledEvent;
-        'flip': FlipEvent;
-        'full-page': FullPageEvent;
-        'full-screen': FullScreenEvent;
-        'home': HomeEvent;
-        'mouse-enabled': MouseEnabledEvent;
-        'navigator-click': NavigatorClickEvent;
-        'navigator-drag': NavigatorDragEvent;
-        'navigator-scroll': NavigatorScrollEvent;
-        'open': OpenEvent;
-        'open-failed': OpenFailedEvent;
-        'page': PageEvent;
-        'pan': PanEvent;
-        'pre-full-page': PreFullPageEvent;
-        'pre-full-screen': PreFullScreenEvent;
-        'remove-overlay': RemoveOverlayEvent;
-        'reset-size': ResetSizeEvent;
-        'resize': ResizeEvent;
-        'rotate': RotateEvent;
-        'tile-drawing': TileDrawingEvent;
-        'tile-drawn': TileEvent;
-        'tile-load-failed': TileLoadFailedEvent;
-        'tile-loaded': TileLoadedEvent;
-        'tile-unloaded': TileEvent;
-        'update-level': UpdateLevelEvent;
-        'update-overlay': UpdateOverlayEvent;
-        'update-tile': TileEvent;
-        'update-viewport': ViewerEvent;
-        'viewport-change': ViewerEvent;
-        'visible': VisibleEvent;
-        'zoom': ZoomEvent;
+        "add-item-failed": AddItemFailedEvent;
+        "add-overlay": AddOverlayEvent;
+        "animation": ViewerEvent;
+        "animation-finish": ViewerEvent;
+        "animation-start": ViewerEvent;
+        "canvas-click": CanvasClickEvent;
+        "canvas-contextmenu": CanvasContextMenuEvent;
+        "canvas-double-click": CanvasDoubleClickEvent;
+        "canvas-drag": CanvasDragEvent;
+        "canvas-drag-end": CanvasDragEvent;
+        "canvas-enter": CanvasEnterEvent;
+        "canvas-exit": CanvasExitEvent;
+        "canvas-key": CanvasKeyEvent;
+        "canvas-nonprimary-press": CanvasNonPrimaryButtonEvent;
+        "canvas-nonprimary-release": CanvasNonPrimaryButtonEvent;
+        "canvas-pinch": CanvasPinchEvent;
+        "canvas-press": CanvasPressEvent;
+        "canvas-release": CanvasReleaseEvent;
+        "canvas-scroll": CanvasScrollEvent;
+        "clear-overlay": ViewerEvent;
+        "close": ViewerEvent;
+        "constrain": ConstrainEvent;
+        "container-enter": ContainerEvent;
+        "container-exit": ContainerEvent;
+        "controls-enabled": ControlsEnabledEvent;
+        "flip": FlipEvent;
+        "full-page": FullPageEvent;
+        "full-screen": FullScreenEvent;
+        "home": HomeEvent;
+        "mouse-enabled": MouseEnabledEvent;
+        "navigator-click": NavigatorClickEvent;
+        "navigator-drag": NavigatorDragEvent;
+        "navigator-scroll": NavigatorScrollEvent;
+        "open": OpenEvent;
+        "open-failed": OpenFailedEvent;
+        "page": PageEvent;
+        "pan": PanEvent;
+        "pre-full-page": PreFullPageEvent;
+        "pre-full-screen": PreFullScreenEvent;
+        "remove-overlay": RemoveOverlayEvent;
+        "reset-size": ResetSizeEvent;
+        "resize": ResizeEvent;
+        "rotate": RotateEvent;
+        "tile-drawing": TileDrawingEvent;
+        "tile-drawn": TileEvent;
+        "tile-load-failed": TileLoadFailedEvent;
+        "tile-loaded": TileLoadedEvent;
+        "tile-unloaded": TileEvent;
+        "update-level": UpdateLevelEvent;
+        "update-overlay": UpdateOverlayEvent;
+        "update-tile": TileEvent;
+        "update-viewport": ViewerEvent;
+        "viewport-change": ViewerEvent;
+        "visible": VisibleEvent;
+        "zoom": ZoomEvent;
     }
 
     interface WorldEventMap {
-        'add-item': AddItemWorldEvent;
-        'item-index-change': ItemIndexChangeWorldEvent;
-        'metrics-change': WorldEvent;
-        'remove-item': RemoveItemWorldEvent;
+        "add-item": AddItemWorldEvent;
+        "item-index-change": ItemIndexChangeWorldEvent;
+        "metrics-change": WorldEvent;
+        "remove-item": RemoveItemWorldEvent;
     }
 
     interface OSDEvent<T> {
@@ -1768,7 +1758,7 @@ declare namespace OpenSeadragon {
         buttons: number;
     }
 
-    type PointerType = 'mouse' | 'touch' | 'pen';
+    type PointerType = "mouse" | "touch" | "pen";
 
     type EventPhase = 0 | 1 | 2 | 3;
 }

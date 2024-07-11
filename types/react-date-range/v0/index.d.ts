@@ -1,11 +1,5 @@
-// Type definitions for react-date-range 0.95
-// Project: https://github.com/Adphorus/react-date-range/
-// Definitions by: Junbong Lee <https://github.com/Junbong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from "react";
 import * as moment from "moment";
+import * as React from "react";
 
 export type AnyDate = string | moment.Moment;
 export type DateFunc = (now: moment.Moment) => AnyDate;
@@ -88,7 +82,7 @@ export interface CalendarProps extends CommonCalendarProps {
     date: DateInputType;
 }
 
-export class Calendar extends React.Component<CalendarProps> { }
+export class Calendar extends React.Component<CalendarProps> {}
 
 export interface DateRangeProps extends Range, CommonCalendarProps {
     /** default: enUs from locale. Complete list here https://github.com/Adphorus/react-date-range/blob/next/src/locale/index.js */
@@ -147,9 +141,9 @@ export interface DateRangeProps extends Range, CommonCalendarProps {
     editableDateInputs?: boolean;
 }
 
-export class DateRange extends React.Component<DateRangeProps> { }
+export class DateRange extends React.Component<DateRangeProps> {}
 
-export class DateRangePicker extends React.Component<DateRangeProps> { }
+export class DateRangePicker extends React.Component<DateRangeProps> {}
 
 export type DateRangeIndex =
     | "Today"

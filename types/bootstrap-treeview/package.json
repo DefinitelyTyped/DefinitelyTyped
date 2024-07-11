@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bootstrap-treeview",
+    "version": "1.21.9999",
+    "projects": [
+        "https://github.com/jonmiles/bootstrap-treeview"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap-treeview": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Böhmer",
+            "githubUsername": "jbtronics"
+        }
+    ]
+}

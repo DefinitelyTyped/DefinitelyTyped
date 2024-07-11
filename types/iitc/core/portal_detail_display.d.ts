@@ -1,6 +1,6 @@
 import { IITC, PortalGUID } from "./iitctypes";
 
-export { };
+export {};
 
 declare global {
     function resetScrollOnNewPortal(): void;

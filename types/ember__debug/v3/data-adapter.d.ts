@@ -48,7 +48,7 @@ export default class DataAdapter extends EmberObject {
      */
     watchModelTypes(
         typesAdded: (types: DataAdapter.WrappedType[]) => void,
-        typesUpdated: (types: DataAdapter.WrappedType[]) => void
+        typesUpdated: (types: DataAdapter.WrappedType[]) => void,
     ): () => void;
     /**
      * Fetch the records of a given type and observe them for changes.
@@ -57,6 +57,6 @@ export default class DataAdapter extends EmberObject {
         modelName: string,
         recordsAdded: (records: DataAdapter.WrappedRecord[]) => void,
         recordsUpdated: (records: DataAdapter.WrappedRecord[]) => void,
-        recordsRemoved: (idx: number, count: number) => void
+        recordsRemoved: (idx: number, count: number) => void,
     ): () => void;
 }

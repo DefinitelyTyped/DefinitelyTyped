@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cfn-response",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/LukeMizuhashi/cfn-response"
+    ],
+    "dependencies": {
+        "@types/aws-lambda": "*"
+    },
+    "devDependencies": {
+        "@types/cfn-response": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artur Androsovych",
+            "githubUsername": "arturovt"
+        }
+    ]
+}

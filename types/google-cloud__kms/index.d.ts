@@ -1,10 +1,3 @@
-// Type definitions for @google-cloud/kms 1.5
-// Project: https://github.com/googleapis/nodejs-kms
-// Definitions by: Ben Talbot <https://github.com/ben-tbotlabs>
-//                 Steven Collins <https://github.com/carboncollins>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
@@ -163,7 +156,7 @@ export namespace v1 {
         createTime: google_protobuf_timestamp_pb.Timestamp.AsObject;
         nextRotationTime?: google_protobuf_timestamp_pb.Timestamp.AsObject | undefined;
         versionTemplate: CryptoKeyVersionTemplate;
-        labels: { [s: string]: string; };
+        labels: { [s: string]: string };
     }
 
     interface KeyRing {
@@ -175,7 +168,7 @@ export namespace v1 {
         interface ConfigurationObject {
             credentials?: {
                 client_email?: string | undefined;
-                private_key?: string | undefined
+                private_key?: string | undefined;
             } | undefined;
             email?: string | undefined;
             keyFilename?: string | undefined;
@@ -223,7 +216,7 @@ export namespace v1 {
         interface CreateCryptoKeyRequest {
             parent: string;
             cryptoKeyId: string;
-            cryptoKey: Partial<Omit<CryptoKey, 'purpose'>> & {
+            cryptoKey: Partial<Omit<CryptoKey, "purpose">> & {
                 purpose: keyof typeof CryptoKeyPurpose;
             };
             skipInitialVersionCreation?: boolean | undefined;
@@ -254,37 +247,113 @@ export namespace v1 {
         cryptoKeyPathPath(project: string, location: string, keyRing: string, cryptoKeyPath: string): string;
         locationPath(project: string, location: string): string;
         cryptoKeyPath(project: string, location: string, keyRing: string, cryptoKey: string): string;
-        cryptoKeyVersionPath(project: string, location: string, keyRing: string, cryptoKey: string, cryptoKeyVersion: string): string;
+        cryptoKeyVersionPath(
+            project: string,
+            location: string,
+            keyRing: string,
+            cryptoKey: string,
+            cryptoKeyVersion: string,
+        ): string;
 
-        encrypt(request: KeyManagementServiceClient.EncryptRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyManagementServiceClient.EncryptResponse, any, any]>;
-        encrypt(request: KeyManagementServiceClient.EncryptRequest, callback: KeyManagementServiceClient.EncryptCallback): void;
-        encrypt(request: KeyManagementServiceClient.EncryptRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.EncryptCallback): void;
+        encrypt(
+            request: KeyManagementServiceClient.EncryptRequest,
+            gaxOpts?: GAX.CallOptions,
+        ): Promise<[KeyManagementServiceClient.EncryptResponse, any, any]>;
+        encrypt(
+            request: KeyManagementServiceClient.EncryptRequest,
+            callback: KeyManagementServiceClient.EncryptCallback,
+        ): void;
+        encrypt(
+            request: KeyManagementServiceClient.EncryptRequest,
+            gaxOpts: GAX.CallOptions,
+            callback: KeyManagementServiceClient.EncryptCallback,
+        ): void;
 
-        decrypt(request: KeyManagementServiceClient.DecryptRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyManagementServiceClient.DecryptResponse, any, any]>;
-        decrypt(request: KeyManagementServiceClient.DecryptRequest, callback: KeyManagementServiceClient.DecryptCallback): void;
-        decrypt(request: KeyManagementServiceClient.DecryptRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.DecryptCallback): void;
+        decrypt(
+            request: KeyManagementServiceClient.DecryptRequest,
+            gaxOpts?: GAX.CallOptions,
+        ): Promise<[KeyManagementServiceClient.DecryptResponse, any, any]>;
+        decrypt(
+            request: KeyManagementServiceClient.DecryptRequest,
+            callback: KeyManagementServiceClient.DecryptCallback,
+        ): void;
+        decrypt(
+            request: KeyManagementServiceClient.DecryptRequest,
+            gaxOpts: GAX.CallOptions,
+            callback: KeyManagementServiceClient.DecryptCallback,
+        ): void;
 
-        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, callback: KeyManagementServiceClient.CreateKeyRingCallback): void;
-        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.CreateKeyRingCallback): void;
+        createKeyRing(
+            request: KeyManagementServiceClient.CreateKeyRingRequest,
+            callback: KeyManagementServiceClient.CreateKeyRingCallback,
+        ): void;
+        createKeyRing(
+            request: KeyManagementServiceClient.CreateKeyRingRequest,
+            gaxOpts: GAX.CallOptions,
+            callback: KeyManagementServiceClient.CreateKeyRingCallback,
+        ): void;
         // This needs to be after the declaration that has callback but not options.
-        createKeyRing(request: KeyManagementServiceClient.CreateKeyRingRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing, any, any]>;
+        createKeyRing(
+            request: KeyManagementServiceClient.CreateKeyRingRequest,
+            gaxOpts?: GAX.CallOptions,
+        ): Promise<[KeyRing, any, any]>;
 
-        listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyRing[], any, any]>;
-        listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
-        listKeyRings(request: KeyManagementServiceClient.ListKeyRingsRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.ListKeyRingsCallback): void;
+        listKeyRings(
+            request: KeyManagementServiceClient.ListKeyRingsRequest,
+            gaxOpts?: GAX.CallOptions,
+        ): Promise<[KeyRing[], any, any]>;
+        listKeyRings(
+            request: KeyManagementServiceClient.ListKeyRingsRequest,
+            callback: KeyManagementServiceClient.ListKeyRingsCallback,
+        ): void;
+        listKeyRings(
+            request: KeyManagementServiceClient.ListKeyRingsRequest,
+            gaxOpts: GAX.CallOptions,
+            callback: KeyManagementServiceClient.ListKeyRingsCallback,
+        ): void;
 
-        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, callback: KeyManagementServiceClient.CreateCryptoKeyCallback): void;
-        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.CreateCryptoKeyCallback): void;
+        createCryptoKey(
+            request: KeyManagementServiceClient.CreateCryptoKeyRequest,
+            callback: KeyManagementServiceClient.CreateCryptoKeyCallback,
+        ): void;
+        createCryptoKey(
+            request: KeyManagementServiceClient.CreateCryptoKeyRequest,
+            gaxOpts: GAX.CallOptions,
+            callback: KeyManagementServiceClient.CreateCryptoKeyCallback,
+        ): void;
         // This needs to be after the declaration that has callback but not options.
-        createCryptoKey(request: KeyManagementServiceClient.CreateCryptoKeyRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey, any, any]>;
+        createCryptoKey(
+            request: KeyManagementServiceClient.CreateCryptoKeyRequest,
+            gaxOpts?: GAX.CallOptions,
+        ): Promise<[CryptoKey, any, any]>;
 
-        listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, gaxOpts?: GAX.CallOptions): Promise<[CryptoKey[], any, any]>;
-        listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, callback: KeyManagementServiceClient.ListCryptoKeysCallback): void;
-        listCryptoKeys(request: KeyManagementServiceClient.ListCryptoKeysRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.ListCryptoKeysCallback): void;
+        listCryptoKeys(
+            request: KeyManagementServiceClient.ListCryptoKeysRequest,
+            gaxOpts?: GAX.CallOptions,
+        ): Promise<[CryptoKey[], any, any]>;
+        listCryptoKeys(
+            request: KeyManagementServiceClient.ListCryptoKeysRequest,
+            callback: KeyManagementServiceClient.ListCryptoKeysCallback,
+        ): void;
+        listCryptoKeys(
+            request: KeyManagementServiceClient.ListCryptoKeysRequest,
+            gaxOpts: GAX.CallOptions,
+            callback: KeyManagementServiceClient.ListCryptoKeysCallback,
+        ): void;
 
-        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, gaxOpts?: GAX.CallOptions): Promise<[KeyManagementServiceClient.AsymmetricSignResponse, any, any]>;
-        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, callback: KeyManagementServiceClient.AsymmetricSignCallback): void;
-        asymmetricSign(request: KeyManagementServiceClient.AsymmetricSignRequest, gaxOpts: GAX.CallOptions, callback: KeyManagementServiceClient.AsymmetricSignCallback): void;
+        asymmetricSign(
+            request: KeyManagementServiceClient.AsymmetricSignRequest,
+            gaxOpts?: GAX.CallOptions,
+        ): Promise<[KeyManagementServiceClient.AsymmetricSignResponse, any, any]>;
+        asymmetricSign(
+            request: KeyManagementServiceClient.AsymmetricSignRequest,
+            callback: KeyManagementServiceClient.AsymmetricSignCallback,
+        ): void;
+        asymmetricSign(
+            request: KeyManagementServiceClient.AsymmetricSignRequest,
+            gaxOpts: GAX.CallOptions,
+            callback: KeyManagementServiceClient.AsymmetricSignCallback,
+        ): void;
     }
 }
 

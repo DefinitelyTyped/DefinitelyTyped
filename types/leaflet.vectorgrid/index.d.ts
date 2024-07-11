@@ -1,14 +1,8 @@
-// Type definitions for leaflet.vectorgrid 1.3
-// Project: https://github.com/Leaflet/Leaflet.VectorGrid
-// Definitions by: Cody Duong <https://github.com/codyduong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
+import * as geojson from "geojson";
+import * as geojsonvt from "geojson-vt";
+import * as L from "leaflet";
 
-import * as geojson from 'geojson';
-import * as geojsonvt from 'geojson-vt';
-import * as L from 'leaflet';
-
-declare module 'leaflet' {
+declare module "leaflet" {
     interface TileProps {
         tileCoord: geojsonvt.TileCoord;
         tileSize: Point;
@@ -16,9 +10,9 @@ declare module 'leaflet' {
     }
 
     type TileParameters = [
-        tileCoord: TileProps['tileCoord'],
-        tileSize: TileProps['tileSize'],
-        options: TileProps['tileSize'],
+        tileCoord: TileProps["tileCoord"],
+        tileSize: TileProps["tileSize"],
+        options: TileProps["tileSize"],
     ];
 
     type TileFactoryFunction<T extends Canvas.Tile | SVG.Tile> = (...args: TileParameters) => T;
@@ -54,8 +48,8 @@ declare module 'leaflet' {
         class Tile extends SVG {
             constructor(props: TileProps);
 
-            _tileCoord: TileProps['tileCoord'];
-            _size: TileProps['tileSize'];
+            _tileCoord: TileProps["tileCoord"];
+            _size: TileProps["tileSize"];
             _container: SVGViewElement;
             _layers: Record<string, Layer>;
 
@@ -73,7 +67,9 @@ declare module 'leaflet' {
         const tile: TileFactoryFunction<SVG.Tile>;
     }
 
-    interface VectorGridOptions<T extends Canvas.Tile | SVG.Tile = Canvas.Tile | SVG.Tile> extends geojsonvt.Options, GridLayerOptions {
+    interface VectorGridOptions<T extends Canvas.Tile | SVG.Tile = Canvas.Tile | SVG.Tile>
+        extends geojsonvt.Options, GridLayerOptions
+    {
         /** A factory method which will be used to instantiate the per-tile renderers. */
         rendererFactory?: TileFactoryFunction<T>;
         /** A data structure holding initial symbolizer definitions for the vector features. */
@@ -96,10 +92,8 @@ declare module 'leaflet' {
     }
     type GetVectorGridRendererHelper<T extends HTMLCanvasElement | SVGViewElement> = T extends
         | HTMLCanvasElement
-        | SVGViewElement
-        ? Canvas.Tile | SVG.Tile
-        : T extends HTMLCanvasElement
-        ? Canvas.Tile
+        | SVGViewElement ? Canvas.Tile | SVG.Tile
+        : T extends HTMLCanvasElement ? Canvas.Tile
         : SVG.Tile;
 
     class VectorGrid<
@@ -123,7 +117,7 @@ declare module 'leaflet' {
         /**
          * Sets filter function to filter displayed features.
          */
-        setFilter(filterFn: VectorGridOptions['filter']): this;
+        setFilter(filterFn: VectorGridOptions["filter"]): this;
 
         /**
          * Returns an array of strings, with all the known names of data layers in
@@ -147,7 +141,7 @@ declare module 'leaflet' {
             constructor(data: geojson.GeoJSON, options?: SlicerOptions);
         }
         // Have a fetchOptions interface just in case user wants to do their own typesafety here
-        // tslint:disable-next-line no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ProtobufFetchOptions {}
 
         interface ProtobufOptions extends VectorGridOptions {

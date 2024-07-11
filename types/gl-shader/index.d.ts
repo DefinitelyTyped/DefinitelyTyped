@@ -1,9 +1,3 @@
-// Type definitions for gl-shader 4.2
-// Project: https://github.com/stackgl/gl-shader
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 interface Parameter {
     type: string;
     name: string;
@@ -19,9 +13,9 @@ declare class Shader {
     readonly program: WebGLProgram;
     readonly vertShader: WebGLShader;
     readonly fragShader: WebGLShader;
-    readonly attributes: {[key: string]: Attribute & any[]};
+    readonly attributes: { [key: string]: Attribute & any[] };
 
-    uniforms: {[key: string]: any};
+    uniforms: { [key: string]: any };
 
     constructor(gl: WebGLRenderingContext);
 
@@ -29,7 +23,7 @@ declare class Shader {
     dispose(): void;
 
     update(vertex: string, fragment: string, uniforms?: Parameter[], attributes?: Parameter[]): void;
-    update(obj: {vertex: string, fragment: string, uniforms: Parameter[], attributes: Parameter[]}): void;
+    update(obj: { vertex: string; fragment: string; uniforms: Parameter[]; attributes: Parameter[] }): void;
 }
 
 declare function createShader(
@@ -37,15 +31,17 @@ declare function createShader(
     vertex: string,
     fragment: string,
     uniforms?: Parameter[],
-    attributes?: Parameter[]): Shader;
+    attributes?: Parameter[],
+): Shader;
 
 declare function createShader(
     gl: WebGLRenderingContext,
     options: {
-        vertex: string,
-        fragment: string,
-        uniforms?: Parameter[] | undefined,
-        attributes?: Parameter[] | undefined,
-    }): Shader;
+        vertex: string;
+        fragment: string;
+        uniforms?: Parameter[] | undefined;
+        attributes?: Parameter[] | undefined;
+    },
+): Shader;
 
 export = createShader;

@@ -1,6 +1,7 @@
-import { IUniform } from '../../../src/Three';
+import { IUniform } from "three";
 
 export const TechnicolorShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
     };

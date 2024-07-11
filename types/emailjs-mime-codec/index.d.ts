@@ -1,8 +1,3 @@
-// Type definitions for emailjs-mime-codec 2.0
-// Project: https://github.com/emailjs/emailjs-mime-codec
-// Definitions by: Nicu Chiciuc <https://github.com/nicu-chiciuc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 //// From "./charset.d.ts"
 /**
  * Encodes an unicode string into an Uint8Array object as UTF-8

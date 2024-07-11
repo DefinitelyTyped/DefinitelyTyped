@@ -1,2 +1,0 @@
-src/deleteobserver.d.ts
-src/utils/injecttypingmutationshandling.d.ts

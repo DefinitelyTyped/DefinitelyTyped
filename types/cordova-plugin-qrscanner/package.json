@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cordova-plugin-qrscanner",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bitpay/cordova-plugin-qrscanner"
+    ],
+    "devDependencies": {
+        "@types/cordova-plugin-qrscanner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Dreyzehner",
+            "githubUsername": "bitjson"
+        },
+        {
+            "name": "Josh Bronson",
+            "githubUsername": "jab"
+        }
+    ]
+}

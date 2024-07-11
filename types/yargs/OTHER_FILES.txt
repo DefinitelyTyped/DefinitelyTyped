@@ -1,2 +1,0 @@
-helpers.d.mts
-index.d.mts

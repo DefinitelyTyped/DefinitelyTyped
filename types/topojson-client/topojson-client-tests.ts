@@ -1,5 +1,5 @@
-import * as topojson from "topojson-client";
 import { UsAtlas, WorldAtlas } from "topojson";
+import * as topojson from "topojson-client";
 
 declare let us: UsAtlas;
 declare let world: WorldAtlas;
@@ -76,9 +76,9 @@ const featureCollection: GeoJSON.FeatureCollection<GeoJSON.GeometryObject> = top
 const featureObject:
     | GeoJSON.Feature<GeoJSON.GeometryObject>
     | GeoJSON.FeatureCollection<GeoJSON.GeometryObject, {}> = topojson.feature(
-    topoWithProp,
-    topoWithProp.objects.foo as TopoJSON.GeometryObject,
-);
+        topoWithProp,
+        topoWithProp.objects.foo as TopoJSON.GeometryObject,
+    );
 
 const featureName:
     | GeoJSON.Feature<GeoJSON.GeometryObject>

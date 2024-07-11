@@ -6,7 +6,7 @@ class SliderTest extends React.Component {
     getInitialState() {
         return {
             sliderOneChanging: false,
-            sliderOneValue: [ 5 ],
+            sliderOneValue: [5],
         };
     }
 
@@ -29,14 +29,14 @@ class SliderTest extends React.Component {
         return (
             <React.Fragment>
                 <MultiSlider
-                    values={[ 5 ]}
+                    values={[5]}
                     sliderLength={280}
                     onValuesChangeStart={this.SliderOneValuesChangeStart}
                     onValuesChange={this.SliderOneValuesChange}
                     onValuesChangeFinish={this.SliderOneValuesChangeFinish}
                 />
 
-                <MultiSlider values={[ 3, 7 ]} sliderLength={280} />
+                <MultiSlider values={[3, 7]} sliderLength={280} />
 
                 <MultiSlider
                     selectedStyle={{
@@ -45,7 +45,7 @@ class SliderTest extends React.Component {
                     unselectedStyle={{
                         backgroundColor: "silver",
                     }}
-                    values={[ 5 ]}
+                    values={[5]}
                     containerStyle={{
                         height: 40,
                     }}
@@ -59,7 +59,9 @@ class SliderTest extends React.Component {
                         borderRadius: 20,
                         slipDisplacement: 40,
                     }}
-                    customMarker={({ markerStyle, pressed, pressedMarkerStyle, value}) => <View style={pressed ? pressedMarkerStyle : markerStyle}>value: {value}</View>}
+                    customMarker={({ markerStyle, pressed, pressedMarkerStyle, value }) => (
+                        <View style={pressed ? pressedMarkerStyle : markerStyle}>value: {value}</View>
+                    )}
                     sliderLength={280}
                 />
             </React.Fragment>

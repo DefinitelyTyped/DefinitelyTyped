@@ -1,23 +1,23 @@
-import { setup, getServers, teardown } from 'jest-dev-server';
+import { getServers, setup, teardown } from "jest-dev-server";
 
 setup([
     {
-        command: 'yarn storybook:ci',
+        command: "yarn storybook:ci",
         port: 3002,
-        usedPortAction: 'kill',
+        usedPortAction: "kill",
         launchTimeout: 60000,
-        path: 'api',
+        path: "api",
     },
     {
-        command: 'yarn next:ci',
+        command: "yarn next:ci",
         port: 3001,
-        usedPortAction: 'kill',
+        usedPortAction: "kill",
         launchTimeout: 60000,
     },
     {
-        command: 'yarn dev:docs',
+        command: "yarn dev:docs",
         port: 3000,
-        usedPortAction: 'kill',
+        usedPortAction: "kill",
         launchTimeout: 60000,
     },
 ]).then(() => {
@@ -25,10 +25,10 @@ setup([
 });
 
 setup({
-    command: 'yarn storybook:ci',
+    command: "yarn storybook:ci",
     port: 3002,
-    path: 'path',
-    usedPortAction: 'kill',
+    path: "path",
+    usedPortAction: "kill",
     launchTimeout: 60000,
 }).then(() => {
     // One server only

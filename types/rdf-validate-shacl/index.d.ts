@@ -1,13 +1,8 @@
-// Type definitions for rdf-validate-shacl 0.4
-// Project: https://github.com/zazuko/rdf-validate-shacl#readme
-// Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
-//                 cristianvasquez <https://github.com/cristianvasquez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as RDF from "@rdfjs/types";
+import { ValidationReport } from "./src/validation-report";
 
-import * as RDF from '@rdfjs/types';
-import { ValidationReport } from './src/validation-report';
-
-type Factory<OutQuad extends RDF.Quad = RDF.Quad,
+type Factory<
+    OutQuad extends RDF.Quad = RDF.Quad,
     InQuad extends RDF.Quad = RDF.Quad,
     D extends RDF.DatasetCore<OutQuad, InQuad> = RDF.DatasetCore<OutQuad, InQuad>,
 > = RDF.DataFactory<OutQuad, InQuad> & RDF.DatasetCoreFactory<OutQuad, InQuad, D>;

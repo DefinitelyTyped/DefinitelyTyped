@@ -1,11 +1,6 @@
-// Type definitions for gulp-ttf2woff2 4.0
-// Project: https://github.com/nfroidure/gulp-ttf2woff2
-// Definitions by: Anatoly Pitikin <https://github.com/xapdkop>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
-import PluginError = require('plugin-error');
+import PluginError = require("plugin-error");
 
 declare namespace ttf2woff2 {
     interface Options {

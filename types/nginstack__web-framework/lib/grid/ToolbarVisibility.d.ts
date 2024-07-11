@@ -1,3 +1,3 @@
-export const HIDDEN: number;
-export const VISIBLE: number;
-export const AUTO: number;
+export let HIDDEN: number;
+export let VISIBLE: number;
+export let AUTO: number;

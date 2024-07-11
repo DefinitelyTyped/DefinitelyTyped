@@ -1,9 +1,3 @@
-// Type definitions for memcached 2.2
-// Project: https://github.com/3rd-Eden/memcached, https://github.com/3rd-eden/node-memcached
-// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import events = require("events");
@@ -36,13 +30,16 @@ declare class Memcached extends events.EventEmitter {
      * Get the value and the CAS id.
      * @param key The key
      */
-    gets(key: string, cb: (this: Memcached.CommandData, err: any, data: {[key: string]: any, cas: string}) => void): void;
+    gets(
+        key: string,
+        cb: (this: Memcached.CommandData, err: any, data: { [key: string]: any; cas: string }) => void,
+    ): void;
 
     /**
      * Retrieves a bunch of values from multiple keys.
      * @param keys all the keys that needs to be fetched
      */
-    getMulti(keys: string[], cb: (this: undefined, err: any, data: {[key: string]: any}) => void): void;
+    getMulti(keys: string[], cb: (this: undefined, err: any, data: { [key: string]: any }) => void): void;
 
     /**
      * Stores a new value in Memcached.
@@ -50,28 +47,49 @@ declare class Memcached extends events.EventEmitter {
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
      */
-    set(key: string, value: any, lifetime: number, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
+    set(
+        key: string,
+        value: any,
+        lifetime: number,
+        cb: (this: Memcached.CommandData, err: any, result: boolean) => void,
+    ): void;
 
     /**
      * Replaces the value in memcached.
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
      */
-    replace(key: string, value: any, lifetime: number, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
+    replace(
+        key: string,
+        value: any,
+        lifetime: number,
+        cb: (this: Memcached.CommandData, err: any, result: boolean) => void,
+    ): void;
 
     /**
      * Add the value, only if it's not in memcached already.
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
      */
-    add(key: string, value: any, lifetime: number, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
+    add(
+        key: string,
+        value: any,
+        lifetime: number,
+        cb: (this: Memcached.CommandData, err: any, result: boolean) => void,
+    ): void;
 
     /**
      * Add the value, only if it matches the given CAS value.
      * @param key The key
      * @param value Either a buffer, JSON, number or string that you want to store.
      */
-    cas(key: string, value: any, cas: string, lifetime: number, cb: (this: Memcached.CommandData, err: any, result: boolean) => void): void;
+    cas(
+        key: string,
+        value: any,
+        cas: string,
+        lifetime: number,
+        cb: (this: Memcached.CommandData, err: any, result: boolean) => void,
+    ): void;
 
     /**
      * Add the given value string to the value of an existing item.
@@ -92,14 +110,22 @@ declare class Memcached extends events.EventEmitter {
      * @param key The key
      * @param amount The increment
      */
-    incr(key: string, amount: number, cb: (this: Memcached.CommandData, err: any, result: boolean|number) => void): void;
+    incr(
+        key: string,
+        amount: number,
+        cb: (this: Memcached.CommandData, err: any, result: boolean | number) => void,
+    ): void;
 
     /**
      * Decrement a given key.
      * @param key The key
      * @param amount The decrement
      */
-    decr(key: string, amount: number, cb: (this: Memcached.CommandData, err: any, result: boolean|number) => void): void;
+    decr(
+        key: string,
+        amount: number,
+        cb: (this: Memcached.CommandData, err: any, result: boolean | number) => void,
+    ): void;
 
     /**
      * Remove the key from memcached.
@@ -135,7 +161,12 @@ declare class Memcached extends events.EventEmitter {
     /**
      * Inspect cache, see examples for a detailed explanation.
      */
-    cachedump(server: string, slabid: number, number: number, cb: (err: any, cachedump: Memcached.CacheDumpData|Memcached.CacheDumpData[]) => void): void;
+    cachedump(
+        server: string,
+        slabid: number,
+        number: number,
+        cb: (err: any, cachedump: Memcached.CacheDumpData | Memcached.CacheDumpData[]) => void,
+    ): void;
 
     /**
      * Flushes the memcached server.
@@ -158,12 +189,12 @@ declare namespace Memcached {
         server: string;
         tokens: [string, string];
         messages: string[];
-        failures ?: number | undefined;
-        totalFailures ?: number | undefined;
-        totalReconnectsAttempted ?: number | undefined;
-        totalReconnectsSuccess ?: number | undefined;
-        totalReconnectsFailed ?: number | undefined;
-        totalDownTime ?: number | undefined;
+        failures?: number | undefined;
+        totalFailures?: number | undefined;
+        totalReconnectsAttempted?: number | undefined;
+        totalReconnectsSuccess?: number | undefined;
+        totalReconnectsFailed?: number | undefined;
+        totalDownTime?: number | undefined;
     }
 
     interface CommandData {
@@ -173,16 +204,16 @@ declare namespace Memcached {
         type: string;
         command: string;
         validate: Array<[string, (...args: any[]) => any]>;
-        cas ?: string | undefined;
-        redundancyEnabled ?: boolean | undefined;
-        key ?: string | undefined;
-        value ?: any;
-        lifetime ?: number | undefined;
+        cas?: string | undefined;
+        redundancyEnabled?: boolean | undefined;
+        key?: string | undefined;
+        value?: any;
+        lifetime?: number | undefined;
     }
 
     interface StatusData {
-        server ?: string | undefined;
-        [key: string]: string|boolean|number|undefined;
+        server?: string | undefined;
+        [key: string]: string | boolean | number | undefined;
     }
 
     interface VersionData extends StatusData {
@@ -221,68 +252,68 @@ declare namespace Memcached {
      * to connect to servers with weight use
      * {"127.0.0.1:11211": 1,"127.0.0.1:11212": 2}
      */
-    type Location = string | string[] | {[server: string]: number};
+    type Location = string | string[] | { [server: string]: number };
 
     interface options {
         /**
          * 250, the maximum key size allowed.
          */
-        maxKeySize ?: number | undefined;
+        maxKeySize?: number | undefined;
         /**
          * 2592000, the maximum expiration time of keys (in seconds).
          */
-        maxExpiration ?: number | undefined;
+        maxExpiration?: number | undefined;
         /**
          * 1048576, the maximum size of a value.
          */
-        maxValue ?: number | undefined;
+        maxValue?: number | undefined;
         /**
          * 10, the maximum size of the connection pool.
          */
-        poolSize ?: number | undefined;
+        poolSize?: number | undefined;
         /**
          * md5, the hashing algorithm used to generate the hashRing values.
          */
-        algorithm ?: string | undefined;
+        algorithm?: string | undefined;
         /**
          * 18000000, the time between reconnection attempts (in milliseconds).
          */
-        reconnect ?: number | undefined;
+        reconnect?: number | undefined;
         /**
          * 5000, the time after which Memcached sends a connection timeout (in milliseconds).
          */
-        timeout ?: number | undefined;
+        timeout?: number | undefined;
         /**
          * 5, the number of socket allocation retries per request.
          */
-        retries ?: number | undefined;
+        retries?: number | undefined;
         /**
          * 5, the number of failed-attempts to a server before it is regarded as 'dead'.
          */
-        failures ?: number | undefined;
+        failures?: number | undefined;
         /**
          * 30000, the time between a server failure and an attempt to set it up back in service.
          */
-        retry ?: number | undefined;
+        retry?: number | undefined;
         /**
          * false, if true, authorizes the automatic removal of dead servers from the pool.
          */
-        remove ?: boolean | undefined;
+        remove?: boolean | undefined;
         /**
          * undefined, an array of server_locations to replace servers that fail and that are removed from the consistent hashing scheme.
          */
-        failOverServers ?: string|string[] | undefined;
+        failOverServers?: string | string[] | undefined;
         /**
          * true, whether to use md5 as hashing scheme when keys exceed maxKeySize.
          */
-        keyCompression ?: boolean | undefined;
+        keyCompression?: boolean | undefined;
         /**
          * 5000, the idle timeout for the connections.
          */
-        idle ?: number | undefined;
+        idle?: number | undefined;
         /**
          * '', sentinel to prepend to all memcache keys for namespacing the entries.
          */
-        namespace ?: string | undefined;
+        namespace?: string | undefined;
     }
 }

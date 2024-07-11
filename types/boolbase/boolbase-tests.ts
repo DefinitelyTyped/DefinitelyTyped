@@ -1,4 +1,4 @@
-import boolbase = require('boolbase');
+import boolbase = require("boolbase");
 
 boolbase.trueFunc(); // $ExpectType true
 

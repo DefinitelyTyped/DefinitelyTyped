@@ -1,6 +1,6 @@
-import React = require('react');
-import { View } from 'react-native';
-import { TextField } from 'rn-material-ui-textfield';
+import React = require("react");
+import { View } from "react-native";
+import { TextField } from "rn-material-ui-textfield";
 
 export class Example extends React.Component {
     textFieldRef = React.createRef<TextField>();
@@ -13,7 +13,7 @@ export class Example extends React.Component {
             this.textFieldRef.current.value();
             this.textFieldRef.current.isFocused();
             this.textFieldRef.current.isRestricted();
-            this.textFieldRef.current.setValue('Initial value');
+            this.textFieldRef.current.setValue("Initial value");
         }
     }
 

@@ -42,6 +42,13 @@ declare module '../../index' {
          *   perPixelLighting - if true, per-pixel lighting
          *   will be used in the lighting shader otherwise
          *   per-vertex lighting is used. default is true.
+         *
+         *   version - either 1 or 2, to specify which WebGL
+         *   version to ask for. By default, WebGL 2 will be
+         *   requested. If WebGL2 is not available, it will
+         *   fall back to WebGL 1. You can check what version
+         *   is used with by looking at the global webglVersion
+         *   property.
          *   @param key Name of attribute
          *   @param value New value of named attribute
          */
@@ -85,6 +92,13 @@ declare module '../../index' {
          *   perPixelLighting - if true, per-pixel lighting
          *   will be used in the lighting shader otherwise
          *   per-vertex lighting is used. default is true.
+         *
+         *   version - either 1 or 2, to specify which WebGL
+         *   version to ask for. By default, WebGL 2 will be
+         *   requested. If WebGL2 is not available, it will
+         *   fall back to WebGL 1. You can check what version
+         *   is used with by looking at the global webglVersion
+         *   property.
          *   @param obj object with key-value pairs
          */
         setAttributes(obj: object): void;

@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/angular-localforage",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/ocombe/angular-localForage"
+    ],
     "dependencies": {
+        "@types/angular": "*",
         "localforage": "^1.5.0"
-    }
+    },
+    "devDependencies": {
+        "@types/angular-localforage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stefan Steinhart",
+            "githubUsername": "reppners"
+        }
+    ]
 }

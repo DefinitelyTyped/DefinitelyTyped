@@ -1,11 +1,20 @@
-import * as React from 'react';
-import { StaggeredMotion, Motion, spring, TransitionMotion, TransitionPlainStyle, TransitionStyle, Style, PlainStyle } from 'react-motion';
+import * as React from "react";
+import {
+    Motion,
+    PlainStyle,
+    spring,
+    StaggeredMotion,
+    Style,
+    TransitionMotion,
+    TransitionPlainStyle,
+    TransitionStyle,
+} from "react-motion";
 
 class Root extends React.Component {
     render() {
         return (
-            <Motion defaultStyle={{ x: 0 }} style = {{ x: spring(10) }}>
-                {(value: any) => <div>{ value.x } </div>}
+            <Motion defaultStyle={{ x: 0 }} style={{ x: spring(10) }}>
+                {(value: any) => <div>{value.x}</div>}
             </Motion>
         );
     }
@@ -14,9 +23,7 @@ class Root extends React.Component {
 class TransitionTest extends React.Component {
     render() {
         return (
-            <TransitionMotion defaultStyles={this.getDefaultStyles() }
-                styles={this.getStyles() }
-                >
+            <TransitionMotion defaultStyles={this.getDefaultStyles()} styles={this.getStyles()}>
                 {this.renderItems.bind(this)}
             </TransitionMotion>
         );
@@ -25,72 +32,68 @@ class TransitionTest extends React.Component {
     getDefaultStyles(): TransitionPlainStyle[] {
         return [1, 2, 3].map(num => {
             const style: PlainStyle = {
-                height: 0
+                height: 0,
             };
             return {
                 key: `${num}`,
                 data: num,
-                style: style
+                style: style,
             };
-        })
+        });
     }
 
     getStyles(): TransitionStyle[] {
         return [1, 2, 3].map(num => {
             const style: Style = {
-                height: spring(10)
+                height: spring(10),
             };
             return {
                 key: `${num}`,
                 data: num,
-                style: style
-            }
+                style: style,
+            };
         });
     }
 
-    renderItems(interpolatedItems: TransitionStyle[]): JSX.Element {
+    renderItems(interpolatedItems: TransitionStyle[]): React.JSX.Element {
         return (
             <div>
                 {interpolatedItems.map(config => {
                     return (
-                        <div key={config.key} style={{ height: config.style['height'] as number }}>
+                        <div key={config.key} style={{ height: config.style["height"] as number }}>
                             {config.data}
                         </div>
                     );
-                }) }
+                })}
             </div>
-        )
+        );
     }
 }
 
 class StaggeredTest extends React.Component {
     render() {
         return (
-            <StaggeredMotion defaultStyles={[{ h: 0 }, { h: 0 }, { h: 0 }]}
-                styles={this.getStyles.bind(this)}
-                >
-                    {() => <div />}
+            <StaggeredMotion defaultStyles={[{ h: 0 }, { h: 0 }, { h: 0 }]} styles={this.getStyles.bind(this)}>
+                {() => <div />}
             </StaggeredMotion>
-        )
+        );
     }
 
     getStyles(prevInterpolatedStyles: PlainStyle[]): Style[] {
         return prevInterpolatedStyles.map((prevStyle, index) => {
             const style: Style = {};
-            style['h'] = (index === 0) ? spring(100) : spring(prevInterpolatedStyles[index - 1]['h']);
+            style["h"] = (index === 0) ? spring(100) : spring(prevInterpolatedStyles[index - 1]["h"]);
             return style;
-        })
+        });
     }
 
-    renderItems(interpolatedItems: PlainStyle[]): JSX.Element {
+    renderItems(interpolatedItems: PlainStyle[]): React.JSX.Element {
         return (
             <div>
                 {interpolatedItems.map((style, index) => {
-                    return (
-                        <div key={index} style={{ height: style['h'] }}/>
-                    )
+                    return <div key={index} style={{ height: style["h"] }} />;
                 })}
             </div>
-        )
+        );
     }
 }

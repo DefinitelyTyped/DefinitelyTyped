@@ -1,2 +1,2 @@
-import HasOwnProperty = require('../2018/HasOwnProperty');
+import HasOwnProperty = require("../2018/HasOwnProperty");
 export = HasOwnProperty;

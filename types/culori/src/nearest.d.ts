@@ -1,5 +1,5 @@
-import { DiffFn } from './difference';
-import { Color } from './common';
+import { Color } from "./common";
+import { DiffFn } from "./difference";
 
 type PositiveNumber = number;
 

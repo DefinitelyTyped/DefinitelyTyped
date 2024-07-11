@@ -38,7 +38,7 @@ declare namespace echarts {
                 radiusAxisIndex?: number | number[] | undefined;
                 angleAxisIndex?: number | number[] | undefined;
                 singleAxisIndex?: number | number[] | undefined;
-                filterMode?: 'filter' | 'weakFilter' | 'empty' | 'none' | undefined;
+                filterMode?: "filter" | "weakFilter" | "empty" | "none" | undefined;
                 start?: number | undefined;
                 end?: number | undefined;
                 startValue?: number | string | Date | undefined;
@@ -85,7 +85,7 @@ declare namespace echarts {
                 radiusAxisIndex?: number | number[] | undefined;
                 angleAxisIndex?: number | number[] | undefined;
                 singleAxisIndex?: number | number[] | undefined;
-                filterMode?: 'filter' | 'weakFilter' | 'empty' | 'none' | undefined;
+                filterMode?: "filter" | "weakFilter" | "empty" | "none" | undefined;
                 start?: number | undefined;
                 end?: number | undefined;
                 startValue?: number | string | Date | undefined;
@@ -94,7 +94,7 @@ declare namespace echarts {
                 maxSpan?: number | undefined;
                 minValueSpan?: number | string | Date | undefined;
                 maxValueSpan?: number | string | Date | undefined;
-                orient?: 'vertical' | 'horizontal' | undefined;
+                orient?: "vertical" | "horizontal" | undefined;
                 zoomLock?: boolean | undefined;
                 throttle?: number | undefined;
                 rangeMode?: string[] | undefined;

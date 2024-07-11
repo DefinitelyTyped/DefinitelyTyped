@@ -1,5 +1,5 @@
 import { Disposable } from "event-kit";
-import { GrammarRegistry, Grammar, ScopeSelector } from "first-mate";
+import { Grammar, GrammarRegistry, ScopeSelector } from "first-mate";
 
 declare let subscription: Disposable;
 declare let grammar: Grammar;
@@ -24,7 +24,7 @@ let str: string;
 
 new GrammarRegistry({ maxTokensPerLine: 100 });
 registry.loadGrammarSync("javascript.json");
-const result = grammar.tokenizeLine('var text = "hello world";');
+const result = grammar.tokenizeLine("var text = \"hello world\";");
 result.tokens.forEach((token) => {
     console.log(`Token text: '${token.value}' with scopes: ${token.scopes}`);
 });

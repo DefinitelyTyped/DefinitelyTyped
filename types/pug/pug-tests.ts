@@ -1,14 +1,13 @@
-import * as pug from 'pug';
-
+import * as pug from "pug";
 
 ////////////////////////////////////////////////////////////
 /// Options https://pugjs.org/api/reference.html#options ///
 ////////////////////////////////////////////////////////////
 {
     let opts: pug.Options = {};
-    let str = 'string'
+    let str = "string";
     let bool = false;
-    let strArray = ['string'];
+    let strArray = ["string"];
 
     opts.filename = str;
 
@@ -43,7 +42,7 @@ import * as pug from 'pug';
     let path = "foo.pug";
     let compileTemplate: pug.compileTemplate;
     let template: string;
-    let clientFunctionString: string
+    let clientFunctionString: string;
     let str: string;
 
     {

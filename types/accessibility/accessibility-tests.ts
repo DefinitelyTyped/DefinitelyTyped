@@ -1,12 +1,12 @@
 let options: Accessibility.Options = {
     icon: {
         position: {
-            bottom: { size: 50, units: 'px' },
-            right: { size: 0, units: 'px' },
-            type: 'fixed',
+            bottom: { size: 50, units: "px" },
+            right: { size: 0, units: "px" },
+            type: "fixed",
         },
         circular: false,
-        img: 'accessible',
+        img: "accessible",
     },
     session: {
         persistent: false,
@@ -17,9 +17,9 @@ new Accessibility(options);
 options = {
     icon: {
         position: {
-            top: { size: 2, units: 'vh' },
-            left: { size: 2, units: '%' },
-            type: 'absolute',
+            top: { size: 2, units: "vh" },
+            left: { size: 2, units: "%" },
+            type: "absolute",
         },
     },
 };

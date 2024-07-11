@@ -89,7 +89,7 @@ function mkArray<T>(length: number, generate: (i: number) => T): T[] {
     return a;
 }
 
-function arrayToFunction<T>(array: ReadonlyArray<T>): (index: number) => T {
+function arrayToFunction<T>(array: readonly T[]): (index: number) => T {
     return index => {
         const value = array[index];
         assert(!!value);

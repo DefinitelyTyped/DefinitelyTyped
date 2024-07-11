@@ -1,16 +1,16 @@
-import resx = require('resx');
+import resx = require("resx");
 
 // resx2js promise version
 // $ExpectType Promise<ObjectOfStrings>
-resx.resx2js('dummyResx');
+resx.resx2js("dummyResx");
 
 // resx2js promise version with option
 // $ExpectType Promise<ObjectOfStrings>
-resx.resx2js('dummyResx', false);
+resx.resx2js("dummyResx", false);
 
 // resx2js callback version
 // $ExpectType void
-resx.resx2js('dummyResx', (error: Error, result: resx.ObjectOfStrings) => {
+resx.resx2js("dummyResx", (error: Error, result: resx.ObjectOfStrings) => {
     // $ExpectType Error
     error;
     // $ExpectType ObjectOfStrings
@@ -19,7 +19,7 @@ resx.resx2js('dummyResx', (error: Error, result: resx.ObjectOfStrings) => {
 
 // resx2js callback version with option
 // $ExpectType void
-resx.resx2js('dummyResx', false, (error: Error, result: resx.ObjectOfStrings) => {
+resx.resx2js("dummyResx", false, (error: Error, result: resx.ObjectOfStrings) => {
     // $ExpectType Error
     error;
     // $ExpectType ObjectOfStrings
@@ -28,13 +28,13 @@ resx.resx2js('dummyResx', false, (error: Error, result: resx.ObjectOfStrings) =>
 
 // Test phrases object to use in the next tests
 const dummyPhrases: resx.ObjectOfStrings = {
-    'some phrase key': 'some phrase value',
+    "some phrase key": "some phrase value",
 };
 
 // Test options object to use in the next tests
 const dummyOptions: resx.Js2ResxOptions = {
-    indent: '    ',
-    newline: '\n',
+    indent: "    ",
+    newline: "\n",
     pretty: true,
 };
 

@@ -1,4 +1,4 @@
-type Test = import('../').Test;
+type Test = import("../").Test;
 
 declare const test: Test;
 

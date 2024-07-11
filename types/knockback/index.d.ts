@@ -1,9 +1,3 @@
-// Type definitions for Knockback.js
-// Project: http://kmalakoff.github.com/knockback
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="knockout" />
 /// <reference types="backbone" />
 
@@ -31,14 +25,19 @@ declare namespace Knockback {
     }
 
     class ViewModel extends Destroyable {
-        constructor (model?: Backbone.Model, options?: ViewModelOptions, viewModel?: ViewModel);
+        constructor(model?: Backbone.Model, options?: ViewModelOptions, viewModel?: ViewModel);
         shareOptions(): ViewModelOptions;
         extend(source: any);
         model(): Backbone.Model;
     }
 
     class EventWatcher extends Destroyable {
-        static useOptionsOrCreate(options, emitter: KnockoutObservable<any>, obj: Backbone.Model, callback_options: any);
+        static useOptionsOrCreate(
+            options,
+            emitter: KnockoutObservable<any>,
+            obj: Backbone.Model,
+            callback_options: any,
+        );
 
         emitter(): Backbone.Model;
         emitter(newEmitter: Backbone.Model);
@@ -49,7 +48,7 @@ declare namespace Knockback {
     class Factory {
         static useOptionsOrCreate(options: FactoryOptions, obj: any, owner_path: string);
 
-        constructor (parent_factory: any);
+        constructor(parent_factory: any);
         hasPath(path: string): boolean;
         addPathMapping(path: string, create_info);
         addPathMappings(factories: any, owner_path: string);
@@ -60,20 +59,20 @@ declare namespace Knockback {
     class Store extends Destroyable {
         static useOptionsOrCreate(options: StoreOptions, obj: any, observable: KnockoutObservable<any>);
 
-        constructor (model:Backbone.Model, options: StoreOptions);
+        constructor(model: Backbone.Model, options: StoreOptions);
         clear();
         register(obj: Backbone.Model, observable: KnockoutObservable<any>, options: StoreOptions);
         findOrCreate(obj: Backbone.Model, options: StoreOptions);
     }
 
     class DefaultObservable extends Destroyable {
-        constructor (targetObservable: KnockoutObservable<any>, defaultValue: any);
+        constructor(targetObservable: KnockoutObservable<any>, defaultValue: any);
         setToDefault();
     }
 
     class FormattedObservable extends Destroyable {
-        constructor (format: string, args: any[]);
-        constructor (format: KnockoutObservable<any>, args: any[]);
+        constructor(format: string, args: any[]);
+        constructor(format: KnockoutObservable<any>, args: any[]);
     }
 
     class LocalizedObservable {
@@ -84,13 +83,13 @@ declare namespace Knockback {
     }
 
     class TriggeredObservable extends Destroyable {
-        constructor (emitter: Backbone.ModelBase, event: string);
+        constructor(emitter: Backbone.ModelBase, event: string);
         emitter(): Backbone.ModelBase;
         emitter(newEmitter: Backbone.ModelBase);
     }
 
     class Statistics {
-        constructor ();
+        constructor();
         clear();
         addModelEvent(event: string);
         modelEventsStatsString();
@@ -101,37 +100,37 @@ declare namespace Knockback {
     }
 
     interface OptionsBase {
-        path?: string | undefined;               // the path to the value (used to create related observables from the factory).
-        store?: Store | undefined;               // a store used to cache and share view models.
-        factory?: Factory | undefined;           // a factory used to create view models.
-        options?: any;               // a set of options merge into these options using _.defaults. Useful for extending options when deriving classes rather than merging them by hand.
+        path?: string | undefined; // the path to the value (used to create related observables from the factory).
+        store?: Store | undefined; // a store used to cache and share view models.
+        factory?: Factory | undefined; // a factory used to create view models.
+        options?: any; // a set of options merge into these options using _.defaults. Useful for extending options when deriving classes rather than merging them by hand.
     }
 
     interface ViewModelOptions extends OptionsBase {
-        internals?: string[] | undefined;       // an array of atttributes that should be scoped with an underscore, eg. name -> _name
-        requires?: string[] | undefined;        // an array of atttributes that will have kb.Observables created even if they do not exist on the Backbone.Model. Useful for binding Views that require specific observables to exist
-        keys?: string[] | undefined;            // restricts the keys used on a model. Useful for reducing the number of kb.Observables created from a limited set of Backbone.Model attributes
-        if(objOrArray: any);        // an array is supplied, excludes keys to exclude on the view model; for example, if you want to provide a custom implementation. If an Object, it provides options to the kb.Observable constructor.
-        path?: string | undefined;              // the path to the value (used to create related observables from the factory).
-        factories?: any;            // a map of dot-deliminated paths; for example {'models.name': kb.ViewModel} to either constructors or create functions. Signature: {'some.path': function(object, options)}
+        internals?: string[] | undefined; // an array of atttributes that should be scoped with an underscore, eg. name -> _name
+        requires?: string[] | undefined; // an array of atttributes that will have kb.Observables created even if they do not exist on the Backbone.Model. Useful for binding Views that require specific observables to exist
+        keys?: string[] | undefined; // restricts the keys used on a model. Useful for reducing the number of kb.Observables created from a limited set of Backbone.Model attributes
+        if(objOrArray: any); // an array is supplied, excludes keys to exclude on the view model; for example, if you want to provide a custom implementation. If an Object, it provides options to the kb.Observable constructor.
+        path?: string | undefined; // the path to the value (used to create related observables from the factory).
+        factories?: any; // a map of dot-deliminated paths; for example {'models.name': kb.ViewModel} to either constructors or create functions. Signature: {'some.path': function(object, options)}
     }
 
     interface CollectionOptions extends OptionsBase {
-        models_only?: boolean | undefined;         // flag for skipping the creation of view models. The collection observable will be populated with (possibly sorted) models.
-        view_model?: any;           // (Constructor) — the view model constructor used for models in the collection. Signature: constructor(model, options)
-        create?: any;               // a function used to create a view model for models in the collection. Signature: create(model, options)
-        factories?: any;            // a map of dot-deliminated paths; for example 'models.owner': kb.ViewModel to either constructors or create functions. Signature: 'some.path': function(object, options)
-        comparator?: any;           //a function that is used to sort an object. Signature: function(model_a, model_b) returns negative value for ascending, 0 for equal, and positive for descending
-        sort_attribute?: string | undefined;    // the name of an attribute. Default: resort on all changes to a model.
-        filters?: any;              // filters can be individual ids (observable or simple) or arrays of ids, functions, or arrays of functions.
+        models_only?: boolean | undefined; // flag for skipping the creation of view models. The collection observable will be populated with (possibly sorted) models.
+        view_model?: any; // (Constructor) — the view model constructor used for models in the collection. Signature: constructor(model, options)
+        create?: any; // a function used to create a view model for models in the collection. Signature: create(model, options)
+        factories?: any; // a map of dot-deliminated paths; for example 'models.owner': kb.ViewModel to either constructors or create functions. Signature: 'some.path': function(object, options)
+        comparator?: any; // a function that is used to sort an object. Signature: function(model_a, model_b) returns negative value for ascending, 0 for equal, and positive for descending
+        sort_attribute?: string | undefined; // the name of an attribute. Default: resort on all changes to a model.
+        filters?: any; // filters can be individual ids (observable or simple) or arrays of ids, functions, or arrays of functions.
     }
 
     interface CollectionObservable extends KnockoutObservableArray<any> {
         collection(colleciton: Backbone.Collection<Backbone.Model>);
         collection(): Backbone.Collection<Backbone.Model>;
         destroy();
-        shareOptions():  CollectionOptions;
-        filters(id: any) : Backbone.Model;
+        shareOptions(): CollectionOptions;
+        filters(id: any): Backbone.Model;
         filters(ids: any[]): CollectionObservable;
         filters(iterator: (element: Backbone.Model) => boolean): CollectionObservable;
         comparator(comparatorFunction: any);
@@ -166,28 +165,33 @@ declare namespace Knockback {
     interface Static extends Utils {
         ViewModel;
         CollectionObservable;
-        collectionObservable(model?: Backbone.Collection<Backbone.Model>, options?: CollectionOptions): CollectionObservable;
+        collectionObservable(
+            model?: Backbone.Collection<Backbone.Model>,
+            options?: CollectionOptions,
+        ): CollectionObservable;
         /** Base class for observing model attributes. */
         observable(
             /** the model to observe (can be null) */
             model: Backbone.Model,
             /** the create options. String is a single attribute name, Array is an array of attribute names. */
-                options: IObservableOptions,
+            options: IObservableOptions,
             /** the viewModel */
-            vm?: ViewModel): KnockoutObservable<any>;
+            vm?: ViewModel,
+        ): KnockoutObservable<any>;
         observable(
             /** the model to observe (can be null) */
             model: Backbone.Model,
             /** the create options. String is a single attribute name, Array is an array of attribute names. */
             options_attributeName: string,
             /** the viewModel */
-            vm?: ViewModel): KnockoutObservable<any>;
+            vm?: ViewModel,
+        ): KnockoutObservable<any>;
         viewModel(model?: Backbone.Model, options?: any): KnockoutObservable<any>;
         defaultObservable(targetObservable: KnockoutObservable<any>, defaultValue: any): KnockoutObservable<any>;
         formattedObservable(format: string, args: any[]): KnockoutObservable<any>;
         formattedObservable(format: KnockoutObservable<any>, args: any[]): KnockoutObservable<any>;
         localizedObservable(data: any, options: any): KnockoutObservable<any>;
-        release(object: any, pre_release?: () => void );
+        release(object: any, pre_release?: () => void);
         releaseKeys(object: any);
         releaseOnNodeRemove(viewmodel: ViewModel, node: Element);
         renderTemplate(template: string, viewModel: ViewModel, options: any);
@@ -212,7 +216,7 @@ declare namespace Knockback {
         key: string;
         read?: (() => any) | undefined;
         write?: ((value: any) => void) | undefined;
-        args?: KnockoutObservable<any>[] | undefined;
+        args?: Array<KnockoutObservable<any>> | undefined;
         localizer?: LocalizedObservable | undefined;
         default?: any;
         path?: string | undefined;
@@ -220,7 +224,6 @@ declare namespace Knockback {
         factory?: any;
         options?: any;
     }
-
 }
 
 declare var kb: Knockback.Static;

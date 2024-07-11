@@ -1,6 +1,6 @@
-type SteamID = import('steamid');
-import SteamUser = require('..');
-import EventEmitter = require('events');
+type SteamID = import("steamid");
+import SteamUser = require("..");
+import EventEmitter = require("events");
 
 export = SteamChatRoomClient;
 
@@ -334,7 +334,7 @@ declare class SteamChatRoomClient extends EventEmitter {
     ackFriendMessage(friendSteamId: SteamID | string, timestamp: Date | number): void;
 }
 
-//#region "Events"
+// #region "Events"
 interface ChatEvents {
     friendMessage: [message: IncomingFriendMessage];
     friendMessageEcho: [message: IncomingFriendMessage];
@@ -349,9 +349,9 @@ interface ChatEvents {
     chatRoomGroupHeaderStateChange: [details: groupHeaderStateChangeDetails];
     chatRoomGroupRoomsChange: [details: groupRoomsStateChangeDetails];
 }
-//#endregion "Events"
+// #endregion "Events"
 
-//#region "Response Interfaces"
+// #region "Response Interfaces"
 interface ChatMessage {
     sender: SteamID;
     server_timestamp: Date;
@@ -380,7 +380,7 @@ interface Ban {
     steamid: SteamID;
     steamid_actor: SteamID;
     time_banned: Date;
-    ban_reason: ''; // always empty, SteamUI doesn't support ban reasons
+    ban_reason: ""; // always empty, SteamUI doesn't support ban reasons
 }
 
 interface SentMessage {
@@ -405,9 +405,9 @@ interface InviteLinkInfo {
     time_kick_expire: Date | null;
     banned: boolean;
 }
-//#endregion "Response Interfaces"
+// #endregion "Response Interfaces"
 
-//#region "Interfaces"
+// #region "Interfaces"
 interface ModifiedMessage {
     chat_group_id: string;
     chat_id: string;
@@ -602,4 +602,4 @@ interface groupRoomsStateChangeDetails {
     chat_rooms: ChatRoomState[];
 }
 
-//#endregion "Interfaces"
+// #endregion "Interfaces"

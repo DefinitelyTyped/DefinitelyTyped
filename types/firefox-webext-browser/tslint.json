@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-mergeable-namespace": false,
-        "no-unnecessary-qualifier": false,
-        "unified-signatures": false,
-        "max-line-length": false
-    }
-}

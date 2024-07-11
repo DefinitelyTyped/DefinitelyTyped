@@ -1,9 +1,3 @@
-// Type definitions for delete-empty 3.0
-// Project: https://github.com/jonschlinkert/delete-empty
-// Definitions by: Alorel <https://github.com/Alorel>
-//                 Piotr Błażejewicz <https://github.com/Alorel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function deleteEmpty(dir: string, options: deleteEmpty.Options, cb: deleteEmpty.DeleteEmptyCallback): void;
 declare function deleteEmpty(dir: string, cb: deleteEmpty.DeleteEmptyCallback): void;
 declare function deleteEmpty(dir: string, options?: deleteEmpty.Options): Promise<string[]>;

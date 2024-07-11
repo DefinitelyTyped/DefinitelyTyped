@@ -1,5 +1,7 @@
 {
     "rules": {
-        "dt-header": "off"
+        "@definitelytyped/dt-header": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

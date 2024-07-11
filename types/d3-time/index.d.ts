@@ -1,12 +1,3 @@
-// Type definitions for D3JS d3-time module 3.0
-// Project: https://github.com/d3/d3-time/, https://d3js.org/d3-time
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.0
 
 // ---------------------------------------------------------------
@@ -204,7 +195,7 @@ export function timeInterval(
     floor: (date: Date) => void,
     offset: (date: Date, step: number) => void,
     count: (start: Date, end: Date) => number,
-    field?: (date: Date) => number
+    field?: (date: Date) => number,
 ): CountableTimeInterval;
 
 // ---------------------------------------------------------------
@@ -524,7 +515,6 @@ export function utcDays(start: Date, stop: Date, step?: number): Date[];
 
 /**
  * Week Interval in Local Time. Alias for sunday; 7 days and 168 hours.
- *
  */
 export const utcWeek: CountableTimeInterval;
 

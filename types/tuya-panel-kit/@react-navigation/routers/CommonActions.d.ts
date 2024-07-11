@@ -1,16 +1,19 @@
-import type { NavigationState, PartialState, Route } from './types';
-// tslint:disable-next-line strict-export-declare-modifiers
-declare type ResetState = PartialState<NavigationState> | NavigationState | (Omit<NavigationState, 'routes'> & {
-    // tslint:disable-next-line array-type
-    routes: Omit<Route<string>, 'key'>[];
-});
-// tslint:disable-next-line strict-export-declare-modifiers
+import type { NavigationState, PartialState, Route } from "./types";
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+declare type ResetState =
+    | PartialState<NavigationState>
+    | NavigationState
+    | (Omit<NavigationState, "routes"> & {
+        // tslint:disable-next-line array-type
+        routes: Array<Omit<Route<string>, "key">>;
+    });
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Action = {
-    type: 'GO_BACK';
+    type: "GO_BACK";
     source?: string | undefined;
     target?: string | undefined;
 } | {
-    type: 'NAVIGATE';
+    type: "NAVIGATE";
     payload: {
         key: string;
         name?: undefined;
@@ -25,33 +28,35 @@ export declare type Action = {
     source?: string | undefined;
     target?: string | undefined;
 } | {
-    type: 'RESET';
+    type: "RESET";
     payload: ResetState | undefined;
     source?: string | undefined;
     target?: string | undefined;
 } | {
-    type: 'SET_PARAMS';
+    type: "SET_PARAMS";
     payload: {
         params?: object | undefined;
     };
     source?: string | undefined;
     target?: string | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare function goBack(): Action;
-// tslint:disable-next-line strict-export-declare-modifiers
-export declare function navigate(route: {
-    key: string;
-    params?: object | undefined;
-} | {
-    name: string;
-    key?: string | undefined;
-    params?: object | undefined;
-}): Action;
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
+export declare function navigate(
+    route: {
+        key: string;
+        params?: object | undefined;
+    } | {
+        name: string;
+        key?: string | undefined;
+        params?: object | undefined;
+    },
+): Action;
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare function navigate(name: string, params?: object): Action;
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare function reset(state: ResetState | undefined): Action;
-// tslint:disable-next-line strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare function setParams(params: object): Action;
 export {};

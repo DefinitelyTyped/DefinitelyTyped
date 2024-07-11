@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/stroncium__procfs",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/stroncium/nodejs-procfs"
+    ],
+    "devDependencies": {
+        "@types/stroncium__procfs": "workspace:."
+    },
+    "owners": []
+}

@@ -1,6 +1,6 @@
-import * as ch from 'chloride';
+import * as ch from "chloride";
 
-const data = Buffer.from('data');
+const data = Buffer.from("data");
 const seed = Buffer.alloc(32);
 const nonce = Buffer.alloc(24);
 

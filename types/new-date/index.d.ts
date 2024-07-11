@@ -1,8 +1,3 @@
-// Type definitions for new-date 1.0
-// Project: https://github.com/segmentio/new-date#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = newDate;
 
 /**

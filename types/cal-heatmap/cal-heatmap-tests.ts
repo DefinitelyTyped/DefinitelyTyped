@@ -23,23 +23,24 @@ cal.init({
     cellSize: 20,
     subDomainTextFormat: "%d",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#domain-b",
     domain: "month",
     subDomain: "x_day",
-    cellSize: 20, subDomainTextFormat: "%d",
+    cellSize: 20,
+    subDomainTextFormat: "%d",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#cellSize-a",
     domain: "day",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -47,14 +48,14 @@ cal.init({
     domain: "day",
     range: 1,
     cellSize: 15,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#cellPadding-a",
     domain: "day",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -62,7 +63,7 @@ cal.init({
     domain: "day",
     range: 1,
     cellPadding: 5,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -70,7 +71,7 @@ cal.init({
     cellSize: 15,
     domain: "day",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -79,14 +80,14 @@ cal.init({
     domain: "day",
     range: 1,
     cellRadius: 10,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#domainGutter-a",
     domain: "day",
     range: 2,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -94,14 +95,14 @@ cal.init({
     domain: "day",
     range: 2,
     domainGutter: 10,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#domainMargin-a",
     domain: "day",
     range: 2,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -109,7 +110,7 @@ cal.init({
     domain: "day",
     range: 2,
     displayLegend: false,
-    domainMargin: 10
+    domainMargin: 10,
 });
 
 cal.init({
@@ -119,7 +120,7 @@ cal.init({
     cellSize: 8,
     displayLegend: false,
     nextSelector: "#domainDynamicDimension-next",
-    previousSelector: "#domainDynamicDimension-previous"
+    previousSelector: "#domainDynamicDimension-previous",
 });
 
 cal.init({
@@ -131,14 +132,14 @@ cal.init({
     domainDynamicDimension: false,
     nextSelector: "#domainDynamicDimension-next",
     previousSelector: "#domainDynamicDimension-previous",
-    itemNamespace: "domainDynamicDimension"
+    itemNamespace: "domainDynamicDimension",
 });
 
 cal.init({
     itemSelector: "#verticalOrientation-a",
     domain: "day",
     range: 2,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -146,14 +147,14 @@ cal.init({
     domain: "day",
     range: 2,
     displayLegend: false,
-    verticalOrientation: true
+    verticalOrientation: true,
 });
 
 cal.init({
     itemSelector: "#label-a",
     domain: "day",
     range: 2,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -162,8 +163,8 @@ cal.init({
     range: 2,
     displayLegend: false,
     label: {
-        position: "top"
-    }
+        position: "top",
+    },
 });
 
 cal.init({
@@ -173,8 +174,8 @@ cal.init({
     displayLegend: false,
     label: {
         position: "left",
-        width: 46
-    }
+        width: 46,
+    },
 });
 
 cal.init({
@@ -185,8 +186,8 @@ cal.init({
     label: {
         position: "right",
         width: 46,
-        offset: { x: 10, y: 30 }
-    }
+        offset: { x: 10, y: 30 },
+    },
 });
 
 cal.init({
@@ -197,8 +198,8 @@ cal.init({
     label: {
         position: "left",
         width: 46,
-        rotate: "left"
-    }
+        rotate: "left",
+    },
 });
 
 cal.init({
@@ -209,8 +210,8 @@ cal.init({
     label: {
         position: "right",
         width: 150,
-        rotate: "left"
-    }
+        rotate: "left",
+    },
 });
 
 cal.init({
@@ -221,8 +222,8 @@ cal.init({
     label: {
         position: "right",
         width: 46,
-        rotate: "left"
-    }
+        rotate: "left",
+    },
 });
 
 cal.init({
@@ -234,15 +235,15 @@ cal.init({
         position: "right",
         width: 46,
         rotate: "right",
-        align: "right"
-    }
+        align: "right",
+    },
 });
 
 cal.init({
     itemSelector: "#colLimit-a",
     domain: "day",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -250,14 +251,14 @@ cal.init({
     domain: "day",
     colLimit: 24,
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#rowLimit-a",
     domain: "month",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -265,14 +266,14 @@ cal.init({
     domain: "month",
     rowLimit: 10,
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#tooltip-a",
     domain: "month",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -280,14 +281,14 @@ cal.init({
     domain: "month",
     range: 1,
     displayLegend: false,
-    tooltip: true
+    tooltip: true,
 });
 
 cal.init({
     itemSelector: "#start-a",
     domain: "day",
     range: 2,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -295,7 +296,7 @@ cal.init({
     domain: "day",
     range: 2,
     start: new Date(2000, 0, 15),
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -303,12 +304,12 @@ cal.init({
     range: 12,
     domain: "year",
     subDomain: "month",
-    data: "http://localhost/api?start={{d:start}}&stop={{d:end}}"
+    data: "http://localhost/api?start={{d:start}}&stop={{d:end}}",
 });
 
 cal.init({
     data: "http://localhost/datas.csv",
-    dataType: "csv"
+    dataType: "csv",
 });
 
 var dt = new Date();
@@ -318,7 +319,7 @@ cal.init({
     domain: "day",
     range: 2,
     displayLegend: false,
-    highlight: ["now", dt]
+    highlight: ["now", dt],
 });
 
 cal.init({
@@ -328,7 +329,7 @@ cal.init({
     cellSize: 20,
     subDomainTextFormat: "%d",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -339,7 +340,7 @@ cal.init({
     subDomainTextFormat: "%d",
     range: 1,
     weekStartOnMonday: false,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -350,75 +351,78 @@ cal.init({
     maxDate: new Date(2000, 8),
     subDomain: "day",
     range: 4,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#legend-a",
     domain: "day",
-    range: 2
+    range: 2,
 });
 
 cal.init({
     itemSelector: "#legend-b",
     domain: "day",
-    range: 2, legend: [-2.5, 0, 2.5]
+    range: 2,
+    legend: [-2.5, 0, 2.5],
 });
 
 cal.init({
     itemSelector: "#displayLegend-a",
     domain: "day",
-    range: 2
+    range: 2,
 });
 
 cal.init({
     itemSelector: "#displayLegend-b",
     domain: "day",
     range: 2,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
     itemSelector: "#legendCellSize-a",
     domain: "day",
-    range: 2
+    range: 2,
 });
 
 cal.init({
     itemSelector: "#legendCellSize-b",
     domain: "day",
-    range: 2, legendCellSize: 5
+    range: 2,
+    legendCellSize: 5,
 });
 
 cal.init({
     itemSelector: "#legendCellPadding-a",
     domain: "day",
-    range: 3
+    range: 3,
 });
 
 cal.init({
     itemSelector: "#legendCellPadding-b",
     domain: "day",
-    range: 3, legendCellPadding: 5
+    range: 3,
+    legendCellPadding: 5,
 });
 
 cal.init({
     itemSelector: "#legendMargin-a",
     domain: "day",
-    range: 3
+    range: 3,
 });
 
 cal.init({
     itemSelector: "#legendMargin-b",
     domain: "day",
     range: 3,
-    legendMargin: [50, 0, 0, 50]
+    legendMargin: [50, 0, 0, 50],
 });
 
 cal.init({
     itemSelector: "#legendVerticalPosition-a",
     domain: "day",
-    range: 2
+    range: 2,
 });
 
 cal.init({
@@ -426,7 +430,7 @@ cal.init({
     domain: "day",
     range: 2,
     legendVerticalPosition: "top",
-    legendMargin: [0, 0, 10, 0]
+    legendMargin: [0, 0, 10, 0],
 });
 
 cal.init({
@@ -434,7 +438,7 @@ cal.init({
     domain: "day",
     range: 2,
     legendVerticalPosition: "center",
-    legendMargin: [0, 10, 0, 0]
+    legendMargin: [0, 10, 0, 0],
 });
 
 cal.init({
@@ -443,20 +447,20 @@ cal.init({
     range: 2,
     legendVerticalPosition: "center",
     legendHorizontalPosition: "right",
-    legendMargin: [0, 0, 0, 10]
+    legendMargin: [0, 0, 0, 10],
 });
 
 cal.init({
     itemSelector: "#legendHorizontalPosition-a",
     domain: "day",
-    range: 3
+    range: 3,
 });
 
 cal.init({
     itemSelector: "#legendHorizontalPosition-b",
     domain: "day",
     range: 3,
-    legendHorizontalPosition: "right"
+    legendHorizontalPosition: "right",
 });
 
 cal.init({
@@ -465,7 +469,7 @@ cal.init({
     range: 3,
     legendVerticalPosition: "center",
     legendOrientation: "vertical",
-    legendMargin: [0, 10, 0, 0]
+    legendMargin: [0, 10, 0, 0],
 });
 
 cal.init({
@@ -477,37 +481,36 @@ cal.init({
     legendVerticalPosition: "center",
     legendHorizontalPosition: "right",
     legendOrientation: "vertical",
-    legendMargin: [0, 0, 0, 20]
+    legendMargin: [0, 0, 0, 20],
 });
 
 cal.init({
     legendColors: {
         min: "#efefef",
         max: "steelblue",
-        empty: "white"
+        empty: "white",
         // Will use the CSS for the missing keys
-    }
+    },
 });
 
 cal.init({
-    legendColors: ["#efefef", "steelblue"]
+    legendColors: ["#efefef", "steelblue"],
 });
 
 cal.init({
-    itemName: ["cat", "cats"]
+    itemName: ["cat", "cats"],
 });
 cal.init({
-    itemName: "cat"
+    itemName: "cat",
 });
 cal.init({
-    itemName: ["cat"]
+    itemName: ["cat"],
 });
 
 cal.init({
-    subDomainDateFormat: function(date: Date): string
-    {
+    subDomainDateFormat: function(date: Date): string {
         return date.toString();
-    }
+    },
 });
 
 cal.init({
@@ -518,7 +521,7 @@ cal.init({
     cellSize: 20,
     range: 1,
     displayLegend: false,
-    subDomainTextFormat: "%d"
+    subDomainTextFormat: "%d",
 });
 
 cal.init({
@@ -530,10 +533,9 @@ cal.init({
     cellSize: 20,
     range: 1,
     displayLegend: false,
-    subDomainTextFormat: function(date: Date, value: number): number
-    {
+    subDomainTextFormat: function(date: Date, value: number): number {
         return value;
-    }
+    },
 });
 
 cal.init({
@@ -541,7 +543,7 @@ cal.init({
     domain: "month",
     subDomain: "day",
     range: 1,
-    displayLegend: false
+    displayLegend: false,
 });
 
 cal.init({
@@ -550,13 +552,13 @@ cal.init({
     subDomain: "day",
     range: 1,
     displayLegend: false,
-    domainLabelFormat: "%m-%Y"
+    domainLabelFormat: "%m-%Y",
 });
 
 cal.init({
     itemSelector: "#legendTitleFormat-a",
     domain: "day",
-    range: 3
+    range: 3,
 });
 
 cal.init({
@@ -565,16 +567,17 @@ cal.init({
     range: 4,
     previousSelector: "#animationDuration-previous",
     nextSelector: "#animationDuration-next",
-    itemNamespace: "animationDuration-a"
+    itemNamespace: "animationDuration-a",
 });
 
 cal.init({
     itemSelector: "#animationDuration-b",
     domain: "day",
-    range: 4, animationDuration: 1500,
+    range: 4,
+    animationDuration: 1500,
     previousSelector: "#animationDuration-previous",
     nextSelector: "#animationDuration-next",
-    itemNamespace: "animationDuration-b"
+    itemNamespace: "animationDuration-b",
 });
 
 cal.init({
@@ -582,7 +585,7 @@ cal.init({
     domain: "day",
     range: 4,
     previousSelector: "#previousSelector-a-previous",
-    nextSelector: "#previousSelector-a-next"
+    nextSelector: "#previousSelector-a-next",
 });
 
 cal.init({
@@ -590,19 +593,18 @@ cal.init({
     domain: "day",
     range: 4,
     previousSelector: "#example-previousSelector  ul + p > em",
-    nextSelector: "#example-previousSelector [title=next] li"
+    nextSelector: "#example-previousSelector [title=next] li",
 });
 
 cal.init({
-    nextSelector: "#next" // Attach #next onClick event to cal.next()
+    nextSelector: "#next", // Attach #next onClick event to cal.next()
 });
 
 cal.init({
     nextSelector: "#next",
     // Attach #next.cal onClick event to cal.next()
-    itemNamespace: "cal"
+    itemNamespace: "cal",
 });
-
 
 cal.previous();
 cal.previous(5);
@@ -617,7 +619,7 @@ cal.rewind();
 
 var randomData = {};
 cal.update(randomData);
-cal.update(randomData, () => { }, cal.RESET_ALL_ON_UPDATE);
+cal.update(randomData, () => {}, cal.RESET_ALL_ON_UPDATE);
 cal.update(randomData, false, cal.APPEND_ON_UPDATE);
 cal.update(randomData, false, cal.RESET_SINGLE_ON_UPDATE);
 
@@ -629,11 +631,9 @@ cal.highlight(cal.options.highlight);
 
 var svg: string = cal.getSVG();
 
-
 cal.options.legendVerticalPosition = "center";
 cal.options.legendHorizontalPosition = "right";
 cal.options.legendOrientation = "vertical";
-
 
 cal.setLegend();
 
@@ -643,67 +643,67 @@ cal.showLegend();
 
 cal = cal.destroy();
 
-
 cal.init({
     itemSelector: "#onClick-a",
     domain: "day",
-    range: 5, data: "datas-years.json",
+    range: 5,
+    data: "datas-years.json",
     start: new Date(2000, 0),
-    onClick: function(date: Date, nb: number)
-    {
-        $("#onClick-placeholder").html("You just clicked <br/>on <b>" +
-            date + "</b> <br/>with <b>" +
-            (nb === null ? "unknown" : nb) + "</b> items"
+    onClick: function(date: Date, nb: number) {
+        $("#onClick-placeholder").html(
+            "You just clicked <br/>on <b>"
+                + date + "</b> <br/>with <b>"
+                + (nb === null ? "unknown" : nb) + "</b> items",
         );
-    }
+    },
 });
 
 cal.init({
     itemSelector: "#afterLoad-a",
     domain: "day",
     range: 5,
-    afterLoad: function() { },
-    onComplete: function() { }
+    afterLoad: function() {},
+    onComplete: function() {},
 });
 
 cal.init({
     itemSelector: "#afterLoadPreviousDomain-a",
     domain: "day",
-    range: 5, afterLoadPreviousDomain: function(date: Date) { },
-    previousSelector: "#afterLoadPreviousDomain-selector"
+    range: 5,
+    afterLoadPreviousDomain: function(date: Date) {},
+    previousSelector: "#afterLoadPreviousDomain-selector",
 });
 
 cal.init({
     itemSelector: "#afterLoadNextDomain-a",
     domain: "day",
-    range: 5, afterLoadNextDomain: function(date: Date) { },
-    nextSelector: "#afterLoadNextDomain-selector"
+    range: 5,
+    afterLoadNextDomain: function(date: Date) {},
+    nextSelector: "#afterLoadNextDomain-selector",
 });
 
 cal.init({
     itemSelector: "#onComplete-a",
     domain: "day",
     range: 5,
-    onComplete: function() { }
+    onComplete: function() {},
 });
 
 var datas = [
     { date: 946702811, value: 15 },
     { date: 946702812, value: 25 },
-    { date: 946702813, value: 10 }
-]
+    { date: 946702813, value: 10 },
+];
 
 cal.init({
     data: datas,
-    afterLoadData: (data: any) =>
-    {
+    afterLoadData: (data: any) => {
         var stats: CalHeatMap.DataFormat = {};
-        for (var d in data)
-        {
+        for (var d in data) {
             stats[data[d].date] = data[d].value;
         }
         return stats;
-    }
+    },
 });
 
 cal.init({
@@ -713,9 +713,9 @@ cal.init({
     start: new Date(2000, 4),
     minDate: new Date(2000, 3),
     maxDate: new Date(2000, 11),
-    onMinDomainReached: function(hit: boolean) { },
-    onMaxDomainReached: function(hit: boolean) { },
+    onMinDomainReached: function(hit: boolean) {},
+    onMaxDomainReached: function(hit: boolean) {},
     nextSelector: "#onMinDomainReached-next",
     previousSelector: "#onMinDomainReached-previous",
-    displayLegend: false
+    displayLegend: false,
 });

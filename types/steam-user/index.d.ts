@@ -1,20 +1,13 @@
-// Type definitions for steam-user 4.26
-// Project: https://github.com/DoctorMcKay/node-steam-user
-// Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-// Enums generated from JS by: https://github.com/joshuajeschek/JStoTSenum
-
 // check out PR#54998 for the possibility of a rewrite (https://github.com/DefinitelyTyped/DefinitelyTyped/pull/54998)
 // as well as this branch: https://github.com/joshuajeschek/DefinitelyTyped/tree/steam-user-rewrite
 
 /// <reference types="node" />
 
-import type SteamID = require('steamid');
-import type ByteBuffer = require('bytebuffer');
-import type FileManager = require('file-manager');
-import EventEmitter = require('events');
-import SteamChatRoomClient = require('./components/chatroom');
+import SteamID = require("steamid");
+import ByteBuffer = require("bytebuffer");
+import FileManager = require("file-manager");
+import EventEmitter = require("events");
+import SteamChatRoomClient = require("./components/chatroom");
 
 export = SteamUser;
 
@@ -150,7 +143,7 @@ declare class SteamUser extends EventEmitter {
     /**
      * Contains the name of this package. This allows other modules to verify interoperability.
      */
-    packageName: 'steam-user';
+    packageName: "steam-user";
 
     /**
      * Contains the version of this package. For example, "4.2.0". This allows other modules to verify interoperability.
@@ -168,7 +161,7 @@ declare class SteamUser extends EventEmitter {
      * Please use 'ownershipCached'
      * @deprecated since v4.22.1
      */
-    on(event: 'appOwnershipCached', listener: () => void): this;
+    on(event: "appOwnershipCached", listener: () => void): this;
     once<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     off<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
     removeListener<K extends keyof Events>(event: K, listener: (...args: Events[K]) => void): this;
@@ -187,13 +180,14 @@ declare class SteamUser extends EventEmitter {
      */
     setOptions(options: Options): void;
 
-    /**
-     * Set a sentry file
-     * @param sentry Binary Sentry File
-     */
-    setSentry(sentry: Buffer | null): void;
-
-    logOn(details?: LogOnDetailsAnon | LogOnDetailsNamePass | LogOnDetailsNameKey | LogOnDetailsNameToken): void;
+    logOn(
+        details?:
+            | LogOnDetailsAnon
+            | LogOnDetailsNamePass
+            | LogOnDetailsNameKey
+            | LogOnDetailsNameToken
+            | LogOnDetailsRefresh,
+    ): void;
 
     /**
      * Log off of Steam gracefully.
@@ -211,8 +205,8 @@ declare class SteamUser extends EventEmitter {
      * @param [callback] - Called when an activation SMS has been sent.
      */
     enableTwoFactor(
-        callback?: (err: Error | null, response: Record<string, any>) => void,
-    ): Promise<Record<string, any>>;
+        callback?: (err: Error | null, response: TwoFactorResponse) => void,
+    ): Promise<TwoFactorResponse>;
 
     /**
      * Finalize the process of enabling TOTP two-factor authentication
@@ -220,16 +214,15 @@ declare class SteamUser extends EventEmitter {
      * @param activationCode - The activation code you got in your email
      * @param [callback] - Called with a single Error argument, or null on success
      */
-    finalizeTwoFactor(secret: Buffer, activationCode: string, callback?: (err: Error | null) => void): Promise<void>;
+    finalizeTwoFactor(secret: string, activationCode: string, callback?: (err: Error | null) => void): Promise<void>;
 
     getSteamGuardDetails(
         callback?: (
             err: Error | null,
-            canTrade: boolean,
             isSteamGuardEnabled: boolean,
             timestampSteamGuardEnabled: Date | null,
             timestampMachineSteamGuardEnabled: Date | null,
-            isTwoFactorEnabled: boolean,
+            canTrade: boolean,
             timestampTwoFactorEnabled: Date | null,
             isPhoneVerified: boolean,
         ) => void,
@@ -327,7 +320,7 @@ declare class SteamUser extends EventEmitter {
         sinceChangenumber: number,
         callback?: (
             err: Error | null,
-            currentChangenumber: number,
+            currentChangeNumber: number,
             appChanges: AppChanges,
             packageChanges: PackageChanges,
         ) => void,
@@ -816,7 +809,7 @@ declare class SteamUser extends EventEmitter {
         callback?: (err: Error | null, encryptedAppTicket: Buffer) => void,
     ): Promise<{ encryptedAppTicket: Buffer }>;
 
-    //#region "GC INTERACTION"
+    // #region "GC INTERACTION"
     // https://github.com/DoctorMcKay/node-steam-user/wiki/Game-Coordinator
 
     /**
@@ -834,9 +827,9 @@ declare class SteamUser extends EventEmitter {
         payload: Buffer | ByteBuffer,
         callback?: (appid: number, msgType: number, payload: Buffer) => void,
     ): void;
-    //#endregion "GC INTERACTION"
+    // #endregion "GC INTERACTION"
 
-    //#region "FAMILY SHARING"
+    // #region "FAMILY SHARING"
     // https://github.com/DoctorMcKay/node-steam-user/wiki/Family-Sharing
     /**
      * Add new borrowers.
@@ -910,9 +903,9 @@ declare class SteamUser extends EventEmitter {
      * Deactivate family sharing authorizations. Removes shared licenses.
      */
     deactivateSharingAuthorization(): void;
-    //#endregion "FAMILY SHARING"
+    // #endregion "FAMILY SHARING"
 
-    //#region "APP AUTH"
+    // #region "APP AUTH"
     // also see https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/63789
     /**
      * Requests an "encrypted app ticket" from Steam servers for a particular game.
@@ -976,11 +969,12 @@ declare class SteamUser extends EventEmitter {
 
     static parseEncryptedAppTicket(ticket: Buffer, encryptionKey: Buffer | string): Record<string, any>;
     static parseAppTicket(ticket: Buffer | ByteBuffer, allowInvalidSignature?: boolean): Record<string, any> | null;
-    //#endregion "APP AUTH"
+    // #endregion "APP AUTH"
 }
 
-//#region "Events"
+// #region "Events"
 interface Events {
+    debug: [message: string];
     appLaunched: [appid: number];
     appQuit: [appid: number];
     receivedFromGC: [appid: number, msgType: number, payload: Buffer];
@@ -988,7 +982,6 @@ interface Events {
     steamGuard: [domain: string | null, callback: (code: string) => void, lastCodeWrong: boolean];
     error: [err: Error & { eresult: SteamUser.EResult }];
     disconnected: [eresult: SteamUser.EResult, msg?: string];
-    sentry: [sentry: Buffer];
     webSession: [sessionID: string, cookies: string[]];
     loginKey: [key: string];
     newItems: [count: number];
@@ -1044,11 +1037,12 @@ interface Events {
             authSessionResponse: SteamUser.EAuthSessionResponse;
         },
     ];
-    authTicketValidation: Events['authTicketStatus'];
+    authTicketValidation: Events["authTicketStatus"];
+    refreshToken: [refreshToken: string];
 }
-//#endregion "Events"
+// #endregion "Events"
 
-//#region "Helper Types"
+// #region "Helper Types"
 type RegionCode = 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 | 0xff; // https://developer.valvesoftware.com/wiki/Master_Server_Query_Protocol#Region_codes
 type OwnsFilterFunction = (
     element: Proto_CMsgClientLicenseList_License,
@@ -1080,14 +1074,14 @@ interface OwnsFilterObject {
     excludeShared?: boolean;
     excludeExpiring?: boolean;
 }
-//#endregion "Helper Types"
+// #endregion "Helper Types"
 
-//#region "Response Types"
+// #region "Response Types"
 type StoreTagNames = Record<string, { name: string; englishName: string }>;
 type PublishedFileDetails = Record<string, Record<string, any>>;
-//#endregion "Response Types"
+// #endregion "Response Types"
 
-//#region "General Interfaces"
+// #region "General Interfaces"
 interface Options {
     localPort?: number | null;
     protocol?: SteamUser.EConnectionProtocol;
@@ -1095,7 +1089,6 @@ interface Options {
     socksProxy?: string | null;
     localAddress?: string | null;
     autoRelogin?: boolean;
-    singleSentryfile?: boolean;
     machineIdType?: SteamUser.EMachineIDType;
     machineIdFormat?: [string, string, string];
     enablePicsCache?: boolean;
@@ -1103,6 +1096,7 @@ interface Options {
     picsCacheAll?: boolean;
     changelistUpdateInterval?: number;
     saveAppTickets?: boolean;
+    renewRefreshTokens?: boolean;
     additionalHeaders?: Record<string, string>;
     webCompatibilityMode?: boolean;
     ownershipFilter?: OwnsFilterObject | OwnsFilterFunction;
@@ -1165,7 +1159,7 @@ interface RichPresence {
     status: string;
     version: string;
     time?: string;
-    'game:state': string;
+    "game:state": string;
     steam_display: string;
     connect: string;
 }
@@ -1254,8 +1248,8 @@ interface Gift {
     TimeSent: Date;
     TimeAcked: Date;
     TimeRedeemed: null; // appears to always be null
-    RecipientAddress: ''; // appears to alway be ''
-    SenderAddress: ''; // appears to alway be ''
+    RecipientAddress: ""; // appears to alway be ''
+    SenderAddress: ""; // appears to alway be ''
     SenderName: string;
 }
 
@@ -1279,9 +1273,9 @@ interface TradeRestrictions {
     defaultEmailChangeProbationDays?: number;
     emailChangeProbationDays?: number;
 }
-//#endregion "General Interfaces"
+// #endregion "General Interfaces"
 
-//#region "Response Interfaces"
+// #region "Response Interfaces"
 interface QuickInviteLinkValidity {
     valid: boolean;
     steamid: SteamID;
@@ -1303,36 +1297,33 @@ interface QuickInviteLink {
 }
 
 interface LogOnDetailsAnon {
+    anonymous: true;
     password?: string;
-    loginKey?: string;
     webLogonToken?: string;
     steamID?: SteamID | string;
     authCode?: string;
     twoFactorCode?: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
-    dontRememberMachine?: boolean;
     autoRelogin?: boolean;
 }
 
 interface LogOnDetailsNamePass {
+    anonymous?: false;
     accountName: string;
     password: string;
     authCode?: string;
+    machineAuthToken?: string;
     twoFactorCode?: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
-    dontRememberMachine?: boolean;
     autoRelogin?: boolean;
 }
 interface LogOnDetailsNameKey {
+    anonymous?: false;
     accountName: string;
-    loginKey: string;
-    rememberPassword?: boolean;
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
@@ -1340,18 +1331,26 @@ interface LogOnDetailsNameKey {
 }
 
 interface LogOnDetailsNameToken {
+    anonymous?: false;
     accountName: string;
     webLogonToken: string;
     steamID: SteamID | string;
     autoRelogin?: boolean;
 }
 
+interface LogOnDetailsRefresh {
+    refreshToken: string;
+    steamID?: SteamID | string;
+    logonID?: number | string;
+    machineName?: string;
+    clientOS?: SteamUser.EOSType;
+}
+
 interface SteamGuardDetails {
-    canTrade: boolean;
     isSteamGuardEnabled: boolean;
     timestampSteamGuardEnabled: Date | null;
     timestampMachineSteamGuardEnabled: Date | null;
-    isTwoFactorEnabled: boolean;
+    canTrade: boolean;
     timestampTwoFactorEnabled: Date | null;
     isPhoneVerified: boolean;
 }
@@ -1399,12 +1398,12 @@ interface Server {
     map: string;
     secure: boolean;
     dedicated: boolean;
-    os: 'w' | 'l';
+    os: "w" | "l";
     gametype: string;
 }
 
 interface ProductChanges {
-    currentChangenumber: number;
+    currentChangeNumber: number;
     appChanges: AppChanges;
     packageChanges: PackageChanges;
 }
@@ -1435,10 +1434,18 @@ interface ProfileItems {
     animated_avatars: ProfileItem[];
     profile_modifiers: ProfileItem[];
 }
-//#endregion "Response Interfaces"
+
+interface TwoFactorResponse {
+    status: SteamUser.EResult;
+    shared_secret: string;
+    identity_secret: string;
+    revocation_code: string;
+    [key: string]: any;
+}
+// #endregion "Response Interfaces"
 
 declare namespace SteamUser {
-    //#region "ENUMS"
+    // #region "ENUMS"
     enum EAccountFlags {
         NormalUser = 0,
         PersonaNameSet = 1,
@@ -1576,7 +1583,7 @@ declare namespace SteamUser {
 
     enum EAudioFormat {
         None = 0,
-        '16BitLittleEndian' = 1,
+        "16BitLittleEndian" = 1,
         Float = 2,
     }
 
@@ -5690,5 +5697,5 @@ declare namespace SteamUser {
         BaseGameRequired = 24,
         OnCooldown = 53,
     }
-    //#endregion "ENUMS"
+    // #endregion "ENUMS"
 }

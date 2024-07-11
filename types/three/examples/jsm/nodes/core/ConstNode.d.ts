@@ -1,10 +1,9 @@
-import { NodeTypeOption, NodeValueOption } from './constants';
-import InputNode from './InputNode';
-import NodeBuilder from './NodeBuilder';
+import InputNode from "./InputNode.js";
+import NodeBuilder from "./NodeBuilder.js";
 
-export default class ConstNode extends InputNode {
+export default class ConstNode<Value> extends InputNode<Value> {
     isConstNode: true;
-    constructor(value: NodeValueOption, nodeType?: NodeTypeOption | null);
+    constructor(value: Value, nodeType?: string | null);
 
     generateConst(builder: NodeBuilder): string;
 }

@@ -1,10 +1,5 @@
-// Type definitions for musicmatch 0.3
-// Project: https://github.com/c0b41/musixmatch, https://www.npmjs.com/package/musicmatch
-// Definitions by: Aleksei Klimenko <https://github.com/DadUndead>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export type TFormat = 'json' | 'xml';
-export type TSort = 'asc' | 'desc';
+export type TFormat = "json" | "xml";
+export type TSort = "asc" | "desc";
 export type TBoolean = 0 | 1;
 
 export interface Pageable {
@@ -27,15 +22,15 @@ export interface ArtistParams {
     artist_mbid?: number | undefined;
 }
 
-export interface ArtistRelatedParams extends  ArtistParams, Pageable {
+export interface ArtistRelatedParams extends ArtistParams, Pageable {
 }
 
-export interface ArtistAlbumsParams extends  ArtistParams, Pageable {
+export interface ArtistAlbumsParams extends ArtistParams, Pageable {
     g_album_name?: TBoolean | undefined;
     s_release_date?: TSort | undefined;
 }
 
-export interface ArtistSearchParams extends  Pageable {
+export interface ArtistSearchParams extends Pageable {
     q_artist?: string | undefined;
     f_artist_id?: number | undefined;
     f_artist_mbid?: number | undefined;
@@ -46,12 +41,12 @@ export interface MatcherLyricsParams {
     q_artist?: string | undefined;
 }
 
-export interface MatcherSubtitleParams extends  MatcherLyricsParams {
+export interface MatcherSubtitleParams extends MatcherLyricsParams {
     f_subtitle_length?: number | undefined;
     f_subtitle_length_max_deviation?: number | undefined;
 }
 
-export interface MatcherTrackParams extends  MatcherLyricsParams {
+export interface MatcherTrackParams extends MatcherLyricsParams {
     f_has_lyrics?: TBoolean | undefined;
     f_has_subtitle?: TBoolean | undefined;
 }
@@ -59,7 +54,14 @@ export interface MatcherTrackParams extends  MatcherLyricsParams {
 export interface TrackLyricsFeedbackParams {
     lyrics_id?: number | undefined;
     track_id?: number | undefined;
-    feedback?: 'wrong_lyrics' | 'wrong_attribution' | 'bad_characters' | 'lines_too_long' | 'wrong_verses' | 'wrong_formatting' | undefined;
+    feedback?:
+        | "wrong_lyrics"
+        | "wrong_attribution"
+        | "bad_characters"
+        | "lines_too_long"
+        | "wrong_verses"
+        | "wrong_formatting"
+        | undefined;
 }
 
 export interface TrackLyricsAddParams {
@@ -79,7 +81,7 @@ export interface TrackLyricsParams {
 export interface TrackSubtitleParams {
     track_id?: number | undefined;
     track_mbid?: number | undefined;
-    subtitle_format?: 'lrc' | 'dfxp' | 'stledu' | undefined;
+    subtitle_format?: "lrc" | "dfxp" | "stledu" | undefined;
     f_subtitle_length?: number | undefined;
     f_subtitle_length_max_deviation?: number | undefined;
 }
@@ -89,7 +91,7 @@ export interface TrackParams {
     track_mbid?: number | undefined;
 }
 
-export interface TrackSearchParams extends  Pageable {
+export interface TrackSearchParams extends Pageable {
     q?: string | undefined;
     q_lyrics?: string | undefined;
     f_has_lyrics?: TBoolean | undefined;
@@ -106,12 +108,12 @@ export interface TrackSearchResult {
     message: {
         body: {
             track_list: TrackResult[];
-        },
+        };
         header: {
             available: number;
             execute_time: number;
             status_code: number;
-        }
+        };
     };
 }
 
@@ -152,17 +154,17 @@ export interface TrackResult {
     };
 }
 
-export interface ChartTracksParams extends  Pageable {
+export interface ChartTracksParams extends Pageable {
     country?: string | undefined;
     f_has_lyrics?: TBoolean | undefined;
 }
 
-export interface ChartArtistsParams extends  Pageable {
+export interface ChartArtistsParams extends Pageable {
     country?: string | undefined;
 }
 
 export default class Musicmatch {
-    constructor(obj?: { apikey?: string | undefined, format?: string | undefined });
+    constructor(obj?: { apikey?: string | undefined; format?: string | undefined });
 
     album(params: AlbumParams): Promise<any>;
 

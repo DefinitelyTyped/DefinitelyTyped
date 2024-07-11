@@ -12,4 +12,4 @@ export class AssetLoader extends MessageDispatcher {
     get data(): any;
     get url(): string;
 }
-import { MessageDispatcher } from '../../messages/MessageDispatcher';
+import { MessageDispatcher } from "../../messages/MessageDispatcher";

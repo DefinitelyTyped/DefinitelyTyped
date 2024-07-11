@@ -1,13 +1,7 @@
-// Type definitions for bootstrap.timepicker
-// Project: https://github.com/jdewit/bootstrap-timepicker
-// Definitions by: derikwhittaker <https://github.com/derikwhittaker>, Heather Booker <https://github.com/heatherbooker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface TimepickerOptions {
-    defaultTime?: string|boolean|Date | undefined;
+    defaultTime?: string | boolean | Date | undefined;
     disableFocus?: boolean | undefined;
     disableMousewheel?: boolean | undefined;
     explicitMode?: boolean | undefined;
@@ -19,7 +13,7 @@ interface TimepickerOptions {
     showSeconds?: boolean | undefined;
     showInputs?: boolean | undefined;
     showMeridian?: boolean | undefined;
-    template?: string|boolean | undefined;
+    template?: string | boolean | undefined;
     appendWidgetTo?: string | undefined;
     maxHours?: number | undefined;
     snapToStep?: boolean | undefined;

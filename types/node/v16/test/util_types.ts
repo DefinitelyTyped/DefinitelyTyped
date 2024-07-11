@@ -1,9 +1,9 @@
-import * as types from 'node:util/types';
+import * as types from "node:util/types";
 
-import { createPublicKey, KeyObject, webcrypto } from 'node:crypto';
+import { createPublicKey, KeyObject, webcrypto } from "node:crypto";
 
 const object: unknown = {};
-const readonlySetOrArray: ReadonlySet<any> | ReadonlyArray<any> = new Set();
+const readonlySetOrArray: ReadonlySet<any> | readonly any[] = new Set();
 const readonlyMapOrRecord: ReadonlyMap<any, any> | Record<any, any> = new Map();
 
 if (types.isAnyArrayBuffer(object)) {
@@ -134,7 +134,7 @@ b = types.isModuleNamespaceObject(15);
 
 const f = (v: any) => {
     if (types.isArrayBufferView(v)) {
-        const abv: ArrayBufferView  = v;
+        const abv: ArrayBufferView = v;
     }
 };
 
@@ -160,13 +160,15 @@ if (types.isBigInt64Array(value)) {
     const b = value;
 }
 
-const keyObj: KeyObject | number = createPublicKey('test');
+const keyObj: KeyObject | number = createPublicKey("test");
 if (types.isKeyObject(keyObj)) {
     keyObj; // $ExpectType KeyObject
 }
 
 webcrypto.subtle.generateKey(
-    'Algorithm', false, []
+    "Algorithm",
+    false,
+    [],
 ).then(cryptoKeyObj => {
     if (types.isCryptoKey(cryptoKeyObj)) {
         cryptoKeyObj; // $ExpectType CryptoKey

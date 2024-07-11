@@ -1,18 +1,10 @@
-// Type definitions for sinon-chai 2.7.0
-// Project: https://github.com/domenic/sinon-chai
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 /// <reference types="sinon" />
 
-import * as Sinon from 'sinon';
+import * as Sinon from "sinon";
 
 declare global {
-
     export namespace Chai {
-
         interface LanguageChains {
             always: Assertion;
         }
@@ -85,5 +77,5 @@ declare global {
 }
 
 declare const sinonChai: Chai.ChaiPlugin;
-declare namespace sinonChai { }
+declare namespace sinonChai {}
 export = sinonChai;

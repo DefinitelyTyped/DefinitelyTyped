@@ -30,7 +30,7 @@ declare namespace OO.ui.mixin {
         }
 
         // HACK: Omit props to address LSP violation issue
-        interface Prototype extends Omit<EmitterList, 'addItems' | 'removeItems' | 'clearItems'> {
+        interface Prototype extends Omit<EmitterList, "addItems" | "removeItems" | "clearItems"> {
             /**
              * Set the group element.
              *
@@ -100,7 +100,7 @@ declare namespace OO.ui.mixin {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): GroupElement;
+            new(config?: ConfigOptions): GroupElement;
             prototype: Prototype;
             static: {};
         }

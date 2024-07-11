@@ -1,8 +1,8 @@
-import InputStream from '../InputStream';
-import RuleContext from '../context/RuleContext';
-import Recognizer from '../Recognizer';
-import Token from '../Token';
-import IntervalSet from '../misc/IntervalSet';
+import RuleContext from "../context/RuleContext";
+import InputStream from "../InputStream";
+import IntervalSet from "../misc/IntervalSet";
+import Recognizer from "../Recognizer";
+import Token from "../Token";
 
 export interface RecognitionExceptionOpts {
     message: string;

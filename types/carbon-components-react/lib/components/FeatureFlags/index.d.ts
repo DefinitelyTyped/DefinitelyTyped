@@ -25,6 +25,4 @@ declare const FeatureFlags: React.FC<FeatureFlagsProps>;
 declare function useFeatureFlag(flag: string): boolean;
 declare function useFeatureFlags(): FeatureFlagScope;
 
-export {
-    FeatureFlags, FeatureFlagContext, useFeatureFlags, useFeatureFlag
-};
+export { FeatureFlagContext, FeatureFlags, useFeatureFlag, useFeatureFlags };

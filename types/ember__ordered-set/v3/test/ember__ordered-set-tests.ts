@@ -3,8 +3,8 @@
 // They have been tweaked as necessary, but that starting point means they
 // *should* cover the expected API.
 
-import OrderedSet from '@ember/ordered-set';
-import { assertType } from './lib/assert';
+import OrderedSet from "@ember/ordered-set";
+import { assertType } from "./lib/assert";
 
 interface Dict<T> {
     [key: string]: T | undefined;
@@ -25,27 +25,27 @@ OrderedSet.create().clear(); // $ExpectType void
 
 // add() adds an entry
 // add() returns the set
-OrderedSet.create<string>().add('foo'); // $ExpectType OrderedSet<string>
+OrderedSet.create<string>().add("foo"); // $ExpectType OrderedSet<string>
 
 // add() can handle non-string objects
 const setForDict = OrderedSet.create<Dict<string>>(); // $ExpectType OrderedSet<Dict<string>>
-setForDict.add({ bar: 'baz' });
+setForDict.add({ bar: "baz" });
 
 // delete() deletes an entry
 // delete() returns whether object was part of the set
-OrderedSet.create<string>().delete('foo'); // $ExpectType boolean
+OrderedSet.create<string>().delete("foo"); // $ExpectType boolean
 
 // delete() can handle non-string objects
-setForDict.delete({ bar: 'baz' }); // $ExpectType boolean
+setForDict.delete({ bar: "baz" }); // $ExpectType boolean
 
 // isEmpty() returns whether the set has any entries
 OrderedSet.create().isEmpty(); // $ExpectType boolean
 
 // has() returns whether an object is part of the set
-OrderedSet.create().has('foo'); // $ExpectType boolean
+OrderedSet.create().has("foo"); // $ExpectType boolean
 
 // has() supports non-string objects
-OrderedSet.create<Dict<string>>().has({ bar: 'baz' });
+OrderedSet.create<Dict<string>>().has({ bar: "baz" });
 
 // forEach() iterates over all entries
 const stringEntries: string[] = [];
@@ -54,17 +54,18 @@ OrderedSet.create<string>().forEach(entry => stringEntries.push(entry));
 // forEach() is called with no context by default
 const sansContext = OrderedSet.create<string>();
 
-sansContext.add('foo');
+sansContext.add("foo");
 
-sansContext.forEach(function (entry) {
+sansContext.forEach(function(entry) {
     assertType<string>(entry);
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     assertType<void>(this);
 });
 
 // forEach() context can be set as second argument
 const withContext = OrderedSet.create<string>();
-const context = { bar: 'baz' };
-withContext.forEach(function (entry) {
+const context = { bar: "baz" };
+withContext.forEach(function(entry) {
     assertType<string>(entry);
     assertType<Dict<string>>(this);
 }, context);
@@ -77,11 +78,11 @@ OrderedSet.create<number>().copy(); // $ExpectType OrderedSet<number>
 
 // sets by default accept anything
 const anythingGoesYo = OrderedSet.create(); // $ExpectType OrderedSet<unknown>
-anythingGoesYo.add('strings'); // $ExpectType OrderedSet<unknown>
+anythingGoesYo.add("strings"); // $ExpectType OrderedSet<unknown>
 anythingGoesYo.add(123); // $ExpectType OrderedSet<unknown>
 
 // sets can be constrained
 const constrained = OrderedSet.create<string>(); // $ExpectType OrderedSet<string>
-constrained.add('strings are fine'); // $ExpectType OrderedSet<string>
+constrained.add("strings are fine"); // $ExpectType OrderedSet<string>
 // @ts-expect-error
-constrained.add({ otherStuff: 'not so much' });
+constrained.add({ otherStuff: "not so much" });

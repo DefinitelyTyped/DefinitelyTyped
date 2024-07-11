@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-file-reader-input",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/ngokevin/react-file-reader-input"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-file-reader-input": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitry Rogozhny",
+            "githubUsername": "dmitryrogozhny"
+        },
+        {
+            "name": "Ali Taheri",
+            "githubUsername": "alitaheri"
+        },
+        {
+            "name": "bjoluc",
+            "githubUsername": "bjoluc"
+        }
+    ]
+}

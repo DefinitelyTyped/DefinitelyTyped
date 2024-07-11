@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 const da = Ember.DataAdapter.create();
 
 const filters = da.getFilters();
-filters.includes({ name: 'foo', desc: 'bar' }); // $ExpectType boolean
+filters.includes({ name: "foo", desc: "bar" }); // $ExpectType boolean
 // @ts-expect-error
 filters.includes({});
 
@@ -34,7 +34,7 @@ da.watchModelTypes(() => {});
 
 // $ExpectType () => void
 da.watchRecords(
-    'house',
+    "house",
     function added(records) {
         records[0].object; // $ExpectType object
         records[0].columnValues; // $ExpectType object
@@ -55,5 +55,5 @@ da.acceptsModelName; // $ExpectType boolean
 da.containerDebugAdapter; // $ExpectType ContainerDebugAdapter
 
 const ca: Ember.ContainerDebugAdapter = da.containerDebugAdapter;
-ca.canCatalogEntriesByType('controller'); // $ExpectType boolean
-ca.catalogEntriesByType('controller'); // $ExpectType string[]
+ca.canCatalogEntriesByType("controller"); // $ExpectType boolean
+ca.catalogEntriesByType("controller"); // $ExpectType string[]

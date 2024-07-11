@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-    BreadcrumbsProvider,
-    Breadcrumbs,
-    BreadcrumbsItem,
-} from "react-breadcrumbs-dynamic";
+import { Breadcrumbs, BreadcrumbsItem, BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 
 class Test1 extends React.Component {
     render() {
@@ -19,7 +15,7 @@ class Test1 extends React.Component {
 }
 
 const customProps = {
-    yay: "yay"
+    yay: "yay",
 };
 
 class Test2 extends React.Component {

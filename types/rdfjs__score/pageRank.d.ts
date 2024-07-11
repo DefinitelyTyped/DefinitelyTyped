@@ -1,4 +1,4 @@
-import { ScoreFn } from '.';
+import { ScoreFn } from "./index.js";
 
 interface PageRank {
     alpha?: number;

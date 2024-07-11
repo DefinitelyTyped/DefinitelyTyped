@@ -1,3 +1,3 @@
-import uncPathRegex = require('unc-path-regex');
+import uncPathRegex = require("unc-path-regex");
 
 uncPathRegex(); // $ExpectType RegExp

@@ -1,4 +1,4 @@
-import { Light, Renderer } from '../../../src/Three';
+import { Light, Renderer } from "three";
 
 export interface Size {
     width: number;

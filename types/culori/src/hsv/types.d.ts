@@ -1,5 +1,5 @@
 export interface Hsv {
-    mode: 'hsv';
+    mode: "hsv";
     h?: number;
     s: number;
     v: number;

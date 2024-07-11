@@ -1,4 +1,4 @@
-import * as styledComponents from 'styled-components';
+import * as styledComponents from "styled-components";
 
 interface MyTheme {
     color: string;
@@ -16,10 +16,10 @@ const {
     ThemeContext,
     ThemeProvider,
     useTheme,
-    withTheme
-  } = styledComponents as styledComponents.ThemedStyledComponentsModule<MyTheme>;
+    withTheme,
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<MyTheme>;
 
-  export {
+export {
     createGlobalStyle,
     css,
     isStyledComponent,
@@ -30,7 +30,7 @@ const {
     ThemeContext,
     ThemeProvider,
     useTheme,
-    withTheme
-  };
+    withTheme,
+};
 
-  export default styled;
+export default styled;

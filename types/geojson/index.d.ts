@@ -1,13 +1,3 @@
-// Type definitions for non-npm package geojson 7946.1
-// Project: https://geojson.org/
-// Definitions by: Jacob Bruun <https://github.com/cobster>
-//                 Arne Schubert <https://github.com/atd-schubert>
-//                 Jeff Jacobson <https://github.com/JeffJacobson>
-//                 Ilia Choly <https://github.com/icholy>
-//                 Dan Vanderkam <https://github.com/danvk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
-
 // Note: as of the RFC 7946 version of GeoJSON, Coordinate Reference Systems
 // are no longer supported. (See https://tools.ietf.org/html/rfc7946#appendix-B)}
 
@@ -17,13 +7,13 @@ export as namespace GeoJSON;
  * The valid values for the "type" property of GeoJSON geometry objects.
  * https://tools.ietf.org/html/rfc7946#section-1.4
  */
-export type GeoJsonGeometryTypes = Geometry['type'];
+export type GeoJsonGeometryTypes = Geometry["type"];
 
 /**
  * The value values for the "type" property of GeoJSON Objects.
  * https://tools.ietf.org/html/rfc7946#section-1.4
  */
-export type GeoJsonTypes = GeoJSON['type'];
+export type GeoJsonTypes = GeoJSON["type"];
 
 /**
  * Bounding box
@@ -136,7 +126,7 @@ export type GeometryObject = Geometry;
  * @deprecated
  */
 export interface Point extends GeoJsonObject {
-    type: 'Point';
+    type: "Point";
     coordinates: Position;
 }
 
@@ -146,7 +136,7 @@ export interface Point extends GeoJsonObject {
  * @deprecated
  */
 export interface MultiPoint extends GeoJsonObject {
-    type: 'MultiPoint';
+    type: "MultiPoint";
     coordinates: Position[];
 }
 
@@ -156,7 +146,7 @@ export interface MultiPoint extends GeoJsonObject {
  * @deprecated
  */
 export interface LineString extends GeoJsonObject {
-    type: 'LineString';
+    type: "LineString";
     coordinates: Position[];
 }
 
@@ -166,7 +156,7 @@ export interface LineString extends GeoJsonObject {
  * @deprecated
  */
 export interface MultiLineString extends GeoJsonObject {
-    type: 'MultiLineString';
+    type: "MultiLineString";
     coordinates: Position[][];
 }
 
@@ -176,7 +166,7 @@ export interface MultiLineString extends GeoJsonObject {
  * @deprecated
  */
 export interface Polygon extends GeoJsonObject {
-    type: 'Polygon';
+    type: "Polygon";
     coordinates: Position[][];
 }
 
@@ -186,7 +176,7 @@ export interface Polygon extends GeoJsonObject {
  * @deprecated
  */
 export interface MultiPolygon extends GeoJsonObject {
-    type: 'MultiPolygon';
+    type: "MultiPolygon";
     coordinates: Position[][][];
 }
 
@@ -253,7 +243,7 @@ export interface StrictMultiPolygon<P extends StrictPosition> extends GeoJsonObj
  * @deprecated
  */
 export interface GeometryCollection<G extends Geometry = Geometry> extends GeoJsonObject {
-    type: 'GeometryCollection';
+    type: "GeometryCollection";
     geometries: G[];
 }
 
@@ -274,7 +264,7 @@ export type GeoJsonProperties = { [name: string]: any } | null;
  * @deprecated
  */
 export interface Feature<G extends Geometry | null = Geometry, P = GeoJsonProperties> extends GeoJsonObject {
-    type: 'Feature';
+    type: "Feature";
     /**
      * The feature's geometry
      */
@@ -296,7 +286,7 @@ export interface Feature<G extends Geometry | null = Geometry, P = GeoJsonProper
  * @deprecated
  */
 export interface FeatureCollection<G extends Geometry | null = Geometry, P = GeoJsonProperties> extends GeoJsonObject {
-    type: 'FeatureCollection';
+    type: "FeatureCollection";
     features: Array<Feature<G, P>>;
 }
 

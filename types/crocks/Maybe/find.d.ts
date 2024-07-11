@@ -1,6 +1,6 @@
-import { UnaryFunction } from '../internal/types';
-import Pred from '../Pred';
-import Maybe from './Maybe';
+import { UnaryFunction } from "../internal/types";
+import Pred from "../Pred";
+import Maybe from "./Maybe";
 
 /**
  * find :: Foldable f => ((a -> Boolean) | Pred) -> f a -> Maybe a

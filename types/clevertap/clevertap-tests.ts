@@ -1,25 +1,25 @@
-import * as CleverTap from 'clevertap';
+import * as CleverTap from "clevertap";
 
-const clevertap = CleverTap.init('accountId', 'accountPasscode', CleverTap.REGIONS.EUROPE);
+const clevertap = CleverTap.init("accountId", "accountPasscode", CleverTap.REGIONS.EUROPE);
 
 const data: CleverTap.UploadData[] = [
     {
-        type: 'profile',
-        identity: '6264372124',
+        type: "profile",
+        identity: "6264372124",
         profileData: {
-            favoriteColor: 'green',
+            favoriteColor: "green",
             Age: 30,
-            Phone: '+14155551234',
-            Email: 'peter@foo.com',
+            Phone: "+14155551234",
+            Email: "peter@foo.com",
         },
     },
     {
-        type: 'event',
-        identity: '6264372124',
+        type: "event",
+        identity: "6264372124",
         // ts: Math.floor(new Date().getTime() / 1000),
-        evtName: 'choseNewFavoriteFood',
+        evtName: "choseNewFavoriteFood",
         evtData: {
-            value: 'sushi',
+            value: "sushi",
         },
     },
 ];
@@ -32,8 +32,8 @@ clevertap.upload(data, { debug: 1, batchSize: 50 }).then((res: any) => {});
 
 // query for events
 const query1 = {
-    event_name: 'choseNewFavoriteFood',
-    props: [{ name: 'value', operator: 'contains', value: 'piz' }],
+    event_name: "choseNewFavoriteFood",
+    props: [{ name: "value", operator: "contains", value: "piz" }],
     from: 20210101,
     to: 20210701,
 };
@@ -46,7 +46,7 @@ clevertap.events(query1, { debug: 1, batchSize: 500 }).then((res: any) => {});
 
 // query for user profiles
 const query2 = {
-    event_name: 'choseNewFavoriteFood',
+    event_name: "choseNewFavoriteFood",
     from: 20210101,
     to: 20210701,
 };
@@ -59,34 +59,34 @@ clevertap.profiles(query2, { debug: 1, batchSize: 200 }).then((res: any) => {});
 
 // send a push notification
 const createPayload = {
-    name: 'green freedom',
-    when: 'now',
+    name: "green freedom",
+    when: "now",
     where: {
-        event_name: 'App Launched',
+        event_name: "App Launched",
         from: 20210101,
         to: 20210701,
     },
     content: {
-        title: 'Hello!',
-        body: 'Strictly Green Lantern fans only!',
+        title: "Hello!",
+        body: "Strictly Green Lantern fans only!",
         platform_specific: {
             ios: {
-                deep_link: 'judepereira.com',
-                sound_file: 'judepereira.wav',
-                category: 'reactive',
+                deep_link: "judepereira.com",
+                sound_file: "judepereira.wav",
+                category: "reactive",
                 badge_count: 1,
-                foo: 'bar_ios',
+                foo: "bar_ios",
             },
             android: {
-                background_image: 'http://judepereira.com/a.jpg',
+                background_image: "http://judepereira.com/a.jpg",
                 default_sound: true,
-                deep_link: 'judepereira.com',
-                foo: 'bar_android',
-                wzrk_cid: 'BRTesting',
+                deep_link: "judepereira.com",
+                foo: "bar_android",
+                wzrk_cid: "BRTesting",
             },
         },
     },
-    devices: ['android', 'ios'],
+    devices: ["android", "ios"],
 };
 
 // callback style
@@ -97,36 +97,36 @@ clevertap.targets(clevertap.TARGET_CREATE, createPayload, { debug: 1 }).then((re
 
 // Estimate a target compaigns
 const estimatePayload = {
-    name: 'green freedom',
-    when: 'now',
+    name: "green freedom",
+    when: "now",
     // This flag should be add in the the payload for target estimate api
     estimate_only: true,
     where: {
-        event_name: 'App Launched',
+        event_name: "App Launched",
         from: 20210101,
         to: 20210701,
     },
     content: {
-        title: 'Hello!',
-        body: 'Strictly Green Lantern fans only!',
+        title: "Hello!",
+        body: "Strictly Green Lantern fans only!",
         platform_specific: {
             ios: {
-                deep_link: 'judepereira.com',
-                sound_file: 'judepereira.wav',
-                category: 'reactive',
+                deep_link: "judepereira.com",
+                sound_file: "judepereira.wav",
+                category: "reactive",
                 badge_count: 1,
-                foo: 'bar_ios',
+                foo: "bar_ios",
             },
             android: {
-                background_image: 'http://judepereira.com/a.jpg',
+                background_image: "http://judepereira.com/a.jpg",
                 default_sound: true,
-                deep_link: 'judepereira.com',
-                foo: 'bar_android',
-                wzrk_cid: 'BRTesting',
+                deep_link: "judepereira.com",
+                foo: "bar_android",
+                wzrk_cid: "BRTesting",
             },
         },
     },
-    devices: ['android', 'ios'],
+    devices: ["android", "ios"],
 };
 // callback style
 clevertap.targets(clevertap.TARGET_ESTIMATE, estimatePayload, { debug: 1 }, (res: any) => {});

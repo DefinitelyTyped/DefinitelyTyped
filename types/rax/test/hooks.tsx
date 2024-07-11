@@ -1,31 +1,33 @@
 import {
-  forwardRef,
-  MutableRefObject,
-  RefObject,
-  useRef,
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  createRef,
-  createContext,
-  RaxNode,
-  useImperativeHandle,
-  Ref,
-  useReducer,
-  useLayoutEffect,
-  ComponentRef,
-  useMemo,
- } from "rax";
+    ComponentRef,
+    createContext,
+    createRef,
+    forwardRef,
+    MutableRefObject,
+    RaxNode,
+    Ref,
+    RefObject,
+    useCallback,
+    useContext,
+    useEffect,
+    useImperativeHandle,
+    useLayoutEffect,
+    useMemo,
+    useReducer,
+    useRef,
+    useState,
+} from "rax";
 
 interface PersonProps {
     name: string;
     age: number;
 }
 export function Person(props: PersonProps) {
-    return <div>
-        hello! I'm {props.name} and I'm {props.age} years old!
-    </div>;
+    return (
+        <div>
+            hello! I'm {props.name} and I'm {props.age} years old!
+        </div>
+    );
 }
 
 export interface FancyButtonProps {
@@ -45,12 +47,19 @@ export const FancyButton = forwardRef((props: FancyButtonProps, ref: Ref<FancyBu
         },
         getClickCount() {
             return count;
-        }
+        },
     }));
 
-    return <button onClick={() => { setCount(count + 1); props.onClick(); }}>
-        {props.children}
-    </button>;
+    return (
+        <button
+            onClick={() => {
+                setCount(count + 1);
+                props.onClick();
+            }}
+        >
+            {props.children}
+        </button>
+    );
 });
 
 interface AppState {
@@ -73,7 +82,7 @@ function reducer(s: AppState, action: AppActions): AppState {
 
 const initialState = {
     name: "Daniel",
-    age: 26
+    age: 26,
 };
 
 export function App() {
@@ -90,15 +99,17 @@ export function App() {
         }
     });
 
-    return <>
-        <Person {...state} />
-        <FancyButton onClick={() => dispatch({ type: "getOlder" })}>
-            Birthday time!
-        </FancyButton>
-        <FancyButton onClick={() => dispatch({ type: "resetAge" })}>
-            Let's start over.
-        </FancyButton>
-    </>;
+    return (
+        <>
+            <Person {...state} />
+            <FancyButton onClick={() => dispatch({ type: "getOlder" })}>
+                Birthday time!
+            </FancyButton>
+            <FancyButton onClick={() => dispatch({ type: "resetAge" })}>
+                Let's start over.
+            </FancyButton>
+        </>
+    );
 }
 
 interface Context {
@@ -106,12 +117,12 @@ interface Context {
 }
 const context = createContext<Context>({ test: true });
 
-function useEveryHook(ref: Ref<{ id: number }>|undefined): () => boolean {
+function useEveryHook(ref: Ref<{ id: number }> | undefined): () => boolean {
     const value: Context = useContext(context);
     const [, setState] = useState(() => 0);
 
     // inline object, to (manually) check if autocomplete works
-    useReducer(reducer, { age: 42, name: 'The Answer' });
+    useReducer(reducer, { age: 42, name: "The Answer" });
 
     // test useRef and its convenience overloads
     // $ExpectType MutableRefObject<number>
@@ -223,12 +234,14 @@ const UsesEveryHook = forwardRef(
         useEveryHook(ref)();
 
         return null;
-    }
+    },
 );
 const everyHookRef = createRef<{ id: number }>();
-<UsesEveryHook ref={everyHookRef}/>;
+<UsesEveryHook ref={everyHookRef} />;
 
-<UsesEveryHook ref={ref => {
-    // $ExpectType { id: number; } | null
-    ref;
- }}/>;
+<UsesEveryHook
+    ref={ref => {
+        // $ExpectType { id: number; } | null
+        ref;
+    }}
+/>;

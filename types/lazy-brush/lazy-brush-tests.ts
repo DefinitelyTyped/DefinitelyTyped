@@ -1,4 +1,4 @@
-import { LazyBrush, Point, LazyPoint, Coordinates } from 'lazy-brush';
+import { Coordinates, LazyBrush, LazyPoint, Point } from "lazy-brush";
 
 const point = new Point(1, 2);
 const pointX: number = point.x;

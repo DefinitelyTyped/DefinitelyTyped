@@ -1,0 +1,43 @@
+{
+    "private": true,
+    "name": "@types/unist",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Unist",
+    "projects": [
+        "https://github.com/syntax-tree/unist"
+    ],
+    "devDependencies": {
+        "@types/unist": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bizen241",
+            "githubUsername": "bizen241"
+        },
+        {
+            "name": "Jun Lu",
+            "githubUsername": "lujun2"
+        },
+        {
+            "name": "Hernan Rajchert",
+            "githubUsername": "hrajchert"
+        },
+        {
+            "name": "Titus Wormer",
+            "githubUsername": "wooorm"
+        },
+        {
+            "name": "Junyoung Choi",
+            "githubUsername": "rokt33r"
+        },
+        {
+            "name": "Ben Moon",
+            "githubUsername": "GuiltyDolphin"
+        },
+        {
+            "name": "JounQin",
+            "githubUsername": "JounQin"
+        }
+    ]
+}

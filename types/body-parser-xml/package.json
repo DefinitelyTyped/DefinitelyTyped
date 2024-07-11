@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/body-parser-xml",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/fiznool/body-parser-xml"
+    ],
+    "dependencies": {
+        "@types/body-parser": "*",
+        "@types/connect": "*",
+        "@types/express-serve-static-core": "*",
+        "@types/node": "*",
+        "@types/xml2js": "*"
+    },
+    "devDependencies": {
+        "@types/body-parser-xml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tbounsiar",
+            "githubUsername": "tbounsiar"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

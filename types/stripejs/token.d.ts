@@ -1,5 +1,5 @@
-import { StripeError } from "./index";
 import { BankAccount, Card } from "./customer";
+import { StripeError } from "./index";
 
 /**
  * @see https://stripe.com/docs/api#token_object
@@ -10,7 +10,7 @@ export interface Token {
      */
     id: string;
 
-    object: 'token';
+    object: "token";
 
     /**
      * Hash describing the bank account
@@ -41,7 +41,7 @@ export interface Token {
     /**
      * Type of the token
      */
-    type: 'account' | 'bank_account' | 'card' | 'pii';
+    type: "account" | "bank_account" | "card" | "pii";
 
     /**
      * Whether this token has already been used (tokens can be used only once)
@@ -120,7 +120,7 @@ export interface IBANTokenData {
     /**
      * The type of entity that holds the account.
      */
-    account_holder_type: 'individual' | 'company';
+    account_holder_type: "individual" | "company";
 }
 
 export interface BankTokenData extends IBANTokenData {

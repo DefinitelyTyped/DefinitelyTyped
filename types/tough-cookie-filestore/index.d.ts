@@ -1,8 +1,3 @@
-// Type definitions for tough-cookie-filestore 0.0
-// Project: https://github.com/mitsuru/tough-cookie-filestore
-// Definitions by: Christian Friedow <https://github.com/friedow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = FileCookieStore;
 
 declare namespace FileCookieStore {
@@ -17,9 +12,9 @@ declare class FileCookieStore {
     idx: {
         [domain: string]: {
             [path: string]: {
-                [key: string]: FileCookieStore.Cookie,
-            },
-        },
+                [key: string]: FileCookieStore.Cookie;
+            };
+        };
     };
     filePath: string;
     synchronous: boolean;
@@ -28,13 +23,22 @@ declare class FileCookieStore {
 
     inspect(): string;
 
-    findCookie(domain: string, path: string, key: string, cb: (whatever: null, cookie: FileCookieStore.Cookie | null | undefined) => void): void;
+    findCookie(
+        domain: string,
+        path: string,
+        key: string,
+        cb: (whatever: null, cookie: FileCookieStore.Cookie | null | undefined) => void,
+    ): void;
 
     findCookies(domain: string, path: string, cb: (whatever: null, cookies: FileCookieStore.Cookie[]) => void): void;
 
     putCookie(cookie: FileCookieStore.Cookie, path: string, key: string, cb: (whatever: null) => void): void;
 
-    updateCookie(oldCookie: FileCookieStore.Cookie, newCookie: FileCookieStore.Cookie, cb: (whatever: null) => void): void;
+    updateCookie(
+        oldCookie: FileCookieStore.Cookie,
+        newCookie: FileCookieStore.Cookie,
+        cb: (whatever: null) => void,
+    ): void;
 
     removeCookie(domain: string, path: string, key: string, cb: (whatever: null) => void): void;
 

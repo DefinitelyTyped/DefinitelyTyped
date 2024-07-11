@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/react-native-drawer",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/root-two/react-native-drawer",
+        "https://github.com/rt2zz/react-native-drawer"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-drawer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jnbt",
+            "githubUsername": "jnbt"
+        },
+        {
+            "name": "suniahk",
+            "githubUsername": "suniahk"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 {
     "rules": {
-        "no-declare-current-package": "off"
+        "@definitelytyped/no-declare-current-package": "off"
     }
 }

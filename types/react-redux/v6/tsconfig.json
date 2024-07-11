@@ -4,7 +4,7 @@
         "react-redux-tests.tsx"
     ],
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es6",
             "dom"
@@ -13,17 +13,8 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
         "jsx": "react",
         "experimentalDecorators": true,
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "react-redux": [
-                "react-redux/v6"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

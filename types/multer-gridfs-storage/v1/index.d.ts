@@ -1,15 +1,9 @@
-// Type definitions for multer-gridfs-storage 1.1
-// Project: https://github.com/devconcept/multer-gridfs-storage
-// Definitions by: devconcept <https://github.com/devconcept>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
+import { EventEmitter } from "events";
+import { Express } from "express";
+import { Grid } from "gridfs-stream";
+import * as Multer from "multer";
 
-import { EventEmitter } from 'events';
-import { Express } from 'express';
-import * as Multer from 'multer';
-import { Grid } from 'gridfs-stream';
-
-type logConfig = 'file' | 'all';
+type logConfig = "file" | "all";
 
 interface StorageLog {
     message: string;
@@ -46,7 +40,11 @@ interface MulterGfsOptions {
 declare class MulterGridfsStorage extends EventEmitter implements Multer.StorageEngine {
     constructor(settings: MulterGridfsStorage.UrlStorageOptions | MulterGridfsStorage.GfsStorageOptions);
 
-    _handleFile(req: Express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+    _handleFile(
+        req: Express.Request,
+        file: Express.Multer.File,
+        callback: (error?: any, info?: Express.Multer.File) => void,
+    ): void;
 
     _removeFile(req: Express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
 }

@@ -1,4 +1,4 @@
-import nameInitials from 'name-initials';
+import nameInitials from "name-initials";
 
 // @ts-expect-error
 nameInitials();
@@ -7,4 +7,4 @@ nameInitials(null);
 // @ts-expect-error
 nameInitials(undefined);
 // $ExpectType string
-nameInitials('name initials');
+nameInitials("name initials");

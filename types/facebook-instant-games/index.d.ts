@@ -1,10 +1,3 @@
-// Type definitions for non-npm package facebook-instant-games 7.0
-// Project: https://developers.facebook.com/docs/games/instant-games
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>
-//                 Øyvind Johansen Amundrud <https://github.com/oyvindjam>
-//                 Alex A. Yermoshenko <https://github.com/doterax>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Top level namespace for the Instant Games SDK.
  */
@@ -28,6 +21,27 @@ declare namespace FBInstant {
      * Contains functions and properties related to tournaments.
      */
     let tournament: Tournaments;
+
+    /**
+     * Contains functions and properties related to Graph APIs.
+     *
+     * @since 7.0
+     */
+    let graphApi: GraphApi;
+
+    /**
+     * Contains functions and properties related to the messenger rooms environment.
+     *
+     * @since 7.1
+     */
+    let room: Room;
+
+    /**
+     * Contains functions and properties related to gaming squads.
+     *
+     * @since 7.1
+     */
+    let squads: Squads;
 
     /**
      * The current locale. Use this to determine what language the current game should be localized with.
@@ -110,6 +124,31 @@ declare namespace FBInstant {
     function startGameAsync(): Promise<void>;
 
     /**
+     * This registers a callback function that will get called when the user attempts to capture a screenshot of the
+     * game. Through the callback, the game can pass an image along with metadata that associates the screenshot. Users
+     * will then have the option to share the screenshot, or save it to their library.
+     *
+     * @example
+     * FBInstant.registerScreenshotProvider(function (submitAsync) {
+     *   submitAsync({
+     *     image: myBase64Image,
+     *     text: 'my awesome screenshot',
+     *     data: { custom_field: 'my awesome data' }
+     *   }).then(function () {
+     *     resumeGame();
+     *   }).catch(function (error) {
+     *     log(error);
+     *   });
+     * });
+     * @param provider A callback function.
+     * @throws INVALID_PARAM
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @throws INVALID_OPERATION
+     * @since 7.1
+     */
+    function registerScreenshotProvider(provider: ScreenshotProvider): void;
+
+    /**
      * This invokes a dialog to let the user share specified content, either as a message in Messenger or as a post on the user's timeline.
      * A blob of data can be attached to the share which every game session launched from the share will be able to access from FBInstant.getEntryPointData().
      * This data must be less than or equal to 1000 characters when stringified. The user may choose to cancel the share action and close the dialog, and the
@@ -124,6 +163,33 @@ declare namespace FBInstant {
      * @throws INVALID_OPERATION
      */
     function shareAsync(payload: SharePayload): Promise<void>;
+
+    /**
+     * This invokes a dialog that contains a custom game link that users can copy to their clipboard, or share. A blob
+     * of data can be attached to the custom link - game sessions initiated from the link will be able to access the
+     * data through FBInstant.getEntryPointData(). This data should be less than or equal to 1000 characters when
+     * stringified. The provided text and image will be used to generate the link preview, with the game name as the
+     * title of the preview. The text is recommended to be less than 44 characters. The image is recommended to either
+     * be a square or of the aspect ratio 1.91:1. The returned promise will resolve when the dialog is closed regardless
+     * if the user actually shared the link or not.
+     *
+     * @example
+     * FBInstant.shareLinkAsync({
+     *   image: base64Picture,
+     *   text: 'Come check out what Joe has built!',
+     *   data: { customData: '...' },
+     * }).then(function() {
+     *   // continue with the game.
+     * });
+     * @param payload Specify the payload for the custom link. See example for details.
+     * @returns A promise that resolves when the share is completed or cancelled.
+     * @throws INVALID_PARAM
+     * @throws NETWORK_FAILURE
+     * @throws PENDING_REQUEST
+     * @throws INVALID_OPERATION
+     * @since 7.1
+     */
+    function shareLinkAsync(payload: LinkSharePayload): Promise<void>;
 
     /**
      * Informs Facebook of an update that occurred in the game. This will temporarily yield control to Facebook and Facebook will decide what to do based on what the update is.
@@ -169,6 +235,24 @@ declare namespace FBInstant {
     function switchGameAsync(appID: string, data?: any): Promise<void>;
 
     /**
+     * Utility function to check if the current player can call {@link switchNativeGameAsync()}.
+     *
+     * @returns Whether the player can call {@link switchNativeGameAsync} or not.
+     * @since 7.0
+     */
+    function canSwitchNativeGameAsync(): Promise<boolean>;
+
+    /**
+     * Request that the client switch to its Native (Android/iOS) Game. The API will reject if the switch fails - else,
+     * the client will open the Game or Store.
+     *
+     * @param data An optional data payload. This will be set as the entrypoint data for the game being switched to.
+     * Must be less than or equal to 1000 characters when stringified.
+     * @since 7.0
+     */
+    function switchNativeGameAsync(data?: object): Promise<void>;
+
+    /**
      * Returns whether or not the user is eligible to have shortcut creation requested.
      *
      * Will return false if createShortcutAsync was already called this session or the user is ineligible for shortcut creation.
@@ -203,13 +287,41 @@ declare namespace FBInstant {
      * and can only contain '_', '-', ' ', and alphanumeric characters. Values must be less than 100 characters in length.
      * @returns The error if the event failed to log; otherwise returns null.
      */
-    function logEvent(eventName: string, valueToSum?: number, parameters?: { [key: string]: string; }): APIError | null;
+    function logEvent(eventName: string, valueToSum?: number, parameters?: { [key: string]: string }): APIError | null;
 
     /**
      * Set a callback to be fired when a pause event is triggered.
      * @param func A function to call when a pause event occurs.
      */
     function onPause(func: () => void): void;
+
+    /**
+     * Attempt to load or re-load a banner ad.
+     *
+     * @example
+     * FBInstant.loadBannerAdAsync(
+     *   'my_placement_id'
+     * ).then(() => {
+     *   console.log('success');
+     * });
+     * @param placementID The placement ID that's been set up in your Audience Network settings.
+     * @returns A promise that resolves after loading a banner ad, or rejects with a #apierror if it couldn't be created.
+     * @throws RATE_LIMITED
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @since 7.0
+     */
+    function loadBannerAdAsync(placementID: string): Promise<void>;
+
+    /**
+     * Attempt to hide a banner ad.
+     *
+     * @example
+     * FBInstant.hideBannerAdAsync();
+     * @returns A promise that resolves after the ad is hidden.
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @since 7.0
+     */
+    function hideBannerAdAsync(): Promise<void>;
 
     /**
      * Attempt to create an instance of interstitial ad. This instance can then be preloaded and presented.
@@ -228,6 +340,23 @@ declare namespace FBInstant {
      * @throws CLIENT_UNSUPPORTED_OPERATION
      */
     function getRewardedVideoAsync(placementID: string): Promise<AdInstance>;
+
+    /**
+     * Attempt to create an instance of rewarded interstitial. This instance can then be preloaded and presented.
+     *
+     * @example
+     * FBInstant.getRewardedInterstitialAsync(
+     *   'my_placement_id'
+     * ).then(function(rewardedInterstitial) {
+     *   rewardedInterstitial.getPlacementID(); // 'my_placement_id'
+     * });
+     * @param placementID The placement ID that's been setup in your Audience Network settings.
+     * @returns A promise that resolves with a {@link AdInstance}, or rejects with a {@link APIError} if it couldn't be created.
+     * @throws ADS_TOO_MANY_INSTANCES
+     * @throws CLIENT_UNSUPPORTED_OPERATION
+     * @since 7.0
+     */
+    function getRewardedInterstitialAsync(placementID: string): Promise<AdInstance>;
 
     /**
      * Attempts to match the current player with other users looking for people to play with. If successful, a new Messenger group
@@ -249,7 +378,11 @@ declare namespace FBInstant {
      * @throws CLIENT_UNSUPPORTED_OPERATION
      * @throws INVALID_OPERATION
      */
-    function matchPlayerAsync(matchTag?: string, switchContextWhenMatched?: boolean, offlineMatch?: boolean): Promise<void>;
+    function matchPlayerAsync(
+        matchTag?: string,
+        switchContextWhenMatched?: boolean,
+        offlineMatch?: boolean,
+    ): Promise<void>;
 
     /**
      * Checks if the current player is eligible for the matchPlayerAsync API.
@@ -527,6 +660,39 @@ declare namespace FBInstant {
         getID(): string | null;
 
         /**
+         * A unique identifier for the player. This is the standard Facebook Application-Scoped ID which is used for all
+         * Graph API calls. If your game shares an AppID with a native game this is the ID you will see in the native
+         * game too.
+         *
+         * @example
+         * // This function should be called after FBInstant.initializeAsync()
+         * // resolves.
+         * var playerASID = FBInstant.player.getASIDAsync().then(
+         *  asid => console.log(asid)
+         * );
+         * @returns A unique identifier for the player.
+         * @since 7.0
+         */
+        getASIDAsync(): Promise<string | null>;
+
+        /**
+         * A unique identifier for the player. This is the standard Facebook Application-Scoped ID which is used for all
+         * Graph API calls. If your game shares an AppID with a native game this is the ID you will see in the native
+         * game too.
+         *
+         * @example
+         * // This function should be called after FBInstant.initializeAsync()
+         * // resolves.
+         * var playerASID = FBInstant.player.getSignedASIDAsync()
+         *   .then(function (result) {
+         *     result.getASID();
+         *   });
+         * @returns A promise that resolves with a SignedASID object.
+         * @since 7.1
+         */
+        getSignedASIDAsync(): Promise<SignedASID | null>;
+
+        /**
          * Fetch the player's unique identifier along with a signature that verifies that the identifier indeed
          * comes from Facebook without being tampered with. This function should not be called until
          * FBInstant.initializeAsync() has resolved.
@@ -624,6 +790,7 @@ declare namespace FBInstant {
          * @throws INVALID_PARAM
          * @throws NETWORK_FAILURE
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         getStatsAsync(keys?: string[]): Promise<StatsObject>;
 
@@ -638,6 +805,7 @@ declare namespace FBInstant {
          * @throws NETWORK_FAILURE
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         setStatsAsync(stats: StatsObject): Promise<void>;
 
@@ -653,6 +821,7 @@ declare namespace FBInstant {
          * @throws NETWORK_FAILURE
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
+         * @deprecated Stats APIs (getStatsAsync(), setStatsAsync() and incrementStatsAsync()) have been fully removed on September 28th, 2022.
          */
         incrementStatsAsync(increments: IncrementObject): Promise<StatsObject>;
 
@@ -915,6 +1084,56 @@ declare namespace FBInstant {
     }
 
     /**
+     * Represents app-scoped user id of current player along with a signature to verify that it indeed comes from
+     * Facebook.
+     *
+     * @since 7.1
+     */
+    interface SignedASID {
+        /**
+         * Get the app-scoped user id of the player.
+         *
+         * @example
+         * FBInstant.player.getSignedASIDAsync()
+         *   .then(function (result) {
+         *     result.getASID();
+         *   });
+         * @returns The ID of the player.
+         */
+        getASID(): string;
+
+        /**
+         * A signature to verify this object indeed comes from Facebook. The string is base64url encoded and signed with
+         * an HMAC version of your App Secret, based on the OAuth 2.0 spec.
+         *
+         * You can validate it with the following 4 steps:
+         *
+         * * Split the signature into two parts delimited by the '.' character.
+         * * Decode the first part (the encoded signature) with base64url encoding.
+         * * Decode the second part (the response payload) with base64url encoding, which should be a string
+         * representation of a JSON object that has the following fields: **algorithm** - always equals to HMAC-SHA256,
+         * **issued_at** - a unix timestamp of when this response was issued, **asid** - the app-scoped user id of the player.
+         * * Hash the whole response payload string using HMAC SHA-256 and your app secret and confirm that it is equal
+         * to the encoded signature.
+         * * You may also wish to validate the issued_at timestamp in the response payload to ensure the request was
+         * made recently.
+         *
+         * Signature validation should only happen on your server. Never do it on the client side as it will compromise
+         * your app secret key.
+         *
+         * @example
+         * FBInstant.player.getSignedASIDAsync()
+         *   .then(function (result) {
+         *     result.getSignature();
+         *     // Eii6e636mz5J47sfqAYEK40jYAwoFqi3x5bxHkPG4Q4.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImlzc3VlZF9hdCI6MTUwM
+         *     // DM5ODY3NSwicGxheWVyX2lkIjoiMTI0OTUyNTMwMTc1MjIwMSIsInJlcXVlc3RfcGF5bG9hZCI6Im15X2ZpcnN0X3JlcXVlc3QifQ
+         *   });
+         * @returns The signature string.
+         */
+        getSignature(): string;
+    }
+
+    /**
      * Represents information about the player along with a signature to verify that it indeed comes from Facebook.
      */
     interface SignedPlayerInfo {
@@ -1094,6 +1313,10 @@ declare namespace FBInstant {
          * The currency code for the product
          */
         priceCurrencyCode: string;
+        /**
+         * The numeric price of a product
+         */
+        priceAmount: number;
     }
 
     /**
@@ -1158,6 +1381,29 @@ declare namespace FBInstant {
     }
 
     /**
+     * Represents screenshot content provided by the game that later on can be shared by the user.
+     *
+     * @since 7.1
+     */
+    interface ScreenshotPayload {
+        /**
+         * A base64 encoded image that is the screenshot.
+         */
+        image: string;
+
+        /**
+         * A text message to describes the screenshot.
+         */
+        text: string;
+
+        /**
+         * A blob of data to attach to the screenshot. If the user ended up sharing this screenshot, all game sessions
+         * launched from the share will be able to access this blob through {@link FBInstant.getEntryPointData()}.
+         */
+        data?: object;
+    }
+
+    /**
      * Represents content to be shared by the user.
      */
     interface SharePayload {
@@ -1190,6 +1436,30 @@ declare namespace FBInstant {
          * A flag indicating whether to switch the user into the new context created on sharing
          */
         switchContext?: boolean;
+    }
+
+    /**
+     * Represents a custom link to be shared by the user.
+     *
+     * @since 7.1
+     */
+    interface LinkSharePayload {
+        /**
+         * A base64 encoded image to be shown for the link preview. The image is recommended to either be a square or of
+         * the aspect ratio 1.91:1.
+         */
+        image?: string;
+
+        /**
+         * A text description for the link preview. Recommended to be less than 44 characters.
+         */
+        text?: string;
+
+        /**
+         * A blob of data to associate with the shared link. All game sessions launched from the share will be able to
+         * access this blob through {@link FBInstant.getEntryPointData()}.
+         */
+        data: object;
     }
 
     /**
@@ -1278,7 +1548,7 @@ declare namespace FBInstant {
          * A text message, or an object with the default text as the value of 'default' and another object mapping locale keys to
          * translations as the value of 'localizations'.
          */
-        text: (string | LocalizableContent);
+        text: string | LocalizableContent;
 
         /**
          * A blob of data to attach to the update. All game sessions launched from the update will be able to access this blob
@@ -1371,11 +1641,17 @@ declare namespace FBInstant {
         localizations: LocalizationsDict;
     }
 
-    interface DataObject { [key: string]: any; }
+    interface DataObject {
+        [key: string]: any;
+    }
 
-    interface StatsObject { [key: string]: number; }
+    interface StatsObject {
+        [key: string]: number;
+    }
 
-    interface IncrementObject { [key: string]: number; }
+    interface IncrementObject {
+        [key: string]: number;
+    }
 
     /**
      * Represents a mapping from locales to translations of a given string. Each property is an optional five-character Facebook locale code of the form xx_XX.
@@ -1383,6 +1659,448 @@ declare namespace FBInstant {
      */
     interface LocalizationsDict {
         [x: string]: string;
+    }
+
+    /**
+     * Contains functions and properties related to Graph APIs.
+     *
+     * @since 7.0
+     */
+    interface GraphApi {
+        /**
+         * Performs a graph API Call and returns the result.
+         *
+         * @example
+         * FBInstant.graphApi.requestAsync('/me?fields=id,name')
+         *   .then(function(response) {
+         *     ...
+         *   });
+         * @param path The graph API path to perform the request against.
+         * @param method HTTP method that will be used for this request. `GET` is the default if not specified.
+         * @param params Parameters that will be sent as part of the request.
+         * @returns The result of the graph API call.
+         */
+        requestAsync(path: string, method?: string, params?: object): Promise<object>;
+    }
+
+    /**
+     * Contains functions and properties related to the messenger rooms environment.
+     *
+     * @since 7.1
+     */
+    interface Room {
+        /**
+         * Retrieves the current real-time match for the gameplay environment, if one exists.
+         *
+         * @example
+         * FBInstant.room.getCurrentMatchAsync()
+         *   .then(function(match) {
+         *     ...
+         *   });
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws LIVE_MATCH_NOT_FOUND
+         */
+        getCurrentMatchAsync(): Promise<LiveMatch>;
+
+        /**
+         * Retrieves and loads a specified AR effect that has been registered for the game.
+         *
+         * @example
+         * FBInstant.room.loadCameraEffectAsync({effectID: '123'})
+         *   .then(function(effect) {
+         *     ...
+         *   });
+         * @param cameraEffectArgs The args representing the effect to be loaded. See example for details
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws CAMERA_EFFECT_NOT_FOUND
+         */
+        loadCameraEffectAsync(cameraEffectArgs: CameraEffectArgs): Promise<CameraEffect>;
+
+        /**
+         * Clears the current AR effect in the rooms call. If an effect is present that was not applied by the game, the
+         * player will be prompted to approve the removal of the effect. The API will resolve after the effect is cleared,
+         * or will reject if the user denies the effect removal.
+         *
+         * @example
+         * FBInstant.room.clearCameraEffectAsync()
+         *   .then(function() {
+         *     ...
+         *   });
+         * @returns Resolves if the effect is cleared.
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         */
+        clearCameraEffectAsync(): Promise<void>;
+    }
+
+    /**
+     * An instant game live match that is played in a Messenger Rooms call simultaneously by all the participants.
+     *
+     * @since 7.1
+     */
+    interface LiveMatch {
+        /**
+         * The unique live match ID.
+         *
+         * @example
+         * FBInstant.room.getCurrentMatchAsync()
+         *   .then(function(match) {
+         *     console.log(match.getID());
+         *   });
+         * @returns The live match ID.
+         */
+        getID(): string;
+
+        /**
+         * The unique context ID that is associated with this live match.
+         *
+         * @example
+         * FBInstant.room.getCurrentMatchAsync()
+         *   .then(function(match) {
+         *     console.log(match.getContextID());
+         *   });
+         * @returns The context ID for this live match.
+         */
+        getContextID(): string;
+
+        /**
+         * The current status of the live match, for example: `PENDING`, `ABANDONED`, `CONCLUDED`, `RUNNING`.
+         *
+         * @example
+         * FBInstant.room.getCurrentMatchAsync()
+         *   .then(function(match) {
+         *     match.getStatusAsync().then(status => console.log(status));
+         *   });
+         * @returns The status of the live match.
+         */
+        getStatusAsync(): Promise<LiveMatchStatusType>;
+
+        /**
+         * Retrieves a list of players currently active in the match.
+         *
+         * @example
+         * FBInstant.room.getCurrentMatchAsync()
+         *   .then(function(match) {
+         *     match.getActiveParticipantsAsync().then(activeParticipants => GameMatch.updatePlayers(activeParticipants))
+         *   });
+         */
+        getActiveParticipantsAsync(): Promise<LiveMatchPlayer[]>;
+    }
+
+    /**
+     * Represents information about a player who is a participant in a real-time match.
+     *
+     * @since 7.1
+     */
+    interface LiveMatchPlayer {
+        /**
+         * Get the id of the live match player.
+         *
+         * @returns The ID of the live match player.
+         */
+        getID(): string;
+
+        /**
+         * Get the player's display name.
+         *
+         * @returns The player's display name.
+         */
+        getName(): string | null;
+
+        /**
+         * Get the player's public profile photo.
+         *
+         * @returns A url to the player's public profile photo.
+         */
+        getPhoto(): string | null;
+    }
+
+    /**
+     * Represents arguments to be sent to load an AR effect in Messenger Rooms.
+     *
+     * @since 7.1
+     */
+    interface CameraEffectArgs {
+        /**
+         * The ID of the effect to be loaded that is registered with the game.
+         */
+        effectID: string;
+    }
+
+    /**
+     * Represents an AR effect object that can be shown in a Messenger Rooms call.
+     *
+     * @since 7.1
+     */
+    interface CameraEffect {
+        /**
+         * The unique camera effect ID.
+         *
+         * @example
+         * FBInstant.room.loadCameraEffectAsync()
+         *   .then(function(effect) {
+         *     console.log(effect.getID());
+         *   });
+         * @returns The camera effect ID.
+         */
+        getID(): string;
+
+        /**
+         * Shows the AR effect for the user in the room session. If the user has a non-game effect applied, it will
+         * prompt the user for permission for the first time. If the user denis, the promise is rejected, otherwise it
+         * is resolved after applying the effect.
+         *
+         * @example
+         * FBInstant.room.loadCameraEffectAsync()
+         *   .then(function(effect) {
+         *     effect.showAsync().then(() => console.log("Effect shown"));
+         *   });
+         * @returns Resolves when the effect is applied to the player.
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         */
+        showAsync(): Promise<void>;
+    }
+
+    /**
+     * Contains functions and properties related to gaming squads.
+     *
+     * @since 7.1
+     */
+    interface Squads {
+        /**
+         * Brings up a dialog for the player to create a Squad. If the player creates the Squad, the promise will
+         * resolve with the new Squad instance and the game session will be switched into this newly created Squad
+         * context. The promise will reject if the player closes the dialog instead.
+         *
+         * @example
+         * FBInstant.squads.createAsync()
+         *   .then(function(squad) {
+         *     ...
+         *   });
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws NETWORK_FAILURE
+         * @throws USER_INPUT
+         */
+        createAsync(payload?: CreateGamingSquadPayload): Promise<GamingSquad>;
+
+        /**
+         * Fetch an existing Squad. If the Squad does not exist, or the player cannot interact with the Squad, this API
+         * will reject with the `GAMING_SQUAD_NOT_FOUND` error code.
+         *
+         * @example
+         * FBInstant.squads.getAsync(squadID)
+         *   .then(function(squad) {
+         *     console.log(squad.getID())
+         *   });
+         * @param id The squad ID or context ID.
+         * @throws GAMING_SQUAD_NOT_FOUND
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws NETWORK_FAILURE
+         */
+        getAsync(id: string): Promise<GamingSquad>;
+
+        /**
+         * Fetches the current player's existing squads, if any.
+         *
+         * @example
+         * FBInstant.squads.getPlayerSquadsAsync()
+         *   .then(function(squads) {
+         *     squads.forEach(squad => console.log(squad.getID()));
+         *   });
+         * @throws GAMING_SQUAD_NOT_FOUND
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws NETWORK_FAILURE
+         */
+        getPlayerSquadsAsync(): Promise<GamingSquad[]>;
+
+        /**
+         * Fetches the current player's existing squads, if any.
+         *
+         * @example
+         * FBInstant.squads.canUseSquadsAsync()
+         *   .then(function(isEligible) {
+         *     if (isEligible) {
+         *      FBInstant.squads.getAsync(squadID)
+         *       .then(function(squad) {
+         *       console.log(squad.getID())
+         *     });
+         *     }
+         *   });
+         * @returns Whether the current user is eligible to use squads.
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws NETWORK_FAILURE
+         */
+        canUseSquadsAsync(): Promise<boolean>;
+    }
+
+    /**
+     * Representation of a group of players playing together in a messenger thread.
+     *
+     * @since 7.1
+     */
+    interface GamingSquad {
+        /**
+         * The unique gaming squad ID.
+         *
+         * @example
+         * FBInstant.squads.getAsync(contextID)
+         *   .then(function(squad) {
+         *     console.log(squad.getID());
+         *   });
+         * @returns The gaming squad ID.
+         */
+        getID(): string;
+
+        /**
+         * The gaming squad name.
+         *
+         * @example
+         * FBInstant.squads.getAsync(contextID)
+         *   .then(function(squad) {
+         *     console.log(squad.getName());
+         *   });
+         * @returns The name of the squad.
+         */
+        getName(): string;
+
+        /**
+         * The URI for the gaming squad image.
+         *
+         * @example
+         * FBInstant.squads.getAsync(contextID)
+         *   .then(function(squad) {
+         *     console.log(squad.getImage());
+         *   });
+         * @returns URI for gaming squad image.
+         */
+        getImage(): string;
+
+        /**
+         * The unique context ID that is associated with this gaming squad.
+         *
+         * @example
+         * FBInstant.squads.getAsync(id)
+         *   .then(function(squad) {
+         *     console.log(squad.getContextID());
+         *   });
+         * @returns The context ID for this gaming squad.
+         */
+        getContextID(): string;
+
+        /**
+         * Brings up a dialog for the player to join a Squad if they are not part of it. If the user accepts, they
+         * become part of the squad thread and the game context switches into the squad. If they are part of the Squad
+         * already, the dialog will prompt the user to switch into the Squad context.
+         *
+         * @example
+         * FBInstant.squads.getAsync(squadID)
+         *   .then(function(squad) {
+         *     squad.joinAsync().then(...)
+         *   });
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws NETWORK_FAILURE
+         * @throws USER_INPUT
+         */
+        joinAsync(payload?: JoinGamingSquadPayload): Promise<void>;
+
+        /**
+         * Brings up a dialog for the player to confirm if they want to leave the Squad. If the player confirms, they
+         * are removed from the Squad and the messenger thread that is associated with this Squad.
+         *
+         * @example
+         * FBInstant.squads.getAsync(squadID)
+         *   .then(function(squad) {
+         *     squad.leaveAsync().then(...)
+         *   });
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws NETWORK_FAILURE
+         * @throws USER_INPUT
+         */
+        leaveAsync(payload?: LeaveGamingSquadPayload): Promise<void>;
+
+        /**
+         * Brings up a dialog for the player to add their friends to the current squad.
+         *
+         * @example
+         * FBInstant.squads.getAsync(squadID)
+         *   .then(function(squad) {
+         *     squad.addToSquadAsync().then(...)
+         *   });
+         * @throws INVALID_OPERATION
+         * @throws INVALID_PARAM
+         * @throws NETWORK_FAILURE
+         * @throws USER_INPUT
+         */
+        addToSquadAsync(payload?: AddToGamingSquadPayload): Promise<void>;
+    }
+
+    /**
+     * Represents parameters used to configure a Gaming Squad.
+     *
+     * @since 7.1
+     */
+    interface CreateGamingSquadPayload {
+        /**
+         * An optional prefill for the squad name input in the creation dialog. The player ultimately has control over
+         * the actual name.
+         */
+        name?: string;
+
+        /**
+         * Optional base64 encoded image that will be associated with the gaming squad and will show up in the creation
+         * dialog. It will be the profile icon for the Messenger thread.
+         */
+        image?: string;
+
+        /**
+         * Optional localized term to use in place of 'Squad' in the dialog.
+         */
+        squadTerm?: string;
+    }
+
+    /**
+     * Represents parameters used to configure the Join dialog.
+     *
+     * @since 7.1
+     */
+    interface JoinGamingSquadPayload {
+        /**
+         * Optional localized term to use in place of 'Squad' in the dialog.
+         */
+        squadTerm?: string;
+    }
+
+    /**
+     * Represents parameters used to configure the Leave dialog.
+     *
+     * @since 7.1
+     */
+    interface LeaveGamingSquadPayload {
+        /**
+         * Optional localized term to use in place of 'Squad' in the dialog.
+         */
+        squadTerm?: string;
+    }
+
+    /**
+     * Represents parameters used to configure the Add to Squad dialog.
+     *
+     * @since 7.1
+     */
+    interface AddToGamingSquadPayload {
+        /**
+         * Optional localized term to use in place of 'Squad' in the dialog.
+         */
+        squadTerm?: string;
     }
 
     type SignedPurchaseRequest = string;
@@ -1416,21 +2134,60 @@ declare namespace FBInstant {
 
     type TournamentScoreFormat = "NUMERIC" | "TIME";
 
-    type ErrorCodeType = "ADS_FREQUENT_LOAD" |
-        "ADS_NO_FILL" |
-        "ADS_NOT_LOADED" |
-        "ADS_TOO_MANY_INSTANCES" |
-        "ANALYTICS_POST_EXCEPTION" |
-        "CLIENT_REQUIRES_UPDATE" |
-        "CLIENT_UNSUPPORTED_OPERATION" |
-        "INVALID_OPERATION" |
-        "INVALID_PARAM" |
-        "LEADERBOARD_NOT_FOUND" |
-        "LEADERBOARD_WRONG_CONTEXT" |
-        "NETWORK_FAILURE" |
-        "PENDING_REQUEST" |
-        "RATE_LIMITED" |
-        "SAME_CONTEXT" |
-        "UNKNOWN" |
-        "USER_INPUT";
+    type ErrorCodeType =
+        | "ADS_FREQUENT_LOAD"
+        | "ADS_NOT_LOADED"
+        | "ADS_NO_FILL"
+        | "ADS_TOO_MANY_INSTANCES"
+        | "ARENAS_NOT_FOUND"
+        | "ANALYTICS_POST_EXCEPTION"
+        | "CAMERA_EFFECT_NOT_FOUND"
+        | "CLIENT_REQUIRES_UPDATE"
+        | "CLIENT_UNSUPPORTED_OPERATION"
+        | "DUPLICATE_POST"
+        | "GAMING_SQUAD_NOT_FOUND"
+        | "GROUP_NOT_LINKED"
+        | "INVALID_OPERATION"
+        | "INVALID_PARAM"
+        | "LEADERBOARD_NOT_FOUND"
+        | "LEADERBOARD_WRONG_CONTEXT"
+        | "LIVE_MATCH_NOT_FOUND"
+        | "LIVE_STREAMS_NOT_FOUND"
+        | "NETWORK_FAILURE"
+        | "PAGE_NOT_LINKED"
+        | "PAYMENTS_NOT_INITIALIZED"
+        | "PAYMENTS_OPERATION_FAILURE"
+        | "PENDING_REQUEST"
+        | "RATE_LIMITED"
+        | "SAME_CONTEXT"
+        | "TOURNAMENT_NOT_FOUND"
+        | "UNKNOWN"
+        | "USER_INPUT"
+        | "VIDEO_NOT_FOUND";
+
+    /**
+     * A function that will get called when user requested to capture a screenshot.
+     *
+     * @since 7.1
+     */
+    type ScreenshotProvider = (submitAsync: ScreenshotSubmitter) => void;
+
+    /**
+     * A function that allows the game to submit a screenshot.
+     *
+     * @since 7.1
+     */
+    type ScreenshotSubmitter = (payload: ScreenshotPayload) => Promise<void>;
+
+    /**
+     * Live Match status that may be returned by the Instant Games API.
+     *
+     * * `PENDING` - Match hasn't started yet
+     * * `RUNNING` - Match has begun and is running
+     * * `CONCLUDED` - Match has been ended explicitly
+     * * `ABANDONED` - All the participants in the call have left the match
+     *
+     * @since 7.1
+     */
+    type LiveMatchStatusType = "PENDING" | "RUNNING" | "CONCLUDED" | "ABANDONED";
 }

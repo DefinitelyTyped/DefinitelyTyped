@@ -1,8 +1,4 @@
-// Type definitions for idyll 2.10
-// Project: https://github.com/idyll-lang/idyll/tree/master/packages/idyll-cli, https://github.com/idyll-lang/idyll
-// Definitions by: Thanh Ngo <https://github.com/iocat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+/// <reference types="node" />
 
 import { EventEmitter } from "events";
 import { Options as CompilerOptions } from "idyll-compiler";
@@ -21,7 +17,6 @@ interface Options {
      */
     minify?: boolean | undefined;
     /**
-     *
      * Pre-render HTML as part of the build
      */
     ssr?: boolean | undefined;
@@ -56,7 +51,6 @@ interface Options {
     temp?: string | undefined;
     /**
      * path to HTML template
-     *
      */
     template?: string | undefined;
 
@@ -115,12 +109,10 @@ declare class IdyllInstance extends EventEmitter {
      */
     getOptions(): Options;
     /**
-     *
      * if indexIdyllMarkup is provided, compiles it
      *
      * Otherwise, compiles and optionally watches
      * the idyll file at IOptions.inputFile
-     *
      */
     build(indexIdyllMarkup?: string | null): this;
 }

@@ -12,7 +12,7 @@ export type DialogProps = {
     /** Additional props to disable auto closing dialog */
     disableAutoClose?: boolean;
     /** Additional props to be spread to the footer of the dialog */
-    focusElementOnClose?: object,
+    focusElementOnClose?: object;
     footerProps?: any;
     header?: string | React.ReactNode;
     headerProps?: any;
@@ -21,7 +21,7 @@ export type DialogProps = {
     headingStyle?: number;
     /** Set to **true** to make the dialog visible */
     show?: boolean | undefined;
-    size?: 's' | 'm' | 'l' | 'xl';
+    size?: "s" | "m" | "l" | "xl";
     subheader?: string | undefined;
     titleProps?: any;
     onClose?: ((...args: any[]) => any) | undefined;

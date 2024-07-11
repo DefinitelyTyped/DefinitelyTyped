@@ -1,26 +1,27 @@
 /**
- * The `zlib` module provides compression functionality implemented using Gzip,
- * Deflate/Inflate, and Brotli.
+ * The `node:zlib` module provides compression functionality implemented using
+ * Gzip, Deflate/Inflate, and Brotli.
  *
  * To access it:
  *
  * ```js
- * const zlib = require('zlib');
+ * const zlib = require('node:zlib');
  * ```
  *
- * Compression and decompression are built around the Node.js `Streams API`.
+ * Compression and decompression are built around the Node.js
+ * [Streams API](https://nodejs.org/docs/latest-v20.x/api/stream.html).
  *
  * Compressing or decompressing a stream (such as a file) can be accomplished by
  * piping the source stream through a `zlib` `Transform` stream into a destination
  * stream:
  *
  * ```js
- * const { createGzip } = require('zlib');
- * const { pipeline } = require('stream');
+ * const { createGzip } = require('node:zlib');
+ * const { pipeline } = require('node:stream');
  * const {
  *   createReadStream,
- *   createWriteStream
- * } = require('fs');
+ *   createWriteStream,
+ * } = require('node:fs');
  *
  * const gzip = createGzip();
  * const source = createReadStream('input.txt');
@@ -35,7 +36,7 @@
  *
  * // Or, Promisified
  *
- * const { promisify } = require('util');
+ * const { promisify } = require('node:util');
  * const pipe = promisify(pipeline);
  *
  * async function do_gzip(input, output) {
@@ -55,7 +56,7 @@
  * It is also possible to compress or decompress data in a single step:
  *
  * ```js
- * const { deflate, unzip } = require('zlib');
+ * const { deflate, unzip } = require('node:zlib');
  *
  * const input = '.................................';
  * deflate(input, (err, buffer) => {
@@ -77,7 +78,7 @@
  *
  * // Or, Promisified
  *
- * const { promisify } = require('util');
+ * const { promisify } = require('node:util');
  * const do_unzip = promisify(unzip);
  *
  * do_unzip(buffer)
@@ -88,10 +89,10 @@
  *   });
  * ```
  * @since v0.5.8
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/zlib.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/zlib.js)
  */
-declare module 'zlib' {
-    import * as stream from 'node:stream';
+declare module "zlib" {
+    import * as stream from "node:stream";
     interface ZlibOptions {
         /**
          * @default constants.Z_NO_FLUSH
@@ -110,7 +111,14 @@ declare module 'zlib' {
         memLevel?: number | undefined; // compression only
         strategy?: number | undefined; // compression only
         dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined; // deflate/inflate only, empty dictionary by default
+        /**
+         * If `true`, returns an object with `buffer` and `engine`.
+         */
         info?: boolean | undefined;
+        /**
+         * Limits output size when using convenience methods.
+         * @default buffer.kMaxLength
+         */
         maxOutputLength?: number | undefined;
     }
     interface BrotliOptions {
@@ -128,12 +136,16 @@ declare module 'zlib' {
         chunkSize?: number | undefined;
         params?:
             | {
-                  /**
-                   * Each key is a `constants.BROTLI_*` constant.
-                   */
-                  [key: number]: boolean | number;
-              }
+                /**
+                 * Each key is a `constants.BROTLI_*` constant.
+                 */
+                [key: number]: boolean | number;
+            }
             | undefined;
+        /**
+         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v20.x/api/zlib.html#convenience-methods).
+         * @default buffer.kMaxLength
+         */
         maxOutputLength?: number | undefined;
     }
     interface Zlib {
@@ -194,7 +206,7 @@ declare module 'zlib' {
     /**
      * Creates and returns a new `DeflateRaw` object.
      *
-     * An upgrade of zlib from 1.2.8 to 1.2.11 changed behavior when `windowBits`is set to 8 for raw deflate streams. zlib would automatically set `windowBits`to 9 if was initially set to 8\. Newer
+     * An upgrade of zlib from 1.2.8 to 1.2.11 changed behavior when `windowBits` is set to 8 for raw deflate streams. zlib would automatically set `windowBits` to 9 if was initially set to 8. Newer
      * versions of zlib will throw an exception,
      * so Node.js restored the original behavior of upgrading a value of 8 to 9,
      * since passing `windowBits = 9` to zlib actually results in a compressed stream
@@ -433,6 +445,7 @@ declare module 'zlib' {
         const Z_FIXED: number;
         const Z_DEFAULT_STRATEGY: number;
         const Z_DEFAULT_WINDOWBITS: number;
+
         const Z_MIN_WINDOWBITS: number;
         const Z_MAX_WINDOWBITS: number;
         const Z_MIN_CHUNK: number;
@@ -512,6 +525,6 @@ declare module 'zlib' {
     /** @deprecated */
     const Z_DEFLATED: number;
 }
-declare module 'node:zlib' {
-    export * from 'zlib';
+declare module "node:zlib" {
+    export * from "zlib";
 }

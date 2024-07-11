@@ -1,4 +1,4 @@
-import semver = require('../index');
+import semver = require("../index");
 
 /**
  * Returns cleaned (removed leading/trailing whitespace, remove '=v' prefix) and parsed version, or null if version is invalid.

@@ -1,9 +1,3 @@
-// Type definitions for write-file-webpack-plugin 4.5
-// Project: https://github.com/gajus/write-file-webpack-plugin#readme
-// Definitions by: Nathan Hardy <https://github.com/nhardy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import webpack = require("webpack");
 
 export interface UserOptionsType {

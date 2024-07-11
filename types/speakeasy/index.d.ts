@@ -1,12 +1,7 @@
-// Type definitions for speakeasy 2.0
-// Project: https://github.com/speakeasyjs/speakeasy
-// Definitions by: Lucas Woo <https://github.com/legendecas>, Alexander Batukhtin <https://github.com/mrOlorin>, Aayush Kapoor <https://github.com/xeoneux>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-export type Encoding = 'ascii' | 'hex' | 'base32' | 'base64';
-export type Algorithm = 'sha1' | 'sha256' | 'sha512';
+export type Encoding = "ascii" | "hex" | "base32" | "base64";
+export type Algorithm = "sha1" | "sha256" | "sha512";
 
 export interface SharedOptions {
     /**
@@ -266,7 +261,7 @@ export interface OtpauthURLOptions extends SharedOptions {
     /**
      * Either 'hotp' or 'totp', defaults to 'totp'
      */
-    type?: 'htop' | 'totp' | undefined;
+    type?: "htop" | "totp" | undefined;
     /**
      * The initial counter value, required for HOTP.
      */
@@ -427,7 +422,7 @@ export const generate_key: typeof generateSecret;
  */
 export function generateSecretASCII(
     length?: number,
-    symbols?: boolean
+    symbols?: boolean,
 ): string;
 /**
  * @deprecated use generateSecret

@@ -1,14 +1,7 @@
-// Type definitions for node-ffi 0.2
-// Project: https://github.com/rbranson/node-ffi, https://github.com/node-ffi/node-ffi
-// Definitions by: Paul Loyd <https://github.com/loyd>, Waiting Song <https://github.com/waitingsong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
-
-import ref = require('ref');
-import StructType = require('ref-struct');
+import ref = require("ref");
+import StructType = require("ref-struct");
 
 /** Provides a friendly API on-top of `DynamicLibrary` and `ForeignFunction`. */
 export interface Library {
@@ -20,14 +13,14 @@ export interface Library {
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    new (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
+    new(libFile: string, funcs?: { [key: string]: any[] }, lib?: object): any;
 
     /**
      * @param libFile name of library
      * @param funcs hash of [retType, [...argType], opts?: {abi?, async?, varargs?}]
      * @param lib hash that will be extended
      */
-    (libFile: string, funcs?: {[key: string]: any[]}, lib?: object): any;
+    (libFile: string, funcs?: { [key: string]: any[] }, lib?: object): any;
 }
 export const Library: Library;
 
@@ -51,7 +44,7 @@ export interface Function extends ref.Type {
 
 /** Creates and returns a type for a C function pointer. */
 export const Function: {
-    new (retType: ref.Type | string, argTypes: any[], abi?: number): Function;
+    new(retType: ref.Type | string, argTypes: any[], abi?: number): Function;
     (retType: ref.Type | string, argTypes: any[], abi?: number): Function;
 };
 
@@ -67,7 +60,7 @@ export interface ForeignFunction {
  * execution.
  */
 export const ForeignFunction: {
-    new (ptr: Buffer, retType: ref.Type | string, argTypes: any[], abi?: number): ForeignFunction;
+    new(ptr: Buffer, retType: ref.Type | string, argTypes: any[], abi?: number): ForeignFunction;
     (ptr: Buffer, retType: ref.Type | string, argTypes: any[], abi?: number): ForeignFunction;
 };
 
@@ -94,7 +87,7 @@ export interface VariadicForeignFunction {
  * contain the same ffi_type argument signature.
  */
 export const VariadicForeignFunction: {
-    new (ptr: Buffer, ret: ref.Type | string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
+    new(ptr: Buffer, ret: ref.Type | string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
     (ptr: Buffer, ret: ref.Type | string, fixedArgs: any[], abi?: number): VariadicForeignFunction;
 };
 
@@ -124,9 +117,9 @@ export const DynamicLibrary: {
         RTLD_NODELETE: number;
         RTLD_NEXT: Buffer;
         RTLD_DEFAUL: Buffer;
-    }
+    };
 
-    new (path?: string, mode?: number): DynamicLibrary;
+    new(path?: string, mode?: number): DynamicLibrary;
     (path?: string, mode?: number): DynamicLibrary;
 };
 
@@ -136,8 +129,8 @@ export const DynamicLibrary: {
  * accept C callback functions.
  */
 export interface Callback {
-    new (retType: any, argTypes: any[], abi: number, fn: any): Buffer;
-    new (retType: any, argTypes: any[], fn: any): Buffer;
+    new(retType: any, argTypes: any[], abi: number, fn: any): Buffer;
+    new(retType: any, argTypes: any[], fn: any): Buffer;
     (retType: any, argTypes: any[], abi: number, fn: any): Buffer;
     (retType: any, argTypes: any[], fn: any): Buffer;
 }
@@ -145,14 +138,14 @@ export const Callback: Callback;
 
 export const ffiType: {
     /** Get a `ffi_type *` Buffer appropriate for the given type. */
-    (type: ref.Type | string): Buffer
+    (type: ref.Type | string): Buffer;
     FFI_TYPE: StructType;
 };
 
 export function CIF(retType: any, types: any[], abi?: any): Buffer;
 export function CIF_var(retType: any, types: any[], numFixedArgs: number, abi?: any): Buffer;
 export const HAS_OBJC: boolean;
-export const FFI_TYPES: {[key: string]: Buffer};
+export const FFI_TYPES: { [key: string]: Buffer };
 export const FFI_OK: number;
 export const FFI_BAD_TYPEDEF: number;
 export const FFI_BAD_ABI: number;
@@ -179,13 +172,30 @@ export const FFI_TYPE: StructType;
 
 /** Default types. */
 export const types: {
-    void: ref.Type;                 int64: ref.Type;                 ushort: ref.Type;
-    int: ref.Type;                  uint64: ref.Type;                float: ref.Type;
-    uint: ref.Type;                 long: ref.Type;                  double: ref.Type;
-    int8: ref.Type;                 ulong: ref.Type;                 Object: ref.Type;
-    uint8: ref.Type;                longlong: ref.Type;              CString: ref.Type;
-    int16: ref.Type;                ulonglong: ref.Type;             bool: ref.Type;
-    uint16: ref.Type;               char: ref.Type;                  byte: ref.Type;
-    int32: ref.Type;                uchar: ref.Type;                 size_t: ref.Type;
-    uint32: ref.Type;               short: ref.Type;
+    void: ref.Type;
+    int64: ref.Type;
+    ushort: ref.Type;
+    int: ref.Type;
+    uint64: ref.Type;
+    float: ref.Type;
+    uint: ref.Type;
+    long: ref.Type;
+    double: ref.Type;
+    int8: ref.Type;
+    ulong: ref.Type;
+    Object: ref.Type;
+    uint8: ref.Type;
+    longlong: ref.Type;
+    CString: ref.Type;
+    int16: ref.Type;
+    ulonglong: ref.Type;
+    bool: ref.Type;
+    uint16: ref.Type;
+    char: ref.Type;
+    byte: ref.Type;
+    int32: ref.Type;
+    uchar: ref.Type;
+    size_t: ref.Type;
+    uint32: ref.Type;
+    short: ref.Type;
 };

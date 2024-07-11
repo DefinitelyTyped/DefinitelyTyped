@@ -1,6 +1,7 @@
-import { Light } from '../../../../src/Three';
-import Node from '../core/Node';
-import LightingNode from './LightingNode';
+import { Light } from "three";
+import Node from "../core/Node.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
+import LightingNode from "./LightingNode.js";
 
 export default class LightsNode extends Node {
     lightNodes: LightingNode[];
@@ -13,7 +14,9 @@ export default class LightsNode extends Node {
     fromLights(lights: Light[]): this;
 
     static setReference<T extends Light>(
-        lightClass: { new (): T },
-        lightNodeClass: { new (light: T): LightingNode },
+        lightClass: { new(): T },
+        lightNodeClass: { new(light: T): LightingNode },
     ): void;
 }
+
+export const lights: (lights: Light[]) => ShaderNodeObject<LightsNode>;

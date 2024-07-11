@@ -1,9 +1,0 @@
-{
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "space-before-function-paren": false,
-        "ban-types": false,
-        "npm-naming": false,
-        "unified-signatures": false
-    }
-}

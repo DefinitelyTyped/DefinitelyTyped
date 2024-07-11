@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-type-animation",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/notadamking/react-typing-animation"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-type-animation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Seungbin Oh",
+            "githubUsername": "sboh1214"
+        }
+    ]
+}

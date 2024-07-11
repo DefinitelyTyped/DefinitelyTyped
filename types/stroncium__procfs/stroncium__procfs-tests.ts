@@ -1,16 +1,16 @@
-import { procfs, Procfs, ProcfsError } from '@stroncium/procfs';
+import { Procfs, procfs, ProcfsError } from "@stroncium/procfs";
 
-new Procfs('');
+new Procfs("");
 
 // @ts-expect-error
 new ProcfsError();
 
 // @ts-expect-error
-new ProcfsError('');
+new ProcfsError("");
 
-new ProcfsError('EPARSE');
-new ProcfsError('EPARSE', '');
-new ProcfsError('EPARSE', '', '');
+new ProcfsError("EPARSE");
+new ProcfsError("EPARSE", "");
+new ProcfsError("EPARSE", "", "");
 
 procfs.processMountinfo();
 procfs.processIo();

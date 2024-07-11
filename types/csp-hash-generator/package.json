@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/csp-hash-generator",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/miguel-a-calles-mba/csp-hash-generator"
+    ],
+    "devDependencies": {
+        "@types/csp-hash-generator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bob",
+            "githubUsername": "bobcode99"
+        }
+    ]
+}

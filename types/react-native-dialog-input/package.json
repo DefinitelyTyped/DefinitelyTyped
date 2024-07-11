@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-dialog-input",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/joseestrella89/react-native-dialog-input#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-dialog-input": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeswin Simon",
+            "githubUsername": "jeswinsimon"
+        }
+    ]
+}

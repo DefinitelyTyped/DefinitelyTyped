@@ -3,14 +3,14 @@ import ref_struct = require("ref-struct-di");
 const StructType = ref_struct(ref);
 
 const normalStruct = StructType({
-  t: ref.types.uint8,
-  v: ref.types.long,
+    t: ref.types.uint8,
+    v: ref.types.long,
 });
 
 const packedStruct = StructType({
-  t: ref.types.uint8,
-  v: ref.types.long,
-}, {packed: true});
+    t: ref.types.uint8,
+    v: ref.types.long,
+}, { packed: true });
 
 declare const typeLike: ref.TypeLike;
 declare const buffer: Buffer;
@@ -109,7 +109,7 @@ new struct(buffer, undefined);
 // $ExpectType StructObject<Record<string, any>>
 new struct(buffer, { x: number });
 
-declare const Point: ref_struct.StructType<{ x: ref.Type<number>, y: ref.Type<number> }>;
+declare const Point: ref_struct.StructType<{ x: ref.Type<number>; y: ref.Type<number> }>;
 
 // $ExpectType { x: Field<number>; y: Field<number>; }
 Point.fields;

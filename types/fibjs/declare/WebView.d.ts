@@ -31,7 +31,6 @@ declare class Class_WebView extends Class_EventEmitter {
      * @brief 查询和设置窗口是否显示
      * 
      * 
-     * @type Boolean
      */
     
     visible: boolean
@@ -43,7 +42,6 @@ declare class Class_WebView extends Class_EventEmitter {
      * @brief 查询和绑定加载成功事件，相当于 on("load", func);
      * 
      * 
-     * @type Function
      */
     
     onload: Function
@@ -64,7 +62,6 @@ declare class Class_WebView extends Class_EventEmitter {
      * 
      * 
      * 
-     * @type Function
      */
     
     onmove: Function
@@ -85,7 +82,6 @@ declare class Class_WebView extends Class_EventEmitter {
      * 
      * 
      * 
-     * @type Function
      */
     
     onresize: Function
@@ -97,7 +93,6 @@ declare class Class_WebView extends Class_EventEmitter {
      * @brief 查询和绑定窗口关闭事件，WebView 关闭后会触发此时间，相当于 on("closed", func);
      * 
      * 
-     * @type Function
      */
     
     onclosed: Function
@@ -109,7 +104,6 @@ declare class Class_WebView extends Class_EventEmitter {
      * @brief 查询和绑定接受 webview 内 postMessage 消息事件，相当于 on("message", func);
      * 
      * 
-     * @type Function
      */
     
     onmessage: Function

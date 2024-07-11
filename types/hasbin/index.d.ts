@@ -1,8 +1,3 @@
-// Type definitions for hasbin 1.2
-// Project: https://github.com/springernature/hasbin
-// Definitions by: Micha Streppel <https://github.com/michastreppel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = hasbin;
 
 declare function hasbin(bin: string, done: (result: boolean) => void): void;

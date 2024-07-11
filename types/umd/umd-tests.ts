@@ -1,4 +1,3 @@
-
 import umd = require("umd");
 
 var res1: string = umd("name1", "return 123");

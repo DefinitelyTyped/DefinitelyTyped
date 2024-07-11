@@ -1,4 +1,4 @@
-import memoryUsage = require('memory-usage');
+import memoryUsage = require("memory-usage");
 
 // test type exports
 type Options = memoryUsage.Options;

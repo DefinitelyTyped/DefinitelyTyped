@@ -1,5 +1,5 @@
-import { Mode } from './common';
-import { ColorToSameColorMapper } from './map';
+import { Mode } from "./common";
+import { ColorToSameColorMapper } from "./map";
 
 type Filter = (amt?: number, mode?: Mode) => ColorToSameColorMapper;
 
@@ -14,9 +14,9 @@ declare const filterHueRotate: Filter;
 export {
     filterBrightness,
     filterContrast,
-    filterSepia,
-    filterSaturate,
     filterGrayscale,
-    filterInvert,
     filterHueRotate,
+    filterInvert,
+    filterSaturate,
+    filterSepia,
 };

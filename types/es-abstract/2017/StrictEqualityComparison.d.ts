@@ -1,2 +1,2 @@
-import StrictEqualityComparison = require('../2016/StrictEqualityComparison');
+import StrictEqualityComparison = require("../2016/StrictEqualityComparison");
 export = StrictEqualityComparison;

@@ -1,4 +1,4 @@
-import { DataID, Disposable } from 'relay-runtime';
+import { DataID, Disposable } from "relay-runtime";
 
 /**
  * This hook subscribes a callback to the invalidation state of the given data
@@ -9,4 +9,4 @@ import { DataID, Disposable } from 'relay-runtime';
  * re-established and the previous one will be disposed.
  * The subscription will automatically be disposed on unmount
  */
-export function useSubscribeToInvalidationState(dataIDs: ReadonlyArray<DataID>, callback: () => void): Disposable;
+export function useSubscribeToInvalidationState(dataIDs: readonly DataID[], callback: () => void): Disposable;

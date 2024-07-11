@@ -1,12 +1,4 @@
-// Type definitions for ospec 4.0
-// Project: https://github.com/MithrilJS/mithril.js/tree/next/ospec
-// Definitions by: Már Örlygsson <https://github.com/maranomynet>
-//                 Mike Linkovich <https://github.com/spacejack>
-//                 Claudia Meadows <https://github.com/dead-claudia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-type ObjectConstructor = new (...args: any[]) => any;
+type ObjectConstructor = new(...args: any[]) => any;
 
 declare namespace o {
     type AssertionDescriber = (description: string) => void;
@@ -38,6 +30,7 @@ declare namespace o {
         notThrows(this: Assertion<() => any>, error: string | ObjectConstructor): AssertionDescriber; // See above
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type Definer = (done: (error?: Error | null) => void, timeout: (delay: number) => void) => void | PromiseLike<any>;
 
     interface Result {
@@ -73,7 +66,7 @@ declare namespace o {
         afterEach(teardown: Definer): void;
 
         /** Returns a function that records the number of times it gets called, and its arguments */
-        spy<A extends any[]>(): Spy<A, undefined>; // eslint-disable-line no-unnecessary-generics
+        spy<A extends any[]>(): Spy<A, undefined>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
         spy<A extends any[], R>(fn: (...args: A) => R): Spy<A, R>;
 
         /** Amount of time (in milliseconds) to wait until bailing out of a test */
@@ -86,7 +79,7 @@ declare namespace o {
         /** Default reporter used by `o.run()` */
         report: Reporter;
 
-        'new'(): Ospec;
+        "new"(): Ospec;
     }
 }
 

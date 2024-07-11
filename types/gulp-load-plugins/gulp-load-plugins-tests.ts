@@ -1,26 +1,26 @@
-import * as gulp from 'gulp';
-import gulpConcat = require('gulp-concat');
-import gulpLoadPlugins = require('gulp-load-plugins');
+import * as gulp from "gulp";
+import gulpConcat = require("gulp-concat");
+import gulpLoadPlugins = require("gulp-load-plugins");
 
 interface GulpPlugins extends IGulpPlugins {
     concat: typeof gulpConcat;
 }
 
 var plugins = gulpLoadPlugins<GulpPlugins>({
-    pattern: ['gulp-*', 'gulp.*'],
-    config: 'package.json',
-    scope: ['dependencies', 'devDependencies', 'peerDependencies'],
+    pattern: ["gulp-*", "gulp.*"],
+    config: "package.json",
+    scope: ["dependencies", "devDependencies", "peerDependencies"],
     replaceString: /^gulp(-|\.)/,
     camelize: true,
     lazy: true,
-    rename: {}
+    rename: {},
 });
 plugins = gulpLoadPlugins<GulpPlugins>();
 
-gulp.task('taskName', () => {
-    gulp.src('*.*')
-        .pipe(plugins.concat('concatenated.js'))
-        .pipe(gulp.dest('output'));
+gulp.task("taskName", () => {
+    gulp.src("*.*")
+        .pipe(plugins.concat("concatenated.js"))
+        .pipe(gulp.dest("output"));
 });
 
 /*
@@ -30,8 +30,8 @@ gulp.task('taskName', () => {
  */
 plugins = gulpLoadPlugins<GulpPlugins>({
     rename: {
-        'gulp-ruby-sass': 'sass'
-    }
+        "gulp-ruby-sass": "sass",
+    },
 });
 /*
  * gulp-load-plugins  comes with npm scope support. The major difference is that scoped
@@ -42,7 +42,7 @@ plugins = gulpLoadPlugins<GulpPlugins>({
 interface GulpPlugins {
     myco: {
         testPlugin(): NodeJS.ReadWriteStream;
-    }
+    };
 }
 
 plugins.myco.testPlugin();

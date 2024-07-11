@@ -1,14 +1,3 @@
-// Type definitions for QUnit v2.19.0
-// Project: https://qunitjs.com/
-// Definitions by: James Bracy <https://github.com/waratuman>
-//                 Mike North <https://github.com/mike-north>
-//                 Stefan Sechelmann <https://github.com/sechel>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Timo Tijhof <https://github.com/Krinkle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     interface Assert {
         /**
@@ -256,7 +245,13 @@ declare global {
          *
          * @param assertionResult The assertion result
          */
-        pushResult(assertResult: { result: boolean; actual: any; expected: any; message?: string | undefined; source?: string | undefined }): void;
+        pushResult(assertResult: {
+            result: boolean;
+            actual: any;
+            expected: any;
+            message?: string | undefined;
+            source?: string | undefined;
+        }): void;
 
         /**
          * Test if the provided promise rejects, and optionally compare the rejection value.
@@ -384,21 +379,21 @@ declare global {
         seed: string;
         testId: string[];
         testTimeout?: number | null;
-        urlConfig: {
+        urlConfig: Array<{
             id?: string | undefined;
             label?: string | undefined;
             tooltip?: string | undefined;
             value?: string | string[] | { [key: string]: string } | undefined;
-        }[];
+        }>;
     }
 
     interface GlobalHooks {
         /**
          * Runs after each test.
          */
-         afterEach(fn: (assert: Assert) => void | Promise<void>): void;
+        afterEach(fn: (assert: Assert) => void | Promise<void>): void;
 
-         /**
+        /**
          * Runs before each test.
          */
         beforeEach(fn: (assert: Assert) => void | Promise<void>): void;
@@ -461,7 +456,7 @@ declare global {
             /** Number of registered tests */
             totalTests: number;
             /** List of registered modules, */
-            modules: Array<{ name: string, moduleId: string }>
+            modules: Array<{ name: string; moduleId: string }>;
         }
         interface DoneDetails {
             failed: number;
@@ -584,7 +579,7 @@ declare global {
          *
          * `QUnit.begin()` is called once before running any tests.
          *
-         * @callback callback Callback to execute.
+         * callback Callback to execute.
          */
         begin(callback: (details: QUnit.BeginDetails) => void | Promise<void>): void;
 
@@ -649,7 +644,7 @@ declare global {
          *
          * For more details about hooks, refer to QUnit.module § Hooks.
          */
-        hooks: GlobalHooks
+        hooks: GlobalHooks;
 
         /**
          * Register a callback to fire whenever an assertion completes.

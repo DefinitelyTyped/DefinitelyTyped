@@ -1,11 +1,4 @@
-// Type definitions for react-wait 0.3
-// Project: https://github.com/f/react-wait#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-//                 Paweł Maciejewski <https://github.com/pwlmaciejewski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { ComponentType, FunctionComponent, ReactNode } from 'react';
+import { ComponentType, FunctionComponent, JSX, ReactNode } from "react";
 
 export const Waiter: FunctionComponent<{ children?: ReactNode }>;
 

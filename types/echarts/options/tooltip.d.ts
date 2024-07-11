@@ -1,4 +1,3 @@
-// Type definitions for ECharts v4.7.0
 declare namespace echarts {
     namespace EChartOption {
         interface BaseTooltip {
@@ -338,7 +337,7 @@ declare namespace echarts {
 
         namespace Tooltip {
             namespace Position {
-                type Type = Position.Str | Position.Obj | (number | string)[] | Position.Fn;
+                type Type = Position.Str | Position.Obj | Array<number | string> | Position.Fn;
 
                 type Str = "inside" | "top" | "left" | "right" | "bottom";
 
@@ -351,12 +350,12 @@ declare namespace echarts {
 
                 interface Fn {
                     (
-                        point: (number | string)[],
+                        point: Array<number | string>,
                         params: object | object[],
                         element: HTMLElement,
                         rect: object,
                         size: object,
-                    ): (number | string)[] | Obj;
+                    ): Array<number | string> | Obj;
                 }
             }
 

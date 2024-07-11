@@ -24,14 +24,14 @@ import {
     whenDev,
     whenProd,
     whenTest,
-} from '@craco/craco';
-import { Plugin as WebpackPlugin } from 'webpack';
+} from "@craco/craco";
+import { Plugin as WebpackPlugin } from "webpack";
 
 const config: CracoConfig = {
-    reactScriptsVersion: 'react-scripts',
+    reactScriptsVersion: "react-scripts",
     style: {
         modules: {
-            localIdentName: '',
+            localIdentName: "",
         },
         css: {
             loaderOptions: {},
@@ -41,7 +41,7 @@ const config: CracoConfig = {
         },
         postcss: {
             mode: POSTCSS_MODES.extends,
-            plugins: [require('plugin-to-append')],
+            plugins: [require("plugin-to-append")],
             env: {
                 autoprefixer: {},
                 stage: 4,
@@ -114,10 +114,10 @@ const config: CracoConfig = {
 const emptyConfig: CracoConfig = {};
 
 // $ExpectType LoaderMatcher
-const matchesLessLoader = loaderByName('less-loader');
+const matchesLessLoader = loaderByName("less-loader");
 
 // $ExpectType boolean
-const isMatchLoader = matchesLessLoader({ loader: 'less-loader' });
+const isMatchLoader = matchesLessLoader({ loader: "less-loader" });
 
 // $ExpectType { isFound: boolean; match: RuleSetRule | RuleSetUseItem; }
 const matchedLoader = getLoader({}, matchesLessLoader);
@@ -129,16 +129,16 @@ const matchedLoaders = getLoaders({}, matchesLessLoader);
 const isRemoveLoaders = removeLoaders({}, matchesLessLoader);
 
 // $ExpectType { isAdded: boolean; }
-const isAddBeforeLoader = addBeforeLoader({}, matchesLessLoader, { loader: 'postcss-loader' });
+const isAddBeforeLoader = addBeforeLoader({}, matchesLessLoader, { loader: "postcss-loader" });
 
 // $ExpectType { isAdded: boolean; addedCount: number; }
-const isAddBeforeLoaders = addBeforeLoaders({}, matchesLessLoader, { loader: 'postcss-loader' });
+const isAddBeforeLoaders = addBeforeLoaders({}, matchesLessLoader, { loader: "postcss-loader" });
 
 // $ExpectType { isAdded: boolean; }
-const isAddAfterLoader = addAfterLoader({}, matchesLessLoader, { loader: 'postcss-loader' });
+const isAddAfterLoader = addAfterLoader({}, matchesLessLoader, { loader: "postcss-loader" });
 
 // $ExpectType { isAdded: boolean; addedCount: number; }
-const isAddAfterLoaders = addAfterLoaders({}, matchesLessLoader, { loader: 'postcss-loader' });
+const isAddAfterLoaders = addAfterLoaders({}, matchesLessLoader, { loader: "postcss-loader" });
 
 class DemoPlugin extends WebpackPlugin {
     constructor() {
@@ -147,7 +147,7 @@ class DemoPlugin extends WebpackPlugin {
 }
 
 // $ExpectType PluginMatcher
-const matchesDemoPlugin = pluginByName('DemoPlugin');
+const matchesDemoPlugin = pluginByName("DemoPlugin");
 
 // $ExpectType boolean
 const isMatchPlugin = matchesDemoPlugin(new DemoPlugin());
@@ -162,36 +162,36 @@ addPlugins({}, [new DemoPlugin()]);
 const isRemovePlugins = removePlugins({}, matchesDemoPlugin);
 
 // $ExpectType string
-const valueWhenTrue = when(true, () => 'hello', 'unmet');
+const valueWhenTrue = when(true, () => "hello", "unmet");
 
 // $ExpectType string | undefined
-const noUnmetValueWhenTrue = when(true, () => 'hello');
+const noUnmetValueWhenTrue = when(true, () => "hello");
 
 // $ExpectType string
-const valueWhenDev = whenDev(() => 'hello', 'unmet');
+const valueWhenDev = whenDev(() => "hello", "unmet");
 
 // $ExpectType string | undefined
-const noUnmetValueWhenDev = whenDev(() => 'hello');
+const noUnmetValueWhenDev = whenDev(() => "hello");
 
 // $ExpectType string
-const valueWhenProd = whenProd(() => 'hello', 'unmet');
+const valueWhenProd = whenProd(() => "hello", "unmet");
 
 // $ExpectType string | undefined
-const noUnmetValueWhenProd = whenProd(() => 'hello');
+const noUnmetValueWhenProd = whenProd(() => "hello");
 
 // $ExpectType string
-const valueWhenTest = whenTest(() => 'hello', 'unmet');
+const valueWhenTest = whenTest(() => "hello", "unmet");
 
 // $ExpectType string | undefined
-const noUnmetValueWhenTest = whenTest(() => 'hello');
+const noUnmetValueWhenTest = whenTest(() => "hello");
 
 // $ExpectType never
 throwUnexpectedConfigError({
-    message: 'unexpected config',
+    message: "unexpected config",
 });
 
 // $ExpectType string
-const issueUrl = gitHubIssueUrl('DefinitelyType/DefinitelyType');
+const issueUrl = gitHubIssueUrl("DefinitelyType/DefinitelyType");
 
 // $ExpectType "extends"
 ESLINT_MODES.extends;

@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/opentype.js",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/opentypejs/opentype.js"
+    ],
+    "devDependencies": {
+        "@types/opentype.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Marshall",
+            "githubUsername": "danmarshall"
+        },
+        {
+            "name": "Edgar Simson",
+            "githubUsername": "edzis"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Alec Mev",
+            "githubUsername": "alecmev"
+        }
+    ]
+}

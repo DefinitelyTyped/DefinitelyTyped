@@ -1,3 +1,3 @@
-import npmDependants = require('npm-dependants');
+import npmDependants = require("npm-dependants");
 
-npmDependants('npm-dependants');  // $ExpectType AsyncIterable<string>
+npmDependants("npm-dependants"); // $ExpectType AsyncIterable<string>

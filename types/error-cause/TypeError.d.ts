@@ -1,4 +1,4 @@
-import BaseTypeError from './base/TypeError';
+import BaseTypeError from "./base/TypeError";
 
 declare class TypeError extends BaseTypeError {
     constructor(reason?: string, options?: { cause?: unknown });

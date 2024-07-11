@@ -10,14 +10,14 @@ passport.use(
         {
             clientId: "clientId",
             region: "region",
-            userPoolId: "userPoolId"
+            userPoolId: "userPoolId",
         },
         (
             accessToken: string,
             idToken: string,
             refreshToken: string,
             user: object,
-            cb: (err: Error | null, user?: object | false) => void
-        ) => {}
-    )
+            cb: (err: Error | null, user?: object | false) => void,
+        ) => {},
+    ),
 );

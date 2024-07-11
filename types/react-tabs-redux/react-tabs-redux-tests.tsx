@@ -1,13 +1,5 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import {
-    Tabs,
-    TabLink,
-    TabContent,
-    TabsProps,
-    TabLinkProps,
-    TabContentProps
-} from 'react-tabs-redux';
+import * as React from "react";
+import { TabContent, TabContentProps, TabLink, TabLinkProps, Tabs, TabsProps } from "react-tabs-redux";
 
 interface TestTabsProps extends TabsProps {
     handleSomething: () => void;
@@ -23,18 +15,18 @@ class TestApp extends React.Component {
     onChange = (selectedTab: string, name: string) => {
         console.log(`selectedTab: ${selectedTab}`);
         console.log(`namespace:  ${name}`);
-    }
+    };
 
     onClick = (event: Event) => {
         console.log(`event: ${event.type}`);
-    }
+    };
 
     render() {
         return (
             <Tabs onChange={this.onChange} renderActiveTabContentOnly>
                 <TabLink to="tab1" onClick={this.onClick}>Tab1</TabLink>
                 <TabLink to="tab2" default>Tab2</TabLink>
-                <TabLink to="tab3" activeStyle={{color: 'blue'}}>Tab3</TabLink>
+                <TabLink to="tab3" activeStyle={{ color: "blue" }}>Tab3</TabLink>
 
                 <TabContent for="tab1" disableInlineStyles>Content1</TabContent>
                 <TabContent for="tab2" className="test">Content2</TabContent>
@@ -43,8 +35,3 @@ class TestApp extends React.Component {
         );
     }
 }
-
-ReactDOM.render(
-    <TestApp/>,
-    document.getElementById("test-app")
-);

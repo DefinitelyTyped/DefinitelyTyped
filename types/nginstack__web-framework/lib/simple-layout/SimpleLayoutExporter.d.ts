@@ -8,4 +8,4 @@ declare class SimpleLayoutExporter {
 declare namespace SimpleLayoutExporter {
     export { SimpleLayout };
 }
-type SimpleLayout = import('./SimpleLayout');
+type SimpleLayout = import("./SimpleLayout");

@@ -1,20 +1,20 @@
-import { BlockInstance } from '../';
+import { BlockInstance } from "../";
 
 // prettier-ignore
 export type PhrasingContentSchema = {
-    readonly [k in '#text' | 'a' | 'abbr' | 'br' | 'code' | 'del' | 'em' | 'ins' | 's' | 'strong' | 'sub' | 'sup']:
-        k extends '#text' | 'br' ? {} :
-        k extends 'a' ? {
-                readonly attributes: ReadonlyArray<keyof HTMLAnchorElement>;
+    readonly [k in "#text" | "a" | "abbr" | "br" | "code" | "del" | "em" | "ins" | "s" | "strong" | "sub" | "sup"]:
+        k extends "#text" | "br" ? {}
+            : k extends "a" ? {
+                    readonly attributes: ReadonlyArray<keyof HTMLAnchorElement>;
+                    readonly children: PhrasingContentSchema;
+                }
+            : k extends "abbr" ? {
+                    readonly attributes: ReadonlyArray<keyof HTMLElement>;
+                    readonly children: PhrasingContentSchema;
+                }
+            : {
                 readonly children: PhrasingContentSchema;
-            } :
-        k extends 'abbr' ? {
-                readonly attributes: ReadonlyArray<keyof HTMLElement>;
-                readonly children: PhrasingContentSchema;
-            } :
-        {
-            readonly children: PhrasingContentSchema;
-        };
+            };
 };
 
 export function getPhrasingContentSchema(): PhrasingContentSchema;
@@ -31,7 +31,7 @@ export namespace pasteHandler {
          *  - `INLINE`: Always handle as inline content, and return string.
          *  - `BLOCKS`: Always handle as blocks, and return array of blocks.
          */
-        mode?: 'AUTO' | 'INLINE' | 'BLOCKS' | undefined;
+        mode?: "AUTO" | "INLINE" | "BLOCKS" | undefined;
         /**
          * The tag into which content will be inserted.
          */
@@ -56,8 +56,8 @@ export namespace pasteHandler {
  *
  * @returns A list of blocks or a string, depending on `options.mode`.
  */
-export function pasteHandler(options: pasteHandler.Options & { mode: 'INLINE' }): string;
-export function pasteHandler(options: pasteHandler.Options & { mode: 'BLOCKS' }): BlockInstance[];
+export function pasteHandler(options: pasteHandler.Options & { mode: "INLINE" }): string;
+export function pasteHandler(options: pasteHandler.Options & { mode: "BLOCKS" }): BlockInstance[];
 export function pasteHandler(options: pasteHandler.Options): BlockInstance[] | string;
 
 /**

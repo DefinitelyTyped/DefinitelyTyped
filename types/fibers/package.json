@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/fibers",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/laverdet/node-fibers"
+    ],
+    "devDependencies": {
+        "@types/fibers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Ballesteros Velasco",
+            "githubUsername": "soywiz"
+        },
+        {
+            "name": "Chigozirim C.",
+            "githubUsername": "smac89"
+        }
+    ]
+}

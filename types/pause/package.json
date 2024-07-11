@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pause",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/stream-utils/pause"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pause": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

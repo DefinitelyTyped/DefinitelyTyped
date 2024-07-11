@@ -1,4 +1,4 @@
-import { appid, contextid, userid, Callback } from '../index';
+import { appid, Callback, contextid, userid } from "../index";
 
 export interface Users {
     /**
@@ -64,7 +64,13 @@ export interface Users {
      * @param tradableOnly - true to get only tradable items and currencies
      * @param callback
      */
-    getUserInventory(userID: userid, appID: appid, contextID: contextid, tradableOnly: boolean, callback: Callback): void;
+    getUserInventory(
+        userID: userid,
+        appID: appid,
+        contextID: contextid,
+        tradableOnly: boolean,
+        callback: Callback,
+    ): void;
 
     /**
      * Get the contents of a user's inventory context.
@@ -75,7 +81,14 @@ export interface Users {
      * @param [language] - The language of item descriptions to return. Omit for default (which may either be English or your account's chosen language)
      * @param callback
      */
-    getUserInventoryContents(userID: userid, appID: appid, contextID: contextid, tradableOnly: boolean, language: string, callback: Callback): any;
+    getUserInventoryContents(
+        userID: userid,
+        appID: appid,
+        contextID: contextid,
+        tradableOnly: boolean,
+        language: string,
+        callback: Callback,
+    ): any;
 
     /**
      * Upload an image to Steam and send it to another user over Steam chat.

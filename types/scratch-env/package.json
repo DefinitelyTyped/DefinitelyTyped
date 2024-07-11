@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/scratch-env",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/LLK/scratch-vm#readme"
+    ],
+    "devDependencies": {
+        "@types/scratch-env": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

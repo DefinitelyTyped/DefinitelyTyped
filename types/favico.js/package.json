@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/favico.js",
+    "version": "0.0.9999",
+    "projects": [
+        "http://lab.ejci.net/favico.js/"
+    ],
+    "devDependencies": {
+        "@types/favico.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yu Matsushita",
+            "githubUsername": "drowse314-dev-ymat"
+        }
+    ]
+}

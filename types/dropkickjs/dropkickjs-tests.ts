@@ -1,7 +1,7 @@
 // constructor
-const constructorNoOptions = new Dropkick('#my-select');
+const constructorNoOptions = new Dropkick("#my-select");
 const constructorNoOptions2 = new Dropkick(new HTMLSelectElement());
-const constructorOptions = new Dropkick('#my-select', {});
+const constructorOptions = new Dropkick("#my-select", {});
 const constructorOptions2 = new Dropkick(new HTMLSelectElement(), {});
 
 // options
@@ -11,18 +11,18 @@ const options: DropkickOptions = {
     length: 1,
     mobile: true,
     multiple: true,
-    options: ['test'],
+    options: ["test"],
     selectedIndex: 0,
-    selectedOptions: ['test'],
-    value: 'test',
-    change() { },
-    close() { },
-    open() { },
-    initialize: () => { }
+    selectedOptions: ["test"],
+    value: "test",
+    change() {},
+    close() {},
+    open() {},
+    initialize: () => {},
 };
-const withFullOptions = new Dropkick('#test', options);
+const withFullOptions = new Dropkick("#test", options);
 
-const dk = new Dropkick('#test');
+const dk = new Dropkick("#test");
 
 // fields (same as options)
 const o1 = dk.disabled;
@@ -36,10 +36,10 @@ const o8 = dk.selectedOptions;
 const o9 = dk.value;
 
 // methods
-dk.add('new');
+dk.add("new");
 dk.add(new HTMLSelectElement());
-dk.add('new', 'old');
-dk.add('new', 1);
+dk.add("new", "old");
+dk.add("new", 1);
 
 dk.disable();
 dk.disable(false);
@@ -74,7 +74,7 @@ const node5 = dk.selectOne(4);
 const node6 = dk.selectOne(4, true);
 
 // real life example
-let fieldValue = '';
+let fieldValue = "";
 const selectOptions: DropkickOptions = {
     open(this: Dropkick) {
         const optionsList = (<any> this).data.elem.lastChild; // undocumented but useful data field
@@ -84,6 +84,6 @@ const selectOptions: DropkickOptions = {
     },
     change: () => {
         fieldValue = select.value;
-    }
+    },
 };
-const select = new Dropkick('#select', options);
+const select = new Dropkick("#select", options);

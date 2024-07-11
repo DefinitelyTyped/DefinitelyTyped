@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/rdf-transform-triple-to-quad",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rdf-ext/rdf-transform-triple-to-quad"
+    ],
+    "type": "module",
     "dependencies": {
-      "rdf-js": "^4.0.2"
-    }
-  }
+        "@types/readable-stream": "*",
+        "@rdfjs/types": ">=1.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/rdf-transform-triple-to-quad": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

@@ -1,2 +1,2 @@
-export const GZIP: number;
-export const ZLIB: number;
+export let GZIP: number;
+export let ZLIB: number;

@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { FlexboxPropTypes } from "../utils";
 /**
  * Tabs component.
  * http://foundation.zurb.com/sites/docs/tabs.html

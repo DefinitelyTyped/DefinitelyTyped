@@ -1,7 +1,29 @@
 {
-  "private": true,
-  "dependencies": {
-    "redux": "^3.7.2",
-    "redux-saga": "^0.15.3"
-  }
+    "private": true,
+    "name": "@types/redux-saga-tester",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/wix/redux-saga-tester#readme"
+    ],
+    "dependencies": {
+        "redux": "^3.7.2",
+        "redux-saga": "^0.15.3"
+    },
+    "devDependencies": {
+        "@types/redux-saga-tester": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Lorantfy",
+            "githubUsername": "BenLorantfy"
+        },
+        {
+            "name": "Law Smith",
+            "githubUsername": "lawsumisu"
+        },
+        {
+            "name": "Björn Böing",
+            "githubUsername": "BreakBB"
+        }
+    ]
 }

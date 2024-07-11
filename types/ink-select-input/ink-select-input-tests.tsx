@@ -1,23 +1,23 @@
-import * as React from 'react';
+import * as React from "react";
 
-import SelectInput, { ItemOfSelectInput } from 'ink-select-input';
+import SelectInput, { ItemOfSelectInput } from "ink-select-input";
 // NOTE: `import SelectInput = require('ink-select-input');` will work as well.
 // If importing using ES6 default import as above,
 // `allowSyntheticDefaultImports` flag in compiler options needs to be set to `true`
 
-const items: ReadonlyArray<ItemOfSelectInput> = [
+const items: readonly ItemOfSelectInput[] = [
     {
-        label: 'First',
-        value: 'first',
+        label: "First",
+        value: "first",
         key: 0,
     },
     {
-        label: 'Second',
-        value: 'second',
+        label: "Second",
+        value: "second",
     },
     {
-        label: 'Third',
-        value: 'third',
+        label: "Third",
+        value: "third",
     },
 ];
 

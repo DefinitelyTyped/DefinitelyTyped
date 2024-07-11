@@ -33,13 +33,27 @@ function createWorkerAndUseCallbacks() {
         });
     }, 2);
 
-    q.drain = () => { console.log("drain"); };
-    q.empty = () => { console.log("empty"); };
-    q.error = (err, job, args) => { console.log(`Error: ${err}, on job ${job} with args: ${args}`); };
-    q.retry = function (args) { console.log(`Retry job ${this} with args: ${args}`); };
-    q.saturated = () => { console.log("saturated"); };
-    q.success = function (args) { console.log(`Success on job ${this} with args: ${args}`); };
-    q.unsaturated = () => { console.log("unsaturated"); };
+    q.drain = () => {
+        console.log("drain");
+    };
+    q.empty = () => {
+        console.log("empty");
+    };
+    q.error = (err, job, args) => {
+        console.log(`Error: ${err}, on job ${job} with args: ${args}`);
+    };
+    q.retry = function(args) {
+        console.log(`Retry job ${this} with args: ${args}`);
+    };
+    q.saturated = () => {
+        console.log("saturated");
+    };
+    q.success = function(args) {
+        console.log(`Success on job ${this} with args: ${args}`);
+    };
+    q.unsaturated = () => {
+        console.log("unsaturated");
+    };
 }
 
 function createWorkerAndUseMethods() {
@@ -67,26 +81,31 @@ function createWorkerAndUseMethods() {
     q.load({
         failed: [{ name: "John Doe" }],
         finished: [{ name: "John Doe" }],
-        waiting: [{ name: "John Doe" }]
+        waiting: [{ name: "John Doe" }],
     });
     // Pause the processing of jobs
     q.pause();
     // Add a new job to the queue
     q.push({ name: "John Doe" });
     // Add a new job to the queue, with callback
-    q.push({ name: "John Doe" }, function (args) { console.log(`Push callback for job ${this} with args: ${args}`); });
+    q.push({ name: "John Doe" }, function(args) {
+        console.log(`Push callback for job ${this} with args: ${args}`);
+    });
     // Add a few jobs to the queue
     q.push([{ name: "John Doe" }, { name: "John Doe" }, { name: "John Doe" }]);
     // Add a few jobs to the queue, with callback
-    q.push([{ name: "John Doe" }, { name: "John Doe" }, { name: "John Doe" }],
-        function (args) { console.log(`Push callback for job ${this} with args: ${args}`); });
+    q.push([{ name: "John Doe" }, { name: "John Doe" }, { name: "John Doe" }], function(args) {
+        console.log(`Push callback for job ${this} with args: ${args}`);
+    });
     q.resume();
 
     // Number of items currently being processed
     const runningAmount: number = q.running();
 
     // Run a callback with object, that contains arrays of waiting, failed, and finished jobs
-    q.save((queues) => console.log(`Failed: ${queues.failed}, finished: ${queues.finished}, waiting: ${queues.waiting}`));
+    q.save((queues) =>
+        console.log(`Failed: ${queues.failed}, finished: ${queues.finished}, waiting: ${queues.waiting}`)
+    );
 
     // The the array of items currently being processed
     const workers = q.workersList();
@@ -96,12 +115,15 @@ function createWorkerAndUseMethods() {
     // Add a new job to the front of the queue
     q.unshift({ name: "John Doe" });
     // Add a new job to the front of the queue, with callback
-    q.unshift({ name: "John Doe" }, function (args) { console.log(`Unshift callback for job ${this} with args: ${args}`); });
+    q.unshift({ name: "John Doe" }, function(args) {
+        console.log(`Unshift callback for job ${this} with args: ${args}`);
+    });
     // Add a few jobs to the front of the queue
     q.unshift([{ name: "John Doe" }, { name: "John Doe" }, { name: "John Doe" }]);
     // Add a few jobs to the front of the queue, with callback
-    q.unshift([{ name: "John Doe" }, { name: "John Doe" }, { name: "John Doe" }],
-        function (args) { console.log(`Unshift callback for job ${this} with args: ${args}`); });
+    q.unshift([{ name: "John Doe" }, { name: "John Doe" }, { name: "John Doe" }], function(args) {
+        console.log(`Unshift callback for job ${this} with args: ${args}`);
+    });
 }
 
 function createWorkerAndUseProperties() {

@@ -1,6 +1,36 @@
 {
-  "private": true,
-  "dependencies": {
-      "@types/rimraf": "^2.0.3"
-  }
+    "private": true,
+    "name": "@types/vinyl-fs",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/gulpjs/vinyl-fs"
+    ],
+    "dependencies": {
+        "@types/glob-stream": "*",
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/through2": "*",
+        "@types/vinyl-fs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        },
+        {
+            "name": "remisery",
+            "githubUsername": "remisery"
+        },
+        {
+            "name": "TeamworkGuy2",
+            "githubUsername": "TeamworkGuy2"
+        },
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
 }

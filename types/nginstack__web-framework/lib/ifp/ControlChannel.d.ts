@@ -37,9 +37,9 @@ declare class ControlChannel {
     getMessageForNavigator(
         sequenceToListen: any,
         retry: any,
-        disableContinueOptimization: any
+        disableContinueOptimization: any,
     ): any;
-    handleNavigatorResponse(ctrlMessage: any): 'ctrl:continue' | 'ctrl:stop:-1' | 'ctrl:setok';
+    handleNavigatorResponse(ctrlMessage: any): "ctrl:continue" | "ctrl:stop:-1" | "ctrl:setok";
 }
 declare namespace ControlChannel {
     function formatErrorPayload(
@@ -47,7 +47,7 @@ declare namespace ControlChannel {
         info: {
             stackTrace?: string | string[];
             ticket?: string;
-        }
-    ): any;
+        },
+    ): string;
     function getInstance(): ControlChannel;
 }

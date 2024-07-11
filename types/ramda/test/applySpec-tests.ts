@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     interface T {
         sum: number;
         nested: { mul: number };
@@ -13,5 +13,5 @@ import * as R from 'ramda';
     const record: { s: string; n: number } = R.applySpec({
         s: (s: string, n: number) => s,
         n: (s: string, n: number) => n,
-    })('1', 2);
-};
+    })("1", 2);
+});

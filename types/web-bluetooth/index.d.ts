@@ -1,11 +1,3 @@
-// Type definitions for Web Bluetooth
-// Project: https://webbluetoothcg.github.io/web-bluetooth/
-// Definitions by: Uri Shaked <https://github.com/urish>
-//                    Xavier Lozinguez <https://github.com/xlozinguez>
-//                    Rob Moran <https://github.com/thegecko>
-//                    David Bjerremose <https://github.com/DaBs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type BluetoothServiceUUID = number | string;
 type BluetoothCharacteristicUUID = number | string;
 type BluetoothDescriptorUUID = number | string;
@@ -103,7 +95,11 @@ interface BluetoothRemoteGATTCharacteristic extends EventTarget, CharacteristicE
     writeValueWithoutResponse(value: BufferSource): Promise<void>;
     startNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
     stopNotifications(): Promise<BluetoothRemoteGATTCharacteristic>;
-    addEventListener(type: "characteristicvaluechanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: "characteristicvaluechanged",
+        listener: (this: this, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
@@ -145,19 +141,31 @@ interface WatchAdvertisementsOptions {
     signal?: AbortSignal;
 }
 
-interface BluetoothDevice extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
+interface BluetoothDevice
+    extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers
+{
     readonly id: string;
     readonly name?: string | undefined;
     readonly gatt?: BluetoothRemoteGATTServer | undefined;
     forget(): Promise<void>;
     watchAdvertisements(options?: WatchAdvertisementsOptions): Promise<void>;
     readonly watchingAdvertisements: boolean;
-    addEventListener(type: "gattserverdisconnected", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisingEvent) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: "gattserverdisconnected",
+        listener: (this: this, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
+    addEventListener(
+        type: "advertisementreceived",
+        listener: (this: this, ev: BluetoothAdvertisingEvent) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
 
-interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers {
+interface Bluetooth
+    extends EventTarget, BluetoothDeviceEventHandlers, CharacteristicEventHandlers, ServiceEventHandlers
+{
     getDevices(): Promise<BluetoothDevice[]>;
     getAvailability(): Promise<boolean>;
     onavailabilitychanged: (this: this, ev: Event) => any;
@@ -165,8 +173,19 @@ interface Bluetooth extends EventTarget, BluetoothDeviceEventHandlers, Character
     requestDevice(options?: RequestDeviceOptions): Promise<BluetoothDevice>;
     requestLEScan(options?: BluetoothLEScanOptions): Promise<BluetoothLEScan>;
     addEventListener(type: "availabilitychanged", listener: (this: this, ev: Event) => any, useCapture?: boolean): void;
-    addEventListener(type: "advertisementreceived", listener: (this: this, ev: BluetoothAdvertisingEvent) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: "advertisementreceived",
+        listener: (this: this, ev: BluetoothAdvertisingEvent) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+declare namespace BluetoothUUID {
+    function getService(name: string | number): string;
+    function getCharacteristic(name: string | number): string;
+    function getDescriptor(name: string | number): string;
+    function canonicalUUID(alias: string | number): string;
 }
 
 interface Navigator {

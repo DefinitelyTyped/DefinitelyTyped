@@ -1,9 +1,9 @@
-import postcss from 'postcss';
-import resolvedNestedSelector = require('postcss-resolve-nested-selector');
+import postcss from "postcss";
+import resolvedNestedSelector = require("postcss-resolve-nested-selector");
 
 const processor = postcss();
 
-processor.process('').then(result => {
+processor.process("").then(result => {
     // $ExpectType string[]
-    resolvedNestedSelector('', result.root);
+    resolvedNestedSelector("", result.root);
 });

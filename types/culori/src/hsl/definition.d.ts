@@ -1,15 +1,15 @@
-import convertHslToRgb from './convertHslToRgb';
-import convertRgbToHsl from './convertRgbToHsl';
-import parseHsl from './parseHsl';
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import { differenceHueSaturation } from '../difference';
-import { averageAngle } from '../average';
-import { Hsl } from './types';
+import { averageAngle } from "../average";
+import { differenceHueSaturation } from "../difference";
+import { fixupAlpha } from "../fixup/alpha";
+import { fixupHueShorter } from "../fixup/hue";
+import { interpolatorLinear } from "../interpolate/linear";
+import convertHslToRgb from "./convertHslToRgb";
+import convertRgbToHsl from "./convertRgbToHsl";
+import parseHsl from "./parseHsl";
+import { Hsl } from "./types";
 
 declare const definition: {
-    mode: 'hsl';
+    mode: "hsl";
 
     toMode: {
         rgb: typeof convertHslToRgb;
@@ -19,14 +19,14 @@ declare const definition: {
         rgb: typeof convertRgbToHsl;
     };
 
-    channels: ['h', 's', 'l', 'alpha'];
+    channels: ["h", "s", "l", "alpha"];
 
     ranges: {
         h: [0, 360];
     };
 
     parse: [typeof parseHsl];
-    serialize: (c: Omit<Hsl, 'mode'>) => string;
+    serialize: (c: Omit<Hsl, "mode">) => string;
 
     interpolate: {
         h: { use: typeof interpolatorLinear; fixup: typeof fixupHueShorter };

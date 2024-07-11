@@ -1,8 +1,3 @@
-// Type definitions for dat.GUI 0.7
-// Project: https://github.com/dataarts/dat.gui
-// Definitions by: Satoru Kimura <https://github.com/gyohk>, ZongJing Lu <https://github.com/sonic3d>, Richard Roylance <https://github.com/rroylance>, Nahuel Scotti <https://github.com/singuerinc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace dat;
 
 export interface GUIParams {
@@ -23,7 +18,7 @@ export interface GUIParams {
     closeOnTop?: boolean | undefined;
     /**
      * If true, GUI is closed by the "h" keypress.
-     * @default false
+     * @default true
      */
     hideable?: boolean | undefined;
     /**
@@ -65,17 +60,17 @@ export class GUI {
     __folders: { [folderName: string]: GUI };
     domElement: HTMLElement;
 
-    add<T extends Record<string, unknown>>(
+    add<T extends object>(
         target: T,
         propName: keyof T,
         min?: number,
         max?: number,
         step?: number,
     ): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, status: boolean): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: string[]): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: number[]): GUIController;
-    add<T extends Record<string, unknown>>(target: T, propName: keyof T, items: Object): GUIController;
+    add<T extends object>(target: T, propName: keyof T, status: boolean): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: string[]): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: number[]): GUIController;
+    add<T extends object>(target: T, propName: keyof T, items: Object): GUIController;
 
     addColor(target: Object, propName: string): GUIController;
 
@@ -113,7 +108,7 @@ export class GUI {
     useLocalStorage: boolean;
 }
 
-export class GUIController<T extends Record<string, unknown> = Record<string, unknown>> {
+export class GUIController<T extends object = object> {
     domElement: HTMLElement;
     object: Object;
     property: string;

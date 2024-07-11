@@ -1,6 +1,6 @@
-import { allCountries, iso2Lookup, Country } from 'country-telephone-data';
+import { allCountries, Country, iso2Lookup } from "country-telephone-data";
 
-const nz = allCountries.find(x => x.iso2 === 'nz');
+const nz = allCountries.find(x => x.iso2 === "nz");
 
 if (nz) {
     nz.dialCode; // $ExpectType string

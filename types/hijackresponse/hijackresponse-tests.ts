@@ -1,5 +1,5 @@
-import * as express from 'express';
-import * as hijackResponse from 'hijackresponse';
+import * as express from "express";
+import * as hijackResponse from "hijackresponse";
 
 const app = express();
 

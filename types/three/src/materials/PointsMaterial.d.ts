@@ -1,7 +1,6 @@
-import { Material, MaterialParameters } from './Material';
-import { Color } from './../math/Color';
-import { Texture } from './../textures/Texture';
-import { ColorRepresentation } from '../utils';
+import { Color, ColorRepresentation } from "../math/Color.js";
+import { Texture } from "../textures/Texture.js";
+import { Material, MaterialParameters } from "./Material.js";
 
 export interface PointsMaterialParameters extends MaterialParameters {
     color?: ColorRepresentation | undefined;
@@ -14,6 +13,13 @@ export interface PointsMaterialParameters extends MaterialParameters {
 
 export class PointsMaterial extends Material {
     constructor(parameters?: PointsMaterialParameters);
+
+    /**
+     * Read-only flag to check if a given object is of type {@link PointsMaterial}.
+     * @remarks This is a _constant_ value
+     * @defaultValue `true`
+     */
+    readonly isPointsMaterial: true;
 
     /**
      * @default 'PointsMaterial'

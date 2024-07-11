@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Password from 'react-better-password';
+import * as React from "react";
+import Password from "react-better-password";
 
 interface PasswordState {
     password: string;
@@ -12,7 +12,7 @@ class ReactBetterPasswordTest extends React.Component<{}, PasswordState> {
 
     handlePw = (password: string) => {
         this.setState({ password });
-    }
+    };
 
     render() {
         const { password } = this.state;

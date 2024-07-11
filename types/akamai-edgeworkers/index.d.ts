@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.1
-// Project: https://developer.akamai.com/akamai-edgeworkers-overview
-// Definitions by: Evan Hughes <https://github.com/evan-hughes>
-//                 Will Bain <https://github.com/wabain>
-//                 Swathi Bala <https://github.com/swathimr>
-//                 Aman Nanner <https://github.com/ananner>
-//                 Ben Matthews <https://github.com/bmatthew>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Modifyed by: Shige Fukushima <sfukushi@akamai.com>
 //
@@ -83,6 +75,12 @@ declare namespace EW {
          * @param deny_reason The deny reason set if the status code is a 403
          */
         respondWith(status: number, headers: object, body: string, deny_reason?: string): void;
+
+        /**
+         * Checks if the request has been terminated. Returns `true` after
+         * `respondWith()` has been called.
+         */
+        wasTerminated(): boolean;
     }
 
     interface HasStatus {
@@ -240,8 +238,11 @@ declare namespace EW {
 
     interface ReadableStreamDefaultControllerEW<R = any> {
         readonly desiredSize: number | null;
+
         close(): void;
+
         enqueue(chunk: R): void;
+
         error(error?: any): void;
     }
 
@@ -262,17 +263,23 @@ declare namespace EW {
         cancel?: ReadableStreamErrorCallback;
         type?: undefined;
     }
+
     interface ReadableStreamBYOBRequest {
         readonly view: ArrayBufferView;
+
         respond(bytesWritten: number): void;
+
         respondWithNewView(view: ArrayBufferView): void;
     }
 
     interface ReadableByteStreamController {
         readonly byobRequest: ReadableStreamBYOBRequest | undefined;
         readonly desiredSize: number | null;
+
         close(): void;
+
         enqueue(chunk: ArrayBufferView): void;
+
         error(error?: any): void;
     }
 
@@ -287,6 +294,7 @@ declare namespace EW {
         start?: ReadableByteStreamControllerCallback;
         type: "bytes";
     }
+
     interface WritableStreamDefaultController {
         error(error?: any): void;
     }
@@ -314,6 +322,7 @@ declare namespace EW {
         abort?: WritableStreamErrorCallback;
         type?: undefined;
     }
+
     interface ReadableStreamReadResult<T> {
         readonly done: boolean;
         readonly value: T;
@@ -339,79 +348,125 @@ declare namespace EW {
         readonly closed: Promise<void>;
         readonly desiredSize: number | null;
         readonly ready: Promise<void>;
+
         abort(reason?: any): Promise<void>;
+
         close(): Promise<void>;
+
         releaseLock(): void;
+
         write(chunk: W): Promise<void>;
     }
 
     interface WritableStreamEW<W = any> {
         readonly locked: boolean;
+
         abort(reason?: any): Promise<void>;
+
         close(): Promise<void>;
+
         getWriter(): WritableStreamDefaultWriter<W>;
     }
 
     const WritableStreamEW: {
         prototype: WritableStreamEW;
-        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStreamEW<W>;
+        new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStreamEW<W>;
     };
 
     interface ReadableStreamEW<R = any> {
         readonly locked: boolean;
+
         cancel(reason?: any): Promise<void>;
+
         getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
+
         getReader(): ReadableStreamDefaultReader<R>;
-        pipeThrough<T>({ writable, readable }: { writable: WritableStreamEW<R>, readable: ReadableStreamEW<T> }, options?: PipeOptions): ReadableStreamEW<T>;
+
+        pipeThrough<T>({ writable, readable }: {
+            writable: WritableStreamEW<R>;
+            readable: ReadableStreamEW<T>;
+        }, options?: PipeOptions): ReadableStreamEW<T>;
+
         pipeTo(dest: WritableStreamEW<R>, options?: PipeOptions): Promise<void>;
+
         tee(): [ReadableStreamEW<R>, ReadableStreamEW<R>];
     }
 
     const ReadableStreamEW: {
         prototype: ReadableStreamEW;
-        new(underlyingSource: UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStreamEW<Uint8Array>;
-        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
+        new(underlyingSource: UnderlyingByteSource, strategy?: {
+            highWaterMark?: number;
+            size?: undefined;
+        }): ReadableStreamEW<Uint8Array>;
+        new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
     };
 
     interface ReadableStreamBYOBReader {
         readonly closed: Promise<void>;
+
         cancel(reason?: any): Promise<void>;
+
         read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+
         releaseLock(): void;
     }
 
     interface ReadableStreamDefaultReader<R = any> {
         readonly closed: Promise<void>;
+
         cancel(reason?: any): Promise<void>;
+
         read(): Promise<ReadableStreamReadResult<R>>;
+
         releaseLock(): void;
     }
 
     // Legacy interfaces for backwards compatability
     interface MutableRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request {
     }
+
     interface ImmutableRequest extends ReadsHeaders, ReadsVariables, Request {
     }
+
     interface Response extends HasStatus, MutatesHeaders, ReadsHeaders {
     }
 
     // onClientRequest
-    interface IngressClientRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, HasRoute, HasCacheKey, MutatesVariables {
+    interface IngressClientRequest
+        extends
+            MutatesHeaders,
+            ReadsHeaders,
+            ReadAllHeader,
+            ReadsVariables,
+            Request,
+            HasRespondWith,
+            HasRoute,
+            HasCacheKey,
+            MutatesVariables
+    {
     }
 
     // onOriginRequest
-    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    interface IngressOriginRequest
+        extends MutatesHeaders, ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
+    {
     }
 
     // onOriginResponse
-    interface EgressOriginRequest extends ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    interface EgressOriginRequest
+        extends ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
+    {
     }
+
     interface EgressOriginResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
     }
 
     // onClientResponse
-    interface EgressClientRequest extends ReadsHeaders, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    interface EgressClientRequest
+        extends ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
+    {
     }
+
     interface EgressClientResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
     }
 
@@ -648,7 +703,25 @@ declare namespace EW {
         readonly isMobile: boolean | undefined;
     }
 
-    export { ReadableStreamEW, WritableStreamEW, ReadableStreamDefaultControllerEW, QueuingStrategy, UnderlyingSource, UnderlyingByteSource, UnderlyingSink, ReadsHeaders, ReadAllHeader, ResponseProviderRequest, IngressClientRequest, IngressOriginRequest, EgressOriginRequest, EgressOriginResponse, EgressClientRequest, EgressClientResponse };
+    export {
+        EgressClientRequest,
+        EgressClientResponse,
+        EgressOriginRequest,
+        EgressOriginResponse,
+        Headers,
+        IngressClientRequest,
+        IngressOriginRequest,
+        QueuingStrategy,
+        ReadableStreamDefaultControllerEW,
+        ReadableStreamEW,
+        ReadAllHeader,
+        ReadsHeaders,
+        ResponseProviderRequest,
+        UnderlyingByteSource,
+        UnderlyingSink,
+        UnderlyingSource,
+        WritableStreamEW,
+    };
 }
 
 /**
@@ -792,7 +865,10 @@ declare module "create-response" {
      */
     function createResponse(status: number, headers: Headers, body: CreateResponseBody, denyReason?: string): object;
     function createResponse(body?: CreateResponseBody, opts?: {
-        status?: number | undefined, headers?: Headers | undefined, body?: object | undefined, denyReason?: string | undefined
+        status?: number | undefined;
+        headers?: Headers | undefined;
+        body?: object | undefined;
+        denyReason?: string | undefined;
     }): object;
 }
 
@@ -818,10 +894,10 @@ declare module "http-request" {
      *  - `timeout` The request timeout, in milliseconds.
      */
     function httpRequest(url: string, options?: {
-        method?: string | undefined,
-        headers?: { [others: string]: string | string[] } | undefined,
-        body?: RequestBody | undefined,
-        timeout?: number | undefined
+        method?: string | undefined;
+        headers?: { [others: string]: string | string[] } | undefined;
+        body?: RequestBody | undefined;
+        timeout?: number | undefined;
     }): Promise<HttpResponse>;
 
     /**
@@ -865,8 +941,11 @@ declare module "streams" {
 
     const ReadableStream: {
         prototype: ReadableStream;
-        new(underlyingSource: EW.UnderlyingByteSource, strategy?: { highWaterMark?: number, size?: undefined }): ReadableStream<Uint8Array>;
-        new <R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
+        new(underlyingSource: EW.UnderlyingByteSource, strategy?: {
+            highWaterMark?: number;
+            size?: undefined;
+        }): ReadableStream<Uint8Array>;
+        new<R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
     };
 
     interface WritableStream<R = any> extends EW.WritableStreamEW {
@@ -874,7 +953,7 @@ declare module "streams" {
 
     const WritableStream: {
         prototype: WritableStream;
-        new <W = any>(underlyingSink?: EW.UnderlyingSink<W>, strategy?: EW.QueuingStrategy<W>): WritableStream<W>;
+        new<W = any>(underlyingSink?: EW.UnderlyingSink<W>, strategy?: EW.QueuingStrategy<W>): WritableStream<W>;
     };
 
     interface ReadableStreamDefaultController<R = any> extends EW.ReadableStreamDefaultControllerEW {
@@ -887,7 +966,11 @@ declare module "streams" {
 
     const TransformStream: {
         prototype: TransformStream;
-        new <I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: EW.QueuingStrategy<I>, readableStrategy?: EW.QueuingStrategy<O>): TransformStream<I, O>;
+        new<I = any, O = any>(
+            transformer?: Transformer<I, O>,
+            writableStrategy?: EW.QueuingStrategy<I>,
+            readableStrategy?: EW.QueuingStrategy<O>,
+        ): TransformStream<I, O>;
     };
 
     interface Transformer<I = any, O = any> {
@@ -912,18 +995,23 @@ declare module "streams" {
 
     interface TransformStreamDefaultController<O = any> {
         readonly desiredSize: number | null;
+
         enqueue(chunk: O): void;
+
         error(reason?: any): void;
+
         terminate(): void;
     }
 
     interface CountQueuingStrategy {
         highWaterMark: number;
+
         size(chunk: any): 1;
     }
 
     interface ByteLengthQueuingStrategy extends EW.QueuingStrategy<ArrayBufferView> {
         highWaterMark: number;
+
         size(chunk: ArrayBufferView): number;
     }
 
@@ -932,7 +1020,14 @@ declare module "streams" {
         new(options: { highWaterMark: number }): ByteLengthQueuingStrategy;
     };
 
-    export { ByteLengthQueuingStrategy, CountQueuingStrategy, ReadableStream, TransformStream, WritableStream, ReadableStreamDefaultController };
+    export {
+        ByteLengthQueuingStrategy,
+        CountQueuingStrategy,
+        ReadableStream,
+        ReadableStreamDefaultController,
+        TransformStream,
+        WritableStream,
+    };
 }
 
 declare module "text-encode-transform" {
@@ -1009,7 +1104,7 @@ declare module "text-encode-transform" {
         new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
 
-    export { TextEncoderStream, TextDecoderStream };
+    export { TextDecoderStream, TextEncoderStream };
 }
 
 /**
@@ -1040,6 +1135,116 @@ declare module "log" {
          * @param values Zero or more values to record in the log.
          */
         log(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the debug level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        debug(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the error level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        error(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the info level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        info(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the trace level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        trace(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the warn level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        warn(format: string, ...values: any): void;
     }
 
     const logger: Logger;
@@ -1133,7 +1338,15 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base64 string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
+
     const base64: Base64;
 
     interface Base64url {
@@ -1142,7 +1355,15 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base64url string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
+
     const base64url: Base64url;
 
     interface Base16 {
@@ -1151,7 +1372,15 @@ declare module "encoding" {
          * @param outputFormat Optional argument for output format type.
          */
         decode(encodedData: string, outputFormat?: "String" | "Uint8Array"): DecodedValue;
+
+        /**
+         * @param dataToBeEncoded Input Uint8Array that needs to be encoded.
+         *
+         * @returns encoded base16 string.
+         */
+        encode(dataToBeEncoded: Uint8Array): string;
     }
+
     const base16: Base16;
 
     /**
@@ -1174,11 +1403,22 @@ declare module "encoding" {
          */
         readonly encoding: string;
     }
+
     interface TextDecoderOptions {
         fatal?: boolean | undefined;
         ignoreBOM?: boolean | undefined;
     }
-    type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+
+    type TypedArray =
+        | Int8Array
+        | Uint8Array
+        | Uint8ClampedArray
+        | Int16Array
+        | Uint16Array
+        | Int32Array
+        | Uint32Array
+        | Float32Array
+        | Float64Array;
 
     interface StreamObject {
         /**
@@ -1207,7 +1447,7 @@ declare module "encoding" {
          * @param buffer [Optional] an ArrayBuffer, a TypedArray or a DataView object containing the text to decode.
          * @param options [Optional] An object with the stream property
          */
-        decode(buffer?: ArrayBuffer| TypedArray | DataView, options?: StreamObject): string;
+        decode(buffer?: ArrayBuffer | TypedArray | DataView, options?: StreamObject): string;
 
         /**
          * The fatal  flag passed into the constructor
@@ -1223,7 +1463,7 @@ declare module "encoding" {
         readonly encoding: string;
     }
 
-    export { base64, base64url, base16, TextEncoder, TextDecoder };
+    export { base16, base64, base64url, TextDecoder, TextEncoder };
 }
 
 /**
@@ -1233,6 +1473,7 @@ declare module "encoding" {
 declare module "crypto" {
     interface Crypto {
         readonly subtle: SubtleCrypto;
+
         /**
          * A function that allows you to get cryptographically strong random values
          * @param array: An integer-based TypedArray
@@ -1319,6 +1560,20 @@ declare module "crypto" {
         ): Promise<ArrayBuffer>;
 
         /**
+         * Sign generates a digital signature.
+         * @param algorithm A string or object that specifies the signature algorithm to use and its parameters
+         * @param key A CryptoKey object containing the key to be used for signing
+         * @param data An ArrayBuffer, a TypedArray or a DataView object containing the data to be signed
+         *
+         * @returns A Promise that fulfills with an ArrayBuffer containing the signature
+         */
+        sign(
+            algorithm: string | object,
+            key: CryptoKey,
+            data: ArrayBuffer | TypedArray | DataView,
+        ): Promise<ArrayBuffer>;
+
+        /**
          * Verify a digital signature
          * @param algorithm A string or object specifying the algorithm to be used
          * @param key A CryptoKey containing the key that will be used to verify the signature
@@ -1358,4 +1613,126 @@ declare module "crypto" {
     const crypto: Crypto;
 
     export { crypto };
+}
+
+/**
+ * HtmlRewriter rewrites HTML documents by parsing and constructing the DOM.
+ * It allows for registering callbacks on CSS selectors that execute when
+ * the parser encounters an element matching the selector, enabling modification
+ * of tag attributes, insertion of new content around the element, or removal of the element.
+ */
+declare module "html-rewriter" {
+    import { ReadableStream, WritableStream } from "streams";
+
+    class HtmlRewritingStream implements GenericHtmlRewritingStream {
+        readonly writable: WritableStream;
+        readonly readable: ReadableStream;
+
+        /**
+         * Constructor for a new HtmlRewritingStream object
+         */
+        constructor();
+
+        /**
+         * Add one or more handlers using onElement(). The handlers call functions on their argument to modify the stream.
+         * @param selector is a string CSS selector that specifies when the handler should run.
+         * @param handler is a function that runs when the selector matches.
+         * When the HtmlRewritingStream calls the handler, it passes an Element object as an argument.
+         */
+        onElement(selector: string, handler: (element: Element) => void): void;
+    }
+
+    interface GenericHtmlRewritingStream {
+        readonly readable: ReadableStream;
+        readonly writable: WritableStream;
+    }
+
+    /**
+     * The Element object is an argument to the handler registered with onElement(),
+     * the handler calls functions on the Element to modify the output stream.
+     */
+    interface Element {
+        /**
+         * Insert new content immediately after the end tag of the matched element.
+         * @param text is the new text to insert.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
+         */
+        after(text: string, trailing_opt?: TrailingOpt): void;
+
+        /**
+         * Insert content right before the end tag of the element.
+         * @param text is the new text to insert.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
+         */
+        append(text: string, trailing_opt?: TrailingOpt): void;
+
+        /**
+         * Insert new content immediately before the start tag of the matched element.
+         * @param text is the new text to insert.
+         */
+        before(text: string): void;
+
+        /**
+         * Read the value of a given attribute name on the tag or undefined if it doesn’t exist.
+         * @param text is the case-insensitive name of the attribute.
+         */
+        getAttribute(text: string): string | undefined;
+
+        /**
+         * Insert content right after the start tag of the element.
+         * @param text is the new text to insert.
+         */
+        prepend(text: string): void;
+
+        /**
+         * Removes the attribute if exists.
+         * @param text is the case-insensitive name of the attribute. If an attribute was removed, it is returned.
+         */
+        removeAttribute(text: string): string | undefined;
+
+        /**
+         * Remove the children of the current element and insert content in place of them.
+         * @param text is the text to replace.
+         * @param trailing_opt controls whether elements missing a close tag should have one inserted.
+         */
+        replaceChildren(text: string, trailing_opt?: TrailingOpt): void;
+
+        /**
+         * Remove the current element and its children, and insert the passed content in its place.
+         * @param text is the text to replace.
+         */
+        replaceWith(text: string): void;
+
+        /**
+         * Set an attribute to a provided value, creating the attribute if it doesn't exist.
+         * @param name is case-insensitive string.
+         * @param value is the attribute value of `name`.
+         * @param quote_opt is an optional third argument that controls how quotes are applied to the attribute value.
+         * It must include a property named quote, whose value is a string containing either a single or double quote.
+         */
+        setAttribute(name: string, value: string, quote_opt?: QuoteOpt): void;
+    }
+
+    /**
+     * If `TrailingOpt` argument is present, the options object must include a property named `insert_implicit_close`
+     * with a boolean value.
+     */
+    interface TrailingOpt {
+        /**
+         * When `insert_implicit_close` is true, elements that are missing a close tag will have one inserted.
+         */
+        readonly insert_implicit_close: boolean;
+    }
+
+    /**
+     * QuoteOpt is an optional third argument that controls how quotes are applied to the attribute value.
+     */
+    interface QuoteOpt {
+        /**
+         * `quote` is a value is a string containing either a single or double quote.
+         */
+        readonly quote: string;
+    }
+
+    export { HtmlRewritingStream };
 }

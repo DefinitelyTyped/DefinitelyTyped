@@ -1,15 +1,15 @@
-import LocomotiveScroll = require('locomotive-scroll');
+import LocomotiveScroll = require("locomotive-scroll");
 
 const scroll = new LocomotiveScroll({
-    el: document.querySelector('[data-scroll-container]') as HTMLElement,
+    el: document.querySelector("[data-scroll-container]") as HTMLElement,
     smooth: true,
 });
 
-scroll.on('scroll', event => {
+scroll.on("scroll", event => {
     event; // $ExpectType OnScrollEvent
 });
 
-scroll.on('call', event => {
+scroll.on("call", event => {
     event; // $ExpectType string | string[]
 });
 

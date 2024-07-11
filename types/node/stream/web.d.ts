@@ -1,4 +1,4 @@
-declare module 'stream/web' {
+declare module "stream/web" {
     // stub module, pending copy&paste from .d.ts or manual impl
     // copy from lib.dom.d.ts
     interface ReadableWritablePair<R = any, W = any> {
@@ -74,7 +74,18 @@ declare module 'stream/web' {
         value?: undefined;
     }
     type ReadableStreamController<T> = ReadableStreamDefaultController<T>;
-    type ReadableStreamDefaultReadResult<T> = ReadableStreamDefaultReadValueResult<T> | ReadableStreamDefaultReadDoneResult;
+    type ReadableStreamDefaultReadResult<T> =
+        | ReadableStreamDefaultReadValueResult<T>
+        | ReadableStreamDefaultReadDoneResult;
+    interface ReadableStreamReadValueResult<T> {
+        done: false;
+        value: T;
+    }
+    interface ReadableStreamReadDoneResult<T> {
+        done: true;
+        value?: T;
+    }
+    type ReadableStreamReadResult<T> = ReadableStreamReadValueResult<T> | ReadableStreamReadDoneResult<T>;
     interface ReadableByteStreamControllerCallback {
         (controller: ReadableByteStreamController): void | PromiseLike<void>;
     }
@@ -113,7 +124,7 @@ declare module 'stream/web' {
         cancel?: ReadableStreamErrorCallback;
         pull?: ReadableByteStreamControllerCallback;
         start?: ReadableByteStreamControllerCallback;
-        type: 'bytes';
+        type: "bytes";
     }
     interface UnderlyingSource<R = any> {
         cancel?: UnderlyingSourceCancelCallback;
@@ -136,6 +147,7 @@ declare module 'stream/web' {
         readonly locked: boolean;
         cancel(reason?: any): Promise<void>;
         getReader(): ReadableStreamDefaultReader<R>;
+        getReader(options: { mode: "byob" }): ReadableStreamBYOBReader;
         pipeThrough<T>(transform: ReadableWritablePair<T, R>, options?: StreamPipeOptions): ReadableStream<T>;
         pipeTo(destination: WritableStream<R>, options?: StreamPipeOptions): Promise<void>;
         tee(): [ReadableStream<R>, ReadableStream<R>];
@@ -144,16 +156,21 @@ declare module 'stream/web' {
     }
     const ReadableStream: {
         prototype: ReadableStream;
-        new (underlyingSource: UnderlyingByteSource, strategy?: QueuingStrategy<Uint8Array>): ReadableStream<Uint8Array>;
-        new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
+        from<T>(iterable: Iterable<T> | AsyncIterable<T>): ReadableStream<T>;
+        new(underlyingSource: UnderlyingByteSource, strategy?: QueuingStrategy<Uint8Array>): ReadableStream<Uint8Array>;
+        new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
     };
     interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
         read(): Promise<ReadableStreamDefaultReadResult<R>>;
         releaseLock(): void;
     }
+    interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
+        read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+        releaseLock(): void;
+    }
     const ReadableStreamDefaultReader: {
         prototype: ReadableStreamDefaultReader;
-        new <R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
+        new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
     };
     const ReadableStreamBYOBReader: any;
     const ReadableStreamBYOBRequest: any;
@@ -166,7 +183,7 @@ declare module 'stream/web' {
     }
     const ReadableByteStreamController: {
         prototype: ReadableByteStreamController;
-        new (): ReadableByteStreamController;
+        new(): ReadableByteStreamController;
     };
     interface ReadableStreamDefaultController<R = any> {
         readonly desiredSize: number | null;
@@ -176,7 +193,7 @@ declare module 'stream/web' {
     }
     const ReadableStreamDefaultController: {
         prototype: ReadableStreamDefaultController;
-        new (): ReadableStreamDefaultController;
+        new(): ReadableStreamDefaultController;
     };
     interface Transformer<I = any, O = any> {
         flush?: TransformerFlushCallback<O>;
@@ -191,7 +208,11 @@ declare module 'stream/web' {
     }
     const TransformStream: {
         prototype: TransformStream;
-        new <I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: QueuingStrategy<I>, readableStrategy?: QueuingStrategy<O>): TransformStream<I, O>;
+        new<I = any, O = any>(
+            transformer?: Transformer<I, O>,
+            writableStrategy?: QueuingStrategy<I>,
+            readableStrategy?: QueuingStrategy<O>,
+        ): TransformStream<I, O>;
     };
     interface TransformStreamDefaultController<O = any> {
         readonly desiredSize: number | null;
@@ -201,7 +222,7 @@ declare module 'stream/web' {
     }
     const TransformStreamDefaultController: {
         prototype: TransformStreamDefaultController;
-        new (): TransformStreamDefaultController;
+        new(): TransformStreamDefaultController;
     };
     /**
      * This Streams API interface provides a standard abstraction for writing
@@ -216,7 +237,7 @@ declare module 'stream/web' {
     }
     const WritableStream: {
         prototype: WritableStream;
-        new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
+        new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
     };
     /**
      * This Streams API interface is the object returned by
@@ -235,7 +256,7 @@ declare module 'stream/web' {
     }
     const WritableStreamDefaultWriter: {
         prototype: WritableStreamDefaultWriter;
-        new <W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
+        new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
     };
     /**
      * This Streams API interface represents a controller allowing control of a
@@ -248,7 +269,7 @@ declare module 'stream/web' {
     }
     const WritableStreamDefaultController: {
         prototype: WritableStreamDefaultController;
-        new (): WritableStreamDefaultController;
+        new(): WritableStreamDefaultController;
     };
     interface QueuingStrategy<T = any> {
         highWaterMark?: number;
@@ -279,7 +300,7 @@ declare module 'stream/web' {
     }
     const ByteLengthQueuingStrategy: {
         prototype: ByteLengthQueuingStrategy;
-        new (init: QueuingStrategyInit): ByteLengthQueuingStrategy;
+        new(init: QueuingStrategyInit): ByteLengthQueuingStrategy;
     };
     /**
      * This Streams API interface provides a built-in byte length queuing
@@ -291,18 +312,18 @@ declare module 'stream/web' {
     }
     const CountQueuingStrategy: {
         prototype: CountQueuingStrategy;
-        new (init: QueuingStrategyInit): CountQueuingStrategy;
+        new(init: QueuingStrategyInit): CountQueuingStrategy;
     };
     interface TextEncoderStream {
         /** Returns "utf-8". */
-        readonly encoding: 'utf-8';
+        readonly encoding: "utf-8";
         readonly readable: ReadableStream<Uint8Array>;
         readonly writable: WritableStream<string>;
         readonly [Symbol.toStringTag]: string;
     }
     const TextEncoderStream: {
         prototype: TextEncoderStream;
-        new (): TextEncoderStream;
+        new(): TextEncoderStream;
     };
     interface TextDecoderOptions {
         fatal?: boolean;
@@ -322,9 +343,25 @@ declare module 'stream/web' {
     }
     const TextDecoderStream: {
         prototype: TextDecoderStream;
-        new (label?: string, options?: TextDecoderOptions): TextDecoderStream;
+        new(encoding?: string, options?: TextDecoderOptions): TextDecoderStream;
+    };
+    interface CompressionStream<R = any, W = any> {
+        readonly readable: ReadableStream<R>;
+        readonly writable: WritableStream<W>;
+    }
+    const CompressionStream: {
+        prototype: CompressionStream;
+        new<R = any, W = any>(format: "deflate" | "deflate-raw" | "gzip"): CompressionStream<R, W>;
+    };
+    interface DecompressionStream<R = any, W = any> {
+        readonly readable: ReadableStream<R>;
+        readonly writable: WritableStream<W>;
+    }
+    const DecompressionStream: {
+        prototype: DecompressionStream;
+        new<R = any, W = any>(format: "deflate" | "deflate-raw" | "gzip"): DecompressionStream<R, W>;
     };
 }
-declare module 'node:stream/web' {
-    export * from 'stream/web';
+declare module "node:stream/web" {
+    export * from "stream/web";
 }

@@ -1,6 +1,28 @@
 {
     "private": true,
+    "name": "@types/winston-syslog",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/winstonjs/winston-syslog",
+        "https://github.com/indexzero/winston-syslog"
+    ],
     "dependencies": {
-        "winston": "^3.0.0"
-    }
+        "@types/glossy": "*",
+        "@types/node": "*",
+        "winston": "^3.0.0",
+        "winston-transport": "^4.3.0"
+    },
+    "devDependencies": {
+        "@types/winston-syslog": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Barth",
+            "githubUsername": "cjbarth"
+        },
+        {
+            "name": "Felix Hochgruber",
+            "githubUsername": "felix-hoc"
+        }
+    ]
 }

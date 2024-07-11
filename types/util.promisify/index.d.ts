@@ -1,20 +1,12 @@
-// Type definitions for util.promisify 1.0
-// Project: https://github.com/ljharb/util.promisify#readme
-// Definitions by: Adam Voss <https://github.com/adamvoss>
-//                 Piotr Roszatycki <https://github.com/dex4er>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import util = require('util');
+import util = require("util");
 
-import polyfill = require('./implementation');
-import getUtilPromisify = require('./polyfill');
-import shimUtilPromisify = require('./shim');
+import polyfill = require("./implementation");
+import getUtilPromisify = require("./polyfill");
+import shimUtilPromisify = require("./shim");
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 declare function promisify<TCustom extends Function>(fn: util.CustomPromisify<TCustom>): TCustom;
 
 declare function promisify<TResult>(
@@ -55,7 +47,7 @@ declare function promisify<T1, T2, T3, T4, T5>(
     fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
 ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 declare function promisify(fn: Function): Function;
 
 declare namespace promisify {

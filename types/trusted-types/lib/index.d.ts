@@ -24,7 +24,7 @@ export abstract class TrustedTypePolicyFactory {
     createPolicy<Options extends TrustedTypePolicyOptions>(
         policyName: string,
         policyOptions?: Options,
-    ): Pick<TrustedTypePolicy<Options>, 'name' | Extract<keyof Options, FnNames>>;
+    ): Pick<TrustedTypePolicy<Options>, "name" | Extract<keyof Options, FnNames>>;
     isHTML(value: unknown): value is TrustedHTML;
     isScript(value: unknown): value is TrustedScript;
     isScriptURL(value: unknown): value is TrustedScriptURL;
@@ -37,9 +37,9 @@ export abstract class TrustedTypePolicyFactory {
 
 export abstract class TrustedTypePolicy<Options extends TrustedTypePolicyOptions = TrustedTypePolicyOptions> {
     readonly name: string;
-    createHTML(...args: Args<Options, 'createHTML'>): TrustedHTML;
-    createScript(...args: Args<Options, 'createScript'>): TrustedScript;
-    createScriptURL(...args: Args<Options, 'createScriptURL'>): TrustedScriptURL;
+    createHTML(...args: Args<Options, "createHTML">): TrustedHTML;
+    createScript(...args: Args<Options, "createScript">): TrustedScript;
+    createScriptURL(...args: Args<Options, "createScriptURL">): TrustedScriptURL;
 }
 
 export interface TrustedTypePolicyOptions {

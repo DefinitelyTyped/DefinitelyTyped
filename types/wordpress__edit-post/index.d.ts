@@ -1,20 +1,20 @@
-// Type definitions for @wordpress/edit-post 7.0
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/edit-post/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
+import { dispatch, select, StoreDescriptor } from "@wordpress/data";
 
-import { dispatch, select } from '@wordpress/data';
-
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/edit-post'): typeof import('./store/actions');
-    function select(key: 'core/edit-post'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    function dispatch(key: "core/edit-post"): typeof import("./store/actions");
+    function select(key: "core/edit-post"): typeof import("./store/selectors");
 }
 
-export type MetaboxLocation = 'advanced' | 'normal' | 'side';
+export interface EditPostStoreDescriptor extends StoreDescriptor {
+    name: "core/edit-post";
+}
+
+export const store: EditPostStoreDescriptor;
+
+export type MetaboxLocation = "advanced" | "normal" | "side";
 
 // FIXME: move this to @wordpress/block-editor when types are created for that package.
-export type EditorMode = 'text' | 'visual';
+export type EditorMode = "text" | "visual";
 
 // FIXME: move this to @wordpress/block-editor when types are created for that package.
 export interface EditorSettings {
@@ -163,7 +163,7 @@ export function initializeEditor(
     postId: string | number,
     settings?: Partial<EditorSettings>,
     // FIXME: it is unclear what this is
-    initialEdits?: object
+    initialEdits?: object,
 ): void;
 
 /**
@@ -184,16 +184,16 @@ export function reinitializeEditor(
     target: Element,
     settings?: Partial<EditorSettings>,
     // FIXME: it is unclear what this is
-    initialEdits?: object
+    initialEdits?: object,
 ): void;
 
 export {
     default as PluginBlockSettingsMenuItem,
-} from './components/block-settings-menu/plugin-block-settings-menu-item';
-export { default as PluginDocumentSettingPanel } from './components/sidebar/plugin-document-setting-panel';
-export { default as PluginMoreMenuItem } from './components/header/plugin-more-menu-item';
-export { default as PluginPostPublishPanel } from './components/sidebar/plugin-post-publish-panel';
-export { default as PluginPostStatusInfo } from './components/sidebar/plugin-post-status-info';
-export { default as PluginPrePublishPanel } from './components/sidebar/plugin-pre-publish-panel';
-export { default as PluginSidebar } from './components/sidebar/plugin-sidebar';
-export { default as PluginSidebarMoreMenuItem } from './components/header/plugin-sidebar-more-menu-item';
+} from "./components/block-settings-menu/plugin-block-settings-menu-item";
+export { default as PluginMoreMenuItem } from "./components/header/plugin-more-menu-item";
+export { default as PluginSidebarMoreMenuItem } from "./components/header/plugin-sidebar-more-menu-item";
+export { default as PluginDocumentSettingPanel } from "./components/sidebar/plugin-document-setting-panel";
+export { default as PluginPostPublishPanel } from "./components/sidebar/plugin-post-publish-panel";
+export { default as PluginPostStatusInfo } from "./components/sidebar/plugin-post-status-info";
+export { default as PluginPrePublishPanel } from "./components/sidebar/plugin-pre-publish-panel";
+export { default as PluginSidebar } from "./components/sidebar/plugin-sidebar";

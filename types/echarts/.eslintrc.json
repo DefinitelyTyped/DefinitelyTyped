@@ -1,6 +1,9 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-declare-current-package": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

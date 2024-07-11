@@ -1,2 +1,2 @@
-import thisStringValue = require('../2017/thisStringValue');
+import thisStringValue = require("../2017/thisStringValue");
 export = thisStringValue;

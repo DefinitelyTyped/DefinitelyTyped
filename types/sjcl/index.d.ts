@@ -1,8 +1,3 @@
-// Type definitions for sjcl v1.0.8
-// Project: http://crypto.stanford.edu/sjcl/
-// Definitions by: Eugene Chernyshov <https://github.com/Evgenus>, Vytautas Mizgiris <https://github.com/mizvyt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = sjcl;
 export as namespace sjcl;
 
@@ -112,8 +107,8 @@ declare namespace sjcl {
     }
 
     interface BigNumberStatic {
-        new (): BigNumber;
-        new (n: BigNumber | number | string): BigNumber;
+        new(): BigNumber;
+        new(n: BigNumber | number | string): BigNumber;
 
         fromBits(bits: BitArray): BigNumber;
         random: TypeHelpers.Bind1<number>;
@@ -143,8 +138,8 @@ declare namespace sjcl {
     }
 
     interface PseudoMersennePrimeStatic extends BigNumberStatic {
-        new (): PseudoMersennePrime;
-        new (n: BigNumber | number | string): PseudoMersennePrime;
+        new(): PseudoMersennePrime;
+        new(n: BigNumber | number | string): PseudoMersennePrime;
     }
 
     // ________________________________________________________________________
@@ -219,7 +214,7 @@ declare namespace sjcl {
     }
 
     interface SjclHashStatic {
-        new (hash?: SjclHash): SjclHash;
+        new(hash?: SjclHash): SjclHash;
         hash(data: BitArray | string): BitArray;
     }
 
@@ -240,7 +235,7 @@ declare namespace sjcl {
     }
 
     interface SjclExceptionFactory {
-        new (message: string): Error;
+        new(message: string): Error;
     }
 
     // ________________________________________________________________________
@@ -255,7 +250,7 @@ declare namespace sjcl {
     }
 
     interface SjclCipherStatic {
-        new (key: number[]): SjclCipher;
+        new(key: number[]): SjclCipher;
     }
 
     // ________________________________________________________________________
@@ -412,11 +407,11 @@ declare namespace sjcl {
     }
 
     interface SjclPRFFamilyStatic {
-        new (key: BitArray): SjclPRFFamily;
+        new(key: BitArray): SjclPRFFamily;
     }
 
     interface SjclHMACStatic {
-        new (key: BitArray, Hash?: SjclHashStatic): SjclHMAC;
+        new(key: BitArray, Hash?: SjclHashStatic): SjclHMAC;
     }
 
     // ________________________________________________________________________
@@ -447,14 +442,14 @@ declare namespace sjcl {
         toJac(): SjclPointJacobian;
         mult(k: BigNumber): SjclEllipticalPoint;
         mult2(k: BigNumber, k2: BigNumber, affine2: SjclEllipticalPoint): SjclEllipticalPoint;
-        multiples(): Array<SjclEllipticalPoint>;
+        multiples(): SjclEllipticalPoint[];
         negate(): SjclEllipticalPoint;
         isValid(): boolean;
         toBits(): BitArray;
     }
 
     interface SjclEllipticalPointStatic {
-        new (curve: SjclEllipticalCurve, x?: BigNumber, y?: BigNumber): SjclEllipticalPoint;
+        new(curve: SjclEllipticalCurve, x?: BigNumber, y?: BigNumber): SjclEllipticalPoint;
     }
 
     interface SjclPointJacobian {
@@ -473,8 +468,8 @@ declare namespace sjcl {
     }
 
     interface SjclPointJacobianStatic {
-        new (curve: SjclEllipticalCurve, x?: BigNumber, y?: BigNumber, z?: BigNumber): SjclPointJacobian;
-        toAffineMultiple(points: Array<SjclPointJacobian>): Array<SjclEllipticalPoint>;
+        new(curve: SjclEllipticalCurve, x?: BigNumber, y?: BigNumber, z?: BigNumber): SjclPointJacobian;
+        toAffineMultiple(points: SjclPointJacobian[]): SjclEllipticalPoint[];
     }
 
     interface SjclEllipticalCurve {
@@ -482,7 +477,7 @@ declare namespace sjcl {
     }
 
     interface SjclEllipticalCurveStatic {
-        new (
+        new(
             Field: BigNumber,
             r: BigNumber,
             a: BigNumber,
@@ -526,11 +521,11 @@ declare namespace sjcl {
     }
 
     interface SjclECCPublicKeyFactory<T extends SjclECCPublicKey> {
-        new (curve: SjclEllipticalCurve, point: SjclEllipticalPoint | BitArray): T;
+        new(curve: SjclEllipticalCurve, point: SjclEllipticalPoint | BitArray): T;
     }
 
     interface SjclECCSecretKeyFactory<T extends SjclECCSecretKey> {
-        new (curve: SjclEllipticalCurve, exponent: BigNumber): T;
+        new(curve: SjclEllipticalCurve, exponent: BigNumber): T;
     }
 
     interface SjclECCBasic {
@@ -589,7 +584,7 @@ declare namespace sjcl {
     }
 
     interface SjclRandomStatic {
-        new (defaultParanoia: number): SjclRandom;
+        new(defaultParanoia: number): SjclRandom;
     }
 
     // ________________________________________________________________________

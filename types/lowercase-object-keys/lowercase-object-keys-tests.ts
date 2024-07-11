@@ -1,10 +1,10 @@
-import lowercaseObjectKeys = require('lowercase-object-keys');
+import lowercaseObjectKeys = require("lowercase-object-keys");
 
 // $ExpectType LowercaseObjectKeysResult<{}>
 const niceObj = lowercaseObjectKeys({});
 
 // $ExpectType string
-const name = lowercaseObjectKeys({ NAME: 'Bob '}).name;
+const name = lowercaseObjectKeys({ NAME: "Bob " }).name;
 
 // @ts-expect-error
 lowercaseObjectKeys();

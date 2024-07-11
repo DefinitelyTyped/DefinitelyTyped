@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/fs-extra-promise",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/overlookmotel/fs-extra-promise"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/fs-extra": "^4",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fs-extra-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "midknight41",
+            "githubUsername": "midknight41"
+        },
+        {
+            "name": "Jason Swearingen",
+            "githubUsername": "jasonswearingen"
+        },
+        {
+            "name": "Hiromi Shikata",
+            "githubUsername": "HiromiShikata"
+        }
+    ]
+}

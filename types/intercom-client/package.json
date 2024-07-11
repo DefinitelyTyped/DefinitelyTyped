@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/intercom-client",
+    "version": "2.11.9999",
+    "projects": [
+        "https://github.com/intercom/intercom-node"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/request": "*"
+    },
+    "devDependencies": {
+        "@types/intercom-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jinesh Shah",
+            "githubUsername": "jineshshah36"
+        },
+        {
+            "name": "Josef Hornych",
+            "githubUsername": "peping"
+        },
+        {
+            "name": "Chris Doe",
+            "githubUsername": "cdoe"
+        },
+        {
+            "name": "Kroustille",
+            "githubUsername": "kroustille"
+        }
+    ]
+}

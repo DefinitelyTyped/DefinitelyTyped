@@ -1,3 +1,3 @@
-$('div').tile();
+$("div").tile();
 
-$('div').tile(4);
+$("div").tile(4);

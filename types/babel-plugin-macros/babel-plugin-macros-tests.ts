@@ -1,4 +1,4 @@
-import { createMacro, MacroError, References, Options, MacroParams, MacroHandler } from 'babel-plugin-macros';
+import { createMacro, MacroError, MacroHandler, MacroParams, Options, References } from "babel-plugin-macros";
 
 const macro = createMacro(
     ({ references, state, babel, config, isBabelMacrosCall, source }: MacroParams) => {
@@ -8,9 +8,9 @@ const macro = createMacro(
         });
 
         const stateType = state; // $ExpectType PluginPass
-        stateType.key = 'macros';
+        stateType.key = "macros";
 
-        const CODE = 'example code';
+        const CODE = "example code";
         babel.parse(CODE, err => {
             err; // $ExpectType Error | null
         });
@@ -23,9 +23,9 @@ const macro = createMacro(
         isBabelMacrosCallType = true;
 
         let sourceType = source; // $ExpectType string
-        sourceType = 'sourceType';
+        sourceType = "sourceType";
 
-        throw new MacroError('testing');
+        throw new MacroError("testing");
     },
-    { configName: 'test' },
+    { configName: "test" },
 );

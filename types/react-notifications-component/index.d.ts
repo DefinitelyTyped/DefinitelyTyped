@@ -1,10 +1,4 @@
-// Type definitions for react-notifications-component 3.1
-// Project: https://github.com/teodosii/react-notifications-component
-// Definitions by: Sarhad Salam <https://github.com/SarhadSalam>
-//                 Andrés Ignacio Torres <https://github.com/aitorres>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export default class extends React.Component<ReactNotificationProps> {}
 
@@ -27,9 +21,18 @@ export interface ReactNotificationOptions {
     title?: string | React.ReactNode | React.FunctionComponent | undefined;
     message?: string | React.ReactNode | React.FunctionComponent | undefined;
     content?: React.ComponentClass | React.FunctionComponent | React.ReactNode | undefined;
-    type?: 'success' | 'danger' | 'info' | 'default' | 'warning' | undefined;
-    container: 'top-full' | 'top-left' | 'top-right' | 'top-center' | 'center' | 'bottom-full' | 'bottom-left' | 'bottom-right' | 'bottom-center';
-    insert?: 'top' | 'bottom' | undefined;
+    type?: "success" | "danger" | "info" | "default" | "warning" | undefined;
+    container:
+        | "top-full"
+        | "top-left"
+        | "top-right"
+        | "top-center"
+        | "center"
+        | "bottom-full"
+        | "bottom-left"
+        | "bottom-right"
+        | "bottom-center";
+    insert?: "top" | "bottom" | undefined;
     dismiss?: DismissOptions | undefined;
     animationIn?: string[] | undefined;
     animationOut?: string[] | undefined;
@@ -45,7 +48,7 @@ export interface ReactNotificationOptions {
 
 export interface TransitionOptions {
     duration?: number | undefined;
-    timingFunction?: 'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'step-start' | 'step-end' | undefined;
+    timingFunction?: "ease" | "linear" | "ease-in" | "ease-out" | "ease-in-out" | "step-start" | "step-end" | undefined;
     delay?: number | undefined;
 }
 

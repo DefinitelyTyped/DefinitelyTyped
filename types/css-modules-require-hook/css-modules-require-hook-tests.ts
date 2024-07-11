@@ -1,10 +1,10 @@
-import * as hook from 'css-modules-require-hook';
+import * as hook from "css-modules-require-hook";
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#usage
 //
 
-hook({ generateScopedName: '[name]__[local]___[hash:base64:5]' });
+hook({ generateScopedName: "[name]__[local]___[hash:base64:5]" });
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#adding-custom-postcss-plugins
@@ -22,14 +22,14 @@ hook({
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#specify-custom-pattern-to-build-generic-names
 //
 
-hook({ generateScopedName: '[name]__[local]___[hash:base64:5]' });
+hook({ generateScopedName: "[name]__[local]___[hash:base64:5]" });
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#using-stylus-as-a-preprocessor
 //
 
 hook({
-    extensions: ['.styl'],
+    extensions: [".styl"],
     preprocessCss: (css: string, filepath: string) => {
         // my preprocesser
     },
@@ -39,7 +39,7 @@ hook({
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#tuning-options
 //
 
-hook({ /* my option */ });
+hook({/* my option */});
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#devmode-boolean
@@ -51,14 +51,14 @@ hook({ devMode: false });
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#extensions-array
 //
 
-hook({ extensions: ['.scss', '.sass'] });
+hook({ extensions: [".scss", ".sass"] });
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#ignore-functionregexstring
 //
 
 hook({ ignore: (file: string) => false });
-hook({ ignore: 'unused' });
+hook({ ignore: "unused" });
 hook({ ignore: /\.test\.(css|scss|sass)$/ });
 
 //
@@ -78,7 +78,7 @@ hook({ processCss: (css: string, filepath: string) => css });
 //
 
 hook({
-    extensions: '.scss',
+    extensions: ".scss",
     processorOpts: {
         parser: () => {
             // my parser
@@ -142,7 +142,7 @@ hook({
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#generatescopedname-stringfunction
 //
 
-hook({ generateScopedName: '[name]__[local]___[hash:base64:5]' });
+hook({ generateScopedName: "[name]__[local]___[hash:base64:5]" });
 hook({
     generateScopedName: () => {
         // should generate something
@@ -153,18 +153,18 @@ hook({
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#hashprefix-string
 //
 
-hook({ hashPrefix: 'awesome_' });
+hook({ hashPrefix: "awesome_" });
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#mode-string
 //
 
-hook({ mode: 'global' });
-hook({ mode: 'local' });
-hook({ mode: 'pure' });
+hook({ mode: "global" });
+hook({ mode: "local" });
+hook({ mode: "pure" });
 
 //
 // https://github.com/css-modules/css-modules-require-hook/blob/master/README.md#rootdir-string
 //
 
-hook({ rootDir: './my-folder' });
+hook({ rootDir: "./my-folder" });

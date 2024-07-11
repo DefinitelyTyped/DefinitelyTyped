@@ -1,8 +1,6 @@
+import xssFilters = require("xss-filters");
 
-
-import xssFilters = require('xss-filters');
-
-var s = '<script>alert("hello")</script>';
+var s = "<script>alert(\"hello\")</script>";
 
 xssFilters.inHTMLComment(s);
 xssFilters.inHTMLData(s);
@@ -34,4 +32,3 @@ xssFilters.uriFragmentInHTMLData(s);
 xssFilters.uriFragmentInDoubleQuotedAttr(s);
 xssFilters.uriFragmentInSingleQuotedAttr(s);
 xssFilters.uriFragmentInUnQuotedAttr(s);
-

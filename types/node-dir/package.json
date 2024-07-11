@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/node-dir",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/fshost/node-dir"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-dir": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Panu Horsmalahti",
+            "githubUsername": "panuhorsmalahti"
+        },
+        {
+            "name": "James Lismore",
+            "githubUsername": "jlismore"
+        }
+    ]
+}

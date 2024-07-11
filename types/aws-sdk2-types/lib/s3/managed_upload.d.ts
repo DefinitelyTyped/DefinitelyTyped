@@ -1,5 +1,5 @@
-import {AWSError} from '../error';
-import S3 = require('../../clients/s3');
+import { AWSError } from "../error";
+import S3 = require("../../clients/s3");
 export class ManagedUpload {
     /**
      * Creates a managed upload object with a set of configuration options.
@@ -27,13 +27,13 @@ export class ManagedUpload {
     /**
      * Default value: 10000
      */
-    static maxTotalParts: number
+    static maxTotalParts: number;
     /**
      * Returns the minimum number of bytes for an individual part upload.
      * Note: Minimum allowed size is 5 MB.
      * 1024 * 5
      */
-    static minPartSize: number
+    static minPartSize: number;
 }
 export namespace ManagedUpload {
     export interface Progress {
@@ -87,6 +87,6 @@ export namespace ManagedUpload {
         /**
          * The tags to apply to the object.
          */
-        tags?: Array<S3.Tag>;
+        tags?: S3.Tag[];
     }
 }

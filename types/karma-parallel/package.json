@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/karma-parallel",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/joeljeske/karma-parallel#readme"
+    ],
+    "dependencies": {
+        "@types/karma": "*"
+    },
+    "devDependencies": {
+        "@types/karma-parallel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz (Peter Blazejewicz)",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,12 +1,7 @@
-// Type definitions for edit-json-file 1.7
-// Project: https://github.com/IonicaBizau/edit-json-file#readme
-// Definitions by: Twixes <https://github.com/Twixes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types= "node" />
 
-import { NoParamCallback } from 'fs';
-import * as set from 'set-value';
+import { NoParamCallback } from "fs";
+import * as set from "set-value";
 
 declare namespace editJsonFile {
     /** JSON file editor options. */

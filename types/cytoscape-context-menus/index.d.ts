@@ -1,9 +1,4 @@
-// Type definitions for cytoscape-context-menus 4.1
-// Project: https://github.com/iVis-at-Bilkent/cytoscape.js-context-menus
-// Definitions by: Musa Ali <https://github.com/hellomusa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import cytoscape = require('cytoscape');
+import cytoscape = require("cytoscape");
 
 declare const contextMenus: cytoscape.Ext;
 
@@ -64,8 +59,8 @@ declare namespace contextMenus {
             src: string;
             width: number;
             height: number;
-            y: string;
-            x: string;
+            y: number;
+            x: number;
         };
         /**
          * Display content of the menu item.
@@ -84,7 +79,7 @@ declare namespace contextMenus {
          * Shows the listed menu items as a submenu for this item.
          * An item must have either a submenu or onClickFunction or both.
          */
-        submenu?: boolean;
+        submenu?: MenuItem[];
         /**
          * Whether the core instance will have this item on context menu event.
          */
@@ -92,7 +87,13 @@ declare namespace contextMenus {
         /**
          * The function to be executed when the menu item is clicked.
          */
-        onClickFunction?: any;
+        onClickFunction?: (
+            event:
+                | cytoscape.EventObject
+                | cytoscape.EventObjectCore
+                | cytoscape.EventObjectNode
+                | cytoscape.EventObjectEdge,
+        ) => void;
         /**
          * Whether the menu item will have a trailing divider.
          */
@@ -146,7 +147,10 @@ declare namespace contextMenus {
          * @param itemID ID of the menu item to move.
          * @param options [optional] Object with menu item properties coreAsWell and/or selector.
          */
-        moveToSubmenu: (itemID: string, options?: { coreAsWell?: string, selector?: string } | string | null) => cytoscape.Core | undefined;
+        moveToSubmenu: (
+            itemID: string,
+            options?: { coreAsWell?: string; selector?: string } | string | null,
+        ) => cytoscape.Core | undefined;
         /**
          * Inserts the item before the existing item with the given ID and moves it to the submenu that contains the existing item.
          * @param itemID ID of the menu item to move.
@@ -187,7 +191,7 @@ declare global {
              * Initializes and/or returns the context menu instance.
              * @param options The options for the context menu or "get" to get the current instance.
              */
-            contextMenus: (options: contextMenus.MenuOptions | string)  => contextMenus.ContextMenu;
+            contextMenus: (options: contextMenus.MenuOptions | string) => contextMenus.ContextMenu;
         }
     }
 }

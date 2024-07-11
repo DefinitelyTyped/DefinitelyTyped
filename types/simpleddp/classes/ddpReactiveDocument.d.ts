@@ -1,5 +1,5 @@
-import { ddpBaseFilterOptions } from '../options';
-import { ddpReactiveCollection } from './ddpReactiveCollection';
+import { ddpBaseFilterOptions } from "../options";
+import { ddpReactiveCollection } from "./ddpReactiveCollection";
 
 export interface ddpReactiveDocumentSettings {
     /**

@@ -1,7 +1,7 @@
-import getEmoji, { emojiList } from 'get-emoji';
+import getEmoji, { emojiList } from "get-emoji";
 
 // $ExpectType string
-getEmoji('rage');
+getEmoji("rage");
 
 // $ExpectType string[]
 emojiList;

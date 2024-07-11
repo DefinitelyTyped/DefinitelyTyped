@@ -1,11 +1,5 @@
-// Type definitions for CSS Font Loading Module Level 3
-// Project: https://drafts.csswg.org/css-font-loading/
-// Definitions by: slikts <https://github.com/slikts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.0
-
-export type FontFaceLoadStatus = 'unloaded' | 'loading' | 'loaded' | 'error';
-export type FontFaceSetLoadStatus = 'loading' | 'loaded';
+export type FontFaceLoadStatus = "unloaded" | "loading" | "loaded" | "error";
+export type FontFaceSetLoadStatus = "loading" | "loaded";
 export type BinaryData = ArrayBuffer | ArrayBufferView;
 
 export interface FontFaceSetLoadEventInit extends EventInit {
@@ -91,16 +85,16 @@ declare global {
 
     var FontFace: {
         prototype: FontFace;
-        new (family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
+        new(family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
     };
 
     interface FontFaceSetLoadEvent extends Event {
-        readonly fontfaces: ReadonlyArray<FontFace>;
+        readonly fontfaces: readonly FontFace[];
     }
 
     var FontFaceSetLoadEvent: {
         prototype: FontFaceSetLoadEvent;
-        new (type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
+        new(type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
     };
 
     interface Document {

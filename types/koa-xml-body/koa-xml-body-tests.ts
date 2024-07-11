@@ -1,12 +1,12 @@
-import Koa = require('koa');
-import KoaXmlBody = require('koa-xml-body');
+import Koa = require("koa");
+import KoaXmlBody = require("koa-xml-body");
 
 const app = new Koa();
 app.use(KoaXmlBody({
-    key: 'body',
+    key: "body",
     onerror: (err, ctx) => {
         ctx.throw(err.message);
-    }
+    },
 }));
 
 app.use((ctx) => {

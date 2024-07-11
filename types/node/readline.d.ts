@@ -1,5 +1,6 @@
 /**
- * The `readline` module provides an interface for reading data from a `Readable` stream (such as `process.stdin`) one line at a time.
+ * The `node:readline` module provides an interface for reading data from a [Readable](https://nodejs.org/docs/latest-v20.x/api/stream.html#readable-streams) stream
+ * (such as [`process.stdin`](https://nodejs.org/docs/latest-v20.x/api/process.html#processstdin)) one line at a time.
  *
  * To use the promise-based APIs:
  *
@@ -13,7 +14,7 @@
  * import * as readline from 'node:readline';
  * ```
  *
- * The following simple example illustrates the basic use of the `readline` module.
+ * The following simple example illustrates the basic use of the `node:readline` module.
  *
  * ```js
  * import * as readline from 'node:readline/promises';
@@ -28,14 +29,13 @@
  * rl.close();
  * ```
  *
- * Once this code is invoked, the Node.js application will not terminate until the`readline.Interface` is closed because the interface waits for data to be
+ * Once this code is invoked, the Node.js application will not terminate until the `readline.Interface` is closed because the interface waits for data to be
  * received on the `input` stream.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/readline.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/readline.js)
  */
-declare module 'readline' {
-    import { Abortable, EventEmitter } from 'node:events';
-    import * as promises from 'node:readline/promises';
-
+declare module "readline" {
+    import { Abortable, EventEmitter } from "node:events";
+    import * as promises from "node:readline/promises";
     export { promises };
     export interface Key {
         sequence?: string | undefined;
@@ -45,8 +45,8 @@ declare module 'readline' {
         shift?: boolean | undefined;
     }
     /**
-     * Instances of the `readline.Interface` class are constructed using the`readline.createInterface()` method. Every instance is associated with a
-     * single `input` `Readable` stream and a single `output` `Writable` stream.
+     * Instances of the `readline.Interface` class are constructed using the `readline.createInterface()` method. Every instance is associated with a
+     * single `input` [Readable](https://nodejs.org/docs/latest-v20.x/api/stream.html#readable-streams) stream and a single `output` [Writable](https://nodejs.org/docs/latest-v20.x/api/stream.html#writable-streams) stream.
      * The `output` stream is used to print prompts for user input that arrives on,
      * and is read from, the `input` stream.
      * @since v0.1.104
@@ -74,7 +74,7 @@ declare module 'readline' {
          * const showResults = debounce(() => {
          *   console.log(
          *     '\n',
-         *     values.filter((val) => val.startsWith(rl.line)).join(' ')
+         *     values.filter((val) => val.startsWith(rl.line)).join(' '),
          *   );
          * }, 300);
          * process.stdin.on('keypress', (c, k) => {
@@ -100,53 +100,60 @@ declare module 'readline' {
          * > Instances of the `readline.Interface` class are constructed using the
          * > `readline.createInterface()` method.
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/readline.html#readline_class_interface
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/readline.html#class-interfaceconstructor
          */
-        protected constructor(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean);
+        protected constructor(
+            input: NodeJS.ReadableStream,
+            output?: NodeJS.WritableStream,
+            completer?: Completer | AsyncCompleter,
+            terminal?: boolean,
+        );
         /**
          * NOTE: According to the documentation:
          *
          * > Instances of the `readline.Interface` class are constructed using the
          * > `readline.createInterface()` method.
          *
-         * @see https://nodejs.org/dist/latest-v10.x/docs/api/readline.html#readline_class_interface
+         * @see https://nodejs.org/dist/latest-v20.x/docs/api/readline.html#class-interfaceconstructor
          */
         protected constructor(options: ReadLineOptions);
         /**
          * The `rl.getPrompt()` method returns the current prompt used by `rl.prompt()`.
-         * @since v15.3.0
+         * @since v15.3.0, v14.17.0
          * @return the current prompt string
          */
         getPrompt(): string;
         /**
-         * The `rl.setPrompt()` method sets the prompt that will be written to `output`whenever `rl.prompt()` is called.
+         * The `rl.setPrompt()` method sets the prompt that will be written to `output` whenever `rl.prompt()` is called.
          * @since v0.1.98
          */
         setPrompt(prompt: string): void;
         /**
-         * The `rl.prompt()` method writes the `readline.Interface` instances configured`prompt` to a new line in `output` in order to provide a user with a new
+         * The `rl.prompt()` method writes the `Interface` instances configured`prompt` to a new line in `output` in order to provide a user with a new
          * location at which to provide input.
          *
          * When called, `rl.prompt()` will resume the `input` stream if it has been
          * paused.
          *
-         * If the `readline.Interface` was created with `output` set to `null` or`undefined` the prompt is not written.
+         * If the `Interface` was created with `output` set to `null` or `undefined` the prompt is not written.
          * @since v0.1.98
          * @param preserveCursor If `true`, prevents the cursor placement from being reset to `0`.
          */
         prompt(preserveCursor?: boolean): void;
         /**
          * The `rl.question()` method displays the `query` by writing it to the `output`,
-         * waits for user input to be provided on `input`, then invokes the `callback`function passing the provided input as the first argument.
+         * waits for user input to be provided on `input`, then invokes the `callback` function passing the provided input as the first argument.
          *
          * When called, `rl.question()` will resume the `input` stream if it has been
          * paused.
          *
-         * If the `readline.Interface` was created with `output` set to `null` or`undefined` the `query` is not written.
+         * If the `Interface` was created with `output` set to `null` or `undefined` the `query` is not written.
          *
          * The `callback` function passed to `rl.question()` does not follow the typical
          * pattern of accepting an `Error` object or `null` as the first argument.
          * The `callback` is called with the provided answer as the only argument.
+         *
+         * An error will be thrown if calling `rl.question()` after `rl.close()`.
          *
          * Example usage:
          *
@@ -172,25 +179,6 @@ declare module 'readline' {
          *
          * setTimeout(() => ac.abort(), 10000);
          * ```
-         *
-         * If this method is invoked as it's util.promisify()ed version, it returns a
-         * Promise that fulfills with the answer. If the question is canceled using
-         * an `AbortController` it will reject with an `AbortError`.
-         *
-         * ```js
-         * const util = require('util');
-         * const question = util.promisify(rl.question).bind(rl);
-         *
-         * async function questionExample() {
-         *   try {
-         *     const answer = await question('What is you favorite food? ');
-         *     console.log(`Oh, so your favorite food is ${answer}`);
-         *   } catch (err) {
-         *     console.error('Question rejected', err);
-         *   }
-         * }
-         * questionExample();
-         * ```
          * @since v0.3.3
          * @param query A statement or query to write to `output`, prepended to the prompt.
          * @param callback A callback function that is invoked with the user's input in response to the `query`.
@@ -201,7 +189,7 @@ declare module 'readline' {
          * The `rl.pause()` method pauses the `input` stream, allowing it to be resumed
          * later if necessary.
          *
-         * Calling `rl.pause()` does not immediately pause other events (including`'line'`) from being emitted by the `readline.Interface` instance.
+         * Calling `rl.pause()` does not immediately pause other events (including `'line'`) from being emitted by the `Interface` instance.
          * @since v0.3.4
          */
         pause(): this;
@@ -211,12 +199,12 @@ declare module 'readline' {
          */
         resume(): this;
         /**
-         * The `rl.close()` method closes the `readline.Interface` instance and
+         * The `rl.close()` method closes the `Interface` instance and
          * relinquishes control over the `input` and `output` streams. When called,
          * the `'close'` event will be emitted.
          *
          * Calling `rl.close()` does not immediately stop other events (including `'line'`)
-         * from being emitted by the `readline.Interface` instance.
+         * from being emitted by the `Interface` instance.
          * @since v0.1.98
          */
         close(): void;
@@ -231,7 +219,7 @@ declare module 'readline' {
          * When called, `rl.write()` will resume the `input` stream if it has been
          * paused.
          *
-         * If the `readline.Interface` was created with `output` set to `null` or`undefined` the `data` and `key` are not written.
+         * If the `Interface` was created with `output` set to `null` or `undefined` the `data` and `key` are not written.
          *
          * ```js
          * rl.write('Delete this!');
@@ -239,7 +227,7 @@ declare module 'readline' {
          * rl.write(null, { ctrl: true, name: 'u' });
          * ```
          *
-         * The `rl.write()` method will write the data to the `readline` `Interface`'s`input`_as if it were provided by the user_.
+         * The `rl.write()` method will write the data to the `readline` `Interface`'s `input` _as if it were provided by the user_.
          * @since v0.1.98
          */
         write(data: string | Buffer, key?: Key): void;
@@ -263,64 +251,67 @@ declare module 'readline' {
          * 8. history
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'line', listener: (input: string) => void): this;
-        addListener(event: 'pause', listener: () => void): this;
-        addListener(event: 'resume', listener: () => void): this;
-        addListener(event: 'SIGCONT', listener: () => void): this;
-        addListener(event: 'SIGINT', listener: () => void): this;
-        addListener(event: 'SIGTSTP', listener: () => void): this;
-        addListener(event: 'history', listener: (history: string[]) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "line", listener: (input: string) => void): this;
+        addListener(event: "pause", listener: () => void): this;
+        addListener(event: "resume", listener: () => void): this;
+        addListener(event: "SIGCONT", listener: () => void): this;
+        addListener(event: "SIGINT", listener: () => void): this;
+        addListener(event: "SIGTSTP", listener: () => void): this;
+        addListener(event: "history", listener: (history: string[]) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close'): boolean;
-        emit(event: 'line', input: string): boolean;
-        emit(event: 'pause'): boolean;
-        emit(event: 'resume'): boolean;
-        emit(event: 'SIGCONT'): boolean;
-        emit(event: 'SIGINT'): boolean;
-        emit(event: 'SIGTSTP'): boolean;
-        emit(event: 'history', history: string[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "line", input: string): boolean;
+        emit(event: "pause"): boolean;
+        emit(event: "resume"): boolean;
+        emit(event: "SIGCONT"): boolean;
+        emit(event: "SIGINT"): boolean;
+        emit(event: "SIGTSTP"): boolean;
+        emit(event: "history", history: string[]): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'line', listener: (input: string) => void): this;
-        on(event: 'pause', listener: () => void): this;
-        on(event: 'resume', listener: () => void): this;
-        on(event: 'SIGCONT', listener: () => void): this;
-        on(event: 'SIGINT', listener: () => void): this;
-        on(event: 'SIGTSTP', listener: () => void): this;
-        on(event: 'history', listener: (history: string[]) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "line", listener: (input: string) => void): this;
+        on(event: "pause", listener: () => void): this;
+        on(event: "resume", listener: () => void): this;
+        on(event: "SIGCONT", listener: () => void): this;
+        on(event: "SIGINT", listener: () => void): this;
+        on(event: "SIGTSTP", listener: () => void): this;
+        on(event: "history", listener: (history: string[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'line', listener: (input: string) => void): this;
-        once(event: 'pause', listener: () => void): this;
-        once(event: 'resume', listener: () => void): this;
-        once(event: 'SIGCONT', listener: () => void): this;
-        once(event: 'SIGINT', listener: () => void): this;
-        once(event: 'SIGTSTP', listener: () => void): this;
-        once(event: 'history', listener: (history: string[]) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "line", listener: (input: string) => void): this;
+        once(event: "pause", listener: () => void): this;
+        once(event: "resume", listener: () => void): this;
+        once(event: "SIGCONT", listener: () => void): this;
+        once(event: "SIGINT", listener: () => void): this;
+        once(event: "SIGTSTP", listener: () => void): this;
+        once(event: "history", listener: (history: string[]) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'line', listener: (input: string) => void): this;
-        prependListener(event: 'pause', listener: () => void): this;
-        prependListener(event: 'resume', listener: () => void): this;
-        prependListener(event: 'SIGCONT', listener: () => void): this;
-        prependListener(event: 'SIGINT', listener: () => void): this;
-        prependListener(event: 'SIGTSTP', listener: () => void): this;
-        prependListener(event: 'history', listener: (history: string[]) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "line", listener: (input: string) => void): this;
+        prependListener(event: "pause", listener: () => void): this;
+        prependListener(event: "resume", listener: () => void): this;
+        prependListener(event: "SIGCONT", listener: () => void): this;
+        prependListener(event: "SIGINT", listener: () => void): this;
+        prependListener(event: "SIGTSTP", listener: () => void): this;
+        prependListener(event: "history", listener: (history: string[]) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'line', listener: (input: string) => void): this;
-        prependOnceListener(event: 'pause', listener: () => void): this;
-        prependOnceListener(event: 'resume', listener: () => void): this;
-        prependOnceListener(event: 'SIGCONT', listener: () => void): this;
-        prependOnceListener(event: 'SIGINT', listener: () => void): this;
-        prependOnceListener(event: 'SIGTSTP', listener: () => void): this;
-        prependOnceListener(event: 'history', listener: (history: string[]) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "line", listener: (input: string) => void): this;
+        prependOnceListener(event: "pause", listener: () => void): this;
+        prependOnceListener(event: "resume", listener: () => void): this;
+        prependOnceListener(event: "SIGCONT", listener: () => void): this;
+        prependOnceListener(event: "SIGINT", listener: () => void): this;
+        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
+        prependOnceListener(event: "history", listener: (history: string[]) => void): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
     export type ReadLine = Interface; // type forwarded for backwards compatibility
     export type Completer = (line: string) => CompleterResult;
-    export type AsyncCompleter = (line: string, callback: (err?: null | Error, result?: CompleterResult) => void) => void;
+    export type AsyncCompleter = (
+        line: string,
+        callback: (err?: null | Error, result?: CompleterResult) => void,
+    ) => void;
     export type CompleterResult = [string[], string];
     export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
@@ -348,13 +339,13 @@ declare module 'readline' {
         tabSize?: number | undefined;
     }
     /**
-     * The `readline.createInterface()` method creates a new `readline.Interface`instance.
+     * The `readline.createInterface()` method creates a new `readline.Interface` instance.
      *
      * ```js
-     * const readline = require('readline');
+     * const readline = require('node:readline');
      * const rl = readline.createInterface({
      *   input: process.stdin,
-     *   output: process.stdout
+     *   output: process.stdout,
      * });
      * ```
      *
@@ -373,17 +364,16 @@ declare module 'readline' {
      * (`process.stdout` does this automatically when it is a TTY).
      *
      * When creating a `readline.Interface` using `stdin` as input, the program
-     * will not terminate until it receives `EOF` (Ctrl+D on
-     * Linux/macOS, Ctrl+Z followed by Return on
-     * Windows).
-     * If you want your application to exit without waiting for user input, you can `unref()` the standard input stream:
-     *
-     * ```js
-     * process.stdin.unref();
-     * ```
+     * will not terminate until it receives an [EOF character](https://en.wikipedia.org/wiki/End-of-file#EOF_character). To exit without
+     * waiting for user input, call `process.stdin.unref()`.
      * @since v0.1.98
      */
-    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): Interface;
+    export function createInterface(
+        input: NodeJS.ReadableStream,
+        output?: NodeJS.WritableStream,
+        completer?: Completer | AsyncCompleter,
+        terminal?: boolean,
+    ): Interface;
     export function createInterface(options: ReadLineOptions): Interface;
     /**
      * The `readline.emitKeypressEvents()` method causes the given `Readable` stream to begin emitting `'keypress'` events corresponding to received input.
@@ -393,7 +383,7 @@ declare module 'readline' {
      *
      * If the `stream` is a `TTY`, then it must be in raw mode.
      *
-     * This is automatically called by any readline instance on its `input` if the`input` is a terminal. Closing the `readline` instance does not stop
+     * This is automatically called by any readline instance on its `input` if the `input` is a terminal. Closing the `readline` instance does not stop
      * the `input` from emitting `'keypress'` events.
      *
      * ```js
@@ -408,11 +398,11 @@ declare module 'readline' {
      * implement a small command-line interface:
      *
      * ```js
-     * const readline = require('readline');
+     * const readline = require('node:readline');
      * const rl = readline.createInterface({
      *   input: process.stdin,
      *   output: process.stdout,
-     *   prompt: 'OHAI> '
+     *   prompt: 'OHAI> ',
      * });
      *
      * rl.prompt();
@@ -440,15 +430,15 @@ declare module 'readline' {
      * well as a `for await...of` loop:
      *
      * ```js
-     * const fs = require('fs');
-     * const readline = require('readline');
+     * const fs = require('node:fs');
+     * const readline = require('node:readline');
      *
      * async function processLineByLine() {
      *   const fileStream = fs.createReadStream('input.txt');
      *
      *   const rl = readline.createInterface({
      *     input: fileStream,
-     *     crlfDelay: Infinity
+     *     crlfDelay: Infinity,
      *   });
      *   // Note: we use the crlfDelay option to recognize all instances of CR LF
      *   // ('\r\n') in input.txt as a single line break.
@@ -465,12 +455,12 @@ declare module 'readline' {
      * Alternatively, one could use the `'line'` event:
      *
      * ```js
-     * const fs = require('fs');
-     * const readline = require('readline');
+     * const fs = require('node:fs');
+     * const readline = require('node:readline');
      *
      * const rl = readline.createInterface({
      *   input: fs.createReadStream('sample.txt'),
-     *   crlfDelay: Infinity
+     *   crlfDelay: Infinity,
      * });
      *
      * rl.on('line', (line) => {
@@ -478,18 +468,18 @@ declare module 'readline' {
      * });
      * ```
      *
-     * Currently, `for await...of` loop can be a bit slower. If `async` / `await`flow and speed are both essential, a mixed approach can be applied:
+     * Currently, `for await...of` loop can be a bit slower. If `async` / `await` flow and speed are both essential, a mixed approach can be applied:
      *
      * ```js
-     * const { once } = require('events');
-     * const { createReadStream } = require('fs');
-     * const { createInterface } = require('readline');
+     * const { once } = require('node:events');
+     * const { createReadStream } = require('node:fs');
+     * const { createInterface } = require('node:readline');
      *
      * (async function processLineByLine() {
      *   try {
      *     const rl = createInterface({
      *       input: createReadStream('big-file.txt'),
-     *       crlfDelay: Infinity
+     *       crlfDelay: Infinity,
      *     });
      *
      *     rl.on('line', (line) => {
@@ -513,7 +503,7 @@ declare module 'readline' {
         cols: number;
     }
     /**
-     * The `readline.clearLine()` method clears current line of given `TTY` stream
+     * The `readline.clearLine()` method clears current line of given [TTY](https://nodejs.org/docs/latest-v20.x/api/tty.html) stream
      * in a specified direction identified by `dir`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
@@ -521,7 +511,7 @@ declare module 'readline' {
      */
     export function clearLine(stream: NodeJS.WritableStream, dir: Direction, callback?: () => void): boolean;
     /**
-     * The `readline.clearScreenDown()` method clears the given `TTY` stream from
+     * The `readline.clearScreenDown()` method clears the given [TTY](https://nodejs.org/docs/latest-v20.x/api/tty.html) stream from
      * the current position of the cursor down.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
@@ -530,7 +520,7 @@ declare module 'readline' {
     export function clearScreenDown(stream: NodeJS.WritableStream, callback?: () => void): boolean;
     /**
      * The `readline.cursorTo()` method moves cursor to the specified position in a
-     * given `TTY` `stream`.
+     * given [TTY](https://nodejs.org/docs/latest-v20.x/api/tty.html) `stream`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
@@ -538,116 +528,13 @@ declare module 'readline' {
     export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
     /**
      * The `readline.moveCursor()` method moves the cursor _relative_ to its current
-     * position in a given `TTY` `stream`.
-     *
-     * ## Example: Tiny CLI
-     *
-     * The following example illustrates the use of `readline.Interface` class to
-     * implement a small command-line interface:
-     *
-     * ```js
-     * const readline = require('readline');
-     * const rl = readline.createInterface({
-     *   input: process.stdin,
-     *   output: process.stdout,
-     *   prompt: 'OHAI> '
-     * });
-     *
-     * rl.prompt();
-     *
-     * rl.on('line', (line) => {
-     *   switch (line.trim()) {
-     *     case 'hello':
-     *       console.log('world!');
-     *       break;
-     *     default:
-     *       console.log(`Say what? I might have heard '${line.trim()}'`);
-     *       break;
-     *   }
-     *   rl.prompt();
-     * }).on('close', () => {
-     *   console.log('Have a great day!');
-     *   process.exit(0);
-     * });
-     * ```
-     *
-     * ## Example: Read file stream line-by-Line
-     *
-     * A common use case for `readline` is to consume an input file one line at a
-     * time. The easiest way to do so is leveraging the `fs.ReadStream` API as
-     * well as a `for await...of` loop:
-     *
-     * ```js
-     * const fs = require('fs');
-     * const readline = require('readline');
-     *
-     * async function processLineByLine() {
-     *   const fileStream = fs.createReadStream('input.txt');
-     *
-     *   const rl = readline.createInterface({
-     *     input: fileStream,
-     *     crlfDelay: Infinity
-     *   });
-     *   // Note: we use the crlfDelay option to recognize all instances of CR LF
-     *   // ('\r\n') in input.txt as a single line break.
-     *
-     *   for await (const line of rl) {
-     *     // Each line in input.txt will be successively available here as `line`.
-     *     console.log(`Line from file: ${line}`);
-     *   }
-     * }
-     *
-     * processLineByLine();
-     * ```
-     *
-     * Alternatively, one could use the `'line'` event:
-     *
-     * ```js
-     * const fs = require('fs');
-     * const readline = require('readline');
-     *
-     * const rl = readline.createInterface({
-     *   input: fs.createReadStream('sample.txt'),
-     *   crlfDelay: Infinity
-     * });
-     *
-     * rl.on('line', (line) => {
-     *   console.log(`Line from file: ${line}`);
-     * });
-     * ```
-     *
-     * Currently, `for await...of` loop can be a bit slower. If `async` / `await`flow and speed are both essential, a mixed approach can be applied:
-     *
-     * ```js
-     * const { once } = require('events');
-     * const { createReadStream } = require('fs');
-     * const { createInterface } = require('readline');
-     *
-     * (async function processLineByLine() {
-     *   try {
-     *     const rl = createInterface({
-     *       input: createReadStream('big-file.txt'),
-     *       crlfDelay: Infinity
-     *     });
-     *
-     *     rl.on('line', (line) => {
-     *       // Process the line.
-     *     });
-     *
-     *     await once(rl, 'close');
-     *
-     *     console.log('File processed.');
-     *   } catch (err) {
-     *     console.error(err);
-     *   }
-     * })();
-     * ```
+     * position in a given [TTY](https://nodejs.org/docs/latest-v20.x/api/tty.html) `stream`.
      * @since v0.7.7
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
     export function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
 }
-declare module 'node:readline' {
-    export * from 'readline';
+declare module "node:readline" {
+    export * from "readline";
 }

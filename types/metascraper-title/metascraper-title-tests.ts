@@ -1,8 +1,8 @@
-import metascraper = require('metascraper');
-import metascraperTitle = require('metascraper-title');
+import metascraper from "metascraper";
+import metascraperTitle = require("metascraper-title");
 
-const html = 'example';
-const url = 'https://example.org';
+const html = "example";
+const url = "https://example.org";
 
 metascraper([metascraperTitle()])({ html, url }).then(data => {
     data;

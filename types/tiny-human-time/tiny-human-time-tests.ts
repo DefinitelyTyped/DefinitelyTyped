@@ -1,4 +1,4 @@
-import humanize = require('tiny-human-time');
+import humanize = require("tiny-human-time");
 
 // Test Dates
 {
@@ -7,10 +7,10 @@ import humanize = require('tiny-human-time');
 
     humanize(now);
     humanize(now, later);
-    humanize(now, later, 'long');
-    humanize(now, later, 'short');
+    humanize(now, later, "long");
+    humanize(now, later, "short");
     // @ts-expect-error
-    humanize(now, later, 'garbage');
+    humanize(now, later, "garbage");
 }
 
 // Test numbers
@@ -20,10 +20,10 @@ import humanize = require('tiny-human-time');
 
     humanize(now);
     humanize(now, later);
-    humanize(now, later, 'long');
-    humanize(now, later, 'short');
+    humanize(now, later, "long");
+    humanize(now, later, "short");
     // @ts-expect-error
-    humanize(now, later, 'garbage');
+    humanize(now, later, "garbage");
 }
 
 // Test tuples
@@ -33,10 +33,10 @@ import humanize = require('tiny-human-time');
 
     humanize(start);
     humanize(start, elapsed);
-    humanize(start, elapsed, 'long');
-    humanize(start, elapsed, 'short');
+    humanize(start, elapsed, "long");
+    humanize(start, elapsed, "short");
     // @ts-expect-error
-    humanize(start, elapsed, 'garbage');
+    humanize(start, elapsed, "garbage");
 }
 
 // Test short function

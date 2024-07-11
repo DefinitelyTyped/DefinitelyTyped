@@ -2,7 +2,7 @@
  * The `node:test` module provides a standalone testing module.
  * @see [source](https://github.com/nodejs/node/blob/v16.17.0/lib/test.js)
  */
-declare module 'node:test' {
+declare module "node:test" {
     /**
      * The `test()` function is the value imported from the test module. Each invocation of this
      * function results in the creation of a test point in the TAP output.
@@ -186,5 +186,5 @@ declare module 'node:test' {
         todo?: boolean | string;
     }
 
-    export { test as default, test, describe, it };
+    export { describe, it, test, test as default, TestContext };
 }

@@ -24,7 +24,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): HiddenInputWidget;
+            new(config?: ConfigOptions): HiddenInputWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

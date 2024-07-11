@@ -1,5 +1,5 @@
-import { ScrollSpy } from 'bootstrap';
-import * as $ from 'jquery';
+import { ScrollSpy } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
@@ -7,7 +7,7 @@ const element = new Element();
 new ScrollSpy(element, {
     offset: 10,
     threshold: [10],
-    rootMargin: '0px 0px -25%',
+    rootMargin: "0px 0px -25%",
     smoothScroll: false,
 });
 
@@ -27,9 +27,9 @@ element.addEventListener(ScrollSpy.Events.activate, event => {
 });
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').scrollspy();
+$(".alert").scrollspy();
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').scrollspy({ offset: 10 });
+$(".alert").scrollspy({ offset: 10 });
 
-$('.alert').scrollspy('refresh'); // $ExpectType JQuery<HTMLElement>
+$(".alert").scrollspy("refresh"); // $ExpectType JQuery<HTMLElement>

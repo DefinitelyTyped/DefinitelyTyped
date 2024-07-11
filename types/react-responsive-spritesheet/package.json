@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/react-responsive-spritesheet",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/danilosetra/react-responsive-spritesheet"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "csstype": "^3.0.10"
-    }
+    },
+    "devDependencies": {
+        "@types/react-responsive-spritesheet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Liu",
+            "githubUsername": "triangularcube"
+        }
+    ]
 }

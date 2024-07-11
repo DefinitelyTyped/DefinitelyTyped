@@ -15,7 +15,7 @@ function SetGoogleAnalyticsAccounts(AnalyticsProvider: angular.google.analytics.
     AnalyticsProvider.setAccount("UA-XXXXX-xx");
     AnalyticsProvider.setAccount([
         { tracker: "UA-12345-12", name: "tracker1" },
-        { tracker: "UA-12345-34", name: "tracker2" }
+        { tracker: "UA-12345-34", name: "tracker2" },
     ]);
 }
 
@@ -40,7 +40,7 @@ function SetCookieConfiguration(AnalyticsProvider: angular.google.analytics.Anal
     AnalyticsProvider.setCookieConfig({
         cookieDomain: "foo.example.com",
         cookieName: "myNewName",
-        cookieExpires: 20000
+        cookieExpires: 20000,
     });
 }
 
@@ -58,35 +58,38 @@ function RetrieveCurrentURL(Analytics: angular.google.analytics.AnalyticsService
 }
 
 function ManualScriptTagInjection(Analytics: angular.google.analytics.AnalyticsService) {
-  Analytics.registerScriptTags();
-  Analytics.registerTrackers();
+    Analytics.registerScriptTags();
+    Analytics.registerTrackers();
 }
 
 function SetCustomDimensions(Analytics: angular.google.analytics.AnalyticsService) {
-  Analytics.set('&uid', 1234);
-  Analytics.set('dimension1', 'Paid');
-  Analytics.set('dimension2', 'Paid', 'accountName');
+    Analytics.set("&uid", 1234);
+    Analytics.set("dimension1", "Paid");
+    Analytics.set("dimension2", "Paid", "accountName");
 }
 
 function PageTracking(Analytics: angular.google.analytics.AnalyticsService) {
-  Analytics.trackPage('/video/detail/XXX');
-  Analytics.trackPage('/video/detail/XXX', 'Video XXX');
-  Analytics.trackPage('/video/detail/XXX', 'Video XXX', { dimension15: 'My Custom Dimension', metric18: 8000 });
+    Analytics.trackPage("/video/detail/XXX");
+    Analytics.trackPage("/video/detail/XXX", "Video XXX");
+    Analytics.trackPage("/video/detail/XXX", "Video XXX", { dimension15: "My Custom Dimension", metric18: 8000 });
 }
 
 function EventTracking(Analytics: angular.google.analytics.AnalyticsService) {
-   Analytics.trackEvent('video', 'play', 'django.mp4');
-   Analytics.trackEvent('video', 'play', 'django.mp4', 4);
-   Analytics.trackEvent('video', 'play', 'django.mp4', 4, true);
-   Analytics.trackEvent('video', 'play', 'django.mp4', 4, true, { dimension15: 'My Custom Dimension', metric18: 8000 });
+    Analytics.trackEvent("video", "play", "django.mp4");
+    Analytics.trackEvent("video", "play", "django.mp4", 4);
+    Analytics.trackEvent("video", "play", "django.mp4", 4, true);
+    Analytics.trackEvent("video", "play", "django.mp4", 4, true, {
+        dimension15: "My Custom Dimension",
+        metric18: 8000,
+    });
 }
 
 function ExceptionTracking(Analytics: angular.google.analytics.AnalyticsService) {
-  Analytics.trackException('Function "foo" is undefined on object "bar"', true);
+    Analytics.trackException("Function \"foo\" is undefined on object \"bar\"", true);
 }
 
 function OfflineMode(Analytics: angular.google.analytics.AnalyticsService) {
-  Analytics.offline(true);
-  Analytics.offline(false);
-  Analytics.offlineQueue;
+    Analytics.offline(true);
+    Analytics.offline(false);
+    Analytics.offlineQueue;
 }

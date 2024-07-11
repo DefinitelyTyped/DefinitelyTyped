@@ -1,3 +1,3 @@
-import JSONify from '../src/JSONify';
+import JSONify from "../src/JSONify";
 
 export = JSONify;

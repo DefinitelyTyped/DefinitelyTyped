@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/graphqurl",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hasura/graphqurl"
+    ],
+    "devDependencies": {
+        "@types/graphqurl": "workspace:."
+    },
+    "owners": []
+}

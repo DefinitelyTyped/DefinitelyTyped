@@ -8,19 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "kdbush": [
-                "kdbush/v1"
-            ],
-            "kdbush/*": [
-                "kdbush/v1/*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

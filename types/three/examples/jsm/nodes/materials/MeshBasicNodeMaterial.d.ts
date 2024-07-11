@@ -1,19 +1,32 @@
-import NodeMaterial from './NodeMaterial';
-import Node from '../core/Node';
-import { ShaderMaterialParameters } from '../../../../src/Three';
+import { Color, Combine, Euler, MeshBasicMaterialParameters, Texture } from "three";
+import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
+
+export interface MeshBasicNodeMaterialParameters extends NodeMaterialParameters, MeshBasicMaterialParameters {
+}
 
 export default class MeshBasicNodeMaterial extends NodeMaterial {
-    isMeshBasicNodeMaterial: true;
-    lights: true;
+    readonly isMeshBasicNodeMaterial: true;
 
-    colorNode: Node | null;
-    opacityNode: Node | null;
+    // Properties from MeshBasicMaterial
+    readonly isMeshBasicMaterial: true;
+    color: Color;
+    map: Texture | null;
+    lightMap: Texture | null;
+    lightMapIntensity: number;
+    aoMap: Texture | null;
+    aoMapIntensity: number;
+    specularMap: Texture | null;
+    alphaMap: Texture | null;
+    envMap: Texture | null;
+    envMapRotation: Euler;
+    combine: Combine;
+    reflectivity: number;
+    refractionRatio: number;
+    wireframe: boolean;
+    wireframeLinewidth: number;
+    wireframeLinecap: string;
+    wireframeLinejoin: string;
+    fog: boolean;
 
-    alphaTestNode: Node | null;
-    lightNode: Node | null;
-
-    positionNode: Node | null;
-
-    constructor(paramters?: ShaderMaterialParameters);
-    copy(source: MeshBasicNodeMaterial): this;
+    constructor(parameters?: MeshBasicNodeMaterialParameters);
 }

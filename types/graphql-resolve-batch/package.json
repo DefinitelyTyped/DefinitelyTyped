@@ -1,6 +1,20 @@
 {
-  "private": true,
-  "dependencies": {
-    "graphql": ">=14"
-  }
+    "private": true,
+    "name": "@types/graphql-resolve-batch",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/calebmer/graphql-resolve-batch#readme"
+    ],
+    "dependencies": {
+        "graphql": ">=14"
+    },
+    "devDependencies": {
+        "@types/graphql-resolve-batch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rutger Hendrickx",
+            "githubUsername": "nayni"
+        }
+    ]
 }

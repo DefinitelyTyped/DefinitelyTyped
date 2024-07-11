@@ -1,6 +1,6 @@
 import ILanguageRequest from "./ILanguageRequest";
 
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export default interface IGetListRequest {
     listName: string;
     selectFields: string;

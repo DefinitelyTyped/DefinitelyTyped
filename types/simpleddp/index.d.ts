@@ -1,19 +1,14 @@
-// Type definitions for simpleddp 2.2
-// Project: https://gregivy.github.io/simpleddp/
-// Definitions by: SPWizard01 <https://github.com/SPWizard01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { ddpEvent } from './ddpEvent';
-import { ddpEventListener } from './classes/ddpEventListener';
-import { ddpSubscription } from './classes/ddpSubscription';
-import { ddpCollection } from './classes/ddpCollection';
+import { ddpCollection } from "./classes/ddpCollection";
+import { ddpEventListener } from "./classes/ddpEventListener";
+import { ddpSubscription } from "./classes/ddpSubscription";
+import { ddpEvent } from "./ddpEvent";
 
 export {};
 
 type OptionalSpread<ST> = ST extends undefined ? [] : [ST];
 
 interface SocketProvider {
-    new (url: string): SocketProviderInstance;
+    new(url: string): SocketProviderInstance;
 }
 
 interface SocketProviderInstance {
@@ -94,7 +89,7 @@ export default class simpleDDP {
     /**
      * Exports the data
      */
-    exportData(format?: 'string' | 'raw'): object | string;
+    exportData(format?: "string" | "raw"): object | string;
     /**
      * Exports the data
      */

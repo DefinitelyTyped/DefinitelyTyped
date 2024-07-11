@@ -1,6 +1,6 @@
-import { ReactChild, ReactElement } from 'react';
+import { JSX, ReactElement } from "react";
 
-import children from './children';
+import children from "./children";
 
 /**
  * Object of utility functions used in managing block attribute values of
@@ -33,7 +33,7 @@ declare namespace node {
      *
      * @deprecated since 11.17.0. Use the html source instead.
      */
-    function isNodeOfType(node: JSX.Element, type: ReactElement['type']): boolean;
+    function isNodeOfType(node: JSX.Element, type: ReactElement["type"]): boolean;
 
     /**
      * Given a selector, returns an hpq matcher generating a WPBlockNode value
@@ -50,7 +50,7 @@ declare namespace node {
      *
      * @deprecated since 11.17.0. Use the html source instead.
      */
-    function toHTML(node: ReactChild): string;
+    function toHTML(node: ReactElement | number | string): string;
 }
 
 export default node;

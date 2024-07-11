@@ -1,10 +1,4 @@
-// Type definitions for CrossFilter
-// Project: https://github.com/square/crossfilter
-// Definitions by: Schmulik Raskin <https://github.com/schmuli>, Izaak Baker <https://github.com/iebaker>, Einar Norðfjörð <https://github.com/nordfjord>, Tijmen Wildervanck <https://github.com/TijmenW>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace CrossFilter {
-
     export interface Selector<T> {
         (value: T): any;
     }
@@ -15,34 +9,34 @@ declare namespace CrossFilter {
         permute<T>(array: T[], index: number[]): T[];
         bisect: {
             <T>(array: T[], value: T, lo: number, hi: number): number;
-            by<T,U>(accessor: (x: T)=> U): Bisector<T,U>;
-        }
+            by<T, U>(accessor: (x: T) => U): Bisector<T, U>;
+        };
         heap: {
             <T>(array: T[], lo: number, hi: number): T[];
 
             by<T>(value: Selector<T>): Heap<T>;
-        }
+        };
         heapselect: {
             <T>(array: T[], lo: number, hi: number, k: number): T[];
             by<T>(value: Selector<T>): HeapSelect<T>;
-        }
+        };
         insertionsort: {
             <T>(array: T[], lo: number, hi: number): T[];
             by<T>(value: Selector<T>): Sort<T>;
-        }
+        };
         quicksort: {
             <T>(array: T[], lo: number, hi: number): T[];
             by<T>(value: Selector<T>): Sort<T>;
-        }
+        };
     }
 
-    export interface Bisection<T,U> {
+    export interface Bisection<T, U> {
         (array: T[], value: U, lo: number, hi: number): number;
     }
 
-    export interface Bisector<T,U> extends Bisection<T,U> {
-        left: Bisection<T,U>
-        right: Bisection<T,U>
+    export interface Bisector<T, U> extends Bisection<T, U> {
+        left: Bisection<T, U>;
+        right: Bisection<T, U>;
     }
 
     export interface Heap<T> {
@@ -59,7 +53,11 @@ declare namespace CrossFilter {
     }
 
     export interface GroupAll<T, TValue> {
-        reduce<TValue>(add: (p: TValue, v: T) => TValue, remove: (p: TValue, v: T) => TValue, initial: () => TValue): GroupAll<T, TValue>;
+        reduce<TValue>(
+            add: (p: TValue, v: T) => TValue,
+            remove: (p: TValue, v: T) => TValue,
+            initial: () => TValue,
+        ): GroupAll<T, TValue>;
         reduceCount(): GroupAll<T, TValue>;
         reduceSum(value: Selector<T>): GroupAll<T, TValue>;
         dispose(): GroupAll<T, TValue>;
@@ -72,9 +70,13 @@ declare namespace CrossFilter {
     }
 
     export interface Group<T, TKey, TValue> {
-        top(k: number): Grouping<TKey, TValue>[];
+        top(k: number): Array<Grouping<TKey, TValue>>;
         all(): ReadonlyArray<Grouping<TKey, TValue>>;
-        reduce<TGroup>(add: (p: TGroup, v: T) => TGroup, remove: (p: TGroup, v: T) => TGroup, initial: () => TGroup): Group<T, TKey, TGroup>;
+        reduce<TGroup>(
+            add: (p: TGroup, v: T) => TGroup,
+            remove: (p: TGroup, v: T) => TGroup,
+            initial: () => TGroup,
+        ): Group<T, TKey, TGroup>;
         reduceCount(): Group<T, TKey, number>;
         reduceSum<TGroup>(value: (data: T) => TGroup): Group<T, TKey, TGroup>;
         order(value?: Selector<TValue>): Group<T, TKey, TValue>;
@@ -112,6 +114,5 @@ declare namespace CrossFilter {
 
 declare module "crossfilter" {
     var crossfilter: CrossFilter.CrossFilterStatic;
-    export = crossfilter;        
+    export = crossfilter;
 }
-

@@ -1,4 +1,4 @@
-import { Notification } from './Notification';
+import { Notification } from "./Notification";
 
 export class OverlayNotification extends Notification {
     loading: boolean;

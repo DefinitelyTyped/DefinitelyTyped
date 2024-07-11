@@ -137,7 +137,7 @@ interface VideoEncoderConfig {
     alpha?: AlphaOption | undefined;
     avc?: AvcEncoderConfig | undefined;
     bitrate?: number | undefined;
-    bitrateMode?: BitrateMode | undefined;
+    bitrateMode?: VideoEncoderBitrateMode | undefined;
     codec: string;
     displayHeight?: number | undefined;
     displayWidth?: number | undefined;
@@ -400,7 +400,7 @@ interface WebCodecsErrorCallback {
     (error: DOMException): void;
 }
 
-type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
+// type AllowSharedBufferSource = ArrayBuffer | ArrayBufferView;
 // type BitrateMode = "constant" | "variable";
 type ImageBufferSource = ArrayBuffer | ArrayBufferView | ReadableStream;
 // type AlphaOption = "discard" | "keep";

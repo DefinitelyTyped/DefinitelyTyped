@@ -13,17 +13,17 @@ declare module "hapi" {
 }
 
 const server = new Server(options);
-server.app.key = 'value2';
+server.app.key = "value2";
 
 const serverRoute: ServerRoute = {
-    path: '/',
-    method: 'GET',
+    path: "/",
+    method: "GET",
     handler(request, h) {
-        return 'key: ' + request.server.app.key;
-    }
+        return "key: " + request.server.app.key;
+    },
 };
 
 server.route(serverRoute);
 
 server.start();
-console.log('Server started at: ' + server.info.uri);
+console.log("Server started at: " + server.info.uri);

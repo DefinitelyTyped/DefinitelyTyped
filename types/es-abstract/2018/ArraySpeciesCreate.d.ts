@@ -1,2 +1,2 @@
-import ArraySpeciesCreate = require('../2017/ArraySpeciesCreate');
+import ArraySpeciesCreate = require("../2017/ArraySpeciesCreate");
 export = ArraySpeciesCreate;

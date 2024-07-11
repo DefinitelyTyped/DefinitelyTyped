@@ -1,9 +1,4 @@
-// Type definitions for ndarray-ops 1.2
-// Project: https://github.com/mikolalysenko/ndarray-ops
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Data, NdArray } from 'ndarray';
+import { Data, NdArray } from "ndarray";
 
 ////////////////
 /// Assignment operations

@@ -1,6 +1,6 @@
-import { Price } from './price';
-import { Currency } from './currency';
-import { LineItem } from './line-item';
+import { Currency } from "./currency";
+import { LineItem } from "./line-item";
+import { Price } from "./price";
 
 export interface Cart {
     id: string;

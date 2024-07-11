@@ -1,5 +1,5 @@
-import { ParameterDataType, ParameterAllowableValuesType, PeriodType } from './enums';
-import { DataValue } from './filtering';
+import { ParameterAllowableValuesType, ParameterDataType, PeriodType } from "./enums";
+import { DataValue } from "./filtering";
 
 export class Parameter {
     getName(): string;

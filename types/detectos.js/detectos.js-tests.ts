@@ -1,4 +1,4 @@
-import DetectOS from 'detectos.js';
+import DetectOS from "detectos.js";
 
 const Detect: DetectOS = new DetectOS();
 const os: string | null = Detect.OS;

@@ -1,9 +1,9 @@
-import * as QueryAnalyzer from '@nginstack/dev-tools/lib/database/QueryAnalyzer';
+import * as QueryAnalyzer from "@nginstack/dev-tools/lib/database/QueryAnalyzer";
 
-QueryAnalyzer.getTxtExecutionPlan('query', { disableHeader: true }); // $ExpectType string
-QueryAnalyzer.getHtmlExecutionPlan('query', { disableHeader: true }); // $ExpectType string
+QueryAnalyzer.getTxtExecutionPlan("query", { disableHeader: true }); // $ExpectType string
+QueryAnalyzer.getHtmlExecutionPlan("query", { disableHeader: true }); // $ExpectType string
 
-function testMajorVersions(prior: number, current: number): boolean {
-    return current > prior;
+function getVersion(): string {
+    return "71.0.205";
 }
-testMajorVersions(69, 70); // $ExpectType boolean
+getVersion(); // $ExpectType string

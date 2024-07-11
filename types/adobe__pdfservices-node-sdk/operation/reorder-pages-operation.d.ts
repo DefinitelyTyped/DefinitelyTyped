@@ -23,11 +23,9 @@
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class ReorderPagesOperation {
     /**
-     *
      * Constructs a {@link ReorderPagesOperation} instance.
      */
     static createNew(): ReorderPagesOperation;
@@ -54,4 +52,4 @@ export class ReorderPagesOperation {
     getIncludeRanges(): any[][];
     getSourceFileRefs(): any[];
 }
-import { ExecutionContext, FileRef, PageRanges, PdfFormat } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PageRanges, PdfFormat } from "../pdfservices-sdk";

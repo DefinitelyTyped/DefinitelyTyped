@@ -1,4 +1,4 @@
-import * as webdriver from './index';
+import * as webdriver from "./index";
 
 export class Server {}
 
@@ -25,9 +25,7 @@ export function cleanSession(desiredCapabilities: webdriver.Capabilities): any[]
 /** @return {string} . */
 export function getRandomString(): string;
 
-/**
- * @implements {command.Executor}
- */
+/** */
 export class CommandExecutor {}
 
 /**
@@ -74,7 +72,6 @@ export class Options {
  *     var driver = new Builder()
  *         .forBrowser('safari')
  *         .build();
- *
  */
 export class Driver extends webdriver.WebDriver {
     /**

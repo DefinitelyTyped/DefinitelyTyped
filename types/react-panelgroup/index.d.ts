@@ -1,9 +1,3 @@
-// Type definitions for react-panelgroup 1.0
-// Project: https://github.com/DanFessler/react-panelgroup, http://www.danfessler.com
-// Definitions by: Quentin Golsteyn <https://github.com/qgolsteyn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import * as React from "react";
 
 /**
@@ -23,7 +17,9 @@ export interface PropTypes {
     panelColor?: string | undefined;
     direction?: "row" | "column" | undefined;
     panelWidths?: Array<PanelWidth | null> | undefined;
-    onUpdate?: ((data: PanelWidth) => void) | undefined;
+    onUpdate?: ((data: PanelWidth[]) => void) | undefined;
+    onResizeStart?: ((data: PanelWidth[]) => void) | undefined;
+    onResizeEnd?: ((data: PanelWidth[]) => void) | undefined;
 }
 
 /**

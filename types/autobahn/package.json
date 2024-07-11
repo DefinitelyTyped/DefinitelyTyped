@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/autobahn",
+    "version": "20.9.9999",
+    "projects": [
+        "https://crossbar.io/autobahn/",
+        "https://github.com/crossbario/autobahn-js"
+    ],
+    "dependencies": {
+        "@types/when": "*"
+    },
+    "devDependencies": {
+        "@types/autobahn": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elad Zelingher",
+            "githubUsername": "darkl"
+        },
+        {
+            "name": "Andy Hawkins",
+            "githubUsername": "a904guy"
+        },
+        {
+            "name": "Wladimir Totino",
+            "githubUsername": "valepu"
+        },
+        {
+            "name": "Mathias Teier",
+            "githubUsername": "glenroy37"
+        },
+        {
+            "name": "Fran Rodriguez",
+            "githubUsername": "spcfran"
+        }
+    ]
+}

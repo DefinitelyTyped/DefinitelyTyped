@@ -1,5 +1,5 @@
-import {Credentials} from '../credentials';
-import {Logger} from '../config-base';
+import { Logger } from "../config-base";
+import { Credentials } from "../credentials";
 
 export class EC2MetadataCredentials extends Credentials {
     /**
@@ -20,12 +20,12 @@ interface EC2MetadataCredentialsOptions {
         /**
          * Timeout in milliseconds.
          */
-        timeout?: number
+        timeout?: number;
         /**
-        * Connection timeout in milliseconds.
-        */
-        connectTimeout?: number
-    }
-    maxRetries?: number
-    logger?: Logger
+         * Connection timeout in milliseconds.
+         */
+        connectTimeout?: number;
+    };
+    maxRetries?: number;
+    logger?: Logger;
 }

@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { MenuAlignments } from '../enums';
-import { FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { MenuAlignments } from "../enums";
+import { FlexboxPropTypes } from "../utils";
 /**
  * Menu component.
  * http://foundation.zurb.com/sites/docs/menu.html
@@ -36,4 +36,4 @@ export interface MenuItemProps extends FlexboxPropTypes, React.HTMLAttributes<HT
  * @param {Object} props
  * @returns {XML}
  */
-export declare const MenuText: (props: MenuItemProps) => JSX.Element;
+export declare const MenuText: (props: MenuItemProps) => React.JSX.Element;

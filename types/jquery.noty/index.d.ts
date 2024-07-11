@@ -1,9 +1,3 @@
-// Type definitions for jQuery.noty v2.4
-// Project: http://needim.github.io/noty/
-// Definitions by: Aaron King <https://github.com/kingdango>, Tim Helfensdörfer <https://github.com/thelfensdrfer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Project by: Nedim Carter <http://needim.github.io>
 
 /// <reference types="jquery"/>
@@ -29,7 +23,7 @@ interface NotyOptions {
 
     animation?: NotyAnimationOptions | undefined;
     /** backdrop click will close all notifications */
-    closeWith?: ('click' | 'button' | 'hover' | 'backdrop')[] | undefined;
+    closeWith?: Array<"click" | "button" | "hover" | "backdrop"> | undefined;
 
     /** if true adds an overlay */
     modal?: boolean | undefined;

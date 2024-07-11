@@ -1,11 +1,29 @@
-import * as defaultGateway from 'default-gateway';
+import { gateway4async, gateway4sync, gateway6async, gateway6sync, type Result } from "default-gateway";
 
-defaultGateway.v4().then(result => {
-    result; // $ExpectType Gateway
-});
-defaultGateway.v6().then(result => {
-    result; // $ExpectType Gateway
+gateway4async().then((g) => {
+    // $ExpectType Result<4>
+    g;
+    // $ExpectType string
+    g.gateway;
+    // $ExpectType 4
+    g.version;
+    // $ExpectType string | null
+    g.int;
 });
 
-defaultGateway.v4.sync(); // $ExpectType Gateway
-defaultGateway.v6.sync(); // $ExpectType Gateway
+// $ExpectType Result<4>
+gateway4sync();
+
+gateway6async().then((g) => {
+    // $ExpectType Result<6>
+    g;
+    // $ExpectType string
+    g.gateway;
+    // $ExpectType 6
+    g.version;
+    // $ExpectType string | null
+    g.int;
+});
+
+// $ExpectType Result<6>
+gateway6sync();

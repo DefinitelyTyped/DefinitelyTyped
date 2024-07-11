@@ -4,7 +4,7 @@ function browserifyTest(opts: depsSort.Options) {
     const depsOpts: depsSort.Options = {
         index: opts != null && opts.index,
         dedupe: opts != null && opts.dedupe,
-        expose: opts.expose || { id: "file.txt" }
+        expose: opts.expose || { id: "file.txt" },
     };
 
     const res = depsSort(); // 'opts' are optional
@@ -16,7 +16,7 @@ function browserifyTest(opts: depsSort.Options) {
 
     const inst: NodeJS.ReadWriteStream = depsSort({
         index: true,
-        expose: { id: "file.txt" }
+        expose: { id: "file.txt" },
     });
 
     inst.on("file", (file, id) => {

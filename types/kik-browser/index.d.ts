@@ -1,8 +1,3 @@
-// Type definitions for Kik Cards v2.3.6
-// Project: https://dev.kik.com
-// Definitions by: Joel Day <https://github.com/joelday>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Kik {
     enabled: boolean;
     message: KikMessage;
@@ -54,7 +49,9 @@ interface Kik {
 
     browser: {
         background: boolean;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         back(callback: () => boolean | void): void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         unbindBack(callback: () => boolean | void): void;
         on(property: string, callback: () => void): void;
         off(property: string, callback: () => void): void;
@@ -106,7 +103,7 @@ interface KikMessage {
 interface KikPickUsersOptions {
     minResults?: number | undefined;
     maxResults?: number | undefined;
-    preselected?: { username: string }[] | undefined;
+    preselected?: Array<{ username: string }> | undefined;
     filtered?: string[] | undefined;
     filterSelf?: boolean | undefined;
 }

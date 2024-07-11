@@ -1,11 +1,3 @@
-// Type definitions for node-persist 3.1
-// Project: https://github.com/simonlast/node-persist
-// Definitions by: Spencer Williams <https://github.com/spencerwi>,
-//                 Samuel Elliott <https://github.com/samuelthomas2774>,
-//                 Jack Hedaya <https://github.com/jackHedaya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 declare namespace NodePersist {
@@ -13,14 +5,68 @@ declare namespace NodePersist {
     type FilterFunction<T> = (value: T, index: number, array: T[]) => boolean;
 
     interface InitOptions {
+        /**
+         * @default '.' + pkg.name + '/storage'
+         */
         dir?: string | undefined;
-        stringify?: ((data: any) => string) | undefined;
-        parse?: ((str: string) => any) | undefined;
+
+        /**
+         * @default JSON.stringify
+         */
+        stringify?: (data: any) => string | undefined;
+
+        /**
+         * @default JSON.parse
+         */
+        parse?: (str: string) => any;
+
+        /**
+         * @default utf8
+         */
         encoding?: BufferEncoding | undefined;
-        logging?: ((...args: any[]) => void) | boolean | undefined;
+
+        /**
+         * Whether or not to enable logging. Can also be custom logging function
+         * @default false
+         */
+        logging?: boolean | ((...args: any[]) => void) | undefined;
+
+        /**
+         * Interval in which the process will clean-up the expired cache (in milliseconds)
+         * @default 2 * 60 * 1000 // (2 minutes)
+         */
         expiredInterval?: Milliseconds | undefined;
+
+        /**
+         * In some cases, you (or some other service) might add non-valid storage files to your
+         * storage dir, i.e. Google Drive, make this true if you'd like to ignore these files and not throw an error
+         * @default false
+         */
         forgiveParseErrors?: boolean | undefined;
-        ttl?: Milliseconds | undefined;
+
+        /**
+         * Can be true for 24h default or a number in MILLISECONDS or a valid Javascript Date object
+         * @default false
+         */
+        ttl?: Milliseconds | boolean | undefined;
+
+        /**
+         * Instead of writing to file immediately, each "file" will have its own mini queue to avoid corrupted files. Keep in mind that this would not properly work in multi-process setting.
+         * @default true
+         */
+        writeQueue?: boolean | undefined;
+
+        /**
+         * How often to check for pending writes in Milliseconds, don't worry if you feel like 1s is a lot, it actually tries to process every time you setItem as well
+         * @default 1000
+         */
+        writeQueueIntervalMs?: Milliseconds | undefined;
+
+        /**
+         * If you setItem() multiple times to the same key, only the last one would be set, BUT the others would still resolve with the results of the last one, if you turn this to false, each one will execute, but might slow down the writing process.
+         * @default true
+         */
+        writeQueueWriteOnlyLast?: boolean | undefined;
     }
 
     interface DatumOptions {
@@ -32,7 +78,7 @@ declare namespace NodePersist {
         key: string;
         value: any;
 
-        ttl?: Milliseconds | undefined;
+        ttl?: Milliseconds;
     }
 
     interface EnsureDirectoryResult {
@@ -74,8 +120,11 @@ declare namespace NodePersist {
         get(key: string): Promise<any>;
         getItem(key: string): Promise<any>;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getDatum(key: string): Datum | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getRawDatum(key: string): string | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getDatumValue(key: string): Datum | void;
         getDatumPath(key: string): string;
 
@@ -100,7 +149,7 @@ declare namespace NodePersist {
 
         log(...args: any[]): void;
 
-        calcTTL(ttl: number | null | undefined): number | undefined;
+        calcTTL(ttl?: number | null): number | undefined;
     }
 
     function create(options?: InitOptions): LocalStorage;
@@ -128,8 +177,11 @@ declare namespace NodePersist {
     function get(key: string): Promise<any>;
     function getItem(key: string): Promise<any>;
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getDatum(key: string): Datum | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getRawDatum(key: string): string | void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getDatumValue(key: string): Datum | void;
     function getDatumPath(key: string): string;
 
@@ -154,8 +206,8 @@ declare namespace NodePersist {
 
     function log(...args: any[]): void;
 
-    function calcTTL(ttl: number | null | undefined): number | undefined;
+    function calcTTL(ttl?: number | null): number | undefined;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = NodePersist;

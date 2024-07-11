@@ -1,22 +1,23 @@
-// Type definitions for dbus 1.0
-// Project: https://github.com/Shouqun/node-dbus#readme
-// Definitions by: Luca Lindhorst <https://github.com/lal12>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 declare namespace DBus {
     type busType = "session" | "system";
     function getBus(type: busType): DBusConnection;
     function registerService(busName: busType, serviceName?: string): DBusService;
     interface DBusConnection {
-        /* eslint-disable-next-line no-unnecessary-generics */
-        getInterface<T = AnyInterfaceMethod>(serviceName: string, objectPath: string, interfaceName: string, callback: (err: Error | null, iface: DBusInterface<T>) => void): void;
+        /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
+        getInterface<T = AnyInterfaceMethod>(
+            serviceName: string,
+            objectPath: string,
+            interfaceName: string,
+            callback: (err: Error | null, iface: DBusInterface<T>) => void,
+        ): void;
         disconnect(): void;
         reconnect(callback: () => void): void;
         getUniqueServiceName(serviceName: string, callback: (err: Error | null, uniqueName: string) => void): void;
     }
 
-    interface AnyInterfaceMethod { [methodName: string]: (...args: any[]) => void; }
+    interface AnyInterfaceMethod {
+        [methodName: string]: (...args: any[]) => void;
+    }
     type PickMatching<T, U> = {
         [P in keyof T]: T[P] extends U ? T[P] : never;
     };
@@ -29,7 +30,6 @@ declare namespace DBus {
         getProperty(name: string, callback: (err: Error | null, name: string) => void): void;
         setProperty(name: string, value: any, callback: (err: Error | null) => void): void;
         getProperties(callback: (err: Error | null, properties: { [name: string]: any }) => void): void;
-
         /**
          * ...args
          * options: {timeout: number}
@@ -57,11 +57,15 @@ declare namespace DBus {
     interface DBusServiceInterface {
         object: DBusServiceObject;
         name: string;
-        addMethod(method: string, opts: { in: string, out: string }, handler: (name: string, quality: any, callback: (res: any) => void) => void): void;
+        addMethod(
+            method: string,
+            opts: { in: string; out: string },
+            handler: (name: string, quality: any, callback: (res: any) => void) => void,
+        ): void;
         addProperty(name: string, opts: {
-            type: string,
-            getter: (cb: (val: string) => void) => void,
-            setter?: ((value: any, done: () => void) => void) | undefined
+            type: string;
+            getter: (cb: (val: string) => void) => void;
+            setter?: ((value: any, done: () => void) => void) | undefined;
         }): void;
         addSignal(name: string, opts: { types: string[] }): void;
         emitSignal(name: string, ...values: any[]): void;
@@ -77,5 +81,5 @@ declare namespace DBus {
 /**
  * @deprecated
  */
-declare class DBus { }
+declare class DBus {}
 export = DBus;

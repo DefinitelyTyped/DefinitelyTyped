@@ -1,8 +1,3 @@
-// Type definitions for react-select-country-list 2.2
-// Project: https://github.com/Chun-Lin/react-select-country-list
-// Definitions by: Kieran Roberts <https://github.com/kieran6roberts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ReactSelectCountries {
     interface CountryData {
         label: string;

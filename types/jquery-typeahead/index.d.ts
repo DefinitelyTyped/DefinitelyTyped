@@ -1,9 +1,3 @@
-// Type definitions for jquery-typeahead 2.10
-// Project: http://www.runningcoder.org/jquerytypeahead
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQuery {
@@ -126,7 +120,18 @@ declare namespace RunningCoder.Typeahead {
          * Set `"asc"` or `"desc"` to have the group name sorted ascending or descending
          * Set an `Array` to specify the group order to appear in the search result
          */
-        groupOrder?: "asc" | "desc" | string[] | ((node?: JQuery, query?: string, result?: any, resultCount?: number, resultCountPerGroup?: number) => any[]) | undefined;
+        groupOrder?:
+            | "asc"
+            | "desc"
+            | string[]
+            | ((
+                node?: JQuery,
+                query?: string,
+                result?: any,
+                resultCount?: number,
+                resultCountPerGroup?: number,
+            ) => any[])
+            | undefined;
 
         /** Set a maximum results per group if `group: true` configuration is enabled */
         maxItemPerGroup?: number | undefined;
@@ -430,7 +435,9 @@ declare namespace RunningCoder.Typeahead {
          * This callback should be used to modify the result DOM before it gets inserted into Typeahead.
          * * If you are using this callback, the resultHtmlList param needs to be returned at the end of your function.
          */
-        onLayoutBuiltBefore?: ((node?: JQuery, query?: string, result?: any, resultHtmlList?: JQuery) => JQuery) | undefined;
+        onLayoutBuiltBefore?:
+            | ((node?: JQuery, query?: string, result?: any, resultHtmlList?: JQuery) => JQuery)
+            | undefined;
 
         /** Perform an action right after the result HTML gets inserted into Typeahead's DOM. */
         onLayoutBuiltAfter?: ((node?: JQuery, query?: string, result?: any) => void) | undefined;
@@ -442,7 +449,9 @@ declare namespace RunningCoder.Typeahead {
         onNavigateBefore?: ((node?: JQuery, query?: string, event?: JQueryEventObject) => void) | undefined;
 
         /** Called at the end of Navigate (once the `.active` class and other operations are completed). */
-        onNavigateAfter?: ((node?: JQuery, lis?: JQuery, a?: JQuery, item?: any, query?: string, event?: JQueryEventObject) => void) | undefined;
+        onNavigateAfter?:
+            | ((node?: JQuery, lis?: JQuery, a?: JQuery, item?: any, query?: string, event?: JQueryEventObject) => void)
+            | undefined;
 
         /** Will be executed when a item is hovered inside the result list. */
         onMouseEnter?: ((node?: JQuery, a?: JQuery, item?: any, event?: JQueryEventObject) => void) | undefined;

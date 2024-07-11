@@ -1,5 +1,5 @@
 /**
- * **The version of the punycode module bundled in Node.js is being deprecated.**In a future major version of Node.js this module will be removed. Users
+ * **The version of the punycode module bundled in Node.js is being deprecated. **In a future major version of Node.js this module will be removed. Users
  * currently depending on the `punycode` module should switch to using the
  * userland-provided [Punycode.js](https://github.com/bestiejs/punycode.js) module instead. For punycode-based URL
  * encoding, see `url.domainToASCII` or, more generally, the `WHATWG URL API`.
@@ -15,8 +15,8 @@
  * primarily intended for use in Internationalized Domain Names. Because host
  * names in URLs are limited to ASCII characters only, Domain Names that contain
  * non-ASCII characters must be converted into ASCII using the Punycode scheme.
- * For instance, the Japanese character that translates into the English word,`'example'` is `'例'`. The Internationalized Domain Name, `'例.com'` (equivalent
- * to `'example.com'`) is represented by Punycode as the ASCII string`'xn--fsq.com'`.
+ * For instance, the Japanese character that translates into the English word, `'example'` is `'例'`. The Internationalized Domain Name, `'例.com'` (equivalent
+ * to `'example.com'`) is represented by Punycode as the ASCII string `'xn--fsq.com'`.
  *
  * The `punycode` module provides a simple implementation of the Punycode standard.
  *
@@ -24,9 +24,9 @@
  * made available to developers as a convenience. Fixes or other modifications to
  * the module must be directed to the [Punycode.js](https://github.com/bestiejs/punycode.js) project.
  * @deprecated Since v7.0.0 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/punycode.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/punycode.js)
  */
-declare module 'punycode' {
+declare module "punycode" {
     /**
      * The `punycode.decode()` method converts a [Punycode](https://tools.ietf.org/html/rfc3492) string of ASCII-only
      * characters to the equivalent string of Unicode codepoints.
@@ -101,7 +101,7 @@ declare module 'punycode' {
          * Users currently depending on the punycode module should switch to using
          * the userland-provided Punycode.js module instead.
          */
-        encode(codePoints: ReadonlyArray<number>): string;
+        encode(codePoints: readonly number[]): string;
     }
     /**
      * @deprecated since v7.0.0
@@ -112,6 +112,6 @@ declare module 'punycode' {
      */
     const version: string;
 }
-declare module 'node:punycode' {
-    export * from 'punycode';
+declare module "node:punycode" {
+    export * from "punycode";
 }

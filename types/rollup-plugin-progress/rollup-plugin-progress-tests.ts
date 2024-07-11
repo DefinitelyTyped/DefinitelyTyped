@@ -1,4 +1,4 @@
-import progress from 'rollup-plugin-progress';
+import progress from "rollup-plugin-progress";
 
 progress(); // $ExpectType Plugin
 

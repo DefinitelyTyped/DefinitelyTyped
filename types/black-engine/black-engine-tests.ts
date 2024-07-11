@@ -1,8 +1,8 @@
-import { GameObject } from 'black-engine/core/GameObject';
-import { StageScaleMode } from 'black-engine/display/StageScaleMode';
-import { CanvasDriver } from 'black-engine/drivers/canvas/CanvasDriver';
-import { Engine } from 'black-engine/Engine';
-import { Input } from 'black-engine/input/Input';
+import { GameObject } from "black-engine/core/GameObject";
+import { StageScaleMode } from "black-engine/display/StageScaleMode";
+import { CanvasDriver } from "black-engine/drivers/canvas/CanvasDriver";
+import { Engine } from "black-engine/Engine";
+import { Input } from "black-engine/input/Input";
 
 export class Game extends GameObject {
     constructor() {
@@ -10,7 +10,7 @@ export class Game extends GameObject {
     }
 }
 
-const engine = new Engine('container', Game, CanvasDriver, [Input]);
+const engine = new Engine("container", Game, CanvasDriver, [Input]);
 engine.pauseOnBlur = false;
 engine.pauseOnHide = false;
 engine.start();

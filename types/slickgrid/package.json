@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/slickgrid",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/mleibman/SlickGrid"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/slickgrid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Baldwin",
+            "githubUsername": "jbaldwin"
+        }
+    ]
+}

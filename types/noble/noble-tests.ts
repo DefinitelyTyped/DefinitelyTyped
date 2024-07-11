@@ -1,4 +1,3 @@
-
 import noble = require("noble");
 
 function test_startScanning(): void {
@@ -52,14 +51,14 @@ noble.removeAllListeners();
 var peripheral: noble.Peripheral = new noble.Peripheral();
 peripheral.uuid = "12ad4e81";
 peripheral.advertisement = {
-    localName:        "device",
-    serviceData:      [{
+    localName: "device",
+    serviceData: [{
         uuid: "180a",
-        data: new Buffer(1)
+        data: new Buffer(1),
     }],
-    txPowerLevel:     1,
+    txPowerLevel: 1,
     manufacturerData: new Buffer(1),
-    serviceUuids:     ["0x180a", "0x180d"]
+    serviceUuids: ["0x180a", "0x180d"],
 };
 peripheral.connect();
 peripheral.connect((error: string): void => {});
@@ -70,9 +69,15 @@ peripheral.updateRssi((error: string, rssi: number): void => {});
 peripheral.discoverServices(["180d"]);
 peripheral.discoverServices(["180d"], (error: string, services: noble.Service[]): void => {});
 peripheral.discoverAllServicesAndCharacteristics();
-peripheral.discoverAllServicesAndCharacteristics((error: string, services: noble.Service[], characteristics: noble.Characteristic[]): void => {});
+peripheral.discoverAllServicesAndCharacteristics(
+    (error: string, services: noble.Service[], characteristics: noble.Characteristic[]): void => {},
+);
 peripheral.discoverSomeServicesAndCharacteristics(["180d"], ["2a38"]);
-peripheral.discoverSomeServicesAndCharacteristics(["180d"], ["2a38"], (error: string, services: noble.Service[], characteristics: noble.Characteristic[]): void => {});
+peripheral.discoverSomeServicesAndCharacteristics(
+    ["180d"],
+    ["2a38"],
+    (error: string, services: noble.Service[], characteristics: noble.Characteristic[]): void => {},
+);
 peripheral.readHandle(0x1234, (error: string, data: Buffer): void => {});
 peripheral.writeHandle(0x1234, new Buffer(1), true, (error: string): void => {});
 peripheral.on("connect", (error: string): void => {});

@@ -1,2 +1,2 @@
-import { symmetricDifference } from '../index';
+import { symmetricDifference } from "../index.js";
 export default symmetricDifference;

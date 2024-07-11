@@ -1,5 +1,5 @@
-import { Dashicon } from '@wordpress/components';
-import { ComponentType, ReactNode } from 'react';
+import { Dashicon } from "@wordpress/components";
+import { ComponentProps, ComponentType, JSX, ReactNode } from "react";
 
 declare namespace PluginSidebarMoreMenuItem {
     interface Props {
@@ -13,7 +13,7 @@ declare namespace PluginSidebarMoreMenuItem {
          * A Dashicon slug or a custom JSX element to be rendered to the left of the menu item
          * label.
          */
-        icon?: Dashicon.Icon | JSX.Element | undefined;
+        icon?: ComponentProps<typeof Dashicon>["icon"] | JSX.Element | undefined;
     }
 }
 

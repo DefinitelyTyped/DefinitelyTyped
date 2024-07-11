@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/fslightbox-react",
+    "version": "1.7.9999",
+    "projects": [
+        "https://fslightbox.com/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/fslightbox-react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kirill Nikitin",
+            "githubUsername": "locke23rus"
+        },
+        {
+            "name": "Piotr Zdziarski",
+            "githubUsername": "piotrzdziarski"
+        }
+    ]
+}

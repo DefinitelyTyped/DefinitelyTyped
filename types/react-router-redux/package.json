@@ -1,7 +1,32 @@
 {
     "private": true,
+    "name": "@types/react-router-redux",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/reactjs/react-router-redux"
+    ],
     "dependencies": {
         "@types/history": "^4.7.11",
+        "@types/react": "*",
+        "@types/react-router": "^5.1.0",
         "redux": ">= 3.7.2"
-    }
+    },
+    "devDependencies": {
+        "@types/react-redux": "*",
+        "@types/react-router-redux": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Huy Nguyen",
+            "githubUsername": "huy-nguyen"
+        },
+        {
+            "name": "Shoya Tanaka",
+            "githubUsername": "8398a7"
+        },
+        {
+            "name": "Mykolas",
+            "githubUsername": "mykolas"
+        }
+    ]
 }

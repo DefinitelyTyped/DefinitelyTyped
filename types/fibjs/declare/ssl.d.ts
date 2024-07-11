@@ -202,7 +202,7 @@
 declare module "ssl" {
     
 
-    module ssl {
+    namespace ssl {
         
         /**
          * 

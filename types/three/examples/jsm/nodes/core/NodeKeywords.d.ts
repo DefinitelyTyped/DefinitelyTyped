@@ -1,14 +1,17 @@
-import NodeBuilder from './NodeBuilder';
-import Node from './Node';
-
-export default class NodeKeywords {
+import Node from "./Node.js";
+import NodeBuilder from "./NodeBuilder.js";
+declare class NodeKeywords {
     keywords: string[];
-    nodes: Node[];
-    keywordsCallback: { [name: string]: (name: string) => Node };
-
+    nodes: {
+        [name: string]: Node;
+    };
+    keywordsCallback: {
+        [name: string]: (name: string) => Node;
+    };
+    constructor();
     getNode(name: string): Node;
-    addKeyword(name: string, callback: (name: string) => Node): void;
-
+    addKeyword(name: string, callback: (name: string) => Node): this;
     parse(code: string): Node[];
     include(builder: NodeBuilder, code: string): void;
 }
+export default NodeKeywords;

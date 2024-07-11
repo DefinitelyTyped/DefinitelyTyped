@@ -71,6 +71,6 @@ namespace Module.Commit.Revert {
 namespace Module.Options {
     let options: conventionalCommitsParser.Options;
     options = {};
-    options = {warn: console.warn.bind(console)};
-    options = {warn: true};
+    options = { warn: console.warn.bind(console) };
+    options = { warn: true };
 }

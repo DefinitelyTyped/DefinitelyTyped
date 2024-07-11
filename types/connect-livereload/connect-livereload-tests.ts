@@ -9,32 +9,40 @@ app.use(livereload());
 // With string options
 app.use(livereload({
     port: 35729,
-    ignore: [".js", ".svg"]
+    ignore: [".js", ".svg"],
 }));
 
 // With plugins
 app.use(livereload({
-  plugins: ['a']
+    plugins: ["a"],
 }));
 
 // With RegExp options
 app.use(livereload({
     port: 35729,
-    ignore: [/\.js(\?.*)?$/, /\.css(\?.*)?$/]
+    ignore: [/\.js(\?.*)?$/, /\.css(\?.*)?$/],
 }));
 
 // With default options
 app.use(livereload({
     ignore: [
-        /\.js(\?.*)?$/, /\.css(\?.*)?$/, /\.svg(\?.*)?$/, /\.ico(\?.*)?$/, /\.woff(\?.*)?$/,
-        /\.png(\?.*)?$/, /\.jpg(\?.*)?$/, /\.jpeg(\?.*)?$/, /\.gif(\?.*)?$/, /\.pdf(\?.*)?$/
+        /\.js(\?.*)?$/,
+        /\.css(\?.*)?$/,
+        /\.svg(\?.*)?$/,
+        /\.ico(\?.*)?$/,
+        /\.woff(\?.*)?$/,
+        /\.png(\?.*)?$/,
+        /\.jpg(\?.*)?$/,
+        /\.jpeg(\?.*)?$/,
+        /\.gif(\?.*)?$/,
+        /\.pdf(\?.*)?$/,
     ],
 
     // include all urls by default
     include: [/.*/],
 
     // this function is used to determine if the content of `res.write` or `res.end` is html.
-    html: function (str) {
+    html: function(str) {
         if (!str) return false;
         return /<[:_-\w\s\!\/\=\"\']+>/i.test(str);
     },
@@ -45,13 +53,13 @@ app.use(livereload({
     // the function `fn` has got the arguments `fn(w, s)` where `w` is the matches string and `s` is the snippet.
     rules: [{
         match: /<\/body>(?![\s\S]*<\/body>)/i,
-        fn: prepend
+        fn: prepend,
     }, {
         match: /<\/html>(?![\s\S]*<\/html>)/i,
-        fn: prepend
+        fn: prepend,
     }, {
         match: /<\!DOCTYPE.+?>/i,
-        fn: append
+        fn: append,
     }],
 
     // port where the script is loaded
@@ -61,7 +69,7 @@ app.use(livereload({
     src: "http://localhost:35729/livereload.js?snipver=1",
 
     // Set this option to `true` to set `req.headers['accept-encoding']` to 'identity' (disabling compression)
-    disableCompression: false
+    disableCompression: false,
 }));
 
 function prepend(w: string, s: string): string {
