@@ -17,7 +17,7 @@ declare namespace MongooseDelete {
         | "updateMany"
         | "aggregate";
     interface SoftDeleteModel<
-        T extends Omit<mongoose.Document, "delete">,
+        T,
         QueryHelpers = {},
         TInstanceMethods = {},
         TVirtuals = {},
