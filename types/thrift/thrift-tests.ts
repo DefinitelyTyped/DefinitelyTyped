@@ -78,6 +78,11 @@ const webSocketConnection = createWSConnection("0.0.0.0", 1234, {
     protocol: TBinaryProtocol,
 });
 
+const udsConnection = createUDSConnection("/tmp/unix.sock", {
+    transport: TBufferedTransport,
+    protocol: TBinaryProtocol,
+});
+
 createClient<MockClient>(mockGeneratedService, clientConnection);
 
 createWSClient<MockClient>(mockGeneratedService, webSocketConnection);
