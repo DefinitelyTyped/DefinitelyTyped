@@ -39,7 +39,11 @@ declare class Delaunator<A extends ArrayLike<number>> {
      * Constructs a delaunay triangulation object given an array of custom points. Duplicate points are skipped.
      * getX and getY are optional functions for custom point formats. Duplicate points are skipped.
      */
-    static from<P>(points: ArrayLike<P>, getX: (point: P) => number, getY: (point: P) => number): Delaunator<Float64Array>;
+    static from<P>(
+        points: ArrayLike<P>,
+        getX: (point: P) => number,
+        getY: (point: P) => number
+    ): Delaunator<Float64Array>;
 
     /**
      * Updates the triangulation if you modified delaunay.coords values in place, avoiding expensive memory
