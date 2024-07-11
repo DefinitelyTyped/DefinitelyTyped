@@ -33,13 +33,13 @@ declare class Delaunator {
     /**
      * Constructs a delaunay triangulation object given an array of points ([x, y] by default).
      */
-    static from(points: ArrayLike<ArrayLike<number>>): Delaunator<ArrayLike<number>>;
+    static from(points: ArrayLike<ArrayLike<number>>): Delaunator;
 
     /**
      * Constructs a delaunay triangulation object given an array of custom points. Duplicate points are skipped.
      * getX and getY are optional functions for custom point formats. Duplicate points are skipped.
      */
-    static from<P>(points: ArrayLike<P>, getX: (point: P) => number, getY: (point: P) => number): Delaunator<P>;
+    static from<P>(points: ArrayLike<P>, getX: (point: P) => number, getY: (point: P) => number): Delaunator;
 
     /**
      * Updates the triangulation if you modified delaunay.coords values in place, avoiding expensive memory
