@@ -4,6 +4,10 @@
             "libraryName": "3d-bin-packing",
             "asOfVersion": "1.1.3"
         },
+        "@fcostarodrigo/walk": {
+            "libraryName": "@fcostarodrigo/walk",
+            "asOfVersion": "6.0.0"
+        },
         "@types/hyphenate-style-name": {
             "libraryName": "hyphenate-style-name",
             "asOfVersion": "1.1.0"
