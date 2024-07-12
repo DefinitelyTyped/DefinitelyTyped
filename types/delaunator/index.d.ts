@@ -42,7 +42,7 @@ declare class Delaunator<A extends ArrayLike<number>> {
     static from<P>(
         points: ArrayLike<P>,
         getX: (point: P) => number,
-        getY: (point: P) => number
+        getY: (point: P) => number,
     ): Delaunator<Float64Array>;
 
     /**
