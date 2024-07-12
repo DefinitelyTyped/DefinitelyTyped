@@ -12,7 +12,9 @@ const map: mapkit.Map = new mapkit.Map(document.querySelector<HTMLElement>(".tes
     loadPriority: "LandCover",
 });
 
-const colors = mapkit.Map.ColorSchemes.Dark;
+const colorDark = mapkit.Map.ColorSchemes.Dark;
+const colorLight = mapkit.Map.ColorSchemes.Light;
+const colorAdaptive = mapkit.Map.ColorSchemes.Adaptive;
 
 const coordinate = new mapkit.Coordinate(1000, 1000);
 const factory = (coordinate: mapkit.Coordinate) => {
