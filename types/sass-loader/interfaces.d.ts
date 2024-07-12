@@ -435,7 +435,7 @@ export interface LoaderOptions {
 }
 
 export namespace LoaderOptions {
-    type Callback<T> = (loaderContext: Webpack.loader.LoaderContext) => T;
+    type Callback<T> = (content: string | Buffer, loaderContext: Webpack.loader.LoaderContext) => T;
 
     type SassOptions = NodeSass.Options | Sass.LegacyOptions<"sync">;
 }
