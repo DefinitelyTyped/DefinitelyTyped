@@ -102,6 +102,8 @@ interface Instance {
         options: MarshalOptions | undefined,
         callback: Callback<KeyStore.Type>,
     ): void;
+    recover(password: Buffer | string, keystore: KeyStore.Type): Buffer;
+    recover(password: Buffer | string, keystore: KeyStore.Type, callback: Callback<Buffer>): void;
     generateKeystoreFilename(address: string): string;
     exportToFile(store: KeyStore.Type, keystore?: string): string;
     exportToFile(store: KeyStore.Type, keystore: string | undefined, callback: Callback<string>): void;
