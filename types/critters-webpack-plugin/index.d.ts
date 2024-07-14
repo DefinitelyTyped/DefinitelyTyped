@@ -4,10 +4,10 @@ export default Critters;
 declare class Critters implements WebpackPluginInstance {
     constructor(options?: Critters.CrittersOptions);
     apply: (compiler: Compiler) => void;
-    getCssAsset(href: any, style: any ): Promise<any>;
-    checkInlineThreshold(link: any, style: any , sheet: any): boolean;
+    getCssAsset(href: any, style: any): Promise<any>;
+    checkInlineThreshold(link: any, style: any, sheet: any): boolean;
     embedAdditionalStylesheet(document: any): Promise<void>;
-    pruneSource(style: any, before: any, sheetInverse: any): boolean
+    pruneSource(style: any, before: any, sheetInverse: any): boolean;
 }
 
 declare namespace Critters {
