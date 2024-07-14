@@ -131,8 +131,9 @@ const n4 = [1, 2, 3, 4, 5];
 const pc4: Position = n4;
 
 // From typescript 4.9 can use satisfies as a safer alternative to "as"
-const n5 = [1, 2, 3, 4, 5] satisfies Position;
-const pc5: Position = n5;
+// Disabling temporarily as dependent CI projects not requiring TS 4.9 just yet
+// const n5 = [1, 2, 3, 4, 5] satisfies Position;
+// const pc5: Position = n5;
 
 const point: Point = {
     type: "Point",
