@@ -10,6 +10,7 @@ flowObject.assignBrowse([] as HTMLElement[]);
 flowObject.assignBrowse([] as HTMLElement[], false, false, {});
 flowObject.assignDrop([] as HTMLElement[]);
 flowObject.unAssignDrop([] as HTMLElement[]);
+flowObject.onDrop({} as MouseEvent);
 flowObject.on("fileSuccess", (file: flowjs.FlowFile, serverMessage: string, chunk: flowjs.FlowChunk) => {});
 flowObject.off("fileSuccess", () => {});
 flowObject.upload();
