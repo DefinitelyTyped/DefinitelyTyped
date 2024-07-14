@@ -170,6 +170,7 @@ declare namespace TelegramBot {
     interface ForwardMessageOptions {
         disable_notification?: boolean | undefined;
         protect_content?: boolean | undefined;
+        message_thread_id?: number | undefined;
     }
 
     interface SendPhotoOptions extends SendBasicOptions {
