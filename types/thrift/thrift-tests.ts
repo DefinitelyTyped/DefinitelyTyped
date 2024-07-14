@@ -88,6 +88,8 @@ createClient<MockClient>(mockGeneratedService, clientConnection);
 
 createWSClient<MockClient>(mockGeneratedService, webSocketConnection);
 
+createClient<MockClient>(mockGeneratedService, udsConnection);
+
 const mockBuffer: Buffer = Buffer.alloc(8);
 
 const mockCallback: TTransportCallback = (msg: Buffer, seq: number): void => {};
