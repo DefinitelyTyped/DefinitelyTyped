@@ -925,6 +925,13 @@ declare namespace TelegramBot {
         mask_position?: MaskPosition;
     }
 
+    interface ForumTopic {
+        message_thread_id: number;
+        name: string;
+        icon_color: number;
+        icon_custom_emoji_id?: string | undefined;
+    }
+
     interface ForumTopicCreated {
         name: string;
         icon_color: number;
@@ -1920,7 +1927,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         chatId: TelegramBot.ChatId,
         name: string,
         options?: TelegramBot.CreateForumTopicOptions,
-    ): Promise<boolean>;
+    ): Promise<TelegramBot.ForumTopic>;
 
     editForumTopic(
         chatId: TelegramBot.ChatId,
