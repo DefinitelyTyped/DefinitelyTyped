@@ -7,6 +7,7 @@ import {
     createServer,
     createWSClient,
     createWSConnection,
+    createUDSConnection,
     Int64,
     Multiplexer,
     TBinaryProtocol,
