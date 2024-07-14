@@ -1,6 +1,7 @@
 import Critters from "critters-webpack-plugin";
+import { Configuration } from "webpack";
 
-new Critters({
+const critters: Configuration["plugins"] = [new Critters({
     compress: true,
     external: true,
     inlineFonts: false,
@@ -12,4 +13,4 @@ new Critters({
     additionalStylesheets: ["./base.css"],
     pruneSource: true,
     minimumExternalSize: 0,
-});
+})];
