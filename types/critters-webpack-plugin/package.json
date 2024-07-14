@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/critters-webpack-plugin",
-    "version": "3.1.9999",
+    "version": "3.0.2",
     "projects": [
         "https://github.com/GoogleChromeLabs/critters"
     ],
