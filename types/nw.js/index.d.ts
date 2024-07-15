@@ -1347,6 +1347,11 @@ declare global {
             clearCache(): void;
 
             /**
+             * Mark the Application cache group specified by manifest_url obsolete. This method call is synchronized.
+             */
+            clearAppCache(manifest_url: string): void;
+
+            /**
              * Send the `close` event to all windows of current app.
              */
             closeAllWindows(): void;
