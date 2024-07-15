@@ -1387,6 +1387,14 @@ declare global {
             quit(): void;
 
             /**
+             * Set the directory where the minidump file will be saved on crash. For more information, see [Crash dump](https://nwjs.readthedocs.io/en/latest/For%20Developers/Understanding%20Crash%20Dump/).
+             * 
+             * @deprecated since version 0.11
+             * @param dir {string} Path to generate the crash dump.
+             */
+            setCrashDumpDir(dir): void
+
+            /**
              * Add an entry to the whitelist used for controlling cross-origin access.
              *
              * @param sourceOrigin {string} The source origin. e.g. https://github.com/
