@@ -53,8 +53,8 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
 {
     const importmeta: ImportMeta = {} as any; // Fake because we cannot really access the true `import.meta` with the current build target
     importmeta.url; // $ExpectType string
-    importmeta.resolve!("local", "/parent"); // $ExpectType Promise<string>
-    importmeta.resolve!("local", new URL("https://parent.module")); // $ExpectType Promise<string>
+    importmeta.resolve!("local"); // $ExpectType Promise<string> || string
+    importmeta.resolve!("local"); // $ExpectType Promise<string> || string
 }
 
 {
