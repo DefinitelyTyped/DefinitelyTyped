@@ -1327,6 +1327,11 @@ declare global {
             filteredArgv: Object[];
 
             /**
+             * Get the directory where the application starts. The application will change the current directory to where the package files reside after start.
+             */
+            startPath: string;
+
+            /**
              * Get the application's data path in user's directory.
              */
             dataPath: string;
