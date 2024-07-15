@@ -1375,11 +1375,12 @@ declare global {
             getProxyForURL(url: string): string;
 
             /**
-             * Set the proxy config which the web engine will be used to request network resources.
+             * Set the proxy config which the web engine will be used to request network resources or PAC url to detect proxy automatically.
              *
              * @param config {string} Proxy rules
+             * @param pac_url {string} PAC url
              */
-            setProxyConfig(config: string): void;
+            setProxyConfig(config: string, pac_url: string): void;
 
             /**
              * Quit current app.
@@ -1392,7 +1393,7 @@ declare global {
              * @deprecated since version 0.11
              * @param dir {string} Path to generate the crash dump.
              */
-            setCrashDumpDir(dir): void
+            setCrashDumpDir(dir: string): void
 
             /**
              * Add an entry to the whitelist used for controlling cross-origin access.
