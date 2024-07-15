@@ -1367,6 +1367,14 @@ declare global {
             crashRenderer(): void;
 
             /**
+             * This API is experimental and subject to change.
+             *
+             * @param component {string} ID of component; currently only `WIDEVINE` is supported.
+             * @param callback {(version: string) => void} Callback after the component is enabled; `version` string parameter is the version of the enabled component. ‘0.0.0.0’ means it’s not installed. Use `App.updateComponent()` to install it.
+             */
+            enableComponent(component: string, callback: (version: string) => void ): void;
+
+            /**
              * Query the proxy to be used for loading `url` in DOM.
              *
              * @param url {string} the URL to query for proxy
