@@ -89,7 +89,7 @@ export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
     translateExtent?: [[number, number], [number, number]] | undefined;
 }
 
-interface useZoomPanProps {
+interface ZoomPanProps {
     /**
      * @default [0, 0]
      */
@@ -254,7 +254,7 @@ declare function useGeographies(args?: Omit<GeographiesProps, "children">): {
     path: GeoPath;
     projection: GeoProjection;
 };
-declare function useZoomPan(args?: useZoomPanProps): {
+declare function useZoomPan(args?: ZoomPanProps): {
     mapRef: React.RefObject<SVGSVGElement>;
     position: Position;
     transformString: string;
