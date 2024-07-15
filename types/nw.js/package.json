@@ -13,5 +13,10 @@
     "devDependencies": {
         "@types/nw.js": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Ayushman Chhabrs",
+            "githubUsername": "AyushmanChhabra"
+        }
+    ]
 }
