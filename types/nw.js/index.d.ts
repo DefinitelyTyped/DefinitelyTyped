@@ -1430,6 +1430,14 @@ declare global {
              */
             unregisterGlobalHotKey(shortcut: Shortcut): void;
 
+            /**
+             * This API is experimental and subject to change.
+             *
+             * @param component {string} ID of component; currently only `WIDEVINE` is supported.
+             * @param callback {(success: boolean) => void} Callback after the component is updated; success is a boolean parameter for the update result.
+             */
+            updateComponent(component: string, callback: (success: boolean) => void ): void;
+
             on(event: string, listener: Function): this;
 
             /**
