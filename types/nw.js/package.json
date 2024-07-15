@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/nw.js",
-    "version": "0.13.9999",
+    "version": "0.89.9999",
     "nonNpm": true,
     "nonNpmDescription": "nw.js",
     "projects": [
