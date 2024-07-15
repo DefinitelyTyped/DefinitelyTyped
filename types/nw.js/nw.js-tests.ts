@@ -10,20 +10,20 @@ var dataPath = nw.App.dataPath;
 var manifest = nw.App.manifest;
 
 nw.App.clearCache();
-nw.App.clearAppCache('/path/to/manifest_url');
+nw.App.clearAppCache("/path/to/manifest_url");
 nw.App.closeAllWindows();
 nw.App.crashBrowser();
 nw.App.crashRenderer();
-nw.App.enableComponent('WIDEVINE', (version) => {
+nw.App.enableComponent("WIDEVINE", (version) => {
     console.log(version);
 });
 nw.App.getProxyForURL("https://github.com/alirdn");
 nw.App.setProxyConfig("http=foopy:80;ftp=foopy2", "http://127.0.0.1:80");
 nw.App.quit();
-nw.App.setCrashDumpDir('/path/to/crash_dump_dir');
+nw.App.setCrashDumpDir("/path/to/crash_dump_dir");
 nw.App.addOriginAccessWhitelistEntry("https://github.com/", "chrome-extension", location.host, true);
 nw.App.removeOriginAccessWhitelistEntry("https://github.com/", "chrome-extension", location.host, true);
-nw.App.updateComponent('WIDEVINE', (success) => {
+nw.App.updateComponent("WIDEVINE", (success) => {
     console.log(success);
 });
 

@@ -1372,7 +1372,7 @@ declare global {
              * @param component {string} ID of component; currently only `WIDEVINE` is supported.
              * @param callback {(version: string) => void} Callback after the component is enabled; `version` string parameter is the version of the enabled component. ‘0.0.0.0’ means it’s not installed. Use `App.updateComponent()` to install it.
              */
-            enableComponent(component: string, callback: (version: string) => void ): void;
+            enableComponent(component: string, callback: (version: string) => void): void;
 
             /**
              * Query the proxy to be used for loading `url` in DOM.
@@ -1397,11 +1397,11 @@ declare global {
 
             /**
              * Set the directory where the minidump file will be saved on crash. For more information, see [Crash dump](https://nwjs.readthedocs.io/en/latest/For%20Developers/Understanding%20Crash%20Dump/).
-             * 
+             *
              * @deprecated since version 0.11
              * @param dir {string} Path to generate the crash dump.
              */
-            setCrashDumpDir(dir: string): void
+            setCrashDumpDir(dir: string): void;
 
             /**
              * Add an entry to the whitelist used for controlling cross-origin access.
@@ -1453,7 +1453,7 @@ declare global {
              * @param component {string} ID of component; currently only `WIDEVINE` is supported.
              * @param callback {(success: boolean) => void} Callback after the component is updated; success is a boolean parameter for the update result.
              */
-            updateComponent(component: string, callback: (success: boolean) => void ): void;
+            updateComponent(component: string, callback: (success: boolean) => void): void;
 
             on(event: string, listener: Function): this;
 
