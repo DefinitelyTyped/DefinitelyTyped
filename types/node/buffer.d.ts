@@ -748,9 +748,9 @@ declare module "buffer" {
              * // Prints: false
              * ```
              * @since v0.11.13
-             * @param otherBuffer A `Buffer` or {@link Uint8Array} with which to compare `buf`.
+             * @param otherBuffer A `Buffer` with which to compare `buf`.
              */
-            equals(otherBuffer: Uint8Array): boolean;
+            equals(otherBuffer: Buffer): boolean;
             /**
              * Compares `buf` with `target` and returns a number indicating whether `buf`comes before, after, or is the same as `target` in sort order.
              * Comparison is based on the actual sequence of bytes in each `Buffer`.
