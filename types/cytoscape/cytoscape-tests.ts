@@ -1077,5 +1077,5 @@ const coseAllOptions: CoseLayoutOptions = {
 };
 cy.layout(coseAllOptions);
 
-const ccn = cy.nodes().closenessCentralityNormalized({directed: false});
+const ccn = cy.nodes().closenessCentralityNormalized({ directed: false });
 ccn.closeness(cy.nodes()[0]);
