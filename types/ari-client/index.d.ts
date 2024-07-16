@@ -4319,8 +4319,8 @@ export interface Channel extends Resource {
     id: string;
 
     /**
-    * Protocol id from underlying channel driver (i.e. Call-ID for chan_pjsip; will be empty if not applicable or not implemented by driver).
-    */
+     * Protocol id from underlying channel driver (i.e. Call-ID for chan_pjsip; will be empty if not applicable or not implemented by driver).
+     */
     protocol_id: string;
 
     /**
