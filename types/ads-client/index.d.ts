@@ -5,26 +5,26 @@ import EventEmitter = require("events");
 export interface Settings {
     targetAmsNetId: string;
     targetAdsPort: number;
-    objectifyEnumerations?: boolean | null;
-    convertDatesToJavascript?: boolean | null;
-    readAndCacheSymbols?: boolean | null;
-    readAndCacheDataTypes?: boolean | null;
-    disableSymbolVersionMonitoring?: boolean | null;
-    routerTcpPort?: number | null;
-    routerAddress?: string | null;
-    localAddress?: string | null;
-    localTcpPort?: number | null;
-    localAmsNetId?: string | null;
-    localAdsPort?: number | null;
-    timeoutDelay?: number | null;
-    hideConsoleWarnings?: boolean | null;
-    autoReconnect?: boolean | null;
-    reconnectInterval?: number | null;
-    checkStateInterval?: number | null;
-    connectionDownDelay?: number | null;
-    allowHalfOpen?: boolean | null;
-    disableBigInt?: boolean | null;
-    bareClient?: boolean | null;
+    objectifyEnumerations?: boolean | null | undefined;
+    convertDatesToJavascript?: boolean | null | undefined;
+    readAndCacheSymbols?: boolean | null | undefined;
+    readAndCacheDataTypes?: boolean | null | undefined;
+    disableSymbolVersionMonitoring?: boolean | null | undefined;
+    routerTcpPort?: number | null | undefined;
+    routerAddress?: string | null | undefined;
+    localAddress?: string | null | undefined;
+    localTcpPort?: number | null | undefined;
+    localAmsNetId?: string | null | undefined;
+    localAdsPort?: number | null | undefined;
+    timeoutDelay?: number | null | undefined;
+    hideConsoleWarnings?: boolean | null | undefined;
+    autoReconnect?: boolean | null | undefined;
+    reconnectInterval?: number | null | undefined;
+    checkStateInterval?: number | null | undefined;
+    connectionDownDelay?: number | null | undefined;
+    allowHalfOpen?: boolean | null | undefined;
+    disableBigInt?: boolean | null | undefined;
+    bareClient?: boolean | null | undefined;
 }
 
 export interface Metadata {
