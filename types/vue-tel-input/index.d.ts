@@ -7,7 +7,7 @@ export const VueTelInput: VueTelInputConstructor;
 export interface VueTelInputProps {
     value: string;
     placeholder: string;
-    disabledFetchingCountry: boolean;
+    autoDefaultCountry: boolean;
     disabled: boolean;
     disabledFormatting: boolean;
     invalidMsg: string;
