@@ -15,7 +15,7 @@ export interface VueTelInputProps {
     defaultCountry: string;
     enabledCountryCode: boolean;
     enabledFlags: boolean;
-    preferredCountries: boolean;
+    preferredCountries: any[];
     onlyCountries: any[];
     ignoredCountries: any[];
     autocomplete: string;
