@@ -570,6 +570,16 @@ const field2 = woosmap.map.query.F("type", "myType");
 // $ExpectType Field | Field[]
 field2;
 
+const imageMapTypeOptions = expectType({
+    url: "http://tile-server/{z}/{x}/{y}.png",
+    opacity: 0.5,
+    tileSize: new woosmap.map.Size(256, 256),
+}) as woosmap.map.ImageMapTypeOptions;
+
+const imageMapType = new woosmap.map.ImageMapType(imageMapTypeOptions);
+// $ExpectType ImageMapType
+imageMapType;
+
 /**
  * helper functions for testing purpose
  */
