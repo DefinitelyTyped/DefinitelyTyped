@@ -315,7 +315,7 @@ docker.buildImage(
     },
 );
 
-docker.buildImage(".", { nocache: true }, (err, response) => {
+docker.buildImage(".", { nocache: true, version: "2" }, (err, response) => {
     // NOOP
 });
 
