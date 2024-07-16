@@ -3273,8 +3273,8 @@ declare module "fs" {
      * @since v0.1.31
      * @param listener Optional, a listener previously attached using `fs.watchFile()`
      */
-    export function unwatchFile(filename: PathLike, listener?: StatsListener): void;
-    export function unwatchFile(filename: PathLike, listener?: BigIntStatsListener): void;
+    export function unwatchFile(filename: PathLike, /** @deferred */ /** @deferred */ listener?: StatsListener): void;
+    export function unwatchFile(filename: PathLike, /** @deferred */ /** @deferred */ listener?: BigIntStatsListener): void;
     export interface WatchOptions extends Abortable {
         encoding?: BufferEncoding | "buffer" | undefined;
         persistent?: boolean | undefined;
@@ -3311,7 +3311,7 @@ declare module "fs" {
                 encoding: "buffer";
             })
             | "buffer",
-        listener?: WatchListener<Buffer>,
+        /** @deferred */ listener?: WatchListener<Buffer>,
     ): FSWatcher;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -3324,7 +3324,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options?: WatchOptions | BufferEncoding | null,
-        listener?: WatchListener<string>,
+        /** @deferred */ listener?: WatchListener<string>,
     ): FSWatcher;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -3337,13 +3337,13 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: WatchOptions | string,
-        listener?: WatchListener<string | Buffer>,
+        /** @deferred */ listener?: WatchListener<string | Buffer>,
     ): FSWatcher;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      */
-    export function watch(filename: PathLike, listener?: WatchListener<string>): FSWatcher;
+    export function watch(filename: PathLike, /** @deferred */ listener?: WatchListener<string>): FSWatcher;
     /**
      * Test whether or not the given path exists by checking with the file system.
      * Then call the `callback` argument with either true or false:
@@ -4058,13 +4058,13 @@ declare module "fs" {
     export function writev(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function writev(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
-        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface WriteVResult {
         bytesWritten: number;
@@ -4103,13 +4103,13 @@ declare module "fs" {
     export function readv(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function readv(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
-        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface ReadVResult {
         bytesRead: number;
@@ -4203,7 +4203,7 @@ declare module "fs" {
     export function opendir(
         path: PathLike,
         options: OpenDirOptions,
-        cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void,
     ): void;
     export namespace opendir {
         function __promisify__(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
