@@ -1318,6 +1318,7 @@ declare module "crypto" {
     interface SignKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
+    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {}
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
@@ -1413,9 +1414,9 @@ declare module "crypto" {
          * called. Multiple calls to `sign.sign()` will result in an error being thrown.
          * @since v0.1.92
          */
-        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput): Buffer;
+        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput): Buffer;
         sign(
-            privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+            privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
             outputFormat: BinaryToTextEncoding,
         ): string;
     }
@@ -3297,12 +3298,12 @@ declare module "crypto" {
     function sign(
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
-        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
     ): Buffer;
     function sign(
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
-        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
+        key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
         callback: (error: Error | null, data: Buffer) => void,
     ): void;
     /**
