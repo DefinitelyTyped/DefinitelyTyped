@@ -1349,7 +1349,7 @@ declare module "crypto" {
     interface SignKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {} 
+    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {}
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
