@@ -4,10 +4,6 @@
             "libraryName": "3d-bin-packing",
             "asOfVersion": "1.1.3"
         },
-        "@fcostarodrigo/walk": {
-            "libraryName": "@fcostarodrigo/walk",
-            "asOfVersion": "6.0.0"
-        },
         "@types/hyphenate-style-name": {
             "libraryName": "hyphenate-style-name",
             "asOfVersion": "1.1.0"
@@ -1828,6 +1824,10 @@
         "fb": {
             "libraryName": "@types/facebook-js-sdk",
             "asOfVersion": "0.0.28"
+        },
+        "fcostarodrigo__walk": {
+            "libraryName": "@fcostarodrigo/walk",
+            "asOfVersion": "6.0.0"
         },
         "fecha": {
             "libraryName": "fecha",
