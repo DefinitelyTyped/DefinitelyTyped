@@ -412,7 +412,7 @@
 /types/aws-greengrass-core-sdk/                           @ozxcorp @lummish
 /types/aws-iot-device-sdk/                                @niik @mlamp
 /types/aws-kcl/                                           @vshlos @foqal
-/types/aws-lambda/                                        @darbio @skarum @StefH @buggy @wwwy3y3 @OrthoDex @MichaelMarner @daniel-cottone @kostya-misura @coderbyheart @palmithor @daniloraisi @simonbuchan @Haydabase @repl-chris @aneilbaboo @jeznag @louislarry @dpapukchiev @ohookins @trevor-leach @jagregory @dalen @loikg @skyzenr @redlickigrzegorz @juancarbonel @pwmcintyre @alex-bolenok-centralreach @marianzange @apalumbo @SachinShekhar @ivanmartos @zach-anthony @savnik @bboure @jamesorlakin @aphex @joeykilpatrick @lmanerich
+/types/aws-lambda/                                        @darbio @skarum @StefH @buggy @wwwy3y3 @OrthoDex @MichaelMarner @daniel-cottone @kostya-misura @coderbyheart @palmithor @daniloraisi @simonbuchan @Haydabase @repl-chris @aneilbaboo @jeznag @louislarry @dpapukchiev @ohookins @trevor-leach @jagregory @dalen @loikg @skyzenr @redlickigrzegorz @juancarbonel @pwmcintyre @alex-bolenok-centralreach @marianzange @apalumbo @SachinShekhar @ivanmartos @zach-anthony @savnik @bboure @jamesorlakin @aphex @joeykilpatrick @lmanerich @LucianoTaranto
 /types/aws-lambda-fastify/                                @kentakang
 /types/aws-lambda-http-server/                            @ElayGelbart
 /types/aws-param-store/                                   @jasonthomasgray @nathanoertel
@@ -3413,7 +3413,7 @@
 /types/imagesloaded/                                      @coldacid @apexskier
 /types/imap/                                              @psnider
 /types/imap-simple/                                       @pushplay @iaarnio
-/types/imapflow/                                          @jeffreyratton98 @martin-badin @grayson-code
+/types/imapflow/                                          @jeffreyratton98 @martin-badin @grayson-code @remscar
 /types/img-clipboard/                                     @Nigecat
 /types/imgur-rest-api/                                    @lukewestby
 /types/immediate/                                         @BendingBender
@@ -4083,7 +4083,7 @@
 /types/keystonejs__email/                                 @thekevinbrown @tclain
 /types/keystonejs__logger/                                @thekevinbrown @tclain
 /types/keystonejs__session/                               @thekevinbrown @tclain
-/types/keythereum/                                        @septs
+/types/keythereum/                                        @sircoon4
 /types/kik-browser/                                       @joelday
 /types/kill-port/                                         @BendingBender
 /types/kind-of/                                           @claasahl

@@ -3,7 +3,7 @@ import { ForwardRefReturn, InternationalProps, ReactAttr } from "../../../typing
 
 export type SideNavTranslationKey = "carbon.sidenav.state.closed" | "carbon.sidenav.state.open";
 
-export interface SideNavProps extends ReactAttr, InternationalProps<SideNavTranslationKey> {
+export interface SideNavProps extends Omit<ReactAttr, "onToggle">, InternationalProps<SideNavTranslationKey> {
     addFocusListeners?: boolean | undefined;
     addMouseListeners?: boolean | undefined;
     defaultExpanded?: boolean | undefined;
