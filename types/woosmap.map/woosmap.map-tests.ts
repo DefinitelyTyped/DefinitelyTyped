@@ -42,6 +42,9 @@ map.panToBounds(new woosmap.map.LatLngBounds({ lat: 43.3, lng: 3.3 }, { lat: 48.
 // $ExpectType void
 map.setZoom(12);
 
+// $ExpectType MVCArray<MapType>
+map.overlayMapTypes;
+
 /**
  * Marker
  */
