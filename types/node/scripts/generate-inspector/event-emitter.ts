@@ -34,14 +34,14 @@ const createListenerFn = (fnName: string) => (event: Event): string[] => {
     return [
         ...event.comment && event.comment.length > 0 ? [""] : [],
         ...event.comment || [],
-        `${fnName}(event: '${event.name}', listener: (${argsStr}) => void): this;`,
+        `${fnName}(event: '${event.name}', /** @deferred */ listener: (${argsStr}) => void): this;`,
         ...event.comment && event.comment.length > 0 ? [""] : [],
     ];
 };
 
 const createListenerBlockFn = (fnName: string) => (events: Event[]): string[] => {
     return [
-        `${fnName}(event: string, listener: (...args: any[]) => void): this;`,
+        `${fnName}(event: string, /** @deferred */ listener: (...args: any[]) => void): this;`,
         ...events.map(createListenerFn(fnName)).reduce(flattenArgs(), []),
     ];
 };

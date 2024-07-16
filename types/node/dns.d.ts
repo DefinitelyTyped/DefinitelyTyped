@@ -161,26 +161,26 @@ declare module "dns" {
     export function lookup(
         hostname: string,
         family: number,
-        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
     ): void;
     export function lookup(
         hostname: string,
         options: LookupOneOptions,
-        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
     ): void;
     export function lookup(
         hostname: string,
         options: LookupAllOptions,
-        callback: (err: NodeJS.ErrnoException | null, addresses: LookupAddress[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: LookupAddress[]) => void,
     ): void;
     export function lookup(
         hostname: string,
         options: LookupOptions,
-        callback: (err: NodeJS.ErrnoException | null, address: string | LookupAddress[], family: number) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, address: string | LookupAddress[], family: number) => void,
     ): void;
     export function lookup(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
     ): void;
     export namespace lookup {
         function __promisify__(hostname: string, options: LookupAllOptions): Promise<LookupAddress[]>;
@@ -212,7 +212,7 @@ declare module "dns" {
     export function lookupService(
         address: string,
         port: number,
-        callback: (err: NodeJS.ErrnoException | null, hostname: string, service: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, hostname: string, service: string) => void,
     ): void;
     export namespace lookupService {
         function __promisify__(
@@ -330,67 +330,67 @@ declare module "dns" {
      */
     export function resolve(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "A",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "AAAA",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "ANY",
-        callback: (err: NodeJS.ErrnoException | null, addresses: AnyRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: AnyRecord[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "CNAME",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "MX",
-        callback: (err: NodeJS.ErrnoException | null, addresses: MxRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: MxRecord[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "NAPTR",
-        callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "NS",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "PTR",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "SOA",
-        callback: (err: NodeJS.ErrnoException | null, addresses: SoaRecord) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: SoaRecord) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "SRV",
-        callback: (err: NodeJS.ErrnoException | null, addresses: SrvRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: SrvRecord[]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: "TXT",
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[][]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[][]) => void,
     ): void;
     export function resolve(
         hostname: string,
         rrtype: string,
-        callback: (
+        /** @deferred */ callback: (
             err: NodeJS.ErrnoException | null,
             addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[],
         ) => void,
@@ -416,17 +416,17 @@ declare module "dns" {
      */
     export function resolve4(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve4(
         hostname: string,
         options: ResolveWithTtlOptions,
-        callback: (err: NodeJS.ErrnoException | null, addresses: RecordWithTtl[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: RecordWithTtl[]) => void,
     ): void;
     export function resolve4(
         hostname: string,
         options: ResolveOptions,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[] | RecordWithTtl[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[] | RecordWithTtl[]) => void,
     ): void;
     export namespace resolve4 {
         function __promisify__(hostname: string): Promise<string[]>;
@@ -441,17 +441,17 @@ declare module "dns" {
      */
     export function resolve6(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export function resolve6(
         hostname: string,
         options: ResolveWithTtlOptions,
-        callback: (err: NodeJS.ErrnoException | null, addresses: RecordWithTtl[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: RecordWithTtl[]) => void,
     ): void;
     export function resolve6(
         hostname: string,
         options: ResolveOptions,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[] | RecordWithTtl[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[] | RecordWithTtl[]) => void,
     ): void;
     export namespace resolve6 {
         function __promisify__(hostname: string): Promise<string[]>;
@@ -465,7 +465,7 @@ declare module "dns" {
      */
     export function resolveCname(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export namespace resolveCname {
         function __promisify__(hostname: string): Promise<string[]>;
@@ -478,7 +478,7 @@ declare module "dns" {
      */
     export function resolveCaa(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, records: CaaRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, records: CaaRecord[]) => void,
     ): void;
     export namespace resolveCaa {
         function __promisify__(hostname: string): Promise<CaaRecord[]>;
@@ -490,7 +490,7 @@ declare module "dns" {
      */
     export function resolveMx(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: MxRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: MxRecord[]) => void,
     ): void;
     export namespace resolveMx {
         function __promisify__(hostname: string): Promise<MxRecord[]>;
@@ -520,7 +520,7 @@ declare module "dns" {
      */
     export function resolveNaptr(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: NaptrRecord[]) => void,
     ): void;
     export namespace resolveNaptr {
         function __promisify__(hostname: string): Promise<NaptrRecord[]>;
@@ -532,7 +532,7 @@ declare module "dns" {
      */
     export function resolveNs(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export namespace resolveNs {
         function __promisify__(hostname: string): Promise<string[]>;
@@ -544,7 +544,7 @@ declare module "dns" {
      */
     export function resolvePtr(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[]) => void,
     ): void;
     export namespace resolvePtr {
         function __promisify__(hostname: string): Promise<string[]>;
@@ -577,7 +577,7 @@ declare module "dns" {
      */
     export function resolveSoa(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, address: SoaRecord) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, address: SoaRecord) => void,
     ): void;
     export namespace resolveSoa {
         function __promisify__(hostname: string): Promise<SoaRecord>;
@@ -603,7 +603,7 @@ declare module "dns" {
      */
     export function resolveSrv(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: SrvRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: SrvRecord[]) => void,
     ): void;
     export namespace resolveSrv {
         function __promisify__(hostname: string): Promise<SrvRecord[]>;
@@ -617,7 +617,7 @@ declare module "dns" {
      */
     export function resolveTxt(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: string[][]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: string[][]) => void,
     ): void;
     export namespace resolveTxt {
         function __promisify__(hostname: string): Promise<string[][]>;
@@ -654,7 +654,7 @@ declare module "dns" {
      */
     export function resolveAny(
         hostname: string,
-        callback: (err: NodeJS.ErrnoException | null, addresses: AnyRecord[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, addresses: AnyRecord[]) => void,
     ): void;
     export namespace resolveAny {
         function __promisify__(hostname: string): Promise<AnyRecord[]>;
@@ -669,7 +669,7 @@ declare module "dns" {
      */
     export function reverse(
         ip: string,
-        callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, hostnames: string[]) => void,
     ): void;
     /**
      * Get the default value for `order` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromiseslookuphostname-options).

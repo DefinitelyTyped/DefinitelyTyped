@@ -176,17 +176,17 @@ declare module "cluster" {
          * @since v0.7.0
          * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles.
          */
-        send(message: child.Serializable, callback?: (error: Error | null) => void): boolean;
+        send(message: child.Serializable, /*** @deferred */ callback?: (error: Error | null) => void): boolean;
         send(
             message: child.Serializable,
             sendHandle: child.SendHandle,
-            callback?: (error: Error | null) => void,
+            /*** @deferred */ callback?: (error: Error | null) => void,
         ): boolean;
         send(
             message: child.Serializable,
             sendHandle: child.SendHandle,
             options?: child.MessageOptions,
-            callback?: (error: Error | null) => void,
+            /*** @deferred */ callback?: (error: Error | null) => void,
         ): boolean;
         /**
          * This function will kill the worker. In the primary worker, it does this by
@@ -343,13 +343,13 @@ declare module "cluster" {
          *   5. message
          *   6. online
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "disconnect", listener: () => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
-        addListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        addListener(event: "listening", listener: (address: Address) => void): this;
-        addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        addListener(event: "online", listener: () => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "disconnect", /** @deferred */ listener: () => void): this;
+        addListener(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        addListener(event: "exit", /** @deferred */ listener: (code: number, signal: string) => void): this;
+        addListener(event: "listening", /** @deferred */ listener: (address: Address) => void): this;
+        addListener(event: "message", /** @deferred */ listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        addListener(event: "online", /** @deferred */ listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect"): boolean;
         emit(event: "error", error: Error): boolean;
@@ -357,34 +357,34 @@ declare module "cluster" {
         emit(event: "listening", address: Address): boolean;
         emit(event: "message", message: any, handle: net.Socket | net.Server): boolean;
         emit(event: "online"): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "disconnect", listener: () => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
-        on(event: "exit", listener: (code: number, signal: string) => void): this;
-        on(event: "listening", listener: (address: Address) => void): this;
-        on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        on(event: "online", listener: () => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "disconnect", listener: () => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
-        once(event: "exit", listener: (code: number, signal: string) => void): this;
-        once(event: "listening", listener: (address: Address) => void): this;
-        once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        once(event: "online", listener: () => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "disconnect", listener: () => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
-        prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        prependListener(event: "listening", listener: (address: Address) => void): this;
-        prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        prependListener(event: "online", listener: () => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "disconnect", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
-        prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
-        prependOnceListener(event: "listening", listener: (address: Address) => void): this;
-        prependOnceListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        prependOnceListener(event: "online", listener: () => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "disconnect", /** @deferred */ listener: () => void): this;
+        on(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        on(event: "exit", /** @deferred */ listener: (code: number, signal: string) => void): this;
+        on(event: "listening", /** @deferred */ listener: (address: Address) => void): this;
+        on(event: "message", /** @deferred */ listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        on(event: "online", /** @deferred */ listener: () => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "disconnect", /** @deferred */ listener: () => void): this;
+        once(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        once(event: "exit", /** @deferred */ listener: (code: number, signal: string) => void): this;
+        once(event: "listening", /** @deferred */ listener: (address: Address) => void): this;
+        once(event: "message", /** @deferred */ listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        once(event: "online", /** @deferred */ listener: () => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "disconnect", /** @deferred */ listener: () => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        prependListener(event: "exit", /** @deferred */ listener: (code: number, signal: string) => void): this;
+        prependListener(event: "listening", /** @deferred */ listener: (address: Address) => void): this;
+        prependListener(event: "message", /** @deferred */ listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        prependListener(event: "online", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "disconnect", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        prependOnceListener(event: "exit", /** @deferred */ listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "listening", /** @deferred */ listener: (address: Address) => void): this;
+        prependOnceListener(event: "message", /** @deferred */ listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        prependOnceListener(event: "online", /** @deferred */ listener: () => void): this;
     }
     export interface Cluster extends EventEmitter {
         disconnect(callback?: () => void): void;
@@ -509,17 +509,17 @@ declare module "cluster" {
          *   6. online
          *   7. setup
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        addListener(event: "fork", listener: (worker: Worker) => void): this;
-        addListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "disconnect", /** @deferred */ listener: (worker: Worker) => void): this;
+        addListener(event: "exit", /** @deferred */ listener: (worker: Worker, code: number, signal: string) => void): this;
+        addListener(event: "fork", /** @deferred */ listener: (worker: Worker) => void): this;
+        addListener(event: "listening", /** @deferred */ listener: (worker: Worker, address: Address) => void): this;
         addListener(
             event: "message",
-            listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void,
+            /** @deferred */ listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void,
         ): this; // the handle is a net.Socket or net.Server object, or undefined.
-        addListener(event: "online", listener: (worker: Worker) => void): this;
-        addListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
+        addListener(event: "online", /** @deferred */ listener: (worker: Worker) => void): this;
+        addListener(event: "setup", /** @deferred */ listener: (settings: ClusterSettings) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", worker: Worker): boolean;
         emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
@@ -528,46 +528,46 @@ declare module "cluster" {
         emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
         emit(event: "online", worker: Worker): boolean;
         emit(event: "setup", settings: ClusterSettings): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "disconnect", listener: (worker: Worker) => void): this;
-        on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        on(event: "fork", listener: (worker: Worker) => void): this;
-        on(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        on(event: "online", listener: (worker: Worker) => void): this;
-        on(event: "setup", listener: (settings: ClusterSettings) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "disconnect", listener: (worker: Worker) => void): this;
-        once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        once(event: "fork", listener: (worker: Worker) => void): this;
-        once(event: "listening", listener: (worker: Worker, address: Address) => void): this;
-        once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        once(event: "online", listener: (worker: Worker) => void): this;
-        once(event: "setup", listener: (settings: ClusterSettings) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        prependListener(event: "fork", listener: (worker: Worker) => void): this;
-        prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "disconnect", /** @deferred */ listener: (worker: Worker) => void): this;
+        on(event: "exit", /** @deferred */ listener: (worker: Worker, code: number, signal: string) => void): this;
+        on(event: "fork", /** @deferred */ listener: (worker: Worker) => void): this;
+        on(event: "listening", /** @deferred */ listener: (worker: Worker, address: Address) => void): this;
+        on(event: "message", /** @deferred */ listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        on(event: "online", /** @deferred */ listener: (worker: Worker) => void): this;
+        on(event: "setup", /** @deferred */ listener: (settings: ClusterSettings) => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "disconnect", /** @deferred */ listener: (worker: Worker) => void): this;
+        once(event: "exit", /** @deferred */ listener: (worker: Worker, code: number, signal: string) => void): this;
+        once(event: "fork", /** @deferred */ listener: (worker: Worker) => void): this;
+        once(event: "listening", /** @deferred */ listener: (worker: Worker, address: Address) => void): this;
+        once(event: "message", /** @deferred */ listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        once(event: "online", /** @deferred */ listener: (worker: Worker) => void): this;
+        once(event: "setup", /** @deferred */ listener: (settings: ClusterSettings) => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "disconnect", /** @deferred */ listener: (worker: Worker) => void): this;
+        prependListener(event: "exit", /** @deferred */ listener: (worker: Worker, code: number, signal: string) => void): this;
+        prependListener(event: "fork", /** @deferred */ listener: (worker: Worker) => void): this;
+        prependListener(event: "listening", /** @deferred */ listener: (worker: Worker, address: Address) => void): this;
         // the handle is a net.Socket or net.Server object, or undefined.
         prependListener(
             event: "message",
-            listener: (worker: Worker, message: any, handle?: net.Socket | net.Server) => void,
+            /** @deferred */ listener: (worker: Worker, message: any, handle?: net.Socket | net.Server) => void,
         ): this;
-        prependListener(event: "online", listener: (worker: Worker) => void): this;
-        prependListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
-        prependOnceListener(event: "fork", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        prependListener(event: "online", /** @deferred */ listener: (worker: Worker) => void): this;
+        prependListener(event: "setup", /** @deferred */ listener: (settings: ClusterSettings) => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "disconnect", /** @deferred */ listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "exit", /** @deferred */ listener: (worker: Worker, code: number, signal: string) => void): this;
+        prependOnceListener(event: "fork", /** @deferred */ listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "listening", /** @deferred */ listener: (worker: Worker, address: Address) => void): this;
         // the handle is a net.Socket or net.Server object, or undefined.
         prependOnceListener(
             event: "message",
-            listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void,
+            /** @deferred */ listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void,
         ): this;
-        prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
-        prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
+        prependOnceListener(event: "online", /** @deferred */ listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "setup", /** @deferred */ listener: (settings: ClusterSettings) => void): this;
     }
     const cluster: Cluster;
     export default cluster;
