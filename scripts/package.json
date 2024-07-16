@@ -2,7 +2,6 @@
     "private": true,
     "type": "module",
     "devDependencies": {
-        "@octokit/core": "^3.5.1",
         "@types/d3-array": "^3.0.0",
         "@types/d3-axis": "^3.0.0",
         "@types/d3-scale": "^4.0.0",
@@ -24,6 +23,7 @@
         "d3-time-format": "^4.0.0",
         "jsdom": "^17.0.0",
         "json-stable-stringify": "^1.0.2",
+        "octokit": "^4.0.2",
         "shelljs": "^0.8.5",
         "typescript": "next",
         "w3c-xmlserializer": "^2.0.0",

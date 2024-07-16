@@ -87,7 +87,7 @@ export interface SwaggerConfigs {
      * It can be 'alpha' (sort by paths alphanumerically), 'method' (sort by HTTP method) or a function (see Array.prototype.sort() to know how sort function works).
      * Default is the order returned by the server unchanged.
      */
-    operationsSorter?: (() => void) | undefined;
+    operationsSorter?: (() => void) | "alpha" | "method" | undefined;
 
     /**
      *  Function to intercept remote definition, "Try it out", and OAuth 2.0 requests.

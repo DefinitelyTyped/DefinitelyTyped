@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PaymentSubscription
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -30,5 +30,5 @@ export default class PaymentSubscription extends AbstractCrudObject {
         updated_time: "updated_time";
         user: "user";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<PaymentSubscription>;
+    get(fields: string[], params?: Record<string, any>): Promise<PaymentSubscription>;
 }

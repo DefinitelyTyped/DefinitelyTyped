@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/oidc-provider",
-    "version": "8.4.9999",
+    "version": "8.5.9999",
     "projects": [
         "https://github.com/panva/node-oidc-provider"
     ],

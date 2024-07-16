@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * URL
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -15,6 +15,6 @@ export default class URL extends AbstractCrudObject {
         news_tab: "NEWS_TAB";
         news_tab_dev_env: "NEWS_TAB_DEV_ENV";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<URL>;
-    update(fields: string[], params?: Record<any, any>): Promise<URL>;
+    get(fields: string[], params?: Record<string, any>): Promise<URL>;
+    update(fields: string[], params?: Record<string, any>): Promise<URL>;
 }

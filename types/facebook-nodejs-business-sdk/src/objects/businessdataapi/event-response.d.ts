@@ -4,13 +4,13 @@
 export default class EventResponse {
     _events_received: number;
     _events_dropped: number;
-    _message: Array<Record<any, any>>;
+    _message: Array<Record<string, any>>;
     /**
      * @param {Number} events_received
      * @param {Number} events_dropped
      * @param {Array<Object>} message
      */
-    constructor(events_received: number, events_dropped: number, message?: Array<Record<any, any>>);
+    constructor(events_received: number, events_dropped: number, message?: Array<Record<string, any>>);
     /**
      * Gets the events received number from the Graph API Response.
      */
@@ -47,15 +47,15 @@ export default class EventResponse {
      * Gets the messages from the response received from Graph API.
      * @return messages in the event Response
      */
-    get message(): Array<Record<any, any>>;
+    get message(): Array<Record<string, any>>;
     /**
      * Sets the messages as array for the response received from Graph API.
      * @param message in the event Response
      */
-    set message(message: Array<Record<any, any>>);
+    set message(message: Array<Record<string, any>>);
     /**
      * Sets the messages as array for the response received from Graph API.
      * @param {Array} message in the event Response
      */
-    setMessage(message: Array<Record<any, any>>): EventResponse;
+    setMessage(message: Array<Record<string, any>>): EventResponse;
 }

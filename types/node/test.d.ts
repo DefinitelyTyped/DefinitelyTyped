@@ -941,6 +941,17 @@ declare module "node:test" {
          * @since v19.1.0, v18.13.0
          */
         restoreAll(): void;
+        /**
+         * This function is used to mock the exports of ECMAScript modules,
+         * CommonJS modules, and Node.js builtin modules. Any references to
+         * the original module prior to mocking are not impacted
+         * @since v22.3.0
+         */
+        module(speficier: string, options?: {
+            cache?: boolean;
+            defaultExport?: any;
+            namedExports?: object;
+        }): { restore: () => void };
         timers: MockTimers;
     }
     const mock: MockTracker;
@@ -1031,7 +1042,7 @@ declare module "node:test" {
          * @since v19.1.0, v18.13.0
          * @param implementation The function to be used as the mock's new implementation.
          */
-        mockImplementation(implementation: Function): void;
+        mockImplementation(implementation: F): void;
         /**
          * This function is used to change the behavior of an existing mock for a single
          * invocation. Once invocation `onCall` has occurred, the mock will revert to
@@ -1068,7 +1079,7 @@ declare module "node:test" {
          * @param implementation The function to be used as the mock's implementation for the invocation number specified by `onCall`.
          * @param onCall The invocation number that will use `implementation`. If the specified invocation has already occurred then an exception is thrown.
          */
-        mockImplementationOnce(implementation: Function, onCall?: number): void;
+        mockImplementationOnce(implementation: F, onCall?: number): void;
         /**
          * Resets the call history of the mock function.
          * @since v19.3.0, v18.13.0

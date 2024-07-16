@@ -1147,10 +1147,10 @@ interface JQuery {
     autocomplete(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     button(): JQuery;
-    button(methodName: "destroy"): void;
-    button(methodName: "disable"): void;
-    button(methodName: "enable"): void;
-    button(methodName: "refresh"): void;
+    button(methodName: "destroy"): JQuery;
+    button(methodName: "disable"): JQuery;
+    button(methodName: "enable"): JQuery;
+    button(methodName: "refresh"): JQuery;
     button(methodName: "widget"): JQuery;
     button(methodName: string): JQuery;
     button(options: JQueryUI.ButtonOptions): JQuery;
@@ -1159,10 +1159,10 @@ interface JQuery {
     button(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     buttonset(): JQuery;
-    buttonset(methodName: "destroy"): void;
-    buttonset(methodName: "disable"): void;
-    buttonset(methodName: "enable"): void;
-    buttonset(methodName: "refresh"): void;
+    buttonset(methodName: "destroy"): JQuery;
+    buttonset(methodName: "disable"): JQuery;
+    buttonset(methodName: "enable"): JQuery;
+    buttonset(methodName: "refresh"): JQuery;
     buttonset(methodName: "widget"): JQuery;
     buttonset(methodName: string): JQuery;
     buttonset(options: JQueryUI.ButtonOptions): JQuery;

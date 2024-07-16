@@ -32,6 +32,8 @@ declare namespace Autodesk {
             RTC_ERROR = 12,
             UNSUPORTED_FILE_EXTENSION = 13,
             VIEWER_INTERNAL_ERROR = 14,
+            WEBGL_LOST_CONTEXT = 15,
+            LOAD_CANCELED = 16,
         }
 
         enum SelectionMode {

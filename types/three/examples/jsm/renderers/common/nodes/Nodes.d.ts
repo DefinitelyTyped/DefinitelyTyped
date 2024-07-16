@@ -87,6 +87,7 @@ declare class Nodes extends DataMap<{
     getNodeFrameForRender(renderObject: RenderObject): NodeFrame;
     getOutputNode(outputTexture: Texture): ShaderNodeObject<Node>;
     updateBefore(renderObject: RenderObject): void;
+    updateAfter(renderObject: RenderObject): void;
     updateForCompute(computeNode: ComputeNode): void;
     updateForRender(renderObject: RenderObject): void;
     dispose(): void;

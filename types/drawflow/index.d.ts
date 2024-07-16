@@ -630,6 +630,7 @@ export interface DrawflowConnection {
 }
 
 export interface DrawflowConnectionDetail {
+    output: string;
     input: string;
     node: string;
 }

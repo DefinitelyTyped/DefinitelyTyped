@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdActivity
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -100,6 +100,7 @@ export default class AdActivity extends AbstractCrudObject {
         update_campaign_name: "update_campaign_name";
         update_campaign_run_status: "update_campaign_run_status";
         update_campaign_schedule: "update_campaign_schedule";
+        update_campaign_value_adjustment_rule: "update_campaign_value_adjustment_rule";
         update_delivery_type_cross_level_shift: "update_delivery_type_cross_level_shift";
     }>;
     static get Category(): Readonly<{

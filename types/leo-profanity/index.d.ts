@@ -1,4 +1,4 @@
-export function loadDictionary(lang: "en" | "fr"): void;
+export function loadDictionary(lang: "en" | "fr" | "ru"): void;
 export function list(): string[];
 export function check(text: string): boolean;
 export function clean(text: string, replaceKey?: string): string;

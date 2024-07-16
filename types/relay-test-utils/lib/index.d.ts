@@ -1,4 +1,5 @@
 import * as MockPayloadGenerator from "./RelayMockPayloadGenerator";
+export { DefaultMockResolvers, MockResolver, MockResolvers } from "./RelayMockPayloadGenerator";
 export { RelayMockEnvironment as MockEnvironment } from "./RelayModernMockEnvironment";
 export { MockPayloadGenerator };
 export { createMockEnvironment } from "./RelayModernMockEnvironment";

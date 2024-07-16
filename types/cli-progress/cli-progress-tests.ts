@@ -15,8 +15,12 @@ function test0() {
     // update the current value in your application..
     bar1.update(100);
 
+    const active = bar1.isActive;
+
     // stop the progress bar
     bar1.stop();
+
+    const notActive = bar1.isActive;
 }
 
 function test1() {
@@ -112,6 +116,8 @@ function test6() {
     const subBar2 = multiBar.create(100, 30, {});
     subBar1.update(50);
     subBar1.update({ speed: "42 kbps" });
+    const subBar1Active = subBar1.isActive;
+    const multiBarActive = multiBar.isActive;
 
     subBar1.stop();
 

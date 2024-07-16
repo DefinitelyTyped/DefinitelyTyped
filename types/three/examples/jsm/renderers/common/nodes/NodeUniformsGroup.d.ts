@@ -6,7 +6,6 @@ declare class NodeUniformsGroup extends UniformsGroup {
     groupNode: UniformGroupNode;
     readonly isNodeUniformsGroup: true;
     constructor(name: string, groupNode: UniformGroupNode);
-    get shared(): boolean;
     getNodes(): UniformNode<unknown>[];
 }
 export default NodeUniformsGroup;

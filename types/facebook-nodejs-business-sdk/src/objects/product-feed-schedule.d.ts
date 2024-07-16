@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ProductFeedSchedule
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -22,5 +22,5 @@ export default class ProductFeedSchedule extends AbstractCrudObject {
         monthly: "MONTHLY";
         weekly: "WEEKLY";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<ProductFeedSchedule>;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductFeedSchedule>;
 }

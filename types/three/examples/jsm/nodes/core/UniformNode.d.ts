@@ -6,8 +6,10 @@ import NodeFrame from "./NodeFrame.js";
 import UniformGroupNode from "./UniformGroupNode.js";
 declare class UniformNode<TValue> extends InputNode<TValue> {
     readonly isUniformNode: true;
+    name: string;
     groupNode: UniformGroupNode;
     constructor(value: TValue, nodeType?: string | null);
+    label(name: string): this;
     setGroup(group: UniformGroupNode): this;
     getGroup(): UniformGroupNode;
     getUniformHash(builder: NodeBuilder): string;

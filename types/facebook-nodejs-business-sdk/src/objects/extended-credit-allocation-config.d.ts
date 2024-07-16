@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
 /**
  * ExtendedCreditAllocationConfig
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -31,7 +31,7 @@ export default class ExtendedCreditAllocationConfig extends AbstractCrudObject {
         advertiser: "Advertiser";
         agency: "Agency";
     }>;
-    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<ExtendedCreditAllocationConfig>;
-    update(fields: string[], params?: Record<any, any>): Promise<ExtendedCreditAllocationConfig>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<string, any>): Promise<ExtendedCreditAllocationConfig>;
+    update(fields: string[], params?: Record<string, any>): Promise<ExtendedCreditAllocationConfig>;
 }

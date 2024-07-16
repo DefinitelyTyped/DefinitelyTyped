@@ -133,6 +133,17 @@ declare class Renderer {
     xr: {
         enabled: boolean;
     };
+    debug: {
+        checkShaderErrors: boolean;
+        onShaderError:
+            | ((
+                gl: WebGL2RenderingContext,
+                programGPU: WebGLProgram,
+                glVertexShader: WebGLShader,
+                glFragmentShader: WebGLShader,
+            ) => void)
+            | null;
+    };
     localClippingEnabled?: boolean | undefined;
     constructor(backend: Backend, parameters?: RendererParameters);
     init(): Promise<void>;

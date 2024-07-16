@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import AbstractObject from './../abstract-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import AbstractObject from "./../abstract-object";
+import Cursor from "./../cursor";
 /**
  * AdsPixel
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -22,6 +22,7 @@ export default class AdsPixel extends AbstractCrudObject {
         event_time_max: "event_time_max";
         event_time_min: "event_time_min";
         first_party_cookie_status: "first_party_cookie_status";
+        has_1p_pixel_event: "has_1p_pixel_event";
         id: "id";
         is_consolidated_container: "is_consolidated_container";
         is_created_by_business: "is_created_by_business";
@@ -68,6 +69,11 @@ export default class AdsPixel extends AbstractCrudObject {
         first_party_cookie_disabled: "FIRST_PARTY_COOKIE_DISABLED";
         first_party_cookie_enabled: "FIRST_PARTY_COOKIE_ENABLED";
     }>;
+    static get PermittedTasks(): Readonly<{
+        advertise: "ADVERTISE";
+        analyze: "ANALYZE";
+        upload: "UPLOAD";
+    }>;
     static get Tasks(): Readonly<{
         aa_analyze: "AA_ANALYZE";
         advertise: "ADVERTISE";
@@ -75,41 +81,23 @@ export default class AdsPixel extends AbstractCrudObject {
         edit: "EDIT";
         upload: "UPLOAD";
     }>;
-    getAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getAgencies(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getAgencies(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getAgencies(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAhpConfig(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    getAssignedUsers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getAssignedUsers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getAssignedUsers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAssignedUser(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdsPixel>;
-    getDaChecks(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getDaChecks(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getDaChecks(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createEvent(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    createMeapitocapiconsolidationhelper(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    getOfflineEventUploads(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getOfflineEventUploads(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getOfflineEventUploads(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getOpenBridgeConfigurations(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getOpenBridgeConfigurations(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getOpenBridgeConfigurations(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createShadowTrafficHelper(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    deleteSharedAccounts(params?: Record<any, any>): Promise<any>;
-    getSharedAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getSharedAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getSharedAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createSharedAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdsPixel>;
-    getSharedAgencies(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getSharedAgencies(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getSharedAgencies(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getStats(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getStats(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getStats(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createTelemetry(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Promise<AdsPixel>;
-    update(fields: string[], params?: Record<any, any>): Promise<AdsPixel>;
+    getAdAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteAgencies(params?: Record<string, any>): Promise<any>;
+    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAgency(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
+    createAhpConfig(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getAssignedUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAssignedUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
+    getDaChecks(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createEvent(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getOfflineEventUploads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getOpenBridgeConfigurations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createShadowTrafficHelper(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    deleteShareDAccounts(params?: Record<string, any>): Promise<any>;
+    getShareDAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createShareDAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdsPixel>;
+    getShareDAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdsPixel>;
+    update(fields: string[], params?: Record<string, any>): Promise<AdsPixel>;
 }

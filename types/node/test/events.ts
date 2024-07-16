@@ -97,14 +97,17 @@ declare const any: any;
 
 async function test() {
     for await (const e of events.on(new events.EventEmitter(), "test")) {
-        console.log(e);
+        console.log(e.length);
     }
     events.on(new events.EventEmitter(), "test", { signal: new AbortController().signal });
+    events.on(new events.EventEmitter(), "test", { close: ["close"] });
+    events.on(new events.EventEmitter(), "test", { highWaterMark: 42 });
+    events.on(new events.EventEmitter(), "test", { lowWaterMark: 42 });
 }
 
 async function testWithSymbol() {
     for await (const e of events.on(new events.EventEmitter(), Symbol("test"))) {
-        console.log(e);
+        console.log(e.length);
     }
     events.on(new events.EventEmitter(), Symbol("test"), { signal: new AbortController().signal });
 }
