@@ -271,7 +271,7 @@ declare module "async_hooks" {
          * @param type An optional name to associate with the underlying `AsyncResource`.
          */
         static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(
-            fn: Func,
+            /** @deferred */ fn: Func,
             type?: string,
             thisArg?: ThisArg,
         ): Func & {
@@ -286,7 +286,7 @@ declare module "async_hooks" {
          * @param fn The function to bind to the current `AsyncResource`.
          */
         bind<Func extends (...args: any[]) => any>(
-            fn: Func,
+            /** @deferred */ fn: Func,
         ): Func & {
             asyncResource: AsyncResource;
         };
@@ -301,7 +301,7 @@ declare module "async_hooks" {
          * @param args Optional arguments to pass to the function.
          */
         runInAsyncScope<This, Result>(
-            fn: (this: This, ...args: any[]) => Result,
+            /** @deferred */ fn: (this: This, ...args: any[]) => Result,
             thisArg?: This,
             ...args: any[]
         ): Result;
@@ -377,7 +377,7 @@ declare module "async_hooks" {
          * @param fn The function to bind to the current execution context.
          * @returns A new function that calls `fn` within the captured execution context.
          */
-        static bind<Func extends (...args: any[]) => any>(fn: Func): Func & {
+        static bind<Func extends (...args: any[]) => any>(/** @deferred */ fn: Func): Func & {
             asyncResource: AsyncResource;
         };
         /**
@@ -385,7 +385,7 @@ declare module "async_hooks" {
          * Whenever the returned function is called, it calls the function passed to it within the captured context.
          * @since v18.16.0
          */
-        static snapshot(): (<R, TArgs extends any[]>(fn: (...args: TArgs) => R, ...args: TArgs) => R) & {
+        static snapshot(): (<R, TArgs extends any[]>(/** @deferred */ fn: (...args: TArgs) => R, ...args: TArgs) => R) & {
             asyncResource: AsyncResource;
         };
         /**

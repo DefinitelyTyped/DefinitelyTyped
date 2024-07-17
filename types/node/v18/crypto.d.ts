@@ -1265,7 +1265,7 @@ declare module "crypto" {
         options: {
             length: number;
         },
-        callback: (err: Error | null, key: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, key: KeyObject) => void,
     ): void;
     /**
      * Synchronously generates a new random secret key of the given `length`. The`type` will determine which validations will be performed on the `length`.
@@ -1815,7 +1815,7 @@ declare module "crypto" {
         iterations: number,
         keylen: number,
         digest: string,
-        callback: (err: Error | null, derivedKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, derivedKey: Buffer) => void,
     ): void;
     /**
      * Provides a synchronous Password-Based Key Derivation Function 2 (PBKDF2)
@@ -1919,9 +1919,9 @@ declare module "crypto" {
      * @return if the `callback` function is not provided.
      */
     function randomBytes(size: number): Buffer;
-    function randomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
+    function randomBytes(size: number, /** @deferred */ callback: (err: Error | null, buf: Buffer) => void): void;
     function pseudoRandomBytes(size: number): Buffer;
-    function pseudoRandomBytes(size: number, callback: (err: Error | null, buf: Buffer) => void): void;
+    function pseudoRandomBytes(size: number, /** @deferred */ callback: (err: Error | null, buf: Buffer) => void): void;
     /**
      * Return a random integer `n` such that `min <= n < max`.  This
      * implementation avoids [modulo bias](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#Modulo_bias).
@@ -1970,8 +1970,8 @@ declare module "crypto" {
      */
     function randomInt(max: number): number;
     function randomInt(min: number, max: number): number;
-    function randomInt(max: number, callback: (err: Error | null, value: number) => void): void;
-    function randomInt(min: number, max: number, callback: (err: Error | null, value: number) => void): void;
+    function randomInt(max: number, /** @deferred */ callback: (err: Error | null, value: number) => void): void;
+    function randomInt(min: number, max: number, /** @deferred */ callback: (err: Error | null, value: number) => void): void;
     /**
      * Synchronous version of {@link randomFill}.
      *
@@ -2091,18 +2091,18 @@ declare module "crypto" {
      */
     function randomFill<T extends NodeJS.ArrayBufferView>(
         buffer: T,
-        callback: (err: Error | null, buf: T) => void,
+        /** @deferred */ callback: (err: Error | null, buf: T) => void,
     ): void;
     function randomFill<T extends NodeJS.ArrayBufferView>(
         buffer: T,
         offset: number,
-        callback: (err: Error | null, buf: T) => void,
+        /** @deferred */ callback: (err: Error | null, buf: T) => void,
     ): void;
     function randomFill<T extends NodeJS.ArrayBufferView>(
         buffer: T,
         offset: number,
         size: number,
-        callback: (err: Error | null, buf: T) => void,
+        /** @deferred */ callback: (err: Error | null, buf: T) => void,
     ): void;
     interface ScryptOptions {
         cost?: number | undefined;
@@ -2151,14 +2151,14 @@ declare module "crypto" {
         password: BinaryLike,
         salt: BinaryLike,
         keylen: number,
-        callback: (err: Error | null, derivedKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, derivedKey: Buffer) => void,
     ): void;
     function scrypt(
         password: BinaryLike,
         salt: BinaryLike,
         keylen: number,
         options: ScryptOptions,
-        callback: (err: Error | null, derivedKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, derivedKey: Buffer) => void,
     ): void;
     /**
      * Provides a synchronous [scrypt](https://en.wikipedia.org/wiki/Scrypt) implementation. Scrypt is a password-based
@@ -2881,202 +2881,202 @@ declare module "crypto" {
     function generateKeyPair(
         type: "rsa",
         options: RSAKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "rsa",
         options: RSAKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "rsa",
         options: RSAKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "rsa",
         options: RSAKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "rsa",
         options: RSAKeyPairKeyObjectOptions,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     function generateKeyPair(
         type: "rsa-pss",
         options: RSAPSSKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "rsa-pss",
         options: RSAPSSKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "rsa-pss",
         options: RSAPSSKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "rsa-pss",
         options: RSAPSSKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "rsa-pss",
         options: RSAPSSKeyPairKeyObjectOptions,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     function generateKeyPair(
         type: "dsa",
         options: DSAKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "dsa",
         options: DSAKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "dsa",
         options: DSAKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "dsa",
         options: DSAKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "dsa",
         options: DSAKeyPairKeyObjectOptions,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     function generateKeyPair(
         type: "ec",
         options: ECKeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "ec",
         options: ECKeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "ec",
         options: ECKeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "ec",
         options: ECKeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "ec",
         options: ECKeyPairKeyObjectOptions,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     function generateKeyPair(
         type: "ed25519",
         options: ED25519KeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "ed25519",
         options: ED25519KeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "ed25519",
         options: ED25519KeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "ed25519",
         options: ED25519KeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "ed25519",
         options: ED25519KeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     function generateKeyPair(
         type: "ed448",
         options: ED448KeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "ed448",
         options: ED448KeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "ed448",
         options: ED448KeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "ed448",
         options: ED448KeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "ed448",
         options: ED448KeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     function generateKeyPair(
         type: "x25519",
         options: X25519KeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "x25519",
         options: X25519KeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "x25519",
         options: X25519KeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "x25519",
         options: X25519KeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "x25519",
         options: X25519KeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     function generateKeyPair(
         type: "x448",
         options: X448KeyPairOptions<"pem", "pem">,
-        callback: (err: Error | null, publicKey: string, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "x448",
         options: X448KeyPairOptions<"pem", "der">,
-        callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: string, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "x448",
         options: X448KeyPairOptions<"der", "pem">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: string) => void,
     ): void;
     function generateKeyPair(
         type: "x448",
         options: X448KeyPairOptions<"der", "der">,
-        callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: Buffer, privateKey: Buffer) => void,
     ): void;
     function generateKeyPair(
         type: "x448",
         options: X448KeyPairKeyObjectOptions | undefined,
-        callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
+        /** @deferred */ callback: (err: Error | null, publicKey: KeyObject, privateKey: KeyObject) => void,
     ): void;
     namespace generateKeyPair {
         function __promisify__(
@@ -3342,7 +3342,7 @@ declare module "crypto" {
         algorithm: string | null | undefined,
         data: NodeJS.ArrayBufferView,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput,
-        callback: (error: Error | null, data: Buffer) => void,
+        /** @deferred */ callback: (error: Error | null, data: Buffer) => void,
     ): void;
     /**
      * Verifies the given signature for `data` using the given key and algorithm. If`algorithm` is `null` or `undefined`, then the algorithm is dependent upon the
@@ -3371,7 +3371,7 @@ declare module "crypto" {
         data: NodeJS.ArrayBufferView,
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
         signature: NodeJS.ArrayBufferView,
-        callback: (error: Error | null, result: boolean) => void,
+        /** @deferred */ callback: (error: Error | null, result: boolean) => void,
     ): void;
     /**
      * Computes the Diffie-Hellman secret based on a `privateKey` and a `publicKey`.
@@ -3463,7 +3463,7 @@ declare module "crypto" {
         salt: BinaryLike,
         info: BinaryLike,
         keylen: number,
-        callback: (err: Error | null, derivedKey: ArrayBuffer) => void,
+        /** @deferred */ callback: (err: Error | null, derivedKey: ArrayBuffer) => void,
     ): void;
     /**
      * Provides a synchronous HKDF key derivation function as defined in RFC 5869\. The
@@ -3790,21 +3790,21 @@ declare module "crypto" {
      * @since v15.8.0
      * @param size The size (in bits) of the prime to generate.
      */
-    function generatePrime(size: number, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
+    function generatePrime(size: number, /** @deferred */ callback: (err: Error | null, prime: ArrayBuffer) => void): void;
     function generatePrime(
         size: number,
         options: GeneratePrimeOptionsBigInt,
-        callback: (err: Error | null, prime: bigint) => void,
+        /** @deferred */ callback: (err: Error | null, prime: bigint) => void,
     ): void;
     function generatePrime(
         size: number,
         options: GeneratePrimeOptionsArrayBuffer,
-        callback: (err: Error | null, prime: ArrayBuffer) => void,
+        /** @deferred */ callback: (err: Error | null, prime: ArrayBuffer) => void,
     ): void;
     function generatePrime(
         size: number,
         options: GeneratePrimeOptions,
-        callback: (err: Error | null, prime: ArrayBuffer | bigint) => void,
+        /** @deferred */ callback: (err: Error | null, prime: ArrayBuffer | bigint) => void,
     ): void;
     /**
      * Generates a pseudorandom prime of `size` bits.
@@ -3853,11 +3853,11 @@ declare module "crypto" {
      * @since v15.8.0
      * @param candidate A possible prime encoded as a sequence of big endian octets of arbitrary length.
      */
-    function checkPrime(value: LargeNumberLike, callback: (err: Error | null, result: boolean) => void): void;
+    function checkPrime(value: LargeNumberLike, /** @deferred */ callback: (err: Error | null, result: boolean) => void): void;
     function checkPrime(
         value: LargeNumberLike,
         options: CheckPrimeOptions,
-        callback: (err: Error | null, result: boolean) => void,
+        /** @deferred */ callback: (err: Error | null, result: boolean) => void,
     ): void;
     /**
      * Checks the primality of the `candidate`.

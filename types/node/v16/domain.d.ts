@@ -98,13 +98,13 @@ declare module "domain" {
          * from that one, and bound to this one instead.
          * @param emitter emitter or timer to be added to the domain
          */
-        add(emitter: EventEmitter | NodeJS.Timer): void;
+        add(/** @deferred */ emitter: EventEmitter | NodeJS.Timer): void;
         /**
          * The opposite of {@link add}. Removes domain handling from the
          * specified emitter.
          * @param emitter emitter or timer to be removed from the domain
          */
-        remove(emitter: EventEmitter | NodeJS.Timer): void;
+        remove(/** @deferred */ emitter: EventEmitter | NodeJS.Timer): void;
         /**
          * The returned function will be a wrapper around the supplied callback
          * function. When the returned function is called, any errors that are
@@ -128,7 +128,7 @@ declare module "domain" {
          * @param callback The callback function
          * @return The bound function
          */
-        bind<T extends Function>(callback: T): T;
+        bind<T extends Function>(/** @deferred */ callback: T): T;
         /**
          * This method is almost identical to {@link bind}. However, in
          * addition to catching thrown errors, it will also intercept `Error` objects sent as the first argument to the function.
@@ -161,7 +161,7 @@ declare module "domain" {
          * @param callback The callback function
          * @return The intercepted function
          */
-        intercept<T extends Function>(callback: T): T;
+        intercept<T extends Function>(/** @deferred */ callback: T): T;
     }
     function create(): Domain;
 }

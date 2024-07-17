@@ -271,7 +271,7 @@ declare module "async_hooks" {
          * @param type An optional name to associate with the underlying `AsyncResource`.
          */
         static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(
-            fn: Func,
+            /** @deferred */ fn: Func,
             type?: string,
             thisArg?: ThisArg,
         ): Func & {
@@ -286,7 +286,7 @@ declare module "async_hooks" {
          * @param fn The function to bind to the current `AsyncResource`.
          */
         bind<Func extends (...args: any[]) => any>(
-            fn: Func,
+            /** @deferred */ fn: Func,
         ): Func & {
             asyncResource: AsyncResource;
         };
@@ -301,7 +301,7 @@ declare module "async_hooks" {
          * @param args Optional arguments to pass to the function.
          */
         runInAsyncScope<This, Result>(
-            fn: (this: This, ...args: any[]) => Result,
+            /** @deferred */ fn: (this: This, ...args: any[]) => Result,
             thisArg?: This,
             ...args: any[]
         ): Result;

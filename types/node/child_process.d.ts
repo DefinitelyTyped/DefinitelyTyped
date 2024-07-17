@@ -458,13 +458,13 @@ declare module "child_process" {
          * @param sendHandle `undefined`, or a [`net.Socket`](https://nodejs.org/docs/latest-v20.x/api/net.html#class-netsocket), [`net.Server`](https://nodejs.org/docs/latest-v20.x/api/net.html#class-netserver), or [`dgram.Socket`](https://nodejs.org/docs/latest-v20.x/api/dgram.html#class-dgramsocket) object.
          * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles. `options` supports the following properties:
          */
-        send(message: Serializable, /** @deferred */ /** @deferred */ callback?: (error: Error | null) => void): boolean;
-        send(message: Serializable, sendHandle?: SendHandle, /** @deferred */ /** @deferred */ callback?: (error: Error | null) => void): boolean;
+        send(message: Serializable, /** @deferred */ callback?: (error: Error | null) => void): boolean;
+        send(message: Serializable, sendHandle?: SendHandle, /** @deferred */ callback?: (error: Error | null) => void): boolean;
         send(
             message: Serializable,
             sendHandle?: SendHandle,
             options?: MessageOptions,
-            /** @deferred */ /** @deferred */ callback?: (error: Error | null) => void,
+            /** @deferred */ callback?: (error: Error | null) => void,
         ): boolean;
         /**
          * Closes the IPC channel between parent and child, allowing the child to exit
