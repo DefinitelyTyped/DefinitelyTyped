@@ -121,14 +121,14 @@ declare const overloadedFunction: {
     <T>(...args: T[]): Generator<T>;
 };
 
-// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction
+// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction || { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, any>; } & GeneratorFunction
 regenerator.mark(overloadedFunction);
 
 declare const mappableIterator: IterableIterator<object> & {
     map: typeof IteratorMap;
 };
 
-// $ExpectType Generator<string | awrap<Promise<any>>, void, undefined> || Generator<string | awrap<Promise<any>>, void, unknown>
+// $ExpectType Generator<string | awrap<Promise<any>>, void, undefined> || Generator<string | awrap<Promise<any>>, void, unknown> || Generator<string | awrap<Promise<any>>, void, any>
 const mappedIterator = mappableIterator.map(value => {
     value; // $ExpectType object
     return value instanceof Promise ? regenerator.awrap(value) : String(value);

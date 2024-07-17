@@ -23,7 +23,7 @@ declare const boolean: boolean;
     GetIntrinsic("%ArrayBufferPrototype%"); // $ExpectType ArrayBuffer
 
     GetIntrinsic("%ArrayIteratorPrototype%"); // $ExpectType IterableIterator<any>
-    GetIntrinsic("%AsyncFromSyncIteratorPrototype%"); // $ExpectType AsyncGenerator<any, any, unknown>
+    GetIntrinsic("%AsyncFromSyncIteratorPrototype%"); // $ExpectType AsyncGenerator<any, any, unknown> || AsyncGenerator<any, any, any>
 
     GetIntrinsic("%AsyncFunction%"); // $ExpectType FunctionConstructor
     GetIntrinsic("%AsyncFunction.prototype%"); // $ExpectType Function
@@ -31,7 +31,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%AsyncGenerator%"); // $ExpectType AsyncGeneratorFunction
     GetIntrinsic("%AsyncGeneratorFunction%"); // $ExpectType AsyncGeneratorFunctionConstructor
-    GetIntrinsic("%AsyncGeneratorPrototype%"); // $ExpectType AsyncGenerator<any, any, unknown>
+    GetIntrinsic("%AsyncGeneratorPrototype%"); // $ExpectType AsyncGenerator<any, any, unknown> || AsyncGenerator<any, any, any>
     GetIntrinsic("%AsyncIteratorPrototype%"); // $ExpectType AsyncIterable<any>
 
     GetIntrinsic("%Atomics%"); // $ExpectType Atomics
@@ -78,7 +78,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%Generator%"); // $ExpectType GeneratorFunction
     GetIntrinsic("%GeneratorFunction%"); // $ExpectType GeneratorFunctionConstructor
-    GetIntrinsic("%GeneratorPrototype%"); // $ExpectType Generator<any, any, unknown>
+    GetIntrinsic("%GeneratorPrototype%"); // $ExpectType Generator<any, any, unknown> || Generator<any, any, any>
     GetIntrinsic("%IteratorPrototype%"); // $ExpectType Iterable<any>
 
     GetIntrinsic("%Int8Array%"); // $ExpectType Int8ArrayConstructor
@@ -232,7 +232,7 @@ declare const boolean: boolean;
     GetIntrinsic("%ArrayBufferPrototype%", false); // $ExpectType ArrayBuffer
 
     GetIntrinsic("%ArrayIteratorPrototype%", false); // $ExpectType IterableIterator<any>
-    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", false); // $ExpectType AsyncGenerator<any, any, unknown>
+    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", false); // $ExpectType AsyncGenerator<any, any, unknown> || AsyncGenerator<any, any, any>
 
     GetIntrinsic("%AsyncFunction%", false); // $ExpectType FunctionConstructor
     GetIntrinsic("%AsyncFunction.prototype%", false); // $ExpectType Function
@@ -240,7 +240,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%AsyncGenerator%", false); // $ExpectType AsyncGeneratorFunction
     GetIntrinsic("%AsyncGeneratorFunction%", false); // $ExpectType AsyncGeneratorFunctionConstructor
-    GetIntrinsic("%AsyncGeneratorPrototype%", false); // $ExpectType AsyncGenerator<any, any, unknown>
+    GetIntrinsic("%AsyncGeneratorPrototype%", false); // $ExpectType AsyncGenerator<any, any, unknown> || AsyncGenerator<any, any, any>
     GetIntrinsic("%AsyncIteratorPrototype%", false); // $ExpectType AsyncIterable<any>
 
     GetIntrinsic("%Atomics%", false); // $ExpectType Atomics
@@ -287,7 +287,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%Generator%", false); // $ExpectType GeneratorFunction
     GetIntrinsic("%GeneratorFunction%", false); // $ExpectType GeneratorFunctionConstructor
-    GetIntrinsic("%GeneratorPrototype%", false); // $ExpectType Generator<any, any, unknown>
+    GetIntrinsic("%GeneratorPrototype%", false); // $ExpectType Generator<any, any, unknown> || Generator<any, any, any>
     GetIntrinsic("%IteratorPrototype%", false); // $ExpectType Iterable<any>
 
     GetIntrinsic("%Int8Array%", false); // $ExpectType Int8ArrayConstructor
@@ -441,7 +441,7 @@ declare const boolean: boolean;
     GetIntrinsic("%ArrayBufferPrototype%", true); // $ExpectType ArrayBuffer | undefined
 
     GetIntrinsic("%ArrayIteratorPrototype%", true); // $ExpectType IterableIterator<any> | undefined
-    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
+    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined ||  AsyncGenerator<any, any, any> | undefined
 
     GetIntrinsic("%AsyncFunction%", true); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic("%AsyncFunction.prototype%", true); // $ExpectType Function | undefined
@@ -449,7 +449,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%AsyncGenerator%", true); // $ExpectType AsyncGeneratorFunction | undefined
     GetIntrinsic("%AsyncGeneratorFunction%", true); // $ExpectType AsyncGeneratorFunctionConstructor | undefined
-    GetIntrinsic("%AsyncGeneratorPrototype%", true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
+    GetIntrinsic("%AsyncGeneratorPrototype%", true); // $ExpectType AsyncGenerator<any, any, unknown> | undefined || AsyncGenerator<any, any, any> | undefined
     GetIntrinsic("%AsyncIteratorPrototype%", true); // $ExpectType AsyncIterable<any> | undefined
 
     GetIntrinsic("%Atomics%", true); // $ExpectType Atomics | undefined
@@ -496,7 +496,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%Generator%", true); // $ExpectType GeneratorFunction | undefined
     GetIntrinsic("%GeneratorFunction%", true); // $ExpectType GeneratorFunctionConstructor | undefined
-    GetIntrinsic("%GeneratorPrototype%", true); // $ExpectType Generator<any, any, unknown> | undefined
+    GetIntrinsic("%GeneratorPrototype%", true); // $ExpectType Generator<any, any, unknown> | undefined || Generator<any, any, any> | undefined
     GetIntrinsic("%IteratorPrototype%", true); // $ExpectType Iterable<any> | undefined
 
     GetIntrinsic("%Int8Array%", true); // $ExpectType Int8ArrayConstructor | undefined
@@ -650,7 +650,7 @@ declare const boolean: boolean;
     GetIntrinsic("%ArrayBufferPrototype%", boolean); // $ExpectType ArrayBuffer | undefined
 
     GetIntrinsic("%ArrayIteratorPrototype%", boolean); // $ExpectType IterableIterator<any> | undefined
-    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
+    GetIntrinsic("%AsyncFromSyncIteratorPrototype%", boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined || AsyncGenerator<any, any, any> | undefined
 
     GetIntrinsic("%AsyncFunction%", boolean); // $ExpectType FunctionConstructor | undefined
     GetIntrinsic("%AsyncFunction.prototype%", boolean); // $ExpectType Function | undefined
@@ -658,7 +658,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%AsyncGenerator%", boolean); // $ExpectType AsyncGeneratorFunction | undefined
     GetIntrinsic("%AsyncGeneratorFunction%", boolean); // $ExpectType AsyncGeneratorFunctionConstructor | undefined
-    GetIntrinsic("%AsyncGeneratorPrototype%", boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined
+    GetIntrinsic("%AsyncGeneratorPrototype%", boolean); // $ExpectType AsyncGenerator<any, any, unknown> | undefined || AsyncGenerator<any, any, any> | undefined
     GetIntrinsic("%AsyncIteratorPrototype%", boolean); // $ExpectType AsyncIterable<any> | undefined
 
     GetIntrinsic("%Atomics%", boolean); // $ExpectType Atomics | undefined
@@ -705,7 +705,7 @@ declare const boolean: boolean;
 
     GetIntrinsic("%Generator%", boolean); // $ExpectType GeneratorFunction | undefined
     GetIntrinsic("%GeneratorFunction%", boolean); // $ExpectType GeneratorFunctionConstructor | undefined
-    GetIntrinsic("%GeneratorPrototype%", boolean); // $ExpectType Generator<any, any, unknown> | undefined
+    GetIntrinsic("%GeneratorPrototype%", boolean); // $ExpectType Generator<any, any, unknown> | undefined || Generator<any, any, any> | undefined
     GetIntrinsic("%IteratorPrototype%", boolean); // $ExpectType Iterable<any> | undefined
 
     GetIntrinsic("%Int8Array%", boolean); // $ExpectType Int8ArrayConstructor | undefined
