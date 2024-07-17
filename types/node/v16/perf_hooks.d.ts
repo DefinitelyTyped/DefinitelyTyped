@@ -400,7 +400,7 @@ declare module "perf_hooks" {
     }
     type PerformanceObserverCallback = (list: PerformanceObserverEntryList, observer: PerformanceObserver) => void;
     class PerformanceObserver extends AsyncResource {
-        constructor(callback: PerformanceObserverCallback);
+        constructor(/** @deferred */ callback: PerformanceObserverCallback);
         /**
          * Disconnects the `PerformanceObserver` instance from all notifications.
          * @since v8.5.0

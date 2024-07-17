@@ -19,7 +19,7 @@ declare module "net" {
     type LookupFunction = (
         hostname: string,
         options: dns.LookupOneOptions,
-        callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
     ) => void;
     interface AddressInfo {
         address: string;
@@ -104,8 +104,8 @@ declare module "net" {
          * @since v0.1.90
          * @param [encoding='utf8'] Only used when data is `string`.
          */
-        write(buffer: Uint8Array | string, cb?: (err?: Error) => void): boolean;
-        write(str: Uint8Array | string, encoding?: BufferEncoding, cb?: (err?: Error) => void): boolean;
+        write(buffer: Uint8Array | string, /** @deferred */ cb?: (err?: Error) => void): boolean;
+        write(str: Uint8Array | string, encoding?: BufferEncoding, /** @deferred */ cb?: (err?: Error) => void): boolean;
         /**
          * Initiate a connection on a given socket.
          *
@@ -125,10 +125,10 @@ declare module "net" {
          * This function should only be used for reconnecting a socket after`'close'` has been emitted or otherwise it may lead to undefined
          * behavior.
          */
-        connect(options: SocketConnectOpts, connectionListener?: () => void): this;
-        connect(port: number, host: string, connectionListener?: () => void): this;
-        connect(port: number, connectionListener?: () => void): this;
-        connect(path: string, connectionListener?: () => void): this;
+        connect(options: SocketConnectOpts, /** @deferred */ connectionListener?: () => void): this;
+        connect(port: number, host: string, /** @deferred */ connectionListener?: () => void): this;
+        connect(port: number, /** @deferred */ connectionListener?: () => void): this;
+        connect(path: string, /** @deferred */ connectionListener?: () => void): this;
         /**
          * Set the encoding for the socket as a `Readable Stream`. See `readable.setEncoding()` for more information.
          * @since v0.1.90
@@ -167,7 +167,7 @@ declare module "net" {
          * @since v0.1.90
          * @return The socket itself.
          */
-        setTimeout(timeout: number, callback?: () => void): this;
+        setTimeout(timeout: number, /** @deferred */ callback?: () => void): this;
         /**
          * Enable/disable the use of Nagle's algorithm.
          *
@@ -324,9 +324,9 @@ declare module "net" {
          * @param callback Optional callback for when the socket is finished.
          * @return The socket itself.
          */
-        end(callback?: () => void): this;
-        end(buffer: Uint8Array | string, callback?: () => void): this;
-        end(str: Uint8Array | string, encoding?: BufferEncoding, callback?: () => void): this;
+        end(/** @deferred */ callback?: () => void): this;
+        end(buffer: Uint8Array | string, /** @deferred */ callback?: () => void): this;
+        end(str: Uint8Array | string, encoding?: BufferEncoding, /** @deferred */ callback?: () => void): this;
         /**
          * events.EventEmitter
          *   1. close
@@ -338,19 +338,19 @@ declare module "net" {
          *   7. lookup
          *   8. timeout
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: (hadError: boolean) => void): this;
-        addListener(event: "connect", listener: () => void): this;
-        addListener(event: "data", listener: (data: Buffer) => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "end", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: (hadError: boolean) => void): this;
+        addListener(event: "connect", /** @deferred */ listener: () => void): this;
+        addListener(event: "data", /** @deferred */ listener: (data: Buffer) => void): this;
+        addListener(event: "drain", /** @deferred */ listener: () => void): this;
+        addListener(event: "end", /** @deferred */ listener: () => void): this;
+        addListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
         addListener(
             event: "lookup",
-            listener: (err: Error, address: string, family: string | number, host: string) => void,
+            /** @deferred */ listener: (err: Error, address: string, family: string | number, host: string) => void,
         ): this;
-        addListener(event: "ready", listener: () => void): this;
-        addListener(event: "timeout", listener: () => void): this;
+        addListener(event: "ready", /** @deferred */ listener: () => void): this;
+        addListener(event: "timeout", /** @deferred */ listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", hadError: boolean): boolean;
         emit(event: "connect"): boolean;
@@ -361,58 +361,58 @@ declare module "net" {
         emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
         emit(event: "ready"): boolean;
         emit(event: "timeout"): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: (hadError: boolean) => void): this;
-        on(event: "connect", listener: () => void): this;
-        on(event: "data", listener: (data: Buffer) => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "end", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "close", /** @deferred */ listener: (hadError: boolean) => void): this;
+        on(event: "connect", /** @deferred */ listener: () => void): this;
+        on(event: "data", /** @deferred */ listener: (data: Buffer) => void): this;
+        on(event: "drain", /** @deferred */ listener: () => void): this;
+        on(event: "end", /** @deferred */ listener: () => void): this;
+        on(event: "error", /** @deferred */ listener: (err: Error) => void): this;
         on(
             event: "lookup",
-            listener: (err: Error, address: string, family: string | number, host: string) => void,
+            /** @deferred */ listener: (err: Error, address: string, family: string | number, host: string) => void,
         ): this;
-        on(event: "ready", listener: () => void): this;
-        on(event: "timeout", listener: () => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: (hadError: boolean) => void): this;
-        once(event: "connect", listener: () => void): this;
-        once(event: "data", listener: (data: Buffer) => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "end", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
+        on(event: "ready", /** @deferred */ listener: () => void): this;
+        on(event: "timeout", /** @deferred */ listener: () => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "close", /** @deferred */ listener: (hadError: boolean) => void): this;
+        once(event: "connect", /** @deferred */ listener: () => void): this;
+        once(event: "data", /** @deferred */ listener: (data: Buffer) => void): this;
+        once(event: "drain", /** @deferred */ listener: () => void): this;
+        once(event: "end", /** @deferred */ listener: () => void): this;
+        once(event: "error", /** @deferred */ listener: (err: Error) => void): this;
         once(
             event: "lookup",
-            listener: (err: Error, address: string, family: string | number, host: string) => void,
+            /** @deferred */ listener: (err: Error, address: string, family: string | number, host: string) => void,
         ): this;
-        once(event: "ready", listener: () => void): this;
-        once(event: "timeout", listener: () => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: (hadError: boolean) => void): this;
-        prependListener(event: "connect", listener: () => void): this;
-        prependListener(event: "data", listener: (data: Buffer) => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "end", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
+        once(event: "ready", /** @deferred */ listener: () => void): this;
+        once(event: "timeout", /** @deferred */ listener: () => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: (hadError: boolean) => void): this;
+        prependListener(event: "connect", /** @deferred */ listener: () => void): this;
+        prependListener(event: "data", /** @deferred */ listener: (data: Buffer) => void): this;
+        prependListener(event: "drain", /** @deferred */ listener: () => void): this;
+        prependListener(event: "end", /** @deferred */ listener: () => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
         prependListener(
             event: "lookup",
-            listener: (err: Error, address: string, family: string | number, host: string) => void,
+            /** @deferred */ listener: (err: Error, address: string, family: string | number, host: string) => void,
         ): this;
-        prependListener(event: "ready", listener: () => void): this;
-        prependListener(event: "timeout", listener: () => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: (hadError: boolean) => void): this;
-        prependOnceListener(event: "connect", listener: () => void): this;
-        prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "end", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "ready", /** @deferred */ listener: () => void): this;
+        prependListener(event: "timeout", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: (hadError: boolean) => void): this;
+        prependOnceListener(event: "connect", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "data", /** @deferred */ listener: (data: Buffer) => void): this;
+        prependOnceListener(event: "drain", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "end", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
         prependOnceListener(
             event: "lookup",
-            listener: (err: Error, address: string, family: string | number, host: string) => void,
+            /** @deferred */ listener: (err: Error, address: string, family: string | number, host: string) => void,
         ): this;
-        prependOnceListener(event: "ready", listener: () => void): this;
-        prependOnceListener(event: "timeout", listener: () => void): this;
+        prependOnceListener(event: "ready", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "timeout", /** @deferred */ listener: () => void): this;
     }
     interface ListenOptions extends Abortable {
         port?: number | undefined;
@@ -463,8 +463,8 @@ declare module "net" {
      * @since v0.1.90
      */
     class Server extends EventEmitter {
-        constructor(connectionListener?: (socket: Socket) => void);
-        constructor(options?: ServerOpts, connectionListener?: (socket: Socket) => void);
+        constructor(/** @deferred */ connectionListener?: (socket: Socket) => void);
+        constructor(options?: ServerOpts, /** @deferred */ connectionListener?: (socket: Socket) => void);
         /**
          * Start a server listening for connections. A `net.Server` can be a TCP or
          * an `IPC` server depending on what it listens to.
@@ -506,15 +506,15 @@ declare module "net" {
          * });
          * ```
          */
-        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: () => void): this;
-        listen(port?: number, hostname?: string, listeningListener?: () => void): this;
-        listen(port?: number, backlog?: number, listeningListener?: () => void): this;
-        listen(port?: number, listeningListener?: () => void): this;
-        listen(path: string, backlog?: number, listeningListener?: () => void): this;
-        listen(path: string, listeningListener?: () => void): this;
-        listen(options: ListenOptions, listeningListener?: () => void): this;
-        listen(handle: any, backlog?: number, listeningListener?: () => void): this;
-        listen(handle: any, listeningListener?: () => void): this;
+        listen(port?: number, hostname?: string, backlog?: number, /** @deferred */ listeningListener?: () => void): this;
+        listen(port?: number, hostname?: string, /** @deferred */ listeningListener?: () => void): this;
+        listen(port?: number, backlog?: number, /** @deferred */ listeningListener?: () => void): this;
+        listen(port?: number, /** @deferred */ listeningListener?: () => void): this;
+        listen(path: string, backlog?: number, /** @deferred */ listeningListener?: () => void): this;
+        listen(path: string, /** @deferred */ listeningListener?: () => void): this;
+        listen(options: ListenOptions, /** @deferred */ listeningListener?: () => void): this;
+        listen(handle: any, backlog?: number, /** @deferred */ listeningListener?: () => void): this;
+        listen(handle: any, /** @deferred */ listeningListener?: () => void): this;
         /**
          * Stops the server from accepting new connections and keeps existing
          * connections. This function is asynchronous, the server is finally closed
@@ -525,7 +525,7 @@ declare module "net" {
          * @since v0.1.90
          * @param callback Called when the server is closed.
          */
-        close(callback?: (err?: Error) => void): this;
+        close(/** @deferred */ callback?: (err?: Error) => void): this;
         /**
          * Returns the bound `address`, the address `family` name, and `port` of the server
          * as reported by the operating system if listening on an IP socket
@@ -560,7 +560,7 @@ declare module "net" {
          * Callback should take two arguments `err` and `count`.
          * @since v0.9.7
          */
-        getConnections(cb: (error: Error | null, count: number) => void): void;
+        getConnections(/** @deferred */ cb: (error: Error | null, count: number) => void): void;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref`ed server will_not_ let the program exit if it's the only server left (the default behavior).
          * If the server is `ref`ed calling `ref()` again will have no effect.
@@ -595,36 +595,36 @@ declare module "net" {
          *   3. error
          *   4. listening
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connection", listener: (socket: Socket) => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        addListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        addListener(event: "listening", /** @deferred */ listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "connection", socket: Socket): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connection", listener: (socket: Socket) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connection", listener: (socket: Socket) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        on(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        on(event: "listening", /** @deferred */ listener: () => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        once(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        once(event: "listening", /** @deferred */ listener: () => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependListener(event: "listening", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", /** @deferred */ listener: () => void): this;
     }
     type IPVersion = "ipv4" | "ipv6";
     /**
@@ -757,8 +757,8 @@ declare module "net" {
      * @since v0.5.0
      * @param connectionListener Automatically set as a listener for the {@link 'connection'} event.
      */
-    function createServer(connectionListener?: (socket: Socket) => void): Server;
-    function createServer(options?: ServerOpts, connectionListener?: (socket: Socket) => void): Server;
+    function createServer(/** @deferred */ connectionListener?: (socket: Socket) => void): Server;
+    function createServer(options?: ServerOpts, /** @deferred */ connectionListener?: (socket: Socket) => void): Server;
     /**
      * Aliases to {@link createConnection}.
      *
@@ -768,9 +768,9 @@ declare module "net" {
      * * {@link connect} for `IPC` connections.
      * * {@link connect} for TCP connections.
      */
-    function connect(options: NetConnectOpts, connectionListener?: () => void): Socket;
-    function connect(port: number, host?: string, connectionListener?: () => void): Socket;
-    function connect(path: string, connectionListener?: () => void): Socket;
+    function connect(options: NetConnectOpts, /** @deferred */ connectionListener?: () => void): Socket;
+    function connect(port: number, host?: string, /** @deferred */ connectionListener?: () => void): Socket;
+    function connect(path: string, /** @deferred */ connectionListener?: () => void): Socket;
     /**
      * A factory function, which creates a new {@link Socket},
      * immediately initiates connection with `socket.connect()`,
@@ -788,9 +788,9 @@ declare module "net" {
      *
      * The {@link connect} function is an alias to this function.
      */
-    function createConnection(options: NetConnectOpts, connectionListener?: () => void): Socket;
-    function createConnection(port: number, host?: string, connectionListener?: () => void): Socket;
-    function createConnection(path: string, connectionListener?: () => void): Socket;
+    function createConnection(options: NetConnectOpts, /** @deferred */ connectionListener?: () => void): Socket;
+    function createConnection(port: number, host?: string, /** @deferred */ connectionListener?: () => void): Socket;
+    function createConnection(path: string, /** @deferred */ connectionListener?: () => void): Socket;
     /**
      * Tests if input is an IP address. Returns `0` for invalid strings,
      * returns `4` for IP version 4 addresses, and returns `6` for IP version 6

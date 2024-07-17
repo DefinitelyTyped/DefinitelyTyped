@@ -225,7 +225,7 @@ declare module "fs" {
          * @since v12.12.0
          */
         close(): Promise<void>;
-        close(cb: NoParamCallback): void;
+        close(/** @deferred */ cb: NoParamCallback): void;
         /**
          * Synchronously close the directory's underlying resource handle.
          * Subsequent reads will result in errors.
@@ -245,7 +245,7 @@ declare module "fs" {
          * @return containing {fs.Dirent|null}
          */
         read(): Promise<Dirent | null>;
-        read(cb: (err: NodeJS.ErrnoException | null, dirEnt: Dirent | null) => void): void;
+        read(/** @deferred */ cb: (err: NodeJS.ErrnoException | null, dirEnt: Dirent | null) => void): void;
         /**
          * Synchronously read the next directory entry as an `fs.Dirent`. See the
          * POSIX [`readdir(3)`](http://man7.org/linux/man-pages/man3/readdir.3.html) documentation for more detail.
@@ -314,33 +314,33 @@ declare module "fs" {
          *   2. close
          *   3. error
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "error", listener: (error: Error) => void): this;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "error", listener: (error: Error) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "error", listener: (error: Error) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "error", listener: (error: Error) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (error: Error) => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "change", /** @deferred */ listener: (eventType: string, filename: string | Buffer) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "change", /** @deferred */ listener: (eventType: string, filename: string | Buffer) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "change", /** @deferred */ listener: (eventType: string, filename: string | Buffer) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "change", /** @deferred */ listener: (eventType: string, filename: string | Buffer) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (error: Error) => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "change", /** @deferred */ listener: (eventType: string, filename: string | Buffer) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (error: Error) => void): this;
     }
     /**
      * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
      * @since v0.1.93
      */
     export class ReadStream extends stream.Readable {
-        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+        close(/** @deferred */ callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         /**
          * The number of bytes that have been read so far.
          * @since v6.4.0
@@ -365,56 +365,56 @@ declare module "fs" {
          *   2. close
          *   3. ready
          */
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        addListener(event: "end", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "open", listener: (fd: number) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "readable", listener: () => void): this;
-        addListener(event: "ready", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "data", listener: (chunk: Buffer | string) => void): this;
-        on(event: "end", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "open", listener: (fd: number) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "readable", listener: () => void): this;
-        on(event: "ready", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "data", listener: (chunk: Buffer | string) => void): this;
-        once(event: "end", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "open", listener: (fd: number) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "readable", listener: () => void): this;
-        once(event: "ready", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        prependListener(event: "end", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "open", listener: (fd: number) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "readable", listener: () => void): this;
-        prependListener(event: "ready", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
-        prependOnceListener(event: "end", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "open", listener: (fd: number) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "readable", listener: () => void): this;
-        prependOnceListener(event: "ready", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "data", /** @deferred */ listener: (chunk: Buffer | string) => void): this;
+        addListener(event: "end", /** @deferred */ listener: () => void): this;
+        addListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        addListener(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        addListener(event: "pause", /** @deferred */ listener: () => void): this;
+        addListener(event: "readable", /** @deferred */ listener: () => void): this;
+        addListener(event: "ready", /** @deferred */ listener: () => void): this;
+        addListener(event: "resume", /** @deferred */ listener: () => void): this;
+        addListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "data", /** @deferred */ listener: (chunk: Buffer | string) => void): this;
+        on(event: "end", /** @deferred */ listener: () => void): this;
+        on(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        on(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        on(event: "pause", /** @deferred */ listener: () => void): this;
+        on(event: "readable", /** @deferred */ listener: () => void): this;
+        on(event: "ready", /** @deferred */ listener: () => void): this;
+        on(event: "resume", /** @deferred */ listener: () => void): this;
+        on(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "data", /** @deferred */ listener: (chunk: Buffer | string) => void): this;
+        once(event: "end", /** @deferred */ listener: () => void): this;
+        once(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        once(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        once(event: "pause", /** @deferred */ listener: () => void): this;
+        once(event: "readable", /** @deferred */ listener: () => void): this;
+        once(event: "ready", /** @deferred */ listener: () => void): this;
+        once(event: "resume", /** @deferred */ listener: () => void): this;
+        once(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "data", /** @deferred */ listener: (chunk: Buffer | string) => void): this;
+        prependListener(event: "end", /** @deferred */ listener: () => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependListener(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        prependListener(event: "pause", /** @deferred */ listener: () => void): this;
+        prependListener(event: "readable", /** @deferred */ listener: () => void): this;
+        prependListener(event: "ready", /** @deferred */ listener: () => void): this;
+        prependListener(event: "resume", /** @deferred */ listener: () => void): this;
+        prependListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "data", /** @deferred */ listener: (chunk: Buffer | string) => void): this;
+        prependOnceListener(event: "end", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependOnceListener(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        prependOnceListener(event: "pause", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "readable", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "ready", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "resume", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
     }
     /**
      * * Extends `stream.Writable`
@@ -428,7 +428,7 @@ declare module "fs" {
          * callback that will be executed once the `writeStream`is closed.
          * @since v0.9.4
          */
-        close(callback?: (err?: NodeJS.ErrnoException | null) => void): void;
+        close(/** @deferred */ callback?: (err?: NodeJS.ErrnoException | null) => void): void;
         /**
          * The number of bytes written so far. Does not include data that is still queued
          * for writing.
@@ -454,51 +454,51 @@ declare module "fs" {
          *   2. close
          *   3. ready
          */
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "finish", listener: () => void): this;
-        addListener(event: "open", listener: (fd: number) => void): this;
-        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: "ready", listener: () => void): this;
-        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "finish", listener: () => void): this;
-        on(event: "open", listener: (fd: number) => void): this;
-        on(event: "pipe", listener: (src: stream.Readable) => void): this;
-        on(event: "ready", listener: () => void): this;
-        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "finish", listener: () => void): this;
-        once(event: "open", listener: (fd: number) => void): this;
-        once(event: "pipe", listener: (src: stream.Readable) => void): this;
-        once(event: "ready", listener: () => void): this;
-        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "finish", listener: () => void): this;
-        prependListener(event: "open", listener: (fd: number) => void): this;
-        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: "ready", listener: () => void): this;
-        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "finish", listener: () => void): this;
-        prependOnceListener(event: "open", listener: (fd: number) => void): this;
-        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: "ready", listener: () => void): this;
-        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "drain", /** @deferred */ listener: () => void): this;
+        addListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        addListener(event: "finish", /** @deferred */ listener: () => void): this;
+        addListener(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        addListener(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        addListener(event: "ready", /** @deferred */ listener: () => void): this;
+        addListener(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        addListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "drain", /** @deferred */ listener: () => void): this;
+        on(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        on(event: "finish", /** @deferred */ listener: () => void): this;
+        on(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        on(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        on(event: "ready", /** @deferred */ listener: () => void): this;
+        on(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        on(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "drain", /** @deferred */ listener: () => void): this;
+        once(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        once(event: "finish", /** @deferred */ listener: () => void): this;
+        once(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        once(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        once(event: "ready", /** @deferred */ listener: () => void): this;
+        once(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        once(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "drain", /** @deferred */ listener: () => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependListener(event: "finish", /** @deferred */ listener: () => void): this;
+        prependListener(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        prependListener(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        prependListener(event: "ready", /** @deferred */ listener: () => void): this;
+        prependListener(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        prependListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "drain", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependOnceListener(event: "finish", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "open", /** @deferred */ listener: (fd: number) => void): this;
+        prependOnceListener(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: "ready", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
     }
     /**
      * Asynchronously rename file at `oldPath` to the pathname provided
@@ -519,7 +519,7 @@ declare module "fs" {
      * ```
      * @since v0.0.2
      */
-    export function rename(oldPath: PathLike, newPath: PathLike, callback: NoParamCallback): void;
+    export function rename(oldPath: PathLike, newPath: PathLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace rename {
         /**
          * Asynchronous rename(2) - Change the name or location of a file or directory.
@@ -558,12 +558,12 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function truncate(path: PathLike, len: number | undefined | null, callback: NoParamCallback): void;
+    export function truncate(path: PathLike, len: number | undefined | null, /** @deferred */ callback: NoParamCallback): void;
     /**
      * Asynchronous truncate(2) - Truncate a file to a specified length.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function truncate(path: PathLike, callback: NoParamCallback): void;
+    export function truncate(path: PathLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace truncate {
         /**
          * Asynchronous truncate(2) - Truncate a file to a specified length.
@@ -625,12 +625,12 @@ declare module "fs" {
      * @since v0.8.6
      * @param [len=0]
      */
-    export function ftruncate(fd: number, len: number | undefined | null, callback: NoParamCallback): void;
+    export function ftruncate(fd: number, len: number | undefined | null, /** @deferred */ callback: NoParamCallback): void;
     /**
      * Asynchronous ftruncate(2) - Truncate a file to a specified length.
      * @param fd A file descriptor.
      */
-    export function ftruncate(fd: number, callback: NoParamCallback): void;
+    export function ftruncate(fd: number, /** @deferred */ callback: NoParamCallback): void;
     export namespace ftruncate {
         /**
          * Asynchronous ftruncate(2) - Truncate a file to a specified length.
@@ -655,7 +655,7 @@ declare module "fs" {
      * See the POSIX [`chown(2)`](http://man7.org/linux/man-pages/man2/chown.2.html) documentation for more detail.
      * @since v0.1.97
      */
-    export function chown(path: PathLike, uid: number, gid: number, callback: NoParamCallback): void;
+    export function chown(path: PathLike, uid: number, gid: number, /** @deferred */ callback: NoParamCallback): void;
     export namespace chown {
         /**
          * Asynchronous chown(2) - Change ownership of a file.
@@ -678,7 +678,7 @@ declare module "fs" {
      * See the POSIX [`fchown(2)`](http://man7.org/linux/man-pages/man2/fchown.2.html) documentation for more detail.
      * @since v0.4.7
      */
-    export function fchown(fd: number, uid: number, gid: number, callback: NoParamCallback): void;
+    export function fchown(fd: number, uid: number, gid: number, /** @deferred */ callback: NoParamCallback): void;
     export namespace fchown {
         /**
          * Asynchronous fchown(2) - Change ownership of a file.
@@ -701,7 +701,7 @@ declare module "fs" {
      *
      * See the POSIX [`lchown(2)`](http://man7.org/linux/man-pages/man2/lchown.2.html) documentation for more detail.
      */
-    export function lchown(path: PathLike, uid: number, gid: number, callback: NoParamCallback): void;
+    export function lchown(path: PathLike, uid: number, gid: number, /** @deferred */ callback: NoParamCallback): void;
     export namespace lchown {
         /**
          * Asynchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
@@ -726,7 +726,7 @@ declare module "fs" {
      * callback.
      * @since v14.5.0, v12.19.0
      */
-    export function lutimes(path: PathLike, atime: TimeLike, mtime: TimeLike, callback: NoParamCallback): void;
+    export function lutimes(path: PathLike, atime: TimeLike, mtime: TimeLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace lutimes {
         /**
          * Changes the access and modification times of a file in the same way as `fsPromises.utimes()`,
@@ -761,7 +761,7 @@ declare module "fs" {
      * ```
      * @since v0.1.30
      */
-    export function chmod(path: PathLike, mode: Mode, callback: NoParamCallback): void;
+    export function chmod(path: PathLike, mode: Mode, /** @deferred */ callback: NoParamCallback): void;
     export namespace chmod {
         /**
          * Asynchronous chmod(2) - Change permissions of a file.
@@ -785,7 +785,7 @@ declare module "fs" {
      * See the POSIX [`fchmod(2)`](http://man7.org/linux/man-pages/man2/fchmod.2.html) documentation for more detail.
      * @since v0.4.7
      */
-    export function fchmod(fd: number, mode: Mode, callback: NoParamCallback): void;
+    export function fchmod(fd: number, mode: Mode, /** @deferred */ callback: NoParamCallback): void;
     export namespace fchmod {
         /**
          * Asynchronous fchmod(2) - Change permissions of a file.
@@ -810,7 +810,7 @@ declare module "fs" {
      * See the POSIX [`lchmod(2)`](https://www.freebsd.org/cgi/man.cgi?query=lchmod&sektion=2) documentation for more detail.
      * @deprecated Since v0.4.7
      */
-    export function lchmod(path: PathLike, mode: Mode, callback: NoParamCallback): void;
+    export function lchmod(path: PathLike, mode: Mode, /** @deferred */ callback: NoParamCallback): void;
     /** @deprecated */
     export namespace lchmod {
         /**
@@ -911,7 +911,7 @@ declare module "fs" {
      * ```
      * @since v0.0.2
      */
-    export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function stat(path: PathLike, /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
     export function stat(
         path: PathLike,
         options:
@@ -919,19 +919,19 @@ declare module "fs" {
                 bigint?: false | undefined;
             })
             | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
     ): void;
     export function stat(
         path: PathLike,
         options: StatOptions & {
             bigint: true;
         },
-        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
     ): void;
     export function stat(
         path: PathLike,
         options: StatOptions | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
     ): void;
     export namespace stat {
         /**
@@ -1000,7 +1000,7 @@ declare module "fs" {
      * See the POSIX [`fstat(2)`](http://man7.org/linux/man-pages/man2/fstat.2.html) documentation for more detail.
      * @since v0.1.95
      */
-    export function fstat(fd: number, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function fstat(fd: number, /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
     export function fstat(
         fd: number,
         options:
@@ -1008,19 +1008,19 @@ declare module "fs" {
                 bigint?: false | undefined;
             })
             | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
     ): void;
     export function fstat(
         fd: number,
         options: StatOptions & {
             bigint: true;
         },
-        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
     ): void;
     export function fstat(
         fd: number,
         options: StatOptions | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
     ): void;
     export namespace fstat {
         /**
@@ -1067,7 +1067,7 @@ declare module "fs" {
      * See the POSIX [`lstat(2)`](http://man7.org/linux/man-pages/man2/lstat.2.html) documentation for more details.
      * @since v0.1.30
      */
-    export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
+    export function lstat(path: PathLike, /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void): void;
     export function lstat(
         path: PathLike,
         options:
@@ -1075,19 +1075,19 @@ declare module "fs" {
                 bigint?: false | undefined;
             })
             | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
     ): void;
     export function lstat(
         path: PathLike,
         options: StatOptions & {
             bigint: true;
         },
-        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
     ): void;
     export function lstat(
         path: PathLike,
         options: StatOptions | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
     ): void;
     export namespace lstat {
         /**
@@ -1119,7 +1119,7 @@ declare module "fs" {
      * exception are given to the completion callback.
      * @since v0.1.31
      */
-    export function link(existingPath: PathLike, newPath: PathLike, callback: NoParamCallback): void;
+    export function link(existingPath: PathLike, newPath: PathLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace link {
         /**
          * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
@@ -1168,14 +1168,14 @@ declare module "fs" {
         target: PathLike,
         path: PathLike,
         type: symlink.Type | undefined | null,
-        callback: NoParamCallback,
+        /** @deferred */ callback: NoParamCallback,
     ): void;
     /**
      * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
      * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
      * @param path A path to the new symlink. If a URL is provided, it must use the `file:` protocol.
      */
-    export function symlink(target: PathLike, path: PathLike, callback: NoParamCallback): void;
+    export function symlink(target: PathLike, path: PathLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace symlink {
         /**
          * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
@@ -1210,7 +1210,7 @@ declare module "fs" {
     export function readlink(
         path: PathLike,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, linkString: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, linkString: string) => void,
     ): void;
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -1220,7 +1220,7 @@ declare module "fs" {
     export function readlink(
         path: PathLike,
         options: BufferEncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, linkString: Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, linkString: Buffer) => void,
     ): void;
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -1230,7 +1230,7 @@ declare module "fs" {
     export function readlink(
         path: PathLike,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, linkString: string | Buffer) => void,
     ): void;
     /**
      * Asynchronous readlink(2) - read value of a symbolic link.
@@ -1238,7 +1238,7 @@ declare module "fs" {
      */
     export function readlink(
         path: PathLike,
-        callback: (err: NodeJS.ErrnoException | null, linkString: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, linkString: string) => void,
     ): void;
     export namespace readlink {
         /**
@@ -1313,7 +1313,7 @@ declare module "fs" {
     export function realpath(
         path: PathLike,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void,
     ): void;
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -1323,7 +1323,7 @@ declare module "fs" {
     export function realpath(
         path: PathLike,
         options: BufferEncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void,
     ): void;
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -1333,7 +1333,7 @@ declare module "fs" {
     export function realpath(
         path: PathLike,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void,
     ): void;
     /**
      * Asynchronous realpath(3) - return the canonicalized absolute pathname.
@@ -1341,7 +1341,7 @@ declare module "fs" {
      */
     export function realpath(
         path: PathLike,
-        callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void,
     ): void;
     export namespace realpath {
         /**
@@ -1382,21 +1382,21 @@ declare module "fs" {
         function native(
             path: PathLike,
             options: EncodingOption,
-            callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void,
+            /** @deferred */ callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void,
         ): void;
         function native(
             path: PathLike,
             options: BufferEncodingOption,
-            callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void,
+            /** @deferred */ callback: (err: NodeJS.ErrnoException | null, resolvedPath: Buffer) => void,
         ): void;
         function native(
             path: PathLike,
             options: EncodingOption,
-            callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void,
+            /** @deferred */ callback: (err: NodeJS.ErrnoException | null, resolvedPath: string | Buffer) => void,
         ): void;
         function native(
             path: PathLike,
-            callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void,
+            /** @deferred */ callback: (err: NodeJS.ErrnoException | null, resolvedPath: string) => void,
         ): void;
     }
     /**
@@ -1443,7 +1443,7 @@ declare module "fs" {
      * See the POSIX [`unlink(2)`](http://man7.org/linux/man-pages/man2/unlink.2.html) documentation for more details.
      * @since v0.0.2
      */
-    export function unlink(path: PathLike, callback: NoParamCallback): void;
+    export function unlink(path: PathLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace unlink {
         /**
          * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
@@ -1493,8 +1493,8 @@ declare module "fs" {
      * To get a behavior similar to the `rm -rf` Unix command, use {@link rm} with options `{ recursive: true, force: true }`.
      * @since v0.0.2
      */
-    export function rmdir(path: PathLike, callback: NoParamCallback): void;
-    export function rmdir(path: PathLike, options: RmDirOptions, callback: NoParamCallback): void;
+    export function rmdir(path: PathLike, /** @deferred */ callback: NoParamCallback): void;
+    export function rmdir(path: PathLike, options: RmDirOptions, /** @deferred */ callback: NoParamCallback): void;
     export namespace rmdir {
         /**
          * Asynchronous rmdir(2) - delete a directory.
@@ -1545,8 +1545,8 @@ declare module "fs" {
      * completion callback.
      * @since v14.14.0
      */
-    export function rm(path: PathLike, callback: NoParamCallback): void;
-    export function rm(path: PathLike, options: RmOptions, callback: NoParamCallback): void;
+    export function rm(path: PathLike, /** @deferred */ callback: NoParamCallback): void;
+    export function rm(path: PathLike, options: RmOptions, /** @deferred */ callback: NoParamCallback): void;
     export namespace rm {
         /**
          * Asynchronously removes files and directories (modeled on the standard POSIX `rm` utility).
@@ -1611,7 +1611,7 @@ declare module "fs" {
         options: MakeDirectoryOptions & {
             recursive: true;
         },
-        callback: (err: NodeJS.ErrnoException | null, path?: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, path?: string) => void,
     ): void;
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -1628,7 +1628,7 @@ declare module "fs" {
             })
             | null
             | undefined,
-        callback: NoParamCallback,
+        /** @deferred */ callback: NoParamCallback,
     ): void;
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -1639,13 +1639,13 @@ declare module "fs" {
     export function mkdir(
         path: PathLike,
         options: Mode | MakeDirectoryOptions | null | undefined,
-        callback: (err: NodeJS.ErrnoException | null, path?: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, path?: string) => void,
     ): void;
     /**
      * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function mkdir(path: PathLike, callback: NoParamCallback): void;
+    export function mkdir(path: PathLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace mkdir {
         /**
          * Asynchronous mkdir(2) - create a directory.
@@ -1780,7 +1780,7 @@ declare module "fs" {
     export function mkdtemp(
         prefix: string,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, folder: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, folder: string) => void,
     ): void;
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1794,7 +1794,7 @@ declare module "fs" {
             | {
                 encoding: "buffer";
             },
-        callback: (err: NodeJS.ErrnoException | null, folder: Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, folder: Buffer) => void,
     ): void;
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1804,7 +1804,7 @@ declare module "fs" {
     export function mkdtemp(
         prefix: string,
         options: EncodingOption,
-        callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, folder: string | Buffer) => void,
     ): void;
     /**
      * Asynchronously creates a unique temporary directory.
@@ -1812,7 +1812,7 @@ declare module "fs" {
      */
     export function mkdtemp(
         prefix: string,
-        callback: (err: NodeJS.ErrnoException | null, folder: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, folder: string) => void,
     ): void;
     export namespace mkdtemp {
         /**
@@ -1880,7 +1880,7 @@ declare module "fs" {
             | BufferEncoding
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, files: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, files: string[]) => void,
     ): void;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -1895,7 +1895,7 @@ declare module "fs" {
                 withFileTypes?: false | undefined;
             }
             | "buffer",
-        callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, files: Buffer[]) => void,
     ): void;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -1911,7 +1911,7 @@ declare module "fs" {
             | BufferEncoding
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, files: string[] | Buffer[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, files: string[] | Buffer[]) => void,
     ): void;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -1919,7 +1919,7 @@ declare module "fs" {
      */
     export function readdir(
         path: PathLike,
-        callback: (err: NodeJS.ErrnoException | null, files: string[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, files: string[]) => void,
     ): void;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -1931,7 +1931,7 @@ declare module "fs" {
         options: ObjectEncodingOptions & {
             withFileTypes: true;
         },
-        callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, files: Dirent[]) => void,
     ): void;
     export namespace readdir {
         /**
@@ -2061,7 +2061,7 @@ declare module "fs" {
      * See the POSIX [`close(2)`](http://man7.org/linux/man-pages/man2/close.2.html) documentation for more detail.
      * @since v0.0.2
      */
-    export function close(fd: number, callback?: NoParamCallback): void;
+    export function close(fd: number, /** @deferred */ callback?: NoParamCallback): void;
     export namespace close {
         /**
          * Asynchronous close(2) - close a file descriptor.
@@ -2100,7 +2100,7 @@ declare module "fs" {
         path: PathLike,
         flags: OpenMode | undefined,
         mode: Mode | undefined | null,
-        callback: (err: NodeJS.ErrnoException | null, fd: number) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, fd: number) => void,
     ): void;
     /**
      * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
@@ -2110,13 +2110,13 @@ declare module "fs" {
     export function open(
         path: PathLike,
         flags: OpenMode | undefined,
-        callback: (err: NodeJS.ErrnoException | null, fd: number) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, fd: number) => void,
     ): void;
     /**
      * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
      * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function open(path: PathLike, callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
+    export function open(path: PathLike, /** @deferred */ callback: (err: NodeJS.ErrnoException | null, fd: number) => void): void;
     export namespace open {
         /**
          * Asynchronous open(2) - open and possibly create a file.
@@ -2144,7 +2144,7 @@ declare module "fs" {
      * * If the value can not be converted to a number, or is `NaN`, `Infinity` or`-Infinity`, an `Error` will be thrown.
      * @since v0.4.2
      */
-    export function utimes(path: PathLike, atime: TimeLike, mtime: TimeLike, callback: NoParamCallback): void;
+    export function utimes(path: PathLike, atime: TimeLike, mtime: TimeLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace utimes {
         /**
          * Asynchronously change file timestamps of the file referenced by the supplied path.
@@ -2167,7 +2167,7 @@ declare module "fs" {
      * descriptor. See {@link utimes}.
      * @since v0.4.2
      */
-    export function futimes(fd: number, atime: TimeLike, mtime: TimeLike, callback: NoParamCallback): void;
+    export function futimes(fd: number, atime: TimeLike, mtime: TimeLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace futimes {
         /**
          * Asynchronously change file timestamps of the file referenced by the supplied file descriptor.
@@ -2189,7 +2189,7 @@ declare module "fs" {
      * than a possible exception are given to the completion callback.
      * @since v0.1.96
      */
-    export function fsync(fd: number, callback: NoParamCallback): void;
+    export function fsync(fd: number, /** @deferred */ callback: NoParamCallback): void;
     export namespace fsync {
         /**
          * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
@@ -2235,7 +2235,7 @@ declare module "fs" {
         offset: number | undefined | null,
         length: number | undefined | null,
         position: number | undefined | null,
-        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
     ): void;
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
@@ -2248,7 +2248,7 @@ declare module "fs" {
         buffer: TBuffer,
         offset: number | undefined | null,
         length: number | undefined | null,
-        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
     ): void;
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
@@ -2259,7 +2259,7 @@ declare module "fs" {
         fd: number,
         buffer: TBuffer,
         offset: number | undefined | null,
-        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
     ): void;
     /**
      * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
@@ -2268,7 +2268,7 @@ declare module "fs" {
     export function write<TBuffer extends NodeJS.ArrayBufferView>(
         fd: number,
         buffer: TBuffer,
-        callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, written: number, buffer: TBuffer) => void,
     ): void;
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -2282,7 +2282,7 @@ declare module "fs" {
         string: string,
         position: number | undefined | null,
         encoding: BufferEncoding | undefined | null,
-        callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void,
     ): void;
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -2294,7 +2294,7 @@ declare module "fs" {
         fd: number,
         string: string,
         position: number | undefined | null,
-        callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void,
     ): void;
     /**
      * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
@@ -2304,7 +2304,7 @@ declare module "fs" {
     export function write(
         fd: number,
         string: string,
-        callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, written: number, str: string) => void,
     ): void;
     export namespace write {
         /**
@@ -2393,7 +2393,7 @@ declare module "fs" {
         offset: number,
         length: number,
         position: ReadPosition | null,
-        callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, bytesRead: number, buffer: TBuffer) => void,
     ): void;
     export namespace read {
         /**
@@ -2522,7 +2522,7 @@ declare module "fs" {
             } & Abortable)
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2539,7 +2539,7 @@ declare module "fs" {
                 flag?: string | undefined;
             } & Abortable)
             | BufferEncoding,
-        callback: (err: NodeJS.ErrnoException | null, data: string) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, data: string) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2557,7 +2557,7 @@ declare module "fs" {
             | BufferEncoding
             | undefined
             | null,
-        callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, data: string | Buffer) => void,
     ): void;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -2566,7 +2566,7 @@ declare module "fs" {
      */
     export function readFile(
         path: PathOrFileDescriptor,
-        callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, data: Buffer) => void,
     ): void;
     export namespace readFile {
         /**
@@ -2759,7 +2759,7 @@ declare module "fs" {
         file: PathOrFileDescriptor,
         data: string | NodeJS.ArrayBufferView,
         options: WriteFileOptions,
-        callback: NoParamCallback,
+        /** @deferred */ callback: NoParamCallback,
     ): void;
     /**
      * Asynchronously writes data to a file, replacing the file if it already exists.
@@ -2770,7 +2770,7 @@ declare module "fs" {
     export function writeFile(
         path: PathOrFileDescriptor,
         data: string | NodeJS.ArrayBufferView,
-        callback: NoParamCallback,
+        /** @deferred */ callback: NoParamCallback,
     ): void;
     export namespace writeFile {
         /**
@@ -2865,7 +2865,7 @@ declare module "fs" {
         path: PathOrFileDescriptor,
         data: string | Uint8Array,
         options: WriteFileOptions,
-        callback: NoParamCallback,
+        /** @deferred */ callback: NoParamCallback,
     ): void;
     /**
      * Asynchronously append data to a file, creating the file if it does not exist.
@@ -2873,7 +2873,7 @@ declare module "fs" {
      * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
      * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
      */
-    export function appendFile(file: PathOrFileDescriptor, data: string | Uint8Array, callback: NoParamCallback): void;
+    export function appendFile(file: PathOrFileDescriptor, data: string | Uint8Array, /** @deferred */ callback: NoParamCallback): void;
     export namespace appendFile {
         /**
          * Asynchronously append data to a file, creating the file if it does not exist.
@@ -3003,7 +3003,7 @@ declare module "fs" {
                 bigint?: false | undefined;
             })
             | undefined,
-        listener: StatsListener,
+        /** @deferred */ listener: StatsListener,
     ): StatWatcher;
     export function watchFile(
         filename: PathLike,
@@ -3012,14 +3012,14 @@ declare module "fs" {
                 bigint: true;
             })
             | undefined,
-        listener: BigIntStatsListener,
+        /** @deferred */ listener: BigIntStatsListener,
     ): StatWatcher;
     /**
      * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      * @param listener The callback listener will be called each time the file is accessed.
      */
-    export function watchFile(filename: PathLike, listener: StatsListener): StatWatcher;
+    export function watchFile(filename: PathLike, /** @deferred */ listener: StatsListener): StatWatcher;
     /**
      * Stop watching for changes on `filename`. If `listener` is specified, only that
      * particular listener is removed. Otherwise, _all_ listeners are removed,
@@ -3032,8 +3032,8 @@ declare module "fs" {
      * @since v0.1.31
      * @param listener Optional, a listener previously attached using `fs.watchFile()`
      */
-    export function unwatchFile(filename: PathLike, listener?: StatsListener): void;
-    export function unwatchFile(filename: PathLike, listener?: BigIntStatsListener): void;
+    export function unwatchFile(filename: PathLike, /** @deferred */ listener?: StatsListener): void;
+    export function unwatchFile(filename: PathLike, /** @deferred */ listener?: BigIntStatsListener): void;
     export interface WatchOptions extends Abortable {
         encoding?: BufferEncoding | "buffer" | undefined;
         persistent?: boolean | undefined;
@@ -3070,7 +3070,7 @@ declare module "fs" {
                 encoding: "buffer";
             })
             | "buffer",
-        listener?: WatchListener<Buffer>,
+        /** @deferred */ listener?: WatchListener<Buffer>,
     ): FSWatcher;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -3083,7 +3083,7 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options?: WatchOptions | BufferEncoding | null,
-        listener?: WatchListener<string>,
+        /** @deferred */ listener?: WatchListener<string>,
     ): FSWatcher;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -3096,13 +3096,13 @@ declare module "fs" {
     export function watch(
         filename: PathLike,
         options: WatchOptions | string,
-        listener?: WatchListener<string | Buffer>,
+        /** @deferred */ listener?: WatchListener<string | Buffer>,
     ): FSWatcher;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
      * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      */
-    export function watch(filename: PathLike, listener?: WatchListener<string>): FSWatcher;
+    export function watch(filename: PathLike, /** @deferred */ listener?: WatchListener<string>): FSWatcher;
     /**
      * Test whether or not the given path exists by checking with the file system.
      * Then call the `callback` argument with either true or false:
@@ -3232,7 +3232,7 @@ declare module "fs" {
      * @since v0.0.2
      * @deprecated Since v1.0.0 - Use {@link stat} or {@link access} instead.
      */
-    export function exists(path: PathLike, callback: (exists: boolean) => void): void;
+    export function exists(path: PathLike, /** @deferred */ callback: (exists: boolean) => void): void;
     /** @deprecated */
     export namespace exists {
         /**
@@ -3538,12 +3538,12 @@ declare module "fs" {
      * @since v0.11.15
      * @param [mode=fs.constants.F_OK]
      */
-    export function access(path: PathLike, mode: number | undefined, callback: NoParamCallback): void;
+    export function access(path: PathLike, mode: number | undefined, /** @deferred */ callback: NoParamCallback): void;
     /**
      * Asynchronously tests a user's permissions for the file specified by path.
      * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
      */
-    export function access(path: PathLike, callback: NoParamCallback): void;
+    export function access(path: PathLike, /** @deferred */ callback: NoParamCallback): void;
     export namespace access {
         /**
          * Asynchronously tests a user's permissions for the file specified by path.
@@ -3705,7 +3705,7 @@ declare module "fs" {
      * exception are given to the completion callback.
      * @since v0.1.96
      */
-    export function fdatasync(fd: number, callback: NoParamCallback): void;
+    export function fdatasync(fd: number, /** @deferred */ callback: NoParamCallback): void;
     export namespace fdatasync {
         /**
          * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
@@ -3758,8 +3758,8 @@ declare module "fs" {
      * @param dest destination filename of the copy operation
      * @param [mode=0] modifiers for copy operation.
      */
-    export function copyFile(src: PathLike, dest: PathLike, callback: NoParamCallback): void;
-    export function copyFile(src: PathLike, dest: PathLike, mode: number, callback: NoParamCallback): void;
+    export function copyFile(src: PathLike, dest: PathLike, /** @deferred */ callback: NoParamCallback): void;
+    export function copyFile(src: PathLike, dest: PathLike, mode: number, /** @deferred */ callback: NoParamCallback): void;
     export namespace copyFile {
         function __promisify__(src: PathLike, dst: PathLike, mode?: number): Promise<void>;
     }
@@ -3820,13 +3820,13 @@ declare module "fs" {
     export function writev(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function writev(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
-        cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface WriteVResult {
         bytesWritten: number;
@@ -3863,13 +3863,13 @@ declare module "fs" {
     export function readv(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
-        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function readv(
         fd: number,
         buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
-        cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export interface ReadVResult {
         bytesRead: number;
@@ -3921,11 +3921,11 @@ declare module "fs" {
      * directory and subsequent read operations.
      * @since v12.12.0
      */
-    export function opendir(path: PathLike, cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
+    export function opendir(path: PathLike, /** @deferred */ cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void): void;
     export function opendir(
         path: PathLike,
         options: OpenDirOptions,
-        cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void,
+        /** @deferred */ cb: (err: NodeJS.ErrnoException | null, dir: Dir) => void,
     ): void;
     export namespace opendir {
         function __promisify__(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
@@ -4004,13 +4004,13 @@ declare module "fs" {
     export function cp(
         source: string | URL,
         destination: string | URL,
-        callback: (err: NodeJS.ErrnoException | null) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null) => void,
     ): void;
     export function cp(
         source: string | URL,
         destination: string | URL,
         opts: CopyOptions,
-        callback: (err: NodeJS.ErrnoException | null) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null) => void,
     ): void;
     /**
      * Synchronously copies the entire directory structure from `src` to `dest`,

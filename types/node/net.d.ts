@@ -133,10 +133,10 @@ declare module "net" {
          * This function should only be used for reconnecting a socket after`'close'` has been emitted or otherwise it may lead to undefined
          * behavior.
          */
-        connect(options: SocketConnectOpts, /** @deferred */ /** @deferred */ connectionListener?: () => void): this;
-        connect(port: number, host: string, /** @deferred */ /** @deferred */ connectionListener?: () => void): this;
-        connect(port: number, /** @deferred */ /** @deferred */ connectionListener?: () => void): this;
-        connect(path: string, /** @deferred */ /** @deferred */ connectionListener?: () => void): this;
+        connect(options: SocketConnectOpts, /** @deferred */ connectionListener?: () => void): this;
+        connect(port: number, host: string, /** @deferred */ connectionListener?: () => void): this;
+        connect(port: number, /** @deferred */ connectionListener?: () => void): this;
+        connect(path: string, /** @deferred */ connectionListener?: () => void): this;
         /**
          * Set the encoding for the socket as a `Readable Stream`. See `readable.setEncoding()` for more information.
          * @since v0.1.90

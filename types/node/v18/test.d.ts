@@ -45,10 +45,10 @@ declare module "node:test" {
      *    passed as the second argument. Default: A no-op function.
      * @returns A {@link Promise} resolved with `undefined` once the test completes.
      */
-    function test(name?: string, fn?: TestFn): Promise<void>;
-    function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function test(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function test(fn?: TestFn): Promise<void>;
+    function test(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+    function test(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function test(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function test(/** @deferred */ fn?: TestFn): Promise<void>;
     namespace test {
         export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, test, todo };
     }
@@ -59,33 +59,33 @@ declare module "node:test" {
      * @param options Configuration options for the suite
      * @param fn The function under suite. Default: A no-op function.
      */
-    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function describe(name?: string, fn?: SuiteFn): Promise<void>;
-    function describe(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-    function describe(fn?: SuiteFn): Promise<void>;
+    function describe(name?: string, options?: TestOptions, /** @deferred */ fn?: SuiteFn): Promise<void>;
+    function describe(name?: string, /** @deferred */ fn?: SuiteFn): Promise<void>;
+    function describe(options?: TestOptions, /** @deferred */ fn?: SuiteFn): Promise<void>;
+    function describe(/** @deferred */ fn?: SuiteFn): Promise<void>;
     namespace describe {
         /**
          * Shorthand for skipping a suite, same as `describe([name], { skip: true }[, fn])`.
          */
-        function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(name?: string, fn?: SuiteFn): Promise<void>;
-        function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function skip(fn?: SuiteFn): Promise<void>;
+        function skip(name?: string, options?: TestOptions, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function skip(name?: string, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function skip(options?: TestOptions, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function skip(/** @deferred */ fn?: SuiteFn): Promise<void>;
         /**
          * Shorthand for marking a suite as `TODO`, same as `describe([name], { todo: true }[, fn])`.
          */
-        function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(name?: string, fn?: SuiteFn): Promise<void>;
-        function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function todo(fn?: SuiteFn): Promise<void>;
+        function todo(name?: string, options?: TestOptions, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function todo(name?: string, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function todo(options?: TestOptions, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function todo(/** @deferred */ fn?: SuiteFn): Promise<void>;
         /**
          * Shorthand for marking a suite as `only`, same as `describe([name], { only: true }[, fn])`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(name?: string, fn?: SuiteFn): Promise<void>;
-        function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
-        function only(fn?: SuiteFn): Promise<void>;
+        function only(name?: string, options?: TestOptions, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function only(name?: string, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function only(options?: TestOptions, /** @deferred */ fn?: SuiteFn): Promise<void>;
+        function only(/** @deferred */ fn?: SuiteFn): Promise<void>;
     }
 
     /**
@@ -96,58 +96,58 @@ declare module "node:test" {
      * @param fn The function under test. If the test uses callbacks, the callback function is
      *    passed as the second argument. Default: A no-op function.
      */
-    function it(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function it(name?: string, fn?: TestFn): Promise<void>;
-    function it(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function it(fn?: TestFn): Promise<void>;
+    function it(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function it(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+    function it(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function it(/** @deferred */ fn?: TestFn): Promise<void>;
     namespace it {
         /**
          * Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
          */
-        function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function skip(name?: string, fn?: TestFn): Promise<void>;
-        function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function skip(fn?: TestFn): Promise<void>;
+        function skip(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+        function skip(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+        function skip(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+        function skip(/** @deferred */ fn?: TestFn): Promise<void>;
         /**
          * Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
          */
-        function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function todo(name?: string, fn?: TestFn): Promise<void>;
-        function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function todo(fn?: TestFn): Promise<void>;
+        function todo(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+        function todo(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+        function todo(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+        function todo(/** @deferred */ fn?: TestFn): Promise<void>;
         /**
          * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
          * @since v18.15.0
          */
-        function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-        function only(name?: string, fn?: TestFn): Promise<void>;
-        function only(options?: TestOptions, fn?: TestFn): Promise<void>;
-        function only(fn?: TestFn): Promise<void>;
+        function only(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+        function only(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+        function only(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+        function only(/** @deferred */ fn?: TestFn): Promise<void>;
     }
     /**
      * Shorthand for skipping a test, same as `test([name], { skip: true }[, fn])`.
      * @since v18.17.0
      */
-    function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function skip(name?: string, fn?: TestFn): Promise<void>;
-    function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function skip(fn?: TestFn): Promise<void>;
+    function skip(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function skip(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+    function skip(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function skip(/** @deferred */ fn?: TestFn): Promise<void>;
     /**
      * Shorthand for marking a test as `TODO`, same as `test([name], { todo: true }[, fn])`.
      * @since v18.17.0
      */
-    function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function todo(name?: string, fn?: TestFn): Promise<void>;
-    function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function todo(fn?: TestFn): Promise<void>;
+    function todo(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function todo(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+    function todo(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function todo(/** @deferred */ fn?: TestFn): Promise<void>;
     /**
      * Shorthand for marking a test as `only`, same as `test([name], { only: true }[, fn])`.
      * @since v18.17.0
      */
-    function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function only(name?: string, fn?: TestFn): Promise<void>;
-    function only(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function only(fn?: TestFn): Promise<void>;
+    function only(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function only(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+    function only(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function only(/** @deferred */ fn?: TestFn): Promise<void>;
     /**
      * The type of a function under test. The first argument to this function is a
      * {@link TestContext} object. If the test uses callbacks, the callback function is passed as
@@ -243,14 +243,14 @@ declare module "node:test" {
      * @since v18.9.0
      */
     interface TestsStream extends NodeJS.ReadableStream {
-        addListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
-        addListener(event: "test:fail", listener: (data: TestFail) => void): this;
-        addListener(event: "test:pass", listener: (data: TestPass) => void): this;
-        addListener(event: "test:plan", listener: (data: TestPlan) => void): this;
-        addListener(event: "test:start", listener: (data: TestStart) => void): this;
-        addListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
-        addListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
-        addListener(event: string, listener: (...args: any[]) => void): this;
+        addListener(event: "test:diagnostic", /** @deferred */ listener: (data: DiagnosticData) => void): this;
+        addListener(event: "test:fail", /** @deferred */ listener: (data: TestFail) => void): this;
+        addListener(event: "test:pass", /** @deferred */ listener: (data: TestPass) => void): this;
+        addListener(event: "test:plan", /** @deferred */ listener: (data: TestPlan) => void): this;
+        addListener(event: "test:start", /** @deferred */ listener: (data: TestStart) => void): this;
+        addListener(event: "test:stderr", /** @deferred */ listener: (data: TestStderr) => void): this;
+        addListener(event: "test:stdout", /** @deferred */ listener: (data: TestStdout) => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
         emit(event: "test:diagnostic", data: DiagnosticData): boolean;
         emit(event: "test:fail", data: TestFail): boolean;
         emit(event: "test:pass", data: TestPass): boolean;
@@ -259,38 +259,38 @@ declare module "node:test" {
         emit(event: "test:stderr", data: TestStderr): boolean;
         emit(event: "test:stdout", data: TestStdout): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
-        on(event: "test:fail", listener: (data: TestFail) => void): this;
-        on(event: "test:pass", listener: (data: TestPass) => void): this;
-        on(event: "test:plan", listener: (data: TestPlan) => void): this;
-        on(event: "test:start", listener: (data: TestStart) => void): this;
-        on(event: "test:stderr", listener: (data: TestStderr) => void): this;
-        on(event: "test:stdout", listener: (data: TestStdout) => void): this;
-        on(event: string, listener: (...args: any[]) => void): this;
-        once(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
-        once(event: "test:fail", listener: (data: TestFail) => void): this;
-        once(event: "test:pass", listener: (data: TestPass) => void): this;
-        once(event: "test:plan", listener: (data: TestPlan) => void): this;
-        once(event: "test:start", listener: (data: TestStart) => void): this;
-        once(event: "test:stderr", listener: (data: TestStderr) => void): this;
-        once(event: "test:stdout", listener: (data: TestStdout) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
-        prependListener(event: "test:fail", listener: (data: TestFail) => void): this;
-        prependListener(event: "test:pass", listener: (data: TestPass) => void): this;
-        prependListener(event: "test:plan", listener: (data: TestPlan) => void): this;
-        prependListener(event: "test:start", listener: (data: TestStart) => void): this;
-        prependListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
-        prependListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
-        prependOnceListener(event: "test:fail", listener: (data: TestFail) => void): this;
-        prependOnceListener(event: "test:pass", listener: (data: TestPass) => void): this;
-        prependOnceListener(event: "test:plan", listener: (data: TestPlan) => void): this;
-        prependOnceListener(event: "test:start", listener: (data: TestStart) => void): this;
-        prependOnceListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
-        prependOnceListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
+        on(event: "test:diagnostic", /** @deferred */ listener: (data: DiagnosticData) => void): this;
+        on(event: "test:fail", /** @deferred */ listener: (data: TestFail) => void): this;
+        on(event: "test:pass", /** @deferred */ listener: (data: TestPass) => void): this;
+        on(event: "test:plan", /** @deferred */ listener: (data: TestPlan) => void): this;
+        on(event: "test:start", /** @deferred */ listener: (data: TestStart) => void): this;
+        on(event: "test:stderr", /** @deferred */ listener: (data: TestStderr) => void): this;
+        on(event: "test:stdout", /** @deferred */ listener: (data: TestStdout) => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "test:diagnostic", /** @deferred */ listener: (data: DiagnosticData) => void): this;
+        once(event: "test:fail", /** @deferred */ listener: (data: TestFail) => void): this;
+        once(event: "test:pass", /** @deferred */ listener: (data: TestPass) => void): this;
+        once(event: "test:plan", /** @deferred */ listener: (data: TestPlan) => void): this;
+        once(event: "test:start", /** @deferred */ listener: (data: TestStart) => void): this;
+        once(event: "test:stderr", /** @deferred */ listener: (data: TestStderr) => void): this;
+        once(event: "test:stdout", /** @deferred */ listener: (data: TestStdout) => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "test:diagnostic", /** @deferred */ listener: (data: DiagnosticData) => void): this;
+        prependListener(event: "test:fail", /** @deferred */ listener: (data: TestFail) => void): this;
+        prependListener(event: "test:pass", /** @deferred */ listener: (data: TestPass) => void): this;
+        prependListener(event: "test:plan", /** @deferred */ listener: (data: TestPlan) => void): this;
+        prependListener(event: "test:start", /** @deferred */ listener: (data: TestStart) => void): this;
+        prependListener(event: "test:stderr", /** @deferred */ listener: (data: TestStderr) => void): this;
+        prependListener(event: "test:stdout", /** @deferred */ listener: (data: TestStdout) => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "test:diagnostic", /** @deferred */ listener: (data: DiagnosticData) => void): this;
+        prependOnceListener(event: "test:fail", /** @deferred */ listener: (data: TestFail) => void): this;
+        prependOnceListener(event: "test:pass", /** @deferred */ listener: (data: TestPass) => void): this;
+        prependOnceListener(event: "test:plan", /** @deferred */ listener: (data: TestPlan) => void): this;
+        prependOnceListener(event: "test:start", /** @deferred */ listener: (data: TestStart) => void): this;
+        prependOnceListener(event: "test:stderr", /** @deferred */ listener: (data: TestStderr) => void): this;
+        prependOnceListener(event: "test:stdout", /** @deferred */ listener: (data: TestStdout) => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
     }
 
     /**
@@ -473,7 +473,7 @@ declare module "node:test" {
      * @param options Configuration options for the hook.
      * @since v18.8.0
      */
-    function before(fn?: HookFn, options?: HookOptions): void;
+    function before(/** @deferred */ fn?: HookFn, options?: HookOptions): void;
 
     /**
      * This function is used to create a hook running after running a suite.
@@ -482,7 +482,7 @@ declare module "node:test" {
      * @param options Configuration options for the hook.
      * @since v18.8.0
      */
-    function after(fn?: HookFn, options?: HookOptions): void;
+    function after(/** @deferred */ fn?: HookFn, options?: HookOptions): void;
 
     /**
      * This function is used to create a hook running before each subtest of the current suite.
@@ -491,7 +491,7 @@ declare module "node:test" {
      * @param options Configuration options for the hook.
      * @since v18.8.0
      */
-    function beforeEach(fn?: HookFn, options?: HookOptions): void;
+    function beforeEach(/** @deferred */ fn?: HookFn, options?: HookOptions): void;
 
     /**
      * This function is used to create a hook running after each subtest of the current test.
@@ -500,7 +500,7 @@ declare module "node:test" {
      * @param options Configuration options for the hook.
      * @since v18.8.0
      */
-    function afterEach(fn?: HookFn, options?: HookOptions): void;
+    function afterEach(/** @deferred */ fn?: HookFn, options?: HookOptions): void;
 
     /**
      * The hook function. If the hook uses callbacks, the callback function is passed as the
@@ -569,10 +569,10 @@ declare module "node:test" {
          *  This is useful for creating mocks that exhibit one behavior for a specified number of calls and then restore the behavior of `original`.
          * @param options Optional configuration options for the mock function.
          */
-        fn<F extends Function = NoOpFunction>(original?: F, options?: MockFunctionOptions): Mock<F>;
+        fn<F extends Function = NoOpFunction>(/** @deferred */ original?: F, options?: MockFunctionOptions): Mock<F>;
         fn<F extends Function = NoOpFunction, Implementation extends Function = F>(
-            original?: F,
-            implementation?: Implementation,
+            /** @deferred */ original?: F,
+            /** @deferred */ implementation?: Implementation,
             options?: MockFunctionOptions,
         ): Mock<F | Implementation>;
         /**
@@ -598,7 +598,7 @@ declare module "node:test" {
         >(
             object: MockedObject,
             methodName: MethodName,
-            implementation: Implementation,
+            /** @deferred */ implementation: Implementation,
             options?: MockFunctionOptions,
         ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName] | Implementation>
             : never;
@@ -610,7 +610,7 @@ declare module "node:test" {
         method<MockedObject extends object>(
             object: MockedObject,
             methodName: keyof MockedObject,
-            implementation: Function,
+            /** @deferred */ implementation: Function,
             options: MockMethodOptions,
         ): Mock<Function>;
         /**
@@ -631,7 +631,7 @@ declare module "node:test" {
         >(
             object: MockedObject,
             methodName: MethodName,
-            implementation?: Implementation,
+            /** @deferred */ implementation?: Implementation,
             options?: MockFunctionOptions,
         ): Mock<(() => MockedObject[MethodName]) | Implementation>;
         /**
@@ -652,7 +652,7 @@ declare module "node:test" {
         >(
             object: MockedObject,
             methodName: MethodName,
-            implementation?: Implementation,
+            /** @deferred */ implementation?: Implementation,
             options?: MockFunctionOptions,
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
         /**
@@ -729,7 +729,7 @@ declare module "node:test" {
          * This function is used to change the behavior of an existing mock.
          * @param implementation The function to be used as the mock's new implementation.
          */
-        mockImplementation(implementation: F): void;
+        mockImplementation(/** @deferred */ implementation: F): void;
 
         /**
          * This function is used to change the behavior of an existing mock for a single invocation.
@@ -739,7 +739,7 @@ declare module "node:test" {
          * @param onCall The invocation number that will use `implementation`.
          *  If the specified invocation has already occurred then an exception is thrown.
          */
-        mockImplementationOnce(implementation: F, onCall?: number): void;
+        mockImplementationOnce(/** @deferred */ implementation: F, onCall?: number): void;
 
         /**
          * Resets the call history of the mock function.

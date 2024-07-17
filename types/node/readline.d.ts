@@ -371,7 +371,7 @@ declare module "readline" {
     export function createInterface(
         input: NodeJS.ReadableStream,
         output?: NodeJS.WritableStream,
-        completer?: Completer | AsyncCompleter,
+        /** @deferred */ completer?: Completer | AsyncCompleter,
         terminal?: boolean,
     ): Interface;
     export function createInterface(options: ReadLineOptions): Interface;
