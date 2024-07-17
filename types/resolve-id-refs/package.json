@@ -8,5 +8,10 @@
     "devDependencies": {
         "@types/resolve-id-refs": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Morgan Spencer",
+            "githubUsername": "lunchbreakdev"
+        }
+    ]
 }
