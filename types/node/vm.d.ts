@@ -876,7 +876,7 @@ declare module "vm" {
          */
         constructor(
             exportNames: string[],
-            evaluateCallback: (this: SyntheticModule) => void,
+            /** @deferred */ evaluateCallback: (this: SyntheticModule) => void,
             options?: SyntheticModuleOptions,
         );
         /**

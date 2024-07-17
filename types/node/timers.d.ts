@@ -150,13 +150,13 @@ declare module "timers" {
          * @return for use with {@link clearTimeout}
          */
         function setTimeout<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
+            /** @deferred */ callback: (...args: TArgs) => void,
             ms?: number,
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setTimeout(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
+        function setTimeout(/** @deferred */ callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
@@ -182,13 +182,13 @@ declare module "timers" {
          * @return for use with {@link clearInterval}
          */
         function setInterval<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
+            /** @deferred */ callback: (...args: TArgs) => void,
             ms?: number,
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
+        function setInterval(/** @deferred */ callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }
@@ -217,12 +217,12 @@ declare module "timers" {
          * @return for use with {@link clearImmediate}
          */
         function setImmediate<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
+            /** @deferred */ callback: (...args: TArgs) => void,
             ...args: TArgs
         ): NodeJS.Immediate;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setImmediate(callback: (args: void) => void): NodeJS.Immediate;
+        function setImmediate(/** @deferred */ callback: (args: void) => void): NodeJS.Immediate;
         namespace setImmediate {
             const __promisify__: typeof setImmediatePromise;
         }

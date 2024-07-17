@@ -153,12 +153,12 @@ declare module "zlib" {
         readonly bytesRead: number;
         readonly bytesWritten: number;
         shell?: boolean | string | undefined;
-        close(callback?: () => void): void;
-        flush(kind?: number, callback?: () => void): void;
-        flush(callback?: () => void): void;
+        close(/** @deferred */ callback?: () => void): void;
+        flush(kind?: number, /** @deferred */ callback?: () => void): void;
+        flush(/** @deferred */ callback?: () => void): void;
     }
     interface ZlibParams {
-        params(level: number, strategy: number, callback: () => void): void;
+        params(level: number, strategy: number, /** @deferred */ callback: () => void): void;
     }
     interface ZlibReset {
         reset(): void;
@@ -229,8 +229,8 @@ declare module "zlib" {
     /**
      * @since v11.7.0, v10.16.0
      */
-    function brotliCompress(buf: InputType, options: BrotliOptions, callback: CompressCallback): void;
-    function brotliCompress(buf: InputType, callback: CompressCallback): void;
+    function brotliCompress(buf: InputType, options: BrotliOptions, /** @deferred */ callback: CompressCallback): void;
+    function brotliCompress(buf: InputType, /** @deferred */ callback: CompressCallback): void;
     namespace brotliCompress {
         function __promisify__(buffer: InputType, options?: BrotliOptions): Promise<Buffer>;
     }
@@ -242,8 +242,8 @@ declare module "zlib" {
     /**
      * @since v11.7.0, v10.16.0
      */
-    function brotliDecompress(buf: InputType, options: BrotliOptions, callback: CompressCallback): void;
-    function brotliDecompress(buf: InputType, callback: CompressCallback): void;
+    function brotliDecompress(buf: InputType, options: BrotliOptions, /** @deferred */ callback: CompressCallback): void;
+    function brotliDecompress(buf: InputType, /** @deferred */ callback: CompressCallback): void;
     namespace brotliDecompress {
         function __promisify__(buffer: InputType, options?: BrotliOptions): Promise<Buffer>;
     }
@@ -255,8 +255,8 @@ declare module "zlib" {
     /**
      * @since v0.6.0
      */
-    function deflate(buf: InputType, callback: CompressCallback): void;
-    function deflate(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function deflate(buf: InputType, /** @deferred */ callback: CompressCallback): void;
+    function deflate(buf: InputType, options: ZlibOptions, /** @deferred */ callback: CompressCallback): void;
     namespace deflate {
         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
@@ -268,8 +268,8 @@ declare module "zlib" {
     /**
      * @since v0.6.0
      */
-    function deflateRaw(buf: InputType, callback: CompressCallback): void;
-    function deflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function deflateRaw(buf: InputType, /** @deferred */ callback: CompressCallback): void;
+    function deflateRaw(buf: InputType, options: ZlibOptions, /** @deferred */ callback: CompressCallback): void;
     namespace deflateRaw {
         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
@@ -281,8 +281,8 @@ declare module "zlib" {
     /**
      * @since v0.6.0
      */
-    function gzip(buf: InputType, callback: CompressCallback): void;
-    function gzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function gzip(buf: InputType, /** @deferred */ callback: CompressCallback): void;
+    function gzip(buf: InputType, options: ZlibOptions, /** @deferred */ callback: CompressCallback): void;
     namespace gzip {
         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
@@ -294,8 +294,8 @@ declare module "zlib" {
     /**
      * @since v0.6.0
      */
-    function gunzip(buf: InputType, callback: CompressCallback): void;
-    function gunzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function gunzip(buf: InputType, /** @deferred */ callback: CompressCallback): void;
+    function gunzip(buf: InputType, options: ZlibOptions, /** @deferred */ callback: CompressCallback): void;
     namespace gunzip {
         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
@@ -307,8 +307,8 @@ declare module "zlib" {
     /**
      * @since v0.6.0
      */
-    function inflate(buf: InputType, callback: CompressCallback): void;
-    function inflate(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function inflate(buf: InputType, /** @deferred */ callback: CompressCallback): void;
+    function inflate(buf: InputType, options: ZlibOptions, /** @deferred */ callback: CompressCallback): void;
     namespace inflate {
         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
@@ -320,8 +320,8 @@ declare module "zlib" {
     /**
      * @since v0.6.0
      */
-    function inflateRaw(buf: InputType, callback: CompressCallback): void;
-    function inflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function inflateRaw(buf: InputType, /** @deferred */ callback: CompressCallback): void;
+    function inflateRaw(buf: InputType, options: ZlibOptions, /** @deferred */ callback: CompressCallback): void;
     namespace inflateRaw {
         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
@@ -333,8 +333,8 @@ declare module "zlib" {
     /**
      * @since v0.6.0
      */
-    function unzip(buf: InputType, callback: CompressCallback): void;
-    function unzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function unzip(buf: InputType, /** @deferred */ callback: CompressCallback): void;
+    function unzip(buf: InputType, options: ZlibOptions, /** @deferred */ callback: CompressCallback): void;
     namespace unzip {
         function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }

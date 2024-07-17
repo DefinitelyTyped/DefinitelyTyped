@@ -201,7 +201,7 @@ declare module "http" {
         createConnection?:
             | ((
                 options: ClientRequestArgs,
-                oncreate: (err: Error | null, socket: stream.Duplex) => void,
+                /** @deferred */ oncreate: (err: Error | null, socket: stream.Duplex) => void,
             ) => stream.Duplex | null | undefined)
             | undefined;
         defaultPort?: number | string | undefined;
@@ -324,8 +324,8 @@ declare module "http" {
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse = typeof ServerResponse,
     > extends NetServer {
-        constructor(requestListener?: RequestListener<Request, Response>);
-        constructor(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>);
+        constructor(/** @deferred */ requestListener?: RequestListener<Request, Response>);
+        constructor(options: ServerOptions<Request, Response>, /** @deferred */ requestListener?: RequestListener<Request, Response>);
         /**
          * Sets the timeout value for sockets, and emits a `'timeout'` event on
          * the Server object, passing the socket as an argument, if a timeout
@@ -340,8 +340,8 @@ declare module "http" {
          * @since v0.9.12
          * @param [msecs=0 (no timeout)]
          */
-        setTimeout(msecs?: number, callback?: () => void): this;
-        setTimeout(callback: () => void): this;
+        setTimeout(msecs?: number, /** @deferred */ callback?: () => void): this;
+        setTimeout(/** @deferred */ callback: () => void): this;
         /**
          * Limits maximum incoming headers count. If set to 0, no limit will be applied.
          * @since v0.7.0
@@ -423,23 +423,23 @@ declare module "http" {
          * @since v18.2.0
          */
         closeIdleConnections(): void;
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connection", listener: (socket: Socket) => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
-        addListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        addListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        addListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        addListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        addListener(event: "listening", /** @deferred */ listener: () => void): this;
+        addListener(event: "checkContinue", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        addListener(event: "checkExpectation", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        addListener(event: "clientError", /** @deferred */ listener: (err: Error, socket: stream.Duplex) => void): this;
         addListener(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
-        addListener(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
-        addListener(event: "request", listener: RequestListener<Request, Response>): this;
+        addListener(event: "dropRequest", /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
+        addListener(event: "request", /** @deferred */ listener: RequestListener<Request, Response>): this;
         addListener(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         emit(event: string, ...args: any[]): boolean;
         emit(event: "close"): boolean;
@@ -465,77 +465,77 @@ declare module "http" {
             res: InstanceType<Response> & { req: InstanceType<Request> },
         ): boolean;
         emit(event: "upgrade", req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connection", listener: (socket: Socket) => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
-        on(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        on(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        on(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
-        on(event: "connect", listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
-        on(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
-        on(event: "request", listener: RequestListener<Request, Response>): this;
-        on(event: "upgrade", listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connection", listener: (socket: Socket) => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
-        once(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        once(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        once(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        on(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        on(event: "listening", /** @deferred */ listener: () => void): this;
+        on(event: "checkContinue", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        on(event: "checkExpectation", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        on(event: "clientError", /** @deferred */ listener: (err: Error, socket: stream.Duplex) => void): this;
+        on(event: "connect", /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
+        on(event: "dropRequest", /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
+        on(event: "request", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        on(event: "upgrade", /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        once(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        once(event: "listening", /** @deferred */ listener: () => void): this;
+        once(event: "checkContinue", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        once(event: "checkExpectation", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        once(event: "clientError", /** @deferred */ listener: (err: Error, socket: stream.Duplex) => void): this;
         once(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
-        once(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
-        once(event: "request", listener: RequestListener<Request, Response>): this;
+        once(event: "dropRequest", /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
+        once(event: "request", /** @deferred */ listener: RequestListener<Request, Response>): this;
         once(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        prependListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        prependListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependListener(event: "listening", /** @deferred */ listener: () => void): this;
+        prependListener(event: "checkContinue", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        prependListener(event: "checkExpectation", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        prependListener(event: "clientError", /** @deferred */ listener: (err: Error, socket: stream.Duplex) => void): this;
         prependListener(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         prependListener(
             event: "dropRequest",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
         ): this;
-        prependListener(event: "request", listener: RequestListener<Request, Response>): this;
+        prependListener(event: "request", /** @deferred */ listener: RequestListener<Request, Response>): this;
         prependListener(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
-        prependOnceListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
-        prependOnceListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "connection", /** @deferred */ listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "checkContinue", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: "checkExpectation", /** @deferred */ listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: "clientError", /** @deferred */ listener: (err: Error, socket: stream.Duplex) => void): this;
         prependOnceListener(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         prependOnceListener(
             event: "dropRequest",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
         ): this;
-        prependOnceListener(event: "request", listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: "request", /** @deferred */ listener: RequestListener<Request, Response>): this;
         prependOnceListener(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
+            /** @deferred */ listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
     }
     /**
@@ -578,7 +578,7 @@ declare module "http" {
          * @since v0.9.12
          * @param callback Optional function to be called when a timeout occurs. Same as binding to the `timeout` event.
          */
-        setTimeout(msecs: number, callback?: () => void): this;
+        setTimeout(msecs: number, /** @deferred */ callback?: () => void): this;
         /**
          * Sets a single header value. If the header already exists in the to-be-sent
          * headers, its value will be replaced. Use an array of strings to send multiple
@@ -779,7 +779,7 @@ declare module "http" {
          * @param hints An object containing the values of headers
          * @param callback Will be called when the response message has been written
          */
-        writeEarlyHints(hints: Record<string, string | string[]>, callback?: () => void): void;
+        writeEarlyHints(hints: Record<string, string | string[]>, /** @deferred */ callback?: () => void): void;
         /**
          * Sends a response header to the request. The status code is a 3-digit HTTP
          * status code, like `404`. The last argument, `headers`, are the response headers.
@@ -988,7 +988,7 @@ declare module "http" {
          * @param timeout Milliseconds before a request times out.
          * @param callback Optional function to be called when a timeout occurs. Same as binding to the `'timeout'` event.
          */
-        setTimeout(timeout: number, callback?: () => void): this;
+        setTimeout(timeout: number, /** @deferred */ callback?: () => void): this;
         /**
          * Once a socket is assigned to this request and is connected `socket.setNoDelay()` will be called.
          * @since v0.5.9
@@ -1016,111 +1016,111 @@ declare module "http" {
         /**
          * @deprecated
          */
-        addListener(event: "abort", listener: () => void): this;
+        addListener(event: "abort", /** @deferred */ listener: () => void): this;
         addListener(
             event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        addListener(event: "continue", listener: () => void): this;
-        addListener(event: "information", listener: (info: InformationEvent) => void): this;
-        addListener(event: "response", listener: (response: IncomingMessage) => void): this;
-        addListener(event: "socket", listener: (socket: Socket) => void): this;
-        addListener(event: "timeout", listener: () => void): this;
+        addListener(event: "continue", /** @deferred */ listener: () => void): this;
+        addListener(event: "information", /** @deferred */ listener: (info: InformationEvent) => void): this;
+        addListener(event: "response", /** @deferred */ listener: (response: IncomingMessage) => void): this;
+        addListener(event: "socket", /** @deferred */ listener: (socket: Socket) => void): this;
+        addListener(event: "timeout", /** @deferred */ listener: () => void): this;
         addListener(
             event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "drain", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "finish", listener: () => void): this;
-        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "drain", /** @deferred */ listener: () => void): this;
+        addListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        addListener(event: "finish", /** @deferred */ listener: () => void): this;
+        addListener(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        addListener(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        addListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
         /**
          * @deprecated
          */
-        on(event: "abort", listener: () => void): this;
-        on(event: "connect", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        on(event: "continue", listener: () => void): this;
-        on(event: "information", listener: (info: InformationEvent) => void): this;
-        on(event: "response", listener: (response: IncomingMessage) => void): this;
-        on(event: "socket", listener: (socket: Socket) => void): this;
-        on(event: "timeout", listener: () => void): this;
-        on(event: "upgrade", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "finish", listener: () => void): this;
-        on(event: "pipe", listener: (src: stream.Readable) => void): this;
-        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
+        on(event: "abort", /** @deferred */ listener: () => void): this;
+        on(event: "connect", /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(event: "continue", /** @deferred */ listener: () => void): this;
+        on(event: "information", /** @deferred */ listener: (info: InformationEvent) => void): this;
+        on(event: "response", /** @deferred */ listener: (response: IncomingMessage) => void): this;
+        on(event: "socket", /** @deferred */ listener: (socket: Socket) => void): this;
+        on(event: "timeout", /** @deferred */ listener: () => void): this;
+        on(event: "upgrade", /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "drain", /** @deferred */ listener: () => void): this;
+        on(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        on(event: "finish", /** @deferred */ listener: () => void): this;
+        on(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        on(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        on(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
         /**
          * @deprecated
          */
-        once(event: "abort", listener: () => void): this;
-        once(event: "connect", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        once(event: "continue", listener: () => void): this;
-        once(event: "information", listener: (info: InformationEvent) => void): this;
-        once(event: "response", listener: (response: IncomingMessage) => void): this;
-        once(event: "socket", listener: (socket: Socket) => void): this;
-        once(event: "timeout", listener: () => void): this;
-        once(event: "upgrade", listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "drain", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "finish", listener: () => void): this;
-        once(event: "pipe", listener: (src: stream.Readable) => void): this;
-        once(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
+        once(event: "abort", /** @deferred */ listener: () => void): this;
+        once(event: "connect", /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(event: "continue", /** @deferred */ listener: () => void): this;
+        once(event: "information", /** @deferred */ listener: (info: InformationEvent) => void): this;
+        once(event: "response", /** @deferred */ listener: (response: IncomingMessage) => void): this;
+        once(event: "socket", /** @deferred */ listener: (socket: Socket) => void): this;
+        once(event: "timeout", /** @deferred */ listener: () => void): this;
+        once(event: "upgrade", /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "drain", /** @deferred */ listener: () => void): this;
+        once(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        once(event: "finish", /** @deferred */ listener: () => void): this;
+        once(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        once(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        once(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
         /**
          * @deprecated
          */
-        prependListener(event: "abort", listener: () => void): this;
+        prependListener(event: "abort", /** @deferred */ listener: () => void): this;
         prependListener(
             event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        prependListener(event: "continue", listener: () => void): this;
-        prependListener(event: "information", listener: (info: InformationEvent) => void): this;
-        prependListener(event: "response", listener: (response: IncomingMessage) => void): this;
-        prependListener(event: "socket", listener: (socket: Socket) => void): this;
-        prependListener(event: "timeout", listener: () => void): this;
+        prependListener(event: "continue", /** @deferred */ listener: () => void): this;
+        prependListener(event: "information", /** @deferred */ listener: (info: InformationEvent) => void): this;
+        prependListener(event: "response", /** @deferred */ listener: (response: IncomingMessage) => void): this;
+        prependListener(event: "socket", /** @deferred */ listener: (socket: Socket) => void): this;
+        prependListener(event: "timeout", /** @deferred */ listener: () => void): this;
         prependListener(
             event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "drain", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "finish", listener: () => void): this;
-        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "drain", /** @deferred */ listener: () => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependListener(event: "finish", /** @deferred */ listener: () => void): this;
+        prependListener(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        prependListener(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        prependListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
         /**
          * @deprecated
          */
-        prependOnceListener(event: "abort", listener: () => void): this;
+        prependOnceListener(event: "abort", /** @deferred */ listener: () => void): this;
         prependOnceListener(
             event: "connect",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        prependOnceListener(event: "continue", listener: () => void): this;
-        prependOnceListener(event: "information", listener: (info: InformationEvent) => void): this;
-        prependOnceListener(event: "response", listener: (response: IncomingMessage) => void): this;
-        prependOnceListener(event: "socket", listener: (socket: Socket) => void): this;
-        prependOnceListener(event: "timeout", listener: () => void): this;
+        prependOnceListener(event: "continue", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "information", /** @deferred */ listener: (info: InformationEvent) => void): this;
+        prependOnceListener(event: "response", /** @deferred */ listener: (response: IncomingMessage) => void): this;
+        prependOnceListener(event: "socket", /** @deferred */ listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "timeout", /** @deferred */ listener: () => void): this;
         prependOnceListener(
             event: "upgrade",
-            listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
+            /** @deferred */ listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "drain", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "finish", listener: () => void): this;
-        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "drain", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependOnceListener(event: "finish", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "pipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: "unpipe", /** @deferred */ listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: string | symbol, /** @deferred */ listener: (...args: any[]) => void): this;
     }
     /**
      * An `IncomingMessage` object is created by {@link Server} or {@link ClientRequest} and passed as the first argument to the `'request'` and `'response'` event respectively. It may be used to
@@ -1284,7 +1284,7 @@ declare module "http" {
          * Calls `message.socket.setTimeout(msecs, callback)`.
          * @since v0.5.9
          */
-        setTimeout(msecs: number, callback?: () => void): this;
+        setTimeout(msecs: number, /** @deferred */ callback?: () => void): this;
         /**
          * **Only valid for request obtained from {@link Server}.**
          *
@@ -1554,13 +1554,13 @@ declare module "http" {
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse = typeof ServerResponse,
-    >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
+    >(/** @deferred */ requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse = typeof ServerResponse,
     >(
         options: ServerOptions<Request, Response>,
-        requestListener?: RequestListener<Request, Response>,
+        /** @deferred */ requestListener?: RequestListener<Request, Response>,
     ): Server<Request, Response>;
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
@@ -1753,11 +1753,11 @@ declare module "http" {
      * the message `'AbortError: The operation was aborted'`, the code `'ABORT_ERR'` and the `cause`, if one was provided.
      * @since v0.3.6
      */
-    function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    function request(options: RequestOptions | string | URL, /** @deferred */ callback?: (res: IncomingMessage) => void): ClientRequest;
     function request(
         url: string | URL,
         options: RequestOptions,
-        callback?: (res: IncomingMessage) => void,
+        /** @deferred */ callback?: (res: IncomingMessage) => void,
     ): ClientRequest;
     /**
      * Since most requests are GET requests without bodies, Node.js provides this
@@ -1819,8 +1819,8 @@ declare module "http" {
      * @since v0.3.6
      * @param options Accepts the same `options` as {@link request}, with the method set to GET by default.
      */
-    function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    function get(url: string | URL, options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    function get(options: RequestOptions | string | URL, /** @deferred */ callback?: (res: IncomingMessage) => void): ClientRequest;
+    function get(url: string | URL, options: RequestOptions, /** @deferred */ callback?: (res: IncomingMessage) => void): ClientRequest;
     /**
      * Performs the low-level validations on the provided `name` that are done when `res.setHeader(name, value)` is called.
      *
