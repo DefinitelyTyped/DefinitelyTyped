@@ -39,7 +39,7 @@ export default class AdStudy extends AbstractCrudObject {
     getInstances(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createInstance(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<PrivateLiftStudyInstance>;
     getObjectives(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<AdStudy>;
     update(fields: string[], params?: Record<string, any>): Promise<AdStudy>;
 }

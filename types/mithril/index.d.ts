@@ -9,7 +9,7 @@ declare function mount(element: Element, component: null): void; // tslint:disab
 /** Returns a shallow-cloned object with lifecycle attributes and any given custom attributes omitted. */
 declare function censor<
     O extends Record<string, any>,
-    E extends Readonly<string[]>,
+    E extends readonly string[],
 >(object: O, extra: E): Omit<Mithril._NoLifecycle<O>, E[number]>;
 
 /** Makes an XHR request and returns a promise. */

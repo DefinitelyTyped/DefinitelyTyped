@@ -4,7 +4,7 @@ const renderParams: Turnstile.RenderParameters = {
     cData: "<YOUR_CUSTOMER_DATA>",
     callback: (token: string) => {},
     "expired-callback": () => {},
-    "error-callback": () => {},
+    "error-callback": (error: string) => {},
     theme: "auto",
     tabindex: 5,
 };
@@ -19,7 +19,6 @@ const themeDark: Turnstile.Theme = "dark";
 
 const widgetSizeNormal: Turnstile.WidgetSize = "normal";
 const widgetSizeCompact: Turnstile.WidgetSize = "compact";
-const widgetSizeInvisible: Turnstile.WidgetSize = "invisible";
 
 const failureRetryModeNever: Turnstile.FailureRetryMode = "never";
 const failureRetryModeAuto: Turnstile.FailureRetryMode = "auto";

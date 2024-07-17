@@ -1,9 +1,11 @@
-import MapiClient, { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
+import mbxClient from "@mapbox/mapbox-sdk";
+import { SdkConfig } from "@mapbox/mapbox-sdk/lib/classes/mapi-client";
 import { MapiRequest } from "@mapbox/mapbox-sdk/lib/classes/mapi-request";
 import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
 import Directions, { DirectionsResponse, DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
 import Geocoding, { GeocodeService } from "@mapbox/mapbox-sdk/services/geocoding";
 import GeocodingV6, { GeocodeService as GeocodeServiceV6 } from "@mapbox/mapbox-sdk/services/geocoding-v6";
+import Isochrone, { IsochroneService } from "@mapbox/mapbox-sdk/services/isochrone";
 import MapMatching, { MapMatchingResponse, MapMatchingService } from "@mapbox/mapbox-sdk/services/map-matching";
 import Optimization, { OptimizationService } from "@mapbox/mapbox-sdk/services/optimization";
 import StaticMap, { StaticMapService } from "@mapbox/mapbox-sdk/services/static";
@@ -13,7 +15,7 @@ import { LineString } from "geojson";
 const config: SdkConfig = {
     accessToken: "access-token",
 };
-const client = new MapiClient(config);
+const client = mbxClient(config);
 
 const directionsService: DirectionsService = Directions(client);
 
@@ -79,6 +81,32 @@ const drivingTrafficDirectionsRequest: MapiRequest = directionsService.getDirect
 });
 
 drivingTrafficDirectionsRequest.send().then((response: MapiResponse) => {
+});
+
+const isochroneService: IsochroneService = Isochrone(client);
+
+const isochroneRequestLine = isochroneService.getContours({ coordinates: [-3.599431, 54.507913], minutes: [20, 40] });
+
+const isochroneRequestPoly = isochroneService.getContours({
+    coordinates: [-3.599431, 54.507913],
+    minutes: [20, 40],
+    polygons: true,
+});
+
+isochroneRequestLine.send().then((response) => {
+    const body = response.body;
+    const features = body.features;
+    features.map((feature) => {
+        feature.geometry.type === "LineString";
+    });
+});
+
+isochroneRequestPoly.send().then((response) => {
+    const body = response.body;
+    const features = body.features;
+    features.map((feature) => {
+        feature.geometry.type === "Polygon";
+    });
 });
 
 const mapMatchingService: MapMatchingService = MapMatching(client);

@@ -5,7 +5,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.90 Extension API
+ * Type Definition for Visual Studio Code 1.91 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -541,7 +541,7 @@ declare module 'vscode' {
 
 	/**
 	 * Represents sources that can cause {@link window.onDidChangeTextEditorSelection selection change events}.
-	*/
+	 */
 	export enum TextEditorSelectionChangeKind {
 		/**
 		 * Selection changed due to typing in the editor.
@@ -5192,7 +5192,7 @@ declare module 'vscode' {
 
 		/**
 		 * Creates a new list of inline completion items.
-		*/
+		 */
 		constructor(items: InlineCompletionItem[]);
 	}
 
@@ -6371,7 +6371,7 @@ declare module 'vscode' {
 	export enum ConfigurationTarget {
 		/**
 		 * Global configuration
-		*/
+		 */
 		Global = 1,
 
 		/**
@@ -11122,8 +11122,8 @@ declare module 'vscode' {
 		canSelectMany?: boolean;
 
 		/**
-		* An optional interface to implement drag and drop in the tree view.
-		*/
+		 * An optional interface to implement drag and drop in the tree view.
+		 */
 		dragAndDropController?: TreeDragAndDropController<T>;
 
 		/**
@@ -11384,8 +11384,8 @@ declare module 'vscode' {
 	 */
 	export interface TreeCheckboxChangeEvent<T> {
 		/**
-		* The items that were checked or unchecked.
-		*/
+		 * The items that were checked or unchecked.
+		 */
 		readonly items: ReadonlyArray<[T, TreeItemCheckboxState]>;
 	}
 
@@ -11425,8 +11425,8 @@ declare module 'vscode' {
 		readonly onDidChangeVisibility: Event<TreeViewVisibilityChangeEvent>;
 
 		/**
-		* An event to signal that an element or root has either been checked or unchecked.
-		*/
+		 * An event to signal that an element or root has either been checked or unchecked.
+		 */
 		readonly onDidChangeCheckboxState: Event<TreeCheckboxChangeEvent<T>>;
 
 		/**
@@ -11703,8 +11703,8 @@ declare module 'vscode' {
 	}
 
 	/**
-	* Checkbox state of the tree item
-	*/
+	 * Checkbox state of the tree item
+	 */
 	export enum TreeItemCheckboxState {
 		/**
 		 * Determines an item is unchecked
@@ -11793,8 +11793,8 @@ declare module 'vscode' {
 		color?: ThemeColor;
 
 		/**
-		* The {@link TerminalLocation} or {@link TerminalEditorLocationOptions} or {@link TerminalSplitLocationOptions} for the terminal.
-		*/
+		 * The {@link TerminalLocation} or {@link TerminalEditorLocationOptions} or {@link TerminalSplitLocationOptions} for the terminal.
+		 */
 		location?: TerminalLocation | TerminalEditorLocationOptions | TerminalSplitLocationOptions;
 
 		/**
@@ -12674,7 +12674,7 @@ declare module 'vscode' {
 		/**
 		 * The reason why the document was changed.
 		 * Is `undefined` if the reason is not known.
-		*/
+		 */
 		readonly reason: TextDocumentChangeReason | undefined;
 	}
 
@@ -15380,7 +15380,7 @@ declare module 'vscode' {
 		 *
 		 * @param rendererId The renderer ID to communicate with
 		 * @returns A new notebook renderer messaging object.
-		*/
+		 */
 		export function createRendererMessaging(rendererId: string): NotebookRendererMessaging;
 	}
 
@@ -16189,6 +16189,13 @@ declare module 'vscode' {
 		 * When true, the debug viewlet will not be automatically revealed for this session.
 		 */
 		suppressDebugView?: boolean;
+
+		/**
+		 * Signals to the editor that the debug session was started from a test run
+		 * request. This is used to link the lifecycle of the debug session and
+		 * test run in UI actions.
+		 */
+		testRun?: TestRun;
 	}
 
 	/**
@@ -16375,7 +16382,7 @@ declare module 'vscode' {
 		/**
 		 * Add breakpoints.
 		 * @param breakpoints The breakpoints to add.
-		*/
+		 */
 		export function addBreakpoints(breakpoints: readonly Breakpoint[]): void;
 
 		/**
@@ -16913,17 +16920,17 @@ declare module 'vscode' {
 		/**
 		 * Whether it is possible to be signed into multiple accounts at once with this provider.
 		 * If not specified, will default to false.
-		*/
+		 */
 		readonly supportsMultipleAccounts?: boolean;
 	}
 
 	/**
-	* An {@link Event} which fires when an {@link AuthenticationSession} is added, removed, or changed.
-	*/
+	 * An {@link Event} which fires when an {@link AuthenticationSession} is added, removed, or changed.
+	 */
 	export interface AuthenticationProviderAuthenticationSessionsChangeEvent {
 		/**
 		 * The {@link AuthenticationSession AuthenticationSessions} of the {@link AuthenticationProvider} that have been added.
-		*/
+		 */
 		readonly added: readonly AuthenticationSession[] | undefined;
 
 		/**
@@ -17150,7 +17157,7 @@ declare module 'vscode' {
 		 * @param id Identifier for the controller, must be globally unique.
 		 * @param label A human-readable label for the controller.
 		 * @returns An instance of the {@link TestController}.
-		*/
+		 */
 		export function createTestController(id: string, label: string): TestController;
 	}
 
@@ -19001,7 +19008,7 @@ declare module 'vscode' {
 	 * Represents a language model response.
 	 *
 	 * @see {@link LanguageModelAccess.chatRequest}
-	*/
+	 */
 	export interface LanguageModelChatResponse {
 
 		/**

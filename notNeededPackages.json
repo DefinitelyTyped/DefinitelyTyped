@@ -1825,6 +1825,10 @@
             "libraryName": "@types/facebook-js-sdk",
             "asOfVersion": "0.0.28"
         },
+        "fcostarodrigo__walk": {
+            "libraryName": "@fcostarodrigo/walk",
+            "asOfVersion": "6.0.0"
+        },
         "fecha": {
             "libraryName": "fecha",
             "asOfVersion": "2.3.1"
@@ -4806,6 +4810,10 @@
         "react-countup": {
             "libraryName": "react-countup",
             "asOfVersion": "4.3.1"
+        },
+        "react-datepicker": {
+            "libraryName": "react-datepicker",
+            "asOfVersion": "7.0.0"
         },
         "react-datetime-picker": {
             "libraryName": "react-datetime-picker",

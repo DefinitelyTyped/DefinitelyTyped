@@ -31,7 +31,7 @@ export default class ExtendedCreditAllocationConfig extends AbstractCrudObject {
         advertiser: "Advertiser";
         agency: "Agency";
     }>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<ExtendedCreditAllocationConfig>;
     update(fields: string[], params?: Record<string, any>): Promise<ExtendedCreditAllocationConfig>;
 }

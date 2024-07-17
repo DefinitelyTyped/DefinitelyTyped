@@ -1,19 +1,19 @@
 declare global {
-    var Engage: PooolEngage.Engage;
+    var Engage: Poool.Engage;
     /**
      * Use PooolEngage just if you have done `Engage.noConflict()` before
      */
-    var PooolEngage: PooolEngage.Engage;
+    var PooolEngage: Poool.Engage;
 
     interface Window {
-        Engage: PooolEngage.Engage;
+        Engage: Poool.Engage;
         /**
          * Use PooolEngage just if you have done `Engage.noConflict()` before
          */
-        PooolEngage: PooolEngage.Engage;
+        PooolEngage: Poool.Engage;
     }
 }
-export namespace PooolEngage {
+export namespace Poool {
     interface EngageConfigOptions {
         /**
          * When debug mode is enabled, Engage.js will log everything it does in the browser console.
@@ -151,6 +151,7 @@ export namespace PooolEngage {
         | "views"
         | "viewsPerDay"
         | "visits"
+        | "visitsPerDay"
         | "device"
         | "geoloc"
         | "url"

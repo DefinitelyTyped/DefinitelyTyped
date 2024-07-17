@@ -64,6 +64,6 @@ export default class Photo extends AbstractCrudObject {
     getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createLike(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Photo>;
     getSponsorTags(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<Photo>;
 }
