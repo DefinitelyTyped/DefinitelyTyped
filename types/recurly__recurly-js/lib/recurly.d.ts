@@ -90,7 +90,6 @@ export interface Recurly extends Emitter<RecurlyEvent> {
    */
   PayPal: PayPal;
 
-  
   /**
    * Use Recurly to process Amazon Pay v2 transactions
    *

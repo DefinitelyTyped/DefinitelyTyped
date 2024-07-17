@@ -33,6 +33,10 @@ declare namespace woosmap.map {
          */
         data: woosmap.map.Data;
         /**
+         * Additional map types to overlay.
+         */
+        overlayMapTypes: woosmap.map.MVCArray<woosmap.map.MapType>;
+        /**
          * Creates a new map inside the given HTML container, which is typically a `DIV` element.
          */
         constructor(mapDiv: HTMLElement | string, options?: woosmap.map.MapOptions);
@@ -1482,6 +1486,21 @@ declare namespace woosmap.map {
          * The rules to apply to the selected features.
          */
         stylers: woosmap.map.MapStyler[];
+    }
+}
+declare namespace woosmap.map {
+    interface MapType {
+        /**
+         * Displays the overlay up to the maximum zoom level.
+         */
+        maxZoom: number;
+        /**
+         * Displays the overlay startingat the minmum zoom level.
+         */
+        minZoom: number;
+        getTile(tileCoord: woosmap.map.Point, zoom: number, ownerDocument: null): Element | null;
+
+        releaseTile(tile: Element): void;
     }
 }
 declare namespace woosmap.map {
