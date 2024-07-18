@@ -337,6 +337,13 @@ e.store.name;
 </e.PluginPostPublishPanel>;
 
 //
+// PluginPrePublishPanel
+//
+<e.PluginPrePublishPanel className="my-plugin-pre-publish-panel" title="My panel title" initialOpen={ true }>
+    My panel content
+</e.PluginPrePublishPanel>;
+
+//
 // TableOfContents
 //
 <e.TableOfContents />;
