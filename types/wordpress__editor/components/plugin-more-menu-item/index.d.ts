@@ -1,14 +1,14 @@
-import { ComponentType, PropsWithChildren } from "react";
 import { IconType } from "@wordpress/components";
+import { ComponentType, PropsWithChildren } from "react";
 
 declare namespace PluginMoreMenuItem {
     interface Props extends PropsWithChildren {
         /** When `href` is provided, then the menu item is represented as an anchor rather than a button. It corresponds to the `href` attribute of the anchor. */
-        href?: string,
+        href?: string;
         /** The callback function to be executed when the user clicks the menu item. */
         onClick?: () => void;
         /** The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar. */
-        icon?: IconType
+        icon?: IconType;
     }
 }
 

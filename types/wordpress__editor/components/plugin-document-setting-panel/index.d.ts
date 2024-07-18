@@ -1,16 +1,16 @@
+import { IconType } from "@wordpress/components";
 import { ComponentType, PropsWithChildren } from "react";
-import { IconType } from "@wordpress/components"
 
 declare namespace PluginDocumentSettingPanel {
     interface Props extends PropsWithChildren {
         /** A machine-friendly name for the panel. */
-        name: string,
+        name: string;
         /** An optional class name added to the row. */
-        className?: string,
+        className?: string;
         /** The title of the panel */
-        title: string,
+        title: string;
         /** The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar. */
-        icon?: IconType
+        icon?: IconType;
     }
 }
 
@@ -24,9 +24,9 @@ declare namespace PluginDocumentSettingPanel {
  *
  * const MyDocumentSettingTest = () => (
  * 		<PluginDocumentSettingPanel className="my-document-setting-plugin" title="My Panel" name="my-panel">
- *			<p>My Document Setting Panel</p>
- *		</PluginDocumentSettingPanel>
- *	);
+ * 			<p>My Document Setting Panel</p>
+ * 		</PluginDocumentSettingPanel>
+ * 	);
  *
  *  registerPlugin( 'document-setting-test', { render: MyDocumentSettingTest } );
  * ```

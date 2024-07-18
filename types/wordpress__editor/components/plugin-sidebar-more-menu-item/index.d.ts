@@ -1,10 +1,10 @@
+import { IconType } from "@wordpress/components";
 import { ComponentType, PropsWithChildren } from "react";
-import { IconType } from "@wordpress/components"
 
 declare namespace PluginSidebarMoreMenuItem {
     interface Props extends PropsWithChildren {
-        target?: string,
-        icon?: IconType
+        target?: string;
+        icon?: IconType;
     }
 }
 

@@ -1,18 +1,18 @@
+import { IconType } from "@wordpress/components";
 import { ComponentType, PropsWithChildren } from "react";
-import { IconType } from "@wordpress/components"
 
 declare namespace PluginSidebar {
     interface Props extends PropsWithChildren {
         /** A string identifying the sidebar. Must be unique for every sidebar registered within the scope of your plugin. */
-        name: string,
+        name: string;
         /** An optional class name added to the sidebar body. */
-        className?: string,
+        className?: string;
         /** Title displayed at the top of the sidebar. */
-        title: string,
+        title: string;
         /** Whether to allow to pin sidebar to the toolbar. When set to `true` it also automatically renders a corresponding menu item. */
-        isPinnable?: boolean
+        isPinnable?: boolean;
         /** The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar. */
-        icon?: IconType,
+        icon?: IconType;
     }
 }
 

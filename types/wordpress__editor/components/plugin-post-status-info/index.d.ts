@@ -3,7 +3,7 @@ import { ComponentType, PropsWithChildren } from "react";
 declare namespace PluginPostStatusInfo {
     interface Props extends PropsWithChildren {
         /** An optional class name added to the row. */
-        className?: string,
+        className?: string;
     }
 }
 
