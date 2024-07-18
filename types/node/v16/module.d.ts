@@ -204,19 +204,6 @@ declare module "module" {
     global {
         interface ImportMeta extends ImportMetaDOMCompat {
             url: string;
-            /**
-             * @experimental
-             * This feature is only available with the `--experimental-import-meta-resolve`
-             * command flag enabled.
-             *
-             * Provides a module-relative resolution function scoped to each module, returning
-             * the URL string.
-             *
-             * @param specified The module specifier to resolve relative to `parent`.
-             * @param parent The absolute parent module URL to resolve from. If none
-             * is specified, the value of `import.meta.url` is used as the default.
-             */
-            resolve(specified: string, parent?: string | URL): Promise<string>;
         }
     }
     export = Module;
