@@ -180,8 +180,6 @@ function parseNpmInfo(info) {
     }
 }
 main().catch(error => {
-
-
     console.error(error && (error.stack || error.message || error));
     process.exit(1);
 });
