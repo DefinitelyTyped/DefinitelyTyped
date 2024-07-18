@@ -9,7 +9,6 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      *
      * @param data The data representing the 3D shapes.
      * @returns An array of 3D shapes generated with the specified parameters and transformations.
-     *
      */
     (data: ShapeInput[]): Shape[];
 
@@ -19,7 +18,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param o The origin point for rendering the 3D shapes.
      * @returns If no argument is provided, returns the current origin. Otherwise, sets the origin and returns the function.
      */
-    origin(o?: Coordinate2D): typeof o extends undefined ? Coordinate2D : Shape3DGenerator<ShapeInput, Shape>;
+    origin(o: Coordinate2D): Shape3DGenerator<ShapeInput, Shape>;
+    origin(): Coordinate2D;
 
     /**
      * Sets or retrieves the scale factor for the 3D shapes.
@@ -27,7 +27,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param s The scale factor for the 3D shapes.
      * @returns If no argument is provided, returns the current scale factor. Otherwise, sets the scale factor and returns the function.
      */
-    scale(s?: number): typeof s extends undefined ? number : Shape3DGenerator<ShapeInput, Shape>;
+    scale(s: number): Shape3DGenerator<ShapeInput, Shape>;
+    scale(): number;
 
     /**
      * Sets or retrieves the rotation angle around the x-axis.
@@ -35,7 +36,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param ax The rotation angle around the x-axis.
      * @returns If no argument is provided, returns the current rotation angle around the x-axis. Otherwise, sets the rotation angle and returns the function.
      */
-    rotateX(ax?: number): typeof ax extends undefined ? number : Shape3DGenerator<ShapeInput, Shape>;
+    rotateX(ax: number): Shape3DGenerator<ShapeInput, Shape>;
+    rotateX(): number;
 
     /**
      * Sets or retrieves the rotation angle around the y-axis.
@@ -43,7 +45,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param ay The rotation angle around the y-axis.
      * @returns If no argument is provided, returns the current rotation angle around the y-axis. Otherwise, sets the rotation angle and returns the function.
      */
-    rotateY(ay?: number): typeof ay extends undefined ? number : Shape3DGenerator<ShapeInput, Shape>;
+    rotateY(ay: number): Shape3DGenerator<ShapeInput, Shape>;
+    rotateY(): number;
 
     /**
      * Sets or retrieves the rotation angle around the z-axis.
@@ -51,7 +54,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param az The rotation angle around the z-axis.
      * @returns If no argument is provided, returns the current rotation angle around the z-axis. Otherwise, sets the rotation angle and returns the function.
      */
-    rotateZ(az?: number): typeof az extends undefined ? number : Shape3DGenerator<ShapeInput, Shape>;
+    rotateZ(az: number): Shape3DGenerator<ShapeInput, Shape>;
+    rotateZ(): number;
 
     /**
      * Sets or retrieves the rotation center for the 3D shapes.
@@ -59,7 +63,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param rc The rotation center for the 3D shapes.
      * @returns If no argument is provided, returns the current rotation center. Otherwise, sets the rotation center and returns the function.
      */
-    rotationCenter(rc?: Coordinate3D): typeof rc extends undefined ? Coordinate3D : Shape3DGenerator<ShapeInput, Shape>;
+    rotationCenter(rc: Coordinate3D): Shape3DGenerator<ShapeInput, Shape>;
+    rotationCenter(): Coordinate3D;
 
     /**
      * Sets or retrieves the x-coordinate for the 3D shapes.
@@ -67,9 +72,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param px The x-coordinate for the 3D shapes.
      * @returns If no argument is provided, returns the current x-coordinate. Otherwise, sets the x-coordinate and returns the function.
      */
-    x(
-        px?: number | ((p: Point3D) => number)
-    ): typeof px extends undefined ? number : Shape3DGenerator<ShapeInput, Shape>;
+    x(px: number | ((p: Point3D) => number)): Shape3DGenerator<ShapeInput, Shape>;
+    x(): number;
 
     /**
      * Sets or retrieves the y-coordinate for the 3D shapes.
@@ -77,9 +81,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param py The y-coordinate for the 3D shapes.
      * @returns If no argument is provided, returns the current y-coordinate. Otherwise, sets the y-coordinate and returns the function.
      */
-    y(
-        py?: number | ((p: Point3D) => number)
-    ): typeof py extends undefined ? number : Shape3DGenerator<ShapeInput, Shape>;
+    y(py: number | ((p: Point3D) => number)): Shape3DGenerator<ShapeInput, Shape>;
+    y(): number;
 
     /**
      * Sets or retrieves the z-coordinate for the 3D shapes.
@@ -87,9 +90,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param pz The z-coordinate for the 3D shapes.
      * @returns If no argument is provided, returns the current z-coordinate. Otherwise, sets the z-coordinate and returns the function.
      */
-    z(
-        pz?: number | ((p: Point3D) => number)
-    ): typeof pz extends undefined ? number : Shape3DGenerator<ShapeInput, Shape>;
+    z(pz: number | ((p: Point3D) => number)): Shape3DGenerator<ShapeInput, Shape>;
+    z(): number;
 
     /**
      * !IMPORT! ONLY FOR gridplanes
@@ -98,7 +100,8 @@ export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
      * @param pz The z-coordinate for the 3D shapes.
      * @returns If no argument is provided, returns the current rows. Otherwise, sets the rows and returns the function.
      */
-    rows(pz?: number): typeof pz extends undefined ? number : Shape3DGenerator<ShapeInput, Shape>;
+    rows(pz: number): Shape3DGenerator<ShapeInput, Shape>;
+    rows(): number;
 
     /**
      * Comparator function to sort objects based on their centroid z-values.
@@ -257,7 +260,7 @@ export type Cube3DInput = [
     Point3DInput,
     Point3DInput,
     Point3DInput,
-    Point3DInput
+    Point3DInput,
 ];
 
 /**
@@ -280,13 +283,19 @@ export function _3d<Shape3DInput, Shape3D>(): Shape3DGenerator<Shape3DInput, Sha
      * @param s The shape for the 3D generator.
      * @returns If no argument is provided, returns the current shape. Otherwise, sets the shape and returns the function.
      */
-    shape(
-        s?: ShapeKind,
-        row?: number
-    ): typeof s extends undefined ? ShapeKind : Shape3DGenerator<Shape3DInput, Shape3D>;
+    shape(s: ShapeKind, row?: number): Shape3DGenerator<Shape3DInput, Shape3D>;
+    shape(): ShapeKind;
 };
 
-export type ShapeKind = "CUBE" | "GRID" | "LINE" | "LINE_STRIP" | "PLANE" | "POINT" | "SURFACE" | "TRIANGLE";
+export type ShapeKind =
+    | "CUBE"
+    | "GRID"
+    | "LINE"
+    | "LINE_STRIP"
+    | "PLANE"
+    | "POINT"
+    | "SURFACE"
+    | "TRIANGLE";
 
 /**
  * Creates a new 3D generator for drawing points.
