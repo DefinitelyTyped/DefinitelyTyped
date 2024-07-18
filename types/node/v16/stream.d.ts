@@ -1149,7 +1149,7 @@ declare module "stream" {
          * invoked. The reason for this is so that unexpected `'error'` events (due to
          * incorrect stream implementations) do not cause unexpected crashes.
          * If this is unwanted behavior then the returned cleanup function needs to be
-         * invoked in the /** @deferred */ callback:
+         * invoked in the callback:
          *
          * ```js
          * const cleanup = finished(rs, (err) => {
