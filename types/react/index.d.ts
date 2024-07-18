@@ -2341,7 +2341,7 @@ declare namespace React {
     // Event Handler Types
     // ----------------------------------------------------------------------
 
-    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void }["bivarianceHack"];
+    type EventHandler<E extends SyntheticEvent<any>> = { bivarianceHack(event: E): void | Promise<void> }["bivarianceHack"];
 
     type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
 
