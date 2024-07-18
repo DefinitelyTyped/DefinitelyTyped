@@ -218,7 +218,7 @@ declare module "assert" {
             message?: string | Error,
             operator?: string,
             // eslint-disable-next-line @typescript-eslint/ban-types
-            /** @deferred */ stackStartfn?: Function,
+            stackStartfn?: Function,
         ): never;
         /**
          * Tests if `value` is truthy. It is equivalent to`assert.equal(!!value, true, message)`.

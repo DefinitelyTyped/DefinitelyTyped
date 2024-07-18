@@ -32,7 +32,7 @@ declare module "assert" {
                 operator?: string | undefined;
                 /** If provided, the generated stack trace omits frames before this function. */
                 // eslint-disable-next-line @typescript-eslint/ban-types
-                /** @deferred */ stackStartfn?: Function | undefined;
+                stackStartfn?: Function | undefined;
             });
         }
         /**
