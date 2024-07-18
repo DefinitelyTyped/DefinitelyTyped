@@ -13,6 +13,24 @@ declare namespace PluginDocumentSettingPanel {
         icon?: IconType
     }
 }
+
+/**
+ * Renders items below the Status & Availability panel in the Document Sidebar.
+ *
+ * @example
+ * ```jsx
+ * import { registerPlugin } from '@wordpress/plugins';
+ * import { PluginDocumentSettingPanel } from '@wordpress/editor';
+ *
+ * const MyDocumentSettingTest = () => (
+ * 		<PluginDocumentSettingPanel className="my-document-setting-plugin" title="My Panel" name="my-panel">
+ *			<p>My Document Setting Panel</p>
+ *		</PluginDocumentSettingPanel>
+ *	);
+ *
+ *  registerPlugin( 'document-setting-test', { render: MyDocumentSettingTest } );
+ * ```
+ */
 declare const PluginDocumentSettingPanel: ComponentType<PluginDocumentSettingPanel.Props>;
 
 export default PluginDocumentSettingPanel;
