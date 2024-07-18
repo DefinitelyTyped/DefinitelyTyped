@@ -309,6 +309,13 @@ e.store.name;
 <e.PluginDocumentSettingPanel name="dts-test" title="Test panel" />;
 
 //
+// PluginSidebarMoreMenuItem
+//
+<e.PluginSidebarMoreMenuItem target="my-sidebar">
+    My sidebar title
+</e.PluginSidebarMoreMenuItem>;
+
+//
 // TableOfContents
 //
 <e.TableOfContents />;
