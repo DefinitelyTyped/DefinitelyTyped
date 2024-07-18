@@ -3,7 +3,7 @@ import type { SvgProperties } from "csstype";
 /**
  * A generic type for a 3D generator function, capable of transforming data into 3D shapes.
  */
-export type Shape3DGenerator<ShapeInput, Shape = ShapeInput> = {
+export interface Shape3DGenerator<ShapeInput, Shape = ShapeInput> {
     /**
      * Generates 3D shapes based on specified parameters and transformations.
      *
@@ -121,18 +121,18 @@ export type Shape3DGenerator<ShapeInput, Shape = ShapeInput> = {
      * A function that draws 3D shapes.
      */
     draw(shapes: ShapeInput[]): void;
-};
+}
 
-export type Coordinate2D = {
+export interface Coordinate2D {
     x: number;
     y: number;
-};
+}
 
-export type Coordinate3D = {
+export interface Coordinate3D {
     x: number;
     y: number;
     z: number;
-};
+}
 
 /**
  * A point in 3D space represented by the <circle> element.
@@ -228,7 +228,7 @@ export type GridPlane3DInput = Point3DInput[];
  * A grid plane (multiple planes) in 3D space, constructed from an array of points, represented by x planes.
  * Note: A grid must always have the same number of points per row.
  */
-export type GridPlane3D = (Plane3D & { plane: `plane-${number}` })[];
+export type GridPlane3D = Array<Plane3D & { plane: `plane-${number}` }>;
 
 /**
  * A polygon in 3D space, defined by x points in counter-clockwise order, represented by the <path> element.
@@ -286,7 +286,7 @@ export function _3d<Shape3DInput, Shape3D>(): Shape3DGenerator<Shape3DInput, Sha
     ): typeof s extends undefined ? ShapeKind : Shape3DGenerator<Shape3DInput, Shape3D>;
 };
 
-type ShapeKind = "CUBE" | "GRID" | "LINE" | "LINE_STRIP" | "PLANE" | "POINT" | "SURFACE" | "TRIANGLE";
+export type ShapeKind = "CUBE" | "GRID" | "LINE" | "LINE_STRIP" | "PLANE" | "POINT" | "SURFACE" | "TRIANGLE";
 
 /**
  * Creates a new 3D generator for drawing points.
