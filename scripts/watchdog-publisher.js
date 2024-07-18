@@ -5,6 +5,9 @@ var gh = new Octokit({
     auth: process.env.GITHUB_TOKEN,
 });
 
+// This script calls out to npm; ensure corepack doesn't complain if present.
+process.env.COREPACK_ENABLE_STRICT = "0";
+
 async function main() {
     const prs = await recentPrs();
     const longestLatency = recentPackages(prs);
@@ -21,29 +24,51 @@ async function main() {
  */
 const packageNameFromIndexDts = /^types\/([^\/]+?)\/index.d.ts$/;
 
+/**
+ * @param {"created" | "updated"} sort
+ */
+async function getTopFiveMerged(sort) {
+    const iterator = gh.paginate.iterator(gh.rest.pulls.list, {
+        owner: "DefinitelyTyped",
+        repo: "DefinitelyTyped",
+        state: "closed",
+        per_page: 100,
+        direction: "desc",
+        sort,
+    })
+
+    const result = [];
+
+    for await (const { data: pulls } of iterator) {
+        for (const pull of pulls) {
+            if (result.length === 5) {
+                return result;
+            }
+
+            if (!pull.merged_at) {
+                continue;
+            }
+
+            result.push(pull);
+        }
+    }
+
+    return result;
+}
+
 /** @returns {Promise<Map<string, { mergeDate: Date, pr: number, deleted: boolean }>>} */
 async function recentPrs() {
     console.log("search for 5 most recently created PRs");
-    const searchByCreatedDate = await gh.rest.search.issuesAndPullRequests({
-        q: "is:pr is:merged repo:DefinitelyTyped/DefinitelyTyped",
-        order: "desc",
-        per_page: 5,
-        page: 1,
-    });
+    const searchByCreatedDate = await getTopFiveMerged("created");
     console.log("search for 5 most recently updated PRs");
-    const searchByUpdateDate = await gh.rest.search.issuesAndPullRequests({
-        q: "is:pr is:merged repo:DefinitelyTyped/DefinitelyTyped",
-        sort: "updated",
-        order: "desc",
-        per_page: 5,
-        page: 1,
-    });
+    const searchByUpdateDate = await getTopFiveMerged("updated");
+
     /** @type {Map<string, { mergeDate: Date, pr: number, deleted: boolean }>} */
     const prs = new Map();
-    for (const it of searchByCreatedDate.data.items) {
+    for (const it of searchByCreatedDate) {
         await addPr(it, prs);
     }
-    for (const it of searchByUpdateDate.data.items) {
+    for (const it of searchByUpdateDate) {
         await addPr(it, prs);
     }
     return prs;
@@ -155,6 +180,8 @@ function parseNpmInfo(info) {
     }
 }
 main().catch(error => {
+
+
     console.error(error && (error.stack || error.message || error));
     process.exit(1);
 });
