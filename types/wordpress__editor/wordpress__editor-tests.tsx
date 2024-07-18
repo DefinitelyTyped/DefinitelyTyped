@@ -304,6 +304,11 @@ e.store.name;
 <e.PostVisibilityLabel />;
 
 //
+// PluginDocumentSettingPanel
+//
+<e.PluginDocumentSettingPanel name="dts-test" title="Test panel" />;
+
+//
 // TableOfContents
 //
 <e.TableOfContents />;
