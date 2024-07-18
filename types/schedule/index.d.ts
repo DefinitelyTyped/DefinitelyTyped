@@ -1,18 +1,13 @@
-// Type definitions for schedule 0.5
-// Project: https://reactjs.org/
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Deadline {
-  timeRemaining(): number;
-  didTimeout: boolean;
+    timeRemaining(): number;
+    didTimeout: boolean;
 }
 export type FrameCallbackType = (deadline: Deadline) => void;
 export interface CallbackNode {
-  callback: FrameCallbackType;
-  timesOutAt: number;
-  next: CallbackNode | null;
-  prev: CallbackNode | null;
+    callback: FrameCallbackType;
+    timesOutAt: number;
+    next: CallbackNode | null;
+    prev: CallbackNode | null;
 }
 
 export function unstable_scheduleWork(callback: FrameCallbackType, options?: { timeout: number }): CallbackNode;

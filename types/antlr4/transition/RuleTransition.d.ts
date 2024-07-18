@@ -1,6 +1,6 @@
-import ATNState from '../state/ATNState';
-import RuleStartState from '../state/RuleStartState';
-import Transition from './Transition';
+import ATNState from "../state/ATNState";
+import RuleStartState from "../state/RuleStartState";
+import Transition from "./Transition";
 
 export default class RuleTransition extends Transition {
     readonly ruleIndex: number;

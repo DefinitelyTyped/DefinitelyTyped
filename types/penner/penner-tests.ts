@@ -1,5 +1,5 @@
-import * as penner from 'penner';
-import * as pennerMin from 'penner/penner.min';
+import * as penner from "penner";
+import * as pennerMin from "penner/penner.min";
 
 penner.linear(0, 10, 100, 2); // $ExpectType number
 penner.easeInQuad(0, 10, 100, 2); // $ExpectType number

@@ -1,15 +1,8 @@
-// Type definitions for @node-red/util 1.3
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/util, https://nodered.org/
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
+import { EventEmitter } from "events";
+import { Expression as JsonataExpression } from "jsonata";
 
-import { EventEmitter } from 'events';
-import { Expression as JsonataExpression } from 'jsonata';
-
-import * as registry from '@node-red/registry';
-import * as runtime from '@node-red/runtime';
+import * as registry from "@node-red/registry";
+import * as runtime from "@node-red/runtime";
 
 declare const util: util.UtilModule;
 
@@ -98,12 +91,12 @@ declare namespace util {
         file: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18nTFunction {
         (id: string, tplStrs?: Record<string, string | number>): string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18n {
         /**
          * Perform a message catalog lookup.
@@ -325,7 +318,7 @@ declare namespace util {
     }
 
     // Used `boolean` in PromiseLike instead of `false` because it caused problems with `async` functions
-    type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // tslint:disable-line:void-return
+    type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
 
     interface Hooks {
         /**
@@ -342,7 +335,7 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: 'onSend', hookHandler: HandlerFunction<SendEvent[]>): void;
+        add(hookName: "onSend", hookHandler: HandlerFunction<SendEvent[]>): void;
 
         /**
          * A message is about to be routed to its destination.
@@ -357,7 +350,7 @@ declare namespace util {
          *
          * If the hook returns `false`, the message will not proceed any further.
          */
-        add(hookName: 'preRoute', handlerFunction: HandlerFunction<SendEvent>): void;
+        add(hookName: "preRoute", handlerFunction: HandlerFunction<SendEvent>): void;
 
         /**
          * A message is about to be delivered
@@ -369,14 +362,14 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: 'preDeliver', handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "preDeliver", handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A message has been dispatched to its destination.
          *
          * The hook is passed a single `SendEvent`. The message is delivered asynchronously to the hooks execution.
          */
-        add(hookName: 'postDeliver', handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "postDeliver", handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A message is about to be received by a node.
@@ -385,21 +378,21 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: 'onReceive', handlerFunction: HandlerFunction<ReceiveEvent>): void;
+        add(hookName: "onReceive", handlerFunction: HandlerFunction<ReceiveEvent>): void;
 
         /**
          * A message has been received by a node.
          *
          * The hook is passed `ReceiveEvent` when the message has been given to the node’s `input` handler.
          */
-        add(hookName: 'postReceive', handlerFunction: HandlerFunction<ReceiveEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "postReceive", handlerFunction: HandlerFunction<ReceiveEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A node has completed with a message or logged an error for it.
          *
          * The hook is passed a `CompleteEvent`.
          */
-        add(hookName: 'onComplete', handlerFunction: HandlerFunction<CompleteEvent>): void;
+        add(hookName: "onComplete", handlerFunction: HandlerFunction<CompleteEvent>): void;
 
         /**
          * Called before running `npm install` to install an npm module.
@@ -414,7 +407,7 @@ declare namespace util {
          *
          * If the hook throws an error, the install will be cleanly failed.
          */
-        add(hookName: 'preInstall', handlerFunction: HandlerFunction<InstallEvent>): void;
+        add(hookName: "preInstall", handlerFunction: HandlerFunction<InstallEvent>): void;
 
         /**
          * Called after `npm install` finishes installing an npm module.
@@ -427,7 +420,7 @@ declare namespace util {
          *
          * If the preceding `npm install` returned an error, this hook will not be invoked.
          */
-        add(hookName: 'postInstall', handlerFunction: HandlerFunction<InstallEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "postInstall", handlerFunction: HandlerFunction<InstallEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * Called before running `npm remove` to uninstall an npm module.
@@ -442,7 +435,7 @@ declare namespace util {
          *
          * If the hook throws an error, the uninstall will be cleanly failed.
          */
-        add(hookName: 'preUninstall', handlerFunction: HandlerFunction<UninstallEvent>): void;
+        add(hookName: "preUninstall", handlerFunction: HandlerFunction<UninstallEvent>): void;
 
         /**
          * Called after `npm remove` finishes removing an npm module.
@@ -453,7 +446,7 @@ declare namespace util {
          *
          * If the hook throws an error, it will be logged, but the uninstall will complete cleanly as we cannot rollback an `npm remove` after it has completed.
          */
-        add(hookName: 'postUninstall', handlerFunction: HandlerFunction<UninstallEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "postUninstall", handlerFunction: HandlerFunction<UninstallEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * Register a new hook handler.
@@ -473,7 +466,7 @@ declare namespace util {
         has(hookName: string): boolean;
     }
 
-    //#region Hook Event Objects
+    // #region Hook Event Objects
 
     interface SendEvent {
         msg: registry.NodeMessage;
@@ -534,7 +527,7 @@ declare namespace util {
         args: string[];
     }
 
-    //#endregion
+    // #endregion
 
     interface UtilModule {
         /**

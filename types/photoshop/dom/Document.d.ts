@@ -1,23 +1,24 @@
+import { Channel } from "./Channel";
+import { Channels } from "./collections/Channels";
+import { ColorSamplers } from "./collections/ColorSamplers";
+import { CountItems } from "./collections/CountItems";
+import { Guides } from "./collections/Guides";
+import { HistoryStates } from "./collections/HistoryStates";
+import { LayerComps } from "./collections/LayerComps";
+import { Layers } from "./collections/Layers";
+import { PathItems } from "./collections/PathItems";
 import * as Constants from "./Constants";
 import { ExecutionContext } from "./CoreModules";
-import { Layers } from "./collections/Layers";
-import { Guides } from "./collections/Guides";
-import { ColorSamplers } from "./collections/ColorSamplers";
-import { LayerComps } from "./collections/LayerComps";
-import { CountItems } from "./collections/CountItems";
-import { HistoryStates } from "./collections/HistoryStates";
-import { PathItems } from "./collections/PathItems";
-import { Channels } from "./collections/Channels";
-import { Layer } from "./Layer";
-import { Channel } from "./Channel";
 import { HistoryState } from "./HistoryState";
-import { PixelLayerCreateOptions, TextLayerCreateOptions, GroupLayerCreateOptions } from "./types/LayerTypes";
+import { Layer } from "./Layer";
+import { BMPSaveOptions, GIFSaveOptions, JPEGSaveOptions, PhotoshopSaveOptions, PNGSaveOptions } from "./Objects";
 import { Bounds } from "./objects/Bounds";
-import { SolidColor } from "./objects/SolidColor";
 import { NoColor } from "./objects/Colors";
 import { BitmapConversionOptions, IndexedConversionOptions } from "./objects/ConversionOptions";
-import { PhotoshopSaveOptions, BMPSaveOptions, GIFSaveOptions, JPEGSaveOptions, PNGSaveOptions } from "./Objects";
+import { SolidColor } from "./objects/SolidColor";
+import { Selection } from "./Selection";
 import { CalculationsOptions } from "./types/CalculationsTypes";
+import { GroupLayerCreateOptions, PixelLayerCreateOptions, TextLayerCreateOptions } from "./types/LayerTypes";
 /**
  * Execution Context with the Document injected for modal execution within Document.suspendHistory
  * @ignore
@@ -30,15 +31,18 @@ export interface SuspendHistoryContext extends ExecutionContext {
  * You can access instances of documents using one of these methods:
  *
  * ```javascript
+ * const app = require('photoshop').app;
+ * const constants = require('photoshop').constants;
+ *
  * // The currently active document from the Photoshop object
- * const currentDocument = app.activeDocument
+ * const currentDocument = app.activeDocument;
  *
  * // Choose one of the open documents from the Photoshop object
- * const secondDocument = app.documents[1]
+ * const secondDocument = app.documents[1];
  *
  * // You can also create an instance of a document via a UXP File entry
- * let fileEntry = require('uxp').storage.localFileSystem.getFileForOpening()
- * const newDocument = await app.open('/project.psd')
+ * let fileEntry = require('uxp').storage.localFileSystem.getFileForOpening();
+ * const newDocument = await app.open('/project.psd');
  * ```
  */
 export declare class Document {
@@ -212,6 +216,11 @@ export declare class Document {
     get colorProfileType(): Constants.ColorProfileType;
     set colorProfileType(type: Constants.ColorProfileType);
     /**
+     * The object containing the document's currently active selection
+     * @minVersion 25.0
+     */
+    readonly selection: Selection;
+    /**
      * @ignore
      */
     constructor(id: number);
@@ -295,7 +304,12 @@ export declare class Document {
      * @async
      * @minVersion 23.0
      */
-    convertProfile(destinationProfile: string, intent: Constants.Intent, blackPointCompensation?: boolean, dither?: boolean): Promise<void>;
+    convertProfile(
+        destinationProfile: string,
+        intent: Constants.Intent,
+        blackPointCompensation?: boolean,
+        dither?: boolean,
+    ): Promise<void>;
     /**
      * Applies trapping to a CMYK document.
      *
@@ -338,7 +352,13 @@ export declare class Document {
      * @async
      * @minVersion 23.0
      */
-    resizeImage(width?: number, height?: number, resolution?: number, resampleMethod?: Constants.ResampleMethod, amount?: number): Promise<void>;
+    resizeImage(
+        width?: number,
+        height?: number,
+        resolution?: number,
+        resampleMethod?: Constants.ResampleMethod,
+        amount?: number,
+    ): Promise<void>;
     /**
      * Trims the transparent area around the image on the specified sides of the canvas
      * base on trimType
@@ -660,7 +680,7 @@ export declare class Document {
      */
     get channels(): Channels;
     /**
-     * Component channels in the document.
+     * Component channels in the document. [(24.6)](/ps_reference/changelog#246-bug-fixes)
      * @minVersion 24.5
      */
     get componentChannels(): Channel[];
@@ -672,7 +692,7 @@ export declare class Document {
      */
     get compositeChannels(): Channel[];
     /**
-     * Currently active channels of the document.
+     * Currently active channels of the document. [(24.6)](/ps_reference/changelog#246-bug-fixes)
      * @minVersion 23.0
      */
     get activeChannels(): Channel[];

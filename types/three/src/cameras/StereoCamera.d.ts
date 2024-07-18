@@ -1,5 +1,5 @@
-import { PerspectiveCamera } from './PerspectiveCamera';
-import { Camera } from './Camera';
+import { Camera } from "./Camera.js";
+import { PerspectiveCamera } from "./PerspectiveCamera.js";
 
 /**
  * Dual {@link PerspectiveCamera | PerspectiveCamera}s used for effects such as
@@ -14,7 +14,7 @@ import { Camera } from './Camera';
 export class StereoCamera extends Camera {
     constructor();
 
-    type: 'StereoCamera';
+    type: "StereoCamera";
 
     /**
      * @remarks Expects a `Float`

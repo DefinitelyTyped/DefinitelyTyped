@@ -1,5 +1,5 @@
-import { Color, FindColorByMode, Mode, OverridesObject, TakeColorChannels } from '../common';
-import { MapFn } from '../map';
+import { Color, FindColorByMode, Mode, OverridesObject, TakeColorChannels } from "../common";
+import { MapFn } from "../map";
 
 type ColorPosition = [Color | string, number];
 type Position = number;
@@ -28,7 +28,7 @@ type OverridesParameter<M extends Mode> =
     | OverridesObject<M>
     | OverridesWithUseFnsForChannels<M>;
 
-declare function interpolate<M extends Mode = 'rgb'>(
+declare function interpolate<M extends Mode = "rgb">(
     colors: ColorsParameter,
     mode?: M,
     overrides?: OverridesParameter<M>,

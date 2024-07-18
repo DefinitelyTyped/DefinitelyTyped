@@ -1,5 +1,5 @@
 import { ComponentClass } from "react";
-import { ReactWidgetsCommonDropdownProps, AutoFocus } from "./CommonProps";
+import { AutoFocus, ReactWidgetsCommonDropdownProps } from "./CommonProps";
 
 declare namespace Multiselect {
     interface MultiselectProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
@@ -21,26 +21,30 @@ declare namespace Multiselect {
          * Change event Handler that is called when the value is changed. The handler is called with
          * an array of values.
          */
-        onChange?: ((
-            dataItems: any[],
-            metadata: {
-                dataItem: any;
-                action: "insert" | "remove";
-                originalEvent?: any;
-                lastValue?: any[] | undefined;
-                searchTerm?: string | undefined;
-            },
-        ) => void) | undefined;
+        onChange?:
+            | ((
+                dataItems: any[],
+                metadata: {
+                    dataItem: any;
+                    action: "insert" | "remove";
+                    originalEvent?: any;
+                    lastValue?: any[] | undefined;
+                    searchTerm?: string | undefined;
+                },
+            ) => void)
+            | undefined;
         /**
          * This handler fires when an item has been selected from the list. It fires before the
          * onChange handler, and fires regardless of whether the value has actually changed
          */
-        onSelect?: ((
-            value: any,
-            metadata: {
-                originalEvent: any;
-            },
-        ) => void) | undefined;
+        onSelect?:
+            | ((
+                value: any,
+                metadata: {
+                    originalEvent: any;
+                },
+            ) => void)
+            | undefined;
         /**
          * This handler fires when the user chooses to create a new tag, not in the data list. It is
          * up to the widget parent to implement creation logic, a common implementation is shown
@@ -107,14 +111,16 @@ declare namespace Multiselect {
          * Called when the value of the text box changes either from typing or a pasted value.
          * onSearch should be used when the searchTerm prop is set.
          */
-        onSearch?: ((
-            searchTerm: string,
-            metadata: {
-                action: "clear" | "input";
-                lastSearchTerm?: string | undefined;
-                originalEvent?: any;
-            },
-        ) => void) | undefined;
+        onSearch?:
+            | ((
+                searchTerm: string,
+                metadata: {
+                    action: "clear" | "input";
+                    lastSearchTerm?: string | undefined;
+                    originalEvent?: any;
+                },
+            ) => void)
+            | undefined;
         /**
          * Whether or not the Multiselect is open. When unset (undefined) the Multiselect will
          * handle the opening and closing internally. The defaultOpen prop can be used to set an
@@ -134,7 +140,13 @@ declare namespace Multiselect {
          * item (analogous to the array.filter builtin)
          * @default startsWith
          */
-        filter?: false | "startsWith" | "endsWith" | "contains" | ((dataItem: any, searchTerm: string) => boolean) | undefined;
+        filter?:
+            | false
+            | "startsWith"
+            | "endsWith"
+            | "contains"
+            | ((dataItem: any, searchTerm: string) => boolean)
+            | undefined;
         /**
          * Use in conjunction with the filter prop. Filter the list without regard for case. This
          * only applies to non function values for filter.

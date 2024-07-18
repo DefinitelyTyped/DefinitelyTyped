@@ -1,8 +1,3 @@
-// Type definitions for w3c-xmlserializer 2.0
-// Project: https://github.com/jsdom/w3c-xmlserializer#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace serialize {
     interface Options {
         /**

@@ -1,5 +1,5 @@
-import { SwizzleOption } from '../core/constants';
-import Node from '../core/Node';
+import Node from "../core/Node.js";
+import { SwizzleOption } from "../shadernode/ShaderNode.js";
 
 /** swizzle node */
 export default class SplitNode extends Node {
@@ -7,7 +7,6 @@ export default class SplitNode extends Node {
     components: string;
 
     /**
-     *
      * @param node the input node
      * @param components swizzle like string, default = "x"
      */

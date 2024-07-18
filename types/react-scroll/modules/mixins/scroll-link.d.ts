@@ -1,9 +1,11 @@
-import * as React from 'react';
-import { ReactScrollLinkProps } from '../components/Link';
-import { Scroller } from './scroller';
+import * as React from "react";
+import { ReactScrollLinkProps } from "../components/Link";
+import { Scroller } from "./scroller";
 
-export type ScrollLinkProps<P> = ReactScrollLinkProps &
-    P & {
+export type ScrollLinkProps<P> =
+    & ReactScrollLinkProps
+    & P
+    & {
         container?: HTMLElement | undefined;
     };
 

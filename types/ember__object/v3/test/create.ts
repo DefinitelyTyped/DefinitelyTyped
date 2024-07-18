@@ -1,6 +1,6 @@
-import { assertType } from './lib/assert';
-import EmberObject, { computed } from '@ember/object';
-import ComputedProperty from '@ember/object/computed';
+import EmberObject, { computed } from "@ember/object";
+import ComputedProperty from "@ember/object/computed";
+import { assertType } from "./lib/assert";
 
 /**
  * Zero-argument case
@@ -16,7 +16,7 @@ assertType<(key: keyof EmberObject) => any>(o.get); // from prototype
 /**
  * One-argument case
  */
-const o1 = EmberObject.create({ x: 9, y: 'hello', z: false });
+const o1 = EmberObject.create({ x: 9, y: "hello", z: false });
 assertType<number>(o1.x);
 assertType<string>(o1.y);
 o1.y; // $ExpectType string
@@ -28,8 +28,8 @@ assertType<number>(obj.a);
 assertType<number>(obj.c);
 
 export class Person extends EmberObject {
-    fullName = computed('firstName', 'lastName', function () {
-        return [this.firstName + this.lastName].join(' ');
+    fullName = computed("firstName", "lastName", function() {
+        return [this.firstName + this.lastName].join(" ");
     });
     firstName: string;
     lastName: string;
@@ -39,11 +39,11 @@ const p = new Person();
 
 assertType<string>(p.firstName);
 assertType<ComputedProperty<string>>(p.fullName);
-assertType<string>(p.get('fullName'));
+assertType<string>(p.get("fullName"));
 
-const p2 = Person.create({ firstName: 'string' });
-const p2b = Person.create({}, { firstName: 'string' });
-const p2c = Person.create({}, {}, { firstName: 'string' });
+const p2 = Person.create({ firstName: "string" });
+const p2b = Person.create({}, { firstName: "string" });
+const p2c = Person.create({}, {}, { firstName: "string" });
 
 export class PersonWithNumberName extends Person.extend({
     fullName: 6,

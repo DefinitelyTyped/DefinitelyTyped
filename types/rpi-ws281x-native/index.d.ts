@@ -1,11 +1,6 @@
-// Type definitions for rpi-ws281x-native 1.0
-// Project: https://github.com/beyondscreen/node-rpi-ws281x-native
-// Definitions by: Nathan Rajlich <https://github.com/TooTallNate>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import type { stripType, stripTypeIds } from './lib/constants';
+import type { stripType, stripTypeIds } from "./lib/constants";
 
 type StripType = typeof stripType[keyof typeof stripType];
 type StripTypeEnum = StripType | keyof typeof stripTypeIds;
@@ -61,7 +56,7 @@ interface InitOptions {
 }
 
 interface Ws281x {
-    (numLeds: number, opts?: Omit<ChannelOptions, 'count'>): Channel;
+    (numLeds: number, opts?: Omit<ChannelOptions, "count">): Channel;
     stripType: typeof stripType;
     init(opts: InitOptions): Channel[];
     /**

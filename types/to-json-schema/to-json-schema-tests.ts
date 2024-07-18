@@ -1,9 +1,9 @@
-import toJsonSchema = require('to-json-schema');
+import toJsonSchema = require("to-json-schema");
 {
     const objToBeConverted = {
-        name: 'David',
+        name: "David",
         rank: 7,
-        born: '1990-04-05T15:09:56.704Z',
+        born: "1990-04-05T15:09:56.704Z",
         luckyNumbers: [7, 77, 5],
     };
 
@@ -30,12 +30,12 @@ import toJsonSchema = require('to-json-schema');
     */
     const options: toJsonSchema.Options = {
         postProcessFnc: (type, schema, value, defaultFunc) =>
-            type === 'integer' ? { ...schema, required: true } : defaultFunc(type, schema, value),
+            type === "integer" ? { ...schema, required: true } : defaultFunc(type, schema, value),
     };
 
     const instance = {
         a: 1,
-        b: 'str',
+        b: "str",
     };
 
     // $ExpectType JSONSchema3or4
@@ -53,7 +53,7 @@ import toJsonSchema = require('to-json-schema');
 {
     const arr = [33, 44, 55];
     // $ExpectType JSONSchema3or4
-    toJsonSchema(arr, { arrays: { mode: 'all' } });
+    toJsonSchema(arr, { arrays: { mode: "all" } });
     /*
     {
         "type": "array",
@@ -64,9 +64,9 @@ import toJsonSchema = require('to-json-schema');
     */
 }
 {
-    const arr = [33, 'str', 55];
+    const arr = [33, "str", 55];
     // $ExpectType JSONSchema3or4
-    toJsonSchema(arr, { arrays: { mode: 'all' } });
+    toJsonSchema(arr, { arrays: { mode: "all" } });
     /*
     {
         "type": "array"
@@ -74,9 +74,9 @@ import toJsonSchema = require('to-json-schema');
     */
 }
 {
-    const arr = [{ name: 'john', grades: [1, 2, 3] }, { name: 'david', grades: ['a', 'b', 'c'] }];
+    const arr = [{ name: "john", grades: [1, 2, 3] }, { name: "david", grades: ["a", "b", "c"] }];
     // $ExpectType JSONSchema3or4
-    toJsonSchema(arr, { arrays: { mode: 'all' } });
+    toJsonSchema(arr, { arrays: { mode: "all" } });
     /*
     {
         "type": "array",
@@ -94,9 +94,9 @@ import toJsonSchema = require('to-json-schema');
     */
 }
 {
-    const arr = ['str', 11, 30];
+    const arr = ["str", 11, 30];
     // $ExpectType JSONSchema3or4
-    toJsonSchema(arr, { arrays: { mode: 'first' } });
+    toJsonSchema(arr, { arrays: { mode: "first" } });
     /* Other than first array item is ignored
     {
         "type": "array",
@@ -108,17 +108,17 @@ import toJsonSchema = require('to-json-schema');
     */
 }
 {
-    const arr = ['str', 11, 30];
+    const arr = ["str", 11, 30];
     // $ExpectType JSONSchema3or4
-    toJsonSchema(arr, { arrays: { mode: 'uniform' } });
+    toJsonSchema(arr, { arrays: { mode: "uniform" } });
     /*
     Above code will throw 'Error: Invalid schema, incompatible array items'
     */
 }
 {
-    const arr = ['str', 11, 30];
+    const arr = ["str", 11, 30];
     // $ExpectType JSONSchema3or4
-    toJsonSchema(arr, { arrays: { mode: 'tuple' } });
+    toJsonSchema(arr, { arrays: { mode: "tuple" } });
     /*
     {
         "type": "array",
@@ -145,7 +145,7 @@ import toJsonSchema = require('to-json-schema');
             c: 1,
             d: 1,
         },
-        b: 'str',
+        b: "str",
     };
     // $ExpectType JSONSchema3or4
     toJsonSchema(obj, options);
@@ -199,7 +199,7 @@ import toJsonSchema = require('to-json-schema');
             }),
         },
     };
-    const obj = { a: 1, b: 'str' };
+    const obj = { a: 1, b: "str" };
     // $ExpectType JSONSchema3or4
     toJsonSchema(obj, options);
     /*
@@ -218,15 +218,15 @@ import toJsonSchema = require('to-json-schema');
         strings: {
             preProcessFnc: (value, defaultFnc) => {
                 const schema = defaultFnc(value);
-                if (value === 'date') {
-                    schema.format = 'date';
+                if (value === "date") {
+                    schema.format = "date";
                 }
                 return schema;
             },
         },
     };
     // $ExpectType JSONSchema3or4
-    toJsonSchema('date', options);
+    toJsonSchema("date", options);
     /*
     {
         "type": "string",
@@ -236,10 +236,10 @@ import toJsonSchema = require('to-json-schema');
 }
 {
     const obj = {
-        a: '2012-07-08T16:41:41.532Z',
-        b: '+31 42 123 4567',
-        c: 'http://www.google.com/',
-        d: 'obama@whitehouse.gov',
+        a: "2012-07-08T16:41:41.532Z",
+        b: "+31 42 123 4567",
+        c: "http://www.google.com/",
+        d: "obama@whitehouse.gov",
     };
     // $ExpectType JSONSchema3or4
     toJsonSchema(obj, { strings: { detectFormat: true } });

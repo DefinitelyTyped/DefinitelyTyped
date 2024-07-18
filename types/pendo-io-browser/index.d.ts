@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Pendo.io Agent 2.17
-// Project: https://www.pendo.io/
-// Definitions by: Aaron Beall <https://github.com/aaronbeall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare namespace pendo {
     interface Identity {
         /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie (if enabled for a domain) */
@@ -18,7 +12,7 @@ declare namespace pendo {
         [key: string]: string | number | boolean | string[] | null;
     }
 
-    type IdentityMetadata = { id?: string | undefined; } & Metadata;
+    type IdentityMetadata = { id?: string | undefined } & Metadata;
 
     /** cookie domains should start with a dot, e.g. ".example.com" */
     type IdentityCookieDomain = `.${string}`;
@@ -27,14 +21,15 @@ declare namespace pendo {
         apiKey?: string | undefined;
         excludeAllText?: boolean | undefined;
         excludeTitle?: boolean | undefined;
+        disableCookies?: boolean;
         disablePersistence?: boolean | undefined;
         guides?: {
             delay?: boolean | undefined;
-            disable?: boolean | undefined;
+            disabled?: boolean | undefined;
             timeout?: number | undefined;
             tooltip?: {
                 arrowSize?: number | undefined;
-            } | undefined
+            } | undefined;
         } | undefined;
         events?: EventCallbacks | undefined;
         sanitizeUrl?: (url: string) => string;
@@ -56,11 +51,15 @@ declare namespace pendo {
         updateOptions(options: Identity): void;
         getVersion(): string;
         getVisitorId(): string;
-        getAccountId(): string;
+        getAccountId(): string | null;
         getCurrentUrl(): string;
+        clearSession(): void;
+        teardown(): void;
 
         // Guides and Guide Center
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         findGuideByName(name: string): Guide | void;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         findGuideById(id: string): Guide | void;
         showGuideByName(name: string): void;
         showGuideById(id: string): void;

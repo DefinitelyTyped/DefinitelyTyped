@@ -1,4 +1,9 @@
-import { ShaderNode } from '../shadernode/ShaderNode';
-import Node from '../core/Node';
+import Node from "../core/Node.js";
+import CondNode from "../math/CondNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
-export const getDistanceAttenuation: ShaderNode<{ lightDistance: Node; cutoffDistance: Node; decayExponent: Node }>;
+export const getDistanceAttenuation: (args: {
+    lightDistance: Node;
+    cutoffDistance: Node;
+    decayExponent: Node;
+}) => ShaderNodeObject<CondNode>;

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/xmpp__middleware",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/middleware"
+    ],
+    "dependencies": {
+        "@types/koa-compose": "*",
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__error": "*",
+        "@types/xmpp__jid": "*",
+        "@types/xmpp__xml": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__middleware": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

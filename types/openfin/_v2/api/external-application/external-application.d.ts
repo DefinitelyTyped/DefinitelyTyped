@@ -1,7 +1,7 @@
-import { Base, EmitterBase } from '../base';
-import { Identity } from '../../identity';
-import Transport from '../../transport/transport';
-import { ExternalApplicationEvents } from '../events/externalApplication';
+import { Identity } from "../../identity";
+import Transport from "../../transport/transport";
+import { Base, EmitterBase } from "../base";
+import { ExternalApplicationEvents } from "../events/externalApplication";
 export interface ExternalApplicationInfo {
     parent: Identity;
 }

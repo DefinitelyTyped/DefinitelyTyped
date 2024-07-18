@@ -1,9 +1,3 @@
-// Type definitions for node-xmpp-client 3.1
-// Project: https://github.com/node-xmpp/node-xmpp
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export class Client {
     static Stanza: Stanza;
 
@@ -21,7 +15,7 @@ export class Client {
 export interface Stanza extends Element {
     // This has to be used for the static class initializer new Client.Stanza(..). If there is a better way feel free to
     // contribute.
-    // tslint:disable-next-line:no-misused-new
+    // eslint-disable-next-line @typescript-eslint/no-misused-new
     new(name: string, attr: any): Stanza;
     from: string;
     to: string;

@@ -1,11 +1,5 @@
-// Type definitions for waypoints 4.x
-// Project: https://github.com/imakewebthings/waypoints
-// Definitions by: Dominik Bułaj <https://github.com/dominikbulaj>, Alexey Kolotovchenkov <https://github.com/Koloto>, Sergei Dorogin <https://github.com/evil-shrike>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 interface WaypointOptionsBase {
-    offset?: string|number|(() => number) | undefined;
+    offset?: string | number | (() => number) | undefined;
     continuous?: boolean | undefined;
     enabled?: boolean | undefined;
     group?: string | undefined;
@@ -27,8 +21,8 @@ declare class WaypointGroup {
 
 declare class WaypointContext {
     adapter: WaypointAdapter;
-    element: HTMLElement|Window;
-    waypoints: {horizontal: {}, vertical: {}}; // http://imakewebthings.com/waypoints/api/context/#waypoints-property
+    element: HTMLElement | Window;
+    waypoints: { horizontal: {}; vertical: {} }; // http://imakewebthings.com/waypoints/api/context/#waypoints-property
     destroy: () => Waypoint;
     refresh: () => Waypoint;
 }
@@ -38,7 +32,7 @@ declare class WaypointAdapter {
     innerHeight(): number;
     innerWidth(): number;
     off(event: string): undefined;
-    offset(): {top: number, left: number};
+    offset(): { top: number; left: number };
     on(event: string, handler: () => void): undefined;
     outerHeight(includeMargin: boolean): number;
     outerWidth(includeMargin: boolean): number;
@@ -73,11 +67,11 @@ declare class Waypoint {
     static viewportHeight(): number;
     static viewportWidth(): number;
     static adapters: {
-        push: ({name: string, Adapter: WaypointAdapter})
+        push: { name: string; Adapter: WaypointAdapter };
     };
     static Adapter: WaypointAdapter;
     // Waypoint.Context
     static Context: {
-        findByElement(element: HTMLElement): WaypointContext|undefined;
+        findByElement(element: HTMLElement): WaypointContext | undefined;
     };
 }

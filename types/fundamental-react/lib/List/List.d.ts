@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { IconGlyph } from '../Icon/Icon';
+import * as React from "react";
+import { IconGlyph } from "../Icon/Icon";
 
 export type ListProps = {
     className?: string | undefined;
@@ -12,8 +12,8 @@ export type ListProps = {
     navigation?: boolean | undefined;
     partialNavigation?: boolean | undefined;
     selectable?: boolean | undefined;
-    footer?: string | JSX.Element | undefined;
-    header?: string | JSX.Element | undefined;
+    footer?: string | React.JSX.Element | undefined;
+    header?: string | React.JSX.Element | undefined;
 } & React.HTMLAttributes<HTMLAnchorElement>;
 
 export interface ListFooterProps {
@@ -64,14 +64,14 @@ export interface ListSelectionProps {
 }
 
 declare const List: React.FunctionComponent<ListProps> & {
-    displayName: 'List';
-    Footer: React.FunctionComponent<ListFooterProps> & { displayName: 'List.Footer' };
-    Header: React.FunctionComponent<ListHeaderProps> & { displayName: 'List.Header' };
-    Selection: React.FunctionComponent<ListSelectionProps> & { displayName: 'List.Selection' };
-    Icon: React.FunctionComponent<ListIconProps> & { displayName: 'List.Icon' };
-    Item: React.FunctionComponent<ListItemProps> & { displayName: 'List.Item' };
-    Text: React.FunctionComponent<ListTextProps> & { displayName: 'List.Text' };
-    Byline: React.FunctionComponent<ListBylineProps> & { displayName: 'List.Byline' };
+    displayName: "List";
+    Footer: React.FunctionComponent<ListFooterProps> & { displayName: "List.Footer" };
+    Header: React.FunctionComponent<ListHeaderProps> & { displayName: "List.Header" };
+    Selection: React.FunctionComponent<ListSelectionProps> & { displayName: "List.Selection" };
+    Icon: React.FunctionComponent<ListIconProps> & { displayName: "List.Icon" };
+    Item: React.FunctionComponent<ListItemProps> & { displayName: "List.Item" };
+    Text: React.FunctionComponent<ListTextProps> & { displayName: "List.Text" };
+    Byline: React.FunctionComponent<ListBylineProps> & { displayName: "List.Byline" };
 };
 
 export default List;

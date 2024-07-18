@@ -1,4 +1,4 @@
-import { format, parse, PMDMessage } from 'parity-pmd';
+import { format, parse, PMDMessage } from "parity-pmd";
 
 // Arrange
 const buffer = new Buffer(5);
@@ -15,7 +15,7 @@ format(parsedContent);
 
 // Invalid type
 // @ts-expect-error
-parse('');
+parse("");
 
 // @ts-expect-error
 format({});

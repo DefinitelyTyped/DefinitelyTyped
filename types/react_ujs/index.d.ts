@@ -1,13 +1,8 @@
-// Type definitions for react_ujs 2.6
-// Project: https://github.com/reactjs/react-rails#readme
-// Definitions by: Timothy Gu <https://github.com/TimothyGu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 /// <reference types="react" />
 
 // We need to reference `typeof ReactRailsUJS` in a few places, so the namespace is needed.
-/* eslint-disable-next-line export-just-namespace */
+/* eslint-disable-next-line @definitelytyped/export-just-namespace */
 export = ReactRailsUJS;
 
 export as namespace ReactRailsUJS;

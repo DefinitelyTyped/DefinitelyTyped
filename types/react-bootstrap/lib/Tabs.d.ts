@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SelectCallback } from 'react-bootstrap';
+import * as React from "react";
+import { SelectCallback } from "react-bootstrap";
 
 declare namespace Tabs {
     export interface TabsProps extends React.HTMLProps<Tabs> {
@@ -16,5 +16,5 @@ declare namespace Tabs {
         justified?: boolean | undefined;
     }
 }
-declare class Tabs extends React.Component<Tabs.TabsProps> { }
+declare class Tabs extends React.Component<Tabs.TabsProps> {}
 export = Tabs;

@@ -1,4 +1,4 @@
-function empty_callback() : void {}
+function empty_callback(): void {}
 
 function plugin_list() {
     return [
@@ -16,12 +16,12 @@ function plugin_list() {
         "slider",
         "tab",
         "tooltip",
-        "topbar"
-     ];
+        "topbar",
+    ];
 }
 
 function abide_patterns() {
-    var patterns : Foundation.AbidePatterns = {};
+    var patterns: Foundation.AbidePatterns = {};
     patterns.alpha = /^[a-zA-Z]+$/;
     patterns.alpha_numeric = /^[a-zA-Z0-9]+$/;
     patterns.integer = /^[-+]?\d+$/;
@@ -31,8 +31,10 @@ function abide_patterns() {
     patterns.email = /^test@example\.org$/;
     patterns.url = /http:\/\/www\.google\.com\//;
     patterns.domain = /definitelytyped\.org/;
-    patterns.datetime = /([0-2][0-9]{3})\-([0-1][0-9])\-([0-3][0-9])T([0-5][0-9])\:([0-5][0-9])\:([0-5][0-9])(Z|([\-\+]([0-1][0-9])\:00))/;
-    patterns.date = /(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))/;
+    patterns.datetime =
+        /([0-2][0-9]{3})\-([0-1][0-9])\-([0-3][0-9])T([0-5][0-9])\:([0-5][0-9])\:([0-5][0-9])(Z|([\-\+]([0-1][0-9])\:00))/;
+    patterns.date =
+        /(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))/;
     patterns.time = /(0[0-9]|1[0-9]|2[0-3])(:[0-5][0-9]){2}/;
     patterns.dateISO = /\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}/;
     patterns.month_day_year = /(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/;
@@ -41,7 +43,7 @@ function abide_patterns() {
 }
 
 function abide_options() {
-    var opts : Foundation.AbideOptions = {};
+    var opts: Foundation.AbideOptions = {};
     opts.live_validate = false;
     opts.validate_on_blur = true;
     opts.focus_on_invalid = true;
@@ -49,20 +51,20 @@ function abide_options() {
     opts.timeout = 500;
     opts.patterns = abide_patterns();
     opts.validators = {
-        diceRoll: function(el : HTMLInputElement, required : boolean, parent : HTMLElement) {
+        diceRoll: function(el: HTMLInputElement, required: boolean, parent: HTMLElement) {
             var possibilities = [true, false];
             return possibilities[Math.round(Math.random())];
         },
-        isAllowed: function(el : HTMLInputElement, required : boolean, parent : HTMLElement) {
+        isAllowed: function(el: HTMLInputElement, required: boolean, parent: HTMLElement) {
             var possibilities = ["a@zurb.com", "b.zurb.com"];
             return possibilities.indexOf(el.value) > -1;
-        }
-    }
+        },
+    };
     return opts;
 }
 
 function accordion_options() {
-    var opts : Foundation.AccordionOptions = {};
+    var opts: Foundation.AccordionOptions = {};
     opts.content_class = "content";
     opts.active_class = "class-name";
     opts.multi_expand = false;
@@ -72,15 +74,15 @@ function accordion_options() {
 }
 
 function alert_options() {
-    var opts : Foundation.AlertOptions = {};
+    var opts: Foundation.AlertOptions = {};
     opts.callback = empty_callback;
     return opts;
 }
 
 function clearing_options() {
-    var opts : Foundation.ClearingOptions = {};
+    var opts: Foundation.ClearingOptions = {};
     opts.templates = {
-        viewing : '<div>Some HTML</div>'
+        viewing: "<div>Some HTML</div>",
     };
     opts.close_selectors = "#id-value, .class-name";
     opts.open_selectors = "li#id-value";
@@ -92,7 +94,7 @@ function clearing_options() {
 }
 
 function dropdown_options() {
-    var opts : Foundation.DropdownOptions = {};
+    var opts: Foundation.DropdownOptions = {};
     opts.active_class = "class-name";
     opts.disabled_class = "disabled-class";
     opts.mega_class = "big";
@@ -105,26 +107,26 @@ function dropdown_options() {
 }
 
 function equalizer_options() {
-    var opts : Foundation.EqualizerOptions = {};
+    var opts: Foundation.EqualizerOptions = {};
     opts.use_tallest = true;
     opts.equalize_on_stack = false;
     return opts;
 }
 
 function interchange_options() {
-    var opts : Foundation.InterchangeOptions = {};
+    var opts: Foundation.InterchangeOptions = {};
     opts.load_attr = "interchange";
     opts.named_queries = {
-        my_custom_query: "only screen and (max-width: 200px)"
+        my_custom_query: "only screen and (max-width: 200px)",
     };
     opts.directives = {
-        replace: empty_callback
+        replace: empty_callback,
     };
     return opts;
 }
 
 function joyride_options() {
-    var opts : Foundation.JoyrideOptions = {};
+    var opts: Foundation.JoyrideOptions = {};
     opts.expose = false;
     opts.modal = true;
     opts.keyboard = true;
@@ -145,12 +147,12 @@ function joyride_options() {
     opts.cookie_name = "ts_joyride";
     opts.cookie_domain = false;
     opts.cookie_expires = 7;
-    opts.tip_container = '#header';
+    opts.tip_container = "#header";
     opts.tip_location_patterns = {
-        top: ['botom'],
+        top: ["botom"],
         bottom: [],
-        left: ['right', 'top', 'bottom'],
-        right: ['left', 'top', 'bottom']
+        left: ["right", "top", "bottom"],
+        right: ["left", "top", "bottom"],
     };
     opts.post_ride_callback = empty_callback;
     opts.post_step_callback = empty_callback;
@@ -158,22 +160,22 @@ function joyride_options() {
     opts.pre_ride_callback = empty_callback;
     opts.post_expose_callback = empty_callback;
     opts.template = {
-        link: '<a href="#close" class="joyride-close-tip">&times;</a>',
-        timer: '<div class="joyride-timer-indicator-wrap"><span class="joyride-timer-indicator"></span></div>',
-        tip: '<div class="joyride-tip-guide"><span class="joyride-nub"></span></div>',
-        wrapper: '<div class="joyride-content-wrapper"></div>',
-        button: '<a href="#" class="small button joyride-next-tip"></a>',
-        prev_button: '<a href="#" class="small button joyride-prev-tip"></a>',
-        modal: '<div class="joyride-modal-bg"></div>',
-        expose: '<div class="joyride-expose-wrapper"></div>',
-        expose_cover: '<div class="joyride-expose-cover"></div>'
+        link: "<a href=\"#close\" class=\"joyride-close-tip\">&times;</a>",
+        timer: "<div class=\"joyride-timer-indicator-wrap\"><span class=\"joyride-timer-indicator\"></span></div>",
+        tip: "<div class=\"joyride-tip-guide\"><span class=\"joyride-nub\"></span></div>",
+        wrapper: "<div class=\"joyride-content-wrapper\"></div>",
+        button: "<a href=\"#\" class=\"small button joyride-next-tip\"></a>",
+        prev_button: "<a href=\"#\" class=\"small button joyride-prev-tip\"></a>",
+        modal: "<div class=\"joyride-modal-bg\"></div>",
+        expose: "<div class=\"joyride-expose-wrapper\"></div>",
+        expose_cover: "<div class=\"joyride-expose-cover\"></div>",
     };
     opts.expose_add_class = ".expose .class-name";
     return opts;
 }
 
 function magellan_options() {
-    var opts : Foundation.MagellanOptions = {};
+    var opts: Foundation.MagellanOptions = {};
     opts.active_class = ".active-element";
     opts.threshold = 20;
     opts.destination_threshold = 30;
@@ -186,15 +188,15 @@ function magellan_options() {
 }
 
 function offcanvas_options() {
-    var opts : Foundation.OffCanvasOptions = {};
+    var opts: Foundation.OffCanvasOptions = {};
     opts.open_method = "overlap_single";
     opts.close_on_click = true;
     return opts;
 }
 
 function orbit_options() {
-    var opts : Foundation.OrbitOptions = {};
-    opts.animation = 'slide';
+    var opts: Foundation.OrbitOptions = {};
+    opts.animation = "slide";
     opts.timer_speed = 10000;
     opts.pause_on_hover = true;
     opts.resume_on_mouseout = false;
@@ -203,23 +205,23 @@ function orbit_options() {
     opts.stack_on_small = false;
     opts.navigation_arrows = true;
     opts.slide_number = true;
-    opts.slide_number_text = 'of';
-    opts.container_class = 'orbit-container';
-    opts.stack_on_small_class = 'orbit-stack-on-small';
-    opts.next_class = 'orbit-next';
-    opts.prev_class = 'orbit-prev';
-    opts.timer_container_class = 'orbit-timer';
-    opts.timer_paused_class = 'paused';
-    opts.timer_progress_class = 'orbit-progress';
-    opts.slides_container_class = 'orbit-slides-container';
-    opts.preloader_class = 'preloader';
-    opts.slide_selector = 'li';
-    opts.bullets_container_class = 'orbit-bullets';
-    opts.bullets_active_class = 'active';
-    opts.slide_number_class = 'orbit-slide-number';
-    opts.caption_class = 'orbit-caption';
-    opts.active_slide_class = 'active';
-    opts.orbit_transition_class = 'orbit-transitioning';
+    opts.slide_number_text = "of";
+    opts.container_class = "orbit-container";
+    opts.stack_on_small_class = "orbit-stack-on-small";
+    opts.next_class = "orbit-next";
+    opts.prev_class = "orbit-prev";
+    opts.timer_container_class = "orbit-timer";
+    opts.timer_paused_class = "paused";
+    opts.timer_progress_class = "orbit-progress";
+    opts.slides_container_class = "orbit-slides-container";
+    opts.preloader_class = "preloader";
+    opts.slide_selector = "li";
+    opts.bullets_container_class = "orbit-bullets";
+    opts.bullets_active_class = "active";
+    opts.slide_number_class = "orbit-slide-number";
+    opts.caption_class = "orbit-caption";
+    opts.active_slide_class = "active";
+    opts.orbit_transition_class = "orbit-transitioning";
     opts.bullets = true;
     opts.circular = true;
     opts.timer = true;
@@ -231,15 +233,15 @@ function orbit_options() {
 }
 
 function reveal_css_options() {
-    var opts : Foundation.RevealCSSOptions = {};
+    var opts: Foundation.RevealCSSOptions = {};
     opts.opacity = 0;
-    opts.visibility = 'hidden';
+    opts.visibility = "hidden";
     opts.display = "inline-block";
     return opts;
 }
 
 function reveal_options() {
-    var opts : Foundation.RevealOptions = {};
+    var opts: Foundation.RevealOptions = {};
     opts.animation = "linear";
     opts.animation_speed = 500;
     opts.close_on_background_click = false;
@@ -255,13 +257,13 @@ function reveal_options() {
     opts.bg = $("#my-modal-id .background");
     opts.css = {
         open: reveal_css_options(),
-        close: reveal_css_options()
+        close: reveal_css_options(),
     };
     return opts;
 }
 
 function slider_options() {
-    var opts : Foundation.SliderOptions = {};
+    var opts: Foundation.SliderOptions = {};
     opts.start = -1000;
     opts.end = 1000;
     opts.step = 50;
@@ -274,7 +276,7 @@ function slider_options() {
 }
 
 function tab_options() {
-    var opts : Foundation.TabOptions = {};
+    var opts: Foundation.TabOptions = {};
     opts.active_class = "class-name";
     opts.callback = empty_callback;
     opts.deep_linking = false;
@@ -284,7 +286,7 @@ function tab_options() {
 }
 
 function tooltip_options() {
-    var opts : Foundation.TooltipOptions = {};
+    var opts: Foundation.TooltipOptions = {};
     opts.additional_inheritable_classes = ["class1", "class2"];
     opts.tooltip_class = "tooltip";
     opts.append_to = "append-class";
@@ -292,16 +294,16 @@ function tooltip_options() {
     opts.disable_for_touch = true;
     opts.hover_delay = 100;
     opts.show_on = "all";
-    opts.tip_template = function (selector, content) {
-        return '<span data-selector="' + selector + '" id="' + selector + '" class="' +
-               Foundation.libs.tooltip.settings.tooltip_class.substring(1) +
-               '" role="tooltip">' + content + '<span class="nub"></span></span>';
+    opts.tip_template = function(selector, content) {
+        return "<span data-selector=\"" + selector + "\" id=\"" + selector + "\" class=\""
+            + Foundation.libs.tooltip.settings.tooltip_class.substring(1)
+            + "\" role=\"tooltip\">" + content + "<span class=\"nub\"></span></span>";
     };
     return opts;
 }
 
 function topbar_options() {
-    var opts : Foundation.TopbarOptions = {};
+    var opts: Foundation.TopbarOptions = {};
     opts.index = 1;
     opts.sticky_class = "top-bar";
     opts.custom_back_text = true;
@@ -314,7 +316,7 @@ function topbar_options() {
 }
 
 function foundation_options() {
-    var opts : Foundation.Options = {};
+    var opts: Foundation.Options = {};
     opts.abide = abide_options();
     opts.accordion = accordion_options();
     opts.alert = alert_options();

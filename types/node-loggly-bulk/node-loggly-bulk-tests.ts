@@ -1,24 +1,24 @@
-import { createClient, Loggly, serialize } from 'node-loggly-bulk';
+import { createClient, Loggly, serialize } from "node-loggly-bulk";
 
 const client = createClient({
-    token: 'test-token',
-    subdomain: 'test-subdomain',
+    token: "test-token",
+    subdomain: "test-subdomain",
 });
 
-client.log('Test message');
-client.log({ json: 'yes' }, ['some-tag'], () => {});
+client.log("Test message");
+client.log({ json: "yes" }, ["some-tag"], () => {});
 
 new Loggly({
-    token: 'YOUR_TOKEN',
-    subdomain: 'YOUR_DOMAIN',
-    tags: ['NodeJS'],
+    token: "YOUR_TOKEN",
+    subdomain: "YOUR_DOMAIN",
+    tags: ["NodeJS"],
     json: true,
     auth: {
-        username: 'your-username',
-        password: 'your-password',
+        username: "your-username",
+        password: "your-password",
     },
     proxy: null,
-    userAgent: 'test-user-agent-header',
+    userAgent: "test-user-agent-header",
     useTagHeader: true,
     isBulk: true,
     bufferOptions: {
@@ -28,5 +28,5 @@ new Loggly({
     networkErrorsOnConsole: false,
 });
 
-serialize({ key: 'value' }, 'key');
-serialize({ key: 'value' });
+serialize({ key: "value" }, "key");
+serialize({ key: "value" });

@@ -1,13 +1,13 @@
-import { editableValue, editableValueEventMap, editableValueSettableProperties } from '../ojeditablevalue';
-import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import { JetElement, JetElementCustomEvent, JetSetPropertyType, JetSettableProperties } from "..";
+import { editableValue, editableValueEventMap, editableValueSettableProperties } from "../ojeditablevalue";
 export interface ojSlider extends editableValue<number | null, ojSliderSettableProperties> {
     disabled: boolean;
     max: number | null;
     min: number | null;
-    orientation: 'horizontal' | 'vertical';
+    orientation: "horizontal" | "vertical";
     step: number | null;
     readonly transientValue: number;
-    type: 'fromMin' | 'fromMax' | 'single';
+    type: "fromMin" | "fromMax" | "single";
     value: number | null;
     translations: {
         invalidStep?: string | undefined;
@@ -26,7 +26,11 @@ export interface ojSlider extends editableValue<number | null, ojSliderSettableP
     onValueChanged: ((event: JetElementCustomEvent<ojSlider["value"]>) => any) | null;
     onOjAnimateEnd: ((event: ojSlider.ojAnimateEnd) => any) | null;
     onOjAnimateStart: ((event: ojSlider.ojAnimateStart) => any) | null;
-    addEventListener<T extends keyof ojSliderEventMap>(type: T, listener: (this: HTMLElement, ev: ojSliderEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojSliderEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojSliderEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojSliderSettableProperties>(property: T): ojSlider[T];
     getProperty(property: string): any;
@@ -35,40 +39,44 @@ export interface ojSlider extends editableValue<number | null, ojSliderSettableP
     setProperties(properties: ojSliderSettablePropertiesLenient): void;
 }
 export namespace ojSlider {
-    interface ojAnimateEnd extends CustomEvent<{
-        action: string;
-        element: Element;
-        [propName: string]: any;
-    }> {
+    interface ojAnimateEnd extends
+        CustomEvent<{
+            action: string;
+            element: Element;
+            [propName: string]: any;
+        }>
+    {
     }
-    interface ojAnimateStart extends CustomEvent<{
-        action: string;
-        element: Element;
-        endCallback: (() => void);
-        [propName: string]: any;
-    }> {
+    interface ojAnimateStart extends
+        CustomEvent<{
+            action: string;
+            element: Element;
+            endCallback: () => void;
+            [propName: string]: any;
+        }>
+    {
     }
 }
 export interface ojSliderEventMap extends editableValueEventMap<number | null, ojSliderSettableProperties> {
-    'ojAnimateEnd': ojSlider.ojAnimateEnd;
-    'ojAnimateStart': ojSlider.ojAnimateStart;
-    'disabledChanged': JetElementCustomEvent<ojSlider["disabled"]>;
-    'maxChanged': JetElementCustomEvent<ojSlider["max"]>;
-    'minChanged': JetElementCustomEvent<ojSlider["min"]>;
-    'orientationChanged': JetElementCustomEvent<ojSlider["orientation"]>;
-    'stepChanged': JetElementCustomEvent<ojSlider["step"]>;
-    'transientValueChanged': JetElementCustomEvent<ojSlider["transientValue"]>;
-    'typeChanged': JetElementCustomEvent<ojSlider["type"]>;
-    'valueChanged': JetElementCustomEvent<ojSlider["value"]>;
+    "ojAnimateEnd": ojSlider.ojAnimateEnd;
+    "ojAnimateStart": ojSlider.ojAnimateStart;
+    "disabledChanged": JetElementCustomEvent<ojSlider["disabled"]>;
+    "maxChanged": JetElementCustomEvent<ojSlider["max"]>;
+    "minChanged": JetElementCustomEvent<ojSlider["min"]>;
+    "orientationChanged": JetElementCustomEvent<ojSlider["orientation"]>;
+    "stepChanged": JetElementCustomEvent<ojSlider["step"]>;
+    "transientValueChanged": JetElementCustomEvent<ojSlider["transientValue"]>;
+    "typeChanged": JetElementCustomEvent<ojSlider["type"]>;
+    "valueChanged": JetElementCustomEvent<ojSlider["value"]>;
 }
 export interface ojSliderSettableProperties extends editableValueSettableProperties<number | null> {
     disabled: boolean;
     max: number | null;
     min: number | null;
-    orientation: 'horizontal' | 'vertical';
+    orientation: "horizontal" | "vertical";
     step: number | null;
     readonly transientValue: number;
-    type: 'fromMin' | 'fromMax' | 'single';
+    type: "fromMin" | "fromMax" | "single";
     value: number | null;
     translations: {
         invalidStep?: string | undefined;

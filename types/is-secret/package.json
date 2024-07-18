@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/is-secret",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/watson/is-secret#readme"
+    ],
+    "devDependencies": {
+        "@types/is-secret": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Walter Rumsby",
+            "githubUsername": "wrumsby"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

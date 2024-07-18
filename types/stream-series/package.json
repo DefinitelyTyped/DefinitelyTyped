@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/stream-series",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/rschmukler/stream-series"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/stream-series": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keita Kagurazaka",
+            "githubUsername": "k-kagurazaka"
+        }
+    ]
+}

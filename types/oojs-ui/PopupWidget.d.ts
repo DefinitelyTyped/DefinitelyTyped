@@ -25,9 +25,9 @@ declare namespace OO.ui {
     interface PopupWidget extends PopupWidget.Props, PopupWidget.Prototype {}
 
     namespace PopupWidget {
-        type Position = 'above' | 'below' | 'before' | 'after';
+        type Position = "above" | "below" | "before" | "after";
 
-        type Alignment = 'forwards' | 'backwards' | 'center' | 'force-left' | 'force-right';
+        type Alignment = "forwards" | "backwards" | "center" | "force-left" | "force-right";
 
         interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap {
             ready: [];
@@ -35,11 +35,13 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
                 mixin.ClippableElement.ConfigOptions,
-                mixin.FloatableElement.ConfigOptions {
+                mixin.FloatableElement.ConfigOptions
+        {
             /** Width of popup in pixels. Pass `null` to use automatic width. */
             width?: number | null;
 
@@ -123,11 +125,13 @@ declare namespace OO.ui {
         interface Static extends Widget.Static, mixin.IconElement.Static, mixin.LabelElement.Static {}
 
         interface Props
-            extends Widget.Props,
+            extends
+                Widget.Props,
                 mixin.IconElement.Props,
                 mixin.LabelElement.Props,
                 mixin.ClippableElement.Props,
-                mixin.FloatableElement.Props {
+                mixin.FloatableElement.Props
+        {
             $body: JQuery;
             $popup: JQuery;
             $anchor: JQuery;
@@ -135,11 +139,13 @@ declare namespace OO.ui {
         }
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.LabelElement.Prototype,
                 mixin.ClippableElement.Prototype,
-                mixin.FloatableElement.Prototype {
+                mixin.FloatableElement.Prototype
+        {
             /**
              * Show, hide, or toggle the visibility of the anchor.
              *
@@ -152,7 +158,7 @@ declare namespace OO.ui {
              *
              * @param edge 'top', 'bottom', 'start' or 'end'
              */
-            setAnchorEdge(edge: 'top' | 'bottom' | 'start' | 'end'): void;
+            setAnchorEdge(edge: "top" | "bottom" | "start" | "end"): void;
 
             /**
              * Check if the anchor is visible.
@@ -288,21 +294,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): PopupWidget;
+            new(config?: ConfigOptions): PopupWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

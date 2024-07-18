@@ -1,34 +1,34 @@
-import convertDlchToLab65 from './convertDlchToLab65';
-import convertLab65ToDlch from './convertLab65ToDlch';
+import convertDlchToLab65 from "./convertDlchToLab65";
+import convertLab65ToDlch from "./convertLab65ToDlch";
 
-import { fixupHueShorter } from '../fixup/hue';
-import { fixupAlpha } from '../fixup/alpha';
-import { interpolatorLinear } from '../interpolate/linear';
-import { differenceHueChroma } from '../difference';
-import { averageAngle } from '../average';
-import { Dlab } from '../dlab/types';
-import { Dlch } from './types';
-import { Rgb } from '../rgb/types';
+import { averageAngle } from "../average";
+import { differenceHueChroma } from "../difference";
+import { Dlab } from "../dlab/types";
+import { fixupAlpha } from "../fixup/alpha";
+import { fixupHueShorter } from "../fixup/hue";
+import { interpolatorLinear } from "../interpolate/linear";
+import { Rgb } from "../rgb/types";
+import { Dlch } from "./types";
 
 declare const definition: {
-    mode: 'dlch';
+    mode: "dlch";
 
-    parse: ['--din99o-lch'];
-    serialize: '--din99o-lch';
+    parse: ["--din99o-lch"];
+    serialize: "--din99o-lch";
 
     toMode: {
         lab65: typeof convertDlchToLab65;
-        dlab: (c: Omit<Dlch, 'mode'>) => Dlab;
-        rgb: (c: Omit<Dlch, 'mode'>) => Rgb;
+        dlab: (c: Omit<Dlch, "mode">) => Dlab;
+        rgb: (c: Omit<Dlch, "mode">) => Rgb;
     };
 
     fromMode: {
         lab65: typeof convertLab65ToDlch;
-        dlab: (c: Omit<Dlab, 'mode'>) => Dlch;
-        rgb: (c: Omit<Rgb, 'mode'>) => Dlch;
+        dlab: (c: Omit<Dlab, "mode">) => Dlch;
+        rgb: (c: Omit<Rgb, "mode">) => Dlch;
     };
 
-    channels: ['l', 'c', 'h', 'alpha'];
+    channels: ["l", "c", "h", "alpha"];
 
     ranges: {
         l: [0, 100];

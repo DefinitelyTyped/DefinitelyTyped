@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/redux-logger",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/theaqua/redux-logger"
+    ],
     "dependencies": {
-        "redux": "^4.0.0"
-    }
+        "redux": "^5.0.0"
+    },
+    "devDependencies": {
+        "@types/redux-logger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Rusakov",
+            "githubUsername": "arusakov"
+        },
+        {
+            "name": "Kevin Groat",
+            "githubUsername": "kgroat"
+        }
+    ]
 }

@@ -1,4 +1,4 @@
-import * as sorted from 'sorted-array-functions';
+import * as sorted from "sorted-array-functions";
 
 const list = [1, 4];
 

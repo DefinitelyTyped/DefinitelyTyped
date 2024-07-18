@@ -1,29 +1,32 @@
-import { Ber, BerReader, BerWriter } from 'asn1';
+import { Ber, BerReader, BerWriter } from "asn1";
 
-let buf: Buffer = Buffer.alloc(0);
-let bool = false;
-let str = '';
+let buf = Buffer.alloc(0);
+let bufferOrNull: Buffer | null = Buffer.alloc(0);
+const bool = false;
+let boolOrNull: boolean | null = false;
+const str = "";
+let strOrNull: string | null = "";
 let num = 0;
 let numOrNull: number | null = 0;
-const roStrArray: ReadonlyArray<string> = [str];
+const roStrArray: readonly string[] = [str];
 
 const reader = new BerReader(buf);
 numOrNull = reader.peek();
-bool = reader.readBoolean();
+boolOrNull = reader.readBoolean();
 numOrNull = reader.readByte(bool);
-num = reader.readEnumeration();
-num = reader.readInt();
-num = reader.readLength();
-num = reader.readLength(num);
-str = reader.readOID();
-str = reader.readOID(num);
+numOrNull = reader.readEnumeration();
+numOrNull = reader.readInt();
+numOrNull = reader.readLength();
+numOrNull = reader.readLength(num);
+strOrNull = reader.readOID();
+strOrNull = reader.readOID(num);
 numOrNull = reader.readSequence();
 numOrNull = reader.readSequence(num);
-str = reader.readString();
-str = reader.readString(num);
-buf = reader.readString(num, bool);
-num = reader._readTag();
-num = reader._readTag(num);
+strOrNull = reader.readString();
+strOrNull = reader.readString(num);
+bufferOrNull = reader.readString(num, bool);
+numOrNull = reader._readTag();
+numOrNull = reader._readTag(num);
 
 let writer = new BerWriter();
 writer = new BerWriter({

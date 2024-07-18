@@ -1,5 +1,5 @@
-import errorHandler = require('agnostic-http-error-handler');
-import { Request, Response } from 'express';
+import errorHandler = require("agnostic-http-error-handler");
+import { Request, Response } from "express";
 
 /* $ExpectType {
   express: (err: Error, req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: any) => void;

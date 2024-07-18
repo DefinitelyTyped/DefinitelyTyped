@@ -1,8 +1,3 @@
-// Type definitions for tocktimer 1.0
-// Project: https://github.com/mrchimp/tock
-// Definitions by: Evan Shortiss <https://github.com/evanshortiss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function t(opts?: t.TockOptions): t.Tock;
 
 declare namespace t {
@@ -32,7 +27,7 @@ declare namespace t {
         /**
          * Create a Tock instance
          */
-        constructor(opts?: TockOptions)
+        constructor(opts?: TockOptions);
 
         /**
          * Start the timer

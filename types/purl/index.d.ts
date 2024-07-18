@@ -1,17 +1,9 @@
-// Type definitions for Purl 2.3.1
-// Project: https://github.com/allmarkedup/purl
-// Definitions by: Daniel Ferreira Monteiro Alves <https://github.com/danfma>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace purl {
-
     interface ParameterMap {
         [parameterName: string]: string;
     }
 
     export interface Url {
-
         /**
          * The .attr() method is used to return information on various parts of the URL.
          */
@@ -41,7 +33,6 @@ declare namespace purl {
          */
         fsegment(position: number): string;
     }
-
 }
 
 /**

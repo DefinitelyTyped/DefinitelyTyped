@@ -1,5 +1,5 @@
-import streamx = require('streamx');
-import { Writable as NodeJSWritable, Readable as NodeJSReadable } from 'stream';
+import streamx = require("streamx");
+import { Readable as NodeJSReadable, Writable as NodeJSWritable } from "stream";
 
 const { Readable, Writable, Duplex, Transform, PassThrough, Stream, isStream, isStreamx } = streamx;
 
@@ -48,18 +48,18 @@ isStreamx(new Readable()); // $ExpectType boolean
 {
     const r: streamx.Readable<string> = new Readable<string>({
         read(cb) {
-            cb(null, 'hello');
+            cb(null, "hello");
         },
     });
-    r.on('open', () => {});
-    r.on('error', (_: Error) => {});
-    r.on('readable', () => {});
-    r.on('data', (_: string) => {});
-    r.on('piping', (_: streamx.Writable<string, any>) => {});
-    r.on('end', () => {});
-    r.on('close', () => {});
-    r.push('hello'); // $ExpectType boolean
-    r.unshift('holla'); // $ExpectType void
+    r.on("open", () => {});
+    r.on("error", (_: Error) => {});
+    r.on("readable", () => {});
+    r.on("data", (_: string) => {});
+    r.on("piping", (_: streamx.Writable<string, any>) => {});
+    r.on("end", () => {});
+    r.on("close", () => {});
+    r.push("hello"); // $ExpectType boolean
+    r.unshift("holla"); // $ExpectType void
     r.unshift(null); // $ExpectType void
     r.push(null); // $ExpectType boolean
     r.resume(); // $ExpectType Readable<string, string, string, true, false, ReadableEvents<string>>
@@ -84,13 +84,13 @@ isStreamx(new Readable()); // $ExpectType boolean
             cb();
         },
     });
-    w.on('open', () => {});
-    w.on('error', (_: Error) => {});
-    w.on('pipe', (_: streamx.Readable<string>) => {});
-    w.on('drain', () => {});
-    w.on('finish', () => {});
-    w.on('close', () => {});
-    w.write('hello'); // $ExpectType boolean
+    w.on("open", () => {});
+    w.on("error", (_: Error) => {});
+    w.on("pipe", (_: streamx.Readable<string>) => {});
+    w.on("drain", () => {});
+    w.on("finish", () => {});
+    w.on("close", () => {});
+    w.write("hello"); // $ExpectType boolean
     w.end(); // $ExpectType void
     w.destroyed; // $ExpectType boolean
     w.destroying; // $ExpectType boolean
@@ -108,28 +108,28 @@ isStreamx(new Readable()); // $ExpectType boolean
             this.readable; // $ExpectType true
             cb();
         },
-        mapWritable: data => Buffer.from(data, 'base64'),
-        mapReadable: data => parseInt(data.toString('base64'), 10),
+        mapWritable: data => Buffer.from(data, "base64"),
+        mapReadable: data => parseInt(data.toString("base64"), 10),
     });
-    d.on('open', () => {});
-    d.on('error', (_: Error) => {});
-    d.on('pipe', (_: streamx.Readable<string>) => {});
-    d.on('drain', () => {});
-    d.on('finish', () => {});
-    d.on('readable', () => {});
-    d.on('data', (_: number) => {});
-    d.on('piping', (_: streamx.Writable<number, any>) => {});
-    d.on('end', () => {});
-    d.on('close', () => {});
-    d.write('1');
-    d.destroy(new Error('hi'));
+    d.on("open", () => {});
+    d.on("error", (_: Error) => {});
+    d.on("pipe", (_: streamx.Readable<string>) => {});
+    d.on("drain", () => {});
+    d.on("finish", () => {});
+    d.on("readable", () => {});
+    d.on("data", (_: number) => {});
+    d.on("piping", (_: streamx.Writable<number, any>) => {});
+    d.on("end", () => {});
+    d.on("close", () => {});
+    d.write("1");
+    d.destroy(new Error("hi"));
 }
 
 // Various ways of ending a writable
 new Writable<string>().end((error?: Error | null) => {
     // Callback variant
 });
-new Writable<{ hello: 'world' }>().end({ hello: 'world' });
+new Writable<{ hello: "world" }>().end({ hello: "world" });
 
 // Mapping functions
 new Readable<number, string>({
@@ -151,7 +151,7 @@ new Readable<string>().pipe(
 
 new Readable<string>().pipe(
     new Writable<string, number>({
-        map: (input: string) => input !== '',
+        map: (input: string) => input !== "",
         mapWritable: input => input.length,
     }),
 );
@@ -162,12 +162,12 @@ new Readable<string>().pipe(new NodeJSWritable());
 // Since the streams are technically not nodejs streams but they work, there needs to be a helping hand here.
 new NodeJSReadable({ read() {} }).pipe((new Writable<string>() as unknown) as NodeJSWritable);
 
-Readable.from(new Set(['a', 'b', 'c'])); // $ExpectType Readable<string, string, string, true, false, ReadableEvents<string>>
-Readable.from('string'); // $ExpectType Readable<string, string, string, true, false, ReadableEvents<string>>
+Readable.from(new Set(["a", "b", "c"])); // $ExpectType Readable<string, string, string, true, false, ReadableEvents<string>>
+Readable.from("string"); // $ExpectType Readable<string, string, string, true, false, ReadableEvents<string>>
 Readable.from(new Readable<number>()); // $ExpectType Readable<number, number, number, true, false, ReadableEvents<number>>
 const x: streamx.Readable<string> = Readable.from();
 
-Readable.from('hello')
+Readable.from("hello")
     .pipe(
         new Transform<string, number>({
             transform(input, cb) {

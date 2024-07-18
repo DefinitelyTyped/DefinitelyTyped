@@ -1,11 +1,11 @@
-import { Object3D } from './../../core/Object3D';
-import { Material } from './../../materials/Material';
-import { WebGLProgram } from './WebGLProgram';
-import { Group } from './../../objects/Group';
-import { Scene } from './../../scenes/Scene';
-import { Camera } from './../../cameras/Camera';
-import { BufferGeometry } from '../../core/BufferGeometry';
-import { WebGLProperties } from './WebGLProperties';
+import { Camera } from "../../cameras/Camera.js";
+import { BufferGeometry } from "../../core/BufferGeometry.js";
+import { Object3D } from "../../core/Object3D.js";
+import { Material } from "../../materials/Material.js";
+import { Group } from "../../objects/Group.js";
+import { Scene } from "../../scenes/Scene.js";
+import { WebGLProgram } from "./WebGLProgram.js";
+import { WebGLProperties } from "./WebGLProperties.js";
 
 export interface RenderItem {
     id: number;

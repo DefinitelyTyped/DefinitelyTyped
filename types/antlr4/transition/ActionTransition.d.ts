@@ -1,5 +1,5 @@
-import ATNState from '../state/ATNState';
-import Transition from './Transition';
+import ATNState from "../state/ATNState";
+import Transition from "./Transition";
 
 export default class ActionTransition extends Transition {
     readonly serializationType: number;

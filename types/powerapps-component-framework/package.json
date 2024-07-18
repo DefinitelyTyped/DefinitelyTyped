@@ -1,0 +1,50 @@
+{
+    "private": true,
+    "name": "@types/powerapps-component-framework",
+    "version": "1.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "PowerApps Component Framework",
+    "projects": [
+        "https://powerapps.microsoft.com"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/powerapps-component-framework": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joseph Pursley",
+            "githubUsername": "jopursle"
+        },
+        {
+            "name": "Kaushik Kaul",
+            "githubUsername": "kaushikkaul"
+        },
+        {
+            "name": "Rachel Rattay",
+            "githubUsername": "rarattay"
+        },
+        {
+            "name": "Oliver Dumrique",
+            "githubUsername": "OliverDumrique"
+        },
+        {
+            "name": "Colton Presler",
+            "githubUsername": "CoPrez"
+        },
+        {
+            "name": "Pedro Ramirez",
+            "githubUsername": "pjramirez-ms"
+        },
+        {
+            "name": "Alex Tran",
+            "githubUsername": "Alex-MSFT"
+        },
+        {
+            "name": "Michael Pena",
+            "githubUsername": "mikepenaMS"
+        }
+    ]
+}

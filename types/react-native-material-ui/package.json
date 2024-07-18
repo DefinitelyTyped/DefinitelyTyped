@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-material-ui",
+    "version": "1.32.9999",
+    "projects": [
+        "https://github.com/xotahal/react-native-material-ui"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-material-ui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Roach",
+            "githubUsername": "iRoachie"
+        }
+    ]
+}

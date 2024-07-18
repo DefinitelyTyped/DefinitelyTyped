@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.dns
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Asynchronous DNS API
  * Permissions: "dns"

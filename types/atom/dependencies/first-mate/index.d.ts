@@ -1,1 +1,1 @@
-export * from './src/first-mate';
+export * from "./src/first-mate";

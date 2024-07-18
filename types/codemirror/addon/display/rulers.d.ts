@@ -1,4 +1,4 @@
-import '../../';
+import "../../";
 
 export interface Ruler {
     column: number;
@@ -8,9 +8,9 @@ export interface Ruler {
     width?: string | undefined;
 }
 
-declare module '../../' {
+declare module "../../" {
     interface EditorConfiguration {
         /** show one or more vertical rulers in the editor. */
-         rulers?: false | ReadonlyArray<number | Ruler> | undefined;
+        rulers?: false | ReadonlyArray<number | Ruler> | undefined;
     }
 }

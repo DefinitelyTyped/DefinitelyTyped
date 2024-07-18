@@ -1,15 +1,15 @@
-import { RawSourceMap } from 'source-map';
+import { RawSourceMap } from "source-map";
 
-export import CachedSource = require('./CachedSource');
-export import CompatSource = require('./CompatSource');
-export import ConcatSource = require('./ConcatSource');
-export import OriginalSource = require('./OriginalSource');
-export import PrefixSource = require('./PrefixSource');
-export import RawSource = require('./RawSource');
-export import ReplaceSource = require('./ReplaceSource');
-export import SizeOnlySource = require('./SizeOnlySource');
-export import Source = require('./Source');
-export import SourceMapSource = require('./SourceMapSource');
+export import CachedSource = require("./CachedSource");
+export import CompatSource = require("./CompatSource");
+export import ConcatSource = require("./ConcatSource");
+export import OriginalSource = require("./OriginalSource");
+export import PrefixSource = require("./PrefixSource");
+export import RawSource = require("./RawSource");
+export import ReplaceSource = require("./ReplaceSource");
+export import SizeOnlySource = require("./SizeOnlySource");
+export import Source = require("./Source");
+export import SourceMapSource = require("./SourceMapSource");
 
 export interface MapOptions {
     /**
@@ -50,7 +50,7 @@ export interface Replacement {
     readonly name: string;
 }
 
-export type SourceLike = Partial<Pick<Source, 'source' | 'buffer' | 'size' | 'map' | 'sourceAndMap' | 'updateHash'>>;
+export type SourceLike = Partial<Pick<Source, "source" | "buffer" | "size" | "map" | "sourceAndMap" | "updateHash">>;
 
 export interface CachedData {
     buffer?: Buffer | undefined;

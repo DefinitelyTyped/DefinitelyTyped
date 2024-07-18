@@ -1,10 +1,4 @@
-// Type definitions for geoflatbush 1.0
-// Project: https://github.com/mourner/geoflatbush
-// Definitions by: Matt Fedderly <https://github.com/mfedderly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-import { Flatbush } from 'flatbush';
+import Flatbush from "flatbush";
 
 /**
  * Performs nearest neighbors queries for geographic bounding boxes, taking Earth curvature and date line wrapping into account.
@@ -18,5 +12,5 @@ export function around(
     latitude: number,
     maxResults?: number,
     maxDistance?: number,
-    filter?: (index: number) => boolean
+    filter?: (index: number) => boolean,
 ): number[];

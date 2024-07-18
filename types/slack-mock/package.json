@@ -1,6 +1,25 @@
 {
-  "private": true,
-  "dependencies": {
-    "nock": "^11.1.0"
-  }
+    "private": true,
+    "name": "@types/slack-mock",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/Skellington-Closet/slack-mock"
+    ],
+    "dependencies": {
+        "@types/ws": "*",
+        "nock": "^11.1.0"
+    },
+    "devDependencies": {
+        "@types/slack-mock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kris Kalavantavanich",
+            "githubUsername": "kkalavantavanich"
+        },
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

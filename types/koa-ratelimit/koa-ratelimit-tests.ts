@@ -1,28 +1,35 @@
-import Redis from "ioredis";
+import * as Redis from "ioredis";
 import Koa = require("koa");
 import rateLimit = require("koa-ratelimit");
 
 const app = new Koa();
 
 const redisClient = new Redis({
-    host: "localhost"
+    host: "localhost",
 });
 
 app.use(rateLimit({
-    driver: 'redis',
-    db: redisClient
+    driver: "redis",
+    db: redisClient,
 }));
 
 app.use(rateLimit({
-    driver: 'memory',
-    db: new Map()
+    driver: "redis",
+    db: redisClient,
+    namespace: "limit:middleware1",
 }));
 
 app.use(rateLimit({
-    driver: 'memory',
+    driver: "memory",
     db: new Map(),
+}));
+
+app.use(rateLimit({
+    driver: "memory",
+    db: new Map(),
+    namespace: "limit:middleware2",
     blacklist: async (context) => Promise.resolve(true),
-    whitelist: (context) => false
+    whitelist: (context) => false,
 }));
 
 app.use(async context => {

@@ -1,15 +1,9 @@
-// Type definitions for common-errors 1.0
-// Project: https://github.com/shutterstock/node-common-errors
-// Definitions by: Ian Copp <https://github.com/icopp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as express from 'express';
+import * as express from "express";
 
 export type GenerateMessageMethod = () => string;
 
 export interface ErrorConstructor {
-    new (...params: any[]): Error;
+    new(...params: any[]): Error;
 }
 
 /**
@@ -51,11 +45,11 @@ export namespace helpers {
     function generateClass(
         name: string,
         options?: {
-            extends?: Error | undefined,
-            globalize?: boolean | undefined,
-            args?: string[] | undefined,
-            generateMessage?: GenerateMessageMethod | undefined
-        }
+            extends?: Error | undefined;
+            globalize?: boolean | undefined;
+            args?: string[] | undefined;
+            generateMessage?: GenerateMessageMethod | undefined;
+        },
     ): ErrorConstructor;
 }
 
@@ -556,7 +550,7 @@ export namespace io {
          * @param inner_error the Error instance that caused the current
          *                    error. Stack trace will be appended.
          */
-        constructor(message: string, inner_error?: Error)
+        constructor(message: string, inner_error?: Error);
     }
 
     /**

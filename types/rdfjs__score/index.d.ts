@@ -1,27 +1,22 @@
-// Type definitions for @rdfjs/score 0.1
-// Project: https://github.com/rdfjs-base/score
-// Definitions by: tpluscode <https://github.com/tpluscode>
-//                 Jesse Wright <https://github.com/jeswr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { DatasetCore, Quad_Graph, Term } from '@rdfjs/types';
+import { DatasetCore, Quad_Graph, Term } from "@rdfjs/types";
 
-export { default as combine } from './combine';
-export { default as concat } from './concat';
-export { default as count } from './count';
-export { default as distinct } from './distinct';
-export { default as exists } from './exists';
-export { default as fallback } from './fallback';
-export { default as fixed } from './fixed';
-export { default as language } from './language';
-export { default as pageRank } from './pageRank';
-export { default as pathDepth } from './pathDepth';
-export { default as prioritized } from './prioritized';
-export { default as product } from './product';
-export { default as scale } from './scale';
-export { default as sort } from './sort';
-export { default as sortObjects } from './sortObjects';
-export { default as sum } from './sum';
-export { default as type } from './type';
+export { default as combine } from "./combine.js";
+export { default as concat } from "./concat.js";
+export { default as count } from "./count.js";
+export { default as distinct } from "./distinct.js";
+export { default as exists } from "./exists.js";
+export { default as fallback } from "./fallback.js";
+export { default as fixed } from "./fixed.js";
+export { default as language } from "./language.js";
+export { default as pageRank } from "./pageRank.js";
+export { default as pathDepth } from "./pathDepth.js";
+export { default as prioritized } from "./prioritized.js";
+export { default as product } from "./product.js";
+export { default as scale } from "./scale.js";
+export { default as sort } from "./sort.js";
+export { default as sortObjects } from "./sortObjects.js";
+export { default as sum } from "./sum.js";
+export { default as type } from "./type.js";
 
 export interface Pointers {
     dataset: DatasetCore;

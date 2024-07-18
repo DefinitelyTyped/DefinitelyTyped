@@ -1,13 +1,8 @@
-// Type definitions for @xmpp/xml 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/xml
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = xml;
 
-import * as ltx from 'ltx';
-import * as escape from 'ltx/lib/escape';
-import LtxParser = require('ltx/lib/parsers/ltx');
+import * as ltx from "ltx";
+import * as escape from "ltx/lib/escape";
+import LtxParser = require("ltx/lib/parsers/ltx");
 
 declare function xml(...args: Parameters<typeof ltx.createElement>): ReturnType<typeof ltx.createElement>;
 
@@ -35,7 +30,7 @@ declare namespace xml {
     }
 
     class XMLError extends Error {
-        readonly name: 'XMLError';
+        readonly name: "XMLError";
     }
 }
 

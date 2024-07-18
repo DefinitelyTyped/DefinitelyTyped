@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-loading-spinner-overlay",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/joinspontaneous/react-native-loading-spinner-overlay"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-loading-spinner-overlay": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "fhelwanger",
+            "githubUsername": "fhelwanger"
+        }
+    ]
+}

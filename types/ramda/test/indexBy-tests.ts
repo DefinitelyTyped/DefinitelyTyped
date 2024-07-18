@@ -1,35 +1,33 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     interface Book {
         id: string;
         title: string;
     }
     const list: Book[] = [
-        { id: 'xyz', title: 'A' },
-        { id: 'abc', title: 'B' },
+        { id: "xyz", title: "A" },
+        { id: "abc", title: "B" },
     ];
-    const a1 = R.indexBy(R.prop('id'), list);
+    const a1 = R.indexBy(R.prop("id"), list);
     // Typescript 3.3 incorrectly gives `a2: {}`, 3.4 gives an error instead.
     // @ts-expect-error
     const a2 = R.indexBy(R.prop("id"))(list);
-    const a3 = R.indexBy<{ id: string }>(R.prop('id'))(list);
-    const a4 = R.indexBy(R.prop<string>('id'))(list);
-    const a5 = R.indexBy<{ id: string }>(R.prop<string>('id'))(list);
-};
+    const a3 = R.indexBy<{ id: string }>(R.prop("id"))(list);
+});
 
-() => {
-    type Id = 'xyz' | 'abc';
+(() => {
+    type Id = "xyz" | "abc";
     interface Book {
         id: Id;
         title: string;
     }
     const list: Book[] = [
-        { id: 'xyz', title: 'A' },
-        { id: 'abc', title: 'B' },
+        { id: "xyz", title: "A" },
+        { id: "abc", title: "B" },
     ];
 
-    const a1 = R.indexBy(R.prop('id'), list);
+    const a1 = R.indexBy(R.prop("id"), list);
 
     // prop should exist
     a1.abc = list[0];
@@ -44,17 +42,17 @@ import * as R from 'ramda';
 
     // Typescript 3.3 incorrectly gives `a2: {}`, 3.4 gives an error instead.
     // const a2 = R.indexBy(R.prop("id"))(list);
-    const a3 = R.indexBy<Book, Id | undefined>(R.prop('id'))(list);
+    const a3 = R.indexBy<Book, Id | undefined>(R.prop("id"))(list);
 
     // prop should be not required (can be undefined)
     // // @ts-expect-error
     // const b3: Book = a3.abc;
 
-    const a4 = R.indexBy<Book, Id>(R.prop('id'))(list);
+    const a4 = R.indexBy<Book, Id>(R.prop("id"))(list);
 
     // prop should be not required (can be undefined)
     // // @ts-expect-error
     // const b4: Book = a4.abc;
 
-    const a5 = R.indexBy<Book, Id>(R.prop('id'))(list);
-};
+    const a5 = R.indexBy<Book, Id>(R.prop("id"))(list);
+});

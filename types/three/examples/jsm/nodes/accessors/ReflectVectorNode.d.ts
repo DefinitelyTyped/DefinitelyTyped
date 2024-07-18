@@ -1,8 +1,6 @@
-import Node from '../core/Node';
+import Node from "../core/Node.js";
+import VarNode from "../core/VarNode.js";
+import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 
-export default class ReflectVectorNode extends Node {
-    constructor();
-
-    getHash(): 'reflectVector';
-    construct(): Node;
-}
+export const reflectView: ShaderNodeObject<Node>;
+export const reflectVector: ShaderNodeObject<VarNode>;

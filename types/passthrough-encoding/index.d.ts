@@ -1,8 +1,3 @@
-// Type definitions for passthrough-encoding 1.2
-// Project: https://github.com/mafintosh/passthrough-encoding
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

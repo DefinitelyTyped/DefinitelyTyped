@@ -1,8 +1,8 @@
-import metascraper = require('metascraper');
-import metascraperDescription = require('metascraper-description');
+import metascraper from "metascraper";
+import metascraperDescription = require("metascraper-description");
 
-const html = 'example';
-const url = 'https://example.org';
+const html = "example";
+const url = "https://example.org";
 
 const options: metascraperDescription.Options = {
     truncateLength: 150,

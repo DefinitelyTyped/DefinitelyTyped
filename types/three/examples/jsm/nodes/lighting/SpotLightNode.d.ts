@@ -1,6 +1,6 @@
-import AnalyticLightNode from './AnalyticLightNode';
-import Node from '../core/Node';
-import { SpotLight } from '../../../../src/Three';
+import { SpotLight } from "three";
+import Node from "../core/Node.js";
+import AnalyticLightNode from "./AnalyticLightNode.js";
 
 export default class PointLightNode extends AnalyticLightNode<SpotLight> {
     directionNode: Node;

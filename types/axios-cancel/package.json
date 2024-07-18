@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "axios": "0.15.2"
-  }
+    "private": true,
+    "name": "@types/axios-cancel",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/thaerlabs/axios-cancel",
+        "https://www.npmjs.com/package/axios-cancel"
+    ],
+    "dependencies": {
+        "axios": "0.15.2"
+    },
+    "devDependencies": {
+        "@types/axios-cancel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TheDSCPL",
+            "githubUsername": "TheDSCPL"
+        }
+    ]
 }

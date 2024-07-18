@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-table-filter",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/cheekujha/react-table-filter"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-table-filter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gnanavel N",
+            "githubUsername": "gjsln"
+        }
+    ]
+}

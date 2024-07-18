@@ -1,2 +1,2 @@
-import { partialObject } from '../index';
+import { partialObject } from "../index.js";
 export default partialObject;

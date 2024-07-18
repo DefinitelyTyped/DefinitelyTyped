@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/websequencediagrams",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hildjj/node-websequencediagrams"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/websequencediagrams": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

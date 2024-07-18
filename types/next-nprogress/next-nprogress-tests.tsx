@@ -1,12 +1,12 @@
-import * as React from 'react';
-import withNProgress from 'next-nprogress';
-import NProgress from 'next-nprogress/component';
+import withNProgress from "next-nprogress";
+import NProgress from "next-nprogress/component";
+import * as React from "react";
 
 class App extends React.Component {
     render() {
         return (
             <div>
-                <NProgress/>
+                <NProgress />
                 <NProgress
                     color="#29D"
                     options={{ trickleSpeed: 100 }}
@@ -22,7 +22,7 @@ withNProgress()(App);
 withNProgress(300)(App);
 withNProgress(300, { trickle: false })(App);
 
-class AppWithProps extends React.Component<{title: string}> {
+class AppWithProps extends React.Component<{ title: string }> {
     render() {
         return (
             <div>

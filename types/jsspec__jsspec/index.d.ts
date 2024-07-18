@@ -1,9 +1,3 @@
-// Type definitions for @jsspec/jsspec 0.0
-// Project: https://github.com/JSSpec/jsspec
-// Definitions by: HookyQR <https://github.com/HookyQR>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Declare a lazy evaluated variable
  */

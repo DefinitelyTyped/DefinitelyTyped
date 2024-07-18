@@ -1,9 +1,3 @@
-// Type definitions for jQuery Tags Manager
-// Project: http://welldonethings.com/tags/manager
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface ITagsManagerOptions {
@@ -17,7 +11,7 @@ interface ITagsManagerOptions {
     typeaheadDelegate?: Function | undefined;
     typeaheadOverrides?: ITypeaheadOverrides | undefined;
     typeaheadSource?: any;
-    AjaxPush?: string | undefined; //url
+    AjaxPush?: string | undefined; // url
     delimeters?: number[] | undefined;
     backspace?: number[] | undefined;
     maxTags?: number | undefined;
@@ -47,9 +41,7 @@ interface ITagsManager {
     backspace: number[];
     tagToManipulate: string;
 
-    initialize(context: JQuery,
-               options?: ITagsManagerOptions,
-               tagToManipulate?: string): void;
+    initialize(context: JQuery, options?: ITagsManagerOptions, tagToManipulate?: string): void;
     setupTypeahead(): void;
     onTypeaheadAjaxSuccess(data: any, isSetTypeaheadSource: boolean, process?: Function): void;
     ajaxPolling(query: string, process: Function): void;

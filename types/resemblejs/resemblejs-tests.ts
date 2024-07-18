@@ -1,5 +1,5 @@
-import resemble = require('resemblejs');
-import compareImages = require('resemblejs/compareImages');
+import resemble = require("resemblejs");
+import compareImages = require("resemblejs/compareImages");
 
 const box = {
     left: 100,
@@ -14,7 +14,7 @@ resemble.outputSettings({
         green: 0,
         blue: 255,
     },
-    errorType: 'movement',
+    errorType: "movement",
     transparency: 0.3,
     largeImageThreshold: 1200,
     useCrossOrigin: false,
@@ -30,15 +30,15 @@ resemble.outputSettings({
     },
 });
 
-resemble('images/image.png').onComplete(function(data) {
+resemble("images/image.png").onComplete(function(data) {
     const r: number = data.red;
     const g: number = data.green;
     const b: number = data.blue;
     const brightness: number = data.brightness;
 });
 
-resemble('images/image.png')
-    .compareTo('images/image2.png')
+resemble("images/image.png")
+    .compareTo("images/image2.png")
     .ignoreAntialiasing()
     .scaleToSameSize()
     .repaint()
@@ -68,21 +68,21 @@ const options: resemble.ComparisonOptions = {
             green: 0,
             blue: 255,
         },
-        errorType: 'movement',
+        errorType: "movement",
         transparency: 0.3,
         largeImageThreshold: 1200,
         useCrossOrigin: false,
     },
     scaleToSameSize: true,
-    ignore: 'antialiasing',
+    ignore: "antialiasing",
 };
 
-resemble.compare('images/image2.png', 'images/image2.png', options, function(err, data) {
+resemble.compare("images/image2.png", "images/image2.png", options, function(err, data) {
     if (err) {
-        console.log('An error!');
+        console.log("An error!");
     } else {
         console.log(data);
     }
 });
 
-const promise = compareImages('./your-image-path/People.jpg', './your-image-path/People2.jpg', options);
+const promise = compareImages("./your-image-path/People.jpg", "./your-image-path/People2.jpg", options);

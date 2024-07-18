@@ -6,12 +6,12 @@ const fooProto = Object.create(HTMLElement.prototype, {
         value(this: HTMLElement) {
             // `this` should be the created element
             this.getElementsByTagName("a");
-        }
-    }
+        },
+    },
 });
 
 const XFoo = document.registerElement("x-foo", {
-    prototype: fooProto
+    prototype: fooProto,
 });
 
 const xFoo = new XFoo();
@@ -50,16 +50,17 @@ shadow.host;
  */
 window.WebComponents.flags;
 
-window.customElements.define("lw-arrival-pie",
+window.customElements.define(
+    "lw-arrival-pie",
     /**
      * ArrivalPie custom element
      */
     class ArrivalPie extends HTMLElement {
         // Can define constructor arguments if you wish.
         constructor() {
-          // If you define a ctor, always call super() first!
-          // This is specific to CE and required by the spec.
-          super();
+            // If you define a ctor, always call super() first!
+            // This is specific to CE and required by the spec.
+            super();
         }
-    }
+    },
 );

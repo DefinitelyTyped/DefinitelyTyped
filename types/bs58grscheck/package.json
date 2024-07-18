@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bs58grscheck",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/Groestlcoin/bs58grscheck"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bs58grscheck": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gruve-p",
+            "githubUsername": "gruve-p"
+        }
+    ]
+}

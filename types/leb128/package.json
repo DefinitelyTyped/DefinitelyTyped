@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/leb128",
+    "version": "0.0.9999",
+    "projects": [
+        "https://gitlab.com/mjbecze/leb128#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/bn.js": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/leb128": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

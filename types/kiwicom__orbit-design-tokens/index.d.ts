@@ -1,9 +1,3 @@
-// Type definitions for @kiwicom/orbit-design-tokens 0.6
-// Project: https://github.com/kiwicom/orbit-design-tokens#readme
-// Definitions by: Dane Grant <https://github.com/danecando>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface ProductColor {
     light: string;
     lightHover: string;

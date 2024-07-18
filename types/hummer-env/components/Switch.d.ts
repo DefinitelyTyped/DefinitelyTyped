@@ -10,5 +10,5 @@ declare const Switch: {
     /**
      * 开关组件。
      */
-    new (): Switch;
+    new(): Switch;
 };

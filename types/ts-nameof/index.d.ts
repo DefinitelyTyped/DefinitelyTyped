@@ -1,8 +1,3 @@
-// Type definitions for ts-nameof 4.2
-// Project: https://github.com/dsherret/ts-nameof#readme
-// Definitions by: David Sherret <https://github.com/dsherret>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Gets a string representation of the final identifier of the given expression.
  *
@@ -13,7 +8,7 @@
  *
  * @param func An optional function for which the last identifier of the expression will be parsed.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function nameof<T>(func?: (obj: T) => any): string;
 
 /**
@@ -40,7 +35,7 @@ declare namespace nameof {
      * When absent, the full expression will be parsed.
      * A negative index can be used, indicating an offset from the end of the sequence.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function full<T>(periodIndex?: number): string;
 
     /**
@@ -55,7 +50,7 @@ declare namespace nameof {
      * When absent, the full expression will be parsed.
      * A negative index can be used, indicating an offset from the end of the sequence.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function full<T>(func: (obj: T) => any, periodIndex?: number): string;
 
     /**
@@ -80,7 +75,7 @@ declare namespace nameof {
      *
      * @param func A function returning an array of expressions to be parsed, excluding the parameter's identifier.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function toArray<T>(func: (obj: T) => any[]): string[];
 
     /**
@@ -114,7 +109,7 @@ declare namespace nameof {
      * When absent, the full expression will be parsed.
      * A negative index can be used, indicating an offset from the end of the sequence.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function split<T>(func: (obj: T) => any, periodIndex?: number): string[];
 
     /**

@@ -312,7 +312,7 @@ declare namespace dojox {
             }
         }
 
-        module _base {
+        namespace _base {
         }
 
         namespace api {

@@ -1,25 +1,27 @@
-import { CompressedFile } from './compressed-file';
+import { CompressedFile } from "./compressed-file";
 
-export interface FilesObject { [key: string]: FilesObject | CompressedFile | File; }
+export interface FilesObject {
+    [key: string]: FilesObject | CompressedFile | File;
+}
 
 export class Archive {
-  static init(options?: { workerUrl: string }): { workerUrl: string };
+    static init(options?: { workerUrl: string }): { workerUrl: string };
 
-  static open(file: File, options?: { workerUrl: string }): Promise<Archive>;
+    static open(file: File, options?: { workerUrl: string }): Promise<Archive>;
 
-  constructor(file: File, options: { workerUrl: string });
+    constructor(file: File, options: { workerUrl: string });
 
-  open(): Promise<Archive>;
+    open(): Promise<Archive>;
 
-  hasEncryptedData(): Promise<boolean | null>;
+    hasEncryptedData(): Promise<boolean | null>;
 
-  usePassword(archivePassword: string | number): Promise<void>;
+    usePassword(archivePassword: string | number): Promise<void>;
 
-  getFilesObject(): Promise<FilesObject>;
+    getFilesObject(): Promise<FilesObject>;
 
-  getFilesArray(): Promise<Array<{ file: File | CompressedFile, path: string }>>;
+    getFilesArray(): Promise<Array<{ file: File | CompressedFile; path: string }>>;
 
-  extractFiles(extractCallback?: (entry: { file: File, path: string }) => void): Promise<FilesObject>;
+    extractFiles(extractCallback?: (entry: { file: File; path: string }) => void): Promise<FilesObject>;
 
-  extractSingleFile(path: string): Promise<File>;
+    extractSingleFile(path: string): Promise<File>;
 }

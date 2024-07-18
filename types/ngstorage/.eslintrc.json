@@ -1,5 +1,6 @@
 {
     "rules": {
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-type-only-packages": "off",
+        "@definitelytyped/no-unnecessary-generics": "off"
     }
 }

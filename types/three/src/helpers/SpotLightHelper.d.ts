@@ -1,8 +1,8 @@
-import { Light } from './../lights/Light';
-import { Matrix4 } from './../math/Matrix4';
-import { Object3D } from './../core/Object3D';
-import { LineSegments } from '../objects/LineSegments';
-import { ColorRepresentation } from '../math/Color';
+import { Object3D } from "../core/Object3D.js";
+import { Light } from "../lights/Light.js";
+import { ColorRepresentation } from "../math/Color.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { LineSegments } from "../objects/LineSegments.js";
 
 /**
  * This displays a cone shaped helper object for a {@link THREE.SpotLight | SpotLight}.
@@ -32,7 +32,7 @@ export class SpotLightHelper extends Object3D {
      * @override
      * @defaultValue `SpotLightHelper`
      */
-    override readonly type: string | 'SpotLightHelper';
+    override readonly type: string | "SpotLightHelper";
 
     /**
      * {@link THREE.LineSegments | LineSegments} used to visualize the light.

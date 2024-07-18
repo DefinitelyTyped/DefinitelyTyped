@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/nconf",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/flatiron/nconf"
+    ],
+    "devDependencies": {
+        "@types/nconf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Goddard",
+            "githubUsername": "jedigo"
+        },
+        {
+            "name": "Jean-Martin Thibault",
+            "githubUsername": "jmthibault"
+        }
+    ]
+}

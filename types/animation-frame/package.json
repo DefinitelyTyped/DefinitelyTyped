@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/animation-frame",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/kof/animation-frame"
+    ],
+    "devDependencies": {
+        "@types/animation-frame": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qinfeng Chen",
+            "githubUsername": "qinfchen"
+        }
+    ]
+}

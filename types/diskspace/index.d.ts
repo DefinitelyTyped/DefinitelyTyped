@@ -1,8 +1,3 @@
-// Type definitions for diskspace 2.0
-// Project: https://github.com/keverw/diskspace.js
-// Definitions by: Vladislav <https://github.com/swedesjs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @param err RU: Ошибка при выполнении  EN: Runtime error
  * @param result RU: Результат проверки дискового пространства   EN: The result of the diskspace check
@@ -69,5 +64,5 @@ export interface Result {
  * @param drive RU: Наименование диска  EN: Name disk
  * @param callback RU: Callback-функция EN: Callback-function
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function check<T extends string = "C" | "/">(drive: T, callback: Callback): void;

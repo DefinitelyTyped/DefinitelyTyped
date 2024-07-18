@@ -9,7 +9,7 @@ export type TileProps = {
 
 export type TileContentProps = {
     className?: string | undefined;
-    twoColumns?: boolean | undefined,
+    twoColumns?: boolean | undefined;
 } & { [x: string]: any };
 
 export type TileFooterProps = {
@@ -23,9 +23,9 @@ export type TileHeaderProps = {
 
 declare const Tile: React.FC<TileProps> & {
     displayName: "Tile";
-    Content: React.FC<TileContentProps> & {displayName: "Tile.Content"};
-    Footer: React.FC<TileFooterProps> & {displayName: "Tile.Footer"};
-    Header: React.FC<TileHeaderProps> & {displayName: "Tile.Header"};
+    Content: React.FC<TileContentProps> & { displayName: "Tile.Content" };
+    Footer: React.FC<TileFooterProps> & { displayName: "Tile.Footer" };
+    Header: React.FC<TileHeaderProps> & { displayName: "Tile.Header" };
 };
 
 export default Tile;

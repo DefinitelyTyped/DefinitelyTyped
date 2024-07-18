@@ -1,5 +1,5 @@
 import { ComponentClass } from "react";
-import { ReactWidgetsCommonDropdownProps, AutoFocus } from "./CommonProps";
+import { AutoFocus, ReactWidgetsCommonDropdownProps } from "./CommonProps";
 
 declare namespace DropdownList {
     interface DropdownListProps extends ReactWidgetsCommonDropdownProps, AutoFocus {
@@ -182,7 +182,7 @@ declare namespace DropdownList {
     interface DropdownListMessages {
         /**
          * Dropdown button text for screen readers.
-         * @default: "Open Dropdown"
+         * @default "Open Dropdown"
          */
         open?: string | ((props: DropdownListProps) => string) | undefined;
         /**
@@ -191,17 +191,17 @@ declare namespace DropdownList {
         filterPlaceholder?: string | ((props: DropdownListProps) => string) | undefined;
         /**
          * Text to display when the data prop array is empty.
-         * @default: "There are no items in this list"
+         * @default "There are no items in this list"
          */
         emptyList?: string | ((props: DropdownListProps) => string) | undefined;
         /**
          * Text to display when the the current filter does not return any results.
-         * @default: "The filter returned no results"
+         * @default "The filter returned no results"
          */
         emptyFilter?: string | ((props: DropdownListProps) => string) | undefined;
         /**
          * Text to display for the create option
-         * @default: "Create option {text}"
+         * @default "Create option {text}"
          */
         createOption?: string | ((props: DropdownListProps) => string) | undefined;
     }

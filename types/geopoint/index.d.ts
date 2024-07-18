@@ -1,8 +1,3 @@
-// Type definitions for geopoint 1.0
-// Project: https://github.com/davidwood/node-geopoint
-// Definitions by: Varg Industries <https://github.com/vargind>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = GeoPoint;
 
 declare class GeoPoint {

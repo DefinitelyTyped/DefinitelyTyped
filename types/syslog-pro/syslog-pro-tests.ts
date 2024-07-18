@@ -1,4 +1,4 @@
-import { CEF, Colors, LEEF, RFC, RFC3164, RFC5424, RgbToAnsi, Syslog } from 'syslog-pro';
+import { CEF, Colors, LEEF, RFC, RFC3164, RFC5424, RgbToAnsi, Syslog } from "syslog-pro";
 
 // test type exports
 type SL = Syslog;
@@ -26,8 +26,8 @@ type CSS = CEF.SeverityString;
 type CE = CEF.Extensions;
 type CET = CEF.ExtensionType;
 
-RgbToAnsi('#fffff'); // $ExpectType number
-RgbToAnsi('#fffff', true); // $ExpectType number
+RgbToAnsi("#fffff"); // $ExpectType number
+RgbToAnsi("#fffff", true); // $ExpectType number
 RgbToAnsi(30); // $ExpectType number
 RgbToAnsi(30, true); // $ExpectType number
 
@@ -50,42 +50,42 @@ syslog = new Syslog();
 syslogOptions = syslog;
 // @ts-expect-error
 syslog = syslogOptions;
-new Syslog({ target: 'foo' });
-new Syslog({ protocol: 'udp' });
-new Syslog({ protocol: 'tcp' });
-new Syslog({ protocol: 'tls' });
+new Syslog({ target: "foo" });
+new Syslog({ protocol: "udp" });
+new Syslog({ protocol: "tcp" });
+new Syslog({ protocol: "tls" });
 // @ts-expect-error
-new Syslog({ protocol: 'foo' });
+new Syslog({ protocol: "foo" });
 new Syslog({ port: 123 });
 new Syslog({ tcpTimeout: 123 });
-new Syslog({ tlsServerCerts: 'foo.cert' });
-new Syslog({ tlsServerCerts: ['foo.cert'] });
-new Syslog({ tlsServerCerts: ['foo.cert'] as const });
-new Syslog({ tlsClientCert: 'foo.cert' });
-new Syslog({ tlsClientKey: 'foo.key' });
-new Syslog({ format: 'none' });
-new Syslog({ format: 'rfc3164' });
-new Syslog({ format: 'rfc5424' });
-new Syslog({ format: 'leef' });
-new Syslog({ format: 'cef' });
+new Syslog({ tlsServerCerts: "foo.cert" });
+new Syslog({ tlsServerCerts: ["foo.cert"] });
+new Syslog({ tlsServerCerts: ["foo.cert"] as const });
+new Syslog({ tlsClientCert: "foo.cert" });
+new Syslog({ tlsClientKey: "foo.key" });
+new Syslog({ format: "none" });
+new Syslog({ format: "rfc3164" });
+new Syslog({ format: "rfc5424" });
+new Syslog({ format: "leef" });
+new Syslog({ format: "cef" });
 // @ts-expect-error
-new Syslog({ format: 'foo' });
+new Syslog({ format: "foo" });
 new Syslog({ rfc3164 });
 new Syslog({ rfc3164: rfc3164Options });
 // @ts-expect-error
-new Syslog({ rfc3164: { foo: 'bar' } });
+new Syslog({ rfc3164: { foo: "bar" } });
 new Syslog({ rfc5424 });
 new Syslog({ rfc5424: rfc5424Options });
 // @ts-expect-error
-new Syslog({ rfc5424: { foo: 'bar' } });
+new Syslog({ rfc5424: { foo: "bar" } });
 new Syslog({ leef });
 new Syslog({ leef: leefOptions });
 // @ts-expect-error
-new Syslog({ leef: { foo: 'bar' } });
+new Syslog({ leef: { foo: "bar" } });
 new Syslog({ cef });
 new Syslog({ cef: cefOptions });
 // @ts-expect-error
-new Syslog({ cef: { foo: 'bar' } });
+new Syslog({ cef: { foo: "bar" } });
 
 syslog.target; // $ExpectType string
 syslog.protocol; // $ExpectType Protocol
@@ -108,44 +108,44 @@ rfc = rfc5424;
 rfc = rfc5424Options;
 
 rfc.extendedColor; // $ExpectType boolean
-rfc.emergency('foo'); // $ExpectType Promise<string>
-rfc.emer('foo'); // $ExpectType Promise<string>
-rfc.alert('foo'); // $ExpectType Promise<string>
-rfc.critical('foo'); // $ExpectType Promise<string>
-rfc.crit('foo'); // $ExpectType Promise<string>
-rfc.error('foo'); // $ExpectType Promise<string>
-rfc.err('foo'); // $ExpectType Promise<string>
-rfc.warning('foo'); // $ExpectType Promise<string>
-rfc.warn('foo'); // $ExpectType Promise<string>
-rfc.notice('foo'); // $ExpectType Promise<string>
-rfc.note('foo'); // $ExpectType Promise<string>
-rfc.informational('foo'); // $ExpectType Promise<string>
-rfc.info('foo'); // $ExpectType Promise<string>
-rfc.log('foo'); // $ExpectType Promise<string>
-rfc.debug('foo'); // $ExpectType Promise<string>
-rfc.setColor({ emergencyColor: '#ffffff' }); // $ExpectType true
+rfc.emergency("foo"); // $ExpectType Promise<string>
+rfc.emer("foo"); // $ExpectType Promise<string>
+rfc.alert("foo"); // $ExpectType Promise<string>
+rfc.critical("foo"); // $ExpectType Promise<string>
+rfc.crit("foo"); // $ExpectType Promise<string>
+rfc.error("foo"); // $ExpectType Promise<string>
+rfc.err("foo"); // $ExpectType Promise<string>
+rfc.warning("foo"); // $ExpectType Promise<string>
+rfc.warn("foo"); // $ExpectType Promise<string>
+rfc.notice("foo"); // $ExpectType Promise<string>
+rfc.note("foo"); // $ExpectType Promise<string>
+rfc.informational("foo"); // $ExpectType Promise<string>
+rfc.info("foo"); // $ExpectType Promise<string>
+rfc.log("foo"); // $ExpectType Promise<string>
+rfc.debug("foo"); // $ExpectType Promise<string>
+rfc.setColor({ emergencyColor: "#ffffff" }); // $ExpectType true
 rfc.setColor({ emergencyColor: 30 }); // $ExpectType true
-rfc.setColor({ alertColor: '#ffffff' }); // $ExpectType true
+rfc.setColor({ alertColor: "#ffffff" }); // $ExpectType true
 rfc.setColor({ alertColor: 30 }); // $ExpectType true
-rfc.setColor({ criticalColor: '#ffffff' }); // $ExpectType true
+rfc.setColor({ criticalColor: "#ffffff" }); // $ExpectType true
 rfc.setColor({ criticalColor: 30 }); // $ExpectType true
-rfc.setColor({ errorColor: '#ffffff' }); // $ExpectType true
+rfc.setColor({ errorColor: "#ffffff" }); // $ExpectType true
 rfc.setColor({ errorColor: 30 }); // $ExpectType true
-rfc.setColor({ warningColor: '#ffffff' }); // $ExpectType true
+rfc.setColor({ warningColor: "#ffffff" }); // $ExpectType true
 rfc.setColor({ warningColor: 30 }); // $ExpectType true
-rfc.setColor({ noticeColor: '#ffffff' }); // $ExpectType true
+rfc.setColor({ noticeColor: "#ffffff" }); // $ExpectType true
 rfc.setColor({ noticeColor: 30 }); // $ExpectType true
-rfc.setColor({ informationalColor: '#ffffff' }); // $ExpectType true
+rfc.setColor({ informationalColor: "#ffffff" }); // $ExpectType true
 rfc.setColor({ informationalColor: 30 }); // $ExpectType true
-rfc.setColor({ debugColor: '#ffffff' }); // $ExpectType true
+rfc.setColor({ debugColor: "#ffffff" }); // $ExpectType true
 rfc.setColor({ debugColor: 30 }); // $ExpectType true
 
 rfc3164Options = rfc3164;
 // @ts-expect-error
 rfc3164 = rfc3164Options;
 rfc3164 = new RFC3164();
-new RFC3164({ applicationName: 'foo' });
-new RFC3164({ hostname: 'bar' });
+new RFC3164({ applicationName: "foo" });
+new RFC3164({ hostname: "bar" });
 new RFC3164({ facility: 2 });
 new RFC3164({ color: true });
 new RFC3164({ extendedColor: true });
@@ -161,43 +161,43 @@ rfc3164.color; // $ExpectType boolean
 rfc3164.extendedColor; // $ExpectType boolean
 rfc3164.server; // $ExpectType Syslog | undefined
 
-rfc3164.buildMessage('foo'); // $ExpectType string
-rfc3164.buildMessage('foo', { severity: 0 }); // $ExpectType string
-rfc3164.buildMessage('foo', { severity: 1 }); // $ExpectType string
-rfc3164.buildMessage('foo', { severity: 2 }); // $ExpectType string
-rfc3164.buildMessage('foo', { severity: 3 }); // $ExpectType string
-rfc3164.buildMessage('foo', { severity: 4 }); // $ExpectType string
-rfc3164.buildMessage('foo', { severity: 5 }); // $ExpectType string
-rfc3164.buildMessage('foo', { severity: 6 }); // $ExpectType string
-rfc3164.buildMessage('foo', { severity: 7 }); // $ExpectType string
+rfc3164.buildMessage("foo"); // $ExpectType string
+rfc3164.buildMessage("foo", { severity: 0 }); // $ExpectType string
+rfc3164.buildMessage("foo", { severity: 1 }); // $ExpectType string
+rfc3164.buildMessage("foo", { severity: 2 }); // $ExpectType string
+rfc3164.buildMessage("foo", { severity: 3 }); // $ExpectType string
+rfc3164.buildMessage("foo", { severity: 4 }); // $ExpectType string
+rfc3164.buildMessage("foo", { severity: 5 }); // $ExpectType string
+rfc3164.buildMessage("foo", { severity: 6 }); // $ExpectType string
+rfc3164.buildMessage("foo", { severity: 7 }); // $ExpectType string
 // @ts-expect-error
-rfc3164.buildMessage('foo', { severity: 8 });
-rfc3164.buildMessage('foo', { msgColor: 30 }); // $ExpectType string
-rfc3164.send('foo', { severity: 1 }); // $ExpectType Promise<string>
-rfc3164.send('foo', { msgColor: 30 }); // $ExpectType Promise<string>
-rfc3164.emergency('foo'); // $ExpectType Promise<string>
-rfc3164.emer('foo'); // $ExpectType Promise<string>
-rfc3164.alert('foo'); // $ExpectType Promise<string>
-rfc3164.critical('foo'); // $ExpectType Promise<string>
-rfc3164.crit('foo'); // $ExpectType Promise<string>
-rfc3164.error('foo'); // $ExpectType Promise<string>
-rfc3164.err('foo'); // $ExpectType Promise<string>
-rfc3164.warning('foo'); // $ExpectType Promise<string>
-rfc3164.warn('foo'); // $ExpectType Promise<string>
-rfc3164.notice('foo'); // $ExpectType Promise<string>
-rfc3164.note('foo'); // $ExpectType Promise<string>
-rfc3164.informational('foo'); // $ExpectType Promise<string>
-rfc3164.info('foo'); // $ExpectType Promise<string>
-rfc3164.log('foo'); // $ExpectType Promise<string>
-rfc3164.debug('foo'); // $ExpectType Promise<string>
+rfc3164.buildMessage("foo", { severity: 8 });
+rfc3164.buildMessage("foo", { msgColor: 30 }); // $ExpectType string
+rfc3164.send("foo", { severity: 1 }); // $ExpectType Promise<string>
+rfc3164.send("foo", { msgColor: 30 }); // $ExpectType Promise<string>
+rfc3164.emergency("foo"); // $ExpectType Promise<string>
+rfc3164.emer("foo"); // $ExpectType Promise<string>
+rfc3164.alert("foo"); // $ExpectType Promise<string>
+rfc3164.critical("foo"); // $ExpectType Promise<string>
+rfc3164.crit("foo"); // $ExpectType Promise<string>
+rfc3164.error("foo"); // $ExpectType Promise<string>
+rfc3164.err("foo"); // $ExpectType Promise<string>
+rfc3164.warning("foo"); // $ExpectType Promise<string>
+rfc3164.warn("foo"); // $ExpectType Promise<string>
+rfc3164.notice("foo"); // $ExpectType Promise<string>
+rfc3164.note("foo"); // $ExpectType Promise<string>
+rfc3164.informational("foo"); // $ExpectType Promise<string>
+rfc3164.info("foo"); // $ExpectType Promise<string>
+rfc3164.log("foo"); // $ExpectType Promise<string>
+rfc3164.debug("foo"); // $ExpectType Promise<string>
 rfc3164.setColor(colors); // $ExpectType true
 
 rfc5424Options = rfc5424;
 // @ts-expect-error
 rfc5424 = rfc5424Options;
 rfc5424 = new RFC5424();
-new RFC5424({ applicationName: 'foo' });
-new RFC5424({ hostname: 'bar' });
+new RFC5424({ applicationName: "foo" });
+new RFC5424({ hostname: "bar" });
 new RFC5424({ timestamp: true });
 new RFC5424({ timestampUTC: true });
 new RFC5424({ timestampMS: true });
@@ -223,57 +223,57 @@ rfc5424.color; // $ExpectType boolean
 rfc5424.extendedColor; // $ExpectType boolean
 rfc5424.server; // $ExpectType Syslog | undefined
 
-rfc5424.buildMessage('foo'); // $ExpectType string
-rfc5424.buildMessage('foo', { severity: 0 }); // $ExpectType string
-rfc5424.buildMessage('foo', { severity: 1 }); // $ExpectType string
-rfc5424.buildMessage('foo', { severity: 2 }); // $ExpectType string
-rfc5424.buildMessage('foo', { severity: 3 }); // $ExpectType string
-rfc5424.buildMessage('foo', { severity: 4 }); // $ExpectType string
-rfc5424.buildMessage('foo', { severity: 5 }); // $ExpectType string
-rfc5424.buildMessage('foo', { severity: 6 }); // $ExpectType string
-rfc5424.buildMessage('foo', { severity: 7 }); // $ExpectType string
+rfc5424.buildMessage("foo"); // $ExpectType string
+rfc5424.buildMessage("foo", { severity: 0 }); // $ExpectType string
+rfc5424.buildMessage("foo", { severity: 1 }); // $ExpectType string
+rfc5424.buildMessage("foo", { severity: 2 }); // $ExpectType string
+rfc5424.buildMessage("foo", { severity: 3 }); // $ExpectType string
+rfc5424.buildMessage("foo", { severity: 4 }); // $ExpectType string
+rfc5424.buildMessage("foo", { severity: 5 }); // $ExpectType string
+rfc5424.buildMessage("foo", { severity: 6 }); // $ExpectType string
+rfc5424.buildMessage("foo", { severity: 7 }); // $ExpectType string
 // @ts-expect-error
-rfc5424.buildMessage('foo', { severity: 8 });
-rfc5424.buildMessage('foo', { facility: 30 }); // $ExpectType string
-rfc5424.buildMessage('foo', { pid: 1 }); // $ExpectType string
-rfc5424.buildMessage('foo', { id: 1 }); // $ExpectType string
-rfc5424.buildMessage('foo', { id: 1 }); // $ExpectType string
-rfc5424.buildMessage('foo', { msgStructuredData: ['foo'] }); // $ExpectType string
-rfc5424.buildMessage('foo', { msgStructuredData: ['foo'] as const }); // $ExpectType string
-rfc5424.buildMessage('foo', { msgColor: 30 }); // $ExpectType string
-rfc5424.send('foo', { severity: 1 }); // $ExpectType Promise<string>
-rfc5424.send('foo', { facility: 30 }); // $ExpectType Promise<string>
-rfc5424.send('foo', { pid: 1 }); // $ExpectType Promise<string>
-rfc5424.send('foo', { id: 1 }); // $ExpectType Promise<string>
-rfc5424.send('foo', { id: 1 }); // $ExpectType Promise<string>
-rfc5424.send('foo', { msgStructuredData: ['foo'] }); // $ExpectType Promise<string>
-rfc5424.send('foo', { msgStructuredData: ['foo'] as const }); // $ExpectType Promise<string>
-rfc5424.send('foo', { msgColor: 30 }); // $ExpectType Promise<string>
-rfc5424.emergency('foo'); // $ExpectType Promise<string>
-rfc5424.emer('foo'); // $ExpectType Promise<string>
-rfc5424.alert('foo'); // $ExpectType Promise<string>
-rfc5424.critical('foo'); // $ExpectType Promise<string>
-rfc5424.crit('foo'); // $ExpectType Promise<string>
-rfc5424.error('foo'); // $ExpectType Promise<string>
-rfc5424.err('foo'); // $ExpectType Promise<string>
-rfc5424.warning('foo'); // $ExpectType Promise<string>
-rfc5424.warn('foo'); // $ExpectType Promise<string>
-rfc5424.notice('foo'); // $ExpectType Promise<string>
-rfc5424.note('foo'); // $ExpectType Promise<string>
-rfc5424.informational('foo'); // $ExpectType Promise<string>
-rfc5424.info('foo'); // $ExpectType Promise<string>
-rfc5424.log('foo'); // $ExpectType Promise<string>
-rfc5424.debug('foo'); // $ExpectType Promise<string>
+rfc5424.buildMessage("foo", { severity: 8 });
+rfc5424.buildMessage("foo", { facility: 30 }); // $ExpectType string
+rfc5424.buildMessage("foo", { pid: 1 }); // $ExpectType string
+rfc5424.buildMessage("foo", { id: 1 }); // $ExpectType string
+rfc5424.buildMessage("foo", { id: 1 }); // $ExpectType string
+rfc5424.buildMessage("foo", { msgStructuredData: ["foo"] }); // $ExpectType string
+rfc5424.buildMessage("foo", { msgStructuredData: ["foo"] as const }); // $ExpectType string
+rfc5424.buildMessage("foo", { msgColor: 30 }); // $ExpectType string
+rfc5424.send("foo", { severity: 1 }); // $ExpectType Promise<string>
+rfc5424.send("foo", { facility: 30 }); // $ExpectType Promise<string>
+rfc5424.send("foo", { pid: 1 }); // $ExpectType Promise<string>
+rfc5424.send("foo", { id: 1 }); // $ExpectType Promise<string>
+rfc5424.send("foo", { id: 1 }); // $ExpectType Promise<string>
+rfc5424.send("foo", { msgStructuredData: ["foo"] }); // $ExpectType Promise<string>
+rfc5424.send("foo", { msgStructuredData: ["foo"] as const }); // $ExpectType Promise<string>
+rfc5424.send("foo", { msgColor: 30 }); // $ExpectType Promise<string>
+rfc5424.emergency("foo"); // $ExpectType Promise<string>
+rfc5424.emer("foo"); // $ExpectType Promise<string>
+rfc5424.alert("foo"); // $ExpectType Promise<string>
+rfc5424.critical("foo"); // $ExpectType Promise<string>
+rfc5424.crit("foo"); // $ExpectType Promise<string>
+rfc5424.error("foo"); // $ExpectType Promise<string>
+rfc5424.err("foo"); // $ExpectType Promise<string>
+rfc5424.warning("foo"); // $ExpectType Promise<string>
+rfc5424.warn("foo"); // $ExpectType Promise<string>
+rfc5424.notice("foo"); // $ExpectType Promise<string>
+rfc5424.note("foo"); // $ExpectType Promise<string>
+rfc5424.informational("foo"); // $ExpectType Promise<string>
+rfc5424.info("foo"); // $ExpectType Promise<string>
+rfc5424.log("foo"); // $ExpectType Promise<string>
+rfc5424.debug("foo"); // $ExpectType Promise<string>
 rfc5424.setColor(colors); // $ExpectType true
 
 leefOptions = leef;
 // @ts-expect-error
 leef = leefOptions;
 leef = new LEEF();
-new LEEF({ vendor: 'foo' });
-new LEEF({ product: 'foo' });
-new LEEF({ version: 'foo' });
-new LEEF({ eventId: 'foo' });
+new LEEF({ vendor: "foo" });
+new LEEF({ product: "foo" });
+new LEEF({ version: "foo" });
+new LEEF({ eventId: "foo" });
 new LEEF({ attributes: leefAttributes });
 new LEEF({ syslogHeader: true });
 new LEEF({ server: syslog });
@@ -346,16 +346,16 @@ cefOptions = cef;
 // @ts-expect-error
 cef = cefOptions;
 cef = new CEF();
-new CEF({ deviceVendor: 'foo' });
-new CEF({ deviceProduct: 'foo' });
-new CEF({ deviceVersion: 'foo' });
-new CEF({ deviceEventClassId: 'foo' });
-new CEF({ name: 'foo' });
-new CEF({ severity: 'Unknown' });
-new CEF({ severity: 'Low' });
-new CEF({ severity: 'Medium' });
-new CEF({ severity: 'High' });
-new CEF({ severity: 'Very-High' });
+new CEF({ deviceVendor: "foo" });
+new CEF({ deviceProduct: "foo" });
+new CEF({ deviceVersion: "foo" });
+new CEF({ deviceEventClassId: "foo" });
+new CEF({ name: "foo" });
+new CEF({ severity: "Unknown" });
+new CEF({ severity: "Low" });
+new CEF({ severity: "Medium" });
+new CEF({ severity: "High" });
+new CEF({ severity: "Very-High" });
 new CEF({ severity: 0 });
 new CEF({ severity: 1 });
 new CEF({ severity: 2 });
@@ -370,7 +370,7 @@ new CEF({ severity: 10 });
 // @ts-expect-error
 new CEF({ severity: 11 });
 // @ts-expect-error
-new CEF({ severity: 'foo' });
+new CEF({ severity: "foo" });
 new CEF({ extensions: cefExtensions });
 new CEF({ server: syslog });
 new CEF({ server: syslogOptions });
@@ -395,20 +395,20 @@ cef.send(syslogOptions); // $ExpectType Promise<string>
 cefExtensions.deviceAction; // $ExpectType string | null | undefined
 cefExtensions.applicationProtocol; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomIPv6Address1; // $ExpectType string | null | undefined
-cefExtensions['deviceCustomIPv6 Address1Label']; // $ExpectType string | null | undefined
+cefExtensions["deviceCustomIPv6 Address1Label"]; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomIPv6Address3; // $ExpectType string | null | undefined
-cefExtensions['deviceCustomIPv6Address3 Label']; // $ExpectType string | null | undefined
-cefExtensions['deviceCustomIPv6 Address4']; // $ExpectType string | null | undefined
-cefExtensions['deviceCustomIPv6 Address4Label']; // $ExpectType string | null | undefined
+cefExtensions["deviceCustomIPv6Address3 Label"]; // $ExpectType string | null | undefined
+cefExtensions["deviceCustomIPv6 Address4"]; // $ExpectType string | null | undefined
+cefExtensions["deviceCustomIPv6 Address4Label"]; // $ExpectType string | null | undefined
 cefExtensions.deviceEventCategory; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomFloatingPoint1; // $ExpectType number | null | undefined
-cefExtensions['deviceCustom FloatingPoint1Label']; // $ExpectType string | null | undefined
+cefExtensions["deviceCustom FloatingPoint1Label"]; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomFloatingPoint2; // $ExpectType number | null | undefined
-cefExtensions['deviceCustomFloatingPoint2 Label']; // $ExpectType string | null | undefined
+cefExtensions["deviceCustomFloatingPoint2 Label"]; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomFloatingPoint3; // $ExpectType number | null | undefined
-cefExtensions['deviceCustom FloatingPoint3Label']; // $ExpectType string | null | undefined
+cefExtensions["deviceCustom FloatingPoint3Label"]; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomFloatingPoint4; // $ExpectType number | null | undefined
-cefExtensions['deviceCustom FloatingPoint4Label']; // $ExpectType string | null | undefined
+cefExtensions["deviceCustom FloatingPoint4Label"]; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomNumber1; // $ExpectType number | null | undefined
 cefExtensions.deviceCustomNumber1Label; // $ExpectType string | null | undefined
 cefExtensions.DeviceCustomNumber2; // $ExpectType number | null | undefined
@@ -430,7 +430,7 @@ cefExtensions.deviceCustomString6; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomString6Label; // $ExpectType string | null | undefined
 cefExtensions.destinationDnsDomain; // $ExpectType string | null | undefined
 cefExtensions.destinationServiceName; // $ExpectType string | null | undefined
-cefExtensions['destinationTranslated Address']; // $ExpectType string | null | undefined
+cefExtensions["destinationTranslated Address"]; // $ExpectType string | null | undefined
 cefExtensions.destinationTranslatedPort; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomDate1; // $ExpectType string | null | undefined
 cefExtensions.deviceCustomDate1Label; // $ExpectType string | null | undefined
@@ -523,7 +523,7 @@ const extType3: CEF.ExtensionType = cefExtensions.type;
 cefExtensions.agentDnsDomain; // $ExpectType string | null | undefined
 cefExtensions.agentNtDomain; // $ExpectType string | null | undefined
 cefExtensions.agentTranslatedAddress; // $ExpectType string | null | undefined
-cefExtensions['agentTranslatedZone ExternalID']; // $ExpectType string | null | undefined
+cefExtensions["agentTranslatedZone ExternalID"]; // $ExpectType string | null | undefined
 cefExtensions.agentTranslatedZoneURI; // $ExpectType string | null | undefined
 cefExtensions.agentZoneExternalID; // $ExpectType string | null | undefined
 cefExtensions.agentZoneURI; // $ExpectType string | null | undefined
@@ -537,11 +537,11 @@ cefExtensions.agentTimeZone; // $ExpectType string | null | undefined
 cefExtensions.agentVersion; // $ExpectType string | null | undefined
 cefExtensions.customerExternalID; // $ExpectType string | null | undefined
 cefExtensions.customerURI; // $ExpectType string | null | undefined
-cefExtensions['destinationTranslated ZoneExternalID']; // $ExpectType string | null | undefined
-cefExtensions['destinationTranslated ZoneURI']; // $ExpectType string | null | undefined
+cefExtensions["destinationTranslated ZoneExternalID"]; // $ExpectType string | null | undefined
+cefExtensions["destinationTranslated ZoneURI"]; // $ExpectType string | null | undefined
 cefExtensions.destinationZoneExternalID; // $ExpectType string | null | undefined
 cefExtensions.destinationZoneURI; // $ExpectType string | null | undefined
-cefExtensions['deviceTranslatedZone ExternalID']; // $ExpectType string | null | undefined
+cefExtensions["deviceTranslatedZone ExternalID"]; // $ExpectType string | null | undefined
 cefExtensions.deviceTranslatedZoneURI; // $ExpectType string | null | undefined
 cefExtensions.deviceZoneExternalID; // $ExpectType string | null | undefined
 cefExtensions.deviceZoneURI; // $ExpectType string | null | undefined
@@ -551,61 +551,61 @@ cefExtensions.eventId; // $ExpectType number | null | undefined
 cefExtensions.rawEvent; // $ExpectType string | null | undefined
 cefExtensions.sourceGeoLatitude; // $ExpectType number | null | undefined
 cefExtensions.sourceGeoLongitude; // $ExpectType number | null | undefined
-cefExtensions['sourceTranslatedZone ExternalID']; // $ExpectType string | null | undefined
+cefExtensions["sourceTranslatedZone ExternalID"]; // $ExpectType string | null | undefined
 cefExtensions.sourceTranslatedZoneURI; // $ExpectType string | null | undefined
 cefExtensions.sourceZoneExternalID; // $ExpectType string | null | undefined
 cefExtensions.sourceZoneURI; // $ExpectType string | null | undefined
 
 new Syslog({
-    target: 'localhost',
-    protocol: 'udp',
-    format: 'rfc5424',
-}).rfc5424!.info('My Message');
+    target: "localhost",
+    protocol: "udp",
+    format: "rfc5424",
+}).rfc5424!.info("My Message");
 
 new RFC3164({
-    applicationName: 'MyApp',
+    applicationName: "MyApp",
     color: true,
     extendedColor: true,
     server: {
-        target: 'myServer.fqdn',
+        target: "myServer.fqdn",
     },
-}).info('My Message');
+}).info("My Message");
 
 new RFC5424({
-    applicationName: 'MyApp',
+    applicationName: "MyApp",
     timestamp: true,
     includeStructuredData: true,
     color: true,
     extendedColor: true,
     server: {
-        target: 'myServer.fqdn',
+        target: "myServer.fqdn",
     },
-}).info('My Message');
+}).info("My Message");
 
 new LEEF({
-    vendor: 'acme',
-    product: 'doohickey1000',
-    version: 'alpha',
-    eventId: 'hack',
+    vendor: "acme",
+    product: "doohickey1000",
+    version: "alpha",
+    eventId: "hack",
     attributes: {
-        cat: 'CC Databreach',
+        cat: "CC Databreach",
     },
     server: {
-        target: 'myServer.fqdn',
+        target: "myServer.fqdn",
     },
 }).send();
 
 new CEF({
-    deviceVendor: 'acme',
-    deviceProduct: 'doohickey1000',
-    deviceVersion: 'alpha',
-    deviceEventClassId: 'hack',
-    name: 'My Reporting Service',
-    severity: 'High',
+    deviceVendor: "acme",
+    deviceProduct: "doohickey1000",
+    deviceVersion: "alpha",
+    deviceEventClassId: "hack",
+    name: "My Reporting Service",
+    severity: "High",
     extensions: {
-        rawEvent: 'CC Databreach',
+        rawEvent: "CC Databreach",
     },
     server: {
-        target: 'myServer.fqdn',
+        target: "myServer.fqdn",
     },
 }).send();

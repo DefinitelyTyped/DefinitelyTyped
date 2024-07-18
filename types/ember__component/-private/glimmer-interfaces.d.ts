@@ -6,39 +6,39 @@
 // matches [the implementation][1], which *also* uses it as a type-only brand.
 //
 // [1]: https://github.com/glimmerjs/glimmer-vm/blob/d6d776cf3797dafa923bcdad47e1897231ef6539/packages/%40glimmer/interfaces/lib/managers/capabilities.d.ts#L1
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare const CAPABILITIES: unique symbol;
 
 export interface Capabilities {
-  [CAPABILITIES]: true;
+    [CAPABILITIES]: true;
 }
 
 export interface Arguments {
-  positional: readonly unknown[];
-  named: Record<string, unknown>;
+    positional: readonly unknown[];
+    named: Record<string, unknown>;
 }
 
 export interface ComponentCapabilitiesVersions {
-  '3.4': {
-    asyncLifecycleCallbacks?: boolean;
-    destructor?: boolean;
-  };
+    "3.4": {
+        asyncLifecycleCallbacks?: boolean;
+        destructor?: boolean;
+    };
 
-  '3.13': {
-    asyncLifecycleCallbacks?: boolean;
-    destructor?: boolean;
-    updateHook?: boolean;
-  };
+    "3.13": {
+        asyncLifecycleCallbacks?: boolean;
+        destructor?: boolean;
+        updateHook?: boolean;
+    };
 }
 
 export interface ComponentCapabilities extends Capabilities {
-  asyncLifeCycleCallbacks: boolean;
-  destructor: boolean;
-  updateHook: boolean;
+    asyncLifeCycleCallbacks: boolean;
+    destructor: boolean;
+    updateHook: boolean;
 }
 
 export interface ComponentManager<ComponentStateBucket> {
-  capabilities: ComponentCapabilities;
-  createComponent(factory: object, args: Arguments): ComponentStateBucket;
-  getContext(instance: ComponentStateBucket): unknown;
+    capabilities: ComponentCapabilities;
+    createComponent(factory: object, args: Arguments): ComponentStateBucket;
+    getContext(instance: ComponentStateBucket): unknown;
 }

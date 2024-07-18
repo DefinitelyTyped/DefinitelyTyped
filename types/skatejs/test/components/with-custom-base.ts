@@ -1,41 +1,41 @@
-import { define } from 'skatejs';
+import { define } from "skatejs";
 
-import { ButtonComponent, InputComponent } from './custom-base';
+import { ButtonComponent, InputComponent } from "./custom-base";
 
 export type ButtonProps = {
-  raised?: boolean | undefined;
+    raised?: boolean | undefined;
 };
 
 export class MaterialButton extends ButtonComponent<ButtonProps> {
-  static readonly props = {
-    raised: ''
-  };
+    static readonly props = {
+        raised: "",
+    };
 
-  type?: string | undefined;
-  foo() {
-    this.props.raised;
+    type?: string | undefined;
+    foo() {
+        this.props.raised;
 
-    console.log(
-      // we have to explicitly define HTMLBUttonProps as TS doesn't support Generic mixins ye https://github.com/Microsoft/TypeScript/pull/13743#issuecomment-277716812t
-      this.type
-    );
-  }
-  // now our MaterialButton has all <button> default behaviours and props
+        console.log(
+            // we have to explicitly define HTMLBUttonProps as TS doesn't support Generic mixins ye https://github.com/Microsoft/TypeScript/pull/13743#issuecomment-277716812t
+            this.type,
+        );
+    }
+    // now our MaterialButton has all <button> default behaviours and props
 }
 define(MaterialButton);
 
 export type InputProps = {
-  touched?: boolean | undefined;
+    touched?: boolean | undefined;
 };
 export class MaterialInput extends InputComponent<InputProps> {
-  // now our MaterialInput has all <input> default behaviours and props
+    // now our MaterialInput has all <input> default behaviours and props
 
-  type?: string | undefined;
-  foo() {
-    this.props.touched;
+    type?: string | undefined;
+    foo() {
+        this.props.touched;
 
-    console.log(this.type);
-  }
+        console.log(this.type);
+    }
 }
 
 define(MaterialInput);

@@ -1,8 +1,3 @@
-// Type definitions for feather-route-matcher 4.0
-// Project: https://github.com/henrikjoreteg/feather-route-matcher
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface RouteConfig<T> {
     [path: string]: T;
 }

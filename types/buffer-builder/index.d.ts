@@ -1,8 +1,3 @@
-// Type definitions for buffer-builder 0.2
-// Project: https://github.com/PeterReid/node-buffer-builder
-// Definitions by: Natalie Weizenbaum <https://github.com/nex3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare class BufferBuilder {

@@ -1,8 +1,3 @@
-// Type definitions for tiff-to-png 2.0
-// Project: https://github.com/RickCraig/node-tiff-to-png
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class TiffConverter {
     constructor(options?: TiffConverter.Options);
 
@@ -67,13 +62,13 @@ declare namespace TiffConverter {
     }
 
     interface Options {
-        page?: 'A4' | 'A3' | undefined;
+        page?: "A4" | "A3" | undefined;
 
         /**
          * The file type of the converted files
          * @default 'png'
          */
-        type?: 'png' | 'jpg' | undefined;
+        type?: "png" | "jpg" | undefined;
 
         /**
          * The level of the logs required. 0: Errors only, 1: Information

@@ -1,2 +1,2 @@
-import IsAccessorDescriptor = require('../5/IsAccessorDescriptor');
+import IsAccessorDescriptor = require("../5/IsAccessorDescriptor");
 export = IsAccessorDescriptor;

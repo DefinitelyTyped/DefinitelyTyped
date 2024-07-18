@@ -1,7 +1,7 @@
-import * as zip from 'cross-zip';
+import * as zip from "cross-zip";
 
-const inPath = 'myFolder';
-const outPath = 'myFile.zip';
+const inPath = "myFolder";
+const outPath = "myFile.zip";
 
 zip.zipSync(inPath, outPath);
 zip.zip(inPath, outPath);

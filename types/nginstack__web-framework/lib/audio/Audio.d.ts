@@ -2,7 +2,7 @@ export = Audio;
 declare function Audio(process: Process): void;
 declare class Audio {
     constructor(process: Process);
-    process: import('../process/Process');
+    process: import("../process/Process");
     sources: any[];
     autoplay: boolean;
     preload: string;
@@ -17,4 +17,4 @@ declare class Audio {
 declare namespace Audio {
     export { Process };
 }
-type Process = import('../process/Process');
+type Process = import("../process/Process");

@@ -1,17 +1,12 @@
-// Type definitions for passport-deezer 0.2
-// Project: https://github.com/krachot/passport-deezer
-// Definitions by: anyo <https://github.com/nyo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import type { OutgoingHttpHeaders } from 'http';
-import type { Request } from 'express';
+import type { Request } from "express";
+import type { OutgoingHttpHeaders } from "http";
 
 declare class Strategy {
     constructor(options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction);
 
     name: string;
     authenticate(req: Request, options?: object): void;
-    static Strategy: { new (options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction): Strategy };
+    static Strategy: { new(options: Strategy.StrategyOptions, verify: Strategy.VerifyFunction): Strategy };
 }
 
 declare namespace Strategy {

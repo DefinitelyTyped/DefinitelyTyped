@@ -1,8 +1,3 @@
-// Type definitions for itemsjs 2.1
-// Project: https://github.com/itemsapi/itemsjs
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace itemsjs;
 
 declare namespace itemsjs {
@@ -105,7 +100,7 @@ declare namespace itemsjs {
         reindex(data: I[]): void;
     }
 
-    type Order = 'asc' | 'desc';
+    type Order = "asc" | "desc";
 
     interface Sorting<I extends {}> {
         field: keyof I | Array<keyof I>;
@@ -118,7 +113,7 @@ declare namespace itemsjs {
         /** @default 10 */
         size?: number | undefined;
         /** @default 'count' */
-        sort?: 'term' | 'count' | undefined;
+        sort?: "term" | "count" | undefined;
         /** @default 'asc' */
         order?: Order | undefined;
         /** @default false */

@@ -1,2 +1,2 @@
-import { transduce } from '../index';
+import { transduce } from "../index";
 export default transduce;

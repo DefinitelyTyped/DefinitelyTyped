@@ -1,5 +1,5 @@
-import Chain = require('stream-chain');
-import FilterBase = require('./FilterBase');
+import Chain = require("stream-chain");
+import FilterBase = require("./FilterBase");
 
 export = Ignore;
 

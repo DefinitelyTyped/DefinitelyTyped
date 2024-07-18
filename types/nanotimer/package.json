@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nanotimer",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/Krb686/nanotimer"
+    ],
+    "devDependencies": {
+        "@types/nanotimer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Samuel Bodin",
+            "githubUsername": "bodinsamuel"
+        }
+    ]
+}

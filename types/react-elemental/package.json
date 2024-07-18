@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/react-elemental",
+    "version": "1.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "React Elemental",
+    "projects": [
+        "https://github.com/LINKIWI/react-elemental"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-elemental": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fernando Chen",
+            "githubUsername": "wzfc"
+        }
+    ]
+}

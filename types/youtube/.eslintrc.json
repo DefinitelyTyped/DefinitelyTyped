@@ -1,7 +1,9 @@
 {
     "rules": {
-        "no-const-enum": "off",
-        "dt-header": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/tablesorter",
+    "version": "2.31.9999",
+    "projects": [
+        "https://mottie.github.io/tablesorter/"
+    ],
+    "dependencies": {
+        "@types/globalize": "*",
+        "@types/jquery": "*",
+        "@types/jqueryui": "*",
+        "@types/select2": "*"
+    },
+    "devDependencies": {
+        "@types/tablesorter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
+}

@@ -1,2 +1,2 @@
-import { allPass } from '../index';
+import { allPass } from "../index.js";
 export default allPass;

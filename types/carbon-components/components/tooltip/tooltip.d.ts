@@ -8,10 +8,10 @@ interface TooltipOptions {
         menuDirection: string,
     ) =>
         | {
-              [x: number]: number;
-              left: number;
-              top: number;
-          }
+            [x: number]: number;
+            left: number;
+            top: number;
+        }
         | undefined;
     initEventNames: string[];
 }

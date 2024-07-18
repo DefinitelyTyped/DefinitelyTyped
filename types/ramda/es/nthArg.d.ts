@@ -1,2 +1,2 @@
-import { nthArg } from '../index';
+import { nthArg } from "../index.js";
 export default nthArg;

@@ -9,10 +9,12 @@ declare namespace GoogleAdsScripts {
         interface CampaignSitelinkIterator extends Base.Iterator<CampaignSitelink> {}
 
         interface CampaignSitelinkSelector
-            extends Base.Selector<CampaignSitelinkIterator>,
+            extends
+                Base.Selector<CampaignSitelinkIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

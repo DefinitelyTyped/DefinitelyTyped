@@ -1,17 +1,11 @@
-// Type definitions for npm-registry-fetch 4.0
-// Project: https://github.com/npm/registry-fetch#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import { Response } from 'node-fetch';
-import { Readable, Stream } from 'stream';
-import { Agent } from 'http';
-import { Integrity } from 'ssri';
-import { Logger } from 'npmlog';
-import * as npa from 'npm-package-arg';
+import { Agent } from "http";
+import { Response } from "node-fetch";
+import * as npa from "npm-package-arg";
+import { Logger } from "npmlog";
+import { Integrity } from "ssri";
+import { Readable, Stream } from "stream";
 
 /**
  * Performs a request to a given URL.
@@ -46,7 +40,7 @@ declare namespace fetch {
     type Options = FetchOptions & FetchRetryOptions & AuthOptions;
 
     interface AuthOptions {
-        'always-auth'?: boolean | undefined;
+        "always-auth"?: boolean | undefined;
         alwaysAuth?: boolean | undefined;
         email?: string | undefined;
         /**
@@ -123,28 +117,28 @@ declare namespace fetch {
          *
          * See also `opts.retry` to provide all retry options as a single object.
          */
-        'fetch-retries'?: number | undefined;
+        "fetch-retries"?: number | undefined;
         /**
          * The "factor" config for `retry` to use when fetching packages.
          *
          * See also `opts.retry` to provide all retry options as a single
          * object.
          */
-        'fetch-retry-factor'?: number | undefined;
+        "fetch-retry-factor"?: number | undefined;
         /**
          * The "minTimeout" config for `retry` to use when fetching packages.
          *
          * See also `opts.retry` to provide all retry options as a single
          * object.
          */
-        'fetch-retry-mintimeout'?: number | undefined;
+        "fetch-retry-mintimeout"?: number | undefined;
         /**
          * The "maxTimeout" config for `retry` to use when fetching packages.
          *
          * See also `opts.retry` to provide all retry options as a single
          * object.
          */
-        'fetch-retry-maxtimeout'?: number | undefined;
+        "fetch-retry-maxtimeout"?: number | undefined;
     }
 
     /**
@@ -244,7 +238,7 @@ declare namespace fetch {
          * auth for a request, and the auth details in `opts.forceAuth` will be
          * used instead.
          */
-        'force-auth'?: Partial<AuthOptions> | undefined;
+        "force-auth"?: Partial<AuthOptions> | undefined;
         /**
          * Alias for `force-auth`
          */
@@ -266,7 +260,7 @@ declare namespace fetch {
          * `null`. This will prevent dangling response sockets for requests
          * where you don't usually care what the response body is.
          */
-        'ignore-body'?: boolean | undefined;
+        "ignore-body"?: boolean | undefined;
         /**
          * Alias for `ignore-body`.
          */
@@ -292,7 +286,7 @@ declare namespace fetch {
          * This is used to populate the `npm-in-ci` request header sent to the
          * registry.
          */
-        'is-from-ci'?: boolean | undefined;
+        "is-from-ci"?: boolean | undefined;
         /**
          * Alias for `is-from-ci`
          */
@@ -319,7 +313,7 @@ declare namespace fetch {
          *
          * See also `opts.proxy`
          */
-        'local-address'?: string | undefined;
+        "local-address"?: string | undefined;
         /**
          * Logger object to use for logging operation details.
          */
@@ -330,7 +324,7 @@ declare namespace fetch {
          * `JSONStream.parse`, and can be used to transform stream data before
          * output.
          */
-        'map-json'?: ((v: any) => any) | undefined;
+        "map-json"?: ((v: any) => any) | undefined;
         /**
          * Alias for `map-json`
          */
@@ -347,7 +341,7 @@ declare namespace fetch {
         /**
          * Alias for `maxsockets`
          */
-        'max-sockets'?: number | undefined;
+        "max-sockets"?: number | undefined;
         /**
          * HTTP method to use for the outgoing request. Case-insensitive.
          */
@@ -361,7 +355,7 @@ declare namespace fetch {
          * used by the npm registry to identify individual user sessions
          * (usually individual invocations of the CLI).
          */
-        'npm-session'?: string | undefined;
+        "npm-session"?: string | undefined;
         /**
          * Alias for `npm-session`
          */
@@ -381,20 +375,20 @@ declare namespace fetch {
          *
          * This option is generally only useful if you're also using `opts.cache`.
          */
-        'prefer-offline'?: boolean | undefined;
+        "prefer-offline"?: boolean | undefined;
         /**
          * If true, staleness checks for cached data will be forced, making the
          * CLI look for updates immediately even for fresh package data.
          *
          * This option is generally only useful if you're also using `opts.cache`.
          */
-        'prefer-online'?: boolean | undefined;
+        "prefer-online"?: boolean | undefined;
         /**
          * If provided, will be sent in the npm-scope header. This header is
          * used by the npm registry to identify the toplevel package scope that
          * a particular project installation is using.
          */
-        'project-scope'?: string | undefined;
+        "project-scope"?: string | undefined;
         /**
          * Alias for `project-scope`.
          */
@@ -460,7 +454,7 @@ declare namespace fetch {
          *
          * See also `opts.ca`.
          */
-        'strict-ssl'?: boolean | undefined;
+        "strict-ssl"?: boolean | undefined;
         /**
          * Time before a hanging request times out.
          */
@@ -468,7 +462,7 @@ declare namespace fetch {
         /**
          * User agent string to send in the `User-Agent` header.
          */
-        'user-agent'?: string | undefined;
+        "user-agent"?: string | undefined;
 
         [key: string]: any;
     }

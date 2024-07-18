@@ -1,7 +1,7 @@
-import escapeRegExp = require('escape-regexp');
+import escapeRegExp = require("escape-regexp");
 
 // $ExpectType string
-escapeRegExp('aaa');
+escapeRegExp("aaa");
 
 // @ts-expect-error
 escapeRegExp();

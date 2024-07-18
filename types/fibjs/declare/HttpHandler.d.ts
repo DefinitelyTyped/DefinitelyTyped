@@ -31,7 +31,6 @@ declare class Class_HttpHandler extends Class_HandlerEx {
      * @brief 查询和设置是否允强制使用 gzip 压缩输出，缺省为 false
      *
      *
-     * @type Boolean
      */
 
     forceGZIP: boolean

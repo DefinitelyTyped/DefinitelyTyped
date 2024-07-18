@@ -14,7 +14,7 @@ export interface VideoMediaConfiguration {
 }
 
 export type MediaConfiguration = {
-    type: 'file' | 'record' | 'transmission' | 'media-source';
+    type: "file" | "record" | "transmission" | "media-source";
 } & ({ audio: AudioMediaConfiguration } | { video: VideoMediaConfiguration });
 
 export interface MediaConfigurationInfo {
@@ -28,5 +28,6 @@ export function useMediaCapabilities<T = Partial<MediaConfigurationInfo>>(
     initialMediaCapabilities: T,
 ): {
     mediaCapabilities:
-        | ({ supported: boolean; hasMediaConfig: boolean } & T) | ({ hasMediaConfig?: undefined} & MediaConfigurationInfo);
+        | ({ supported: boolean; hasMediaConfig: boolean } & T)
+        | ({ hasMediaConfig?: undefined } & MediaConfigurationInfo);
 };

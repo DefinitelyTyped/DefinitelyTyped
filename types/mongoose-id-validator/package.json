@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mongoose-id-validator",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/CampbellSoftwareSolutions/mongoose-id-validator"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/mongoose-id-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kerollos Magdy",
+            "githubUsername": "kerolloz"
+        }
+    ]
 }

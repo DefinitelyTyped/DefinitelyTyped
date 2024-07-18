@@ -1,5 +1,5 @@
-import { Client } from './Client.d';
-import { Status } from './Status.d';
+import { Client } from "./Client.d";
+import { Status } from "./Status.d";
 
 /**
  * An input stream abstraction used by the Guacamole client to facilitate

@@ -1,8 +1,8 @@
-import * as stream from 'stream';
-import {Service} from './service';
-import {Response} from './response';
-import {HttpRequest} from './http_request';
-import {AWSError} from './error';
+import * as stream from "stream";
+import { AWSError } from "./error";
+import { HttpRequest } from "./http_request";
+import { Response } from "./response";
+import { Service } from "./service";
 export class Request<D, E> {
     /**
      * Creates a request for an operation on a given service with a set of input parameters.
@@ -134,7 +134,16 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the headers are sent by the remote server.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    on(event: "httpHeaders", listener: (statusCode: number, headers: {[key: string]: string}, response: Response<D, E>, statusMessage: string) => void, prepend?: boolean): Request<D, E>;
+    on(
+        event: "httpHeaders",
+        listener: (
+            statusCode: number,
+            headers: { [key: string]: string },
+            response: Response<D, E>,
+            statusMessage: string,
+        ) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when data is sent by the remote server.
      *
@@ -142,7 +151,11 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when data is sent by the remote server.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    on(event: "httpData", listener: (chunk: Buffer|Uint8Array, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
+    on(
+        event: "httpData",
+        listener: (chunk: Buffer | Uint8Array, response: Response<D, E>) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when the HTTP request has uploaded more data.
      *
@@ -150,7 +163,11 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the HTTP request has uploaded more data.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    on(event: "httpUploadProgress", listener: (progress: Progress, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
+    on(
+        event: "httpUploadProgress",
+        listener: (progress: Progress, response: Response<D, E>) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when the HTTP request has downloaded more data.
      *
@@ -158,7 +175,11 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the HTTP request has downloaded more data.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    on(event: "httpDownloadProgress", listener: (progress: Progress, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
+    on(
+        event: "httpDownloadProgress",
+        listener: (progress: Progress, response: Response<D, E>) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when the HTTP request failed.
      *
@@ -254,7 +275,11 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the request errors at any point.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    onAsync(event: "error", listener: (err: AWSError, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
+    onAsync(
+        event: "error",
+        listener: (err: AWSError, response: Response<D, E>) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered whenever a request cycle completes.
      *
@@ -270,7 +295,16 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the headers are sent by the remote server.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    onAsync(event: "httpHeaders", listener: (statusCode: number, headers: {[key: string]: string}, response: Response<D, E>, statusMessage: string) => void, prepend?: boolean): Request<D, E>;
+    onAsync(
+        event: "httpHeaders",
+        listener: (
+            statusCode: number,
+            headers: { [key: string]: string },
+            response: Response<D, E>,
+            statusMessage: string,
+        ) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when data is sent by the remote server.
      *
@@ -278,7 +312,11 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when data is sent by the remote server.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    onAsync(event: "httpData", listener: (chunk: Buffer|Uint8Array, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
+    onAsync(
+        event: "httpData",
+        listener: (chunk: Buffer | Uint8Array, response: Response<D, E>) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when the HTTP request has uploaded more data.
      *
@@ -286,7 +324,11 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the HTTP request has uploaded more data.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    onAsync(event: "httpUploadProgress", listener: (progress: Progress, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
+    onAsync(
+        event: "httpUploadProgress",
+        listener: (progress: Progress, response: Response<D, E>) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when the HTTP request has downloaded more data.
      *
@@ -294,7 +336,11 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the HTTP request has downloaded more data.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    onAsync(event: "httpDownloadProgress", listener: (progress: Progress, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
+    onAsync(
+        event: "httpDownloadProgress",
+        listener: (progress: Progress, response: Response<D, E>) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when the HTTP request failed.
      *
@@ -302,7 +348,11 @@ export class Request<D, E> {
      * @param {function} listener - Callback to run when the HTTP request failed.
      * @param {boolean} prepend - If set, prepends listener instead of appending.
      */
-    onAsync(event: "httpError", listener: (err: Error, response: Response<D, E>) => void, prepend?: boolean): Request<D, E>;
+    onAsync(
+        event: "httpError",
+        listener: (err: Error, response: Response<D, E>) => void,
+        prepend?: boolean,
+    ): Request<D, E>;
     /**
      * Adds a listener that is triggered when the server is finished sending data.
      *
@@ -314,7 +364,7 @@ export class Request<D, E> {
     /**
      * Returns a 'thenable' promise.
      */
-    promise(): Promise<PromiseResult<D, E>>
+    promise(): Promise<PromiseResult<D, E>>;
     /**
      * The time that the request started.
      */
@@ -323,10 +373,9 @@ export class Request<D, E> {
      * The raw HTTP request object containing request headers and body information sent by the service.
      */
     httpRequest: HttpRequest;
-
 }
 
-export type PromiseResult<D, E> = D & {$response: Response<D, E>};
+export type PromiseResult<D, E> = D & { $response: Response<D, E> };
 
 export interface Progress {
     loaded: number;

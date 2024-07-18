@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/pump",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/mafintosh/pump"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pump": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        },
+        {
+            "name": "Jason Cordial",
+            "githubUsername": "jcordial"
+        }
+    ]
+}

@@ -8,7 +8,7 @@ const rfc822message = "Subject: test\r\n\r\nHello world";
 const dkimOptions: DKIMSignOptions = {
     domainName: "müriaad-polüteism.info",
     keySelector: "dkim",
-    privateKey: fs.readFileSync("./test_private.pem")
+    privateKey: fs.readFileSync("./test_private.pem"),
 };
 
 // generate signature header field

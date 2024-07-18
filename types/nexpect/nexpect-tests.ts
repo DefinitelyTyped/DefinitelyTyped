@@ -1,5 +1,4 @@
-
-import nexpect = require('nexpect');
+import nexpect = require("nexpect");
 
 nexpect.spawn("echo", ["hello"])
     .expect("hello")
@@ -9,7 +8,7 @@ nexpect.spawn("echo", ["hello"])
         }
     });
 
-nexpect.spawn("ls -la /tmp/undefined", {stream: 'stderr'})
+nexpect.spawn("ls -la /tmp/undefined", { stream: "stderr" })
     .expect("No such file or directory")
     .run((err) => {
         if (!err) {
@@ -25,8 +24,7 @@ nexpect.spawn("node --interactive")
     .run((err) => {
         if (!err) {
             console.log("node process started, console logged, process exited");
-        }
-        else {
-            console.log(err)
+        } else {
+            console.log(err);
         }
     });

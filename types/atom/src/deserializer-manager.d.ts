@@ -1,4 +1,4 @@
-import { Disposable } from '../index';
+import { Disposable } from "../index";
 
 /** Manages the deserializers used for serialized state. */
 export interface DeserializerManager {

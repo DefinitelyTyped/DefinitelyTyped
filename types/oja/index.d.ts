@@ -1,13 +1,7 @@
-// Type definitions for oja 1.1
-// Project: https://github.com/dimichgh/oja#readme
-// Definitions by: Laurens Stötzel <https://github.com/buffcode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
-import { Readable } from "stream";
 import { EventEmitter } from "events";
+import { Readable } from "stream";
 export type ConsumerCallback = (payload: any, runtime: Flow) => void;
 
 export type Primitive =
@@ -30,7 +24,7 @@ export type AddableToAction = Action | AddableFunction;
 
 export class EventContext {
     constructor(context: EventContext | object);
-    stageContext(topics: string | ReadonlyArray<string>): StageContext;
+    stageContext(topics: string | readonly string[]): StageContext;
     state(): State;
     repub(type: string, handler: (event: any) => void): void;
     on(type: string, handler: (event: any) => void): this;
@@ -50,30 +44,30 @@ export class ReadableStream extends Readable {
 
 export class Flow {
     constructor(baseFlow?: Flow);
-    consume(topic: string | ReadonlyArray<string>, callback: ConsumerCallback): this;
+    consume(topic: string | readonly string[], callback: ConsumerCallback): this;
     consume(topic: string): Promise<any>;
     consume(
-        topics: ReadonlyArray<string>
+        topics: readonly string[],
     ): Promise<{
         [key: string]: string;
     }>;
     consumeStream(
         topic: string,
-        callback: (stream: ReadableStream) => void
+        callback: (stream: ReadableStream) => void,
     ): this;
     consumeStream(topic: string): ReadableStream;
     getReader(
-        topic: string
+        topic: string,
     ): {
         next(): Promise<any>;
     };
-    define(topics: string | ReadonlyArray<string>): StageContext;
+    define(topics: string | readonly string[]): StageContext;
     define(
         topic: string,
-        data: Promise<Primitive> | DefinitionFunction | object | Primitive
-      ): this;
+        data: Promise<Primitive> | DefinitionFunction | object | Primitive,
+    ): this;
     catch(callback: (err: any) => void): this;
-    timeout(topics: string |  ReadonlyArray<string>, ms: number): this;
+    timeout(topics: string | readonly string[], ms: number): this;
     state(): State;
 }
 

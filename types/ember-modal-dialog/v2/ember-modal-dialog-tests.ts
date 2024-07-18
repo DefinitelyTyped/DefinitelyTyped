@@ -1,4 +1,4 @@
-import ModalDialog from 'ember-modal-dialog/components/modal-dialog';
+import ModalDialog from "ember-modal-dialog/components/modal-dialog";
 
 class MyDialog extends ModalDialog {
     // https://www.npmjs.com/package/ember-modal-dialog#configurable-properties

@@ -1,10 +1,4 @@
-// Type definitions for timezone-js
-// Project: https://github.com/mde/timezone-js
-// Definitions by: bonnici <https://github.com/bonnici>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Imported from: https://github.com/soywiz/typescript-node-definitions/timezone-js.d.ts
-
 
 export declare var timezone: TimezoneJs;
 
@@ -15,11 +9,20 @@ export declare class Date {
     constructor(date: Object, timezone?: string);
     constructor(utcMillis: number, timezone?: string);
     constructor(time: string, timezone?: string);
-    constructor(year?: number, month?: number, day?: number, hour?: number, minute?: number, second?: number, millisecond?: number, timezone?: string);
+    constructor(
+        year?: number,
+        month?: number,
+        day?: number,
+        hour?: number,
+        minute?: number,
+        second?: number,
+        millisecond?: number,
+        timezone?: string,
+    );
     setTimezone: (timezone: string) => void;
 
     // regular Date members
-    toString(format?:string): string;
+    toString(format?: string): string;
     toDateString(): string;
     toTimeString(): string;
     toLocaleString(): string;
@@ -46,7 +49,7 @@ export declare class Date {
     getTimezoneOffset(): number;
     setTime(time: number): number;
 
-    // Note the setters have a non-void return type. Date has them as well, according to TypeScript 
+    // Note the setters have a non-void return type. Date has them as well, according to TypeScript
     setMilliseconds(ms: number): number;
     setUTCMilliseconds(ms: number): number;
     setSeconds(sec: number, ms?: number): number;
@@ -65,7 +68,6 @@ export declare class Date {
     toISOString(): string;
     toJSON(key?: any): string;
 }
-
 
 export interface TimezoneJs {
     zoneFileBasePath: string;

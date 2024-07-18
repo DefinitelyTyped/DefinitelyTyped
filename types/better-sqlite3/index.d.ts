@@ -1,15 +1,3 @@
-// Type definitions for better-sqlite3 7.6
-// Project: https://github.com/JoshuaWise/better-sqlite3
-// Definitions by: Ben Davies <https://github.com/Morfent>
-//                 Mathew Rumsey <https://github.com/matrumz>
-//                 Santiago Aguilar <https://github.com/sant123>
-//                 Alessandro Vergani <https://github.com/loghorn>
-//                 Andrew Kaiser <https://github.com/andykais>
-//                 Mark Stewart <https://github.com/mrkstwrt>
-//                 Florian Stamer <https://github.com/stamerf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="node" />
 
 // FIXME: Is this `any` really necessary?
@@ -18,7 +6,7 @@ type ArgumentTypes<F extends VariableArgFunction> = F extends (...args: infer A)
 type ElementOf<T> = T extends Array<infer E> ? E : T;
 
 declare namespace BetterSqlite3 {
-    interface Statement<BindParameters extends unknown[]> {
+    interface Statement<BindParameters extends unknown[], Result = unknown> {
         database: Database;
         source: string;
         reader: boolean;
@@ -26,9 +14,9 @@ declare namespace BetterSqlite3 {
         busy: boolean;
 
         run(...params: BindParameters): Database.RunResult;
-        get(...params: BindParameters): unknown;
-        all(...params: BindParameters): unknown[];
-        iterate(...params: BindParameters): IterableIterator<unknown>;
+        get(...params: BindParameters): Result | undefined;
+        all(...params: BindParameters): Result[];
+        iterate(...params: BindParameters): IterableIterator<Result>;
         pluck(toggleState?: boolean): this;
         expand(toggleState?: boolean): this;
         raw(toggleState?: boolean): this;
@@ -54,7 +42,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface VirtualTableOptions {
-        rows: () => Generator;
+        rows: (...params: unknown[]) => Generator;
         columns: string[];
         parameters?: string[] | undefined;
         safeIntegers?: boolean | undefined;
@@ -68,20 +56,24 @@ declare namespace BetterSqlite3 {
         open: boolean;
         inTransaction: boolean;
 
-        prepare<BindParameters extends unknown[] | {} = unknown[]>(
+        prepare<BindParameters extends unknown[] | {} = unknown[], Result = unknown>(
             source: string,
-        ): BindParameters extends unknown[] ? Statement<BindParameters> : Statement<[BindParameters]>;
+        ): BindParameters extends unknown[] ? Statement<BindParameters, Result> : Statement<[BindParameters], Result>;
         transaction<F extends VariableArgFunction>(fn: F): Transaction<F>;
         exec(source: string): this;
         pragma(source: string, options?: Database.PragmaOptions): unknown;
         function(name: string, cb: (...params: unknown[]) => unknown): this;
         function(name: string, options: Database.RegistrationOptions, cb: (...params: unknown[]) => unknown): this;
-        aggregate<T>(name: string, options: Database.RegistrationOptions & {
-            start?: T | (() => T);
-            step: (total: T, next: ElementOf<T>) => T | void;
-            inverse?: ((total: T, dropped: T) => T) | undefined;
-            result?: ((total: T) => unknown) | undefined;
-        }): this;
+        aggregate<T>(
+            name: string,
+            options: Database.RegistrationOptions & {
+                start?: T | (() => T);
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                step: (total: T, next: ElementOf<T>) => T | void;
+                inverse?: ((total: T, dropped: T) => T) | undefined;
+                result?: ((total: T) => unknown) | undefined;
+            },
+        ): this;
         loadExtension(path: string): this;
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
@@ -92,8 +84,8 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new (filename: string | Buffer, options?: Database.Options): Database;
-        (filename: string, options?: Database.Options): Database;
+        new(filename?: string | Buffer, options?: Database.Options): Database;
+        (filename?: string, options?: Database.Options): Database;
         prototype: Database;
 
         SqliteError: typeof SqliteError;
@@ -147,9 +139,9 @@ declare namespace Database {
     }
 
     type SqliteError = typeof SqliteError;
-    type Statement<BindParameters extends unknown[] | {} = unknown[]> = BindParameters extends unknown[]
-        ? BetterSqlite3.Statement<BindParameters>
-        : BetterSqlite3.Statement<[BindParameters]>;
+    type Statement<BindParameters extends unknown[] | {} = unknown[], Result = unknown> = BindParameters extends
+        unknown[] ? BetterSqlite3.Statement<BindParameters, Result>
+        : BetterSqlite3.Statement<[BindParameters], Result>;
     type ColumnDefinition = BetterSqlite3.ColumnDefinition;
     type Transaction<T extends VariableArgFunction = VariableArgFunction> = BetterSqlite3.Transaction<T>;
     type Database = BetterSqlite3.Database;

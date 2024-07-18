@@ -1,2 +1,2 @@
-import ToUint32 = require('../5/ToUint32');
+import ToUint32 = require("../5/ToUint32");
 export = ToUint32;

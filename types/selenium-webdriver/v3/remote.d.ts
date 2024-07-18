@@ -1,4 +1,4 @@
-import * as webdriver from './index';
+import * as webdriver from "./index";
 
 /**
  * A record object that defines the configuration options for a DriverService
@@ -168,7 +168,7 @@ export class SeleniumServer extends DriverService {
      *     server.
      * @throws {Error} If the path to the Selenium jar is not specified or if an
      *     invalid port is specified.
-     **/
+     */
     constructor(jar: string, opt_options?: SeleniumServer.Options);
 }
 
@@ -219,8 +219,7 @@ export namespace SeleniumServer {
  * @final
  */
 export class FileDetector extends webdriver.FileDetector {
-    /**
-     **/
+    /** */
     constructor();
 
     /**

@@ -1,8 +1,3 @@
-// Type definitions for node-jsfl-runner v0.2.4
-// Project: https://www.npmjs.com/package/node-jsfl-runner
-// Definitions by: Michael Randolph <https://github.com/mrand01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface JSFL {
@@ -17,7 +12,12 @@ export interface JSFL {
  * @param initParams Parameters to pass to JSFL init function
  * @param callback Callback
  */
-export function createJSFL(jsfl: JSFL, fileName: string, initParams: Array<any>, callback: (err: NodeJS.ErrnoException) => void): void;
+export function createJSFL(
+    jsfl: JSFL,
+    fileName: string,
+    initParams: any[],
+    callback: (err: NodeJS.ErrnoException) => void,
+): void;
 
 /**
  * Deletes a JSFL file

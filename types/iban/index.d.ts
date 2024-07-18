@@ -1,9 +1,3 @@
-// Type definitions for iban.js 0.0.14
-// Project: https://github.com/arhs/iban.js/
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-//                 Piotr Błażejewicz <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @summary Interface for {@link IBAN} object.
  * Cyril Schumacher
@@ -13,7 +7,7 @@ interface IBANStatic {
     /**
      * An object containing all the known IBAN specifications
      */
-    countries: Record<IBAN.Specification['countryCode'], IBAN.Specification>;
+    countries: Record<IBAN.Specification["countryCode"], IBAN.Specification>;
 
     /**
      * @summary Returns the IBAN in a electronic format.

@@ -1,9 +1,9 @@
-import { LoadingManager } from './LoadingManager';
+import { LoadingManager } from "./LoadingManager.js";
 
 /**
  * Base class for implementing loaders.
  */
-export class Loader {
+export class Loader<TData = unknown, TUrl = string> {
     constructor(manager?: LoadingManager);
 
     /**
@@ -12,7 +12,7 @@ export class Loader {
     crossOrigin: string;
 
     /**
-     * @default: false
+     * @default false
      */
     withCredentials: boolean;
 
@@ -32,15 +32,19 @@ export class Loader {
      */
     requestHeader: { [header: string]: string };
 
-    /*
-	load(): void;
-    loadAsync(): Promise<unknown>;
-	parse(): void;
-	*/
+    load(
+        url: TUrl,
+        onLoad: (data: TData) => void,
+        onProgress?: (event: ProgressEvent) => void,
+        onError?: (err: unknown) => void,
+    ): void;
+    loadAsync(url: TUrl, onProgress?: (event: ProgressEvent) => void): Promise<TData>;
 
     setCrossOrigin(crossOrigin: string): this;
     setWithCredentials(value: boolean): this;
     setPath(path: string): this;
     setResourcePath(resourcePath: string): this;
     setRequestHeader(requestHeader: { [header: string]: string }): this;
+
+    static DEFAULT_MATERIAL_NAME: string;
 }

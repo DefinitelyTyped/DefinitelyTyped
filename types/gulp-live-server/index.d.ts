@@ -1,11 +1,6 @@
-// Type definitions for gulp-live-server 0.0
-// Project: https://github.com/gimm/gulp-live-server
-// Definitions by: robertmaier <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import type { spawn } from 'child_process';
-import type { createServer } from 'https';
-import type { Handler, Application } from 'express';
+import type { spawn } from "child_process";
+import type { Application, Handler } from "express";
+import type { createServer } from "https";
 
 declare namespace gls {
     interface LivereloadParams {
@@ -14,9 +9,9 @@ declare namespace gls {
         errorListener?: (error: Error) => void;
         handler?: Handler;
         app?: Application;
-        key?: NonNullable<Parameters<typeof createServer>[0]>['key'];
-        cert?: NonNullable<Parameters<typeof createServer>[0]>['cert'];
-        pfx?: NonNullable<Parameters<typeof createServer>[0]>['pfx'];
+        key?: NonNullable<Parameters<typeof createServer>[0]>["key"];
+        cert?: NonNullable<Parameters<typeof createServer>[0]>["cert"];
+        pfx?: NonNullable<Parameters<typeof createServer>[0]>["pfx"];
         liveCSS?: boolean;
         liveImg?: boolean;
         prefix?: boolean;

@@ -1,10 +1,10 @@
-import Complex = require('complex');
+import Complex = require("complex");
 
 let z: Complex = new Complex(2, 3);
 z = Complex.from(2, 3);
 z = Complex.from(2, 4);
 z = Complex.from(5);
-z = Complex.from('2+5i');
+z = Complex.from("2+5i");
 z = Complex.fromPolar(3, Math.PI);
 z = Complex.i;
 z = Complex.one;

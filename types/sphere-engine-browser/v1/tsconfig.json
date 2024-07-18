@@ -1,18 +1,10 @@
 {
     "compilerOptions": {
         "target": "es2017",
-        "module": "commonjs",
+        "module": "node16",
         "lib": [
             "es2017"
         ],
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "sphere-engine-browser": [ "sphere-engine-browser/v1" ],
-            "sphere-engine-browser/*": [ "sphere-engine-browser/v1/*" ]
-        },
         "types": [],
         "noEmit": true,
         "noImplicitAny": true,

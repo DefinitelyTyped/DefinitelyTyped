@@ -1,13 +1,6 @@
-// Type definitions for oracledb 3.1
-// Project: https://github.com/oracle/node-oracledb
-// Definitions by: Richard Natal <https://github.com/Bigous>
-//                 Connor Fitzgerald <https://github.com/connorjayfitzgerald>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
-import { Duplex, Readable } from 'stream';
+import { Duplex, Readable } from "stream";
 
 /**
  * @deprecated These types are no longer maintained. Please upgrade to oracledb version 4.
@@ -752,18 +745,22 @@ declare namespace OracleDB {
          *
          * @since 2.2
          */
-        executeMany(sql: string, binds: (Record<string, any> | any[])[], options: ExecuteManyOptions): Promise<Results>;
         executeMany(
             sql: string,
-            binds: (Record<string, any> | any[])[],
+            binds: Array<Record<string, any> | any[]>,
+            options: ExecuteManyOptions,
+        ): Promise<Results>;
+        executeMany(
+            sql: string,
+            binds: Array<Record<string, any> | any[]>,
             options: ExecuteManyOptions,
             callback: (error: DBError, result: Results) => void,
         ): void;
 
-        executeMany(sql: string, binds: (Record<string, any> | any[])[]): Promise<Results>;
+        executeMany(sql: string, binds: Array<Record<string, any> | any[]>): Promise<Results>;
         executeMany(
             sql: string,
-            binds: (Record<string, any> | any[])[],
+            binds: Array<Record<string, any> | any[]>,
             callback: (error: DBError, result: Results) => void,
         ): void;
 
@@ -989,10 +986,12 @@ declare namespace OracleDB {
         /** Name of the database which sent the notification. */
         dbName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
-        queries?: {
-            /** Array of objects specifying the queries which were affected by the Query Change notification. */
-            tables: SubscriptionTables;
-        }[] | undefined;
+        queries?:
+            | Array<{
+                /** Array of objects specifying the queries which were affected by the Query Change notification. */
+                tables: SubscriptionTables;
+            }>
+            | undefined;
         /** Indicates whether the subscription is registerd with the database. */
         registered?: boolean | undefined;
         /** Array of objects specifying the tables which were affected by the notification. */
@@ -1018,12 +1017,14 @@ declare namespace OracleDB {
          * quality of service used when creating the subscription indicated the desire for ROWIDs and no
          * summary grouping took place.
          */
-        rows?: {
-            /** One of the CQN_OPCODE_* constants. */
-            operation: number;
-            /** ROWID of the row that was affected. */
-            rowid: string;
-        }[] | undefined;
+        rows?:
+            | Array<{
+                /** One of the CQN_OPCODE_* constants. */
+                operation: number;
+                /** ROWID of the row that was affected. */
+                rowid: string;
+            }>
+            | undefined;
     }
 
     /**
@@ -1033,7 +1034,7 @@ declare namespace OracleDB {
         /** Array of strings corresponding to the unique names of the bind variables used in the SQL statement. */
         bindNames?: string[] | undefined;
         /** Extended metadata properties. */
-        metaData?: Array<Metadata> | undefined;
+        metaData?: Metadata[] | undefined;
         /** One of the SQL Statement Type Constants. */
         statementType?: number | undefined;
     }
@@ -1197,12 +1198,14 @@ declare namespace OracleDB {
          *          "HIRE_DETAILS": { type: oracledb.DEFAULT }  // override fetchAsString or fetchAsBuffer
          *      }
          */
-        fetchInfo?: Record<
-            string,
-            {
-                type: number;
-            }
-        > | undefined;
+        fetchInfo?:
+            | Record<
+                string,
+                {
+                    type: number;
+                }
+            >
+            | undefined;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -1700,7 +1703,8 @@ declare namespace OracleDB {
          */
         sessionCallback?:
             | string
-            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void) | undefined;
+            | ((connection: Connection, requestedTag: string, callback: (error?: DBError) => void) => void)
+            | undefined;
         /**
          * The number of statements to be cached in the statement cache of each connection in the pool.
          * This optional property overrides the oracledb.stmtCacheSize property.
@@ -1756,7 +1760,7 @@ declare namespace OracleDB {
          * The number of rows returned is limited by oracledb.maxRows or the maxRows option in an execute() call.
          * If maxRows is 0, then the number of rows is limited by Node.js memory constraints.
          */
-        rows: (any[] | Record<string, any>)[];
+        rows: Array<any[] | Record<string, any>>;
         /**
          * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
          * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
@@ -1793,7 +1797,7 @@ declare namespace OracleDB {
          * the array passed as the binds parameter. It will be present only if there is at least one OUT bind
          * variable identified.
          */
-        outBinds: (Record<string, any> | any[])[];
+        outBinds: Array<Record<string, any> | any[]>;
         /**
          * An integer identifying the total number of database rows affected by the processing of all records
          * of the binds parameter. It is only present if a DML statement was executed.
@@ -1853,8 +1857,8 @@ declare namespace OracleDB {
          *
          * @param numRows The number of rows to fetch
          */
-        getRows(numRows: number): Promise<(Record<string, any> | any[])[]>;
-        getRows(numRows: number, callback: (error: DBError, rows: (Record<string, any> | any[])[]) => void): void;
+        getRows(numRows: number): Promise<Array<Record<string, any> | any[]>>;
+        getRows(numRows: number, callback: (error: DBError, rows: Array<Record<string, any> | any[]>) => void): void;
 
         /**
          * This synchronous method converts a ResultSet into a stream.

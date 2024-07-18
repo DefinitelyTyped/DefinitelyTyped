@@ -1,13 +1,8 @@
-// Type definitions for font-carrier 0.3
-// Project: https://github.com/purplebamboo/font-carrier#readme
-// Definitions by: zfitness <https://github.com/zFitness>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import Font = require('./class/font');
-import Glyph = require('./class/glyph');
-import FontFace = require('./class/fontface');
+import Font = require("./class/font");
+import Glyph = require("./class/glyph");
+import FontFace = require("./class/fontface");
 
 /**
  * 生成一个空白字体对像

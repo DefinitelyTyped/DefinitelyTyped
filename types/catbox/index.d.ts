@@ -1,11 +1,3 @@
-// Type definitions for catbox 10.0
-// Project: https://github.com/hapijs/catbox
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-//                 AJP <https://github.com/AJamesPhillips>
-//                 Rodrigo Saboya <https://github.com/saboya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /**
  * Client
  * The Client object provides a low-level cache abstraction. The object is constructed using new Client(engine, options) where:

@@ -1,5 +1,5 @@
-import { SubProcess, TeenProcessExecOptions } from 'teen_process';
-import { LogcatOpts, Log } from '../logcat';
+import { SubProcess, TeenProcessExecOptions } from "teen_process";
+import { Log, LogcatOpts } from "../logcat";
 
 export { LogcatOpts };
 
@@ -76,8 +76,8 @@ interface AdbCommands {
      * @throws If any of the chunks returns non-zero exit code after being executed
      */
     shellChunks<A extends number | string>(
-        argTransformer: (arg: A) => ReadonlyArray<string>,
-        args: ReadonlyArray<A>,
+        argTransformer: (arg: A) => readonly string[],
+        args: readonly A[],
     ): Promise<void>;
 
     /**
@@ -213,7 +213,7 @@ interface AdbCommands {
      * @param permissions - The list of permissions to be granted.
      * @throws If there was an error while changing permissions.
      */
-    grantPermissions(pkg: string, permissions: ReadonlyArray<string>): Promise<void>;
+    grantPermissions(pkg: string, permissions: readonly string[]): Promise<void>;
 
     /**
      * Grant single permission for the particular package.

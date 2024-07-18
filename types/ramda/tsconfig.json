@@ -6,10 +6,6 @@
             "dom"
         ],
         "strict": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
@@ -44,7 +40,6 @@
         "test/complement-tests.ts",
         "test/compose-tests.ts",
         "test/composeWith-tests.ts",
-        "test/concat-tests.ts",
         "test/cond-tests.ts",
         "test/construct-tests.ts",
         "test/constructN-tests.ts",
@@ -96,6 +91,7 @@
         "test/identity-tests.ts",
         "test/ifElse-tests.ts",
         "test/includes-tests.ts",
+        "test/index-tests.ts",
         "test/indexBy-tests.ts",
         "test/indexOf-tests.ts",
         "test/init-tests.ts",
@@ -158,7 +154,6 @@
         "test/nthArg-tests.ts",
         "test/o-tests.ts",
         "test/objOf-tests.ts",
-        "test/of-tests.ts",
         "test/omit-tests.ts",
         "test/on-tests.ts",
         "test/once-tests.ts",

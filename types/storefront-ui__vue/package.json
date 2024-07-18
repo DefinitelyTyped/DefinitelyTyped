@@ -1,7 +1,22 @@
 {
-  "private": true,
-  "dependencies": {
-    "vue": "^2.0.0",
-    "vue-router": "^3.0.0"
-  }
+    "private": true,
+    "name": "@types/storefront-ui__vue",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/vuestorefront/storefront-ui"
+    ],
+    "dependencies": {
+        "@types/glidejs__glide": "*",
+        "vue": "^2.0.0",
+        "vue-router": "^3.0.0"
+    },
+    "devDependencies": {
+        "@types/storefront-ui__vue": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Luïs De Zutter",
+            "githubUsername": "ImLuze"
+        }
+    ]
 }

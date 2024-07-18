@@ -1,5 +1,6 @@
-import * as React from 'react';
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+import * as React from "react";
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type ServerContextType = {
     location?: {
         pathname: string;

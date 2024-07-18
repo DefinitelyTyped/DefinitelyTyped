@@ -1,7 +1,7 @@
 function test_embed_static() {
-    $.fn.embed.settings.error!.method = 'method';
-    $.fn.embed.settings.namespace = 'namespace';
-    $.fn.embed.settings.name = 'name';
+    $.fn.embed.settings.error!.method = "method";
+    $.fn.embed.settings.namespace = "namespace";
+    $.fn.embed.settings.name = "name";
     $.fn.embed.settings.silent = false;
     $.fn.embed.settings.debug = true;
     $.fn.embed.settings.performance = true;
@@ -9,41 +9,41 @@ function test_embed_static() {
 }
 
 function test_embed() {
-    const selector = '.ui.embed';
-    $(selector).embed('change', 'source', 'id', 'url'); // $ExpectType JQuery<HTMLElement>
-    $(selector).embed('reset'); // $ExpectType JQuery<HTMLElement>
-    $(selector).embed('show'); // $ExpectType JQuery<HTMLElement>
-    $(selector).embed('hide'); // $ExpectType JQuery<HTMLElement>
-    $(selector).embed('get id'); // $ExpectType string
-    $(selector).embed('get placeholder'); // $ExpectType string
-    $(selector).embed('get sources'); // $ExpectType string
-    $(selector).embed('get type'); // $ExpectType string
-    $(selector).embed('get url'); // $ExpectType string
-    $(selector).embed('has placeholder'); // $ExpectType boolean
-    $(selector).embed('destroy'); // $ExpectType JQuery<HTMLElement>
-    $(selector).embed('setting', 'debug', undefined); // $ExpectType boolean
-    $(selector).embed('setting', 'debug'); // $ExpectType boolean
-    $(selector).embed('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    const selector = ".ui.embed";
+    $(selector).embed("change", "source", "id", "url"); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed("reset"); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed("show"); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed("hide"); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed("get id"); // $ExpectType string
+    $(selector).embed("get placeholder"); // $ExpectType string
+    $(selector).embed("get sources"); // $ExpectType string
+    $(selector).embed("get type"); // $ExpectType string
+    $(selector).embed("get url"); // $ExpectType string
+    $(selector).embed("has placeholder"); // $ExpectType boolean
+    $(selector).embed("destroy"); // $ExpectType JQuery<HTMLElement>
+    $(selector).embed("setting", "debug", undefined); // $ExpectType boolean
+    $(selector).embed("setting", "debug"); // $ExpectType boolean
+    $(selector).embed("setting", "debug", true); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
-    $(selector).embed('setting', {
-        namespace: 'namespace',
-        name: 'name',
+    $(selector).embed("setting", {
+        namespace: "namespace",
+        name: "name",
         silent: false,
         debug: true,
         performance: true,
-        verbose: true
+        verbose: true,
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).embed({
-        url: 'url',
-        icon: 'icon',
-        source: 'source',
-        id: 'id',
+        url: "url",
+        icon: "icon",
+        source: "source",
+        id: "id",
         parameters: {
-            key: 'value'
+            key: "value",
         },
         autoplay: true,
-        color: 'color',
+        color: "color",
         hd: false,
         brandedUI: true,
         onCreate(url) {
@@ -63,49 +63,49 @@ function test_embed() {
             return parameters;
         },
         selector: {
-            embed: 'embed',
-            placeholder: 'placeholder',
-            play: 'play'
+            embed: "embed",
+            placeholder: "placeholder",
+            play: "play",
         },
         metadata: {
-            id: 'id',
-            icon: 'icon',
-            placeholder: 'placeholder',
-            source: 'source',
-            url: 'url'
+            id: "id",
+            icon: "icon",
+            placeholder: "placeholder",
+            source: "source",
+            url: "url",
         },
         className: {
-            active: 'active',
-            embed: 'embed'
+            active: "active",
+            embed: "embed",
         },
         templates: {
             iframe(url, parameters) {
                 url; // $ExpectType string
                 parameters; // $ExpectType string
 
-                return '<div></div>';
+                return "<div></div>";
             },
             placeholder(image, icon) {
                 image; // $ExpectType string
                 icon; // $ExpectType string
 
-                return '<div></div>';
-            }
+                return "<div></div>";
+            },
         },
         error: {
-            noURL: 'noURL',
-            method: 'method'
-        }
+            noURL: "noURL",
+            method: "method",
+        },
     });
     $(selector).embed(); // $ExpectType JQuery<HTMLElement>
 
     // @ts-expect-error
-    $(selector).embed('foo');
+    $(selector).embed("foo");
     // @ts-expect-error
-    $(selector).embed({ foo: 'bar' });
+    $(selector).embed({ foo: "bar" });
 }
 
-import embed = require('semantic-ui-embed');
+import embed = require("semantic-ui-embed");
 
 function test_module() {
     embed; // $ExpectType Embed

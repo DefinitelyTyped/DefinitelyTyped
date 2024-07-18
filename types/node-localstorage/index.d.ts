@@ -1,10 +1,6 @@
-// Type definitions for node-localstorage 1.3
-// Project: https://github.com/lmaccherone/node-localstorage
-// Definitions by: Allen Gammel <https://github.com/intolerance>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+/// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * A drop-in substitute for the browser native localStorage API that runs on node.js.
@@ -46,7 +42,7 @@ export class LocalStorage extends EventEmitter {
      * @param eventName The only `eventName` that is supported is `storage`.
      * @param callback The call back type is of `StorageEvent`.
      */
-    on(eventName: 'storage', callback: (event: StorageEvent) => void): this;
+    on(eventName: "storage", callback: (event: StorageEvent) => void): this;
     /**
      * Creates a new LocalStorage instance
      * @param location The location in which the local storage resides

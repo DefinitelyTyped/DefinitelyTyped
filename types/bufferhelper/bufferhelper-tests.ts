@@ -1,11 +1,11 @@
-import BufferHelper from 'bufferhelper';
+import BufferHelper from "bufferhelper";
 
 // test data
 const buffer = new BufferHelper();
 
 // tests
-buffer.concat('');
+buffer.concat("");
 buffer.toBuffer().toString();
 buffer.empty();
-buffer.load('', () => {});
-buffer.toString('ascii');
+buffer.load("", () => {});
+buffer.toString("ascii");

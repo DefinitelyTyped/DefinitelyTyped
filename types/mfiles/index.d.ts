@@ -1,8 +1,3 @@
-// Type definitions for non-npm package M-Files UI Extensibility 11.3
-// Project: http://www.m-files.com/UI_Extensibility_Framework/
-// Definitions by: Arsène von Wyss <https://github.com/avonwyss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const MFExtApplicationPlatformWeb: any;
 
 interface IAccessControlEntry {
@@ -92,7 +87,7 @@ interface IAccessControlListComponentContainer {
 
 interface IAccessControlListComponentKey {
     ItemID: number;
-    PropertyDefID: (MFiles.MFBuiltInPropertyDef | number);
+    PropertyDefID: MFiles.MFBuiltInPropertyDef | number;
     Clone(): IAccessControlListComponentKey;
 }
 
@@ -211,7 +206,7 @@ interface IAssignmentClassInfo {
 }
 
 interface IAssociatedPropertyDef {
-    PropertyDef: (MFiles.MFBuiltInPropertyDef | number);
+    PropertyDef: MFiles.MFBuiltInPropertyDef | number;
     Required: boolean;
     Clone(): IAssociatedPropertyDef;
 }
@@ -299,7 +294,7 @@ interface IClassGroup {
     ID: number;
     Members: IIDs;
     Name: string;
-    ObjectType: (MFiles.MFBuiltInObjectType | number);
+    ObjectType: MFiles.MFBuiltInObjectType | number;
     AddMember(Member: number): void;
     Clone(): IClassGroup;
     RemoveMember(Member: number): void;
@@ -335,9 +330,18 @@ interface ICommands {
     DeleteCustomCommand(customCommand: number): void;
     ExecuteCommand(command: MFiles.BuiltinCommand | number, arguments: any): void;
     GetCommandName(command: MFiles.BuiltinCommand | number): string;
-    GetCommandState(command: MFiles.BuiltinCommand | number, location: MFiles.CommandLocation, includeBuiltInState: boolean, includeScriptSpecifiedState: boolean): MFiles.CommandState;
+    GetCommandState(
+        command: MFiles.BuiltinCommand | number,
+        location: MFiles.CommandLocation,
+        includeBuiltInState: boolean,
+        includeScriptSpecifiedState: boolean,
+    ): MFiles.CommandState;
     RemoveCustomCommandFromMenu(customCommand: number, location: MFiles.MenuLocation): void;
-    SetCommandState(command: MFiles.BuiltinCommand | number, location: MFiles.CommandLocation, state: MFiles.CommandState): void;
+    SetCommandState(
+        command: MFiles.BuiltinCommand | number,
+        location: MFiles.CommandLocation,
+        state: MFiles.CommandState,
+    ): void;
     SetIcon(customCommand: number, icon: MFiles.DefaultIcon): void;
     SetIconFromPath(customCommand: number, iconPath: string): void;
 }
@@ -405,7 +409,7 @@ interface IDashboard<T> {
     readonly CustomData: T;
     readonly Events: IDashboardEvents;
     readonly IsPopupDashboard: boolean;
-    readonly Parent: (IShellPaneContainer | IShellFrame | IVaultUI | IShellUI);
+    readonly Parent: IShellPaneContainer | IShellFrame | IVaultUI | IShellUI;
     readonly UseRightToLeftLayout: boolean;
     readonly Vault: IVault;
     readonly Window: IWindow;
@@ -474,7 +478,7 @@ interface IDefaultProperty {
     DataFromXMLAddVLItemIfNotFound: boolean;
     DataFromXMLTreatLookupAsID: boolean;
     DataFromXMLXPathExpression: string;
-    PropertyDefID: (MFiles.MFBuiltInPropertyDef | number);
+    PropertyDefID: MFiles.MFBuiltInPropertyDef | number;
     readonly Type: MFiles.MFDefaultPropertyType;
     Clone(): IDefaultProperty;
     SetFixedValue(TypedValue: ITypedValue): void;
@@ -520,7 +524,7 @@ interface IEventHandlers {
 }
 
 interface IEvents {
-// tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     Register(eventToListen: MFiles.Event, eventSink: Function): number;
     Unregister(sinkHandle: number): void;
 }
@@ -581,10 +585,23 @@ interface IExpression {
     SetFileValueExpression(FileValueType: MFiles.MFFileValueType): void;
     SetObjectIDSegmentExpression(Segment: number): void;
     SetPermissionExpression(PermissionsExpressionType: MFiles.MFPermissionsExpressionType): void;
-    SetPropertyValueExpression(PropertyDef: MFiles.MFBuiltInPropertyDef | number, PCBehavior: MFiles.MFParentChildBehavior, DataFunctionCall: IDataFunctionCall): void;
+    SetPropertyValueExpression(
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        PCBehavior: MFiles.MFParentChildBehavior,
+        DataFunctionCall: IDataFunctionCall,
+    ): void;
     SetStatusValueExpression(StatusType: MFiles.MFStatusType, DataFunctionCall: IDataFunctionCall): void;
-    SetTypedValueExpression(DataType: MFiles.MFDataType, ValueList: MFiles.MFBuiltInValueList | number, PCBehavior: MFiles.MFParentChildBehavior, DataFunctionCall: IDataFunctionCall): void;
-    SetValueListItemExpression(PseudoPropertyDef: MFiles.MFValueListItemPropertyDef, PCBehavior: MFiles.MFParentChildBehavior, DataFunctionCall: IDataFunctionCall): void;
+    SetTypedValueExpression(
+        DataType: MFiles.MFDataType,
+        ValueList: MFiles.MFBuiltInValueList | number,
+        PCBehavior: MFiles.MFParentChildBehavior,
+        DataFunctionCall: IDataFunctionCall,
+    ): void;
+    SetValueListItemExpression(
+        PseudoPropertyDef: MFiles.MFValueListItemPropertyDef,
+        PCBehavior: MFiles.MFParentChildBehavior,
+        DataFunctionCall: IDataFunctionCall,
+    ): void;
 }
 
 interface IExpressionEx {
@@ -684,7 +701,7 @@ interface IFolderDef {
     readonly PropertyFolder: ITypedValue;
     readonly SearchDef: ISearchDef;
     readonly TraditionalFolder: number;
-    readonly View: (MFiles.MFBuiltInView | number);
+    readonly View: MFiles.MFBuiltInView | number;
     Clone(): IFolderDef;
     SetPropertyFolder(TypedValue: ITypedValue): void;
     SetSearchDef(SearchDef: ISearchDef): void;
@@ -868,7 +885,15 @@ interface ILoginAccount {
     UserName: string;
     Clone(): ILoginAccount;
     CloneFrom(LoginAccount: ILoginAccount): void;
-    Set(LoginAccountType: MFiles.MFLoginAccountType, DomainName: string, UserName: string, ServerRoles: MFiles.MFLoginServerRole, FullName: string, EmailAddress: string, LicenseType: MFiles.MFLicenseType): void;
+    Set(
+        LoginAccountType: MFiles.MFLoginAccountType,
+        DomainName: string,
+        UserName: string,
+        ServerRoles: MFiles.MFLoginServerRole,
+        FullName: string,
+        EmailAddress: string,
+        LicenseType: MFiles.MFLicenseType,
+    ): void;
 }
 
 interface ILoginAccountPersonalInformation {
@@ -891,11 +916,15 @@ interface ILookup {
     Item: number;
     ItemGUID: string;
     readonly ObjectFlags: MFiles.MFSpecialObjectFlag;
-    ObjectType: (MFiles.MFBuiltInObjectType | number);
+    ObjectType: MFiles.MFBuiltInObjectType | number;
     Version: number;
     Clone(): ILookup;
     CloneFrom(Lookup: ILookup): void;
-    GetFormattedDisplayValue(Localized: boolean, EmptyLookupDispValuesAsHidden: boolean, AddDeletedSuffixIfDeleted: boolean): string;
+    GetFormattedDisplayValue(
+        Localized: boolean,
+        EmptyLookupDispValuesAsHidden: boolean,
+        AddDeletedSuffixIfDeleted: boolean,
+    ): string;
 }
 
 interface ILookups {
@@ -971,7 +1000,13 @@ interface IMetadataCard {
     ShowNewObjectDialog(ObjectType: MFiles.MFBuiltInObjectType | number, defaultName: string): any;
     ShowPermissionsDialog(): void;
     StorePreviewerState(previewerVisible: boolean, previewerWidth: number): void;
-    StoreUIData(key: string, data: any, dataIsModeSpecific: boolean, dataIsLayoutSpecific: boolean, dataIsPermanent: boolean): void;
+    StoreUIData(
+        key: string,
+        data: any,
+        dataIsModeSpecific: boolean,
+        dataIsLayoutSpecific: boolean,
+        dataIsPermanent: boolean,
+    ): void;
     SuspendAsyncOp(): void;
 }
 
@@ -1000,12 +1035,12 @@ interface IMetadataCardControl {
     readonly Linked: boolean;
     Modified: boolean;
     MustExist: boolean;
-    readonly PropertyDef: (MFiles.MFBuiltInPropertyDef | number);
+    readonly PropertyDef: MFiles.MFBuiltInPropertyDef | number;
     ReadOnly: boolean;
     readonly RealObjectType: boolean;
     readonly Type: string;
     Value: any;
-    readonly Valuelist: (MFiles.MFBuiltInValueList | number);
+    readonly Valuelist: MFiles.MFBuiltInValueList | number;
     ValueRequired: boolean;
     Visible: boolean;
     ActivateLink(valuePart: any): void;
@@ -1169,7 +1204,12 @@ interface IMFDocListCtrl {
 
 interface IMFilesClientApplication {
     AddVaultConnection(VaultConnection: IVaultConnection): void;
-    BindToVault(VaultConnection: string, ParentWindow: number, CanLogIn: boolean, ReturnNULLIfCancelledByUser: boolean): IVault;
+    BindToVault(
+        VaultConnection: string,
+        ParentWindow: number,
+        CanLogIn: boolean,
+        ReturnNULLIfCancelledByUser: boolean,
+    ): IVault;
     FindFile(Path: string, UpdateFromServer: boolean): IObjectFileAndVersion;
     FindObjectVersionAndProperties(Path: string, UpdateFromServer: boolean): IObjectVersionAndProperties;
     GetAPIVersion(): IMFilesVersion;
@@ -1180,11 +1220,28 @@ interface IMFilesClientApplication {
     GetVaultConnections(): IVaultConnections;
     GetVaultConnectionsWithGUID(GUID: string): IVaultConnections;
     IsObjectPathInMFiles(Path: string): boolean;
-    LogInAs(VaultConnection: string, ParentWindow: number, DefaultAuthType: MFiles.MFAuthType, ReturnNULLIfCancelledByUser: boolean): IVault;
-    LogInAsUser(VaultConnection: string, AuthType: MFiles.MFAuthType, UserName: string, Password: string, Domain: string | null, SPN: string | null): IVault;
+    LogInAs(
+        VaultConnection: string,
+        ParentWindow: number,
+        DefaultAuthType: MFiles.MFAuthType,
+        ReturnNULLIfCancelledByUser: boolean,
+    ): IVault;
+    LogInAsUser(
+        VaultConnection: string,
+        AuthType: MFiles.MFAuthType,
+        UserName: string,
+        Password: string,
+        Domain: string | null,
+        SPN: string | null,
+    ): IVault;
     RemoveVaultConnection(VaultConnectionName: string, UserSpecific: boolean): void;
     ShowBalloonTip(Msg: string, Title: string, Timeout: number, InfoFlags: number, RemovePrevious: boolean): void;
-    TestConnectionToServerEx(Server: string, Port: string, ProtocolSequence: string, EncryptedConnection: boolean): number;
+    TestConnectionToServerEx(
+        Server: string,
+        Port: string,
+        ProtocolSequence: string,
+        EncryptedConnection: boolean,
+    ): number;
 }
 
 interface IMFilesServerApplication {
@@ -1194,29 +1251,152 @@ interface IMFilesServerApplication {
     readonly ServerManagementOperations: IServerManagementOperations;
     readonly SharedLinkPublicOperations: ISharedLinkPublicOperations;
     readonly VaultManagementOperations: IServerVaultManagementOperations;
-    Connect(AuthType: MFiles.MFAuthType, UserName: string | null, Password: string | null, Domain: string | null, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, LocalComputerName: string, AllowAnonymousConnection: boolean): MFiles.MFServerConnection;
-    ConnectAdministrativeEx(TimeZone: ITimeZoneInformation, AuthType: MFiles.MFAuthType, UserName: string | null, Password: string | null, Domain: string | null, SPN: string | null, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, EncryptedConnection: boolean, LocalComputerName: string): MFiles.MFServerConnection;
-    ConnectEx3(TimeZone: ITimeZoneInformation, AuthType: MFiles.MFAuthType, UserName: string | null, Password: string | null, Domain: string | null, SPN: string | null, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, EncryptedConnection: boolean, LocalComputerName: string, AllowAnonymousConnection: boolean, AllowUsingAuthenticationPlugins: boolean, LogicalTargetServer: string): MFiles.MFServerConnection;
-    ConnectEx4(TimeZone: ITimeZoneInformation, AuthType: MFiles.MFAuthType, UserName: string | null, Password: string | null, Domain: string | null, SPN: string | null, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, EncryptedConnection: boolean, LocalComputerName: string, AllowAnonymousConnection: boolean, AllowUsingAuthenticationPlugins: boolean, LogicalTargetServer: string, ClientCulture: string): MFiles.MFServerConnection;
-    ConnectWithAuthenticationDataEx2(PluginInfo: IPluginInfo, AuthenticationData: INamedValues, AttemptIdentifier: string, TimeZone: ITimeZoneInformation, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, EncryptedConnection: boolean, LocalComputerName: string, AllowAnonymousConnection: boolean, LogicalTargetServer: string): IAuthenticationResult;
-    ConnectWithAuthenticationDataEx3(PluginInfo: IPluginInfo, AuthenticationData: INamedValues, AttemptIdentifier: string, TimeZone: ITimeZoneInformation, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, EncryptedConnection: boolean, LocalComputerName: string, AllowAnonymousConnection: boolean, LogicalTargetServer: string, ClientCulture: string): IAuthenticationResult;
-    ConnectWithoutLogin(TimeZone: ITimeZoneInformation, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, LocalComputerName: string, LogicalTargetServer: string, ClientCulture: string): MFiles.MFServerConnection;
+    Connect(
+        AuthType: MFiles.MFAuthType,
+        UserName: string | null,
+        Password: string | null,
+        Domain: string | null,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        LocalComputerName: string,
+        AllowAnonymousConnection: boolean,
+    ): MFiles.MFServerConnection;
+    ConnectAdministrativeEx(
+        TimeZone: ITimeZoneInformation,
+        AuthType: MFiles.MFAuthType,
+        UserName: string | null,
+        Password: string | null,
+        Domain: string | null,
+        SPN: string | null,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        EncryptedConnection: boolean,
+        LocalComputerName: string,
+    ): MFiles.MFServerConnection;
+    ConnectEx3(
+        TimeZone: ITimeZoneInformation,
+        AuthType: MFiles.MFAuthType,
+        UserName: string | null,
+        Password: string | null,
+        Domain: string | null,
+        SPN: string | null,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        EncryptedConnection: boolean,
+        LocalComputerName: string,
+        AllowAnonymousConnection: boolean,
+        AllowUsingAuthenticationPlugins: boolean,
+        LogicalTargetServer: string,
+    ): MFiles.MFServerConnection;
+    ConnectEx4(
+        TimeZone: ITimeZoneInformation,
+        AuthType: MFiles.MFAuthType,
+        UserName: string | null,
+        Password: string | null,
+        Domain: string | null,
+        SPN: string | null,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        EncryptedConnection: boolean,
+        LocalComputerName: string,
+        AllowAnonymousConnection: boolean,
+        AllowUsingAuthenticationPlugins: boolean,
+        LogicalTargetServer: string,
+        ClientCulture: string,
+    ): MFiles.MFServerConnection;
+    ConnectWithAuthenticationDataEx2(
+        PluginInfo: IPluginInfo,
+        AuthenticationData: INamedValues,
+        AttemptIdentifier: string,
+        TimeZone: ITimeZoneInformation,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        EncryptedConnection: boolean,
+        LocalComputerName: string,
+        AllowAnonymousConnection: boolean,
+        LogicalTargetServer: string,
+    ): IAuthenticationResult;
+    ConnectWithAuthenticationDataEx3(
+        PluginInfo: IPluginInfo,
+        AuthenticationData: INamedValues,
+        AttemptIdentifier: string,
+        TimeZone: ITimeZoneInformation,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        EncryptedConnection: boolean,
+        LocalComputerName: string,
+        AllowAnonymousConnection: boolean,
+        LogicalTargetServer: string,
+        ClientCulture: string,
+    ): IAuthenticationResult;
+    ConnectWithoutLogin(
+        TimeZone: ITimeZoneInformation,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        LocalComputerName: string,
+        LogicalTargetServer: string,
+        ClientCulture: string,
+    ): MFiles.MFServerConnection;
     Disconnect(): void;
     GetAPIVersion(): IMFilesVersion;
-    GetAuthenticationPluginInformationEx(UserName: string, Domain: string, VaultGUID: string, HostName: string, AccountType: MFiles.MFLoginAccountType, TargetPluginName: string, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, EncryptedConnection: boolean): IPluginInfos;
-    GetAuthenticationPluginsEx(ScopeIndependentOnly: boolean, ProtocolSequence: string, NetworkAddress: string, Endpoint: string, EncryptedConnection: boolean): IPluginInfos;
+    GetAuthenticationPluginInformationEx(
+        UserName: string,
+        Domain: string,
+        VaultGUID: string,
+        HostName: string,
+        AccountType: MFiles.MFLoginAccountType,
+        TargetPluginName: string,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        EncryptedConnection: boolean,
+    ): IPluginInfos;
+    GetAuthenticationPluginsEx(
+        ScopeIndependentOnly: boolean,
+        ProtocolSequence: string,
+        NetworkAddress: string,
+        Endpoint: string,
+        EncryptedConnection: boolean,
+    ): IPluginInfos;
     GetOnlineVaults(): IVaultsOnServer;
     GetServerVersion(): IMFilesVersion;
     GetTokenAsAuthenticationData(Token: string): INamedValues;
     GetVaults(): IVaultsOnServer;
-    LogInAsUserToVault(VaultGUID: string, TimeZone: ITimeZoneInformation, AuthType: MFiles.MFAuthType, UserName: string | null, Password: string | null, Domain: string | null): IVault;
-    LogInAsUserToVaultWithSPN(VaultGUID: string, TimeZone: ITimeZoneInformation, AuthType: MFiles.MFAuthType, UserName: string | null, Password: string | null, Domain: string | null, SPN: string | null): IVault;
+    LogInAsUserToVault(
+        VaultGUID: string,
+        TimeZone: ITimeZoneInformation,
+        AuthType: MFiles.MFAuthType,
+        UserName: string | null,
+        Password: string | null,
+        Domain: string | null,
+    ): IVault;
+    LogInAsUserToVaultWithSPN(
+        VaultGUID: string,
+        TimeZone: ITimeZoneInformation,
+        AuthType: MFiles.MFAuthType,
+        UserName: string | null,
+        Password: string | null,
+        Domain: string | null,
+        SPN: string | null,
+    ): IVault;
     LogInToVault(VaultGUID: string): IVault;
     LogInToVaultAdministrative(VaultGUID: string): IVault;
     LogInToVaultAdministrativeWithExistingSession(VaultGUID: string): IVault;
     LogInToVaultEx(VaultGUID: string, AllowUsingAuthenticationPlugins: boolean): IVault;
     LogInToVaultWithExistingSession(VaultGUID: string): IVault;
-    TestConnectionToServerEx(Server: string, Port: string, ProtocolSequence: string, EncryptedConnection: boolean): number;
+    TestConnectionToServerEx(
+        Server: string,
+        Port: string,
+        ProtocolSequence: string,
+        EncryptedConnection: boolean,
+    ): number;
 }
 
 interface IMFilesVersion {
@@ -1311,7 +1491,7 @@ interface IObjectClass {
     ID: number;
     Name: string;
     NamePropertyDef: number;
-    ObjectType: (MFiles.MFBuiltInObjectType | number);
+    ObjectType: MFiles.MFBuiltInObjectType | number;
     Workflow: number;
     Clone(): IObjectClass;
 }
@@ -1324,7 +1504,7 @@ interface IObjectClassAdmin {
     ID: number;
     Name: string;
     NamePropertyDef: number;
-    ObjectType: (MFiles.MFBuiltInObjectType | number);
+    ObjectType: MFiles.MFBuiltInObjectType | number;
     Predefined: boolean;
     SemanticAliases: ISemanticAliases;
     Workflow: number;
@@ -1479,7 +1659,7 @@ interface IObjectType {
     readonly GUID: string;
     HasOwnerType: boolean;
     Hierarchical: boolean;
-    Icon: ReadonlyArray<number>;
+    Icon: readonly number[];
     ID: number;
     NamePlural: string;
     NameSingular: string;
@@ -1493,7 +1673,7 @@ interface IObjectType {
     Translatable: boolean;
     CanHaveItemIcons(): boolean;
     Clone(): IObjectType;
-    GetIconAsPNG(Width: number, Height: number): ReadonlyArray<number>;
+    GetIconAsPNG(Width: number, Height: number): readonly number[];
     IsAddingAllowedForUser(SessionInfo: ISessionInfo): boolean;
 }
 
@@ -1515,7 +1695,7 @@ interface IObjectTypeAdmin {
 }
 
 interface IObjectTypeColumnMapping {
-    ObjectType: (MFiles.MFBuiltInObjectType | number);
+    ObjectType: MFiles.MFBuiltInObjectType | number;
     Ordinal: number;
     PartOfInsert: boolean;
     PartOfUpdate: boolean;
@@ -1565,7 +1745,7 @@ interface IObjectVersion {
     readonly CheckedOutToHostName: string;
     readonly CheckedOutToUserName: string;
     readonly CheckedOutVersion: number;
-    readonly Class: (MFiles.MFBuiltInDocumentClass | MFiles.MFBuiltInObjectClass | number);
+    readonly Class: MFiles.MFBuiltInDocumentClass | MFiles.MFBuiltInObjectClass | number;
     readonly CreatedUtc: Date;
     readonly Deleted: boolean;
     readonly DisplayID: string;
@@ -1654,10 +1834,10 @@ interface IObjID {
     Type: number;
     Clone(): IObjID;
     CloneFrom(ObjID: IObjID): void;
-    Serialize(): ReadonlyArray<number>;
+    Serialize(): readonly number[];
     SetIDs(ObjType: number, ID: number): void;
     ToJSON(): string;
-    Unserialize(Bytes: ReadonlyArray<number>): void;
+    Unserialize(Bytes: readonly number[]): void;
 }
 
 interface IObjIDs {
@@ -1691,11 +1871,11 @@ interface IObjVer {
     Version: number;
     Clone(): IObjVer;
     CloneFrom(ObjVer: IObjVer): void;
-    Serialize(): ReadonlyArray<number>;
+    Serialize(): readonly number[];
     SetIDs(ObjType: number, ID: number, Version: number): void;
     SetObjIDAndVersion(ObjID: IObjID, Version: number): void;
     ToJSON(): string;
-    Unserialize(Bytes: ReadonlyArray<number>): void;
+    Unserialize(Bytes: readonly number[]): void;
 }
 
 interface IObjVers {
@@ -1822,7 +2002,16 @@ interface IPluginInfos {
 interface IPreviewerActiveXCtrl {
     ClearPreview(): number;
     ShowFilePreview(bstrFilename: string): number;
-    ShowHitHighlightedFilePreview(bstrFilename: string, lObjType: number, lObjID: number, lObjVersion: number, lFile: number, lFileVersion: number, pIHitHighlightingInfo: any, bstrSearchConditions: string): number;
+    ShowHitHighlightedFilePreview(
+        bstrFilename: string,
+        lObjType: number,
+        lObjID: number,
+        lObjVersion: number,
+        lFile: number,
+        lFileVersion: number,
+        pIHitHighlightingInfo: any,
+        bstrSearchConditions: string,
+    ): number;
 }
 
 interface IPropertyDef {
@@ -1840,7 +2029,7 @@ interface IPropertyDef {
     readonly GUID: string;
     ID: number;
     Name: string;
-    ObjectType: (MFiles.MFBuiltInObjectType | number);
+    ObjectType: MFiles.MFBuiltInObjectType | number;
     OwnerPropertyDef: IOwnerPropertyDef;
     Predefined: boolean;
     SortAscending: boolean;
@@ -1850,7 +2039,7 @@ interface IPropertyDef {
     readonly ThisIsOwnerPD: boolean;
     UpdateType: MFiles.MFUpdateType;
     ValidationType: MFiles.MFValidationType;
-    ValueList: (MFiles.MFBuiltInValueList | number);
+    ValueList: MFiles.MFBuiltInValueList | number;
     ValueListSortingType: MFiles.MFValueListSortingType;
     Clone(): IPropertyDef;
 }
@@ -1893,13 +2082,20 @@ interface IPropertyDefsAdmin {
 }
 
 interface IPropertyValue {
-    PropertyDef: (MFiles.MFBuiltInPropertyDef | number);
+    PropertyDef: MFiles.MFBuiltInPropertyDef | number;
     TypedValue: ITypedValue;
     Value: ITypedValue;
     Clone(): IPropertyValue;
     CloneFrom(PropertyValue: IPropertyValue): void;
     GetValueAsLocalizedText(): string;
-    GetValueAsText(Localized: boolean, NULLAsEmptyString: boolean, EmptyLookupDisplayValuesAsHidden: boolean, LongDateFormat: boolean, NoSeconds: boolean, NumericValueAsKilobytes: boolean): string;
+    GetValueAsText(
+        Localized: boolean,
+        NULLAsEmptyString: boolean,
+        EmptyLookupDisplayValuesAsHidden: boolean,
+        LongDateFormat: boolean,
+        NoSeconds: boolean,
+        NumericValueAsKilobytes: boolean,
+    ): string;
     GetValueAsUnlocalizedText(): string;
 }
 
@@ -1907,7 +2103,7 @@ interface IPropertyValueForDisplay {
     readonly ContentType: MFiles.MFContentType;
     readonly DataType: MFiles.MFDataType;
     readonly DisplayValue: string;
-    readonly PropertyDef: (MFiles.MFBuiltInPropertyDef | number);
+    readonly PropertyDef: MFiles.MFBuiltInPropertyDef | number;
     readonly PropertyDefName: string;
     readonly PropertyValue: IPropertyValue;
     readonly ReadOnly: boolean;
@@ -1915,7 +2111,7 @@ interface IPropertyValueForDisplay {
 }
 
 interface IPropertyValueIconClue {
-    readonly PropertyDef: (MFiles.MFBuiltInPropertyDef | number);
+    readonly PropertyDef: MFiles.MFBuiltInPropertyDef | number;
     readonly ValueListItem: number;
     Clone(): IPropertyValueIconClue;
 }
@@ -1938,7 +2134,10 @@ interface IPropertyValues {
     Remove(Index: number): void;
     SearchForProperty(PropertyDef: MFiles.MFBuiltInPropertyDef | number): IPropertyValue;
     SearchForPropertyByAlias(Vault: IVault, PropertyDefAlias: string, ReturnNULLIfNotFound: boolean): IPropertyValue;
-    SearchForPropertyEx(PropertyDef: MFiles.MFBuiltInPropertyDef | number, ReturnNULLIfNotFound: boolean): IPropertyValue;
+    SearchForPropertyEx(
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        ReturnNULLIfNotFound: boolean,
+    ): IPropertyValue;
 }
 
 interface IPropertyValuesForDisplay {
@@ -2111,7 +2310,11 @@ interface ISearchCriteria {
     SearchWithinThisFolder: boolean;
     SecondCondition: ISearchConditionEx;
     Clone(): ISearchCriteria;
-    GetAsSearchConditions(ForceGettingExpandedConds: boolean, IncludeSearchRefinementConditions: boolean, IncludePreviousBaseConditions: boolean): ISearchConditions;
+    GetAsSearchConditions(
+        ForceGettingExpandedConds: boolean,
+        IncludeSearchRefinementConditions: boolean,
+        IncludePreviousBaseConditions: boolean,
+    ): ISearchConditions;
 }
 
 interface ISearchDef {
@@ -2165,7 +2368,12 @@ interface IServerLoginAccountOperations {
 }
 
 interface IServerManagementOperations {
-    BackupMasterDB(BackupFile: string, OverwriteExistingFiles: boolean, FileSizeLimitInMB: number, Impersonation: IImpersonation): void;
+    BackupMasterDB(
+        BackupFile: string,
+        OverwriteExistingFiles: boolean,
+        FileSizeLimitInMB: number,
+        Impersonation: IImpersonation,
+    ): void;
     ConfigureWebAccessToDefaultWebSite(): void;
     ConfigureWebAccessToExistingWebSite(WebSite: string): void;
     ConfigureWebAccessToNewVirtualDirectory(WebSite: string, VirtualDirectory: string): void;
@@ -2195,7 +2403,11 @@ interface IServerVaultManagementOperations {
     CreateNewVault(VaultProperties: IVaultProperties): string;
     DestroyVault(VaultGUID: string): void;
     DetachVault(VaultGUID: string): void;
-    GetBackupFileContents(BackupFileFull: string, BackupFileDifferential: string, Impersonation: IImpersonation): IVaultProperties;
+    GetBackupFileContents(
+        BackupFileFull: string,
+        BackupFileDifferential: string,
+        Impersonation: IImpersonation,
+    ): IVaultProperties;
     GetVaultProperties(VaultGUID: string): IVaultProperties;
     OptimizeVault(OptimizeVaultJob: IOptimizeVaultJob): void;
     RestoreVault(RestoreJob: IRestoreJob): void;
@@ -2230,8 +2442,14 @@ interface ISessionInfo {
     readonly UserID: number;
     readonly VaultGUID: string;
     CheckObjectAccess(ObjectAccessControlList: IAccessControlList, DesiredObjectAccess: MFiles.MFObjectAccess): boolean;
-    CheckObjectTypeAccess(ObjectTypeAccessControlList: IAccessControlList, DesiredObjectTypeAccess: MFiles.MFObjectTypeAccess): boolean;
-    CheckPropertyDefAccess(PropertyDefAccessControlList: IAccessControlList, DesiredPropertyDefAccess: MFiles.MFPropertyDefAccess): boolean;
+    CheckObjectTypeAccess(
+        ObjectTypeAccessControlList: IAccessControlList,
+        DesiredObjectTypeAccess: MFiles.MFObjectTypeAccess,
+    ): boolean;
+    CheckPropertyDefAccess(
+        PropertyDefAccessControlList: IAccessControlList,
+        DesiredPropertyDefAccess: MFiles.MFPropertyDefAccess,
+    ): boolean;
     CheckVaultAccess(DesiredVaultAccess: MFiles.MFVaultAccess): boolean;
     CloneFrom(SessionInfo: ISessionInfo): void;
     IsLoggedOnUserSubstituteOfUser(UserID: number): boolean;
@@ -2247,7 +2465,17 @@ interface ISetPropertiesParams {
     PropertyValuesToRemove: IIDs;
     PropertyValuesToSet: IPropertyValues;
     Clone(): ISetPropertiesParams;
-    SetWithPermissions(ObjVer: IObjVer, AllowModifyingCheckedInObject: boolean, FailIfNotLatestCheckedInVersion: boolean, PropertyValuesToSet: IPropertyValues, FullSet: boolean, PropertyValuesToRemove: IIDs, ObjectOperationFlags: MFiles.MFObjectOperationFlags, AccessControlListEnforcingMode: MFiles.MFACLEnforcingMode, AccessControlListProvidedForEnforcing: IAccessControlList): void;
+    SetWithPermissions(
+        ObjVer: IObjVer,
+        AllowModifyingCheckedInObject: boolean,
+        FailIfNotLatestCheckedInVersion: boolean,
+        PropertyValuesToSet: IPropertyValues,
+        FullSet: boolean,
+        PropertyValuesToRemove: IIDs,
+        ObjectOperationFlags: MFiles.MFObjectOperationFlags,
+        AccessControlListEnforcingMode: MFiles.MFACLEnforcingMode,
+        AccessControlListProvidedForEnforcing: IAccessControlList,
+    ): void;
 }
 
 interface ISetPropertiesParamsOfMultipleObjects {
@@ -2289,10 +2517,30 @@ interface ISharedLinkInfos {
 }
 
 interface ISharedLinkPublicOperations {
-    DownloadSharedFileInBlocks_Begin(VaultGUID: string, AccessKey: string, AdditionalData: INamedValues): IFileDownloadSession;
-    DownloadSharedFileInBlocks_Begin_32bit(VaultGUID: string, AccessKey: string, AdditionalData: INamedValues): IFileDownloadSession;
-    DownloadSharedFileInBlocks_ReadBlock(VaultGUID: string, AccessKey: string, DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
-    DownloadSharedFileInBlocks_ReadBlock_32bit(VaultGUID: string, AccessKey: string, DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
+    DownloadSharedFileInBlocks_Begin(
+        VaultGUID: string,
+        AccessKey: string,
+        AdditionalData: INamedValues,
+    ): IFileDownloadSession;
+    DownloadSharedFileInBlocks_Begin_32bit(
+        VaultGUID: string,
+        AccessKey: string,
+        AdditionalData: INamedValues,
+    ): IFileDownloadSession;
+    DownloadSharedFileInBlocks_ReadBlock(
+        VaultGUID: string,
+        AccessKey: string,
+        DownloadID: number,
+        BlockSize: number,
+        Offset: number,
+    ): readonly number[];
+    DownloadSharedFileInBlocks_ReadBlock_32bit(
+        VaultGUID: string,
+        AccessKey: string,
+        DownloadID: number,
+        BlockSize: number,
+        Offset: number,
+    ): readonly number[];
     GetSharedLinkInfo(VaultGUID: string, AccessKey: string, AdditionalData: INamedValues): ISharedFileInfo;
 }
 
@@ -2329,11 +2577,17 @@ interface IShellFrame {
 
 interface IShellFrameEvent extends IEvents {
     OnActiveListingChanged?(oldListing: null | IShellListing, newListing: IShellListing): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewBottomPane?(bottomPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewCommands?(commands: ICommands): void | ICommandsEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewRightPane?(rightPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewSearchPane?(searchPane: ISearchPane): void | ISearchPaneEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewShellListing?(shellListing: IShellListing): void | IShellListingEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewTaskPane?(taskPane: ITaskPane): void | ITaskPaneEvents;
     OnShowMainMenu?(): void;
     OnStarted?(): void;
@@ -2342,11 +2596,17 @@ interface IShellFrameEvent extends IEvents {
 
 interface IShellFrameEvents extends IEvents {
     OnActiveListingChanged?(oldListing: null | IShellListing, newListing: IShellListing): void;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewBottomPane?(bottomPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewCommands?(commands: ICommands): void | ICommandsEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewRightPane?(rightPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewSearchPane?(searchPane: ISearchPane): void | ISearchPaneEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewShellListing?(shellListing: IShellListing): void | IShellListingEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewTaskPane?(taskPane: ITaskPane): void | ITaskPaneEvents;
     OnShowMainMenu?(): void;
     OnStarted?(): void;
@@ -2481,9 +2741,13 @@ interface IShellUI {
 }
 
 interface IShellUIEvents extends IEvents {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewCommonDialogShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewEmbeddedShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewNormalShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
     OnStarted?(): void;
     OnStop?(): void;
@@ -2715,7 +2979,7 @@ interface ITemporarySearchView {
 }
 
 interface ITheme {
-    [key: string]: (string | boolean | number);
+    [key: string]: string | boolean | number;
     last: 0;
 }
 
@@ -2780,18 +3044,25 @@ interface ITypedValue {
     GetValueAsLocalizedText(): string;
     GetValueAsLookup(): ILookup;
     GetValueAsLookups(): ILookups;
-    GetValueAsText(Localized: boolean, NULLAsEmptyString: boolean, EmptyLookupDisplayValuesAsHidden: boolean, LongDateFormat: boolean, NoSeconds: boolean, NumericValueAsKilobytes: boolean): string;
+    GetValueAsText(
+        Localized: boolean,
+        NULLAsEmptyString: boolean,
+        EmptyLookupDisplayValuesAsHidden: boolean,
+        LongDateFormat: boolean,
+        NoSeconds: boolean,
+        NumericValueAsKilobytes: boolean,
+    ): string;
     GetValueAsTextWithExpression(Expression: IExpression, Locale: number): string;
     GetValueAsTimestamp(): ITimestamp;
     GetValueAsUnlocalizedText(): string;
     IsNULL(): boolean;
     IsUninitialized(): boolean;
-    Serialize(): ReadonlyArray<number>;
+    Serialize(): readonly number[];
     SetValue(DataType: MFiles.MFDataType, Value: any): void;
     SetValueToLookup(Lookup: ILookup): void;
     SetValueToMultiSelectLookup(MultiSelectLookup: ILookups): void;
     SetValueToNULL(DataType: MFiles.MFDataType): void;
-    Unserialize(Bytes: ReadonlyArray<number>, ReadFromOldSerializingFormat: boolean): void;
+    Unserialize(Bytes: readonly number[], ReadFromOldSerializingFormat: boolean): void;
 }
 
 interface ITypedValues {
@@ -2900,16 +3171,16 @@ interface IValueListItem {
     readonly DisplayIDAvailable: boolean;
     HasOwner: boolean;
     HasParent: boolean;
-    Icon: ReadonlyArray<number>;
+    Icon: readonly number[];
     ID: number;
     readonly ItemGUID: string;
     Name: string;
     OwnerID: number;
     ParentID: number;
-    ValueListID: (MFiles.MFBuiltInValueList | number);
+    ValueListID: MFiles.MFBuiltInValueList | number;
     Clone(): IValueListItem;
     CloneFrom(ValueListItem: IValueListItem): void;
-    GetIconAsPNG(Width: number, Height: number): ReadonlyArray<number>;
+    GetIconAsPNG(Width: number, Height: number): readonly number[];
 }
 
 interface IValueListItems {
@@ -2979,7 +3250,11 @@ interface IVault {
     ChangePassword(OldPassword: string, NewPassword: string): void;
     GetAllTranslations(): string;
     GetGUID(): string;
-    GetMetadataStructureItemIDByAlias(MetadataStructureItemType: MFiles.MFMetadataStructureItem, Alias: string, Unused: boolean): number;
+    GetMetadataStructureItemIDByAlias(
+        MetadataStructureItemType: MFiles.MFMetadataStructureItem,
+        Alias: string,
+        Unused: boolean,
+    ): number;
     GetMetadataStructureVersionID(): number;
     GetMFilesURLForVaultRoot(): string;
     GetServerLicenseStatus(): ILicenseStatus;
@@ -3041,12 +3316,43 @@ interface IVaultClassGroupOperations {
 }
 
 interface IVaultClassGroupOperationsAsync {
-    AddClassGroup(ClassGroup: IClassGroup, successCallback?: (result: IClassGroup) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetClassGroup(ObjectType: MFiles.MFBuiltInObjectType | number, ClassGroupID: number, successCallback?: (result: IClassGroup) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetClassGroupIDByGUID(ClassGroupGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetClassGroups(ObjectType: MFiles.MFBuiltInObjectType | number, successCallback?: (result: IClassGroups) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveClassGroup(ClassGroupID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateClassGroup(ClassGroup: IClassGroup, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddClassGroup(
+        ClassGroup: IClassGroup,
+        successCallback?: (result: IClassGroup) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetClassGroup(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        ClassGroupID: number,
+        successCallback?: (result: IClassGroup) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetClassGroupIDByGUID(
+        ClassGroupGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetClassGroups(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        successCallback?: (result: IClassGroups) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveClassGroup(
+        ClassGroupID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateClassGroup(
+        ClassGroup: IClassGroup,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultClassOperations {
@@ -3065,18 +3371,76 @@ interface IVaultClassOperations {
 }
 
 interface IVaultClassOperationsAsync {
-    AddObjectClassAdmin(ObjectClassAdmin: IObjectClassAdmin, successCallback?: (result: IObjectClassAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetAllObjectClasses(successCallback?: (result: IObjectClasses) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetAllObjectClassesAdmin(successCallback?: (result: IObjectClassesAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectClass(ObjectClass: MFiles.MFBuiltInDocumentClass | MFiles.MFBuiltInObjectClass | number, successCallback?: (result: IObjectClass) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectClassAdmin(Class: MFiles.MFBuiltInDocumentClass | MFiles.MFBuiltInObjectClass | number, successCallback?: (result: IObjectClassAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectClasses(ObjectType: MFiles.MFBuiltInObjectType | number, successCallback?: (result: IObjectClasses) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectClassesAdmin(ObjectType: MFiles.MFBuiltInObjectType | number, successCallback?: (result: IObjectClassesAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectClassIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectClassIDByGUID(ObjectClassGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveObjectClassAdmin(ObjectClassID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateObjectClassAdmin(ObjectClass: IObjectClassAdmin, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateObjectNames(ObjectClassID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddObjectClassAdmin(
+        ObjectClassAdmin: IObjectClassAdmin,
+        successCallback?: (result: IObjectClassAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetAllObjectClasses(
+        successCallback?: (result: IObjectClasses) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetAllObjectClassesAdmin(
+        successCallback?: (result: IObjectClassesAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectClass(
+        ObjectClass: MFiles.MFBuiltInDocumentClass | MFiles.MFBuiltInObjectClass | number,
+        successCallback?: (result: IObjectClass) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectClassAdmin(
+        Class: MFiles.MFBuiltInDocumentClass | MFiles.MFBuiltInObjectClass | number,
+        successCallback?: (result: IObjectClassAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectClasses(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        successCallback?: (result: IObjectClasses) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectClassesAdmin(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        successCallback?: (result: IObjectClassesAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectClassIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectClassIDByGUID(
+        ObjectClassGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveObjectClassAdmin(
+        ObjectClassID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateObjectClassAdmin(
+        ObjectClass: IObjectClassAdmin,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateObjectNames(
+        ObjectClassID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultClientOperations {
@@ -3089,12 +3453,38 @@ interface IVaultClientOperations {
 }
 
 interface IVaultClientOperationsAsync {
-    DisableCheckInReminderForCallingProcess(successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    EnableCheckInReminderForCallingProcess(successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsOffline(successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsOnline(successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetVaultToOffline(ParentWindow: number, successCallback?: (result: MFiles.MFOfflineTransitionResultFlags) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetVaultToOnline(ParentWindow: number, successCallback?: (result: MFiles.MFOnlineTransitionResultFlags) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    DisableCheckInReminderForCallingProcess(
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    EnableCheckInReminderForCallingProcess(
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsOffline(
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsOnline(
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetVaultToOffline(
+        ParentWindow: number,
+        successCallback?: (result: MFiles.MFOfflineTransitionResultFlags) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetVaultToOnline(
+        ParentWindow: number,
+        successCallback?: (result: MFiles.MFOnlineTransitionResultFlags) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultConnection {
@@ -3102,7 +3492,7 @@ interface IVaultConnection {
     AutoLogin: boolean;
     EncryptedConnection: boolean;
     Endpoint: string;
-    Icon: ReadonlyArray<number>;
+    Icon: readonly number[];
     Name: string;
     NetworkAddress: string;
     ProtocolSequence: string;
@@ -3114,7 +3504,13 @@ interface IVaultConnection {
     GetGUID(): string;
     IsLoggedIn(): boolean;
     LogInAs(ParentWindow: number, DefaultAuthType: MFiles.MFAuthType, ReturnNULLIfCancelledByUser: boolean): IVault;
-    LogInAsUser(AuthType: MFiles.MFAuthType, UserName: string, Password: string, Domain: string | null, SPN: string | null): IVault;
+    LogInAsUser(
+        AuthType: MFiles.MFAuthType,
+        UserName: string,
+        Password: string,
+        Domain: string | null,
+        SPN: string | null,
+    ): IVault;
     TestConnectionToVault(ParentWindow: number): MFiles.MFVaultConnectionTestResult;
 }
 
@@ -3133,14 +3529,15 @@ interface IVaultCore {
 }
 
 interface IVaultCoreEvents extends IEvents {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewVaultEntry?(vaultEntry: IVaultEntry): void | IVaultEntryEvents;
     OnStarted?(): void;
     OnStop?(): void;
 }
 
 interface IVaultCustomApplicationManagementOperations {
-    DownloadCustomApplicationBlock(DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
-    DownloadCustomApplicationBlock_32bit(DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
+    DownloadCustomApplicationBlock(DownloadID: number, BlockSize: number, Offset: number): readonly number[];
+    DownloadCustomApplicationBlock_32bit(DownloadID: number, BlockSize: number, Offset: number): readonly number[];
     DownloadCustomApplicationBlockBegin(ApplicationID: string): IFileDownloadSession;
     DownloadCustomApplicationBlockBegin_32bit(ApplicationID: string): IFileDownloadSession;
     EnableCustomApplication(ApplicationID: string, Enabled: boolean): void;
@@ -3152,16 +3549,70 @@ interface IVaultCustomApplicationManagementOperations {
 }
 
 interface IVaultCustomApplicationManagementOperationsAsync {
-    DownloadCustomApplicationBlock(DownloadID: number, BlockSize: number, Offset: number, successCallback?: (result: ReadonlyArray<number>) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadCustomApplicationBlock_32bit(DownloadID: number, BlockSize: number, Offset: number, successCallback?: (result: ReadonlyArray<number>) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadCustomApplicationBlockBegin(ApplicationID: string, successCallback?: (result: IFileDownloadSession) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadCustomApplicationBlockBegin_32bit(ApplicationID: string, successCallback?: (result: IFileDownloadSession) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    EnableCustomApplication(ApplicationID: string, Enabled: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetCustomApplication(ApplicationID: string, successCallback?: (result: ICustomApplication) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetCustomApplications(successCallback?: (result: ICustomApplications) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetCustomApplicationsEx(Platform: MFiles.MFExtApplicationPlatform, successCallback?: (result: ICustomApplications) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    InstallCustomApplication(File: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UninstallCustomApplication(ApplicationID: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    DownloadCustomApplicationBlock(
+        DownloadID: number,
+        BlockSize: number,
+        Offset: number,
+        successCallback?: (result: readonly number[]) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadCustomApplicationBlock_32bit(
+        DownloadID: number,
+        BlockSize: number,
+        Offset: number,
+        successCallback?: (result: readonly number[]) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadCustomApplicationBlockBegin(
+        ApplicationID: string,
+        successCallback?: (result: IFileDownloadSession) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadCustomApplicationBlockBegin_32bit(
+        ApplicationID: string,
+        successCallback?: (result: IFileDownloadSession) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    EnableCustomApplication(
+        ApplicationID: string,
+        Enabled: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetCustomApplication(
+        ApplicationID: string,
+        successCallback?: (result: ICustomApplication) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetCustomApplications(
+        successCallback?: (result: ICustomApplications) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetCustomApplicationsEx(
+        Platform: MFiles.MFExtApplicationPlatform,
+        successCallback?: (result: ICustomApplications) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    InstallCustomApplication(
+        File: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UninstallCustomApplication(
+        ApplicationID: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultDataSetOperations {
@@ -3172,28 +3623,85 @@ interface IVaultDataSetOperations {
 }
 
 interface IVaultDataSetOperationsAsync {
-    GetDataSetExportingStatus(ID: number, successCallback?: (result: IDataSetExportingStatus) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetDataSets(successCallback?: (result: IDataSets) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetReportAccessCredentials(successCallback?: (result: IReportAccessCredentials) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    StartDataSetExport(ID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    GetDataSetExportingStatus(
+        ID: number,
+        successCallback?: (result: IDataSetExportingStatus) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetDataSets(
+        successCallback?: (result: IDataSets) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetReportAccessCredentials(
+        successCallback?: (result: IReportAccessCredentials) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    StartDataSetExport(
+        ID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultElectronicSignatureOperations {
     AddEmptySignature(ObjVer: IObjVer, SignatureIdentifier: string): IObjectVersionAndProperties;
     AddEmptySignatures(ObjVer: IObjVer): IObjectVersionAndProperties;
     DisconnectSignature(ObjVer: IObjVer, SignatureIdentifier: string): IObjectVersionAndProperties;
-    DisconnectSignatureEx(ObjVer: IObjVer, SignatureIdentifier: string, InvalidateDisconnectedSignatures: boolean): IObjectVersionAndProperties;
+    DisconnectSignatureEx(
+        ObjVer: IObjVer,
+        SignatureIdentifier: string,
+        InvalidateDisconnectedSignatures: boolean,
+    ): IObjectVersionAndProperties;
     DisconnectSignatures(ObjVer: IObjVer): IObjectVersionAndProperties;
     DisconnectSignaturesEx(ObjVer: IObjVer, InvalidateDisconnectedSignatures: boolean): IObjectVersionAndProperties;
 }
 
 interface IVaultElectronicSignatureOperationsAsync {
-    AddEmptySignature(ObjVer: IObjVer, SignatureIdentifier: string, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    AddEmptySignatures(ObjVer: IObjVer, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DisconnectSignature(ObjVer: IObjVer, SignatureIdentifier: string, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DisconnectSignatureEx(ObjVer: IObjVer, SignatureIdentifier: string, InvalidateDisconnectedSignatures: boolean, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DisconnectSignatures(ObjVer: IObjVer, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DisconnectSignaturesEx(ObjVer: IObjVer, InvalidateDisconnectedSignatures: boolean, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddEmptySignature(
+        ObjVer: IObjVer,
+        SignatureIdentifier: string,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    AddEmptySignatures(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DisconnectSignature(
+        ObjVer: IObjVer,
+        SignatureIdentifier: string,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DisconnectSignatureEx(
+        ObjVer: IObjVer,
+        SignatureIdentifier: string,
+        InvalidateDisconnectedSignatures: boolean,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DisconnectSignatures(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DisconnectSignaturesEx(
+        ObjVer: IObjVer,
+        InvalidateDisconnectedSignatures: boolean,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultEntry {
@@ -3205,22 +3713,122 @@ interface IVaultEntry {
 }
 
 interface IVaultEntryEvents extends IEvents {
-    OnAddObjectFile?(objVer: IObjVer, sourceObjectFile: ISourceObjectFile): null | boolean | { OnSuccess?(objectVersion: IObjectVersion, objectFile: IObjectFile): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnAddObjectsToFavorites?(objIDs: IObjIDs): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnAddObjectToFavorites?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnChangeVaultLanguage?(languageID: number): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnCheckInObject?(objVer: IObjVer, propertyValues: IPropertyValues): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnCheckInObjects?(objVers: IObjVers, propertyValues: IPropertyValues): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnCheckOutObject?(objID: IObjID): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnCheckOutObjects?(objIDs: IObjIDs): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnCreateObject?(objectType: number, propertyValues: IPropertyValues, sourceObjectFiles: ISourceObjectFiles, accessControlList: IAccessControlList, checkInRequested: boolean, singleFileRequested: boolean): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnDestroyObject?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnDestroyObjects?(objIDs: IObjIDs): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnDestroyObjectVersion?(objVer: IObjVer): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnDestroyObjectVersions?(objVers: IObjVers): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+    OnAddObjectFile?(
+        objVer: IObjVer,
+        sourceObjectFile: ISourceObjectFile,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion, objectFile: IObjectFile): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnAddObjectsToFavorites?(
+        objIDs: IObjIDs,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnAddObjectToFavorites?(
+        objID: IObjID,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnChangeVaultLanguage?(
+        languageID: number,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnCheckInObject?(
+        objVer: IObjVer,
+        propertyValues: IPropertyValues,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnCheckInObjects?(
+        objVers: IObjVers,
+        propertyValues: IPropertyValues,
+    ): null | boolean | {
+        OnSuccess?(objectVersions: IObjectVersions): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnCheckOutObject?(
+        objID: IObjID,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnCheckOutObjects?(
+        objIDs: IObjIDs,
+    ): null | boolean | {
+        OnSuccess?(objectVersions: IObjectVersions): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnCreateObject?(
+        objectType: number,
+        propertyValues: IPropertyValues,
+        sourceObjectFiles: ISourceObjectFiles,
+        accessControlList: IAccessControlList,
+        checkInRequested: boolean,
+        singleFileRequested: boolean,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnDestroyObject?(
+        objID: IObjID,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnDestroyObjects?(
+        objIDs: IObjIDs,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnDestroyObjectVersion?(
+        objVer: IObjVer,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnDestroyObjectVersions?(
+        objVers: IObjVers,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
     OnLoggedIn?(): void;
-    OnLogOut?(): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnModifyObjectVersionLabels?(objVer: IObjVer, clearFromOtherVersions: boolean, append: boolean, labelIDs: IIDs, singleLabelRequired: boolean): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+    OnLogOut?(): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnModifyObjectVersionLabels?(
+        objVer: IObjVer,
+        clearFromOtherVersions: boolean,
+        append: boolean,
+        labelIDs: IIDs,
+        singleLabelRequired: boolean,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
     OnNotification?(id: string, data1: any, data2: any): any;
     OnObjectAddedToFavorites?(objID: IObjID): void;
     OnObjectCheckedIn?(objectVersion: IObjectVersion): void;
@@ -3245,35 +3853,161 @@ interface IVaultEntryEvents extends IEvents {
     OnObjectsRemovedFromFavorites?(objIDs: IObjIDs): void;
     OnObjectUndeleted?(objectVersion: IObjectVersion): void;
     OnObjectVersionDestroyed?(objVer: IObjVer): void;
-    OnObjectVersionLabelsModified?(objVer: IObjVer, clearFromOtherVersions: boolean, append: boolean, labelIDs: IIDs): void;
+    OnObjectVersionLabelsModified?(
+        objVer: IObjVer,
+        clearFromOtherVersions: boolean,
+        append: boolean,
+        labelIDs: IIDs,
+    ): void;
     OnObjectVersionPermissionsSet?(objectVersion: IObjectVersion): void;
     OnObjectVersionRolledBack?(objectVersion: IObjectVersion): void;
     OnObjectVersionsDestroyed?(objVers: IObjVers): void;
     OnPropertiesOfObjectVersionSet?(objectVersion: IObjectVersion): void;
     OnPropertiesOfObjectVersionsSet?(objectVersions: IObjectVersions): void;
-    OnRemoveObject?(objID: IObjID): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnRemoveObjectFile?(objVer: IObjVer, fileVer: IFileVer): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnRemoveObjectFromFavorites?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnRemoveObjectOfflineAvailability?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnRemoveObjects?(objIDs: IObjIDs): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnRemoveObjectsFromFavorites?(objIDs: IObjIDs): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnRenameObjectFile?(objVer: IObjVer, fileVer: IFileVer, newName: null | ITypedValue, newExtension: null | ITypedValue): null | boolean | { OnSuccess?(objectVersion: IObjectVersion, objectFile: IObjectFile): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnRollBackObjectVersion?(objVer: IObjVer): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnSetObjectLevelProperty?(objID: IObjID, propertyValue: IPropertyValue): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnSetObjectOfflineAvailability?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnSetObjectVersionPermissions?(objVer: IObjVer, changeAllVersions: boolean, accessControlList: IAccessControlList): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnSetPropertiesOfObjectVersion?(setPropertiesParams: ISetPropertiesParams, singlePropertyUpdate: boolean, singlePropertyRemove: boolean): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnSetPropertiesOfObjectVersions?(setPropertiesParamsOfMultipleObjects: ISetPropertiesParamsOfMultipleObjects, singlePropertyUpdate: boolean, singlePropertyRemove: boolean): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+    OnRemoveObject?(
+        objID: IObjID,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnRemoveObjectFile?(
+        objVer: IObjVer,
+        fileVer: IFileVer,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnRemoveObjectFromFavorites?(
+        objID: IObjID,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnRemoveObjectOfflineAvailability?(
+        objID: IObjID,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnRemoveObjects?(
+        objIDs: IObjIDs,
+    ): null | boolean | {
+        OnSuccess?(objectVersions: IObjectVersions): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnRemoveObjectsFromFavorites?(
+        objIDs: IObjIDs,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnRenameObjectFile?(
+        objVer: IObjVer,
+        fileVer: IFileVer,
+        newName: null | ITypedValue,
+        newExtension: null | ITypedValue,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion, objectFile: IObjectFile): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnRollBackObjectVersion?(
+        objVer: IObjVer,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnSetObjectLevelProperty?(
+        objID: IObjID,
+        propertyValue: IPropertyValue,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnSetObjectOfflineAvailability?(
+        objID: IObjID,
+    ): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnSetObjectVersionPermissions?(
+        objVer: IObjVer,
+        changeAllVersions: boolean,
+        accessControlList: IAccessControlList,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnSetPropertiesOfObjectVersion?(
+        setPropertiesParams: ISetPropertiesParams,
+        singlePropertyUpdate: boolean,
+        singlePropertyRemove: boolean,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnSetPropertiesOfObjectVersions?(
+        setPropertiesParamsOfMultipleObjects: ISetPropertiesParamsOfMultipleObjects,
+        singlePropertyUpdate: boolean,
+        singlePropertyRemove: boolean,
+    ): null | boolean | {
+        OnSuccess?(objectVersions: IObjectVersions): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
     OnStarted?(): void;
     OnStop?(): void;
     OnSwitchedToOfflineMode?(): void;
     OnSwitchedToOnlineMode?(): void;
-    OnSwitchToOfflineMode?(): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnSwitchToOnlineMode?(): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnUndeleteObject?(objID: IObjID): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnUndeleteObjects?(objIDs: IObjIDs): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnUndoObjectCheckout?(objVer: IObjVer): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
-    OnUndoObjectCheckouts?(objVers: IObjVers): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+    OnSwitchToOfflineMode?(): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnSwitchToOnlineMode?(): null | boolean | {
+        OnSuccess?(): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnUndeleteObject?(
+        objID: IObjID,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnUndeleteObjects?(
+        objIDs: IObjIDs,
+    ): null | boolean | {
+        OnSuccess?(objectVersions: IObjectVersions): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnUndoObjectCheckout?(
+        objVer: IObjVer,
+    ): null | boolean | {
+        OnSuccess?(objectVersion: IObjectVersion): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
+    OnUndoObjectCheckouts?(
+        objVers: IObjVers,
+    ): null | boolean | {
+        OnSuccess?(objectVersions: IObjectVersions): void;
+        OnError?(errorCode: number, errorMessage: string, errorStack: string): void;
+        Finally?(): void;
+    };
     OnVaultLanguageChanged?(languageID: number): void;
 }
 
@@ -3290,15 +4024,62 @@ interface IVaultEventLogOperations {
 }
 
 interface IVaultEventLogOperationsAsync {
-    Clear(successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ClearRange(FirstEventID: number, LastEventID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ClearRange_32bit(FirstEventID: string, LastEventID: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ExportAll(successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ExportRange(FirstEventID: number, LastEventID: number, DeleteEventsAfterExporting: boolean, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ExportRange_32bit(FirstEventID: string, LastEventID: string, DeleteEventsAfterExporting: boolean, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetIDRange(successCallback?: (result: IIDRange) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsLoggingEnabled(successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetLoggingEnabled(Enabled: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    Clear(
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ClearRange(
+        FirstEventID: number,
+        LastEventID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ClearRange_32bit(
+        FirstEventID: string,
+        LastEventID: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ExportAll(
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ExportRange(
+        FirstEventID: number,
+        LastEventID: number,
+        DeleteEventsAfterExporting: boolean,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ExportRange_32bit(
+        FirstEventID: string,
+        LastEventID: string,
+        DeleteEventsAfterExporting: boolean,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetIDRange(
+        successCallback?: (result: IIDRange) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsLoggingEnabled(
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetLoggingEnabled(
+        Enabled: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultExtensionMethodOperations {
@@ -3307,16 +4088,40 @@ interface IVaultExtensionMethodOperations {
 }
 
 interface IVaultExtensionMethodOperationsAsync {
-    DoesActiveVaultExtensionMethodExist(MethodIdentifier: string, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ExecuteVaultExtensionMethod(MethodIdentifier: string, Input: string, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    DoesActiveVaultExtensionMethodExist(
+        MethodIdentifier: string,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ExecuteVaultExtensionMethod(
+        MethodIdentifier: string,
+        Input: string,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultExternalObjectOperations {
-    PromoteObject(ObjVer: IObjVer, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, pACLProvidedCBN: IAccessControlList): IObjectVersionAndProperties;
+    PromoteObject(
+        ObjVer: IObjVer,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        pACLProvidedCBN: IAccessControlList,
+    ): IObjectVersionAndProperties;
 }
 
 interface IVaultExternalObjectOperationsAsync {
-    PromoteObject(ObjVer: IObjVer, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, pACLProvidedCBN: IAccessControlList, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    PromoteObject(
+        ObjVer: IObjVer,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        pACLProvidedCBN: IAccessControlList,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultLoginAccountOperations {
@@ -3332,15 +4137,60 @@ interface IVaultLoginAccountOperations {
 }
 
 interface IVaultLoginAccountOperationsAsync {
-    AddLoginAccount(LoginAccount: ILoginAccount, Password: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ForceLogout(AccountNames: IStrings, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLoginAccount(AccountName: string, successCallback?: (result: ILoginAccount) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLoginAccounts(successCallback?: (result: ILoginAccounts) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLoginAccountsWithSessions(successCallback?: (result: ILoginAccounts) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPersonalInformationFromDomain(AccountName: string, successCallback?: (result: ILoginAccountPersonalInformation) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ModifyLoginAccount(LoginAccount: ILoginAccount, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveLoginAccount(AccountName: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateLoginPassword(AccountName: string, NewPassword: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddLoginAccount(
+        LoginAccount: ILoginAccount,
+        Password: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ForceLogout(
+        AccountNames: IStrings,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLoginAccount(
+        AccountName: string,
+        successCallback?: (result: ILoginAccount) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLoginAccounts(
+        successCallback?: (result: ILoginAccounts) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLoginAccountsWithSessions(
+        successCallback?: (result: ILoginAccounts) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPersonalInformationFromDomain(
+        AccountName: string,
+        successCallback?: (result: ILoginAccountPersonalInformation) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ModifyLoginAccount(
+        LoginAccount: ILoginAccount,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveLoginAccount(
+        AccountName: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateLoginPassword(
+        AccountName: string,
+        NewPassword: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultManagementOperations {
@@ -3360,25 +4210,100 @@ interface IVaultManagementOperations {
 }
 
 interface IVaultManagementOperationsAsync {
-    ArchiveOldVersions(ArchiveOldVersionsJob: IArchiveOldVersionsJob, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ExportContent(ExportContentJob: IExportContentJob, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetEventHandlers(successCallback?: (result: IEventHandlers) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetVaultProperties(successCallback?: (result: IVaultProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ImportContent(ImportContentJob: IImportContentJob, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ImportContentAsync(ImportContentJob: IImportContentJob, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsAsyncJobRunning(JobID: number, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    PreviewImportContent(ImportContentJob: IImportContentJob, SummaryFile: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RebuildFullTextSearchIndex(Metadata: boolean, FileContents: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetEventHandlers(EventHandlers: IEventHandlers, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateVaultProperties(VaultProperties: IVaultProperties, RegistrationDataOnly: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    VerifyVault(VerifyVaultJob: IVerifyVaultJob, successCallback?: (result: IVerifyVaultJobOutput) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    WaitAsyncJob(JobID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    ArchiveOldVersions(
+        ArchiveOldVersionsJob: IArchiveOldVersionsJob,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ExportContent(
+        ExportContentJob: IExportContentJob,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetEventHandlers(
+        successCallback?: (result: IEventHandlers) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetVaultProperties(
+        successCallback?: (result: IVaultProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ImportContent(
+        ImportContentJob: IImportContentJob,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ImportContentAsync(
+        ImportContentJob: IImportContentJob,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsAsyncJobRunning(
+        JobID: number,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    PreviewImportContent(
+        ImportContentJob: IImportContentJob,
+        SummaryFile: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RebuildFullTextSearchIndex(
+        Metadata: boolean,
+        FileContents: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetEventHandlers(
+        EventHandlers: IEventHandlers,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateVaultProperties(
+        VaultProperties: IVaultProperties,
+        RegistrationDataOnly: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    VerifyVault(
+        VerifyVaultJob: IVerifyVaultJob,
+        successCallback?: (result: IVerifyVaultJobOutput) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    WaitAsyncJob(
+        JobID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultNamedACLOperations {
     AddNamedACLAdmin(NamedACLAdmin: INamedACLAdmin): INamedACLAdmin;
-    GetMatchingNamedACLForAccessControlList(AccessControlList: IAccessControlList, ExplicitLinkOnly: boolean, ActiveAccessControlComponentsOnly: boolean, RefreshFromServer: boolean): INamedACL;
-    GetMatchingNamedACLForAccessControlListComponent(AccessControlListComponent: IAccessControlListComponent, ExplicitLinkOnly: boolean, RefreshFromServer: boolean): INamedACL;
+    GetMatchingNamedACLForAccessControlList(
+        AccessControlList: IAccessControlList,
+        ExplicitLinkOnly: boolean,
+        ActiveAccessControlComponentsOnly: boolean,
+        RefreshFromServer: boolean,
+    ): INamedACL;
+    GetMatchingNamedACLForAccessControlListComponent(
+        AccessControlListComponent: IAccessControlListComponent,
+        ExplicitLinkOnly: boolean,
+        RefreshFromServer: boolean,
+    ): INamedACL;
     GetNamedACL(NamedACLID: number): INamedACL;
     GetNamedACLAdmin(NamedACLID: number): INamedACLAdmin;
     GetNamedACLIDByAlias(Alias: string): number;
@@ -3390,25 +4315,112 @@ interface IVaultNamedACLOperations {
     IsNamedACLUsedInAutomaticPermissionsAdmin(NamedACLID: number): boolean;
     RemoveNamedACLWithPropagationAdmin(NamedACLID: number, AllowPropagation: boolean): void;
     UpdateNamedACLAdmin(NamedACLAdmin: INamedACLAdmin): void;
-    UpdateNamedACLWithPropagationAdmin(NamedACLAdmin: INamedACLAdmin, MaintainLinks: boolean, AllowPropagation: boolean): void;
+    UpdateNamedACLWithPropagationAdmin(
+        NamedACLAdmin: INamedACLAdmin,
+        MaintainLinks: boolean,
+        AllowPropagation: boolean,
+    ): void;
 }
 
 interface IVaultNamedACLOperationsAsync {
-    AddNamedACLAdmin(NamedACLAdmin: INamedACLAdmin, successCallback?: (result: INamedACLAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetMatchingNamedACLForAccessControlList(AccessControlList: IAccessControlList, ExplicitLinkOnly: boolean, ActiveAccessControlComponentsOnly: boolean, RefreshFromServer: boolean, successCallback?: (result: INamedACL) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetMatchingNamedACLForAccessControlListComponent(AccessControlListComponent: IAccessControlListComponent, ExplicitLinkOnly: boolean, RefreshFromServer: boolean, successCallback?: (result: INamedACL) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetNamedACL(NamedACLID: number, successCallback?: (result: INamedACL) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetNamedACLAdmin(NamedACLID: number, successCallback?: (result: INamedACLAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetNamedACLIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetNamedACLIDByGUID(NamedACLGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetNamedACLs(successCallback?: (result: INamedACLs) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetNamedACLsByTypeAdmin(Type: MFiles.MFNamedACLType, successCallback?: (result: INamedACLsAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetNamedACLsWithRefresh(RefreshFromServer: boolean, successCallback?: (result: INamedACLs) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetNamedACLWithRefresh(NamedACLID: number, RefreshFromServer: boolean, successCallback?: (result: INamedACL) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsNamedACLUsedInAutomaticPermissionsAdmin(NamedACLID: number, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveNamedACLWithPropagationAdmin(NamedACLID: number, AllowPropagation: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateNamedACLAdmin(NamedACLAdmin: INamedACLAdmin, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateNamedACLWithPropagationAdmin(NamedACLAdmin: INamedACLAdmin, MaintainLinks: boolean, AllowPropagation: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddNamedACLAdmin(
+        NamedACLAdmin: INamedACLAdmin,
+        successCallback?: (result: INamedACLAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetMatchingNamedACLForAccessControlList(
+        AccessControlList: IAccessControlList,
+        ExplicitLinkOnly: boolean,
+        ActiveAccessControlComponentsOnly: boolean,
+        RefreshFromServer: boolean,
+        successCallback?: (result: INamedACL) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetMatchingNamedACLForAccessControlListComponent(
+        AccessControlListComponent: IAccessControlListComponent,
+        ExplicitLinkOnly: boolean,
+        RefreshFromServer: boolean,
+        successCallback?: (result: INamedACL) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetNamedACL(
+        NamedACLID: number,
+        successCallback?: (result: INamedACL) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetNamedACLAdmin(
+        NamedACLID: number,
+        successCallback?: (result: INamedACLAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetNamedACLIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetNamedACLIDByGUID(
+        NamedACLGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetNamedACLs(
+        successCallback?: (result: INamedACLs) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetNamedACLsByTypeAdmin(
+        Type: MFiles.MFNamedACLType,
+        successCallback?: (result: INamedACLsAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetNamedACLsWithRefresh(
+        RefreshFromServer: boolean,
+        successCallback?: (result: INamedACLs) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetNamedACLWithRefresh(
+        NamedACLID: number,
+        RefreshFromServer: boolean,
+        successCallback?: (result: INamedACL) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsNamedACLUsedInAutomaticPermissionsAdmin(
+        NamedACLID: number,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveNamedACLWithPropagationAdmin(
+        NamedACLID: number,
+        AllowPropagation: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateNamedACLAdmin(
+        NamedACLAdmin: INamedACLAdmin,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateNamedACLWithPropagationAdmin(
+        NamedACLAdmin: INamedACLAdmin,
+        MaintainLinks: boolean,
+        AllowPropagation: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultNamedValueStorageOperations {
@@ -3418,57 +4430,157 @@ interface IVaultNamedValueStorageOperations {
 }
 
 interface IVaultNamedValueStorageOperationsAsync {
-    GetNamedValues(NamedValueType: MFiles.MFNamedValueType, Namespace: string, successCallback?: (result: INamedValues) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveNamedValues(NamedValueType: MFiles.MFNamedValueType, Namespace: string, NamedValueNames: IStrings, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetNamedValues(NamedValueType: MFiles.MFNamedValueType, Namespace: string, NamedValues: INamedValues, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    GetNamedValues(
+        NamedValueType: MFiles.MFNamedValueType,
+        Namespace: string,
+        successCallback?: (result: INamedValues) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveNamedValues(
+        NamedValueType: MFiles.MFNamedValueType,
+        Namespace: string,
+        NamedValueNames: IStrings,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetNamedValues(
+        NamedValueType: MFiles.MFNamedValueType,
+        Namespace: string,
+        NamedValues: INamedValues,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultNotificationOperations {
-    SendCustomNotification(UserOrUserGroupIDs: IUserOrUserGroupIDs, IncludeSubstituteUsers: boolean, ExternalRecipients: IStrings, SendWithServerEmailIdentity: boolean, Subject: string, Body: string): void;
+    SendCustomNotification(
+        UserOrUserGroupIDs: IUserOrUserGroupIDs,
+        IncludeSubstituteUsers: boolean,
+        ExternalRecipients: IStrings,
+        SendWithServerEmailIdentity: boolean,
+        Subject: string,
+        Body: string,
+    ): void;
 }
 
 interface IVaultNotificationOperationsAsync {
-    SendCustomNotification(UserOrUserGroupIDs: IUserOrUserGroupIDs, IncludeSubstituteUsers: boolean, ExternalRecipients: IStrings, SendWithServerEmailIdentity: boolean, Subject: string, Body: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    SendCustomNotification(
+        UserOrUserGroupIDs: IUserOrUserGroupIDs,
+        IncludeSubstituteUsers: boolean,
+        ExternalRecipients: IStrings,
+        SendWithServerEmailIdentity: boolean,
+        Subject: string,
+        Body: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultObjectFileOperations {
     AddEmptyFile(ObjVer: IObjVer, Title: string, Extension: string): IFileVer;
     AddFile(ObjVer: IObjVer, Title: string, Extension: string, SourcePath: string): IFileVer;
     CloseUploadSession(UploadID: number): void;
-    ConvertToPDF(ObjVer: IObjVer, FileID: number, StoreAsSeparateFile: boolean, OverwriteExistingFile: boolean, PDFA1b: boolean, FailOnUnsupportedSourceFiles: boolean): IObjectVersion;
+    ConvertToPDF(
+        ObjVer: IObjVer,
+        FileID: number,
+        StoreAsSeparateFile: boolean,
+        OverwriteExistingFile: boolean,
+        PDFA1b: boolean,
+        FailOnUnsupportedSourceFiles: boolean,
+    ): IObjectVersion;
     DownloadFile(File: number, FileVersion: number, FilePath: string): void;
     DownloadFileAsDataURI(ObjVer: IObjVer, File: number, FileVersion: number): string;
     DownloadFileEx(File: number, FileVersion: number, FilePath: string, FileFormat: MFiles.MFFileFormat): void;
     DownloadFileInBlocks_Begin(File: number, FileVersion: number): IFileDownloadSession;
     DownloadFileInBlocks_Begin_32bit(File: number, FileVersion: number): IFileDownloadSession;
-    DownloadFileInBlocks_BeginEx(File: number, FileVersion: number, FileFormat: MFiles.MFFileFormat): IFileDownloadSession;
-    DownloadFileInBlocks_BeginEx_32bit(File: number, FileVersion: number, FileFormat: MFiles.MFFileFormat): IFileDownloadSession;
-    DownloadFileInBlocks_ReadBlock(DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
-    DownloadFileInBlocks_ReadBlock_32bit(DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
+    DownloadFileInBlocks_BeginEx(
+        File: number,
+        FileVersion: number,
+        FileFormat: MFiles.MFFileFormat,
+    ): IFileDownloadSession;
+    DownloadFileInBlocks_BeginEx_32bit(
+        File: number,
+        FileVersion: number,
+        FileFormat: MFiles.MFFileFormat,
+    ): IFileDownloadSession;
+    DownloadFileInBlocks_ReadBlock(DownloadID: number, BlockSize: number, Offset: number): readonly number[];
+    DownloadFileInBlocks_ReadBlock_32bit(DownloadID: number, BlockSize: number, Offset: number): readonly number[];
     GetFiles(ObjVer: IObjVer): IObjectFiles;
     GetFilesForModificationInEventHandler(ObjVer: IObjVer): IObjectFiles;
     GetFileSize(FileVer: IFileVer): number;
     GetFileSize_32bit(FileVer: IFileVer): number;
     GetLatestFileVersion(FileID: number, AllowCheckedOut: boolean): IFileVer;
     GetObjIDOfFile(FileID: number): IObjID;
-    GetPathInDefaultView(ObjID: IObjID, ObjectVersion: number, FileID: number, FileVersion: number, LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior, UpdateFromServer: boolean): string;
-    GetPathInDefaultViewEx(ObjID: IObjID, ObjectVersion: number, FileID: number, FileVersion: number, LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior, PreferTraditionalFolderLocation: boolean, UpdateFromServer: boolean): string;
-    OpenFileInDefaultApplication(ParentWindow: number, ObjVer: IObjVer, FileVer: IFileVer, FileOpenMethod: MFiles.MFFileOpenMethod): void;
-    PerformOCROperation(ObjVer: IObjVer, FileVer: IFileVer, OCROptions: IOCROptions, ZoneRecognitionMode: MFiles.MFOCRZoneRecognitionMode, ZoneRecognitionPages: IOCRPages, ConvertToSearchablePDF: boolean): IOCRPageResults;
+    GetPathInDefaultView(
+        ObjID: IObjID,
+        ObjectVersion: number,
+        FileID: number,
+        FileVersion: number,
+        LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior,
+        UpdateFromServer: boolean,
+    ): string;
+    GetPathInDefaultViewEx(
+        ObjID: IObjID,
+        ObjectVersion: number,
+        FileID: number,
+        FileVersion: number,
+        LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior,
+        PreferTraditionalFolderLocation: boolean,
+        UpdateFromServer: boolean,
+    ): string;
+    OpenFileInDefaultApplication(
+        ParentWindow: number,
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        FileOpenMethod: MFiles.MFFileOpenMethod,
+    ): void;
+    PerformOCROperation(
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        OCROptions: IOCROptions,
+        ZoneRecognitionMode: MFiles.MFOCRZoneRecognitionMode,
+        ZoneRecognitionPages: IOCRPages,
+        ConvertToSearchablePDF: boolean,
+    ): IOCRPageResults;
     RemoveFile(ObjVer: IObjVer, FileVer: IFileVer): IObjectVersion;
-    RenameFile(ObjVer: IObjVer, FileVer: IFileVer, Title: string, Extension: string, UpdateSingleFileDocumentTitle: boolean): IObjectVersion;
+    RenameFile(
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        Title: string,
+        Extension: string,
+        UpdateSingleFileDocumentTitle: boolean,
+    ): IObjectVersion;
     UpdateMetadataInFile(ObjVer: IObjVer, File: number, FailOnUnsupportedFiles: boolean): IObjectVersion;
     UploadFile(File: number, FileVersion: number, FilePath: string): void;
-    UploadFileBlock(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>): void;
-    UploadFileBlock_32bit(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>): void;
+    UploadFileBlock(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: readonly number[]): void;
+    UploadFileBlock_32bit(
+        UploadID: number,
+        TotalSizeInBytes: number,
+        Offset: number,
+        Block: readonly number[],
+    ): void;
     UploadFileBlockBegin(): number;
     UploadFileBlockBegin_32bit(): number;
     UploadFileCommit(UploadID: number, File: number, FileVersion: number, LogicalSize: number): void;
     UploadFileCommit_32bit(UploadID: number, File: number, FileVersion: number, LogicalSize: number): void;
     UploadFromDataURI(ObjVer: IObjVer, File: number, FileVersion: number, DataURI: string): void;
     UploadTemporaryFile(FilePath: string): number;
-    UploadTemporaryFileBlock(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>): void;
-    UploadTemporaryFileBlock_32bit(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>): void;
+    UploadTemporaryFileBlock(
+        UploadID: number,
+        TotalSizeInBytes: number,
+        Offset: number,
+        Block: readonly number[],
+    ): void;
+    UploadTemporaryFileBlock_32bit(
+        UploadID: number,
+        TotalSizeInBytes: number,
+        Offset: number,
+        Block: readonly number[],
+    ): void;
     UploadTemporaryFileBlockBegin(FileExtension: string): number;
     UploadTemporaryFileBlockBegin_32bit(FileExtension: string): number;
     UploadTemporaryFileCommit(UploadID: number, LogicalSize: number): void;
@@ -3476,65 +4588,393 @@ interface IVaultObjectFileOperations {
 }
 
 interface IVaultObjectFileOperationsAsync {
-    AddEmptyFile(ObjVer: IObjVer, Title: string, Extension: string, successCallback?: (result: IFileVer) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    AddFile(ObjVer: IObjVer, Title: string, Extension: string, SourcePath: string, successCallback?: (result: IFileVer) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CloseUploadSession(UploadID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ConvertToPDF(ObjVer: IObjVer, FileID: number, StoreAsSeparateFile: boolean, OverwriteExistingFile: boolean, PDFA1b: boolean, FailOnUnsupportedSourceFiles: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFile(File: number, FileVersion: number, FilePath: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFileAsDataURI(ObjVer: IObjVer, File: number, FileVersion: number, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFileEx(File: number, FileVersion: number, FilePath: string, FileFormat: MFiles.MFFileFormat, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFileInBlocks_Begin(File: number, FileVersion: number, successCallback?: (result: IFileDownloadSession) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFileInBlocks_Begin_32bit(File: number, FileVersion: number, successCallback?: (result: IFileDownloadSession) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFileInBlocks_BeginEx(File: number, FileVersion: number, FileFormat: MFiles.MFFileFormat, successCallback?: (result: IFileDownloadSession) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFileInBlocks_BeginEx_32bit(File: number, FileVersion: number, FileFormat: MFiles.MFFileFormat, successCallback?: (result: IFileDownloadSession) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFileInBlocks_ReadBlock(DownloadID: number, BlockSize: number, Offset: number, successCallback?: (result: ReadonlyArray<number>) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DownloadFileInBlocks_ReadBlock_32bit(DownloadID: number, BlockSize: number, Offset: number, successCallback?: (result: ReadonlyArray<number>) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFiles(ObjVer: IObjVer, successCallback?: (result: IObjectFiles) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFilesForModificationInEventHandler(ObjVer: IObjVer, successCallback?: (result: IObjectFiles) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFileSize(FileVer: IFileVer, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFileSize_32bit(FileVer: IFileVer, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLatestFileVersion(FileID: number, AllowCheckedOut: boolean, successCallback?: (result: IFileVer) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjIDOfFile(FileID: number, successCallback?: (result: IObjID) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPathInDefaultView(ObjID: IObjID, ObjectVersion: number, FileID: number, FileVersion: number, LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior, UpdateFromServer: boolean, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPathInDefaultViewEx(ObjID: IObjID, ObjectVersion: number, FileID: number, FileVersion: number, LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior, PreferTraditionalFolderLocation: boolean, UpdateFromServer: boolean, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    OpenFileInDefaultApplication(ParentWindow: number, ObjVer: IObjVer, FileVer: IFileVer, FileOpenMethod: MFiles.MFFileOpenMethod, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    PerformOCROperation(ObjVer: IObjVer, FileVer: IFileVer, OCROptions: IOCROptions, ZoneRecognitionMode: MFiles.MFOCRZoneRecognitionMode, ZoneRecognitionPages: IOCRPages, ConvertToSearchablePDF: boolean, successCallback?: (result: IOCRPageResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveFile(ObjVer: IObjVer, FileVer: IFileVer, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RenameFile(ObjVer: IObjVer, FileVer: IFileVer, Title: string, Extension: string, UpdateSingleFileDocumentTitle: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateMetadataInFile(ObjVer: IObjVer, File: number, FailOnUnsupportedFiles: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadFile(File: number, FileVersion: number, FilePath: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadFileBlock(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadFileBlock_32bit(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadFileBlockBegin(successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadFileBlockBegin_32bit(successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadFileCommit(UploadID: number, File: number, FileVersion: number, LogicalSize: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadFileCommit_32bit(UploadID: number, File: number, FileVersion: number, LogicalSize: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadFromDataURI(ObjVer: IObjVer, File: number, FileVersion: number, DataURI: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadTemporaryFile(FilePath: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadTemporaryFileBlock(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadTemporaryFileBlock_32bit(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadTemporaryFileBlockBegin(FileExtension: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadTemporaryFileBlockBegin_32bit(FileExtension: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadTemporaryFileCommit(UploadID: number, LogicalSize: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UploadTemporaryFileCommit_32bit(UploadID: number, LogicalSize: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddEmptyFile(
+        ObjVer: IObjVer,
+        Title: string,
+        Extension: string,
+        successCallback?: (result: IFileVer) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    AddFile(
+        ObjVer: IObjVer,
+        Title: string,
+        Extension: string,
+        SourcePath: string,
+        successCallback?: (result: IFileVer) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CloseUploadSession(
+        UploadID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ConvertToPDF(
+        ObjVer: IObjVer,
+        FileID: number,
+        StoreAsSeparateFile: boolean,
+        OverwriteExistingFile: boolean,
+        PDFA1b: boolean,
+        FailOnUnsupportedSourceFiles: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFile(
+        File: number,
+        FileVersion: number,
+        FilePath: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFileAsDataURI(
+        ObjVer: IObjVer,
+        File: number,
+        FileVersion: number,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFileEx(
+        File: number,
+        FileVersion: number,
+        FilePath: string,
+        FileFormat: MFiles.MFFileFormat,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFileInBlocks_Begin(
+        File: number,
+        FileVersion: number,
+        successCallback?: (result: IFileDownloadSession) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFileInBlocks_Begin_32bit(
+        File: number,
+        FileVersion: number,
+        successCallback?: (result: IFileDownloadSession) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFileInBlocks_BeginEx(
+        File: number,
+        FileVersion: number,
+        FileFormat: MFiles.MFFileFormat,
+        successCallback?: (result: IFileDownloadSession) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFileInBlocks_BeginEx_32bit(
+        File: number,
+        FileVersion: number,
+        FileFormat: MFiles.MFFileFormat,
+        successCallback?: (result: IFileDownloadSession) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFileInBlocks_ReadBlock(
+        DownloadID: number,
+        BlockSize: number,
+        Offset: number,
+        successCallback?: (result: readonly number[]) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DownloadFileInBlocks_ReadBlock_32bit(
+        DownloadID: number,
+        BlockSize: number,
+        Offset: number,
+        successCallback?: (result: readonly number[]) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFiles(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectFiles) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFilesForModificationInEventHandler(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectFiles) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFileSize(
+        FileVer: IFileVer,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFileSize_32bit(
+        FileVer: IFileVer,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLatestFileVersion(
+        FileID: number,
+        AllowCheckedOut: boolean,
+        successCallback?: (result: IFileVer) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjIDOfFile(
+        FileID: number,
+        successCallback?: (result: IObjID) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPathInDefaultView(
+        ObjID: IObjID,
+        ObjectVersion: number,
+        FileID: number,
+        FileVersion: number,
+        LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior,
+        UpdateFromServer: boolean,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPathInDefaultViewEx(
+        ObjID: IObjID,
+        ObjectVersion: number,
+        FileID: number,
+        FileVersion: number,
+        LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior,
+        PreferTraditionalFolderLocation: boolean,
+        UpdateFromServer: boolean,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    OpenFileInDefaultApplication(
+        ParentWindow: number,
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        FileOpenMethod: MFiles.MFFileOpenMethod,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    PerformOCROperation(
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        OCROptions: IOCROptions,
+        ZoneRecognitionMode: MFiles.MFOCRZoneRecognitionMode,
+        ZoneRecognitionPages: IOCRPages,
+        ConvertToSearchablePDF: boolean,
+        successCallback?: (result: IOCRPageResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveFile(
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RenameFile(
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        Title: string,
+        Extension: string,
+        UpdateSingleFileDocumentTitle: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateMetadataInFile(
+        ObjVer: IObjVer,
+        File: number,
+        FailOnUnsupportedFiles: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadFile(
+        File: number,
+        FileVersion: number,
+        FilePath: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadFileBlock(
+        UploadID: number,
+        TotalSizeInBytes: number,
+        Offset: number,
+        Block: readonly number[],
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadFileBlock_32bit(
+        UploadID: number,
+        TotalSizeInBytes: number,
+        Offset: number,
+        Block: readonly number[],
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadFileBlockBegin(
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadFileBlockBegin_32bit(
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadFileCommit(
+        UploadID: number,
+        File: number,
+        FileVersion: number,
+        LogicalSize: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadFileCommit_32bit(
+        UploadID: number,
+        File: number,
+        FileVersion: number,
+        LogicalSize: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadFromDataURI(
+        ObjVer: IObjVer,
+        File: number,
+        FileVersion: number,
+        DataURI: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadTemporaryFile(
+        FilePath: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadTemporaryFileBlock(
+        UploadID: number,
+        TotalSizeInBytes: number,
+        Offset: number,
+        Block: readonly number[],
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadTemporaryFileBlock_32bit(
+        UploadID: number,
+        TotalSizeInBytes: number,
+        Offset: number,
+        Block: readonly number[],
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadTemporaryFileBlockBegin(
+        FileExtension: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadTemporaryFileBlockBegin_32bit(
+        FileExtension: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadTemporaryFileCommit(
+        UploadID: number,
+        LogicalSize: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UploadTemporaryFileCommit_32bit(
+        UploadID: number,
+        LogicalSize: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultObjectOperations {
     AddFavorite(ObjID: IObjID): IObjectVersionAndProperties;
     AddFavorites(ObjIDs: IObjIDs): IObjectVersionAndPropertiesOfMultipleObjects;
-    ChangePermissionsToACL(ObjVer: IObjVer, AccessControlList: IAccessControlList, ChangeAllVersions: boolean): IObjectVersion;
+    ChangePermissionsToACL(
+        ObjVer: IObjVer,
+        AccessControlList: IAccessControlList,
+        ChangeAllVersions: boolean,
+    ): IObjectVersion;
     ChangePermissionsToNamedACL(ObjVer: IObjVer, NamedACL: number, ChangeAllVersions: boolean): IObjectVersion;
     CheckIn(ObjVer: IObjVer): IObjectVersion;
     CheckInMultipleObjects(ObjVers: IObjVers): IObjectVersions;
     CheckOut(ObjID: IObjID): IObjectVersion;
     CheckOutMultipleObjects(ObjIDs: IObjIDs): IObjectVersions;
-    CreateNewAssignment(AssignmentName: string, AssignmentDescription: string, AssignedToUser: ITypedValue, Deadline: ITypedValue, AccessControlList: IAccessControlList): IObjectVersionAndProperties;
-    CreateNewEmptySingleFileDocument(PropertyValues: IPropertyValues, Title: string, Extension: string, AccessControlList: IAccessControlList): IObjectVersionAndProperties;
-    CreateNewObject(ObjectType: MFiles.MFBuiltInObjectType | number, PropertyValues: IPropertyValues, SourceObjectFiles: ISourceObjectFiles, AccessControlList: IAccessControlList): IObjectVersionAndProperties;
-    CreateNewObjectEx(ObjectType: MFiles.MFBuiltInObjectType | number, Properties: IPropertyValues, SourceFiles: ISourceObjectFiles, SFD: boolean, CheckIn: boolean, AccessControlList: IAccessControlList): IObjectVersionAndProperties;
-    CreateNewObjectExQuick(ObjectType: MFiles.MFBuiltInObjectType | number, Properties: IPropertyValues, SourceFiles: ISourceObjectFiles, SFD: boolean, CheckIn: boolean, AccessControlList: IAccessControlList): number;
-    CreateNewSFDObject(ObjectType: MFiles.MFBuiltInObjectType | number, Properties: IPropertyValues, SourceFile: ISourceObjectFile, CheckIn: boolean, AccessControlList: IAccessControlList): IObjectVersionAndProperties;
-    CreateNewSFDObjectQuick(ObjectType: MFiles.MFBuiltInObjectType | number, Properties: IPropertyValues, SourceFile: ISourceObjectFile, CheckIn: boolean, AccessControlList: IAccessControlList): number;
+    CreateNewAssignment(
+        AssignmentName: string,
+        AssignmentDescription: string,
+        AssignedToUser: ITypedValue,
+        Deadline: ITypedValue,
+        AccessControlList: IAccessControlList,
+    ): IObjectVersionAndProperties;
+    CreateNewEmptySingleFileDocument(
+        PropertyValues: IPropertyValues,
+        Title: string,
+        Extension: string,
+        AccessControlList: IAccessControlList,
+    ): IObjectVersionAndProperties;
+    CreateNewObject(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        PropertyValues: IPropertyValues,
+        SourceObjectFiles: ISourceObjectFiles,
+        AccessControlList: IAccessControlList,
+    ): IObjectVersionAndProperties;
+    CreateNewObjectEx(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        Properties: IPropertyValues,
+        SourceFiles: ISourceObjectFiles,
+        SFD: boolean,
+        CheckIn: boolean,
+        AccessControlList: IAccessControlList,
+    ): IObjectVersionAndProperties;
+    CreateNewObjectExQuick(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        Properties: IPropertyValues,
+        SourceFiles: ISourceObjectFiles,
+        SFD: boolean,
+        CheckIn: boolean,
+        AccessControlList: IAccessControlList,
+    ): number;
+    CreateNewSFDObject(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        Properties: IPropertyValues,
+        SourceFile: ISourceObjectFile,
+        CheckIn: boolean,
+        AccessControlList: IAccessControlList,
+    ): IObjectVersionAndProperties;
+    CreateNewSFDObjectQuick(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        Properties: IPropertyValues,
+        SourceFile: ISourceObjectFile,
+        CheckIn: boolean,
+        AccessControlList: IAccessControlList,
+    ): number;
     DelayedCheckIn(ObjVer: IObjVer): void;
     DeleteObject(ObjID: IObjID): IObjectVersion;
     DestroyObject(ObjID: IObjID, DestroyAllVersions: boolean, ObjectVersion: number): void;
@@ -3543,30 +4983,76 @@ interface IVaultObjectOperations {
     ForceUndoCheckout(ObjVer: IObjVer): IObjectVersion;
     GetCollectionMembers(ObjVer: IObjVer): IObjectVersions;
     GetHistory(ObjID: IObjID): IObjectVersions;
-    GetLatestObjectVersionAndProperties(ObjID: IObjID, AllowCheckedOut: boolean, UpdateFromServer: boolean): IObjectVersionAndProperties;
+    GetLatestObjectVersionAndProperties(
+        ObjID: IObjID,
+        AllowCheckedOut: boolean,
+        UpdateFromServer: boolean,
+    ): IObjectVersionAndProperties;
     GetLatestObjVer(ObjID: IObjID, AllowCheckedOut: boolean, UpdateFromServer: boolean): IObjVer;
-    GetLatestObjVerEx(ObjID: IObjID, AllowCheckedOut: boolean, UpdateFromServer: boolean, NotifyViews: boolean): IObjVer;
-    GetMFilesURLForObject(ObjID: IObjID, TargetVersion: number, SpecificVersion: boolean, URLType: MFiles.MFilesURLType): string;
-    GetMFilesURLForObjectOrFile(ObjID: IObjID, TargetVersion: number, SpecificVersion: boolean, File: number, URLType: MFiles.MFilesURLType): string;
+    GetLatestObjVerEx(
+        ObjID: IObjID,
+        AllowCheckedOut: boolean,
+        UpdateFromServer: boolean,
+        NotifyViews: boolean,
+    ): IObjVer;
+    GetMFilesURLForObject(
+        ObjID: IObjID,
+        TargetVersion: number,
+        SpecificVersion: boolean,
+        URLType: MFiles.MFilesURLType,
+    ): string;
+    GetMFilesURLForObjectOrFile(
+        ObjID: IObjID,
+        TargetVersion: number,
+        SpecificVersion: boolean,
+        File: number,
+        URLType: MFiles.MFilesURLType,
+    ): string;
     GetObjectGUID(ObjID: IObjID): string;
     GetObjectInfo(ObjVer: IObjVer, LatestVersion: boolean, UpdateFromServer: boolean): IObjectVersion;
-    GetObjectInfoEx(ObjVer: IObjVer, LatestVersion: boolean, UpdateFromServer: boolean, NotifyViews: boolean): IObjectVersion;
-    GetObjectLocationsInView(View: MFiles.MFBuiltInView | number, LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior, ObjectVersion: IObjVer): IStrings;
+    GetObjectInfoEx(
+        ObjVer: IObjVer,
+        LatestVersion: boolean,
+        UpdateFromServer: boolean,
+        NotifyViews: boolean,
+    ): IObjectVersion;
+    GetObjectLocationsInView(
+        View: MFiles.MFBuiltInView | number,
+        LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior,
+        ObjectVersion: IObjVer,
+    ): IStrings;
     GetObjectPermissions(ObjVer: IObjVer): IObjectVersionPermissions;
     GetObjectVersionAndProperties(ObjVer: IObjVer, UpdateFromServer: boolean): IObjectVersionAndProperties;
-    GetObjectVersionAndPropertiesOfMultipleObjects(ObjVers: IObjVers, LatestVersions: boolean, AllowCheckedOut: boolean, AllowMissingObjectVersions: boolean, UpdateFromServer: boolean): IObjectVersionAndPropertiesOfMultipleObjects;
+    GetObjectVersionAndPropertiesOfMultipleObjects(
+        ObjVers: IObjVers,
+        LatestVersions: boolean,
+        AllowCheckedOut: boolean,
+        AllowMissingObjectVersions: boolean,
+        UpdateFromServer: boolean,
+    ): IObjectVersionAndPropertiesOfMultipleObjects;
     GetObjIDByGUID(ObjectGUID: string): IObjID;
     GetObjIDByOriginalObjID(OriginalVaultGUID: string, OriginalObjID: IObjID): IObjID;
     GetOfflineAvailability(ObjID: IObjID): boolean;
     GetOfflineObjIDs(): IObjIDs;
     GetRelationships(ObjVer: IObjVer, Mode: MFiles.MFRelationshipsMode): IObjectVersions;
-    GetThumbnailAsBytes(ObjVer: IObjVer, FileVer: IFileVer, Width: number, Height: number, GetFileIconThumbnailIfRealThumbnailNotAvailable: boolean): ReadonlyArray<number>;
+    GetThumbnailAsBytes(
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        Width: number,
+        Height: number,
+        GetFileIconThumbnailIfRealThumbnailNotAvailable: boolean,
+    ): readonly number[];
     IsObjectCheckedOut(ObjID: IObjID, UpdateFromServer: boolean): boolean;
     IsObjectCheckedOutToThisUserOnThisComputer(ObjID: IObjID, UpdateFromServer: boolean): boolean;
     IsObjectFollowed(ObjID: IObjID): boolean;
     IsSingleFileObject(ObjVer: IObjVer): boolean;
     MatchesSearchConditions(pIObjVer: IObjVer, pISearchConditions: ISearchConditions): boolean;
-    MatchesSearchConditionsEx(pIObjectVersion: IObjectVersion, pISearchConditions: ISearchConditions, pIPropertyValues: IPropertyValues, pIObjectVersionAndPropertiesOfMultipleObjects: IObjectVersionAndPropertiesOfMultipleObjects): boolean;
+    MatchesSearchConditionsEx(
+        pIObjectVersion: IObjectVersion,
+        pISearchConditions: ISearchConditions,
+        pIPropertyValues: IPropertyValues,
+        pIObjectVersionAndPropertiesOfMultipleObjects: IObjectVersionAndPropertiesOfMultipleObjects,
+    ): boolean;
     NotifyObjectAccess(ObjID: IObjID): IObjectVersionAndProperties;
     ProposeCheckOutForFile(ParentWindow: number, ObjVersionFile: IObjectFileAndVersion, CanCancel: boolean): boolean;
     RejectCheckInReminder(ObjVer: IObjVer): void;
@@ -3583,14 +5069,35 @@ interface IVaultObjectOperations {
     ShowChangeStateDialogModal(ParentWindow: number, ObjectID: IObjID): void;
     ShowCheckInReminder(ParentWindow: number, ObjVer: IObjVer, Asynchronous: boolean): IObjectVersion;
     ShowCheckInReminderDialogModal(ParentWindow: number, ObjVer: IObjVer, ApplyEnvironmentConditions: boolean): boolean;
-    ShowCheckoutPrompt(ParentWindow: number, Message: string, ObjID: IObjID, ShowCancel: boolean, AutoRejectConsequentPrompts: boolean): IObjectVersion;
+    ShowCheckoutPrompt(
+        ParentWindow: number,
+        Message: string,
+        ObjID: IObjID,
+        ShowCancel: boolean,
+        AutoRejectConsequentPrompts: boolean,
+    ): IObjectVersion;
     ShowCollectionMembersDialog(ParentWindow: number, ObjectVersion: IObjVer, Modeless: boolean): void;
     ShowCommentsDialogModal(ParentWindow: number, ObjectID: IObjID): void;
     ShowEditObjectWindow(ParentWindow: number, Mode: MFiles.MFObjectWindowMode, ObjVer: IObjVer): IObjectWindowResult;
     ShowHistoryDialogModal(ParentWindow: number, ObjectID: IObjID): void;
-    ShowNewObjectWindow(ParentWindow: number, Mode: MFiles.MFObjectWindowMode, ObjectCreationInfo: IObjectCreationInfo): IObjectWindowResult;
-    ShowPrefilledNewObjectWindow(ParentWindow: number, Mode: MFiles.MFObjectWindowMode, ObjectCreationInfo: IObjectCreationInfo, PrefilledPropertyValues: IPropertyValues, AccessControlList: IAccessControlList): IObjectWindowResult;
-    ShowRelatedObjects(ParentWindow: number, SourceObject: IObjID, ObjectTypeTargetForBrowsing: IObjectTypeTargetForBrowsing, ViewSelectionDialogInfoText: string): void;
+    ShowNewObjectWindow(
+        ParentWindow: number,
+        Mode: MFiles.MFObjectWindowMode,
+        ObjectCreationInfo: IObjectCreationInfo,
+    ): IObjectWindowResult;
+    ShowPrefilledNewObjectWindow(
+        ParentWindow: number,
+        Mode: MFiles.MFObjectWindowMode,
+        ObjectCreationInfo: IObjectCreationInfo,
+        PrefilledPropertyValues: IPropertyValues,
+        AccessControlList: IAccessControlList,
+    ): IObjectWindowResult;
+    ShowRelatedObjects(
+        ParentWindow: number,
+        SourceObject: IObjID,
+        ObjectTypeTargetForBrowsing: IObjectTypeTargetForBrowsing,
+        ViewSelectionDialogInfoText: string,
+    ): void;
     ShowRelationshipsDialog(ParentWindow: number, ObjectVersion: IObjVer, Modeless: boolean): void;
     ShowSelectObjectHistoryDialogModal(ParentWindow: number, ObjectID: IObjID, WindowTitle: string): IObjOrFileVer;
     ShowSubObjectsDialogModal(ParentWindow: number, ObjectVersion: IObjVer): void;
@@ -3600,83 +5107,579 @@ interface IVaultObjectOperations {
 }
 
 interface IVaultObjectOperationsAsync {
-    AddFavorite(ObjID: IObjID, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    AddFavorites(ObjIDs: IObjIDs, successCallback?: (result: IObjectVersionAndPropertiesOfMultipleObjects) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ChangePermissionsToACL(ObjVer: IObjVer, AccessControlList: IAccessControlList, ChangeAllVersions: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ChangePermissionsToNamedACL(ObjVer: IObjVer, NamedACL: number, ChangeAllVersions: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CheckIn(ObjVer: IObjVer, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CheckInMultipleObjects(ObjVers: IObjVers, successCallback?: (result: IObjectVersions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CheckOut(ObjID: IObjID, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CheckOutMultipleObjects(ObjIDs: IObjIDs, successCallback?: (result: IObjectVersions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CreateNewAssignment(AssignmentName: string, AssignmentDescription: string, AssignedToUser: ITypedValue, Deadline: ITypedValue, AccessControlList: IAccessControlList, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CreateNewEmptySingleFileDocument(PropertyValues: IPropertyValues, Title: string, Extension: string, AccessControlList: IAccessControlList, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CreateNewObject(ObjectType: MFiles.MFBuiltInObjectType | number, PropertyValues: IPropertyValues, SourceObjectFiles: ISourceObjectFiles, AccessControlList: IAccessControlList, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CreateNewObjectEx(ObjectType: MFiles.MFBuiltInObjectType | number, Properties: IPropertyValues, SourceFiles: ISourceObjectFiles, SFD: boolean, CheckIn: boolean, AccessControlList: IAccessControlList, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CreateNewObjectExQuick(ObjectType: MFiles.MFBuiltInObjectType | number, Properties: IPropertyValues, SourceFiles: ISourceObjectFiles, SFD: boolean, CheckIn: boolean, AccessControlList: IAccessControlList, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CreateNewSFDObject(ObjectType: MFiles.MFBuiltInObjectType | number, Properties: IPropertyValues, SourceFile: ISourceObjectFile, CheckIn: boolean, AccessControlList: IAccessControlList, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CreateNewSFDObjectQuick(ObjectType: MFiles.MFBuiltInObjectType | number, Properties: IPropertyValues, SourceFile: ISourceObjectFile, CheckIn: boolean, AccessControlList: IAccessControlList, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DelayedCheckIn(ObjVer: IObjVer, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DeleteObject(ObjID: IObjID, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DestroyObject(ObjID: IObjID, DestroyAllVersions: boolean, ObjectVersion: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DestroyObjects(ObjIDs: IObjIDs, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    FollowObject(ObjID: IObjID, Follow: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ForceUndoCheckout(ObjVer: IObjVer, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetCollectionMembers(ObjVer: IObjVer, successCallback?: (result: IObjectVersions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetHistory(ObjID: IObjID, successCallback?: (result: IObjectVersions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLatestObjectVersionAndProperties(ObjID: IObjID, AllowCheckedOut: boolean, UpdateFromServer: boolean, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLatestObjVer(ObjID: IObjID, AllowCheckedOut: boolean, UpdateFromServer: boolean, successCallback?: (result: IObjVer) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLatestObjVerEx(ObjID: IObjID, AllowCheckedOut: boolean, UpdateFromServer: boolean, NotifyViews: boolean, successCallback?: (result: IObjVer) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetMFilesURLForObject(ObjID: IObjID, TargetVersion: number, SpecificVersion: boolean, URLType: MFiles.MFilesURLType, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetMFilesURLForObjectOrFile(ObjID: IObjID, TargetVersion: number, SpecificVersion: boolean, File: number, URLType: MFiles.MFilesURLType, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectGUID(ObjID: IObjID, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectInfo(ObjVer: IObjVer, LatestVersion: boolean, UpdateFromServer: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectInfoEx(ObjVer: IObjVer, LatestVersion: boolean, UpdateFromServer: boolean, NotifyViews: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectLocationsInView(View: MFiles.MFBuiltInView | number, LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior, ObjectVersion: IObjVer, successCallback?: (result: IStrings) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectPermissions(ObjVer: IObjVer, successCallback?: (result: IObjectVersionPermissions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectVersionAndProperties(ObjVer: IObjVer, UpdateFromServer: boolean, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectVersionAndPropertiesOfMultipleObjects(ObjVers: IObjVers, LatestVersions: boolean, AllowCheckedOut: boolean, AllowMissingObjectVersions: boolean, UpdateFromServer: boolean, successCallback?: (result: IObjectVersionAndPropertiesOfMultipleObjects) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjIDByGUID(ObjectGUID: string, successCallback?: (result: IObjID) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjIDByOriginalObjID(OriginalVaultGUID: string, OriginalObjID: IObjID, successCallback?: (result: IObjID) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetOfflineAvailability(ObjID: IObjID, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetOfflineObjIDs(successCallback?: (result: IObjIDs) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetRelationships(ObjVer: IObjVer, Mode: MFiles.MFRelationshipsMode, successCallback?: (result: IObjectVersions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetThumbnailAsBytes(ObjVer: IObjVer, FileVer: IFileVer, Width: number, Height: number, GetFileIconThumbnailIfRealThumbnailNotAvailable: boolean, successCallback?: (result: ReadonlyArray<number>) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsObjectCheckedOut(ObjID: IObjID, UpdateFromServer: boolean, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsObjectCheckedOutToThisUserOnThisComputer(ObjID: IObjID, UpdateFromServer: boolean, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsObjectFollowed(ObjID: IObjID, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsSingleFileObject(ObjVer: IObjVer, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    MatchesSearchConditions(pIObjVer: IObjVer, pISearchConditions: ISearchConditions, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    MatchesSearchConditionsEx(pIObjectVersion: IObjectVersion, pISearchConditions: ISearchConditions, pIPropertyValues: IPropertyValues, pIObjectVersionAndPropertiesOfMultipleObjects: IObjectVersionAndPropertiesOfMultipleObjects, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    NotifyObjectAccess(ObjID: IObjID, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ProposeCheckOutForFile(ParentWindow: number, ObjVersionFile: IObjectFileAndVersion, CanCancel: boolean, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RejectCheckInReminder(ObjVer: IObjVer, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveFavorite(ObjID: IObjID, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveFavorites(ObjIDs: IObjIDs, successCallback?: (result: IObjectVersionAndPropertiesOfMultipleObjects) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ResolveConflict(ParticipantObjID: IObjID, KeepThis: boolean, successCallback?: (result: IObjectVersions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    Rollback(ObjID: IObjID, RollbackToVersion: number, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetExternalID(ObjID: IObjID, ExtID: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetObjectGUID(ObjID: IObjID, ObjectGUID: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetOfflineAvailability(ObjID: IObjID, AvailableInOfflineMode: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetSingleFileObject(ObjVer: IObjVer, SingleFile: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowBasicEditObjectWindow(ParentWindow: number, ObjVer: IObjVer, successCallback?: (result: IObjectWindowResult) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowBasicNewObjectWindow(ParentWindow: number, ObjectType: IObjectType, successCallback?: (result: IObjectWindowResult) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowChangeStateDialogModal(ParentWindow: number, ObjectID: IObjID, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowCheckInReminder(ParentWindow: number, ObjVer: IObjVer, Asynchronous: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowCheckInReminderDialogModal(ParentWindow: number, ObjVer: IObjVer, ApplyEnvironmentConditions: boolean, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowCheckoutPrompt(ParentWindow: number, Message: string, ObjID: IObjID, ShowCancel: boolean, AutoRejectConsequentPrompts: boolean, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowCollectionMembersDialog(ParentWindow: number, ObjectVersion: IObjVer, Modeless: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowCommentsDialogModal(ParentWindow: number, ObjectID: IObjID, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowEditObjectWindow(ParentWindow: number, Mode: MFiles.MFObjectWindowMode, ObjVer: IObjVer, successCallback?: (result: IObjectWindowResult) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowHistoryDialogModal(ParentWindow: number, ObjectID: IObjID, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowNewObjectWindow(ParentWindow: number, Mode: MFiles.MFObjectWindowMode, ObjectCreationInfo: IObjectCreationInfo, successCallback?: (result: IObjectWindowResult) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowPrefilledNewObjectWindow(ParentWindow: number, Mode: MFiles.MFObjectWindowMode, ObjectCreationInfo: IObjectCreationInfo, PrefilledPropertyValues: IPropertyValues, AccessControlList: IAccessControlList, successCallback?: (result: IObjectWindowResult) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowRelatedObjects(ParentWindow: number, SourceObject: IObjID, ObjectTypeTargetForBrowsing: IObjectTypeTargetForBrowsing, ViewSelectionDialogInfoText: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowRelationshipsDialog(ParentWindow: number, ObjectVersion: IObjVer, Modeless: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowSelectObjectHistoryDialogModal(ParentWindow: number, ObjectID: IObjID, WindowTitle: string, successCallback?: (result: IObjOrFileVer) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowSubObjectsDialogModal(ParentWindow: number, ObjectVersion: IObjVer, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UndeleteObject(ObjID: IObjID, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UndoCheckout(ObjVer: IObjVer, successCallback?: (result: IObjectVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UndoCheckoutMultipleObjects(ObjVers: IObjVers, successCallback?: (result: IObjectVersions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddFavorite(
+        ObjID: IObjID,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    AddFavorites(
+        ObjIDs: IObjIDs,
+        successCallback?: (result: IObjectVersionAndPropertiesOfMultipleObjects) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ChangePermissionsToACL(
+        ObjVer: IObjVer,
+        AccessControlList: IAccessControlList,
+        ChangeAllVersions: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ChangePermissionsToNamedACL(
+        ObjVer: IObjVer,
+        NamedACL: number,
+        ChangeAllVersions: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CheckIn(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CheckInMultipleObjects(
+        ObjVers: IObjVers,
+        successCallback?: (result: IObjectVersions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CheckOut(
+        ObjID: IObjID,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CheckOutMultipleObjects(
+        ObjIDs: IObjIDs,
+        successCallback?: (result: IObjectVersions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CreateNewAssignment(
+        AssignmentName: string,
+        AssignmentDescription: string,
+        AssignedToUser: ITypedValue,
+        Deadline: ITypedValue,
+        AccessControlList: IAccessControlList,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CreateNewEmptySingleFileDocument(
+        PropertyValues: IPropertyValues,
+        Title: string,
+        Extension: string,
+        AccessControlList: IAccessControlList,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CreateNewObject(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        PropertyValues: IPropertyValues,
+        SourceObjectFiles: ISourceObjectFiles,
+        AccessControlList: IAccessControlList,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CreateNewObjectEx(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        Properties: IPropertyValues,
+        SourceFiles: ISourceObjectFiles,
+        SFD: boolean,
+        CheckIn: boolean,
+        AccessControlList: IAccessControlList,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CreateNewObjectExQuick(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        Properties: IPropertyValues,
+        SourceFiles: ISourceObjectFiles,
+        SFD: boolean,
+        CheckIn: boolean,
+        AccessControlList: IAccessControlList,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CreateNewSFDObject(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        Properties: IPropertyValues,
+        SourceFile: ISourceObjectFile,
+        CheckIn: boolean,
+        AccessControlList: IAccessControlList,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CreateNewSFDObjectQuick(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        Properties: IPropertyValues,
+        SourceFile: ISourceObjectFile,
+        CheckIn: boolean,
+        AccessControlList: IAccessControlList,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DelayedCheckIn(
+        ObjVer: IObjVer,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DeleteObject(
+        ObjID: IObjID,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DestroyObject(
+        ObjID: IObjID,
+        DestroyAllVersions: boolean,
+        ObjectVersion: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DestroyObjects(
+        ObjIDs: IObjIDs,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    FollowObject(
+        ObjID: IObjID,
+        Follow: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ForceUndoCheckout(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetCollectionMembers(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectVersions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetHistory(
+        ObjID: IObjID,
+        successCallback?: (result: IObjectVersions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLatestObjectVersionAndProperties(
+        ObjID: IObjID,
+        AllowCheckedOut: boolean,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLatestObjVer(
+        ObjID: IObjID,
+        AllowCheckedOut: boolean,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjVer) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLatestObjVerEx(
+        ObjID: IObjID,
+        AllowCheckedOut: boolean,
+        UpdateFromServer: boolean,
+        NotifyViews: boolean,
+        successCallback?: (result: IObjVer) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetMFilesURLForObject(
+        ObjID: IObjID,
+        TargetVersion: number,
+        SpecificVersion: boolean,
+        URLType: MFiles.MFilesURLType,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetMFilesURLForObjectOrFile(
+        ObjID: IObjID,
+        TargetVersion: number,
+        SpecificVersion: boolean,
+        File: number,
+        URLType: MFiles.MFilesURLType,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectGUID(
+        ObjID: IObjID,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectInfo(
+        ObjVer: IObjVer,
+        LatestVersion: boolean,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectInfoEx(
+        ObjVer: IObjVer,
+        LatestVersion: boolean,
+        UpdateFromServer: boolean,
+        NotifyViews: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectLocationsInView(
+        View: MFiles.MFBuiltInView | number,
+        LatestSpecificBehavior: MFiles.MFLatestSpecificBehavior,
+        ObjectVersion: IObjVer,
+        successCallback?: (result: IStrings) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectPermissions(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectVersionPermissions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectVersionAndProperties(
+        ObjVer: IObjVer,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectVersionAndPropertiesOfMultipleObjects(
+        ObjVers: IObjVers,
+        LatestVersions: boolean,
+        AllowCheckedOut: boolean,
+        AllowMissingObjectVersions: boolean,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjectVersionAndPropertiesOfMultipleObjects) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjIDByGUID(
+        ObjectGUID: string,
+        successCallback?: (result: IObjID) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjIDByOriginalObjID(
+        OriginalVaultGUID: string,
+        OriginalObjID: IObjID,
+        successCallback?: (result: IObjID) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetOfflineAvailability(
+        ObjID: IObjID,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetOfflineObjIDs(
+        successCallback?: (result: IObjIDs) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetRelationships(
+        ObjVer: IObjVer,
+        Mode: MFiles.MFRelationshipsMode,
+        successCallback?: (result: IObjectVersions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetThumbnailAsBytes(
+        ObjVer: IObjVer,
+        FileVer: IFileVer,
+        Width: number,
+        Height: number,
+        GetFileIconThumbnailIfRealThumbnailNotAvailable: boolean,
+        successCallback?: (result: readonly number[]) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsObjectCheckedOut(
+        ObjID: IObjID,
+        UpdateFromServer: boolean,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsObjectCheckedOutToThisUserOnThisComputer(
+        ObjID: IObjID,
+        UpdateFromServer: boolean,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsObjectFollowed(
+        ObjID: IObjID,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsSingleFileObject(
+        ObjVer: IObjVer,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    MatchesSearchConditions(
+        pIObjVer: IObjVer,
+        pISearchConditions: ISearchConditions,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    MatchesSearchConditionsEx(
+        pIObjectVersion: IObjectVersion,
+        pISearchConditions: ISearchConditions,
+        pIPropertyValues: IPropertyValues,
+        pIObjectVersionAndPropertiesOfMultipleObjects: IObjectVersionAndPropertiesOfMultipleObjects,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    NotifyObjectAccess(
+        ObjID: IObjID,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ProposeCheckOutForFile(
+        ParentWindow: number,
+        ObjVersionFile: IObjectFileAndVersion,
+        CanCancel: boolean,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RejectCheckInReminder(
+        ObjVer: IObjVer,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveFavorite(
+        ObjID: IObjID,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveFavorites(
+        ObjIDs: IObjIDs,
+        successCallback?: (result: IObjectVersionAndPropertiesOfMultipleObjects) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ResolveConflict(
+        ParticipantObjID: IObjID,
+        KeepThis: boolean,
+        successCallback?: (result: IObjectVersions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    Rollback(
+        ObjID: IObjID,
+        RollbackToVersion: number,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetExternalID(
+        ObjID: IObjID,
+        ExtID: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetObjectGUID(
+        ObjID: IObjID,
+        ObjectGUID: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetOfflineAvailability(
+        ObjID: IObjID,
+        AvailableInOfflineMode: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetSingleFileObject(
+        ObjVer: IObjVer,
+        SingleFile: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowBasicEditObjectWindow(
+        ParentWindow: number,
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectWindowResult) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowBasicNewObjectWindow(
+        ParentWindow: number,
+        ObjectType: IObjectType,
+        successCallback?: (result: IObjectWindowResult) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowChangeStateDialogModal(
+        ParentWindow: number,
+        ObjectID: IObjID,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowCheckInReminder(
+        ParentWindow: number,
+        ObjVer: IObjVer,
+        Asynchronous: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowCheckInReminderDialogModal(
+        ParentWindow: number,
+        ObjVer: IObjVer,
+        ApplyEnvironmentConditions: boolean,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowCheckoutPrompt(
+        ParentWindow: number,
+        Message: string,
+        ObjID: IObjID,
+        ShowCancel: boolean,
+        AutoRejectConsequentPrompts: boolean,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowCollectionMembersDialog(
+        ParentWindow: number,
+        ObjectVersion: IObjVer,
+        Modeless: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowCommentsDialogModal(
+        ParentWindow: number,
+        ObjectID: IObjID,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowEditObjectWindow(
+        ParentWindow: number,
+        Mode: MFiles.MFObjectWindowMode,
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectWindowResult) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowHistoryDialogModal(
+        ParentWindow: number,
+        ObjectID: IObjID,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowNewObjectWindow(
+        ParentWindow: number,
+        Mode: MFiles.MFObjectWindowMode,
+        ObjectCreationInfo: IObjectCreationInfo,
+        successCallback?: (result: IObjectWindowResult) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowPrefilledNewObjectWindow(
+        ParentWindow: number,
+        Mode: MFiles.MFObjectWindowMode,
+        ObjectCreationInfo: IObjectCreationInfo,
+        PrefilledPropertyValues: IPropertyValues,
+        AccessControlList: IAccessControlList,
+        successCallback?: (result: IObjectWindowResult) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowRelatedObjects(
+        ParentWindow: number,
+        SourceObject: IObjID,
+        ObjectTypeTargetForBrowsing: IObjectTypeTargetForBrowsing,
+        ViewSelectionDialogInfoText: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowRelationshipsDialog(
+        ParentWindow: number,
+        ObjectVersion: IObjVer,
+        Modeless: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowSelectObjectHistoryDialogModal(
+        ParentWindow: number,
+        ObjectID: IObjID,
+        WindowTitle: string,
+        successCallback?: (result: IObjOrFileVer) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowSubObjectsDialogModal(
+        ParentWindow: number,
+        ObjectVersion: IObjVer,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UndeleteObject(
+        ObjID: IObjID,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UndoCheckout(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UndoCheckoutMultipleObjects(
+        ObjVers: IObjVers,
+        successCallback?: (result: IObjectVersions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultObjectPropertyOperations {
@@ -3690,7 +5693,9 @@ interface IVaultObjectPropertyOperations {
     GetPropertiesForMetadataSync(ObjVer: IObjVer, Format: MFiles.MFMetadataSyncFormat): INamedValues;
     GetPropertiesOfMultipleObjects(ObjectVersions: IObjVers): IPropertyValuesOfMultipleObjects;
     GetPropertiesWithIconClues(ObjVer: IObjVer, UpdateFromServer: boolean): IPropertyValuesWithIconClues;
-    GetPropertiesWithIconCluesOfMultipleObjects(ObjectVersions: IObjVers): IPropertyValuesWithIconCluesOfMultipleObjects;
+    GetPropertiesWithIconCluesOfMultipleObjects(
+        ObjectVersions: IObjVers,
+    ): IPropertyValuesWithIconCluesOfMultipleObjects;
     GetProperty(ObjVer: IObjVer, Property: number): IPropertyValue;
     GetVersionComment(ObjVer: IObjVer): IVersionComment;
     GetVersionCommentHistory(ObjVer: IObjVer): IVersionComments;
@@ -3698,93 +5703,492 @@ interface IVaultObjectPropertyOperations {
     MarkAssignmentComplete(ObjVer: IObjVer): IObjectVersionAndProperties;
     MarkAssignmentCompleteByUser(ObjVer: IObjVer, UserID: number): IObjectVersionAndProperties;
     RemoveProperty(ObjVer: IObjVer, Property: number): IObjectVersionAndProperties;
-    SetAllProperties(ObjVer: IObjVer, AllowModifyingCheckedInObject: boolean, PropertyValues: IPropertyValues): IObjectVersionAndProperties;
-    SetAllPropertiesWithPermissions(ObjVer: IObjVer, AllowModifyingCheckedInObject: boolean, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, ACLProvided: IAccessControlList): IObjectVersionAndProperties;
-    SetAllPropertiesWithPermissionsEx(ObjVer: IObjVer, AllowModifyingCheckedInObject: boolean, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, ACLProvided: IAccessControlList, ElectronicSignature: any): IObjectVersionAndProperties;
-    SetCreationInfoAdmin(ObjVer: IObjVer, UpdateCreatedBy: boolean, CreatedBy: ITypedValue, UpdateCreated: boolean, CreatedUtc: ITypedValue): IObjectVersionAndProperties;
-    SetLastModificationInfoAdmin(ObjVer: IObjVer, UpdateLastModifiedBy: boolean, LastModifiedBy: ITypedValue, UpdateLastModified: boolean, LastModifiedUtc: ITypedValue): IObjectVersionAndProperties;
+    SetAllProperties(
+        ObjVer: IObjVer,
+        AllowModifyingCheckedInObject: boolean,
+        PropertyValues: IPropertyValues,
+    ): IObjectVersionAndProperties;
+    SetAllPropertiesWithPermissions(
+        ObjVer: IObjVer,
+        AllowModifyingCheckedInObject: boolean,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        ACLProvided: IAccessControlList,
+    ): IObjectVersionAndProperties;
+    SetAllPropertiesWithPermissionsEx(
+        ObjVer: IObjVer,
+        AllowModifyingCheckedInObject: boolean,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        ACLProvided: IAccessControlList,
+        ElectronicSignature: any,
+    ): IObjectVersionAndProperties;
+    SetCreationInfoAdmin(
+        ObjVer: IObjVer,
+        UpdateCreatedBy: boolean,
+        CreatedBy: ITypedValue,
+        UpdateCreated: boolean,
+        CreatedUtc: ITypedValue,
+    ): IObjectVersionAndProperties;
+    SetLastModificationInfoAdmin(
+        ObjVer: IObjVer,
+        UpdateLastModifiedBy: boolean,
+        LastModifiedBy: ITypedValue,
+        UpdateLastModified: boolean,
+        LastModifiedUtc: ITypedValue,
+    ): IObjectVersionAndProperties;
     SetProperties(ObjVer: IObjVer, PropertyValues: IPropertyValues): IObjectVersionAndProperties;
-    SetPropertiesOfMultipleObjects(SetPropertiesParamsOfObjects: ISetPropertiesParamsOfMultipleObjects): IObjectVersionAndPropertiesOfMultipleObjects;
-    SetPropertiesWithPermissions(ObjVer: IObjVer, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, ACLProvided: IAccessControlList): IObjectVersionAndProperties;
-    SetPropertiesWithPermissionsEx(ObjVer: IObjVer, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, ACLProvided: IAccessControlList, ElectronicSignature: any): IObjectVersionAndProperties;
+    SetPropertiesOfMultipleObjects(
+        SetPropertiesParamsOfObjects: ISetPropertiesParamsOfMultipleObjects,
+    ): IObjectVersionAndPropertiesOfMultipleObjects;
+    SetPropertiesWithPermissions(
+        ObjVer: IObjVer,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        ACLProvided: IAccessControlList,
+    ): IObjectVersionAndProperties;
+    SetPropertiesWithPermissionsEx(
+        ObjVer: IObjVer,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        ACLProvided: IAccessControlList,
+        ElectronicSignature: any,
+    ): IObjectVersionAndProperties;
     SetProperty(ObjVer: IObjVer, PropertyValue: IPropertyValue): IObjectVersionAndProperties;
     SetVersionComment(ObjVer: IObjVer, VersionComment: IPropertyValue): IObjectVersionAndProperties;
     SetWorkflowState(ObjVer: IObjVer, WorkflowState: IObjectVersionWorkflowState): IObjectVersionAndProperties;
-    SetWorkflowStateEx(ObjVer: IObjVer, WorkflowState: IObjectVersionWorkflowState, ElectronicSignature: any): IObjectVersionAndProperties;
-    SetWorkflowStateTransition(ObjVer: IObjVer, Workflow: number, lStateTransition: number, lVersionComment: string): IObjectVersionAndProperties;
-    SetWorkflowStateTransitionEx(ObjVer: IObjVer, Workflow: number, StateTransition: number, VersionComment: string, ElectronicSignature: any): IObjectVersionAndProperties;
+    SetWorkflowStateEx(
+        ObjVer: IObjVer,
+        WorkflowState: IObjectVersionWorkflowState,
+        ElectronicSignature: any,
+    ): IObjectVersionAndProperties;
+    SetWorkflowStateTransition(
+        ObjVer: IObjVer,
+        Workflow: number,
+        lStateTransition: number,
+        lVersionComment: string,
+    ): IObjectVersionAndProperties;
+    SetWorkflowStateTransitionEx(
+        ObjVer: IObjVer,
+        Workflow: number,
+        StateTransition: number,
+        VersionComment: string,
+        ElectronicSignature: any,
+    ): IObjectVersionAndProperties;
 }
 
 interface IVaultObjectPropertyOperationsAsync {
-    ApproveOrRejectAssignment(ObjVer: IObjVer, Approve: boolean, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ApproveOrRejectAssignmentByUser(ObjVer: IObjVer, Approve: boolean, UserID: number, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CreatePropertiesFromFileInformation(FileInformation: IFileInformation, successCallback?: (result: IPropertyValues) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GenerateAutomaticPermissionsFromPropertyValues(PropertyValues: IPropertyValues, successCallback?: (result: IAccessControlList) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetProperties(ObjVer: IObjVer, UpdateFromServer: boolean, successCallback?: (result: IPropertyValues) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertiesAsXML(ObjVer: IObjVer, UpdateFromServer: boolean, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertiesForDisplay(ObjVer: IObjVer, UpdateFromServer: boolean, successCallback?: (result: IPropertyValuesForDisplay) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertiesForMetadataSync(ObjVer: IObjVer, Format: MFiles.MFMetadataSyncFormat, successCallback?: (result: INamedValues) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertiesOfMultipleObjects(ObjectVersions: IObjVers, successCallback?: (result: IPropertyValuesOfMultipleObjects) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertiesWithIconClues(ObjVer: IObjVer, UpdateFromServer: boolean, successCallback?: (result: IPropertyValuesWithIconClues) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertiesWithIconCluesOfMultipleObjects(ObjectVersions: IObjVers, successCallback?: (result: IPropertyValuesWithIconCluesOfMultipleObjects) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetProperty(ObjVer: IObjVer, Property: number, successCallback?: (result: IPropertyValue) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetVersionComment(ObjVer: IObjVer, successCallback?: (result: IVersionComment) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetVersionCommentHistory(ObjVer: IObjVer, successCallback?: (result: IVersionComments) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowState(ObjVer: IObjVer, UpdateFromServer: boolean, successCallback?: (result: IObjectVersionWorkflowState) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    MarkAssignmentComplete(ObjVer: IObjVer, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    MarkAssignmentCompleteByUser(ObjVer: IObjVer, UserID: number, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveProperty(ObjVer: IObjVer, Property: number, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetAllProperties(ObjVer: IObjVer, AllowModifyingCheckedInObject: boolean, PropertyValues: IPropertyValues, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetAllPropertiesWithPermissions(ObjVer: IObjVer, AllowModifyingCheckedInObject: boolean, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, ACLProvided: IAccessControlList, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetAllPropertiesWithPermissionsEx(ObjVer: IObjVer, AllowModifyingCheckedInObject: boolean, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, ACLProvided: IAccessControlList, ElectronicSignature: any, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetCreationInfoAdmin(ObjVer: IObjVer, UpdateCreatedBy: boolean, CreatedBy: ITypedValue, UpdateCreated: boolean, CreatedUtc: ITypedValue, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetLastModificationInfoAdmin(ObjVer: IObjVer, UpdateLastModifiedBy: boolean, LastModifiedBy: ITypedValue, UpdateLastModified: boolean, LastModifiedUtc: ITypedValue, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetProperties(ObjVer: IObjVer, PropertyValues: IPropertyValues, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetPropertiesOfMultipleObjects(SetPropertiesParamsOfObjects: ISetPropertiesParamsOfMultipleObjects, successCallback?: (result: IObjectVersionAndPropertiesOfMultipleObjects) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetPropertiesWithPermissions(ObjVer: IObjVer, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, ACLProvided: IAccessControlList, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetPropertiesWithPermissionsEx(ObjVer: IObjVer, PropertyValues: IPropertyValues, ACLEnforcingMode: MFiles.MFACLEnforcingMode, ACLProvided: IAccessControlList, ElectronicSignature: any, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetProperty(ObjVer: IObjVer, PropertyValue: IPropertyValue, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetVersionComment(ObjVer: IObjVer, VersionComment: IPropertyValue, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetWorkflowState(ObjVer: IObjVer, WorkflowState: IObjectVersionWorkflowState, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetWorkflowStateEx(ObjVer: IObjVer, WorkflowState: IObjectVersionWorkflowState, ElectronicSignature: any, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetWorkflowStateTransition(ObjVer: IObjVer, Workflow: number, lStateTransition: number, lVersionComment: string, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetWorkflowStateTransitionEx(ObjVer: IObjVer, Workflow: number, StateTransition: number, VersionComment: string, ElectronicSignature: any, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    ApproveOrRejectAssignment(
+        ObjVer: IObjVer,
+        Approve: boolean,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ApproveOrRejectAssignmentByUser(
+        ObjVer: IObjVer,
+        Approve: boolean,
+        UserID: number,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CreatePropertiesFromFileInformation(
+        FileInformation: IFileInformation,
+        successCallback?: (result: IPropertyValues) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GenerateAutomaticPermissionsFromPropertyValues(
+        PropertyValues: IPropertyValues,
+        successCallback?: (result: IAccessControlList) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetProperties(
+        ObjVer: IObjVer,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IPropertyValues) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertiesAsXML(
+        ObjVer: IObjVer,
+        UpdateFromServer: boolean,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertiesForDisplay(
+        ObjVer: IObjVer,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IPropertyValuesForDisplay) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertiesForMetadataSync(
+        ObjVer: IObjVer,
+        Format: MFiles.MFMetadataSyncFormat,
+        successCallback?: (result: INamedValues) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertiesOfMultipleObjects(
+        ObjectVersions: IObjVers,
+        successCallback?: (result: IPropertyValuesOfMultipleObjects) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertiesWithIconClues(
+        ObjVer: IObjVer,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IPropertyValuesWithIconClues) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertiesWithIconCluesOfMultipleObjects(
+        ObjectVersions: IObjVers,
+        successCallback?: (result: IPropertyValuesWithIconCluesOfMultipleObjects) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetProperty(
+        ObjVer: IObjVer,
+        Property: number,
+        successCallback?: (result: IPropertyValue) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetVersionComment(
+        ObjVer: IObjVer,
+        successCallback?: (result: IVersionComment) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetVersionCommentHistory(
+        ObjVer: IObjVer,
+        successCallback?: (result: IVersionComments) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowState(
+        ObjVer: IObjVer,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjectVersionWorkflowState) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    MarkAssignmentComplete(
+        ObjVer: IObjVer,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    MarkAssignmentCompleteByUser(
+        ObjVer: IObjVer,
+        UserID: number,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveProperty(
+        ObjVer: IObjVer,
+        Property: number,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetAllProperties(
+        ObjVer: IObjVer,
+        AllowModifyingCheckedInObject: boolean,
+        PropertyValues: IPropertyValues,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetAllPropertiesWithPermissions(
+        ObjVer: IObjVer,
+        AllowModifyingCheckedInObject: boolean,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        ACLProvided: IAccessControlList,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetAllPropertiesWithPermissionsEx(
+        ObjVer: IObjVer,
+        AllowModifyingCheckedInObject: boolean,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        ACLProvided: IAccessControlList,
+        ElectronicSignature: any,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetCreationInfoAdmin(
+        ObjVer: IObjVer,
+        UpdateCreatedBy: boolean,
+        CreatedBy: ITypedValue,
+        UpdateCreated: boolean,
+        CreatedUtc: ITypedValue,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetLastModificationInfoAdmin(
+        ObjVer: IObjVer,
+        UpdateLastModifiedBy: boolean,
+        LastModifiedBy: ITypedValue,
+        UpdateLastModified: boolean,
+        LastModifiedUtc: ITypedValue,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetProperties(
+        ObjVer: IObjVer,
+        PropertyValues: IPropertyValues,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetPropertiesOfMultipleObjects(
+        SetPropertiesParamsOfObjects: ISetPropertiesParamsOfMultipleObjects,
+        successCallback?: (result: IObjectVersionAndPropertiesOfMultipleObjects) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetPropertiesWithPermissions(
+        ObjVer: IObjVer,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        ACLProvided: IAccessControlList,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetPropertiesWithPermissionsEx(
+        ObjVer: IObjVer,
+        PropertyValues: IPropertyValues,
+        ACLEnforcingMode: MFiles.MFACLEnforcingMode,
+        ACLProvided: IAccessControlList,
+        ElectronicSignature: any,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetProperty(
+        ObjVer: IObjVer,
+        PropertyValue: IPropertyValue,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetVersionComment(
+        ObjVer: IObjVer,
+        VersionComment: IPropertyValue,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetWorkflowState(
+        ObjVer: IObjVer,
+        WorkflowState: IObjectVersionWorkflowState,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetWorkflowStateEx(
+        ObjVer: IObjVer,
+        WorkflowState: IObjectVersionWorkflowState,
+        ElectronicSignature: any,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetWorkflowStateTransition(
+        ObjVer: IObjVer,
+        Workflow: number,
+        lStateTransition: number,
+        lVersionComment: string,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetWorkflowStateTransitionEx(
+        ObjVer: IObjVer,
+        Workflow: number,
+        StateTransition: number,
+        VersionComment: string,
+        ElectronicSignature: any,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultObjectSearchOperations {
     FindFile(RelativePath: string, UpdateFromServer: boolean): IObjectFileAndVersion;
     FindObjectVersionAndProperties(RelativePath: string, UpdateFromServer: boolean): IObjectVersionAndProperties;
-    GetFacetValues(SearchConditions: ISearchConditions, Facets: IExpressions, FacetValuesMaxCount: number, Flags: MFiles.MFFacetSearchFlags): IStringData;
-    GetFacetValuesByPath(RelativePath: string, Facets: IExpressions, FacetValuesMaxCount: number, Flags: MFiles.MFFacetSearchFlags): IStringData;
+    GetFacetValues(
+        SearchConditions: ISearchConditions,
+        Facets: IExpressions,
+        FacetValuesMaxCount: number,
+        Flags: MFiles.MFFacetSearchFlags,
+    ): IStringData;
+    GetFacetValuesByPath(
+        RelativePath: string,
+        Facets: IExpressions,
+        FacetValuesMaxCount: number,
+        Flags: MFiles.MFFacetSearchFlags,
+    ): IStringData;
     GetObjectCountInSearch(SearchConditions: ISearchConditions, SearchFlags: MFiles.MFSearchFlags): number;
     GetObjectsInPath(RelativePath: string, SortResults: boolean, UpdateFromServer: boolean): IObjectSearchResults;
     GetSearchHits(Input: string, SearchCondition: ISearchCondition): IStrings;
     IsObjectPathInMFiles(RelativePath: string): boolean;
     SearchForObjectsByCondition(SearchCondition: ISearchCondition, SortResults: boolean): IObjectSearchResults;
-    SearchForObjectsByConditions(SearchConditions: ISearchConditions, SearchFlags: MFiles.MFSearchFlags, SortResults: boolean): IObjectSearchResults;
-    SearchForObjectsByConditionsEx(SearchConditions: ISearchConditions, SearchFlags: MFiles.MFSearchFlags, SortResults: boolean, MaxResultCount: number, SearchTimeoutInSeconds: number): IObjectSearchResults;
+    SearchForObjectsByConditions(
+        SearchConditions: ISearchConditions,
+        SearchFlags: MFiles.MFSearchFlags,
+        SortResults: boolean,
+    ): IObjectSearchResults;
+    SearchForObjectsByConditionsEx(
+        SearchConditions: ISearchConditions,
+        SearchFlags: MFiles.MFSearchFlags,
+        SortResults: boolean,
+        MaxResultCount: number,
+        SearchTimeoutInSeconds: number,
+    ): IObjectSearchResults;
     SearchForObjectsByConditionsXML(SearchConditions: ISearchConditions, SortResults: boolean): IXMLSearchResult;
-    SearchForObjectsByExportedSearchConditions(ExportedSearchString: string, SortResults: boolean): IObjectSearchResults;
+    SearchForObjectsByExportedSearchConditions(
+        ExportedSearchString: string,
+        SortResults: boolean,
+    ): IObjectSearchResults;
     SearchForObjectsByExportedSearchConditionsXML(SearchString: string, SortResults: boolean): IXMLSearchResult;
-    SearchForObjectsByString(SearchString: string, SortResults: boolean, FullTextSearchFlags: MFiles.MFFullTextSearchFlags): IObjectSearchResults;
+    SearchForObjectsByString(
+        SearchString: string,
+        SortResults: boolean,
+        FullTextSearchFlags: MFiles.MFFullTextSearchFlags,
+    ): IObjectSearchResults;
 }
 
 interface IVaultObjectSearchOperationsAsync {
-    FindFile(RelativePath: string, UpdateFromServer: boolean, successCallback?: (result: IObjectFileAndVersion) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    FindObjectVersionAndProperties(RelativePath: string, UpdateFromServer: boolean, successCallback?: (result: IObjectVersionAndProperties) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFacetValues(SearchConditions: ISearchConditions, Facets: IExpressions, FacetValuesMaxCount: number, Flags: MFiles.MFFacetSearchFlags, successCallback?: (result: IStringData) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFacetValuesByPath(RelativePath: string, Facets: IExpressions, FacetValuesMaxCount: number, Flags: MFiles.MFFacetSearchFlags, successCallback?: (result: IStringData) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectCountInSearch(SearchConditions: ISearchConditions, SearchFlags: MFiles.MFSearchFlags, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectsInPath(RelativePath: string, SortResults: boolean, UpdateFromServer: boolean, successCallback?: (result: IObjectSearchResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetSearchHits(Input: string, SearchCondition: ISearchCondition, successCallback?: (result: IStrings) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    IsObjectPathInMFiles(RelativePath: string, successCallback?: (result: boolean) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForObjectsByCondition(SearchCondition: ISearchCondition, SortResults: boolean, successCallback?: (result: IObjectSearchResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForObjectsByConditions(SearchConditions: ISearchConditions, SearchFlags: MFiles.MFSearchFlags, SortResults: boolean, successCallback?: (result: IObjectSearchResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForObjectsByConditionsEx(SearchConditions: ISearchConditions, SearchFlags: MFiles.MFSearchFlags, SortResults: boolean, MaxResultCount: number, SearchTimeoutInSeconds: number, successCallback?: (result: IObjectSearchResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForObjectsByConditionsXML(SearchConditions: ISearchConditions, SortResults: boolean, successCallback?: (result: IXMLSearchResult) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForObjectsByExportedSearchConditions(ExportedSearchString: string, SortResults: boolean, successCallback?: (result: IObjectSearchResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForObjectsByExportedSearchConditionsXML(SearchString: string, SortResults: boolean, successCallback?: (result: IXMLSearchResult) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForObjectsByString(SearchString: string, SortResults: boolean, FullTextSearchFlags: MFiles.MFFullTextSearchFlags, successCallback?: (result: IObjectSearchResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    FindFile(
+        RelativePath: string,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjectFileAndVersion) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    FindObjectVersionAndProperties(
+        RelativePath: string,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjectVersionAndProperties) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFacetValues(
+        SearchConditions: ISearchConditions,
+        Facets: IExpressions,
+        FacetValuesMaxCount: number,
+        Flags: MFiles.MFFacetSearchFlags,
+        successCallback?: (result: IStringData) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFacetValuesByPath(
+        RelativePath: string,
+        Facets: IExpressions,
+        FacetValuesMaxCount: number,
+        Flags: MFiles.MFFacetSearchFlags,
+        successCallback?: (result: IStringData) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectCountInSearch(
+        SearchConditions: ISearchConditions,
+        SearchFlags: MFiles.MFSearchFlags,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectsInPath(
+        RelativePath: string,
+        SortResults: boolean,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IObjectSearchResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetSearchHits(
+        Input: string,
+        SearchCondition: ISearchCondition,
+        successCallback?: (result: IStrings) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    IsObjectPathInMFiles(
+        RelativePath: string,
+        successCallback?: (result: boolean) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForObjectsByCondition(
+        SearchCondition: ISearchCondition,
+        SortResults: boolean,
+        successCallback?: (result: IObjectSearchResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForObjectsByConditions(
+        SearchConditions: ISearchConditions,
+        SearchFlags: MFiles.MFSearchFlags,
+        SortResults: boolean,
+        successCallback?: (result: IObjectSearchResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForObjectsByConditionsEx(
+        SearchConditions: ISearchConditions,
+        SearchFlags: MFiles.MFSearchFlags,
+        SortResults: boolean,
+        MaxResultCount: number,
+        SearchTimeoutInSeconds: number,
+        successCallback?: (result: IObjectSearchResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForObjectsByConditionsXML(
+        SearchConditions: ISearchConditions,
+        SortResults: boolean,
+        successCallback?: (result: IXMLSearchResult) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForObjectsByExportedSearchConditions(
+        ExportedSearchString: string,
+        SortResults: boolean,
+        successCallback?: (result: IObjectSearchResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForObjectsByExportedSearchConditionsXML(
+        SearchString: string,
+        SortResults: boolean,
+        successCallback?: (result: IXMLSearchResult) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForObjectsByString(
+        SearchString: string,
+        SortResults: boolean,
+        FullTextSearchFlags: MFiles.MFFullTextSearchFlags,
+        successCallback?: (result: IObjectSearchResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultObjectTypeOperations {
@@ -3796,34 +6200,118 @@ interface IVaultObjectTypeOperations {
     GetObjectTypeIDByGUID(ObjectTypeGUID: string): number;
     GetObjectTypes(): IObjectTypes;
     GetObjectTypesAdmin(): IObjectTypesAdmin;
-    RefreshExternalObjectType(ObjectType: MFiles.MFBuiltInObjectType | number, RefreshType: MFiles.MFExternalDBRefreshType): void;
+    RefreshExternalObjectType(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        RefreshType: MFiles.MFExternalDBRefreshType,
+    ): void;
     RemoveObjectTypeAdmin(ObjectTypeID: number): void;
     UpdateObjectTypeAdmin(ObjectType: IObjectTypeAdmin): IObjectTypeAdmin;
-    UpdateObjectTypeWithAutomaticPermissionsAdmin(ObjectType: IObjectTypeAdmin, AutomaticPermissionsForcedActive: boolean): IObjectTypeAdmin;
+    UpdateObjectTypeWithAutomaticPermissionsAdmin(
+        ObjectType: IObjectTypeAdmin,
+        AutomaticPermissionsForcedActive: boolean,
+    ): IObjectTypeAdmin;
 }
 
 interface IVaultObjectTypeOperationsAsync {
-    AddObjectTypeAdmin(ObjectType: IObjectTypeAdmin, successCallback?: (result: IObjectTypeAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetBuiltInObjectType(ObjectType: MFiles.MFBuiltInObjectType, successCallback?: (result: IObjectType) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectType(ObjectType: MFiles.MFBuiltInObjectType | number, successCallback?: (result: IObjectType) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectTypeAdmin(ObjectType: MFiles.MFBuiltInObjectType | number, successCallback?: (result: IObjectTypeAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectTypeIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectTypeIDByGUID(ObjectTypeGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectTypes(successCallback?: (result: IObjectTypes) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetObjectTypesAdmin(successCallback?: (result: IObjectTypesAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RefreshExternalObjectType(ObjectType: MFiles.MFBuiltInObjectType | number, RefreshType: MFiles.MFExternalDBRefreshType, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveObjectTypeAdmin(ObjectTypeID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateObjectTypeAdmin(ObjectType: IObjectTypeAdmin, successCallback?: (result: IObjectTypeAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateObjectTypeWithAutomaticPermissionsAdmin(ObjectType: IObjectTypeAdmin, AutomaticPermissionsForcedActive: boolean, successCallback?: (result: IObjectTypeAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddObjectTypeAdmin(
+        ObjectType: IObjectTypeAdmin,
+        successCallback?: (result: IObjectTypeAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetBuiltInObjectType(
+        ObjectType: MFiles.MFBuiltInObjectType,
+        successCallback?: (result: IObjectType) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectType(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        successCallback?: (result: IObjectType) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectTypeAdmin(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        successCallback?: (result: IObjectTypeAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectTypeIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectTypeIDByGUID(
+        ObjectTypeGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectTypes(
+        successCallback?: (result: IObjectTypes) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetObjectTypesAdmin(
+        successCallback?: (result: IObjectTypesAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RefreshExternalObjectType(
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        RefreshType: MFiles.MFExternalDBRefreshType,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveObjectTypeAdmin(
+        ObjectTypeID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateObjectTypeAdmin(
+        ObjectType: IObjectTypeAdmin,
+        successCallback?: (result: IObjectTypeAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateObjectTypeWithAutomaticPermissionsAdmin(
+        ObjectType: IObjectTypeAdmin,
+        AutomaticPermissionsForcedActive: boolean,
+        successCallback?: (result: IObjectTypeAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultOnServer {
     readonly GUID: string;
     readonly Name: string;
     LogIn(): IVault;
-    LogInAsUser(AuthType: MFiles.MFAuthType, UserName: string | null, Password: string | null, Domain: string | null, TimeZone: ITimeZoneInformation): IVault;
-    LogInAsUserWithAuthenticationData(PluginInfo: IPluginInfo, AuthenticationData: INamedValues, AttemptIdentifier: string, TimeZone: ITimeZoneInformation): IAuthenticationResult;
-    LogInAsUserWithSPN(AuthType: MFiles.MFAuthType, UserName: string | null, Password: string | null, Domain: string | null, SPN: string | null, TimeZone: ITimeZoneInformation): IVault;
+    LogInAsUser(
+        AuthType: MFiles.MFAuthType,
+        UserName: string | null,
+        Password: string | null,
+        Domain: string | null,
+        TimeZone: ITimeZoneInformation,
+    ): IVault;
+    LogInAsUserWithAuthenticationData(
+        PluginInfo: IPluginInfo,
+        AuthenticationData: INamedValues,
+        AttemptIdentifier: string,
+        TimeZone: ITimeZoneInformation,
+    ): IAuthenticationResult;
+    LogInAsUserWithSPN(
+        AuthType: MFiles.MFAuthType,
+        UserName: string | null,
+        Password: string | null,
+        Domain: string | null,
+        SPN: string | null,
+        TimeZone: ITimeZoneInformation,
+    ): IVault;
 }
 
 interface IVaultProperties {
@@ -3833,7 +6321,7 @@ interface IVaultProperties {
     FileDataConnectionString: string;
     FileDataStorageType: MFiles.MFFileDataStorage;
     FullTextSearchLanguage: string;
-    Icon: ReadonlyArray<number>;
+    Icon: readonly number[];
     MainDataFolder: string;
     SeparateLocationForFileData: IAdditionalFolders;
     SQLDatabase: ISQLDatabase;
@@ -3851,24 +6339,101 @@ interface IVaultPropertyDefOperations {
     GetPropertyDefs(): IPropertyDefs;
     GetPropertyDefsAdmin(): IPropertyDefsAdmin;
     Recalculate(PropertyDef: MFiles.MFBuiltInPropertyDef | number, RecalculateCurrentlyEmptyValuesOnly: boolean): void;
-    RemovePropertyDefAdmin(PropertyDef: MFiles.MFBuiltInPropertyDef | number, CopyToAnotherPropertyDef: boolean, TargetPropertyDef: number, Append: boolean, DeleteFromClassesIfNecessary: boolean): void;
+    RemovePropertyDefAdmin(
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        CopyToAnotherPropertyDef: boolean,
+        TargetPropertyDef: number,
+        Append: boolean,
+        DeleteFromClassesIfNecessary: boolean,
+    ): void;
     UpdatePropertyDefAdmin(PropertyDefAdmin: IPropertyDefAdmin, ResetLastUsedValue: ITypedValue): void;
-    UpdatePropertyDefWithAutomaticPermissionsAdmin(PropertyDefAdmin: IPropertyDefAdmin, ResetLastUsedValue: ITypedValue, AutomaticPermissionsForcedActive: boolean): void;
+    UpdatePropertyDefWithAutomaticPermissionsAdmin(
+        PropertyDefAdmin: IPropertyDefAdmin,
+        ResetLastUsedValue: ITypedValue,
+        AutomaticPermissionsForcedActive: boolean,
+    ): void;
 }
 
 interface IVaultPropertyDefOperationsAsync {
-    AddPropertyDefAdmin(PropertyDefAdmin: IPropertyDefAdmin, ResetLastUsedValue: ITypedValue, successCallback?: (result: IPropertyDefAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetBuiltInPropertyDef(PropertyDefType: MFiles.MFBuiltInPropertyDef, successCallback?: (result: IPropertyDef) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertyDef(PropertyDef: MFiles.MFBuiltInPropertyDef | number, successCallback?: (result: IPropertyDef) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertyDefAdmin(PropertyDef: MFiles.MFBuiltInPropertyDef | number, successCallback?: (result: IPropertyDefAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertyDefIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertyDefIDByGUID(PropertyDefGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertyDefs(successCallback?: (result: IPropertyDefs) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertyDefsAdmin(successCallback?: (result: IPropertyDefsAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    Recalculate(PropertyDef: MFiles.MFBuiltInPropertyDef | number, RecalculateCurrentlyEmptyValuesOnly: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemovePropertyDefAdmin(PropertyDef: MFiles.MFBuiltInPropertyDef | number, CopyToAnotherPropertyDef: boolean, TargetPropertyDef: number, Append: boolean, DeleteFromClassesIfNecessary: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdatePropertyDefAdmin(PropertyDefAdmin: IPropertyDefAdmin, ResetLastUsedValue: ITypedValue, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdatePropertyDefWithAutomaticPermissionsAdmin(PropertyDefAdmin: IPropertyDefAdmin, ResetLastUsedValue: ITypedValue, AutomaticPermissionsForcedActive: boolean, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddPropertyDefAdmin(
+        PropertyDefAdmin: IPropertyDefAdmin,
+        ResetLastUsedValue: ITypedValue,
+        successCallback?: (result: IPropertyDefAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetBuiltInPropertyDef(
+        PropertyDefType: MFiles.MFBuiltInPropertyDef,
+        successCallback?: (result: IPropertyDef) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertyDef(
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        successCallback?: (result: IPropertyDef) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertyDefAdmin(
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        successCallback?: (result: IPropertyDefAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertyDefIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertyDefIDByGUID(
+        PropertyDefGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertyDefs(
+        successCallback?: (result: IPropertyDefs) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertyDefsAdmin(
+        successCallback?: (result: IPropertyDefsAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    Recalculate(
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        RecalculateCurrentlyEmptyValuesOnly: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemovePropertyDefAdmin(
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        CopyToAnotherPropertyDef: boolean,
+        TargetPropertyDef: number,
+        Append: boolean,
+        DeleteFromClassesIfNecessary: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdatePropertyDefAdmin(
+        PropertyDefAdmin: IPropertyDefAdmin,
+        ResetLastUsedValue: ITypedValue,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdatePropertyDefWithAutomaticPermissionsAdmin(
+        PropertyDefAdmin: IPropertyDefAdmin,
+        ResetLastUsedValue: ITypedValue,
+        AutomaticPermissionsForcedActive: boolean,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultScheduledJobManagementOperations {
@@ -3883,14 +6448,53 @@ interface IVaultScheduledJobManagementOperations {
 }
 
 interface IVaultScheduledJobManagementOperationsAsync {
-    AddScheduledJob(ScheduledJob: IScheduledJob, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    CancelScheduledJob(ID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetScheduledJob(ID: number, successCallback?: (result: IScheduledJob) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetScheduledJobRunInfo(ID: number, successCallback?: (result: IScheduledJobRunInfo) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetScheduledJobs(successCallback?: (result: IScheduledJobs) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ModifyScheduledJob(ScheduledJob: IScheduledJob, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveScheduledJob(ID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    StartScheduledJob(ID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddScheduledJob(
+        ScheduledJob: IScheduledJob,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    CancelScheduledJob(
+        ID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetScheduledJob(
+        ID: number,
+        successCallback?: (result: IScheduledJob) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetScheduledJobRunInfo(
+        ID: number,
+        successCallback?: (result: IScheduledJobRunInfo) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetScheduledJobs(
+        successCallback?: (result: IScheduledJobs) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ModifyScheduledJob(
+        ScheduledJob: IScheduledJob,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveScheduledJob(
+        ID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    StartScheduledJob(
+        ID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultServerDataPushOperations {
@@ -3903,12 +6507,44 @@ interface IVaultServerDataPushOperations {
 }
 
 interface IVaultServerDataPushOperationsAsync {
-    CloneVaultForServerDataPush(ServerDataPushSink: IServerDataPushSink, successCallback?: (result: IVault) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SendCancel(RequestID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SendError(RequestID: number, Error: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SendHeartbeat(RequestID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SendResponse(RequestID: number, JsonResponseContent: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetServerDataPushSink(ServerDataPushSink: IServerDataPushSink, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    CloneVaultForServerDataPush(
+        ServerDataPushSink: IServerDataPushSink,
+        successCallback?: (result: IVault) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SendCancel(
+        RequestID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SendError(
+        RequestID: number,
+        Error: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SendHeartbeat(
+        RequestID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SendResponse(
+        RequestID: number,
+        JsonResponseContent: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetServerDataPushSink(
+        ServerDataPushSink: IServerDataPushSink,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultSharedLinkOperations {
@@ -3920,11 +6556,36 @@ interface IVaultSharedLinkOperations {
 }
 
 interface IVaultSharedLinkOperationsAsync {
-    CreateSharedLink(SharedLinkCreationInfo: ISharedLinkInfo, successCallback?: (result: ISharedLinkInfo) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    DeleteSharedLink(AccessKey: string, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetSharedLink(AccessKey: string, successCallback?: (result: ISharedLinkInfo) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetSharedLinks(CreatedByUser: number, successCallback?: (result: ISharedLinkInfos) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetSharedLinksByObject(ObjID: IObjID, successCallback?: (result: ISharedLinkInfos) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    CreateSharedLink(
+        SharedLinkCreationInfo: ISharedLinkInfo,
+        successCallback?: (result: ISharedLinkInfo) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    DeleteSharedLink(
+        AccessKey: string,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetSharedLink(
+        AccessKey: string,
+        successCallback?: (result: ISharedLinkInfo) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetSharedLinks(
+        CreatedByUser: number,
+        successCallback?: (result: ISharedLinkInfos) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetSharedLinksByObject(
+        ObjID: IObjID,
+        successCallback?: (result: ISharedLinkInfos) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultsOnServer {
@@ -3941,7 +6602,12 @@ interface IVaultTraditionalFolderOperations {
 }
 
 interface IVaultTraditionalFolderOperationsAsync {
-    GetTraditionalFolderContents(Folder: number, successCallback?: (result: ITraditionalFolderContents) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    GetTraditionalFolderContents(
+        Folder: number,
+        successCallback?: (result: ITraditionalFolderContents) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultUI {
@@ -3953,6 +6619,7 @@ interface IVaultUI {
 }
 
 interface IVaultUIEvents extends IEvents {
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewVaultEntry?(vaultEntry: IVaultEntry): void | IVaultEntryEvents;
     OnStarted?(): void;
     OnStop?(): void;
@@ -3974,18 +6641,76 @@ interface IVaultUserGroupOperations {
 }
 
 interface IVaultUserGroupOperationsAsync {
-    AddOrUndeleteUserGroup(UserGroup: IUserGroupAdmin, successCallback?: (result: IUserGroupAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    AddUserGroupAdmin(UserGroup: IUserGroupAdmin, successCallback?: (result: IUserGroupAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetGroupsOfUserOrGroup(UserOrGroupID: number, IsGroup: boolean, successCallback?: (result: IUserGroups) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserGroup(UserGroupID: MFiles.MFBuiltInUserGroup | number, successCallback?: (result: IUserGroup) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserGroupAdmin(UserGroupID: MFiles.MFBuiltInUserGroup | number, successCallback?: (result: IUserGroupAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserGroupIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserGroupIDByGUID(UserGroupGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserGroupList(successCallback?: (result: IKeyNamePairs) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserGroups(successCallback?: (result: IUserGroups) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserGroupsAdmin(successCallback?: (result: IUserGroupsAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveUserGroupAdmin(UserGroupID: MFiles.MFBuiltInUserGroup | number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateUserGroupAdmin(UserGroup: IUserGroupAdmin, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddOrUndeleteUserGroup(
+        UserGroup: IUserGroupAdmin,
+        successCallback?: (result: IUserGroupAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    AddUserGroupAdmin(
+        UserGroup: IUserGroupAdmin,
+        successCallback?: (result: IUserGroupAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetGroupsOfUserOrGroup(
+        UserOrGroupID: number,
+        IsGroup: boolean,
+        successCallback?: (result: IUserGroups) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserGroup(
+        UserGroupID: MFiles.MFBuiltInUserGroup | number,
+        successCallback?: (result: IUserGroup) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserGroupAdmin(
+        UserGroupID: MFiles.MFBuiltInUserGroup | number,
+        successCallback?: (result: IUserGroupAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserGroupIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserGroupIDByGUID(
+        UserGroupGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserGroupList(
+        successCallback?: (result: IKeyNamePairs) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserGroups(
+        successCallback?: (result: IUserGroups) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserGroupsAdmin(
+        successCallback?: (result: IUserGroupsAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveUserGroupAdmin(
+        UserGroupID: MFiles.MFBuiltInUserGroup | number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateUserGroupAdmin(
+        UserGroup: IUserGroupAdmin,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultUserOperations {
@@ -4002,16 +6727,63 @@ interface IVaultUserOperations {
 }
 
 interface IVaultUserOperationsAsync {
-    AddOrUndeleteUserAccount(User: IUserAccount, successCallback?: (result: IUserAccount) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    AddUserAccount(User: IUserAccount, successCallback?: (result: IUserAccount) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLoginAccountOfUser(UserID: number, successCallback?: (result: ILoginAccount) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetLoginAccounts(successCallback?: (result: ILoginAccounts) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserAccount(UserID: number, successCallback?: (result: IUserAccount) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserAccounts(successCallback?: (result: IUserAccounts) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserIDByGUID(UserGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetUserList(successCallback?: (result: IKeyNamePairs) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ModifyUserAccount(User: IUserAccount, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveUserAccount(UserID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddOrUndeleteUserAccount(
+        User: IUserAccount,
+        successCallback?: (result: IUserAccount) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    AddUserAccount(
+        User: IUserAccount,
+        successCallback?: (result: IUserAccount) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLoginAccountOfUser(
+        UserID: number,
+        successCallback?: (result: ILoginAccount) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetLoginAccounts(
+        successCallback?: (result: ILoginAccounts) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserAccount(
+        UserID: number,
+        successCallback?: (result: IUserAccount) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserAccounts(
+        successCallback?: (result: IUserAccounts) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserIDByGUID(
+        UserGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetUserList(
+        successCallback?: (result: IKeyNamePairs) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ModifyUserAccount(
+        User: IUserAccount,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveUserAccount(
+        UserID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultUserSettingOperations {
@@ -4023,63 +6795,354 @@ interface IVaultUserSettingOperations {
 }
 
 interface IVaultUserSettingOperationsAsync {
-    ChangeVaultLanguage(Language: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetSubstituteUsers(successCallback?: (result: IUserOrUserGroupIDs) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetVaultLanguage(successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetVaultLanguageCode(successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SetSubstituteUsers(UserOrUserGroupIDs: IUserOrUserGroupIDs, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    ChangeVaultLanguage(
+        Language: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetSubstituteUsers(
+        successCallback?: (result: IUserOrUserGroupIDs) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetVaultLanguage(
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetVaultLanguageCode(
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SetSubstituteUsers(
+        UserOrUserGroupIDs: IUserOrUserGroupIDs,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultValueListItemOperations {
-    AddValueListItem(ValueList: MFiles.MFBuiltInValueList | number, ValueListItem: IValueListItem, AdministrativeOperation: boolean): IValueListItem;
-    ChangeAutomaticPermissionsToACL(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, AccessControlList: IAccessControlList, NameForAutomaticPermissions: string, CanDeactivate: boolean, AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions): void;
-    ChangeAutomaticPermissionsToItemsOwnPermissions(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, CanDeactivate: boolean, AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions): void;
-    ChangeAutomaticPermissionsToNamedACL(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, NamedACL: number, CanDeactivate: boolean, AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions): void;
-    ChangePermissionsToACL(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, AccessControlList: IAccessControlList): void;
-    ChangePermissionsToNamedACL(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, NamedACL: number): void;
+    AddValueListItem(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItem: IValueListItem,
+        AdministrativeOperation: boolean,
+    ): IValueListItem;
+    ChangeAutomaticPermissionsToACL(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        AccessControlList: IAccessControlList,
+        NameForAutomaticPermissions: string,
+        CanDeactivate: boolean,
+        AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions,
+    ): void;
+    ChangeAutomaticPermissionsToItemsOwnPermissions(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        CanDeactivate: boolean,
+        AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions,
+    ): void;
+    ChangeAutomaticPermissionsToNamedACL(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        NamedACL: number,
+        CanDeactivate: boolean,
+        AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions,
+    ): void;
+    ChangePermissionsToACL(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        AccessControlList: IAccessControlList,
+    ): void;
+    ChangePermissionsToNamedACL(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        NamedACL: number,
+    ): void;
     ClearAutomaticPermissions(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number): void;
-    GetValueListItemByDisplayID(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemDisplayID: string): IValueListItem;
-    GetValueListItemByDisplayIDEx(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemDisplayID: string, ReplaceCurrentUserWithCallersIdentity: boolean): IValueListItem;
-    GetValueListItemByGUID(ValueList: MFiles.MFBuiltInValueList | number, ItemGUID: string, AllowDeletedItems: boolean, ReplaceCurrentUserWithCallersIdentity: boolean): IValueListItem;
+    GetValueListItemByDisplayID(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemDisplayID: string,
+    ): IValueListItem;
+    GetValueListItemByDisplayIDEx(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemDisplayID: string,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+    ): IValueListItem;
+    GetValueListItemByGUID(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ItemGUID: string,
+        AllowDeletedItems: boolean,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+    ): IValueListItem;
     GetValueListItemByID(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number): IValueListItem;
-    GetValueListItemByIDEx(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, ReplaceCurrentUserWithCallersIdentity: boolean): IValueListItem;
-    GetValueListItemIDByGUID(ValueList: MFiles.MFBuiltInValueList | number, ItemGUID: string, AllowDeletedItems: boolean): number;
-    GetValueListItems(ValueList: MFiles.MFBuiltInValueList | number, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType): IValueListItems;
-    GetValueListItemsEx(ValueList: MFiles.MFBuiltInValueList | number, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean): IValueListItems;
-    GetValueListItemsEx2(ValueList: MFiles.MFBuiltInValueList | number, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, PropertyDef: MFiles.MFBuiltInPropertyDef | number): IValueListItems;
-    GetValueListItemsWithPermissions(ValueList: MFiles.MFBuiltInValueList | number, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, PropertyDef: MFiles.MFBuiltInPropertyDef | number): IValueListItemsWithPermissions;
+    GetValueListItemByIDEx(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+    ): IValueListItem;
+    GetValueListItemIDByGUID(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ItemGUID: string,
+        AllowDeletedItems: boolean,
+    ): number;
+    GetValueListItems(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+    ): IValueListItems;
+    GetValueListItemsEx(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+    ): IValueListItems;
+    GetValueListItemsEx2(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+    ): IValueListItems;
+    GetValueListItemsWithPermissions(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+    ): IValueListItemsWithPermissions;
     RemoveValueListItem(ValueList: MFiles.MFBuiltInValueList | number, Item: number): void;
-    SearchForValueListItemsEx(ValueList: MFiles.MFBuiltInValueList | number, SearchConditions: ISearchConditions, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean): IValueListItemSearchResults;
-    SearchForValueListItemsEx2(ValueList: MFiles.MFBuiltInValueList | number, SearchConditions: ISearchConditions, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, PropertyDef: MFiles.MFBuiltInPropertyDef | number, MaxResults: number): IValueListItemSearchResults;
-    SearchForValueListItemsWithPermissions(ValueList: MFiles.MFBuiltInValueList | number, SearchConditions: ISearchConditions, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, PropertyDef: MFiles.MFBuiltInPropertyDef | number, MaxResults: number): IValueListItemSearchResultsWithPermissions;
+    SearchForValueListItemsEx(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        SearchConditions: ISearchConditions,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+    ): IValueListItemSearchResults;
+    SearchForValueListItemsEx2(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        SearchConditions: ISearchConditions,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        MaxResults: number,
+    ): IValueListItemSearchResults;
+    SearchForValueListItemsWithPermissions(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        SearchConditions: ISearchConditions,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        MaxResults: number,
+    ): IValueListItemSearchResultsWithPermissions;
     UndeleteValueListItem(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number): void;
     UpdateValueListItem(ValueListItem: IValueListItem): void;
 }
 
 interface IVaultValueListItemOperationsAsync {
-    AddValueListItem(ValueList: MFiles.MFBuiltInValueList | number, ValueListItem: IValueListItem, AdministrativeOperation: boolean, successCallback?: (result: IValueListItem) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ChangeAutomaticPermissionsToACL(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, AccessControlList: IAccessControlList, NameForAutomaticPermissions: string, CanDeactivate: boolean, AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ChangeAutomaticPermissionsToItemsOwnPermissions(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, CanDeactivate: boolean, AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ChangeAutomaticPermissionsToNamedACL(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, NamedACL: number, CanDeactivate: boolean, AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ChangePermissionsToACL(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, AccessControlList: IAccessControlList, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ChangePermissionsToNamedACL(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, NamedACL: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ClearAutomaticPermissions(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemByDisplayID(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemDisplayID: string, successCallback?: (result: IValueListItem) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemByDisplayIDEx(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemDisplayID: string, ReplaceCurrentUserWithCallersIdentity: boolean, successCallback?: (result: IValueListItem) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemByGUID(ValueList: MFiles.MFBuiltInValueList | number, ItemGUID: string, AllowDeletedItems: boolean, ReplaceCurrentUserWithCallersIdentity: boolean, successCallback?: (result: IValueListItem) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemByID(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, successCallback?: (result: IValueListItem) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemByIDEx(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, ReplaceCurrentUserWithCallersIdentity: boolean, successCallback?: (result: IValueListItem) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemIDByGUID(ValueList: MFiles.MFBuiltInValueList | number, ItemGUID: string, AllowDeletedItems: boolean, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItems(ValueList: MFiles.MFBuiltInValueList | number, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, successCallback?: (result: IValueListItems) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemsEx(ValueList: MFiles.MFBuiltInValueList | number, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, successCallback?: (result: IValueListItems) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemsEx2(ValueList: MFiles.MFBuiltInValueList | number, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, PropertyDef: MFiles.MFBuiltInPropertyDef | number, successCallback?: (result: IValueListItems) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListItemsWithPermissions(ValueList: MFiles.MFBuiltInValueList | number, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, PropertyDef: MFiles.MFBuiltInPropertyDef | number, successCallback?: (result: IValueListItemsWithPermissions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveValueListItem(ValueList: MFiles.MFBuiltInValueList | number, Item: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForValueListItemsEx(ValueList: MFiles.MFBuiltInValueList | number, SearchConditions: ISearchConditions, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, successCallback?: (result: IValueListItemSearchResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForValueListItemsEx2(ValueList: MFiles.MFBuiltInValueList | number, SearchConditions: ISearchConditions, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, PropertyDef: MFiles.MFBuiltInPropertyDef | number, MaxResults: number, successCallback?: (result: IValueListItemSearchResults) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SearchForValueListItemsWithPermissions(ValueList: MFiles.MFBuiltInValueList | number, SearchConditions: ISearchConditions, UpdateFromServer: boolean, RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType, ReplaceCurrentUserWithCallersIdentity: boolean, PropertyDef: MFiles.MFBuiltInPropertyDef | number, MaxResults: number, successCallback?: (result: IValueListItemSearchResultsWithPermissions) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UndeleteValueListItem(ValueList: MFiles.MFBuiltInValueList | number, ValueListItemID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateValueListItem(ValueListItem: IValueListItem, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddValueListItem(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItem: IValueListItem,
+        AdministrativeOperation: boolean,
+        successCallback?: (result: IValueListItem) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ChangeAutomaticPermissionsToACL(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        AccessControlList: IAccessControlList,
+        NameForAutomaticPermissions: string,
+        CanDeactivate: boolean,
+        AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ChangeAutomaticPermissionsToItemsOwnPermissions(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        CanDeactivate: boolean,
+        AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ChangeAutomaticPermissionsToNamedACL(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        NamedACL: number,
+        CanDeactivate: boolean,
+        AutomaticPermissionsOperationOptions: MFiles.MFAutomaticPermissionsOperationOptions,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ChangePermissionsToACL(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        AccessControlList: IAccessControlList,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ChangePermissionsToNamedACL(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        NamedACL: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ClearAutomaticPermissions(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemByDisplayID(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemDisplayID: string,
+        successCallback?: (result: IValueListItem) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemByDisplayIDEx(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemDisplayID: string,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        successCallback?: (result: IValueListItem) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemByGUID(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ItemGUID: string,
+        AllowDeletedItems: boolean,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        successCallback?: (result: IValueListItem) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemByID(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        successCallback?: (result: IValueListItem) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemByIDEx(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        successCallback?: (result: IValueListItem) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemIDByGUID(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ItemGUID: string,
+        AllowDeletedItems: boolean,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItems(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        successCallback?: (result: IValueListItems) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemsEx(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        successCallback?: (result: IValueListItems) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemsEx2(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        successCallback?: (result: IValueListItems) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListItemsWithPermissions(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        successCallback?: (result: IValueListItemsWithPermissions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveValueListItem(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        Item: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForValueListItemsEx(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        SearchConditions: ISearchConditions,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        successCallback?: (result: IValueListItemSearchResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForValueListItemsEx2(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        SearchConditions: ISearchConditions,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        MaxResults: number,
+        successCallback?: (result: IValueListItemSearchResults) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SearchForValueListItemsWithPermissions(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        SearchConditions: ISearchConditions,
+        UpdateFromServer: boolean,
+        RefreshTypeIfExternalValueList: MFiles.MFExternalDBRefreshType,
+        ReplaceCurrentUserWithCallersIdentity: boolean,
+        PropertyDef: MFiles.MFBuiltInPropertyDef | number,
+        MaxResults: number,
+        successCallback?: (result: IValueListItemSearchResultsWithPermissions) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UndeleteValueListItem(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        ValueListItemID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateValueListItem(
+        ValueListItem: IValueListItem,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultValueListOperations {
@@ -4091,39 +7154,124 @@ interface IVaultValueListOperations {
     GetValueListIDByGUID(ValueListGUID: string): number;
     GetValueLists(): IObjectTypes;
     GetValueListsAdmin(): IObjectTypesAdmin;
-    RefreshExternalValueList(ValueList: MFiles.MFBuiltInValueList | number, RefreshType: MFiles.MFExternalDBRefreshType): void;
+    RefreshExternalValueList(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        RefreshType: MFiles.MFExternalDBRefreshType,
+    ): void;
     RemoveValueListAdmin(ValueListID: MFiles.MFBuiltInValueList | number): void;
     UpdateValueListAdmin(ValueList: IObjectTypeAdmin): IObjectTypeAdmin;
-    UpdateValueListWithAutomaticPermissionsAdmin(ObjectType: IObjectTypeAdmin, AutomaticPermissionsForcedActive: boolean): IObjectTypeAdmin;
+    UpdateValueListWithAutomaticPermissionsAdmin(
+        ObjectType: IObjectTypeAdmin,
+        AutomaticPermissionsForcedActive: boolean,
+    ): IObjectTypeAdmin;
 }
 
 interface IVaultValueListOperationsAsync {
-    AddValueListAdmin(ValueList: IObjectTypeAdmin, successCallback?: (result: IObjectTypeAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetBuiltInValueList(BuiltInValueList: MFiles.MFBuiltInValueList, successCallback?: (result: IObjectType) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueList(ValueList: MFiles.MFBuiltInValueList | number, successCallback?: (result: IObjectType) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListAdmin(ValueListID: MFiles.MFBuiltInValueList | number, successCallback?: (result: IObjectTypeAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListIDByGUID(ValueListGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueLists(successCallback?: (result: IObjectTypes) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetValueListsAdmin(successCallback?: (result: IObjectTypesAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RefreshExternalValueList(ValueList: MFiles.MFBuiltInValueList | number, RefreshType: MFiles.MFExternalDBRefreshType, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveValueListAdmin(ValueListID: MFiles.MFBuiltInValueList | number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateValueListAdmin(ValueList: IObjectTypeAdmin, successCallback?: (result: IObjectTypeAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateValueListWithAutomaticPermissionsAdmin(ObjectType: IObjectTypeAdmin, AutomaticPermissionsForcedActive: boolean, successCallback?: (result: IObjectTypeAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddValueListAdmin(
+        ValueList: IObjectTypeAdmin,
+        successCallback?: (result: IObjectTypeAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetBuiltInValueList(
+        BuiltInValueList: MFiles.MFBuiltInValueList,
+        successCallback?: (result: IObjectType) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueList(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        successCallback?: (result: IObjectType) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListAdmin(
+        ValueListID: MFiles.MFBuiltInValueList | number,
+        successCallback?: (result: IObjectTypeAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListIDByGUID(
+        ValueListGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueLists(
+        successCallback?: (result: IObjectTypes) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetValueListsAdmin(
+        successCallback?: (result: IObjectTypesAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RefreshExternalValueList(
+        ValueList: MFiles.MFBuiltInValueList | number,
+        RefreshType: MFiles.MFExternalDBRefreshType,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveValueListAdmin(
+        ValueListID: MFiles.MFBuiltInValueList | number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateValueListAdmin(
+        ValueList: IObjectTypeAdmin,
+        successCallback?: (result: IObjectTypeAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateValueListWithAutomaticPermissionsAdmin(
+        ObjectType: IObjectTypeAdmin,
+        AutomaticPermissionsForcedActive: boolean,
+        successCallback?: (result: IObjectTypeAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultViewOperations {
     AddOfflineFilter(OfflineFilter: IView): IView;
-    AddTemporarySearchView(View: IView, SearchCriteria: ISearchCriteria, BaseSearchConditions: ISearchConditions): IView;
+    AddTemporarySearchView(
+        View: IView,
+        SearchCriteria: ISearchCriteria,
+        BaseSearchConditions: ISearchConditions,
+    ): IView;
     AddView(View: IView): IView;
     FindPropertyFolderLocationInView(View: MFiles.MFBuiltInView | number, PropertyFolders: ITypedValues): string;
     GetBuiltInView(BuiltInView: MFiles.MFBuiltInView): IView;
     GetFolderContents(FolderLocation: IFolderDefs): IFolderContentItems;
-    GetFolderNameListing(ExpressionEx: IExpressionEx, SearchConditions: ISearchConditions, SearchFlags: MFiles.MFSearchFlags, SortResults: boolean): IFolderNameListing;
+    GetFolderNameListing(
+        ExpressionEx: IExpressionEx,
+        SearchConditions: ISearchConditions,
+        SearchFlags: MFiles.MFSearchFlags,
+        SortResults: boolean,
+    ): IFolderNameListing;
     GetFolderUIStateForFolder(CommonState: boolean, FolderLocation: IFolderDefs, ObjectFolder: boolean): IFolderUIState;
-    GetFolderUIStateForSpecialLocation(CommonState: boolean, LocationType: MFiles.MFFolderUIStateLocationType): IFolderUIState;
-    GetMFilesURLForView(ViewID: MFiles.MFBuiltInView | number, PropertyFolders: ITypedValues, SimpleURL: boolean): string;
-    GetPropertyValuesOfFolder(FolderLocation: IFolderDefs, ObjectType: MFiles.MFBuiltInObjectType | number): IPropertyValues;
+    GetFolderUIStateForSpecialLocation(
+        CommonState: boolean,
+        LocationType: MFiles.MFFolderUIStateLocationType,
+    ): IFolderUIState;
+    GetMFilesURLForView(
+        ViewID: MFiles.MFBuiltInView | number,
+        PropertyFolders: ITypedValues,
+        SimpleURL: boolean,
+    ): string;
+    GetPropertyValuesOfFolder(
+        FolderLocation: IFolderDefs,
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+    ): IPropertyValues;
     GetPropertyValuesOfPath(Path: string, ObjectType: MFiles.MFBuiltInObjectType | number): IPropertyValues;
     GetTemporarySearchByPath(RelativePath: string): ITemporarySearchView;
     GetTemporarySearchView(ViewID: MFiles.MFBuiltInView | number): ITemporarySearchView;
@@ -4134,42 +7282,232 @@ interface IVaultViewOperations {
     GetViewsAdmin(IncludeCommonViews: boolean, UserID: number): IViews;
     ModifyTemporarySearch(TemporarySearchView: ITemporarySearchView): void;
     RemoveView(View: MFiles.MFBuiltInView | number): void;
-    ResetFolderUIStateForFolder(ResetToProgramDefaults: boolean, ResetToCommonDefaults: boolean, FolderLocation: IFolderDefs, ObjectFolder: boolean): IFolderUIState;
-    ResetFolderUIStateForSpecialLocation(ResetToProgramDefaults: boolean, ResetToCommonDefaults: boolean, LocationType: MFiles.MFFolderUIStateLocationType): IFolderUIState;
-    SaveFolderUIStateForFolder(SaveAsCommonSettings: boolean, ResetCommonSettingsToAllUsers: boolean, FolderLocation: IFolderDefs, ObjectFolder: boolean, State: IFolderUIState): void;
-    SaveFolderUIStateForSpecialLocation(SaveAsCommonSettings: boolean, ResetCommonSettingsToAllUsers: boolean, LocationType: MFiles.MFFolderUIStateLocationType, State: IFolderUIState): void;
-    ShowViewOrPropertyFolder(ParentWindow: number, View: MFiles.MFBuiltInView | number, PropertyFolders: ITypedValues): void;
+    ResetFolderUIStateForFolder(
+        ResetToProgramDefaults: boolean,
+        ResetToCommonDefaults: boolean,
+        FolderLocation: IFolderDefs,
+        ObjectFolder: boolean,
+    ): IFolderUIState;
+    ResetFolderUIStateForSpecialLocation(
+        ResetToProgramDefaults: boolean,
+        ResetToCommonDefaults: boolean,
+        LocationType: MFiles.MFFolderUIStateLocationType,
+    ): IFolderUIState;
+    SaveFolderUIStateForFolder(
+        SaveAsCommonSettings: boolean,
+        ResetCommonSettingsToAllUsers: boolean,
+        FolderLocation: IFolderDefs,
+        ObjectFolder: boolean,
+        State: IFolderUIState,
+    ): void;
+    SaveFolderUIStateForSpecialLocation(
+        SaveAsCommonSettings: boolean,
+        ResetCommonSettingsToAllUsers: boolean,
+        LocationType: MFiles.MFFolderUIStateLocationType,
+        State: IFolderUIState,
+    ): void;
+    ShowViewOrPropertyFolder(
+        ParentWindow: number,
+        View: MFiles.MFBuiltInView | number,
+        PropertyFolders: ITypedValues,
+    ): void;
     UpdateView(View: IView): IView;
 }
 
 interface IVaultViewOperationsAsync {
-    AddOfflineFilter(OfflineFilter: IView, successCallback?: (result: IView) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    AddTemporarySearchView(View: IView, SearchCriteria: ISearchCriteria, BaseSearchConditions: ISearchConditions, successCallback?: (result: IView) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    AddView(View: IView, successCallback?: (result: IView) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    FindPropertyFolderLocationInView(View: MFiles.MFBuiltInView | number, PropertyFolders: ITypedValues, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetBuiltInView(BuiltInView: MFiles.MFBuiltInView, successCallback?: (result: IView) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFolderContents(FolderLocation: IFolderDefs, successCallback?: (result: IFolderContentItems) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFolderNameListing(ExpressionEx: IExpressionEx, SearchConditions: ISearchConditions, SearchFlags: MFiles.MFSearchFlags, SortResults: boolean, successCallback?: (result: IFolderNameListing) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFolderUIStateForFolder(CommonState: boolean, FolderLocation: IFolderDefs, ObjectFolder: boolean, successCallback?: (result: IFolderUIState) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetFolderUIStateForSpecialLocation(CommonState: boolean, LocationType: MFiles.MFFolderUIStateLocationType, successCallback?: (result: IFolderUIState) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetMFilesURLForView(ViewID: MFiles.MFBuiltInView | number, PropertyFolders: ITypedValues, SimpleURL: boolean, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertyValuesOfFolder(FolderLocation: IFolderDefs, ObjectType: MFiles.MFBuiltInObjectType | number, successCallback?: (result: IPropertyValues) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetPropertyValuesOfPath(Path: string, ObjectType: MFiles.MFBuiltInObjectType | number, successCallback?: (result: IPropertyValues) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetTemporarySearchByPath(RelativePath: string, successCallback?: (result: ITemporarySearchView) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetTemporarySearchView(ViewID: MFiles.MFBuiltInView | number, successCallback?: (result: ITemporarySearchView) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetView(View: MFiles.MFBuiltInView | number, successCallback?: (result: IView) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetViewIDByGUID(ViewGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetViewLocationInClient(View: MFiles.MFBuiltInView | number, IncludeViewNameInPath: boolean, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetViews(ViewCategory: MFiles.MFViewCategory, AllViews: boolean, ParentView: number, successCallback?: (result: IViews) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetViewsAdmin(IncludeCommonViews: boolean, UserID: number, successCallback?: (result: IViews) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ModifyTemporarySearch(TemporarySearchView: ITemporarySearchView, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveView(View: MFiles.MFBuiltInView | number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ResetFolderUIStateForFolder(ResetToProgramDefaults: boolean, ResetToCommonDefaults: boolean, FolderLocation: IFolderDefs, ObjectFolder: boolean, successCallback?: (result: IFolderUIState) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ResetFolderUIStateForSpecialLocation(ResetToProgramDefaults: boolean, ResetToCommonDefaults: boolean, LocationType: MFiles.MFFolderUIStateLocationType, successCallback?: (result: IFolderUIState) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SaveFolderUIStateForFolder(SaveAsCommonSettings: boolean, ResetCommonSettingsToAllUsers: boolean, FolderLocation: IFolderDefs, ObjectFolder: boolean, State: IFolderUIState, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    SaveFolderUIStateForSpecialLocation(SaveAsCommonSettings: boolean, ResetCommonSettingsToAllUsers: boolean, LocationType: MFiles.MFFolderUIStateLocationType, State: IFolderUIState, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    ShowViewOrPropertyFolder(ParentWindow: number, View: MFiles.MFBuiltInView | number, PropertyFolders: ITypedValues, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateView(View: IView, successCallback?: (result: IView) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddOfflineFilter(
+        OfflineFilter: IView,
+        successCallback?: (result: IView) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    AddTemporarySearchView(
+        View: IView,
+        SearchCriteria: ISearchCriteria,
+        BaseSearchConditions: ISearchConditions,
+        successCallback?: (result: IView) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    AddView(
+        View: IView,
+        successCallback?: (result: IView) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    FindPropertyFolderLocationInView(
+        View: MFiles.MFBuiltInView | number,
+        PropertyFolders: ITypedValues,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetBuiltInView(
+        BuiltInView: MFiles.MFBuiltInView,
+        successCallback?: (result: IView) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFolderContents(
+        FolderLocation: IFolderDefs,
+        successCallback?: (result: IFolderContentItems) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFolderNameListing(
+        ExpressionEx: IExpressionEx,
+        SearchConditions: ISearchConditions,
+        SearchFlags: MFiles.MFSearchFlags,
+        SortResults: boolean,
+        successCallback?: (result: IFolderNameListing) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFolderUIStateForFolder(
+        CommonState: boolean,
+        FolderLocation: IFolderDefs,
+        ObjectFolder: boolean,
+        successCallback?: (result: IFolderUIState) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetFolderUIStateForSpecialLocation(
+        CommonState: boolean,
+        LocationType: MFiles.MFFolderUIStateLocationType,
+        successCallback?: (result: IFolderUIState) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetMFilesURLForView(
+        ViewID: MFiles.MFBuiltInView | number,
+        PropertyFolders: ITypedValues,
+        SimpleURL: boolean,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertyValuesOfFolder(
+        FolderLocation: IFolderDefs,
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        successCallback?: (result: IPropertyValues) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetPropertyValuesOfPath(
+        Path: string,
+        ObjectType: MFiles.MFBuiltInObjectType | number,
+        successCallback?: (result: IPropertyValues) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetTemporarySearchByPath(
+        RelativePath: string,
+        successCallback?: (result: ITemporarySearchView) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetTemporarySearchView(
+        ViewID: MFiles.MFBuiltInView | number,
+        successCallback?: (result: ITemporarySearchView) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetView(
+        View: MFiles.MFBuiltInView | number,
+        successCallback?: (result: IView) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetViewIDByGUID(
+        ViewGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetViewLocationInClient(
+        View: MFiles.MFBuiltInView | number,
+        IncludeViewNameInPath: boolean,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetViews(
+        ViewCategory: MFiles.MFViewCategory,
+        AllViews: boolean,
+        ParentView: number,
+        successCallback?: (result: IViews) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetViewsAdmin(
+        IncludeCommonViews: boolean,
+        UserID: number,
+        successCallback?: (result: IViews) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ModifyTemporarySearch(
+        TemporarySearchView: ITemporarySearchView,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveView(
+        View: MFiles.MFBuiltInView | number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ResetFolderUIStateForFolder(
+        ResetToProgramDefaults: boolean,
+        ResetToCommonDefaults: boolean,
+        FolderLocation: IFolderDefs,
+        ObjectFolder: boolean,
+        successCallback?: (result: IFolderUIState) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ResetFolderUIStateForSpecialLocation(
+        ResetToProgramDefaults: boolean,
+        ResetToCommonDefaults: boolean,
+        LocationType: MFiles.MFFolderUIStateLocationType,
+        successCallback?: (result: IFolderUIState) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SaveFolderUIStateForFolder(
+        SaveAsCommonSettings: boolean,
+        ResetCommonSettingsToAllUsers: boolean,
+        FolderLocation: IFolderDefs,
+        ObjectFolder: boolean,
+        State: IFolderUIState,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    SaveFolderUIStateForSpecialLocation(
+        SaveAsCommonSettings: boolean,
+        ResetCommonSettingsToAllUsers: boolean,
+        LocationType: MFiles.MFFolderUIStateLocationType,
+        State: IFolderUIState,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    ShowViewOrPropertyFolder(
+        ParentWindow: number,
+        View: MFiles.MFBuiltInView | number,
+        PropertyFolders: ITypedValues,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateView(
+        View: IView,
+        successCallback?: (result: IView) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVaultWorkflowOperations {
@@ -4191,33 +7529,151 @@ interface IVaultWorkflowOperations {
     GetWorkflowStateTransitionIDByGUID(StateTransitionGUID: string): number;
     GetWorkflowStateTransitions(Workflow: number, CurrentState: ITypedValue): IStateTransitionsForClient;
     GetWorkflowStateTransitionsAsJSON(Workflow: number, CurrentState: ITypedValue, ObjVer: IObjVer): string;
-    GetWorkflowStateTransitionsEx(Workflow: number, CurrentState: ITypedValue, ObjVer: IObjVer): IStateTransitionsForClient;
+    GetWorkflowStateTransitionsEx(
+        Workflow: number,
+        CurrentState: ITypedValue,
+        ObjVer: IObjVer,
+    ): IStateTransitionsForClient;
     RemoveWorkflowAdmin(WorkflowID: number): void;
     UpdateWorkflowAdmin(Workflow: IWorkflowAdmin): IWorkflowAdmin;
 }
 
 interface IVaultWorkflowOperationsAsync {
-    AddWorkflowAdmin(Workflow: IWorkflowAdmin, successCallback?: (result: IWorkflowAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetStateTransitionSignatureSettings(FromState: number, ToState: number, successCallback?: (result: ISignatureSettings) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetStateTransitionSignatureSettingsByID(StateTransitionID: number, successCallback?: (result: ISignatureSettings) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowAdmin(WorkflowID: number, successCallback?: (result: IWorkflowAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowForClient(WorkflowID: number, UpdateFromServer: boolean, successCallback?: (result: IWorkflow) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowIDByGUID(WorkflowGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowsAdmin(successCallback?: (result: IWorkflowsAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowsAsValueListItems(UpdateFromServer: boolean, successCallback?: (result: IValueListItems) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowsForClient(UpdateFromServer: boolean, successCallback?: (result: IWorkflows) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStateIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStateIDByGUID(StateGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStates(Workflow: number, CurrentState: ITypedValue, successCallback?: (result: IStates) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStatesEx(Workflow: number, CurrentState: ITypedValue, ObjVer: IObjVer, successCallback?: (result: IStates) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStateTransitionIDByAlias(Alias: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStateTransitionIDByGUID(StateTransitionGUID: string, successCallback?: (result: number) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStateTransitions(Workflow: number, CurrentState: ITypedValue, successCallback?: (result: IStateTransitionsForClient) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStateTransitionsAsJSON(Workflow: number, CurrentState: ITypedValue, ObjVer: IObjVer, successCallback?: (result: string) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    GetWorkflowStateTransitionsEx(Workflow: number, CurrentState: ITypedValue, ObjVer: IObjVer, successCallback?: (result: IStateTransitionsForClient) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    RemoveWorkflowAdmin(WorkflowID: number, successCallback?: () => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
-    UpdateWorkflowAdmin(Workflow: IWorkflowAdmin, successCallback?: (result: IWorkflowAdmin) => void, errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void, finallyCallback?: () => void): void;
+    AddWorkflowAdmin(
+        Workflow: IWorkflowAdmin,
+        successCallback?: (result: IWorkflowAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetStateTransitionSignatureSettings(
+        FromState: number,
+        ToState: number,
+        successCallback?: (result: ISignatureSettings) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetStateTransitionSignatureSettingsByID(
+        StateTransitionID: number,
+        successCallback?: (result: ISignatureSettings) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowAdmin(
+        WorkflowID: number,
+        successCallback?: (result: IWorkflowAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowForClient(
+        WorkflowID: number,
+        UpdateFromServer: boolean,
+        successCallback?: (result: IWorkflow) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowIDByGUID(
+        WorkflowGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowsAdmin(
+        successCallback?: (result: IWorkflowsAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowsAsValueListItems(
+        UpdateFromServer: boolean,
+        successCallback?: (result: IValueListItems) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowsForClient(
+        UpdateFromServer: boolean,
+        successCallback?: (result: IWorkflows) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStateIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStateIDByGUID(
+        StateGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStates(
+        Workflow: number,
+        CurrentState: ITypedValue,
+        successCallback?: (result: IStates) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStatesEx(
+        Workflow: number,
+        CurrentState: ITypedValue,
+        ObjVer: IObjVer,
+        successCallback?: (result: IStates) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStateTransitionIDByAlias(
+        Alias: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStateTransitionIDByGUID(
+        StateTransitionGUID: string,
+        successCallback?: (result: number) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStateTransitions(
+        Workflow: number,
+        CurrentState: ITypedValue,
+        successCallback?: (result: IStateTransitionsForClient) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStateTransitionsAsJSON(
+        Workflow: number,
+        CurrentState: ITypedValue,
+        ObjVer: IObjVer,
+        successCallback?: (result: string) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    GetWorkflowStateTransitionsEx(
+        Workflow: number,
+        CurrentState: ITypedValue,
+        ObjVer: IObjVer,
+        successCallback?: (result: IStateTransitionsForClient) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    RemoveWorkflowAdmin(
+        WorkflowID: number,
+        successCallback?: () => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
+    UpdateWorkflowAdmin(
+        Workflow: IWorkflowAdmin,
+        successCallback?: (result: IWorkflowAdmin) => void,
+        errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
+        finallyCallback?: () => void,
+    ): void;
 }
 
 interface IVerifyVaultJob {
@@ -4311,7 +7767,7 @@ interface IWindowEvents extends IEvents {
 interface IWorkflow {
     ID: number;
     Name: string;
-    ObjectClass: (MFiles.MFBuiltInDocumentClass | MFiles.MFBuiltInObjectClass | number);
+    ObjectClass: MFiles.MFBuiltInDocumentClass | MFiles.MFBuiltInObjectClass | number;
     Clone(): IWorkflow;
     GetAsLookup(): ILookup;
     GetAsTypedValue(): ITypedValue;
@@ -4539,7 +7995,7 @@ declare namespace MFiles {
         ShowSearchResultsFromMultipleVaults = 172,
         ShowSearchRefinementOptions = 173,
         LAST = 174,
-        ALL = 268435455
+        ALL = 268435455,
     }
 
     const enum CommandLocation {
@@ -4547,14 +8003,14 @@ declare namespace MFiles {
         MainMenu = 1,
         ContextMenu = 2,
         TaskPane = 4,
-        All = 268435455
+        All = 268435455,
     }
 
     const enum CommandState {
         Undefined = 0,
         Active = 1,
         Inactive = 2,
-        Hidden = 3
+        Hidden = 3,
     }
 
     const enum DefaultIcon {
@@ -4580,7 +8036,7 @@ declare namespace MFiles {
         Collection = 22,
         ChangeState = 24,
         RelationShips = 25,
-        SelectedState = 26
+        SelectedState = 26,
     }
 
     const enum Event {
@@ -4735,13 +8191,13 @@ declare namespace MFiles {
         FocusLost = 148,
         MetadataCardLocationChanging = 149,
         MetadataCardLocationChanged = 150,
-        ValueSuggestionsChanged = 151
+        ValueSuggestionsChanged = 151,
     }
 
     const enum ListingEmptinessState {
         NotYetKnown = 1,
         NotEmpty = 2,
-        Empty = 3
+        Empty = 3,
     }
 
     const enum MenuLocation {
@@ -4769,34 +8225,34 @@ declare namespace MFiles {
         DocumentConversions = 41,
         BeforeProperties = 42,
         Bottom = 43,
-        PropertyFolder = 44
+        PropertyFolder = 44,
     }
 
     const enum MFACLComponentOverrideAccess {
         None = 0,
-        Granted = 1
+        Granted = 1,
     }
 
     const enum MFACLEnforcingMode {
         Automatic = 0,
         Provided = 1,
         ResetToDefault = 2,
-        None = 3
+        None = 3,
     }
 
     const enum MFACLMode {
         Simple = 0,
-        AutomaticPermissionsWithComponents = 1
+        AutomaticPermissionsWithComponents = 1,
     }
 
     const enum MFActionType {
         Unknown = 0,
-        CreateAssignment = 1
+        CreateAssignment = 1,
     }
 
     const enum MFAdditionalClassInfoType {
         Unknown = 0,
-        Assignment = 1
+        Assignment = 1,
     }
 
     const enum MFApplicationLicenseStatus {
@@ -4808,12 +8264,12 @@ declare namespace MFiles {
         Invalid = 5,
         FormatError = 6,
         Trial = 7,
-        GracePeriod = 8
+        GracePeriod = 8,
     }
 
     const enum MFAssignmentType {
         Task = 0,
-        Approval = 1
+        Approval = 1,
     }
 
     const enum MFAttachVaultOptionsFlag {
@@ -4823,19 +8279,19 @@ declare namespace MFiles {
         ExportedDataSets = 4,
         ExportImportJobs = 8,
         ExternalUserGroups = 16,
-        EventHandlers = 32
+        EventHandlers = 32,
     }
 
     const enum MFAuthType {
         Unknown = 0,
         LoggedOnWindowsUser = 1,
         SpecificWindowsUser = 2,
-        SpecificMFilesUser = 3
+        SpecificMFilesUser = 3,
     }
 
     const enum MFAutomaticPermissionsOperationOptions {
         None = 0,
-        ForceActive = 1
+        ForceActive = 1,
     }
 
     const enum MFAutomaticValueType {
@@ -4843,7 +8299,7 @@ declare namespace MFiles {
         CalculatedWithPlaceholders = 1,
         CalculatedWithVBScript = 2,
         AutoNumberSimple = 3,
-        WithVBScript = 4
+        WithVBScript = 4,
     }
 
     const enum MFAutoStateTransitionMode {
@@ -4854,34 +8310,34 @@ declare namespace MFiles {
         CriteriaFulfilled = 4,
         AllowedByScript = 5,
         AssignmentComplete = 6,
-        AssignmentRejected = 7
+        AssignmentRejected = 7,
     }
 
     const enum MFBackupType {
         Full = 0,
-        Differential = 1
+        Differential = 1,
     }
 
     const enum MFBuiltInDocumentClass {
         UnclassifiedDocument = 0,
-        OtherDocument = 1
+        OtherDocument = 1,
     }
 
     const enum MFBuiltInMetadataStructureItemID {
-        All = -1000000
+        All = -1000000,
     }
 
     const enum MFBuiltInObjectClass {
         Any = -3,
         NotSet = -2,
-        GenericAssignment = -100
+        GenericAssignment = -100,
     }
 
     const enum MFBuiltInObjectType {
         Document = 0,
         DocumentCollection = 9,
         Assignment = 10,
-        DocumentOrDocumentCollection = -102
+        DocumentOrDocumentCollection = -102,
     }
 
     const enum MFBuiltInPropertyDef {
@@ -4942,12 +8398,12 @@ declare namespace MFiles {
         StateTransition = 99,
         Class = 100,
         ClassGroups = 101,
-        ObjectID = -102
+        ObjectID = -102,
     }
 
     const enum MFBuiltInUserGroup {
         Users = 1,
-        AndExternalUsers = 2
+        AndExternalUsers = 2,
     }
 
     const enum MFBuiltInValueList {
@@ -4963,7 +8419,7 @@ declare namespace MFiles {
         Collections = 9,
         Assignments = 10,
         UserGroups = 16,
-        StateTransitions = 17
+        StateTransitions = 17,
     }
 
     const enum MFBuiltInView {
@@ -4979,7 +8435,7 @@ declare namespace MFiles {
         Favorites = 15,
         AnyView = -1,
         OfflineCheckedOut = -9000,
-        OfflineMarkedForOfflineAvailability = -9001
+        OfflineMarkedForOfflineAvailability = -9001,
     }
 
     const enum MFConditionType {
@@ -4999,7 +8455,7 @@ declare namespace MFiles {
         IsNotMissing = 14,
         StartsWithAtWordBoundary = 15,
         ContainsAnyBitwise = 16,
-        DoesNotContainAnyBitwise = 17
+        DoesNotContainAnyBitwise = 17,
     }
 
     const enum MFContentType {
@@ -5007,13 +8463,13 @@ declare namespace MFiles {
         EmailAddress = 1,
         URL = 2,
         RTF = 3,
-        HTML = 4
+        HTML = 4,
     }
 
     const enum MFCustomApplicationType {
         Unspecified = 0,
         Client = 1,
-        Server = 2
+        Server = 2,
     }
 
     const enum MFDataFunction {
@@ -5026,7 +8482,7 @@ declare namespace MFiles {
         DaysTo = 6,
         IntegerSegment = 7,
         LeftChars = 8,
-        InitialCharGroup = 9
+        InitialCharGroup = 9,
     }
 
     const enum MFDataType {
@@ -5043,13 +8499,13 @@ declare namespace MFiles {
         Integer64 = 11,
         FILETIME = 12,
         MultiLineText = 13,
-        ACL = 14
+        ACL = 14,
     }
 
     const enum MFDBEngine {
         None = 0,
         Firebird = 1,
-        MSSQLServer = 2
+        MSSQLServer = 2,
     }
 
     const enum MFDefaultPropertyType {
@@ -5059,13 +8515,13 @@ declare namespace MFiles {
         FromXML = 3,
         FromEmail = 4,
         FromEmailHeader = 5,
-        FromOCR = 6
+        FromOCR = 6,
     }
 
     const enum MFDependencyRelation {
         Nothing = 0,
         AutomaticFilling = 1,
-        Filtering = 2
+        Filtering = 2,
     }
 
     const enum MFEmailField {
@@ -5077,13 +8533,13 @@ declare namespace MFiles {
         Body = 5,
         Date = 6,
         Importance = 7,
-        Sensitivity = 8
+        Sensitivity = 8,
     }
 
     const enum MFEmailImportance {
         Low = 0,
         Normal = 1,
-        High = 2
+        High = 2,
     }
 
     const enum MFEmailSensitivity {
@@ -5091,7 +8547,7 @@ declare namespace MFiles {
         Normal = 1,
         Personal = 2,
         Private = 3,
-        Confidential = 4
+        Confidential = 4,
     }
 
     const enum MFEventHandlerType {
@@ -5168,7 +8624,7 @@ declare namespace MFiles {
         BeforeModifyView = 70,
         AfterModifyView = 71,
         BeforeDeleteView = 72,
-        AfterDeleteView = 73
+        AfterDeleteView = 73,
     }
 
     const enum MFExportContentFlag {
@@ -5179,7 +8635,7 @@ declare namespace MFiles {
         SaveFilesAlsoAsPDFA = 32,
         ExportInformationOnDestroyedData = 64,
         UseMultipleContentPackages = 128,
-        IndicateDropouts = 1024
+        IndicateDropouts = 1024,
     }
 
     const enum MFExpressionType {
@@ -5190,25 +8646,25 @@ declare namespace MFiles {
         FileValue = 4,
         TypedValue = 5,
         AnyField = 6,
-        Permissions = 7
+        Permissions = 7,
     }
 
     const enum MFExtApplicationPlatform {
         None = 0,
         Desktop = 1,
-        Web = 2
+        Web = 2,
     }
 
     const enum MFExternalDBRefreshType {
         None = 0,
         Quick = 1,
-        Full = 2
+        Full = 2,
     }
 
     const enum MFFacetFilterStatusFlags {
         None = 0,
         Available = 1,
-        Applied = 2
+        Applied = 2,
     }
 
     const enum MFFacetSearchFlags {
@@ -5218,32 +8674,32 @@ declare namespace MFiles {
         IgnoreFacetValuePermissions = 8,
         SortFacetValues = 16,
         AscendingOrder = 32,
-        OverrideByConfiguration = 64
+        OverrideByConfiguration = 64,
     }
 
     const enum MFFileDataStorage {
         Default = 0,
         Disk = 1,
         DB = 2,
-        External = 3
+        External = 3,
     }
 
     const enum MFFileFormat {
         Native = 0,
         PDF = 1,
-        DisplayOnlyPDF = 2
+        DisplayOnlyPDF = 2,
     }
 
     const enum MFFileInformationType {
         Unknown = 0,
-        EmailMessage = 1
+        EmailMessage = 1,
     }
 
     const enum MFFileOpenMethod {
         ShowInShell = 0,
         Open = 1,
         View = 2,
-        Edit = 3
+        Edit = 3,
     }
 
     const enum MFFileValueType {
@@ -5254,7 +8710,7 @@ declare namespace MFiles {
         CreationTime = 4,
         ChangeTime = 5,
         LinkedToExtLoc = 6,
-        LinkedToExtLocID = 7
+        LinkedToExtLocID = 7,
     }
 
     const enum MFFolderColumnId {
@@ -5281,7 +8737,7 @@ declare namespace MFiles {
         TypeEx = -21,
         HasAssignments = -22,
         ExportedFile = -1000000,
-        IdSegment = -1000001
+        IdSegment = -1000001,
     }
 
     const enum MFFolderContentItemType {
@@ -5289,7 +8745,7 @@ declare namespace MFiles {
         ViewFolder = 1,
         PropertyFolder = 2,
         TraditionalFolder = 3,
-        ObjectVersion = 4
+        ObjectVersion = 4,
     }
 
     const enum MFFolderDefType {
@@ -5298,26 +8754,26 @@ declare namespace MFiles {
         ViewFolder = 2,
         PropertyFolder = 3,
         TraditionalFolder = 4,
-        SearchFolder = 5
+        SearchFolder = 5,
     }
 
     const enum MFFolderListingAlgorithm {
         None = 0,
         TestEachValue = 1,
         GetValuesByDistinctUse = 2,
-        TestEachValueWithSeparateQueries = 3
+        TestEachValueWithSeparateQueries = 3,
     }
 
     const enum MFFolderListingColumnFlags {
         SelectIfLeftOfSelectedMainColumn = 1,
-        HideColumnText = 2
+        HideColumnText = 2,
     }
 
     const enum MFFolderListingItemGroupingMode {
         Unspecified = -1,
         NoGrouping = 0,
         GroupObjectsByObjectType = 1,
-        GroupViewsAndFoldersByType = 1024
+        GroupViewsAndFoldersByType = 1024,
     }
 
     const enum MFFolderListingViewMode {
@@ -5328,7 +8784,7 @@ declare namespace MFiles {
         Thumbnail = 5,
         Tile = 6,
         Thumbstrip = 7,
-        Content = 8
+        Content = 8,
     }
 
     const enum MFFolderUIStateLocationType {
@@ -5347,11 +8803,11 @@ declare namespace MFiles {
         ClearLocalCacheUI = 12,
         RelationshipsUIToTab = 13,
         RelationshipsUIAllTab = 14,
-        LocalTemporaryItemsContainer = 15
+        LocalTemporaryItemsContainer = 15,
     }
 
     const enum MFFormattingType {
-        None = 0
+        None = 0,
     }
 
     const enum MFFullTextSearchFlags {
@@ -5360,7 +8816,7 @@ declare namespace MFiles {
         TypeAllWords = 131072,
         TypeAnyWords = 262144,
         LookInMetaData = 268435456,
-        LookInFileData = 536870912
+        LookInFileData = 536870912,
     }
 
     const enum MFilesURLType {
@@ -5368,13 +8824,13 @@ declare namespace MFiles {
         Open = 1,
         View = 2,
         Edit = 3,
-        ShowMetadata = 6
+        ShowMetadata = 6,
     }
 
     const enum MFImpersonationType {
         LocalSystem = 0,
         SpecificAccount = 1,
-        ExtAccount = 2
+        ExtAccount = 2,
     }
 
     const enum MFImportContentFlag {
@@ -5386,32 +8842,32 @@ declare namespace MFiles {
         DoNotImportObjectDestructions = 64,
         UseNamesAsAliases = 128,
         ForceNoStructureIdUpdate = 16384,
-        OmitDoneFile = 32768
+        OmitDoneFile = 32768,
     }
 
     const enum MFIndirectPropertyIDLevelType {
         PropertyDef = 0,
         ObjectType = 1,
-        StateChanger = 2
+        StateChanger = 2,
     }
 
     const enum MFLatestSpecificBehavior {
         Normal = 0,
         Specific = 1,
         Latest = 2,
-        Automatic = 3
+        Automatic = 3,
     }
 
     const enum MFLicenseType {
         None = 0,
         NamedUserLicense = 1,
         ConcurrentUserLicense = 2,
-        ReadOnlyLicense = 3
+        ReadOnlyLicense = 3,
     }
 
     const enum MFLoginAccountType {
         MFiles = 1,
-        Windows = 2
+        Windows = 2,
     }
 
     const enum MFLoginServerRole {
@@ -5419,7 +8875,7 @@ declare namespace MFiles {
         SystemAdministrator = 1,
         VaultCreator = 2,
         BackupOperator = 4,
-        LogIn = 8
+        LogIn = 8,
     }
 
     const enum MFMetadataStructureItem {
@@ -5438,7 +8894,7 @@ declare namespace MFiles {
         ValueList = 14,
         VaultEventHandler = 15,
         StateTransition = 16,
-        All = 10000
+        All = 10000,
     }
 
     const enum MFMetadataStructureSelectorFlags {
@@ -5446,19 +8902,19 @@ declare namespace MFiles {
         SelectNew = 1,
         SelectExisting = 2,
         IncludeNewDependencies = 4,
-        IncludeExistingDependencies = 8
+        IncludeExistingDependencies = 8,
     }
 
     const enum MFMetadataSyncFormat {
         Word = 0,
         Excel = 1,
-        PowerPoint = 2
+        PowerPoint = 2,
     }
 
     const enum MFNamedACLType {
         None = 0,
         Normal = 1,
-        Internal = 2
+        Internal = 2,
     }
 
     const enum MFNamedValueType {
@@ -5467,7 +8923,7 @@ declare namespace MFiles {
         RegistryValue = 5,
         FolderConfiguration = 6,
         AdminConfiguration = 7,
-        SystemAdminConfiguration = 8
+        SystemAdminConfiguration = 8,
     }
 
     const enum MFObjectAccess {
@@ -5476,7 +8932,7 @@ declare namespace MFiles {
         Edit = 2,
         ChangePermissions = 4,
         Delete = 8,
-        AttachObjects = 16
+        AttachObjects = 16,
     }
 
     const enum MFObjectOperationFlags {
@@ -5487,19 +8943,19 @@ declare namespace MFiles {
         RequireChangeSecurityAccess = 8,
         RequireFullAccess = 16,
         ChangeACLInAllVersions = 32,
-        RequireSomeAccess = 64
+        RequireSomeAccess = 64,
     }
 
     const enum MFObjectTypeAccess {
         None = 0,
         SeeName = 1,
-        AddNewItems = 2
+        AddNewItems = 2,
     }
 
     const enum MFObjectVersionFlag {
         None = 0,
         Completed = 1,
-        HasRelatedObjects = 2
+        HasRelatedObjects = 2,
     }
 
     const enum MFObjectWindowMode {
@@ -5507,20 +8963,20 @@ declare namespace MFiles {
         InsertSourceFiles = 1,
         InsertSaveAsType = 2,
         Edit = 3,
-        EditApplicationModal = 4
+        EditApplicationModal = 4,
     }
 
     const enum MFObjectWindowResultCode {
         Ok = 0,
         Cancel = 1,
         OkToAll = 2,
-        SkipThis = 3
+        SkipThis = 3,
     }
 
     const enum MFOCRDimensionUnit {
         Pixel = 0,
         MillimeterX10 = 1,
-        InchX100 = 2
+        InchX100 = 2,
     }
 
     const enum MFOCRLanguage {
@@ -5570,36 +9026,36 @@ declare namespace MFiles {
         ScottishGaelic = 43,
         Welsh = 44,
         Basque = 45,
-        Mexican = 46
+        Mexican = 46,
     }
 
     const enum MFOCRZoneRecognitionMode {
         NoZoneRecognition = 0,
         RecognizeSpecifiedZones = 1,
-        AutoDetectZones = 2
+        AutoDetectZones = 2,
     }
 
     const enum MFOfflineTransitionResultFlags {
         None = 0,
         StatusChanged = 1,
-        LoggedOut = 2
+        LoggedOut = 2,
     }
 
     const enum MFOnlineTransitionResultFlags {
         None = 0,
-        StatusChanged = 1
+        StatusChanged = 1,
     }
 
     const enum MFParentChildBehavior {
         None = 0,
         IncludeChildValues = 1,
-        IncludeParentValues = 2
+        IncludeParentValues = 2,
     }
 
     const enum MFPermission {
         Deny = 0,
         Allow = 1,
-        NotSet = 2
+        NotSet = 2,
     }
 
     const enum MFPermissionsExpressionType {
@@ -5609,7 +9065,7 @@ declare namespace MFiles {
         PermissionsChangeableBy = 3,
         FullControlBy = 4,
         DeletableBy = 5,
-        ObjectsAttachableToThisItemBy = 6
+        ObjectsAttachableToThisItemBy = 6,
     }
 
     const enum MFPredefinedSearchFilterType {
@@ -5622,25 +9078,25 @@ declare namespace MFiles {
         DocumentsAccessedByMeToday = 30004,
         DocumentsAccessedByMeLastWeek = 30005,
         DocumentsAccessedByMeLastMonth = 30006,
-        DocumentsAccessedByMeLastYear = 30007
+        DocumentsAccessedByMeLastYear = 30007,
     }
 
     const enum MFProductMode {
         Full = 0,
         Express = 1,
-        Business = 2
+        Business = 2,
     }
 
     const enum MFPropertyDefAccess {
         None = 0,
         See = 1,
-        Edit = 2
+        Edit = 2,
     }
 
     const enum MFRelationshipsMode {
         FromThisObject = 1,
         ToThisObject = 2,
-        All = 3
+        All = 3,
     }
 
     const enum MFScheduledJobType {
@@ -5654,7 +9110,7 @@ declare namespace MFiles {
         ImportContent = 7,
         OptimizeVault = 8,
         Recalculate = 9,
-        MigrateVault = 10
+        MigrateVault = 10,
     }
 
     const enum MFSearchFlags {
@@ -5662,23 +9118,23 @@ declare namespace MFiles {
         LookInAllVersions = 1,
         ReturnLatestVisibleVersion = 2,
         LookAllObjectTypes = 4,
-        DisableRelevancyRanking = 16
+        DisableRelevancyRanking = 16,
     }
 
     const enum MFServerConnection {
         uthenticated = 1,
-        nonymous = 2
+        nonymous = 2,
     }
 
     const enum MFSignaturePromptInfoType {
         Fixed = 0,
         Selectable = 1,
-        MetadataBased = 2
+        MetadataBased = 2,
     }
 
     const enum MFSoftwarePlatformType {
         Win32 = 0,
-        X64 = 1
+        X64 = 1,
     }
 
     const enum MFSpecialObjectFlag {
@@ -5688,7 +9144,7 @@ declare namespace MFiles {
         RecentlyAccessedByValid = 4,
         HasSharedFiles = 8,
         Conflict = 16,
-        Normal = 64
+        Normal = 64,
     }
 
     const enum MFStatusType {
@@ -5707,12 +9163,12 @@ declare namespace MFiles {
         OriginalVaultGUID = 12,
         OriginalObjectType = 13,
         OriginalObjectID = 14,
-        OriginalObjectIDSegment = 15
+        OriginalObjectIDSegment = 15,
     }
 
     const enum MFStringDataType {
         JSON = 0,
-        XML = 1
+        XML = 1,
     }
 
     const enum MFTriggerMonth {
@@ -5728,7 +9184,7 @@ declare namespace MFiles {
         October = 512,
         November = 1024,
         December = 2048,
-        EveryMonth = 4095
+        EveryMonth = 4095,
     }
 
     const enum MFTriggerType {
@@ -5736,7 +9192,7 @@ declare namespace MFiles {
         Daily = 1,
         Weekly = 2,
         MonthlyDate = 3,
-        MonthlyDOW = 4
+        MonthlyDOW = 4,
     }
 
     const enum MFTriggerWeekDay {
@@ -5747,7 +9203,7 @@ declare namespace MFiles {
         Thursday = 16,
         Friday = 32,
         Saturday = 64,
-        EveryDay = 125
+        EveryDay = 125,
     }
 
     const enum MFTriggerWeekOfMonth {
@@ -5755,13 +9211,13 @@ declare namespace MFiles {
         SecondWeek = 2,
         ThirdWeek = 3,
         FourthWeek = 4,
-        LastWeek = 5
+        LastWeek = 5,
     }
 
     const enum MFUpdateType {
         Normal = 0,
         ServerAuto = 1,
-        ClientAuto = 2
+        ClientAuto = 2,
     }
 
     const enum MFUserAccountVaultRole {
@@ -5781,7 +9237,7 @@ declare namespace MFiles {
         DefineTemplates = 4096,
         ManageCommonViews = 8192,
         ManageWorkflows = 16384,
-        DefaultRoles = 3078
+        DefaultRoles = 3078,
     }
 
     const enum MFUserOrUserGroupType {
@@ -5789,13 +9245,13 @@ declare namespace MFiles {
         UserAccount = 1,
         UserGroup = 2,
         PseudoUser = 3,
-        PropertyBasedPseudoUser = 4
+        PropertyBasedPseudoUser = 4,
     }
 
     const enum MFValidationType {
         None = 0,
         RegularExpression = 1,
-        VBScript = 2
+        VBScript = 2,
     }
 
     const enum MFValueListItemPropertyDef {
@@ -5805,12 +9261,12 @@ declare namespace MFiles {
         Parent = 4,
         Deleted = 5,
         ObjectType = 6,
-        ExtID = 7
+        ExtID = 7,
     }
 
     const enum MFValueListSortingType {
         Name = 0,
-        ExtID = 1
+        ExtID = 1,
     }
 
     const enum MFVaultAccess {
@@ -5840,340 +9296,340 @@ declare namespace MFiles {
         ManageCommonNotificationRules = 134217728,
         SeeDeletedDocs = 268435456,
         MateriakizeViews = 536870912,
-        MaterializeViews = 536870912
+        MaterializeViews = 536870912,
     }
 
     const enum MFVaultConnectionTestResult {
         OK = 0,
-        UserCancelledLoginAttempt = 1
+        UserCancelledLoginAttempt = 1,
     }
 
     const enum MFViewCategory {
         Normal = 0,
         OfflineFilter = 1,
-        TemporarySearch = 2
+        TemporarySearch = 2,
     }
 
     const enum MFViewFlag {
         sNone = 0,
-        Materialized = 1
+        Materialized = 1,
     }
 
     const enum MFViewType {
         Normal = 0,
-        FilterOnly = 1
+        FilterOnly = 1,
     }
 
     const enum SearchFeature {
         Undefined = 0,
         FacetSearch = 1,
-        MultiVaultSearch = 2
+        MultiVaultSearch = 2,
     }
 
     const enum TaskPaneGroup {
         New = 1,
         ViewAndModify = 2,
         GoTo = 3,
-        Main = 4
+        Main = 4,
     }
 
-    const AccessControlEntry: { new(): IAccessControlEntry; };
-    const AccessControlEntryContainer: { new(): IAccessControlEntryContainer; };
-    const AccessControlEntryData: { new(): IAccessControlEntryData; };
-    const AccessControlEntryKey: { new(): IAccessControlEntryKey; };
-    const AccessControlEntryKeys: { new(): IAccessControlEntryKeys; };
-    const AccessControlList: { new(): IAccessControlList; };
-    const AccessControlListComponent: { new(): IAccessControlListComponent; };
-    const AccessControlListComponentContainer: { new(): IAccessControlListComponentContainer; };
-    const AccessControlListComponentKey: { new(): IAccessControlListComponentKey; };
-    const AccessControlListComponentKeys: { new(): IAccessControlListComponentKeys; };
-    const AccessControlLists: { new(): IAccessControlLists; };
-    const ActionConvertToPDF: { new(): IActionConvertToPDF; };
-    const ActionCreateAssignment: { new(): IActionCreateAssignment; };
-    const ActionDefinition: { new(): IActionDefinition; };
-    const ActionDefinitions: { new(): IActionDefinitions; };
-    const ActionSendNotification: { new(): IActionSendNotification; };
-    const ActionSetPermissions: { new(): IActionSetPermissions; };
-    const ActionSetProperties: { new(): IActionSetProperties; };
-    const AdditionalClassInfo: { new(): IAdditionalClassInfo; };
-    const AdditionalFolder: { new(): IAdditionalFolder; };
-    const AdditionalFolders: { new(): IAdditionalFolders; };
-    const ApprovalAssignmentClassInfo: { new(): IApprovalAssignmentClassInfo; };
-    const ArchiveOldVersionsJob: { new(): IArchiveOldVersionsJob; };
-    const AssignmentClassInfo: { new(): IAssignmentClassInfo; };
-    const AssociatedPropertyDef: { new(): IAssociatedPropertyDef; };
-    const AssociatedPropertyDefs: { new(): IAssociatedPropertyDefs; };
-    const AttachVaultOptions: { new(): IAttachVaultOptions; };
-    const AuthenticationResult: { new(): IAuthenticationResult; };
-    const AuthenticationResultIntermediate: { new(): IAuthenticationResultIntermediate; };
-    const AuthenticationResultServerFinal: { new(): IAuthenticationResultServerFinal; };
-    const AuthenticationResultVaultFinal: { new(): IAuthenticationResultVaultFinal; };
-    const AutomaticMetadataResult: { new(): IAutomaticMetadataResult; };
-    const AutomaticPermissions: { new(): IAutomaticPermissions; };
-    const AutomaticValue: { new(): IAutomaticValue; };
-    const BackupJob: { new(): IBackupJob; };
-    const BooleanValue: { new(): IBooleanValue; };
-    const ClassGroup: { new(): IClassGroup; };
-    const ClassGroups: { new(): IClassGroups; };
-    const CopyVaultJob: { new(): ICopyVaultJob; };
-    const CopyVaultJobOutputInfo: { new(): ICopyVaultJobOutputInfo; };
-    const CustomApplication: { new(): ICustomApplication; };
-    const CustomApplications: { new(): ICustomApplications; };
-    const DailyTrigger: { new(): IDailyTrigger; };
-    const DataFunctionCall: { new(): IDataFunctionCall; };
-    const DataSet: { new(): IDataSet; };
-    const DataSetExportingStatus: { new(): IDataSetExportingStatus; };
-    const DataSets: { new(): IDataSets; };
-    const DefaultProperties: { new(): IDefaultProperties; };
-    const DefaultProperty: { new(): IDefaultProperty; };
-    const EmailMessageInformation: { new(): IEmailMessageInformation; };
-    const EventHandler: { new(): IEventHandler; };
-    const EventHandlers: { new(): IEventHandlers; };
-    const ExportContentJob: { new(): IExportContentJob; };
-    const ExportStructureItem: { new(): IExportStructureItem; };
-    const ExportStructureItems: { new(): IExportStructureItems; };
-    const Expression: { new(): IExpression; };
-    const ExpressionEx: { new(): IExpressionEx; };
-    const ExpressionExs: { new(): IExpressionExs; };
-    const Expressions: { new(): IExpressions; };
-    const FileClass: { new(): IFileClass; };
-    const FileClasses: { new(): IFileClasses; };
-    const FileDownloadSession: { new(): IFileDownloadSession; };
-    const FileInformation: { new(): IFileInformation; };
-    const FileVer: { new(): IFileVer; };
-    const FileVers: { new(): IFileVers; };
-    const FolderContentItem: { new(): IFolderContentItem; };
-    const FolderContentItems: { new(): IFolderContentItems; };
-    const FolderDef: { new(): IFolderDef; };
-    const FolderDefs: { new(): IFolderDefs; };
-    const FolderListingColumn: { new(): IFolderListingColumn; };
-    const FolderListingColumns: { new(): IFolderListingColumns; };
-    const FolderListingColumnSorting: { new(): IFolderListingColumnSorting; };
-    const FolderListingColumnSortings: { new(): IFolderListingColumnSortings; };
-    const FolderListingUIState: { new(): IFolderListingUIState; };
-    const FolderNameListing: { new(): IFolderNameListing; };
-    const FolderUIState: { new(): IFolderUIState; };
-    const IDRange: { new(): IIDRange; };
-    const IDs: { new(): IIDs; };
-    const Impersonation: { new(): IImpersonation; };
-    const ImportContentJob: { new(): IImportContentJob; };
-    const IndirectPropertyID: { new(): IIndirectPropertyID; };
-    const IndirectPropertyIDLevel: { new(): IIndirectPropertyIDLevel; };
-    const KeyNamePair: { new(): IKeyNamePair; };
-    const KeyNamePairs: { new(): IKeyNamePairs; };
-    const Language: { new(): ILanguage; };
-    const Languages: { new(): ILanguages; };
-    const LicenseStatus: { new(): ILicenseStatus; };
-    const LoginAccount: { new(): ILoginAccount; };
-    const LoginAccountPersonalInformation: { new(): ILoginAccountPersonalInformation; };
-    const LoginAccounts: { new(): ILoginAccounts; };
-    const Lookup: { new(): ILookup; };
-    const Lookups: { new(): ILookups; };
-    const MetadataStructureSelector: { new(): IMetadataStructureSelector; };
-    const MetadataStructureSelectors: { new(): IMetadataStructureSelectors; };
-    const MFilesClientApplication: { new(): IMFilesClientApplication; };
-    const MFilesServerApplication: { new(): IMFilesServerApplication; };
-    const MFilesVersion: { new(): IMFilesVersion; };
-    const MFResourceManager: { new(): IMFResourceManager; };
-    const MFShellDocListCtrl: { new(): IMFDocListCtrl; };
-    const MonthlyDateTrigger: { new(): IMonthlyDateTrigger; };
-    const MonthlyDOWTrigger: { new(): IMonthlyDOWTrigger; };
-    const NamedACL: { new(): INamedACL; };
-    const NamedACLAdmin: { new(): INamedACLAdmin; };
-    const NamedACLs: { new(): INamedACLs; };
-    const NamedACLsAdmin: { new(): INamedACLsAdmin; };
-    const NamedValueNamespace: { new(): INamedValueNamespace; };
-    const NamedValueNamespaces: { new(): INamedValueNamespaces; };
-    const NamedValues: { new(): INamedValues; };
-    const Number: { new(): INumber; };
-    const ObjectClass: { new(): IObjectClass; };
-    const ObjectClassAdmin: { new(): IObjectClassAdmin; };
-    const ObjectClasses: { new(): IObjectClasses; };
-    const ObjectClassesAdmin: { new(): IObjectClassesAdmin; };
-    const ObjectCreationInfo: { new(): IObjectCreationInfo; };
-    const ObjectFile: { new(): IObjectFile; };
-    const ObjectFileAndObjVer: { new(): IObjectFileAndObjVer; };
-    const ObjectFileAndObjVerOfMultipleFiles: { new(): IObjectFileAndObjVerOfMultipleFiles; };
-    const ObjectFiles: { new(): IObjectFiles; };
-    const ObjectSearchResults: { new(): IObjectSearchResults; };
-    const ObjectTypeTargetForBrowsing: { new(): IObjectTypeTargetForBrowsing; };
-    const ObjectTypeTargetsForBrowsing: { new(): IObjectTypeTargetsForBrowsing; };
-    const ObjectVersion: { new(): IObjectVersion; };
-    const ObjectVersionAndProperties: { new(): IObjectVersionAndProperties; };
-    const ObjectVersionAndPropertiesOfMultipleObjects: { new(): IObjectVersionAndPropertiesOfMultipleObjects; };
-    const ObjectVersionFile: { new(): IObjectFileAndVersion; };
-    const ObjectVersionPermissions: { new(): IObjectVersionPermissions; };
-    const ObjectVersions: { new(): IObjectVersions; };
-    const ObjectVersionWorkflowState: { new(): IObjectVersionWorkflowState; };
-    const ObjectWindowResult: { new(): IObjectWindowResult; };
-    const ObjID: { new(): IObjID; };
-    const ObjIDs: { new(): IObjIDs; };
-    const ObjOrFileVer: { new(): IObjOrFileVer; };
-    const ObjOrFileVers: { new(): IObjOrFileVers; };
-    const ObjType: { new(): IObjectType; };
-    const ObjTypeAdmin: { new(): IObjectTypeAdmin; };
-    const ObjTypeColumnMapping: { new(): IObjectTypeColumnMapping; };
-    const ObjTypeColumnMappings: { new(): IObjectTypeColumnMappings; };
-    const ObjTypes: { new(): IObjectTypes; };
-    const ObjTypesAdmin: { new(): IObjectTypesAdmin; };
-    const ObjVer: { new(): IObjVer; };
-    const ObjVers: { new(): IObjVers; };
-    const OCROptions: { new(): IOCROptions; };
-    const OCRPage: { new(): IOCRPage; };
-    const OCRPageResult: { new(): IOCRPageResult; };
-    const OCRPageResults: { new(): IOCRPageResults; };
-    const OCRPages: { new(): IOCRPages; };
-    const OCRZone: { new(): IOCRZone; };
-    const OCRZoneResult: { new(): IOCRZoneResult; };
-    const OCRZoneResults: { new(): IOCRZoneResults; };
-    const OCRZones: { new(): IOCRZones; };
-    const OptimizeVaultJob: { new(): IOptimizeVaultJob; };
-    const OwnerPropertyDef: { new(): IOwnerPropertyDef; };
-    const PluginInfo: { new(): IPluginInfo; };
-    const PluginInfos: { new(): IPluginInfos; };
-    const PreviewerActiveXCtrl: { new(): IPreviewerActiveXCtrl; };
-    const PropertyDef: { new(): IPropertyDef; };
-    const PropertyDefAdmin: { new(): IPropertyDefAdmin; };
-    const PropertyDefOrObjectType: { new(): IPropertyDefOrObjectType; };
-    const PropertyDefOrObjectTypes: { new(): IPropertyDefOrObjectTypes; };
-    const PropertyDefs: { new(): IPropertyDefs; };
-    const PropertyDefsAdmin: { new(): IPropertyDefsAdmin; };
-    const PropertyValue: { new(): IPropertyValue; };
-    const PropertyValueForDisplay: { new(): IPropertyValueForDisplay; };
-    const PropertyValueIconClue: { new(): IPropertyValueIconClue; };
-    const PropertyValueIconClues: { new(): IPropertyValueIconClues; };
-    const PropertyValues: { new(): IPropertyValues; };
-    const PropertyValuesForDisplay: { new(): IPropertyValuesForDisplay; };
-    const PropertyValuesOfMultipleObjects: { new(): IPropertyValuesOfMultipleObjects; };
-    const PropertyValueSuggestion: { new(): IPropertyValueSuggestion; };
-    const PropertyValueSuggestions: { new(): IPropertyValueSuggestions; };
-    const PropertyValuesWithIconClues: { new(): IPropertyValuesWithIconClues; };
-    const PropertyValuesWithIconCluesOfMultipleObjects: { new(): IPropertyValuesWithIconCluesOfMultipleObjects; };
-    const ReportAccessCredentials: { new(): IReportAccessCredentials; };
-    const RestoreJob: { new(): IRestoreJob; };
-    const ScheduledJob: { new(): IScheduledJob; };
-    const ScheduledJobOutputInfo: { new(): IScheduledJobOutputInfo; };
-    const ScheduledJobRunInfo: { new(): IScheduledJobRunInfo; };
-    const ScheduledJobs: { new(): IScheduledJobs; };
-    const ScheduledJobTrigger: { new(): IScheduledJobTrigger; };
-    const ScheduledJobTriggers: { new(): IScheduledJobTriggers; };
-    const SearchCondition: { new(): ISearchCondition; };
-    const SearchConditionEx: { new(): ISearchConditionEx; };
-    const SearchConditionExs: { new(): ISearchConditionExs; };
-    const SearchConditions: { new(): ISearchConditions; };
-    const SearchCriteria: { new(): ISearchCriteria; };
-    const SearchDef: { new(): ISearchDef; };
-    const SemanticAliases: { new(): ISemanticAliases; };
-    const ServerLicenseManagementOperations: { new(): IServerLicenseManagementOperations; };
-    const ServerLoginAccountOperations: { new(): IServerLoginAccountOperations; };
-    const ServerManagementOperations: { new(): IServerManagementOperations; };
-    const ServerScheduledJobManagementOperations: { new(): IServerScheduledJobManagementOperations; };
-    const ServerVaultManagementOperations: { new(): IServerVaultManagementOperations; };
-    const SessionInfo: { new(): ISessionInfo; };
-    const SetPropertiesParams: { new(): ISetPropertiesParams; };
-    const SetPropertiesParamsOfMultipleObjects: { new(): ISetPropertiesParamsOfMultipleObjects; };
-    const SharedFileInfo: { new(): ISharedFileInfo; };
-    const SharedLinkInfo: { new(): ISharedLinkInfo; };
-    const SharedLinkInfos: { new(): ISharedLinkInfos; };
-    const SharedLinkPublicOperations: { new(): ISharedLinkPublicOperations; };
-    const ShortcutMappingInfo: { new(): IShortcutMappingInfo; };
-    const SignaturePromptInfo: { new(): ISignaturePromptInfo; };
-    const SignaturePromptInfoMetadataBased: { new(): ISignaturePromptInfoMetadataBased; };
-    const SignaturePromptInfos: { new(): ISignaturePromptInfos; };
-    const SignaturePromptInfoSelectable: { new(): ISignaturePromptInfoSelectable; };
-    const SignatureSettings: { new(): ISignatureSettings; };
-    const SourceObjectFile: { new(): ISourceObjectFile; };
-    const SourceObjectFiles: { new(): ISourceObjectFiles; };
-    const SQLDatabase: { new(): ISQLDatabase; };
-    const State: { new(): IState; };
-    const StateAdmin: { new(): IStateAdmin; };
-    const StateConditions: { new(): IStateConditions; };
-    const States: { new(): IStates; };
-    const StatesAdmin: { new(): IStatesAdmin; };
-    const StateTransition: { new(): IStateTransition; };
-    const StateTransitionForClient: { new(): IStateTransitionForClient; };
-    const StateTransitions: { new(): IStateTransitions; };
-    const StateTransitionsForClient: { new(): IStateTransitionsForClient; };
-    const StringData: { new(): IStringData; };
-    const Strings: { new(): IStrings; };
-    const TaskAssignmentClassInfo: { new(): ITaskAssignmentClassInfo; };
-    const TemporarySearchView: { new(): ITemporarySearchView; };
-    const Timestamp: { new(): ITimestamp; };
-    const TimeZoneInformation: { new(): ITimeZoneInformation; };
-    const TraditionalFolder: { new(): ITraditionalFolder; };
-    const TraditionalFolderContents: { new(): ITraditionalFolderContents; };
-    const TraditionalFolders: { new(): ITraditionalFolders; };
-    const TriggerType: { new(): ITriggerType; };
-    const TypedValue: { new(): ITypedValue; };
-    const TypedValues: { new(): ITypedValues; };
-    const UserAccount: { new(): IUserAccount; };
-    const UserAccounts: { new(): IUserAccounts; };
-    const UserGroup: { new(): IUserGroup; };
-    const UserGroupAdmin: { new(): IUserGroupAdmin; };
-    const UserGroups: { new(): IUserGroups; };
-    const UserGroupsAdmin: { new(): IUserGroupsAdmin; };
-    const UserOrUserGroupID: { new(): IUserOrUserGroupID; };
-    const UserOrUserGroupIDEx: { new(): IUserOrUserGroupIDEx; };
-    const UserOrUserGroupIDExs: { new(): IUserOrUserGroupIDExs; };
-    const UserOrUserGroupIDs: { new(): IUserOrUserGroupIDs; };
-    const Validation: { new(): IValidation; };
-    const ValueListItem: { new(): IValueListItem; };
-    const ValueListItems: { new(): IValueListItems; };
-    const ValueListItemSearchResults: { new(): IValueListItemSearchResults; };
-    const ValueListItemSearchResultsWithPermissions: { new(): IValueListItemSearchResultsWithPermissions; };
-    const ValueListItemsWithPermissions: { new(): IValueListItemsWithPermissions; };
-    const Vault: { new(): IVault; };
-    const VaultAutomaticMetadataOperations: { new(): IVaultAutomaticMetadataOperations; };
-    const VaultClassGroupOperations: { new(): IVaultClassGroupOperations; };
-    const VaultClassOperations: { new(): IVaultClassOperations; };
-    const VaultClientOperations: { new(): IVaultClientOperations; };
-    const VaultConnection: { new(): IVaultConnection; };
-    const VaultConnections: { new(): IVaultConnections; };
-    const VaultCustomApplicationManagementOperations: { new(): IVaultCustomApplicationManagementOperations; };
-    const VaultDataSetOperations: { new(): IVaultDataSetOperations; };
-    const VaultElectronicSignatureOperations: { new(): IVaultElectronicSignatureOperations; };
-    const VaultEventLogOperations: { new(): IVaultEventLogOperations; };
-    const VaultExtensionMethodOperations: { new(): IVaultExtensionMethodOperations; };
-    const VaultExternalObjectOperations: { new(): IVaultExternalObjectOperations; };
-    const VaultLoginAccountOperations: { new(): IVaultLoginAccountOperations; };
-    const VaultManagementOperations: { new(): IVaultManagementOperations; };
-    const VaultNamedACLOperations: { new(): IVaultNamedACLOperations; };
-    const VaultNamedValueStorageOperations: { new(): IVaultNamedValueStorageOperations; };
-    const VaultNotificationOperations: { new(): IVaultNotificationOperations; };
-    const VaultObjectFileOperations: { new(): IVaultObjectFileOperations; };
-    const VaultObjectOperations: { new(): IVaultObjectOperations; };
-    const VaultObjectPropertyOperations: { new(): IVaultObjectPropertyOperations; };
-    const VaultObjectSearchOperations: { new(): IVaultObjectSearchOperations; };
-    const VaultObjectTypeOperations: { new(): IVaultObjectTypeOperations; };
-    const VaultOnServer: { new(): IVaultOnServer; };
-    const VaultProperties: { new(): IVaultProperties; };
-    const VaultPropertyDefOperations: { new(): IVaultPropertyDefOperations; };
-    const VaultScheduledJobManagementOperations: { new(): IVaultScheduledJobManagementOperations; };
-    const VaultServerDataPushOperations: { new(): IVaultServerDataPushOperations; };
-    const VaultSharedLinkOperations: { new(): IVaultSharedLinkOperations; };
-    const VaultsOnServer: { new(): IVaultsOnServer; };
-    const VaultTraditionalFolderOperations: { new(): IVaultTraditionalFolderOperations; };
-    const VaultUserGroupOperations: { new(): IVaultUserGroupOperations; };
-    const VaultUserOperations: { new(): IVaultUserOperations; };
-    const VaultUserSettingOperations: { new(): IVaultUserSettingOperations; };
-    const VaultValueListItemOperations: { new(): IVaultValueListItemOperations; };
-    const VaultValueListOperations: { new(): IVaultValueListOperations; };
-    const VaultViewOperations: { new(): IVaultViewOperations; };
-    const VaultWorkflowOperations: { new(): IVaultWorkflowOperations; };
-    const VerifyVaultJob: { new(): IVerifyVaultJob; };
-    const VerifyVaultJobOutput: { new(): IVerifyVaultJobOutput; };
-    const VersionComment: { new(): IVersionComment; };
-    const VersionComments: { new(): IVersionComments; };
-    const View: { new(): IView; };
-    const ViewLocation: { new(): IViewLocation; };
-    const Views: { new(): IViews; };
-    const WeeklyTrigger: { new(): IWeeklyTrigger; };
-    const Workflow: { new(): IWorkflow; };
-    const WorkflowAdmin: { new(): IWorkflowAdmin; };
-    const WorkflowAssignment: { new(): IWorkflowAssignment; };
-    const Workflows: { new(): IWorkflows; };
-    const WorkflowsAdmin: { new(): IWorkflowsAdmin; };
-    const XMLSearchResult: { new(): IXMLSearchResult; };
+    const AccessControlEntry: { new(): IAccessControlEntry };
+    const AccessControlEntryContainer: { new(): IAccessControlEntryContainer };
+    const AccessControlEntryData: { new(): IAccessControlEntryData };
+    const AccessControlEntryKey: { new(): IAccessControlEntryKey };
+    const AccessControlEntryKeys: { new(): IAccessControlEntryKeys };
+    const AccessControlList: { new(): IAccessControlList };
+    const AccessControlListComponent: { new(): IAccessControlListComponent };
+    const AccessControlListComponentContainer: { new(): IAccessControlListComponentContainer };
+    const AccessControlListComponentKey: { new(): IAccessControlListComponentKey };
+    const AccessControlListComponentKeys: { new(): IAccessControlListComponentKeys };
+    const AccessControlLists: { new(): IAccessControlLists };
+    const ActionConvertToPDF: { new(): IActionConvertToPDF };
+    const ActionCreateAssignment: { new(): IActionCreateAssignment };
+    const ActionDefinition: { new(): IActionDefinition };
+    const ActionDefinitions: { new(): IActionDefinitions };
+    const ActionSendNotification: { new(): IActionSendNotification };
+    const ActionSetPermissions: { new(): IActionSetPermissions };
+    const ActionSetProperties: { new(): IActionSetProperties };
+    const AdditionalClassInfo: { new(): IAdditionalClassInfo };
+    const AdditionalFolder: { new(): IAdditionalFolder };
+    const AdditionalFolders: { new(): IAdditionalFolders };
+    const ApprovalAssignmentClassInfo: { new(): IApprovalAssignmentClassInfo };
+    const ArchiveOldVersionsJob: { new(): IArchiveOldVersionsJob };
+    const AssignmentClassInfo: { new(): IAssignmentClassInfo };
+    const AssociatedPropertyDef: { new(): IAssociatedPropertyDef };
+    const AssociatedPropertyDefs: { new(): IAssociatedPropertyDefs };
+    const AttachVaultOptions: { new(): IAttachVaultOptions };
+    const AuthenticationResult: { new(): IAuthenticationResult };
+    const AuthenticationResultIntermediate: { new(): IAuthenticationResultIntermediate };
+    const AuthenticationResultServerFinal: { new(): IAuthenticationResultServerFinal };
+    const AuthenticationResultVaultFinal: { new(): IAuthenticationResultVaultFinal };
+    const AutomaticMetadataResult: { new(): IAutomaticMetadataResult };
+    const AutomaticPermissions: { new(): IAutomaticPermissions };
+    const AutomaticValue: { new(): IAutomaticValue };
+    const BackupJob: { new(): IBackupJob };
+    const BooleanValue: { new(): IBooleanValue };
+    const ClassGroup: { new(): IClassGroup };
+    const ClassGroups: { new(): IClassGroups };
+    const CopyVaultJob: { new(): ICopyVaultJob };
+    const CopyVaultJobOutputInfo: { new(): ICopyVaultJobOutputInfo };
+    const CustomApplication: { new(): ICustomApplication };
+    const CustomApplications: { new(): ICustomApplications };
+    const DailyTrigger: { new(): IDailyTrigger };
+    const DataFunctionCall: { new(): IDataFunctionCall };
+    const DataSet: { new(): IDataSet };
+    const DataSetExportingStatus: { new(): IDataSetExportingStatus };
+    const DataSets: { new(): IDataSets };
+    const DefaultProperties: { new(): IDefaultProperties };
+    const DefaultProperty: { new(): IDefaultProperty };
+    const EmailMessageInformation: { new(): IEmailMessageInformation };
+    const EventHandler: { new(): IEventHandler };
+    const EventHandlers: { new(): IEventHandlers };
+    const ExportContentJob: { new(): IExportContentJob };
+    const ExportStructureItem: { new(): IExportStructureItem };
+    const ExportStructureItems: { new(): IExportStructureItems };
+    const Expression: { new(): IExpression };
+    const ExpressionEx: { new(): IExpressionEx };
+    const ExpressionExs: { new(): IExpressionExs };
+    const Expressions: { new(): IExpressions };
+    const FileClass: { new(): IFileClass };
+    const FileClasses: { new(): IFileClasses };
+    const FileDownloadSession: { new(): IFileDownloadSession };
+    const FileInformation: { new(): IFileInformation };
+    const FileVer: { new(): IFileVer };
+    const FileVers: { new(): IFileVers };
+    const FolderContentItem: { new(): IFolderContentItem };
+    const FolderContentItems: { new(): IFolderContentItems };
+    const FolderDef: { new(): IFolderDef };
+    const FolderDefs: { new(): IFolderDefs };
+    const FolderListingColumn: { new(): IFolderListingColumn };
+    const FolderListingColumns: { new(): IFolderListingColumns };
+    const FolderListingColumnSorting: { new(): IFolderListingColumnSorting };
+    const FolderListingColumnSortings: { new(): IFolderListingColumnSortings };
+    const FolderListingUIState: { new(): IFolderListingUIState };
+    const FolderNameListing: { new(): IFolderNameListing };
+    const FolderUIState: { new(): IFolderUIState };
+    const IDRange: { new(): IIDRange };
+    const IDs: { new(): IIDs };
+    const Impersonation: { new(): IImpersonation };
+    const ImportContentJob: { new(): IImportContentJob };
+    const IndirectPropertyID: { new(): IIndirectPropertyID };
+    const IndirectPropertyIDLevel: { new(): IIndirectPropertyIDLevel };
+    const KeyNamePair: { new(): IKeyNamePair };
+    const KeyNamePairs: { new(): IKeyNamePairs };
+    const Language: { new(): ILanguage };
+    const Languages: { new(): ILanguages };
+    const LicenseStatus: { new(): ILicenseStatus };
+    const LoginAccount: { new(): ILoginAccount };
+    const LoginAccountPersonalInformation: { new(): ILoginAccountPersonalInformation };
+    const LoginAccounts: { new(): ILoginAccounts };
+    const Lookup: { new(): ILookup };
+    const Lookups: { new(): ILookups };
+    const MetadataStructureSelector: { new(): IMetadataStructureSelector };
+    const MetadataStructureSelectors: { new(): IMetadataStructureSelectors };
+    const MFilesClientApplication: { new(): IMFilesClientApplication };
+    const MFilesServerApplication: { new(): IMFilesServerApplication };
+    const MFilesVersion: { new(): IMFilesVersion };
+    const MFResourceManager: { new(): IMFResourceManager };
+    const MFShellDocListCtrl: { new(): IMFDocListCtrl };
+    const MonthlyDateTrigger: { new(): IMonthlyDateTrigger };
+    const MonthlyDOWTrigger: { new(): IMonthlyDOWTrigger };
+    const NamedACL: { new(): INamedACL };
+    const NamedACLAdmin: { new(): INamedACLAdmin };
+    const NamedACLs: { new(): INamedACLs };
+    const NamedACLsAdmin: { new(): INamedACLsAdmin };
+    const NamedValueNamespace: { new(): INamedValueNamespace };
+    const NamedValueNamespaces: { new(): INamedValueNamespaces };
+    const NamedValues: { new(): INamedValues };
+    const Number: { new(): INumber };
+    const ObjectClass: { new(): IObjectClass };
+    const ObjectClassAdmin: { new(): IObjectClassAdmin };
+    const ObjectClasses: { new(): IObjectClasses };
+    const ObjectClassesAdmin: { new(): IObjectClassesAdmin };
+    const ObjectCreationInfo: { new(): IObjectCreationInfo };
+    const ObjectFile: { new(): IObjectFile };
+    const ObjectFileAndObjVer: { new(): IObjectFileAndObjVer };
+    const ObjectFileAndObjVerOfMultipleFiles: { new(): IObjectFileAndObjVerOfMultipleFiles };
+    const ObjectFiles: { new(): IObjectFiles };
+    const ObjectSearchResults: { new(): IObjectSearchResults };
+    const ObjectTypeTargetForBrowsing: { new(): IObjectTypeTargetForBrowsing };
+    const ObjectTypeTargetsForBrowsing: { new(): IObjectTypeTargetsForBrowsing };
+    const ObjectVersion: { new(): IObjectVersion };
+    const ObjectVersionAndProperties: { new(): IObjectVersionAndProperties };
+    const ObjectVersionAndPropertiesOfMultipleObjects: { new(): IObjectVersionAndPropertiesOfMultipleObjects };
+    const ObjectVersionFile: { new(): IObjectFileAndVersion };
+    const ObjectVersionPermissions: { new(): IObjectVersionPermissions };
+    const ObjectVersions: { new(): IObjectVersions };
+    const ObjectVersionWorkflowState: { new(): IObjectVersionWorkflowState };
+    const ObjectWindowResult: { new(): IObjectWindowResult };
+    const ObjID: { new(): IObjID };
+    const ObjIDs: { new(): IObjIDs };
+    const ObjOrFileVer: { new(): IObjOrFileVer };
+    const ObjOrFileVers: { new(): IObjOrFileVers };
+    const ObjType: { new(): IObjectType };
+    const ObjTypeAdmin: { new(): IObjectTypeAdmin };
+    const ObjTypeColumnMapping: { new(): IObjectTypeColumnMapping };
+    const ObjTypeColumnMappings: { new(): IObjectTypeColumnMappings };
+    const ObjTypes: { new(): IObjectTypes };
+    const ObjTypesAdmin: { new(): IObjectTypesAdmin };
+    const ObjVer: { new(): IObjVer };
+    const ObjVers: { new(): IObjVers };
+    const OCROptions: { new(): IOCROptions };
+    const OCRPage: { new(): IOCRPage };
+    const OCRPageResult: { new(): IOCRPageResult };
+    const OCRPageResults: { new(): IOCRPageResults };
+    const OCRPages: { new(): IOCRPages };
+    const OCRZone: { new(): IOCRZone };
+    const OCRZoneResult: { new(): IOCRZoneResult };
+    const OCRZoneResults: { new(): IOCRZoneResults };
+    const OCRZones: { new(): IOCRZones };
+    const OptimizeVaultJob: { new(): IOptimizeVaultJob };
+    const OwnerPropertyDef: { new(): IOwnerPropertyDef };
+    const PluginInfo: { new(): IPluginInfo };
+    const PluginInfos: { new(): IPluginInfos };
+    const PreviewerActiveXCtrl: { new(): IPreviewerActiveXCtrl };
+    const PropertyDef: { new(): IPropertyDef };
+    const PropertyDefAdmin: { new(): IPropertyDefAdmin };
+    const PropertyDefOrObjectType: { new(): IPropertyDefOrObjectType };
+    const PropertyDefOrObjectTypes: { new(): IPropertyDefOrObjectTypes };
+    const PropertyDefs: { new(): IPropertyDefs };
+    const PropertyDefsAdmin: { new(): IPropertyDefsAdmin };
+    const PropertyValue: { new(): IPropertyValue };
+    const PropertyValueForDisplay: { new(): IPropertyValueForDisplay };
+    const PropertyValueIconClue: { new(): IPropertyValueIconClue };
+    const PropertyValueIconClues: { new(): IPropertyValueIconClues };
+    const PropertyValues: { new(): IPropertyValues };
+    const PropertyValuesForDisplay: { new(): IPropertyValuesForDisplay };
+    const PropertyValuesOfMultipleObjects: { new(): IPropertyValuesOfMultipleObjects };
+    const PropertyValueSuggestion: { new(): IPropertyValueSuggestion };
+    const PropertyValueSuggestions: { new(): IPropertyValueSuggestions };
+    const PropertyValuesWithIconClues: { new(): IPropertyValuesWithIconClues };
+    const PropertyValuesWithIconCluesOfMultipleObjects: { new(): IPropertyValuesWithIconCluesOfMultipleObjects };
+    const ReportAccessCredentials: { new(): IReportAccessCredentials };
+    const RestoreJob: { new(): IRestoreJob };
+    const ScheduledJob: { new(): IScheduledJob };
+    const ScheduledJobOutputInfo: { new(): IScheduledJobOutputInfo };
+    const ScheduledJobRunInfo: { new(): IScheduledJobRunInfo };
+    const ScheduledJobs: { new(): IScheduledJobs };
+    const ScheduledJobTrigger: { new(): IScheduledJobTrigger };
+    const ScheduledJobTriggers: { new(): IScheduledJobTriggers };
+    const SearchCondition: { new(): ISearchCondition };
+    const SearchConditionEx: { new(): ISearchConditionEx };
+    const SearchConditionExs: { new(): ISearchConditionExs };
+    const SearchConditions: { new(): ISearchConditions };
+    const SearchCriteria: { new(): ISearchCriteria };
+    const SearchDef: { new(): ISearchDef };
+    const SemanticAliases: { new(): ISemanticAliases };
+    const ServerLicenseManagementOperations: { new(): IServerLicenseManagementOperations };
+    const ServerLoginAccountOperations: { new(): IServerLoginAccountOperations };
+    const ServerManagementOperations: { new(): IServerManagementOperations };
+    const ServerScheduledJobManagementOperations: { new(): IServerScheduledJobManagementOperations };
+    const ServerVaultManagementOperations: { new(): IServerVaultManagementOperations };
+    const SessionInfo: { new(): ISessionInfo };
+    const SetPropertiesParams: { new(): ISetPropertiesParams };
+    const SetPropertiesParamsOfMultipleObjects: { new(): ISetPropertiesParamsOfMultipleObjects };
+    const SharedFileInfo: { new(): ISharedFileInfo };
+    const SharedLinkInfo: { new(): ISharedLinkInfo };
+    const SharedLinkInfos: { new(): ISharedLinkInfos };
+    const SharedLinkPublicOperations: { new(): ISharedLinkPublicOperations };
+    const ShortcutMappingInfo: { new(): IShortcutMappingInfo };
+    const SignaturePromptInfo: { new(): ISignaturePromptInfo };
+    const SignaturePromptInfoMetadataBased: { new(): ISignaturePromptInfoMetadataBased };
+    const SignaturePromptInfos: { new(): ISignaturePromptInfos };
+    const SignaturePromptInfoSelectable: { new(): ISignaturePromptInfoSelectable };
+    const SignatureSettings: { new(): ISignatureSettings };
+    const SourceObjectFile: { new(): ISourceObjectFile };
+    const SourceObjectFiles: { new(): ISourceObjectFiles };
+    const SQLDatabase: { new(): ISQLDatabase };
+    const State: { new(): IState };
+    const StateAdmin: { new(): IStateAdmin };
+    const StateConditions: { new(): IStateConditions };
+    const States: { new(): IStates };
+    const StatesAdmin: { new(): IStatesAdmin };
+    const StateTransition: { new(): IStateTransition };
+    const StateTransitionForClient: { new(): IStateTransitionForClient };
+    const StateTransitions: { new(): IStateTransitions };
+    const StateTransitionsForClient: { new(): IStateTransitionsForClient };
+    const StringData: { new(): IStringData };
+    const Strings: { new(): IStrings };
+    const TaskAssignmentClassInfo: { new(): ITaskAssignmentClassInfo };
+    const TemporarySearchView: { new(): ITemporarySearchView };
+    const Timestamp: { new(): ITimestamp };
+    const TimeZoneInformation: { new(): ITimeZoneInformation };
+    const TraditionalFolder: { new(): ITraditionalFolder };
+    const TraditionalFolderContents: { new(): ITraditionalFolderContents };
+    const TraditionalFolders: { new(): ITraditionalFolders };
+    const TriggerType: { new(): ITriggerType };
+    const TypedValue: { new(): ITypedValue };
+    const TypedValues: { new(): ITypedValues };
+    const UserAccount: { new(): IUserAccount };
+    const UserAccounts: { new(): IUserAccounts };
+    const UserGroup: { new(): IUserGroup };
+    const UserGroupAdmin: { new(): IUserGroupAdmin };
+    const UserGroups: { new(): IUserGroups };
+    const UserGroupsAdmin: { new(): IUserGroupsAdmin };
+    const UserOrUserGroupID: { new(): IUserOrUserGroupID };
+    const UserOrUserGroupIDEx: { new(): IUserOrUserGroupIDEx };
+    const UserOrUserGroupIDExs: { new(): IUserOrUserGroupIDExs };
+    const UserOrUserGroupIDs: { new(): IUserOrUserGroupIDs };
+    const Validation: { new(): IValidation };
+    const ValueListItem: { new(): IValueListItem };
+    const ValueListItems: { new(): IValueListItems };
+    const ValueListItemSearchResults: { new(): IValueListItemSearchResults };
+    const ValueListItemSearchResultsWithPermissions: { new(): IValueListItemSearchResultsWithPermissions };
+    const ValueListItemsWithPermissions: { new(): IValueListItemsWithPermissions };
+    const Vault: { new(): IVault };
+    const VaultAutomaticMetadataOperations: { new(): IVaultAutomaticMetadataOperations };
+    const VaultClassGroupOperations: { new(): IVaultClassGroupOperations };
+    const VaultClassOperations: { new(): IVaultClassOperations };
+    const VaultClientOperations: { new(): IVaultClientOperations };
+    const VaultConnection: { new(): IVaultConnection };
+    const VaultConnections: { new(): IVaultConnections };
+    const VaultCustomApplicationManagementOperations: { new(): IVaultCustomApplicationManagementOperations };
+    const VaultDataSetOperations: { new(): IVaultDataSetOperations };
+    const VaultElectronicSignatureOperations: { new(): IVaultElectronicSignatureOperations };
+    const VaultEventLogOperations: { new(): IVaultEventLogOperations };
+    const VaultExtensionMethodOperations: { new(): IVaultExtensionMethodOperations };
+    const VaultExternalObjectOperations: { new(): IVaultExternalObjectOperations };
+    const VaultLoginAccountOperations: { new(): IVaultLoginAccountOperations };
+    const VaultManagementOperations: { new(): IVaultManagementOperations };
+    const VaultNamedACLOperations: { new(): IVaultNamedACLOperations };
+    const VaultNamedValueStorageOperations: { new(): IVaultNamedValueStorageOperations };
+    const VaultNotificationOperations: { new(): IVaultNotificationOperations };
+    const VaultObjectFileOperations: { new(): IVaultObjectFileOperations };
+    const VaultObjectOperations: { new(): IVaultObjectOperations };
+    const VaultObjectPropertyOperations: { new(): IVaultObjectPropertyOperations };
+    const VaultObjectSearchOperations: { new(): IVaultObjectSearchOperations };
+    const VaultObjectTypeOperations: { new(): IVaultObjectTypeOperations };
+    const VaultOnServer: { new(): IVaultOnServer };
+    const VaultProperties: { new(): IVaultProperties };
+    const VaultPropertyDefOperations: { new(): IVaultPropertyDefOperations };
+    const VaultScheduledJobManagementOperations: { new(): IVaultScheduledJobManagementOperations };
+    const VaultServerDataPushOperations: { new(): IVaultServerDataPushOperations };
+    const VaultSharedLinkOperations: { new(): IVaultSharedLinkOperations };
+    const VaultsOnServer: { new(): IVaultsOnServer };
+    const VaultTraditionalFolderOperations: { new(): IVaultTraditionalFolderOperations };
+    const VaultUserGroupOperations: { new(): IVaultUserGroupOperations };
+    const VaultUserOperations: { new(): IVaultUserOperations };
+    const VaultUserSettingOperations: { new(): IVaultUserSettingOperations };
+    const VaultValueListItemOperations: { new(): IVaultValueListItemOperations };
+    const VaultValueListOperations: { new(): IVaultValueListOperations };
+    const VaultViewOperations: { new(): IVaultViewOperations };
+    const VaultWorkflowOperations: { new(): IVaultWorkflowOperations };
+    const VerifyVaultJob: { new(): IVerifyVaultJob };
+    const VerifyVaultJobOutput: { new(): IVerifyVaultJobOutput };
+    const VersionComment: { new(): IVersionComment };
+    const VersionComments: { new(): IVersionComments };
+    const View: { new(): IView };
+    const ViewLocation: { new(): IViewLocation };
+    const Views: { new(): IViews };
+    const WeeklyTrigger: { new(): IWeeklyTrigger };
+    const Workflow: { new(): IWorkflow };
+    const WorkflowAdmin: { new(): IWorkflowAdmin };
+    const WorkflowAssignment: { new(): IWorkflowAssignment };
+    const Workflows: { new(): IWorkflows };
+    const WorkflowsAdmin: { new(): IWorkflowsAdmin };
+    const XMLSearchResult: { new(): IXMLSearchResult };
 
     const ApplicationPath: string;
     const CLSID: ICLSIDs;
@@ -6197,5 +9653,11 @@ declare namespace MFiles {
     function RetrieveStringData(name: string, privateData: boolean): string;
     function SetTimer(timeoutInMs: number, callbackMethod: () => void): number;
     function ThrowError(description: string): void;
-    function WriteToRegistry(userSpecific: boolean, key: string, valueName: string, value: any, valueType: string): void;
+    function WriteToRegistry(
+        userSpecific: boolean,
+        key: string,
+        valueName: string,
+        value: any,
+        valueType: string,
+    ): void;
 }

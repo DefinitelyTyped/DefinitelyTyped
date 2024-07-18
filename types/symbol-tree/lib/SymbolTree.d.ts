@@ -1,5 +1,5 @@
-import TreeIterator = require('./TreeIterator');
-import TreePosition = require('./TreePosition');
+import TreeIterator = require("./TreeIterator");
+import TreePosition = require("./TreePosition");
 
 declare namespace SymbolTree {
     interface SiblingOptions<T extends object = any> {

@@ -1,6 +1,6 @@
-import 'katex/dist/katex.min.css';
-import * as React from 'react';
-import { BlockMath, InlineMath } from 'react-katex';
+import "katex/dist/katex.min.css";
+import * as React from "react";
+import { BlockMath, InlineMath } from "react-katex";
 
 // The examples were retrieved verbatim from the `react-katex` documentation:
 // https://www.npmjs.com/package/react-katex
@@ -20,7 +20,7 @@ function testBlockMath(): void {
 function testErrorHandlingDefaultErrorMessage(): void {
     // By default the error rendering is handled by KaTeX. You can optionally
     // pass errorColor (defaults to #cc0000) as a prop:
-    <BlockMath math={'\\int_0^\\infty x^2 dx \\inta'} errorColor={'#cc0000'} />;
+    <BlockMath math={"\\int_0^\\infty x^2 dx \\inta"} errorColor={"#cc0000"} />;
 }
 
 function testErrorHandlingCustomErrorMessage(): void {

@@ -1,4 +1,4 @@
-import { solve, ProgressFn, Cell } from 'sudokus';
+import { Cell, ProgressFn, solve } from "sudokus";
 
 const onProgress: ProgressFn = (cell: Cell[][]) => {
     cell[0][0].fixed;
@@ -17,5 +17,5 @@ solve(
         [0, 0, 6, 0, 0, 8, 0, 0, 0],
         [0, 4, 3, 0, 2, 0, 0, 8, 7],
     ],
-    { onProgress }
+    { onProgress },
 );

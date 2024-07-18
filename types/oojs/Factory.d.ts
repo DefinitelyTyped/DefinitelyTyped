@@ -1,14 +1,18 @@
 declare namespace OO {
     // HACK: Omit register and unregister because Factory changed their call signatures (!)
-    interface Factory extends Omit<Registry, 'register' | 'unregister'> {
+    interface Factory extends Omit<Registry, "register" | "unregister"> {
         /**
          * Register a constructor with the factory.
          *
          *     function MyClass() {};
          *     OO.initClass( MyClass );
-         *     MyClass.static.name = 'hello';
-         *     // Register class with the factory, available via the symbolic name "hello"
+         *     MyClass.key = 'hello';
+         *
+         *     // Register class with the factory
          *     factory.register( MyClass );
+         *
+         *     // Instantiate a class based on its registered key (also known as a "symbolic name")
+         *     factory.create( 'hello' );
          *
          * @param constructor Constructor to use when creating object
          * @param name Symbolic name to use for {@link create()}.
@@ -16,7 +20,9 @@ declare namespace OO {
          *  its own name, through `constructor.static.name`.
          * @throws {Error} If a parameter is invalid
          */
-        register(constructor: ConstructorLike & { static: { name: string } }): void;
+        register(
+            constructor: (ConstructorLike & { static: { name: string } }) | (ConstructorLike & { key: string }),
+        ): void;
 
         /**
          * Register a class with the factory.
@@ -64,7 +70,7 @@ declare namespace OO {
     }
 
     interface FactoryConstructor {
-        new (): Factory;
+        new(): Factory;
         prototype: Factory;
         super: RegistryConstructor;
         /** @deprecated Use `super` instead */

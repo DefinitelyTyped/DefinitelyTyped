@@ -1,4 +1,4 @@
-import wav = require('node-wav');
+import wav = require("node-wav");
 
 declare const buffer: Buffer;
 

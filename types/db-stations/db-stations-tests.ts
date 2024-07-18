@@ -1,5 +1,5 @@
-import stations = require('db-stations');
-import createFilter = require('db-stations/create-filter');
+import stations = require("db-stations");
+import createFilter = require("db-stations/create-filter");
 
 // test type exports
 type ReadableStations = stations.ReadableStations<stations.Station>;
@@ -17,7 +17,7 @@ type Ril100Identifier = stations.Ril100Identifier;
 type Point = stations.Point;
 
 // $ExpectType ReadableStations<Station>
-stations().on('data', station => {
+stations().on("data", station => {
     station; // $ExpectType Station
     station.type; // $ExpectType "station"
     station.id; // $ExpectType string
@@ -40,7 +40,7 @@ stations().on('data', station => {
 });
 
 // $ExpectType ReadableStations<StationFull>
-stations.full().on('data', station => {
+stations.full().on("data", station => {
     station; // $ExpectType StationFull
     station.type; // $ExpectType "station"
     station.id; // $ExpectType string
@@ -78,11 +78,11 @@ stations.full().on('data', station => {
     station.hasLockerSystem; // $ExpectType boolean
     station.hasTaxiRank; // $ExpectType boolean
     station.hasTravelNecessities; // $ExpectType boolean
-    const acc: 'no' | 'yes' | 'partial' = station.hasSteplessAccess;
+    const acc: "no" | "yes" | "partial" = station.hasSteplessAccess;
     // @ts-expect-error
-    const acc1: 'yes' | 'partial' = station.hasSteplessAccess;
+    const acc1: "yes" | "partial" = station.hasSteplessAccess;
     // @ts-expect-error
-    const acc2: 'no' | 'yes' = station.hasSteplessAccess;
+    const acc2: "no" | "yes" = station.hasSteplessAccess;
     station.hasMobilityService; // $ExpectType string
     station.hasWiFi; // $ExpectType boolean
     station.hasTravelCenter; // $ExpectType boolean
@@ -111,5 +111,5 @@ stations.full().on('data', station => {
     station.ril100Identifiers[0].geographicCoordinates.coordinates; // $ExpectType [number, number]
 });
 
-createFilter({ name: 'foo' }); // $ExpectType (station: Station) => boolean
-createFilter<StationFull>({ federalState: 'Bayern' }); // $ExpectType (station: StationFull) => boolean
+createFilter({ name: "foo" }); // $ExpectType (station: Station) => boolean
+createFilter<StationFull>({ federalState: "Bayern" }); // $ExpectType (station: StationFull) => boolean

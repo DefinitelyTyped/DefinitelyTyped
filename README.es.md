@@ -2,15 +2,14 @@
 
 > El repositorio de definiciones de TypeScript de alta calidad.
 
-*You can also read this README in [English](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
-and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!*
+_You can also read this README in [English](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md), [한국어](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ko.md), [Русский](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ru.md), [简体中文](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.zh-Hans.md), [Português](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.pt.md), [Italiano](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.it.md)
+and [日本語](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.ja.md)!_
 
 Vea también el sitio web [definitelytyped.org](http://definitelytyped.org), aunque la información en este README está más actualizada.
 
 ## ¿Qué son los `declaration files`?
 
 Vea el [Manual de TypeScript](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html).
-
 
 ## ¿Cómo los obtengo?
 
@@ -32,36 +31,36 @@ Si aún no puedes encontrarlo, comprueba si el paquete ya [incluye](https://www.
 Esto es provisto usualmente en el campo `"types"` o `"typings"` en el `package.json`,
 o solo busca por cualquier archivo ".d.ts" en el paquete e inclúyelo manualmente con un `/// <reference path="" />`.
 
-#### Versiones más viejas de TypeScript (4.0 y anteriores)
-
-Definitely Typed solamente prueba paquetes en versiones de TypeScript que son menores a 2 años.
-Actualmente, las versiones 4.1 y posteriores están siendo probadas. Si estas usando TypeScript 2.0 a 4.0, puedes intentar instalando paquetes `@types` &mdash; la mayoría de los paquetes no usan los beneficios de Typescript más nuevos. No hay garantía de que funcionen.
-Versiones soportadas:
+### Support window
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
 
+<details>
+<summary>Versiones más viejas de TypeScript</summary>
+
 Los paquetes `@types` tienen etiquetas para las versiones de Typescript que explícitamente soportan, usualmente puedes obtener versiones más viejas de los paquetes anteriores a 2 años.
 Por ejemplo, si ejecutas `npm dist-tags @types/react`, observaras que Typescript 2.5 puede usar types para react@16.0, a su vez, Typescript 2.6 y 2.7 pueden usar types para react@16.4.
 
-|Etiqueta | Versión|
-|----|---------|
-|latest| 16.9.23|
-|ts2.0| 15.0.1|
-| ... | ... |
-|ts2.5| 16.0.36|
-|ts2.6| 16.4.7|
-|ts2.7| 16.4.7|
-| ... | ... |
+| Etiqueta | Versión |
+| -------- | ------- |
+| latest   | 16.9.23 |
+| ts2.0    | 15.0.1  |
+| ...      | ...     |
+| ts2.5    | 16.0.36 |
+| ts2.6    | 16.4.7  |
+| ts2.7    | 16.4.7  |
+| ...      | ...     |
 
 #### TypeScript 1.*
 
-* Descárguelo manualmente desde la `master` branch de este repositorio
-* [Typings](https://github.com/typings/typings)~~ (use las alternativas preferidas, typings es obsoleto)
-* ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (use las alternativas preferidas, la publicación DT type de nuget ha sido desactivada)
+- Descárguelo manualmente desde la `master` branch de este repositorio
+- [Typings](https://github.com/typings/typings)~~ (use las alternativas preferidas, typings es obsoleto)
+- ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (use las alternativas preferidas, la publicación DT type de nuget ha sido desactivada)
 
 Tal vez debas añadir manualmente las [referencias](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
 
+</details>
 
 ## ¿Cómo puedo contribuir?
 
@@ -76,7 +75,6 @@ Antes de compartir tu mejora con el mundo, úselo usted mismo.
 Para agregar nuevas funciones puedes usar el [module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html).
 También puedes editar directamente los types en `node_modules/@types/foo/index.d.ts`, o copiarlos de ahí y seguir los pasos explicados a continuación.
 
-
 #### Prueba un nuevo paquete
 
 Añade a tu `tsconfig.json`:
@@ -88,26 +86,24 @@ Añade a tu `tsconfig.json`:
 
 (También puedes usar `src/types`.)
 Crea un `types/foo/index.d.ts` que contenga declaraciones del módulo "foo".
-Ahora deberías poder importar desde `"foo"` a tu código y te enviara a un nuevo tipo de definición.
-Entonces compila *y* ejecuta el código para asegurarte que el tipo de definición en realidad corresponde a lo que suceda en el momento de la ejecución.
+Ahora deberías poder importar desde `"foo"` a tu código y te enviará a un nuevo tipo de definición.
+Entonces compila _y_ ejecuta el código para asegurarte que el tipo de definición en realidad corresponde a lo que suceda en el momento de la ejecución.
 Una vez que hayas probado tus definiciones con el código real, haz un [PR](#haz-un-pull-request)
 luego sigue las instrucciones para [editar un paquete existente](#editar-un-paquete-existente) o
 [crear un nuevo paquete](#crear-un-nuevo-paquete).
-
 
 ### Haz un pull request
 
 Una vez que hayas probado tu paquete, podrás compartirlo en Definitely Typed.
 
-Primero, haz un [fork](https://guides.github.com/activities/forking/) en este repositorio, instala [node](https://nodejs.org/), y luego ejecuta la `npm install`.
-
+Primero, [bifurca](https://docs.github.com/es/get-started/quickstart/fork-a-repo) este repositorio, instala [node](https://nodejs.org/), y luego ejecuta el comando `npm install`.
 
 #### Editar un paquete existente
 
-* `cd types/<package to edit>`
-* Haz cambios. Recuerda [editar las pruebas](#my-package-teststs).
+- `cd types/<package to edit>`
+- Haz cambios. Recuerda [editar las pruebas](#my-package-teststs).
   Si realiza cambios importantes, no olvide [actualizar una versión principal](#quiero-actualizar-un-paquete-a-una-nueva-versión-principal).
-* También puede que quieras añadirle la sección "Definitions by" en el encabezado del paquete.
+- También puede que quieras añadirle la sección "Definitions by" en el encabezado del paquete.
   - Esto hará que seas notificado (a través de tu nombre de usuario en GitHub) cada vez que alguien haga un pull request o issue sobre el paquete.
   - Haz esto añadiendo tu nombre al final de la línea, así como en `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
   - O si hay más personas, puede ser multiline
@@ -117,11 +113,10 @@ Primero, haz un [fork](https://guides.github.com/activities/forking/) en este re
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* [Ejecuta `npm test <package to test>`](#running-tests).
+- [Ejecuta `npm test <package to test>`](#running-tests).
 
 Cuando hagas un PR para editar un paquete existente, `dt-bot` deberá @-mencionar a los autores previos.
 Si no lo hace, puedes hacerlo en el comentario asociado con el PR.
-
 
 #### Crear un nuevo paquete
 
@@ -133,15 +128,14 @@ Si el paquete al que le estás agregando typings no es para npm, asegúrate de q
 
 Tu paquete debería tener esta estructura:
 
-| Archivo | Propósito |
-| --- | --- |
-| `index.d.ts` | Este contiene los typings del paquete. |
-| [`<my-package>-tests.ts`](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código *no* es ejecutable, pero sí es type-checked. |
-| [`tsconfig.json`](#tsconfigjson) | Este permite ejecutar `tsc` dentro del paquete. |
-| [`tslint.json`](#linter-tslintjson) | Permite linting. |
+| Archivo                                        | Propósito                                                                                                                                   |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.d.ts`                                   | Este contiene los typings del paquete.                                                                                                      |
+| [`<my-package>-tests.ts`](#my-package-teststs) | Este contiene una muestra del código con el que se realiza la prueba de escritura. Este código _no_ es ejecutable, pero sí es type-checked. |
+| [`tsconfig.json`](#tsconfigjson)               | Este permite ejecutar `tsc` dentro del paquete.                                                                                             |
 
 Generalas ejecutando `npm install -g dts-gen` y `dts-gen --dt --name <my-package> --template module`.
-Ve todas las opciones en [dts-gen](https://github.com/Microsoft/dts-gen).
+Ve todas las opciones en [dts-gen](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/dts-gen).
 
 Los miembros de Definitely Typed frecuentemente monitorean nuevos PRs, pero ten en mente que la cantidad de PRs podrían ralentizar el proceso.
 
@@ -151,7 +145,8 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 
 Cuando un paquete [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de Definitely Typed para evitar que generen confusión.
 
-Se puede remover ejecutando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+Se puede remover ejecutando `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+
 - `<typingsPackageName>`: Este es el nombre del directorio que tienes que eliminar.
 - `<asOfVersion>`: Un stub será publicado a `@types/<typingsPackageName>` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
 - `<libraryName>`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a `<typingsPackageName>`.)
@@ -171,18 +166,18 @@ Si estás agregando typings para un paquete npm, crea un directorio con el mismo
 Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
 (Puedes usar `npm info <my-package>` para verificar la existencia del paquete `<my-package>`.)
 
-If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
+Si un non-npm package entra en conflicto con un paquete npm existente, intenta añadir `-browser` al final del nombre para obtener `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 
-There should be a `<my-package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my-package>`.
+Debería haber un archivo `<my-package>-tests.ts`, el cual es considerado tu archivo de prueba, junto con cualquier archivo `*.ts` que importe.
+Si no ves ningún archivo de prueba en la carpeta del módulo, crea un `<my-package>-tests.ts`.
+Estos archivos son usados para validar la API exportada desde los archivos `*.d.ts` los cuales son enviados como `@types/<my-package>`.
 
-Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`
+Los cambios a los archivos `*.d.ts` deberían incluir un cambio correspondiente en un archivo `*.ts` el cual muestre la API siendo usada, para que alguien no rompa accidentalmente el código en el que dependes.
+Si no ves ningún archivo de prueba en la carpeta del módulo, crea un `<my-package>-tests.ts`.
 
-For example, this change to a function in a `.d.ts` file adding a new param to a function:
+Por ejemplo, este cambio a una función en un archivo `.d.ts` añadiendo un nuevo parámetro a una función:
 
 `index.d.ts`:
 
@@ -206,11 +201,11 @@ const result = twoslash("//")
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+Si estás preguntándote por dónde empezar con el código de prueba, los ejemplos en el README del módulo son un buen lugar para comenzar.
 
-You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+Puedes [validar tus cambios](#running-tests) con `npm test <package to test>` desde la raíz de este repositorio, el cual toma en cuenta los archivos cambiados.
 
-Para afirmar que una expresión es de un tipo dado, utilice `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utilice `@ts-expect-error`.
+Para afirmar que una expresión es de un tipo dado, utiliza `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utiliza `@ts-expect-error`.
 
 ```js
 // $ExpectType void
@@ -222,15 +217,15 @@ f("one");
 
 Para más detalles, vea el [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint#write-tests) readme.
 
-#### Linter: `tslint.json`
+#### Linter: `.eslintrc.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
+El archivo de configuración del linter, `tslint.json` debería contener `{ "extends": "@definitelytyped/dtslint/dt.json" }`, y no reglas adicionales.
 
-If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+Si por alguna razón alguna regla necesita ser deshabilitada, [deshabilítala para esa línea específica](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) usando `// tslint:disable-next-line:[ruleName]` — no para todo el paquete, para que la deshabilitación pueda ser revisada. (Hay algunas configuraciones de lint heredadas que tienen contenido adicional, pero esto no debería ocurrir en un nuevo trabajo.)
 
 #### `tsconfig.json`
 
-`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+`tsconfig.json` debería tener `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, y `strictFunctionTypes` configurados a `true`.
 
 También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
 
@@ -243,40 +238,40 @@ Además, si necesitas referencia a una versión anterior de typings, debes hacer
 
 #### `OTHER_FILES.txt`
 
-If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
+Si un archivo no es probado ni referenciado en `index.d.ts`, añádelo a un archivo llamado `OTHER_FILES.txt`. Este archivo es una lista de otros archivos que necesitan ser incluidos en el paquete de typings, un archivo por línea.
 
 #### Errores comunes
 
-* Primero, sigue el consejo del [manual](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatear: Utiliza 4 espacios.
-* `function sum(nums: number[]): number`: Utiliza `ReadonlyArray` si una función no escribe a sus parámetros.
-* `interface Foo { new(): Foo; }`:
+- Primero, sigue el consejo del [manual](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
+- Formatear: Utiliza 4 espacios.
+- `function sum(nums: number[]): number`: Utiliza `ReadonlyArray` si una función no escribe a sus parámetros.
+- `interface Foo { new(): Foo; }`:
   Este define el tipo de objeto que esten nuevos. Probablemente quieras `declare class Foo { constructor(); }`.
-* `const Class: { new(): IClass; }`:
+- `const Class: { new(): IClass; }`:
   Prefiere usar una declaración de clase `class Class { constructor(); }` En vez de una nueva constante.
-* `getMeAT<T>(): T`:
+- `getMeAT<T>(): T`:
   Si un tipo de parámetro no aparece en los tipos de ningún parámetro, no tienes una función genérica, solo tienes un afirmación del tipo disfrazado.
   Prefiera utilizar una afirmación de tipo real, p.ej. `getMeAT() as number`.
   Un ejemplo donde un tipo de parámetro es aceptable: `function id<T>(value: T): T;`.
   Un ejemplo donde no es aceptable: `function parseJson<T>(json: string): T;`.
   Una excepción: `new Map<string, number>()` está bien.
-* Utilizando los tipos `Function` y `Object` casi nunca es una buena idea. En 99% de los casos es posible especificar un tipo más específico. Los ejemplos son `(x: number) => number` para [funciones](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) y `{ x: number, y: number }` para objetos. Si no hay certeza en lo absoluto del tipo, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) es la opción correcta, no `Object`. Si el único hecho conocido sobre el tipo es que es un objecto, usa el tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), no `Object` o `{ [key: string]: any }`.
-* `var foo: string | any`:
+- Utilizando los tipos `Function` y `Object` casi nunca es una buena idea. En 99% de los casos es posible especificar un tipo más específico. Los ejemplos son `(x: number) => number` para [funciones](https://www.typescriptlang.org/docs/handbook/functions.html#function-types) y `{ x: number, y: number }` para objetos. Si no hay certeza en lo absoluto del tipo, [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) es la opción correcta, no `Object`. Si el único hecho conocido sobre el tipo es que es un objecto, usa el tipo [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), no `Object` o `{ [key: string]: any }`.
+- `var foo: string | any`:
   Cuando es usado `any` en un tipo de unión, el tipo resultante todavía es `any`. Así que mientras la porción `string` de este tipo de anotación puede _verse_ útil, de hecho, no ofrece ningún typechecking adicional más que un simple `any`.
   Dependiendo de la intención, una alternativa aceptable puede ser `any`, `string`, o `string | object`.
 
-### Definition owners
+### Propietarios de Definiciones
 
-DT has the concept of "Definition Owners" which are people who want to maintain the quality of a particular module's types
+DT tiene el concepto de "Propietarios de Definiciones" que son personas que desean mantener la calidad de los tipos de un módulo en particular.
 
-* Adding yourself to the list will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
-* Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
-* The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
+- Agregarte a la lista hará que recibas notificaciones (a través de tu nombre de usuario de GitHub) cada vez que alguien haga una solicitud de extracción o informe sobre el paquete.
+- Tus revisiones de solicitudes de extracción tendrán una mayor importancia para [el bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) que mantiene este repositorio.
+- Los mantenedores de DT confían en los propietarios de las definiciones para asegurar un ecosistema estable, así que por favor, no te agregues ligeramente.
 
-To Add yourself as a Definition Owner:
+Para agregarte como Propietario de Definiciones:
 
-* Adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* Or if there are more people, it can be multiline
+- Agrega tu nombre al final de la línea, como en `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
+- O si hay más personas, puede ser en varias líneas
   ```typescript
   // Definitions by: Alice <https://github.com/alice>
   //                 Bob <https://github.com/bob>
@@ -284,13 +279,13 @@ To Add yourself as a Definition Owner:
   //                 John <https://github.com/john>
   ```
 
-Once a week the Definition Owners are synced to the file [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS) which is our source of truth.
+Una vez a la semana, los Propietarios de Definiciones se sincronizan con el archivo [.github/CODEOWNERS](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/.github/CODEOWNERS), que es nuestra fuente de verdad.
 
 ## FAQ
 
 #### ¿Cuál es exactamente la relación entre este repositorio y los paquetes de `@types` en npm?
 
-La `master` branch es automáticamente publicada en el alcance de los  `@types` en npm gracias a los [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
+La `master` branch es automáticamente publicada en el alcance de los `@types` en npm gracias a los [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher).
 
 #### He enviado un pull request. ¿Cuánto tardará en ser merged?
 
@@ -315,11 +310,11 @@ Aquí están las [definiciones solicitadas actualmente](https://github.com/Defin
 
 #### ¿Qué pasa con las type definitions para el DOM?
 
-Si las types son parte de los estándares web, estas deberán ser contribuidas a [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) para que se hagan parte de la librería predeterminada  `lib.dom.d.ts`.
+Si las types son parte de los estándares web, estas deberán ser contribuidas a [TSJS-lib-generator](https://github.com/Microsoft/TSJS-lib-generator) para que se hagan parte de la librería predeterminada `lib.dom.d.ts`.
 
 #### Un paquete utiliza `export =`, pero prefiero utilizar las import predeterminadas. ¿Puedo cambiar `export =` por `export default`?
 
-Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
+Si el import predeterminado trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
 No cambies la type definition si es preciso.
 Para un paquete npm, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
 
@@ -349,8 +344,8 @@ Por ejemplo [history v2 `tsconfig.json`](https://github.com/%44efinitelyTyped/De
         "baseUrl": "../../",
         "typeRoots": ["../../"],
         "paths": {
-            "history": [ "history/v2" ]
-        },
+            "history": ["history/v2"]
+        }
     },
     "files": [
         "index.d.ts",
@@ -368,9 +363,9 @@ Además, `/// <reference types=".." />` no trabajará con rutas mapeadas, así q
 
 #### ¿Cómo escribo definitions para paquetes que pueden ser usados globalmente y como un módulo?
 
-El manual de TypeScript contiene excelente [información general para escribir definiciones](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), además [este archivo de definiciones de ejemplo](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html)  el cual muestra como crear una definición utilizando la sintaxis de módulo en ES6, asi como también especificando objetos que son disponibles en el alcance global. Esta técnica es demostrada prácticamente en la [definición para `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), el cual es una librería que puede ser cargada globalmente a través de una etiqueta script en una página web, o importada vía require o imports estilo ES6.
+El manual de TypeScript contiene excelente [información general para escribir definiciones](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html), además [este archivo de definiciones de ejemplo](https://www.typescriptlang.org/docs/handbook/declaration-files/templates/global-modifying-module-d-ts.html) el cual muestra como crear una definición utilizando la sintaxis de módulo en ES6, asi como también especificando objetos que son disponibles en el alcance global. Esta técnica es demostrada prácticamente en la [definición para `big.js`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/big.js/index.d.ts), el cual es una librería que puede ser cargada globalmente a través de una etiqueta script en una página web, o importada vía require o imports estilo ES6.
 
-Para probar como puede ser usada tu definición cuando se refieren globalmente o como un módulo importado, crea una carpeta `test`, y coloca dos archivos de prueba en él.  nombra uno `YourLibraryName-global.test.ts` y el otro `YourLibraryName-module.test.ts`.  El archivo de prueba _global_ debe ejercer la definición de acuerdo como va a ser usado en un script cargado en una página web donde la librería estará disponible en el alcance global - en este escenario no debes de especificar la sentencia de import. El archivo _módulo_ de prueba debe de ejercer la definición de acuerdo a como va a ser utilizado cuando sea importado (incluyendo las sentencias `import`). Si especificas una propiedad `files` en tu archivo `tsconfig.json`, asegurate de incluir ambos archivos de prueba. Un [ejemplo práctico de esto](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) es también disponible en la definición de `big.js`.
+Para probar como puede ser usada tu definición cuando se refieren globalmente o como un módulo importado, crea una carpeta `test`, y coloca dos archivos de prueba en él. nombra uno `YourLibraryName-global.test.ts` y el otro `YourLibraryName-module.test.ts`. El archivo de prueba _global_ debe ejercer la definición de acuerdo como va a ser usado en un script cargado en una página web donde la librería estará disponible en el alcance global - en este escenario no debes de especificar la sentencia de import. El archivo _módulo_ de prueba debe de ejercer la definición de acuerdo a como va a ser utilizado cuando sea importado (incluyendo las sentencias `import`). Si especificas una propiedad `files` en tu archivo `tsconfig.json`, asegurate de incluir ambos archivos de prueba. Un [ejemplo práctico de esto](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js/test) es también disponible en la definición de `big.js`.
 
 Por favor tenga en cuenta que no es necesario para ejercer plenamente la definición en cada archivo de prueba - Es suficiente con probar solo los elementos globalmente accesibles en la prueba de archivos globales y ejercer la definición en el módulo del archivo de prueba, o viceversa.
 
@@ -383,8 +378,8 @@ Cuando `dts-gen` es utilizado como scaffold en un paquete scoped, las propiedade
 
 ```json
 {
-    "paths":{
-      "@foo/*": ["foo__*"]
+    "paths": {
+        "@foo/*": ["foo__*"]
     }
 }
 ```

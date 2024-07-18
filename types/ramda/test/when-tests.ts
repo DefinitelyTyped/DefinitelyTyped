@@ -1,16 +1,16 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     // $ExpectType (a: string) => string
     const truncate = R.when(
         (str: string) => str.length > 10,
-        (str: string) => str.slice(0, 10) + '…',
+        (str: string) => str.slice(0, 10) + "…",
     );
 
     // $ExpectType string
-    truncate('12345'); // => '12345'
+    truncate("12345"); // => '12345'
     // $ExpectType string
-    truncate('0123456789ABC'); // => '0123456789…'
+    truncate("0123456789ABC"); // => '0123456789…'
 
     function notNull<T>(a: T | null | undefined): a is T {
         return a != null;
@@ -22,4 +22,4 @@ import * as R from 'ramda';
     const nil = addOneIfNotNil(undefined);
     // $ExpectType number | undefined
     const two = addOneIfNotNil(1);
-};
+});

@@ -1,9 +1,3 @@
-// Type definitions for mergerino 0.4
-// Project: https://github.com/fuzetsu/mergerino#readme
-// Definitions by: Slawomir "Fivitti" Figiel <https://github.com/fivitti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 // TypeScript in version below 3.4 doesn't correctly support FunctionPatch. Arguments have "any" type.
 
 /**
@@ -12,7 +6,7 @@
  *
  * Arrays may be nested in any depth.
  */
-export interface DeepArray<T> extends ReadonlyArray<T | DeepArray<T>> { }
+export interface DeepArray<T> extends ReadonlyArray<T | DeepArray<T>> {}
 
 /**
  * If you want to fully remove a property from an object specify undefined as the value.
@@ -47,12 +41,14 @@ export type NestedPatch<T> = T extends object ? ObjectPatch<T> : never;
  * 2. Specify undefined as the value fully remove a property from an object.
  * 3. Use a function if you want to replace a property based on its current value.
  */
-export type ObjectPatch<S extends object> = { [K in keyof S]?: S[K] | DeletePatch | FunctionPatch<S[K]> | NestedPatch<S[K]> | ArrayPatch<S[K]> };
+export type ObjectPatch<S extends object> = {
+    [K in keyof S]?: S[K] | DeletePatch | FunctionPatch<S[K]> | NestedPatch<S[K]> | ArrayPatch<S[K]>;
+};
 
 /**
  * Falsy patches are ignored
  */
-export type Falsy = false | 0 | '' | null | undefined;
+export type Falsy = false | 0 | "" | null | undefined;
 
 /**
  * Passing a function as a top level patch acts exactly the same as a function
@@ -81,7 +77,6 @@ export type Merge<S extends object> = (source: S, ...patches: Array<MultipleTopL
  * You can pass multiple patches in a single merge call, array arguments will be flattened before processing.
  * Since falsy patches are ignored.
  */
-// tslint:disable-next-line:npm-naming
 export default function merge<S extends object>(source: S, ...patches: Array<MultipleTopLevelPatch<S>>): S;
 // Mergerino uses "default export", but no in minified version which is checked by dtslint.
 // This line supress error: The types for mergerino specify 'export default' but the source does not mention 'default' anywhere.

@@ -1,428 +1,438 @@
-// Type definitions for jake
-// Project: https://github.com/mde/jake
-// Definitions by: Kon <http://phyzkit.net/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare global {
-/**
- * Complets an asynchronous task, allowing Jake's execution to proceed to the next task
- * @param value A value to return from the task.
- */
-function complete(value?: any): void;
-
-/**
- * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next.
- * @param description The description for the Task
- */
-function desc(description:string): void;
-
-/**
- * Creates a Jake DirectoryTask. Can be used as a prerequisite for FileTasks, or for simply ensuring a directory exists for use with a Task's action.
- * @param name The name of the DiretoryTask
- */
-function directory(name:string): jake.DirectoryTask;
-
-/**
- * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process.
- * @param err The error to thow when aborting execution. If this argument is an Error object, it will simply be thrown. If a String, it will be used as the error-message. (If it is a multi-line String, the first line will be used as the Error message, and the remaining lines will be used as the error-stack.)
- */
-function fail(...err:string[]): void;
-function fail(...err:Error[]): void;
-function fail(...err:any[]): void;
-
-/**
- * Creates a Jake FileTask.
- * @name name The name of the Task
- * @param prereqs Prerequisites to be run before this task
- * @param action The action to perform for this task
- * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
- */
-function file(name:string, prereqs?:string[], action?:(this: jake.FileTask)=>void, opts?:jake.FileTaskOptions): jake.FileTask;
-
-/**
- * Creates Jake FileTask from regex patterns
- * @name name/pattern of the Task
- * @param source calculated from the name pattern
- * @param prereqs Prerequisites to be run before this task
- * @param action The action to perform for this task
- * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
- */
-function rule(pattern: RegExp, source: string | { (name: string): string; }, prereqs?: string[], action?: () => void, opts?: jake.TaskOptions): void;
-
-/**
- * Creates a namespace which allows logical grouping of tasks, and prevents name-collisions with task-names. Namespaces can be nested inside of other namespaces.
- * @param name The name of the namespace
- * @param scope The enclosing scope for the namespaced tasks
- */
-function namespace(name:string, scope:()=>void): void;
-
-/**
- * @param name The name of the Task
- * @param prereqs Prerequisites to be run before this task
- * @param action The action to perform for this task
- * @param opts
- */
-function task(name:string, prereqs?:string[], action?:(this: jake.Task, ...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-function task(name:string, action?:(this: jake.Task, ...params:any[])=>any, opts?:jake.TaskOptions): jake.Task;
-function task(name:string, opts?:jake.TaskOptions, action?:(this: jake.Task, ...params:any[])=>any): jake.Task;
-
-/**
- * @param name The name of the NpmPublishTask
- * @param packageFiles The files to include in the package
- * @param definition A function that creates the package definition
- */
-function npmPublishTask(name:string, packageFiles:string[]): jake.NpmPublishTask;
-function npmPublishTask(name:string, definition?:()=>void): jake.NpmPublishTask;
-
-
-namespace jake{
-
-    ////////////////////////////////////////////////////////////////////////////////////
-    // File-utils //////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////
-
-    interface UtilOptions{
-        silent?: boolean | undefined;
-    }
+    /**
+     * Complets an asynchronous task, allowing Jake's execution to proceed to the next task
+     * @param value A value to return from the task.
+     */
+    function complete(value?: any): void;
 
     /**
-     * The jake.mkdirP utility recursively creates a set of nested directories. It will not throw an error if any of the directories already exists.
-     * https://github.com/substack/node-mkdirp
+     * Creates a description for a Jake Task (or FileTask, DirectoryTask). When invoked, the description that iscreated will be associated with whatever Task is created next.
+     * @param description The description for the Task
      */
-    export function mkdirP(name:string, mode?:string, f?:(er:Error, made:any)=>void): void;
-    export function mkdirP(name:string, f?:(er:Error, made:any)=>void): void;
+    function desc(description: string): void;
 
     /**
-     * The jake.cpR utility does a recursive copy of a file or directory.
-     * Note that this command can only copy files and directories; it does not perform globbing (so arguments like '*.txt' are not possible).
-     * @param path the file/directory to copy,
-     * @param destination the destination.
+     * Creates a Jake DirectoryTask. Can be used as a prerequisite for FileTasks, or for simply ensuring a directory exists for use with a Task's action.
+     * @param name The name of the DiretoryTask
      */
-    export function cpR(path:string, destination:string, opts?:UtilOptions, callback?:()=>void): void;
-    export function cpR(path:string, destination:string, callback?:(err:Error)=>void): void;
+    function directory(name: string): jake.DirectoryTask;
 
     /**
-     * The jake.readdirR utility gives you a recursive directory listing, giving you output somewhat similar to the Unix find command. It only works with a directory name, and does not perform filtering or globbing.
-     * @return an array of filepaths for all files in the 'pkg' directory, and all its subdirectories.
+     * Causes Jake execution to abort with an error. Allows passing an optional error code, which will be used to set the exit-code of exiting process.
+     * @param err The error to thow when aborting execution. If this argument is an Error object, it will simply be thrown. If a String, it will be used as the error-message. (If it is a multi-line String, the first line will be used as the Error message, and the remaining lines will be used as the error-stack.)
      */
-    export function readdirR(name:string, opts?:UtilOptions): string[];
+    function fail(...err: string[]): void;
+    function fail(...err: Error[]): void;
+    function fail(...err: any[]): void;
 
     /**
-     * The jake.rmRf utility recursively removes a directory and all its contents.
+     * Creates a Jake FileTask.
+     * @name name The name of the Task
+     * @param prereqs Prerequisites to be run before this task
+     * @param action The action to perform for this task
+     * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
      */
-    export function rmRf(name:string, opts?:UtilOptions): void;
+    function file(
+        name: string,
+        prereqs?: string[],
+        action?: (this: jake.FileTask) => void,
+        opts?: jake.FileTaskOptions,
+    ): jake.FileTask;
 
-    //////////////////////////////////////////////////////////////////////////////////////////////
-    // Running shell-commands ////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Creates Jake FileTask from regex patterns
+     * @name name/pattern of the Task
+     * @param source calculated from the name pattern
+     * @param prereqs Prerequisites to be run before this task
+     * @param action The action to perform for this task
+     * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
+     */
+    function rule(
+        pattern: RegExp,
+        source: string | { (name: string): string },
+        prereqs?: string[],
+        action?: () => void,
+        opts?: jake.TaskOptions,
+    ): void;
 
-    interface ExecOptions{
+    /**
+     * Creates a namespace which allows logical grouping of tasks, and prevents name-collisions with task-names. Namespaces can be nested inside of other namespaces.
+     * @param name The name of the namespace
+     * @param scope The enclosing scope for the namespaced tasks
+     */
+    function namespace(name: string, scope: () => void): void;
+
+    /**
+     * @param name The name of the Task
+     * @param prereqs Prerequisites to be run before this task
+     * @param action The action to perform for this task
+     * @param opts
+     */
+    function task(
+        name: string,
+        prereqs?: string[],
+        action?: (this: jake.Task, ...params: any[]) => any,
+        opts?: jake.TaskOptions,
+    ): jake.Task;
+    function task(
+        name: string,
+        action?: (this: jake.Task, ...params: any[]) => any,
+        opts?: jake.TaskOptions,
+    ): jake.Task;
+    function task(
+        name: string,
+        opts?: jake.TaskOptions,
+        action?: (this: jake.Task, ...params: any[]) => any,
+    ): jake.Task;
+
+    /**
+     * @param name The name of the NpmPublishTask
+     * @param packageFiles The files to include in the package
+     * @param definition A function that creates the package definition
+     */
+    function npmPublishTask(name: string, packageFiles: string[]): jake.NpmPublishTask;
+    function npmPublishTask(name: string, definition?: () => void): jake.NpmPublishTask;
+
+    namespace jake {
+        ////////////////////////////////////////////////////////////////////////////////////
+        // File-utils //////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        interface UtilOptions {
+            silent?: boolean | undefined;
+        }
+
         /**
-         * print to stdout, default false
+         * The jake.mkdirP utility recursively creates a set of nested directories. It will not throw an error if any of the directories already exists.
+         * https://github.com/substack/node-mkdirp
          */
+        export function mkdirP(name: string, mode?: string, f?: (er: Error, made: any) => void): void;
+        export function mkdirP(name: string, f?: (er: Error, made: any) => void): void;
 
-        printStdout?:boolean | undefined;
         /**
-         * print to stderr, default false
+         * The jake.cpR utility does a recursive copy of a file or directory.
+         * Note that this command can only copy files and directories; it does not perform globbing (so arguments like '*.txt' are not possible).
+         * @param path the file/directory to copy,
+         * @param destination the destination.
          */
-        printStderr?:boolean | undefined;
+        export function cpR(path: string, destination: string, opts?: UtilOptions, callback?: () => void): void;
+        export function cpR(path: string, destination: string, callback?: (err: Error) => void): void;
 
         /**
-         * stop execution on error, default true
+         * The jake.readdirR utility gives you a recursive directory listing, giving you output somewhat similar to the Unix find command. It only works with a directory name, and does not perform filtering or globbing.
+         * @return an array of filepaths for all files in the 'pkg' directory, and all its subdirectories.
          */
-        breakOnError?:boolean | undefined;
+        export function readdirR(name: string, opts?: UtilOptions): string[];
 
         /**
-        *
-        */
-        windowsVerbatimArguments?: boolean | undefined
-    }
-    export function exec(cmds:string[], callback?:()=>void, opts?:ExecOptions):void;
+         * The jake.rmRf utility recursively removes a directory and all its contents.
+         */
+        export function rmRf(name: string, opts?: UtilOptions): void;
 
+        //////////////////////////////////////////////////////////////////////////////////////////////
+        // Running shell-commands ////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * @event cmdStart When a new command begins to run. Passes one arg, the command being run.
-     * @event cmdEnd When a command finishes. Passes one arg, the command being run.
-     * @event stdout When the stdout for the child-process recieves data. This streams the stdout data. Passes one arg, the chunk of data.
-     * @event stderr When the stderr for the child-process recieves data. This streams the stderr data. Passes one arg, the chunk of data.
-     * @event error When a shell-command
-     */
-    export interface Exec extends NodeJS.EventEmitter {
-        append(cmd:string): void;
-        run(): void;
-    }
+        interface ExecOptions {
+            /**
+             * print to stdout, default false
+             */
 
-    export function createExec(cmds:string[], callback?:()=>void, opts?:ExecOptions ):Exec;
-    export function createExec(cmds:string[], opts?:ExecOptions,  callback?:()=>void):Exec;
-    export function createExec(cmds:string,   callback?:()=>void, opts?:ExecOptions ):Exec;
-    export function createExec(cmds:string,   opts?:ExecOptions,  callback?:()=>void):Exec;
+            printStdout?: boolean | undefined;
+            /**
+             * print to stderr, default false
+             */
+            printStderr?: boolean | undefined;
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Logging and output ////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /**
+             * stop execution on error, default true
+             */
+            breakOnError?: boolean | undefined;
 
-    interface Logger{
-        log(value:any): void;
-        error(value:any): void;
-    }
+            /** */
+            windowsVerbatimArguments?: boolean | undefined;
+        }
+        export function exec(cmds: string[], callback?: () => void, opts?: ExecOptions): void;
 
-    export var logger: Logger;
+        /**
+         * @event cmdStart When a new command begins to run. Passes one arg, the command being run.
+         * @event cmdEnd When a command finishes. Passes one arg, the command being run.
+         * @event stdout When the stdout for the child-process recieves data. This streams the stdout data. Passes one arg, the chunk of data.
+         * @event stderr When the stderr for the child-process recieves data. This streams the stderr data. Passes one arg, the chunk of data.
+         * @event error When a shell-command
+         */
+        export interface Exec extends NodeJS.EventEmitter {
+            append(cmd: string): void;
+            run(): void;
+        }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // program ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        export function createExec(cmds: string[], callback?: () => void, opts?: ExecOptions): Exec;
+        export function createExec(cmds: string[], opts?: ExecOptions, callback?: () => void): Exec;
+        export function createExec(cmds: string, callback?: () => void, opts?: ExecOptions): Exec;
+        export function createExec(cmds: string, opts?: ExecOptions, callback?: () => void): Exec;
 
-    export var program: {
-        opts: {
-            [name:string]: any;
-            quiet: boolean;
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Logging and output ////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        interface Logger {
+            log(value: any): void;
+            error(value: any): void;
+        }
+
+        export var logger: Logger;
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // program ////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        export var program: {
+            opts: {
+                [name: string]: any;
+                quiet: boolean;
+            };
+            taskNames: string[];
+            taskArgs: string[];
+            envVars: { [key: string]: string };
         };
-        taskNames: string[];
-        taskArgs: string[];
-        envVars: { [key:string]: string; };
-    };
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Tasks /////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Tasks /////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        export interface TaskOptions {
+            /**
+             * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
+             * @default false
+             */
+            async?: boolean | undefined;
 
+            /**
+             * number of parllel async tasks
+             */
+            parallelLimit?: number | undefined;
+        }
 
-    export interface TaskOptions{
         /**
-         * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
-         * @default false
+         * A Jake Task
+         *
+         * @event complete
          */
-        async?: boolean | undefined;
+        export class Task extends EventEmitter {
+            /**
+             * @name name The name of the Task
+             * @param prereqs Prerequisites to be run before this task
+             * @param action The action to perform for this task
+             * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
+             */
+            constructor(name: string, prereqs?: string[], action?: (this: Task) => void, opts?: TaskOptions);
 
-        /**
-         * number of parllel async tasks
-        */
-        parallelLimit?: number | undefined;
+            /**
+             * Runs prerequisites, then this task. If the task has already been run, will not run the task again.
+             */
+            invoke(): void;
+
+            /**
+             * Runs this task, without running any prerequisites. If the task has already been run, it will still run it again.
+             */
+            reenable(): void;
+
+            addListener(event: string, listener: Function): this;
+            on(event: string, listener: Function): this;
+            once(event: string, listener: Function): this;
+            removeListener(event: string, listener: Function): this;
+            removeAllListeners(event?: string): this;
+            setMaxListeners(n: number): this;
+            getMaxListeners(): number;
+            listeners(event: string): Function[];
+            emit(event: string, ...args: any[]): boolean;
+            listenerCount(type: string): number;
+            complete(value?: any): void;
+            value: any;
+
+            name?: string | undefined;
+            prereqs?: string[] | undefined;
+            action?: ((...params: any[]) => any) | undefined;
+            taskStatus?: string | undefined;
+            async?: boolean | undefined;
+            description?: string | undefined;
+            fullName: string;
+        }
+
+        export class DirectoryTask extends FileTask {
+            /**
+             * @param name The name of the directory to create.
+             */
+            constructor(name: string);
+        }
+
+        export interface FileTaskOptions {
+            /**
+             * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
+             * @default false
+             */
+            async?: boolean | undefined;
+        }
+
+        export class FileTask extends Task {
+            /**
+             * @param name The name of the Task
+             * @param prereqs Prerequisites to be run before this task
+             * @param action The action to perform to create this file
+             * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
+             */
+            constructor(name: string, prereqs?: string[], action?: (this: FileTask) => void, opts?: FileTaskOptions);
+        }
+
+        interface FileFilter {
+            (filename: string): boolean;
+        }
+
+        export class FileList {
+            constructor();
+
+            /**
+             * Includes file-patterns in the FileList. Should be called with one or more
+             * pattern for finding file to include in the list. Arguments should be strings
+             * for either a glob-pattern or a specific file-name, or an array of them
+             */
+            include(files: string[]): void;
+            include(...files: string[]): void;
+
+            /**
+             * Indicates whether a particular file would be filtered out by the current
+             * exclusion rules for this FileList.
+             * @param name The filename to check
+             * @return Whether or not the file should be excluded
+             */
+            shouldExclude(name: string): boolean;
+
+            /**
+             * Excludes file-patterns from the FileList. Should be called with one or more
+             * pattern for finding file to include in the list. Arguments can be:
+             * 1. Strings for either a glob-pattern or a specific file-name
+             * 2. Regular expression literals
+             * 3. Functions to be run on the filename that return a true/false
+             */
+            exclude(file: string[]): void;
+            exclude(...file: string[]): void;
+            exclude(file: RegExp[]): void;
+            exclude(...file: RegExp[]): void;
+            exclude(file: FileFilter[]): void;
+            exclude(...file: FileFilter[]): void;
+
+            /**
+             * Populates the FileList from the include/exclude rules with a list of
+             * actual files
+             */
+            resolve(): void;
+
+            /**
+             * Convert to a plain-jane array
+             */
+            toArray(): string[];
+
+            /**
+             * Get rid of any current exclusion rules
+             */
+            clearExclude(): void;
+        }
+
+        export class PackageTask {
+            /**
+             * Instantiating a PackageTask creates a number of Jake Tasks that make packaging and distributing your software easy.
+             * @param name The name of the project
+             * @param version The current project version (will be appended to the project-name in the package-archive
+             * @param definition Defines the contents of the package, and format of the package-archive. Will be executed on the instantiated PackageTask (i.e., 'this', will be the PackageTask instance), to set the various instance-propertiess.
+             */
+            constructor(name: string, version: string, definition: () => void);
+
+            /**
+             *     Equivalent to the '-C' command for the `tar` and `jar` commands. ("Change to this directory before adding files.")
+             */
+            archiveChangeDir: string;
+
+            /**
+             * Specifies the files and directories to include in the package-archive. If unset, this will default to the main package directory -- i.e., name + version.
+             */
+            archiveContentDir: string;
+
+            /**
+             * The shell-command to use for creating jar archives.
+             */
+            jarCommand: string;
+
+            /**
+             * Can be set to point the `jar` utility at a manifest file to use in a .jar archive. If unset, one will be automatically created by the `jar` utility. This path should be relative to the root of the package directory (this.packageDir above, likely 'pkg')
+             */
+            manifestFile: string;
+
+            /**
+             * The name of the project
+             */
+            name: string;
+
+            /**
+             * If set to true, uses the `jar` utility to create a .jar archive of the pagckage
+             */
+            needJar: boolean;
+
+            /**
+             * If set to true, uses the `tar` utility to create a gzip .tgz archive of the pagckage
+             */
+            needTar: boolean;
+
+            /**
+             * If set to true, uses the `tar` utility to create a bzip2 .bz2 archive of the pagckage
+             */
+            needTarBz2: boolean;
+
+            /**
+             * If set to true, uses the `zip` utility to create a .zip archive of the pagckage
+             */
+            needZip: boolean;
+
+            /**
+             * The list of files and directories to include in the package-archive
+             */
+            packageFiles: FileList;
+
+            /**
+             * The shell-command to use for creating tar archives.
+             */
+            tarCommand: string;
+
+            /**
+             * The project version-string
+             */
+            version: string;
+
+            /**
+             * The shell-command to use for creating zip archives.
+             */
+            zipCommand: string;
+        }
+
+        export class TestTask {
+            constructor(name: string, definition?: () => void);
+        }
+
+        export class NpmPublishTask {
+            constructor(name: string, packageFiles: string[]);
+            constructor(name: string, definition?: () => void);
+        }
+
+        export function addListener(event: string, listener: Function): NodeJS.EventEmitter;
+        export function on(event: string, listener: Function): NodeJS.EventEmitter;
+        export function once(event: string, listener: Function): NodeJS.EventEmitter;
+        export function removeListener(event: string, listener: Function): NodeJS.EventEmitter;
+        export function removeAllListener(event: string): NodeJS.EventEmitter;
+        export function setMaxListeners(n: number): void;
+        export function listeners(event: string): Function[];
+        export function emit(event: string, ...args: any[]): boolean;
     }
-
-    /**
-     * A Jake Task
-     *
-     * @event complete
-     */
-    export class Task extends EventEmitter {
-        /**
-         * @name name The name of the Task
-         * @param prereqs Prerequisites to be run before this task
-         * @param action The action to perform for this task
-         * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
-         */
-        constructor(name:string, prereqs?:string[], action?:(this: Task)=>void, opts?:TaskOptions);
-
-        /**
-         * Runs prerequisites, then this task. If the task has already been run, will not run the task again.
-         */
-        invoke(): void;
-
-        /**
-         * Runs this task, without running any prerequisites. If the task has already been run, it will still run it again.
-         */
-        reenable(): void;
-
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        listenerCount(type: string): number;
-        complete(value?: any): void;
-        value: any;
-
-        name?: string | undefined;
-        prereqs?: string[] | undefined;
-        action?: ((...params: any[]) => any) | undefined;
-        taskStatus?: string | undefined;
-        async?: boolean | undefined;
-        description?: string | undefined;
-        fullName: string;
-    }
-
-    export class DirectoryTask extends FileTask {
-        /**
-         * @param name The name of the directory to create.
-         */
-        constructor(name:string);
-    }
-
-    export interface FileTaskOptions{
-        /**
-         * Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
-         * @default false
-         */
-        async?: boolean | undefined;
-    }
-
-    export class FileTask extends Task{
-        /**
-         * @param name The name of the Task
-         * @param prereqs Prerequisites to be run before this task
-         * @param action The action to perform to create this file
-         * @param opts Perform this task asynchronously. If you flag a task with this option, you must call the global `complete` method inside the task's action, for execution to proceed to the next task.
-         */
-        constructor(name:string, prereqs?:string[], action?:(this: FileTask)=>void, opts?:FileTaskOptions);
-    }
-
-    interface FileFilter{
-        (filename:string): boolean;
-    }
-
-    export class FileList{
-        constructor();
-
-        /**
-         * Includes file-patterns in the FileList. Should be called with one or more
-         * pattern for finding file to include in the list. Arguments should be strings
-         * for either a glob-pattern or a specific file-name, or an array of them
-         */
-        include(files:string[]): void;
-        include(...files:string[]): void;
-
-        /**
-         * Indicates whether a particular file would be filtered out by the current
-         * exclusion rules for this FileList.
-         * @param name The filename to check
-         * @return Whether or not the file should be excluded
-         */
-        shouldExclude(name:string): boolean;
-
-        /**
-         * Excludes file-patterns from the FileList. Should be called with one or more
-         * pattern for finding file to include in the list. Arguments can be:
-         * 1. Strings for either a glob-pattern or a specific file-name
-         * 2. Regular expression literals
-         * 3. Functions to be run on the filename that return a true/false
-         */
-        exclude(file:string[]): void;
-        exclude(...file:string[]): void;
-        exclude(file:RegExp[]): void;
-        exclude(...file:RegExp[]): void;
-        exclude(file:FileFilter[]): void;
-        exclude(...file:FileFilter[]): void;
-
-        /**
-         * Populates the FileList from the include/exclude rules with a list of
-         * actual files
-         */
-        resolve(): void;
-
-        /**
-         * Convert to a plain-jane array
-         */
-        toArray(): string[];
-
-        /**
-          * Get rid of any current exclusion rules
-           */
-          clearExclude(): void;
-    }
-
-    export class PackageTask{
-        /**
-         * Instantiating a PackageTask creates a number of Jake Tasks that make packaging and distributing your software easy.
-         * @param name The name of the project
-         * @param version The current project version (will be appended to the project-name in the package-archive
-         * @param definition Defines the contents of the package, and format of the package-archive. Will be executed on the instantiated PackageTask (i.e., 'this', will be the PackageTask instance), to set the various instance-propertiess.
-         */
-        constructor(name:string, version:string, definition:()=>void);
-
-        /**
-         *     Equivalent to the '-C' command for the `tar` and `jar` commands. ("Change to this directory before adding files.")
-         */
-        archiveChangeDir: string;
-
-        /**
-         * Specifies the files and directories to include in the package-archive. If unset, this will default to the main package directory -- i.e., name + version.
-         */
-         archiveContentDir: string;
-
-         /**
-          * The shell-command to use for creating jar archives.
-         */
-        jarCommand: string;
-
-        /**
-         * Can be set to point the `jar` utility at a manifest file to use in a .jar archive. If unset, one will be automatically created by the `jar` utility. This path should be relative to the root of the package directory (this.packageDir above, likely 'pkg')
-         */
-        manifestFile: string;
-
-        /**
-         * The name of the project
-         */
-        name: string;
-
-        /**
-         * If set to true, uses the `jar` utility to create a .jar archive of the pagckage
-         */
-        needJar: boolean;
-
-        /**
-         * If set to true, uses the `tar` utility to create a gzip .tgz archive of the pagckage
-         */
-        needTar: boolean;
-
-        /**
-         * If set to true, uses the `tar` utility to create a bzip2 .bz2 archive of the pagckage
-         */
-        needTarBz2: boolean;
-
-        /**
-         * If set to true, uses the `zip` utility to create a .zip archive of the pagckage
-         */
-        needZip: boolean;
-
-        /**
-         * The list of files and directories to include in the package-archive
-         */
-        packageFiles: FileList;
-
-        /**
-         * The shell-command to use for creating tar archives.
-         */
-        tarCommand: string;
-
-        /**
-         * The project version-string
-         */
-        version: string;
-
-        /**
-         * The shell-command to use for creating zip archives.
-         */
-        zipCommand: string;
-
-    }
-
-    export class TestTask{
-        constructor(name:string, definition?:()=>void);
-    }
-
-    export class NpmPublishTask{
-        constructor(name:string, packageFiles:string[]);
-        constructor(name:string, definition?:()=>void);
-    }
-
-    export function addListener(event: string, listener: Function): NodeJS.EventEmitter;
-    export function on(event: string, listener: Function): NodeJS.EventEmitter;
-    export function once(event: string, listener: Function): NodeJS.EventEmitter;
-    export function removeListener(event: string, listener: Function): NodeJS.EventEmitter;
-    export function removeAllListener(event: string): NodeJS.EventEmitter;
-    export function setMaxListeners(n: number): void;
-    export function listeners(event: string): Function[];
-    export function emit(event: string, ...args: any[]): boolean;
-}
 }

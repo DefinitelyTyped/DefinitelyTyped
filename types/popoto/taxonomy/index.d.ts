@@ -1,4 +1,4 @@
-import { Node } from '../graph';
+import { Node } from "../graph";
 
 export namespace Taxonomy {
     const containerId: string;

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import ToolTip, { StatefulToolTip } from 'react-portal-tooltip';
+import * as React from "react";
+import ToolTip, { StatefulToolTip } from "react-portal-tooltip";
 
 // Tooltip test
 

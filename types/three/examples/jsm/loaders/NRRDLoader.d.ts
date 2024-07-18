@@ -1,20 +1,14 @@
-import { Loader, LoadingManager } from '../../../src/Three';
+import { Loader, LoadingManager } from "three";
 
-import { Volume } from '../misc/Volume';
+import { Volume } from "../misc/Volume.js";
 
-export class NRRDLoader extends Loader {
+export class NRRDLoader extends Loader<Volume> {
     constructor(manager?: LoadingManager);
     manager: LoadingManager;
     path: string;
 
     fieldFunctions: object;
 
-    load(
-        url: string,
-        onLoad: (group: Volume) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
     parse(data: string): Volume;
     parseChars(array: number[], start?: number, end?: number): string;
     setPath(value: string): this;

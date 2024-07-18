@@ -9,9 +9,9 @@ declare class Barcode {
     getJpegImage(): ArrayBuffer;
 }
 declare namespace Barcode {
-    const CODE_EAN13: string;
-    const CODE_2_5_INTERLEAVED: string;
-    const CODE_128_A: string;
-    const CODE_128_B: string;
-    const CODE_128_C: string;
+    let CODE_EAN13: string;
+    let CODE_2_5_INTERLEAVED: string;
+    let CODE_128_A: string;
+    let CODE_128_B: string;
+    let CODE_128_C: string;
 }

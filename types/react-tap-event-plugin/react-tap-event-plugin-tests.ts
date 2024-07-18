@@ -2,9 +2,9 @@
 import injectTapEventPluginRequire = require("react-tap-event-plugin");
 
 injectTapEventPluginRequire({
-  shouldRejectClick: function (lastTouchEventTimestamp, clickEventTimestamp) {
-    return true;
-  }
+    shouldRejectClick: function(lastTouchEventTimestamp, clickEventTimestamp) {
+        return true;
+    },
 });
 
 injectTapEventPluginRequire();

@@ -1,11 +1,11 @@
 import { Options } from "nivo-slider";
 
 // basic usage
-$('#slider').nivoSlider();
+$("#slider").nivoSlider();
 
 // with options
 const options: Options = {
-    effect: 'random',
+    effect: "random",
     slices: 15,
     boxCols: 8,
     boxRows: 4,
@@ -17,7 +17,7 @@ const options: Options = {
     controlNavThumbs: false,
     pauseOnHover: true,
     manualAdvance: false,
-    prevText: 'Prev',
-    nextText: 'Next'
+    prevText: "Prev",
+    nextText: "Next",
 };
-$('#slider').nivoSlider(options);
+$("#slider").nivoSlider(options);

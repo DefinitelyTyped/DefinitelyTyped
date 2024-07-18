@@ -1,3 +1,6 @@
+/**
+ * Encapsulates an http response from Facebook's Graph API.
+ */
 declare class APIResponse {
     _body: Record<string, any>;
     _httpStatus: string;
@@ -5,6 +8,9 @@ declare class APIResponse {
     _call: Record<string, any>;
     _response: Record<string, any>;
     constructor(response: Record<string, any>, call?: Record<string, any>);
+    /**
+     * @return {Object} The response body
+     */
     get body(): any;
     get headers(): any;
     get etag(): any;

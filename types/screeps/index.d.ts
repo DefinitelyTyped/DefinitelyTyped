@@ -1,16 +1,3 @@
-// Type definitions for Screeps 3.3
-// Project: https://github.com/screeps/screeps
-// Definitions by: Nhan Ho <https://github.com/NhanHo>
-//                 Bryan <https://github.com/bryanbecker>
-//                 Resi Respati <https://github.com/resir014>
-//                 Adam Laycock <https://github.com/Arcath>
-//                 Dominic Marcuse <https://github.com/dmarcuse>
-//                 Skyler Kehren <https://github.com/pyrodogg>
-//                 Kieran Carnegie <https://github.com/kotarou>
-//                 Mofeng <https://github.com/DiamondMofeng>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
-
 // Please contribute types to https://github.com/screepers/typed-screeps
 
 // Game Constants
@@ -89,26 +76,26 @@ declare const CREEP_CLAIM_LIFE_TIME: 600;
 declare const CREEP_CORPSE_RATE: 0.2;
 
 declare const OBSTACLE_OBJECT_TYPES: [
-    'spawn',
-    'creep',
-    'powerCreep',
-    'source',
-    'mineral',
-    'deposit',
-    'controller',
-    'constructedWall',
-    'extension',
-    'link',
-    'storage',
-    'tower',
-    'observer',
-    'powerSpawn',
-    'powerBank',
-    'lab',
-    'terminal',
-    'nuker',
-    'factory',
-    'invaderCore',
+    "spawn",
+    "creep",
+    "powerCreep",
+    "source",
+    "mineral",
+    "deposit",
+    "controller",
+    "constructedWall",
+    "extension",
+    "link",
+    "storage",
+    "tower",
+    "observer",
+    "powerSpawn",
+    "powerBank",
+    "lab",
+    "terminal",
+    "nuker",
+    "factory",
+    "invaderCore",
 ];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -456,134 +443,134 @@ declare const NUKE_DAMAGE: {
 declare const REACTIONS: {
     [resource: string]: { [resource: string]: string };
     H: {
-        O: 'OH';
-        L: 'LH';
-        K: 'KH';
-        U: 'UH';
-        Z: 'ZH';
-        G: 'GH';
+        O: "OH";
+        L: "LH";
+        K: "KH";
+        U: "UH";
+        Z: "ZH";
+        G: "GH";
     };
     O: {
-        H: 'OH';
-        L: 'LO';
-        K: 'KO';
-        U: 'UO';
-        Z: 'ZO';
-        G: 'GO';
+        H: "OH";
+        L: "LO";
+        K: "KO";
+        U: "UO";
+        Z: "ZO";
+        G: "GO";
     };
     Z: {
-        K: 'ZK';
-        H: 'ZH';
-        O: 'ZO';
+        K: "ZK";
+        H: "ZH";
+        O: "ZO";
     };
     L: {
-        U: 'UL';
-        H: 'LH';
-        O: 'LO';
+        U: "UL";
+        H: "LH";
+        O: "LO";
     };
     K: {
-        Z: 'ZK';
-        H: 'KH';
-        O: 'KO';
+        Z: "ZK";
+        H: "KH";
+        O: "KO";
     };
     G: {
-        H: 'GH';
-        O: 'GO';
+        H: "GH";
+        O: "GO";
     };
     U: {
-        L: 'UL';
-        H: 'UH';
-        O: 'UO';
+        L: "UL";
+        H: "UH";
+        O: "UO";
     };
     OH: {
-        UH: 'UH2O';
-        UO: 'UHO2';
-        ZH: 'ZH2O';
-        ZO: 'ZHO2';
-        KH: 'KH2O';
-        KO: 'KHO2';
-        LH: 'LH2O';
-        LO: 'LHO2';
-        GH: 'GH2O';
-        GO: 'GHO2';
+        UH: "UH2O";
+        UO: "UHO2";
+        ZH: "ZH2O";
+        ZO: "ZHO2";
+        KH: "KH2O";
+        KO: "KHO2";
+        LH: "LH2O";
+        LO: "LHO2";
+        GH: "GH2O";
+        GO: "GHO2";
     };
     X: {
-        UH2O: 'XUH2O';
-        UHO2: 'XUHO2';
-        LH2O: 'XLH2O';
-        LHO2: 'XLHO2';
-        KH2O: 'XKH2O';
-        KHO2: 'XKHO2';
-        ZH2O: 'XZH2O';
-        ZHO2: 'XZHO2';
-        GH2O: 'XGH2O';
-        GHO2: 'XGHO2';
+        UH2O: "XUH2O";
+        UHO2: "XUHO2";
+        LH2O: "XLH2O";
+        LHO2: "XLHO2";
+        KH2O: "XKH2O";
+        KHO2: "XKHO2";
+        ZH2O: "XZH2O";
+        ZHO2: "XZHO2";
+        GH2O: "XGH2O";
+        GHO2: "XGHO2";
     };
     ZK: {
-        UL: 'G';
+        UL: "G";
     };
     UL: {
-        ZK: 'G';
+        ZK: "G";
     };
     LH: {
-        OH: 'LH2O';
+        OH: "LH2O";
     };
     ZH: {
-        OH: 'ZH2O';
+        OH: "ZH2O";
     };
     GH: {
-        OH: 'GH2O';
+        OH: "GH2O";
     };
     KH: {
-        OH: 'KH2O';
+        OH: "KH2O";
     };
     UH: {
-        OH: 'UH2O';
+        OH: "UH2O";
     };
     LO: {
-        OH: 'LHO2';
+        OH: "LHO2";
     };
     ZO: {
-        OH: 'ZHO2';
+        OH: "ZHO2";
     };
     KO: {
-        OH: 'KHO2';
+        OH: "KHO2";
     };
     UO: {
-        OH: 'UHO2';
+        OH: "UHO2";
     };
     GO: {
-        OH: 'GHO2';
+        OH: "GHO2";
     };
     LH2O: {
-        X: 'XLH2O';
+        X: "XLH2O";
     };
     KH2O: {
-        X: 'XKH2O';
+        X: "XKH2O";
     };
     ZH2O: {
-        X: 'XZH2O';
+        X: "XZH2O";
     };
     UH2O: {
-        X: 'XUH2O';
+        X: "XUH2O";
     };
     GH2O: {
-        X: 'XGH2O';
+        X: "XGH2O";
     };
     LHO2: {
-        X: 'XLHO2';
+        X: "XLHO2";
     };
     UHO2: {
-        X: 'XUHO2';
+        X: "XUHO2";
     };
     KHO2: {
-        X: 'XKHO2';
+        X: "XKHO2";
     };
     ZHO2: {
-        X: 'XZHO2';
+        X: "XZHO2";
     };
     GHO2: {
-        X: 'XGHO2';
+        X: "XGHO2";
     };
 };
 
@@ -820,7 +807,7 @@ declare const POWER_CREEP_MAX_LEVEL: 25;
 declare const POWER_CREEP_LIFE_TIME: 5000;
 
 declare const POWER_CLASS: {
-    OPERATOR: 'operator';
+    OPERATOR: "operator";
 };
 
 declare const PWR_GENERATE_OPS: PWR_GENERATE_OPS;
@@ -872,13 +859,13 @@ declare const POWER_INFO: {
         duration?: number | number[];
     };
     [PWR_GENERATE_OPS]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 50;
         effect: [1, 2, 4, 6, 8];
     };
     [PWR_OPERATE_SPAWN]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 300;
         duration: 1000;
@@ -887,7 +874,7 @@ declare const POWER_INFO: {
         effect: [0.9, 0.7, 0.5, 0.35, 0.2];
     };
     [PWR_OPERATE_TOWER]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 10;
         duration: 100;
@@ -896,7 +883,7 @@ declare const POWER_INFO: {
         effect: [1.1, 1.2, 1.3, 1.4, 1.5];
     };
     [PWR_OPERATE_STORAGE]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 800;
         duration: 1000;
@@ -905,7 +892,7 @@ declare const POWER_INFO: {
         effect: [500000, 1000000, 2000000, 4000000, 7000000];
     };
     [PWR_OPERATE_LAB]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 50;
         duration: 1000;
@@ -914,7 +901,7 @@ declare const POWER_INFO: {
         effect: [2, 4, 6, 8, 10];
     };
     [PWR_OPERATE_EXTENSION]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 50;
         range: 3;
@@ -922,7 +909,7 @@ declare const POWER_INFO: {
         effect: [0.2, 0.4, 0.6, 0.8, 1.0];
     };
     [PWR_OPERATE_OBSERVER]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 400;
         duration: [200, 400, 600, 800, 1000];
@@ -930,7 +917,7 @@ declare const POWER_INFO: {
         ops: 10;
     };
     [PWR_OPERATE_TERMINAL]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 500;
         duration: 1000;
@@ -939,7 +926,7 @@ declare const POWER_INFO: {
         effect: [0.9, 0.8, 0.7, 0.6, 0.5];
     };
     [PWR_DISRUPT_SPAWN]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 5;
         range: 20;
@@ -947,7 +934,7 @@ declare const POWER_INFO: {
         duration: [1, 2, 3, 4, 5];
     };
     [PWR_DISRUPT_TOWER]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 0;
         duration: 5;
@@ -956,7 +943,7 @@ declare const POWER_INFO: {
         effect: [0.9, 0.8, 0.7, 0.6, 0.5];
     };
     [PWR_DISRUPT_SOURCE]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 100;
         range: 3;
@@ -964,7 +951,7 @@ declare const POWER_INFO: {
         duration: [100, 200, 300, 400, 500];
     };
     [PWR_SHIELD]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         effect: [5000, 10000, 15000, 20000, 25000];
         duration: 50;
@@ -972,7 +959,7 @@ declare const POWER_INFO: {
         energy: 100;
     };
     [PWR_REGEN_SOURCE]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [10, 11, 12, 14, 22];
         cooldown: 100;
         duration: 300;
@@ -981,7 +968,7 @@ declare const POWER_INFO: {
         period: 15;
     };
     [PWR_REGEN_MINERAL]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [10, 11, 12, 14, 22];
         cooldown: 100;
         duration: 100;
@@ -990,7 +977,7 @@ declare const POWER_INFO: {
         period: 10;
     };
     [PWR_DISRUPT_TERMINAL]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [20, 21, 22, 23, 24];
         cooldown: 8;
         duration: 10;
@@ -998,7 +985,7 @@ declare const POWER_INFO: {
         ops: [50, 40, 30, 20, 10];
     };
     [PWR_FORTIFY]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 5;
         range: 3;
@@ -1006,7 +993,7 @@ declare const POWER_INFO: {
         duration: [1, 2, 3, 4, 5];
     };
     [PWR_OPERATE_POWER]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [10, 11, 12, 14, 22];
         cooldown: 800;
         range: 3;
@@ -1015,7 +1002,7 @@ declare const POWER_INFO: {
         effect: [1, 2, 3, 4, 5];
     };
     [PWR_OPERATE_CONTROLLER]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [20, 21, 22, 23, 24];
         cooldown: 800;
         range: 3;
@@ -1024,7 +1011,7 @@ declare const POWER_INFO: {
         effect: [10, 20, 30, 40, 50];
     };
     [PWR_OPERATE_FACTORY]: {
-        className: POWER_CLASS['OPERATOR'];
+        className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 1000;
         range: 3;
@@ -1471,7 +1458,7 @@ interface Flag extends RoomObject {
     /**
      * Set new color of the flag.
      * @param color One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
-     * @parma secondaryColor Secondary color of the flag. One of the COLOR_* constants.
+     * @param secondaryColor Secondary color of the flag. One of the COLOR_* constants.
      * @returns Result Code: OK, ERR_INVALID_ARGS
      */
     setColor(color: ColorConstant, secondaryColor?: ColorConstant): OK | ERR_INVALID_ARGS;
@@ -1491,7 +1478,7 @@ interface Flag extends RoomObject {
 }
 
 interface FlagConstructor extends _Constructor<Flag> {
-    new (
+    new(
         name: string,
         color: ColorConstant,
         secondaryColor: ColorConstant,
@@ -1649,7 +1636,7 @@ interface Shard {
     /**
      * Currently always equals to normal.
      */
-    type: 'normal';
+    type: "normal";
     /**
      * Whether this shard belongs to the PTR.
      */
@@ -1745,23 +1732,22 @@ interface HeapStatistics {
 /**
  * Describes one part of a creep’s body.
  */
-type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
-    ? {
-          /**
-           * One of the `RESOURCE_*` constants.
-           *
-           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-           */
-          boost?: keyof (typeof BOOSTS)[T];
-          /**
-           * One of the body part types constants.
-           */
-          type: T;
-          /**
-           * The remaining amount of hit points of this body part.
-           */
-          hits: number;
-      }
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any ? {
+        /**
+         * One of the `RESOURCE_*` constants.
+         *
+         * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+         */
+        boost?: keyof (typeof BOOSTS)[T];
+        /**
+         * One of the body part types constants.
+         */
+        type: T;
+        /**
+         * The remaining amount of hit points of this body part.
+         */
+        hits: number;
+    }
     : never;
 
 interface Owner {
@@ -1922,6 +1908,7 @@ interface FindPathOpts {
      * @returns The new CostMatrix to use
      */
     // tslint:disable-next-line: invalid-void
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
@@ -2032,7 +2019,7 @@ interface _Constructor<T> {
 }
 
 interface _ConstructorById<T extends _HasId> extends _Constructor<T> {
-    new (id: Id<T>): T;
+    new(id: Id<T>): T;
     (id: Id<T>): T;
 }
 
@@ -2082,13 +2069,13 @@ declare const InterShardMemory: InterShardMemory;
 
 // Extras
 
-type Terrain = 'plain' | 'swamp' | 'wall';
+type Terrain = "plain" | "swamp" | "wall";
 
-type ExitKey = '1' | '3' | '5' | '7';
+type ExitKey = "1" | "3" | "5" | "7";
 
 type AnyCreep = Creep | PowerCreep;
 
-type FindClosestByPathAlgorithm = 'astar' | 'dijkstra';
+type FindClosestByPathAlgorithm = "astar" | "dijkstra";
 
 // Return Codes
 
@@ -2217,14 +2204,14 @@ interface FilterObject {
 
 type BodyPartConstant = MOVE | WORK | CARRY | ATTACK | RANGED_ATTACK | TOUGH | HEAL | CLAIM;
 
-type MOVE = 'move';
-type WORK = 'work';
-type CARRY = 'carry';
-type ATTACK = 'attack';
-type RANGED_ATTACK = 'ranged_attack';
-type TOUGH = 'tough';
-type HEAL = 'heal';
-type CLAIM = 'claim';
+type MOVE = "move";
+type WORK = "work";
+type CARRY = "carry";
+type ATTACK = "attack";
+type RANGED_ATTACK = "ranged_attack";
+type TOUGH = "tough";
+type HEAL = "heal";
+type CLAIM = "claim";
 
 // Look Constants
 
@@ -2244,23 +2231,23 @@ type LookConstant =
     | LOOK_POWER_CREEPS
     | LOOK_RUINS;
 
-type LOOK_CONSTRUCTION_SITES = 'constructionSite';
-type LOOK_CREEPS = 'creep';
-type LOOK_ENERGY = 'energy';
-type LOOK_FLAGS = 'flag';
-type LOOK_MINERALS = 'mineral';
-type LOOK_DEPOSITS = 'deposit';
-type LOOK_NUKES = 'nuke';
-type LOOK_RESOURCES = 'resource';
-type LOOK_SOURCES = 'source';
-type LOOK_STRUCTURES = 'structure';
-type LOOK_TERRAIN = 'terrain';
-type LOOK_TOMBSTONES = 'tombstone';
-type LOOK_POWER_CREEPS = 'powerCreep';
-type LOOK_RUINS = 'ruin';
+type LOOK_CONSTRUCTION_SITES = "constructionSite";
+type LOOK_CREEPS = "creep";
+type LOOK_ENERGY = "energy";
+type LOOK_FLAGS = "flag";
+type LOOK_MINERALS = "mineral";
+type LOOK_DEPOSITS = "deposit";
+type LOOK_NUKES = "nuke";
+type LOOK_RESOURCES = "resource";
+type LOOK_SOURCES = "source";
+type LOOK_STRUCTURES = "structure";
+type LOOK_TERRAIN = "terrain";
+type LOOK_TOMBSTONES = "tombstone";
+type LOOK_POWER_CREEPS = "powerCreep";
+type LOOK_RUINS = "ruin";
 
-type ORDER_SELL = 'sell';
-type ORDER_BUY = 'buy';
+type ORDER_SELL = "sell";
+type ORDER_BUY = "buy";
 
 // Direction Constants
 
@@ -2328,27 +2315,27 @@ type StructureConstant =
     | STRUCTURE_PORTAL
     | STRUCTURE_INVADER_CORE;
 
-type STRUCTURE_EXTENSION = 'extension';
-type STRUCTURE_RAMPART = 'rampart';
-type STRUCTURE_ROAD = 'road';
-type STRUCTURE_SPAWN = 'spawn';
-type STRUCTURE_LINK = 'link';
-type STRUCTURE_WALL = 'constructedWall';
-type STRUCTURE_KEEPER_LAIR = 'keeperLair';
-type STRUCTURE_CONTROLLER = 'controller';
-type STRUCTURE_STORAGE = 'storage';
-type STRUCTURE_TOWER = 'tower';
-type STRUCTURE_OBSERVER = 'observer';
-type STRUCTURE_POWER_BANK = 'powerBank';
-type STRUCTURE_POWER_SPAWN = 'powerSpawn';
-type STRUCTURE_EXTRACTOR = 'extractor';
-type STRUCTURE_LAB = 'lab';
-type STRUCTURE_TERMINAL = 'terminal';
-type STRUCTURE_CONTAINER = 'container';
-type STRUCTURE_NUKER = 'nuker';
-type STRUCTURE_FACTORY = 'factory';
-type STRUCTURE_INVADER_CORE = 'invaderCore';
-type STRUCTURE_PORTAL = 'portal';
+type STRUCTURE_EXTENSION = "extension";
+type STRUCTURE_RAMPART = "rampart";
+type STRUCTURE_ROAD = "road";
+type STRUCTURE_SPAWN = "spawn";
+type STRUCTURE_LINK = "link";
+type STRUCTURE_WALL = "constructedWall";
+type STRUCTURE_KEEPER_LAIR = "keeperLair";
+type STRUCTURE_CONTROLLER = "controller";
+type STRUCTURE_STORAGE = "storage";
+type STRUCTURE_TOWER = "tower";
+type STRUCTURE_OBSERVER = "observer";
+type STRUCTURE_POWER_BANK = "powerBank";
+type STRUCTURE_POWER_SPAWN = "powerSpawn";
+type STRUCTURE_EXTRACTOR = "extractor";
+type STRUCTURE_LAB = "lab";
+type STRUCTURE_TERMINAL = "terminal";
+type STRUCTURE_CONTAINER = "container";
+type STRUCTURE_NUKER = "nuker";
+type STRUCTURE_FACTORY = "factory";
+type STRUCTURE_INVADER_CORE = "invaderCore";
+type STRUCTURE_PORTAL = "portal";
 
 // Terrain mask constants
 type TERRAIN_MASK_WALL = 1;
@@ -2466,107 +2453,107 @@ type CommodityConstant =
 type InterShardResourceConstant = SUBSCRIPTION_TOKEN | CPU_UNLOCK | PIXEL | ACCESS_KEY;
 type MarketResourceConstant = ResourceConstant | InterShardResourceConstant;
 
-type RESOURCE_ENERGY = 'energy';
-type RESOURCE_POWER = 'power';
-type RESOURCE_OPS = 'ops';
+type RESOURCE_ENERGY = "energy";
+type RESOURCE_POWER = "power";
+type RESOURCE_OPS = "ops";
 
-type RESOURCE_BIOMASS = 'biomass';
-type RESOURCE_METAL = 'metal';
-type RESOURCE_MIST = 'mist';
-type RESOURCE_SILICON = 'silicon';
+type RESOURCE_BIOMASS = "biomass";
+type RESOURCE_METAL = "metal";
+type RESOURCE_MIST = "mist";
+type RESOURCE_SILICON = "silicon";
 
-type RESOURCE_UTRIUM = 'U';
-type RESOURCE_LEMERGIUM = 'L';
-type RESOURCE_KEANIUM = 'K';
-type RESOURCE_ZYNTHIUM = 'Z';
-type RESOURCE_OXYGEN = 'O';
-type RESOURCE_HYDROGEN = 'H';
-type RESOURCE_CATALYST = 'X';
+type RESOURCE_UTRIUM = "U";
+type RESOURCE_LEMERGIUM = "L";
+type RESOURCE_KEANIUM = "K";
+type RESOURCE_ZYNTHIUM = "Z";
+type RESOURCE_OXYGEN = "O";
+type RESOURCE_HYDROGEN = "H";
+type RESOURCE_CATALYST = "X";
 
-type RESOURCE_HYDROXIDE = 'OH';
-type RESOURCE_ZYNTHIUM_KEANITE = 'ZK';
-type RESOURCE_UTRIUM_LEMERGITE = 'UL';
-type RESOURCE_GHODIUM = 'G';
+type RESOURCE_HYDROXIDE = "OH";
+type RESOURCE_ZYNTHIUM_KEANITE = "ZK";
+type RESOURCE_UTRIUM_LEMERGITE = "UL";
+type RESOURCE_GHODIUM = "G";
 
-type RESOURCE_UTRIUM_HYDRIDE = 'UH';
-type RESOURCE_UTRIUM_OXIDE = 'UO';
-type RESOURCE_KEANIUM_HYDRIDE = 'KH';
-type RESOURCE_KEANIUM_OXIDE = 'KO';
-type RESOURCE_LEMERGIUM_HYDRIDE = 'LH';
-type RESOURCE_LEMERGIUM_OXIDE = 'LO';
-type RESOURCE_ZYNTHIUM_HYDRIDE = 'ZH';
-type RESOURCE_ZYNTHIUM_OXIDE = 'ZO';
-type RESOURCE_GHODIUM_HYDRIDE = 'GH';
-type RESOURCE_GHODIUM_OXIDE = 'GO';
+type RESOURCE_UTRIUM_HYDRIDE = "UH";
+type RESOURCE_UTRIUM_OXIDE = "UO";
+type RESOURCE_KEANIUM_HYDRIDE = "KH";
+type RESOURCE_KEANIUM_OXIDE = "KO";
+type RESOURCE_LEMERGIUM_HYDRIDE = "LH";
+type RESOURCE_LEMERGIUM_OXIDE = "LO";
+type RESOURCE_ZYNTHIUM_HYDRIDE = "ZH";
+type RESOURCE_ZYNTHIUM_OXIDE = "ZO";
+type RESOURCE_GHODIUM_HYDRIDE = "GH";
+type RESOURCE_GHODIUM_OXIDE = "GO";
 
-type RESOURCE_UTRIUM_ACID = 'UH2O';
-type RESOURCE_UTRIUM_ALKALIDE = 'UHO2';
-type RESOURCE_KEANIUM_ACID = 'KH2O';
-type RESOURCE_KEANIUM_ALKALIDE = 'KHO2';
-type RESOURCE_LEMERGIUM_ACID = 'LH2O';
-type RESOURCE_LEMERGIUM_ALKALIDE = 'LHO2';
-type RESOURCE_ZYNTHIUM_ACID = 'ZH2O';
-type RESOURCE_ZYNTHIUM_ALKALIDE = 'ZHO2';
-type RESOURCE_GHODIUM_ACID = 'GH2O';
-type RESOURCE_GHODIUM_ALKALIDE = 'GHO2';
+type RESOURCE_UTRIUM_ACID = "UH2O";
+type RESOURCE_UTRIUM_ALKALIDE = "UHO2";
+type RESOURCE_KEANIUM_ACID = "KH2O";
+type RESOURCE_KEANIUM_ALKALIDE = "KHO2";
+type RESOURCE_LEMERGIUM_ACID = "LH2O";
+type RESOURCE_LEMERGIUM_ALKALIDE = "LHO2";
+type RESOURCE_ZYNTHIUM_ACID = "ZH2O";
+type RESOURCE_ZYNTHIUM_ALKALIDE = "ZHO2";
+type RESOURCE_GHODIUM_ACID = "GH2O";
+type RESOURCE_GHODIUM_ALKALIDE = "GHO2";
 
-type RESOURCE_CATALYZED_UTRIUM_ACID = 'XUH2O';
-type RESOURCE_CATALYZED_UTRIUM_ALKALIDE = 'XUHO2';
-type RESOURCE_CATALYZED_KEANIUM_ACID = 'XKH2O';
-type RESOURCE_CATALYZED_KEANIUM_ALKALIDE = 'XKHO2';
-type RESOURCE_CATALYZED_LEMERGIUM_ACID = 'XLH2O';
-type RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE = 'XLHO2';
-type RESOURCE_CATALYZED_ZYNTHIUM_ACID = 'XZH2O';
-type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = 'XZHO2';
-type RESOURCE_CATALYZED_GHODIUM_ACID = 'XGH2O';
-type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = 'XGHO2';
+type RESOURCE_CATALYZED_UTRIUM_ACID = "XUH2O";
+type RESOURCE_CATALYZED_UTRIUM_ALKALIDE = "XUHO2";
+type RESOURCE_CATALYZED_KEANIUM_ACID = "XKH2O";
+type RESOURCE_CATALYZED_KEANIUM_ALKALIDE = "XKHO2";
+type RESOURCE_CATALYZED_LEMERGIUM_ACID = "XLH2O";
+type RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE = "XLHO2";
+type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
+type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
+type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
+type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 
-type RESOURCE_UTRIUM_BAR = 'utrium_bar';
-type RESOURCE_LEMERGIUM_BAR = 'lemergium_bar';
-type RESOURCE_ZYNTHIUM_BAR = 'zynthium_bar';
-type RESOURCE_KEANIUM_BAR = 'keanium_bar';
-type RESOURCE_GHODIUM_MELT = 'ghodium_melt';
-type RESOURCE_OXIDANT = 'oxidant';
-type RESOURCE_REDUCTANT = 'reductant';
-type RESOURCE_PURIFIER = 'purifier';
-type RESOURCE_BATTERY = 'battery';
+type RESOURCE_UTRIUM_BAR = "utrium_bar";
+type RESOURCE_LEMERGIUM_BAR = "lemergium_bar";
+type RESOURCE_ZYNTHIUM_BAR = "zynthium_bar";
+type RESOURCE_KEANIUM_BAR = "keanium_bar";
+type RESOURCE_GHODIUM_MELT = "ghodium_melt";
+type RESOURCE_OXIDANT = "oxidant";
+type RESOURCE_REDUCTANT = "reductant";
+type RESOURCE_PURIFIER = "purifier";
+type RESOURCE_BATTERY = "battery";
 
-type RESOURCE_COMPOSITE = 'composite';
-type RESOURCE_CRYSTAL = 'crystal';
-type RESOURCE_LIQUID = 'liquid';
+type RESOURCE_COMPOSITE = "composite";
+type RESOURCE_CRYSTAL = "crystal";
+type RESOURCE_LIQUID = "liquid";
 
-type RESOURCE_WIRE = 'wire';
-type RESOURCE_SWITCH = 'switch';
-type RESOURCE_TRANSISTOR = 'transistor';
-type RESOURCE_MICROCHIP = 'microchip';
-type RESOURCE_CIRCUIT = 'circuit';
-type RESOURCE_DEVICE = 'device';
+type RESOURCE_WIRE = "wire";
+type RESOURCE_SWITCH = "switch";
+type RESOURCE_TRANSISTOR = "transistor";
+type RESOURCE_MICROCHIP = "microchip";
+type RESOURCE_CIRCUIT = "circuit";
+type RESOURCE_DEVICE = "device";
 
-type RESOURCE_CELL = 'cell';
-type RESOURCE_PHLEGM = 'phlegm';
-type RESOURCE_TISSUE = 'tissue';
-type RESOURCE_MUSCLE = 'muscle';
-type RESOURCE_ORGANOID = 'organoid';
-type RESOURCE_ORGANISM = 'organism';
+type RESOURCE_CELL = "cell";
+type RESOURCE_PHLEGM = "phlegm";
+type RESOURCE_TISSUE = "tissue";
+type RESOURCE_MUSCLE = "muscle";
+type RESOURCE_ORGANOID = "organoid";
+type RESOURCE_ORGANISM = "organism";
 
-type RESOURCE_ALLOY = 'alloy';
-type RESOURCE_TUBE = 'tube';
-type RESOURCE_FIXTURES = 'fixtures';
-type RESOURCE_FRAME = 'frame';
-type RESOURCE_HYDRAULICS = 'hydraulics';
-type RESOURCE_MACHINE = 'machine';
+type RESOURCE_ALLOY = "alloy";
+type RESOURCE_TUBE = "tube";
+type RESOURCE_FIXTURES = "fixtures";
+type RESOURCE_FRAME = "frame";
+type RESOURCE_HYDRAULICS = "hydraulics";
+type RESOURCE_MACHINE = "machine";
 
-type RESOURCE_CONDENSATE = 'condensate';
-type RESOURCE_CONCENTRATE = 'concentrate';
-type RESOURCE_EXTRACT = 'extract';
-type RESOURCE_SPIRIT = 'spirit';
-type RESOURCE_EMANATION = 'emanation';
-type RESOURCE_ESSENCE = 'essence';
+type RESOURCE_CONDENSATE = "condensate";
+type RESOURCE_CONCENTRATE = "concentrate";
+type RESOURCE_EXTRACT = "extract";
+type RESOURCE_SPIRIT = "spirit";
+type RESOURCE_EMANATION = "emanation";
+type RESOURCE_ESSENCE = "essence";
 
-type SUBSCRIPTION_TOKEN = 'token';
-type CPU_UNLOCK = 'cpuUnlock';
-type PIXEL = 'pixel';
-type ACCESS_KEY = 'accessKey';
+type SUBSCRIPTION_TOKEN = "token";
+type CPU_UNLOCK = "cpuUnlock";
+type PIXEL = "pixel";
+type ACCESS_KEY = "accessKey";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
 
@@ -2617,69 +2604,69 @@ type EventHealType = EVENT_HEAL_TYPE_MELEE | EVENT_HEAL_TYPE_RANGED;
 type EVENT_HEAL_TYPE_MELEE = 1;
 type EVENT_HEAL_TYPE_RANGED = 2;
 
-type EventDestroyType = 'creep' | StructureConstant;
+type EventDestroyType = "creep" | StructureConstant;
 
 type EventItem =
     | {
-          event: EVENT_ATTACK;
-          objectId: string;
-          data: EventData[EVENT_ATTACK];
-      }
+        event: EVENT_ATTACK;
+        objectId: string;
+        data: EventData[EVENT_ATTACK];
+    }
     | {
-          event: EVENT_OBJECT_DESTROYED;
-          objectId: string;
-          data: EventData[EVENT_OBJECT_DESTROYED];
-      }
+        event: EVENT_OBJECT_DESTROYED;
+        objectId: string;
+        data: EventData[EVENT_OBJECT_DESTROYED];
+    }
     | {
-          event: EVENT_ATTACK_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_ATTACK_CONTROLLER];
-      }
+        event: EVENT_ATTACK_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_ATTACK_CONTROLLER];
+    }
     | {
-          event: EVENT_BUILD;
-          objectId: string;
-          data: EventData[EVENT_BUILD];
-      }
+        event: EVENT_BUILD;
+        objectId: string;
+        data: EventData[EVENT_BUILD];
+    }
     | {
-          event: EVENT_HARVEST;
-          objectId: string;
-          data: EventData[EVENT_HARVEST];
-      }
+        event: EVENT_HARVEST;
+        objectId: string;
+        data: EventData[EVENT_HARVEST];
+    }
     | {
-          event: EVENT_HEAL;
-          objectId: string;
-          data: EventData[EVENT_HEAL];
-      }
+        event: EVENT_HEAL;
+        objectId: string;
+        data: EventData[EVENT_HEAL];
+    }
     | {
-          event: EVENT_REPAIR;
-          objectId: string;
-          data: EventData[EVENT_REPAIR];
-      }
+        event: EVENT_REPAIR;
+        objectId: string;
+        data: EventData[EVENT_REPAIR];
+    }
     | {
-          event: EVENT_RESERVE_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_RESERVE_CONTROLLER];
-      }
+        event: EVENT_RESERVE_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_RESERVE_CONTROLLER];
+    }
     | {
-          event: EVENT_UPGRADE_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_UPGRADE_CONTROLLER];
-      }
+        event: EVENT_UPGRADE_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_UPGRADE_CONTROLLER];
+    }
     | {
-          event: EVENT_EXIT;
-          objectId: string;
-          data: EventData[EVENT_EXIT];
-      }
+        event: EVENT_EXIT;
+        objectId: string;
+        data: EventData[EVENT_EXIT];
+    }
     | {
-          event: EVENT_POWER;
-          objectId: string;
-          data: EventData[EVENT_POWER];
-      }
+        event: EVENT_POWER;
+        objectId: string;
+        data: EventData[EVENT_POWER];
+    }
     | {
-          event: EVENT_TRANSFER;
-          objectId: string;
-          data: EventData[EVENT_TRANSFER];
-      };
+        event: EVENT_TRANSFER;
+        objectId: string;
+        data: EventData[EVENT_TRANSFER];
+    };
 
 interface EventData {
     [EVENT_ATTACK]: {
@@ -2733,10 +2720,10 @@ interface EventData {
     };
 }
 
-type PowerClassConstant = POWER_CLASS['OPERATOR'];
+type PowerClassConstant = POWER_CLASS["OPERATOR"];
 
 interface POWER_CLASS {
-    OPERATOR: 'operator';
+    OPERATOR: "operator";
 }
 
 type PowerConstant =
@@ -2794,12 +2781,12 @@ interface RouteOptions {
 }
 
 interface RoomStatusPermanent {
-    status: 'normal' | 'closed';
+    status: "normal" | "closed";
     timestamp: null;
 }
 
 interface RoomStatusTemporary {
-    status: 'novice' | 'respawn';
+    status: "novice" | "respawn";
     timestamp: number;
 }
 
@@ -2843,9 +2830,9 @@ interface GameMap {
         opts?: RouteOptions,
     ):
         | Array<{
-              exit: ExitConstant;
-              room: string;
-          }>
+            exit: ExitConstant;
+            room: string;
+        }>
         | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
@@ -2998,7 +2985,7 @@ interface MapLineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: 'dashed' | 'dotted' | 'solid' | undefined;
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapPolyStyle {
@@ -3021,7 +3008,7 @@ interface MapPolyStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: 'dashed' | 'dotted' | 'solid' | undefined;
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapCircleStyle extends MapPolyStyle {
@@ -3071,7 +3058,7 @@ interface MapTextStyle {
     /**
      * Text align, either center, left, or right. Default is center.
      */
-    align?: 'center' | 'left' | 'right';
+    align?: "center" | "left" | "right";
     /**
      * Opacity value, default is 0.5.
      */
@@ -3423,7 +3410,7 @@ interface CostMatrix {
     /**
      * Creates a new CostMatrix containing 0's for all positions.
      */
-    new (): CostMatrix;
+    new(): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -3534,7 +3521,6 @@ interface PowerCreep extends RoomObject {
      */
     ticksToLive: number | undefined;
     /**
-     *
      * @param methodName Cancel the order given during the current game tick.
      */
     cancelOrder(methodName: string): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND;
@@ -3722,7 +3708,6 @@ interface RawMemory {
      * data. When the segment contents is changed by two shards simultaneously, you may lose some data, since the segment
      * string value is written all at once atomically. You must implement your own system to determine when each shard is
      * allowed to rewrite the inter-shard memory, e.g. based on mutual exclusions.
-     *
      */
     interShardSegment: string;
 
@@ -3816,7 +3801,7 @@ interface RoomObject {
 }
 
 interface RoomObjectConstructor extends _Constructor<RoomObject> {
-    new (x: number, y: number, roomName: string): RoomObject;
+    new(x: number, y: number, roomName: string): RoomObject;
     (x: number, y: number, roomName: string): RoomObject;
 }
 
@@ -4086,7 +4071,7 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
      * @param y Y position in the room.
      * @param roomName The room name.
      */
-    new (x: number, y: number, roomName: string): RoomPosition;
+    new(x: number, y: number, roomName: string): RoomPosition;
     (x: number, y: number, roomName: string): RoomPosition;
 }
 
@@ -4109,7 +4094,7 @@ interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
      * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
-    new (roomName: string): RoomTerrain;
+    new(roomName: string): RoomTerrain;
 }
 declare class RoomVisual {
     /**
@@ -4250,7 +4235,7 @@ interface LineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
-    lineStyle?: 'dashed' | 'dotted' | 'solid' | undefined;
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface PolyStyle {
@@ -4273,7 +4258,7 @@ interface PolyStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: 'dashed' | 'dotted' | 'solid' | undefined;
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface CircleStyle extends PolyStyle {
@@ -4313,7 +4298,7 @@ interface TextStyle {
      * Background rectangle padding, default is 0.3.
      */
     backgroundPadding?: number;
-    align?: 'center' | 'left' | 'right';
+    align?: "center" | "left" | "right";
     /**
      * Opacity value, default is 1.0.
      */
@@ -4605,7 +4590,7 @@ interface Room {
 }
 
 interface RoomConstructor extends _Constructor<Room> {
-    new (id: string): Room;
+    new(id: string): Room;
 
     Terrain: RoomTerrainConstructor;
 
@@ -4899,7 +4884,7 @@ interface SpawnOptions {
 }
 
 interface SpawningConstructor extends _Constructor<Spawning> {
-    new (id: Id<StructureSpawn>): Spawning;
+    new(id: Id<StructureSpawn>): Spawning;
     (id: Id<StructureSpawn>): Spawning;
 }
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
@@ -4910,14 +4895,10 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): UNLIMITED_STORE extends true
-        ? null
-        : R extends undefined
-        ? ResourceConstant extends POSSIBLE_RESOURCES
-            ? number
+    ): UNLIMITED_STORE extends true ? null
+        : R extends undefined ? ResourceConstant extends POSSIBLE_RESOURCES ? number
             : null
-        : R extends POSSIBLE_RESOURCES
-        ? number
+        : R extends POSSIBLE_RESOURCES ? number
         : null;
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
@@ -4926,12 +4907,9 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined
-        ? ResourceConstant extends POSSIBLE_RESOURCES
-            ? number
-            : null
-        : R extends POSSIBLE_RESOURCES
-        ? number
+    ): R extends undefined ? ResourceConstant extends POSSIBLE_RESOURCES ? number
+        : null
+        : R extends POSSIBLE_RESOURCES ? number
         : null;
     /**
      * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
@@ -4940,19 +4918,19 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined
-        ? ResourceConstant extends POSSIBLE_RESOURCES
-            ? number
-            : null
-        : R extends POSSIBLE_RESOURCES
-        ? number
+    ): R extends undefined ? ResourceConstant extends POSSIBLE_RESOURCES ? number
+        : null
+        : R extends POSSIBLE_RESOURCES ? number
         : null;
 }
 
-type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<
-    POSSIBLE_RESOURCES,
-    UNLIMITED_STORE
-> & { [P in POSSIBLE_RESOURCES]: number } & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
+type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> =
+    & StoreBase<
+        POSSIBLE_RESOURCES,
+        UNLIMITED_STORE
+    >
+    & { [P in POSSIBLE_RESOURCES]: number }
+    & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 interface GenericStoreBase {
     /**
@@ -5113,8 +5091,8 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
 }
 
 interface StructureControllerConstructor
-    extends _Constructor<StructureController>,
-        _ConstructorById<StructureController> {}
+    extends _Constructor<StructureController>, _ConstructorById<StructureController>
+{}
 
 declare const StructureController: StructureControllerConstructor;
 
@@ -5144,8 +5122,8 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
 }
 
 interface StructureExtensionConstructor
-    extends _Constructor<StructureExtension>,
-        _ConstructorById<StructureExtension> {}
+    extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension>
+{}
 
 declare const StructureExtension: StructureExtensionConstructor;
 
@@ -5205,8 +5183,8 @@ interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
 }
 
 interface StructureKeeperLairConstructor
-    extends _Constructor<StructureKeeperLair>,
-        _ConstructorById<StructureKeeperLair> {}
+    extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair>
+{}
 
 declare const StructureKeeperLair: StructureKeeperLairConstructor;
 
@@ -5244,8 +5222,8 @@ interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
 }
 
 interface StructurePowerBankConstructor
-    extends _Constructor<StructurePowerBank>,
-        _ConstructorById<StructurePowerBank> {}
+    extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank>
+{}
 
 declare const StructurePowerBank: StructurePowerBankConstructor;
 
@@ -5275,9 +5253,7 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
      * @deprecated An alias for .store.getCapacity(RESOURCE_POWER).
      */
     powerCapacity: number;
-    /**
-     *
-     */
+    /** */
     store: Store<RESOURCE_ENERGY | RESOURCE_POWER, false>;
 
     /**
@@ -5287,8 +5263,8 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
 }
 
 interface StructurePowerSpawnConstructor
-    extends _Constructor<StructurePowerSpawn>,
-        _ConstructorById<StructurePowerSpawn> {}
+    extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn>
+{}
 
 declare const StructurePowerSpawn: StructurePowerSpawnConstructor;
 
@@ -5430,8 +5406,8 @@ interface StructureExtractor extends OwnedStructure<STRUCTURE_EXTRACTOR> {
 }
 
 interface StructureExtractorConstructor
-    extends _Constructor<StructureExtractor>,
-        _ConstructorById<StructureExtractor> {}
+    extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor>
+{}
 
 declare const StructureExtractor: StructureExtractorConstructor;
 
@@ -5562,8 +5538,8 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
 }
 
 interface StructureContainerConstructor
-    extends _Constructor<StructureContainer>,
-        _ConstructorById<StructureContainer> {}
+    extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer>
+{}
 
 declare const StructureContainer: StructureContainerConstructor;
 
@@ -5688,8 +5664,8 @@ interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
 }
 
 interface StructureInvaderCoreConstructor
-    extends _Constructor<StructureInvaderCore>,
-        _ConstructorById<StructureInvaderCore> {}
+    extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore>
+{}
 
 declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 

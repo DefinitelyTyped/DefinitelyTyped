@@ -1,6 +1,8 @@
 {
     "rules": {
-        "dt-header": "off",
-        "trim-file": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-type-only-packages": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

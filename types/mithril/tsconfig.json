@@ -11,10 +11,6 @@
         "strictFunctionTypes": false,
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "jsx": "preserve",
         "jsxFactory": "m"

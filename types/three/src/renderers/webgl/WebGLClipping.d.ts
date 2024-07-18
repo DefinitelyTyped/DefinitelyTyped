@@ -1,7 +1,7 @@
-import { Camera } from './../../cameras/Camera';
-import { Material } from './../../materials/Material';
-import { Plane } from '../../math/Plane';
-import { WebGLProperties } from './WebGLProperties';
+import { Camera } from "../../cameras/Camera.js";
+import { Material } from "../../materials/Material.js";
+import { Plane } from "../../math/Plane.js";
+import { WebGLProperties } from "./WebGLProperties.js";
 
 export class WebGLClipping {
     constructor(properties: WebGLProperties);

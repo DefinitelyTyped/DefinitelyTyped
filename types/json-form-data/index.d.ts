@@ -1,10 +1,3 @@
-// Type definitions for json-form-data 1.7
-// Project: https://github.com/hyperatom/json-form-data
-// Definitions by: Aaron Ross <https://github.com/superhawk610>
-//                 Kamil Socha <https://github.com/ksocha>
-//                 Felix Borzik <https://github.com/Borzik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ValidJSON {
     [key: string]: ValidJSON | ValidJSON[] | ValidJSONValue | ValidJSONValue[] | FileList;
 }
@@ -12,7 +5,7 @@ interface ValidJSON {
 type ValidJSONValue = string | number | boolean | File | Blob | Date | null | undefined;
 
 interface InitialFormData {
-    append: FormData['append'];
+    append: FormData["append"];
 }
 
 /**
@@ -57,7 +50,6 @@ interface FormatOptions {
      *     //   ids[]: '2',
      *     //   ids[]: '3',
      *     // }
-     *
      */
     showLeafArrayIndexes?: boolean | undefined;
     /**
@@ -75,7 +67,6 @@ interface FormatOptions {
      *     //   foo: '1'
      *     //   bar: 'null'
      *     // }
-     *
      */
     includeNullValues?: boolean | undefined;
     /**
@@ -97,7 +88,6 @@ interface FormatOptions {
      *     //   foo: 'foo_true',
      *     //   bar: 'foo_false'
      *     // }
-     *
      */
     mapping?: ((value: ValidJSONValue) => string | Blob) | undefined;
 }

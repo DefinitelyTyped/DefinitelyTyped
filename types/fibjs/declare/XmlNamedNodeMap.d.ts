@@ -31,7 +31,6 @@ declare class Class_XmlNamedNodeMap extends Class__object {
      * @brief 返回属性列表中的属性数目
      *
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 

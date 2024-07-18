@@ -1,4 +1,6 @@
-let $container: JQueryNotifyWidget = $("<div style='display:none' class='noprint'><div></div></div>").appendTo(document.body).notify();
+let $container: JQueryNotifyWidget = $("<div style='display:none' class='noprint'><div></div></div>").appendTo(
+    document.body,
+).notify();
 
 let notification: JQueryNotifyInstance = $container.notify(
     "create",
@@ -11,8 +13,8 @@ let notification: JQueryNotifyInstance = $container.notify(
             console.log("opened");
         },
         expires: 1000,
-        speed: 100
-    }
+        speed: 100,
+    },
 );
 notification.element.html("<strong>text</strong>");
 

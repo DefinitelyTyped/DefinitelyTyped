@@ -1,4 +1,4 @@
-import { matchersWithOptions } from 'jest-json-schema';
+import { matchersWithOptions } from "jest-json-schema";
 
 expect.extend(
     matchersWithOptions(
@@ -8,40 +8,40 @@ expect.extend(
             },
         },
         ajv => {
-            ajv.addKeyword('test', {
+            ajv.addKeyword("test", {
                 validate: (schema: any, data: string) => {
-                    return schema && data === 'test';
+                    return schema && data === "test";
                 },
                 metaSchema: {
-                    type: 'boolean',
+                    type: "boolean",
                 },
             });
         },
     ),
 );
 
-it('validates schema', () => {
+it("validates schema", () => {
     expect({
         test: true,
-        format: 'test',
+        format: "test",
     }).toBeValidSchema();
 });
 
-it('schema matches data', () => {
+it("schema matches data", () => {
     const schema = {
         properties: {
-            hello: { type: 'string' },
+            hello: { type: "string" },
             test: {
                 test: true,
-                format: 'test',
+                format: "test",
             },
         },
-        required: ['hello'],
+        required: ["hello"],
     };
-    expect({ hello: 'world', test: 'test' }).toMatchSchema(schema);
+    expect({ hello: "world", test: "test" }).toMatchSchema(schema);
 });
 
-it('accepts a custom Ajv class', () => {
+it("accepts a custom Ajv class", () => {
     const FakeAjvClass = jest.fn().mockImplementation(() => ({
         opts: { code: { formats: {} } },
         addFormat: jest.fn(),

@@ -1,8 +1,3 @@
-// Type definitions for random-string-gen 1.1
-// Project: https://github.com/MadeByRaymond/randomStringGenerator
-// Definitions by: Daniel Raymond Obiekwe <https://github.com/MadeByRaymond>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Type = "alphanumeric" | "alphabetic" | "numeric" | "hex" | "binary" | "octal" | "ascii-printable";
 type Capitalization = "lowercase" | "uppercase";
 interface GenerateOptions {

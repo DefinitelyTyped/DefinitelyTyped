@@ -1,16 +1,9 @@
-// Type definitions for multisig-hmac 0.1
-// Project: https://github.com/emilbayes/multisig-hmac
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = MultisigHMAC;
 
 /**
  * Multisig scheme for HMAC authentication.
- *
- *
  *
  * Key management can happen in either of two modes, either by storing every of the
  * component keys, or by storing a single master seed and using that to derive keys
@@ -112,25 +105,25 @@ declare class MultisigHMAC {
     /** `'sha256'` key length in bytes */
     static readonly SHA256_KEYBYTES: 64;
     /** `'sha256'` algorithm name */
-    static readonly SHA256_PRIMITIVE: 'sha256';
+    static readonly SHA256_PRIMITIVE: "sha256";
     /** `'sha384'` signature length in bytes */
     static readonly SHA384_BYTES: 48;
     /** `'sha384'` key length in bytes */
     static readonly SHA384_KEYBYTES: 128;
     /** `'sha384'` algorithm name */
-    static readonly SHA384_PRIMITIVE: 'sha384';
+    static readonly SHA384_PRIMITIVE: "sha384";
     /** `'sha512'` signature length in bytes */
     static readonly SHA512_BYTES: 64;
     /** `'sha512'` key length in bytes */
     static readonly SHA512_KEYBYTES: 128;
     /** `'sha512'` algorithm name */
-    static readonly SHA512_PRIMITIVE: 'sha512';
+    static readonly SHA512_PRIMITIVE: "sha512";
     /** `'sha512_256'` signature length in bytes */
     static readonly SHA512_256_BYTES: 32;
     /** `'sha512_256'` key length in bytes */
     static readonly SHA512_256_KEYBYTES: 128;
     /** `'sha512_256'` algorithm name (also knowns as SHA512/256) */
-    static readonly SHA512_256_PRIMITIVE: 'sha512_256';
+    static readonly SHA512_256_PRIMITIVE: "sha512_256";
 
     /**
      * Create a new instance of `MultisigHMAC`, which can be used as a global singleton.
@@ -138,7 +131,7 @@ declare class MultisigHMAC {
      */
     constructor(
         /** @default 'sha256' */
-        algorithm?: 'sha256' | 'sha384' | 'sha512' | 'sha512_256',
+        algorithm?: "sha256" | "sha384" | "sha512" | "sha512_256",
     );
 
     /**

@@ -1,4 +1,4 @@
-import gitDiff = require('../index');
+import gitDiff = require("../index");
 
 /**
  * Asynchronously compare and generate the git diff of two strings if

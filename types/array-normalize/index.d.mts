@@ -1,2 +1,2 @@
-import normalize = require('./index');
+import normalize = require("./index");
 export default normalize;

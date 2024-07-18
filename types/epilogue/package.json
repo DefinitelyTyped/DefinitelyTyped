@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/epilogue",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/dchester/epilogue"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/sequelize": "*"
+    },
+    "devDependencies": {
+        "@types/epilogue": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Satana Charuwichitratana",
+            "githubUsername": "micksatana"
+        }
+    ]
+}

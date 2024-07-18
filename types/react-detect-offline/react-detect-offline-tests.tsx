@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Offline, Online } from 'react-detect-offline';
+import * as React from "react";
+import { Offline, Online } from "react-detect-offline";
 
 function ReactDetectOfflineTests() {
     return (

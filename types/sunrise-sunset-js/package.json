@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sunrise-sunset-js",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/udivankin/sunrise-sunset"
+    ],
+    "devDependencies": {
+        "@types/sunrise-sunset-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Haseeb Majid",
+            "githubUsername": "hmajid2301"
+        }
+    ]
+}

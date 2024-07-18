@@ -1,7 +1,7 @@
-import ATNConfigSet from '../atn/ATNConfigSet';
-import InputStream from '../InputStream';
-import Lexer from '../Lexer';
-import RecognitionException from './RecognitionException';
+import ATNConfigSet from "../atn/ATNConfigSet";
+import InputStream from "../InputStream";
+import Lexer from "../Lexer";
+import RecognitionException from "./RecognitionException";
 
 export default class LexerNoViableAltException extends RecognitionException {
     readonly startIndex: number;

@@ -13,7 +13,7 @@ declare namespace echarts {
              *
              * @default 'plain'
              */
-            type?: 'plain' | 'scroll' | undefined;
+            type?: "plain" | "scroll" | undefined;
 
             /**
              * Component ID, not specified by default.
@@ -43,7 +43,7 @@ declare namespace echarts {
              * Components with smaller z values may be overwritten by those with larger z values.
              * z has a lower priority to zlevel, and will not create new Canvas.
              *
-             * @deafult 2
+             * @default 2
              */
             z?: number | undefined;
             /**
@@ -103,7 +103,7 @@ declare namespace echarts {
              *
              * @default 'horizontal'
              */
-            orient?: 'horizontal' | 'vertical' | undefined;
+            orient?: "horizontal" | "vertical" | undefined;
             /**
              * Legend mrker and text aligning. By default,
              * it automatically calculates from component location and orient.
@@ -113,7 +113,7 @@ declare namespace echarts {
              *
              * @default 'auto'
              */
-            align?: 'auto' | 'left' | 'right' | undefined;
+            align?: "auto" | "left" | "right" | undefined;
             /**
              * Legend space around content.
              * The unit is px. Default values for each position are 5.
@@ -174,7 +174,7 @@ declare namespace echarts {
              *
              * @default true
              */
-            selectedMode?: boolean | 'single' | 'multiple' | undefined;
+            selectedMode?: boolean | "single" | "multiple" | undefined;
             /**
              * Legend color when not selected.
              *
@@ -325,7 +325,7 @@ declare namespace echarts {
              *
              * @default 'end'
              */
-            pageButtonPosition?: 'start' | 'end' | undefined;
+            pageButtonPosition?: "start" | "end" | undefined;
             /**
              * It works when legend.type is 'scroll'.
              * Page info formatter. It is '{current}/{total}' by default,
@@ -379,7 +379,7 @@ declare namespace echarts {
              * Currently includes both a full selection and an inverse selection.
              * The selector button doesn't display by default, the user can manually configure it.
              */
-            selector?: boolean | string[] | { type: string; title: string }[] | undefined;
+            selector?: boolean | string[] | Array<{ type: string; title: string }> | undefined;
             /**
              * The text label style of the selector button, which is displayed by default.
              */
@@ -487,17 +487,17 @@ declare namespace echarts {
                  *
                  * @default 'normal'
                  */
-                fontStyle?: 'normal' | 'italic' | 'oblique' | undefined;
+                fontStyle?: "normal" | "italic" | "oblique" | undefined;
                 /**
                  * font thick weight.
                  *
                  * @default 'normal'
                  */
                 fontWeight?:
-                    | 'normal'
-                    | 'bold'
-                    | 'bolder'
-                    | 'lighter'
+                    | "normal"
+                    | "bold"
+                    | "bolder"
+                    | "lighter"
                     | 100
                     | 200
                     | 300
@@ -506,7 +506,8 @@ declare namespace echarts {
                     | 600
                     | 700
                     | 800
-                    | 900 | undefined;
+                    | 900
+                    | undefined;
                 /**
                  * font family.
                  *
@@ -522,11 +523,11 @@ declare namespace echarts {
                 /**
                  * Horizontal alignment of text, automatic by default.
                  */
-                align?: 'left' | 'center' | 'right' | undefined;
+                align?: "left" | "center" | "right" | undefined;
                 /**
                  * Vertical alignment of text, automatic by default.
                  */
-                verticalAlign?: 'top' | 'middle' | 'bottom' | undefined;
+                verticalAlign?: "top" | "middle" | "bottom" | undefined;
                 /**
                  * Line height of the text fragment.
                  */

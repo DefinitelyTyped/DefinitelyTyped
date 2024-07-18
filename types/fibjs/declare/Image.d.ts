@@ -29,10 +29,8 @@ declare class Class_Image extends Class__object {
     /**
      * class prop
      *
-     *
      * @brief 查询图像宽度
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -41,10 +39,8 @@ declare class Class_Image extends Class__object {
     /**
      * class prop
      *
-     *
      * @brief 查询图像高度
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -53,10 +49,8 @@ declare class Class_Image extends Class__object {
     /**
      * class prop
      *
-     *
      * @brief 查询图像来源格式，结果为 gd.PNG, gd.JPEG, gd.GIF, gd.BMP, gd.WEBP
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -65,10 +59,8 @@ declare class Class_Image extends Class__object {
     /**
      * class prop
      *
-     *
      * @brief 查询图像类型，结果为 gd.TRUECOLOR, gd.PALETTE
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -77,10 +69,8 @@ declare class Class_Image extends Class__object {
     /**
      * class prop
      *
-     *
      * @brief 查询图像颜色表内的颜色总数
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -89,9 +79,7 @@ declare class Class_Image extends Class__object {
     /**
      * class prop
      *
-     *
      * @brief 查询和设定指定的颜色为透明色
-     *
      *
      * @note Assumed to be an integer.
      */
@@ -101,11 +89,7 @@ declare class Class_Image extends Class__object {
     /**
      * class prop
      *
-     *
      * @brief 查询和设定图像是否渐进式，仅支持 jpeg 格式时
-     *
-     *
-     * @type Boolean
      */
 
     progressive: boolean
@@ -113,11 +97,7 @@ declare class Class_Image extends Class__object {
     /**
      * class prop
      *
-     *
-     * @brief查询和设定绘图时是否计算 alpha 层，缺省为 true
-     *
-     *
-     * @type Boolean
+     * @brief 查询和设定绘图时是否计算 alpha 层，缺省为 true
      */
 
     alphaBlending: boolean

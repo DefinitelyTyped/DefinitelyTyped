@@ -1,1 +1,1 @@
-export * from './upload-media';
+export * from "./upload-media";

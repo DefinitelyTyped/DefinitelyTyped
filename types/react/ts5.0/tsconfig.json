@@ -1,6 +1,8 @@
 {
     "files": [
         "index.d.ts",
+        "jsx-dev-runtime.d.ts",
+        "jsx-runtime.d.ts",
         "test/index.ts",
         "test/tsx.tsx",
         "test/cssProperties.tsx",
@@ -8,22 +10,18 @@
         "test/managedAttributes.tsx",
         "test/hooks.tsx",
         "test/experimental.tsx",
-        "test/next.tsx"
+        "test/canary.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "ES2020"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "exactOptionalPropertyTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

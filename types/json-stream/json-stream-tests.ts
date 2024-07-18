@@ -1,6 +1,6 @@
-import * as stream from 'node:stream';
+import * as stream from "node:stream";
 
-import JSONStream = require('json-stream');
+import JSONStream = require("json-stream");
 
 (async () => {
     const s1: stream.Transform = JSONStream();

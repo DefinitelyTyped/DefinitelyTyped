@@ -1,4 +1,8 @@
-import { GraphQLScalarType } from 'graphql';
+import { GraphQLScalarType } from "graphql";
+import { FileUpload } from "./processRequest.mjs";
 
-declare const GraphQLUpload: GraphQLScalarType;
+export { FileUpload } from "./processRequest.mjs";
+
+declare const GraphQLUpload: GraphQLScalarType<Promise<FileUpload>, never>;
+
 export default GraphQLUpload;

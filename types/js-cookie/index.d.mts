@@ -1,4 +1,4 @@
-import * as jsCookie from './index.js';
+import * as jsCookie from "./index.js";
 
 declare const Cookies: jsCookie.CookiesStatic;
 

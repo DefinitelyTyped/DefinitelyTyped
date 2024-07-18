@@ -1,7 +1,7 @@
 declare namespace OO {
-    type Constructor = new (...args: any) => any;
+    type Constructor = new(...args: any) => any;
 
-    type ConstructorLike = (new (...args: any) => any) | ((...args: any) => any);
+    type ConstructorLike = (new(...args: any) => any) | ((...args: any) => any);
 
     type ValidKey = string | number;
 
@@ -21,7 +21,7 @@ declare namespace OO {
         | bigint
         | null
         | undefined
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         | Function
         | NodeLike
         | Cloneable;
@@ -38,10 +38,9 @@ declare namespace OO {
         recur: K extends [
             ConstrainedInference<ValidKey, infer FirstKey>,
             ...ConstrainedInference<ValidKey[], infer RestKeys>,
-        ]
-            ? RecursivelyGet<GetProp<T, FirstKey>, RestKeys>
+        ] ? RecursivelyGet<GetProp<T, FirstKey>, RestKeys>
             : never;
-    }[K extends [ValidKey] ? 'done' : 'recur'];
+    }[K extends [ValidKey] ? "done" : "recur"];
 
     type NodesOf<T, D extends number> = {
         done: T;
@@ -49,17 +48,16 @@ declare namespace OO {
             | T
             | ValueOf<T>
             | NodesOf<
-                  Exclude<ValueOf<T>, NonPlainObject>,
-                  [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20][D]
-              >;
-    }[D extends -1 ? 'done' : T extends NonPlainObject ? 'done' : 'recur'];
+                Exclude<ValueOf<T>, NonPlainObject>,
+                [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20][D]
+            >;
+    }[D extends -1 ? "done" : T extends NonPlainObject ? "done" : "recur"];
 
     type LeavesOf<T, D extends number> = T extends NonPlainObject ? T : Extract<NodesOf<T, D>, NonPlainObject>;
 
     type FunctionFieldsOf<T, F extends (...args: any[]) => any, K extends keyof T = keyof T> = K extends any
-        ? T[K] extends F
-            ? K
-            : never
+        ? T[K] extends F ? K
+        : never
         : never;
 
     type EventHandler<C, F extends (...args: any[]) => any = (this: C, ...args: any[]) => void> =

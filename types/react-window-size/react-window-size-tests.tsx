@@ -1,5 +1,5 @@
-import * as React from 'react';
-import windowSize, { WindowSizeProps } from 'react-window-size';
+import * as React from "react";
+import windowSize, { WindowSizeProps } from "react-window-size";
 
 interface TestProps {
     foo: string;

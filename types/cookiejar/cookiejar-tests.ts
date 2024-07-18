@@ -1,4 +1,4 @@
-import cookiejarLib = require('cookiejar');
+import cookiejarLib = require("cookiejar");
 
 const { Cookie, CookieAccessInfo, CookieJar } = cookiejarLib;
 
@@ -21,10 +21,10 @@ testCookie = new Cookie("a=1;path=/", ".test.com");
 // Test CookieJar
 const testCookieJar = new CookieJar();
 testCookieJar.setCookies([
- "a=1;domain=.test.com;path=/",
- "b=2;domain=test.com;path=/",
- "c=3;domain=test.com;path=/;expires=January 1, 1970"
-].join(':'));
+    "a=1;domain=.test.com;path=/",
+    "b=2;domain=test.com;path=/",
+    "c=3;domain=test.com;path=/;expires=January 1, 1970",
+].join(":"));
 
 let testCookies = testCookieJar.getCookies(new CookieAccessInfo("test.com", "/"));
 // assert.equal(testCookies.length, 2, "Expires on setCookies fail\n" + testCookies.toString());
@@ -46,7 +46,7 @@ testCookieJar2.setCookies([
     "a=1;domain=.test.com;path=/",
     "a=1;domain=.test.com;path=/",
     "a=2;domain=.test.com;path=/",
-    "b=3;domain=.test.com;path=/"
+    "b=3;domain=.test.com;path=/",
 ]);
 testCookies = testCookieJar2.getCookies(new CookieAccessInfo("test.com", "/"));
 // assert.equal(testCookies.length, 2);
@@ -87,7 +87,7 @@ testCookies = testCookieJar2.getCookies(new CookieAccessInfo("test.com"));
 // assert.equal(testCookies.length, 4);
 
 testCookieJar2.setCookie(new Cookie("sub=5;path=/", "test.com", "/accounts"));
-testCookie = testCookieJar2.getCookie('sub', CookieAccessInfo.All);
+testCookie = testCookieJar2.getCookie("sub", CookieAccessInfo.All);
 // assert(testCookie);
 // assert.equal(testCookie.name, 'sub');
 

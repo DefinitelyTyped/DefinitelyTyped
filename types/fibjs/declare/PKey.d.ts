@@ -30,8 +30,6 @@ declare class Class_PKey extends Class__object {
      *
      * @brief 返回当前算法名称
      *
-     * @readonly
-     *
      */
 
     name: string
@@ -42,7 +40,6 @@ declare class Class_PKey extends Class__object {
      *
      * @brief 返回当前算法密码长度，以位为单位
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -56,8 +53,6 @@ declare class Class_PKey extends Class__object {
      * @return 当前密钥的公钥
      *
      *
-     * @readonly
-     * @type PKey
      */
 
     publicKey: Class_PKey

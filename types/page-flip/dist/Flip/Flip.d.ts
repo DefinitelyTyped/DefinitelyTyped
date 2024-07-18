@@ -1,20 +1,20 @@
-import { Render } from '../Render/Render';
-import { PageFlip } from '../PageFlip';
-import { Point } from '../BasicTypes';
-import { FlipCalculation } from './FlipCalculation';
+import { Point } from "../BasicTypes";
+import { PageFlip } from "../PageFlip";
+import { Render } from "../Render/Render";
+import { FlipCalculation } from "./FlipCalculation";
 /**
  * Flipping direction
  */
 export enum FlipDirection {
     FORWARD = 0,
-    BACK = 1
+    BACK = 1,
 }
 /**
  * Active corner when flipping
  */
 export enum FlipCorner {
     TOP = "top",
-    BOTTOM = "bottom"
+    BOTTOM = "bottom",
 }
 /**
  * State of the book
@@ -27,7 +27,7 @@ export enum FlippingState {
     /** During flipping animation */
     FLIPPING = "flipping",
     /** Base state */
-    READ = "read"
+    READ = "read",
 }
 /**
  * Class representing the flipping process

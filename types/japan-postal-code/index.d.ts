@@ -1,8 +1,3 @@
-// Type definitions for japan-postal-code 0.2
-// Project: https://github.com/mzp/japan-postal-code
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace JapanPostalCode {
     interface Callback {
         (address: AddressData): void;

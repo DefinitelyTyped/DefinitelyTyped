@@ -1,4 +1,4 @@
-import PouchDB = require('pouchdb-core');
+import PouchDB = require("pouchdb-core");
 
 function isString(someString: string) {
 }
@@ -26,7 +26,7 @@ function testAllDocs() {
 
     db.allDocs({ startkey: "a", endkey: "b" });
     db.allDocs({ startkey: "a", endkey: "b", inclusive_end: true });
-    db.allDocs({ keys: ["a", "b", "c" ]}).then(({ offset, total_rows, rows }) => {
+    db.allDocs({ keys: ["a", "b", "c"] }).then(({ offset, total_rows, rows }) => {
         isNumber(offset);
         isNumber(total_rows);
 
@@ -55,7 +55,7 @@ function testAllDocs() {
         descending: true,
         include_docs: true,
         limit: 5,
-        skip: 1
+        skip: 1,
     });
 }
 
@@ -64,22 +64,22 @@ function testBulkDocs() {
     interface MyModel {
         property: string;
     }
-    const model = { property: 'test' };
-    const model2 = { property: 'test' };
+    const model = { property: "test" };
+    const model2 = { property: "test" };
 
     const isError = (
-        result: PouchDB.Core.Response | PouchDB.Core.Error
+        result: PouchDB.Core.Response | PouchDB.Core.Error,
     ): result is PouchDB.Core.Error => {
         return !!(result as PouchDB.Core.Error).error;
     };
 
     db.bulkDocs([model, model2]).then((result) => {
         result.forEach(result => {
-          if (!isError(result)) {
-            const { ok, id, rev } = result;
-            isString(id);
-            isString(rev);
-          }
+            if (!isError(result)) {
+                const { ok, id, rev } = result;
+                isString(id);
+                isString(rev);
+            }
         });
     });
 
@@ -89,7 +89,7 @@ function testBulkDocs() {
 
 function testBulkGet() {
     const db = new PouchDB();
-    db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}).then((response) => {
+    db.bulkGet({ docs: [{ id: "a", rev: "b" }, { id: "b", rev: "c" }, { id: "c", rev: "d" }] }).then((response) => {
         const results = response.results;
         results.forEach((result) => {
             const id = result.id;
@@ -97,12 +97,15 @@ function testBulkGet() {
             docs.map((doc) => doc);
         });
     });
-    db.bulkGet({docs: [{id: 'a', rev: 'b'}, {id: 'b', rev: 'c'}, {id: 'c', rev: 'd'}]}, (error, response) => {});
+    db.bulkGet(
+        { docs: [{ id: "a", rev: "b" }, { id: "b", rev: "c" }, { id: "c", rev: "d" }] },
+        (error, response) => {},
+    );
 }
 function testRevsDiff() {
     const db = new PouchDB();
-    db.revsDiff({a: ['1-a', '2-b']}).then((result) => {});
-    db.revsDiff({a: ['1-a', '2-b']}, (error, response) => {});
+    db.revsDiff({ a: ["1-a", "2-b"] }).then((result) => {});
+    db.revsDiff({ a: ["1-a", "2-b"] }, (error, response) => {});
 }
 
 function testCompact() {
@@ -110,9 +113,9 @@ function testCompact() {
     // Promise version
     db.compact().then((res: PouchDB.Core.Response) => {});
     // Promise version with optional options
-    db.compact({interval: 300}).then((res: PouchDB.Core.Response) => {});
+    db.compact({ interval: 300 }).then((res: PouchDB.Core.Response) => {});
     // Options with a callback
-    db.compact({interval: 300}, (res: PouchDB.Core.Response) => {});
+    db.compact({ interval: 300 }, (res: PouchDB.Core.Response) => {});
 }
 
 function testDestroy() {
@@ -121,16 +124,16 @@ function testDestroy() {
     db.destroy({}, (error) => {
     });
     db.destroy().then(() => {
-            }).catch((error) => {
-            });
+    }).catch((error) => {
+    });
 }
 
 function testBasics() {
     interface MyModel {
         property: string;
     }
-    let model = { property: 'test' };
-    const id = 'model';
+    let model = { property: "test" };
+    const id = "model";
 
     const db = new PouchDB<MyModel>();
 
@@ -161,18 +164,18 @@ function testBasics() {
     });
 
     // "Round-trippable": can put back a document from get
-    db.get('id').then(doc => db.put(doc));
+    db.get("id").then(doc => db.put(doc));
 
-    PouchDB.debug.enable('*');
+    PouchDB.debug.enable("*");
 }
 
 function testRemove() {
     interface MyModel {
         property: string;
     }
-    const id = 'model';
-    const rev = 'rev';
-    const model = { _id: id, _rev: rev, existingDocProperty: 'any' };
+    const id = "model";
+    const rev = "rev";
+    const model = { _id: id, _rev: rev, existingDocProperty: "any" };
 
     const db = new PouchDB<MyModel>();
 
@@ -203,7 +206,7 @@ function testChanges() {
 
     db.changes({
         live: true,
-        since: 'now',
+        since: "now",
         timeout: 1,
         include_docs: true,
         limit: 1,
@@ -212,96 +215,96 @@ function testChanges() {
         binary: true,
         descending: true,
         heartbeat: 1,
-        filter: '',
-        doc_ids: [''],
-        query_params: {paramName: 'any'},
-        view: ''
+        filter: "",
+        doc_ids: [""],
+        query_params: { paramName: "any" },
+        view: "",
     })
-    .on('change', (change) => {
-        const _id: string = change.id;
-        const _seq: number = change.seq as number;
-        const _seq_couch20: string = change.seq as string;
-        const _changes: Array<{ rev: string }> = change.changes;
-        const _foo: string = change.doc!.foo;
-        const _deleted: boolean | undefined = change.doc!._deleted;
-        const _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
-    })
-    .on('complete', (info) => {
-        const _status: string = info.status;
-        const _last_req: number = info.last_seq as number;
-        const _last_seq_couch20: string = info.last_seq as string;
-        const change = info.results[0];
+        .on("change", (change) => {
+            const _id: string = change.id;
+            const _seq: number = change.seq as number;
+            const _seq_couch20: string = change.seq as string;
+            const _changes: Array<{ rev: string }> = change.changes;
+            const _foo: string = change.doc!.foo;
+            const _deleted: boolean | undefined = change.doc!._deleted;
+            const _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
+        })
+        .on("complete", (info) => {
+            const _status: string = info.status;
+            const _last_req: number = info.last_seq as number;
+            const _last_seq_couch20: string = info.last_seq as string;
+            const change = info.results[0];
 
-        const _id: string = change.id;
-        const _seq: number = change.seq as number;
-        const _seq_couch20: string = change.seq as string;
-        const _changes: Array<{ rev: string }> = change.changes;
-        const _deleted: boolean | undefined = change.doc!._deleted;
-        const _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
-    });
+            const _id: string = change.id;
+            const _seq: number = change.seq as number;
+            const _seq_couch20: string = change.seq as string;
+            const _changes: Array<{ rev: string }> = change.changes;
+            const _deleted: boolean | undefined = change.doc!._deleted;
+            const _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
+        });
 
     db.changes({
         since: 1,
         timeout: false,
         limit: false,
         heartbeat: false,
-        filter: (doc: any, params: any) => {}
+        filter: (doc: any, params: any) => {},
     });
 
     db.changes({ limit: 50 }).then(() => {});
 }
 
 function testRemoteOptions() {
-    const db = new PouchDB('http://example.com/dbname', {
+    const db = new PouchDB("http://example.com/dbname", {
         fetch(url, opts) {
             return PouchDB.fetch(url, opts);
         },
         auth: {
-            username: 'mysecretusername',
-            password: 'mysecretpassword'
+            username: "mysecretusername",
+            password: "mysecretpassword",
         },
-        skip_setup: true
+        skip_setup: true,
     });
 }
 
 function testViews() {
-    const db = new PouchDB('dbview');
+    const db = new PouchDB("dbview");
     db.put({
-        _id: '_design/index',
+        _id: "_design/index",
         views: {
             foo: {
-                map: 'func(doc){emit(doc.foo)}',
-                reduce: '_count'
+                map: "func(doc){emit(doc.foo)}",
+                reduce: "_count",
             },
             bar: {
-                map: 'func(doc){emit(doc.bar, doc.buzz)}',
-                reduce: '_sum'
+                map: "func(doc){emit(doc.bar, doc.buzz)}",
+                reduce: "_sum",
             },
             buzz: {
-                map: 'func(doc){emit(doc.buzz)}'
-            }
-        }
+                map: "func(doc){emit(doc.buzz)}",
+            },
+        },
     });
 }
 
 function testPlugins() {
-    const plugin: PouchDB.Plugin<{ foo: number, getFoo: () => number }> = {
+    const plugin: PouchDB.Plugin<{ foo: number; getFoo: () => number }> = {
         foo: 42,
         getFoo: () => 42,
     };
     const PouchDBWithPlugin = PouchDB.plugin(plugin);
-    const PouchDBWithPluginCb = PouchDB.plugin<{ foo: number, getFoo: () => number }>(db => {
+    const PouchDBWithPluginCb = PouchDB.plugin<{ foo: number; getFoo: () => number }>(db => {
         db.foo = 42;
         db.getFoo = () => 42;
     });
 
-    const db1 = new PouchDBWithPlugin('dbplugins1');
+    const db1 = new PouchDBWithPlugin("dbplugins1");
     // $ExpectType number
     db1.foo;
     // $ExpectType number
     db1.getFoo();
 
-    const db2 = new PouchDBWithPluginCb('dbplugins2');
+    const db2 = new PouchDBWithPluginCb("dbplugins2");
     // $ExpectType number
     db2.foo;
     // $ExpectType number
@@ -320,15 +323,15 @@ function heterogeneousGenericsDatabase(db: PouchDB.Database) {
     // Attachment test
     db.put<Cat>({
         _attachments: {
-            ['meme.gif']: {
-                content_type: 'image/gif',
-                data: new Blob(['fake example'])
-            }
+            ["meme.gif"]: {
+                content_type: "image/gif",
+                data: new Blob(["fake example"]),
+            },
         },
-        meow: 'roar'
+        meow: "roar",
     });
 
-    db.allDocs<Cat>({ startkey: 'cat/', endkey: 'cat/\uffff', include_docs: true })
+    db.allDocs<Cat>({ startkey: "cat/", endkey: "cat/\uffff", include_docs: true })
         .then(cats => {
             for (const row of cats.rows) {
                 if (row.doc) {
@@ -343,7 +346,7 @@ function heterogeneousGenericsDatabase(db: PouchDB.Database) {
                 }
             }
         });
-    db.allDocs<Boot>({ startkey: 'boot/', endkey: 'boot/\uffff', include_docs: true })
+    db.allDocs<Boot>({ startkey: "boot/", endkey: "boot/\uffff", include_docs: true })
         .then(boots => {
             for (const row of boots.rows) {
                 if (row.doc) {

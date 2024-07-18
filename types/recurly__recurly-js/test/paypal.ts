@@ -1,4 +1,4 @@
-export default function paypal() {
+export default function paypal () {
   const paypal = window.recurly.PayPal();
 
   window.recurly.PayPal({
@@ -26,7 +26,7 @@ export default function paypal() {
   paypal.start();
   paypal.start({
     options: {
-      description: "description"
+      description: 'description'
     }
   });
   paypal.destroy();

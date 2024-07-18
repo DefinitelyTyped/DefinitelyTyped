@@ -1,4 +1,4 @@
-export default function configure() {
+export default function configure () {
   window.recurly.configure('my-public-key');
   window.recurly.configure({
     cors: true,

@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "target": "ESNext",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "auto.d.ts",
+        "polyfill.d.ts",
+        "implementation.d.ts",
+        "shim.d.ts",
+        "regexp.prototype.flags-tests.ts"
+    ]
+}

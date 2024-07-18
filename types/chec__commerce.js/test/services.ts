@@ -1,9 +1,9 @@
-import Commerce = require('@chec/commerce.js');
+import Commerce = require("@chec/commerce.js");
 
-const commerce = new Commerce('{your_public_key}');
+const commerce = new Commerce("{your_public_key}");
 
-const token = 'checkout_token_id';
-const country = 'US';
+const token = "checkout_token_id";
+const country = "US";
 
 // $ExpectType Promise<LocaleListCountriesResponse>
 commerce.services.localeListCountries();

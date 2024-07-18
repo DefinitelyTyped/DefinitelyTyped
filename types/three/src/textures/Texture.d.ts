@@ -1,23 +1,24 @@
-import { Vector2 } from './../math/Vector2';
-import { Matrix3 } from './../math/Matrix3';
-import { Source } from './Source';
-import { EventDispatcher } from './../core/EventDispatcher';
 import {
+    AnyMapping,
+    AnyPixelFormat,
+    ColorSpace,
+    MagnificationTextureFilter,
     Mapping,
-    Wrapping,
+    MinificationTextureFilter,
     PixelFormat,
     PixelFormatGPU,
     TextureDataType,
-    TextureEncoding,
-    MagnificationTextureFilter,
-    MinificationTextureFilter,
-    AnyPixelFormat,
-    AnyMapping,
-    ColorSpace,
-} from '../constants';
+    Wrapping,
+} from "../constants.js";
+import { EventDispatcher } from "../core/EventDispatcher.js";
+import { Matrix3 } from "../math/Matrix3.js";
+import { Vector2 } from "../math/Vector2.js";
+import { CompressedTextureMipmap } from "./CompressedTexture.js";
+import { CubeTexture } from "./CubeTexture.js";
+import { Source } from "./Source.js";
 
 /** Shim for OffscreenCanvas. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OffscreenCanvas extends EventTarget {}
 
 /**
@@ -38,7 +39,7 @@ export interface OffscreenCanvas extends EventTarget {}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/Texture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/Textures/Texture.js | Source}
  */
-export class Texture extends EventDispatcher {
+export class Texture extends EventDispatcher<{ dispose: {} }> {
     /**
      * This creates a new {@link THREE.Texture | Texture} object.
      * @param image See {@link Texture.image | .image}. Default {@link THREE.Texture.DEFAULT_IMAGE}
@@ -78,7 +79,6 @@ export class Texture extends EventDispatcher {
         format: PixelFormat,
         type: TextureDataType,
         anisotropy: number,
-        encoding: TextureEncoding,
     );
 
     /**
@@ -129,7 +129,7 @@ export class Texture extends EventDispatcher {
      * Array of user-specified mipmaps
      * @defaultValue `[]`
      */
-    mipmaps: any[]; // ImageData[] for 2D textures and CubeTexture[] for cube textures;
+    mipmaps: CompressedTextureMipmap[] | CubeTexture[] | HTMLCanvasElement[] | undefined;
 
     /**
      * How the image is applied to the object.
@@ -201,8 +201,8 @@ export class Texture extends EventDispatcher {
 
     /**
      * These define how elements of a 2D texture, or texels, are read by shaders.
-     * @remarks All {@link Texture} types except {@link THREE.DeepTexture} and {@link THREE.CompressedPixelFormat} expect the _values_ be {@link THREE.PixelFormat}
-     * @remarks {@link DeepTexture} expect the _values_ be {@link THREE.CubeTextureMapping}
+     * @remarks All {@link Texture} types except {@link THREE.DepthTexture} and {@link THREE.CompressedPixelFormat} expect the _values_ be {@link THREE.PixelFormat}
+     * @remarks {@link DepthTexture} expect the _values_ be {@link THREE.CubeTextureMapping}
      * @remarks {@link CompressedPixelFormat} expect the _values_ be {@link THREE.CubeTextureMapping}
      * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
      * @see {@link THREE.PixelFormat}
@@ -325,19 +325,6 @@ export class Texture extends EventDispatcher {
     unpackAlignment: number; // TODO Fix typing to only allow the expected values.
 
     /**
-     * The {@link Textures | {@link Texture} constants} page for details of other formats.
-     * @remarks
-     * Values of {@link encoding} !== {@link THREE.LinearEncoding} are only supported on _map_, _envMap_ and _emissiveMap_.
-     * @remarks
-     * Note that if this value is changed on a texture after the material has been used, it is necessary to trigger a {@link THREE.Material.needsUpdate} for this value to be realized in the shader.
-     * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
-     * @see {@link THREE.TextureDataType}
-     * @defaultValue {@link THREE.LinearEncoding}
-     * @deprecated Use {@link Texture.colorSpace .colorSpace} in three.js r152+.
-     */
-    encoding: TextureEncoding;
-
-    /**
      * The {@link Textures | {@link Texture} constants} page for details of other color spaces.
      * @remarks
      * Textures containing color data should be annotated with {@link SRGBColorSpace THREE.SRGBColorSpace} or
@@ -355,18 +342,11 @@ export class Texture extends EventDispatcher {
     isRenderTargetTexture: boolean;
 
     /**
-     * Indicates whether this texture should be processed by {@link THREE.PMREMGenerator} or not.
-     * @remarks Only relevant for render target textures.
-     * @defaultValue `false`
-     */
-    needsPMREMUpdate: boolean;
-
-    /**
      * An object that can be used to store custom data about the texture.
      * @remarks It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
      */
-    userData: any;
+    userData: Record<string, any>;
 
     /**
      * This starts at `0` and counts how many times {@link needsUpdate | .needsUpdate} is set to `true`.
@@ -376,9 +356,22 @@ export class Texture extends EventDispatcher {
     version: number;
 
     /**
+     * Indicates whether this texture should be processed by PMREMGenerator or not (only relevant for render target
+     * textures)
+     */
+    pmremVersion: number;
+
+    /**
      * Set this to `true` to trigger an update next time the texture is used. Particularly important for setting the wrap mode.
      */
     set needsUpdate(value: boolean);
+
+    /**
+     * Indicates whether this texture should be processed by {@link THREE.PMREMGenerator} or not.
+     * @remarks Only relevant for render target textures.
+     * @defaultValue `false`
+     */
+    set needsPMREMUpdate(value: boolean);
 
     /**
      * The Global default value for {@link anisotropy | .anisotropy}.

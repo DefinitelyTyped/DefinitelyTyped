@@ -1,19 +1,13 @@
-// Type definitions for hexo 3.8
-// Project: https://hexo.io/
-// Definitions by: KentarouTakeda <https://github.com/kentarouTakeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { EventEmitter } from 'events';
-import moment = require('moment');
-import { ParsedArgs } from 'minimist';
-import Logger = require('bunyan');
-import underscore = require('underscore');
-import connect = require('connect');
-import Stream = require('stream');
-import util = require('hexo-util');
-import fs = require('fs');
-import Bluebird = require('bluebird');
+import { EventEmitter } from "events";
+import moment = require("moment");
+import { ParsedArgs } from "minimist";
+import Logger = require("bunyan");
+import underscore = require("underscore");
+import connect = require("connect");
+import Stream = require("stream");
+import util = require("hexo-util");
+import fs = require("fs");
+import Bluebird = require("bluebird");
 
 declare global {
     const hexo: Hexo;
@@ -400,47 +394,47 @@ declare class Hexo extends EventEmitter {
     /**
      * Emitted before deployment begins.
      */
-    on(ev: 'deployBefore', fn: () => void): this;
+    on(ev: "deployBefore", fn: () => void): this;
 
     /**
      * Emitted after deployment finishes.
      */
-    on(ev: 'deployAfter', fn: () => void): this;
+    on(ev: "deployAfter", fn: () => void): this;
 
     /**
      * Emitted before Hexo exits.
      */
-    on(ev: 'exit', fn: (err: any) => void): this;
+    on(ev: "exit", fn: (err: any) => void): this;
 
     /**
      * Emitted before generation begins.
      */
-    on(ev: 'generateBefore', fn: () => void): this;
+    on(ev: "generateBefore", fn: () => void): this;
 
     /**
      * Emitted after generation finishes.
      */
-    on(ev: 'generateAfter', fn: () => void): this;
+    on(ev: "generateAfter", fn: () => void): this;
 
     /**
      * Emitted after a new post has been created. This event returns the post data:
      */
-    on(ev: 'new', fn: (post: { path: string; content: string }) => void): this;
+    on(ev: "new", fn: (post: { path: string; content: string }) => void): this;
 
     /**
      * Emitted before processing begins. This event returns a path representing the root directory of the box.
      */
-    on(ev: 'processBefore', fn: (type: Hexo.Box.File['type'], path: string) => void): this;
+    on(ev: "processBefore", fn: (type: Hexo.Box.File["type"], path: string) => void): this;
 
     /**
      * Emitted after processing finishes. This event returns a path representing the root directory of the box.
      */
-    on(ev: 'processAfter', fn: (type: Hexo.Box.File['type'], path: string) => void): this;
+    on(ev: "processAfter", fn: (type: Hexo.Box.File["type"], path: string) => void): this;
 
     /**
      * Emitted after initialization finishes.
      */
-    on(ev: 'ready', fn: () => void): this;
+    on(ev: "ready", fn: () => void): this;
 }
 
 declare namespace Hexo {
@@ -454,10 +448,10 @@ declare namespace Hexo {
     }
 
     interface Locals {
-        get(type: 'posts'): Model<Locals.Post>;
-        get(type: 'pages'): Model<Locals.Page>;
-        get(type: 'categories'): Model<Locals.Category>;
-        get(type: 'tags'): Model<Locals.Tag>;
+        get(type: "posts"): Model<Locals.Post>;
+        get(type: "pages"): Model<Locals.Page>;
+        get(type: "categories"): Model<Locals.Category>;
+        get(type: "tags"): Model<Locals.Tag>;
         /**
          * Get a Variable
          */
@@ -572,7 +566,8 @@ declare namespace Hexo {
              * Executed before a post is rendered. Refer to post rendering to learn the execution steps.
              */
             register(
-                type: 'before_post_render',
+                type: "before_post_render",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (data: { content: string; [key: string]: any }) => { content: string; [key: string]: any } | void,
                 priority?: number,
             ): void;
@@ -581,7 +576,8 @@ declare namespace Hexo {
              * Executed after a post is rendered. Refer to post rendering to learn the execution steps.
              */
             register(
-                type: 'after_post_render',
+                type: "after_post_render",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (data: { content: string; [key: string]: any }) => { content: string; [key: string]: any } | void,
                 priority?: number,
             ): void;
@@ -589,23 +585,24 @@ declare namespace Hexo {
             /**
              * Executed before Hexo is about to exit – this will run right after `hexo.exit` is called.
              */
-            register(type: 'before_exit', fn: () => void, priority?: number): void;
+            register(type: "before_exit", fn: () => void, priority?: number): void;
 
             /**
              * Executed before generation begins.
              */
-            register(type: 'before_generate', fn: (data: any) => any, priority?: number): void;
+            register(type: "before_generate", fn: (data: any) => any, priority?: number): void;
 
             /**
              * Executed after generation finishes.
              */
-            register(type: 'after_generate', fn: () => void, priority?: number): void;
+            register(type: "after_generate", fn: () => void, priority?: number): void;
 
             /**
              * Modify [local variables](https://hexo.io/docs/variables) in templates.
              */
             register(
-                type: 'template_locals',
+                type: "template_locals",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (locals: TemplateLocals) => TemplateLocals | void,
                 priority?: number,
             ): void;
@@ -613,13 +610,13 @@ declare namespace Hexo {
             /**
              * Executed after Hexo is initialized – this will run right after `hexo.init` completes.
              */
-            register(type: 'after_init', fn: () => void, priority?: number): void;
+            register(type: "after_init", fn: () => void, priority?: number): void;
 
             /**
              * Executed when creating a post to determine the path of new posts.
              */
             register(
-                type: 'new_post_path',
+                type: "new_post_path",
                 fn: (data: Post.Data, replace: boolean | undefined) => void,
                 priority?: number,
             ): void;
@@ -627,13 +624,14 @@ declare namespace Hexo {
             /**
              * Used to determine the permalink of posts.
              */
-            register(type: 'post_permalink', fn: (permalink: string) => string, priority?: number): void;
+            register(type: "post_permalink", fn: (permalink: string) => string, priority?: number): void;
 
             /**
              * Executed after rendering finishes. You can see rendering for more info.
              */
             register(
-                type: 'after_render:html',
+                type: "after_render:html",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (result: string, data: { path: string; text: string; [key: string]: any }) => string | void,
                 priority?: number,
             ): void;
@@ -641,13 +639,14 @@ declare namespace Hexo {
             /**
              * Executed after generated files and cache are removed with hexo clean command.
              */
-            register(type: 'after_clean', fn: () => void, priority?: number): void;
+            register(type: "after_clean", fn: () => void, priority?: number): void;
 
             /**
              * Add middleware to the server. app is a Connect instance.
              */
             register(
-                type: 'server_middleware',
+                type: "server_middleware",
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 fn: (app: connect.Server) => connect.Server | void,
                 priority?: number,
             ): void;
@@ -844,7 +843,7 @@ declare namespace Hexo {
             /**
              * File type. The value can be `create` , `update` , `skip`, `delete` .
              */
-            readonly type: 'create' | 'update' | 'skip' | 'delete';
+            readonly type: "create" | "update" | "skip" | "delete";
 
             /**
              * The information from path matching.
@@ -1003,7 +1002,7 @@ interface TemplateLocals {
      */
     config: HexoConfig;
     theme: HexoConfig;
-    env: Hexo['env'];
+    env: Hexo["env"];
     layout: string;
     view_dir: string;
     site: any;

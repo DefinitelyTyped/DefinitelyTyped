@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/mockjs",
+    "version": "1.0.9999",
+    "projects": [
+        "http://mockjs.com/"
+    ],
+    "devDependencies": {
+        "@types/mockjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "lavyun",
+            "url": "httpS://github.com/lavyun"
+        },
+        {
+            "name": "ChenKS12138",
+            "githubUsername": "ChenKS12138"
+        }
+    ]
+}

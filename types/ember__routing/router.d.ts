@@ -1,7 +1,10 @@
 import EmberObject from "@ember/object";
 import Evented from "@ember/object/evented";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RouterDSL from "@ember/routing/-private/router-dsl";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Transition from "@ember/routing/transition";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RouterService from "@ember/routing/router-service";
 
 /**
@@ -21,7 +24,7 @@ export default class Router extends EmberObject {
      *
      * @note the `'auto'` location is [deprecated](https://deprecations.emberjs.com/v4.x/#toc_deprecate-auto-location).
      */
-    location: 'history' | 'hash' | 'none' | 'auto';
+    location: "history" | "hash" | "none" | "auto";
     /**
      * Represents the URL of the root of the application, often '/'. This prefix is
      * assumed on all routes defined on this router.
@@ -36,11 +39,11 @@ export default class Router extends EmberObject {
     transitionTo(name: string, options: {}): Transition;
 }
 
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface Router extends Evented {}
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
-        'router': RouterService;
+        "router": RouterService;
     }
 }

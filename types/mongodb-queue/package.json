@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/mongodb-queue",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/chilts/mongodb-queue"
+    ],
     "dependencies": {
-        "mongodb": "^4.5.0"
-    }
+        "@types/node": "*",
+        "mongodb": "*"
+    },
+    "devDependencies": {
+        "@types/mongodb-queue": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "FiveOFive",
+            "githubUsername": "FiveOFive"
+        },
+        {
+            "name": "codejockie",
+            "githubUsername": "codejockie"
+        }
+    ]
 }

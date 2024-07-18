@@ -1,8 +1,3 @@
-// Type definitions for autokanji 1.0
-// Project: https://github.com/TylerMartinez/AutoKanji#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Javascript library that provides autocomplete suggestions for kanjibased on a kana input.
  * The kana to kanji translations are based off the JMDict Dictionary Project.

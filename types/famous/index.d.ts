@@ -1,128 +1,123 @@
-// Type definitions for Famous Engine v0.7.1
-// Project: http://famous.org/
-// Definitions by: Boris Vasilenko <https://github.com/borisvasilenko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "famous/core" {
     export class FamousEngine {
         static init(): FamousEngine;
         static createScene(): Scene;
         static getClock(): Clock;
         static getContext(selector: string): Scene;
-        
+
         createScene(): Scene;
-        
+
         static requestUpdate(requester: number): void;
         static requestUpdateOnNextTick(requester: number): void;
     }
-    
+
     export class Scene extends Node {
     }
-    
+
     export class Node {
         static RELATIVE_SIZE: number;
         static ABSOLUTE_SIZE: number;
         static RENDER_SIZE: number;
         static DEFAULT_SIZE: number;
-        
+
         addComponent(component: any): number;
         getComponent(index: number): any;
         getComponents(): any[];
-        
+
         addChild(node?: Node): Node;
         getChildren(): Node[];
         removeChild(node: Node): boolean;
         getParent(): Node;
-        
+
         mount(): void;
         dismount(): void;
-        
+
         show(): Node;
         hide(): Node;
-        
+
         onUpdate(time: number): void;
         requestUpdate(requester: number): void;
         requestUpdateOnNextTick(requester: number): void;
-        
+
         getSizeMode(): number[];
-        setSizeMode(x?: string|number, y?: string|number, z?: string|number): Node;
-        
+        setSizeMode(x?: string | number, y?: string | number, z?: string | number): Node;
+
         getSize(): number[];
         getRenderSize(): number[];
-        
+
         getAbsoluteSize(): number[];
         setAbsoluteSize(x?: number, y?: number, z?: number): Node;
-        
+
         getDifferentialSize(): number[];
         setDifferentialSize(x?: number, y?: number, z?: number): Node;
-        
+
         getProportionalSize(): number[];
         setProportionalSize(x?: number, y?: number, z?: number): Node;
-        
+
         onSizeChange(x: number, y: number, z: number): void;
-        
+
         getPosition(): number[];
         setPosition(x?: number, y?: number, z?: number): Node;
-        
+
         emit(event: any, payload?: any): void;
-        
+
         isMounted(): boolean;
         isShown(): boolean;
-        
+
         getMountPoint(): number[];
         setMountPoint(x?: number, y?: number, z?: number): Node;
-        
+
         getAlign(): number[];
         setAlign(x?: number, y?: number, z?: number): Node;
-        
+
         setScale(x?: number, y?: number, z?: number): Node;
-        
+
         setOrigin(x?: number, y?: number, z?: number): Node;
         setRotation(x?: number, y?: number, z?: number, w?: number): Node;
-        
+
         addUIEvent(eventName: string): void;
         getLocation(): string;
     }
-    
+
     export class Size {
         static RELATIVE: number;
         static ABSOLUTE: number;
         static RENDER: number;
         static DEFAULT: number;
     }
-    
+
     export class Clock {
         setTimeout(callback: Function, delay?: number): void;
     }
-    
+
     export class Dispatch {
         static dispatchUIEvent(path: string, event: string, payload: any): void;
     }
-    
+
     export class TransformSystem {
         static deregisterTransformAtPath(path: string): void;
     }
-    
+
     export class SizeSystem {
         static deregisterSizeAtPath(path: string): void;
     }
 }
 
 declare module "famous/dom-renderables" {
-    import { Node } from 'famous/core'
-    
+    import { Node } from "famous/core";
+
     export class DOMElement {
         constructor(node: Node, options?: IDOMElementOptions);
         setContent(content: string): Node;
         onShow(): void;
         onHide(): void;
         on(event: string, listener: (payload?: any) => void): () => void;
-        addClass(value: string): DOMElement; 
+        addClass(value: string): DOMElement;
         removeClass(value: string): DOMElement;
         setAttribute(name: string, value: string): DOMElement;
         setProperty(name: string, value: string): DOMElement;
     }
-    
+
     export interface IDOMElementOptions {
         tagName?: string | undefined;
         classes?: string[] | undefined;
@@ -135,164 +130,164 @@ declare module "famous/dom-renderables" {
 }
 
 declare module "famous/components" {
-    import { Node } from 'famous/core'
-    import { Vec2 } from 'famous/math'
-    
+    import { Node } from "famous/core";
+    import { Vec2 } from "famous/math";
+
     export class Position {
         constructor(node: Node);
-        
+
         set(x: number, y?: number, z?: number, transition?: any, callback?: Function): Position;
-        
+
         getX(): number;
         setX(val: number, transition?: any, callback?: Function): Position;
         getY(): number;
         setY(val: number, transition?: any, callback?: Function): Position;
         getZ(): number;
         setZ(val: number, transition?: any, callback?: Function): Position;
-        
+
         isActive(): boolean;
         halt(): Position;
-        
+
         update(): void;
         onUpdate(): void;
     }
-    
+
     export class Transform {
         constructor(node: Node);
-        
+
         translate(): Transform;
-        
+
         clean(): void;
         onUpdate(): void;
     }
-    
+
     export class Size {
         constructor(node: Node);
-        
+
         setAbsolute(x?: number, y?: number, z?: number, options?: any, callback?: Function): void;
     }
-    
+
     export class Scale {
         constructor(node: Node);
-        
+
         set(x: number, y?: number, z?: number, transition?: any, callback?: Function): Scale;
-        
+
         getX(): number;
         setX(val: number, transition?: any, callback?: Function): Scale;
         getY(): number;
         setY(val: number, transition?: any, callback?: Function): Scale;
         getZ(): number;
         setZ(val: number, transition?: any, callback?: Function): Scale;
-        
+
         isActive(): boolean;
         halt(): Position;
-        
+
         update(): void;
         onUpdate(): void;
     }
-    
+
     export class Rotation {
         constructor(node: Node);
-        
+
         set(x: number, y?: number, z?: number, transition?: any, callback?: Function): Rotation;
-        
+
         getX(): number;
         setX(val: number, transition?: any, callback?: Function): Rotation;
         getY(): number;
         setY(val: number, transition?: any, callback?: Function): Rotation;
         getZ(): number;
         setZ(val: number, transition?: any, callback?: Function): Rotation;
-        
+
         isActive(): boolean;
         halt(): Position;
-        
+
         update(): void;
         onUpdate(): void;
     }
-    
+
     export class Align {
         constructor(node: Node);
-        
+
         set(x: number, y?: number, z?: number, transition?: any, callback?: Function): Align;
-        
+
         getX(): number;
         setX(val: number, transition?: any, callback?: Function): Align;
         getY(): number;
         setY(val: number, transition?: any, callback?: Function): Align;
         getZ(): number;
         setZ(val: number, transition?: any, callback?: Function): Align;
-        
+
         isActive(): boolean;
         halt(): Position;
-        
+
         update(): void;
         onUpdate(): void;
     }
-    
+
     export class MountPoint {
         constructor(node: Node);
-        
+
         set(x: number, y?: number, z?: number, transition?: any, callback?: Function): MountPoint;
-        
+
         getX(): number;
         setX(val: number, transition?: any, callback?: Function): MountPoint;
         getY(): number;
         setY(val: number, transition?: any, callback?: Function): MountPoint;
         getZ(): number;
         setZ(val: number, transition?: any, callback?: Function): MountPoint;
-        
+
         isActive(): boolean;
         halt(): Position;
-        
+
         update(): void;
         onUpdate(): void;
     }
-    
+
     export class Origin {
         constructor(node: Node);
-        
+
         set(x: number, y?: number, z?: number, transition?: any, callback?: Function): Origin;
-        
+
         getX(): number;
         setX(val: number, transition?: any, callback?: Function): Origin;
         getY(): number;
         setY(val: number, transition?: any, callback?: Function): Origin;
         getZ(): number;
         setZ(val: number, transition?: any, callback?: Function): Origin;
-        
+
         isActive(): boolean;
         halt(): Position;
-        
+
         update(): void;
         onUpdate(): void;
     }
-    
+
     export class Opacity {
         constructor(node: Node);
 
         get(): number;
         set(value: number, transition?: any, callback?: Function): Opacity;
-        
+
         isActive(): boolean;
         halt(): Position;
-        
+
         update(): void;
         onUpdate(): void;
     }
-    
+
     export class GestureHandler {
         constructor(node: Node, events?: IGestureEvent[]);
         onReceive(ev: string, payload: IGesturePayload): void;
-        on(ev: string|IGestureEvent, cb: (payload?: IGesturePayload) => void): void;
+        on(ev: string | IGestureEvent, cb: (payload?: IGesturePayload) => void): void;
         triggerGestures(): void;
         trigger(ev: string, payload?: IGesturePayload): void;
     }
-    
+
     export interface IGestureEvent {
         event: string;
         callback: (payload?: IGesturePayload) => void;
     }
-    
+
     export interface IGesturePayload {
         center: Vec2;
         centerDelta: Vec2;
@@ -303,7 +298,7 @@ declare module "famous/components" {
         status: string;
         time: number;
     }
-    
+
     export interface IGesturePointer {
         delta: Vec2;
         position: Vec2;
@@ -347,11 +342,11 @@ declare module "famous/math" {
         static dot(v1: Vec2, v2: Vec2): number;
         static cross(v1: Vec2, v2: Vec2, output: Vec2): Vec2;
     }
-    
+
     export class Mat33 {
         values: number[];
     }
-    
+
     export class Quaternion {
         w: number;
         x: number;
@@ -360,7 +355,7 @@ declare module "famous/math" {
         toEuler(output: Vec3): Vec3;
         fromEuler(x: number, y: number, z: number): Quaternion;
     }
-    
+
     export class Vec3 {
         x: number;
         y: number;
@@ -399,20 +394,16 @@ declare module "famous/math" {
 }
 
 declare module "famous/physics" {
-    import {
-        Vec3, 
-        Mat33,
-        Quaternion 
-    } from 'famous/math'
-    
+    import { Mat33, Quaternion, Vec3 } from "famous/math";
+
     export class PhysicsEngine {
         on(key: string, callback: (payload: any) => void): void;
         off(key: string, callback: (payload: any) => void): void;
         trigger(key: string, payload: any): void;
-        
+
         setOrigin(x: number, y: number, z: number): void;
         setOrientation(w: number, x: number, y: number, z: number): void;
-        
+
         add(...args: any[]): PhysicsEngine;
         remove(...args: any[]): PhysicsEngine;
         addBody(body: any): void;
@@ -421,16 +412,16 @@ declare module "famous/physics" {
         removeBody(body: any): void;
         removeForce(body: any): void;
         removeConstraint(body: any): void;
-        
+
         update(time: number): void;
         getTransform(body: any): IPhysicsTransform;
     }
-    
+
     export interface IPhysicsTransform {
         position: number[];
         rotation: number[];
     }
-    
+
     export class Particle {
         constructor(options?: IParticleOptions);
         position: Vec3;
@@ -486,7 +477,7 @@ declare module "famous/physics" {
         support(): Vec3;
         updateShape(): void;
     }
-    
+
     export interface IParticleOptions {
         position?: Vec3 | undefined;
         orientation?: Quaternion | undefined;
@@ -499,24 +490,23 @@ declare module "famous/physics" {
         collisionMask?: number | undefined;
         collisionGroup?: number | undefined;
     }
-    
+
     export class Wall extends Particle {
         constructor(options: IWallOptions);
         normal: Vec3;
         invNormal: Vec3;
-        
     }
-    
+
     export interface IWallOptions extends IParticleOptions {
         direction?: number | undefined;
     }
-    
+
     export interface IForceOptions {
         targets?: any[] | undefined;
     }
-    
+
     export class Force {
-        constructor(targets?: any[]|any, options?: IForceOptions);
+        constructor(targets?: any[] | any, options?: IForceOptions);
         targets: any[];
         setOptions(options: any): void;
         addTarget(target: any): void;
@@ -524,24 +514,24 @@ declare module "famous/physics" {
         init(options: any): void;
         update(time?: number, dt?: number): void;
     }
-    
+
     export interface IDragOptions extends IForceOptions {
         type?: ((v: number) => number) | undefined;
         strength?: number | undefined;
         max?: number | undefined;
     }
-    
+
     export class Drag extends Force {
         static QUADRATIC: (v: number) => number;
         static LINEAR: (v: number) => number;
         type: (v: number) => number;
         strength: number;
         max: number;
-        constructor(targets?: any[]|any, options?: IDragOptions);
+        constructor(targets?: any[] | any, options?: IDragOptions);
         init(): void;
-        update(): void;    
+        update(): void;
     }
-    
+
     export interface ISpringOptions extends IForceOptions {
         length?: number | undefined;
         type?: ((dist: any, rMax: any) => number) | undefined;
@@ -552,7 +542,7 @@ declare module "famous/physics" {
         dampingRatio?: number | undefined;
         anchor?: Vec3 | undefined;
     }
-    
+
     export class Spring extends Force {
         static FENE: (dist: any, rMax: any) => number;
         static HOOKE: (dist: any, rMax: any) => number;
@@ -564,11 +554,11 @@ declare module "famous/physics" {
         period: number;
         dampingRatio: number;
         anchor: Vec3;
-        constructor(source?: Particle, targets?: Particle[]|Particle, options?: ISpringOptions);
+        constructor(source?: Particle, targets?: Particle[] | Particle, options?: ISpringOptions);
         init(options?: ISpringOptions): void;
         update(): void;
     }
-    
+
     export interface IRotationalSpringOptions extends IForceOptions {
         max?: number | undefined;
         type?: ((dist: any, rMax: any) => number) | undefined;
@@ -578,9 +568,9 @@ declare module "famous/physics" {
         dampingRatio?: number | undefined;
         anchor?: Quaternion | undefined;
     }
-    
+
     export class RotationalSpring extends Force {
-        constructor(source?: Particle, targets?: Particle[]|Particle, options?: IRotationalSpringOptions);
+        constructor(source?: Particle, targets?: Particle[] | Particle, options?: IRotationalSpringOptions);
         max: number;
         stiffness: number;
         damping: number;
@@ -588,17 +578,17 @@ declare module "famous/physics" {
         dampingRatio: number;
         anchor: Vec3;
     }
-    
+
     export class ConvexBody extends Particle {
     }
-    
+
     export class Box extends ConvexBody {
         constructor(options?: any);
     }
-    
+
     export class Constraint {
     }
-    
+
     export class Angle extends Constraint {
         constructor(a: Particle, b: Particle, options?: any);
     }

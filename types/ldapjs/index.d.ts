@@ -1,11 +1,6 @@
-// Type definitions for ldapjs 2.2
-// Project: http://ldapjs.org
-// Definitions by: Charles Villemure <https://github.com/cvillemure>, Peter Kooijmans <https://github.com/peterkooijmans>, Pablo Moleri <https://github.com/pmoleri>, Michael Scott-Nelson <https://github.com/mscottnelson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export import DN = dn.DN;
 export import RDN = dn.RDN;
@@ -42,10 +37,10 @@ export interface ClientOptions {
     reconnect?:
         | boolean
         | {
-              initialDelay?: number | undefined;
-              maxDelay?: number | undefined;
-              failAfter?: number | undefined;
-          }
+            initialDelay?: number | undefined;
+            maxDelay?: number | undefined;
+            failAfter?: number | undefined;
+        }
         | undefined;
     strictDN?: boolean | undefined;
     queueSize?: number | undefined;
@@ -57,7 +52,7 @@ export interface ClientOptions {
 
 export interface SearchOptions {
     /** Defaults to base */
-    scope?: 'base' | 'one' | 'sub' | undefined;
+    scope?: "base" | "one" | "sub" | undefined;
     /**  Defaults to (objectclass=*) */
     filter?: string | Filter | undefined;
     /** Defaults to the empty set, which means all attributes */
@@ -71,9 +66,9 @@ export interface SearchOptions {
     paged?:
         | boolean
         | {
-              pageSize?: number | undefined;
-              pagePause?: boolean | undefined;
-          }
+            pageSize?: number | undefined;
+            pagePause?: boolean | undefined;
+        }
         | undefined;
 }
 
@@ -85,17 +80,17 @@ export interface Change {
 }
 
 export var Change: {
-    new (change: Change): Change;
+    new(change: Change): Change;
 };
 
 export type SearchReference = any;
 
 export interface SearchCallbackResponse extends EventEmitter {
-    on(event: 'searchEntry', listener: (entry: SearchEntry) => void): this;
-    on(event: 'searchReference', listener: (referral: SearchReference) => void): this;
-    on(event: 'page', listener: (res: LDAPResult, cb: (...args: any[]) => void) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'end', listener: (res: LDAPResult | null) => void): this;
+    on(event: "searchEntry", listener: (entry: SearchEntry) => void): this;
+    on(event: "searchReference", listener: (referral: SearchReference) => void): this;
+    on(event: "page", listener: (res: SearchResultDone, cb: (...args: any[]) => void) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "end", listener: (res: SearchResultDone | null) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -123,7 +118,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     bind(dn: string, password: string, callback: CallBack): void;
-    bind(dn: string, password: string, controls: Control | Array<Control>, callback: CallBack): void;
+    bind(dn: string, password: string, controls: Control | Control[], callback: CallBack): void;
 
     /**
      * Adds an entry to the LDAP server.
@@ -139,7 +134,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     add(name: string, entry: Object, callback: ErrorCallback): void;
-    add(name: string, entry: Object, controls: Control | Array<Control>, callback: ErrorCallback): void;
+    add(name: string, entry: Object, controls: Control | Control[], callback: ErrorCallback): void;
 
     /**
      * Compares an attribute/value pair with an entry on the LDAP server.
@@ -156,9 +151,14 @@ export interface Client extends EventEmitter {
         name: string,
         attr: string,
         value: string,
-        controls: Control | Array<Control>,
+        controls: Control | Control[],
         callback: CompareCallback,
     ): void;
+
+    /**
+     * Initiate LDAP connection if lost. The constructor will call this method so there's no need to call it the first time.
+     */
+    connect(): void;
 
     /**
      * Deletes an entry from the LDAP server.
@@ -169,7 +169,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     del(name: string, callback: ErrorCallback): void;
-    del(name: string, controls: Control | Array<Control>, callback: ErrorCallback): void;
+    del(name: string, controls: Control | Control[], callback: ErrorCallback): void;
 
     /**
      * Performs an extended operation on the LDAP server.
@@ -185,7 +185,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     exop(name: string, value: string | Buffer, callback: ExopCallback): void;
-    exop(name: string, value: string | Buffer, controls: Control | Array<Control>, callback: ExopCallback): void;
+    exop(name: string, value: string | Buffer, controls: Control | Control[], callback: ExopCallback): void;
 
     /**
      * Performs an LDAP modify against the server.
@@ -196,11 +196,11 @@ export interface Client extends EventEmitter {
      * @param callback of the form f(err, res).
      * @throws {TypeError} on invalid input.
      */
-    modify(name: string, change: Change | Array<Change>, callback: ErrorCallback): void;
+    modify(name: string, change: Change | Change[], callback: ErrorCallback): void;
     modify(
         name: string,
-        change: Change | Array<Change>,
-        controls: Control | Array<Control>,
+        change: Change | Change[],
+        controls: Control | Control[],
         callback: ErrorCallback,
     ): void;
 
@@ -219,7 +219,7 @@ export interface Client extends EventEmitter {
      * @throws {TypeError} on invalid input.
      */
     modifyDN(name: string, newName: string, callback: ErrorCallback): void;
-    modifyDN(name: string, newName: string, controls: Control | Array<Control>, callback: ErrorCallback): void;
+    modifyDN(name: string, newName: string, controls: Control | Control[], callback: ErrorCallback): void;
 
     /**
      * Performs an LDAP search against the server.
@@ -232,7 +232,7 @@ export interface Client extends EventEmitter {
      * Note that this method is 'special' in that the callback 'res' param will
      * have two important events on it, namely 'searchEntry' and 'end' that you can hook
      * to.  The former will emit a SearchEntry object for each record that comes
-     * back, and the latter will emit a normal LDAPResult object.
+     * back, and the latter will emit a SearchResultDone object.
      *
      * @param {String} base the DN in the tree to start searching at.
      * @param {SearchOptions} options parameters
@@ -242,11 +242,11 @@ export interface Client extends EventEmitter {
      */
     search(base: string, options: SearchOptions, callback: SearchCallBack): void;
     search(base: string, options: SearchOptions, callback: SearchCallBack, _bypass: boolean): void;
-    search(base: string, options: SearchOptions, controls: Control | Array<Control>, callback: SearchCallBack): void;
+    search(base: string, options: SearchOptions, controls: Control | Control[], callback: SearchCallBack): void;
     search(
         base: string,
         options: SearchOptions,
-        controls: Control | Array<Control>,
+        controls: Control | Control[],
         callback: SearchCallBack,
         _bypass: boolean,
     ): void;
@@ -254,8 +254,8 @@ export interface Client extends EventEmitter {
     /**
      * Attempt to secure connection with StartTLS.
      */
-    starttls(options: Object, controls: Control | Array<Control>, callback: CallBack): void;
-    starttls(options: Object, controls: Control | Array<Control>, callback: CallBack, _bypass: boolean): void;
+    starttls(options: Object, controls: Control | Control[], callback: CallBack): void;
+    starttls(options: Object, controls: Control | Control[], callback: CallBack, _bypass: boolean): void;
 
     /**
      * Unbinds this client from the LDAP server.
@@ -358,7 +358,7 @@ export interface Server extends EventEmitter {
 }
 export class SearchRequest {
     baseObject: string;
-    scope: 'base' | 'one' | 'sub';
+    scope: "base" | "one" | "sub";
     derefAliases: number;
     sizeLimit: number;
     timeLimit: number;
@@ -540,11 +540,18 @@ export class ExtensibleFilter extends Filter {
 
 export interface AttributeJson {
     type: string;
-    vals: string[];
+    values: string[];
 }
 
 export class Attribute {
-    constructor(options?: { type?: string; vals?: any });
+    constructor(options?: {
+        type?: string;
+        values?: any;
+        /**
+         * @deprecated
+         */
+        vals?: any;
+    });
     readonly type: string;
     readonly buffers: Buffer[];
 
@@ -553,6 +560,10 @@ export class Attribute {
      *  get: When reading it always returns an array of strings.
      *  set: When assigning it accepts either an array or a single value.
      *       `Buffer`s are assigned directly, any other value is converted to string and loaded into a `Buffer`.
+     */
+    values: string | string[];
+    /**
+     * @deprecated
      */
     vals: string | string[];
 
@@ -569,7 +580,6 @@ interface LDAPMessageJsonObject {
     messageID: number;
     protocolOp: string | undefined;
     controls: Control[];
-    [k: string]: any;
 }
 
 export abstract class LDAPMessage {
@@ -584,14 +594,16 @@ export abstract class LDAPMessage {
     /** A plain object with main properties */
     readonly json: LDAPMessageJsonObject;
 
+    /** plain old js object */
+    readonly pojo: LDAPMessageJsonObject;
+
     /** Stringified json property */
     toString(): string;
     parse(ber: Buffer): boolean;
     toBer(): Buffer;
 }
 
-export class LDAPResult extends LDAPMessage {
-    readonly type: 'LDAPResult';
+declare class BaseLDAPResult extends LDAPMessage {
     /** Result status 0 = success */
     status: number;
     matchedDN: string;
@@ -600,34 +612,27 @@ export class LDAPResult extends LDAPMessage {
     connection: any;
 }
 
-export interface SearchEntryObject {
-    dn: string;
-    controls: Control[];
-    [p: string]: string | string[];
+export class LDAPResult extends BaseLDAPResult {
+    readonly type: "LDAPResult";
 }
 
-export interface SearchEntryRaw {
-    dn: string;
-    controls: Control[];
-    [p: string]: string | Buffer | Buffer[];
+export class SearchResultDone extends BaseLDAPResult {
+    readonly type: "SearchResultDone";
 }
+
+export type SearchEntryObject = LDAPMessageJsonObject & {
+    type: "SearchResultEntry";
+    objectName: string;
+    attributes: AttributeJson[];
+};
 
 export class SearchEntry extends LDAPMessage {
-    readonly type: 'SearchEntry';
+    readonly type: "SearchResultEntry";
     objectName: string | null;
     attributes: Attribute[];
 
-    readonly json: LDAPMessageJsonObject & { objectName: string; attributes: AttributeJson[] };
-
-    /**
-     * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property with their value(s)
-     */
-    readonly object: SearchEntryObject;
-
-    /**
-     * Retrieve an object with `dn`, `controls` and every `Atttribute` as a property, using raw `Buffer`(s) as attribute values.
-     */
-    readonly raw: SearchEntryRaw;
+    readonly json: SearchEntryObject;
+    readonly pojo: SearchEntryObject;
 }
 
 export function parseDN(dn: string): dn.DN;

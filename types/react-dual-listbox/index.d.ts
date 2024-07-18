@@ -1,10 +1,4 @@
-// Type definitions for react-dual-listbox 2.2
-// Project: https://github.com/jakezatecky/react-dual-listbox
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * A value-based option.
@@ -94,7 +88,7 @@ export interface CommonProperties<T> {
      *
      * @default "middle"
      */
-    alignActions?: 'top' | 'middle';
+    alignActions?: "top" | "middle";
     /**
      * If true, duplicate options will be allowed in the selected list box.
      *
@@ -128,15 +122,17 @@ export interface CommonProperties<T> {
      * A key-value pairing of action icons and their React nodes.
      */
     icons?: {
-        [k in
-            | 'moveLeft'
-            | 'moveAllLeft'
-            | 'moveRight'
-            | 'moveAllRight'
-            | 'moveDown'
-            | 'moveUp'
-            | 'moveTop'
-            | 'moveBottom']?: React.ReactNode;
+        [
+            k in
+                | "moveLeft"
+                | "moveAllLeft"
+                | "moveRight"
+                | "moveAllRight"
+                | "moveDown"
+                | "moveUp"
+                | "moveTop"
+                | "moveBottom"
+        ]?: React.ReactNode;
     };
     /**
      * An HTML ID prefix for the various sub elements.
@@ -148,21 +144,23 @@ export interface CommonProperties<T> {
      * A key-value pairing of localized text.
      */
     lang?: {
-        [k in
-            | 'availableFilterHeader'
-            | 'availableHeader'
-            | 'moveAllLeft'
-            | 'moveAllRight'
-            | 'moveLeft'
-            | 'moveRight'
-            | 'moveBottom'
-            | 'moveDown'
-            | 'moveUp'
-            | 'moveTop'
-            | 'noAvailableOptions'
-            | 'noSelectedOptions'
-            | 'selectedFilterHeader'
-            | 'selectedHeader']?: string;
+        [
+            k in
+                | "availableFilterHeader"
+                | "availableHeader"
+                | "moveAllLeft"
+                | "moveAllRight"
+                | "moveLeft"
+                | "moveRight"
+                | "moveBottom"
+                | "moveDown"
+                | "moveUp"
+                | "moveTop"
+                | "noAvailableOptions"
+                | "noSelectedOptions"
+                | "selectedFilterHeader"
+                | "selectedHeader"
+        ]?: string;
     };
     /**
      * A list of key codes that will trigger a toggle of the selected options.
@@ -258,9 +256,8 @@ export interface ValueProperties<T, V extends boolean> {
  */
 // export type DualListBoxProperties<P> = CommonProperties<P> & FilterProperties<P> & ValueProperties<P>;
 export interface DualListBoxProperties<P, F extends boolean, V extends boolean>
-    extends CommonProperties<P>,
-        FilterProperties<P, F>,
-        ValueProperties<P, V> {}
+    extends CommonProperties<P>, FilterProperties<P, F>, ValueProperties<P, V>
+{}
 
 /**
  * A feature-rich dual list box for React.

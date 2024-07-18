@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pkcs7-padding",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/neeh/pkcs7-padding#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pkcs7-padding": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Svet Nikolov",
+            "githubUsername": "svetkomir"
+        }
+    ]
+}

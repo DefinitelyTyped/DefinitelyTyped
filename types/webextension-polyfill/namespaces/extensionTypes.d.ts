@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.extensionTypes
- * Generated from Mozilla sources. Do not manually edit!
  *
  * The <code>browser.extensionTypes</code> API contains type declarations for WebExtensions.
  *

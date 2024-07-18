@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/slate-plain-serializer",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/ianstormtaylor/slate"
+    ],
+    "dependencies": {
+        "@types/slate": "*"
+    },
+    "devDependencies": {
+        "@types/slate-plain-serializer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brandon Shelton",
+            "githubUsername": "YangusKhan"
+        },
+        {
+            "name": "Martin Kiefel",
+            "githubUsername": "mkiefel"
+        }
+    ]
+}

@@ -1,10 +1,4 @@
-// Type definitions for any-db 2.1.0
-// Project: https://github.com/grncdr/node-any-db
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 import events = require("events");
 import stream = require("stream");
@@ -153,7 +147,7 @@ export interface Queryable extends events.EventEmitter {
      * The second form is not needed for normal use, but must be implemented by adapters to work correctly
      * with ConnectionPool and Transaction. See Adapter.createQuery for more details.
      */
-    query(text: string, params?: any[], callback?: (error: Error, results: ResultSet) => void): Query
+    query(text: string, params?: any[], callback?: (error: Error, results: ResultSet) => void): Query;
 
     /**
      * The second form is not needed for normal use, but must be implemented by adapters to work correctly
@@ -192,7 +186,7 @@ export interface Connection extends Queryable {
 }
 
 export interface ConnectionStatic {
-    new (): Connection;
+    new(): Connection;
 
     name: string;
     createConnection(): void;
@@ -286,7 +280,10 @@ export interface PoolConfig {
  * @param callback
  * @returns    Connection object.
  */
-export declare function createConnection(url: string, callback?: (error: Error, connection: Connection) => void): Connection;
+export declare function createConnection(
+    url: string,
+    callback?: (error: Error, connection: Connection) => void,
+): Connection;
 
 /**
  * Create a database connection.
@@ -294,8 +291,10 @@ export declare function createConnection(url: string, callback?: (error: Error, 
  * @param callback
  * @returns    Connection object.
  */
-export declare function createConnection(opts: ConnectOpts, callback?: (error: Error, connection: Connection) => void): Connection;
-
+export declare function createConnection(
+    opts: ConnectOpts,
+    callback?: (error: Error, connection: Connection) => void,
+): Connection;
 
 export declare function createPool(url: string, config: PoolConfig): ConnectionPool;
 export declare function createPool(opts: ConnectOpts, config: PoolConfig): ConnectionPool;

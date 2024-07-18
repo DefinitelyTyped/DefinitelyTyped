@@ -1,17 +1,12 @@
-// Type definitions for jsx-pdf 2.2
-// Project: https://github.com/schibsted/jsx-pdf#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-import * as PDFMake from 'pdfmake/interfaces';
+import * as PDFMake from "pdfmake/interfaces";
 
 export function renderPdf(jsx: JSX.Element): PDFMake.TDocumentDefinitions;
 
-export const Fragment: JSX.IntrinsicElements['stack'];
+export const Fragment: JSX.IntrinsicElements["stack"];
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Element {}
 
         type Child = Element | Element[];
@@ -29,22 +24,22 @@ declare global {
         type EleNoChidlren<Props = {}> = Props;
 
         interface IntrinsicElements {
-            document: Ele<Omit<PDFMake.TDocumentDefinitions, 'content' | 'header' | 'footer'>>;
+            document: Ele<Omit<PDFMake.TDocumentDefinitions, "content" | "header" | "footer">>;
             header: Ele;
             footer: Ele;
             content: Ele;
-            stack: Ele<Omit<PDFMake.ContentStack, 'stack'>>;
-            text: Ele<Omit<PDFMake.ContentText, 'text'>>;
-            ol: Ele<Omit<PDFMake.ContentOrderedList, 'ol'>>;
-            ul: Ele<Omit<PDFMake.ContentUnorderedList, 'ul'>>;
-            table: Ele<Omit<PDFMake.ContentTable, 'table'> & Omit<PDFMake.Table, 'body'>>;
+            stack: Ele<Omit<PDFMake.ContentStack, "stack">>;
+            text: Ele<Omit<PDFMake.ContentText, "text">>;
+            ol: Ele<Omit<PDFMake.ContentOrderedList, "ol">>;
+            ul: Ele<Omit<PDFMake.ContentUnorderedList, "ul">>;
+            table: Ele<Omit<PDFMake.ContentTable, "table"> & Omit<PDFMake.Table, "body">>;
             row: Ele<Element>;
             cell: Ele<Element>;
-            columns: Ele<Omit<PDFMake.ContentColumns, 'columns'>>;
+            columns: Ele<Omit<PDFMake.ContentColumns, "columns">>;
             column: Ele<{ width: number | string }>;
 
-            image: EleNoChidlren<Omit<PDFMake.ContentImage, 'image'> & { src: string }>;
-            qr: EleNoChidlren<Omit<PDFMake.ContentQr, 'qr'> & { content: string }>;
+            image: EleNoChidlren<Omit<PDFMake.ContentImage, "image"> & { src: string }>;
+            qr: EleNoChidlren<Omit<PDFMake.ContentQr, "qr"> & { content: string }>;
             svg: EleNoChidlren<{
                 content: string;
                 width?: number | undefined;

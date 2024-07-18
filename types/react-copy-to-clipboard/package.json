@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-copy-to-clipboard",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/nkbt/react-copy-to-clipboard"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-copy-to-clipboard": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Meno Abels",
+            "githubUsername": "mabels"
+        },
+        {
+            "name": "Bernabe",
+            "githubUsername": "BernabeFelix"
+        },
+        {
+            "name": "Ward Delabastita",
+            "githubUsername": "wdlb"
+        }
+    ]
+}

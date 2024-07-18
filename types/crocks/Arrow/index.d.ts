@@ -1,2 +1,2 @@
-import Arrow from './Arrow';
+import Arrow from "./Arrow";
 export default Arrow;

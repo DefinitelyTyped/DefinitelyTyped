@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/is-object",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/is-object"
+    ],
+    "devDependencies": {
+        "@types/is-object": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wilson Hobbs",
+            "githubUsername": "wbhob"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "Minh-Phuc Tran",
+            "githubUsername": "phuctm97"
+        }
+    ]
+}

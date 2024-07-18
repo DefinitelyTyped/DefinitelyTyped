@@ -1,7 +1,7 @@
-import { DynamsoftEnums } from "./Dynamsoft.Enum";
-import { WebTwain } from "./WebTwain";
 import { Settings } from "./Addon.OCRPro";
+import { DynamsoftEnums } from "./Dynamsoft.Enum";
 import { FileUploader } from "./Dynamsoft.FileUploader";
+import { WebTwain } from "./WebTwain";
 
 export namespace DynamsoftStatic {
     let Lib: DynamsoftLib;
@@ -252,7 +252,8 @@ export interface WebTwainEnv {
         port: string | number,
         portSSL: string | number,
         successCallBack: (DWObject: WebTwain) => void,
-        failureCallBack: (errorString: string) => void): void;
+        failureCallBack: (errorString: string) => void,
+    ): void;
     /**
      * Create a WebTwain instance with UI.
      * @param ContainerId Specify the HTML element (typically of the type HTMLDivElement) to hold the UI.
@@ -262,14 +263,22 @@ export interface WebTwainEnv {
      * @param successCallback A callback function that is executed if the request succeeds.
      * @param failureCallback A callback function that is executed if the request fails.
      */
-    CreateDWTObject(ContainerId: string, successCallBack: (DWObject: WebTwain) => void, failureCallBack: (errorString: string) => void): void;
+    CreateDWTObject(
+        ContainerId: string,
+        successCallBack: (DWObject: WebTwain) => void,
+        failureCallBack: (errorString: string) => void,
+    ): void;
     /**
      * Create a WebTwain instance without UI.
      * @param WebTwainId Specify the Id of the instance.
      * @param successCallback A callback function that is executed if the request succeeds.
      * @param failureCallback A callback function that is executed if the request fails.
      */
-    CreateDWTObjectEx(dwtInitialConfig: DWTInitialConfig, successCallBack: (DWObject: WebTwain) => void, failureCallBack: (errorString: string) => void): void;
+    CreateDWTObjectEx(
+        dwtInitialConfig: DWTInitialConfig,
+        successCallBack: (DWObject: WebTwain) => void,
+        failureCallBack: (errorString: string) => void,
+    ): void;
     /**
      * Define the display info.
      */
@@ -473,5 +482,5 @@ export interface Product {
     host: string;
     name: string;
 }
-declare const Dynamsoft: (typeof DynamsoftEnums & typeof DynamsoftStatic);
+declare const Dynamsoft: typeof DynamsoftEnums & typeof DynamsoftStatic;
 export default Dynamsoft;

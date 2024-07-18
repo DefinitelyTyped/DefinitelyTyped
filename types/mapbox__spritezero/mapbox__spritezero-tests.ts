@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import spritezero = require('@mapbox/spritezero');
-import fs = require('fs');
-import glob = require('glob');
-import path = require('path');
+import spritezero = require("@mapbox/spritezero");
+import fs = require("fs");
+import glob = require("glob");
+import path = require("path");
 
 spritezero.strongRound(2.3491, 2); // $ExpectType number
 spritezero.strongRound(2.3491); // $ExpectType number
@@ -18,7 +18,7 @@ const metadata: spritezero.Metadata = {
 };
 
 const dataLayout: spritezero.DataLayout = {
-    'aerialway-12': {
+    "aerialway-12": {
         width: 12,
         height: 12,
         pixelRatio: 1,
@@ -36,14 +36,14 @@ const imgLayout: spritezero.ImgLayout = {
             width: 12,
             x: 133,
             y: 282,
-            buffer: '...',
+            buffer: "...",
         },
         {
             height: 12,
             width: 12,
             x: 133,
             y: 282,
-            buffer: '...',
+            buffer: "...",
         },
     ],
 };
@@ -59,7 +59,7 @@ spritezero.validateMetadata(
 
 spritezero.extractMetadata(
     {
-        svg: fs.readFileSync(`${__dirname}/fixture/svg-metadata/cn-nths-expy-2-affinity.svg`, 'utf-8'),
+        svg: fs.readFileSync(`${__dirname}/fixture/svg-metadata/cn-nths-expy-2-affinity.svg`, "utf-8"),
     },
     (err, metadata) => {
         if (err) {
@@ -71,10 +71,10 @@ spritezero.extractMetadata(
 );
 
 [1, 2, 4].forEach(pxRatio => {
-    const svgs = glob.sync(path.resolve(path.join(__dirname, 'input/*.svg'))).map(f => {
+    const svgs = glob.sync(path.resolve(path.join(__dirname, "input/*.svg"))).map(f => {
         return {
             svg: fs.readFileSync(f),
-            id: path.basename(f).replace('.svg', ''),
+            id: path.basename(f).replace(".svg", ""),
         };
     });
     const pngPath = path.resolve(path.join(__dirname, `output/sprite@${pxRatio}.png`));

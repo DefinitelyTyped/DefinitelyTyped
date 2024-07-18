@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.privacy.services
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.privacy</code> API to control usage of the features in the browser that can affect a user's
  * privacy.

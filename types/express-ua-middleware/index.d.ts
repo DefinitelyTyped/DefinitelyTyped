@@ -1,8 +1,4 @@
-// Type definitions for express-ua-middleware 0.2
-// Project: https://github.com/davidsdevel/express-ua-middleware#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { RequestHandler } from 'express-serve-static-core';
+import { RequestHandler } from "express-serve-static-core";
 
 /**
  * Express middleware to parse user-agent header
@@ -29,7 +25,6 @@ declare namespace ua {
              * Mosaic, Mozilla, Netfront, Netscape, NetSurf, Nokia, OmniWeb, Opera [Mini/Mobi/Tablet],
              * Phoenix, Polaris, QQBrowser, RockMelt, Silk, Skyfire, SeaMonkey, SlimBrowser, Swiftfox,
              * Tizen, UCBrowser, Vivaldi, w3m, Yandex
-             *
              */
             readonly name: string | undefined;
 

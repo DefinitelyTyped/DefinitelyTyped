@@ -1,5 +1,5 @@
-import * as Ajv from 'ajv';
-import JSONEditor, { AutoCompleteOptions, EditableNode, JSONEditorMode, JSONEditorOptions } from 'jsoneditor';
+import * as Ajv from "ajv";
+import JSONEditor, { AutoCompleteOptions, EditableNode, JSONEditorMode, JSONEditorOptions } from "jsoneditor";
 
 const autocomplete: AutoCompleteOptions = {};
 
@@ -10,16 +10,16 @@ autocomplete.confirmKeys = undefined;
 autocomplete.confirmKeys = [0];
 
 autocomplete.filter = undefined;
-autocomplete.filter = 'start';
-autocomplete.filter = 'contain';
+autocomplete.filter = "start";
+autocomplete.filter = "contain";
 autocomplete.filter = input => true;
 
 autocomplete.getOptions = undefined;
 autocomplete.getOptions = (text, path, type, editor) => [];
 
 autocomplete.trigger = undefined;
-autocomplete.trigger = 'keydown';
-autocomplete.trigger = 'focus';
+autocomplete.trigger = "keydown";
+autocomplete.trigger = "focus";
 
 const options: JSONEditorOptions = {};
 
@@ -46,7 +46,7 @@ options.onClassName = obj => {
     obj.field;
     // $ExpectType string
     obj.value;
-    return '';
+    return "";
 };
 options.onClassName = obj => {
     // $ExpectType ReadonlyArray<string>
@@ -92,7 +92,7 @@ options.onNodeName = obj => {
     obj.size;
     // $ExpectType any
     obj.value;
-    return '';
+    return "";
 };
 options.onNodeName = obj => {
     // $ExpectType ReadonlyArray<string>
@@ -156,13 +156,13 @@ options.history = undefined;
 options.history = true;
 
 options.mode = undefined;
-options.mode = 'tree';
+options.mode = "tree";
 
 options.modes = undefined;
-options.modes = ['tree', 'view', 'form', 'code', 'text'];
+options.modes = ["tree", "view", "form", "code", "text"];
 
 options.name = undefined;
-options.name = 'foo';
+options.name = "foo";
 
 options.schema = undefined;
 options.schema = {};
@@ -180,11 +180,11 @@ options.indentation = undefined;
 options.indentation = 2;
 
 options.theme = undefined;
-options.theme = 'default';
+options.theme = "default";
 
 options.templates = undefined;
 options.templates = [];
-options.templates = [{ text: '', title: '', field: '', value: {} }];
+options.templates = [{ text: "", title: "", field: "", value: {} }];
 
 options.autocomplete = undefined;
 options.autocomplete = autocomplete;
@@ -283,7 +283,7 @@ options.timestampFormat = node => {
     // $ExpectType ReadonlyArray<string>
     node.path;
 
-    return '';
+    return "";
 };
 options.timestampFormat = node => {
     // $ExpectType string
@@ -297,10 +297,10 @@ options.timestampFormat = node => {
 };
 
 options.language = undefined;
-options.language = 'en';
+options.language = "en";
 
 options.languages = undefined;
-options.languages = { 'pt-BR': { auto: 'Automático testing' }, en: { auto: 'Auto testing' } };
+options.languages = { "pt-BR": { auto: "Automático testing" }, en: { auto: "Auto testing" } };
 
 options.modalAnchor = undefined;
 options.modalAnchor = new HTMLElement();
@@ -335,8 +335,8 @@ options.createQuery = (json, queryOptions) => {
         // $ExpectType string
         queryOptions.sort.field;
 
-        queryOptions.sort.direction = 'asc';
-        queryOptions.sort.direction = 'desc';
+        queryOptions.sort.direction = "asc";
+        queryOptions.sort.direction = "desc";
     }
 
     if (queryOptions.projection) {
@@ -344,7 +344,7 @@ options.createQuery = (json, queryOptions) => {
         queryOptions.projection.fields;
     }
 
-    return '';
+    return "";
 };
 
 options.executeQuery = undefined;
@@ -356,12 +356,12 @@ options.executeQuery = (json, query) => {
 };
 
 options.queryDescription = undefined;
-options.queryDescription = '';
+options.queryDescription = "";
 
 let jsonEditor: JSONEditor;
 jsonEditor = new JSONEditor(document.body);
 jsonEditor = new JSONEditor(document.body, {});
-jsonEditor = new JSONEditor(document.body, options, { foo: 'bar' });
+jsonEditor = new JSONEditor(document.body, options, { foo: "bar" });
 
 // $ExpectType void
 jsonEditor.collapseAll();
@@ -388,7 +388,7 @@ jsonEditor.getMode();
 jsonEditor.getName();
 
 // $ExpectType SerializableNode[]
-jsonEditor.getNodesByRange({ path: ['a', 'b'] }, { path: [1] });
+jsonEditor.getNodesByRange({ path: ["a", "b"] }, { path: [1] });
 
 // $ExpectType SerializableNode
 jsonEditor.getSelection().start;
@@ -413,13 +413,13 @@ jsonEditor.getTextSelection().text;
 jsonEditor.refresh();
 
 // $ExpectType void
-jsonEditor.set({ foo: 'bar' });
+jsonEditor.set({ foo: "bar" });
 
 // $ExpectType void
-jsonEditor.setMode('text');
+jsonEditor.setMode("text");
 
 // $ExpectType void
-jsonEditor.setName('foo');
+jsonEditor.setName("foo");
 
 // $ExpectType void
 jsonEditor.setName();
@@ -428,10 +428,10 @@ jsonEditor.setName();
 jsonEditor.setSchema({});
 
 // $ExpectType void
-jsonEditor.setSelection({ path: ['a', 'b'] }, { path: [1] });
+jsonEditor.setSelection({ path: ["a", "b"] }, { path: [1] });
 
 // $ExpectType void
-jsonEditor.setText('{foo: 1}');
+jsonEditor.setText("{foo: 1}");
 
 // $ExpectType void
 jsonEditor.setTextSelection({ row: 0, column: 0 }, { row: 1, column: 1 });
@@ -440,7 +440,7 @@ jsonEditor.setTextSelection({ row: 0, column: 0 }, { row: 1, column: 1 });
 jsonEditor.update(null);
 
 // $ExpectType void
-jsonEditor.updateText('');
+jsonEditor.updateText("");
 
 jsonEditor.validate().then(result => {
     // $ExpectType readonly (SchemaValidationError | ParseError)[]

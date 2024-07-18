@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/promise-pool",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/vilic/promise-pool"
+    ],
+    "dependencies": {
+        "@types/q": "^0",
+        "@types/q-retry": "*"
+    },
+    "devDependencies": {
+        "@types/promise-pool": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "VILIC VANE",
+            "githubUsername": "vilic"
+        }
+    ]
+}

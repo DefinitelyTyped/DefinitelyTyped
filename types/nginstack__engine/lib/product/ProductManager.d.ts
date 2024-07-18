@@ -14,5 +14,5 @@ declare class ProductManager {
 declare namespace ProductManager {
     export { getInstance, DBKey };
 }
-type DBKey = import('../dbkey/DBKey');
 declare function getInstance(): ProductManager;
+type DBKey = import('../dbkey/DBKey');

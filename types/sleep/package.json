@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sleep",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ErikDubbelboer/node-sleep"
+    ],
+    "devDependencies": {
+        "@types/sleep": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeongho Nam",
+            "url": "http://samchon.org"
+        },
+        {
+            "name": "Rahul Rajaram",
+            "githubUsername": "rajarz"
+        }
+    ]
+}

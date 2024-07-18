@@ -139,28 +139,79 @@ declare global {
     /** private hook table */
     var _hooks: { [event: string]: HookCallback[] };
 
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type HookCallback = (data: any) => boolean | void;
 
-    interface EventPortalSelected { selectedPortalGuid: string; unselectedPortalGuid: string; }
-    interface EventPublicChatDataAvailable { raw: any; result: Intel.ChatLine[]; processed: any; }
-    interface EventFactionChatDataAvailable { raw: any; result: Intel.ChatLine[]; processed: any; }
-    interface EventPortalDetailsUpdated { guid: string; portal: IITC.Portal; portalDetails: any /* class portalDetail */; portalData: IITC.PortalData; }
-    interface EventArtifactsUpdated { old: any; new: any; }
-    interface EventMapDataRefreshStart { bounds: L.LatLngBounds; mapZoom: number; dataZoom: number; minPortalLevel: number; tileBounds: L.LatLngBounds; }
-    interface EventMapDataEntityInject { callback: (ents: any) => void; } // TODO: ents = portalDetailLoaded.ent
-    // tslint:disable-next-line:no-empty-interface
-    interface EventMapDataRefreshEnd { }
-    interface EventPortalAdded { portal: IITC.Portal; previousData: IITC.PortalData; }
-    interface EventLinkAdded { link: IITC.Link; }
-    interface EventFieldAdded { field: IITC.Field; }
-    interface EventPortalRemoved { portal: IITC.Portal; data: IITC.PortalData; }
-    interface EventLinkRemoved { link: IITC.Link; data: IITC.LinkData; }
-    interface EventFieldRemoved { field: IITC.Field; data: IITC.FieldData; }
-    interface EventRequestFinished { success: boolean; }
-    interface EventNicknameClicked { event: MouseEvent; nickname: string; }
+    interface EventPortalSelected {
+        selectedPortalGuid: string;
+        unselectedPortalGuid: string;
+    }
+    interface EventPublicChatDataAvailable {
+        raw: any;
+        result: Intel.ChatLine[];
+        processed: any;
+    }
+    interface EventFactionChatDataAvailable {
+        raw: any;
+        result: Intel.ChatLine[];
+        processed: any;
+    }
+    interface EventPortalDetailsUpdated {
+        guid: string;
+        portal: IITC.Portal;
+        portalDetails: any /* class portalDetail */;
+        portalData: IITC.PortalData;
+    }
+    interface EventArtifactsUpdated {
+        old: any;
+        new: any;
+    }
+    interface EventMapDataRefreshStart {
+        bounds: L.LatLngBounds;
+        mapZoom: number;
+        dataZoom: number;
+        minPortalLevel: number;
+        tileBounds: L.LatLngBounds;
+    }
+    interface EventMapDataEntityInject {
+        callback: (ents: any) => void;
+    } // TODO: ents = portalDetailLoaded.ent
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface EventMapDataRefreshEnd {}
+    interface EventPortalAdded {
+        portal: IITC.Portal;
+        previousData: IITC.PortalData;
+    }
+    interface EventLinkAdded {
+        link: IITC.Link;
+    }
+    interface EventFieldAdded {
+        field: IITC.Field;
+    }
+    interface EventPortalRemoved {
+        portal: IITC.Portal;
+        data: IITC.PortalData;
+    }
+    interface EventLinkRemoved {
+        link: IITC.Link;
+        data: IITC.LinkData;
+    }
+    interface EventFieldRemoved {
+        field: IITC.Field;
+        data: IITC.FieldData;
+    }
+    interface EventRequestFinished {
+        success: boolean;
+    }
+    interface EventNicknameClicked {
+        event: MouseEvent;
+        nickname: string;
+    }
     type EventSearch = any; /* class search.Query */
     type EventPaneChanged = string;
 
     type PortalDetailEnt = [/*guid*/ string, /*dict.timestamp*/ number, /*data.result*/ Intel.PortalDetails];
-    type EventPortalDetailLoaded = { guid: string, success: true, details: IITC.PortalDataDetail, ent: PortalDetailEnt } | { guid: string, success: false, details: never, ent: never };
+    type EventPortalDetailLoaded =
+        | { guid: string; success: true; details: IITC.PortalDataDetail; ent: PortalDetailEnt }
+        | { guid: string; success: false; details: never; ent: never };
 }

@@ -1,5 +1,5 @@
-import AuroraDbService from '../../services/AuroraDbService';
-import AuroraDbRDSProxyService from '../../services/AuroraDbRDSProxyService';
+import AuroraDbRDSProxyService from "../../services/AuroraDbRDSProxyService";
+import AuroraDbService from "../../services/AuroraDbService";
 
 export interface PaginatorOptions {
     total: number;

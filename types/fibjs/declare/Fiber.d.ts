@@ -30,7 +30,6 @@ declare class Class_Fiber extends Class__object {
      *
      * @brief 查询纤程的唯一 id
      *
-     * @readonly
      * @note Assumed to be a long number.
      */
 
@@ -42,7 +41,6 @@ declare class Class_Fiber extends Class__object {
      *
      * @brief 查询纤程的调用纤程
      *
-     * @readonly
      */
 
     caller: Class_Fiber
@@ -52,8 +50,6 @@ declare class Class_Fiber extends Class__object {
      *
      *
      * @brief 查询纤程的调用堆栈
-     *
-     * @readonly
      *
      */
 

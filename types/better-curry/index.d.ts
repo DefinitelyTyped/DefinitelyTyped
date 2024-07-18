@@ -1,12 +1,6 @@
-// Type definitions for better-curry
-// Project: https://github.com/pocesar/js-bettercurry
-// Definitions by: Paulo Cesar <https://github.com/pocesar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var BetterCurry: BetterCurryModule.BetterCurry;
 
 declare namespace BetterCurryModule {
-
     export interface DelegateOptions {
         as?: string | undefined;
         len?: number | undefined;
@@ -21,10 +15,10 @@ declare namespace BetterCurryModule {
         getters: any[];
         setters: any[];
         all: (skip?: string[]) => void;
-        method: (name: string|DelegateOptions) => Delegate<T>;
-        getter: (name: string|DelegateOptions) => Delegate<T>;
-        setter: (name: string|DelegateOptions) => Delegate<T>;
-        access: (name: string|DelegateOptions) => Delegate<T>;
+        method: (name: string | DelegateOptions) => Delegate<T>;
+        getter: (name: string | DelegateOptions) => Delegate<T>;
+        setter: (name: string | DelegateOptions) => Delegate<T>;
+        access: (name: string | DelegateOptions) => Delegate<T>;
         revoke: (name: string) => Delegate<T>;
         constructor(proto: T, target: string);
     }
@@ -34,16 +28,26 @@ declare namespace BetterCurryModule {
     }
 
     export interface BetterCurry {
-        predefine: <T extends Function>(fn: T, args: any[], context?: Object, len?: number, checkArguments?: boolean) => OriginalFunctionReminder<T>;
-        wrap: <T extends Function>(fn: T, context?: Object, len?: number, checkArguments?: boolean) => OriginalFunctionReminder<T>;
-        flatten: (...args: Array<Array<any>|any>) => any[];
+        predefine: <T extends Function>(
+            fn: T,
+            args: any[],
+            context?: Object,
+            len?: number,
+            checkArguments?: boolean,
+        ) => OriginalFunctionReminder<T>;
+        wrap: <T extends Function>(
+            fn: T,
+            context?: Object,
+            len?: number,
+            checkArguments?: boolean,
+        ) => OriginalFunctionReminder<T>;
+        flatten: (...args: Array<any[] | any>) => any[];
         delegate: <T>(proto: T, target: string) => Delegate<T>;
         MAX_OPTIMIZED: number;
     }
-
 }
 
-declare module 'better-curry' {
+declare module "better-curry" {
     var bc: BetterCurryModule.BetterCurry;
 
     export = bc;

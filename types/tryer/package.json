@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tryer",
+    "version": "1.0.9999",
+    "projects": [
+        "https://gitlab.com/philbooth/tryer"
+    ],
+    "devDependencies": {
+        "@types/tryer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

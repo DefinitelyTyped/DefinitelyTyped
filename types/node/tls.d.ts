@@ -6,12 +6,12 @@
  * ```js
  * const tls = require('node:tls');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/tls.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/tls.js)
  */
-declare module 'tls' {
-    import { X509Certificate } from 'node:crypto';
-    import * as net from 'node:net';
-    import * as stream from 'stream';
+declare module "tls" {
+    import { X509Certificate } from "node:crypto";
+    import * as net from "node:net";
+    import * as stream from "stream";
     const CLIENT_RENEG_LIMIT: number;
     const CLIENT_RENEG_WINDOW: number;
     interface Certificate {
@@ -125,7 +125,7 @@ declare module 'tls' {
          */
         asn1Curve?: string;
         /**
-         * The NIST name for the elliptic curve,if it has one
+         * The NIST name for the elliptic curve, if it has one
          * (not all well-known curves have been assigned names by NIST).
          */
         nistCurve?: string;
@@ -220,7 +220,7 @@ declare module 'tls' {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
-        constructor(socket: net.Socket, options?: TLSSocketOptions);
+        constructor(socket: net.Socket | stream.Duplex, options?: TLSSocketOptions);
         /**
          * This property is `true` if the peer certificate was signed by one of the CAs
          * specified when creating the `tls.TLSSocket` instance, otherwise `false`.
@@ -278,7 +278,7 @@ declare module 'tls' {
          * an ephemeral key exchange in `perfect forward secrecy` on a client
          * connection. It returns an empty object when the key exchange is not
          * ephemeral. As this is only supported on a client socket; `null` is returned
-         * if called on a server socket. The supported types are `'DH'` and `'ECDH'`. The`name` property is available only when type is `'ECDH'`.
+         * if called on a server socket. The supported types are `'DH'` and `'ECDH'`. The `name` property is available only when type is `'ECDH'`.
          *
          * For example: `{ type: 'ECDH', name: 'prime256v1', size: 256 }`.
          * @since v5.0.0
@@ -382,7 +382,7 @@ declare module 'tls' {
          * This method can be used to request a peer's certificate after the secure
          * connection has been established.
          *
-         * When running as the server, the socket will be destroyed with an error after`handshakeTimeout` timeout.
+         * When running as the server, the socket will be destroyed with an error after `handshakeTimeout` timeout.
          *
          * For TLSv1.3, renegotiation cannot be initiated, it is not supported by the
          * protocol.
@@ -396,7 +396,7 @@ declare module 'tls' {
                 rejectUnauthorized?: boolean | undefined;
                 requestCert?: boolean | undefined;
             },
-            callback: (err: Error | null) => void
+            callback: (err: Error | null) => void,
         ): undefined | boolean;
         /**
          * The `tlsSocket.setMaxSendFragment()` method sets the maximum TLS fragment size.
@@ -472,35 +472,35 @@ declare module 'tls' {
          */
         exportKeyingMaterial(length: number, label: string, context: Buffer): Buffer;
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
-        addListener(event: 'secureConnect', listener: () => void): this;
-        addListener(event: 'session', listener: (session: Buffer) => void): this;
-        addListener(event: 'keylog', listener: (line: Buffer) => void): this;
+        addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        addListener(event: "secureConnect", listener: () => void): this;
+        addListener(event: "session", listener: (session: Buffer) => void): this;
+        addListener(event: "keylog", listener: (line: Buffer) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'OCSPResponse', response: Buffer): boolean;
-        emit(event: 'secureConnect'): boolean;
-        emit(event: 'session', session: Buffer): boolean;
-        emit(event: 'keylog', line: Buffer): boolean;
+        emit(event: "OCSPResponse", response: Buffer): boolean;
+        emit(event: "secureConnect"): boolean;
+        emit(event: "session", session: Buffer): boolean;
+        emit(event: "keylog", line: Buffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
-        on(event: 'secureConnect', listener: () => void): this;
-        on(event: 'session', listener: (session: Buffer) => void): this;
-        on(event: 'keylog', listener: (line: Buffer) => void): this;
+        on(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        on(event: "secureConnect", listener: () => void): this;
+        on(event: "session", listener: (session: Buffer) => void): this;
+        on(event: "keylog", listener: (line: Buffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
-        once(event: 'secureConnect', listener: () => void): this;
-        once(event: 'session', listener: (session: Buffer) => void): this;
-        once(event: 'keylog', listener: (line: Buffer) => void): this;
+        once(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        once(event: "secureConnect", listener: () => void): this;
+        once(event: "session", listener: (session: Buffer) => void): this;
+        once(event: "keylog", listener: (line: Buffer) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
-        prependListener(event: 'secureConnect', listener: () => void): this;
-        prependListener(event: 'session', listener: (session: Buffer) => void): this;
-        prependListener(event: 'keylog', listener: (line: Buffer) => void): this;
+        prependListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        prependListener(event: "secureConnect", listener: () => void): this;
+        prependListener(event: "session", listener: (session: Buffer) => void): this;
+        prependListener(event: "keylog", listener: (line: Buffer) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'OCSPResponse', listener: (response: Buffer) => void): this;
-        prependOnceListener(event: 'secureConnect', listener: () => void): this;
-        prependOnceListener(event: 'session', listener: (session: Buffer) => void): this;
-        prependOnceListener(event: 'keylog', listener: (line: Buffer) => void): this;
+        prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        prependOnceListener(event: "secureConnect", listener: () => void): this;
+        prependOnceListener(event: "session", listener: (session: Buffer) => void): this;
+        prependOnceListener(event: "keylog", listener: (line: Buffer) => void): this;
     }
     interface CommonConnectionOptions {
         /**
@@ -561,7 +561,6 @@ declare module 'tls' {
          */
         ticketKeys?: Buffer | undefined;
         /**
-         *
          * @param socket
          * @param identity identity parameter sent from the client.
          * @return pre-shared key that must either be
@@ -677,47 +676,118 @@ declare module 'tls' {
          * 6. keylog
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        addListener(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void): this;
-        addListener(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
-        addListener(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void): this;
-        addListener(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
-        addListener(event: 'keylog', listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
+        addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        addListener(
+            event: "newSession",
+            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
+        ): this;
+        addListener(
+            event: "OCSPRequest",
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
+        ): this;
+        addListener(
+            event: "resumeSession",
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
+        ): this;
+        addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        addListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'tlsClientError', err: Error, tlsSocket: TLSSocket): boolean;
-        emit(event: 'newSession', sessionId: Buffer, sessionData: Buffer, callback: () => void): boolean;
-        emit(event: 'OCSPRequest', certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void): boolean;
-        emit(event: 'resumeSession', sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void): boolean;
-        emit(event: 'secureConnection', tlsSocket: TLSSocket): boolean;
-        emit(event: 'keylog', line: Buffer, tlsSocket: TLSSocket): boolean;
+        emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
+        emit(event: "newSession", sessionId: Buffer, sessionData: Buffer, callback: () => void): boolean;
+        emit(
+            event: "OCSPRequest",
+            certificate: Buffer,
+            issuer: Buffer,
+            callback: (err: Error | null, resp: Buffer) => void,
+        ): boolean;
+        emit(
+            event: "resumeSession",
+            sessionId: Buffer,
+            callback: (err: Error | null, sessionData: Buffer | null) => void,
+        ): boolean;
+        emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
+        emit(event: "keylog", line: Buffer, tlsSocket: TLSSocket): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        on(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void): this;
-        on(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
-        on(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void): this;
-        on(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
-        on(event: 'keylog', listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
+        on(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        on(event: "newSession", listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void): this;
+        on(
+            event: "OCSPRequest",
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
+        ): this;
+        on(
+            event: "resumeSession",
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
+        ): this;
+        on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        on(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        once(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void): this;
-        once(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
-        once(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void): this;
-        once(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
-        once(event: 'keylog', listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
+        once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        once(
+            event: "newSession",
+            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
+        ): this;
+        once(
+            event: "OCSPRequest",
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
+        ): this;
+        once(
+            event: "resumeSession",
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
+        ): this;
+        once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        once(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        prependListener(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void): this;
-        prependListener(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
-        prependListener(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void): this;
-        prependListener(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
-        prependListener(event: 'keylog', listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
+        prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        prependListener(
+            event: "newSession",
+            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
+        ): this;
+        prependListener(
+            event: "OCSPRequest",
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
+        ): this;
+        prependListener(
+            event: "resumeSession",
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
+        ): this;
+        prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        prependListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'tlsClientError', listener: (err: Error, tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(event: 'newSession', listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void): this;
-        prependOnceListener(event: 'OCSPRequest', listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void): this;
-        prependOnceListener(event: 'resumeSession', listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void): this;
-        prependOnceListener(event: 'secureConnection', listener: (tlsSocket: TLSSocket) => void): this;
-        prependOnceListener(event: 'keylog', listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
+        prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        prependOnceListener(
+            event: "newSession",
+            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
+        ): this;
+        prependOnceListener(
+            event: "OCSPRequest",
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
+        ): this;
+        prependOnceListener(
+            event: "resumeSession",
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
+        ): this;
+        prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+        prependOnceListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
     }
     /**
      * @deprecated since v0.11.3 Use `tls.TLSSocket` instead.
@@ -726,8 +796,19 @@ declare module 'tls' {
         encrypted: TLSSocket;
         cleartext: TLSSocket;
     }
-    type SecureVersion = 'TLSv1.3' | 'TLSv1.2' | 'TLSv1.1' | 'TLSv1';
+    type SecureVersion = "TLSv1.3" | "TLSv1.2" | "TLSv1.1" | "TLSv1";
     interface SecureContextOptions {
+        /**
+         * If set, this will be called when a client opens a connection using the ALPN extension.
+         * One argument will be passed to the callback: an object containing `servername` and `protocols` fields,
+         * respectively containing the server name from the SNI extension (if any) and an array of
+         * ALPN protocol name strings. The callback must return either one of the strings listed in `protocols`,
+         * which will be returned to the client as the selected ALPN protocol, or `undefined`,
+         * to reject the connection with a fatal alert. If a string is returned that does not match one of
+         * the client's ALPN protocols, an error will be thrown.
+         * This option cannot be used with the `ALPNProtocols` option, and setting both options will throw an error.
+         */
+        ALPNCallback?: ((arg: { servername: string; protocols: string[] }) => string | undefined) | undefined;
         /**
          * Optionally override the trusted CA certificates. Default is to trust
          * the well-known CAs curated by Mozilla. Mozilla's CAs are completely
@@ -894,7 +975,7 @@ declare module 'tls' {
      * This function is intended to be used in combination with the`checkServerIdentity` option that can be passed to {@link connect} and as
      * such operates on a `certificate object`. For other purposes, consider using `x509.checkHost()` instead.
      *
-     * This function can be overwritten by providing an alternative function as the`options.checkServerIdentity` option that is passed to `tls.connect()`. The
+     * This function can be overwritten by providing an alternative function as the `options.checkServerIdentity` option that is passed to `tls.connect()`. The
      * overwriting function can call `tls.checkServerIdentity()` of course, to augment
      * the checks done with additional verification.
      *
@@ -903,7 +984,7 @@ declare module 'tls' {
      *
      * Earlier versions of Node.js incorrectly accepted certificates for a given`hostname` if a matching `uniformResourceIdentifier` subject alternative name
      * was present (see [CVE-2021-44531](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44531)). Applications that wish to accept`uniformResourceIdentifier` subject alternative names can use
-     * a custom`options.checkServerIdentity` function that implements the desired behavior.
+     * a custom `options.checkServerIdentity` function that implements the desired behavior.
      * @since v0.8.4
      * @param hostname The host name or IP address to verify the certificate against.
      * @param cert A `certificate object` representing the peer's certificate.
@@ -997,7 +1078,12 @@ declare module 'tls' {
      * @since v0.11.3
      */
     function connect(options: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
-    function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
+    function connect(
+        port: number,
+        host?: string,
+        options?: ConnectionOptions,
+        secureConnectListener?: () => void,
+    ): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     /**
      * Creates a new secure pair object with two streams, one of which reads and writes
@@ -1006,7 +1092,7 @@ declare module 'tls' {
      * stream and the cleartext one is used as a replacement for the initial encrypted
      * stream.
      *
-     * `tls.createSecurePair()` returns a `tls.SecurePair` object with `cleartext` and`encrypted` stream properties.
+     * `tls.createSecurePair()` returns a `tls.SecurePair` object with `cleartext` and `encrypted` stream properties.
      *
      * Using `cleartext` has the same API as {@link TLSSocket}.
      *
@@ -1032,12 +1118,17 @@ declare module 'tls' {
      * @param requestCert `true` to specify whether a server should request a certificate from a connecting client. Only applies when `isServer` is `true`.
      * @param rejectUnauthorized If not `false` a server automatically reject clients with invalid certificates. Only applies when `isServer` is `true`.
      */
-    function createSecurePair(context?: SecureContext, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
+    function createSecurePair(
+        context?: SecureContext,
+        isServer?: boolean,
+        requestCert?: boolean,
+        rejectUnauthorized?: boolean,
+    ): SecurePair;
     /**
-     * {@link createServer} sets the default value of the `honorCipherOrder` option
+     * `{@link createServer}` sets the default value of the `honorCipherOrder` option
      * to `true`, other APIs that create secure contexts leave it unset.
      *
-     * {@link createServer} uses a 128 bit truncated SHA1 hash value generated
+     * `{@link createServer}` uses a 128 bit truncated SHA1 hash value generated
      * from `process.argv` as the default value of the `sessionIdContext` option, other
      * APIs that create secure contexts have no default value.
      *
@@ -1045,12 +1136,12 @@ declare module 'tls' {
      * usable as an argument to several `tls` APIs, such as `server.addContext()`,
      * but has no public methods. The {@link Server} constructor and the {@link createServer} method do not support the `secureContext` option.
      *
-     * A key is _required_ for ciphers that use certificates. Either `key` or`pfx` can be used to provide it.
+     * A key is _required_ for ciphers that use certificates. Either `key` or `pfx` can be used to provide it.
      *
      * If the `ca` option is not given, then Node.js will default to using [Mozilla's publicly trusted list of
      * CAs](https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt).
      *
-     * Custom DHE parameters are discouraged in favor of the new `dhparam: 'auto'`option. When set to `'auto'`, well-known DHE parameters of sufficient strength
+     * Custom DHE parameters are discouraged in favor of the new `dhparam: 'auto' `option. When set to `'auto'`, well-known DHE parameters of sufficient strength
      * will be selected automatically. Otherwise, if necessary, `openssl dhparam` can
      * be used to create custom parameters. The key length must be greater than or
      * equal to 1024 bits or else an error will be thrown. Although 1024 bits is
@@ -1061,9 +1152,10 @@ declare module 'tls' {
     /**
      * Returns an array with the names of the supported TLS ciphers. The names are
      * lower-case for historical reasons, but must be uppercased to be used in
-     * the `ciphers` option of {@link createSecureContext}.
+     * the `ciphers` option of `{@link createSecureContext}`.
      *
-     * Not all supported ciphers are enabled by default. See `Modifying the default TLS cipher suite`.
+     * Not all supported ciphers are enabled by default. See
+     * [Modifying the default TLS cipher suite](https://nodejs.org/docs/latest-v20.x/api/tls.html#modifying-the-default-tls-cipher-suite).
      *
      * Cipher names that start with `'tls_'` are for TLSv1.3, all the others are for
      * TLSv1.2 and below.
@@ -1076,44 +1168,50 @@ declare module 'tls' {
     function getCiphers(): string[];
     /**
      * The default curve name to use for ECDH key agreement in a tls server.
-     * The default value is 'auto'. See tls.createSecureContext() for further
+     * The default value is `'auto'`. See `{@link createSecureContext()}` for further
      * information.
+     * @since v0.11.13
      */
     let DEFAULT_ECDH_CURVE: string;
     /**
-     * The default value of the maxVersion option of
-     * tls.createSecureContext(). It can be assigned any of the supported TLS
-     * protocol versions, 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default:
-     * 'TLSv1.3', unless changed using CLI options. Using --tls-max-v1.2 sets
-     * the default to 'TLSv1.2'. Using --tls-max-v1.3 sets the default to
-     * 'TLSv1.3'. If multiple of the options are provided, the highest maximum
-     * is used.
+     * The default value of the `maxVersion` option of `{@link createSecureContext()}`.
+     * It can be assigned any of the supported TLS protocol versions,
+     * `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. **Default:** `'TLSv1.3'`, unless
+     * changed using CLI options. Using `--tls-max-v1.2` sets the default to `'TLSv1.2'`. Using
+     * `--tls-max-v1.3` sets the default to `'TLSv1.3'`. If multiple of the options
+     * are provided, the highest maximum is used.
+     * @since v11.4.0
      */
     let DEFAULT_MAX_VERSION: SecureVersion;
     /**
-     * The default value of the minVersion option of tls.createSecureContext().
+     * The default value of the `minVersion` option of `{@link createSecureContext()}`.
      * It can be assigned any of the supported TLS protocol versions,
-     * 'TLSv1.3', 'TLSv1.2', 'TLSv1.1', or 'TLSv1'. Default: 'TLSv1.2', unless
-     * changed using CLI options. Using --tls-min-v1.0 sets the default to
-     * 'TLSv1'. Using --tls-min-v1.1 sets the default to 'TLSv1.1'. Using
-     * --tls-min-v1.3 sets the default to 'TLSv1.3'. If multiple of the options
+     * `'TLSv1.3'`, `'TLSv1.2'`, `'TLSv1.1'`, or `'TLSv1'`. **Default:** `'TLSv1.2'`, unless
+     * changed using CLI options. Using `--tls-min-v1.0` sets the default to
+     * `'TLSv1'`. Using `--tls-min-v1.1` sets the default to `'TLSv1.1'`. Using
+     * `--tls-min-v1.3` sets the default to `'TLSv1.3'`. If multiple of the options
      * are provided, the lowest minimum is used.
+     * @since v11.4.0
      */
     let DEFAULT_MIN_VERSION: SecureVersion;
     /**
-     * The default value of the ciphers option of tls.createSecureContext().
+     * The default value of the `ciphers` option of `{@link createSecureContext()}`.
      * It can be assigned any of the supported OpenSSL ciphers.
-     * Defaults to the content of crypto.constants.defaultCoreCipherList, unless
-     * changed using CLI options using --tls-default-ciphers.
+     * Defaults to the content of `crypto.constants.defaultCoreCipherList`, unless
+     * changed using CLI options using `--tls-default-ciphers`.
+     * @since v19.8.0
      */
     let DEFAULT_CIPHERS: string;
     /**
-     * An immutable array of strings representing the root certificates (in PEM
-     * format) used for verifying peer certificates. This is the default value
-     * of the ca option to tls.createSecureContext().
+     * An immutable array of strings representing the root certificates (in PEM format)
+     * from the bundled Mozilla CA store as supplied by the current Node.js version.
+     *
+     * The bundled CA store, as supplied by Node.js, is a snapshot of Mozilla CA store
+     * that is fixed at release time. It is identical on all supported platforms.
+     * @since v12.3.0
      */
-    const rootCertificates: ReadonlyArray<string>;
+    const rootCertificates: readonly string[];
 }
-declare module 'node:tls' {
-    export * from 'tls';
+declare module "node:tls" {
+    export * from "tls";
 }

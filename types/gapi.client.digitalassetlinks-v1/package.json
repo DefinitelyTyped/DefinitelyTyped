@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.digitalassetlinks-v1": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.digitalassetlinks-v1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Digital Asset Links API v1",
+    "projects": [
+        "https://developers.google.com/digital-asset-links/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.digitalassetlinks-v1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.digitalassetlinks-v1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

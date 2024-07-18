@@ -1,4 +1,4 @@
-import bigRat = require('./');
+import bigRat = require("./");
 
 declare function sub(a: bigRat.Rat, b: bigRat.Rat): bigRat.Rat;
 

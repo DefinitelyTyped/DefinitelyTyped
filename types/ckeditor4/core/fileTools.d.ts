@@ -23,7 +23,7 @@ declare namespace CKEDITOR {
 
     namespace fileTools {
         interface fileLoaderConstructor extends eventConstructor<fileLoader> {
-            new (editor: editor, fileOrData: Blob | string, fileName?: string): fileLoader;
+            new(editor: editor, fileOrData: Blob | string, fileName?: string): fileLoader;
         }
         interface fileLoader extends event {
             readonly data: string;
@@ -56,7 +56,7 @@ declare namespace CKEDITOR {
         }
 
         interface uploadRepositoryConstructor extends eventConstructor<uploadRepository> {
-            new (editor: editor): uploadRepository;
+            new(editor: editor): uploadRepository;
         }
 
         interface uploadRepository extends event {
@@ -70,7 +70,7 @@ declare namespace CKEDITOR {
         interface uploadWidgetDefinition extends plugins.widget.definition {
             additionalRequestParameters?: unknown;
             fileToElement?: ((pastedFile: unknown) => HTMLElement) | undefined;
-            loadMethod?: 'load' | 'loadAndUpload' | 'upload' | undefined;
+            loadMethod?: "load" | "loadAndUpload" | "upload" | undefined;
             loaderType?: unknown;
             onAbort?: (() => boolean) | undefined;
             onError?: (() => boolean) | undefined;

@@ -1,10 +1,10 @@
-import watch = require('watch');
-import fs = require('fs');
+import watch = require("watch");
+import fs = require("fs");
 
-watch.watchTree('/some_path', (f: any, curr: fs.Stats, prev: fs.Stats) => {
+watch.watchTree("/some_path", (f: any, curr: fs.Stats, prev: fs.Stats) => {
 });
 
-watch.watchTree('/home/mikeal', (f, curr, prev) => {
+watch.watchTree("/home/mikeal", (f, curr, prev) => {
     if (typeof f === "object" && prev === null && curr === null) {
         // Finished walking the tree
     } else if (prev === null) {
@@ -16,9 +16,9 @@ watch.watchTree('/home/mikeal', (f, curr, prev) => {
     }
 });
 
-watch.unwatchTree('/some_path');
-watch.createMonitor('/home/mikeal', (monitor) => {
-    monitor.files['/home/mikeal/.zshrc']; // Stat object for my zshrc.
+watch.unwatchTree("/some_path");
+watch.createMonitor("/home/mikeal", (monitor) => {
+    monitor.files["/home/mikeal/.zshrc"]; // Stat object for my zshrc.
     monitor.on("created", (f, stat) => {
         // $ExpectType string
         f;
@@ -37,14 +37,14 @@ watch.createMonitor('/home/mikeal', (monitor) => {
     monitor.stop(); // Stop watching
 });
 
-watch.createMonitor('/some/path', {
-    ignoreDotFiles: true
+watch.createMonitor("/some/path", {
+    ignoreDotFiles: true,
 }, (monitor: watch.Monitor) => {
 });
 
-watch.walk('/some/path', (err, files) => {});
-watch.walk('/some/path', {
-    ignoreDirectoryPattern: /ignore/
+watch.walk("/some/path", (err, files) => {});
+watch.walk("/some/path", {
+    ignoreDirectoryPattern: /ignore/,
 }, (err, files) => {
     // $ExpectType Error | null
     err;

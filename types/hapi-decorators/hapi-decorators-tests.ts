@@ -1,36 +1,36 @@
-import * as hapi from 'hapi';
-import { controller, get, post, put, cache, config, route, validate, Controller } from 'hapi-decorators';
+import * as hapi from "hapi";
+import { cache, config, Controller, controller, get, post, put, route, validate } from "hapi-decorators";
 
-@controller('/test')
+@controller("/test")
 class TestController implements Controller {
     baseUrl: string;
     routes: () => hapi.RouteConfiguration[];
 
-    @get('/')
+    @get("/")
     @config({
-        auth: false
+        auth: false,
     })
     @cache({
-        expiresIn: 42000
+        expiresIn: 42000,
     })
     @validate({
-        payload: false
+        payload: false,
     })
     getHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
     }
 
-    @post('/')
+    @post("/")
     postHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
     }
 
-    @put('/{id}')
+    @put("/{id}")
     putHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
     }
 
-    @route('delete', '/{id}')
+    @route("delete", "/{id}")
     deleteHandler(request: hapi.Request, reply: hapi.ReplyNoContinue) {
         reply({ success: true });
     }
@@ -40,9 +40,8 @@ const server = new hapi.Server();
 
 server.route(new TestController().routes());
 
-@controller('/test')
+@controller("/test")
 class SimpleTestController implements Controller {
-
     foo: string;
 
     constructor(foo: string) {
@@ -53,4 +52,4 @@ class SimpleTestController implements Controller {
     routes: () => hapi.RouteConfiguration[];
 }
 
-server.route(new SimpleTestController('bar').routes());
+server.route(new SimpleTestController("bar").routes());

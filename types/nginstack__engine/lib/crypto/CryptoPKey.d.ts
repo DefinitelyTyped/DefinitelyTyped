@@ -12,6 +12,6 @@ declare class CryptoPKey {
 declare namespace CryptoPKey {
     function importPrivateKey(format: string, key: string, arg: string): CryptoPKey;
     function importPublicKey(format: string, key: string, type: string): CryptoPKey;
-    const RSA_PKCS1_PADDING: number;
-    const RSA_NO_PADDING: number;
+    let RSA_PKCS1_PADDING: number;
+    let RSA_NO_PADDING: number;
 }

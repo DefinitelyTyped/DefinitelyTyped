@@ -1,6 +1,8 @@
-import { ColorRepresentation } from '../math/Color';
-import { Object3D } from './../core/Object3D';
-import { LineSegments } from './../objects/LineSegments';
+import { BufferGeometry } from "../core/BufferGeometry.js";
+import { Object3D } from "../core/Object3D.js";
+import { LineBasicMaterial } from "../materials/LineBasicMaterial.js";
+import { ColorRepresentation } from "../math/Color.js";
+import { LineSegments } from "../objects/LineSegments.js";
 
 /**
  * Helper object to graphically show the world-axis-aligned bounding box around an object
@@ -21,7 +23,7 @@ import { LineSegments } from './../objects/LineSegments';
  * @see {@link https://threejs.org/docs/index.html#api/en/helpers/BoxHelper | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/helpers/BoxHelper.js | Source}
  */
-export class BoxHelper extends LineSegments {
+export class BoxHelper extends LineSegments<BufferGeometry, LineBasicMaterial> {
     /**
      * Creates a new wireframe box that bounds the passed object
      * @remarks
@@ -38,7 +40,7 @@ export class BoxHelper extends LineSegments {
      * @override
      * @defaultValue `BoxHelper`
      */
-    override readonly type: string | 'BoxHelper';
+    override readonly type: string | "BoxHelper";
 
     /**
      * Updates the helper's geometry to match the dimensions of the object, including any children

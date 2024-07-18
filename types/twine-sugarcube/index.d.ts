@@ -1,9 +1,3 @@
-// Type definitions for non-npm package sugarcube 2.36
-// Project: https://github.com/tmedwards/sugarcube-2
-// Definitions by: ezsh <https://github.com/ezsh>
-//                 Thomas M. Edwards <https://github.com/tmedwards>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 3.9
 
 /// <reference types="jquery"/>

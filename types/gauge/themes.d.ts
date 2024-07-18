@@ -1,3 +1,3 @@
-import Themes from './lib/themes';
+import Themes from "./lib/themes";
 
 export = Themes;

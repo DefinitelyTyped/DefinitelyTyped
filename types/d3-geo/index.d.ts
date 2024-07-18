@@ -1,15 +1,6 @@
-// Type definitions for D3JS d3-geo module 3.0
-// Project: https://github.com/d3/d3-geo/, https://d3js.org/d3-geo
-// Definitions by: Hugues Stefanski <https://github.com/ledragon>
-//                 Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.1
 
-import * as GeoJSON from 'geojson';
+import * as GeoJSON from "geojson";
 
 // ----------------------------------------------------------------------
 // Shared Interfaces and Types
@@ -23,7 +14,7 @@ export interface GeoSphere {
     /**
      * Sphere geometry type
      */
-    type: 'Sphere';
+    type: "Sphere";
 }
 
 /**
@@ -60,8 +51,8 @@ export interface ExtendedGeometryCollection<GeometryType extends GeoGeometryObje
  */
 export interface ExtendedFeature<
     GeometryType extends GeoGeometryObjects | null = GeoGeometryObjects | null,
-    Properties extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties
-    > extends GeoJSON.GeoJsonObject {
+    Properties extends GeoJSON.GeoJsonProperties = GeoJSON.GeoJsonProperties,
+> extends GeoJSON.GeoJsonObject {
     geometry: GeometryType;
     properties: Properties;
     id?: string | number | undefined;
@@ -73,7 +64,9 @@ export interface ExtendedFeature<
  *
  * The generic refers to the type of ExtendedFeature contained in the ExtendedFeatureCollection.
  */
-export interface ExtendedFeatureCollection<FeatureType extends ExtendedFeature = ExtendedFeature> extends GeoJSON.GeoJsonObject {
+export interface ExtendedFeatureCollection<FeatureType extends ExtendedFeature = ExtendedFeature>
+    extends GeoJSON.GeoJsonObject
+{
     features: FeatureType[];
 }
 
@@ -81,7 +74,11 @@ export interface ExtendedFeatureCollection<FeatureType extends ExtendedFeature =
  * Type Alias for permissible objects which can be used with d3-geo
  * methods
  */
-export type GeoPermissibleObjects = GeoGeometryObjects | ExtendedGeometryCollection | ExtendedFeature | ExtendedFeatureCollection;
+export type GeoPermissibleObjects =
+    | GeoGeometryObjects
+    | ExtendedGeometryCollection
+    | ExtendedFeature
+    | ExtendedFeatureCollection;
 
 // ----------------------------------------------------------------------
 // Spherical Math
@@ -91,7 +88,9 @@ export type GeoPermissibleObjects = GeoGeometryObjects | ExtendedGeometryCollect
  * Returns the spherical area of the specified GeoJSON object in steradians.
  * This is the spherical equivalent of path.area.
  */
-export function geoArea(object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): number;
+export function geoArea(
+    object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+): number;
 
 /**
  * Returns the spherical bounding box for the specified GeoJSON object.
@@ -101,20 +100,27 @@ export function geoArea(object: ExtendedFeature | ExtendedFeatureCollection | Ge
  * (Note that in projected planar coordinates, the minimum latitude is typically the maximum y-value, and the maximum latitude is typically the minimum y-value.)
  * This is the spherical equivalent of path.bounds.
  */
-export function geoBounds(object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): [[number, number], [number, number]];
+export function geoBounds(
+    object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+): [[number, number], [number, number]];
 
 /**
  * Returns the spherical centroid of the specified GeoJSON object.
  * This is the spherical equivalent of path.centroid.
  */
-export function geoCentroid(object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): [number, number];
+export function geoCentroid(
+    object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+): [number, number];
 
 /**
  * Returns true if and only if the specified GeoJSON object contains the specified point, or false if the object does not contain the point.
  * The point must be specified as a two-element array [longitude, latitude] in degrees.
  * For Point and MultiPoint geometries, an exact test is used; for a Sphere, true is always returned; for other geometries, an epsilon threshold is applied.
  */
-export function geoContains(object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection, point: [number, number]): boolean;
+export function geoContains(
+    object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+    point: [number, number],
+): boolean;
 
 /**
  * Returns the great-arc distance in radians between the two points a and b.
@@ -130,7 +136,9 @@ export function geoDistance(a: [number, number], b: [number, number]): number;
  * For polygons, returns the perimeter of the exterior ring plus that of any interior rings.
  * This is the spherical equivalent of path.measure.
  */
-export function geoLength(object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): number;
+export function geoLength(
+    object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+): number;
 
 /**
  * Returns an interpolator function given two points a and b.
@@ -191,7 +199,7 @@ export interface GeoCircleGenerator<This = any, Datum = any> {
     /**
      * Returns the current center accessor, which defaults to a function returning [0, 0].
      */
-    center(): ((this: This, d: Datum, ...args: any[]) => [number, number]);
+    center(): (this: This, d: Datum, ...args: any[]) => [number, number];
     /**
      * Sets the circle center to the specified point [longitude, latitude] in degrees, and returns this circle generator.
      * The center may also be specified as a function; this function will be invoked whenever a circle is generated, being passed any arguments passed to the circle generator.
@@ -201,7 +209,7 @@ export interface GeoCircleGenerator<This = any, Datum = any> {
     /**
      * Returns the current radius accessor, which defaults to a function returning 90.
      */
-    radius(): ((this: This, d: Datum, ...args: any[]) => number);
+    radius(): (this: This, d: Datum, ...args: any[]) => number;
     /**
      * Sets the circle radius to the specified angle in degrees, and returns this circle generator.
      * The radius may also be specified as a function; this function will be invoked whenever a circle is generated, being passed any arguments passed to the circle generator.
@@ -211,7 +219,7 @@ export interface GeoCircleGenerator<This = any, Datum = any> {
     /**
      * Returns the current precision accessor, which defaults to a function returning 6.
      */
-    precision(): ((this: This, d: Datum, ...args: any[]) => number);
+    precision(): (this: This, d: Datum, ...args: any[]) => number;
     /**
      * Sets the circle precision to the specified angle in degrees, and returns this circle generator.
      * The precision may also be specified as a function; this function will be invoked whenever a circle is generated, being passed any arguments passed to the circle generator.
@@ -228,7 +236,7 @@ export function geoCircle(): GeoCircleGenerator;
  *
  * The generic corresponds to the data type of the first argument passed into the geo circle generator and its accessor functions.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function geoCircle<Datum>(): GeoCircleGenerator<any, Datum>;
 /**
  * Returns a new geo circle generator
@@ -237,7 +245,7 @@ export function geoCircle<Datum>(): GeoCircleGenerator<any, Datum>;
  *
  * The second generic corresponds to the data type of the first argument passed into the geo circle generator and its accessor functions.
  */
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function geoCircle<This, Datum>(): GeoCircleGenerator<This, Datum>;
 
 // geoGraticule ============================================================
@@ -406,7 +414,10 @@ export interface GeoStream {
  * Streams the specified GeoJSON object to the specified projection stream.
  * While both features and geometry objects are supported as input, the stream interface only describes the geometry, and thus additional feature properties are not visible to streams.
  */
-export function geoStream(object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection, stream: GeoStream): void;
+export function geoStream(
+    object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+    stream: GeoStream,
+): void;
 
 // ----------------------------------------------------------------------
 // Projections
@@ -629,22 +640,34 @@ export interface GeoProjection extends GeoStreamWrapper {
      * The extent is specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom.
      * Returns the projection.
      */
-    fitExtent(extent: [[number, number], [number, number]], object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): this;
+    fitExtent(
+        extent: [[number, number], [number, number]],
+        object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+    ): this;
 
     /**
      * A convenience method for projection.fitExtent where the top-left corner of the extent is [0, 0].
      */
-    fitSize(size: [number, number], object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): this;
+    fitSize(
+        size: [number, number],
+        object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+    ): this;
 
     /**
      * A convenience method for projection.fitSize where the height is automatically chosen from the aspect ratio of object and the given constraint on width.
      */
-    fitWidth(width: number, object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): this;
+    fitWidth(
+        width: number,
+        object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+    ): this;
 
     /**
      * A convenience method for projection.fitSize where the width is automatically chosen from the aspect ratio of object and the given constraint on height.
      */
-    fitHeight(height: number, object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): this;
+    fitHeight(
+        height: number,
+        object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+    ): this;
 }
 
 /**
@@ -738,7 +761,6 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      *
      * The type Sphere is also supported, which is useful for rendering the outline of the globe; a sphere has no coordinates.
      *
-     *
      * Any additional arguments are passed along to the pointRadius accessor.
      *
      * IMPORTANT: If the rendering context of the geoPath generator is null,
@@ -766,7 +788,6 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * + FeatureCollection - an array of feature objects.
      *
      * The type Sphere is also supported, which is useful for rendering the outline of the globe; a sphere has no coordinates.
-     *
      *
      * Any additional arguments are passed along to the pointRadius accessor.
      *
@@ -830,7 +851,7 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      *
      * Use the generic to cast the return type of the rendering context, if it is known for a specific application.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     context<C extends GeoContext | null>(): C;
 
     /**
@@ -848,7 +869,7 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      *
      * Use the generic to cast the return type of the projection, if it is known for a specific application.
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     projection<P extends GeoConicProjection | GeoProjection | GeoStreamWrapper | null>(): P;
 
     /**
@@ -871,6 +892,16 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * alternatively, you could d3.symbol and a projection for greater flexibility.
      */
     pointRadius(value: number | ((this: This, object: DatumObject, ...args: any[]) => number)): this;
+
+    /**
+     * Returns the current number of digits, which defaults to 3.
+     */
+    digits(): number;
+    /**
+     * Sets the number of fractional digits for coordinates generated in SVG path strings.
+     * @param digits New amount of digits
+     */
+    digits(digits: number): this;
 }
 
 /**
@@ -906,8 +937,11 @@ export function geoPath(projection?: GeoProjection | GeoStreamWrapper | null, co
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
-// eslint-disable-next-line no-unnecessary-generics
-export function geoPath<DatumObject extends GeoPermissibleObjects>(projection?: GeoProjection | GeoStreamWrapper | null, context?: GeoContext | null): GeoPath<any, DatumObject>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function geoPath<DatumObject extends GeoPermissibleObjects>(
+    projection?: GeoProjection | GeoStreamWrapper | null,
+    context?: GeoContext | null,
+): GeoPath<any, DatumObject>;
 /**
  * Creates a new geographic path generator with the default settings.
  *
@@ -928,8 +962,11 @@ export function geoPath<DatumObject extends GeoPermissibleObjects>(projection?: 
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
-// eslint-disable-next-line no-unnecessary-generics
-export function geoPath<This, DatumObject extends GeoPermissibleObjects>(projection?: GeoProjection | GeoStreamWrapper | null, context?: GeoContext | null): GeoPath<This, DatumObject>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function geoPath<This, DatumObject extends GeoPermissibleObjects>(
+    projection?: GeoProjection | GeoStreamWrapper | null,
+    context?: GeoContext | null,
+): GeoPath<This, DatumObject>;
 
 // geoProjection ==========================================================
 
@@ -1248,12 +1285,18 @@ export interface GeoIdentityTransform extends GeoStreamWrapper {
      * Sets the projection’s scale and translate to fit the specified GeoJSON object in the center of the given extent.
      * The extent is specified as an array [[x₀, y₀], [x₁, y₁]], where x₀ is the left side of the bounding box, y₀ is the top, x₁ is the right and y₁ is the bottom. Returns the projection.
      */
-    fitExtent(extent: [[number, number], [number, number]], object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): this;
+    fitExtent(
+        extent: [[number, number], [number, number]],
+        object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+    ): this;
 
     /**
      * A convenience method for projection.fitExtent where the top-left corner of the extent is [0, 0].
      */
-    fitSize(size: [number, number], object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection): this;
+    fitSize(
+        size: [number, number],
+        object: ExtendedFeature | ExtendedFeatureCollection | GeoGeometryObjects | ExtendedGeometryCollection,
+    ): this;
 
     /**
      * Returns the current viewport clip extent which defaults to null.

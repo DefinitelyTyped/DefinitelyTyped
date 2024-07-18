@@ -1,18 +1,12 @@
-// Type definitions for fs-extra-promise 1.0
-// Project: https://github.com/overlookmotel/fs-extra-promise
-// Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>, Hiromi Shikata <https://github.com/HiromiShikata>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
-import * as stream from 'stream';
-import * as fs from 'fs';
-import * as Promise from 'bluebird';
-import { CopyFilter, CopyOptions, ReadOptions, WriteOptions, MoveOptions } from 'fs-extra';
+import * as Promise from "bluebird";
+import * as fs from "fs";
+import { CopyFilter, CopyOptions, MoveOptions, ReadOptions, WriteOptions } from "fs-extra";
+import * as stream from "stream";
 import Stats = fs.Stats;
 
-export * from 'fs-extra';
+export * from "fs-extra";
 
 export interface MkdirOptions {
     fs?: any;
@@ -66,12 +60,24 @@ export function openAsync(path: string, flags: string, mode?: string): Promise<n
 export function utimesAsync(path: string, atime: number, mtime: number): Promise<void>;
 export function futimesAsync(fd: number, atime: number, mtime: number): Promise<void>;
 export function fsyncAsync(fd: number): Promise<void>;
-export function writeAsync(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<[number, Buffer]>;
-export function readAsync(fd: number, buffer: Buffer, offset: number, length: number, position: number): Promise<[number, Buffer]>;
+export function writeAsync(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+): Promise<[number, Buffer]>;
+export function readAsync(
+    fd: number,
+    buffer: Buffer,
+    offset: number,
+    length: number,
+    position: number,
+): Promise<[number, Buffer]>;
 export function readFileAsync(filename: string, options: string | ReadOptions): Promise<string>;
 export function readFileAsync(filename: string): Promise<Buffer>;
 export function writeFileAsync(filename: string, data: any, options?: string | WriteOptions): Promise<void>;
-export function mkdtempAsync(prefix: string, options: string | {encoding: string}): Promise<string>;
+export function mkdtempAsync(prefix: string, options: string | { encoding: string }): Promise<string>;
 export function appendFileAsync(filename: string, data: any, option?: string | WriteOptions): Promise<void>;
 
 export function existsAsync(path: string): Promise<boolean>;

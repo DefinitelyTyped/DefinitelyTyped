@@ -1,5 +1,5 @@
-import { Location } from './Destinations';
-import { OnfleetMetadata, MatchMetadata } from '../metadata';
+import { MatchMetadata, OnfleetMetadata } from "../metadata";
+import { Location } from "./Destinations";
 
 declare class Worker {
     create(worker: Worker.CreateWorkerProps): Promise<Worker.OnfleetWorker>;
@@ -9,7 +9,7 @@ declare class Worker {
     getByLocation(location: Worker.GetWorkerByLocationProps): Promise<{ workers: Worker.OnfleetWorker[] }>;
     getSchedule(id: string): Promise<{ entries: Worker.WorkerSchedule[] }>;
     insertTask(id: string, obj: { tasks: string[] }): Promise<Worker.OnfleetWorker>;
-    matchMetadata: MatchMetadata<Worker.OnfleetWorker['metadata']>;
+    matchMetadata: MatchMetadata<Worker.OnfleetWorker["metadata"]>;
     setSchedule(id: string, schedule: Worker.WorkerSchedule): Promise<{ entries: Worker.WorkerSchedule[] }>;
     update(id: string, worker: Worker.UpdateWorkerProps): Promise<Worker.OnfleetWorker>;
 }
@@ -44,7 +44,7 @@ declare namespace Worker {
     }
 
     interface Vehicle {
-        type: 'BICYCLE' | 'CAR' | 'MOTORCYCLE' | 'TRUCK';
+        type: "BICYCLE" | "CAR" | "MOTORCYCLE" | "TRUCK";
         color?: string | undefined;
         description?: string | undefined;
         licensePlate?: string | undefined;
@@ -74,7 +74,7 @@ declare namespace Worker {
      * teams - One or more team IDs of which the worker is a member.
      * vehicle - Optional. The worker’s vehicle; providing no vehicle details is equivalent to the worker being on foot.
      * capacity - Optional. The maximum number of units this worker can carry, for route optimization purposes.
-     * @prop displayName - Optional. This value is used in place of the worker's actual name within sms notifications,
+     * displayName - Optional. This value is used in place of the worker's actual name within sms notifications,
      * delivery tracking pages, and across organization boundaries (connections).
      */
     interface CreateWorkerProps {

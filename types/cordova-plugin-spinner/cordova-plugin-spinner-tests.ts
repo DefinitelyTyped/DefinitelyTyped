@@ -1,5 +1,3 @@
-
-
 SpinnerPlugin.activityStart();
 SpinnerPlugin.activityStart("a");
 SpinnerPlugin.activityStart("a", () => {});

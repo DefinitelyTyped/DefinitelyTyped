@@ -1,4 +1,4 @@
-import packageNameRegex = require('package-name-regex');
+import packageNameRegex = require("package-name-regex");
 
 // $ExpectType RegExp
 packageNameRegex;

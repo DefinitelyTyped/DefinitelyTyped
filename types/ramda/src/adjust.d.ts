@@ -1,2 +1,2 @@
-import { adjust } from '../index';
+import { adjust } from "../index";
 export default adjust;

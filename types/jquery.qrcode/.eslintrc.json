@@ -1,7 +1,7 @@
 {
     "rules": {
-        "no-const-enum": "off",
-        "dt-header": "off",
-        "trim-file": "off"
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

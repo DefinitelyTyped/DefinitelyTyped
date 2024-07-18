@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/firefox-webext-browser",
+    "version": "120.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "WebExtension Development in FireFox",
+    "projects": [
+        "https://developer.mozilla.org/en-US/Add-ons/WebExtensions"
+    ],
+    "devDependencies": {
+        "@types/firefox-webext-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jasmin Bom",
+            "githubUsername": "jsmnbom"
+        }
+    ]
+}

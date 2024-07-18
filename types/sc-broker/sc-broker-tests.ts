@@ -1,16 +1,16 @@
-import scBroker = require('sc-broker');
-import SCBroker = require('sc-broker/scbroker');
+import scBroker = require("sc-broker");
+import SCBroker = require("sc-broker/scbroker");
 
 // From the README
 
 // $ExpectType SCBrokerServer
-scBroker.createServer({ port: 9000, secretKey: 'mySecretKey' });
+scBroker.createServer({ port: 9000, secretKey: "mySecretKey" });
 
 const conf = { port: 9000 };
 const server = scBroker.createServer(conf);
 
-server.on('ready', () => {
-    console.log('Server ready, create client');
+server.on("ready", () => {
+    console.log("Server ready, create client");
     const client = scBroker.createClient(conf);
 
     // $ExpectType boolean
@@ -19,17 +19,17 @@ server.on('ready', () => {
 
 server.destroy();
 
-const dataClient = scBroker.createClient({ port: 9000, secretKey: 'mySecretKey' });
+const dataClient = scBroker.createClient({ port: 9000, secretKey: "mySecretKey" });
 
-dataClient.set(['this', 'is', 'a', 'deep', 'key'], 'Hello world');
+dataClient.set(["this", "is", "a", "deep", "key"], "Hello world");
 
-dataClient.get(['this', 'is', 'a'], (err, val) => {
+dataClient.get(["this", "is", "a"], (err, val) => {
     if (!err) console.log(val);
 });
 
-dataClient.add(['this', 'is', 'a'], 'foo');
+dataClient.add(["this", "is", "a"], "foo");
 
-dataClient.get(['this', 'is', 'a', 0], (err, val) => {
+dataClient.get(["this", "is", "a", 0], (err, val) => {
     if (!err) console.log(val);
 });
 
@@ -38,12 +38,12 @@ dataClient.get(['this', 'is', 'a', 0], (err, val) => {
 ////////////////////////////////////////////////////
 
 const run = () => {
-    console.log('run called!');
+    console.log("run called!");
 };
 
 let broker = new SCBroker();
 broker = new SCBroker({ run });
-broker.options = { environment: 'prod' };
+broker.options = { environment: "prod" };
 
 // $ExpectType number
 broker.id;
@@ -60,40 +60,40 @@ broker.dataExpirer;
 const subscriptions = broker.subscriptions;
 
 // $ExpectType ComSocket
-subscriptions[1]['test'];
+subscriptions[1]["test"];
 
 broker
-    .on('subscribe', channel => {
+    .on("subscribe", channel => {
         // $ExpectType string
         channel;
     })
-    .on('unsubscribe', channel => {
+    .on("unsubscribe", channel => {
         // $ExpectType string
         channel;
     })
-    .on('publish', (channel, data) => {
+    .on("publish", (channel, data) => {
         // $ExpectType string
         channel;
 
         // $ExpectType any
         data;
     })
-    .on('masterMessage', (data, masterMessageResponse) => {
+    .on("masterMessage", (data, masterMessageResponse) => {
         // $ExpectType any
         data;
 
-        masterMessageResponse(null, 'test');
+        masterMessageResponse(null, "test");
         masterMessageResponse(new Error(), null);
     });
 
-broker.publish('testChannel', 123);
+broker.publish("testChannel", 123);
 
 broker.exec(dataMap => {
-    dataMap.set(['main', 'message'], 'Message');
-    return dataMap.get(['main']);
+    dataMap.set(["main", "message"], "Message");
+    return dataMap.get(["main"]);
 });
 
-broker.sendToMaster('data');
+broker.sendToMaster("data");
 broker.sendToMaster(123, (err, response) => {
     if (!err) {
         // $ExpectType any
@@ -103,7 +103,7 @@ broker.sendToMaster(123, (err, response) => {
 
 class MyBroker extends SCBroker {
     run() {
-        this.on('subscribe', channel => {});
+        this.on("subscribe", channel => {});
     }
 }
 

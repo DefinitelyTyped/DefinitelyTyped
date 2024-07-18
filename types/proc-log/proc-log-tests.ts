@@ -4,14 +4,14 @@
 
 /// <reference types="node" />
 
-import log = require('proc-log');
+import log = require("proc-log");
 
-log.error('some', 'random', 'args');
+log.error("some", "random", "args");
 const only = {};
-log.warn('not', only, 'strings');
+log.warn("not", only, "strings");
 const any = 4;
-log.notice(any, 'value', 'works');
-log.info("isn't", 'that', 'cool?');
+log.notice(any, "value", "works");
+log.info("isn't", "that", "cool?");
 /**
  * No arguments works too
  */
@@ -19,11 +19,11 @@ log.verbose();
 /**
  * Literally anything
  */
-log.http(Symbol('hi!'));
+log.http(Symbol("hi!"));
 /**
  * They accept any combination of arguments, so I can't really test the failure case
  */
-log.silly('fail');
+log.silly("fail");
 
 /**
  * Pause and resume
@@ -31,7 +31,7 @@ log.silly('fail');
 log.pause();
 log.resume();
 // @ts-expect-error
-log.pause('argument');
+log.pause("argument");
 // @ts-expect-error
 log.resume(only);
 

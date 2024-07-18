@@ -1,7 +1,7 @@
-import { SemVer } from 'semver';
-import { SubProcess, TeenProcessExecOptions } from 'teen_process';
+import { SemVer } from "semver";
+import { SubProcess, TeenProcessExecOptions } from "teen_process";
 
-export { DEFAULT_ADB_EXEC_TIMEOUT } from '../helpers';
+export { DEFAULT_ADB_EXEC_TIMEOUT } from "../helpers";
 
 export interface ConnectedDevicesOptions {
     /**
@@ -33,7 +33,7 @@ export interface VerboseDevice extends Device {
 
 export interface AdbExecOptions extends TeenProcessExecOptions {
     exclusive?: boolean;
-    outputFormat?: 'stdout' | 'full' | 'undefined';
+    outputFormat?: "stdout" | "full" | "undefined";
 }
 
 export interface ExecResult {
@@ -52,7 +52,7 @@ export interface AvdLaunchOptions {
     /**
      * Additional emulator command line arguments
      */
-    args?: string | ReadonlyArray<string>;
+    args?: string | readonly string[];
     /**
      * Additional emulator environment variables
      */
@@ -121,7 +121,7 @@ export interface RootResult {
     wasAlreadyRooted: boolean;
 }
 
-export type BinaryName = 'aapt' | 'aapt2' | 'adb' | 'apkanalyzer' | 'apksigner.jar' | 'bundletool' | 'zipalign';
+export type BinaryName = "aapt" | "aapt2" | "adb" | "apkanalyzer" | "apksigner.jar" | "bundletool" | "zipalign";
 
 /**
  * Retrieve full path to the given binary.
@@ -145,8 +145,8 @@ export default systemCallMethods;
 
 interface SystemCalls {
     EXEC_OUTPUT_FORMAT: {
-        readonly STDOUT: 'stdout';
-        readonly FULL: 'full';
+        readonly STDOUT: "stdout";
+        readonly FULL: "full";
     };
 
     /**
@@ -220,7 +220,7 @@ interface SystemCalls {
      * @throws If either ADB version is too old and does not support this
      * command or there was a failure during reconnect.
      */
-    reconnect(target?: 'offline' | 'device' | 'null'): Promise<void>;
+    reconnect(target?: "offline" | "device" | "null"): Promise<void>;
 
     /**
      * Restart adb server, unless _this.suppressKillServer_ property is true.
@@ -245,7 +245,7 @@ interface SystemCalls {
      *
      * @param cmd - The array of rest command line parameters.
      */
-    adbExecEmu(cmd: ReadonlyArray<string>): Promise<void>;
+    adbExecEmu(cmd: readonly string[]): Promise<void>;
 
     /**
      * Execute the given adb command.
@@ -258,8 +258,8 @@ interface SystemCalls {
      * @return - Command's stdout.
      * @throws If the command returned non-zero exit code.
      */
-    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions & { outputFormat: 'full' }): Promise<ExecResult>;
-    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions): Promise<string>;
+    adbExec(cmd: readonly string[], opts?: AdbExecOptions & { outputFormat: "full" }): Promise<ExecResult>;
+    adbExec(cmd: readonly string[], opts?: AdbExecOptions): Promise<string>;
 
     /**
      * Execute the given command using _adb shell_ prefix.
@@ -270,9 +270,9 @@ interface SystemCalls {
      * @return - Command's stdout.
      * @throws If the command returned non-zero exit code.
      */
-    shell(cmd: string | ReadonlyArray<string>, opts?: ShellExecOptions): Promise<string>;
+    shell(cmd: string | readonly string[], opts?: ShellExecOptions): Promise<string>;
 
-    createSubProcess(args?: ReadonlyArray<string>): SubProcess;
+    createSubProcess(args?: readonly string[]): SubProcess;
 
     /**
      * Retrieve the current adb port.
@@ -450,7 +450,7 @@ interface SystemCalls {
      *                          An empty array is returned of the given _remotePath_
      *                          does not exist.
      */
-    ls(remotePath: string, opts?: ReadonlyArray<string>): Promise<string[]>;
+    ls(remotePath: string, opts?: readonly string[]): Promise<string[]>;
 
     /**
      * Get the size of the particular file located on the device under test.

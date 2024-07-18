@@ -1,6 +1,6 @@
-import { JSHINT, LintData, LintOptions } from 'jshint';
+import { JSHINT, LintData, LintOptions } from "jshint";
 
-const source: string[] = ['function goo() {}', 'foo = 3;'];
+const source: string[] = ["function goo() {}", "foo = 3;"];
 const options: LintOptions = {
     undef: true,
 };
@@ -25,7 +25,7 @@ if (data) {
 const data2: LintData = {
     functions: [
         {
-            name: 'goo',
+            name: "goo",
             param: undefined,
             line: 1,
             character: 14,
@@ -45,24 +45,24 @@ const data2: LintData = {
     },
     errors: [
         {
-            id: '(error)',
-            raw: 'Read only.',
-            code: 'W020',
-            evidence: 'foo = 3;',
+            id: "(error)",
+            raw: "Read only.",
+            code: "W020",
+            evidence: "foo = 3;",
             line: 2,
             character: 1,
-            scope: '(main)',
+            scope: "(main)",
             a: undefined,
             b: undefined,
             c: undefined,
             d: undefined,
-            reason: 'Read only.',
+            reason: "Read only.",
         },
     ],
-    globals: ['goo', 'foo'],
+    globals: ["goo", "foo"],
     unused: [
         {
-            name: 'goo',
+            name: "goo",
             line: 1,
             character: 10,
         },

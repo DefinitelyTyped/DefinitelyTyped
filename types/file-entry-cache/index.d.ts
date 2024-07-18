@@ -1,8 +1,3 @@
-// Type definitions for file-entry-cache 5.0
-// Project: https://github.com/royriojas/file-entry-cache#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

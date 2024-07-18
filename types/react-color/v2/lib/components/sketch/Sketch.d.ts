@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState, RenderersProps } from "../../..";
 import { Classes } from "reactcss";
+import { ColorState, CustomPickerProps, RenderersProps } from "../../..";
 
 export interface SketchPickerStylesProps {
     picker: CSSProperties;
@@ -25,6 +25,6 @@ export interface SketchPickerProps extends RenderersProps, CustomPickerProps {
     onSwatchHover?: ((color: ColorState, event: MouseEvent) => void) | undefined;
 }
 
-export default class SketchPicker extends Component<SketchPickerProps> { }
+export default class SketchPicker extends Component<SketchPickerProps> {}
 
-export { };
+export {};

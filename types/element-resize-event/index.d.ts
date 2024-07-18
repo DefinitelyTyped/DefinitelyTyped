@@ -1,10 +1,3 @@
-// Type definitions for element-resize-event 3.0
-// Project: https://github.com/KyleAMathews/element-resize-event
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-//                 Pierre-Luc Gregoire <https://github.com/plgregoire>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = elementResizeEvent;
 
 /**

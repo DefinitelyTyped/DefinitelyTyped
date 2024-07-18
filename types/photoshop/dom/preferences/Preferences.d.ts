@@ -1,6 +1,6 @@
-import { PreferencesGeneral } from "./PreferencesGeneral";
 import { PreferencesCursors } from "./PreferencesCursors";
 import { PreferencesFileHandling } from "./PreferencesFileHandling";
+import { PreferencesGeneral } from "./PreferencesGeneral";
 import { PreferencesGuidesGridsAndSlices } from "./PreferencesGuidesGridsAndSlices";
 import { PreferencesHistory } from "./PreferencesHistory";
 import { PreferencesInterface } from "./PreferencesInterface";

@@ -10,15 +10,16 @@ export interface ThemeColors {
     secondary: string | null;
     onSecondary: string | null;
 }
-declare const name: string;
-declare const legalName: string;
-declare const siteUrl: string;
-declare const systemName: string;
-declare const logoUrl: number | string;
-declare const logoTitle: string;
-declare const footerLogoUrl: (number | string) | null;
-declare const footerLogoTitle: string;
-declare const mainMenuLogoUrl: string;
-declare const faviconUrl: string;
-declare const colors: ThemeColors;
+declare let name: string;
+declare let legalName: string;
+declare let siteUrl: string;
+declare let systemName: string;
+declare let logoUrl: number | string;
+declare let logoTitle: string;
+declare let footerLogoUrl: (number | string) | null;
+declare let footerLogoTitle: string;
+declare let mainMenuLogoUrl: string;
+declare let appBarLogoUrl: string;
+declare let faviconUrl: string;
+declare let colors: ThemeColors;
 export {};

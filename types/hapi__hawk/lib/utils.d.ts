@@ -1,6 +1,6 @@
-import * as Boom from '@hapi/boom';
-import * as http from 'http';
-import * as https from 'https';
+import * as Boom from "@hapi/boom";
+import * as http from "http";
+import * as https from "https";
 
 export interface Host {
     name: string;

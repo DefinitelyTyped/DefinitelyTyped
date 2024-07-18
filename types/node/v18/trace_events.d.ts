@@ -12,7 +12,7 @@
  * * `node.async_hooks`: Enables capture of detailed `async_hooks` trace data.
  * The `async_hooks` events have a unique `asyncId` and a special `triggerId` `triggerAsyncId` property.
  * * `node.bootstrap`: Enables capture of Node.js bootstrap milestones.
- * * `node.console`: Enables capture of `console.time()` and `console.count()`output.
+ * * `node.console`: Enables capture of `console.time()` and `console.count()` output.
  * * `node.dns.native`: Enables capture of trace data for DNS queries.
  * * `node.environment`: Enables capture of Node.js Environment milestones.
  * * `node.fs.sync`: Enables capture of trace data for file system sync methods.
@@ -85,7 +85,7 @@
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/trace_events.js)
  */
-declare module 'trace_events' {
+declare module "trace_events" {
     /**
      * The `Tracing` object is used to enable or disable tracing for sets of
      * categories. Instances are created using the
@@ -166,6 +166,6 @@ declare module 'trace_events' {
      */
     function getEnabledCategories(): string | undefined;
 }
-declare module 'node:trace_events' {
-    export * from 'trace_events';
+declare module "node:trace_events" {
+    export * from "trace_events";
 }

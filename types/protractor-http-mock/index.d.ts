@@ -1,11 +1,4 @@
-// Type definitions for protractor-http-mock 0.10
-// Project: https://github.com/atecarlos/protractor-http-mock
-// Definitions by: Crevil <https://github.com/Crevil>
-//                 Adam Kwiatek <https://github.com/akwiatek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-import * as webdriver from 'selenium-webdriver';
+import * as webdriver from "selenium-webdriver";
 
 declare namespace mock {
     interface ProtractorHttpMock {
@@ -16,7 +9,11 @@ declare namespace mock {
          * @param plugins An array of either Plugin objects or NPM modules as strings.
          * @param skipDefaults Set true to skip loading of default mocks.
          */
-        (mocks?: ReadonlyArray<requests.AllRequests | string>, plugins?: ReadonlyArray<Plugin1<any> | Plugin2<any, any> | string>, skipDefaults?: boolean): ProtractorHttpMock;
+        (
+            mocks?: ReadonlyArray<requests.AllRequests | string>,
+            plugins?: ReadonlyArray<Plugin1<any> | Plugin2<any, any> | string>,
+            skipDefaults?: boolean,
+        ): ProtractorHttpMock;
 
         /**
          * Clean up.
@@ -29,7 +26,7 @@ declare namespace mock {
          * Returns a promise that will be resolved with an array of
          * all matched HTTP requests.
          */
-        requestsMade(): webdriver.promise.Promise<Array<ReceivedRequest>>;
+        requestsMade(): webdriver.promise.Promise<ReceivedRequest[]>;
 
         /**
          * Returns a promise that will be resolved with a true boolean
@@ -58,22 +55,22 @@ declare namespace mock {
                  * Name of the folder where mocks will reside.
                  * Default: 'mocks'
                  */
-                dir?: string | undefined,
+                dir?: string | undefined;
 
                 /**
                  * Collection of default mocks to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string> | undefined
-            } | undefined,
+                default?: readonly string[] | undefined;
+            } | undefined;
 
             plugins?: {
                 /**
                  * Collection of default plugins to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string> | undefined
-            } | undefined
+                default?: readonly string[] | undefined;
+            } | undefined;
         };
 
         /**
@@ -83,7 +80,7 @@ declare namespace mock {
          *
          * @param mocks An array of mock modules to load into the application.
          */
-        add(mocks: ReadonlyArray<requests.AllRequests>): webdriver.promise.Promise<boolean>;
+        add(mocks: readonly requests.AllRequests[]): webdriver.promise.Promise<boolean>;
 
         /**
          * Remove mocks during test execution.
@@ -92,7 +89,7 @@ declare namespace mock {
          *
          * @param mocks An array of mock modules to remove from the application.
          */
-        remove(mocks: ReadonlyArray<requests.AllRequests>): webdriver.promise.Promise<boolean>;
+        remove(mocks: readonly requests.AllRequests[]): webdriver.promise.Promise<boolean>;
     }
 
     /**
@@ -149,15 +146,16 @@ declare namespace mock {
         /**
          * All available request types.
          */
-        type AllRequests = Get<any> |
-            PostData<any, any> |
-            Post<any> |
-            Head<any> |
-            Delete<any> |
-            PutData<any, any> |
-            Put<any> |
-            Patch<any> |
-            Jsonp<any>;
+        type AllRequests =
+            | Get<any>
+            | PostData<any, any>
+            | Post<any>
+            | Head<any>
+            | Delete<any>
+            | PutData<any, any>
+            | Put<any>
+            | Patch<any>
+            | Jsonp<any>;
 
         /**
          * GET request mock.

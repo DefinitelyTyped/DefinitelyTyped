@@ -1,7 +1,7 @@
-import { PointLight } from './../lights/PointLight';
-import { Matrix4 } from './../math/Matrix4';
-import { Object3D } from './../core/Object3D';
-import { ColorRepresentation } from '../math/Color';
+import { Object3D } from "../core/Object3D.js";
+import { PointLight } from "../lights/PointLight.js";
+import { ColorRepresentation } from "../math/Color.js";
+import { Matrix4 } from "../math/Matrix4.js";
 
 /**
  * This displays a helper object consisting of a spherical {@link THREE.Mesh | Mesh} for visualizing a {@link THREE.PointLight | PointLight}.
@@ -33,7 +33,7 @@ export class PointLightHelper extends Object3D {
      * @override
      * @defaultValue `PointLightHelper`
      */
-    override readonly type: string | 'PointLightHelper';
+    override readonly type: string | "PointLightHelper";
 
     /**
      * The {@link THREE.PointLight | PointLight} that is being visualized.

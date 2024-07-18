@@ -1,64 +1,64 @@
-import Share from 'react-native-share';
+import Share from "react-native-share";
 
 // $ExpectType Promise<OpenReturn>
 Share.open({
-    url: '',
-    message: '',
+    url: "",
+    message: "",
 });
 
 // $ExpectType Promise<OpenReturn>
 Share.open({
-    title: '',
-    message: '',
+    title: "",
+    message: "",
     urls: [],
 });
 
 // $ExpectType Promise<OpenReturn>
 Share.open({
-    url: '',
-    type: '',
-    title: '',
+    url: "",
+    type: "",
+    title: "",
     saveToFiles: true,
 });
 
 // $ExpectType Promise<OpenReturn>
 Share.open({
-    url: '',
-    type: '',
-    message: '',
-    title: '',
-    subject: '',
-    excludedActivityTypes: '',
+    url: "",
+    type: "",
+    message: "",
+    title: "",
+    subject: "",
+    excludedActivityTypes: "",
     showAppsToView: true,
 });
 
 // $ExpectType Promise<ShareSingleReturn>
 Share.shareSingle({
-    url: '',
-    message: '',
+    url: "",
+    message: "",
     social: Share.Social.FACEBOOK,
 });
 
 // $ExpectType Promise<ShareSingleReturn>
 Share.shareSingle({
-    url: '',
-    type: '',
-    message: '',
-    title: '',
-    subject: '',
+    url: "",
+    type: "",
+    message: "",
+    title: "",
+    subject: "",
     social: Share.Social.FACEBOOK,
 });
 
 // $ExpectType Promise<ShareSingleReturn>
 Share.shareSingle({
-    url: '',
-    type: '',
-    message: '',
-    title: '',
-    subject: '',
-    filename: 'test',
+    url: "",
+    type: "",
+    message: "",
+    title: "",
+    subject: "",
+    filename: "test",
     social: Share.Social.FACEBOOK,
 });
 
 // $ExpectType Promise<ShareSingleReturn>
-Share.isPackageInstalled('');
+Share.isPackageInstalled("");

@@ -1,14 +1,5 @@
-// Type definitions for passport-auth0 1.0
-// Project: https://github.com/auth0/passport-auth0
-// Definitions by: John Umeh <https://github.com/johnbendi>
-//                 Vishnu Sankar <https://github.com/iamvishnusankar>
-//                 Duncan Hall <https://github.com/duncanhall>
-//                 Karl Horky <https://github.com/karlhorky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import passport = require('passport');
-import express = require('express');
+import passport = require("passport");
+import express = require("express");
 
 declare class StrategyInternal extends passport.Strategy {
     constructor(
@@ -80,7 +71,7 @@ declare namespace StrategyInternal {
     ) => void;
 
     // NOTE: not true for `export import` statements
-    // tslint:disable-next-line:strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import Strategy = StrategyInternal;
 }
 

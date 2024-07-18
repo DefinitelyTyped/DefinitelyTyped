@@ -5,8 +5,8 @@ declare namespace Slick {
         }
 
         export class ColumnPicker<T extends Slick.SlickData> {
-            constructor(columns: Slick.Column<T>[], grid: Slick.Grid<T>, options: SlickColumnPickerOptions);
-            getAllColumns(): Slick.Column<T>[];
+            constructor(columns: Array<Slick.Column<T>>, grid: Slick.Grid<T>, options: SlickColumnPickerOptions);
+            getAllColumns(): Array<Slick.Column<T>>;
             destroy(): void;
         }
     }

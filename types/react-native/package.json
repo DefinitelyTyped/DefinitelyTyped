@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@react-native/virtualized-lists": "^0.72.4"
-    }
-}

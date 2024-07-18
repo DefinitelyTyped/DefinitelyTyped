@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ttf2woff",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/fontello/ttf2woff#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ttf2woff": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kaspar Vollenweider",
+            "githubUsername": "casaper"
+        }
+    ]
+}

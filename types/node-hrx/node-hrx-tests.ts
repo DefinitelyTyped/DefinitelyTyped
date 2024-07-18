@@ -1,9 +1,9 @@
-import nodeHrx = require('node-hrx');
+import nodeHrx = require("node-hrx");
 const { archiveFromStream } = nodeHrx;
-import fs = require('fs');
+import fs = require("fs");
 
 async function testParse() {
-    const stream = fs.createReadStream('path/to/file', 'utf8');
+    const stream = fs.createReadStream("path/to/file", "utf8");
 
     const archive = await archiveFromStream(stream);
 
@@ -15,7 +15,7 @@ async function testParse() {
         }
 
         const itemPath: string = item.path;
-        const comment: string|undefined = item.comment;
+        const comment: string | undefined = item.comment;
 
         if (item.isDirectory()) {
             const itemContents: Record<string, nodeHrx.Directory | nodeHrx.File> = item.contents;

@@ -1,6 +1,8 @@
-declare module 'process' {
-    import * as tty from 'node:tty';
-    import { Worker } from 'node:worker_threads';
+declare module "process" {
+    import * as net from "node:net";
+    import * as os from "node:os";
+    import * as tty from "node:tty";
+    import { Worker } from "node:worker_threads";
     global {
         var process: NodeJS.Process;
         namespace NodeJS {
@@ -21,10 +23,25 @@ declare module 'process' {
                 rss(): number;
             }
             interface MemoryUsage {
+                /**
+                 * Resident Set Size, is the amount of space occupied in the main memory device (that is a subset of the total allocated memory) for the
+                 * process, including all C++ and JavaScript objects and code.
+                 */
                 rss: number;
+                /**
+                 * Refers to V8's memory usage.
+                 */
                 heapTotal: number;
+                /**
+                 * Refers to V8's memory usage.
+                 */
                 heapUsed: number;
                 external: number;
+                /**
+                 * Refers to memory allocated for `ArrayBuffer`s and `SharedArrayBuffer`s, including all Node.js Buffers. This is also included
+                 * in the external value. When Node.js is used as an embedded library, this value may be `0` because allocations for `ArrayBuffer`s
+                 * may not be tracked in that case.
+                 */
                 arrayBuffers: number;
             }
             interface CpuUsage {
@@ -48,48 +65,71 @@ declare module 'process' {
                 modules: string;
                 openssl: string;
             }
-            type Platform = 'aix' | 'android' | 'darwin' | 'freebsd' | 'haiku' | 'linux' | 'openbsd' | 'sunos' | 'win32' | 'cygwin' | 'netbsd';
-            type Architecture = 'arm' | 'arm64' | 'ia32' | 'mips' | 'mipsel' | 'ppc' | 'ppc64' | 's390' | 's390x' | 'x64';
+            type Platform =
+                | "aix"
+                | "android"
+                | "darwin"
+                | "freebsd"
+                | "haiku"
+                | "linux"
+                | "openbsd"
+                | "sunos"
+                | "win32"
+                | "cygwin"
+                | "netbsd";
+            type Architecture =
+                | "arm"
+                | "arm64"
+                | "ia32"
+                | "loong64"
+                | "mips"
+                | "mipsel"
+                | "ppc"
+                | "ppc64"
+                | "riscv64"
+                | "s390"
+                | "s390x"
+                | "x64";
             type Signals =
-                | 'SIGABRT'
-                | 'SIGALRM'
-                | 'SIGBUS'
-                | 'SIGCHLD'
-                | 'SIGCONT'
-                | 'SIGFPE'
-                | 'SIGHUP'
-                | 'SIGILL'
-                | 'SIGINT'
-                | 'SIGIO'
-                | 'SIGIOT'
-                | 'SIGKILL'
-                | 'SIGPIPE'
-                | 'SIGPOLL'
-                | 'SIGPROF'
-                | 'SIGPWR'
-                | 'SIGQUIT'
-                | 'SIGSEGV'
-                | 'SIGSTKFLT'
-                | 'SIGSTOP'
-                | 'SIGSYS'
-                | 'SIGTERM'
-                | 'SIGTRAP'
-                | 'SIGTSTP'
-                | 'SIGTTIN'
-                | 'SIGTTOU'
-                | 'SIGUNUSED'
-                | 'SIGURG'
-                | 'SIGUSR1'
-                | 'SIGUSR2'
-                | 'SIGVTALRM'
-                | 'SIGWINCH'
-                | 'SIGXCPU'
-                | 'SIGXFSZ'
-                | 'SIGBREAK'
-                | 'SIGLOST'
-                | 'SIGINFO';
-            type UncaughtExceptionOrigin = 'uncaughtException' | 'unhandledRejection';
-            type MultipleResolveType = 'resolve' | 'reject';
+                | "SIGABRT"
+                | "SIGALRM"
+                | "SIGBUS"
+                | "SIGCHLD"
+                | "SIGCONT"
+                | "SIGFPE"
+                | "SIGHUP"
+                | "SIGILL"
+                | "SIGINT"
+                | "SIGIO"
+                | "SIGIOT"
+                | "SIGKILL"
+                | "SIGPIPE"
+                | "SIGPOLL"
+                | "SIGPROF"
+                | "SIGPWR"
+                | "SIGQUIT"
+                | "SIGSEGV"
+                | "SIGSTKFLT"
+                | "SIGSTOP"
+                | "SIGSYS"
+                | "SIGTERM"
+                | "SIGTRAP"
+                | "SIGTSTP"
+                | "SIGTTIN"
+                | "SIGTTOU"
+                | "SIGUNUSED"
+                | "SIGURG"
+                | "SIGUSR1"
+                | "SIGUSR2"
+                | "SIGVTALRM"
+                | "SIGWINCH"
+                | "SIGXCPU"
+                | "SIGXFSZ"
+                | "SIGBREAK"
+                | "SIGLOST"
+                | "SIGINFO";
+            type UncaughtExceptionOrigin = "uncaughtException" | "unhandledRejection";
+            type MultipleResolveType = "resolve" | "reject";
             type BeforeExitListener = (code: number) => void;
             type DisconnectListener = () => void;
             type ExitListener = (code: number) => void;
@@ -103,7 +143,11 @@ declare module 'process' {
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: unknown, sendHandle: unknown) => void;
             type SignalsListener = (signal: Signals) => void;
-            type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<unknown>, value: unknown) => void;
+            type MultipleResolveListener = (
+                type: MultipleResolveType,
+                promise: Promise<unknown>,
+                value: unknown,
+            ) => void;
             type WorkerListener = (worker: Worker) => void;
             interface Socket extends ReadWriteStream {
                 isTTY?: true | undefined;
@@ -117,7 +161,52 @@ declare module 'process' {
             }
             interface HRTime {
                 (time?: [number, number]): [number, number];
+                /**
+                 * The `bigint` version of the `{@link hrtime()}` method returning the current high-resolution real time in nanoseconds as a `bigint`.
+                 *
+                 * Unlike `{@link hrtime()}`, it does not support an additional time argument since the difference can just be computed directly by subtraction of the two `bigint`s.
+                 * ```js
+                 * import { hrtime } from 'node:process';
+                 *
+                 * const start = hrtime.bigint();
+                 * // 191051479007711n
+                 *
+                 * setTimeout(() => {
+                 *   const end = hrtime.bigint();
+                 *   // 191052633396993n
+                 *
+                 *   console.log(`Benchmark took ${end - start} nanoseconds`);
+                 *   // Benchmark took 1154389282 nanoseconds
+                 * }, 1000);
+                 * ```
+                 */
                 bigint(): bigint;
+            }
+            interface ProcessPermission {
+                /**
+                 * Verifies that the process is able to access the given scope and reference.
+                 * If no reference is provided, a global scope is assumed, for instance, `process.permission.has('fs.read')`
+                 * will check if the process has ALL file system read permissions.
+                 *
+                 * The reference has a meaning based on the provided scope. For example, the reference when the scope is File System means files and folders.
+                 *
+                 * The available scopes are:
+                 *
+                 * * `fs` - All File System
+                 * * `fs.read` - File System read operations
+                 * * `fs.write` - File System write operations
+                 * * `child` - Child process spawning operations
+                 * * `worker` - Worker thread spawning operation
+                 *
+                 * ```js
+                 * // Check if the process has permission to read the README file
+                 * process.permission.has('fs.read', './README.md');
+                 * // Check if the process has read permission operations
+                 * process.permission.has('fs.read');
+                 * ```
+                 * @since v20.0.0
+                 */
+                has(scope: string, reference?: string): boolean;
             }
             interface ProcessReport {
                 /**
@@ -280,12 +369,11 @@ declare module 'process' {
                  * For more information see `Stream compatibility`.
                  *
                  * In "old" streams mode the `stdin` stream is paused by default, so one
-                 * must call `process.stdin.resume()` to read from it. Note also that calling`process.stdin.resume()` itself would switch stream to "old" mode.
+                 * must call `process.stdin.resume()` to read from it. Note also that calling `process.stdin.resume()` itself would switch stream to "old" mode.
                  */
                 stdin: ReadStream & {
                     fd: 0;
                 };
-                openStdin(): Socket;
                 /**
                  * The `process.argv` property returns an array containing the command-line
                  * arguments passed when the Node.js process was launched. The first element will
@@ -307,8 +395,8 @@ declare module 'process' {
                  *
                  * Launching the Node.js process as:
                  *
-                 * ```console
-                 * $ node process-args.js one two=three four
+                 * ```bash
+                 * node process-args.js one two=three four
                  * ```
                  *
                  * Would generate the output:
@@ -344,14 +432,14 @@ declare module 'process' {
                  * the script name. These options are useful in order to spawn child processes with
                  * the same execution environment as the parent.
                  *
-                 * ```console
-                 * $ node --harmony script.js --version
+                 * ```bash
+                 * node --icu-data-dir=./foo --require ./bar.js script.js --version
                  * ```
                  *
                  * Results in `process.execArgv`:
                  *
                  * ```js
-                 * ['--harmony']
+                 * ["--icu-data-dir=./foo", "--require", "./bar.js"]
                  * ```
                  *
                  * And `process.argv`:
@@ -428,23 +516,59 @@ declare module 'process' {
                  */
                 debugPort: number;
                 /**
+                 * The `process.dlopen()` method allows dynamically loading shared objects. It is primarily used by `require()` to load C++ Addons, and
+                 * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
+                 * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
+                 *
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v20.x/api/os.html#dlopen-constants)`
+                 * documentation for details.
+                 *
+                 * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
+                 * are then accessible via `module.exports`.
+                 *
+                 * The example below shows how to load a C++ Addon, named `local.node`, that exports a `foo` function. All the symbols are loaded before the call returns, by passing the `RTLD_NOW` constant.
+                 * In this example the constant is assumed to be available.
+                 *
+                 * ```js
+                 * import { dlopen } from 'node:process';
+                 * import { constants } from 'node:os';
+                 * import { fileURLToPath } from 'node:url';
+                 *
+                 * const module = { exports: {} };
+                 * dlopen(module, fileURLToPath(new URL('local.node', import.meta.url)),
+                 *        constants.dlopen.RTLD_NOW);
+                 * module.exports.foo();
+                 * ```
+                 */
+                dlopen(module: object, filename: string, flags?: number): void;
+                /**
                  * The `process.emitWarning()` method can be used to emit custom or application
                  * specific process warnings. These can be listened for by adding a handler to the `'warning'` event.
                  *
                  * ```js
                  * import { emitWarning } from 'node:process';
                  *
-                 * // Emit a warning with a code and additional detail.
-                 * emitWarning('Something happened!', {
-                 *   code: 'MY_WARNING',
-                 *   detail: 'This is some additional information',
-                 * });
-                 * // Emits:
-                 * // (node:56338) [MY_WARNING] Warning: Something happened!
-                 * // This is some additional information
+                 * // Emit a warning using a string.
+                 * emitWarning('Something happened!');
+                 * // Emits: (node: 56338) Warning: Something happened!
                  * ```
                  *
-                 * In this example, an `Error` object is generated internally by`process.emitWarning()` and passed through to the `'warning'` handler.
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * // Emit a warning using a string and a type.
+                 * emitWarning('Something Happened!', 'CustomWarning');
+                 * // Emits: (node:56338) CustomWarning: Something Happened!
+                 * ```
+                 *
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * emitWarning('Something happened!', 'CustomWarning', 'WARN001');
+                 * // Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+                 * ```js
+                 *
+                 * In each of the previous examples, an `Error` object is generated internally by `process.emitWarning()` and passed through to the `'warning'` handler.
                  *
                  * ```js
                  * import process from 'node:process';
@@ -458,7 +582,30 @@ declare module 'process' {
                  * });
                  * ```
                  *
-                 * If `warning` is passed as an `Error` object, the `options` argument is ignored.
+                 * If `warning` is passed as an `Error` object, it will be passed through to the `'warning'` event handler
+                 * unmodified (and the optional `type`, `code` and `ctor` arguments will be ignored):
+                 *
+                 * ```js
+                 * import { emitWarning } from 'node:process';
+                 *
+                 * // Emit a warning using an Error object.
+                 * const myWarning = new Error('Something happened!');
+                 * // Use the Error name property to specify the type name
+                 * myWarning.name = 'CustomWarning';
+                 * myWarning.code = 'WARN001';
+                 *
+                 * emitWarning(myWarning);
+                 * // Emits: (node:56338) [WARN001] CustomWarning: Something happened!
+                 * ```
+                 *
+                 * A `TypeError` is thrown if `warning` is anything other than a string or `Error` object.
+                 *
+                 * While process warnings use `Error` objects, the process warning mechanism is not a replacement for normal error handling mechanisms.
+                 *
+                 * The following additional handling is implemented if the warning `type` is `'DeprecationWarning'`:
+                 * * If the `--throw-deprecation` command-line flag is used, the deprecation warning is thrown as an exception rather than being emitted as an event.
+                 * * If the `--no-deprecation` command-line flag is used, the deprecation warning is suppressed.
+                 * * If the `--trace-deprecation` command-line flag is used, the deprecation warning is printed to `stderr` along with the full stack trace.
                  * @since v8.0.0
                  * @param warning The warning to emit.
                  */
@@ -492,8 +639,8 @@ declare module 'process' {
                  * to other `Worker` threads.
                  * In other words, the following example would not work:
                  *
-                 * ```console
-                 * $ node -e 'process.env.foo = "bar"' &#x26;&#x26; echo $foo
+                 * ```bash
+                 * node -e 'process.env.foo = "bar"' &#x26;&#x26; echo $foo
                  * ```
                  *
                  * While the following will:
@@ -546,7 +693,8 @@ declare module 'process' {
                  * parent thread's `process.env`, or whatever was specified as the `env` option
                  * to the `Worker` constructor. Changes to `process.env` will not be visible
                  * across `Worker` threads, and only the main thread can make changes that
-                 * are visible to the operating system or to native add-ons.
+                 * are visible to the operating system or to native add-ons. On Windows, a copy of `process.env` on a `Worker` instance operates in a case-sensitive manner
+                 * unlike the main thread.
                  * @since v0.1.27
                  */
                 env: ProcessEnv;
@@ -569,13 +717,13 @@ declare module 'process' {
                  *
                  * Calling `process.exit()` will force the process to exit as quickly as possible
                  * even if there are still asynchronous operations pending that have not yet
-                 * completed fully, including I/O operations to `process.stdout` and`process.stderr`.
+                 * completed fully, including I/O operations to `process.stdout` and `process.stderr`.
                  *
-                 * In most situations, it is not actually necessary to call `process.exit()`explicitly. The Node.js process will exit on its own _if there is no additional_
+                 * In most situations, it is not actually necessary to call `process.exit()` explicitly. The Node.js process will exit on its own _if there is no additional_
                  * _work pending_ in the event loop. The `process.exitCode` property can be set to
                  * tell the process which exit code to use when the process exits gracefully.
                  *
-                 * For instance, the following example illustrates a _misuse_ of the`process.exit()` method that could lead to data printed to stdout being
+                 * For instance, the following example illustrates a _misuse_ of the `process.exit()` method that could lead to data printed to stdout being
                  * truncated and lost:
                  *
                  * ```js
@@ -592,7 +740,7 @@ declare module 'process' {
                  * are sometimes _asynchronous_ and may occur over multiple ticks of the Node.js
                  * event loop. Calling `process.exit()`, however, forces the process to exit _before_ those additional writes to `stdout` can be performed.
                  *
-                 * Rather than calling `process.exit()` directly, the code _should_ set the`process.exitCode` and allow the process to exit naturally by avoiding
+                 * Rather than calling `process.exit()` directly, the code _should_ set the `process.exitCode` and allow the process to exit naturally by avoiding
                  * scheduling any additional work for the event loop:
                  *
                  * ```js
@@ -615,7 +763,7 @@ declare module 'process' {
                  * @since v0.1.13
                  * @param [code=0] The exit code. For string type, only integer strings (e.g.,'1') are allowed.
                  */
-                exit(code?: number): never;
+                exit(code?: number | string | null | undefined): never;
                 /**
                  * A number which will be the process exit code, when the process either
                  * exits gracefully, or is exited via {@link exit} without specifying
@@ -623,15 +771,34 @@ declare module 'process' {
                  *
                  * Specifying a code to {@link exit} will override any
                  * previous setting of `process.exitCode`.
+                 * @default undefined
                  * @since v0.11.8
                  */
-                exitCode?: number | undefined;
+                exitCode?: number | string | number | undefined;
+                /**
+                 * The `process.getActiveResourcesInfo()` method returns an array of strings containing
+                 * the types of the active resources that are currently keeping the event loop alive.
+                 *
+                 * ```js
+                 * import { getActiveResourcesInfo } from 'node:process';
+                 * import { setTimeout } from 'node:timers';
+
+                 * console.log('Before:', getActiveResourcesInfo());
+                 * setTimeout(() => {}, 1000);
+                 * console.log('After:', getActiveResourcesInfo());
+                 * // Prints:
+                 * //   Before: [ 'TTYWrap', 'TTYWrap', 'TTYWrap' ]
+                 * //   After: [ 'TTYWrap', 'TTYWrap', 'TTYWrap', 'Timeout' ]
+                 * ```
+                 * @since v17.3.0, v16.14.0
+                 */
+                getActiveResourcesInfo(): string[];
                 /**
                  * The `process.getgid()` method returns the numerical group identity of the
                  * process. (See [`getgid(2)`](http://man7.org/linux/man-pages/man2/getgid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgid) {
                  *   console.log(`Current gid: ${process.getgid()}`);
@@ -650,7 +817,7 @@ declare module 'process' {
                  * associated numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgid &#x26;&#x26; process.setgid) {
                  *   console.log(`Current gid: ${process.getgid()}`);
@@ -675,7 +842,7 @@ declare module 'process' {
                  * (See [`getuid(2)`](http://man7.org/linux/man-pages/man2/getuid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getuid) {
                  *   console.log(`Current uid: ${process.getuid()}`);
@@ -694,7 +861,7 @@ declare module 'process' {
                  * numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getuid &#x26;&#x26; process.setuid) {
                  *   console.log(`Current uid: ${process.getuid()}`);
@@ -718,7 +885,7 @@ declare module 'process' {
                  * the process. (See [`geteuid(2)`](http://man7.org/linux/man-pages/man2/geteuid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.geteuid) {
                  *   console.log(`Current uid: ${process.geteuid()}`);
@@ -737,7 +904,7 @@ declare module 'process' {
                  * associated numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.geteuid &#x26;&#x26; process.seteuid) {
                  *   console.log(`Current uid: ${process.geteuid()}`);
@@ -762,7 +929,7 @@ declare module 'process' {
                  * of the Node.js process. (See [`getegid(2)`](http://man7.org/linux/man-pages/man2/getegid.2.html).)
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getegid) {
                  *   console.log(`Current gid: ${process.getegid()}`);
@@ -781,7 +948,7 @@ declare module 'process' {
                  * the associated a numeric ID.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getegid &#x26;&#x26; process.setegid) {
                  *   console.log(`Current gid: ${process.getegid()}`);
@@ -807,7 +974,7 @@ declare module 'process' {
                  * Node.js ensures it always is.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgroups) {
                  *   console.log(process.getgroups()); // [ 16, 21, 297 ]
@@ -827,7 +994,7 @@ declare module 'process' {
                  * The `groups` array can contain numeric group IDs, group names, or both.
                  *
                  * ```js
-                 * import process from 'process';
+                 * import process from 'node:process';
                  *
                  * if (process.getgroups &#x26;&#x26; process.setgroups) {
                  *   try {
@@ -856,7 +1023,7 @@ declare module 'process' {
                  * not abort. Actions configured to take place on exceptions such as report
                  * generations will be affected too
                  *
-                 * To unset the capture function,`process.setUncaughtExceptionCaptureCallback(null)` may be used. Calling this
+                 * To unset the capture function, `process.setUncaughtExceptionCaptureCallback(null)` may be used. Calling this
                  * method with a non-`null` argument while another capture function is set will
                  * throw an error.
                  *
@@ -869,6 +1036,24 @@ declare module 'process' {
                  * @since v9.3.0
                  */
                 hasUncaughtExceptionCaptureCallback(): boolean;
+                /**
+                 * The `process.sourceMapsEnabled` property returns whether the [Source Map v3](https://sourcemaps.info/spec.html) support for stack traces is enabled.
+                 * @since v20.7.0
+                 * @experimental
+                 */
+                readonly sourceMapsEnabled: boolean;
+                /**
+                 * This function enables or disables the [Source Map v3](https://sourcemaps.info/spec.html) support for
+                 * stack traces.
+                 *
+                 * It provides same features as launching Node.js process with commandline options `--enable-source-maps`.
+                 *
+                 * Only source maps in JavaScript files that are loaded after source maps has been
+                 * enabled will be parsed and loaded.
+                 * @since v16.6.0, v14.18.0
+                 * @experimental
+                 */
+                setSourceMapsEnabled(value: boolean): void;
                 /**
                  * The `process.version` property contains the Node.js version string.
                  *
@@ -898,21 +1083,30 @@ declare module 'process' {
                  * Will generate an object similar to:
                  *
                  * ```console
-                 * { node: '11.13.0',
-                 *   v8: '7.0.276.38-node.18',
-                 *   uv: '1.27.0',
-                 *   zlib: '1.2.11',
-                 *   brotli: '1.0.7',
-                 *   ares: '1.15.0',
-                 *   modules: '67',
-                 *   nghttp2: '1.34.0',
-                 *   napi: '4',
-                 *   llhttp: '1.1.1',
-                 *   openssl: '1.1.1b',
-                 *   cldr: '34.0',
-                 *   icu: '63.1',
-                 *   tz: '2018e',
-                 *   unicode: '11.0' }
+                 * { node: '20.2.0',
+                 *   acorn: '8.8.2',
+                 *   ada: '2.4.0',
+                 *   ares: '1.19.0',
+                 *   base64: '0.5.0',
+                 *   brotli: '1.0.9',
+                 *   cjs_module_lexer: '1.2.2',
+                 *   cldr: '43.0',
+                 *   icu: '73.1',
+                 *   llhttp: '8.1.0',
+                 *   modules: '115',
+                 *   napi: '8',
+                 *   nghttp2: '1.52.0',
+                 *   nghttp3: '0.7.0',
+                 *   ngtcp2: '0.8.1',
+                 *   openssl: '3.0.8+quic',
+                 *   simdutf: '3.2.9',
+                 *   tz: '2023c',
+                 *   undici: '5.22.0',
+                 *   unicode: '15.0',
+                 *   uv: '1.44.2',
+                 *   uvwasi: '0.0.16',
+                 *   v8: '11.3.244.8-node.9',
+                 *   zlib: '1.2.13' }
                  * ```
                  * @since v0.2.0
                  */
@@ -991,6 +1185,21 @@ declare module 'process' {
                  */
                 kill(pid: number, signal?: string | number): true;
                 /**
+                 * Loads the environment configuration from a `.env` file into `process.env`. If
+                 * the file is not found, error will be thrown.
+                 *
+                 * To load a specific .env file by specifying its path, use the following code:
+                 *
+                 * ```js
+                 * import { loadEnvFile } from 'node:process';
+                 *
+                 * loadEnvFile('./development.env')
+                 * ```
+                 * @since v20.12.0
+                 * @param path The path to the .env file
+                 */
+                loadEnvFile(path?: string | URL | Buffer): void;
+                /**
                  * The `process.pid` property returns the PID of the process.
                  *
                  * ```js
@@ -1021,8 +1230,8 @@ declare module 'process' {
                  * When a new value is assigned, different platforms will impose different maximum
                  * length restrictions on the title. Usually such restrictions are quite limited.
                  * For instance, on Linux and macOS, `process.title` is limited to the size of the
-                 * binary name plus the length of the command-line arguments because setting the`process.title` overwrites the `argv` memory of the process. Node.js v0.8
-                 * allowed for longer process title strings by also overwriting the `environ`memory but that was potentially insecure and confusing in some (rather obscure)
+                 * binary name plus the length of the command-line arguments because setting the `process.title` overwrites the `argv` memory of the process. Node.js v0.8
+                 * allowed for longer process title strings by also overwriting the `environ` memory but that was potentially insecure and confusing in some (rather obscure)
                  * cases.
                  *
                  * Assigning a value to `process.title` might not result in an accurate label
@@ -1033,7 +1242,7 @@ declare module 'process' {
                 title: string;
                 /**
                  * The operating system CPU architecture for which the Node.js binary was compiled.
-                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'mips'`,`'mipsel'`, `'ppc'`,`'ppc64'`, `'s390'`, `'s390x'`, and `'x64'`.
+                 * Possible values are: `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`, and `'x64'`.
                  *
                  * ```js
                  * import { arch } from 'node:process';
@@ -1084,14 +1293,21 @@ declare module 'process' {
                 /**
                  * Gets the amount of memory available to the process (in bytes) based on
                  * limits imposed by the OS. If there is no such constraint, or the constraint
-                 * is unknown, `undefined` is returned.
+                 * is unknown, `0` is returned.
                  *
                  * See [`uv_get_constrained_memory`](https://docs.libuv.org/en/v1.x/misc.html#c.uv_get_constrained_memory) for more
                  * information.
                  * @since v19.6.0, v18.15.0
                  * @experimental
                  */
-                constrainedMemory(): number | undefined;
+                constrainedMemory(): number;
+                /**
+                 * Gets the amount of free memory that is still available to the process (in bytes).
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v20.x/api/process.html#processavailablememory) for more information.
+                 * @experimental
+                 * @since v20.13.0
+                 */
+                availableMemory(): number;
                 /**
                  * The `process.cpuUsage()` method returns the user and system CPU time usage of
                  * the current process, in an object with properties `user` and `system`, whose
@@ -1209,6 +1425,14 @@ declare module 'process' {
                  */
                 nextTick(callback: Function, ...args: any[]): void;
                 /**
+                 * This API is available through the [--experimental-permission](https://nodejs.org/api/cli.html#--experimental-permission) flag.
+                 *
+                 * `process.permission` is an object whose methods are used to manage permissions for the current process.
+                 * Additional documentation is available in the [Permission Model](https://nodejs.org/api/permissions.html#permission-model).
+                 * @since v20.0.0
+                 */
+                permission: ProcessPermission;
+                /**
                  * The `process.release` property returns an `Object` containing metadata related
                  * to the current release, including URLs for the source tarball and headers-only
                  * tarball.
@@ -1225,7 +1449,7 @@ declare module 'process' {
                  * }
                  * ```
                  *
-                 * In custom builds from non-release versions of the source tree, only the`name` property may be present. The additional properties should not be
+                 * In custom builds from non-release versions of the source tree, only the `name` property may be present. The additional properties should not be
                  * relied upon to exist.
                  * @since v3.0.0
                  */
@@ -1244,7 +1468,7 @@ declare module 'process' {
                  * `process.umask()` returns the Node.js process's file mode creation mask. Child
                  * processes inherit the mask from the parent process.
                  * @since v0.1.19
-                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential   *
+                 * @deprecated Calling `process.umask()` with no argument causes the process-wide umask to be written twice. This introduces a race condition between threads, and is a potential
                  * security vulnerability. There is no safe, cross-platform alternative API.
                  */
                 umask(): number;
@@ -1263,23 +1487,40 @@ declare module 'process' {
                 uptime(): number;
                 hrtime: HRTime;
                 /**
+                 * If the Node.js process was spawned with an IPC channel, the process.channel property is a reference to the IPC channel.
+                 * If no IPC channel exists, this property is undefined.
+                 * @since v7.1.0
+                 */
+                channel?: {
+                    /**
+                     * This method makes the IPC channel keep the event loop of the process running if .unref() has been called before.
+                     * @since v7.1.0
+                     */
+                    ref(): void;
+                    /**
+                     * This method makes the IPC channel not keep the event loop of the process running, and lets it finish even while the channel is open.
+                     * @since v7.1.0
+                     */
+                    unref(): void;
+                };
+                /**
                  * If Node.js is spawned with an IPC channel, the `process.send()` method can be
                  * used to send messages to the parent process. Messages will be received as a `'message'` event on the parent's `ChildProcess` object.
                  *
-                 * If Node.js was not spawned with an IPC channel, `process.send` will be`undefined`.
+                 * If Node.js was not spawned with an IPC channel, `process.send` will be `undefined`.
                  *
                  * The message goes through serialization and parsing. The resulting message might
                  * not be the same as what is originally sent.
                  * @since v0.5.9
-                 * @param options used to parameterize the sending of certain types of handles.`options` supports the following properties:
+                 * @param options used to parameterize the sending of certain types of handles. `options` supports the following properties:
                  */
                 send?(
                     message: any,
                     sendHandle?: any,
                     options?: {
-                        swallowErrors?: boolean | undefined;
+                        keepOpen?: boolean | undefined;
                     },
-                    callback?: (error: Error | null) => void
+                    callback?: (error: Error | null) => void,
                 ): boolean;
                 /**
                  * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.disconnect()` method will close the
@@ -1288,13 +1529,13 @@ declare module 'process' {
                  *
                  * The effect of calling `process.disconnect()` is the same as calling `ChildProcess.disconnect()` from the parent process.
                  *
-                 * If the Node.js process was not spawned with an IPC channel,`process.disconnect()` will be `undefined`.
+                 * If the Node.js process was not spawned with an IPC channel, `process.disconnect()` will be `undefined`.
                  * @since v0.7.2
                  */
                 disconnect(): void;
                 /**
-                 * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.connected` property will return`true` so long as the IPC
-                 * channel is connected and will return `false` after`process.disconnect()` is called.
+                 * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.connected` property will return `true` so long as the IPC
+                 * channel is connected and will return `false` after `process.disconnect()` is called.
                  *
                  * Once `process.connected` is `false`, it is no longer possible to send messages
                  * over the IPC channel using `process.send()`.
@@ -1305,11 +1546,11 @@ declare module 'process' {
                  * The `process.allowedNodeEnvironmentFlags` property is a special,
                  * read-only `Set` of flags allowable within the `NODE_OPTIONS` environment variable.
                  *
-                 * `process.allowedNodeEnvironmentFlags` extends `Set`, but overrides`Set.prototype.has` to recognize several different possible flag
+                 * `process.allowedNodeEnvironmentFlags` extends `Set`, but overrides `Set.prototype.has` to recognize several different possible flag
                  * representations. `process.allowedNodeEnvironmentFlags.has()` will
                  * return `true` in the following cases:
                  *
-                 * * Flags may omit leading single (`-`) or double (`--`) dashes; e.g.,`inspect-brk` for `--inspect-brk`, or `r` for `-r`.
+                 * * Flags may omit leading single (`-`) or double (`--`) dashes; e.g., `inspect-brk` for `--inspect-brk`, or `r` for `-r`.
                  * * Flags passed through to V8 (as listed in `--v8-options`) may replace
                  * one or more _non-leading_ dashes for an underscore, or vice-versa;
                  * e.g., `--perf_basic_prof`, `--perf-basic-prof`, `--perf_basic-prof`,
@@ -1381,105 +1622,133 @@ declare module 'process' {
                  */
                 resourceUsage(): ResourceUsage;
                 /**
-                 * The `process.traceDeprecation` property indicates whether the`--trace-deprecation` flag is set on the current Node.js process. See the
+                 * The initial value of `process.throwDeprecation` indicates whether the `--throw-deprecation` flag is set on the current Node.js process. `process.throwDeprecation`
+                 * is mutable, so whether or not deprecation warnings result in errors may be altered at runtime. See the documentation for the 'warning' event and the emitWarning()
+                 * method for more information.
+                 *
+                 * ```bash
+                 * $ node --throw-deprecation -p "process.throwDeprecation"
+                 * true
+                 * $ node -p "process.throwDeprecation"
+                 * undefined
+                 * $ node
+                 * > process.emitWarning('test', 'DeprecationWarning');
+                 * undefined
+                 * > (node:26598) DeprecationWarning: test
+                 * > process.throwDeprecation = true;
+                 * true
+                 * > process.emitWarning('test', 'DeprecationWarning');
+                 * Thrown:
+                 * [DeprecationWarning: test] { name: 'DeprecationWarning' }
+                 * ```
+                 * @since v0.9.12
+                 */
+                throwDeprecation: boolean;
+                /**
+                 * The `process.traceDeprecation` property indicates whether the `--trace-deprecation` flag is set on the current Node.js process. See the
                  * documentation for the `'warning' event` and the `emitWarning() method` for more information about this
                  * flag's behavior.
                  * @since v0.8.0
                  */
                 traceDeprecation: boolean;
                 /* EventEmitter */
-                addListener(event: 'beforeExit', listener: BeforeExitListener): this;
-                addListener(event: 'disconnect', listener: DisconnectListener): this;
-                addListener(event: 'exit', listener: ExitListener): this;
-                addListener(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                addListener(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                addListener(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                addListener(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                addListener(event: 'warning', listener: WarningListener): this;
-                addListener(event: 'message', listener: MessageListener): this;
+                addListener(event: "beforeExit", listener: BeforeExitListener): this;
+                addListener(event: "disconnect", listener: DisconnectListener): this;
+                addListener(event: "exit", listener: ExitListener): this;
+                addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                addListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                addListener(event: "warning", listener: WarningListener): this;
+                addListener(event: "message", listener: MessageListener): this;
                 addListener(event: Signals, listener: SignalsListener): this;
-                addListener(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                addListener(event: 'worker', listener: WorkerListener): this;
-                emit(event: 'beforeExit', code: number): boolean;
-                emit(event: 'disconnect'): boolean;
-                emit(event: 'exit', code: number): boolean;
-                emit(event: 'rejectionHandled', promise: Promise<unknown>): boolean;
-                emit(event: 'uncaughtException', error: Error): boolean;
-                emit(event: 'uncaughtExceptionMonitor', error: Error): boolean;
-                emit(event: 'unhandledRejection', reason: unknown, promise: Promise<unknown>): boolean;
-                emit(event: 'warning', warning: Error): boolean;
-                emit(event: 'message', message: unknown, sendHandle: unknown): this;
+                addListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                addListener(event: "worker", listener: WorkerListener): this;
+                emit(event: "beforeExit", code: number): boolean;
+                emit(event: "disconnect"): boolean;
+                emit(event: "exit", code: number): boolean;
+                emit(event: "rejectionHandled", promise: Promise<unknown>): boolean;
+                emit(event: "uncaughtException", error: Error): boolean;
+                emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
+                emit(event: "unhandledRejection", reason: unknown, promise: Promise<unknown>): boolean;
+                emit(event: "warning", warning: Error): boolean;
+                emit(event: "message", message: unknown, sendHandle: unknown): this;
                 emit(event: Signals, signal?: Signals): boolean;
-                emit(event: 'multipleResolves', type: MultipleResolveType, promise: Promise<unknown>, value: unknown): this;
-                emit(event: 'worker', listener: WorkerListener): this;
-                on(event: 'beforeExit', listener: BeforeExitListener): this;
-                on(event: 'disconnect', listener: DisconnectListener): this;
-                on(event: 'exit', listener: ExitListener): this;
-                on(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                on(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                on(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                on(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                on(event: 'warning', listener: WarningListener): this;
-                on(event: 'message', listener: MessageListener): this;
+                emit(
+                    event: "multipleResolves",
+                    type: MultipleResolveType,
+                    promise: Promise<unknown>,
+                    value: unknown,
+                ): this;
+                emit(event: "worker", listener: WorkerListener): this;
+                on(event: "beforeExit", listener: BeforeExitListener): this;
+                on(event: "disconnect", listener: DisconnectListener): this;
+                on(event: "exit", listener: ExitListener): this;
+                on(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                on(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                on(event: "warning", listener: WarningListener): this;
+                on(event: "message", listener: MessageListener): this;
                 on(event: Signals, listener: SignalsListener): this;
-                on(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                on(event: 'worker', listener: WorkerListener): this;
+                on(event: "multipleResolves", listener: MultipleResolveListener): this;
+                on(event: "worker", listener: WorkerListener): this;
                 on(event: string | symbol, listener: (...args: any[]) => void): this;
-                once(event: 'beforeExit', listener: BeforeExitListener): this;
-                once(event: 'disconnect', listener: DisconnectListener): this;
-                once(event: 'exit', listener: ExitListener): this;
-                once(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                once(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                once(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                once(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                once(event: 'warning', listener: WarningListener): this;
-                once(event: 'message', listener: MessageListener): this;
+                once(event: "beforeExit", listener: BeforeExitListener): this;
+                once(event: "disconnect", listener: DisconnectListener): this;
+                once(event: "exit", listener: ExitListener): this;
+                once(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                once(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                once(event: "warning", listener: WarningListener): this;
+                once(event: "message", listener: MessageListener): this;
                 once(event: Signals, listener: SignalsListener): this;
-                once(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                once(event: 'worker', listener: WorkerListener): this;
+                once(event: "multipleResolves", listener: MultipleResolveListener): this;
+                once(event: "worker", listener: WorkerListener): this;
                 once(event: string | symbol, listener: (...args: any[]) => void): this;
-                prependListener(event: 'beforeExit', listener: BeforeExitListener): this;
-                prependListener(event: 'disconnect', listener: DisconnectListener): this;
-                prependListener(event: 'exit', listener: ExitListener): this;
-                prependListener(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                prependListener(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                prependListener(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                prependListener(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                prependListener(event: 'warning', listener: WarningListener): this;
-                prependListener(event: 'message', listener: MessageListener): this;
+                prependListener(event: "beforeExit", listener: BeforeExitListener): this;
+                prependListener(event: "disconnect", listener: DisconnectListener): this;
+                prependListener(event: "exit", listener: ExitListener): this;
+                prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                prependListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                prependListener(event: "warning", listener: WarningListener): this;
+                prependListener(event: "message", listener: MessageListener): this;
                 prependListener(event: Signals, listener: SignalsListener): this;
-                prependListener(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                prependListener(event: 'worker', listener: WorkerListener): this;
-                prependOnceListener(event: 'beforeExit', listener: BeforeExitListener): this;
-                prependOnceListener(event: 'disconnect', listener: DisconnectListener): this;
-                prependOnceListener(event: 'exit', listener: ExitListener): this;
-                prependOnceListener(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                prependOnceListener(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                prependOnceListener(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                prependOnceListener(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                prependOnceListener(event: 'warning', listener: WarningListener): this;
-                prependOnceListener(event: 'message', listener: MessageListener): this;
+                prependListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                prependListener(event: "worker", listener: WorkerListener): this;
+                prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
+                prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
+                prependOnceListener(event: "exit", listener: ExitListener): this;
+                prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                prependOnceListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                prependOnceListener(event: "warning", listener: WarningListener): this;
+                prependOnceListener(event: "message", listener: MessageListener): this;
                 prependOnceListener(event: Signals, listener: SignalsListener): this;
-                prependOnceListener(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                prependOnceListener(event: 'worker', listener: WorkerListener): this;
-                listeners(event: 'beforeExit'): BeforeExitListener[];
-                listeners(event: 'disconnect'): DisconnectListener[];
-                listeners(event: 'exit'): ExitListener[];
-                listeners(event: 'rejectionHandled'): RejectionHandledListener[];
-                listeners(event: 'uncaughtException'): UncaughtExceptionListener[];
-                listeners(event: 'uncaughtExceptionMonitor'): UncaughtExceptionListener[];
-                listeners(event: 'unhandledRejection'): UnhandledRejectionListener[];
-                listeners(event: 'warning'): WarningListener[];
-                listeners(event: 'message'): MessageListener[];
+                prependOnceListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                prependOnceListener(event: "worker", listener: WorkerListener): this;
+                listeners(event: "beforeExit"): BeforeExitListener[];
+                listeners(event: "disconnect"): DisconnectListener[];
+                listeners(event: "exit"): ExitListener[];
+                listeners(event: "rejectionHandled"): RejectionHandledListener[];
+                listeners(event: "uncaughtException"): UncaughtExceptionListener[];
+                listeners(event: "uncaughtExceptionMonitor"): UncaughtExceptionListener[];
+                listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
+                listeners(event: "warning"): WarningListener[];
+                listeners(event: "message"): MessageListener[];
                 listeners(event: Signals): SignalsListener[];
-                listeners(event: 'multipleResolves'): MultipleResolveListener[];
-                listeners(event: 'worker'): WorkerListener[];
+                listeners(event: "multipleResolves"): MultipleResolveListener[];
+                listeners(event: "worker"): WorkerListener[];
             }
         }
     }
     export = process;
 }
-declare module 'node:process' {
-    import process = require('process');
+declare module "node:process" {
+    import process = require("process");
     export = process;
 }

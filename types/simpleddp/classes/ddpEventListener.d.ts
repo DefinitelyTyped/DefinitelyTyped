@@ -1,5 +1,5 @@
-import simpleDDP from '../index';
-import { ddpEvent } from '../ddpEvent';
+import { ddpEvent } from "../ddpEvent";
+import simpleDDP from "../index";
 
 export class ddpEventListener {
     eventname: ddpEvent;

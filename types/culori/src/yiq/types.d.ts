@@ -1,5 +1,5 @@
 export interface Yiq {
-    mode: 'yiq';
+    mode: "yiq";
     y: number;
     i: number;
     q: number;

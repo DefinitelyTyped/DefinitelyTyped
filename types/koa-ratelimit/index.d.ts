@@ -1,12 +1,5 @@
-// Type definitions for koa-ratelimit 5.0
-// Project: https://github.com/koajs/ratelimit#readme
-// Definitions by: Ben Watkins <https://github.com/OutdatedVersion>
-//                 Patrick Muff <https://github.com/dislick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
-import { Middleware, Context } from "koa";
 import { Redis } from "ioredis";
+import { Context, Middleware } from "koa";
 
 declare function KoaRatelimit(options?: KoaRatelimit.MiddlewareOptions): Middleware;
 
@@ -32,7 +25,7 @@ declare namespace KoaRatelimit {
         /**
          * Driver to use ("redis" or "memory").
          */
-        driver: 'redis' | 'memory';
+        driver: "redis" | "memory";
 
         /**
          * The database powering the backing rate-limiter package.
@@ -56,6 +49,11 @@ declare namespace KoaRatelimit {
          * client's IP address. Returning "false" will skip rate-limiting.
          */
         id?: ((context: Context) => string | false) | undefined;
+
+        /**
+         * Specify a prefix for the storage driver to use when creating key names.
+         */
+        namespace?: string | undefined;
 
         /**
          * Whether or not to disable the usage of rate limit headers. This defaults

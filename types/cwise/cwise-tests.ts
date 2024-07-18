@@ -197,8 +197,8 @@ tape("binary", t => {
 });
 
 import browserify = require("browserify");
-import * as vm from "vm";
 import * as path from "path";
+import * as vm from "vm";
 
 const cases = ["unary", "binary", "offset", "fill"];
 

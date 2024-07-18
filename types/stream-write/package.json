@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/stream-write",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/juliangruber/stream-write#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/stream-write": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajas Paranjpe",
+            "githubUsername": "ChocolateLoverRaj"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-import batteryLevel = require('battery-level');
+import batteryLevel = require("battery-level");
 
 // $ExpectType Promise<number>
 batteryLevel();

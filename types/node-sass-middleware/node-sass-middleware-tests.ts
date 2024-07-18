@@ -5,9 +5,9 @@ var app = express();
 app.use(sassMiddleware({
     /* Options */
     src: __dirname,
-    dest: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, "public"),
     debug: true,
-    outputStyle: 'compressed',
-    prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+    outputStyle: "compressed",
+    prefix: "/prefix", // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));

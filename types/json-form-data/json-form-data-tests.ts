@@ -1,4 +1,4 @@
-import asFormData = require('json-form-data');
+import asFormData = require("json-form-data");
 
 // @ts-expect-error
 asFormData();
@@ -7,23 +7,23 @@ asFormData();
 asFormData({});
 
 const json = {
-    prop1: 'test',
+    prop1: "test",
     prop2: 2,
     prop3: null,
     prop4: undefined,
     prop5: true,
     prop6: false,
-    prop7: new File(['file content'], 'my_file.txt'),
-    prop8: new Date('05 January 2020 16:52:00 GMT'),
+    prop7: new File(["file content"], "my_file.txt"),
+    prop8: new Date("05 January 2020 16:52:00 GMT"),
     prop9: {
-        prop1: 'test',
+        prop1: "test",
         prop2: 2,
         prop3: null,
         prop4: undefined,
         prop5: true,
         prop6: false,
-        prop7: ['test', 2, null, undefined, true, false],
-        prop8: [{id: 1}, {id: 2}],
+        prop7: ["test", 2, null, undefined, true, false],
+        prop8: [{ id: 1 }, { id: 2 }],
     },
 };
 
@@ -34,6 +34,6 @@ asFormData(json);
 asFormData(json, {
     includeNullValues: true,
     initialFormData: new FormData(),
-    mapping: value => (Boolean(value) ? 'true' : 'false'),
+    mapping: value => (Boolean(value) ? "true" : "false"),
     showLeafArrayIndexes: false,
 });

@@ -1,5 +1,5 @@
-import semver = require('../index');
-import SemVer = require('../classes/semver');
+import semver = require("../index");
+import SemVer = require("../classes/semver");
 
 /**
  * Pass in a comparison string, and it'll call the corresponding semver comparison function.

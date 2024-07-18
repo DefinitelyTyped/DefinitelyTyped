@@ -1,21 +1,14 @@
-// Type definitions for dagre 0.7
-// Project: https://github.com/dagrejs/dagre
-// Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-//                 Pete Vilter <https://github.com/vilterp>
-//                 David Newell <https://github.com/rustedgrail>
-//                 Graham Lea <https://github.com/GrahamLea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace dagre;
 
 export namespace graphlib {
     class Graph<T = {}> {
-        constructor(opt?: { directed?: boolean | undefined; multigraph?: boolean | undefined; compound?: boolean | undefined });
+        constructor(
+            opt?: { directed?: boolean | undefined; multigraph?: boolean | undefined; compound?: boolean | undefined },
+        );
 
         graph(): GraphLabel;
         isDirected(): boolean;
-        isMultiGraph(): boolean;
+        isMultigraph(): boolean;
         setGraph(label: GraphLabel): Graph<T>;
 
         edge(edgeObj: Edge): GraphEdge;
@@ -100,7 +93,7 @@ export interface EdgeConfig {
     weight?: number | undefined;
     width?: number | undefined;
     height?: number | undefined;
-    lablepos?: 'l' | 'c' | 'r' | undefined;
+    lablepos?: "l" | "c" | "r" | undefined;
     labeloffest?: number | undefined;
 }
 

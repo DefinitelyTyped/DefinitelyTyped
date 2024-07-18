@@ -1,8 +1,3 @@
-// Type definitions for locale 0.1
-// Project: https://github.com/florrain/locale
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = locale;
 
 declare global {
@@ -33,7 +28,7 @@ declare namespace locale {
          * language is calculated from the intersection of requested and
          * supported locales and supported languages has not default.
          */
-        static ['default']: Locale;
+        static ["default"]: Locale;
 
         /**
          * returns user-generated input used to construct the Locale. Eg, `en-US`

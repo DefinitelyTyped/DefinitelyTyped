@@ -1,14 +1,8 @@
-// Type definitions for tabulator-tables 5.4
-// Project: http://tabulator.info
-// Definitions by: Josh Harris <https://github.com/jojoshua>, Mike Lischke <https://github.com/mike-lischke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-// tslint:disable:max-line-length
-// tslint:disable:no-unnecessary-class
-// tslint:disable:no-empty-interface
+// cspell: ignore XLXS, alphanum, datetime, datetimediff, rownum, freetext, recalc, Monkhouse
 
 export interface Options
-    extends OptionsGeneral,
+    extends
+        OptionsGeneral,
         OptionsMenu,
         OptionsHistory,
         OptionsLocale,
@@ -23,10 +17,10 @@ export interface Options
         OptionsPersistentConfiguration,
         OptionsClipboard,
         OptionsDataTree,
-        OptionsCell,
-        OptionsCells,
         OptionsDebug,
-        OptionsHTML {}
+        OptionsHTML,
+        OptionsSpreadsheet
+{}
 
 export interface OptionsDebug {
     invalidOptionWarning?: boolean;
@@ -44,13 +38,6 @@ export interface OptionsDebug {
 
     /** Disable deprecation warnings */
     debugDeprecation?: boolean;
-}
-
-export interface OptionsCells extends CellCallbacks {
-    /** The validationFailed event is triggered when the value entered into a cell during an edit fails to pass validation. */
-    validationFailed?:
-        | ((cell: CellComponent, value: any, validators: Validator[] | StandardValidatorType[]) => void)
-        | undefined;
 }
 
 export interface OptionsDataTree {
@@ -89,6 +76,11 @@ export interface OptionsDataTree {
     dataTreeSelectPropagate?: boolean | undefined;
     dataTreeFilter?: boolean | undefined;
     dataTreeSort?: boolean | undefined;
+    /**
+     * When you are using the dataTree option with your table, the column calculations will by default only use the data for the top level rows and will ignore any children.
+     * To include child rows in the column calculations set the dataTreeChildColumnCalcs option to true in the table constructor.
+     */
+    dataTreeChildColumnCalcs?: boolean | undefined;
 }
 
 export interface OptionsClipboard {
@@ -99,13 +91,13 @@ export interface OptionsClipboard {
      *     "paste" - enable only paste functionality
      *     false - disable all clipboard functionality (default)
      */
-    clipboard?: boolean | 'copy' | 'paste' | undefined;
+    clipboard?: boolean | "copy" | "paste" | undefined;
 
     /** The clipboardCopyRowRange option takes a Row Range Lookup value and allows you to choose which rows are included in the clipboard output: */
     clipboardCopyRowRange?: RowRangeLookup | undefined;
 
     /** You can alter the finished output to the clipboard using the clipboardCopyFormatter callback. The callback function receives two arguments, the first is a string representing the type of content to be formatted (either "plain" or "html" depending on the type of data entering the clipboard). The second argument is the string that is about to be inserted into the clipboard. The function and should return a string that will be inserted into the clipboard. */
-    clipboardCopyFormatter?: 'table' | ((type: 'plain' | 'html', output: string) => string) | undefined;
+    clipboardCopyFormatter?: "table" | ((type: "plain" | "html", output: string) => string) | undefined;
 
     /** By default Tabulator will include the column header titles in any clipboard data, this can be turned off by passing a value of false to the clipboardCopyHeader property: */
     clipboardCopyHeader?: boolean | undefined;
@@ -117,6 +109,7 @@ export interface OptionsClipboard {
      * The inbuilt parser will reject any clipboard data that does not contain at least one row and two columns, in that case the clipboardPasteError will be triggered.
      *
      * If you extend the clipboard module to add your own parser, you can set it to be used as default with the clipboardPasteParser property.
+     * Built-in parsers are "table" and "range".
      */
     clipboardPasteParser?: string | ((clipboard: any) => any[]) | undefined;
 
@@ -127,7 +120,7 @@ export interface OptionsClipboard {
      * update - Updates data in the table using the updateOrAddData function
      * replace - replaces all data in the table using the setData function
      */
-    clipboardPasteAction?: 'insert' | 'update' | 'replace' | undefined;
+    clipboardPasteAction?: "insert" | "update" | "replace" | "range";
 
     /**
      * By default Tabulator will copy some of the tables styling along with the data to give a better visual appearance when pasted into other documents.
@@ -142,15 +135,6 @@ export interface OptionsClipboard {
      * You can choose to remove column headers groups, row groups or column calculations from the output data by setting the values in the clipboardCopyConfig option in the table definition:
      */
     clipboardCopyConfig?: AdditionalExportOptions | boolean | undefined;
-
-    /** The clipboardCopied event is triggered whenever data is copied to the clipboard. */
-    clipboardCopied?: (() => void) | undefined;
-
-    /** The clipboardPasted event is triggered whenever data is successfully pasted into the table. */
-    clipboardPasted?: (() => void) | undefined;
-
-    /** The clipboardPasteError event is triggered whenever an attempt to paste data into the table has failed because it was rejected by the paste parser. */
-    clipboardPasteError?: (() => void) | undefined;
 
     /** When copying to clipboard you may want to apply a different group header from the one usually used in the table. You can now do this using the groupHeaderClipboard table option, which takes the same inputs as the standard groupHeader property. */
     groupHeaderClipboard?:
@@ -176,7 +160,7 @@ export interface OptionsPersistentConfiguration {
      *  cookie - (string) Store the persistence information in a cookie
      *  true - (boolean) check if localStorage is available and store persistence information, otherwise store in cookie (Default option)
      */
-    persistenceMode?: 'local' | 'cookie' | true | undefined;
+    persistenceMode?: "local" | "cookie" | true | undefined;
 
     /** Enable persistent storage of column layout information. */
     persistentLayout?: boolean | undefined;
@@ -203,6 +187,7 @@ export interface PersistenceOptions {
     group?: boolean | PersistenceGroupOptions | undefined;
     page?: boolean | PersistencePageOptions | undefined;
     columns?: boolean | string[] | undefined;
+    headerFilter?: boolean | undefined;
 }
 
 export interface PersistenceGroupOptions {
@@ -266,7 +251,7 @@ export interface OptionsPagination {
      * page - add rows relative to current page (default)
      * table - add rows relative to the table
      */
-    paginationAddRow?: 'table' | 'page' | undefined;
+    paginationAddRow?: "table" | "page" | undefined;
 
     /**
      * You can choose to display a pagination counter in the bottom left of the footer that shows a summary of the current number of rows shown out of the total.
@@ -282,15 +267,15 @@ export interface OptionsPagination {
      * The function must return the contents of the counter, either the text value of the counter, valid HTML or a DOM node
      */
     paginationCounter?:
-        | 'rows'
-        | 'pages'
+        | "rows"
+        | "pages"
         | ((
-              pageSize: number,
-              currentRow: number,
-              currentPage: number,
-              totalRows: number,
-              totalPages: number,
-          ) => string | HTMLElement);
+            pageSize: number,
+            currentRow: number,
+            currentPage: number,
+            totalRows: number,
+            totalPages: number,
+        ) => string | HTMLElement);
 
     /**
      * By default the counter will be displayed in the left of the table footer. If you would like it displayed in another element pass a DOM node or a CSS selector for that element.
@@ -304,7 +289,11 @@ export interface OptionsPagination {
     paginationInitialPage?: number | undefined;
 }
 
-export type GroupArg = string | string[] | ((data: any) => any);
+export type GroupArg =
+    | string
+    | string[]
+    | ((data: any) => any)
+    | Array<string | ((data: any) => any)>;
 
 export interface OptionsRowGrouping {
     /** String/function to select field to group rows by */
@@ -338,7 +327,12 @@ export interface OptionsRowGrouping {
      * Group Open Function
      * If you want to decide on a group by group basis which should start open or closed then you can pass a function to the groupStartOpen property. This should return true if the group should start open or false if the group should start closed.
      */
-    groupStartOpen?: boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean) | undefined;
+    groupStartOpen?:
+        | boolean
+        | boolean[]
+        | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+        | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>
+        | undefined;
 
     /**
      * By default Tabulator allows users to toggle a group open or closed by clicking on the arrow icon in the left of the group header. If you would prefer a different behavior you can use the groupToggleElement option to choose a different option:* * The option can take one of three values:
@@ -346,41 +340,11 @@ export interface OptionsRowGrouping {
      * header - toggle group on click anywhere on the group header element
      * false - prevent clicking anywhere in the group toggling the group
      */
-    groupToggleElement?: 'arrow' | 'header' | false | undefined;
+    groupToggleElement?: "arrow" | "header" | false | undefined;
 
     /** show/hide column calculations when group is closed. */
     groupClosedShowCalcs?: boolean | undefined;
 
-    /** The dataGrouping callback is triggered whenever a data grouping event occurs, before grouping happens. */
-    dataGrouping?: (() => void) | undefined;
-
-    /** The dataGrouping callback is triggered whenever a data grouping event occurs, after grouping happens. */
-    dataGrouped?: (() => void) | undefined;
-
-    /** The groupVisibilityChanged callback is triggered whenever a group changes between hidden and visible states. */
-    groupVisibilityChanged?: ((group: GroupComponent, visible: boolean) => void) | undefined;
-
-    /** The groupClick callback is triggered when a user clicks on a group header. */
-    groupClick?: GroupEventCallback | undefined;
-
-    /** The groupDblClick callback is triggered when a user double clicks on a group header. */
-    groupDblClick?: GroupEventCallback | undefined;
-
-    /**
-     * The groupContext callback is triggered when a user right clicks on a group header.
-     *
-     * If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback.
-     */
-    groupContext?: GroupEventCallback | undefined;
-
-    /** The groupTap callback is triggered when a user taps on a group header on a touch display. */
-    groupTap?: GroupEventCallback | undefined;
-
-    /** The groupDblTap callback is triggered when a user taps on a group header on a touch display twice in under 300ms. */
-    groupDblTap?: GroupEventCallback | undefined;
-
-    /** The groupTapHold callback is triggered when a user taps on a group header on a touch display and holds their finger down for over 1 second. */
-    groupTapHold?: GroupEventCallback | undefined;
     groupUpdateOnCellEdit?: boolean | undefined;
 }
 
@@ -400,13 +364,7 @@ export interface OptionsFiltering {
     initialFilter?: Filter[] | undefined;
 
     /** array of initial values for header filters. */
-    initialHeaderFilter?: Array<Pick<Filter, 'field' | 'value'>> | undefined;
-
-    /** The dataFiltering callback is triggered whenever a filter event occurs, before the filter happens. */
-    dataFiltering?: ((filters: Filter[]) => void) | undefined;
-
-    /** The dataFiltered callback is triggered after the table dataset is filtered. */
-    dataFiltered?: ((filters: Filter[], rows: RowComponent[]) => void) | undefined;
+    initialHeaderFilter?: Array<Pick<Filter, "field" | "value">> | undefined;
 
     /** When using real time header filtering, Tabulator will wait 300 milliseconds after a keystroke before triggering the filter. You can customize this delay by using the headerFilterLiveFilterDelay table setup option. */
     headerFilterLiveFilterDelay?: number | undefined;
@@ -418,7 +376,7 @@ export interface OptionsSorting {
 
     /** reverse the order that multiple sorters are applied to the table. */
     sortOrderReverse?: boolean | undefined;
-    headerSortClickElement?: 'header' | 'icon';
+    headerSortClickElement?: "header" | "icon";
 }
 
 export interface Sorter {
@@ -443,7 +401,9 @@ export interface OptionsData {
 
     /** Array to hold data that should be loaded on table creation. */
     data?: any[] | undefined;
-    importFormat?: 'array';
+    importFormat?: "array" | "csv" | "json" | ((fileContents: string) => unknown[]);
+    /** By default Tabulator will read in the file as plain text, which is the format used by all the built in importers. If you need to read the file data in a different format then you can use the importReader option to instruct the file reader to read in the file in a different format. */
+    importReader?: "binary" | "buffer" | "text" | "url" | undefined;
     autoTables?: boolean;
 
     /** If you wish to retrieve your data from a remote source you can set the URL for the request in the ajaxURL option. */
@@ -461,7 +421,7 @@ export interface OptionsData {
      * "json" - send parameters as JSON encoded string
      * If you want to use a custom content type then you can pass a content type formatter object into the ajaxContentType option. this object must have two properties, the headers property should contain all headers that should be sent with the request and the body property should contain a function that returns the body content of the request
      */
-    ajaxContentType?: 'form' | 'json' | AjaxContentType | undefined;
+    ajaxContentType?: "form" | "json" | AjaxContentType | undefined;
 
     /**
      * If you need more control over the url of the request that you can get from the ajaxURL and ajaxParams properties, the you can use the ajaxURLGenerator property to pass in a callback that will generate the URL for you.
@@ -488,7 +448,7 @@ export interface OptionsData {
      *
      * There are two different progressive loading modes, to give you a choice of how data is loaded into the table.
      */
-    progressiveLoad?: 'load' | 'scroll' | undefined;
+    progressiveLoad?: "load" | "scroll" | undefined;
 
     /** By default tabulator will make the requests to fill the table as quickly as possible. On some servers these repeats requests from the same client may trigger rate limiting or security systems. In this case you can use the ajaxProgressiveLoadDelay option to add a delay in milliseconds between each page request. */
     progressiveLoadDelay?: number | undefined;
@@ -511,8 +471,6 @@ export interface OptionsData {
     /** The ajaxResponse callback is triggered when a successful ajax request has been made. This callback can also be used to modify the received data before it is parsed by the table. If you use this callback it must return the data to be parsed by Tabulator, otherwise no data will be rendered. */
     ajaxResponse?: ((url: string, params: any, response: any) => any) | undefined;
 
-    /** The ajaxError callback is triggered there is an error response to an ajax request. */
-    ajaxError?: ((xhr: any, textStatus: any, errorThrown: any) => void) | undefined;
     dataLoader?: boolean;
     dataLoaderLoading?: string | HTMLElement;
     dataLoaderError?: string;
@@ -521,14 +479,14 @@ export interface OptionsData {
     filterMode?: SortMode;
 }
 
-export type SortMode = 'remote' | 'local';
+export type SortMode = "remote" | "local";
 
 export interface AjaxContentType {
     headers: JSONRecord;
     body: (url: string, config: any, params: any) => any;
 }
 
-export type HttpMethod = 'GET' | 'POST';
+export type HttpMethod = "GET" | "POST";
 
 export interface AjaxConfig {
     method?: HttpMethod | undefined;
@@ -554,7 +512,7 @@ export interface OptionsRows {
     rowFormatterClipboard?: false | ((row: RowComponent) => any) | undefined;
 
     /** The position in the table for new rows to be added, "bottom" or "top". */
-    addRowPos?: 'bottom' | 'top' | undefined;
+    addRowPos?: "bottom" | "top" | undefined;
 
     /**
      * The selectable option can take one of a several values:
@@ -562,21 +520,123 @@ export interface OptionsRows {
      * true - selectable rows are enabled, and you can select as many as you want
      * integer - any integer value, this sets the maximum number of rows that can be selected (when the maximum number of selected rows is exceeded, the first selected row will be deselected to allow the next row to be selected).
      * "highlight" (default) - rows have the same hover stylings as selectable rows but do not change state when clicked. This is great for when you want to show that a row is clickable but don't want it to be selectable.
+     * @deprecated Use selectableRows instead
      */
-    selectable?: boolean | number | 'highlight' | undefined;
+    selectable?: boolean | number | "highlight" | undefined;
+
+    /**
+     * The selectableRows option can take one of a several values:
+     *
+     * - false - selectable rows are disabled
+     * - true - selectable rows are enabled, and you can select as many as you want
+     * - integer - any integer value, this sets the maximum number of rows that can be selected (when the maximum number of selected rows is exceeded, the first selected row will be deselected to allow the next row to be selected).
+     * - "highlight" (default) - rows have the same hover stylings as selectable rows but do not change state when clicked. This is great for when you want to show that a row is clickable but don't want it to be selectable.
+     */
+    selectableRows?: boolean | number | "highlight" | undefined;
+
+    /**
+     * The selectableRange option can take one of a several values:
+     *
+     * - false - range selection is disabled
+     * - true - range selection is enabled, and you can add as many ranges as you want
+     * - integer - any integer value, this sets the maximum number of ranges that can be selected (when the maximum
+     *           number of ranges is exceeded, the first selected range will be deselected to allow the next range to be selected).
+     */
+    selectableRange?: boolean | number;
+
+    /**
+     * By default you can only select ranges by selecting cells on the table. If you would like to allow the user to
+     * select all cells in a column by clicking on the column header, then you can set the selectableRangeColumns option to true
+     */
+    selectableRangeColumns?: boolean;
+
+    /**
+     * By default you can only select ranges by selecting cells on the table. If you would like to allow the user to
+     * select all cells in row by clicking on the row header, then you can set the selectableRangeColumns option to true
+     */
+    selectableRangeRows?: boolean;
+
+    /**
+     * If you want the user to be able to clear the values for all cells in the active range by pressing the backspace
+     * or delete keys, then you can enable this behavior using the selectableRangeClearCells option:
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRangeClearCells:true,
+     * });
+     */
+    selectableRangeClearCells?: boolean;
+
+    /**
+     * By default the value of each cell in the range is set to undefined when this option is enabled and the user
+     * presses the backspace or delete keys. You can change the value the cells are set to using the
+     * selectableRangeClearCellsValue option
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRangeClearCellsValue: "", //clear cells by setting value to an empty string
+     * });
+     */
+    selectableRangeClearCellsValue?: unknown;
 
     /**
      * By default you can select a range of rows by holding down the shift key and click dragging over a number of rows to toggle the selected state state of all rows the cursor passes over.
      *
      * If you would prefer to select a range of row by clicking on the first row then holding down shift and clicking on the end row then you can achieve this by setting the selectableRangeMode to click
+     * @deprecated Use selectableRowsRangeMode instead
      */
-    selectableRangeMode?: 'click' | undefined;
+    selectableRangeMode?: "click" | undefined;
 
-    /** By default, row selection works on a rolling basis, if you set the selectable option to a numeric value then when you select past this number of rows, the first row to be selected will be deselected. If you want to disable this behavior and instead prevent selection of new rows once the limit is reached you can set the selectableRollingSelection option to false. */
+    /**
+     * By default you can select a range of rows by holding down the shift key and click dragging over a number of rows
+     * to toggle the selected state state of all rows the cursor passes over.
+     *
+     * If you would prefer to select a range of row by clicking on the first row then holding down shift and clicking
+     * on the end row then you can achieve this by setting the selectableRowsRangeMode to click.
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRowsRangeMode:"click",
+     * });
+     */
+    selectableRowsRangeMode?: "click";
+
+    /** By default, row selection works on a rolling basis, if you set the selectable option to a numeric value then when you select past this number of rows, the first row to be selected will be deselected. If you want to disable this behavior and instead prevent selection of new rows once the limit is reached you can set the selectableRollingSelection option to false.
+     * @deprecated Use selectableRowsRollingSelection instead
+     */
     selectableRollingSelection?: boolean | undefined;
 
-    /** By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when the setData function is used). If you want the selected rows to be cleared whenever the table view is updated then set the selectablePersistence option to false. */
+    /**
+     * By default, row selection works on a rolling basis, if you set the selectableRows option to a numeric value then
+     * when you select past this number of rows, the first row to be selected will be deselected. If you want to
+     * disable this behavior and instead prevent selection of new rows once the limit is reached you can set the
+     * selectableRowsRollingSelection option to false.
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRows: 5,
+     *     selectableRowsRollingSelection:false, // disable rolling selection
+     * });
+     */
+    selectableRowsRollingSelection?: boolean;
+
+    /** By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when the setData function is used). If you want the selected rows to be cleared whenever the table view is updated then set the selectablePersistence option to false.
+     * @deprecated Use selectableRowsPersistence instead
+     */
     selectablePersistence?: boolean | undefined;
+
+    /**
+     * By default Tabulator will maintain selected rows when the table is filtered, sorted or paginated (but NOT when
+     * the setData function is used). If you want the selected rows to be cleared whenever the table view is updated
+     * then set the selectableRowsPersistence option to false.
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     selectableRows: true,
+     *     selectableRowsPersistence: false, // disable selection persistence
+     * });
+     */
+    selectableRowsPersistence?: boolean;
 
     /** You many want to exclude certain rows from being selected. The selectableCheck options allows you to pass a function to check if the current row should be selectable, returning true will allow row selection, false will result in nothing happening. The function should accept a RowComponent as its first argument. */
     selectableCheck?: ((row: RowComponent) => boolean) | undefined;
@@ -597,7 +657,7 @@ export interface OptionsRows {
      */
     movableRowsSender?:
         | false
-        | 'delete'
+        | "delete"
         | ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => any)
         | undefined;
 
@@ -611,19 +671,28 @@ export interface OptionsRows {
      * - replace - replaces the row it is dropped on with the sent row
      */
     movableRowsReceiver?:
-        | 'insert'
-        | 'add'
-        | 'update'
-        | 'replace'
+        | "insert"
+        | "add"
+        | "update"
+        | "replace"
         | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => any)
         | undefined;
     movableRowsConnectedElements?: string | HTMLElement | undefined;
 
-    /** When a row is dropped on element from from the movableRowsConnectedElements option the movableRowsElementDrop callback will be triggered. You can use this callback to trigger any changes as a result of the drop */
-    movableRowsElementDrop?: ((e: MouseEvent, element: HTMLElement, row: RowComponent) => any) | undefined;
-
     /** You can allow the user to manually resize rows by dragging the top or bottom border of a row. To enable this functionality, set the resizableRows property to true. */
     resizableRows?: boolean | undefined;
+
+    /**
+     * Allows the user to control the height of rows in the table by dragging the bottom border of the row.
+     * These guides will only appear on columns with the `resizable` option enabled in their column definition.
+     */
+    resizableRowGuide?: boolean | undefined;
+
+    /**
+     * Allows the user to control the height of columns in the table by dragging the border of the column.
+     * These guides will only appear if the `resizableRows` option is enabled.
+     */
+    resizableColumnGuide?: boolean | undefined;
 
     /**
      * The default ScrollTo position can be set using the scrollToRowPosition option. It can take one of four possible values:
@@ -643,98 +712,6 @@ export interface OptionsRows {
      */
     scrollToRowIfVisible?: boolean | undefined;
 
-    /** The dataTreeRowExpanded callback is triggered when a row with child rows is expanded to reveal the children. */
-    dataTreeRowExpanded?: ((row: RowComponent, level: number) => void) | undefined;
-
-    /** The dataTreeRowCollapsed callback is triggered when a row with child rows is collapsed to hide its children. */
-    dataTreeRowCollapsed?: ((row: RowComponent, level: number) => void) | undefined;
-
-    /** The movableRowsSendingStart callback is triggered on the sending table when a row is picked up from a sending table. */
-    movableRowsSendingStart?: ((toTables: any[]) => void) | undefined;
-
-    /** The movableRowsSent callback is triggered on the sending table when a row has been successfully received by a receiving table. */
-    movableRowsSent?: ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsSentFailed callback is triggered on the sending table when a row has failed to be received by the receiving table. */
-    movableRowsSentFailed?: ((fromRow: RowComponent, toRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsSendingStop callback is triggered on the sending table after a row has been dropped and any senders and receivers have been handled. */
-    movableRowsSendingStop?: ((toTables: any[]) => void) | undefined;
-
-    /** The movableRowsReceivingStart callback is triggered on a receiving table when a connection is established with a sending table. */
-    movableRowsReceivingStart?: ((fromRow: RowComponent, toTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsReceived callback is triggered on a receiving table when a row has been successfully received. */
-    movableRowsReceived?: ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void) | undefined;
-
-    /** The movableRowsReceivedFailed callback is triggered on a receiving table when a row receiver has returned false. */
-    movableRowsReceivedFailed?:
-        | ((fromRow: RowComponent, toRow: RowComponent, fromTable: Tabulator) => void)
-        | undefined;
-
-    /** The movableRowsReceivingStop callback is triggered on a receiving table after a row has been dropped and any senders and receivers have been handled. */
-    movableRowsReceivingStop?: ((fromTable: Tabulator) => void) | undefined;
-
-    /** The rowClick callback is triggered when a user clicks on a row. */
-    rowClick?: RowEventCallback | undefined;
-
-    /** The rowDblClick callback is triggered when a user double clicks on a row. */
-    rowDblClick?: RowEventCallback | undefined;
-
-    /**
-     * The rowContext callback is triggered when a user right clicks on a row.
-     * If you want to prevent the browsers context menu being triggered in this event you will need to include the preventDefault() function in your callback.
-     */
-    rowContext?: RowEventCallback | undefined;
-
-    /** The rowTap callback is triggered when a user taps on a row on a touch display. */
-    rowTap?: RowEventCallback | undefined;
-
-    /** The rowDblTap callback is triggered when a user taps on a row on a touch display twice in under 300ms. */
-    rowDblTap?: RowEventCallback | undefined;
-
-    /** The rowTapHold callback is triggered when a user taps on a row on a touch display and holds their finger down for over 1 second. */
-    rowTapHold?: RowEventCallback | undefined;
-
-    /** The rowMouseEnter callback is triggered when the mouse pointer enters a row. */
-    rowMouseEnter?: RowEventCallback | undefined;
-
-    /** The rowMouseLeave callback is triggered when the mouse pointer leaves a row. */
-    rowMouseLeave?: RowEventCallback | undefined;
-
-    /** The rowMouseOver callback is triggered when the mouse pointer enters a row or any of its child elements. */
-    rowMouseOver?: RowEventCallback | undefined;
-
-    /** The rowMouseOut callback is triggered when the mouse pointer leaves a row or any of its child elements. */
-    rowMouseOut?: RowEventCallback | undefined;
-
-    /** The rowMouseMove callback is triggered when the mouse pointer moves over a row. */
-    rowMouseMove?: RowEventCallback | undefined;
-
-    /** The rowAdded callback is triggered when a row is added to the table by the addRow and updateOrAddRow functions. */
-    rowAdded?: RowChangedCallback | undefined;
-
-    /** The rowUpdated callback is triggered when a row is updated by the updateRow, updateOrAddRow, updateData or updateOrAddData, functions. */
-    rowUpdated?: RowChangedCallback | undefined;
-
-    /** The rowDeleted callback is triggered when a row is deleted from the table by the deleteRow function. */
-    rowDeleted?: RowChangedCallback | undefined;
-
-    /** The rowMoved callback will be triggered when a row has been successfully moved. */
-    rowMoved?: RowChangedCallback | undefined;
-
-    /** The rowResized callback will be triggered when a row has been resized by the user. */
-    rowResized?: RowChangedCallback | undefined;
-
-    /** Whenever the number of selected rows changes, through selection or deselection, the rowSelectionChanged event is triggered. This passes an array of the data objects for each row in the order they were selected as the first argument, and an array of row components for each of the rows in order of selection as the second argument. */
-    rowSelectionChanged?: ((data: any[], rows: RowComponent[]) => void) | undefined;
-
-    /** The rowSelected event is triggered when a row is selected, either by the user or programmatically. */
-    rowSelected?: RowChangedCallback | undefined;
-
-    /** The rowDeselected event is triggered when a row is deselected, either by the user or programmatically. */
-    rowDeselected?: RowChangedCallback | undefined;
-
     /** Allows you to specify the behavior when the user tabs from the last editable cell on the last row of the table. */
     tabEndNewRow?: boolean | JSONRecord | ((row: RowComponent) => any) | undefined;
 
@@ -742,6 +719,25 @@ export interface OptionsRows {
 
     /** Freeze rows of data */
     frozenRows?: number | string[] | ((row: RowComponent) => boolean);
+
+    /**
+     * The editTriggerEvent option lets you choose which type of interaction event will trigger an edit on a cell.
+     *
+     * @example
+     * var table = new Tabulator("#example-table", {
+     *     editTriggerEvent:"dblclick", // trigger edit on double click
+     * });
+     *
+     * This option can take one of three values:
+     *
+     * - focus - trigger edit when the cell has focus (default)
+     * - click - trigger edit on single click on cell
+     * - dblclick - trigger edit on double click on cell
+     *
+     * This option does not affect navigation behavior, cells edits will still be triggered when they are navigated to
+     * through arrow keys or tabs.
+     */
+    editTriggerEvent?: "click" | "dblclick" | "focus";
 }
 
 export interface OptionsColumns {
@@ -749,7 +745,7 @@ export interface OptionsColumns {
     columns?: ColumnDefinition[] | undefined;
 
     /** If you set the autoColumns option to true, every time data is loaded into the table through the data option or through the setData function, Tabulator will examine the first row of the data and build columns to match that data. */
-    autoColumns?: boolean | undefined;
+    autoColumns?: boolean | undefined | "full";
     autoColumnsDefinitions?:
         | ((columnDefinitions?: ColumnDefinition[]) => ColumnDefinition[])
         | ColumnDefinition[]
@@ -757,7 +753,7 @@ export interface OptionsColumns {
         | undefined;
 
     /** By default Tabulator will use the fitData layout mode, which will resize the tables columns to fit the data held in each column, unless you specify a width or minWidth in the column constructor. If the width of all columns exceeds the width of the containing element, a scroll bar will appear. */
-    layout?: 'fitData' | 'fitColumns' | 'fitDataFill' | 'fitDataStretch' | 'fitDataTable' | undefined;
+    layout?: "fitData" | "fitColumns" | "fitDataFill" | "fitDataStretch" | "fitDataTable" | undefined;
 
     /**
      * To keep the layout of the columns consistent, once the column widths have been set on the first data load (either from the data property in the constructor or the setData function) they will not be changed when new data is loaded.
@@ -779,7 +775,7 @@ export interface OptionsColumns {
      *
      * When responsive layout is enabled, all columns are given a default responsive value of 1. The higher you set this value the sooner that column will be hidden as the table width decreases. If two columns have the same responsive value then they are hidden from right to left (as defined in the column definition array, ignoring user moving of the columns). If you set the value to 0 then the column will never be hidden regardless of how narrow the table gets.
      */
-    responsiveLayout?: boolean | 'hide' | 'collapse' | undefined;
+    responsiveLayout?: boolean | "hide" | "collapse" | undefined;
 
     /** Collapsed lists are displayed to the user by default, if you would prefer they start closed so the user can open them you can use the responsiveLayoutCollapseStartOpen option. */
     responsiveLayoutCollapseStartOpen?: boolean | undefined;
@@ -835,7 +831,7 @@ export interface OptionsColumns {
      * table - show calcs at top and bottom of the table only
      * group - show calcs in groups only
      */
-    columnCalcs?: boolean | 'both' | 'table' | 'group' | undefined;
+    columnCalcs?: boolean | "both" | "table" | "group" | undefined;
 
     /**
      * If you need to use the . character as part of your field name, you can change the separator to any other character using the nestedFieldSeparator option
@@ -846,41 +842,16 @@ export interface OptionsColumns {
     /** multiple or single column sorting */
     columnHeaderSortMulti?: boolean | undefined;
 
-    /** The columnMoved callback will be triggered when a column has been successfully moved. */
-    columnMoved?: ((column: ColumnComponent, columns: any[]) => void) | undefined;
-    columnResized?: ((column: ColumnComponent) => void) | undefined;
-
-    /** The columnVisibilityChanged callback is triggered whenever a column changes between hidden and visible states. */
-    columnVisibilityChanged?: ((column: ColumnComponent, visible: boolean) => void) | undefined;
-
-    /** The columnTitleChanged callback is triggered whenever a user edits a column title when the editableTitle parameter has been enabled in the column definition array. */
-    columnTitleChanged?: ((column: ColumnComponent) => void) | undefined;
-
     /** By setting the headerVisible option to false you can hide the column headers and present the table as a simple list if needed. */
     headerVisible?: boolean | undefined;
 
     /** The headerSort option can now be set in the table options to affect all columns as well as in column definitions. */
     headerSort?: boolean | undefined;
-    headerSortElement?: string | undefined | ((column: ColumnComponent, dir: 'asc' | 'desc' | 'none') => any);
-    columnDefaults?: ColumnDefinition;
-}
+    headerSortElement?: string | undefined | ((column: ColumnComponent, dir: "asc" | "desc" | "none") => any);
+    columnDefaults?: Partial<ColumnDefinition>;
 
-export interface OptionsCell {
-    /** The cellClick callback is triggered when a user left clicks on a cell, it can be set on a per column basis using the option in the columns definition object. */
-    cellClick?: CellEventCallback | undefined;
-    cellDblClick?: CellEventCallback | undefined;
-    cellContext?: CellEventCallback | undefined;
-    cellTap?: CellEventCallback | undefined;
-    cellDblTap?: CellEventCallback | undefined;
-    cellTapHold?: CellEventCallback | undefined;
-    cellMouseEnter?: CellEventCallback | undefined;
-    cellMouseLeave?: CellEventCallback | undefined;
-    cellMouseOver?: CellEventCallback | undefined;
-    cellMouseOut?: CellEventCallback | undefined;
-    cellMouseMove?: CellEventCallback | undefined;
-    cellEditing?: CellEditEventCallback | undefined;
-    cellEdited?: CellEditEventCallback | undefined;
-    cellEditCancelled?: CellEditEventCallback | undefined;
+    /** When the resizableColumnFit table definition option is set to true, when you resize a column, its adjacent column is resized in the opposite direction to keep the total width of the columns the same. */
+    resizableColumnFit?: boolean | undefined;
 }
 
 export interface OptionsGeneral {
@@ -900,7 +871,8 @@ export interface OptionsGeneral {
     renderVerticalBuffer?: boolean | number | undefined;
 
     /** placeholder element to display on empty table. */
-    placeholder?: string | HTMLElement | undefined;
+    placeholder?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
+    placeholderHeaderFilter?: string | HTMLElement | ((this: Tabulator | TabulatorFull) => string) | undefined;
 
     /** Footer  element to display for the table. */
     footerElement?: string | HTMLElement | undefined;
@@ -923,53 +895,8 @@ export interface OptionsGeneral {
     /** Tabulator will automatically attempt to redraw the data contained in the table if the containing element for the table is resized. To disable this functionality, set the autoResize property to false. */
     autoResize?: boolean | undefined;
 
-    /** When a the tabulator constructor is called, the tableBuilding callback will triggered. */
-    tableBuilding?: (() => void) | undefined;
-
-    /** When a the tabulator constructor is called and the table has finished being rendered, the tableBuilt callback will triggered: */
-    tableBuilt?: (() => void) | undefined;
-
-    /**
-     * The renderStarted callback is triggered whenever all the rows in the table are about to be rendered. This can include:
-     * - Data is loaded into the table when setData is called
-     * - A page is loaded through any form of pagination
-     * - Rows are added to the table during progressive rendering
-     * - Columns are changed by setColumns
-     * - The data is filtered
-     * - The data is sorted
-     * - The redraw function is called
-     */
-    renderStarted?: (() => void) | undefined;
-
-    /** The renderComplete callback is triggered after the table has been rendered. */
-    renderComplete?: (() => void) | undefined;
-
-    /** The htmlImporting callback is triggered when Tabulator starts importing data from an HTML table. */
-    htmlImporting?: EmptyCallback | undefined;
-
-    /** The htmlImported callback is triggered when Tabulator finishes importing data from an HTML table. */
-    htmlImported?: EmptyCallback | undefined;
-
-    /** The dataChanged callback is triggered whenever the table data is changed by the user. Triggers for this include editing any cell in the table, adding a row and deleting a row. */
-    dataChanged?: ((data: any) => void) | undefined;
-
-    /** Whenever a page has been loaded, the pageLoaded callback is called, passing the current page number as an argument. */
-    pageLoaded?: ((pageno: number) => void) | undefined;
-
-    /** The dataSorting callback is triggered whenever a sort event occurs, before sorting happens. */
-    dataSorting?: ((sorters: SorterFromTable[]) => void) | undefined;
-
-    /** The dataSorted callback is triggered after the table dataset is sorted. */
-    dataSorted?: ((sorters: SorterFromTable[], rows: RowComponent[]) => void) | undefined;
-
     /** Setting the invalidOptionWarnings option to false will disable console warning messages for invalid properties in the table constructor and column definition object. */
     invalidOptionWarnings?: boolean | undefined;
-
-    /** Callback is triggered when the table is vertically scrolled. */
-    scrollVertical?: ((top: any) => void) | undefined;
-
-    /** Callback is triggered when the table is horizontally scrolled. */
-    scrollHorizontal?: ((left: any) => void) | undefined;
 
     /**
      * There are now three different validation modes available to customize the validation experience:
@@ -980,11 +907,78 @@ export interface OptionsGeneral {
      *
      * manual - no validation is automatically performed on edit, but it can be triggered by calling the validate function on the table or any Component Object
      */
-    validationMode?: 'blocking' | 'highlight' | 'manual' | undefined;
+    validationMode?: "blocking" | "highlight" | "manual" | undefined;
     textDirection?: TextDirection | undefined;
+
+    /**
+     * Sometimes it can be useful to add a visual header to the start of a row.
+     * The `rowHeader` option allows you to define a column definition for a stylized header column at the start of the row.
+     *
+     * This can be great for adding row number, movable row handles or row selections, and keeps the controls visually separated from the table data.
+     */
+    rowHeader?: boolean | {
+        formatter?: string;
+        field?: string;
+        headerSort?: boolean;
+        hozAlign?: ColumnDefinitionAlign;
+        headerHozAlign?: ColumnDefinitionAlign;
+        resizable?: boolean;
+        frozen?: boolean;
+        titleFormatter?: string;
+        cellClick?: (e: MouseEvent, cell: CellComponent) => void;
+        minWidth?: number;
+        width?: number;
+        rowHandle?: boolean;
+    } | undefined;
+
+    /**
+     * The value to set in the cell after the user has finished editing the cell.
+     */
+    editorEmptyValue?: any;
+    /**
+     * The function to determine if the value is empty.
+     */
+    editorEmptyValueFunc?: (value: unknown) => boolean;
 }
 
-export type RenderMode = 'virtual' | 'basic' | Renderer;
+export interface OptionsSpreadsheet {
+    /**
+     * Enables the spreadsheet mode on the table.
+     *
+     * The SpreadsheetModule must be installed to use this functionality.
+     */
+    spreadsheet?: boolean | undefined;
+    spreadsheetRows?: number;
+    spreadsheetColumns?: number;
+    spreadsheetColumnDefinition?: { editor: string; resizable: string };
+    spreadsheetSheets?: SpreadsheetSheet[] | undefined;
+    spreadsheetSheetTabs?: boolean | undefined;
+    spreadsheetOutputFull?: boolean | undefined;
+}
+
+export interface SpreadsheetSheet {
+    title: string;
+    key: string;
+    rows?: number;
+    columns?: number;
+    data: unknown[][];
+}
+
+export interface SpreadsheetComponent {
+    getTitle(): string;
+    setTitle(title: string): void;
+    getKey(): string;
+    getDefinition(): SpreadsheetSheet;
+    setRows(rows: number): void;
+    setColumns(columns: number): void;
+    getData(): unknown[][];
+    setData(data: unknown[][]): void;
+    clear(): void;
+    remove(): void;
+    active(): void;
+}
+
+export type RenderMode = "virtual" | "basic" | Renderer;
 
 export interface OptionsMenu {
     rowContextMenu?: RowContextMenuSignature | undefined;
@@ -994,8 +988,13 @@ export interface OptionsMenu {
     groupDblClickMenu?: GroupContextMenuSignature | undefined;
     groupContextMenu?: Array<MenuObject<GroupComponent>> | undefined;
     popupContainer?: boolean | string | HTMLElement;
-    rowDblClickPopup?: string;
+    groupClickPopup?: string;
+    groupContextPopup?: string;
+    groupDblPopup?: string;
     groupDblClickPopup?: string;
+    rowClickPopup?: string;
+    rowContextPopup?: string;
+    rowDblClickPopup?: string;
 }
 
 export type RowContextMenuSignature =
@@ -1004,7 +1003,7 @@ export type RowContextMenuSignature =
 
 export type GroupContextMenuSignature =
     | Array<MenuObject<GroupComponent> | MenuSeparator>
-    | ((component: GroupComponent, e: MouseEvent) => MenuObject<GroupComponent> | false | any[]);
+    | ((e: MouseEvent, component: GroupComponent) => MenuObject<GroupComponent> | false | any[]);
 
 export interface MenuObject<T extends RowComponent | CellComponent | ColumnComponent | GroupComponent> {
     label: string | HTMLElement | ((component: T) => string | HTMLElement);
@@ -1017,7 +1016,7 @@ export interface MenuSeparator {
     separator?: boolean | undefined;
 }
 
-export type DownloadType = 'csv' | 'json' | 'xlsx' | 'pdf' | 'html';
+export type DownloadType = "csv" | "json" | "xlsx" | "pdf" | "html";
 
 export interface DownloadOptions extends DownloadCSV, DownloadXLXS, DownloadPDF, DownloadHTML {}
 
@@ -1039,10 +1038,12 @@ export interface DownloadXLXS {
     sheetName?: string | undefined;
     documentProcessing?: ((input: any) => any) | undefined;
     compress?: boolean;
+    writeOptions?: Record<string, unknown>;
+    test?: {};
 }
 
 export interface DownloadPDF {
-    orientation?: 'portrait' | 'landscape' | undefined;
+    orientation?: "portrait" | "landscape" | undefined;
     title?: string | undefined;
     rowGroupStyles?: any;
     rowCalcStyles?: any;
@@ -1055,16 +1056,11 @@ export interface DownloadPDF {
 
 export interface OptionsDownload {
     /**
-     * Allows you to intercept the download file data before the users is prompted to save the file.
+     * The downloadEncoder callback allows you to intercept the download file data before the users is prompted to save the file.
      *
-     * In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
-     *
-     * If you would prefer to abort the download you can return false from this callback. This could be useful for example if you want to send the created file to a server via ajax rather than allowing the user to download the file.
+     * The first argument of the function is the file contents returned from the downloader, the second argument is the suggested mime type for the output. The function is should return a blob of the file to be downloaded.
      */
     downloadEncoder?: ((fileContents: any, mimeType: string) => Blob | false) | undefined;
-
-    /** The downloadComplete callback is triggered when the user has been prompted to download the file. */
-    downloadComplete?: (() => void) | undefined;
 
     /**
      * By default Tabulator includes column headers, row groups and column calculations in the download output.
@@ -1075,6 +1071,18 @@ export interface OptionsDownload {
 
     /** By default, only the active rows (rows that have passed filtering) will be included in the download the downloadRowRange option takes a Row Range Lookup value and allows you to choose which rows are included in the download output. */
     downloadRowRange?: RowRangeLookup | undefined;
+
+    /** If you want to make any changes to the table data before it is parsed into the download file you can pass a mutator function to the downloadDataFormatter callback. */
+    downloadDataFormatter?: (data: any) => any;
+
+    /**
+     * The downloadReady callback allows you to intercept the download file data before the users is prompted to save the file.
+     *
+     * In order for the download to proceed the downloadReady callback is expected to return a blob of file to be downloaded.
+     *
+     * If you would prefer to abort the download you can return false from this callback. This could be useful for example if you want to send the created file to a server via ajax rather than allowing the user to download the file.
+     */
+    downloadReady?: (fileContents: any, blob: Blob) => Blob | false;
 }
 
 export interface OptionsHTML {
@@ -1127,6 +1135,7 @@ export interface AdditionalExportOptions {
     rowGroups?: boolean | undefined;
     columnCalcs?: boolean | undefined;
     dataTree?: boolean | undefined;
+    rowHeaders?: boolean | undefined;
 
     /** Show only raw unformatted cell values in the clipboard output. */
     formatCells?: boolean | undefined;
@@ -1144,22 +1153,13 @@ export interface OptionsLocale {
      * If you wish you can also localize column titles by adding a columns property to your language object. You should store a property of the field name of the column you wish to change, with a value of its title. Any fields that match this will use this title instead of the one provided by the column definition array.
      */
     langs?: any;
-
-    /** When a localization event has occurred , the localized callback will triggered, passing the current locale code and language object: */
-    localized?: ((locale: string, lang: any) => void) | undefined;
 }
 
-type HistoryAction = 'cellEdit' | 'rowAdd' | 'rowDelete' | 'rowMoved';
+type HistoryAction = "cellEdit" | "rowAdd" | "rowDelete" | "rowMoved";
 
 export interface OptionsHistory {
     /** Enable user interaction history functionality */
     history?: boolean | undefined;
-
-    /** The historyUndo event is triggered when the undo action is triggered. */
-    historyUndo?: ((action: HistoryAction, component: CellComponent | RowComponent, data: any) => void) | undefined;
-
-    /** The historyRedo event is triggered when the redo action is triggered. */
-    historyRedo?: ((action: HistoryAction, component: CellComponent | RowComponent, data: any) => void) | undefined;
 }
 
 export interface ColumnLayout {
@@ -1195,7 +1195,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     widthShrink?: number | undefined;
 
     /** set whether column can be resized by user dragging its edges */
-    resizable?: true | false | 'header' | 'cell' | undefined;
+    resizable?: true | false | "header" | "cell" | undefined;
 
     /** You can freeze the position of columns on the left and right of the table using the frozen property in the column definition array. This will keep the column still when the table is scrolled horizontally. */
     frozen?: boolean | undefined;
@@ -1229,24 +1229,24 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      * You can pass an optional additional property with sorter, sorterParams that should contain an object with additional information for configuring the sorter
      */
     sorter?:
-        | 'string'
-        | 'number'
-        | 'alphanum'
-        | 'boolean'
-        | 'exists'
-        | 'date'
-        | 'time'
-        | 'datetime'
-        | 'array'
+        | "string"
+        | "number"
+        | "alphanum"
+        | "boolean"
+        | "exists"
+        | "date"
+        | "time"
+        | "datetime"
+        | "array"
         | ((
-              a: any,
-              b: any,
-              aRow: RowComponent,
-              bRow: RowComponent,
-              column: ColumnComponent,
-              dir: SortDirection,
-              sorterParams: {},
-          ) => number)
+            a: any,
+            b: any,
+            aRow: RowComponent,
+            bRow: RowComponent,
+            column: ColumnComponent,
+            dir: SortDirection,
+            sorterParams: {},
+        ) => number)
         | undefined;
 
     /** If you want to dynamically generate the sorterParams at the time the sort is called you can pass a function into the property that should return the params object. */
@@ -1315,7 +1315,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      *
      * You can set accessors on a per column basis using the accessor option in the column definition object.
      */
-    accessor?: CustomAccessor | undefined;
+    accessor?: CustomAccessor | undefined | "rownum";
 
     /** Each accessor function has its own matching params option, for example accessorDownload has accessorDownloadParams. */
     accessorParams?: CustomAccessorParams | undefined;
@@ -1402,7 +1402,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      * - true - vertical columns enabled
      * - "flip" - vertical columns enabled, with text direction flipped by 180 degrees*
      */
-    headerVertical?: boolean | 'flip' | undefined;
+    headerVertical?: boolean | "flip" | undefined;
 
     /** allows the user to edit the header titles */
     editableTitle?: boolean | undefined;
@@ -1436,7 +1436,7 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
      */
     headerFilterFunc?:
         | FilterType
-        | ((headerValue: any, rowValue: any, rowdata: any, filterparams: any) => boolean)
+        | ((headerValue: any, rowValue: any, rowData: any, filterParams: any) => boolean)
         | undefined;
 
     /** additional parameters object passed to the headerFilterFunc function. */
@@ -1458,9 +1458,12 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     columns?: ColumnDefinition[] | undefined;
 
     /** You can add a menu to any column by passing an array of menu items to the headerMenu option in that columns definition. */
-    headerMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
+    headerMenu?:
+        | Array<MenuObject<ColumnComponent> | MenuSeparator>
+        | (() => Array<MenuObject<ColumnComponent> | MenuSeparator>)
+        | undefined;
 
-    /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This funtion is passed the column component as its first argument. */
+    /** The headerMenuIcon option will accept one of three types of value. You can pass in a string for the HTML contents of the button. Or you can pass the DOM node for the button. Though be careful not to pass the same node to multiple columns or you may run into issues. Or you can define a function that is called when the column header is rendered that should return either an HTML string or the contents of the element. This function is passed the column component as its first argument. */
     headerMenuIcon?: string | HTMLElement | ((component: ColumnComponent) => HTMLElement | string);
 
     /** You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
@@ -1510,6 +1513,15 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     titlePrint?: string | undefined;
     maxWidth?: number | false | undefined;
     headerWordWrap?: boolean;
+
+    /**
+     * The value to set in the cell after the user has finished editing the cell.
+     */
+    editorEmptyValue?: any;
+    /**
+     * The function to determine if the value is empty.
+     */
+    editorEmptyValueFunc?: (value: unknown) => boolean;
 }
 
 export interface CellCallbacks {
@@ -1564,30 +1576,30 @@ export interface CellCallbacks {
 export interface ColumnDefinitionSorterParams {
     format?: string | undefined;
     locale?: string | boolean | undefined;
-    alignEmptyValues?: 'top' | 'bottom' | undefined;
-    type?: 'length' | 'sum' | 'max' | 'min' | 'avg' | undefined;
+    alignEmptyValues?: "top" | "bottom" | undefined;
+    type?: "length" | "sum" | "max" | "min" | "avg" | undefined;
 }
 
 export type GroupValuesArg = any[][];
 
-export type TextDirection = 'auto' | 'ltr' | 'rtl';
+export type TextDirection = "auto" | "ltr" | "rtl";
 
 export type GlobalTooltipOption = boolean | ((event: MouseEvent, cell: CellComponent, onRender: () => void) => string);
 
 export type CustomMutator = (
     value: any,
     data: any,
-    type: 'data' | 'edit',
+    type: "data" | "edit",
     mutatorParams: any,
     cell?: CellComponent,
 ) => any;
 
-export type CustomMutatorParams = {} | ((value: any, data: any, type: 'data' | 'edit', cell?: CellComponent) => any);
+export type CustomMutatorParams = {} | ((value: any, data: any, type: "data" | "edit", cell?: CellComponent) => any);
 
 export type CustomAccessor = (
     value: any,
     data: any,
-    type: 'data' | 'download' | 'clipboard',
+    type: "data" | "download" | "clipboard",
     AccessorParams: any,
     column?: ColumnComponent,
     row?: RowComponent,
@@ -1596,45 +1608,47 @@ export type CustomAccessor = (
 export type CustomAccessorParams =
     | {}
     | ((
-          value: any,
-          data: any,
-          type: 'data' | 'download' | 'clipboard',
-          column?: ColumnComponent,
-          row?: RowComponent,
-      ) => any);
+        value: any,
+        data: any,
+        type: "data" | "download" | "clipboard",
+        column?: ColumnComponent,
+        row?: RowComponent,
+    ) => any);
 
 export type ColumnCalc =
-    | 'avg'
-    | 'max'
-    | 'min'
-    | 'sum'
-    | 'concat'
-    | 'count'
+    | "avg"
+    | "max"
+    | "min"
+    | "sum"
+    | "concat"
+    | "count"
+    | "unique"
     | ((values: any[], data: any[], calcParams: {}) => any);
 
 export type ColumnCalcParams = { precision: number } | ((values: any, data: any) => any);
 
 export type Formatter =
-    | 'plaintext'
-    | 'textarea'
-    | 'html'
-    | 'money'
-    | 'image'
-    | 'datetime'
-    | 'datetimediff'
-    | 'link'
-    | 'tickCross'
-    | 'color'
-    | 'star'
-    | 'traffic'
-    | 'progress'
-    | 'lookup'
-    | 'buttonTick'
-    | 'buttonCross'
-    | 'rownum'
-    | 'handle'
-    | 'rowSelection'
-    | 'responsiveCollapse'
+    | "plaintext"
+    | "textarea"
+    | "html"
+    | "money"
+    | "image"
+    | "datetime"
+    | "datetimediff"
+    | "link"
+    | "tickCross"
+    | "color"
+    | "star"
+    | "traffic"
+    | "progress"
+    | "lookup"
+    | "buttonTick"
+    | "buttonCross"
+    | "rownum"
+    | "handle"
+    | "rowSelection"
+    | "responsiveCollapse"
+    | "toggle"
     | ((cell: CellComponent, formatterParams: {}, onRendered: EmptyCallback) => string | HTMLElement);
 
 export type FormatterParams =
@@ -1649,27 +1663,28 @@ export type FormatterParams =
     | StarRatingParams
     | RowSelectionParams
     | JSONRecord
+    | ToggleSwitchParams
     | ((cell: CellComponent) => {});
 
 export type Editor =
     | true
-    | 'input'
-    | 'textarea'
-    | 'number'
-    | 'range'
-    | 'tickCross'
-    | 'star'
-    | 'list'
-    | 'date'
-    | 'time'
-    | 'datetime'
+    | "input"
+    | "textarea"
+    | "number"
+    | "range"
+    | "tickCross"
+    | "star"
+    | "list"
+    | "date"
+    | "time"
+    | "datetime"
     | ((
-          cell: CellComponent,
-          onRendered: EmptyCallback,
-          success: ValueBooleanCallback,
-          cancel: ValueVoidCallback,
-          editorParams: {},
-      ) => HTMLElement | false);
+        cell: CellComponent,
+        onRendered: EmptyCallback,
+        success: ValueBooleanCallback,
+        cancel: ValueVoidCallback,
+        editorParams: {},
+    ) => HTMLElement | false);
 
 export type EditorParams =
     | NumberParams
@@ -1682,14 +1697,14 @@ export type EditorParams =
     | DateTimeEditorParams
     | ((cell: CellComponent) => {});
 
-export type ScrollToRowPosition = 'top' | 'center' | 'bottom' | 'nearest';
-export type PopupPosition = ColumnDefinitionAlign | 'top' | 'bottom';
+export type ScrollToRowPosition = "top" | "center" | "bottom" | "nearest";
+export type PopupPosition = ColumnDefinitionAlign | "top" | "bottom";
 
-export type ScrollToColumnPosition = 'left' | 'center' | 'middle' | 'right';
+export type ScrollToColumnPosition = "left" | "center" | "middle" | "right";
 
-export type ColumnDefinitionAlign = 'left' | 'center' | 'right';
+export type ColumnDefinitionAlign = "left" | "center" | "right";
 
-export type VerticalAlign = 'top' | 'middle' | 'bottom';
+export type VerticalAlign = "top" | "middle" | "bottom";
 
 export interface MoneyParams {
     // Money
@@ -1698,6 +1713,7 @@ export interface MoneyParams {
     symbol?: string | undefined;
     symbolAfter?: boolean | undefined;
     precision?: boolean | number | undefined;
+    negativeSign?: string | true;
 }
 
 export interface ImageParams {
@@ -1731,7 +1747,7 @@ export interface DateTimeDifferenceParams extends DateTimeParams {
     // Date Time Difference
     date?: any;
     humanize?: boolean | undefined;
-    unit?: 'years' | 'months' | 'weeks' | 'days' | 'hours' | 'minutes' | 'seconds' | undefined;
+    unit?: "years" | "months" | "weeks" | "days" | "hours" | "minutes" | "seconds" | undefined;
     suffix?: boolean | undefined;
 }
 
@@ -1766,6 +1782,17 @@ export interface RowSelectionParams {
     rowRange?: RowRangeLookup | undefined;
 }
 
+export interface ToggleSwitchParams {
+    size?: number | undefined;
+    max?: number | undefined;
+    onValue?: string | number | undefined;
+    offValue?: string | number | undefined;
+    onTruthy?: boolean | undefined;
+    onColor?: string | undefined;
+    offColor?: string | undefined;
+    clickable?: boolean | undefined;
+}
+
 export interface SharedEditorParams {
     elementAttributes?: JSONRecord | undefined;
 
@@ -1798,7 +1825,7 @@ export interface NumberParams extends SharedEditorParams {
     min?: number | undefined;
     max?: number | undefined;
     step?: number | undefined;
-    verticalNavigation?: 'editor' | 'table' | undefined;
+    verticalNavigation?: "editor" | "table" | undefined;
     /** When the editor is loaded select its text content */
     selectContents?: boolean | undefined;
 }
@@ -1811,13 +1838,15 @@ export interface InputParams extends SharedEditorParams {
 }
 
 export interface TextAreaParams extends SharedEditorParams {
-    verticalNavigation?: 'editor' | 'table' | 'hybrid' | undefined;
+    verticalNavigation?: "editor" | "table" | "hybrid" | undefined;
 
     /** Allow submission of the value of the editor when the shift and enter keys are pressed together. */
     shiftEnterSubmit?: boolean;
     /** When the editor is loaded select its text content */
     selectContents?: boolean | undefined;
 }
+
+type VerticalNavigationOptions = "editor" | "table";
 
 export interface CheckboxParams extends SharedEditorParams {
     // tick
@@ -1827,21 +1856,24 @@ export interface CheckboxParams extends SharedEditorParams {
 
 export interface SharedSelectAutoCompleteEditorParams {
     defaultValue?: string | undefined;
-    sortValuesList?: 'asc' | 'desc' | undefined;
+    sortValuesList?: "asc" | "desc" | undefined;
 }
 
 export interface DateParams extends SharedEditorParams {
     min?: string;
     max?: string;
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface TimeParams extends SharedEditorParams {
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface DateTimeEditorParams extends SharedEditorParams {
     format?: string;
+    verticalNavigation?: VerticalNavigationOptions;
 }
 
 export interface LabelValue {
@@ -1870,7 +1902,7 @@ export interface ListEditorParams extends SharedEditorParams, SharedSelectAutoCo
     listOnEmpty?: boolean;
     freetext?: boolean | undefined;
     showListOnEmpty?: boolean | undefined;
-    verticalNavigation?: 'editor' | 'table' | 'hybrid' | undefined;
+    verticalNavigation?: "editor" | "table" | "hybrid" | undefined;
 }
 
 export type ValueStringCallback = (value: any) => string;
@@ -1893,17 +1925,85 @@ export type RowChangedCallback = (row: RowComponent) => void;
 
 export type GroupEventCallback = (e: UIEvent, group: GroupComponent) => void;
 
-export type SortDirection = 'asc' | 'desc';
+export type SortDirection = "asc" | "desc";
 
-export type FilterType = '=' | '!=' | 'like' | '<' | '>' | '<=' | '>=' | 'in' | 'regex' | 'starts' | 'ends';
+export type FilterType = "=" | "!=" | "like" | "<" | ">" | "<=" | ">=" | "in" | "regex" | "starts" | "ends";
 
 export type Color = string | any[] | ValueStringCallback;
 
-export type Align = 'center' | 'left' | 'right' | 'justify';
+export type Align = "center" | "left" | "right" | "justify";
 
 export type JSONRecord = Record<string, string | number | boolean>;
 
-export type StandardValidatorType = 'required' | 'unique' | 'integer' | 'float' | 'numeric' | 'string';
+/**
+ * Tabulator has a wide variety of built in validators:
+ * Note: For a guide to adding your own validators to this list, have a look at the "Extending Tabulator" section.
+ *
+ * Note By default all validators, except the `required` validator will approve any empty value (ie. empty string,
+ * null or undefined). to ensure empty values are rejected you should use the required validator.
+ *
+ * - Required, The required validator allows values that are not null or an empty string
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"required"}
+ * ```
+ * - Unique, The unique validator allows values that do not match the value of any other cell in this column
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"unique"}
+ * ```
+ * - Integer, The integer validator allows values that are valid integers
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"integer"}
+ * ```
+ * - Float, The float validator allows values that are valid floats
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"float"}
+ * ```
+ * - Numeric, The numeric validator allows values that are valid numbers
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"numeric"}
+ * ```
+ * - String, The string validator allows values that are a non-numeric string
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"string"}
+ * ```
+ * - Alphanumeric, The alphanumeric validator allows values that are explicitly numbers and letters with no symbols or spaces
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"alphanumeric"}
+ * ```
+ * - Minimum Numeric Value, The min validator allows numeric values that are greater than or equal to parameter
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"min:5"} \\value must be greater than or equal to 5
+ * ```
+ * - Maximum Numeric Value, The max validator allows numeric values that are less than or equal to parameter
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"max:5"} \\value must be less than or equal to 5
+ * ```
+ * - Minimum String Length, The minLength validator allows string values that have a length greater than or equal to parameter
+ * ```javascript
+ *     {title:"minLength", field:"example", validator:"minLength:5"} \\value must have a length greater than or equal to 5
+ * ```
+ * - Maximum String Length, The maxLength validator allows string values that have a length less than or equal to parameter
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"maxLength:5"} \\value must have a length less than or equal to 5
+ * ```
+ * - In List, The in validator allows values that match a value from the | delimited string in the parameter
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"in:red|green|blue"} \\value must be 'red', 'green' or 'blue'
+ * ```
+ * - Starts With, The starts validator allows string values that start with the parameter (case insensitive)
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"starts:bob"} \\value must start with 'bob'
+ * ```
+ * - Ends With, The ends validator allows string values that start with the parameter (case insensitive)
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"ends:green"} \\value must end with 'green'
+ * ```
+ * - Regular Expression, The regex validator allows values that match the supplied regex
+ * ```javascript
+ *     {title:"Example", field:"example", validator:"regex:\\.com$"} \\allow strings that end in '.com'
+ * ```
+ */
+export type StandardValidatorType = "required" | "unique" | "integer" | "float" | "numeric" | "string" | "alphanumeric";
 
 export interface Validator {
     type: StandardValidatorType | ((cell: CellComponent, value: any, parameters?: any) => boolean);
@@ -1914,9 +2014,9 @@ export type ColumnSorterParamLookupFunction = (column: ColumnComponent, dir: Sor
 
 export type ColumnLookup = ColumnComponent | ColumnDefinition | HTMLElement | string;
 
-export type RowLookup = RowComponent | HTMLElement | string | number | number[] | string[];
+export type RowLookup = RowComponent | HTMLElement | string | number;
 
-export type RowRangeLookup = 'visible' | 'active' | 'selected' | 'all';
+export type RowRangeLookup = "visible" | "active" | "selected" | "all" | "range";
 
 export interface KeyBinding {
     navPrev?: string | boolean | undefined;
@@ -1937,7 +2037,7 @@ export interface KeyBinding {
 // Components-------------------------------------------------------------------
 export interface CalculationComponent {
     /** The getData function returns the data object for the row. */
-    getData: () => any;
+    getData: () => { [key: string]: any };
 
     /** The getElement function returns the DOM node for the row. */
     getElement: () => HTMLElement;
@@ -1980,7 +2080,7 @@ export interface RowComponent extends CalculationComponent {
     delete: () => Promise<void>;
 
     /** The scrollTo function will scroll the table to the row if it passes the current filters. */
-    scrollTo: () => Promise<void>;
+    scrollTo: (position?: "top" | "center" | "bottom" | "nearest", scrollIfVisible?: boolean) => Promise<void>;
 
     /** The pageTo function will load the page for the row if it passes the current filters. */
     pageTo: () => Promise<void>;
@@ -2095,6 +2195,9 @@ export interface GroupComponent {
     /** The toggle function toggles the visibility of the group, switching between hidden and visible. */
     toggle: () => void;
     popup: (contents: string, position: PopupPosition) => void;
+
+    /** The scrollTo function will scroll the table to the group header if it passes the current filters. */
+    scrollTo: (position?: "top" | "center" | "bottom" | "nearest", scrollIfVisible?: boolean) => Promise<void>;
 }
 
 export interface ColumnComponent {
@@ -2138,7 +2241,7 @@ export interface ColumnComponent {
     delete: () => Promise<void>;
 
     /** The scrollTo function will scroll the table to the column if it is visible. */
-    scrollTo: () => Promise<void>;
+    scrollTo: (position?: "left" | "middle" | "right", scrollIfVisible?: boolean) => Promise<void>;
 
     /** The getSubColumns function returns an array of ColumnComponent objects, one for each sub column of this column. */
     getSubColumns: () => ColumnComponent[];
@@ -2203,10 +2306,13 @@ export interface CellComponent {
     getColumn: () => ColumnComponent;
 
     /** The getData function returns the data for the row that contains the cell. */
-    getData: () => {};
+    getData: (transformType?: "data" | "download" | "clipboard") => { [key: string]: any };
 
     /** The getField function returns the field name for the column that contains the cell. */
     getField: () => string;
+
+    /** The getType function can be used to determine if the cell is being used as a cell or a header element. */
+    getType: () => "cell" | "header";
 
     /** You can change the value of the cell using the setValue function. The first parameter should be the new value for the cell, the second optional parameter will apply the column mutators to the value when set to true (default = true). */
     setValue: (value: any, mutate?: boolean) => void;
@@ -2255,6 +2361,198 @@ export interface CellComponent {
     /** You can validate a cell by calling the validate method on any Cell Component. Returns true if the cell passes validation, or an array of failed validators if it fails validation. */
     validate: () => boolean | Validator[];
     popup: (contents: string, position: PopupPosition) => void;
+
+    /**
+     * You can retrieve all ranges that overlap a cell by calling the getRanges function:
+     *
+     * ```javascript
+     *     var ranges = cell.getRanges();
+     * ```
+     * This will return an array of Range Components for any ranges that overlap the cell. If no ranges overlap the
+     * cell, an empty array will be returned.
+     */
+    getRanges(): RangeComponent[];
+}
+
+export interface RangeComponent {
+    /**
+     * You can update the bounds for an existing range using the setBounds function, passing in the Cell Components
+     * for the top-left and bottom-right bounds of the selection:
+     *
+     * @example
+     * var topLeft = table.getRows()[2].getCells()[1];
+     * var bottomRight = table.getRows()[5].getCells()[6];
+     *
+     * range.setBounds(topLeft, bottomRight);
+     */
+    setBounds: (topLeft: CellComponent, bottomRight: CellComponent) => void;
+
+    /**
+     * You can change the top left start edge of an existing range using the setStartBound function, passing in the
+     * Cell Component for the top left bound of the selection:
+     *
+     * @example
+     * var topLeft = table.getRows()[2].getCells()[1];
+     *
+     * range.setStartBound(topLeft);
+     */
+    setStartBound: (cell: CellComponent) => void;
+
+    /**
+     * You can change the bottom right ending edge of an existing range using the setEndBound function, passing in the
+     * Cell Component for the bottom right bound of the selection:
+     *
+     * @example
+     * var bottomRight = table.getRows()[5].getCells()[6];
+     *
+     * range.setEndBound(bottomRight);
+     */
+    setEndBound: (cell: CellComponent) => void;
+
+    /**
+     * You can remove a range by calling the remove function on the range:
+     *
+     * @example
+     * range.remove();
+     */
+    remove(): void;
+
+    /**
+     * You can retrieve the bounding rectangle element for a range by calling the getElement function on the range:
+     *
+     * @example
+     * var element = range.getElement();
+     */
+    getElement(): unknown;
+
+    /**
+     * You can retrieve the cell data for a range by calling the getData function on the range:
+     *
+     * ```javascript
+     * var data = range.getData();
+     * ```
+     *
+     * This will return a range data array, which is structured as a series of row data objects with only the props for
+     * cells in that range:
+     *
+     * ```json
+     * [
+     *     {color:"green", country:"England", driver:true}, //data for selected cells in first row in range
+     *     {color:"red", country:"USA", driver:false}, //data for selected cells in second row in range
+     *     {color:"blue", country:"France", driver:true}, //data for selected cells in third row in range
+     * ]
+     * ```
+     */
+    getData(): unknown;
+
+    /**
+     * You can clear the value of every cell in a range by calling the clearValues function on the range:
+     *
+     * ```javascript
+     * var data = range.clearValues();
+     * ```
+     * This will set the value of every cell in the range to the value of the selectableRangeClearCellsValue table
+     * option, which is set to undefined by default.
+     */
+    clearValues(): void;
+
+    /**
+     * You can retrieve all the Cell Components in a range by calling the getCells function on the range:
+     *
+     * ```javascript
+     * var cells = range.getCells();
+     * ```
+     * This will return a array of Cell Components
+     */
+    getCells(): CellComponent[];
+
+    /**
+     * You can retrieve a structured map of all the Cell Components in a range by calling the getStructuredCells
+     * function on the range:
+     *
+     * ```javascript
+     * var cells = range.getStructuredCells();
+     * ```
+     * This will return a array of row arrays, with each row array containing the Cell Components in order for that row:
+     *
+     * ```json
+     * [
+     *     [Component, Component, Component], //first row
+     *     [Component, Component, Component], //second row
+     *     [Component, Component, Component], //third row
+     * ]
+     * ```
+     */
+    getStructuredCells(): CellComponent[][];
+
+    /**
+     * You can retrieve all the Row Components in a range by calling the getRows function on the range:
+     *
+     * ```javascript
+     * var rows = range.getRows();
+     * ```
+     * This will return a array of Row Components
+     */
+    getRows(): RowComponent[];
+
+    /**
+     * You can retrieve all the Column Components in a range by calling the getColumns function on the range:
+     *
+     * ```javascript
+     * var columns = range.getColumns();
+     * ```
+     * This will return a array of Column Components
+     */
+    getColumns(): ColumnComponent[];
+
+    /**
+     * You can retrieve the bounds of a range by calling the getBounds function on the range:
+     *
+     * ```javascript
+     * var bounds = range.getBounds();
+     * ```
+     * This will return an object containing two Cell Components, for the two bounds of the range
+     *
+     * ```json
+     * {
+     *     start:Component, //the cell component at the top left of the range
+     *     end:Component, //the cell component at the bottom right of the range
+     * }
+     * ```
+     */
+    getBounds(): { start: CellComponent; end: CellComponent };
+
+    /**
+     * You can find the position number for the top row of the range by calling the getTopEdge function on the range:
+     *
+     * @example
+     * var topPosition = range.getTopEdge();
+     */
+    getTopEdge(): number;
+
+    /**
+     * You can find the position number for the bottom row of the range by calling the getBottomEdge function on the range:
+     *
+     * @example
+     * var bottomPosition = range.getBottomEdge();
+     */
+    getBottomEdge(): number;
+
+    /**
+     * You can find the position number for the left column of the range by calling the getLeftEdge function on the range:
+     *
+     * @example
+     * var leftPosition = range.getLeftEdge();
+     */
+    getLeftEdge(): number;
+
+    /**
+     * You can find the position number for the right column of the range by calling the getRightEdge function on the range:
+     *
+     * @example
+     * var rightPosition = range.getRightEdge();
+     */
+    getRightEdge(): number;
 }
 
 export interface EventCallBackMethods {
@@ -2267,7 +2565,12 @@ export interface EventCallBackMethods {
     rowMoved: (row: RowComponent) => void;
     rowMoveCancelled: (row: RowComponent) => void;
     rowUpdated: (row: RowComponent) => void;
-    rowSelectionChanged: (selectedData: any[], selectedRows: RowComponent[]) => void;
+    rowSelectionChanged: (
+        data: any[],
+        rows: RowComponent[],
+        selectedRows: RowComponent[],
+        deselectedRows: RowComponent[],
+    ) => void;
     rowSelected: (row: RowComponent) => void;
     rowDeselected: (row: RowComponent) => void;
     rowResized: (row: RowComponent) => void;
@@ -2368,6 +2671,92 @@ export interface EventCallBackMethods {
     menuOpened: (cell: CellComponent) => void;
     TooltipClosed: (cell: CellComponent) => void;
     TooltipOpened: (cell: CellComponent) => void;
+
+    /**
+     * The range component provides access to a selected range of cells. The example below shows how it is passed to
+     * the rangeAdded callback
+     *
+     * ```javascript
+     * table.on("rangeAdded", function(range) {
+     *     // range - range component for the selected range
+     *     alert("The user has selected a new range containing " + range.getCells().length + " cells");
+     * });
+     * ```
+     */
+    rangeAdded: (range: RangeComponent) => void;
+
+    /**
+     * The rangeChanged event is triggered when a the bounds of an existing range are changed.
+     * ```javascript
+     * table.on("rangeChanged", function(range){
+     *     // range - range component for the selected range
+     * });
+     * ```
+     */
+    rangeChanged: (range: RangeComponent) => void;
+
+    /**
+     * The rangeRemoved event is triggered when a range is removed from the table.
+     * ```javascript
+     * table.on("rangeRemoved", function(range){
+     *     // range - range component for the selected range
+     * });
+     * ```
+     */
+    rangeRemoved: (range: RangeComponent) => void;
+
+    /**
+     * The rowHeight event will be triggered when the width of a row is set or changed.
+     */
+    rowHeight: (row: RowComponent) => void;
+
+    /**
+     * The rowResizing event will be triggered when a row has started to be resized by the user.
+     */
+    rowResizing: (row: RowComponent) => void;
+
+    /**
+     * The columnWidth event will be triggered when the width of a column is set or changed.
+     */
+    columnWidth: (column: ColumnComponent) => void;
+
+    /**
+     * The columnResizing event will be triggered when a column has started to be resized by the user.
+     */
+    columnResizing: (column: ColumnComponent) => void;
+
+    sheetAdded: (sheet: SpreadsheetComponent) => void;
+    sheetLoaded: (sheet: SpreadsheetComponent) => void;
+    sheetUpdated: (sheet: SpreadsheetComponent) => void;
+    sheetRemoved: (sheet: SpreadsheetComponent) => void;
+
+    /**
+     * The columnsLoaded event is triggered when the replacement of the columns is complete.
+     * An array of column components is passed as the first argument of the callback.
+     */
+    columnsLoaded: (columns: ColumnComponent[]) => void;
+
+    /**
+     * The importChoose event is triggered the import function is called and the file picker modal opens.
+     */
+    importChoose: () => void;
+
+    /**
+     * The importImporting event is triggered after the user has chosen the file to import, but before it has been processed.
+     * The file array returned from the file pickers is passed as the first argument of the callback.
+     */
+    importImporting: (files: File[]) => void;
+
+    /**
+     * The importError event is triggered if there is an error importing the data from the file.
+     * The thrown error is passes as the first argument of the callback.
+     */
+    importError: (err: unknown) => void;
+    /**
+     * The importImported event is triggered when the data has been successfully parsed from the file, just before it is then loaded into the table.
+     * The parsed array of row data objects is passed as the first argument of the callback..
+     */
+    importImported: (data: unknown) => void;
 }
 
 declare class Tabulator {
@@ -2386,7 +2775,9 @@ declare class Tabulator {
 
     /** Lookup table objects for any existing table using the element they were created on. */
     static findTable: (query: string) => Tabulator[];
-    static registerModule: (module: Module) => void;
+    static registerModule: (
+        modules: { new(tabulator: Tabulator): Module } | Array<{ new(tabulator: Tabulator): Module }>,
+    ) => void;
     static bindModules: ([]) => void;
     constructor(selector: string | HTMLElement, options?: Options);
     columnManager: any;
@@ -2422,8 +2813,13 @@ declare class Tabulator {
     /** If you want to open the generated file in a new browser tab rather than downloading it straight away, you can use the downloadToTab function. This is particularly useful with the PDF downloader, as it allows you to preview the resulting PDF in a new browser ta */
     downloadToTab: (downloadType: DownloadType, fileName: string, params?: DownloadOptions) => void;
 
-    /** Load data from a local file */
-    import: (data: any, fileName: string) => any;
+    /**
+     * Load data from a local file
+     * @param data - The data to be loaded into the table
+     * @param extension - The extensions for files that can be selected
+     * @param format - The format of the data. Defaults to 'text'
+     */
+    import: (data: any, extension: string | string[], format?: "buffer" | "binary" | "url" | "text") => any;
 
     /**
      * The copyToClipboard function allows you to copy the current table data to the clipboard.
@@ -2466,7 +2862,7 @@ declare class Tabulator {
     /** Destructor. */
     destroy: () => void;
 
-    setData: (data: any, params?: any, config?: any) => Promise<void>;
+    setData: (data?: any, params?: any, config?: any) => Promise<void>;
 
     /** You can remove all data from the table using clearData */
     clearData: () => void;
@@ -2727,10 +3123,10 @@ declare class Tabulator {
     /**
      * To programmatically select a row you can use the selectRow function.
      *
-     * To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectable option to a numeric value, it will be ignored when selecting all rows). If lookup value is true you will selected all current filtered rows.
+     * To select a specific row you can pass the any of the standard row component look up options into the first argument of the function. If you leave the argument blank you will select all rows (if you have set the selectableRow option to a numeric value, it will be ignored when selecting all rows). If lookup value is true you will selected all current filtered rows.
      */
-    selectRow: (lookup?: RowLookup[] | RowRangeLookup | true) => void;
-    deselectRow: (row?: RowLookup) => void;
+    selectRow: (lookup?: RowLookup[] | RowLookup | RowRangeLookup | true) => void;
+    deselectRow: (row?: RowLookup[] | RowLookup) => void;
     toggleSelectRow: (row?: RowLookup) => void;
 
     /**
@@ -2761,7 +3157,7 @@ declare class Tabulator {
      * - "last" - show the last page
      * The setPage method returns a promise, this can be used to run any other commands that have to be run after the data has been loaded into the table. By running them in the promise you ensure they are only run after the table has loaded the data.
      */
-    setPage: (page: number | 'first' | 'prev' | 'next' | 'last') => Promise<void>;
+    setPage: (page: number | "first" | "prev" | "next" | "last") => Promise<void>;
 
     /**
      * You can load the page for a specific row using the setPageToRow function and passing in any of the standard row component look up options for the row you want to scroll to.
@@ -2795,7 +3191,11 @@ declare class Tabulator {
      * Note: If you use the setGroupStartOpen or setGroupHeader before you have set any groups on the table, the table will not update until the setGroupBy function is called.
      */
     setGroupStartOpen: (
-        values: boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean),
+        values:
+            | boolean
+            | boolean[]
+            | ((value: any, count: number, data: any, group: GroupComponent) => boolean)
+            | Array<boolean | ((value: any, count: number, data: any, group: GroupComponent) => boolean)>,
     ) => void;
 
     /** You can use the setGroupHeader function to change the header generation function for each group. This function has one argument and takes the same values as passed to the groupHeader setup option. */
@@ -2883,58 +3283,216 @@ declare class Tabulator {
     setGroupValues: (data: GroupValuesArg) => void;
 
     /** You can now trigger a refresh of the current filters using the refreshFilter function. This function will cause the current filters to be run again and applied to the table data. */
-    refreshFilters: () => void;
+    refreshFilter: () => void;
 
     /** The clearHistory function can be used to clear out the current table interaction history. */
     clearHistory: () => void;
+
+    /**
+     * To programmatically select a range of cells you can use the addRange function.
+     *
+     * To select a range of cells you should call the addRange function, passing in the Cell Components for the
+     * top-left and bottom-right bounds of the selection:
+     *
+     * ```javascript
+     * var topLeft = table.getRows()[2].getCells()[1];
+     * var bottomRight = table.getRows()[5].getCells()[6];
+     *
+     * var range = table.addRange(topLeft, bottomRight);
+     * ```
+     *
+     * This will then return the Range Component for the new range.
+     */
+    addRange: (topLeft: CellComponent, bottomRight: CellComponent) => RangeComponent;
+
+    /**
+     * To get the Range Component's for all the current ranges you can use the getRanges function.
+     *
+     * ```javascript
+     * var ranges = table.getRanges(); //get array of currently selected range components.
+     * ```
+     *
+     * This will return an array of Range Components for all the current ranges.
+     */
+    getRanges: () => RangeComponent[];
+
+    /**
+     * To get the data objects for all the selected cell ranges you can use the getRangesData function.
+     *
+     * ```javascript
+     *     var rangeData = table.getRangesData(); //get array of currently selected data.
+     * ```
+     * This will return an array of range data arrays, with data array per range. Each range data array will contain a
+     * series of row data objects with only the props for cells in that range:
+     *
+     * ```json
+     * [
+     *     [ //range 1
+     *         {name:"Bob Monkhouse", age:83}, //data for selected cells in first row in range
+     *         {name:"Mary May", age:22}, //data for selected cells in second row in range
+     *     ],
+     *     [ //range 2
+     *         {color:"green", country:"England", driver:true}, //data for selected cells in first row in range
+     *         {color:"red", country:"USA", driver:false}, //data for selected cells in second row in range
+     *         {color:"blue", country:"France", driver:true}, //data for selected cells in third row in range
+     *     ],
+     * ]
+     * ```
+     */
+    getRangeData: () => unknown[][];
+
+    setSheets: (data: SpreadsheetSheet[]) => void;
+    addSheet: (data: SpreadsheetSheet) => void;
+    getSheetDefinitions: () => SpreadsheetSheet[];
+    getSheets: () => SpreadsheetComponent[];
+    getSheet: (lookup: string | SpreadsheetComponent) => SpreadsheetComponent;
+    setSheetData: (lookup: string | SpreadsheetComponent, data: unknown[][]) => void;
+    getSheetData: (lookup: string | SpreadsheetComponent) => unknown[][];
+    clearSheet: (lookup: string | SpreadsheetComponent) => void;
+    activeSheet: (lookup: string | SpreadsheetComponent) => void;
+    removeSheet: (lookup: string | SpreadsheetComponent) => void;
+
     on: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
     off: <K extends keyof EventCallBackMethods>(event: K, callback?: EventCallBackMethods[K]) => void;
 }
 
+// tslint:disable-next-line:no-unnecessary-class
 declare class Module {
+    /**
+     * The static `moduleName` property must be declared on the class (not an instance of the class),
+     * and be a camelCase name for the module, this is used internally by the table to act as a unique identifier for the module.
+     */
     static moduleName: string;
+    /**
+     * The optional static `moduleInitOrder` property can be used to determine the order in which the module is initialized,
+     * by default modules are initialized with a value of 0.
+     * If you want your module to be initialized before other modules use a minus number, if you want it initialized after use a positive number.
+     */
+    static moduleInitOrder?: number;
+    /**
+     * The constructor is called as the module is being instantiated and is where your module should start to tell tabulator a little about itself.
+     * The constructor takes one argument, the table the module is being bound to, it should pass this to the super function so that it is available for the module to bind to its internal helper functions.
+     * It is very important that you do not try any access any parts of the table, any events or other modules when the constructor is called.
+     * At this point the table is in the process of being built and is not ready to respond to anything.
+     * The constructor should be used to register any external functionality that may be called on the module and to register andy setup options that may be set on the table or column definitions.
+     *
+     * @param table The Tabulator object the module is being initialized for
+     */
     constructor(table: Tabulator);
+
+    /**
+     * Reference to the table this module is in
+     */
+    table: Tabulator;
+
+    /**
+     * Adds an option to the table constructor
+     * @param propName Property name to add
+     * @param defaultValue Default value of the property
+     */
+    registerTableOption(propName: string, defaultValue?: unknown): void;
+    /**
+     * Make a function available on the table object
+     * @param functionName Function to add
+     * @param callback Function to be called when the method is invoked on the grid
+     */
+    registerTableFunction(functionName: string, callback: (...args: unknown[]) => unknown): void;
+
+    /**
+     * Register an option for the column component
+     * @param propName Property name to add
+     * @param defaultValue Default value of the property
+     */
+    registerColumnOption(propName: string, defaultValue?: unknown): void;
+
+    /**
+     * Subscribe to an event in the Tabulator Event bus.
+     * See https://tabulator.info/docs/5.5/events-internal
+     * @param eventName Event to subscribe to
+     * @param callback Function to call when subscribing
+     * @param order The order for initialization. By default, it's 10000. See https://tabulator.info/docs/5.5/module-build#events-internal
+     */
+    subscribe(eventName: string, callback: (...args: unknown[]) => unknown, order?: number): void;
+
+    /**
+     * Unsubscribe to an event in the Tabulator Event bus.
+     * See https://tabulator.info/docs/5.5/events-internal
+     * @param eventName Event to subscribe to
+     * @param callback Function to call when subscribing
+     */
+    unsubscribe(eventName: string, callback: (...args: unknown[]) => unknown): void;
+
+    /**
+     * Updates the configuration of the grid.
+     * It should be noted that changing an option will not automatically update the table to reflect that change,
+     * you will likely need to call the refreshData function to trigger the update.
+     * @param key Key to update
+     * @param value value to set
+     */
+    setOption(key: keyof Options, value: unknown): void;
+
+    /**
+     * Uses the data loader to reload the data in the grid
+     * @param data New grid data
+     * @param silent Do not trigger any events
+     * @param columnsChanged If the column configuration has changed
+     * @returns a promise that resolves when the data update is competed
+     */
+    reloadData(data: unknown[] | string, silent: boolean, columnsChanged: boolean): Promise<void>;
+
+    /**
+     * Fire an forget an event that can be consumed by external consumers
+     * @param eventName Event name, must follow the `camelCase` convention
+     * @param args Arguments for the event
+     */
+    dispatchExternal(eventName: string, ...args: unknown[]): void;
+
+    /**
+     * Called by the table when it is ready for module integrations
+     */
+    initialize(): void;
 }
-declare class AccessorModule {}
-declare class AjaxModule {}
-declare class ClipboardModule {}
-declare class ColumnCalcsModule {}
-declare class DataTreeModule {}
-declare class DownloadModule {}
-declare class EditModule {}
-declare class ExportModule {}
-declare class FilterModule {}
-declare class FormatModule {}
-declare class FrozenColumnsModule {}
-declare class FrozenRowsModule {}
-declare class GroupRowsModule {}
-declare class HistoryModule {}
-declare class HtmlTableImportModule {}
-declare class InteractionModule {}
-declare class KeybindingsModule {}
-declare class MenuModule {}
-declare class MoveColumnsModule {}
-declare class MoveRowsModule {}
-declare class MutatorModule {}
-declare class PageModule {}
-declare class PersistenceModule {}
-declare class PopupModule {}
-declare class PrintModule {}
+declare class AccessorModule extends Module {}
+declare class AjaxModule extends Module {}
+declare class ClipboardModule extends Module {}
+declare class ColumnCalcsModule extends Module {}
+declare class DataTreeModule extends Module {}
+declare class DownloadModule extends Module {}
+declare class EditModule extends Module {}
+declare class ExportModule extends Module {}
+declare class FilterModule extends Module {}
+declare class FormatModule extends Module {}
+declare class FrozenColumnsModule extends Module {}
+declare class FrozenRowsModule extends Module {}
+declare class GroupRowsModule extends Module {}
+declare class HistoryModule extends Module {}
+declare class HtmlTableImportModule extends Module {}
+declare class InteractionModule extends Module {}
+declare class KeybindingsModule extends Module {}
+declare class MenuModule extends Module {}
+declare class MoveColumnsModule extends Module {}
+declare class MoveRowsModule extends Module {}
+declare class MutatorModule extends Module {}
+declare class PageModule extends Module {}
+declare class PersistenceModule extends Module {}
+declare class PopupModule extends Module {}
+declare class PrintModule extends Module {}
 declare class PseudoRow {}
-declare class ReactiveDataModule {}
+declare class ReactiveDataModule extends Module {}
 declare class Renderer {}
-declare class ResizeColumnsModule {}
-declare class ResizeRowsModule {}
-declare class ResizeTableModule {}
-declare class ResponsiveLayoutModule {}
-declare class SelectRowModule {}
-declare class SortModule {}
+declare class ResizeColumnsModule extends Module {}
+declare class ResizeRowsModule extends Module {}
+declare class ResizeTableModule extends Module {}
+declare class ResponsiveLayoutModule extends Module {}
+declare class SelectRowModule extends Module {}
+declare class SelectRangeModule extends Module {}
+declare class SortModule extends Module {}
+declare class SpreadsheetModule extends Module {}
 declare class TabulatorFull extends Tabulator {}
-declare class TooltipModule {}
-declare class ValidateModule {}
+declare class TooltipModule extends Module {}
+declare class ValidateModule extends Module {}
 
 export {
-    Module,
     AccessorModule,
     AjaxModule,
     ClipboardModule,
@@ -2953,6 +3511,7 @@ export {
     InteractionModule,
     KeybindingsModule,
     MenuModule,
+    Module,
     MoveColumnsModule,
     MoveRowsModule,
     MutatorModule,
@@ -2967,8 +3526,10 @@ export {
     ResizeRowsModule,
     ResizeTableModule,
     ResponsiveLayoutModule,
+    SelectRangeModule,
     SelectRowModule,
     SortModule,
+    SpreadsheetModule,
     Tabulator,
     TabulatorFull,
     TooltipModule,

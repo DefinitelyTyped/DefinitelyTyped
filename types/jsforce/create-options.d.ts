@@ -1,5 +1,5 @@
-import { SalesforceId } from './salesforce-id';
-import { SObjectOptions } from './salesforce-object-options';
+import { SalesforceId } from "./salesforce-id";
+import { SObjectOptions } from "./salesforce-object-options";
 
 export interface SObjectCreateOptions extends SObjectOptions {
     IsDeleted?: boolean | undefined;

@@ -1,7 +1,3 @@
-// Type definitions for phplint 2.0
-// Project: https://github.com/wayneashleyberry/phplint
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="grunt" />
 
 export interface Options {

@@ -23,7 +23,6 @@ declare namespace jsrsasign.KJUR.asn1.csr {
      *   attributes    [0] Attributes{{ CRIAttributes }} }
      * </pre>
      *
-     *
      * CAUTION:
      * Argument "params" JSON value format have been changed without
      * backward compatibility since jsrsasign 9.0.0 asn1csr 2.0.0.

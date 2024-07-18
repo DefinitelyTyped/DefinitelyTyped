@@ -1,4 +1,4 @@
-import Element, { Node } from './Element';
+import Element, { Node } from "./Element";
 
 export default function JSONify<TNode extends Node>(el: TNode): TNode extends Element ? ElementJson : TNode;
 

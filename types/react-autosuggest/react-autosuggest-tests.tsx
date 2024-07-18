@@ -1,7 +1,6 @@
 // region Imports
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import Autosuggest = require('react-autosuggest');
+import * as React from "react";
+import Autosuggest = require("react-autosuggest");
 // endregion
 
 interface Language {
@@ -12,84 +11,84 @@ interface Language {
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expression
 // s#Using_Special_Characters
 function escapeRegexCharacters(str: string): string {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     // region Fields
     static languages: Language[] = [
         {
-            name: 'C',
+            name: "C",
             year: 1972,
         },
         {
-            name: 'C#',
+            name: "C#",
             year: 2000,
         },
         {
-            name: 'C++',
+            name: "C++",
             year: 1983,
         },
         {
-            name: 'Clojure',
+            name: "Clojure",
             year: 2007,
         },
         {
-            name: 'Elm',
+            name: "Elm",
             year: 2012,
         },
         {
-            name: 'Go',
+            name: "Go",
             year: 2009,
         },
         {
-            name: 'Haskell',
+            name: "Haskell",
             year: 1990,
         },
         {
-            name: 'Java',
+            name: "Java",
             year: 1995,
         },
         {
-            name: 'Javascript',
+            name: "Javascript",
             year: 1995,
         },
         {
-            name: 'Perl',
+            name: "Perl",
             year: 1987,
         },
         {
-            name: 'PHP',
+            name: "PHP",
             year: 1995,
         },
         {
-            name: 'Python',
+            name: "Python",
             year: 1991,
         },
         {
-            name: 'Ruby',
+            name: "Ruby",
             year: 1995,
         },
         {
-            name: 'Scala',
+            name: "Scala",
             year: 2003,
         },
     ];
     // endregion region Constructor
     state = {
-        value: '',
-        suggestions: this.getSuggestions(''),
+        value: "",
+        suggestions: this.getSuggestions(""),
     };
     // endregion region Rendering methods
     inputRef = React.createRef<HTMLInputElement>();
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { value, suggestions } = this.state;
 
         const theme = {
-            input: 'themed-input-class',
-            container: 'themed-container-class',
-            suggestionFocused: 'active',
-            sectionTitle: { color: 'blue' },
+            input: "themed-input-class",
+            container: "themed-container-class",
+            suggestionFocused: "active",
+            sectionTitle: { color: "blue" },
         };
 
         return (
@@ -100,7 +99,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                 renderSuggestion={this.renderSuggestion}
                 onSuggestionSelected={this.onSuggestionsSelected}
                 alwaysRenderSuggestions={true}
-                shouldRenderSuggestions={(value, reason) => reason !== 'input-focused'}
+                shouldRenderSuggestions={(value, reason) => reason !== "input-focused"}
                 shouldKeepSuggestionsOnSelect={() => false}
                 inputProps={{
                     placeholder: `Type 'c'`,
@@ -112,7 +111,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                     ref: this.inputRef,
                 }}
                 containerProps={{
-                    className: 'some-css-class',
+                    className: "some-css-class",
                 }}
                 theme={theme}
             />
@@ -126,8 +125,8 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
-    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
-        const className = params.isHighlighted ? 'highlighted' : undefined;
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): React.JSX.Element {
+        const className = params.isHighlighted ? "highlighted" : undefined;
         return <span className={className}>{suggestion.name}</span>;
     }
     // endregion region Event handlers
@@ -144,11 +143,11 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     protected getSuggestions(value: string): Language[] {
         const escapedValue = escapeRegexCharacters(value.trim());
 
-        if (escapedValue === '') {
+        if (escapedValue === "") {
             return [];
         }
 
-        const regex = new RegExp('^' + escapedValue, 'i');
+        const regex = new RegExp("^" + escapedValue, "i");
 
         return ReactAutosuggestBasicTest.languages.filter(language => regex.test(language.name));
     }
@@ -159,83 +158,83 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     // endregion
 }
 
-const LanguageAutosuggestSingle = Autosuggest as { new (): Autosuggest<Language> };
-const LanguageAutosuggestMulti = Autosuggest as { new (): Autosuggest<Language, LanguageGroup> };
+const LanguageAutosuggestSingle = Autosuggest as { new(): Autosuggest<Language> };
+const LanguageAutosuggestMulti = Autosuggest as { new(): Autosuggest<Language, LanguageGroup> };
 
 export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     // region Fields
     static languages: Language[] = [
         {
-            name: 'C',
+            name: "C",
             year: 1972,
         },
         {
-            name: 'C#',
+            name: "C#",
             year: 2000,
         },
         {
-            name: 'C++',
+            name: "C++",
             year: 1983,
         },
         {
-            name: 'Clojure',
+            name: "Clojure",
             year: 2007,
         },
         {
-            name: 'Elm',
+            name: "Elm",
             year: 2012,
         },
         {
-            name: 'Go',
+            name: "Go",
             year: 2009,
         },
         {
-            name: 'Haskell',
+            name: "Haskell",
             year: 1990,
         },
         {
-            name: 'Java',
+            name: "Java",
             year: 1995,
         },
         {
-            name: 'Javascript',
+            name: "Javascript",
             year: 1995,
         },
         {
-            name: 'Perl',
+            name: "Perl",
             year: 1987,
         },
         {
-            name: 'PHP',
+            name: "PHP",
             year: 1995,
         },
         {
-            name: 'Python',
+            name: "Python",
             year: 1991,
         },
         {
-            name: 'Ruby',
+            name: "Ruby",
             year: 1995,
         },
         {
-            name: 'Scala',
+            name: "Scala",
             year: 2003,
         },
     ];
     // endregion region Constructor
     state = {
-        value: '',
-        suggestions: this.getSuggestions(''),
+        value: "",
+        suggestions: this.getSuggestions(""),
     };
     // endregion region Rendering methods
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { value, suggestions } = this.state;
 
         const theme = {
-            input: 'themed-input-class',
-            container: 'themed-container-class',
-            suggestionFocused: 'active',
-            sectionTitle: { color: 'blue' },
+            input: "themed-input-class",
+            container: "themed-container-class",
+            suggestionFocused: "active",
+            sectionTitle: { color: "blue" },
         };
 
         return (
@@ -263,8 +262,8 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
-    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
-        const className = params.isHighlighted ? 'highlighted' : undefined;
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): React.JSX.Element {
+        const className = params.isHighlighted ? "highlighted" : undefined;
         return <span className={className}>{suggestion.name}</span>;
     }
     // endregion region Event handlers
@@ -281,11 +280,11 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     protected getSuggestions(value: string): Language[] {
         const escapedValue = escapeRegexCharacters(value.trim());
 
-        if (escapedValue === '') {
+        if (escapedValue === "") {
             return [];
         }
 
-        const regex = new RegExp('^' + escapedValue, 'i');
+        const regex = new RegExp("^" + escapedValue, "i");
 
         return ReactAutosuggestBasicTest.languages.filter(language => regex.test(language.name));
     }
@@ -296,8 +295,6 @@ export class ReactAutosuggestTypedTest extends React.Component<any, any> {
     // endregion
 }
 
-ReactDOM.render(<ReactAutosuggestBasicTest />, document.getElementById('app'));
-
 interface LanguageGroup {
     title: string;
     languages: Language[];
@@ -307,82 +304,82 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     // region Fields
     static languages: LanguageGroup[] = [
         {
-            title: '1970s',
+            title: "1970s",
             languages: [
                 {
-                    name: 'C',
+                    name: "C",
                     year: 1972,
                 },
             ],
         },
         {
-            title: '1980s',
+            title: "1980s",
             languages: [
                 {
-                    name: 'C++',
+                    name: "C++",
                     year: 1983,
                 },
                 {
-                    name: 'Perl',
+                    name: "Perl",
                     year: 1987,
                 },
             ],
         },
         {
-            title: '1990s',
+            title: "1990s",
             languages: [
                 {
-                    name: 'Haskell',
+                    name: "Haskell",
                     year: 1990,
                 },
                 {
-                    name: 'Python',
+                    name: "Python",
                     year: 1991,
                 },
                 {
-                    name: 'Java',
+                    name: "Java",
                     year: 1995,
                 },
                 {
-                    name: 'Javascript',
+                    name: "Javascript",
                     year: 1995,
                 },
                 {
-                    name: 'PHP',
+                    name: "PHP",
                     year: 1995,
                 },
                 {
-                    name: 'Ruby',
+                    name: "Ruby",
                     year: 1995,
                 },
             ],
         },
         {
-            title: '2000s',
+            title: "2000s",
             languages: [
                 {
-                    name: 'C#',
+                    name: "C#",
                     year: 2000,
                 },
                 {
-                    name: 'Scala',
+                    name: "Scala",
                     year: 2003,
                 },
                 {
-                    name: 'Clojure',
+                    name: "Clojure",
                     year: 2007,
                 },
                 {
-                    name: 'Go',
+                    name: "Go",
                     year: 2009,
                 },
             ],
         },
         {
-            title: '2010s',
+            title: "2010s",
             languages: [
                 {
-                    name: 'Elm',
+                    name: "Elm",
                     year: 2012,
                 },
             ],
@@ -395,13 +392,13 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         super(props);
 
         this.state = {
-            value: '',
-            suggestions: this.getSuggestions(''),
-            highlighted: '',
+            value: "",
+            suggestions: this.getSuggestions(""),
+            highlighted: "",
         };
     }
     // endregion region Rendering methods
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { value, suggestions } = this.state;
 
         return (
@@ -435,16 +432,16 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         alert(`Selected language is ${language.name} (${language.year}).`);
     }
 
-    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): JSX.Element {
-        const className = params.isHighlighted ? 'highlighted' : undefined;
+    protected renderSuggestion(suggestion: Language, params: Autosuggest.RenderSuggestionParams): React.JSX.Element {
+        const className = params.isHighlighted ? "highlighted" : undefined;
         return <span className={className}>{suggestion.name}</span>;
     }
 
-    protected renderSectionTitle(section: LanguageGroup): JSX.Element {
+    protected renderSectionTitle(section: LanguageGroup): React.JSX.Element {
         return <strong>{section.title}</strong>;
     }
 
-    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): JSX.Element {
+    protected renderInputComponent(inputProps: Autosuggest.RenderInputComponentProps): React.JSX.Element {
         return (
             <div>
                 <input {...inputProps} />
@@ -456,7 +453,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         containerProps,
         children,
         query,
-    }: Autosuggest.RenderSuggestionsContainerParams): JSX.Element {
+    }: Autosuggest.RenderSuggestionsContainerParams): React.JSX.Element {
         return (
             <div {...containerProps}>
                 <span>{children}</span>
@@ -477,11 +474,11 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     protected getSuggestions(value: string): LanguageGroup[] {
         const escapedValue = escapeRegexCharacters(value.trim());
 
-        if (escapedValue === '') {
+        if (escapedValue === "") {
             return [];
         }
 
-        const regex = new RegExp('^' + escapedValue, 'i');
+        const regex = new RegExp("^" + escapedValue, "i");
 
         return ReactAutosuggestMultipleTest.languages
             .map(section => {
@@ -509,47 +506,45 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     // endregion
 }
 
-ReactDOM.render(<ReactAutosuggestMultipleTest />, document.getElementById('app'));
-
 interface Person {
     first: string;
     last: string;
     twitter: string;
 }
 
-const PersonAutosuggest = Autosuggest as { new (): Autosuggest<Person> };
+const PersonAutosuggest = Autosuggest as { new(): Autosuggest<Person> };
 
 export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     // region Fields
     static people: Person[] = [
         {
-            first: 'Charlie',
-            last: 'Brown',
-            twitter: 'dancounsell',
+            first: "Charlie",
+            last: "Brown",
+            twitter: "dancounsell",
         },
         {
-            first: 'Charlotte',
-            last: 'White',
-            twitter: 'mtnmissy',
+            first: "Charlotte",
+            last: "White",
+            twitter: "mtnmissy",
         },
         {
-            first: 'Chloe',
-            last: 'Jones',
-            twitter: 'ladylexy',
+            first: "Chloe",
+            last: "Jones",
+            twitter: "ladylexy",
         },
         {
-            first: 'Cooper',
-            last: 'King',
-            twitter: 'steveodom',
+            first: "Cooper",
+            last: "King",
+            twitter: "steveodom",
         },
     ];
     // endregion region Constructor
     state = {
-        value: '',
-        suggestions: this.getSuggestions(''),
+        value: "",
+        suggestions: this.getSuggestions(""),
     };
     // endregion region Rendering methods
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { value, suggestions } = this.state;
 
         return (
@@ -567,10 +562,10 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         );
     }
 
-    protected renderSuggestion(suggestion: Person, params: Autosuggest.RenderSuggestionParams): JSX.Element {
+    protected renderSuggestion(suggestion: Person, params: Autosuggest.RenderSuggestionParams): React.JSX.Element {
         const suggestionText = `${suggestion.first} ${suggestion.last}`;
         const query = params.query.trim();
-        const parts = suggestionText.split(' ').map((part: string) => {
+        const parts = suggestionText.split(" ").map((part: string) => {
             return {
                 highlight: Math.ceil(Math.random() * 10) % 2,
                 text: part,
@@ -578,10 +573,10 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
         });
 
         return (
-            <span className={'suggestion-content ' + suggestion.twitter}>
+            <span className={"suggestion-content " + suggestion.twitter}>
                 <span className="name">
                     {parts.map((part, index) => {
-                        const className = part.highlight ? 'highlight' : undefined;
+                        const className = part.highlight ? "highlight" : undefined;
 
                         return (
                             <span className={className} key={index}>
@@ -607,11 +602,11 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     protected getSuggestions(value: string): Person[] {
         const escapedValue = escapeRegexCharacters(value.trim());
 
-        if (escapedValue === '') {
+        if (escapedValue === "") {
             return [];
         }
 
-        const regex = new RegExp('\\b' + escapedValue, 'i');
+        const regex = new RegExp("\\b" + escapedValue, "i");
 
         return ReactAutosuggestCustomTest.people.filter(person => regex.test(this.getSuggestionValue(person)));
     }
@@ -622,11 +617,9 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     // endregion
 }
 
-ReactDOM.render(<ReactAutosuggestCustomTest />, document.getElementById('app'));
-
 const test: Autosuggest.InputProps<{ foo: string }> = {
     onChange: () => {},
-    value: 'foo',
+    value: "foo",
     // @ts-expect-error
     anything: false,
 };
@@ -639,7 +632,7 @@ function testSingleSection() {
         getSuggestionValue={suggestion => suggestion}
         inputProps={{
             onChange: () => {},
-            value: '',
+            value: "",
         }}
         onSuggestionsFetchRequested={() => {}}
         renderSuggestion={suggestion => suggestion}
@@ -660,14 +653,14 @@ function testMultiSections() {
         getSuggestionValue={(suggestion: string) => suggestion}
         inputProps={{
             onChange: () => {},
-            value: '',
+            value: "",
         }}
         onSuggestionsFetchRequested={() => {}}
         renderSuggestion={suggestion => suggestion}
     />;
 }
 
-const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = event => {
+const testInputOnChange: Autosuggest.InputProps<{ foo: string }>["onChange"] = event => {
     const element = event.target;
     // `value` only exists on the input element, but sometimes this function is
     // called with a `target` pointing to a non-input element. For example, when
@@ -678,7 +671,7 @@ const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = e
 };
 
 {
-    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, 'onChange'>> = props => null;
+    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, "onChange">> = props => null;
 
     const invalidOnChange = (event: React.FormEvent<HTMLDivElement>) => {};
     const onChange = (event: React.FormEvent<HTMLElement>) => {};
@@ -690,7 +683,7 @@ const testInputOnChange: Autosuggest.InputProps<{ foo: string }>['onChange'] = e
 }
 
 {
-    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, 'onBlur'>> = props => null;
+    const CustomInput: React.FC<Pick<Autosuggest.InputProps<unknown>, "onBlur">> = props => null;
 
     const invalidOnBlur = (event: React.FocusEvent<HTMLDivElement>) => {};
     const onBlur = (event: React.FocusEvent<HTMLElement>) => {};

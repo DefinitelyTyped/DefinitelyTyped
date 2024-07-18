@@ -1,14 +1,6 @@
-// Type definitions for jsreport-core 2.0
-// Project: http://jsreport.net
-// Definitions by: taoqf <https://github.com/taoqf>
-//                 pofider <https://github.com/pofider>
-//                 Keith Kikta <https://github.com/newbish>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import * as fs from 'fs';
+import * as fs from "fs";
 
 declare namespace JsReport {
     type Helpers = string | { [fun: string]: (...args: any[]) => any };
@@ -88,7 +80,8 @@ declare namespace JsReport {
     interface ListenerCollection {
         add(
             type: string,
-            callback: (req: Request, res: Response, err?: any) => Promise<any> | void
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            callback: (req: Request, res: Response, err?: any) => Promise<any> | void,
         ): void;
     }
 
@@ -166,9 +159,9 @@ declare namespace JsReport {
         rootDirectory?: string | undefined;
     }
 
-    type ReporterOptionsStoreProvider = 'memory';
-    type ReporterOptionsBlobStorageProvider = 'memory' | 'fs';
-    type EngineStrategy = 'dedicated-process' | 'http-server' | 'in-process';
+    type ReporterOptionsStoreProvider = "memory";
+    type ReporterOptionsBlobStorageProvider = "memory" | "fs";
+    type EngineStrategy = "dedicated-process" | "http-server" | "in-process";
 
     interface Configuration {
         mode?: any;

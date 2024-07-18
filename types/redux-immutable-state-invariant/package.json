@@ -1,6 +1,32 @@
 {
     "private": true,
+    "name": "@types/redux-immutable-state-invariant",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/leoasis/redux-immutable-state-invariant"
+    ],
     "dependencies": {
         "redux": "^3.6.0 || ^4.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-immutable-state-invariant": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remo H. Jansen",
+            "githubUsername": "remojansen"
+        },
+        {
+            "name": "Ben Rogers",
+            "githubUsername": "highflying"
+        },
+        {
+            "name": "Mihai Dinculescu",
+            "githubUsername": "mihai-dinculescu"
+        },
+        {
+            "name": "Nick Galloway",
+            "githubUsername": "blackarctic"
+        }
+    ]
 }

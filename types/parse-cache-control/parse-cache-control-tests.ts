@@ -1,5 +1,5 @@
-import parseCacheControl = require('parse-cache-control');
+import parseCacheControl = require("parse-cache-control");
 
-const header = parseCacheControl('must-revalidate, max-age=3600');
+const header = parseCacheControl("must-revalidate, max-age=3600");
 
-parseCacheControl('must-revalidate, max-age=3600'); // $ExpectType Header | null
+parseCacheControl("must-revalidate, max-age=3600"); // $ExpectType Header | null

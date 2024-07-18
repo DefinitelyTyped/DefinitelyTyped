@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-rev-all",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/smysnk/gulp-rev-all"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-rev-all": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

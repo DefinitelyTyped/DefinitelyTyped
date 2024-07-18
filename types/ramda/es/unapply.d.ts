@@ -1,2 +1,2 @@
-import { unapply } from '../index';
+import { unapply } from "../index.js";
 export default unapply;

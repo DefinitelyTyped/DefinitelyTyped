@@ -14,8 +14,8 @@
  * @deprecated Since v1.4.2 - Deprecated
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/domain.js)
  */
-declare module 'domain' {
-    import EventEmitter = require('node:events');
+declare module "domain" {
+    import EventEmitter = require("node:events");
     /**
      * The `Domain` class encapsulates the functionality of routing errors and
      * uncaught exceptions to the active `Domain` object.
@@ -29,7 +29,7 @@ declare module 'domain' {
          */
         members: Array<EventEmitter | NodeJS.Timer>;
         /**
-         * The `enter()` method is plumbing used by the `run()`, `bind()`, and`intercept()` methods to set the active domain. It sets `domain.active` and`process.domain` to the domain, and implicitly
+         * The `enter()` method is plumbing used by the `run()`, `bind()`, and`intercept()` methods to set the active domain. It sets `domain.active` and `process.domain` to the domain, and implicitly
          * pushes the domain onto the domain
          * stack managed by the domain module (see {@link exit} for details on the
          * domain stack). The call to `enter()` delimits the beginning of a chain of
@@ -165,6 +165,6 @@ declare module 'domain' {
     }
     function create(): Domain;
 }
-declare module 'node:domain' {
-    export * from 'domain';
+declare module "node:domain" {
+    export * from "domain";
 }

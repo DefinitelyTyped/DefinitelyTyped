@@ -11,7 +11,7 @@
  * asynchronous I/O operations are more efficient than Workers can be.
  *
  * Unlike `child_process` or `cluster`, `worker_threads` can share memory. They do
- * so by transferring `ArrayBuffer` instances or sharing `SharedArrayBuffer`instances.
+ * so by transferring `ArrayBuffer` instances or sharing `SharedArrayBuffer` instances.
  *
  * ```js
  * const {
@@ -49,17 +49,17 @@
  *
  * Worker threads inherit non-process-specific options by default. Refer to `Worker constructor options` to know how to customize worker thread options,
  * specifically `argv` and `execArgv` options.
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/worker_threads.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/worker_threads.js)
  */
-declare module 'worker_threads' {
-    import { Blob } from 'node:buffer';
-    import { Context } from 'node:vm';
-    import { EventEmitter } from 'node:events';
-    import { EventLoopUtilityFunction } from 'node:perf_hooks';
-    import { FileHandle } from 'node:fs/promises';
-    import { Readable, Writable } from 'node:stream';
-    import { URL } from 'node:url';
-    import { X509Certificate } from 'node:crypto';
+declare module "worker_threads" {
+    import { Blob } from "node:buffer";
+    import { Context } from "node:vm";
+    import { EventEmitter } from "node:events";
+    import { EventLoopUtilityFunction } from "node:perf_hooks";
+    import { FileHandle } from "node:fs/promises";
+    import { Readable, Writable } from "node:stream";
+    import { URL } from "node:url";
+    import { X509Certificate } from "node:crypto";
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
     const resourceLimits: ResourceLimits;
@@ -69,7 +69,7 @@ declare module 'worker_threads' {
     /**
      * Instances of the `worker.MessageChannel` class represent an asynchronous,
      * two-way communications channel.
-     * The `MessageChannel` has no methods of its own. `new MessageChannel()`yields an object with `port1` and `port2` properties, which refer to linked `MessagePort` instances.
+     * The `MessageChannel` has no methods of its own. `new MessageChannel()` yields an object with `port1` and `port2` properties, which refer to linked `MessagePort` instances.
      *
      * ```js
      * const { MessageChannel } = require('node:worker_threads');
@@ -92,7 +92,7 @@ declare module 'worker_threads' {
     /**
      * Instances of the `worker.MessagePort` class represent one end of an
      * asynchronous, two-way communications channel. It can be used to transfer
-     * structured data, memory regions and other `MessagePort`s between different `Worker` s.
+     * structured data, memory regions and other `MessagePort`s between different `Worker`s.
      *
      * This implementation matches [browser `MessagePort`](https://developer.mozilla.org/en-US/docs/Web/API/MessagePort) s.
      * @since v10.5.0
@@ -100,7 +100,7 @@ declare module 'worker_threads' {
     class MessagePort extends EventEmitter {
         /**
          * Disables further sending of messages on either side of the connection.
-         * This method can be called when no further communication will happen over this`MessagePort`.
+         * This method can be called when no further communication will happen over this `MessagePort`.
          *
          * The `'close' event` is emitted on both `MessagePort` instances that
          * are part of the channel.
@@ -108,13 +108,13 @@ declare module 'worker_threads' {
          */
         close(): void;
         /**
-         * Sends a JavaScript value to the receiving side of this channel.`value` is transferred in a way which is compatible with
+         * Sends a JavaScript value to the receiving side of this channel. `value` is transferred in a way which is compatible with
          * the [HTML structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm).
          *
          * In particular, the significant differences to `JSON` are:
          *
          * * `value` may contain circular references.
-         * * `value` may contain instances of builtin JS types such as `RegExp`s,`BigInt`s, `Map`s, `Set`s, etc.
+         * * `value` may contain instances of builtin JS types such as `RegExp`s, `BigInt`s, `Map`s, `Set`s, etc.
          * * `value` may contain typed arrays, both using `ArrayBuffer`s
          * and `SharedArrayBuffer`s.
          * * `value` may contain [`WebAssembly.Module`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/Module) instances.
@@ -140,7 +140,7 @@ declare module 'worker_threads' {
          * If `value` contains [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instances, those are accessible
          * from either thread. They cannot be listed in `transferList`.
          *
-         * `value` may still contain `ArrayBuffer` instances that are not in`transferList`; in that case, the underlying memory is copied rather than moved.
+         * `value` may still contain `ArrayBuffer` instances that are not in `transferList`; in that case, the underlying memory is copied rather than moved.
          *
          * ```js
          * const { MessageChannel } = require('node:worker_threads');
@@ -173,7 +173,7 @@ declare module 'worker_threads' {
          * behind this API, see the `serialization API of the node:v8 module`.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: ReadonlyArray<TransferListItem>): void;
+        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
         /**
          * Opposite of `unref()`. Calling `ref()` on a previously `unref()`ed port does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the port is `ref()`ed, calling `ref()` again has no effect.
@@ -186,16 +186,16 @@ declare module 'worker_threads' {
         ref(): void;
         /**
          * Calling `unref()` on a port allows the thread to exit if this is the only
-         * active handle in the event system. If the port is already `unref()`ed calling`unref()` again has no effect.
+         * active handle in the event system. If the port is already `unref()`ed calling `unref()` again has no effect.
          *
-         * If listeners are attached or removed using `.on('message')`, the port is`ref()`ed and `unref()`ed automatically depending on whether
+         * If listeners are attached or removed using `.on('message')`, the port is `ref()`ed and `unref()`ed automatically depending on whether
          * listeners for the event exist.
          * @since v10.5.0
          */
         unref(): void;
         /**
          * Starts receiving messages on this `MessagePort`. When using this port
-         * as an event emitter, this is called automatically once `'message'`listeners are attached.
+         * as an event emitter, this is called automatically once `'message'` listeners are attached.
          *
          * This method exists for parity with the Web `MessagePort` API. In Node.js,
          * it is only useful for ignoring messages when no event listener is present.
@@ -205,38 +205,41 @@ declare module 'worker_threads' {
          * @since v10.5.0
          */
         start(): void;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'message', listener: (value: any) => void): this;
-        addListener(event: 'messageerror', listener: (error: Error) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "message", listener: (value: any) => void): this;
+        addListener(event: "messageerror", listener: (error: Error) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: 'close'): boolean;
-        emit(event: 'message', value: any): boolean;
-        emit(event: 'messageerror', error: Error): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "message", value: any): boolean;
+        emit(event: "messageerror", error: Error): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'message', listener: (value: any) => void): this;
-        on(event: 'messageerror', listener: (error: Error) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "message", listener: (value: any) => void): this;
+        on(event: "messageerror", listener: (error: Error) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'message', listener: (value: any) => void): this;
-        once(event: 'messageerror', listener: (error: Error) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "message", listener: (value: any) => void): this;
+        once(event: "messageerror", listener: (error: Error) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'message', listener: (value: any) => void): this;
-        prependListener(event: 'messageerror', listener: (error: Error) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "message", listener: (value: any) => void): this;
+        prependListener(event: "messageerror", listener: (error: Error) => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'message', listener: (value: any) => void): this;
-        prependOnceListener(event: 'messageerror', listener: (error: Error) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "message", listener: (value: any) => void): this;
+        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: 'close', listener: () => void): this;
-        removeListener(event: 'message', listener: (value: any) => void): this;
-        removeListener(event: 'messageerror', listener: (error: Error) => void): this;
+        removeListener(event: "close", listener: () => void): this;
+        removeListener(event: "message", listener: (value: any) => void): this;
+        removeListener(event: "messageerror", listener: (error: Error) => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        off(event: 'close', listener: () => void): this;
-        off(event: 'message', listener: (value: any) => void): this;
-        off(event: 'messageerror', listener: (error: Error) => void): this;
+        off(event: "close", listener: () => void): this;
+        off(event: "message", listener: (value: any) => void): this;
+        off(event: "messageerror", listener: (error: Error) => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
+        addEventListener: EventTarget["addEventListener"];
+        dispatchEvent: EventTarget["dispatchEvent"];
+        removeEventListener: EventTarget["removeEventListener"];
     }
     interface WorkerOptions {
         /**
@@ -303,7 +306,8 @@ declare module 'worker_threads' {
      * are not available.
      * * `process.env` is a copy of the parent thread's environment variables,
      * unless otherwise specified. Changes to one copy are not visible in other
-     * threads, and are not visible to native add-ons (unless `worker.SHARE_ENV` is passed as the `env` option to the `Worker` constructor).
+     * threads, and are not visible to native add-ons (unless `worker.SHARE_ENV` is passed as the `env` option to the `Worker` constructor). On Windows, unlike the main thread, a copy of the
+     * environment variables operates in a case-sensitive manner.
      * * `process.title` cannot be modified.
      * * Signals are not delivered through `process.on('...')`.
      * * Execution may stop at any point as a result of `worker.terminate()` being invoked.
@@ -404,7 +408,7 @@ declare module 'worker_threads' {
          * See `port.postMessage()` for more details.
          * @since v10.5.0
          */
-        postMessage(value: any, transferList?: ReadonlyArray<TransferListItem>): void;
+        postMessage(value: any, transferList?: readonly TransferListItem[]): void;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has
@@ -414,7 +418,7 @@ declare module 'worker_threads' {
         ref(): void;
         /**
          * Calling `unref()` on a worker allows the thread to exit if this is the only
-         * active handle in the event system. If the worker is already `unref()`ed calling`unref()` again has no effect.
+         * active handle in the event system. If the worker is already `unref()`ed calling `unref()` again has no effect.
          * @since v10.5.0
          */
         unref(): void;
@@ -434,53 +438,53 @@ declare module 'worker_threads' {
          * @return A promise for a Readable Stream containing a V8 heap snapshot
          */
         getHeapSnapshot(): Promise<Readable>;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'exit', listener: (exitCode: number) => void): this;
-        addListener(event: 'message', listener: (value: any) => void): this;
-        addListener(event: 'messageerror', listener: (error: Error) => void): this;
-        addListener(event: 'online', listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "exit", listener: (exitCode: number) => void): this;
+        addListener(event: "message", listener: (value: any) => void): this;
+        addListener(event: "messageerror", listener: (error: Error) => void): this;
+        addListener(event: "online", listener: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: 'error', err: Error): boolean;
-        emit(event: 'exit', exitCode: number): boolean;
-        emit(event: 'message', value: any): boolean;
-        emit(event: 'messageerror', error: Error): boolean;
-        emit(event: 'online'): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "exit", exitCode: number): boolean;
+        emit(event: "message", value: any): boolean;
+        emit(event: "messageerror", error: Error): boolean;
+        emit(event: "online"): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'exit', listener: (exitCode: number) => void): this;
-        on(event: 'message', listener: (value: any) => void): this;
-        on(event: 'messageerror', listener: (error: Error) => void): this;
-        on(event: 'online', listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "exit", listener: (exitCode: number) => void): this;
+        on(event: "message", listener: (value: any) => void): this;
+        on(event: "messageerror", listener: (error: Error) => void): this;
+        on(event: "online", listener: () => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'exit', listener: (exitCode: number) => void): this;
-        once(event: 'message', listener: (value: any) => void): this;
-        once(event: 'messageerror', listener: (error: Error) => void): this;
-        once(event: 'online', listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "exit", listener: (exitCode: number) => void): this;
+        once(event: "message", listener: (value: any) => void): this;
+        once(event: "messageerror", listener: (error: Error) => void): this;
+        once(event: "online", listener: () => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'exit', listener: (exitCode: number) => void): this;
-        prependListener(event: 'message', listener: (value: any) => void): this;
-        prependListener(event: 'messageerror', listener: (error: Error) => void): this;
-        prependListener(event: 'online', listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "exit", listener: (exitCode: number) => void): this;
+        prependListener(event: "message", listener: (value: any) => void): this;
+        prependListener(event: "messageerror", listener: (error: Error) => void): this;
+        prependListener(event: "online", listener: () => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'exit', listener: (exitCode: number) => void): this;
-        prependOnceListener(event: 'message', listener: (value: any) => void): this;
-        prependOnceListener(event: 'messageerror', listener: (error: Error) => void): this;
-        prependOnceListener(event: 'online', listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "exit", listener: (exitCode: number) => void): this;
+        prependOnceListener(event: "message", listener: (value: any) => void): this;
+        prependOnceListener(event: "messageerror", listener: (error: Error) => void): this;
+        prependOnceListener(event: "online", listener: () => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: 'error', listener: (err: Error) => void): this;
-        removeListener(event: 'exit', listener: (exitCode: number) => void): this;
-        removeListener(event: 'message', listener: (value: any) => void): this;
-        removeListener(event: 'messageerror', listener: (error: Error) => void): this;
-        removeListener(event: 'online', listener: () => void): this;
+        removeListener(event: "error", listener: (err: Error) => void): this;
+        removeListener(event: "exit", listener: (exitCode: number) => void): this;
+        removeListener(event: "message", listener: (value: any) => void): this;
+        removeListener(event: "messageerror", listener: (error: Error) => void): this;
+        removeListener(event: "online", listener: () => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        off(event: 'error', listener: (err: Error) => void): this;
-        off(event: 'exit', listener: (exitCode: number) => void): this;
-        off(event: 'message', listener: (value: any) => void): this;
-        off(event: 'messageerror', listener: (error: Error) => void): this;
-        off(event: 'online', listener: () => void): this;
+        off(event: "error", listener: (err: Error) => void): this;
+        off(event: "exit", listener: (exitCode: number) => void): this;
+        off(event: "message", listener: (value: any) => void): this;
+        off(event: "messageerror", listener: (error: Error) => void): this;
+        off(event: "online", listener: () => void): this;
         off(event: string | symbol, listener: (...args: any[]) => void): this;
     }
     interface BroadcastChannel extends NodeJS.RefCounted {}
@@ -573,7 +577,7 @@ declare module 'worker_threads' {
      */
     function markAsUntransferable(object: object): void;
     /**
-     * Transfer a `MessagePort` to a different `vm` Context. The original `port`object is rendered unusable, and the returned `MessagePort` instance
+     * Transfer a `MessagePort` to a different `vm` Context. The original `port` object is rendered unusable, and the returned `MessagePort` instance
      * takes its place.
      *
      * The returned `MessagePort` is an object in the target context and
@@ -591,7 +595,7 @@ declare module 'worker_threads' {
     function moveMessagePortToContext(port: MessagePort, contextifiedSandbox: Context): MessagePort;
     /**
      * Receive a single message from a given `MessagePort`. If no message is available,`undefined` is returned, otherwise an object with a single `message` property
-     * that contains the message payload, corresponding to the oldest message in the`MessagePort`'s queue.
+     * that contains the message payload, corresponding to the oldest message in the `MessagePort`'s queue.
      *
      * ```js
      * const { MessageChannel, receiveMessageOnPort } = require('node:worker_threads');
@@ -604,13 +608,13 @@ declare module 'worker_threads' {
      * // Prints: undefined
      * ```
      *
-     * When this function is used, no `'message'` event is emitted and the`onmessage` listener is not invoked.
+     * When this function is used, no `'message'` event is emitted and the `onmessage` listener is not invoked.
      * @since v12.3.0
      */
     function receiveMessageOnPort(port: MessagePort):
         | {
-              message: any;
-          }
+            message: any;
+        }
         | undefined;
     type Serializable = string | object | number | boolean | bigint;
     /**
@@ -639,7 +643,7 @@ declare module 'worker_threads' {
      */
     function getEnvironmentData(key: Serializable): Serializable;
     /**
-     * The `worker.setEnvironmentData()` API sets the content of`worker.getEnvironmentData()` in the current thread and all new `Worker`instances spawned from the current context.
+     * The `worker.setEnvironmentData()` API sets the content of `worker.getEnvironmentData()` in the current thread and all new `Worker` instances spawned from the current context.
      * @since v15.12.0, v14.18.0
      * @param key Any arbitrary, cloneable JavaScript value that can be used as a {Map} key.
      * @param value Any arbitrary, cloneable JavaScript value that will be cloned and passed automatically to all new `Worker` instances. If `value` is passed as `undefined`, any previously set value
@@ -651,7 +655,7 @@ declare module 'worker_threads' {
         BroadcastChannel as _BroadcastChannel,
         MessageChannel as _MessageChannel,
         MessagePort as _MessagePort,
-    } from 'worker_threads';
+    } from "worker_threads";
     global {
         /**
          * `BroadcastChannel` class is a global reference for `require('worker_threads').BroadcastChannel`
@@ -661,8 +665,7 @@ declare module 'worker_threads' {
         var BroadcastChannel: typeof globalThis extends {
             onmessage: any;
             BroadcastChannel: infer T;
-        }
-            ? T
+        } ? T
             : typeof _BroadcastChannel;
         /**
          * `MessageChannel` class is a global reference for `require('worker_threads').MessageChannel`
@@ -672,8 +675,7 @@ declare module 'worker_threads' {
         var MessageChannel: typeof globalThis extends {
             onmessage: any;
             MessageChannel: infer T;
-        }
-            ? T
+        } ? T
             : typeof _MessageChannel;
         /**
          * `MessagePort` class is a global reference for `require('worker_threads').MessagePort`
@@ -683,11 +685,10 @@ declare module 'worker_threads' {
         var MessagePort: typeof globalThis extends {
             onmessage: any;
             MessagePort: infer T;
-        }
-            ? T
+        } ? T
             : typeof _MessagePort;
     }
 }
-declare module 'node:worker_threads' {
-    export * from 'worker_threads';
+declare module "node:worker_threads" {
+    export * from "worker_threads";
 }

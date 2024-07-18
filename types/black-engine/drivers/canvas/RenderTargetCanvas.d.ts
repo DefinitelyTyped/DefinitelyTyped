@@ -5,4 +5,4 @@ export class RenderTargetCanvas extends RenderTarget {
     get native(): HTMLCanvasElement;
     get context(): CanvasRenderingContext2D;
 }
-import { RenderTarget } from '../RenderTarget';
+import { RenderTarget } from "../RenderTarget";

@@ -1,5 +1,5 @@
 export interface Okhsl {
-    mode: 'okhsl';
+    mode: "okhsl";
     h?: number;
     s: number;
     l: number;

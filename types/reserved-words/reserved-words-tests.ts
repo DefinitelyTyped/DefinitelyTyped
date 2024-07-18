@@ -14,6 +14,12 @@ check("while", "es6", true);
 // $ExpectType boolean
 check("yield", 3);
 
+// $ExpectType boolean
+check("yield", dialect);
+
+// $ExpectType boolean
+check("yield", "default");
+
 // @ts-expect-error
 check("yield", 1);
 

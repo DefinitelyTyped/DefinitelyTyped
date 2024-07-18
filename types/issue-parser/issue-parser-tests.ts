@@ -14,17 +14,17 @@ issueParser("waffle");
 issueParser({
     actions: {
         fix: ["complete"],
-        hold: ["holds up"]
+        hold: ["holds up"],
     },
-    issuePrefixes: ["🐛"]
+    issuePrefixes: ["🐛"],
 });
 
 // Extend existing format
 issueParser("github", {
     actions: {
         parent: ["parent of"],
-        related: ["related to"]
-    }
+        related: ["related to"],
+    },
 });
 
 const parse = issueParser("github");

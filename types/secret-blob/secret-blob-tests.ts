@@ -1,4 +1,4 @@
-import * as secretBlob from 'secret-blob';
+import * as secretBlob from "secret-blob";
 
 secretBlob.keygen(); // $ExpectType SecureBuffer
 secretBlob.keygen(Buffer.alloc(0)); // $ExpectType Buffer

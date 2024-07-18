@@ -1,22 +1,22 @@
-import convertOklabToOkhsl from './convertOklabToOkhsl';
-import convertOkhslToOklab from './convertOkhslToOklab';
+import convertOkhslToOklab from "./convertOkhslToOklab";
+import convertOklabToOkhsl from "./convertOklabToOkhsl";
 
-import modeHsl from '../hsl/definition';
-import { Rgb } from '../rgb/types';
-import { Okhsl } from './types';
+import modeHsl from "../hsl/definition";
+import { Rgb } from "../rgb/types";
+import { Okhsl } from "./types";
 
 interface OkhslDefinitionMixin {
-    mode: 'okhsl';
-    channels: ['h', 's', 'l', 'alpha'];
-    parse: ['--okhsl'];
-    serialize: '--okhsl';
+    mode: "okhsl";
+    channels: ["h", "s", "l", "alpha"];
+    parse: ["--okhsl"];
+    serialize: "--okhsl";
     fromMode: {
         oklab: typeof convertOklabToOkhsl;
-        rgb: (c: Omit<Rgb, 'mode'>) => Okhsl;
+        rgb: (c: Omit<Rgb, "mode">) => Okhsl;
     };
     toMode: {
         oklab: typeof convertOkhslToOklab;
-        rgb: (c: Omit<Okhsl, 'mode'>) => Rgb;
+        rgb: (c: Omit<Okhsl, "mode">) => Rgb;
     };
 }
 

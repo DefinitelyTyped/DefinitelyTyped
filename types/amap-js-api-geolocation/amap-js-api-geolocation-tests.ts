@@ -13,8 +13,8 @@ const geolocation = new AMap.Geolocation({
     maximumAge: 100,
     convert: true,
     showButton: true,
-    buttonDom: 'button',
-    buttonPosition: 'LT',
+    buttonDom: "button",
+    buttonPosition: "LT",
     buttonOffset: new AMap.Pixel(10, 10),
     showMarker: true,
     markerOptions: {},
@@ -23,7 +23,7 @@ const geolocation = new AMap.Geolocation({
     panToLocation: true,
     zoomToAccuracy: true,
     useNative: false,
-    extensions: 'all'
+    extensions: "all",
 });
 
 // $ExpectType boolean
@@ -31,7 +31,7 @@ geolocation.isSupported();
 
 // $ExpectType void
 geolocation.getCurrentPosition((status, result) => {
-    const statusTemp: 'complete' | 'error' = status;
+    const statusTemp: "complete" | "error" = status;
     if (result.status === 1) {
         // $ExpectType GeolocationResult
         result;
@@ -49,7 +49,7 @@ geolocation.getCurrentPosition((status, result) => {
         result.info;
         // $ExpectType boolean
         result.isConverted;
-        const type: 'ip' | 'html5' | 'sdk' = result.location_type;
+        const type: "ip" | "html5" | "sdk" = result.location_type;
         // $ExpectType string
         result.message;
         // $ExpectType ReGeocodePoi[]
@@ -73,11 +73,11 @@ geolocation.getCurrentPosition((status, result) => {
 const watchId: string | undefined | null = geolocation.watchPosition();
 
 // $ExpectType string | undefined
-geolocation.clearWatch('id');
+geolocation.clearWatch("id");
 
 // $ExpectType void
 geolocation.getCityInfo((status, result) => {
-    const statusTemp: 'complete' | 'error' = status;
+    const statusTemp: "complete" | "error" = status;
     if (result.status === 1) {
         // $ExpectType CityResult
         result;
@@ -109,7 +109,7 @@ geolocation.getCityInfo((status, result) => {
     }
 });
 
-geolocation.on('complete', (event: AMap.Geolocation.EventMap['complete']) => {
+geolocation.on("complete", (event: AMap.Geolocation.EventMap["complete"]) => {
     // $ExpectType "complete"
     event.type;
     // $ExpectType number | null
@@ -126,7 +126,7 @@ geolocation.on('complete', (event: AMap.Geolocation.EventMap['complete']) => {
     event.info;
     // $ExpectType boolean
     event.isConverted;
-    const type: 'ip' | 'html5' | 'sdk' = event.location_type;
+    const type: "ip" | "html5" | "sdk" = event.location_type;
     // $ExpectType string
     event.message;
     // $ExpectType ReGeocodePoi[]
@@ -139,7 +139,7 @@ geolocation.on('complete', (event: AMap.Geolocation.EventMap['complete']) => {
     event.status;
 });
 
-geolocation.on('error', (event: AMap.Geolocation.EventMap['error']) => {
+geolocation.on("error", (event: AMap.Geolocation.EventMap["error"]) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string

@@ -5,9 +5,8 @@ export type ParserType =
     /**
      * Indicates the default parser-type.
      */
-    "text" |
-
+    | "text"
     /**
      * Indicates a decimal parser-type.
      */
-    "numeric";
+    | "numeric";

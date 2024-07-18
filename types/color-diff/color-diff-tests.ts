@@ -3,9 +3,9 @@ import diff = require("color-diff");
 const color = { R: 255, G: 1, B: 30 };
 // red, green, blue
 const palette = [
-  { R: 255, G: 0, B: 0 },
-  { R: 0, G: 255, B: 0 },
-  { R: 0, G: 0, B: 255 }
+    { R: 255, G: 0, B: 0 },
+    { R: 0, G: 255, B: 0 },
+    { R: 0, G: 0, B: 255 },
 ];
 
 diff.closest(color, palette); // {R: 255, G: 0, B: 0 }, red

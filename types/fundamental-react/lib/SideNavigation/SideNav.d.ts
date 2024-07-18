@@ -7,7 +7,7 @@ export type SideNavProps = {
     condensed?: boolean | undefined;
     disableStyles?: boolean | undefined;
     selectedId?: string | undefined;
-    skipLink?: { href: string, label: string } | undefined;
+    skipLink?: { href: string; label: string } | undefined;
     onItemSelect?: ((e: any, id: any) => void) | undefined;
 } & React.HTMLAttributes<Element>;
 
@@ -43,8 +43,8 @@ export type SideNavListItemProps = {
 
 declare class SideNav extends React.Component<SideNavProps> {
     static displayName: "SideNav";
-    static List: React.ComponentClass<SideNavListProps> & {displayName: "SideNav.List"};
-    static ListItem: React.ComponentClass<SideNavListItemProps> & {displayName: "SideNav.ListItem"};
+    static List: React.ComponentClass<SideNavListProps> & { displayName: "SideNav.List" };
+    static ListItem: React.ComponentClass<SideNavListItemProps> & { displayName: "SideNav.ListItem" };
 }
 
 export default SideNav;

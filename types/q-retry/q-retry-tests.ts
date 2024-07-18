@@ -1,10 +1,8 @@
-
-
-﻿import Q = require('q-retry');
+import Q = require("q-retry");
 
 Q
     .retry(() => {
-        return '';
+        return "";
     })
     .then(str => {
         str.charAt;
@@ -14,27 +12,23 @@ Q
         num.toFixed;
     })
     .retry(() => {
-
     }, 5)
     .retry(() => {
-
     }, (reason, retries) => {
         retries.toFixed;
     })
     .retry(() => {
-
     }, (reason, retries) => {
         retries.toFixed;
     }, 10)
     .retry(() => {
-        return '';
+        return "";
     }, (reason, retries) => {
-
     }, {
         limit: 10,
         interval: 1000,
         maxInterval: 20000,
-        intervalMultiplier: 1.5
+        intervalMultiplier: 1.5,
     })
     .then(str => {
         str.charAt;

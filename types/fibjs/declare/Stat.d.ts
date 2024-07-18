@@ -30,8 +30,6 @@ declare class Class_Stat extends Class__object {
      *
      * @brief 文件名称
      *
-     * @readonly
-     *
      */
 
     name: string
@@ -42,7 +40,6 @@ declare class Class_Stat extends Class__object {
      *
      * @brief 文件尺寸
      *
-     * @readonly
      * @note Assumed to be a long number.
      */
 
@@ -54,7 +51,6 @@ declare class Class_Stat extends Class__object {
      *
      * @brief 文件权限，Windows 不支持此属性
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -66,8 +62,6 @@ declare class Class_Stat extends Class__object {
      *
      * @brief 文件最后修改时间
      *
-     * @readonly
-     * @type Date
      */
 
     mtime: Date
@@ -78,8 +72,6 @@ declare class Class_Stat extends Class__object {
      *
      * @brief 文件最后访问时间
      *
-     * @readonly
-     * @type Date
      */
 
     atime: Date
@@ -90,8 +82,6 @@ declare class Class_Stat extends Class__object {
      *
      * @brief 文件创建时间
      *
-     * @readonly
-     * @type Date
      */
 
     ctime: Date
@@ -102,7 +92,6 @@ declare class Class_Stat extends Class__object {
      *
      * @brief 文件拥有者的id
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 
@@ -114,7 +103,6 @@ declare class Class_Stat extends Class__object {
      *
      * @brief 文件所属的组id
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 

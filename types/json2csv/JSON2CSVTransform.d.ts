@@ -1,5 +1,5 @@
-import { FieldInfo, NormalizedFieldInfo, Options } from "./";
 import { Transform, TransformOptions } from "stream";
+import { FieldInfo, NormalizedFieldInfo, Options } from "./";
 
 declare class JSON2CSVTransform<T> extends Transform {
     // implements JSON2CSVBase<T>

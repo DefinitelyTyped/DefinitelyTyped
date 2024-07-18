@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/facebook-js-sdk",
+    "version": "3.3.9999",
+    "projects": [
+        "https://developers.facebook.com/docs/javascript"
+    ],
+    "devDependencies": {
+        "@types/facebook-js-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Amrit Kahlon   ",
+            "githubUsername": "amritk"
+        },
+        {
+            "name": "Mahmoud Zohdi  ",
+            "githubUsername": "mahmoudzohdi"
+        },
+        {
+            "name": "Marc Knaup     ",
+            "githubUsername": "fluidsonic"
+        },
+        {
+            "name": "Ben Grynhaus   ",
+            "githubUsername": "bengry"
+        }
+    ]
+}

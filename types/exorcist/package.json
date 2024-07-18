@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/exorcist",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/thlorenz/exorcist"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/through": "*"
+    },
+    "devDependencies": {
+        "@types/exorcist": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TeamworkGuy2",
+            "githubUsername": "TeamworkGuy2"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

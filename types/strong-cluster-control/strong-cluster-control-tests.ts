@@ -1,11 +1,15 @@
 import * as control from "strong-cluster-control";
 
-control.start({ size: control.CPUS}, (): void => { console.log("starting"); })
+control.start({ size: control.CPUS }, (): void => {
+    console.log("starting");
+})
     .on("error", (err: Error): void => {
         console.error(err);
     });
 
-control.start((): void => { console.log("staring"); })
+control.start((): void => {
+    console.log("staring");
+})
     .on("error", (err: Error): void => {
         console.error(err);
     });

@@ -31,5 +31,5 @@ declare namespace UnicodeHangulKorean {
     function toConjoiningJamo(str: string): string;
 }
 
-// eslint-disable-next-line export-just-namespace
+// eslint-disable-next-line @definitelytyped/export-just-namespace
 export = UnicodeHangulKorean;

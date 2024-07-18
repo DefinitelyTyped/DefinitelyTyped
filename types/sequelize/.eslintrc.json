@@ -1,6 +1,11 @@
 {
     "rules": {
-        "dt-header": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/dt-header": "off",
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/no-misused-new": "off",
+        "no-duplicate-imports": "off"
     }
 }

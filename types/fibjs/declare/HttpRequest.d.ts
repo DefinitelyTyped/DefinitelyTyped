@@ -30,8 +30,6 @@ declare class Class_HttpRequest extends Class_HttpMessage {
      *
      * @brief 获取响应消息对象
      *
-     * @readonly
-     * @type HttpResponse
      */
 
     response: Class_HttpResponse
@@ -78,8 +76,6 @@ declare class Class_HttpRequest extends Class_HttpMessage {
      *
      * @brief 获取包含消息 cookies 的容器
      *
-     * @readonly
-     * @type HttpCollection
      */
 
     cookies: Class_HttpCollection
@@ -90,8 +86,6 @@ declare class Class_HttpRequest extends Class_HttpMessage {
      *
      * @brief 获取包含消息 form 的容器
      *
-     * @readonly
-     * @type HttpCollection
      */
 
     form: Class_HttpCollection
@@ -102,8 +96,6 @@ declare class Class_HttpRequest extends Class_HttpMessage {
      *
      * @brief 获取包含消息 query 的容器
      *
-     * @readonly
-     * @type HttpCollection
      */
 
     query: Class_HttpCollection

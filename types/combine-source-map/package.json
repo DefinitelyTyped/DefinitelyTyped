@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/combine-source-map",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/thlorenz/combine-source-map"
+    ],
+    "devDependencies": {
+        "@types/combine-source-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TeamworkGuy2",
+            "githubUsername": "TeamworkGuy2"
+        }
+    ]
+}

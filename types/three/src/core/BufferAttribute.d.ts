@@ -1,6 +1,17 @@
-import { Usage } from '../constants';
-import { Matrix3 } from './../math/Matrix3';
-import { Matrix4 } from './../math/Matrix4';
+import { AttributeGPUType, Usage } from "../constants.js";
+import { Matrix3 } from "../math/Matrix3.js";
+import { Matrix4 } from "../math/Matrix4.js";
+
+export type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Uint8ClampedArray
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Float32Array
+    | Float64Array;
 
 /**
  * This class stores data for an attribute (such as vertex positions, face indices, normals, colors, UVs, and any custom attributes )
@@ -34,7 +45,7 @@ export class BufferAttribute {
      * Default `false`.
      * @throws `TypeError` When the {@link array} is not a `TypedArray`;
      */
-    constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean); // array parameter should be `TypedArray`.
+    constructor(array: TypedArray, itemSize: number, normalized?: boolean);
 
     /**
      * Optional name for this attribute instance.
@@ -46,7 +57,7 @@ export class BufferAttribute {
      * The {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray | TypedArray} holding data stored in the buffer.
      * @returns `TypedArray`
      */
-    array: ArrayLike<number>;
+    array: TypedArray;
 
     /**
      * The length of vectors that are being stored in the {@link BufferAttribute.array | array}.
@@ -67,8 +78,17 @@ export class BufferAttribute {
     usage: Usage;
 
     /**
+     * Configures the bound GPU type for use in shaders. Either {@link FloatType} or {@link IntType}, default is {@link FloatType}.
+     *
+     * Note: this only has an effect for integer arrays and is not configurable for float arrays. For lower precision
+     * float types, see https://threejs.org/docs/#api/en/core/bufferAttributeTypes/BufferAttributeTypes.
+     */
+    gpuType: AttributeGPUType;
+
+    /**
      * This can be used to only update some components of stored vectors (for example, just the component related to color).
      * @defaultValue `{ offset: number = 0; count: number = -1 }`
+     * @deprecated Will be removed in r169. Use "addUpdateRange()" instead.
      */
     updateRange: {
         /**
@@ -79,6 +99,21 @@ export class BufferAttribute {
         /** @defaultValue `-1`, which means don't use update ranges. */
         count: number;
     };
+
+    /**
+     * This can be used to only update some components of stored vectors (for example, just the component related to
+     * color). Use the {@link .addUpdateRange} function to add ranges to this array.
+     */
+    updateRanges: Array<{
+        /**
+         * Position at which to start update.
+         */
+        start: number;
+        /**
+         * The number of components to update.
+         */
+        count: number;
+    }>;
 
     /**
      * A version number, incremented every time the {@link BufferAttribute.needsUpdate | needsUpdate} property is set to true.
@@ -95,11 +130,11 @@ export class BufferAttribute {
     normalized: boolean;
 
     /**
-     * Stores the {@link BufferAttribute.array | array}'s length divided by the {@link BufferAttribute.itemSize | itemSize}.
-     * @remarks If the buffer is storing a 3-component vector (such as a position, normal, or color), then this will count the number of such vectors stored.
-     * @remarks Expects a `Integer`
+     * Represents the number of items this buffer attribute stores. It is internally computed by dividing the
+     * {@link BufferAttribute.array | array}'s length by the {@link BufferAttribute.itemSize | itemSize}. Read-only
+     * property.
      */
-    count: number;
+    readonly count: number;
 
     /**
      * Flag to indicate that this attribute has changed and should be re-sent to the GPU.
@@ -141,6 +176,17 @@ export class BufferAttribute {
     setUsage(usage: Usage): this;
 
     /**
+     * Adds a range of data in the data array to be updated on the GPU. Adds an object describing the range to the
+     * {@link .updateRanges} array.
+     */
+    addUpdateRange(start: number, count: number): void;
+
+    /**
+     * Clears the {@link .updateRanges} array.
+     */
+    clearUpdateRanges(): void;
+
+    /**
      * @returns a copy of this {@link BufferAttribute}.
      */
     clone(): BufferAttribute;
@@ -161,7 +207,7 @@ export class BufferAttribute {
 
     /**
      * Copy the array given here (which can be a normal array or `TypedArray`) into {@link BufferAttribute.array | array}.
-     * @See {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set | TypedArray.set} for notes on requirements if copying a `TypedArray`.
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray/set | TypedArray.set} for notes on requirements if copying a `TypedArray`.
      */
     copyArray(array: ArrayLike<number>): this;
 
@@ -197,6 +243,16 @@ export class BufferAttribute {
      * @throws `RangeError` When {@link offset} is negative or is too large.
      */
     set(value: ArrayLike<number> | ArrayBufferView, offset?: number): this;
+
+    /**
+     * Returns the given component of the vector at the given index.
+     */
+    getComponent(index: number, component: number): number;
+
+    /**
+     * Sets the given component of the vector at the given index.
+     */
+    setComponent(index: number, component: number, value: number): void;
 
     /**
      * Returns the x component of the vector at the given index.
@@ -554,38 +610,6 @@ export class Float32BufferAttribute extends BufferAttribute {
     /**
      * This creates a new {@link THREE.Float32BufferAttribute | Float32BufferAttribute} object.
      * @param array This can be a typed or untyped (normal) array or an integer length. An array value will be converted to `Float32Array`.
-     * If a length is given a new `TypedArray` will created, initialized with all elements set to zero.
-     * @param itemSize the number of values of the {@link array} that should be associated with a particular vertex.
-     * For instance, if this attribute is storing a 3-component vector (such as a _position_, _normal_, or _color_),
-     * then itemSize should be `3`.
-     * @param normalized Applies to integer data only.
-     * Indicates how the underlying data in the buffer maps to the values in the GLSL code.
-     * For instance, if {@link array} is an instance of `UInt16Array`, and  {@link normalized} is true,
-     * the values `0` - `+65535` in the array data will be mapped to `0.0f` - `+1.0f` in the GLSL attribute.
-     * An `Int16Array` (signed) would map from `-32768` - `+32767` to `-1.0f` - `+1.0f`.
-     * If normalized is false, the values will be converted to floats unmodified,
-     * i.e. `32767` becomes `32767.0f`.
-     * Default `false`.
-     * @see {@link THREE.BufferAttribute | BufferAttribute}
-     */
-    constructor(
-        array: Iterable<number> | ArrayLike<number> | ArrayBuffer | number,
-        itemSize: number,
-        normalized?: boolean,
-    );
-}
-
-/**
- * A {@link THREE.BufferAttribute | BufferAttribute} for {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array: Float64Array}
- * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray#typedarray_objects | TypedArray}
- * @see {@link THREE.BufferAttribute | BufferAttribute} for details and for inherited methods and properties.
- * @see {@link https://threejs.org/docs/index.html#api/en/core/bufferAttributeTypes/BufferAttributeTypes | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js | Source}
- */
-export class Float64BufferAttribute extends BufferAttribute {
-    /**
-     * This creates a new {@link THREE.Float64BufferAttribute | Float64BufferAttribute} object.
-     * @param array This can be a typed or untyped (normal) array or an integer length. An array value will be converted to `Float64Array`.
      * If a length is given a new `TypedArray` will created, initialized with all elements set to zero.
      * @param itemSize the number of values of the {@link array} that should be associated with a particular vertex.
      * For instance, if this attribute is storing a 3-component vector (such as a _position_, _normal_, or _color_),

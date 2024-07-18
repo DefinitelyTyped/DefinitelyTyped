@@ -1,15 +1,14 @@
-import { NodeTypeOption, NodeValueOption } from './constants';
-import Node from './Node';
-import NodeBuilder from './NodeBuilder';
+import Node from "./Node.js";
+import NodeBuilder from "./NodeBuilder.js";
 
-export type Precision = 'low' | 'medium' | 'high';
+export type Precision = "low" | "medium" | "high";
 
-export default abstract class InputNode extends Node {
+export default abstract class InputNode<Value> extends Node {
     isInputNode: true;
-    value: NodeValueOption;
+    value: Value;
     precision: Precision | null;
 
-    constructor(value: NodeValueOption, nodeType?: NodeTypeOption | null);
+    constructor(value: Value, nodeType?: string | null);
 
     getInputType(builder: NodeBuilder): string | null;
     setPrecision(precision: Precision): this;

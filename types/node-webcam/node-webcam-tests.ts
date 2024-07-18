@@ -1,6 +1,6 @@
 // Available in nodejs
 
-import { NodeWebcam, WebcamOptions } from 'node-webcam';
+import { NodeWebcam, WebcamOptions } from "node-webcam";
 
 // Default options
 
@@ -30,7 +30,7 @@ const opts: WebcamOptions = {
 
     // [jpeg, png] support varies
     // Webcam.OutputTypes
-    output: 'jpeg',
+    output: "jpeg",
 
     // Which camera to use
     // Use Webcam.list() for results
@@ -39,7 +39,7 @@ const opts: WebcamOptions = {
 
     // [location, buffer, base64]
     // Webcam.CallbackReturnTypes
-    callbackReturn: 'base64',
+    callbackReturn: "base64",
 
     // Logging
     verbose: false,
@@ -51,15 +51,15 @@ const Webcam = NodeWebcam.create(opts);
 
 // Will automatically append location output type
 
-Webcam.capture('test_picture', (err, data) => {
-    console.info('data', data);
+Webcam.capture("test_picture", (err, data) => {
+    console.info("data", data);
 });
 
 // Also available for quick use
 
-NodeWebcam.capture('test_picture', opts, (err, data) => {
+NodeWebcam.capture("test_picture", opts, (err, data) => {
     if (!err) {
-        data.includes('base64');
+        data.includes("base64");
     }
 });
 
@@ -68,20 +68,20 @@ NodeWebcam.capture('test_picture', opts, (err, data) => {
 Webcam.list(list => {
     // Use another device
 
-    const cam = NodeWebcam.Factory.create({ ...opts, device: list[0] }, 'linux');
-    cam.capture('pictures/picture_' + new Date().getTime(), (err, data) => {
-        data && console.info('data', data);
-        err && console.error('err', err);
+    const cam = NodeWebcam.Factory.create({ ...opts, device: list[0] }, "linux");
+    cam.capture("pictures/picture_" + new Date().getTime(), (err, data) => {
+        data && console.info("data", data);
+        err && console.error("err", err);
     });
 });
 
 NodeWebcam.list(list => {
     // Use another device
-    console.info('list', list);
-    const camera = NodeWebcam.Factory.create({ ...opts, device: list[0] }, 'linux');
+    console.info("list", list);
+    const camera = NodeWebcam.Factory.create({ ...opts, device: list[0] }, "linux");
 
-    camera.capture('pictures/picture_' + new Date().getTime(), (err, data) => {
-        data && console.info('data', data);
-        err && console.error('err', err);
+    camera.capture("pictures/picture_" + new Date().getTime(), (err, data) => {
+        data && console.info("data", data);
+        err && console.error("err", err);
     });
 });

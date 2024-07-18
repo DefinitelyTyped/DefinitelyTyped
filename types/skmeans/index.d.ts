@@ -1,9 +1,4 @@
-// Type definitions for skmeans 0.11
-// Project: https://github.com/solzimer/skmeans
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type CentroidValues<TPoint extends number | number[]> = TPoint[] | 'kmrand' | 'kmpp';
+type CentroidValues<TPoint extends number | number[]> = TPoint[] | "kmrand" | "kmpp";
 
 interface DataResult<TPoint extends number | number[]> {
     it: number;

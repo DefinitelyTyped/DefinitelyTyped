@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/identifiers-arxiv",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/altmetric/identifiers-arxiv"
+    ],
+    "devDependencies": {
+        "@types/identifiers-arxiv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wilkinson",
+            "githubUsername": "thewilkybarkid"
+        }
+    ]
+}

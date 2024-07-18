@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/pgwmodal",
+    "version": "2.0.9999",
+    "projects": [
+        "http://pgwjs.com/pgwmodal/"
+    ],
+    "devDependencies": {
+        "@types/pgwmodal": "workspace:."
+    },
+    "owners": []
+}

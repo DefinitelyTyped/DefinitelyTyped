@@ -1,4 +1,4 @@
-import { URL } from 'url';
+import { URL } from "url";
 
 export function parseURI(URI: string | URL): ParsedURI;
 export function parseHost(host: string): ParsedHost;

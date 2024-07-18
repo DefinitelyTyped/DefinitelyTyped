@@ -1,5 +1,5 @@
-import placeholder = require('@cloudfour/simple-svg-placeholder');
-import * as placeholderByImportFrom from '@cloudfour/simple-svg-placeholder';
+import placeholder = require("@cloudfour/simple-svg-placeholder");
+import * as placeholderByImportFrom from "@cloudfour/simple-svg-placeholder";
 
 // $ExpectType string
 placeholder();
@@ -10,30 +10,30 @@ placeholder({ dataUri: false });
 placeholder({
     width: 300,
     height: 150,
-    text: '300x150',
-    fontFamily: 'sans-serif',
-    fontWeight: 'bold',
+    text: "300x150",
+    fontFamily: "sans-serif",
+    fontWeight: "bold",
     fontSize: 50,
     dy: 40,
-    bgColor: '#ddd',
-    textColor: 'rgba(0,0,0,0.5)',
+    bgColor: "#ddd",
+    textColor: "rgba(0,0,0,0.5)",
     dataUri: true,
-    charset: 'UTF-8',
+    charset: "UTF-8",
 });
 
 placeholder({
     // @ts-expect-error
-    width: '300px',
+    width: "300px",
     // @ts-expect-error
-    height: '150px',
+    height: "150px",
     // @ts-expect-error
     text: 300,
     // @ts-expect-error
-    fontSize: '50px',
+    fontSize: "50px",
     // @ts-expect-error
-    dy: '40px',
+    dy: "40px",
     // @ts-expect-error
-    dataUri: 'true',
+    dataUri: "true",
 });
 
 // @ts-expect-error

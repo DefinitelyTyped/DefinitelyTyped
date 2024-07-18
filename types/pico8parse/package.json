@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/pico8parse",
+    "version": "0.4.9999",
+    "projects": [
+        "https://pictelm.github.io/pico8parse/"
+    ],
+    "devDependencies": {
+        "@types/pico8parse": "workspace:."
+    },
+    "owners": []
+}

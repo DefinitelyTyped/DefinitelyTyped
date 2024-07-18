@@ -1,11 +1,5 @@
-// Type definitions for react-native-modal-dropdown 1.0
-// Project: https://github.com/siemiatj/react-native-modal-dropdown
-// Definitions by: Carlos Li <https://github.com/echoulen>, Stefan Schweiger <https://github.com/stefan-schweiger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
-import * as React from 'react';
-import { StyleProp, TextStyle, ViewProps, ViewStyle, Constructor, NativeMethodsMixin } from 'react-native';
+import * as React from "react";
+import { Constructor, NativeMethodsMixin, StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 
 export interface PositionStyle {
     top?: number | undefined;
@@ -27,7 +21,7 @@ export interface ModalDropdownProps<T = any> extends ViewProps {
     animated?: boolean | undefined;
     isFullWidth?: boolean | undefined;
     showsVerticalScrollIndicator?: boolean | undefined;
-    keyboardShouldPersistTaps?: 'always' | 'never' | 'handled' | undefined;
+    keyboardShouldPersistTaps?: "always" | "never" | "handled" | undefined;
     showSearch?: boolean | undefined;
     keySearchObject?: string | undefined;
     renderSearch?: () => React.ReactNode | undefined;
@@ -44,14 +38,19 @@ export interface ModalDropdownProps<T = any> extends ViewProps {
     renderRow?: ((option: T, index: string, isSelected: boolean) => React.ReactNode) | undefined;
     renderRowComponent?: React.ComponentClass | React.FC | undefined;
     renderRowProps?: any;
-    renderSeparator?: ((sectionID: string, index: string, adjacentRowHighlighted: boolean) => React.ReactNode) | undefined;
+    renderSeparator?:
+        | ((sectionID: string, index: string, adjacentRowHighlighted: boolean) => React.ReactNode)
+        | undefined;
     renderButtonText?: ((text: string) => string) | undefined;
     renderRowText?: ((item: T) => string) | undefined;
     renderButtonComponent?: React.ComponentClass | React.FC | undefined;
     renderRightComponent?: React.ComponentClass | React.FC | undefined;
     renderButtonProps?: any;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDropdownWillShow?: (() => void | boolean) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDropdownWillHide?: (() => void | boolean) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSelect?: ((index: string, option: T) => void | boolean) | undefined;
     numberOfLines?: number | undefined;
 }

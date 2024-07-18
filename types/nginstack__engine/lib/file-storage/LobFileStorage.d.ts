@@ -1,8 +1,9 @@
 export = LobFileStorage;
-declare function LobFileStorage(classKey: number): void;
+declare function LobFileStorage(lobClassKey: number, relationClassKey: any): void;
 declare class LobFileStorage {
-    constructor(classKey: number);
-    private classKey_;
+    constructor(lobClassKey: number, relationClassKey: any);
+    private lobClassKey_;
+    private relationClassKey_;
     private lobStorage_;
     tryGetFileInfo(fileKey: number): FileInfo;
     setExtraFileAttributes(fileKey: number, attributes: any): void;

@@ -2,38 +2,38 @@
  * Tests for the Ember-Data "module API" introduced in v2.3
  * @see https://www.emberjs.com/blog/2016/01/12/ember-data-2-3-released.html#toc_importing-modules
  */
-import DS from 'ember-data';
+import DS from "ember-data";
 // Adapters
-import Adapter from 'ember-data/adapter';
-import JSONAPIAdapter from 'ember-data/adapters/json-api';
-import RESTAdapter from 'ember-data/adapters/rest';
+import Adapter from "ember-data/adapter";
+import JSONAPIAdapter from "ember-data/adapters/json-api";
+import RESTAdapter from "ember-data/adapters/rest";
 // Serializers
-import Serializer from 'ember-data/serializer';
-import RESTSerializer from 'ember-data/serializers/rest';
-import JSONSerializer from 'ember-data/serializers/json';
-import JSONAPISerializer from 'ember-data/serializers/json-api';
+import Serializer from "ember-data/serializer";
+import JSONSerializer from "ember-data/serializers/json";
+import JSONAPISerializer from "ember-data/serializers/json-api";
+import RESTSerializer from "ember-data/serializers/rest";
 
 // Model
-import Model from 'ember-data/model';
+import Model from "ember-data/model";
 // Model - attr
-import attr from 'ember-data/attr';
+import attr from "ember-data/attr";
 // Model - relationships
-import { hasMany, belongsTo } from 'ember-data/relationships';
+import { belongsTo, hasMany } from "ember-data/relationships";
 
 // Transforms
-import BooleanTransform from 'ember-data/transforms/boolean';
-import StringTransform from 'ember-data/transforms/string';
-import NumberTransform from 'ember-data/transforms/number';
-import DateTransform from 'ember-data/transforms/date';
-import Transform from 'ember-data/transforms/transform';
+import BooleanTransform from "ember-data/transforms/boolean";
+import DateTransform from "ember-data/transforms/date";
+import NumberTransform from "ember-data/transforms/number";
+import StringTransform from "ember-data/transforms/string";
+import Transform from "ember-data/transforms/transform";
 
 // Store
-import Store from 'ember-data/store';
+import Store from "ember-data/store";
 
 // Errors
-import * as EDErrors from 'ember-data/adapters/errors';
+import * as EDErrors from "ember-data/adapters/errors";
 
-import { assertType } from './lib/assert';
+import { assertType } from "./lib/assert";
 
 // ADAPTERS
 // - identity

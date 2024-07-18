@@ -1,15 +1,8 @@
-// Type definitions for non-npm package @ember/array 4.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Farray
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 import ComputedProperty from "@ember/object/computed";
 import Mixin from "@ember/object/mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import Enumerable from "@ember/array/-private/enumerable";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import NativeArray from "@ember/array/-private/native-array";
 
 /**
@@ -57,11 +50,11 @@ interface Array<T> extends Enumerable<T> {
      * return an enumerable that maps automatically to the named key on the
      * member objects.
      */
-    '@each': ComputedProperty<T>;
+    "@each": ComputedProperty<T>;
 }
 // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
 // tslint:disable-next-line:array-type
-declare const Array: Mixin<Array<unknown>>;
+declare const Array: Mixin<unknown[]>;
 export default Array;
 
 /**

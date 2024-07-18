@@ -1,9 +1,7 @@
-// Type definitions for ghauth 3.2
-// Project: https://github.com/rvagg/ghauth
-// Definitions by: Leko <https://github.com/Leko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare function ghauth(authOptions: ghauth.AuthOptions, callback: (err: Error, tokenData: ghauth.TokenData) => void): void;
+declare function ghauth(
+    authOptions: ghauth.AuthOptions,
+    callback: (err: Error, tokenData: ghauth.TokenData) => void,
+): void;
 
 declare namespace ghauth {
     interface AuthOptions {
@@ -27,7 +25,7 @@ declare namespace ghauth {
         /**
          * @default []
          */
-        scopes?: ReadonlyArray<string> | undefined;
+        scopes?: readonly string[] | undefined;
 
         /**
          * @default "Node.js command-line app with ghauth"

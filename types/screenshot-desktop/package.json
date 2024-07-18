@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/screenshot-desktop",
+    "version": "1.12.9999",
+    "projects": [
+        "https://github.com/bencevans/screenshot-desktop"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/screenshot-desktop": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Usama Ahsan",
+            "githubUsername": "usama8800"
+        }
+    ]
+}

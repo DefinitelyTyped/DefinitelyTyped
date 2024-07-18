@@ -1,10 +1,10 @@
 const firstrecord = new GlideRecord("core_company");
 
 const record = new GlideRecord("core_company");
-record.addQuery('property', '=', firstrecord.sys_id);
-record.addQuery('property2', '!=', 'somevalue');
-if (record.get('somesysid')) {
-    gs.info('got it');
+record.addQuery("property", "=", firstrecord.sys_id);
+record.addQuery("property2", "!=", "somevalue");
+if (record.get("somesysid")) {
+    gs.info("got it");
 }
 
 const wf = new global.Workflow();

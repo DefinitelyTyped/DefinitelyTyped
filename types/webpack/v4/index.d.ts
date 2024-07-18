@@ -1,50 +1,23 @@
-// Type definitions for webpack 4.41
-// Project: https://github.com/webpack/webpack
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Benjamin Lim <https://github.com/bumbleblym>
-//                 Boris Cherny <https://github.com/bcherny>
-//                 Tommy Troy Lin <https://github.com/tommytroylin>
-//                 Mohsen Azimi <https://github.com/mohsen1>
-//                 Jonathan Creamer <https://github.com/jcreamer898>
-//                 Alan Agius <https://github.com/alan-agius4>
-//                 Dennis George <https://github.com/dennispg>
-//                 Christophe Hurpeau <https://github.com/christophehurpeau>
-//                 ZSkycat <https://github.com/ZSkycat>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Ryan Waskiewicz <https://github.com/rwaskiewicz>
-//                 Kyle Uehlein <https://github.com/kuehlein>
-//                 Grgur Grisogono <https://github.com/grgur>
-//                 Rubens Pinheiro Gonçalves Cavalcante <https://github.com/rubenspgcavalcante>
-//                 Anders Kaseorg <https://github.com/andersk>
-//                 Felix Haus <https://github.com/ofhouse>
-//                 Daniel Chin <https://github.com/danielthank>
-//                 Daiki Ihara <https://github.com/sasurau4>
-//                 Dion Shi <https://github.com/dionshihk>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Michał Grzegorzewski <https://github.com/spamshaker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 
-import { Hash as CryptoHash } from 'crypto';
+import * as anymatch from "anymatch";
+import { Hash as CryptoHash } from "crypto";
+import { RawSourceMap } from "source-map";
 import {
-  Tapable,
-  HookMap,
-  SyncBailHook,
-  SyncHook,
-  SyncLoopHook,
-  SyncWaterfallHook,
-  AsyncParallelBailHook,
-  AsyncParallelHook,
-  AsyncSeriesBailHook,
-  AsyncSeriesHook,
-  AsyncSeriesWaterfallHook,
-} from 'tapable';
-import * as UglifyJS from 'uglify-js';
-import * as anymatch from 'anymatch';
-import { RawSourceMap } from 'source-map';
-import { Source, ConcatSource } from 'webpack-sources';
+    AsyncParallelBailHook,
+    AsyncParallelHook,
+    AsyncSeriesBailHook,
+    AsyncSeriesHook,
+    AsyncSeriesWaterfallHook,
+    HookMap,
+    SyncBailHook,
+    SyncHook,
+    SyncLoopHook,
+    SyncWaterfallHook,
+    Tapable,
+} from "tapable";
+import * as UglifyJS from "uglify-js";
+import { ConcatSource, Source } from "webpack-sources";
 
 export = webpack;
 
@@ -60,7 +33,7 @@ declare function webpack(
     options:
         | webpack.Configuration[]
         | webpack.MultiConfigurationFactory,
-    handler: webpack.MultiCompiler.Handler
+    handler: webpack.MultiCompiler.Handler,
 ): webpack.MultiWatching | webpack.MultiCompiler;
 declare function webpack(options: webpack.Configuration[]): webpack.MultiCompiler;
 
@@ -109,16 +82,17 @@ declare namespace webpack {
          * - "atom" Alias for electron-main.
          * - "electron" Alias for electron-main.
          */
-        target?: 'web'
-            | 'webworker'
-            | 'node'
-            | 'async-node'
-            | 'node-webkit'
-            | 'atom'
-            | 'electron'
-            | 'electron-renderer'
-            | 'electron-preload'
-            | 'electron-main'
+        target?:
+            | "web"
+            | "webworker"
+            | "node"
+            | "async-node"
+            | "node-webkit"
+            | "atom"
+            | "electron"
+            | "electron-renderer"
+            | "electron-preload"
+            | "electron-main"
             | ((compiler?: any) => void)
             | undefined;
         /** Report the first error as a hard error instead of tolerating it. */
@@ -158,27 +132,27 @@ declare namespace webpack {
         config?: string | undefined;
         mode?: Configuration["mode"] | undefined;
         env?: string | undefined;
-        'config-register'?: string | undefined;
+        "config-register"?: string | undefined;
         configRegister?: string | undefined;
-        'config-name'?: string | undefined;
+        "config-name"?: string | undefined;
         configName?: string | undefined;
     }
 
-    type ConfigurationFactory = ((
+    type ConfigurationFactory = (
         env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
-    ) => Configuration | Promise<Configuration>);
+    ) => Configuration | Promise<Configuration>;
 
-    type MultiConfigurationFactory = ((
+    type MultiConfigurationFactory = (
         env: string | Record<string, boolean | number | string> | undefined,
         args: CliConfigOptions,
-    ) => Configuration[] | Promise<Configuration[]>);
+    ) => Configuration[] | Promise<Configuration[]>;
 
     interface Entry {
         [name: string]: string | string[];
     }
 
-    type EntryFunc = () => (string | string[] | Entry | Promise<string | string[] | Entry>);
+    type EntryFunc = () => string | string[] | Entry | Promise<string | string[] | Entry>;
 
     interface DevtoolModuleFilenameTemplateInfo {
         identifier: string;
@@ -206,11 +180,14 @@ declare namespace webpack {
         /** The JSONP function used by webpack for asnyc loading of chunks. */
         jsonpFunction?: string | undefined;
         /** Allows customization of the script type webpack injects script tags into the DOM to download async chunks. */
-        jsonpScriptType?: 'text/javascript' | 'module' | undefined;
+        jsonpScriptType?: "text/javascript" | "module" | undefined;
         /** Filename template string of function for the sources array in a generated SourceMap. */
         devtoolModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string) | undefined;
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
-        devtoolFallbackModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string) | undefined;
+        devtoolFallbackModuleFilenameTemplate?:
+            | string
+            | ((info: DevtoolModuleFilenameTemplateInfo) => string)
+            | undefined;
         /**
          * Enable line to line mapped mode for all/specified modules.
          * Line to line mapped mode uses a simple SourceMap where each line of the generated source is mapped to the same line of the original source.
@@ -227,7 +204,7 @@ declare namespace webpack {
         /** The filename of the Hot Update Main File. It is inside the output.path directory. */
         hotUpdateMainFilename?: string | undefined;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: string | string[] | {[key: string]: string} | undefined;
+        library?: string | string[] | { [key: string]: string } | undefined;
         /**
          * Which format to export the library:
          * - "var" - Export by setting a variable: var Library = xxx (default)
@@ -257,7 +234,7 @@ declare namespace webpack {
         /** Prefixes every line of the source in the bundle with this string. */
         sourcePrefix?: string | undefined;
         /** The encoding to use when generating the hash, defaults to 'hex' */
-        hashDigest?: 'hex' | 'latin1' | 'base64' | undefined;
+        hashDigest?: "hex" | "latin1" | "base64" | undefined;
         /** The prefix length of the hash digest to use, defaults to 20. */
         hashDigestLength?: number | undefined;
         /** Algorithm used for generation the hash (see node.js crypto package) */
@@ -274,7 +251,18 @@ declare namespace webpack {
         futureEmitAssets?: boolean | undefined;
     }
 
-    type LibraryTarget = 'var' | 'assign' | 'this' | 'window' | 'global' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'jsonp' | 'system';
+    type LibraryTarget =
+        | "var"
+        | "assign"
+        | "this"
+        | "window"
+        | "global"
+        | "commonjs"
+        | "commonjs2"
+        | "amd"
+        | "umd"
+        | "jsonp"
+        | "system";
 
     type AuxiliaryCommentObject = { [P in LibraryTarget]: string };
 
@@ -367,7 +355,7 @@ declare namespace webpack {
          *
          * @see aliasFields
          */
-        alias?: { [key: string]: string; } | undefined;
+        alias?: { [key: string]: string } | undefined;
 
         /**
          * Whether to use a cache for resolving, or the specific object
@@ -383,7 +371,7 @@ declare namespace webpack {
          *
          * Defaults to `() => true`.
          */
-        cachePredicate?(data: { path: string, request: string }): boolean;
+        cachePredicate?(data: { path: string; request: string }): boolean;
 
         /**
          * A list of additional resolve plugins which should be applied.
@@ -445,14 +433,14 @@ declare namespace webpack {
     type ExternalsFunctionElement = (context: any, request: any, callback: ExternalsFunctionCallback) => any;
 
     interface Node {
-        console?: boolean | 'mock' | undefined;
-        process?: boolean | 'mock' | undefined;
+        console?: boolean | "mock" | undefined;
+        process?: boolean | "mock" | undefined;
         global?: boolean | undefined;
-        __filename?: boolean | 'mock' | undefined;
-        __dirname?: boolean | 'mock' | undefined;
-        Buffer?: boolean | 'mock' | undefined;
-        setImmediate?: boolean | 'mock' | 'empty' | undefined;
-        [nodeBuiltin: string]: boolean | 'mock' | 'empty' | undefined;
+        __filename?: boolean | "mock" | undefined;
+        __dirname?: boolean | "mock" | undefined;
+        Buffer?: boolean | "mock" | undefined;
+        setImmediate?: boolean | "mock" | "empty" | undefined;
+        [nodeBuiltin: string]: boolean | "mock" | "empty" | undefined;
     }
 
     interface NewLoader {
@@ -553,7 +541,13 @@ declare namespace webpack {
         /**
          * Module type to use for the module
          */
-        type?: "javascript/auto" | "javascript/dynamic" | "javascript/esm" | "json" | "webassembly/experimental" | undefined;
+        type?:
+            | "javascript/auto"
+            | "javascript/dynamic"
+            | "javascript/esm"
+            | "json"
+            | "webassembly/experimental"
+            | undefined;
         /**
          * Match the resource path of the module
          */
@@ -624,13 +618,55 @@ declare namespace webpack {
     type Rule = RuleSetRule;
 
     namespace Options {
-        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map'
-            | 'source-map' | 'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | 'inline-cheap-source-map' | 'inline-cheap-module-source-map' | '@eval'
-            | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' | '@cheap-module-source-map' | '@eval-source-map'
-            | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' | '#cheap-eval-source-map'
-            | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map'
-            | '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map'
-            | '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean | string;
+        type Devtool =
+            | "eval"
+            | "inline-source-map"
+            | "cheap-eval-source-map"
+            | "cheap-source-map"
+            | "cheap-module-eval-source-map"
+            | "cheap-module-source-map"
+            | "eval-source-map"
+            | "source-map"
+            | "nosources-source-map"
+            | "hidden-source-map"
+            | "nosources-source-map"
+            | "inline-cheap-source-map"
+            | "inline-cheap-module-source-map"
+            | "@eval"
+            | "@inline-source-map"
+            | "@cheap-eval-source-map"
+            | "@cheap-source-map"
+            | "@cheap-module-eval-source-map"
+            | "@cheap-module-source-map"
+            | "@eval-source-map"
+            | "@source-map"
+            | "@nosources-source-map"
+            | "@hidden-source-map"
+            | "@nosources-source-map"
+            | "#eval"
+            | "#inline-source-map"
+            | "#cheap-eval-source-map"
+            | "#cheap-source-map"
+            | "#cheap-module-eval-source-map"
+            | "#cheap-module-source-map"
+            | "#eval-source-map"
+            | "#source-map"
+            | "#nosources-source-map"
+            | "#hidden-source-map"
+            | "#nosources-source-map"
+            | "#@eval"
+            | "#@inline-source-map"
+            | "#@cheap-eval-source-map"
+            | "#@cheap-source-map"
+            | "#@cheap-module-eval-source-map"
+            | "#@cheap-module-source-map"
+            | "#@eval-source-map"
+            | "#@source-map"
+            | "#@nosources-source-map"
+            | "#@hidden-source-map"
+            | "#@nosources-source-map"
+            | boolean
+            | string;
 
         interface Performance {
             /** This property allows webpack to control what files are used to calculate performance hints. */
@@ -639,7 +675,7 @@ declare namespace webpack {
              * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are
              * found. This property is set to "warning" by default.
              */
-            hints?: 'warning' | 'error' | false | undefined;
+            hints?: "warning" | "error" | false | undefined;
             /**
              * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint
              * based on individual asset size. The default value is 250000 (bytes).
@@ -694,7 +730,9 @@ declare namespace webpack {
             /** Give chunks created a name (chunks with equal name are merged) */
             name?: boolean | string | ((...args: any[]) => any) | undefined;
             /** Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks) */
-            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | { [key: string]: CacheGroupsOptions | false } | undefined;
+            cacheGroups?: false | string | ((...args: any[]) => any) | RegExp | {
+                [key: string]: CacheGroupsOptions | false;
+            } | undefined;
             /** Override the default name separator (~) when generating names automatically (name: true)  */
             automaticNameDelimiter?: string | undefined;
         }
@@ -759,7 +797,12 @@ declare namespace webpack {
             /** Log level */
             level?: "none" | "error" | "warn" | "info" | "log" | "verbose" | undefined;
             /** Enable debug logging for specific loggers */
-            debug?: string | RegExp | ((name: string) => boolean) | Array<string | RegExp | ((name: string) => boolean)> | undefined;
+            debug?:
+                | string
+                | RegExp
+                | ((name: string) => boolean)
+                | Array<string | RegExp | ((name: string) => boolean)>
+                | undefined;
         }
     }
 
@@ -902,13 +945,14 @@ declare namespace webpack {
             usedExports: false | true | string[] | null;
             optimizationBailout: string | any[];
             _rewriteChunkInReasons: {
-                oldChunk: Chunk, newChunks: Chunk[]
+                oldChunk: Chunk;
+                newChunks: Chunk[];
             } | undefined;
             useSourceMap: boolean;
             _source: any;
 
-            exportsArgument: string | 'exports';
-            moduleArgument: string | 'module';
+            exportsArgument: string | "exports";
+            moduleArgument: string | "module";
 
             disconnect(): void;
             unseal(): void;
@@ -996,17 +1040,17 @@ declare namespace webpack {
                 size: number,
                 options: {
                     chunkOverhead?: number | undefined;
-                    entryChunkMultiplicator?: number | undefined
+                    entryChunkMultiplicator?: number | undefined;
                 },
             ): number;
             modulesSize(): number;
             size(options?: {
                 chunkOverhead?: number | undefined;
-                entryChunkMultiplicator?: number | undefined
+                entryChunkMultiplicator?: number | undefined;
             }): number;
             integratedSize(otherChunk: Chunk, options: any): number | false;
             sortModules(
-                sortByFn: (module1: Module, module2: Module) => -1 | 0 | 1
+                sortByFn: (module1: Module, module2: Module) => -1 | 0 | 1,
             ): void;
             sortItems(): void;
             getAllAsyncChunks(): Set<Chunk>;
@@ -1017,16 +1061,16 @@ declare namespace webpack {
             };
             getChildIdsByOrders(): any;
             getChildIdsByOrdersMap(includeDirectChildren?: boolean): any;
-            // tslint:disable-next-line:ban-types
+            // eslint-disable-next-line @typescript-eslint/ban-types
             getChunkModuleMaps(filterFn: Function): { id: any; hash: any };
             hasModuleInGraph(
                 filterFn: (module: Module) => boolean,
-                filterChunkFn: (chunk: Chunk) => boolean
+                filterChunkFn: (chunk: Chunk) => boolean,
             ): boolean;
             toString(): string;
         }
 
-        type GroupOptions = string | { name?: string | undefined; };
+        type GroupOptions = string | { name?: string | undefined };
 
         class ChunkGroup {
             chunks: Chunk[];
@@ -1254,20 +1298,25 @@ declare namespace webpack {
         }
 
         class MainTemplate extends Tapable {
-          hooks: {
-            jsonpScript?: SyncWaterfallHook<string, Chunk, string> | undefined;
-            require: SyncWaterfallHook<string, Chunk, string>;
-            requireExtensions: SyncWaterfallHook<string, Chunk, string>;
-            requireEnsure: SyncWaterfallHook<string, Chunk, string>;
-            localVars: SyncWaterfallHook<string, Chunk, string>;
-            afterStartup: SyncWaterfallHook<string, Chunk, string>;
-            hash: SyncHook<CryptoHash>;
-            hashForChunk: SyncHook<CryptoHash, Chunk>;
-          };
-          outputOptions: Output;
-          requireFn: string;
-          renderRequireFunctionForModule(hash: string, chunk: Chunk, varModuleId?: number | string): string;
-          renderAddModule(hash: string, chunk: Chunk, varModuleId: number | string | undefined, varModule: string): string;
+            hooks: {
+                jsonpScript?: SyncWaterfallHook<string, Chunk, string> | undefined;
+                require: SyncWaterfallHook<string, Chunk, string>;
+                requireExtensions: SyncWaterfallHook<string, Chunk, string>;
+                requireEnsure: SyncWaterfallHook<string, Chunk, string>;
+                localVars: SyncWaterfallHook<string, Chunk, string>;
+                afterStartup: SyncWaterfallHook<string, Chunk, string>;
+                hash: SyncHook<CryptoHash>;
+                hashForChunk: SyncHook<CryptoHash, Chunk>;
+            };
+            outputOptions: Output;
+            requireFn: string;
+            renderRequireFunctionForModule(hash: string, chunk: Chunk, varModuleId?: number | string): string;
+            renderAddModule(
+                hash: string,
+                chunk: Chunk,
+                varModuleId: number | string | undefined,
+                varModule: string,
+            ): string;
         }
         class ChunkTemplate extends Tapable {}
         class HotUpdateChunkTemplate extends Tapable {}
@@ -1342,26 +1391,31 @@ declare namespace webpack {
             hash?: string | undefined;
             getStats(): Stats;
             addChunkInGroup(groupOptions: GroupOptions): ChunkGroup;
-            addChunkInGroup(groupOptions: GroupOptions, module: Module, loc: DependencyLocation, request: string): ChunkGroup;
+            addChunkInGroup(
+                groupOptions: GroupOptions,
+                module: Module,
+                loc: DependencyLocation,
+                request: string,
+            ): ChunkGroup;
             addModule(module: CompilationModule, cacheGroup: any): any;
-            // tslint:disable-next-line:ban-types
+            // eslint-disable-next-line @typescript-eslint/ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
 
             getPath(filename: string, data: {
-                hash?: any,
-                chunk?: any,
-                filename?: string | undefined,
-                basename?: string | undefined,
-                query?: any,
-                contentHashType?: string | undefined,
-                contentHash?: string | undefined,
+                hash?: any;
+                chunk?: any;
+                filename?: string | undefined;
+                basename?: string | undefined;
+                query?: any;
+                contentHashType?: string | undefined;
+                contentHash?: string | undefined;
             }): string;
 
             getAsset(name: string): Readonly<Asset>;
             updateAsset(
                 file: string,
                 newSourceOrFunction: Source | ((arg0: Source) => Source),
-                assetInfoUpdateOrFunction?: AssetInfo | ((arg0: AssetInfo) => AssetInfo)
+                assetInfoUpdateOrFunction?: AssetInfo | ((arg0: AssetInfo) => AssetInfo),
             ): void;
 
             /**
@@ -1419,7 +1473,7 @@ declare namespace webpack {
             watchRun: AsyncSeriesHook<Compiler>;
         }
     }
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ICompiler {
         run(handler: ICompiler.Handler | ICompiler.MultiHandler): void;
         watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler | ICompiler.MultiHandler): Watching;
@@ -1475,7 +1529,7 @@ declare namespace webpack {
         sortWith(sortFn: (a: T, b: T) => number): void;
         sort(): void;
         getFromCache(fn: (set: SortableSet<T>) => T[]): T[];
-        getFromUnorderedCache(fn: (set: SortableSet<T>) => string|number|T[]): any;
+        getFromUnorderedCache(fn: (set: SortableSet<T>) => string | number | T[]): any;
     }
 
     class Compiler extends Tapable implements ICompiler {
@@ -1538,10 +1592,10 @@ declare namespace webpack {
 
     // Compatibility with webpack@5's own types
     // See https://github.com/webpack/webpack/issues/11630
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface WebpackPluginInstance extends Plugin {}
 
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Chunk extends compilation.Chunk {}
 
     abstract class ResolvePlugin implements Tapable.Plugin {
@@ -1555,8 +1609,8 @@ declare namespace webpack {
         endTime?: number | undefined;
 
         static filterWarnings(
-          warnings: string[],
-          warningsFilter?: Array<string | RegExp | ((warning: string) => boolean)>
+            warnings: string[],
+            warningsFilter?: Array<string | RegExp | ((warning: string) => boolean)>,
         ): string[];
         /**
          * Returns the default json options from the stats preset.
@@ -1582,14 +1636,14 @@ declare namespace webpack {
     }
 
     namespace Stats {
-        type Preset
-            = boolean
-            | 'errors-only'
-            | 'errors-warnings'
-            | 'minimal'
-            | 'none'
-            | 'normal'
-            | 'verbose';
+        type Preset =
+            | boolean
+            | "errors-only"
+            | "errors-warnings"
+            | "minimal"
+            | "none"
+            | "normal"
+            | "verbose";
 
         interface ToJsonOptionsObject {
             /** fallback value for stats options when an option is not defined (has precedence over local webpack defaults) */
@@ -1680,46 +1734,46 @@ declare namespace webpack {
             isOverSizeLimit?: boolean | undefined;
         }
 
-        type ReasonType
-            = 'amd define'
-            | 'amd require array'
-            | 'amd require context'
-            | 'amd require'
-            | 'cjs require context'
-            | 'cjs require'
-            | 'context element'
-            | 'delegated exports'
-            | 'delegated source'
-            | 'dll entry'
-            | 'accepted harmony modules'
-            | 'harmony accept'
-            | 'harmony export expression'
-            | 'harmony export header'
-            | 'harmony export imported specifier'
-            | 'harmony export specifier'
-            | 'harmony import specifier'
-            | 'harmony side effect evaluation'
-            | 'harmony init'
-            | 'import() context development'
-            | 'import() context production'
-            | 'import() eager'
-            | 'import() weak'
-            | 'import()'
-            | 'json exports'
-            | 'loader'
-            | 'module.hot.accept'
-            | 'module.hot.decline'
-            | 'multi entry'
-            | 'null'
-            | 'prefetch'
-            | 'require.context'
-            | 'require.ensure'
-            | 'require.ensure item'
-            | 'require.include'
-            | 'require.resolve'
-            | 'single entry'
-            | 'wasm export import'
-            | 'wasm import';
+        type ReasonType =
+            | "amd define"
+            | "amd require array"
+            | "amd require context"
+            | "amd require"
+            | "cjs require context"
+            | "cjs require"
+            | "context element"
+            | "delegated exports"
+            | "delegated source"
+            | "dll entry"
+            | "accepted harmony modules"
+            | "harmony accept"
+            | "harmony export expression"
+            | "harmony export header"
+            | "harmony export imported specifier"
+            | "harmony export specifier"
+            | "harmony import specifier"
+            | "harmony side effect evaluation"
+            | "harmony init"
+            | "import() context development"
+            | "import() context production"
+            | "import() eager"
+            | "import() weak"
+            | "import()"
+            | "json exports"
+            | "loader"
+            | "module.hot.accept"
+            | "module.hot.decline"
+            | "multi entry"
+            | "null"
+            | "prefetch"
+            | "require.context"
+            | "require.ensure"
+            | "require.ensure item"
+            | "require.include"
+            | "require.resolve"
+            | "single entry"
+            | "wasm export import"
+            | "wasm import";
 
         interface Reason {
             moduleId: number | string | null;
@@ -1771,44 +1825,50 @@ declare namespace webpack {
         interface ToJsonOutput {
             _showErrors: boolean;
             _showWarnings: boolean;
-            assets?: Array<{
-                chunks: Array<number | string>;
-                chunkNames: string[];
-                emitted: boolean;
-                isOverSizeLimit?: boolean | undefined;
-                name: string;
-                size: number;
-            }> | undefined;
+            assets?:
+                | Array<{
+                    chunks: Array<number | string>;
+                    chunkNames: string[];
+                    emitted: boolean;
+                    isOverSizeLimit?: boolean | undefined;
+                    name: string;
+                    size: number;
+                }>
+                | undefined;
             assetsByChunkName?: Record<string, string | string[]> | undefined;
             builtAt?: number | undefined;
             children?: Array<ToJsonOutput & { name?: string | undefined }> | undefined;
-            chunks?: Array<{
-                children: number[];
-                childrenByOrder: Record<string, number[]>;
-                entry: boolean;
-                files: string[];
-                filteredModules?: number | undefined;
-                hash?: string | undefined;
-                id: number | string;
-                initial: boolean;
-                modules?: FnModules[] | undefined;
-                names: string[];
-                origins?: Array<{
-                    moduleId?: string | number | undefined;
-                    module: string;
-                    moduleIdentifier: string;
-                    moduleName: string;
-                    loc: string;
-                    request: string;
-                    reasons: string[];
-                }> | undefined;
-                parents: number[];
-                reason?: string | undefined;
-                recorded?: boolean | undefined;
-                rendered: boolean;
-                size: number;
-                siblings: number[];
-            }> | undefined;
+            chunks?:
+                | Array<{
+                    children: number[];
+                    childrenByOrder: Record<string, number[]>;
+                    entry: boolean;
+                    files: string[];
+                    filteredModules?: number | undefined;
+                    hash?: string | undefined;
+                    id: number | string;
+                    initial: boolean;
+                    modules?: FnModules[] | undefined;
+                    names: string[];
+                    origins?:
+                        | Array<{
+                            moduleId?: string | number | undefined;
+                            module: string;
+                            moduleIdentifier: string;
+                            moduleName: string;
+                            loc: string;
+                            request: string;
+                            reasons: string[];
+                        }>
+                        | undefined;
+                    parents: number[];
+                    reason?: string | undefined;
+                    recorded?: boolean | undefined;
+                    rendered: boolean;
+                    size: number;
+                    siblings: number[];
+                }>
+                | undefined;
             entrypoints?: Record<string, ChunkGroup> | undefined;
             errors: string[];
             env?: Record<string, any> | undefined;
@@ -1825,7 +1885,13 @@ declare namespace webpack {
             warnings: string[];
         }
 
-        type StatsExcludeFilter = string | string[] | RegExp | RegExp[] | ((assetName: string) => boolean) | Array<(assetName: string) => boolean>;
+        type StatsExcludeFilter =
+            | string
+            | string[]
+            | RegExp
+            | RegExp[]
+            | ((assetName: string) => boolean)
+            | Array<(assetName: string) => boolean>;
 
         interface ToStringOptionsObject extends ToJsonOptionsObject {
             /** `webpack --colors` equivalent */
@@ -1861,10 +1927,10 @@ declare namespace webpack {
     }
 
     class DefinePlugin extends Plugin {
-        constructor(definitions: {[key: string]: DefinePlugin.CodeValueObject});
+        constructor(definitions: { [key: string]: DefinePlugin.CodeValueObject });
         static runtimeValue(
             fn: ({ module }: { module: compilation.Module }) => DefinePlugin.CodeValuePrimitive,
-            fileDependencies?: true | string[]
+            fileDependencies?: true | string[],
         ): DefinePlugin.RuntimeValue;
     }
 
@@ -1872,12 +1938,12 @@ declare namespace webpack {
         class RuntimeValue {
             constructor(
                 fn: ({ module }: { module: compilation.Module }) => CodeValuePrimitive,
-                fileDependencies?: string[]
+                fileDependencies?: string[],
             );
             exec(parser: compilation.normalModuleFactory.Parser): CodeValuePrimitive;
         }
         type CodeValuePrimitive = string | number | boolean | RegExp | RuntimeValue | null | undefined;
-        type CodeValueObject = CodeValuePrimitive | {[key: string]: CodeValueObject};
+        type CodeValueObject = CodeValuePrimitive | { [key: string]: CodeValueObject };
     }
 
     class DllPlugin extends Plugin {
@@ -1928,7 +1994,7 @@ declare namespace webpack {
             /**
              * An object containing `content` and `name`.
              */
-            manifest: { content: string, name: string } | string;
+            manifest: { content: string; name: string } | string;
 
             /**
              * The name where the DLL is exposed.
@@ -1984,9 +2050,9 @@ declare namespace webpack {
 
     class HashedModuleIdsPlugin extends Plugin {
         constructor(options?: {
-            hashFunction?: string | undefined,
-            hashDigest?: string | undefined,
-            hashDigestLength?: number | undefined
+            hashFunction?: string | undefined;
+            hashDigest?: string | undefined;
+            hashDigestLength?: number | undefined;
         });
     }
 
@@ -2117,7 +2183,7 @@ declare namespace webpack {
 
     namespace optimize {
         /** @deprecated use config.optimization.concatenateModules */
-        class ModuleConcatenationPlugin extends Plugin { }
+        class ModuleConcatenationPlugin extends Plugin {}
         class AggressiveMergingPlugin extends Plugin {
             constructor(options?: AggressiveMergingPlugin.Options);
         }
@@ -2201,7 +2267,7 @@ declare namespace webpack {
                 exclude?: Condition | Condition[] | undefined;
                 include?: Condition | Condition[] | undefined;
                 /** Parallelization can speedup your build significantly and is therefore highly recommended. */
-                parallel?: boolean | { cache: boolean, workers: boolean | number } | undefined;
+                parallel?: boolean | { cache: boolean; workers: boolean | number } | undefined;
                 sourceMap?: boolean | undefined;
                 test?: Condition | Condition[] | undefined;
             }
@@ -2213,7 +2279,12 @@ declare namespace webpack {
 
     namespace loader {
         interface Loader extends Function {
-            (this: LoaderContext, source: string | Buffer, sourceMap?: RawSourceMap): string | Buffer | void | undefined;
+            (
+                this: LoaderContext,
+                source: string | Buffer,
+                sourceMap?: RawSourceMap,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            ): string | Buffer | void | undefined;
 
             /**
              * The order of chained loaders are always called from right to left.
@@ -2236,7 +2307,7 @@ declare namespace webpack {
         type loaderCallback = (
             err: Error | undefined | null,
             content?: string | Buffer,
-            sourceMap?: string | RawSourceMap
+            sourceMap?: string | RawSourceMap,
         ) => void;
 
         interface LoaderContext {
@@ -2347,7 +2418,6 @@ declare namespace webpack {
              * Execute some code fragment like a module.
              *
              * Don't use require(this.resourcePath), use this function to make loaders chainable!
-             *
              */
             exec(code: string, filename: string): any;
 
@@ -2357,7 +2427,10 @@ declare namespace webpack {
              * instance of NormalModule). Use this function if you need to know the source code
              * of another module to generate the result.
              */
-            loadModule(request: string, callback: (err: Error | null, source: string, sourceMap: RawSourceMap, module: Module) => void): any;
+            loadModule(
+                request: string,
+                callback: (err: Error | null, source: string, sourceMap: RawSourceMap, module: Module) => void,
+            ): any;
 
             /**
              * Resolve a request like a require expression.
@@ -2429,7 +2502,15 @@ declare namespace webpack {
              * Target of compilation. Passed from configuration options.
              * Example values: "web", "node"
              */
-            target: 'web' | 'webworker' | 'async-node' | 'node' | 'electron-main' | 'electron-renderer' | 'node-webkit' | string;
+            target:
+                | "web"
+                | "webworker"
+                | "async-node"
+                | "node"
+                | "electron-main"
+                | "electron-renderer"
+                | "node-webkit"
+                | string;
 
             /**
              * This boolean is set to true when this is compiled by webpack.
@@ -2453,7 +2534,7 @@ declare namespace webpack {
             /**
              * Which mode is webpack running.
              */
-            mode: 'production' | 'development' | 'none';
+            mode: "production" | "development" | "none";
 
             /**
              * Hacky access to the Compilation object of webpack.
@@ -2494,9 +2575,11 @@ declare namespace webpack {
 
         function asString(str: string | string[]): string;
 
-        function getModulesArrayBounds(modules: ReadonlyArray<{
-            id: string | number;
-        }>): [number, number] | false;
+        function getModulesArrayBounds(
+            modules: ReadonlyArray<{
+                id: string | number;
+            }>,
+        ): [number, number] | false;
 
         function renderChunkModules(
             chunk: compilation.Chunk,

@@ -1,5 +1,5 @@
-import onFinished = require('on-finished');
-import { createServer, ServerResponse } from 'http';
+import onFinished = require("on-finished");
+import { createServer, ServerResponse } from "http";
 
 createServer((req, res) => {
     onFinished(req, (err, req) => {

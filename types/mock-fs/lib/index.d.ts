@@ -1,3 +1,3 @@
-import mock = require('../index');
+import mock = require("../index");
 
 export = mock;

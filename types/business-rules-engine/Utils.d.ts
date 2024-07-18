@@ -6,4 +6,6 @@ declare namespace Utils {
         static GetNegDigits(value: string): number;
     }
 }
-declare module "node-utils" {export = Utils;}
+declare module "node-utils" {
+    export = Utils;
+}

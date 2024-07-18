@@ -1,11 +1,11 @@
-import metascraper = require('metascraper');
-import metascraperLogoFavicon = require('metascraper-logo-favicon');
+import metascraper from "metascraper";
+import metascraperLogoFavicon = require("metascraper-logo-favicon");
 
-const html = 'example';
-const url = 'https://example.org';
+const html = "example";
+const url = "https://example.org";
 
 const pickFn: metascraperLogoFavicon.PickFunction = (sizes, pickDefault) => {
-    const appleTouchIcon = sizes.find(item => item.rel && item.rel.includes('apple'));
+    const appleTouchIcon = sizes.find(item => item.rel && item.rel.includes("apple"));
     return appleTouchIcon || pickDefault(sizes);
 };
 

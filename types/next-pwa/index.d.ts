@@ -1,33 +1,28 @@
-// Type definitions for next-pwa 5.6
-// Project: https://github.com/shadowwalker/next-pwa#readme
-// Definitions by: Nivaldo Farias <https://github.com/NivaldoFarias>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
+/// <reference path="global.d.ts" />
 /// <reference types="react"/>
 
-import type { RuntimeCaching, GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
+import type { GenerateSWOptions, InjectManifestOptions, RuntimeCaching } from "workbox-build";
 
 declare global {
     interface PopStateEventInit extends EventInit {
-        state?: unknown;
+        state?: any;
     }
 
     /**
      * PopStateEvent is an event handler for the popstate event on the window.
      *
-     * @virtual Re-declare type to allow tsconfig `lib: ["es6", "webworker"]` to work.
+     * Re-declare type to allow tsconfig `lib: ["es6", "webworker"]` to work.
      * @see [DOM and WebWorker Should not be mutually exclusive](https://github.com/microsoft/TypeScript/issues/20595)
      */
     interface PopStateEvent extends Event {
         /** Returns a copy of the information that was provided to pushState() or replaceState(). */
-        readonly state: unknown;
+        readonly state: any;
     }
 
     var PopStateEvent: {
         prototype: PopStateEvent;
-        new (type: string, eventInitDict?: PopStateEventInit): PopStateEvent;
+        new(type: string, eventInitDict?: PopStateEventInit): PopStateEvent;
     };
 }
 
@@ -262,7 +257,7 @@ declare function withPWA(config: NextConfig): NextConfig & PWAConfig;
 declare function nextPWA(config: PWAConfig): typeof withPWA;
 
 declare namespace nextPWA {
-    export { WithPWA, PWAConfig, FallbackRoutes, WebpackConfigOptions };
+    export { FallbackRoutes, PWAConfig, WebpackConfigOptions, WithPWA };
 }
 
 export = nextPWA;

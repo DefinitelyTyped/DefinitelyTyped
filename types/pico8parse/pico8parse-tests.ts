@@ -1,4 +1,4 @@
-import parser = require('pico8parse');
+import parser = require("pico8parse");
 
 const luaCode = "-- this is hello world in lua.\nprint('hello world')";
 
@@ -7,19 +7,19 @@ const ast1 = parser.parse(luaCode);
 console.log(JSON.stringify(ast1));
 
 // $ExpectType Chunk
-const ast2 = parser.parse(luaCode, {comments: false});
+const ast2 = parser.parse(luaCode, { comments: false });
 console.log(JSON.stringify(ast2));
 
 // $ExpectType Parser
-const ast3 = parser.parse({wait: true});
+const ast3 = parser.parse({ wait: true });
 console.log(JSON.stringify(ast3));
 
 // $ExpectType Parser
-const ast4 = parser.parse(luaCode, {wait: true});
+const ast4 = parser.parse(luaCode, { wait: true });
 console.log(JSON.stringify(ast4));
 
 // $ExpectType Chunk
-const ast5 = parser.parse(luaCode, {comments: false, encodingMode: 'pseudo-latin1'});
+const ast5 = parser.parse(luaCode, { comments: false, encodingMode: "pseudo-latin1" });
 console.log(JSON.stringify(ast5));
 
 // $ExpectType LabelStatement

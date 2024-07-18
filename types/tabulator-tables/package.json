@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/tabulator-tables",
+    "version": "6.2.9999",
+    "projects": [
+        "http://tabulator.info"
+    ],
+    "devDependencies": {
+        "@types/tabulator-tables": "workspace:."
+    },
+    "exports": {
+        ".": {
+            "require": "./index.d.ts",
+            "import": "./index.d.mts"
+        }
+    },
+    "owners": [
+        {
+            "name": "Josh Harris",
+            "githubUsername": "jojoshua"
+        },
+        {
+            "name": "Mike Lischke",
+            "githubUsername": "mike-lischke"
+        }
+    ]
+}

@@ -1,7 +1,7 @@
-import * as React from 'react';
-import Scrollspy from 'react-scrollspy';
+import * as React from "react";
+import Scrollspy from "react-scrollspy";
 
-const items: string[] = ['section-1', 'section-2', 'section-3'];
+const items: string[] = ["section-1", "section-2", "section-3"];
 
 function TestComponent() {
     return (

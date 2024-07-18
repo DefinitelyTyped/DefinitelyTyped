@@ -1,6 +1,6 @@
-import { Box3 } from './../math/Box3';
-import { Color } from './../math/Color';
-import { LineSegments } from './../objects/LineSegments';
+import { Box3 } from "../math/Box3.js";
+import { ColorRepresentation } from "../math/Color.js";
+import { LineSegments } from "../objects/LineSegments.js";
 
 /**
  * Helper object to visualize a {@link THREE.Box3 | Box3}.
@@ -20,7 +20,7 @@ export class Box3Helper extends LineSegments {
      * @param box The Box3 to show.
      * @param color The box's color. Default `0xffff00`
      */
-    constructor(box: Box3, color?: Color);
+    constructor(box: Box3, color?: ColorRepresentation);
 
     /**
      * A Read-only _string_ to check if `this` object type.
@@ -28,7 +28,7 @@ export class Box3Helper extends LineSegments {
      * @override
      * @defaultValue `Box3Helper`
      */
-    override readonly type: string | 'Box3Helper';
+    override readonly type: string | "Box3Helper";
 
     /**
      * The Box3 being visualized.

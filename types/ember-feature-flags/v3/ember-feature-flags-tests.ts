@@ -1,13 +1,13 @@
-import Features from 'ember-feature-flags';
-import 'ember-feature-flags/tests/helpers/with-feature';
+import Features from "ember-feature-flags";
+import "ember-feature-flags/tests/helpers/with-feature";
 
 /** Static assertion that `value` has type `T` */
 // Disable tslint here b/c the generic is used to let us do a type coercion and
 // validate that coercion works for the type value "passed into" the function.
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export declare function assertType<T>(value: T): void;
 
-declare module 'ember-feature-flags' {
+declare module "ember-feature-flags" {
     export default interface Features {
         someFeature: boolean;
     }
@@ -15,13 +15,13 @@ declare module 'ember-feature-flags' {
 
 // https://www.npmjs.com/package/ember-feature-flags#withfeature
 declare var features: Features;
-features.isEnabled('new-billing-plans'); // $ExpectType boolean
-features.enable('newHomepage'); // $ExpectType void
-features.disable('newHomepage'); // $ExpectType void
+features.isEnabled("new-billing-plans"); // $ExpectType boolean
+features.enable("newHomepage"); // $ExpectType void
+features.disable("newHomepage"); // $ExpectType void
 const setup = {
-    'new-billing-plans': true,
-    'new-homepage': false,
+    "new-billing-plans": true,
+    "new-homepage": false,
 };
 features.setup(setup); // $ExpectType void
-withFeature('new-homepage'); // $ExpectType void
-assertType<boolean>(features.get('someFeature'));
+withFeature("new-homepage"); // $ExpectType void
+assertType<boolean>(features.get("someFeature"));

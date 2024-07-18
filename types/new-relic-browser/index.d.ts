@@ -1,9 +1,3 @@
-// Type definitions for non-npm package NewRelicBrowser 0.1212
-// Project: https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
-// Definitions by: Rene Hamburger <https://github.com/renehamburger>
-//                 Piotr Kubisa <https://github.com/piotrkubisa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The browser and Single Page Application (SPA) APIs
  * allow you to customize and extend your browser monitoring.
@@ -61,6 +55,18 @@ declare namespace newrelic {
     function noticeError(error: Error | string, customAttributes?: Record<string, SimpleType>): void;
 
     /**
+     * Adds a user-defined application version string to subsequent events on the page.
+     *
+     * @param value Upon executing this function with a valid value, the browser agent appends an `application.version`
+     * attribute to all subsequent events until the attribute is manually unset or the page is unloaded. If the
+     * function is called more than once, only the most recent value provided will be sent on subsequent events.
+     * If this function is called with a value of `null`, any existing application version will cease to send on
+     * subsequent events.
+     * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-apis/setApplicationVersion/
+     */
+    function setApplicationVersion(value: string | null): void;
+
+    /**
      * Adds a user-defined attribute name and value to subsequent events on the page.
      *
      * @param name Name of the attribute. Appears as column in the PageView event.
@@ -70,7 +76,7 @@ declare namespace newrelic {
      *   values cannot be complex objects, only simple types such as strings and numbers.
      * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/set-custom-attribute
      */
-    function setCustomAttribute(name: string, value: SimpleType): void;
+    function setCustomAttribute(name: string, value: SimpleType, persist?: boolean): void;
 
     /**
      * Allows selective ignoring of known errors that the Browser agent captures.
@@ -114,6 +120,16 @@ declare namespace newrelic {
      * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-set-current-route-name
      */
     function setCurrentRouteName(name: string | null): void;
+
+    /**
+     * Adds a user-defined identifier string to subsequent events on the page.
+     *
+     * @param userId A string identifier for the end-user, useful for tying all browser events to specific users. The
+     * value parameter does not have to be unique. If IDs should be unique, the caller is responsible for that
+     * validation. Passing a null value unsets any existing user ID.
+     * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-apis/setuserid/
+     */
+    function setUserId(userId: string | null): void;
 
     interface EventObject {
         /** Event name */
@@ -167,7 +183,7 @@ declare namespace newrelic {
          * @returns This method returns the same API object created by interaction().
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-get-context
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         getContext<T extends ContextObject = ContextObject>(callback: GetContextCallback<T>): this;
 
         /**
@@ -186,7 +202,7 @@ declare namespace newrelic {
          * @returns This method returns the same API object created by interaction().
          * @see https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api/spa-on-end
          */
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         onEnd<T extends ContextObject = ContextObject>(callback: GetContextCallback<T>): this;
 
         /**

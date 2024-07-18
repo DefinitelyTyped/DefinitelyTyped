@@ -1,8 +1,8 @@
-import * as XXH from 'xxhashjs';
+import * as XXH from "xxhashjs";
 
 // Test data
 const seed = 0xABCD;
-const stringData = 'abcd';
+const stringData = "abcd";
 const arrayBufferData = new ArrayBuffer(4);
 const bufferData = Buffer.from([1, 2, 3, 4]);
 

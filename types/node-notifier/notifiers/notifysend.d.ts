@@ -1,4 +1,4 @@
-import notifier = require('../');
+import notifier = require("../");
 
 declare class NotifySend {
     constructor(option?: notifier.Option);

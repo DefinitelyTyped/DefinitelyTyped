@@ -30,7 +30,7 @@ declare namespace angular {
     interface Instruction {
         component: ComponentInstruction;
         child: Instruction;
-        auxInstruction: {[key: string]: Instruction};
+        auxInstruction: { [key: string]: Instruction };
 
         urlPath(): string;
 
@@ -247,8 +247,7 @@ declare namespace angular {
          * Navigate via the provided instruction. Returns a promise that resolves when navigation is
          * complete.
          */
-        navigateByInstruction(instruction: Instruction,
-                              _skipLocationChange?: boolean): IPromise<any>;
+        navigateByInstruction(instruction: Instruction, _skipLocationChange?: boolean): IPromise<any>;
 
         /**
          * Updates this router and all descendant routers according to the given instruction
@@ -287,7 +286,7 @@ declare namespace angular {
      * You can inject RouteData into the constructor of a component to use it.
      */
     interface RouteData {
-        data: {[key: string]: any};
+        data: { [key: string]: any };
         get(key: string): any;
     }
 
@@ -313,7 +312,7 @@ declare namespace angular {
         componentType: any;
         terminal: boolean;
         specificity: number;
-        params: {[key: string]: any};
+        params: { [key: string]: any };
     }
 
     /**
@@ -401,7 +400,10 @@ declare namespace angular {
      * {@example router/ts/reuse/reuse_example.ts region='reuseCmp'}
      */
     interface CanReuse {
-        $routerCanReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): boolean | IPromise<boolean>;
+        $routerCanReuse(
+            next?: angular.ComponentInstruction,
+            prev?: angular.ComponentInstruction,
+        ): boolean | IPromise<boolean>;
     }
 
     /**
@@ -470,7 +472,7 @@ declare namespace angular {
     // Supplement IComponentOptions from angular.d.ts with router-specific
     // fields.
     interface IComponentOptions {
-      $canActivate?: (...args: any[]) => boolean | angular.IPromise<boolean>;
-      $routeConfig?: RouteDefinition[];
+        $canActivate?: (...args: any[]) => boolean | angular.IPromise<boolean>;
+        $routeConfig?: RouteDefinition[];
     }
 }

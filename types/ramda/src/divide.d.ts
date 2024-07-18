@@ -1,2 +1,2 @@
-import { divide } from '../index';
+import { divide } from "../index";
 export default divide;

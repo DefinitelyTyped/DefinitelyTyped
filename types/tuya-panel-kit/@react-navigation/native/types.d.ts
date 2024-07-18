@@ -1,5 +1,11 @@
-import type { getStateFromPath as getStateFromPathDefault, getPathFromState as getPathFromStateDefault, PathConfigMap, Route } from '../core';
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+import type {
+    getPathFromState as getPathFromStateDefault,
+    getStateFromPath as getStateFromPathDefault,
+    PathConfigMap,
+    Route,
+} from "../core";
+// tslint:disable:interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Theme = {
     dark: boolean;
     colors: {
@@ -11,7 +17,7 @@ export declare type Theme = {
         notification: string;
     };
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type LinkingOptions = {
     /**
      * Whether deep link handling should be enabled.
@@ -83,6 +89,7 @@ export declare type LinkingOptions = {
      * }
      * ```
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     subscribe?: ((listener: (url: string) => void) => undefined | void | (() => void)) | undefined;
     /**
      * Custom function to parse the URL to a valid navigation state (advanced).
@@ -94,12 +101,12 @@ export declare type LinkingOptions = {
      */
     getPathFromState?: typeof getPathFromStateDefault | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type DocumentTitleOptions = {
     enabled?: boolean | undefined;
     formatter?: ((options: Record<string, any> | undefined, route: Route<string> | undefined) => string) | undefined;
 };
-// tslint:disable-next-line strict-export-declare-modifiers interface-over-type-literal
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type ServerContainerRef = {
     getCurrentOptions(): Record<string, any> | undefined;
 };

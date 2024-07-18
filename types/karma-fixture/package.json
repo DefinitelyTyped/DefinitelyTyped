@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/karma-fixture",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/billtrik/karma-fixture"
+    ],
+    "devDependencies": {
+        "@types/karma-fixture": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ezekiel Victor",
+            "githubUsername": "evictor"
+        },
+        {
+            "name": "Afshawn Lotfi",
+            "githubUsername": "afshawnlotfi"
+        }
+    ]
+}

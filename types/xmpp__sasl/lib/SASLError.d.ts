@@ -1,5 +1,5 @@
-import XMPPError = require('@xmpp/error');
+import XMPPError = require("@xmpp/error");
 
 export = SASLError;
 
-declare class SASLError extends XMPPError<'SASLError'> {}
+declare class SASLError extends XMPPError<"SASLError"> {}

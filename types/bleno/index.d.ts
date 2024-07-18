@@ -1,42 +1,43 @@
-// Type definitions for bleno 0.4
-// Project: https://github.com/sandeepmistry/bleno
-// Definitions by: Manuel Francisco Naranjo <naranjo.manuel@gmail.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-type State = 'poweredOn' | 'poweredOff' | 'unauthorized' | 'unsupported' | 'unknown' | 'resetting';
+type State = "poweredOn" | "poweredOff" | "unauthorized" | "unsupported" | "unknown" | "resetting";
 
-type Property = 'read' | 'write' | 'indicate' | 'notify' | 'writeWithoutResponse';
+type Property = "read" | "write" | "indicate" | "notify" | "writeWithoutResponse";
 
 interface CharacteristicOptions {
     uuid: string;
-    properties?: ReadonlyArray<Property> | null | undefined;
-    secure?: ReadonlyArray<Property> | null | undefined;
+    properties?: readonly Property[] | null | undefined;
+    secure?: readonly Property[] | null | undefined;
     value?: Buffer | null | undefined;
-    descriptors?: ReadonlyArray<Descriptor> | null | undefined;
+    descriptors?: readonly Descriptor[] | null | undefined;
     onIndicate?: (() => void) | null | undefined;
     onNotify?: (() => void) | null | undefined;
-    onReadRequest?: ((
-        offset: number,
-        callback: (result: number, data?: Buffer) => void
-    ) => void) | null | undefined;
+    onReadRequest?:
+        | ((
+            offset: number,
+            callback: (result: number, data?: Buffer) => void,
+        ) => void)
+        | null
+        | undefined;
     onSubscribe?: ((maxValueSize: number, updateValueCallback: any) => void) | null | undefined;
     onUnsubscribe?: (() => void) | null | undefined;
-    onWriteRequest?: ((
-        data: Buffer,
-        offset: number,
-        withoutResponse: boolean,
-        callback: (result: number) => void
-    ) => void) | null | undefined;
+    onWriteRequest?:
+        | ((
+            data: Buffer,
+            offset: number,
+            withoutResponse: boolean,
+            callback: (result: number) => void,
+        ) => void)
+        | null
+        | undefined;
 }
 
 declare class Characteristic {
     uuid: string;
-    properties: ReadonlyArray<Property>;
-    secure: ReadonlyArray<Property>;
+    properties: readonly Property[];
+    secure: readonly Property[];
     value: Buffer | null;
-    descriptors: ReadonlyArray<Descriptor>;
+    descriptors: readonly Descriptor[];
 
     constructor(options: CharacteristicOptions);
 
@@ -91,12 +92,12 @@ declare class Descriptor {
 
 interface PrimaryServiceOptions {
     uuid: string;
-    characteristics?: ReadonlyArray<Characteristic> | null | undefined;
+    characteristics?: readonly Characteristic[] | null | undefined;
 }
 
 declare class PrimaryService {
     uuid: string;
-    characteristics: ReadonlyArray<Characteristic>;
+    characteristics: readonly Characteristic[];
 
     constructor(options: PrimaryServiceOptions);
 
@@ -120,29 +121,43 @@ interface Bleno extends NodeJS.EventEmitter {
 
     disconnect(): void;
 
-    setServices(services: ReadonlyArray<PrimaryService>, callback?: (arg: Error | undefined | null) => void): void;
+    setServices(services: readonly PrimaryService[], callback?: (arg: Error | undefined | null) => void): void;
 
-    startAdvertising(name: string, serviceUuids?: ReadonlyArray<string>, callback?: (arg: Error | undefined | null) => void): void;
+    startAdvertising(
+        name: string,
+        serviceUuids?: readonly string[],
+        callback?: (arg: Error | undefined | null) => void,
+    ): void;
 
-    startAdvertisingIBeacon(uuid: string, major: number, minor: number, measuredPower: number, callback?: (arg: Error | undefined | null) => void): void;
+    startAdvertisingIBeacon(
+        uuid: string,
+        major: number,
+        minor: number,
+        measuredPower: number,
+        callback?: (arg: Error | undefined | null) => void,
+    ): void;
 
     startAdvertisingWithEIRData(advertisementData: Buffer, callback?: (arg: Error | undefined | null) => void): void;
-    startAdvertisingWithEIRData(advertisementData: Buffer, scanData: Buffer, callback?: (arg: Error | undefined | null) => void): void;
+    startAdvertisingWithEIRData(
+        advertisementData: Buffer,
+        scanData: Buffer,
+        callback?: (arg: Error | undefined | null) => void,
+    ): void;
 
     stopAdvertising(callback?: () => void): void;
 
     updateRssi(callback?: (err: null, rssi: number) => void): void;
 
-    on(event: 'stateChange', cb: (state: State) => void): this;
-    on(event: 'accept', cb: (address: string) => void): this;
-    on(event: 'mtuChange', cb: (mtu: number) => void): this;
-    on(event: 'disconnect', cb: (clientAddress: string) => void): this;
-    on(event: 'advertisingStart', cb: (err?: Error | null) => void): this;
-    on(event: 'advertisingStartError', cb: (err: Error) => void): this;
-    on(event: 'advertisingStop', cb: () => void): this;
-    on(event: 'servicesSet', cb: (err?: Error | null) => void): this;
-    on(event: 'servicesSetError', cb: (err: Error) => void): this;
-    on(event: 'rssiUpdate', cb: (rssi: number) => void): this;
+    on(event: "stateChange", cb: (state: State) => void): this;
+    on(event: "accept", cb: (address: string) => void): this;
+    on(event: "mtuChange", cb: (mtu: number) => void): this;
+    on(event: "disconnect", cb: (clientAddress: string) => void): this;
+    on(event: "advertisingStart", cb: (err?: Error | null) => void): this;
+    on(event: "advertisingStartError", cb: (err: Error) => void): this;
+    on(event: "advertisingStop", cb: () => void): this;
+    on(event: "servicesSet", cb: (err?: Error | null) => void): this;
+    on(event: "servicesSetError", cb: (err: Error) => void): this;
+    on(event: "rssiUpdate", cb: (rssi: number) => void): this;
 }
 
 declare const bleno: Bleno;

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/tpdirect",
+    "version": "5.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "tpdirect-browser",
+    "projects": [
+        "https://docs.tappaysdk.com/tutorial/en/home.html"
+    ],
+    "devDependencies": {
+        "@types/tpdirect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yu-Jack",
+            "githubUsername": "Yu-Jack"
+        }
+    ]
+}

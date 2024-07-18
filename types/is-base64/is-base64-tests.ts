@@ -1,6 +1,6 @@
-import isBase64 = require('is-base64');
+import isBase64 = require("is-base64");
 
-const string = '';
+const string = "";
 
 const test1: boolean = isBase64(string);
 const test2: boolean = isBase64(string, { allowEmpty: true });

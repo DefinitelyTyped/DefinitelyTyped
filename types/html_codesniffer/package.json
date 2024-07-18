@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/html_codesniffer",
+    "version": "2.5.9999",
+    "projects": [
+        "http://squizlabs.github.io/HTML_CodeSniffer/"
+    ],
+    "devDependencies": {
+        "@types/html_codesniffer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

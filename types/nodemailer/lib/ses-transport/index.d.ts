@@ -1,14 +1,14 @@
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-import { Transport, TransportOptions } from '../..';
+import { Transport, TransportOptions } from "../..";
 
-import * as shared from '../shared';
+import * as shared from "../shared";
 
-import Mail = require('../mailer');
-import MailMessage = require('../mailer/mail-message');
-import MimeNode = require('../mime-node');
+import Mail = require("../mailer");
+import MailMessage = require("../mailer/mail-message");
+import MimeNode = require("../mime-node");
 
 declare namespace SESTransport {
     interface MailOptions extends Mail.Options {
@@ -32,7 +32,7 @@ declare namespace SESTransport {
             /**
              * The raw data of the message. This data needs to base64-encoded if you are accessing Amazon SES directly through the HTTPS interface. If you are accessing Amazon SES using an AWS SDK, the SDK takes care of the base 64-encoding for you. In all cases, the client must ensure that the message format complies with Internet email standards regarding email header fields, MIME types, and MIME encoding. The To:, CC:, and BCC: headers in the raw message can contain a group list. If you are using SendRawEmail with sending authorization, you can include X-headers in the raw message to specify the "Source," "From," and "Return-Path" addresses. For more information, see the documentation for SendRawEmail.   Do not include these X-headers in the DKIM signature, because they are removed by Amazon SES before sending the email.  For more information, go to the Amazon SES Developer Guide.
              */
-            Data: Buffer|Uint8Array|{}|string;
+            Data: Buffer | Uint8Array | {} | string;
         } | undefined;
         /**
          * This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to specify a particular "From" address in the header of the raw email. Instead of using this parameter, you can use the X-header X-SES-FROM-ARN in the raw message of the email. If you use both the FromArn parameter and the corresponding X-header, Amazon SES uses the value of the FromArn parameter.  For information about when to use this parameter, see the description of SendRawEmail in this guide, or see the Amazon SES Developer Guide.
@@ -49,16 +49,18 @@ declare namespace SESTransport {
         /**
          * A list of tags, in the form of name/value pairs, to apply to an email that you send using SendRawEmail. Tags correspond to characteristics of the email that you define, so that you can publish email sending events.
          */
-        Tags?: Array<{
-            /**
-             * The name of the tag. The name must:   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).   Contain less than 256 characters.
-             */
-            Name: string;
-            /**
-             * The value of the tag. The value must:   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).   Contain less than 256 characters.
-             */
-            Value: string;
-        }> | undefined;
+        Tags?:
+            | Array<{
+                /**
+                 * The name of the tag. The name must:   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).   Contain less than 256 characters.
+                 */
+                Name: string;
+                /**
+                 * The value of the tag. The value must:   This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).   Contain less than 256 characters.
+                 */
+                Value: string;
+            }>
+            | undefined;
         /**
          * The name of the configuration set to use when you send an email using SendRawEmail.
          */
@@ -83,6 +85,7 @@ declare namespace SESTransport {
         accepted: Array<string | Mail.Address>;
         rejected: Array<string | Mail.Address>;
         pending: Array<string | Mail.Address>;
+        raw: Buffer;
     }
 }
 
@@ -102,14 +105,22 @@ declare class SESTransport extends EventEmitter implements Transport<SESTranspor
     sendingRate: number;
     sendingRateTTL: number | null;
     rateInterval: number;
-    rateMessages: Array<{ ts: number, pending: boolean }>;
-    pending: Array<{ mail: Mail<SESTransport.SentMessageInfo>; callback(err: Error | null, info: SESTransport.SentMessageInfo): void; }>;
+    rateMessages: Array<{ ts: number; pending: boolean }>;
+    pending: Array<
+        {
+            mail: Mail<SESTransport.SentMessageInfo>;
+            callback(err: Error | null, info: SESTransport.SentMessageInfo): void;
+        }
+    >;
     idling: boolean;
 
     constructor(options: SESTransport.Options);
 
     /** Schedules a sending of a message */
-    send(mail: MailMessage<SESTransport.SentMessageInfo>, callback: (err: Error | null, info: SESTransport.SentMessageInfo) => void): void;
+    send(
+        mail: MailMessage<SESTransport.SentMessageInfo>,
+        callback: (err: Error | null, info: SESTransport.SentMessageInfo) => void,
+    ): void;
 
     /** Returns true if there are free slots in the queue */
     isIdle(): boolean;
@@ -118,19 +129,19 @@ declare class SESTransport extends EventEmitter implements Transport<SESTranspor
     verify(callback: (err: Error | null, success: true) => void): void;
     verify(): Promise<true>;
 
-    addListener(event: 'idle', listener: () => void): this;
+    addListener(event: "idle", listener: () => void): this;
 
-    emit(event: 'idle'): boolean;
+    emit(event: "idle"): boolean;
 
-    on(event: 'idle', listener: () => void): this;
+    on(event: "idle", listener: () => void): this;
 
-    once(event: 'idle', listener: () => void): this;
+    once(event: "idle", listener: () => void): this;
 
-    prependListener(event: 'idle', listener: () => void): this;
+    prependListener(event: "idle", listener: () => void): this;
 
-    prependOnceListener(event: 'idle', listener: () => void): this;
+    prependOnceListener(event: "idle", listener: () => void): this;
 
-    listeners(event: 'idle'): Array<() => void>;
+    listeners(event: "idle"): Array<() => void>;
 }
 
 export = SESTransport;

@@ -1,3 +1,3 @@
-import isRenderer = require('is-electron-renderer');
+import isRenderer = require("is-electron-renderer");
 
 isRenderer; // $ExpectType boolean

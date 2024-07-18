@@ -1,4 +1,6 @@
+// eslint-disable-next-line @definitelytyped/no-self-import
 import ContainerProxyMixin from "@ember/engine/-private/container-proxy-mixin";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
 import EmberObject from "@ember/object";
 

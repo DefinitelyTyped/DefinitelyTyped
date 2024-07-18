@@ -50,7 +50,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): RadioSelectInputWidget;
+            new(config?: ConfigOptions): RadioSelectInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

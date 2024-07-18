@@ -1,7 +1,7 @@
-import { Encodable, LeaseFrame } from 'rsocket-types';
-import { Flowable } from 'rsocket-flowable';
+import { Flowable } from "rsocket-flowable";
+import { Encodable, LeaseFrame } from "rsocket-types";
 
-export type EventType = 'Accept' | 'Reject' | 'Terminate';
+export type EventType = "Accept" | "Reject" | "Terminate";
 
 export interface LeaseStats {
     onEvent(event: EventType): void;
@@ -61,7 +61,7 @@ export class ResponderLeaseHandler implements LeaseHandler {
     constructor(
         leaseSender: (leaseStats?: LeaseStats) => Flowable<Lease>,
         stats?: LeaseStats,
-        errorConsumer?: (e: Error) => void
+        errorConsumer?: (e: Error) => void,
     );
 
     use(): boolean;

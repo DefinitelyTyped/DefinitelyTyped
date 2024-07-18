@@ -1,5 +1,5 @@
-import { Light } from './Light';
-import { ColorRepresentation } from '../math/Color';
+import { ColorRepresentation } from "../math/Color.js";
+import { Light } from "./Light.js";
 
 /**
  * {@link RectAreaLight} emits light uniformly across the face a rectangular plane
@@ -47,7 +47,7 @@ export class RectAreaLight extends Light<undefined> {
      * @remarks Sub-classes will update this value.
      * @defaultValue `RectAreaLight`
      */
-    override readonly type: string | 'RectAreaLight';
+    override readonly type: string | "RectAreaLight";
 
     /**
      * The width of the light.
@@ -66,7 +66,7 @@ export class RectAreaLight extends Light<undefined> {
     /**
      * The light's intensity.
      * @remarks Changing the intensity will also change the light's power.
-     * In **{@link WebGLRenderer.physicallyCorrectLights | physically correct} rendering mode** — intensity is the luminance (brightness) of the light measured in nits (cd/m^2).
+     * When **{@link WebGLRenderer.useLegacyLights | legacy lighting mode} is disabled** — intensity is the luminance (brightness) of the light measured in nits (cd/m^2).
      * @remarks Expects a `Float`
      * @defaultValue `1`
      */
@@ -75,7 +75,7 @@ export class RectAreaLight extends Light<undefined> {
     /**
      * The light's power.
      * @remarks Changing the power will also change the light's intensity.
-     * In **{@link WebGLRenderer.physicallyCorrectLights | physically correct} rendering mode** — power is the luminous power of the light measured in lumens (lm).
+     * When **{@link WebGLRenderer.useLegacyLights | legacy lighting mode} is disabled** — power is the luminous power of the light measured in lumens (lm).
      * @remarks Expects a `Float`
      */
     power: number;

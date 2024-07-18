@@ -1,2 +1,2 @@
-import ToPropertyKey = require('../2016/ToPropertyKey');
+import ToPropertyKey = require("../2016/ToPropertyKey");
 export = ToPropertyKey;

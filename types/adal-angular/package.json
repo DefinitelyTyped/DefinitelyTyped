@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/adal-angular",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/AzureAD/azure-activedirectory-library-for-js#readme"
+    ],
+    "devDependencies": {
+        "@types/adal-angular": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        },
+        {
+            "name": "Anthony Ciccarello",
+            "githubUsername": "aciccarello"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for uzip 0.20201231
-// Project: https://github.com/photopea/UZIP.js
-// Definitions by: lucaspontoexe <https://github.com/lucaspontoexe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Object with `key:property` pairs, where `key` is a file path, and `property` is an Uint8Array of its contents
  */

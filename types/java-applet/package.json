@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/java-applet",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "java-applet",
+    "projects": [
+        "https://www.java.com/"
+    ],
+    "devDependencies": {
+        "@types/java-applet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/node-statsd",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/sivy/node-statsd"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-statsd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Turek",
+            "githubUsername": "alexturek"
+        },
+        {
+            "name": "Convoy",
+            "githubUsername": "convoyinc"
+        }
+    ]
+}

@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.management
- * Generated from Mozilla sources. Do not manually edit!
  *
  * The <code>browser.management</code> API provides ways to manage the list of extensions that are installed and running.
  *
@@ -9,8 +12,8 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
-import { Manifest } from "./manifest";
 import { Events } from "./events";
+import { Manifest } from "./manifest";
 
 export namespace Management {
     /**

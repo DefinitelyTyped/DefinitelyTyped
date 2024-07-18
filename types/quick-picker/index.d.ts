@@ -1,19 +1,14 @@
-// Type definitions for quick-picker 2.0
-// Project: https://github.com/Valiums/react-native-quickpicker#readme
-// Definitions by: Tamas Illes <https://github.com/illestomas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
-import { TextStyle, ViewStyle } from 'react-native';
+import * as React from "react";
+import { TextStyle, ViewStyle } from "react-native";
 
 export default class QuickPicker extends React.Component {
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     static open: <T = ItemType>(options: QuickPickerOpenOptions<T>) => void;
     static close: () => void;
 }
 
 // tslint:disable-next-line
-type PickerType = 'normal' | 'time';
+type PickerType = "normal" | "time";
 
 // tslint:disable-next-line
 type ItemType = {
@@ -21,10 +16,10 @@ type ItemType = {
     readonly label: string;
 };
 
-type PickerMode = 'date' | 'time' | 'datetime' | 'countdown';
+type PickerMode = "date" | "time" | "datetime" | "countdown";
 
 // tslint:disable-next-line
-type PickerDisplayType = 'default' | 'spinner' | 'calendar' | 'clock';
+type PickerDisplayType = "default" | "spinner" | "calendar" | "clock";
 interface QuickPickerOpenOptions<T = ItemType> {
     /**
      * Picker's selected item
@@ -197,4 +192,4 @@ interface QuickPickerOpenOptions<T = ItemType> {
     readonly useNativeDriver?: boolean;
 }
 
-export { QuickPickerOpenOptions, ItemType };
+export { ItemType, QuickPickerOpenOptions };

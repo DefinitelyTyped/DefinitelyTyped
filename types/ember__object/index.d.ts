@@ -1,22 +1,17 @@
-// Type definitions for non-npm package @ember/object 4.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fobject
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
-import CoreObject from '@ember/object/core';
-import Observable from '@ember/object/observable';
+// eslint-disable-next-line @definitelytyped/no-self-import
+import CoreObject from "@ember/object/core";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Observable from "@ember/object/observable";
+// eslint-disable-next-line @definitelytyped/no-self-import
 import {
     ComputedPropertyCallback,
     UnwrapComputedPropertyGetter,
-    UnwrapComputedPropertySetter,
     UnwrapComputedPropertyGetters,
+    UnwrapComputedPropertySetter,
     UnwrapComputedPropertySetters,
-} from '@ember/object/-private/types';
-import ComputedProperty from '@ember/object/computed';
+} from "@ember/object/-private/types";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import ComputedProperty from "@ember/object/computed";
 
 /**
  * `Ember.Object` is the main base class for all Ember objects. It is a subclass
@@ -24,7 +19,7 @@ import ComputedProperty from '@ember/object/computed';
  * see the documentation for each of these.
  */
 export default class EmberObject extends CoreObject {}
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface EmberObject extends Observable {}
 
 /**
@@ -140,7 +135,7 @@ export function notifyPropertyChange(obj: object, keyName: string): void;
 
 export const action: MethodDecorator;
 
-declare module '@ember/utils/-private/types' {
+declare module "@ember/utils/-private/types" {
     interface TypeLookup {
         class: typeof EmberObject;
         instance: EmberObject;

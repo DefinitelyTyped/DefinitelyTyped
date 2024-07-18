@@ -30,8 +30,6 @@ declare class Class_TcpServer extends Class__object {
      * 
      * @brief 服务器当前侦听的 Socket 对象
      * 
-     * @readonly
-     * @type Socket
      */
     
     socket: Class_Socket
@@ -43,7 +41,6 @@ declare class Class_TcpServer extends Class__object {
      * @brief 服务器当前事件处理接口对象
      * 
      * 
-     * @type Handler
      */
     
     handler: Class_Handler
@@ -65,8 +62,6 @@ declare class Class_TcpServer extends Class__object {
      * ```
      * 
      * 
-     * @readonly
-     * @type Stats
      */
     
     stats: Class_Stats

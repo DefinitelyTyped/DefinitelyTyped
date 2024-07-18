@@ -6,83 +6,83 @@ buttonRenderer.render(
         env: paypal.Environment.Production,
 
         payment: async () => {
-            return 'foo';
+            return "foo";
         },
 
         onAuthorize: async (
             data: paypal.AuthorizationData,
             actions: object,
         ): Promise<paypal.AuthorizationResponse> => {
-            console.log('onAuthorize', data, actions);
+            console.log("onAuthorize", data, actions);
 
             return {
-                nonce: 'foo',
+                nonce: "foo",
                 type: paypal.FlowType.Checkout,
                 details: {
-                    email: 'foo@bar.com',
-                    payerId: '123',
-                    firstName: 'Buyer',
-                    lastName: 'McGee',
+                    email: "foo@bar.com",
+                    payerId: "123",
+                    firstName: "Buyer",
+                    lastName: "McGee",
                 },
             };
         },
 
         onCancel: (data: paypal.CancellationData) => {
-            console.log('checkout.js payment cancelled', data);
+            console.log("checkout.js payment cancelled", data);
         },
 
         onError: (error: string) => {
-            console.error('checkout.js error', error);
+            console.error("checkout.js error", error);
         },
 
         funding: {
             allowed: [paypal.FUNDING.CARD],
-            disallowed: [paypal.FUNDING.VENMO]
-        }
+            disallowed: [paypal.FUNDING.VENMO],
+        },
     },
-    '#paypal-button',
+    "#paypal-button",
 );
 
 buttonsRenderer({
     style: {
-        color: paypal.ButtonColorOption.White
+        color: paypal.ButtonColorOption.White,
     },
 
-    fundingSource: 'paypal',
+    fundingSource: "paypal",
 
     createOrder: async (): Promise<string> => {
-        return 'payment__id_123';
+        return "payment__id_123";
     },
 
     onApprove: async (
         data: paypal.AuthorizationData,
         actions: object,
     ): Promise<paypal.AuthorizationResponse> => {
-        console.log('onAuthorize', data, actions);
+        console.log("onAuthorize", data, actions);
 
         return {
-            nonce: 'foo',
+            nonce: "foo",
             type: paypal.FlowType.Checkout,
             details: {
-                email: 'foo@bar.com',
-                payerId: '123',
-                firstName: 'Buyer',
-                lastName: 'McGee',
+                email: "foo@bar.com",
+                payerId: "123",
+                firstName: "Buyer",
+                lastName: "McGee",
             },
         };
     },
 
     onCancel: (data: paypal.CancellationData) => {
-        console.log('PayPal JS SDK payment cancelled', data);
+        console.log("PayPal JS SDK payment cancelled", data);
     },
 
     onError: (error: string) => {
-        console.error('PayPal JS SDK error', error);
+        console.error("PayPal JS SDK error", error);
     },
 
     onInit: (data: paypal.AuthorizationData, actions: object) => {
-        console.error('onInit', data, actions);
+        console.error("onInit", data, actions);
     },
 
-    onClick: () => {}
-}).render('#paypal-button');
+    onClick: () => {},
+}).render("#paypal-button");

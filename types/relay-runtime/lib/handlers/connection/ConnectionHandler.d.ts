@@ -1,13 +1,13 @@
-import { DataID, Variables } from '../../../lib/util/RelayRuntimeTypes';
 import {
-    RecordSourceProxy,
-    RecordProxy,
-    ReadOnlyRecordProxy,
     HandleFieldPayload,
-} from '../../../lib/store/RelayStoreTypes';
+    ReadOnlyRecordProxy,
+    RecordProxy,
+    RecordSourceProxy,
+} from "../../../lib/store/RelayStoreTypes";
+import { DataID, Variables } from "../../../lib/util/RelayRuntimeTypes";
 
 export interface ConnectionMetadata {
-    path: ReadonlyArray<string> | null | undefined;
+    path: readonly string[] | null | undefined;
     direction: string | null | undefined; // 'forward' | 'backward' | 'bidirectional' | null | undefined;
     cursor: string | null | undefined;
     count: string | null | undefined;

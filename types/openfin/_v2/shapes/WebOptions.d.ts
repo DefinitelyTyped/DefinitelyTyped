@@ -1,4 +1,4 @@
-import { PreloadScript } from './PreloadScript';
+import { PreloadScript } from "./PreloadScript";
 export interface WebOptions {
     preloadScripts?: PreloadScript[] | undefined;
     uuid: string;

@@ -1,6 +1,0 @@
-{
-    "private": true,
-    "dependencies": {
-        "@wordpress/data": "^8.5.0"
-    }
-}

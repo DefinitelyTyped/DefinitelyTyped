@@ -1,6 +1,40 @@
 {
     "private": true,
+    "name": "@types/hapi",
+    "version": "18.0.9999",
+    "projects": [
+        "https://github.com/hapijs/hapi",
+        "https://hapijs.com"
+    ],
     "dependencies": {
+        "@types/boom": "*",
+        "@types/catbox": "*",
+        "@types/iron": "*",
+        "@types/mimos": "*",
+        "@types/node": "*",
+        "@types/podium": "*",
+        "@types/shot": "*",
         "joi": "^17.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rafael Souza Fijalkowski",
+            "githubUsername": "rafaelsouzaf"
+        },
+        {
+            "name": "Justin Simms",
+            "githubUsername": "jhsimms"
+        },
+        {
+            "name": "Simon Schick",
+            "githubUsername": "SimonSchick"
+        },
+        {
+            "name": "Rodrigo Saboya",
+            "githubUsername": "saboya"
+        }
+    ]
 }

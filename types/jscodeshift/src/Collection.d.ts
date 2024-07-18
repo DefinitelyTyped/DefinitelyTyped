@@ -8,28 +8,30 @@ import VariableDeclarator = require("./collections/VariableDeclarator");
 type ASTPath<N> = nodePath.NodePath<N, N>;
 
 export interface Collection<N>
-    extends NodeCollection.TraversalMethods,
+    extends
+        NodeCollection.TraversalMethods,
         NodeCollection.MutationMethods<N>,
         VariableDeclarator.GlobalMethods,
         VariableDeclarator.TransformMethods<N>,
         JSXElement.GlobalMethods,
-        JSXElement.TraversalMethods {
+        JSXElement.TraversalMethods
+{
     /**
      * @param paths An array of AST paths
      * @param parent A parent collection
      * @param types An array of types all the paths in the collection
      *  have in common. If not passed, it will be inferred from the paths.
      */
-    new (paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Array<types.Type<any>>): this;
+    new(paths: Array<ASTPath<N>>, parent: Collection<any>, types?: Array<types.Type<any>>): this;
 
     /**
      * Returns a new collection containing the nodes for which the callback returns true.
      */
     filter<S extends N>(
-        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => path is ASTPath<S>
+        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => path is ASTPath<S>,
     ): Collection<S>;
     filter(
-        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean
+        callback: (path: ASTPath<N>, i: number, paths: Array<ASTPath<N>>) => boolean,
     ): Collection<N>;
 
     /**
@@ -64,9 +66,9 @@ export interface Collection<N>
         callback: (
             path: ASTPath<N>,
             i: number,
-            paths: Array<ASTPath<N>>
+            paths: Array<ASTPath<N>>,
         ) => ASTPath<T> | Array<ASTPath<T>> | null | undefined,
-        type?: types.Type<any>
+        type?: types.Type<any>,
     ): Collection<T>;
 
     /** Returns the number of elements in this collection. */

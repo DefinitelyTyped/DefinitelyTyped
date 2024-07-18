@@ -1,28 +1,28 @@
-import { JSON_WEB_OBJECT, NightwatchSizeAndPosition, ElementResult } from 'nightwatch';
+import { ElementGlobal, ElementResult, JSON_WEB_OBJECT, NightwatchSizeAndPosition } from "nightwatch";
 
-import { isNightwatchAPI, isType, isNightwatchCallbackResult } from './utils';
+import { isNightwatchAPI, isNightwatchCallbackResult, isType } from "./utils";
 
 //
 // .clearValue
 //
-describe('clearValue Command demo', function() {
-    test('demo test', function() {
+describe("clearValue Command demo", function() {
+    test("demo test", function() {
         browser
-            .url('https://google.com')
-            .waitForElementVisible('input[type=text]')
-            .setValue('input[type=text]', 'nightwatch.js')
-            .clearValue('input[type=text]', function(result) {
+            .url("https://google.com")
+            .waitForElementVisible("input[type=text]")
+            .setValue("input[type=text]", "nightwatch.js")
+            .clearValue("input[type=text]", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
-            }).expect.element('input[type=text]').text.to.equal('');
+            }).expect.element("input[type=text]").text.to.equal("");
     });
 
-    test('async demo test', async function(browser) {
+    test("async demo test", async function(browser) {
         const result = await browser
-            .url('https://google.com')
-            .waitForElementVisible('input[type=text]')
-            .setValue('input[type=text]', 'nightwatch.js')
-            .clearValue('input[type=text]');
+            .url("https://google.com")
+            .waitForElementVisible("input[type=text]")
+            .setValue("input[type=text]", "nightwatch.js")
+            .clearValue("input[type=text]");
         isType<null>(result);
     });
 });
@@ -30,24 +30,24 @@ describe('clearValue Command demo', function() {
 //
 // .click
 //
-describe('click Command demo', function() {
-    test('demo test', function() {
+describe("click Command demo", function() {
+    test("demo test", function() {
         browser
-            .url('https://google.com')
-            .waitForElementVisible('input[type=text]')
-            .setValue('input[type=text]', 'nightwatch.js')
-            .click('input[type=submit]', function(result) {
+            .url("https://google.com")
+            .waitForElementVisible("input[type=text]")
+            .setValue("input[type=text]", "nightwatch.js")
+            .click("input[type=submit]", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
+    test("async demo test", async function(browser) {
         const result = await browser
-            .url('https://google.com')
-            .waitForElementVisible('input[type=text]')
-            .setValue('input[type=text]', 'nightwatch.js')
-            .click('input[type=submit]');
+            .url("https://google.com")
+            .waitForElementVisible("input[type=text]")
+            .setValue("input[type=text]", "nightwatch.js")
+            .click("input[type=submit]");
         isType<null>(result);
     });
 });
@@ -55,19 +55,19 @@ describe('click Command demo', function() {
 //
 // .getAttribute
 //
-describe('getAttribute command demo', function() {
-    before(browser => browser.url('https://www.google.com/'));
+describe("getAttribute command demo", function() {
+    before(browser => browser.url("https://www.google.com/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .getAttribute('input[type=text]', 'title' , function(result) {
+            .getAttribute("input[type=text]", "title", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string | null>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getAttribute('input[type=text]', 'title');
+    test("async demo test", async function(browser) {
+        const result = await browser.getAttribute("input[type=text]", "title");
         isType<string | null>(result);
     });
 
@@ -77,19 +77,19 @@ describe('getAttribute command demo', function() {
 //
 // .getCssProperty
 //
-describe('getCssProperty command demo', function() {
-    before(browser => browser.url('https://www.google.com/'));
+describe("getCssProperty command demo", function() {
+    before(browser => browser.url("https://www.google.com/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .getCssProperty('input[type=text]', 'background-color' , function(result) {
+            .getCssProperty("input[type=text]", "background-color", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getCssProperty('input[type=text]', 'background-color');
+    test("async demo test", async function(browser) {
+        const result = await browser.getCssProperty("input[type=text]", "background-color");
         isType<string>(result);
     });
 
@@ -99,18 +99,18 @@ describe('getCssProperty command demo', function() {
 //
 // .getElementSize
 //
-describe('getElementSize command demo', function() {
-    test('demo test', function() {
+describe("getElementSize command demo", function() {
+    test("demo test", function() {
         browser
-            .url('https://www.ecosia.org/')
-            .getElementSize('#navbartop', function(result) {
+            .url("https://www.ecosia.org/")
+            .getElementSize("#navbartop", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<NightwatchSizeAndPosition>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.url('https://www.ecosia.org/').getElementSize('#__nuxt');
+    test("async demo test", async function(browser) {
+        const result = await browser.url("https://www.ecosia.org/").getElementSize("#__nuxt");
         isType<NightwatchSizeAndPosition>(result);
     });
 });
@@ -118,18 +118,18 @@ describe('getElementSize command demo', function() {
 //
 // .getLocation
 //
-describe('getLocation command demo', function() {
-    test('demo test', function() {
+describe("getLocation command demo", function() {
+    test("demo test", function() {
         browser
-            .url('https://www.ecosia.org/')
-            .getLocation('#__nuxt', function(result) {
+            .url("https://www.ecosia.org/")
+            .getLocation("#__nuxt", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<NightwatchSizeAndPosition>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.url('https://www.ecosia.org/').getLocation('#__nuxt');
+    test("async demo test", async function(browser) {
+        const result = await browser.url("https://www.ecosia.org/").getLocation("#__nuxt");
         isType<NightwatchSizeAndPosition>(result);
     });
 });
@@ -137,19 +137,19 @@ describe('getLocation command demo', function() {
 //
 // .getTagName
 //
-describe('getTagName command demo', function() {
-    before(browser => browser.url('https://www.ecosia.org/'));
+describe("getTagName command demo", function() {
+    before(browser => browser.url("https://www.ecosia.org/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .getTagName('#__nuxt', function(result) {
+            .getTagName("#__nuxt", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getTagName('#__nuxt');
+    test("async demo test", async function(browser) {
+        const result = await browser.getTagName("#__nuxt");
         isType<string>(result);
     });
 
@@ -159,19 +159,19 @@ describe('getTagName command demo', function() {
 //
 // .getText
 //
-describe('getText command demo', function() {
-    before(browser => browser.url('https://nightwatchjs.org/'));
+describe("getText command demo", function() {
+    before(browser => browser.url("https://nightwatchjs.org/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .getText('#top-section', function(result) {
+            .getText("#top-section", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getText('#top-section');
+    test("async demo test", async function(browser) {
+        const result = await browser.getText("#top-section");
         isType<string>(result);
     });
 
@@ -181,20 +181,20 @@ describe('getText command demo', function() {
 //
 // .getValue
 //
-describe('getValue command demo', function() {
-    before(browser => browser.url('https://google.com/'));
+describe("getValue command demo", function() {
+    before(browser => browser.url("https://google.com/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .setValue('input[type=text]', 'nightwatchjs')
-            .getValue('input[type=text]', function(result) {
+            .setValue("input[type=text]", "nightwatchjs")
+            .getValue("input[type=text]", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getValue('input[type=text]');
+    test("async demo test", async function(browser) {
+        const result = await browser.getValue("input[type=text]");
         isType<string>(result);
     });
 
@@ -202,20 +202,40 @@ describe('getValue command demo', function() {
 });
 
 //
+// .getShadowRoot
+//
+describe("getShadowRoot command demo", function() {
+    test("demo test", function() {
+        browser.getShadowRoot("input[type=text]", function(result) {
+            isNightwatchAPI(this);
+            isNightwatchCallbackResult<ElementGlobal | null>(result);
+        });
+    });
+
+    test("async demo test", async function(browser) {
+        const result = await browser.getShadowRoot("input[type=text]");
+        isType<ElementGlobal | null>(result);
+
+        const result2 = await browser.getShadowRoot(await element("selector").getWebElement());
+        isType<ElementGlobal | null>(result2);
+    });
+});
+
+//
 // .isVisible
 //
-describe('isVisible command demo', function() {
-    before(browser => browser.url('https://google.com/'));
-    test('demo test', function() {
+describe("isVisible command demo", function() {
+    before(browser => browser.url("https://google.com/"));
+    test("demo test", function() {
         browser
-            .isVisible('input[type=text]', function(result) {
+            .isVisible("input[type=text]", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<boolean>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.isVisible('input[type=text]');
+    test("async demo test", async function(browser) {
+        const result = await browser.isVisible("input[type=text]");
         isType<boolean>(result);
     });
 
@@ -225,18 +245,18 @@ describe('isVisible command demo', function() {
 //
 // .isPresent
 //
-describe('isPresent command demo', function() {
-    before(browser => browser.url('https://google.com/'));
-    test('demo test', function() {
+describe("isPresent command demo", function() {
+    before(browser => browser.url("https://google.com/"));
+    test("demo test", function() {
         browser
-            .isPresent('input[type=text]', function(result) {
+            .isPresent("input[type=text]", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<boolean>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.isPresent('input[type=text]');
+    test("async demo test", async function(browser) {
+        const result = await browser.isPresent("input[type=text]");
         isType<boolean>(result);
     });
 
@@ -246,18 +266,18 @@ describe('isPresent command demo', function() {
 //
 // .setValue
 //
-describe('setValue command demo', function() {
-    before(browser => browser.url('https://google.com/'));
-    test('demo test', function() {
+describe("setValue command demo", function() {
+    before(browser => browser.url("https://google.com/"));
+    test("demo test", function() {
         browser
-            .setValue('input[type=text]', 'nightwatchjs', function(result) {
+            .setValue("input[type=text]", "nightwatchjs", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.setValue('input[type=text]', 'nightwatchjs');
+    test("async demo test", async function(browser) {
+        const result = await browser.setValue("input[type=text]", "nightwatchjs");
         isType<null>(result);
     });
 
@@ -267,19 +287,19 @@ describe('setValue command demo', function() {
 //
 // .sendKeys
 //
-describe('sendKeys command demo', function() {
-    before(browser => browser.url('https://google.com/'));
+describe("sendKeys command demo", function() {
+    before(browser => browser.url("https://google.com/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .sendKeys('input[type=text]', 'nightwatchjs', function(result) {
+            .sendKeys("input[type=text]", "nightwatchjs", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.setValue('input[type=text]', ['nightwatchjs', browser.Keys.ENTER]);
+    test("async demo test", async function(browser) {
+        const result = await browser.setValue("input[type=text]", ["nightwatchjs", browser.Keys.ENTER]);
         isType<null>(result);
     });
     after(browser => browser.end());
@@ -288,18 +308,18 @@ describe('sendKeys command demo', function() {
 //
 // .setPassword
 //
-describe('setPassword command demo', function() {
-    before(browser => browser.url('https://google.com/'));
-    test('demo test', function() {
+describe("setPassword command demo", function() {
+    before(browser => browser.url("https://google.com/"));
+    test("demo test", function() {
         browser
-            .setPassword('input[type=text]', 'nightwatchjs', function(result) {
+            .setPassword("input[type=text]", "nightwatchjs", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<null>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.setPassword('input[type=text]', ['nightwatchjs', browser.Keys.ENTER]);
+    test("async demo test", async function(browser) {
+        const result = await browser.setPassword("input[type=text]", ["nightwatchjs", browser.Keys.ENTER]);
         isType<null>(result);
     });
 
@@ -309,18 +329,18 @@ describe('setPassword command demo', function() {
 //
 // .setAttribute
 //
-describe('setAttribute command demo', function() {
-    before(browser => browser.url('https://google.com/'));
-    test('demo test', function() {
+describe("setAttribute command demo", function() {
+    before(browser => browser.url("https://google.com/"));
+    test("demo test", function() {
         browser
-            .setAttribute('input[type=text]', 'disabled' , 'true', function(result) {
+            .setAttribute("input[type=text]", "disabled", "true", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<boolean>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.setAttribute('input[type=text]', 'disabled' , 'false');
+    test("async demo test", async function(browser) {
+        const result = await browser.setAttribute("input[type=text]", "disabled", "false");
         isType<boolean>(result);
     });
 
@@ -330,19 +350,19 @@ describe('setAttribute command demo', function() {
 //
 // .isEnabled
 //
-describe('isEnabled command demo', function() {
-    before(browser => browser.url('https://google.com/'));
-    test('demo test', function() {
+describe("isEnabled command demo", function() {
+    before(browser => browser.url("https://google.com/"));
+    test("demo test", function() {
         browser
-            .setAttribute('input[type=text]', 'disabled', 'true')
-            .isEnabled('input[type=text]', function(result) {
+            .setAttribute("input[type=text]", "disabled", "true")
+            .isEnabled("input[type=text]", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<boolean>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.isEnabled('input[type=text]');
+    test("async demo test", async function(browser) {
+        const result = await browser.isEnabled("input[type=text]");
         isType<boolean>(result);
     });
 
@@ -352,18 +372,18 @@ describe('isEnabled command demo', function() {
 //
 // .getElementProperty
 //
-describe('getElementProperty command demo', function() {
-    before(browser => browser.url('https://google.com/'));
-    test('demo test', function() {
+describe("getElementProperty command demo", function() {
+    before(browser => browser.url("https://google.com/"));
+    test("demo test", function() {
         browser
-            .getElementProperty('input[type=text]', 'disabled', function(result) {
+            .getElementProperty("input[type=text]", "disabled", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<any>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getElementProperty('input[type=text]', 'disabled');
+    test("async demo test", async function(browser) {
+        const result = await browser.getElementProperty("input[type=text]", "disabled");
         isType<any>(result);
     });
 
@@ -373,18 +393,18 @@ describe('getElementProperty command demo', function() {
 //
 // .findElement
 //
-describe('findElement command demo', function() {
-    before(browser => browser.url('https://google.com/'));
-    test('demo test', function() {
+describe("findElement command demo", function() {
+    before(browser => browser.url("https://google.com/"));
+    test("demo test", function() {
         browser
-            .findElement('input[type=text]', function(result) {
+            .findElement("input[type=text]", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<JSON_WEB_OBJECT>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.findElement('input[type=text]');
+    test("async demo test", async function(browser) {
+        const result = await browser.findElement("input[type=text]");
         isType<JSON_WEB_OBJECT>(result);
     });
 
@@ -394,19 +414,19 @@ describe('findElement command demo', function() {
 //
 // .getElementRect
 //
-describe('getElementRect command demo', function() {
-    before(browser => browser.url('https://www.ecosia.org/'));
+describe("getElementRect command demo", function() {
+    before(browser => browser.url("https://www.ecosia.org/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .getElementRect('#__nuxt', function(result) {
+            .getElementRect("#__nuxt", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<NightwatchSizeAndPosition>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getElementRect('#__nuxt');
+    test("async demo test", async function(browser) {
+        const result = await browser.getElementRect("#__nuxt");
         isType<NightwatchSizeAndPosition>(result);
     });
 
@@ -416,19 +436,19 @@ describe('getElementRect command demo', function() {
 //
 // getAriaRole
 //
-describe('getAriaRole command demo', function() {
-    before(browser => browser.url('https://www.ecosia.org/'));
+describe("getAriaRole command demo", function() {
+    before(browser => browser.url("https://www.ecosia.org/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .getAriaRole('#__nuxt', function(result) {
+            .getAriaRole("#__nuxt", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getAriaRole('#__nuxt');
+    test("async demo test", async function(browser) {
+        const result = await browser.getAriaRole("#__nuxt");
         isType<string>(result);
     });
 
@@ -438,19 +458,19 @@ describe('getAriaRole command demo', function() {
 //
 // .getAccessibleName
 //
-describe('getAccessibleName command demo', function() {
-    before(browser => browser.url('https://www.google.com/'));
+describe("getAccessibleName command demo", function() {
+    before(browser => browser.url("https://www.google.com/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .getAccessibleName('input[type=text]', function(result) {
+            .getAccessibleName("input[type=text]", function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<string>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.getAccessibleName('input[type=text]');
+    test("async demo test", async function(browser) {
+        const result = await browser.getAccessibleName("input[type=text]");
         isType<string>(result);
     });
 
@@ -460,20 +480,20 @@ describe('getAccessibleName command demo', function() {
 //
 // waitForElementVisible
 //
-describe('waitForElementVisible command demo', function() {
-    before(browser => browser.url('https://www.google.com/'));
+describe("waitForElementVisible command demo", function() {
+    before(browser => browser.url("https://www.google.com/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .waitForElementVisible('input[type=text]', undefined, undefined, true, function(result) {
+            .waitForElementVisible("input[type=text]", undefined, undefined, true, function(result) {
                 isNightwatchAPI(this);
                 isNightwatchCallbackResult<boolean>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.waitForElementVisible('input[type=text]', undefined, undefined, true);
-        isType<boolean>(result);
+    test("async demo test", async function(browser) {
+        const result = await browser.waitForElementVisible("input[type=text]", undefined, undefined, true);
+        isType<true | Error>(result);
     });
 
     after(browser => browser.end());
@@ -482,20 +502,20 @@ describe('waitForElementVisible command demo', function() {
 //
 // .waitForElementPresent
 //
-describe('waitForElementPresent command demo', function() {
-    before(browser => browser.url('https://www.google.com/'));
+describe("waitForElementPresent command demo", function() {
+    before(browser => browser.url("https://www.google.com/"));
 
-    test('demo test', function() {
+    test("demo test", function() {
         browser
-            .waitForElementPresent('input[type=text]', undefined, undefined, undefined, function(result) {
+            .waitForElementPresent("input[type=text]", undefined, undefined, undefined, function(result) {
                 isNightwatchAPI(this);
-                isNightwatchCallbackResult<ElementResult[]>(result);
+                isNightwatchCallbackResult<ElementResult[] | null>(result);
             });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.waitForElementPresent('input[type=text]');
-        isType<ElementResult[]>(result);
+    test("async demo test", async function(browser) {
+        const result = await browser.waitForElementPresent("input[type=text]");
+        isType<ElementResult[] | Error>(result);
     });
 
     after(browser => browser.end());
@@ -504,18 +524,18 @@ describe('waitForElementPresent command demo', function() {
 //
 // .dragAndDrop
 //
-describe('dragAndDrop command demo', function() {
-    before(browser => browser.url('https://www.google.com/'));
+describe("dragAndDrop command demo", function() {
+    before(browser => browser.url("https://www.google.com/"));
 
-    test('hello', function() {
-        browser.dragAndDrop('input[type=text]', {x: 50, y: 50}, function(result) {
+    test("hello", function() {
+        browser.dragAndDrop("input[type=text]", { x: 50, y: 50 }, function(result) {
             isNightwatchAPI(this);
             isNightwatchCallbackResult<null>(result);
         });
     });
 
-    test('async demo test', async function(browser) {
-        const result = await browser.dragAndDrop('input[type=text]', {x: 50, y: 50});
+    test("async demo test", async function(browser) {
+        const result = await browser.dragAndDrop("input[type=text]", { x: 50, y: 50 });
         isType<null>(result);
     });
 

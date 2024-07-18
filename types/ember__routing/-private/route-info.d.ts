@@ -1,1 +1,1 @@
-export { default as default } from '../route-info';
+export { default as default } from "../route-info";

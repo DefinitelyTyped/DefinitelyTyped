@@ -1,4 +1,4 @@
-export default function hostedFieldToken() {
+export default function hostedFieldToken () {
   const form = document.querySelector('form');
 
   if (form) {

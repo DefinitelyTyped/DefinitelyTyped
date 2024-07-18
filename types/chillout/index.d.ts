@@ -1,10 +1,4 @@
-// Type definitions for chillout 5.0
-// Project: https://github.com/polygonplanet/chillout
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
-/* eslint-disable no-unnecessary-generics */
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 
 export as namespace chillout;
 
@@ -15,7 +9,7 @@ export const version: string;
  */
 export const StopIteration: unique symbol;
 
-// tslint:disable-next-line: void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type DefaultCallbackReturn = typeof StopIteration | void | Promise<unknown>;
 
 /**
@@ -73,27 +67,26 @@ export type ForEachArgs<
     TObject extends ArrayLike<unknown> | object,
     TContext,
     TCallbackReturn extends DefaultCallbackReturn = DefaultCallbackReturn,
-> = TObject extends ArrayLike<unknown>
-    ? [
-          arr: TObject,
-          callback: (
-              this: TContext,
-              value: TObject extends ArrayLike<infer T> ? T : never,
-              key: number,
-              arr: TObject,
-          ) => TCallbackReturn,
-          context?: TContext,
-      ]
+> = TObject extends ArrayLike<unknown> ? [
+        arr: TObject,
+        callback: (
+            this: TContext,
+            value: TObject extends ArrayLike<infer T> ? T : never,
+            key: number,
+            arr: TObject,
+        ) => TCallbackReturn,
+        context?: TContext,
+    ]
     : [
-          obj: TObject,
-          callback: (
-              this: TContext,
-              value: TObject[keyof TObject],
-              key: keyof TObject,
-              obj: TObject,
-          ) => TCallbackReturn,
-          context?: TContext,
-      ];
+        obj: TObject,
+        callback: (
+            this: TContext,
+            value: TObject[keyof TObject],
+            key: keyof TObject,
+            obj: TObject,
+        ) => TCallbackReturn,
+        context?: TContext,
+    ];
 
 /**
  * Executes a provided function the specified number times.

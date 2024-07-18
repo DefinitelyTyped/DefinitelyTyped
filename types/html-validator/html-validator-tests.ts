@@ -1,4 +1,4 @@
-import validateHtml = require('html-validator');
+import validateHtml = require("html-validator");
 
 const testHtml = `
 <!DOCTYPE html>
@@ -15,9 +15,9 @@ const testHtml = `
 
 validateHtml({
     data: testHtml,
-    format: 'json',
+    format: "json",
     headers: {
-        'Content-Type': 'text/html'
+        "Content-Type": "text/html",
     },
 }).then((validationResults: validateHtml.ParsedJsonAsValidationResults) => {
     if (validationResults.messages.length === 0) {
@@ -27,13 +27,13 @@ validateHtml({
 
     validationResults.messages.forEach((violation: validateHtml.ValidationMessageObject) => {
         switch (violation.type) {
-            case 'error':
+            case "error":
                 console.log(`W3C standard violation: ${violation.message}`);
                 break;
-            case 'info':
+            case "info":
                 console.warn(`W3C guidelines neglect: ${violation.message}`);
                 break;
-            case 'non-document-error':
+            case "non-document-error":
                 console.log(`W3C Non-Document error: ${violation.message}`);
                 break;
         }

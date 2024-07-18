@@ -1,30 +1,23 @@
-// Type definitions for signale 1.4
-// Project: https://github.com/klaussinani/signale
-// Definitions by: Resi Respati <https://github.com/resir014>
-//                 Joydip Roy <https://github.com/rjoydip>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 declare namespace signale {
     type DefaultMethods =
-        | 'await'
-        | 'complete'
-        | 'error'
-        | 'debug'
-        | 'fatal'
-        | 'fav'
-        | 'info'
-        | 'note'
-        | 'pause'
-        | 'pending'
-        | 'star'
-        | 'start'
-        | 'success'
-        | 'warn'
-        | 'watch'
-        | 'log';
+        | "await"
+        | "complete"
+        | "error"
+        | "debug"
+        | "fatal"
+        | "fav"
+        | "info"
+        | "note"
+        | "pause"
+        | "pending"
+        | "star"
+        | "start"
+        | "success"
+        | "warn"
+        | "watch"
+        | "log";
 
     interface CommandType {
         /** The icon corresponding to the logger. */
@@ -86,7 +79,7 @@ declare namespace signale {
     }
 
     interface SignaleConstructor {
-        new <TTypes extends string = DefaultMethods>(options?: SignaleOptions<TTypes>): Signale<TTypes>;
+        new<TTypes extends string = DefaultMethods>(options?: SignaleOptions<TTypes>): Signale<TTypes>;
     }
 
     interface SignaleBase<TTypes extends string = DefaultMethods> {
@@ -147,9 +140,10 @@ declare namespace signale {
     }
 
     type LoggerFunc = (message?: any, ...optionalArgs: any[]) => void;
-    type Signale<TTypes extends string = DefaultMethods> = SignaleBase<TTypes> &
-        Record<TTypes, LoggerFunc> &
-        Record<DefaultMethods, LoggerFunc>;
+    type Signale<TTypes extends string = DefaultMethods> =
+        & SignaleBase<TTypes>
+        & Record<TTypes, LoggerFunc>
+        & Record<DefaultMethods, LoggerFunc>;
 }
 
 declare const signale: signale.Signale<signale.DefaultMethods> & {

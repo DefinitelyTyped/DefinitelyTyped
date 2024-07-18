@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/yoga-layout",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/facebook/yoga#readme"
+    ],
+    "devDependencies": {
+        "@types/yoga-layout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tnobody",
+            "githubUsername": "tnobody"
+        }
+    ]
+}

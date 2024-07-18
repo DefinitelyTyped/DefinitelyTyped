@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/readline-sync",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/anseki/readline-sync"
+    ],
+    "devDependencies": {
+        "@types/readline-sync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan Jones",
+            "githubUsername": "jonestristand"
+        }
+    ]
+}

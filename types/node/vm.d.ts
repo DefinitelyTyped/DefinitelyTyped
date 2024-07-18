@@ -34,19 +34,20 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.1.0/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/vm.js)
  */
-declare module 'vm' {
+declare module "vm" {
+    import { ImportAttributes } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
          * Specifies the filename used in stack traces produced by this script.
-         * Default: `''`.
+         * @default ''
          */
         filename?: string | undefined;
         /**
          * Specifies the line number offset that is displayed in stack traces produced by this script.
-         * Default: `0`.
+         * @default 0
          */
         lineOffset?: number | undefined;
         /**
@@ -63,15 +64,19 @@ declare module 'vm' {
         /** @deprecated in favor of `script.createCachedData()` */
         produceCachedData?: boolean | undefined;
         /**
-         * Called during evaluation of this module when `import()` is called.
-         * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
+         * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
+         * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
-        importModuleDynamically?: ((specifier: string, script: Script, importAssertions: Object) => Module) | undefined;
+        importModuleDynamically?:
+            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
+            | typeof constants.USE_MAIN_CONTEXT_DEFAULT_LOADER
+            | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
         /**
          * When `true`, if an `Error` occurs while compiling the `code`, the line of code causing the error is attached to the stack trace.
-         * Default: `true`.
+         * @default true
          */
         displayErrors?: boolean | undefined;
         /**
@@ -83,7 +88,7 @@ declare module 'vm' {
          * If `true`, the execution will be terminated when `SIGINT` (Ctrl+C) is received.
          * Existing handlers for the event that have been attached via `process.on('SIGINT')` will be disabled during script execution, but will continue to work after that.
          * If execution is terminated, an `Error` will be thrown.
-         * Default: `false`.
+         * @default false
          */
         breakOnSigint?: boolean | undefined;
     }
@@ -91,26 +96,26 @@ declare module 'vm' {
         /**
          * Human-readable name of the newly created context.
          */
-        contextName?: CreateContextOptions['name'];
+        contextName?: CreateContextOptions["name"];
         /**
          * Origin corresponding to the newly created context for display purposes. The origin should be formatted like a URL,
          * but with only the scheme, host, and port (if necessary), like the value of the `url.origin` property of a `URL` object.
          * Most notably, this string should omit the trailing slash, as that denotes a path.
          */
-        contextOrigin?: CreateContextOptions['origin'];
-        contextCodeGeneration?: CreateContextOptions['codeGeneration'];
+        contextOrigin?: CreateContextOptions["origin"];
+        contextCodeGeneration?: CreateContextOptions["codeGeneration"];
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
-        microtaskMode?: CreateContextOptions['microtaskMode'];
+        microtaskMode?: CreateContextOptions["microtaskMode"];
     }
     interface RunningCodeOptions extends RunningScriptOptions {
-        cachedData?: ScriptOptions['cachedData'];
-        importModuleDynamically?: ScriptOptions['importModuleDynamically'];
+        cachedData?: ScriptOptions["cachedData"];
+        importModuleDynamically?: ScriptOptions["importModuleDynamically"];
     }
     interface RunningCodeInNewContextOptions extends RunningScriptInNewContextOptions {
-        cachedData?: ScriptOptions['cachedData'];
-        importModuleDynamically?: ScriptOptions['importModuleDynamically'];
+        cachedData?: ScriptOptions["cachedData"];
+        importModuleDynamically?: ScriptOptions["importModuleDynamically"];
     }
     interface CompileFunctionOptions extends BaseOptions {
         /**
@@ -119,7 +124,7 @@ declare module 'vm' {
         cachedData?: Buffer | undefined;
         /**
          * Specifies whether to produce new cache data.
-         * Default: `false`,
+         * @default false
          */
         produceCachedData?: boolean | undefined;
         /**
@@ -147,25 +152,25 @@ declare module 'vm' {
         origin?: string | undefined;
         codeGeneration?:
             | {
-                  /**
-                   * If set to false any calls to eval or function constructors (Function, GeneratorFunction, etc)
-                   * will throw an EvalError.
-                   * @default true
-                   */
-                  strings?: boolean | undefined;
-                  /**
-                   * If set to false any attempt to compile a WebAssembly module will throw a WebAssembly.CompileError.
-                   * @default true
-                   */
-                  wasm?: boolean | undefined;
-              }
+                /**
+                 * If set to false any calls to eval or function constructors (Function, GeneratorFunction, etc)
+                 * will throw an EvalError.
+                 * @default true
+                 */
+                strings?: boolean | undefined;
+                /**
+                 * If set to false any attempt to compile a WebAssembly module will throw a WebAssembly.CompileError.
+                 * @default true
+                 */
+                wasm?: boolean | undefined;
+            }
             | undefined;
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
          */
-        microtaskMode?: 'afterEvaluate' | undefined;
+        microtaskMode?: "afterEvaluate" | undefined;
     }
-    type MeasureMemoryMode = 'summary' | 'detailed';
+    type MeasureMemoryMode = "summary" | "detailed";
     interface MeasureMemoryOptions {
         /**
          * @default 'summary'
@@ -174,7 +179,7 @@ declare module 'vm' {
         /**
          * @default 'default'
          */
-        execution?: 'default' | 'eager' | undefined;
+        execution?: "default" | "eager" | undefined;
     }
     interface MemoryMeasurement {
         total: {
@@ -190,7 +195,7 @@ declare module 'vm' {
     class Script {
         constructor(code: string, options?: ScriptOptions | string);
         /**
-         * Runs the compiled code contained by the `vm.Script` object within the given`contextifiedObject` and returns the result. Running code does not have access
+         * Runs the compiled code contained by the `vm.Script` object within the given `contextifiedObject` and returns the result. Running code does not have access
          * to local scope.
          *
          * The following example compiles code that increments a global variable, sets
@@ -278,7 +283,7 @@ declare module 'vm' {
          */
         runInThisContext(options?: RunningScriptOptions): any;
         /**
-         * Creates a code cache that can be used with the `Script` constructor's`cachedData` option. Returns a `Buffer`. This method may be called at any
+         * Creates a code cache that can be used with the `Script` constructor's `cachedData` option. Returns a `Buffer`. This method may be called at any
          * time and any number of times.
          *
          * The code cache of the `Script` doesn't contain any JavaScript observable
@@ -316,7 +321,7 @@ declare module 'vm' {
         cachedDataProduced?: boolean | undefined;
         /**
          * When `cachedData` is supplied to create the `vm.Script`, this value will be set
-         * to either `true` or `false` depending on acceptance of the data by V8\.
+         * to either `true` or `false` depending on acceptance of the data by V8.
          * Otherwise the value is `undefined`.
          * @since v5.7.0
          */
@@ -342,11 +347,14 @@ declare module 'vm' {
         sourceMapURL?: string | undefined;
     }
     /**
-     * If given a `contextObject`, the `vm.createContext()` method will `prepare
-     * that object` so that it can be used in calls to {@link runInContext} or `script.runInContext()`. Inside such scripts,
-     * the `contextObject` will be the global object, retaining all of its existing
-     * properties but also having the built-in objects and functions any standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global variables
-     * will remain unchanged.
+     * If given a `contextObject`, the `vm.createContext()` method will
+     * [prepare that object](https://nodejs.org/docs/latest-v20.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
+     * and return a reference to it so that it can be used in `{@link runInContext}` or
+     * [`script.runInContext()`](https://nodejs.org/docs/latest-v20.x/api/vm.html#scriptrunincontextcontextifiedobject-options). Inside such
+     * scripts, the `contextObject` will be the global object, retaining all of its
+     * existing properties but also having the built-in objects and functions any
+     * standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global
+     * variables will remain unchanged.
      *
      * ```js
      * const vm = require('node:vm');
@@ -441,7 +449,11 @@ declare module 'vm' {
      * @param contextObject An object that will be `contextified`. If `undefined`, a new object will be created.
      * @return the result of the very last statement executed in the script.
      */
-    function runInNewContext(code: string, contextObject?: Context, options?: RunningCodeInNewContextOptions | string): any;
+    function runInNewContext(
+        code: string,
+        contextObject?: Context,
+        options?: RunningCodeInNewContextOptions | string,
+    ): any;
     /**
      * `vm.runInThisContext()` compiles `code`, runs it within the context of the
      * current `global` and returns the result. Running code does not have access to
@@ -465,9 +477,9 @@ declare module 'vm' {
      * // Prints: evalResult: 'eval', localVar: 'eval'
      * ```
      *
-     * Because `vm.runInThisContext()` does not have access to the local scope,`localVar` is unchanged. In contrast,
+     * Because `vm.runInThisContext()` does not have access to the local scope, `localVar` is unchanged. In contrast,
      * [`eval()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval) _does_ have access to the
-     * local scope, so the value `localVar` is changed. In this way`vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
+     * local scope, so the value `localVar` is changed. In this way `vm.runInThisContext()` is much like an [indirect `eval()` call](https://es5.github.io/#x10.4.2), e.g.`(0,eval)('code')`.
      *
      * ## Example: Running an HTTP server within a VM
      *
@@ -515,12 +527,12 @@ declare module 'vm' {
      */
     function compileFunction(
         code: string,
-        params?: ReadonlyArray<string>,
-        options?: CompileFunctionOptions
+        params?: readonly string[],
+        options?: CompileFunctionOptions,
     ): Function & {
-        cachedData?: Script['cachedData'] | undefined;
-        cachedDataProduced?: Script['cachedDataProduced'] | undefined;
-        cachedDataRejected?: Script['cachedDataRejected'] | undefined;
+        cachedData?: Script["cachedData"] | undefined;
+        cachedDataProduced?: Script["cachedDataProduced"] | undefined;
+        cachedDataRejected?: Script["cachedDataRejected"] | undefined;
     };
     /**
      * Measure the memory known to V8 and used by all contexts known to the
@@ -529,7 +541,7 @@ declare module 'vm' {
      * The format of the object that the returned Promise may resolve with is
      * specific to the V8 engine and may change from one version of V8 to the next.
      *
-     * The returned result is different from the statistics returned by`v8.getHeapSpaceStatistics()` in that `vm.measureMemory()` measure the
+     * The returned result is different from the statistics returned by `v8.getHeapSpaceStatistics()` in that `vm.measureMemory()` measure the
      * memory reachable by each V8 specific contexts in the current instance of
      * the V8 engine, while the result of `v8.getHeapSpaceStatistics()` measure
      * the memory occupied by each heap space in the current V8 instance.
@@ -579,24 +591,26 @@ declare module 'vm' {
      */
     function measureMemory(options?: MeasureMemoryOptions): Promise<MemoryMeasurement>;
     interface ModuleEvaluateOptions {
-        timeout?: RunningScriptOptions['timeout'] | undefined;
-        breakOnSigint?: RunningScriptOptions['breakOnSigint'] | undefined;
+        timeout?: RunningScriptOptions["timeout"] | undefined;
+        breakOnSigint?: RunningScriptOptions["breakOnSigint"] | undefined;
     }
     type ModuleLinker = (
         specifier: string,
         referencingModule: Module,
         extra: {
-            assert: Object;
-        }
+            /** @deprecated Use `attributes` instead */
+            assert: ImportAttributes;
+            attributes: ImportAttributes;
+        },
     ) => Module | Promise<Module>;
-    type ModuleStatus = 'unlinked' | 'linking' | 'linked' | 'evaluating' | 'evaluated' | 'errored';
+    type ModuleStatus = "unlinked" | "linking" | "linked" | "evaluating" | "evaluated" | "errored";
     /**
      * This feature is only available with the `--experimental-vm-modules` command
      * flag enabled.
      *
      * The `vm.Module` class provides a low-level interface for using
-     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script`class that closely mirrors [Module Record](https://www.ecma-international.org/ecma-262/#sec-abstract-module-records)
-     * s as defined in the ECMAScript
+     * ECMAScript modules in VM contexts. It is the counterpart of the `vm.Script` class that closely mirrors [Module Record](https://262.ecma-international.org/14.0/#sec-abstract-module-records) s as
+     * defined in the ECMAScript
      * specification.
      *
      * Unlike `vm.Script` however, every `vm.Module` object is bound to a context from
@@ -733,7 +747,7 @@ declare module 'vm' {
          * * `'errored'`: The module has been evaluated, but an exception was thrown.
          *
          * Other than `'errored'`, this status string corresponds to the specification's [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records)'s `[[Status]]` field. `'errored'`
-         * corresponds to`'evaluated'` in the specification, but with `[[EvaluationError]]` set to a
+         * corresponds to `'evaluated'` in the specification, but with `[[EvaluationError]]` set to a
          * value that is not `undefined`.
          */
         status: ModuleStatus;
@@ -766,7 +780,7 @@ declare module 'vm' {
          * * Its `status` must not be `'errored'`.
          *
          * If the returned `Module`'s `status` is `'unlinked'`, this method will be
-         * recursively called on the returned `Module` with the same provided `linker`function.
+         * recursively called on the returned `Module` with the same provided `linker` function.
          *
          * `link()` returns a `Promise` that will either get resolved when all linking
          * instances resolve to a valid `Module`, or rejected if the linker function either
@@ -794,21 +808,19 @@ declare module 'vm' {
          * @default 'vm:module(i)' where i is a context-specific ascending index.
          */
         identifier?: string | undefined;
-        cachedData?: ScriptOptions['cachedData'] | undefined;
+        cachedData?: ScriptOptions["cachedData"] | undefined;
         context?: Context | undefined;
-        lineOffset?: BaseOptions['lineOffset'] | undefined;
-        columnOffset?: BaseOptions['columnOffset'] | undefined;
+        lineOffset?: BaseOptions["lineOffset"] | undefined;
+        columnOffset?: BaseOptions["columnOffset"] | undefined;
         /**
          * Called during evaluation of this module to initialize the `import.meta`.
          */
         initializeImportMeta?: ((meta: ImportMeta, module: SourceTextModule) => void) | undefined;
-        importModuleDynamically?: ScriptOptions['importModuleDynamically'] | undefined;
+        importModuleDynamically?: ScriptOptions["importModuleDynamically"] | undefined;
     }
     /**
      * This feature is only available with the `--experimental-vm-modules` command
      * flag enabled.
-     *
-     *
      *
      * The `vm.SourceTextModule` class provides the [Source Text Module Record](https://tc39.es/ecma262/#sec-source-text-module-records) as
      * defined in the ECMAScript specification.
@@ -837,8 +849,6 @@ declare module 'vm' {
      * This feature is only available with the `--experimental-vm-modules` command
      * flag enabled.
      *
-     *
-     *
      * The `vm.SyntheticModule` class provides the [Synthetic Module Record](https://heycam.github.io/webidl/#synthetic-module-records) as
      * defined in the WebIDL specification. The purpose of synthetic modules is to
      * provide a generic interface for exposing non-JavaScript sources to ECMAScript
@@ -864,7 +874,11 @@ declare module 'vm' {
          * @param exportNames Array of names that will be exported from the module.
          * @param evaluateCallback Called when the module is evaluated.
          */
-        constructor(exportNames: string[], evaluateCallback: (this: SyntheticModule) => void, options?: SyntheticModuleOptions);
+        constructor(
+            exportNames: string[],
+            evaluateCallback: (this: SyntheticModule) => void,
+            options?: SyntheticModuleOptions,
+        );
         /**
          * This method is used after the module is linked to set the values of exports. If
          * it is called before the module is linked, an `ERR_VM_MODULE_STATUS` error
@@ -888,7 +902,23 @@ declare module 'vm' {
          */
         setExport(name: string, value: any): void;
     }
+    /**
+     * Returns an object containing commonly used constants for VM operations.
+     * @since v20.12.0
+     */
+    namespace constants {
+        /**
+         * Stability: 1.1 - Active development
+         *
+         * A constant that can be used as the `importModuleDynamically` option to `vm.Script`
+         * and `vm.compileFunction()` so that Node.js uses the default ESM loader from the main
+         * context to load the requested module.
+         *
+         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         */
+        const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;
+    }
 }
-declare module 'node:vm' {
-    export * from 'vm';
+declare module "node:vm" {
+    export * from "vm";
 }

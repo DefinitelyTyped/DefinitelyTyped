@@ -1,8 +1,3 @@
-// Type definitions for range_check 1.4
-// Project: https://github.com/keverw/range_check#readme
-// Definitions by: ItsMajestiX <https://github.com/ItsMajestiX>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // IP Validation
 /**
  * Checks if an IP address is valid. Same as isIP.

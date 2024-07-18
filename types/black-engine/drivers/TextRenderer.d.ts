@@ -12,5 +12,5 @@ export class TextRenderer extends Renderer {
     render(driver: any, session: any): void;
     updateTransform(): void;
 }
-import { Renderer } from './Renderer';
-import { Texture } from '../textures/Texture';
+import { Texture } from "../textures/Texture";
+import { Renderer } from "./Renderer";

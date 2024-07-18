@@ -1,6 +1,6 @@
-import { Scene, Camera, ShaderMaterial, Vector2, MeshNormalMaterial, WebGLRenderTarget } from '../../../src/Three';
+import { Camera, MeshNormalMaterial, Scene, ShaderMaterial, Vector2, WebGLRenderTarget } from "three";
 
-import { Pass, FullScreenQuad } from './Pass';
+import { FullScreenQuad, Pass } from "./Pass.js";
 
 export interface RenderPixelatedPassParameters {
     normalEdgeStrength?: number;
@@ -20,9 +20,11 @@ export class RenderPixelatedPass extends Pass {
     scene: Scene;
     camera: Camera;
 
-    normalEdgeStrength: RenderPixelatedPassParameters['normalEdgeStrength'];
-    depthEdgeStrength: RenderPixelatedPassParameters['depthEdgeStrength'];
+    normalEdgeStrength: RenderPixelatedPassParameters["normalEdgeStrength"];
+    depthEdgeStrength: RenderPixelatedPassParameters["depthEdgeStrength"];
 
     beautyRenderTarget: WebGLRenderTarget;
     normalRenderTarget: WebGLRenderTarget;
+
+    setPixelSize(pixelSize: number): void;
 }

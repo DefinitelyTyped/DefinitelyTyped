@@ -1,6 +1,6 @@
 import { TokenHandler, BacsBillingInfo, BecsBillingInfo } from '@recurly/recurly-js';
 
-export default function bankAccount() {
+export default function bankAccount () {
   const handleToken: TokenHandler = (err, token) => {
     if (err) {
       err.message;
@@ -73,6 +73,8 @@ export default function bankAccount() {
     sort_code: '1234',
   };
 
+  missingNameOnAccountBacsBillingInfo.sort_code;
+
   const wrongTypeOnAccountBacsBillingInfo: BacsBillingInfo = {
     // @ts-expect-error
     type: 'becs',
@@ -80,6 +82,8 @@ export default function bankAccount() {
     account_number_confirmation: '1234',
     sort_code: '1234',
   };
+
+  wrongTypeOnAccountBacsBillingInfo.sort_code;
 
   const addressBecsBillingInfo: BecsBillingInfo = {
     type: 'becs',

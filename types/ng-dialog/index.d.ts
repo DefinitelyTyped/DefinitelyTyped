@@ -1,13 +1,6 @@
-// Type definitions for ngDialog 0.6
-// Project: https://github.com/likeastore/ngDialog
-// Definitions by: Stephen Lautier <https://github.com/stephenlautier>
-//                 Philipp Katz <https://github.com/qqilihq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export type IDialogService = angular.dialog.IDialogService;
 export type IDialogOpenResult = angular.dialog.IDialogOpenResult;
@@ -19,9 +12,8 @@ export type IDialogOptions = angular.dialog.IDialogOptions;
 export type IDialogOpenOptions = angular.dialog.IDialogOpenOptions;
 export type IDialogOpenConfirmOptions = angular.dialog.IDialogOpenConfirmOptions;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace dialog {
-
         interface IDialogService {
             getDefaults(): IDialogOptions;
             open(options: IDialogOpenOptions): IDialogOpenResult;
@@ -62,7 +54,7 @@ declare module 'angular' {
              * May be useful in some rare cases when you're dependant on DOM changes, defaults to false.
              * @param {boolean} force
              */
-            setForceHtmlReload(force: boolean) : void;
+            setForceHtmlReload(force: boolean): void;
 
             /**
              * Adds additional listener on every $locationChangeSuccess event and gets updated version of body into dialog.
@@ -70,7 +62,7 @@ declare module 'angular' {
              * config as provider instance:
              * @param {boolean} force
              */
-            setForceBodyReload(force: boolean) : void;
+            setForceBodyReload(force: boolean): void;
         }
 
         /**
@@ -88,12 +80,12 @@ declare module 'angular' {
              * Any serializable data that you want to be stored in the controller's dialog scope.
              * From version 0.3.6 $scope.ngDialogData keeps references to the objects instead of copying them.
              */
-            ngDialogData : string | {} | any[];
+            ngDialogData: string | {} | any[];
 
             /**
              * The id of the dialog. If you you ngDialogData, it'll be also available under ngDialogData.ngDialogId
              */
-            ngDialogId : string;
+            ngDialogId: string;
         }
 
         interface IDialogConfirmScope extends IDialogScope {
@@ -103,7 +95,7 @@ declare module 'angular' {
              * The function accepts a single optional parameter which is used as the value of the resolved promise.
              * @param {any} [value] - The value with which the promise will resolve
              */
-            confirm(value?:any) : void;
+            confirm(value?: any): void;
         }
 
         interface IDialogOptions {
@@ -112,7 +104,7 @@ declare module 'angular' {
              * It will be appended with the "ngdialog" class e.g. className is "default-theme flat-ui" it will be class="ngdialog default-theme flat-ui".
              */
             className?: string | undefined;
-            
+
             /**
              * Unlike the className property, which overrides any default classes specified through the setDefaults() method (see docs), appendClassName allows for the addition of a class on top of any defaults.
              */
@@ -167,7 +159,7 @@ declare module 'angular' {
              *
              * more: https://github.com/likeastore/ngDialog#preclosecallback-string--function
              */
-            preCloseCallback?: string|Function | undefined;
+            preCloseCallback?: string | Function | undefined;
 
             /**
              * Pass false to disable template caching. Useful for developing purposes, default is true.
@@ -195,7 +187,7 @@ declare module 'angular' {
             /**
              * When true, automatically selects appropriate values for any unspecified accessibility attributes. Default value is true
              */
-            ariaAuto? : boolean | undefined;
+            ariaAuto?: boolean | undefined;
 
             /**
              * Specifies the value for the role attribute that should be applied to the dialog element. Default value is null (unspecified)
@@ -224,30 +216,30 @@ declare module 'angular' {
              */
             ariaDescribedById?: string | undefined;
 
-        /**
-         * Specifies the CSS selector for the element to be referenced by the aria-describedby attribute on the dialog element. Default value is null (unspecified)
-         *
-         * If specified, the first matching element is used.
-         */
-        ariaDescribedBySelector?: string | undefined;
+            /**
+             * Specifies the CSS selector for the element to be referenced by the aria-describedby attribute on the dialog element. Default value is null (unspecified)
+             *
+             * If specified, the first matching element is used.
+             */
+            ariaDescribedBySelector?: string | undefined;
 
-        /**
-         * Specifies the width of the dialog content element. Default value is null (unspecified)
-         */
-        width?: string|number | undefined;
+            /**
+             * Specifies the width of the dialog content element. Default value is null (unspecified)
+             */
+            width?: string | number | undefined;
 
-        /**
-         * Specifies the height of the dialog content element. Default value is null (unspecified)
-         */
-        height?: string|number | undefined;
-    }
+            /**
+             * Specifies the height of the dialog content element. Default value is null (unspecified)
+             */
+            height?: string | number | undefined;
+        }
 
         /**
          * Options which are provided to open a dialog.
          */
         interface IDialogOpenOptions extends IDialogOptions {
             template: string;
-            controller?: string| any[] | any | undefined;
+            controller?: string | any[] | any | undefined;
             controllerAs?: string | undefined;
             bindToController?: boolean | undefined;
 
@@ -261,7 +253,7 @@ declare module 'angular' {
              * are promises, ngDialog will wait for them all to be resolved or one to be rejected before the controller
              * is instantiated.
              */
-            resolve?: {[key : string] : string | Function} | undefined;
+            resolve?: { [key: string]: string | Function } | undefined;
 
             /**
              * Any serializable data that you want to be stored in the controller's dialog scope. ($scope.ngDialogData).

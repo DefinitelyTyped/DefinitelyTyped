@@ -1,9 +1,3 @@
-// Type definitions for virtual-scroll 2.0
-// Project: https://github.com/ayamflow/virtual-scroll
-// Definitions by: Leon Baudouin <https://github.com/LeonBaudouin>
-//                 Bastien Robert <https://github.com/bastienrobert>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = VirtualScroll;
 export as namespace VirtualScroll;
 

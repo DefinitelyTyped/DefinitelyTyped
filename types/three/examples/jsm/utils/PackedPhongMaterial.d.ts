@@ -3,7 +3,7 @@
  *
  * @param {Object} parameters
  */
-import { MeshPhongMaterial, MeshPhongMaterialParameters } from '../../../src/Three';
+import { MeshPhongMaterial, MeshPhongMaterialParameters } from "three";
 
 export class PackedPhongMaterial extends MeshPhongMaterial {
     constructor(parameters: MeshPhongMaterialParameters);

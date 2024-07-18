@@ -1,19 +1,19 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { TransitionStyle, OpaqueConfig } from 'react-motion';
+import { OpaqueConfig, TransitionStyle } from "react-motion";
 import {
     AnimatableStyles,
     AnimatedRoute,
     AnimatedSwitch,
     AnimatedSwitchProps,
     spring,
-    Styles
-} from 'react-router-transition';
+    Styles,
+} from "react-router-transition";
 
 const mapStyles: AnimatedSwitchProps["mapStyles"] = (styles) => {
     return {
         opacity: styles.opacity as number,
-        transform: `scale(${styles.scale})`
+        transform: `scale(${styles.scale})`,
     };
 };
 

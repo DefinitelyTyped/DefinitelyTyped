@@ -1,3 +1,3 @@
-import ToPrimitive = require('./es2015');
+import ToPrimitive = require("./es2015");
 /** @deprecated */
 export = ToPrimitive;

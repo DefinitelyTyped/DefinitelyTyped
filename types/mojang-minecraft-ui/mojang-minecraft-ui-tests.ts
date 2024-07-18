@@ -1,6 +1,6 @@
-import * as mc from 'mojang-minecraft';
+import * as mc from "mojang-minecraft";
 
-const overworld = mc.world.getDimension('overworld');
+const overworld = mc.world.getDimension("overworld");
 
 export async function showActionForm(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
     const players = mc.world.getPlayers();
@@ -9,20 +9,20 @@ export async function showActionForm(log: (message: string, status?: number) => 
 
     if (playerList.length >= 1) {
         const form = new mcui.ActionFormData()
-            .title('Test Title')
-            .body('Body text here!')
-            .button('btn 1')
-            .button('btn 2')
-            .button('btn 3')
-            .button('btn 4')
-            .button('btn 5');
+            .title("Test Title")
+            .body("Body text here!")
+            .button("btn 1")
+            .button("btn 2")
+            .button("btn 3")
+            .button("btn 4")
+            .button("btn 5");
 
         const result = await form.show(playerList[0]);
 
         if (result.isCanceled) {
-            log('Player exited out of the dialog.');
+            log("Player exited out of the dialog.");
         } else {
-            log('Your result was: ' + result.selection);
+            log("Your result was: " + result.selection);
         }
     }
 }
@@ -34,17 +34,17 @@ export function showFavoriteMonth(log: (message: string, status?: number) => voi
 
     if (playerList.length >= 1) {
         const form = new mcui.ActionFormData()
-            .title('Months')
-            .body('Choose your favorite month!')
-            .button('January')
-            .button('February')
-            .button('March')
-            .button('April')
-            .button('May');
+            .title("Months")
+            .body("Choose your favorite month!")
+            .button("January")
+            .button("February")
+            .button("March")
+            .button("April")
+            .button("May");
 
         form.show(playerList[0]).then((response: mcui.ActionFormResponse) => {
             if (response.selection === 3) {
-                log('I like April too!');
+                log("I like April too!");
             }
         });
     }
@@ -65,24 +65,24 @@ export default class SampleManager {
 
     gameplayLogger(message: string, status?: number) {
         if (status !== undefined && status > 0) {
-            message = 'SUCCESS: ' + message;
+            message = "SUCCESS: " + message;
         } else if (status !== undefined && status < 0) {
-            message = 'FAIL: ' + message;
+            message = "FAIL: " + message;
         }
 
         this.say(message);
     }
     say(message: string) {
-        mc.world.getDimension('overworld').runCommand('say ' + message);
+        mc.world.getDimension("overworld").runCommand("say " + message);
     }
 
     newChatMessage(chatEvent: mc.ChatEvent) {
         const message = chatEvent.message.toLowerCase();
 
-        if (message.startsWith('howto') && chatEvent.sender) {
+        if (message.startsWith("howto") && chatEvent.sender) {
             const nearbyBlock = chatEvent.sender.getBlockFromViewVector();
             if (!nearbyBlock) {
-                this.gameplayLogger('Please look at the block where you want me to run this.');
+                this.gameplayLogger("Please look at the block where you want me to run this.");
                 return;
             }
 
@@ -92,10 +92,10 @@ export default class SampleManager {
             const sampleId = message.substring(5).trim();
 
             if (sampleId.length < 2) {
-                let availableFuncStr = 'Here is my list of available samples:';
+                let availableFuncStr = "Here is my list of available samples:";
 
                 for (const sampleFuncKey in this._availableFuncs) {
-                    availableFuncStr += ' ' + sampleFuncKey;
+                    availableFuncStr += " " + sampleFuncKey;
                 }
 
                 this.say(availableFuncStr);
@@ -159,7 +159,7 @@ export default class SampleManager {
     }
 }
 
-import * as mcui from 'mojang-minecraft-ui';
+import * as mcui from "mojang-minecraft-ui";
 
 const mojangMinecraftUIFuncs: {
     [name: string]: Array<(log: (message: string, status?: number) => void, location: mc.Location) => void>;

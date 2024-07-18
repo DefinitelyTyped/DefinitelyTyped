@@ -1,8 +1,3 @@
-// Type definitions for @phc/bcrypt 1.0
-// Project: https://github.com/simonepri/phc-bcrypt
-// Definitions by: Toan Nguyen <https://github.com/vespaiach>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     rounds?: number;
     saltSize?: number;

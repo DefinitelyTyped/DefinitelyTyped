@@ -1,3 +1,3 @@
-import unicodeDragon = require('unicode-dragon');
+import unicodeDragon = require("unicode-dragon");
 
-unicodeDragon(''); // $ExpectType string
+unicodeDragon(""); // $ExpectType string

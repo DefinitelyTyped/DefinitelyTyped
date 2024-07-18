@@ -1,9 +1,3 @@
-// Type definitions for react-touch 1.8
-// Project: https://github.com/leonaves/react-touch
-// Definitions by: Grzegorz Kielak <https://github.com/grzesie2k>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export function defineHold(config?: HoldConfig): HoldableConfig;
@@ -47,7 +41,7 @@ export interface DraggableCallbackArgument extends DraggableStyle {
     dy: number;
 }
 
-export type DraggableCallback = (argument: DraggableCallbackArgument) => JSX.Element;
+export type DraggableCallback = (argument: DraggableCallbackArgument) => React.JSX.Element;
 
 export interface DraggableProps {
     /**
@@ -91,7 +85,16 @@ export interface SwipeableProps {
 export class Swipeable extends React.Component<SwipeableProps> {
 }
 
-export enum moves {UPLEFT, UP, UPRIGHT, LEFT, RIGHT, DOWNRIGHT, DOWN, DOWNLEFT}
+export enum moves {
+    UPLEFT,
+    UP,
+    UPRIGHT,
+    LEFT,
+    RIGHT,
+    DOWNRIGHT,
+    DOWN,
+    DOWNLEFT,
+}
 
 export interface CustomGestureProps {
     config: moves[];

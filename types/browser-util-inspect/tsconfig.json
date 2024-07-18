@@ -1,19 +1,15 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
         "lib": [
             "ES2015"
         ],
-        "module": "CommonJS",
+        "module": "node16",
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "typeRoots": [
-            "../"
-        ],
         "types": []
     },
     "files": [

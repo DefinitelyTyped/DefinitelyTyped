@@ -1,10 +1,10 @@
-import * as RDF from '@rdfjs/types';
-import rdf from '@rdfjs/dataset';
-import Factory from '@rdfjs/dataset/Factory';
-import DatasetCore from '@rdfjs/dataset/DatasetCore';
-import Environment from '@rdfjs/environment/Environment.js';
+import rdf from "@rdfjs/dataset";
+import DatasetCore from "@rdfjs/dataset/DatasetCore.js";
+import Factory from "@rdfjs/dataset/Factory.js";
+import Environment from "@rdfjs/environment/Environment.js";
+import * as RDF from "@rdfjs/types";
 
-const exports: ['dataset'] = Factory.exports;
+const exports: ["dataset"] = Factory.exports;
 let dataset: RDF.DatasetCore = rdf.dataset();
 
 const env = new Environment([Factory]); // $ExpectType Environment<Factory>

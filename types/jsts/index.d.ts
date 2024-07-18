@@ -1,8 +1,3 @@
-// Type definitions for jsts 0.17.0
-// Project: https://github.com/bjornharrtell/jsts
-// Definitions by: Stephane Alie <https://github.com/StephaneAlie>, Jorge Rocha Gualtieri <https://github.com/jrocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="openlayers" />
 
 declare namespace jsts {
@@ -112,35 +107,28 @@ declare namespace jsts {
          * in a context where envelope overlap is already known to occur (or be likely).
          */
         export class LineIntersector {
-            /**
-             */
+            /** */
             static COLLINEAR: number;
             /**
              * Indicates that line segments intersect in a line segment
-             *
              */
             static COLLINEAR_INTERSECTION: number;
-            /**
-             */
+            /** */
             static DO_INTERSECT: number;
             /**
              * These are deprecated, due to ambiguous naming
-             *
              */
             static DONT_INTERSECT: number;
             /**
              * Indicates that line segments do not intersect
-             *
              */
             static NO_INTERSECTION: number;
             /**
              * Indicates that line segments intersect in a single point
-             *
              */
             static POINT_INTERSECTION: number;
 
-            /**
-             */
+            /** */
             constructor();
 
             /**
@@ -204,7 +192,6 @@ declare namespace jsts {
             getIntersectionNum(): number;
 
             /**
-             *
              * @param {int} intIndex is 0 or 1
              * @returns the intIndex'th intersection point
              */
@@ -286,8 +273,7 @@ declare namespace jsts {
          * A robust version of {@link LineIntersector}.
          */
         export class RobustLineIntersector extends LineIntersector {
-            /**
-             */
+            /** */
             constructor();
 
             /**
@@ -397,7 +383,7 @@ declare namespace jsts {
         /**
          * Densifies a Geometry by inserting extra vertices along the line segments
          * contained in the geometry. All segments in the created densified geometry
-         * will be no longer than than the given distance tolerance.
+         * will be no longer than the given distance tolerance.
          * Densified polygonal geometries are guaranteed to be topologically correct.
          * The coordinates created during densification respect the input geometry's PrecisionModel.
          */
@@ -448,7 +434,6 @@ declare namespace jsts {
          * Coordinates are represented internally as Java double-precision values. Since Java uses the IEEE-754 floating point standard, this provides 53 bits of precision.
          *
          * JSTS methods currently do not handle inputs with different precision models.
-         *
          */
         export class PrecisionModel {
             static FIXED: string;
@@ -456,7 +441,6 @@ declare namespace jsts {
             static FLOATING_SINGLE: string;
 
             /**
-             *
              * @param modelType
              */
             constructor(modelType?: number | string);
@@ -514,7 +498,7 @@ declare namespace jsts {
              *          null.
              * @return {LineString} A new LineString.
              */
-            createLineString(coordinates: Array<Coordinate>): LineString;
+            createLineString(coordinates: Coordinate[]): LineString;
             /**
              * Creates a LineString using the given CoordinateSequence.
              * A null or empty CoordinateSequence creates an empty LineString.
@@ -600,7 +584,7 @@ declare namespace jsts {
              * or null.
              * @return {LineString} A new LinearRing.
              */
-            createLinearRing(coordinates: Array<Coordinate>): LinearRing;
+            createLinearRing(coordinates: Coordinate[]): LinearRing;
             /**
              * Creates a LinearRing using the given CoordinateSequence.
              * A null or empty array creates an empty LinearRing.
@@ -619,7 +603,7 @@ declare namespace jsts {
              * @param {LinearRing} shell A LinearRing constructed by coordinates.
              * @return {Polygon} A new Polygon.
              */
-            createPolygon(shell: LinearRing, holes: Array<LinearRing>): Polygon;
+            createPolygon(shell: LinearRing, holes: LinearRing[]): Polygon;
             /**
              * Constructs a Polygon with the given exterior boundary.
              *
@@ -725,7 +709,7 @@ declare namespace jsts {
         }
 
         export class GeometryCollection extends jsts.geom.Geometry {
-            constructor(geometries?: Array<Geometry>, factory?: GeometryFactory);
+            constructor(geometries?: Geometry[], factory?: GeometryFactory);
         }
 
         /**
@@ -737,20 +721,16 @@ declare namespace jsts {
          * coordinate values and accessor methods.
          */
         export class Coordinate {
-            /**
-             */
+            /** */
             constructor(x: number, y: number);
 
-            /**
-             */
+            /** */
             constructor(c: Coordinate);
 
-            /**
-             */
+            /** */
             constructor();
 
-            /**
-             */
+            /** */
             constructor(x: number, y: number, z: number);
 
             /**
@@ -1406,7 +1386,7 @@ declare namespace jsts {
             getGeometryType(): string;
 
             /**
-             *Returns the number of {@link Geometry}s in a {@link GeometryCollection}
+             * Returns the number of {@link Geometry}s in a {@link GeometryCollection}
              * (or 1, if the geometry is not a collection).
              *
              * @return {number} the number of geometries contained in this geometry.
@@ -2001,22 +1981,22 @@ declare namespace jsts {
 
             /**
              * Computes a buffer area around this geometry having the given width and
-             * with a specified accuracy of approximation for circular arcs. 
+             * with a specified accuracy of approximation for circular arcs.
              * Mathematically-exact buffer area boundaries can contain circular arcs.
              * To represent these arcs using linear geometry they must be approximated with line segments.
              * The quadrantSegments argument allows controlling the accuracy of the approximation
-             * by specifying the number of line segments used to represent a quadrant of a circle. 
+             * by specifying the number of line segments used to represent a quadrant of a circle.
              * The buffer operation always returns a polygonal result.
              * The negative or zero-distance buffer of lines and points is always an empty Polygon.
              * This is also the result for the buffers of degenerate (zero-area) polygons.
-        
+
              * @param {double} distance the width of the buffer (may be positive, negative or 0)
              * @param {int} quadrantSegments the number of line segments used to represent a quadrant of a circle
-             * 
+             *
              * @returns a polygonal geometry representing the buffer region (which may be empty)
-             * 
+             *
              * @throws {TopologyException} if a robustness error occurs
-             * 
+             *
              * @see #buffer(double)
              * @see #buffer(double, int, int)
              */
@@ -2340,13 +2320,11 @@ declare namespace jsts {
             checkNotGeometryCollection(g: Geometry): void;
 
             /**
-             *
              * @return {boolean} true if this is a GeometryCollection.
              */
             isGeometryCollection(): boolean;
 
             /**
-             *
              * @return {boolean} true if this is a GeometryCollection but not subclass.
              */
             isGeometryCollectionBase(): boolean;
@@ -2393,7 +2371,7 @@ declare namespace jsts {
              * @return {number} the first non-zero <code>compareTo</code> result, if any;
              *         otherwise, zero.
              */
-            compare(a: Array<any>, b: Array<any>): number;
+            compare(a: any[], b: any[]): number;
 
             /**
              * @param {jsts.geom.Coordinate}
@@ -2490,9 +2468,8 @@ declare namespace jsts {
         export class LinearRing extends LineString {}
 
         export class LineString extends Geometry {
-            /**
-             */
-            constructor(points: Array<Coordinate>, factory?: any);
+            /** */
+            constructor(points: Coordinate[], factory?: any);
 
             /**
              * @return {jsts.geom.Coordinate} The n'th coordinate of this
@@ -2534,9 +2511,6 @@ declare namespace jsts {
         }
 
         export class MultiLineString extends GeometryCollection {
-            /**
-             * @construtor
-             */
             constructor(lineStrings: LineString[], factory: GeometryFactory);
             /**
              * @deprecated Use GeometryFactory instead
@@ -2570,8 +2544,7 @@ declare namespace jsts {
         }
 
         export class Point extends Geometry {
-            /**
-             */
+            /** */
             constructor(coordinate: Coordinate, factory?: any);
 
             /**
@@ -2591,8 +2564,7 @@ declare namespace jsts {
         }
 
         export class MultiPoint extends GeometryCollection {
-            /**
-             */
+            /** */
             constructor(points: Point[], factory: GeometryFactory);
             /**
              * @deprecated Use GeometryFactory instead
@@ -2636,9 +2608,8 @@ declare namespace jsts {
          * Specification for SQL</A>.
          */
         export class Polygon extends Geometry {
-            /**
-             */
-            constructor(shell: LinearRing, holes?: Array<LinearRing>, factory?: any);
+            /** */
+            constructor(shell: LinearRing, holes?: LinearRing[], factory?: any);
 
             /**
              * Gets the exterior ring.
@@ -2677,7 +2648,7 @@ declare namespace jsts {
              * but not nulls. The polygons must conform to the assertions specified
              * in the OpenGIS Simple Features Specification for SQL.
              */
-            constructor(polygons: null | Array<Polygon>, factory: GeometryFactory);
+            constructor(polygons: null | Polygon[], factory: GeometryFactory);
         }
 
         namespace util {
@@ -3096,9 +3067,9 @@ declare namespace jsts {
              *  Compares this object with the specified object for order.
              *  Uses the standard lexicographic ordering for the points in the LineSegment.
              *
-             *@param {Object} o  the <code>LineSegment</code> with which this <code>LineSegment</code>
+             * @param {Object} o  the <code>LineSegment</code> with which this <code>LineSegment</code>
              *      is being compared
-             *@return {number} a negative integer, zero, or a positive integer as this <code>LineSegment</code>
+             * @return {number} a negative integer, zero, or a positive integer as this <code>LineSegment</code>
              *      is less than, equal to, or greater than the specified <code>LineSegment</code>
              */
             compareTo(o: LineSegment): number;
@@ -3126,6 +3097,16 @@ declare namespace jsts {
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
             read(geometry: any /* ol.geom.Geometry */): jsts.geom.Geometry;
             write(geometry: jsts.geom.Geometry): any /* ol.geom.Geometry */;
+            inject(
+                point: any, /* ol.geom.Point */
+                LineString: any, /* ol.geom.LineString */
+                LinearRing: any, /* ol.geom.LinearRing */
+                Polygon: any, /* ol.geom.Polygon */
+                MultiPoint: any, /* ol.geom.MultiPoint */
+                MultiLineString: any, /* ol.geom.MultiLineString */
+                MultiPolygon: any, /* ol.geom.MultiPolygon */
+                GeometryCollection: any, /* ol.geom.GeometryCollection */
+            ): void;
         }
 
         export class GeoJSONReader {
@@ -3181,8 +3162,7 @@ declare namespace jsts {
          * <P>
          */
         export class WKTReader {
-            /**
-             */
+            /** */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
             /**
@@ -3200,8 +3180,7 @@ declare namespace jsts {
         }
 
         export class WKTWriter {
-            /**
-             */
+            /** */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
             /**
@@ -3258,28 +3237,25 @@ declare namespace jsts {
         }
 
         namespace buffer {
+            import Coordinate = jsts.geom.Coordinate;
             import Geometry = jsts.geom.Geometry;
             import PrecisionModel = jsts.geom.PrecisionModel;
 
             export class BufferParameters {
                 /**
                  * Specifies a round line buffer end cap style.
-                 *
                  */
                 static CAP_ROUND: number;
                 /**
                  * Specifies a flat line buffer end cap style.
-                 *
                  */
                 static CAP_FLAT: number;
                 /**
                  * Specifies a square line buffer end cap style.
-                 *
                  */
                 static CAP_SQUARE: number;
                 /**
                  * Specifies a round join style.
-                 *
                  */
                 static JOIN_ROUND: number;
                 /**
@@ -3288,7 +3264,6 @@ declare namespace jsts {
                 static JOIN_MITRE: number;
                 /**
                  * Specifies a bevel join style.
-                 *
                  */
                 static JOIN_BEVEL: number;
 
@@ -3296,18 +3271,15 @@ declare namespace jsts {
                  * The default number of facets into which to divide a fillet of 90 degrees. A
                  * value of 8 gives less than 2% max error in the buffer distance. For a max
                  * error of < 1%, use QS = 12. For a max error of < 0.1%, use QS = 18.
-                 *
                  */
                 static DEFAULT_QUADRANT_SEGMENTS: number;
                 /**
                  * The default mitre limit Allows fairly pointy mitres.
-                 *
                  */
                 static DEFAULT_MITRE_LIMIT: number;
 
                 /**
                  * Contains the parameters which describe how a buffer should be constructed.
-                 *
                  */
                 constructor(quadrantSegments?: number, endCapStyle?: number, joinStyle?: number, mitreLimit?: number);
 
@@ -3477,7 +3449,6 @@ declare namespace jsts {
              * <li>{@link #CAP_SQUARE} - end caps are squared off at the buffer distance
              * beyond the line ends
              * </ul>
-             *
              */
             export class BufferOp {
                 /**
@@ -3486,7 +3457,6 @@ declare namespace jsts {
                  *
                  * This value should be less than the decimal precision of double-precision
                  * values (16).
-                 *
                  */
                 static MAX_PRECISION_DIGITS: number;
 
@@ -3541,7 +3511,6 @@ declare namespace jsts {
                  * @param {BufferParameters}
                  *          params the buffer parameters to use.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp2(g: Geometry, distance: number, params: BufferParameters): Geometry;
 
@@ -3557,7 +3526,6 @@ declare namespace jsts {
                  *          quadrantSegments the number of segments used to approximate a
                  *          quarter circle.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp3(g: Geometry, distance: number, quadrantSegments: number): Geometry;
 
@@ -3575,7 +3543,6 @@ declare namespace jsts {
                  * @param {int}
                  *          endCapStyle the end cap style to use.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp4(
                     g: Geometry,
@@ -3622,6 +3589,57 @@ declare namespace jsts {
                  *          fixedPM
                  */
                 bufferFixedPrecision(fixedPM: PrecisionModel): void;
+            }
+
+            /**
+             * Computes the raw offset curve for a single Geometry component (ring, line or point). A raw offset curve line is not
+             * noded - it may contain self-intersections (and usually will). The final buffer polygon is computed by forming a
+             * topological graph of all the noded raw curves and tracing outside contours. The points in the raw curve are rounded
+             * to a given PrecisionModel.
+             */
+            export class OffsetCurveBuilder {
+                constructor(precisionModel: PrecisionModel, bufParams: BufferParameters);
+
+                /**
+                 * Gets the buffer parameters being used to generate the curve.
+                 * @return {BufferParameters} the buffer parameters being used
+                 */
+                getBufferParameters(): BufferParameters;
+
+                /**
+                 * This method handles single points as well as LineStrings. LineStrings are assumed not to be closed
+                 * (the function will not fail for closed lines, but will generate superfluous line caps).
+                 * @param {Coordinate[]} inputPts - the vertices of the line to offset
+                 * @param {number} distance - the offset distance
+                 * @return {Coordinate[]} a Coordinate array representing the curve or null if the curve is empty
+                 */
+                getLineCurve(inputPts: Coordinate[], distance: number): Coordinate[];
+
+                /**
+                 * Tests whether the offset curve for line or point geometries at the given offset distance is empty (does not exist).
+                 * This is the case if:
+                 * - the distance is zero,
+                 * - the distance is negative, except for the case of singled-sided buffers.
+                 * @param {number} distance - the offset curve distance
+                 * @return {boolean} true if the offset curve is empty
+                 */
+                isLineOffsetEmpty(distance: number): boolean;
+
+                /**
+                 * This method handles the degenerate cases of single points and lines, as well as valid rings.
+                 * @param {Coordinate[]} inputPts - the coordinates of the ring (must not contain repeated points)
+                 * @param {number} side - the side Position of the ring on which to construct the buffer line
+                 * @param {number} distance - the positive distance at which to create the offset
+                 * @return {Coordinate[]} a Coordinate array representing the curve, or null if the curve is empty
+                 */
+                getRingCurve(inputPts: Coordinate[], side: number, distance: number): Coordinate[];
+
+                /**
+                 * @param {Coordinate[]} inputPts - the coordinates to offset
+                 * @param {number} distance - the distance at which to create the offset
+                 * @return {Coordinate[]} a Coordinate array representing the offset curve, or null if the curve is empty
+                 */
+                getOffsetCurve(inputPts: Coordinate[], distance: number): Coordinate[];
             }
         }
 
@@ -3719,7 +3737,6 @@ declare namespace jsts {
             export class GeometryLocation {
                 /**
                  * A special value of segmentIndex used for locations inside area geometries.
-                 *
                  */
                 static INSIDE_AREA: number;
 
@@ -3796,7 +3813,7 @@ declare namespace jsts {
                  *
                  * @param geomList {Array} a list of Geometrys with linework to be polygonized
                  */
-                add(geomList: Array<Geometry>): void;
+                add(geomList: Geometry[]): void;
 
                 /**
                  * Add a Geometry to the edges to be polygonized.
@@ -3884,7 +3901,6 @@ declare namespace jsts {
                 add(geometry: Geometry): void;
 
                 /**
-                 *
                  * Adds a collection of Geometries to be processed. May be called multiple times.
                  * Any dimension of Geometry may be added; the constituent linework will be extracted.
                  *
@@ -3967,6 +3983,143 @@ declare namespace jsts {
              * @param removeCollapsed if true collapsed components will be removed
              */
             setRemoveCollapsedComponents(removeCollapsed: boolean): void;
+        }
+    }
+
+    namespace linearref {
+        import Geometry = jsts.geom.Geometry;
+        import Coordinate = jsts.geom.Coordinate;
+
+        /**
+         * Supports linear referencing along a linear Geometry using the length along the line as
+         * the index. Negative length values are taken as measured in the reverse direction from
+         * the end of the geometry. Out-of-range index values are handled by clamping them to the
+         * valid range of values. Non-simple lines (i.e. which loop back to cross or touch
+         * themselves) are supported.
+         */
+        export class LengthIndexedLine {
+            /**
+             * Constructs an object which allows a linear Geometry to be linearly referenced
+             * using length as an index.
+             *
+             * @param {Geometry} linearGeom the linear geometry to reference along
+             */
+            constructor(linearGeom: Geometry);
+
+            /**
+             * Computes the Coordinate for the point on the line at the given index. If the
+             * index is out of range the first or last point on the line will be returned.
+             * The Z-ordinate of the computed point will be interpolated from the Z-ordinates
+             * of the line segment containing it, if they exist.
+             *
+             * @param {number} index the index of the desired point
+             * @return {Coordinate} the Coordinate at the given index
+             */
+            extractPoint(index: number): Coordinate;
+
+            /**
+             * Computes the Coordinate for the point on the line at the given index, offset
+             * by the given distance. If the index is out of range the first or last point
+             * on the line will be returned. The computed point is offset to the left of the
+             * line if the offset distance is positive, to the right if negative. The
+             * Z-ordinate of the computed point will be interpolated from the Z-ordinates
+             * of the line segment containing it, if they exist.
+             *
+             * @param {number} index the index of the desired point
+             * @param {number} offsetDistance the index of the desired point
+             * @return {Coordinate} the Coordinate at the given index
+             */
+            extractPoint(index: number, offsetDistance: number): Coordinate;
+
+            /**
+             * Computes the LineString for the interval on the line between the given
+             * indices. If the endIndex lies before the startIndex, the computed
+             * geometry is reversed.
+             *
+             * @param {number} startIndex the index of the start of the interval
+             * @param {number} endIndex the index of the end of the interval
+             * @return {Geometry} the linear interval between the indices
+             */
+            extractLine(startIndex: number, endIndex: number): Geometry;
+
+            /**
+             * Computes the minimum index for a point on the line. If the line is not
+             * simple (i.e. loops back on itself) a single point may have more than one
+             * possible index. In this case, the smallest index is returned. The supplied
+             * point does not necessarily have to lie precisely on the line, but if it
+             * is far from the line the accuracy and performance of this function is not
+             * guaranteed. Use project(org.locationtech.jts.geom.Coordinate) to compute
+             * a guaranteed result for points which may be far from the line.
+             *
+             * @param {Coordinate} pt a point on the line
+             * @return {number} the minimum index of the point
+             */
+            indexOf(pt: Coordinate): number;
+
+            /**
+             * Finds the index for a point on the line which is greater than the given
+             * index. If no such index exists, returns minIndex. This method can be used
+             * to determine all indexes for a point which occurs more than once on a
+             * non-simple line. It can also be used to disambiguate cases where the given
+             * point lies slightly off the line and is equidistant from two different
+             * points on the line. The supplied point does not necessarily have to lie
+             * precisely on the line, but if it is far from the line the accuracy and
+             * performance of this function is not guaranteed. Use
+             * project(org.locationtech.jts.geom.Coordinate) to compute a guaranteed
+             * result for points which may be far from the line.
+             *
+             * @param {Coordinate} pt a point on the line
+             * @param {number} minIndex the value the returned index must be greater than
+             * @return {number} the index of the point greater than the given minimum index
+             */
+            indexOf(pt: Coordinate, minIndex: number): number;
+
+            /**
+             * Computes the indices for a subline of the line. (The subline must conform
+             * to the line; that is, all vertices in the subline (except possibly the
+             * first and last) must be vertices of the line and occur in the same order).
+             *
+             * @param {Geometry} subLine a subLine of the line
+             * @return {number[]} a pair of indices for the start and end of the subline.
+             */
+            indicesOf(startIndex: number, endIndex: number): number[];
+
+            /**
+             * Computes the index for the closest point on the line to the given point.
+             * If more than one point has the closest distance the first one along the
+             * line is returned. (The point does not necessarily have to lie precisely
+             * on the line.)
+             *
+             * @param {Coordinate} pt a point on the line
+             * @return {number} the index of the point
+             */
+            project(startIndex: number, endIndex: number): Geometry;
+
+            /**
+             * Returns the index of the start of the line.
+             * @return {number} the start index
+             */
+            getStartIndex(): number;
+
+            /**
+             * Returns the index of the end of the line.
+             * @return {number} the end index
+             */
+            getEndIndex(): number;
+
+            /**
+             * Tests whether an index is in the valid index range for the line.
+             * @param {number} index - the index to test
+             * @return {boolean} true if the index is in the valid range
+             */
+            isValidIndex(index: number): boolean;
+
+            /**
+             * Computes a valid index for this line by clamping the given index to the valid range of index values.
+             * @param {number} index - the index to clamp
+             * @return {number} a valid index value
+             */
+            clampIndex(index: number): number;
         }
     }
 
@@ -4139,7 +4292,7 @@ declare namespace java {
              * Returns an array containing all of the elements in this collection.
              * @return {Array}
              */
-            toArray(): Array<T>;
+            toArray(): T[];
             /**
              * Removes a single instance of the specified element from this collection if it
              * is present. (optional)
@@ -4198,6 +4351,6 @@ declare namespace java {
     }
 }
 
-declare module 'jsts' {
+declare module "jsts" {
     export = jsts;
 }

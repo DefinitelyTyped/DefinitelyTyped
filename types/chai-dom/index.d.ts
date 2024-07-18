@@ -1,9 +1,3 @@
-// Type definitions for chai-dom 1.11
-// Project: https://github.com/nathanboktae/chai-dom
-// Definitions by: Matt Lewis <https://github.com/mattlewis92>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
 declare namespace Chai {
@@ -60,7 +54,7 @@ declare namespace Chai {
     }
 }
 
-declare module 'chai-dom' {
+declare module "chai-dom" {
     const chaiDom: Chai.ChaiPlugin;
     export = chaiDom;
 }

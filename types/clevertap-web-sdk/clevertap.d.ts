@@ -1,4 +1,5 @@
-type Region = 'eu1' | 'in1' | 'sg1' | 'us1' | 'sk1';
+type Region = "sg1" | "in1" | "us1" | "aps3" | "mec1";
+
 interface PrivacyData {
     optOut?: boolean;
     useIP?: boolean;
@@ -22,10 +23,10 @@ interface EventHandler extends Array<any> {
 interface SiteData {
     Name?: string;
     Identity?: string | number;
-    Gender?: 'M' | 'F';
-    Employed?: 'Y' | 'N';
-    Married?: 'Y' | 'N';
-    Education?: 'School' | 'College' | 'Graduate';
+    Gender?: "M" | "F";
+    Employed?: "Y" | "N";
+    Married?: "Y" | "N";
+    Education?: "School" | "College" | "Graduate";
     Age?: string | number;
     DOB?: string | number | Date;
     Phone?: string | number;
@@ -34,7 +35,7 @@ interface SiteData {
 interface ProfileData {
     Site?: SiteData;
     Facebook?: object;
-    'Google Plus'?: object;
+    "Google Plus"?: object;
 }
 interface ProfileHandler extends Array<any> {
     push(...profileData: ProfileData[]): 0;
@@ -96,7 +97,7 @@ interface CustomNotificationEvent {
     msgCTkv?: any;
 }
 declare class CleverTap {
-    init(accountId: string, region?: Region, targetDomain?: string): void;
+    init(accountId: string, region?: Region, targetDomain?: string, token?: string): void;
     privacy: Privacy;
     event: EventHandler;
     profile: ProfileHandler;
@@ -111,17 +112,36 @@ declare class CleverTap {
     pageChanged(): void;
     spa: boolean;
     enablePersonalization: boolean;
+    dismissSpamControl: boolean;
+    getAccountID: () => string | null;
+    setMultiValuesForKey: (key: any, value: Array<string | number>) => void;
     addMultiValueForKey: (key: any, value: string | number) => void;
-    addMultiValuesForKey: (key: any, value: [string | number]) => void;
+    addMultiValuesForKey: (key: any, value: Array<string | number>) => void;
+    removeMultiValueForKey: (key: any, value: string | number) => void;
+    removeMultiValuesForKey: (key: any, value: Array<string | number>) => void;
+    removeValueForKey: (key: any) => void;
     handleDecrementValue: (key: any, value: number) => void;
     handleIncrementValue: (key: any, value: number) => void;
     setOffline: (arg: boolean) => void;
     renderNotificationViewed: (detail: CustomNotificationEvent) => void;
     renderNotificationClicked: (detail: CustomNotificationEvent) => void;
     notificationCallback: (arg: notificationCallbackData) => any;
-    removeMultiValueForKey: (key: any, value: string | number) => void;
-    removeMultiValuesForKey: (key: any, value: [string | number]) => void;
     raiseNotificationClicked: () => void;
+    markReadAllInboxMessage: () => void;
+    markReadInboxMessagesForIds: (messageIds: string[]) => void;
+    markReadInboxMessage: (messageId: string) => void;
+    deleteInboxMessage: (messageId: string) => void;
+    getInboxMessageForId: (messageId: string) => void;
+    getUnreadInboxMessages: () => any;
+    getAllInboxMessages: () => any;
+    getInboxMessageUnreadCount: () => number | undefined;
+    getInboxMessageCount: () => number | undefined;
+    getLocation: (lat: number, lng: number) => void;
+    defineVariable: (name: string, defaultValue: string | number | boolean) => any;
+    syncVariables(onSyncSuccess: () => void, onSyncFailure: (error: Error) => void): Promise<void>;
+    fetchVariables(onFetchCallback: () => void): void;
+    addVariablesChangedCallback(callback: () => void): void;
+    addOneTimeVariablesChangedCallback(callback: () => void): void;
 }
 
 export default CleverTap;

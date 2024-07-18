@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/leaflet-polylinedecorator",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/bbecquet/Leaflet.PolylineDecorator#readme"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-polylinedecorator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Viktor Soucek",
+            "githubUsername": "soucekv"
+        },
+        {
+            "name": "Michael Faisst",
+            "githubUsername": "michaelfaisst"
+        },
+        {
+            "name": "BePo65",
+            "githubUsername": "BePo65"
+        }
+    ]
+}

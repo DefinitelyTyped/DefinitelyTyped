@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/adobe__pdfservices-node-sdk",
+    "version": "2.2.9999",
+    "projects": [
+        "https://opensource.adobe.com/pdfservices-node-sdk-samples/apidocs/latest/index.html"
+    ],
+    "devDependencies": {
+        "@types/adobe__pdfservices-node-sdk": "workspace:."
+    },
+    "owners": []
+}

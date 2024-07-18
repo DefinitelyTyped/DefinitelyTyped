@@ -1,9 +1,3 @@
-// Type definitions for OOjs 6.0
-// Project: https://www.mediawiki.org/wiki/OOjs
-// Definitions by: diskdance <https://github.com/diskdance>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /// <reference path="utils.d.ts" />
 /// <reference path="EmitterList.d.ts" />
 /// <reference path="EventEmitter.d.ts" />

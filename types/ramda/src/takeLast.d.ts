@@ -1,2 +1,2 @@
-import { takeLast } from '../index';
+import { takeLast } from "../index";
 export default takeLast;

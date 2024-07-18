@@ -1,13 +1,3 @@
-// Type definitions for flexmonster 2.7
-// Project: https://flexmonster.com/
-// Definitions by:  Dima Zvazhii <https://github.com/Uaman>
-//                  Ian Sadovy <https://github.com/iansadovy>
-//                  Flexmonster Team (Admin) <https://github.com/flexmonsterowner>
-//                  Flexmonster Team <https://github.com/flexmonsterteam>
-//                  Iryna Kulchytska <https://github.com/irakulchytska>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 export as namespace Flexmonster;
 
 declare const Flexmonster: FlexmonsterConstructor;
@@ -29,7 +19,9 @@ declare namespace Flexmonster {
         report?: Report | string | undefined;
         global?: Report | undefined;
         customizeCell?: ((cell: CellBuilder, data: CellData) => void) | undefined;
-        customizeContextMenu?: ((items: ContextMenuItem[], data: CellData | ChartData, viewType: string) => ContextMenuItem[]) | undefined;
+        customizeContextMenu?:
+            | ((items: ContextMenuItem[], data: CellData | ChartData, viewType: string) => ContextMenuItem[])
+            | undefined;
         // events
         afterchartdraw?: (() => void) | undefined;
         aftergriddraw?: ((param: object) => void) | undefined;
@@ -82,51 +74,101 @@ declare namespace Flexmonster {
                 title?: string | undefined;
                 message?: string | undefined;
                 type?: string | undefined;
-                buttons?: Array<{ label: string; handler?: (() => void) | undefined; }> | undefined;
-                blocking?:
-                boolean | undefined;
-            }): void;
+                buttons?: Array<{ label: string; handler?: (() => void) | undefined }> | undefined;
+                blocking?: boolean | undefined;
+            },
+        ): void;
         clear(): void;
         clearFilter(hierarchyName: string): void;
-        clearXMLACache(proxyUrl: string, databaseId: string, callbackHandler: ((reponse: object) => void) | string, cubeId: string, measuresGroupId: string,
-            username?: string, password?: string): void;
+        clearXMLACache(
+            proxyUrl: string,
+            databaseId: string,
+            callbackHandler: ((reponse: object) => void) | string,
+            cubeId: string,
+            measuresGroupId: string,
+            username?: string,
+            password?: string,
+        ): void;
         closeFieldsList(): void;
         collapseAllData(): void;
         collapseData(hierarchyName: string): void;
         connectTo(object: DataSource): void;
         customizeCell(customizeCellFunction: (cell: CellBuilder, data: CellData) => void): void;
-        customizeContextMenu(customizeFunction: (items: ContextMenuItem[], data: CellData | ChartData, viewType: string) => ContextMenuItem[]): void;
+        customizeContextMenu(
+            customizeFunction: (
+                items: ContextMenuItem[],
+                data: CellData | ChartData,
+                viewType: string,
+            ) => ContextMenuItem[],
+        ): void;
         dispose(): void;
         expandAllData(withAllChildren?: boolean): void;
         expandData(hierarchyName: string): void;
-        exportTo(type: string, exportOptions?: ExportOptions, callbackHandler?: ((result: object) => void) | string): void;
+        exportTo(
+            type: string,
+            exportOptions?: ExportOptions,
+            callbackHandler?: ((result: object) => void) | string,
+        ): void;
         getAllConditions(): ConditionalFormat[];
         getAllHierarchies(): Hierarchy[];
         getAllMeasures(): Measure[];
         getCell(rowIdx: number, colIdx: number): CellData;
         getColumns(): Hierarchy[];
         getCondition(id: string): ConditionalFormat;
-        getData(options: { slice?: Slice | undefined }, callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
-            updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
+        getData(
+            options: { slice?: Slice | undefined },
+            callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+            updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+        ): void;
         getFilter(hierarchyName: string): Filter;
         getFormat(measureName: string): Format;
         getMeasures(): Measure[];
-        getMembers(hierarchyName: string, memberName: string, callbackHandler: ((members: Member[]) => void) | string): Member[];
+        getMembers(
+            hierarchyName: string,
+            memberName: string,
+            callbackHandler: ((members: Member[]) => void) | string,
+        ): Member[];
         getOptions(): Options;
         getReport(format?: string): Report | string;
         getReportFilters(): Hierarchy[];
         getRows(): Hierarchy[];
         getSelectedCell(): CellData | CellData[];
         getSort(hierarchyName: string): string;
-        getXMLACatalogs(proxyURL: string, dataSource: string, callbackHandler: ((response: any) => void) | string, username?: string, password?: string): void;
-        getXMLACubes(proxyURL: string, dataSource: string, catalog: string, callbackHandler: ((response: any) => void) | string, username?: string, password?: string): void;
-        getXMLADataSources(proxyURL: string, callbackHandler: ((response: any) => void) | string, username?: string, password?: string): void;
-        getXMLAProviderName(proxyURL: string, callbackHandler: ((response: any) => void) | string, username?: string, password?: string): string;
+        getXMLACatalogs(
+            proxyURL: string,
+            dataSource: string,
+            callbackHandler: ((response: any) => void) | string,
+            username?: string,
+            password?: string,
+        ): void;
+        getXMLACubes(
+            proxyURL: string,
+            dataSource: string,
+            catalog: string,
+            callbackHandler: ((response: any) => void) | string,
+            username?: string,
+            password?: string,
+        ): void;
+        getXMLADataSources(
+            proxyURL: string,
+            callbackHandler: ((response: any) => void) | string,
+            username?: string,
+            password?: string,
+        ): void;
+        getXMLAProviderName(
+            proxyURL: string,
+            callbackHandler: ((response: any) => void) | string,
+            username?: string,
+            password?: string,
+        ): string;
         load(url: string, componentFolder?: string): void;
         off(eventType: string, handler?: ((...args: any[]) => any) | string): void;
         on(eventType: string, handler: ((...args: any[]) => any) | string): void;
         open(): void;
-        openCalculatedValueEditor(uniqueName?: string, callbackHandler?: ((response: { uniqueName: string, isRemoved: boolean }) => void) | string): void;
+        openCalculatedValueEditor(
+            uniqueName?: string,
+            callbackHandler?: ((response: { uniqueName: string; isRemoved: boolean }) => void) | string,
+        ): void;
         openFieldsList(): void;
         openFilter(hierarchyName: string): void;
         print(options?: PrintOptions): void;
@@ -137,7 +179,13 @@ declare namespace Flexmonster {
         removeCondition(id: string): void;
         removeSelection(): void;
         runQuery(slice: Slice): void;
-        save(filename: string, destination: string, callbackHandler?: (() => void) | string, url?: string, embedData?: boolean): string;
+        save(
+            filename: string,
+            destination: string,
+            callbackHandler?: (() => void) | string,
+            url?: string,
+            embedData?: boolean,
+        ): string;
         setFilter(hierarchyName: string, filter: Filter): void;
         setFormat(format: Format, measureName: string): void;
         setOptions(options: Options): void;
@@ -149,32 +197,53 @@ declare namespace Flexmonster {
         sortingMethod(hierarchyName: string, compareFunction: (a: string, b: string) => number): void;
         sortValues(axisName: string, type: string, tuple: number[], measure: MeasureObject): void;
         toolbar: Toolbar;
-        updateData(object: DataSource | object[], options?: {ignoreScroll?: boolean | undefined, ignoreSorting?: boolean | undefined, partial?: boolean | undefined}): void;
+        updateData(
+            object: DataSource | object[],
+            options?: {
+                ignoreScroll?: boolean | undefined;
+                ignoreSorting?: boolean | undefined;
+                partial?: boolean | undefined;
+            },
+        ): void;
         version: string;
         fusioncharts?: {
-            getData(options: { type: string; slice?: Slice | undefined; prepareDataFunction?: ((rawData: any) => any) | undefined },
+            getData(
+                options: {
+                    type: string;
+                    slice?: Slice | undefined;
+                    prepareDataFunction?: ((rawData: any) => any) | undefined;
+                },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
-                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
+                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+            ): void;
             getNumberFormat(format: object): object;
         } | undefined;
         googlecharts?: {
-            getData(options: { type?: string | undefined; slice?: Slice | undefined; prepareDataFunction?: ((rawData: any) => any) | undefined },
+            getData(
+                options: {
+                    type?: string | undefined;
+                    slice?: Slice | undefined;
+                    prepareDataFunction?: ((rawData: any) => any) | undefined;
+                },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
-                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
+                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+            ): void;
             getNumberFormat(format: object): object;
             getNumberFormatPattern(format: object): string;
         } | undefined;
         highcharts?: {
             getData(
                 options: {
-                    type?: string | undefined; slice?: Slice | undefined;
+                    type?: string | undefined;
+                    slice?: Slice | undefined;
                     xAxisType?: string | undefined;
-                    valuesOnly?: boolean | undefined,
-                    withDrilldown?: boolean | undefined,
-                    prepareDataFunction?: ((rawData: any) => any) | undefined
+                    valuesOnly?: boolean | undefined;
+                    withDrilldown?: boolean | undefined;
+                    prepareDataFunction?: ((rawData: any) => any) | undefined;
                 },
                 callbackHandler: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
-                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string): void;
+                updateHandler?: ((rawData: GetDataValueObject, error?: GetDataErrorObject) => void) | string,
+            ): void;
             getAxisFormat(format: object): string;
             getPointXFormat(format: object): string;
             getPointYFormat(format: object): string;
@@ -234,17 +303,17 @@ declare namespace Flexmonster {
         rows?: Hierarchy[] | undefined;
         drills?: {
             drillAll?: boolean | undefined;
-            columns?: Array<{ tuple: string[]; measure?: MeasureObject | undefined; }> | undefined;
-            rows?: Array<{ tuple: string[]; measure?: MeasureObject | undefined; }> | undefined;
+            columns?: Array<{ tuple: string[]; measure?: MeasureObject | undefined }> | undefined;
+            rows?: Array<{ tuple: string[]; measure?: MeasureObject | undefined }> | undefined;
         } | undefined;
         expands?: {
             expandAll?: boolean | undefined;
-            columns?: Array<{ tuple: string[]; measure?: MeasureObject | undefined; }> | undefined;
-            rows?: Array<{ tuple: string[]; measure?: MeasureObject | undefined; }> | undefined;
+            columns?: Array<{ tuple: string[]; measure?: MeasureObject | undefined }> | undefined;
+            rows?: Array<{ tuple: string[]; measure?: MeasureObject | undefined }> | undefined;
         } | undefined;
         sorting?: {
-            column?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }> | undefined;
-            row?: Array<{ type: string; tuple: string[]; measure: MeasureObject; }> | undefined;
+            column?: Array<{ type: string; tuple: string[]; measure: MeasureObject }> | undefined;
+            row?: Array<{ type: string; tuple: string[]; measure: MeasureObject }> | undefined;
         } | undefined;
         drillThrough?: string[] | undefined;
         flatOrder?: string[] | undefined;
@@ -612,37 +681,37 @@ declare namespace Flexmonster {
         // Fullscreen tab
         fullscreenHandler: () => void;
         icons: {
-            connect: string,
-            connect_csv: string,
-            connect_csv_remote: string,
-            connect_json_remote: string,
-            connect_olap: string,
-            open: string,
-            open_local: string,
-            open_remote: string,
-            save: string,
-            export: string,
-            export_print: string,
-            export_html: string,
-            export_csv: string,
-            export_excel: string,
-            export_image: string,
-            export_pdf: string,
-            grid: string,
-            charts: string,
-            charts_bar: string,
-            charts_line: string,
-            charts_scatter: string,
-            charts_pie: string,
-            charts_stacked_column: string,
-            charts_column_line: string,
-            format: string,
-            format_number: string,
-            format_conditional: string,
-            options: string,
-            fields: string,
-            fullscreen: string,
-            minimize: string
+            connect: string;
+            connect_csv: string;
+            connect_csv_remote: string;
+            connect_json_remote: string;
+            connect_olap: string;
+            open: string;
+            open_local: string;
+            open_remote: string;
+            save: string;
+            export: string;
+            export_print: string;
+            export_html: string;
+            export_csv: string;
+            export_excel: string;
+            export_image: string;
+            export_pdf: string;
+            grid: string;
+            charts: string;
+            charts_bar: string;
+            charts_line: string;
+            charts_scatter: string;
+            charts_pie: string;
+            charts_stacked_column: string;
+            charts_column_line: string;
+            format: string;
+            format_number: string;
+            format_conditional: string;
+            options: string;
+            fields: string;
+            fullscreen: string;
+            minimize: string;
         };
     }
 

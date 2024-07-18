@@ -1,4 +1,4 @@
-import Sha256 = require('sha256-wasm');
+import Sha256 = require("sha256-wasm");
 
 // test type exports
 type S256 = Sha256;
@@ -34,14 +34,14 @@ hash.pos; // $ExpectType number
 
 hash.update(new Uint8Array(0)); // $ExpectType Sha256
 hash.update([1] as const); // $ExpectType Sha256
-hash.update('hello'); // $ExpectType Sha256
-hash.update('0ff', 'hex'); // $ExpectType Sha256
+hash.update("hello"); // $ExpectType Sha256
+hash.update("0ff", "hex"); // $ExpectType Sha256
 hash.digest(); // $ExpectType Uint8Array
 hash.digest(new Uint8Array(0)); // $ExpectType Uint8Array
 hash.digest(new Uint8Array(0), 1); // $ExpectType Uint8Array
 hash.digest(Buffer.alloc(0)); // $ExpectType Buffer
 hash.digest(Buffer.alloc(0), 1); // $ExpectType Buffer
-hash.digest('utf8'); // $ExpectType string
+hash.digest("utf8"); // $ExpectType string
 
 hash.ready(); // $ExpectType Promise<void>
 // $ExpectType Promise<void>
@@ -59,12 +59,12 @@ if (Sha256.HMAC) {
 
     hmac.update(new Uint8Array(0)); // $ExpectType HMAC
     hmac.update([1] as const); // $ExpectType HMAC
-    hmac.update('hello'); // $ExpectType HMAC
-    hmac.update('0ff', 'hex'); // $ExpectType HMAC
+    hmac.update("hello"); // $ExpectType HMAC
+    hmac.update("0ff", "hex"); // $ExpectType HMAC
     hmac.digest(); // $ExpectType Uint8Array
     hmac.digest(new Uint8Array(0)); // $ExpectType Uint8Array
     hmac.digest(new Uint8Array(0), 1); // $ExpectType Uint8Array
     hmac.digest(Buffer.alloc(0)); // $ExpectType Buffer
     hmac.digest(Buffer.alloc(0), 1); // $ExpectType Buffer
-    hmac.digest('utf8'); // $ExpectType string
+    hmac.digest("utf8"); // $ExpectType string
 }

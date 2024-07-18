@@ -1,9 +1,3 @@
-// Type definitions for shell-escape 0.2
-// Project: https://github.com/xxorax/node-shell-escape
-// Definitions by: Miloslav Nenadál <https://github.com/nenadalm>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Escape and stringify an array of arguments to be executed on the shell.
  *

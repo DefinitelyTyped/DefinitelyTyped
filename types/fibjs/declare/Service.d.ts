@@ -43,7 +43,6 @@ declare class Class_Service extends Class_EventEmitter {
      * @brief 查询和绑定服务停止事件，相当于 on("stop", func);
      *
      *
-     * @type Function
      */
 
     onstop: Function
@@ -55,7 +54,6 @@ declare class Class_Service extends Class_EventEmitter {
      * @brief 查询和绑定服务暂停事件，相当于 on("pause", func);
      *
      *
-     * @type Function
      */
 
     onpause: Function
@@ -67,7 +65,6 @@ declare class Class_Service extends Class_EventEmitter {
      * @brief 查询和绑定服务恢复事件，相当于 on("continue", func);
      *
      *
-     * @type Function
      */
 
     oncontinue: Function

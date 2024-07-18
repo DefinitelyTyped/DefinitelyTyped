@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/geojson-validation",
+    "version": "1.0.9999",
+    "projects": [
+        "https://gitlab.com/mjbecze/GeoJSON-Validation"
+    ],
+    "devDependencies": {
+        "@types/geojson-validation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Liam A. Clarke",
+            "githubUsername": "LiamAttClarke"
+        }
+    ]
+}

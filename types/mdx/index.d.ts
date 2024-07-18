@@ -1,11 +1,3 @@
-// Type definitions for non-npm package mdx 2.0
-// Project: https://github.com/mdx-js/mdx
-// Definitions by: Christian Murphy <https://github.com/ChristianMurphy>
-//                 Remco Haszing <https://github.com/remcohaszing>
-//                 Titus Wormer <https://github.com/wooorm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 /**
  * An MDX file which exports a JSX component.
  *
@@ -58,9 +50,9 @@
  *
  * It should now be possible to import both the MDX component and the exported constant `message`.
  */
-declare module '*.mdx' {
-    // eslint-disable-next-line no-self-import
-    import { MDXProps } from 'mdx/types';
+declare module "*.mdx" {
+    // eslint-disable-next-line @definitelytyped/no-self-import
+    import { Element, MDXProps } from "mdx/types";
 
     /**
      * An function component which renders the MDX content using JSX.
@@ -69,7 +61,7 @@ declare module '*.mdx' {
      * @returns A JSX element. The meaning of this may depend on the project configuration. I.e. it
      * could be a React, Preact, or Vuex element.
      */
-    export default function MDXContent(props: MDXProps): JSX.Element;
+    export default function MDXContent(props: MDXProps): Element;
 }
 
 // Support markdown extensions from
@@ -78,48 +70,48 @@ declare module '*.mdx' {
 /**
  * A markdown file which exports a JSX component.
  */
-declare module '*.md' {
-    export { default } from '*.mdx';
+declare module "*.md" {
+    export { default } from "*.mdx";
 }
 
 /**
  * A markdown file which exports a JSX component.
  */
-declare module '*.markdown' {
-    export { default } from '*.mdx';
+declare module "*.markdown" {
+    export { default } from "*.mdx";
 }
 
 /**
  * A markdown file which exports a JSX component.
  */
-declare module '*.mdown' {
-    export { default } from '*.mdx';
+declare module "*.mdown" {
+    export { default } from "*.mdx";
 }
 
 /**
  * A markdown file which exports a JSX component.
  */
-declare module '*.mkdn' {
-    export { default } from '*.mdx';
+declare module "*.mkdn" {
+    export { default } from "*.mdx";
 }
 
 /**
  * A markdown file which exports a JSX component.
  */
-declare module '*.mkd' {
-    export { default } from '*.mdx';
+declare module "*.mkd" {
+    export { default } from "*.mdx";
 }
 
 /**
  * A markdown file which exports a JSX component.
  */
-declare module '*.mkdown' {
-    export { default } from '*.mdx';
+declare module "*.mkdown" {
+    export { default } from "*.mdx";
 }
 
 /**
  * A markdown file which exports a JSX component.
  */
-declare module '*.ron' {
-    export { default } from '*.mdx';
+declare module "*.ron" {
+    export { default } from "*.mdx";
 }

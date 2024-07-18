@@ -1,4 +1,4 @@
-import jasmineReporters = require('jasmine-reporters');
+import jasmineReporters = require("jasmine-reporters");
 
 // https://github.com/larrymyers/jasmine-reporters/tree/master/examples/
 
@@ -9,14 +9,14 @@ function appveyor_reporter_html() {
 function junit_xml_reporter_html() {
     jasmine.getEnv().addReporter(
         new jasmineReporters.JUnitXmlReporter({
-            savePath: '..',
+            savePath: "..",
             consolidateAll: false,
         }),
     );
 }
 
 function nunit_xml_reporter_html() {
-    jasmine.getEnv().addReporter(new jasmineReporters.NUnitXmlReporter({ savePath: '..' }));
+    jasmine.getEnv().addReporter(new jasmineReporters.NUnitXmlReporter({ savePath: ".." }));
 }
 
 function tap_reporter_html() {
@@ -40,14 +40,14 @@ function terminal_reporter_html() {
 // https://github.com/larrymyers/jasmine-reporters/blob/master/spec/
 
 function JUnitXmlReporterSpec_js() {
-    const modification = '-modified';
+    const modification = "-modified";
     const suite: jasmine.SuiteResult = {
-        id: 'text',
-        description: 'text',
-        fullName: 'text',
+        id: "text",
+        description: "text",
+        fullName: "text",
         failedExpectations: [],
         deprecationWarnings: [],
-        status: 'text',
+        status: "text",
         duration: null,
         properties: null,
     };
@@ -62,26 +62,26 @@ function JUnitXmlReporterSpec_js() {
     });
     setupReporterWithOptions({
         consolidateAll: false,
-        filePrefix: 'alt-prefix-',
+        filePrefix: "alt-prefix-",
     });
     setupReporterWithOptions({ package: true });
-    setupReporterWithOptions({ package: ['test'] });
-    setupReporterWithOptions({ package: 'testPackage' });
+    setupReporterWithOptions({ package: ["test"] });
+    setupReporterWithOptions({ package: "testPackage" });
     setupReporterWithOptions({ stylesheetPath: true });
-    setupReporterWithOptions({ stylesheetPath: '' });
-    setupReporterWithOptions({ stylesheetPath: 'mystyle.xslt' });
-    setupReporterWithOptions({ consolidate: false, stylesheetPath: 'mystyle.xslt' });
+    setupReporterWithOptions({ stylesheetPath: "" });
+    setupReporterWithOptions({ stylesheetPath: "mystyle.xslt" });
+    setupReporterWithOptions({ consolidate: false, stylesheetPath: "mystyle.xslt" });
     setupReporterWithOptions({ consolidateAll: true });
-    setupReporterWithOptions({ consolidateAll: true, filePrefix: 'results' });
-    setupReporterWithOptions({ consolidateAll: false, consolidate: true, filePrefix: 'results-' });
-    setupReporterWithOptions({ consolidateAll: true, consolidate: false, filePrefix: 'results-' });
+    setupReporterWithOptions({ consolidateAll: true, filePrefix: "results" });
+    setupReporterWithOptions({ consolidateAll: false, consolidate: true, filePrefix: "results-" });
+    setupReporterWithOptions({ consolidateAll: true, consolidate: false, filePrefix: "results-" });
     setupReporterWithOptions({ consolidateAll: true, consolidate: true });
     setupReporterWithOptions({ consolidateAll: true, consolidate: true, useDotNotation: true });
     setupReporterWithOptions({ consolidateAll: true, consolidate: true, useDotNotation: false });
     setupReporterWithOptions({ consolidateAll: true, consolidate: true });
     setupReporterWithOptions({});
-    setupReporterWithOptions({ package: 'testPackage' });
-    setupReporterWithOptions({ package: 'testPackage <3' });
+    setupReporterWithOptions({ package: "testPackage" });
+    setupReporterWithOptions({ package: "testPackage <3" });
     setupReporterWithOptions({ consolidateAll: true, consolidate: true });
     setupReporterWithOptions({
         consolidateAll: true,
@@ -105,15 +105,15 @@ function NUnitXmlReporterSpec_js() {
         new jasmineReporters.NUnitXmlReporter(options);
     }
 
-    setupReporterWithOptions({ reportName: '<Bad Character Report>' });
+    setupReporterWithOptions({ reportName: "<Bad Character Report>" });
     setupReporterWithOptions();
-    setupReporterWithOptions({ savePath: '/tmp' });
-    setupReporterWithOptions({ filename: 'results.xml' });
-    setupReporterWithOptions({ reportName: 'Test Results' });
+    setupReporterWithOptions({ savePath: "/tmp" });
+    setupReporterWithOptions({ filename: "results.xml" });
+    setupReporterWithOptions({ reportName: "Test Results" });
 }
 
 function TeamCityReporterSpec_js() {
-    const modification = '-modified';
+    const modification = "-modified";
     function setupReporterWithOptions(options?: jasmineReporters.TeamCityReporter.ConstructorOptions) {
         new jasmineReporters.TeamCityReporter(options);
     }
@@ -152,14 +152,14 @@ function junit_reporter_js() {
             captureStdout: true,
             consolidate: true,
             consolidateAll: true,
-            filePrefix: 'text',
-            modifyReportFileName: () => 'text',
-            modifySuiteName: () => 'text',
-            package: 'text',
-            savePath: 'text',
-            stylesheetPath: 'text',
+            filePrefix: "text",
+            modifyReportFileName: () => "text",
+            modifySuiteName: () => "text",
+            package: "text",
+            savePath: "text",
+            stylesheetPath: "text",
             suppressDisabled: true,
-            systemOut: () => 'text',
+            systemOut: () => "text",
             useDotNotation: true,
             useFullTestName: true,
         }),
@@ -173,9 +173,9 @@ function nunit_reporter_js() {
     // All options
     jasmine.getEnv().addReporter(
         new jasmineReporters.NUnitXmlReporter({
-            filename: 'text',
-            reportName: 'text',
-            savePath: 'text',
+            filename: "text",
+            reportName: "text",
+            savePath: "text",
         }),
     );
 }
@@ -191,7 +191,7 @@ function teamcity_reporter_js() {
     // All options
     jasmine.getEnv().addReporter(
         new jasmineReporters.TeamCityReporter({
-            modifySuiteName: () => 'text',
+            modifySuiteName: () => "text",
         }),
     );
 }

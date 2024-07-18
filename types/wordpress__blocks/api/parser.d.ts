@@ -1,6 +1,6 @@
-import { ReactChild } from 'react';
+import { JSX, ReactElement } from "react";
 
-import { Block, BlockInstance } from '../';
+import { Block, BlockInstance } from "../";
 
 /**
  * Returns the block attributes of a registered block node given its type.
@@ -14,44 +14,44 @@ import { Block, BlockInstance } from '../';
 export function getBlockAttributes<T extends Block<any>>(
     blockTypeOrName: T,
     innerHTML: string,
-    attributes?: Record<string, any>
+    attributes?: Record<string, any>,
 ): T extends Block<infer U> ? U : never;
 export function getBlockAttributes(
     blockTypeOrName: string,
     innerHTML: string,
-    attributes?: Record<string, any>
+    attributes?: Record<string, any>,
 ): Record<string, any>;
 
 export namespace Schema {
     interface Attribute {
-        source: 'attribute';
+        source: "attribute";
         selector?: string | undefined;
         attribute: string;
-        type?: 'string' | 'boolean' | undefined;
+        type?: "string" | "boolean" | undefined;
     }
     interface Children {
-        source: 'children';
+        source: "children";
         selector?: string | undefined;
     }
     interface HTML {
-        source: 'html';
+        source: "html";
         selector?: string | undefined;
         multiline?: keyof HTMLElementTagNameMap | undefined;
     }
     interface Node {
-        source: 'node';
+        source: "node";
         selector?: string | undefined;
     }
     interface Tag {
-        source: 'tag';
+        source: "tag";
         selector?: string | undefined;
     }
     interface Text {
-        source: 'text';
+        source: "text";
         selector?: string | undefined;
     }
     interface Query<T> {
-        source: 'query';
+        source: "query";
         selector?: string | undefined;
         query: T;
     }
@@ -67,15 +67,15 @@ export type Source<T> =
     | Schema.Text;
 
 // prettier-ignore
-export type SourceReturnValue<T> =
-    T extends Schema.Attribute & { type: 'boolean' } ? boolean | undefined :
-    T extends Schema.Children ? ReactChild[] :
-    T extends Schema.Node ? JSX.Element | null :
-    T extends Schema.Tag ? keyof (HTMLElementTagNameMap & SVGElementTagNameMap) | undefined :
-    T extends Schema.Query<infer U> ? {
-        [k in keyof U]: U[k] extends Schema.Query<infer V> ? SourceReturnValue<Schema.Query<V>> : SourceReturnValue<U[k]>;
-    } :
-    (string | undefined);
+export type SourceReturnValue<T> = T extends Schema.Attribute & { type: "boolean" } ? boolean | undefined
+    : T extends Schema.Children ? ReactElement | number | string[]
+    : T extends Schema.Node ? JSX.Element | null
+    : T extends Schema.Tag ? keyof (HTMLElementTagNameMap & SVGElementTagNameMap) | undefined
+    : T extends Schema.Query<infer U> ? {
+            [k in keyof U]: U[k] extends Schema.Query<infer V> ? SourceReturnValue<Schema.Query<V>>
+                : SourceReturnValue<U[k]>;
+        }
+    : (string | undefined);
 
 /**
  * Given a block's raw content and an attribute's schema returns the attribute's
@@ -88,21 +88,24 @@ export type SourceReturnValue<T> =
  */
 export function parseWithAttributeSchema(
     innerHTML: string,
-    schema: Schema.Attribute & { type: 'boolean' }
+    schema: Schema.Attribute & { type: "boolean" },
 ): boolean | undefined;
 export function parseWithAttributeSchema(
     innerHTML: string,
-    schema: Schema.Attribute | Schema.HTML | Schema.Text
+    schema: Schema.Attribute | Schema.HTML | Schema.Text,
 ): string | undefined;
-export function parseWithAttributeSchema(innerHTML: string, schema: Schema.Children): ReactChild[];
+export function parseWithAttributeSchema(
+    innerHTML: string,
+    schema: Schema.Children,
+): Array<ReactElement | number | string>;
 export function parseWithAttributeSchema(innerHTML: string, schema: Schema.Node): JSX.Element | null;
 export function parseWithAttributeSchema(
     innerHTML: string,
-    schema: Schema.Tag
+    schema: Schema.Tag,
 ): keyof (HTMLElementTagNameMap & SVGElementTagNameMap) | undefined;
 export function parseWithAttributeSchema<T extends Record<string, Source<any>>>(
     innerHTML: string,
-    schema: Schema.Query<T>
+    schema: Schema.Query<T>,
 ): {
     [k in keyof T]: SourceReturnValue<T[k]>;
 };

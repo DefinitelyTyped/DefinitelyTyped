@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/scryptsy",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/cryptocoinjs/scryptsy"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/scryptsy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Satana Charuwichitratana",
+            "githubUsername": "micksatana"
+        }
+    ]
+}

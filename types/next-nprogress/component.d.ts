@@ -1,5 +1,5 @@
-import { NProgressOptions } from 'nprogress';
-import * as React from 'react';
+import { NProgressOptions } from "nprogress";
+import * as React from "react";
 
 export interface NProgressProps {
     options?: Partial<NProgressOptions> | undefined;

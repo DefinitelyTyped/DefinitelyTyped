@@ -1,10 +1,10 @@
-import { Camera } from './../cameras/Camera';
-import { Light } from './../lights/Light';
-import { Vector2 } from './../math/Vector2';
-import { Vector4 } from './../math/Vector4';
-import { Matrix4 } from './../math/Matrix4';
-import { WebGLRenderTarget } from '../renderers/WebGLRenderTarget';
-import { Frustum } from '../Three';
+import { Camera } from "../cameras/Camera.js";
+import { Frustum } from "../math/Frustum.js";
+import { Matrix4 } from "../math/Matrix4.js";
+import { Vector2 } from "../math/Vector2.js";
+import { Vector4 } from "../math/Vector4.js";
+import { WebGLRenderTarget } from "../renderers/WebGLRenderTarget.js";
+import { Light } from "./Light.js";
 
 /**
  * Serves as a base class for the other shadow classes.
@@ -23,6 +23,11 @@ export class LightShadow<TCamera extends Camera = Camera> {
      * @remark This is used to generate a depth map of the scene; objects behind other objects from the light's perspective will be in shadow.
      */
     camera: TCamera;
+
+    /**
+     * The intensity of the shadow. The default is `1`. Valid values are in the range `[0, 1]`.
+     */
+    intensity: number;
 
     /**
      * Shadow map bias, how much to add or subtract from the normalized depth when deciding whether a surface is in shadow.

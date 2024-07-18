@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/figlet",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/patorjk/figlet.js"
+    ],
+    "devDependencies": {
+        "@types/figlet": "workspace:."
+    },
+    "owners": []
+}

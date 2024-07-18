@@ -12,7 +12,7 @@ const vehicles: CustomVehicle[] = [];
 
 // 3D assets are loaded, now load nav mesh
 const loader = new YUKA.NavMeshLoader();
-loader.load('../common/navmeshes/complex/navmesh.glb').then((navigationMesh) => {
+loader.load("../common/navmeshes/complex/navmesh.glb").then((navigationMesh) => {
     pathPlanner = new PathPlanner(navigationMesh);
     // setup spatial index
     const width = 100;

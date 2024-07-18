@@ -1,4 +1,4 @@
-import hull = require('hull.js');
+import hull = require("hull.js");
 
 const numberPointSet = [
     [236, 126],
@@ -99,6 +99,6 @@ hull(numberPointSet);
 
 hull(numberPointSet, 50);
 
-hull(objectPointSet, 50, ['.lng', '.lat']);
+hull(objectPointSet, 50, [".lng", ".lat"]);
 
 hull(biggerNumberPointSet);

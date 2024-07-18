@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/stream-throttle",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/tjgq/node-stream-throttle"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/stream-throttle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Byrne",
+            "githubUsername": "danwbyrne"
+        }
+    ]
+}

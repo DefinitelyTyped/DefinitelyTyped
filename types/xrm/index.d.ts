@@ -1,15 +1,3 @@
-// Type definitions for Microsoft Dynamics xRM API 9.0
-// Project: https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/overview
-// Definitions by:  Matt Ngan <https://github.com/mattngan>
-//                  Markus Mauch <https://github.com/markusmauch>
-//                  Daryl LaBar <https://github.com/daryllabar>
-//                  Tully H <https://github.com/clownwilleatme>
-//                  Scott Durow <https://github.com/scottdurow>
-//                  Phil Cole <https://github.com/filcole>
-//                  Danish Naglekar <https://github.com/power-maverick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 declare var Xrm: Xrm.XrmStatic;
 
 /**
@@ -505,6 +493,13 @@ declare namespace Xrm {
          * @returns The current value of the setting.
          */
         getCurrentAppSetting(settingName: string): string | number | boolean;
+
+        /**
+         * Returns the relative URL with the caching token for the specified web resource.
+         * @param webResourceName Name of the web resource.
+         * @returns  The relative URL, including the caching token, for the specified web resource.
+         */
+        getWebResourceUrl(webResourceName: string): string;
     }
 
     /**
@@ -534,7 +529,7 @@ declare namespace Xrm {
         entityId?: string | undefined;
         /**
          * The parent record that provides default values based on mapped attribute values.
-         **/
+         */
         createFromEntity?: LookupValue | undefined;
         /**
          * ID of the currently displayed form.
@@ -695,6 +690,30 @@ declare namespace Xrm {
         }
 
         /**
+         * Interface for postsave event arguments
+         */
+
+        interface PostSaveEventArguments {
+            /**
+             * Use this method to know information about a table being saved.
+             * It returns the table logical name, record ID, and table name if save was successful.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getentityreference}
+             */
+            getEntityReference(): LookupValue;
+
+            /** Use this method to know whether the save operation was successful or failed.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getissavesuccess}
+             */
+            getIsSaveSuccess(): boolean;
+
+            /**
+             * Use this method to know the error details on why save failed.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments/getsaveerrorinfo}
+             */
+            getSaveErrorInfo(): object;
+        }
+
+        /**
          * Interface for process stage change event arguments.
          */
         interface StageChangeEventArguments {
@@ -822,12 +841,12 @@ declare namespace Xrm {
         }
 
         /**
-        * Form Data OnLoad event context.
-        * In the API documentation, this is sometimes referred to as the executionContext.
-        * Subscribe to this event with {@link Data.addOnLoad()}
-        * Not to be confused with {@link LoadEventContext}, registered in the designer.
-        * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
-        */
+         * Form Data OnLoad event context.
+         * In the API documentation, this is sometimes referred to as the executionContext.
+         * Subscribe to this event with {@link Data.addOnLoad()}
+         * Not to be confused with {@link LoadEventContext}, registered in the designer.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
+         */
         interface DataLoadEventContext extends EventContext {
             /**
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/executioncontext/geteventargs#return-value External Link: getEventArgs (Client API reference)}
@@ -917,6 +936,19 @@ declare namespace Xrm {
         }
 
         /**
+         * Synchronous Form OnPostSave event context.
+         * In the API documentation, this is sometimes referred to as the executionContext.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/save-event-arguments External Link: Form OnPostSave event}
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/execution-context External Link: Execution context (Client API reference)}
+         */
+        interface PostSaveEventContext extends EventContext {
+            /**
+             * Gets postsave-event arguments.
+             */
+            getEventArgs(): PostSaveEventArguments;
+        }
+
+        /**
          * Interface for a process stage change event context
          */
         interface StageChangeEventContext extends EventContext {
@@ -964,7 +996,7 @@ declare namespace Xrm {
         type SaveEventHandler = (context: SaveEventContext) => void;
         type SaveEventHandlerAsync = (context: SaveEventContextAsync) => PromiseLike<void>;
 
-        type PostSaveEventHandler = (context: EventContext) => void;
+        type PostSaveEventHandler = (context: PostSaveEventContext) => void;
 
         type ProcessStatusChangeHandler = (context: ProcessStatusChangedEventContext) => void;
         type StageChangeEventHandler = (context: StageChangeEventContext) => void;
@@ -974,23 +1006,23 @@ declare namespace Xrm {
 
         namespace Attribute {
             type ChangeEventHandler = (context: ChangeEventContext) => void;
-            interface ChangeEventContext extends EventContext { }
+            interface ChangeEventContext extends EventContext {}
         }
 
         namespace GridControl {
             type LoadEventHandler = (context: LoadEventContext) => void;
-            interface LoadEventContext extends EventContext { }
+            interface LoadEventContext extends EventContext {}
         }
 
         namespace KbSearchControl {
             type PostSearchEventHandler = (context: PostSearchEventContext) => void;
-            interface PostSearchEventContext extends EventContext { }
+            interface PostSearchEventContext extends EventContext {}
 
             type ResultOpenedEventHandler = (context: ResultOpenedEventContext) => void;
-            interface ResultOpenedEventContext extends EventContext { }
+            interface ResultOpenedEventContext extends EventContext {}
 
             type SelectionEventHandler = (context: SelectionEventContext) => void;
-            interface SelectionEventContext extends EventContext { }
+            interface SelectionEventContext extends EventContext {}
         }
     }
 
@@ -1905,31 +1937,31 @@ declare namespace Xrm {
         /**
          * @deprecated Use {@link Xrm.Controls.AddControlNotificationOptions} instead.
          */
-        interface AddControlNotificationOptions extends Controls.AddControlNotificationOptions { }
+        interface AddControlNotificationOptions extends Controls.AddControlNotificationOptions {}
 
         /**
          * Interface to define the actions on a control notification
          * @deprecated Use {@link Xrm.Controls.ControlNotificationAction} instead.
          */
-        interface ControlNotificationAction extends Controls.ControlNotificationAction { }
+        interface ControlNotificationAction extends Controls.ControlNotificationAction {}
 
         /**
          * Interface for an entity's form selector item.
          * @deprecated Use {@link Xrm.Controls.FormItem} instead.
          */
-        interface FormItem extends Controls.FormItem { }
+        interface FormItem extends Controls.FormItem {}
 
         /**
          * Interface for the form selector API.
          * @deprecated Use {@link Xrm.Controls.FormSelector} instead.
          */
-        interface FormSelector extends Controls.FormSelector { }
+        interface FormSelector extends Controls.FormSelector {}
 
         /**
          * Interface for Xrm.Page.ui.navigation.
          * @deprecated Use {@link Xrm.Controls.Navigation} instead.
          */
-        interface Navigation extends Controls.Navigation { }
+        interface Navigation extends Controls.Navigation {}
 
         /**
          * Interface for a navigation item.
@@ -1937,7 +1969,7 @@ declare namespace Xrm {
          * @see {@link UiFocusable}
          * @deprecated Use {@link Xrm.Controls.NavigationItem} instead.
          */
-        interface NavigationItem extends Controls.NavigationItem { }
+        interface NavigationItem extends Controls.NavigationItem {}
 
         /**
          * Constants to use with the addNotification method of form controls
@@ -1977,7 +2009,6 @@ declare namespace Xrm {
         /**
          * Control type for Xrm.Page.ui.QuickForm.getControlType().
          * @deprecated Use {@link Xrm.Controls.ControlQuickFormType} instead.
-         *
          */
         type ControlQuickFormType = Controls.ControlQuickFormType;
 
@@ -2033,43 +2064,43 @@ declare namespace Xrm {
          * Interface for a CRM Business Process Flow instance.
          * @deprecated Use {@link Xrm.ProcessFlow.Process} instead.
          */
-        interface Process extends ProcessFlow.Process { }
+        interface Process extends ProcessFlow.Process {}
 
         /**
          * Interface for CRM Business Process Flow stages.
          * @deprecated Use {@link Xrm.ProcessFlow.Stage} instead.
          */
-        interface Stage extends ProcessFlow.Stage { }
+        interface Stage extends ProcessFlow.Stage {}
 
         /**
          * Interface for CRM Business Process Flow steps.
          * @deprecated Use {@link Xrm.ProcessFlow.Step} instead.
          */
-        interface Step extends ProcessFlow.Step { }
+        interface Step extends ProcessFlow.Step {}
 
         /**
          * Interface for the event context.
          * @deprecated Use {@link Xrm.Events.EventContext} instead.
          */
-        interface EventContext extends Events.EventContext { }
+        interface EventContext extends Events.EventContext {}
 
         /**
          * Interface for a save event context
          * @deprecated Use {@link Xrm.Events.SaveEventContext} instead.
          */
-        interface SaveEventContext extends Events.SaveEventContext { }
+        interface SaveEventContext extends Events.SaveEventContext {}
 
         /**
          * Interface for a process stage change event context
          * @deprecated Use {@link Xrm.Events.StageChangeEventContext} instead.
          */
-        interface StageChangeEventContext extends Events.StageChangeEventContext { }
+        interface StageChangeEventContext extends Events.StageChangeEventContext {}
 
         /**
          * Interface for a process stage select event context
          * @deprecated  Use {@link Xrm.Events.StageSelectedEventContext} instead.
          */
-        interface StageSelectedEventContext extends Events.StageSelectedEventContext { }
+        interface StageSelectedEventContext extends Events.StageSelectedEventContext {}
 
         /**
          * Type for a context-sensitive handler.
@@ -2089,167 +2120,167 @@ declare namespace Xrm {
          * Interface for UI elements with labels.
          * @deprecated Use {@link Xrm.Controls.UiLabelElement} instead.
          */
-        interface UiLabelElement extends Controls.UiLabelElement { }
+        interface UiLabelElement extends Controls.UiLabelElement {}
 
         /**
          * Interface for UI elements which can have the visibility value read.
          * @deprecated Use {@link Xrm.Controls.UiCanGetVisibleElement} instead.
          */
-        interface UiCanGetVisibleElement extends Controls.UiCanGetVisibleElement { }
+        interface UiCanGetVisibleElement extends Controls.UiCanGetVisibleElement {}
 
         /**
          * Interface for UI elements which can have the visibility value updated.
          * @deprecated Use {@link Xrm.Controls.UiCanSetVisibleElement} instead.
          */
-        interface UiCanSetVisibleElement extends Controls.UiCanSetVisibleElement { }
+        interface UiCanSetVisibleElement extends Controls.UiCanSetVisibleElement {}
 
         /**
          * Base interface for standard UI elements.
          * @deprecated Use {@link Xrm.Controls.UiStandardElement} instead.
          */
-        interface UiStandardElement extends Controls.UiStandardElement { }
+        interface UiStandardElement extends Controls.UiStandardElement {}
 
         /**
          * Interface for focusable UI elements.
          * @deprecated Use {@link Xrm.Controls.UiFocusable} instead.
          */
-        interface UiFocusable extends Controls.UiFocusable { }
+        interface UiFocusable extends Controls.UiFocusable {}
 
         /**
          * Interface for controls which methods provide immediate feedback or take actions as user types in a control.
          * Contains methods which can be used to perform data validations in a control even before the user commits (saves) the value in a form.
          * @deprecated Use {@link Xrm.Controls.UiKeyPressable} instead.
          */
-        interface UiKeyPressable extends Controls.UiKeyPressable { }
+        interface UiKeyPressable extends Controls.UiKeyPressable {}
 
         /**
          * Interface for Result value of AutoCompleteResultSet
          * @deprecated Use {@link Xrm.Controls.AutoCompleteResult} instead.
          */
-        interface AutoCompleteResult extends Controls.AutoCompleteResult { }
+        interface AutoCompleteResult extends Controls.AutoCompleteResult {}
 
         /**
          * Interface for command of AutoCompleteResultSet.  This is displayed at the bottom of the auto complete view
          * @deprecated Use {@link Xrm.Controls.AutoCompleteCommand} instead.
          */
-        interface AutoCompleteCommand extends Controls.AutoCompleteCommand { }
+        interface AutoCompleteCommand extends Controls.AutoCompleteCommand {}
 
         /**
          * Interface for showAutoComplete argument
          * @deprecated Use {@link Xrm.Controls.AutoCompleteResultSet} instead.
          */
-        interface AutoCompleteResultSet extends Controls.AutoCompleteResultSet { }
+        interface AutoCompleteResultSet extends Controls.AutoCompleteResultSet {}
 
         /**
          * Interface for a Lookup value.
          * @deprecated Use {@link Xrm.LookupValue} instead.
          */
-        interface LookupValue extends Xrm.LookupValue { }
+        interface LookupValue extends Xrm.LookupValue {}
 
         /**
          * Interface for an OptionSet value.
          * @deprecated Use {@link Xrm.OptionSetValue} instead.
          */
-        interface OptionSetValue extends Xrm.OptionSetValue { }
+        interface OptionSetValue extends Xrm.OptionSetValue {}
 
         /**
          * Interface for a privilege.
          * @deprecated Use {@link Xrm.Privilege} instead.
          */
-        interface Privilege extends Xrm.Privilege { }
+        interface Privilege extends Xrm.Privilege {}
 
         /**
          * Interface for an Entity attribute.
          * @deprecated Use {@link Xrm.Attributes.Attribute} instead.
          */
-        interface Attribute extends Attributes.Attribute { }
+        interface Attribute extends Attributes.Attribute {}
 
         /**
          * Interface for a Number attribute.
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.NumberAttribute} instead.
          */
-        interface NumberAttribute extends Attributes.NumberAttribute { }
+        interface NumberAttribute extends Attributes.NumberAttribute {}
 
         /**
          * Interface for a String attribute.
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.StringAttribute} instead.
          */
-        interface StringAttribute extends Attributes.StringAttribute { }
+        interface StringAttribute extends Attributes.StringAttribute {}
 
         /**
          * Common interface for enumeration attributes (OptionSet and Boolean).
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.EnumAttribute} instead.
          */
-        interface EnumAttribute extends Attributes.EnumAttribute<number | boolean> { }
+        interface EnumAttribute extends Attributes.EnumAttribute<number | boolean> {}
 
         /**
          * Interface for a Boolean attribute.
          * @see {@link EnumAttribute}
          * @deprecated Use {@link Xrm.Attributes.BooleanAttribute} instead.
          */
-        interface BooleanAttribute extends Attributes.BooleanAttribute { }
+        interface BooleanAttribute extends Attributes.BooleanAttribute {}
 
         /**
          * Interface for a Date attribute.
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.DateAttribute} instead.
          */
-        interface DateAttribute extends Attributes.DateAttribute { }
+        interface DateAttribute extends Attributes.DateAttribute {}
 
         /**
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          * @deprecated Use {@link Xrm.Attributes.OptionSetAttribute} instead.
          */
-        interface OptionSetAttribute extends Attributes.OptionSetAttribute { }
+        interface OptionSetAttribute extends Attributes.OptionSetAttribute {}
 
         /**
          * Interface a Lookup attribute.
          * @see {@link Attribute}
          * @deprecated Use {@link Xrm.Attributes.LookupAttribute} instead.
          */
-        interface LookupAttribute extends Attributes.LookupAttribute { }
+        interface LookupAttribute extends Attributes.LookupAttribute {}
 
         /**
          * Interface for the form's record context, Xrm.Page.data.entity
          * @deprecated Use {@link Xrm.Entity} instead.
          */
-        interface Entity extends Xrm.Entity { }
+        interface Entity extends Xrm.Entity {}
 
         /**
          * Interface for save event arguments.
          * @deprecated Use {@link Xrm.Events.SaveEventContext} instead.
          */
-        interface SaveEventArguments extends Events.SaveEventContext { }
+        interface SaveEventArguments extends Events.SaveEventContext {}
 
         /**
          * Interface for process stage change event arguments.
          * @deprecated Use {@link Xrm.Events.StageChangeEventArguments} instead.
          */
-        interface StageChangeEventArguments extends Events.StageChangeEventArguments { }
+        interface StageChangeEventArguments extends Events.StageChangeEventArguments {}
 
         /**
          * Interface for process stage selected event arguments.
          * @deprecated Use {@link Xrm.Events.StageSelectedEventArguments} instead.
          */
-        interface StageSelectedEventArguments extends Events.StageSelectedEventArguments { }
+        interface StageSelectedEventArguments extends Events.StageSelectedEventArguments {}
 
         /**
          * Interface for Xrm.Page.ui controls.
          * @see {@link UiElement}
          * @deprecated Use {@link Xrm.Controls.Control} instead.
          */
-        interface Control extends Controls.Control { }
+        interface Control extends Controls.Control {}
 
         /**
          * Interface for a standard control.
          * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.StandardControl} instead.
          */
-        interface StandardControl extends Controls.StandardControl { }
+        interface StandardControl extends Controls.StandardControl {}
 
         /**
          * Interface for Auto Lookup Control.
@@ -2258,42 +2289,42 @@ declare namespace Xrm {
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.AutoLookupControl} instead.
          */
-        interface AutoLookupControl extends Controls.AutoLookupControl { }
+        interface AutoLookupControl extends Controls.AutoLookupControl {}
 
         /**
          * Interface for a String control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.StringControl} instead.
          */
-        interface StringControl extends Controls.StringControl { }
+        interface StringControl extends Controls.StringControl {}
 
         /**
          * Interface for a Number control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.NumberControl} instead.
          */
-        interface NumberControl extends AutoLookupControl { }
+        interface NumberControl extends AutoLookupControl {}
 
         /**
          * Interface for a Date control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.DateControl} instead.
          */
-        interface DateControl extends StandardControl { }
+        interface DateControl extends StandardControl {}
 
         /**
          * Interface for a Lookup control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.LookupControl} instead.
          */
-        interface LookupControl extends Controls.LookupControl { }
+        interface LookupControl extends Controls.LookupControl {}
 
         /**
          * Interface for an OptionSet control.
          * @see {@link StandardControl}
          * @deprecated Use {@link Xrm.Controls.OptionSetControl} instead.
          */
-        interface OptionSetControl extends Controls.OptionSetControl { }
+        interface OptionSetControl extends Controls.OptionSetControl {}
 
         /**
          * Interface for a CRM grid control.
@@ -2301,7 +2332,7 @@ declare namespace Xrm {
          * @see {@link Control}
          * @deprecated  Use {@link Xrm.Controls.GridControl} instead.
          */
-        interface GridControl extends Controls.GridControl { }
+        interface GridControl extends Controls.GridControl {}
 
         /**
          * Interface for a framed control, which is either a Web Resource or an Iframe.
@@ -2310,28 +2341,28 @@ declare namespace Xrm {
          *              appropriate.  Silverlight controls should use {@link SilverlightControl}.
          * @deprecated  Use {@link Xrm.Controls.FramedControl} instead.
          */
-        interface FramedControl extends Controls.FramedControl { }
+        interface FramedControl extends Controls.FramedControl {}
 
         /**
          * Interface for an Iframe control.
          * @see {@link FramedControl}
          * @deprecated  Use {@link Xrm.Controls.IframeControl} instead.
          */
-        interface IframeControl extends Controls.IframeControl { }
+        interface IframeControl extends Controls.IframeControl {}
 
         /**
          * Interface for a Silverlight control.
          * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.SilverlightControl} instead.
          */
-        interface SilverlightControl extends Controls.SilverlightControl { }
+        interface SilverlightControl extends Controls.SilverlightControl {}
 
         /**
          * Interface for a Timeline control.
          * @see {@link Control}
          * @deprecated Use {@link Xrm.Controls.TimelineWall} instead.
          */
-        interface TimelineWall extends Controls.TimelineWall { }
+        interface TimelineWall extends Controls.TimelineWall {}
 
         /**
          * Interface for a form tab.
@@ -2339,14 +2370,14 @@ declare namespace Xrm {
          * @see {@link UiFocusable}
          * @deprecated Use {@link Xrm.Controls.Tab} instead.
          */
-        interface Tab extends Controls.Tab { }
+        interface Tab extends Controls.Tab {}
 
         /**
          * Interface for a form section.
          * @see {@link UiElement}
          * @deprecated Use {@link Xrm.Controls.Section} instead.
          */
-        interface Section extends Controls.Section { }
+        interface Section extends Controls.Section {}
 
         /**
          * Module for the Xrm.Page.data API.
@@ -2357,7 +2388,7 @@ declare namespace Xrm {
              * Interface for the Xrm.Page.data.process API.
              * @deprecated Use {@link Xrm.ProcessFlow.ProcessManager} instead.
              */
-            interface ProcessManager extends ProcessFlow.ProcessManager { }
+            interface ProcessManager extends ProcessFlow.ProcessManager {}
 
             /**
              * Called when method to get active processes is complete
@@ -2411,7 +2442,7 @@ declare namespace Xrm {
              * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
              * @deprecated Use {@link Xrm.ProcessFlow.ProcessDictionary} instead.
              */
-            interface ProcessDictionary extends ProcessFlow.ProcessDictionary { }
+            interface ProcessDictionary extends ProcessFlow.ProcessDictionary {}
         }
 
         /**
@@ -2435,14 +2466,14 @@ declare namespace Xrm {
              * Interface for Xrm.Page.ui.process API
              * @deprecated Use {@link Xrm.Controls.ProcessControl} instead.
              */
-            interface ProcessManager extends Controls.ProcessControl { }
+            interface ProcessManager extends Controls.ProcessControl {}
 
             /**
              * Interface for a grid.  Use Grid methods to access information about data in the grid. Grid is returned by the
              * GridControl.getGrid method.
              * @deprecated Use {@link Xrm.Controls.Grid} instead.
              */
-            interface Grid extends Controls.Grid { }
+            interface Grid extends Controls.Grid {}
 
             /**
              * Interface for a grid row.  Use the GridRow.getData method to access the GridRowData. A collection of GridRow is
@@ -2450,42 +2481,42 @@ declare namespace Xrm {
              * In V9 - this is essentailly a form context.
              * @deprecated Use {@link Xrm.Controls.Grid.GridRow} instead.
              */
-            interface GridRow extends Controls.Grid.GridRow { }
+            interface GridRow extends Controls.Grid.GridRow {}
 
             /**
              * Interface for grid row data.  Use the GridRowData.getEntity method to access the GridEntity. GridRowData is
              * returned by the GridRow.getData method.
              * @deprecated Use {@link Xrm.Controls.Grid.GridRowData} instead.
              */
-            interface GridRowData extends Controls.Grid.GridRowData { }
+            interface GridRowData extends Controls.Grid.GridRowData {}
 
             /**
              * Interface for a grid entity.  Use the GridEntity methods to access data about the specific records in the rows.
              * GridEntity is returned by the GridRowData.getEntity method.
              * @deprecated Use {@link Xrm.Controls.Grid.GridRowData} instead.v
              */
-            interface GridEntity extends Controls.Grid.GridEntity { }
+            interface GridEntity extends Controls.Grid.GridEntity {}
 
             /**
              * Interface for the view selector.  Use the ViewSelector methods to get or set information about the view selector
              * of the grid control.
              * @deprecated Use {@link Xrm.Controls.ViewSelector} instead.
              */
-            interface ViewSelector extends Controls.ViewSelector { }
+            interface ViewSelector extends Controls.ViewSelector {}
 
             /**
              * Interface for a view selector item. This object contains data that identifies a view. Use this as a parameter to
              * the ViewSelector.setCurrentView method.
              * @deprecated Use {@link Xrm.Controls.ViewSelectorItem} instead.
              */
-            interface ViewSelectorItem extends Controls.ViewSelectorItem { }
+            interface ViewSelectorItem extends Controls.ViewSelectorItem {}
 
             /**
              * Interface for a quick view control instance on a form.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (client-side reference)}
              * @deprecated Use {@link Xrm.Controls.ViewSelectorItem} instead.
              */
-            interface QuickForm extends Controls.QuickFormControl { }
+            interface QuickForm extends Controls.QuickFormControl {}
         }
     }
 
@@ -2846,7 +2877,7 @@ declare namespace Xrm {
             /**
              * Gets the attribute format.
              * @returns the string "boolean"
-             **/
+             */
             getAttributeType(): "boolean";
         }
 
@@ -2932,11 +2963,11 @@ declare namespace Xrm {
             controls: Collection.ItemCollection<Controls.OptionSetControl>;
         }
 
-         /**
+        /**
          * Interface an OptionSet attribute.
          * @see {@link EnumAttribute}
          */
-         interface MultiSelectOptionSetAttribute extends EnumAttribute<number[]> {
+        interface MultiSelectOptionSetAttribute extends EnumAttribute<number[]> {
             /**
              * Gets the attribute format.
              * @returns The format of the attribute.
@@ -3077,6 +3108,22 @@ declare namespace Xrm {
              * @param disabled true to disable, false to enable.
              */
             setDisabled(disabled: boolean): void;
+        }
+
+        /**
+         * Interface for UI elements which can have their available option values read.
+         */
+        interface UiCanGetOptionsElement {
+            /**
+             * Returns an array of option objects representing valid options available for a control,
+             * including a blank option and excluding any options that have been removed from the control
+             * using removeOption.
+             *
+             * @returns The array of option objects representing valid options where each option object has the following attributes:
+             *          text: String. Label of the option.
+             *          value: Number. Enumeration value of the option.
+             */
+            getOptions(): OptionSetValue[];
         }
 
         /**
@@ -3304,11 +3351,8 @@ declare namespace Xrm {
          * @see {@link Control}
          */
         interface StandardControl
-            extends Control,
-            UiStandardElement,
-            UiFocusable,
-            UiCanGetDisabledElement,
-            UiCanSetDisabledElement {
+            extends Control, UiStandardElement, UiFocusable, UiCanGetDisabledElement, UiCanSetDisabledElement
+        {
             /**
              * Clears the notification identified by uniqueId.
              * @param uniqueId (Optional) Unique identifier.
@@ -3346,7 +3390,7 @@ declare namespace Xrm {
 
             /**
              * Returns a dictionary of the output properties of the control.
-             * @returns: A dictionary for the output parameters from the control.
+             * @returns A dictionary for the output parameters from the control.
              *    For a PCF control this is of the pattern <controlname>.fieldControl.<outputname>, e.g. telephone1.fieldControl.isValid
              */
             getOutputs(): { [index: string]: FieldControlOutput };
@@ -3400,9 +3444,9 @@ declare namespace Xrm {
         }
 
         /**
-        * Interface for a Boolean (yes/no) control.
-        * @see {@link StandardControl}
-        */
+         * Interface for a Boolean (yes/no) control.
+         * @see {@link StandardControl}
+         */
         interface BooleanControl extends StandardControl {
             /**
              * Gets the control's bound attribute.
@@ -3561,7 +3605,7 @@ declare namespace Xrm {
          *
          * @see {@link StandardControl}
          */
-        interface OptionSetControl extends StandardControl {
+        interface OptionSetControl extends StandardControl, UiCanGetOptionsElement {
             /**
              * Adds an option.
              *
@@ -3593,8 +3637,8 @@ declare namespace Xrm {
             removeOption(value: number): void;
         }
 
-        interface MultiSelectOptionSetControl extends StandardControl {
-             /**
+        interface MultiSelectOptionSetControl extends StandardControl, UiCanGetOptionsElement {
+            /**
              * Adds an option.
              *
              * @param option The option.
@@ -3603,26 +3647,26 @@ declare namespace Xrm {
              * @remarks This method does not check that the values within the options you add are valid.
              *          If index is not provided, the new option will be added to the end of the list.
              */
-             addOption(option: OptionSetValue, index?: number): void;
+            addOption(option: OptionSetValue, index?: number): void;
 
-             /**
-              * Clears all options.
-              */
-             clearOptions(): void;
+            /**
+             * Clears all options.
+             */
+            clearOptions(): void;
 
-             /**
-              * Gets the control's bound attribute.
-              *
-              * @returns The attribute.
-              */
-             getAttribute(): Attributes.MultiSelectOptionSetAttribute;
+            /**
+             * Gets the control's bound attribute.
+             *
+             * @returns The attribute.
+             */
+            getAttribute(): Attributes.MultiSelectOptionSetAttribute;
 
-             /**
-              * Removes the option matching the value.
-              *
-              * @param value The value.
-              */
-             removeOption(value: number): void;
+            /**
+             * Removes the option matching the value.
+             *
+             * @param value The value.
+             */
+            removeOption(value: number): void;
         }
 
         /**
@@ -3732,8 +3776,8 @@ declare namespace Xrm {
         }
 
         /**
-             * Object containing information about the relationship used to filter the subgrid.
-             */
+         * Object containing information about the relationship used to filter the subgrid.
+         */
         interface GridRelationship {
             /**
              * Name of the column
@@ -3887,19 +3931,19 @@ declare namespace Xrm {
         }
 
         /**
-          * Interface for a knowledge base search control
-          */
+         * Interface for a knowledge base search control
+         */
         interface KbSearchControl extends Control {
             /**
-              * Adds an event handler to the PostSearch event.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addonpostsearch External Link: addOnPostSearch (Client API reference)}
-              */
+             * Adds an event handler to the PostSearch event.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addonpostsearch External Link: addOnPostSearch (Client API reference)}
+             */
             addOnPostSearch(handler: Events.KbSearchControl.PostSearchEventHandler): void;
 
             /**
-              * Adds an event handler to the OnResultOpened event.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addonresultopened External Link: addOnResultOpened (Client API reference)}
-              */
+             * Adds an event handler to the OnResultOpened event.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/addonresultopened External Link: addOnResultOpened (Client API reference)}
+             */
             addOnResultOpened(handler: Events.KbSearchControl.ResultOpenedEventHandler): void;
 
             /**
@@ -3909,59 +3953,59 @@ declare namespace Xrm {
             addOnSelection(handler: Events.KbSearchControl.SelectionEventHandler): void;
 
             /**
-              * Gets the text used as the search criteria for the knowledge base management control.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/getsearchquery External Link: getSearchQuery (Client API reference)}
-              */
+             * Gets the text used as the search criteria for the knowledge base management control.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/getsearchquery External Link: getSearchQuery (Client API reference)}
+             */
             getSearchQuery(): string;
 
             /**
-              * Gets the currently selected result of the search control. The currently selected result also represents the result that is currently open.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/getselectedresults External Link: getSelectedResults (Client API Reference)}
-              */
+             * Gets the currently selected result of the search control. The currently selected result also represents the result that is currently open.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/getselectedresults External Link: getSelectedResults (Client API Reference)}
+             */
             getSelectedResults(): KbSearchResult;
 
             /**
-              * Gets the count of results found in the search control.
-              * @returns The count of the search result.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/gettotalresultcount External Link: getTotalResultCount (Client API reference)}
-              */
+             * Gets the count of results found in the search control.
+             * @returns The count of the search result.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/gettotalresultcount External Link: getTotalResultCount (Client API reference)}
+             */
             getTotalResultCount(): number;
 
             /**
-              * Opens a search result in the search control by specifying the result number.
-              * @param resultNumber Numerical value specifying the result number to be opened. Result number starts from 1.
-              * @param mode Specify "Inline" or "Popout". "Inline" mode opens the result inline either in the reading pane of the control or in a reference panel tab in case of reference panel. "Popout" mode opens the result in a pop-out window.
-              * @returns Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult External Link: openSearchResult (Client API reference)}
-              */
+             * Opens a search result in the search control by specifying the result number.
+             * @param resultNumber Numerical value specifying the result number to be opened. Result number starts from 1.
+             * @param mode Specify "Inline" or "Popout". "Inline" mode opens the result inline either in the reading pane of the control or in a reference panel tab in case of reference panel. "Popout" mode opens the result in a pop-out window.
+             * @returns Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/opensearchresult External Link: openSearchResult (Client API reference)}
+             */
             openSearchResult(resultNumber: number, mode?: XrmEnum.OpenSearchResultMode): boolean;
 
             /**
-              * Removes an event handler from the PostSearch event.
-              * @param handler The function to remove from the PostSearch event.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch External Link: removeOnPostSearch (Client API reference)}
-              */
+             * Removes an event handler from the PostSearch event.
+             * @param handler The function to remove from the PostSearch event.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonpostsearch External Link: removeOnPostSearch (Client API reference)}
+             */
             removeOnPostSearch(handler: Events.KbSearchControl.PostSearchEventHandler): void;
 
             /**
-              * Removes an event handler from the OnResultOpened event.
-              * @param handler The function to remove from the OnResultOpened event.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened External Link: removeOnResultOpened (Client API reference)}
-              */
+             * Removes an event handler from the OnResultOpened event.
+             * @param handler The function to remove from the OnResultOpened event.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonresultopened External Link: removeOnResultOpened (Client API reference)}
+             */
             removeOnResultOpened(handler: Events.KbSearchControl.ResultOpenedEventHandler): void;
 
             /**
-              * Removes an event handler from the OnResultSelection event.
-              * @param handler The function to remove from the OnSelection event.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonselection External Link: removeOnSelection (Client API reference)}
-              */
+             * Removes an event handler from the OnResultSelection event.
+             * @param handler The function to remove from the OnSelection event.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/removeonselection External Link: removeOnSelection (Client API reference)}
+             */
             removeOnSelection(handler: Events.KbSearchControl.SelectionEventHandler): void;
 
             /**
-              * Sets the text used as the search criteria for the knowledge base search control.
-              * @param searchString The text for the search query.
-              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/setsearchquery External Link: setSearchQuery (Client API reference)}
-              */
+             * Sets the text used as the search criteria for the knowledge base search control.
+             * @param searchString The text for the search query.
+             * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/controls/setsearchquery External Link: setSearchQuery (Client API reference)}
+             */
             setSearchQuery(searchString: string): void;
         }
 
@@ -4062,13 +4106,15 @@ declare namespace Xrm {
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-quickforms External Link: formContext.ui.quickForms (Client API reference)}
          */
         interface QuickFormControl
-            extends Control,
-            UiLabelElement,
-            UiFocusable,
-            UiCanGetDisabledElement,
-            UiCanSetDisabledElement,
-            UiCanGetVisibleElement,
-            UiCanSetVisibleElement {
+            extends
+                Control,
+                UiLabelElement,
+                UiFocusable,
+                UiCanGetDisabledElement,
+                UiCanSetDisabledElement,
+                UiCanGetVisibleElement,
+                UiCanSetVisibleElement
+        {
             /**
              * Gets the constituent controls in a quick view control.
              * @returns An array of controls.
@@ -4264,7 +4310,7 @@ declare namespace Xrm {
 
             /**
              * Sets the visibility of the footer section.
-             * @arg bool Specify true to show the footer section; false to hide the footer section.
+             * @param bool Specify true to show the footer section; false to hide the footer section.
              * @remarks Available only for Unified Interface.  Footers aren't supported after 2021 wave 2 release.
              * @see {@link https://learn.microsoft.com/en-us/power-platform/important-changes-coming#form-footers-in-model-driven-apps-wont-be-supported-with-the-2021-release-wave-2 External Link: Important notices}
              */
@@ -4295,7 +4341,7 @@ declare namespace Xrm {
 
             /**
              * Sets the header's body visibility.
-             * @arg bool Specify true to show the body; false to hide the body.
+             * @param bool Specify true to show the body; false to hide the body.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/setbodyvisible External Link: setBodyVisible (Client API reference)}
              */
@@ -4303,7 +4349,7 @@ declare namespace Xrm {
 
             /**
              * Sets the command bar visibility.
-             * @arg bool Specify true to show the command bar; false to hide the command bar.
+             * @param bool Specify true to show the command bar; false to hide the command bar.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/setcommandbarvisible External Link: setCommandBarVisible (Client API reference)}
              */
@@ -4311,7 +4357,7 @@ declare namespace Xrm {
 
             /**
              * Sets the tab navigator visibility.
-             * @arg bool Specify true to show the tab navigator; false to hide the tab navigator.
+             * @param bool Specify true to show the tab navigator; false to hide the tab navigator.
              * @remarks Available only for Unified Interface.
              * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui-headersection/settabnavigatorvisible External Link: setTabNavigatorVisible (Client API reference)}
              */
@@ -5232,6 +5278,17 @@ declare namespace Xrm {
             text: string;
         }
 
+        /**
+         * An object describing whether to open or save the file
+         */
+        interface OpenFileOptions {
+            /**
+             * If you do not specify this parameter, by default 1 (open) is passed.
+             * This parameter is only supported on Unified Interface
+             */
+            openMode?: XrmEnum.OpenFileOptions;
+        }
+
         interface DialogSizeOptions {
             /**
              * Height of the alert dialog in pixels.
@@ -5417,11 +5474,11 @@ declare namespace Xrm {
             pageType: "entityrecord";
             /**
              * Logical name of the entity to display the form for.
-             * */
+             */
             entityName: string;
             /**
              * ID of the entity record to display the form for. If you don't specify this value, the form will be opened in create mode.
-             * */
+             */
             entityId?: string | undefined;
             /**
              * Designates a record that will provide default values based on mapped attribute values. The lookup object has the following String properties: entityType, id, and name (optional).
@@ -5469,15 +5526,15 @@ declare namespace Xrm {
             pageType: "entitylist";
             /**
              * The logical name of the entity to load in the list control.
-             * */
+             */
             entityName: string;
             /**
              * The ID of the view to load. If you don't specify it, navigates to the default main view for the entity.
-             * */
+             */
             viewId?: string | undefined;
             /**
              * Type of view to load. Specify "savedquery" or "userquery".
-             * */
+             */
             viewType?: "savedquery" | "userquery" | undefined;
         }
 
@@ -5489,11 +5546,11 @@ declare namespace Xrm {
             name: string;
             /**
              * The logical name of the table to be made available in the custom page via Param("entityName").
-             * */
+             */
             entityName?: string | undefined;
             /**
              * ID of the table record to be made available in the custom page via Param("recordId").
-             * */
+             */
             recordId?: string | undefined;
         }
 
@@ -5501,11 +5558,11 @@ declare namespace Xrm {
             pageType: "webresource";
             /**
              * The name of the web resource to load.
-             * */
+             */
             webresourceName: string;
             /**
              * The data to pass to the web resource.
-             * */
+             */
             data?: string | undefined;
         }
 
@@ -5519,24 +5576,24 @@ declare namespace Xrm {
 
         /**
          * Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
-         * */
+         */
         interface NavigationOptions {
             /**
              * Specify 1 to open the page inline; 2 to open the page in a dialog.
              * Entity lists can only be opened inline; web resources can be opened either inline or in a dialog.
-             * */
+             */
             target: 1 | 2;
             /**
              * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
-             * */
+             */
             width?: number | NavigationOptions.SizeValue | undefined;
             /**
              * The width of dialog. To specify the width in pixels, just type a numeric value. To specify the width in percentage, specify an object of type
-             * */
+             */
             height?: number | NavigationOptions.SizeValue | undefined;
             /**
              * Specify 1 to open the dialog in center; 2 to open the dialog on the side. Default is 1 (center).
-             * */
+             */
             position?: 1 | 2 | undefined;
             /*
              * The dialog title on top of the center or side dialog.
@@ -5548,11 +5605,11 @@ declare namespace Xrm {
             interface SizeValue {
                 /**
                  * The numerical value
-                 * */
+                 */
                 value: number;
                 /**
                  * The unit of measurement. Specify "%" or "px". Default value is "px"
-                 * */
+                 */
                 unit: "%" | "px";
             }
         }
@@ -5606,7 +5663,7 @@ declare namespace Xrm {
         /**
          * Opens a file.
          */
-        openFile(file: Navigation.FileDetails, openFileOptions?: XrmEnum.OpenFileOptions): void;
+        openFile(file: Navigation.FileDetails, openFileOptions?: Navigation.OpenFileOptions): void;
 
         /**
          * Opens an entity form or a quick create form.
@@ -6292,7 +6349,7 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI Execute request response
      */
-    interface ExecuteResponse extends Response { }
+    interface ExecuteResponse extends Response {}
 }
 
 declare namespace XrmEnum {
@@ -6372,7 +6429,7 @@ declare namespace XrmEnum {
      */
     const enum GridClient {
         Browser = 0,
-        MobileApplication = 1
+        MobileApplication = 1,
     }
 
     /**
@@ -6515,10 +6572,10 @@ declare namespace XrmEnum {
      * @see {@link Xrm.AppNotificationLevel}
      */
     const enum AppNotificationLevel {
-      Success = 1,
-      Error = 2,
-      Warning = 3,
-      Information = 4,
+        Success = 1,
+        Error = 2,
+        Warning = 3,
+        Information = 4,
     }
 
     /**
@@ -6705,6 +6762,6 @@ declare namespace XrmEnum {
 
     const enum OpenSearchResultMode {
         Inline = "Inline",
-        Popup = "Popup"
+        Popup = "Popup",
     }
 }

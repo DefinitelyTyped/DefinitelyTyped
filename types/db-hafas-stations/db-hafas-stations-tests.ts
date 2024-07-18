@@ -1,4 +1,4 @@
-import stations = require('db-hafas-stations');
+import stations = require("db-hafas-stations");
 
 // test type exports
 type ReadableStations = stations.ReadableStations<stations.Station>;
@@ -8,7 +8,7 @@ type Location = stations.Location;
 type Products = stations.Products;
 
 // $ExpectType ReadableStations<Station>
-stations().on('data', station => {
+stations().on("data", station => {
     station; // $ExpectType Station
     station.type; // $ExpectType "station"
     station.id; // $ExpectType string
@@ -17,7 +17,7 @@ stations().on('data', station => {
 });
 
 // $ExpectType ReadableStations<StationFull>
-stations.full().on('data', station => {
+stations.full().on("data", station => {
     station; // $ExpectType StationFull
     station.type; // $ExpectType "station"
     station.id; // $ExpectType string

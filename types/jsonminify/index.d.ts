@@ -1,9 +1,3 @@
-// Type definitions for jsonminify 0.4.1
-// Project: https://github.com/fkei/JSON.minify
-// Definitions by: Dan Homola <https://github.com/no23reason>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     interface JSON {
         /**

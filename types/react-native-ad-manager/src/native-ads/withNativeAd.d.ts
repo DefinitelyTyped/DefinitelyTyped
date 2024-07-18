@@ -1,6 +1,6 @@
-import React = require('react');
-import { BannerProps } from '../../helper-types';
-import NativeAdsManager = require('./NativeAdsManager');
+import React = require("react");
+import { BannerProps } from "../../helper-types";
+import NativeAdsManager = require("./NativeAdsManager");
 
 interface NativeAdWrapperProps extends BannerProps {
     validAdTypes?: string[] | undefined;

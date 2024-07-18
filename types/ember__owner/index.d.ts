@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/owner 4.0
-// Project: https://emberjs.com/api/ember/4.0/
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /**
  * The name for a factory consists of a namespace and the name of a specific
  * type within that namespace, like `'service:session'`.
@@ -70,10 +61,8 @@ type ValidName<Type extends ValidType> = keyof DIRegistry[Type] & string;
 type ResolveFactoryManager<
     Type extends string,
     Name extends string,
-> = DIRegistry[Type][Name] extends infer RegistryEntry
-    ? RegistryEntry extends object
-        ? FactoryManager<RegistryEntry>
-        : FactoryManager<object> | undefined
+> = DIRegistry[Type][Name] extends infer RegistryEntry ? RegistryEntry extends object ? FactoryManager<RegistryEntry>
+    : FactoryManager<object> | undefined
     : never;
 
 /**
@@ -186,6 +175,10 @@ export interface Resolver {
     makeToString?: (factory: Factory<object>, fullName: FullName) => string;
     normalize?: (fullName: FullName) => string;
 }
+
+export function getOwner(object: object): Owner | undefined;
+
+export function setOwner(object: object, owner: Owner): void;
 
 // Don't export things unless we *intend* to.
 export {};

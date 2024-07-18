@@ -1,9 +1,3 @@
-// Type definitions for wcag-contrast 3.0
-// Project: https://github.com/tmcw/wcag-contrast
-// Definitions by: York Yao <https://github.com/plantain-00>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Get the contrast ratio between two relative luminance values
  * @param a luminance value
@@ -47,4 +41,4 @@ export function score(contrast: number): Score;
 export type RGBColor = [number, number, number];
 
 /** Textual score */
-export type Score = 'AAA' | 'AA' | 'AA Large' | 'Fail';
+export type Score = "AAA" | "AA" | "AA Large" | "Fail";

@@ -1,12 +1,12 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/tern/tern';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/tern/tern";
 
 const cm = CodeMirror(document.body);
 
 const options: CodeMirror.TernOptions = {
     completionTip: data => {
         const d = data.completions;
-        return '';
+        return "";
     },
 
     showError: (editor, message) => {
@@ -18,7 +18,7 @@ const ts = new CodeMirror.TernServer(options);
 
 ts.request(
     cm.getDoc(),
-    'completions',
+    "completions",
     (_e, d) => {
         if (d) {
             const c = d.completions;

@@ -32,7 +32,7 @@ declare namespace dojox {
              */
             "mixin": Object;
         }
-        module _atBindingMixin {
+        namespace _atBindingMixin {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/mvc/_atBindingMixin.mixin.html
              *
@@ -7198,7 +7198,7 @@ declare namespace dojox {
              */
             WidgetList(): void;
         }
-        module _base {
+        namespace _base {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/mvc/_base._InlineTemplateMixin.html
              *
@@ -21480,16 +21480,16 @@ declare namespace dojox {
             interface equals{(dst: any, src: any): boolean}
         }
 
-        module _atBindingExtension {
+        namespace _atBindingExtension {
         }
 
-        module _DataBindingExtension {
+        namespace _DataBindingExtension {
         }
 
-        module _patches {
+        namespace _patches {
         }
 
-        module _TextBoxExtensions {
+        namespace _TextBoxExtensions {
         }
 
         namespace parserExtension {

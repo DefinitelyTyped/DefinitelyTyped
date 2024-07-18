@@ -1,8 +1,3 @@
-// Type definitions for minecraft-pinger 1.0
-// Project: https://github.com/dennisbruner/node-minecraft-pinger
-// Definitions by: Grayson-code <https://github.com/Grayson-code>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Data {
     /**
      * Server Description , May not exist

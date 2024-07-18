@@ -32,7 +32,6 @@ declare class Class_ZmqSocket extends Class__object {
      *
      * @brief 查询当前 socket 类型
      *
-     * @readonly
      * @note Assumed to be an integer.
      */
 

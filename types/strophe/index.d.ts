@@ -1,8 +1,3 @@
-// Type definitions for Strophe.js 1.2
-// Project: http://strophe.im/strophejs/
-// Definitions by: David Deutsch <https://github.com/DavidKDeutsch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Strophe {
     /**
      * Constant: VERSION
@@ -649,7 +644,6 @@ declare namespace Strophe {
          * You can also toggle this on an already established connection:
          * > conn.options.sync = true;
          *
-         *
          * Parameters:
          *  (String) service - The BOSH or WebSocket service URL.
          *  (Object) options - A hash of configuration options
@@ -1112,7 +1106,6 @@ declare namespace Strophe {
          * > Strophe.SASLMD5.priority = Strophe.SASLSHA1.priority;
          *
          * See <SASL mechanisms> for a list of available mechanisms.
-         *
          */
         priority: number;
     }

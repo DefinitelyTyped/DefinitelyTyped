@@ -16,28 +16,28 @@ const valid = jsonPatch.valid(patch);
 const revertedPatch = jsonPatch.buildRevertPatch(revert);
 
 // $ExpectType OperationResult
-const addOperation = jsonPatch.add({ a: ['test'] }, '/a', 'other');
+const addOperation = jsonPatch.add({ a: ["test"] }, "/a", "other");
 
 // $ExpectType OperationResult
-const copyOperation = jsonPatch.copy({ a: 'test' }, '/a', '/b');
+const copyOperation = jsonPatch.copy({ a: "test" }, "/a", "/b");
 
 // $ExpectType OperationResult
-const moveOperation = jsonPatch.move({ a: 'test' }, '/a', '/b');
+const moveOperation = jsonPatch.move({ a: "test" }, "/a", "/b");
 
 // $ExpectType OperationResult
-const removeOperation = jsonPatch.remove({ a: 'test' }, '/a');
+const removeOperation = jsonPatch.remove({ a: "test" }, "/a");
 
 // $ExpectType OperationResult
-const replaceOperation = jsonPatch.replace({ a: 'test' }, '/a', 'replaced');
+const replaceOperation = jsonPatch.replace({ a: "test" }, "/a", "replaced");
 
 // $ExpectType OperationResult
-const testOperation = jsonPatch.test({ a: 'test' }, '/a', 'test');
+const testOperation = jsonPatch.test({ a: "test" }, "/a", "test");
 
 // $ExpectType unknown
-const getResult = jsonPatch.get({ a: 'test' }, '/a');
+const getResult = jsonPatch.get({ a: "test" }, "/a");
 
 // $ExpectType boolean
-const hasResult = jsonPatch.has({ a: 'test' }, '/a');
+const hasResult = jsonPatch.has({ a: "test" }, "/a");
 
 // $ExpectType any[]
 const packed = jsonPatch.pack(patch);
@@ -46,4 +46,8 @@ const packed = jsonPatch.pack(patch);
 const unpacked = jsonPatch.unpack(packed);
 
 // $ExpectType JsonPatch
-const concatenated = jsonPatch.concat({ op: 'replace', value: 'test', path: '/a' }, { op: 'copy', path: '/a', from: '/b' });
+const concatenated = jsonPatch.concat({ op: "replace", value: "test", path: "/a" }, {
+    op: "copy",
+    path: "/a",
+    from: "/b",
+});

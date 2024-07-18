@@ -1,6 +1,16 @@
 {
     "private": true,
+    "name": "@types/js2coffee",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/js2coffee/js2coffee"
+    ],
     "dependencies": {
+        "@types/estree": "*",
         "source-map": "^0.7.3"
-    }
+    },
+    "devDependencies": {
+        "@types/js2coffee": "workspace:."
+    },
+    "owners": []
 }

@@ -1,4 +1,4 @@
-import Interval from './Interval';
+import Interval from "./Interval";
 
 export default class IntervalSet {
     readonly intervals: Interval[] | null;

@@ -1,49 +1,49 @@
 import {
-    getAccountAddress,
     createAccount,
-    deployContractByName,
     deployContract,
-    HashAlgorithm,
-    SignatureAlgorithm,
-    pubFlowKey,
+    deployContractByName,
     emulator,
-    getFlowBalance,
-    mintFlow,
-    init,
+    executeScript,
+    getAccountAddress,
     getBlockOffset,
-    setBlockOffset,
+    getContractCode,
+    getFlowBalance,
+    getScriptCode,
+    getTemplate,
     getTimestampOffset,
+    getTransactionCode,
+    HashAlgorithm,
+    init,
+    isAddress,
+    mintFlow,
+    pubFlowKey,
+    sendTransaction,
+    setBlockOffset,
     setTimestampOffset,
     shallPass,
-    shallRevert,
     shallResolve,
-    executeScript,
-    sendTransaction,
-    getTemplate,
-    getContractCode,
-    getTransactionCode,
-    getScriptCode,
-    isAddress,
-} from '@onflow/flow-js-testing';
+    shallRevert,
+    SignatureAlgorithm,
+} from "@onflow/flow-js-testing";
 
 /** Accounts */
 
 // $ExpectType Promise<string>
-getAccountAddress('Will');
+getAccountAddress("Will");
 
 // @ts-expect-error
 getAccountAddress(1);
 
 // $ExpectType Promise<string>
-createAccount({ name: 'Will' });
+createAccount({ name: "Will" });
 
 // $ExpectType Promise<string>
-createAccount({ name: 'Will', keys: [{ privateKey: '...private key...' }] });
+createAccount({ name: "Will", keys: [{ privateKey: "...private key..." }] });
 
-async () => {
+(async () => {
     // $ExpectType Promise<string>
-    createAccount({ name: 'Will', keys: [await pubFlowKey({ privateKey: '...private key...' })] });
-};
+    createAccount({ name: "Will", keys: [await pubFlowKey({ privateKey: "...private key..." })] });
+});
 
 // @ts-expect-error
 createAccount(1);
@@ -51,14 +51,14 @@ createAccount(1);
 /** Contracts */
 
 // $ExpectType Promise<TransactionResponse>
-deployContractByName({ name: 'HelloWorld' });
+deployContractByName({ name: "HelloWorld" });
 
 // $ExpectType Promise<TransactionResponse>
 deployContractByName({
-    name: 'HelloWorld',
-    to: '0x02fadds834n31g8e',
-    addressMap: { '0xHelloWorld': '0x02fadds834n31g8e' },
-    args: ['Hello World'],
+    name: "HelloWorld",
+    to: "0x02fadds834n31g8e",
+    addressMap: { "0xHelloWorld": "0x02fadds834n31g8e" },
+    args: ["Hello World"],
     update: false,
 });
 
@@ -66,15 +66,15 @@ deployContractByName({
 deployContractByName({});
 
 // $ExpectType Promise<TransactionResponse>
-deployContract({ name: 'HelloWorld', code: '...contract code...' });
+deployContract({ name: "HelloWorld", code: "...contract code..." });
 
 // $ExpectType Promise<TransactionResponse>
 deployContract({
-    name: 'HelloWorld',
-    code: '...contract code...',
-    to: '0x02fadds834n31g8e',
-    addressMap: { '0xHelloWorld': '0x02fadds834n31g8e' },
-    args: ['Hello World'],
+    name: "HelloWorld",
+    code: "...contract code...",
+    to: "0x02fadds834n31g8e",
+    addressMap: { "0xHelloWorld": "0x02fadds834n31g8e" },
+    args: ["Hello World"],
     update: false,
 });
 
@@ -90,11 +90,11 @@ HashAlgorithm;
 SignatureAlgorithm;
 
 // $ExpectType Promise<Buffer>
-pubFlowKey({ privateKey: '...private key...' });
+pubFlowKey({ privateKey: "...private key..." });
 
 // $ExpectType Promise<Buffer>
 pubFlowKey({
-    privateKey: '...private key...',
+    privateKey: "...private key...",
     hashAlgorithm: HashAlgorithm.SHA2_256,
     signatureAlgorithm: SignatureAlgorithm.ECDSA_P256,
     weight: 100,
@@ -111,7 +111,7 @@ emulator.start();
 // $ExpectType Promise<boolean>
 emulator.start({
     logging: true,
-    flags: '',
+    flags: "",
     adminPort: 123,
     restPort: 456,
     grpcPort: 789,
@@ -132,27 +132,27 @@ emulator.setLogging(1);
 /** FLOW Management */
 
 // $ExpectType Promise<string>
-getFlowBalance('0x02fadds834n31g8e');
+getFlowBalance("0x02fadds834n31g8e");
 
 // @ts-expect-error
 getFlowBalance(1);
 
 // $ExpectType Promise<TransactionResponse>
-mintFlow('0x02fadds834n31g8e', '1');
+mintFlow("0x02fadds834n31g8e", "1");
 
 // @ts-expect-error
-mintFlow(1, '1');
+mintFlow(1, "1");
 
 // @ts-expect-error
-mintFlow('0x02fadds834n31g8e', 1);
+mintFlow("0x02fadds834n31g8e", 1);
 
 /** Init */
 
 // $ExpectType Promise<boolean>
-init('./');
+init("./");
 
 // $ExpectType Promise<boolean>
-init('./', { pkey: '...private key...' });
+init("./", { pkey: "...private key..." });
 
 // @ts-expect-error
 init(1);
@@ -163,7 +163,7 @@ init(1);
 getBlockOffset();
 
 // $ExpectType Promise<string>
-setBlockOffset('1');
+setBlockOffset("1");
 
 // @ts-expect-error
 setBlockOffset(1);
@@ -172,7 +172,7 @@ setBlockOffset(1);
 getTimestampOffset();
 
 // $ExpectType Promise<string>
-setTimestampOffset('1');
+setTimestampOffset("1");
 
 // @ts-expect-error
 setTimestampOffset(1);
@@ -180,19 +180,19 @@ setTimestampOffset(1);
 /** Jest Helpers */
 
 // $ExpectType Promise<[TransactionStatus, null]>
-shallPass(sendTransaction('set_greeting', [], ['Hello World']));
+shallPass(sendTransaction("set_greeting", [], ["Hello World"]));
 
 // @ts-expect-error
 shallPass(1);
 
 // $ExpectType Promise<[TransactionStatus | null, string | Error]>
-shallRevert(sendTransaction('set_greeting', [], ['Hello World']));
+shallRevert(sendTransaction("set_greeting", [], ["Hello World"]));
 
 // @ts-expect-error
 shallRevert(1);
 
 // $ExpectType Promise<[any, null]>
-shallResolve(executeScript('get_greeting'));
+shallResolve(executeScript("get_greeting"));
 
 // @ts-expect-error
 shallResolve(1);
@@ -200,84 +200,84 @@ shallResolve(1);
 /** Scripts */
 
 // $ExpectType Promise<ScriptResponse>
-executeScript({ name: 'get_greeting', args: ['0x02fadds834n31g8e'], transformers: [(code: string): string => code] });
+executeScript({ name: "get_greeting", args: ["0x02fadds834n31g8e"], transformers: [(code: string): string => code] });
 
 // $ExpectType Promise<ScriptResponse>
-executeScript({ code: '...script code...', args: ['0x02fadds834n31g8e'] });
+executeScript({ code: "...script code...", args: ["0x02fadds834n31g8e"] });
 
 // $ExpectType Promise<ScriptResponse>
-executeScript('get_greeting', ['0x02fadds834n31g8e']);
+executeScript("get_greeting", ["0x02fadds834n31g8e"]);
 
 // @ts-expect-error
 executeScript({});
 
 // @ts-expect-error
-executeScript('get_greeting', 1);
+executeScript("get_greeting", 1);
 
 /** Transactions */
 
 // $ExpectType Promise<TransactionResponse>
 sendTransaction({
-    name: 'set_greeting',
-    args: ['Hello World'],
-    signers: ['0x02fadds834n31g8e'],
-    addressMap: { '0xHelloWorld': '0x02fadds834n31g8e' },
+    name: "set_greeting",
+    args: ["Hello World"],
+    signers: ["0x02fadds834n31g8e"],
+    addressMap: { "0xHelloWorld": "0x02fadds834n31g8e" },
 });
 
 // $ExpectType Promise<TransactionResponse>
 sendTransaction({
-    name: 'set_greeting',
-    args: ['Hello World'],
-    signers: [{ addr: '0x02fadds834n31g8e' }],
-    addressMap: { '0xHelloWorld': '0x02fadds834n31g8e' },
+    name: "set_greeting",
+    args: ["Hello World"],
+    signers: [{ addr: "0x02fadds834n31g8e" }],
+    addressMap: { "0xHelloWorld": "0x02fadds834n31g8e" },
 });
 
 // $ExpectType Promise<TransactionResponse>
-sendTransaction({ code: '...transaction code...', args: ['Hello World'], signers: ['0x02fadds834n31g8e'] });
+sendTransaction({ code: "...transaction code...", args: ["Hello World"], signers: ["0x02fadds834n31g8e"] });
 
 // $ExpectType Promise<TransactionResponse>
-sendTransaction('set_greeting', [], ['Hello World']);
+sendTransaction("set_greeting", [], ["Hello World"]);
 
 // @ts-expect-error
 sendTransaction({});
 
 // @ts-expect-error
-sendTransaction('set_greeting', 1);
+sendTransaction("set_greeting", 1);
 
 /** Templates */
 
 // $ExpectType Promise<string>
-getTemplate('../cadence/contracts.HelloWorld.cdc');
+getTemplate("../cadence/contracts.HelloWorld.cdc");
 
 // $ExpectType Promise<string>
-getTemplate('../cadence/contracts.HelloWorld.cdc', { '0xHelloWorld': '0x02fadds834n31g8e' });
+getTemplate("../cadence/contracts.HelloWorld.cdc", { "0xHelloWorld": "0x02fadds834n31g8e" });
 
 // @ts-expect-error
-getTemplate('../cadence/contracts.HelloWorld.cdc', 1);
+getTemplate("../cadence/contracts.HelloWorld.cdc", 1);
 
 // $ExpectType Promise<string>
-getContractCode({ name: 'HelloWorld' });
+getContractCode({ name: "HelloWorld" });
 
 // $ExpectType Promise<string>
-getContractCode({ name: 'HelloWorld', addressMap: { '0xHelloMars': '0x02fadds834n31g8e' } });
+getContractCode({ name: "HelloWorld", addressMap: { "0xHelloMars": "0x02fadds834n31g8e" } });
 
 // @ts-expect-error
 getContractCode({});
 
 // $ExpectType Promise<string>
-getTransactionCode({ name: 'set_greeting' });
+getTransactionCode({ name: "set_greeting" });
 
 // $ExpectType Promise<string>
-getTransactionCode({ name: 'set_greeting', addressMap: { '0xHelloWorld': '0x02fadds834n31g8e' } });
+getTransactionCode({ name: "set_greeting", addressMap: { "0xHelloWorld": "0x02fadds834n31g8e" } });
 
 // @ts-expect-error
 getTransactionCode({});
 
 // $ExpectType Promise<string>
-getScriptCode({ name: 'get_greeting' });
+getScriptCode({ name: "get_greeting" });
 
 // $ExpectType Promise<string>
-getScriptCode({ name: 'get_greeting', addressMap: { '0xHelloWorld': '0x02fadds834n31g8e' } });
+getScriptCode({ name: "get_greeting", addressMap: { "0xHelloWorld": "0x02fadds834n31g8e" } });
 
 // @ts-expect-error
 getScriptCode({});
@@ -285,4 +285,4 @@ getScriptCode({});
 /** Utilities */
 
 // $ExpectType boolean
-isAddress('0x02fadds834n31g8e');
+isAddress("0x02fadds834n31g8e");

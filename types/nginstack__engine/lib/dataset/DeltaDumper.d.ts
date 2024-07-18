@@ -4,8 +4,8 @@ declare namespace DeltaDumper {
     export { getDeltaDump, DELTA_INSERTED, DELTA_UPDATED, DELTA_DELETED, DELTA_ALL, DataSet };
 }
 declare function getDeltaDump(ds: DataSet, deltaKind?: number): any;
-declare var DELTA_INSERTED: number;
-declare var DELTA_UPDATED: number;
-declare var DELTA_DELETED: number;
-declare var DELTA_ALL: number;
+declare let DELTA_INSERTED: number;
+declare let DELTA_UPDATED: number;
+declare let DELTA_DELETED: number;
+declare let DELTA_ALL: number;
 type DataSet = import('./DataSet');

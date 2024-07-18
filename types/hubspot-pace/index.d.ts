@@ -1,8 +1,3 @@
-// Type definitions for pace v0.7.5
-// Project: https://github.com/HubSpot/pace
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace HubSpotPaceInterfaces {
     interface PaceOptions {
         /**
@@ -89,7 +84,7 @@ declare namespace HubSpotPaceInterfaces {
         /**
          * A list of regular expressions or substrings of URLS we should ignore (for both tracking and restarting)
          */
-        ignoreURLs?: (string | RegExp)[] | undefined;
+        ignoreURLs?: Array<string | RegExp> | undefined;
     }
 
     interface Pace {
@@ -106,7 +101,13 @@ declare namespace HubSpotPaceInterfaces {
         once(event: string, handler: (...args: any[]) => void, context?: any): void;
     }
 
-    enum PaceEvent { start, stop, restart, done, hide }
+    enum PaceEvent {
+        start,
+        stop,
+        restart,
+        done,
+        hide,
+    }
 }
 
 declare var pace: HubSpotPaceInterfaces.Pace;

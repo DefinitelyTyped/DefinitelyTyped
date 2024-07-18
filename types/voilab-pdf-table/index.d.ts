@@ -1,9 +1,4 @@
-// Type definitions for voilab-pdf-table 0.5
-// Project: https://github.com/voilab/voilab-pdf-table
-// Definitions by: Daniel Sousa <https://github.com/danielb7390>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import 'pdfkit';
+import "pdfkit";
 
 export = VoilabPdfTable;
 
@@ -12,7 +7,7 @@ interface VoilabPdfTableDefaultType {
 }
 
 declare class VoilabPdfTable<T = VoilabPdfTableDefaultType> {
-    // tslint:disable-next-line:no-misused-new
+    // eslint-disable-next-line @typescript-eslint/no-misused-new
     constructor(pdf: PDFKit.PDFDocument, conf?: VoilabPdfTable.VoilabPdfTableConfig<T>);
 
     /** Add action before data rows are added */
@@ -176,46 +171,54 @@ declare namespace VoilabPdfTable {
         };
     }
 
-    type VoilabPdfTableColumn<T> = ({
-        id: keyof T;
-        renderer?: (table: VoilabPdfTable<T>, row: T, draw: boolean) => void;
-        cellAdded?: (table: VoilabPdfTable<T>, row: T, draw: boolean) => void;
-        hidden?: boolean;
-        border?: string;
-        borderOpacity?: number;
-        width?: number;
-        height?: number;
-        valign?: 'top' | 'center' | 'bottom';
-        align?: 'left' | 'center' | 'right';
-        fill?: boolean;
-        cache?: boolean;
-        padding?: [number] | [number, number] | [number, number, number, number];
-        headerPadding?: [number] | [number, number] | [number, number, number, number];
-    } & (
-        | {
-              header: string;
-              headerRenderer?: (table: VoilabPdfTable<T>, header: VoilabPdfTableHeader<T>, draw: boolean) => void;
-              headerCellAdded?: (table: VoilabPdfTable<T>, header: VoilabPdfTableHeader<T>, draw: boolean) => void;
-              headerBorder?: string;
-              headerBorderOpacity?: number;
-              headerFill?: boolean;
-              headerHeight?: number;
-          }
-        | {
-              header?: never;
-              headerRenderer?: never;
-              headerCellAdded?: never;
-              headerBorder?: never;
-              headerBorderOpacity?: never;
-              headerFill?: never;
-              headerHeight?: never;
-          }
-    )) &
-        PDFKit.Mixins.TextOptions;
+    type VoilabPdfTableColumn<T> =
+        & (
+            & {
+                id: keyof T;
+                renderer?: (table: VoilabPdfTable<T>, row: T, draw: boolean) => void;
+                cellAdded?: (table: VoilabPdfTable<T>, row: T, draw: boolean) => void;
+                hidden?: boolean;
+                border?: string;
+                borderOpacity?: number;
+                width?: number;
+                height?: number;
+                valign?: "top" | "center" | "bottom";
+                align?: "left" | "center" | "right";
+                fill?: boolean;
+                cache?: boolean;
+                padding?: [number] | [number, number] | [number, number, number, number];
+                headerPadding?: [number] | [number, number] | [number, number, number, number];
+            }
+            & (
+                | {
+                    header: string;
+                    headerRenderer?: (table: VoilabPdfTable<T>, header: VoilabPdfTableHeader<T>, draw: boolean) => void;
+                    headerCellAdded?: (
+                        table: VoilabPdfTable<T>,
+                        header: VoilabPdfTableHeader<T>,
+                        draw: boolean,
+                    ) => void;
+                    headerBorder?: string;
+                    headerBorderOpacity?: number;
+                    headerFill?: boolean;
+                    headerHeight?: number;
+                }
+                | {
+                    header?: never;
+                    headerRenderer?: never;
+                    headerCellAdded?: never;
+                    headerBorder?: never;
+                    headerBorderOpacity?: never;
+                    headerFill?: never;
+                    headerHeight?: never;
+                }
+            )
+        )
+        & PDFKit.Mixins.TextOptions;
 
     type DistributiveOmit<T, K extends keyof T> = T extends unknown ? Omit<T, K> : never;
 
-    type VoilabPdfTableColumnDefaults<T> = DistributiveOmit<VoilabPdfTableColumn<T>, 'id'>;
+    type VoilabPdfTableColumnDefaults<T> = DistributiveOmit<VoilabPdfTableColumn<T>, "id">;
 
     type VoilabPdfTableHeader<T> = {
         [key in keyof T]: string;

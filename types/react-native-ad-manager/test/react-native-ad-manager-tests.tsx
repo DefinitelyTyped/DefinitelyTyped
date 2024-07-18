@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { Button, Platform, ScrollView, StyleSheet, Text, View, RefreshControl, ViewStyle } from 'react-native';
-import { Interstitial, Banner, NativeAdsManager, AdLoadedEvent, AdFailedToLoadEvent } from 'react-native-ad-manager';
-import NativeAdView from './NativeAdView';
+import * as React from "react";
+import { Button, Platform, RefreshControl, ScrollView, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { AdFailedToLoadEvent, AdLoadedEvent, Banner, Interstitial, NativeAdsManager } from "react-native-ad-manager";
+import NativeAdView from "./NativeAdView";
 
 const BannerExample: React.FunctionComponent<{
     children?: React.ReactNode;
@@ -35,16 +35,16 @@ export default class Example extends React.Component<
 
     componentDidMount() {
         Interstitial.setTestDevices([Interstitial.simulatorId]);
-        Interstitial.setAdUnitID('/83069739/jeff');
+        Interstitial.setAdUnitID("/83069739/jeff");
 
-        Interstitial.addEventListener('adLoaded', () => console.log('Interstitial adLoaded'));
-        Interstitial.addEventListener('adFailedToLoad', error => console.warn(error));
-        Interstitial.addEventListener('adOpened', () => console.log('Interstitial => adOpened'));
-        Interstitial.addEventListener('adClosed', () => {
-            console.log('Interstitial => adClosed');
+        Interstitial.addEventListener("adLoaded", () => console.log("Interstitial adLoaded"));
+        Interstitial.addEventListener("adFailedToLoad", error => console.warn(error));
+        Interstitial.addEventListener("adOpened", () => console.log("Interstitial => adOpened"));
+        Interstitial.addEventListener("adClosed", () => {
+            console.log("Interstitial => adClosed");
             Interstitial.requestAd().catch(error => console.warn(error));
         });
-        Interstitial.addEventListener('adLeftApplication', () => console.log('Interstitial => adLeftApplication'));
+        Interstitial.addEventListener("adLeftApplication", () => console.log("Interstitial => adLeftApplication"));
 
         Interstitial.requestAd().catch(error => console.warn(error));
 
@@ -62,18 +62,19 @@ export default class Example extends React.Component<
 
     onAdLoaded = (nativeAd: AdLoadedEvent) => {
         console.log(nativeAd);
-    }
+    };
 
     showBanner = (_adsManager: NativeAdsManager, index: number) => {
         return (
             <BannerExample title={`${index}. DFP - Fluid Ad Size`}>
                 <View
                     style={[
-                        { backgroundColor: '#f3f', paddingVertical: 10 },
-                        { alignItems: 'center', width: '100%' },
+                        { backgroundColor: "#f3f", paddingVertical: 10 },
+                        { alignItems: "center", width: "100%" },
                     ]}
                 >
-                    {/*<NativeAdView
+                    {
+                        /*<NativeAdView
           targeting={{
             customTargeting: { group: 'nzme_user_test' },
             categoryExclusions: ['media'],
@@ -91,42 +92,43 @@ export default class Example extends React.Component<
           onAdFailedToLoad={error => {
             console.log(error);
           }}
-        />*/}
+        />*/
+                    }
                     <Banner
                         onAdLoaded={this.onAdLoaded}
                         adSize="mediumRectangle"
-                        validAdSizes={['mediumRectangle']}
-                        adUnitID={'/83069739/jeff'}
+                        validAdSizes={["mediumRectangle"]}
+                        adUnitID={"/83069739/jeff"}
                         targeting={{
-                            customTargeting: { group: 'nzme_user_test' },
-                            categoryExclusions: ['media'],
-                            contentURL: 'nzmetest://',
-                            publisherProvidedID: 'provider_id_nzme',
+                            customTargeting: { group: "nzme_user_test" },
+                            categoryExclusions: ["media"],
+                            contentURL: "nzmetest://",
+                            publisherProvidedID: "provider_id_nzme",
                         }}
                     />
                 </View>
             </BannerExample>
         );
-    }
+    };
 
     showNative = (adsManager: NativeAdsManager, index: number) => {
         return (
             <BannerExample style={{}} title={`${index}. DFP - Native ad`}>
-                <View style={{ alignItems: 'center', width: '100%' }}>
+                <View style={{ alignItems: "center", width: "100%" }}>
                     <NativeAdView
                         targeting={{
-                            customTargeting: { group: 'nzme_user_test' },
-                            categoryExclusions: ['media'],
-                            contentURL: 'nzmetest://',
-                            publisherProvidedID: 'provider_id_nzme',
+                            customTargeting: { group: "nzme_user_test" },
+                            categoryExclusions: ["media"],
+                            contentURL: "nzmetest://",
+                            publisherProvidedID: "provider_id_nzme",
                         }}
-                        style={{ width: '100%' }}
+                        style={{ width: "100%" }}
                         adsManager={adsManager}
                         // adLayout={'horizontal'}
-                        validAdTypes={['native', 'template']}
-                        customTemplateIds={['11891103']}
+                        validAdTypes={["native", "template"]}
+                        customTemplateIds={["11891103"]}
                         onAdLoaded={this.onAdLoaded}
-                        adUnitID={'/83069739/jeff'}
+                        adUnitID={"/83069739/jeff"}
                         onAdFailedToLoad={(event: AdFailedToLoadEvent) => {
                             console.log(event.error);
                         }}
@@ -134,26 +136,26 @@ export default class Example extends React.Component<
                 </View>
             </BannerExample>
         );
-    }
+    };
 
     addAd = (type: string) => {
         const { adsList } = this.state;
-        if (type === 'banner') {
-            adsList.push({ type: 'banner' });
+        if (type === "banner") {
+            adsList.push({ type: "banner" });
         } else {
-            adsList.push({ type: 'native' });
+            adsList.push({ type: "native" });
         }
         this.setState({ adsList });
-    }
+    };
 
     onRefreshScrollView = () => {
-        const adsList = [{ type: 'banner' }];
+        const adsList = [{ type: "banner" }];
         this.setState({ adsList });
-    }
+    };
 
     render() {
         // const adsManager = new NativeAdsManager("/6499/example/native", [AdMobInterstitial.simulatorId]);
-        const adsManager = new NativeAdsManager('/83069739/jeff', [Interstitial.simulatorId]);
+        const adsManager = new NativeAdsManager("/83069739/jeff", [Interstitial.simulatorId]);
         const { adsList, refreshingScrollView } = this.state;
 
         return (
@@ -163,7 +165,7 @@ export default class Example extends React.Component<
                         <Button title="Show Interstitial and preload next" onPress={this.showInterstitial} />
                     </BannerExample>
                     {adsList?.map((curItem, index) => {
-                        if (curItem.type === 'banner') {
+                        if (curItem.type === "banner") {
                             return <View key={index}>{this.showBanner(adsManager, index + 1)}</View>;
                         } else {
                             return <View key={index}>{this.showNative(adsManager, index + 1)}</View>;
@@ -172,12 +174,12 @@ export default class Example extends React.Component<
                     <BannerExample title="Add more adds" style={{ paddingBottom: 40 }}>
                         <Button
                             title="Add Banner"
-                            onPress={() => this.addAd('banner')}
+                            onPress={() => this.addAd("banner")}
                             color={styles.button.backgroundColor}
                         />
                         <Button
                             title="Add Native"
-                            onPress={() => this.addAd('native')}
+                            onPress={() => this.addAd("native")}
                             color={styles.button.backgroundColor}
                         />
                     </BannerExample>
@@ -189,7 +191,7 @@ export default class Example extends React.Component<
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: Platform.OS === 'ios' ? 30 : 10,
+        marginTop: Platform.OS === "ios" ? 30 : 10,
     },
     example: {
         paddingVertical: 10,
@@ -199,6 +201,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     button: {
-        backgroundColor: '#CC5500',
+        backgroundColor: "#CC5500",
     },
 });

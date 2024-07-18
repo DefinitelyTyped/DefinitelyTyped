@@ -2,7 +2,7 @@ export = autoBind;
 
 declare function autoBind(
     obj: { [key: string]: PropertyDescriptor },
-    options?: autoBind.Options
+    options?: autoBind.Options,
 ): PropertyDescriptorMap;
 
 declare namespace autoBind {

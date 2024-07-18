@@ -1,6 +1,6 @@
-import parent = require('parent-package-json');
+import parent = require("parent-package-json");
 
-const hasParent = parent('/optional/path/', 1);
+const hasParent = parent("/optional/path/", 1);
 
 if (hasParent !== false) {
     const pathToParent: string = hasParent.path;

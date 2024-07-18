@@ -1,13 +1,6 @@
-// Type definitions for aws4 1.11
-// Project: https://github.com/mhart/aws4
-// Definitions by: Andrew Crites <https://github.com/ajcrites>
-//                 Alexandre Szymocha <https://github.com/Aksamyt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
-import { OutgoingHttpHeaders, RequestOptions } from 'http';
+import { OutgoingHttpHeaders, RequestOptions } from "http";
 
 export interface Request extends RequestOptions {
     /** Defaults to {@link RequestSigner.createHost}() if possible. */

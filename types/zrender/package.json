@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/zrender",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/ecomfe/zrender"
+    ],
+    "devDependencies": {
+        "@types/zrender": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roman",
+            "githubUsername": "iRON5"
+        }
+    ]
+}

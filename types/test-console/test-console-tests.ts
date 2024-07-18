@@ -1,4 +1,4 @@
-import { stdout, stderr } from 'test-console';
+import { stderr, stdout } from "test-console";
 
 for (const std of [stdout, stderr]) {
     // $ExpectType Inspector

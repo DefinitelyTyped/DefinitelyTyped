@@ -1,8 +1,3 @@
-// Type definitions for react-circular 1.0
-// Project: https://github.com/adriantoine/react-circular#readme
-// Definitions by: Rhythm Bhiwani <https://github.com/rhythmbhiwani>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function CirclePosition(props: any): any;
 
 export function LineCirclePosition(props: any): any;

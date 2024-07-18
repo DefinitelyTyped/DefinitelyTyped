@@ -32,8 +32,6 @@ declare class Class_X509Req extends Class__object {
      *
      * @brief 获取证书的主题可分辨名称
      *
-     * @readonly
-     *
      */
 
     subject: string
@@ -44,8 +42,6 @@ declare class Class_X509Req extends Class__object {
      *
      * @brief 获取证书的公钥
      *
-     * @readonly
-     * @type PKey
      */
 
     publicKey: Class_PKey

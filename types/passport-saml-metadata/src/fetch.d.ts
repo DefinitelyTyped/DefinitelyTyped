@@ -5,7 +5,7 @@ export interface FetchAxiosConfig {
 }
 
 export type FetchConfig = {
-    client?: {get(url: string, params?: Partial<FetchAxiosConfig>): Promise<{data: string}>} | undefined;
+    client?: { get(url: string, params?: Partial<FetchAxiosConfig>): Promise<{ data: string }> } | undefined;
     url: string;
 } & Partial<FetchAxiosConfig>;
 

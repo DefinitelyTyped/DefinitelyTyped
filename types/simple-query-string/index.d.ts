@@ -1,9 +1,3 @@
-// Type definitions for simple-query-string 1.3
-// Project: https://github.com/khalidsalomao/simple-query-string#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 declare const qs: {
     version: string;
 
@@ -17,11 +11,9 @@ declare const qs: {
 
     stringify: <T>(
         obj: {
-            /* tslint:disable-next-line ban-types */
-            [key: string]: T extends Function
-                ? never
-                : T extends string | number | boolean | object | null | undefined
-                ? T
+            /* eslint-disable-next-line @typescript-eslint/ban-types */
+            [key: string]: T extends Function ? never
+                : T extends string | number | boolean | object | null | undefined ? T
                 : never;
         },
         delimeter?: string,

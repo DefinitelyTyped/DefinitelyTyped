@@ -68,9 +68,9 @@ declare class PermissionSchema {
     getExtraFiltersForClass(classKey: number): string[];
 }
 declare namespace PermissionSchema {
-    const TARGET_FIELDS: string[];
-    const PERIOD_FIELDS: string[];
-    const INHERITANCE_FIELDS: string[];
+    let TARGET_FIELDS: string[];
+    let PERIOD_FIELDS: string[];
+    let INHERITANCE_FIELDS: string[];
     function getInstance(): PermissionSchema;
 }
 import DataSet = require('../dataset/DataSet.js');

@@ -1,9 +1,3 @@
-// Type definitions for iv-viewer 2.0
-// Project: https://github.com/s-yadav/iv-viewer#readme
-// Definitions by: Robert Wettstädt <https://github.com/robert-wettstaedt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 interface Options {
     zoomValue?: number | undefined;
     snapView?: boolean | undefined;

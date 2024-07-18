@@ -1,12 +1,3 @@
-// Type definitions for @ember/ordered-set 3.0
-// Project: https://github.com/emberjs/ember-ordered-set
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Mike North <https://github.com/mike-north>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /**
  * The `OrderedSet` class lets you store unique values of any type, whether
  * primitive values or object references. It is mostly similar to the native
@@ -20,7 +11,7 @@ export default class OrderedSet<T = unknown> {
     // `let set: OrderedSet<string> = OrderedSet.create();`. If TS could infer
     // from usage what the type would be, this wouldn't be required, but until
     // it does, this is better than *not* allowing it.
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     static create<T = unknown>(): OrderedSet<T>;
 
     add(value: T): this;

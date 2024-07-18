@@ -7,4 +7,4 @@ export default objectToEvent;
  * @return an event corresponding to the parameter
  */
 declare function objectToEvent(obj: any): Event;
-import Event from '../entity/events/Event';
+import Event from "../entity/events/Event";

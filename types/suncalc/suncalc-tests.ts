@@ -1,4 +1,4 @@
-import * as SunCalc from 'suncalc';
+import * as SunCalc from "suncalc";
 
 let d: Date;
 let x: number;
@@ -41,7 +41,7 @@ d = times.sunriseEnd;
 d = times.sunset;
 d = times.sunsetStart;
 
-SunCalc.addTime(0.0, 'customTime', 'customTimeEnd');
+SunCalc.addTime(0.0, "customTime", "customTimeEnd");
 
 const pos = SunCalc.getPosition(date, latitude, longitude);
 x = pos.altitude;

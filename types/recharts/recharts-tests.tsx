@@ -1,5 +1,4 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
 import {
     Area,
     AreaChart,
@@ -35,8 +34,8 @@ import {
     TooltipProps,
     XAxis,
     YAxis,
-    ZAxis
-} from 'recharts';
+    ZAxis,
+} from "recharts";
 
 interface ComponentState {
     activeIndex: number;
@@ -57,10 +56,10 @@ class Component extends React.Component<{}, ComponentState> {
                 pv of page
             </Text>
         );
-    }
+    };
 
     private renderCustomizedElement(props: any) {
-        console.log('Customized props', props);
+        console.log("Customized props", props);
         return (
             <Text x={0} y={0} width={100} height={20} className="customized-text">
                 Customized element
@@ -70,32 +69,32 @@ class Component extends React.Component<{}, ComponentState> {
 
     render() {
         const data = [
-            { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-            { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-            { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-            { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-            { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-            { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-            { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
+            { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
+            { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
+            { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
+            { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
+            { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
+            { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
+            { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
         ];
 
         const data2 = [
-            { name: 'Group A', value: 400 },
-            { name: 'Group B', value: 300 },
-            { name: 'Group C', value: 300 },
-            { name: 'Group D', value: 200 },
+            { name: "Group A", value: 400 },
+            { name: "Group B", value: 300 },
+            { name: "Group C", value: 300 },
+            { name: "Group D", value: 200 },
         ];
 
         const data3 = {
             nodes: [
-                { name: 'Accept' },
-                { name: 'Reject' },
-                { name: 'Hold' },
-                { name: 'Unaffected' },
-                { name: 'Accept' },
-                { name: 'Reject' },
-                { name: 'Hold' },
-                { name: 'Unaffected' },
+                { name: "Accept" },
+                { name: "Reject" },
+                { name: "Hold" },
+                { name: "Unaffected" },
+                { name: "Accept" },
+                { name: "Reject" },
+                { name: "Hold" },
+                { name: "Unaffected" },
             ],
             links: [
                 { source: 0, target: 4, value: 1 },
@@ -121,7 +120,7 @@ class Component extends React.Component<{}, ComponentState> {
             const my = cy + (outerRadius + 30) * sin;
             const ex = mx + (cos >= 0 ? 1 : -1) * 22;
             const ey = my;
-            const textAnchor = cos >= 0 ? 'start' : 'end';
+            const textAnchor = cos >= 0 ? "start" : "end";
 
             return (
                 <g>
@@ -153,7 +152,9 @@ class Component extends React.Component<{}, ComponentState> {
                         y={ey}
                         textAnchor={textAnchor}
                         fill="#333"
-                    >{`PV ${value}`}</text>
+                    >
+                        {`PV ${value}`}
+                    </text>
                     <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
                         {`(Rate ${(percent * 100).toFixed(2)}%)`}
                     </text>
@@ -161,7 +162,7 @@ class Component extends React.Component<{}, ComponentState> {
             );
         };
         return (
-            <div style={{ width: '100%', height: '100%' }}>
+            <div style={{ width: "100%", height: "100%" }}>
                 <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
                         <XAxis dataKey="name">
@@ -170,7 +171,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <YAxis stroke="#8884d8">
                             <Label>Y axis</Label>
                         </YAxis>
-                        <CartesianGrid vertical={true} horizontal={false} verticalFill={['#fafafa', '#c8c8c8']} />
+                        <CartesianGrid vertical={true} horizontal={false} verticalFill={["#fafafa", "#c8c8c8"]} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line id="custom-id" type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Line id="custom-id2" type="monotone" dataKey="pv" stroke="#82ca9d" dot={false} />
@@ -186,13 +187,13 @@ class Component extends React.Component<{}, ComponentState> {
                             type="monotone"
                             dataKey="pv"
                             stroke="#82ca9d"
-                            dot={{ stroke: 'red', strokeWidth: 2 }}
+                            dot={{ stroke: "red", strokeWidth: 2 }}
                         />
                         <Tooltip />
                         <Brush dataKey="name" />
                         <Brush dataKey="name" gap={3} />
                         <Brush dataKey="name" leaveTimeOut={55} />
-                        <ReferenceLine label={'reference'} />
+                        <ReferenceLine label={"reference"} />
                         <ReferenceArea stroke="red" fill="red" y2={1} strokeOpacity={0.2} fillOpacity={0.1} />
                         <Customized
                             component={
@@ -211,7 +212,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <YAxis>
                             <Label>Y axis</Label>
                         </YAxis>
-                        <CartesianGrid vertical={false} horizontal={true} horizontalFill={['#fafafa', '#c8c8c8']} />
+                        <CartesianGrid vertical={false} horizontal={true} horizontalFill={["#fafafa", "#c8c8c8"]} />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
                         <Tooltip
@@ -244,8 +245,8 @@ class Component extends React.Component<{}, ComponentState> {
                 </ResponsiveContainer>
                 <ResponsiveContainer height={300}>
                     <LineChart width={500} height={300} data={data}>
-                        <XAxis dataKey="name" label={{ value: 'X axis - name' }} />
-                        <YAxis label={{ value: 'Y axis' }} allowDuplicatedCategory={false} />
+                        <XAxis dataKey="name" label={{ value: "X axis - name" }} />
+                        <YAxis label={{ value: "Y axis" }} allowDuplicatedCategory={false} />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                         <Line type="monotone" dataKey="uv" stroke="#8884d8" onClick={this.clickHandler} />
                         <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
@@ -278,7 +279,7 @@ class Component extends React.Component<{}, ComponentState> {
                         <XAxis type="number" dataKey="uv" name="stature" unit="cm" angle={30} dx={20} dy={20} />
                         <YAxis dataKey="pv" name="weight" unit="kg" angle={30} dx={20} dy={20} />
                         <ZAxis dataKey="amt" range={[64, 144]} name="score" unit="km" />
-                        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
                         <Legend />
                         <Scatter id="custom-id" name="A school" data={data} fill="#8884d8" />
                     </ScatterChart>
@@ -297,7 +298,7 @@ class Component extends React.Component<{}, ComponentState> {
                             <LabelList dataKey="name" position="insideTop" angle={45} />
                         </Bar>
                         <Bar dataKey="uv" fill="#82ca9d" radius={[10, 10, 0, 0]}>
-                            <LabelList valueAccessor={(entry: any) => entry['uv']} position="top" />
+                            <LabelList valueAccessor={(entry: any) => entry["uv"]} position="top" />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>
@@ -346,5 +347,3 @@ class Component extends React.Component<{}, ComponentState> {
         );
     }
 }
-
-ReactDOM.render(<Component />, document.getElementById('app'));

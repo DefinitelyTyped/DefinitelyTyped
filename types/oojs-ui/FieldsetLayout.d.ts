@@ -38,10 +38,12 @@ declare namespace OO.ui {
         interface EventMap extends mixin.GroupElement.EventMap, mixin.LabelElement.EventMap {}
 
         interface ConfigOptions
-            extends Layout.ConfigOptions,
+            extends
+                Layout.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
-                mixin.GroupElement.ConfigOptions {
+                mixin.GroupElement.ConfigOptions
+        {
             /**
              * An array of fields to add to the fieldset.
              * See OO.ui.FieldLayout for more information about fields.
@@ -73,18 +75,18 @@ declare namespace OO.ui {
         interface Static extends Layout.Static, mixin.IconElement.Static, mixin.LabelElement.Static {}
 
         interface Props
-            extends Layout.Props,
-                mixin.IconElement.Props,
-                mixin.LabelElement.Props,
-                mixin.GroupElement.Props {
+            extends Layout.Props, mixin.IconElement.Props, mixin.LabelElement.Props, mixin.GroupElement.Props
+        {
             $header: JQuery;
         }
 
         interface Prototype
-            extends Layout.Prototype,
+            extends
+                Layout.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.LabelElement.Prototype,
-                mixin.GroupElement.Prototype {
+                mixin.GroupElement.Prototype
+        {
             // #region EventEmitter overloads
             on<K extends keyof EventMap, A extends ArgTuple = [], C = null>(
                 event: K,
@@ -122,21 +124,21 @@ declare namespace OO.ui {
             emitThrow<K extends keyof EventMap>(event: K, ...args: EventMap[K]): boolean;
             emitThrow<K extends string>(event: K extends keyof EventMap ? never : K, ...args: any[]): boolean;
 
-            connect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            connect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>,
             ): this;
 
-            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
+            disconnect<T extends Partial<Record<keyof EventMap, any>>, C>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>,
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): FieldsetLayout;
+            new(config?: ConfigOptions): FieldsetLayout;
             prototype: Prototype;
             static: Static;
             super: Layout.Constructor;

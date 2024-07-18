@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/yog-ral",
+    "version": "0.20.9999",
+    "projects": [
+        "https://gitlab.baidu.com/fex/node-ral"
+    ],
+    "dependencies": {
+        "@types/node-ral": "*"
+    },
+    "devDependencies": {
+        "@types/yog-ral": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ssddi456",
+            "githubUsername": "ssddi456"
+        }
+    ]
+}

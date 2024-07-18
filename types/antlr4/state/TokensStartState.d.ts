@@ -1,4 +1,4 @@
-import DecisionState from './DecisionState';
+import DecisionState from "./DecisionState";
 
 /**
  * The Tokens rule start state linking to each lexer rule start state

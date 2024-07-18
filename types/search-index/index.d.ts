@@ -1,11 +1,4 @@
-// Type definitions for search-index 3.2
-// Project: https://github.com/fergiemcdowall/search-index
-// Definitions by: Travis Harrison <https://github.com/TravisYeah>
-//                 Henry Tsai <https://github.com/thehenrytsai>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
-import { AbstractLevelDOWNConstructor } from 'abstract-leveldown';
+import { AbstractLevelDOWNConstructor } from "abstract-leveldown";
 
 interface SearchIndexOptions {
     db?: AbstractLevelDOWNConstructor;
@@ -21,9 +14,9 @@ interface Page {
     SIZE: number;
 }
 
-type Type = 'NUMERIC' | 'ALPHABETIC';
+type Type = "NUMERIC" | "ALPHABETIC";
 
-type Direction = 'ASCENDING' | 'DESCENDING';
+type Direction = "ASCENDING" | "DESCENDING";
 
 interface AND {
     AND: Token[];
@@ -70,7 +63,7 @@ interface Sort {
     FIELD: string;
 }
 
-type Score = 'TFIDF' | 'SUM' | 'PRODUCT' | 'CONCAT';
+type Score = "TFIDF" | "SUM" | "PRODUCT" | "CONCAT";
 
 type AlterToken = (token: Token) => Promise<Token>;
 
@@ -180,22 +173,22 @@ interface SearchIndex {
     QUERY(query: Token, options?: QueryOptions): Promise<QueryResult>;
     SEARCH(token: Token): Promise<QueryResult>;
     ALL_DOCUMENTS(limit?: number): Promise<AllDocumentsResultItem[]>;
-    BUCKETS(...tokens: ReadonlyArray<Token>): Promise<FieldValueIdObject[]>;
-    DELETE(...docIds: ReadonlyArray<string>): Promise<Operation[]>;
+    BUCKETS(...tokens: readonly Token[]): Promise<FieldValueIdObject[]>;
+    DELETE(...docIds: readonly string[]): Promise<Operation[]>;
     CREATED(): Promise<number>;
     DICTIONARY(token?: Token): Promise<string[]>;
-    DOCUMENTS(...docIds: ReadonlyArray<string>): Promise<any[]>;
+    DOCUMENTS(...docIds: readonly string[]): Promise<any[]>;
     DISTINCT(token?: Token): Promise<FieldValue[]>;
     DOCUMENT_COUNT(): Promise<number>;
     EXPORT(): Promise<KeyValue[]>;
     FACETS(token?: Token): Promise<FieldValueIdObject[]>;
     FIELDS(): Promise<string[]>;
     FLUSH(): Promise<void>;
-    IMPORT(index: ReadonlyArray<KeyValue>): Promise<void>;
+    IMPORT(index: readonly KeyValue[]): Promise<void>;
     MIN(token?: Token): Promise<string>;
     MAX(token?: Token): Promise<string>;
-    PUT(documents: ReadonlyArray<any>, options?: PutOptions): Promise<Operation[]>;
-    PUT_RAW(documents: ReadonlyArray<any>): Promise<Operation[]>;
+    PUT(documents: readonly any[], options?: PutOptions): Promise<Operation[]>;
+    PUT_RAW(documents: readonly any[]): Promise<Operation[]>;
     TOKENIZATION_PIPELINE_STAGES: TokenizationPipelineStages;
 }
 

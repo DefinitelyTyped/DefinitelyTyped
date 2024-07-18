@@ -1,6 +1,7 @@
 {
     "rules": {
-        "trim-file": "off",
-        "no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/naming-convention": "off"
     }
 }
