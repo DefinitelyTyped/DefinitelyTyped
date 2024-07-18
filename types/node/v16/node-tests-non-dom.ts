@@ -1,1 +1,1 @@
-import "./test/module-non-dom"
+import "./test/module-non-dom";
