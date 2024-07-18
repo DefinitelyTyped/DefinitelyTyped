@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mjml-core",
-    "version": "4.15.0",
+    "version": "4.15.9999",
     "projects": [
         "https://mjml.io"
     ],
