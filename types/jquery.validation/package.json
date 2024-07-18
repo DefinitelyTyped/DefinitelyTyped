@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/jquery.validation",
-    "version": "1.16.9999",
+    "version": "1.17.9999",
     "nonNpm": true,
     "nonNpmDescription": "jquery.validation",
     "projects": [
