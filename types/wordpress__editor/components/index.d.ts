@@ -60,6 +60,7 @@ export { default as PluginDocumentSettingPanel } from "./plugin-document-setting
 export { default as PluginSidebarMoreMenuItem } from "./plugin-sidebar-more-menu-item";
 export { default as PluginSidebar } from "./plugin-sidebar";
 export { default as PluginPostStatusInfo } from "./plugin-post-status-info";
+export { default as PluginPostPublishPanel } from "./plugin-post-publish-panel";
 export { default as TableOfContents } from "./table-of-contents";
 export { default as UnsavedChangesWarning } from "./unsaved-changes-warning";
 export { default as WordCount } from "./word-count";

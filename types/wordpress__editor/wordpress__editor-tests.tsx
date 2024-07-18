@@ -330,6 +330,13 @@ e.store.name;
 </e.PluginPostStatusInfo>;
 
 //
+// PluginPostPublishPanel
+//
+<e.PluginPostPublishPanel className="my-plugin-post-publish-panel" title="My panel title" initialOpen={ true }>
+    My panel content
+</e.PluginPostPublishPanel>;
+
+//
 // TableOfContents
 //
 <e.TableOfContents />;
