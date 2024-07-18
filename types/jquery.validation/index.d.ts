@@ -20,7 +20,7 @@ declare namespace JQueryValidation {
         /**
          * Use this to register additional elements to be validatable. Main use case is for validating web components.
          * By default, only the following elements are supported: "input", "select", "textarea", "[contenteditable]"
-         * 
+         *
          * default: []
          */
         customElements?: string[] | undefined;

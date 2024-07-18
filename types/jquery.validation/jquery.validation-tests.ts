@@ -193,7 +193,7 @@ function test_validate() {
         onclick: elt => 2,
     });
     $(".selector").validate({
-        customElements: ["my-custom-element"]
+        customElements: ["my-custom-element"],
     });
 }
 
