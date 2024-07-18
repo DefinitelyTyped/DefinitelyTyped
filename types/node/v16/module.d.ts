@@ -196,10 +196,11 @@ declare module "module" {
         constructor(id: string, parent?: Module);
     }
     type ImportMetaDOMCompat = typeof globalThis extends { onmessage: any } ? {
-    resolve(specifier: string): string;
-    } : {
-    resolve?(specifier: string, parent?: string): Promise<string>;
-    }
+            resolve(specifier: string): string;
+        }
+        : {
+            resolve?(specifier: string, parent?: string): Promise<string>;
+        };
     global {
         interface ImportMeta extends ImportMetaDOMCompat {
             url: string;
