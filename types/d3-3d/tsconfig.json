@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.mts",
+        "index.d.ts",
         "d3-3d-tests.ts"
     ]
 }
