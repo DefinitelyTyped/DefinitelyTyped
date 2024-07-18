@@ -276,7 +276,7 @@ declare module "module" {
             resolve(specifier: string): string;
         }
         : {
-            resolve?(specifier: string, parent?: string): Promise<string>;
+            resolve?(specifier: string, parent?: string | URL): Promise<string>;
         };
     global {
         interface ImportMeta extends ImportMetaDOMCompat {
