@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/Niekes/d3-3d"
     ],
+    "type": "module",
     "dependencies": {
         "csstype": "*"
     },
