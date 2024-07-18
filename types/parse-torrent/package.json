@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/parse-torrent",
+    "version": "5.8.9999",
+    "projects": [
+        "https://github.com/webtorrent/parse-torrent"
+    ],
+    "dependencies": {
+        "@types/magnet-uri": "*",
+        "@types/node": "*",
+        "@types/parse-torrent-file": "*"
+    },
+    "devDependencies": {
+        "@types/parse-torrent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bazyli Brzóska",
+            "githubUsername": "niieani"
+        },
+        {
+            "name": "Tomasz Łaziuk",
+            "githubUsername": "tlaziuk"
+        }
+    ]
+}

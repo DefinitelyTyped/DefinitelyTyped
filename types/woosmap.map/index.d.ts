@@ -33,6 +33,10 @@ declare namespace woosmap.map {
          */
         data: woosmap.map.Data;
         /**
+         * Additional map types to overlay.
+         */
+        overlayMapTypes: woosmap.map.MVCArray<woosmap.map.MapType>;
+        /**
          * Creates a new map inside the given HTML container, which is typically a `DIV` element.
          */
         constructor(mapDiv: HTMLElement | string, options?: woosmap.map.MapOptions);
@@ -648,6 +652,19 @@ declare namespace woosmap.map.Data {
          * Returns `"GeometryCollection"`.
          */
         getType(): "GeometryCollection";
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * ImageMapType defines tiled image layer that can be added to the map.
+     * It supports both `xyz` and `tms` tile schemes.
+     */
+    class ImageMapType {
+        /**
+         * ImageMapType defines tiled image layer that can be added to the map.
+         * It supports both `xyz` and `tms` tile schemes.
+         */
+        constructor(opts: woosmap.map.ImageMapTypeOptions);
     }
 }
 declare namespace woosmap.map {
@@ -1472,6 +1489,21 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    interface MapType {
+        /**
+         * Displays the overlay up to the maximum zoom level.
+         */
+        maxZoom: number;
+        /**
+         * Displays the overlay startingat the minmum zoom level.
+         */
+        minZoom: number;
+        getTile(tileCoord: woosmap.map.Point, zoom: number, ownerDocument: null): Element | null;
+
+        releaseTile(tile: Element): void;
+    }
+}
+declare namespace woosmap.map {
     interface InfoWindowOptions {
         /**
          * Content to display in the InfoWindow.
@@ -1937,6 +1969,35 @@ declare namespace woosmap.map {
     interface GeoJSONFeatureCollection {
         features: woosmap.map.GeoJSONFeature[];
         type: "FeatureCollection";
+    }
+}
+declare namespace woosmap.map {
+    interface ImageMapTypeOptions {
+        alt?: string | null;
+        getTileUrl?: (point: woosmap.map.Point, zoom: number) => (string | null) | null;
+        /**
+         * The maximum zoom level at which the image map type should be visible.
+         */
+        maxZoom?: number | null;
+        /**
+         * The minimum zoom level at which the image map type should be visible.
+         */
+        minZoom?: number | null;
+        name?: string | null;
+        /**
+         * Opacity of the tile layer (between 0, 1).
+         */
+        opacity?: number | null;
+        /**
+         * The tile scheme to use `xyz` or `tms`.
+         */
+        scheme?: "xyz" | "tms";
+        tileSize?: woosmap.map.Size | null;
+        /**
+         * The tile url scheme use {x}, {y} and {z} url templates.
+         * Example: `https://tile.openstreetmap.org/{z}/{x}/{y}.png`
+         */
+        url?: string;
     }
 }
 declare namespace woosmap.map {

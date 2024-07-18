@@ -3,6 +3,10 @@ import * as ads from "ads-client";
 const client = new ads.Client({
     targetAmsNetId: "localhost",
     targetAdsPort: 851,
+    localAddress: null,
+    localTcpPort: null,
+    localAmsNetId: null,
+    localAdsPort: null,
 });
 
 async function usage() {
