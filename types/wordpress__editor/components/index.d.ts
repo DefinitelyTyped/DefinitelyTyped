@@ -58,6 +58,7 @@ export { default as PostVisibilityCheck } from "./post-visibility/check";
 export { default as PostVisibilityLabel } from "./post-visibility/label";
 export { default as PluginDocumentSettingPanel } from "./plugin-document-setting-panel";
 export { default as PluginSidebarMoreMenuItem } from "./plugin-sidebar-more-menu-item";
+export { default as PluginSidebar } from "./plugin-sidebar";
 export { default as TableOfContents } from "./table-of-contents";
 export { default as UnsavedChangesWarning } from "./unsaved-changes-warning";
 export { default as WordCount } from "./word-count";

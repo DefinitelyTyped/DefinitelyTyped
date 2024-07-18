@@ -316,6 +316,13 @@ e.store.name;
 </e.PluginSidebarMoreMenuItem>;
 
 //
+// PluginSidebar
+//
+<e.PluginSidebar name="my-sidebar" title="My sidebar title">
+    My sidebar content
+</e.PluginSidebar>;
+
+//
 // TableOfContents
 //
 <e.TableOfContents />;
