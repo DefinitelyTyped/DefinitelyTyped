@@ -323,6 +323,13 @@ e.store.name;
 </e.PluginSidebar>;
 
 //
+// PluginPostStatusInfo
+//
+<e.PluginPostStatusInfo className="my-plugin-post-status-info">
+    My post status info
+</e.PluginPostStatusInfo>;
+
+//
 // TableOfContents
 //
 <e.TableOfContents />;
