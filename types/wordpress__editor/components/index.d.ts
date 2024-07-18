@@ -62,6 +62,7 @@ export { default as PluginSidebar } from "./plugin-sidebar";
 export { default as PluginPostStatusInfo } from "./plugin-post-status-info";
 export { default as PluginPostPublishPanel } from "./plugin-post-publish-panel";
 export { default as PluginPrePublishPanel } from "./plugin-pre-publish-panel";
+export { default as PluginMoreMenuItem } from "./plugin-more-menu-item";
 export { default as TableOfContents } from "./table-of-contents";
 export { default as UnsavedChangesWarning } from "./unsaved-changes-warning";
 export { default as WordCount } from "./word-count";

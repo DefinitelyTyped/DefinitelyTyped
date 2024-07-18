@@ -1,5 +1,6 @@
 import { dispatch, select } from "@wordpress/data";
 import * as e from "@wordpress/editor";
+import PluginMoreMenuItem from "./components/plugin-more-menu-item";
 
 declare const BLOCK_INSTANCE: import("@wordpress/blocks").BlockInstance;
 declare const FILELIST: FileList;
@@ -342,6 +343,12 @@ e.store.name;
 <e.PluginPrePublishPanel className="my-plugin-pre-publish-panel" title="My panel title" initialOpen={ true }>
     My panel content
 </e.PluginPrePublishPanel>;
+
+
+// PluginMoreMenuItem
+<e.PluginMoreMenuItem onClick={() => console.log('Clicked!')}>
+    My button title
+</e.PluginMoreMenuItem>;
 
 //
 // TableOfContents
