@@ -6,4 +6,3 @@ import { URL } from "node:url";
     importmeta.url; // $ExpectType string
     importmeta.resolve!("local"); // $ExpectType Promise<string> || string
 }
-
