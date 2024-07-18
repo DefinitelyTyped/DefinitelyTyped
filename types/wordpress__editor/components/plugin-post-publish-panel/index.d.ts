@@ -6,7 +6,7 @@ declare namespace PluginPostPublishPanel {
         /** An optional class name added to the panel. */
         className?: string;
         /** Title displayed at the top of the panel. */
-        title: string;
+        title?: string;
         /** Whether to have the panel initially opened. When no title is provided, it is always opened. */
         initialOpen?: boolean;
         /** The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar. */

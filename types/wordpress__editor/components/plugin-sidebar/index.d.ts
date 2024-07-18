@@ -8,7 +8,7 @@ declare namespace PluginSidebar {
         /** An optional class name added to the sidebar body. */
         className?: string;
         /** Title displayed at the top of the sidebar. */
-        title: string;
+        title?: string;
         /** Whether to allow to pin sidebar to the toolbar. When set to `true` it also automatically renders a corresponding menu item. */
         isPinnable?: boolean;
         /** The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar. */
