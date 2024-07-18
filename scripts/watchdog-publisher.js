@@ -35,7 +35,7 @@ async function getTopFiveMerged(sort) {
         per_page: 100,
         direction: "desc",
         sort,
-    })
+    });
 
     const result = [];
 
