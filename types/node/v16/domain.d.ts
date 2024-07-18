@@ -98,13 +98,13 @@ declare module "domain" {
          * from that one, and bound to this one instead.
          * @param emitter emitter or timer to be added to the domain
          */
-        add(/** @deferred */ emitter: EventEmitter | NodeJS.Timer): void;
+        add(emitter: EventEmitter | NodeJS.Timer): void;
         /**
          * The opposite of {@link add}. Removes domain handling from the
          * specified emitter.
          * @param emitter emitter or timer to be removed from the domain
          */
-        remove(/** @deferred */ emitter: EventEmitter | NodeJS.Timer): void;
+        remove(emitter: EventEmitter | NodeJS.Timer): void;
         /**
          * The returned function will be a wrapper around the supplied callback
          * function. When the returned function is called, any errors that are
