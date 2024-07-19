@@ -7,6 +7,14 @@
     "projects": [
         "https://drafts.csswg.org/css-view-transitions-1/"
     ],
+    "types": "index",
+    "typesVersions": {
+        "<=5.5": {
+            "*": [
+                "ts5.5/*"
+            ]
+        }
+    },
     "devDependencies": {
         "@types/dom-view-transitions": "workspace:."
     },
