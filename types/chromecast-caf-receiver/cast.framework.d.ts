@@ -991,6 +991,24 @@ export class NetworkRequestInfo {
      */
     withCredentials: boolean;
 }
+
+/**
+ * Represents variants of Shaka Player that could be loaded.
+ *
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ShakaVariant
+ */
+export enum ShakaVariant {
+    /**
+     * The standard, default build.
+     */
+    STANDARD = "STANDARD",
+
+    /**
+     * A debug build.
+     */
+    DEBUG = "DEBUG",
+}
+
 /**
  * Cast receiver context options. All options are optionals.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.CastReceiverOptions
@@ -1059,6 +1077,13 @@ export class CastReceiverOptions {
      * Optional queue implementation.
      */
     queue?: QueueBase | undefined;
+
+    /**
+     * Which build of Shaka Player should be loaded.
+     *
+     * Set to `cast.framework.ShakaVariant.DEBUG` to load a debug build.
+     */
+    shakaVariant?: ShakaVariant | undefined;
 
     /**
      * Shaka version in the MAJOR.MINOR.PATCH format, for example "3.2.11" (the current default).
