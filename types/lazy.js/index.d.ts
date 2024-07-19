@@ -71,8 +71,7 @@ declare namespace LazyJS {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    class Iterator<T> {
-        constructor(sequence: Sequence<T>);
+    interface Iterator<T> {
         current(): T;
         moveNext(): boolean;
     }
