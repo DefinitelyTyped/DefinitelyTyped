@@ -1219,6 +1219,10 @@ interface IStaticCanvasOptions {
      * a zoomed canvas will then produce zoomed SVG output.
      */
     svgViewportTransformation?: boolean | undefined;
+    /**
+     * When the option is enabled, PointerEvent is used instead of MouseEvent.
+     */
+    enablePointerEvents?: boolean | undefined;
 }
 
 export interface StaticCanvas
