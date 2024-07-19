@@ -32,7 +32,7 @@ declare module "assert" {
                 operator?: string | undefined;
                 /** If provided, the generated stack trace omits frames before this function. */
                 // eslint-disable-next-line @typescript-eslint/ban-types
-                /** @deferred */ stackStartfn?: Function | undefined;
+                stackStartfn?: Function | undefined;
             });
         }
         /**
@@ -218,7 +218,7 @@ declare module "assert" {
             message?: string | Error,
             operator?: string,
             // eslint-disable-next-line @typescript-eslint/ban-types
-            stackStartfn?: Function,
+            /** @deferred */ stackStartfn?: Function,
         ): never;
         /**
          * Tests if `value` is truthy. It is equivalent to`assert.equal(!!value, true, message)`.
