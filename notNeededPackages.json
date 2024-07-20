@@ -5891,6 +5891,10 @@
             "libraryName": "stream-to-string",
             "asOfVersion": "1.2.0"
         },
+        "streamtest": {
+            "libraryName": "streamtest",
+            "asOfVersion": "3.0.0"
+        },
         "string-argv": {
             "libraryName": "string-argv",
             "asOfVersion": "0.3.0"
