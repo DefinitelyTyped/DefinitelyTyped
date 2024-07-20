@@ -56,7 +56,7 @@ export interface FakeXMLHttpRequest {
      */
     responseXML: Document;
     /**
-     * `true` when the request has been aborted, false or undefined otherwise
+     * `true` when the request has been aborted, `false` or undefined otherwise
      */
     aborted: boolean;
     /**
