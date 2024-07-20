@@ -49,6 +49,15 @@ function testFakeXMLHttpRequest() {
     xhr.error();
 }
 
+function testAbortFakeXMLHttpRequest() {
+    const xhr = new fakeXhr.FakeXMLHttpRequest();
+    const headers = xhr.getAllResponseHeaders();
+    const header = xhr.getResponseHeader("test");
+
+    xhr.setResponseHeaders({ Accept: "application/json" });
+    xhr.abort();
+}
+
 function testFakeXMLHttpRequestStatic() {
     fakeXhr.FakeXMLHttpRequest.useFilters = true;
     fakeXhr.FakeXMLHttpRequest.addFilter((method, url, async, user, pass) => true);
