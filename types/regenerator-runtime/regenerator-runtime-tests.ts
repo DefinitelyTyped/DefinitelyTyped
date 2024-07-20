@@ -13,7 +13,7 @@ declare const anyIterable: Iterable<object>;
 declare const anyIterableIterator: IterableIterator<object>;
 declare const anyGenerator: Generator<object, object, object>;
 
-regenerator.values(anyArray); // $ExpectType IterableIterator<object>
+regenerator.values(anyArray); // $ExpectType IterableIterator<object> || BuiltinIterator<object, any, any>
 expectType<Iterator<object>>(regenerator.values(anyIterable));
 regenerator.values(anyIterableIterator); // $ExpectType IterableIterator<object>
 regenerator.values(anyGenerator); // $ExpectType Generator<object, object, object>
@@ -121,7 +121,7 @@ declare const overloadedFunction: {
     <T>(...args: T[]): Generator<T>;
 };
 
-// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction || { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, any>; } & GeneratorFunction
+// $ExpectType { (): Generator<unknown, any, unknown>; <T>(...args: T[]): Generator<T, any, unknown>; } & GeneratorFunction || { (): Generator<unknown, any, any>; <T>(...args: T[]): Generator<T, any, any>; } & GeneratorFunction
 regenerator.mark(overloadedFunction);
 
 declare const mappableIterator: IterableIterator<object> & {
