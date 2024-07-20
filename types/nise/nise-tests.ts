@@ -47,15 +47,9 @@ function testFakeXMLHttpRequest() {
     xhr.setStatus(404);
     xhr.respond(200, { Accept: "application/json" }, "body");
     xhr.error();
-}
 
-function testAbortFakeXMLHttpRequest() {
-    const xhr = new fakeXhr.FakeXMLHttpRequest();
-    const headers = xhr.getAllResponseHeaders();
-    const header = xhr.getResponseHeader("test");
-
-    xhr.setResponseHeaders({ Accept: "application/json" });
-    xhr.abort();
+    // $ExpectType boolean
+    xhr.aborted;
 }
 
 function testFakeXMLHttpRequestStatic() {
