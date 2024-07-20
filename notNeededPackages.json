@@ -6203,6 +6203,10 @@
             "libraryName": "tstl",
             "asOfVersion": "1.5.7"
         },
+        "ttf2woff2": {
+            "libraryName": "ttf2woff2",
+            "asOfVersion": "6.0.0"
+        },
         "tus-js-client": {
             "libraryName": "tus-js-client",
             "asOfVersion": "2.1.0"
