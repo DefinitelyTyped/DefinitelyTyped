@@ -953,7 +953,7 @@ export type PerformanceHours = string;
 /**
  * Array of contiguous hourly metrics for the specified day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
  */
-export type PerformancePreviousDays = string[];
+export type PerformancePreviousDays = PerformanceHours[];
 
 /**
  * Percentage of calls within the performance thresholds

@@ -1853,12 +1853,11 @@ export interface EnergyAccountDetailV3 extends EnergyAccountBaseV2 {
     [k: string]: unknown;
 }
 
-
 export interface EnergyAccountDetailV4 extends EnergyAccountBaseV2 {
     /**
      * The array of plans containing service points and associated plan details
      */
-    plans: {
+    plans: Array<{
       /**
        * Optional display name for the plan provided by the customer to help differentiate multiple plans
        */
@@ -1893,7 +1892,7 @@ export interface EnergyAccountDetailV4 extends EnergyAccountBaseV2 {
       /**
        * An array of additional contacts that are authorised to act on this account
        */
-      authorisedContacts?: {
+      authorisedContacts?: Array<{
         /**
          * For people with single names this field need not be present. The single name should be in the lastName field
          */
@@ -1914,9 +1913,9 @@ export interface EnergyAccountDetailV4 extends EnergyAccountBaseV2 {
          * Used for a trailing suffix to the name (e.g. Jr)
          */
         suffix?: string;
-      }[];
-    }[];
-  };
+      }>;
+    }>;
+}
 
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -4151,7 +4150,7 @@ export interface EnergyPlanContractV3 {
     /**
      * Payment options for this contract
      */
-    paymentOption: ("PAPER_BILL" | "CREDIT_CARD" | "DIRECT_DEBIT" | "BPAY" | "OTHER")[];
+    paymentOption: Array<("PAPER_BILL" | "CREDIT_CARD" | "DIRECT_DEBIT" | "BPAY" | "OTHER")>;
     /**
      * The pricing model for the contract.  Contracts for gas must use SINGLE_RATE.  Note that the detail for the enumeration values are:<ul><li>**SINGLE_RATE** - all energy usage is charged at a single unit rate no matter when it is consumed. Multiple unit rates may exist that correspond to varying volumes of usage i.e. a ‘block’ or ‘step’ tariff (first 50kWh @ X cents, next 50kWh at Y cents etc.</li><li>**SINGLE_RATE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**TIME_OF_USE** - energy usage is charged at unit rates that vary dependent on time of day and day of week that the energy is consumed</li><li>**TIME_OF_USE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**FLEXIBLE** - energy usage is charged at unit rates that vary based on external factors</li><li>**FLEXIBLE_CONT_LOAD** - as above, but with an additional, separate unit rate charged for all energy usage from a controlled load i.e. separately metered appliance like hot water service, pool pump etc.</li><li>**QUOTA** - all energy usage is charged at a single fixed rate, up to a specified usage quota/allowance. All excess usage beyond the allowance is then charged at a single unit rate (may not be the best way to explain it but it is essentially a ‘subscription’ or telco style product i.e. $50/month for up to 150kWh included usage</li></ul>
      */
@@ -4260,7 +4259,7 @@ export interface EnergyPlanContractFullV3 extends EnergyPlanContractV3 {
      * An array of the available billing schedules for this contract. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
      */
     billFrequency: string[];
-};
+}
 
 /**
  * Required if pricing model is SINGLE_RATE_CONT_LOAD or TIME_OF_USE_CONT_LOAD or FLEXIBLE_CONT_LOAD
@@ -4430,7 +4429,7 @@ export interface EnergyPlanControlledLoadV2 {
       /**
        * Array of controlled load rates in order of usage volume
        */
-      rates: {
+      rates: Array<{
         /**
          * The measurement unit of rate. Assumed to be KWH if absent
          */
@@ -4443,7 +4442,7 @@ export interface EnergyPlanControlledLoadV2 {
          * Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
          */
         volume?: number;
-      }[];
+      }>;
     };
     /**
      * Optional start date of the application of the controlled load rate
@@ -4452,7 +4451,7 @@ export interface EnergyPlanControlledLoadV2 {
     /**
      * Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates
      */
-    timeOfUseRates?: {
+    timeOfUseRates?: Array<{
       /**
        * The daily supply charge (exclusive of GST) for this controlled load tier
        */
@@ -4472,7 +4471,7 @@ export interface EnergyPlanControlledLoadV2 {
       /**
        * Array of controlled load rates in order of usage volume
        */
-      rates: {
+      rates: Array<{
         /**
          * The measurement unit of rate. Assumed to be KWH if absent
          */
@@ -4485,11 +4484,11 @@ export interface EnergyPlanControlledLoadV2 {
          * Volume in kWh that this rate applies to.  Only applicable for ‘stepped’ rates where different rates apply for different volumes of usage in a period
          */
         volume?: number;
-      }[];
+      }>;
       /**
        * Array of times of use.
        */
-      timeOfUse: {
+      timeOfUse: Array<{
         /**
          * Display text providing more information on the contrlled load, for e.g. controlled load availability if specific day/time is not known. Required if startTime and endTime absent or if additionalInfoUri provided
          */
@@ -4501,7 +4500,7 @@ export interface EnergyPlanControlledLoadV2 {
         /**
          * The days that the rate applies to
          */
-        days?: ("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")[];
+        days?: Array<("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")>;
         /**
          * The end of the time period per day for which the controlled load rate applies. Required if startTime provided.
          *
@@ -4514,20 +4513,20 @@ export interface EnergyPlanControlledLoadV2 {
          * Formatted according to [ISO 8601 Times](https://en.wikipedia.org/wiki/ISO_8601#Times). If the time is provided without a UTC offset, the time zone will be determined by the value of EnergyPlanContract.timeZone.
          */
         startTime?: string;
-      }[];
+      }>;
       /**
        * The type of usage that the rate applies to
        */
       type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SOLAR_SPONGE";
-    }[];
-};
+    }>;
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyPlanDetail extends EnergyPlan {
     /**
      * Charges for metering included in the plan
      */
-    meteringCharges?: {
+    meteringCharges?: Array<{
         /**
          * Display name of the charge
          */
@@ -4549,7 +4548,7 @@ export interface EnergyPlanDetail extends EnergyPlan {
          */
         period?: string;
         [k: string]: unknown;
-    };
+    }>;
     /**
      * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
      */
@@ -4566,7 +4565,7 @@ export interface EnergyPlanDetailV2 extends EnergyPlan {
     /**
      * Charges for metering included in the plan
      */
-    meteringCharges?: {
+    meteringCharges?: Array<{
         /**
          * Display name of the charge
          */
@@ -4588,7 +4587,7 @@ export interface EnergyPlanDetailV2 extends EnergyPlan {
          */
         period?: string;
         [k: string]: unknown;
-    };
+    }>;
     /**
      * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
      */
@@ -4604,7 +4603,7 @@ export interface EnergyPlanDetailV3 extends EnergyPlan  {
     /**
      * Charges for metering included in the plan
      */
-    meteringCharges?: {
+    meteringCharges?: Array<{
       /**
        * Display name of the charge
        */
@@ -4626,7 +4625,7 @@ export interface EnergyPlanDetailV3 extends EnergyPlan  {
        */
       period?: string;
       [k: string]: unknown;
-    }[];
+    }>;
     /**
      * The details of the terms for the supply of electricity under this plan.  Is mandatory if fuelType is set to GAS or DUAL
      */
@@ -4636,7 +4635,7 @@ export interface EnergyPlanDetailV3 extends EnergyPlan  {
      */
     electricityContract?: EnergyPlanContractFullV3;
     [k: string]: unknown;
-};
+}
 
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -4906,6 +4905,17 @@ export interface EnergyPlanResponse {
     [k: string]: unknown;
 }
 
+export interface EnergyPlanResponseV2 {
+    data: EnergyPlanDetailV2;
+    links: Links;
+    meta?: Meta;
+}
+
+export interface EnergyPlanResponseV3 {
+    data: EnergyPlanDetailV3;
+    links: Links;
+    meta?: Meta;
+  }
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 /**
@@ -5093,7 +5103,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
       /**
        * Array of feed in rates
        */
-      rates: {
+      rates: Array<{
         /**
          * The measurement unit of rate. Assumed to be KWH if absent
          */
@@ -5107,7 +5117,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
          */
         volume?: number;
         [k: string]: unknown;
-      }[];
+      }>;
       [k: string]: unknown;
     };
     /**
@@ -5121,7 +5131,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
     /**
      * Represents a tariff based on time.  Mandatory if tariffUType is set to timeVaryingTariffs
      */
-    timeVaryingTariffs?: {
+    timeVaryingTariffs?: Array<{
       /**
        * Display name of the tariff
        */
@@ -5133,7 +5143,7 @@ export interface EnergyPlanSolarFeedInTariffV3 {
       /**
        * Array of feed in rates
        */
-      rates?: {
+      rates?: Array<{
         /**
          * The measurement unit of rate. Assumed to be KWH if absent
          */
@@ -5147,15 +5157,15 @@ export interface EnergyPlanSolarFeedInTariffV3 {
          */
         volume?: number;
         [k: string]: unknown;
-      }[];
+      }>;
       /**
        * Array of time periods for which this tariff is applicable
        */
-      timeVariations: {
+      timeVariations: Array<{
         /**
          * The days that the tariff applies to. At least one entry required
          */
-        days: ("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")[];
+        days: Array<("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")>;
         /**
          * The end of the time period per day for which the tariff applies.  If absent assumes end of day (ie. one second before midnight).
          *
@@ -5169,15 +5179,15 @@ export interface EnergyPlanSolarFeedInTariffV3 {
          */
         startTime?: string;
         [k: string]: unknown;
-      }[];
+      }>;
       /**
        * The type of the charging time period. If absent applies to all periods
        */
       type?: "PEAK" | "OFF_PEAK" | "SHOULDER";
       [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
-  };
+}
 
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
@@ -5368,7 +5378,7 @@ export interface EnergyPlanTariffPeriodV2 {
     /**
      * Array representing banded daily supply charge rates.  Mandatory if dailySupplyChargeType is BAND
      */
-    bandedDailySupplyCharges?: {
+    bandedDailySupplyCharges?: Array<{
       /**
        * The measurement unit of rate. Assumed to be DAYS if absent
        */
@@ -5382,7 +5392,7 @@ export interface EnergyPlanTariffPeriodV2 {
        */
       volume?: number;
       [k: string]: unknown;
-    }[];
+    }>;
     /**
      * The amount of access charge for the tariff period, in dollars per day exclusive of GST. Mandatory if dailySupplyChargeType is SINGLE
      */
@@ -5394,7 +5404,7 @@ export interface EnergyPlanTariffPeriodV2 {
     /**
      * Array of demand charges.  Required if rateBlockUType is demandCharges
      */
-    demandCharges?: {
+    demandCharges?: Array<{
       /**
        * The charge amount per  measure unit exclusive of GST
        */
@@ -5406,7 +5416,7 @@ export interface EnergyPlanTariffPeriodV2 {
       /**
        * The days that the demand tariff applies to
        */
-      days?: ("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")[];
+      days?: Array<("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")>;
       /**
        * Description of the charge
        */
@@ -5444,7 +5454,7 @@ export interface EnergyPlanTariffPeriodV2 {
        */
       startTime: string;
       [k: string]: unknown;
-    }[];
+    }>;
     /**
      * The name of the tariff period
      */
@@ -5480,7 +5490,7 @@ export interface EnergyPlanTariffPeriodV2 {
       /**
        * Array of controlled load rates in order of usage volume
        */
-      rates: {
+      rates: Array<{
         /**
          * The measurement unit of rate. Assumed to be KWH if absent
          */
@@ -5494,7 +5504,7 @@ export interface EnergyPlanTariffPeriodV2 {
          */
         volume?: number;
         [k: string]: unknown;
-      }[];
+      }>;
       [k: string]: unknown;
     };
     /**
@@ -5504,7 +5514,7 @@ export interface EnergyPlanTariffPeriodV2 {
     /**
      * Array of objects representing time of use rates.  Required if rateBlockUType is timeOfUseRates
      */
-    timeOfUseRates?: {
+    timeOfUseRates?: Array<{
       /**
        * Description of the rate
        */
@@ -5520,7 +5530,7 @@ export interface EnergyPlanTariffPeriodV2 {
       /**
        * Array of controlled load rates in order of usage volume
        */
-      rates: {
+      rates: Array<{
         /**
          * The measurement unit of rate. Assumed to be KWH if absent
          */
@@ -5534,15 +5544,15 @@ export interface EnergyPlanTariffPeriodV2 {
          */
         volume?: number;
         [k: string]: unknown;
-      }[];
+      }>;
       /**
        * Array of times of use
        */
-      timeOfUse: {
+      timeOfUse: Array<{
         /**
          * The days that the rate applies to
          */
-        days: ("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")[];
+        days: Array<("SUN" | "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "PUBLIC_HOLIDAYS")>;
         /**
          * End of the period.
          *
@@ -5556,13 +5566,13 @@ export interface EnergyPlanTariffPeriodV2 {
          */
         startTime: string;
         [k: string]: unknown;
-      }[];
+      }>;
       /**
        * The type of usage that the rate applies to
        */
       type: "PEAK" | "OFF_PEAK" | "SHOULDER" | "SHOULDER1" | "SHOULDER2";
       [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Specifies the charge specific time zone for calculation of the time of use thresholds. If absent, timezone value in EnergyPlanContract is assumed.
      */
@@ -5572,7 +5582,7 @@ export interface EnergyPlanTariffPeriodV2 {
      */
     type?: "ENVIRONMENTAL" | "REGULATED" | "NETWORK" | "METERING" | "RETAIL_SERVICE" | "RCTI" | "OTHER";
     [k: string]: unknown;
-  };
+}
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 
 export interface EnergyServicePoint {
