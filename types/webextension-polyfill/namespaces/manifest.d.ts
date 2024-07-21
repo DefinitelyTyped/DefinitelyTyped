@@ -264,15 +264,6 @@ export namespace Manifest {
         dictionaries: Record<string, string>;
     }
 
-    /**
-     * Represents a WebExtension site permissions manifest.json file
-     */
-    interface WebExtensionSitePermissionsManifest extends ManifestBase {
-        site_permissions: SitePermission[];
-
-        install_origins: [string];
-    }
-
     interface ThemeIcons {
         /**
          * A light icon to use for dark themes
@@ -353,8 +344,6 @@ export namespace Manifest {
     type Permission = PermissionNoPrompt | OptionalPermission | "declarativeNetRequest" | string;
 
     type PermissionOrOrigin = Permission | MatchPattern;
-
-    type SitePermission = "midi" | "midi-sysex";
 
     type HttpURL = string;
 
@@ -847,11 +836,6 @@ export namespace Manifest {
          * Optional.
          */
         suggest_url_post_params?: string;
-
-        /**
-         * Optional.
-         */
-        search_form?: string;
 
         /**
          * Encoding of the search term.
