@@ -49,6 +49,7 @@ import { Sessions as ImportedSessions } from "./namespaces/sessions";
 import { SidebarAction as ImportedSidebarAction } from "./namespaces/sidebarAction";
 import { Storage as ImportedStorage } from "./namespaces/storage";
 import { Tabs as ImportedTabs } from "./namespaces/tabs";
+import { TabGroups as ImportedTabGroups } from "./namespaces/tabGroups";
 import { Theme as ImportedTheme } from "./namespaces/theme";
 import { TopSites as ImportedTopSites } from "./namespaces/topSites";
 import { Types as ImportedTypes } from "./namespaces/types";
@@ -106,6 +107,7 @@ declare namespace Browser {
     const sidebarAction: SidebarAction.Static;
     const storage: Storage.Static;
     const tabs: Tabs.Static;
+    const tabGroups: TabGroups.Static;
     const theme: Theme.Static;
     const topSites: TopSites.Static;
     const types: Types.Static;
@@ -163,6 +165,7 @@ declare namespace Browser {
         sidebarAction: SidebarAction.Static;
         storage: Storage.Static;
         tabs: Tabs.Static;
+        tabGroups: TabGroups.Static;
         theme: Theme.Static;
         topSites: TopSites.Static;
         types: Types.Static;
@@ -221,6 +224,7 @@ declare namespace Browser {
     export import SidebarAction = ImportedSidebarAction;
     export import Storage = ImportedStorage;
     export import Tabs = ImportedTabs;
+    export import TabGroups = ImportedTabGroups;
     export import Theme = ImportedTheme;
     export import TopSites = ImportedTopSites;
     export import Types = ImportedTypes;
