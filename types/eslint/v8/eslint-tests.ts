@@ -1,12 +1,5 @@
-import { AST, ESLint, Linter, loadESLint, Rule, RuleTester, Scope, SourceCode } from "eslint";
+import { AST, ESLint, Linter, Rule, RuleTester, Scope, SourceCode } from "eslint";
 import { ESLintRules } from "eslint/rules";
-import {
-    builtinRules,
-    FileEnumerator,
-    FlatESLint,
-    LegacyESLint,
-    shouldUseFlatConfig,
-} from "eslint/use-at-your-own-risk";
 import { Comment, PrivateIdentifier, PropertyDefinition, StaticBlock, WhileStatement } from "estree";
 
 const SOURCE = `var foo = bar;`;
@@ -58,6 +51,9 @@ sourceCode.getText(AST, 0, 0);
 sourceCode.getLines();
 
 sourceCode.getAllComments();
+
+sourceCode.getComments(AST).leading;
+sourceCode.getComments(AST).trailing;
 
 sourceCode.getJSDocComment(AST); // $ExpectType Comment | null
 
@@ -323,12 +319,32 @@ reference.isReadWrite();
 
 // #region Rule
 
-const oldStyleRule = (context: Rule.RuleContext) => ({});
+let mixedRule: Rule.OldStyleRule | Rule.RuleModule;
 
-let rule: Rule.RuleModule;
+mixedRule = {
+    create(context) {
+        return {};
+    },
+};
+
+mixedRule = (context) => ({});
+
+let oldStyleRule: Rule.OldStyleRule;
+
+oldStyleRule = (context) => ({});
 
 // @ts-expect-error
-rule = oldStyleRule;
+oldStyleRule.schema = [];
+// @ts-expect-error
+oldStyleRule.schema = {};
+
+// @ts-expect-error
+oldStyleRule.meta = {};
+
+// @ts-expect-error
+oldStyleRule.create = (context) => ({});
+
+let rule: Rule.RuleModule;
 
 rule = {
     create(context) {
@@ -351,8 +367,8 @@ rule = {
             category: "Possible Errors",
             recommended: true,
             url: "https://eslint.org/docs/rules/no-console",
+            suggestion: true,
         },
-        hasSuggestions: true,
     },
 };
 rule = {
@@ -372,12 +388,6 @@ rule = {
         return {};
     },
     meta: { schema: [{ enum: ["always", "never"] }] },
-};
-rule = {
-    create(context) {
-        return {};
-    },
-    meta: { schema: false },
 };
 rule = {
     create(context) {
@@ -504,12 +514,8 @@ rule = {
         });
 
         return {
-            onCodePathStart(codePath, node) {
-                const origin: Rule.CodePathOrigin = codePath.origin;
-            },
-            onCodePathEnd(codePath, node) {
-                const origin: Rule.CodePathOrigin = codePath.origin;
-            },
+            onCodePathStart(codePath, node) {},
+            onCodePathEnd(codePath, node) {},
             onCodePathSegmentStart(segment, node) {},
             onCodePathSegmentEnd(segment, node) {},
             onCodePathSegmentLoop(fromSegment, toSegment, node) {},
@@ -569,7 +575,6 @@ linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2022 } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2023 } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2024 } }, "test.js");
-linter.verify(SOURCE, { parserOptions: { ecmaVersion: 2025 } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: "latest" } }, "test.js");
 linter.verify(SOURCE, { parserOptions: { ecmaVersion: 6, ecmaFeatures: { globalReturn: true } } }, "test.js");
 linter.verify(
@@ -637,6 +642,8 @@ for (const msg of lintingResult) {
     msg.column = 0;
     msg.endColumn = 0;
 
+    msg.source = SOURCE;
+
     if (msg.fix) {
         msg.fix.text = "foo";
         msg.fix.range = [0, 0];
@@ -702,17 +709,6 @@ linter.defineParser("custom-parser", {
     },
 });
 
-linter.getFixPassCount(); // $ExpectType number
-
-((index: number, ruleId: string) => {
-    const pass = linter.getTimes().passes[index];
-    pass.fix.total; // $ExpectType number
-    pass.parse.total; // $ExpectType number
-    pass.rules![ruleId].total; // $ExpectType number
-    delete pass.rules;
-    pass.total; // $ExpectType number
-});
-
 const _processor: Linter.Processor = {
     name: "foo",
     version: "1.2.3",
@@ -756,7 +752,6 @@ linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2021 } }]
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2022 } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2023 } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2024 } }], "test.js");
-linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 2025 } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: "latest" } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ languageOptions: { ecmaVersion: 6 } }], "test.js");
 linterWithFlatConfig.verify(
@@ -798,14 +793,9 @@ linterWithFlatConfig.verify(
 linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-console": "warn" } }], "test.js");
 linterWithFlatConfig.verify(SOURCE, [{ rules: { "no-console": "off" } }], "test.js");
 
-linterWithFlatConfig.verify(SOURCE, { linterOptions: {} }, "test.js");
-linterWithFlatConfig.verify(SOURCE, { linterOptions: {} }, { filename: "test.js" });
-linterWithFlatConfig.verifyAndFix(SOURCE, { linterOptions: {} }, "test.js");
-linterWithFlatConfig.verifyAndFix(SOURCE, { linterOptions: {} }, { filename: "test.js" });
+// #endregion
 
-// #endregion Linter with flat config
-
-// #region Linter with eslintrc config
+// # region Linter with eslintrc config
 
 const linterWithEslintrcConfig = new Linter({ configType: "eslintrc" });
 
@@ -826,7 +816,6 @@ linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2021 } }
 linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2022 } }, "test.js");
 linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2023 } }, "test.js");
 linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2024 } }, "test.js");
-linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: 2025 } }, "test.js");
 linterWithEslintrcConfig.verify(SOURCE, { parserOptions: { ecmaVersion: "latest" } }, "test.js");
 linterWithEslintrcConfig.verify(
     SOURCE,
@@ -882,315 +871,165 @@ linterWithEslintrcConfig.verify(SOURCE, { rules: { "no-console": "off" } }, "tes
 
 linterWithEslintrcConfig.getRules();
 
-// #endregion Linter with eslintrc config
-
-// #endregion Linter
+// #endregion
 
 // #region ESLint
 
-{
-    let eslint: ESLint;
+let eslint: ESLint;
 
-    eslint = new ESLint();
-    eslint = new ESLint({ allowInlineConfig: false });
-    eslint = new ESLint({ baseConfig: {} });
-    eslint = new ESLint({ overrideConfig: {} });
-    eslint = new ESLint({ overrideConfigFile: "foo" });
-    eslint = new ESLint({ cache: true });
-    eslint = new ESLint({ cacheLocation: "foo" });
-    eslint = new ESLint({ cacheStrategy: "content" });
-    eslint = new ESLint({ cwd: "foo" });
-    eslint = new ESLint({ errorOnUnmatchedPattern: true });
-    eslint = new ESLint({ fix: true });
-    eslint = new ESLint({ fix: message => false });
-    eslint = new ESLint({ fixTypes: ["directive", "problem"] });
-    eslint = new ESLint({ flags: ["foo", "bar"] });
-    eslint = new ESLint({ globInputPaths: true });
-    eslint = new ESLint({ ignore: true });
-    eslint = new ESLint({ ignorePatterns: ["foo", "bar"] });
-    eslint = new ESLint({ plugins: { foo: {} } });
-    eslint = new ESLint({
-        ruleFilter({ severity }) {
-            return severity === 1;
-        },
-    });
-    eslint = new ESLint({ stats: true });
-    eslint = new ESLint({
-        plugins: {
-            bar: {
+eslint = new ESLint();
+eslint = new ESLint({ allowInlineConfig: false });
+eslint = new ESLint({ baseConfig: {} });
+eslint = new ESLint({ overrideConfig: {} });
+eslint = new ESLint({ overrideConfigFile: "foo" });
+eslint = new ESLint({ cache: true });
+eslint = new ESLint({ cacheLocation: "foo" });
+eslint = new ESLint({ cacheStrategy: "content" });
+eslint = new ESLint({ cwd: "foo" });
+eslint = new ESLint({ errorOnUnmatchedPattern: true });
+eslint = new ESLint({ extensions: ["js"] });
+eslint = new ESLint({ fix: true });
+eslint = new ESLint({ fix: message => false });
+eslint = new ESLint({ fixTypes: ["problem"] });
+eslint = new ESLint({ globInputPaths: true });
+eslint = new ESLint({ ignore: true });
+eslint = new ESLint({ ignorePath: "foo" });
+eslint = new ESLint({ useEslintrc: false });
+eslint = new ESLint({ plugins: { foo: {} } });
+eslint = new ESLint({
+    plugins: {
+        bar: {
+            name: "bar",
+            version: "1.0.0",
+            meta: {
                 name: "bar",
                 version: "1.0.0",
-                meta: {
-                    name: "bar",
-                    version: "1.0.0",
+            },
+            configs: {
+                myConfig: {
+                    noInlineConfig: true,
                 },
-                configs: {
-                    myConfig: {
-                        noInlineConfig: true,
-                    },
-                    production: {
-                        languageOptions: {
-                            ecmaVersion: 6,
-                        },
+            },
+            environments: {
+                production: {
+                    parserOptions: {
+                        ecmaVersion: 6,
                     },
                 },
-                processors: {
-                    myProcessor: {
+            },
+            processors: {
+                myProcessor: {
+                    name: "blah",
+                    version: "1.2.3",
+                    meta: {
                         name: "blah",
                         version: "1.2.3",
-                        meta: {
-                            name: "blah",
-                            version: "1.2.3",
-                        },
-                        supportsAutofix: false,
                     },
+                    supportsAutofix: false,
                 },
-                rules: {
-                    myRule: {
-                        create(context) {
-                            return {};
-                        },
-                        meta: {},
+            },
+            rules: {
+                myRule: {
+                    create(context) {
+                        return {};
                     },
+                    meta: {},
                 },
             },
         },
-    });
+    },
+});
+eslint = new ESLint({ reportUnusedDisableDirectives: "error" });
+// @ts-expect-error
+eslint = new ESLint({ reportUnusedDisableDirectives: 2 });
+eslint = new ESLint({ resolvePluginsRelativeTo: "test" });
+eslint = new ESLint({ rulePaths: ["foo"] });
 
-    let resultsPromise = eslint.lintFiles(["myfile.js", "lib/"]);
+let resultsPromise = eslint.lintFiles(["myfile.js", "lib/"]);
 
-    resultsPromise = eslint.lintText(SOURCE, { filePath: "foo" });
+resultsPromise = eslint.lintText(SOURCE, { filePath: "foo" });
 
-    eslint.calculateConfigForFile("./config.json");
+eslint.calculateConfigForFile("./config.json");
 
-    eslint.isPathIgnored("./dist/index.js");
+eslint.isPathIgnored("./dist/index.js");
 
-    let formatterPromise: Promise<ESLint.Formatter>;
+let formatterPromise: Promise<ESLint.Formatter>;
 
-    formatterPromise = eslint.loadFormatter("codeframe");
-    formatterPromise = eslint.loadFormatter();
+formatterPromise = eslint.loadFormatter("codeframe");
+formatterPromise = eslint.loadFormatter();
 
-    const customFormatter1: ESLint.Formatter = { format: () => "ok" };
-    const customFormatter2: ESLint.Formatter = { format: () => Promise.resolve("ok") };
+const customFormatter1: ESLint.Formatter = { format: () => "ok" };
+const customFormatter2: ESLint.Formatter = { format: () => Promise.resolve("ok") };
 
-    let data: ESLint.LintResultData;
-    const meta: Rule.RuleMetaData = {
-        type: "suggestion",
-        docs: {
-            description: "disallow unnecessary semicolons",
-            category: "Possible Errors",
-            recommended: true,
-            url: "https://eslint.org/docs/rules/no-extra-semi",
-        },
-        fixable: "code",
-        schema: [],
-        messages: {
-            unexpected: "Unnecessary semicolon.",
-        },
-    };
+let data: ESLint.LintResultData;
+const meta: Rule.RuleMetaData = {
+    type: "suggestion",
+    docs: {
+        description: "disallow unnecessary semicolons",
+        category: "Possible Errors",
+        recommended: true,
+        url: "https://eslint.org/docs/rules/no-extra-semi",
+    },
+    fixable: "code",
+    schema: [],
+    messages: {
+        unexpected: "Unnecessary semicolon.",
+    },
+};
 
-    data = { cwd: "/foo/bar", rulesMeta: { "no-extra-semi": meta } };
+data = { cwd: "/foo/bar", rulesMeta: { "no-extra-semi": meta } };
 
-    const version: string = ESLint.version;
+const version: string = ESLint.version;
 
-    (async () => {
-        const results: ESLint.LintResult[] = await resultsPromise;
-        const formatter = await formatterPromise;
+(async () => {
+    const results = await resultsPromise;
+    const formatter = await formatterPromise;
 
-        const output: string = await formatter.format(results, data);
+    const output1: string = await formatter.format(results);
+    const output2: string = await formatter.format(results, data);
 
-        eslint.getRulesMetaForResults(results);
+    eslint.getRulesMetaForResults(results);
 
-        ESLint.getErrorResults(results);
+    ESLint.getErrorResults(results);
 
-        ESLint.outputFixes(results);
-    })();
+    ESLint.outputFixes(results);
 
-    const hasFooFlag: boolean = eslint.hasFlag("foo");
-}
+    results[0].errorCount = 0;
+    results[0].warningCount = 0;
+    results[0].fixableErrorCount = 0;
+    results[0].fixableWarningCount = 0;
+
+    for (const file of results) {
+        file.filePath = "foo.js";
+
+        file.errorCount = 0;
+        file.warningCount = 0;
+        file.fixableErrorCount = 0;
+        file.fixableWarningCount = 0;
+
+        file.source = "foo";
+        file.output = "foo";
+
+        for (const message of file.messages) {
+            message.ruleId = "foo";
+        }
+
+        for (const suppressedMessage of file.suppressedMessages) {
+            suppressedMessage.suppressions = [
+                {
+                    kind: "foo",
+                    justification: "just cuz",
+                },
+            ];
+        }
+    }
+})();
 
 // #endregion
-
-// #region LegacyESLint
-
-{
-    let eslint: LegacyESLint;
-
-    eslint = new LegacyESLint();
-    eslint = new LegacyESLint({ allowInlineConfig: false });
-    eslint = new LegacyESLint({ baseConfig: {} });
-    eslint = new LegacyESLint({ overrideConfig: {} });
-    eslint = new LegacyESLint({ overrideConfigFile: "foo" });
-    eslint = new LegacyESLint({ cache: true });
-    eslint = new LegacyESLint({ cacheLocation: "foo" });
-    eslint = new LegacyESLint({ cacheStrategy: "content" });
-    eslint = new LegacyESLint({ cwd: "foo" });
-    eslint = new LegacyESLint({ errorOnUnmatchedPattern: true });
-    eslint = new LegacyESLint({ extensions: ["js"] });
-    eslint = new LegacyESLint({ fix: true });
-    eslint = new LegacyESLint({ fix: message => false });
-    eslint = new LegacyESLint({ fixTypes: ["directive", "problem"] });
-    eslint = new LegacyESLint({ flags: ["foo", "bar"] });
-    eslint = new LegacyESLint({ globInputPaths: true });
-    eslint = new LegacyESLint({ ignore: true });
-    eslint = new LegacyESLint({ ignorePath: "foo" });
-    eslint = new LegacyESLint({ useEslintrc: false });
-    eslint = new LegacyESLint({ plugins: { foo: {} } });
-    eslint = new LegacyESLint({
-        plugins: {
-            bar: {
-                name: "bar",
-                version: "1.0.0",
-                meta: {
-                    name: "bar",
-                    version: "1.0.0",
-                },
-                configs: {
-                    myConfig: {
-                        noInlineConfig: true,
-                    },
-                },
-                environments: {
-                    production: {
-                        parserOptions: {
-                            ecmaVersion: 6,
-                        },
-                    },
-                },
-                processors: {
-                    myProcessor: {
-                        name: "blah",
-                        version: "1.2.3",
-                        meta: {
-                            name: "blah",
-                            version: "1.2.3",
-                        },
-                        supportsAutofix: false,
-                    },
-                },
-                rules: {
-                    myRule: {
-                        create(context) {
-                            return {};
-                        },
-                        meta: {},
-                    },
-                },
-            },
-        },
-    });
-    eslint = new LegacyESLint({ reportUnusedDisableDirectives: "error" });
-    // @ts-expect-error
-    eslint = new LegacyESLint({ reportUnusedDisableDirectives: 2 });
-    eslint = new LegacyESLint({ resolvePluginsRelativeTo: "test" });
-    eslint = new LegacyESLint({ rulePaths: ["foo"] });
-
-    let resultsPromise = eslint.lintFiles(["myfile.js", "lib/"]);
-
-    resultsPromise = eslint.lintText(SOURCE, { filePath: "foo" });
-
-    eslint.calculateConfigForFile("./config.json");
-
-    eslint.isPathIgnored("./dist/index.js");
-
-    let formatterPromise: Promise<ESLint.Formatter>;
-
-    formatterPromise = eslint.loadFormatter("codeframe");
-    formatterPromise = eslint.loadFormatter();
-
-    const customFormatter1: ESLint.Formatter = { format: () => "ok" };
-    const customFormatter2: ESLint.Formatter = { format: () => Promise.resolve("ok") };
-
-    let data: ESLint.LintResultData;
-    const meta: Rule.RuleMetaData = {
-        type: "suggestion",
-        docs: {
-            description: "disallow unnecessary semicolons",
-            category: "Possible Errors",
-            recommended: true,
-            url: "https://eslint.org/docs/rules/no-extra-semi",
-        },
-        fixable: "code",
-        schema: [],
-        messages: {
-            unexpected: "Unnecessary semicolon.",
-        },
-    };
-
-    data = { cwd: "/foo/bar", rulesMeta: { "no-extra-semi": meta } };
-
-    const version: string = LegacyESLint.version;
-
-    (async () => {
-        const results: ESLint.LintResult[] = await resultsPromise;
-        const formatter = await formatterPromise;
-
-        const output: string = await formatter.format(results, data);
-
-        eslint.getRulesMetaForResults(results);
-
-        LegacyESLint.getErrorResults(results);
-
-        LegacyESLint.outputFixes(results);
-    })();
-
-    const hasFooFlag: false = eslint.hasFlag("foo");
-}
-
-// #endregion
-
-// #region ESLint.LintResult
-
-let results!: ESLint.LintResult[];
-
-for (const result of results) {
-    result.filePath = "foo.js";
-
-    result.fatalErrorCount = 0;
-    result.errorCount = 1;
-    result.warningCount = 2;
-    result.fixableErrorCount = 3;
-    result.fixableWarningCount = 4;
-
-    result.source = "foo";
-    result.output = "foo";
-
-    result.stats = {
-        fixPasses: 2,
-        times: {
-            passes: [{
-                parse: { total: 1 },
-                fix: { total: 2 },
-                total: 3,
-            }, {
-                parse: { total: 4 },
-                rules: { foo: { total: 0.5 } },
-                fix: { total: 5 },
-                total: 9,
-            }],
-        },
-    };
-    delete result.stats;
-
-    for (const message of result.messages) {
-        message.ruleId = "foo";
-    }
-
-    for (const suppressedMessage of result.suppressedMessages) {
-        suppressedMessage.suppressions = [
-            {
-                kind: "foo",
-                justification: "just cuz",
-            },
-        ];
-    }
-}
-
-// #region ESLint.LintResult
 
 // #region ESLintRules
 
-let eslintConfig: Linter.LegacyConfig<ESLintRules>;
+let eslintConfig: Linter.Config<ESLintRules>;
 
 eslintConfig = {
     rules: {
@@ -1223,29 +1062,34 @@ interface TSLinterRules {
     ]>;
 }
 
-const eslintConfig2: Linter.LegacyConfig<ESLintRules, ESLintRules & TSLinterRules> = eslintConfig;
+const eslintConfig2: Linter.Config<ESLintRules, ESLintRules & TSLinterRules> = eslintConfig;
 
 eslintConfig2.rules; // $ExpectType Partial<ESLintRules> | undefined
 eslintConfig2.overrides?.[1].rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
 
-const eslintConfig3: Linter.LegacyConfig<ESLintRules & TSLinterRules> = eslintConfig2;
+const eslintConfig3: Linter.Config<ESLintRules & TSLinterRules> = eslintConfig2;
 
 eslintConfig3.rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
 eslintConfig3.overrides?.[1].rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
+
+let legacyConfig: Linter.LegacyConfig = eslintConfig;
+eslintConfig = legacyConfig;
 
 // #endregion
 
 // #region RuleTester
 
-const ruleTester = new RuleTester({ languageOptions: { ecmaVersion: 2015 } });
+const ruleTester = new RuleTester({ parserOptions: { ecmaVersion: 2015 } });
 
 ruleTester.run("my-rule", rule, {
     valid: [
         { code: "foo" },
         { code: "foo", options: [{ allowFoo: true }] },
         { code: "foo", filename: "test.js" },
-        { code: "foo", languageOptions: { globals: { foo: true } } },
+        { code: "foo", parserOptions: {} },
         { code: "foo", settings: { foo: true } },
+        { code: "foo", parser: "foo" },
+        { code: "foo", globals: { foo: true } },
         RuleTester.only("foo"),
     ],
 
@@ -1276,41 +1120,18 @@ ruleTester.run("my-rule", rule, {
             ],
         },
         { code: "foo", errors: 1, only: true },
-        // @ts-expect-error // `message` cannot be `undefined`
-        { code: "foo", errors: [{ message: undefined }], only: true },
-        // @ts-expect-error // `messageId` cannot be `undefined`
-        { code: "foo", errors: [{ messageId: undefined }], only: true },
-        {
-            code: "foo",
-            errors: [
-                {
-                    message: "foo",
-                    suggestions: [
-                        // @ts-expect-error // `desc` cannot be `undefined`
-                        { desc: undefined, output: "foo" },
-                        // @ts-expect-error // `messageId` cannot be `undefined`
-                        { messageId: undefined, output: "foo" },
-                    ],
-                },
-            ],
-        },
     ],
 });
 
-RuleTester.describe = null;
-
-RuleTester.it = RuleTester.itOnly = function(text: string, fn: () => Promise<void>) {};
-
 ruleTester.run("simple-valid-test", rule, {
     valid: ["foo", "bar", { code: "foo", options: [{ allowFoo: true }] }],
-    invalid: [{ code: "bar", errors: ["baz"] }],
 });
 
 // #endregion
 
-// #region Config
+// #region FlatConfig
 
-((): Linter.Config => ({
+((): Linter.FlatConfig => ({
     languageOptions: {
         parser: {
             parse: () => AST,
@@ -1318,7 +1139,7 @@ ruleTester.run("simple-valid-test", rule, {
     },
 }));
 
-((): Linter.Config => ({
+((): Linter.FlatConfig => ({
     languageOptions: {
         parser: {
             parseForESLint: () => ({ ast: AST }),
@@ -1326,80 +1147,80 @@ ruleTester.run("simple-valid-test", rule, {
     },
 }));
 
-((): Linter.Config => ({
+((): Linter.FlatConfig => ({
     languageOptions: {
         // @ts-expect-error
         parser: "foo-parser",
     },
 }));
 
-((): Linter.Config => ({ files: ["abc"] }));
-((): Linter.Config => ({ files: [["abc"]] }));
+((): Linter.FlatConfig => ({ files: ["abc"] }));
+((): Linter.FlatConfig => ({ files: [["abc"]] }));
 
-((): Linter.Config => ({
+((): Linter.FlatConfig => ({
     // @ts-expect-error // Second level of nesting is not allowed
     files: ["abc", ["abc"], [["abc"]]],
 }));
 
-((): Linter.Config => ({ ignores: ["abc"] }));
+((): Linter.FlatConfig => ({ ignores: ["abc"] }));
 
-((): Linter.Config => ({
+((): Linter.FlatConfig => ({
     // @ts-expect-error // No nesting
     ignores: ["abc", ["abc"]],
 }));
 
 // @ts-expect-error // Must be an array
-((): Linter.Config => ({ files: "abc" }));
+((): Linter.FlatConfig => ({ files: "abc" }));
 
 // @ts-expect-error // Must be an array
-((): Linter.Config => ({ ignores: "abc" }));
+((): Linter.FlatConfig => ({ ignores: "abc" }));
 
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: "error" } }));
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: "warn" } }));
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: "off" } }));
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: 2 } }));
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: 1 } }));
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: 0 } }));
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: true } }));
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: false } }));
-
-// @ts-expect-error
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: "on" } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: "error" } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: "warn" } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: "off" } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: 2 } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: 1 } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: 0 } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: true } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: false } }));
 
 // @ts-expect-error
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: 3 } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: "on" } }));
 
 // @ts-expect-error
-((): Linter.Config => ({ linterOptions: { reportUnusedDisableDirectives: null } }));
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: 3 } }));
 
-((): Linter.Config => ({ name: "eslint:js" }));
+// @ts-expect-error
+((): Linter.FlatConfig => ({ linterOptions: { reportUnusedDisableDirectives: null } }));
+
+((): Linter.FlatConfig => ({ name: "eslint:js" }));
 
 // @ts-expect-error // Generic passed in does not match the RuleEntry schema
-((): Linter.Config<{ foo?: "bar" }> => ({
+((): Linter.FlatConfig<{ foo?: "bar" }> => ({
     rules: {},
 }));
 
-((): Linter.Config<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
     rules: {
         foo: "error",
     },
 }));
 
-((): Linter.Config<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry<[1 | 2]> }> => ({
     rules: {
         // @ts-expect-error // Invalid value
         foo: ["error", 3],
     },
 }));
 
-((): Linter.Config<{ foo?: Linter.RuleEntry }> => ({
+((): Linter.FlatConfig<{ foo?: Linter.RuleEntry }> => ({
     rules: {
         // @ts-expect-error // Unspecified value
         bar: "error",
     },
 }));
 
-((): Linter.Config<{ foo: Linter.RuleEntry<[1 | 2]>; [x: string]: Linter.RuleEntry }> => ({
+((): Linter.FlatConfig<{ foo: Linter.RuleEntry<[1 | 2]>; [x: string]: Linter.RuleEntry }> => ({
     rules: {
         // @ts-expect-error // Invalid value
         foo: ["error", 3],
@@ -1411,12 +1232,10 @@ ruleTester.run("simple-valid-test", rule, {
     },
 }));
 
-// The following are only errors when `exactOptionalPropertyTypes` is `true`.
-// The error can't be enforced on consumers.
-// @ts-expect-error
-((): Linter.Config => ({ files: undefined }));
-// @ts-expect-error
-((): Linter.Config => ({ ignores: undefined }));
+// The following _should_ be an error, but we can't enforce on consumers
+// as it requires exactOptionalPropertyTypes: true
+// (): Linter.FlatConfig => ({ files: undefined });
+// (): Linter.FlatConfig => ({ ignores: undefined });
 
 ((): ESLint.Plugin => ({
     configs: {
@@ -1444,38 +1263,5 @@ ruleTester.run("simple-valid-test", rule, {
         }],
     },
 }));
-
-let config!: Linter.Config;
-let flatConfig!: Linter.FlatConfig;
-config = flatConfig;
-flatConfig = config;
-
-// #endregion Config
-
-(async (useFlatConfig?: boolean) => {
-    await loadESLint(); // $ExpectType typeof ESLint | typeof LegacyESLint
-    await loadESLint({}); // $ExpectType typeof ESLint | typeof LegacyESLint
-    await loadESLint({ useFlatConfig: undefined }); // $ExpectType typeof ESLint | typeof LegacyESLint
-    await loadESLint({ useFlatConfig: true }); // $ExpectType typeof ESLint
-    await loadESLint({ useFlatConfig: false }); // $ExpectType typeof LegacyESLint
-    await loadESLint({ useFlatConfig }); // $ExpectType typeof ESLint | typeof LegacyESLint
-
-    const DefaultESLint = await loadESLint();
-    if (DefaultESLint.configType === "flat") {
-        const eslint = new DefaultESLint({ stats: true }); // $ExpectType ESLint
-    } else {
-        const eslint = new DefaultESLint({ useEslintrc: false }); // $ExpectType LegacyESLint
-    }
-});
-
-// #region use-at-your-own-risk
-
-builtinRules; // $ExpectType Map<string, RuleModule>
-
-new FileEnumerator();
-
-FlatESLint; // $ExpectType typeof ESLint
-
-shouldUseFlatConfig(); // $ExpectType Promise<boolean>
 
 // #endregion

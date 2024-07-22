@@ -1,6 +1,7 @@
+/// <reference path="helpers.d.ts" />
+
 import * as ESTree from "estree";
 import { JSONSchema4 } from "json-schema";
-import { LegacyESLint } from "./use-at-your-own-risk";
 
 export namespace AST {
     type TokenType =
@@ -142,6 +143,8 @@ export class SourceCode {
     getAllComments(): ESTree.Comment[];
 
     getAncestors(node: ESTree.Node): ESTree.Node[];
+
+    getComments(node: ESTree.Node): { leading: ESTree.Comment[]; trailing: ESTree.Comment[] };
 
     getDeclaredVariables(node: ESTree.Node): Scope.Variable[];
 
@@ -479,9 +482,16 @@ export namespace SourceCode {
 // #endregion
 
 export namespace Rule {
+    /**
+     * TODO: Old style rules are planned to be removed in v9, remove this type then (https://github.com/eslint/rfcs/blob/main/designs/2021-schema-object-rules/README.md)
+     * @deprecated Use `RuleModule` instead.
+     */
+    type OldStyleRule = RuleModule["create"];
+
     interface RuleModule {
         create(context: RuleContext): RuleListener;
         meta?: RuleMetaData | undefined;
+        schema?: RuleMetaData["schema"];
     }
 
     type NodeTypes = ESTree.Node["type"];
@@ -667,15 +677,13 @@ export namespace Rule {
             | undefined;
     }
 
-    type CodePathOrigin = "program" | "function" | "class-field-initializer" | "class-static-block";
-
     interface CodePath {
         id: string;
-        origin: CodePathOrigin;
         initialSegment: CodePathSegment;
         finalSegments: CodePathSegment[];
         returnedSegments: CodePathSegment[];
         thrownSegments: CodePathSegment[];
+        currentSegments: CodePathSegment[];
         upper: CodePath | null;
         childCodePaths: CodePath[];
     }
@@ -698,6 +706,11 @@ export namespace Rule {
             recommended?: boolean | undefined;
             /** Specifies the URL at which the full documentation can be accessed. Code editors often use this to provide a helpful link on highlighted rule violations. */
             url?: string | undefined;
+            /**
+             * TODO: remove this field in next major release of @types/eslint.
+             * @deprecated use `meta.hasSuggestions` instead
+             */
+            suggestion?: boolean | undefined;
         } | undefined;
         /** Violation and suggestion messages. */
         messages?: { [messageId: string]: string } | undefined;
@@ -707,11 +720,11 @@ export namespace Rule {
          */
         fixable?: "code" | "whitespace" | undefined;
         /**
-         * Specifies the [options](https://eslint.org/docs/latest/extend/custom-rules#options-schemas)
-         * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/use/configure/rules#configuring-rules).
+         * Specifies the [options](https://eslint.org/docs/latest/developer-guide/working-with-rules#options-schemas)
+         * so ESLint can prevent invalid [rule configurations](https://eslint.org/docs/latest/user-guide/configuring/rules#configuring-rules).
          * Mandatory for rules with options.
          */
-        schema?: JSONSchema4 | JSONSchema4[] | false | undefined;
+        schema?: JSONSchema4 | JSONSchema4[] | undefined;
 
         /** Indicates whether the rule has been deprecated. Omit if not deprecated. */
         deprecated?: boolean | undefined;
@@ -739,8 +752,9 @@ export namespace Rule {
         options: any[];
         settings: { [name: string]: any };
         parserPath: string | undefined;
-        languageOptions: Linter.LanguageOptions;
+        languageOptions: Linter.FlatConfig["languageOptions"];
         parserOptions: Linter.ParserOptions;
+        parserServices: SourceCode.ParserServices;
         cwd: string;
         filename: string;
         physicalFilename: string;
@@ -823,7 +837,7 @@ export namespace Rule {
 // #region Linter
 
 export class Linter {
-    static readonly version: string;
+    static version: string;
 
     version: string;
 
@@ -831,23 +845,19 @@ export class Linter {
 
     verify(
         code: SourceCode | string,
-        config: Linter.LegacyConfig | Linter.Config | Linter.Config[],
+        config: Linter.Config | Linter.FlatConfig[],
         filename?: string,
     ): Linter.LintMessage[];
     verify(
         code: SourceCode | string,
-        config: Linter.LegacyConfig | Linter.Config | Linter.Config[],
+        config: Linter.Config | Linter.FlatConfig[],
         options: Linter.LintOptions,
     ): Linter.LintMessage[];
 
+    verifyAndFix(code: string, config: Linter.Config | Linter.FlatConfig[], filename?: string): Linter.FixReport;
     verifyAndFix(
         code: string,
-        config: Linter.LegacyConfig | Linter.Config | Linter.Config[],
-        filename?: string,
-    ): Linter.FixReport;
-    verifyAndFix(
-        code: string,
-        config: Linter.LegacyConfig | Linter.Config | Linter.Config[],
+        config: Linter.Config | Linter.FlatConfig[],
         options: Linter.FixOptions,
     ): Linter.FixReport;
 
@@ -859,11 +869,7 @@ export class Linter {
 
     getRules(): Map<string, Rule.RuleModule>;
 
-    defineParser(name: string, parser: Linter.Parser): void;
-
-    getTimes(): Linter.Stats["times"];
-
-    getFixPassCount(): Linter.Stats["fixPasses"];
+    defineParser(name: string, parser: Linter.ParserModule): void;
 }
 
 export namespace Linter {
@@ -890,21 +896,21 @@ export namespace Linter {
      *
      * @see [Rule Severities](https://eslint.org/docs/latest/use/configure/rules#rule-severities)
      */
-    type RuleSeverity = Severity | StringSeverity;
+    type RuleLevel = Severity | StringSeverity;
 
     /**
      * An array containing the rule severity level, followed by the rule options.
      *
-     * @see [Rules](https://eslint.org/docs/latest/use/configure/rules)
+     * @see [Rules](https://eslint.org/docs/user-guide/configuring/rules)
      */
-    type RuleSeverityAndOptions<Options extends any[] = any[]> = [RuleSeverity, ...Partial<Options>];
+    type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
     /**
      * The severity level for the rule or an array containing the rule severity level, followed by the rule options.
      *
-     * @see [Rules](https://eslint.org/docs/latest/use/configure/rules)
+     * @see [Rules](https://eslint.org/docs/user-guide/configuring/rules)
      */
-    type RuleEntry<Options extends any[] = any[]> = RuleSeverity | RuleSeverityAndOptions<Options>;
+    type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
 
     /**
      * The rules config object is a key/value map of rule names and their severity and options.
@@ -921,44 +927,9 @@ export namespace Linter {
     }
 
     /**
-     * The ECMAScript version of the code being linted.
-     */
-    type EcmaVersion =
-        | 3
-        | 5
-        | 6
-        | 7
-        | 8
-        | 9
-        | 10
-        | 11
-        | 12
-        | 13
-        | 14
-        | 15
-        | 16
-        | 2015
-        | 2016
-        | 2017
-        | 2018
-        | 2019
-        | 2020
-        | 2021
-        | 2022
-        | 2023
-        | 2024
-        | 2025
-        | "latest";
-
-    /**
-     * The type of JavaScript source code.
-     */
-    type SourceType = "script" | "module" | "commonjs";
-
-    /**
-     * ESLint legacy configuration.
+     * ESLint configuration.
      *
-     * @see [ESLint Legacy Configuration](https://eslint.org/docs/latest/use/configure/)
+     * @see [ESLint Configuration](https://eslint.org/docs/latest/user-guide/configuring/)
      */
     interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules>
         extends HasRules<Rules>
@@ -968,79 +939,79 @@ export namespace Linter {
         /**
          * An environment provides predefined global variables.
          *
-         * @see [Environments](https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-environments)
+         * @see [Environments](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-environments)
          */
         env?: { [name: string]: boolean } | undefined;
 
         /**
          * Extending configuration files.
          *
-         * @see [Extends](https://eslint.org/docs/latest/use/configure/configuration-files-deprecated#extending-configuration-files)
+         * @see [Extends](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#extending-configuration-files)
          */
         extends?: string | string[] | undefined;
 
         /**
          * Specifying globals.
          *
-         * @see [Globals](https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-globals)
+         * @see [Globals](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-globals)
          */
-        globals?: Linter.Globals | undefined;
+        globals?: { [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable" } | undefined;
 
         /**
          * Disable processing of inline comments.
          *
-         * @see [Disabling Inline Comments](https://eslint.org/docs/latest/use/configure/rules-deprecated#disabling-inline-comments)
+         * @see [Disabling Inline Comments](https://eslint.org/docs/latest/user-guide/configuring/rules#disabling-inline-comments)
          */
         noInlineConfig?: boolean | undefined;
 
         /**
          * Overrides can be used to use a differing configuration for matching sub-directories and files.
          *
-         * @see [How do overrides work](https://eslint.org/docs/latest/use/configure/configuration-files-deprecated#how-do-overrides-work)
+         * @see [How do overrides work](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#how-do-overrides-work)
          */
         overrides?: Array<ConfigOverride<OverrideRules>> | undefined;
 
         /**
          * Parser.
          *
-         * @see [Working with Custom Parsers](https://eslint.org/docs/latest/extend/custom-parsers)
-         * @see [Specifying Parser](https://eslint.org/docs/latest/use/configure/parser-deprecated)
+         * @see [Working with Custom Parsers](https://eslint.org/docs/latest/developer-guide/working-with-custom-parsers)
+         * @see [Specifying Parser](https://eslint.org/docs/latest/user-guide/configuring/plugins#configure-a-parser)
          */
         parser?: string | undefined;
 
         /**
          * Parser options.
          *
-         * @see [Working with Custom Parsers](https://eslint.org/docs/latest/extend/custom-parsers)
-         * @see [Specifying Parser Options](https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options)
+         * @see [Working with Custom Parsers](https://eslint.org/docs/latest/developer-guide/working-with-custom-parsers)
+         * @see [Specifying Parser Options](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options)
          */
         parserOptions?: ParserOptions | undefined;
 
         /**
          * Which third-party plugins define additional rules, environments, configs, etc. for ESLint to use.
          *
-         * @see [Configuring Plugins](https://eslint.org/docs/latest/use/configure/plugins-deprecated#configure-plugins)
+         * @see [Configuring Plugins](https://eslint.org/docs/latest/user-guide/configuring/plugins#configure-plugins)
          */
         plugins?: string[] | undefined;
 
         /**
          * Specifying processor.
          *
-         * @see [processor](https://eslint.org/docs/latest/use/configure/plugins-deprecated#specify-a-processor)
+         * @see [processor](https://eslint.org/docs/latest/user-guide/configuring/plugins#specify-a-processor)
          */
         processor?: string | undefined;
 
         /**
-         * Report unused eslint-disable comments as warning.
+         * Report unused `ESLint-disable` comments as warning.
          *
-         * @see [Report unused eslint-disable comments](https://eslint.org/docs/latest/use/configure/rules-deprecated#report-unused-eslint-disable-comments)
+         * @see [Report unused `ESLint-disable` comments](https://eslint.org/docs/latest/user-guide/configuring/rules#report-unused-eslint-disable-comments)
          */
         reportUnusedDisableDirectives?: boolean | undefined;
 
         /**
          * Settings.
          *
-         * @see [Settings](https://eslint.org/docs/latest/use/configure/configuration-files-deprecated#adding-shared-settings)
+         * @see [Settings](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#adding-shared-settings)
          */
         settings?: { [name: string]: any } | undefined;
     }
@@ -1061,31 +1032,36 @@ export namespace Linter {
     }
 
     /**
-     * ESLint legacy configuration.
+     * ESLint configuration.
      *
-     * @see [ESLint Legacy Configuration](https://eslint.org/docs/latest/use/configure/)
+     * @see [ESLint Configuration](https://eslint.org/docs/latest/user-guide/configuring/)
      */
-    // https://github.com/eslint/eslint/blob/v8.57.0/conf/config-schema.js
-    interface LegacyConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules>
+    // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
+    interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules>
         extends BaseConfig<Rules, OverrideRules>
     {
         /**
          * Tell ESLint to ignore specific files and directories.
          *
-         * @see [Ignore Patterns](https://eslint.org/docs/latest/use/configure/ignore-deprecated#ignorepatterns-in-config-files)
+         * @see [Ignore Patterns](https://eslint.org/docs/latest/user-guide/configuring/ignoring-code)
          */
         ignorePatterns?: string | string[] | undefined;
 
         /**
-         * @see [Using Configuration Files](https://eslint.org/docs/latest/use/configure/configuration-files-deprecated#using-configuration-files)
+         * @see [Using Configuration Files](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#using-configuration-files)
          */
         root?: boolean | undefined;
     }
 
     /**
+     * An alias for `Config` for interoperability with `@types/eslint@9`.
+     */
+    type LegacyConfig = Config;
+
+    /**
      * Parser options.
      *
-     * @see [Specifying Parser Options](https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options)
+     * @see [Specifying Parser Options](https://eslint.org/docs/user-guide/configuring/language-options#specifying-parser-options)
      */
     interface ParserOptions {
         /**
@@ -1099,25 +1075,50 @@ export namespace Linter {
          *
          * Specifies the version of ECMAScript syntax you want to use. This is used by the parser to determine how to perform scope analysis, and it affects the default
          *
-         * @default 5
+         * @default 2018
+         *
+         * @see https://typescript-eslint.io/architecture/parser/#ecmaversion
          */
-        ecmaVersion?: EcmaVersion | undefined;
+        ecmaVersion?:
+            | 3
+            | 5
+            | 6
+            | 7
+            | 8
+            | 9
+            | 10
+            | 11
+            | 12
+            | 13
+            | 14
+            | 15
+            | 2015
+            | 2016
+            | 2017
+            | 2018
+            | 2019
+            | 2020
+            | 2021
+            | 2022
+            | 2023
+            | 2024
+            | "latest"
+            | undefined;
 
         /**
-         * The type of JavaScript source code. Possible values are "script" for
-         * traditional script files, "module" for ECMAScript modules (ESM), and
-         * "commonjs" for CommonJS files.
+         * Set to "script" (default) or "module" if your code is in ECMAScript modules.
          *
          * @default 'script'
          *
-         * @see https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options
+         * @see https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options
          */
-        sourceType?: SourceType | undefined;
+        sourceType?: "script" | "module" | undefined;
 
         /**
          * An object indicating which additional language features you'd like to use.
          *
-         * @see https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options
+         * @see https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options
+         * @see https://typescript-eslint.io/architecture/parser#ecmafeatures
          */
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;
@@ -1155,8 +1156,10 @@ export namespace Linter {
         messageId?: string | undefined;
         nodeType?: string | undefined;
         fatal?: true | undefined;
-        severity: Exclude<Severity, 0>;
+        severity: Severity;
         fix?: Rule.Fix | undefined;
+        /** @deprecated Use `linter.getSourceCode()` */
+        source?: string | null | undefined;
         suggestions?: LintSuggestion[] | undefined;
     }
 
@@ -1180,8 +1183,8 @@ export namespace Linter {
     }
 
     // Temporarily loosen type for just flat config files (see #68232)
-    type NonESTreeParser =
-        & Omit<ESTreeParser, "parseForESLint">
+    type FlatConfigParserModule =
+        & Omit<ParserModule, "parseForESLint">
         & ({
             parse(text: string, options?: any): unknown;
         } | {
@@ -1191,14 +1194,12 @@ export namespace Linter {
             };
         });
 
-    type ESTreeParser =
+    type ParserModule =
         & ESLint.ObjectMetaProperties
         & (
             | { parse(text: string, options?: any): AST.Program }
             | { parseForESLint(text: string, options?: any): ESLintParseResult }
         );
-
-    type Parser = NonESTreeParser | ESTreeParser;
 
     interface ESLintParseResult {
         ast: AST.Program;
@@ -1212,14 +1213,14 @@ export namespace Linter {
         filename: string;
     }
 
-    // https://eslint.org/docs/latest/extend/plugins#processors-in-plugins
+    // https://eslint.org/docs/developer-guide/working-with-plugins#processors-in-plugins
     interface Processor<T extends string | ProcessorFile = string | ProcessorFile> extends ESLint.ObjectMetaProperties {
         supportsAutofix?: boolean | undefined;
         preprocess?(text: string, filename: string): T[];
         postprocess?(messages: LintMessage[][], filename: string): LintMessage[];
     }
 
-    interface Config<Rules extends RulesRecord = RulesRecord> {
+    interface FlatConfig<Rules extends RulesRecord = RulesRecord> {
         /**
          * An string to identify the configuration object. Used in error messages and
          * inspection tools.
@@ -1244,12 +1245,56 @@ export namespace Linter {
          * An object containing settings related to how JavaScript is configured for
          * linting.
          */
-        languageOptions?: LanguageOptions;
+        languageOptions?: {
+            /**
+             * The version of ECMAScript to support. May be any year (i.e., 2022) or
+             * version (i.e., 5). Set to "latest" for the most recent supported version.
+             * @default "latest"
+             */
+            ecmaVersion?: ParserOptions["ecmaVersion"];
+
+            /**
+             * The type of JavaScript source code. Possible values are "script" for
+             * traditional script files, "module" for ECMAScript modules (ESM), and
+             * "commonjs" for CommonJS files. (default: "module" for .js and .mjs
+             * files; "commonjs" for .cjs files)
+             */
+            sourceType?: "script" | "module" | "commonjs";
+
+            /**
+             * An object specifying additional objects that should be added to the
+             * global scope during linting.
+             */
+            globals?: ESLint.Environment["globals"];
+
+            /**
+             * An object containing a parse() or parseForESLint() method.
+             * If not configured, the default ESLint parser (Espree) will be used.
+             */
+            parser?: FlatConfigParserModule;
+
+            /**
+             * An object specifying additional options that are passed directly to the
+             * parser() method on the parser. The available options are parser-dependent
+             */
+            parserOptions?: ESLint.Environment["parserOptions"];
+        };
 
         /**
          * An object containing settings related to the linting process
          */
-        linterOptions?: LinterOptions;
+        linterOptions?: {
+            /**
+             * A boolean value indicating if inline configuration is allowed.
+             */
+            noInlineConfig?: boolean;
+
+            /**
+             * A severity value indicating if and how unused disable directives should be
+             * tracked and reported.
+             */
+            reportUnusedDisableDirectives?: Severity | StringSeverity | boolean;
+        };
 
         /**
          * Either an object containing preprocess() and postprocess() methods or a
@@ -1276,82 +1321,6 @@ export namespace Linter {
          */
         settings?: Record<string, unknown>;
     }
-
-    /** @deprecated  Use `Config` instead of `FlatConfig` */
-    type FlatConfig = Config;
-
-    type GlobalConf = boolean | "off" | "readable" | "readonly" | "writable" | "writeable";
-
-    interface Globals {
-        [name: string]: GlobalConf;
-    }
-
-    interface LanguageOptions {
-        /**
-         * The version of ECMAScript to support. May be any year (i.e., 2022) or
-         * version (i.e., 5). Set to "latest" for the most recent supported version.
-         * @default "latest"
-         */
-        ecmaVersion?: EcmaVersion | undefined;
-
-        /**
-         * The type of JavaScript source code. Possible values are "script" for
-         * traditional script files, "module" for ECMAScript modules (ESM), and
-         * "commonjs" for CommonJS files. (default: "module" for .js and .mjs
-         * files; "commonjs" for .cjs files)
-         */
-        sourceType?: SourceType | undefined;
-
-        /**
-         * An object specifying additional objects that should be added to the
-         * global scope during linting.
-         */
-        globals?: Globals | undefined;
-
-        /**
-         * An object containing a parse() or parseForESLint() method.
-         * If not configured, the default ESLint parser (Espree) will be used.
-         */
-        parser?: Parser | undefined;
-
-        /**
-         * An object specifying additional options that are passed directly to the
-         * parser() method on the parser. The available options are parser-dependent
-         */
-        parserOptions?: Linter.ParserOptions | undefined;
-    }
-
-    interface LinterOptions {
-        /**
-         * A boolean value indicating if inline configuration is allowed.
-         */
-        noInlineConfig?: boolean;
-
-        /**
-         * A severity value indicating if and how unused disable directives should be
-         * tracked and reported.
-         */
-        reportUnusedDisableDirectives?: Severity | StringSeverity | boolean;
-    }
-
-    interface Stats {
-        /**
-         * The number of times ESLint has applied at least one fix after linting.
-         */
-        fixPasses: number;
-
-        /**
-         * The times spent on (parsing, fixing, linting) a file, where the linting refers to the timing information for each rule.
-         */
-        times: { passes: TimePass[] };
-    }
-
-    interface TimePass {
-        parse: { total: number };
-        rules?: Record<string, { total: number }>;
-        fix: { total: number };
-        total: number;
-    }
 }
 
 // #endregion
@@ -1359,9 +1328,7 @@ export namespace Linter {
 // #region ESLint
 
 export class ESLint {
-    static configType: "flat";
-
-    static readonly version: string;
+    static version: string;
 
     static outputFixes(results: ESLint.LintResult[]): Promise<void>;
 
@@ -1378,11 +1345,7 @@ export class ESLint {
 
     getRulesMetaForResults(results: ESLint.LintResult[]): ESLint.LintResultData["rulesMeta"];
 
-    hasFlag(flag: string): boolean;
-
     calculateConfigForFile(filePath: string): Promise<any>;
-
-    findConfigFile(): Promise<string | undefined>;
 
     isPathIgnored(filePath: string): Promise<boolean>;
 
@@ -1390,13 +1353,14 @@ export class ESLint {
 }
 
 export namespace ESLint {
-    type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<
-        Linter.LegacyConfig<Rules>,
-        "$schema"
-    >;
+    type ConfigData<Rules extends Linter.RulesRecord = Linter.RulesRecord> = Omit<Linter.Config<Rules>, "$schema">;
+
+    interface Globals {
+        [name: string]: boolean | "writable" | "readonly" | "off";
+    }
 
     interface Environment {
-        globals?: Linter.Globals | undefined;
+        globals?: Globals | undefined;
         parserOptions?: Linter.ParserOptions | undefined;
     }
 
@@ -1414,49 +1378,13 @@ export namespace ESLint {
     }
 
     interface Plugin extends ObjectMetaProperties {
-        configs?: Record<string, Linter.LegacyConfig | Linter.Config | Linter.Config[]> | undefined;
+        configs?: Record<string, ConfigData | Linter.FlatConfig | Linter.FlatConfig[]> | undefined;
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
-        rules?: Record<string, Rule.RuleModule> | undefined;
+        rules?: Record<string, Rule.OldStyleRule | Rule.RuleModule> | undefined;
     }
-
-    type FixType = "directive" | "problem" | "suggestion" | "layout";
-
-    type CacheStrategy = "content" | "metadata";
 
     interface Options {
-        // File enumeration
-        cwd?: string | undefined;
-        errorOnUnmatchedPattern?: boolean | undefined;
-        globInputPaths?: boolean | undefined;
-        ignore?: boolean | undefined;
-        ignorePatterns?: string[] | null | undefined;
-        passOnNoPatterns?: boolean | undefined;
-        warnIgnored?: boolean | undefined;
-
-        // Linting
-        allowInlineConfig?: boolean | undefined;
-        baseConfig?: Linter.Config | Linter.Config[] | null | undefined;
-        overrideConfig?: Linter.Config | Linter.Config[] | null | undefined;
-        overrideConfigFile?: string | boolean | undefined;
-        plugins?: Record<string, Plugin> | null | undefined;
-        ruleFilter?: ((arg: { ruleId: string; severity: Exclude<Linter.Severity, 0> }) => boolean) | undefined;
-        stats?: boolean | undefined;
-
-        // Autofix
-        fix?: boolean | ((message: Linter.LintMessage) => boolean) | undefined;
-        fixTypes?: FixType[] | undefined;
-
-        // Cache-related
-        cache?: boolean | undefined;
-        cacheLocation?: string | undefined;
-        cacheStrategy?: CacheStrategy | undefined;
-
-        // Other Options
-        flags?: string[] | undefined;
-    }
-
-    interface LegacyOptions {
         // File enumeration
         cwd?: string | undefined;
         errorOnUnmatchedPattern?: boolean | undefined;
@@ -1467,8 +1395,8 @@ export namespace ESLint {
 
         // Linting
         allowInlineConfig?: boolean | undefined;
-        baseConfig?: Linter.LegacyConfig | undefined;
-        overrideConfig?: Linter.LegacyConfig | undefined;
+        baseConfig?: Linter.Config | undefined;
+        overrideConfig?: Linter.Config | undefined;
         overrideConfigFile?: string | undefined;
         plugins?: Record<string, Plugin> | undefined;
         reportUnusedDisableDirectives?: Linter.StringSeverity | undefined;
@@ -1478,15 +1406,12 @@ export namespace ESLint {
 
         // Autofix
         fix?: boolean | ((message: Linter.LintMessage) => boolean) | undefined;
-        fixTypes?: FixType[] | undefined;
+        fixTypes?: Array<Rule.RuleMetaData["type"]> | undefined;
 
         // Cache-related
         cache?: boolean | undefined;
         cacheLocation?: string | undefined;
-        cacheStrategy?: CacheStrategy | undefined;
-
-        // Other Options
-        flags?: string[] | undefined;
+        cacheStrategy?: "content" | "metadata" | undefined;
     }
 
     interface LintResult {
@@ -1500,7 +1425,6 @@ export namespace ESLint {
         fixableWarningCount: number;
         output?: string | undefined;
         source?: string | undefined;
-        stats?: Linter.Stats | undefined;
         usedDeprecatedRules: DeprecatedRuleUse[];
     }
 
@@ -1517,38 +1441,26 @@ export namespace ESLint {
     }
 
     interface Formatter {
-        format(results: LintResult[], data: LintResultData): string | Promise<string>;
+        format(results: LintResult[], data?: LintResultData): string | Promise<string>;
     }
 
-    // Docs reference the types by those name
+    // Docs reference the type by this name
     type EditInfo = Rule.Fix;
-    type LoadedFormatter = Formatter;
-    type ResultsMeta = LintResultData;
 }
 
 // #endregion
 
-export function loadESLint(options: { useFlatConfig: true }): Promise<typeof ESLint>;
-export function loadESLint(options: { useFlatConfig: false }): Promise<typeof LegacyESLint>;
-export function loadESLint(
-    options?: { useFlatConfig?: boolean | undefined },
-): Promise<typeof ESLint | typeof LegacyESLint>;
-
 // #region RuleTester
 
 export class RuleTester {
-    static describe: ((...args: any) => any) | null;
-    static it: ((...args: any) => any) | null;
-    static itOnly: ((...args: any) => any) | null;
-
-    constructor(config?: Linter.Config);
+    constructor(config?: any);
 
     run(
         name: string,
         rule: Rule.RuleModule,
         tests: {
-            valid: Array<string | RuleTester.ValidTestCase>;
-            invalid: RuleTester.InvalidTestCase[];
+            valid?: Array<string | RuleTester.ValidTestCase> | undefined;
+            invalid?: RuleTester.InvalidTestCase[] | undefined;
         },
     ): void;
 
@@ -1564,13 +1476,15 @@ export namespace RuleTester {
         options?: any;
         filename?: string | undefined;
         only?: boolean;
-        languageOptions?: Linter.LanguageOptions | undefined;
+        parserOptions?: Linter.ParserOptions | undefined;
         settings?: { [name: string]: any } | undefined;
+        parser?: string | undefined;
+        globals?: { [name: string]: boolean } | undefined;
     }
 
     interface SuggestionOutput {
-        messageId?: string;
-        desc?: string;
+        messageId?: string | undefined;
+        desc?: string | undefined;
         data?: Record<string, unknown> | undefined;
         output: string;
     }
@@ -1581,8 +1495,8 @@ export namespace RuleTester {
     }
 
     interface TestCaseError {
-        message?: string | RegExp;
-        messageId?: string;
+        message?: string | RegExp | undefined;
+        messageId?: string | undefined;
         type?: string | undefined;
         data?: any;
         line?: number | undefined;
