@@ -883,7 +883,6 @@ declare namespace MarkdownIt {
         interface Delimiter {
             marker: number;
             length: number;
-            jump: number;
             token: number;
             end: number;
             open: boolean;
