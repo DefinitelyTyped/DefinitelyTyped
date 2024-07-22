@@ -445,7 +445,7 @@ declare namespace woosmap.map.data {
     }
 }
 declare namespace woosmap.map.Data {
-    class Point {
+    class Point implements Geometry<"Point", Coordinates> {
         /**
          * Constructs a Point geometry
          */
@@ -465,7 +465,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class MultiPoint {
+    class MultiPoint implements Geometry<"MultiPoint", Coordinates[]> {
         /**
          * Constructs a Multipoint geometry.
          */
@@ -498,7 +498,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class LineString {
+    class LineString implements Geometry<"LineString", Coordinates[]> {
         constructor(points: woosmap.map.LatLng[] | woosmap.map.Coordinates[] | woosmap.map.LatLngLiteral[]);
 
         /**
@@ -522,7 +522,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class MultiLineString {
+    class MultiLineString implements Geometry<"MultiLineString", Coordinates[][]> {
         /**
          * Constructs a MultiLineString.
          * A MultiLineString is a collection of LineString.
@@ -555,7 +555,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class Polygon {
+    class Polygon implements Geometry<"Polygon", Coordinates[][]> {
         /**
          * Constructs a Polygon, using a set of linear ring.
          */
@@ -594,7 +594,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class MultiPolygon {
+    class MultiPolygon implements Geometry<"MultiPolygon", Coordinates[][][]> {
         /**
          * Constructs a MultiPolygon geometry.
          * A MultiPolygon is a set of Polygons.
@@ -627,11 +627,11 @@ declare namespace woosmap.map.Data {
         /**
          * Returns `"MultiPolygon"`.
          */
-        getType(): string;
+        getType(): "MultiPolygon";
     }
 }
 declare namespace woosmap.map.Data {
-    class GeometryCollection {
+    class GeometryCollection implements Geometry<"GeometryCollection", any> {
         /**
          * Constructs a geometry collection from an array of geometries.
          */
@@ -659,12 +659,18 @@ declare namespace woosmap.map {
      * ImageMapType defines tiled image layer that can be added to the map.
      * It supports both `xyz` and `tms` tile schemes.
      */
-    class ImageMapType {
+    class ImageMapType implements woosmap.map.MapType {
+        maxZoom: number;
+        minZoom: number;
         /**
          * ImageMapType defines tiled image layer that can be added to the map.
          * It supports both `xyz` and `tms` tile schemes.
          */
         constructor(opts: woosmap.map.ImageMapTypeOptions);
+
+        getTile(tileCoord: woosmap.map.Point, zoom: number, ownerDocument: null): Element | null;
+
+        releaseTile(tile: Element): void;
     }
 }
 declare namespace woosmap.map {

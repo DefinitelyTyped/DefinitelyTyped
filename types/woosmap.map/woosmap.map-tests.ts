@@ -583,6 +583,8 @@ const imageMapType = new woosmap.map.ImageMapType(imageMapTypeOptions);
 // $ExpectType ImageMapType
 imageMapType;
 
+map.overlayMapTypes.insertAt(0, imageMapType);
+
 /**
  * helper functions for testing purpose
  */
