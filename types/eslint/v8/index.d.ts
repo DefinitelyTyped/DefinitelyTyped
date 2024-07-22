@@ -1054,6 +1054,11 @@ export namespace Linter {
     }
 
     /**
+     * An alias for `Config` for interoperability with `@types/eslint@9`.
+     */
+    type LegacyConfig = Config;
+
+    /**
      * Parser options.
      *
      * @see [Specifying Parser Options](https://eslint.org/docs/user-guide/configuring/language-options#specifying-parser-options)

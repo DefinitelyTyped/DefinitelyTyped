@@ -1072,6 +1072,9 @@ const eslintConfig3: Linter.Config<ESLintRules & TSLinterRules> = eslintConfig2;
 eslintConfig3.rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
 eslintConfig3.overrides?.[1].rules; // $ExpectType Partial<ESLintRules & TSLinterRules> | undefined
 
+let legacyConfig: Linter.LegacyConfig = eslintConfig;
+eslintConfig = legacyConfig;
+
 // #endregion
 
 // #region RuleTester
