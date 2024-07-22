@@ -71,19 +71,19 @@ export namespace TabGroups {
          * The color of the groups.
          * Optional.
          */
-        color?: boolean;
+        color?: ColorEnum;
 
         /**
          * Match group titles against a pattern.
          * Optional.
          */
-        title?: boolean;
+        title?: string;
 
         /**
          * The ID of the parent window, or windows.WINDOW_ID_CURRENT for the current window.
          * Optional.
          */
-        windowId?: boolean;
+        windowId?: number;
     }
 
     interface UpdateUpdatePropertiesType {
@@ -97,13 +97,13 @@ export namespace TabGroups {
          * The color of the group.
          * Optional.
          */
-        color?: boolean;
+        color?: ColorEnum;
 
         /**
          * The title of the group.
          * Optional.
          */
-        title?: boolean;
+        title?: string;
     }
 
     interface Static {
