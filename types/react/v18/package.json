@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react",
-    "version": "19.0.9999",
+    "version": "18.3.9999",
     "projects": [
         "https://react.dev/"
     ],
@@ -12,22 +12,6 @@
             },
             "types": {
                 "default": "./index.d.ts"
-            }
-        },
-        "./canary": {
-            "types@<=5.0": {
-                "default": "./ts5.0/canary.d.ts"
-            },
-            "types": {
-                "default": "./canary.d.ts"
-            }
-        },
-        "./experimental": {
-            "types@<=5.0": {
-                "default": "./ts5.0/experimental.d.ts"
-            },
-            "types": {
-                "default": "./experimental.d.ts"
             }
         },
         "./jsx-runtime": {
