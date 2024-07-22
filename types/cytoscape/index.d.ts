@@ -3936,7 +3936,9 @@ declare namespace cytoscape {
              *
              * The default is set to `anonymous`.
              */
-            "background-image-crossorigin"?: PropertyValueNode<"anonymous" | "use-credentials"> | PropertyValueNode<Array<"anonymous" | "use-credentials">>;
+            "background-image-crossorigin"?:
+                | PropertyValueNode<"anonymous" | "use-credentials">
+                | PropertyValueNode<Array<"anonymous" | "use-credentials">>;
             /**
              * The opacity of the background image. [0 1]
              */
@@ -3953,7 +3955,9 @@ declare namespace cytoscape {
              *
              * The default is set to `inside`.
              */
-            "background-image-containment"?: PropertyValueNode<"inside" | "over"> | PropertyValueNode<Array<"inside" | "over">>;
+            "background-image-containment"?:
+                | PropertyValueNode<"inside" | "over">
+                | PropertyValueNode<Array<"inside" | "over">>;
             /**
              * Specifies the width of the image.
              * A percent value (e.g. 50%) may be used to set
@@ -3963,7 +3967,10 @@ declare namespace cytoscape {
              * in calculating the fitting — thereby overriding the aspect ratio.
              * The auto value is used by default, which uses the width of the image.
              */
-            "background-width"?: PropertyValueNode<number | string> | PropertyValueNode<Array<number | string>> | undefined;
+            "background-width"?:
+                | PropertyValueNode<number | string>
+                | PropertyValueNode<Array<number | string>>
+                | undefined;
             /**
              * Specifies the height of the image.
              * A percent value (e.g. 50%) may be used to set the image
@@ -3973,29 +3980,44 @@ declare namespace cytoscape {
              * the fitting — thereby overriding the aspect ratio.
              * The auto value is used by default, which uses the height of the image.
              */
-            "background-height"?: PropertyValueNode<number | string> | PropertyValueNode<Array<number | string>> | undefined;
+            "background-height"?:
+                | PropertyValueNode<number | string>
+                | PropertyValueNode<Array<number | string>>
+                | undefined;
             /**
              * How the background image is fit to the node;
              * may be none for original size,
              * contain to fit inside node,
              * or cover to cover the node.
              */
-            "background-fit"?: PropertyValueNode<"none" | "contain" | "cover"> | PropertyValueNode<Array<"none" | "contain" | "cover">> | undefined;
+            "background-fit"?:
+                | PropertyValueNode<"none" | "contain" | "cover">
+                | PropertyValueNode<Array<"none" | "contain" | "cover">>
+                | undefined;
             /**
              * Whether to repeat the background image;
              * may be no-repeat, repeat-x, repeat-y, or repeat.
              */
-            "background-repeat"?: PropertyValueNode<"no-repeat" | "repeat-x" | "repeat-y" | "repeat"> | PropertyValueNode<Array<"no-repeat" | "repeat-x" | "repeat-y" | "repeat">> | undefined;
+            "background-repeat"?:
+                | PropertyValueNode<"no-repeat" | "repeat-x" | "repeat-y" | "repeat">
+                | PropertyValueNode<Array<"no-repeat" | "repeat-x" | "repeat-y" | "repeat">>
+                | undefined;
             /**
              * The x position of the background image,
              * measured in percent(e.g. `'50%'`) or pixels (e.g. `'10px'`).
              */
-            "background-position-x"?: PropertyValueNode<number | string> | PropertyValueNode<Array<number | string>> | undefined;
+            "background-position-x"?:
+                | PropertyValueNode<number | string>
+                | PropertyValueNode<Array<number | string>>
+                | undefined;
             /**
              * The y position of the background image,
              * measured in percent(e.g. `'50%'`) or pixels (e.g. `'10px'`).
              */
-            "background-position-y"?: PropertyValueNode<number | string> | PropertyValueNode<Array<number | string>> | undefined;
+            "background-position-y"?:
+                | PropertyValueNode<number | string>
+                | PropertyValueNode<Array<number | string>>
+                | undefined;
             /**
              * The x offset of the background image,
              * measured in percent(e.g. `'50%'`) or pixels (e.g. `'10px'`).
@@ -4012,19 +4034,26 @@ declare namespace cytoscape {
              *
              * If not specified, include-padding is used by default.
              */
-            "background-width-relative-to"?: PropertyValueNode<"inner" | "include-padding"> | PropertyValueNode<Array<"inner" | "include-padding">>;
+            "background-width-relative-to"?:
+                | PropertyValueNode<"inner" | "include-padding">
+                | PropertyValueNode<Array<"inner" | "include-padding">>;
             /**
              * Changes whether the height is calculated relative to the height of the node or
              * the height in addition to the padding; may be `inner` or `include-padding`.
              *
              * If not specified, `include-padding` is used by default.
              */
-            "background-height-relative-to"?: PropertyValueNode<"inner" | "include-padding"> | PropertyValueNode<Array<"inner" | "include-padding">>;
+            "background-height-relative-to"?:
+                | PropertyValueNode<"inner" | "include-padding">
+                | PropertyValueNode<Array<"inner" | "include-padding">>;
             /**
              * How background image clipping is handled;
              * may be node for clipped to node shape or none for no clipping.
              */
-            "background-clip"?: PropertyValueNode<"clipped" | "none"> | PropertyValueNode<Array<"clipped" | "none">> | undefined;
+            "background-clip"?:
+                | PropertyValueNode<"clipped" | "none">
+                | PropertyValueNode<Array<"clipped" | "none">>
+                | undefined;
             /**
              * Specifies a padding size (e.g. 20) that expands the bounding box of the node in
              * all directions. This allows for images to be drawn outside of the normal bounding

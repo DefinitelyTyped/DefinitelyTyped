@@ -76,8 +76,14 @@ const showAllStyle: cytoscape.Stylesheet[] = [
         selector: "node .background-multi-image",
         style: {
             "background-image": [
-                "data:image/svg+xml;utf8," + encodeURIComponent(`<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg><svg xmlns='' version='1.1'></svg>`),
-                "data:image/svg+xml;utf8," + encodeURIComponent(`<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg><svg xmlns='' version='1.1'></svg>`)
+                "data:image/svg+xml;utf8,"
+                + encodeURIComponent(
+                    `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg><svg xmlns='' version='1.1'></svg>`,
+                ),
+                "data:image/svg+xml;utf8,"
+                + encodeURIComponent(
+                    `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg><svg xmlns='' version='1.1'></svg>`,
+                ),
             ],
             "background-image-opacity": [0.5, 1.0],
             "background-image-crossorigin": ["anonymous", "use-credentials"],
@@ -93,8 +99,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "background-offset-y": [10, 10],
             "background-width-relative-to": ["inner", "include-padding"],
             "background-height-relative-to": ["inner", "include-padding"],
-            "background-clip": ["clipped", "none"]
-        }
+            "background-clip": ["clipped", "none"],
+        },
     },
     {
         selector: "$node > node",
