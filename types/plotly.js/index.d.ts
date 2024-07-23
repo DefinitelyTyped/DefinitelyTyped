@@ -849,8 +849,8 @@ type xYAxisNames = `${
     | `${2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
     | `${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`}${"" | " domain"}`;
 
-export type XAxisName = `${"x"}${xYAxisNames}`;
-export type YAxisName = `${"y"}${xYAxisNames}`;
+export type XAxisName = `x${xYAxisNames}`;
+export type YAxisName = `y${xYAxisNames}`;
 
 export type AxisName = XAxisName | YAxisName;
 
