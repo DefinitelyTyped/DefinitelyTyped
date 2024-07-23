@@ -115,11 +115,13 @@ export {
 export {
     ReaderArgument,
     ReaderArgumentDefinition,
+    ReaderCondition,
     ReaderField,
     ReaderFlightField,
     ReaderFragment,
     ReaderInlineDataFragment,
     ReaderInlineDataFragmentSpread,
+    ReaderInlineFragment,
     ReaderLinkedField,
     ReaderModuleImport,
     ReaderPaginationMetadata,
