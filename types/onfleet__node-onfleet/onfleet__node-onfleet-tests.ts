@@ -122,12 +122,12 @@ async function testTasks(onfleet: Onfleet) {
         customFields: [
             {
                 key: "newTest",
-                value: 1234
+                value: 1234,
             },
             {
-                key:"test",
-                value:"order 123"
-            }
+                key: "test",
+                value: "order 123",
+            },
         ],
     });
 
@@ -145,12 +145,12 @@ async function testTasks(onfleet: Onfleet) {
         customFields: [
             {
                 key: "newTest",
-                value: 1234
+                value: 1234,
             },
             {
-                key:"test",
-                value:"order 123"
-            }
+                key: "test",
+                value: "order 123",
+            },
         ],
     });
 
@@ -169,12 +169,12 @@ async function testTasks(onfleet: Onfleet) {
         customFields: [
             {
                 key: "newTest",
-                value: 1234
+                value: 1234,
             },
             {
-                key:"test",
-                value:"order 123"
-            }
+                key: "test",
+                value: "order 123",
+            },
         ],
     });
 
@@ -304,13 +304,13 @@ function testWebhooks() {
     const taskCreatedPayload: Webhook.Payload.TaskCreatedPayload = {
         actionContext: {
             id: "vjw*RDMKDljKVDve1Vtcplgu",
-            type: "ADMIN"
+            type: "ADMIN",
         },
         adminId: "vjw*RDMKDljKVDve1Vtcplgu",
         data: {
             task: {
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: 1612987200000,
                 completeBefore: 1613008800000,
@@ -322,11 +322,11 @@ function testWebhooks() {
                     firstLocation: [],
                     lastLocation: [],
                     time: null,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 container: {
                     type: "WORKER",
-                    worker: "COwfwH~Zogm1LXIZYbPlLAyw"
+                    worker: "COwfwH~Zogm1LXIZYbPlLAyw",
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 delayTime: null,
@@ -340,17 +340,17 @@ function testWebhooks() {
                         number: "2695",
                         postalCode: "92806",
                         state: "California",
-                        street: "East Katella Avenue"
+                        street: "East Katella Avenue",
                     },
                     id: "I5rMyWx4YHDcMGIwfD3TL8nf",
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     metadata: [],
                     notes: "This is a destination note",
                     timeCreated: 1613002583000,
-                    timeLastModified: 1613002583913
+                    timeLastModified: 1613002583913,
                 },
                 estimatedArrivalTime: null,
                 estimatedCompletionTime: null,
@@ -359,7 +359,7 @@ function testWebhooks() {
                 id: "txiK2xHBIaUwAKB~BJrjscKu",
                 identity: {
                     checksum: null,
-                    failedScanCount: 0
+                    failedScanCount: 0,
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -378,8 +378,8 @@ function testWebhooks() {
                         phone: "+17145554231",
                         skipSMSNotifications: false,
                         timeCreated: 1613002583000,
-                        timeLastModified: 1613002583931
-                    }
+                        timeLastModified: 1613002583931,
+                    },
                 ],
                 serviceTime: 3,
                 shortId: "fab829cf",
@@ -388,14 +388,14 @@ function testWebhooks() {
                 timeLastModified: 1613002583970,
                 trackingURL: "https://onf.lt/fab829cf81",
                 trackingViewed: false,
-                worker: "COwfwH~Zogm1LXIZYbPlLAyw"
-            }
+                worker: "COwfwH~Zogm1LXIZYbPlLAyw",
+            },
         },
         taskId: "txiK2xHBIaUwAKB~BJrjscKu",
         time: 1613002584051,
         triggerId: 6,
         triggerName: "taskCreated",
-        workerId: null
+        workerId: null,
     };
 
     const taskUpdatedPayload: Webhook.Payload.TaskUpdatedPayload = {
@@ -403,23 +403,23 @@ function testWebhooks() {
         workerId: "ZxcnkJi~79nonYaMTQ960Mg2",
         actionContext: {
             type: "ADMIN",
-            id: "vjw*RDMKDljKVDve1Vtcplgu"
+            id: "vjw*RDMKDljKVDve1Vtcplgu",
         },
         triggerId: 7,
         triggerName: "taskUpdated",
         adminId: "vjw*RDMKDljKVDve1Vtcplgu",
         data: {
             task: {
-                id:"w7CcGpzsMnEiUg1AqgxQbPE~",
-                timeCreated:1627329316000,
-                timeLastModified:1627329522544,
-                organization:"nYrkNP6jZMSKgBwG9qG7ci3J",
-                shortId:"c9ed4d00",
-                trackingURL:"https://onf.lt/c9ed4d00",
-                worker:"ZxcnkJi~79nonYaMTQ960Mg2",
-                merchant:"nYrkNP6jZMSKgBwG9qG7ci3J",
-                executor:"nYrkNP6jZMSKgBwG9qG7ci3J",
-                creator:"vjw*RDMKDljKVDve1Vtcplgu",
+                id: "w7CcGpzsMnEiUg1AqgxQbPE~",
+                timeCreated: 1627329316000,
+                timeLastModified: 1627329522544,
+                organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
+                shortId: "c9ed4d00",
+                trackingURL: "https://onf.lt/c9ed4d00",
+                worker: "ZxcnkJi~79nonYaMTQ960Mg2",
+                merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
+                executor: "nYrkNP6jZMSKgBwG9qG7ci3J",
+                creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 dependencies: [],
                 state: 1,
                 completeAfter: null,
@@ -434,7 +434,7 @@ function testWebhooks() {
                     time: null,
                     firstLocation: [],
                     lastLocation: [],
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 feedback: [],
                 metadata: [],
@@ -443,14 +443,14 @@ function testWebhooks() {
                 serviceTime: 0,
                 identity: {
                     failedScanCount: 0,
-                    checksum: null
+                    checksum: null,
                 },
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 container: {
                     type: "WORKER",
-                    worker: "ZxcnkJi~79nonYaMTQ960Mg2"
+                    worker: "ZxcnkJi~79nonYaMTQ960Mg2",
                 },
                 trackingViewed: false,
                 recipients: [],
@@ -462,7 +462,7 @@ function testWebhooks() {
                     timeLastModified: 1627329522522,
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     address: {
                         apartment: "",
@@ -472,14 +472,14 @@ function testWebhooks() {
                         street: "East Katella Avenue",
                         city: "Anaheim",
                         country: "United States",
-                        name: "Honda Center"
+                        name: "Honda Center",
                     },
                     notes: "",
                     metadata: [],
                     googlePlaceId: null,
-                    warnings: []
+                    warnings: [],
                 },
-                delayTime: null
+                delayTime: null,
             },
             worker: {
                 id: "ZxcnkJi~79nonYaMTQ960Mg2",
@@ -491,7 +491,7 @@ function testWebhooks() {
                 phone: "+17145555768",
                 activeTask: null,
                 tasks: [
-                    "w7CcGpzsMnEiUg1AqgxQbPE~"
+                    "w7CcGpzsMnEiUg1AqgxQbPE~",
                 ],
                 onDuty: true,
                 timeLastSeen: 1627329498940,
@@ -500,19 +500,19 @@ function testWebhooks() {
                     appVersion: "2.1.13.2",
                     batteryLevel: 0.65,
                     deviceDescription: "Google Pixel 2 (Android 11)",
-                    platform: "ANDROID"
+                    platform: "ANDROID",
                 },
                 accountStatus: "ACCEPTED",
                 metadata: [],
                 timezone: "America/Los_Angeles",
                 imageUrl: null,
                 teams: [
-                    "K3FXFtJj2FtaO2~H60evRrDc"
+                    "K3FXFtJj2FtaO2~H60evRrDc",
                 ],
                 delayTime: null,
                 location: [
                     -117.8954515,
-                    33.9131014
+                    33.9131014,
                 ],
                 hasRecentlyUsedSpoofedLocations: false,
                 vehicle: {
@@ -521,18 +521,18 @@ function testWebhooks() {
                     description: "",
                     licensePlate: "",
                     color: "",
-                    timeLastModified: 1625065516261
-                }
-            }
+                    timeLastModified: 1625065516261,
+                },
+            },
         },
-        time: 1627329522593
-    }
+        time: 1627329522593,
+    };
 
     const taskUpdatedWithUnavailablePhotoIdsPayload: Webhook.Payload.TaskUpdatedPayload = {
         taskId: "w7CcGpzsMnEiUg1AqgxQbPE~",
         actionContext: {
             type: "WORKER",
-            id: "ZxcnkJi~79nonYaMTQ960Mg2"
+            id: "ZxcnkJi~79nonYaMTQ960Mg2",
         },
         triggerId: 7,
         triggerName: "taskUpdated",
@@ -566,14 +566,14 @@ function testWebhooks() {
                     events: [
                         {
                             name: "start",
-                            time: 1627329672397
-                        }
+                            time: 1627329672397,
+                        },
                     ],
                     actions: [],
                     signatureUploadId: null,
                     photoUploadId: "89f81c56036bbfc2469541e1",
                     photoUploadIds: [
-                        "89f81c56036bbfc2469541e1"
+                        "89f81c56036bbfc2469541e1",
                     ],
                     firstLocation: [],
                     lastLocation: [],
@@ -581,9 +581,9 @@ function testWebhooks() {
                         {
                             status: "UNAVAILABLE",
                             attachmentId: "e8384b6af2a6ce3454c00616",
-                            attachmentType: "SIGNATURE"
-                        }
-                    ]
+                            attachmentType: "SIGNATURE",
+                        },
+                    ],
                 },
                 feedback: [],
                 metadata: [],
@@ -592,10 +592,10 @@ function testWebhooks() {
                 serviceTime: 0,
                 identity: {
                     failedScanCount: 0,
-                    checksum: null
+                    checksum: null,
                 },
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 trackingViewed: false,
                 recipients: [],
@@ -608,7 +608,7 @@ function testWebhooks() {
                     timeLastModified: 1627329522522,
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     address: {
                         apartment: "",
@@ -618,23 +618,23 @@ function testWebhooks() {
                         street: "East Katella Avenue",
                         city: "Anaheim",
                         country: "United States",
-                        name: "Honda Center"
+                        name: "Honda Center",
                     },
                     notes: "",
                     metadata: [],
                     googlePlaceId: null,
-                    warnings: []
-                }
-            }
+                    warnings: [],
+                },
+            },
         },
-        time: 1627329772583
+        time: 1627329772583,
     };
 
     const taskUpdatedWithUploadedPhotoAndSignatureIdPayload: Webhook.Payload.TaskUpdatedPayload = {
         taskId: "w7CcGpzsMnEiUg1AqgxQbPE~",
         actionContext: {
             type: "WORKER",
-            id: "ZxcnkJi~79nonYaMTQ960Mg2"
+            id: "ZxcnkJi~79nonYaMTQ960Mg2",
         },
         triggerId: 7,
         triggerName: "taskUpdated",
@@ -668,18 +668,18 @@ function testWebhooks() {
                     events: [
                         {
                             name: "start",
-                            time: 1627329672397
-                        }
+                            time: 1627329672397,
+                        },
                     ],
                     actions: [],
                     signatureUploadId: "e8384b6af2a6ce3454c00616",
                     photoUploadId: "89f81c56036bbfc2469541e1",
                     photoUploadIds: [
-                        "89f81c56036bbfc2469541e1"
+                        "89f81c56036bbfc2469541e1",
                     ],
                     firstLocation: [],
                     lastLocation: [],
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 feedback: [],
                 metadata: [],
@@ -688,10 +688,10 @@ function testWebhooks() {
                 serviceTime: 0,
                 identity: {
                     failedScanCount: 0,
-                    checksum: null
+                    checksum: null,
                 },
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 trackingViewed: false,
                 recipients: [],
@@ -704,7 +704,7 @@ function testWebhooks() {
                     timeLastModified: 1627329522522,
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     address: {
                         apartment: "",
@@ -714,28 +714,28 @@ function testWebhooks() {
                         street: "East Katella Avenue",
                         city: "Anaheim",
                         country: "United States",
-                        name: "Honda Center"
+                        name: "Honda Center",
                     },
                     notes: "",
                     metadata: [],
                     googlePlaceId: null,
-                    warnings: []
-                }
-            }
+                    warnings: [],
+                },
+            },
         },
-        time: 1627329772583
+        time: 1627329772583,
     };
 
     const taskClonedPayload: Webhook.Payload.TaskClonedPayload = {
         actionContext: {
             id: "vjw*RDMKDljKVDve1Vtcplgu",
-            type: "ADMIN"
+            type: "ADMIN",
         },
         adminId: "vjw*RDMKDljKVDve1Vtcplgu",
         data: {
             task: {
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: null,
                 completeBefore: 1613008800000,
@@ -747,11 +747,11 @@ function testWebhooks() {
                     firstLocation: [],
                     lastLocation: [],
                     time: null,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 container: {
                     organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
-                    type: "ORGANIZATION"
+                    type: "ORGANIZATION",
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 delayTime: null,
@@ -765,17 +765,17 @@ function testWebhooks() {
                         number: "2695",
                         postalCode: "92806",
                         state: "California",
-                        street: "East Katella Avenue"
+                        street: "East Katella Avenue",
                     },
                     id: "pJcfO7NRJaor~Tl8ggBHrveJ",
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     metadata: [],
                     notes: "This is a destination note",
                     timeCreated: 1613004115000,
-                    timeLastModified: 1613004115635
+                    timeLastModified: 1613004115635,
                 },
                 estimatedArrivalTime: null,
                 estimatedCompletionTime: null,
@@ -784,7 +784,7 @@ function testWebhooks() {
                 id: "3C0W9uLyWC5R4V5fuj7bzJpk",
                 identity: {
                     checksum: null,
-                    failedScanCount: 0
+                    failedScanCount: 0,
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -803,8 +803,8 @@ function testWebhooks() {
                         phone: "+17145554231",
                         skipSMSNotifications: false,
                         timeCreated: 1613002583000,
-                        timeLastModified: 1613002583931
-                    }
+                        timeLastModified: 1613002583931,
+                    },
                 ],
                 serviceTime: 3,
                 shortId: "9ad82b23",
@@ -814,26 +814,26 @@ function testWebhooks() {
                 timeLastModified: 1613004116038,
                 trackingURL: "https://onf.lt/9ad82b2380",
                 trackingViewed: false,
-                worker: null
-            }
+                worker: null,
+            },
         },
         taskId: "3C0W9uLyWC5R4V5fuj7bzJpk",
         time: 1613004116101,
         triggerId: 13,
         triggerName: "taskCloned",
-        workerId: null
+        workerId: null,
     };
 
     const taskAssignedPayload: Webhook.Payload.TaskAssignedPayload = {
         actionContext: {
             id: "vjw*RDMKDljKVDve1Vtcplgu",
-            type: "ADMIN"
+            type: "ADMIN",
         },
         adminId: "vjw*RDMKDljKVDve1Vtcplgu",
         data: {
             task: {
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: 1612987200000,
                 completeBefore: 1613008800000,
@@ -845,11 +845,11 @@ function testWebhooks() {
                     firstLocation: [],
                     lastLocation: [],
                     time: null,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 container: {
                     type: "WORKER",
-                    worker: "COwfwH~Zogm1LXIZYbPlLAyw"
+                    worker: "COwfwH~Zogm1LXIZYbPlLAyw",
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 delayTime: null,
@@ -863,17 +863,17 @@ function testWebhooks() {
                         number: "2695",
                         postalCode: "92806",
                         state: "California",
-                        street: "East Katella Avenue"
+                        street: "East Katella Avenue",
                     },
                     id: "I5rMyWx4YHDcMGIwfD3TL8nf",
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     metadata: [],
                     notes: "This is a destination note",
                     timeCreated: 1613002583000,
-                    timeLastModified: 1613002583913
+                    timeLastModified: 1613002583913,
                 },
                 estimatedArrivalTime: null,
                 estimatedCompletionTime: null,
@@ -882,7 +882,7 @@ function testWebhooks() {
                 id: "txiK2xHBIaUwAKB~BJrjscKu",
                 identity: {
                     checksum: null,
-                    failedScanCount: 0
+                    failedScanCount: 0,
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -901,8 +901,8 @@ function testWebhooks() {
                         phone: "+17145554231",
                         skipSMSNotifications: false,
                         timeCreated: 1613002583000,
-                        timeLastModified: 1613002583931
-                    }
+                        timeLastModified: 1613002583931,
+                    },
                 ],
                 serviceTime: 3,
                 shortId: "fab829cf",
@@ -911,7 +911,7 @@ function testWebhooks() {
                 timeLastModified: 1613004164514,
                 trackingURL: "https://onf.lt/fab829cf81",
                 trackingViewed: false,
-                worker: "COwfwH~Zogm1LXIZYbPlLAyw"
+                worker: "COwfwH~Zogm1LXIZYbPlLAyw",
             },
             worker: {
                 accountStatus: "ACCEPTED",
@@ -924,7 +924,7 @@ function testWebhooks() {
                 imageUrl: null,
                 location: [
                     -117.8901118,
-                    33.893365
+                    33.893365,
                 ],
                 metadata: [],
                 name: "Shured Shuanger",
@@ -932,10 +932,10 @@ function testWebhooks() {
                 organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 phone: "+17145555678",
                 tasks: [
-                    "txiK2xHBIaUwAKB~BJrjscKu"
+                    "txiK2xHBIaUwAKB~BJrjscKu",
                 ],
                 teams: [
-                    "K3FXFtJj2FtaO2~H60evRrDc"
+                    "K3FXFtJj2FtaO2~H60evRrDc",
                 ],
                 timeCreated: 1585254830000,
                 timeLastModified: 1613004164511,
@@ -945,7 +945,7 @@ function testWebhooks() {
                     appVersion: "2.1.11.1",
                     batteryLevel: 0.64,
                     deviceDescription: "Google Pixel 2 (Android 11)",
-                    platform: "ANDROID"
+                    platform: "ANDROID",
                 },
                 vehicle: {
                     color: "",
@@ -953,27 +953,27 @@ function testWebhooks() {
                     id: "Dib0eZfs*uJhJmWHKL~tExub",
                     licensePlate: "",
                     timeLastModified: 1612226873144,
-                    type: "CAR"
-                }
-            }
+                    type: "CAR",
+                },
+            },
         },
         taskId: "txiK2xHBIaUwAKB~BJrjscKu",
         time: 1613004164575,
         triggerId: 9,
         triggerName: "taskAssigned",
-        workerId: "COwfwH~Zogm1LXIZYbPlLAyw"
+        workerId: "COwfwH~Zogm1LXIZYbPlLAyw",
     };
 
     const taskUnassignedPayload: Webhook.Payload.TaskUnassignedPayload = {
         actionContext: {
             id: "vjw*RDMKDljKVDve1Vtcplgu",
-            type: "ADMIN"
+            type: "ADMIN",
         },
         adminId: "vjw*RDMKDljKVDve1Vtcplgu",
         data: {
             task: {
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: 1612987200000,
                 completeBefore: 1613008800000,
@@ -985,11 +985,11 @@ function testWebhooks() {
                     firstLocation: [],
                     lastLocation: [],
                     time: null,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 container: {
                     organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
-                    type: "ORGANIZATION"
+                    type: "ORGANIZATION",
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 delayTime: null,
@@ -1003,17 +1003,17 @@ function testWebhooks() {
                         number: "2695",
                         postalCode: "92806",
                         state: "California",
-                        street: "East Katella Avenue"
+                        street: "East Katella Avenue",
                     },
                     id: "I5rMyWx4YHDcMGIwfD3TL8nf",
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     metadata: [],
                     notes: "This is a destination note",
                     timeCreated: 1613002583000,
-                    timeLastModified: 1613002583913
+                    timeLastModified: 1613002583913,
                 },
                 estimatedArrivalTime: null,
                 estimatedCompletionTime: null,
@@ -1022,7 +1022,7 @@ function testWebhooks() {
                 id: "txiK2xHBIaUwAKB~BJrjscKu",
                 identity: {
                     checksum: null,
-                    failedScanCount: 0
+                    failedScanCount: 0,
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -1041,8 +1041,8 @@ function testWebhooks() {
                         phone: "+17145554231",
                         skipSMSNotifications: false,
                         timeCreated: 1613002583000,
-                        timeLastModified: 1613002583931
-                    }
+                        timeLastModified: 1613002583931,
+                    },
                 ],
                 serviceTime: 3,
                 shortId: "fab829cf",
@@ -1051,26 +1051,26 @@ function testWebhooks() {
                 timeLastModified: 1613003963558,
                 trackingURL: "https://onf.lt/fab829cf81",
                 trackingViewed: false,
-                worker: null
-            }
+                worker: null,
+            },
         },
         taskId: "txiK2xHBIaUwAKB~BJrjscKu",
         time: 1613003963647,
         triggerId: 10,
         triggerName: "taskUnassigned",
-        workerId: null
-    }
+        workerId: null,
+    };
 
     const taskDeletedPayload: Webhook.Payload.TaskDeletedPayload = {
         actionContext: {
             id: "vjw*RDMKDljKVDve1Vtcplgu",
-            type: "ADMIN"
+            type: "ADMIN",
         },
         adminId: "vjw*RDMKDljKVDve1Vtcplgu",
         data: {
             task: {
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: null,
                 completeBefore: 1613008800000,
@@ -1082,11 +1082,11 @@ function testWebhooks() {
                     firstLocation: [],
                     lastLocation: [],
                     time: null,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 container: {
                     organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
-                    type: "ORGANIZATION"
+                    type: "ORGANIZATION",
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 dependencies: [],
@@ -1099,24 +1099,24 @@ function testWebhooks() {
                         number: "2695",
                         postalCode: "92806",
                         state: "California",
-                        street: "East Katella Avenue"
+                        street: "East Katella Avenue",
                     },
                     id: "pJcfO7NRJaor~Tl8ggBHrveJ",
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     metadata: [],
                     notes: "This is a destination note",
                     timeCreated: 1613004115000,
-                    timeLastModified: 1613004115635
+                    timeLastModified: 1613004115635,
                 },
                 executor: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 feedback: [],
                 id: "3C0W9uLyWC5R4V5fuj7bzJpk",
                 identity: {
                     checksum: null,
-                    failedScanCount: 0
+                    failedScanCount: 0,
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -1135,8 +1135,8 @@ function testWebhooks() {
                         phone: "+17145554231",
                         skipSMSNotifications: false,
                         timeCreated: 1613002583000,
-                        timeLastModified: 1613002583931
-                    }
+                        timeLastModified: 1613002583931,
+                    },
                 ],
                 serviceTime: 3,
                 shortId: "9ad82b23",
@@ -1146,26 +1146,26 @@ function testWebhooks() {
                 timeLastModified: 1613004116038,
                 trackingURL: "https://onf.lt/9ad82b2380",
                 trackingViewed: false,
-                worker: null
-            }
+                worker: null,
+            },
         },
         taskId: "3C0W9uLyWC5R4V5fuj7bzJpk",
         time: 1613004265027,
         triggerId: 8,
         triggerName: "taskDeleted",
-        workerId: null
+        workerId: null,
     };
 
     const taskStartedPayload: Webhook.Payload.TaskStartedPayload = {
         actionContext: {
             id: "COwfwH~Zogm1LXIZYbPlLAyw",
-            type: "WORKER"
+            type: "WORKER",
         },
         adminId: null,
         data: {
             task: {
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: 1612987200000,
                 completeBefore: 1613008800000,
@@ -1177,11 +1177,11 @@ function testWebhooks() {
                     firstLocation: [],
                     lastLocation: [],
                     time: null,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 container: {
                     type: "WORKER",
-                    worker: "COwfwH~Zogm1LXIZYbPlLAyw"
+                    worker: "COwfwH~Zogm1LXIZYbPlLAyw",
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 dependencies: [],
@@ -1194,17 +1194,17 @@ function testWebhooks() {
                         number: "2695",
                         postalCode: "92806",
                         state: "California",
-                        street: "East Katella Avenue"
+                        street: "East Katella Avenue",
                     },
                     id: "I5rMyWx4YHDcMGIwfD3TL8nf",
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     metadata: [],
                     notes: "This is a destination note",
                     timeCreated: 1613002583000,
-                    timeLastModified: 1613002583913
+                    timeLastModified: 1613002583913,
                 },
                 estimatedArrivalTime: null,
                 estimatedCompletionTime: null,
@@ -1213,7 +1213,7 @@ function testWebhooks() {
                 id: "txiK2xHBIaUwAKB~BJrjscKu",
                 identity: {
                     checksum: null,
-                    failedScanCount: 0
+                    failedScanCount: 0,
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -1232,8 +1232,8 @@ function testWebhooks() {
                         phone: "+17145554231",
                         skipSMSNotifications: false,
                         timeCreated: 1613002583000,
-                        timeLastModified: 1613002583931
-                    }
+                        timeLastModified: 1613002583931,
+                    },
                 ],
                 serviceTime: 3,
                 shortId: "fab829cf",
@@ -1242,26 +1242,26 @@ function testWebhooks() {
                 timeLastModified: 1613004361613,
                 trackingURL: "https://onf.lt/fab829cf81",
                 trackingViewed: false,
-                worker: "COwfwH~Zogm1LXIZYbPlLAyw"
-            }
+                worker: "COwfwH~Zogm1LXIZYbPlLAyw",
+            },
         },
         taskId: "txiK2xHBIaUwAKB~BJrjscKu",
         time: 1613004361894,
         triggerId: 0,
         triggerName: "taskStarted",
-        workerId: "COwfwH~Zogm1LXIZYbPlLAyw"
+        workerId: "COwfwH~Zogm1LXIZYbPlLAyw",
     };
 
     const taskFailedPayload: Webhook.Payload.TaskFailedPayload = {
         actionContext: {
             id: "COwfwH~Zogm1LXIZYbPlLAyw",
-            type: "WORKER"
+            type: "WORKER",
         },
         adminId: null,
         data: {
             task: {
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: 1612987200000,
                 completeBefore: 1613008800000,
@@ -1270,8 +1270,8 @@ function testWebhooks() {
                     events: [
                         {
                             name: "start",
-                            time: 1613004361594
-                        }
+                            time: 1613004361594,
+                        },
                     ],
                     failureNotes: "",
                     failureReason: "UNABLE_TO_LOCATE",
@@ -1283,7 +1283,7 @@ function testWebhooks() {
                     signatureUploadId: null,
                     success: false,
                     time: 1613004459779,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 delayTime: null,
@@ -1297,17 +1297,17 @@ function testWebhooks() {
                         number: "2695",
                         postalCode: "92806",
                         state: "California",
-                        street: "East Katella Avenue"
+                        street: "East Katella Avenue",
                     },
                     id: "I5rMyWx4YHDcMGIwfD3TL8nf",
                     location: [
                         -117.8764687,
-                        33.8078476
+                        33.8078476,
                     ],
                     metadata: [],
                     notes: "This is a destination note",
                     timeCreated: 1613002583000,
-                    timeLastModified: 1613002583913
+                    timeLastModified: 1613002583913,
                 },
                 estimatedArrivalTime: null,
                 estimatedCompletionTime: null,
@@ -1316,7 +1316,7 @@ function testWebhooks() {
                 id: "txiK2xHBIaUwAKB~BJrjscKu",
                 identity: {
                     checksum: null,
-                    failedScanCount: 0
+                    failedScanCount: 0,
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -1335,8 +1335,8 @@ function testWebhooks() {
                         phone: "+17145554231",
                         skipSMSNotifications: false,
                         timeCreated: 1613002583000,
-                        timeLastModified: 1613002583931
-                    }
+                        timeLastModified: 1613002583931,
+                    },
                 ],
                 serviceTime: 3,
                 shortId: "fab829cf",
@@ -1345,20 +1345,20 @@ function testWebhooks() {
                 timeLastModified: 1613004459863,
                 trackingURL: "https://onf.lt/fab829cf81",
                 trackingViewed: false,
-                worker: "COwfwH~Zogm1LXIZYbPlLAyw"
-            }
+                worker: "COwfwH~Zogm1LXIZYbPlLAyw",
+            },
         },
         taskId: "txiK2xHBIaUwAKB~BJrjscKu",
         time: 1613004460070,
         triggerId: 4,
         triggerName: "taskFailed",
-        workerId: "COwfwH~Zogm1LXIZYbPlLAyw"
+        workerId: "COwfwH~Zogm1LXIZYbPlLAyw",
     };
 
     const taskCompletedPayload: Webhook.Payload.TaskCompletedPayload = {
         actionContext: {
             id: "ZxcnkJi~79nonYaMTQ960Mg2",
-            type: "WORKER"
+            type: "WORKER",
         },
         adminId: null,
         data: {
@@ -1366,10 +1366,10 @@ function testWebhooks() {
                 additionalQuantities: {
                     quantityA: 0,
                     quantityB: 0,
-                    quantityC: 0
+                    quantityC: 0,
                 },
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: null,
                 completeBefore: null,
@@ -1378,8 +1378,8 @@ function testWebhooks() {
                     events: [
                         {
                             name: "start",
-                            time: 1686611484893
-                        }
+                            time: 1686611484893,
+                        },
                     ],
                     failureNotes: "",
                     failureReason: "NONE",
@@ -1392,7 +1392,7 @@ function testWebhooks() {
                     success: true,
                     successNotes: "",
                     time: 1686611635677,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 delayTime: null,
@@ -1405,13 +1405,13 @@ function testWebhooks() {
                         number: "1000",
                         postalCode: "90012",
                         state: "California",
-                        street: "Vin Scully Ave"
+                        street: "Vin Scully Ave",
                     },
                     googlePlaceId: "ChIJdVYAVPnGwoAR3wmcg09VlJ4",
                     id: "QTxsobLHkNxLjc5HcAkMGYEd",
                     location: [
                         -118.2399583,
-                        34.073851
+                        34.073851,
                     ],
                     metadata: [],
                     notes: "",
@@ -1419,8 +1419,8 @@ function testWebhooks() {
                     timeLastModified: 1663896051511,
                     useGPS: true,
                     warnings: [
-                        "MISMATCH_NUMBER"
-                    ]
+                        "MISMATCH_NUMBER",
+                    ],
                 },
                 estimatedArrivalTime: null,
                 estimatedCompletionTime: null,
@@ -1428,10 +1428,11 @@ function testWebhooks() {
                 feedback: [],
                 id: "kwKafWU5jRmzeOpazE8WE9Ye",
                 identity: {
-                    checksum: "6741f297906eca390df1c0773b1f403edb8eb2942742f25fa877ef673f493aea42144543fcdfc501d42ff49986934e48f69d8a52edf74d0f87d2a41de7fd68dc",
+                    checksum:
+                        "6741f297906eca390df1c0773b1f403edb8eb2942742f25fa877ef673f493aea42144543fcdfc501d42ff49986934e48f69d8a52edf74d0f87d2a41de7fd68dc",
                     dob: "1987-03-30T08:00:00.000Z",
                     failedScanCount: 0,
-                    inputMethod: "scan"
+                    inputMethod: "scan",
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -1441,7 +1442,7 @@ function testWebhooks() {
                     recipientName: null,
                     recipientNotes: null,
                     recipientSkipSMSNotifications: null,
-                    useMerchantForProxy: null
+                    useMerchantForProxy: null,
                 },
                 pickupTask: false,
                 quantity: 0,
@@ -1455,8 +1456,8 @@ function testWebhooks() {
                         phone: "+17145554554",
                         skipSMSNotifications: true,
                         timeCreated: 1592005264000,
-                        timeLastModified: 1679096559784
-                    }
+                        timeLastModified: 1679096559784,
+                    },
                 ],
                 scanOnlyRequiredBarcodes: false,
                 serviceTime: 0,
@@ -1466,14 +1467,14 @@ function testWebhooks() {
                 timeLastModified: 1686611636712,
                 trackingURL: "https://onf.lt/6055984c46",
                 trackingViewed: false,
-                worker: "ZxcnkJi~79nonYaMTQ960Mg2"
-            }
+                worker: "ZxcnkJi~79nonYaMTQ960Mg2",
+            },
         },
         taskId: "kwKafWU5jRmzeOpazE8WE9Ye",
         time: 1686611636796,
         triggerId: 3,
         triggerName: "taskCompleted",
-        workerId: "ZxcnkJi~79nonYaMTQ960Mg2"
+        workerId: "ZxcnkJi~79nonYaMTQ960Mg2",
     };
 
     const taskDelayedPayload: Webhook.Payload.TaskDelayedPayload = {
@@ -1482,7 +1483,7 @@ function testWebhooks() {
         data: {
             task: {
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 completeAfter: 1613160000000,
                 completeBefore: 1613179800000,
@@ -1494,11 +1495,11 @@ function testWebhooks() {
                     firstLocation: [],
                     lastLocation: [],
                     time: null,
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 container: {
                     type: "WORKER",
-                    worker: "COwfwH~Zogm1LXIZYbPlLAyw"
+                    worker: "COwfwH~Zogm1LXIZYbPlLAyw",
                 },
                 creator: "vjw*RDMKDljKVDve1Vtcplgu",
                 dependencies: [],
@@ -1511,17 +1512,17 @@ function testWebhooks() {
                         number: "",
                         postalCode: "92697",
                         state: "California",
-                        street: ""
+                        street: "",
                     },
                     id: "134VHJhnXUqOmaFdISY0r6BD",
                     location: [
                         -117.8442962,
-                        33.6404952
+                        33.6404952,
                     ],
                     metadata: [],
                     notes: "",
                     timeCreated: 1613177955000,
-                    timeLastModified: 1613177955586
+                    timeLastModified: 1613177955586,
                 },
                 estimatedArrivalTime: 1613180322638,
                 estimatedCompletionTime: 1613180322638,
@@ -1530,7 +1531,7 @@ function testWebhooks() {
                 id: "zIeGIBZQZhTRHaK6V6V74Fpg",
                 identity: {
                     checksum: null,
-                    failedScanCount: 0
+                    failedScanCount: 0,
                 },
                 merchant: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 metadata: [],
@@ -1549,8 +1550,8 @@ function testWebhooks() {
                         phone: "+17145555678",
                         skipSMSNotifications: false,
                         timeCreated: 1592005264000,
-                        timeLastModified: 1613177955599
-                    }
+                        timeLastModified: 1613177955599,
+                    },
                 ],
                 serviceTime: 0,
                 shortId: "a79d22fb",
@@ -1559,15 +1560,15 @@ function testWebhooks() {
                 timeLastModified: 1613178053658,
                 trackingURL: "https://onf.lt/a79d22fb77",
                 trackingViewed: false,
-                worker: "COwfwH~Zogm1LXIZYbPlLAyw"
-            }
+                worker: "COwfwH~Zogm1LXIZYbPlLAyw",
+            },
         },
         delay: 522.6378813476563,
         taskId: "zIeGIBZQZhTRHaK6V6V74Fpg",
         time: 1613178058862,
         triggerId: 12,
         triggerName: "taskDelayed",
-        workerId: null
+        workerId: null,
     };
 
     const taskETAPayload: Webhook.Payload.TaskETAPayload = {
@@ -1603,7 +1604,7 @@ function testWebhooks() {
                     time: null,
                     firstLocation: [],
                     lastLocation: [],
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 feedback: [],
                 metadata: [],
@@ -1612,14 +1613,14 @@ function testWebhooks() {
                 serviceTime: 0,
                 identity: {
                     failedScanCount: 0,
-                    checksum: null
+                    checksum: null,
                 },
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 container: {
                     type: "WORKER",
-                    worker: "COwfwH~Zogm1LXIZYbPlLAyw"
+                    worker: "COwfwH~Zogm1LXIZYbPlLAyw",
                 },
                 trackingViewed: false,
                 estimatedCompletionTime: 1615506153703,
@@ -1634,8 +1635,8 @@ function testWebhooks() {
                         notes: "Notes do not change *edited* more new notes",
                         organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
                         skipSMSNotifications: false,
-                        metadata: []
-                    }
+                        metadata: [],
+                    },
                 ],
                 destination: {
                     id: "3NACfr4SVlCi8s~vPgKskAip",
@@ -1643,7 +1644,7 @@ function testWebhooks() {
                     timeLastModified: 1615502820514,
                     location: [
                         -117.895446,
-                        33.9131177
+                        33.9131177,
                     ],
                     address: {
                         apartment: "",
@@ -1652,15 +1653,15 @@ function testWebhooks() {
                         number: "338",
                         street: "South Redwood Avenue",
                         city: "Brea",
-                        country: "United States"
+                        country: "United States",
                     },
                     notes: "",
-                    metadata: []
-                }
-            }
+                    metadata: [],
+                },
+            },
         },
         actionContext: null,
-        time: 1615505708224
+        time: 1615505708224,
     };
 
     const taskArrivalPayload: Webhook.Payload.TaskArrivalPayload = {
@@ -1696,7 +1697,7 @@ function testWebhooks() {
                     time: null,
                     firstLocation: [],
                     lastLocation: [],
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 feedback: [],
                 metadata: [],
@@ -1705,14 +1706,14 @@ function testWebhooks() {
                 serviceTime: 0,
                 identity: {
                     failedScanCount: 0,
-                    checksum: null
+                    checksum: null,
                 },
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 container: {
                     type: "WORKER",
-                    worker: "COwfwH~Zogm1LXIZYbPlLAyw"
+                    worker: "COwfwH~Zogm1LXIZYbPlLAyw",
                 },
                 trackingViewed: false,
                 estimatedCompletionTime: 1615506156730,
@@ -1727,8 +1728,8 @@ function testWebhooks() {
                         notes: "Notes do not change *edited* more new notes",
                         organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
                         skipSMSNotifications: false,
-                        metadata: []
-                    }
+                        metadata: [],
+                    },
                 ],
                 destination: {
                     id: "3NACfr4SVlCi8s~vPgKskAip",
@@ -1736,7 +1737,7 @@ function testWebhooks() {
                     timeLastModified: 1615502820514,
                     location: [
                         -117.895446,
-                        33.9131177
+                        33.9131177,
                     ],
                     address: {
                         apartment: "",
@@ -1745,15 +1746,15 @@ function testWebhooks() {
                         number: "338",
                         street: "South Redwood Avenue",
                         city: "Brea",
-                        country: "United States"
+                        country: "United States",
                     },
                     notes: "",
-                    metadata: []
-                }
-            }
+                    metadata: [],
+                },
+            },
         },
         actionContext: null,
-        time: 1615505822024
+        time: 1615505822024,
     };
 
     const workerCreatedPayload: Webhook.Payload.WorkerCreatedPayload = {
@@ -1761,7 +1762,7 @@ function testWebhooks() {
         workerId: "sccpOkp3SassNmJxHjm1UFc5",
         actionContext: {
             id: "i18uIpm5NNNw6nBL8QMW1JM7",
-            type: "ADMIN"
+            type: "ADMIN",
         },
         triggerId: 15,
         triggerName: "workerCreated",
@@ -1786,7 +1787,7 @@ function testWebhooks() {
                 timezone: null,
                 imageUrl: null,
                 teams: [
-                    "QNwu7xmlvGHzAYXk2zmZocD2"
+                    "QNwu7xmlvGHzAYXk2zmZocD2",
                 ],
                 vehicle: {
                     id: "3O7k6AmNVc5U8~AkgNRVxGTm",
@@ -1794,17 +1795,17 @@ function testWebhooks() {
                     description: "1996 Honda Accord",
                     licensePlate: null,
                     color: "Green",
-                    timeLastModified: 1623274200789
-                }
-            }
+                    timeLastModified: 1623274200789,
+                },
+            },
         },
-        time: 1623274200840
+        time: 1623274200840,
     };
 
     const workerDeletedPayload: Webhook.Payload.WorkerDeletedPayload = {
         actionContext: {
             type: "ADMIN",
-            id: "i18uIpm5NNNw6nBL8QMW1JM7"
+            id: "i18uIpm5NNNw6nBL8QMW1JM7",
         },
         workerId: "sccpOkp3SassNmJxHjm1UFc5",
         triggerId: 16,
@@ -1831,7 +1832,7 @@ function testWebhooks() {
                 timezone: null,
                 imageUrl: null,
                 teams: [
-                    "QNwu7xmlvGHzAYXk2zmZocD2"
+                    "QNwu7xmlvGHzAYXk2zmZocD2",
                 ],
                 vehicle: {
                     id: "3O7k6AmNVc5U8~AkgNRVxGTm",
@@ -1839,11 +1840,11 @@ function testWebhooks() {
                     description: "1996 Honda Accord",
                     licensePlate: null,
                     color: "Green",
-                    timeLastModified: 1623274200789
-                }
-            }
+                    timeLastModified: 1623274200789,
+                },
+            },
         },
-        time: 1623274403564
+        time: 1623274403564,
     };
 
     const workerDutyPayload: Webhook.Payload.WorkerDutyPayload = {
@@ -1866,10 +1867,10 @@ function testWebhooks() {
                 organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 phone: "+17145555678",
                 tasks: [
-                    "txiK2xHBIaUwAKB~BJrjscKu"
+                    "txiK2xHBIaUwAKB~BJrjscKu",
                 ],
                 teams: [
-                    "K3FXFtJj2FtaO2~H60evRrDc"
+                    "K3FXFtJj2FtaO2~H60evRrDc",
                 ],
                 timeCreated: 1585254830000,
                 timeLastModified: 1613003712585,
@@ -1879,7 +1880,7 @@ function testWebhooks() {
                     appVersion: "2.1.11.1",
                     batteryLevel: 0.64,
                     deviceDescription: "Google Pixel 2 (Android 11)",
-                    platform: "ANDROID"
+                    platform: "ANDROID",
                 },
                 vehicle: {
                     color: "",
@@ -1887,23 +1888,23 @@ function testWebhooks() {
                     id: "Dib0eZfs*uJhJmWHKL~tExub",
                     licensePlate: "",
                     timeLastModified: 1612226873144,
-                    type: "CAR"
-                }
-            }
+                    type: "CAR",
+                },
+            },
         },
         status: 1,
         taskId: null,
         time: 1613003870062,
         triggerId: 5,
         triggerName: "workerDuty",
-        workerId: "COwfwH~Zogm1LXIZYbPlLAyw"
+        workerId: "COwfwH~Zogm1LXIZYbPlLAyw",
     };
 
     const smsRecipientOptOutPayload: Webhook.Payload.SMSRecipientOptOutPayload = {
         recipient: {
             id: "7LecFRKJw7ExfyhBsi9h0NXW",
             name: "Joe Smith",
-            phone: "+17145555768"
+            phone: "+17145555768",
         },
         timestamp: 1632432776621,
         SMS: "STOP",
@@ -1914,14 +1915,14 @@ function testWebhooks() {
         adminId: null,
         data: {},
         actionContext: null,
-        time: 1632432776640
+        time: 1632432776640,
     };
 
     const autoDispatchJobCompletedPayload: Webhook.Payload.AutoDispatchJobCompletedPayload = {
         actionContext: {
             apiKeyScopeId: "34522acbaf4558bee7474e594aa2ba0c",
             id: "vjw*RDMKDljKVDve1Vtcplgu",
-            type: "API"
+            type: "API",
         },
         adminId: null,
         data: {
@@ -1933,13 +1934,13 @@ function testWebhooks() {
                     routeEnd: "teams://DEFAULT",
                     scheduleTimeWindow: [
                         1659727323264,
-                        1659748923264
+                        1659748923264,
                     ],
                     serviceTime: 4,
                     taskTimeWindow: [
                         1659712923264,
-                        1659741723264
-                    ]
+                        1659741723264,
+                    ],
                 },
                 organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 plan: {
@@ -1951,100 +1952,100 @@ function testWebhooks() {
                                     arrivalTime: 1659729556337,
                                     departTime: 1659729796337,
                                     id: "LdvrBX7fADEvlNuFUZJu8d9S",
-                                    type: "TASK"
+                                    type: "TASK",
                                 },
                                 {
                                     arrivalTime: 1659733290968,
                                     departTime: 1659733530968,
                                     id: "~JA*OXe7f6sLzy~zo6brH6xp",
-                                    type: "TASK"
+                                    type: "TASK",
                                 },
                                 {
                                     arrivalTime: 1659737162319,
                                     departTime: 1659737402319,
                                     id: "bn50Lcsu8rqETDWJTIdecufy",
-                                    type: "TASK"
+                                    type: "TASK",
                                 },
                                 {
                                     arrivalTime: 1659738493969,
                                     departTime: 1659738733969,
                                     id: "Sef4w3TakQk6dQJBhQDYglsO",
-                                    type: "TASK"
-                                }
+                                    type: "TASK",
+                                },
                             ],
-                            type: "WORKER"
-                        }
+                            type: "WORKER",
+                        },
                     ],
-                    unplanned: []
+                    unplanned: [],
                 },
                 processingDetails: {
                     endTime: 1659727327650,
                     startTime: 1659727323428,
-                    status: "success"
+                    status: "success",
                 },
                 tasks: [
                     {
                         additionalQuantities: {
                             quantityA: 0,
                             quantityB: 0,
-                            quantityC: 0
+                            quantityC: 0,
                         },
                         completeAfter: null,
                         completeBefore: null,
                         id: "Sef4w3TakQk6dQJBhQDYglsO",
                         pickupTask: false,
                         quantity: 0,
-                        shortId: "2770e3e3"
+                        shortId: "2770e3e3",
                     },
                     {
                         additionalQuantities: {
                             quantityA: 0,
                             quantityB: 0,
-                            quantityC: 0
+                            quantityC: 0,
                         },
                         completeAfter: 1659726000000,
                         completeBefore: 1659751200000,
                         id: "LdvrBX7fADEvlNuFUZJu8d9S",
                         pickupTask: false,
                         quantity: 0,
-                        shortId: "ce6439b7"
+                        shortId: "ce6439b7",
                     },
                     {
                         additionalQuantities: {
                             quantityA: 0,
                             quantityB: 0,
-                            quantityC: 0
+                            quantityC: 0,
                         },
                         completeAfter: 1659726000000,
                         completeBefore: 1659747600000,
                         id: "bn50Lcsu8rqETDWJTIdecufy",
                         pickupTask: false,
                         quantity: 0,
-                        shortId: "6d87d2bf"
+                        shortId: "6d87d2bf",
                     },
                     {
                         additionalQuantities: {
                             quantityA: 0,
                             quantityB: 0,
-                            quantityC: 0
+                            quantityC: 0,
                         },
                         completeAfter: 1659726000000,
                         completeBefore: 1659754800000,
                         id: "~JA*OXe7f6sLzy~zo6brH6xp",
                         pickupTask: false,
                         quantity: 0,
-                        shortId: "2e2f201c"
-                    }
+                        shortId: "2e2f201c",
+                    },
                 ],
-                team: "K3FXFtJj2FtaO2~H60evRrDc"
-            }
+                team: "K3FXFtJj2FtaO2~H60evRrDc",
+            },
         },
         dispatchId: "XaSPx65XPOTiyzu7hbjlgTxN",
         taskId: null,
         time: 1659727327697,
         triggerId: 18,
         triggerName: "autoDispatchJobCompleted",
-        workerId: null
+        workerId: null,
     };
 
     const taskBatchCreateJobCompletedPayload: Webhook.Payload.TaskBatchCreateJobCompletedPayload = {
@@ -2066,12 +2067,12 @@ function testWebhooks() {
                             street: "Infinite Loop",
                             city: "Redmond",
                             state: "WA",
-                            country: "USA"
-                        }
+                            country: "USA",
+                        },
                     },
-                    recipients: []
-                }
-            }
+                    recipients: [],
+                },
+            },
         ],
         failedTasks: [
             {
@@ -2081,11 +2082,11 @@ function testWebhooks() {
                         street: "Infinite Loop",
                         city: "Redmond",
                         state: "WA",
-                        country: "USA"
-                    }
+                        country: "USA",
+                    },
                 },
-                recipients: []
-            }
+                recipients: [],
+            },
         ],
         newTasks: [
             {
@@ -2104,7 +2105,8 @@ function testWebhooks() {
                 completeAfter: null,
                 completeBefore: null,
                 pickupTask: false,
-                notes: "Order 332: 24oz Stumptown Finca El Puente, 10 x Aji de Gallina Empanadas, 13-inch Lelenitas Tres Leches",
+                notes:
+                    "Order 332: 24oz Stumptown Finca El Puente, 10 x Aji de Gallina Empanadas, 13-inch Lelenitas Tres Leches",
                 completionDetails: {
                     failureNotes: "",
                     successNotes: "",
@@ -2117,7 +2119,7 @@ function testWebhooks() {
                     photoUploadIds: null,
                     firstLocation: [],
                     lastLocation: [],
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 feedback: [],
                 metadata: [],
@@ -2125,26 +2127,26 @@ function testWebhooks() {
                     recipientName: null,
                     recipientNotes: null,
                     recipientSkipSMSNotifications: null,
-                    useMerchantForProxy: null
+                    useMerchantForProxy: null,
                 },
                 quantity: 0,
                 additionalQuantities: {
                     quantityA: 0,
                     quantityB: 0,
-                    quantityC: 0
+                    quantityC: 0,
                 },
                 serviceTime: 0,
                 identity: {
                     failedScanCount: 0,
-                    checksum: null
+                    checksum: null,
                 },
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 scanOnlyRequiredBarcodes: false,
                 container: {
                     type: "ORGANIZATION",
-                    organization: "nYrkNP6jZMSKgBwG9qG7ci3J"
+                    organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 },
                 trackingViewed: false,
                 recipients: [],
@@ -2154,7 +2156,7 @@ function testWebhooks() {
                     timeLastModified: 1682033523617,
                     location: [
                         -122.4438376,
-                        37.7939987
+                        37.7939987,
                     ],
                     address: {
                         apartment: "",
@@ -2163,13 +2165,13 @@ function testWebhooks() {
                         number: "2829",
                         street: "Vallejo Street",
                         city: "San Francisco",
-                        country: "United States"
+                        country: "United States",
                     },
                     notes: "Small green door by garage door has pin pad, enter *4821*",
                     metadata: [],
                     googlePlaceId: "ChIJQSINYtKAhYARCKOYhQ6z3nI",
-                    warnings: []
-                }
+                    warnings: [],
+                },
             },
             {
                 id: "EcEM7N1DCDq8qaVbbvR0H7bh",
@@ -2200,43 +2202,43 @@ function testWebhooks() {
                     photoUploadIds: null,
                     firstLocation: [],
                     lastLocation: [],
-                    unavailableAttachments: []
+                    unavailableAttachments: [],
                 },
                 feedback: [],
                 metadata: [
                     {
                         type: "number",
                         visibility: [
-                            "api"
+                            "api",
                         ],
                         value: 33162,
-                        name: "caseId"
-                    }
+                        name: "caseId",
+                    },
                 ],
                 overrides: {
                     recipientName: null,
                     recipientNotes: null,
                     recipientSkipSMSNotifications: null,
-                    useMerchantForProxy: null
+                    useMerchantForProxy: null,
                 },
                 quantity: 0,
                 additionalQuantities: {
                     quantityA: 0,
                     quantityB: 0,
-                    quantityC: 0
+                    quantityC: 0,
                 },
                 serviceTime: 0,
                 identity: {
                     failedScanCount: 0,
-                    checksum: null
+                    checksum: null,
                 },
                 appearance: {
-                    triangleColor: null
+                    triangleColor: null,
                 },
                 scanOnlyRequiredBarcodes: false,
                 container: {
                     type: "ORGANIZATION",
-                    organization: "nYrkNP6jZMSKgBwG9qG7ci3J"
+                    organization: "nYrkNP6jZMSKgBwG9qG7ci3J",
                 },
                 trackingViewed: false,
                 recipients: [],
@@ -2246,7 +2248,7 @@ function testWebhooks() {
                     timeLastModified: 1682033523646,
                     location: [
                         -87.6611882,
-                        41.8999943
+                        41.8999943,
                     ],
                     address: {
                         apartment: "",
@@ -2255,14 +2257,15 @@ function testWebhooks() {
                         number: "1264",
                         street: "West Augusta Boulevard",
                         city: "Chicago",
-                        country: "United States"
+                        country: "United States",
                     },
                     notes: "",
                     metadata: [],
-                    googlePlaceId: "EisxMjY0IFcgQXVndXN0YSBCbHZkLCBDaGljYWdvLCBJTCA2MDY0MiwgVVNBIjESLwoUChIJC3XaOdTSD4gRvWkApUN78tgQ8AkqFAoSCbEoXPNKzQ-IEfZd3WVEWaiw",
-                    warnings: []
-                }
-            }
+                    googlePlaceId:
+                        "EisxMjY0IFcgQXVndXN0YSBCbHZkLCBDaGljYWdvLCBJTCA2MDY0MiwgVVNBIjESLwoUChIJC3XaOdTSD4gRvWkApUN78tgQ8AkqFAoSCbEoXPNKzQ-IEfZd3WVEWaiw",
+                    warnings: [],
+                },
+            },
         ],
         newTasksWithWarnings: [],
         triggerId: 19,
@@ -2272,6 +2275,6 @@ function testWebhooks() {
         adminId: null,
         data: {},
         actionContext: null,
-        time: 1682033523955
+        time: 1682033523955,
     };
 }

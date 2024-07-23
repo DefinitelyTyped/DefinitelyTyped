@@ -62,15 +62,15 @@ declare namespace Task {
     type TaskCustomFieldValue = boolean | number | string | string[];
 
     interface TaskCustomField {
-        description: string
-        asArray: boolean
-        visibility: string[]
-        editability: string[]
-        key: string
-        name: string
-        type: "single_line_text_field" | "multi_line_text_field" | "boolean" | "integer" | "decimal" | "date" | "Url"
-        contexts: any[]
-        value: TaskCustomFieldValue
+        description: string;
+        asArray: boolean;
+        visibility: string[];
+        editability: string[];
+        key: string;
+        name: string;
+        type: "single_line_text_field" | "multi_line_text_field" | "boolean" | "integer" | "decimal" | "date" | "Url";
+        contexts: any[];
+        value: TaskCustomFieldValue;
     }
 
     interface OnfleetTask {
@@ -155,7 +155,7 @@ declare namespace Task {
         requirements?: TaskCompletionRequirements | undefined;
         barcodes?: Barcode[] | undefined;
         serviceTime?: number | undefined;
-        customFields?: Array<{ key: string;  value: TaskCustomFieldValue }> | undefined;
+        customFields?: Array<{ key: string; value: TaskCustomFieldValue }> | undefined;
     }
 
     interface AutomaticallyAssignTaskProps {

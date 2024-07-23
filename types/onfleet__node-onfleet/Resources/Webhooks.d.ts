@@ -75,77 +75,77 @@ declare namespace Webhook {
 
         interface TaskCreatedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
         }
 
         interface TaskUpdatedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
-                worker?: { [key: string]: unknown } | undefined
+                task: { [key: string]: unknown };
+                worker?: { [key: string]: unknown } | undefined;
             };
         }
 
         interface TaskClonedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
         }
 
         interface TaskAssignedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
-                worker: { [key: string]: unknown }
+                task: { [key: string]: unknown };
+                worker: { [key: string]: unknown };
             };
         }
 
         interface TaskUnassignedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
         }
 
         interface TaskDeletedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
         }
 
         interface TaskStartedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
         }
 
         interface TaskFailedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
         }
 
         interface TaskCompletedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
         }
 
         interface TaskDelayedPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
             delay: number;
         }
 
         interface TaskETAPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
             etaSeconds: number;
         }
 
         interface TaskArrivalPayload extends WebhookPayload {
             data: {
-                task: { [key: string]: unknown }
+                task: { [key: string]: unknown };
             };
             distance: number;
         }
@@ -183,7 +183,7 @@ declare namespace Webhook {
         interface AutoDispatchJobCompletedPayload extends WebhookPayload {
             data: {
                 dispatch: { [key: string]: unknown };
-            }
+            };
             dispatchId: string;
         }
 
@@ -199,7 +199,7 @@ declare namespace Webhook {
                 message: string;
                 cause: string;
                 taskData: { [key: string]: unknown };
-            }>
+            }>;
             failedTasks: Array<{ [key: string]: unknown }>;
             newTasks: Array<{ [key: string]: unknown }>;
             newTasksWithWarnings: Array<{ [key: string]: unknown }>;
