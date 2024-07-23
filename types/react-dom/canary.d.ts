@@ -91,7 +91,7 @@ declare module "." {
         as: PreinitAs;
         crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
         fetchPriority?: "high" | "low" | "auto" | undefined;
-        precedence?: string | undefined;
+        precedence?: "reset" | "low" | "medium" | "high" | undefined;
         integrity?: string | undefined;
         nonce?: string | undefined;
     }
