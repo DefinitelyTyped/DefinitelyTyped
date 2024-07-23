@@ -17,6 +17,7 @@ const options: TurndownService.Options = {
     strongDelimiter: "__",
     linkStyle: "inlined",
     linkReferenceStyle: "full",
+    preformattedCode: true,
 
     keepReplacement: replacementFunction,
     blankReplacement: replacementFunction,
