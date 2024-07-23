@@ -15,9 +15,9 @@
     "files": [
         "index.d.ts",
         "probe-image-size-tests.ts",
-        "lib/parse_sync/bmp.js/index.d.ts",
-        "lib/parse_sync/ico.js/index.d.ts",
-        "lib/parse_sync/png.js/index.d.ts",
-        "stream.js/index.d.ts"
+        "lib/parse_sync/bmp.d.ts",
+        "lib/parse_sync/ico.d.ts",
+        "lib/parse_sync/png.d.ts",
+        "stream.d.ts"
     ]
 }
