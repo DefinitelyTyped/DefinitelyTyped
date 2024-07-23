@@ -45,6 +45,19 @@ async function testTasks(onfleet: Onfleet) {
     task.completionDetails.photoUploadId;
     task.completionDetails.photoUploadIds;
     task.completionDetails.signatureUploadId;
+    if (task.customFields) {
+        for (const customField of task.customFields) {
+            customField.description;
+            customField.asArray;
+            customField.visibility;
+            customField.editability;
+            customField.key;
+            customField.name;
+            customField.type;
+            customField.contexts;
+            customField.value;
+        }
+    }
     const result = await onfleet.tasks.get({ from: 1455072025000 });
     for (const resultTask of result.tasks) {
         resultTask.pickupTask;
@@ -106,6 +119,16 @@ async function testTasks(onfleet: Onfleet) {
             type: "TEAM",
             team: "teamId",
         },
+        customFields: [
+            {
+                key: "newTest",
+                value: 1234
+            },
+            {
+                key:"test",
+                value:"order 123"
+            }
+        ],
     });
 
     if (taskCreated.container.type === "TEAM") {
@@ -119,6 +142,16 @@ async function testTasks(onfleet: Onfleet) {
             type: "WORKER",
             worker: "workerId",
         },
+        customFields: [
+            {
+                key: "newTest",
+                value: 1234
+            },
+            {
+                key:"test",
+                value:"order 123"
+            }
+        ],
     });
 
     if (taskUpdated.container.type === "WORKER") {
@@ -132,6 +165,16 @@ async function testTasks(onfleet: Onfleet) {
             { data: "aGVsbG8gd29ybGQh" },
             { blockCompletion: true },
             { data: "aGVsbG8gd29ybGQh", blockCompletion: true },
+        ],
+        customFields: [
+            {
+                key: "newTest",
+                value: 1234
+            },
+            {
+                key:"test",
+                value:"order 123"
+            }
         ],
     });
 
