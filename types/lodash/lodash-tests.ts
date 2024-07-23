@@ -5514,9 +5514,9 @@ fp.now(); // $ExpectType number
     _.chain(objectWithOptionalField).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({}).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
 
-    fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
-    fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>
-    fp.get([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
+    fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never>
+    fp.get([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.get(1)("abc"); // $ExpectType string
     fp.get("1")("abc"); // $ExpectType any
     fp.get("a", { a: { b: true } }); // $ExpectType { b: boolean; }
@@ -7289,7 +7289,7 @@ fp.now(); // $ExpectType number
     _.chain("a.b[0]").property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     _.chain(["a", "b", 0]).property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     fp.property(Symbol.iterator)([]); // $ExpectType any
-    fp.property([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.property([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.property(1)("abc"); // $ExpectType string
 }
 
@@ -7300,7 +7300,7 @@ fp.now(); // $ExpectType number
     _.chain({}).propertyOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
 
     fp.propertyOf(Symbol.iterator)([]); // $ExpectType any
-    fp.propertyOf([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.propertyOf([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.propertyOf(1)("abc"); // $ExpectType string
 }
 
