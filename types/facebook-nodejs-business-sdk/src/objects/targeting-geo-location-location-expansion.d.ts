@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * TargetingGeoLocationLocationExpansion
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -6,5 +6,6 @@ import { AbstractCrudObject } from './../abstract-crud-object';
 export default class TargetingGeoLocationLocationExpansion extends AbstractCrudObject {
     static get Fields(): Readonly<{
         allowed: "allowed";
+        intent: "intent";
     }>;
 }

@@ -41,3 +41,5 @@ client.mailboxDelete("INBOX.example");
 
 // $Expect Promise<StatusObject>
 client.status("INBOX", { uidNext: true });
+
+client.fetchAll("1:*", { uid: true });

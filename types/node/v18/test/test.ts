@@ -1,5 +1,16 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
-import { after, afterEach, before, beforeEach, describe, it, run, test } from "node:test";
+import {
+    after,
+    afterEach,
+    before,
+    beforeEach,
+    describe,
+    it,
+    run,
+    type SuiteContext,
+    test,
+    type TestContext,
+} from "node:test";
 import { dot, junit, spec, tap, TestEvent } from "node:test/reporters";
 
 // run without options
@@ -548,17 +559,17 @@ test("mocks a setter", (t) => {
 
 // @ts-expect-error
 dot();
-// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
+// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>
 dot("" as any);
 // @ts-expect-error
 tap();
-// $ExpectType AsyncGenerator<string, void, unknown>
+// $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 tap("" as any);
 // $ExpectType Spec
 new spec();
 // @ts-expect-error
 junit();
-// $ExpectType AsyncGenerator<string, void, unknown>
+// $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 junit("" as any);
 
 describe("Mock Timers Test Suite", () => {
@@ -622,3 +633,31 @@ class TestReporter extends Transform {
         }
     }
 }
+
+// Allows for typing of TestContext outside of a test
+const contextTest = (t: TestContext) => {
+    // $ExpectType TestContext
+    t;
+};
+
+const suiteTest = (t: SuiteContext) => {
+    // $ExpectType SuiteContext
+    t;
+};
+
+describe("test context in describe/it", (suite) => {
+    suiteTest(suite);
+    it("test context exportation", (t) => {
+        contextTest(t);
+    });
+});
+
+test("test on the default export", (t) => {
+    contextTest(t);
+});
+
+// @ts-expect-error Should not be able to instantiate a TestContext
+const invalidTestContext = new TestContext();
+
+// @ts-expect-error Should not be able to instantiate a SuiteContext
+const invalidSuiteContext = new SuiteContext();

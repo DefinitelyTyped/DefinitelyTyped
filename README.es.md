@@ -86,7 +86,7 @@ Añade a tu `tsconfig.json`:
 
 (También puedes usar `src/types`.)
 Crea un `types/foo/index.d.ts` que contenga declaraciones del módulo "foo".
-Ahora deberías poder importar desde `"foo"` a tu código y te enviara a un nuevo tipo de definición.
+Ahora deberías poder importar desde `"foo"` a tu código y te enviará a un nuevo tipo de definición.
 Entonces compila _y_ ejecuta el código para asegurarte que el tipo de definición en realidad corresponde a lo que suceda en el momento de la ejecución.
 Una vez que hayas probado tus definiciones con el código real, haz un [PR](#haz-un-pull-request)
 luego sigue las instrucciones para [editar un paquete existente](#editar-un-paquete-existente) o
@@ -166,18 +166,18 @@ Si estás agregando typings para un paquete npm, crea un directorio con el mismo
 Si el paquete al que le estás agregando typings no es para npm, asegúrate de que el nombre que escojas no genere problemas con el nombre del paquete en npm.
 (Puedes usar `npm info <my-package>` para verificar la existencia del paquete `<my-package>`.)
 
-If a non-npm package conflicts with an existing npm package try adding -browser to the end of the name to get `<my-package>-browser`.
+Si un non-npm package entra en conflicto con un paquete npm existente, intenta añadir `-browser` al final del nombre para obtener `<my-package>-browser`.
 
 #### `<my-package>-tests.ts`
 
-There should be a `<my-package>-tests.ts` file, which is considered your test file, along with any `*.ts` files it imports.
-If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`.
-These files are used to validate the API exported from the `*.d.ts` files which are shipped as `@types/<my-package>`.
+Debería haber un archivo `<my-package>-tests.ts`, el cual es considerado tu archivo de prueba, junto con cualquier archivo `*.ts` que importe.
+Si no ves ningún archivo de prueba en la carpeta del módulo, crea un `<my-package>-tests.ts`.
+Estos archivos son usados para validar la API exportada desde los archivos `*.d.ts` los cuales son enviados como `@types/<my-package>`.
 
-Changes to the `*.d.ts` files should include a corresponding `*.ts` file change which shows the API being used, so that someone doesn't accidentally break code you depend on.
-If you don't see any test files in the module's folder, create a `<my-package>-tests.ts`
+Los cambios a los archivos `*.d.ts` deberían incluir un cambio correspondiente en un archivo `*.ts` el cual muestre la API siendo usada, para que alguien no rompa accidentalmente el código en el que dependes.
+Si no ves ningún archivo de prueba en la carpeta del módulo, crea un `<my-package>-tests.ts`.
 
-For example, this change to a function in a `.d.ts` file adding a new param to a function:
+Por ejemplo, este cambio a una función en un archivo `.d.ts` añadiendo un nuevo parámetro a una función:
 
 `index.d.ts`:
 
@@ -201,11 +201,11 @@ const result = twoslash("//")
 + const resultWithOptions = twoslash("//", {  })
 ```
 
-If you're wondering where to start with test code, the examples in the README of the module are a great place to start.
+Si estás preguntándote por dónde empezar con el código de prueba, los ejemplos en el README del módulo son un buen lugar para comenzar.
 
-You can [validate your changes](#running-tests) with `npm test <package to test>` from the root of this repo, which takes changed files into account.
+Puedes [validar tus cambios](#running-tests) con `npm test <package to test>` desde la raíz de este repositorio, el cual toma en cuenta los archivos cambiados.
 
-Para afirmar que una expresión es de un tipo dado, utilice `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utilice `@ts-expect-error`.
+Para afirmar que una expresión es de un tipo dado, utiliza `$ExpectType`. Para afirmar que una expresión causa un error de compilación, utiliza `@ts-expect-error`.
 
 ```js
 // $ExpectType void
@@ -219,13 +219,13 @@ Para más detalles, vea el [dtslint](https://github.com/microsoft/DefinitelyType
 
 #### Linter: `.eslintrc.json`
 
-The linter configuration file, `tslint.json` should contain `{ "extends": "@definitelytyped/dtslint/dt.json" }`, and no additional rules.
+El archivo de configuración del linter, `tslint.json` debería contener `{ "extends": "@definitelytyped/dtslint/dt.json" }`, y no reglas adicionales.
 
-If for some reason some rule needs to be disabled, [disable it for that specific line](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) using `// tslint:disable-next-line:[ruleName]` — not for the whole package, so that disabling can be reviewed. (There are some legacy lint configs that have additional contents, but these should not happen in new work.)
+Si por alguna razón alguna regla necesita ser deshabilitada, [deshabilítala para esa línea específica](https://palantir.github.io/tslint/usage/rule-flags/#comment-flags-in-source-code:~:text=%2F%2F%20tslint%3Adisable%2Dnext%2Dline%3Arule1%20rule2%20rule3...%20%2D%20Disables%20the%20listed%20rules%20for%20the%20next%20line) usando `// tslint:disable-next-line:[ruleName]` — no para todo el paquete, para que la deshabilitación pueda ser revisada. (Hay algunas configuraciones de lint heredadas que tienen contenido adicional, pero esto no debería ocurrir en un nuevo trabajo.)
 
 #### `tsconfig.json`
 
-`tsconfig.json` should have `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, and `strictFunctionTypes` set to `true`.
+`tsconfig.json` debería tener `noImplicitAny`, `noImplicitThis`, `strictNullChecks`, y `strictFunctionTypes` configurados a `true`.
 
 También puedes configurar el `tsconfig.json` para añadir nuevos archivos, para agregar un `"target": "es6"` (necesitado por las funciones asíncronas), para agregar a la `"lib"`, o para agregar la opción de compilación `"jsx"`.
 
@@ -238,7 +238,7 @@ Además, si necesitas referencia a una versión anterior de typings, debes hacer
 
 #### `OTHER_FILES.txt`
 
-If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
+Si un archivo no es probado ni referenciado en `index.d.ts`, añádelo a un archivo llamado `OTHER_FILES.txt`. Este archivo es una lista de otros archivos que necesitan ser incluidos en el paquete de typings, un archivo por línea.
 
 #### Errores comunes
 
@@ -265,7 +265,7 @@ If a file is neither tested nor referenced in `index.d.ts`, add it to a file nam
 DT tiene el concepto de "Propietarios de Definiciones" que son personas que desean mantener la calidad de los tipos de un módulo en particular.
 
 - Agregarte a la lista hará que recibas notificaciones (a través de tu nombre de usuario de GitHub) cada vez que alguien haga una solicitud de extracción o informe sobre el paquete.
-- Tus revisiones de solicitudes de extracción tendrán una mayor importancia para [el bot](https://github.com/DefinitelyTyped/dt-mergebot) que mantiene este repositorio.
+- Tus revisiones de solicitudes de extracción tendrán una mayor importancia para [el bot](https://github.com/microsoft/DefinitelyTyped-tools/tree/main/packages/mergebot) que mantiene este repositorio.
 - Los mantenedores de DT confían en los propietarios de las definiciones para asegurar un ecosistema estable, así que por favor, no te agregues ligeramente.
 
 Para agregarte como Propietario de Definiciones:
@@ -314,7 +314,7 @@ Si las types son parte de los estándares web, estas deberán ser contribuidas a
 
 #### Un paquete utiliza `export =`, pero prefiero utilizar las import predeterminadas. ¿Puedo cambiar `export =` por `export default`?
 
-Si la import predeterminada trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
+Si el import predeterminado trabaja en tu ambiente, considera hacer un cambio en la opción de compilación [`--allowSyntheticDefaultImports`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) opción compilar.
 No cambies la type definition si es preciso.
 Para un paquete npm, `export =` es exacto si `node -p 'require("foo")'` es la export, y `export default` es exacto si `node -p 'require("foo").default'` es el export.
 

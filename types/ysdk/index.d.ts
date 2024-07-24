@@ -156,9 +156,9 @@ export interface Player {
     getPayingStatus(): "paying" | "partially_paying" | "not_paying" | "unknown";
     getIDsPerGame(): Promise<Array<{ appID: number; userID: string }>>;
     getMode(): "lite" | "";
-    getData<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, Serializable>>>;
+    getData<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, Serializable>>>;
     setData(data: any, flush?: boolean): Promise<void>;
-    getStats<T extends string>(keys?: Readonly<T[]>): Promise<Partial<Record<T, number>>>;
+    getStats<T extends string>(keys?: readonly T[]): Promise<Partial<Record<T, number>>>;
     setStats(stats: Record<string | number, number>): Promise<void>;
     incrementStats<T extends Record<string | number, number>>(
         stats: T,

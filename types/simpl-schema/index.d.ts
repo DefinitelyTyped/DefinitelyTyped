@@ -167,7 +167,7 @@ interface SimpleSchemaMessageType {
 type SimpleSchemaMessagesDict = Record<string, SimpleSchemaMessageType>;
 
 export class SimpleSchema {
-    constructor(schema: SimpleSchemaDefinition, options?: SimpleSchemaOptions);
+    constructor(schema: SimpleSchemaDefinition | SimpleSchema, options?: SimpleSchemaOptions);
     namedContext(name?: string): SimpleSchemaValidationContextStatic;
     static isSimpleSchema(obj: any): boolean;
     static addValidator(validator: Validator): void;

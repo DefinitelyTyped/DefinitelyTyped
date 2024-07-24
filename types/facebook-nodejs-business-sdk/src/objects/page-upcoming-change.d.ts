@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PageUpcomingChange
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -12,5 +12,5 @@ export default class PageUpcomingChange extends AbstractCrudObject {
         proposal: "proposal";
         timer_status: "timer_status";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<PageUpcomingChange>;
+    get(fields: string[], params?: Record<string, any>): Promise<PageUpcomingChange>;
 }

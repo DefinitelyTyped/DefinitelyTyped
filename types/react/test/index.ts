@@ -975,3 +975,9 @@ function propsInferenceHelpersTests() {
     // $ExpectType UnionProps & RefAttributes<HTMLDivElement>
     type UnionPropsForwardRefComponentPropsWithoutRef = React.ComponentProps<typeof UnionPropsForwardRefComponent>;
 }
+
+// act()
+{
+    // act() exposed from react
+    React.act(() => null);
+}

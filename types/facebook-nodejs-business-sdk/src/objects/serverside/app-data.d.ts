@@ -1,4 +1,4 @@
-import ExtendedDeviceInfo from './extended-device-info';
+import ExtendedDeviceInfo from "./extended-device-info";
 export default class AppData {
     _application_tracking_enabled: boolean;
     _advertiser_tracking_enabled: boolean;
@@ -12,7 +12,7 @@ export default class AppData {
     _receipt_data: string;
     _url_schemes: string;
     _windows_attribution_id: string;
-    constructor(application_tracking_enabled: boolean, advertiser_tracking_enabled: boolean, campaign_ids: string, consider_views: boolean, extinfo: ExtendedDeviceInfo, include_dwell_data: boolean, include_video_data: boolean, install_referrer: string, installer_package: string, receipt_data: string, url_schemes: string, windows_attribution_id: string);
+    constructor(application_tracking_enabled?: boolean, advertiser_tracking_enabled?: boolean, campaign_ids?: string, consider_views?: boolean, extinfo?: ExtendedDeviceInfo, include_dwell_data?: boolean, include_video_data?: boolean, install_referrer?: string, installer_package?: string, receipt_data?: string, url_schemes?: string, windows_attribution_id?: string);
     get application_tracking_enabled(): boolean;
     set application_tracking_enabled(application_tracking_enabled: boolean);
     setApplicationTrackingEnabled(application_tracking_enabled: boolean): AppData;
@@ -49,6 +49,6 @@ export default class AppData {
     get windows_attribution_id(): string;
     set windows_attribution_id(windows_attribution_id: string);
     setWindowsAttributionId(windows_attribution_id: string): AppData;
-    normalize(): Record<any, any>;
-    toJson(): Record<any, any>;
+    normalize(): Record<string, any>;
+    toJson(): Record<string, any>;
 }

@@ -81,7 +81,11 @@ const stopListeningPrintersFn = async () => qz.printers.stopListening();
 qz.security.getSignatureAlgorithm();
 qz.security.setCertificatePromise((resolve) => resolve());
 qz.security.setSignatureAlgorithm("SHA512");
+const signaturePromiseAsync = async (dataToSign: string): Promise<string> => {
+    return await "signed_request";
+};
 qz.security.setSignaturePromise((dataToSign) => (resolve) => resolve(dataToSign));
+qz.security.setSignaturePromise(signaturePromiseAsync);
 const closePortFn = async () => qz.serial.closePort("6000");
 const findPortsFn = async () => qz.serial.findPorts();
 const openPortFn = async () => qz.serial.openPort("6000");
@@ -110,6 +114,7 @@ const sendDataUsbFn = async () =>
 qz.usb.setUsbCallbacks(() => doSomething());
 qz.websocket.getNetworkInfo();
 const connectFn = async () => qz.websocket.connect();
+const connectFnWithOptions = async () => qz.websocket.connect({ retries: 10, delay: 3 });
 const disconnectFn = async () => qz.websocket.disconnect();
 const getConnectionInfoFn = async () => qz.websocket.getConnectionInfo();
 qz.websocket.isActive();

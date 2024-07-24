@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * BusinessVideo
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -11,5 +11,5 @@ export default class BusinessVideo extends AbstractCrudObject {
         name: "name";
         video: "video";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<BusinessVideo>;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessVideo>;
 }

@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdPreview
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -17,6 +17,7 @@ export default class AdPreview extends AbstractCrudObject {
         desktop_feed_standard: "DESKTOP_FEED_STANDARD";
         facebook_profile_feed_desktop: "FACEBOOK_PROFILE_FEED_DESKTOP";
         facebook_profile_feed_mobile: "FACEBOOK_PROFILE_FEED_MOBILE";
+        facebook_profile_reels_mobile: "FACEBOOK_PROFILE_REELS_MOBILE";
         facebook_reels_banner: "FACEBOOK_REELS_BANNER";
         facebook_reels_banner_desktop: "FACEBOOK_REELS_BANNER_DESKTOP";
         facebook_reels_mobile: "FACEBOOK_REELS_MOBILE";
@@ -29,6 +30,7 @@ export default class AdPreview extends AbstractCrudObject {
         instagram_explore_immersive: "INSTAGRAM_EXPLORE_IMMERSIVE";
         instagram_feed_web: "INSTAGRAM_FEED_WEB";
         instagram_feed_web_m_site: "INSTAGRAM_FEED_WEB_M_SITE";
+        instagram_lead_gen_multi_submit_ads: "INSTAGRAM_LEAD_GEN_MULTI_SUBMIT_ADS";
         instagram_profile_feed: "INSTAGRAM_PROFILE_FEED";
         instagram_profile_reels: "INSTAGRAM_PROFILE_REELS";
         instagram_reels: "INSTAGRAM_REELS";
@@ -43,9 +45,13 @@ export default class AdPreview extends AbstractCrudObject {
         instant_article_recirculation_ad: "INSTANT_ARTICLE_RECIRCULATION_AD";
         instant_article_standard: "INSTANT_ARTICLE_STANDARD";
         instream_banner_desktop: "INSTREAM_BANNER_DESKTOP";
+        instream_banner_fullscreen_mobile: "INSTREAM_BANNER_FULLSCREEN_MOBILE";
+        instream_banner_immersive_mobile: "INSTREAM_BANNER_IMMERSIVE_MOBILE";
         instream_banner_mobile: "INSTREAM_BANNER_MOBILE";
         instream_video_desktop: "INSTREAM_VIDEO_DESKTOP";
+        instream_video_fullscreen_mobile: "INSTREAM_VIDEO_FULLSCREEN_MOBILE";
         instream_video_image: "INSTREAM_VIDEO_IMAGE";
+        instream_video_immersive_mobile: "INSTREAM_VIDEO_IMMERSIVE_MOBILE";
         instream_video_mobile: "INSTREAM_VIDEO_MOBILE";
         job_browser_desktop: "JOB_BROWSER_DESKTOP";
         job_browser_mobile: "JOB_BROWSER_MOBILE";
@@ -61,6 +67,8 @@ export default class AdPreview extends AbstractCrudObject {
         mobile_native: "MOBILE_NATIVE";
         right_column_standard: "RIGHT_COLUMN_STANDARD";
         suggested_video_desktop: "SUGGESTED_VIDEO_DESKTOP";
+        suggested_video_fullscreen_mobile: "SUGGESTED_VIDEO_FULLSCREEN_MOBILE";
+        suggested_video_immersive_mobile: "SUGGESTED_VIDEO_IMMERSIVE_MOBILE";
         suggested_video_mobile: "SUGGESTED_VIDEO_MOBILE";
         watch_feed_home: "WATCH_FEED_HOME";
         watch_feed_mobile: "WATCH_FEED_MOBILE";

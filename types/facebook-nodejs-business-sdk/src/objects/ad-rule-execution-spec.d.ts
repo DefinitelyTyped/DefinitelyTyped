@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdRuleExecutionSpec
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -17,6 +17,7 @@ export default class AdRuleExecutionSpec extends AbstractCrudObject {
         change_bid: "CHANGE_BID";
         change_budget: "CHANGE_BUDGET";
         change_campaign_budget: "CHANGE_CAMPAIGN_BUDGET";
+        dco: "DCO";
         increase_radius: "INCREASE_RADIUS";
         notification: "NOTIFICATION";
         pause: "PAUSE";
@@ -28,5 +29,5 @@ export default class AdRuleExecutionSpec extends AbstractCrudObject {
         update_lax_budget: "UPDATE_LAX_BUDGET";
         update_lax_duration: "UPDATE_LAX_DURATION";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<AdRuleExecutionSpec>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdRuleExecutionSpec>;
 }

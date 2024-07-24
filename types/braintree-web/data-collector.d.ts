@@ -17,8 +17,14 @@ export function create(options: {
     client: Client;
     kount?: boolean | undefined;
     paypal?: boolean | undefined;
+    riskCorrelationId?: string | undefined;
 }): Promise<DataCollector>;
 export function create(
-    options: { client: Client; kount?: boolean | undefined; paypal?: boolean | undefined },
+    options: {
+        client: Client;
+        kount?: boolean | undefined;
+        paypal?: boolean | undefined;
+        riskCorrelationId?: string | undefined;
+    },
     callback: callback<DataCollector>,
 ): void;

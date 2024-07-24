@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20240219
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/42bfb2b9b8d977aeafe03d51562dca96323f5f38
+// Tests for Google Publisher Tag 1.20240701
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/b912994ba21b4a754ba6a6289e859fc2b1a907af
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -90,6 +90,15 @@ function test_googletag_commandArray_push() {
 // Test for googletag.CompanionAdsService.setRefreshUnfilledSlots
 function test_googletag_companionAdsService_setRefreshUnfilledSlots() {
     googletag.companionAds().setRefreshUnfilledSlots(true);
+}
+
+// Test for googletag.PrivacySettingsConfig.limitedAds
+function test_googletag_privacySettingsConfig_limitedAds() {
+    // Manually enable limited ads serving.
+    // GPT must be loaded from the limited ads URL to configure this setting.
+    googletag.pubads().setPrivacySettings({
+        limitedAds: true,
+    });
 }
 
 // Test for googletag.PrivacySettingsConfig.trafficSource
@@ -593,7 +602,7 @@ function test_googletag_slot_getSlotElementId() {
     const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!.addService(googletag.pubads());
 
     slot.getSlotElementId();
-    // Returns 'div-1'.
+    // Returns 'div'.
 }
 
 // Test for googletag.Slot.setForceSafeFrame

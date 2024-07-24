@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * BusinessCreativeFolder
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -14,5 +14,5 @@ export default class BusinessCreativeFolder extends AbstractCrudObject {
         name: "name";
         owner_business: "owner_business";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<BusinessCreativeFolder>;
+    get(fields: string[], params?: Record<string, any>): Promise<BusinessCreativeFolder>;
 }

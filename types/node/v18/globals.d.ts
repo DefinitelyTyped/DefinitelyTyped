@@ -95,6 +95,7 @@ declare global {
             new(): AbortSignal;
             abort(reason?: any): AbortSignal;
             timeout(milliseconds: number): AbortSignal;
+            any(signals: AbortSignal[]): AbortSignal;
         };
     // #endregion borrowed
 

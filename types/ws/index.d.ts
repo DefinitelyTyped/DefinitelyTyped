@@ -112,31 +112,15 @@ declare class WebSocket extends EventEmitter {
     resume(): void;
 
     // HTML5 WebSocket events
-    addEventListener(
-        method: "message",
-        cb: (event: WebSocket.MessageEvent) => void,
+    addEventListener<K extends keyof WebSocket.WebSocketEventMap>(
+        type: K,
+        listener: (event: WebSocket.WebSocketEventMap[K]) => void,
         options?: WebSocket.EventListenerOptions,
     ): void;
-    addEventListener(
-        method: "close",
-        cb: (event: WebSocket.CloseEvent) => void,
-        options?: WebSocket.EventListenerOptions,
+    removeEventListener<K extends keyof WebSocket.WebSocketEventMap>(
+        type: K,
+        listener: (event: WebSocket.WebSocketEventMap[K]) => void,
     ): void;
-    addEventListener(
-        method: "error",
-        cb: (event: WebSocket.ErrorEvent) => void,
-        options?: WebSocket.EventListenerOptions,
-    ): void;
-    addEventListener(
-        method: "open",
-        cb: (event: WebSocket.Event) => void,
-        options?: WebSocket.EventListenerOptions,
-    ): void;
-
-    removeEventListener(method: "message", cb: (event: WebSocket.MessageEvent) => void): void;
-    removeEventListener(method: "close", cb: (event: WebSocket.CloseEvent) => void): void;
-    removeEventListener(method: "error", cb: (event: WebSocket.ErrorEvent) => void): void;
-    removeEventListener(method: "open", cb: (event: WebSocket.Event) => void): void;
 
     // Events
     on(event: "close", listener: (this: WebSocket, code: number, reason: Buffer) => void): this;
@@ -305,6 +289,13 @@ declare namespace WebSocket {
         data: Data;
         type: string;
         target: WebSocket;
+    }
+
+    interface WebSocketEventMap {
+        open: Event;
+        error: ErrorEvent;
+        close: CloseEvent;
+        message: MessageEvent;
     }
 
     interface EventListenerOptions {

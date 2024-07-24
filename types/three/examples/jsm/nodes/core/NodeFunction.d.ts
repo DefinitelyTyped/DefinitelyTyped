@@ -5,9 +5,9 @@ export default abstract class NodeFunction {
     type: string;
     inputs: NodeFunctionInput[];
     name: string;
-    presicion: string;
+    precision: string;
 
-    constructor(type: string, inputs: NodeFunctionInput[], name?: string, presicion?: string);
+    constructor(type: string, inputs: NodeFunctionInput[], name?: string, precision?: string);
 
     abstract getCode(name?: string): string;
 }

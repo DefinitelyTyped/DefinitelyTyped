@@ -322,9 +322,9 @@ import Alpine, {
 
     const el = document.body;
 
-    // $ExpectType: () => void
+    // $ExpectType () => void
     Alpine.setStyles(el, "visibility: hidden");
-    // $ExpectType: () => void
+    // $ExpectType () => void
     Alpine.setStyles(el, { visibility: "hidden" });
 }
 
@@ -492,7 +492,7 @@ import Alpine, {
         alpine.magic("foo", () => {});
     };
 
-    // $ExpectType: void
+    // $ExpectType void
     Alpine.plugin(MyAlpinePlugin);
 }
 
@@ -779,4 +779,17 @@ declare module "alpinejs" {
             items: string[];
         };
     }
+}
+
+{
+    // Support for classes since 3.13.6
+    class Counter implements AlpineComponent<{ count: number }> {
+        constructor(public count: number) {}
+
+        increment() {
+            this.count++;
+        }
+    }
+
+    Alpine.data("counter", () => new Counter(5));
 }

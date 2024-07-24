@@ -8,6 +8,8 @@ const config = {
 };
 
 const splunkStream = createStream(config);
+// Enable SSL certificate validation
+splunkStream.stream.logger.requestOptions.strictSSL = true;
 
 splunkStream.on("error", (err, context) => {
     // Handle errors here

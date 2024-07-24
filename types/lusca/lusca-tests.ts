@@ -17,6 +17,20 @@ app.use(lusca({
 app.use(lusca.csrf());
 app.use(lusca.csrf({ cookie: { name: "csrf" }, header: "x-csrf-token" }));
 app.use(lusca.csrf({ cookie: "csrf", angular: true }));
+app.use(
+    lusca.csrf({
+        cookie: "csrf",
+        impl: {
+            create: (req, secretKey) => ({
+                token: "token",
+                secret: "secret",
+                validate(req, token) {
+                    return true;
+                },
+            }),
+        },
+    }),
+);
 app.use(lusca.csrf({ blocklist: ["/blocklist"] }));
 app.use(lusca.csrf({ allowlist: ["/allowlist"] }));
 app.use(lusca.csp({ policy: [{ "img-src": "'self' http:" }, "block-all-mixed-content"], reportOnly: false }));

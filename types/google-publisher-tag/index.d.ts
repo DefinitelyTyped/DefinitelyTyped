@@ -362,9 +362,31 @@ declare namespace googletag {
         /**
          * Enables serving to run in
          * [limited ads](https://support.google.com/admanager/answer/9882911) mode to
-         * aid in publisher regulatory compliance needs. When enabled, the GPT library
-         * itself may optionally be requested from a cookie-less, [limited ads
+         * aid in publisher regulatory compliance needs.
+         *
+         * You can instruct GPT to request limited ads in two ways:
+         *
+         * - Automatically, by using a signal from an
+         *   [IAB TCF v2.0](https://iabeurope.eu/tcf-2-0/) consent management
+         *   platform.
+         * - Manually, by setting the value of this field to `true`.
+         *
+         * Manually configuring limited ads is only possible when GPT is loaded from
+         * the [limited ads
          * URL](https://developers.google.com/publisher-tag/guides/general-best-practices#load_from_an_official_source).
+         * Attempting to modify this setting when GPT has been loaded from the
+         * standard URL will generate a [Publisher Console
+         * warning](http://developers.google.com/publisher-tag/guides/publisher-console-messages#147).
+         *
+         * Note that it is not necessary to manually enable limited ads when a CMP is
+         * in use.
+         *
+         * @example
+         *   // Manually enable limited ads serving.
+         *   // GPT must be loaded from the limited ads URL to configure this setting.
+         *   googletag.pubads().setPrivacySettings({
+         *     limitedAds: true,
+         *   });
          *
          * @see [Display a limited ad](https://developers.google.com/publisher-tag/samples/display-limited-ad)
          */
@@ -1524,7 +1546,7 @@ declare namespace googletag {
          *                         .addService(googletag.pubads());
          *
          *   slot.getSlotElementId();
-         *   // Returns 'div-1'.
+         *   // Returns 'div'.
          *
          * @return Slot `div` ID.
          */
@@ -2189,7 +2211,12 @@ declare namespace googletag {
             push(provider: SecureSignalProvider): void;
 
             /**
-             * Clears all cached signals from local storage.
+             * Clears all signals for all collectors from cache.
+             *
+             * Calling this method may reduce the likelihood of signals being included
+             * in ad requests for the current and potentially later page views. Due to
+             * this, it should only be called when meaningful state changes occur,
+             * such as events that indicate a new user (log in, log out, sign up, etc.).
              */
             clearAllCache(): void;
         }

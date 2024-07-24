@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * ProductItemLocalInfo
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -15,5 +15,5 @@ export default class ProductItemLocalInfo extends AbstractCrudObject {
         inferred_circle_origin: "inferred_circle_origin";
         inferred_circle_radius: "inferred_circle_radius";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<ProductItemLocalInfo>;
+    get(fields: string[], params?: Record<string, any>): Promise<ProductItemLocalInfo>;
 }

@@ -315,7 +315,7 @@ docker.buildImage(
     },
 );
 
-docker.buildImage(".", { nocache: true }, (err, response) => {
+docker.buildImage(".", { nocache: true, version: "2" }, (err, response) => {
     // NOOP
 });
 
@@ -454,6 +454,17 @@ docker.listServices({ filters: JSON.stringify({ name: ["network-name"] }), statu
 
 docker.listServices({ filters: { name: ["network-name"] } }).then(services => {
     return services.map(service => docker.getService(service.ID));
+});
+
+(async () => {
+    // $ExpectType ReadableStream
+    const pullStream = await docker.pull("hello-world", { authconfig: { username: "username", password: "password" } });
+
+    // $ExpectType Image
+    const pushImage = docker.getImage("hello-world");
+
+    // $ExpectType ReadableStream
+    const pushStream = await pushImage.push({ authconfig: { username: "username", password: "password" } });
 });
 
 const image = docker.getImage("imageName");

@@ -3,17 +3,38 @@
 // $ExpectType Access
 window.Access;
 
+// $ExpectType boolean
+window.Access.isPoool;
+
 // $ExpectType Access
 globalThis.Access;
+
+// $ExpectType boolean
+globalThis.Access.isPoool;
 
 // $ExpectType Access
 Access;
 
+// $ExpectType boolean
+Access.isPoool;
+
 // $ExpectType Access
 window.PooolAccess;
 
+// $ExpectType boolean
+window.Access.isPoool;
+
+// $ExpectType boolean
+window.PooolAccess.isPoool;
+
 // $ExpectType Access
 globalThis.PooolAccess;
+
+// $ExpectType boolean
+globalThis.Access.isPoool;
+
+// $ExpectType boolean
+globalThis.PooolAccess.isPoool;
 
 // $ExpectType Access
 PooolAccess;
@@ -32,6 +53,15 @@ access.createPaywall({
     content: "content",
     mode: "hide",
     pageType: "premium",
+    percent: 80,
+});
+
+// $ExpectType AccessFactory
+access.createPaywall({
+    target: "target",
+    content: "content",
+    mode: "hide",
+    pageType: "page",
     percent: 80,
 });
 
@@ -59,7 +89,7 @@ access.config(
     true,
 );
 
-//  $ExpectType AccessFactory
+// $ExpectType AccessFactory
 access.config("key", "value", true);
 
 // $ExpectType AccessFactory
@@ -110,6 +140,9 @@ access.variables({
 access.on("subscribeClick", () => {});
 
 // $ExpectType AccessFactory
+access.on("onSubscribeClick", () => {});
+
+// $ExpectType AccessFactory
 access.once("subscribeClick", () => {});
 
 // $ExpectType AccessFactory
@@ -122,20 +155,38 @@ access.destroy();
 // $ExpectType Audit
 window.Audit;
 
+// $ExpectType boolean
+window.Audit.isPoool;
+
 // $ExpectType Audit
 globalThis.Audit;
+
+// $ExpectType boolean
+globalThis.Audit.isPoool;
 
 // $ExpectType Audit
 Audit;
 
+// $ExpectType boolean
+Audit.isPoool;
+
 // $ExpectType Audit
 window.PooolAudit;
+
+// $ExpectType boolean
+window.PooolAudit.isPoool;
 
 // $ExpectType Audit
 globalThis.PooolAudit;
 
+// $ExpectType boolean
+globalThis.PooolAudit.isPoool;
+
 // $ExpectType Audit
 PooolAudit;
+
+// $ExpectType boolean
+PooolAudit.isPoool;
 
 // $ExpectType Audit
 Audit.noConflict();
@@ -152,6 +203,9 @@ audit.config(
     },
     true,
 );
+
+// $ExpectType Audit
+audit.config({ context: ["context-1", "context-2"] });
 
 // $ExpectType Promise<boolean>
 audit.sendEvent("page-view", { type: "premium" }, { key: "value" });

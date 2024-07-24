@@ -715,6 +715,17 @@ function rand() {
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
+// Plotly.toImage with null dimensions
+(() => {
+    // Plotly.toImage will turn the plot in the given div into a data URL string
+    // toImage takes the div as the first argument and an object specifying image properties as the other
+    Plotly.toImage(graphDiv, { format: "png", width: null, height: null, scale: 2 }).then(dataUrl => {
+        // use the dataUrl
+    });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
 // Plotly.toImage + scale parameter
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
@@ -741,6 +752,14 @@ function rand() {
 (() => {
     // downloadImage will accept the div as the first argument and an object specifying image properties as the other
     Plotly.downloadImage(graphDiv, { format: "png", width: 800, height: 600, filename: "newplot" });
+})();
+//////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////
+// Plotly.downloadImage with null dimensions
+(() => {
+    // downloadImage will accept the div as the first argument and an object specifying image properties as the other
+    Plotly.downloadImage(graphDiv, { format: "png", width: null, height: null, filename: "newplot" });
 })();
 //////////////////////////////////////////////////////////////////////
 

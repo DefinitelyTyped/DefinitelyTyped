@@ -2,6 +2,16 @@
 import fp = require("./fp");
 import _ = require("lodash");
 
+import type {
+    GetFieldType,
+    GetFieldTypeOfNarrowed,
+    GetFieldTypeOfNarrowedByDotPath,
+    GetFieldTypeOfNarrowedByKey,
+    GetFieldTypeOfNarrowedByLKR,
+    GetFieldTypeOfObject,
+    GetFieldTypeOfPrimitive,
+} from "lodash";
+
 declare const anything: any;
 
 interface AbcObject {
@@ -3656,25 +3666,62 @@ fp.now(); // $ExpectType number
 
 // _.throttle
 {
-    const options: _.ThrottleSettings = {
+    const optionsLeading: _.ThrottleSettingsLeading = {
         leading: true,
         trailing: false,
+    }
+    const optionsNoLeading: _.ThrottleSettings = {
+        leading: false,
     };
+
+    const optionsAmbiguous = {
+        leading: true as boolean,
+    };
+    const boolean = false as boolean; // $ExpectType boolean
+    const maybeUndefined = true as true | undefined; // $ExpectType true | undefined
 
     const func = (a: number, b: string): boolean => true;
 
-    _.throttle(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _.throttle(func, 42, options); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    _(func).throttle(); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _(func).throttle(42, options); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
-    _.chain(func).throttle(42, options); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.throttle(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, {}); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: true, trailing: false }); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: false }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: boolean }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, optionsAmbiguous); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
 
-    fp.throttle(42, func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
-    fp.throttle(42)(func); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _(func).throttle(); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, {}); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: true, trailing: false }); // $ExpectType Function<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: false }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: boolean }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, optionsAmbiguous); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+
+    _.chain(func).throttle(); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, {}); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: true, trailing: false }); // $ExpectType FunctionChain<DebouncedFuncLeading<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: false }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: boolean }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, optionsAmbiguous); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+
+    fp.throttle(42, func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+    fp.throttle(42)(func); // $ExpectType DebouncedFuncLeading<(a: number, b: string) => boolean>
+
+    // _.throttle treats an explicit `leading: undefined` the same as `leading: false`
+    const badOptionsLeading: _.ThrottleSettingsLeading = {
+        // @ts-expect-error explicit undefined is not allowed here
+        leading: undefined,
+    };
+
+    // any invokation where leading might be set as undefined should return DebouncedFunc, not DebouncedFuncLeading
+    _.throttle(func, 42, { leading: undefined }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.throttle(func, 42, { leading: maybeUndefined }); // $ExpectType DebouncedFunc<(a: number, b: string) => boolean>
+    _.chain(func).throttle(42, { leading: undefined }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _.chain(func).throttle(42, { leading: maybeUndefined }); // $ExpectType FunctionChain<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: undefined }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
+    _(func).throttle(42, { leading: maybeUndefined }); // $ExpectType Function<DebouncedFunc<(a: number, b: string) => boolean>>
 }
 
 // _.unary
@@ -5310,6 +5357,40 @@ fp.now(); // $ExpectType number
     const value: string | undefined = anything;
     const defaultValue: boolean = anything;
     const objectWithOptionalField: { a?: boolean } = anything;
+    const nestedObjectWithOptionalField: {
+        foo?: {
+            bar: string;
+        } | null;
+        nested?: {
+            with?: {
+                optional: string | null;
+            } | null;
+        } | null;
+        four?: {
+            levels?: {
+                deep?: {
+                    value?: number;
+                } | null;
+            } | null;
+        } | null;
+    } = anything;
+    const nestedObject: {
+        foo: {
+            bar: string;
+        };
+        nested: {
+            with: {
+                optional: string | null;
+            };
+        };
+        four: {
+            levels: {
+                deep: {
+                    value: number;
+                };
+            };
+        };
+    } = anything;
 
     const anyNumber: number = anything;
     const arrayOfNumbers: number[] = anything;
@@ -5317,6 +5398,14 @@ fp.now(); // $ExpectType number
 
     const dictionary: _.Dictionary<string> = anything;
     const maybeObject: { a: _.Dictionary<string> } | undefined = anything;
+
+    const complexValue: {
+        some: { test: { path: 'Value1' } };
+        'some.test.path': 'Value2';
+        'some[test]path': 'Value3';
+        '0': 'Value4';
+        'length': 'Value5';
+    } | number[] = anything;
 
     _.get([], Symbol.iterator);
     _.get([], [Symbol.iterator]);
@@ -5331,7 +5420,7 @@ fp.now(); // $ExpectType number
     _.get({ a: tupleOfNumbers }, 'a.0'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[0]'); // $ExpectType 1
     _.get({ a: tupleOfNumbers }, 'a[1]'); // $ExpectType undefined
-    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType undefined
+    _.get({ a: tupleOfNumbers }, `a[${anyNumber}]`); // $ExpectType 1
     _.get({ a: dictionary }, 'a.b'); // $ExpectType string
     _.get(maybeObject, 'a.b'); // $ExpectType string | undefined
     _.get("abc", [0], "_");
@@ -5348,6 +5437,28 @@ fp.now(); // $ExpectType number
     _.get({}, "a", defaultValue); // $ExpectType boolean
     _.get({}, "a" as string, defaultValue); // $ExpectType boolean
     _.get(objectWithOptionalField, "a", undefined); // $ExpectType boolean | undefined
+    _.get(complexValue, 'some.test.path'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some].test.path'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, 'some[test].path'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, 'some.test[path]'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some][test].path'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some].test[path]'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, 'some[test][path]'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some][test][path]'); // $ExpectType 'Value1' | undefined
+    _.get(complexValue, '[some.test.path]'); // $ExpectType 'Value2' | undefined
+    _.get(complexValue, '["some[test]path"]'); // $ExpectType 'Value3' | undefined
+    _.get(complexValue, '0'); // $ExpectType 'Value4' | number
+    _.get(complexValue, '1'); // $ExpectType undefined | number
+    _.get(complexValue, 'length'); // $ExpectType 'Value5' | number
+    _.get(nestedObject, ['foo', 'bar']); // $ExpectType string
+    _.get(nestedObject, ['nested', 'with', 'optional']); // $ExpectType string | null
+    _.get(nestedObject, ['four', 'levels', 'deep', 'value']); // $ExpectType number
+    _.get(nestedObjectWithOptionalField, ['foo', 'bar'], defaultValue); // $ExpectType string | boolean
+    _.get(nestedObjectWithOptionalField, ['nested', 'with', 'optional'], defaultValue); // $ExpectType string | null | boolean
+    _.get(nestedObjectWithOptionalField, ['four', 'levels', 'deep', 'value'], defaultValue); // $ExpectType number | boolean
+    _.get(nestedObjectWithOptionalField, ['foo', 'bar']); // $ExpectType string | undefined
+    _.get(nestedObjectWithOptionalField, ['nested', 'with', 'optional']); // $ExpectType string | null | undefined
+    _.get(nestedObjectWithOptionalField, ['four', 'levels', 'deep', 'value']); // $ExpectType number | undefined
 
     _("abc").get(1); // $ExpectType string
     _({ a: false }).get("a"); // $ExpectType boolean
@@ -5359,7 +5470,7 @@ fp.now(); // $ExpectType number
     _({ a: tupleOfNumbers }).get('a.0'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType 1
     _({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType undefined
-    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType undefined
+    _({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType 1
     _({ a: dictionary }).get('a.b'); // $ExpectType string
     _("abc").get([0], "_");
     _([42]).get(0, -1); // $ExpectType number
@@ -5385,7 +5496,7 @@ fp.now(); // $ExpectType number
     _.chain({ a: tupleOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType never
-    _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType never
+    _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType PrimitiveChain<1>
     _.chain({ a: dictionary }).get('a.b'); // $ExpectType StringChain
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
@@ -5403,9 +5514,9 @@ fp.now(); // $ExpectType number
     _.chain(objectWithOptionalField).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({}).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
 
-    fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
-    fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>
-    fp.get([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
+    fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never>
+    fp.get([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.get(1)("abc"); // $ExpectType string
     fp.get("1")("abc"); // $ExpectType any
     fp.get("a", { a: { b: true } }); // $ExpectType { b: boolean; }
@@ -5424,6 +5535,32 @@ fp.now(); // $ExpectType number
     _.has(abcObject, ""); // $ExpectType boolean
     _.has(abcObject, 42); // $ExpectType boolean
     _.has(abcObject, ["", 42]); // $ExpectType boolean
+    if (_.has(abcObject, 'd')) {
+        abcObject.d // $ExpectType unknown
+    } else {
+        abcObject; // $ExpectType AbcObject
+    }
+    const partialObject: Partial<AbcObject> = {};
+    if (_.has(partialObject, 'a')) {
+        partialObject.a; // $ExpectType number | undefined
+    } else {
+        partialObject; // $ExpectType Partial<AbcObject>
+    }
+    const record: Record<string, number | string> = {};
+    if (_.has(record, 'a')) {
+        record.a; // $ExpectType number | string
+        const result: { a: number | string } = record;
+    } else {
+        // @ts-expect-error
+        const result: { a: number | string } = record;
+        record; // $ExpectType Record<string, number | string>
+    }
+    const data = {
+        level: 1,
+        length: 1,
+    };
+    _.has(data, 'level') || !!data.length;
+
     _(abcObject).has(""); // $ExpectType boolean
     _(abcObject).has(42); // $ExpectType boolean
     _(abcObject).has(["", 42]); // $ExpectType boolean
@@ -5610,6 +5747,14 @@ fp.now(); // $ExpectType number
         return abcObject;
     });
 
+    // $ExpectType NumericDictionary<boolean>
+    _.mapValues(arrayParam, (value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
     // $ExpectType { [x: string]: string; }
     _.mapValues(dictionary, (value, key, collection) => {
         value;  // $ExpectType AbcObject
@@ -5671,6 +5816,14 @@ fp.now(); // $ExpectType number
         return "";
     });
 
+    // $ExpectType NumericDictionary<boolean>
+    _(arrayParam).mapValues((value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
     // $ExpectType Object<{ [x: number]: string; }>
     _(numericDictionary).mapValues((value, key, collection) => {
         value;  // $ExpectType AbcObject
@@ -5720,6 +5873,16 @@ fp.now(); // $ExpectType number
         collection; // $ExpectType Dictionary<AbcObject>
         return "";
     });
+
+    // $ExpectType ObjectChain<NumericDictionary<boolean>>
+    _.chain(arrayParam).mapValues((value, key, collection) => {
+        value;  // $ExpectType AbcObject
+        key; // $ExpectType number
+        collection; // $ExpectType AbcObject[]
+        return true;
+    });
+
+    
 
     // $ExpectType ObjectChain<{ [x: number]: string; }>
     _.chain(numericDictionary).mapValues((value, key, collection) => {
@@ -7126,7 +7289,7 @@ fp.now(); // $ExpectType number
     _.chain("a.b[0]").property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     _.chain(["a", "b", 0]).property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     fp.property(Symbol.iterator)([]); // $ExpectType any
-    fp.property([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.property([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.property(1)("abc"); // $ExpectType string
 }
 
@@ -7137,7 +7300,7 @@ fp.now(); // $ExpectType number
     _.chain({}).propertyOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
 
     fp.propertyOf(Symbol.iterator)([]); // $ExpectType any
-    fp.propertyOf([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.propertyOf([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.propertyOf(1)("abc"); // $ExpectType string
 }
 
@@ -7262,6 +7425,9 @@ _.templateSettings; // $ExpectType TemplateSettings
     const func3 = (arg1: number, arg2: string, arg3: boolean): number => {
         return arg1 * arg2.length + (arg3 ? 1 : 0);
     };
+    const func4 = (arg1: number, arg2: string, arg3: boolean, arg4: number): number => {
+        return arg1 * arg2.length + (arg3 ? 1 : 0) - arg4;
+    }
 
     // with arity 0 function
     _.partial(func0); // $ExpectType () => number
@@ -7275,7 +7441,16 @@ _.templateSettings; // $ExpectType TemplateSettings
     _.partial(func2, _.partial.placeholder, "foo"); // $ExpectType Function1<number, number>
     _.partial(func2, 42, "foo"); // $ExpectType () => number
     // with arity 3 function
-    _.partial(func3, 42,     _, true);
+    _.partial(func3) // $ExpectType (arg1: number, arg2: string, arg3: boolean) => number
+    _.partial(func3, 42) // $ExpectType (arg2: string, arg3: boolean) => number
+    _.partial(func3, 42,     _, true) // $ExpectType Function1<string, number>;
+    _.partial(func3, 42, "foo", true) // $ExpectType () => number
+    // with arity 4 function
+    _.partial(func4) // $ExpectType (arg1: number, arg2: string, arg3: boolean: arg4: number) => number
+    _.partial(func4, 42) // $ExpectType (arg2: string, arg3: boolean: arg4: number) => number
+    _.partial(func4, 42,     _, true, 10) // $ExpectType Function1<string, number>;
+    _.partial(func4, _,      _,    _, 10) // $ExpectType Function3<number, string, boolean, number>;
+    _.partial(func4, 42, "foo", true, 10) // $ExpectType () => number
 
     // with arity 0 function
     _.partialRight(func0); // $ExpectType Function0<number>
@@ -7313,4 +7488,186 @@ _.templateSettings; // $ExpectType TemplateSettings
     _("").stubFalse(); // $ExpectType false
     _.chain("").stubFalse(); // $ExpectType LoDashExplicitWrapper<false>
     fp.stubFalse(); // $ExpectType false
+}
+
+/********************
+ * TypeScript Utils *
+ ********************/
+
+// GetFieldTypeOfNarrowedByKey
+{
+    // of array
+    {
+        type Arr = Array<'OK'>;
+        type A = GetFieldTypeOfNarrowedByKey<Arr, 0>; // $ExpectType 'OK'
+        type B = GetFieldTypeOfNarrowedByKey<Arr, '0'>; // $ExpectType 'OK'
+        type C = GetFieldTypeOfNarrowedByKey<Arr, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<Arr, 'length'>; // $ExpectType number
+    }
+
+    // of object
+    {
+        const symbol = Symbol();
+
+        interface ObjectLiteral { [key: string]: 'OK', [symbol]: 'SymVal' }
+        type ObjectWithNumberKeys = Record<number, 'OK'>; // keyof ObjectWithNumberKeys equals number
+        type ObjectWithStringKeys = Record<string, 'OK'>; // keyof ObjectWithStringKeys equals string
+
+        type A = GetFieldTypeOfNarrowedByKey<AbcObject, 'a'>; // $ExpectType number
+        type B = GetFieldTypeOfNarrowedByKey<AbcObject, 'b'>; // $ExpectType string
+        type C = GetFieldTypeOfNarrowedByKey<AbcObject, 'c'>; // $ExpectType boolean
+        type D = GetFieldTypeOfNarrowedByKey<AbcObject, 'd'>; // $ExpectType undefined
+        type E = GetFieldTypeOfNarrowedByKey<AbcObject, 0>; // $ExpectType undefined
+        type F = GetFieldTypeOfNarrowedByKey<AbcObject, '0'>; // $ExpectType undefined
+
+        type G = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 'key'>; // $ExpectType 'OK'
+        type H = GetFieldTypeOfNarrowedByKey<ObjectLiteral, typeof symbol>; // $ExpectType "SymVal"
+
+        // Note: It is legit, as JS & TS auto-cast numeric values to string keys.
+        type I = GetFieldTypeOfNarrowedByKey<ObjectLiteral, 0>; // $ExpectType 'OK'
+
+        type J = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 0>; // $ExpectType 'OK'
+        type K = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, '0'>; // $ExpectType 'OK'
+        type L = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, 'key'>; // $ExpectType undefined
+        type M = GetFieldTypeOfNarrowedByKey<ObjectWithNumberKeys, typeof symbol>; // $ExpectType undefined
+
+        // Again, JS & TS auto-cast numeric values to string keys, thus the next two test cases are valid.
+        type N = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 0>; // $ExpectType 'OK'
+        type O = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, '0'>; // $ExpectType 'OK'
+        type P = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, 'key'>; // $ExpectType 'OK'
+        type R = GetFieldTypeOfNarrowedByKey<ObjectWithStringKeys, typeof symbol>; // $ExpectType undefined
+    }
+
+    // of non-accessible primitives
+    {
+        const symbol = Symbol();
+        type A = GetFieldTypeOfNarrowedByKey<never, 'key'>; // $ExpectType never
+        type B = GetFieldTypeOfNarrowedByKey<null, 'key'>; // $ExpectType undefined
+        type C = GetFieldTypeOfNarrowedByKey<number, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<typeof symbol, 'key'>; // $ExpectType undefined
+        type E = GetFieldTypeOfNarrowedByKey<undefined, 'key'>; // $ExpectType undefined
+    }
+
+    // of string
+    {
+        type A = GetFieldTypeOfNarrowedByKey<string, 0>; // $ExpectType string
+        type B = GetFieldTypeOfNarrowedByKey<string, '0'>; // $ExpectType string
+        type C = GetFieldTypeOfNarrowedByKey<string, 'key'>; // $ExpectType undefined
+        type D = GetFieldTypeOfNarrowedByKey<string, 'length'>; // $ExpectType number
+    }
+
+    // of tuple
+    {
+        type Tuple = ['A'];
+        type A = GetFieldTypeOfNarrowedByKey<Tuple, 0>; // $ExpectType 'A'
+        type B = GetFieldTypeOfNarrowedByKey<Tuple, 1>; // $ExpectType undefined
+        type C = GetFieldTypeOfNarrowedByKey<Tuple, number>; // $ExpectType 'A'
+        type D = GetFieldTypeOfNarrowedByKey<Tuple, '0'>; // $ExpectType 'A'
+        type E = GetFieldTypeOfNarrowedByKey<Tuple, '1'>; // $ExpectType undefined
+        type F = GetFieldTypeOfNarrowedByKey<Tuple, 'key'>; // $ExpectType undefined
+        type G = GetFieldTypeOfNarrowedByKey<Tuple, 'length'>; // $ExpectType 1
+    }
+}
+
+// GetFieldTypeOfNarrowedByDotPath
+{
+    // handling of empty key names (based on the runtime _.get() behavior)
+    interface ObjA { '': { '': { '': 'OK' } } };
+    type A = GetFieldTypeOfNarrowedByDotPath<ObjA, ''>; // $ExpectType { '': { '': 'OK' } }
+    type B = GetFieldTypeOfNarrowedByDotPath<ObjA, '.'>; // $ExpectType { '': 'OK' }
+    type C = GetFieldTypeOfNarrowedByDotPath<ObjA, '..'>; // $ExpectType 'OK'
+    type D = GetFieldTypeOfNarrowedByDotPath<ObjA, '...'>; // $ExpectType undefined
+
+    // handling of objects with non-empty key names
+    interface ObjB { some: { path: 'OK' } };
+    type E = GetFieldTypeOfNarrowedByDotPath<ObjB, ''>; // $ExpectType undefined
+    type F = GetFieldTypeOfNarrowedByDotPath<ObjB, 'some'> // $ExpectType { path: 'OK' }
+    type G = GetFieldTypeOfNarrowedByDotPath<ObjB, 'some.path'> // $ExpectType 'OK'
+    type H = GetFieldTypeOfNarrowedByDotPath<ObjB, '.some'>; // $ExpectType undefined
+}
+
+// GetFieldTypeOfNarrowedByLKR
+{
+    interface ObjA { some: { test: { path: 'OK' } } };
+
+    type A = GetFieldTypeOfNarrowedByLKR<ObjA, 'some.test', 'path', ''>; // $ExpectType 'OK' 
+    type B = GetFieldTypeOfNarrowedByLKR<ObjA, 'some', 'test', 'path'>; // $ExpectType 'OK'
+    type C = GetFieldTypeOfNarrowedByLKR<ObjA, '', 'some', 'test.path'>; // $ExpectType 'OK'
+
+    // it should ignore the tail dot in L, and the front dot in R, if any
+    type D = GetFieldTypeOfNarrowedByLKR<ObjA, 'some.', 'test', '.path'>; // $ExpectType 'OK'
+    type E = GetFieldTypeOfNarrowedByLKR<ObjA, '.some', 'test', 'path.'>; // $ExpectType undefined
+
+    // and if there are empty key names, they should be handled correctly
+    type F = GetFieldTypeOfNarrowedByLKR<{ '': { test: 'OK' } }, '.', 'test', ''> // $ExpectType 'OK'
+    type G = GetFieldTypeOfNarrowedByLKR<{ test: { '': 'OK' } }, '', 'test', '.'> // $ExpectType 'OK'
+    type H = GetFieldTypeOfNarrowedByLKR<{ '': { test: { '': 'OK' } } }, '.', 'test', '.'> // $ExpectType 'OK'
+}
+
+// GetFieldTypeOfNarrowed
+{
+    interface Obj {
+        some: { test: { path: 'Value1' } },
+        'some.test.path': 'Value2',
+        'some[test]path': 'Value3',
+    };
+
+    // XT argument causes expected path/key parsing mode
+    type A = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'Key'>; // $ExpectType 'Value2'
+    type B = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'Key'>; // $ExpectType 'Value3'
+    type C = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'DotPath'>; // $ExpectType 'Value1'
+    type D = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'DotPath'>; // $ExpectType 'Value3'
+    type E = GetFieldTypeOfNarrowed<Obj, 'some.test.path', 'Path'>; // $ExpectType 'Value1'
+    type F = GetFieldTypeOfNarrowed<Obj, 'some[test]path', 'Path'>; // $ExpectType 'Value1'
+
+    // Dots around brackets are handled the same as by _.get() during the runtime
+    type G = GetFieldTypeOfNarrowed<Obj, '.some[test]path', 'Path'>; // $ExpectType undefined
+    type H = GetFieldTypeOfNarrowed<Obj, 'some.[test]path', 'Path'>; // $ExpectType 'Value1'
+    type I = GetFieldTypeOfNarrowed<Obj, 'some[test].path', 'Path'>; // $ExpectType 'Value1'
+    type J = GetFieldTypeOfNarrowed<Obj, 'some[test]path.', 'Path'>; // $ExpectType undefined
+
+    // Brackets in front, or in the end
+    type K = GetFieldTypeOfNarrowed<Obj, '[some]test.path', 'Path'>; // $ExpectType 'Value1'
+    type L = GetFieldTypeOfNarrowed<Obj, '.[some]test.path', 'Path'>; // $ExpectType undefined
+    type M = GetFieldTypeOfNarrowed<Obj, 'some.test[path]', 'Path'>; // $ExpectType 'Value1'
+    type N = GetFieldTypeOfNarrowed<Obj, 'some.test[path].', 'Path'>; // $ExpectType undefined
+
+    // Key inside brackets can be quoted, to avoid parsing any dots / brackets inside it
+    type O = GetFieldTypeOfNarrowed<Obj, "['some.test.path']", 'Path'>; // $ExpectType 'Value2'
+    type P = GetFieldTypeOfNarrowed<Obj, '["some[test]path"]', 'Path'>; // $ExpectType 'Value3'
+}
+
+// GetFieldTypeOfObject
+{
+    type Arr = Array<'ArrVal'>;
+    interface Obj { '0': 'ObjVal' };
+    type ArrOrObj = Arr | Obj;
+
+    type A = GetFieldTypeOfObject<Arr, 0, 'Path'>; // $ExpectType 'ArrVal'
+    type B = GetFieldTypeOfObject<Obj, 0, 'Path'>; // $ExpectType 'ObjVal'
+    type C = GetFieldTypeOfObject<ArrOrObj, 0, 'Path'>; // $ExpectType 'ArrVal' | 'ObjVal'
+    type D = GetFieldTypeOfObject<ArrOrObj, 'length', 'Path'>; // $ExpectType number | undefined
+}
+
+// GetFieldTypeOfPrimitive
+{
+    type A = GetFieldTypeOfPrimitive<string, 0, 'Path'>; // $ExpectType string
+    type B = GetFieldTypeOfPrimitive<null, 0, 'Path'>; // $ExpectType undefined
+    type C = GetFieldTypeOfPrimitive<never, 0, 'Path'>; // $ExpectType never
+    type D = GetFieldTypeOfPrimitive<string | null, 0, 'Path'>; // $ExpectType string | undefined
+    type E = GetFieldTypeOfPrimitive<string | null, 'length', 'Path'>; // $ExpectType number | undefined
+}
+
+// GetFieldType
+{
+    type Type =
+        | Array<'ArrVal'>
+        | { '0': 'ObjVal0', 'A': 'ObjValA' }
+        | string
+        | undefined;
+
+    type A = GetFieldType<Type, 0>; // $ExpectType string | undefined
+    type B = GetFieldType<Exclude<Type, string>, 0>; // $ExpectType 'ArrVal' | 'ObjVal0' | undefined
+    type C = GetFieldType<Type, 'A'>; // $ExpectType 'ObjValA' | undefined
+    type D = GetFieldType<Type, 'length'>; // $ExpectType number | undefined
 }

@@ -3414,8 +3414,11 @@ declare namespace cytoscape {
     }
     /**
      * http://js.cytoscape.org/#eles.closenessCentralityNormalized
-     * trivial
      */
+    interface SearchClosenessCentralityNormalizedResult {
+        /** the normalised closeness centrality of the specified node */
+        closeness(node: NodeSingular): any;
+    }
 
     /**
      * http://js.cytoscape.org/#eles.betweennessCentrality
@@ -3600,7 +3603,7 @@ declare namespace cytoscape {
          */
         closenessCentralityNormalized(
             options: SearchClosenessCentralityNormalizedOptions,
-        ): SearchDegreeCentralityNormalizedResultDirected | SearchDegreeCentralityNormalizedResultUndirected;
+        ): SearchClosenessCentralityNormalizedResult;
         /**
          * Considering only the elements in the calling collection,
          * calculate the betweenness centrality of the nodes.
@@ -4104,6 +4107,199 @@ declare namespace cytoscape {
              * The opacity of the node’s ith pie chart slice.
              */
             "pie-i-background-opacity": PropertyValueNode<number>;
+
+            /**
+             * The colour of the node’s 1st pie chart slice.
+             */
+            "pie-1-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 1st pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-1-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 1st pie chart slice.
+             */
+            "pie-1-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 2nd pie chart slice.
+             */
+            "pie-2-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 2nd pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-2-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 2nd pie chart slice.
+             */
+            "pie-2-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 3rd pie chart slice.
+             */
+            "pie-3-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 3rd pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-3-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 3rd pie chart slice.
+             */
+            "pie-3-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 4th pie chart slice.
+             */
+            "pie-4-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 4th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-4-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 4th pie chart slice.
+             */
+            "pie-4-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 5th pie chart slice.
+             */
+            "pie-5-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 5th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-5-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 5th pie chart slice.
+             */
+            "pie-5-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 6th pie chart slice.
+             */
+            "pie-6-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 6th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-6-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 6th pie chart slice.
+             */
+            "pie-6-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 7th pie chart slice.
+             */
+            "pie-7-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 7th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-7-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 7th pie chart slice.
+             */
+            "pie-7-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 8th pie chart slice.
+             */
+            "pie-8-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 8th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-8-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 8th pie chart slice.
+             */
+            "pie-8-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 9th pie chart slice.
+             */
+            "pie-9-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 9th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-9-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 9th pie chart slice.
+             */
+            "pie-9-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 10th pie chart slice.
+             */
+            "pie-10-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 10th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-10-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 10th pie chart slice.
+             */
+            "pie-10-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 11th pie chart slice.
+             */
+            "pie-11-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 11th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-11-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 11th pie chart slice.
+             */
+            "pie-11-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 12th pie chart slice.
+             */
+            "pie-12-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 12th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-12-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 12th pie chart slice.
+             */
+            "pie-12-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 13th pie chart slice.
+             */
+            "pie-13-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 13th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-13-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 13th pie chart slice.
+             */
+            "pie-13-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 14th pie chart slice.
+             */
+            "pie-14-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 14th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-14-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 14th pie chart slice.
+             */
+            "pie-14-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 15th pie chart slice.
+             */
+            "pie-15-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 15th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-15-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 15th pie chart slice.
+             */
+            "pie-15-background-opacity": PropertyValueNode<number>;
+            /**
+             * The colour of the node’s 16th pie chart slice.
+             */
+            "pie-16-background-color": PropertyValueNode<Colour>;
+            /**
+             * The size of the node’s 16th pie chart slice, measured in percent (e.g. 25% or 25).
+             */
+            "pie-16-background-size": PropertyValueNode<number>;
+            /**
+             * The opacity of the node’s 16th pie chart slice.
+             */
+            "pie-16-background-opacity": PropertyValueNode<number>;
         }
 
         interface Edge
@@ -5259,12 +5455,9 @@ declare namespace cytoscape {
         padding?: number | undefined;
     }
 
-    interface SortableNode {
-        data: { weight: number };
-    }
-
-    // function(a, b){ return a.data('weight') - b.data('weight') }
-    type SortingFunction = (a: SortableNode, b: SortableNode) => number;
+    // A function that determines the order of the nodes. The return value has the same
+    // semantics as for compare function passed to Array.sort.
+    type SortingFunction = (a: NodeSingular, b: NodeSingular) => number;
 
     interface ShapedLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         // whether to fit to viewport
@@ -5343,9 +5536,9 @@ declare namespace cytoscape {
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
         spacingFactor?: number;
         // returns numeric value for each node, placing higher nodes in levels towards the centre
-        concentric?(node: { degree(): number }): number;
+        concentric?(node: NodeSingular): number;
         // the variation of concentric values in each level
-        levelWidth?(node: { maxDegree(): number }): number;
+        levelWidth?(node: NodeCollection): number;
     }
 
     /**

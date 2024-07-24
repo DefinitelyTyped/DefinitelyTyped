@@ -24,7 +24,7 @@ export interface UseBlockProps {
                 [K in keyof Props]: K extends keyof Reserved ? never : Props[K];
             }
             & { ref?: Ref<unknown> },
-    ): Omit<Props, "ref"> & Merged & Reserved;
+    ): Omit<Props, "ref"> & Merged & Reserved & Record<string, unknown>;
 
     save: (props?: Record<string, unknown>) => Record<string, unknown>;
 }

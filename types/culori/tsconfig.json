@@ -13,6 +13,9 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "all/index.d.ts",
+        "css/index.d.ts",
+        "fn/index.d.ts",
         "index.d.ts",
         "test/average.test.ts",
         "test/blend.test.ts",

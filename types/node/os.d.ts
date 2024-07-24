@@ -5,17 +5,22 @@
  * ```js
  * const os = require('node:os');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/os.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/os.js)
  */
 declare module "os" {
     interface CpuInfo {
         model: string;
         speed: number;
         times: {
+            /** The number of milliseconds the CPU has spent in user mode. */
             user: number;
+            /** The number of milliseconds the CPU has spent in nice mode. */
             nice: number;
+            /** The number of milliseconds the CPU has spent in sys mode. */
             sys: number;
+            /** The number of milliseconds the CPU has spent in idle mode. */
             idle: number;
+            /** The number of milliseconds the CPU has spent in irq mode. */
             irq: number;
         };
     }
@@ -75,7 +80,7 @@ declare module "os" {
     function totalmem(): number;
     /**
      * Returns an array of objects containing information about each logical CPU core.
-     * The array will be empty if no CPU information is available, such as if the`/proc` file system is unavailable.
+     * The array will be empty if no CPU information is available, such as if the `/proc` file system is unavailable.
      *
      * The properties included on each object include:
      *
@@ -229,14 +234,14 @@ declare module "os" {
     /**
      * Returns information about the currently effective user. On POSIX platforms,
      * this is typically a subset of the password file. The returned object includes
-     * the `username`, `uid`, `gid`, `shell`, and `homedir`. On Windows, the `uid` and`gid` fields are `-1`, and `shell` is `null`.
+     * the `username`, `uid`, `gid`, `shell`, and `homedir`. On Windows, the `uid` and `gid` fields are `-1`, and `shell` is `null`.
      *
      * The value of `homedir` returned by `os.userInfo()` is provided by the operating
      * system. This differs from the result of `os.homedir()`, which queries
      * environment variables for the home directory before falling back to the
      * operating system response.
      *
-     * Throws a `SystemError` if a user has no `username` or `homedir`.
+     * Throws a [`SystemError`](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-systemerror) if a user has no `username` or `homedir`.
      * @since v6.0.0
      */
     function userInfo(options: { encoding: "buffer" }): UserInfo<Buffer>;
@@ -387,6 +392,13 @@ declare module "os" {
             const WSA_E_CANCELLED: number;
             const WSAEREFUSED: number;
         }
+        namespace dlopen {
+            const RTLD_LAZY: number;
+            const RTLD_NOW: number;
+            const RTLD_GLOBAL: number;
+            const RTLD_LOCAL: number;
+            const RTLD_DEEPBIND: number;
+        }
         namespace priority {
             const PRIORITY_LOW: number;
             const PRIORITY_BELOW_NORMAL: number;
@@ -397,13 +409,18 @@ declare module "os" {
         }
     }
     const devNull: string;
+    /**
+     * The operating system-specific end-of-line marker.
+     * * `\n` on POSIX
+     * * `\r\n` on Windows
+     */
     const EOL: string;
     /**
      * Returns the operating system CPU architecture for which the Node.js binary was
-     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`,`'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`,
+     * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`, `'mips'`, `'mipsel'`, `'ppc'`, `'ppc64'`, `'riscv64'`, `'s390'`, `'s390x'`,
      * and `'x64'`.
      *
-     * The return value is equivalent to `process.arch`.
+     * The return value is equivalent to [process.arch](https://nodejs.org/docs/latest-v20.x/api/process.html#processarch).
      * @since v0.5.0
      */
     function arch(): string;
@@ -418,7 +435,7 @@ declare module "os" {
     /**
      * Returns a string identifying the operating system platform for which
      * the Node.js binary was compiled. The value is set at compile time.
-     * Possible values are `'aix'`, `'darwin'`, `'freebsd'`,`'linux'`,`'openbsd'`, `'sunos'`, and `'win32'`.
+     * Possible values are `'aix'`, `'darwin'`, `'freebsd'`, `'linux'`, `'openbsd'`, `'sunos'`, and `'win32'`.
      *
      * The return value is equivalent to `process.platform`.
      *
@@ -428,7 +445,7 @@ declare module "os" {
      */
     function platform(): NodeJS.Platform;
     /**
-     * Returns the machine type as a string, such as `arm`, `arm64`, `aarch64`,`mips`, `mips64`, `ppc64`, `ppc64le`, `s390`, `s390x`, `i386`, `i686`, `x86_64`.
+     * Returns the machine type as a string, such as `arm`, `arm64`, `aarch64`, `mips`, `mips64`, `ppc64`, `ppc64le`, `s390`, `s390x`, `i386`, `i686`, `x86_64`.
      *
      * On POSIX systems, the machine type is determined by calling [`uname(3)`](https://linux.die.net/man/3/uname). On Windows, `RtlGetVersion()` is used, and if it is not
      * available, `GetVersionExW()` will be used. See [https://en.wikipedia.org/wiki/Uname#Examples](https://en.wikipedia.org/wiki/Uname#Examples) for more information.
@@ -457,15 +474,15 @@ declare module "os" {
      */
     function getPriority(pid?: number): number;
     /**
-     * Attempts to set the scheduling priority for the process specified by `pid`. If`pid` is not provided or is `0`, the process ID of the current process is used.
+     * Attempts to set the scheduling priority for the process specified by `pid`. If `pid` is not provided or is `0`, the process ID of the current process is used.
      *
-     * The `priority` input must be an integer between `-20` (high priority) and `19`(low priority). Due to differences between Unix priority levels and Windows
-     * priority classes, `priority` is mapped to one of six priority constants in`os.constants.priority`. When retrieving a process priority level, this range
+     * The `priority` input must be an integer between `-20` (high priority) and `19` (low priority). Due to differences between Unix priority levels and Windows
+     * priority classes, `priority` is mapped to one of six priority constants in `os.constants.priority`. When retrieving a process priority level, this range
      * mapping may cause the return value to be slightly different on Windows. To avoid
      * confusion, set `priority` to one of the priority constants.
      *
      * On Windows, setting priority to `PRIORITY_HIGHEST` requires elevated user
-     * privileges. Otherwise the set priority will be silently reduced to`PRIORITY_HIGH`.
+     * privileges. Otherwise the set priority will be silently reduced to `PRIORITY_HIGH`.
      * @since v10.10.0
      * @param [pid=0] The process ID to set scheduling priority for.
      * @param priority The scheduling priority to assign to the process.

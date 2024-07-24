@@ -1,48 +1,58 @@
-import { AnyObject, NodeTypeOption, SwizzleOption } from "../core/constants.js";
 import ConstNode from "../core/ConstNode.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
+import StackNode from "../core/StackNode.js";
 
 export interface NodeElements {
+    toGlobal: (node: Node) => Node;
+
     append: typeof append;
 
-    color: typeof color;
-    float: typeof float;
-    int: typeof int;
-    uint: typeof uint;
-    bool: typeof bool;
-    vec2: typeof vec2;
-    ivec2: typeof ivec2;
-    uvec2: typeof uvec2;
-    bvec2: typeof bvec2;
-    vec3: typeof vec3;
-    ivec3: typeof ivec3;
-    uvec3: typeof uvec3;
-    bvec3: typeof bvec3;
-    vec4: typeof vec4;
-    ivec4: typeof ivec4;
-    uvec4: typeof uvec4;
-    bvec4: typeof bvec4;
-    mat2: typeof mat2;
-    imat2: typeof imat2;
-    umat2: typeof umat2;
-    bmat2: typeof bmat2;
-    mat3: typeof mat3;
-    imat3: typeof imat3;
-    umat3: typeof umat3;
-    bmat3: typeof bmat3;
-    mat4: typeof mat4;
-    imat4: typeof imat4;
-    umat4: typeof umat4;
-    bmat4: typeof bmat4;
-    string: typeof string;
-    arrayBuffer: typeof arrayBuffer;
+    toColor: typeof color;
+    toFloat: typeof float;
+    toInt: typeof int;
+    toUint: typeof uint;
+    toBool: typeof bool;
+    toVec2: typeof vec2;
+    toIvec2: typeof ivec2;
+    toUvec2: typeof uvec2;
+    toBvec2: typeof bvec2;
+    toVec3: typeof vec3;
+    toIvec3: typeof ivec3;
+    toUvec3: typeof uvec3;
+    toBvec3: typeof bvec3;
+    toVec4: typeof vec4;
+    toIvec4: typeof ivec4;
+    toUvec4: typeof uvec4;
+    toBvec4: typeof bvec4;
+    toMat2: typeof mat2;
+    toImat2: typeof imat2;
+    toUmat2: typeof umat2;
+    toBmat2: typeof bmat2;
+    toMat3: typeof mat3;
+    toImat3: typeof imat3;
+    toUmat3: typeof umat3;
+    toBmat3: typeof bmat3;
+    toMat4: typeof mat4;
+    toImat4: typeof imat4;
+    toUmat4: typeof umat4;
+    toBmat4: typeof bmat4;
 
     element: typeof element;
     convert: typeof convert;
 }
 
 export function addNodeElement(name: string, nodeElement: unknown): void;
+
+export type SwizzleCharacter = "x" | "y" | "z" | "w" | "r" | "g" | "b" | "a" | "s" | "t" | "p" | "q";
+
+export type SwizzleOption = Exclude<
+    | `${SwizzleCharacter}`
+    | `${SwizzleCharacter}${SwizzleCharacter}`
+    | `${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}`
+    | `${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}${SwizzleCharacter}`,
+    "abs" | "sqrt"
+>;
 
 export type Swizzable<T extends Node = Node> =
     & T
@@ -53,8 +63,14 @@ export type Swizzable<T extends Node = Node> =
 export type ShaderNodeObject<T extends Node> =
     & T
     & {
-        [Key in keyof NodeElements]: NodeElements[Key] extends (node: T, ...args: infer Args) => infer R
-            ? (...args: Args) => R
+        [Key in keyof NodeElements]: T extends { [K in Key]: infer M } ? M
+            : NodeElements[Key] extends (node: T, ...args: infer Args) => infer R ? (...args: Args) => R
+            : never;
+    }
+    & {
+        [Key in keyof NodeElements as `${Key}Assign`]: T extends { [K in Key]: infer M } ? M
+            : NodeElements[Key] extends (node: T, ...args: infer Args) => unknown
+                ? (...args: Args) => ShaderNodeObject<T>
             : never;
     }
     & Swizzable<T>;
@@ -160,9 +176,9 @@ type NodeArray<T extends NodeObjectOption[]> = { [index in keyof T]: NodeObject<
 type NodeObjects<T> = { [key in keyof T]: T[key] extends NodeObjectOption ? NodeObject<T[key]> : T[key] };
 type ConstructedNode<T> = T extends new(...args: any[]) => infer R ? (R extends Node ? R : never) : never;
 
-export type NodeOrType = Node | NodeTypeOption;
+export type NodeOrType = Node | string;
 
-export const getConstNodeType: (value: NodeOrType) => NodeTypeOption | null;
+export const getConstNodeType: (value: NodeOrType) => string | null;
 
 export class ShaderNode<T = {}, R extends Node = Node> {
     constructor(jsFunc: (inputs: NodeObjects<T>, builder: NodeBuilder) => NodeRepresentation);
@@ -198,9 +214,18 @@ export function nodeImmutable<T>(
 ): ShaderNodeObject<ConstructedNode<T>>;
 
 export function tslFn<R extends Node = ShaderNodeObject<Node>>(jsFunc: () => R): () => R;
-export function tslFn<T extends AnyObject, R extends Node = ShaderNodeObject<Node>>(
+export function tslFn<T extends any[], R extends Node = ShaderNodeObject<Node>>(
     jsFunc: (args: T) => R,
-): (args: T) => R;
+): (...args: ProxiedTuple<T>) => R;
+export function tslFn<T extends { [key: string]: unknown }, R extends Node = ShaderNodeObject<Node>>(
+    jsFunc: (args: T) => R,
+): (args: ProxiedObject<T>) => R;
+
+export const setCurrentStack: (stack: StackNode | null) => void;
+
+export const getCurrentStack: () => StackNode | null;
+
+export const If: (boolNode: Node, method: () => void) => void;
 
 export function append(node: Node): Node;
 
@@ -245,4 +270,4 @@ export const string: (value?: string) => ShaderNodeObject<ConstNode<string>>;
 export const arrayBuffer: (value: ArrayBuffer) => ShaderNodeObject<ConstNode<ArrayBuffer>>;
 
 export const element: (node: NodeRepresentation, indexNode: NodeRepresentation) => ShaderNodeObject<Node>;
-export const convert: (node: NodeRepresentation, types: NodeTypeOption) => ShaderNodeObject<Node>;
+export const convert: (node: NodeRepresentation, types: string) => ShaderNodeObject<Node>;

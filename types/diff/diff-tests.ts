@@ -128,3 +128,15 @@ verifyPatchMethods(one, other, uniDiffPatch);
 
 const uniDiffStr = Diff.createPatch("file.ts", one, other, "old", "new", { context: 1 });
 verifyApplyMethods(one, other, uniDiffStr);
+
+const file1 = "line1\nline2\nline3\nline4\n";
+const file2 = "line1\nline2\nline5\nline4\n";
+const patch = Diff.structuredPatch("file1", "file2", file1, file2);
+// $ExpectType ParsedDiff
+const reversedPatch = Diff.reversePatch(patch);
+// $ExpectType ParsedDiff[]
+const verifyPatch = Diff.parsePatch(
+    Diff.createTwoFilesPatch("oldFile.ts", "newFile.ts", "old content", "new content", "old", "new", {
+        context: 1,
+    }),
+);

@@ -13,6 +13,17 @@ export interface LightingModelDirectInput {
     lightDirection: Node;
     lightColor: Node;
     reflectedLight: LightingModelReflectedLight;
+    shadowMask: Node;
+}
+
+export interface LightingModelDirectRectAreaInput {
+    lightColor: Node;
+    lightPosition: Node;
+    halfWidth: Node;
+    halfHeight: Node;
+    reflectedLight: LightingModelReflectedLight;
+    ltc_1: Node;
+    ltc_2: Node;
 }
 
 export interface LightingModelIndirectInput {
@@ -30,6 +41,7 @@ export default class LightingModel {
     start(input: LightingModelIndirectInput, stack: StackNode, builder: NodeBuilder): void;
     finish(input: LightingModelIndirectInput, stack: StackNode, builder: NodeBuilder): void;
     direct(input: LightingModelDirectInput, stack: StackNode, builder: NodeBuilder): void;
+    directRectArea(input: LightingModelDirectRectAreaInput, stack: StackNode, builder: NodeBuilder): void;
     indirectDiffuse(input: LightingModelIndirectInput, stack: StackNode, builder: NodeBuilder): void;
     indirectSpecular(input: LightingModelIndirectInput, stack: StackNode, builder: NodeBuilder): void;
     ambientOcclusion(input: LightingModelIndirectInput, stack: StackNode, builder: NodeBuilder): void;

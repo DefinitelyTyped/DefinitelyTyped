@@ -15,7 +15,7 @@ export default class ExtendedDeviceInfo {
     _total_disk_space_gb: number;
     _free_disk_space_gb: number;
     _device_time_zone: string;
-    constructor(ext_info_version: string, app_package_name: string, short_version: string, long_version: string, os_version: string, device_model_name: string, locale: string, timezone_abbreviation: string, carrier: string, screen_width: number, screen_height: number, screen_density: string, cpu_core_count: number, total_disk_space_gb: number, free_disk_space_gb: number, device_time_zone: string);
+    constructor(ext_info_version?: string, app_package_name?: string, short_version?: string, long_version?: string, os_version?: string, device_model_name?: string, locale?: string, timezone_abbreviation?: string, carrier?: string, screen_width?: number, screen_height?: number, screen_density?: string, cpu_core_count?: number, total_disk_space_gb?: number, free_disk_space_gb?: number, device_time_zone?: string);
     get ext_info_version(): string;
     set ext_info_version(ext_info_version: string);
     setExtInfoVersion(ext_info_version: string): ExtendedDeviceInfo;
@@ -64,6 +64,6 @@ export default class ExtendedDeviceInfo {
     get device_time_zone(): string;
     set device_time_zone(device_time_zone: string);
     setDeviceTimeZone(device_time_zone: string): ExtendedDeviceInfo;
-    normalize(): Record<any, any>;
-    toJson(): Record<any, any>;
+    normalize(): Record<string, any>;
+    toJson(): Record<string, any>;
 }

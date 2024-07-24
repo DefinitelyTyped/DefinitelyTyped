@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * PlayableContent
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -9,5 +9,5 @@ export default class PlayableContent extends AbstractCrudObject {
         name: "name";
         owner: "owner";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<PlayableContent>;
+    get(fields: string[], params?: Record<string, any>): Promise<PlayableContent>;
 }

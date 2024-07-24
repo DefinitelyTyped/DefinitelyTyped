@@ -121,6 +121,43 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "text-events": "yes",
         },
     },
+    {
+        selector: "node.pie-background",
+        style: {
+            "pie-1-background-color": "110000",
+            "pie-1-background-size": 5,
+            "pie-2-background-color": "220000",
+            "pie-2-background-size": 5,
+            "pie-3-background-color": "330000",
+            "pie-3-background-size": 5,
+            "pie-4-background-color": "440000",
+            "pie-4-background-size": 5,
+            "pie-5-background-color": "550000",
+            "pie-5-background-size": 5,
+            "pie-6-background-color": "660000",
+            "pie-6-background-size": 5,
+            "pie-7-background-color": "770000",
+            "pie-7-background-size": 5,
+            "pie-8-background-color": "880000",
+            "pie-8-background-size": 5,
+            "pie-9-background-color": "990000",
+            "pie-9-background-size": 5,
+            "pie-10-background-color": "AA0000",
+            "pie-10-background-size": 5,
+            "pie-11-background-color": "BB0000",
+            "pie-11-background-size": 5,
+            "pie-12-background-color": "CC0000",
+            "pie-12-background-size": 5,
+            "pie-13-background-color": "DD0000",
+            "pie-13-background-size": 5,
+            "pie-14-background-color": "EE0000",
+            "pie-14-background-size": 5,
+            "pie-15-background-color": "FF0000",
+            "pie-15-background-size": 5,
+            "pie-16-background-color": "001100",
+            "pie-16-background-size": 5,
+        },
+    },
 ];
 
 const cy = cytoscape({
@@ -943,7 +980,7 @@ const circleAllOptions: CircleLayoutOptions = {
     startAngle: 0,
     sweep: Math.PI,
     clockwise: false,
-    sort: (x, y) => 0,
+    sort: (x, y) => x.id().length - y.id().length,
     animate: true,
     animationDuration: 750,
     animationEasing: "ease",
@@ -997,7 +1034,7 @@ const concentricAllOptions: ConcentricLayoutOptions = {
     height: 5,
     width: 3,
     spacingFactor: 7,
-    concentric: _node => 6,
+    concentric: _node => _node.neighborhood().size(),
     levelWidth: _nodes => 5,
     animate: true,
     animationDuration: 50,
@@ -1039,3 +1076,6 @@ const coseAllOptions: CoseLayoutOptions = {
     minTemp: 10.0,
 };
 cy.layout(coseAllOptions);
+
+const ccn = cy.nodes().closenessCentralityNormalized({ directed: false });
+ccn.closeness(cy.nodes()[0]);

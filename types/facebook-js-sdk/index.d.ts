@@ -333,6 +333,7 @@ declare namespace facebook {
         config_id?: string | undefined;
         response_type?: string | undefined;
         override_default_response_type?: boolean | undefined;
+        extras?: object | undefined;
     }
 
     ////////////////////////

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/purify",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/One-com/purify#readme"
+    ],
+    "devDependencies": {
+        "@types/purify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

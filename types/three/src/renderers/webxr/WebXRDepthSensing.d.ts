@@ -21,7 +21,9 @@ export class WebXRDepthSensing {
 
     init(renderer: WebGLRenderer, depthData: XRWebGLDepthInformation, renderState: XRRenderState): void;
 
-    render(renderer: WebGLRenderer, cameraXR: WebXRArrayCamera): void;
+    getMesh(cameraXR: WebXRArrayCamera): Mesh | null;
 
     reset(): void;
+
+    getDepthTexture(): Texture | null;
 }

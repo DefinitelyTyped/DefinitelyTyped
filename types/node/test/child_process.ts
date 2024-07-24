@@ -1,4 +1,5 @@
 import * as childProcess from "node:child_process";
+import * as dgram from "node:dgram";
 import * as fs from "node:fs";
 import * as net from "node:net";
 import assert = require("node:assert");
@@ -142,6 +143,24 @@ import { promisify } from "node:util";
 }
 
 {
+    const forked = childProcess.fork(new URL("file://test"), ["asd"] as readonly string[], {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: "inherit",
+        execPath: "",
+        execArgv: ["asda"],
+        signal: new AbortSignal(),
+        killSignal: "SIGABRT",
+        timeout: 123,
+    });
+    const ipc: Pipe = forked.channel!;
+    const hasRef: boolean = ipc.hasRef();
+    ipc.close();
+    ipc.unref();
+    ipc.ref();
+}
+
+{
     const forked = childProcess.fork("./", {
         windowsVerbatimArguments: true,
         silent: false,
@@ -152,7 +171,21 @@ import { promisify } from "node:util";
 }
 
 {
+    const forked = childProcess.fork(new URL("file://test"), {
+        windowsVerbatimArguments: true,
+        silent: false,
+        stdio: ["inherit"],
+        execPath: "",
+        execArgv: ["asda"],
+    });
+}
+
+{
     const forked = childProcess.fork("./");
+}
+
+{
+    const forked = childProcess.fork(new URL("file://test"));
 }
 
 async function testPromisify() {
@@ -338,7 +371,7 @@ async function testPromisify() {
     });
     cp = cp.addListener("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
     cp = cp.addListener("spawn", () => {
     });
@@ -364,7 +397,7 @@ async function testPromisify() {
     });
     cp = cp.on("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
 
     cp = cp.once("close", (code, signal) => {
@@ -381,7 +414,7 @@ async function testPromisify() {
     });
     cp = cp.once("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
 
     cp = cp.prependListener("close", (code, signal) => {
@@ -398,7 +431,7 @@ async function testPromisify() {
     });
     cp = cp.prependListener("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
 
     cp = cp.prependOnceListener("close", (code, signal) => {
@@ -415,7 +448,7 @@ async function testPromisify() {
     });
     cp = cp.prependOnceListener("message", (message, sendHandle) => {
         const _message: any = message;
-        const _sendHandle: net.Socket | net.Server = sendHandle;
+        const _sendHandle: net.Socket | net.Server | dgram.Socket | undefined = sendHandle;
     });
 
     _boolean = cp.kill();

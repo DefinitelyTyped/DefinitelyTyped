@@ -124,14 +124,14 @@ export type InsertDeleteOperation =
     }
     | {
         updateType: "insertdelete";
-        graph?: GraphOrDefault;
-        insert?: Quads[];
-        delete?: Quads[];
+        graph?: IriTerm;
+        insert: Quads[];
+        delete: Quads[];
         using?: {
             default: IriTerm[];
             named: IriTerm[];
         };
-        where?: Pattern[];
+        where: Pattern[];
     }
     | {
         updateType: "deletewhere";

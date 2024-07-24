@@ -1,4 +1,3 @@
-import PositionNode from "../accessors/PositionNode.js";
 import TextureNode from "../accessors/TextureNode.js";
 import Node from "../core/Node.js";
 import { NodeRepresentation, ShaderNodeObject } from "../shadernode/ShaderNode.js";
@@ -10,16 +9,16 @@ export default class TriplanarTexturesNode extends Node {
 
     scaleNode: ShaderNodeObject<Node>;
 
-    positionNode: ShaderNodeObject<PositionNode>;
-    normalNode: ShaderNodeObject<PositionNode>;
+    positionNode: ShaderNodeObject<Node>;
+    normalNode: ShaderNodeObject<Node>;
 
     constructor(
         textureXNode: Node,
         textureYNode?: TextureNode | null,
         textureZNode?: TextureNode | null,
         scaleNode?: ShaderNodeObject<Node>,
-        positionNode?: ShaderNodeObject<PositionNode>,
-        normalNode?: ShaderNodeObject<PositionNode>,
+        positionNode?: ShaderNodeObject<Node>,
+        normalNode?: ShaderNodeObject<Node>,
     );
 }
 

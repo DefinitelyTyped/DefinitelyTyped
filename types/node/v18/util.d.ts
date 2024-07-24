@@ -513,7 +513,7 @@ declare module "util" {
      */
     export function isError(object: unknown): object is Error;
     /**
-     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and`extends` keywords to get language level inheritance support. Also note
+     * Usage of `util.inherits()` is discouraged. Please use the ES6 `class` and `extends` keywords to get language level inheritance support. Also note
      * that the two styles are [semantically incompatible](https://github.com/nodejs/node/issues/4179).
      *
      * Inherit the prototype methods from one [constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/constructor) into another. The
@@ -885,7 +885,7 @@ declare module "util" {
      * If the `--throw-deprecation` command-line flag is set, or the`process.throwDeprecation` property is set to `true`, then an exception will be
      * thrown when the deprecated function is called.
      *
-     * The `--throw-deprecation` command-line flag and `process.throwDeprecation`property take precedence over `--trace-deprecation` and`process.traceDeprecation`.
+     * The `--throw-deprecation` command-line flag and `process.throwDeprecation` property take precedence over `--trace-deprecation` and `process.traceDeprecation`.
      * @since v0.8.0
      * @param fn The function that is being deprecated.
      * @param msg A warning message to display when the deprecated function is invoked.

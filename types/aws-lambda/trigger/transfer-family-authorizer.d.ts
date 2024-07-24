@@ -15,10 +15,11 @@ export type TransferFamilyAuthorizerHandler = Handler<TransferFamilyAuthorizerEv
 /**
  * Transfer Family Authorizer Event. This is the event that will be passed to the Lambda function.
  * Event message structure can be found here: https://docs.aws.amazon.com/transfer/latest/userguide/custom-lambda-idp.html
+ * While the documentation is not explicit, for key based auth, password will be undefined
  */
 export interface TransferFamilyAuthorizerEvent {
     username: string;
-    password: string;
+    password?: string;
     protocol: "SFTP" | "FTP" | "FTPS";
     serverId: string;
     sourceIp: string;

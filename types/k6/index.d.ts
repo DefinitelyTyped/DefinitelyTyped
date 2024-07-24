@@ -20,6 +20,7 @@
 import "./global"; // Type global environment
 
 // Expose everything to autoimport
+import "./browser";
 import "./crypto";
 import "./data";
 import "./encoding";
@@ -35,7 +36,6 @@ import "./experimental/timers";
 import "./experimental/tracing";
 import "./experimental/webcrypto";
 import "./experimental/websockets";
-import "./experimental/grpc";
 import "./timers";
 import "./ws";
 import "./net/grpc";
