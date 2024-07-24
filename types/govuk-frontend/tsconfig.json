@@ -60,6 +60,8 @@
         "dist/govuk/i18n.d.ts",
         "dist/govuk/init.d.mts",
         "dist/govuk/init.d.ts",
+        "govuk-frontend-tests.mts",
+        "govuk-frontend-tests.ts",
         "index.d.mts",
         "index.d.ts"
     ]
