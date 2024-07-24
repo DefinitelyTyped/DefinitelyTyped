@@ -2383,7 +2383,7 @@ declare namespace React {
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
         src?: string | undefined;
         type?: string | undefined;
-        fetchpriority?: 'auto' | 'high' | 'low'
+        fetchPriority?: 'auto' | 'high' | 'low';
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
