@@ -16,3 +16,15 @@ const loaderOptions: SassLoader.Options = {
     },
     webpackImporter: true,
 };
+
+const loaderOptionsWithCallback: SassLoader.Options = {
+    additionalData: (content, _loaderContext) => {
+        return `$env: \"development\";${content}`;
+    },
+    warnRuleAsWarning: true,
+    sourceMap: true,
+    sassOptions: {
+        sourceMap: true,
+    },
+    webpackImporter: true,
+};
