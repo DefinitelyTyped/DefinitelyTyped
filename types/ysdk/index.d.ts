@@ -24,7 +24,7 @@ export interface SDK {
         GameplayAPI: {
             start(): void;
             stop(): void;
-        }
+        };
     }>;
 
     clipboard: {
