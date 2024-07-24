@@ -598,8 +598,6 @@ declare module "vm" {
         specifier: string,
         referencingModule: Module,
         extra: {
-            /** @deprecated Use `attributes` instead */
-            assert: ImportAttributes;
             attributes: ImportAttributes;
         },
     ) => Module | Promise<Module>;
