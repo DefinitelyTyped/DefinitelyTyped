@@ -317,6 +317,7 @@ declare namespace facebook {
         appId?: string | undefined;
         version: string;
         cookie?: boolean | undefined;
+        localStorage?: boolean | undefined;
         status?: boolean | undefined;
         xfbml?: boolean | undefined;
         frictionlessRequests?: boolean | undefined;
