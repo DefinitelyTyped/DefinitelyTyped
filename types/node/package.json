@@ -9,7 +9,7 @@
     ],
     "tsconfigs": ["tsconfig.dom.json", "tsconfig.non-dom.json"],
     "dependencies": {
-        "undici-types": "~5.26.4"
+        "undici-types": "~6.11.1"
     },
     "devDependencies": {
         "@types/node": "workspace:."
