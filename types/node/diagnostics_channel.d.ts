@@ -20,7 +20,7 @@
  * should generally include the module name to avoid collisions with data from
  * other modules.
  * @since v15.1.0, v14.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.12.2/lib/diagnostics_channel.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/diagnostics_channel.js)
  */
 declare module "diagnostics_channel" {
     import { AsyncLocalStorage } from "node:async_hooks";
@@ -419,6 +419,9 @@ declare module "diagnostics_channel" {
          * This will run the given function using `channel.runStores(context, ...)` on the `start` channel which ensures all
          * events should have any bound stores set to match this trace context.
          *
+         * To ensure only correct trace graphs are formed, events will only be published if subscribers are present prior to starting the trace. Subscriptions
+         * which are added after the trace begins will not receive future events from that trace, only future traces will be seen.
+         *
          * ```js
          * import diagnostics_channel from 'node:diagnostics_channel';
          *
@@ -450,6 +453,9 @@ declare module "diagnostics_channel" {
          * produce an `error event` if the given function throws an error or the
          * returned promise rejects. This will run the given function using `channel.runStores(context, ...)` on the `start` channel which ensures all
          * events should have any bound stores set to match this trace context.
+         *
+         * To ensure only correct trace graphs are formed, events will only be published if subscribers are present prior to starting the trace. Subscriptions
+         * which are added after the trace begins will not receive future events from that trace, only future traces will be seen.
          *
          * ```js
          * import diagnostics_channel from 'node:diagnostics_channel';
@@ -501,6 +507,9 @@ declare module "diagnostics_channel" {
          *
          * The callback will also be run with `channel.runStores(context, ...)` which
          * enables context loss recovery in some cases.
+         *
+         * To ensure only correct trace graphs are formed, events will only be published if subscribers are present prior to starting the trace. Subscriptions
+         * which are added after the trace begins will not receive future events from that trace, only future traces will be seen.
          *
          * ```js
          * import diagnostics_channel from 'node:diagnostics_channel';

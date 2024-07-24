@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CatalogSubVerticalList
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -34,7 +34,6 @@ export default class CatalogSubVerticalList extends AbstractCrudObject {
         local_service_business_item: "local_service_business_item";
         local_service_business_restaurant: "local_service_business_restaurant";
         loyalty_offer: "loyalty_offer";
-        meetup_space: "meetup_space";
         nursery: "nursery";
         printers_and_scanners: "printers_and_scanners";
         printers_scanners_and_fax_machines: "printers_scanners_and_fax_machines";

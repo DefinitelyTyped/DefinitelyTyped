@@ -394,17 +394,6 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      */
     set alphaTest(value: number);
 
-    onBuild(object: Object3D, parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
-
-    onBeforeRender(
-        renderer: WebGLRenderer,
-        scene: Scene,
-        camera: Camera,
-        geometry: BufferGeometry,
-        object: Object3D,
-        group: Group,
-    ): void;
-
     /**
      * An optional callback that is executed immediately before the shader program is compiled.
      * This function is called with the associated WebGL program parameters and renderer.
@@ -443,7 +432,10 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
     copy(material: Material): this;
 
     /**
-     * This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@link Texture}.
+     * Frees the GPU-related resources allocated by this instance. Call this method whenever this instance is no longer
+     * used in your app.
+     *
+     * Material textures must be disposed of by the dispose() method of {@link Texture}.
      */
     dispose(): void;
 
@@ -453,4 +445,21 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * @default false
      */
     set needsUpdate(value: boolean);
+
+    /**
+     * @deprecated onBuild() has been removed.
+     */
+    onBuild(object: Object3D, parameters: WebGLProgramParametersWithUniforms, renderer: WebGLRenderer): void;
+
+    /**
+     * @deprecated onBeforeRender() has been removed.
+     */
+    onBeforeRender(
+        renderer: WebGLRenderer,
+        scene: Scene,
+        camera: Camera,
+        geometry: BufferGeometry,
+        object: Object3D,
+        group: Group,
+    ): void;
 }

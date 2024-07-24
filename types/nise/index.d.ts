@@ -56,6 +56,10 @@ export interface FakeXMLHttpRequest {
      */
     responseXML: Document;
     /**
+     * `true` when the request has been aborted, `false` or undefined otherwise
+     */
+    aborted: boolean;
+    /**
      * The value of the given response header, if the request has been responded to (see respond).
      * @param header
      */

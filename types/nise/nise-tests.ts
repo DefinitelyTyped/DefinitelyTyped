@@ -47,6 +47,9 @@ function testFakeXMLHttpRequest() {
     xhr.setStatus(404);
     xhr.respond(200, { Accept: "application/json" }, "body");
     xhr.error();
+
+    // $ExpectType boolean
+    xhr.aborted;
 }
 
 function testFakeXMLHttpRequestStatic() {

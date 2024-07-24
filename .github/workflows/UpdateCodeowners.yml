@@ -25,13 +25,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
-        with:
-          node-version: '20'
-      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
-        with:
-          run_install: |
-            - args: [--filter, ., --filter, '{./scripts}...']
+      - uses: ./.github/actions/setup-for-scripts
 
       - run: git config --global user.email "typescriptbot@microsoft.com"
       - run: git config --global user.name "TypeScript Bot"

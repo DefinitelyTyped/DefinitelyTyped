@@ -1,6 +1,5 @@
-import { Color, Combine, MeshPhongMaterialParameters, NormalMapTypes, Texture, Vector2 } from "three";
+import { Color, Combine, Euler, MeshPhongMaterialParameters, NormalMapTypes, Texture, Vector2 } from "three";
 import Node from "../core/Node.js";
-import { ShaderNodeObject } from "../shadernode/ShaderNode.js";
 import NodeMaterial, { NodeMaterialParameters } from "./NodeMaterial.js";
 
 export interface MeshPhongNodeMaterialParameters extends NodeMaterialParameters, MeshPhongMaterialParameters {
@@ -9,8 +8,8 @@ export interface MeshPhongNodeMaterialParameters extends NodeMaterialParameters,
 export default class MeshPhongNodeMaterial extends NodeMaterial {
     readonly isMeshPhongNodeMaterial: true;
 
-    shininessNode: ShaderNodeObject<Node> | null;
-    specularNode: ShaderNodeObject<Node> | null;
+    shininessNode: Node | null;
+    specularNode: Node | null;
 
     // Properties from MeshPhongMaterial
     readonly isMeshPhongMaterial: true;
@@ -36,13 +35,17 @@ export default class MeshPhongNodeMaterial extends NodeMaterial {
     specularMap: Texture | null;
     alphaMap: Texture | null;
     envMap: Texture | null;
+    envMapRotation: Euler;
     combine: Combine;
     reflectivity: number;
     refractionRatio: number;
+    wireframe: boolean;
+    wireframeLinewidth: number;
     wireframeLinecap: string;
     wireframeLinejoin: string;
     flatShading: boolean;
     metal: boolean;
+    fog: boolean;
 
     constructor(parameters?: MeshPhongNodeMaterialParameters);
 }

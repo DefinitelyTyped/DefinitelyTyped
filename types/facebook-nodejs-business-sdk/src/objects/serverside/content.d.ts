@@ -1,7 +1,3 @@
-/**
- * Content is part of the Custom Data Parameters of a Conversions API Event Request. Content can be used to set the item/product details added in the Custom Data.
- * @see {@link https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/custom-data#contents}
- */
 export default class Content {
     _id: string;
     _quantity: number;
@@ -35,10 +31,10 @@ export default class Content {
      */
     set id(id: string);
     /**
-     * Sets the Product Id of the Item.
-     * @param id is a string representing the unique id for the product.
-     * Example: XYZ.
-     */
+    * Sets the Product Id of the Item.
+    * @param id is a string representing the unique id for the product.
+    * Example: XYZ.
+    */
     setId(id: string): Content;
     /**
      * Gets the quantity of the Item.
@@ -53,10 +49,10 @@ export default class Content {
      */
     set quantity(quantity: number);
     /**
-     * Sets the quantity of the Content/Item.
-     * @param {Number} quantity The number/quantity of the product that is being involved in the customer interaction.
-     * Example: 5
-     */
+    * Sets the quantity of the Content/Item.
+    * @param {Number} quantity The number/quantity of the product that is being involved in the customer interaction.
+    * Example: 5
+    */
     setQuantity(quantity: number): Content;
     /**
      * Gets the item price for the Product.
@@ -71,10 +67,10 @@ export default class Content {
      */
     set item_price(item_price: number);
     /**
-     * Sets the item price for the Content.
-     * @param {Number} item_price The item_price or price per unit of the product.
-     * Example: '123.45'
-     */
+    * Sets the item price for the Content.
+    * @param {Number} item_price The item_price or price per unit of the product.
+    * Example: '123.45'
+    */
     setItemPrice(item_price: number): Content;
     /**
      * Gets the Title of the listed Item.
@@ -87,9 +83,9 @@ export default class Content {
      */
     set title(title: string);
     /**
-     * Sets the Title of the Item.
-     * @param title is a string representing listed title for the product.
-     */
+    * Sets the Title of the Item.
+    * @param title is a string representing listed title for the product.
+    */
     setTitle(title: string): Content;
     /**
      * Gets the Description of the listed Item.
@@ -102,9 +98,9 @@ export default class Content {
      */
     set description(description: string);
     /**
-     * Sets the Product Description of the Item.
-     * @param description is a string representing the description for the product.
-     */
+    * Sets the Product Description of the Item.
+    * @param description is a string representing the description for the product.
+    */
     setDescription(description: string): Content;
     /**
      * Gets the Brand of the listed Item.
@@ -154,5 +150,5 @@ export default class Content {
      * Returns the normalized payload for the Content.
      * @returns {Object} normalized Content payload.
      */
-    normalize(): Record<any, any>;
+    normalize(): Record<string, any>;
 }

@@ -33,6 +33,10 @@ declare namespace woosmap.map {
          */
         data: woosmap.map.Data;
         /**
+         * Additional map types to overlay.
+         */
+        overlayMapTypes: woosmap.map.MVCArray<woosmap.map.MapType>;
+        /**
          * Creates a new map inside the given HTML container, which is typically a `DIV` element.
          */
         constructor(mapDiv: HTMLElement | string, options?: woosmap.map.MapOptions);
@@ -441,7 +445,7 @@ declare namespace woosmap.map.data {
     }
 }
 declare namespace woosmap.map.Data {
-    class Point {
+    class Point implements Geometry<"Point", Coordinates> {
         /**
          * Constructs a Point geometry
          */
@@ -461,7 +465,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class MultiPoint {
+    class MultiPoint implements Geometry<"MultiPoint", Coordinates[]> {
         /**
          * Constructs a Multipoint geometry.
          */
@@ -494,7 +498,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class LineString {
+    class LineString implements Geometry<"LineString", Coordinates[]> {
         constructor(points: woosmap.map.LatLng[] | woosmap.map.Coordinates[] | woosmap.map.LatLngLiteral[]);
 
         /**
@@ -518,7 +522,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class MultiLineString {
+    class MultiLineString implements Geometry<"MultiLineString", Coordinates[][]> {
         /**
          * Constructs a MultiLineString.
          * A MultiLineString is a collection of LineString.
@@ -551,7 +555,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class Polygon {
+    class Polygon implements Geometry<"Polygon", Coordinates[][]> {
         /**
          * Constructs a Polygon, using a set of linear ring.
          */
@@ -590,7 +594,7 @@ declare namespace woosmap.map.Data {
     }
 }
 declare namespace woosmap.map.Data {
-    class MultiPolygon {
+    class MultiPolygon implements Geometry<"MultiPolygon", Coordinates[][][]> {
         /**
          * Constructs a MultiPolygon geometry.
          * A MultiPolygon is a set of Polygons.
@@ -623,11 +627,11 @@ declare namespace woosmap.map.Data {
         /**
          * Returns `"MultiPolygon"`.
          */
-        getType(): string;
+        getType(): "MultiPolygon";
     }
 }
 declare namespace woosmap.map.Data {
-    class GeometryCollection {
+    class GeometryCollection implements Geometry<"GeometryCollection", any> {
         /**
          * Constructs a geometry collection from an array of geometries.
          */
@@ -648,6 +652,25 @@ declare namespace woosmap.map.Data {
          * Returns `"GeometryCollection"`.
          */
         getType(): "GeometryCollection";
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * ImageMapType defines tiled image layer that can be added to the map.
+     * It supports both `xyz` and `tms` tile schemes.
+     */
+    class ImageMapType implements woosmap.map.MapType {
+        maxZoom: number;
+        minZoom: number;
+        /**
+         * ImageMapType defines tiled image layer that can be added to the map.
+         * It supports both `xyz` and `tms` tile schemes.
+         */
+        constructor(opts: woosmap.map.ImageMapTypeOptions);
+
+        getTile(tileCoord: woosmap.map.Point, zoom: number, ownerDocument: null): Element | null;
+
+        releaseTile(tile: Element): void;
     }
 }
 declare namespace woosmap.map {
@@ -1146,6 +1169,44 @@ declare namespace woosmap.map {
         getDetails(
             request: woosmap.map.localities.LocalitiesDetailsRequest,
         ): Promise<woosmap.map.localities.LocalitiesDetailsResponse>;
+
+        /**
+         * Retrieves localities results based on the nearby request.
+         */
+        nearby(
+            request: woosmap.map.localities.LocalitiesNearbyRequest,
+        ): Promise<woosmap.map.localities.LocalitiesNearbyResponse>;
+    }
+}
+declare namespace woosmap.map.query {
+    class Field {
+        /**
+         * Represents a field filter. Used to build a string for query parameter to pass to Store Search Service.
+         */
+        constructor(key: string, value: string | number | boolean, operator?: woosmap.map.query.Operators | null);
+
+        /**
+         * Returns the field clause in query format.
+         */
+        toString(): string;
+    }
+}
+declare namespace woosmap.map.query {
+    class Query {
+        /**
+         * Represents a Query.  Used to build a string for query parameter to pass to Store Search Service.
+         * Default operator is `BoolOperators.AND`
+         */
+        constructor(
+            children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>,
+            connector: woosmap.map.query.BoolOperators,
+            negate: boolean,
+        );
+
+        /**
+         * Returns the Query as a string usable for the search endpoint query parameter.
+         */
+        toString(): string;
     }
 }
 declare namespace woosmap.map.errors {
@@ -1431,6 +1492,21 @@ declare namespace woosmap.map {
          * The rules to apply to the selected features.
          */
         stylers: woosmap.map.MapStyler[];
+    }
+}
+declare namespace woosmap.map {
+    interface MapType {
+        /**
+         * Displays the overlay up to the maximum zoom level.
+         */
+        maxZoom: number;
+        /**
+         * Displays the overlay startingat the minmum zoom level.
+         */
+        minZoom: number;
+        getTile(tileCoord: woosmap.map.Point, zoom: number, ownerDocument: null): Element | null;
+
+        releaseTile(tile: Element): void;
     }
 }
 declare namespace woosmap.map {
@@ -1899,6 +1975,35 @@ declare namespace woosmap.map {
     interface GeoJSONFeatureCollection {
         features: woosmap.map.GeoJSONFeature[];
         type: "FeatureCollection";
+    }
+}
+declare namespace woosmap.map {
+    interface ImageMapTypeOptions {
+        alt?: string | null;
+        getTileUrl?: (point: woosmap.map.Point, zoom: number) => (string | null) | null;
+        /**
+         * The maximum zoom level at which the image map type should be visible.
+         */
+        maxZoom?: number | null;
+        /**
+         * The minimum zoom level at which the image map type should be visible.
+         */
+        minZoom?: number | null;
+        name?: string | null;
+        /**
+         * Opacity of the tile layer (between 0, 1).
+         */
+        opacity?: number | null;
+        /**
+         * The tile scheme to use `xyz` or `tms`.
+         */
+        scheme?: "xyz" | "tms";
+        tileSize?: woosmap.map.Size | null;
+        /**
+         * The tile url scheme use {x}, {y} and {z} url templates.
+         * Example: `https://tile.openstreetmap.org/{z}/{x}/{y}.png`
+         */
+        url?: string;
     }
 }
 declare namespace woosmap.map {
@@ -2811,6 +2916,42 @@ declare namespace woosmap.map.localities {
 }
 declare namespace woosmap.map.localities {
     /**
+     * A Localities Nearby request to be sent to `LocalitiesService.nearby`
+     */
+    interface LocalitiesNearbyRequest {
+        categories?: string;
+        /**
+         * The language code, using ISO 3166-1 Alpha-2 country codes,
+         * indicating in which language the results should be returned, if possible.
+         * If language is not supplied, the Localities service will use english as default language.
+         */
+        language?: string;
+        /**
+         * Limit of results per page. (Default is 10, max is 30)
+         */
+        limit?: number;
+        /**
+         * The center of the search circle.
+         */
+        location: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+        /**
+         * Page number when accessing paginated results.
+         */
+        page?: number;
+        /**
+         * Define the distance in meters within which the API will return results.
+         * Default radius if this parameter is not set is 1000, allowed values are between 10 and 50 000.
+         */
+        radius?: number;
+        /**
+         * Types of targeted items.
+         * The only available value for now is `point_of_interest`.
+         */
+        types?: string | string[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
      * A Localities Autocomplete response returned by the call to
      * `LocalitiesService.autocomplete` containing a
      * list of `LocalitiesPredictions`.
@@ -2837,6 +2978,23 @@ declare namespace woosmap.map.localities {
      */
     interface LocalitiesDetailsResponse {
         result: woosmap.map.localities.LocalitiesDetailsResult;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * A Localities Nearby response returned by the call to
+     * `LocalitiesService.nearby` containing a
+     * list of `LocalitiesNearbyResult`.
+     */
+    interface LocalitiesNearbyResponse {
+        /**
+         * Helps to navigate through paginated results.
+         */
+        pagination: woosmap.map.localities.LocalitiesNearbyPagination;
+        /**
+         * The array of nearby results.
+         */
+        results: woosmap.map.localities.LocalitiesNearbyResult[];
     }
 }
 declare namespace woosmap.map.localities {
@@ -2891,7 +3049,7 @@ declare namespace woosmap.map.localities {
     interface LocalitiesDetailsGeometry {
         accuracy: woosmap.map.localities.LocalitiesDetailsAccuracy;
         location: woosmap.map.LatLngLiteral;
-        viewport: woosmap.map.localties.LocalitiesBounds;
+        viewport: woosmap.map.localities.LocalitiesBounds;
     }
 }
 declare namespace woosmap.map.localities {
@@ -3026,16 +3184,77 @@ declare namespace woosmap.map.localities {
     interface LocalitiesGeocodeGeometry {
         location: woosmap.map.LatLngLiteral;
         location_type: woosmap.map.localities.LocalitiesGeocodeLocationType;
-        viewport: woosmap.map.localties.LocalitiesBounds;
+        viewport: woosmap.map.localities.LocalitiesBounds;
     }
 }
-declare namespace woosmap.map.localties {
+declare namespace woosmap.map.localities {
     /**
      * Defines a viewport by its geographical coordinates of North-East and South-West corners.
      */
     interface LocalitiesBounds {
         northeast: woosmap.map.LatLngLiteral;
         southwest: woosmap.map.LatLngLiteral;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * The types of result returned by nearby search.
+     */
+    type LocalitiesNearbyTypes = "point_of_interest";
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about a Nearby element.
+     */
+    interface LocalitiesNearbyResult {
+        /**
+         * An array containing Address Components with additional information
+         */
+        address_components: woosmap.map.localities.AddressComponents[];
+        /**
+         * An array containing the categories of the result.
+         */
+        categories: string[];
+        /**
+         * The location of the result, in latitude and longitude, eventually associated with a Viewport.
+         */
+        geometry: woosmap.map.localities.LocalitiesNearbyGeometry;
+        /**
+         * The name of the result.
+         */
+        name: string;
+        /**
+         * Contains a unique ID for each result. Please use this ID to give feedbacks on results.
+         */
+        public_id: string;
+        /**
+         * An array containing the types of the result.
+         */
+        types: woosmap.map.localities.LocalitiesNearbyTypes[];
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about the geometry of a Locality.
+     */
+    interface LocalitiesNearbyGeometry {
+        location: woosmap.map.LatLngLiteral;
+        viewport?: woosmap.map.localities.LocalitiesBounds;
+    }
+}
+declare namespace woosmap.map.localities {
+    /**
+     * Defines information about the pagination of nearby results.
+     */
+    interface LocalitiesNearbyPagination {
+        /**
+         * If more results are available, this will contain the value to pass to the `page` parameter to get the next page.
+         */
+        next_page?: number;
+        /**
+         * If previous results are available, this will contain the value to pass to the `page` parameter to get the previous page.
+         */
+        previous_page?: number;
     }
 }
 declare namespace woosmap.map {
@@ -3264,6 +3483,27 @@ declare namespace woosmap.map.distance {
         REQUEST_DENIED = "REQUEST_DENIED",
     }
 }
+declare namespace woosmap.map.query {
+    /**
+     * Represents Query Boolean operators.
+     */
+    enum BoolOperators {
+        AND = "AND",
+        NOT = "NOT",
+        OR = "OR",
+    }
+}
+declare namespace woosmap.map.query {
+    /**
+     * Represents Query operators.
+     */
+    enum Operators {
+        gt = "gt",
+        gte = "gte",
+        lt = "lt",
+        lte = "lte",
+    }
+}
 declare namespace woosmap.map.event {
     /**
      * Adds the given listener function to the given event name for the given object instance.
@@ -3320,6 +3560,33 @@ declare namespace woosmap.map.geometry {
         poly: woosmap.map.Polygon,
         tolerance?: number,
     ): boolean;
+}
+declare namespace woosmap.map.query {
+    /**
+     * Function helper to instantiate a Field or an array of Fields, used to form queries.
+     * If value is an array, it will create a Field for each item in the array.
+     */
+    function F(
+        key: string,
+        value: string | number | boolean | Array<string | number>,
+        operator?: woosmap.map.query.Operators | null,
+    ): woosmap.map.query.Field | woosmap.map.query.Field[];
+    /**
+     * Helper function to instantiate a Query with AND connector
+     */
+    function and(
+        ...children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>
+    ): woosmap.map.query.Query;
+    /**
+     * Helper function to instantiate a Query with OR connector
+     */
+    function or(
+        ...children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>
+    ): woosmap.map.query.Query;
+    /**
+     * Helper function to instantiate a negated Query
+     */
+    function not(child: woosmap.map.query.Query | woosmap.map.query.Field | string): woosmap.map.query.Query;
 }
 declare namespace woosmap.map {
     class NavigationWidget {
@@ -3448,6 +3715,16 @@ declare namespace woosmap.map {
         getZonesToAvoid(): string | null;
 
         /**
+         * Sets whether to disable the autofocus for the search input.
+         */
+        setIsAutofocusDisabled(disableFocus: boolean): boolean | null;
+
+        /**
+         * Gets whether auto focus on search input is enabled/disabled
+         */
+        getIsAutofocusDisabled(): boolean;
+
+        /**
          * Sets the floor for the venue
          */
         setFloor(floor: number): void;
@@ -3466,6 +3743,11 @@ declare namespace woosmap.map {
          * Triggers the given event. All arguments after eventName are passed as arguments to the listeners.
          */
         trigger(instance: object, eventName: string, eventArgs?: any[] | null): void;
+
+        /**
+         * Opens the widget's panel in itinerary mode.
+         */
+        showItinerary(origin?: GeoJSONFeature | object | string, destination?: GeoJSONFeature | object | string): any;
     }
 }
 declare namespace woosmap.map {
@@ -3720,6 +4002,10 @@ declare namespace woosmap.map {
          */
         baseFilter: string;
         /**
+         * Sets whether to disable the autofocus for the search input.
+         */
+        disableAutoFocus?: boolean;
+        /**
          * Number of search responses to retrieve. Default is 5 and the maximum limit is 10.
          */
         maxResponses: number;
@@ -3837,6 +4123,14 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
+     * List of venues.
+     */
+    interface VenuesResult {
+        venues: woosmap.map.Venue[];
+    }
+}
+declare namespace woosmap.map {
+    /**
      * Options of the Indoor widget.
      */
     interface IndoorWidgetOptions {
@@ -3867,14 +4161,6 @@ declare namespace woosmap.map {
          * Set units to use to show distance in directions itinerary
          */
         units?: "imperial" | "metric" | "";
-    }
-}
-declare namespace woosmap.map {
-    /**
-     * List of venues.
-     */
-    interface VenuesResult {
-        venues: woosmap.map.Venue[];
     }
 }
 declare namespace woosmap.map {

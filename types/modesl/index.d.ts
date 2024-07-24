@@ -73,7 +73,7 @@ export class Event {
 
     getBody(): any;
 
-    getHeader(name: any): string;
+    getHeader(name: any): string | null;
 
     getType(): any;
 

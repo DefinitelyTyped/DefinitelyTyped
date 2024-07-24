@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * OffsitePixel
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -12,5 +12,5 @@ export default class OffsitePixel extends AbstractCrudObject {
         name: "name";
         tag: "tag";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<OffsitePixel>;
+    get(fields: string[], params?: Record<string, any>): Promise<OffsitePixel>;
 }

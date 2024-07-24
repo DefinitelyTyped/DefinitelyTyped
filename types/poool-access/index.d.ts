@@ -641,25 +641,45 @@ export namespace Poool {
 
     type EventsList =
         | "identityAvailable"
+        | "onIdentityAvailable"
         | "lock"
+        | "onLock"
         | "ready"
+        | "onReady"
         | "paywallSeen"
+        | "onPaywallSeen"
         | "release"
+        | "onRelease"
         | "register"
+        | "onRegister"
         | "subscribeClick"
+        | "onSubscribeClick"
         | "loginClick"
+        | "onLoginClick"
         | "discoveryLinkClick"
+        | "onDiscoveryLinkClick"
         | "alternativeClick"
+        | "onAlternativeClick"
         | "error"
+        | "onError"
         | "outdatedBrowser"
+        | "onOutdatedBrowser"
         | "dataPolicyClick"
+        | "onDataPolicyClick"
         | "formSubmit"
+        | "onFormSubmit"
         | "facebookLoginClick"
+        | "onFacebookLoginClick"
         | "googleLoginClick"
+        | "onGoogleLoginClick"
         | "answer"
+        | "onAnswer"
         | "consent"
+        | "onConsent"
         | "customButtonClick"
-        | "externalLinkClick";
+        | "onCustomButtonClick"
+        | "externalLinkClick"
+        | "onExternalLinkClick";
 
     interface AccessConfig {
         /**
@@ -809,7 +829,7 @@ export namespace Poool {
          *
          * More infos: https://poool.dev/docs/access/javascript/audit/configuration
          */
-        context?: string;
+        context?: string | string[];
         /**
          * Used to allocate a reader to a custom group previously created in Poool's Dashboard.
          *
@@ -975,7 +995,7 @@ export namespace Poool {
         createPaywall(config: {
             target?: string | HTMLElement;
             content?: string | HTMLElement;
-            pageType?: "premium" | "free";
+            pageType?: "premium" | "free" | "page";
             mode?: "hide" | "excerpt" | "custom";
             percent?: number;
         }): AccessFactory;
@@ -1023,6 +1043,10 @@ export namespace Poool {
     }
 
     interface Audit {
+        /**
+         * Whether the Element is a Poool instance, or not
+         */
+        isPoool: boolean;
         /**
          * Initializes Audit using your app ID.
          *
@@ -1095,6 +1119,10 @@ export namespace Poool {
     }
 
     interface Access {
+        /**
+         * Whether the Element is a Poool instance, or not
+         */
+        isPoool: boolean;
         /**
          * Creates a new Access instance (required to display paywalls) using your app ID.
          *

@@ -17,7 +17,7 @@ export default class TextureNode extends UniformNode<Texture> {
 
     referenceNode: Node | null;
 
-    constructor(value: Texture, uvNode?: ShaderNodeObject<Node>, levelNode?: ShaderNodeObject<Node> | null);
+    constructor(value: Texture, uvNode?: ShaderNodeObject<Node> | null, levelNode?: ShaderNodeObject<Node> | null);
 
     getDefaultUV(): Node;
 

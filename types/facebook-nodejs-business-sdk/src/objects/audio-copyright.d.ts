@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * AudioCopyright
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -13,6 +13,7 @@ export default class AudioCopyright extends AbstractCrudObject {
         isrc: "isrc";
         match_rule: "match_rule";
         ownership_countries: "ownership_countries";
+        ownership_details: "ownership_details";
         reference_file_status: "reference_file_status";
         ridge_monitoring_status: "ridge_monitoring_status";
         tags: "tags";
@@ -20,8 +21,6 @@ export default class AudioCopyright extends AbstractCrudObject {
         whitelisted_fb_users: "whitelisted_fb_users";
         whitelisted_ig_users: "whitelisted_ig_users";
     }>;
-    getUpdateRecords(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getUpdateRecords(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getUpdateRecords(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<AudioCopyright>;
+    getUpdateRecords(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<AudioCopyright>;
 }

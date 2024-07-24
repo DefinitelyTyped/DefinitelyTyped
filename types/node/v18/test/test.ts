@@ -559,17 +559,17 @@ test("mocks a setter", (t) => {
 
 // @ts-expect-error
 dot();
-// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
+// $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>
 dot("" as any);
 // @ts-expect-error
 tap();
-// $ExpectType AsyncGenerator<string, void, unknown>
+// $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 tap("" as any);
 // $ExpectType Spec
 new spec();
 // @ts-expect-error
 junit();
-// $ExpectType AsyncGenerator<string, void, unknown>
+// $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 junit("" as any);
 
 describe("Mock Timers Test Suite", () => {

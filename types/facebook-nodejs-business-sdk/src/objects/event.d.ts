@@ -1,6 +1,6 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
-import LiveVideo from './live-video';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
+import LiveVideo from "./live-video";
 /**
  * Event
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -93,33 +93,15 @@ export default class Event extends AbstractCrudObject {
         past: "past";
         upcoming: "upcoming";
     }>;
-    getComments(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getComments(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getFeed(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getFeed(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getFeed(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getLiveVideos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getLiveVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getLiveVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createLiveVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<LiveVideo>;
-    getPhotos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPhotos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPhotos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPicture(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPicture(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPosts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getPosts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getPosts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getRoles(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getRoles(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getRoles(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getTicketTiers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getTicketTiers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getTicketTiers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getVideos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Promise<Event>;
+    getComments(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getFeed(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getLiveVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createLiveVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<LiveVideo>;
+    getPhotos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getRoles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getTicketTiers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    get(fields: string[], params?: Record<string, any>): Promise<Event>;
 }

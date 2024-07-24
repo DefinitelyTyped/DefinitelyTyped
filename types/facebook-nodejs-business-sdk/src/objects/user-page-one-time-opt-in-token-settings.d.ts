@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * UserPageOneTimeOptInTokenSettings
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -17,5 +17,5 @@ export default class UserPageOneTimeOptInTokenSettings extends AbstractCrudObjec
         user_token_status: "user_token_status";
         id: "id";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<UserPageOneTimeOptInTokenSettings>;
+    get(fields: string[], params?: Record<string, any>): Promise<UserPageOneTimeOptInTokenSettings>;
 }

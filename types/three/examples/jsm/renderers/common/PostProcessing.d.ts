@@ -10,4 +10,6 @@ export default class PostProcessing {
     render(): void;
 
     renderAsync(): Promise<void>;
+
+    set needsUpdate(value: boolean);
 }

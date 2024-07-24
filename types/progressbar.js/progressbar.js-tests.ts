@@ -53,7 +53,7 @@ ProgressBar.utils.floatEquals(0.2, 0.5); // $ExpectType boolean
 ProgressBar.utils.forEachObject({}, (val, key) => {
     console.log(`${key}: ${val}`);
 });
-ProgressBar.utils.isArray([]); //  $ExpectType boolean
+ProgressBar.utils.isArray([]); // $ExpectType boolean
 ProgressBar.utils.isFunction(() => {}); // $ExpectType boolean
 utils.isObject({}); // $ExpectType boolean
 utils.isString("string"); // $ExpectType boolean

@@ -5,7 +5,7 @@ const pattern = trianglify({
     height: 1080,
     cellSize: 75,
     variance: 0.75,
-    seed: "someseed",
+    seed: "onlystrings",
     xColors: ["#2c2541", "#2c2541"],
     yColors: ["#6441a4", "#000000"],
     colorSpace: "lab",

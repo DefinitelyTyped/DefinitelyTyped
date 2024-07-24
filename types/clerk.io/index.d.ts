@@ -174,7 +174,7 @@ export type ConfigType<T extends ClerkEndpoints> = T extends keyof ConfigTypes ?
 
 export interface ClerkBaseResponse {
     status: "ok";
-    results: number[];
+    result: number[];
 }
 
 export interface ClerkResponseProducts extends ClerkBaseResponse {
@@ -202,6 +202,7 @@ export interface ClerkResponseSearchPages extends Omit<ClerkBaseResponse, "resul
 export interface ClerkResponseSearchPage extends ClerkBaseResponse {
     count: number;
     hits: number;
+    query: string;
     product_data: ClerkProductAttributes[];
 }
 

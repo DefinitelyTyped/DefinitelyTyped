@@ -7,7 +7,15 @@ import {
     ServerEvent,
     UserData,
     IGUser,
-    InstagramInsightsResult
+    InstagramInsightsResult,
+    AppData,
+    ExtendedDeviceInfo,
+    AbstractCrudObject,
+    AdSet,
+    Campaign,
+    AdsPixel,
+    AdCreative,
+    Ad
 } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
@@ -18,8 +26,8 @@ async function testGetAdsFetchFirstPageFalse(): Promise<Array<Record<string, str
     const fbAdsApi = new FacebookAdsApi('TOKEN');
     fbAdsApi.setDebug(true);
 
-    const fbAdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
-    const cursor = fbAdAccount.getAds(['id', 'name'], { limit: 10 }, false);
+    const fbAdAccount = new AdAccount(`act_ID`, {}, undefined, fbAdsApi);
+    const cursor = await fbAdAccount.getAds(['id', 'name'], { limit: 10 }, false);
 
     while (cursor.hasNext()) {
         await cursor.next();
@@ -41,7 +49,7 @@ async function testGetAdsFetchFirstPageDefault(): Promise<Array<Record<string, s
     const fbAdsApi = new FacebookAdsApi('TOKEN');
     fbAdsApi.setDebug(true);
 
-    const fbAdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
+    const fbAdAccount = new AdAccount(`act_ID`, {}, undefined, fbAdsApi);
     const cursor = await fbAdAccount.getAds(['id', 'name'], { limit: 10 });
 
     while (true) {
@@ -68,7 +76,7 @@ async function testGetAdsFetchFirstPageBoolean(): Promise<Array<Record<string, s
     const fbAdsApi = new FacebookAdsApi('TOKEN');
     fbAdsApi.setDebug(true);
 
-    const fbAdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
+    const fbAdAccount = new AdAccount(`act_ID`, {}, undefined, fbAdsApi);
     const fetchFirstPage = Math.random() > 0.5;
     const cursorOrPromise = fbAdAccount.getAds(['id', 'name'], { limit: 10 }, fetchFirstPage);
     const cursor = cursorOrPromise instanceof Promise ? await cursorOrPromise : cursorOrPromise;
@@ -97,7 +105,7 @@ async function testGetAdsFetchFirstPageBoolean(): Promise<Array<Record<string, s
 
 async function checkType() {
     const fbAdsApi: FacebookAdsApi = new FacebookAdsApi('TOKEN');
-    const fbAdAccount: AdAccount = new AdAccount(`act_ID`, undefined, undefined, fbAdsApi);
+    const fbAdAccount: AdAccount = new AdAccount(`act_ID`, {}, undefined, fbAdsApi);
 }
 
 async function testConversionEvent(): Promise<TEventRequest> {
@@ -105,11 +113,12 @@ async function testConversionEvent(): Promise<TEventRequest> {
         .setEmails(['joe@eg.com'])
         .setPhones(['12345678901', '14251234567']);
 
-    const content = (new Content())
-        .setId('product123');
+    const content = new Content();
 
     const customData = (new CustomData())
         .setContents([content]);
+    const extendedDeviceInfo = new ExtendedDeviceInfo();
+    const appData = new AppData();
 
     const serverEvent = (new ServerEvent())
         .setEventName('Purchase')
@@ -128,4 +137,18 @@ throw new FacebookRequestError({}, 'GET', 'url', 'data');
 async function checkStaticFields() {
     const fields = [IGUser.Fields.biography, IGUser.Fields.follows_count];
     const metrics = [InstagramInsightsResult.Metric.reach, InstagramInsightsResult.Metric.shares];
+}
+
+export function testAbstractCrudObjectClassConstructor () {
+    const abstractCrudObject =  new AbstractCrudObject();
+    const abstractCrudObject2 =  new AbstractCrudObject('some-id');
+}
+
+export function testDeleteFunctionInAbstractCrudObjects(){
+    const deleteAdSetFunction = new AdSet().delete;
+    const deleteCampaignFunction = new Campaign().delete;
+    const deleteAdAccountFunction = new AdAccount().delete;
+    const deletePixelFunction = new AdsPixel().delete;
+    const deleteAdCreativeFunction = new AdCreative().delete;
+    const deleteAdFunction = new Ad().delete;
 }

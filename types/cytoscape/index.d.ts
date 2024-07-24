@@ -3414,8 +3414,11 @@ declare namespace cytoscape {
     }
     /**
      * http://js.cytoscape.org/#eles.closenessCentralityNormalized
-     * trivial
      */
+    interface SearchClosenessCentralityNormalizedResult {
+        /** the normalised closeness centrality of the specified node */
+        closeness(node: NodeSingular): any;
+    }
 
     /**
      * http://js.cytoscape.org/#eles.betweennessCentrality
@@ -3600,7 +3603,7 @@ declare namespace cytoscape {
          */
         closenessCentralityNormalized(
             options: SearchClosenessCentralityNormalizedOptions,
-        ): SearchDegreeCentralityNormalizedResultDirected | SearchDegreeCentralityNormalizedResultUndirected;
+        ): SearchClosenessCentralityNormalizedResult;
         /**
          * Considering only the elements in the calling collection,
          * calculate the betweenness centrality of the nodes.
@@ -5452,12 +5455,9 @@ declare namespace cytoscape {
         padding?: number | undefined;
     }
 
-    interface SortableNode {
-        data: { weight: number };
-    }
-
-    // function(a, b){ return a.data('weight') - b.data('weight') }
-    type SortingFunction = (a: SortableNode, b: SortableNode) => number;
+    // A function that determines the order of the nodes. The return value has the same
+    // semantics as for compare function passed to Array.sort.
+    type SortingFunction = (a: NodeSingular, b: NodeSingular) => number;
 
     interface ShapedLayoutOptions extends BaseLayoutOptions, AnimatedLayoutOptions {
         // whether to fit to viewport
@@ -5536,9 +5536,9 @@ declare namespace cytoscape {
         // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
         spacingFactor?: number;
         // returns numeric value for each node, placing higher nodes in levels towards the centre
-        concentric?(node: { degree(): number }): number;
+        concentric?(node: NodeSingular): number;
         // the variation of concentric values in each level
-        levelWidth?(node: { maxDegree(): number }): number;
+        levelWidth?(node: NodeCollection): number;
     }
 
     /**

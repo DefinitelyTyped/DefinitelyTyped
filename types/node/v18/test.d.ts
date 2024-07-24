@@ -729,7 +729,7 @@ declare module "node:test" {
          * This function is used to change the behavior of an existing mock.
          * @param implementation The function to be used as the mock's new implementation.
          */
-        mockImplementation(implementation: Function): void;
+        mockImplementation(implementation: F): void;
 
         /**
          * This function is used to change the behavior of an existing mock for a single invocation.
@@ -739,7 +739,7 @@ declare module "node:test" {
          * @param onCall The invocation number that will use `implementation`.
          *  If the specified invocation has already occurred then an exception is thrown.
          */
-        mockImplementationOnce(implementation: Function, onCall?: number): void;
+        mockImplementationOnce(implementation: F, onCall?: number): void;
 
         /**
          * Resets the call history of the mock function.
@@ -778,12 +778,12 @@ declare module "node:test" {
          * ```
          *
          * The above example enables mocking for the `setInterval` timer and
-         * implicitly mocks the `clearInterval` function. Only the `setInterval`and `clearInterval` functions from `node:timers`,`node:timers/promises`, and`globalThis` will be mocked.
+         * implicitly mocks the `clearInterval` function. Only the `setInterval` and `clearInterval` functions from `node:timers`, `node:timers/promises`, and`globalThis` will be mocked.
          *
          * Alternatively, if you call `mock.timers.enable()` without any parameters:
          *
          * All timers (`'setInterval'`, `'clearInterval'`, `'setTimeout'`, and `'clearTimeout'`)
-         * will be mocked. The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout`functions from `node:timers`, `node:timers/promises`,
+         * will be mocked. The `setInterval`, `clearInterval`, `setTimeout`, and `clearTimeout` functions from `node:timers`, `node:timers/promises`,
          * and `globalThis` will be mocked.
          * @since v18.19.0
          */

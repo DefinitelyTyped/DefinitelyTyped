@@ -2179,5 +2179,5 @@ document.appendChild(appview);
 // #endregion
 
 // #region HTMLElement correctly subtypes Element in TS3.1.
-const htmlElement = document.querySelector("zzzzzz") as HTMLElement;
+const htmlElement = document.querySelector("zzzzzz") as HTMLElement | null;
 // #endregion

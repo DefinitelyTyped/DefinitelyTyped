@@ -2,7 +2,7 @@ import * as React from "react";
 import { SelectCallback, Sizes } from "react-bootstrap";
 
 declare namespace NavItem {
-    export interface NavItemProps extends React.HTMLProps<NavItem> {
+    export interface NavItemProps extends Omit<React.HTMLProps<NavItem>, "onToggle"> {
         active?: boolean | undefined;
         brand?: any; // TODO: Add more specific type
         bsSize?: Sizes | undefined;

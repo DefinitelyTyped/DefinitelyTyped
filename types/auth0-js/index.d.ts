@@ -880,6 +880,7 @@ export interface CrossOriginLoginOptions {
     nonce?: string | undefined;
     scope?: string | undefined;
     audience?: string | undefined;
+    captcha?: Captcha | undefined;
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onRedirecting?: (done: () => void) => void | undefined;
 }

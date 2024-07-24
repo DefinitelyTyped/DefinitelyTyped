@@ -12,8 +12,5 @@ jobs:
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-      - uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
-        with:
-          run_install: |
-            - args: [--filter, ., --filter, '{./scripts}...']
+      - uses: ./.github/actions/setup-for-scripts
       - run: pnpm remark --frail . .github

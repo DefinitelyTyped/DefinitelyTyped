@@ -980,7 +980,7 @@ const circleAllOptions: CircleLayoutOptions = {
     startAngle: 0,
     sweep: Math.PI,
     clockwise: false,
-    sort: (x, y) => 0,
+    sort: (x, y) => x.id().length - y.id().length,
     animate: true,
     animationDuration: 750,
     animationEasing: "ease",
@@ -1034,7 +1034,7 @@ const concentricAllOptions: ConcentricLayoutOptions = {
     height: 5,
     width: 3,
     spacingFactor: 7,
-    concentric: _node => 6,
+    concentric: _node => _node.neighborhood().size(),
     levelWidth: _nodes => 5,
     animate: true,
     animationDuration: 50,
@@ -1076,3 +1076,6 @@ const coseAllOptions: CoseLayoutOptions = {
     minTemp: 10.0,
 };
 cy.layout(coseAllOptions);
+
+const ccn = cy.nodes().closenessCentralityNormalized({ directed: false });
+ccn.closeness(cy.nodes()[0]);

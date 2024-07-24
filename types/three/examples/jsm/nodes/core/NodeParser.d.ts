@@ -1,5 +1,5 @@
-import Node from "./Node.js";
-
-export default abstract class NodeParser {
-    abstract parseFunction(source: string): Node;
+import NodeFunction from "./NodeFunction.js";
+declare abstract class NodeParser {
+    abstract parseFunction(source: string): NodeFunction;
 }
+export default NodeParser;

@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdAccountDeliveryEstimate
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -25,12 +25,14 @@ export default class AdAccountDeliveryEstimate extends AbstractCrudObject {
         landing_page_views: "LANDING_PAGE_VIEWS";
         lead_generation: "LEAD_GENERATION";
         link_clicks: "LINK_CLICKS";
+        meaningful_call_attempt: "MEANINGFUL_CALL_ATTEMPT";
         messaging_appointment_conversion: "MESSAGING_APPOINTMENT_CONVERSION";
         messaging_purchase_conversion: "MESSAGING_PURCHASE_CONVERSION";
         none: "NONE";
         offsite_conversions: "OFFSITE_CONVERSIONS";
         page_likes: "PAGE_LIKES";
         post_engagement: "POST_ENGAGEMENT";
+        profile_visit: "PROFILE_VISIT";
         quality_call: "QUALITY_CALL";
         quality_lead: "QUALITY_LEAD";
         reach: "REACH";

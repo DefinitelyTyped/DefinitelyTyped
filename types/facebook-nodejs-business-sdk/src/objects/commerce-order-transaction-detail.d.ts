@@ -1,5 +1,5 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
-import Cursor from './../cursor';
+import { AbstractCrudObject } from "./../abstract-crud-object";
+import Cursor from "./../cursor";
 /**
  * CommerceOrderTransactionDetail
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -16,10 +16,6 @@ export default class CommerceOrderTransactionDetail extends AbstractCrudObject {
         transfer_id: "transfer_id";
         id: "id";
     }>;
-    getItems(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getItems(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getItems(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getTaxDetails(fields: string[], params?: Record<any, any>): Promise<Cursor>;
-    getTaxDetails(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
-    getTaxDetails(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getItems(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getTaxDetails(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
 }

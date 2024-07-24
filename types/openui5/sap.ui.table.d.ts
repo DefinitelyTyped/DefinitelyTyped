@@ -1,4 +1,4 @@
-// For Library Version: 1.124.0
+// For Library Version: 1.126.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -1615,6 +1615,25 @@ declare module "sap/ui/table/Column" {
       oListener?: object
     ): this;
     /**
+     * The column is resized to the width of the widest cell content that is currently displayed. This can be
+     * the content of a column header cell, or a data cell. Only rows that are currently scrolled into view
+     * are taken into consideration. The content of cells that span multiple columns is not taken into consideration,
+     * for example, if the `headerSpan` property is used.
+     *
+     * The width might not be accurate if the cell content is not rendered yet, for example, because the data
+     * is still being loaded.
+     *
+     * This behavior only works if the cell content is one of the following controls:
+     * 	 - `sap.m.Text`
+     * 	 - `sap.m.Label`
+     * 	 - `sap.m.Link`
+     * 	 - `sap.m.CheckBox`  Otherwise, the width might not be accurate either. This includes cases where
+     *     the listed control is wrapped in another control.
+     *
+     * @since 1.125
+     */
+    autoResize(): void;
+    /**
      * Destroys the label in the aggregation {@link #getLabel label}.
      *
      *
@@ -1686,11 +1705,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Gets current value of property {@link #getAutoResizable autoResizable}.
      *
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
      * Default value is `false`.
      *
@@ -2102,11 +2118,8 @@ declare module "sap/ui/table/Column" {
     /**
      * Sets a new value for property {@link #getAutoResizable autoResizable}.
      *
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -2796,11 +2809,8 @@ declare module "sap/ui/table/Column" {
     headerSpan?: any | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Enables auto-resizing of the column on double clicking the resize bar. The width is determined on the
-     * widest currently displayed content. It does not consider rows which are currently not scrolled into view.
-     * Currently only implemented to work with the following controls: `sap.m.Text, sap.m.Label, sap.m.Link,
-     * sap.m.Input, sap.ui.commons.TextView, sap.ui.commons.Label, sap.ui.commons.Link and sap.ui.commons.TextField,
-     * sap.ui.commons.Checkbox, sap.m.CheckBox`
+     * Enables auto-resizing of the column on double-clicking the resize bar, if the column is resizable depending
+     * on the `resizable` property. See {@link #autoResize} for details about the auto-resize feature.
      *
      * @since 1.21.1
      */
@@ -3005,8 +3015,11 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
 
   /**
    * Implements a plugin to enable a special multi-selection behavior:
-   * 	 - No Select All checkbox, select all can only be done via range selection
-   * 	 - Dedicated Deselect All button to clear the selection
+   * 	 - Select All checkbox for selecting rows up to the set limit.
+   * If the number of selected rows is smaller than the limit, all these rows can be selected at once with
+   * a single operation. If there are more rows than the limit, the first x rows are selected until the limit
+   * x has been reached.
+   * 	 - Dedicated Deselect All button for removing the selection
    * 	 - The number of indices which can be selected in a range is defined by the `limit` property. If the
    *     user tries to select more indices, the selection is automatically limited, and the table scrolls to the
    *     last selected index.
@@ -5847,6 +5860,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -5875,6 +5889,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6348,6 +6363,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6377,6 +6393,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -6666,6 +6683,7 @@ declare module "sap/ui/table/Table" {
     /**
      * Triggers automatic resizing of a column to the widest content.
      *
+     * @deprecated (since 1.125) - replaced by {@link sap.ui.table.Column#autoResize}
      * @experimental - Experimental! Presently implemented to only work with a very limited set of controls
      * (e.g. sap.m.Text).
      */
@@ -6832,6 +6850,7 @@ declare module "sap/ui/table/Table" {
      * The passed function and listener object must match the ones used for event registration.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -7023,6 +7042,7 @@ declare module "sap/ui/table/Table" {
      * The passed function and listener object must match the ones used for event registration.
      *
      * @since 1.37.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -9674,6 +9694,7 @@ declare module "sap/ui/table/Table" {
      * The event even is fired when setFirstVisibleRow is called programmatically.
      *
      * @since 1.37.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     firstVisibleRowChanged?: (
       oEvent: Table$FirstVisibleRowChangedEvent
@@ -9683,6 +9704,7 @@ declare module "sap/ui/table/Table" {
      * This event gets fired when the busy state of the table changes. It should only be used by composite controls.
      *
      * @since 1.37.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     busyStateChanged?: (oEvent: Table$BusyStateChangedEvent) => void;
 

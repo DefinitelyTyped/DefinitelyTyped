@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * CPASAdvertiserPartnershipRecommendation
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -15,5 +15,5 @@ export default class CPASAdvertiserPartnershipRecommendation extends AbstractCru
         status: "status";
         status_reason: "status_reason";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<CPASAdvertiserPartnershipRecommendation>;
+    get(fields: string[], params?: Record<string, any>): Promise<CPASAdvertiserPartnershipRecommendation>;
 }

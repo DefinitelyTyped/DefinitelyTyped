@@ -1,4 +1,4 @@
-import { AbstractCrudObject } from './../abstract-crud-object';
+import { AbstractCrudObject } from "./../abstract-crud-object";
 /**
  * AdImage
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
@@ -28,5 +28,5 @@ export default class AdImage extends AbstractCrudObject {
         deleted: "DELETED";
         internal: "INTERNAL";
     }>;
-    get(fields: string[], params?: Record<any, any>): Promise<AdImage>;
+    get(fields: string[], params?: Record<string, any>): Promise<AdImage>;
 }

@@ -64,10 +64,7 @@ interface Buffer extends Uint8Array {
     fill(value: any, offset?: number, end?: number): this;
     indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
     lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
-    entries(): IterableIterator<[number, number]>;
     includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
-    keys(): IterableIterator<number>;
-    values(): IterableIterator<number>;
 }
 
 interface EventEmitter {

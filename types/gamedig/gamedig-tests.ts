@@ -21,6 +21,8 @@ gamedig.GameDig.query(
         requestPlayersRequired: true,
         checkOldIDs: true,
         // checkAlias: true,
+        username: "admin",
+        password: "mypass",
     },
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;
@@ -48,6 +50,8 @@ gd.query(
         requestPlayersRequired: true,
         checkOldIDs: true,
         // checkAlias: true,
+        username: "admin",
+        password: "mypass",
     },
     (error: any, state: gamedig.QueryResult) => {
         if (error) throw error;

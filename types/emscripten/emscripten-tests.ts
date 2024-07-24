@@ -116,7 +116,7 @@ function FSTest(): void {
 
     FS.createDataFile("/", "dummy2", data, true, true, true);
 
-    const lookup = FS.lookupPath("path", { parent: true });
+    const lookup = FS.lookupPath("path", { parent: true, follow: false });
     // $ExpectType number
     lookup.node.mode;
 

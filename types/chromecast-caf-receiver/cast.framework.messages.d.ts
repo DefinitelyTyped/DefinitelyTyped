@@ -610,6 +610,18 @@ export class AudioTrackInfo {
      */
     spatialAudio?: boolean | undefined;
 }
+
+/**
+ * Custom data set by the receiver application.
+ *
+ * @remarks
+ *
+ * Augment this interface in custom receivers.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TrackCustomData {
+}
+
 /**
  * Describes track metadata information.
  * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.Track
@@ -625,7 +637,7 @@ export class Track {
     /**
      * Custom data set by the receiver application.
      */
-    customData?: any;
+    customData?: TrackCustomData;
 
     /**
      * Indicate track is in-band and not side-loaded track. Relevant only for text tracks.
@@ -684,6 +696,17 @@ export class Track {
 }
 
 /**
+ * Custom data set by the receiver application.
+ *
+ * @remarks
+ *
+ * Augment this interface in custom receivers.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface TextTrackStyleCustomData {
+}
+
+/**
  * Describes style information for a text track.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.TextTrackStyle
  */
@@ -696,7 +719,7 @@ export class TextTrackStyle {
     /**
      * Custom data set by the receiver application.
      */
-    customData?: any;
+    customData?: TextTrackStyleCustomData;
 
     /**
      * RGBA color for the edge; this value will be ignored if edgeType is NONE.
@@ -819,6 +842,17 @@ export class SetCredentialsRequestData extends RequestData {
 }
 
 /**
+ * Customizable object for storing session state.
+ *
+ * @remarks
+ *
+ * Augment this interface in custom receivers.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface SessionStateCustomData {
+}
+
+/**
  * A state object containing all data to be stored in StoreSession and to be
  * recovered in ResumeSession.
  * @see https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.SessionState
@@ -829,7 +863,7 @@ export class SessionState {
     /**
      * Customizable object for storing the state.
      */
-    customData?: any;
+    customData?: SessionStateCustomData;
 
     loadRequestData?: LoadRequestData | undefined;
 }
@@ -1104,6 +1138,17 @@ export class QueueLoadRequestData extends RequestData {
 }
 
 /**
+ * The application can define any extra queue item information needed.
+ *
+ * @remarks
+ *
+ * Augment this interface in custom receivers.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface QueueItemCustomData {
+}
+
+/**
  * Queue item information. Application developers may need to create a QueueItem to
  * insert a queue element using InsertQueueItems. In this case they should not
  * provide an itemId (as the actual itemId will be assigned when the item is inserted
@@ -1128,7 +1173,7 @@ export class QueueItem {
     /**
      * The application can define any extra queue item information needed.
      */
-    customData?: any;
+    customData?: QueueItemCustomData;
 
     /**
      * Unique identifier of the item in the queue.
@@ -1638,6 +1683,17 @@ export class MovieMediaMetadata {
 }
 
 /**
+ * Applicaiton-specific media status.
+ *
+ * @remarks
+ *
+ * Augment this interface in custom receivers.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MediaStatusCustomData {
+}
+
+/**
  * Represents the status of a media session.
  * [Documentation]{@link https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.messages.MediaStatus}
  */
@@ -1668,7 +1724,7 @@ export class MediaStatus {
     /**
      * Application-specific media status.
      */
-    customData?: any;
+    customData?: MediaStatusCustomData;
 
     /**
      * Extended media status information.
@@ -1805,6 +1861,17 @@ export class MediaMetadata {
 }
 
 /**
+ * Application-specific media information.
+ *
+ * @remarks
+ *
+ * Augment this interface in custom receivers.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MediaInformationCustomData {
+}
+
+/**
  * Represents the media information.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.MediaInformation
  */
@@ -1841,7 +1908,7 @@ export class MediaInformation {
     /**
      * Application-specific media information.
      */
-    customData?: any;
+    customData?: MediaInformationCustomData;
 
     /**
      * The media duration.
@@ -2014,6 +2081,17 @@ export class LoadByEntityRequestData extends RequestData {
  */
 export class LiveSeekableRange {
     constructor(start?: number, end?: number, isMovingWindow?: boolean, isLiveDone?: boolean);
+
+    /**
+     * The start time (in seconds) of the range relative to the beginning of the stream in seconds.
+     */
+    start?: number | undefined;
+
+    /**
+     * The maximum possible time (in seconds) the player can seek to
+     * Based on available segments, relative to the beginning of the stream.
+     */
+    end?: number | undefined;
 
     /**
      * A boolean value indicates whether a live stream is ended. If it is done;
@@ -2384,6 +2462,17 @@ export class BreakStatus {
 }
 
 /**
+ * Application-specific break clip data.
+ *
+ * @remarks
+ *
+ * Augment this interface in custom receivers.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface BreakClipCustomData {
+}
+
+/**
  * Represents break clip (e.g. a clip of ad during ad break)
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.BreakClip
  */
@@ -2411,7 +2500,7 @@ export class BreakClip {
     /**
      * Application-specific break clip data.
      */
-    customData?: any;
+    customData?: BreakClipCustomData;
     /**
      * Duration of break clip in sec.
      */

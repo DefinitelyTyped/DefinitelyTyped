@@ -124,6 +124,12 @@ export class ImapFlow extends EventEmitter {
         query: FetchQueryObject,
         options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
     ): AsyncGenerator<FetchMessageObject, never, void>;
+
+    fetchAll(
+        range: SequenceString | number[] | SearchObject,
+        query: FetchQueryObject,
+        options?: { uid?: boolean; changedSince?: bigint; binary?: boolean },
+    ): Promise<FetchMessageObject[]>;
 }
 
 export interface ImapFlowOptions {

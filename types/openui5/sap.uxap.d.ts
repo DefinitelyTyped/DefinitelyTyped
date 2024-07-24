@@ -1,4 +1,4 @@
-// For Library Version: 1.124.0
+// For Library Version: 1.126.0
 
 declare module "sap/uxap/library" {
   /**
@@ -7521,6 +7521,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * Default value is `true`.
      *
      * @since 1.121.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * @returns Value of property `titleVisible`
      */
@@ -7688,6 +7689,7 @@ declare module "sap/uxap/ObjectPageSectionBase" {
      * binding to determine the aria-levels of the inner Controls.
      *
      * @since 1.121.0
+     * @ui5-protected DO NOT USE IN APPLICATIONS (only for related classes in the framework)
      */
     titleVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 

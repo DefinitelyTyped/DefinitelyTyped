@@ -45,7 +45,7 @@ if (types.isGeneratorFunction(object)) {
     object; // $ExpectType GeneratorFunction
 }
 if (types.isGeneratorObject(object)) {
-    object; // $ExpectType Generator<unknown, any, unknown>
+    object; // $ExpectType Generator<unknown, any, unknown> || Generator<unknown, any, any>
 }
 if (types.isInt8Array(object)) {
     object; // $ExpectType Int8Array

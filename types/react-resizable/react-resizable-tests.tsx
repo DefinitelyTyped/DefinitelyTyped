@@ -127,3 +127,27 @@ class TestXYResizableComponent extends React.Component<{ children?: React.ReactN
         );
     }
 }
+
+class TestNoneResizableComponent extends React.Component<{ children?: React.ReactNode }> {
+    render() {
+        return (
+            <Resizable
+                width={10}
+                height={20}
+                axis="none"
+                className={"foobar"}
+                minConstraints={[20, 20]}
+                maxConstraints={[42, 42]}
+                handleSize={[5, 5]}
+                lockAspectRatio={false}
+                draggableOpts={{ opaque: true }}
+                onResizeStart={resizeCallback}
+                onResizeStop={resizeCallback}
+                onResize={resizeCallback}
+                transformScale={1}
+            >
+                <div>{this.props.children}</div>
+            </Resizable>
+        );
+    }
+}
