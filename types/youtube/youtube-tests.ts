@@ -281,6 +281,10 @@ player.addEventListener("onPlaybackRateChange", (event: YT.OnPlaybackRateChangeE
 player.addEventListener("onError", (event: YT.OnErrorEvent) => {});
 player.addEventListener("onApiChange", (event: YT.PlayerEvent) => {});
 
+player.addEventListener("onStateChange", (event) => {
+    ensureNumeric<typeof event.data>();
+});
+
 const frame: HTMLIFrameElement = player.getIframe();
 
 const sphericalProperties: YT.SphericalProperties = player.getSphericalProperties();

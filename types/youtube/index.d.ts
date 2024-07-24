@@ -979,7 +979,10 @@ declare namespace YT {
          * @param eventName   Name of the event.
          * @param listener   Handler for the event.
          */
-        addEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
+        addEventListener<EventName extends keyof Events>(
+            eventName: EventName,
+            listener: NonNullable<Events[EventName]>,
+        ): void;
 
         /**
          * Remove an event listener for the specified event.
@@ -987,9 +990,9 @@ declare namespace YT {
          * @param eventName   Name of the event.
          * @param listener   Handler for the event.
          */
-        removeEventListener<TEvent extends PlayerEvent>(
-            eventName: keyof Events,
-            listener: (event: TEvent) => void,
+        removeEventListener<EventName extends keyof Events>(
+            eventName: EventName,
+            listener: NonNullable<Events[EventName]>,
         ): void;
 
         /**
