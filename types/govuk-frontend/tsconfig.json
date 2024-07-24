@@ -59,6 +59,8 @@
         "dist/govuk/i18n.d.mts",
         "dist/govuk/i18n.d.ts",
         "dist/govuk/init.d.mts",
-        "dist/govuk/init.d.ts"
+        "dist/govuk/init.d.ts",
+        "index.d.mts",
+        "index.d.ts"
     ]
 }
