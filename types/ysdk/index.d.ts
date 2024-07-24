@@ -21,6 +21,10 @@ export interface SDK {
         LoadingAPI: {
             ready(): void;
         };
+        GameplayAPI: {
+            start(): void;
+            stop(): void;
+        }
     }>;
 
     clipboard: {
