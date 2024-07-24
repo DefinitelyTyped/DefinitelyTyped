@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/govuk-frontend",
+    "version": "5.4.9999",
+    "projects": [
+        "https://github.com/alphagov/govuk-frontend",
+        "https://frontend.design-system.service.gov.uk"
+    ],
+    "devDependencies": {
+        "@types/govuk-frontend": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Colin Rotherham",
+            "githubUsername": "colinrotherham"
+        }
+    ]
+}
