@@ -8,6 +8,7 @@ import {
     SRGBColorSpace,
 } from "../constants.js";
 import { Color } from "./Color.js";
+import { Vector3 } from "./Vector3.js";
 
 export type WorkingColorSpace = typeof LinearSRGBColorSpace | typeof LinearDisplayP3ColorSpace;
 export type DefinedColorSpace =
@@ -37,6 +38,8 @@ export interface ColorManagement {
     getPrimaries: (colorSpace: DefinedColorSpace) => ColorSpacePrimaries;
 
     getTransfer: (colorSpace: ColorSpace) => ColorSpaceTransfer;
+
+    getLuminanceCoefficients: (target: Vector3, colorSpace?: ColorSpace) => Vector3;
 }
 
 export const ColorManagement: ColorManagement;

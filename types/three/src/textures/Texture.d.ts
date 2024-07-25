@@ -17,6 +17,42 @@ import { CompressedTextureMipmap } from "./CompressedTexture.js";
 import { CubeTexture } from "./CubeTexture.js";
 import { Source } from "./Source.js";
 
+export interface TextureJSON {
+    metadata: { version: number; type: string; generator: string };
+
+    uuid: string;
+    name: string;
+
+    image: string;
+
+    mapping: AnyMapping;
+    channel: number;
+
+    repeat: [x: number, y: number];
+    offset: [x: number, y: number];
+    center: [x: number, y: number];
+    rotation: number;
+
+    wrap: [wrapS: number, wrapT: number];
+
+    format: AnyPixelFormat;
+    internalFormat: PixelFormatGPU | null;
+    type: TextureDataType;
+    colorSpace: ColorSpace;
+
+    minFilter: MinificationTextureFilter;
+    magFilter: MagnificationTextureFilter;
+    anisotropy: number;
+
+    flipY: boolean;
+
+    generateMipmaps: boolean;
+    premultiplyAlpha: boolean;
+    unpackAlignment: number;
+
+    userData?: Record<string, unknown>;
+}
+
 /** Shim for OffscreenCanvas. */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OffscreenCanvas extends EventTarget {}
@@ -431,7 +467,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * Convert the texture to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
      * @param meta Optional object containing metadata.
      */
-    toJSON(meta?: string | {}): {};
+    toJSON(meta?: string | {}): TextureJSON;
 
     /**
      * Frees the GPU-related resources allocated by this instance

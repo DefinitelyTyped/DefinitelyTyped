@@ -1,6 +1,11 @@
 import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
-import { Curve } from "./Curve.js";
+import { Curve, CurveJSON } from "./Curve.js";
+
+export interface CurvePathJSON extends CurveJSON {
+    autoClose: boolean;
+    curves: CurveJSON[];
+}
 
 /**
  * Curved Path - a curve path is simply a array of connected curves, but retains the api of a curve.
@@ -66,4 +71,7 @@ export class CurvePath<TVector extends Vector2 | Vector3> extends Curve<TVector>
      * @param divisions Number of pieces to divide the curve into. Expects a `Integer`. Default `40`
      */
     override getSpacedPoints(divisions?: number): TVector[];
+
+    toJSON(): CurvePathJSON;
+    fromJSON(json: CurvePathJSON): this;
 }

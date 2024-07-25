@@ -1,6 +1,5 @@
 import { CompressedTexture, Loader, LoadingManager, WebGLRenderer } from "three";
-import Renderer from "../renderers/common/Renderer.js";
-import WebGPURenderer from "../renderers/webgpu/WebGPURenderer.js";
+import { Renderer, WebGPURenderer } from "three/webgpu";
 import { WorkerPool } from "../utils/WorkerPool.js";
 
 export interface KTX2LoaderWorkerConfig {

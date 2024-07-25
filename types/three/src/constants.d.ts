@@ -679,7 +679,13 @@ export type TrianglesDrawModes = typeof TrianglesDrawMode | typeof TriangleStrip
 
 export const BasicDepthPacking: 3200;
 export const RGBADepthPacking: 3201;
-export type DepthPackingStrategies = typeof BasicDepthPacking | typeof RGBADepthPacking;
+export const RGBDepthPacking: 3202;
+export const RGDepthPacking: 3203;
+export type DepthPackingStrategies =
+    | typeof BasicDepthPacking
+    | typeof RGBADepthPacking
+    | typeof RGBDepthPacking
+    | typeof RGDepthPacking;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Normal Map types

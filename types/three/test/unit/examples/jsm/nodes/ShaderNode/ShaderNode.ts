@@ -3,6 +3,7 @@
  */
 
 import {
+    color,
     ConstNode,
     MaterialNode,
     MathNode,
@@ -15,9 +16,11 @@ import {
     PropertyNode,
     RotateUVNode,
     ShaderNode,
-} from "three/addons/nodes/Nodes.js";
-
-import { color, ShaderNodeObject, Swizzable, tslFn, vec3 } from "three/addons/nodes/shadernode/ShaderNode.js";
+    ShaderNodeObject,
+    Swizzable,
+    tslFn,
+    vec3,
+} from "three/webgpu";
 
 // just to type check
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
