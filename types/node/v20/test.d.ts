@@ -144,7 +144,7 @@ declare module "node:test" {
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
     namespace test {
-        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, test, todo };
+        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, suite, test, todo };
     }
     /**
      * The `suite()` function is imported from the `node:test` module.
@@ -1315,6 +1315,7 @@ declare module "node:test" {
         only,
         run,
         skip,
+        suite,
         SuiteContext,
         test,
         test as default,
