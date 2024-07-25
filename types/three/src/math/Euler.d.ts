@@ -4,6 +4,8 @@ import { Vector3 } from "./Vector3.js";
 
 export type EulerOrder = "XYZ" | "YXZ" | "ZXY" | "ZYX" | "YZX" | "XZY";
 
+export type EulerTuple = [x: number, y: number, z: number, order?: EulerOrder];
+
 export class Euler {
     constructor(x?: number, y?: number, z?: number, order?: EulerOrder);
 
@@ -38,8 +40,8 @@ export class Euler {
     setFromVector3(v: Vector3, order?: EulerOrder): Euler;
     reorder(newOrder: EulerOrder): Euler;
     equals(euler: Euler): boolean;
-    fromArray(xyzo: [number, number, number, EulerOrder?, ...any[]]): Euler;
-    toArray(array?: Array<number | string | undefined>, offset?: number): Array<number | string | undefined>;
+    fromArray(array: EulerTuple): Euler;
+    toArray(array?: Partial<EulerTuple>, offset?: number): EulerTuple;
     _onChange(callback: () => void): this;
 
     static DEFAULT_ORDER: "XYZ";

@@ -1,10 +1,14 @@
 import { AnimationClip } from "./AnimationClip.js";
 
-export function convertArray(array: any, type: any, forceClone: boolean): any;
-export function isTypedArray(object: any): boolean;
-export function getKeyframeOrder(times: number[]): number[];
-export function sortedArray(values: any[], stride: number, order: number[]): any[];
-export function flattenJSON(jsonKeys: string[], times: any[], values: any[], valuePropertyName: string): void;
+declare function convertArray(array: any, type: any, forceClone: boolean): any;
+
+declare function isTypedArray(object: any): boolean;
+
+declare function getKeyframeOrder(times: number[]): number[];
+
+declare function sortedArray(values: any[], stride: number, order: number[]): any[];
+
+declare function flattenJSON(jsonKeys: string[], times: any[], values: any[], valuePropertyName: string): void;
 
 /**
  * @param sourceClip
@@ -13,7 +17,7 @@ export function flattenJSON(jsonKeys: string[], times: any[], values: any[], val
  * @param endFrame
  * @param [fps=30]
  */
-export function subclip(
+declare function subclip(
     sourceClip: AnimationClip,
     name: string,
     startFrame: number,
@@ -27,9 +31,30 @@ export function subclip(
  * @param [referenceClip=targetClip]
  * @param [fps=30]
  */
-export function makeClipAdditive(
+declare function makeClipAdditive(
     targetClip: AnimationClip,
     referenceFrame?: number,
     referenceClip?: AnimationClip,
     fps?: number,
 ): AnimationClip;
+
+declare const AnimationUtils: {
+    convertArray: typeof convertArray;
+    isTypedArray: typeof isTypedArray;
+    getKeyframeOrder: typeof getKeyframeOrder;
+    sortedArray: typeof sortedArray;
+    flattenJSON: typeof flattenJSON;
+    subclip: typeof subclip;
+    makeClipAdditive: typeof makeClipAdditive;
+};
+
+export {
+    AnimationUtils,
+    convertArray,
+    flattenJSON,
+    getKeyframeOrder,
+    isTypedArray,
+    makeClipAdditive,
+    sortedArray,
+    subclip,
+};

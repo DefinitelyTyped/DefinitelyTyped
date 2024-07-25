@@ -21,8 +21,9 @@ import {
     mx_worley_noise_float,
     mx_worley_noise_vec2,
     mx_worley_noise_vec3,
-} from "three/examples/jsm/nodes/materialx/MaterialXNodes.js";
-import { vec2, vec3 } from "three/examples/jsm/nodes/shadernode/ShaderNode.js";
+    vec2,
+    vec3,
+} from "three/webgpu";
 
 mx_aastep(0, 1);
 

@@ -1,4 +1,4 @@
-import { Matrix } from "../math/Matrix3.js";
+import { Matrix3 } from "../math/Matrix3.js";
 import { Matrix4 } from "../math/Matrix4.js";
 import { BufferAttribute, TypedArray } from "./BufferAttribute.js";
 import { InterleavedBuffer } from "./InterleavedBuffer.js";
@@ -84,13 +84,13 @@ export class InterleavedBufferAttribute {
      * Applies normal matrix {@link Matrix3 | m} to every Vector3 element of this InterleavedBufferAttribute.
      * @param m
      */
-    applyNormalMatrix(m: Matrix): this;
+    applyNormalMatrix(m: Matrix3): this;
 
     /**
      * Applies matrix {@link Matrix4 | m} to every Vector3 element of this InterleavedBufferAttribute, interpreting the elements as a direction vectors.
      * @param m
      */
-    transformDirection(m: Matrix): this;
+    transformDirection(m: Matrix4): this;
 
     /**
      * Returns the given component of the vector at the given index.

@@ -1,7 +1,4 @@
-import { BufferAttribute } from "../core/BufferAttribute.js";
 import { BufferGeometry, NormalOrGLBufferAttributes } from "../core/BufferGeometry.js";
-import { GLBufferAttribute } from "../core/GLBufferAttribute.js";
-import { InterleavedBufferAttribute } from "../core/InterleavedBufferAttribute.js";
 import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
 

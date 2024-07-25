@@ -1,5 +1,19 @@
 import { Camera } from "../cameras/Camera.js";
-import { Object3D, Object3DEventMap } from "../core/Object3D.js";
+import { JSONMeta, Object3D, Object3DEventMap, Object3DJSON, Object3DJSONObject } from "../core/Object3D.js";
+
+export interface LODJSONObject extends Object3DJSONObject {
+    autoUpdate?: boolean;
+
+    levels: Array<{
+        object: string;
+        distance: number;
+        hysteresis: number;
+    }>;
+}
+
+export interface LODJSON extends Object3DJSON {
+    object: LODJSONObject;
+}
 
 /**
  * Every level is associated with an object, and rendering can be switched between them at the distances specified
@@ -85,4 +99,6 @@ export class LOD<TEventMap extends Object3DEventMap = Object3DEventMap> extends 
      * @param camera
      */
     update(camera: Camera): void;
+
+    toJSON(meta?: JSONMeta): LODJSON;
 }

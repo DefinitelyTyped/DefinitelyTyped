@@ -6,6 +6,9 @@ export function mergeUniforms(uniforms: Array<{ [uniform: string]: IUniform }>):
 
 export function cloneUniformsGroups(src: UniformsGroup[]): UniformsGroup[];
 
-export namespace UniformsUtils {
-    export { cloneUniforms as clone, mergeUniforms as merge };
-}
+declare const UniformsUtils: {
+    clone: typeof cloneUniforms;
+    merge: typeof mergeUniforms;
+};
+
+export { UniformsUtils };

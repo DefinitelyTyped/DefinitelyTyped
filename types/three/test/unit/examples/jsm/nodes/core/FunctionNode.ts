@@ -9,12 +9,11 @@ import {
     FunctionNode,
     glslFn,
     Node,
+    ProxiedObject,
     Swizzable,
     uv,
     wgslFn,
-} from "three/addons/nodes/Nodes.js";
-
-import { ProxiedObject } from "three/addons/nodes/shadernode/ShaderNode.js";
+} from "three/webgpu";
 
 export const mx_noise = code("whatever");
 const includes = [mx_noise];
