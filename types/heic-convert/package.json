@@ -15,13 +15,7 @@
         }
     ],
     "exports": {
-        ".": {
-            "import": "./index.d.ts",
-            "require": "./index.d.ts"
-        },
-        "./browser": {
-            "import": "./browser.d.ts",
-            "require": "./browser.d.ts"
-        }
+        ".": "./index.d.ts",
+        "./browser": "./browser.d.ts"
     }
 }
