@@ -14,7 +14,7 @@
  * // Prints:
  * //   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/crypto.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/crypto.js)
  */
 declare module "crypto" {
     import * as stream from "node:stream";
@@ -96,7 +96,7 @@ declare module "crypto" {
         verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
     }
     namespace constants {
-        // https://nodejs.org/dist/latest-v20.x/docs/api/crypto.html#crypto-constants
+        // https://nodejs.org/dist/latest-v22.x/docs/api/crypto.html#crypto-constants
         const OPENSSL_VERSION_NUMBER: number;
         /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
         const SSL_OP_ALL: number;
@@ -3406,7 +3406,7 @@ declare module "crypto" {
      * @since v21.7.0, v20.12.0
      * @param data When `data` is a string, it will be encoded as UTF-8 before being hashed. If a different input encoding is desired for a string input, user
      *             could encode the string into a `TypedArray` using either `TextEncoder` or `Buffer.from()` and passing the encoded `TypedArray` into this API instead.
-     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v20.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
+     * @param [outputEncoding='hex'] [Encoding](https://nodejs.org/docs/latest-v22.x/api/buffer.html#buffers-and-character-encodings) used to encode the returned digest.
      */
     function hash(algorithm: string, data: BinaryLike, outputEncoding?: BinaryToTextEncoding): string;
     function hash(algorithm: string, data: BinaryLike, outputEncoding: "buffer"): Buffer;
