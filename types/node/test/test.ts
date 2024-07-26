@@ -496,22 +496,6 @@ test("mocks a counting function", (t) => {
     const fn = t.mock.fn(addOne, addTwo, { times: 2 });
     // $ExpectType number
     fn();
-
-    const mock = t.mock.module("node:readline", {
-        namedExports: {
-            fn() {
-                return 42;
-            },
-        },
-        defaultExport: {
-            foo() {
-                return "bar";
-            },
-        },
-        cache: true,
-    });
-    // $ExpectType void
-    mock.restore();
 });
 
 test("spies on an object method", (t) => {
@@ -778,6 +762,24 @@ test("mocks a setter", (t) => {
         // $ExpectType unknown
         call.this;
     }
+});
+
+test("mocks a module", (t) => {
+    const mock = t.mock.module("node:readline", {
+        namedExports: {
+            fn() {
+                return 42;
+            },
+        },
+        defaultExport: {
+            foo() {
+                return "bar";
+            },
+        },
+        cache: true,
+    });
+    // $ExpectType void
+    mock.restore();
 });
 
 // @ts-expect-error
