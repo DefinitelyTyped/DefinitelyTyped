@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-web",
+    "version": "1.0.0",
+    "projects": [
+        "https://github.com/watadarkstar/react-native-web#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-web": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fábio Henriques",
+            "githubUsername": "fabioh8010"
+        },
+        {
+            "name": "Błażej Kustra",
+            "githubUsername": "blazejkustra"
+        }
+    ]
+}
