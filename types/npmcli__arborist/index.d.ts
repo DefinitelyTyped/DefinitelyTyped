@@ -262,7 +262,7 @@ declare namespace Arborist {
         /** The node that has the dependency. */
         from: Node;
         /** The type of dependency. */
-        type: Exclude<SaveType, "peerOptional">;
+        type: SaveType;
         /** The name of the dependency.  Ie, the key in the relevant `package.json` dependencies object. */
         name: string;
         /**
@@ -272,7 +272,7 @@ declare namespace Arborist {
          */
         spec: string;
         /** Automatically set to the node in the tree that matches the `name` field. */
-        to: Node;
+        to: Node | null;
         /** True if `edge.to` satisfies the specifier. */
         valid: boolean;
         invalid: boolean;
