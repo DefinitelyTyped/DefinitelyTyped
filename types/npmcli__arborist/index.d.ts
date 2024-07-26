@@ -260,7 +260,7 @@ declare namespace Arborist {
          */
         constructor(fields: Pick<Edge, "from" | "type" | "name" | "spec">);
         /** The node that has the dependency. */
-        from: Node;
+        from: Node | null;
         /** The type of dependency. */
         type: SaveType;
         /** The name of the dependency.  Ie, the key in the relevant `package.json` dependencies object. */
