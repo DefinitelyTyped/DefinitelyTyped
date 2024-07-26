@@ -144,7 +144,7 @@ declare module "node:test" {
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
     namespace test {
-        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, suite, test, todo };
+        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, snapshot, suite, test, todo };
     }
     /**
      * The `suite()` function is imported from the `node:test` module.
@@ -1352,6 +1352,35 @@ declare module "node:test" {
          */
         [Symbol.dispose](): void;
     }
+    /**
+     * Only available through the [--experimental-test-snapshots](https://nodejs.org/api/cli.html#--experimental-test-snapshots) flag.
+     * @since v22.3.0
+     * @experimental
+     */
+    namespace snapshot {
+        /**
+         * This function is used to customize the default serialization mechanism used by the test runner.
+         *
+         * By default, the test runner performs serialization by calling `JSON.stringify(value, null, 2)` on the provided value.
+         * `JSON.stringify()` does have limitations regarding circular structures and supported data types.
+         * If a more robust serialization mechanism is required, this function should be used to specify a list of custom serializers.
+         *
+         * Serializers are called in order, with the output of the previous serializer passed as input to the next.
+         * The final result must be a string value.
+         * @since v22.3.0
+         * @param serializers An array of synchronous functions used as the default serializers for snapshot tests.
+         */
+        function setDefaultSnapshotSerializers(serializers: readonly ((value: any) => any)[]): void;
+        /**
+         * This function is used to set a custom resolver for the location of the snapshot file used for snapshot testing.
+         * By default, the snapshot filename is the same as the entry point filename with `.snapshot` appended.
+         * @since v22.3.0
+         * @param fn A function which returns a string specifying the location of the snapshot file.
+         * The function receives the path of the test file as its only argument.
+         * If `process.argv[1]` is not associated with a file (for example in the REPL), the input is undefined.
+         */
+        function setResolveSnapshotPath(fn: (path: string | undefined) => string): void;
+    }
     export {
         after,
         afterEach,
@@ -1364,6 +1393,7 @@ declare module "node:test" {
         only,
         run,
         skip,
+        snapshot,
         suite,
         SuiteContext,
         test,
