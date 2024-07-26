@@ -4314,37 +4314,27 @@ declare module "fs" {
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
 
-    export interface GlobOptDirent {
+    export interface GlobOptions {
         /**
          * Current working directory.
          * @default process.cwd()
          */
-        cwd?: string;
+        cwd?: string | undefined;
         /**
          * Function to filter out files/directories. Return true to exclude the item, false to include it. 
          */
-        exclude?: (fileName: string) => boolean;
+        exclude?: ((fileName: string) => boolean) | undefined;
         /**
          * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
          * @default false
          */
+        withFileTypes?: boolean | undefined;
+    }
+    export interface GlobOptionsWithFileTypes extends GlobOptions {
         withFileTypes: true;
     }
-    export interface GlobOptPath {
-        /**
-         * Current working directory.
-         * @default process.cwd()
-         */
-        cwd?: string;
-        /**
-         * Function to filter out files/directories. Return true to exclude the item, false to include it. 
-         */
-        exclude?: (fileName: string) => boolean;
-        /**
-         * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
-         * @default false
-         */
-        withFileTypes?: false;
+    export interface GlobOptionsWithoutFileTypes extends GlobOptions {
+        withFileTypes?: false | undefined;
     }
     /**
      * Retrieves the files matching the specified pattern.
@@ -4353,10 +4343,17 @@ declare module "fs" {
     /**
      * Retrieves the files matching the specified pattern.
      */
-    export function glob<Option extends GlobOptDirent | GlobOptPath>(
+    export function glob<Options extends GlobOptions>(
         pattern: string | string[],
-        opt: Option,
-        callback: (err: NodeJS.ErrnoException | null, matches: Option["withFileTypes"] extends true ? Dirent[] : string[]) => void,
+        options: Options,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: Options extends GlobOptionsWithFileTypes
+                ? Dirent[]
+                : Options extends GlobOptionsWithoutFileTypes
+                    ? string[]
+                    : Dirent[] | string[],
+        ) => void,
     ): void;
     /**
      * Retrieves the files matching the specified pattern.
@@ -4365,10 +4362,14 @@ declare module "fs" {
     /**
      * Retrieves the files matching the specified pattern.
      */
-    export function globSync<Option extends GlobOptDirent | GlobOptPath>(
+    export function globSync<Options extends GlobOptions>(
         pattern: string | string[],
-        opt: Option,
-    ): Option["withFileTypes"] extends true ? Dirent[] : string[];
+        options: Options,
+    ): Options extends GlobOptionsWithFileTypes
+        ? Dirent[]
+        : Options extends GlobOptionsWithoutFileTypes
+            ? string[]
+            : Dirent[] | string[];
 }
 declare module "node:fs" {
     export * from "fs";
