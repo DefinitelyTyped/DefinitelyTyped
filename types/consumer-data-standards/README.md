@@ -29,18 +29,7 @@ Please follow these steps to integrate the CDR-specific type definitions into yo
     yarn install @types/consumer-data-standards
     ```
     
-2. **Configure TypeScript**: Ensure your `tsconfig.json` includes paths to where your types are stored:
-    
-    ```json
-    {
-      "compilerOptions": {
-        "typeRoots": ["./node_modules/@types", "./path_to_your_custom_types"],
-        "types": ["your-package"]
-      }
-    }
-    ```
-    
-3. **Usage**: Utilise the types in your TypeScript code as needed:
+2. **Usage**: Utilise the types in your TypeScript code as needed:
     
     ```tsx
     import { YourType } from 'your-package';
@@ -50,7 +39,7 @@ Please follow these steps to integrate the CDR-specific type definitions into yo
     }
     ```
     
-4. **Stay Updated**: Regularly check for updates to ensure you have the latest type definitions.
+3. **Stay Updated**: Regularly check for updates to ensure you have the latest type definitions.
 
 
 ## Reporting Issues
@@ -60,10 +49,6 @@ Encountered an issue? We're here to help. Please visit our [issue reporting guid
 ## Stay Updated
 
 Join our newsletter to receive the latest updates, release notes, and alerts. [Subscribe here](https://consumerdatastandards.us18.list-manage.com/subscribe?u=fb3bcb1ec5662d9767ab3c414&id=a4414b3906).
-
-## License
-
-The artefact is released under the [MIT License](https://github.com/ConsumerDataStandardsAustralia/java-artefacts/blob/master/LICENSE), which allows the community to use and modify it freely.
 
 ## Disclaimer
 
