@@ -93,7 +93,12 @@ const viewStyle: ViewStyle = {
         to: { transform: "scale(1.2)" },
     },
     borderRadius: 50,
-    display: "flex",
+    position: "fixed",
+    zIndex: "auto",
+    overflow: "clip",
+    top: "1px",
+    bottom: "50%",
+    display: "-webkit-inline-flex",
 };
 
 const textStyle: TextStyle = {

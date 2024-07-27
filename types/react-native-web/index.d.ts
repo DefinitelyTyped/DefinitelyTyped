@@ -8,7 +8,7 @@ import type {
     UIEventHandler,
     WheelEventHandler,
 } from "react";
-import type { GestureResponderEvent, LayoutRectangle, NativeSyntheticEvent } from "react-native";
+import type { DimensionValue, GestureResponderEvent, LayoutRectangle, NativeSyntheticEvent } from "react-native";
 
 declare module "react-native" {
     // Extracted from react-native-web, packages/react-native-web/src/exports/View/types.js
@@ -357,9 +357,97 @@ declare module "react-native" {
         animationKeyframes?: string | Record<string, ViewStyle>;
         writingDirection?: "auto" | "ltr" | "rtl";
         enableBackground?: string;
+        position?:
+            | "absolute"
+            | "relative"
+            | "static"
+            | "-webkit-sticky"
+            | "absolute"
+            | "fixed"
+            | "relative"
+            | "static"
+            | "sticky"
+            | undefined;
     }
 
-    interface ViewStyle extends WebStyle {}
-    interface TextStyle extends WebStyle {}
-    interface ImageStyle extends WebStyle {}
+    interface ViewStyle extends WebStyle {
+        // In order to overwrite properties from RN, we need to redefine them inside ViewStyle
+        zIndex?: CSSProperties["zIndex"] | undefined;
+        overflow?: CSSProperties["overflow"] | undefined;
+        display?: CSSProperties["display"] | undefined;
+        position?: CSSProperties["position"] | undefined;
+        top?: CSSProperties["top"] | DimensionValue | undefined;
+        right?: CSSProperties["right"] | DimensionValue | undefined;
+        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
+        left?: CSSProperties["left"] | DimensionValue | undefined;
+        height?: CSSProperties["height"] | DimensionValue | undefined;
+        width?: CSSProperties["width"] | DimensionValue | undefined;
+        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
+        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
+        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
+        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
+        margin?: CSSProperties["margin"] | DimensionValue | undefined;
+        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
+        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
+        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
+        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
+        padding?: CSSProperties["padding"] | DimensionValue | undefined;
+        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
+        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
+        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
+        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
+    }
+    interface TextStyle extends WebStyle {
+        // In order to overwrite properties from RN, we need to redefine them inside TextStyle
+        zIndex?: CSSProperties["zIndex"] | undefined;
+        overflow?: CSSProperties["overflow"] | undefined;
+        display?: CSSProperties["display"] | undefined;
+        position?: CSSProperties["position"] | undefined;
+        top?: CSSProperties["top"] | DimensionValue | undefined;
+        right?: CSSProperties["right"] | DimensionValue | undefined;
+        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
+        left?: CSSProperties["left"] | DimensionValue | undefined;
+        height?: CSSProperties["height"] | DimensionValue | undefined;
+        width?: CSSProperties["width"] | DimensionValue | undefined;
+        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
+        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
+        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
+        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
+        margin?: CSSProperties["margin"] | DimensionValue | undefined;
+        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
+        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
+        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
+        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
+        padding?: CSSProperties["padding"] | DimensionValue | undefined;
+        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
+        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
+        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
+        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
+    }
+    interface ImageStyle extends WebStyle {
+        // In order to overwrite properties from RN, we need to redefine them inside ImageStyle
+        zIndex?: CSSProperties["zIndex"] | undefined;
+        display?: CSSProperties["display"] | undefined;
+        position?: CSSProperties["position"] | undefined;
+        top?: CSSProperties["top"] | DimensionValue | undefined;
+        right?: CSSProperties["right"] | DimensionValue | undefined;
+        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
+        left?: CSSProperties["left"] | DimensionValue | undefined;
+        height?: CSSProperties["height"] | DimensionValue | undefined;
+        width?: CSSProperties["width"] | DimensionValue | undefined;
+        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
+        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
+        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
+        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
+        margin?: CSSProperties["margin"] | DimensionValue | undefined;
+        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
+        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
+        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
+        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
+        padding?: CSSProperties["padding"] | DimensionValue | undefined;
+        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
+        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
+        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
+        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
+    }
 }
