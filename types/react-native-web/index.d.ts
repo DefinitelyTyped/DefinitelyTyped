@@ -357,17 +357,6 @@ declare module "react-native" {
         animationKeyframes?: string | Record<string, ViewStyle>;
         writingDirection?: "auto" | "ltr" | "rtl";
         enableBackground?: string;
-        position?:
-            | "absolute"
-            | "relative"
-            | "static"
-            | "-webkit-sticky"
-            | "absolute"
-            | "fixed"
-            | "relative"
-            | "static"
-            | "sticky"
-            | undefined;
     }
 
     interface ViewStyle extends WebStyle {
