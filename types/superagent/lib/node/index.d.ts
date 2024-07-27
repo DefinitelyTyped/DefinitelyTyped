@@ -12,6 +12,7 @@ import RequestBase = require("../request-base");
 import ResponseBase = require("./response");
 import { AgentOptions as SAgentOptions, CBHandler, URLType } from "../../types";
 import { Request as Http2Request } from "./http2wrapper";
+import { AppendOptions } from "form-data";
 
 type HttpMethod<Req extends request.Request> =
     | ((url: URLType, callback?: CBHandler) => Req)
@@ -65,6 +66,7 @@ declare class SARequest extends Stream implements RequestBase {
         val:
             | (string | number | boolean | Blob | Buffer | ReadStream)
             | Array<string | number | boolean | Blob | Buffer | ReadStream>,
+        options?: AppendOptions | string,
     ): this;
     finally(onfinally?: (() => void) | null): Promise<ResponseBase>;
     get(header: string): string;
