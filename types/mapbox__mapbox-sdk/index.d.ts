@@ -1882,7 +1882,7 @@ declare module "@mapbox/mapbox-sdk/services/static" {
     }
 
     interface SimpleMarker {
-        coordinates: LngLatLike;
+        coordinates: [number, number];
         label?: string | undefined;
         color?: string | undefined;
         size?: "large" | "small" | undefined;

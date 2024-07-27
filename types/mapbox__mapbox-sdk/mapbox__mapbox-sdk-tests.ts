@@ -68,8 +68,7 @@ const drivingDirectionsRequest: MapiRequest = directionsService.getDirections({
     maxWidth: 10,
 });
 
-drivingDirectionsRequest.send().then((response: MapiResponse) => {
-});
+drivingDirectionsRequest.send().then((response: MapiResponse) => {});
 
 const drivingTrafficDirectionsRequest: MapiRequest = directionsService.getDirections({
     profile: "driving-traffic",
@@ -80,8 +79,7 @@ const drivingTrafficDirectionsRequest: MapiRequest = directionsService.getDirect
     maxWidth: 10,
 });
 
-drivingTrafficDirectionsRequest.send().then((response: MapiResponse) => {
-});
+drivingTrafficDirectionsRequest.send().then((response: MapiResponse) => {});
 
 const isochroneService: IsochroneService = Isochrone(client);
 
@@ -154,6 +152,22 @@ staticMapService.getStaticImage({
             geoJson: geoOverlay,
         },
     ],
+});
+
+staticMapService.getStaticImage({
+    width: 16,
+    height: 16,
+    overlays: [
+        {
+            marker: {
+                // @ts-expect-error - Object literal may only specify known properties, and 'lng' does not exist in type '[number, number]'
+                coordinates: { lng: 0, lat: 0 },
+            },
+        },
+    ],
+    position: "auto",
+    ownerId: "owner-id",
+    styleId: "some-style",
 });
 
 staticMapService.getStaticImage({
@@ -239,7 +253,7 @@ geocodeService
     })
     .send()
     .then(({ body }) => {
-        body.features.forEach(feature => {
+        body.features.forEach((feature) => {
             const shortCode = feature.short_code;
         });
     });
@@ -253,7 +267,7 @@ geocodeServiceV6
     })
     .send()
     .then(({ body }) => {
-        body.features.forEach(feature => {
+        body.features.forEach((feature) => {
             const shortCode = feature.properties.context.place?.short_code;
         });
     });
@@ -265,7 +279,7 @@ geocodeServiceV6
     })
     .send()
     .then(({ body }) => {
-        body.features.forEach(feature => {
+        body.features.forEach((feature) => {
             const shortCode = feature.properties.context.place?.short_code;
         });
     });
