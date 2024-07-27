@@ -1,7 +1,16 @@
-import type {CSSProperties, FocusEventHandler, KeyboardEventHandler, MouseEventHandler, PointerEventHandler, TouchEventHandler, UIEventHandler, WheelEventHandler} from 'react';
-import type {GestureResponderEvent, LayoutRectangle, NativeSyntheticEvent} from 'react-native';
+import type {
+    CSSProperties,
+    FocusEventHandler,
+    KeyboardEventHandler,
+    MouseEventHandler,
+    PointerEventHandler,
+    TouchEventHandler,
+    UIEventHandler,
+    WheelEventHandler,
+} from "react";
+import type { GestureResponderEvent, LayoutRectangle, NativeSyntheticEvent } from "react-native";
 
-declare module 'react-native' {
+declare module "react-native" {
     // Extracted from react-native-web, packages/react-native-web/src/exports/View/types.js
     type idRef = string;
     type idRefList = idRef | idRef[];
@@ -9,85 +18,85 @@ declare module 'react-native' {
     // https://necolas.github.io/react-native-web/docs/accessibility/#accessibility-props-api
     // Extracted from react-native-web, packages/react-native-web/src/exports/View/types.js
     interface AccessibilityProps {
-        'aria-activedescendant'?: idRef;
-        'aria-atomic'?: boolean;
-        'aria-autocomplete'?: 'none' | 'list' | 'inline' | 'both';
-        'aria-busy'?: boolean;
-        'aria-checked'?: boolean | 'mixed';
-        'aria-colcount'?: number;
-        'aria-colindex'?: number;
-        'aria-colspan'?: number;
-        'aria-controls'?: idRef;
-        'aria-current'?: boolean | 'page' | 'step' | 'location' | 'date' | 'time';
-        'aria-describedby'?: idRef;
-        'aria-details'?: idRef;
-        'aria-disabled'?: boolean;
-        'aria-errormessage'?: idRef;
-        'aria-expanded'?: boolean;
-        'aria-flowto'?: idRef;
-        'aria-haspopup'?: 'dialog' | 'grid' | 'listbox' | 'menu' | 'tree' | false;
-        'aria-hidden'?: boolean;
-        'aria-invalid'?: boolean;
-        'aria-keyshortcuts'?: string;
-        'aria-label'?: string;
-        'aria-labelledby'?: idRef;
-        'aria-level'?: number;
-        'aria-live'?: 'assertive' | 'off' | 'polite';
-        'aria-modal'?: boolean;
-        'aria-multiline'?: boolean;
-        'aria-multiselectable'?: boolean;
-        'aria-orientation'?: 'horizontal' | 'vertical';
-        'aria-owns'?: idRef;
-        'aria-placeholder'?: string;
-        'aria-posinset'?: number;
-        'aria-pressed'?: boolean | 'mixed';
-        'aria-readonly'?: boolean;
-        'aria-required'?: boolean;
-        'aria-roledescription'?: string;
-        'aria-rowcount'?: number;
-        'aria-rowindex'?: number;
-        'aria-rowspan'?: number;
-        'aria-selected'?: boolean;
-        'aria-setsize'?: number;
-        'aria-sort'?: 'ascending' | 'descending' | 'none' | 'other';
-        'aria-valuemax'?: number;
-        'aria-valuemin'?: number;
-        'aria-valuenow'?: number;
-        'aria-valuetext'?: string;
+        "aria-activedescendant"?: idRef;
+        "aria-atomic"?: boolean;
+        "aria-autocomplete"?: "none" | "list" | "inline" | "both";
+        "aria-busy"?: boolean;
+        "aria-checked"?: boolean | "mixed";
+        "aria-colcount"?: number;
+        "aria-colindex"?: number;
+        "aria-colspan"?: number;
+        "aria-controls"?: idRef;
+        "aria-current"?: boolean | "page" | "step" | "location" | "date" | "time";
+        "aria-describedby"?: idRef;
+        "aria-details"?: idRef;
+        "aria-disabled"?: boolean;
+        "aria-errormessage"?: idRef;
+        "aria-expanded"?: boolean;
+        "aria-flowto"?: idRef;
+        "aria-haspopup"?: "dialog" | "grid" | "listbox" | "menu" | "tree" | false;
+        "aria-hidden"?: boolean;
+        "aria-invalid"?: boolean;
+        "aria-keyshortcuts"?: string;
+        "aria-label"?: string;
+        "aria-labelledby"?: idRef;
+        "aria-level"?: number;
+        "aria-live"?: "assertive" | "off" | "polite";
+        "aria-modal"?: boolean;
+        "aria-multiline"?: boolean;
+        "aria-multiselectable"?: boolean;
+        "aria-orientation"?: "horizontal" | "vertical";
+        "aria-owns"?: idRef;
+        "aria-placeholder"?: string;
+        "aria-posinset"?: number;
+        "aria-pressed"?: boolean | "mixed";
+        "aria-readonly"?: boolean;
+        "aria-required"?: boolean;
+        "aria-roledescription"?: string;
+        "aria-rowcount"?: number;
+        "aria-rowindex"?: number;
+        "aria-rowspan"?: number;
+        "aria-selected"?: boolean;
+        "aria-setsize"?: number;
+        "aria-sort"?: "ascending" | "descending" | "none" | "other";
+        "aria-valuemax"?: number;
+        "aria-valuemin"?: number;
+        "aria-valuenow"?: number;
+        "aria-valuetext"?: string;
 
         // @deprecated
         accessibilityActiveDescendant?: idRef;
         accessibilityAtomic?: boolean;
-        accessibilityAutoComplete?: 'none' | 'list' | 'inline' | 'both';
+        accessibilityAutoComplete?: "none" | "list" | "inline" | "both";
         accessibilityBusy?: boolean;
-        accessibilityChecked?: boolean | 'mixed';
+        accessibilityChecked?: boolean | "mixed";
         accessibilityColumnCount?: number;
         accessibilityColumnIndex?: number;
         accessibilityColumnSpan?: number;
         accessibilityControls?: idRefList;
-        accessibilityCurrent?: boolean | 'page' | 'step' | 'location' | 'date' | 'time';
+        accessibilityCurrent?: boolean | "page" | "step" | "location" | "date" | "time";
         accessibilityDescribedBy?: idRefList;
         accessibilityDetails?: idRef;
         accessibilityDisabled?: boolean;
         accessibilityErrorMessage?: idRef;
         accessibilityExpanded?: boolean;
         accessibilityFlowTo?: idRefList;
-        accessibilityHasPopup?: 'dialog' | 'grid' | 'listbox' | 'menu' | 'tree' | false;
+        accessibilityHasPopup?: "dialog" | "grid" | "listbox" | "menu" | "tree" | false;
         accessibilityHidden?: boolean;
         accessibilityInvalid?: boolean;
         accessibilityKeyShortcuts?: string[];
         accessibilityLabel?: string;
         accessibilityLabelledBy?: idRef;
         accessibilityLevel?: number;
-        accessibilityLiveRegion?: 'assertive' | 'none' | 'polite';
+        accessibilityLiveRegion?: "assertive" | "none" | "polite";
         accessibilityModal?: boolean;
         accessibilityMultiline?: boolean;
         accessibilityMultiSelectable?: boolean;
-        accessibilityOrientation?: 'horizontal' | 'vertical';
+        accessibilityOrientation?: "horizontal" | "vertical";
         accessibilityOwns?: idRefList;
         accessibilityPlaceholder?: string;
         accessibilityPosInSet?: number;
-        accessibilityPressed?: boolean | 'mixed';
+        accessibilityPressed?: boolean | "mixed";
         accessibilityReadOnly?: boolean;
         accessibilityRequired?: boolean;
         accessibilityRoleDescription?: string;
@@ -96,7 +105,7 @@ declare module 'react-native' {
         accessibilityRowSpan?: number;
         accessibilitySelected?: boolean;
         accessibilitySetSize?: number;
-        accessibilitySort?: 'ascending' | 'descending' | 'none' | 'other';
+        accessibilitySort?: "ascending" | "descending" | "none" | "other";
         accessibilityValueMax?: number;
         accessibilityValueMin?: number;
         accessibilityValueNow?: number;
@@ -249,7 +258,7 @@ declare module 'react-native' {
     }
 
     // @ts-expect-error We override this type in order to provide "target" to onLayout event.
-    type LayoutChangeEvent = NativeSyntheticEvent<{layout: LayoutRectangle; target?: unknown}>;
+    type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle; target?: unknown }>;
 
     interface EventProps extends ClickProps, FocusProps, KeyboardProps, MouseProps, TouchProps, ResponderProps {}
 
@@ -274,7 +283,7 @@ declare module 'react-native' {
      * Extracted from react-native-web, packages/react-native-web/src/exports/View/types.js
      */
     interface WebViewProps extends WebSharedProps {
-        dir?: 'ltr' | 'rtl';
+        dir?: "ltr" | "rtl";
     }
     interface ViewProps extends WebViewProps {}
 
@@ -283,7 +292,7 @@ declare module 'react-native' {
      * Extracted from react-native-web, packages/react-native-web/src/exports/Text/types.js
      */
     interface WebTextProps extends WebSharedProps {
-        dir?: 'auto' | 'ltr' | 'rtl';
+        dir?: "auto" | "ltr" | "rtl";
     }
     interface TextProps extends WebTextProps {}
 
@@ -292,7 +301,7 @@ declare module 'react-native' {
      * Extracted from react-native-web, packages/react-native-web/src/exports/TextInput/types.js
      */
     interface WebTextInputProps extends WebSharedProps {
-        dir?: 'auto' | 'ltr' | 'rtl';
+        dir?: "auto" | "ltr" | "rtl";
         disabled?: boolean;
     }
     interface TextInputProps extends WebTextInputProps {}
@@ -302,7 +311,7 @@ declare module 'react-native' {
      * Extracted from react-native-web, packages/react-native-web/src/exports/Image/types.js
      */
     interface WebImageProps extends WebSharedProps {
-        dir?: 'ltr' | 'rtl';
+        dir?: "ltr" | "rtl";
         draggable?: boolean;
     }
     interface ImageProps extends WebImageProps {}
@@ -346,7 +355,7 @@ declare module 'react-native' {
         // https://necolas.github.io/react-native-web/docs/styling/#non-standard-properties
         // Exclusive to react-native-web, "pointerEvents" already included on RN
         animationKeyframes?: string | Record<string, ViewStyle>;
-        writingDirection?: 'auto' | 'ltr' | 'rtl';
+        writingDirection?: "auto" | "ltr" | "rtl";
         enableBackground?: string;
     }
 
