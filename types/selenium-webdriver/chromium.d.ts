@@ -1,4 +1,4 @@
-import http from "./http";
+import { Executor } from "./http";
 import * as webdriver from "./index";
 import * as remote from "./remote";
 
@@ -340,7 +340,7 @@ export class ChromiumWebDriver extends webdriver.WebDriver {
      * Creates a new session with the WebDriver server.
      *
      * @param {(Capabilities|Options)=} caps The configuration options.
-     * @param {(remote.DriverService|http.Executor)=} opt_serviceExecutor Either
+     * @param {(remote.DriverService|Executor)=} opt_serviceExecutor Either
      *     a  DriverService to use for the remote end, or a preconfigured executor
      *     for an externally managed endpoint. If neither is provided, the
      *     {@linkplain ##getDefaultService default service} will be used by
@@ -351,7 +351,7 @@ export class ChromiumWebDriver extends webdriver.WebDriver {
      */
     static createSession(
         caps?: webdriver.Capabilities | Options,
-        opt_serviceExecutor?: remote.DriverService | http.Executor,
+        opt_serviceExecutor?: remote.DriverService | Executor,
         vendorPrefix?: string,
         vendorCapabilityKey?: string,
     ): ChromiumWebDriver;
