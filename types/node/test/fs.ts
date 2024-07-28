@@ -903,12 +903,6 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     for await (const entry of globAsync("**/*.js")) {
         entry; // $ExpectType string
     }
-    for await (const entry of globAsync("**/*.js", { withFileTypes: true })) {
-        entry; // $ExpectType Dirent
-    }
-    for await (const entry of globAsync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
-        entry; // $ExpectType Dirent | string
-    }
 
     glob("**/*.js", (err, matches) => {
         matches; // $ExpectType string[]
@@ -925,23 +919,11 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
             matches; // $ExpectType string[]
         },
     );
-    glob("**/*.js", { withFileTypes: true }, (err, matches) => {
-        matches; // $ExpectType Dirent[]
-    });
-    glob("**/*.js", { withFileTypes: Math.random() > 0.5 }, (err, matches) => {
-        matches; // $ExpectType Dirent[] | string[]
-    });
 
     for (const entry of globSync("**/*.js")) {
         entry; // $ExpectType string
     }
     for (const entry of globSync("**/*.js", { cwd: "/" })) {
         entry; // $ExpectType string
-    }
-    for (const entry of globSync("**/*.js", { withFileTypes: true })) {
-        entry; // $ExpectType Dirent
-    }
-    for (const entry of globSync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
-        entry; // $ExpectType Dirent | string
     }
 });
