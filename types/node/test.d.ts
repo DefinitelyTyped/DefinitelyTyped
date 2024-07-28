@@ -76,7 +76,7 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test.js)
  */
 declare module "node:test" {
     import { Readable } from "node:stream";
@@ -144,7 +144,7 @@ declare module "node:test" {
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
     namespace test {
-        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, test, todo };
+        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, suite, test, todo };
     }
     /**
      * The `suite()` function is imported from the `node:test` module.
@@ -160,7 +160,7 @@ declare module "node:test" {
     function suite(fn?: SuiteFn): Promise<void>;
     namespace suite {
         /**
-         * Shorthand for skipping a suite. This is the same as [`suite([name], { skip: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * Shorthand for skipping a suite. This is the same as [`suite([name], { skip: true }[, fn])`](https://nodejs.org/docs/latest-v22.x/api/test.html#suitename-options-fn).
          * @since v20.13.0
          */
         function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -168,7 +168,7 @@ declare module "node:test" {
         function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function skip(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `TODO`. This is the same as [`suite([name], { todo: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * Shorthand for marking a suite as `TODO`. This is the same as [`suite([name], { todo: true }[, fn])`](https://nodejs.org/docs/latest-v22.x/api/test.html#suitename-options-fn).
          * @since v20.13.0
          */
         function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -176,7 +176,7 @@ declare module "node:test" {
         function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function todo(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `only`. This is the same as [`suite([name], { only: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * Shorthand for marking a suite as `only`. This is the same as [`suite([name], { only: true }[, fn])`](https://nodejs.org/docs/latest-v22.x/api/test.html#suitename-options-fn).
          * @since v20.13.0
          */
         function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -195,7 +195,7 @@ declare module "node:test" {
     function describe(fn?: SuiteFn): Promise<void>;
     namespace describe {
         /**
-         * Shorthand for skipping a suite. This is the same as [`describe([name], { skip: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
+         * Shorthand for skipping a suite. This is the same as [`describe([name], { skip: true }[, fn])`](https://nodejs.org/docs/latest-v22.x/api/test.html#describename-options-fn).
          * @since v18.15.0
          */
         function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -203,7 +203,7 @@ declare module "node:test" {
         function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function skip(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `TODO`. This is the same as [`describe([name], { todo: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
+         * Shorthand for marking a suite as `TODO`. This is the same as [`describe([name], { todo: true }[, fn])`](https://nodejs.org/docs/latest-v22.x/api/test.html#describename-options-fn).
          * @since v18.15.0
          */
         function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -211,7 +211,7 @@ declare module "node:test" {
         function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function todo(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `only`. This is the same as [`describe([name], { only: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
+         * Shorthand for marking a suite as `only`. This is the same as [`describe([name], { only: true }[, fn])`](https://nodejs.org/docs/latest-v22.x/api/test.html#describename-options-fn).
          * @since v18.15.0
          */
         function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -306,7 +306,7 @@ declare module "node:test" {
         concurrency?: number | boolean | undefined;
         /**
          * An array containing the list of files to run. **Default** matching files from
-         * [test runner execution model](https://nodejs.org/docs/latest-v20.x/api/test.html#test-runner-execution-model).
+         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
          */
         files?: readonly string[] | undefined;
         /**
@@ -1326,6 +1326,7 @@ declare module "node:test" {
         only,
         run,
         skip,
+        suite,
         SuiteContext,
         test,
         test as default,
@@ -1679,7 +1680,7 @@ interface TestStdout extends TestLocationInfo {
  * import test from 'test/reporters';
  * ```
  * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/test/reporters.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test/reporters.js)
  */
 declare module "node:test/reporters" {
     import { Transform, TransformOptions } from "node:stream";
@@ -1720,7 +1721,7 @@ declare module "node:test/reporters" {
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
     /**
-     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--experimental-test-coverage) flag.
+     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--experimental-test-coverage) flag.
      */
     class Lcov extends Transform {
         constructor(opts?: TransformOptions);
