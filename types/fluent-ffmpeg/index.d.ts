@@ -396,7 +396,7 @@ declare namespace Ffmpeg {
         mergeToFile(target: string | stream.Writable, tmpFolder: string): FfmpegCommand;
         concatenate(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
         concat(target: string | stream.Writable, options?: { end?: boolean | undefined }): FfmpegCommand;
-        on(status: string, callback: (value: any) => void): FfmpegCommand;
+        on<K extends string | symbol>(eventName: K, listener: (...args: any[]) => void): this;
         clone(): FfmpegCommand;
         run(): void;
     }
