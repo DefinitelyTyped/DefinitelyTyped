@@ -11,7 +11,6 @@ import {
     only,
     run,
     skip,
-    snapshot,
     suite,
     type SuiteContext,
     test,
@@ -39,7 +38,6 @@ run({
     timeout: 100,
     inspectPort: () => 8081,
     testNamePatterns: ["executed", /^core-/],
-    testSkipPatterns: [/^deep-/],
     only: true,
     setup: (reporter) => {
         // $ExpectType TestsStream
@@ -769,24 +767,6 @@ test("mocks a setter", (t) => {
     }
 });
 
-test("mocks a module", (t) => {
-    const mock = t.mock.module("node:readline", {
-        namedExports: {
-            fn() {
-                return 42;
-            },
-        },
-        defaultExport: {
-            foo() {
-                return "bar";
-            },
-        },
-        cache: true,
-    });
-    // $ExpectType void
-    mock.restore();
-});
-
 // @ts-expect-error
 dot();
 // $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>
@@ -948,23 +928,3 @@ const invalidTestContext = new TestContext();
 
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
-
-// Snapshot configuration
-// @ts-expect-error
-snapshot.setDefaultSnapshotSerializers();
-// @ts-expect-error
-snapshot.setDefaultSnapshotSerializers((value) => value);
-// $ExpectType void
-snapshot.setDefaultSnapshotSerializers([
-    (value) => {
-        value; // $ExpectType any
-        return value;
-    },
-]);
-// @ts-expect-error
-snapshot.setResolveSnapshotPath();
-// $ExpectType void
-snapshot.setResolveSnapshotPath((path) => {
-    path; // $ExpectType string | undefined
-    return `${path ?? 'repl'}.snapshot`;
-});
