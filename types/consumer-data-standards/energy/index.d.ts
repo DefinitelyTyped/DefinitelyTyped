@@ -4125,11 +4125,11 @@ export interface EnergyPlanContractV3 {
      */
     additionalFeeInformation?: string | null;
     controlledLoad?: EnergyPlanControlledLoadV2[];
-    discounts?: EnergyPlanDiscounts;
-    eligibility?: EnergyPlanEligibility;
-    fees?: EnergyPlanFees;
-    greenPowerCharges?: EnergyPlanGreenPowerCharges;
-    incentives?: EnergyPlanIncentives;
+    discounts?: EnergyPlanDiscounts[];
+    eligibility?: EnergyPlanEligibility[];
+    fees?: EnergyPlanFees[];
+    greenPowerCharges?: EnergyPlanGreenPowerCharges[];
+    incentives?: EnergyPlanIncentives[];
     /**
      * Describes intrinsic green power for the plan.  If present then the plan includes a percentage of green power in the base plan. Should not be present for gas contracts
      */
