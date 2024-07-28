@@ -20,6 +20,9 @@ declare module "fs/promises" {
         CopyOptions,
         Dir,
         Dirent,
+        GlobOptions,
+        GlobOptionsWithFileTypes,
+        GlobOptionsWithoutFileTypes,
         MakeDirectoryOptions,
         Mode,
         ObjectEncodingOptions,
@@ -39,9 +42,6 @@ declare module "fs/promises" {
         WatchOptions,
         WriteStream,
         WriteVResult,
-        GlobOptions,
-        GlobOptionsWithFileTypes,
-        GlobOptionsWithoutFileTypes,
     } from "node:fs";
     import { Interface as ReadlineInterface } from "node:readline";
     interface FileChangeInfo<T extends string | Buffer> {
@@ -1252,11 +1252,9 @@ declare module "fs/promises" {
     function glob<Options extends GlobOptions>(
         pattern: string | string[],
         opt: Options,
-    ): Options extends GlobOptionsWithFileTypes
-        ? AsyncIterableIterator<Dirent>
-        : Options extends GlobOptionsWithoutFileTypes
-            ? AsyncIterableIterator<string>
-            : AsyncIterableIterator<Dirent> | AsyncIterableIterator<string>;
+    ): Options extends GlobOptionsWithFileTypes ? AsyncIterableIterator<Dirent>
+        : Options extends GlobOptionsWithoutFileTypes ? AsyncIterableIterator<string>
+        : AsyncIterableIterator<Dirent> | AsyncIterableIterator<string>;
 }
 declare module "node:fs/promises" {
     export * from "fs/promises";

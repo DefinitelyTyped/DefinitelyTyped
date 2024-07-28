@@ -4321,7 +4321,7 @@ declare module "fs" {
          */
         cwd?: string | undefined;
         /**
-         * Function to filter out files/directories. Return true to exclude the item, false to include it. 
+         * Function to filter out files/directories. Return true to exclude the item, false to include it.
          */
         exclude?: ((fileName: string) => boolean) | undefined;
         /**
@@ -4339,7 +4339,10 @@ declare module "fs" {
     /**
      * Retrieves the files matching the specified pattern.
      */
-    export function glob(pattern: string | string[], callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void): void;
+    export function glob(
+        pattern: string | string[],
+        callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
+    ): void;
     /**
      * Retrieves the files matching the specified pattern.
      */
@@ -4348,11 +4351,9 @@ declare module "fs" {
         options: Options,
         callback: (
             err: NodeJS.ErrnoException | null,
-            matches: Options extends GlobOptionsWithFileTypes
-                ? Dirent[]
-                : Options extends GlobOptionsWithoutFileTypes
-                    ? string[]
-                    : Dirent[] | string[],
+            matches: Options extends GlobOptionsWithFileTypes ? Dirent[]
+                : Options extends GlobOptionsWithoutFileTypes ? string[]
+                : Dirent[] | string[],
         ) => void,
     ): void;
     /**
@@ -4365,11 +4366,9 @@ declare module "fs" {
     export function globSync<Options extends GlobOptions>(
         pattern: string | string[],
         options: Options,
-    ): Options extends GlobOptionsWithFileTypes
-        ? Dirent[]
-        : Options extends GlobOptionsWithoutFileTypes
-            ? string[]
-            : Dirent[] | string[];
+    ): Options extends GlobOptionsWithFileTypes ? Dirent[]
+        : Options extends GlobOptionsWithoutFileTypes ? string[]
+        : Dirent[] | string[];
 }
 declare module "node:fs" {
     export * from "fs";
