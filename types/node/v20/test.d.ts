@@ -341,7 +341,7 @@ declare module "node:test" {
          * Strings are interpreted as JavaScript regular expressions.
          * @default undefined
          */
-        testNamePatterns?: string | RegExp | readonly (string | RegExp)[] | undefined;
+        testNamePatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
         /**
          * The number of milliseconds after which the test execution will fail.
          * If unspecified, subtests inherit this value from their parent.
@@ -1699,7 +1699,7 @@ declare module "node:test/reporters" {
         | { type: "test:start"; data: TestStart }
         | { type: "test:stderr"; data: TestStderr }
         | { type: "test:stdout"; data: TestStdout }
-        | { type: "test:watch:drained"; data: void };
+        | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     /**

@@ -203,7 +203,7 @@ declare module "node:test" {
          * Test name patterns are interpreted as JavaScript regular expressions.
          * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
          */
-        testNamePatterns?: string | RegExp | readonly (string | RegExp)[] | undefined;
+        testNamePatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
         /**
          * If truthy, the test context will only run tests that have the `only` option set
          * @since v18.19.0
@@ -1212,7 +1212,7 @@ declare module "node:test/reporters" {
         | { type: "test:start"; data: TestStart }
         | { type: "test:stderr"; data: TestStderr }
         | { type: "test:stdout"; data: TestStdout }
-        | { type: "test:watch:drained"; data: void };
+        | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     /**
