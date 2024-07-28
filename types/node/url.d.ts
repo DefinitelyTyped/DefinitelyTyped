@@ -46,14 +46,6 @@ declare module "url" {
     interface UrlWithStringQuery extends Url {
         query: string | null;
     }
-    interface FileUrlToPathOptions {
-        /**
-         * `true` if the `path` should be return as a windows filepath, `false` for posix, and `undefined` for the system default.
-         * @default undefined
-         */
-        windows?: boolean | undefined;
-    }
-    interface PathToFileUrlOptions extends FileUrlToPathOptions {}
     /**
      * The `url.parse()` method takes a URL string, parses it, and returns a URL
      * object.
@@ -306,7 +298,7 @@ declare module "url" {
      * @param url The file URL string or URL object to convert to a path.
      * @return The fully-resolved platform-specific Node.js file path.
      */
-    function fileURLToPath(url: string | URL, options?: FileUrlToPathOptions): string;
+    function fileURLToPath(url: string | URL): string;
     /**
      * This function ensures that `path` is resolved absolutely, and that the URL
      * control characters are correctly encoded when converting into a File URL.
@@ -324,7 +316,7 @@ declare module "url" {
      * @param path The path to convert to a File URL.
      * @return The file URL object.
      */
-    function pathToFileURL(path: string, options?: PathToFileUrlOptions): URL;
+    function pathToFileURL(path: string): URL;
     /**
      * This utility function converts a URL object into an ordinary options object as
      * expected by the `http.request()` and `https.request()` APIs.
