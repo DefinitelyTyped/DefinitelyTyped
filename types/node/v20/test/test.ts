@@ -37,7 +37,7 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
-    testNamePatterns: ["executed"],
+    testNamePatterns: ["executed", /^core-/],
     only: true,
     setup: (root) => {},
     watch: true,
@@ -814,17 +814,36 @@ class TestReporter extends Transform {
     }
     _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
         switch (event.type) {
+            case "test:complete": {
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
+                callback(
+                    null,
+                    `${name}/${details.duration_ms}/${details.type}/${details.error}/
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                );
+                break;
+            }
+            case "test:dequeue": {
+                const { file, column, line, name, nesting } = event.data;
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
+                break;
+            }
             case "test:diagnostic": {
                 const { file, column, line, message, nesting } = event.data;
                 callback(null, `${message}/${nesting}/${file}/${column}/${line}`);
+                break;
+            }
+            case "test:enqueue": {
+                const { file, column, line, name, nesting } = event.data;
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
             }
             case "test:fail": {
                 const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
                 callback(
                     null,
-                    `${name}/${details.duration_ms}/${details.type}/
-                    ${details.error}/${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                    `${name}/${details.duration_ms}/${details.type}/${details.error.cause}/
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
                 );
                 break;
             }
@@ -848,23 +867,13 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:stderr": {
-                const { file, column, line, message } = event.data;
-                callback(null, `${message}/${file}/${column}/${line}`);
+                const { file, message } = event.data;
+                callback(null, `${message}/${file}`);
                 break;
             }
             case "test:stdout": {
-                const { file, column, line, message } = event.data;
-                callback(null, `${message}/${file}/${column}/${line}`);
-                break;
-            }
-            case "test:enqueue": {
-                const { file, column, line, name, nesting } = event.data;
-                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
-                break;
-            }
-            case "test:dequeue": {
-                const { file, column, line, name, nesting } = event.data;
-                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
+                const { file, message } = event.data;
+                callback(null, `${message}/${file}`);
                 break;
             }
             case "test:watch:drained":
