@@ -7,10 +7,6 @@
     "nonNpmDescription": "Clerk.io API",
     "owners": [
         {
-            "githubUsername": "tmmgrafikr",
-            "name": "Tobias Mønster Madsen"
-        },
-        {
             "githubUsername": "andershagbard",
             "name": "Anders Hagbard Søgaard"
         }
