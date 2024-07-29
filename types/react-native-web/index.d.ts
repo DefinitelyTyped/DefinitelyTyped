@@ -360,7 +360,7 @@ declare module "react-native" {
     }
 
     interface ViewStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside ViewStyle
+        // In order to overwrite properties from RN, we need to redefine them inside ViewStyle.
         zIndex?: CSSProperties["zIndex"] | undefined;
         overflow?: CSSProperties["overflow"] | undefined;
         display?: CSSProperties["display"] | undefined;
@@ -386,8 +386,9 @@ declare module "react-native" {
         paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
         paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
     }
+    
     interface TextStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside TextStyle
+        // In order to overwrite properties from RN, we need to redefine them inside TextStyle.
         zIndex?: CSSProperties["zIndex"] | undefined;
         overflow?: CSSProperties["overflow"] | undefined;
         display?: CSSProperties["display"] | undefined;
@@ -413,8 +414,9 @@ declare module "react-native" {
         paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
         paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
     }
+
     interface ImageStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside ImageStyle
+        // In order to overwrite properties from RN, we need to redefine them inside ImageStyle.
         zIndex?: CSSProperties["zIndex"] | undefined;
         display?: CSSProperties["display"] | undefined;
         position?: CSSProperties["position"] | undefined;
