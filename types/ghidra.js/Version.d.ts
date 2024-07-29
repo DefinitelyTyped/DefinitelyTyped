@@ -1,3 +1,2 @@
 
-export interface Version {
-}
+export type Version = {};

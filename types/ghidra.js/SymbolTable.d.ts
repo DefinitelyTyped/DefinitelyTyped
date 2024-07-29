@@ -1,2 +1,1 @@
-export interface SymbolTable {
-}
+export type SymbolTable = {};

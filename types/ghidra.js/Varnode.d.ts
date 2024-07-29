@@ -1,3 +1,2 @@
 
-export interface Varnode {
-}
+export type Varnode = {};

@@ -1,2 +1,1 @@
-export interface NamespaceManager {
-}
+export type NamespaceManager = {};

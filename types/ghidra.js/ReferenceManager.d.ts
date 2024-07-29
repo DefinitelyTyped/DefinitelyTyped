@@ -1,2 +1,1 @@
-export interface ReferenceManager {
-}
+export type ReferenceManager = {};

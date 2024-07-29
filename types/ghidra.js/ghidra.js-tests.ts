@@ -1,4 +1,4 @@
-import * as types from './index'
+/// <reference path="./index.d.ts" />
 
 const assert = require('assert');
 

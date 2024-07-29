@@ -1,3 +1,1 @@
-
-export interface ItemCheckoutStatus {
-}
+export type ItemCheckoutStatus = {};

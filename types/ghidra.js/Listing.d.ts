@@ -1,2 +1,1 @@
-export interface Listing {
-}
+export type Listing = {};

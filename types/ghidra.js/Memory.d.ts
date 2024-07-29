@@ -1,2 +1,1 @@
-export interface Memory {
-}
+export type Memory = {};

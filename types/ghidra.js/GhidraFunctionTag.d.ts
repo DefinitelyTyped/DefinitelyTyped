@@ -1,6 +1,6 @@
-// https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/FunctionTag.html
+// https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/GhidraFunctionTag.html
 
-export interface FunctionTag {
+export interface GhidraFunctionTag {
   delete(): void;
   getComment(): string;
   getId(): number;

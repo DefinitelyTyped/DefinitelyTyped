@@ -1,2 +1,1 @@
-export interface Saveable {
-}
+export type Saveable = {};

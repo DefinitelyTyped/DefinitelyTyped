@@ -1,2 +1,1 @@
-export interface StringPropertyMap {
-}
+export type StringPropertyMap = {};

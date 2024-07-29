@@ -1,3 +1,1 @@
-
-export interface Namespace {
-}
+export type Namespace = {};

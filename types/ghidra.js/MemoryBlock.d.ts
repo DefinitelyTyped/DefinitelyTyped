@@ -1,2 +1,1 @@
-export interface MemoryBlock {
-}
+export type MemoryBlock = {};

@@ -1,2 +1,1 @@
-export interface LongPropertyMap {
-}
+export type LongPropertyMap = {};

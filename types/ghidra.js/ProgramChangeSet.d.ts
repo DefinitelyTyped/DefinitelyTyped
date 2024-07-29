@@ -1,3 +1,2 @@
 
-export interface ProgramChangeSet {
-}
+export type ProgramChangeSet = {};

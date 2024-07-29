@@ -1,2 +1,1 @@
-export interface RegisterValue {
-}
+export type RegisterValue = {};

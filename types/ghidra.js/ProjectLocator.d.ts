@@ -1,3 +1,2 @@
 
-export interface ProjectLocator {
-}
+export type ProjectLocator = {};

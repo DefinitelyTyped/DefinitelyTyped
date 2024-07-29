@@ -1,2 +1,1 @@
-export interface ProgramTreeManager {
-}
+export type ProgramTreeManager = {};

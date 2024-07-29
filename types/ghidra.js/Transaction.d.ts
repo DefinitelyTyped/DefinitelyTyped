@@ -1,3 +1,2 @@
 
-export interface Transaction {
-}
+export type Transaction = {};

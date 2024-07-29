@@ -1,2 +1,1 @@
-export interface Register {
-}
+export type Register = {};

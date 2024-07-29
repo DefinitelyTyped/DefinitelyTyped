@@ -18,7 +18,7 @@ export * from './DomainFolder';
 export * from './DomainObject';
 export * from './EquateTable';
 export * from './ExternalManager';
-export * from './FunctionManager';
+export * from './GhidraFunctionManager';
 export * from './IntPropertyMap';
 export * from './IntRangeMap';
 export * from './ItemCheckoutStatus';

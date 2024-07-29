@@ -1,3 +1,2 @@
 
-export interface PropertyMapManager {
-}
+export type PropertyMapManager = {};

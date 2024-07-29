@@ -1,2 +1,1 @@
-export interface ObjectPropertyMap {
-}
+export type ObjectPropertyMap = {};

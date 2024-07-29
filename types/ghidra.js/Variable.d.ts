@@ -2,6 +2,7 @@ import { Varnode } from './Varnode';
 import { Address } from './Address';
 import { Program } from './Program';
 import { DataType } from './DataTypeManager';
+import { GhidraFunction } from './GhidraFunction';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/Variable.html
 
@@ -10,7 +11,7 @@ export interface Variable {
   getDataType(): DataType;
   //getFirstStorageVarnode(): Varnode;
   getFirstUseOffset(): number;
-  getFunction(): Function;
+  getGhidraFunction(): GhidraFunction;
   getLastStorageVarnode(): Varnode;
   getLength(): number;
   getMinAddress(): Address;

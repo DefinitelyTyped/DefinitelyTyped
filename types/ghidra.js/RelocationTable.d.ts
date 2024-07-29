@@ -1,2 +1,1 @@
-export interface RelocationTable {
-}
+export type RelocationTable = {};

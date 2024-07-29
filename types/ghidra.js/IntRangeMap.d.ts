@@ -1,3 +1,2 @@
 
-export interface IntRangeMap {
-}
+export type IntRangeMap = {};

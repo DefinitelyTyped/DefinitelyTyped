@@ -11,7 +11,7 @@ import { DataTypeManager } from './DataTypeManager';
 import { DomainObject } from './DomainObject';
 import { EquateTable } from './EquateTable';
 import { ExternalManager } from './ExternalManager';
-import { FunctionManager } from './FunctionManager';
+import { GhidraFunctionManager } from './GhidraFunctionManager';
 import { IntRangeMap } from './IntRangeMap';
 import { Language, LanguageID } from './Language';
 import { Listing } from './Listing';
@@ -57,7 +57,7 @@ export interface Program extends DomainObject {
     getExecutablePath(): string;
     getExecutableSHA256(): string;
     getExternalManager(): ExternalManager;
-    getFunctionManager(): FunctionManager;
+    getGhidraFunctionManager(): GhidraFunctionManager;
     getGlobalNamespace(): Namespace;
     getImageBase(): Address;
     getIntRangeMap(name: string): IntRangeMap;
@@ -92,7 +92,6 @@ export interface Program extends DomainObject {
     setLanguage(language: Language): void;
     startTransaction(description: string, compilerSpecID: CompilerSpecID, forceRedisassembly: boolean, monitor: TaskMonitor): number;
     startTransaction(description: string): number; // inherited from DomainObject
-    endTransaction(transactionID: number, commit: boolean): void;
     // inherited from Undoable
     // https://ghidra.re/ghidra_docs/api/ghidra/framework/model/Undoable.html
     addTransactionListener(listener: TransactionListener): void;
@@ -107,7 +106,6 @@ export interface Program extends DomainObject {
     // inherited from UndoableDomainObject
     // https://ghidra.re/ghidra_docs/api/ghidra/framework/model/UndoableDomainObject.html
     addSynchronizedDomainObject(domainObj: DomainObject): void;
-    endTransaction(transactionID: number, commit: boolean): void;
     getCurrentTransaction(): Transaction;
     getSynchronizedDomainObjects(): DomainObject[];
     hasTerminateTransaction(): boolean;
