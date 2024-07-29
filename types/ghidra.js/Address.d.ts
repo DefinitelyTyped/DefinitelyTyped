@@ -52,7 +52,7 @@ export interface AddressSpace {
 export interface Address {
     add(displacement: number): Address;
     addNoWrap(displacement: number): Address;
-    addNoWrap(displacement: BigInteger): Address;
+    addNoWrap(displacement: bigint): Address;
     addWrap(displacement: number): Address;
     addWrapSpace(displacement: number): Address;
     equals(o: any): boolean;
@@ -63,7 +63,7 @@ export interface Address {
     getNewAddress(offset: number, isAddressableWordOffset: boolean): Address;
     getNewTruncatedAddress(offset: number, isAddressableWordOffset: boolean): Address;
     getOffset(): number;
-    getOffsetAsBigInteger(): BigInteger;
+    getOffsetAsbigint(): bigint;
     getPhysicalAddress(): Address;
     getPointerSize(): number;
     getSize(): number;

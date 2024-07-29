@@ -7,6 +7,11 @@ import { ProjectLocator } from "./ProjectLocator";
 import { TaskMonitor } from "./TaskMonitor";
 import { Version } from "./Version";
 
+/* eslint-disable @typescript-eslint/no-empty-interface */
+export interface File {
+}
+/* eslint-enable @typescript-eslint/no-empty-interface */
+
 // https://ghidra.re/ghidra_docs/api/ghidra/framework/model/DomainFile.html
 export interface DomainFile {
     addToVersionControl(comment: string, keepCheckedOut: boolean, monitor: TaskMonitor): void;
