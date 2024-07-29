@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/sap__approuter",
-    "version": "14.3.9999",
+    "version": "16.6.9999",
     "projects": [
         "https://www.npmjs.com/package/@sap/approuter"
     ],
