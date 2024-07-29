@@ -10,5 +10,5 @@ These types are an attempt to augment existing `react-native` types to match the
 To enhance `react-native` types, users must import these specific types into any `.ts` or `.d.ts` file. By doing this, they are augmenting the underlying `react-native` types with web specific properties.
 
 ```ts
-import '@types/react-native-web';
+import 'react-native-web';
 ```
