@@ -5898,7 +5898,7 @@
 /types/pleasanter-web-script/                             @yamada28go
 /types/pleasejs/                                          @nakakura
 /types/plist/                                             @higuri
-/types/plotly.js/                                         @chrisgervang @martinduparc @frederikaalund @taoqf @Dadstart @szechyjs @soorajpudiyadath @jonfreedman @meganrm @milesjos @skippercool @mtadams007 @marnett-git @peterblazejewicz @brammitch @blizzardjessica @olegshilov @PabloGracia @jvgogh @jpabdou
+/types/plotly.js/                                         @chrisgervang @martinduparc @frederikaalund @taoqf @Dadstart @szechyjs @soorajpudiyadath @jonfreedman @meganrm @milesjos @skippercool @marnett-git @peterblazejewicz @brammitch @blizzardjessica @olegshilov @PabloGracia @jvgogh @jpabdou
 /types/plotly.js-basic-dist/                              @DreierF
 /types/plotly.js-basic-dist-min/                          @josiahkhor @DreierF
 /types/plotly.js-dist-min/                                @andrefarzat
