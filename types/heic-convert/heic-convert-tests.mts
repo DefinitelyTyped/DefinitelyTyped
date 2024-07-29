@@ -1,5 +1,5 @@
-import convert = require("heic-convert");
-import convertBrowser = require("heic-convert/browser");
+import convert from "heic-convert";
+import convertBrowser from "heic-convert/browser";
 
 // $ExpectType Promise<ArrayBuffer>
 convert({ buffer: new ArrayBuffer(10), format: "PNG" });
