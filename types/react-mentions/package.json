@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-mentions",
-    "version": "4.1.9999",
+    "version": "4.4.9999",
     "projects": [
         "https://github.com/signavio/react-mentions"
     ],
