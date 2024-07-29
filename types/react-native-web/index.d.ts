@@ -386,7 +386,7 @@ declare module "react-native" {
         paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
         paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
     }
-    
+
     interface TextStyle extends WebStyle {
         // In order to overwrite properties from RN, we need to redefine them inside TextStyle.
         zIndex?: CSSProperties["zIndex"] | undefined;
