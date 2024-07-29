@@ -90,8 +90,6 @@ export interface Program extends DomainObject {
     setExecutableSHA256(sha256: string): void;
     setImageBase(base: Address, commit: boolean): boolean;
     setLanguage(language: Language): void;
-    startTransaction(description: string, compilerSpecID: CompilerSpecID, forceRedisassembly: boolean, monitor: TaskMonitor): number;
-    startTransaction(description: string): number; // inherited from DomainObject
     // inherited from Undoable
     // https://ghidra.re/ghidra_docs/api/ghidra/framework/model/Undoable.html
     addTransactionListener(listener: TransactionListener): void;
@@ -112,4 +110,5 @@ export interface Program extends DomainObject {
     releaseSynchronizedDomainObjects(): void;
     startTransaction(description: string): number;
     startTransaction(description: string, listener: AbortedTransactionListener): number;
+    startTransaction(description: string, compilerSpecID: CompilerSpecID, forceRedisassembly: boolean, monitor: TaskMonitor): number;
 }
