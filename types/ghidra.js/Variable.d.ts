@@ -21,7 +21,7 @@ export interface Variable {
   //getRegisters(): java.util.List<Register>;
   //getSource(): SourceType;
   getStackOffset(): number;
-  getSymbol(): Symbol;
+  //getSymbol(): Symbol;
   //getVariableStorage(): VariableStorage;
   hasAssignedStorage(): boolean;
   hasStackStorage(): boolean;

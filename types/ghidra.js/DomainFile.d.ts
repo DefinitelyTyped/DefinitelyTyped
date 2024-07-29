@@ -31,7 +31,7 @@ export interface DomainFile {
     getDomainObject(consumer: any, okToUpgrade: boolean, okToRecover: boolean, monitor: TaskMonitor): DomainObject;
     getDomainObjectClass(): DomainObject
     getFileID(): string;
-    getIcon(disabled: boolean);
+    getIcon(disabled: boolean): string;
     getImmutableDomainObject(consumer: any, version: number, monitor: TaskMonitor): DomainObject;
     getLastModifiedTime(): number;
     getLatestVersion(): number;

@@ -3,10 +3,12 @@ import { TransactionInfo } from "./TransactionInfo";
 import { TransactionListener } from "./TransactionListener";
 
 //https://ghidra.re/ghidra_docs/api/ghidra/framework/model/DomainObject.html
+/* eslint-disable @typescript-eslint/no-empty-interface */
 export interface ChangeSet { /* Details omitted */ }
 export interface DomainObjectListener { /* Details omitted */ }
 export interface DomainObjectChangeSet { /* Details omitted */ }
 export interface DomainObjectChangedEvent { /* Details omitted */ }
+/* eslint-enable @typescript-eslint/no-empty-interface */
 export interface DomainObject {
     addConsumer(consumer: any): void;
     addListener(listener: DomainObjectListener): void;

@@ -1,2 +1,3 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 
-export type Transaction = {};
+export interface Transaction {}/* eslint-enable @typescript-eslint/no-empty-interface */

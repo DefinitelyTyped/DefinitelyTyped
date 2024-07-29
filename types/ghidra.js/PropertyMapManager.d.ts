@@ -1,2 +1,3 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 
-export type PropertyMapManager = {};
+export interface PropertyMapManager {}/* eslint-enable @typescript-eslint/no-empty-interface */
