@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ghidra.js",
+    "version": "1.0.2",
+    "projects": [
+        "https://github.com/vaguue/Ghidra.js"
+    ],
+    "devDependencies": {
+        "@types/ghidra.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Seva D.",
+            "githubUsername": "vaguue"
+        },
+        {
+            "name": "Cedric Halbronn",
+            "githubUsername": "saidelike"
+        }
+    ]
+}
