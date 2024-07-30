@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/quantum-circuit",
-    "version": "0.1.0",
+    "version": "0.9.9999",
     "projects": [
         "https://github.com/quantastica/quantum-circuit"
     ],
     "devDependencies": {
-        "@types/abs": "workspace:."
+        "@types/quantum-circuit": "workspace:."
     },
     "owners": [
         {
