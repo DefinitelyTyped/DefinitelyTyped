@@ -40,11 +40,11 @@ ep.reinitializeEditor("post", 123, document.createElement("div"), { codeEditingE
 //
 // PluginDocumentSettingPanel
 //
-<ep.PluginDocumentSettingPanel className="my-document-setting-plugin" title="My Panel">
+<ep.PluginDocumentSettingPanel name="my-panel" className="my-document-setting-plugin" title="My Panel">
     <p>My Document Setting Panel</p>
 </ep.PluginDocumentSettingPanel>;
 
-<ep.PluginDocumentSettingPanel>
+<ep.PluginDocumentSettingPanel name="my-panel">
     <p>My Document Setting Panel</p>
 </ep.PluginDocumentSettingPanel>;
 

@@ -1,41 +1,9 @@
-import { Dashicon } from "@wordpress/components";
-import { ComponentProps, ComponentType, JSX, ReactNode } from "react";
-
-declare namespace PluginSidebarMoreMenuItem {
-    interface Props {
-        children: ReactNode;
-        /**
-         * A string identifying the target sidebar you wish to be activated by this menu item. Must
-         * be the same as the `name` prop you have given to that sidebar.
-         */
-        target: string;
-        /**
-         * A Dashicon slug or a custom JSX element to be rendered to the left of the menu item
-         * label.
-         */
-        icon?: ComponentProps<typeof Dashicon>["icon"] | JSX.Element | undefined;
-    }
-}
+import { PluginSidebarMoreMenuItem as EditorPluginSidebarMoreMenuItem } from "@wordpress/editor";
 
 /**
- * Renders a menu item in `Plugins` group in `More Menu` drop down, and can be used to activate the
- * corresponding `PluginSidebar` component.  The text within the component appears as the menu item
- * label.
- *
- * @example
- * ```jsx
- * const { PluginSidebarMoreMenuItem } = wp.editPost;
- *
- * const MySidebarMoreMenuItem = () => (
- *     <PluginSidebarMoreMenuItem
- *         target="my-sidebar"
- *         icon="smiley"
- *     >
- *         My sidebar title
- *     </PluginSidebarMoreMenuItem>
- * );
- * ```
+ * @deprecated Import PluginSidebarMoreMenuItem from '@wordpress/editor' instead.
+ * @see https://make.wordpress.org/core/2024/06/18/editor-unified-extensibility-apis-in-6-6/
  */
-declare const PluginSidebarMoreMenuItem: ComponentType<PluginSidebarMoreMenuItem.Props>;
+declare const PluginSidebarMoreMenuItem: typeof EditorPluginSidebarMoreMenuItem;
 
 export default PluginSidebarMoreMenuItem;
