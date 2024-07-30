@@ -89,7 +89,7 @@ const customMode: CustomMode = {
         // $ExpectType DrawFeature
         e.featureTarget;
 
-        // $ExpectType Map
+        // $ExpectType Map$1
         this.map;
 
         // $ExpectType boolean | undefined
@@ -169,7 +169,7 @@ const customMode: CustomMode = {
         // $ExpectType StringSet
         lib.StringSet(["1", 2]);
 
-        const FabricDrawingManagerStyles: Lib["theme"] = [
+        const FabricDrawingManagerStyles: Array<Partial<Lib["theme"][number]>> = [
             {
                 id: "gl-draw-polygon-fill-inactive",
                 type: "fill",
