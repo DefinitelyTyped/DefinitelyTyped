@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/quantum-circuit",
+    "version": "0.1.0",
+    "projects": [
+        "https://github.com/quantastica/quantum-circuit"
+    ],
+    "devDependencies": {
+        "@types/abs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmytro Sapozhnyk",
+            "githubUsername": "EarlOld"
+        }
+    ]
+}
