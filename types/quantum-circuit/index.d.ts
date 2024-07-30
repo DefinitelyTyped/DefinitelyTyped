@@ -1,3 +1,3 @@
-import Circuit from './circuit';
+import Circuit from "./circuit";
 
 export = Circuit;
