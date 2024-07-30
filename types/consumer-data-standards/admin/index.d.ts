@@ -979,156 +979,156 @@ export interface PerformanceMetricsV3 {
      * Percentage of calls within Primary Data Holder performance thresholds. Note that Secondary Data Holder performance <b>MUST</b> be excluded from this metric.
      */
     aggregate?: {
-      /**
-       * Percentage of calls within the performance threshold for the current day. 0.0 means 0%. 1.0 means 100%. Must be a positive value or zero
-       */
-      currentDay?: string | null;
-      /**
-       * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
-       */
-      previousDays?: string[] | null;
-      [k: string]: unknown;
+        /**
+         * Percentage of calls within the performance threshold for the current day. 0.0 means 0%. 1.0 means 100%. Must be a positive value or zero
+         */
+        currentDay?: string | null;
+        /**
+         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+         */
+        previousDays?: string[] | null;
+        [k: string]: unknown;
     } | null;
     /**
      * Percentage of high priority calls within the performance thresholds
      */
     highPriority: {
-      /**
-       * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
-       */
-      currentDay?: string[] | null;
-      /**
-       * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
-       */
-      previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+        /**
+         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+         */
+        currentDay?: string[] | null;
+        /**
+         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+         */
+        previousDays?: PerformancePreviousDays[] | null;
+        [k: string]: unknown;
     };
     /**
      * Percentage of large payload calls within the performance thresholds
      */
     largePayload: {
-      /**
-       * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
-       */
-      currentDay?: string[] | null;
-      /**
-       * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
-       */
-      previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+        /**
+         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+         */
+        currentDay?: string[] | null;
+        /**
+         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+         */
+        previousDays?: PerformancePreviousDays[] | null;
+        [k: string]: unknown;
     };
     /**
      * Percentage of large Shared Responsibility calls within the performance thresholds. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster
      */
     largeSecondary?: {
-      /**
-       * Percentage of large Shared Responsibility calls within the performance thresholds for the secondary data holder
-       */
-      primary: {
         /**
-         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+         * Percentage of large Shared Responsibility calls within the performance thresholds for the secondary data holder
          */
-        currentDay?: string[] | null;
+        primary: {
+            /**
+             * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+             */
+            currentDay?: string[] | null;
+            /**
+             * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+             */
+            previousDays?: PerformancePreviousDays[] | null;
+            [k: string]: unknown;
+        };
         /**
-         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+         * Percentage of large Shared Responsibility calls within the performance thresholds for the secondary data holder
          */
-        previousDays?: PerformancePreviousDays[] | null;
+        secondary: {
+            /**
+             * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+             */
+            currentDay?: string[] | null;
+            /**
+             * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+             */
+            previousDays?: PerformancePreviousDays[] | null;
+            [k: string]: unknown;
+        };
         [k: string]: unknown;
-      };
-      /**
-       * Percentage of large Shared Responsibility calls within the performance thresholds for the secondary data holder
-       */
-      secondary: {
-        /**
-         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
-         */
-        currentDay?: string[] | null;
-        /**
-         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
-         */
-        previousDays?: PerformancePreviousDays[] | null;
-        [k: string]: unknown;
-      };
-      [k: string]: unknown;
     } | null;
     /**
      * Percentage of low priority calls within the performance thresholds
      */
     lowPriority: {
-      /**
-       * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
-       */
-      currentDay?: string[] | null;
-      /**
-       * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
-       */
-      previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+        /**
+         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+         */
+        currentDay?: string[] | null;
+        /**
+         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+         */
+        previousDays?: PerformancePreviousDays[] | null;
+        [k: string]: unknown;
     };
     /**
      * Percentage of Shared Responsibility calls within the performance thresholds. Mandatory for data holders designated for a Shared Responsibility Data Request data cluster
      */
     secondary?: {
-      /**
-       * Percentage of Shared Responsibility calls within the performance thresholds for the primary data holder
-       */
-      primary: {
         /**
-         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+         * Percentage of Shared Responsibility calls within the performance thresholds for the primary data holder
          */
-        currentDay?: string[] | null;
+        primary: {
+            /**
+             * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+             */
+            currentDay?: string[] | null;
+            /**
+             * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+             */
+            previousDays?: PerformancePreviousDays[] | null;
+            [k: string]: unknown;
+        };
         /**
-         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+         * Percentage of Shared Responsibility calls within the performance thresholds for the secondary data holder
          */
-        previousDays?: PerformancePreviousDays[] | null;
+        secondary: {
+            /**
+             * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+             */
+            currentDay?: string[] | null;
+            /**
+             * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+             */
+            previousDays?: PerformancePreviousDays[] | null;
+            [k: string]: unknown;
+        };
         [k: string]: unknown;
-      };
-      /**
-       * Percentage of Shared Responsibility calls within the performance thresholds for the secondary data holder
-       */
-      secondary: {
-        /**
-         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
-         */
-        currentDay?: string[] | null;
-        /**
-         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
-         */
-        previousDays?: PerformancePreviousDays[] | null;
-        [k: string]: unknown;
-      };
-      [k: string]: unknown;
     } | null;
     /**
      * Percentage of unattended calls within the performance thresholds
      */
     unattended: {
-      /**
-       * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
-       */
-      currentDay?: string[] | null;
-      /**
-       * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
-       */
-      previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+        /**
+         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+         */
+        currentDay?: string[] | null;
+        /**
+         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+         */
+        previousDays?: PerformancePreviousDays[] | null;
+        [k: string]: unknown;
     };
     /**
      * Percentage of unauthenticated calls within the performance thresholds
      */
     unauthenticated: {
-      /**
-       * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
-       */
-      currentDay?: string[] | null;
-      /**
-       * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
-       */
-      previousDays?: PerformancePreviousDays[] | null;
-      [k: string]: unknown;
+        /**
+         * Array of contiguous hourly metrics for the current day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+         */
+        currentDay?: string[] | null;
+        /**
+         * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
+         */
+        previousDays?: PerformancePreviousDays[] | null;
+        [k: string]: unknown;
     };
     [k: string]: unknown;
-  }
+}
 /**
  * Number of calls rejected due to traffic thresholds over time
  */
