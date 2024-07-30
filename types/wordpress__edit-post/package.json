@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/WordPress/gutenberg/tree/master/packages/edit-post/README.md"
     ],
+    "minimumTypeScriptVersion": "5.0",
     "dependencies": {
         "@types/react": "*",
         "@types/wordpress__editor": "*",
