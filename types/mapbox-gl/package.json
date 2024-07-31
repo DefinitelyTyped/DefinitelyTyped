@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mapbox-gl",
-    "version": "3.1.9999",
+    "version": "3.4.9999",
     "projects": [
         "https://github.com/mapbox/mapbox-gl-js"
     ],

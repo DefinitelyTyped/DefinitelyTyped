@@ -943,7 +943,17 @@ export interface PeakTPSMetricsV2 {
     };
     [k: string]: unknown;
 }
+
+/**
+ * Percentage of calls within the performance threshold for the specified hour. 0.0 means 0%. 1.0 means 100%. Must be a positive value or zero
+ */
+export type PerformanceHours = string;
 /* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
+
+/**
+ * Array of contiguous hourly metrics for the specified day.  Each element represents a 1 hour period starting from 12am-1am.  Timezone for determining 12am must be consistent but is at the discretion of the Data Holder
+ */
+export type PerformancePreviousDays = PerformanceHours[];
 
 /**
  * Percentage of calls within the performance thresholds
@@ -966,7 +976,7 @@ export interface PerformanceMetrics {
  */
 export interface PerformanceMetricsV3 {
     /**
-     * Percentage of calls within the performance thresholds
+     * Percentage of calls within Primary Data Holder performance thresholds. Note that Secondary Data Holder performance <b>MUST</b> be excluded from this metric.
      */
     aggregate?: {
         /**
@@ -990,7 +1000,7 @@ export interface PerformanceMetricsV3 {
         /**
          * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
          */
-        previousDays?: string[][] | null;
+        previousDays?: PerformancePreviousDays[] | null;
         [k: string]: unknown;
     };
     /**
@@ -1004,7 +1014,7 @@ export interface PerformanceMetricsV3 {
         /**
          * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
          */
-        previousDays?: string[][] | null;
+        previousDays?: PerformancePreviousDays[] | null;
         [k: string]: unknown;
     };
     /**
@@ -1022,7 +1032,7 @@ export interface PerformanceMetricsV3 {
             /**
              * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
              */
-            previousDays?: string[][] | null;
+            previousDays?: PerformancePreviousDays[] | null;
             [k: string]: unknown;
         };
         /**
@@ -1036,7 +1046,7 @@ export interface PerformanceMetricsV3 {
             /**
              * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
              */
-            previousDays?: string[][] | null;
+            previousDays?: PerformancePreviousDays[] | null;
             [k: string]: unknown;
         };
         [k: string]: unknown;
@@ -1052,7 +1062,7 @@ export interface PerformanceMetricsV3 {
         /**
          * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
          */
-        previousDays?: string[][] | null;
+        previousDays?: PerformancePreviousDays[] | null;
         [k: string]: unknown;
     };
     /**
@@ -1070,7 +1080,7 @@ export interface PerformanceMetricsV3 {
             /**
              * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
              */
-            previousDays?: string[][] | null;
+            previousDays?: PerformancePreviousDays[] | null;
             [k: string]: unknown;
         };
         /**
@@ -1084,7 +1094,7 @@ export interface PerformanceMetricsV3 {
             /**
              * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
              */
-            previousDays?: string[][] | null;
+            previousDays?: PerformancePreviousDays[] | null;
             [k: string]: unknown;
         };
         [k: string]: unknown;
@@ -1100,7 +1110,7 @@ export interface PerformanceMetricsV3 {
         /**
          * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
          */
-        previousDays?: string[][] | null;
+        previousDays?: PerformancePreviousDays[] | null;
         [k: string]: unknown;
     };
     /**
@@ -1114,13 +1124,11 @@ export interface PerformanceMetricsV3 {
         /**
          * Percentage of calls within the performance threshold for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available. 0.0 means 0%. 1.0 means 100%. Values must be a positive or zero
          */
-        previousDays?: string[][] | null;
+        previousDays?: PerformancePreviousDays[] | null;
         [k: string]: unknown;
     };
     [k: string]: unknown;
 }
-/* These are the schema definitions stipulated by the Data Standards Body for the admin api. */
-
 /**
  * Number of calls rejected due to traffic thresholds over time
  */

@@ -634,6 +634,13 @@ declare namespace mapboxgl {
 
     export interface MapboxOptions {
         /**
+         * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
+         *
+         * @default null
+         */
+        accessToken?: string | undefined;
+
+        /**
          * If true, the gl context will be created with MSA antialiasing, which can be useful for antialiasing custom layers.
          * This is false by default as a performance optimization.
          */
@@ -673,6 +680,14 @@ declare namespace mapboxgl {
          * @default false
          */
         collectResourceTiming?: boolean | undefined;
+
+        /**
+         * The initial configuration options for the style fragments. Each key in the object is a
+         * fragment ID (e.g., `basemap`) and each value is a configuration object.
+         *
+         * @default null
+         */
+        config?: Record<string, unknown>;
 
         /**
          * If `true`, symbols from multiple sources can collide with each other during collision
@@ -737,6 +752,14 @@ declare namespace mapboxgl {
         /** If true, enable keyboard shortcuts (see KeyboardHandler). */
         keyboard?: boolean | undefined;
 
+        /**
+         * A string with a BCP 47 language tag, or an array of such strings representing the desired
+         * languages used for the map's labels and UI components.
+         *
+         * @default null
+         */
+        language?: "auto" | string | string[];
+
         /** A patch to apply to the default localization table for UI strings, e.g. control tooltips.
          * The `locale` object maps namespaced UI string IDs to translated strings in the target language;
          * see `src/ui/default_locale.js` for an example with all supported string IDs.
@@ -775,14 +798,37 @@ declare namespace mapboxgl {
         /** Maximum pitch of the map. */
         maxPitch?: number | undefined;
 
+        /**
+         * The maximum number of tiles stored in the tile cache for a given source. If omitted, the
+         * cache will be dynamically sized based on the current viewport.
+         *
+         * @default null
+         */
+        maxTileCacheSize?: number | undefined;
+
         /** Maximum zoom of the map. */
         maxZoom?: number | undefined;
 
         /** Minimum pitch of the map. */
         minPitch?: number | undefined;
 
+        /**
+         * The minimum number of tiles stored in the tile cache for a given source. If omitted, the
+         * cache will be dynamically sized based on the current viewport.
+         *
+         * @default null
+         */
+        minTileCacheSize?: number | undefined;
+
         /** Minimum zoom of the map. */
         minZoom?: number | undefined;
+
+        /**
+         * If `true`, mapbox-gl will collect and send performance metrics.
+         *
+         * @default true
+         */
+        performanceMetricsCollection?: boolean;
 
         /** If true, The maps canvas can be exported to a PNG using map.getCanvas().toDataURL();. This is false by default as a performance optimization. */
         preserveDrawingBuffer?: boolean | undefined;
@@ -800,7 +846,7 @@ declare namespace mapboxgl {
          *
          * @default 'mercator'
          */
-        projection?: Projection;
+        projection?: Projection | Projection["name"];
 
         /**
          * If `false`, the map's pitch (tilt) control with "drag to rotate" interaction will be disabled.
@@ -825,6 +871,16 @@ declare namespace mapboxgl {
         renderWorldCopies?: boolean | undefined;
 
         /**
+         * If set to `true`, the map will respect the user's `prefers-reduced-motion` browser
+         * setting and apply a reduced motion mode, minimizing animations and transitions. When set
+         * to `false` , the map will always ignore the `prefers-reduced-motion` settings, regardless
+         * of the user's preference, making all animations essential.
+         *
+         * @default true
+         */
+        respectPrefersReducedMotion?: boolean;
+
+        /**
          * If `true`, the "scroll to zoom" interaction is enabled.
          * An `Object` value is passed as options to {@link ScrollZoomHandler#enable}.
          */
@@ -832,6 +888,13 @@ declare namespace mapboxgl {
 
         /** stylesheet location */
         style?: mapboxgl.Style | string | undefined;
+
+        /**
+         * Allows for the usage of the map in automated tests without an accessToken with custom self-hosted test fixtures.
+         *
+         * @default null
+         */
+        testMode?: boolean | undefined;
 
         /** If  true, the map will automatically resize when the browser window resizes */
         trackResize?: boolean | undefined;
@@ -856,30 +919,6 @@ declare namespace mapboxgl {
          */
         touchPitch?: boolean | InteractiveOptions | undefined;
 
-        /** Initial zoom level */
-        zoom?: number | undefined;
-
-        /**
-         * The maximum number of tiles stored in the tile cache for a given source. If omitted, the
-         * cache will be dynamically sized based on the current viewport.
-         *
-         * @default null
-         */
-        maxTileCacheSize?: number | undefined;
-
-        /**
-         * If specified, map will use this token instead of the one defined in mapboxgl.accessToken.
-         *
-         * @default null
-         */
-        accessToken?: string | undefined;
-
-        /**
-         * Allows for the usage of the map in automated tests without an accessToken with custom self-hosted test fixtures.
-         *
-         * @default null
-         */
-        testMode?: boolean | undefined;
         /**
          * Sets the map's worldview. A worldview determines the way that certain disputed boundaries are rendered.
          * By default, GL JS will not set a worldview so that the worldview of Mapbox tiles will be determined by
@@ -888,6 +927,9 @@ declare namespace mapboxgl {
          * @default null
          */
         worldview?: string | undefined;
+
+        /** Initial zoom level */
+        zoom?: number | undefined;
     }
 
     type quat = number[];

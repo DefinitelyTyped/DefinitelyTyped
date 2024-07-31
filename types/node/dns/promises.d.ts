@@ -346,20 +346,20 @@ declare module "dns/promises" {
      */
     function setServers(servers: readonly string[]): void;
     /**
-     * Set the default value of `order` in `dns.lookup()` and `{@link lookup}`. The value could be:
+     * Set the default value of `verbatim` in {@link lookup} and [`dnsPromises.lookup()`](https://nodejs.org/docs/latest-v22.x/api/dns.html#dnspromiseslookuphostname-options).
+     * The value could be:
      *
-     * * `ipv4first`: sets default `order` to `ipv4first`.
-     * * `ipv6first`: sets default `order` to `ipv6first`.
-     * * `verbatim`: sets default `order` to `verbatim`.
+     * * `ipv4first`: sets default `verbatim` to `false`.
+     * * `verbatim`: sets default `verbatim` to `true`.
      *
-     * The default is `verbatim` and [dnsPromises.setDefaultResultOrder()](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetdefaultresultorderorder)
-     * have higher priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--dns-result-orderorder).
-     * When using [worker threads](https://nodejs.org/docs/latest-v20.x/api/worker_threads.html), [`dnsPromises.setDefaultResultOrder()`](https://nodejs.org/docs/latest-v20.x/api/dns.html#dnspromisessetdefaultresultorderorder)
-     * from the main thread won't affect the default dns orders in workers.
+     * The default is `verbatim` and {@link setDefaultResultOrder} have higher
+     * priority than [`--dns-result-order`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--dns-result-orderorder). When using
+     * [worker threads](https://nodejs.org/docs/latest-v22.x/api/worker_threads.html), {@link setDefaultResultOrder} from the main
+     * thread won't affect the default dns orders in workers.
      * @since v16.4.0, v14.18.0
-     * @param order must be `'ipv4first'`, `'ipv6first'` or `'verbatim'`.
+     * @param order must be `'ipv4first'` or `'verbatim'`.
      */
-    function setDefaultResultOrder(order: "ipv4first" | "ipv6first" | "verbatim"): void;
+    function setDefaultResultOrder(order: "ipv4first" | "verbatim"): void;
     // Error codes
     const NODATA: "ENODATA";
     const FORMERR: "EFORMERR";
