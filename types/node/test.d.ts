@@ -941,17 +941,6 @@ declare module "node:test" {
          * @since v19.1.0, v18.13.0
          */
         restoreAll(): void;
-        /**
-         * This function is used to mock the exports of ECMAScript modules,
-         * CommonJS modules, and Node.js builtin modules. Any references to
-         * the original module prior to mocking are not impacted
-         * @since v22.3.0
-         */
-        module(speficier: string, options?: {
-            cache?: boolean;
-            defaultExport?: any;
-            namedExports?: object;
-        }): { restore: () => void };
         timers: MockTimers;
     }
     const mock: MockTracker;
