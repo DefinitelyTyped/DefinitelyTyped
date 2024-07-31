@@ -4051,8 +4051,8 @@ declare namespace cytoscape {
              * may be node for clipped to node shape or none for no clipping.
              */
             "background-clip"?:
-                | PropertyValueNode<"clipped" | "none">
-                | PropertyValueNode<Array<"clipped" | "none">>
+                | PropertyValueNode<"node" | "none">
+                | PropertyValueNode<Array<"node" | "none">>
                 | undefined;
             /**
              * Specifies a padding size (e.g. 20) that expands the bounding box of the node in

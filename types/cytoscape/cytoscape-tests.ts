@@ -99,7 +99,7 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "background-offset-y": [10, 10],
             "background-width-relative-to": ["inner", "include-padding"],
             "background-height-relative-to": ["inner", "include-padding"],
-            "background-clip": ["clipped", "none"],
+            "background-clip": ["node", "none"],
         },
     },
     {
