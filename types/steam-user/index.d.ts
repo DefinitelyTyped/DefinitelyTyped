@@ -182,6 +182,7 @@ declare class SteamUser extends EventEmitter {
 
     logOn(
         details?:
+            | true
             | LogOnDetailsAnon
             | LogOnDetailsNamePass
             | LogOnDetailsNameKey
@@ -1344,6 +1345,7 @@ interface LogOnDetailsRefresh {
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
+    renewRefreshTokens: ?boolean;
 }
 
 interface SteamGuardDetails {
@@ -5041,6 +5043,14 @@ declare namespace SteamUser {
         MustAgreeToSSA = 118,
         ClientNoLongerSupported = 119,
         LauncherMigrated = 119,
+        SteamRealmMismatch = 120,
+        InvalidSignature = 121,
+        ParseFailure = 122,
+        NoVerifiedPhone = 123,
+        InsufficientBattery = 124,
+        ChargerRequired = 125,
+        CachedCredentialInvalid = 126,
+        PhoneNumberIsVOIP = 127,
     }
 
     enum EServerFlags {
