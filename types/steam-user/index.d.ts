@@ -1345,7 +1345,6 @@ interface LogOnDetailsRefresh {
     logonID?: number | string;
     machineName?: string;
     clientOS?: SteamUser.EOSType;
-    renewRefreshTokens: ?boolean;
 }
 
 interface SteamGuardDetails {
