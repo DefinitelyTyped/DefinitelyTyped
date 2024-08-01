@@ -1516,3 +1516,44 @@ function test_no_basecontext_constructor() {
     // @ts-expect-error
     return new LocalMocha.BaseContext();
 }
+
+// Importantly, this doesn't implement BaseContext, and it isn't empty.  For
+// some reason, TS treats empty classes as matching constraints.
+class ArbitraryClass {
+    someField: number;
+}
+
+// Context constraints should be enforced on callbacks.
+function test_constraints(suite: LocalMocha.Suite) {
+    // Should work.
+    const f1: LocalMocha.Func<LocalMocha.Context> = function(this: LocalMocha.Context) {};
+
+    // Should work.
+    const f2: LocalMocha.Func<ContextWithFixtures> = function(this: ContextWithFixtures) {};
+
+    // Doesn't implement BaseContext.
+    // @ts-expect-error
+    const f3: LocalMocha.Func<ArbitraryClass> = function(this: ArbitraryClass) {};
+
+    // Doesn't implement BaseContext.
+    // @ts-expect-error
+    const f4: LocalMocha.Func<string> = function(this: string) {};
+
+    // Doesn't match types.
+    // @ts-expect-error
+    const f5: LocalMocha.Func<LocalMocha.Context> = function(this: ArbitraryClass) {};
+
+    // Should work.
+    suite.beforeAll(function(this: LocalMocha.Context) {});
+
+    // Should work.
+    suite.beforeAll(function(this: ContextWithFixtures) {});
+
+    // Doesn't implement BaseContext.
+    // @ts-expect-error
+    suite.beforeAll(function(this: ArbitraryClass) {});
+
+    // Doesn't implement BaseContext.
+    // @ts-expect-error
+    suite.beforeAll(function(this: string) {});
+}
