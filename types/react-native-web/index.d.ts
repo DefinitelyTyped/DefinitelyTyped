@@ -26,12 +26,10 @@ import type {
     GestureResponderEvent,
     InteractionManager as InteractionManagerRN,
     LayoutAnimation as LayoutAnimationRN,
-    LayoutRectangle,
     MeasureInWindowOnSuccessCallback,
     MeasureLayoutOnSuccessCallback,
     MeasureOnSuccessCallback,
     NativeEventEmitter as NativeEventEmitterRN,
-    NativeSyntheticEvent,
     SectionList as SectionListRN,
     SectionListProps as SectionListPropsRN,
     StyleProp,
@@ -81,7 +79,7 @@ type idRefList = idRef | idRef[];
 
 // https://necolas.github.io/react-native-web/docs/accessibility/#accessibility-props-api
 // Extracted from react-native-web, packages/react-native-web/src/exports/View/types.js
-interface AccessibilityProps {
+interface AccessibilityPropsWeb {
     "aria-activedescendant"?: idRef;
     "aria-atomic"?: boolean;
     "aria-autocomplete"?: "none" | "list" | "inline" | "both";
@@ -327,7 +325,7 @@ interface EventProps extends ClickProps, FocusProps, KeyboardProps, MouseProps, 
  * Shared props
  * Extracted from react-native-web, packages/react-native-web/src/exports/View/types.js
  */
-interface WebSharedProps extends AccessibilityProps, EventProps {
+interface WebSharedProps extends AccessibilityPropsWeb, EventProps {
     dataSet?: Record<string, unknown>;
     href?: string;
     hrefAttrs?: {
@@ -345,6 +343,19 @@ interface WebSharedProps extends AccessibilityProps, EventProps {
  */
 interface WebViewProps extends WebSharedProps {
     dir?: "ltr" | "rtl";
+}
+
+/**
+ * Styles
+ */
+// We extend CSSProperties (alias to "csstype" library) which provides all CSS style properties for Web,
+// but properties that are already defined on RN won't be overrided / augmented.
+export interface WebStyle extends CSSProperties {
+    // https://necolas.github.io/react-native-web/docs/styling/#non-standard-properties
+    // Exclusive to react-native-web, "pointerEvents" already included on RN
+    animationKeyframes?: string | Record<string, ViewStyle>;
+    writingDirection?: "auto" | "ltr" | "rtl";
+    enableBackground?: string;
 }
 
 // APIs
@@ -1197,7 +1208,7 @@ export interface TouchableWithoutFeedbackProps extends ViewProps {
 }
 export type TouchableWithoutFeedback = FunctionComponent<TouchableWithoutFeedbackProps & RefAttributes<View>>;
 
-export interface ViewProps extends AccessibilityProps, EventProps {
+export interface ViewProps extends AccessibilityPropsWeb, EventProps {
     children?: any;
     dataSet?: Record<string, unknown>;
     dir?: "ltr" | "rtl";
@@ -1251,8 +1262,100 @@ export function useWindowDimensions(): {
 export {};
 
 declare module "react-native" {
-    // @ts-expect-error We override this type in order to provide "target" to onLayout event.
-    type LayoutChangeEvent = NativeSyntheticEvent<{ layout: LayoutRectangle; target?: unknown }>;
+    interface AccessibilityProps {
+        "aria-activedescendant"?: idRef;
+        "aria-atomic"?: boolean;
+        "aria-autocomplete"?: "none" | "list" | "inline" | "both";
+        "aria-busy"?: boolean;
+        "aria-checked"?: boolean | "mixed";
+        "aria-colcount"?: number;
+        "aria-colindex"?: number;
+        "aria-colspan"?: number;
+        "aria-controls"?: idRef;
+        "aria-current"?: boolean | "page" | "step" | "location" | "date" | "time";
+        "aria-describedby"?: idRef;
+        "aria-details"?: idRef;
+        "aria-disabled"?: boolean;
+        "aria-errormessage"?: idRef;
+        "aria-expanded"?: boolean;
+        "aria-flowto"?: idRef;
+        "aria-haspopup"?: "dialog" | "grid" | "listbox" | "menu" | "tree" | false;
+        "aria-hidden"?: boolean;
+        "aria-invalid"?: boolean;
+        "aria-keyshortcuts"?: string;
+        "aria-label"?: string;
+        "aria-labelledby"?: idRef;
+        "aria-level"?: number;
+        "aria-live"?: "assertive" | "off" | "polite";
+        "aria-modal"?: boolean;
+        "aria-multiline"?: boolean;
+        "aria-multiselectable"?: boolean;
+        "aria-orientation"?: "horizontal" | "vertical";
+        "aria-owns"?: idRef;
+        "aria-placeholder"?: string;
+        "aria-posinset"?: number;
+        "aria-pressed"?: boolean | "mixed";
+        "aria-readonly"?: boolean;
+        "aria-required"?: boolean;
+        "aria-roledescription"?: string;
+        "aria-rowcount"?: number;
+        "aria-rowindex"?: number;
+        "aria-rowspan"?: number;
+        "aria-selected"?: boolean;
+        "aria-setsize"?: number;
+        "aria-sort"?: "ascending" | "descending" | "none" | "other";
+        "aria-valuemax"?: number;
+        "aria-valuemin"?: number;
+        "aria-valuenow"?: number;
+        "aria-valuetext"?: string;
+    
+        // @deprecated
+        accessibilityActiveDescendant?: idRef;
+        accessibilityAtomic?: boolean;
+        accessibilityAutoComplete?: "none" | "list" | "inline" | "both";
+        accessibilityBusy?: boolean;
+        accessibilityChecked?: boolean | "mixed";
+        accessibilityColumnCount?: number;
+        accessibilityColumnIndex?: number;
+        accessibilityColumnSpan?: number;
+        accessibilityControls?: idRefList;
+        accessibilityCurrent?: boolean | "page" | "step" | "location" | "date" | "time";
+        accessibilityDescribedBy?: idRefList;
+        accessibilityDetails?: idRef;
+        accessibilityDisabled?: boolean;
+        accessibilityErrorMessage?: idRef;
+        accessibilityExpanded?: boolean;
+        accessibilityFlowTo?: idRefList;
+        accessibilityHasPopup?: "dialog" | "grid" | "listbox" | "menu" | "tree" | false;
+        accessibilityHidden?: boolean;
+        accessibilityInvalid?: boolean;
+        accessibilityKeyShortcuts?: string[];
+        accessibilityLabel?: string;
+        accessibilityLabelledBy?: idRef;
+        accessibilityLevel?: number;
+        accessibilityLiveRegion?: "assertive" | "none" | "polite";
+        accessibilityModal?: boolean;
+        accessibilityMultiline?: boolean;
+        accessibilityMultiSelectable?: boolean;
+        accessibilityOrientation?: "horizontal" | "vertical";
+        accessibilityOwns?: idRefList;
+        accessibilityPlaceholder?: string;
+        accessibilityPosInSet?: number;
+        accessibilityPressed?: boolean | "mixed";
+        accessibilityReadOnly?: boolean;
+        accessibilityRequired?: boolean;
+        accessibilityRoleDescription?: string;
+        accessibilityRowCount?: number;
+        accessibilityRowIndex?: number;
+        accessibilityRowSpan?: number;
+        accessibilitySelected?: boolean;
+        accessibilitySetSize?: number;
+        accessibilitySort?: "ascending" | "descending" | "none" | "other";
+        accessibilityValueMax?: number;
+        accessibilityValueMin?: number;
+        accessibilityValueNow?: number;
+        accessibilityValueText?: string;
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ViewProps extends WebViewProps {}
@@ -1322,19 +1425,6 @@ declare module "react-native" {
     }
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface PressableProps extends WebPressableProps {}
-
-    /**
-     * Styles
-     */
-    // We extend CSSProperties (alias to "csstype" library) which provides all CSS style properties for Web,
-    // but properties that are already defined on RN won't be overrided / augmented.
-    interface WebStyle extends CSSProperties {
-        // https://necolas.github.io/react-native-web/docs/styling/#non-standard-properties
-        // Exclusive to react-native-web, "pointerEvents" already included on RN
-        animationKeyframes?: string | Record<string, ViewStyle>;
-        writingDirection?: "auto" | "ltr" | "rtl";
-        enableBackground?: string;
-    }
 
     interface ViewStyle extends WebStyle {
         // In order to overwrite properties from RN, we need to redefine them inside ViewStyle.
