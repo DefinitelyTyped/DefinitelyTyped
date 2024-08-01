@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/archriss/react-native-snap-carousel"
     ],
-    "dependencies": {
+    "peerDependencies": {
         "@types/react": "*",
         "react-native": "*"
     },
