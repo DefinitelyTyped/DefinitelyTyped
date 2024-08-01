@@ -872,7 +872,7 @@ declare namespace Chai {
         include<T>(haystack: T, needle: Partial<T>, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * @param haystack   Container string.
          * @param needle   Potential substring of haystack.
@@ -881,7 +881,7 @@ declare namespace Chai {
         notInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of values in haystack.
          * @param haystack   Container array, set or map.
@@ -895,7 +895,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of values in haystack.
          * @param haystack   WeakSet container.
@@ -905,7 +905,7 @@ declare namespace Chai {
         notInclude<T extends object>(haystack: WeakSet<T>, needle: T, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -940,7 +940,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle.
+         * Asserts that haystack does not include needle.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -950,7 +950,7 @@ declare namespace Chai {
         deepInclude<T>(haystack: T, needle: T extends WeakSet<any> ? never : Partial<T>, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * @param haystack   Container string.
          * @param needle   Potential substring of haystack.
@@ -961,7 +961,7 @@ declare namespace Chai {
         notDeepInclude(haystack: string, needle: string, message?: string): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * T   Type of values in haystack.
          * @param haystack   Container array, set or map.
@@ -975,7 +975,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not includes needle. Deep equality is used.
+         * Asserts that haystack does not include needle. Deep equality is used.
          *
          * T   Type of haystack.
          * @param haystack   Object.
@@ -1109,7 +1109,7 @@ declare namespace Chai {
         property<T>(object: T, property: string, /* keyof T */ message?: string): void;
 
         /**
-         * Asserts that object has a property named by property.
+         * Asserts that object does not have a property named by property.
          *
          * T   Type of object.
          * @param object   Container object.
