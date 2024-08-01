@@ -1,11 +1,7 @@
 import {
     AccessibilityProps,
-    ClickProps,
-    EventProps,
-    FocusProps,
-    ImageProps,
+ 
     ImageStyle,
-    KeyboardProps,
     LayoutChangeEvent,
     PressableProps,
     PressableStateCallbackType,
@@ -16,6 +12,14 @@ import {
     ViewProps,
     ViewStyle,
 } from "react-native";
+
+import {
+    ClickProps,
+    EventProps,
+    FocusProps,
+    ImageProps,
+    KeyboardProps,
+} from "react-native-web";
 
 // Test props
 const viewProps: ViewProps = {
@@ -114,18 +118,6 @@ const imageStyle: ImageStyle = {
 };
 
 // Test events
-const layoutChangeEvent: Pick<LayoutChangeEvent, "nativeEvent"> = {
-    nativeEvent: {
-        layout: {
-            x: 1,
-            y: 1,
-            width: 1,
-            height: 1,
-        },
-        target: "dom element",
-    },
-};
-
 const eventProps: EventProps = {
     onClick: (event) => {
         console.log("Clicked:", event.bubbles);

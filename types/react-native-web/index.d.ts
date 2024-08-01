@@ -177,7 +177,7 @@ interface AccessibilityPropsWeb {
 // https://necolas.github.io/react-native-web/docs/interactions/#pointerevent-props-api
 // Extracted properties from react-native-web, packages/react-native-web/src/exports/View/types.js and packages/react-native-web/src/modules/forwardedProps/index.js
 // Extracted types from @types/react, index.d.ts
-interface ClickProps {
+export interface ClickProps {
     onClick?: MouseEventHandler;
     onAuxClick?: MouseEventHandler;
     onContextMenu?: MouseEventHandler;
@@ -198,7 +198,7 @@ interface ClickProps {
 // https://necolas.github.io/react-native-web/docs/interactions/#focusevent-props-api
 // Extracted properties from react-native-web, packages/react-native-web/src/exports/View/types.js and packages/react-native-web/src/modules/forwardedProps/index.js
 // Extracted types from @types/react, index.d.ts
-interface FocusProps {
+export interface FocusProps {
     onBlur?: FocusEventHandler;
     onFocus?: FocusEventHandler;
 }
@@ -206,7 +206,7 @@ interface FocusProps {
 // https://necolas.github.io/react-native-web/docs/interactions/#keyboardevent-props-api
 // Extracted properties from react-native-web, packages/react-native-web/src/exports/View/types.js and packages/react-native-web/src/modules/forwardedProps/index.js
 // Extracted types from @types/react, index.d.ts
-interface KeyboardProps {
+export interface KeyboardProps {
     onKeyDown?: KeyboardEventHandler;
     onKeyDownCapture?: KeyboardEventHandler;
     onKeyUp?: KeyboardEventHandler;
@@ -215,7 +215,7 @@ interface KeyboardProps {
 
 // Extracted properties from react-native-web, packages/react-native-web/src/exports/View/types.js and packages/react-native-web/src/modules/forwardedProps/index.js
 // Extracted types from @types/react, index.d.ts
-interface MouseProps {
+export interface MouseProps {
     onMouseDown?: MouseEventHandler;
     onMouseEnter?: MouseEventHandler;
     onMouseLeave?: MouseEventHandler;
@@ -319,7 +319,7 @@ interface ResponderProps {
     onSelectionChangeShouldSetResponderCapture?: (event: ResponderEvent) => boolean;
 }
 
-interface EventProps extends ClickProps, FocusProps, KeyboardProps, MouseProps, TouchProps, ResponderProps {}
+export interface EventProps extends ClickProps, FocusProps, KeyboardProps, MouseProps, TouchProps, ResponderProps {}
 
 /**
  * Shared props
