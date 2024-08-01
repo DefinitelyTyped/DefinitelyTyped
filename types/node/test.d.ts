@@ -343,6 +343,15 @@ declare module "node:test" {
          */
         testNamePatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
         /**
+         * A String, RegExp or a RegExp Array, that can be used to exclude running tests whose
+         * name matches the provided pattern. Test name patterns are interpreted as JavaScript
+         * regular expressions. For each test that is executed, any corresponding test hooks,
+         * such as `beforeEach()`, are also run.
+         * @default undefined
+         * @since v22.1.0
+         */
+        testSkipPatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
+        /**
          * The number of milliseconds after which the test execution will fail.
          * If unspecified, subtests inherit this value from their parent.
          * @default Infinity

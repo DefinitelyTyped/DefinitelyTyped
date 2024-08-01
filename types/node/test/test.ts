@@ -38,6 +38,7 @@ run({
     timeout: 100,
     inspectPort: () => 8081,
     testNamePatterns: ["executed", /^core-/],
+    testSkipPatterns: ["excluded", /^lib-/],
     only: true,
     setup: (reporter) => {
         // $ExpectType TestsStream
