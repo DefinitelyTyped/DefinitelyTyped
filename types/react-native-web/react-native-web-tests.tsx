@@ -1,8 +1,6 @@
 import {
     AccessibilityProps,
- 
     ImageStyle,
-    LayoutChangeEvent,
     PressableProps,
     PressableStateCallbackType,
     ScrollViewProps,
@@ -14,11 +12,42 @@ import {
 } from "react-native";
 
 import {
+    // components
+    ActivityIndicator,
+    Button,
+    CheckBox,
     ClickProps,
     EventProps,
+    FlatList,
     FocusProps,
+    Image,
+    ImageBackground,
     ImageProps,
+    KeyboardAvoidingView,
     KeyboardProps,
+    Modal,
+    Picker,
+    Pressable,
+    ProgressBar,
+    RefreshControl,
+    SafeAreaView,
+    ScrollView,
+    SectionList,
+    StatusBar,
+    Switch,
+    Text,
+    TextInput,
+    TouchableHighlight,
+    TouchableNativeFeedback,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    // hooks
+    useColorScheme,
+    useLocaleContext,
+    useWindowDimensions,
+    View,
+    VirtualizedList,
+    YellowBox,
 } from "react-native-web";
 
 // Test props
@@ -270,3 +299,84 @@ const accessibility: AccessibilityProps = {
     accessibilityAtomic: true,
     accessibilityControls: ["control1", "control2"],
 };
+
+// RNW components
+const activityIndicator = <ActivityIndicator color="blue" size="large" />;
+const button = <Button title="Press me" onPress={() => console.log("Button pressed")} disabled={false} />;
+const checkBox = <CheckBox value={true} onValueChange={() => console.log("Checkbox changed")} />;
+const flatList = <FlatList data={[]} renderItem={() => null} keyExtractor={(item) => "key"} />;
+const image = <Image source={{ uri: "http://mywebsite.com" }} resizeMode="cover" />;
+const imageBackground = <ImageBackground style={{ flex: 1 }} />;
+const keyboardAvoidingView = <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={2} />;
+const modal = (
+    <Modal animationType="slide" transparent={true}>
+        <View style={{ flex: 1 }} />
+    </Modal>
+);
+const picker = (
+    <Picker
+        selectedValue={"selectedValue"}
+        onValueChange={(itemValue: string | number) => console.log(itemValue)}
+    />
+);
+const pressable = (
+    <Pressable onPress={() => console.log("Pressable pressed")}>
+        {({ pressed }) => <Text>{pressed ? "Pressed!" : "Press Me"}</Text>}
+    </Pressable>
+);
+const progressBar = <ProgressBar progress={0.5} indeterminate={false} />;
+const refreshControl = <RefreshControl refreshing={false} onRefresh={() => console.log("RefreshControl refreshed")} />;
+const safeAreaView = <SafeAreaView style={{ flex: 1 }} />;
+const scrollView = <ScrollView contentContainerStyle={{ flexGrow: 1 }} />;
+const sectionList = <SectionList sections={[]} renderItem={() => null} keyExtractor={(item) => item.id.toString()} />;
+const statusBar = <StatusBar />;
+const switchComponent = <Switch value={true} onValueChange={() => console.log("Switch changed")} />;
+const textComponent = <Text style={{ fontSize: 16 }} />;
+const textInput = <TextInput placeholder="Enter text" onChangeText={(text) => console.log("TextInput value:", text)} />;
+const touchableHighlight = (
+    <TouchableHighlight
+        underlayColor="transparent"
+        activeOpacity={0.8}
+    >
+        <Text>TouchableHighlight</Text>
+    </TouchableHighlight>
+);
+
+const touchableNativeFeedback = (
+    <TouchableNativeFeedback>
+        <Text>TouchableNativeFeedback</Text>
+    </TouchableNativeFeedback>
+);
+
+const touchableOpacity = (
+    <TouchableOpacity
+        activeOpacity={0.5}
+    >
+        <Text>TouchableOpacity</Text>
+    </TouchableOpacity>
+);
+
+const touchableWithoutFeedback = (
+    <TouchableWithoutFeedback
+        disabled={false}
+    >
+        <Text>TouchableWithoutFeedback</Text>
+    </TouchableWithoutFeedback>
+);
+const viewComponent = <View style={{ flex: 1 }} />;
+const virtualizedList = (
+    <VirtualizedList
+        data={[]}
+        renderItem={() => null}
+        keyExtractor={(item) => {
+            console.log(item);
+            return "key";
+        }}
+    />
+);
+const yellowBox = <YellowBox />;
+
+// RNW hooks
+const colorScheme = useColorScheme();
+const localeContext = useLocaleContext();
+const windowDimensions = useWindowDimensions();

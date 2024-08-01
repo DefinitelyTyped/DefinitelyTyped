@@ -1,9 +1,8 @@
 import type {
-    Component,
+    ComponentClass,
     ComponentType,
     CSSProperties,
     FocusEventHandler,
-    ForwardRefExoticComponent,
     FunctionComponent,
     KeyboardEventHandler,
     MouseEventHandler,
@@ -810,7 +809,7 @@ export interface ActivityIndicatorProps extends ViewProps {
     hidesWhenStopped?: boolean;
     size?: "small" | "large" | number;
 }
-export type ActivityIndicator = FunctionComponent<ActivityIndicatorProps & RefAttributes<View>>;
+export const ActivityIndicator: FunctionComponent<ActivityIndicatorProps & RefAttributes<typeof View>>;
 
 export interface ButtonProps {
     accessibilityLabel?: string;
@@ -820,7 +819,7 @@ export interface ButtonProps {
     testID?: string;
     title: string;
 }
-export type Button = FunctionComponent<ButtonProps & RefAttributes<View>>;
+export const Button: FunctionComponent<ButtonProps & RefAttributes<typeof View>>;
 
 export interface CheckBoxProps extends ViewProps {
     color?: string | null;
@@ -830,10 +829,10 @@ export interface CheckBoxProps extends ViewProps {
     readOnly?: boolean;
     value?: boolean;
 }
-export type CheckBox = FunctionComponent<CheckBoxProps & RefAttributes<View>>;
+export const CheckBox: FunctionComponent<CheckBoxProps & RefAttributes<typeof View>>;
 
 export type FlatListProps<ItemT> = FlatListPropsRN<ItemT>;
-export type FlatList<ItemT> = typeof FlatListRN<ItemT>;
+export const FlatList: typeof FlatListRN;
 
 interface SourceObject {
     /**
@@ -913,7 +912,7 @@ export interface ImageProps extends ViewProps {
     style?: StyleProp<ViewStyle>;
     tintColor?: string | null;
 }
-export type Image = FunctionComponent<ImageProps & RefAttributes<View>>;
+export const Image: FunctionComponent<ImageProps & RefAttributes<typeof View>>;
 
 export interface ImageBackgroundProps extends ViewProps {
     animating?: boolean;
@@ -921,14 +920,14 @@ export interface ImageBackgroundProps extends ViewProps {
     imageStyle?: StyleProp<ViewStyle>;
     style?: StyleProp<ViewStyle>;
 }
-export type ImageBackground = FunctionComponent<ImageBackgroundProps & RefAttributes<View>>;
+export const ImageBackground: FunctionComponent<ImageBackgroundProps & RefAttributes<typeof View>>;
 
 export interface KeyboardAvoidingViewProps extends ViewProps {
     behavior?: "height" | "padding" | "position";
     contentContainerStyle?: StyleProp<ViewStyle>;
     keyboardVerticalOffset: number;
 }
-export type KeyboardAvoidingView = Component<KeyboardAvoidingViewProps>;
+export const KeyboardAvoidingView: ComponentClass<KeyboardAvoidingViewProps>;
 
 export interface ModalProps extends ViewProps {
     animationType?: "none" | "slide" | "fade";
@@ -956,7 +955,7 @@ export interface ModalProps extends ViewProps {
     transparent?: boolean;
     visible?: boolean;
 }
-export type Modal = FunctionComponent<ModalProps & RefAttributes<View>>;
+export const Modal: FunctionComponent<ModalProps & RefAttributes<typeof View>>;
 
 export interface PickerProps extends ViewProps {
     children?: ReactNode;
@@ -969,7 +968,7 @@ export interface PickerProps extends ViewProps {
     mode?: string;
     prompt?: string;
 }
-export type Picker = FunctionComponent<PickerProps & RefAttributes<HTMLElement & PlatformMethods>>;
+export const Picker: FunctionComponent<PickerProps & RefAttributes<HTMLElement & PlatformMethods>>;
 
 export interface PressableProps extends ViewPropsWithoutStyle {
     children:
@@ -1007,7 +1006,7 @@ export interface PressableProps extends ViewPropsWithoutStyle {
             pressed: boolean;
         }) => StyleProp<ViewStyle>);
 }
-export type Pressable = FunctionComponent<PressableProps & RefAttributes<View>>;
+export const Pressable: FunctionComponent<PressableProps & RefAttributes<typeof View>>;
 
 export interface ProgressBarProps extends ViewProps {
     color?: string | null;
@@ -1015,7 +1014,7 @@ export interface ProgressBarProps extends ViewProps {
     progress?: number;
     trackColor?: string | null;
 }
-export type ProgressBar = FunctionComponent<ProgressBarProps & RefAttributes<View>>;
+export const ProgressBar: FunctionComponent<ProgressBarProps & RefAttributes<typeof View>>;
 
 export interface RefreshControlProps extends ViewProps {
     colors?: Array<string | null>;
@@ -1029,10 +1028,10 @@ export interface RefreshControlProps extends ViewProps {
     title?: string;
     titleColor?: string | null;
 }
-export type RefreshControl = FunctionComponent<RefreshControlProps>;
+export const RefreshControl: FunctionComponent<RefreshControlProps>;
 
 export type SafeAreaViewProps = ViewProps;
-export type SafeAreaView = FunctionComponent<SafeAreaViewProps>;
+export const SafeAreaView: FunctionComponent<SafeAreaViewProps>;
 
 export interface ScrollViewProps extends ViewProps {
     centerContent?: boolean;
@@ -1047,12 +1046,12 @@ export interface ScrollViewProps extends ViewProps {
     scrollEventThrottle?: number;
     stickyHeaderIndices?: number[];
 }
-export type ScrollView = FunctionComponent<ScrollViewProps & RefAttributes<View>>;
+export const ScrollView: FunctionComponent<ScrollViewProps & RefAttributes<typeof View>>;
 
 export type SectionListProps<ItemT> = SectionListPropsRN<ItemT>;
-export type SectionList<ItemT> = typeof SectionListRN<ItemT>;
+export const SectionList: typeof SectionListRN;
 
-export type StatusBar = FunctionComponent;
+export const StatusBar: FunctionComponent;
 
 export interface SwitchProps extends ViewProps {
     activeThumbColor?: string | null;
@@ -1063,7 +1062,7 @@ export interface SwitchProps extends ViewProps {
     trackColor?: string | null | { false: string | null; true: string | null };
     value?: boolean;
 }
-export type Switch = FunctionComponent<SwitchProps & RefAttributes<View>>;
+export const Switch: FunctionComponent<SwitchProps & RefAttributes<typeof View>>;
 
 export interface TextProps extends ViewPropsWithoutStyle {
     numberOfLines?: number;
@@ -1091,7 +1090,7 @@ export interface TextProps extends ViewPropsWithoutStyle {
     onPress?: (event: any) => void;
     selectable?: boolean;
 }
-export type Text = FunctionComponent<TextProps & RefAttributes<HTMLElement & PlatformMethods>>;
+export const Text: FunctionComponent<TextProps & RefAttributes<HTMLElement & PlatformMethods>>;
 
 export interface TextInputProps extends ViewPropsWithoutStyle {
     autoCapitalize?: "characters" | "none" | "sentences" | "words";
@@ -1169,7 +1168,7 @@ export interface TextInputProps extends ViewPropsWithoutStyle {
         | "search"
         | "send";
 }
-export type TextInput = FunctionComponent<TextInputProps & RefAttributes<HTMLElement & PlatformMethods>>;
+export const TextInput: FunctionComponent<TextInputProps & RefAttributes<HTMLElement & PlatformMethods>>;
 
 export interface Touchable {
     TOUCH_TARGET_DEBUG: boolean;
@@ -1187,15 +1186,15 @@ export interface TouchableHighlightProps extends ViewProps {
     testOnly_pressed?: boolean;
     underlayColor?: string | null;
 }
-export type TouchableHighlight = FunctionComponent<TouchableHighlightProps & RefAttributes<View>>;
+export const TouchableHighlight: FunctionComponent<TouchableHighlightProps & RefAttributes<typeof View>>;
 
-export type TouchableNativeFeedback = Component;
+export const TouchableNativeFeedback: ComponentClass;
 
 export interface TouchableOpacityProps extends ViewProps {
     activeOpacity?: number;
     style?: StyleProp<ViewStyle>;
 }
-export type TouchableOpacity = FunctionComponent<TouchableOpacityProps & RefAttributes<View>>;
+export const TouchableOpacity: FunctionComponent<TouchableOpacityProps & RefAttributes<typeof View>>;
 
 export interface TouchableWithoutFeedbackProps extends ViewProps {
     children?: ReactNode;
@@ -1206,7 +1205,7 @@ export interface TouchableWithoutFeedbackProps extends ViewProps {
     focusable?: boolean;
     rejectResponderTermination?: boolean;
 }
-export type TouchableWithoutFeedback = FunctionComponent<TouchableWithoutFeedbackProps & RefAttributes<View>>;
+export const TouchableWithoutFeedback: FunctionComponent<TouchableWithoutFeedbackProps & RefAttributes<typeof View>>;
 
 export interface ViewProps extends AccessibilityPropsWeb, EventProps {
     children?: any;
@@ -1227,12 +1226,12 @@ export interface ViewProps extends AccessibilityPropsWeb, EventProps {
 }
 type ViewPropsWithoutStyle = Omit<ViewProps, "style">;
 
-export type View = ForwardRefExoticComponent<ActivityIndicatorProps & RefAttributes<HTMLElement>>;
+export const View: FunctionComponent<ActivityIndicatorProps & RefAttributes<HTMLElement>>;
 
 export type VirtualizedListProps<ItemT> = VirtualizedListPropsRN<ItemT>;
-export type VirtualizedList<ItemT> = typeof VirtualizedListRN<ItemT>;
+export const VirtualizedList: typeof VirtualizedListRN;
 
-export type YellowBox = FunctionComponent<object>;
+export const YellowBox: FunctionComponent<object>;
 
 export interface LogBox {
     ignoreLogs(): void;
@@ -1308,7 +1307,7 @@ declare module "react-native" {
         "aria-valuemin"?: number;
         "aria-valuenow"?: number;
         "aria-valuetext"?: string;
-    
+
         // @deprecated
         accessibilityActiveDescendant?: idRef;
         accessibilityAtomic?: boolean;
