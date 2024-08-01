@@ -7,8 +7,11 @@ These types are an attempt to augment existing `react-native` types to match the
 
 ## Usage 
 
-To enhance `react-native` types, users must import these specific types into any `.ts` or `.d.ts` file. By doing this, they are augmenting the underlying `react-native` types with web specific properties.
-
+To enhance `react-native` types, users must supply `react-native-web` as a member of the types compiler option:
 ```ts
-import 'react-native-web';
+{
+  "compilerOptions": {
+    "types": ["react-native-web"]
+  }
+}
 ```
