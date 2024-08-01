@@ -1,7 +1,7 @@
 import jsonToGo from "json-to-go";
 
 const result = jsonToGo(JSON.stringify({
-    hello: "world"
+    hello: "world",
 })); // $ExpectType JsonToGoResult
 
 result.error; // $ExpectType undefined
