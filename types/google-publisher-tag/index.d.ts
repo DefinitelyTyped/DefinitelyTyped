@@ -1802,6 +1802,34 @@ declare namespace googletag {
              * Settings to control publisher provided signals (PPS).
              */
             pps?: PublisherProvidedSignalsConfig | null;
+
+            /**
+             * Setting to control whether GPT should yield the JS thread when
+             * rendering creatives.
+             *
+             * GPT will yield only for browsers that support the Scheduler.postTask
+             * API.
+             *
+             * Supported values:
+             *  - `null` (default): GPT will yield the JS thread for slots outside of
+             *    the viewport.
+             *  - `ENABLED_ALL_SLOTS`: GPT will yield the JS thread for all slots
+             *    regardless of whether the slot is within the viewport.
+             *  - `DISABLED`: GPT will not yield the JS thread.
+             *
+             * @example
+             *   // Disable yielding.
+             *   googletag.setConfig({adYield: 'DISABLED'});
+             *
+             *   // Enable yielding for all slots.
+             *   googletag.setConfig({adYield: 'ENABLED_ALL_SLOTS'});
+             *
+             *   // Enable yielding only for slots outside of the viewport (default).
+             *   googletag.setConfig({adYield: null});
+             *
+             * @see [Scheduler: postTask() method](https://developer.mozilla.org/docs/Web/API/Scheduler/postTask)
+             */
+            adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
         }
 
         /**
