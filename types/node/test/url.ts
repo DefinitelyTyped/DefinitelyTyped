@@ -214,9 +214,9 @@ import * as url from "node:url";
 }
 
 {
-    const isValid = url.URL.canParse('/foo', 'https://example.org/');
+    const isValid = url.URL.canParse("/foo", "https://example.org/");
     isValid; // $ExpectType boolean
 
-    const parsedUrl = url.URL.parse('/foo', 'https://example.org/');
+    const parsedUrl = url.URL.parse("/foo", "https://example.org/");
     parsedUrl; // $ExpectType URL | null
 }
