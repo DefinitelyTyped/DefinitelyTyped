@@ -456,13 +456,21 @@ declare namespace Ffmpeg {
         on(event: "error", listener: (error: Error, stdout: string | null, stderr: string | null) => void): this;
 
         /**
+         * Emitted when a taking screenshots
+         *
+         * @event FfmpegCommand#filenames
+         * @param {Array} [filenames] generated filenames when taking screenshots
+         */
+        on(event: "filenames", listener: (filenames: string[]) => void): this;
+
+        /**
          * Emitted when a command finishes processing
          *
          * @event FfmpegCommand#end
-         * @param {Array|String|null} [filenames|stdout] generated filenames when taking screenshots, ffmpeg stdout when not outputting to a stream, null otherwise
+         * @param {String|null} stdout ffmpeg stdout when not outputting to a stream, null otherwise
          * @param {String|null} stderr ffmpeg stderr
          */
-        on(event: "end", listener: (filenames: string[] | string | null, stderr: string | null) => void): this;
+        on(event: "end", listener: (stdout: string | null, stderr: string | null) => void): this;
 
         // recipes
         saveToFile(output: string): FfmpegCommand;

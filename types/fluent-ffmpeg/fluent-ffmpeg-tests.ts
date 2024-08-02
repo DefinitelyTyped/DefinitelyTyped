@@ -128,3 +128,16 @@ ffmpeg("/path/to/file.avi")
     .on("end", () => {
         console.log("Transcoding succeeded !");
     });
+
+
+ffmpeg("/path/to/file.avi")
+    .on("filenames", (filenames) => {
+        console.log("Created screenshots " + filenames.join(", "));
+    })
+    .on("end", () => {
+        console.log("Transcoding succeeded !");
+    })
+    .screenshots({
+      timestamps: [0, 1, 2],
+      folder: "/path/to/output",
+    });
