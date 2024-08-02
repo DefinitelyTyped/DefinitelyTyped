@@ -78,7 +78,7 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
             `${fnName}(`,
             `method: '${domain}.${command.name}', `,
             `params?: ${domain}.${capitalize(command.name)}ParameterType, `,
-            `callback?: ${callbackStr}`,
+            `/** @deferred */ callback?: ${callbackStr}`,
             "): void;",
         ];
         const joined = parts.join("");
@@ -94,7 +94,7 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
     result.push([
         `${fnName}(`,
         `method: '${domain}.${command.name}', `,
-        `callback?: ${callbackStr}`,
+        `/** @deferred */ callback?: ${callbackStr}`,
         "): void;",
     ].join(""));
     return result;

@@ -46,17 +46,17 @@ declare module "events" {
     //      * Node.js-specific extension to the `EventTarget` class that emulates the equivalent `EventEmitter` API.
     //      * The only difference between `addListener()` and `addEventListener()` is that addListener() will return a reference to the EventTarget.
     //      */
-    //     addListener(type: string, listener: EventListener | EventListenerObject, options?: { once: boolean }): this;
+    //     addListener(type: string, /** @deferred */ listener: EventListener | EventListenerObject, options?: { once: boolean }): this;
     //     /** Node.js-specific extension to the `EventTarget` class that returns an array of event `type` names for which event listeners are registered. */
     //     eventNames(): string[];
     //     /** Node.js-specific extension to the `EventTarget` class that returns the number of event listeners registered for the `type`. */
     //     listenerCount(type: string): number;
     //     /** Node.js-specific alias for `eventTarget.removeListener()`. */
-    //     off(type: string, listener: EventListener | EventListenerObject): this;
+    //     off(type: string, /** @deferred */ listener: EventListener | EventListenerObject): this;
     //     /** Node.js-specific alias for `eventTarget.addListener()`. */
-    //     on(type: string, listener: EventListener | EventListenerObject, options?: { once: boolean }): this;
+    //     on(type: string, /** @deferred */ listener: EventListener | EventListenerObject, options?: { once: boolean }): this;
     //     /** Node.js-specific extension to the `EventTarget` class that adds a `once` listener for the given event `type`. This is equivalent to calling `on` with the `once` option set to `true`. */
-    //     once(type: string, listener: EventListener | EventListenerObject): this;
+    //     once(type: string, /** @deferred */ listener: EventListener | EventListenerObject): this;
     //     /**
     //      * Node.js-specific extension to the `EventTarget` class.
     //      * If `type` is specified, removes all registered listeners for `type`,
@@ -67,7 +67,7 @@ declare module "events" {
     //      * Node.js-specific extension to the `EventTarget` class that removes the listener for the given `type`.
     //      * The only difference between `removeListener()` and `removeEventListener()` is that `removeListener()` will return a reference to the `EventTarget`.
     //      */
-    //     removeListener(type: string, listener: EventListener | EventListenerObject): this;
+    //     removeListener(type: string, /** @deferred */ listener: EventListener | EventListenerObject): this;
     // }
     interface EventEmitterOptions {
         /**
@@ -434,7 +434,7 @@ declare module "events" {
          * @experimental
          * @return Disposable that removes the `abort` listener.
          */
-        static addAbortListener(signal: AbortSignal, resource: (event: Event) => void): Disposable;
+        static addAbortListener(signal: AbortSignal, /** @deferred */ resource: (event: Event) => void): Disposable;
         /**
          * This symbol shall be used to install a listener for only monitoring `'error'` events. Listeners installed using this symbol are called before the regular `'error'` listeners are called.
          *
@@ -594,7 +594,7 @@ declare module "events" {
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
                  */
-                addListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                addListener<K>(eventName: Key<K, T>, /** @deferred */ listener: Listener1<K, T>): this;
                 /**
                  * Adds the `listener` function to the end of the listeners array for the event
                  * named `eventName`. No checks are made to see if the `listener` has already
@@ -626,7 +626,7 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                on<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                on<K>(eventName: Key<K, T>, /** @deferred */ listener: Listener1<K, T>): this;
                 /**
                  * Adds a **one-time** `listener` function for the event named `eventName`. The
                  * next time `eventName` is triggered, this listener is removed and then invoked.
@@ -656,7 +656,7 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                once<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                once<K>(eventName: Key<K, T>, /** @deferred */ listener: Listener1<K, T>): this;
                 /**
                  * Removes the specified `listener` from the listener array for the event named `eventName`.
                  *
@@ -739,12 +739,12 @@ declare module "events" {
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.1.26
                  */
-                removeListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                removeListener<K>(eventName: Key<K, T>, /** @deferred */ listener: Listener1<K, T>): this;
                 /**
                  * Alias for `emitter.removeListener()`.
                  * @since v10.0.0
                  */
-                off<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                off<K>(eventName: Key<K, T>, /** @deferred */ listener: Listener1<K, T>): this;
                 /**
                  * Removes all listeners, or those of the specified `eventName`.
                  *
@@ -865,7 +865,7 @@ declare module "events" {
                  * @param eventName The name of the event being listened for
                  * @param listener The event handler function
                  */
-                listenerCount<K>(eventName: Key<K, T>, listener?: Listener2<K, T>): number;
+                listenerCount<K>(eventName: Key<K, T>, /** @deferred */ listener?: Listener2<K, T>): number;
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
@@ -883,7 +883,7 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                prependListener<K>(eventName: Key<K, T>, /** @deferred */ listener: Listener1<K, T>): this;
                 /**
                  * Adds a **one-time**`listener` function for the event named `eventName` to the _beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
@@ -899,7 +899,7 @@ declare module "events" {
                  * @param eventName The name of the event.
                  * @param listener The callback function
                  */
-                prependOnceListener<K>(eventName: Key<K, T>, listener: Listener1<K, T>): this;
+                prependOnceListener<K>(eventName: Key<K, T>, /** @deferred */ listener: Listener1<K, T>): this;
                 /**
                  * Returns an array listing the events for which the emitter has registered
                  * listeners. The values in the array are strings or `Symbol`s.

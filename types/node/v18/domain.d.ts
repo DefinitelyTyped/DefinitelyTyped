@@ -128,7 +128,7 @@ declare module "domain" {
          * @param callback The callback function
          * @return The bound function
          */
-        bind<T extends Function>(callback: T): T;
+        bind<T extends Function>(/** @deferred */ callback: T): T;
         /**
          * This method is almost identical to {@link bind}. However, in
          * addition to catching thrown errors, it will also intercept `Error` objects sent as the first argument to the function.
@@ -161,7 +161,7 @@ declare module "domain" {
          * @param callback The callback function
          * @return The intercepted function
          */
-        intercept<T extends Function>(callback: T): T;
+        intercept<T extends Function>(/** @deferred */ callback: T): T;
     }
     function create(): Domain;
 }

@@ -67,41 +67,41 @@ declare module "timers" {
             }
         }
         function setTimeout<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
+            /** @deferred */ callback: (...args: TArgs) => void,
             ms?: number,
             ...args: TArgs
         ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setTimeout(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
+        function setTimeout(/** @deferred */ callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setTimeout {
             const __promisify__: typeof setTimeoutPromise;
         }
         function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
         function setInterval<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
+            /** @deferred */ callback: (...args: TArgs) => void,
             ms?: number,
             ...args: TArgs
         ): NodeJS.Timer;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timer;
+        function setInterval(/** @deferred */ callback: (args: void) => void, ms?: number): NodeJS.Timer;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }
         function clearInterval(intervalId: NodeJS.Timeout | string | number | undefined): void;
         function setImmediate<TArgs extends any[]>(
-            callback: (...args: TArgs) => void,
+            /** @deferred */ callback: (...args: TArgs) => void,
             ...args: TArgs
         ): NodeJS.Immediate;
         // util.promisify no rest args compability
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        function setImmediate(callback: (args: void) => void): NodeJS.Immediate;
+        function setImmediate(/** @deferred */ callback: (args: void) => void): NodeJS.Immediate;
         namespace setImmediate {
             const __promisify__: typeof setImmediatePromise;
         }
         function clearImmediate(immediateId: NodeJS.Immediate | undefined): void;
-        function queueMicrotask(callback: () => void): void;
+        function queueMicrotask(/** @deferred */ callback: () => void): void;
     }
 }
 declare module "node:timers" {

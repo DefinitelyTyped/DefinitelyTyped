@@ -224,9 +224,9 @@ declare module "v8" {
      * @since v20.13.0
      * @experimental
      */
-    function queryObjects(ctor: Function): number | string[];
-    function queryObjects(ctor: Function, options: { format: "count" }): number;
-    function queryObjects(ctor: Function, options: { format: "summary" }): string[];
+    function queryObjects(/** @deferred */ ctor: Function): number | string[];
+    function queryObjects(/** @deferred */ ctor: Function, options: { format: "count" }): number;
+    function queryObjects(/** @deferred */ ctor: Function, options: { format: "summary" }): string[];
     /**
      * Generates a snapshot of the current V8 heap and returns a Readable
      * Stream that may be used to read the JSON serialized representation.
@@ -654,28 +654,28 @@ declare module "v8" {
          * @param init The {@link Init | `init` callback} to call when a promise is created.
          * @return Call to stop the hook.
          */
-        onInit: (init: Init) => Function;
+        onInit: (/** @deferred */ init: Init) => Function;
         /**
          * The `settled` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
          * @param settled The {@link Settled | `settled` callback} to call when a promise is created.
          * @return Call to stop the hook.
          */
-        onSettled: (settled: Settled) => Function;
+        onSettled: (/** @deferred */ settled: Settled) => Function;
         /**
          * The `before` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
          * @param before The {@link Before | `before` callback} to call before a promise continuation executes.
          * @return Call to stop the hook.
          */
-        onBefore: (before: Before) => Function;
+        onBefore: (/** @deferred */ before: Before) => Function;
         /**
          * The `after` hook must be a plain function. Providing an async function will throw as it would produce an infinite microtask loop.
          * @since v17.1.0, v16.14.0
          * @param after The {@link After | `after` callback} to call after a promise continuation executes.
          * @return Call to stop the hook.
          */
-        onAfter: (after: After) => Function;
+        onAfter: (/** @deferred */ after: After) => Function;
         /**
          * Registers functions to be called for different lifetime events of each promise.
          * The callbacks `init()`/`before()`/`after()`/`settled()` are called for the respective events during a promise's lifetime.
@@ -699,21 +699,21 @@ declare module "v8" {
          * This can be used to release resources that should not or cannot be serialized or to convert user data into a form more suitable for serialization.
          * @since v18.6.0, v16.17.0
          */
-        addSerializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        addSerializeCallback(/** @deferred */ callback: StartupSnapshotCallbackFn, data?: any): void;
         /**
          * Add a callback that will be called when the Node.js instance is deserialized from a snapshot.
          * The `callback` and the `data` (if provided) will be serialized into the snapshot, they can be used to re-initialize the state of the application or
          * to re-acquire resources that the application needs when the application is restarted from the snapshot.
          * @since v18.6.0, v16.17.0
          */
-        addDeserializeCallback(callback: StartupSnapshotCallbackFn, data?: any): void;
+        addDeserializeCallback(/** @deferred */ callback: StartupSnapshotCallbackFn, data?: any): void;
         /**
          * This sets the entry point of the Node.js application when it is deserialized from a snapshot. This can be called only once in the snapshot building script.
          * If called, the deserialized application no longer needs an additional entry point script to start up and will simply invoke the callback along with the deserialized
          * data (if provided), otherwise an entry point script still needs to be provided to the deserialized application.
          * @since v18.6.0, v16.17.0
          */
-        setDeserializeMainFunction(callback: StartupSnapshotCallbackFn, data?: any): void;
+        setDeserializeMainFunction(/** @deferred */ callback: StartupSnapshotCallbackFn, data?: any): void;
         /**
          * Returns true if the Node.js instance is run to build a snapshot.
          * @since v18.6.0, v16.17.0

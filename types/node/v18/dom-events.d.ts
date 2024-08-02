@@ -60,7 +60,7 @@ type __EventTarget = typeof globalThis extends { onmessage: any; EventTarget: an
          */
         addEventListener(
             type: string,
-            listener: EventListener | EventListenerObject,
+            /** @deferred */ listener: EventListener | EventListenerObject,
             options?: AddEventListenerOptions | boolean,
         ): void;
         /** Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise. */
@@ -68,7 +68,7 @@ type __EventTarget = typeof globalThis extends { onmessage: any; EventTarget: an
         /** Removes the event listener in target's event listener list with the same type, callback, and options. */
         removeEventListener(
             type: string,
-            listener: EventListener | EventListenerObject,
+            /** @deferred */ listener: EventListener | EventListenerObject,
             options?: EventListenerOptions | boolean,
         ): void;
     };

@@ -75,7 +75,7 @@ declare module "diagnostics_channel" {
      * @param name The channel name
      * @param onMessage The handler to receive channel messages
      */
-    function subscribe(name: string | symbol, onMessage: ChannelListener): void;
+    function subscribe(name: string | symbol, /** @deferred */ onMessage: ChannelListener): void;
     /**
      * Remove a message handler previously registered to this channel with diagnostics_channel.subscribe(name, onMessage).
      *
@@ -96,7 +96,7 @@ declare module "diagnostics_channel" {
      * @param onMessage The previous subscribed handler to remove
      * @returns `true` if the handler was found, `false` otherwise
      */
-    function unsubscribe(name: string | symbol, onMessage: ChannelListener): boolean;
+    function unsubscribe(name: string | symbol, /** @deferred */ onMessage: ChannelListener): boolean;
     /**
      * The class `Channel` represents an individual named channel within the data
      * pipeline. It is use to track subscribers and to publish messages when there
@@ -163,7 +163,7 @@ declare module "diagnostics_channel" {
          * @since v15.1.0, v14.17.0
          * @param onMessage The handler to receive channel messages
          */
-        subscribe(onMessage: ChannelListener): void;
+        subscribe(/** @deferred */ onMessage: ChannelListener): void;
         /**
          * Remove a message handler previously registered to this channel with `channel.subscribe(onMessage)`.
          *
@@ -183,7 +183,7 @@ declare module "diagnostics_channel" {
          * @since v15.1.0, v14.17.0
          * @param onMessage The previous subscribed handler to remove
          */
-        unsubscribe(onMessage: ChannelListener): void;
+        unsubscribe(/** @deferred */ onMessage: ChannelListener): void;
     }
 }
 declare module "node:diagnostics_channel" {

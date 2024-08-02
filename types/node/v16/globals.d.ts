@@ -210,11 +210,11 @@ declare namespace NodeJS {
 
     interface WritableStream extends EventEmitter {
         writable: boolean;
-        write(buffer: Uint8Array | string, cb?: (err?: Error | null) => void): boolean;
-        write(str: string, encoding?: BufferEncoding, cb?: (err?: Error | null) => void): boolean;
-        end(cb?: () => void): void;
-        end(data: string | Uint8Array, cb?: () => void): void;
-        end(str: string, encoding?: BufferEncoding, cb?: () => void): void;
+        write(buffer: Uint8Array | string, /** @deferred */ cb?: (err?: Error | null) => void): boolean;
+        write(str: string, encoding?: BufferEncoding, /** @deferred */ cb?: (err?: Error | null) => void): boolean;
+        end(/** @deferred */ cb?: () => void): void;
+        end(data: string | Uint8Array, /** @deferred */ cb?: () => void): void;
+        end(str: string, encoding?: BufferEncoding, /** @deferred */ cb?: () => void): void;
     }
 
     interface ReadWriteStream extends ReadableStream, WritableStream {}

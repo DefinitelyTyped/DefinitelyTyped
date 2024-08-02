@@ -78,18 +78,18 @@ declare module "tty" {
      */
     class WriteStream extends net.Socket {
         constructor(fd: number);
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "resize", listener: () => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "resize", /** @deferred */ listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "resize"): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "resize", listener: () => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "resize", listener: () => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "resize", listener: () => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "resize", listener: () => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "resize", /** @deferred */ listener: () => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "resize", /** @deferred */ listener: () => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "resize", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "resize", /** @deferred */ listener: () => void): this;
         /**
          * `writeStream.clearLine()` clears the current line of this `WriteStream` in a
          * direction identified by `dir`.
@@ -97,7 +97,7 @@ declare module "tty" {
          * @param callback Invoked once the operation completes.
          * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
          */
-        clearLine(dir: Direction, callback?: () => void): boolean;
+        clearLine(dir: Direction, /** @deferred */ callback?: () => void): boolean;
         /**
          * `writeStream.clearScreenDown()` clears this `WriteStream` from the current
          * cursor down.
@@ -105,7 +105,7 @@ declare module "tty" {
          * @param callback Invoked once the operation completes.
          * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
          */
-        clearScreenDown(callback?: () => void): boolean;
+        clearScreenDown(/** @deferred */ callback?: () => void): boolean;
         /**
          * `writeStream.cursorTo()` moves this `WriteStream`'s cursor to the specified
          * position.
@@ -113,8 +113,8 @@ declare module "tty" {
          * @param callback Invoked once the operation completes.
          * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
          */
-        cursorTo(x: number, y?: number, callback?: () => void): boolean;
-        cursorTo(x: number, callback: () => void): boolean;
+        cursorTo(x: number, y?: number, /** @deferred */ callback?: () => void): boolean;
+        cursorTo(x: number, /** @deferred */ callback: () => void): boolean;
         /**
          * `writeStream.moveCursor()` moves this `WriteStream`'s cursor _relative_ to its
          * current position.
@@ -122,7 +122,7 @@ declare module "tty" {
          * @param callback Invoked once the operation completes.
          * @return `false` if the stream wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
          */
-        moveCursor(dx: number, dy: number, callback?: () => void): boolean;
+        moveCursor(dx: number, dy: number, /** @deferred */ callback?: () => void): boolean;
         /**
          * Returns:
          *

@@ -104,7 +104,7 @@ declare module "repl" {
         evalCmd: string,
         context: Context,
         file: string,
-        cb: (err: Error | null, result: any) => void,
+        /** @deferred */ cb: (err: Error | null, result: any) => void,
     ) => void;
     type REPLWriter = (this: REPLServer, obj: any) => string;
     /**
@@ -318,7 +318,7 @@ declare module "repl" {
          * @param historyPath the path to the history file
          * @param callback called when history writes are ready or upon error
          */
-        setupHistory(path: string, callback: (err: Error | null, repl: this) => void): void;
+        setupHistory(path: string, /** @deferred */ callback: (err: Error | null, repl: this) => void): void;
         /**
          * events.EventEmitter
          * 1. close - inherited from `readline.Interface`
@@ -331,16 +331,16 @@ declare module "repl" {
          * 8. exit
          * 9. reset
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "line", listener: (input: string) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
-        addListener(event: "SIGCONT", listener: () => void): this;
-        addListener(event: "SIGINT", listener: () => void): this;
-        addListener(event: "SIGTSTP", listener: () => void): this;
-        addListener(event: "exit", listener: () => void): this;
-        addListener(event: "reset", listener: (context: Context) => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        addListener(event: "pause", /** @deferred */ listener: () => void): this;
+        addListener(event: "resume", /** @deferred */ listener: () => void): this;
+        addListener(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        addListener(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        addListener(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        addListener(event: "exit", /** @deferred */ listener: () => void): this;
+        addListener(event: "reset", /** @deferred */ listener: (context: Context) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "line", input: string): boolean;
@@ -351,46 +351,46 @@ declare module "repl" {
         emit(event: "SIGTSTP"): boolean;
         emit(event: "exit"): boolean;
         emit(event: "reset", context: Context): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "line", listener: (input: string) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
-        on(event: "SIGCONT", listener: () => void): this;
-        on(event: "SIGINT", listener: () => void): this;
-        on(event: "SIGTSTP", listener: () => void): this;
-        on(event: "exit", listener: () => void): this;
-        on(event: "reset", listener: (context: Context) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "line", listener: (input: string) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
-        once(event: "SIGCONT", listener: () => void): this;
-        once(event: "SIGINT", listener: () => void): this;
-        once(event: "SIGTSTP", listener: () => void): this;
-        once(event: "exit", listener: () => void): this;
-        once(event: "reset", listener: (context: Context) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "line", listener: (input: string) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
-        prependListener(event: "SIGCONT", listener: () => void): this;
-        prependListener(event: "SIGINT", listener: () => void): this;
-        prependListener(event: "SIGTSTP", listener: () => void): this;
-        prependListener(event: "exit", listener: () => void): this;
-        prependListener(event: "reset", listener: (context: Context) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "line", listener: (input: string) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
-        prependOnceListener(event: "SIGCONT", listener: () => void): this;
-        prependOnceListener(event: "SIGINT", listener: () => void): this;
-        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
-        prependOnceListener(event: "exit", listener: () => void): this;
-        prependOnceListener(event: "reset", listener: (context: Context) => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        on(event: "pause", /** @deferred */ listener: () => void): this;
+        on(event: "resume", /** @deferred */ listener: () => void): this;
+        on(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        on(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        on(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        on(event: "exit", /** @deferred */ listener: () => void): this;
+        on(event: "reset", /** @deferred */ listener: (context: Context) => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        once(event: "pause", /** @deferred */ listener: () => void): this;
+        once(event: "resume", /** @deferred */ listener: () => void): this;
+        once(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        once(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        once(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        once(event: "exit", /** @deferred */ listener: () => void): this;
+        once(event: "reset", /** @deferred */ listener: (context: Context) => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        prependListener(event: "pause", /** @deferred */ listener: () => void): this;
+        prependListener(event: "resume", /** @deferred */ listener: () => void): this;
+        prependListener(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        prependListener(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        prependListener(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        prependListener(event: "exit", /** @deferred */ listener: () => void): this;
+        prependListener(event: "reset", /** @deferred */ listener: (context: Context) => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        prependOnceListener(event: "pause", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "resume", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "exit", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "reset", /** @deferred */ listener: (context: Context) => void): this;
     }
     /**
      * A flag passed in the REPL options. Evaluates expressions in sloppy mode.

@@ -55,7 +55,7 @@ declare module "dgram" {
             | ((
                 hostname: string,
                 options: dns.LookupOneOptions,
-                callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+                /** @deferred */ callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
             ) => void)
             | undefined;
     }
@@ -82,8 +82,8 @@ declare module "dgram" {
      * @param options Available options are:
      * @param callback Attached as a listener for `'message'` events. Optional.
      */
-    function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
-    function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    function createSocket(type: SocketType, /** @deferred */ callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    function createSocket(options: SocketOptions, /** @deferred */ callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     /**
      * Encapsulates the datagram functionality.
      *
@@ -172,10 +172,10 @@ declare module "dgram" {
          * @since v0.1.99
          * @param callback with no parameters. Called when binding is complete.
          */
-        bind(port?: number, address?: string, callback?: () => void): this;
-        bind(port?: number, callback?: () => void): this;
+        bind(port?: number, address?: string, /** @deferred */ callback?: () => void): this;
+        bind(port?: number, /** @deferred */ callback?: () => void): this;
         bind(callback?: () => void): this;
-        bind(options: BindOptions, callback?: () => void): this;
+        bind(options: BindOptions, /** @deferred */ callback?: () => void): this;
         /**
          * Close the underlying socket and stop listening for data on it. If a callback is
          * provided, it is added as a listener for the `'close'` event.
@@ -196,8 +196,8 @@ declare module "dgram" {
          * @since v12.0.0
          * @param callback Called when the connection is completed or on error.
          */
-        connect(port: number, address?: string, callback?: () => void): void;
-        connect(port: number, callback: () => void): void;
+        connect(port: number, address?: string, /** @deferred */ callback?: () => void): void;
+        connect(port: number, /** @deferred */ callback: () => void): void;
         /**
          * A synchronous function that disassociates a connected `dgram.Socket` from
          * its remote address. Trying to call `disconnect()` on an unbound or already
@@ -355,16 +355,16 @@ declare module "dgram" {
             msg: string | Uint8Array | readonly any[],
             port?: number,
             address?: string,
-            callback?: (error: Error | null, bytes: number) => void,
+            /** @deferred */ callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
             msg: string | Uint8Array | readonly any[],
             port?: number,
-            callback?: (error: Error | null, bytes: number) => void,
+            /** @deferred */ callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
             msg: string | Uint8Array | readonly any[],
-            callback?: (error: Error | null, bytes: number) => void,
+            /** @deferred */ callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
             msg: string | Uint8Array,
@@ -372,20 +372,20 @@ declare module "dgram" {
             length: number,
             port?: number,
             address?: string,
-            callback?: (error: Error | null, bytes: number) => void,
+            /** @deferred */ callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
             msg: string | Uint8Array,
             offset: number,
             length: number,
             port?: number,
-            callback?: (error: Error | null, bytes: number) => void,
+            /** @deferred */ callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
             msg: string | Uint8Array,
             offset: number,
             length: number,
-            callback?: (error: Error | null, bytes: number) => void,
+            /** @deferred */ callback?: (error: Error | null, bytes: number) => void,
         ): void;
         /**
          * Sets or clears the `SO_BROADCAST` socket option. When set to `true`, UDP
@@ -548,42 +548,42 @@ declare module "dgram" {
          * 4. listening
          * 5. message
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "connect", listener: () => void): this;
-        addListener(event: "error", listener: (err: Error) => void): this;
-        addListener(event: "listening", listener: () => void): this;
-        addListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "connect", /** @deferred */ listener: () => void): this;
+        addListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        addListener(event: "listening", /** @deferred */ listener: () => void): this;
+        addListener(event: "message", /** @deferred */ listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "connect"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
         emit(event: "message", msg: Buffer, rinfo: RemoteInfo): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "connect", listener: () => void): this;
-        on(event: "error", listener: (err: Error) => void): this;
-        on(event: "listening", listener: () => void): this;
-        on(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "connect", listener: () => void): this;
-        once(event: "error", listener: (err: Error) => void): this;
-        once(event: "listening", listener: () => void): this;
-        once(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "connect", listener: () => void): this;
-        prependListener(event: "error", listener: (err: Error) => void): this;
-        prependListener(event: "listening", listener: () => void): this;
-        prependListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "connect", listener: () => void): this;
-        prependOnceListener(event: "error", listener: (err: Error) => void): this;
-        prependOnceListener(event: "listening", listener: () => void): this;
-        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "connect", /** @deferred */ listener: () => void): this;
+        on(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        on(event: "listening", /** @deferred */ listener: () => void): this;
+        on(event: "message", /** @deferred */ listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "connect", /** @deferred */ listener: () => void): this;
+        once(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        once(event: "listening", /** @deferred */ listener: () => void): this;
+        once(event: "message", /** @deferred */ listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "connect", /** @deferred */ listener: () => void): this;
+        prependListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependListener(event: "listening", /** @deferred */ listener: () => void): this;
+        prependListener(event: "message", /** @deferred */ listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "connect", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "error", /** @deferred */ listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "message", /** @deferred */ listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         /**
          * Calls `socket.close()` and returns a promise that fulfills when the socket has closed.
          * @since v18.18.0

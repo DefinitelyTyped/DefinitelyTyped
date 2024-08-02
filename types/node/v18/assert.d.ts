@@ -32,7 +32,7 @@ declare module "assert" {
                 operator?: string | undefined;
                 /** If provided, the generated stack trace omits frames before this function. */
                 // eslint-disable-next-line @typescript-eslint/ban-types
-                stackStartFn?: Function | undefined;
+                stackStartfn?: Function | undefined;
             });
         }
         /**
@@ -64,7 +64,7 @@ declare module "assert" {
              * @return that wraps `fn`.
              */
             calls(exact?: number): () => void;
-            calls<Func extends (...args: any[]) => any>(fn?: Func, exact?: number): Func;
+            calls<Func extends (...args: any[]) => any>(/** @deferred */ fn?: Func, exact?: number): Func;
             /**
              * Example:
              *
@@ -85,7 +85,7 @@ declare module "assert" {
              * @param fn
              * @returns An Array with the calls to a tracked function.
              */
-            getCalls(fn: Function): CallTrackerCall[];
+            getCalls(/** @deferred */ fn: Function): CallTrackerCall[];
             /**
              * The arrays contains information about the expected and actual number of calls of
              * the functions that have not been called the expected number of times.
@@ -145,7 +145,7 @@ declare module "assert" {
              * @since v18.8.0, v16.18.0
              * @param fn a tracked function to reset.
              */
-            reset(fn?: Function): void;
+            reset(/** @deferred */ fn?: Function): void;
             /**
              * Iterates through the list of functions passed to `tracker.calls()` and will throw an error for functions that
              * have not been called the expected number of times.
@@ -218,7 +218,7 @@ declare module "assert" {
             message?: string | Error,
             operator?: string,
             // eslint-disable-next-line @typescript-eslint/ban-types
-            stackStartFn?: Function,
+            /** @deferred */ stackStartfn?: Function,
         ): never;
         /**
          * Tests if `value` is truthy. It is equivalent to`assert.equal(!!value, true, message)`.

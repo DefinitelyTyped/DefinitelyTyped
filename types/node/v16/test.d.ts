@@ -37,10 +37,10 @@ declare module "node:test" {
      *    passed as the second argument. Default: A no-op function.
      * @returns A {@link Promise} resolved with `undefined` once the test completes.
      */
-    function test(name?: string, fn?: TestFn): Promise<void>;
-    function test(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
-    function test(options?: TestOptions, fn?: TestFn): Promise<void>;
-    function test(fn?: TestFn): Promise<void>;
+    function test(name?: string, /** @deferred */ fn?: TestFn): Promise<void>;
+    function test(name?: string, options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function test(options?: TestOptions, /** @deferred */ fn?: TestFn): Promise<void>;
+    function test(/** @deferred */ fn?: TestFn): Promise<void>;
 
     /*
      * @since v16.17.0
@@ -49,10 +49,10 @@ declare module "node:test" {
      * @param options Configuration options for the suite
      * @param fn The function under suite. Default: A no-op function.
      */
-    function describe(name?: string, options?: TestOptions, fn?: SuiteFn): void;
-    function describe(name?: string, fn?: SuiteFn): void;
-    function describe(options?: TestOptions, fn?: SuiteFn): void;
-    function describe(fn?: SuiteFn): void;
+    function describe(name?: string, options?: TestOptions, /** @deferred */ fn?: SuiteFn): void;
+    function describe(name?: string, /** @deferred */ fn?: SuiteFn): void;
+    function describe(options?: TestOptions, /** @deferred */ fn?: SuiteFn): void;
+    function describe(/** @deferred */ fn?: SuiteFn): void;
 
     /*
      * @since v16.17.0
@@ -62,10 +62,10 @@ declare module "node:test" {
      * @param fn The function under test. If the test uses callbacks, the callback function is
      *    passed as the second argument. Default: A no-op function.
      */
-    function it(name?: string, options?: TestOptions, fn?: ItFn): void;
-    function it(name?: string, fn?: ItFn): void;
-    function it(options?: TestOptions, fn?: ItFn): void;
-    function it(fn?: ItFn): void;
+    function it(name?: string, options?: TestOptions, /** @deferred */ fn?: ItFn): void;
+    function it(name?: string, /** @deferred */ fn?: ItFn): void;
+    function it(options?: TestOptions, /** @deferred */ fn?: ItFn): void;
+    function it(/** @deferred */ fn?: ItFn): void;
 
     /**
      * The type of a function under test. The first argument to this function is a

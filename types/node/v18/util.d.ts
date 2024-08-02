@@ -631,7 +631,7 @@ declare module "util" {
      * @param callback A callback invoked the first time the logging function is called with a function argument that is a more optimized logging function.
      * @return The logging function
      */
-    export function debuglog(section: string, callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
+    export function debuglog(section: string, /** @deferred */ callback?: (fn: DebugLoggerFunction) => void): DebugLogger;
     export const debug: typeof debuglog;
     /**
      * Returns `true` if the given `object` is a `Boolean`. Otherwise, returns `false`.
@@ -961,31 +961,31 @@ declare module "util" {
      * @param fn An `async` function
      * @return a callback style function
      */
-    export function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify(fn: () => Promise<void>): (/** @deferred */ callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<TResult>(
         fn: () => Promise<TResult>,
-    ): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    ): (/** @deferred */ callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
     export function callbackify<T1>(
         fn: (arg1: T1) => Promise<void>,
-    ): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
+    ): (arg1: T1, /** @deferred */ callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, TResult>(
         fn: (arg1: T1) => Promise<TResult>,
-    ): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    ): (arg1: T1, /** @deferred */ callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
     export function callbackify<T1, T2>(
         fn: (arg1: T1, arg2: T2) => Promise<void>,
-    ): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
+    ): (arg1: T1, arg2: T2, /** @deferred */ callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, TResult>(
         fn: (arg1: T1, arg2: T2) => Promise<TResult>,
-    ): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+    ): (arg1: T1, arg2: T2, /** @deferred */ callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
     export function callbackify<T1, T2, T3>(
         fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>,
-    ): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
+    ): (arg1: T1, arg2: T2, arg3: T3, /** @deferred */ callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, TResult>(
         fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>,
-    ): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+    ): (arg1: T1, arg2: T2, arg3: T3, /** @deferred */ callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
     export function callbackify<T1, T2, T3, T4>(
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>,
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void;
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, /** @deferred */ callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, T4, TResult>(
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>,
     ): (
@@ -993,11 +993,11 @@ declare module "util" {
         arg2: T2,
         arg3: T3,
         arg4: T4,
-        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
     ) => void;
     export function callbackify<T1, T2, T3, T4, T5>(
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>,
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void;
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, /** @deferred */ callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, T4, T5, TResult>(
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>,
     ): (
@@ -1006,7 +1006,7 @@ declare module "util" {
         arg3: T3,
         arg4: T4,
         arg5: T5,
-        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
     ) => void;
     export function callbackify<T1, T2, T3, T4, T5, T6>(
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>,
@@ -1017,7 +1017,7 @@ declare module "util" {
         arg4: T4,
         arg5: T5,
         arg6: T6,
-        callback: (err: NodeJS.ErrnoException) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException) => void,
     ) => void;
     export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(
         fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>,
@@ -1028,7 +1028,7 @@ declare module "util" {
         arg4: T4,
         arg5: T5,
         arg6: T6,
-        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+        /** @deferred */ callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
     ) => void;
     export interface CustomPromisifyLegacy<TCustom extends Function> extends Function {
         __promisify__: TCustom;
@@ -1108,36 +1108,36 @@ declare module "util" {
      */
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
     export function promisify<TResult>(
-        fn: (callback: (err: any, result: TResult) => void) => void,
+        fn: (/** @deferred */ callback: (err: any, result: TResult) => void) => void,
     ): () => Promise<TResult>;
-    export function promisify(fn: (callback: (err?: any) => void) => void): () => Promise<void>;
+    export function promisify(fn: (/** @deferred */ callback: (err?: any) => void) => void): () => Promise<void>;
     export function promisify<T1, TResult>(
-        fn: (arg1: T1, callback: (err: any, result: TResult) => void) => void,
+        fn: (arg1: T1, /** @deferred */ callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1) => Promise<TResult>;
-    export function promisify<T1>(fn: (arg1: T1, callback: (err?: any) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1>(fn: (arg1: T1, /** @deferred */ callback: (err?: any) => void) => void): (arg1: T1) => Promise<void>;
     export function promisify<T1, T2, TResult>(
-        fn: (arg1: T1, arg2: T2, callback: (err: any, result: TResult) => void) => void,
+        fn: (arg1: T1, arg2: T2, /** @deferred */ callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1, arg2: T2) => Promise<TResult>;
     export function promisify<T1, T2>(
-        fn: (arg1: T1, arg2: T2, callback: (err?: any) => void) => void,
+        fn: (arg1: T1, arg2: T2, /** @deferred */ callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2) => Promise<void>;
     export function promisify<T1, T2, T3, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: any, result: TResult) => void) => void,
+        fn: (arg1: T1, arg2: T2, arg3: T3, /** @deferred */ callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
     export function promisify<T1, T2, T3>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: any) => void) => void,
+        fn: (arg1: T1, arg2: T2, arg3: T3, /** @deferred */ callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
     export function promisify<T1, T2, T3, T4, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: any, result: TResult) => void) => void,
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, /** @deferred */ callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
     export function promisify<T1, T2, T3, T4>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: any) => void) => void,
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, /** @deferred */ callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
     export function promisify<T1, T2, T3, T4, T5, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: any, result: TResult) => void) => void,
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, /** @deferred */ callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
     export function promisify<T1, T2, T3, T4, T5>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, /** @deferred */ callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {

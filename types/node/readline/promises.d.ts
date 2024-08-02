@@ -140,7 +140,7 @@ declare module "readline/promises" {
     function createInterface(
         input: NodeJS.ReadableStream,
         output?: NodeJS.WritableStream,
-        completer?: Completer | AsyncCompleter,
+        /** @deferred */ completer?: Completer | AsyncCompleter,
         terminal?: boolean,
     ): Interface;
     function createInterface(options: ReadLineOptions): Interface;

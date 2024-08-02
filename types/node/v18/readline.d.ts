@@ -105,7 +105,7 @@ declare module "readline" {
         protected constructor(
             input: NodeJS.ReadableStream,
             output?: NodeJS.WritableStream,
-            completer?: Completer | AsyncCompleter,
+            /** @deferred */ completer?: Completer | AsyncCompleter,
             terminal?: boolean,
         );
         /**
@@ -200,8 +200,8 @@ declare module "readline" {
          * @param query A statement or query to write to `output`, prepended to the prompt.
          * @param callback A callback function that is invoked with the user's input in response to the `query`.
          */
-        question(query: string, callback: (answer: string) => void): void;
-        question(query: string, options: Abortable, callback: (answer: string) => void): void;
+        question(query: string, /** @deferred */ callback: (answer: string) => void): void;
+        question(query: string, options: Abortable, /** @deferred */ callback: (answer: string) => void): void;
         /**
          * The `rl.pause()` method pauses the `input` stream, allowing it to be resumed
          * later if necessary.
@@ -267,15 +267,15 @@ declare module "readline" {
          * 7. SIGTSTP
          * 8. history
          */
-        addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: "close", listener: () => void): this;
-        addListener(event: "line", listener: (input: string) => void): this;
-        addListener(event: "pause", listener: () => void): this;
-        addListener(event: "resume", listener: () => void): this;
-        addListener(event: "SIGCONT", listener: () => void): this;
-        addListener(event: "SIGINT", listener: () => void): this;
-        addListener(event: "SIGTSTP", listener: () => void): this;
-        addListener(event: "history", listener: (history: string[]) => void): this;
+        addListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        addListener(event: "close", /** @deferred */ listener: () => void): this;
+        addListener(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        addListener(event: "pause", /** @deferred */ listener: () => void): this;
+        addListener(event: "resume", /** @deferred */ listener: () => void): this;
+        addListener(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        addListener(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        addListener(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        addListener(event: "history", /** @deferred */ listener: (history: string[]) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "line", input: string): boolean;
@@ -285,49 +285,49 @@ declare module "readline" {
         emit(event: "SIGINT"): boolean;
         emit(event: "SIGTSTP"): boolean;
         emit(event: "history", history: string[]): boolean;
-        on(event: string, listener: (...args: any[]) => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "line", listener: (input: string) => void): this;
-        on(event: "pause", listener: () => void): this;
-        on(event: "resume", listener: () => void): this;
-        on(event: "SIGCONT", listener: () => void): this;
-        on(event: "SIGINT", listener: () => void): this;
-        on(event: "SIGTSTP", listener: () => void): this;
-        on(event: "history", listener: (history: string[]) => void): this;
-        once(event: string, listener: (...args: any[]) => void): this;
-        once(event: "close", listener: () => void): this;
-        once(event: "line", listener: (input: string) => void): this;
-        once(event: "pause", listener: () => void): this;
-        once(event: "resume", listener: () => void): this;
-        once(event: "SIGCONT", listener: () => void): this;
-        once(event: "SIGINT", listener: () => void): this;
-        once(event: "SIGTSTP", listener: () => void): this;
-        once(event: "history", listener: (history: string[]) => void): this;
-        prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: "close", listener: () => void): this;
-        prependListener(event: "line", listener: (input: string) => void): this;
-        prependListener(event: "pause", listener: () => void): this;
-        prependListener(event: "resume", listener: () => void): this;
-        prependListener(event: "SIGCONT", listener: () => void): this;
-        prependListener(event: "SIGINT", listener: () => void): this;
-        prependListener(event: "SIGTSTP", listener: () => void): this;
-        prependListener(event: "history", listener: (history: string[]) => void): this;
-        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: "close", listener: () => void): this;
-        prependOnceListener(event: "line", listener: (input: string) => void): this;
-        prependOnceListener(event: "pause", listener: () => void): this;
-        prependOnceListener(event: "resume", listener: () => void): this;
-        prependOnceListener(event: "SIGCONT", listener: () => void): this;
-        prependOnceListener(event: "SIGINT", listener: () => void): this;
-        prependOnceListener(event: "SIGTSTP", listener: () => void): this;
-        prependOnceListener(event: "history", listener: (history: string[]) => void): this;
+        on(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        on(event: "close", /** @deferred */ listener: () => void): this;
+        on(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        on(event: "pause", /** @deferred */ listener: () => void): this;
+        on(event: "resume", /** @deferred */ listener: () => void): this;
+        on(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        on(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        on(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        on(event: "history", /** @deferred */ listener: (history: string[]) => void): this;
+        once(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        once(event: "close", /** @deferred */ listener: () => void): this;
+        once(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        once(event: "pause", /** @deferred */ listener: () => void): this;
+        once(event: "resume", /** @deferred */ listener: () => void): this;
+        once(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        once(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        once(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        once(event: "history", /** @deferred */ listener: (history: string[]) => void): this;
+        prependListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependListener(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        prependListener(event: "pause", /** @deferred */ listener: () => void): this;
+        prependListener(event: "resume", /** @deferred */ listener: () => void): this;
+        prependListener(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        prependListener(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        prependListener(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        prependListener(event: "history", /** @deferred */ listener: (history: string[]) => void): this;
+        prependOnceListener(event: string, /** @deferred */ listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "close", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "line", /** @deferred */ listener: (input: string) => void): this;
+        prependOnceListener(event: "pause", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "resume", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "SIGCONT", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "SIGINT", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "SIGTSTP", /** @deferred */ listener: () => void): this;
+        prependOnceListener(event: "history", /** @deferred */ listener: (history: string[]) => void): this;
         [Symbol.asyncIterator](): AsyncIterableIterator<string>;
     }
     export type ReadLine = Interface; // type forwarded for backwards compatibility
     export type Completer = (line: string) => CompleterResult;
     export type AsyncCompleter = (
         line: string,
-        callback: (err?: null | Error, result?: CompleterResult) => void,
+        /** @deferred */ callback: (err?: null | Error, result?: CompleterResult) => void,
     ) => void;
     export type CompleterResult = [string[], string];
     export interface ReadLineOptions {
@@ -394,7 +394,7 @@ declare module "readline" {
     export function createInterface(
         input: NodeJS.ReadableStream,
         output?: NodeJS.WritableStream,
-        completer?: Completer | AsyncCompleter,
+        /** @deferred */ completer?: Completer | AsyncCompleter,
         terminal?: boolean,
     ): Interface;
     export function createInterface(options: ReadLineOptions): Interface;
@@ -532,7 +532,7 @@ declare module "readline" {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    export function clearLine(stream: NodeJS.WritableStream, dir: Direction, callback?: () => void): boolean;
+    export function clearLine(stream: NodeJS.WritableStream, dir: Direction, /** @deferred */ callback?: () => void): boolean;
     /**
      * The `readline.clearScreenDown()` method clears the given `TTY` stream from
      * the current position of the cursor down.
@@ -540,7 +540,7 @@ declare module "readline" {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    export function clearScreenDown(stream: NodeJS.WritableStream, callback?: () => void): boolean;
+    export function clearScreenDown(stream: NodeJS.WritableStream, /** @deferred */ callback?: () => void): boolean;
     /**
      * The `readline.cursorTo()` method moves cursor to the specified position in a
      * given `TTY` `stream`.
@@ -548,7 +548,7 @@ declare module "readline" {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, callback?: () => void): boolean;
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number, /** @deferred */ callback?: () => void): boolean;
     /**
      * The `readline.moveCursor()` method moves the cursor _relative_ to its current
      * position in a given `TTY` `stream`.
@@ -659,7 +659,7 @@ declare module "readline" {
      * @param callback Invoked once the operation completes.
      * @return `false` if `stream` wishes for the calling code to wait for the `'drain'` event to be emitted before continuing to write additional data; otherwise `true`.
      */
-    export function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
+    export function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, /** @deferred */ callback?: () => void): boolean;
 }
 declare module "node:readline" {
     export * from "readline";

@@ -75,7 +75,7 @@ declare module "diagnostics_channel" {
      * @param name The channel name
      * @param onMessage The handler to receive channel messages
      */
-    function subscribe(name: string | symbol, onMessage: ChannelListener): void;
+    function subscribe(name: string | symbol, /** @deferred */ onMessage: ChannelListener): void;
     /**
      * Remove a message handler previously registered to this channel with {@link subscribe}.
      *
@@ -95,7 +95,7 @@ declare module "diagnostics_channel" {
      * @param onMessage The previous subscribed handler to remove
      * @return `true` if the handler was found, `false` otherwise.
      */
-    function unsubscribe(name: string | symbol, onMessage: ChannelListener): boolean;
+    function unsubscribe(name: string | symbol, /** @deferred */ onMessage: ChannelListener): boolean;
     /**
      * Creates a `TracingChannel` wrapper for the given `TracingChannel Channels`. If a name is given, the corresponding tracing
      * channels will be created in the form of `tracing:${name}:${eventType}` where `eventType` corresponds to the types of `TracingChannel Channels`.
@@ -192,7 +192,7 @@ declare module "diagnostics_channel" {
          * @deprecated Since v18.7.0,v16.17.0 - Use {@link subscribe(name, onMessage)}
          * @param onMessage The handler to receive channel messages
          */
-        subscribe(onMessage: ChannelListener): void;
+        subscribe(/** @deferred */ onMessage: ChannelListener): void;
         /**
          * Remove a message handler previously registered to this channel with `channel.subscribe(onMessage)`.
          *
@@ -214,7 +214,7 @@ declare module "diagnostics_channel" {
          * @param onMessage The previous subscribed handler to remove
          * @return `true` if the handler was found, `false` otherwise.
          */
-        unsubscribe(onMessage: ChannelListener): void;
+        unsubscribe(/** @deferred */ onMessage: ChannelListener): void;
         /**
          * When `channel.runStores(context, ...)` is called, the given context data
          * will be applied to any store bound to the channel. If the store has already been
@@ -239,7 +239,7 @@ declare module "diagnostics_channel" {
          * @param store The store to which to bind the context data
          * @param transform Transform context data before setting the store context
          */
-        bindStore(store: AsyncLocalStorage<StoreType>, transform?: (context: ContextType) => StoreType): void;
+        bindStore(store: AsyncLocalStorage<StoreType>, /** @deferred */ transform?: (context: ContextType) => StoreType): void;
         /**
          * Remove a message handler previously registered to this channel with `channel.bindStore(store)`.
          *
@@ -477,7 +477,7 @@ declare module "diagnostics_channel" {
          * @return Chained from promise returned by the given function
          */
         tracePromise<ThisArg = any, Args extends any[] = any[]>(
-            fn: (this: ThisArg, ...args: Args) => Promise<any>,
+            /** @deferred */ fn: (this: ThisArg, ...args: Args) => Promise<any>,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
@@ -541,7 +541,7 @@ declare module "diagnostics_channel" {
          * @return The return value of the given function
          */
         traceCallback<Fn extends (this: any, ...args: any) => any>(
-            fn: Fn,
+            /** @deferred */ fn: Fn,
             position: number | undefined,
             context: ContextType | undefined,
             thisArg: any,
