@@ -3,7 +3,6 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.x/lib/test.js)
  */
 declare module "node:test" {
-    import { AsyncResource } from "node:async_hooks";
     /**
      * Programmatically start the test runner.
      * @since v18.9.0
@@ -204,16 +203,16 @@ declare module "node:test" {
          * Test name patterns are interpreted as JavaScript regular expressions.
          * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
          */
-        testNamePatterns?: string | RegExp | string[] | RegExp[];
+        testNamePatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
         /**
          * If truthy, the test context will only run tests that have the `only` option set
          * @since v18.19.0
          */
-        only?: boolean;
+        only?: boolean | undefined;
         /**
          * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
          */
-        setup?: (root: Test) => void | Promise<void>;
+        setup?: ((reporter: TestsStream) => void | Promise<void>) | undefined;
         /**
          * Whether to run in watch mode or not.
          * @default false
@@ -226,15 +225,6 @@ declare module "node:test" {
          */
         shard?: TestShard | undefined;
     }
-    class Test extends AsyncResource {
-        concurrency: number;
-        nesting: number;
-        only: boolean;
-        reporter: TestsStream;
-        runOnlySubtests: boolean;
-        testNumber: number;
-        timeout: number | null;
-    }
 
     /**
      * A successful call of the `run()` method will return a new `TestsStream` object,
@@ -243,53 +233,77 @@ declare module "node:test" {
      * @since v18.9.0
      */
     interface TestsStream extends NodeJS.ReadableStream {
+        addListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        addListener(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         addListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        addListener(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         addListener(event: "test:fail", listener: (data: TestFail) => void): this;
         addListener(event: "test:pass", listener: (data: TestPass) => void): this;
         addListener(event: "test:plan", listener: (data: TestPlan) => void): this;
         addListener(event: "test:start", listener: (data: TestStart) => void): this;
         addListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         addListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        addListener(event: "test:watch:drained", listener: () => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
+        emit(event: "test:coverage", data: TestCoverage): boolean;
+        emit(event: "test:dequeue", data: TestDequeue): boolean;
         emit(event: "test:diagnostic", data: DiagnosticData): boolean;
+        emit(event: "test:enqueue", data: TestEnqueue): boolean;
         emit(event: "test:fail", data: TestFail): boolean;
         emit(event: "test:pass", data: TestPass): boolean;
         emit(event: "test:plan", data: TestPlan): boolean;
         emit(event: "test:start", data: TestStart): boolean;
         emit(event: "test:stderr", data: TestStderr): boolean;
         emit(event: "test:stdout", data: TestStdout): boolean;
+        emit(event: "test:watch:drained"): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
+        on(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        on(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         on(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        on(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         on(event: "test:fail", listener: (data: TestFail) => void): this;
         on(event: "test:pass", listener: (data: TestPass) => void): this;
         on(event: "test:plan", listener: (data: TestPlan) => void): this;
         on(event: "test:start", listener: (data: TestStart) => void): this;
         on(event: "test:stderr", listener: (data: TestStderr) => void): this;
         on(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        on(event: "test:watch:drained", listener: () => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
+        once(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        once(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         once(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        once(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         once(event: "test:fail", listener: (data: TestFail) => void): this;
         once(event: "test:pass", listener: (data: TestPass) => void): this;
         once(event: "test:plan", listener: (data: TestPlan) => void): this;
         once(event: "test:start", listener: (data: TestStart) => void): this;
         once(event: "test:stderr", listener: (data: TestStderr) => void): this;
         once(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        once(event: "test:watch:drained", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
+        prependListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        prependListener(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         prependListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        prependListener(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         prependListener(event: "test:fail", listener: (data: TestFail) => void): this;
         prependListener(event: "test:pass", listener: (data: TestPass) => void): this;
         prependListener(event: "test:plan", listener: (data: TestPlan) => void): this;
         prependListener(event: "test:start", listener: (data: TestStart) => void): this;
         prependListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        prependListener(event: "test:watch:drained", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
+        prependOnceListener(event: "test:dequeue", listener: (data: TestDequeue) => void): this;
         prependOnceListener(event: "test:diagnostic", listener: (data: DiagnosticData) => void): this;
+        prependOnceListener(event: "test:enqueue", listener: (data: TestEnqueue) => void): this;
         prependOnceListener(event: "test:fail", listener: (data: TestFail) => void): this;
         prependOnceListener(event: "test:pass", listener: (data: TestPass) => void): this;
         prependOnceListener(event: "test:plan", listener: (data: TestPlan) => void): this;
         prependOnceListener(event: "test:start", listener: (data: TestStart) => void): this;
         prependOnceListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependOnceListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        prependOnceListener(event: "test:watch:drained", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     }
 
@@ -752,6 +766,7 @@ declare module "node:test" {
          */
         restore(): void;
     }
+
     type Timer = "setInterval" | "clearInterval" | "setTimeout" | "clearTimeout";
     /**
      * Mocking timers is a technique commonly used in software testing to simulate and
@@ -901,6 +916,9 @@ declare module "node:test" {
     export { after, afterEach, before, beforeEach, describe, it, mock, run, test, test as default };
 }
 
+interface TestError extends Error {
+    cause: Error;
+}
 interface TestLocationInfo {
     /**
      * The column number where the test is defined, or
@@ -927,6 +945,133 @@ interface DiagnosticData extends TestLocationInfo {
      */
     nesting: number;
 }
+interface TestCoverage {
+    /**
+     * An object containing the coverage report.
+     */
+    summary: {
+        /**
+         * An array of coverage reports for individual files.
+         */
+        files: Array<{
+            /**
+             * The absolute path of the file.
+             */
+            path: string;
+            /**
+             * The total number of lines.
+             */
+            totalLineCount: number;
+            /**
+             * The total number of branches.
+             */
+            totalBranchCount: number;
+            /**
+             * The total number of functions.
+             */
+            totalFunctionCount: number;
+            /**
+             * The number of covered lines.
+             */
+            coveredLineCount: number;
+            /**
+             * The number of covered branches.
+             */
+            coveredBranchCount: number;
+            /**
+             * The number of covered functions.
+             */
+            coveredFunctionCount: number;
+            /**
+             * The percentage of lines covered.
+             */
+            coveredLinePercent: number;
+            /**
+             * The percentage of branches covered.
+             */
+            coveredBranchPercent: number;
+            /**
+             * The percentage of functions covered.
+             */
+            coveredFunctionPercent: number;
+            /**
+             * An array of integers representing line numbers that are uncovered.
+             */
+            uncoveredLineNumbers: number[];
+        }>;
+        /**
+         * An object containing a summary of coverage for all files.
+         */
+        totals: {
+            /**
+             * The total number of lines.
+             */
+            totalLineCount: number;
+            /**
+             * The total number of branches.
+             */
+            totalBranchCount: number;
+            /**
+             * The total number of functions.
+             */
+            totalFunctionCount: number;
+            /**
+             * The number of covered lines.
+             */
+            coveredLineCount: number;
+            /**
+             * The number of covered branches.
+             */
+            coveredBranchCount: number;
+            /**
+             * The number of covered functions.
+             */
+            coveredFunctionCount: number;
+            /**
+             * The percentage of lines covered.
+             */
+            coveredLinePercent: number;
+            /**
+             * The percentage of branches covered.
+             */
+            coveredBranchPercent: number;
+            /**
+             * The percentage of functions covered.
+             */
+            coveredFunctionPercent: number;
+        };
+        /**
+         * The working directory when code coverage began. This
+         * is useful for displaying relative path names in case
+         * the tests changed the working directory of the Node.js process.
+         */
+        workingDirectory: string;
+    };
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestDequeue extends TestLocationInfo {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
+interface TestEnqueue extends TestLocationInfo {
+    /**
+     * The test name
+     */
+    name: string;
+    /**
+     * The nesting level of the test.
+     */
+    nesting: number;
+}
 interface TestFail extends TestLocationInfo {
     /**
      * Additional execution metadata.
@@ -939,7 +1084,7 @@ interface TestFail extends TestLocationInfo {
         /**
          * The error thrown by the test.
          */
-        error: Error;
+        error: TestError;
         /**
          * The type of the test, used to denote whether this is a suite.
          * @since 18.17.0
@@ -1035,26 +1180,6 @@ interface TestStdout extends TestLocationInfo {
      */
     message: string;
 }
-interface TestEnqueue extends TestLocationInfo {
-    /**
-     * The test name
-     */
-    name: string;
-    /**
-     * The nesting level of the test.
-     */
-    nesting: number;
-}
-interface TestDequeue extends TestLocationInfo {
-    /**
-     * The test name
-     */
-    name: string;
-    /**
-     * The nesting level of the test.
-     */
-    nesting: number;
-}
 
 /**
  * The `node:test/reporters` module exposes the builtin-reporters for `node:test`.
@@ -1077,16 +1202,17 @@ declare module "node:test/reporters" {
     import { Transform } from "node:stream";
 
     type TestEvent =
+        | { type: "test:coverage"; data: TestCoverage }
+        | { type: "test:dequeue"; data: TestDequeue }
         | { type: "test:diagnostic"; data: DiagnosticData }
+        | { type: "test:enqueue"; data: TestEnqueue }
         | { type: "test:fail"; data: TestFail }
         | { type: "test:pass"; data: TestPass }
         | { type: "test:plan"; data: TestPlan }
         | { type: "test:start"; data: TestStart }
         | { type: "test:stderr"; data: TestStderr }
         | { type: "test:stdout"; data: TestStdout }
-        | { type: "test:enqueue"; data: TestEnqueue }
-        | { type: "test:dequeue"; data: TestDequeue }
-        | { type: "test:watch:drained" };
+        | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     /**
