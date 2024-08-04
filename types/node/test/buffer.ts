@@ -504,6 +504,7 @@ declare class NodeFile implements File {
     slice(start?: number, end?: number, type?: string): NodeBlob;
     stream(): ReadableStream;
     arrayBuffer(): Promise<ArrayBuffer>;
+    bytes(): Promise<Uint8Array>;
     text(): Promise<string>;
 }
 
