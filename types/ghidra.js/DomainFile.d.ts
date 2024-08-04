@@ -8,10 +8,10 @@ import { ProjectLocator } from "./ProjectLocator";
 import { TaskMonitor } from "./TaskMonitor";
 import { Version } from "./Version";
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface File extends JavaClass {
 }
-/* eslint-enable @typescript-eslint/no-empty-interface */
+
 
 // https://ghidra.re/ghidra_docs/api/ghidra/framework/model/DomainFile.html
 export interface DomainFile extends JavaClass {
