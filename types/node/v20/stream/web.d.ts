@@ -417,7 +417,13 @@ declare module "stream/web" {
             : typeof import("stream/web").ByteLengthQueuingStrategy;
 
         interface CompressionStream extends _CompressionStream {}
-        var CompressionStream: typeof globalThis extends { onmessage: any; CompressionStream: infer T } ? T
+        var CompressionStream: typeof globalThis extends {
+            onmessage: any;
+            // CompressionStream, DecompressionStream and ReportingObserver was introduced in the same commit.
+            // If ReportingObserver check is removed, the type here will form a circular reference in TS5.0+lib.dom.d.ts
+            ReportingObserver: any;
+            CompressionStream: infer T;
+        } ? T
             : typeof import("stream/web").CompressionStream;
 
         interface CountQueuingStrategy extends _CountQueuingStrategy {}
@@ -425,7 +431,13 @@ declare module "stream/web" {
             : typeof import("stream/web").CountQueuingStrategy;
 
         interface DecompressionStream extends _DecompressionStream {}
-        var DecompressionStream: typeof globalThis extends { onmessage: any; DecompressionStream: infer T } ? T
+        var DecompressionStream: typeof globalThis extends {
+            onmessage: any;
+            // CompressionStream, DecompressionStream and ReportingObserver was introduced in the same commit.
+            // If ReportingObserver check is removed, the type here will form a circular reference in TS5.0+lib.dom.d.ts
+            ReportingObserver: any;
+            DecompressionStream: infer T;
+        } ? T
             : typeof import("stream/web").DecompressionStream;
 
         interface ReadableByteStreamController extends _ReadableByteStreamController {}
