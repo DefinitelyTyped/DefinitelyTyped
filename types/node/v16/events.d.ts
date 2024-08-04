@@ -1,3 +1,5 @@
+declare const internalTypeOnlyBrandSymbol: unique symbol;
+
 /**
  * Much of the Node.js core API is built around an idiomatic asynchronous
  * event-driven architecture in which certain kinds of objects (called "emitters")
@@ -34,6 +36,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/events.js)
  */
+
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
 
@@ -56,6 +59,9 @@ declare module "events" {
         ): any;
     }
     interface StaticEventEmitterOptions {
+        /**
+         * Can be used to cancel awaiting events.
+         */
         signal?: AbortSignal | undefined;
     }
     interface EventEmitter<Events extends EventMap<Events> = {}> extends NodeJS.EventEmitter<Events> {}
@@ -79,7 +85,7 @@ declare module "events" {
         : (EventName extends keyof EventEmitter.EventEmitterBuiltInEventMap
             ? (...args: EventEmitter.EventEmitterBuiltInEventMap[EventName]) => void
             : (...args: any[]) => void);
-    /**
+
     /**
      * The `EventEmitter` class is defined and exposed by the `events` module:
      *
@@ -140,7 +146,7 @@ declare module "events" {
          * run();
          * ```
          *
-         * The special handling of the `'error'` event is only used when `events.once()`is used to wait for another event. If `events.once()` is used to wait for the
+         * The special handling of the `'error'` event is only used when `events.once()` is used to wait for another event. If `events.once()` is used to wait for the
          * '`error'` event itself, then it is treated as any other kind of event without
          * special handling:
          *
@@ -151,7 +157,7 @@ declare module "events" {
          *
          * once(ee, 'error')
          *   .then(([err]) => console.log('ok', err.message))
-         *   .catch((err) => console.log('error', err.message));
+         *   .catch((err) => console.error('error', err.message));
          *
          * ee.emit('error', new Error('boom'));
          *
@@ -188,7 +194,7 @@ declare module "events" {
         static once<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
             emitter: EventEmitter<Events>,
             eventName: EventName,
-            options?: Pick<StaticEventEmitterOptions, "signal">,
+            options?: StaticEventEmitterOptions,
         ): Promise<Args<Events, EventName>>;
         static once(
             emitter: NodeEventTarget,
@@ -251,8 +257,7 @@ declare module "events" {
          * process.nextTick(() => ac.abort());
          * ```
          * @since v13.6.0, v12.16.0
-         * @param eventName The name of the event being listened for
-         * @return that iterates `eventName` events emitted by the `emitter`
+         * @return An `AsyncIterator` that iterates `eventName` events emitted by the `emitter`
          */
         static on<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
             emitter: EventEmitter<Events>,
@@ -261,11 +266,11 @@ declare module "events" {
         ): NodeJS.AsyncIterator<Args<Events, EventName>>;
         static on(
             emitter: NodeJS.EventEmitter,
-            eventName: string,
+            eventName: string | symbol,
             options?: StaticEventEmitterOptions,
-        ): NodeJS.AsyncIterator<any>;
+        ): NodeJS.AsyncIterator<any[]>;
         /**
-         * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
+         * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
          *
          * ```js
          * import { EventEmitter, listenerCount } from 'node:events';
@@ -285,10 +290,11 @@ declare module "events" {
             eventName: EventName,
         ): number;
         /**
-         * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
+         * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
          *
          * ```js
          * const { EventEmitter, listenerCount } = require('events');
+         *
          * const myEmitter = new EventEmitter();
          * myEmitter.on('event', () => {});
          * myEmitter.on('event', () => {});
@@ -317,16 +323,16 @@ declare module "events" {
          *   const ee = new EventEmitter();
          *   const listener = () => console.log('Events are fun');
          *   ee.on('foo', listener);
-         *   getEventListeners(ee, 'foo'); // [listener]
+         *   console.log(getEventListeners(ee, 'foo')); // [ [Function: listener] ]
          * }
          * {
          *   const et = new EventTarget();
          *   const listener = () => console.log('Events are fun');
          *   et.addEventListener('foo', listener);
-         *   getEventListeners(et, 'foo'); // [listener]
+         *   console.log(getEventListeners(et, 'foo')); // [ [Function: listener] ]
          * }
          * ```
-         * @since v15.2.0
+         * @since v15.2.0, v14.17.0
          */
         static getEventListeners<Events extends EventMap<Events>, EventName extends EventNames<Events>>(
             emitter: EventEmitter<Events>,
@@ -352,21 +358,65 @@ declare module "events" {
          */
         static setMaxListeners(n?: number, ...eventTargets: Array<DOMEventTarget | NodeJS.EventEmitter>): void;
         /**
-         * This symbol shall be used to install a listener for only monitoring `'error'`
-         * events. Listeners installed using this symbol are called before the regular
-         * `'error'` listeners are called.
+         * This symbol shall be used to install a listener for only monitoring `'error'` events. Listeners installed using this symbol are called before the regular `'error'` listeners are called.
          *
-         * Installing a listener using this symbol does not change the behavior once an
-         * `'error'` event is emitted, therefore the process will still crash if no
+         * Installing a listener using this symbol does not change the behavior once an `'error'` event is emitted. Therefore, the process will still crash if no
          * regular `'error'` listener is installed.
+         * @since v13.6.0, v12.17.0
          */
         static readonly errorMonitor: unique symbol;
+        /**
+         * Value: `Symbol.for('nodejs.rejection')`
+         *
+         * See how to write a custom `rejection handler`.
+         * @since v13.4.0, v12.16.0
+         */
         static readonly captureRejectionSymbol: unique symbol;
         /**
-         * Sets or gets the default captureRejection value for all emitters.
+         * Value: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#Boolean_type)
+         *
+         * Change the default `captureRejections` option on all new `EventEmitter` objects.
+         * @since v13.4.0, v12.16.0
          */
-        // TODO: These should be described using static getter/setter pairs:
         static captureRejections: boolean;
+        /**
+         * By default, a maximum of `10` listeners can be registered for any single
+         * event. This limit can be changed for individual `EventEmitter` instances
+         * using the `emitter.setMaxListeners(n)` method. To change the default
+         * for _all_`EventEmitter` instances, the `events.defaultMaxListeners` property
+         * can be used. If this value is not a positive number, a `RangeError` is thrown.
+         *
+         * Take caution when setting the `events.defaultMaxListeners` because the
+         * change affects _all_ `EventEmitter` instances, including those created before
+         * the change is made. However, calling `emitter.setMaxListeners(n)` still has
+         * precedence over `events.defaultMaxListeners`.
+         *
+         * This is not a hard limit. The `EventEmitter` instance will allow
+         * more listeners to be added but will output a trace warning to stderr indicating
+         * that a "possible EventEmitter memory leak" has been detected. For any single
+         * `EventEmitter`, the `emitter.getMaxListeners()` and `emitter.setMaxListeners()` methods can be used to
+         * temporarily avoid this warning:
+         *
+         * ```js
+         * const EventEmitter = require('events');
+         * const emitter = new EventEmitter();
+         * emitter.setMaxListeners(emitter.getMaxListeners() + 1);
+         * emitter.once('event', () => {
+         *   // do stuff
+         *   emitter.setMaxListeners(Math.max(emitter.getMaxListeners() - 1, 0));
+         * });
+         * ```
+         *
+         * The `--trace-warnings` command-line flag can be used to display the
+         * stack trace for such warnings.
+         *
+         * The emitted warning can be inspected with `process.on('warning')` and will
+         * have the additional `emitter`, `type`, and `count` properties, referring to
+         * the event emitter instance, the event's name and the number of attached
+         * listeners, respectively.
+         * Its `name` property is set to `'MaxListenersExceededWarning'`.
+         * @since v0.11.2
+         */
         static defaultMaxListeners: number;
     }
     import internal = require("node:events");
@@ -394,13 +444,41 @@ declare module "events" {
         }
 
         /**
-         * Integrates `EventEmitter` with `AsyncResource` for `EventEmitter`s that require
-         * manual async tracking. Specifically, all events emitted by instances of
-         * `EventEmitterAsyncResource` will run within its async context.
+         * Integrates `EventEmitter` with `AsyncResource` for `EventEmitter`s that
+         * require manual async tracking. Specifically, all events emitted by instances
+         * of `events.EventEmitterAsyncResource` will run within its `async context`.
          *
-         * The EventEmitterAsyncResource class has the same methods and takes the
-         * same options as EventEmitter and AsyncResource themselves.
-         * @throws if `options.name` is not provided when instantiated directly.
+         * ```js
+         * const { EventEmitterAsyncResource, EventEmitter } = require('events');
+         * const { notStrictEqual, strictEqual } = require('assert');
+         * const { executionAsyncId, triggerAsyncId } = require('async_hooks');
+         *
+         * // Async tracking tooling will identify this as 'Q'.
+         * const ee1 = new EventEmitterAsyncResource({ name: 'Q' });
+         *
+         * // 'foo' listeners will run in the EventEmitters async context.
+         * ee1.on('foo', () => {
+         *   strictEqual(executionAsyncId(), ee1.asyncId);
+         *   strictEqual(triggerAsyncId(), ee1.triggerAsyncId);
+         * });
+         *
+         * const ee2 = new EventEmitter();
+         *
+         * // 'foo' listeners on ordinary EventEmitters that do not track async
+         * // context, however, run in the same async context as the emit().
+         * ee2.on('foo', () => {
+         *   notStrictEqual(executionAsyncId(), ee2.asyncId);
+         *   notStrictEqual(triggerAsyncId(), ee2.triggerAsyncId);
+         * });
+         *
+         * Promise.resolve().then(() => {
+         *   ee1.emit('foo');
+         *   ee2.emit('foo');
+         * });
+         * ```
+         *
+         * The `EventEmitterAsyncResource` class has the same methods and takes the
+         * same options as `EventEmitter` and `AsyncResource` themselves.
          * @since v17.4.0, v16.14.0
          */
         export class EventEmitterAsyncResource extends EventEmitter {
@@ -409,17 +487,24 @@ declare module "events" {
              */
             constructor(options?: EventEmitterAsyncResourceOptions);
             /**
-             * Call all destroy hooks. This should only ever be called once. An
-             * error will be thrown if it is called more than once. This must be
-             * manually called. If the resource is left to be collected by the GC then
-             * the destroy hooks will never be called.
+             * Call all `destroy` hooks. This should only ever be called once. An error will
+             * be thrown if it is called more than once. This **must** be manually called. If
+             * the resource is left to be collected by the GC then the `destroy` hooks will
+             * never be called.
              */
             emitDestroy(): void;
-            /** The unique asyncId assigned to the resource. */
+            /**
+             * The unique `asyncId` assigned to the resource.
+             */
             readonly asyncId: number;
-            /** The same triggerAsyncId that is passed to the AsyncResource constructor. */
+            /**
+             * The same triggerAsyncId that is passed to the AsyncResource constructor.
+             */
             readonly triggerAsyncId: number;
-            /** The underlying AsyncResource */
+            /**
+             * The returned `AsyncResource` object has an additional `eventEmitter` property
+             * that provides a reference to this `EventEmitterAsyncResource`.
+             */
             readonly asyncResource: EventEmitterReferencingAsyncResource;
         }
 
@@ -431,6 +516,11 @@ declare module "events" {
     global {
         namespace NodeJS {
             interface EventEmitter<Events extends EventMap<Events> = {}> {
+                // This "property" is used to brand a specific instance of the EventEmitter class with its Event map, which is needed
+                // in order to infer the map if we have a chain like `class A extends EventEmitter<{}>` (or many levels deep)
+                // It is also marked as possibly undefined in order to allow something like `const t: NodeJS.EventEmitter<{}> = { <insert implementation here> };`
+                readonly [internalTypeOnlyBrandSymbol]?: Events;
+
                 [EventEmitter.captureRejectionSymbol]?<EventName extends EventNames<Events>>(
                     error: Error,
                     event: EventName,
@@ -454,10 +544,10 @@ declare module "events" {
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
-                 * Adds the `listener` function to the end of the listeners array for the
-                 * event named `eventName`. No checks are made to see if the `listener` has
-                 * already been added. Multiple calls passing the same combination of `eventName` and `listener` will result in the `listener` being added, and called, multiple
-                 * times.
+                 * Adds the `listener` function to the end of the listeners array for the event
+                 * named `eventName`. No checks are made to see if the `listener` has already
+                 * been added. Multiple calls passing the same combination of `eventName` and
+                 * `listener` will result in the `listener` being added, and called, multiple times.
                  *
                  * ```js
                  * server.on('connection', (stream) => {
@@ -467,10 +557,11 @@ declare module "events" {
                  *
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  *
-                 * By default, event listeners are invoked in the order they are added. The`emitter.prependListener()` method can be used as an alternative to add the
+                 * By default, event listeners are invoked in the order they are added. The `emitter.prependListener()` method can be used as an alternative to add the
                  * event listener to the beginning of the listeners array.
                  *
                  * ```js
+                 * const EventEmitter = require('events');
                  * const myEE = new EventEmitter();
                  * myEE.on('foo', () => console.log('a'));
                  * myEE.prependListener('foo', () => console.log('b'));
@@ -492,7 +583,7 @@ declare module "events" {
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
-                 * Adds a **one-time**`listener` function for the event named `eventName`. The
+                 * Adds a **one-time** `listener` function for the event named `eventName`. The
                  * next time `eventName` is triggered, this listener is removed and then invoked.
                  *
                  * ```js
@@ -503,10 +594,11 @@ declare module "events" {
                  *
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  *
-                 * By default, event listeners are invoked in the order they are added. The`emitter.prependOnceListener()` method can be used as an alternative to add the
+                 * By default, event listeners are invoked in the order they are added. The `emitter.prependOnceListener()` method can be used as an alternative to add the
                  * event listener to the beginning of the listeners array.
                  *
                  * ```js
+                 * const EventEmitter = require('events');
                  * const myEE = new EventEmitter();
                  * myEE.once('foo', () => console.log('a'));
                  * myEE.prependOnceListener('foo', () => console.log('b'));
@@ -528,7 +620,7 @@ declare module "events" {
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
-                 * Removes the specified `listener` from the listener array for the event named`eventName`.
+                 * Removes the specified `listener` from the listener array for the event named `eventName`.
                  *
                  * ```js
                  * const callback = (stream) => {
@@ -545,10 +637,12 @@ declare module "events" {
                  * called multiple times to remove each instance.
                  *
                  * Once an event is emitted, all listeners attached to it at the
-                 * time of emitting are called in order. This implies that any`removeListener()` or `removeAllListeners()` calls _after_ emitting and_before_ the last listener finishes execution will
-                 * not remove them from`emit()` in progress. Subsequent events behave as expected.
+                 * time of emitting are called in order. This implies that any `removeListener()` or `removeAllListeners()` calls _after_ emitting and _before_ the last listener finishes execution
+                 * will not remove them from`emit()` in progress. Subsequent events behave as expected.
                  *
                  * ```js
+                 * const EventEmitter = require('events');
+                 * class MyEmitter extends EventEmitter {}
                  * const myEmitter = new MyEmitter();
                  *
                  * const callbackA = () => {
@@ -586,9 +680,10 @@ declare module "events" {
                  *
                  * When a single function has been added as a handler multiple times for a single
                  * event (as in the example below), `removeListener()` will remove the most
-                 * recently added instance. In the example the `once('ping')`listener is removed:
+                 * recently added instance. In the example the `once('ping')` listener is removed:
                  *
                  * ```js
+                 * const EventEmitter = require('events');
                  * const ee = new EventEmitter();
                  *
                  * function pong() {
@@ -644,7 +739,7 @@ declare module "events" {
                  * By default `EventEmitter`s will print a warning if more than `10` listeners are
                  * added for a particular event. This is a useful default that helps finding
                  * memory leaks. The `emitter.setMaxListeners()` method allows the limit to be
-                 * modified for this specific `EventEmitter` instance. The value can be set to`Infinity` (or `0`) to indicate an unlimited number of listeners.
+                 * modified for this specific `EventEmitter` instance. The value can be set to `Infinity` (or `0`) to indicate an unlimited number of listeners.
                  *
                  * Returns a reference to the `EventEmitter`, so that calls can be chained.
                  * @since v0.3.5
@@ -679,6 +774,7 @@ declare module "events" {
                  * including any wrappers (such as those created by `.once()`).
                  *
                  * ```js
+                 * const EventEmitter = require('events');
                  * const emitter = new EventEmitter();
                  * emitter.once('log', () => console.log('log once'));
                  *
@@ -710,7 +806,7 @@ declare module "events" {
                     eventName: EventName,
                 ): Array<Listener<Events, EventName>>;
                 /**
-                 * Synchronously calls each of the listeners registered for the event named`eventName`, in the order they were registered, passing the supplied arguments
+                 * Synchronously calls each of the listeners registered for the event named `eventName`, in the order they were registered, passing the supplied arguments
                  * to each.
                  *
                  * Returns `true` if the event had listeners, `false` otherwise.
@@ -758,9 +854,12 @@ declare module "events" {
                     ...args: Args<Events, EventName>
                 ): boolean;
                 /**
-                 * Returns the number of listeners listening to the event named `eventName`.
+                 * Returns the number of listeners listening for the event named `eventName`.
+                 * If `listener` is provided, it will return how many times the listener is found
+                 * in the list of the listeners of the event.
                  * @since v3.2.0
                  * @param eventName The name of the event being listened for
+                 * @param listener The event handler function
                  */
                 listenerCount<EventName extends EventNames<Events>>(
                     eventName: EventName,
@@ -773,8 +872,8 @@ declare module "events" {
                 /**
                  * Adds the `listener` function to the _beginning_ of the listeners array for the
                  * event named `eventName`. No checks are made to see if the `listener` has
-                 * already been added. Multiple calls passing the same combination of `eventName` and `listener` will result in the `listener` being added, and called, multiple
-                 * times.
+                 * already been added. Multiple calls passing the same combination of `eventName`
+                 * and `listener` will result in the `listener` being added, and called, multiple times.
                  *
                  * ```js
                  * server.prependListener('connection', (stream) => {
@@ -796,7 +895,7 @@ declare module "events" {
                     listener: Listener<Events, EventName>,
                 ): this;
                 /**
-                 * Adds a **one-time**`listener` function for the event named `eventName` to the_beginning_ of the listeners array. The next time `eventName` is triggered, this
+                 * Adds a **one-time**`listener` function for the event named `eventName` to the _beginning_ of the listeners array. The next time `eventName` is triggered, this
                  * listener is removed, and then invoked.
                  *
                  * ```js

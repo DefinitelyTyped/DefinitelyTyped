@@ -279,3 +279,24 @@ declare const event5: "event5";
     acceptsEventEmitterInterface(emitter);
     acceptsEventEmitterClass(emitter);
 }
+
+{
+    class Extended extends events.EventEmitter<T> {}
+
+    class DoubleExtension extends Extended {}
+
+    const extended = new Extended();
+    const doubleExtended = new DoubleExtension();
+
+    events.on(extended, "event1"); // $ExpectType AsyncIterator<[string, number], any, any>
+    events.once(extended, "event1"); // $ExpectType Promise<[string, number]>
+
+    events.on(extended, "unknown"); // $ExpectType AsyncIterator<any[], any, any>
+    events.once(extended, "unknown"); // $ExpectType Promise<any[]>
+
+    events.on(doubleExtended, "event1"); // $ExpectType AsyncIterator<[string, number], any, any>
+    events.once(doubleExtended, "event1"); // $ExpectType Promise<[string, number]>
+
+    events.on(doubleExtended, "unknown"); // $ExpectType AsyncIterator<any[], any, any>
+    events.once(doubleExtended, "unknown"); // $ExpectType Promise<any[]>
+}
