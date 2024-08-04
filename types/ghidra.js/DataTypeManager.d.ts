@@ -1,6 +1,7 @@
+import type { JavaClass } from './JavaClass';
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/data/DataType.html
 
-export interface DataType {
+export interface DataType extends JavaClass {
   addParent(dt: DataType): void;
   clone(dtm: DataTypeManager): DataType;
   copy(dtm: DataTypeManager): DataType;
@@ -58,7 +59,7 @@ export interface DataType {
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/data/DataTypeManager.html
 
-export interface DataTypeManager {
+export interface DataTypeManager extends JavaClass {
   addDataType(dataType: DataType, handler: DataTypeConflictHandler): DataType;
   close(): void;
   contains(dataType: DataType): boolean;
@@ -125,7 +126,7 @@ export interface DataTypeManager {
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/data/DataTypeConflictHandler.html
 
-export interface DataTypeConflictHandler {
+export interface DataTypeConflictHandler extends JavaClass {
   resolveConflict(addedDataType: DataType, existingDataType: DataType): void;
   shouldUpdate(sourceDataType: DataType, localDataType: DataType): boolean;
 }

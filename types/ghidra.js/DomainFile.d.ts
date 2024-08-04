@@ -1,3 +1,4 @@
+import type { JavaClass } from './JavaClass';
 import { CheckinHandler } from "./CheckinHandler";
 import { Consumer } from "./Consumer";
 import { DomainFolder } from "./DomainFolder";
@@ -8,12 +9,12 @@ import { TaskMonitor } from "./TaskMonitor";
 import { Version } from "./Version";
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
-export interface File {
+export interface File extends JavaClass {
 }
 /* eslint-enable @typescript-eslint/no-empty-interface */
 
 // https://ghidra.re/ghidra_docs/api/ghidra/framework/model/DomainFile.html
-export interface DomainFile {
+export interface DomainFile extends JavaClass {
     addToVersionControl(comment: string, keepCheckedOut: boolean, monitor: TaskMonitor): void;
     canAddToRepository(): boolean;
     canCheckin(): boolean;

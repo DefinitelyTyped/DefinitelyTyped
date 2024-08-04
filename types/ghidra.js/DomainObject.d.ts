@@ -1,15 +1,16 @@
+import type { JavaClass } from './JavaClass';
 import { DomainFile } from "./DomainFile";
 import { TransactionInfo } from "./TransactionInfo";
 import { TransactionListener } from "./TransactionListener";
 
 //https://ghidra.re/ghidra_docs/api/ghidra/framework/model/DomainObject.html
 /* eslint-disable @typescript-eslint/no-empty-interface */
-export interface ChangeSet { /* Details omitted */ }
-export interface DomainObjectListener { /* Details omitted */ }
-export interface DomainObjectChangeSet { /* Details omitted */ }
-export interface DomainObjectChangedEvent { /* Details omitted */ }
+export interface ChangeSet extends JavaClass { /* Details omitted */ }
+export interface DomainObjectListener extends JavaClass { /* Details omitted */ }
+export interface DomainObjectChangeSet extends JavaClass { /* Details omitted */ }
+export interface DomainObjectChangedEvent extends JavaClass { /* Details omitted */ }
 /* eslint-enable @typescript-eslint/no-empty-interface */
-export interface DomainObject {
+export interface DomainObject extends JavaClass {
     addConsumer(consumer: any): void;
     addListener(listener: DomainObjectListener): void;
     addTransactionListener(listener: TransactionListener): void;

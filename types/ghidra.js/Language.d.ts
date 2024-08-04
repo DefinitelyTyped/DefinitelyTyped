@@ -1,3 +1,4 @@
+import type { JavaClass } from './JavaClass';
 import { Address } from './Address';
 import { AddressFactory } from './AddressFactory';
 import { AddressSpace } from './AddressSpace';
@@ -7,7 +8,7 @@ import { TaskMonitor } from './TaskMonitor';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/lang/LanguageID.html
 
-export interface LanguageID {
+export interface LanguageID extends JavaClass {
   compareTo(o: LanguageID): number;
   getIdAsString(): string;
   hashCode(): number;
@@ -16,7 +17,7 @@ export interface LanguageID {
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/lang/Language.html
 
-export interface Language {
+export interface Language extends JavaClass {
   //applyContextSettings(ctx: DefaultProgramContext): void;
   getAddressFactory(): AddressFactory;
   //getCompatibleCompilerSpecDescriptions(): java.util.List<CompilerSpecDescription>;

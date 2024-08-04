@@ -1,3 +1,4 @@
+import type { JavaClass } from './JavaClass';
 import type { Address } from './Address';
 import type { AddressSetView } from './AddressSetView';
 import { SourceType } from './SourceType';
@@ -11,7 +12,7 @@ import { TaskMonitor } from './TaskMonitor';
 import { GhidraFunction } from './GhidraFunction';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/GhidraFunctionManager.html
-export interface GhidraFunctionManager {
+export interface GhidraFunctionManager extends JavaClass {
     createGhidraFunction(name: string, entryPoint: Address, body: AddressSetView, source: SourceType): GhidraFunction;
     createGhidraFunction(name: string, nameSpace: Namespace, entryPoint: Address, body: AddressSetView, source: SourceType): GhidraFunction;
     createThunkGhidraFunction(name: string, nameSpace: Namespace, entryPoint: Address, body: AddressSetView, thunkedGhidraFunction: GhidraFunction, source: SourceType): GhidraFunction;

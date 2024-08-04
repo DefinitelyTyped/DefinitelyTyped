@@ -53,13 +53,17 @@ export * from './TransactionListener';
 export * from './Varnode';
 export * from './Version';
 export * from './VoidPropertyMap';
+export * from './JavaClass';
 
 import type { Program } from './Program';
 import type { Address } from './Address';
+import type { JavaClass } from './JavaClass';
 
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 interface JavaHelper {
-  getClass<T>(className: string): T;
+  getClass<T extends JavaClass>(className: string): T;
 }
+/* eslint-enable @definitelytyped/no-unnecessary-generics */
 
 declare global {
   var currentProgram: Program;

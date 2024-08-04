@@ -1,9 +1,10 @@
+import type { JavaClass } from './JavaClass';
 import { Varnode } from './Varnode';
 import { Address } from './Address';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/lang/PrototypeModel.html
 
-export interface PrototypeModel {
+export interface PrototypeModel extends JavaClass {
   //equals(obj: java.lang.Object): boolean;
   //getArgLocation(argIndex: number, params: Parameter[], dataType: DataType, program: Program): VariableStorage;
   getExtrapop(): number;

@@ -1,3 +1,4 @@
+import type { JavaClass } from './JavaClass';
 import { AddressSetView } from './AddressSetView';
 import { AddressRange } from './AddressRange';
 import { AddressRangeIterator } from './AddressRangeIterator';
@@ -5,7 +6,7 @@ import { RegisterValue } from './RegisterValue';
 import { Register } from './Register';
 import { Address } from './Address';
 
-export interface ProgramContext {
+export interface ProgramContext extends JavaClass {
     getNonFlowingContext(): boolean;
     getFlowValue(value: RegisterValue): RegisterValue;
     getNonFlowValue(value: RegisterValue): RegisterValue;

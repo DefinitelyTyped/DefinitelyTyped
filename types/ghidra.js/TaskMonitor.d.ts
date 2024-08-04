@@ -1,12 +1,13 @@
+import type { JavaClass } from './JavaClass';
 // https://ghidra.re/ghidra_docs/api/ghidra/util/task/CancelledListener.html
 
-export interface CancelledListener {
+export interface CancelledListener extends JavaClass {
   cancelled(): void;
 }
 
 // https://ghidra.re/ghidra_docs/api/ghidra/util/task/TaskMonitor.html
 
-export interface TaskMonitor {
+export interface TaskMonitor extends JavaClass {
   addCancelledListener(listener: CancelledListener): void;
   cancel(): void;
   checkCanceled(): void;

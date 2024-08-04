@@ -1,10 +1,11 @@
+import type { JavaClass } from './JavaClass';
 import { AddressSpace } from './AddressSpace';
 import { PrototypeModel } from './PrototypeModel';
 import { Address } from './Address';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/lang/CompilerSpecID.html
 
-export interface CompilerSpecID {
+export interface CompilerSpecID extends JavaClass {
   compareTo(o: CompilerSpecID): number;
   getIdAsString(): string;
   hashCode(): number;
@@ -13,7 +14,7 @@ export interface CompilerSpecID {
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/lang/CompilerSpec.html
 
-export interface CompilerSpec {
+export interface CompilerSpec extends JavaClass {
   //applyContextSettings(ctx: DefaultProgramContext): void;
   doesCDataTypeConversions(): boolean;
   //findBestCallingConvention(params: Parameter[]): PrototypeModel;

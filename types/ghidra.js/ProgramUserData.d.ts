@@ -1,3 +1,4 @@
+import type { JavaClass } from './JavaClass';
 import { IntPropertyMap } from './IntPropertyMap';
 import { LongPropertyMap } from './LongPropertyMap';
 import { Options } from './Options';
@@ -7,7 +8,7 @@ import { PropertyMap } from './PropertyMap';
 import { ObjectPropertyMap } from './ObjectPropertyMap';
 import { Saveable } from './Saveable';
 
-export interface ProgramUserData {
+export interface ProgramUserData extends JavaClass {
     startTransaction(): number;
     endTransaction(transactionID: number): void;
     getBooleanProperty(owner: string, propertyName: string, create: boolean): VoidPropertyMap;

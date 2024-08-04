@@ -1,8 +1,9 @@
+import type { JavaClass } from './JavaClass';
 import { GhidraFunctionTag } from './GhidraFunctionTag';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/GhidraFunctionTagManager.html
 
-export interface GhidraFunctionTagManager {
+export interface GhidraFunctionTagManager extends JavaClass {
   createGhidraFunctionTag(name: string, comment: string): GhidraFunctionTag;
   //getAllGhidraFunctionTags(): java.util.List<? extends GhidraFunctionTag>;
   getGhidraFunctionTag(id: number): GhidraFunctionTag;

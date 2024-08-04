@@ -1,3 +1,4 @@
+import type { JavaClass } from './JavaClass';
 import { Varnode } from './Varnode';
 import { Address } from './Address';
 import { Program } from './Program';
@@ -6,7 +7,7 @@ import { GhidraFunction } from './GhidraFunction';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/Variable.html
 
-export interface Variable {
+export interface Variable extends JavaClass {
   getComment(): string;
   getDataType(): DataType;
   //getFirstStorageVarnode(): Varnode;

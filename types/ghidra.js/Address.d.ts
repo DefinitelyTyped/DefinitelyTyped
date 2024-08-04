@@ -1,5 +1,6 @@
+import type { JavaClass } from './JavaClass';
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/address/AddressSpace.html
-export interface AddressSpace {
+export interface AddressSpace extends JavaClass {
   add(addr: Address , displacement: number): Address;
   addNoWrap(addr: Address , displacement: number ): Address;
   addWrap(addr: Address , displacement: number ): Address;
@@ -49,7 +50,7 @@ export interface AddressSpace {
 }
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/address/Address.html
-export interface Address {
+export interface Address extends JavaClass {
     add(displacement: number): Address;
     addNoWrap(displacement: number): Address;
     addNoWrap(displacement: bigint): Address;

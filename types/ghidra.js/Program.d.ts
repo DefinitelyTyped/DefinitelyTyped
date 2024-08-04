@@ -1,3 +1,4 @@
+import type { JavaClass } from './JavaClass';
 import { AbortedTransactionListener } from './AbortedTransactionListener';
 import { Address } from './Address';
 import { AddressFactory } from './AddressFactory';
@@ -36,7 +37,7 @@ import { TransactionListener } from './TransactionListener';
 import { Varnode } from './Varnode';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/Program.html
-export interface Program extends DomainObject {
+export interface Program extends JavaClass, DomainObject {
     createAddressSetPropertyMap(name: string): AddressSetPropertyMap;
     createIntRangeMap(name: string): IntRangeMap;
     deleteAddressSetPropertyMap(name: string): void;

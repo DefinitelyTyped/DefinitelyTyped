@@ -1,3 +1,4 @@
+import type { JavaClass } from './JavaClass';
 import { Variable } from './Variable';
 import { SourceType } from './SourceType';
 import { Program } from './Program';
@@ -8,7 +9,7 @@ import { Address } from './Address';
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/GhidraFunction.html
 
-export interface GhidraFunction {
+export interface GhidraFunction extends JavaClass {
   addLocalVariable(variable: Variable, source: SourceType): Variable;
   //addParameter(variable: Variable, source: SourceType): Parameter;
   addTag(name: string): boolean;
