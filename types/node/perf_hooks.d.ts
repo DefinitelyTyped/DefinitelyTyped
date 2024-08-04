@@ -277,7 +277,7 @@ declare module "perf_hooks" {
          * @param timingInfo [Fetch Timing Info](https://fetch.spec.whatwg.org/#fetch-timing-info)
          * @param requestedUrl The resource url
          * @param initiatorType The initiator name, e.g: 'fetch'
-         * @param global 
+         * @param global
          * @param cacheMode The cache mode must be an empty string ('') or 'local'
          * @param bodyInfo [Fetch Response Body Info](https://fetch.spec.whatwg.org/#response-body-info)
          * @param responseStatus The response's status code
