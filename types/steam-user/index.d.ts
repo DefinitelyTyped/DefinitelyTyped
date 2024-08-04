@@ -1423,8 +1423,8 @@ interface ProductAccessTokens {
 }
 
 interface UserOwnedApps {
-    game_count: number;
-    games: OwnedApp[];
+    app_count: number;
+    apps: OwnedApp[];
 }
 
 interface ProfileItems {
