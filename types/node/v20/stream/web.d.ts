@@ -11,6 +11,8 @@ type _ReadableByteStreamController = typeof globalThis extends { onmessage: any 
 type _ReadableStream = typeof globalThis extends { onmessage: any } ? {} : import("stream/web").ReadableStream;
 type _ReadableStreamBYOBReader = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").ReadableStreamBYOBReader;
+type _ReadableStreamBYOBRequest = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").ReadableStreamBYOBRequest;
 type _ReadableStreamDefaultController = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").ReadableStreamDefaultController;
 type _ReadableStreamDefaultReader = typeof globalThis extends { onmessage: any } ? {}
@@ -192,16 +194,34 @@ declare module "stream/web" {
         read(): Promise<ReadableStreamDefaultReadResult<R>>;
         releaseLock(): void;
     }
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader) */
     interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
+        /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/read) */
         read<T extends ArrayBufferView>(view: T): Promise<ReadableStreamReadResult<T>>;
+        /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBReader/releaseLock) */
         releaseLock(): void;
     }
     const ReadableStreamDefaultReader: {
         prototype: ReadableStreamDefaultReader;
         new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
     };
-    const ReadableStreamBYOBReader: any;
-    const ReadableStreamBYOBRequest: any;
+    const ReadableStreamBYOBReader: {
+        prototype: ReadableStreamBYOBReader;
+        new(stream: ReadableStream): ReadableStreamBYOBReader;
+    };
+    /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBRequest) */
+    interface ReadableStreamBYOBRequest {
+        /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBRequest/view) */
+        readonly view: ArrayBufferView | null;
+        /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBRequest/respond) */
+        respond(bytesWritten: number): void;
+        /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ReadableStreamBYOBRequest/respondWithNewView) */
+        respondWithNewView(view: ArrayBufferView): void;
+    }
+    const ReadableStreamBYOBRequest: {
+        prototype: ReadableStreamBYOBRequest;
+        new(): ReadableStreamBYOBRequest;
+    };
     interface ReadableByteStreamController {
         readonly byobRequest: undefined;
         readonly desiredSize: number | null;
@@ -422,6 +442,7 @@ declare module "stream/web" {
             ? T
             : typeof import("stream/web").ReadableStreamBYOBReader;
 
+        interface ReadableStreamBYOBRequest extends _ReadableStreamBYOBRequest {}
         var ReadableStreamBYOBRequest: typeof globalThis extends { onmessage: any; ReadableStreamBYOBRequest: infer T }
             ? T
             : typeof import("stream/web").ReadableStreamBYOBRequest;
