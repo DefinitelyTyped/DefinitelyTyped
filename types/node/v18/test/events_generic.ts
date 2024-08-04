@@ -248,3 +248,55 @@ declare const event5: "event5";
     emitter.emit(s1, "hello", false);
     emitter.emit(s2, "hello", false);
 }
+
+{
+    const promise1: Promise<[string, number]> = events.once(new events.EventEmitter<T>(), "event1");
+    const promise2: Promise<[boolean]> = events.once(new events.EventEmitter<T>(), "event2");
+    const promise3: Promise<[]> = events.once(new events.EventEmitter<T>(), "event3");
+    const promise4: Promise<string[]> = events.once(new events.EventEmitter<T>(), "event4");
+    const promise5: Promise<unknown[]> = events.once(new events.EventEmitter<T>(), "event5");
+    // @ts-expect-error
+    const promise6: Promise<[string, string]> = events.once(new events.EventEmitter<T>(), "event1");
+    const promise7: Promise<any[]> = events.once(new events.EventEmitter<T>(), "event");
+
+    const iterable1: AsyncIterableIterator<[string, number]> = events.on(new events.EventEmitter<T>(), "event1");
+    const iterable2: AsyncIterableIterator<[boolean]> = events.on(new events.EventEmitter<T>(), "event2");
+    const iterable3: AsyncIterableIterator<[]> = events.on(new events.EventEmitter<T>(), "event3");
+    const iterable4: AsyncIterableIterator<string[]> = events.on(new events.EventEmitter<T>(), "event4");
+    const iterable5: AsyncIterableIterator<unknown[]> = events.on(new events.EventEmitter<T>(), "event5");
+    // @ts-expect-error
+    const iterable6: AsyncIterableIterator<[string, string]> = events.on(new events.EventEmitter<T>(), "event1");
+    const iterable7: AsyncIterableIterator<any[]> = events.on(new events.EventEmitter<T>(), "event");
+}
+
+{
+    function acceptsEventEmitterInterface(eventEmitter: NodeJS.EventEmitter) {
+    }
+
+    function acceptsEventEmitterClass(eventEmitter: events.EventEmitter) {
+    }
+
+    acceptsEventEmitterInterface(emitter);
+    acceptsEventEmitterClass(emitter);
+}
+
+{
+    class Extended extends events.EventEmitter<T> {}
+
+    class DoubleExtension extends Extended {}
+
+    const extended = new Extended();
+    const doubleExtended = new DoubleExtension();
+
+    events.on(extended, "event1"); // $ExpectType AsyncIterableIterator<[string, number]>
+    events.once(extended, "event1"); // $ExpectType Promise<[string, number]>
+
+    events.on(extended, "unknown"); // $ExpectType AsyncIterableIterator<any[]>
+    events.once(extended, "unknown"); // $ExpectType Promise<any[]>
+
+    events.on(doubleExtended, "event1"); // $ExpectType AsyncIterableIterator<[string, number]>
+    events.once(doubleExtended, "event1"); // $ExpectType Promise<[string, number]>
+
+    events.on(doubleExtended, "unknown"); // $ExpectType AsyncIterableIterator<any[]>
+    events.once(doubleExtended, "unknown"); // $ExpectType Promise<any[]>
+}
