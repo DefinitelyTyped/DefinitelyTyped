@@ -271,6 +271,24 @@ declare module "perf_hooks" {
          */
         mark(name: string, options?: MarkOptions): PerformanceMark;
         /**
+         * Creates a new `PerformanceResourceTiming` entry in the Resource Timeline.
+         * A `PerformanceResourceTiming` is a subclass of `PerformanceEntry` whose `performanceEntry.entryType` is always `'resource'`.
+         * Performance resources are used to mark moments in the Resource Timeline.
+         * @param timingInfo [Fetch Timing Info](https://fetch.spec.whatwg.org/#fetch-timing-info)
+         * @param requestedUrl The resource url
+         * @param initiatorType The initiator name, e.g: 'fetch'
+         * @param global 
+         * @param cacheMode The cache mode must be an empty string ('') or 'local'
+         * @since v18.2.0, v16.17.0
+         */
+        markResourceTiming(
+            timingInfo: object,
+            requestedUrl: string,
+            initiatorType: string,
+            global: object,
+            cacheMode: "" | "local",
+        ): PerformanceResourceTiming;
+        /**
          * Creates a new PerformanceMeasure entry in the Performance Timeline.
          * A PerformanceMeasure is a subclass of PerformanceEntry whose performanceEntry.entryType is always 'measure',
          * and whose performanceEntry.duration measures the number of milliseconds elapsed since startMark and endMark.

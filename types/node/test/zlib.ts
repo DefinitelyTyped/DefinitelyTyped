@@ -7,6 +7,7 @@ import {
     brotliDecompressSync,
     BrotliOptions,
     constants,
+    crc32,
     createBrotliCompress,
     createBrotliDecompress,
     deflate,
@@ -188,4 +189,12 @@ brotliDecompress(
         await pUnzip(Buffer.from("buf")); // $ExpectType Buffer
         await pUnzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType Buffer
     })();
+}
+
+{
+    let crc = crc32('hello');
+    crc = crc32('world', crc); // $ExpectType number
+    
+    crc = crc32(Buffer.from('hello', 'utf16le')); // $ExpectType number
+    crc = crc32(Buffer.from('world', 'utf16le'), crc); // $ExpectType number
 }
