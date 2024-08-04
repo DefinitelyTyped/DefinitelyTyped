@@ -1781,6 +1781,10 @@
             "libraryName": "fast-json-stable-stringify",
             "asOfVersion": "2.1.0"
         },
+        "fast-shuffle": {
+            "libraryName": "fast-shuffle",
+            "asOfVersion": "6.1.0"
+        },
         "fast-simplex-noise": {
             "libraryName": "fast-simplex-noise",
             "asOfVersion": "3.0.0"
