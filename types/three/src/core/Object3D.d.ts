@@ -1,18 +1,63 @@
-import { AnimationClip } from "../animation/AnimationClip.js";
+import { AnimationClip, AnimationClipJSON } from "../animation/AnimationClip.js";
 import { Camera } from "../cameras/Camera.js";
-import { Material } from "../materials/Material.js";
+import { ShapeJSON } from "../extras/core/Shape.js";
+import { Material, MaterialJSON } from "../materials/Material.js";
 import { Euler } from "../math/Euler.js";
 import { Matrix3 } from "../math/Matrix3.js";
-import { Matrix4 } from "../math/Matrix4.js";
+import { Matrix4, Matrix4Tuple } from "../math/Matrix4.js";
 import { Quaternion } from "../math/Quaternion.js";
-import { Vector3 } from "../math/Vector3.js";
+import { Vector3, Vector3Tuple } from "../math/Vector3.js";
 import { Group } from "../objects/Group.js";
+import { SkeletonJSON } from "../objects/Skeleton.js";
 import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
 import { Scene } from "../scenes/Scene.js";
-import { BufferGeometry } from "./BufferGeometry.js";
+import { SourceJSON } from "../textures/Source.js";
+import { TextureJSON } from "../textures/Texture.js";
+import { BufferGeometry, BufferGeometryJSON } from "./BufferGeometry.js";
 import { EventDispatcher } from "./EventDispatcher.js";
 import { Layers } from "./Layers.js";
 import { Intersection, Raycaster } from "./Raycaster.js";
+
+export interface Object3DJSONObject {
+    uuid: string;
+    type: string;
+
+    name?: string;
+    castShadow?: boolean;
+    receiveShadow?: boolean;
+    visible?: boolean;
+    frustumCulled?: boolean;
+    renderOrder?: number;
+    userData?: Record<string, unknown>;
+
+    layers: number;
+    matrix: Matrix4Tuple;
+    up: Vector3Tuple;
+
+    matrixAutoUpdate?: boolean;
+
+    material?: string | string[];
+
+    children?: string[];
+
+    animations?: string[];
+}
+
+export interface Object3DJSON {
+    metadata?: { version: number; type: string; generator: string };
+    object: Object3DJSONObject;
+}
+
+export interface JSONMeta {
+    geometries: Record<string, BufferGeometryJSON>;
+    materials: Record<string, MaterialJSON>;
+    textures: Record<string, TextureJSON>;
+    images: Record<string, SourceJSON>;
+    shapes: Record<string, ShapeJSON>;
+    skeletons: Record<string, SkeletonJSON>;
+    animations: Record<string, AnimationClipJSON>;
+    nodes: Record<string, unknown>;
+}
 
 export interface Object3DEventMap {
     /**
@@ -608,7 +653,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
      * Convert the object to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.
      * @param meta Object containing metadata such as materials, textures or images for the object.
      */
-    toJSON(meta?: { geometries: any; materials: any; textures: any; images: any }): any;
+    toJSON(meta?: JSONMeta): Object3DJSON;
 
     /**
      * Returns a clone of `this` object and optionally all descendants.

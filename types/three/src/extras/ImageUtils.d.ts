@@ -1,17 +1,14 @@
-import { Mapping } from "../constants.js";
-import { Texture } from "../textures/Texture.js";
-
 /**
  * A class containing utility functions for images.
  * @see {@link https://threejs.org/docs/index.html#api/en/extras/ImageUtils | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/extras/ImageUtils.js | Source}
  */
-export namespace ImageUtils {
+declare class ImageUtils {
     /**
      * Returns a data URI containing a representation of the given image.
      * @param image The image object.
      */
-    function getDataURL(
+    static getDataURL(
         image: HTMLImageElement | HTMLCanvasElement | CanvasImageSource | ImageBitmap | ImageData,
     ): string;
 
@@ -19,15 +16,17 @@ export namespace ImageUtils {
      * Converts the given sRGB image data to linear color space.
      * @param image
      */
-    function sRGBToLinear(image: HTMLImageElement | HTMLCanvasElement | ImageBitmap): HTMLCanvasElement;
+    static sRGBToLinear(image: HTMLImageElement | HTMLCanvasElement | ImageBitmap): HTMLCanvasElement;
 
     /**
      * Converts the given sRGB image data to linear color space.
      * @param image
      */
-    function sRGBToLinear(image: ImageData): {
+    static sRGBToLinear(image: ImageData): {
         data: ImageData["data"];
         width: ImageData["width"];
         height: ImageData["height"];
     };
 }
+
+export { ImageUtils };

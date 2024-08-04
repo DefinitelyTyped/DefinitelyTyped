@@ -5357,6 +5357,40 @@ fp.now(); // $ExpectType number
     const value: string | undefined = anything;
     const defaultValue: boolean = anything;
     const objectWithOptionalField: { a?: boolean } = anything;
+    const nestedObjectWithOptionalField: {
+        foo?: {
+            bar: string;
+        } | null;
+        nested?: {
+            with?: {
+                optional: string | null;
+            } | null;
+        } | null;
+        four?: {
+            levels?: {
+                deep?: {
+                    value?: number;
+                } | null;
+            } | null;
+        } | null;
+    } = anything;
+    const nestedObject: {
+        foo: {
+            bar: string;
+        };
+        nested: {
+            with: {
+                optional: string | null;
+            };
+        };
+        four: {
+            levels: {
+                deep: {
+                    value: number;
+                };
+            };
+        };
+    } = anything;
 
     const anyNumber: number = anything;
     const arrayOfNumbers: number[] = anything;
@@ -5416,6 +5450,15 @@ fp.now(); // $ExpectType number
     _.get(complexValue, '0'); // $ExpectType 'Value4' | number
     _.get(complexValue, '1'); // $ExpectType undefined | number
     _.get(complexValue, 'length'); // $ExpectType 'Value5' | number
+    _.get(nestedObject, ['foo', 'bar']); // $ExpectType string
+    _.get(nestedObject, ['nested', 'with', 'optional']); // $ExpectType string | null
+    _.get(nestedObject, ['four', 'levels', 'deep', 'value']); // $ExpectType number
+    _.get(nestedObjectWithOptionalField, ['foo', 'bar'], defaultValue); // $ExpectType string | boolean
+    _.get(nestedObjectWithOptionalField, ['nested', 'with', 'optional'], defaultValue); // $ExpectType string | null | boolean
+    _.get(nestedObjectWithOptionalField, ['four', 'levels', 'deep', 'value'], defaultValue); // $ExpectType number | boolean
+    _.get(nestedObjectWithOptionalField, ['foo', 'bar']); // $ExpectType string | undefined
+    _.get(nestedObjectWithOptionalField, ['nested', 'with', 'optional']); // $ExpectType string | null | undefined
+    _.get(nestedObjectWithOptionalField, ['four', 'levels', 'deep', 'value']); // $ExpectType number | undefined
 
     _("abc").get(1); // $ExpectType string
     _({ a: false }).get("a"); // $ExpectType boolean
@@ -5471,9 +5514,9 @@ fp.now(); // $ExpectType number
     _.chain(objectWithOptionalField).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({}).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
 
-    fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never>
-    fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never>
-    fp.get([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
+    fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never>
+    fp.get([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.get(1)("abc"); // $ExpectType string
     fp.get("1")("abc"); // $ExpectType any
     fp.get("a", { a: { b: true } }); // $ExpectType { b: boolean; }
@@ -7246,7 +7289,7 @@ fp.now(); // $ExpectType number
     _.chain("a.b[0]").property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     _.chain(["a", "b", 0]).property<SampleObject, number>(); // $ExpectType FunctionChain<(obj: SampleObject) => number>
     fp.property(Symbol.iterator)([]); // $ExpectType any
-    fp.property([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.property([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.property(1)("abc"); // $ExpectType string
 }
 
@@ -7257,7 +7300,7 @@ fp.now(); // $ExpectType number
     _.chain({}).propertyOf() as _.LoDashExplicitWrapper<(path: _.Many<_.PropertyName>) => any>;
 
     fp.propertyOf(Symbol.iterator)([]); // $ExpectType any
-    fp.propertyOf([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never>
+    fp.propertyOf([Symbol.iterator], []); // $ExpectType any || () => IterableIterator<never> || () => BuiltinIterator<never, any, any>
     fp.propertyOf(1)("abc"); // $ExpectType string
 }
 

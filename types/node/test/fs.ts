@@ -5,6 +5,7 @@ import {
     copyFile,
     cp as cpAsync,
     FileHandle,
+    glob as globAsync,
     open as openAsync,
     watch as watchAsync,
     writeFile as writeFileAsync,
@@ -12,7 +13,7 @@ import {
 import { URL } from "node:url";
 import * as util from "node:util";
 import assert = require("node:assert");
-import { CopyOptions, CopySyncOptions, cp, cpSync } from "fs";
+import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
 
 {
     fs.writeFile("thebible.txt", "Do unto others as you would have them do unto you.", assert.ifError);
@@ -895,4 +896,34 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 (async () => {
     await copyFile("source.txt", "destination.txt", constants.COPYFILE_EXCL);
     await access("/etc/passwd", constants.R_OK | constants.W_OK);
+});
+
+// glob
+(async () => {
+    for await (const entry of globAsync("**/*.js")) {
+        entry; // $ExpectType string
+    }
+
+    glob("**/*.js", (err, matches) => {
+        matches; // $ExpectType string[]
+    });
+    glob(
+        "**/*.js",
+        {
+            exclude: (fileName) => {
+                fileName; // $ExpectType string
+                return false;
+            },
+        },
+        (err, matches) => {
+            matches; // $ExpectType string[]
+        },
+    );
+
+    for (const entry of globSync("**/*.js")) {
+        entry; // $ExpectType string
+    }
+    for (const entry of globSync("**/*.js", { cwd: "/" })) {
+        entry; // $ExpectType string
+    }
 });

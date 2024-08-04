@@ -1,5 +1,9 @@
-import { Vector2 } from "../../math/Vector2.js";
-import { CurvePath } from "./CurvePath.js";
+import { Vector2, Vector2Tuple } from "../../math/Vector2.js";
+import { CurvePath, CurvePathJSON } from "./CurvePath.js";
+
+export interface PathJSON extends CurvePathJSON {
+    currentPoint: Vector2Tuple;
+}
 
 /**
  * A 2D {@link Path} representation.
@@ -156,4 +160,7 @@ export class Path extends CurvePath<Vector2> {
      * @param points An array of {@link Vector2 | Vector2's}
      */
     splineThru(pts: Vector2[]): this;
+
+    toJSON(): PathJSON;
+    fromJSON(json: PathJSON): this;
 }

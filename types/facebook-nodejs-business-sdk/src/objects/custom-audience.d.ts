@@ -113,7 +113,7 @@ export default class CustomAudience extends AbstractCrudObject {
     deleteUsers(params?: Record<string, any>): Promise<any>;
     createUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
     createUsersReplace(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<CustomAudience>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<CustomAudience>;
     update(fields: string[], params?: Record<string, any>): Promise<CustomAudience>;
 }

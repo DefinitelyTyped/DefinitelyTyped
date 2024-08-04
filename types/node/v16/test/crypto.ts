@@ -1119,6 +1119,28 @@ import { promisify } from "node:util";
         key,
         dsaEncoding: "der",
     });
+
+    const jwk = key.export({ format: "jwk" });
+    crypto.sign("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    });
+    crypto.sign("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    }, callback);
+    promisify(crypto.sign)("sha256", Buffer.from("asd"), {
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    }).then((signature: Buffer) => {});
+    crypto.createSign("sha256").update(Buffer.from("asd")).sign({
+        format: "jwk",
+        key: jwk,
+        dsaEncoding: "der",
+    });
 }
 
 {
@@ -1174,6 +1196,47 @@ import { promisify } from "node:util";
     crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
         {
             key,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+
+    const jwk = key.export({ format: "jwk" });
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    );
+    crypto.verify(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+        callback,
+    );
+    promisify(crypto.verify)(
+        "sha256",
+        Buffer.from("asd"),
+        {
+            format: "jwk",
+            key: jwk,
+            dsaEncoding: "der",
+        },
+        Buffer.from("sig"),
+    ).then((result: boolean) => {});
+    crypto.createVerify("sha256").update(Buffer.from("asd")).verify(
+        {
+            format: "jwk",
+            key: jwk,
             dsaEncoding: "der",
         },
         Buffer.from("sig"),

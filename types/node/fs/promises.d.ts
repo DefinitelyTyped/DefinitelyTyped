@@ -20,6 +20,7 @@ declare module "fs/promises" {
         CopyOptions,
         Dir,
         Dirent,
+        GlobOptions,
         MakeDirectoryOptions,
         Mode,
         ObjectEncodingOptions,
@@ -1239,6 +1240,10 @@ declare module "fs/promises" {
      * @return Fulfills with `undefined` upon success.
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    function glob(pattern: string | string[], options?: GlobOptions): AsyncIterableIterator<string>;
 }
 declare module "node:fs/promises" {
     export * from "fs/promises";

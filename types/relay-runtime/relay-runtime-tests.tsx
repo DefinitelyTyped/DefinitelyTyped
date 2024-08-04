@@ -137,13 +137,15 @@ const environment = new Environment({
                 break;
         }
     },
-    requiredFieldLogger: arg => {
+    relayFieldLogger: arg => {
         if (arg.kind === "missing_field.log") {
             console.log(arg.fieldPath, arg.owner);
         } else if (arg.kind === "missing_field.throw") {
             console.log(arg.fieldPath, arg.owner);
+        } else if (arg.kind === "relay_resolver.error") {
+            console.log(arg.fieldPath, arg.owner);
         } else {
-            arg.kind; // $ExpectType "relay_resolver.error"
+            arg.kind; // $ExpectType "relay_field_payload.error"
             console.log(arg.fieldPath, arg.owner, arg.error);
         }
     },

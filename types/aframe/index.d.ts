@@ -4,7 +4,6 @@
 
 import * as anime from "animejs";
 import * as three from "three";
-import * as threeDeprecated from "three/examples/jsm/deprecated/Geometry";
 
 export type ThreeLib = typeof three;
 export type AnimeLib = typeof anime;
@@ -194,7 +193,7 @@ export interface EntityEventMap {
 export interface Geometry<T = any> {
     data: T;
     name: string;
-    geometry: threeDeprecated.Geometry;
+    geometry: three.BufferGeometry;
     schema: Schema<any>;
 
     init(data: any): void;

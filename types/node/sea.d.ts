@@ -111,7 +111,7 @@
  * ```
  * @since v19.7.0, v18.16.0
  * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v20.12.0/src/node_sea.cc)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/src/node_sea.cc)
  */
 declare module "node:sea" {
     type AssetKey = string;

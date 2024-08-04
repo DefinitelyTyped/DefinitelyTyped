@@ -202,6 +202,7 @@ export interface ClerkResponseSearchPages extends Omit<ClerkBaseResponse, "resul
 export interface ClerkResponseSearchPage extends ClerkBaseResponse {
     count: number;
     hits: number;
+    query: string;
     product_data: ClerkProductAttributes[];
 }
 

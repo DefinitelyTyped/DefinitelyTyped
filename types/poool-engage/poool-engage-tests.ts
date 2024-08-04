@@ -1,14 +1,40 @@
+import { Poool } from "poool-engage";
+
 // $ExpectType Engage
 Engage;
+
+// $ExpectType boolean
+Engage.isPoool;
 
 // $ExpectType Engage
 window.Engage;
 
+// $ExpectType boolean
+window.Engage.isPoool;
+
 // $ExpectType Engage
 globalThis.Engage;
 
+// $ExpectType boolean
+globalThis.Engage.isPoool;
+
 // $ExpectType Engage
 PooolEngage;
+
+// $ExpectType boolean
+PooolEngage.isPoool;
+
+// $ExpectType Engage
+window.PooolEngage;
+
+// $ExpectType boolean
+window.PooolEngage.isPoool;
+
+// $ExpectType Engage
+globalThis.PooolEngage;
+
+// $ExpectType boolean
+globalThis.PooolEngage.isPoool;
 
 // $ExpectType Engage
 Engage.noConflict();
@@ -86,10 +112,10 @@ engage.variables({
 });
 
 // $ExpectType Engage
-engage.on("click", () => {});
+engage.on("click", () => {}, { once: false });
 
 // $ExpectType Engage
-engage.on("destroy", () => {});
+engage.on("destroy", () => {}, { once: true });
 
 // $ExpectType Engage
 engage.on("error", () => {});
@@ -120,6 +146,41 @@ engage.off("ready", () => {});
 
 // $ExpectType Engage
 engage.off("seen", () => {});
+// $ExpectType Engage
+engage.on("onClick", () => {});
+
+// $ExpectType Engage
+engage.on("onDestroy", () => {});
+
+// $ExpectType Engage
+engage.on("onError", () => {});
+
+// $ExpectType Engage
+engage.on("onFormSubmit", () => {});
+
+// $ExpectType Engage
+engage.on("onReady", () => {});
+
+// $ExpectType Engage
+engage.on("onSeen", () => {});
+
+// $ExpectType Engage
+engage.off("onClick", () => {});
+
+// $ExpectType Engage
+engage.off("onDestroy", () => {});
+
+// $ExpectType Engage
+engage.off("onError", () => {});
+
+// $ExpectType Engage
+engage.off("onFormSubmit", () => {});
+
+// $ExpectType Engage
+engage.off("onReady", () => {});
+
+// $ExpectType Engage
+engage.off("onSeen", () => {});
 
 const element = Engage.createElement("key", "value");
 
@@ -131,3 +192,10 @@ engage.autoCreate();
 
 // $ExpectType Promise<EngageElement[]>
 engage.autoCreate({ filters: ["filter"] });
+
+// $ExpectType { id: string; type: "visitsPerDay" value: string;}
+const display: Poool.EngageDisplayConditions = {
+    id: "id",
+    type: "visitsPerDay",
+    value: "desktop",
+};

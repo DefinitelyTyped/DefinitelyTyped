@@ -382,6 +382,88 @@ declare namespace Ffmpeg {
         ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): void; // tslint:disable-line unified-signatures
         ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): void;
 
+        // event listeners
+        /**
+         * Emitted just after ffmpeg has been spawned.
+         *
+         * @event FfmpegCommand#start
+         * @param {String} command ffmpeg command line
+         */
+        on(event: "start", listener: (command: string) => void): this;
+
+        /**
+         * Emitted when ffmpeg reports progress information
+         *
+         * @event FfmpegCommand#progress
+         * @param {Object} progress progress object
+         * @param {Number} progress.frames number of frames transcoded
+         * @param {Number} progress.currentFps current processing speed in frames per second
+         * @param {Number} progress.currentKbps current output generation speed in kilobytes per second
+         * @param {Number} progress.targetSize current output file size
+         * @param {String} progress.timemark current video timemark
+         * @param {Number} [progress.percent] processing progress (may not be available depending on input)
+         */
+        on(
+            event: "progress",
+            listener: (progress: {
+                frames: number;
+                currentFps: number;
+                currentKbps: number;
+                targetSize: number;
+                timemark: string;
+                percent?: number | undefined;
+            }) => void,
+        ): this;
+
+        /**
+         * Emitted when ffmpeg outputs to stderr
+         *
+         * @event FfmpegCommand#stderr
+         * @param {String} line stderr output line
+         */
+        on(event: "stderr", listener: (line: string) => void): this;
+
+        /**
+         * Emitted when ffmpeg reports input codec data
+         *
+         * @event FfmpegCommand#codecData
+         * @param {Object} codecData codec data object
+         * @param {String} codecData.format input format name
+         * @param {String} codecData.audio input audio codec name
+         * @param {String} codecData.audio_details input audio codec parameters
+         * @param {String} codecData.video input video codec name
+         * @param {String} codecData.video_details input video codec parameters
+         */
+        on(
+            event: "codecData",
+            listener: (codecData: {
+                format: string;
+                audio: string;
+                audio_details: string;
+                video: string;
+                video_details: string;
+            }) => void,
+        ): this;
+
+        /**
+         * Emitted when an error happens when preparing or running a command
+         *
+         * @event FfmpegCommand#error
+         * @param {Error} error error object, with optional properties 'inputStreamError' / 'outputStreamError' for errors on their respective streams
+         * @param {String|null} stdout ffmpeg stdout, unless outputting to a stream
+         * @param {String|null} stderr ffmpeg stderr
+         */
+        on(event: "error", listener: (error: Error, stdout: string | null, stderr: string | null) => void): this;
+
+        /**
+         * Emitted when a command finishes processing
+         *
+         * @event FfmpegCommand#end
+         * @param {Array|String|null} [filenames|stdout] generated filenames when taking screenshots, ffmpeg stdout when not outputting to a stream, null otherwise
+         * @param {String|null} stderr ffmpeg stderr
+         */
+        on(event: "end", listener: (filenames: string[] | string | null, stderr: string | null) => void): this;
+
         // recipes
         saveToFile(output: string): FfmpegCommand;
         save(output: string): FfmpegCommand;

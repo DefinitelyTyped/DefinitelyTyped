@@ -27,7 +27,7 @@
  *   performance.measure('A to B', 'A', 'B');
  * });
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/perf_hooks.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/perf_hooks.js)
  */
 declare module "perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
@@ -830,7 +830,7 @@ declare module "perf_hooks" {
     global {
         /**
          * `PerformanceEntry` is a global reference for `require('node:perf_hooks').PerformanceEntry`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceentry
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceentry
          * @since v19.0.0
          */
         var PerformanceEntry: typeof globalThis extends {
@@ -840,7 +840,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceEntry;
         /**
          * `PerformanceMark` is a global reference for `require('node:perf_hooks').PerformanceMark`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performancemark
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performancemark
          * @since v19.0.0
          */
         var PerformanceMark: typeof globalThis extends {
@@ -850,7 +850,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceMark;
         /**
          * `PerformanceMeasure` is a global reference for `require('node:perf_hooks').PerformanceMeasure`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performancemeasure
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performancemeasure
          * @since v19.0.0
          */
         var PerformanceMeasure: typeof globalThis extends {
@@ -860,7 +860,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceMeasure;
         /**
          * `PerformanceObserver` is a global reference for `require('node:perf_hooks').PerformanceObserver`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceobserver
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceobserver
          * @since v19.0.0
          */
         var PerformanceObserver: typeof globalThis extends {
@@ -870,7 +870,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceObserver;
         /**
          * `PerformanceObserverEntryList` is a global reference for `require('node:perf_hooks').PerformanceObserverEntryList`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceobserverentrylist
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceobserverentrylist
          * @since v19.0.0
          */
         var PerformanceObserverEntryList: typeof globalThis extends {
@@ -880,7 +880,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceObserverEntryList;
         /**
          * `PerformanceResourceTiming` is a global reference for `require('node:perf_hooks').PerformanceResourceTiming`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performanceresourcetiming
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performanceresourcetiming
          * @since v19.0.0
          */
         var PerformanceResourceTiming: typeof globalThis extends {
@@ -890,7 +890,7 @@ declare module "perf_hooks" {
             : typeof _PerformanceResourceTiming;
         /**
          * `performance` is a global reference for `require('node:perf_hooks').performance`
-         * @see https://nodejs.org/docs/latest-v20.x/api/globals.html#performance
+         * @see https://nodejs.org/docs/latest-v22.x/api/globals.html#performance
          * @since v16.0.0
          */
         var performance: typeof globalThis extends {

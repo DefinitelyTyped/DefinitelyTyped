@@ -1,4 +1,4 @@
-// For Library Version: 1.125.0
+// For Library Version: 1.126.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -190,8 +190,9 @@ declare module "sap/ui/layout/library" {
   /**
    * A string type that represents the indent values of the `Grid` for large, medium and small screens.
    *
-   * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 11 that
-   * the container has to take, for example: `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
+   * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+   * of columns from 1 to 11 that the container has to take, for example: `L2 M4 S6`, `M11`, `s10` or `l4
+   * m4`.
    *
    * **Note:** The parameters must be provided in the order .
    */
@@ -219,8 +220,9 @@ declare module "sap/ui/layout/library" {
   /**
    * A string type that represents the span values of the `Grid` for large, medium and small screens.
    *
-   * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-   * the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+   * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+   * of columns from 1 to 12 that the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4
+   * m4`.
    *
    * **Note:** The parameters must be provided in the order .
    */
@@ -11236,9 +11238,9 @@ declare module "sap/ui/layout/Grid" {
      * Gets current value of property {@link #getDefaultIndent defaultIndent}.
      *
      * Optional. Defines default for the whole Grid numbers of empty columns before the current span begins.
-     * It can be defined for large, medium and small screens. Allowed values are separated by space Letters
-     * L, M or S followed by number of columns from 0 to 11 that the container has to take, for example, `L2
-     * M4 S6`, `M11`, `s10` or `l4 m4`.
+     * It can be defined for large, medium and small screens. Allowed values are separated by space with case
+     * insensitive Letters XL, L, M or S followed by number of columns from 0 to 11 that the container has to
+     * take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11252,8 +11254,9 @@ declare module "sap/ui/layout/Grid" {
      * Gets current value of property {@link #getDefaultSpan defaultSpan}.
      *
      * Optional. A string type that represents the span values of the `Grid` for large, medium and small screens.
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11405,9 +11408,9 @@ declare module "sap/ui/layout/Grid" {
      * Sets a new value for property {@link #getDefaultIndent defaultIndent}.
      *
      * Optional. Defines default for the whole Grid numbers of empty columns before the current span begins.
-     * It can be defined for large, medium and small screens. Allowed values are separated by space Letters
-     * L, M or S followed by number of columns from 0 to 11 that the container has to take, for example, `L2
-     * M4 S6`, `M11`, `s10` or `l4 m4`.
+     * It can be defined for large, medium and small screens. Allowed values are separated by space with case
+     * insensitive Letters XL, L, M or S followed by number of columns from 0 to 11 that the container has to
+     * take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11428,8 +11431,9 @@ declare module "sap/ui/layout/Grid" {
      * Sets a new value for property {@link #getDefaultSpan defaultSpan}.
      *
      * Optional. A string type that represents the span values of the `Grid` for large, medium and small screens.
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11552,8 +11556,9 @@ declare module "sap/ui/layout/Grid" {
 
     /**
      * Optional. A string type that represents the span values of the `Grid` for large, medium and small screens.
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example, `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      */
@@ -11561,9 +11566,9 @@ declare module "sap/ui/layout/Grid" {
 
     /**
      * Optional. Defines default for the whole Grid numbers of empty columns before the current span begins.
-     * It can be defined for large, medium and small screens. Allowed values are separated by space Letters
-     * L, M or S followed by number of columns from 0 to 11 that the container has to take, for example, `L2
-     * M4 S6`, `M11`, `s10` or `l4 m4`.
+     * It can be defined for large, medium and small screens. Allowed values are separated by space with case
+     * insensitive Letters XL, L, M or S followed by number of columns from 0 to 11 that the container has to
+     * take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
      *
      * **Note:** The parameters must be provided in the order .
      */
@@ -11684,8 +11689,9 @@ declare module "sap/ui/layout/GridData" {
      *
      * A string type that represents the indent values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 11 that
-     * the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 11 that the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -11849,8 +11855,9 @@ declare module "sap/ui/layout/GridData" {
      *
      * A string type that represents the span values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -12016,8 +12023,9 @@ declare module "sap/ui/layout/GridData" {
      *
      * A string type that represents the indent values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 11 that
-     * the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 11 that the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -12286,8 +12294,9 @@ declare module "sap/ui/layout/GridData" {
      *
      * A string type that represents the span values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      *
@@ -12561,8 +12570,9 @@ declare module "sap/ui/layout/GridData" {
     /**
      * A string type that represents the span values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 12 that
-     * the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 12 that the container has to take, for example: `L2 M4 S6`, `M12`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      */
@@ -12595,8 +12605,9 @@ declare module "sap/ui/layout/GridData" {
     /**
      * A string type that represents the indent values of the `Grid` for large, medium and small screens.
      *
-     * Allowed values are separated by space Letters L, M or S followed by number of columns from 1 to 11 that
-     * the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4 m4`.
+     * Allowed values are separated by space with case insensitive Letters XL, L, M or S followed by number
+     * of columns from 1 to 11 that the container has to take, for example, `L2 M4 S6`, `M11`, `s10` or `l4
+     * m4`.
      *
      * **Note:** The parameters must be provided in the order .
      */

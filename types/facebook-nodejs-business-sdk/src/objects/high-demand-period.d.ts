@@ -19,7 +19,7 @@ export default class HighDemandPeriod extends AbstractCrudObject {
         absolute: "ABSOLUTE";
         multiplier: "MULTIPLIER";
     }>;
-    get(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<string, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<string, any>): Promise<HighDemandPeriod>;
     update(fields: string[], params?: Record<string, any>): Promise<HighDemandPeriod>;
 }

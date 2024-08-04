@@ -122,8 +122,6 @@ declare module "module" {
              */
             findOrigin(lineNumber: number, columnNumber: number): SourceOrigin | {};
         }
-        /** @deprecated Use `ImportAttributes` instead */
-        interface ImportAssertions extends ImportAttributes {}
         interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
@@ -157,10 +155,6 @@ declare module "module" {
              */
             conditions: string[];
             /**
-             * @deprecated Use `importAttributes` instead
-             */
-            importAssertions: ImportAttributes;
-            /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
             importAttributes: ImportAttributes;
@@ -174,10 +168,6 @@ declare module "module" {
              * A hint to the load hook (it might be ignored)
              */
             format?: ModuleFormat | null | undefined;
-            /**
-             * @deprecated Use `importAttributes` instead
-             */
-            importAssertions?: ImportAttributes | undefined;
             /**
              * The import attributes to use when caching the module (optional; if excluded the input will be used)
              */
@@ -218,10 +208,6 @@ declare module "module" {
              * The format optionally supplied by the `resolve` hook chain
              */
             format: ModuleFormat;
-            /**
-             * @deprecated Use `importAttributes` instead
-             */
-            importAssertions: ImportAttributes;
             /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */

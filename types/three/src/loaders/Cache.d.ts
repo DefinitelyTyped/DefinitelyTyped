@@ -1,16 +1,21 @@
-export namespace Cache {
+declare const Cache: {
     /**
      * @default false
      */
-    let enabled: boolean;
+    enabled: boolean;
 
     /**
      * @default {}
      */
-    let files: any;
+    files: any;
 
-    function add(key: string, file: any): void;
-    function get(key: string): any;
-    function remove(key: string): void;
-    function clear(): void;
-}
+    add(key: string, file: any): void;
+
+    get(key: string): any;
+
+    remove(key: string): void;
+
+    clear(): void;
+};
+
+export { Cache };

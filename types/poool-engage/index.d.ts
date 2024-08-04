@@ -1,19 +1,19 @@
 declare global {
-    var Engage: PooolEngage.Engage;
+    var Engage: Poool.Engage;
     /**
      * Use PooolEngage just if you have done `Engage.noConflict()` before
      */
-    var PooolEngage: PooolEngage.Engage;
+    var PooolEngage: Poool.Engage;
 
     interface Window {
-        Engage: PooolEngage.Engage;
+        Engage: Poool.Engage;
         /**
          * Use PooolEngage just if you have done `Engage.noConflict()` before
          */
-        PooolEngage: PooolEngage.Engage;
+        PooolEngage: Poool.Engage;
     }
 }
-export namespace PooolEngage {
+export namespace Poool {
     interface EngageConfigOptions {
         /**
          * When debug mode is enabled, Engage.js will log everything it does in the browser console.
@@ -126,11 +126,17 @@ export namespace PooolEngage {
 
     type EngageEventsList =
         | "ready"
+        | "onReady"
         | "seen"
+        | "onSeen"
         | "click"
+        | "onClick"
         | "formSubmit"
+        | "onFormSubmit"
         | "destroy"
-        | "error";
+        | "onDestroy"
+        | "error"
+        | "onError";
 
     type EngageTextsType =
         | "form_optional"
@@ -151,6 +157,7 @@ export namespace PooolEngage {
         | "views"
         | "viewsPerDay"
         | "visits"
+        | "visitsPerDay"
         | "device"
         | "geoloc"
         | "url"
@@ -214,6 +221,11 @@ export namespace PooolEngage {
 
     interface Engage {
         /**
+         * Whether the Element is a Poool instance, or not
+         */
+        isPoool: boolean;
+
+        /**
          * Creates a new Engage instance (required to display Engage elements) using your app ID.
          *
          * @param key - Your poool app ID
@@ -264,7 +276,7 @@ export namespace PooolEngage {
          *
          * More infos: https://www.poool.dev/docs/engage/javascript/methods#on
          */
-        on(event: EngageEventsList, callback: (...props: any) => any): Engage;
+        on(event: EngageEventsList, callback: (...props: any) => any, opts?: { once?: boolean }): Engage;
 
         /**
          * @param event the event name
