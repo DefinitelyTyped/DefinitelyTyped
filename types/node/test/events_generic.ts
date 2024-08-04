@@ -299,4 +299,18 @@ declare const event5: "event5";
 
     events.on(doubleExtended, "unknown"); // $ExpectType AsyncIterator<any[], any, any>
     events.once(doubleExtended, "unknown"); // $ExpectType Promise<any[]>
+
+    extended.addListener(event1, (a: string, b: number | boolean): number => 1);
+    doubleExtended.addListener(event1, (a: string, b: number | boolean): number => 1);
+    // @ts-expect-error
+    extended.addListener(event1, (a: string, b: boolean): number => 1);
+    // @ts-expect-error
+    doubleExtended.addListener(event1, (a: string, b: boolean): number => 1);
+
+    extended.emit("event1", "hello", 42);
+    doubleExtended.emit("event1", "hello", 42);
+    // @ts-expect-error
+    extended.emit("event1", 123);
+    // @ts-expect-error
+    doubleExtended.emit("event1", 123);
 }
