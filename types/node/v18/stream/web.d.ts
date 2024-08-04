@@ -1,3 +1,31 @@
+type _ByteLengthQueuingStrategy = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").ByteLengthQueuingStrategy;
+type _CompressionStream = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").CompressionStream;
+type _CountQueuingStrategy = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").CountQueuingStrategy;
+type _DecompressionStream = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").DecompressionStream;
+type _ReadableByteStreamController = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").ReadableByteStreamController;
+type _ReadableStream = typeof globalThis extends { onmessage: any } ? {} : import("stream/web").ReadableStream;
+type _ReadableStreamBYOBReader = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").ReadableStreamBYOBReader;
+type _ReadableStreamDefaultController = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").ReadableStreamDefaultController;
+type _ReadableStreamDefaultReader = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").ReadableStreamDefaultReader;
+type _TextDecoderStream = typeof globalThis extends { onmessage: any } ? {} : import("stream/web").TextDecoderStream;
+type _TextEncoderStream = typeof globalThis extends { onmessage: any } ? {} : import("stream/web").TextEncoderStream;
+type _TransformStream = typeof globalThis extends { onmessage: any } ? {} : import("stream/web").TransformStream;
+type _TransformStreamDefaultController = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").TransformStreamDefaultController;
+type _WritableStream = typeof globalThis extends { onmessage: any } ? {} : import("stream/web").WritableStream;
+type _WritableStreamDefaultController = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").WritableStreamDefaultController;
+type _WritableStreamDefaultWriter = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").WritableStreamDefaultWriter;
+
 declare module "stream/web" {
     // stub module, pending copy&paste from .d.ts or manual impl
     // copy from lib.dom.d.ts
@@ -346,6 +374,84 @@ declare module "stream/web" {
         prototype: DecompressionStream;
         new<R = any, W = any>(format: string): DecompressionStream<R, W>;
     };
+
+    global {
+        interface ByteLengthQueuingStrategy extends _ByteLengthQueuingStrategy {}
+        var ByteLengthQueuingStrategy: typeof globalThis extends { onmessage: any; ByteLengthQueuingStrategy: infer T }
+            ? T
+            : typeof import("stream/web").ByteLengthQueuingStrategy;
+
+        interface CompressionStream extends _CompressionStream {}
+        var CompressionStream: typeof globalThis extends { onmessage: any; CompressionStream: infer T } ? T
+            : typeof import("stream/web").CompressionStream;
+
+        interface CountQueuingStrategy extends _CountQueuingStrategy {}
+        var CountQueuingStrategy: typeof globalThis extends { onmessage: any; CountQueuingStrategy: infer T } ? T
+            : typeof import("stream/web").CountQueuingStrategy;
+
+        interface DecompressionStream extends _DecompressionStream {}
+        var DecompressionStream: typeof globalThis extends { onmessage: any; DecompressionStream: infer T } ? T
+            : typeof import("stream/web").DecompressionStream;
+
+        interface ReadableByteStreamController extends _ReadableByteStreamController {}
+        var ReadableByteStreamController: typeof globalThis extends
+            { onmessage: any; ReadableByteStreamController: infer T } ? T
+            : typeof import("stream/web").ReadableByteStreamController;
+
+        interface ReadableStream extends _ReadableStream {}
+        var ReadableStream: typeof globalThis extends { onmessage: any; ReadableStream: infer T } ? T
+            : typeof import("stream/web").ReadableStream;
+
+        interface ReadableStreamBYOBReader extends _ReadableStreamBYOBReader {}
+        var ReadableStreamBYOBReader: typeof globalThis extends { onmessage: any; ReadableStreamBYOBReader: infer T }
+            ? T
+            : typeof import("stream/web").ReadableStreamBYOBReader;
+
+        var ReadableStreamBYOBRequest: typeof globalThis extends { onmessage: any; ReadableStreamBYOBRequest: infer T }
+            ? T
+            : typeof import("stream/web").ReadableStreamBYOBRequest;
+
+        interface ReadableStreamDefaultController extends _ReadableStreamDefaultController {}
+        var ReadableStreamDefaultController: typeof globalThis extends
+            { onmessage: any; ReadableStreamDefaultController: infer T } ? T
+            : typeof import("stream/web").ReadableStreamDefaultController;
+
+        interface ReadableStreamDefaultReader extends _ReadableStreamDefaultReader {}
+        var ReadableStreamDefaultReader: typeof globalThis extends
+            { onmessage: any; ReadableStreamDefaultReader: infer T } ? T
+            : typeof import("stream/web").ReadableStreamDefaultReader;
+
+        interface TextDecoderStream extends _TextDecoderStream {}
+        var TextDecoderStream: typeof globalThis extends { onmessage: any; TextDecoderStream: infer T } ? T
+            : typeof import("stream/web").TextDecoderStream;
+
+        interface TextEncoderStream extends _TextEncoderStream {}
+        var TextEncoderStream: typeof globalThis extends { onmessage: any; TextEncoderStream: infer T } ? T
+            : typeof import("stream/web").TextEncoderStream;
+
+        interface TransformStream extends _TransformStream {}
+        var TransformStream: typeof globalThis extends { onmessage: any; TransformStream: infer T } ? T
+            : typeof import("stream/web").TransformStream;
+
+        interface TransformStreamDefaultController extends _TransformStreamDefaultController {}
+        var TransformStreamDefaultController: typeof globalThis extends
+            { onmessage: any; TransformStreamDefaultController: infer T } ? T
+            : typeof import("stream/web").TransformStreamDefaultController;
+
+        interface WritableStream extends _WritableStream {}
+        var WritableStream: typeof globalThis extends { onmessage: any; WritableStream: infer T } ? T
+            : typeof import("stream/web").WritableStream;
+
+        interface WritableStreamDefaultController extends _WritableStreamDefaultController {}
+        var WritableStreamDefaultController: typeof globalThis extends
+            { onmessage: any; WritableStreamDefaultController: infer T } ? T
+            : typeof import("stream/web").WritableStreamDefaultController;
+
+        interface WritableStreamDefaultWriter extends _WritableStreamDefaultWriter {}
+        var WritableStreamDefaultWriter: typeof globalThis extends
+            { onmessage: any; WritableStreamDefaultWriter: infer T } ? T
+            : typeof import("stream/web").WritableStreamDefaultWriter;
+    }
 }
 declare module "node:stream/web" {
     export * from "stream/web";
