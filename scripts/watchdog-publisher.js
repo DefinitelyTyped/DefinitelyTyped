@@ -155,7 +155,7 @@ function recentPackages(prs) {
                 longest = latency;
                 longestName = name;
             }
-        } else  if (publishDate.valueOf() - mergeDate.valueOf() > 100000000) {
+        } else if (publishDate.valueOf() - mergeDate.valueOf() > 100000000) {
             console.log(`${name}: #${pr} very long latency: ${(publishDate.valueOf() - mergeDate.valueOf()) / 1000}`);
             console.log("       merged:" + mergeDate);
             console.log("    published:" + publishDate);
