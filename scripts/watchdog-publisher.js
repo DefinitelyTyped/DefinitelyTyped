@@ -140,7 +140,11 @@ function recentPackages(prs) {
         const { deprecated, publishDate } = parseNpmInfo(
             sh.exec(`npm info @types/${name} time.modified deprecated`, { silent: true }).stdout.toString(),
         );
-        if (mergeDate > publishDate || isNaN(publishDate.getTime()) || deprecated !== deleted) {
+        if (monthSpan(publishDate, mergeDate) > 1) {
+            console.log(`${name}: published long before merge; probably a rogue edit to #${pr}`);
+            console.log("       merged:" + mergeDate);
+            console.log("    published:" + publishDate);
+        } else if (mergeDate > publishDate || isNaN(publishDate.getTime()) || deprecated !== deleted) {
             console.log(
                 `${name}: #${pr} not published yet; latency so far: ${(Date.now() - mergeDate.valueOf()) / 1000}`,
             );
@@ -151,11 +155,7 @@ function recentPackages(prs) {
                 longest = latency;
                 longestName = name;
             }
-        } else if (monthSpan(publishDate, mergeDate) > 1) {
-            console.log(`${name}: published long before merge; probably a rogue edit to #${pr}`);
-            console.log("       merged:" + mergeDate);
-            console.log("    published:" + publishDate);
-        } else if (publishDate.valueOf() - mergeDate.valueOf() > 100000000) {
+        } else  if (publishDate.valueOf() - mergeDate.valueOf() > 100000000) {
             console.log(`${name}: #${pr} very long latency: ${(publishDate.valueOf() - mergeDate.valueOf()) / 1000}`);
             console.log("       merged:" + mergeDate);
             console.log("    published:" + publishDate);
