@@ -1,6 +1,6 @@
 {
   "name": "@types/fast-decode-uri-component",
-  "version": "0.1.0.9999",
+  "version": "0.1.9999",
   "private": true,
   "owners": [{ "name": "Hussein", "githubUsername": "huseeiin" }],
   "projects": ["https://github.com/delvedor/fast-decode-uri-component"],
