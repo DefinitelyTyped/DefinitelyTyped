@@ -145,6 +145,11 @@ declare namespace fileUpload {
          * @default 60_000
          */
         uploadTimeout?: number | undefined;
+        /**
+         * Allows the usage of alternative hashing algorithms for file integrity checks. This option must be an algorithm that is supported on the running system's installed OpenSSL version.
+         * @default 'md5'
+         */
+        hashAlgorithm?: string | undefined;
     }
 }
 
