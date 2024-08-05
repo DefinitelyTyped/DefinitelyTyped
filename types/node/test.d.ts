@@ -76,11 +76,10 @@
  *
  * If any tests fail, the process exit code is set to `1`.
  * @since v18.0.0, v16.17.0
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/test.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test.js)
  */
 declare module "node:test" {
     import { Readable } from "node:stream";
-    import { AsyncResource } from "node:async_hooks";
     /**
      * **Note:** `shard` is used to horizontally parallelize test running across
      * machines or processes, ideal for large-scale executions across varied
@@ -98,7 +97,7 @@ declare module "node:test" {
      *   .pipe(process.stdout);
      * ```
      * @since v18.9.0, v16.19.0
-     * @param options Configuration options for running tests. The following properties are supported:
+     * @param options Configuration options for running tests.
      */
     function run(options?: RunOptions): TestsStream;
     /**
@@ -133,10 +132,11 @@ declare module "node:test" {
      * canceling tests because a running test might block the application thread and
      * thus prevent the scheduled cancellation.
      * @since v18.0.0, v16.17.0
-     * @param [name='The name'] The name of the test, which is displayed when reporting test results.
-     * @param options Configuration options for the test. The following properties are supported:
-     * @param [fn='A no-op function'] The function under test. The first argument to this function is a {@link TestContext} object. If the test uses callbacks, the
-     * callback function is passed as the second argument.
+     * @param name The name of the test, which is displayed when reporting test results.
+     * Defaults to the `name` property of `fn`, or `'<anonymous>'` if `fn` does not have a name.
+     * @param options Configuration options for the test.
+     * @param fn The function under test. The first argument to this function is a {@link TestContext} object.
+     * If the test uses callbacks, the callback function is passed as the second argument.
      * @return Fulfilled with `undefined` once the test completes, or immediately if the test runs within a suite.
      */
     function test(name?: string, fn?: TestFn): Promise<void>;
@@ -144,13 +144,14 @@ declare module "node:test" {
     function test(options?: TestOptions, fn?: TestFn): Promise<void>;
     function test(fn?: TestFn): Promise<void>;
     namespace test {
-        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, test, todo };
+        export { after, afterEach, before, beforeEach, describe, it, mock, only, run, skip, suite, test, todo };
     }
     /**
      * The `suite()` function is imported from the `node:test` module.
-     * @param name The name of the suite, which is displayed when reporting test results. **Default:** The `name` property of `fn`, or `'<anonymous>'` if `fn` does not have a name.
-     * @param options Optional configuration options for the suite. This supports the same options as `test([name][, options][, fn])`.
-     * @param [fn='A no-op function'] The suite function declaring nested tests and suites. The first argument to this function is a `{@link SuiteContext}` object.
+     * @param name The name of the suite, which is displayed when reporting test results.
+     * Defaults to the `name` property of `fn`, or `'<anonymous>'` if `fn` does not have a name.
+     * @param options Configuration options for the suite. This supports the same options as {@link test}.
+     * @param fn The suite function declaring nested tests and suites. The first argument to this function is a {@link SuiteContext} object.
      * @return Immediately fulfilled with `undefined`.
      * @since v20.13.0
      */
@@ -160,7 +161,7 @@ declare module "node:test" {
     function suite(fn?: SuiteFn): Promise<void>;
     namespace suite {
         /**
-         * Shorthand for skipping a suite. This is the same as [`suite([name], { skip: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * Shorthand for skipping a suite. This is the same as calling {@link suite} with `options.skip` set to `true`.
          * @since v20.13.0
          */
         function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -168,7 +169,7 @@ declare module "node:test" {
         function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function skip(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `TODO`. This is the same as [`suite([name], { todo: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * Shorthand for marking a suite as `TODO`. This is the same as calling {@link suite} with `options.todo` set to `true`.
          * @since v20.13.0
          */
         function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -176,7 +177,7 @@ declare module "node:test" {
         function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function todo(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `only`. This is the same as [`suite([name], { only: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#suitename-options-fn).
+         * Shorthand for marking a suite as `only`. This is the same as calling {@link suite} with `options.only` set to `true`.
          * @since v20.13.0
          */
         function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -185,7 +186,7 @@ declare module "node:test" {
         function only(fn?: SuiteFn): Promise<void>;
     }
     /**
-     * Alias for `{@link suite}`.
+     * Alias for {@link suite}.
      *
      * The `describe()` function is imported from the `node:test` module.
      */
@@ -195,7 +196,7 @@ declare module "node:test" {
     function describe(fn?: SuiteFn): Promise<void>;
     namespace describe {
         /**
-         * Shorthand for skipping a suite. This is the same as [`describe([name], { skip: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
+         * Shorthand for skipping a suite. This is the same as calling {@link describe} with `options.skip` set to `true`.
          * @since v18.15.0
          */
         function skip(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -203,7 +204,7 @@ declare module "node:test" {
         function skip(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function skip(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `TODO`. This is the same as [`describe([name], { todo: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
+         * Shorthand for marking a suite as `TODO`. This is the same as calling {@link describe} with `options.todo` set to `true`.
          * @since v18.15.0
          */
         function todo(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -211,7 +212,7 @@ declare module "node:test" {
         function todo(options?: TestOptions, fn?: SuiteFn): Promise<void>;
         function todo(fn?: SuiteFn): Promise<void>;
         /**
-         * Shorthand for marking a suite as `only`. This is the same as [`describe([name], { only: true }[, fn])`](https://nodejs.org/docs/latest-v20.x/api/test.html#describename-options-fn).
+         * Shorthand for marking a suite as `only`. This is the same as calling {@link describe} with `options.only` set to `true`.
          * @since v18.15.0
          */
         function only(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -220,7 +221,7 @@ declare module "node:test" {
         function only(fn?: SuiteFn): Promise<void>;
     }
     /**
-     * Alias for `test()`.
+     * Alias for {@link test}.
      *
      * The `it()` function is imported from the `node:test` module.
      * @since v18.6.0, v16.17.0
@@ -231,21 +232,21 @@ declare module "node:test" {
     function it(fn?: TestFn): Promise<void>;
     namespace it {
         /**
-         * Shorthand for skipping a test, same as `it([name], { skip: true }[, fn])`.
+         * Shorthand for skipping a test. This is the same as calling {@link it} with `options.skip` set to `true`.
          */
         function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
         function skip(name?: string, fn?: TestFn): Promise<void>;
         function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
         function skip(fn?: TestFn): Promise<void>;
         /**
-         * Shorthand for marking a test as `TODO`, same as `it([name], { todo: true }[, fn])`.
+         * Shorthand for marking a test as `TODO`. This is the same as calling {@link it} with `options.todo` set to `true`.
          */
         function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
         function todo(name?: string, fn?: TestFn): Promise<void>;
         function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
         function todo(fn?: TestFn): Promise<void>;
         /**
-         * Shorthand for marking a test as `only`, same as `it([name], { only: true }[, fn])`.
+         * Shorthand for marking a test as `only`. This is the same as calling {@link it} with `options.only` set to `true`.
          * @since v18.15.0
          */
         function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
@@ -254,7 +255,7 @@ declare module "node:test" {
         function only(fn?: TestFn): Promise<void>;
     }
     /**
-     * Shorthand for skipping a test, same as `test([name], { skip: true }[, fn])`.
+     * Shorthand for skipping a test. This is the same as calling {@link test} with `options.skip` set to `true`.
      * @since v20.2.0
      */
     function skip(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
@@ -262,7 +263,7 @@ declare module "node:test" {
     function skip(options?: TestOptions, fn?: TestFn): Promise<void>;
     function skip(fn?: TestFn): Promise<void>;
     /**
-     * Shorthand for marking a test as `TODO`, same as `test([name], { todo: true }[, fn])`.
+     * Shorthand for marking a test as `TODO`. This is the same as calling {@link test} with `options.todo` set to `true`.
      * @since v20.2.0
      */
     function todo(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
@@ -270,7 +271,7 @@ declare module "node:test" {
     function todo(options?: TestOptions, fn?: TestFn): Promise<void>;
     function todo(fn?: TestFn): Promise<void>;
     /**
-     * Shorthand for marking a test as `only`, same as `test([name], { only: true }[, fn])`.
+     * Shorthand for marking a test as `only`. This is the same as calling {@link test} with `options.only` set to `true`.
      * @since v20.2.0
      */
     function only(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
@@ -278,18 +279,17 @@ declare module "node:test" {
     function only(options?: TestOptions, fn?: TestFn): Promise<void>;
     function only(fn?: TestFn): Promise<void>;
     /**
-     * The type of a function under test. The first argument to this function is a
-     * {@link TestContext} object. If the test uses callbacks, the callback function is passed as
-     * the second argument.
+     * The type of a function passed to {@link test}. The first argument to this function is a {@link TestContext} object.
+     * If the test uses callbacks, the callback function is passed as the second argument.
      */
     type TestFn = (t: TestContext, done: (result?: any) => void) => void | Promise<void>;
     /**
-     * The type of a function under Suite.
+     * The type of a suite test function. The argument to this function is a {@link SuiteContext} object.
      */
     type SuiteFn = (s: SuiteContext) => void | Promise<void>;
     interface TestShard {
         /**
-         * A positive integer between 1 and `<total>` that specifies the index of the shard to run.
+         * A positive integer between 1 and `total` that specifies the index of the shard to run.
          */
         index: number;
         /**
@@ -305,8 +305,8 @@ declare module "node:test" {
          */
         concurrency?: number | boolean | undefined;
         /**
-         * An array containing the list of files to run. **Default** matching files from
-         * [test runner execution model](https://nodejs.org/docs/latest-v20.x/api/test.html#test-runner-execution-model).
+         * An array containing the list of files to run. If omitted, files are run according to the
+         * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
          */
         files?: readonly string[] | undefined;
         /**
@@ -326,26 +326,33 @@ declare module "node:test" {
         /**
          * If truthy, the test context will only run tests that have the `only` option set
          */
-        only?: boolean;
+        only?: boolean | undefined;
         /**
          * A function that accepts the `TestsStream` instance and can be used to setup listeners before any tests are run.
          * @default undefined
          */
-        setup?: (root: Test) => void | Promise<void>;
+        setup?: ((reporter: TestsStream) => void | Promise<void>) | undefined;
         /**
          * Allows aborting an in-progress test execution.
          */
         signal?: AbortSignal | undefined;
         /**
-         * A String, RegExp or a RegExp Array, that can be used to only run tests whose
+         * If provided, only run tests whose name matches the provided pattern.
+         * Strings are interpreted as JavaScript regular expressions.
+         * @default undefined
+         */
+        testNamePatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
+        /**
+         * A String, RegExp or a RegExp Array, that can be used to exclude running tests whose
          * name matches the provided pattern. Test name patterns are interpreted as JavaScript
          * regular expressions. For each test that is executed, any corresponding test hooks,
          * such as `beforeEach()`, are also run.
          * @default undefined
+         * @since v22.1.0
          */
-        testNamePatterns?: string | RegExp | string[] | RegExp[];
+        testSkipPatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
         /**
-         * A number of milliseconds the test execution will fail after.
+         * The number of milliseconds after which the test execution will fail.
          * If unspecified, subtests inherit this value from their parent.
          * @default Infinity
          */
@@ -361,18 +368,8 @@ declare module "node:test" {
          */
         shard?: TestShard | undefined;
     }
-    class Test extends AsyncResource {
-        concurrency: number;
-        nesting: number;
-        only: boolean;
-        reporter: TestsStream;
-        runOnlySubtests: boolean;
-        testNumber: number;
-        timeout: number | null;
-    }
     /**
-     * A successful call to `run()` method will return a new `TestsStream` object, streaming a series of events representing the execution of the tests. `TestsStream` will emit events, in the
-     * order of the tests definition
+     * A successful call to `run()` will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.
      *
      * Some of the events are guaranteed to be emitted in the same order as the tests are defined, while others are emitted in the order that the tests execute.
      * @since v18.9.0, v16.19.0
@@ -389,6 +386,7 @@ declare module "node:test" {
         addListener(event: "test:start", listener: (data: TestStart) => void): this;
         addListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         addListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        addListener(event: "test:watch:drained", listener: () => void): this;
         addListener(event: string, listener: (...args: any[]) => void): this;
         emit(event: "test:coverage", data: TestCoverage): boolean;
         emit(event: "test:complete", data: TestComplete): boolean;
@@ -401,6 +399,7 @@ declare module "node:test" {
         emit(event: "test:start", data: TestStart): boolean;
         emit(event: "test:stderr", data: TestStderr): boolean;
         emit(event: "test:stdout", data: TestStdout): boolean;
+        emit(event: "test:watch:drained"): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
         on(event: "test:coverage", listener: (data: TestCoverage) => void): this;
         on(event: "test:complete", listener: (data: TestComplete) => void): this;
@@ -413,6 +412,7 @@ declare module "node:test" {
         on(event: "test:start", listener: (data: TestStart) => void): this;
         on(event: "test:stderr", listener: (data: TestStderr) => void): this;
         on(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        on(event: "test:watch:drained", listener: () => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: "test:coverage", listener: (data: TestCoverage) => void): this;
         once(event: "test:complete", listener: (data: TestComplete) => void): this;
@@ -425,6 +425,7 @@ declare module "node:test" {
         once(event: "test:start", listener: (data: TestStart) => void): this;
         once(event: "test:stderr", listener: (data: TestStderr) => void): this;
         once(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        once(event: "test:watch:drained", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
         prependListener(event: "test:complete", listener: (data: TestComplete) => void): this;
@@ -437,6 +438,7 @@ declare module "node:test" {
         prependListener(event: "test:start", listener: (data: TestStart) => void): this;
         prependListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        prependListener(event: "test:watch:drained", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "test:coverage", listener: (data: TestCoverage) => void): this;
         prependOnceListener(event: "test:complete", listener: (data: TestComplete) => void): this;
@@ -449,6 +451,7 @@ declare module "node:test" {
         prependOnceListener(event: "test:start", listener: (data: TestStart) => void): this;
         prependOnceListener(event: "test:stderr", listener: (data: TestStderr) => void): this;
         prependOnceListener(event: "test:stdout", listener: (data: TestStdout) => void): this;
+        prependOnceListener(event: "test:watch:drained", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
     }
     /**
@@ -460,32 +463,28 @@ declare module "node:test" {
     class TestContext {
         /**
          * This function is used to create a hook running before subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. **Default:** A no-op function.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v20.1.0
          */
         before: typeof before;
         /**
          * This function is used to create a hook running before each subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. **Default:** A no-op function.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
         beforeEach: typeof beforeEach;
         /**
          * This function is used to create a hook that runs after the current test finishes.
-         * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. Default: A no-op function.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.13.0
          */
         after: typeof after;
         /**
          * This function is used to create a hook running after each subtest of the current test.
-         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as
-         *    the second argument. **Default:** A no-op function.
+         * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
          * @since v18.8.0
          */
@@ -573,11 +572,10 @@ declare module "node:test" {
          * the same fashion as the top level {@link test} function.
          * @since v18.0.0
          * @param name The name of the test, which is displayed when reporting test results.
-         *    Default: The `name` property of fn, or `'<anonymous>'` if `fn` does not have a name.
-         * @param options Configuration options for the test
-         * @param fn The function under test. This first argument to this function is a
-         *    {@link TestContext} object. If the test uses callbacks, the callback function is
-         *    passed as the second argument. **Default:** A no-op function.
+         * Defaults to the `name` property of `fn`, or `'<anonymous>'` if `fn` does not have a name.
+         * @param options Configuration options for the test.
+         * @param fn The function under test. This first argument to this function is a {@link TestContext} object.
+         * If the test uses callbacks, the callback function is passed as the second argument.
          * @returns A {@link Promise} resolved with `undefined` once the test completes.
          */
         test: typeof test;
@@ -658,8 +656,8 @@ declare module "node:test" {
      * });
      * ```
      * @since v18.8.0, v16.18.0
-     * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
-     * @param options Configuration options for the hook. The following properties are supported:
+     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+     * @param options Configuration options for the hook.
      */
     function before(fn?: HookFn, options?: HookOptions): void;
     /**
@@ -674,8 +672,8 @@ declare module "node:test" {
      * });
      * ```
      * @since v18.8.0, v16.18.0
-     * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
-     * @param options Configuration options for the hook. The following properties are supported:
+     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+     * @param options Configuration options for the hook.
      */
     function after(fn?: HookFn, options?: HookOptions): void;
     /**
@@ -690,8 +688,8 @@ declare module "node:test" {
      * });
      * ```
      * @since v18.8.0, v16.18.0
-     * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
-     * @param options Configuration options for the hook. The following properties are supported:
+     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+     * @param options Configuration options for the hook.
      */
     function beforeEach(fn?: HookFn, options?: HookOptions): void;
     /**
@@ -707,8 +705,8 @@ declare module "node:test" {
      * });
      * ```
      * @since v18.8.0, v16.18.0
-     * @param [fn='A no-op function'] The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
-     * @param options Configuration options for the hook. The following properties are supported:
+     * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
+     * @param options Configuration options for the hook.
      */
     function afterEach(fn?: HookFn, options?: HookOptions): void;
     /**
@@ -798,10 +796,10 @@ declare module "node:test" {
          * });
          * ```
          * @since v19.1.0, v18.13.0
-         * @param [original='A no-op function'] An optional function to create a mock on.
+         * @param original An optional function to create a mock on.
          * @param implementation An optional function used as the mock implementation for `original`. This is useful for creating mocks that exhibit one behavior for a specified number of calls and
          * then restore the behavior of `original`.
-         * @param options Optional configuration options for the mock function. The following properties are supported:
+         * @param options Optional configuration options for the mock function.
          * @return The mocked function. The mocked function contains a special `mock` property, which is an instance of {@link MockFunctionContext}, and can be used for inspecting and changing the
          * behavior of the mocked function.
          */
@@ -843,7 +841,7 @@ declare module "node:test" {
          * @param object The object whose method is being mocked.
          * @param methodName The identifier of the method on `object` to mock. If `object[methodName]` is not a function, an error is thrown.
          * @param implementation An optional function used as the mock implementation for `object[methodName]`.
-         * @param options Optional configuration options for the mock method. The following properties are supported:
+         * @param options Optional configuration options for the mock method.
          * @return The mocked method. The mocked method contains a special `mock` property, which is an instance of {@link MockFunctionContext}, and can be used for inspecting and changing the
          * behavior of the mocked method.
          */
@@ -923,6 +921,7 @@ declare module "node:test" {
             implementation?: Implementation,
             options?: MockFunctionOptions,
         ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
+
         /**
          * This function restores the default behavior of all mocks that were previously
          * created by this `MockTracker` and disassociates the mocks from the `MockTracker` instance. Once disassociated, the mocks can still be used, but the `MockTracker` instance can no longer be
@@ -941,17 +940,7 @@ declare module "node:test" {
          * @since v19.1.0, v18.13.0
          */
         restoreAll(): void;
-        /**
-         * This function is used to mock the exports of ECMAScript modules,
-         * CommonJS modules, and Node.js builtin modules. Any references to
-         * the original module prior to mocking are not impacted
-         * @since v22.3.0
-         */
-        module(speficier: string, options?: {
-            cache?: boolean;
-            defaultExport?: any;
-            namedExports?: object;
-        }): { restore: () => void };
+
         timers: MockTimers;
     }
     const mock: MockTracker;
@@ -1092,11 +1081,11 @@ declare module "node:test" {
          */
         restore(): void;
     }
-    type Timer = "setInterval" | "setTimeout" | "setImmediate" | "Date";
 
+    type Timer = "setInterval" | "setTimeout" | "setImmediate" | "Date";
     interface MockTimersOptions {
         apis: Timer[];
-        now?: number | Date;
+        now?: number | Date | undefined;
     }
     /**
      * Mocking timers is a technique commonly used in software testing to simulate and
@@ -1326,6 +1315,7 @@ declare module "node:test" {
         only,
         run,
         skip,
+        suite,
         SuiteContext,
         test,
         test as default,
@@ -1334,6 +1324,9 @@ declare module "node:test" {
     };
 }
 
+interface TestError extends Error {
+    cause: Error;
+}
 interface TestLocationInfo {
     /**
      * The column number where the test is defined, or
@@ -1365,7 +1358,7 @@ interface TestCoverage {
      */
     summary: {
         /**
-         * An array of coverage reports for individual files. Each report is an object with the following schema:
+         * An array of coverage reports for individual files.
          */
         files: Array<{
             /**
@@ -1422,6 +1415,19 @@ interface TestCoverage {
                 line: number;
                 /**
                  * The number of times the function was called.
+                 */
+                count: number;
+            }>;
+            /**
+             * An array of branches representing branch coverage.
+             */
+            branches: Array<{
+                /**
+                 * The line number where the branch is defined.
+                 */
+                line: number;
+                /**
+                 * The number of times the branch was taken.
                  */
                 count: number;
             }>;
@@ -1508,7 +1514,7 @@ interface TestComplete extends TestLocationInfo {
         /**
          * An error wrapping the error thrown by the test if it did not pass.
          */
-        error: Error;
+        error?: TestError;
         /**
          * The type of the test, used to denote whether this is a suite.
          */
@@ -1565,9 +1571,9 @@ interface TestFail extends TestLocationInfo {
          */
         duration_ms: number;
         /**
-         * An error wrapping the error thrown by the test if it did not pass.
+         * An error wrapping the error thrown by the test.
          */
-        error: Error;
+        error: TestError;
         /**
          * The type of the test, used to denote whether this is a suite.
          * @since v20.0.0, v19.9.0, v18.17.0
@@ -1651,13 +1657,21 @@ interface TestStart extends TestLocationInfo {
      */
     nesting: number;
 }
-interface TestStderr extends TestLocationInfo {
+interface TestStderr {
+    /**
+     * The path of the test file.
+     */
+    file: string;
     /**
      * The message written to `stderr`.
      */
     message: string;
 }
-interface TestStdout extends TestLocationInfo {
+interface TestStdout {
+    /**
+     * The path of the test file.
+     */
+    file: string;
     /**
      * The message written to `stdout`.
      */
@@ -1679,7 +1693,7 @@ interface TestStdout extends TestLocationInfo {
  * import test from 'test/reporters';
  * ```
  * @since v19.9.0
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/test/reporters.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/test/reporters.js)
  */
 declare module "node:test/reporters" {
     import { Transform, TransformOptions } from "node:stream";
@@ -1696,7 +1710,7 @@ declare module "node:test/reporters" {
         | { type: "test:start"; data: TestStart }
         | { type: "test:stderr"; data: TestStderr }
         | { type: "test:stdout"; data: TestStdout }
-        | { type: "test:watch:drained" };
+        | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
     /**
@@ -1720,7 +1734,7 @@ declare module "node:test/reporters" {
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
     /**
-     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--experimental-test-coverage) flag.
+     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--experimental-test-coverage) flag.
      */
     class Lcov extends Transform {
         constructor(opts?: TransformOptions);

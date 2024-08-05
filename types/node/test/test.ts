@@ -11,6 +11,7 @@ import {
     only,
     run,
     skip,
+    suite,
     type SuiteContext,
     test,
     type TestContext,
@@ -36,9 +37,13 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
-    testNamePatterns: ["executed"],
+    testNamePatterns: ["executed", /^core-/],
+    testSkipPatterns: ["excluded", /^lib-/],
     only: true,
-    setup: (root) => {},
+    setup: (reporter) => {
+        // $ExpectType TestsStream
+        reporter;
+    },
     watch: true,
     shard: {
         index: 1,
@@ -150,6 +155,7 @@ test.test.test("chained self ref", (t) => {
     t.test;
 });
 test.skip("skip", () => {});
+test.suite("suite", () => {});
 test.todo("todo", () => {});
 test.only("only", () => {});
 
@@ -330,6 +336,109 @@ describe(1, () => {});
 // @ts-expect-error
 it(1, () => {});
 
+// suite() signatures
+// $ExpectType Promise<void>
+suite();
+// $ExpectType Promise<void>
+suite("foo");
+// $ExpectType Promise<void>
+suite("foo", () => {});
+// $ExpectType Promise<void>
+suite("foo", {
+    concurrency: false,
+    only: true,
+    signal: new AbortController().signal,
+    skip: false,
+    timeout: 30_000,
+    todo: true,
+});
+// $ExpectType Promise<void>
+suite("foo", {
+    concurrency: 5,
+    todo: "foo",
+}, async () => {});
+// $ExpectType Promise<void>
+suite(() => {});
+
+// suite.skip() signatures
+// $ExpectType Promise<void>
+suite.skip();
+// $ExpectType Promise<void>
+suite.skip("foo");
+// $ExpectType Promise<void>
+suite.skip("foo", () => {});
+// $ExpectType Promise<void>
+suite.skip("foo", {
+    concurrency: false,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: 30_000,
+    todo: true,
+});
+// $ExpectType Promise<void>
+suite.skip("foo", {
+    concurrency: 5,
+    todo: "foo",
+}, async () => {});
+// $ExpectType Promise<void>
+suite.skip(() => {});
+
+// suite.todo() signatures
+// $ExpectType Promise<void>
+suite.todo();
+// $ExpectType Promise<void>
+suite.todo("foo");
+// $ExpectType Promise<void>
+suite.todo("foo", () => {});
+// $ExpectType Promise<void>
+suite.todo("foo", {
+    concurrency: false,
+    only: true,
+    signal: new AbortController().signal,
+    skip: false,
+    timeout: 30_000,
+});
+// $ExpectType Promise<void>
+suite.todo("foo", {
+    concurrency: 5,
+    timeout: Infinity,
+}, async () => {});
+// $ExpectType Promise<void>
+suite.todo(() => {});
+
+// suite.only() signatures
+// $ExpectType Promise<void>
+suite.only();
+// $ExpectType Promise<void>
+suite.only("foo");
+// $ExpectType Promise<void>
+suite.only("foo", () => {});
+// $ExpectType Promise<void>
+suite.only("foo", {
+    concurrency: false,
+    signal: new AbortController().signal,
+    skip: false,
+    timeout: 30_000,
+    todo: true,
+});
+// $ExpectType Promise<void>
+suite.only("foo", {
+    concurrency: 5,
+    todo: "foo",
+}, async () => {});
+// $ExpectType Promise<void>
+suite.only(() => {});
+
+// SuiteContext
+suite("foo", (context) => {
+    // $ExpectType SuiteContext
+    context;
+    // $ExpectType string
+    context.name;
+    // $ExpectType AbortSignal
+    context.signal;
+});
+
 // Hooks
 // - without callback
 before(() => {});
@@ -391,22 +500,6 @@ test("mocks a counting function", (t) => {
     const fn = t.mock.fn(addOne, addTwo, { times: 2 });
     // $ExpectType number
     fn();
-
-    const mock = t.mock.module("node:readline", {
-        namedExports: {
-            fn() {
-                return 42;
-            },
-        },
-        defaultExport: {
-            foo() {
-                return "bar";
-            },
-        },
-        cache: true,
-    });
-    // $ExpectType void
-    mock.restore();
 });
 
 test("spies on an object method", (t) => {
@@ -725,17 +818,41 @@ class TestReporter extends Transform {
     }
     _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
         switch (event.type) {
+            case "test:complete": {
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
+                callback(
+                    null,
+                    `${name}/${details.duration_ms}/${details.type}/${details.error}/
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                );
+                break;
+            }
+            case "test:coverage": {
+                const { summary, nesting } = event.data;
+                callback(null, `${nesting}/${summary.workingDirectory}/${summary.totals.totalLineCount}`);
+                break;
+            }
+            case "test:dequeue": {
+                const { file, column, line, name, nesting } = event.data;
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
+                break;
+            }
             case "test:diagnostic": {
                 const { file, column, line, message, nesting } = event.data;
                 callback(null, `${message}/${nesting}/${file}/${column}/${line}`);
+                break;
+            }
+            case "test:enqueue": {
+                const { file, column, line, name, nesting } = event.data;
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
             }
             case "test:fail": {
                 const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
                 callback(
                     null,
-                    `${name}/${details.duration_ms}/${details.type}/
-                    ${details.error}/${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                    `${name}/${details.duration_ms}/${details.type}/${details.error.cause}/
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
                 );
                 break;
             }
@@ -759,23 +876,13 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:stderr": {
-                const { file, column, line, message } = event.data;
-                callback(null, `${message}/${file}/${column}/${line}`);
+                const { file, message } = event.data;
+                callback(null, `${message}/${file}`);
                 break;
             }
             case "test:stdout": {
-                const { file, column, line, message } = event.data;
-                callback(null, `${message}/${file}/${column}/${line}`);
-                break;
-            }
-            case "test:enqueue": {
-                const { file, column, line, name, nesting } = event.data;
-                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
-                break;
-            }
-            case "test:dequeue": {
-                const { file, column, line, name, nesting } = event.data;
-                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
+                const { file, message } = event.data;
+                callback(null, `${message}/${file}`);
                 break;
             }
             case "test:watch:drained":

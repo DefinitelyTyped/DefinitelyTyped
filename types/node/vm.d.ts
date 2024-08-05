@@ -34,7 +34,7 @@
  *
  * console.log(x); // 1; y is not defined.
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/vm.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/vm.js)
  */
 declare module "vm" {
     import { ImportAttributes } from "node:module";
@@ -66,7 +66,7 @@ declare module "vm" {
         /**
          * Used to specify how the modules should be loaded during the evaluation of this script when `import()` is called. This option is
          * part of the experimental modules API. We do not recommend using it in a production environment. For detailed information, see
-         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
         importModuleDynamically?:
             | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
@@ -348,9 +348,9 @@ declare module "vm" {
     }
     /**
      * If given a `contextObject`, the `vm.createContext()` method will
-     * [prepare that object](https://nodejs.org/docs/latest-v20.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
+     * [prepare that object](https://nodejs.org/docs/latest-v22.x/api/vm.html#what-does-it-mean-to-contextify-an-object)
      * and return a reference to it so that it can be used in `{@link runInContext}` or
-     * [`script.runInContext()`](https://nodejs.org/docs/latest-v20.x/api/vm.html#scriptrunincontextcontextifiedobject-options). Inside such
+     * [`script.runInContext()`](https://nodejs.org/docs/latest-v22.x/api/vm.html#scriptrunincontextcontextifiedobject-options). Inside such
      * scripts, the `contextObject` will be the global object, retaining all of its
      * existing properties but also having the built-in objects and functions any
      * standard [global object](https://es5.github.io/#x15.1) has. Outside of scripts run by the vm module, global
@@ -598,8 +598,6 @@ declare module "vm" {
         specifier: string,
         referencingModule: Module,
         extra: {
-            /** @deprecated Use `attributes` instead */
-            assert: ImportAttributes;
             attributes: ImportAttributes;
         },
     ) => Module | Promise<Module>;
@@ -914,7 +912,7 @@ declare module "vm" {
          * and `vm.compileFunction()` so that Node.js uses the default ESM loader from the main
          * context to load the requested module.
          *
-         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v20.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
+         * For detailed information, see [Support of dynamic `import()` in compilation APIs](https://nodejs.org/docs/latest-v22.x/api/vm.html#support-of-dynamic-import-in-compilation-apis).
          */
         const USE_MAIN_CONTEXT_DEFAULT_LOADER: number;
     }

@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/swiz": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Jeff Goddard",
-            "githubUsername": "jedigo"
-        }
-    ]
+    "owners": []
 }

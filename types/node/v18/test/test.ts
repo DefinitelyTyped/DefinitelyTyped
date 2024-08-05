@@ -31,9 +31,12 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
-    testNamePatterns: ["executed"],
+    testNamePatterns: ["executed", /^core-/],
     only: true,
-    setup: (root) => {},
+    setup: (reporter) => {
+        // $ExpectType TestsStream
+        reporter;
+    },
     watch: true,
     shard: {
         index: 1,
@@ -589,14 +592,17 @@ class TestReporter extends Transform {
     }
     _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
         switch (event.type) {
+            case "test:coverage":
+                callback(null, `${event.data.nesting}/${event.data.summary.totals.totalLineCount}`);
+                break;
             case "test:diagnostic":
                 callback(null, `${event.data.message}/${event.data.nesting}/${event.data.file}`);
                 break;
             case "test:fail":
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/
-                    ${event.data.details.error}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.details.type}/${event.data.details.error.cause}/
+                    ${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
                 );
                 break;
             case "test:pass":

@@ -120,6 +120,13 @@ import * as wslib from "ws";
     });
 
     wss.close();
+
+    const addr = wss.address();
+
+    if (addr === null) {
+        // $ExpectType null
+        addr;
+    }
 }
 
 {
