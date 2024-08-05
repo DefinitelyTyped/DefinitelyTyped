@@ -2,10 +2,10 @@
  * A stream is an abstract interface for working with streaming data in Node.js.
  * The `node:stream` module provides an API for implementing the stream interface.
  *
- * There are many stream objects provided by Node.js. For instance, a [request to an HTTP server](https://nodejs.org/docs/latest-v20.x/api/http.html#class-httpincomingmessage)
- * and [`process.stdout`](https://nodejs.org/docs/latest-v20.x/api/process.html#processstdout) are both stream instances.
+ * There are many stream objects provided by Node.js. For instance, a [request to an HTTP server](https://nodejs.org/docs/latest-v22.x/api/http.html#class-httpincomingmessage)
+ * and [`process.stdout`](https://nodejs.org/docs/latest-v22.x/api/process.html#processstdout) are both stream instances.
  *
- * Streams can be readable, writable, or both. All streams are instances of [`EventEmitter`](https://nodejs.org/docs/latest-v20.x/api/events.html#class-eventemitter).
+ * Streams can be readable, writable, or both. All streams are instances of [`EventEmitter`](https://nodejs.org/docs/latest-v22.x/api/events.html#class-eventemitter).
  *
  * To access the `node:stream` module:
  *
@@ -15,7 +15,7 @@
  *
  * The `node:stream` module is useful for creating new types of stream instances.
  * It is usually not necessary to use the `node:stream` module to consume streams.
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/stream.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/stream.js)
  */
 declare module "stream" {
     import { Abortable, EventEmitter } from "node:events";
@@ -87,13 +87,13 @@ declare module "stream" {
          */
         readonly readableEncoding: BufferEncoding | null;
         /**
-         * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v20.x/api/stream.html#event-end) event is emitted.
+         * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v22.x/api/stream.html#event-end) event is emitted.
          * @since v12.9.0
          */
         readonly readableEnded: boolean;
         /**
          * This property reflects the current state of a `Readable` stream as described
-         * in the [Three states](https://nodejs.org/docs/latest-v20.x/api/stream.html#three-states) section.
+         * in the [Three states](https://nodejs.org/docs/latest-v22.x/api/stream.html#three-states) section.
          * @since v9.4.0
          */
         readonly readableFlowing: boolean | null;
@@ -1376,7 +1376,7 @@ declare module "stream" {
         function addAbortSignal<T extends Stream>(signal: AbortSignal, stream: T): T;
         /**
          * Returns the default highWaterMark used by streams.
-         * Defaults to `16384` (16 KiB), or `16` for `objectMode`.
+         * Defaults to `65536` (64 KiB), or `16` for `objectMode`.
          * @since v19.9.0
          */
         function getDefaultHighWaterMark(objectMode: boolean): number;
@@ -1417,7 +1417,7 @@ declare module "stream" {
          * Especially useful in error handling scenarios where a stream is destroyed
          * prematurely (like an aborted HTTP request), and will not emit `'end'` or `'finish'`.
          *
-         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v20.x/api/stream.html#streamfinishedstream-options).
+         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v22.x/api/stream.html#streamfinishedstream-options).
          *
          * `stream.finished()` leaves dangling event listeners (in particular `'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
          * invoked. The reason for this is so that unexpected `'error'` events (due to
@@ -1505,7 +1505,7 @@ declare module "stream" {
          * );
          * ```
          *
-         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v20.x/api/stream.html#streampipelinesource-transforms-destination-options).
+         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v22.x/api/stream.html#streampipelinesource-transforms-destination-options).
          *
          * `stream.pipeline()` will call `stream.destroy(err)` on all streams except:
          *

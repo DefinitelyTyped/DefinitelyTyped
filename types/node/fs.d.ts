@@ -16,7 +16,7 @@
  *
  * All file system operations have synchronous, callback, and promise-based
  * forms, and are accessible using both CommonJS syntax and ES6 Modules (ESM).
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/fs.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/fs.js)
  */
 declare module "fs" {
     import * as stream from "node:stream";
@@ -130,7 +130,9 @@ declare module "fs" {
      * ```
      * @since v0.1.21
      */
-    export class Stats {}
+    export class Stats {
+        private constructor();
+    }
     export interface StatsFsBase<T> {
         /** Type of file system. */
         type: T;
@@ -4311,6 +4313,34 @@ declare module "fs" {
      * @param dest destination path to copy to.
      */
     export function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
+
+    export interface GlobOptions {
+        /**
+         * Current working directory.
+         * @default process.cwd()
+         */
+        cwd?: string | undefined;
+        /**
+         * Function to filter out files/directories. Return true to exclude the item, false to include it.
+         */
+        exclude?: ((fileName: string) => boolean) | undefined;
+    }
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    export function glob(
+        pattern: string | string[],
+        callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
+        options: GlobOptions,
+        callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
+    ): void;
+    /**
+     * Retrieves the files matching the specified pattern.
+     */
+    export function globSync(pattern: string | string[], options?: GlobOptions): string[];
 }
 declare module "node:fs" {
     export * from "fs";

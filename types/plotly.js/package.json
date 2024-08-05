@@ -55,10 +55,6 @@
             "githubUsername": "skippercool"
         },
         {
-            "name": "Michael Adams",
-            "githubUsername": "mtadams007"
-        },
-        {
             "name": "Michael Arnett",
             "githubUsername": "marnett-git"
         },
@@ -89,6 +85,10 @@
         {
             "name": "John Abdou",
             "githubUsername": "jpabdou"
+        },
+        {
+            "name": "Martin Borst",
+            "githubUsername": "mrtnbrst"
         }
     ]
 }

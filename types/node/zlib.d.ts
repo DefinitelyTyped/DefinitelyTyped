@@ -9,7 +9,7 @@
  * ```
  *
  * Compression and decompression are built around the Node.js
- * [Streams API](https://nodejs.org/docs/latest-v20.x/api/stream.html).
+ * [Streams API](https://nodejs.org/docs/latest-v22.x/api/stream.html).
  *
  * Compressing or decompressing a stream (such as a file) can be accomplished by
  * piping the source stream through a `zlib` `Transform` stream into a destination
@@ -89,7 +89,7 @@
  *   });
  * ```
  * @since v0.5.8
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/zlib.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/zlib.js)
  */
 declare module "zlib" {
     import * as stream from "node:stream";
@@ -143,7 +143,7 @@ declare module "zlib" {
             }
             | undefined;
         /**
-         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v20.x/api/zlib.html#convenience-methods).
+         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v22.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;

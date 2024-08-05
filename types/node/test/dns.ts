@@ -77,7 +77,7 @@ lookup("nodejs.org", { all: true }, (err, addresses) => {
     const _err: NodeJS.ErrnoException | null = err;
     const _address: LookupAddress[] = addresses;
 });
-lookup("nodejs.org", { all: true, verbatim: true }, (err, addresses) => {
+lookup("nodejs.org", { all: true, order: "ipv6first" }, (err, addresses) => {
     const _err: NodeJS.ErrnoException | null = err;
     const _address: LookupAddress[] = addresses;
 });
