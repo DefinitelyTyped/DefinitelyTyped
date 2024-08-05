@@ -4,9 +4,9 @@ let room = HBInit({
     geo: { code: "DE", lat: 50, lon: 50 },
 });
 
-const customStadium : StadiumObject = {
-    "bg": {}
-}
+const customStadium: StadiumObject = {
+    "bg": {},
+};
 
 room.onPlayerJoin = p => {
     const cf = room.CollisionFlags;
