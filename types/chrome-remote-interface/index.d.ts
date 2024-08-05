@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import EventEmitter from 'events';
 import type ProtocolMappingApi from "devtools-protocol/types/protocol-mapping";
 import type ProtocolProxyApi from "devtools-protocol/types/protocol-proxy-api";
