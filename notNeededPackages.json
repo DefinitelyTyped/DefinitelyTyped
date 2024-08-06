@@ -3557,6 +3557,10 @@
             "libraryName": "mobx-task",
             "asOfVersion": "2.0.0"
         },
+        "mock-property": {
+            "libraryName": "mock-property",
+            "asOfVersion": "1.1.0"
+        },
         "mockdate": {
             "libraryName": "mockdate",
             "asOfVersion": "3.0.0"
