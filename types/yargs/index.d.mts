@@ -20,6 +20,7 @@ export type {
     ArgumentsCamelCase,
     Argv,
     AsyncCompletionFunction,
+    BuilderArguments,
     BuilderCallback,
     Choices,
     CommandBuilder,

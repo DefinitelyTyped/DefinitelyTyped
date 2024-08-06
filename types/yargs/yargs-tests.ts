@@ -6,7 +6,7 @@ import yargsSingleton = require("yargs/yargs");
 
 import * as fs from "fs";
 import * as path from "path";
-import { Arguments, CompletionCallback } from "yargs";
+import { Arguments, BuilderArguments, CompletionCallback } from "yargs";
 
 const stringVal = "string";
 
@@ -1617,4 +1617,15 @@ function Argv$commandCommandModuleArray() {
     };
 
     yargs.command([CommandOne, CommandTwo]);
+}
+
+function BuilderArguments() {
+    const builder = (yargs: yargs.Argv) => {
+        return yargs.option("a", { default: "foo" });
+    };
+
+    const handler = (argv: BuilderArguments<typeof builder>) => {
+        // $ExpectType string
+        argv.a;
+    };
 }

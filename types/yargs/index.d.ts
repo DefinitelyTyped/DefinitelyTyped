@@ -1025,6 +1025,11 @@ declare namespace yargs {
     type Choices = ReadonlyArray<string | number | true | undefined>;
     type PositionalOptionsType = "boolean" | "number" | "string";
     type CompletionCallback = (err: Error | null, completions: string[] | undefined) => void;
+
+    type BuilderArguments<T extends (...args: any) => R, R = ReturnType<T>> = R extends Argv<infer X>
+        ? ArgumentsCamelCase<X>
+        : {} | R extends PromiseLike<Argv<infer X>> ? ArgumentsCamelCase<X>
+        : {};
 }
 
 declare var yargs: yargs.Argv;
