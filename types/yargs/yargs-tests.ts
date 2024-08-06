@@ -1625,6 +1625,7 @@ function BuilderArguments() {
     };
 
     const handler = (argv: BuilderArguments<typeof builder>) => {
+        // $ExpectType string
         argv.a;
     };
 }
