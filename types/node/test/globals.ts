@@ -51,3 +51,9 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     x.reason; // $ExpectType any
     x.throwIfAborted(); // $ExpectType void
 }
+
+{
+    const e = new DOMException(); // $ExpectType DOMException
+    e.message; // $ExpectType string
+    e.name; // $ExpectType string
+}
