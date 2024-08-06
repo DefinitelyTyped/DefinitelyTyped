@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/jjranalli/nightwind"
     ],
+    "dependencies": {
+      "tailwindcss": "^2.0.0 || ^3.0.0"
+    },
     "devDependencies": {
         "@types/nightwind": "workspace:."
     },

@@ -1,1 +1,7 @@
-// nightwind does only provide content at nightwind/helper
+import { Config, PluginCreator } from "tailwindcss/types/config";
+
+declare const nightwind: {
+    (): { handler: PluginCreator; config?: Config };
+};
+
+export = nightwind;
