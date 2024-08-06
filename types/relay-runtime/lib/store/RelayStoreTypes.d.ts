@@ -1075,3 +1075,30 @@ export type HasUpdatableSpread<TData = unknown> = Readonly<{
     " $data"?: TData | undefined;
     $updatableFragmentSpreads: FragmentType;
 }>;
+
+/**
+ * The return type of a Live Resolver. Models an external value which can
+ * be read lazily and which might change over time. The subscribe method
+ * returns a callback which should be called when the value _may_ have changed.
+ *
+ * While over-notification (subscription notifications when the read value has
+ * not actually changed) is suported, for performance reasons, it is recommended
+ * that the provider of the LiveState value confirms that the value has indeed
+ * change before notifying Relay of the change.
+ */
+export interface LiveState<T> {
+    /**
+     * Returns the current value of the live state.
+     */
+    read(): T;
+
+    /**
+     * Subscribes to changes in the live state. The state provider should
+     * call the callback when the value of the live state changes.
+     * If the returned unsubscribe function is invoked, the state provider
+     * should stop calling the callback for state updates.
+     */
+    subscribe(callback: () => void): () => void;
+}
+
+export function suspenseSentinel(): never;
