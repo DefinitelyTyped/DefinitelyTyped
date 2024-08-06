@@ -9,17 +9,17 @@
         "@types/nightwind": "workspace:."
     },
     "owners": [
-      {
-        "name": "Frank Elsinga",
-        "githubUsername": "CommanderStorm"
-      },
-      {
-        "name": "Jayakorn Karikan (Bacon)",
-        "githubUsername": "jayakornk"
-      },
-      {
-        "name": "jacopo",
-        "githubUsername": "jjranalli"
-      }
+        {
+            "name": "Frank Elsinga",
+            "githubUsername": "CommanderStorm"
+        },
+        {
+            "name": "Jayakorn Karikan (Bacon)",
+            "githubUsername": "jayakornk"
+        },
+        {
+            "name": "jacopo",
+            "githubUsername": "jjranalli"
+        }
     ]
 }

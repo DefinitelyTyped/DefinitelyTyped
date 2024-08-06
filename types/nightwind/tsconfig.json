@@ -13,8 +13,8 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-      "index.d.ts",
-      "helper.d.ts",
-      "test/nightwind-tests.global.ts"
+        "index.d.ts",
+        "helper.d.ts",
+        "test/nightwind-tests.global.ts"
     ]
 }
