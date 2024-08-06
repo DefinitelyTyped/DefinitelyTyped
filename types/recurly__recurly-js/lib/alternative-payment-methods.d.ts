@@ -1,3 +1,4 @@
+import { Address } from './address';
 import { Emitter } from './emitter';
 
 export type AlternativePaymentMethodEvents = 'token' | 'error' | 'valid';
@@ -31,7 +32,7 @@ export type AdyenAlternativePaymentMethodOptions = {
   componentConfig?: { [key: string]: any }
 };
 
-export type AlternativePaymentMethodOptions = {
+export type AlternativePaymentMethodStartOptions = {
   /**
    * List of payment methods to be presented to the customer.
    */
@@ -79,18 +80,25 @@ export type AlternativePaymentMethodOptions = {
   adyen?: AdyenAlternativePaymentMethodOptions
 };
 
+export type AlternativePaymentMethodSubmitOptions = {
+  /**
+   * Sets the customer billing address on the generated token.
+   */
+  billingAddress?: Address;
+};
+
 export interface AlternativePaymentMethodsInstance extends Emitter<AlternativePaymentMethodEvents> {
   /**
    * Start the PaymentMethods and render the components.
    */
-  start: (data: AlternativePaymentMethodOptions) => Promise<void>;
+  start: (data: AlternativePaymentMethodStartOptions) => Promise<void>;
 
   /**
    * Submit the customer payment information and produce a token.
    * Call this function only when the payment information provided by the customer is valid, by listening the 'valid' event.
    * The token can be retrieved through the 'token' event.
    */
-  submit: () => Promise<void>;
+  submit: (args: AlternativePaymentMethodSubmitOptions) => Promise<void>;
 
   /**
    * Some payment methods require additional action from the shopper such as: to scan a QR code,
