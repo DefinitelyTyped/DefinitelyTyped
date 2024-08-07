@@ -882,7 +882,7 @@ declare namespace FBInstant {
          * @throws PENDING_REQUEST
          * @throws CLIENT_UNSUPPORTED_OPERATION
          */
-        switchAsync(id: string, switchSilentlyIfSolo?:boolean): Promise<void>;
+        switchAsync(id: string, switchSilentlyIfSolo?: boolean): Promise<void>;
 
         /**
          * Opens a context selection dialog for the player. If the player selects an available context, the client will attempt to switch into that context,
@@ -1408,7 +1408,6 @@ declare namespace FBInstant {
      * Represents content to be shared by the user.
      */
     interface SharePayload {
-
         /**
          * A base64 encoded image to be shared.
          */
@@ -2122,15 +2121,15 @@ declare namespace FBInstant {
      * "LEADERBOARD": An update associated with an Instant Game leaderboard.
      */
     type UpdateAction = "CUSTOM" | "LEADERBOARD";
-    
+
     /**
      * A parameter that may be applied to a Share Async operation
-     * 
+     *
      * "NEWSFEED" - Enable share to newsfeed option
      * "GROUP" - Enable share to official game group option.
-     * "COPY_LINK" - Enable copy the game link in clipboard 
+     * "COPY_LINK" - Enable copy the game link in clipboard
      * "MESSENGER" - Enable share game to messenger option
-    */
+     */
     type ShareDestination = "NEWSFEED" | "GROUP" | "COPY_LINK" | "MESSENGER";
 
     /**
