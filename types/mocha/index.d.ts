@@ -390,7 +390,7 @@ declare namespace Mocha {
          */
         (fn: Func): void;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(fn: Func<T>): void;
+        <T extends Context>(fn: Func<T>): void;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given callback `fn`. The name of the
@@ -400,7 +400,7 @@ declare namespace Mocha {
          */
         (fn: AsyncFunc): void;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(fn: AsyncFunc<T>): void;
+        <T extends Context>(fn: AsyncFunc<T>): void;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
@@ -409,7 +409,7 @@ declare namespace Mocha {
          */
         (name: string, fn?: Func): void;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(name: string, fn?: Func<T>): void;
+        <T extends Context>(name: string, fn?: Func<T>): void;
 
         /**
          * [bdd, qunit, tdd] Describe a "hook" to execute the given `title` and callback `fn`.
@@ -418,7 +418,7 @@ declare namespace Mocha {
          */
         (name: string, fn?: AsyncFunc): void;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(name: string, fn?: AsyncFunc<T>): void;
+        <T extends Context>(name: string, fn?: AsyncFunc<T>): void;
     }
 
     interface SuiteFunction {
@@ -493,7 +493,7 @@ declare namespace Mocha {
          */
         (fn: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(fn: Func<T>): Test;
+        <T extends Context>(fn: Func<T>): Test;
 
         /**
          * Describe a specification or test-case with the given callback `fn` acting as a thunk.
@@ -503,7 +503,7 @@ declare namespace Mocha {
          */
         (fn: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(fn: AsyncFunc<T>): Test;
+        <T extends Context>(fn: AsyncFunc<T>): Test;
 
         /**
          * Describe a specification or test-case with the given `title` and callback `fn` acting
@@ -513,7 +513,7 @@ declare namespace Mocha {
          */
         (title: string, fn?: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(title: string, fn?: Func<T>): Test;
+        <T extends Context>(title: string, fn?: Func<T>): Test;
 
         /**
          * Describe a specification or test-case with the given `title` and callback `fn` acting
@@ -523,7 +523,7 @@ declare namespace Mocha {
          */
         (title: string, fn?: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(title: string, fn?: AsyncFunc<T>): Test;
+        <T extends Context>(title: string, fn?: AsyncFunc<T>): Test;
 
         /**
          * Indicates this test should be executed exclusively.
@@ -557,7 +557,7 @@ declare namespace Mocha {
          */
         (fn: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(fn: Func<T>): void;
+        <T extends Context>(fn: Func<T>): void;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given callback `fn`
@@ -568,7 +568,7 @@ declare namespace Mocha {
          */
         (fn: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(fn: AsyncFunc<T>): void;
+        <T extends Context>(fn: AsyncFunc<T>): void;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -578,7 +578,7 @@ declare namespace Mocha {
          */
         (title: string, fn?: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(title: string, fn?: Func<T>): void;
+        <T extends Context>(title: string, fn?: Func<T>): void;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -588,7 +588,7 @@ declare namespace Mocha {
          */
         (title: string, fn?: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(title: string, fn?: AsyncFunc<T>): void;
+        <T extends Context>(title: string, fn?: AsyncFunc<T>): void;
     }
 
     interface PendingTestFunction {
@@ -601,7 +601,7 @@ declare namespace Mocha {
          */
         (fn: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(fn: Func<T>): void;
+        <T extends Context>(fn: Func<T>): void;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given callback `fn`
@@ -612,7 +612,7 @@ declare namespace Mocha {
          */
         (fn: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(fn: AsyncFunc<T>): void;
+        <T extends Context>(fn: AsyncFunc<T>): void;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -622,7 +622,7 @@ declare namespace Mocha {
          */
         (title: string, fn?: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(title: string, fn?: Func<T>): void;
+        <T extends Context>(title: string, fn?: Func<T>): void;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -632,7 +632,7 @@ declare namespace Mocha {
          */
         (title: string, fn?: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends BaseContext>(title: string, fn?: AsyncFunc<T>): void;
+        <T extends Context>(title: string, fn?: AsyncFunc<T>): void;
     }
 
     /**
@@ -1335,20 +1335,11 @@ declare namespace Mocha {
     // #endregion Runnable untyped events
 
     /**
-     * BaseContext does not actually exist at runtime, so the constructor is
-     * marked as protected.
-     *
-     * It is merely a definition that subclasses can extend to get the Context
-     * interface without a index-signature, since the index-signature breaks
-     * strong type checks on extensions of Context.
-     *
-     * This should contain all actual members of Context.
+     * Test context
      *
      * @see https://mochajs.org/api/module-Context.html#~Context
      */
-    class BaseContext {
-        protected constructor();
-
+    class Context {
         test?: Runnable | undefined;
         currentTest?: Test | undefined;
 
@@ -1396,25 +1387,13 @@ declare namespace Mocha {
          * Set the number of allowed retries on failed tests.
          */
         retries(n: number): this;
-    }
 
-    /**
-     * Test context.
-     *
-     * Inherits from BaseContext for the purpose of this definition, but
-     * BaseContext does not exist at runtime.
-     *
-     * Actual members of Context are defined on BaseContext above.  Context
-     * then adds the index-signature that allow arbitrary fields.  For strong
-     * typing of extensions to a Mocha context, create a type for your project
-     * that inherits from BaseContext.
-     *
-     * @see https://mochajs.org/api/module-Context.html#~Context
-     */
-    class Context extends BaseContext {
-        constructor();
-
-        /** Arbitrary, untyped fixtures. */
+        /**
+         * Arbitrary, untyped fixtures.
+         *
+         * Don't want these?  Enable noPropertyAccessFromIndexSignature in tsconfig.
+         * @see https://www.typescriptlang.org/tsconfig/#noPropertyAccessFromIndexSignature
+         */
         [key: string]: any;
     }
 
@@ -1931,7 +1910,7 @@ declare namespace Mocha {
          */
         beforeAll(fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        beforeAll<T extends BaseContext>(fn?: Func<T>): this;
+        beforeAll<T extends Context>(fn?: Func<T>): this;
 
         /**
          * Run `fn(test[, done])` before running tests.
@@ -1940,7 +1919,7 @@ declare namespace Mocha {
          */
         beforeAll(fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        beforeAll<T extends BaseContext>(fn?: AsyncFunc<T>): this;
+        beforeAll<T extends Context>(fn?: AsyncFunc<T>): this;
 
         /**
          * Run `fn(test[, done])` before running tests.
@@ -1949,7 +1928,7 @@ declare namespace Mocha {
          */
         beforeAll(title: string, fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        beforeAll<T extends BaseContext>(title: string, fn?: Func<T>): this;
+        beforeAll<T extends Context>(title: string, fn?: Func<T>): this;
 
         /**
          * Run `fn(test[, done])` before running tests.
@@ -1958,7 +1937,7 @@ declare namespace Mocha {
          */
         beforeAll(title: string, fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        beforeAll<T extends BaseContext>(title: string, fn?: AsyncFunc<T>): this;
+        beforeAll<T extends Context>(title: string, fn?: AsyncFunc<T>): this;
 
         /**
          * Run `fn(test[, done])` after running tests.
@@ -1967,7 +1946,7 @@ declare namespace Mocha {
          */
         afterAll(fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        afterAll<T extends BaseContext>(fn?: Func<T>): this;
+        afterAll<T extends Context>(fn?: Func<T>): this;
 
         /**
          * Run `fn(test[, done])` after running tests.
@@ -1976,7 +1955,7 @@ declare namespace Mocha {
          */
         afterAll(fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        afterAll<T extends BaseContext>(fn?: AsyncFunc<T>): this;
+        afterAll<T extends Context>(fn?: AsyncFunc<T>): this;
 
         /**
          * Run `fn(test[, done])` after running tests.
@@ -1985,7 +1964,7 @@ declare namespace Mocha {
          */
         afterAll(title: string, fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        afterAll<T extends BaseContext>(title: string, fn?: Func<T>): this;
+        afterAll<T extends Context>(title: string, fn?: Func<T>): this;
 
         /**
          * Run `fn(test[, done])` after running tests.
@@ -1994,7 +1973,7 @@ declare namespace Mocha {
          */
         afterAll(title: string, fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        afterAll<T extends BaseContext>(title: string, fn?: AsyncFunc<T>): this;
+        afterAll<T extends Context>(title: string, fn?: AsyncFunc<T>): this;
 
         /**
          * Run `fn(test[, done])` before each test case.
@@ -2003,7 +1982,7 @@ declare namespace Mocha {
          */
         beforeEach(fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        beforeEach<T extends BaseContext>(fn?: Func<T>): this;
+        beforeEach<T extends Context>(fn?: Func<T>): this;
 
         /**
          * Run `fn(test[, done])` before each test case.
@@ -2012,7 +1991,7 @@ declare namespace Mocha {
          */
         beforeEach(fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        beforeEach<T extends BaseContext>(fn?: AsyncFunc<T>): this;
+        beforeEach<T extends Context>(fn?: AsyncFunc<T>): this;
 
         /**
          * Run `fn(test[, done])` before each test case.
@@ -2021,7 +2000,7 @@ declare namespace Mocha {
          */
         beforeEach(title: string, fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        beforeEach<T extends BaseContext>(title: string, fn?: Func<T>): this;
+        beforeEach<T extends Context>(title: string, fn?: Func<T>): this;
 
         /**
          * Run `fn(test[, done])` before each test case.
@@ -2030,7 +2009,7 @@ declare namespace Mocha {
          */
         beforeEach(title: string, fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        beforeEach<T extends BaseContext>(title: string, fn?: AsyncFunc<T>): this;
+        beforeEach<T extends Context>(title: string, fn?: AsyncFunc<T>): this;
 
         /**
          * Run `fn(test[, done])` after each test case.
@@ -2039,7 +2018,7 @@ declare namespace Mocha {
          */
         afterEach(fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        afterEach<T extends BaseContext>(fn?: Func<T>): this;
+        afterEach<T extends Context>(fn?: Func<T>): this;
 
         /**
          * Run `fn(test[, done])` after each test case.
@@ -2048,7 +2027,7 @@ declare namespace Mocha {
          */
         afterEach(fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        afterEach<T extends BaseContext>(fn?: AsyncFunc<T>): this;
+        afterEach<T extends Context>(fn?: AsyncFunc<T>): this;
 
         /**
          * Run `fn(test[, done])` after each test case.
@@ -2057,7 +2036,7 @@ declare namespace Mocha {
          */
         afterEach(title: string, fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        afterEach<T extends BaseContext>(title: string, fn?: Func<T>): this;
+        afterEach<T extends Context>(title: string, fn?: Func<T>): this;
 
         /**
          * Run `fn(test[, done])` after each test case.
@@ -2066,7 +2045,7 @@ declare namespace Mocha {
          */
         afterEach(title: string, fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        afterEach<T extends BaseContext>(title: string, fn?: AsyncFunc<T>): this;
+        afterEach<T extends Context>(title: string, fn?: AsyncFunc<T>): this;
 
         /**
          * Add a test `suite`.
@@ -2367,12 +2346,12 @@ declare namespace Mocha {
     /**
      * Callback function used for tests and hooks.
      */
-    type Func<T extends BaseContext = Context> = (this: T, done: Done) => void;
+    type Func<T extends Context = Context> = (this: T, done: Done) => void;
 
     /**
      * Async callback function used for tests and hooks.
      */
-    type AsyncFunc<T extends BaseContext = Context> = (this: T) => PromiseLike<any>;
+    type AsyncFunc<T extends Context = Context> = (this: T) => PromiseLike<any>;
 
     /**
      * Options to pass to Mocha.
@@ -2912,56 +2891,56 @@ declare module "mocha/lib/interfaces/common" {
              */
             before(fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            before<T extends Mocha.BaseContext>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
+            before<T extends Mocha.Context>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute before running tests.
              */
             before(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            before<T extends Mocha.BaseContext>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
+            before<T extends Mocha.Context>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute after running tests.
              */
             after(fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            after<T extends Mocha.BaseContext>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
+            after<T extends Mocha.Context>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute after running tests.
              */
             after(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            after<T extends Mocha.BaseContext>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
+            after<T extends Mocha.Context>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute before each test case.
              */
             beforeEach(fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            beforeEach<T extends Mocha.BaseContext>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
+            beforeEach<T extends Mocha.Context>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute before each test case.
              */
             beforeEach(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            beforeEach<T extends Mocha.BaseContext>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
+            beforeEach<T extends Mocha.Context>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute after each test case.
              */
             afterEach(fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            afterEach<T extends Mocha.BaseContext>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
+            afterEach<T extends Mocha.Context>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute after each test case.
              */
             afterEach(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            afterEach<T extends Mocha.BaseContext>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
+            afterEach<T extends Mocha.Context>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             suite: SuiteFunctions;
             test: TestFunctions;

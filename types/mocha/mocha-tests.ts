@@ -1478,9 +1478,9 @@ function test_runnable_state(runnable: LocalMocha.Runnable) {
     runnable.state = "passed";
 }
 
-// Extends BaseContext, which has no index signature for arbitrary fixtures
-interface ContextWithFixtures extends LocalMocha.BaseContext {
-    doSomethingSync(): void;
+// Extends Context with additional fixtures.
+interface ContextWithFixtures extends LocalMocha.Context {
+    doSomethingSync(arg: number): void;
     doSomethingAsync(): Promise<void>;
 }
 
@@ -1488,11 +1488,11 @@ function test_context_subclass() {
     describe("ContextWithFixtures", function() {
         // Should be usable in hooks and in tests
         beforeEach(function(this: ContextWithFixtures): void {
-            this.doSomethingSync();
+            this.doSomethingSync(5);
         });
 
         it("calls synchronous function", function(this: ContextWithFixtures): void {
-            this.doSomethingSync();
+            this.doSomethingSync(5);
         });
 
         it("calls async function", async function(this: ContextWithFixtures): Promise<void> {
@@ -1501,24 +1501,15 @@ function test_context_subclass() {
 
         it("fixtures are strongly typed", async function(this: ContextWithFixtures): Promise<void> {
             // @ts-expect-error
-            this.doSomethingSync("extra argument");
+            this.doSomethingSync("wrong argument type");
             // @ts-expect-error
             await this.doSomethingAsync("extra argument");
-            // @ts-expect-error
-            this.doesNotExist = 5;
         });
     });
 }
 
-// You should not be able to call new BaseContext(), because BaseContext exists
-// only as an abstractions in the definitions, not at runtime.
-function test_no_basecontext_constructor() {
-    // @ts-expect-error
-    return new LocalMocha.BaseContext();
-}
-
-// Importantly, this doesn't implement BaseContext, and it isn't empty.  For
-// some reason, TS treats empty classes as matching constraints.
+// Importantly, this doesn't extend Context, and it isn't empty.  For some
+// reason, TS treats empty classes as matching constraints.
 class ArbitraryClass {
     someField: number;
 }
@@ -1531,11 +1522,11 @@ function test_constraints(suite: LocalMocha.Suite) {
     // Should work.
     const f2: LocalMocha.Func<ContextWithFixtures> = function(this: ContextWithFixtures) {};
 
-    // Doesn't implement BaseContext.
+    // Doesn't extend Context.
     // @ts-expect-error
     const f3: LocalMocha.Func<ArbitraryClass> = function(this: ArbitraryClass) {};
 
-    // Doesn't implement BaseContext.
+    // Doesn't extend Context.
     // @ts-expect-error
     const f4: LocalMocha.Func<string> = function(this: string) {};
 
@@ -1549,11 +1540,11 @@ function test_constraints(suite: LocalMocha.Suite) {
     // Should work.
     suite.beforeAll(function(this: ContextWithFixtures) {});
 
-    // Doesn't implement BaseContext.
+    // Doesn't extend Context.
     // @ts-expect-error
     suite.beforeAll(function(this: ArbitraryClass) {});
 
-    // Doesn't implement BaseContext.
+    // Doesn't extend Context.
     // @ts-expect-error
     suite.beforeAll(function(this: string) {});
 }
