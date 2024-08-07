@@ -388,7 +388,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): void;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(fn: Func<T>): void;
 
@@ -398,7 +397,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: AsyncFunc): void;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(fn: AsyncFunc<T>): void;
 
@@ -407,7 +405,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: Func): void;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(name: string, fn?: Func<T>): void;
 
@@ -416,7 +413,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (name: string, fn?: AsyncFunc): void;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(name: string, fn?: AsyncFunc<T>): void;
     }
@@ -491,7 +487,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(fn: Func<T>): Test;
 
@@ -501,7 +496,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(fn: AsyncFunc<T>): Test;
 
@@ -511,7 +505,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(title: string, fn?: Func<T>): Test;
 
@@ -521,7 +514,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(title: string, fn?: AsyncFunc<T>): Test;
 
@@ -555,7 +547,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(fn: Func<T>): void;
 
@@ -566,7 +557,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(fn: AsyncFunc<T>): void;
 
@@ -576,7 +566,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(title: string, fn?: Func<T>): void;
 
@@ -586,7 +575,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(title: string, fn?: AsyncFunc<T>): void;
     }
@@ -599,7 +587,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(fn: Func<T>): void;
 
@@ -610,7 +597,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (fn: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(fn: AsyncFunc<T>): void;
 
@@ -620,7 +606,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: Func): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(title: string, fn?: Func<T>): void;
 
@@ -630,7 +615,6 @@ declare namespace Mocha {
          *
          * - _Only available when invoked via the mocha CLI._
          */
-        (title: string, fn?: AsyncFunc): Test;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         <T extends Context>(title: string, fn?: AsyncFunc<T>): void;
     }
@@ -1908,7 +1892,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeAll
          */
-        beforeAll(fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         beforeAll<T extends Context>(fn?: Func<T>): this;
 
@@ -1917,7 +1900,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeAll
          */
-        beforeAll(fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         beforeAll<T extends Context>(fn?: AsyncFunc<T>): this;
 
@@ -1926,7 +1908,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeAll
          */
-        beforeAll(title: string, fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         beforeAll<T extends Context>(title: string, fn?: Func<T>): this;
 
@@ -1935,7 +1916,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeAll
          */
-        beforeAll(title: string, fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         beforeAll<T extends Context>(title: string, fn?: AsyncFunc<T>): this;
 
@@ -1944,7 +1924,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterAll
          */
-        afterAll(fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         afterAll<T extends Context>(fn?: Func<T>): this;
 
@@ -1953,7 +1932,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterAll
          */
-        afterAll(fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         afterAll<T extends Context>(fn?: AsyncFunc<T>): this;
 
@@ -1962,7 +1940,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterAll
          */
-        afterAll(title: string, fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         afterAll<T extends Context>(title: string, fn?: Func<T>): this;
 
@@ -1971,7 +1948,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterAll
          */
-        afterAll(title: string, fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         afterAll<T extends Context>(title: string, fn?: AsyncFunc<T>): this;
 
@@ -1980,7 +1956,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeEach
          */
-        beforeEach(fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         beforeEach<T extends Context>(fn?: Func<T>): this;
 
@@ -1989,7 +1964,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeEach
          */
-        beforeEach(fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         beforeEach<T extends Context>(fn?: AsyncFunc<T>): this;
 
@@ -1998,7 +1972,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeEach
          */
-        beforeEach(title: string, fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         beforeEach<T extends Context>(title: string, fn?: Func<T>): this;
 
@@ -2007,7 +1980,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#beforeEach
          */
-        beforeEach(title: string, fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         beforeEach<T extends Context>(title: string, fn?: AsyncFunc<T>): this;
 
@@ -2016,7 +1988,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterEach
          */
-        afterEach(fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         afterEach<T extends Context>(fn?: Func<T>): this;
 
@@ -2025,7 +1996,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterEach
          */
-        afterEach(fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         afterEach<T extends Context>(fn?: AsyncFunc<T>): this;
 
@@ -2034,7 +2004,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterEach
          */
-        afterEach(title: string, fn?: Func): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         afterEach<T extends Context>(title: string, fn?: Func<T>): this;
 
@@ -2043,7 +2012,6 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Suite.html#afterEach
          */
-        afterEach(title: string, fn?: AsyncFunc): this;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         afterEach<T extends Context>(title: string, fn?: AsyncFunc<T>): this;
 
@@ -2889,56 +2857,48 @@ declare module "mocha/lib/interfaces/common" {
             /**
              * Execute before running tests.
              */
-            before(fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             before<T extends Mocha.Context>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute before running tests.
              */
-            before(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             before<T extends Mocha.Context>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute after running tests.
              */
-            after(fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             after<T extends Mocha.Context>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute after running tests.
              */
-            after(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             after<T extends Mocha.Context>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute before each test case.
              */
-            beforeEach(fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             beforeEach<T extends Mocha.Context>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute before each test case.
              */
-            beforeEach(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             beforeEach<T extends Mocha.Context>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute after each test case.
              */
-            afterEach(fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             afterEach<T extends Mocha.Context>(fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
             /**
              * Execute after each test case.
              */
-            afterEach(name: string, fn?: Mocha.Func | Mocha.AsyncFunc): void;
             // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             afterEach<T extends Mocha.Context>(name: string, fn?: Mocha.Func<T> | Mocha.AsyncFunc<T>): void;
 
