@@ -1,5 +1,5 @@
 declare namespace RBush {
-    export interface BBox {
+    interface BBox {
         minX: number;
         minY: number;
         maxX: number;
