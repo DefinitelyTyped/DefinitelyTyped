@@ -1,11 +1,13 @@
-export interface BBox {
-    minX: number;
-    minY: number;
-    maxX: number;
-    maxY: number;
+declare namespace RBush {
+    export interface BBox {
+        minX: number;
+        minY: number;
+        maxX: number;
+        maxY: number;
+    }
 }
 
-export default class RBush<T> {
+declare class RBush<T> {
     /**
      * Constructs an `RBush`, a high-performance 2D spatial index for points and
      * rectangles. Based on an optimized __R-tree__ data structure with
@@ -69,7 +71,7 @@ export default class RBush<T> {
      *
      * @param box The bounding box in which to search.
      */
-    search(box: BBox): T[];
+    search(box: RBush.BBox): T[];
 
     /**
      * Returns all items contained in the tree.
@@ -82,7 +84,7 @@ export default class RBush<T> {
      *
      * @param box The bounding box in which to search.
      */
-    collides(box: BBox): boolean;
+    collides(box: RBush.BBox): boolean;
 
     /**
      * Returns the bounding box for the provided item.
@@ -103,7 +105,7 @@ export default class RBush<T> {
      *
      * @param item The item whose bounding box should be returned.
      */
-    toBBox(item: T): BBox;
+    toBBox(item: T): RBush.BBox;
 
     /**
      * Compares the minimum x coordinate of two items. Returns -1 if `a`'s
@@ -182,3 +184,5 @@ export default class RBush<T> {
      */
     fromJSON(data: any): RBush<T>;
 }
+
+export = RBush;
