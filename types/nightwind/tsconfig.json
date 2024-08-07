@@ -15,6 +15,7 @@
     "files": [
         "index.d.ts",
         "helper.d.ts",
-        "test/nightwind-tests.global.ts"
+        "test/nightwind-tests.ts",
+        "test/nightwind__helper-tests.ts"
     ]
 }
