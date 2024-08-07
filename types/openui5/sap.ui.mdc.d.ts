@@ -1,4 +1,4 @@
-// For Library Version: 1.126.0
+// For Library Version: 1.127.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -4278,6 +4278,10 @@ declare module "sap/ui/mdc/Chart" {
      * on a selectionDetails popover
      */
     unitPath?: object;
+    /**
+     * The timeUnit type for a TimeDimension
+     */
+    timeUnitType?: object;
   };
 
   /**
@@ -20430,6 +20434,11 @@ declare module "sap/ui/mdc/ValueHelp" {
      * ID of the navigated item. (This is needed to set the corresponding aria-attribute)
      */
     itemId?: string;
+
+    /**
+     * If `true` the filtering was executed case sensitive
+     */
+    caseSensitive?: boolean;
   }
 
   /**
@@ -20547,6 +20556,11 @@ declare module "sap/ui/mdc/ValueHelp" {
     itemId?: string;
 
     /**
+     * Number of found items
+     */
+    items?: int;
+
+    /**
      * If `true` the filtering was executed case sensitive
      */
     caseSensitive?: boolean;
@@ -20557,6 +20571,19 @@ declare module "sap/ui/mdc/ValueHelp" {
    */
   export type ValueHelp$TypeaheadSuggestedEvent = Event<
     ValueHelp$TypeaheadSuggestedEventParameters,
+    ValueHelp
+  >;
+
+  /**
+   * Parameters of the ValueHelp#visualFocusSet event.
+   */
+  export interface ValueHelp$VisualFocusSetEventParameters {}
+
+  /**
+   * Event object of the ValueHelp#visualFocusSet event.
+   */
+  export type ValueHelp$VisualFocusSetEvent = Event<
+    ValueHelp$VisualFocusSetEventParameters,
     ValueHelp
   >;
 }
@@ -20859,6 +20886,17 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
       oEvent: Event
     ): void;
     /**
+     * Handles the `visualFocusSet` event of the content.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    handleVisualFocusSet(
+      /**
+       * event
+       */
+      oEvent: Event
+    ): void;
+    /**
      * Checks for the provided `sap.ui.mdc.valuehelp.base.Content` in the aggregation {@link #getContent content}.
      * and returns its index if found or -1 otherwise.
      *
@@ -21078,6 +21116,11 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
      * ID of the navigated item. (This is needed to set the corresponding aria-attribute)
      */
     itemId?: string;
+
+    /**
+     * If `true` the filtering was executed case sensitive
+     */
+    caseSensitive?: boolean;
   }
 
   /**
@@ -21184,6 +21227,11 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
     itemId?: string;
 
     /**
+     * Number of found items
+     */
+    items?: int;
+
+    /**
      * If `true` the filtering was executed case sensitive
      */
     caseSensitive?: boolean;
@@ -21194,6 +21242,19 @@ declare module "sap/ui/mdc/valuehelp/base/Container" {
    */
   export type Container$TypeaheadSuggestedEvent = Event<
     Container$TypeaheadSuggestedEventParameters,
+    Container
+  >;
+
+  /**
+   * Parameters of the Container#visualFocusSet event.
+   */
+  export interface Container$VisualFocusSetEventParameters {}
+
+  /**
+   * Event object of the Container#visualFocusSet event.
+   */
+  export type Container$VisualFocusSetEvent = Event<
+    Container$VisualFocusSetEventParameters,
     Container
   >;
 }
@@ -21645,6 +21706,11 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
      * ID of the navigated item. (This is needed to set the corresponding aria-attribute)
      */
     itemId?: string;
+
+    /**
+     * If `true` the filtering was executed case sensitive
+     */
+    caseSensitive?: boolean;
   }
 
   /**
@@ -21715,6 +21781,11 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
     itemId?: string;
 
     /**
+     * Number of found items
+     */
+    items?: int;
+
+    /**
      * If `true` the filtering was executed case sensitive
      */
     caseSensitive?: boolean;
@@ -21725,6 +21796,19 @@ declare module "sap/ui/mdc/valuehelp/base/Content" {
    */
   export type Content$TypeaheadSuggestedEvent = Event<
     Content$TypeaheadSuggestedEventParameters,
+    Content
+  >;
+
+  /**
+   * Parameters of the Content#visualFocusSet event.
+   */
+  export interface Content$VisualFocusSetEventParameters {}
+
+  /**
+   * Event object of the Content#visualFocusSet event.
+   */
+  export type Content$VisualFocusSetEvent = Event<
+    Content$VisualFocusSetEventParameters,
     Content
   >;
 }

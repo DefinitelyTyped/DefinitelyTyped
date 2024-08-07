@@ -1,4 +1,4 @@
-// For Library Version: 1.126.0
+// For Library Version: 1.127.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -1511,6 +1511,8 @@ declare namespace sap {
     "sap/ui/fl/apply/_internal/changes/descriptor/app/ChangeInbound": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/RemoveAllInboundsExceptOne": undefined;
+
+    "sap/ui/fl/apply/_internal/changes/descriptor/app/SetAch": undefined;
 
     "sap/ui/fl/apply/_internal/changes/descriptor/app/SetTitle": undefined;
 
