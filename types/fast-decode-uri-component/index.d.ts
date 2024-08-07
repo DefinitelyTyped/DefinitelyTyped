@@ -1,1 +1,2 @@
-export default function decodeURIComponent(uri: string): string | null;
+declare function decodeURIComponent(uri: string): string | null;
+export = decodeURIComponent;
