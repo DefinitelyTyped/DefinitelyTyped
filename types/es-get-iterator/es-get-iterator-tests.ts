@@ -36,7 +36,7 @@ declare const ARGUMENTS: IArguments;
 getIterator(ARGUMENTS);
 
 declare const ITERABLE_UNION: number[] | Set<Date>;
-// $ExpectType Iterator<number, any, undefined> | Iterator<Date, any, undefined> || Iterator<number, any, any> | Iterator<Date, any, unknown>
+// $ExpectType Iterator<number, any, undefined> | Iterator<Date, any, undefined> || Iterator<number, any, unknown> | Iterator<Date, any, unknown>
 getIterator(ITERABLE_UNION);
 
 declare const ITERABLE_OR_OTHERS_UNION: Map<Error, DataView> | ArrayBuffer;
