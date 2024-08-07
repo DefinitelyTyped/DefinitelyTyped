@@ -4378,6 +4378,14 @@ declare namespace cytoscape {
              */
             "line-dash-offset"?: PropertyValueEdge<number> | undefined;
             /**
+             * The width of the edge’s outline.
+             */
+            "line-outline-width"?: PropertyValueEdge<number | string> | undefined;
+            /**
+             * The colour of the edge’s outline.
+             */
+            "line-outline-color"?: PropertyValueEdge<Colour> | undefined;
+            /**
              * The distance the edge ends from its target.
              */
             "target-distance-from-node"?: PropertyValueEdge<number> | undefined;
