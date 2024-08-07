@@ -548,7 +548,7 @@ declare namespace Mocha {
          * - _Only available when invoked via the mocha CLI._
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends Context>(fn: Func<T>): void;
+        <T extends Context>(fn: Func<T>): Test;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given callback `fn`
@@ -558,7 +558,7 @@ declare namespace Mocha {
          * - _Only available when invoked via the mocha CLI._
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends Context>(fn: AsyncFunc<T>): void;
+        <T extends Context>(fn: AsyncFunc<T>): Test;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -567,7 +567,7 @@ declare namespace Mocha {
          * - _Only available when invoked via the mocha CLI._
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends Context>(title: string, fn?: Func<T>): void;
+        <T extends Context>(title: string, fn?: Func<T>): Test;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -576,7 +576,7 @@ declare namespace Mocha {
          * - _Only available when invoked via the mocha CLI._
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends Context>(title: string, fn?: AsyncFunc<T>): void;
+        <T extends Context>(title: string, fn?: AsyncFunc<T>): Test;
     }
 
     interface PendingTestFunction {
@@ -588,7 +588,7 @@ declare namespace Mocha {
          * - _Only available when invoked via the mocha CLI._
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends Context>(fn: Func<T>): void;
+        <T extends Context>(fn: Func<T>): Test;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given callback `fn`
@@ -598,7 +598,7 @@ declare namespace Mocha {
          * - _Only available when invoked via the mocha CLI._
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends Context>(fn: AsyncFunc<T>): void;
+        <T extends Context>(fn: AsyncFunc<T>): Test;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -607,7 +607,7 @@ declare namespace Mocha {
          * - _Only available when invoked via the mocha CLI._
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends Context>(title: string, fn?: Func<T>): void;
+        <T extends Context>(title: string, fn?: Func<T>): Test;
 
         /**
          * [bdd, tdd, qunit] Describe a specification or test-case with the given `title` and
@@ -616,7 +616,7 @@ declare namespace Mocha {
          * - _Only available when invoked via the mocha CLI._
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        <T extends Context>(title: string, fn?: AsyncFunc<T>): void;
+        <T extends Context>(title: string, fn?: AsyncFunc<T>): Test;
     }
 
     /**
