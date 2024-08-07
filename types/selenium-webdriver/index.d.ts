@@ -27,6 +27,7 @@ export {
     WebDriver,
     WebElementCondition,
 } from "./lib/webdriver";
+export { Select } from "./lib/select";
 export { logging, LogInspector, until };
 
 /**
