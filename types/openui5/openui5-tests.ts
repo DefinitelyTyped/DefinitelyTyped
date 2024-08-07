@@ -33,6 +33,7 @@ import Filter from "sap/ui/model/Filter";
 import Version from "sap/base/util/Version";
 import UploadItem from "sap/m/upload/UploadItem";
 import DragDropInfo from "sap/ui/core/dnd/DragDropInfo";
+import nextUIUpdate from "sap/ui/test/utils/nextUIUpdate";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -227,3 +228,6 @@ ui.getIsTrustedSource();
 // 1.126
 const drag = new DragDropInfo();
 drag.getKeyboardHandling();
+
+// 1.127
+nextUIUpdate();

@@ -1,4 +1,4 @@
-// For Library Version: 1.126.0
+// For Library Version: 1.127.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1030,8 +1030,6 @@ declare module "sap/f/AvatarGroupItem" {
    * rendering each `AvatarGroupItem` instance in the {@link sap.f.AvatarGroup} control.
    *
    * @since 1.73
-   * @experimental (since 1.73) - This class is experimental and provides only limited functionality. Also
-   * the API might be changed in future.
    */
   export default class AvatarGroupItem extends Control {
     /**
@@ -1189,9 +1187,6 @@ declare module "sap/f/AvatarGroupItem" {
   }
   /**
    * Describes the settings that can be provided to the AvatarGroupItem constructor.
-   *
-   * @experimental (since 1.73) - This class is experimental and provides only limited functionality. Also
-   * the API might be changed in future.
    */
   export interface $AvatarGroupItemSettings extends $ControlSettings {
     /**
@@ -12863,8 +12858,6 @@ declare module "sap/f/ProductSwitch" {
    * A layout control that provides specific configuration about how the items should be displayed.
    *
    * @since 1.72
-   * @experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
-   * the API might be changed in future.
    */
   export default class ProductSwitch extends Control {
     /**
@@ -13106,9 +13099,6 @@ declare module "sap/f/ProductSwitch" {
   }
   /**
    * Describes the settings that can be provided to the ProductSwitch constructor.
-   *
-   * @experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
-   * the API might be changed in future.
    */
   export interface $ProductSwitchSettings extends $ControlSettings {
     /**
@@ -13165,8 +13155,6 @@ declare module "sap/f/ProductSwitchItem" {
    * **Note:** `ProductSwitchItem` is not supported when used outside of `ProductSwitch`.
    *
    * @since 1.72
-   * @experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
-   * the API might be changed in future.
    */
   export default class ProductSwitchItem extends Control {
     /**
@@ -13373,9 +13361,6 @@ declare module "sap/f/ProductSwitchItem" {
   }
   /**
    * Describes the settings that can be provided to the ProductSwitchItem constructor.
-   *
-   * @experimental (since 1.72) - This class is experimental and provides only limited functionality. Also
-   * the API might be changed in future.
    */
   export interface $ProductSwitchItemSettings extends $ControlSettings {
     /**

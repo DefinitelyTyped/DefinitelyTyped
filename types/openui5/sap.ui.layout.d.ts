@@ -1,4 +1,4 @@
-// For Library Version: 1.126.0
+// For Library Version: 1.127.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -6718,7 +6718,7 @@ declare module "sap/ui/layout/form/Form" {
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
-     * In this case provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
      * to the needed value.
      */
     getTitle(): Title | string;
@@ -6728,7 +6728,7 @@ declare module "sap/ui/layout/form/Form" {
      * Toolbar of the `Form`.
      *
      * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
+     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
      * Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
@@ -6944,7 +6944,7 @@ declare module "sap/ui/layout/form/Form" {
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
-     * In this case provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
      * to the needed value.
      */
     title?: string | Title | PropertyBindingInfo;
@@ -6953,7 +6953,7 @@ declare module "sap/ui/layout/form/Form" {
      * Toolbar of the `Form`.
      *
      * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
+     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
      * Use the right title level to meet the visual requirements. This might be theme-dependent.
      *
      * @since 1.36.0
@@ -6968,6 +6968,10 @@ declare module "sap/ui/layout/form/Form" {
 
     /**
      * Association to controls / IDs that label this control (see WAI-ARIA attribute `aria-labelledby`).
+     *
+     * **Note:** Every `Form` needs to have some title or label (at least for screen reader support). If no
+     * `Title` is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
+     * or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using the `ariaLabelledBy` association.
      *
      * @since 1.28.0
      */
@@ -7428,6 +7432,10 @@ declare module "sap/ui/layout/form/FormContainer" {
      *
      * **Note:** This attribute is only rendered if the `FormContainer` has it's own DOM representation in the
      * used `FormLayout`.
+     *
+     * **Note:** If there is more than one `FormContainers`, every `FormContainer` needs to have some title
+     * or label (at least for screen reader support). If no `Title` is set, a label or title needs to be assigned
+     * using the `ariaLabelledBy` association.
      *
      * @since 1.36.0
      */
@@ -10075,6 +10083,13 @@ declare module "sap/ui/layout/form/SimpleForm" {
      *
      * Title element of the `SimpleForm`. Can either be a `Title` element, or a string.
      *
+     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     *
+     * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
+     * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
+     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * to the needed value.
+     *
      * @since 1.16.3
      */
     getTitle(): Title | string;
@@ -10084,7 +10099,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Toolbar of the `SimpleForm`.
      *
      * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
+     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
      *
      * @since 1.36.0
      */
@@ -11041,6 +11056,13 @@ declare module "sap/ui/layout/form/SimpleForm" {
     /**
      * Title element of the `SimpleForm`. Can either be a `Title` element, or a string.
      *
+     * **Note:** If a `Toolbar` is used, the `Title` is ignored.
+     *
+     * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
+     * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
+     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * to the needed value.
+     *
      * @since 1.16.3
      */
     title?: string | Title | PropertyBindingInfo;
@@ -11049,7 +11071,7 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * Toolbar of the `SimpleForm`.
      *
      * **Note:** If a `Toolbar` is used, the `Title` is ignored. If a title is needed inside the `Toolbar` it
-     * must be added at content to the `Toolbar`. In this case add the `Title` to the `ariaLabelledBy` association.
+     * must be added at content to the `Toolbar`. In this case, add the `Title` to the `ariaLabelledBy` association.
      *
      * @since 1.36.0
      */
@@ -11057,6 +11079,10 @@ declare module "sap/ui/layout/form/SimpleForm" {
 
     /**
      * Association to controls / IDs which label this control (see WAI-ARIA attribute `aria-labelledby`).
+     *
+     * **Note:** Every `Form` needs to have some title or label (at least for screen reader support). If no
+     * `Title` is set, and the `Form` is not a child or a control with a title, such as {@link sap.m.Panel Panel }
+     * or {@link sap.m.Dialog Dialog}, a label or title needs to be assigned using the `ariaLabelledBy` association.
      *
      * @since 1.32.0
      */
@@ -14976,6 +15002,9 @@ declare module "sap/ui/layout/VerticalLayout" {
 
   /**
    * In this layout the content controls are rendered one below the other.
+   *
+   * **Note:** `VerticalLayout` is not a focusable element and therefore the inheritance of the `tooltip`
+   * property isn't supported.
    *
    * @since 1.16.0
    */
