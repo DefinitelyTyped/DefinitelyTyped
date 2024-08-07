@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/juspay-tech__hyper-js",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/@juspay-tech/hyper-js"
+    ],
+    "devDependencies": {
+        "@types/juspay-tech__hyper-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bernhard Schönberger",
+            "githubUsername": "schoenbergerb"
+        }
+    ]
+}
