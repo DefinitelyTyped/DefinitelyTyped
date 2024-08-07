@@ -1,9 +1,9 @@
-import type { JavaClass } from './JavaClass';
 import { CheckinHandler } from "./CheckinHandler";
 import { Consumer } from "./Consumer";
 import { DomainFolder } from "./DomainFolder";
-import { DomainObject, ChangeSet } from "./DomainObject";
+import { ChangeSet, DomainObject } from "./DomainObject";
 import { ItemCheckoutStatus } from "./ItemCheckoutStatus";
+import type { JavaClass } from "./JavaClass";
 import { ProjectLocator } from "./ProjectLocator";
 import { TaskMonitor } from "./TaskMonitor";
 import { Version } from "./Version";
@@ -11,7 +11,6 @@ import { Version } from "./Version";
 /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface File extends JavaClass {
 }
-
 
 // https://ghidra.re/ghidra_docs/api/ghidra/framework/model/DomainFile.html
 export interface DomainFile extends JavaClass {
@@ -35,7 +34,7 @@ export interface DomainFile extends JavaClass {
     getConsumers(): any[];
     getContentType(): string;
     getDomainObject(consumer: any, okToUpgrade: boolean, okToRecover: boolean, monitor: TaskMonitor): DomainObject;
-    getDomainObjectClass(): DomainObject
+    getDomainObjectClass(): DomainObject;
     getFileID(): string;
     getIcon(disabled: boolean): string;
     getImmutableDomainObject(consumer: any, version: number, monitor: TaskMonitor): DomainObject;

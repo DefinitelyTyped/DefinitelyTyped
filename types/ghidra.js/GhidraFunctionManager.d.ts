@@ -1,21 +1,34 @@
-import type { JavaClass } from './JavaClass';
-import type { Address } from './Address';
-import type { AddressSetView } from './AddressSetView';
-import { SourceType } from './SourceType';
-import { Namespace } from './Namespace';
-import { PrototypeModel } from './PrototypeModel';
-import { GhidraFunctionIterator } from './GhidraFunctionIterator';
-import { Program } from './Program';
-import { GhidraFunctionTagManager } from './GhidraFunctionTagManager';
-import { Variable } from './Variable';
-import { TaskMonitor } from './TaskMonitor';
-import { GhidraFunction } from './GhidraFunction';
+import type { Address } from "./Address";
+import type { AddressSetView } from "./AddressSetView";
+import { GhidraFunction } from "./GhidraFunction";
+import { GhidraFunctionIterator } from "./GhidraFunctionIterator";
+import { GhidraFunctionTagManager } from "./GhidraFunctionTagManager";
+import type { JavaClass } from "./JavaClass";
+import { Namespace } from "./Namespace";
+import { Program } from "./Program";
+import { PrototypeModel } from "./PrototypeModel";
+import { SourceType } from "./SourceType";
+import { TaskMonitor } from "./TaskMonitor";
+import { Variable } from "./Variable";
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/GhidraFunctionManager.html
 export interface GhidraFunctionManager extends JavaClass {
     createGhidraFunction(name: string, entryPoint: Address, body: AddressSetView, source: SourceType): GhidraFunction;
-    createGhidraFunction(name: string, nameSpace: Namespace, entryPoint: Address, body: AddressSetView, source: SourceType): GhidraFunction;
-    createThunkGhidraFunction(name: string, nameSpace: Namespace, entryPoint: Address, body: AddressSetView, thunkedGhidraFunction: GhidraFunction, source: SourceType): GhidraFunction;
+    createGhidraFunction(
+        name: string,
+        nameSpace: Namespace,
+        entryPoint: Address,
+        body: AddressSetView,
+        source: SourceType,
+    ): GhidraFunction;
+    createThunkGhidraFunction(
+        name: string,
+        nameSpace: Namespace,
+        entryPoint: Address,
+        body: AddressSetView,
+        thunkedGhidraFunction: GhidraFunction,
+        source: SourceType,
+    ): GhidraFunction;
     getCallingConvention(name: string): PrototypeModel;
     getCallingConventionNames(): string[];
     getCallingConventions(): PrototypeModel[];

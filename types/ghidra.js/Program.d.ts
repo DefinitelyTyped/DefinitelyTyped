@@ -1,40 +1,40 @@
-import type { JavaClass } from './JavaClass';
-import { AbortedTransactionListener } from './AbortedTransactionListener';
-import { Address } from './Address';
-import { AddressFactory } from './AddressFactory';
-import { AddressMap } from './AddressMap';
-import { AddressSetPropertyMap } from './AddressSetPropertyMap';
-import { AddressSetView } from './AddressSetView';
-import { BookmarkManager } from './BookmarkManager';
-import { CodeManager } from './CodeManager';
-import { CompilerSpec, CompilerSpecID  } from './CompilerSpec';
-import { DataTypeManager } from './DataTypeManager';
-import { DomainObject } from './DomainObject';
-import { EquateTable } from './EquateTable';
-import { ExternalManager } from './ExternalManager';
-import { GhidraFunctionManager } from './GhidraFunctionManager';
-import { IntRangeMap } from './IntRangeMap';
-import { Language, LanguageID } from './Language';
-import { Listing } from './Listing';
-import { Memory } from './Memory';
-import { MemoryBlock } from './MemoryBlock';
-import { Namespace } from './Namespace';
-import { NamespaceManager } from './NamespaceManager';
-import { Options } from './Options';
-import { ProgramChangeSet } from './ProgramChangeSet';
-import { ProgramContext } from './ProgramContext';
-import { ProgramTreeManager } from './ProgramTreeManager';
-import { ProgramUserData } from './ProgramUserData';
-import { PropertyMapManager } from './PropertyMapManager';
-import { ReferenceManager } from './ReferenceManager';
-import { Register } from './Register';
-import { RegisterValue } from './RegisterValue';
-import { RelocationTable } from './RelocationTable';
-import { SymbolTable } from './SymbolTable';
-import { TaskMonitor } from './TaskMonitor';
-import { Transaction } from './Transaction';
-import { TransactionListener } from './TransactionListener';
-import { Varnode } from './Varnode';
+import { AbortedTransactionListener } from "./AbortedTransactionListener";
+import { Address } from "./Address";
+import { AddressFactory } from "./AddressFactory";
+import { AddressMap } from "./AddressMap";
+import { AddressSetPropertyMap } from "./AddressSetPropertyMap";
+import { AddressSetView } from "./AddressSetView";
+import { BookmarkManager } from "./BookmarkManager";
+import { CodeManager } from "./CodeManager";
+import { CompilerSpec, CompilerSpecID } from "./CompilerSpec";
+import { DataTypeManager } from "./DataTypeManager";
+import { DomainObject } from "./DomainObject";
+import { EquateTable } from "./EquateTable";
+import { ExternalManager } from "./ExternalManager";
+import { GhidraFunctionManager } from "./GhidraFunctionManager";
+import { IntRangeMap } from "./IntRangeMap";
+import type { JavaClass } from "./JavaClass";
+import { Language, LanguageID } from "./Language";
+import { Listing } from "./Listing";
+import { Memory } from "./Memory";
+import { MemoryBlock } from "./MemoryBlock";
+import { Namespace } from "./Namespace";
+import { NamespaceManager } from "./NamespaceManager";
+import { Options } from "./Options";
+import { ProgramChangeSet } from "./ProgramChangeSet";
+import { ProgramContext } from "./ProgramContext";
+import { ProgramTreeManager } from "./ProgramTreeManager";
+import { ProgramUserData } from "./ProgramUserData";
+import { PropertyMapManager } from "./PropertyMapManager";
+import { ReferenceManager } from "./ReferenceManager";
+import { Register } from "./Register";
+import { RegisterValue } from "./RegisterValue";
+import { RelocationTable } from "./RelocationTable";
+import { SymbolTable } from "./SymbolTable";
+import { TaskMonitor } from "./TaskMonitor";
+import { Transaction } from "./Transaction";
+import { TransactionListener } from "./TransactionListener";
+import { Varnode } from "./Varnode";
 
 // https://ghidra.re/ghidra_docs/api/ghidra/program/model/listing/Program.html
 export interface Program extends JavaClass, DomainObject {
@@ -111,5 +111,10 @@ export interface Program extends JavaClass, DomainObject {
     releaseSynchronizedDomainObjects(): void;
     startTransaction(description: string): number;
     startTransaction(description: string, listener: AbortedTransactionListener): number;
-    startTransaction(description: string, compilerSpecID: CompilerSpecID, forceRedisassembly: boolean, monitor: TaskMonitor): number;
+    startTransaction(
+        description: string,
+        compilerSpecID: CompilerSpecID,
+        forceRedisassembly: boolean,
+        monitor: TaskMonitor,
+    ): number;
 }
