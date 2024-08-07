@@ -6,7 +6,6 @@ import { Address } from './Address';
 export interface AddressSpace extends JavaClass {
   add(addr: Address, displacement: number): Address;
   addNoWrap(addr: Address, displacement: number): Address;
-  //addNoWrap(addr: GenericAddress, displacement: bigint): Address;
   addWrap(addr: Address, displacement: number): Address;
   addWrapSpace(addr: Address, displacement: number): Address;
   getAddress(byteOffset: number): Address;

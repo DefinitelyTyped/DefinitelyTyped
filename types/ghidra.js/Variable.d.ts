@@ -10,7 +10,6 @@ import { GhidraFunction } from './GhidraFunction';
 export interface Variable extends JavaClass {
   getComment(): string;
   getDataType(): DataType;
-  //getFirstStorageVarnode(): Varnode;
   getFirstUseOffset(): number;
   getGhidraFunction(): GhidraFunction;
   getLastStorageVarnode(): Varnode;
@@ -18,12 +17,7 @@ export interface Variable extends JavaClass {
   getMinAddress(): Address;
   getName(): string;
   getProgram(): Program;
-  //getRegister(): Register;
-  //getRegisters(): java.util.List<Register>;
-  //getSource(): SourceType;
   getStackOffset(): number;
-  //getSymbol(): Symbol;
-  //getVariableStorage(): VariableStorage;
   hasAssignedStorage(): boolean;
   hasStackStorage(): boolean;
   isCompoundVariable(): boolean;
@@ -34,8 +28,4 @@ export interface Variable extends JavaClass {
   isUniqueVariable(): boolean;
   isValid(): boolean;
   setComment(comment: string): void;
-  //setDataType(type: DataType, alignStack: boolean, force: boolean, source: SourceType): void;
-  //setDataType(type: DataType, storage: VariableStorage, force: boolean, source: SourceType): void;
-  //setDataType(type: DataType, source: SourceType): void;
-  //setName(name: string, source: SourceType): void;
 }

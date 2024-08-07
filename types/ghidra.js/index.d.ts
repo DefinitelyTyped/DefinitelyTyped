@@ -59,11 +59,10 @@ import type { Program } from './Program';
 import type { Address } from './Address';
 import type { JavaClass } from './JavaClass';
 
-/* eslint-disable @definitelytyped/no-unnecessary-generics */
 interface JavaHelper {
+  /* eslint-disable-next-line @definitelytyped/no-unnecessary-generics */
   getClass<T extends JavaClass>(className: string): T;
 }
-/* eslint-enable @definitelytyped/no-unnecessary-generics */
 
 declare global {
   var currentProgram: Program;

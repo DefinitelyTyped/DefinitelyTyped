@@ -5,7 +5,6 @@ import { GhidraFunctionTag } from './GhidraFunctionTag';
 
 export interface GhidraFunctionTagManager extends JavaClass {
   createGhidraFunctionTag(name: string, comment: string): GhidraFunctionTag;
-  //getAllGhidraFunctionTags(): java.util.List<? extends GhidraFunctionTag>;
   getGhidraFunctionTag(id: number): GhidraFunctionTag;
   getGhidraFunctionTag(name: string): GhidraFunctionTag;
   getUseCount(tag: GhidraFunctionTag): number;
