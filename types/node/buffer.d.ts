@@ -171,6 +171,17 @@ declare module "buffer" {
          */
         arrayBuffer(): Promise<ArrayBuffer>;
         /**
+         * The `blob.bytes()` method returns the byte of the `Blob` object as a `Promise<Uint8Array>`.
+         *
+         * ```js
+         * const blob = new Blob(['hello']);
+         * blob.bytes().then((bytes) => {
+         *   console.log(bytes); // Outputs: Uint8Array(5) [ 104, 101, 108, 108, 111 ]
+         * });
+         * ```
+         */
+        bytes(): Promise<Uint8Array>;
+        /**
          * Creates and returns a new `Blob` containing a subset of this `Blob` objects
          * data. The original `Blob` is not altered.
          * @since v15.7.0, v14.18.0

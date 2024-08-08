@@ -173,6 +173,15 @@ declare module "zlib" {
     interface InflateRaw extends stream.Transform, Zlib, ZlibReset {}
     interface Unzip extends stream.Transform, Zlib {}
     /**
+     * Computes a 32-bit [Cyclic Redundancy Check](https://en.wikipedia.org/wiki/Cyclic_redundancy_check) checksum of `data`.
+     * If `value` is specified, it is used as the starting value of the checksum, otherwise, 0 is used as the starting value.
+     * @param data When `data` is a string, it will be encoded as UTF-8 before being used for computation.
+     * @param value An optional starting value. It must be a 32-bit unsigned integer. @default 0
+     * @returns A 32-bit unsigned integer containing the checksum.
+     * @since v22.2.0
+     */
+    function crc32(data: string | Buffer | NodeJS.ArrayBufferView, value?: number): number;
+    /**
      * Creates and returns a new `BrotliCompress` object.
      * @since v11.7.0, v10.16.0
      */

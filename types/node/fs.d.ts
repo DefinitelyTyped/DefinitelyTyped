@@ -4324,6 +4324,18 @@ declare module "fs" {
          * Function to filter out files/directories. Return true to exclude the item, false to include it.
          */
         exclude?: ((fileName: string) => boolean) | undefined;
+        /**
+         * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
+         * @default false
+         * @since v22.2.0
+         */
+        withFileTypes?: boolean | undefined;
+    }
+    export interface GlobOptionsWithFileTypes extends GlobOptions {
+        withFileTypes: true;
+    }
+    export interface GlobOptionsWithoutFileTypes extends GlobOptions {
+        withFileTypes?: false | undefined;
     }
     /**
      * Retrieves the files matching the specified pattern.
@@ -4334,13 +4346,44 @@ declare module "fs" {
     ): void;
     export function glob(
         pattern: string | string[],
+        options: GlobOptionsWithFileTypes,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: Dirent[],
+        ) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
+        options: GlobOptionsWithoutFileTypes,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: string[],
+        ) => void,
+    ): void;
+    export function glob(
+        pattern: string | string[],
         options: GlobOptions,
-        callback: (err: NodeJS.ErrnoException | null, matches: string[]) => void,
+        callback: (
+            err: NodeJS.ErrnoException | null,
+            matches: Dirent[] | string[],
+        ) => void,
     ): void;
     /**
      * Retrieves the files matching the specified pattern.
      */
-    export function globSync(pattern: string | string[], options?: GlobOptions): string[];
+    export function globSync(pattern: string | string[]): string[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptionsWithFileTypes,
+    ): Dirent[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptionsWithoutFileTypes,
+    ): string[];
+    export function globSync(
+        pattern: string | string[],
+        options: GlobOptions,
+    ): Dirent[] | string[];
 }
 declare module "node:fs" {
     export * from "fs";
