@@ -50,7 +50,7 @@ export interface TransitionActions {
     exit?: boolean | undefined;
 }
 
-interface BaseTransitionProps<RefElement extends undefined | HTMLElement> {
+interface BaseTransitionProps<RefElement extends undefined | HTMLElement> extends TransitionActions {
     /**
      * Show the component; triggers the enter or exit states
      */
