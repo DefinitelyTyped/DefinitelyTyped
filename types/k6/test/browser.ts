@@ -1525,6 +1525,25 @@ async function test() {
     elementHandle.selectText({ noWaitAfter: true });
 
     // @ts-expect-error
+    elementHandle.setChecked();
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true);
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(false);
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { force: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { trial: true });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    elementHandle.setChecked(true, { strict: true });
+
+    // @ts-expect-error
     elementHandle.setInputFiles();
     // @ts-expect-error
     elementHandle.setInputFiles({});

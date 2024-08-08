@@ -1334,6 +1334,14 @@ export interface ElementHandle extends JSHandle {
     selectText(options?: ElementHandleOptions): Promise<void>;
 
     /**
+     * Checks or unchecks the input checkbox element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(checked: boolean, options?: ElementClickOptions & StrictnessOptions): Promise<void>;
+
+    /**
      * Sets the file input element's value to the specified files.
      *
      * To work with local files on the file system, use the experimental
