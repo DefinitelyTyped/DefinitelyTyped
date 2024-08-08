@@ -378,7 +378,6 @@ file();
 // @ts-expect-error
 file(5);
 fileData = file("important data");
-fileData = file([1, 2, 3]);
 fileData = file(new Uint8Array([10, 12]).buffer);
 // @ts-expect-error
 file("", 5);
