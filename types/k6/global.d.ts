@@ -6,9 +6,7 @@
  * others in both contexts. Comments note availability.
  */
 
-import { bytes } from ".";
-
-export {};
+export { };
 
 // Available without importing
 declare global {

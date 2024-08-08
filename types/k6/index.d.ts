@@ -124,11 +124,6 @@ export interface Checkers<VT> {
 // === Common types ===
 // --------------------
 
-/**
- * Array of numbers. The number range is from 0 to 255.
- */
-export type bytes = number[];
-
 // === JSON ===
 // ------------
 
@@ -140,7 +135,7 @@ export type JSONValue = null | boolean | number | string | JSONArray | JSONObjec
 /**
  * Array representable with JSON.
  */
-export interface JSONArray extends Array<JSONValue> {}
+export interface JSONArray extends Array<JSONValue> { }
 
 /**
  * Object representable with JSON.
