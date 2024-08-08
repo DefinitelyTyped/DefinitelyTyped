@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/image-import",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Module types to allow image imports",
+    "projects": [
+        "N/A"
+    ],
+    "devDependencies": {
+        "@types/image-import": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nadine Kinnen",
+            "githubUsername": "thelifenadine"
+        }
+    ]
+}
