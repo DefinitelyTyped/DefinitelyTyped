@@ -1589,6 +1589,15 @@ export interface Frame {
     goto(url: string, options?: NavigationOptions): Promise<Response | null>;
 
     /**
+     * Checks or unchecks the input checkbox element.
+     * @param selector A selector to search for an element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(selector: string, checked: boolean, options?: FrameCheckOptions & StrictnessOptions): Promise<void>;
+
+    /**
      * Replace the entire HTML document content.
      * @param html The HTML to use.
      * @param options The options to use.
