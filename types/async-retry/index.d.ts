@@ -1,4 +1,4 @@
-import { WrapOptions } from "retry";
+import { OperationOptions } from "retry";
 
 /**
  * Retrying made simple, easy, and async.
@@ -29,7 +29,7 @@ import { WrapOptions } from "retry";
 declare function AsyncRetry<TRet>(fn: AsyncRetry.RetryFunction<TRet>, opts?: AsyncRetry.Options): Promise<TRet>;
 
 declare namespace AsyncRetry {
-    interface Options extends WrapOptions {
+    interface Options extends OperationOptions {
         /**
          * An optional function that is invoked after a new retry is performed. It's passed the
          * `Error` that triggered it as a parameter.
