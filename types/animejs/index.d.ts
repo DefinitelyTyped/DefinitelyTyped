@@ -5,6 +5,7 @@ type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => 
 type AnimeTarget = string | object | HTMLElement | SVGElement | NodeList | null;
 
 declare namespace anime {
+    type UseAsFunction2<T extends string> = `${T}(${number},${number})`;
     type EasingOptions =
         | "linear"
         | "easeInQuad"
@@ -36,7 +37,28 @@ declare namespace anime {
         | "easeInOutCirc"
         | "easeInOutBack"
         | "easeInOutElastic"
-        | "easeInOutBounce";
+        | "easeInOutBounce"
+        | "easeOutBounce"
+        | "easeOutInQuad"
+        | "easeOutInCubic"
+        | "easeOutInQuart"
+        | "easeOutInQuint"
+        | "easeOutInSine"
+        | "easeOutInExpo"
+        | "easeOutInCirc"
+        | "easeOutInBack"
+        | "easeOutInBounce"
+        | `cubicBezier(${number},${number},${number},${number})`
+        | `spring(${number},${number},${number},${number})`
+        | "spring"
+        | `steps(${number})`
+        | "steps"
+        | UseAsFunction2<
+            | "easeInElastic"
+            | "easeOutElastic"
+            | "easeInOutElastic"
+            | "easeOutInElastic"
+        >;
     type DirectionOptions = "reverse" | "alternate" | "normal";
 
     interface AnimeCallBack {
@@ -53,20 +75,31 @@ declare namespace anime {
     interface AnimeInstanceParams extends AnimeCallBack {
         loop?: number | boolean | undefined;
         autoplay?: boolean | undefined;
-        direction?: DirectionOptions | string | undefined;
+        direction?: DirectionOptions | undefined;
     }
 
-    interface AnimeAnimParams extends AnimeCallBack {
-        targets?: AnimeTarget | readonly AnimeTarget[] | undefined;
-
+    /**
+     * The control parameters for a specific property.
+     */
+    interface AnimePropertyParams extends AnimeCallBack {
         duration?: number | FunctionBasedParameter | undefined;
         delay?: number | FunctionBasedParameter | undefined;
         endDelay?: number | FunctionBasedParameter | undefined;
         elasticity?: number | FunctionBasedParameter | undefined;
         round?: number | boolean | FunctionBasedParameter | undefined;
-        keyframes?: readonly AnimeAnimParams[] | undefined;
+        keyframes?: readonly KeyframeParameter[] | undefined;
+        easing?:
+            | EasingOptions
+            | CustomEasingFunction
+            | ((el: HTMLElement) => string)
+            | undefined;
+    }
+    interface KeyframeParameter extends Exclude<AnimePropertyParams, "keyframes">, CssProperty, CssTransform {
+        [AnyAnimatedProperty: string]: any;
+    }
 
-        easing?: EasingOptions | string | CustomEasingFunction | ((el: HTMLElement) => string) | undefined;
+    interface AnimeAnimParams extends AnimePropertyParams, CssProperty, CssTransform {
+        targets?: AnimeTarget | readonly AnimeTarget[] | undefined;
 
         [AnyAnimatedProperty: string]: any;
     }
@@ -132,7 +165,7 @@ declare namespace anime {
     interface StaggerOptions {
         start?: number | string | undefined;
         direction?: "normal" | "reverse" | undefined;
-        easing?: CustomEasingFunction | string | EasingOptions | undefined;
+        easing?: CustomEasingFunction | EasingOptions | undefined;
         grid?: readonly number[] | undefined;
         axis?: "x" | "y" | undefined;
         from?: "first" | "last" | "center" | number | undefined;
@@ -143,13 +176,14 @@ declare namespace anime {
     const speed: number;
     const running: AnimeInstance[];
     const easings: { [EasingFunction: string]: (t: number) => any };
+    /** @default true */
+    const suspendWhenDocumentHidden: boolean;
     function remove(targets: AnimeTarget | readonly AnimeTarget[]): void;
     function get(targets: AnimeTarget, prop: string, unit?: string): string | number;
-    function path(path: string | HTMLElement | SVGElement | null, percent?: number): (prop: string) => {
-        el: HTMLElement | SVGElement;
-        property: string;
-        totalLength: number;
-    };
+    function path(
+        path: string | HTMLElement | SVGElement | null,
+        percent?: number,
+    ): (prop: "x" | "y" | "angle") => MotionPath;
     function setDashoffset(el: HTMLElement | SVGElement | null): number;
     function bezier(x1: number, y1: number, x2: number, y2: number): (t: number) => number;
     function stagger(
@@ -160,6 +194,47 @@ declare namespace anime {
     // Timeline
     function timeline(params?: AnimeParams | readonly AnimeInstance[]): AnimeTimelineInstance;
     function random(min: number, max: number): number;
+
+    interface MotionPath {
+        el: HTMLElement | SVGElement;
+        property: string;
+        svg: {
+            el: HTMLElement;
+            h: number;
+            vH: number;
+            vW: number;
+            viewBox: [number, number, number, number];
+            w: number;
+            x: number;
+            y: number;
+        };
+        totalLength: number;
+    }
+    type PrimitivePropertyParameter = number | string | FunctionBasedParameter | MotionPath;
+    type BasicPropertyParameter = PrimitivePropertyParameter | [PrimitivePropertyParameter, PrimitivePropertyParameter];
+    type SpecificPropertyParameter = AnimePropertyParams & { value: BasicPropertyParameter };
+    type PropertyParameter = BasicPropertyParameter | SpecificPropertyParameter | readonly SpecificPropertyParameter[];
+    type CssProperty = Partial<Record<Exclude<keyof CSSStyleDeclaration, "direction">, PropertyParameter>>;
+    type CssTransform = Partial<
+        Record<
+            | "translateX"
+            | "translateY"
+            | "translateZ"
+            | "rotate"
+            | "rotateX"
+            | "rotateY"
+            | "rotateZ"
+            | "scale"
+            | "scaleX"
+            | "scaleY"
+            | "scaleZ"
+            | "skew"
+            | "skewX"
+            | "skewY"
+            | "perspective",
+            PropertyParameter
+        >
+    >;
 }
 
 declare function anime(params: anime.AnimeParams): anime.AnimeInstance;
