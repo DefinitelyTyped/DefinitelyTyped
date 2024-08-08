@@ -901,7 +901,7 @@ export interface NightwatchTestSettingScreenshots extends NightwatchTestSettingG
     screenshots: NightwatchScreenshotOptions;
 }
 
-export interface NightwatchTestOptions extends NightwatchTestSettingGeneric {
+export interface NightwatchTestOptions extends NightwatchOptions {
     screenshots: boolean;
     screenshotsPath: string;
 }
