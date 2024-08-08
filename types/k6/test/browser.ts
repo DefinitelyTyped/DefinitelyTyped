@@ -626,6 +626,27 @@ async function test() {
     page.selectOption(selector, "option", { timeout: 10000 });
 
     // @ts-expect-error
+    page.setChecked();
+    // @ts-expect-error
+    page.setChecked(selector);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, false);
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { force: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { trial: true });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    page.setChecked(selector, true, { strict: true });
+
+    // @ts-expect-error
     page.setContent();
     // $ExpectType Promise<void>
     page.setContent("<html></html>", { timeout: 10000 });
