@@ -30,9 +30,6 @@ declare function picomatch<T extends true | false = false>(
 declare namespace picomatch {
     type Glob = string | string[];
 
-    function expandRange(from: string, to: string, options: PicomatchOptions): string;
-    function expandRange(from: string, to: string, step: string, options: PicomatchOptions): string;
-
     interface Matcher {
         (test: string): boolean;
     }
@@ -87,7 +84,8 @@ declare namespace picomatch {
          * The function receives the range values as two arguments, and it must return a string to be used in the generated regex.
          * It's recommended that returned strings be wrapped in parentheses.
          */
-        expandRange?: typeof expandRange | undefined;
+        expandRange?(from: string, to: string, options: PicomatchOptions): string;
+        expandRange?(from: string, to: string, step: string, options: PicomatchOptions): string;
         /**
          * Throws an error if no matches are found. Based on the bash option of the same name.
          */
