@@ -82,6 +82,8 @@ const showAllStyle: cytoscape.Stylesheet[] = [
             "text-rotation": "autorotate",
             "target-arrow-shape": "triangle",
             "curve-style": "taxi",
+            "line-outline-width": "1px",
+            "line-outline-color": "black",
             "source-endpoint": "outside-to-node",
             "target-endpoint": "outside-to-node",
             "line-opacity": 0.5,
