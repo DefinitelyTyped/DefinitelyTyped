@@ -35,6 +35,9 @@ const refreshTimeoutNever: Turnstile.RefreshTimeoutMode = "never";
 const refreshTimeoutManual: Turnstile.RefreshTimeoutMode = "manual";
 const refreshTimeoutAuto: Turnstile.RefreshTimeoutMode = "auto";
 
+const executionRender: Turnstile.ExecutionMode = "render";
+const executionExecute: Turnstile.ExecutionMode = "execute";
+
 // @ts-expect-error
 turnstile.ready();
 // $ExpectType void
