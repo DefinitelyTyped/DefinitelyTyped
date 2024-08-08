@@ -3,14 +3,14 @@ import { Camera, ColorRepresentation, Scene, ShaderMaterial, WebGLRenderTarget }
 import { FullScreenQuad, Pass } from "./Pass.js";
 
 export class SSAARenderPass extends Pass {
-    constructor(scene: Scene, camera: Camera, clearColor?: ColorRepresentation, clearAlpha?: number, stencilBufferEnabled?: boolean);
+    constructor(scene: Scene, camera: Camera, clearColor?: ColorRepresentation, clearAlpha?: number);
     scene: Scene;
     camera: Camera;
     sampleLevel: number;
     unbiased: boolean;
     clearColor: ColorRepresentation;
     clearAlpha: number;
-    stencilBufferEnabled: boolean;
+    stencilBuffer: boolean;
     copyUniforms: object;
     copyMaterial: ShaderMaterial;
     fsQuad: FullScreenQuad;
