@@ -12,7 +12,7 @@ import {
     Window,
 } from "..";
 import { HttpResponse } from "../devtools/networkinterceptor";
-import command, { Command } from "./command";
+import { Command, Executor } from "./command";
 import { FileDetector } from "./input";
 export {};
 
@@ -233,12 +233,12 @@ export class WebDriver {
     /**
      * @param {!(./session.Session|IThenable<!./session.Session>)} session Either
      *     a known session or a promise that will be resolved to a session.
-     * @param {!command.Executor} executor The executor to use when sending
+     * @param {!Executor} executor The executor to use when sending
      *     commands to the browser.
      * @param {(function(this: void): ?)=} onQuit A function to call, if any,
      *     when the session is terminated.
      */
-    constructor(session: Session | Promise<Session>, executor: command.Executor, onQuit?: (this: void) => any);
+    constructor(session: Session | Promise<Session>, executor: Executor, onQuit?: (this: void) => any);
 
     /**
      * Creates a new WebDriver session.
@@ -256,7 +256,7 @@ export class WebDriver {
      *     // also fail, propagating the creation failure.
      *     driver.get('http://www.google.com').catch(e => console.log(e));
      *
-     * @param {!command.Executor} executor The executor to create the new session
+     * @param {!Executor} executor The executor to create the new session
      *     with.
      * @param {!Capabilities} capabilities The desired capabilities for the new
      *     session.
@@ -268,13 +268,13 @@ export class WebDriver {
     static createSession(...var_args: any[]): WebDriver;
 
     /** @override */
-    execute(command: command.Command): Promise<void>;
+    execute(command: Command): Promise<void>;
 
     /** @override */
     setFileDetector(detector: FileDetector): void;
 
     /** @override */
-    getExecutor(): command.Executor;
+    getExecutor(): Executor;
 
     /** @override */
     getSession(): Promise<Session>;
@@ -945,7 +945,7 @@ export class ShadowRoot implements Serializable<IWebElementId> {
      * instance. Will ensure this element's ID is included in the command
      * parameters under the "id" key.
      *
-     * @param {!command.Command} command The command to schedule.
+     * @param {!Command} command The command to schedule.
      * @return {!Promise<T>} A promise that will be resolved with the result.
      * @template T
      * @see WebDriver#schedule
