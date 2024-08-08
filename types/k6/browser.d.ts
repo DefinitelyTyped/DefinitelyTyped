@@ -2049,6 +2049,14 @@ export interface Locator {
     ): Promise<string[]>;
 
     /**
+     * Checks or unchecks the input checkbox element.
+     * @param checked Whether to check or uncheck the element.
+     * @param options Options to customize the check action.
+     * @returns A promise that resolves when the element is checked or unchecked.
+     */
+    setChecked(checked: boolean, options?: FrameCheckOptions): Promise<void>;
+
+    /**
      * Press a single key on the keyboard or a combination of keys.
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
      * @param key Name of the key to press or a character to generate, such as `ArrowLeft` or `a`.
