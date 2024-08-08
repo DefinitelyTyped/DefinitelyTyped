@@ -1,4 +1,3 @@
-import { bytes } from "k6";
 import {
     createHash,
     createHMAC,
@@ -16,7 +15,7 @@ import {
     sha512_256,
 } from "k6/crypto";
 
-let binary: bytes;
+let binary: ArrayBuffer;
 let hasher: Hasher;
 
 const arrayBuffer = new Uint8Array([10, 12]).buffer;
