@@ -214,6 +214,10 @@ declare module "../index" {
         /**
          * @see _.filter
          */
+        filter<T>(collection: List<T> | null | undefined, predicate?: undefined: Exclude<T, undefined | null>[];
+        /**
+         * @see _.filter
+         */
         filter<T extends object, S extends T[keyof T]>(collection: T | null | undefined, predicate: ObjectIteratorTypeGuard<T, S>): S[];
         /**
          * @see _.filter
