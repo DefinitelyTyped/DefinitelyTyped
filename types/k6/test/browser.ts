@@ -1106,6 +1106,23 @@ async function test() {
     locator.selectOption("value", { timeout: 10000 });
 
     // @ts-expect-error
+    locator.setChecked();
+    // $ExpectType Promise<void>
+    locator.setChecked(true);
+    // $ExpectType Promise<void>
+    locator.setChecked(false);
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { force: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { trial: true });
+    // $ExpectType Promise<void>
+    locator.setChecked(true, { position: { x: 0, y: 0 } });
+
+    // @ts-expect-error
     locator.type();
     // @ts-expect-error
     locator.type({ timeout: 10000 });
