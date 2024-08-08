@@ -8,6 +8,8 @@
     "devDependencies": {
         "@types/k6": "workspace:."
     },
+    "nonNpm": true,
+    "nonNpmDescription": "k6 is not node based application that happens to have npm package to safeguard the name",
     "owners": [
         {
             "name": "Mihail Stoykov",
