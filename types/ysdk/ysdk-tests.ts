@@ -352,4 +352,7 @@ async function Misc() {
 
     // $ExpectType "HISTORY_BACK"
     ysdk.EVENTS.HISTORY_BACK;
+
+    // $ExpectType number
+    ysdk.serverTime();
 }

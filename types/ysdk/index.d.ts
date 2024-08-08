@@ -21,6 +21,10 @@ export interface SDK {
         LoadingAPI: {
             ready(): void;
         };
+        GameplayAPI: {
+            start(): void;
+            stop(): void;
+        };
     }>;
 
     clipboard: {
@@ -105,6 +109,8 @@ export interface SDK {
     getFlags(params?: GetFlagsParams): Promise<Record<string, string>>;
 
     isAvailableMethod(methodName: string): Promise<boolean>;
+
+    serverTime(): number;
 }
 
 interface ClientFeature {
