@@ -5,6 +5,39 @@ shp(new Buffer("")).then((geojson) => {});
 shp(new ArrayBuffer(50)).then((geojson) => {});
 shp(new Int32Array(50)).then((geojson) => {});
 
+shp({ shp: "https://this.is.a.url" }, ["white", "list"]).then((geojson) => {});
+shp({ shp: new Buffer("") }).then((geojson) => {});
+shp({ shp: new ArrayBuffer(50) }).then((geojson) => {});
+shp({ shp: new Int32Array(50) }).then((geojson) => {});
+
+shp(
+    {
+        shp: "https://this.is.a.url",
+        dbf: "https://this.is.a.url",
+        prj: "https://this.is.a.url",
+        cpg: "https://this.is.a.url",
+    },
+    ["white", "list"],
+).then((geojson) => {});
+shp({
+    shp: new Buffer(""),
+    dbf: new Buffer(""),
+    prj: new Buffer(""),
+    cpg: new Buffer(""),
+}).then((geojson) => {});
+shp({
+    shp: new ArrayBuffer(50),
+    dbf: new ArrayBuffer(50),
+    prj: new ArrayBuffer(50),
+    cpg: new ArrayBuffer(50),
+}).then((geojson) => {});
+shp({
+    shp: new Int32Array(50),
+    dbf: new Int32Array(50),
+    prj: new Int32Array(50),
+    cpg: new Int32Array(50),
+}).then((geojson) => {});
+
 shp.parseZip(new Buffer("")).then((geojson) => {});
 shp.parseZip(new Buffer(""), ["white", "list"]).then((geojson) => {});
 shp.parseZip(new ArrayBuffer(50)).then((geojson) => {});
@@ -17,13 +50,17 @@ shp.getShapefile(new ArrayBuffer(50)).then((geojson) => {});
 shp.getShapefile(new Int32Array(50)).then((geojson) => {});
 
 const combinedGeojson = shp.combine([
-    [{
-        type: "Point",
-        coordinates: [],
-    }],
-    [{
-        test: "test",
-    }],
+    [
+        {
+            type: "Point",
+            coordinates: [],
+        },
+    ],
+    [
+        {
+            test: "test",
+        },
+    ],
 ]);
 
 let parsedShp: GeoJSON.Geometry[];
@@ -42,5 +79,3 @@ parsedShp = shp.parseShp(new Buffer(""));
 parsedDbf = shp.parseDbf(new Buffer(""), new Buffer(""));
 parsedDbf = shp.parseDbf(new ArrayBuffer(50), new Buffer(""));
 parsedDbf = shp.parseDbf(new Int32Array(50), new Buffer(""));
-
-shp.combine([shp.parseShp(new Buffer(""), "proj"), shp.parseDbf(new Buffer(""), new Buffer(""))]);
