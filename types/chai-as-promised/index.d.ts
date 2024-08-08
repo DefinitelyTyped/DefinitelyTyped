@@ -7,7 +7,7 @@ declare module "chai-as-promised" {
     }
 
     const chaiAsPromised: ChaiAsPromised;
-    export = chaiAsPromised;
+    export default chaiAsPromised;
 }
 
 declare namespace Chai {
