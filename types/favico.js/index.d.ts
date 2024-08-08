@@ -1,3 +1,4 @@
+
 declare namespace favicojs {
     interface FavicoJsStatic {
         new(opt?: FavicoJsOptions): Favico;
@@ -30,5 +31,6 @@ declare namespace favicojs {
         webcam(): void;
     }
 }
+declare module "favico.js";
 
 declare var Favico: favicojs.FavicoJsStatic;
