@@ -1,15 +1,17 @@
 {
     "private": true,
     "name": "@types/wordpress__edit-post",
-    "version": "7.5.9999",
+    "version": "8.4.9999",
     "projects": [
         "https://github.com/WordPress/gutenberg/tree/master/packages/edit-post/README.md"
     ],
+    "minimumTypeScriptVersion": "5.0",
     "dependencies": {
         "@types/react": "*",
-        "@wordpress/components": "^27.3.0",
-        "@wordpress/data": "^9.13.0",
-        "@wordpress/element": "^5.0.0"
+        "@types/wordpress__editor": "*",
+        "@wordpress/components": "^28.4.0",
+        "@wordpress/data": "^10.4.0",
+        "@wordpress/element": "^6.4.0"
     },
     "devDependencies": {
         "@types/wordpress__edit-post": "workspace:."
