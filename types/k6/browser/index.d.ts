@@ -163,6 +163,8 @@ export type ElementClickOptions = ElementHandlePointerOptions & {
     position?: { x: number; y: number };
 };
 
+export type FrameCheckOptions = ElementClickOptions;
+
 export interface KeyboardModifierOptions {
     /**
      * `Alt`, `Control`, `Meta` or `Shift` modifiers keys pressed during the action.
