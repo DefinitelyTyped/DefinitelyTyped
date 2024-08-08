@@ -1929,6 +1929,27 @@ async function test() {
     frame.goto("https://example.com", { referer: "https://example.com" });
 
     // @ts-expect-error
+    frame.setChecked();
+    // @ts-expect-error
+    frame.setChecked(selector);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, false);
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { force: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { noWaitAfter: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { timeout: 10000 });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { trial: true });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { position: { x: 0, y: 0 } });
+    // $ExpectType Promise<void>
+    frame.setChecked(selector, true, { strict: true });
+
+    // @ts-expect-error
     frame.setContent();
     // $ExpectType Promise<void>
     frame.setContent("<div>content</div>");
