@@ -1,3 +1,5 @@
+import Wkt from "wicket";
+
 const wkt = new Wkt.Wkt();
 
 const point = wkt.read("POINT(1 2)");
