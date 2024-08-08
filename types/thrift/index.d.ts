@@ -276,6 +276,7 @@ export function createSSLConnection(host: string | undefined, port: number, opti
 export function createHttpConnection(host: string | undefined, port: number, options?: ConnectOptions): HttpConnection;
 export function createXHRConnection(host: string | undefined, port: number, options?: ConnectOptions): XHRConnection;
 export function createWSConnection(host: string | undefined, port: number, options?: WSConnectOptions): WSConnection;
+export function createUDSConnection(path: string, options?: ConnectOptions): Connection;
 
 export function createXHRClient<TClient>(
     client: TClientConstructor<TClient>,

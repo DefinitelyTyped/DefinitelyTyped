@@ -5,6 +5,7 @@ import {
     createClient,
     createConnection,
     createServer,
+    createUDSConnection,
     createWSClient,
     createWSConnection,
     Int64,
@@ -78,9 +79,16 @@ const webSocketConnection = createWSConnection("0.0.0.0", 1234, {
     protocol: TBinaryProtocol,
 });
 
+const udsConnection = createUDSConnection("/tmp/unix.sock", {
+    transport: TBufferedTransport,
+    protocol: TBinaryProtocol,
+});
+
 createClient<MockClient>(mockGeneratedService, clientConnection);
 
 createWSClient<MockClient>(mockGeneratedService, webSocketConnection);
+
+createClient<MockClient>(mockGeneratedService, udsConnection);
 
 const mockBuffer: Buffer = Buffer.alloc(8);
 
