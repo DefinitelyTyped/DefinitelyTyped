@@ -11,6 +11,8 @@ function assertType<T>(value: T): T {
         const cdpPort = { port: 9223 };
         client = await CDP(cdpPort);
         client.on("disconnect", () => {});
+        client.once("disconnect", () => {});
+        client.off("disconnect");
         client.on("Network.requestWillBeSent", (params) => {
             params.documentURL;
         });

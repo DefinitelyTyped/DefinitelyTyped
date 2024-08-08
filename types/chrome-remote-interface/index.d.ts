@@ -1,3 +1,6 @@
+/// <reference types="node" />
+
+import EventEmitter from 'events';
 import type ProtocolMappingApi from "devtools-protocol/types/protocol-mapping";
 import type ProtocolProxyApi from "devtools-protocol/types/protocol-proxy-api";
 
@@ -276,6 +279,13 @@ declare namespace CDP {
             ): void;
             // '<domain>.<method>.<sessionId>' i.e. Network.requestWillBeSent.abc123
             on(event: string, callback: (params: object, sessionId?: string) => void): void;
+            once(event: "event", callback: (message: EventMessage) => void): void;
+            once(event: "ready" | "disconnect", callback: () => void): void;
+            once<T extends keyof ProtocolMappingApi.Events>(
+                event: T,
+                callback: (params: ProtocolMappingApi.Events[T][0], sessionId?: string) => void,
+            ): void;
+            once(event: string, callback: (params: object, sessionId?: string) => void): void;
             // client.send(method, [params], [sessionId], [callback])
             send<T extends keyof ProtocolMappingApi.Commands>(event: T, callback: SendCallback<T>): void;
             send<T extends keyof ProtocolMappingApi.Commands>(
@@ -297,7 +307,8 @@ declare namespace CDP {
         }
         & EventPromises<ProtocolMappingApi.Events>
         & EventCallbacks<ProtocolMappingApi.Events>
-        & ImproveAPI<AllDomains>;
+        & ImproveAPI<AllDomains>
+        & EventEmitter;
 
     // '<domain>.<event>' i.e. Page.loadEventFired
     type EventPromises<T extends ProtocolMappingApi.Events> = {
