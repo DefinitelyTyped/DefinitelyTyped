@@ -41,4 +41,10 @@ export interface Store<Q extends BaseQuad> {
 export interface Client<TQuery extends Query = any, TStore extends Store<any> = any> {
     query: TQuery;
     store: TStore;
+    headers?: Headers;
+    password?: string;
+    user?: string;
+    endpointUrl?: string;
+    storeUrl?: string;
+    updateUrl?: string;
 }
