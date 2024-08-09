@@ -10,10 +10,12 @@
         "strictNullChecks": true,
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true
     },
     "files": [
         "index.d.ts",
-        "kalmanjs-tests.ts"
+        "test/kalmanjs-global.test.ts",
+        "test/kalmanjs-module.test.ts"
     ]
 }
