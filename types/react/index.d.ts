@@ -1800,6 +1800,10 @@ declare namespace React {
     // React Hooks
     // ----------------------------------------------------------------------
 
+    type StateFunctionOrClass = ((...args: unknown[]) => unknown) | (new(...args: unknown[]) => unknown);
+    type SetStateInitializer<S> = () => S;
+    type SetStateBaseInitializer<S> = S extends StateFunctionOrClass ? never : (S | SetStateInitializer<S>);
+    type SetStateUpdater<S> = (prevState: S) => S;
     /**
      * The instruction passed to a {@link Dispatch} function in {@link useState}
      * to tell React what the next value of the {@link useState} should be.
@@ -1820,7 +1824,13 @@ declare namespace React {
      * }
      * ```
      */
-    type SetStateAction<S> = S | ((prevState: S) => S);
+    type SetStateAction<S> = S | SetStateUpdater<S>;
+
+    type SetStateWithUndefinedAction<S> = void | SetStateAction<S | undefined>;
+
+    type SetStateFunctionAction<S extends StateFunctionOrClass> = SetStateUpdater<S>;
+
+    type SetFunctionStateWithUndefinedAction<S extends StateFunctionOrClass> = void | SetStateUpdater<S | undefined>;
 
     /**
      * A function that can be used to update the state of a {@link useState}
@@ -1860,21 +1870,53 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useContext}
      */
     function useContext<T>(context: Context<T> /*, (not public API) observedBits?: number|boolean */): T;
+    // convenience overload when first and the generic arguments are omitted.
     /**
      * Returns a stateful value, and a function to update it.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useState}
      */
-    function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
-    // convenience overload when first argument is omitted
+    function useState(): [undefined, Dispatch<void>];
     /**
      * Returns a stateful value, and a function to update it.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useState}
      */
-    function useState<S = undefined>(): [S | undefined, Dispatch<SetStateAction<S | undefined>>];
+    function useState<S>(initialState: SetStateBaseInitializer<S>): [S, Dispatch<SetStateAction<S>>];
+
+    // typechecker overload when storing a function or a class.
+    /**
+     * Returns a stateful value, and a function to update it.
+     *
+     * @version 16.8.0
+     * @see {@link https://react.dev/reference/react/useState}
+     */
+    function useState<S extends StateFunctionOrClass>(
+        initialState: SetStateInitializer<S>,
+    ): [S, Dispatch<SetStateFunctionAction<S>>];
+    /**
+     * Returns a stateful value, and a function to update it.
+     *
+     * @version 16.8.0
+     * @see {@link https://react.dev/reference/react/useState}
+     */
+    // typechecker overload when storing a function or a class, and the initial state is omitted.
+    function useState<S extends StateFunctionOrClass>(): [
+        S | undefined,
+        Dispatch<SetFunctionStateWithUndefinedAction<S>>,
+    ];
+    /**
+     * Returns a stateful value, and a function to update it.
+     *
+     * @version 16.8.0
+     * @see {@link https://react.dev/reference/react/useState}
+     */
+
+    // convenience overload when first argument is omitted, but the generic is used and it's not a function or a class.
+    function useState<S>(): [S | undefined, Dispatch<SetStateWithUndefinedAction<S>>];
+
     /**
      * An alternative to `useState`.
      *
