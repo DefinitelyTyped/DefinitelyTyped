@@ -170,6 +170,7 @@ declare namespace TelegramBot {
     interface ForwardMessageOptions {
         disable_notification?: boolean | undefined;
         protect_content?: boolean | undefined;
+        message_thread_id?: number | undefined;
     }
 
     interface SendPhotoOptions extends SendBasicOptions {
@@ -533,6 +534,7 @@ declare namespace TelegramBot {
         from?: User | undefined;
         date: number;
         chat: Chat;
+        forward_origin?: MessageOrigin | undefined;
         sender_chat?: Chat | undefined;
         forward_from?: User | undefined;
         forward_from_chat?: Chat | undefined;
@@ -602,6 +604,35 @@ declare namespace TelegramBot {
         language?: string | undefined;
         custom_emoji_id?: string | undefined;
     }
+
+    interface MessageOriginBase {
+        date: number;
+    }
+
+    interface MessageOriginUser extends MessageOriginBase {
+        type: "user";
+        sender_user: User;
+    }
+
+    interface MessageOriginHiddenUser extends MessageOriginBase {
+        type: "hidden_user";
+        sender_user_name: string;
+    }
+
+    interface MessageOriginChat extends MessageOriginBase {
+        type: "chat";
+        sender_chat: Chat;
+        author_signature?: string | undefined;
+    }
+
+    interface MessageOriginChannel extends MessageOriginBase {
+        type: "channel";
+        chat: Chat;
+        message_id: number;
+        author_signature?: string | undefined;
+    }
+
+    type MessageOrigin = MessageOriginUser | MessageOriginHiddenUser | MessageOriginChat | MessageOriginChannel;
 
     interface FileBase {
         file_id: string;
@@ -923,6 +954,13 @@ declare namespace TelegramBot {
 
     interface AddStickerToSetOptions {
         mask_position?: MaskPosition;
+    }
+
+    interface ForumTopic {
+        message_thread_id: number;
+        name: string;
+        icon_color: number;
+        icon_custom_emoji_id?: string | undefined;
     }
 
     interface ForumTopicCreated {
@@ -1920,7 +1958,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         chatId: TelegramBot.ChatId,
         name: string,
         options?: TelegramBot.CreateForumTopicOptions,
-    ): Promise<boolean>;
+    ): Promise<TelegramBot.ForumTopic>;
 
     editForumTopic(
         chatId: TelegramBot.ChatId,
