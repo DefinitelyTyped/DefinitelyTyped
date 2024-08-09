@@ -1,28 +1,34 @@
-interface KalmanFilterOptions {
-    /**
-     * Process noise
-     */
-    R?: number;
+export as namespace KalmanFilter;
 
-    /**
-     * Measurement noise
-     */
-    Q?: number;
+export = KalmanFilter;
 
-    /**
-     * State vector
-     */
-    A?: number;
+declare namespace KalmanFilter {
+    interface Options {
+        /**
+         * Process noise
+         */
+        R?: number;
 
-    /**
-     * Control vector
-     */
-    B?: number;
+        /**
+         * Measurement noise
+         */
+        Q?: number;
 
-    /**
-     * Measurement vector
-     */
-    C?: number;
+        /**
+         * State vector
+         */
+        A?: number;
+
+        /**
+         * Control vector
+         */
+        B?: number;
+
+        /**
+         * Measurement vector
+         */
+        C?: number;
+    }
 }
 
 declare class KalmanFilter {
@@ -35,7 +41,7 @@ declare class KalmanFilter {
      * @param  {Number} options.C Measurement vector
      * @return {KalmanFilter}
      */
-    constructor(options?: KalmanFilterOptions);
+    constructor(options?: KalmanFilter.Options);
 
     /**
      * Filter a new value
@@ -76,8 +82,3 @@ declare class KalmanFilter {
      */
     setProcessNoise(noise: number): void;
 }
-
-declare const kalmanFilter: KalmanFilter;
-
-export = kalmanFilter;
-export as namespace kalmanFilter;

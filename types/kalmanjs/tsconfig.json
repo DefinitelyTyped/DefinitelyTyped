@@ -15,6 +15,6 @@
     "files": [
         "index.d.ts",
         "test/kalmanjs-global.test.ts",
-        "test/kalmanjs-module.test.ts"
+        "test/kalmanjs.test.ts"
     ]
 }

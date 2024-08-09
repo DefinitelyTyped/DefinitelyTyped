@@ -1,4 +1,4 @@
-import KalmanFilter from "kalmanjs";
+import KalmanFilter = require("kalmanjs");
 
 const kalmanFilter = new KalmanFilter();
 
