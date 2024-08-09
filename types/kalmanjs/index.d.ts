@@ -1,7 +1,3 @@
-export as namespace KalmanFilter;
-
-export = KalmanFilter;
-
 declare namespace KalmanFilter {
     interface Options {
         /**
@@ -82,3 +78,7 @@ declare class KalmanFilter {
      */
     setProcessNoise(noise: number): void;
 }
+
+export = KalmanFilter;
+
+export as namespace KalmanFilter;
