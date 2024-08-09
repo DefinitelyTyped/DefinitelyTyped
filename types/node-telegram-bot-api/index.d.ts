@@ -490,6 +490,7 @@ declare namespace TelegramBot {
         last_name?: string | undefined;
         username?: string | undefined;
         language_code?: string | undefined;
+        is_premium?: boolean | undefined;
     }
 
     interface Chat {
