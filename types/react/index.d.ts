@@ -606,7 +606,7 @@ declare namespace React {
      * @template T The type of the value the context provides.
      */
     interface ProviderProps<T> {
-        value: T;
+        value?: T;
         children?: ReactNode | undefined;
     }
 
