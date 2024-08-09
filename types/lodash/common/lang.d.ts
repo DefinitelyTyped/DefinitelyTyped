@@ -1097,13 +1097,13 @@ declare module "../index" {
          * _.isObjectLike(null);
          * // => false
          */
-        isObjectLike(value?: any): boolean;
+        isObjectLike(value?: any): value is object;
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.isObjectLike
          */
-        isObjectLike(): boolean;
+        isObjectLike(): this is LoDashImplicitWrapper<object>;
     }
     interface LoDashExplicitWrapper<TValue> {
         /**
@@ -1123,6 +1123,10 @@ declare module "../index" {
          * @return Returns true if value is a plain object, else false.
          */
         isPlainObject(value?: any): boolean;
+
+        // NOTE: The seemingly logical `value is object` type predicate cannot
+        // be added, as it would break the negative version of the type guard.
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/69915#pullrequestreview-2143148704
     }
     interface LoDashImplicitWrapper<TValue> {
         /**
