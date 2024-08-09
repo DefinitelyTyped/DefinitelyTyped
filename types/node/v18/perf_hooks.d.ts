@@ -30,7 +30,17 @@
  */
 declare module "perf_hooks" {
     import { AsyncResource } from "node:async_hooks";
-    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http" | "dns";
+    type EntryType =
+        | "dns" // Node.js only
+        | "function" // Node.js only
+        | "gc" // Node.js only
+        | "http2" // Node.js only
+        | "http" // Node.js only
+        | "mark" // available on the Web
+        | "measure" // available on the Web
+        | "net" // Node.js only
+        | "node" // Node.js only
+        | "resource"; // available on the Web
     interface NodeGCPerformanceDetail {
         /**
          * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
@@ -479,6 +489,7 @@ declare module "perf_hooks" {
      * @since v18.2.0, v16.17.0
      */
     class PerformanceResourceTiming extends PerformanceEntry {
+        readonly entryType: "resource";
         protected constructor();
         /**
          * The high resolution millisecond timestamp at immediately before dispatching the `fetch`
