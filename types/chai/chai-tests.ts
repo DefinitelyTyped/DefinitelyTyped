@@ -1202,6 +1202,19 @@ function use() {
         }
     }
 
+    function testAssertionPrototypeArgs(chai: Chai.ChaiStatic, utils: Chai.ChaiUtils) {
+        const Assertion = chai.Assertion;
+
+        Assertion.addMethod("testAssertion", function(expected: Object) {
+            this.assert(
+                true,
+                "expected message",
+                "negated expected message",
+                // 4th and subsequent args are optional
+            );
+        });
+    }
+
     chai.use(chaiSubset);
 }
 
