@@ -7,7 +7,7 @@
     ],
     "minimumTypeScriptVersion": "5.0",
     "dependencies": {
-        "@types/react": "*",
+        "@types/react": "^18",
         "@types/wordpress__block-editor": "*",
         "@types/wordpress__blocks": "*",
         "@types/wordpress__media-utils": "*",

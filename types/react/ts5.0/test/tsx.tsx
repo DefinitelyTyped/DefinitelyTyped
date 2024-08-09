@@ -1,4 +1,4 @@
-import PropTypes = require("prop-types");
+import { JSX } from "react";
 import React = require("react");
 
 interface SCProps {
@@ -8,34 +8,11 @@ const FunctionComponent: React.FunctionComponent<SCProps> = ({ foo }: SCProps) =
     return <div>{foo}</div>;
 };
 FunctionComponent.displayName = "FunctionComponent3";
-FunctionComponent.defaultProps = {
-    foo: 42,
-};
 <FunctionComponent />;
 <slot name="slot1"></slot>;
 // `FunctionComponent` has no `children`
 // @ts-expect-error
 <FunctionComponent>24</FunctionComponent>;
-
-const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
-    return <div>{foo}</div>;
-};
-VoidFunctionComponent.displayName = "VoidFunctionComponent1";
-VoidFunctionComponent.defaultProps = {
-    foo: 42,
-};
-<VoidFunctionComponent />;
-
-// @ts-expect-error
-const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
-    return <div>{foo}{children}</div>;
-};
-VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
-VoidFunctionComponent2.defaultProps = {
-    foo: 42,
-};
-// @ts-expect-error
-<VoidFunctionComponent2>24</VoidFunctionComponent2>;
 
 const ComponentWithChildren1: React.FunctionComponent<React.PropsWithChildren> = ({ children }) => {
     return <div>{children}</div>;
@@ -171,6 +148,11 @@ const UndefinedContext = React.createContext(undefined);
 // @ts-expect-error Forgot value even if it can be undefined
 <UndefinedContext.Provider />;
 <UndefinedContext.Provider value={undefined} />;
+
+<Context.Provider value="provided value">
+</Context.Provider>;
+<Context value="provided value">
+</Context>;
 
 // unstable APIs should not be part of the typings
 // @ts-expect-error
@@ -348,20 +330,6 @@ const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 // @ts-expect-error
 <Memoized6 foo />;
 
-// NOTE: this test _requires_ TypeScript 3.1
-// It is passing, for what it's worth.
-const Memoized7 = React.memo((() => {
-    function HasDefaultProps(props: { test: boolean }) {
-        return null;
-    }
-    HasDefaultProps.defaultProps = {
-        test: true,
-    };
-    return HasDefaultProps;
-})());
-// $ExpectType boolean
-Memoized7.type.defaultProps.test;
-
 // From type-fest
 type RequireAllOrNone<ObjectType, KeysType extends keyof ObjectType = never> =
     & (
@@ -420,27 +388,6 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 // @ts-expect-error
 <React.Suspense fallback={null} unstable_avoidThisFallback />;
 
-class LegacyContext extends React.Component {
-    static contextTypes = { foo: PropTypes.node.isRequired };
-
-    render() {
-        // $ExpectType unknown
-        this.context;
-        return (this.context as any).foo;
-    }
-}
-
-class LegacyContextAnnotated extends React.Component {
-    static contextTypes = { foo: PropTypes.node.isRequired };
-    context: { foo: React.ReactNode } = { foo: {} as React.ReactNode };
-
-    render() {
-        // $ExpectType ReactNode
-        this.context.foo;
-        return this.context.foo;
-    }
-}
-
 class NewContext extends React.Component {
     static contextType = Context;
     context: React.ContextType<typeof Context> = "";
@@ -467,11 +414,15 @@ const divRef = React.createRef<HTMLDivElement>();
  */
 const badlyAuthoredRef: React.RefObject<HTMLDivElement | null | undefined> = { current: undefined };
 
+// deprecated
+React.createElement(ForwardRef).ref;
 <ForwardRef ref={divFnRef} />;
 <ForwardRef ref={divRef} />;
+// @ts-expect-error string refs are no longer supported
 <ForwardRef ref="string" />;
 <ForwardRef2 ref={divFnRef} />;
 <ForwardRef2 ref={divRef} />;
+// @ts-expect-error string refs are no longer supported
 <ForwardRef2 ref="string" />;
 // @ts-expect-error Undesired behavior
 <ForwardRef2 ref={badlyAuthoredRef} />;
@@ -491,10 +442,12 @@ declare const unsoundDivObjectRef: { current: HTMLDivElement };
 
 const newContextRef = React.createRef<NewContext>();
 <NewContext ref={newContextRef} />;
-<NewContext ref="string" />;
+<NewContext // @ts-expect-error string refs are no longer supported
+ ref="string" />;
 
 const ForwardNewContext = React.forwardRef((_props: {}, ref?: React.Ref<NewContext>) => <NewContext ref={ref} />);
 <ForwardNewContext ref={newContextRef} />;
+// @ts-expect-error string refs are no longer supported
 <ForwardNewContext ref="string" />;
 
 const ForwardRef3 = React.forwardRef(
@@ -508,6 +461,22 @@ const ForwardRef3 = React.forwardRef(
 
 <ForwardRef3 ref={divFnRef} />;
 <ForwardRef3 ref={divRef} />;
+
+function ModernForwardRef(props: { ref?: React.Ref<HTMLDivElement> }) {
+    return <div ref={props.ref} />;
+}
+const modernForwardRefElement = (
+    <ModernForwardRef
+        ref={current => {
+            // $ExpectType HTMLDivElement | null
+            current;
+        }}
+    />
+);
+// @ts-expect-error
+modernForwardRefElement.ref;
+// $ExpectType Ref<HTMLDivElement> | undefined
+type ModernForwardRefPropsRef = React.ComponentPropsWithRef<typeof ModernForwardRef>["ref"];
 
 const { Profiler } = React;
 
@@ -553,7 +522,7 @@ imgProps.loading = "nonsense";
 // @ts-expect-error
 imgProps.decoding = "nonsense";
 type ImgPropsWithRef = React.ComponentPropsWithRef<"img">;
-// $ExpectType ((instance: HTMLImageElement | null) => void | (() => VoidOrUndefinedOnly)) | RefObject<HTMLImageElement> | null | undefined
+// $ExpectType Ref<HTMLImageElement> | undefined
 type ImgPropsWithRefRef = ImgPropsWithRef["ref"];
 type ImgPropsWithoutRef = React.ComponentPropsWithoutRef<"img">;
 // $ExpectType false
@@ -572,7 +541,7 @@ const HasHref2: React.ElementType<{ href?: string | undefined }> = "div";
 // @ts-expect-error
 const CustomElement: React.ElementType = "my-undeclared-element";
 
-// custom elements now need to be declared as intrinsic elements
+// custom elements need to be declared as intrinsic elements
 declare module "react" {
     namespace JSX {
         interface IntrinsicElements {
@@ -580,19 +549,6 @@ declare module "react" {
         }
     }
 }
-
-// Augmentations of the global namespace flow into the scoped JSX namespace
-// This is deprecated and will be removed in next next major of `@types/react`
-declare global {
-    namespace JSX {
-        interface IntrinsicElements {
-            "my-declared-element-deprecated": {};
-        }
-    }
-}
-
-const CustomElement2: React.ElementType = "my-declared-element-deprecated";
-<my-declared-element-deprecated />;
 
 const CustomElement3: React.ElementType = "my-declared-element";
 <my-declared-element />;
@@ -605,30 +561,6 @@ const CustomTag4: React.ElementType<{ className?: string | undefined }, "a" | "b
     props: { className?: string | undefined },
 ) => <div {...props} />;
 
-interface TestPropTypesProps {
-    foo: string;
-}
-interface TestPropTypesProps1 {
-    foo?: string | undefined;
-}
-interface TestPropTypesProps2 {
-    foo: string | null;
-}
-interface TestPropTypesProps3 {
-    foo?: string | null | undefined;
-}
-const testPropTypes = {
-    foo: PropTypes.string,
-};
-type DeclaredPropTypes<P> = Required<Exclude<React.FunctionComponent<P>["propTypes"], undefined>>;
-// $ExpectType false
-type propTypesTest = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps> ? true : false;
-// $ExpectType true
-type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps1> ? true : false;
-// $ExpectType true
-type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
-// $ExpectType true
-type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
 function CustomSelect(props: {
     children: ReadonlyArray<
         React.ReactElement<
@@ -637,17 +569,19 @@ function CustomSelect(props: {
     >;
 }): JSX.Element {
     return (
-        <div>
-            <ul>{props.children}</ul>
-            <select>
-                {React.Children.map(props.children, child => (
-                    // key should be mappable from children.
-                    <option key={child.key} value={child.props.value}>
-                        {child.props.children}
-                    </option>
-                ))}
-            </select>
-        </div>
+        (
+            <div>
+                <ul>{props.children}</ul>
+                <select>
+                    {React.Children.map(props.children, child => (
+                        // key should be mappable from children.
+                        <option key={child.key} value={child.props.value}>
+                            {child.props.children}
+                        </option>
+                    ))}
+                </select>
+            </div>
+        )
     );
 }
 function CustomSelectOption(props: {
@@ -683,7 +617,6 @@ function reactNodeTests() {
     <div>{createChildren()}</div>;
     // @ts-expect-error plain objects are not allowed
     <div>{{ dave: true }}</div>;
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <div>{Promise.resolve("React")}</div>;
 }
 
@@ -752,20 +685,23 @@ function elementTypeTests() {
     }
 
     const ReturnPromise = () => Promise.resolve("React");
-    // @ts-expect-error experimental release channel only
+    // @ts-expect-error TypeScript 5.0 limitation
     const FCPromise: React.FC = ReturnPromise;
     class RenderPromise extends React.Component {
-        // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
         render() {
             return Promise.resolve("React");
         }
     }
 
     const ReturnPromiseReactNode = async ({ children }: { children?: React.ReactNode }) => children;
-    // @ts-expect-error experimental release channel only
+    // @ts-expect-error TypeScript 5.0 limitation
     const FCPromiseReactNode: React.FC = ReturnReactNode;
     class RenderPromiseReactNode extends React.Component<{ children?: React.ReactNode }> {
-        // @ts-expect-error class components cannot render async
+        // Undesired behavior.
+        // Class components cannot have an async `render`.
+        // However, they can return a `Promise` by just returning `props.children`.
+        // We can't differentiate this case from the desired behavior in TypeScript.
+        // `async render` would have to be linted against instead.
         async render() {
             return this.props.children;
         }
@@ -778,21 +714,8 @@ function elementTypeTests() {
             </div>
         );
     };
+    // @ts-expect-error -- legacy context was removed
     const FCWithLegacyContext: React.FC<{ foo: string }> = ReturnWithLegacyContext;
-
-    class RenderWithLegacyContext extends React.Component {
-        static contextTypes = { foo: PropTypes.node.isRequired };
-
-        constructor(props: {}, context: {}) {
-            super(props, context);
-        }
-
-        render() {
-            // $ExpectType unknown
-            this.context;
-            return (this.context as any).foo;
-        }
-    }
 
     // Desired behavior.
     // @ts-expect-error
@@ -866,38 +789,40 @@ function elementTypeTests() {
     <RenderReactNode />;
     React.createElement(RenderReactNode);
 
-    // @ts-expect-error Only available in experimental release channel
+    // @ts-expect-error TypeScript 5.0 limitation
     <ReturnPromise />;
-    // @ts-expect-error Only available in experimental release channel
+    // @ts-expect-error TypeScript 5.0 limitation
     React.createElement(ReturnPromise);
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     <RenderPromise />;
-    // Will not type-check in a real project but accepted in DT tests since experimental.d.ts is part of compilation.
     React.createElement(RenderPromise);
 
-    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
+    // @ts-expect-error TypeScript 5.0 limitation
     <ReturnPromiseReactNode />;
-    // @ts-expect-error See https://github.com/microsoft/TypeScript/issues/59111
+    // @ts-expect-error TypeScript 5.0 limitation
     React.createElement(ReturnPromiseReactNode);
     <FCPromiseReactNode />;
     React.createElement(FCPromiseReactNode);
 
+    // @ts-expect-error -- legacy context was removed
     <ReturnWithLegacyContext foo="one" />;
+    // @ts-expect-error -- legacy context was removed
     React.createElement(ReturnWithLegacyContext, { foo: "one" });
 
+    // @ts-expect-error -- legacy context was removed
     <RenderWithLegacyContext />;
+    // @ts-expect-error -- legacy context was removed
     React.createElement(RenderWithLegacyContext);
 }
 
 function managingRefs() {
-    const genericRefBad = React.useRef<Element>();
+    const genericRefBad = React.useRef<Element>(undefined);
     // $ExpectType Element | undefined
     genericRefBad.current;
     const genericRef = React.useRef<Element>(null);
     // $ExpectType Element | null
     genericRef.current;
 
-    const inputRefBad = React.useRef<HTMLInputElement>();
+    const inputRefBad = React.useRef<HTMLInputElement>(undefined);
     // $ExpectType HTMLInputElement | undefined
     inputRefBad.current;
     const inputRef = React.useRef<HTMLInputElement>(null);
@@ -934,15 +859,24 @@ function managingRefs() {
     // while it has `HTMLInputElement | null` at compiletime.
     <ElementComponent ref={inputRef} />;
     // ref cleanup
+    const ref: React.RefCallback<HTMLDivElement> = current => {
+        // Should be non-nullable
+        // $ExpectType HTMLDivElement | null
+        current;
+        return function refCleanup() {
+        };
+    };
     <div
         ref={current => {
+            // Should be non-nullable
+            // $ExpectType HTMLDivElement | null
+            current;
             return function refCleanup() {
             };
         }}
     />;
     <div
-        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
-        // @ts-expect-error
+        // @ts-expect-error ref cleanup does not accept arguments
         ref={current => {
             // @ts-expect-error
             return function refCleanup(implicitAny) {
@@ -950,8 +884,7 @@ function managingRefs() {
         }}
     />;
     <div
-        // Will not issue an error in a real project but does here since canary.d.ts is part of compilation.
-        // @ts-expect-error
+        // @ts-expect-error ref cleanup does not accept arguments
         ref={current => {
             return function refCleanup(neverPassed: string) {
             };

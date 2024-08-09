@@ -93,18 +93,19 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
 />;
 
 /** Filtering error examples. */
-// @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
 <DualListBox
     options={flatOptions}
     filter={{
         available: flatOptions.map(o => o.value),
         selected: [],
     }}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     onFilterChange={() => {}}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     filterPlaceholder={""}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     filterCallback={(option: Option<string>) => true}
 />;
-// @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
 <DualListBox
     options={flatOptions}
     canFilter={false}
@@ -112,8 +113,11 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
         available: flatOptions.map(o => o.value),
         selected: [],
     }}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     onFilterChange={() => {}}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     filterPlaceholder={""}
+    // @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
     filterCallback={(option: Option<string>) => true}
 />;
 
