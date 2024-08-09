@@ -685,6 +685,10 @@ declare namespace TelegramBot {
     interface Location {
         longitude: number;
         latitude: number;
+        live_period?: number | undefined;
+        horizontal_accuracy?: number | undefined;
+        heading?: number | undefined;
+        proximity_alert_radius?: number | undefined;
     }
 
     interface Venue {
