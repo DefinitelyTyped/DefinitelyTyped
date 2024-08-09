@@ -323,3 +323,8 @@ app.get("/:readonly", req => {
     // @ts-expect-error
     req.xhr = true;
 });
+
+// Starting with Express 5, route handlers and middleware that return a
+// `Promise` will call `next(value)` automatically when they reject or throw an
+// error.
+app.get("/async", Promise.resolve);

@@ -9,7 +9,7 @@ store.reset("key", (error: any) => {});
 
 var app = express();
 var bruteforce = new ExpressBrute(store);
-app.post("/auth", bruteforce.prevent, (req, res, next) => {
+app.post("/auth", (res, req, next) => void bruteforce.prevent(res, req, next), (req, res, next) => {
     res.send("Success!");
 });
 

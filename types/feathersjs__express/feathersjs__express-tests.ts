@@ -1,5 +1,5 @@
 import feathersExpress, * as express from "@feathersjs/express";
-import feathers, { Application } from "@feathersjs/feathers";
+import feathers from "@feathersjs/feathers";
 
 const app = feathersExpress(feathers());
 
@@ -13,7 +13,7 @@ const feathersServiceDummy = {
 };
 const expressMiddlewareDummy = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     next();
-    return app;
+    app;
 };
 
 app.use(express.json());
