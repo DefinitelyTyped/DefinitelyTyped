@@ -10,6 +10,7 @@ export class SSAARenderPass extends Pass {
     unbiased: boolean;
     clearColor: ColorRepresentation;
     clearAlpha: number;
+    stencilBuffer: boolean;
     copyUniforms: object;
     copyMaterial: ShaderMaterial;
     fsQuad: FullScreenQuad;
