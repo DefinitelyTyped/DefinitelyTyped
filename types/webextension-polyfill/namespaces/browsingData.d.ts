@@ -7,11 +7,6 @@
  *
  * Use the <code>chrome.browsingData</code> API to remove browsing data from a user's local profile.
  * Permissions: "browsingData"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 import { ExtensionTypes } from "./extensionTypes";
 
@@ -173,7 +168,6 @@ export namespace BrowsingData {
         /**
          * Clears various types of browsing data stored in a user's profile.
          *
-         * @param options
          * @param dataToRemove The set of data types to remove.
          * @returns Called when deletion has completed.
          */
@@ -182,7 +176,6 @@ export namespace BrowsingData {
         /**
          * Clears the browser's cache.
          *
-         * @param options
          * @returns Called when the browser's cache has been cleared.
          */
         removeCache(options: RemovalOptions): Promise<void>;
@@ -190,7 +183,6 @@ export namespace BrowsingData {
         /**
          * Clears the browser's cookies and server-bound certificates modified within a particular timeframe.
          *
-         * @param options
          * @returns Called when the browser's cookies and server-bound certificates have been cleared.
          */
         removeCookies(options: RemovalOptions): Promise<void>;
@@ -198,7 +190,6 @@ export namespace BrowsingData {
         /**
          * Clears the browser's list of downloaded files (<em>not</em> the downloaded files themselves).
          *
-         * @param options
          * @returns Called when the browser's list of downloaded files has been cleared.
          */
         removeDownloads(options: RemovalOptions): Promise<void>;
@@ -206,7 +197,6 @@ export namespace BrowsingData {
         /**
          * Clears the browser's stored form data (autofill).
          *
-         * @param options
          * @returns Called when the browser's form data has been cleared.
          */
         removeFormData(options: RemovalOptions): Promise<void>;
@@ -214,7 +204,6 @@ export namespace BrowsingData {
         /**
          * Clears the browser's history.
          *
-         * @param options
          * @returns Called when the browser's history has cleared.
          */
         removeHistory(options: RemovalOptions): Promise<void>;
@@ -222,7 +211,6 @@ export namespace BrowsingData {
         /**
          * Clears websites' local storage data.
          *
-         * @param options
          * @returns Called when websites' local storage has been cleared.
          */
         removeLocalStorage(options: RemovalOptions): Promise<void>;
@@ -230,7 +218,6 @@ export namespace BrowsingData {
         /**
          * Clears plugins' data.
          *
-         * @param options
          * @returns Called when plugins' data has been cleared.
          */
         removePluginData(options: RemovalOptions): Promise<void>;
@@ -238,7 +225,6 @@ export namespace BrowsingData {
         /**
          * Clears the browser's stored passwords.
          *
-         * @param options
          * @returns Called when the browser's passwords have been cleared.
          */
         removePasswords(options: RemovalOptions): Promise<void>;
