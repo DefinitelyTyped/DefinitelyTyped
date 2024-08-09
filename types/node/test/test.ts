@@ -1,4 +1,4 @@
-import { Transform, TransformCallback, TransformOptions } from "node:stream";
+import { Readable, Transform, TransformCallback, TransformOptions } from "node:stream";
 import {
     after,
     afterEach,
@@ -929,3 +929,22 @@ const invalidTestContext = new TestContext();
 
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
+
+test("planning with streams", (t: TestContext, done) => {
+    function* generate() {
+        yield "a";
+        yield "b";
+        yield "c";
+    }
+    const expected = ["a", "b", "c"];
+    t.plan(expected.length);
+
+    const stream = Readable.from(generate());
+    stream.on("data", (chunk) => {
+        t.assert.strictEqual(chunk, expected.shift());
+    });
+
+    stream.on("end", () => {
+        done();
+    });
+});
