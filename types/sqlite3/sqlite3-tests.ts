@@ -3,6 +3,11 @@ const sqlite3 = sqlite.verbose();
 
 let db: sqlite.Database = new sqlite3.Database("chain.sqlite3", () => {});
 
+interface Lorem {
+    id: number;
+    info: string;
+}
+
 function createDb() {
     console.log("createDb chain");
     db = new sqlite3.Database("chain.sqlite3", createTable);
@@ -27,7 +32,7 @@ function insertRows() {
 
 function readAllRows() {
     console.log("readAllRows lorem");
-    db.all("SELECT rowid AS id, info FROM lorem", (err, rows) => {
+    db.all<Lorem>("SELECT rowid AS id, info FROM lorem", (err, rows) => {
         rows.forEach(row => {
             console.log(`${row.id}: ${row.info}`);
         });
@@ -37,7 +42,7 @@ function readAllRows() {
 
 function readSomeRows() {
     console.log("readAllRows lorem");
-    db.each("SELECT rowid AS id, info FROM lorem WHERE rowid < ? ", 5, (err, row) => {
+    db.each<Lorem>("SELECT rowid AS id, info FROM lorem WHERE rowid < ? ", 5, (err, row) => {
         console.log(`${row.id}: ${row.info}`);
     }, closeDb);
 }
@@ -74,7 +79,7 @@ db.serialize(() => {
     }
     stmt.finalize();
 
-    db.each("SELECT rowid AS id, info FROM lorem", (err, row) => {
+    db.each<Lorem>("SELECT rowid AS id, info FROM lorem", (err, row) => {
         console.log(`${row.id}: ${row.info}`);
     });
 });
