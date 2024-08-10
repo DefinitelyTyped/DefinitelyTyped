@@ -1925,8 +1925,8 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useState}
      */
     function useState<S>(initialState: SetStateInitialState<S>): [S, Dispatch<SetStateAction<S>>];
-
-    // typechecker overload when storing a function or a class.
+    // Because we need to check both, the state initializer and the dispatcher, we need this
+    // overload to check function-wide when S is a function or a class.
     /**
      * Returns a stateful value, and a function to update it.
      *
@@ -1936,13 +1936,13 @@ declare namespace React {
     function useState<S extends StateFunctionOrClass>(
         initialState: SetStateInitializer<S>,
     ): [S, Dispatch<SetStateFunctionAction<S>>];
+    // convenience overload when first argument is omitted.
     /**
      * Returns a stateful value, and a function to update it.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useState}
      */
-    // convenience overload when first argument is omitted, but the generic is used.
     function useState<S = undefined>(): [
         S | undefined,
         Dispatch<SetStateWithUndefinedAction<S>>,
