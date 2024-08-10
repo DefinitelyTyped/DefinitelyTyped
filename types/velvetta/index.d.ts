@@ -15,7 +15,6 @@ interface Webhooks {
     server_id: string;
 }
 
-
 interface Videos {
     /**
      * Title for the video
@@ -48,7 +47,7 @@ interface Videos {
     files: { high?: string };
 }
 
-interface  Girls {
+interface Girls {
     /**
      * Girl’s name
      */
@@ -59,7 +58,7 @@ interface  Girls {
     avatar_url: string;
 }
 
-interface  Tags {
+interface Tags {
     /**
      * Tag ID
      */
@@ -70,14 +69,14 @@ interface  Tags {
     name: string;
 }
 
-interface  Servers {
+interface Servers {
     /**
      * Server ID
      */
     server_id: string;
 }
 
-interface  XVideosVideo {
+interface XVideosVideo {
     /**
      * The URL where the video can be accessed.
      */
@@ -98,17 +97,16 @@ interface  XVideosVideo {
      * <undocument>
      */
     profile: {
-      name: string;
-      url: string;
+        name: string;
+        url: string;
     };
     /**
      * The number of views the video has received, formatted as a string
      */
     views: string;
 }
-  
 
-interface  XVideosPagination {
+interface XVideosPagination {
     /**
      * The current page number.
      */
@@ -142,8 +140,8 @@ interface  XVideosPagination {
      */
     results_count: number;
 }
-  
-interface  XVideosVideoDetails {
+
+interface XVideosVideoDetails {
     /**
      * The title of the video, or undefined if not available
      */
@@ -202,7 +200,7 @@ interface  XVideosVideoDetails {
     files: XVideosFiles;
 }
 
-interface  XVideosFiles {
+interface XVideosFiles {
     /**
      * The URL to the low-quality video file.
      */
@@ -232,9 +230,8 @@ interface  XVideosFiles {
      */
     thumbSlideBig: string | undefined;
 }
-  
-  
-interface  XVideosMainUploader {
+
+interface XVideosMainUploader {
     /**
      * The name of the uploader.
      */
@@ -244,11 +241,10 @@ interface  XVideosMainUploader {
      */
     profileUrl: string;
 }
-  
-interface  XVideosModel extends XVideosMainUploader {
+
+interface XVideosModel extends XVideosMainUploader {
     /**
      * A unique identifier for the model.
      */
     id: string;
 }
-  
