@@ -1,7 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "module": "CommonJS",
         "lib": [
             "es6"
@@ -17,7 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "test/kalmanjs-global.test.ts",
-        "test/kalmanjs.test.ts"
+        "test/kalmanjs-tests.global.ts",
+        "test/kalmanjs-tests.cjs.ts"
     ]
 }

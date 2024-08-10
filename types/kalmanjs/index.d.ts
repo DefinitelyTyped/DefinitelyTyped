@@ -1,3 +1,6 @@
+// Type definitions for kalmanjs 1.1.0
+// Project: https://github.com/wouterbulten/kalmanjs
+
 declare namespace KalmanFilter {
     interface Options {
         /**
