@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-export interface Webhooks {
+interface Webhooks {
     /**
      * The URL of this webhook
      */
@@ -16,7 +16,7 @@ export interface Webhooks {
 }
 
 
-export interface Videos {
+interface Videos {
     /**
      * Title for the video
      */
@@ -48,7 +48,7 @@ export interface Videos {
     files: { high?: string };
 }
 
-export interface  Girls {
+interface  Girls {
     /**
      * Girl’s name
      */
@@ -59,7 +59,7 @@ export interface  Girls {
     avatar_url: string;
 }
 
-export interface  Tags {
+interface  Tags {
     /**
      * Tag ID
      */
@@ -70,14 +70,14 @@ export interface  Tags {
     name: string;
 }
 
-export interface  Servers {
+interface  Servers {
     /**
      * Server ID
      */
     server_id: string;
 }
 
-export interface  XVideosVideo {
+interface  XVideosVideo {
     /**
      * The URL where the video can be accessed.
      */
@@ -108,7 +108,7 @@ export interface  XVideosVideo {
 }
   
 
-export interface  XVideosPagination {
+interface  XVideosPagination {
     /**
      * The current page number.
      */
@@ -143,7 +143,7 @@ export interface  XVideosPagination {
     results_count: number;
 }
   
-export interface  XVideosVideoDetails {
+interface  XVideosVideoDetails {
     /**
      * The title of the video, or undefined if not available
      */
@@ -202,7 +202,7 @@ export interface  XVideosVideoDetails {
     files: XVideosFiles;
 }
 
-export interface  XVideosFiles {
+interface  XVideosFiles {
     /**
      * The URL to the low-quality video file.
      */
@@ -234,7 +234,7 @@ export interface  XVideosFiles {
 }
   
   
-export interface  XVideosMainUploader {
+interface  XVideosMainUploader {
     /**
      * The name of the uploader.
      */
@@ -245,7 +245,7 @@ export interface  XVideosMainUploader {
     profileUrl: string;
 }
   
-export interface  XVideosModel extends XVideosMainUploader {
+interface  XVideosModel extends XVideosMainUploader {
     /**
      * A unique identifier for the model.
      */
