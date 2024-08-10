@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/velvetta",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/velvettajs/lujuria"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/velvetta": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fifix",
+            "githubUsername": "Fifixex"
+        },
+        {
+          "name": "Osint",
+          "githubUsername": "OSintt"
+        }
+    ]
+}
