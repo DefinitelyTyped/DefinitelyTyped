@@ -343,6 +343,10 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
         setClass();
     }
 
+    // Should allow generic any
+    // $ExpectType any
+    React.useState<any>()[0];
+
     // useReducer convenience overload
 
     return React.useCallback(() => didLayout.current, []);

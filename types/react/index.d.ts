@@ -1801,12 +1801,18 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type StateFunctionOrClass = ((...args: unknown[]) => unknown) | (new(...args: unknown[]) => unknown);
+    // The setState initializer function, accepts 0 arguments and returns the type of the state.
     type SetStateInitializer<S> = () => S;
-    type SetStateBaseInitializer<S> = S extends StateFunctionOrClass ? never : (S | SetStateInitializer<S>);
+    // The setState initial state, can be a direct value or a initializer,
+    // except when using a function or a class, then it has to be a
+    // initializer, but this narrows to never because storing
+    // functions and classes is a different overload signature.
+    type SetStateInitialState<S> = S extends StateFunctionOrClass ? never : (S | SetStateInitializer<S>);
     type SetStateUpdater<S> = (prevState: S) => S;
     /**
      * The instruction passed to a {@link Dispatch} function in {@link useState}
-     * to tell React what the next value of the {@link useState} should be.
+     * to tell React what the next value of the {@link useState} should be, when
+     * it is storing values other than functions and classes.
      *
      * Often found wrapped in {@link Dispatch}.
      *
@@ -1825,12 +1831,54 @@ declare namespace React {
      * ```
      */
     type SetStateAction<S> = S | SetStateUpdater<S>;
-
-    type SetStateWithUndefinedAction<S> = void | SetStateAction<S | undefined>;
-
+    /**
+     * The instruction passed to a {@link Dispatch} function in {@link useState}
+     * to tell React what the next value of the {@link useState} should be, when
+     * it is storing values that can be undefined, including functions and
+     * classes.
+     *
+     * Often found wrapped in {@link Dispatch}.
+     *
+     * @template S The type of the state.
+     *
+     * @example
+     *
+     * ```tsx
+     * // This return type correctly represents the type of
+     * // `setCount` in the example below.
+     * const useCustomState = (): Dispatch<SetStateWithUndefinedAction<number>> => {
+     *   const [count, setCount] = useState<number>();
+     *
+     *   return setCount;
+     * }
+     * ```
+     */
+    type SetStateWithUndefinedAction<S> =
+        | void
+        | (S extends StateFunctionOrClass ? SetStateUpdater<S | undefined>
+            : SetStateAction<S | undefined>);
+    /**
+     * The instruction passed to a {@link Dispatch} function in {@link useState}
+     * to tell React what the next value of the {@link useState} should be, when
+     * it is storing a function or a class.
+     *
+     * Often found wrapped in {@link Dispatch}.
+     *
+     * @template S The type of the state.
+     *
+     * @example
+     *
+     * ```tsx
+     * // This return type correctly represents the type of
+     * // `setCount` in the example below.
+     * const useCustomState = (): Dispatch<SetStateFunctionAction<() => number>> => {
+     *   const [count, setCount] = useState<() => number>();
+     *
+     *   return setCount;
+     * }
+     * ```
+     */
     type SetStateFunctionAction<S extends StateFunctionOrClass> = SetStateUpdater<S>;
-
-    type SetFunctionStateWithUndefinedAction<S extends StateFunctionOrClass> = void | SetStateUpdater<S | undefined>;
 
     /**
      * A function that can be used to update the state of a {@link useState}
@@ -1870,21 +1918,13 @@ declare namespace React {
      * @see {@link https://react.dev/reference/react/useContext}
      */
     function useContext<T>(context: Context<T> /*, (not public API) observedBits?: number|boolean */): T;
-    // convenience overload when first and the generic arguments are omitted.
     /**
      * Returns a stateful value, and a function to update it.
      *
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useState}
      */
-    function useState(): [undefined, Dispatch<void>];
-    /**
-     * Returns a stateful value, and a function to update it.
-     *
-     * @version 16.8.0
-     * @see {@link https://react.dev/reference/react/useState}
-     */
-    function useState<S>(initialState: SetStateBaseInitializer<S>): [S, Dispatch<SetStateAction<S>>];
+    function useState<S>(initialState: SetStateInitialState<S>): [S, Dispatch<SetStateAction<S>>];
 
     // typechecker overload when storing a function or a class.
     /**
@@ -1902,20 +1942,11 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useState}
      */
-    // typechecker overload when storing a function or a class, and the initial state is omitted.
-    function useState<S extends StateFunctionOrClass>(): [
+    // convenience overload when first argument is omitted, but the generic is used.
+    function useState<S = undefined>(): [
         S | undefined,
-        Dispatch<SetFunctionStateWithUndefinedAction<S>>,
+        Dispatch<SetStateWithUndefinedAction<S>>,
     ];
-    /**
-     * Returns a stateful value, and a function to update it.
-     *
-     * @version 16.8.0
-     * @see {@link https://react.dev/reference/react/useState}
-     */
-
-    // convenience overload when first argument is omitted, but the generic is used and it's not a function or a class.
-    function useState<S>(): [S | undefined, Dispatch<SetStateWithUndefinedAction<S>>];
 
     /**
      * An alternative to `useState`.
