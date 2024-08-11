@@ -1777,6 +1777,12 @@ declare module 'inspector' {
          */
         connect(): void;
         /**
+         * Connects a session to the inspector back-end.
+         * An exception will be thrown if this API was not called on a Worker thread.
+         * @since v12.11.0
+         */
+        connectToMainThread(): void;
+        /**
          * Immediately close the session. All pending message callbacks will be called
          * with an error. `session.connect()` will need to be called to be able to send
          * messages again. Reconnected session will lose all inspector state, such as
@@ -2729,6 +2735,37 @@ declare module 'inspector' {
      * @since v12.7.0
      */
     function waitForDebugger(): void;
+    // These methods are exposed by the V8 inspector console API (inspector/v8-console.h).
+    // The method signatures differ from those of the Node.js console, and are deliberately
+    // typed permissively.
+    interface InspectorConsole {
+        debug(...data: any[]): void;
+        error(...data: any[]): void;
+        info(...data: any[]): void;
+        log(...data: any[]): void;
+        warn(...data: any[]): void;
+        dir(...data: any[]): void;
+        dirxml(...data: any[]): void;
+        table(...data: any[]): void;
+        trace(...data: any[]): void;
+        group(...data: any[]): void;
+        groupCollapsed(...data: any[]): void;
+        groupEnd(...data: any[]): void;
+        clear(...data: any[]): void;
+        count(label?: any): void;
+        countReset(label?: any): void;
+        assert(value?: any, ...data: any[]): void;
+        profile(label?: any): void;
+        profileEnd(label?: any): void;
+        time(label?: any): void;
+        timeLog(label?: any): void;
+        timeStamp(label?: any): void;
+    }
+    /**
+     * An object to send messages to the remote inspector console.
+     * @since v11.0.0
+     */
+    const console: InspectorConsole;
 }
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
