@@ -393,7 +393,7 @@ new ssh2.Server({
     }).on("ready", () => {
         console.log("Client authenticated!");
 
-        client.on("session", (accept: any, reject: any) => {
+        client.on("session", (accept, reject) => {
             var session = accept();
             session.once("exec", (accept, reject, info) => {
                 console.log("Client wants to execute: " + inspect(info.command));
