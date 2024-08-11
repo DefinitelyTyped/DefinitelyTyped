@@ -1833,8 +1833,8 @@ declare module "node:test/reporters" {
         | { type: "test:watch:drained"; data: undefined };
     type TestEventGenerator = AsyncGenerator<TestEvent, void>;
 
-    interface ReporterConstructorWrapper<T extends new (...args: any[]) => Transform> {
-        new (...args: ConstructorParameters<T>): InstanceType<T>;
+    interface ReporterConstructorWrapper<T extends new(...args: any[]) => Transform> {
+        new(...args: ConstructorParameters<T>): InstanceType<T>;
         (...args: ConstructorParameters<T>): InstanceType<T>;
     }
 
