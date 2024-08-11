@@ -60,7 +60,10 @@ function writeProtocolsToFile(jsonProtocols: string[]) {
         }
     }
     const substituteArgs = generateSubstituteArgs(combinedProtocol);
-    const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8");
+    const template = readFileSync(`${__dirname}/inspector.d.ts.template`, "utf8").replace(
+        /{{VERSION}}/g,
+        tag.match(/^(v\d+)/)![1],
+    );
 
     const inspectorDts = substitute(template, substituteArgs).split("\n")
         .map(trimRight)

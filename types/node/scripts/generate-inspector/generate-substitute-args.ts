@@ -1,6 +1,6 @@
 import * as schema from "./devtools-protocol-schema";
 import { createListeners } from "./event-emitter";
-import { capitalize, createDocs, filterNull, flattenArgs, hasElements, isObjectReference } from "./utils";
+import { capitalize, createDocs, filterNull, hasElements, isObjectReference } from "./utils";
 
 const INDENT = "    ";
 
@@ -38,10 +38,10 @@ const createFieldsForInterface = (fields: schema.Parameter[], domain: string): s
                 .map(prop => [
                     ...createDocs(prop),
                     `${prop.name}${prop.optional ? "?" : ""}: ${createTypeString(prop, domain)}${
-                        prop.optional ? " | undefined" : ""
+                        prop.optional && (!("type" in prop) || prop.type !== "any") ? " | undefined" : ""
                     };`,
                 ])
-                .reduce(flattenArgs(), []),
+                .flat(1),
         ]
         : [];
 };
@@ -61,11 +61,18 @@ const createTypeDefinition = (type: schema.Type, domain: string): string[] => {
     ];
 };
 
-// Helper for for createPostFunctions -- returns the type of a callback
+// Helper for createPostFunctions -- returns the type of a callback
 const createCallbackString = (commandName: string, returns: schema.Parameter[], domain: string): string => {
     return hasElements(returns)
         ? `(err: Error | null, params: ${domain}.${capitalize(commandName)}ReturnType) => void`
         : `(err: Error | null) => void`;
+};
+
+// Helper for createPostPromiseFunction -- returns the type of a returned Promise
+const createPromiseString = (commandName: string, returns: schema.Parameter[], domain: string): string => {
+    return hasElements(returns)
+        ? `Promise<${domain}.${capitalize(commandName)}ReturnType>`
+        : "Promise<void>";
 };
 
 // Create declarations for overloads of Session#post
@@ -97,6 +104,26 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
         `callback?: ${callbackStr}`,
         "): void;",
     ].join(""));
+    return result;
+};
+const createPostPromiseFunction = (command: schema.Command, domain: string): string[] => {
+    const fnName = "post";
+    const promiseStr = createPromiseString(command.name, command.returns || [], domain);
+    const result = createDocs(command);
+    if (hasElements(command.parameters || [])) {
+        result.push([
+            `${fnName}(`,
+            `method: '${domain}.${command.name}', `,
+            `params?: ${domain}.${capitalize(command.name)}ParameterType`,
+            `): ${promiseStr};`,
+        ].join(""));
+    } else {
+        result.push([
+            `${fnName}(`,
+            `method: '${domain}.${command.name}'`,
+            `): ${promiseStr};`,
+        ].join(""));
+    }
     return result;
 };
 
@@ -148,20 +175,31 @@ export const generateSubstituteArgs = (protocol: schema.Schema): NodeJS.Dict<str
                     `namespace ${item.domain} {`,
                     ...typePool
                         .map(type => createTypeDefinition(type, item.domain))
-                        .reduce(flattenArgs(""))
+                        .flat(1)
                         .map(line => `${INDENT}${line}`),
                     "}",
                 ]
                 : [];
-        }).reduce(flattenArgs(""), []);
+        }).flat(1);
+
+    const importNamespaces: string[] = protocol.domains
+        .map(item => `${item.domain},`);
 
     const postOverloads: string[] = protocol.domains
         .map(item =>
             (item.commands || [])
                 .map(command => createPostFunctions(command, item.domain))
-                .reduce(flattenArgs(""), [])
+                .flat(1)
         )
-        .reduce(flattenArgs(""), []);
+        .flat(1);
+
+    const postPromiseOverloads: string[] = protocol.domains
+        .map(item =>
+            (item.commands || [])
+                .map(command => createPostPromiseFunction(command, item.domain))
+                .flat(1)
+        )
+        .flat(1);
 
     const eventOverloads: string[] = createListeners(
         protocol.domains
@@ -188,13 +226,15 @@ export const generateSubstituteArgs = (protocol: schema.Schema): NodeJS.Dict<str
                     " */",
                 ],
                 name: "inspectorNotification",
-                args: [{ name: "message", type: "InspectorNotification<{}>" }],
+                args: [{ name: "message", type: "InspectorNotification<object>" }],
             }]),
     );
 
     return {
         interfaceDefinitions,
+        importNamespaces,
         postOverloads,
+        postPromiseOverloads,
         eventOverloads,
     };
 };
