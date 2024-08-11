@@ -1706,27 +1706,35 @@ declare module "node:test/reporters" {
      * The `dot` reporter outputs the test results in a compact format,
      * where each passing test is represented by a `.`,
      * and each failing test is represented by a `X`.
+     * @since v20.0.0
      */
     function dot(source: TestEventGenerator): AsyncGenerator<"\n" | "." | "X", void>;
     /**
      * The `tap` reporter outputs the test results in the [TAP](https://testanything.org/) format.
+     * @since v20.0.0
      */
     function tap(source: TestEventGenerator): AsyncGenerator<string, void>;
     /**
      * The `spec` reporter outputs the test results in a human-readable format.
+     * @since v20.0.0
      */
-    class Spec extends Transform {
+    class SpecReporter extends Transform {
         constructor();
     }
     /**
      * The `junit` reporter outputs test results in a jUnit XML format.
+     * @since v21.0.0
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
-    /**
-     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--experimental-test-coverage) flag.
-     */
-    class Lcov extends Transform {
-        constructor(opts?: TransformOptions);
+    class LcovReporter extends Transform {
+        constructor(opts?: Omit<TransformOptions, "writableObjectMode">);
     }
-    export { dot, junit, Lcov as lcov, Spec as spec, tap, TestEvent };
+    /**
+     * The `lcov` reporter outputs test coverage when used with the
+     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--experimental-test-coverage) flag.
+     * @since v22.0.0
+     */
+    const lcov: LcovReporter;
+
+    export { dot, junit, lcov, SpecReporter as spec, tap, TestEvent };
 }
