@@ -425,6 +425,9 @@ declare global {
         : typeof import("undici-types").WebSocket;
 
     interface EventSource extends _EventSource {}
+    /**
+     * Only available through the [--experimental-eventsource](https://nodejs.org/api/cli.html#--experimental-eventsource) flag.
+     */
     var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
         : typeof import("undici-types").EventSource;
 }

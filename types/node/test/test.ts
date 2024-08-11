@@ -779,6 +779,7 @@ test("mocks a setter", (t) => {
 });
 
 test("mocks a module", (t) => {
+    // $ExpectType MockModuleContext
     const mock = t.mock.module("node:readline", {
         namedExports: {
             fn() {

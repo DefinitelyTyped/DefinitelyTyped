@@ -19,13 +19,13 @@ declare module "process" {
         "node:console": typeof import("node:console");
         "constants": typeof import("constants");
         "node:constants": typeof import("node:constants");
-        "crypto": typeof import("node:crypto");
+        "crypto": typeof import("crypto");
         "node:crypto": typeof import("node:crypto");
-        "dgram": typeof import("node:dgram");
+        "dgram": typeof import("dgram");
         "node:dgram": typeof import("node:dgram");
-        "diagnostics_channel": typeof import("node:diagnostics_channel");
+        "diagnostics_channel": typeof import("diagnostics_channel");
         "node:diagnostics_channel": typeof import("node:diagnostics_channel");
-        "dns": typeof import("node:dns");
+        "dns": typeof import("dns");
         "node:dns": typeof import("node:dns");
         "dns/promises": typeof import("dns/promises");
         "node:dns/promises": typeof import("node:dns/promises");
@@ -45,6 +45,9 @@ declare module "process" {
         "node:https": typeof import("node:https");
         "inspector": typeof import("inspector");
         "node:inspector": typeof import("node:inspector");
+        // FIXME: module is missed
+        // "inspector/promises": typeof import("inspector/promises");
+        // "node:inspector/promises": typeof import("node:inspector/promises");
         "module": typeof import("module");
         "node:module": typeof import("node:module");
         "net": typeof import("net");
@@ -98,6 +101,8 @@ declare module "process" {
         "node:url": typeof import("node:url");
         "util": typeof import("util");
         "node:util": typeof import("node:util");
+        "sys": typeof import("util");
+        "node:sys": typeof import("node:util");
         "util/types": typeof import("util/types");
         "node:util/types": typeof import("node:util/types");
         "v8": typeof import("v8");

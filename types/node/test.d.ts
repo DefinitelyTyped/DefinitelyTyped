@@ -728,6 +728,8 @@ declare module "node:test" {
          *   });
          * });
          * ```
+         * 
+         * Only available through the [--experimental-test-snapshots](https://nodejs.org/api/cli.html#--experimental-test-snapshots) flag.
          * @since v22.3.0
          * @experimental
          */
@@ -742,7 +744,7 @@ declare module "node:test" {
          *
          * If no serializers are provided, the test runner's default serializers are used.
          */
-        serializers: ReadonlyArray<((value: any) => any)> | undefined;
+        serializers?: ReadonlyArray<(value: any) => any> | undefined;
     }
 
     /**
@@ -1536,7 +1538,7 @@ declare module "node:test" {
          * @since v22.3.0
          * @param serializers An array of synchronous functions used as the default serializers for snapshot tests.
          */
-        function setDefaultSnapshotSerializers(serializers: ReadonlyArray<((value: any) => any)>): void;
+        function setDefaultSnapshotSerializers(serializers: ReadonlyArray<(value: any) => any>): void;
         /**
          * This function is used to set a custom resolver for the location of the snapshot file used for snapshot testing.
          * By default, the snapshot filename is the same as the entry point filename with `.snapshot` appended.
