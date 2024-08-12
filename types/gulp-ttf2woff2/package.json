@@ -13,10 +13,5 @@
         "@types/gulp": "*",
         "@types/gulp-ttf2woff2": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Anatoly Pitikin",
-            "githubUsername": "xapdkop"
-        }
-    ]
+    "owners": []
 }

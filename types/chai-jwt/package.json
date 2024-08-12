@@ -12,10 +12,5 @@
     "devDependencies": {
         "@types/chai-jwt": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Anatoly Pitikin",
-            "githubUsername": "xapdkop"
-        }
-    ]
+    "owners": []
 }

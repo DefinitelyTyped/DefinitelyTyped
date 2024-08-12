@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/postcss-inline-svg": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Anatoly Pitikin",
-            "githubUsername": "xapdkop"
-        }
-    ]
+    "owners": []
 }
