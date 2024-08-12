@@ -2,7 +2,7 @@ import { Linter } from "eslint";
 import tailwind from "eslint-plugin-tailwindcss";
 
 const flatConfig: Linter.FlatConfig[] = [
-    tailwind.configs["flat/recommended"],
+    ...tailwind.configs["flat/recommended"],
 ];
 
 const ownFlatConfig: Linter.FlatConfig = {
