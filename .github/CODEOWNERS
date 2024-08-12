@@ -1891,6 +1891,7 @@
 /types/eslint/v8/                                         @pmdartus @j-f1 @saadq @JasonHK @bradzacher @JounQin @bmish
 /types/eslint-ast-utils/                                  @marksmccann
 /types/eslint-config-prettier/                            @JoshuaKGoldberg
+/types/eslint-plugin-jsx-a11y/                            @eagerestwolf @ljharb
 /types/eslint-plugin-markdown/                            @JounQin
 /types/eslint-plugin-mocha/                               @rhysd
 /types/eslint-plugin-prettier/                            @ikatyang @JounQin
@@ -2068,6 +2069,7 @@
 /types/fast-astar/                                        @shezard
 /types/fast-chunk-string/                                 @yoursunny
 /types/fast-crc32c/                                       @naeemy
+/types/fast-decode-uri-component/                         @huseeiin
 /types/fast-fifo/                                         @achingbrain
 /types/fast-html-parser/                                  @rollercodester
 /types/fast-isnumeric/                                    @peterblazejewicz
@@ -2077,7 +2079,6 @@
 /types/fast-password-entropy/                             @floomby
 /types/fast-ratelimit/                                    @JorgenVatle
 /types/fast-redact/                                       @asciidisco @nazmariam
-/types/fast-shuffle/                                      @dex4er
 /types/fast-stats/                                        @rogierschouten
 /types/fast-text-encoding/                                @inglec-arista
 /types/fast64/                                            @rarmatei
@@ -2863,6 +2864,7 @@
 /types/gfc/                                               @BendingBender
 /types/gh-pages/                                          @DanielRosenwasser @peterblazejewicz
 /types/ghauth/                                            @Leko
+/types/ghidra.js/                                         @vaguue @saidelike
 /types/ghost-storage-base/                                @thde
 /types/gif-encoder/                                       @aetheryx
 /types/gif.js/                                            @cprecioso @TulioAbreu
@@ -3616,6 +3618,7 @@
 /types/istanbul-reports/                                  @jason0x43 @not-a-doctor
 /types/istanbuljs__nyc-config-babel/                      @basicdays
 /types/istextorbinary/                                    @BendingBender
+/types/isurl/                                             @stevenvachon
 /types/itemsjs/                                           @MysteryBlokHed
 /types/iterate-iterator/                                  @JasonHK @ljharb
 /types/iterate-object/                                    @jimmycuadra
@@ -5036,7 +5039,6 @@
 /types/mock-express-request/                              @me
 /types/mock-fs/                                           @Nemo157 @tkqubo @Seally @cshawaus
 /types/mock-knex/                                         @jessezhang91 @scttcper @TeamworkGuy2
-/types/mock-property/                                     @ljharb
 /types/mock-raf/                                          @djpereira
 /types/mock-req-res/                                      @sandorTuranszky
 /types/mockery/                                           @jt000
@@ -5277,6 +5279,7 @@
 /types/nice-try/                                          @Richienb
 /types/nightmare/                                         @horiuchi @samyang-au
 /types/nightwatch/                                        @rkavalap @schlesiger @ClaytonAstrom @lloiser @vaibhavsingh97 @beatfactor @AutomatedTester @gravityvi @swrdfish @harshit-bs @literallyMello @lukebickell @garg3133
+/types/nightwind/                                         @CommanderStorm @jayakornk @jjranalli
 /types/nise/                                              @a-tarasyuk
 /types/nivo-slider/                                       @AndersonFriaca
 /types/nkzq__copy-paste/                                  @sfilata
@@ -5489,6 +5492,7 @@
 /types/nuxtjs__auth/                                      @jonnyparris @danielgek @NickBolles @arodiono
 /types/nvd3/                                              @PjMitchell @bigrocketgames
 /types/nw.gui/                                            @xperiments
+/types/nw.js/                                             @AyushmanChhabra
 /types/nwmatcher/                                         @woutervh-
 /types/nwsapi/                                            @ExE-Boss
 /types/nyaapi/                                            @infanf @Totto16
@@ -6678,6 +6682,7 @@
 /types/react-native-version-check/                        @vdelacou @KrishyV
 /types/react-native-video/                                @huhuanming @Nekith @bananer
 /types/react-native-video-player/                         @Kweiza @mlc
+/types/react-native-web/                                  @fabioh8010 @blazejkustra
 /types/react-native-webrtc/                               @KarlosQ
 /types/react-native-wheel-pick/                           @seongjoojin
 /types/react-native-wol/                                  @KeanaDelmotte
@@ -6727,7 +6732,7 @@
 /types/react-rangeslider/                                 @RichieRock
 /types/react-recaptcha/                                   @mhegazy @zzanol
 /types/react-recaptcha-v3/                                @silversonicaxel @ivansiach0
-/types/react-recompose/                                   @iskandersierra @clayne11 @Pajn @lucasterra @TiuSh @brodybits @daleyjem
+/types/react-recompose/                                   @iskandersierra @clayne11 @Pajn @lucasterra @TiuSh @daleyjem
 /types/react-reconciler/                                  @Methuselah96 @zhanghaocong @mathieudutour
 /types/react-redux/                                       @tkqubo @clayne11 @tansongyang @nicholasboll @mdibyo @val1984 @jrakotoharisoa @apapirovski @surgeboris @soerenbf @mrwolfz @dylanvann @Lazyuki @kazuma1989 @megazazik @jun-sheaf @phryneas @markerikson
 /types/react-redux/v5/                                    @tkqubo @thasner @clayne11 @tansongyang @nicholasboll @mdibyo @pdeva
