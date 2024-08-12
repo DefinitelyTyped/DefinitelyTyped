@@ -157,6 +157,7 @@ export type {
     XRJointSpace,
     XRTargetRaySpace,
 } from "./renderers/webxr/WebXRController.js";
+export type { WebXRDepthSensing } from "./renderers/webxr/WebXRDepthSensing.js";
 export type {
     WebXRArrayCamera,
     WebXRCamera,
