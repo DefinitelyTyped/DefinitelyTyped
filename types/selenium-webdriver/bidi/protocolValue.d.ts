@@ -3,7 +3,7 @@ interface IRemoteReferenceType {
     SHARED_ID: "shareId";
 }
 
-const RemoteReferenceType: IRemoteReferenceType;
+declare const RemoteReferenceType: IRemoteReferenceType;
 
 declare type LocalValueJSON = {
     type: string;
@@ -84,4 +84,15 @@ declare class RegExpValue {
     flags: string | null;
 }
 
-export { LocalValue, ReferenceValue, RegExpValue, RemoteReferenceType, RemoteValue };
+declare class SerializationOptions {
+    private _maxDomDepth: number;
+    private _maxObjectDepth: number | null;
+    private _includeShadowTree: 'none' | 'open' | 'all';
+
+    constructor(
+        maxDomDepth?: number,
+        maxObjectDepth?: number | null,
+        includeShadowTree?: 'none' | 'open' | 'all'
+    );
+}
+export { LocalValue, ReferenceValue, RegExpValue, RemoteReferenceType, RemoteValue, SerializationOptions };
