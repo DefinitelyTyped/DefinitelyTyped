@@ -19,8 +19,8 @@ export interface ViewEventMap {
     "layer-added": { layerId: string };
     "initialized": {};
     "layers-order-changed": {
-        previous: { sequence: string[]; }
-        new: { sequence: string[]; }
+        previous: { sequence: string[] };
+        new: { sequence: string[] };
     };
     "camera-moved": {
         coord: Coordinates;
