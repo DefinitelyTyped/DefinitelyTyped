@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/phc__format",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/simonepri/phc-format#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/phc__format": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luic Oliveira",
+            "githubUsername": "filiafobico"
+        }
+    ]
+}
