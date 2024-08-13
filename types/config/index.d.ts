@@ -1,4 +1,4 @@
-import { Paths, PathValues } from "./paths";
+import { ConfigPaths, ConfigPathValues, IsEmptyObject } from "./paths";
 
 declare var c: c.IConfig;
 
@@ -72,11 +72,12 @@ declare namespace c {
      * @example
      * const knownToBeStringTyped = config.get('myConfig.myString');
      */
-    interface UserConfig {}
+    interface UserConfig { }
 
     interface IConfig {
-        get<T extends Paths<UserConfig>>(setting: T): PathValues<UserConfig, T>;
-        get<T>(setting: string): T;
+        get: IsEmptyObject<UserConfig> extends true
+        ? <T>(setting: string) => T
+        : <T extends ConfigPaths<UserConfig>>(setting: T) => ConfigPathValues<UserConfig, T>;
         has(setting: string): boolean;
         util: IUtil;
     }

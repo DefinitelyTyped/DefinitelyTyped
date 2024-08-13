@@ -31,14 +31,10 @@ declare module "config" {
 
 var class1: config.IConfig = config;
 
-var value1: string = config.get<string>("");
-var value2: any = config.get("");
-
 var has: boolean = config.has("");
 
 var stringReturnType: string = config.get('firstName');
 var numberReturnType: number = config.get('info.age');
-var backwardsCompatible: unknown = config.get('info.isTall');
 var deepValue: boolean = config.get('info.nest1.nest2.nest3.nest4.nest5.anotherBoolean');
 // @ts-expect-error Type 'boolean' is not assignable to type 'string'
 var invalidReturnType: string = config.get('info.isOlympicAthlete');
