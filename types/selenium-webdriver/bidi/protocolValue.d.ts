@@ -69,7 +69,7 @@ declare class RemoteValue<T> {
 interface ReferenceValueJSON {
     handle?: string;
     shareId?: string;
-};
+}
 
 declare class ReferenceValue {
     constructor(handle: string, shareId: string);
