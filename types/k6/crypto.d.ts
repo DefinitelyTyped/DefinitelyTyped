@@ -1,5 +1,3 @@
-import { bytes } from ".";
-
 /**
  * Generate random bytes.
  * @param size - Number of bytes to generate.
@@ -181,7 +179,7 @@ export type OutputEncoding = StringEncoding | BinaryEncoding;
  * @template OE - Output encoding.
  */
 export type Output<OE extends OutputEncoding> = OE extends StringEncoding ? string
-    : OE extends BinaryEncoding ? bytes
+    : OE extends BinaryEncoding ? ArrayBuffer
     : never;
 
 /**
