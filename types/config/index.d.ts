@@ -74,6 +74,7 @@ declare namespace c {
         get: HasBeenAugmented<IConfig> extends true
             ? <T extends ConfigPaths<IConfig>>(setting: T) => ConfigPathValues<IConfig, T>
             : <T>(setting: string) => T;
+        has(setting: ConfigPaths<IConfig>): boolean;
         has(setting: string): boolean;
         util: IUtil;
     }

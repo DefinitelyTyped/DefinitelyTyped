@@ -31,7 +31,8 @@ declare module "config" {
 
 var class1: config.IConfig = config;
 
-var has: boolean = config.has("");
+var hasUntyped: boolean = config.has("");
+var hasTyped: boolean = config.has("info.age");
 
 var stringReturnType: string = config.get("firstName");
 var numberReturnType: number = config.get("info.age");
