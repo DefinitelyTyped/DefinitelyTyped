@@ -46,13 +46,17 @@ declare namespace c {
          */
         setModuleDefaults(moduleName: string, defaults: any): any;
     }
-
     /**
      * This interface is meant to be augmented by the users to provider their typed config to the library.
      *
      * Once augmented, the following will be added to the `get` method:
      * - Dot notation IntelliSense for the `setting` parameter
      * - Correctly typed return values
+     */
+    interface UserConfig {}
+
+    /**
+     * To add typing to this package you can augment the `UserConfig` interface.
      *
      * @example
      * declare module 'config' {
@@ -72,12 +76,9 @@ declare namespace c {
      * @example
      * const knownToBeStringTyped = config.get('myConfig.myString');
      */
-    interface UserConfig { }
-
-    interface IConfig {
-        get: IsEmptyObject<UserConfig> extends true
-        ? <T>(setting: string) => T
-        : <T extends ConfigPaths<UserConfig>>(setting: T) => ConfigPathValues<UserConfig, T>;
+    interface IConfig extends UserConfig {
+        get: IsEmptyObject<UserConfig> extends true ? <T>(setting: string) => T
+            : <T extends ConfigPaths<UserConfig>>(setting: T) => ConfigPathValues<UserConfig, T>;
         has(setting: string): boolean;
         util: IUtil;
     }

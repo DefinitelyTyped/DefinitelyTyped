@@ -38,6 +38,7 @@ var numberReturnType: number = config.get('info.age');
 var deepValue: boolean = config.get('info.nest1.nest2.nest3.nest4.nest5.anotherBoolean');
 // @ts-expect-error Type 'boolean' is not assignable to type 'string'
 var invalidReturnType: string = config.get('info.isOlympicAthlete');
+var directAccessToo: number = config.info.nest1.nest2.nest3.anotherNumber;
 
 // util tests:
 var extended1: any = config.util.extendDeep({}, {});
