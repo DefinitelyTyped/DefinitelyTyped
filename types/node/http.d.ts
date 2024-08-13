@@ -1557,7 +1557,7 @@ declare module "http" {
     >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse<InstanceType<Request>>
+        Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse<InstanceType<Request>>,
     >(
         options: ServerOptions<Request, Response>,
         requestListener?: RequestListener<Request, Response>,
