@@ -1,4 +1,4 @@
-import { ConfigPaths, ConfigPathValues, HasBeenAugmented } from "./paths";
+import { ConfigPaths, ConfigPathValues, HasBeenAugmented } from "./utils";
 
 declare var c: c.IConfig;
 
