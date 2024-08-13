@@ -1292,7 +1292,10 @@ declare module "http" {
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
         Response extends typeof ServerResponse<InstanceType<Request>> = typeof ServerResponse<InstanceType<Request>>,
-    >(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
+    >(
+        options: ServerOptions<Request, Response>,
+        requestListener?: RequestListener<Request, Response>,
+    ): Server<Request, Response>;
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
     interface RequestOptions extends ClientRequestArgs {}

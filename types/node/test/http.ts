@@ -68,7 +68,7 @@ import * as url from "node:url";
         bar: typeof bar;
 
         getFoo() {
-            return this.req.foo
+            return this.req.foo;
         }
     }
 
