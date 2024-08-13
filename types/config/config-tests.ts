@@ -4,7 +4,7 @@ import { deferConfig } from "config/defer";
 import { raw } from "config/raw";
 
 declare module "config" {
-    interface UserConfig {
+    interface IConfig {
         firstName: string;
         lastName: string;
         fullName: string;

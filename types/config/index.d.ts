@@ -1,4 +1,4 @@
-import { ConfigPaths, ConfigPathValues, IsEmptyObject } from "./paths";
+import { ConfigPaths, ConfigPathValues, HasBeenAugmented } from "./paths";
 
 declare var c: c.IConfig;
 
@@ -46,26 +46,20 @@ declare namespace c {
          */
         setModuleDefaults(moduleName: string, defaults: any): any;
     }
-    /**
-     * This interface is meant to be augmented by the users to provider their typed config to the library.
-     *
-     * Once augmented, the following will be added to the `get` method:
-     * - Dot notation IntelliSense for the `setting` parameter
-     * - Correctly typed return values
-     */
-    interface UserConfig {}
 
     /**
-     * To add typing to this package you can augment the `UserConfig` interface.
+     * By augmenting this interface with your own config, you can greatly improve the IntelliSense for the `get` method:
+     * - Dot notation paths for the `setting` parameter
+     * - Correctly typed return values
      *
      * @example
      * declare module 'config' {
-     *   interface UserConfig extends MyConfig {}
+     *   interface IConfig extends MyConfig {}
      * }
      *
      * @example
      * declare module 'config' {
-     *   interface UserConfig {
+     *   interface IConfig {
      *     myConfig: {
      *       myString: string;
      *       myNumber: number;
@@ -76,9 +70,10 @@ declare namespace c {
      * @example
      * const knownToBeStringTyped = config.get('myConfig.myString');
      */
-    interface IConfig extends UserConfig {
-        get: IsEmptyObject<UserConfig> extends true ? <T>(setting: string) => T
-            : <T extends ConfigPaths<UserConfig>>(setting: T) => ConfigPathValues<UserConfig, T>;
+    interface IConfig {
+        get: HasBeenAugmented<IConfig> extends true
+            ? <T extends ConfigPaths<IConfig>>(setting: T) => ConfigPathValues<IConfig, T>
+            : <T>(setting: string) => T;
         has(setting: string): boolean;
         util: IUtil;
     }

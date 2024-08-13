@@ -14,4 +14,7 @@ export type ConfigPathValues<O, P extends string> = P extends `${infer K}.${infe
     : P extends keyof O ? O[P]
     : never;
 
-export type IsEmptyObject<T> = keyof T extends never ? true : false;
+type IsSubsetOf<T, U> = T extends U ? true : false;
+
+export type HasBeenAugmented<T> = IsSubsetOf<Exclude<keyof T, "get" | "has" | "util">, never> extends true ? false
+    : true;
