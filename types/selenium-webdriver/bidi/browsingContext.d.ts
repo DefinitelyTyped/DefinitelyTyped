@@ -1,4 +1,4 @@
-import  CreateContextParameters from   './CreateContextParameters'
+import  CreateContextParameters from   './createContextParameters'
 import { BrowsingContextInfo} from "./browsingContextTypes";
 import { ReferenceValue, RemoteValue, SerializationOptions } from "./protocolValue";
 import { CaptureScreenshotParameters } from "./captureScreenshotParameters";

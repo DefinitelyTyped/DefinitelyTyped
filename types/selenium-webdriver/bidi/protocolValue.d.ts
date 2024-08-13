@@ -44,13 +44,13 @@ declare class LocalValue<T> {
     toJson(): LocalValueJSON;
 }
 
-declare type RemoteValueJSON<T> = {
+interface RemoteValueJSON<T>  {
     type?: string;
     handle?: string;
     internalId?: string;
     value?: T;
     sharedId?: string;
-};
+}
 
 type MappedInternalType<T> = T extends Map<any, any> ? ReferenceValue
     : T extends RegExp ? RegExpValue
@@ -66,7 +66,7 @@ declare class RemoteValue<T> {
     deserializeValue(value: MappedInternalType<T> | null, type: string): T;
 }
 
-declare type ReferenceValueJSON = {
+interface ReferenceValueJSON {
     handle?: string;
     shareId?: string;
 };
