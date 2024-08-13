@@ -2,12 +2,12 @@
 import { BoxClipRectangle, ElementClipRectangle } from "./clipRectangle";
 
 
-export declare const Origin: {
+export const Origin: {
   VIEWPORT: 'viewport';
   DOCUMENT: 'document';
 };
 
-export declare class CaptureScreenshotParameters {
+export class CaptureScreenshotParameters {
   #map: Map<string, any>;
 
   origin(origin: 'viewport' | 'document'): CaptureScreenshotParameters;

@@ -5,10 +5,10 @@ interface IRemoteReferenceType {
 
 declare const RemoteReferenceType: IRemoteReferenceType;
 
-declare type LocalValueJSON = {
+export interface LocalValueJSON {
     type: string;
     value?: any;
-};
+}
 
 declare class LocalValue<T> {
     constructor(type: string, value: T);

@@ -1,18 +1,18 @@
-export declare class ClipRectangle {
+export class ClipRectangle {
   clipType: string;
   constructor(type: string);
   get type(): string;
   asMap(): Map<string, any>;
 }
 
-export declare class ElementClipRectangle extends ClipRectangle {
+export class ElementClipRectangle extends ClipRectangle {
   #sharedId: string;
   #handleId?: string;
   constructor(sharedId: string, handleId?: string);
   asMap(): Map<string, any>;
 }
 
-export declare class BoxClipRectangle extends ClipRectangle {
+export class BoxClipRectangle extends ClipRectangle {
   #x: number;
   #y: number;
   #width: number;

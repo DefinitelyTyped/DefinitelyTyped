@@ -4,13 +4,13 @@ import { ReferenceValue, RemoteValue, SerializationOptions } from "./protocolVal
 import { CaptureScreenshotParameters } from "./captureScreenshotParameters";
 import { WebDriver, WebElement } from "../";
 
-declare type LocatorMapValue = {
-  type: 'css' | 'innerText' | 'xpath';
-  value: string;
-  ignoreCase?: boolean;
-  matchType?: string;
-  maxDepth?: number;
-};
+interface LocatorMapValue {
+    type: 'css' | 'innerText' | 'xpath';
+    value: string;
+    ignoreCase?: boolean;
+    matchType?: string;
+    maxDepth?: number;
+}
 
 declare class Locator {
   static TYPE : {

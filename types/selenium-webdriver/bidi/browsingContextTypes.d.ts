@@ -1,5 +1,5 @@
 
-export declare class BrowsingContextInfo {
+export class BrowsingContextInfo {
   private _id: string;
   private _url: string;
   private _children: BrowsingContextInfo[];
@@ -22,7 +22,7 @@ export declare class BrowsingContextInfo {
 }
 
 
-export declare class NavigationInfo {
+export class NavigationInfo {
   browsingContextId: string;
   navigationId: string;
   timestamp: number;
@@ -35,7 +35,7 @@ export declare class NavigationInfo {
   );
 }
 
-export declare class UserPromptOpened {
+export class UserPromptOpened {
   browsingContextId: string;
   type: string;
   message: string;
@@ -43,7 +43,7 @@ export declare class UserPromptOpened {
   constructor(browsingContextId: string, type: string, message: string);
 }
 
-export declare class UserPromptClosed {
+export class UserPromptClosed {
   browsingContextId: string;
   accepted: boolean;
   userText?: string;
