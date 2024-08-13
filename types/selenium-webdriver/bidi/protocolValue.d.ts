@@ -44,7 +44,7 @@ declare class LocalValue<T> {
     toJson(): LocalValueJSON;
 }
 
-interface RemoteValueJSON<T>  {
+interface RemoteValueJSON<T> {
     type?: string;
     handle?: string;
     internalId?: string;
@@ -87,12 +87,12 @@ declare class RegExpValue {
 declare class SerializationOptions {
     private _maxDomDepth: number;
     private _maxObjectDepth: number | null;
-    private _includeShadowTree: 'none' | 'open' | 'all';
+    private _includeShadowTree: "none" | "open" | "all";
 
     constructor(
         maxDomDepth?: number,
         maxObjectDepth?: number | null,
-        includeShadowTree?: 'none' | 'open' | 'all'
+        includeShadowTree?: "none" | "open" | "all",
     );
 }
 export { LocalValue, ReferenceValue, RegExpValue, RemoteReferenceType, RemoteValue, SerializationOptions };
