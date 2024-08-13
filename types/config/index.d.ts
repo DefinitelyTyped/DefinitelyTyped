@@ -1,3 +1,5 @@
+import { Paths, PathValues } from "./paths";
+
 declare var c: c.IConfig;
 
 declare namespace c {
@@ -45,7 +47,35 @@ declare namespace c {
         setModuleDefaults(moduleName: string, defaults: any): any;
     }
 
+    /**
+     * This interface is meant to be augmented by the users to provider their typed config to the library.
+     *
+     * Once augmented, the following will be added to the `get` method:
+     * - Dot notation IntelliSense for the `setting` parameter
+     * - Correctly typed return values
+     *
+     * @example
+     * declare module 'config' {
+     *   interface UserConfig extends MyConfig {}
+     * }
+     *
+     * @example
+     * declare module 'config' {
+     *   interface UserConfig {
+     *     myConfig: {
+     *       myString: string;
+     *       myNumber: number;
+     *     };
+     *   }
+     * }
+     *
+     * @example
+     * const knownToBeStringTyped = config.get('myConfig.myString');
+     */
+    interface UserConfig {}
+
     interface IConfig {
+        get<T extends Paths<UserConfig>>(setting: T): PathValues<UserConfig, T>;
         get<T>(setting: string): T;
         has(setting: string): boolean;
         util: IUtil;
