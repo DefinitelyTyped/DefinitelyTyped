@@ -125,6 +125,8 @@ test(undefined, undefined, t => {
 
     // $ExpectType string
     t.name;
+    // $ExpectType string
+    t.fullName;
     // $ExpectType AbortSignal
     t.signal;
     // $ExpectType MockTracker

@@ -501,6 +501,11 @@ declare module "node:test" {
          */
         diagnostic(message: string): void;
         /**
+         * The name of the test and each of its ancestors, separated by `>`.
+         * @since v20.16.0
+         */
+        readonly fullName: string;
+        /**
          * The name of the test.
          * @since v18.8.0, v16.18.0
          */
