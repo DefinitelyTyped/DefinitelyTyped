@@ -337,6 +337,58 @@ access("file/that/does/not/exist", (err) => {
 }
 
 {
+    // args are passed `type: "boolean"` and allow negative options
+    const result = util.parseArgs({
+        args: ["--no-alpha"],
+        options: {
+            alpha: { type: "boolean" },
+        },
+        allowNegative: true,
+    });
+    // $ExpectType boolean | undefined
+    result.values.alpha; // false
+}
+
+{
+    // args are passed `default: "true"` and allow negative options
+    const result = util.parseArgs({
+        args: ["--no-alpha"],
+        options: {
+            alpha: { type: "boolean", default: true },
+        },
+        allowNegative: true,
+    });
+    // $ExpectType boolean | undefined
+    result.values.alpha; // false
+}
+
+{
+    // allow negative options and multiple as true
+    const result = util.parseArgs({
+        args: ["--no-alpha", "--alpha", "--no-alpha"],
+        options: {
+            alpha: { type: "boolean", multiple: true },
+        },
+        allowNegative: true,
+    });
+    // $ExpectType boolean[] | undefined
+    result.values.alpha; // [false, true, false]
+}
+
+{
+    // allow negative options and passed multiple arguments
+    const result = util.parseArgs({
+        args: ["--no-alpha", "--alpha"],
+        options: {
+            alpha: { type: "boolean" },
+        },
+        allowNegative: true,
+    });
+    // $ExpectType boolean | undefined
+    result.values.alpha; // true
+}
+
+{
     const controller: AbortController = util.transferableAbortController();
     const signal: AbortSignal = util.transferableAbortSignal(controller.signal);
     util.aborted(signal, {}).then(() => {});

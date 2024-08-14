@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "22.3.9999",
+    "version": "22.4.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
@@ -9,7 +9,7 @@
     ],
     "tsconfigs": ["tsconfig.dom.json", "tsconfig.non-dom.json"],
     "dependencies": {
-        "undici-types": "~6.18.2"
+        "undici-types": "~6.19.2"
     },
     "devDependencies": {
         "@types/node": "workspace:."
