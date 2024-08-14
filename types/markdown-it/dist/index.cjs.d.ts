@@ -978,7 +978,7 @@ interface MarkdownIt {
      * Used by [linkify](https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js)
      * rule.
      */
-    readonly linkify: LinkifyIt;
+    readonly linkify: typeof LinkifyIt;
 
     /**
      * Link validation function. CommonMark allows too much in links. By default
