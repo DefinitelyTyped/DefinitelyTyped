@@ -402,6 +402,12 @@ declare namespace Tagify {
         dropdownInital: string;
 
         /**
+         * Class name for selected dropdown items.
+         * @default tagify__dropdown__item--selected
+         */
+        dropdownItemSelected: string;
+
+        /**
          * @default 'tagify--loading'
          */
         scopeLoading: string;
