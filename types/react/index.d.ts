@@ -2901,6 +2901,7 @@ declare namespace React {
         draggable?: Booleanish | undefined;
         hidden?: boolean | undefined;
         id?: string | undefined;
+        inert?: boolean | undefined;
         lang?: string | undefined;
         nonce?: string | undefined;
         slot?: string | undefined;
