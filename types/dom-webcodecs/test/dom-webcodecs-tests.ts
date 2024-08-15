@@ -128,10 +128,10 @@ AudioDecoder.isConfigSupported(futureAudioDecoderConfig);
 // $ExpectType void
 audioDecoder.configure(futureAudioDecoderConfig);
 
-audioDecoder.ondequeue = () => '';
+audioDecoder.ondequeue = () => "";
 
 // $ExpectType void
-audioDecoder.addEventListener('dequeue', (e) => e, { once: true });
+audioDecoder.addEventListener("dequeue", (e) => e, { once: true });
 
 genericCodec(audioDecoder);
 
@@ -229,7 +229,7 @@ audioEncoder.configure(futureAudioEncoderConfig);
 audioEncoder.encode(audioFrame);
 
 // $ExpectType void
-audioEncoder.addEventListener('dequeue', (e) => e, { once: true });
+audioEncoder.addEventListener("dequeue", (e) => e, { once: true });
 
 // $ExpectType void
 audioFrame.close();
@@ -433,7 +433,7 @@ videoDecoder.configure(futureVideoDecoderConfig);
 genericCodec(videoDecoder);
 
 // $ExpectType void
-videoDecoder.addEventListener('dequeue', () => {}, { once: true });
+videoDecoder.addEventListener("dequeue", () => {}, { once: true });
 
 // $ExpectType void
 videoDecoder.decode(encodedVideoChunk);
@@ -556,7 +556,7 @@ videoEncoder.configure(futureVideoEncoderConfig);
 videoEncoder.encodeQueueSize;
 
 // $ExpectType void
-videoEncoder.addEventListener('dequeue', () => {}, { once: true });
+videoEncoder.addEventListener("dequeue", () => {}, { once: true });
 
 // $ExpectType void
 videoEncoder.encode(videoFrame);

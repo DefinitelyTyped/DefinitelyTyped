@@ -222,10 +222,26 @@ interface AudioDecoder {
     decode(chunk: EncodedAudioChunk): void;
     flush(): Promise<void>;
     reset(): void;
-    addEventListener<K extends keyof AudioDecoderEventMap>(type: K, listener: (this: AudioDecoder, ev: AudioDecoderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioDecoderEventMap>(type: K, listener: (this: AudioDecoder, ev: AudioDecoderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof AudioDecoderEventMap>(
+        type: K,
+        listener: (this: AudioDecoder, ev: AudioDecoderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof AudioDecoderEventMap>(
+        type: K,
+        listener: (this: AudioDecoder, ev: AudioDecoderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 declare var AudioDecoder: {
@@ -248,10 +264,26 @@ interface AudioEncoder {
     encode(data: AudioData): void;
     flush(): Promise<void>;
     reset(): void;
-    addEventListener<K extends keyof AudioEncoderEventMap>(type: K, listener: (this: AudioEncoder, ev: AudioEncoderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof AudioEncoderEventMap>(type: K, listener: (this: AudioEncoder, ev: AudioEncoderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof AudioEncoderEventMap>(
+        type: K,
+        listener: (this: AudioEncoder, ev: AudioEncoderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof AudioEncoderEventMap>(
+        type: K,
+        listener: (this: AudioEncoder, ev: AudioEncoderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 declare var AudioEncoder: {
@@ -355,10 +387,26 @@ interface VideoDecoder {
     decode(chunk: EncodedVideoChunk): void;
     flush(): Promise<void>;
     reset(): void;
-    addEventListener<K extends keyof VideoDecoderEventMap>(type: K, listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof VideoDecoderEventMap>(type: K, listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof VideoDecoderEventMap>(
+        type: K,
+        listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof VideoDecoderEventMap>(
+        type: K,
+        listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 declare var VideoDecoder: {
@@ -381,10 +429,26 @@ interface VideoEncoder {
     encode(frame: VideoFrame, options?: VideoEncoderEncodeOptions): void;
     flush(): Promise<void>;
     reset(): void;
-    addEventListener<K extends keyof VideoEncoderEventMap>(type: K, listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof VideoEncoderEventMap>(type: K, listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof VideoEncoderEventMap>(
+        type: K,
+        listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof VideoEncoderEventMap>(
+        type: K,
+        listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 declare var VideoEncoder: {
