@@ -7,9 +7,6 @@
     "projects": [
         "http://nwjs.io"
     ],
-    "peerDependencies": {
-        "@types/chrome": "*"
-    },
     "dependencies": {
         "@types/node": "*"
     },
