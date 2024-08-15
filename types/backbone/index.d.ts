@@ -554,7 +554,7 @@ declare namespace Backbone {
          * For assigning events as object hash, do it like this: this.events = <any>{ "event:selector": callback, ... };
          * That works only if you set it in the constructor or the initialize method.
          */
-        events(): EventsHash;
+        events: EventsHash | (() => EventsHash);
 
         // A conditional type used here to prevent `TS2532: Object is possibly 'undefined'`
         model: TModel extends Model ? TModel : undefined;
@@ -569,8 +569,8 @@ declare namespace Backbone {
         $el: JQuery;
         attributes: Record<string, any>;
         $(selector: string): JQuery;
-        render(): this;
-        remove(): this;
+        render(): any;
+        remove(): any;
         delegateEvents(events?: _Result<EventsHash>): this;
         delegate(eventName: string, selector: string, listener: ViewEventListener): this;
         undelegateEvents(): this;
