@@ -85,14 +85,13 @@ declare class RegExpValue {
 }
 
 declare class SerializationOptions {
-    private _maxDomDepth: number;
-    private _maxObjectDepth: number | null;
-    private _includeShadowTree: "none" | "open" | "all";
-
     constructor(
-        maxDomDepth?: number,
+        maxDomDepth: number,
         maxObjectDepth?: number | null,
-        includeShadowTree?: "none" | "open" | "all",
+        includeShadowTree?: string,
     );
+    maxDomDepth: number;
+    maxObjectDepth: number | null;
+    includeShadowTree: string
 }
 export { LocalValue, ReferenceValue, RegExpValue, RemoteReferenceType, RemoteValue, SerializationOptions };
