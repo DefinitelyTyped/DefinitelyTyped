@@ -208,15 +208,24 @@ declare var AudioData: {
     new(init: AudioDataInit): AudioData;
 };
 
+interface AudioDecoderEventMap {
+    "dequeue": Event;
+}
+
 /** Available only in secure contexts. */
 interface AudioDecoder {
     readonly decodeQueueSize: number;
     readonly state: CodecState;
+    ondequeue: ((this: AudioDecoder, ev: Event) => any) | null;
     close(): void;
     configure(config: AudioDecoderConfig): void;
     decode(chunk: EncodedAudioChunk): void;
     flush(): Promise<void>;
     reset(): void;
+    addEventListener<K extends keyof AudioDecoderEventMap>(type: K, listener: (this: AudioDecoder, ev: AudioDecoderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AudioDecoderEventMap>(type: K, listener: (this: AudioDecoder, ev: AudioDecoderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioDecoder: {
@@ -225,15 +234,24 @@ declare var AudioDecoder: {
     isConfigSupported(config: AudioDecoderConfig): Promise<AudioDecoderSupport>;
 };
 
+interface AudioEncoderEventMap {
+    "dequeue": Event;
+}
+
 /** Available only in secure contexts. */
 interface AudioEncoder {
     readonly encodeQueueSize: number;
     readonly state: CodecState;
+    ondequeue: ((this: AudioEncoder, ev: Event) => any) | null;
     close(): void;
     configure(config: AudioEncoderConfig): void;
     encode(data: AudioData): void;
     flush(): Promise<void>;
     reset(): void;
+    addEventListener<K extends keyof AudioEncoderEventMap>(type: K, listener: (this: AudioEncoder, ev: AudioEncoderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AudioEncoderEventMap>(type: K, listener: (this: AudioEncoder, ev: AudioEncoderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var AudioEncoder: {
@@ -323,15 +341,24 @@ declare var VideoColorSpace: {
     new(init?: VideoColorSpaceInit): VideoColorSpace;
 };
 
+interface VideoDecoderEventMap {
+    "dequeue": Event;
+}
+
 /** Available only in secure contexts. */
 interface VideoDecoder {
     readonly decodeQueueSize: number;
     readonly state: CodecState;
+    ondequeue: ((this: VideoDecoder, ev: Event) => any) | null;
     close(): void;
     configure(config: VideoDecoderConfig): void;
     decode(chunk: EncodedVideoChunk): void;
     flush(): Promise<void>;
     reset(): void;
+    addEventListener<K extends keyof VideoDecoderEventMap>(type: K, listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof VideoDecoderEventMap>(type: K, listener: (this: VideoDecoder, ev: VideoDecoderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var VideoDecoder: {
@@ -340,15 +367,24 @@ declare var VideoDecoder: {
     isConfigSupported(config: VideoDecoderConfig): Promise<VideoDecoderSupport>;
 };
 
+interface VideoEncoderEventMap {
+    "dequeue": Event;
+}
+
 /** Available only in secure contexts. */
 interface VideoEncoder {
     readonly encodeQueueSize: number;
     readonly state: CodecState;
     close(): void;
+    ondequeue: ((this: VideoEncoder, ev: Event) => any) | null;
     configure(config: VideoEncoderConfig): void;
     encode(frame: VideoFrame, options?: VideoEncoderEncodeOptions): void;
     flush(): Promise<void>;
     reset(): void;
+    addEventListener<K extends keyof VideoEncoderEventMap>(type: K, listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof VideoEncoderEventMap>(type: K, listener: (this: VideoEncoder, ev: VideoEncoderEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 declare var VideoEncoder: {
