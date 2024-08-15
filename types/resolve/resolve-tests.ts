@@ -2,8 +2,8 @@
 
 import * as fs from "fs";
 import resolve = require("resolve");
-import resolveAsync = require("resolve/async")
-import resolveSync = require("resolve/sync")
+import resolveAsync = require("resolve/async");
+import resolveSync = require("resolve/sync");
 
 function test_basic_async() {
     resolve("typescript", function(error, resolved, pkg) {
