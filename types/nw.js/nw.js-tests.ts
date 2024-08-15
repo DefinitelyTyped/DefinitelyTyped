@@ -273,6 +273,7 @@ tray.menu = menu;
 
 // Remove the tray
 tray.remove();
+Object.assign(tray, null);
 
 /**
  * nw.Window Tests
