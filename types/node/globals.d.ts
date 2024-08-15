@@ -7,12 +7,14 @@ type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undi
 type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
 type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
 type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
+type _MessageEvent = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").MessageEvent;
 type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").RequestInit;
 type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").ResponseInit;
 type _File = typeof globalThis extends { onmessage: any } ? {} : import("node:buffer").File;
 type _WebSocket = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").WebSocket;
+type _EventSource = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").EventSource;
 // #endregion Fetch and friends
 
 declare global {
@@ -404,6 +406,13 @@ declare global {
     } ? T
         : typeof import("undici-types").Headers;
 
+    interface MessageEvent extends _MessageEvent {}
+    var MessageEvent: typeof globalThis extends {
+        onmessage: any;
+        MessageEvent: infer T;
+    } ? T
+        : typeof import("undici-types").MessageEvent;
+
     interface File extends _File {}
     var File: typeof globalThis extends {
         onmessage: any;
@@ -414,4 +423,11 @@ declare global {
     interface WebSocket extends _WebSocket {}
     var WebSocket: typeof globalThis extends { onmessage: any; WebSocket: infer T } ? T
         : typeof import("undici-types").WebSocket;
+
+    interface EventSource extends _EventSource {}
+    /**
+     * Only available through the [--experimental-eventsource](https://nodejs.org/api/cli.html#--experimental-eventsource) flag.
+     */
+    var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
+        : typeof import("undici-types").EventSource;
 }

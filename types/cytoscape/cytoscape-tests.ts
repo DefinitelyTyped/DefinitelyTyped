@@ -73,6 +73,36 @@ const showAllStyle: cytoscape.Stylesheet[] = [
         },
     },
     {
+        selector: "node .background-multi-image",
+        style: {
+            "background-image": [
+                "data:image/svg+xml;utf8,"
+                + encodeURIComponent(
+                    `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg><svg xmlns='' version='1.1'></svg>`,
+                ),
+                "data:image/svg+xml;utf8,"
+                + encodeURIComponent(
+                    `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE svg><svg xmlns='' version='1.1'></svg>`,
+                ),
+            ],
+            "background-image-opacity": [0.5, 1.0],
+            "background-image-crossorigin": ["anonymous", "use-credentials"],
+            "background-image-smoothing": ["yes", "no"],
+            "background-image-containment": ["inside", "over"],
+            "background-width": [24, "60%"],
+            "background-height": ["60%", 24],
+            "background-fit": ["contain", "cover"],
+            "background-repeat": ["repeat-x", "repeat-y"],
+            "background-position-x": [24, 24],
+            "background-position-y": [0, 10],
+            "background-offset-x": [0, 0],
+            "background-offset-y": [10, 10],
+            "background-width-relative-to": ["inner", "include-padding"],
+            "background-height-relative-to": ["inner", "include-padding"],
+            "background-clip": ["node", "none"],
+        },
+    },
+    {
         selector: "$node > node",
         css: parentCSS,
     },

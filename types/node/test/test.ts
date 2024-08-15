@@ -11,6 +11,7 @@ import {
     only,
     run,
     skip,
+    snapshot,
     suite,
     type SuiteContext,
     test,
@@ -101,7 +102,7 @@ test((t, cb) => {
     cb({ x: "anything" });
 });
 
-// Test the context's methods
+// Test the context's methods/properties
 test(undefined, undefined, t => {
     // $ExpectType void
     t.diagnostic("tap diagnostic");
@@ -123,6 +124,15 @@ test(undefined, undefined, t => {
     t.beforeEach(() => {});
     // $ExpectType void
     t.before(() => {});
+
+    // $ExpectType string
+    t.name;
+    // $ExpectType string
+    t.fullName;
+    // $ExpectType AbortSignal
+    t.signal;
+    // $ExpectType MockTracker
+    t.mock;
 });
 
 // Test the subtest approach.
@@ -768,6 +778,25 @@ test("mocks a setter", (t) => {
     }
 });
 
+test("mocks a module", (t) => {
+    // $ExpectType MockModuleContext
+    const mock = t.mock.module("node:readline", {
+        namedExports: {
+            fn() {
+                return 42;
+            },
+        },
+        defaultExport: {
+            foo() {
+                return "bar";
+            },
+        },
+        cache: true,
+    });
+    // $ExpectType void
+    mock.restore();
+});
+
 // @ts-expect-error
 dot();
 // $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>
@@ -947,4 +976,32 @@ test("planning with streams", (t: TestContext, done) => {
     stream.on("end", () => {
         done();
     });
+});
+
+// Test snapshot assertion.
+test(t => {
+    // $ExpectType void
+    t.assert.snapshot({ value1: true, value2: false });
+    // $ExpectType void
+    t.assert.snapshot({ value3: "foo", value4: "bar" }, { serializers: [value => JSON.stringify(value)] });
+});
+
+// Snapshot configuration
+// @ts-expect-error
+snapshot.setDefaultSnapshotSerializers();
+// @ts-expect-error
+snapshot.setDefaultSnapshotSerializers((value) => value);
+// $ExpectType void
+snapshot.setDefaultSnapshotSerializers([
+    (value) => {
+        value; // $ExpectType any
+        return value;
+    },
+]);
+// @ts-expect-error
+snapshot.setResolveSnapshotPath();
+// $ExpectType void
+snapshot.setResolveSnapshotPath((path) => {
+    path; // $ExpectType string | undefined
+    return `${path ?? "repl"}.snapshot`;
 });
