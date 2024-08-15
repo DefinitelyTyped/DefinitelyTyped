@@ -185,7 +185,7 @@ nw.Screen.chooseDesktopMedia(["window", "screen"], function(streamId) {
  */
 var dcm = nw.Screen.DesktopCaptureMonitor;
 nw.Screen.Init();
-dcm.on("added", function(id, name, order, type) {
+dcm.on("added", function(id, name, order, type, primary) {
     // select first stream and shutdown
     var constraints = {
         audio: {
@@ -273,7 +273,6 @@ tray.menu = menu;
 
 // Remove the tray
 tray.remove();
-tray = null;
 
 /**
  * nw.Window Tests
@@ -340,7 +339,7 @@ win.capturePage(
 nw.Window.open("popup.html", {}, function(win) {
     // Release the 'win' object here after the new window is closed.
     win.on("closed", function() {
-        win = null;
+        Object.assign(win, null);
     });
 
     // Listen for window click event

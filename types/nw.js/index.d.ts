@@ -195,16 +195,16 @@ declare global {
              * Emit when a new source was added.
              *
              * @param event {string} Event name
-             * @param listener {Function(id?,name?,order?,type?,primary?)} The callback that handles the `added` event.
-             * - (optional) id {string} Is the media id.
-             * - (optional) name {string} Is the title of the window or screen.
-             * - (optional) order {number} Is the z-order of the windows, if screens are selected they will appear first.
-             * - (optional) type {string} Type of the stream: "screen", "window", "other" or "unknown".
-             * - (optional) primary {boolean} This will be true if the source is the primary monitor. (Windows OS only)
+             * @param listener {Function(id,name,order,type,primary)} The callback that handles the `added` event.
+             * - id {string} Is the media id.
+             * - name {string} Is the title of the window or screen.
+             * - order {number} Is the z-order of the windows, if screens are selected they will appear first.
+             * - type {string} Type of the stream: "screen", "window", "other" or "unknown".
+             * - primary {boolean} This will be true if the source is the primary monitor. (Windows OS only)
              */
             on(
                 event: "added",
-                listener: (id?: string, name?: string, order?: number, type?: string, primary?: boolean) => any,
+                listener: (id: string, name: string, order: number, type: string, primary: boolean) => any,
             ): this;
 
             /**
@@ -1280,13 +1280,13 @@ declare global {
              *
              * @param event {string} Event name
              * @param listener {function(byCommandQ?)} The callback that handles the `new-win-policy` event.
-             * - (optional) frame {HTMLIFrameElement} Is the object of the child iframe where the request is from, or null if it’s from the top window.
-             * - (optional) url {string} Is the address of the requested link
-             * - (optional) policy {Object} Is an object contain window policy.
+             * - frame {HTMLIFrameElement | null} Is the object of the child iframe where the request is from, or null if it’s from the top window.
+             * - url {string} Is the address of the requested link
+             * - policy {Object} Is an object contain window policy.
              */
             on(
                 event: "new-win-policy",
-                listener: (frame?: HTMLIFrameElement | any, url?: string, policy?: WinPolicy) => any,
+                listener: (frame: HTMLIFrameElement | null, url: string, policy: WinPolicy) => any,
             ): this;
 
             /**
@@ -1850,7 +1850,7 @@ declare global {
             open(
                 url: string,
                 option?: NWJS_Helpers.WindowOpenOption,
-                callback?: (new_win?: NWJS_Helpers.win) => void,
+                callback?: (new_win: NWJS_Helpers.win) => void,
             ): void;
         }
 
