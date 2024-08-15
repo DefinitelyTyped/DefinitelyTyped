@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/unist",
     "version": "2.0.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "Unist",
     "projects": [
         "https://github.com/syntax-tree/unist"
