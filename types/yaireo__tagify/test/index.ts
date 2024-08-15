@@ -1134,6 +1134,10 @@ tagify.update();
 tagify.update({});
 tagify.update({ withoutChangeEvent: true });
 
+tagify.setPlaceholder("my-placeholder");
+tagify.setRangeAtStartEnd(true, document.createElement("span"));
+tagify.setRangeAtStartEnd(false, document.createElement("span"));
+
 tagify.setPersistedData(["good", "tags"], "whitelist");
 tagify.getPersistedData("whitelist");
 tagify.clearPersistedData("whitelist");
