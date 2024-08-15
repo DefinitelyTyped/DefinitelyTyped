@@ -5,9 +5,9 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
-        "noImplicitThis": false,
-        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
         "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
