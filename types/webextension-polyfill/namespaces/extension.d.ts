@@ -4,10 +4,6 @@
 
 /**
  * Namespace: browser.extension
- *
- * The <code>browser.extension</code> API has utilities that can be used by any extension page.
- * It includes support for exchanging messages between an extension and its content scripts or between extensions,
- * as described in detail in $(topic:messaging)[Message Passing].
  */
 export namespace Extension {
     /**

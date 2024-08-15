@@ -4,8 +4,6 @@
 
 /**
  * Namespace: browser.i18n
- *
- * Use the <code>browser.i18n</code> infrastructure to implement internationalization across your whole app or extension.
  */
 export namespace I18n {
     /**

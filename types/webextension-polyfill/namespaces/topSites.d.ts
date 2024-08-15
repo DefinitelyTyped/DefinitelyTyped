@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.topSites
- *
- * Use the chrome.topSites API to access the top sites that are displayed on the new tab page.
- * Permissions: "topSites"
  */
 export namespace TopSites {
     /**

@@ -2,16 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.pageAction
- *
- * Use the <code>browser.pageAction</code> API to put icons inside the address bar. Page actions represent actions that can
- * be taken on the current page, but that aren't applicable to all pages.
- * Permissions: "manifest:page_action"
- */
 import { Events } from "./events";
 import { Tabs } from "./tabs";
 
+/**
+ * Namespace: browser.pageAction
+ */
 export namespace PageAction {
     /**
      * Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element).

@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.cookies
- *
- * Use the <code>browser.cookies</code> API to query and modify cookies, and to be notified when they change.
- * Permissions: "cookies"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.cookies
+ */
 export namespace Cookies {
     /**
      * A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies).

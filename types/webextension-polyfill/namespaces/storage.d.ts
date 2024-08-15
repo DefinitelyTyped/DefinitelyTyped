@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.storage
- *
- * Use the <code>browser.storage</code> API to store, retrieve, and track changes to user data.
- * Permissions: "storage"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.storage
+ */
 export namespace Storage {
     interface StorageChange {
         /**

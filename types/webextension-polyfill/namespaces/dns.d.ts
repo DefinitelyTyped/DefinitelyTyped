@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.dns
- *
- * Asynchronous DNS API
- * Permissions: "dns"
  */
 export namespace Dns {
     /**

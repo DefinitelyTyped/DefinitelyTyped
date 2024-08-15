@@ -2,14 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.manifest
- *
- * Permissions: -
- */
 import { Experiments } from "./experiments";
 import { ExtensionTypes } from "./extensionTypes";
 
+/**
+ * Namespace: browser.manifest
+ */
 export namespace Manifest {
     /**
      * Common properties for all manifest.json files
@@ -315,6 +313,7 @@ export namespace Manifest {
         | "proxy"
         | "nativeMessaging"
         | "sessions"
+        | "tabGroups"
         | "tabs"
         | "tabHide"
         | "topSites"

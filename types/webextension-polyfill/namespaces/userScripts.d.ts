@@ -2,14 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.userScripts
- *
- * Permissions: "manifest:user_scripts"
- */
 import { ExtensionTypes } from "./extensionTypes";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.userScripts
+ */
 export namespace UserScripts {
     /**
      * Details of a user script

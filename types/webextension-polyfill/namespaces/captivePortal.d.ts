@@ -2,15 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.captivePortal
- *
- * This API provides the ability detect the captive portal state of the users connection.
- * Permissions: "captivePortal"
- */
 import { Events } from "./events";
 import { Types } from "./types";
 
+/**
+ * Namespace: browser.captivePortal
+ */
 export namespace CaptivePortal {
     interface OnStateChangedDetailsType {
         /**

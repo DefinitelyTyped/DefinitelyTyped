@@ -2,12 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.permissions
- */
 import { Events } from "./events";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.permissions
+ */
 export namespace Permissions {
     interface Permissions {
         /**

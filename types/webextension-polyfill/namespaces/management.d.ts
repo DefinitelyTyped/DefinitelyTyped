@@ -2,14 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.management
- *
- * The <code>browser.management</code> API provides ways to manage the list of extensions that are installed and running.
- */
 import { Events } from "./events";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.management
+ */
 export namespace Management {
     /**
      * Information about an icon belonging to an extension.

@@ -2,19 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.declarativeContent
- *
- * Use the <code>chrome.declarativeContent</code> API to take actions depending on the content of a page,
- * without requiring permission to read the page's content.
- *
- * Comments found in source JSON schema files:
- * Copyright 2012 The Chromium Authors
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.declarativeContent
+ */
 export namespace DeclarativeContent {
     /**
      * See <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData">https://developer.mozilla.

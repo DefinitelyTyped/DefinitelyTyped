@@ -2,15 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.privacy.network
- *
- * Use the <code>browser.privacy</code> API to control usage of the features in the browser that can affect a user's
- * privacy.
- * Permissions: "privacy"
- */
 import { Types } from "./types";
 
+/**
+ * Namespace: browser.privacy.network
+ */
 export namespace PrivacyNetwork {
     /**
      * The IP handling policy of WebRTC.

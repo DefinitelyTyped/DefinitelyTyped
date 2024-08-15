@@ -2,16 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.commands
- *
- * Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example,
- * an action to open the browser action or send a command to the xtension.
- * Permissions: "manifest:commands"
- */
 import { Events } from "./events";
 import { Tabs } from "./tabs";
 
+/**
+ * Namespace: browser.commands
+ */
 export namespace Commands {
     interface Command {
         /**

@@ -2,16 +2,13 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.proxy
- *
- * Provides access to global proxy settings for Firefox and proxy event listeners to handle dynamic proxy implementations.
- * Permissions: "proxy"
- */
 import { Events } from "./events";
 import { Types } from "./types";
 import { WebRequest } from "./webRequest";
 
+/**
+ * Namespace: browser.proxy
+ */
 export namespace Proxy {
     /**
      * An object which describes proxy settings.

@@ -2,14 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.geckoProfiler
- *
- * Exposes the browser's profiler.
- * Permissions: "geckoProfiler"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.geckoProfiler
+ */
 export namespace GeckoProfiler {
     type ProfilerFeature =
         | "java"

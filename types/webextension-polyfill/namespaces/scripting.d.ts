@@ -2,15 +2,12 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.scripting
- *
- * Use the scripting API to execute script in different contexts.
- * Permissions: "scripting"
- */
 import { ExtensionTypes } from "./extensionTypes";
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.scripting
+ */
 export namespace Scripting {
     /**
      * Details of a script injection

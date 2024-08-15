@@ -2,15 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.webNavigation
- *
- * Use the <code>browser.webNavigation</code> API to receive notifications about the status of navigation requests
- * in-flight.
- * Permissions: "webNavigation"
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.webNavigation
+ */
 export namespace WebNavigation {
     /**
      * Cause of the navigation. The same transition types as defined in the history API are used.

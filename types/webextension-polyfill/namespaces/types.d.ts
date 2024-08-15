@@ -2,13 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.types
- *
- * Contains types used by other schemas.
- */
 import { Events } from "./events";
 
+/**
+ * Namespace: browser.types
+ */
 export namespace Types {
     /**
      * The scope of the Setting. One of<ul><li><var>regular</var>: setting for the regular profile (which is inherited by the

@@ -2,13 +2,11 @@
 // BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
 //////////////////////////////////////////////////////
 
-/**
- * Namespace: browser.extensionTypes
- *
- * The <code>browser.extensionTypes</code> API contains type declarations for WebExtensions.
- */
 import { Manifest } from "./manifest";
 
+/**
+ * Namespace: browser.extensionTypes
+ */
 export namespace ExtensionTypes {
     /**
      * The format of an image.
