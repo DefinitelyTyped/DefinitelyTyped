@@ -24,14 +24,14 @@
     "exports": {
         ".": {
           "import": "./index.d.ts",
-          "require": "./index.d.cts"
+          "require": "./index.d.ts"
         },
         "./react": "./dist/react.tagify.d.ts",
         "./react.tagify": "./dist/react.tagify.d.ts",
         "./dist/react.tagify": "./dist/react.tagify.d.ts",
         "./dist/react.tagify.jsx": "./dist/react.tagify.d.ts",
-        "./dist/tagify.min.js": "./index.d.cts",
-        "./dist/tagify.min": "./index.d.cts",
+        "./dist/tagify.min.js": "./index.d.ts",
+        "./dist/tagify.min": "./index.d.ts",
         "./dist/tagify.esm.js": "./index.d.ts",
         "./dist/tagify.polyfills.min.js": "./dist/tagify.polyfills.min.d.ts"
       }
