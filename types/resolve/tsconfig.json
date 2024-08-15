@@ -14,6 +14,8 @@
     },
     "files": [
         "index.d.ts",
+        "async.d.ts",
+        "sync.d.ts",
         "resolve-tests.ts"
     ]
 }
