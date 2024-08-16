@@ -75,6 +75,7 @@ declare module "process" {
         "repl": typeof import("repl");
         "node:repl": typeof import("node:repl");
         "node:sea": typeof import("node:sea");
+        "node:sqlite": typeof import("node:sqlite");
         "stream": typeof import("stream");
         "node:stream": typeof import("node:stream");
         "stream/consumers": typeof import("stream/consumers");
@@ -893,6 +894,40 @@ declare module "process" {
                  * @since v0.11.8
                  */
                 exitCode?: number | string | number | undefined;
+                finalization: {
+                    /**
+                     * This function registers a callback to be called when the process emits the `exit` event if the `ref` object was not garbage collected.
+                     * If the object `ref` was garbage collected before the `exit` event is emitted, the callback will be removed from the finalization registry, and it will not be called on process exit.
+                     * 
+                     * Inside the callback you can release the resources allocated by the `ref` object.
+                     * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function,
+                     * this means that there is a possibility that the callback will not be called under special circumstances.
+                     * 
+                     * The idea of ​​this function is to help you free up resources when the starts process exiting, but also let the object be garbage collected if it is no longer being used.
+                     * @param ref The reference to the resource that is being tracked.
+                     * @param callback The callback function to be called when the resource is finalized.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    register<T extends object>(ref: T, callback: (ref: T, event: "exit") => void): void;
+                    /**
+                     * This function behaves exactly like the `register`, except that the callback will be called when the process emits the `beforeExit` event if `ref` object was not garbage collected.
+                     * 
+                     * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function, this means that there is a possibility that the callback will not be called under special circumstances.
+                     * @param ref The reference to the resource that is being tracked.
+                     * @param callback The callback function to be called when the resource is finalized.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    registerBeforeExit<T extends object>(ref: T, callback: (ref: T, event: "beforeExit") => void): void;
+                    /**
+                     * This function remove the register of the object from the finalization registry, so the callback will not be called anymore.
+                     * @param ref The reference to the resource that was registered previously.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    unregister(ref: object): void;
+                };
                 /**
                  * The `process.getActiveResourcesInfo()` method returns an array of strings containing
                  * the types of the active resources that are currently keeping the event loop alive.

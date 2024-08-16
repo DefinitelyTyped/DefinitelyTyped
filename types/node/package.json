@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "22.4.9999",
+    "version": "22.5.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
