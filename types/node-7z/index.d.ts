@@ -146,6 +146,8 @@ interface CommandLineSwitches {
     sortByType?: boolean | undefined;
     /** Compress files open for writing (-ssw) */
     openFiles?: boolean | undefined;
+    /** Overwrite mode (-ao) */
+    overwrite?: "a" | "s" | "t" | "u" | undefined;
     /** Recurse subdirectories. For -r0 usage use $raw (-r) */
     recursive?: boolean | undefined;
     /** Store symbolic links as links (WIM and TAR formats only) (-snl) */
