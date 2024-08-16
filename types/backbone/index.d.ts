@@ -570,7 +570,7 @@ declare namespace Backbone {
         attributes: Record<string, any>;
         $(selector: string): JQuery;
         render(): any;
-        remove(): any;
+        remove(): this;
         delegateEvents(events?: _Result<EventsHash>): this;
         delegate(eventName: string, selector: string, listener: ViewEventListener): this;
         undelegateEvents(): this;
