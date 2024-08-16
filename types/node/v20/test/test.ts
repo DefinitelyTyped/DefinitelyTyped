@@ -1,4 +1,4 @@
-import { Transform, TransformCallback, TransformOptions } from "node:stream";
+import { Readable, Transform, TransformCallback, TransformOptions } from "node:stream";
 import {
     after,
     afterEach,
@@ -39,7 +39,10 @@ run({
     inspectPort: () => 8081,
     testNamePatterns: ["executed", /^core-/],
     only: true,
-    setup: (root) => {},
+    setup: (reporter) => {
+        // $ExpectType TestsStream
+        reporter;
+    },
     watch: true,
     shard: {
         index: 1,
@@ -97,7 +100,7 @@ test((t, cb) => {
     cb({ x: "anything" });
 });
 
-// Test the context's methods
+// Test the context's methods/properties
 test(undefined, undefined, t => {
     // $ExpectType void
     t.diagnostic("tap diagnostic");
@@ -119,6 +122,13 @@ test(undefined, undefined, t => {
     t.beforeEach(() => {});
     // $ExpectType void
     t.before(() => {});
+
+    // $ExpectType string
+    t.name;
+    // $ExpectType AbortSignal
+    t.signal;
+    // $ExpectType MockTracker
+    t.mock;
 });
 
 // Test the subtest approach.
@@ -144,7 +154,6 @@ test.describe("describe", () => {});
 test.it("it", () => {});
 // $ExpectType MockTracker
 test.mock;
-test.suite("suite", () => {});
 // $ExpectType typeof test
 test.test;
 test.test.test("chained self ref", (t) => {
@@ -152,6 +161,7 @@ test.test.test("chained self ref", (t) => {
     t.test;
 });
 test.skip("skip", () => {});
+test.suite("suite", () => {});
 test.todo("todo", () => {});
 test.only("only", () => {});
 
@@ -823,6 +833,11 @@ class TestReporter extends Transform {
                 );
                 break;
             }
+            case "test:coverage": {
+                const { summary, nesting } = event.data;
+                callback(null, `${nesting}/${summary.workingDirectory}/${summary.totals.totalLineCount}`);
+                break;
+            }
             case "test:dequeue": {
                 const { file, column, line, name, nesting } = event.data;
                 callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
@@ -920,3 +935,22 @@ const invalidTestContext = new TestContext();
 
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
+
+test("planning with streams", (t: TestContext, done) => {
+    function* generate() {
+        yield "a";
+        yield "b";
+        yield "c";
+    }
+    const expected = ["a", "b", "c"];
+    t.plan(expected.length);
+
+    const stream = Readable.from(generate());
+    stream.on("data", (chunk) => {
+        t.assert.strictEqual(chunk, expected.shift());
+    });
+
+    stream.on("end", () => {
+        done();
+    });
+});
