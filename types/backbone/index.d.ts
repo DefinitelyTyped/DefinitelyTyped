@@ -569,7 +569,7 @@ declare namespace Backbone {
         $el: JQuery;
         attributes: Record<string, any>;
         $(selector: string): JQuery;
-        render(): any;
+        render(...args: any[]): any;
         remove(): this;
         delegateEvents(events?: _Result<EventsHash>): this;
         delegate(eventName: string, selector: string, listener: ViewEventListener): this;
