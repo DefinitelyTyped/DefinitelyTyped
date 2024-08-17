@@ -1,6 +1,6 @@
 import { produce, produceAsync, ProduceResult } from "mokapi/kafka";
 
-produce()
+produce();
 // @ts-expect-error
 produce(1);
 // @ts-expect-error
@@ -45,8 +45,8 @@ produce({
     }],
 });
 
-produceAsync()
-produceAsync({ topic: 'foo' })
+produceAsync();
+produceAsync({ topic: "foo" });
 
 const args: ProduceResult = produce({});
 // @ts-expect-error

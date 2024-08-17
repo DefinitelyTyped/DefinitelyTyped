@@ -140,7 +140,7 @@ h = (req: HttpRequest, res: HttpResponse) => {
     // @ts-expect-error
     res.statusCode = "200";
     res.statusCode = 200;
-    res.data.name = 'foo'
+    res.data.name = "foo";
     // @ts-expect-error
     res.body = {};
     // @ts-expect-error

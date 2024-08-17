@@ -7,7 +7,6 @@ parse("");
 const person = parse("");
 person.name;
 
-
 // @ts-expect-error
 const n1: number = stringify(1);
 const s1: string = stringify({});
