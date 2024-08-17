@@ -1781,6 +1781,10 @@
             "libraryName": "fast-json-stable-stringify",
             "asOfVersion": "2.1.0"
         },
+        "fast-shuffle": {
+            "libraryName": "fast-shuffle",
+            "asOfVersion": "6.1.0"
+        },
         "fast-simplex-noise": {
             "libraryName": "fast-simplex-noise",
             "asOfVersion": "3.0.0"
@@ -3556,6 +3560,10 @@
         "mobx-task": {
             "libraryName": "mobx-task",
             "asOfVersion": "2.0.0"
+        },
+        "mock-property": {
+            "libraryName": "mock-property",
+            "asOfVersion": "1.1.0"
         },
         "mockdate": {
             "libraryName": "mockdate",
@@ -5998,6 +6006,10 @@
         "svg.js": {
             "libraryName": "svg.js",
             "asOfVersion": "2.3.1"
+        },
+        "svgicons2svgfont": {
+            "libraryName": "svgicons2svgfont",
+            "asOfVersion": "14.0.0"
         },
         "svgo": {
             "libraryName": "svgo",

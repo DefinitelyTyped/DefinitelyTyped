@@ -211,3 +211,8 @@ process.env.TZ = "test";
         process.setSourceMapsEnabled(true);
     }
 }
+
+{
+    const fs = globalThis.process.getBuiltinModule("fs");
+    fs.constants.F_OK;
+}

@@ -60,6 +60,13 @@ let map = new mapboxgl.Map({
     interactive: true,
     attributionControl: true,
     customAttribution: "© YourCo",
+    performanceMetricsCollection: false,
+    respectPrefersReducedMotion: true,
+    config: {
+        basemap: {
+            lightPreset: "night",
+        },
+    },
     bearingSnap: 7,
     scrollZoom: true,
     maxBounds: [

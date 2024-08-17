@@ -341,7 +341,7 @@ declare namespace WebSocket {
 
         constructor(options?: ServerOptions<T, U>, callback?: () => void);
 
-        address(): AddressInfo | string;
+        address(): AddressInfo | string | null;
         close(cb?: (err?: Error) => void): void;
         handleUpgrade(
             request: InstanceType<U>,

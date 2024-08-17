@@ -63,7 +63,7 @@
  * For certain use cases, such as automating shell scripts, the `synchronous counterparts` may be more convenient. In many cases, however,
  * the synchronous methods can have significant impact on performance due to
  * stalling the event loop while spawned processes complete.
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/child_process.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/child_process.js)
  */
 declare module "child_process" {
     import { ObjectEncodingOptions } from "node:fs";
@@ -455,7 +455,7 @@ declare module "child_process" {
          * as the connection may have been closed during the time it takes to send the
          * connection to the child.
          * @since v0.5.9
-         * @param sendHandle `undefined`, or a [`net.Socket`](https://nodejs.org/docs/latest-v20.x/api/net.html#class-netsocket), [`net.Server`](https://nodejs.org/docs/latest-v20.x/api/net.html#class-netserver), or [`dgram.Socket`](https://nodejs.org/docs/latest-v20.x/api/dgram.html#class-dgramsocket) object.
+         * @param sendHandle `undefined`, or a [`net.Socket`](https://nodejs.org/docs/latest-v22.x/api/net.html#class-netsocket), [`net.Server`](https://nodejs.org/docs/latest-v22.x/api/net.html#class-netserver), or [`dgram.Socket`](https://nodejs.org/docs/latest-v22.x/api/dgram.html#class-dgramsocket) object.
          * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles. `options` supports the following properties:
          */
         send(message: Serializable, callback?: (error: Error | null) => void): boolean;

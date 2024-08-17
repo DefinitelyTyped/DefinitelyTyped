@@ -88,6 +88,14 @@ declare namespace Turnstile {
     type RefreshTimeoutMode = "never" | "manual" | "auto";
 
     /**
+     * The execution mode to controls when to obtain the widget token
+     * The default is "render". "render" will make the challenge runs automatically after calling the render() function, while
+     * "execute" will make the challenge runs after the render() function has been called, by invoking the turnstile.execute function separately.
+     * This detaches the appearance and rendering of a widget from its execution.
+     */
+    type ExecutionMode = "render" | "execute";
+
+    /**
      * Parameters for the turnstile.render() method.
      */
     interface RenderParameters {
@@ -219,5 +227,12 @@ declare namespace Turnstile {
          * @default "auto"
          */
         "refresh-timeout"?: RefreshTimeoutMode | undefined;
+
+        /**
+         * Optional
+         * @see ExecutionMode
+         * @default "render"
+         */
+        execution?: ExecutionMode | undefined;
     }
 }

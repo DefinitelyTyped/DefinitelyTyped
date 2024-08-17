@@ -48,3 +48,11 @@
         },
     );
 }
+
+{
+    const server = new WebSocket("htps://example.com");
+    server.addEventListener("message", (event) => {
+        console.log(event.data);
+    });
+    server.send("some data");
+}

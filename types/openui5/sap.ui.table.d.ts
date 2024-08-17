@@ -1,4 +1,4 @@
-// For Library Version: 1.126.0
+// For Library Version: 1.127.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -5327,15 +5327,15 @@ declare module "sap/ui/table/rowmodes/Type" {
    */
   enum Type {
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Auto}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Auto}
      */
     Auto = "Auto",
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Fixed}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Fixed}
      */
     Fixed = "Fixed",
     /**
-     * Equivalent to the default configuration of {@link module:sap/ui/table/rowmodes/Interactive}
+     * Equivalent to the default configuration of {@link sap.ui.table.rowmodes.Interactive}
      */
     Interactive = "Interactive",
   }
@@ -5641,8 +5641,10 @@ declare module "sap/ui/table/Table" {
    * This allows the Table control to handle huge amounts of data. Nevertheless, restrictions apply regarding
    * the number of displayed columns. Keep the number as low as possible to improve performance. Due to the
    * nature of tables, the used control for column templates also has a big influence on the performance.
-   *   The Table control relies completely on data binding, and its supported feature set is tightly
-   * coupled to the data model and binding being used.
+   * Because of the described reuse of the controls during scrolling, all data-related changes must be based
+   * on bindings. Static changes, such as calling mutator functions or defining a one-time binding, must be
+   * avoided.   The Table control relies completely on data binding, and its supported feature set
+   * is tightly coupled to the data model and binding being used.
    */
   export default class Table extends Control {
     /**
@@ -7648,6 +7650,10 @@ declare module "sap/ui/table/Table" {
      *
      * Flag to enable or disable column reordering
      *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
+     *
      * Default value is `true`.
      *
      *
@@ -8540,6 +8546,10 @@ declare module "sap/ui/table/Table" {
      *
      * Flag to enable or disable column reordering
      *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
+     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `true`.
@@ -9294,6 +9304,10 @@ declare module "sap/ui/table/Table" {
 
     /**
      * Flag to enable or disable column reordering
+     *
+     * **Note**: Column reordering is possible via drag&drop and keyboard shortcuts. Single-pointer alternative
+     * is not provided out-of-the-box and should be implemented on application side. For example the {@link sap.m.p13n.Engine }
+     * can be used, see the following sample: {@link https://ui5.sap.com/#/entity/sap.ui.table.Table/sample/sap.m.sample.p13n.EngineGridTable Personalization for grid table}.
      */
     enableColumnReordering?: boolean | PropertyBindingInfo | `{${string}}`;
 

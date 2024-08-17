@@ -494,6 +494,9 @@ backend.getOpsBulk(
     },
 );
 
+const defaultType = ShareDB.types.defaultType;
+defaultType.transformPresence({ foo: true }, [], true).foo;
+
 class SocketLike {
     readyState = 1;
     close(reason?: number): void {}

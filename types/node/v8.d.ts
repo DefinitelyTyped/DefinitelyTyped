@@ -4,7 +4,7 @@
  * ```js
  * const v8 = require('node:v8');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/v8.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/v8.js)
  */
 declare module "v8" {
     import { Readable } from "node:stream";
@@ -466,7 +466,7 @@ declare module "v8" {
     function stopCoverage(): void;
     /**
      * The API is a no-op if `--heapsnapshot-near-heap-limit` is already set from the command line or the API is called more than once.
-     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
+     * `limit` must be a positive integer. See [`--heapsnapshot-near-heap-limit`](https://nodejs.org/docs/latest-v22.x/api/cli.html#--heapsnapshot-near-heap-limitmax_count) for more information.
      * @experimental
      * @since v18.10.0, v16.18.0
      */

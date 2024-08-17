@@ -32,7 +32,7 @@
  * });
  * myEmitter.emit('event');
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/events.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/events.js)
  */
 declare module "events" {
     import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";

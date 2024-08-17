@@ -170,10 +170,15 @@ export class Matrix3 {
     /**
      * Writes the elements of this matrix to an array in
      * {@link https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major} format.
-     * @param array (optional) array to store the resulting vector in. If not given a new array will be created.
+     */
+    toArray(): Matrix3Tuple;
+    /**
+     * Writes the elements of this matrix to an array in
+     * {@link https://en.wikipedia.org/wiki/Row-_and_column-major_order#Column-major_order column-major} format.
+     * @param array array to store the resulting vector in. If not given a new array will be created.
      * @param offset (optional) offset in the array at which to put the result.
      */
-    toArray<TArray extends ArrayLike<number> = number[]>(array?: TArray, offset?: number): TArray;
+    toArray<TArray extends ArrayLike<number>>(array: TArray, offset?: number): TArray;
 
     clone(): this;
 }

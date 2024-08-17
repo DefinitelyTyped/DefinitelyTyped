@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/nightwind",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jjranalli/nightwind"
+    ],
+    "dependencies": {
+        "tailwindcss": "^2.0.0 || ^3.0.0"
+    },
+    "devDependencies": {
+        "@types/nightwind": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frank Elsinga",
+            "githubUsername": "CommanderStorm"
+        },
+        {
+            "name": "Jayakorn Karikan (Bacon)",
+            "githubUsername": "jayakornk"
+        },
+        {
+            "name": "jacopo",
+            "githubUsername": "jjranalli"
+        }
+    ]
+}

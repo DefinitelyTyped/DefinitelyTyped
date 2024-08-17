@@ -108,9 +108,12 @@ declare namespace approuter {
 
     type RouterConfig = unknown;
 
+    /**
+     * lib/configuration/schemas/options-schema.json
+     */
     interface StartOptions {
         /** A TCP port the application router will listen to */
-        port?: string;
+        port?: string | number;
 
         /** The working directory for the application router, should contain the xs-app.json file */
         workingDir?: string;
@@ -119,13 +122,13 @@ declare namespace approuter {
         extensions?: Extensions[];
 
         /**  An object representing the content which is usually put in xs-app.json file. If this property is present it will take precedence over the content of xs-app.json. */
-        xsAppConfig?: ComSapXsappSchema_82;
+        xsappConfig?: ComSapXsappSchema_82;
 
         /**
          * Options similar to [https.createServer](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener).
          * If this property is present, application router will be started as an https server.
          */
-        httpsConfig?: ServerOptions;
+        httpsOptions?: ServerOptions;
 
         /**
          * Provide custom access token

@@ -8,5 +8,5 @@ matchAll(str, nonRegexStr); // $ExpectType IterableIterator<RegExpExecArray>
 matchAll(str, new RegExp(nonRegexStr, "g")); // $ExpectType IterableIterator<RegExpExecArray>
 matchAll(str, globalRegex); // $ExpectType IterableIterator<RegExpExecArray>
 matchAll.shim(); // $ExpectType void
-str.matchAll(globalRegex); // $ExpectType IterableIterator<RegExpExecArray> || BuiltinIterator<RegExpExecArray, any, any>
-str.matchAll(new RegExp(nonRegexStr, "g")); // $ExpectType IterableIterator<RegExpExecArray> || BuiltinIterator<RegExpExecArray, any, any>
+str.matchAll(globalRegex); // $ExpectType IterableIterator<RegExpExecArray> || RegExpStringIterator<RegExpExecArray>
+str.matchAll(new RegExp(nonRegexStr, "g")); // $ExpectType IterableIterator<RegExpExecArray> || RegExpStringIterator<RegExpExecArray>

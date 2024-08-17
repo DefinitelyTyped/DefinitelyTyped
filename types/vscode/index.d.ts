@@ -5,7 +5,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.91 Extension API
+ * Type Definition for Visual Studio Code 1.92 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -12439,7 +12439,7 @@ declare module 'vscode' {
 		buttons: readonly QuickInputButton[];
 
 		/**
-		 * An event signaling when a button in the title bar was triggered.
+		 * An event signaling when a top level button (buttons stored in {@link buttons}) was triggered.
 		 * This event does not fire for buttons on a {@link QuickPickItem}.
 		 */
 		readonly onDidTriggerButton: Event<QuickInputButton>;

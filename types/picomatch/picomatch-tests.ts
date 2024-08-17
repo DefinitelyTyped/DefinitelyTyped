@@ -53,7 +53,12 @@ scanStateWithTokens.negatedExtglob;
 
 pm.makeRe("foo/*.js").test("foo/bar.js");
 pm.makeRe("foo/{01..25}/bar", {
-    expandRange(a, b) {
+    expandRange(from: string, to: string) {
+        return `(<fill-range output>)`;
+    },
+});
+pm.makeRe("foo/{01..25..5}/bar", {
+    expandRange(from: string, to: string, step: string | pm.PicomatchOptions) {
         return `(<fill-range output>)`;
     },
 });

@@ -6,11 +6,6 @@
  * Namespace: browser.types
  *
  * Contains types used by other schemas.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 import { Events } from "./events";
 
@@ -64,8 +59,6 @@ export namespace Types {
 
         /**
          * Fired after the setting changes.
-         *
-         * @param details
          */
         onChange: Events.Event<(details: SettingOnChangeDetailsType) => void>;
     }
@@ -74,7 +67,7 @@ export namespace Types {
         /**
          * The value of the setting after the change.
          */
-        value: any;
+        value: unknown;
 
         /**
          * The level of control of the setting.
@@ -107,7 +100,7 @@ export namespace Types {
         /**
          * The value of the setting.
          */
-        value: any;
+        value: unknown;
 
         /**
          * The level of control of the setting.
@@ -130,7 +123,7 @@ export namespace Types {
          * The value of the setting. <br/>Note that every setting has a specific value type, which is described together with the
          * setting. An extension should <em>not</em> set a value of a different type.
          */
-        value: any;
+        value: unknown;
 
         /**
          * Where to set the setting (default: regular).

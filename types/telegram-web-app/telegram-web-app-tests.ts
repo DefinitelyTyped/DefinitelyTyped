@@ -100,3 +100,7 @@ app.BiometricManager.openSettings();
 app.isVerticalSwipesEnabled; // $ExpectType boolean
 app.enableVerticalSwipes();
 app.disableVerticalSwipes();
+app.shareToStory("url", {
+    text: "txt",
+    widget_link: { name: "name", url: "url" },
+});

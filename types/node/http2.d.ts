@@ -6,7 +6,7 @@
  * const http2 = require('node:http2');
  * ```
  * @since v8.4.0
- * @see [source](https://github.com/nodejs/node/blob/v20.13.1/lib/http2.js)
+ * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/http2.js)
  */
 declare module "http2" {
     import EventEmitter = require("node:events");
@@ -1668,7 +1668,7 @@ declare module "http2" {
          * If there were no previous values for the header, this is equivalent to calling {@link setHeader}.
          *
          * Attempting to set a header field name or value that contains invalid characters will result in a
-         * [TypeError](https://nodejs.org/docs/latest-v20.x/api/errors.html#class-typeerror) being thrown.
+         * [TypeError](https://nodejs.org/docs/latest-v22.x/api/errors.html#class-typeerror) being thrown.
          *
          * ```js
          * // Returns headers including "set-cookie: a" and "set-cookie: b"
