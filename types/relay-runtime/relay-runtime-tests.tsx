@@ -15,6 +15,7 @@ import {
     getRequest,
     graphql,
     isPromise,
+    LiveState,
     Network,
     PreloadableConcreteRequest,
     QueryResponseCache,
@@ -28,6 +29,7 @@ import {
     ROOT_ID,
     ROOT_TYPE,
     Store,
+    suspenseSentinel,
     Variables,
 } from "relay-runtime";
 
@@ -818,3 +820,26 @@ __internal.withProvidedVariables({
 });
 
 __internal.withProvidedVariables.tests_only_resetDebugCache?.();
+
+// ~~~~~~~~~~~~~~~~~~
+// Live Resolvers
+// ~~~~~~~~~~~~~~~~~~
+
+export function myLiveState(): LiveState<string> {
+    return {
+        read: () => {
+            if (Math.random() > 0.5) {
+                return suspenseSentinel();
+            }
+
+            return "VALUE";
+        },
+        subscribe: (callback) => {
+            callback();
+
+            const unsubscribe = () => {};
+
+            return unsubscribe;
+        },
+    };
+}

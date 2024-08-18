@@ -46,7 +46,7 @@ ES2015.Call<bigint, readonly [], string>(Object.prototype.toString, BigInt(Numbe
 ES2015.Call(Object.prototype.hasOwnProperty, [], ["length"] as const); // $ExpectType boolean
 ES2015.Call(Object.prototype.hasOwnProperty, any, args as IArguments & [PropertyKey]); // $ExpectType boolean
 
-// $ExpectType IterableIterator<number> || BuiltinIterator<number, any, any>
+// $ExpectType IterableIterator<number> || ArrayIterator<number>
 ES2015.GetIterator([1, 2, 3]);
 
 function* generable() {

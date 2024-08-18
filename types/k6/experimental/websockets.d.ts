@@ -55,7 +55,7 @@ export class WebSocket {
      *
      * @param data - the data to send to the server
      */
-    send(data: string | ArrayBuffer): void;
+    send(data: string | ArrayBuffer | Blob): void;
 
     /**
      * Bind event names to event handlers to be executed when their
@@ -123,6 +123,25 @@ export class WebSocket {
     onpong: () => void;
 }
 
+export type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;
+
+export interface BlobOptions {
+    type?: string | undefined;
+}
+
+/**
+ * The Blob represents binary data and can be used to interact with it.
+ */
+export class Blob {
+    readonly type: string;
+    readonly size: number;
+    constructor(blobParts?: BlobPart[], options?: BlobOptions);
+    arrayBuffer(): Promise<ArrayBuffer>;
+    bytes(): Promise<Uint8Array>;
+    slice(start?: number, end?: number): Blob;
+    text(): Promise<string>;
+}
+
 /**
  * k6 specific WebSocket parameters.
  * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/websockets/params/
@@ -177,9 +196,7 @@ export enum ReadyState {
  * transmitted over a Websocket connection.
  */
 export enum BinaryType {
-    /**
-     * Binary data is returned in ArrayBuffer form. k6 supports only this type.
-     */
+    Blob = "blob",
     ArrayBuffer = "arraybuffer",
 }
 
@@ -226,7 +243,7 @@ export interface MessageEvent {
     /**
      * The data sent by the message emitter.
      */
-    data: string | ArrayBuffer;
+    data: string | ArrayBuffer | Blob;
 
     /**
      * the type of the event.

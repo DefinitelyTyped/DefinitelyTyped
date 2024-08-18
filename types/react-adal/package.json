@@ -11,5 +11,10 @@
     "devDependencies": {
         "@types/react-adal": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Dmytro Korolov",
+            "githubUsername": "dkorolov1"
+        }
+    ]
 }

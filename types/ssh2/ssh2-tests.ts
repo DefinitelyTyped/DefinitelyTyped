@@ -393,9 +393,9 @@ new ssh2.Server({
     }).on("ready", () => {
         console.log("Client authenticated!");
 
-        client.on("session", (accept: any, reject: any) => {
+        client.on("session", (accept, reject) => {
             var session = accept();
-            session.once("exec", (accept: any, reject: any, info: any) => {
+            session.once("exec", (accept, reject, info) => {
                 console.log("Client wants to execute: " + inspect(info.command));
                 var stream = accept();
                 stream.stderr.write("Oh no, the dreaded errors!\n");

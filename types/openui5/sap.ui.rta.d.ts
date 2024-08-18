@@ -1,4 +1,4 @@
-// For Library Version: 1.126.0
+// For Library Version: 1.127.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";
@@ -8,7 +8,9 @@ declare module "sap/ui/rta/api/startAdaptation" {
   /**
    * Starts UI adaptation, initiated for an application at the passed root control instance. With this API
    * you are also able to modify the UI adaptation plugins list and or add some event handler functions to
-   * be called on start, failed and stop events.
+   * be called on start, failed and stop events. CAUTION: In the key user layer (CUSTOMER) the adaptation
+   * mode starts automatically after a reload triggered by the adaptation mode (e.g. due to personalization
+   * changes or versioning). In this case the RuntimeAuthoring class will be started with default parameters.
    *
    * @since 1.83
    *

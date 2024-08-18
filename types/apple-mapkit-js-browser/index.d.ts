@@ -233,6 +233,10 @@ declare namespace mapkit {
              * A constant indicating a dark color scheme.
              */
             readonly Dark: string;
+            /**
+             * A constant indicating a color scheme that follows the current system setting.
+             */
+            readonly Adaptive: string;
         };
         /**
          * Constants representing the type of map to display.

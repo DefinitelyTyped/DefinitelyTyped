@@ -1,4 +1,4 @@
-import { Transform, TransformCallback, TransformOptions } from "node:stream";
+import { Readable, Transform, TransformCallback, TransformOptions } from "node:stream";
 import {
     after,
     afterEach,
@@ -11,6 +11,7 @@ import {
     only,
     run,
     skip,
+    snapshot,
     suite,
     type SuiteContext,
     test,
@@ -37,9 +38,13 @@ run({
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
-    testNamePatterns: ["executed"],
+    testNamePatterns: ["executed", /^core-/],
+    testSkipPatterns: ["excluded", /^lib-/],
     only: true,
-    setup: (root) => {},
+    setup: (reporter) => {
+        // $ExpectType TestsStream
+        reporter;
+    },
     watch: true,
     shard: {
         index: 1,
@@ -97,7 +102,7 @@ test((t, cb) => {
     cb({ x: "anything" });
 });
 
-// Test the context's methods
+// Test the context's methods/properties
 test(undefined, undefined, t => {
     // $ExpectType void
     t.diagnostic("tap diagnostic");
@@ -119,6 +124,15 @@ test(undefined, undefined, t => {
     t.beforeEach(() => {});
     // $ExpectType void
     t.before(() => {});
+
+    // $ExpectType string
+    t.name;
+    // $ExpectType string
+    t.fullName;
+    // $ExpectType AbortSignal
+    t.signal;
+    // $ExpectType MockTracker
+    t.mock;
 });
 
 // Test the subtest approach.
@@ -764,6 +778,25 @@ test("mocks a setter", (t) => {
     }
 });
 
+test("mocks a module", (t) => {
+    // $ExpectType MockModuleContext
+    const mock = t.mock.module("node:readline", {
+        namedExports: {
+            fn() {
+                return 42;
+            },
+        },
+        defaultExport: {
+            foo() {
+                return "bar";
+            },
+        },
+        cache: true,
+    });
+    // $ExpectType void
+    mock.restore();
+});
+
 // @ts-expect-error
 dot();
 // $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown> || AsyncGenerator<"\n" | "." | "X", void, any>
@@ -814,17 +847,41 @@ class TestReporter extends Transform {
     }
     _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
         switch (event.type) {
+            case "test:complete": {
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
+                callback(
+                    null,
+                    `${name}/${details.duration_ms}/${details.type}/${details.error}/
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                );
+                break;
+            }
+            case "test:coverage": {
+                const { summary, nesting } = event.data;
+                callback(null, `${nesting}/${summary.workingDirectory}/${summary.totals.totalLineCount}`);
+                break;
+            }
+            case "test:dequeue": {
+                const { file, column, line, name, nesting } = event.data;
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
+                break;
+            }
             case "test:diagnostic": {
                 const { file, column, line, message, nesting } = event.data;
                 callback(null, `${message}/${nesting}/${file}/${column}/${line}`);
+                break;
+            }
+            case "test:enqueue": {
+                const { file, column, line, name, nesting } = event.data;
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
             }
             case "test:fail": {
                 const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
                 callback(
                     null,
-                    `${name}/${details.duration_ms}/${details.type}/
-                    ${details.error}/${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                    `${name}/${details.duration_ms}/${details.type}/${details.error.cause}/
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
                 );
                 break;
             }
@@ -848,23 +905,13 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:stderr": {
-                const { file, column, line, message } = event.data;
-                callback(null, `${message}/${file}/${column}/${line}`);
+                const { file, message } = event.data;
+                callback(null, `${message}/${file}`);
                 break;
             }
             case "test:stdout": {
-                const { file, column, line, message } = event.data;
-                callback(null, `${message}/${file}/${column}/${line}`);
-                break;
-            }
-            case "test:enqueue": {
-                const { file, column, line, name, nesting } = event.data;
-                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
-                break;
-            }
-            case "test:dequeue": {
-                const { file, column, line, name, nesting } = event.data;
-                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
+                const { file, message } = event.data;
+                callback(null, `${message}/${file}`);
                 break;
             }
             case "test:watch:drained":
@@ -911,3 +958,50 @@ const invalidTestContext = new TestContext();
 
 // @ts-expect-error Should not be able to instantiate a SuiteContext
 const invalidSuiteContext = new SuiteContext();
+
+test("planning with streams", (t: TestContext, done) => {
+    function* generate() {
+        yield "a";
+        yield "b";
+        yield "c";
+    }
+    const expected = ["a", "b", "c"];
+    t.plan(expected.length);
+
+    const stream = Readable.from(generate());
+    stream.on("data", (chunk) => {
+        t.assert.strictEqual(chunk, expected.shift());
+    });
+
+    stream.on("end", () => {
+        done();
+    });
+});
+
+// Test snapshot assertion.
+test(t => {
+    // $ExpectType void
+    t.assert.snapshot({ value1: true, value2: false });
+    // $ExpectType void
+    t.assert.snapshot({ value3: "foo", value4: "bar" }, { serializers: [value => JSON.stringify(value)] });
+});
+
+// Snapshot configuration
+// @ts-expect-error
+snapshot.setDefaultSnapshotSerializers();
+// @ts-expect-error
+snapshot.setDefaultSnapshotSerializers((value) => value);
+// $ExpectType void
+snapshot.setDefaultSnapshotSerializers([
+    (value) => {
+        value; // $ExpectType any
+        return value;
+    },
+]);
+// @ts-expect-error
+snapshot.setResolveSnapshotPath();
+// $ExpectType void
+snapshot.setResolveSnapshotPath((path) => {
+    path; // $ExpectType string | undefined
+    return `${path ?? "repl"}.snapshot`;
+});

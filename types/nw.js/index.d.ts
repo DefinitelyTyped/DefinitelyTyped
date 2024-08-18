@@ -1327,6 +1327,11 @@ declare global {
             filteredArgv: Object[];
 
             /**
+             * Get the directory where the application starts. The application will change the current directory to where the package files reside after start.
+             */
+            startPath: string;
+
+            /**
              * Get the application's data path in user's directory.
              */
             dataPath: string;
@@ -1340,6 +1345,11 @@ declare global {
              * Clear the HTTP cache in memory and the one on disk. This method call is synchronized.
              */
             clearCache(): void;
+
+            /**
+             * Mark the Application cache group specified by manifest_url obsolete. This method call is synchronized.
+             */
+            clearAppCache(manifest_url: string): void;
 
             /**
              * Send the `close` event to all windows of current app.
@@ -1357,6 +1367,14 @@ declare global {
             crashRenderer(): void;
 
             /**
+             * This API is experimental and subject to change.
+             *
+             * @param component {string} ID of component; currently only `WIDEVINE` is supported.
+             * @param callback {(version: string) => void} Callback after the component is enabled; `version` string parameter is the version of the enabled component. ‘0.0.0.0’ means it’s not installed. Use `App.updateComponent()` to install it.
+             */
+            enableComponent(component: string, callback: (version: string) => void): void;
+
+            /**
              * Query the proxy to be used for loading `url` in DOM.
              *
              * @param url {string} the URL to query for proxy
@@ -1365,16 +1383,25 @@ declare global {
             getProxyForURL(url: string): string;
 
             /**
-             * Set the proxy config which the web engine will be used to request network resources.
+             * Set the proxy config which the web engine will be used to request network resources or PAC url to detect proxy automatically.
              *
              * @param config {string} Proxy rules
+             * @param pac_url {string} PAC url
              */
-            setProxyConfig(config: string): void;
+            setProxyConfig(config: string, pac_url: string): void;
 
             /**
              * Quit current app.
              */
             quit(): void;
+
+            /**
+             * Set the directory where the minidump file will be saved on crash. For more information, see [Crash dump](https://nwjs.readthedocs.io/en/latest/For%20Developers/Understanding%20Crash%20Dump/).
+             *
+             * @deprecated since version 0.11
+             * @param dir {string} Path to generate the crash dump.
+             */
+            setCrashDumpDir(dir: string): void;
 
             /**
              * Add an entry to the whitelist used for controlling cross-origin access.
@@ -1419,6 +1446,14 @@ declare global {
              * @param shortcut {Shortcut} the Shortcut object to register.
              */
             unregisterGlobalHotKey(shortcut: Shortcut): void;
+
+            /**
+             * This API is experimental and subject to change.
+             *
+             * @param component {string} ID of component; currently only `WIDEVINE` is supported.
+             * @param callback {(success: boolean) => void} Callback after the component is updated; success is a boolean parameter for the update result.
+             */
+            updateComponent(component: string, callback: (success: boolean) => void): void;
 
             on(event: string, listener: Function): this;
 

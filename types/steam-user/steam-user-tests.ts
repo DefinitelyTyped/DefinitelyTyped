@@ -47,6 +47,8 @@ user.logOn({
     refreshToken: "123token",
 });
 
+user.logOn(true);
+
 user.requestValidationEmail().catch(err => console.error(err));
 
 user.enableTwoFactor()

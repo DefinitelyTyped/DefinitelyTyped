@@ -21,6 +21,8 @@ declare module "fs/promises" {
         Dir,
         Dirent,
         GlobOptions,
+        GlobOptionsWithFileTypes,
+        GlobOptionsWithoutFileTypes,
         MakeDirectoryOptions,
         Mode,
         ObjectEncodingOptions,
@@ -1243,7 +1245,19 @@ declare module "fs/promises" {
     /**
      * Retrieves the files matching the specified pattern.
      */
-    function glob(pattern: string | string[], options?: GlobOptions): AsyncIterableIterator<string>;
+    function glob(pattern: string | string[]): AsyncIterableIterator<string>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptionsWithFileTypes,
+    ): AsyncIterableIterator<Dirent>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptionsWithoutFileTypes,
+    ): AsyncIterableIterator<string>;
+    function glob(
+        pattern: string | string[],
+        opt: GlobOptions,
+    ): AsyncIterableIterator<Dirent> | AsyncIterableIterator<string>;
 }
 declare module "node:fs/promises" {
     export * from "fs/promises";
