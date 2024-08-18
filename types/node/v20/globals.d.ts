@@ -54,7 +54,7 @@ interface NodeDOMException extends Error {
 }
 interface NodeDOMExceptionConstructor {
     prototype: DOMException;
-    new(message?: string, name?: string): DOMException;
+    new(message?: string, nameOrOptions?: string | { name?: string; cause?: unknown }): DOMException;
     readonly INDEX_SIZE_ERR: 1;
     readonly DOMSTRING_SIZE_ERR: 2;
     readonly HIERARCHY_REQUEST_ERR: 3;
