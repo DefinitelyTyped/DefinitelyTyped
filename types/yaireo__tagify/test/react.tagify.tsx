@@ -1,15 +1,7 @@
 import * as React from "react";
 import Tagify = require("@yaireo/tagify");
-import Tags = require("@yaireo/tagify/react.tagify");
-import { MixedTags, TagifyTagsReactProps } from "@yaireo/tagify/react.tagify";
-
-export function TestTagsMinimal(): React.ReactElement {
-    return (
-        <div>
-            <Tags />
-        </div>
-    );
-}
+import Tags = require("@yaireo/tagify/dist/react.tagify");
+import { MixedTags } from "@yaireo/tagify/dist/react.tagify";
 
 export function TestMixedTagsMinimal(): React.ReactElement {
     return (
@@ -27,15 +19,3 @@ export function TestTagsTagifyRef(): React.ReactElement {
         </div>
     );
 }
-
-export const CrazyTags = () => {
-    const [tagifyProps, setTagifyProps] = React.useState<TagifyTagsReactProps>({});
-    React.useEffect(() => setTagifyProps({ loading: true }));
-    return (
-        <div>
-            <Tags
-                {...tagifyProps}
-            />
-        </div>
-    );
-};
