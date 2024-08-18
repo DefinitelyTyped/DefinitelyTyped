@@ -572,6 +572,9 @@ declare global {
         : typeof import("undici-types").Headers;
 
     interface MessageEvent extends _MessageEvent {}
+    /**
+     * @since v15.0.0
+     */
     var MessageEvent: typeof globalThis extends {
         onmessage: any;
         MessageEvent: infer T;
@@ -585,6 +588,8 @@ declare global {
     interface EventSource extends _EventSource {}
     /**
      * Only available through the [--experimental-eventsource](https://nodejs.org/api/cli.html#--experimental-eventsource) flag.
+     *
+     * @since v22.3.0
      */
     var EventSource: typeof globalThis extends { onmessage: any; EventSource: infer T } ? T
         : typeof import("undici-types").EventSource;

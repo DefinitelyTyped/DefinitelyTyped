@@ -7,6 +7,7 @@ type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undi
 type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
 type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
 type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
+type _MessageEvent = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").MessageEvent;
 type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").RequestInit;
 type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
@@ -463,4 +464,14 @@ declare global {
         Headers: infer T;
     } ? T
         : typeof import("undici-types").Headers;
+
+    interface MessageEvent extends _MessageEvent {}
+    /**
+     * @since v15.0.0
+     */
+    var MessageEvent: typeof globalThis extends {
+        onmessage: any;
+        MessageEvent: infer T;
+    } ? T
+        : typeof import("undici-types").MessageEvent;
 }
