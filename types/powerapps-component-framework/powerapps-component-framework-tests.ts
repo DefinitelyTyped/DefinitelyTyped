@@ -16,13 +16,13 @@ class TestControl implements ComponentFramework.StandardControl<TInputs, TOutput
         notifyOutputChanged?: () => void,
         state?: ComponentFramework.Dictionary,
         container?: HTMLDivElement,
-    ) { }
+    ) {}
     updateView(context: ComponentFramework.Context<TInputs, TEvents>) {
         context.events.testEvent();
 
-        context.utils.loadDependency?.("pubprefix_TestNamespace.TestControlName").then(() => { });
+        context.utils.loadDependency?.("pubprefix_TestNamespace.TestControlName").then(() => {});
     }
-    destroy() { }
+    destroy() {}
     getOutputs() {
         return {
             testString: "",
@@ -35,7 +35,7 @@ class TestReactControl implements ComponentFramework.ReactControl<TInputs, TOutp
     }
     updateView(context: ComponentFramework.Context<TInputs, TEvents>) {
         context.events.testEvent();
-        context.utils.loadDependency?.("pubprefix_TestNamespace.TestControlName").then(() => { });
+        context.utils.loadDependency?.("pubprefix_TestNamespace.TestControlName").then(() => {});
 
         return React.createElement("div", { id: "test-id" });
     }
@@ -107,7 +107,7 @@ const modeTest: ComponentFramework.Mode = {
 };
 
 const resourcesTest: ComponentFramework.Resources = {
-    getResource: (id: string, success: (data: string) => void, failure: () => void) => { },
+    getResource: (id: string, success: (data: string) => void, failure: () => void) => {},
     getString: (id: string) => "",
 };
 
@@ -212,11 +212,11 @@ const pagingTest: ComponentFramework.PropertyHelper.DataSetApi.Paging = {
     pageSize: 20,
     hasNextPage: true,
     hasPreviousPage: true,
-    loadNextPage: (loadOnlyNewPage?: boolean) => { },
-    loadPreviousPage: (loadOnlyNewPage?: boolean) => { },
-    reset: () => { },
-    setPageSize: (pageSize: number) => { },
-    loadExactPage: (pageNumber: number) => { },
+    loadNextPage: (loadOnlyNewPage?: boolean) => {},
+    loadPreviousPage: (loadOnlyNewPage?: boolean) => {},
+    reset: () => {},
+    setPageSize: (pageSize: number) => {},
+    loadExactPage: (pageNumber: number) => {},
 };
 
 const fluentDesignLanguage: ComponentFramework.FluentDesignState = {
