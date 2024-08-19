@@ -1442,6 +1442,7 @@ export namespace ESLint {
 
     interface Plugin extends ObjectMetaProperties {
         configs?: Record<string, Linter.LegacyConfig | Linter.Config | Linter.Config[]> | undefined;
+        /** @deprecated See https://eslint.org/docs/latest/extend/plugin-migration-flat-config#migrating-environments-for-flat-config */
         environments?: Record<string, Environment> | undefined;
         processors?: Record<string, Linter.Processor> | undefined;
         rules?: Record<string, Rule.RuleModule> | undefined;
