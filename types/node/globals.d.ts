@@ -156,7 +156,8 @@ declare global {
         setItem(key: string, value: string): void;
     }
 
-    var Storage: typeof globalThis extends { onmessage: any; Storage: infer T } ? T
+    // Conditional on `onabort` rather than `onmessage`, in order to exclude lib.webworker
+    var Storage: typeof globalThis extends { onabort: any; Storage: infer T } ? T
         : {
             prototype: Storage;
             new(): Storage;
