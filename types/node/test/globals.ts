@@ -51,3 +51,12 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     x.reason; // $ExpectType any
     x.throwIfAborted(); // $ExpectType void
 }
+
+{
+    const s = new Storage();
+    s.setItem('foo', 'bar');
+    s.getItem('foo'); // $ExpectType string | null
+    s.foo = 'baz';
+    s.foo; // $ExpectType any
+    s.clear();
+}
