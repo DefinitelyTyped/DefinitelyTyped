@@ -913,7 +913,27 @@ declare module "node:test" {
         [Symbol.dispose](): void;
     }
 
-    export { after, afterEach, before, beforeEach, describe, it, mock, run, test, test as default };
+    export {
+        after,
+        afterEach,
+        before,
+        beforeEach,
+        describe,
+        it,
+        mock,
+        type Mock,
+        type MockFunctionContext,
+        type MockTracker,
+        only,
+        run,
+        skip,
+        type SuiteContext,
+        test,
+        test as default,
+        type TestContext,
+        type TestsStream,
+        todo,
+    };
 }
 
 interface TestError extends Error {
