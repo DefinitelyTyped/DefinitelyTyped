@@ -1,19 +1,19 @@
 import path, {
-    type PathObject,
-    resolve,
-    normalize,
-    isAbsolute,
-    join,
-    relative,
-    dirname,
     basename,
+    delimiter,
+    dirname,
     extname,
     format,
+    isAbsolute,
+    join,
+    normalize,
     parse,
+    type PathObject,
+    posix,
+    relative,
+    resolve,
     sep,
-    delimiter,
     win32,
-    posix
 } from "path";
 
 path.resolve === resolve;
@@ -78,7 +78,7 @@ format({
     dir: "dir",
     ext: "ext",
     name: "name",
-    root: "root"
+    root: "root",
 });
 
 // $ExpectType PathObject
