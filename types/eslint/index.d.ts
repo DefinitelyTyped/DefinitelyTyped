@@ -1086,7 +1086,11 @@ export namespace Linter {
     /**
      * Parser options.
      *
+     * This properties are used to pass options directly to parsers. These options are always parser-specific,
+     * so you’ll need to check the documentation of the parser you’re using for available options.
+     *
      * @see [Specifying Parser Options](https://eslint.org/docs/latest/use/configure/language-options#specifying-parser-options)
+     * @see [Configure Parser Options](https://eslint.org/docs/latest/use/configure/parser#configure-parser-options)
      */
     interface ParserOptions {
         /**
@@ -1111,7 +1115,10 @@ export namespace Linter {
     /**
      * Parser options for LegacyConfig.
      *
+     * Parsers are all passed this properties and may or may not use them to determine which features to enable.
+     *
      * @see [Specifying Parser Options](https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options)
+     * @see [Configure a Custom Parser](https://eslint.org/docs/latest/use/configure/parser-deprecated#configure-a-custom-parser)
      */
     interface LegacyParserOptions {
         /**
