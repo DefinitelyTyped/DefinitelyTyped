@@ -740,7 +740,8 @@ export namespace Rule {
         settings: { [name: string]: any };
         parserPath: string | undefined;
         languageOptions: Linter.LanguageOptions;
-        parserOptions: Linter.ParserOptions;
+        /** @deprecated Use property `languageOptions.parserOptions` instead. */
+        parserOptions: Linter.LegacyParserOptions;
         cwd: string;
         filename: string;
         physicalFilename: string;
@@ -1014,7 +1015,7 @@ export namespace Linter {
          * @see [Working with Custom Parsers](https://eslint.org/docs/latest/extend/custom-parsers)
          * @see [Specifying Parser Options](https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options)
          */
-        parserOptions?: ParserOptions | undefined;
+        parserOptions?: LegacyParserOptions | undefined;
 
         /**
          * Which third-party plugins define additional rules, environments, configs, etc. for ESLint to use.
@@ -1085,9 +1086,35 @@ export namespace Linter {
     /**
      * Parser options.
      *
-     * @see [Specifying Parser Options](https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options)
+     * @see [Specifying Parser Options](https://eslint.org/docs/latest/use/configure/language-options#specifying-parser-options)
      */
     interface ParserOptions {
+        /**
+         * Allow the use of reserved words as identifiers (if ecmaVersion is 3).
+         * @default false
+         */
+        allowReserved?: boolean;
+        /**
+         * An object indicating which additional language features you'd like to use.
+         *
+         * @see https://eslint.org/docs/latest/use/configure/language-options#specifying-parser-options
+         */
+        ecmaFeatures?: {
+            globalReturn?: boolean | undefined;
+            impliedStrict?: boolean | undefined;
+            jsx?: boolean | undefined;
+            experimentalObjectRestSpread?: boolean | undefined;
+            [key: string]: any;
+        } | undefined;
+        [key: string]: any;
+    }
+
+    /**
+     * Parser options for LegacyConfig.
+     *
+     * @see [Specifying Parser Options](https://eslint.org/docs/latest/use/configure/language-options-deprecated#specifying-parser-options)
+     */
+    interface LegacyParserOptions {
         /**
          * Accepts any valid ECMAScript version number or `'latest'`:
          *
@@ -1397,7 +1424,7 @@ export namespace ESLint {
 
     interface Environment {
         globals?: Linter.Globals | undefined;
-        parserOptions?: Linter.ParserOptions | undefined;
+        parserOptions?: Linter.LegacyParserOptions | undefined;
     }
 
     interface ObjectMetaProperties {
