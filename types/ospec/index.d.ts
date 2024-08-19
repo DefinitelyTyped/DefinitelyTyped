@@ -7,7 +7,7 @@ declare namespace o {
         this: ((...args: unknown[]) => unknown) | undefined;
         args: Args;
     }
-    
+
     interface Spy<Args extends any[], Returns> {
         (...args: Args): Returns;
         /** The number of times the function has been called */
