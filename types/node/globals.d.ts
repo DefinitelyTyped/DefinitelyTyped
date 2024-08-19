@@ -154,6 +154,7 @@ declare global {
          * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/setItem)
          */
         setItem(key: string, value: string): void;
+        [key: string]: any;
     }
 
     // Conditional on `onabort` rather than `onmessage`, in order to exclude lib.webworker
