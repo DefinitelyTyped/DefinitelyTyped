@@ -8,16 +8,16 @@ declare namespace path {
     }
 
     interface Path {
-        resolve(...pathSegments: string[]): string;
-        normalize(path: string): string;
-        isAbsolute(path: string): boolean;
-        join(...paths: string[]): string;
-        relative(from: string, to: string): string;
-        dirname(path: string): string;
-        basename(path: string, ext?: string): string;
-        extname(path: string): string;
-        format(pathObject: Partial<PathObject>): string;
-        parse(path: string): PathObject;
+        resolve(this: void, ...pathSegments: string[]): string;
+        normalize(this: void, path: string): string;
+        isAbsolute(this: void, path: string): boolean;
+        join(this: void, ...paths: string[]): string;
+        relative(this: void, from: string, to: string): string;
+        dirname(this: void, path: string): string;
+        basename(this: void, path: string, ext?: string): string;
+        extname(this: void, path: string): string;
+        format(this: void, pathObject: Partial<PathObject>): string;
+        parse(this: void, path: string): PathObject;
 
         readonly sep: string;
         readonly delimiter: string;
