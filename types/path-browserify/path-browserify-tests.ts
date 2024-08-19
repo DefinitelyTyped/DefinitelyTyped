@@ -16,13 +16,13 @@ function ensureThisParameterIsVoid<T>(fn: ThisParameterTypeVoid<T>): ThisParamet
     return fn;
 }
 
-ensureThisParameterIsVoid(path.basename)
-ensureThisParameterIsVoid(path.dirname)
-ensureThisParameterIsVoid(path.extname)
-ensureThisParameterIsVoid(path.format)
-ensureThisParameterIsVoid(path.isAbsolute)
-ensureThisParameterIsVoid(path.join)
-ensureThisParameterIsVoid(path.normalize)
-ensureThisParameterIsVoid(path.parse)
-ensureThisParameterIsVoid(path.relative)
-ensureThisParameterIsVoid(path.resolve)
+ensureThisParameterIsVoid(path.basename);
+ensureThisParameterIsVoid(path.dirname);
+ensureThisParameterIsVoid(path.extname);
+ensureThisParameterIsVoid(path.format);
+ensureThisParameterIsVoid(path.isAbsolute);
+ensureThisParameterIsVoid(path.join);
+ensureThisParameterIsVoid(path.normalize);
+ensureThisParameterIsVoid(path.parse);
+ensureThisParameterIsVoid(path.relative);
+ensureThisParameterIsVoid(path.resolve);
