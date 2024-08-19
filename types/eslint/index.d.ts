@@ -1103,7 +1103,6 @@ export namespace Linter {
             globalReturn?: boolean | undefined;
             impliedStrict?: boolean | undefined;
             jsx?: boolean | undefined;
-            experimentalObjectRestSpread?: boolean | undefined;
             [key: string]: any;
         } | undefined;
         [key: string]: any;
@@ -1150,7 +1149,6 @@ export namespace Linter {
             globalReturn?: boolean | undefined;
             impliedStrict?: boolean | undefined;
             jsx?: boolean | undefined;
-            experimentalObjectRestSpread?: boolean | undefined;
             [key: string]: any;
         } | undefined;
         [key: string]: any;
