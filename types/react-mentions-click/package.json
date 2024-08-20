@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-mentions-click",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/signavio/react-mentions"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-mentions-click": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Akash Lakade",
+            "githubUsername": "AkashLakade"
+        }
+    ]
+}
