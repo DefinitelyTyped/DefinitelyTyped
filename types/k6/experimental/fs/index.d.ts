@@ -100,3 +100,5 @@ export enum SeekMode {
     Current = 1, // Seek from the current file position.
     End = 2, // Seek from the end of the file
 }
+
+export * as default from "k6/experimental/fs";

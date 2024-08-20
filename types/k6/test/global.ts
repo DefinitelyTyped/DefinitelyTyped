@@ -15,12 +15,10 @@ const arrayBuffer: ArrayBuffer = open("file.bin", "b");
 open("file.bin", "b", 5);
 
 // state
-// @ts-expect-error
-__VU = 9;
 __VU; // $ExpectType number
-// @ts-expect-error
-__ITER = 9;
+__VU = 9;
 __ITER; // $ExpectType number
+__ITER = 9;
 
 // environment
 // @ts-expect-error

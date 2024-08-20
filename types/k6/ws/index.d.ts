@@ -1,4 +1,4 @@
-import { CookieJar } from "./http";
+import { CookieJar } from "k6/http";
 
 /**
  * Open WebSocket connection.
@@ -280,43 +280,4 @@ export abstract class WebSocketError {
     error(): string;
 }
 
-/**
- * This module provides a WebSocket client implementing the WebSocket protocol.
- * https://grafana.com/docs/k6/latest/javascript-api/k6-ws/
- */
-declare namespace ws {
-    /**
-     * Open WebSocket connection.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-ws/connect/
-     * @param url - Request URL.
-     * @param callback - Logic to execute with socket.
-     * @returns HTTP response to connection request.
-     * @example
-     * let res = ws.connect(url, function(socket) {
-     *   socket.on('open', function() {
-     *     console.log('WebSocket connection established!');
-     *     socket.close();
-     *   });
-     * });
-     */
-    function connect(url: string, callback: Executor): Response;
-
-    /**
-     * Open WebSocket connection.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-ws/connect/
-     * @param url - Request URL.
-     * @param params - Request parameters.
-     * @param callback - Logic to execute with socket.
-     * @returns HTTP response to connection request.
-     * @example
-     * let res = ws.connect(url, { param1: true } , function(socket) {
-     *   socket.on('open', function() {
-     *     console.log('WebSocket connection established!');
-     *     socket.close();
-     *   });
-     * });
-     */
-    function connect(url: string, params: Params | null, callback: Executor): Response;
-}
-
-export default ws;
+export * as default from "k6/ws";

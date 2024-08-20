@@ -3,7 +3,7 @@
  * https://grafana.com/docs/k6/latest/using-k6/k6-options/
  */
 
-import { CipherSuite } from "./http";
+import { CipherSuite } from "k6/http";
 
 /**
  * Program options.

@@ -1,5 +1,5 @@
-import { JSONValue } from ".";
-import { Selection } from "./html";
+import { Selection } from "../html/index.js";
+import { JSONValue } from "../index.js";
 
 /**
  * Make DELETE  request.
@@ -142,6 +142,17 @@ export function asyncRequest<RT extends ResponseType | undefined>(
     body?: RequestBody | null,
     params?: RefinedParams<RT> | null,
 ): Promise<RefinedResponse<RT>>;
+
+/**
+ * Creates a URL with set name tag.
+ * https://grafana.com/docs/k6/latest/using-k6/http-requests/#url-grouping
+ * @param strings - Passed string values.
+ * @param args - Tagged template expressions.
+ * @returns HTTP URL object.
+ * @example
+ * http.get(http.url`http://example.com/posts/${id}`) // tags.name="http://example.com/posts/${}",
+ */
+export function url(strings: TemplateStringsArray, ...args: Array<string | number | boolean>): HttpURL;
 
 /**
  * Batch multiple HTTP requests together,
@@ -792,228 +803,4 @@ interface HttpURL {
     __brand: "http-url";
 }
 
-/**
- * The http module contains functionality for performing HTTP transactions.
- * https://grafana.com/docs/k6/latest/javascript-api/k6-http/
- */
-declare namespace http {
-    /**
-     * Make DELETE  request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/del/
-     * @param url - Request URL.
-     * @param body - Discouraged. Request body. Object form encoded.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     */
-    function del<RT extends ResponseType | undefined>(
-        url: string | HttpURL,
-        body?: RequestBody | null,
-        params?: RefinedParams<RT> | null,
-    ): RefinedResponse<RT>;
-
-    /**
-     * Make HEAD request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/head/
-     * @param url - Request URL.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     * @example
-     * http.head('https://test.k6.io')
-     */
-    function head<RT extends ResponseType | undefined>(
-        url: string | HttpURL,
-        params?: RefinedParams<RT> | null,
-    ): RefinedResponse<RT>;
-
-    /**
-     * Make GET request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/get/
-     * @param url - Request URL.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     * @example
-     * http.get('https://k6.io')
-     */
-    function get<RT extends ResponseType | undefined>(
-        url: string | HttpURL,
-        params?: RefinedParams<RT> | null,
-    ): RefinedResponse<RT>;
-
-    /**
-     * Make OPTIONS request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/options/
-     * @param url - Request URL.
-     * @param body - Request body. Object form encoded.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     */
-    function options<RT extends ResponseType | undefined>(
-        url: string | HttpURL,
-        body?: RequestBody | null,
-        params?: RefinedParams<RT> | null,
-    ): RefinedResponse<RT>;
-
-    /**
-     * Make PATCH request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/patch/
-     * @param url - Request URL.
-     * @param body - Request body. Object form encoded.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     */
-    function patch<RT extends ResponseType | undefined>(
-        url: string | HttpURL,
-        body?: RequestBody | null,
-        params?: RefinedParams<RT> | null,
-    ): RefinedResponse<RT>;
-
-    /**
-     * Make POST request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/post/
-     * @param url - Request URL.
-     * @param body - Request body. Object form encoded.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     * @example
-     * let formData = {name: 'k6'};
-     * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
-     * http.post(url, formData, { headers: headers });
-     */
-    function post<RT extends ResponseType | undefined>(
-        url: string | HttpURL,
-        body?: RequestBody | null,
-        params?: RefinedParams<RT> | null,
-    ): RefinedResponse<RT>;
-
-    /**
-     * Make PUT request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/put/
-     * @param url - Request URL.
-     * @param body - Request body. Object form encoded.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     */
-    function put<RT extends ResponseType | undefined>(
-        url: string | HttpURL,
-        body?: RequestBody | null,
-        params?: RefinedParams<RT> | null,
-    ): RefinedResponse<RT>;
-
-    /**
-     * Make request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/request/
-     * @param method - HTTP method.
-     * @param url - Request URL.
-     * @param body - Request body. Object form encoded.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     * @example
-     * let formData = {name: 'k6'};
-     * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
-     * http.request('POST', url, formData, { headers: headers });
-     */
-    function request<RT extends ResponseType | undefined>(
-        method: string,
-        url: string | HttpURL,
-        body?: RequestBody | null,
-        params?: RefinedParams<RT> | null,
-    ): RefinedResponse<RT>;
-
-    /**
-     * Make async request.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/asyncrequest/
-     * @param method - HTTP method.
-     * @param url - Request URL.
-     * @param body - Request body. Object form encoded.
-     * @param params - Request parameters.
-     * @returns Resulting response.
-     * @example
-     * let formData = {name: 'k6'};
-     * let headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
-     * http.asyncRequest('POST', url, formData, { headers: headers });
-     */
-    function asyncRequest<RT extends ResponseType | undefined>(
-        method: string,
-        url: string | HttpURL,
-        body?: RequestBody | null,
-        params?: RefinedParams<RT> | null,
-    ): Promise<RefinedResponse<RT>>;
-
-    /**
-     * Creates a URL with set name tag.
-     * https://grafana.com/docs/k6/latest/using-k6/http-requests/#url-grouping
-     * @param strings - Passed string values.
-     * @param args - Tagged template expressions.
-     * @returns HTTP URL object.
-     * @example
-     * http.get(http.url`http://example.com/posts/${id}`) // tags.name="http://example.com/posts/${}",
-     */
-    function url(strings: TemplateStringsArray, ...args: Array<string | number | boolean>): HttpURL;
-
-    /**
-     * Batch multiple HTTP requests together,
-     * to issue them in parallel over multiple TCP connections.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/batch/
-     * @param requests - Request specifications.
-     * @returns Resulting responses.
-     * @example
-     * let req1 = {
-     *    method: 'GET',
-     *    url: 'https://httpbin.org/get',
-     * };
-     * let req2 = {
-     *   method: 'POST',
-     *   url: 'https://httpbin.org/post',
-     *   body: {
-     *     hello: 'world!',
-     *   },
-     *   params: {
-     *     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-     *   },
-     * };
-     * let responses = http.batch([req1, req2]);
-     */
-    function batch<Q extends BatchRequests>(requests: Q): BatchResponses<Q>;
-
-    /**
-     * Create a file object used for building multipart requests (file uploads).
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/file/
-     * @param data - File data.
-     * @param filename - Filename. Included in MIME message.
-     * @param contentType - Content type. Included in MIME message.
-     * @returns File data object.
-     * @example
-     * let binFile = open('/path/to/file.bin', 'b');
-     *
-     * export default function() {
-     *   let f = http.file(binFile, 'test.bin');
-     *   console.log(md5(f.data, 'hex'));
-     *   console.log(f.filename);
-     *   console.log(f.content_type);
-     * }
-     */
-    function file(data: string | ArrayBuffer, filename?: string, contentType?: string): FileData;
-
-    /**
-     * Get active cookie jar.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/cookiejar/
-     * @returns Active cookie jar.
-     * @example
-     * let jar = http.cookieJar();
-     */
-    function cookieJar(): CookieJar;
-    /**
-     * Returns a callback to be used with setResponseCallback to mark responses
-     * as expected based only on their status codes.
-     * https://staging.k6.io/docs/javascript-api/k6-http/expectedstatuses-statuses/
-     */
-    function expectedStatuses(...param: Array<number | ExpectedStatusesObject>): ExpectedStatusesCallback;
-
-    /**
-     * Set the response callback to be called to determine if a response was expected/successful or not.
-     * https://grafana.com/docs/k6/latest/javascript-api/k6-http/setresponsecallback/
-     */
-    function setResponseCallback(responseCallback: ExpectedStatusesCallback): void;
-}
-
-export default http;
+export * as default from "k6/http";
