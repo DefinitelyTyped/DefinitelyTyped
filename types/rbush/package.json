@@ -5,6 +5,7 @@
     "projects": [
         "https://github.com/mourner/rbush"
     ],
+    "exports": "./index.d.mts",
     "devDependencies": {
         "@types/rbush": "workspace:."
     },
