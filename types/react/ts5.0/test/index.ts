@@ -983,4 +983,9 @@ function propsInferenceHelpersTests() {
 {
     // act() exposed from react
     React.act(() => null);
+
+    // @ts-expect-error
+    React.act(() => Promise.resolve()).then().catch();
+
+    Promise.resolve(React.act(() => Promise.resolve()).then()).catch();
 }

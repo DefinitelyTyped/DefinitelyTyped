@@ -2126,6 +2126,10 @@ declare namespace React {
      */
     export function startTransition(scope: TransitionFunction): void;
 
+    interface ActThenable<T> {
+        then(onFulfilled?: (value: T) => unknown, onRejected?: (reason: any) => unknown): void;
+    }
+
     /**
      * Wrap any code rendering and triggering updates to your components into `act()` calls.
      *
@@ -2139,7 +2143,7 @@ declare namespace React {
      */
     // While act does always return Thenable, if a void function is passed, we pretend the return value is also void to not trigger dangling Promise lint rules.
     export function act(callback: () => VoidOrUndefinedOnly): void;
-    export function act<T>(callback: () => T | Promise<T>): Promise<T>;
+    export function act<T>(callback: () => T | Promise<T>): ActThenable<T>;
 
     export function useId(): string;
 
