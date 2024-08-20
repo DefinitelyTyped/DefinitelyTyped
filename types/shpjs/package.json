@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/shpjs",
-    "version": "6.0.1",
+    "version": "3.9.9999",
     "projects": [
         "https://github.com/calvinmetcalf/shapefile-js#readme"
     ],
