@@ -1,5 +1,5 @@
 import { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
-import RBush = require("rbush");
+import RBush from "rbush";
 
 declare namespace whichPolygon {
     type Coordinates = [lng: number, lat: number];

@@ -1,5 +1,5 @@
 import { Feature, FeatureCollection, Polygon } from "geojson";
-import RBush = require("rbush");
+import RBush from "rbush";
 
 declare namespace PolygonLookup {
     interface BBox {
