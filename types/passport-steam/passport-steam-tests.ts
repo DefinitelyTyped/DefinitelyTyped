@@ -1,6 +1,7 @@
 import passport = require("passport");
 import SteamStrategy = require("passport-steam");
 
+// Usage
 const strategy = new SteamStrategy({
     returnURL: "http://localhost:3100",
     realm: "http://localhost:3100/login/steam/callback",
