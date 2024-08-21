@@ -95,6 +95,15 @@ declare module "path" {
              */
             resolve(...paths: string[]): string;
             /**
+             * The `path.matchesGlob()` method determines if `path` matches the `pattern`.
+             * @param path The path to glob-match against.
+             * @param pattern The glob to check the path against.
+             * @returns Whether or not the `path` matched the `pattern`.
+             * @throws {TypeError} if `path` or `pattern` are not strings.
+             * @since v22.5.0
+             */
+            matchesGlob(path: string, pattern: string): boolean;
+            /**
              * Determines whether {path} is an absolute path. An absolute path will always resolve to the same location, regardless of the working directory.
              *
              * If the given {path} is a zero-length string, `false` will be returned.
