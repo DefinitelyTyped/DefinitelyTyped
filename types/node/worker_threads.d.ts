@@ -421,7 +421,12 @@ declare module "worker_threads" {
          * @since v22.5.0
          */
         postMessageToThread(threadId: number, value: any, timeout?: number): Promise<void>;
-        postMessageToThread(threadId: number, value: any, transferList: readonly TransferListItem[], timeout?: number): Promise<void>;
+        postMessageToThread(
+            threadId: number,
+            value: any,
+            transferList: readonly TransferListItem[],
+            timeout?: number,
+        ): Promise<void>;
         /**
          * Opposite of `unref()`, calling `ref()` on a previously `unref()`ed worker does _not_ let the program exit if it's the only active handle left (the default
          * behavior). If the worker is `ref()`ed, calling `ref()` again has

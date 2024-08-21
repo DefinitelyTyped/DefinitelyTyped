@@ -135,7 +135,10 @@ declare module "node:sqlite" {
          * the row.
          */
         all(...anonymousParameters: SupportedValueType[]): unknown[];
-        all(namedParameters: Record<string, SupportedValueType>, ...anonymousParameters: SupportedValueType[]): unknown[];
+        all(
+            namedParameters: Record<string, SupportedValueType>,
+            ...anonymousParameters: SupportedValueType[]
+        ): unknown[];
         /**
          * This method returns the source SQL of the prepared statement with parameter
          * placeholders replaced by values. This method is a wrapper around [`sqlite3_expanded_sql()`](https://www.sqlite.org/c3ref/expanded_sql.html).
@@ -165,7 +168,10 @@ declare module "node:sqlite" {
          * @param anonymousParameters Zero or more values to bind to anonymous parameters.
          */
         run(...anonymousParameters: SupportedValueType[]): StatementResultingChanges;
-        run(namedParameters: Record<string, SupportedValueType>, ...anonymousParameters: SupportedValueType[]): StatementResultingChanges;
+        run(
+            namedParameters: Record<string, SupportedValueType>,
+            ...anonymousParameters: SupportedValueType[]
+        ): StatementResultingChanges;
         /**
          * The names of SQLite parameters begin with a prefix character. By default,`node:sqlite` requires that this prefix character is present when binding
          * parameters. However, with the exception of dollar sign character, these

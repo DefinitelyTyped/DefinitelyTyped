@@ -44,7 +44,10 @@ function transformer(printer: Printer, typeChecker: TypeChecker, rootDocs: DocRo
             const moduleName = node.name.text;
 
             // skip non prefixed modules
-            if (moduleName.startsWith("node:") && moduleName !== "node:sea" && moduleName !== "node:test" && moduleName !== "node:sqlite") {
+            if (
+                moduleName.startsWith("node:") && moduleName !== "node:sea" && moduleName !== "node:test"
+                && moduleName !== "node:sqlite"
+            ) {
                 return node;
             }
 

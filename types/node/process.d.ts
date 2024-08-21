@@ -898,11 +898,11 @@ declare module "process" {
                     /**
                      * This function registers a callback to be called when the process emits the `exit` event if the `ref` object was not garbage collected.
                      * If the object `ref` was garbage collected before the `exit` event is emitted, the callback will be removed from the finalization registry, and it will not be called on process exit.
-                     * 
+                     *
                      * Inside the callback you can release the resources allocated by the `ref` object.
                      * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function,
                      * this means that there is a possibility that the callback will not be called under special circumstances.
-                     * 
+                     *
                      * The idea of ​​this function is to help you free up resources when the starts process exiting, but also let the object be garbage collected if it is no longer being used.
                      * @param ref The reference to the resource that is being tracked.
                      * @param callback The callback function to be called when the resource is finalized.
@@ -912,7 +912,7 @@ declare module "process" {
                     register<T extends object>(ref: T, callback: (ref: T, event: "exit") => void): void;
                     /**
                      * This function behaves exactly like the `register`, except that the callback will be called when the process emits the `beforeExit` event if `ref` object was not garbage collected.
-                     * 
+                     *
                      * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function, this means that there is a possibility that the callback will not be called under special circumstances.
                      * @param ref The reference to the resource that is being tracked.
                      * @param callback The callback function to be called when the resource is finalized.
