@@ -73,7 +73,7 @@ export interface UnderlyingSource {
    * Specifies the type of the underlying source.
    * It can currently only receive the value 'default' which is its default value.
    */
-  type?: string;
+  type?: "default";
 }
 
 /**
@@ -116,7 +116,7 @@ export interface QueuingStrategy {
    * Returns the size of the chunk passed as an argument.
    * The default value is a function that returns 1.
    */
-  size?: (chunk: any) => number;
+  size?(chunk: any): number;
 }
 
 /**
@@ -128,16 +128,37 @@ export class CountQueuingStrategy {
    * The CountQueuingStrategy constructor returns a newly created CountQueuingStrategy object.
    * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/streams/readablestream/countqueuingstrategy/
    *
-   * @param highWaterMark - the maximum number of chunks that the queue can contain.
+   * @param options - an object with optional property `highWaterMark` that determines
+   * the maximum number of chunks that the queue can contain.
    */
-  constructor(highWaterMark?: number);
+  constructor(options?: { highWaterMark?: number });
+
+  /**
+   * Represents the maximum number of chunks that the stream can hold in its internal queue.
+   * The default value is 1.
+   */
+  readonly highWaterMark: number;
+
+  /**
+   * Returns the size of the chunk passed as an argument.
+   * The default value is a function that returns 1.
+   */
+  size(chunk: any): number;
 }
 
 /**
  * The object used to read stream data.
  * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/streams/readablestreamdefaultreader/
  */
-export interface ReadableStreamDefaultReader {
+export class ReadableStreamDefaultReader {
+  /**
+   * The ReadableStreamDefaultReader constructor returns a newly created ReadableStreamDefaultReader object.
+   * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/streams/readablestreamdefaultreader/
+   *
+   * @param stream - defines the stream the reader will own.
+   */
+  constructor(stream: ReadableStream);
+
   /**
    * Closes the reader and signals a reason for the closure.
    * https://grafana.com/docs/k6/latest/javascript-api/k6-experimental/streams/readablestreamdefaultreader/cancel/
@@ -173,5 +194,5 @@ export interface ReadableStreamDefaultReader {
    * If the reader’s lock is released as pending read operations are still in progress,
    * the reader’s `ReadableStreamDefaultReader.read()` calls are immediately rejected with a `TypeError`.
    */
-  releaseLock: () => void;
+  readonly releaseLock: () => void;
 }
