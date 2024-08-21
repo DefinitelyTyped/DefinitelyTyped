@@ -580,7 +580,7 @@ class EventsViewObject extends Backbone.View {
     }
 }
 
-function events(this: EventsViewMethod) {
+function eventsFn(this: EventsViewMethod) {
     const eventsHash: Backbone.EventsHash = {
         click: "onClick",
     };
@@ -604,7 +604,7 @@ class EventsViewMethod extends Backbone.View {
             this.events = options.events;
         }
 
-        this.events = events;
+        this.events = eventsFn;
     }
 }
 
