@@ -5837,6 +5837,7 @@
 /types/phantomcss/                                        @abauzac
 /types/phantomjs/                                         @keesey
 /types/phc__bcrypt/                                       @vespaiach
+/types/phc__format/                                       @filiafobico
 /types/phoenix/                                           @mciastek @John-Goff @princemaple
 /types/phoenix_live_view/                                 @pzingg
 /types/phone/                                             @DxCx @brimtown
@@ -7898,7 +7899,6 @@
 /types/svg4everybody/                                     @BendingBender @bryceosterhaus
 /types/svg64/                                             @bengry
 /types/svgdom/                                            @altano
-/types/svgicons2svgfont/                                  @casaper
 /types/svgjs.draggable/                                   @LiFeleSs
 /types/svgjs.resize/                                      @jkevingutierrez
 /types/svgr__rollup/                                      @fobdy @maxbogus

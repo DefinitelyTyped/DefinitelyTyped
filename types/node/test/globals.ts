@@ -53,6 +53,16 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 }
 
 {
+    const s = new Storage();
+    s.setItem("foo", "bar");
+    s.getItem("foo"); // $ExpectType string | null
+    s["foo"] = "baz";
+    s["foo"]; // $ExpectType any
+    delete s["foo"];
+    s.clear();
+}
+
+{
     const e = new DOMException(); // $ExpectType DOMException
     e.message; // $ExpectType string
     e.name; // $ExpectType string

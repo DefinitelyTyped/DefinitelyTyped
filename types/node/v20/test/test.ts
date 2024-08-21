@@ -125,6 +125,8 @@ test(undefined, undefined, t => {
 
     // $ExpectType string
     t.name;
+    // $ExpectType string
+    t.fullName;
     // $ExpectType AbortSignal
     t.signal;
     // $ExpectType MockTracker
@@ -782,14 +784,16 @@ dot("" as any);
 tap();
 // $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 tap("" as any);
-// $ExpectType Spec
+// $ExpectType SpecReporter
 new spec();
+// @ts-expect-error
+spec();
 // @ts-expect-error
 junit();
 // $ExpectType AsyncGenerator<string, void, unknown> || AsyncGenerator<string, void, any>
 junit("" as any);
-// $ExpectType Lcov
-new lcov();
+// $ExpectType LcovReporter
+lcov;
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {

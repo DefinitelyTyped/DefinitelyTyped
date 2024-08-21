@@ -1169,6 +1169,34 @@ declare namespace ComponentFramework {
          * @param lookupOptions Options for opening the lookup dialog.
          */
         lookupObjects(lookupOptions: UtilityApi.LookupOptions): Promise<LookupValue[]>;
+
+        /**
+         * Loads a control dependency on demand.
+         *
+         * The dependency should be defined in the control manifest resources section
+         * with `load-type="onDemand"`.
+         * @param dependencyName Dependency name to load. Should match the name used in the manifest to define the dependency.
+         * @returns Promise that resolves when the dependency is loaded.
+         *
+         * @remarks
+         * This method is only available in Unified Interface (Model Driven Apps).
+         * Make sure to check if the method is available before calling it.
+         *
+         * @tutorial
+         * To define a dependency in the manifest, add a resources section like the following:
+         * ```xml
+         * <resources>
+         *      <dependency type="control" name="pubprefix_ControlNamespace.ControlName" load-type="onDemand">
+         * </resources>
+         * ```
+         * In the control code, you can load the dependency like this:
+         * ```ts
+         * context.utils.loadDependency("pubprefix_ControlNamespace.ControlName").then(() => {
+         *     // Dependent control is loaded and ready to use
+         * });
+         * ```
+         */
+        loadDependency?(dependencyName: string): Promise<unknown>;
     }
 
     /**

@@ -16,7 +16,14 @@
     },
     "files": [
         "index.d.ts",
-        "yaireo__tagify-tests.ts",
-        "test/yaireo__tagify-react-tests.tsx"
+        "test/index.ts",
+        "test/dist/tagify.esm.js.ts",
+        "test/dist/tagify.min.ts",
+        "test/dist/tagify.min.js.ts",
+        "test/dist/tagify.polyfills.min.js.ts",
+        "test/dist/react.tagify.tsx",
+        "test/dist/react.tagify.jsx.tsx",
+        "test/react.tsx",
+        "test/react.tagify.tsx"
     ]
 }

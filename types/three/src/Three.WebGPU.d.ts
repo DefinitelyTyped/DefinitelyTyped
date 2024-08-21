@@ -157,6 +157,13 @@ export type {
     XRJointSpace,
     XRTargetRaySpace,
 } from "./renderers/webxr/WebXRController.js";
+export type { WebXRDepthSensing } from "./renderers/webxr/WebXRDepthSensing.js";
+export type {
+    WebXRArrayCamera,
+    WebXRCamera,
+    WebXRManager,
+    WebXRManagerEventMap,
+} from "./renderers/webxr/WebXRManager.js";
 export * from "./scenes/Fog.js";
 export * from "./scenes/FogExp2.js";
 export * from "./scenes/Scene.js";
