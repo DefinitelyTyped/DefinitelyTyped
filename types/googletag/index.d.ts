@@ -1680,6 +1680,19 @@ declare namespace googletag {
              * Settings to control publisher privacy treatments.
              */
             privacyTreatments?: PrivacyTreatmentsConfig | null;
+
+            /**
+             * Setting to control whether GPT should yield the JS thread when rendering creatives.
+             */
+            adYield?: AdYieldConfig | null;
+        }
+
+        /**
+         * Setting to control whether GPT should yield the JS thread when rendering creatives.
+         */
+        enum AdYieldConfig {
+            DISABLED = "DISABLED",
+            ENABLED_ALL_SLOTS = "ENABLED_ALL_SLOTS",
         }
 
         /**

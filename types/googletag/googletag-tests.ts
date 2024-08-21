@@ -780,6 +780,15 @@ function test_googletag_config_PublisherProvidedSignalsConfig_taxonomies() {
 }
 
 /**
+ * Test for {@link googletag.config.PublisherProvidedSignalsConfig.adYield}
+ */
+function test_googletag_config_PublisherProvidedSignalsConfig_adYield() {
+    googletag.setConfig({
+        adYield: AdYieldConfig.DISABLED
+    });
+}
+
+/**
  * Test for {@link googletag.config.SlotSettingsConfig}
  */
 function test_googletag_config_SlotSettingsConfig() {
