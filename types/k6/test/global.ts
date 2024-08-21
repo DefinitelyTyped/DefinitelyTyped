@@ -24,3 +24,12 @@ __ITER = 9;
 // @ts-expect-error
 __ENV = 5;
 __ENV; // $ExpectType { [name: string]: string; }
+
+// import.meta.resolve
+import.meta.resolve("test"); // $ExpectType string
+
+// @ts-expect-error
+import.meta.resolve();
+
+// @ts-expect-error
+import.meta.resolve("test", "something");

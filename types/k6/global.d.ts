@@ -72,4 +72,12 @@ declare global {
      * https://grafana.com/docs/k6/latest/using-k6/execution-context-variables/
      */
     var __ITER: number;
+
+    interface ImportMeta {
+        /**
+         * Resolve a path to a URL string in the same way an import statement does.
+         * https://grafana.com/docs/k6/latest/javascript-api/import.meta/resolve/
+         */
+        resolve(specifier: string): string;
+    }
 }
