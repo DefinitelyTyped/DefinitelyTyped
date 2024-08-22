@@ -17,7 +17,6 @@ declare namespace SteamStrategy {
     }
 }
 
-
 type ValidateFn<T extends SteamStrategy.SteamStrategyOptions> = T["passReqToCallback"] extends true
     ? (req: Request, identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void
     : (identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void;
