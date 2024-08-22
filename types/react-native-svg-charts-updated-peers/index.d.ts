@@ -1,5 +1,3 @@
-export {};
-
 import { ScaleBand, ScaleLinear, ScaleLogarithmic, ScalePower, ScaleTime } from "d3-scale";
 import { CurveFactory, Series } from "d3-shape";
 import * as React from "react";
@@ -256,9 +254,9 @@ export interface TooltipProps {
 }
 
 export namespace Decorators {
-    export class HorizontalLine extends React.Component<HorizontalLineProps> {}
-    export class Point extends React.Component<PointProps> {}
-    export class Tooltip extends React.Component<TooltipProps> {}
+    class HorizontalLine extends React.Component<HorizontalLineProps> {}
+    class Point extends React.Component<PointProps> {}
+    class Tooltip extends React.Component<TooltipProps> {}
 }
 
 export type GridDirection = "VERTICAL" | "HORIZONTAL" | "BOTH";
