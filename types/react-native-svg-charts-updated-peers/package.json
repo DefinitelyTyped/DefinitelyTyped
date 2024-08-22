@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-native-svg-charts-updated-peers",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/AndreiBru/react-native-svg-charts-updated-peers"
+    ],
+    "dependencies": {
+        "@types/d3-scale": "^1",
+        "@types/d3-shape": "^1",
+        "@types/react": "*",
+        "react-native": "*",
+        "react-native-svg": ">=5.3.1"
+    },
+    "devDependencies": {
+        "@types/react-native-svg-charts-updated-peers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter van de Vyver",
+            "githubUsername": "pete-dvr"
+        }
+    ]
+}
