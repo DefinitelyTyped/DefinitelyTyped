@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/react-native-svg-charts-updated-peers",
-    "version": "5.1.0",
+    "version": "5.1.9999",
     "projects": [
         "https://github.com/AndreiBru/react-native-svg-charts-updated-peers"
     ],

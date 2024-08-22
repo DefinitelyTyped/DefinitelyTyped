@@ -2,7 +2,7 @@
 > `npm install --save @types/react-native-svg-charts-updated-peers`
 
 # Summary
-This package contains type definitions for react-native-svg-charts (https://github.com/JesperLekland/react-native-svg-charts).
+This package contains type definitions for react-native-svg-charts-updated-peers (https://github.com/JesperLekland/react-native-svg-charts-updated-peers).
 
 # Details
 Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-native-svg-charts-updated-peers.
