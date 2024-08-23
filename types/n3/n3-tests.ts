@@ -509,4 +509,6 @@ function test_store_factory() {
     dataset = store.dataset([]);
     const quads: N3.Quad[] = [];
     dataset = store.dataset(quads);
+    const baseQuads: RDF.BaseQuad[] = [];
+    dataset = store.dataset(baseQuads);
 }
