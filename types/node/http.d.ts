@@ -1,5 +1,5 @@
 /**
- * To use the HTTP server and client one must `require('node:http')`.
+ * To use the HTTP server and client one must import the `node:http` module.
  *
  * The HTTP interfaces in Node.js are designed to support many features
  * of the protocol which have been traditionally difficult to use.
@@ -1447,7 +1447,7 @@ declare module "http" {
      * To configure any of them, a custom {@link Agent} instance must be created.
      *
      * ```js
-     * const http = require('node:http');
+     * import http from 'node:http';
      * const keepAliveAgent = new http.Agent({ keepAlive: true });
      * options.agent = keepAliveAgent;
      * http.request(options, onResponseCallback)

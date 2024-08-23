@@ -115,7 +115,7 @@ declare module "readline/promises" {
      * The `readlinePromises.createInterface()` method creates a new `readlinePromises.Interface` instance.
      *
      * ```js
-     * const readlinePromises = require('node:readline/promises');
+     * import readlinePromises from 'node:readline/promises';
      * const rl = readlinePromises.createInterface({
      *   input: process.stdin,
      *   output: process.stdout,
