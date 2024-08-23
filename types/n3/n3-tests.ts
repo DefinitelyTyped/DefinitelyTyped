@@ -502,3 +502,13 @@ function test_extract_lists() {
         console.log(value);
     });
 }
+
+function test_store_factory() {
+    const store = new N3.StoreFactory();
+    let dataset: N3.Store = store.dataset();
+    dataset = store.dataset([]);
+    const quads: N3.Quad[] = [];
+    dataset = store.dataset(quads);
+    const baseQuads: RDF.BaseQuad[] = [];
+    dataset = store.dataset(baseQuads);
+}
