@@ -1,9 +1,9 @@
 import sexagesimal from "@mapbox/sexagesimal";
 
-// $ExpectType number
+// $ExpectType number | null
 sexagesimal("40° 42′ 45.72″ N");
 
-// $ExpectType [number, number]
+// $ExpectType [number, number] | null
 sexagesimal.pair("40° 42′ 45.72″ N, 74° 0′ 21.24″ W");
 
 // $ExpectType { whole: number; minutes: number; seconds: number; dir: 'N' | 'S' }
