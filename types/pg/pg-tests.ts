@@ -232,6 +232,9 @@ const pool = new Pool({
     },
 });
 console.log(pool.totalCount);
+console.log(pool.idleCount);
+console.log(pool.waitingCount);
+console.log(pool.expiredCount);
 pool.connect((err, client, done) => {
     if (err) {
         console.error("error fetching client from pool", err);

@@ -172,6 +172,7 @@ export class Pool extends events.EventEmitter {
     readonly totalCount: number;
     readonly idleCount: number;
     readonly waitingCount: number;
+    readonly expiredCount: number;
 
     connect(): Promise<PoolClient>;
     connect(
