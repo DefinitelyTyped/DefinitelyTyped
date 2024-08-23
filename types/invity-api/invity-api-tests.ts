@@ -1,11 +1,11 @@
 import {
     BuyProviderInfo,
     BuyTrade,
+    CryptoId,
     ExchangeTrade,
+    InfoResponse,
     SellFiatTrade,
     WatchSellTradeResponse,
-    InfoResponse,
-    CryptoId,
 } from "invity-api";
 
 const bt: BuyTrade = {

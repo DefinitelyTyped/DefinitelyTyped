@@ -25,7 +25,7 @@ export interface FormResponse {
     error?: string | undefined;
 }
 
-export type CryptoId = Brand<string, 'CryptoId'>;
+export type CryptoId = Brand<string, "CryptoId">;
 
 export type FiatCurrencyCode =
     | "usd"
