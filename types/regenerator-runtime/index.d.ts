@@ -170,7 +170,7 @@ export interface ResolvablePromiseConstructorLike extends PromiseConstructorLike
 }
 
 export class AsyncIterator<TYield = unknown, TReturn = unknown, TNext = unknown>
-    implements AsyncGenerator<TYield, TReturn, TNext>
+    implements globalThis.AsyncIterator<TYield, TReturn, TNext>
 {
     constructor(
         generator: Generator<
