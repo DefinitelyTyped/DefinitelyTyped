@@ -23,53 +23,59 @@ export interface MentionsInputProps
      * instead of a textarea
      * @default false
      */
-    singleLine?: boolean;
+    singleLine?: boolean | undefined;
 
     /**
      * If set to `true` spaces will not interrupt matching suggestions
      */
-    allowSpaceInQuery?: boolean;
+    allowSpaceInQuery?: boolean | undefined;
 
     /** Renders the SuggestionList above the cursor if there is not enough space below */
-    allowSuggestionsAboveCursor?: boolean;
+    allowSuggestionsAboveCursor?: boolean | undefined;
 
     /** Forces the SuggestionList to be rendered above the cursor */
-    forceSuggestionsAboveCursor?: boolean;
-    ignoreAccents?: boolean;
+    forceSuggestionsAboveCursor?: boolean | undefined;
+    ignoreAccents?: boolean | undefined;
 
     /** @default '' */
-    value?: string;
+    value?: string | undefined;
 
     /** A callback that is invoked when the user changes the value in the mentions input */
-    onChange?: OnChangeHandlerFunc;
-    placeholder?: string;
+    onChange?: OnChangeHandlerFunc | undefined;
+    placeholder?: string | undefined;
 
     /** Passes true as second argument if the blur was caused by a mousedown on a suggestion */
-    onBlur?: (
-        event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>,
-        clickedSuggestion: boolean,
-    ) => void;
-    onSelect?: (event: React.UIEvent) => void;
-    onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>) => void;
+    onBlur?:
+        | ((
+            event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>,
+            clickedSuggestion: boolean,
+        ) => void)
+        | undefined;
+    onSelect?: ((event: React.UIEvent) => void) | undefined;
+    onKeyDown?:
+        | ((
+            event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>,
+        ) => void)
+        | undefined;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
-    className?: string;
+    className?: string | undefined;
     classNames?: any;
     style?: any;
 
     /** Allows customizing the container of the suggestions */
-    customSuggestionsContainer?: (children: React.ReactNode) => React.ReactNode;
+    customSuggestionsContainer?: ((children: React.ReactNode) => React.ReactNode) | undefined;
 
     /** Render suggestions into the DOM in the supplied host element. */
-    suggestionsPortalHost?: Element;
+    suggestionsPortalHost?: Element | undefined;
 
     /** Accepts a React ref to forward to the underlying input element */
-    inputRef?: React.Ref<HTMLTextAreaElement> | React.Ref<HTMLInputElement>;
+    inputRef?: React.Ref<HTMLTextAreaElement> | React.Ref<HTMLInputElement> | undefined;
 
     /**
      * This label would be exposed to screen readers when suggestion popup appears
      * @default ''
      */
-    a11ySuggestionsListLabel?: string;
+    a11ySuggestionsListLabel?: string | undefined;
 }
 
 /**
@@ -79,7 +85,7 @@ export interface MentionsInputComponentUnwrapped extends React.Component<Mention
     /**
      * @deprecated since version 2.4.0. Please use @see MentionsInputProps.inputRef
      */
-    inputRef?: HTMLInputElement | HTMLTextAreaElement;
+    inputRef?: HTMLInputElement | HTMLTextAreaElement | undefined;
 }
 
 /**
@@ -92,7 +98,7 @@ export interface MentionsInputComponentUnrwapped extends MentionsInputComponentU
  */
 export interface MentionsInputComponent extends React.Component<MentionsInputProps> {
     // MentionsInput uses substyle (https://github.com/jfschwarz/substyle) which adds this wrappedInstance
-    wrappedInstance?: MentionsInputComponentUnwrapped;
+    wrappedInstance?: MentionsInputComponentUnwrapped | undefined;
 }
 
 /**
@@ -108,27 +114,27 @@ export interface MentionProps {
     /**
      * Callback invoked when a suggestion has been added
      */
-    onAdd?: OnAddHandlerFunc;
+    onAdd?: OnAddHandlerFunc | undefined;
 
     /** Allows customizing how mention suggestions are rendered */
-    renderSuggestion?: SuggestionFunc;
-    className?: string;
+    renderSuggestion?: SuggestionFunc | undefined;
+    className?: string | undefined;
 
     /**
      * A template string for the markup to use for mentions
      * @default '@[__display__](__id__)'
      */
-    markup?: string;
+    markup?: string | undefined;
 
     /** Accepts a function for customizing the string that is displayed for a mention */
-    displayTransform?: DisplayTransformFunc;
+    displayTransform?: DisplayTransformFunc | undefined;
 
     /**
      * Defines the char sequence upon which to trigger querying the data source
      * @default '@'
      */
     trigger: string | RegExp;
-    isLoading?: boolean;
+    isLoading?: boolean | undefined;
 
     /**
      * An array of the mentionable data entries (objects with id & display keys, or a filtering function that returns an array based on a query parameter
@@ -138,12 +144,12 @@ export interface MentionProps {
     style?: any;
 
     /** Append a space when a suggestion has been added */
-    appendSpaceOnAdd?: boolean;
+    appendSpaceOnAdd?: boolean | undefined;
 
     /**
      * Allows providing a custom regular expression for parsing your markup and extracting the placeholder interpolations
      */
-    regex?: RegExp;
+    regex?: RegExp | undefined;
 }
 
 /**
@@ -162,7 +168,7 @@ export interface MentionItem {
  */
 export interface SuggestionDataItem {
     id: string | number;
-    display?: string;
+    display?: string | undefined;
 }
 
 /**
