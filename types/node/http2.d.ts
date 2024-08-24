@@ -408,9 +408,9 @@ declare module "http2" {
          * });
          * ```
          *
-         * Initiates a response. When the `options.waitForTrailers` option is set, the`'wantTrailers'` event will be emitted immediately after queuing the last chunk
-         * of payload data to be sent. The `http2stream.sendTrailers()` method can then be
-         * used to sent trailing header fields to the peer.
+         * Initiates a response. When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
+         * will be emitted immediately after queuing the last chunk of payload data to be sent.
+         * The `http2stream.sendTrailers()` method can then be used to send trailing header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
          * close when the final `DATA` frame is transmitted. User code must call either `http2stream.sendTrailers()` or `http2stream.close()` to close the `Http2Stream`.
@@ -459,8 +459,8 @@ declare module "http2" {
          *
          * The optional `options.statCheck` function may be specified to give user code
          * an opportunity to set additional content headers based on the `fs.Stat` details
-         * of the given fd. If the `statCheck` function is provided, the `http2stream.respondWithFD()` method will perform an `fs.fstat()` call to
-         * collect details on the provided file descriptor.
+         * of the given fd. If the `statCheck` function is provided, the `http2stream.respondWithFD()` method will
+         * perform an `fs.fstat()` call to collect details on the provided file descriptor.
          *
          * The `offset` and `length` options may be used to limit the response to a
          * specific range subset. This can be used, for instance, to support HTTP Range
@@ -478,7 +478,8 @@ declare module "http2" {
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
-         * close when the final `DATA` frame is transmitted. User code _must_ call either `http2stream.sendTrailers()` or `http2stream.close()` to close the `Http2Stream`.
+         * close when the final `DATA` frame is transmitted. User code _must_ call either `http2stream.sendTrailers()`
+         * or `http2stream.close()` to close the `Http2Stream`.
          *
          * ```js
          * const http2 = require('node:http2');
@@ -521,9 +522,9 @@ declare module "http2" {
          * an opportunity to set additional content headers based on the `fs.Stat` details
          * of the given file:
          *
-         * If an error occurs while attempting to read the file data, the `Http2Stream` will be closed using an `RST_STREAM` frame using the standard `INTERNAL_ERROR` code. If the `onError` callback is
-         * defined, then it will be called. Otherwise
-         * the stream will be destroyed.
+         * If an error occurs while attempting to read the file data, the `Http2Stream` will be closed using an
+         * `RST_STREAM` frame using the standard `INTERNAL_ERROR` code.
+         * If the `onError` callback is defined, then it will be called. Otherwise, the stream will be destroyed.
          *
          * Example using a file path:
          *
@@ -677,7 +678,8 @@ declare module "http2" {
          */
         readonly encrypted?: boolean | undefined;
         /**
-         * A prototype-less object describing the current local settings of this `Http2Session`. The local settings are local to _this_`Http2Session` instance.
+         * A prototype-less object describing the current local settings of this `Http2Session`.
+         * The local settings are local to _this_`Http2Session` instance.
          * @since v8.4.0
          */
         readonly localSettings: Settings;
@@ -692,12 +694,14 @@ declare module "http2" {
         readonly originSet?: string[] | undefined;
         /**
          * Indicates whether the `Http2Session` is currently waiting for acknowledgment of
-         * a sent `SETTINGS` frame. Will be `true` after calling the `http2session.settings()` method. Will be `false` once all sent `SETTINGS` frames have been acknowledged.
+         * a sent `SETTINGS` frame. Will be `true` after calling the `http2session.settings()` method.
+         * Will be `false` once all sent `SETTINGS` frames have been acknowledged.
          * @since v8.4.0
          */
         readonly pendingSettingsAck: boolean;
         /**
-         * A prototype-less object describing the current remote settings of this`Http2Session`. The remote settings are set by the _connected_ HTTP/2 peer.
+         * A prototype-less object describing the current remote settings of this`Http2Session`.
+         * The remote settings are set by the _connected_ HTTP/2 peer.
          * @since v8.4.0
          */
         readonly remoteSettings: Settings;
