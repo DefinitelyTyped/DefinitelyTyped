@@ -362,6 +362,7 @@ const settings: TagifySettings = {
         dropdownItemActive: "tagify__dropdown__item--active",
         dropdownItemHidden: "tagify__dropdown__item--hidden",
         dropdownInital: "tagify__dropdown--initial",
+        dropdownItemSelected: "tagify__dropdown__item--selected",
         scopeLoading: "tagify--loading",
         tagLoading: "tagify__tag--loading",
         tagEditing: "tagify__tag--editable",
@@ -1132,6 +1133,10 @@ tagify.getCleanValue();
 tagify.update();
 tagify.update({});
 tagify.update({ withoutChangeEvent: true });
+
+tagify.setPlaceholder("my-placeholder");
+tagify.setRangeAtStartEnd(true, document.createElement("span"));
+tagify.setRangeAtStartEnd(false, document.createElement("span"));
 
 tagify.setPersistedData(["good", "tags"], "whitelist");
 tagify.getPersistedData("whitelist");

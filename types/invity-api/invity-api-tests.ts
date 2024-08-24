@@ -1,12 +1,9 @@
 import {
     BuyProviderInfo,
     BuyTrade,
+    CryptoId,
     ExchangeTrade,
-    P2pQuote,
-    P2pTradeRequest,
-    SavingsTrade,
-    SavingsTradeItem,
-    SavingsTradeKYCStatusSuccessfulResponse,
+    InfoResponse,
     SellFiatTrade,
     WatchSellTradeResponse,
 } from "invity-api";
@@ -16,8 +13,8 @@ const bt: BuyTrade = {
 };
 
 const et: ExchangeTrade = {
-    send: "BTC",
-    receive: "USDT@ETH",
+    send: "bitcoin" as CryptoId,
+    receive: "ethereum" as CryptoId,
 };
 
 const sft: SellFiatTrade = {
@@ -34,47 +31,6 @@ const wstr: WatchSellTradeResponse = {
     cryptoStringAmount: "",
 };
 
-const svt: SavingsTrade = { exchange: "", reauthorizationUrl: "" };
-
-const savingsTradeItem: SavingsTradeItem = {
-    paymentMethodName: "Bank transfer",
-    id: "",
-    savingsTradeId: "",
-    exchange: "",
-    status: "InProgress",
-    receiveAddress: "",
-    fiatStringAmount: "",
-    fiatCurrency: "",
-    receiveStringAmount: "",
-    receiveCurrency: "",
-    paymentMethod: "bankTransfer",
-    created: "",
-};
-
-const p2pQuote: P2pQuote = {
-    provider: "",
-    id: "",
-    assetCode: "",
-    title: "",
-    currency: "",
-    price: "",
-    amountRange: { maximum: "0", minimum: "0" },
-    paymentWindowMinutes: 0,
-    paymentMethods: [],
-    confirmations: 0,
-    trader: { name: "", numberOfTrades: 0, onlineStatus: "OFFLINE", rating: "" },
-};
-const p2pTrade: P2pTradeRequest = {
-    quotesRequest: {
-        amount: "",
-        currency: "",
-        assetCode: "",
-    },
-    selectedQuote: p2pQuote,
-};
-
-const stKYCInProgress: SavingsTradeKYCStatusSuccessfulResponse = { kycStatus: "InProgress" };
-
 const providerInfo: BuyProviderInfo = {
     companyName: "Invity",
     brandName: "UAB Invity Finance",
@@ -85,4 +41,24 @@ const providerInfo: BuyProviderInfo = {
     tradedFiatCurrencies: [],
     supportedCountries: [],
     paymentMethods: [],
+};
+
+const infoResponse: InfoResponse = {
+    platforms: {
+        ethereum: {
+            name: "Ethereum",
+        },
+    },
+    coins: {
+        bitcoin: {
+            name: "",
+            symbol: "",
+            coingeckoId: "",
+            services: {
+                buy: true,
+                sell: true,
+                exchange: true,
+            },
+        },
+    },
 };

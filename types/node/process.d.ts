@@ -75,6 +75,7 @@ declare module "process" {
         "repl": typeof import("repl");
         "node:repl": typeof import("node:repl");
         "node:sea": typeof import("node:sea");
+        "node:sqlite": typeof import("node:sqlite");
         "stream": typeof import("stream");
         "node:stream": typeof import("node:stream");
         "stream/consumers": typeof import("stream/consumers");
@@ -323,23 +324,27 @@ declare module "process" {
             }
             interface ProcessReport {
                 /**
+                 * Write reports in a compact format, single-line JSON, more easily consumable by log processing systems
+                 * than the default multi-line format designed for human consumption.
+                 * @since v13.12.0, v12.17.0
+                 */
+                compact: boolean;
+                /**
                  * Directory where the report is written.
+                 * The default value is the empty string, indicating that reports are written to the current
                  * working directory of the Node.js process.
-                 * @default '' indicating that reports are written to the current
                  */
                 directory: string;
                 /**
-                 * Filename where the report is written.
-                 * The default value is the empty string.
-                 * @default '' the output filename will be comprised of a timestamp,
-                 * PID, and sequence number.
+                 * Filename where the report is written. If set to the empty string, the output filename will be comprised
+                 * of a timestamp, PID, and sequence number. The default value is the empty string.
                  */
                 filename: string;
                 /**
-                 * Returns a JSON-formatted diagnostic report for the running process.
-                 * The report's JavaScript stack trace is taken from err, if present.
+                 * Returns a JavaScript Object representation of a diagnostic report for the running process.
+                 * The report's JavaScript stack trace is taken from `err`, if present.
                  */
-                getReport(err?: Error): string;
+                getReport(err?: Error): object;
                 /**
                  * If true, a diagnostic report is generated on fatal errors,
                  * such as out of memory errors or failed C++ assertions.
@@ -365,18 +370,19 @@ declare module "process" {
                 /**
                  * Writes a diagnostic report to a file. If filename is not provided, the default filename
                  * includes the date, time, PID, and a sequence number.
-                 * The report's JavaScript stack trace is taken from err, if present.
+                 * The report's JavaScript stack trace is taken from `err`, if present.
                  *
+                 * If the value of filename is set to `'stdout'` or `'stderr'`, the report is written
+                 * to the stdout or stderr of the process respectively.
                  * @param fileName Name of the file where the report is written.
                  * This should be a relative path, that will be appended to the directory specified in
                  * `process.report.directory`, or the current working directory of the Node.js process,
                  * if unspecified.
-                 * @param error A custom error used for reporting the JavaScript stack.
+                 * @param err A custom error used for reporting the JavaScript stack.
                  * @return Filename of the generated report.
                  */
-                writeReport(fileName?: string): string;
-                writeReport(error?: Error): string;
                 writeReport(fileName?: string, err?: Error): string;
+                writeReport(err?: Error): string;
             }
             interface ResourceUsage {
                 fsRead: number;
@@ -888,6 +894,40 @@ declare module "process" {
                  * @since v0.11.8
                  */
                 exitCode?: number | string | number | undefined;
+                finalization: {
+                    /**
+                     * This function registers a callback to be called when the process emits the `exit` event if the `ref` object was not garbage collected.
+                     * If the object `ref` was garbage collected before the `exit` event is emitted, the callback will be removed from the finalization registry, and it will not be called on process exit.
+                     *
+                     * Inside the callback you can release the resources allocated by the `ref` object.
+                     * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function,
+                     * this means that there is a possibility that the callback will not be called under special circumstances.
+                     *
+                     * The idea of ​​this function is to help you free up resources when the starts process exiting, but also let the object be garbage collected if it is no longer being used.
+                     * @param ref The reference to the resource that is being tracked.
+                     * @param callback The callback function to be called when the resource is finalized.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    register<T extends object>(ref: T, callback: (ref: T, event: "exit") => void): void;
+                    /**
+                     * This function behaves exactly like the `register`, except that the callback will be called when the process emits the `beforeExit` event if `ref` object was not garbage collected.
+                     *
+                     * Be aware that all limitations applied to the `beforeExit` event are also applied to the callback function, this means that there is a possibility that the callback will not be called under special circumstances.
+                     * @param ref The reference to the resource that is being tracked.
+                     * @param callback The callback function to be called when the resource is finalized.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    registerBeforeExit<T extends object>(ref: T, callback: (ref: T, event: "beforeExit") => void): void;
+                    /**
+                     * This function remove the register of the object from the finalization registry, so the callback will not be called anymore.
+                     * @param ref The reference to the resource that was registered previously.
+                     * @since v22.5.0
+                     * @experimental
+                     */
+                    unregister(ref: object): void;
+                };
                 /**
                  * The `process.getActiveResourcesInfo()` method returns an array of strings containing
                  * the types of the active resources that are currently keeping the event loop alive.
@@ -1704,11 +1744,11 @@ declare module "process" {
                  */
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
-                 * `process.report` is an object whose methods are used to generate diagnostic
-                 * reports for the current process. Additional documentation is available in the `report documentation`.
+                 * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v22.x/api/report.html).
                  * @since v11.8.0
                  */
-                report?: ProcessReport | undefined;
+                report: ProcessReport;
                 /**
                  * ```js
                  * import { resourceUsage } from 'node:process';

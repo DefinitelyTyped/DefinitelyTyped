@@ -226,6 +226,9 @@ function fixupModuleStructure(node: DocRoot): void {
         ["in_the_injected_main_script", "single-executable_application_api"],
     ]);
 
+    // sqlite
+    renameModule("sqlite", "node:sqlite");
+
     // some of the methods of Http2ServerResponse are incorrectly nested under the `req` property.
     const http2Module = getModule(node, "http2");
     const httpResponseClass = getClass(http2Module, "http2.Http2ServerResponse");

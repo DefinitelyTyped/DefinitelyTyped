@@ -19,6 +19,8 @@ class TestControl implements ComponentFramework.StandardControl<TInputs, TOutput
     ) {}
     updateView(context: ComponentFramework.Context<TInputs, TEvents>) {
         context.events.testEvent();
+
+        context.utils.loadDependency?.("pubprefix_TestNamespace.TestControlName").then(() => {});
     }
     destroy() {}
     getOutputs() {
@@ -33,6 +35,8 @@ class TestReactControl implements ComponentFramework.ReactControl<TInputs, TOutp
     }
     updateView(context: ComponentFramework.Context<TInputs, TEvents>) {
         context.events.testEvent();
+        context.utils.loadDependency?.("pubprefix_TestNamespace.TestControlName").then(() => {});
+
         return React.createElement("div", { id: "test-id" });
     }
     destroy() {

@@ -453,6 +453,12 @@ declare module "node:test" {
      */
     class TestContext {
         /**
+         * An object containing assertion methods bound to the test context.
+         * The top-level functions from the `node:assert` module are exposed here for the purpose of creating test plans.
+         * @since v20.15.0
+         */
+        readonly assert: TestContextAssert;
+        /**
          * This function is used to create a hook running before subtest of the current test.
          * @param fn The hook function. If the hook uses callbacks, the callback function is passed as the second argument.
          * @param options Configuration options for the hook.
@@ -495,10 +501,51 @@ declare module "node:test" {
          */
         diagnostic(message: string): void;
         /**
+         * The name of the test and each of its ancestors, separated by `>`.
+         * @since v20.16.0
+         */
+        readonly fullName: string;
+        /**
          * The name of the test.
          * @since v18.8.0, v16.18.0
          */
         readonly name: string;
+        /**
+         * Used to set the number of assertions and subtests that are expected to run within the test.
+         * If the number of assertions and subtests that run does not match the expected count, the test will fail.
+         *
+         * To make sure assertions are tracked, the assert functions on `context.assert` must be used,
+         * instead of importing from the `node:assert` module.
+         * ```js
+         * test('top level test', (t) => {
+         *   t.plan(2);
+         *   t.assert.ok('some relevant assertion here');
+         *   t.test('subtest', () => {});
+         * });
+         * ```
+         *
+         * When working with asynchronous code, the `plan` function can be used to ensure that the correct number of assertions are run:
+         * ```js
+         * test('planning with streams', (t, done) => {
+         *   function* generate() {
+         *     yield 'a';
+         *     yield 'b';
+         *     yield 'c';
+         *   }
+         *   const expected = ['a', 'b', 'c'];
+         *   t.plan(expected.length);
+         *   const stream = Readable.from(generate());
+         *   stream.on('data', (chunk) => {
+         *     t.assert.strictEqual(chunk, expected.shift());
+         *   });
+         *   stream.on('end', () => {
+         *     done();
+         *   });
+         * });
+         * ```
+         * @since v20.15.0
+         */
+        plan(count: number): void;
         /**
          * If `shouldRunOnlyTests` is truthy, the test context will only run tests that
          * have the `only` option set. Otherwise, all tests are run. If Node.js was not
@@ -575,6 +622,76 @@ declare module "node:test" {
          */
         readonly mock: MockTracker;
     }
+    interface TestContextAssert {
+        /**
+         * Identical to the `deepEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        deepEqual: typeof import("node:assert").deepEqual;
+        /**
+         * Identical to the `deepStrictEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        deepStrictEqual: typeof import("node:assert").deepStrictEqual;
+        /**
+         * Identical to the `doesNotMatch` function from the `node:assert` module, but bound to the test context.
+         */
+        doesNotMatch: typeof import("node:assert").doesNotMatch;
+        /**
+         * Identical to the `doesNotReject` function from the `node:assert` module, but bound to the test context.
+         */
+        doesNotReject: typeof import("node:assert").doesNotReject;
+        /**
+         * Identical to the `doesNotThrow` function from the `node:assert` module, but bound to the test context.
+         */
+        doesNotThrow: typeof import("node:assert").doesNotThrow;
+        /**
+         * Identical to the `equal` function from the `node:assert` module, but bound to the test context.
+         */
+        equal: typeof import("node:assert").equal;
+        /**
+         * Identical to the `fail` function from the `node:assert` module, but bound to the test context.
+         */
+        fail: typeof import("node:assert").fail;
+        /**
+         * Identical to the `ifError` function from the `node:assert` module, but bound to the test context.
+         */
+        ifError: typeof import("node:assert").ifError;
+        /**
+         * Identical to the `match` function from the `node:assert` module, but bound to the test context.
+         */
+        match: typeof import("node:assert").match;
+        /**
+         * Identical to the `notDeepEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        notDeepEqual: typeof import("node:assert").notDeepEqual;
+        /**
+         * Identical to the `notDeepStrictEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        notDeepStrictEqual: typeof import("node:assert").notDeepStrictEqual;
+        /**
+         * Identical to the `notEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        notEqual: typeof import("node:assert").notEqual;
+        /**
+         * Identical to the `notStrictEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        notStrictEqual: typeof import("node:assert").notStrictEqual;
+        /**
+         * Identical to the `ok` function from the `node:assert` module, but bound to the test context.
+         */
+        ok: typeof import("node:assert").ok;
+        /**
+         * Identical to the `rejects` function from the `node:assert` module, but bound to the test context.
+         */
+        rejects: typeof import("node:assert").rejects;
+        /**
+         * Identical to the `strictEqual` function from the `node:assert` module, but bound to the test context.
+         */
+        strictEqual: typeof import("node:assert").strictEqual;
+        /**
+         * Identical to the `throws` function from the `node:assert` module, but bound to the test context.
+         */
+        throws: typeof import("node:assert").throws;
+    }
 
     /**
      * An instance of `SuiteContext` is passed to each suite function in order to
@@ -634,6 +751,14 @@ declare module "node:test" {
          * @default false
          */
         todo?: boolean | string | undefined;
+        /**
+         * The number of assertions and subtests expected to be run in the test.
+         * If the number of assertions run in the test does not match the number
+         * specified in the plan, the test will fail.
+         * @default undefined
+         * @since v20.15.0
+         */
+        plan?: number | undefined;
     }
     /**
      * This function creates a hook that runs before executing a suite.
@@ -1706,27 +1831,35 @@ declare module "node:test/reporters" {
      * The `dot` reporter outputs the test results in a compact format,
      * where each passing test is represented by a `.`,
      * and each failing test is represented by a `X`.
+     * @since v20.0.0
      */
     function dot(source: TestEventGenerator): AsyncGenerator<"\n" | "." | "X", void>;
     /**
      * The `tap` reporter outputs the test results in the [TAP](https://testanything.org/) format.
+     * @since v20.0.0
      */
     function tap(source: TestEventGenerator): AsyncGenerator<string, void>;
     /**
      * The `spec` reporter outputs the test results in a human-readable format.
+     * @since v20.0.0
      */
-    class Spec extends Transform {
+    class SpecReporter extends Transform {
         constructor();
     }
     /**
      * The `junit` reporter outputs test results in a jUnit XML format.
+     * @since v21.0.0
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
-    /**
-     * The `lcov` reporter outputs test coverage when used with the [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--experimental-test-coverage) flag.
-     */
-    class Lcov extends Transform {
-        constructor(opts?: TransformOptions);
+    class LcovReporter extends Transform {
+        constructor(opts?: Omit<TransformOptions, "writableObjectMode">);
     }
-    export { dot, junit, Lcov as lcov, Spec as spec, tap, TestEvent };
+    /**
+     * The `lcov` reporter outputs test coverage when used with the
+     * [`--experimental-test-coverage`](https://nodejs.org/docs/latest-v20.x/api/cli.html#--experimental-test-coverage) flag.
+     * @since v22.0.0
+     */
+    const lcov: LcovReporter;
+
+    export { dot, junit, lcov, SpecReporter as spec, tap, TestEvent };
 }

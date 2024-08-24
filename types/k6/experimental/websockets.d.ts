@@ -1,4 +1,5 @@
 import { CookieJar } from "../http";
+import { ReadableStream } from "./streams";
 
 /**
  * This module provides an experimental implementation of the WebSocket API
@@ -139,6 +140,7 @@ export class Blob {
     arrayBuffer(): Promise<ArrayBuffer>;
     bytes(): Promise<Uint8Array>;
     slice(start?: number, end?: number): Blob;
+    stream(): ReadableStream;
     text(): Promise<string>;
 }
 

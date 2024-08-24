@@ -1,4 +1,5 @@
 import * as p from "node:process";
+import { finalization } from "node:process";
 import assert = require("node:assert");
 import EventEmitter = require("node:events");
 import { constants } from "node:os";
@@ -53,10 +54,11 @@ import { fileURLToPath } from "node:url";
 }
 
 {
-    const report = process.report!;
+    const report = process.report;
+    report.compact = true;
     report.directory = "asd";
     report.filename = "asdasd";
-    const rep: string = report.getReport(new Error());
+    report.getReport(new Error()); // $ExpectType object
     report.reportOnFatalError = true;
     report.reportOnSignal = true;
     report.reportOnUncaughtException = true;
@@ -215,4 +217,25 @@ process.env.TZ = "test";
 {
     const fs = globalThis.process.getBuiltinModule("fs");
     fs.constants.F_OK;
+}
+
+{
+    const myDisposableObject = {
+        dispose() {
+            // Free your resources synchronously
+        },
+    };
+
+    function onFinalize(obj: typeof myDisposableObject, event: string) {
+        // You can do whatever you want with the object
+        obj.dispose();
+    }
+
+    finalization.register(myDisposableObject, onFinalize);
+    finalization.registerBeforeExit(myDisposableObject, onFinalize);
+
+    // Do something
+
+    myDisposableObject.dispose();
+    finalization.unregister(myDisposableObject);
 }

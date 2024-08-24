@@ -2,7 +2,7 @@ export {}; // Make this a module
 
 // #region Fetch and friends
 // Conditional type aliases, used at the end of this file.
-// Will either be empty if lib-dom is included, or the undici version otherwise.
+// Will either be empty if lib.dom (or lib.webworker) is included, or the undici version otherwise.
 type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Request;
 type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
 type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
@@ -16,6 +16,49 @@ type _File = typeof globalThis extends { onmessage: any } ? {} : import("node:bu
 type _WebSocket = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").WebSocket;
 type _EventSource = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").EventSource;
 // #endregion Fetch and friends
+
+// Conditional type definitions for webstorage interface, which conflicts with lib.dom otherwise.
+type _Storage = typeof globalThis extends { onabort: any } ? {} : {
+    /**
+     * Returns the number of key/value pairs.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/length)
+     */
+    readonly length: number;
+    /**
+     * Removes all key/value pairs, if there are any.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/clear)
+     */
+    clear(): void;
+    /**
+     * Returns the current value associated with the given key, or null if the given key does not exist.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/getItem)
+     */
+    getItem(key: string): string | null;
+    /**
+     * Returns the name of the nth key, or null if n is greater than or equal to the number of key/value pairs.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/key)
+     */
+    key(index: number): string | null;
+    /**
+     * Removes the key/value pair with the given key, if a key/value pair with the given key exists.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/removeItem)
+     */
+    removeItem(key: string): void;
+    /**
+     * Sets the value of the pair identified by key to value, creating a new key/value pair if none existed for key previously.
+     *
+     * Throws a "QuotaExceededError" DOMException exception if the new value couldn't be set.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage/setItem)
+     */
+    setItem(key: string, value: string): void;
+    [key: string]: any;
+};
 
 declare global {
     // Declare "static" methods in Error
@@ -102,6 +145,40 @@ declare global {
             any(signals: AbortSignal[]): AbortSignal;
         };
     // #endregion borrowed
+
+    // #region Storage
+    /**
+     * This Web Storage API interface provides access to a particular domain's session or local storage. It allows, for example, the addition, modification, or deletion of stored data items.
+     *
+     * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Storage)
+     */
+    interface Storage extends _Storage {}
+
+    // Conditional on `onabort` rather than `onmessage`, in order to exclude lib.webworker
+    var Storage: typeof globalThis extends { onabort: any; Storage: infer T } ? T
+        : {
+            prototype: Storage;
+            new(): Storage;
+        };
+
+    /**
+     * A browser-compatible implementation of [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+     * Data is stored unencrypted in the file specified by the `--localstorage-file` CLI flag.
+     * Any modification of this data outside of the Web Storage API is not supported.
+     * Enable this API with the `--experimental-webstorage` CLI flag.
+     * @since v22.4.0
+     */
+    var localStorage: Storage;
+
+    /**
+     * A browser-compatible implementation of [`sessionStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
+     * Data is stored in memory, with a storage quota of 10 MB.
+     * Any modification of this data outside of the Web Storage API is not supported.
+     * Enable this API with the `--experimental-webstorage` CLI flag.
+     * @since v22.4.0
+     */
+    var sessionStorage: Storage;
+    // #endregion Storage
 
     // #region Disposable
     interface SymbolConstructor {

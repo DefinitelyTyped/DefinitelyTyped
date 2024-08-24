@@ -402,6 +402,12 @@ declare namespace Tagify {
         dropdownInital: string;
 
         /**
+         * Class name for selected dropdown items.
+         * @default tagify__dropdown__item--selected
+         */
+        dropdownItemSelected: string;
+
+        /**
          * @default 'tagify--loading'
          */
         scopeLoading: string;
@@ -1967,6 +1973,19 @@ declare class Tagify<T extends Tagify.BaseTagData = Tagify.TagData> {
         event: K,
         callback: (event: CustomEvent<Tagify.EventDataMap<T>[K]>) => void,
     ): this;
+
+    /**
+     * Sets the placeholder's value.
+     * @param placeholder The new placeholder to set.
+     */
+    setPlaceholder(placeholder: string): void;
+
+    /**
+     * Places the caret at the start or the end of a node.
+     * @param start Indicates where to place it (start or end of the node).
+     * @param node  DOM node to place the caret at.
+     */
+    setRangeAtStartEnd(start: boolean, node: HTMLElement): void;
 }
 
 export = Tagify;
