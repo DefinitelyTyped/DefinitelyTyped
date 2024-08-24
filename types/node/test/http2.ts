@@ -421,7 +421,9 @@ import { URL } from "node:url";
         foo: number;
     }
 
-    class MyHttp2ServerResponse<Request extends Http2ServerRequest = Http2ServerRequest> extends Http2ServerResponse<Request> {
+    class MyHttp2ServerResponse<Request extends Http2ServerRequest = Http2ServerRequest>
+        extends Http2ServerResponse<Request>
+    {
         bar: string;
     }
 
