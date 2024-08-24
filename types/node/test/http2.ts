@@ -485,7 +485,7 @@ import { URL } from "node:url";
     const http2Stream: Http2Stream = {} as any;
     const duplex: Duplex = http2Stream;
 
-    performServerHandshake(duplex, serverOptions); // $ExpectType ServerHttp2Session
+    const session: ServerHttp2Session = performServerHandshake(duplex, serverOptions);
 }
 
 // constants
