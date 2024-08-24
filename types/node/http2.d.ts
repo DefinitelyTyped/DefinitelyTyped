@@ -1050,11 +1050,17 @@ declare module "http2" {
     }
     export interface ServerHttp2Session<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     > extends Http2Session {
-        readonly server: Http2Server<Http1Request, Http1Response, Http2Request, Http2Response> | Http2SecureServer<Http1Request, Http1Response, Http2Request, Http2Response>;
+        readonly server:
+            | Http2Server<Http1Request, Http1Response, Http2Request, Http2Response>
+            | Http2SecureServer<Http1Request, Http1Response, Http2Request, Http2Response>;
         /**
          * Submits an `ALTSVC` frame (as defined by [RFC 7838](https://tools.ietf.org/html/rfc7838)) to the connected client.
          *
@@ -1149,17 +1155,30 @@ declare module "http2" {
         ): void;
         addListener(
             event: "connect",
-            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>, socket: net.Socket | tls.TLSSocket) => void,
+            listener: (
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+                socket: net.Socket | tls.TLSSocket,
+            ) => void,
         ): this;
         addListener(
             event: "stream",
             listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
         ): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "connect", session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>, socket: net.Socket | tls.TLSSocket): boolean;
+        emit(
+            event: "connect",
+            session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+            socket: net.Socket | tls.TLSSocket,
+        ): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: "connect", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>, socket: net.Socket | tls.TLSSocket) => void): this;
+        on(
+            event: "connect",
+            listener: (
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+                socket: net.Socket | tls.TLSSocket,
+            ) => void,
+        ): this;
         on(
             event: "stream",
             listener: (stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number) => void,
@@ -1167,7 +1186,10 @@ declare module "http2" {
         on(event: string | symbol, listener: (...args: any[]) => void): this;
         once(
             event: "connect",
-            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>, socket: net.Socket | tls.TLSSocket) => void,
+            listener: (
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+                socket: net.Socket | tls.TLSSocket,
+            ) => void,
         ): this;
         once(
             event: "stream",
@@ -1176,7 +1198,10 @@ declare module "http2" {
         once(event: string | symbol, listener: (...args: any[]) => void): this;
         prependListener(
             event: "connect",
-            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>, socket: net.Socket | tls.TLSSocket) => void,
+            listener: (
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+                socket: net.Socket | tls.TLSSocket,
+            ) => void,
         ): this;
         prependListener(
             event: "stream",
@@ -1185,7 +1210,10 @@ declare module "http2" {
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         prependOnceListener(
             event: "connect",
-            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>, socket: net.Socket | tls.TLSSocket) => void,
+            listener: (
+                session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+                socket: net.Socket | tls.TLSSocket,
+            ) => void,
         ): this;
         prependOnceListener(
             event: "stream",
@@ -1220,9 +1248,13 @@ declare module "http2" {
     }
     export interface ServerSessionOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     > extends SessionOptions {
         Http1IncomingMessage?: Http1Request | undefined;
         Http1ServerResponse?: Http1Response | undefined;
@@ -1232,21 +1264,33 @@ declare module "http2" {
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
     export interface SecureServerSessionOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     > extends ServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response>, tls.TlsOptions {}
     export interface ServerOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     > extends ServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response> {}
     export interface SecureServerOptions<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     > extends SecureServerSessionOptions<Http1Request, Http1Response, Http2Request, Http2Response> {
         allowHTTP1?: boolean | undefined;
         origins?: string[] | undefined;
@@ -1261,9 +1305,13 @@ declare module "http2" {
     }
     export interface Http2Server<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     > extends net.Server, HTTP2ServerCommon {
         addListener(
             event: "checkContinue",
@@ -1273,7 +1321,10 @@ declare module "http2" {
             event: "request",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        addListener(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        addListener(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         addListener(event: "sessionError", listener: (err: Error) => void): this;
         addListener(
             event: "stream",
@@ -1281,9 +1332,16 @@ declare module "http2" {
         ): this;
         addListener(event: "timeout", listener: () => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "checkContinue", request: InstanceType<Http2Request>, response: InstanceType<Http2Response>): boolean;
+        emit(
+            event: "checkContinue",
+            request: InstanceType<Http2Request>,
+            response: InstanceType<Http2Response>,
+        ): boolean;
         emit(event: "request", request: InstanceType<Http2Request>, response: InstanceType<Http2Response>): boolean;
-        emit(event: "session", session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>): boolean;
+        emit(
+            event: "session",
+            session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+        ): boolean;
         emit(event: "sessionError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "timeout"): boolean;
@@ -1292,8 +1350,14 @@ declare module "http2" {
             event: "checkContinue",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        on(event: "request", listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void): this;
-        on(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        on(
+            event: "request",
+            listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
+        ): this;
+        on(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         on(event: "sessionError", listener: (err: Error) => void): this;
         on(
             event: "stream",
@@ -1305,8 +1369,14 @@ declare module "http2" {
             event: "checkContinue",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        once(event: "request", listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void): this;
-        once(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        once(
+            event: "request",
+            listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
+        ): this;
+        once(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         once(event: "sessionError", listener: (err: Error) => void): this;
         once(
             event: "stream",
@@ -1322,7 +1392,10 @@ declare module "http2" {
             event: "request",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        prependListener(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        prependListener(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         prependListener(event: "sessionError", listener: (err: Error) => void): this;
         prependListener(
             event: "stream",
@@ -1338,7 +1411,10 @@ declare module "http2" {
             event: "request",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        prependOnceListener(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        prependOnceListener(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
         prependOnceListener(
             event: "stream",
@@ -1349,9 +1425,13 @@ declare module "http2" {
     }
     export interface Http2SecureServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     > extends tls.Server, HTTP2ServerCommon {
         addListener(
             event: "checkContinue",
@@ -1361,7 +1441,10 @@ declare module "http2" {
             event: "request",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        addListener(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        addListener(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         addListener(event: "sessionError", listener: (err: Error) => void): this;
         addListener(
             event: "stream",
@@ -1370,9 +1453,16 @@ declare module "http2" {
         addListener(event: "timeout", listener: () => void): this;
         addListener(event: "unknownProtocol", listener: (socket: tls.TLSSocket) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: "checkContinue", request: InstanceType<Http2Request>, response: InstanceType<Http2Response>): boolean;
+        emit(
+            event: "checkContinue",
+            request: InstanceType<Http2Request>,
+            response: InstanceType<Http2Response>,
+        ): boolean;
         emit(event: "request", request: InstanceType<Http2Request>, response: InstanceType<Http2Response>): boolean;
-        emit(event: "session", session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>): boolean;
+        emit(
+            event: "session",
+            session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>,
+        ): boolean;
         emit(event: "sessionError", err: Error): boolean;
         emit(event: "stream", stream: ServerHttp2Stream, headers: IncomingHttpHeaders, flags: number): boolean;
         emit(event: "timeout"): boolean;
@@ -1382,8 +1472,14 @@ declare module "http2" {
             event: "checkContinue",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        on(event: "request", listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void): this;
-        on(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        on(
+            event: "request",
+            listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
+        ): this;
+        on(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         on(event: "sessionError", listener: (err: Error) => void): this;
         on(
             event: "stream",
@@ -1396,8 +1492,14 @@ declare module "http2" {
             event: "checkContinue",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        once(event: "request", listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void): this;
-        once(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        once(
+            event: "request",
+            listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
+        ): this;
+        once(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         once(event: "sessionError", listener: (err: Error) => void): this;
         once(
             event: "stream",
@@ -1414,7 +1516,10 @@ declare module "http2" {
             event: "request",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        prependListener(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        prependListener(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         prependListener(event: "sessionError", listener: (err: Error) => void): this;
         prependListener(
             event: "stream",
@@ -1431,7 +1536,10 @@ declare module "http2" {
             event: "request",
             listener: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
         ): this;
-        prependOnceListener(event: "session", listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void): this;
+        prependOnceListener(
+            event: "session",
+            listener: (session: ServerHttp2Session<Http1Request, Http1Response, Http2Request, Http2Response>) => void,
+        ): this;
         prependOnceListener(event: "sessionError", listener: (err: Error) => void): this;
         prependOnceListener(
             event: "stream",
@@ -2378,9 +2486,13 @@ declare module "http2" {
     ): Http2Server;
     export function createServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     >(
         options: ServerOptions<Http1Request, Http1Response, Http2Request, Http2Response>,
         onRequestHandler?: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
@@ -2418,9 +2530,13 @@ declare module "http2" {
     ): Http2SecureServer;
     export function createSecureServer<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     >(
         options: SecureServerOptions<Http1Request, Http1Response, Http2Request, Http2Response>,
         onRequestHandler?: (request: InstanceType<Http2Request>, response: InstanceType<Http2Response>) => void,
@@ -2458,9 +2574,13 @@ declare module "http2" {
      */
     export function performServerHandshake<
         Http1Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<InstanceType<Http1Request>>,
+        Http1Response extends typeof ServerResponse<InstanceType<Http1Request>> = typeof ServerResponse<
+            InstanceType<Http1Request>
+        >,
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
-        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<InstanceType<Http2Request>>
+        Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse<
+            InstanceType<Http2Request>
+        >,
     >(
         socket: stream.Duplex,
         options?: ServerOptions<Http1Request, Http1Response, Http2Request, Http2Response>,

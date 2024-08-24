@@ -1,5 +1,5 @@
 import registry = require("@node-red/registry");
-import http = require("node:http")
+import http = require("node:http");
 
 function registryTests() {
     interface ExtendedNodeRedSettings extends registry.NodeAPISettingsWithData {
