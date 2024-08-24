@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Mention, MentionsInput, OnChangeHandlerFunc, SuggestionDataItem } from "react-mentions";
+import { Mention, MentionsInput, OnAddHandlerFunc, OnChangeHandlerFunc, SuggestionDataItem } from "react-mentions";
 import {
     applyChangeToValue,
     combineRegExps,
@@ -28,7 +28,7 @@ interface TestProps {
     data: SuggestionDataItem[];
     value?: string | undefined;
     onChange?: OnChangeHandlerFunc;
-    onAdd?: (() => void) | undefined;
+    onAdd?: OnAddHandlerFunc;
     regex: RegExp;
 }
 
@@ -118,6 +118,25 @@ export const TestAsyncDataFunc: React.FunctionComponent<TestProps> = props => {
                 markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
                 data={search => Promise.resolve([{ id: search, display: search }])}
                 onAdd={props.onAdd}
+            />
+        </MentionsInput>
+    );
+};
+
+export const TestPartialOnAdd: React.FC<TestProps> = props => {
+    const onAdd: OnAddHandlerFunc = (id: string | number, display: string) => {};
+    return (
+        <MentionsInput
+            value={props.value}
+            onChange={props.onChange}
+            placeholder={"Mention people using '@'"}
+            customSuggestionsContainer={children => <div className="suggestions">{children}</div>}
+        >
+            <Mention
+                trigger={props.regex}
+                markup={`@[${PLACEHOLDERS.display}](__type__:${PLACEHOLDERS.id})`}
+                data={search => [{ id: search, display: search }]}
+                onAdd={onAdd}
             />
         </MentionsInput>
     );
