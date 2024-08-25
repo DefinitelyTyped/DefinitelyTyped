@@ -1,7 +1,6 @@
 {
     "private": true,
     "name": "@types/bakong-khqr",
-    "description": "KHQR is the centralized QRCode for Cambodia, where every mobile banking app in Cambodia can scan and pay. KHQR ~ Scan.Pay.Done.",
     "version": "1.0.9999",
     "projects": [
         "git@gitlab.nbc.gov.kh:khqr/sdk-javascript.git"
