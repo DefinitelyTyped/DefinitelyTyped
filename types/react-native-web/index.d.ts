@@ -793,7 +793,7 @@ export interface UIManager {
     ): void;
     updateView(node: number, props: any): void;
     configureNextLayoutAnimation(config: any, onAnimationDidEnd: GenericFunction): void;
-    setLayoutAnimationEnabledExperimental(): void;
+    setLayoutAnimationEnabledExperimental(value: boolean): void;
 }
 
 export interface Vibration {
