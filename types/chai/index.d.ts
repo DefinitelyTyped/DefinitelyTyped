@@ -940,7 +940,7 @@ declare namespace Chai {
         ): void;
 
         /**
-         * Asserts that haystack does not include needle.
+         * Asserts that haystack includes needle. Deep equality is used.
          *
          * T   Type of haystack.
          * @param haystack   Object.
