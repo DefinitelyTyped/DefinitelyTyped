@@ -19,4 +19,4 @@ stringQueue.head.isEmpty(); // $ExpectType boolean
 
 const bufferQueue = new FIFO<Uint8Array>();
 bufferQueue.push(Uint8Array.from([0]));
-bufferQueue.shift(); // $ExpectType Uint8Array | undefined
+bufferQueue.shift(); // $ExpectType Uint8Array | undefined || Uint8Array<ArrayBuffer> | undefined

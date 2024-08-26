@@ -1494,7 +1494,7 @@ import { promisify } from "node:util";
 
     crypto.webcrypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}`
     crypto.webcrypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
-    crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
+    crypto.webcrypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
     // @ts-expect-error
     crypto.webcrypto.getRandomValues(new Float64Array(4));
     crypto.webcrypto.CryptoKey.name;

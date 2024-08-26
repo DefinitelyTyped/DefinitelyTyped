@@ -28,7 +28,7 @@
 {
     crypto.randomUUID(); // $ExpectType `${string}-${string}-${string}-${string}-${string}` || string
     crypto.getRandomValues(Buffer.alloc(8)); // $ExpectType Buffer
-    crypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array
+    crypto.getRandomValues(new BigInt64Array(4)); // $ExpectType BigInt64Array || BigInt64Array<ArrayBuffer>
 
     crypto.subtle.generateKey({ name: "HMAC", hash: "SHA-1" }, true, ["sign", "decrypt", "deriveBits"]).then(
         (out) => {

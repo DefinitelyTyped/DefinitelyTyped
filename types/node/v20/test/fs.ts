@@ -540,7 +540,7 @@ async function testPromisify() {
         offset: 1,
         position: 2,
         length: 3,
-    })).buffer; // $ExpectType Uint32Array
+    })).buffer; // $ExpectType Uint32Array || Uint32Array<ArrayBuffer>
 
     await handle.read(new Uint32Array(), 1, 2, 3);
     await handle.read(Buffer.from("hurr"));
