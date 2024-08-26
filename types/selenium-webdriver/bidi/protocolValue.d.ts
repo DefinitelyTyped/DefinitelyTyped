@@ -92,6 +92,6 @@ declare class SerializationOptions {
     );
     maxDomDepth: number;
     maxObjectDepth: number | null;
-    includeShadowTree: string
+    includeShadowTree: string;
 }
 export { LocalValue, ReferenceValue, RegExpValue, RemoteReferenceType, RemoteValue, SerializationOptions };
