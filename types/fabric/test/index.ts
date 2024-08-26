@@ -1235,9 +1235,9 @@ function sample19() {
     const textbox = new fabric.Textbox("original text");
     canvas.add(textbox);
     textbox.insertChars("c", [], 4, 7);
-    textbox.insertChars("chars at start", undefined, 2, 4);
-    textbox.insertChars("chars at start", undefined, 1);
-    textbox.insertChars("new chars");
+    textbox.insertChars("new chars", undefined, 2, 4);
+    textbox.insertChars("more new chars", undefined, 1);
+    textbox.insertChars("even more new chars");
 }
 
 function testIntersection() {
