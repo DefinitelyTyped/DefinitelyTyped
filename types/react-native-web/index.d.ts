@@ -1507,4 +1507,6 @@ declare module "react-native" {
         paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
         paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
     }
+
+    interface UIManagerStatic extends UIManager {}
 }
