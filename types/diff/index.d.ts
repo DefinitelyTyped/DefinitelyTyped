@@ -401,3 +401,10 @@ export function merge(mine: string, theirs: string, base: string): ParsedDiff;
 export function reversePatch(patch: ParsedDiff | ParsedDiff[]): ParsedDiff;
 
 export function canonicalize(obj: any, stack: any[], replacementStack: any[]): any;
+
+/**
+ * creates a unified diff patch.
+ * patch may be either a single structured patch object (as returned by structuredPatch)
+ * or an array of them (as returned by parsePatch).
+ */
+export function formatPatch(patch: ParsedDiff | ParsedDiff[]): string;
