@@ -1507,6 +1507,6 @@ declare module "react-native" {
         paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
         paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
     }
-
+    // tslint disable-next-line @typescript-eslint/no-empty-interface
     interface UIManagerStatic extends UIManager {}
 }
