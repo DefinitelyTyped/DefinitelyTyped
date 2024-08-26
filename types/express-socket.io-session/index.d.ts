@@ -9,6 +9,13 @@ declare module "socket.io" {
     }
 }
 
+declare module 'socket.io/dist/socket' {
+    interface Handshake {
+        session?: Session & Partial<SessionData> | undefined;
+        sessionID?: string | undefined;
+    }
+}
+
 declare function sharedsession(
     expressSessionMiddleware: express.RequestHandler,
     cookieParserMiddleware: express.RequestHandler,
