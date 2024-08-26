@@ -395,4 +395,3 @@ UIManager.measureLayout(
 );
 UIManager.updateView(node, {});
 UIManager.configureNextLayoutAnimation(null, () => {});
-UIManager.setLayoutAnimationEnabledExperimental(true);
