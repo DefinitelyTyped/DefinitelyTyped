@@ -67,6 +67,8 @@ app.use(fileUpload({ logger: console }));
 app.use(fileUpload({ logger: { log: () => {} } }));
 app.use(fileUpload({ logger: { log: (msg: string) => {} } }));
 app.use(fileUpload({ logger: { log: (...args: any[]) => {} } }));
+app.use(fileUpload({ hashAlgorithm: 'md5' }));
+app.use(fileUpload({ hashAlgorithm: 'sha256' }));
 app.use(fileUpload({ safeFileNames: /\\/g }));
 app.use(fileUpload({ safeFileNames: true }));
 app.use(fileUpload({ safeFileNames: true, preserveExtension: true }));
