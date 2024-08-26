@@ -1,4 +1,5 @@
 import LogInspector = require("./bidi/logInspector");
+import BrowsingContext = require("./bidi/browsingContext");
 import * as chrome from "./chrome";
 import * as edge from "./edge";
 import * as firefox from "./firefox";
@@ -27,7 +28,7 @@ export {
     WebDriver,
     WebElementCondition,
 } from "./lib/webdriver";
-export { logging, LogInspector, until };
+export { BrowsingContext, logging, LogInspector, until };
 
 /**
  * Typings for lib/error
