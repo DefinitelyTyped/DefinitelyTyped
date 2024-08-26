@@ -4996,7 +4996,7 @@ export class IText extends Text {
      * @param {Number} start
      * @param {Number} end default to start + 1
      */
-    insertChars(text: string, style: any[], start: number, end: number): void;
+    insertChars(text: string, style?: any[], start?: number, end?: number): void;
     /**
      * Moves cursor down
      * @param {Event} e Event object
