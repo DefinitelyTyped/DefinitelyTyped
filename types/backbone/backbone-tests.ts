@@ -564,6 +564,50 @@ class ModellessView extends Backbone.View {
     }
 }
 
+class EventsViewObject extends Backbone.View {
+    events: Backbone.EventsHash;
+
+    constructor(options: Backbone.ViewOptions) {
+        super(options);
+
+        this.events = {
+            "click": "onClick",
+        };
+
+        if (typeof options.events === "object") {
+            this.events = options.events;
+        }
+    }
+}
+
+function eventsFn(this: EventsViewMethod) {
+    const eventsHash: Backbone.EventsHash = {
+        click: "onClick",
+    };
+
+    if (this.model) eventsHash.reset = "onReset";
+
+    return eventsHash;
+}
+
+class EventsViewMethod extends Backbone.View {
+    events: () => Backbone.EventsHash;
+
+    constructor(options: Backbone.ViewOptions) {
+        super(options);
+
+        this.events = () => ({
+            "click": "onClick",
+        });
+
+        if (typeof options.events === "function") {
+            this.events = options.events;
+        }
+
+        this.events = eventsFn;
+    }
+}
+
 interface SVGViewOptions extends Backbone.ViewOptions<Backbone.Model, SVGGraphicsElement> {
 }
 
