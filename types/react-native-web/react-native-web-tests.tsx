@@ -391,7 +391,7 @@ UIManager.measureLayout(
     node,
     node,
     () => {},
-    () => {}
+    () => {},
 );
 UIManager.updateView(node, {});
 UIManager.configureNextLayoutAnimation(null, () => {});
