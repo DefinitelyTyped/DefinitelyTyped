@@ -132,6 +132,7 @@ function assertNever(value: never) {
             console.log(plane.lastChangedTime);
             console.log(plane.orientation);
             console.log(plane.polygon);
+            console.log(plane.semanticLabel);
         });
     };
 
