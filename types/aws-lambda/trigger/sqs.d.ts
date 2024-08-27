@@ -12,7 +12,7 @@ export interface SQSRecord {
     attributes: SQSRecordAttributes;
     messageAttributes: SQSMessageAttributes;
     md5OfBody: string;
-    MD5OfMessageAttributes?: string;
+    md5OfMessageAttributes?: string;
     eventSource: string;
     eventSourceARN: string;
     awsRegion: string;
