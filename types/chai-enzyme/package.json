@@ -6,7 +6,7 @@
         "https://github.com/producthunt/chai-enzyme"
     ],
     "dependencies": {
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/cheerio": "*",
         "@types/enzyme": "*",
         "@types/react": "^16"

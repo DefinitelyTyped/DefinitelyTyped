@@ -1,5 +1,7 @@
-import { expect, should, use } from "chai";
+import chai = require("chai");
 import chaiLike = require("chai-like");
+
+const { expect, should, use } = chai;
 
 should();
 use(chaiLike);

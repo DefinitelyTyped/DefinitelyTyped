@@ -1,5 +1,7 @@
-import { assert, expect, use } from "chai";
-import * as chaiSubsetInOrder from "chai-subset-in-order";
+import chai = require("chai");
+import chaiSubsetInOrder = require("chai-subset-in-order");
+
+const { assert, expect, use } = chai;
 
 use(chaiSubsetInOrder);
 

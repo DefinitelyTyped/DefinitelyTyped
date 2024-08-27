@@ -1,5 +1,7 @@
-import { assert, expect, use } from "chai";
+import chai = require("chai");
 import chaiMoment = require("chai-moment");
+
+const { assert, expect, use } = chai;
 
 use(chaiMoment);
 

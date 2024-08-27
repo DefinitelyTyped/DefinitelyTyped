@@ -1,5 +1,7 @@
-import { expect, use } from "chai";
-import chaiJsonPattern, { extend } from "chai-json-pattern";
+import chai = require("chai");
+import chaiJsonPattern = require("chai-json-pattern");
+
+const { expect, use } = chai;
 
 use(chaiJsonPattern);
 
@@ -17,4 +19,4 @@ const extension = {
         // return boolean
     },
 };
-extend(extension);
+chaiJsonPattern.extend(extension);

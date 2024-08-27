@@ -1,5 +1,7 @@
-import { assert, expect, should, tv4, use } from "chai";
+import chai = require("chai");
 import ChaiJsonSchema = require("chai-json-schema");
+
+const { assert, expect, should, tv4, use } = chai;
 
 use(ChaiJsonSchema);
 should();

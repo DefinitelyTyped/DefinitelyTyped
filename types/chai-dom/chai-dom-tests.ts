@@ -1,4 +1,4 @@
-import * as chai from "chai";
+import chai = require("chai");
 import chaiDom = require("chai-dom");
 
 chai.use(chaiDom);

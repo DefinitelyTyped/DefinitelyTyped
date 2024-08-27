@@ -6,7 +6,7 @@
         "https://github.com/frankthelen/chai-quantifiers#readme"
     ],
     "dependencies": {
-        "@types/chai": "*"
+        "@types/chai": "<5"
     },
     "devDependencies": {
         "@types/chai-quantifiers": "workspace:."

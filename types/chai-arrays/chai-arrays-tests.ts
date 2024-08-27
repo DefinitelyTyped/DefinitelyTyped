@@ -1,5 +1,7 @@
-import { assert, expect, should, use } from "chai";
+import chai = require("chai");
 import ChaiArrays = require("chai-arrays");
+
+const { assert, expect, should, use } = chai;
 
 use(ChaiArrays);
 should();

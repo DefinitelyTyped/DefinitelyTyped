@@ -7,7 +7,7 @@
         "http://chaijs.com"
     ],
     "dependencies": {
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/tv4": "*"
     },
     "devDependencies": {

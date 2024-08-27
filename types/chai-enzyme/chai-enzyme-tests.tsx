@@ -1,7 +1,9 @@
 import * as React from "react";
 import chaiEnzyme = require("chai-enzyme");
-import { expect } from "chai";
+import chai = require("chai");
 import { shallow } from "enzyme";
+
+const { expect } = chai;
 
 const Test = () => <div />;
 

@@ -1,4 +1,4 @@
-import * as chai from "chai";
+import chai = require("chai");
 import chaiXml = require("chai-xml");
 
 chai.use(chaiXml);

@@ -1,7 +1,7 @@
 import Sinon = require("sinon");
 
-import chai = require("chai");
-import sinonChai = require("sinon-chai");
+import * as chai from "chai";
+import sinonChai from "sinon-chai";
 
 chai.use(sinonChai);
 var expect = chai.expect;

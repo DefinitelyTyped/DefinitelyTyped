@@ -1,5 +1,7 @@
-import { assert, expect, should, use } from "chai";
+import chai = require("chai");
 import Chaifs = require("chai-fs");
+
+const { assert, expect, should, use } = chai;
 
 use(Chaifs);
 should();

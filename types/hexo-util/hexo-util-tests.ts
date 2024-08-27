@@ -16,7 +16,8 @@ import {
     wordWrap,
 } from "hexo-util";
 
-import { expect } from "chai";
+import chai = require("chai");
+const { expect } = chai;
 
 import { createHash } from "crypto";
 import { join } from "path";

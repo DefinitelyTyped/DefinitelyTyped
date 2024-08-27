@@ -1,5 +1,5 @@
-import * as chai from "chai";
-import * as spies from "chai-spies";
+import chai = require("chai");
+import spies = require("chai-spies");
 
 function original(): void {
     // do something cool

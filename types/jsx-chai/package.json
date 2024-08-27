@@ -6,7 +6,7 @@
         "https://github.com/bkonkle/jsx-chai"
     ],
     "dependencies": {
-        "@types/chai": "*"
+        "@types/chai": "<5"
     },
     "devDependencies": {
         "@types/jsx-chai": "workspace:."

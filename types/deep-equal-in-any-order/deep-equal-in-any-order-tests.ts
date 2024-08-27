@@ -1,5 +1,7 @@
-import { expect, use } from "chai";
+import chai = require("chai");
 import deepEqualInAnyOrder = require("deep-equal-in-any-order");
+
+const { expect, use } = chai;
 
 use(deepEqualInAnyOrder);
 

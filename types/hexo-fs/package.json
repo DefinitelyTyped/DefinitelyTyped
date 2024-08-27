@@ -12,7 +12,7 @@
         "chokidar": "^2.1.2"
     },
     "devDependencies": {
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/hexo-fs": "workspace:.",
         "@types/mocha": "*"
     },

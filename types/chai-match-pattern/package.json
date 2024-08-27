@@ -6,7 +6,7 @@
         "https://github.com/mjhm/chai-match-pattern#readme"
     ],
     "dependencies": {
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/lodash-match-pattern": "*"
     },
     "devDependencies": {

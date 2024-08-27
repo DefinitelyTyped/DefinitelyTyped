@@ -1,5 +1,7 @@
-import { assert, expect, should, use } from "chai";
+import chai = require("chai");
 import chaiUuid = require("chai-uuid");
+
+const { assert, expect, should, use } = chai;
 
 use(chaiUuid);
 should();

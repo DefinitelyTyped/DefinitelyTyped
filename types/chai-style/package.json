@@ -6,7 +6,7 @@
         "https://github.com/darlanmendonca/chai-style"
     ],
     "dependencies": {
-        "@types/chai": "*"
+        "@types/chai": "<5"
     },
     "devDependencies": {
         "@types/chai-style": "workspace:."

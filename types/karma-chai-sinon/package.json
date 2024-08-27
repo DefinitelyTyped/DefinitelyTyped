@@ -6,7 +6,7 @@
         "https://github.com/tubalmartin/karma-chai-sinon"
     ],
     "dependencies": {
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/sinon": "*"
     },
     "devDependencies": {

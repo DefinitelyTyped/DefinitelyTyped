@@ -6,7 +6,7 @@
         "https://github.com/onechiporenko/chai-string"
     ],
     "dependencies": {
-        "@types/chai": "*"
+        "@types/chai": "<5"
     },
     "devDependencies": {
         "@types/chai-string": "workspace:."

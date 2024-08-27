@@ -1,5 +1,7 @@
-import { expect, use } from "chai";
+import chai = require("chai");
 import chaiAlmost = require("chai-almost");
+
+const { expect, use } = chai;
 
 // Normally, call use(chaiAlmost(...)) only once, this is just to check that TypeScript correctly handles both.
 use(chaiAlmost(0.01)); // custom tolerance 0.01

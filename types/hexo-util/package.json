@@ -9,7 +9,7 @@
         "@types/node": "*"
     },
     "devDependencies": {
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/hexo-util": "workspace:."
     },
     "owners": [

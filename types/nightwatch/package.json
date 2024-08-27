@@ -6,7 +6,7 @@
         "http://nightwatchjs.org"
     ],
     "dependencies": {
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/node": "*",
         "@types/selenium-webdriver": "*",
         "devtools-protocol": "^0.0.1025565"

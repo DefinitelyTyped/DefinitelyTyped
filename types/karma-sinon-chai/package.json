@@ -6,7 +6,7 @@
         "https://github.com/kmees/karma-sinon-chai"
     ],
     "dependencies": {
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/karma": "*",
         "@types/sinon": "*",
         "@types/sinon-chai": "*"

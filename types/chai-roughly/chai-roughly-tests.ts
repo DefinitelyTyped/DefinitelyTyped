@@ -3,7 +3,7 @@ import chaiOequal = require("chai-roughly");
 
 chai.use(chaiOequal);
 
-import { assert, expect } from "chai";
+const { assert, expect } = chai;
 
 expect(1.2).to.be.roughly().equal(1.1999999999);
 expect(1.2).to.roughly().equal(1.1999999999);

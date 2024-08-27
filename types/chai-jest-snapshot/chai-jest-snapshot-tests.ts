@@ -1,5 +1,7 @@
-import { expect } from "chai";
-import * as chaiJestSnapshot from "chai-jest-snapshot";
+import chai = require("chai");
+import chaiJestSnapshot = require("chai-jest-snapshot");
+
+const { expect } = chai;
 
 chai.use(chaiJestSnapshot);
 
