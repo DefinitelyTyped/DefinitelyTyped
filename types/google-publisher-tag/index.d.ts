@@ -1804,6 +1804,11 @@ declare namespace googletag {
             pps?: PublisherProvidedSignalsConfig | null;
 
             /**
+             * @deprecated Use threadYield instead. This will be removed in the near future. 
+             */
+            adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
+
+            /**
              * Setting to control whether GPT should yield the JS thread when
              * rendering creatives.
              *
@@ -1829,7 +1834,7 @@ declare namespace googletag {
              *
              * @see [Scheduler: postTask() method](https://developer.mozilla.org/docs/Web/API/Scheduler/postTask)
              */
-            adYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
+            threadYield?: "DISABLED" | "ENABLED_ALL_SLOTS" | null;
         }
 
         /**
