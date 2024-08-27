@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/angular": "*",
-        "@types/chai": "*",
+        "@types/chai": "<5",
         "@types/mocha": "*"
     },
     "devDependencies": {

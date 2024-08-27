@@ -1,3 +1,4 @@
+import chai = require("chai");
 import * as angular from "angular";
 import "angular-mocks";
 
