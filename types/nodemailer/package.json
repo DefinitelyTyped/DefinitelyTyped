@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/nodemailer",
-    "version": "6.5.0",
+    "version": "6.5.9999",
     "projects": [
         "https://github.com/nodemailer/nodemailer",
         "https://nodemailer.com"
