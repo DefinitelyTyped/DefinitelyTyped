@@ -1,14 +1,10 @@
 /// <reference types="node" />
-import * as chai from "chai";
+import * as Chai from "chai";
 
-const expect = chai.expect;
-const assert: typeof chai.assert = chai.assert; // assertion aliases require explicit type annotation
-const should = chai.should();
-const util = chai.util;
-
-function chaiVersion(): string {
-    return chai.version;
-}
+const expect = Chai.expect;
+const assert: typeof Chai.assert = Chai.assert; // assertion aliases require explicit type annotation
+const should = Chai.should();
+const util = Chai.util;
 
 function assertion() {
     expect("test").to.be.a("string");
@@ -1202,7 +1198,7 @@ function use() {
         }
     }
 
-    chai.use(chaiSubset);
+    Chai.use(chaiSubset);
 }
 
 class Klass {

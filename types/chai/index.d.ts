@@ -70,7 +70,7 @@ interface ChaiUtils {
     getPathValue(obj: object, path: string): object | undefined;
 }
 
-type ChaiPlugin = (chai: {
+export interface ChaiStatic {
     expect: ExpectStatic;
     should(): Should;
     util: ChaiUtils;
@@ -79,7 +79,9 @@ type ChaiPlugin = (chai: {
     Assertion: AssertionStatic;
     AssertionError: typeof AssertionError;
     version: string;
-}, utils: ChaiUtils) => void;
+}
+
+type ChaiPlugin = (chai: ChaiStatic, utils: ChaiUtils) => void;
 
 export interface ExpectStatic {
     (val: any, message?: string): Assertion;
@@ -2092,6 +2094,8 @@ export function Should(): Should;
 export const assert: AssertStatic;
 export const expect: ExpectStatic;
 
-interface Object {
-    should: Assertion;
+declare global {
+    interface Object {
+        should: Assertion;
+    }
 }
