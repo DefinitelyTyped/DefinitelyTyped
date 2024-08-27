@@ -226,7 +226,7 @@ interface WebApp {
      */
     openInvoice(
         url: string,
-        callback: (url: string, status: "paid" | "cancelled" | "failed" | "pending") => void,
+        callback: (status: "paid" | "cancelled" | "failed" | "pending") => void,
     ): void;
     /**
      * A method that shows a native popup described by the params argument of
