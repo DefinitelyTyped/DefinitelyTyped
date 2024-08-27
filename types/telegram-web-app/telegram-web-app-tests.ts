@@ -107,4 +107,4 @@ app.shareToStory("url", {
 
 app.openInvoice("url", (status: "paid" | "cancelled" | "failed" | "pending") => {
     const test = status; // $ExpectType "paid" | "cancelled" | "failed" | "pending"
-})
+});
