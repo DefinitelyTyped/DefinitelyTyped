@@ -25,7 +25,7 @@ export interface SentMessageInfo {
     envelopeTime?: number;
     messageTime?: number;
     messageSize?: number;
-  }
+}
 
 export interface Transport<T = any> {
     mailer?: Transporter<T> | undefined;

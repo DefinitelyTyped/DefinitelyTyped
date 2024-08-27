@@ -1746,13 +1746,13 @@ function sent_message_info_type_test() {
     // Create a test SMTP account
     nodemailer.createTestAccount((err, account) => {
         if (err) {
-            console.error('Error creating test account:', err);
+            console.error("Error creating test account:", err);
             return;
         }
 
         // Create a transporter object
         const transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
+            host: "smtp.ethereal.email",
             port: 587,
             secure: false,
             auth: {
@@ -1763,32 +1763,31 @@ function sent_message_info_type_test() {
 
         // Email options
         const mailOptions: nodemailer.SendMailOptions = {
-            from: '"Test Sender" <sender@test.com>',
-            to: 'recipient@test.com',
-            subject: 'Test Email',
-            text: 'This is a test email.',
-            html: '<p>This is a test email.</p>',
+            from: "\"Test Sender\" <sender@test.com>",
+            to: "recipient@test.com",
+            subject: "Test Email",
+            text: "This is a test email.",
+            html: "<p>This is a test email.</p>",
         };
 
         // Send the email
         transporter.sendMail(mailOptions, (err, info: nodemailer.SentMessageInfo) => {
             if (err) {
-                console.error('Error sending email:', err);
+                console.error("Error sending email:", err);
                 return;
             }
 
             // Log the info to verify types
-            console.log('Accepted:', info.accepted);
-            console.log('Rejected:', info.rejected);
-            console.log('Pending:', info.pending);
-            console.log('EHLO:', info.ehlo);
-            console.log('Envelope Time:', info.envelopeTime);
-            console.log('Message Time:', info.messageTime);
-            console.log('Message Size:', info.messageSize);
-            console.log('Response:', info.response);
-            console.log('Envelope:', info.envelope);
-            console.log('Message ID:', info.messageId);
+            console.log("Accepted:", info.accepted);
+            console.log("Rejected:", info.rejected);
+            console.log("Pending:", info.pending);
+            console.log("EHLO:", info.ehlo);
+            console.log("Envelope Time:", info.envelopeTime);
+            console.log("Message Time:", info.messageTime);
+            console.log("Message Size:", info.messageSize);
+            console.log("Response:", info.response);
+            console.log("Envelope:", info.envelope);
+            console.log("Message ID:", info.messageId);
         });
     });
 }
-
