@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/passport-google-oauth2": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Elliot Blackburn",
-            "githubUsername": "bluehatbrit"
-        }
-    ]
+    "owners": []
 }
