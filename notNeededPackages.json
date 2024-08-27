@@ -6007,6 +6007,10 @@
             "libraryName": "svg.js",
             "asOfVersion": "2.3.1"
         },
+        "svgicons2svgfont": {
+            "libraryName": "svgicons2svgfont",
+            "asOfVersion": "14.0.0"
+        },
         "svgo": {
             "libraryName": "svgo",
             "asOfVersion": "3.0.0"

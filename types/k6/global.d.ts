@@ -6,8 +6,6 @@
  * others in both contexts. Comments note availability.
  */
 
-import { bytes } from ".";
-
 export {};
 
 // Available without importing

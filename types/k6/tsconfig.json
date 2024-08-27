@@ -35,6 +35,7 @@
         "test/websockets.ts",
         "test/experimental/browser.ts",
         "test/experimental/fs.ts",
+        "test/experimental/streams.ts",
         "test/ws.ts"
     ]
 }

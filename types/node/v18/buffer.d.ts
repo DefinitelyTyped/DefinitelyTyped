@@ -410,9 +410,9 @@ declare module "buffer" {
                 encoding?: BufferEncoding,
             ): number;
             /**
-             * Returns a new `Buffer` which is the result of concatenating all the `Buffer`instances in the `list` together.
+             * Returns a new `Buffer` which is the result of concatenating all the `Buffer` instances in the `list` together.
              *
-             * If the list has no items, or if the `totalLength` is 0, then a new zero-length`Buffer` is returned.
+             * If the list has no items, or if the `totalLength` is 0, then a new zero-length `Buffer` is returned.
              *
              * If `totalLength` is not provided, it is calculated from the `Buffer` instances
              * in `list` by adding their lengths.

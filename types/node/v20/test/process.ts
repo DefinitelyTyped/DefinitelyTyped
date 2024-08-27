@@ -53,10 +53,11 @@ import { fileURLToPath } from "node:url";
 }
 
 {
-    const report = process.report!;
+    const report = process.report;
+    report.compact = true;
     report.directory = "asd";
     report.filename = "asdasd";
-    const rep: string = report.getReport(new Error());
+    report.getReport(new Error()); // $ExpectType object
     report.reportOnFatalError = true;
     report.reportOnSignal = true;
     report.reportOnUncaughtException = true;
@@ -210,4 +211,9 @@ process.env.TZ = "test";
     if (!process.sourceMapsEnabled) {
         process.setSourceMapsEnabled(true);
     }
+}
+
+{
+    const fs = globalThis.process.getBuiltinModule("fs");
+    fs.constants.F_OK;
 }

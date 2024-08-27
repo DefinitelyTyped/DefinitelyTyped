@@ -7,11 +7,6 @@
  *
  * Use the <code>chrome.devtools.panels</code> API to integrate your extension into Developer Tools window UI: create your
  * own panels, access existing panels, and add sidebars.
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 import { Events } from "./events";
 import { Manifest } from "./manifest";

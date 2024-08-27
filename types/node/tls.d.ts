@@ -843,6 +843,7 @@ declare module "tls" {
         ciphers?: string | undefined;
         /**
          * Name of an OpenSSL engine which can provide the client certificate.
+         * @deprecated
          */
         clientCertEngine?: string | undefined;
         /**
@@ -885,12 +886,14 @@ declare module "tls" {
         /**
          * Name of an OpenSSL engine to get private key from. Should be used
          * together with privateKeyIdentifier.
+         * @deprecated
          */
         privateKeyEngine?: string | undefined;
         /**
          * Identifier of a private key managed by an OpenSSL engine. Should be
          * used together with privateKeyEngine. Should not be set together with
          * key, because both options define a private key in different ways.
+         * @deprecated
          */
         privateKeyIdentifier?: string | undefined;
         /**

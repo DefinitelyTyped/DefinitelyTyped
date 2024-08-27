@@ -7,11 +7,6 @@
  *
  * Use the <code>browser.cookies</code> API to query and modify cookies, and to be notified when they change.
  * Permissions: "cookies"
- *
- * Comments found in source JSON schema files:
- * Copyright (c) 2012 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
  */
 import { Events } from "./events";
 
@@ -445,8 +440,6 @@ export namespace Cookies {
          * two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of
          * "overwrite" .  Afterwards, a new cookie is written with the updated values, generating a second notification with
          * "cause" "explicit".
-         *
-         * @param changeInfo
          */
         onChanged: Events.Event<(changeInfo: OnChangedChangeInfoType) => void>;
     }

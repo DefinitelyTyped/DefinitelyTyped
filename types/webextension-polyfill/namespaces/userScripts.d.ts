@@ -6,11 +6,6 @@
  * Namespace: browser.userScripts
  *
  * Permissions: "manifest:user_scripts"
- *
- * Comments found in source JSON schema files:
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 import { ExtensionTypes } from "./extensionTypes";
 import { Manifest } from "./manifest";
@@ -89,8 +84,6 @@ export namespace UserScripts {
         /**
          * Register a user script programmatically given its $(ref:userScripts.UserScriptOptions),
          * and resolves to a $(ref:userScripts.RegisteredUserScript) instance
-         *
-         * @param userScriptOptions
          */
         register(userScriptOptions: UserScriptOptions): void;
     }

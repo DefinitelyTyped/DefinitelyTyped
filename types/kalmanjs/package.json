@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/kalmanjs",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/wouterbulten/kalmanjs"
+    ],
+    "devDependencies": {
+        "@types/kalmanjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wouter Bulten",
+            "githubUsername": "wouterbulten"
+        }
+    ]
+}

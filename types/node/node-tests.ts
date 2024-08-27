@@ -26,6 +26,8 @@ import "./test/process";
 import "./test/querystring";
 import "./test/readline";
 import "./test/repl";
+import "./test/sea";
+import "./test/sqlite";
 import "./test/stream";
 import "./test/string_decoder";
 import "./test/test";

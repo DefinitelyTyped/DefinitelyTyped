@@ -34,7 +34,10 @@ export namespace GeckoProfiler {
         | "unregisteredthreads"
         | "processcpu"
         | "power"
-        | "responsiveness";
+        | "responsiveness"
+        | "cpufreq"
+        | "bandwidth"
+        | "memory";
 
     type supports = "windowLength";
 
@@ -73,8 +76,6 @@ export namespace GeckoProfiler {
     interface Static {
         /**
          * Starts the profiler with the specified settings.
-         *
-         * @param settings
          */
         start(settings: StartSettingsType): void;
 
