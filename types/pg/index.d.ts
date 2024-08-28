@@ -44,11 +44,12 @@ export interface PoolConfig extends ClientConfig {
     // properties from module 'node-pool'
     max?: number | undefined;
     min?: number | undefined;
-    idleTimeoutMillis?: number | undefined;
+    idleTimeoutMillis?: number | undefined | null;
     log?: ((...messages: any[]) => void) | undefined;
     Promise?: PromiseConstructorLike | undefined;
     allowExitOnIdle?: boolean | undefined;
     maxUses?: number | undefined;
+    maxLifetimeSeconds?: number | undefined;
     Client?: (new() => ClientBase) | undefined;
 }
 
@@ -159,6 +160,14 @@ export class Connection extends events.EventEmitter {
     end(): void;
 }
 
+export interface PoolOptions extends PoolConfig {
+    max: number;
+    maxUses: number;
+    allowExitOnIdle: boolean;
+    maxLifetimeSeconds: number;
+    idleTimeoutMillis: number | null;
+}
+
 /**
  * {@link https://node-postgres.com/apis/pool}
  */
@@ -173,6 +182,8 @@ export class Pool extends events.EventEmitter {
     readonly totalCount: number;
     readonly idleCount: number;
     readonly waitingCount: number;
+
+    options: PoolOptions;
 
     connect(): Promise<PoolClient>;
     connect(
