@@ -4,9 +4,6 @@
 
 /**
  * Namespace: browser.pkcs11
- *
- * PKCS#11 module management API
- * Permissions: "pkcs11"
  */
 export namespace Pkcs11 {
     interface Token {
