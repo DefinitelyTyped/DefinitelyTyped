@@ -1,10 +1,8 @@
 import {
     BuyProviderInfo,
     BuyTrade,
-    CryptoId,
     ExchangeProviderInfo,
     ExchangeTrade,
-    InfoResponse,
     SellFiatTrade,
     WatchSellTradeResponse,
 } from "invity-api";
@@ -14,8 +12,8 @@ const bt: BuyTrade = {
 };
 
 const et: ExchangeTrade = {
-    send: "bitcoin" as CryptoId,
-    receive: "ethereum" as CryptoId,
+    send: "BTC",
+    receive: "USDT@ETH",
 };
 
 const sft: SellFiatTrade = {
@@ -44,26 +42,6 @@ const providerInfo: BuyProviderInfo = {
     paymentMethods: [],
 };
 
-const infoResponse: InfoResponse = {
-    platforms: {
-        ethereum: {
-            name: "Ethereum",
-        },
-    },
-    coins: {
-        bitcoin: {
-            name: "",
-            symbol: "",
-            coingeckoId: "",
-            services: {
-                buy: true,
-                sell: true,
-                exchange: true,
-            },
-        },
-    },
-};
-
 const exchangeProviderInfo: ExchangeProviderInfo = {
     name: "example",
     companyName: "Example",
@@ -71,8 +49,8 @@ const exchangeProviderInfo: ExchangeProviderInfo = {
     isActive: true,
     isFixedRate: false,
     isDex: true,
-    buyTickers: ["bitcoin", "ethereum"] as CryptoId[],
-    sellTickers: ["bitcoin", "ethereum"] as CryptoId[],
+    buyTickers: ["BTC", "ETH"],
+    sellTickers: ["BTC", "ETH"],
     addressFormats: {
         format: "legacy",
     },
