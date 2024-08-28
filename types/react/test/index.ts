@@ -508,7 +508,7 @@ const htmlAttr: React.HTMLProps<HTMLElement> = {
         event.stopPropagation();
     },
     onAnimationStart: event => {
-        const currentTarget: EventTarget & HTMLElement = event.currentTarget;
+        const currentTarget: (EventTarget & HTMLElement) | null = event.currentTarget;
     },
     onBlur: (event: React.FocusEvent) => {
         const {

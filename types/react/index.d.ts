@@ -2170,7 +2170,7 @@ declare namespace React {
     // TODO: change any to unknown when moving to TS v3
     interface BaseSyntheticEvent<E = object, C = any, T = any> {
         nativeEvent: E;
-        currentTarget: C;
+        currentTarget: C | null;
         target: T;
         bubbles: boolean;
         cancelable: boolean;

@@ -121,12 +121,12 @@ declare global {
 }
 
 const eventCallbacksTestCases = [
-    <blockquote onClick={e => e.currentTarget.cite} />,
-    <del onClick={e => e.currentTarget.cite} />,
-    <details onClick={e => e.currentTarget.open} />,
-    <meter onClick={e => e.currentTarget.optimum} />,
-    <output onClick={e => e.currentTarget.value} />,
-    <time onClick={e => e.currentTarget.dateTime} />,
+    <blockquote onClick={e =>  e.currentTarget?.cite} />,
+    <del onClick={e => e.currentTarget?.cite} />,
+    <details onClick={e => e.currentTarget?.open} />,
+    <meter onClick={e => e.currentTarget?.optimum} />,
+    <output onClick={e => e.currentTarget?.value} />,
+    <time onClick={e => e.currentTarget?.dateTime} />,
 ];
 
 function formActionsTest() {
