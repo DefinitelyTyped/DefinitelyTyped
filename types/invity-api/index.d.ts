@@ -240,6 +240,7 @@ export type ExchangeMaximum =
     | "NONE"; // exchange does not have a maximum trade size
 
 export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget";
+export type ExchangeKYCType = "KYC-norefund" | "KYC-yesrefund" | "noKYC" | "DEX";
 
 export interface ExchangeProviderInfo {
     name: string; // changenow
@@ -256,6 +257,7 @@ export interface ExchangeProviderInfo {
     supportUrl: string; // https://support.changenow.io
     // TODO region of operation
     kycPolicy?: string | undefined;
+    kycPolicyType: ExchangeKYCType;
     isRefundRequired?: boolean | undefined;
 }
 
