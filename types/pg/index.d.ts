@@ -49,6 +49,7 @@ export interface PoolConfig extends ClientConfig {
     Promise?: PromiseConstructorLike | undefined;
     allowExitOnIdle?: boolean | undefined;
     maxUses?: number | undefined;
+    Client?: (new () => ClientBase) | undefined;
 }
 
 export interface QueryConfig<I = any[]> {
