@@ -735,6 +735,38 @@ const _processor: Linter.Processor = {
     },
 };
 
+const _parserOptions: Linter.ParserOptions = {
+    ecmaVersion: 2021,
+    sourceType: "module",
+    ecmaFeatures: {
+        globalReturn: true,
+        impliedStrict: true,
+        jsx: true,
+        // This type is loose, so you can pass arbitrary properties.
+        foo: "bar",
+        experimentalObjectRestSpread: new Date(),
+    },
+    // This type is loose, so you can pass arbitrary properties.
+    foo: "bar",
+};
+
+const _flatParserOptions: Linter.FlatParserOptions = {
+    allowReserved: true,
+    ecmaFeatures: {
+        globalReturn: true,
+        impliedStrict: true,
+        jsx: true,
+        // This type is loose, so you can pass arbitrary properties.
+        foo: "bar",
+        experimentalObjectRestSpread: new Date(),
+    },
+    // This type is loose, so you can pass arbitrary properties.
+    foo: "bar",
+    // This type differs from the one for legacy config in that any type can be passed for `sourceType` and `ecmaVersion`.
+    ecmaVersion: new Date(),
+    sourceType: new Date(),
+};
+
 // #region Linter with flat config
 
 const linterWithFlatConfig = new Linter({ configType: "flat" });
