@@ -1,16 +1,14 @@
-/// <reference types="chai" />
+import { ChaiPlugin, PromisedAssertion } from "chai";
 
-declare module "chai-as-promised" {
-    interface ChaiAsPromised extends Chai.ChaiPlugin {
-        transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
-        transformAsserterArgs(values: any[]): any;
-    }
-
-    const chaiAsPromised: ChaiAsPromised;
-    export default chaiAsPromised;
+interface ChaiAsPromised extends ChaiPlugin {
+    transferPromiseness(assertion: PromisedAssertion, promise: PromiseLike<any>): void;
+    transformAsserterArgs(values: any[]): any;
 }
 
-declare namespace Chai {
+declare const chaiAsPromised: ChaiAsPromised;
+export default chaiAsPromised;
+
+declare module "chai" {
     // For BDD API
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         eventually: PromisedAssertion;
