@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/chai": "*",
-        "@types/chai-as-promised": "*"
+        "@types/chai-as-promised": "^7"
     },
     "devDependencies": {
         "@types/dirty-chai": "workspace:."

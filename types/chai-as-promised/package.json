@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/chai-as-promised",
-    "version": "7.1.9999",
+    "version": "8.0.9999",
+    "type": "module",
     "projects": [
         "https://github.com/domenic/chai-as-promised/"
     ],
